@@ -1,4 +1,4 @@
 within Buildings.Experimental.ScalableModels;
-package HVACSystems
-
-end HVACSystems;
+package Schedules
+  
+end Schedules;

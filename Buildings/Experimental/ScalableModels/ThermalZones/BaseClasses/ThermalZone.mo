@@ -68,32 +68,23 @@ model ThermalZone "Thermal zone model"
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
     annotation (Placement(transformation(extent={{-28,76},{-20,84}})));
-  Buildings.Fluid.Sources.MassFlowSource_T souInf(
-    redeclare package Medium = MediumA,
-    m_flow=1,
-    use_m_flow_in=true,
-    use_T_in=false,
-    use_X_in=false,
-    use_C_in=false,
-    nPorts=1) "Source model for air infiltration"
-    annotation (Placement(transformation(extent={{4,-66},{16,-54}})));
-  Buildings.Fluid.Sources.Outside sinInf_(redeclare package Medium = MediumA,
+  Buildings.Fluid.Sources.Outside sinInf(redeclare package Medium = MediumA,
       nPorts=1) "Sink model for air infiltration"
-    annotation (Placement(transformation(extent={{-24,-34},{-12,-22}})));
-  Modelica.Blocks.Sources.Constant InfiltrationRate(k=-48*2.7*0.5/3600)
+    annotation (Placement(transformation(extent={{-22,-34},{-10,-22}})));
+  Modelica.Blocks.Sources.Constant InfiltrationRate(k=48*2.7*0.5/3600)
     "0.41 ACH adjusted for the altitude (0.5 at sea level)"
-    annotation (Placement(transformation(extent={{-96,-56},{-88,-48}})));
+    annotation (Placement(transformation(extent={{-96,-48},{-88,-40}})));
   Modelica.Blocks.Math.Product product
-    annotation (Placement(transformation(extent={{-50,-60},{-40,-50}})));
+    annotation (Placement(transformation(extent={{-50,-52},{-40,-42}})));
   Buildings.Fluid.Sensors.Density density(redeclare package Medium = MediumA)
     "Air density inside the building"
-    annotation (Placement(transformation(extent={{-40,-76},{-50,-66}})));
+    annotation (Placement(transformation(extent={{-40,-68},{-50,-58}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
-    annotation (Placement(transformation(extent={{-80,-88},{-64,-72}}),
-        iconTransformation(extent={{-80,-88},{-64,-72}})));
+    annotation (Placement(transformation(extent={{-82,-88},{-66,-72}}),
+        iconTransformation(extent={{-82,-88},{-66,-72}})));
   Modelica.Blocks.Math.MultiSum multiSum(nu=1)
-    annotation (Placement(transformation(extent={{-78,-58},{-66,-46}})));
+    annotation (Placement(transformation(extent={{-78,-50},{-66,-38}})));
 
   final parameter HeatTransfer.Data.Solids.Plywood matFur(x=0.15, nStaRef=5)
     "Material for furniture"
@@ -155,8 +146,8 @@ model ThermalZone "Thermal zone model"
     annotation (Placement(transformation(extent={{154,138},{174,158}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorWal1
     "Heat port connected to common wall" annotation (Placement(transformation(
-          extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
-            -90,10}})));
+          extent={{-110,-26},{-90,-6}}), iconTransformation(extent={{-110,-26},
+            {-90,-6}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorFlo
     "Heat port connected to floor" annotation (Placement(transformation(extent={
             {-10,-110},{10,-90}}), iconTransformation(extent={{-10,-112},{10,-92}})));
@@ -167,6 +158,15 @@ model ThermalZone "Thermal zone model"
     "Heat port connected to common wall" annotation (Placement(transformation(
           extent={{110,-10},{130,10}}), iconTransformation(extent={{92,-10},{112,
             10}})));
+  Fluid.Sources.Outside           souInf(redeclare package Medium = MediumA,
+      nPorts=1) "Source model for air infiltration"
+    annotation (Placement(transformation(extent={{-22,-64},{-10,-52}})));
+  Fluid.Movers.BaseClasses.IdealSource           infMover(
+    control_m_flow=true,
+    allowFlowReversal=false,
+    redeclare package Medium = MediumA,
+    m_flow_small=1e-4)
+    annotation (Placement(transformation(extent={{0,-58},{8,-50}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1. u1[1])  annotation (Line(
       points={{-35.6,76},{-34,76},{-34,70.8},{-18.8,70.8}},
@@ -184,37 +184,30 @@ equation
       points={{-47.6,68},{-18.8,68}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(product.y,souInf. m_flow_in)       annotation (Line(
-      points={{-39.5,-55},{-36,-55},{-36,-55.2},{4,-55.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(density.port, roo.ports[1])  annotation (Line(
-      points={{-45,-76},{32,-76},{32,-10},{39.75,-10}},
+      points={{-45,-68},{32,-68},{32,-10},{39.75,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(density.d, product.u2) annotation (Line(
-      points={{-50.5,-71},{-56,-71},{-56,-58},{-51,-58}},
+      points={{-50.5,-63},{-56,-63},{-56,-50},{-51,-50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(souInf.ports[1], roo.ports[1])        annotation (Line(
-      points={{16,-60},{30,-60},{30,-10},{39.75,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(multiSum.y, product.u1) annotation (Line(
-      points={{-64.98,-52},{-51,-52}},
+      points={{-64.98,-44},{-51,-44}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(InfiltrationRate.y, multiSum.u[1]) annotation (Line(
-      points={{-87.6,-52},{-78,-52}},
+      points={{-87.6,-44},{-78,-44}},
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(sinInf_.ports[1], roo.ports[2]) annotation (Line(points={{-12,-28},{
-          14,-28},{14,-7},{39.75,-7}}, color={0,127,255}));
+  connect(sinInf.ports[1], roo.ports[2]) annotation (Line(points={{-10,-28},{14,
+          -28},{14,-7},{39.75,-7}}, color={0,127,255}));
   connect(roo.surf_conBou[1], heaPorFlo) annotation (Line(points={{55.5,-13.375},
           {55.5,-86},{0,-86},{0,-100}}, color={191,0,0}));
-  connect(roo.surf_conBou[2], heaPorWal1) annotation (Line(points={{55.5,-12.625},
-          {55.5,-16},{-80,-16},{-80,0},{-100,0}}, color={191,0,0}));
+  connect(roo.surf_conBou[2], heaPorWal1) annotation (Line(points={{55.5,
+          -12.625},{55.5,-16},{-80,-16},{-100,-16}},
+                                                  color={191,0,0}));
   connect(roo.surf_surBou[1], heaPorCei) annotation (Line(points={{48.15,-11.875},
           {48.15,-20},{0,-20},{0,100}}, color={191,0,0}));
   connect(roo.surf_surBou[1], heaPorWal2) annotation (Line(points={{48.15,-11.875},
@@ -222,11 +215,23 @@ equation
   connect(uSha.y, roo.uSha[1]) annotation (Line(points={{-19.6,80},{26,80},{26,
           12.5},{34.8,12.5}}, color={0,0,127}));
   connect(weaBus, roo.weaBus) annotation (Line(
-      points={{-72,-80},{-72,-80},{72,-80},{72,12.425},{64.425,12.425}},
+      points={{-74,-80},{-74,-80},{72,-80},{72,12.425},{64.425,12.425}},
       color={255,204,51},
       thickness=0.5));
-  connect(sinInf_.weaBus, weaBus) annotation (Line(
-      points={{-24,-27.88},{-30,-27.88},{-30,-80},{-72,-80}},
+  connect(sinInf.weaBus, weaBus) annotation (Line(
+      points={{-22,-27.88},{-30,-27.88},{-30,-80},{-74,-80}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(product.y, infMover.m_flow_in) annotation (Line(points={{-39.5,-47},{1.6,
+          -47},{1.6,-50.8}}, color={0,0,127}));
+  connect(souInf.ports[1], infMover.port_a) annotation (Line(points={{-10,-58},{
+          -4,-58},{-4,-54},{0,-54}}, color={0,127,255}));
+  connect(infMover.port_b, roo.ports[1]) annotation (Line(
+      points={{8,-54},{26,-54},{26,-10},{39.75,-10}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(souInf.weaBus, weaBus) annotation (Line(
+      points={{-22,-57.88},{-30,-57.88},{-30,-80},{-74,-80}},
       color={255,204,51},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
