@@ -25,9 +25,9 @@ Modulo
 NumberOfRequests
 Product
 Ramp
-RateLimiter
 SignalRanker
 Sin
+SlewRateLimiter
 Sqrt
 Tan
 Truncation

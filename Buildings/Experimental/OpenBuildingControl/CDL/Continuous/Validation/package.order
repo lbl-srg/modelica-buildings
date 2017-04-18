@@ -22,9 +22,9 @@ Min
 Modulo
 NumberOfRequests
 Product
-RateLimiter
 SignalRanker
 Sin
+SlewRateLimiter
 Sqrt
 Tan
 Truncation
