@@ -13,7 +13,9 @@ block GreaterEqual
 
 equation
   y = u1 >= u2;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+  annotation (
+        defaultComponentName="greEqu",
+        Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

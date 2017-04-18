@@ -14,6 +14,7 @@ equation
   y = offset + (if time < startTime then 0 else if time < (startTime +
     duration) then (time - startTime)*height/duration else height);
   annotation (
+    defaultComponentName="ram",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={

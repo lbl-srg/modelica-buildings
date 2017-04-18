@@ -14,6 +14,7 @@ equation
   y = u1 * u2;
 
 annotation (
+defaultComponentName="pro",
 Documentation(info="<html>
 <p>
 Block that outputs <code>y = u1 * u2</code>,

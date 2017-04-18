@@ -8,6 +8,7 @@ block Constant "Output constant signal of type Integer"
 equation
   y = k;
   annotation (
+    defaultComponentName="conInt",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={          Text(
         extent={{-150,150},{150,110}},

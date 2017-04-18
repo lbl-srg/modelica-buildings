@@ -24,7 +24,9 @@ initial equation
 equation
   u_pos = enable and u >= 0;
   y = change(u_pos) and not edge(enable) and not edge(disable);
-  annotation (Documentation(info="<html>
+  annotation (
+defaultComponentName="zerCro",
+Documentation(info="<html>
 <p>
 Block that detects zero crossings.
 </p>

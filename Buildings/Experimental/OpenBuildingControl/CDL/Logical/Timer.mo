@@ -23,6 +23,7 @@ equation
 
 annotation (
     Icon(
+      defaultComponentName="tim",
       coordinateSystem(preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),
         graphics={                       Rectangle(

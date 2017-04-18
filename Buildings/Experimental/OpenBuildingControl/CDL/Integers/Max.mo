@@ -14,6 +14,7 @@ equation
   y = max(u1, u2);
 
 annotation (
+defaultComponentName="maxInt",
 Documentation(info="<html>
 <p>
 Block that outputs <code>y = max(u1, u2)</code>,

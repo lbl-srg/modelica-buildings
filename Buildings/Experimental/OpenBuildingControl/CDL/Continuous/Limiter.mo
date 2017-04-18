@@ -13,6 +13,7 @@ block Limiter "Limit the range of a signal"
 equation
   y = homotopy(actual = smooth(0, noEvent(if u > uMax then uMax else if u < uMin then uMin else u)), simplified=u);
    annotation (
+defaultComponentName="lim",
 Documentation(info="<html>
 <p>
 Block that outputs <code>y = min(uMax, max(uMin, u))</code>,

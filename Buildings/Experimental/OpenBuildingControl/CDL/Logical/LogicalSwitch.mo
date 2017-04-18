@@ -15,7 +15,9 @@ block LogicalSwitch "Logical Switch"
 
 equation
   y = if u2 then u1 else u3;
-  annotation (Documentation(info="<html>
+  annotation (
+defaultComponentName="logSwi",
+Documentation(info="<html>
 <p>
 Block that is a logical switch.
 </p>

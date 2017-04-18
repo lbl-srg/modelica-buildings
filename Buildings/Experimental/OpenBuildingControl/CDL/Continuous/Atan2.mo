@@ -14,6 +14,7 @@ equation
   y = Modelica.Math.atan2(u1, u2);
 
 annotation (
+defaultComponentName="atan2",
 Documentation(info="<html>
 <p>
 Block that outputs the tangent-inverse <code>y = atan2(u1, u2)</code>

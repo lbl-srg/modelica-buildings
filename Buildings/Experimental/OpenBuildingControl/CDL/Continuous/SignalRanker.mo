@@ -21,6 +21,7 @@ algorithm
    end for;
   end for;
   annotation (
+defaultComponentName="sigRan",
 Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
           100,100}}), graphics={Rectangle(
         extent={{-100,-100},{100,100}},
@@ -34,7 +35,6 @@ Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
           extent={{-94,34},{96,-164}},
           lineColor={0,0,255},
           textString="y[i] >= y[i+1]")}),
-defaultComponentName="sigRan",
 Documentation(info="<html>
 <p>
 Block that sorts the input signal <code>u[:]</code> such that the output

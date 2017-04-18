@@ -37,6 +37,7 @@ equation
 
 
   annotation (
+defaultComponentName="uniDel",
 Documentation(info="<html>
 <p>
 Block that outputs the input signal with a unit delay:

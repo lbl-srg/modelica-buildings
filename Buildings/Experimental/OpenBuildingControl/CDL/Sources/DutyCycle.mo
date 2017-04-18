@@ -35,6 +35,7 @@ equation
          else true)
       else false;
   annotation (
+    defaultComponentName="dutCyc",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
