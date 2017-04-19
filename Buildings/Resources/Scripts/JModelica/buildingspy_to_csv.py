@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#########################################################
+##########################################################
 # This script converts a reference result file
 # from the format used by BuildingsPy to the
 # csv format used by the Modelica Association.
