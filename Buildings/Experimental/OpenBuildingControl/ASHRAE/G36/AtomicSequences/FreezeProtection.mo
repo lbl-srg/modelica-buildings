@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
 model FreezeProtection
-  "Freeze protection sequence according to G36 PART5.N.12 and O.9"
+  "fixme add proper input type, assert the value is within the expected domain. |Freeze protection sequence according to G36 PART5.N.12 and O.9"
 
   CDL.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
     "Outdoor temperature" annotation (Placement(transformation(extent={{-180,120},
@@ -39,11 +39,9 @@ model FreezeProtection
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   CDL.Integers.Add3 add3_1
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  constant CDL.Types.Day ;
 equation
   connect(TOut, hysTOut.u) annotation (Line(points={{-160,140},{-160,140},{-100,
-          140},{-100,100},{-100,100},{-62,100}},
-                 color={0,0,127}));
+          140},{-100,100},{-100,100},{-62,100}},color={0,0,127}));
   connect(TSupThreshold.y, timer1.u) annotation (Line(points={{-59,60},{-50,60},
           {-42,60}},                 color={255,0,255}));
   connect(TSupTimeLimit.y, greater.u2) annotation (Line(points={{-19,30},{-12,30},

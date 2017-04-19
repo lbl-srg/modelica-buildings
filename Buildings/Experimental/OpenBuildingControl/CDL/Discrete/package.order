@@ -4,5 +4,6 @@ Sampler
 TriggeredMax
 TriggeredSampler
 UnitDelay
+FreezeProtectionStage
 ZeroOrderHold
 Examples
