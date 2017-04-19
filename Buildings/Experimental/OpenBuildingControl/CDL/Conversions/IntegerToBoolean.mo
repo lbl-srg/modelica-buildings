@@ -14,7 +14,9 @@ block IntegerToBoolean "Convert Integer to Boolean signal"
 equation
   y = u >= threshold;
 
-  annotation (Documentation(info="<html>
+  annotation (
+defaultComponentName="intToBoo",
+Documentation(info="<html>
 <p>
 This block computes the <code>Boolean</code> output <code>y</code>
 from the <code>Integer</code> input <code>u</code> using

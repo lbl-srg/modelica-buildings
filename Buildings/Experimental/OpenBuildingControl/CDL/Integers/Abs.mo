@@ -10,7 +10,7 @@ block Abs "Output the absolute value of the input"
 equation
   y = if u >= 0 then u else -u;
   annotation (
-    defaultComponentName="abs1",
+    defaultComponentName="absInt",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={             Rectangle(
             extent={{-100,-100},{100,100}},

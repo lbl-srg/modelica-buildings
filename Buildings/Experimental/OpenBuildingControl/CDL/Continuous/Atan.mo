@@ -11,6 +11,7 @@ equation
   y = Modelica.Math.atan(u);
 
 annotation (
+  defaultComponentName="atan",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Rectangle(

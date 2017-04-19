@@ -13,7 +13,9 @@ block Nand "Logical 'nand': y = not (u1 and u2)"
 
 equation
   y = not (u1 and u2);
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+  annotation (
+          defaultComponentName="nand",
+          Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}), graphics={      Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},

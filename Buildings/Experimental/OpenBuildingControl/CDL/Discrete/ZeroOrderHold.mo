@@ -38,6 +38,7 @@ equation
     */
   y = pre(ySample);
   annotation (
+    defaultComponentName="zerOrdHol",
     Icon(
       coordinateSystem(preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),

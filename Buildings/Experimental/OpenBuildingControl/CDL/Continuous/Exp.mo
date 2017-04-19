@@ -11,6 +11,7 @@ equation
   y = Modelica.Math.exp(u);
 
 annotation (
+  defaultComponentName="exp",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Line(points={{-90,-80.3976},{68,-80.3976}}, color={192,192,192}),

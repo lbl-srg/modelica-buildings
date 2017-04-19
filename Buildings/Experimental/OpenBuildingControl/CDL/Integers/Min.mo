@@ -14,6 +14,7 @@ equation
   y = min(u1, u2);
 
 annotation (
+defaultComponentName="minInt",
 Documentation(info="<html>
 <p>
 Block that outputs <code>y = min(u1, u2)</code>,

@@ -16,6 +16,7 @@ equation
   y = if u then integerTrue else integerFalse;
 
 annotation (
+defaultComponentName="booToInt",
 Documentation(info="<html>
 <p>
 Block that outputs the <code>Boolean</code>

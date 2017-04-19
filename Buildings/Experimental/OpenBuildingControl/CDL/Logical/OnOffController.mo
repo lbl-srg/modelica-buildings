@@ -23,7 +23,9 @@ initial equation
 equation
   y = pre(y) and (u < reference + bandwidth/2) or (u < reference - bandwidth/2);
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+  annotation (
+        defaultComponentName="onOffCon",
+        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},

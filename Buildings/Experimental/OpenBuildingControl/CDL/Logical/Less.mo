@@ -12,7 +12,9 @@ block Less "Output y is true, if input u1 is less than input u2"
 
 equation
   y = u1 < u2;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+  annotation (
+        defaultComponentName="les",
+        Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

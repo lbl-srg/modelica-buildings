@@ -36,6 +36,7 @@ equation
     y = u;
   end if;
    annotation (
+defaultComponentName="ramLim",
 Documentation(info="<html>
 <p>
 The block limits the increase/decrease rate of its input signal in the range of <code>[falling, rising]</code>, where:

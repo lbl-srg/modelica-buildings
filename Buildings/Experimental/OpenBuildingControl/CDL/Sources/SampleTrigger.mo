@@ -11,6 +11,7 @@ block SampleTrigger "Generate sample trigger signal"
 equation
   y = sample(startTime, period);
   annotation (
+    defaultComponentName="samTri",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
