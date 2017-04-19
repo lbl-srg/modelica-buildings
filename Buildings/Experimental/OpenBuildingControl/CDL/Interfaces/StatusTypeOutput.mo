@@ -18,14 +18,16 @@ annotation (
       extent={{-100.0,-100.0},{100.0,100.0}}),
       graphics={
     Polygon(
-      lineColor={0,127,0},
+      lineColor={255,85,85},
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,
       points={{-100.0,50.0},{0.0,0.0},{-100.0,-50.0}}),
     Text(
-      lineColor={0,0,127},
+      lineColor={255,85,85},
       extent={{30.0,60.0},{30.0,110.0}},
-      textString="%name")}),
+      textString="%name",
+        fillColor={255,85,85},
+        fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
   <p>
 Connector with one output signal of type

@@ -18,14 +18,16 @@ connector StatusTypeInput =
       extent={{-100.0,-100.0},{100.0,100.0}}),
       graphics={
     Polygon(
-      lineColor={0,0,127},
-      fillColor={0,0,127},
+      lineColor={255,85,85},
+      fillColor={255,85,85},
       fillPattern=FillPattern.Solid,
       points={{0.0,50.0},{100.0,0.0},{0.0,-50.0},{0.0,50.0}}),
     Text(
-      lineColor={0,0,127},
+      lineColor={255,85,85},
       extent={{-10.0,60.0},{-10.0,85.0}},
-      textString="%name")}),
+      textString="%name",
+        fillColor={255,85,85},
+        fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
 Connector with one input signal of type Real.
