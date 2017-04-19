@@ -26,11 +26,13 @@ model WetCoilEffNtuMassFlow
     show_T=true,
     T_a1_nominal = T_a1_nominal,
     T_a2_nominal = T_a2_nominal,
-    TWatOutNominal=T_b1_nominal)
+    TWatOut_init=T_b1_nominal)
+    "Heat exchanger"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Sensors.RelativeHumidityTwoPort senRelHum(
     redeclare package Medium = Medium2,
     m_flow_nominal=m2_flow_nominal)
+    "Relative humidity sensor"
     annotation (Placement(transformation(extent={{60,14},{40,34}})));
 
 equation
@@ -55,7 +57,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    experiment(StopTime=3600),
+    experiment(Tolerance=1E-6, StopTime=3600),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffNtuMassFlow.mos"
       "Simulate and plot"),
@@ -73,13 +75,13 @@ issue 622</a> for more information.
 </ul>
 </html>", info="<html>
 <p>
-This example model is meant to create a comparison of the 
+This example model is meant to create a comparison of the
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetEffectivenessNTU\">
-WetEffectivenessNTU</a> model (which is tested here) versus a 
+WetEffectivenessNTU</a> model (which is tested here) versus a
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
 WetCoilCounterFlow</a> model over a similar example (compare this example with
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow\">
-WetCoilCounterFlowMassFlow</a>). 
+WetCoilCounterFlowMassFlow</a>).
 </p>
 
 <p>

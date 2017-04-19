@@ -1,13 +1,12 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 function determineWaterIndex
   "Determine the index of water in a 2-component medium model"
-  input String[:] substanceNames "names of substances of media";
-  output Integer idxWat "index of water";
+  input String[:] substanceNames "Names of substances of media";
+  output Integer idxWat "Index of water";
 protected
   Boolean found(fixed=false) "Flag, used for error checking";
-  Integer N = size(substanceNames, 1) "number of substances";
+  Integer N = size(substanceNames, 1) "Number of substances";
 algorithm
-  assert(N==2, "The implementation is only valid if Medium.nX=2.");
   found:=false;
   idxWat := 1;
   for i in 1:N loop
@@ -24,6 +23,10 @@ algorithm
     "Change medium model.");
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+April 19, 2017, by Michael Wetter:<br/>
+Removed assertion as function is valid also for other values than <code>N==2</code>.
+</li>
 <li>
 March 17, 2017, by Michael O'Keefe:<br/>
 First implementation. See

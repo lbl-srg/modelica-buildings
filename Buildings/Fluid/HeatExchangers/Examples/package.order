@@ -7,7 +7,6 @@ DryCoilDiscretizedPControl
 DryEffectivenessNTU
 DryEffectivenessNTUMassFlow
 DryEffectivenessNTUPControl
-HeaterCoolerHumidifier_u
 WaterHeater_T
 WaterHeater_u
 WetCoilCounterFlowMassFlow

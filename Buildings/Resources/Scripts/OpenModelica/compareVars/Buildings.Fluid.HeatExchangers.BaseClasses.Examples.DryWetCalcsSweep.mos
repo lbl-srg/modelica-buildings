@@ -1,5 +1,5 @@
 compareVars :=
   {
-    "dryWetCalcs.QTot",
+    "dryWetCalcs.QTot_flow",
     "dryWetCalcs.dryFra"
   };

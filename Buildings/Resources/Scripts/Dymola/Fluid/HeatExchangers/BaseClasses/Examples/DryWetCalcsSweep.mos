@@ -1,3 +1,3 @@
 simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.DryWetCalcsSweep", stopTime=20, method="dassl", tolerance=1e-006, resultFile="DryWetCalcsSweep");
-createPlot(id=1, position={35, 30, 584, 420}, x="dryWetCalcs.TAirInDewPoi", y={"dryWetCalcs.QTot"}, range={-60.0, 30.0, 40000.0, 85000.0}, erase=false, grid=true, filename="DryWetCalcsSweep.mat", colors={{28,108,200}});
+createPlot(id=1, position={35, 30, 584, 420}, x="dryWetCalcs.TAirInDewPoi", y={"dryWetCalcs.QTot_flow"}, range={-60.0, 30.0, 40000.0, 85000.0}, erase=false, grid=true, filename="DryWetCalcsSweep.mat", colors={{28,108,200}});
 createPlot(id=2, position={229, 161, 584, 420}, x="dryWetCalcs.TAirInDewPoi", y={"dryWetCalcs.dryFra"}, range={-60.0, 30.0, -0.1, 1.1}, erase=false, grid=true, filename="DryWetCalcsSweep.mat", colors={{28,108,200}});

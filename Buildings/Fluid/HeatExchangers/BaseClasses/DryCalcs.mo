@@ -5,7 +5,7 @@ model DryCalcs
   // - water
   input Modelica.SIunits.ThermalConductance UAWat
     "UA for water side";
-  input Modelica.SIunits.MassFlowRate masFloWat
+  input Modelica.SIunits.MassFlowRate mWat_flow
     "Mass flow rate for water";
   input Modelica.SIunits.SpecificHeatCapacity cpWat
     "Specific heat capacity of water";
@@ -14,7 +14,7 @@ model DryCalcs
   // -- air
   input Modelica.SIunits.ThermalConductance UAAir
     "UA for air side";
-  input Modelica.SIunits.MassFlowRate masFloAir
+  input Modelica.SIunits.MassFlowRate mAir_flow
     "Mass flow rate of air";
   input Modelica.SIunits.SpecificHeatCapacity cpAir
     "Specific heat capacity of moist air at constant pressure";
@@ -24,70 +24,71 @@ model DryCalcs
   input Buildings.Fluid.Types.HeatExchangerFlowRegime cfg
     "The flow regime of the heat exchanger";
 
-  output Modelica.SIunits.HeatFlowRate Q
+  output Modelica.SIunits.HeatFlowRate Q_flow
     "Heat transferred from water to air";
   output Modelica.SIunits.Temperature TWatOut
     "Temperature of water at outlet";
   output Modelica.SIunits.Temperature TAirOut
     "Temperature of air at the outlet";
 
-  Real eff
+  Real eff(min=0, max=1, unit="1")
     "Effectiveness for heat exchanger";
-  Real CWat
+  Modelica.SIunits.ThermalConductance CWat_flow
     "Capacitance rate of water";
-  Real CAir
+  Modelica.SIunits.ThermalConductance CAir_flow
     "Capacitance rate of air";
-  Real CMin
+  Modelica.SIunits.ThermalConductance CMin_flow
     "minimum capacity rate";
-  Real CMax
+  Modelica.SIunits.ThermalConductance CMax_flow
     "maximum capacity rate";
-  Real Z
+  Real Z(unit="1")
     "capacitance rate ratio (C*)";
-  Modelica.SIunits.ThermalResistance ResAir
+  Modelica.SIunits.ThermalResistance resAir
     "Thermal resistance on the air side including fins";
-  Modelica.SIunits.ThermalResistance ResWat
+  Modelica.SIunits.ThermalResistance resWat
     "Thermal resistance on the water side including metal of coil";
-  Modelica.SIunits.ThermalResistance ResTot
+  Modelica.SIunits.ThermalResistance resTot
     "Total resistance between air and water";
   Modelica.SIunits.ThermalConductance UA
     "Overall heat transfer coefficient";
-  Real Ntu
-    "dry coil number of transfer units";
+  Real NTU
+    "Dry coil number of transfer units";
 
 equation
-  if noEvent(masFloAir < 1e-4 or masFloWat < 1e-4
+    // fixme: check condition
+  if noEvent(mAir_flow < 1e-4 or mWat_flow < 1e-4
     or UAAir < 1e-4 or UAWat < 1e-4) then
     // No mass flow so no heat transfer
-    Q = 0;
+    Q_flow = 0;
     TWatOut = TWatIn;
     TAirOut = TAirIn;
     eff = 0;
-    CWat = 0;
-    CAir = 0;
-    CMin = 0;
-    CMax = 0;
+    CWat_flow = 0;
+    CAir_flow = 0;
+    CMin_flow = 0;
+    CMax_flow = 0;
     Z = 0;
-    ResAir = 0;
-    ResWat = 0;
-    ResTot = 0;
+    resAir = 0;
+    resWat = 0;
+    resTot = 0;
     UA = 0;
-    Ntu = 0;
+    NTU = 0;
   else
-    CWat = masFloWat * cpWat;
-    CAir = masFloAir * cpAir;
-    CMin = min(CWat, CAir);
-    CMax = max(CWat, CAir);
-    ResAir = 1 / UAAir;
-    ResWat = 1 / UAWat;
-    ResTot = ResAir + ResWat;
-    UA = 1/ResTot "UA is for the overall coil (i.e., both sides)";
-    Z = CMin / CMax "Braun 1988 eq 4.1.10";
-    Ntu = UA/CMin;
+    CWat_flow = mWat_flow * cpWat;
+    CAir_flow = mAir_flow * cpAir;
+    CMin_flow = min(CWat_flow, CAir_flow);
+    CMax_flow = max(CWat_flow, CAir_flow);
+    resAir = 1 / UAAir;
+    resWat = 1 / UAWat;
+    resTot = resAir + resWat;
+    UA = 1/resTot "UA is for the overall coil (i.e., both sides)";
+    Z = CMin_flow / CMax_flow "Braun 1988 eq 4.1.10";
+    NTU = UA/CMin_flow;
     eff = epsilon_ntuZ(
       Z = Z,
-      NTU = Ntu,
+      NTU = NTU,
       flowRegime = Integer(cfg));
-    Q = eff * CMin * (TWatIn - TAirIn)
+    Q_flow = eff * CMin_flow * (TWatIn - TAirIn)
       "Note: positive heat transfer is air to water";
     TAirOut = TAirIn + eff * (TWatIn - TAirIn)
       "Braun 1988 eq 4.1.8";

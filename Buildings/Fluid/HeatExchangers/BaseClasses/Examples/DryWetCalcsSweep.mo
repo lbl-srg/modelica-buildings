@@ -7,7 +7,7 @@ model DryWetCalcsSweep
       p = pAir,
       T = TAirIn,
       X = {wAirIn * R, 1 - (wAirIn * R)})));
-  Real R
+  Real R = time / 10
     "Parameter to adjust wAirIn with time";
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi TWetBul_TDryBulXi(
     redeclare package Medium = Medium_A,
@@ -15,17 +15,13 @@ model DryWetCalcsSweep
     p = pAir,
     Xi = {wAirIn * R})
     "Utility to calculate the wet bulb temperature";
-  Modelica.SIunits.Temperature TWetBul
+  Modelica.SIunits.Temperature TWetBul = TWetBul_TDryBulXi.TWetBul
     "The wet bulb temperature";
-  Modelica.SIunits.HeatFlowRate Q
+  Modelica.SIunits.HeatFlowRate Q_flow = -dryWetCalcs.QTot_flow
     "The heat transferred from the air to the water stream";
 
-equation
-  Q = -dryWetCalcs.QTot;
-  R = time / 10;
-  TWetBul = TWetBul_TDryBulXi.TWetBul;
   annotation (
-    experiment(StopTime=20),
+    experiment(Tolerance=1E-6, StopTime=20),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/DryWetCalcsSweep.mos"
       "Simulate and plot"),

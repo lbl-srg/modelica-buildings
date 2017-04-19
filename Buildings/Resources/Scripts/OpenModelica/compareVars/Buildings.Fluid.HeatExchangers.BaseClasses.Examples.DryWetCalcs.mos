@@ -6,9 +6,9 @@ compareVars :=
     "dryWetCalcs.TWatOutPar",
     "dryWetCalcs.TWatOutDry",
     "dryWetCalcs.TAirOutDry",
-    "dryWetCalcs.QTot",
-    "dryWetCalcs.QSen",
-    "dryWetCalcs.QSenDry",
-    "dryWetCalcs.QTotWet",
-    "dryWetCalcs.QSenWet"
+    "dryWetCalcs.QTot_flow",
+    "dryWetCalcs.QSen_flow",
+    "dryWetCalcs.QSenDry_flow",
+    "dryWetCalcs.QTotWet_flow",
+    "dryWetCalcs.QSenWet_flow"
   };

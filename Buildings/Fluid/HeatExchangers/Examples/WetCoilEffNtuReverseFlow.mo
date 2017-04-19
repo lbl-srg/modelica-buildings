@@ -6,7 +6,7 @@ model WetCoilEffNtuReverseFlow
   package Medium_W = Buildings.Media.Water;
   package Medium_A = Buildings.Media.Air;
 
-  constant Modelica.SIunits.AbsolutePressure pAtm = 101325;
+  constant Modelica.SIunits.AbsolutePressure pAtm = 101325 "Atmospheric pressure";
 
   parameter Modelica.SIunits.Temperature TWatIn=
     Modelica.SIunits.Conversions.from_degF(42)
@@ -28,9 +28,9 @@ model WetCoilEffNtuReverseFlow
     "Inlet air pressure";
   parameter Modelica.SIunits.Pressure pWatOut = pAtm
     "Outlet air pressure";
-  parameter Modelica.SIunits.MassFlowRate masFloWatNom = 3.78
+  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = 3.78
     "Nominal mass flow rate of water";
-  parameter Modelica.SIunits.MassFlowRate masFloAirNom = 2.646
+  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = 2.646
     "Nominal mass flow rate of air";
   parameter Modelica.SIunits.ThermalConductance UA_nominal = 9495.5 / 2
     "Total thermal conductance at nominal flow, used to compute heat capacity";
@@ -72,8 +72,8 @@ model WetCoilEffNtuReverseFlow
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
     UA_nominal = UA_nominal,
-    m1_flow_nominal=masFloWatNom,
-    m2_flow_nominal=masFloAirNom,
+    m1_flow_nominal=mWat_flow_nominal,
+    m2_flow_nominal=mAir_flow_nominal,
     dp2_nominal=0,
     dp1_nominal=0,
     configuration=
@@ -82,17 +82,17 @@ model WetCoilEffNtuReverseFlow
     r_nominal=1,
     T_a1_nominal=TWatIn,
     T_a2_nominal=TAirIn)
-    "Heat Exchanger Coil"
+    "Heat exchanger coil"
     annotation (Placement(transformation(extent={{-16,46},{16,78}})));
   FixedResistances.PressureDrop watRes(
     redeclare package Medium = Medium_W,
-    m_flow_nominal=masFloWatNom,
+    m_flow_nominal=mWat_flow_nominal,
     dp_nominal=pWatIn - pWatOut)
     "Pressure drop in water pipe"
     annotation (Placement(transformation(extent={{-44,62},{-24,82}})));
   FixedResistances.PressureDrop airRes(
     redeclare package Medium = Medium_A,
-    m_flow_nominal=masFloAirNom,
+    m_flow_nominal=mAir_flow_nominal,
     dp_nominal=pAirIn - pAirOut)
     "Pressure drop in airway"
     annotation (Placement(transformation(extent={{44,42},{24,62}})));
@@ -131,8 +131,8 @@ model WetCoilEffNtuReverseFlow
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
     UA_nominal = UA_nominal,
-    m1_flow_nominal=masFloWatNom,
-    m2_flow_nominal=masFloAirNom,
+    m1_flow_nominal=mWat_flow_nominal,
+    m2_flow_nominal=mAir_flow_nominal,
     dp2_nominal=0,
     dp1_nominal=0,
     configuration=
@@ -141,19 +141,19 @@ model WetCoilEffNtuReverseFlow
     r_nominal=1,
     T_a1_nominal=TWatIn,
     T_a2_nominal=TAirIn)
-    "Heat Exchanger Coil"
+    "Heat exchanger coil"
     annotation (Placement(transformation(extent={{16,-16},{-16,16}},
         rotation=0,
         origin={0,-42})));
-  FixedResistances.PressureDrop                 watRes1(
+  FixedResistances.PressureDrop watRes1(
     redeclare package Medium = Medium_W,
-    m_flow_nominal=masFloWatNom,
+    m_flow_nominal=mWat_flow_nominal,
     dp_nominal=pWatIn - pWatOut)
     "Pressure drop in water pipe"
     annotation (Placement(transformation(extent={{-44,-42},{-24,-22}})));
-  FixedResistances.PressureDrop                 airRes1(
+  FixedResistances.PressureDrop airRes1(
     redeclare package Medium = Medium_A,
-    m_flow_nominal=masFloAirNom,
+    m_flow_nominal=mAir_flow_nominal,
     dp_nominal=pAirIn - pAirOut)
     "Pressure drop in airway"
     annotation (Placement(transformation(extent={{44,-62},{24,-42}})));
@@ -184,7 +184,7 @@ equation
           {16,-52},{16,-51.6}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=1),
+    experiment(Tolerance=1E-6, StopTime=1),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffNtuReverseFlow.mos"
       "Simulate and plot"),

@@ -5,14 +5,14 @@ model DryWetCalcs "Test the DryWetCalcs model"
   package Medium_W = Buildings.Media.Water;
   package Medium_A = Buildings.Media.Air;
 
-  constant Modelica.SIunits.AbsolutePressure pAtm = 101325;
+  constant Modelica.SIunits.AbsolutePressure pAtm = 101325 "Atmospheric pressure";
 
   // -- water
   parameter Modelica.SIunits.ThermalConductance UAWat = 9495.5;
   parameter Modelica.SIunits.Temperature TWatIn=
     Modelica.SIunits.Conversions.from_degF(42)
     "Inlet water temperature";
-  parameter Modelica.SIunits.MassFlowRate masFloWat = 3.78
+  parameter Modelica.SIunits.MassFlowRate mWat_flow = 3.78
     "Nominal mass flow rate medium 1 (water)";
   parameter Modelica.SIunits.SpecificHeatCapacity cpWat = 4199.3604;
   // -- air
@@ -20,7 +20,7 @@ model DryWetCalcs "Test the DryWetCalcs model"
   parameter Modelica.SIunits.Temperature TAirIn=
     Modelica.SIunits.Conversions.from_degF(80)
     "Inlet air temperature";
-  parameter Modelica.SIunits.MassFlowRate masFloAir = 2.646
+  parameter Modelica.SIunits.MassFlowRate mAir_flow = 2.646
     "Nominal mass flow rate medium 2 (air)";
   parameter Modelica.SIunits.SpecificHeatCapacity cpAir = 1021.5792;
   parameter Modelica.SIunits.SpecificEnthalpy hAirIn=
@@ -31,7 +31,7 @@ model DryWetCalcs "Test the DryWetCalcs model"
   Buildings.Fluid.HeatExchangers.BaseClasses.DryWetCalcs dryWetCalcs(
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
-    TWatOutNominal = TWatIn,
+    TWatOut_init = TWatIn,
     cfg=
     Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed)
     annotation (Placement(transformation(extent={{-40,-60},{60,60}})));
@@ -40,9 +40,9 @@ model DryWetCalcs "Test the DryWetCalcs model"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Modelica.Blocks.Sources.RealExpression UAWatExp(y=UAWat)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Modelica.Blocks.Sources.RealExpression masFloAirExp(y=masFloAir)
+  Modelica.Blocks.Sources.RealExpression mAir_flowExp(y=mAir_flow)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Modelica.Blocks.Sources.RealExpression masFloWatExp(y=masFloWat)
+  Modelica.Blocks.Sources.RealExpression mWat_flowExp(y=mWat_flow)
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Modelica.Blocks.Sources.RealExpression cpWatExp(y=cpWat)
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
@@ -65,7 +65,7 @@ model DryWetCalcs "Test the DryWetCalcs model"
 equation
   connect(UAWatExp.y, dryWetCalcs.UAWat) annotation (Line(points={{-79,90},{-44,
           90},{-44,55},{-36.4286,55}}, color={0,0,127}));
-  connect(masFloWatExp.y, dryWetCalcs.masFloWat) annotation (Line(points={{-79,70},
+  connect(mWat_flowExp.y, dryWetCalcs.mWat_flow) annotation (Line(points={{-79,70},
           {-48,70},{-48,45},{-36.4286,45}}, color={0,0,127}));
   connect(cpWatExp.y, dryWetCalcs.cpWat) annotation (Line(points={{-79,50},{-52,
           50},{-52,35},{-36.4286,35}}, color={0,0,127}));
@@ -86,7 +86,7 @@ equation
   connect(cpAirExp.y, dryWetCalcs.cpAir) annotation (Line(points={{-79,-70},{
           -60,-70},{-60,-35},{-36.4286,-35}},
                                           color={0,0,127}));
-  connect(masFloAirExp.y, dryWetCalcs.masFloAir) annotation (Line(points={{-79,-90},
+  connect(mAir_flowExp.y, dryWetCalcs.mAir_flow) annotation (Line(points={{-79,-90},
           {-56,-90},{-56,-45},{-36.4286,-45}}, color={0,0,127}));
   connect(UAAirExp.y, dryWetCalcs.UAAir) annotation (Line(points={{-79,-110},{
           -52,-110},{-52,-55},{-36.4286,-55}},
@@ -258,17 +258,17 @@ precision than calculations in Modelica.
 <tr>
   <td>m<sub>dot,a</sub></td>
   <td>2.646 kg/s</td>
-  <td><code>masFloAir</code></td>
+  <td><code>mAir_flow</code></td>
 </tr>
 <tr>
   <td>m<sub>dot,cond,wet</sub></td>
   <td>0.002087 kg/s</td>
-  <td><code>dryWetCalcs.wet.masFloCon</code></td>
+  <td><code>dryWetCalcs.wet.mCon_flow</code></td>
 </tr>
 <tr>
   <td>m<sub>dot,w</sub></td>
   <td>3.78 kg/s</td>
-  <td><code>masFloWat</code></td>
+  <td><code>mWat_flow</code></td>
 </tr>
 <tr>
   <td>m<sup>*</sup></td>
@@ -276,29 +276,29 @@ precision than calculations in Modelica.
   <td><code>dryWetCalcs.wet.mSta</code></td>
 </tr>
 <tr>
-  <td>Ntu<sub>a,star</sub></td>
+  <td>NTU<sub>a,star</sub></td>
   <td>3.513</td>
-  <td><code>dryWetCalcs.wet.NtuAirSta</code></td>
+  <td><code>dryWetCalcs.wet.NTUAirSta</code></td>
 </tr>
 <tr>
-  <td>Ntu<sub>dry</sub></td>
+  <td>NTU<sub>dry</sub></td>
   <td>1.756</td>
   <td><code>dryWetCalcs.dry.Ntu</code></td>
 </tr>
 <tr>
-  <td>Ntu<sub>p,dry</sub></td>
+  <td>NTU<sub>p,dry</sub></td>
   <td>0.6366</td>
   <td><code>dryWetCalcs.parDry.Ntu</code></td>
 </tr>
 <tr>
-  <td>Ntu<sub>p,wet</sub></td>
+  <td>NTU<sub>p,wet</sub></td>
   <td>0.7319</td>
-  <td><code>dryWetCalcs.parWet.NtuSta</code></td>
+  <td><code>dryWetCalcs.parWet.NTUSta</code></td>
 </tr>
 <tr>
-  <td>Ntu<sup>*</sup></td>
+  <td>NTU<sup>*</sup></td>
   <td>1.148</td>
-  <td><code>dryWetCalcs.wet.NtuSta</code></td>
+  <td><code>dryWetCalcs.wet.NTUSta</code></td>
 </tr>
 <tr>
   <td>p<sub>atm</sub></td>
@@ -323,12 +323,12 @@ precision than calculations in Modelica.
 <tr>
   <td>Q<sub>p,wet</sub></td>
   <td>26626.97 W</td>
-  <td><code>-dryWetCalcs.QTotWetPar</code></td>
+  <td><code>-dryWetCalcs.QParTotWet_flow</code></td>
 </tr>
 <tr>
   <td>Q<sub>wet</sub></td>
   <td>48505.90 W</td>
-  <td><code>-dryWetCalcs.QTotWet</code></td>
+  <td><code>-dryWetCalcs.QTotWet_flow</code></td>
 </tr>
 <tr>
   <td>R<sub>a</sub></td>

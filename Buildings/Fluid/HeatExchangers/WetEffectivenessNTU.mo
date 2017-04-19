@@ -16,15 +16,15 @@ model WetEffectivenessNTU
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TWatOutNominal=
+  parameter Modelica.SIunits.Temperature TWatOut_init=
     Modelica.SIunits.Conversions.from_degF(42)
-    "Guess for the water outlet temperature which is an iteration variable"
+    "Guess value for the water outlet temperature which is an iteration variable"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_a1_nominal
-    "Nominal temperature at port a1"
+    "Nominal temperature at water-side, port a1"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_a2_nominal
-    "Nominal temperature at port a2"
+    "Nominal temperature at water-side, port a2"
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean waterSideFlowDependent=true
     "Set to false to make water-side hA independent of mass flow rate"
@@ -38,7 +38,9 @@ model WetEffectivenessNTU
   parameter Boolean airSideTemperatureDependent=false
     "Set to false to make air-side hA independent of temperature"
     annotation (Dialog(tab="Heat transfer"));
-  parameter con configuration = con.CounterFlow;
+  parameter Buildings.Fluid.Types.HeatExchangerConfiguration configuration=
+    con.CounterFlow
+    "Heat exchanger configuration";
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.SteadyState
@@ -48,11 +50,11 @@ model WetEffectivenessNTU
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
-  Modelica.SIunits.HeatFlowRate Q1_flow = -dryWetCalcs.QTot
+  Modelica.SIunits.HeatFlowRate Q1_flow = -dryWetCalcs.QTot_flow
     "Heat input into water stream (positive if air is cooled)";
-  Modelica.SIunits.HeatFlowRate Q2_flow = dryWetCalcs.QTot
+  Modelica.SIunits.HeatFlowRate Q2_flow = dryWetCalcs.QTot_flow
     "Total heat input into air stream (negative if air is cooled)";
-  Modelica.SIunits.HeatFlowRate QSen2_flow = dryWetCalcs.QSen
+  Modelica.SIunits.HeatFlowRate QSen2_flow = dryWetCalcs.QSen_flow
     "Sensible heat input into air stream (negative if air is cooled)";
   Modelica.SIunits.HeatFlowRate QLat2_flow=
     Buildings.Utilities.Psychrometrics.Constants.h_fg * mWat_flow
@@ -63,7 +65,7 @@ model WetEffectivenessNTU
     unit="1") = QSen2_flow /
       noEvent(if (Q2_flow > 1E-6 or Q2_flow < -1E-6) then Q2_flow else 1)
     "Sensible to total heat ratio";
-  Modelica.SIunits.MassFlowRate mWat_flow = dryWetCalcs.masFloCon
+  Modelica.SIunits.MassFlowRate mWat_flow = dryWetCalcs.mCon_flow
     "Water flow rate of condensate removed from the air stream";
 
 protected
@@ -74,7 +76,7 @@ protected
     energyDynamics = energyDynamics,
     massDynamics = massDynamics,
     Q_flow_nominal=-1)
-    "Heater/cooler for water stream"
+    "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   MassExchangers.Humidifier_u heaCooHum_u(
     redeclare package Medium = Medium2,
@@ -83,7 +85,7 @@ protected
     m_flow_nominal = m2_flow_nominal,
     energyDynamics = energyDynamics,
     massDynamics = massDynamics)
-    "Heater/cooler + (de-)humidifier for air stream"
+    "Heat and moisture exchange with air stream"
     annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil hA(
     final UA_nominal = UA_nominal,
@@ -97,14 +99,14 @@ protected
     "Model for convective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-68,-13},{-50,9}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.DryWetCalcs dryWetCalcs(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
-    TWatOutNominal = TWatOutNominal,
-    cfg = flowRegime)
+    redeclare final package Medium1 = Medium1,
+    redeclare final package Medium2 = Medium2,
+    final TWatOut_init = TWatOut_init,
+    final cfg = flowRegime)
     "Dry/wet calculations block"
     annotation (Placement(transformation(extent={{-20,-40},{60,40}})));
   Modelica.Blocks.Sources.RealExpression cp_a1Exp(
-    y = if allowFlowReversal1
+    final y = if allowFlowReversal1
     then
       fra_a1 * Medium1.specificHeatCapacityCp(state_a1_inflow)
       + fra_b1 * Medium1.specificHeatCapacityCp(state_b1_inflow)
@@ -113,7 +115,7 @@ protected
     "Expression for cp of air"
     annotation (Placement(transformation(extent={{-40,18},{-26,30}})));
   Modelica.Blocks.Sources.RealExpression XWat_a2Exp(
-    y = if allowFlowReversal2
+    final y = if allowFlowReversal2
     then
       fra_a2 * state_a2_inflow.X[nWat] + fra_b2 * state_b2_inflow.X[nWat]
     else
@@ -121,50 +123,63 @@ protected
     "Expression for XWat"
     annotation (Placement(transformation(extent={{-40,-2},{-26,10}})));
   Modelica.Blocks.Sources.RealExpression p_a2Exp(
-    y = Medium2.pressure(state_a2_inflow))
+    final y = port_a2.p)
+    "Pressure at port a2"
     annotation (Placement(transformation(extent={{-40,-10},{-26,2}})));
   Modelica.Blocks.Sources.RealExpression h_a2Exp(
-    y = if allowFlowReversal2
+    final y = if allowFlowReversal2
     then
       fra_a2 * Medium2.specificEnthalpy(state_a2_inflow)
       + fra_b2 * Medium2.specificEnthalpy(state_b2_inflow)
     else
       Medium2.specificEnthalpy(state_a2_inflow))
+    "Specific enthalpy at port a2"
     annotation (Placement(transformation(extent={{-40,-18},{-26,-6}})));
   Modelica.Blocks.Sources.RealExpression cp_a2Exp(
-    y = if allowFlowReversal2
+    final y = if allowFlowReversal2
     then
       fra_a2 * Medium2.specificHeatCapacityCp(state_a2_inflow)
       + fra_b2 * Medium2.specificHeatCapacityCp(state_b2_inflow)
     else
       Medium2.specificHeatCapacityCp(state_a2_inflow))
+    "Specific heat capacity at port a2"
     annotation (Placement(transformation(extent={{-40,-30},{-26,-18}})));
   Modelica.Blocks.Sources.RealExpression TIn_a1Exp(
-    y = if allowFlowReversal1
+    final y = if allowFlowReversal1
     then
       fra_a1 * Medium1.temperature(state_a1_inflow)
       + fra_b1 * Medium1.temperature(state_b1_inflow)
     else
       Medium1.temperature(state_a1_inflow))
+    "Temperature at port a1"
     annotation (Placement(transformation(extent={{-98,16},{-84,28}})));
   Modelica.Blocks.Sources.RealExpression TIn_a2Exp(
-    y = if allowFlowReversal2
+    final y = if allowFlowReversal2
     then
       fra_a2 * Medium2.temperature(state_a2_inflow)
       + fra_b2 * Medium2.temperature(state_b2_inflow)
     else
       Medium2.temperature(state_a2_inflow))
+    "Temperature at port a2"
     annotation (Placement(transformation(extent={{-98,-8},{-84,4}})));
   Modelica.Blocks.Sources.RealExpression m_flow_a1Exp(
-    y = abs(port_a1.m_flow))
+    final y = abs(port_a1.m_flow))
+    "Absolute value of mass flow rate on water side"
     annotation (Placement(transformation(extent={{-98,30},{-84,42}})));
   Modelica.Blocks.Sources.RealExpression m_flow_a2Exp(
-    y = abs(port_a2.m_flow))
+    final y = abs(port_a2.m_flow))
+    "Absolute value of mass flow rate on air side"
     annotation (Placement(transformation(extent={{-98,-36},{-84,-24}})));
-  parameter Integer nWat=
+  final parameter Integer nWat=
     Buildings.Fluid.HeatExchangers.BaseClasses.determineWaterIndex(
-      Medium2.substanceNames);
-  HeatTransfer.Sources.PrescribedHeatFlow preHea
+      Medium2.substanceNames)
+    "Index of water";
+  parameter flo flowRegime_nominal(fixed=false)
+    "Heat exchanger flow regime at nominal flow rates";
+  flo flowRegime(fixed=false, start=flowRegime_nominal)
+    "Heat exchanger flow regime";
+
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,-90},{0,-70}})));
   Real fra_a1(min=0, max=1)
@@ -179,10 +194,7 @@ protected
   Real fra_b2(min=0, max=1)
     "Fraction of incoming state taken from port b2
     (used to avoid excessive calls to regStep)";
-  parameter flo flowRegime_nominal(fixed=false)
-    "Heat exchanger flow regime at nominal flow rates";
-  flo flowRegime(fixed=false, start=flowRegime_nominal)
-    "Heat exchanger flow regime";
+
   Modelica.SIunits.ThermalConductance C1_flow
     "Heat capacity flow rate medium 1";
   Modelica.SIunits.ThermalConductance C2_flow
@@ -236,17 +248,6 @@ initial equation
   end if;
 
 equation
-  if allowFlowReversal2 then
-    fra_a2 = Modelica.Fluid.Utilities.regStep(
-      m2_flow,
-      1,
-      0,
-      m2_flow_small);
-    fra_b2 = 1-fra_a2;
-  else
-    fra_a2 = 1;
-    fra_b2 = 0;
-  end if;
   if allowFlowReversal1 then
     fra_a1 = Modelica.Fluid.Utilities.regStep(
       m1_flow,
@@ -257,6 +258,17 @@ equation
   else
     fra_a1 = 1;
     fra_b1 = 0;
+  end if;
+  if allowFlowReversal2 then
+    fra_a2 = Modelica.Fluid.Utilities.regStep(
+      m2_flow,
+      1,
+      0,
+      m2_flow_small);
+    fra_b2 = 1-fra_a2;
+  else
+    fra_a2 = 1;
+    fra_b2 = 0;
   end if;
   // Assign the flow regime for the given heat exchanger configuration and
   // mass flow rates
@@ -334,7 +346,7 @@ equation
           {-76,-2},{-76,-16.6667},{-17.1429,-16.6667}}, color={0,0,127}));
   connect(m_flow_a1Exp.y, hA.m1_flow) annotation (Line(points={{-83.3,36},{-76,36},
           {-76,5.7},{-68.9,5.7}},       color={0,0,127}));
-  connect(m_flow_a1Exp.y, dryWetCalcs.masFloWat) annotation (Line(points={{-83.3,
+  connect(m_flow_a1Exp.y, dryWetCalcs.mWat_flow) annotation (Line(points={{-83.3,
           36},{-50,36},{-50,30},{-17.1429,30}},       color={0,0,127}));
   connect(port_a1, heaCoo.port_a) annotation (Line(
       points={{-100,60},{-20,60},{60,60}},
@@ -343,7 +355,7 @@ equation
   connect(m_flow_a2Exp.y, hA.m2_flow) annotation (Line(points={{-83.3,-30},{-80,
           -30},{-80,-9.7},{-68.9,-9.7}},
                                        color={0,0,127}));
-  connect(m_flow_a2Exp.y, dryWetCalcs.masFloAir) annotation (Line(points={{-83.3,
+  connect(m_flow_a2Exp.y, dryWetCalcs.mAir_flow) annotation (Line(points={{-83.3,
           -30},{-17.1429,-30}},                      color={0,0,127}));
   connect(port_a2, heaCooHum_u.port_a) annotation (Line(
       points={{100,-60},{20,-60},{-60,-60}},
@@ -351,13 +363,13 @@ equation
       thickness=1));
   connect(preHea.port, heaCooHum_u.heatPort) annotation (Line(points={{0,-80},{-40,
           -80},{-40,-66},{-60,-66}}, color={191,0,0}));
-  connect(dryWetCalcs.QTot, heaCoo.u) annotation (Line(points={{62.8571,
+  connect(dryWetCalcs.QTot_flow, heaCoo.u) annotation (Line(points={{62.8571,
           -6.66667},{80,-6.66667},{80,44},{40,44},{40,66},{58,66}},
                                                           color={0,0,127}));
-  connect(dryWetCalcs.masFloCon, heaCooHum_u.u) annotation (Line(points={{62.8571,
+  connect(dryWetCalcs.mCon_flow, heaCooHum_u.u) annotation (Line(points={{62.8571,
           -33.3333},{70,-33.3333},{70,-54},{-58,-54}}, color={0,0,127}));
-  connect(preHea.Q_flow, dryWetCalcs.QTot) annotation (Line(points={{20,-80},{
-          44,-80},{80,-80},{80,-6.66667},{62.8571,-6.66667}},
+  connect(preHea.Q_flow, dryWetCalcs.QTot_flow) annotation (Line(points={{20,-80},
+          {44,-80},{80,-80},{80,-6.66667},{62.8571,-6.66667}},
                                                            color={0,0,127}));
   annotation (
     defaultComponentName="hexWetNtu",
@@ -459,14 +471,13 @@ the work of Elmahdy and Mitalas (1977).
 The wet coil model is fundamentally a heat exchanger across two different
 fluids: medium 1 and medium 2. However, in this discussion, we will assume that
 medium 1 is \"water\" and medium 2 is \"air\". Due to the use of psychrometric
-functions, a current limitation of the model is that medium 2 be some sort of
-\"air\".
+functions, medium 2 must be a \"air\" with water vapor.
 </p>
 
 <p>
 The model itself represents steady-state physics: for a given set of inlet
 conditions, the outlet conditions and heat transfer are immediately determined.
-The heat transfer (and potential dehumidification for the \"air side\") are
+The heat transfer, and potential dehumidification for the air side, are
 applied to the two streams.
 </p>
 
@@ -487,7 +498,7 @@ Below we will discuss the three regimes as well as how to determine which
 regime we are operating in.
 </p>
 
-<h5>determination of regime</h5>
+<h5>Determination of regime</h5>
 
 <p>
 The inlet air dry bulb temperature, inlet water temperature, and inlet air dew
@@ -598,7 +609,7 @@ determine <i>f<sub>dry</sub></i>, or <i>dry fraction</i>, of the coil &mdash;
 this involves iterating over both the wet and dry relations.
 </p>
 
-<h5>the 100% dry regime</h5>
+<h5>The 100% dry regime</h5>
 
 <p>
 The 100% dry regime is a traditional <i>effectiveness</i>-NTU methodology.
@@ -650,10 +661,10 @@ Ntu = UA / CMin
 
 <p>
 The effectiveness is determined using the function
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.effCalc\">
-<i>effCalc</i></a> which calculates effectiveness
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ\">
+effCalc</a> which calculates effectiveness
 given the capacity rate ratio, <i>C<sup>*</sup></i>,
-<i>Ntu</i>, and the configuration of the cooling coil (e.g.,
+<i>NTU</i>, and the configuration of the cooling coil (e.g.,
 cross-flow, counter-flow, etc.). Available configurations are
 listed as part of the <a
 href=\"modelica://Buildings.Fluid.Types.HeatExchangerConfiguration\">
@@ -725,7 +736,7 @@ Ntu<sub>Dry</sub> =
   Ntu<sub>Air</sub> / (1 + C<sup>*</sup> &middot; (Ntu<sub>Air</sub> / Ntu<sub>Water</sub>))
 </p>
 
-<h5>the 100% wet regime</h5>
+<h5>The 100% wet regime</h5>
 
 <p>
 The 100% wet regime is based on an analogy to the <i>effectiveness</i>-NTU
@@ -840,7 +851,7 @@ h<sub>Surf. Eff.</sub> = h<sub>Air In</sub>
 </p>
 
 <p>
-where <i>Ntu<sup>*</sup><sub>Air</sub></i> is:
+where <i>NTU<sup>*</sup><sub>Air</sub></i> is:
 </p>
 
 <p align=\"center\" style=\"font-style:italic;\">
@@ -891,7 +902,7 @@ and we assume that the condensate temperature is that of the effective surface
 temperature, <i>T<sub>Surf. Eff.</sub></i>.
 </p>
 
-<h5>the partially wet regime</h5>
+<h5>The partially wet regime</h5>
 
 <p>
 As mentioned earlier, this regime uses both the dry and wet regimes along with
@@ -1011,7 +1022,7 @@ This model can be used anywhere a coil heat exchanger can be used.
 <p>
 Typical parameters that a user would specify include: <code>UA_nominal</code>,
 nominal mass and pressure drop terms, <code>r_nominal</code>, and
-<code>TWatOutNominal</code> &mdash; an estimate for the coil outlet water
+<code>TWatOut_init</code> &mdash; an estimate for the coil outlet water
 temperature. The nominal outlet temperature or inlet temperature can be used
 for good effect.
 </p>
@@ -1112,7 +1123,8 @@ function.
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.Examples.TestEffCalc\">
 TestEffCalc</a>: an example that verifies the effectiveness calculation versus
 Table 13.1 of Mitchell and Braun (2012a) using the <a
-href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.effCalc\">effCalc</a>
+href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ\">
+Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ</a>
 function.
 </li>
 
@@ -1189,11 +1201,13 @@ bulk pressure and the mass fraction of water.
 <p>
 Finally, the effectiveness calculations by configuration have been abstracted
 into the function <a
-href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.effCalc\">effCalc</a>.
+href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ\">
+Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ</a>.
 </p>
 
 <h5>Performance</h5>
 
+<!-- fixme: check if this is still the case after the refactoring of the equations -->
 <p>
 The current model is experiencing some performance issues and is running about
 four times slower than the <a
@@ -1239,6 +1253,7 @@ outstanding issues remain:
 </p>
 
 <ul>
+<!-- fixme: Is the issue below still present? -->
 <li>
 The
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCoolerHumidifier_u\">

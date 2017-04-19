@@ -118,7 +118,7 @@ Model for a heat and moisture exchanger with constant effectiveness.
 <p>
 This model transfers heat and moisture in the amount of </p>
 <pre>
-  QSen = epsS * Q_max,
+  QSen_flow = epsS * Q_max,
   m    = epsL * mWat_max,
 </pre>
 <p>

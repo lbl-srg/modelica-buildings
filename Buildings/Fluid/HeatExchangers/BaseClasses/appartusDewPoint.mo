@@ -18,7 +18,8 @@ function appartusDewPoint "Computes the apparatus dewpoint temperature"
     "Slope, used to compute apparatus dewpoint temperature";
 
 protected
-  Modelica.SIunits.Temperature T "Iteration variable for temperature";
+  Modelica.SIunits.Temperature T
+    "Iteration variable for temperature";
   Modelica.SIunits.Temperature dT
     "Temperature increment used in initial search";
   constant Modelica.SIunits.Temperature dTMin = 1E-10

@@ -1,13 +1,13 @@
 last-generated=2017-04-17
 statistics-initialization=
 {
-  "numerical Jacobians": "0", 
+  "numerical Jacobians": "0",
   "nonlinear": "1, 1, 2, 1, 1"
 }
 statistics-simulation=
 {
-  "numerical Jacobians": "0", 
-  "nonlinear": " ", 
+  "numerical Jacobians": "0",
+  "nonlinear": " ",
   "linear": " "
 }
 dryWetCalcs.TWatOutPar=[281.8878173828125, 281.8878173828125]
@@ -17,8 +17,8 @@ time=[0., 1.]
 dryWetCalcs.TAirOutWet=[284.32659912109375, 284.32659912109375]
 dryWetCalcs.TAirOutDry=[283.525238037109375, 283.525238037109375]
 dryWetCalcs.TAirOutPar=[284.05841064453125, 284.05841064453125]
-dryWetCalcs.QTot=[-50513.7734375, -50513.7734375]
-dryWetCalcs.QSen=[-44407.671875, -44407.671875]
-dryWetCalcs.QTotWet=[-48208.953125, -48208.953125]
-dryWetCalcs.QSenWet=[-43066.03125, -43066.03125]
-dryWetCalcs.QSenDry=[-44037.34765625, -44037.34765625]
+dryWetCalcs.QTot_flow=[-50513.7734375, -50513.7734375]
+dryWetCalcs.QSen_flow=[-44407.671875, -44407.671875]
+dryWetCalcs.QTotWet_flow=[-48208.953125, -48208.953125]
+dryWetCalcs.QSenWet_flow=[-43066.03125, -43066.03125]
+dryWetCalcs.QSenDry_flow=[-44037.34765625, -44037.34765625]
