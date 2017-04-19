@@ -24,6 +24,7 @@ equation
   end when;
   y = time >= pulsStart and time < pulsStart + Twidth;
   annotation (
+    defaultComponentName="booPul",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={

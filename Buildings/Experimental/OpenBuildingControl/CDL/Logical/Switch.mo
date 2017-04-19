@@ -16,7 +16,7 @@ block Switch "Switch between two Real signals"
 equation
   y = if u2 then u1 else u3;
   annotation (
-    defaultComponentName="swi1",
+    defaultComponentName="swi",
     Documentation(info="<html>
 <p>
 Block that represents a logical switch.

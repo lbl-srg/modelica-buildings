@@ -15,7 +15,7 @@ equation
   connect(ramp1.y, gain1.u)
     annotation (Line(points={{-39,0},{-12,0}},         color={0,0,127}));
   annotation (
-experiment(StopTime=1.0),
+experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/Gain.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -25,7 +25,7 @@ Validation test for the block
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Gain</a>.
 </p>
 <p>
-The input <code>u</code> varies from <i>0.0</i> to <i>+2</i>. 
+The input <code>u</code> varies from <i>0.0</i> to <i>+2</i>.
 </p>
 </html>", revisions="<html>
 <ul>

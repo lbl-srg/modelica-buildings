@@ -30,6 +30,7 @@ equation
     y = u;
   end when;
   annotation (
+    defaultComponentName="sampler",
     Icon(
       coordinateSystem(preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),

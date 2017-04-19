@@ -1,40 +1,38 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block LimPID
   "P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting"
-  import Buildings.Experimental.OpenBuildingControl.CDL.Types.Init;
-  import Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController;
+
   output Real controlError = u_s - u_m
     "Control error (set point - measurement)";
 
   parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController controllerType=
-         Types.SimpleController.PID "Type of controller";
+         CDL.Types.SimpleController.PID "Type of controller";
   parameter Real k(min=0, unit="1") = 1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(min=Constants.small)=0.5
+  parameter Modelica.SIunits.Time Ti(min=Constants.small)
     "Time constant of Integrator block" annotation (Dialog(enable=
-          controllerType == Modelica.Blocks.Types.SimpleController.PI or
-          controllerType == Modelica.Blocks.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(min=0)=0.1
+          controllerType == CDL.Types.SimpleController.PI or
+          controllerType == CDL.Types.SimpleController.PID));
+  parameter Modelica.SIunits.Time Td(min=0)
     "Time constant of Derivative block" annotation (Dialog(enable=
-          controllerType == Modelica.Blocks.Types.SimpleController.PD or
-          controllerType == Modelica.Blocks.Types.SimpleController.PID));
+          controllerType == CDL.Types.SimpleController.PD or
+          controllerType == CDL.Types.SimpleController.PID));
   parameter Real yMax "Upper limit of output";
   parameter Real yMin=-yMax "Lower limit of output";
   parameter Real wp(min=0) = 1
     "Set-point weight for Proportional block (0..1)";
   parameter Real wd(min=0) = 0 "Set-point weight for Derivative block (0..1)"
-       annotation(Dialog(enable=controllerType==Modelica.Blocks.Types.SimpleController.PD or
-                                controllerType==Modelica.Blocks.Types.SimpleController.PID));
+       annotation(Dialog(enable=controllerType==CDL.Types.SimpleController.PD or
+                                controllerType==CDL.Types.SimpleController.PID));
   parameter Real Ni(min=100*Constants.eps) = 0.9
     "Ni*Ti is time constant of anti-windup compensation"
-     annotation(Dialog(enable=controllerType==Modelica.Blocks.Types.SimpleController.PI or
-                              controllerType==Modelica.Blocks.Types.SimpleController.PID));
+     annotation(Dialog(enable=controllerType==CDL.Types.SimpleController.PI or
+                              controllerType==CDL.Types.SimpleController.PID));
   parameter Real Nd(min=100*Constants.eps) = 10
     "The higher Nd, the more ideal the derivative block"
-       annotation(Dialog(enable=controllerType==Modelica.Blocks.Types.SimpleController.PD or
-                                controllerType==Modelica.Blocks.Types.SimpleController.PID));
-  parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.Init initType= Types.Init.InitialState
-    "Type of initialization"
-                                     annotation(Evaluate=true,
+       annotation(Dialog(enable=controllerType==CDL.Types.SimpleController.PD or
+                                controllerType==CDL.Types.SimpleController.PID));
+  parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.Init initType= CDL.Types.Init.InitialState
+    "Type of initialization"         annotation(Evaluate=true,
       Dialog(group="Initialization"));
   parameter Boolean limitsAtInit = true
     "= false, if limits are ignored during initialization"
@@ -42,18 +40,16 @@ block LimPID
   parameter Real xi_start=0
     "Initial or guess value value for integrator output (= integrator state)"
     annotation (Dialog(group="Initialization",
-                enable=controllerType==Modelica.Blocks.Types.SimpleController.PI or
-                       controllerType==Modelica.Blocks.Types.SimpleController.PID));
+                enable=controllerType==CDL.Types.SimpleController.PI or
+                       controllerType==CDL.Types.SimpleController.PID));
   parameter Real xd_start=0
     "Initial or guess value for state of derivative block"
     annotation (Dialog(group="Initialization",
-                         enable=controllerType==Modelica.Blocks.Types.SimpleController.PD or
-                                controllerType==Modelica.Blocks.Types.SimpleController.PID));
+                         enable=controllerType==CDL.Types.SimpleController.PD or
+                                controllerType==CDL.Types.SimpleController.PID));
   parameter Real y_start=0 "Initial value of output"
-    annotation(Dialog(enable=initType == Modelica.Blocks.Types.Init.InitialOutput, group=
-          "Initialization"));
-
-  constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
+    annotation(Dialog(enable=initType == CDL.Types.Init.InitialOutput,
+                      group="Initialization"));
 
   Interfaces.RealInput u_s "Connector of setpoint input signal" annotation (Placement(
         transformation(extent={{-140,-20},{-100,20}})));
@@ -65,27 +61,29 @@ block LimPID
   Interfaces.RealOutput y "Connector of actuator output signal" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));
 
+protected
+  constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
+
   Add addP(k1=wp, k2=-1)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Add addD(k1=wd, k2=-1) if with_D
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Gain P(k=1)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Continuous.IntegratorWithReset I(
-    reset=Types.Reset.Disabled,
+  IntegratorWithReset I(
     k=unitTime/Ti,
     y_start=xi_start,
-    initType=if initType == Init.SteadyState then Init.SteadyState else
-        if initType == Init.InitialState
-         then Init.InitialState else Init.NoInit) if with_I
+    initType=if initType == CDL.Types.Init.SteadyState then CDL.Types.Init.SteadyState else
+        if initType == CDL.Types.Init.InitialState
+         then CDL.Types.Init.InitialState else CDL.Types.Init.NoInit) if with_I
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Continuous.Derivative D(
+  Derivative D(
     k=Td/unitTime,
     T=max([Td/Nd,1.e-14]),
     x_start=xd_start,
-    initType=if initType == Init.SteadyState or initType == Init.InitialOutput
-         then Init.SteadyState else if initType == Init.InitialState then
-        Init.InitialState else Init.NoInit) if with_D
+    initType=if initType == CDL.Types.Init.SteadyState or initType == CDL.Types.Init.InitialOutput
+         then CDL.Types.Init.SteadyState else if initType == CDL.Types.Init.InitialState then
+        CDL.Types.Init.InitialState else CDL.Types.Init.NoInit) if with_D
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Gain gainPID(k=k)
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
@@ -104,22 +102,24 @@ block LimPID
     uMax=yMax,
     uMin=yMin)
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-protected
-  parameter Boolean with_I = controllerType==SimpleController.PI or
-                             controllerType==SimpleController.PID annotation(Evaluate=true, HideResult=true);
-  parameter Boolean with_D = controllerType==SimpleController.PD or
-                             controllerType==SimpleController.PID annotation(Evaluate=true, HideResult=true);
-public
+
+  parameter Boolean with_I = controllerType==CDL.Types.SimpleController.PI or
+                             controllerType==CDL.Types.SimpleController.PID
+                             annotation(Evaluate=true, HideResult=true);
+  parameter Boolean with_D = controllerType==CDL.Types.SimpleController.PD or
+                             controllerType==CDL.Types.SimpleController.PID
+                             annotation(Evaluate=true, HideResult=true);
+
   Constant Dzero(k=0) if not with_D
     annotation (Placement(transformation(extent={{-30,20},{-20,30}})));
   Constant Izero(k=0) if not with_I
     annotation (Placement(transformation(extent={{10,-55},{0,-45}})));
 initial equation
-  if initType==Init.InitialOutput then
+  if initType==CDL.Types.Init.InitialOutput then
      gainPID.y = y_start;
   end if;
 equation
-  if initType == Init.InitialOutput and (y_start < yMin or y_start > yMax) then
+  if initType == CDL.Types.Init.InitialOutput and (y_start < yMin or y_start > yMax) then
       Modelica.Utilities.Streams.error("LimPID: Start value y_start (=" + String(y_start) +
          ") is outside of the limits of yMin (=" + String(yMin) +") and yMax (=" + String(yMax) + ")");
   end if;
@@ -172,7 +172,7 @@ equation
           -14,0},{-2,0}}, color={0,0,127}));
   connect(Izero.y, addPID.u3) annotation (Line(points={{-0.5,-50},{-10,-50},{
           -10,-8},{-2,-8}}, color={0,0,127}));
-  annotation (defaultComponentName="pid",
+  annotation (defaultComponentName="limPID",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={

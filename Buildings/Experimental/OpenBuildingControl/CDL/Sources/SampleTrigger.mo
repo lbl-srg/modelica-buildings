@@ -11,6 +11,7 @@ block SampleTrigger "Generate sample trigger signal"
 equation
   y = sample(startTime, period);
   annotation (
+    defaultComponentName="samTri",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
@@ -98,9 +99,9 @@ equation
           thickness=0.5)}),
       Documentation(info="<html>
 <p>
-The Boolean output y is a trigger signal where the output y is only <b>true</b>
-at sample times (defined by parameter <b>period</b>) and is otherwise
-<b>false</b>.
+The Boolean output y is a trigger signal where the output y is only <code>true</code>
+at sample times (defined by parameter <code>period</code>) and is otherwise
+<code>false</code>.
 </p>
 
 </html>", revisions="<html>

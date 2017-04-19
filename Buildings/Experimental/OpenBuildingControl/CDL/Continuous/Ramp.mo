@@ -14,10 +14,14 @@ equation
   y = offset + (if time < startTime then 0 else if time < (startTime +
     duration) then (time - startTime)*height/duration else height);
   annotation (
+    defaultComponentName="ram",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
-                                Rectangle(
+        Text(
+          lineColor={0,0,255},
+          extent={{-150,110},{150,150}},
+          textString="%name"),  Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},

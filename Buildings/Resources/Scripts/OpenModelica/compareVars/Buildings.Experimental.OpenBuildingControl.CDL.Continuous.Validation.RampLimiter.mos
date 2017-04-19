@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "rampLimiter.u",
+    "rampLimiter.y"
+  };

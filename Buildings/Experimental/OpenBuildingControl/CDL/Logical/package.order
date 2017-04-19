@@ -1,4 +1,5 @@
 And
+And3
 Change
 Constant
 Edge
@@ -9,6 +10,7 @@ GreaterEqual
 GreaterEqualThreshold
 GreaterThreshold
 Hysteresis
+Latch
 Less
 LessEqual
 LessEqualThreshold
@@ -20,8 +22,11 @@ Not
 OnDelay
 OnOffController
 Or
+Or3
 Switch
 Timer
+Toggle
 TriggeredTrapezoid
 Xor
 ZeroCrossing
+Validation

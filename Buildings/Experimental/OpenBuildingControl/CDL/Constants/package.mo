@@ -1,5 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL;
 package Constants "Library of constants"
+  extends Modelica.Icons.Package;
 
   // Machine dependent constants
   final constant Real eps=1E-15
@@ -22,12 +23,6 @@ Modelica Standard Library.
 </ul>
 </html>"),
     Icon(coordinateSystem(extent={{-100.0,-100.0},{100.0,100.0}}), graphics={
-        Rectangle(
-          lineColor={200,200,200},
-          fillColor={248,248,248},
-          fillPattern=FillPattern.HorizontalCylinder,
-          extent={{-100,-100},{100,100}},
-          radius=25.0),
       Polygon(
         origin={-9.2597,25.6673},
         fillColor={102,102,102},

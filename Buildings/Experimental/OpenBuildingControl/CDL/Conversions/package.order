@@ -1,4 +1,6 @@
 BooleanToInteger
+BooleanToReal
 IntegerToBoolean
 IntegerToReal
 RealToInteger
+Validation

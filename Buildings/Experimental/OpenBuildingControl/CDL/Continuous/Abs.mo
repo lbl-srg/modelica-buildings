@@ -11,7 +11,7 @@ equation
   y = abs(u);
 
   annotation (
-    defaultComponentName="abs1",
+    defaultComponentName="abs",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(

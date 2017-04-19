@@ -23,7 +23,7 @@ equation
   connect(ramp2.y, atan2_1.u2) annotation (Line(points={{-39,-14},{-26,-14},{-26,
           -6},{-12,-6}}, color={0,0,127}));
   annotation (
-experiment(StopTime=1.0),
+experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/Atan2.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -33,8 +33,8 @@ Validation test for the block
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Atan2</a>.
 </p>
 <p>
-The input <code>u1</code> varies from <i>-2</i> to <i>+2</i>, 
-The input <code>u2</code> varies from <i>+1</i> to <i>+3</i>. 
+The input <code>u1</code> varies from <i>-2</i> to <i>+2</i>,
+The input <code>u2</code> varies from <i>+1</i> to <i>+3</i>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -1,5 +1,5 @@
 compareVars :=
   {
-    "ChgS1.u",
-    "ChgS1.y"
+    "changSign.u",
+    "changSign.y"
   };

@@ -12,7 +12,9 @@ block Equal "Output y is true, if input u1 is equal to input u2"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
-  y = u1 == u2;
+  if (u1>(u2-1E-15)) and (u1<(u2+1E-15)) then y = true;
+  else y = false;
+  end if;
 
   annotation (
     defaultComponentName="equ",

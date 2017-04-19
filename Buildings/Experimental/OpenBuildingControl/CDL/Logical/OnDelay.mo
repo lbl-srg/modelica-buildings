@@ -34,7 +34,9 @@ equation
       else
          y = false;
       end if;
-      annotation (Icon(graphics={        Rectangle(
+      annotation (
+          defaultComponentName="onDel",
+          Icon(graphics={        Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           lineThickness=5.0,

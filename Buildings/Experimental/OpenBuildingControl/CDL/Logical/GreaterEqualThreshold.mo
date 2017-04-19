@@ -12,7 +12,9 @@ block GreaterEqualThreshold
 
 equation
   y = u >= threshold;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+  annotation (
+        defaultComponentName="greEquThr",
+        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}), graphics={
         Text(
           extent={{-150,-140},{150,-110}},

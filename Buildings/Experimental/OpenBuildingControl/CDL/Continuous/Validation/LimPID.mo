@@ -3,7 +3,7 @@ model LimPID "Test model for LimPID controller"
 extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Pulse pulse(period=0.25)
-    annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
+    annotation (Placement(transformation(extent={{-90,14},{-70,34}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.LimPID limPID(
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PID,
     Ti=1,
@@ -11,7 +11,7 @@ extends Modelica.Icons.Example;
     yMax=1,
     yMin=-1,
     initType=Buildings.Experimental.OpenBuildingControl.CDL.Types.Init.InitialState)
-          annotation (Placement(transformation(extent={{16,-10},{36,10}})));
+          annotation (Placement(transformation(extent={{-30,38},{-10,58}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.LimPID limPIDOri(
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PID,
     Ti=1,
@@ -19,25 +19,76 @@ extends Modelica.Icons.Example;
     yMax=1,
     yMin=-1,
     initType=Buildings.Experimental.OpenBuildingControl.CDL.Types.Init.InitialState)
-          annotation (Placement(transformation(extent={{16,30},{36,50}})));
+          annotation (Placement(transformation(extent={{-30,74},{-10,94}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant const(k=0.5)
-    annotation (Placement(transformation(extent={{-44,-40},{-24,-20}})));
+    annotation (Placement(transformation(extent={{-90,-22},{-70,-2}})));
+
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.LimPID limPI(
+    Ti=1,
+    Td=1,
+    yMax=1,
+    yMin=-1,
+    initType=Buildings.Experimental.OpenBuildingControl.CDL.Types.Init.InitialState,
+    controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI)
+    annotation (Placement(transformation(extent={{-30,2},{-10,22}})));
+
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.LimPID limPD(
+    Ti=1,
+    Td=1,
+    yMax=1,
+    yMin=-1,
+    initType=Buildings.Experimental.OpenBuildingControl.CDL.Types.Init.InitialState,
+    controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PD)
+    annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
+
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.LimPID limP(
+    Ti=1,
+    Td=1,
+    yMax=1,
+    yMin=-1,
+    initType=Buildings.Experimental.OpenBuildingControl.CDL.Types.Init.InitialState,
+    controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.P)
+    annotation (Placement(transformation(extent={{-30,-62},{-10,-42}})));
+
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.LimPID noLimPID(
+    Ti=1,
+    Td=1,
+    yMax=1e15,
+    initType=Buildings.Experimental.OpenBuildingControl.CDL.Types.Init.InitialState,
+    controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PID)
+    annotation (Placement(transformation(extent={{-30,-96},{-10,-76}})));
 
 equation
   connect(pulse.y, limPID.u_s) annotation (Line(
-      points={{-23,0},{14,0}},
+      points={{-69,24},{-54,24},{-54,48},{-32,48}},
       color={0,0,127}));
   connect(const.y, limPID.u_m) annotation (Line(
-      points={{-23,-30},{26,-30},{26,-12}},
+      points={{-69,-12},{-62,-12},{-62,30},{-20,30},{-20,36}},
       color={0,0,127}));
   connect(pulse.y, limPIDOri.u_s) annotation (Line(
-      points={{-23,0},{-9.5,0},{-9.5,40},{14,40}},
+      points={{-69,24},{-53.5,24},{-53.5,84},{-32,84}},
       color={0,0,127}));
   connect(const.y, limPIDOri.u_m) annotation (Line(
-      points={{-23,-30},{-16,-30},{-16,20},{26,20},{26,28}},
+      points={{-69,-12},{-62,-12},{-62,66},{-20,66},{-20,72}},
       color={0,0,127}));
+  connect(const.y, limPI.u_m)
+    annotation (Line(points={{-69,-12},{-69,0},{-20,0}}, color={0,0,127}));
+  connect(const.y, limPD.u_m) annotation (Line(points={{-69,-12},{-62,-12},{-62,
+          -32},{-20,-32}}, color={0,0,127}));
+  connect(pulse.y, limPI.u_s) annotation (Line(points={{-69,24},{-54,24},{-54,12},
+          {-32,12}}, color={0,0,127}));
+  connect(pulse.y, limPD.u_s) annotation (Line(points={{-69,24},{-54,24},{-54,-20},
+          {-32,-20}}, color={0,0,127}));
+  connect(pulse.y, limP.u_s) annotation (Line(points={{-69,24},{-54,24},{-54,-52},
+          {-32,-52}}, color={0,0,127}));
+  connect(pulse.y, noLimPID.u_s) annotation (Line(points={{-69,24},{-54,24},{-54,
+          -86},{-32,-86}}, color={0,0,127}));
+  connect(const.y, limP.u_m) annotation (Line(points={{-69,-12},{-62,-12},{-62,-64},
+          {-20,-64}}, color={0,0,127}));
+  connect(const.y, noLimPID.u_m) annotation (Line(points={{-69,-12},{-62,-12},{-62,
+          -98},{-20,-98}}, color={0,0,127}));
  annotation (
- experiment(StopTime=1.0),
+ experiment(StopTime=1.0, Tolerance=1e-06),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/LimPID.mos"
         "Simulate and plot"),
     Documentation(info="<html>

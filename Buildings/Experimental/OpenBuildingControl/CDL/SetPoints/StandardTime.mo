@@ -7,7 +7,7 @@ equation
   y = time;
 
   annotation (
-    defaultComponentName="modTim",
+    defaultComponentName="staTim",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},

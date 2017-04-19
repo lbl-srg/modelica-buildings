@@ -1,2 +1,8 @@
 DayType
+FirstOrderHold
+Sampler
 StatusType
+TriggeredMax
+TriggeredSampler
+UnitDelay
+ZeroOrderHold

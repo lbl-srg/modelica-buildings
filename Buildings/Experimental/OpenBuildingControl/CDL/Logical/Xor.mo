@@ -13,7 +13,9 @@ block Xor "Logical 'xor': y = u1 xor u2"
 
 equation
   y = not ((u1 and u2) or (not u1 and not u2));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+  annotation (
+        defaultComponentName="xor",
+        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}), graphics={      Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},

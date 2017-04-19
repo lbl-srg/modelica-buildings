@@ -11,6 +11,7 @@ equation
   y = Modelica.Math.cos(u);
 
 annotation (
+  defaultComponentName="cos",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Rectangle(

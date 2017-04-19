@@ -41,7 +41,7 @@ equation
   connect(f2.y, line1.f2) annotation (Line(points={{-39,-66},{-26,-66},{-26,-8},
           {-12,-8}}, color={0,0,127}));
   annotation (
-experiment(StopTime=1.0),
+experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/Line.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -51,7 +51,7 @@ Validation test for the block
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Line</a>.
 </p>
 <p>
-The input <code>u</code> varies from <i>0.0</i> to <i>+2</i>. 
+The input <code>u</code> varies from <i>0.0</i> to <i>+2</i>.
 </p>
 <p>
 The block outputs <code>y = a + b u</code>,

@@ -11,6 +11,7 @@ equation
   y = Modelica.Math.sin(u);
 
 annotation (
+  defaultComponentName="sin",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(

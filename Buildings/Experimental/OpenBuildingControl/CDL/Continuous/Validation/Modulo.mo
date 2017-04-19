@@ -3,7 +3,7 @@ model Modulo "Validation model for the Modulo block"
 extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Modulo mod1
-    "Block that output the remainder of first input divided by second input (~=0)"
+    "Block that outputs the remainder of first input divided by second input (~=0)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
     duration=1,
@@ -21,7 +21,7 @@ equation
   connect(ramp2.y, mod1.u2) annotation (Line(points={{-39,-16},{-26,-16},{-26,-6},
           {-12,-6}}, color={0,0,127}));
   annotation (
-experiment(StopTime=1.0),
+experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/Modulo.mos"
         "Simulate and plot"),
     Documentation(info="<html>

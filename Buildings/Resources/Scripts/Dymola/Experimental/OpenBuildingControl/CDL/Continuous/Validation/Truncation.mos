@@ -1,3 +1,3 @@
 simulateModel("Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.Truncation", method="dassl", tolerance=1e-06, resultFile="Truncation1");
-createPlot(id=1, position={15, 10, 590, 420}, y={"trunc1.u", "trunc1.y"}, range={0.0, 1.0, -15, 15}, grid=true, colors={{238,46,47}, {28,108,200}});
+createPlot(id=1, position={15, 10, 590, 420}, y={"truncation1.u", "truncation1.y"}, range={0.0, 1.0, -15, 15}, grid=true, colors={{238,46,47}, {28,108,200}});
 

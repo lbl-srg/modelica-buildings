@@ -24,7 +24,9 @@ initial equation
 equation
   u_pos = enable and u >= 0;
   y = change(u_pos) and not edge(enable) and not edge(disable);
-  annotation (Documentation(info="<html>
+  annotation (
+defaultComponentName="zerCro",
+Documentation(info="<html>
 <p>
 Block that detects zero crossings.
 </p>
@@ -44,7 +46,7 @@ this block is usually identically to <code>false</code>, because the output
 may only be <code>true</code> at an event instant, but not during
 continuous integration. In order to check that this component is
 actually working as expected, one should connect its output to, e.g.,
-component <i>ModelicaAdditions.Blocks.Discrete.TriggeredSampler</i>.
+component <i>Buildings.Experimental.OpenBuildingControl.CDL.Discrete.TriggeredSampler</i>.
 </p>
 </html>", revisions="<html>
 <ul>

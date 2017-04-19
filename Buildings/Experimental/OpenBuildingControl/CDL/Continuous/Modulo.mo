@@ -18,7 +18,7 @@ equation
   y = mod(u1,u2);
 
   annotation (
-    defaultComponentName="mod1",
+    defaultComponentName="mod",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(
