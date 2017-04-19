@@ -13,7 +13,7 @@ extends Modelica.Icons.Example;
     height=8) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Equal equal1
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.EqualStatus equal1
     annotation (Placement(transformation(extent={{2,-8},{22,12}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Discrete.TriggeredSampler triggeredSampler(

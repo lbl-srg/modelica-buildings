@@ -42,27 +42,29 @@ model FreezeProtection
   CDL.Logical.LessThreshold TSupThreshold2(
                                           threshold=276.483)
     "fixme: timer still not implemented, threshold value provided in K, units not indicated. Fixme: add hysteresis"
-    annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
+    annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
   CDL.Logical.Timer timer3
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+    annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
   CDL.Continuous.Constant TSupTimeLimit2(
                                         k=300)
     "Max time during which TSup may be lower than temperature defined in the appropriate evaluation block. fixme: should this be a parameter, how do we deal with units"
-    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
+    annotation (Placement(transformation(extent={{-20,-170},{0,-150}})));
   CDL.Logical.Greater greater2
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+    annotation (Placement(transformation(extent={{20,-150},{40,-130}})));
   CDL.Logical.LessThreshold TSupThreshold3(
                                           threshold=276.483)
     "fixme: timer still not implemented, threshold value provided in K, units not indicated. Fixme: add hysteresis"
-    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
+    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
   CDL.Logical.Timer timer4
-    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
+    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   CDL.Continuous.Constant TSupTimeLimit3(
                                         k=300)
     "Max time during which TSup may be lower than temperature defined in the appropriate evaluation block. fixme: should this be a parameter, how do we deal with units"
-    annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
+    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   CDL.Logical.Greater greater3
-    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+  CDL.Logical.Or3 or1
+    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 equation
   connect(TSupThreshold.y, timer1.u) annotation (Line(points={{-119,70},{-119,
           70},{-102,70}},            color={255,0,255}));
@@ -87,18 +89,26 @@ equation
           20,60},{20,10},{138,10}}, color={255,0,255}));
   connect(dayType1.yFreezeProtectionStage, y) annotation (Line(points={{161,10},
           {172,10},{172,0},{190,0}}, color={255,85,85}));
-  connect(timer3.y, greater2.u1) annotation (Line(points={{-79,-30},{-70,-30},{
-          -70,-40},{-62,-40}}, color={0,0,127}));
-  connect(TSupThreshold2.y, timer3.u) annotation (Line(points={{-119,-30},{-119,
-          -30},{-102,-30}}, color={255,0,255}));
-  connect(TSupTimeLimit2.y, greater2.u2) annotation (Line(points={{-79,-60},{
-          -70,-60},{-70,-48},{-62,-48}}, color={0,0,127}));
-  connect(timer4.y, greater3.u1) annotation (Line(points={{-79,-110},{-70,-110},
-          {-70,-120},{-62,-120}}, color={0,0,127}));
-  connect(TSupThreshold3.y, timer4.u) annotation (Line(points={{-119,-110},{
-          -119,-110},{-102,-110}}, color={255,0,255}));
-  connect(TSupTimeLimit3.y, greater3.u2) annotation (Line(points={{-79,-140},{
-          -70,-140},{-70,-128},{-62,-128}}, color={0,0,127}));
+  connect(timer3.y, greater2.u1) annotation (Line(points={{1,-130},{10,-130},{
+          10,-140},{18,-140}}, color={0,0,127}));
+  connect(TSupThreshold2.y, timer3.u) annotation (Line(points={{-39,-130},{-39,
+          -130},{-22,-130}},color={255,0,255}));
+  connect(TSupTimeLimit2.y, greater2.u2) annotation (Line(points={{1,-160},{10,
+          -160},{10,-148},{18,-148}},    color={0,0,127}));
+  connect(timer4.y, greater3.u1) annotation (Line(points={{-79,-80},{-70,-80},{
+          -70,-90},{-62,-90}},    color={0,0,127}));
+  connect(TSupThreshold3.y, timer4.u) annotation (Line(points={{-119,-80},{-119,
+          -80},{-102,-80}},        color={255,0,255}));
+  connect(TSupTimeLimit3.y, greater3.u2) annotation (Line(points={{-79,-110},{
+          -70,-110},{-70,-98},{-62,-98}},   color={0,0,127}));
+  connect(or1.y, dayType1.uStage3OnOff) annotation (Line(points={{101,-30},{110,
+          -30},{110,6},{138,6}}, color={255,0,255}));
+  connect(uFre, or1.u1) annotation (Line(points={{-200,-60},{-72,-60},{-72,-22},
+          {78,-22}}, color={255,0,255}));
+  connect(greater3.y, or1.u2) annotation (Line(points={{-39,-90},{20,-90},{20,
+          -30},{78,-30}}, color={255,0,255}));
+  connect(greater2.y, or1.u3) annotation (Line(points={{41,-140},{60,-140},{60,
+          -38},{78,-38}}, color={255,0,255}));
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=false,

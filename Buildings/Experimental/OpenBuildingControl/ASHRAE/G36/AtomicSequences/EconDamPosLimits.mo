@@ -135,8 +135,7 @@ equation
   connect(MinOutAirDamPosController.y, minOutDam.u) annotation (Line(points={{-59,
           80},{-38,80},{-38,-110},{58,-110}}, color={0,0,127}));
   connect(RetDamPhyPosMin.y, yRetDamPosMin) annotation (Line(points={{-59,-130},
-          {-56,-130},{-56,-144},{-56,-144},{88,-144},{88,-20},{110,-20}},
-                                                                      color={0,
+          {-56,-130},{-56,-144},{88,-144},{88,-20},{110,-20}},        color={0,
           0,127}));
   connect(EcoDamPosMax.y, yEcoDamPosMax) annotation (Line(points={{-19,-170},{
           90,-170},{90,0},{110,0}}, color={0,0,127}));
