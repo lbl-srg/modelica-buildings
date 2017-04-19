@@ -105,9 +105,9 @@ When the <code>clr</code> input turns <code>ON</code>, the output turns <code>OF
 
 
 <table summary=\"summary\" border=\"1\">
-<tr><th> Scenario </th><th> <code>toggle</code> input <code>u</code> </th>
-<th> <code>clr</code> input <code>u0</code> </th><th> output <code>y</code> </th>
-<th> Description </th>
+<tr><th> Scenario </th>
+<th> <code>clr</code> input <code>u0</code> </th><th> <code>toggle</code> input <code>u</code> </th>
+<th> output <code>y</code> </th><th> Description </th>
 </tr>
 <tr><td> 1 </td><td> <code>OFF</code> </td><td> from <code>OFF</code> to <code>ON</code> </td><td> <code>ON</code> </td>
 <td>If <code>clr</code> <code>OFF</code>, <code>toggle</code> switches from <code>OFF</code> to <code>ON</code>, previous output is <code>OFF</code>, then output <code>ON</code>.</td></tr>
@@ -130,7 +130,7 @@ When the <code>clr</code> input turns <code>ON</code>, the output turns <code>OF
 <td>Initially, if <code>clr</code> <code>OFF</code> and <code>toggle</code> <code>ON</code>, then output <code>ON</code>.</td></tr>
 
 <tr><td> 7 </td><td> <code>ON</code> </td><td>  <code>ON</code> or <code>OFF</code> </td><td> <code>OFF</code> </td>
-<td>If <code>toggle</code> <code>ON</code>, then output <code>OFF</code>.</td></tr>
+<td>If <code>clr</code> <code>ON</code>, then output <code>OFF</code>.</td></tr>
 
 
 
