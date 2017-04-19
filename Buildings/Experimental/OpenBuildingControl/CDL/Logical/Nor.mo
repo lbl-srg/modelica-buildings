@@ -13,7 +13,9 @@ block Nor "Logical 'nor': y = not (u1 or u2)"
 
 equation
   y = not (u1 or u2);
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+  annotation (
+          defaultComponentName="nor",
+          Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}), graphics={      Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},

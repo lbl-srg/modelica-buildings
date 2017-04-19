@@ -1,7 +1,10 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Sources;
 block DutyCycle "Generate output cyclic on and off"
 
-  Interfaces.RealInput u "Percentage of the cycle time the output should be on: [0, 100]"
+  Interfaces.RealInput u(
+  final min = 0,
+  final max = 1,
+  final unit = "1") "Fraction of the cycle time the output should be on"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   parameter Boolean cycleOn = true
     "= false, if don't want to have the cycle ON.";
@@ -16,7 +19,7 @@ block DutyCycle "Generate output cyclic on and off"
     "Number of cycles (< 0 means infinite number of periods)";
 
 protected
-  Modelica.SIunits.Time T_width = period*u/100 "Amount of ON time";
+  Modelica.SIunits.Time T_width = period*u "Amount of ON time";
   Modelica.SIunits.Time T_start "Start time of current cycle";
   Integer count "Cycle count";
 initial algorithm
@@ -35,6 +38,7 @@ equation
          else true)
       else false;
   annotation (
+    defaultComponentName="dutCyc",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={

@@ -30,6 +30,7 @@ equation
     count >= nperiod)) then 0 else if time < T_start + T_width then amplitude
      else 0);
   annotation (
+    defaultComponentName="pul",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={

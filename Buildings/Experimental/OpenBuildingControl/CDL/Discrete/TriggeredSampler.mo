@@ -43,6 +43,7 @@ equation
   end when;
 
   annotation (
+    defaultComponentName="triSam",
     Icon(
       coordinateSystem(preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),

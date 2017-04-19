@@ -49,6 +49,7 @@ equation
     */
   y = pre_uSample + pre(c)*(time - tSample);
   annotation (
+  defaultComponentName="firOrdHol",
     Icon(
       coordinateSystem(preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),

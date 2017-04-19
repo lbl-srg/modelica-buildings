@@ -44,7 +44,9 @@ equation
   else
     y = false;
   end if;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+  annotation (
+        defaultComponentName="lat",
+        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},

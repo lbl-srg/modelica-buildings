@@ -8,6 +8,7 @@ block Constant "Output constant signal of type Boolean"
 equation
   y = k;
   annotation (
+    defaultComponentName="con",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={

@@ -38,6 +38,7 @@ equation
   end if;
 
    annotation (
+defaultComponentName="ramLim",
 Documentation(info="<html>
 <p>
 The block limits the rate of change of the input by a ramp.

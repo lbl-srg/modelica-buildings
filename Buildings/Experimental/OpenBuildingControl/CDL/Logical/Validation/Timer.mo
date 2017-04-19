@@ -7,7 +7,8 @@ extends Modelica.Icons.Example;
     period = 2)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=50) "Constant as source term"
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=0.5)
+   "Constant as source term"
     annotation (Placement(transformation(extent={{-76,-10},{-56,10}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Timer timer1
@@ -15,7 +16,7 @@ extends Modelica.Icons.Example;
 
 equation
   connect(cons1.y, dutCyc.u)
-    annotation (Line(points={{-55,0},{-28,0},{-28,0}}, color={0,0,127}));
+    annotation (Line(points={{-55,0},{-28,0}},         color={0,0,127}));
   connect(dutCyc.y, timer1.u)
     annotation (Line(points={{-5,0},{10,0},{24,0}}, color={255,0,255}));
   annotation (

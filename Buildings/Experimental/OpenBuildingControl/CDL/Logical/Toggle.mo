@@ -49,7 +49,9 @@ equation
     y = false;
   end if;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+  annotation (
+        defaultComponentName="tog",
+        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
@@ -91,7 +93,7 @@ equation
           lineColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          textString="Latch input")}),
+          textString="Toggle input")}),
                                 Documentation(info="<html>
 <p>
 The block toggles output value whenever input turns <code>ON</code>. For instance, when the <code>toggle</code> input <code>u</code>

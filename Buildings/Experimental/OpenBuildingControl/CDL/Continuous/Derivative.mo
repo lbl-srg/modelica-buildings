@@ -38,6 +38,7 @@ equation
   der(x) = if zeroGain then 0 else (u - x)/T;
   y = if zeroGain then 0 else (k/T)*(u - x);
   annotation (
+    defaultComponentName="der",
     Documentation(info="<html>
 <p>
 This blocks defines the transfer function between the

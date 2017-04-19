@@ -11,6 +11,7 @@ equation
   y = u;
 
 annotation (
+    defaultComponentName="intToRea",
     Icon(coordinateSystem(
           preserveAspectRatio=true,
           extent={{-100.0,-100.0},{100.0,100.0}}),

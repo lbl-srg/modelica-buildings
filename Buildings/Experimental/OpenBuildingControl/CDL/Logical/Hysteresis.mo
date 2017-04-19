@@ -20,6 +20,7 @@ equation
   y = not pre(y) and u > uHigh or pre(y) and u >= uLow;
 
   annotation (
+    defaultComponentName="hys",
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={Polygon(
             points={{-65,89},{-73,67},{-57,67},{-65,89}},

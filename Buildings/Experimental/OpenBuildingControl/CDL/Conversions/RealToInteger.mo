@@ -11,7 +11,9 @@ block RealToInteger "Convert Real to Integer signal"
 equation
   y = if (u > 0) then integer(floor(u + 0.5)) else integer(ceil(u - 0.5));
 
-annotation (Icon(coordinateSystem(
+annotation (
+defaultComponentName="reaToInt",
+Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),
         graphics={

@@ -11,6 +11,7 @@ equation
   y = Modelica.Math.log10(u);
 
 annotation (
+  defaultComponentName="log10",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Rectangle(

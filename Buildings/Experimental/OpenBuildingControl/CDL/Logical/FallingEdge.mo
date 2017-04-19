@@ -19,7 +19,9 @@ initial equation
 
 equation
   y = edge(not_u);
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+  annotation (
+        defaultComponentName="falEdg",
+        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

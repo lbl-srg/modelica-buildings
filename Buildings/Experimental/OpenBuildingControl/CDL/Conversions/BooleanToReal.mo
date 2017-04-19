@@ -16,6 +16,7 @@ equation
   y = if u then realTrue else realFalse;
 
 annotation (
+defaultComponentName="booToRea",
 Documentation(info="<html>
 <p>
 Block that outputs the <code>Boolean</code>

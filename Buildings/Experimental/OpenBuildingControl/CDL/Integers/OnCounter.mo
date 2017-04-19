@@ -28,7 +28,9 @@ equation
      y = if reset then y_start else pre(y) + 1;
   end when;
 
-  annotation (Icon(coordinateSystem(
+  annotation (
+    defaultComponentName="onCouInt",
+    Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}},
         initialScale=0.06), graphics={
         Rectangle(
