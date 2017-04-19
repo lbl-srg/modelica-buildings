@@ -8,7 +8,7 @@ extends Modelica.Icons.Example;
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons(k=30) "Constant as source term"
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons(k=0.3) "Constant as source term"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 equation

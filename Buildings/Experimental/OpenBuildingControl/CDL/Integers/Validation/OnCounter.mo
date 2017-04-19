@@ -11,7 +11,8 @@ extends Modelica.Icons.Example;
     period = 0.1)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=50) "Constant as source term"
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=0.5)
+   "Constant as source term"
     annotation (Placement(transformation(extent={{-72,-10},{-52,10}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle reset(
@@ -19,7 +20,8 @@ extends Modelica.Icons.Example;
     period = 1.0)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,-50},{-6,-30}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons2(k=50) "Constant as source term"
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons2(k=0.5)
+   "Constant as source term"
     annotation (Placement(transformation(extent={{-72,-50},{-52,-30}})));
 
 equation
