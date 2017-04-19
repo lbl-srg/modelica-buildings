@@ -5,5 +5,5 @@ IntegerInput
 IntegerOutput
 RealInput
 RealOutput
-StatusTypeOutput
 StatusTypeInput
+StatusTypeOutput

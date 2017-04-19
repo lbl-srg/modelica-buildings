@@ -1,9 +1,9 @@
 DayType
 FirstOrderHold
+FreezeProtectionStage
 Sampler
 TriggeredMax
 TriggeredSampler
 UnitDelay
-FreezeProtectionStage
 ZeroOrderHold
 Examples
