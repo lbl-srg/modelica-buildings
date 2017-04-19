@@ -55,6 +55,7 @@ model IdealAir_PI "Simple ideal heating and cooling"
     each controllerType=Modelica.Blocks.Types.SimpleController.P,
     each k=1)    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Logical.Switch switch1[nZon,nFlo]
+    "Switch between cooling/heating supply flowrate"
     annotation (Placement(transformation(extent={{30,62},{44,48}})));
   Modelica.Blocks.Logical.Greater greater[nZon,nFlo] "Need cooling?"
     annotation (Placement(transformation(extent={{-7,-4},{9,12}})));
@@ -65,6 +66,7 @@ model IdealAir_PI "Simple ideal heating and cooling"
     "Heating supply temperature"
     annotation (Placement(transformation(extent={{-6,-50},{8,-36}})));
   Modelica.Blocks.Logical.Switch switch2[nZon,nFlo]
+    "Switch between cooling/heating air supply temperature"
     annotation (Placement(transformation(extent={{30,-34},{44,-20}})));
 equation
   for iZon in 1:nZon loop

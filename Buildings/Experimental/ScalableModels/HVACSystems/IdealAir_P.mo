@@ -51,10 +51,12 @@ model IdealAir_P "Simple ideal heating and cooling"
   Modelica.Blocks.Nonlinear.Limiter limiter1[nZon,nFlo](each uMin=0)
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Modelica.Blocks.Logical.Switch switch1[nZon,nFlo]
+    "Switch between cooling/heating supply flowrate"
     annotation (Placement(transformation(extent={{34,60},{50,44}})));
   Modelica.Blocks.Logical.Greater greater[nZon,nFlo] "Need cooling?"
     annotation (Placement(transformation(extent={{-6,-8},{10,8}})));
   Modelica.Blocks.Logical.Switch switch2[nZon,nFlo]
+    "Switch between cooling/heating air supply temperature"
     annotation (Placement(transformation(extent={{34,-40},{50,-24}})));
   Modelica.Blocks.Sources.Constant const[nZon,nFlo](each k=273.15 + 50)
     "Heating supply temperature"
@@ -115,7 +117,7 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
-          extent={{-62,54},{78,-38}},
+          extent={{-68,58},{78,-38}},
           lineColor={175,175,175},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
