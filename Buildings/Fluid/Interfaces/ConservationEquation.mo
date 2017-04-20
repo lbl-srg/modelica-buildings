@@ -419,18 +419,19 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 <li>
 January 27, 2017, by Michael Wetter:<br/>
 Added <code>stateSelect</code> for mass <code>m</code>.<br/>
-This if or <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/642\">
-Buildings, issue 642</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/642\">
+Buildings, #642</a>.
 </li>
 <li>
 December 22, 2016, by Michael Wetter:<br/>
 Set nominal value for <code>U</code>.<br/>
-This if or <a href=\"https://github.com/ibpsa/modelica/issues/637\">637</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica/issues/637\">637</a>.
+</li>
 <li>
 February 19, 2016 by Filip Jorissen:<br/>
 Added outputs UOut, mOut, mXiOut, mCOut for being able to
 check conservation of quantities.
-This if or <a href=\"https://github.com/ibpsa/modelica/issues/247\">
+This is for <a href=\"https://github.com/ibpsa/modelica/issues/247\">
 issue 247</a>.
 </li>
 <li>

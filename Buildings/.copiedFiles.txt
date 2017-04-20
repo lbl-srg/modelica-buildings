@@ -1205,6 +1205,7 @@ Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/InverseXReg
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/IsMonotonic.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/Polynomial.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PowerLinearized.mos
+Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/QuinticHermite.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPower.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivative_2_Check.mos
@@ -1379,6 +1380,7 @@ Buildings/Utilities/Math/Functions/Examples/InverseXRegularized.mo
 Buildings/Utilities/Math/Functions/Examples/IsMonotonic.mo
 Buildings/Utilities/Math/Functions/Examples/Polynomial.mo
 Buildings/Utilities/Math/Functions/Examples/PowerLinearized.mo
+Buildings/Utilities/Math/Functions/Examples/QuinticHermite.mo
 Buildings/Utilities/Math/Functions/Examples/RegNonZeroPower.mo
 Buildings/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivativeCheck.mo
 Buildings/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivative_2_Check.mo
@@ -1402,6 +1404,7 @@ Buildings/Utilities/Math/Functions/package.order
 Buildings/Utilities/Math/Functions/polynomial.mo
 Buildings/Utilities/Math/Functions/powerLinearized.mo
 Buildings/Utilities/Math/Functions/quadraticLinear.mo
+Buildings/Utilities/Math/Functions/quinticHermite.mo
 Buildings/Utilities/Math/Functions/regNonZeroPower.mo
 Buildings/Utilities/Math/Functions/regStep.mo
 Buildings/Utilities/Math/Functions/smoothExponential.mo
