@@ -55,7 +55,8 @@ model TemperatureControl "Controller for supply air temperature"
                          enable=controllerType1==.Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType1==.Modelica.Blocks.Types.SimpleController.PID));
   parameter Real y1_start=0 "Initial value of output"
-    annotation(Dialog(enable=initType == Modelica.Blocks.Types.InitPID.InitialOutput, tab="Initialization",group="Valve Control"));
+    annotation(Dialog(enable=initType1 == Modelica.Blocks.Types.InitPID.InitialOutput,
+    tab="Initialization",group="Valve Control"));
   parameter Boolean strict=true "= true, if strict limits with noEvent(..)"
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
   parameter Boolean reverseAction = false
@@ -116,7 +117,8 @@ model TemperatureControl "Controller for supply air temperature"
                          enable=controllerType2==.Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType2==.Modelica.Blocks.Types.SimpleController.PID));
   parameter Real y2_start=0 "Initial value of output"
-    annotation(Dialog(enable=initType == Modelica.Blocks.Types.InitPID.InitialOutput, tab="Initialization",group="Reheater Control"));
+    annotation(Dialog(enable=initType2 == Modelica.Blocks.Types.InitPID.InitialOutput,
+                      tab="Initialization",group="Reheater Control"));
   Controls.Continuous.LimPID conVal(
     final reset=Buildings.Types.Reset.Disabled,
     final strict=strict,

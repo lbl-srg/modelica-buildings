@@ -45,15 +45,12 @@ record NominalValue "Nominal conditions for air handling units"
     annotation (Dialog(group="Cooling Coil"));
 
   parameter Modelica.SIunits.Time tau1 = 20 "Time constant at nominal flow of medium 1"
-   annotation (Dialog(group="Cooling Coil",
-                enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
+   annotation (Dialog(group="Cooling Coil"));
   parameter Modelica.SIunits.Time tau2 = 1 "Time constant at nominal flow of medium 2"
-   annotation (Dialog(group="Cooling Coil",
-                enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
+   annotation (Dialog(group="Cooling Coil"));
   parameter Modelica.SIunits.Time tau_m(min=0) = 20
     "Time constant of metal at nominal UA value"
-  annotation(Dialog(tab="General", group="Cooling Coil",
-          enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)));
+  annotation(Dialog(tab="General", group="Cooling Coil"));
   parameter Integer nEle(min=1) = 4
     "Number of pipe segments used for discretization in the cooling coil"
     annotation (Dialog(group="Cooling Coil"));
