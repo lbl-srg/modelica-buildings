@@ -419,13 +419,14 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 <li>
 January 27, 2017, by Michael Wetter:<br/>
 Added <code>stateSelect</code> for mass <code>m</code>.<br/>
-This is or <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/642\">
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/642\">
 Buildings, #642</a>.
 </li>
 <li>
 December 22, 2016, by Michael Wetter:<br/>
 Set nominal value for <code>U</code>.<br/>
 This is for <a href=\"https://github.com/ibpsa/modelica/issues/637\">637</a>.
+</li>
 <li>
 February 19, 2016 by Filip Jorissen:<br/>
 Added outputs UOut, mOut, mXiOut, mCOut for being able to
@@ -652,7 +653,7 @@ was only done for <code>Xi</code> but not for <code>X</code>, which caused the
 medium to be initialized to <code>reference_X</code>, ignoring the value of <code>X_start</code>.
 </li>
 <li><i>October 12, 2009</i> by Michael Wetter:<br/>
-Implemented first version in <code>Buildings/code> library, based on model from
+Implemented first version in <code>Buildings</code> library, based on model from
 <code>Modelica.Fluid 1.0</code>.
 </li>
 </ul>
