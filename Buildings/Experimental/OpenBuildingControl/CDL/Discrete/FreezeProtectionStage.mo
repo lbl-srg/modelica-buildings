@@ -2,12 +2,12 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Discrete;
 model FreezeProtectionStage
   "fixme Based on boolean inputs this blocks outputs a freeze protection stage as a Status type output."
 
-  parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.Status[:]
-    freProSta={Buildings.Experimental.OpenBuildingControl.CDL.Types.Status.FreezeProtectionStage0,
-      Buildings.Experimental.OpenBuildingControl.CDL.Types.Status.FreezeProtectionStage1,
-      Buildings.Experimental.OpenBuildingControl.CDL.Types.Status.FreezeProtectionStage2,
-      Buildings.Experimental.OpenBuildingControl.CDL.Types.Status.FreezeProtectionStage3}
-    "Array where each element is a freeze protection stage indicator";
+//   parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.Status[:]
+//     freProSta={Buildings.Experimental.OpenBuildingControl.CDL.Types.Status.FreezeProtectionStage0,
+//       Buildings.Experimental.OpenBuildingControl.CDL.Types.Status.FreezeProtectionStage1,
+//       Buildings.Experimental.OpenBuildingControl.CDL.Types.Status.FreezeProtectionStage2,
+//       Buildings.Experimental.OpenBuildingControl.CDL.Types.Status.FreezeProtectionStage3}
+//     "Array where each element is a freeze protection stage indicator";
 
   Interfaces.BooleanInput uStage1OnOff(start=false)
     "Freeze Protection Stage 1 Status"
@@ -49,7 +49,7 @@ equation
         extent={{-150,150},{150,110}},
         textString="%name",
         lineColor={0,0,255})}),
-  defaultComponentName="dayType",
+  defaultComponentName="freezeProtectionStage",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Text(
           extent={{-68,54},{68,-38}},
