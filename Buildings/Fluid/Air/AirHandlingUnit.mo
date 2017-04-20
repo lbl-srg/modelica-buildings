@@ -70,17 +70,17 @@ model AirHandlingUnit
   parameter Modelica.SIunits.Density rhoStd=Medium1.density_pTX(101325, 273.15+4, Medium1.X_default)
     "Inlet density for which valve coefficients are defined"
   annotation(Dialog(group="Valve", tab="Advanced"));
-  parameter Boolean filteredOpeningValve=true
+  parameter Boolean use_inputFilterValve=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Valve"));
   parameter Modelica.SIunits.Time riseTimeValve=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=filteredOpeningValve));
+    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
   parameter Modelica.Blocks.Types.Init initValve=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=filteredOpeningValve));
+    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
   parameter Real yValve_start=1 "Initial value of output"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=filteredOpeningValve));
+    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
  // electric heater
    parameter Real deltaMLaminar = 0.1
     "Fraction of nominal flow rate where where flowrate transitions to laminar"
@@ -105,17 +105,17 @@ model AirHandlingUnit
   parameter Modelica.SIunits.Time tauFan = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
      annotation (Dialog(tab = "Dynamics", group="Fan"));
-  parameter Boolean filteredSpeedFan=true
+  parameter Boolean use_inputFilterFan=true
     "= true, if speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Fan"));
   parameter Modelica.SIunits.Time riseTimeFan=30
     "Rise time of the filter (time to reach 99.6 % of the speed)"
-    annotation(Dialog(tab="Dynamics", group="Fan",enable=filteredSpeedFan));
+    annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
   parameter Modelica.Blocks.Types.Init initFan=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Fan",enable=filteredSpeedFan));
+    annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
   parameter Real yFan_start(min=0, max=1, unit="1")=0 "Initial value of speed"
-    annotation(Dialog(tab="Dynamics", group="Fan",enable=filteredSpeedFan));
+    annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
     final UA_nominal=dat.nomVal.UA_nominal,
     final r_nominal=dat.nomVal.r_nominal,
@@ -151,7 +151,7 @@ model AirHandlingUnit
     final inputType=inputType,
     final addPowerToMedium=addPowerToMedium,
     final tau=tauFan,
-    final filteredSpeed=filteredSpeedFan,
+    final use_inputFilter=use_inputFilterFan,
     final riseTime=riseTimeFan,
     final init=initFan,
     final y_start=yFan_start,
@@ -178,7 +178,7 @@ model AirHandlingUnit
     final homotopyInitialization=homotopyInitialization,
     final linearized=linearized,
     final rhoStd=rhoStd,
-    final filteredOpening=filteredOpeningValve,
+    final use_inputFilter=use_inputFilterValve,
     final riseTime=riseTimeValve,
     final init=initValve,
     final y_start=yValve_start,
@@ -191,15 +191,13 @@ model AirHandlingUnit
         rotation=-90,
         origin={60,40})));
   Buildings.Fluid.MassExchangers.Humidifier_u hum(
-    final use_T_in=false,
+    redeclare final package Medium = Medium2,
     final mWat_flow_nominal=dat.nomVal.mWat_flow_nominal,
     final allowFlowReversal=allowFlowReversal2,
     final m_flow_small=m2_flow_small,
     final show_T=show_T,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
-    redeclare final package Medium = Medium2,
-    final T=THum,
     final from_dp=from_dp,
     final linearizeFlowResistance=linearized,
     final deltaM=deltaMLaminar,
@@ -283,7 +281,8 @@ equation
   connect(eleHea.P, PHea)
     annotation (Line(points={{18,-45},{18,-45},{18,-110}}, color={0,0,127}));
   connect(watVal.y_actual, y_valve)
-    annotation (Line(points={{67,45},{67,40},{110,40}}, color={0,0,127}));
+    annotation (Line(points={{67,45},{68,45},{68,50},{86,50},{86,40},{110,40}},
+                                                        color={0,0,127}));
   connect(hum.u, uMasFra) annotation (Line(points={{-10,-54},{0,-54},{0,-10},{-114,
           -10}}, color={0,0,127}));
   connect(uEleHea, eleHea.u) annotation (Line(points={{-114,12},{-58,12},{6,12},
