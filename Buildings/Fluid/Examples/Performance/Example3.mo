@@ -11,7 +11,7 @@ model Example3
   Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    filteredSpeed=false,
+    use_inputFilter=false,
     allowFlowReversal=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nominalValuesDefineDefaultPressureCurve=true)
@@ -72,7 +72,7 @@ equation
   end for;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -60},{60,40}}),    graphics),
-    experiment(StopTime=1000),
+    experiment(Tolerance=1e-6, StopTime=20),
     Documentation(revisions="<html>
 <ul>
 <li>

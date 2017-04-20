@@ -59,7 +59,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-experiment(StartTime=100000, StopTime=300000),
+experiment(StartTime=100000, Tolerance=1e-6, StopTime=300000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/ZenithAngle.mos"
         "Simulate and plot"));
 end ZenithAngle;

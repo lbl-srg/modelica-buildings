@@ -113,7 +113,7 @@ equation
           {-69,50}}, color={0,0,127}));
   connect(TOut.y[1], pla.TSink) annotation (Line(points={{-71,-10},{-62,-10},{-62,
           -6},{-52,-6}}, color={0,0,127}));
-  annotation(experiment(StopTime=259200),
+  annotation(experiment(Tolerance=1e-6, StopTime=259200),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Plants/Validation/Plant_Carnot_T_ClosedLoop.mos"
         "Simulate and plot"),
     Documentation(

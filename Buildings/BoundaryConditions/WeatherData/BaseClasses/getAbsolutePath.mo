@@ -9,7 +9,7 @@ algorithm
 <p>
 The function returns the absolute path of a
 uniform resource identifier (URI) or local file name.
-If the file is not found, then this function 
+If the file is not found, then this function
 terminates with an <code>assert</code>.
 </p>
 <p>

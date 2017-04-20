@@ -68,8 +68,6 @@ model ThermalZone
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
   Modelica.Blocks.Sources.Constant mWat_flow(k=0.0) "mass flow rate"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
-  Modelica.Blocks.Sources.Constant TWat(k=280.15) "Water temperature"
-    annotation (Placement(transformation(extent={{8,30},{28,50}})));
   Sensors.MassFlowRate senMasFlo[nPorts](redeclare final package Medium = MediumA)
     "Mass flow rate sensor to connect thermal adapter with thermal zone."
     annotation (Placement(transformation(extent={{-88,110},{-68,130}})));
@@ -105,9 +103,6 @@ equation
           {0,160},{-10,160}},                         color={0,0,127}));
   connect(vol.mWat_flow, mWat_flow.y) annotation (Line(points={{78,48},{78,48},{
           54,48},{54,80},{31,80}}, color={0,0,127}));
-  connect(TWat.y, vol.TWat) annotation (Line(points={{29,40},{29,40},{54,40},{54,
-          44},{54,44.8},{66,44.8},{78,44.8}},
-                     color={0,0,127}));
   connect(theZonAda.ports, senMasFlo.port_a) annotation (Line(points={{-120,160},
           {-100,160},{-100,120},{-88,120}}, color={0,127,255}));
   connect(senMasFlo.port_b, vol.ports[1:2]) annotation (Line(points={{-68,120},{
@@ -166,6 +161,12 @@ exposed at the FMU interface.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 12, 2017, by Michael Wetter:<br/>
+Removed temperature that is no longer needed.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
+</li>
 <li>
 September 20, 2016, by Thierry S. Nouidui:<br/>
 Revised implementation and added mass flow rate sensors

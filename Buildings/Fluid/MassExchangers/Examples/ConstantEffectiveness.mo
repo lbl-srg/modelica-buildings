@@ -93,7 +93,7 @@ equation
       points={{6,5.55112e-16},{-18,5.55112e-16},{-18,6.66134e-16},{-38,
           6.66134e-16}},
       color={0,127,255}));
- annotation(experiment(StopTime=360),
+ annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MassExchangers/Examples/ConstantEffectiveness.mos"
         "Simulate and plot"),
     Documentation(info="<html>

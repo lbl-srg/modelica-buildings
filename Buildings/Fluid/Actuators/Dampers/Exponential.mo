@@ -50,7 +50,9 @@ compute the flow coefficient <i>k(y)</i> as
 k(y) = (2 &rho; &frasl; k<sub>d</sub>(y))<sup>1/2</sup> A,
 </p>
 <p>
-where <i>A</i> is the face area. The flow coefficient <i>k(y)</i>
+where <i>A</i> is the face area, which is computed using the nominal
+mass flow rate <code>m_flow_nominal</code>, the nominal velocity
+<code>v_nominal</code> and the density of the medium. The flow coefficient <i>k(y)</i>
 is used to compute the mass flow rate versus pressure
 drop relation as
 </p>
@@ -95,6 +97,10 @@ ASHRAE Final Report 825-RP, Atlanta, GA.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 22, 2017, by Michael Wetter:<br/>
+Updated documentation.
+</li>
 <li>
 April 14, 2014 by Michael Wetter:<br/>
 Improved documentation.

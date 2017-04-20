@@ -14,10 +14,12 @@ model StaticFourPortHeatMassExchanger
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
+  // Q1_flow is sensible plus latent heat flow rate
   input Modelica.SIunits.HeatFlowRate Q1_flow
     "Heat transferred into the medium 1";
   input Medium1.MassFlowRate mWat1_flow
     "Moisture mass flow rate added to the medium 1";
+  // Q2_flow is sensible plus latent heat flow rate
   input Modelica.SIunits.HeatFlowRate Q2_flow
     "Heat transferred into the medium 2";
   input Medium2.MassFlowRate mWat2_flow
@@ -94,7 +96,7 @@ The following inputs need to be assigned, where <code><i>N</i></code> denotes <c
 <code>2</code>:</p>
 <ul>
 <li>
-<code>Q<i>N</i>_flow</code>, which is the heat flow rate added to the medium <i>N</i>.
+<code>Q<i>N</i>_flow</code>, which is the sensible and latent heat flow rate added to the medium <i>N</i>.
 </li>
 <li>
 <code>mWat<i>N</i>_flow</code>, which is the moisture mass flow rate added to the medium <i>N</i>.
@@ -112,6 +114,13 @@ or instantiates this model sets <code>mWat<i>N</i>_flow = 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 11, 2017, by Michael Wetter:<br/>
+Updated documentation to make clear that <code>Q1_flow</code> and <code>Q2_flow</code>
+include latent heat flow rate.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
+</li>
 <li>
 January 22, 2016 by Michael Wetter:<br/>
 Removed assignment of <code>sensibleOnly</code> in <code>bal1</code> and <code>bal2</code>

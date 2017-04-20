@@ -43,8 +43,7 @@ model ThermalZoneHVACNoExhaust
     dp_nominal=1200,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false)
-                     "Fan or pump"
+    use_inputFilter=false) "Fan or pump"
     annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
   HeatExchangers.HeaterCooler_u
     hea(
@@ -207,5 +206,5 @@ First implementation.
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Adaptors/Examples/ThermalZoneHVACNoExhaust.mos"
         "Simulate and plot"),
-    experiment(StopTime=172800));
+    experiment(Tolerance=1e-6, StopTime=172800));
 end ThermalZoneHVACNoExhaust;

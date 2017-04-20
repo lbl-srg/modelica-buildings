@@ -54,7 +54,7 @@ equation
   connect(vol.ports[3], senMasFra2.port) annotation (Line(
       points={{12.6667,10},{30,10},{30,36}},
       color={0,127,255}));
-    annotation (experiment(StopTime=10),
+    annotation (experiment(Tolerance=1e-6, StopTime=10),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MassFraction.mos"
         "Simulate and plot"),
     Documentation(info="<html>

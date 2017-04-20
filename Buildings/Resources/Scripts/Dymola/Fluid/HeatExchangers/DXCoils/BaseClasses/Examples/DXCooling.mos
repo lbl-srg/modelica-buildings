@@ -1,9 +1,8 @@
 simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.DXCooling",
-stopTime=3600, method="dassl", resultFile="DXCooling");
-removePlots();
+tolerance=1e-6, stopTime=3600, method="dassl", resultFile="DXCooling");
 createPlot(id = 1,
  position = {31, 52, 476, 608},
- y = {"TEvaIn.y", "dxCoo.TCoiSur"},
+ y = {"TEvaIn.y"},
  range = {0.0, 4000.0, 40.0, 0.0},
  autoscale = true,
  autoerase = true,
@@ -15,7 +14,7 @@ createPlot(id = 1,
  filename = "DXCooling.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
- colors = {{0,0,255}, {255,0,0}});
+ colors = {{0,0,255}});
 createPlot(id = 1,
  position = {31, 52, 476, 147},
  y = {"dxCoo.Q_flow"},
@@ -49,7 +48,7 @@ createPlot(id = 1,
 createPlot(id = 1,
  position = {31, 52, 476, 147},
  y = {"dxCoo.SHR"},
- range = {0.0, 4000.0, 1.2000000000000002, 0.4000000000000001},
+ range = {0.0, 4000.0, 1.2, 0.4},
  autoscale = true,
  autoerase = true,
  autoreplot = true,

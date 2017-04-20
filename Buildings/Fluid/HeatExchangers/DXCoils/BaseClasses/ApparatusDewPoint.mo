@@ -33,16 +33,16 @@ initial equation
                             X=cat(1,{XSatMin},{1-sum({XSatMin})})));
 */
   hMin = Medium.specificEnthalpy_pTX(
-           p=   Medium.p_default,
-           T=   TSatMin,
-           X=   cat(1,{XSatMin},{1-sum({XSatMin})}));
+           p =  Medium.p_default,
+           T =  TSatMin,
+           X =  cat(1,{XSatMin},{1-sum({XSatMin})}));
 equation
   hADP = Buildings.Utilities.Math.Functions.smoothMin(
-    x1=  Buildings.Utilities.Math.Functions.smoothMax(
+    x1 = Buildings.Utilities.Math.Functions.smoothMax(
       x1=hEvaIn - delta_h,
       x2=hMin,
       deltaX=10),
-    x2=  hEvaIn+100,
+    x2 = hEvaIn+100,
     deltaX=10);
   XADP = Buildings.Utilities.Psychrometrics.Functions.X_pW(p_w=Medium.saturationPressure(TADP), p=p);
   TADP= Medium.temperature(Medium.setState_phX(p=p, h=hADP, X=cat(1,{XADP},{1-sum({XADP})})));

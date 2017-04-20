@@ -1,5 +1,5 @@
 simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.WetCoil",
-stopTime=3600, method="dassl", resultFile="WetCoil");
+tolerance=1e-6, stopTime=3600, method="dassl", resultFile="WetCoil");
 removePlots();
 createPlot(id = 1,
  position = {29, 7, 484, 723},
@@ -15,7 +15,7 @@ createPlot(id = 1,
  filename = "WetCoil.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
- colors = {{255,0,0}, {0,128,0}});
+ colors = {{255,0,0}});
 createPlot(id = 1,
  position = {29, 7, 484, 176},
  y = {"TEvaIn.y", "wetCoi.TADP"},

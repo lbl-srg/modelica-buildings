@@ -223,6 +223,7 @@ Buildings/Fluid/Actuators/Dampers/Examples/package.mo
 Buildings/Fluid/Actuators/Dampers/Examples/package.order
 Buildings/Fluid/Actuators/Dampers/Exponential.mo
 Buildings/Fluid/Actuators/Dampers/MixingBox.mo
+Buildings/Fluid/Actuators/Dampers/PressureIndependent.mo
 Buildings/Fluid/Actuators/Dampers/VAVBoxExponential.mo
 Buildings/Fluid/Actuators/Dampers/package.mo
 Buildings/Fluid/Actuators/Dampers/package.order
@@ -1240,6 +1241,7 @@ Buildings/Resources/Scripts/Dymola/Utilities/Time/Examples/ModelTime.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonths.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsMinus.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsPlus.mos
+Buildings/Resources/Scripts/travis/usr/local/bin/dymola
 Buildings/Resources/bin/ConvertWeatherData.jar
 Buildings/Resources/src/convertEPW/Makefile
 Buildings/Resources/src/convertEPW/doc/ConvertWeatherData.html

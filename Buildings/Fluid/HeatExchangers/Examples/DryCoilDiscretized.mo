@@ -122,7 +122,7 @@ equation
       points={{-79,8},{-58,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation(experiment(StopTime=360),
+  annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilDiscretized.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

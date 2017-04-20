@@ -1,4 +1,4 @@
-simulateModel("Buildings.ThermalZones.Detailed.BaseClasses.Examples.InfraredRadiationExchange", method="dassl", resultFile="InfraredRadiationExchange");
+simulateModel("Buildings.ThermalZones.Detailed.BaseClasses.Examples.InfraredRadiationExchange", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="InfraredRadiationExchange");
 removePlots();
 createPlot(id = 1,
  position = {0, 0, 946, 542},

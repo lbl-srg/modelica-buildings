@@ -76,7 +76,7 @@ equation
   connect(sou.ports[2], relHum.port_a) annotation (Line(
       points={{-10,20},{20,20}},
       color={0,127,255}));
-    annotation (experiment(StopTime=600),
+    annotation (experiment(Tolerance=1e-6, StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/RelativeHumidity.mos"
         "Simulate and plot"),
     Documentation(info="<html>

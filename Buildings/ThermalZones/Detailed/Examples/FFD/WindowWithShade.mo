@@ -63,7 +63,7 @@ model WindowWithShade
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/WindowWithShade.mos"
         "Simulate and plot"),
-    experiment(StopTime=20),
+    experiment(Tolerance=1e-06, StopTime=300),
     Documentation(info="<html>
 <p>This model tests the cosimulation of <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.CFD</a> with the FFD program by simulating natural convection in a room with only exterior walls and windows with shades. </p>
 <p>Figure (a) show the schematic of FFD simulation. The walls and the windows are exposed to the ambient environment. The wall is well insulated and the initial temperature is <i>20</i>&circ;C. The initial temperature for the room air is 17&circ;C.</p>

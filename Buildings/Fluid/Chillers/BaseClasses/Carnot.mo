@@ -328,7 +328,7 @@ the condenser temperature <i>T<sub>con,0</sub></i>, in which
 case the model computes the Carnot effectivness as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&eta;<sub>Carnot,0</sub> = 
+&eta;<sub>Carnot,0</sub> =
   COP<sub>0</sub>
 &frasl;  (T<sub>use,0</sub> &frasl; (T<sub>con,0</sub>-T<sub>eva,0</sub>)),
 </p>

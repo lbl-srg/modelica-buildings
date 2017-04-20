@@ -104,7 +104,7 @@ equation
   connect(senPPM.port, vol.ports[5]) annotation (Line(points={{110,10},{110,4},{
           86,4},{86,50},{87.2,50}},  color={0,127,255}));
     annotation (
-experiment(StopTime=7200),
+experiment(Tolerance=1e-6, StopTime=7200),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TraceSubstances.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{180,

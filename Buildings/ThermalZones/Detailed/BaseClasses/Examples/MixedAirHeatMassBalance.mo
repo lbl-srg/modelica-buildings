@@ -153,7 +153,7 @@ equation
           4.66667},{-68,4.66667},{-68,-16},{-98,-16}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
             -200},{140,140}})),
-experiment(StopTime=3600),
+experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/BaseClasses/Examples/MixedAirHeatMassBalance.mos"
         "Simulate and plot"),
     Documentation(info="<html>

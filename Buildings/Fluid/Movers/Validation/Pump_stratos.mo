@@ -8,11 +8,11 @@ model Pump_stratos "Stratos pumps with speed as input"
     dp_nominal=floMacSta.per.pressure.dp[3]/2,
     redeclare Buildings.Fluid.Movers.SpeedControlled_Nrpm floMacSta(
       redeclare package Medium = Medium,
-      filteredSpeed=false,
+      use_inputFilter=false,
       per=per),
     redeclare Buildings.Fluid.Movers.SpeedControlled_Nrpm floMacDyn(
       redeclare package Medium = Medium,
-      filteredSpeed=false,
+      use_inputFilter=false,
       per=per));
   parameter Data.Pumps.Wilo.Stratos25slash1to6 per
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
@@ -27,7 +27,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{160,
             160}}), graphics),
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-06, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/Pump_stratos.mos"
         "Simulate and plot"),
     Documentation(info="<html>

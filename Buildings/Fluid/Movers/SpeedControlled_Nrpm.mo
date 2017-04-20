@@ -49,7 +49,7 @@ equation
   connect(gain.y, preSou.dp_in)
     annotation (Line(points={{10,-9},{10,14},{56,14},{56,8},{56,8}},
                                                      color={0,0,127}));
-  if filteredSpeed then
+  if use_inputFilter then
     connect(filter.y, eff.y_in) annotation (Line(points={{34.7,88},{38,88},{38,26},
             {-26,26},{-26,-46}},      color={0,0,127}));
   else
@@ -90,6 +90,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 24, 2017, by Michael Wetter:<br/>
+Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
+</li>
 <li>
 March 2, 2016, by Filip Jorissen:<br/>
 Refactored model such that it directly extends <code>PartialFlowMachine</code>.

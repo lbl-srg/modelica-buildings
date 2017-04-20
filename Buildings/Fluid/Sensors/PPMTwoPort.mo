@@ -112,7 +112,7 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 <li>
 January 12, 2016, by Filip Jorissen:<br/>
 First implementation.
-See issue 
+See issue
 <a href=\"https://github.com/ibpsa/modelica/issues/372\">#372</a>
 </li>
 </ul>

@@ -5,7 +5,7 @@ model Carnot_y_etaCar
     heaPum(use_eta_Carnot_nominal=true,
            etaCarnot_nominal=0.494805));
 
-  annotation (experiment(StopTime=3600),
+  annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_y_etaCar.mos"
         "Simulate and plot"),
 Documentation(info="<html>

@@ -37,7 +37,7 @@ equation
           -6,20},{-2,20}},   color={0,0,127}));
   connect(gaiHDifHor.y, weaDatInpCon.HDifHor_in) annotation (Line(points={{21,20},
           {21,20},{50,20},{50,-7.6},{67,-7.6}},   color={0,0,127}));
-  annotation (experiment(StartTime=0,StopTime=86400, Tolerance=1e-6),
+  annotation (experiment(StopTime=86400, Tolerance=1e-06),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/ReaderTMY3HDirNor.mos"
         "Simulate and plot"),
     Documentation(info="<html>

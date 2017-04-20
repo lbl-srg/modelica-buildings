@@ -65,7 +65,7 @@ equation
         "Simulate and plot"),
         experiment(
       StopTime=7200,
-      Tolerance=1e-05),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model consists of a model for an effective air leakage area

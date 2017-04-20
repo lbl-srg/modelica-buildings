@@ -100,7 +100,7 @@ equation
       points={{-80,0},{-70,0},{-70,30},{-60,30}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  annotation (experiment(StopTime=1.0, Tolerance=1e-6),
   __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Lines/Examples/ACLine.mos"
         "Simulate and plot"),

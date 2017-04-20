@@ -61,7 +61,7 @@ model FlowControlled_m_flow
         iconTransformation(extent={{100,10},{120,30}})));
 
 equation
-  if filteredSpeed then
+  if use_inputFilter then
     connect(filter.y, m_flow_actual) annotation (Line(
       points={{34.7,88},{44,88},{44,20},{110,20}},
       color={0,0,127},
@@ -100,6 +100,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 24, 2017, by Michael Wetter:<br/>
+Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
+</li>
 <li>
 November 10, 2016, by Michael Wetter:<br/>
 Changed default values for <code>massFlowRates</code>.<br/>

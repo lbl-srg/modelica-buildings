@@ -87,7 +87,7 @@ revisions="<html>
 <ul>
 <li>
 January 18, 2016 by Filip Jorissen:<br/>
-Using parameter <code>tauInv</code> 
+Using parameter <code>tauInv</code>
 since this now exists in
 <a href=\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
 This is for

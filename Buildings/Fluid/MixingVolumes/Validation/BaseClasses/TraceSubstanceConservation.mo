@@ -22,8 +22,6 @@ model TraceSubstanceConservation
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mixing volume for adding moisture"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  Modelica.Blocks.Sources.Constant TWat(k=273.15) "Water supply temperature"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Constant mWatFlo(k=0.001) "Water mass flow rate "
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubIn(
@@ -62,10 +60,6 @@ model TraceSubstanceConservation
         rotation=270,
         origin={46,-30})));
 equation
-  connect(vol.TWat, TWat.y) annotation (Line(
-      points={{-12,14.8},{-40,14.8},{-40,30},{-59,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(mWatFlo.y, vol.mWat_flow) annotation (Line(
       points={{-59,70},{-30,70},{-30,18},{-12,18}},
       color={0,0,127},
@@ -112,14 +106,19 @@ equation
       smooth=Smooth.None));
   annotation (                   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics),
-    experiment(Tolerance=1e-08),
     Documentation(info="<html>
 <p>
-This model is reconfigured to a steady state or 
+This model is reconfigured to a steady state or
 dynamic check for conservation of trace substances.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 12, 2017, by Michael Wetter:<br/>
+Removed temperature connection that is no longer needed.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
+</li>
 <li>
 May 22 2015 by Filip Jorissen:<br/>
 First implementation.

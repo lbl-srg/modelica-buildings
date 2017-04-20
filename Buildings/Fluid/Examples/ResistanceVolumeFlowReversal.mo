@@ -12,7 +12,7 @@ model ResistanceVolumeFlowReversal
   Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    filteredSpeed=false,
+    use_inputFilter=false,
     allowFlowReversal=allowFlowReversal.k,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nominalValuesDefineDefaultPressureCurve=true)
@@ -98,7 +98,7 @@ equation
       color={0,127,255}));
   end for;
   annotation (experiment(
-      StopTime=10000),
+      Tolerance=1e-6, StopTime=10000),
        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Examples/ResistanceVolumeFlowReversal.mos"
         "Simulate and plot"),
     Documentation(info="<html>

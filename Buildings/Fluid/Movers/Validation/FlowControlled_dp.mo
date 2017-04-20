@@ -6,12 +6,12 @@ model FlowControlled_dp "Fan with zero mass flow rate and head as input"
     redeclare Buildings.Fluid.Movers.FlowControlled_dp floMacSta(
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
-      filteredSpeed=false,
+      use_inputFilter=false,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
     redeclare Buildings.Fluid.Movers.FlowControlled_dp floMacDyn(
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
-      filteredSpeed=false,
+      use_inputFilter=false,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
 equation
@@ -24,7 +24,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-06, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/FlowControlled_dp.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -163,7 +163,7 @@ equation
           4}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
             -120},{220,120}})),
-    experiment(StopTime=432000),
+    experiment(Tolerance=1e-06, StopTime=432000),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Storage/Examples/Battery.mos"
         "Simulate and plot"),
