@@ -1,42 +1,38 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
 model EconEnableDisable_TOut
-  "Validation model for economizer high limit lockout based on the 
-  outdoor air temperature limit, with hysteresis."
+  "Validation model for disabling the economizer if any of the freeze protection stages 1 through 3 are activated."
   extends Modelica.Icons.Example;
 
+  parameter Real TOutAboveTreshold(min=297 + 1, max=350, unit="K", displayUnit="degC")=300 "Constant output value";
+
   EconEnableDisable econEnableDisable
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  CDL.Logical.Constant FreezestatStatus(k=false)
-    "Keep freezestat alarm off for this validation test"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+    annotation (Placement(transformation(extent={{0,-12},{20,12}})));
   CDL.Continuous.Constant outDamPosMax(k=0.9)
     "Maximal allowed economizer damper position"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   CDL.Continuous.Constant outDamPosMin(k=0.1)
     "Minimum allowed economizer damper position"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  CDL.Continuous.Constant TSup(k=277.594)
-    "Set TSup to a constant value above 38F"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.Ramp TOut(
-    duration=1200,
-    height=10,
-    offset=293.15)      "Outdoor air temperature"
+    annotation (Placement(transformation(extent={{-80,-74},{-60,-54}})));
+  CDL.Continuous.Constant TOut(k=TOutAboveTreshold)
+    "Outdoor air temperature, constant below example 75 F"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+
+  CDL.Continuous.ConstantStatus freezeProtectionStage(refSta=Buildings.Experimental.OpenBuildingControl.CDL.Types.Status.FreezeProtectionStage0)
+    "None of the Stages 1 trheough 3 is activated"
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
-  connect(FreezestatStatus.y, econEnableDisable.uFre) annotation (Line(
-        points={{-59,-10},{-40,-10},{-40,10},{-22,10}},   color={255,0,255}));
   connect(outDamPosMax.y, econEnableDisable.uOutDamPosMin) annotation (Line(
-        points={{-59,-40},{-36,-40},{-36,6},{-22,6}},     color={0,0,127}));
+        points={{-59,-30},{-36,-30},{-36,-2},{-2,-2}},    color={0,0,127}));
   connect(outDamPosMin.y, econEnableDisable.uOutDamPosMax) annotation (Line(
-        points={{-59,-70},{-32,-70},{-32,2},{-22,2}},     color={0,0,127}));
-  connect(TSup.y, econEnableDisable.TSup) annotation (Line(points={{-59,30},{
-          -40,30},{-40,14},{-22,14}},      color={0,0,127}));
+        points={{-59,-64},{-32,-64},{-32,-6},{-2,-6}},    color={0,0,127}));
   connect(TOut.y, econEnableDisable.TOut) annotation (Line(points={{-59,70},{
-          -36,70},{-36,18},{-22,18}},      color={0,0,127}));
+          -26,70},{-26,8},{-2,8}},        color={0,0,127}));
   //fixme - turn into proper test and uncomment
   //__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/fixme.mos"
   //     "Simulate and plot"),
+  connect(freezeProtectionStage.y, econEnableDisable.uFreezeProtectionStatus)
+    annotation (Line(points={{-59,30},{-30,30},{-30,4},{-2,4}}, color={255,85,
+          85}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},

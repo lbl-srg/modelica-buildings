@@ -8,11 +8,11 @@ block ConstantStatus "Output constant signal of type Status"
       Buildings.Experimental.OpenBuildingControl.CDL.Types.Status.FreezeProtectionStage3}
     "Array where each element is a freeze protection stage indicator";
 
-  Interfaces.StatusTypeOutput y "Connector of Status type output signal"
+  Interfaces.StatusTypeOutput yFreProSta "Connector of Status type output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
-  y = refSta;
+  yFreProSta = refSta[1];
   annotation (
     defaultComponentName="con",
     Icon(coordinateSystem(
