@@ -18,7 +18,7 @@ model EconEnableDisable_TOut
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   CDL.Continuous.ConstantStatus freezeProtectionStage(refSta=Buildings.Experimental.OpenBuildingControl.CDL.Types.Status.FreezeProtectionStage0)
-    "None of the Stages 1 trheough 3 is activated"
+    "None of the Stages 1 through 3 is activated"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(outDamPosMax.y, econEnableDisable.uOutDamPosMin) annotation (Line(
