@@ -8,10 +8,10 @@ model EconEnableDisable_TSup
   CDL.Logical.Constant FreezestatStatus(k=false)
     "Keep freezestat alarm off for this validation test"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  CDL.Continuous.Constant EcoDamPosMax(k=0.9)
+  CDL.Continuous.Constant outDamPosMax(k=0.9)
     "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-80,-52},{-60,-32}})));
-  CDL.Continuous.Constant EcoDamPosMin(k=0.1)
+  CDL.Continuous.Constant outDamPosMin(k=0.1)
     "Minimum allowed economizer damper position"
     annotation (Placement(transformation(extent={{-80,-86},{-60,-66}})));
   CDL.Continuous.Constant TOut(k=297)
@@ -26,9 +26,9 @@ model EconEnableDisable_TSup
 equation
   connect(FreezestatStatus.y, econEnableDisable.uFre) annotation (Line(
         points={{-59,-10},{-40,-10},{-40,10},{-22,10}},   color={255,0,255}));
-  connect(EcoDamPosMax.y, econEnableDisable.uEcoDamPosMin) annotation (Line(
+  connect(outDamPosMax.y, econEnableDisable.uOutDamPosMin) annotation (Line(
         points={{-59,-42},{-36,-42},{-36,6},{-22,6}},     color={0,0,127}));
-  connect(EcoDamPosMin.y, econEnableDisable.uEcoDamPosMax) annotation (Line(
+  connect(outDamPosMin.y, econEnableDisable.uOutDamPosMax) annotation (Line(
         points={{-59,-76},{-32,-76},{-32,2},{-22,2}},     color={0,0,127}));
   connect(TOut.y, econEnableDisable.TOut) annotation (Line(points={{-59,70},{
           -34,70},{-34,18},{-22,18}},     color={0,0,127}));

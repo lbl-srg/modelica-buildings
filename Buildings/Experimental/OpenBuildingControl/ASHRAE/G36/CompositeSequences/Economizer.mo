@@ -3,7 +3,7 @@ model Economizer "Economizer control block"
 
   AtomicSequences.EconEnableDisable econEnableDisable
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  AtomicSequences.EconDamPosLimits ecoEnaDis
+  AtomicSequences.EconDamperPositionLimits ecoEnaDis
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   AtomicSequences.EconModulation ecoMod
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
@@ -32,7 +32,7 @@ model Economizer "Economizer control block"
   CDL.Interfaces.RealOutput yRetDamPos "Return air damper position"
     annotation (Placement(transformation(extent={{100,10},{120,30}}),
     iconTransformation(extent={{100,10}, {120,30}})));
-  CDL.Interfaces.RealOutput yEcoDamPos "Economizer damper position"
+  CDL.Interfaces.RealOutput yOutDamPos "Economizer damper position"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
     iconTransformation(extent={{100,-30}, {120,-10}})));
   CDL.Interfaces.BooleanInput uAHUMod
@@ -45,23 +45,23 @@ model Economizer "Economizer control block"
     "Minimum outdoor airflow requirement, output of a separate sequence that calculates this value based on ASHRAE Standard 62.1-2013 or California Title 24"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
 equation
-  connect(econEnableDisable.uEcoDamPosMax, ecoEnaDis.yEcoDamPosMax) annotation (
-     Line(points={{-22,-58},{-42,-58},{-42,31},{-59,31}}, color={0,0,127}));
-  connect(econEnableDisable.uEcoDamPosMin, ecoEnaDis.yEcoDamPosMin) annotation (
-     Line(points={{-22,-54},{-40,-54},{-40,22},{-40,33.2},{-59,33.2}}, color={0,
+  connect(econEnableDisable.uOutDamPosMax, ecoEnaDis.yOutDamPosMax) annotation (
+     Line(points={{-22,-59},{-42,-59},{-42,31},{-59,31}}, color={0,0,127}));
+  connect(econEnableDisable.uOutDamPosMin, ecoEnaDis.yOutDamPosMin) annotation (
+     Line(points={{-22,-56},{-40,-56},{-40,22},{-40,32},{-51,32}},     color={0,
           0,127}));
   connect(ecoEnaDis.yRetDamPosMin, ecoMod.uRetDamPosMin) annotation (Line(
-        points={{-59,28},{-26,28},{-26,-7},{38,-7}}, color={0,0,127}));
+        points={{-51,28},{-26,28},{-26,-7},{38,-7}}, color={0,0,127}));
   connect(ecoEnaDis.yRetDamPosMax, ecoMod.uRetDamPosMax) annotation (Line(
-        points={{-59,26},{-30,26},{-30,-10},{38,-10}}, color={0,0,127}));
-  connect(ecoEnaDis.yEcoDamPosMin, ecoMod.uEcoDamPosMin) annotation (Line(
-        points={{-59,33.2},{-20,33.2},{-20,32},{-20,-1},{38,-1}},
+        points={{-51,26},{-30,26},{-30,-10},{38,-10}}, color={0,0,127}));
+  connect(ecoEnaDis.yOutDamPosMin, ecoMod.uOutDamPosMin) annotation (Line(
+        points={{-51,32},{-20,32},{-20,32},{-20,-1},{38,-1}},
         color={0,0,127}));
-  connect(econEnableDisable.yEcoDamPosMax, ecoMod.uEcoDamPosMax) annotation (
+  connect(econEnableDisable.yOutDamPosMax, ecoMod.uOutDamPosMax) annotation (
       Line(points={{1.9,-49.9},{10,-49.9},{10,-4},{38,-4}}, color={0,0,127}));
   connect(ecoMod.yRetDamPos, yRetDamPos) annotation (Line(points={{61,12},{80,12},
           {80,20},{110,20}}, color={0,0,127}));
-  connect(ecoMod.yEcoDamPos, yEcoDamPos) annotation (Line(points={{61,8},{80,8},
+  connect(ecoMod.yOutDamPos, yOutDamPos) annotation (Line(points={{61,8},{80,8},
           {80,-20},{110,-20}}, color={0,0,127}));
   connect(TCooSet, ecoMod.TCooSet) annotation (Line(points={{-110,80},{-46,80},{
           20,80},{20,18},{38,18}}, color={0,0,127}));
@@ -76,16 +76,16 @@ equation
                                      color={0,0,127}));
   connect(TSup, econEnableDisable.TSup) annotation (Line(points={{-110,60},{-50,
           60},{-50,-46},{-22,-46}}, color={0,0,127}));
-  connect(uSupFan, ecoEnaDis.uSupFan) annotation (Line(points={{-110,-60},{-90,-60},
-          {-90,30},{-82,30}}, color={255,0,255}));
+  connect(uSupFan, ecoEnaDis.uSupFan) annotation (Line(points={{-110,-60},{-90,
+          -60},{-90,34},{-90,34}},
+                              color={255,0,255}));
   connect(uVOut, ecoEnaDis.uVOut) annotation (Line(points={{-110,20},{-98,20},{
-          -98,36},{-92,36}},
+          -98,38},{-90,38}},
                          color={0,0,127}));
   connect(uVOutMinSet, ecoEnaDis.uVOutMinSet) annotation (Line(points={{-110,40},
-          {-98,40},{-98,52},{-67.2,52}},
-                                       color={0,0,127}));
+          {-98,40},{-98,42},{-90,42}}, color={0,0,127}));
   connect(uAHUMod, ecoEnaDis.uAHUMod) annotation (Line(points={{-110,0},{-90,0},
-          {-90,26},{-82,26}}, color={255,0,255}));
+          {-90,30},{-90,30}}, color={255,0,255}));
   connect(uFre, econEnableDisable.uFre) annotation (Line(points={{-110,-80},{-66,
           -80},{-66,-50},{-22,-50}}, color={255,0,255}));
   connect(uSupFan, ecoMod.uSupFan) annotation (Line(points={{-110,-60},{-36,-60},
@@ -119,6 +119,6 @@ equation
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yEcoDamPos",
+          textString="yOutDamPos",
           fontSize=40)}), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end Economizer;

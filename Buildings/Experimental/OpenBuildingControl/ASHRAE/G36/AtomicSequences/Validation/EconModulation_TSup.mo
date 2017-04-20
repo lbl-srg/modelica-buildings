@@ -20,9 +20,9 @@ model EconModulation_TSup
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   CDL.Continuous.Constant uCoo(k=0.2) "Cooling signal, range 0 - 1"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  CDL.Continuous.Constant EcoDamPosMin(k=0)
+  CDL.Continuous.Constant outDamPosMin(k=0)
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  CDL.Continuous.Constant EcoDamPosMax(k=1)
+  CDL.Continuous.Constant outDamPosMax(k=1)
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   CDL.Continuous.Constant RetDamPosMin(k=0)
     annotation (Placement(transformation(extent={{58,-20},{78,0}})));
@@ -49,10 +49,10 @@ equation
   connect(RetDamPosMin.y, ecoMod.uRetDamPosMin) annotation (Line(points={{79,-10},
           {90,-10},{90,-30},{-20,-30},{-20,13},{-2,13}},
                                          color={0,0,127}));
-  connect(EcoDamPosMax.y, ecoMod.uEcoDamPosMax) annotation (Line(points={{41,-50},
+  connect(outDamPosMax.y, ecoMod.uOutDamPosMax) annotation (Line(points={{41,-50},
           {50,-50},{50,-70},{-30,-70},{-30,16},{-2,16}},
                                          color={0,0,127}));
-  connect(EcoDamPosMin.y, ecoMod.uEcoDamPosMin) annotation (Line(points={{81,-50},
+  connect(outDamPosMin.y, ecoMod.uOutDamPosMin) annotation (Line(points={{81,-50},
           {90,-50},{90,-70},{-20,-70},{-20,19},{-2,19}},
                                          color={0,0,127}));
   annotation (

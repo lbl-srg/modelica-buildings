@@ -30,7 +30,7 @@ model EconModulation "Based on supply air temperature (SAT) setpoint and measure
 
   CDL.Interfaces.BooleanInput uSupFan "Supply Fan Status, on or off"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
-  CDL.Interfaces.RealOutput yEcoDamPos "Economizer damper position"
+  CDL.Interfaces.RealOutput yOutDamPos "Economizer damper position"
                                                 annotation (Placement(
         transformation(extent={{100,-30},{120,-10}}), iconTransformation(extent=
            {{100,-30},{120,-10}})));
@@ -38,7 +38,7 @@ model EconModulation "Based on supply air temperature (SAT) setpoint and measure
                                                annotation (Placement(
         transformation(extent={{100,10},{120,30}}), iconTransformation(extent={{
             100,10},{120,30}})));
-  CDL.Continuous.Line EcoDamPos(limitBelow=true, limitAbove=true)
+  CDL.Continuous.Line outDamPos(limitBelow=true, limitAbove=true)
     "Damper position is linearly proportional to the control signal."
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   CDL.Continuous.Line RetDamPos(limitBelow=true, limitAbove=true)
@@ -56,11 +56,11 @@ model EconModulation "Based on supply air temperature (SAT) setpoint and measure
   CDL.Interfaces.RealInput uCoo(min=0, max=1)
     "Cooling control signal."
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  CDL.Interfaces.RealInput uEcoDamPosMin
+  CDL.Interfaces.RealInput uOutDamPosMin
     "Minimum economizer damper position limit as returned by the EconDamPosLimits sequence."
     annotation (Placement(transformation(extent={{-140,-130},{-100,-90}})));
-  CDL.Interfaces.RealInput uEcoDamPosMax
-    "Maximum economizer damper position limit as returned by the EconEnableDisable sequence. If the economizer is disabled, this value equals uEcoDamPosMin"
+  CDL.Interfaces.RealInput uOutDamPosMax
+    "Maximum economizer damper position limit as returned by the EconEnableDisable sequence. If the economizer is disabled, this value equals uOutDamPosMin"
     annotation (Placement(transformation(extent={{-140,-160},{-100,-120}})));
   CDL.Interfaces.RealInput uRetDamPosMin
     "Minimum return air damper position limit as returned by the EconDamPosLimits sequence. 
@@ -93,7 +93,7 @@ model EconModulation "Based on supply air temperature (SAT) setpoint and measure
 equation
   connect(TSup, DamPosController.u_m) annotation (Line(points={{-120,40},{-46,
           40},{-46,-30},{-10,-30},{-10,-22}}, color={0,0,127}));
-  connect(EcoDamPos.y, yEcoDamPos) annotation (Line(points={{81,10},{90,10},{90,
+  connect(outDamPos.y, yOutDamPos) annotation (Line(points={{81,10},{90,10},{90,
           -20},{110,-20}}, color={0,0,127}));
   connect(RetDamPos.y, yRetDamPos) annotation (Line(points={{81,50},{90,50},{90,
           20},{110,20}}, color={0,0,127}));
@@ -101,9 +101,9 @@ equation
           30},{30,46},{58,46}}, color={0,0,127}));
   connect(DamPosController.y, RetDamPos.u) annotation (Line(points={{1,-10},{20,
           -10},{20,50},{58,50}}, color={0,0,127}));
-  connect(minSignalLimit.y, EcoDamPos.x1) annotation (Line(points={{1,70},{40,
+  connect(minSignalLimit.y, outDamPos.x1) annotation (Line(points={{1,70},{40,
           70},{40,18},{58,18}}, color={0,0,127}));
-  connect(DamPosController.y, EcoDamPos.u) annotation (Line(points={{1,-10},{30,
+  connect(DamPosController.y, outDamPos.u) annotation (Line(points={{1,-10},{30,
           -10},{30,10},{58,10}}, color={0,0,127}));
   connect(coolingZoneState.u, uCoo)
     annotation (Line(points={{-82,0},{-82,0},{-120,0}}, color={0,0,127}));
@@ -118,9 +118,9 @@ equation
           -70},{-50,-70},{-50,-140},{-42,-140}}, color={255,0,255}));
   connect(andBlock.y, DisableRetDamModulation.u2) annotation (Line(points={{-59,
           -70},{-50,-70},{-50,-170},{-42,-170}}, color={255,0,255}));
-  connect(uEcoDamPosMax, DisableEcoDamModulation.u1) annotation (Line(points={{-120,
+  connect(uOutDamPosMax, DisableEcoDamModulation.u1) annotation (Line(points={{-120,
           -140},{-80,-140},{-80,-132},{-42,-132}}, color={0,0,127}));
-  connect(uEcoDamPosMin, DisableEcoDamModulation.u3) annotation (Line(points={{-120,
+  connect(uOutDamPosMin, DisableEcoDamModulation.u3) annotation (Line(points={{-120,
           -110},{-70,-110},{-70,-148},{-42,-148}}, color={0,0,127}));
   connect(uRetDamPosMin, DisableRetDamModulation.u1) annotation (Line(points={{
           -120,-170},{-80,-170},{-80,-162},{-42,-162}}, color={0,0,127}));
@@ -132,11 +132,11 @@ equation
           -200},{50,54},{58,54}}, color={0,0,127}));
   connect(DisableRetDamModulation.y, RetDamPos.f2) annotation (Line(points={{
           -19,-170},{10,-170},{10,42},{58,42}}, color={0,0,127}));
-  connect(uEcoDamPosMin, EcoDamPos.f1) annotation (Line(points={{-120,-110},{
+  connect(uOutDamPosMin, outDamPos.f1) annotation (Line(points={{-120,-110},{
           -32,-110},{-32,14},{58,14}}, color={0,0,127}));
-  connect(DisableEcoDamModulation.y, EcoDamPos.f2) annotation (Line(points={{-19,
+  connect(DisableEcoDamModulation.y, outDamPos.f2) annotation (Line(points={{-19,
           -140},{40,-140},{40,2},{58,2}}, color={0,0,127}));
-  connect(maxSignalLimit.y, EcoDamPos.x2)
+  connect(maxSignalLimit.y, outDamPos.x2)
     annotation (Line(points={{1,30},{30,30},{30,6},{58,6}}, color={0,0,127}));
   connect(TCooSet, add.u1) annotation (Line(points={{-120,80},{-92,80},{-92,86},
           {-82,86}}, color={0,0,127}));
@@ -185,7 +185,7 @@ equation
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yEcoDamPos",
+          textString="yOutDamPos",
           fontSize=40),
         Text(
           extent={{-96,-20},{-26,-56}},
@@ -221,13 +221,13 @@ equation
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uEcoDamPosMin"),
+          textString="uOutDamPosMin"),
         Text(
           extent={{-96,-120},{-26,-156}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uEcoDamPosMax"),
+          textString="uOutDamPosMax"),
         Text(
           extent={{-96,-152},{-26,-188}},
           lineColor={0,0,127},
