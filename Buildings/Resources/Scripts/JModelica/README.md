@@ -1,4 +1,4 @@
-This folder contains scripts that are needed for JModelica.
+This folder contains scripts that are needed for the regression testing of JModelica.
 
 - buildingspy_to_csv.py converts a reference result file
   from the format used by BuildingsPy to the
