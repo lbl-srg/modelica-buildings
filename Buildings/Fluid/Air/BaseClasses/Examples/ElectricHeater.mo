@@ -11,7 +11,9 @@ model ElectricHeater "Test model for ElectricHeater"
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000,
     Q_flow_nominal=Q_flow_nominal,
-    eff=0.8) "Electric heater"
+    eff=0.8,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+             "Electric heater"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 equation
   connect(conPI.y, eleHea.u) annotation (Line(points={{-39,30},{-32,30},{-32,-34},
