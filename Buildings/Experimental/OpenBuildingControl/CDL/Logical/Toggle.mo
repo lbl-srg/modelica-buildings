@@ -112,7 +112,7 @@ When the <code>clr</code> input turns <code>ON</code>, the output turns <code>OF
 <tr><td> 1 </td><td> <code>OFF</code> </td><td> from <code>OFF</code> to <code>ON</code> </td><td> <code>ON</code> </td>
 <td>If <code>clr</code> <code>OFF</code>, <code>toggle</code> switches from <code>OFF</code> to <code>ON</code>, previous output is <code>OFF</code>, then output <code>ON</code>.</td></tr>
 
-<tr><td> 2 </td><td> <code>OFF</code> </td><td> from <code>OFF</code> to <code>ON</code> </td><td> <code>ON</code> </td>
+<tr><td> 2 </td><td> <code>OFF</code> </td><td> from <code>OFF</code> to <code>ON</code> </td><td> <code>OFF</code> </td>
 <td>If <code>clr</code> <code>OFF</code>, <code>toggle</code> switches from <code>OFF</code> to <code>ON</code>, previous output is <code>ON</code>, then output <code>OFF</code>.</td></tr>
 
 <tr><td> 3 </td><td> <code>OFF</code> </td><td> from <code>ON</code> to <code>OFF</code> </td><td> <code>OFF</code> </td>
@@ -120,8 +120,6 @@ When the <code>clr</code> input turns <code>ON</code>, the output turns <code>OF
 
 <tr><td> 4 </td><td> <code>OFF</code> </td><td> from <code>ON</code> to <code>OFF</code> </td><td> <code>ON</code> </td>
 <td>If <code>clr</code> <code>OFF</code>, <code>toggle</code> switches from <code>ON</code> to <code>OFF</code>, previous output is <code>ON</code>, then remain output <code>ON</code>.</td></tr>
-
-
 
 <tr><td> 5 </td><td> <code>OFF</code> </td><td>  <code>OFF</code> </td><td> <code>OFF</code> </td>
 <td>Initially, if <code>clr</code> <code>OFF</code> and <code>toggle</code> <code>OFF</code>, then output <code>OFF</code>.</td></tr>
@@ -132,10 +130,13 @@ When the <code>clr</code> input turns <code>ON</code>, the output turns <code>OF
 <tr><td> 7 </td><td> <code>ON</code> </td><td>  <code>ON</code> or <code>OFF</code> </td><td> <code>OFF</code> </td>
 <td>If <code>clr</code> <code>ON</code>, then output <code>OFF</code>.</td></tr>
 
-
-
 </table>
 <br/>
+
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Toggle.png\"
+     alt=\"Toggle.png\" />
+</p>
 
 </html>", revisions="<html>
 <ul>

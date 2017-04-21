@@ -118,6 +118,11 @@ When the <code>clr</code> input <code>u0</code> turns <code>ON</code>, the outpu
 </table>
 <br/>
 
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Latch.png\"
+     alt=\"Latch.png\" />
+</p>
+
 </html>", revisions="<html>
 <ul>
 <li>

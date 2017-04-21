@@ -71,90 +71,15 @@ equation
           textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}}), graphics={
-        Polygon(
-          points={{-72,90},{-77,68},{-67,68},{-72,90}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Line(points={{-72,68},{-72,-8}},  color={95,95,95}),
-        Line(points={{-82,0},{72,0}},     color={95,95,95}),
-        Polygon(
-          points={{82,0},{60,5},{60,-5},{82,0}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-84,-4},{-38,-13}},
-          lineColor={0,0,0},
-          textString="startTime"),
-        Text(
-          extent={{-74,96},{-41,79}},
-          lineColor={0,0,0},
-          textString="y"),
-        Text(
-          extent={{0,-4},{21,-14}},
-          lineColor={0,0,0},
-          textString="time"),
-        Line(points={{34,62},{34,44}}, color={95,95,95}),
-        Line(points={{-10,33},{30,33}}, color={95,95,95}),
-        Text(
-          extent={{-41,67},{1,58}},
-          lineColor={0,0,0},
-          textString="one cycle period"),
-        Text(
-          extent={{-5,30},{32,21}},
-          lineColor={0,0,0},
-          textString="width"),
-        Polygon(
-          points={{-12,33},{-3,35},{-3,31},{-12,33}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{34,33},{26,35},{26,31},{34,33}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{-72,0},{-12,0}},
-          color={0,0,255},
-          thickness=0.5),
-        Line(
-          points={{-12,0},{-12,44}},
-          color={0,0,255},
-          thickness=0.5),
-        Line(
-          points={{-12,44},{34,44}},
-          color={0,0,255},
-          thickness=0.5),
-        Line(
-          points={{34,44},{34,0}},
-          color={0,0,255},
-          thickness=0.5),
-        Line(points={{34,55},{-72,55}}, color={95,95,95}),
-        Polygon(
-          points={{-72,55},{-63,57},{-63,53},{-72,55}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{34,55},{26,57},{26,53},{34,55}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{-12,44},{-72,44}},
-          color={95,95,95},
-          pattern=LinePattern.Dash),
-        Text(
-          extent={{-94,50},{-73,40}},
-          lineColor={0,0,0},
-          textString="true")}),
+        extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 The block generates an output <code>y</code> that cycles on and off according to the specified length of time for the cycle
-and the value of the input <code>u</code>, which indicates the percentage of the cycle time the output should be ON.
+and the value of the input <code>u</code>, which indicates the fraction of the cycle time the output should be ON.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Sources/DutyCycle.png\"
+     alt=\"DutyCycle.png\" />
 </p>
 
 </html>", revisions="<html>
