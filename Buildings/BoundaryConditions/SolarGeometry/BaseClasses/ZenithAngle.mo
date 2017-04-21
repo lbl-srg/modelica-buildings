@@ -31,7 +31,7 @@ Input are the solar hour angle and the declination angle.
 January 5, 2015, by Michael Wetter:<br/>
 Updated comment of the input connector as this is used in the weather bus connector.
 This is for
-issue <a href=\"https://github.com/ibpsa/modelica/issues/376\">376</a>.
+issue <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/376\">376</a>.
 </li>
 <li>
 Dec 7, 2010, by Michael Wetter:<br/>

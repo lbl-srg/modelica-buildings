@@ -41,13 +41,13 @@ April 14, 2017, by Filip Jorissen:<br/>
 Changed implementation such that it cannot lead to square roots
 of negative numbers and reduced the number of required operations.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/723\">#723</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/723\">#723</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 July 29, 2015, by Michael Wetter:<br/>

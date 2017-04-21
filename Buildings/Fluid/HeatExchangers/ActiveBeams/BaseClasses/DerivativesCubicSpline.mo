@@ -51,7 +51,7 @@ and linear extrapolation of predefined values. The predefined values must create
 December 15, 2016, by Michael Wetter:<br/>
 Removed wrong annotations.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/629\">#629</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/629\">#629</a>.
 </li>
 <li>
 June 13, 2016, by Michael Wetter:<br/>

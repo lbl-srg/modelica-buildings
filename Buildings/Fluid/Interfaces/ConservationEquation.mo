@@ -259,7 +259,7 @@ equation
   for i in 1:nPorts loop
     //The semiLinear function should be used for the equations below
     //for allowing min/max simplifications.
-    //See https://github.com/ibpsa/modelica/issues/216 for a discussion and motivation
+    //See https://github.com/ibpsa/modelica-ibpsa/issues/216 for a discussion and motivation
     ports_H_flow[i]     = semiLinear(ports[i].m_flow, inStream(ports[i].h_outflow), ports[i].h_outflow)
       "Enthalpy flow";
     for j in 1:Medium.nXi loop
@@ -425,13 +425,13 @@ Buildings, #642</a>.
 <li>
 December 22, 2016, by Michael Wetter:<br/>
 Set nominal value for <code>U</code>.<br/>
-This is for <a href=\"https://github.com/ibpsa/modelica/issues/637\">637</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/637\">637</a>.
 </li>
 <li>
 February 19, 2016 by Filip Jorissen:<br/>
 Added outputs UOut, mOut, mXiOut, mCOut for being able to
 check conservation of quantities.
-This is for <a href=\"https://github.com/ibpsa/modelica/issues/247\">
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/247\">
 issue 247</a>.
 </li>
 <li>
@@ -439,7 +439,7 @@ January 17, 2016, by Michael Wetter:<br/>
 Added parameter <code>use_C_flow</code> and converted <code>C_flow</code>
 to a conditionally removed connector.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/372\">#372</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/372\">#372</a>.
 </li>
 <li>
 December 16, 2015, by Michael Wetter:<br/>
@@ -456,7 +456,7 @@ Revised implementation for allowing moisture mass flow rate
 to be approximated using parameter <code>simplify_mWat_flow</code>.
 This may lead to smaller algebraic loops.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/247\">#247</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/247\">#247</a>.
 </li>
 <li>
 July 17, 2015, by Michael Wetter:<br/>
@@ -469,7 +469,7 @@ Removed <code>preferredMediumStates= false</code> in
 the instance <code>medium</code> as the default
 is already <code>false</code>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/260\">#260</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/260\">#260</a>.
 </li>
 <li>
 June 5, 2015 by Filip Jorissen:<br/>
@@ -483,7 +483,7 @@ and set
 because the previous declaration led to more equations and
 translation problems in large models.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/260\">#260</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/260\">#260</a>.
 </li>
 <li>
 June 5, 2015, by Michael Wetter:<br/>
@@ -492,7 +492,7 @@ from instance <code>dynBal</code> of <code>PartialMixingVolume</code>
 to this model implementation.
 This is required for a pedantic model check in Dymola 2016.
 It addresses
-<a href=\"https://github.com/ibpsa/modelica/issues/266\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/266\">
 issue 266</a>.
 This revison also renames the protected variable
 <code>rho_nominal</code> to <code>rho_start</code>
@@ -540,7 +540,7 @@ and hence it should be set as a <code>constant</code>.
 February 3, 2015, by Michael Wetter:<br/>
 Removed <code>stateSelect.prefer</code> for temperature.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/160\">#160</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/160\">#160</a>.
 </li>
 <li>October 21, 2014, by Filip Jorissen:<br/>
 Added parameter <code>mFactor</code> to increase the thermal capacity.

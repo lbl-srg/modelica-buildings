@@ -196,7 +196,7 @@ connected to the adaptor <code>hvacAda</code>, rather than the volume <code>vol<
 November 29, 2016, by Michael Wetter:<br/>
 Added separate signal for outdoor temperature used by HVAC system. This is
 to improve clarity regarding what signals are exchanged, see also
-<a href=\"https://github.com/ibpsa/modelica/pull/598\">#598</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/598\">#598</a>.
 </li>
 <li>
 June 29, 2016, by Michael Wetter:<br/>

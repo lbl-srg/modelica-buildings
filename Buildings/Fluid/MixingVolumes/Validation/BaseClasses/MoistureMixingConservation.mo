@@ -172,13 +172,13 @@ This is for issue
 November 15, 2016, by Michael Wetter:<br/>
 Changed model to be <code>partial</code> and removed the <code>experiment</code> annotation.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/590\">issue 590</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/590\">issue 590</a>.
 </li>
 <li>
 November 2, 2016, by Michael Wetter:<br/>
 Changed assertions to blocks that compute the difference.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/564\">issue 564</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/564\">issue 564</a>.
 </li>
 <li>
 May 22 2015 by Filip Jorissen:<br/>

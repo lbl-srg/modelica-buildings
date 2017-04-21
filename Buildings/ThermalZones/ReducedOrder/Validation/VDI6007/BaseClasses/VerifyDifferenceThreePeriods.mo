@@ -80,8 +80,8 @@ revisions="<html>
 <li>
 December 16, 2016, by Michael Wetter:<br/>
 Reformulated model for
-<a href=\"modelica://https://github.com/ibpsa/modelica/issues/623\">
-https://github.com/ibpsa/modelica/issues/623</a>.
+<a href=\"modelica://https://github.com/ibpsa/modelica-ibpsa/issues/623\">
+https://github.com/ibpsa/modelica-ibpsa/issues/623</a>.
 </li>
 <li>
 October 10, 2013, by Michael Wetter:<br/>

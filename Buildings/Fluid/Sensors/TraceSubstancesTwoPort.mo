@@ -88,7 +88,7 @@ Using parameter <code>tauInv</code>
 since this now exists in
 <a href=\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/372\">#372</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/372\">#372</a>.
 </li>
 <li>
 June 10, 2015, by Michael Wetter:<br/>
@@ -96,14 +96,14 @@ Reformulated assignment of <code>s</code> and <code>assert</code>
 statement. The reformulation of the assignment of <code>s</code> was
 done to allow a model check in non-pedantic mode.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/268\">issue 268</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/268\">issue 268</a>.
 </li>
 <li>
 May 22, 2015, by Michael Wetter:<br/>
 Corrected wrong sensor signal if <code>allowFlowReversal=false</code>.
 For this setting, the sensor output was for the wrong flow direction.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/249\">issue 249</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/249\">issue 249</a>.
 </li>
 <li>
 September 10, 2013, by Michael Wetter:<br/>

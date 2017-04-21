@@ -58,7 +58,7 @@ Reformulated assignment of <code>s</code> and <code>assert</code>
 statement. The reformulation of the assignment of <code>s</code> was
 done to allow a model check in non-pedantic mode.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/268\">issue 268</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/268\">issue 268</a>.
 </li>
 <li>
 September 10, 2013, by Michael Wetter:<br/>

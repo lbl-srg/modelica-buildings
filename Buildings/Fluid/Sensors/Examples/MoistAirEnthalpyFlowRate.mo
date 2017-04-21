@@ -102,7 +102,7 @@ November 2, 2016, by Michael Wetter:<br/>
 Removed assertion and added the enthalpy flow rates instead
 to the plot window so that they become part of the regression tests.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/564\">issue 564</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/564\">issue 564</a>.
 </li>
 <li>
 January 23 2013, by Michael Wetter:<br/>

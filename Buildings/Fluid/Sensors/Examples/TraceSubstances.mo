@@ -126,7 +126,7 @@ revisions="<html>
 <li>
 May 22, 2015, by Michael Wetter:<br/>
 Updated example to test the correction for
-<a href=\"https://github.com/ibpsa/modelica/issues/249\">issue 249</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/249\">issue 249</a>.
 </li>
 <li>
 May 8, 2014, by Michael Wetter:<br/>

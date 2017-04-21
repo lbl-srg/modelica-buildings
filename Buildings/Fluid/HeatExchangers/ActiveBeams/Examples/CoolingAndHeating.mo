@@ -158,7 +158,7 @@ June 25, 2016, by Michael Wetter:<br/>
 Changed medium start temperature to avoid conflicting
 start values of the same precedence in Dymola 2016.
 See
-<a href=\"https://github.com/ibpsa/modelica/issues/485\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/485\">
 issue 485</a>.
 </li>
 <li>
