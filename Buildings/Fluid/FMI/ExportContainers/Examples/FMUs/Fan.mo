@@ -47,7 +47,7 @@ Buildings.Fluid.Movers.FlowMachine_m_flow</a>.
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 November 3, 2014 by Michael Wetter:<br/>

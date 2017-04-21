@@ -175,7 +175,7 @@ April 18, 2017, by Filip Jorissen:<br/>
 Changed <code>checkBoundary</code> implementation
 such that it is run as an initial equation
 when it depends on parameters only.
-See <a href=https://github.com/ibpsa/modelica/issues/728>#728</a>.
+See <a href=https://github.com/ibpsa/modelica-ibpsa/issues/728>#728</a>.
 </li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>

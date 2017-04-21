@@ -22,7 +22,7 @@ Deleted function <code>performanceCurve</code> as it is no longer needed. Instea
 Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>
 is used for all speeds.<br/>
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/458\">#458</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/458\">#458</a>.
 </li>
 <li>
 September 29, 2011, by Michael Wetter:<br/>

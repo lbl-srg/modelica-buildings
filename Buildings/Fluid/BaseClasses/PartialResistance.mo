@@ -90,7 +90,7 @@ November 3, 2016, by Michael Wetter:<br/>
 Removed start value for pressure difference
 to simplify the parameter window.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/552\">#552</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/552\">#552</a>.
 </li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
@@ -102,7 +102,7 @@ as nominal values are not allowed to be zero.
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 August 15, 2015, by Filip Jorissen:<br/>
@@ -110,7 +110,7 @@ Implemented more efficient computation of <code>port_a.Xi_outflow</code>,
 <code>port_a.h_outflow</code>
 and <code>port_a.C_outflow</code> when <code>allowFlowReversal=false</code>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/281\">#281</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/281\">#281</a>.
 </li>
 <li>
 January 13, 2015, by Marcus Fuchs:<br/>

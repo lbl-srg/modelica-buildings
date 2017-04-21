@@ -27,7 +27,7 @@ The output signal of the block is delayed by one sampling interval.
 January 3, 2017, by Michael Wetter:<br/>
 Changed sampling interval to avoid simultaneous events.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/641\">#641</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/641\">#641</a>.
 </li>
 <li>
 November 21, 2011, by Michael Wetter:<br/>

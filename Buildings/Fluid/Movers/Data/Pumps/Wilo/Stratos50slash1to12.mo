@@ -33,7 +33,7 @@ Documentation(info="<html>
 <li>
 February 17, 2016, by Michael Wetter:<br/>
 Updated parameter names for
-<a href=\"https://github.com/ibpsa/modelica/issues/396\">#396</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/396\">#396</a>.
 </li>
 <li>
 December 12, 2014, by Michael Wetter:<br/>
