@@ -100,7 +100,7 @@ When the <code>clr</code> input <code>u0</code> turns <code>ON</code>, the outpu
 
 <table summary=\"summary\" border=\"1\">
 <tr><th> Scenario 
-<th> <code>clr</code> input <code>u0</code> </th></th><th> <code>latch</code> input <code>u</code> </th>
+<th> <code>clr</code> input <code>u0</code> </th><th> <code>latch</code> input <code>u</code> </th>
 <th> output <code>y</code> </th><th> Description </th>
 </tr>
 <tr><td> 1 </td><td> <code>OFF</code> </td><td> from <code>OFF</code> to <code>ON</code> </td><td> <code>ON</code> </td>
