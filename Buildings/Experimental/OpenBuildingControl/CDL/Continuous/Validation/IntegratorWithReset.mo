@@ -19,7 +19,7 @@ extends Modelica.Icons.Example;
     k=0.5)     "Integrator with reset and y_reset = 2"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse
-    booleanPulse(width=50, period=0.2) "Boolean pulse"
+    booleanPulse(width=0.5, period=0.2) "Boolean pulse"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.IntegratorWithReset intNoReset(
     reset=Types.Reset.Disabled,
