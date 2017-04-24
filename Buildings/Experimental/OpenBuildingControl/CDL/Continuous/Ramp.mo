@@ -58,7 +58,7 @@ The Real output y is a ramp signal:
 </p>
 
 <p>
-If parameter duration is set to 0.0, the limiting case of a Step signal is achieved.
+If parameter <code>duration</code> is set to <code>0</code>, the limiting case of a step signal is achieved.
 </p>
 </html>", revisions="<html>
 <ul>
