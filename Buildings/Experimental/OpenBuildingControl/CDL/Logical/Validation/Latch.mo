@@ -2,37 +2,26 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model Latch "Validation model for the Latch block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc1(
-    cycleOn = true,
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul1(
+    width = 0.5,
     period = 1.5)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,8},{-6,28}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=0.5)
-   "Constant as source term"
-    annotation (Placement(transformation(extent={{-76,8},{-56,28}})));
-
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc2(
-     cycleOn = true,
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul2(
+     width = 0.5,
      period = 5)
      "Block that outputs cyclic on and off"
      annotation (Placement(transformation(extent={{-26,-26},{-6,-6}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons2(k=0.5)
-   "Constant as source term"
-     annotation (Placement(transformation(extent={{-76,-26},{-56,-6}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Latch latch1
     annotation (Placement(transformation(extent={{26,-8},{46,12}})));
 
 equation
-  connect(cons1.y, dutCyc1.u)
-    annotation (Line(points={{-55,18},{-41.5,18},{-28,18}}, color={0,0,127}));
-  connect(dutCyc1.y, latch1.u) annotation (Line(points={{-5,18},{10,18},{10,2},
+  connect(booPul1.y, latch1.u) annotation (Line(points={{-5,18},{10,18},{10,2},
           {25,2}}, color={255,0,255}));
-   connect(dutCyc2.y, latch1.u0) annotation (Line(points={{-5,-16},{10,-16},{10,
+  connect(booPul2.y, latch1.u0) annotation (Line(points={{-5,-16},{10,-16},{10,
            -4},{25,-4}}, color={255,0,255}));
-   connect(cons2.y, dutCyc2.u)
-     annotation (Line(points={{-55,-16},{-28,-16}}, color={0,0,127}));
   annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),
    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Logical/Validation/Latch.mos"

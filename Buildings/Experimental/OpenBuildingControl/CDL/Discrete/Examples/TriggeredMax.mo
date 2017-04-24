@@ -15,19 +15,13 @@ model TriggeredMax "Example model for the TriggeredMax block"
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc(
-    cycleOn = true,
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul(
+    width = 0.5,
     period = 0.2)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=0.5)
-    "Constant as source term"
-    annotation (Placement(transformation(extent={{-60,-48},{-40,-28}})));
-
 equation
-  connect(cons1.y, dutCyc.u)
-    annotation (Line(points={{-39,-38},{-26,-38},{-12,-38}}, color={0,0,127}));
-  connect(dutCyc.y, triggeredMax.trigger) annotation (Line(points={{11,-38},{26,
+  connect(booPul.y, triggeredMax.trigger) annotation (Line(points={{11,-38},{26,
           -38},{26,-11.8},{40,-11.8}}, color={255,0,255}));
   connect(ramp1.y, sin1.u)
     annotation (Line(points={{-39,0},{-12,0},{-12,0}}, color={0,0,127}));

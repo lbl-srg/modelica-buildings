@@ -12,22 +12,16 @@ extends Modelica.Icons.Example;
     offset=-1,
     height=2) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-26,-42},{-6,-22}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc(
-    cycleOn = true,
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul(
+    width = 0.5,
     period = 2)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=0.5)
-   "Constant as source term"
-    annotation (Placement(transformation(extent={{-76,-10},{-56,10}})));
-
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Switch switch1
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
 
 equation
-  connect(cons1.y, dutCyc.u)
-    annotation (Line(points={{-55,0},{-42,0},{-28,0}}, color={0,0,127}));
-  connect(dutCyc.y, switch1.u2)
+  connect(booPul.y, switch1.u2)
     annotation (Line(points={{-5,0},{10,0},{24,0}}, color={255,0,255}));
   connect(ramp2.y, switch1.u3) annotation (Line(points={{-5,-32},{8,-32},{8,-8},
           {24,-8}}, color={0,0,127}));

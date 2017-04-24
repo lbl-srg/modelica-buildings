@@ -11,16 +11,12 @@ extends Modelica.Icons.Example;
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-38,-10},{-18,10}})));
 
-   Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc1(
-     cycleOn = true,
+   Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul1(
+     width = 0.15,
      period = 5)
      "Block that outputs cyclic on and off"
      annotation (Placement(transformation(extent={{-38,-44},{-18,-24}})));
-   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=0.85)
-    "Constant as source term"
-     annotation (Placement(transformation(extent={{-82,-44},{-62,-24}})));
-
-  Buildings.Experimental.OpenBuildingControl.CDL.Logical.ZeroCrossing zeroCrossing
+    Buildings.Experimental.OpenBuildingControl.CDL.Logical.ZeroCrossing zeroCrossing
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 
@@ -35,10 +31,7 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{0,44},{20,64}})));
 
 equation
-  connect(cons1.y, dutCyc1.u)
-    annotation (Line(points={{-61,-34},{-56,-34},{-40,-34}},
-                                                   color={0,0,127}));
-  connect(dutCyc1.y, zeroCrossing.enable) annotation (Line(points={{-17,-34},{
+  connect(booPul1.y, zeroCrossing.enable) annotation (Line(points={{-17,-34},{
           10,-34},{10,-12}},color={255,0,255}));
   connect(ramp1.y, sin1.u)
     annotation (Line(points={{-61,0},{-50.5,0},{-40,0}},    color={0,0,127}));
