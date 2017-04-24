@@ -50,13 +50,6 @@ input <code>u</code> and the output <code>y</code>
      y = ------------ * u
             T * s + 1
 </pre>
-<p>
-If you would like to be able to change easily between different
-transfer functions (FirstOrder, SecondOrder, ... ) by changing
-parameters, use the general block <code>TransferFunction</code> instead
-and model a derivative block with parameters<br/>
-<code>b = {k,0}</code>, <code>a = {T, 1}</code>.
-</p>
 
 <p>
 If <code>k=0</code>, the block reduces to <code>y=0</code>.
