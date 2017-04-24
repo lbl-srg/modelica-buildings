@@ -141,6 +141,5 @@ First implementation.
 </ul>
 
 </html>"),
-    Diagram(coordinateSystem(extent={{-100,-140},{100,140}})),
-    Icon(coordinateSystem(extent={{-100,-140},{100,140}})));
+    Diagram(coordinateSystem(extent={{-100,-140},{100,140}})));
 end SlewRateLimiter;
