@@ -3,7 +3,7 @@ model LessEqualThreshold
   "Validation model for the LessEqualThreshold block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
     duration=1,
     offset=-2,
     height=4)  "Block that generates ramp signal"

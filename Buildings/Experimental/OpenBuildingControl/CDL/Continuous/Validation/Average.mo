@@ -5,12 +5,12 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Average avg1
     "Block that outputs the average of its two inputs"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
     duration=1,
     offset=-2,
     height=6) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,8},{-40,28}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
     duration=1,
     offset=1.5,
     height=3.0) "Block that generates ramp signal"

@@ -7,7 +7,7 @@ model SlewRateLimiter "Validation model for the SlewRateLimiter block"
       raisingSlewRate=1/30)
     "Block that limit the increase or decrease rate of input"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
     offset=0,
     height=1.5,
     duration=20,
@@ -15,7 +15,7 @@ model SlewRateLimiter "Validation model for the SlewRateLimiter block"
                 "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
     offset=0,
     height=-1.5,
     startTime=60,
@@ -25,27 +25,27 @@ model SlewRateLimiter "Validation model for the SlewRateLimiter block"
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Add add
     "Signal adder"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp3(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp3(
     offset=0,
     height=-1.5,
     duration=30,
     startTime=120 + 60)
                 "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp4(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp4(
     offset=0,
     height=1.5,
     duration=30,
     startTime=120)
                 "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp5(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp5(
     offset=0,
     height=-1.5,
     startTime=240 + 60,
     duration=40) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp6(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp6(
     offset=0,
     height=1.5,
     startTime=240,
@@ -57,13 +57,13 @@ model SlewRateLimiter "Validation model for the SlewRateLimiter block"
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Add add2
     "Signal adder"
     annotation (Placement(transformation(extent={{-40,-48},{-20,-28}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp7(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp7(
     offset=0,
     height=-1.5,
     duration=50,
     startTime=360 + 60) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp8(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp8(
     offset=0,
     height=1.5,
     duration=50,

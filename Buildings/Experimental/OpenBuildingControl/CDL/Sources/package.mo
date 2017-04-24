@@ -2,6 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL;
 package Sources "Package with blocks that generate source signals"
 extends Modelica.Icons.SourcesPackage;
 
+
 annotation (
 Documentation(
 info="<html>
@@ -9,5 +10,4 @@ info="<html>
 Package with blocks that generate sources for the signals.
 </p>
 </html>"));
-
 end Sources;

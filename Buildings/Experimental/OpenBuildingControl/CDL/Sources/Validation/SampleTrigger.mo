@@ -11,7 +11,7 @@ extends Modelica.Icons.Example;
     samplePeriod = 0.2)
     "Output the triggered sampled value of a continuous signal"
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
     duration=5,
     offset=0,
     height=20) "Block that generates ramp signal"

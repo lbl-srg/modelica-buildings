@@ -7,7 +7,7 @@ extends Modelica.Icons.Example;
     k = 1.0)
     "Block that outputs the sum of an input plus a parameter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
     duration=1,
     offset=-2,
     height=4)  "Block that generates ramp signal"

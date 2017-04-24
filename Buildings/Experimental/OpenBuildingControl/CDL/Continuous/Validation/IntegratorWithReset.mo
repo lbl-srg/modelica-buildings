@@ -30,7 +30,7 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.SampleTrigger
     sampleTrigger(period=0.2) "Sample trigger"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp(
     height=-1,
     duration=1,
     offset=-2) "Ramp as a source term"

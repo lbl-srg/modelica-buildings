@@ -12,7 +12,7 @@ model TWetBul_TDryBulPhi
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant p(k=101325) "Pressure"
                                     annotation (Placement(transformation(extent={{-90,-34},
             {-70,-14}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp phi(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp phi(
     duration=1,
     height=0.95,
     offset=0.05) "Relative humidity"   annotation (Placement(transformation(extent={{-90,6},

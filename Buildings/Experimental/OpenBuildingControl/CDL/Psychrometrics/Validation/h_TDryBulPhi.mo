@@ -9,7 +9,7 @@ model h_TDryBulPhi "Model to test the specific enthalpy computation"
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant p(k=101325) "Pressure"
                                     annotation (Placement(transformation(extent={{-64,-42},
             {-44,-22}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp phi(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp phi(
     duration=1,
     height=1,
     offset=0.001) "Relative humidity"   annotation (Placement(transformation(extent={{-64,-10},

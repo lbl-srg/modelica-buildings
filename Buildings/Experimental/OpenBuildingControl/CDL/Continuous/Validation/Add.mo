@@ -5,12 +5,12 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Add add1
     "Block that outputs the sum of the two inputs"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
     duration=1,
     offset=-2,
     height=4)  "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,12},{-40,32}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
     height=2,
     duration=1,
     offset=-1) "Block that generates ramp signal"

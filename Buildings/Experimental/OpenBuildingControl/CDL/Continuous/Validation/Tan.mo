@@ -5,7 +5,7 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Tan tan1
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
     duration=1,
     offset=-1.5,
     height=3.0) "Block that generates ramp signal"

@@ -2,7 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model ZeroCrossing "Validation model for the ZeroCrossing block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
     duration=5,
     offset=0,
     height=31.415926) "Block that generates ramp signal"
@@ -28,7 +28,7 @@ extends Modelica.Icons.Example;
     samplePeriod = 0.2)
     "Output the triggered sampled value of a continuous signal"
     annotation (Placement(transformation(extent={{42,44},{62,64}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
     duration=5,
     offset=0,
     height=31.415926) "Block that generates ramp signal"
