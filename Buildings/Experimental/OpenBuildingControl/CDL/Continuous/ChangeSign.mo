@@ -45,21 +45,7 @@ equation
         Line(points={{-100,60},{2,60}}, color={0,0,0})}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}}), graphics={
-        Polygon(
-          points={{0,90},{-6,68},{6,68},{0,90}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Line(points={{0,68},{0,-80}},     color={95,95,95}),
-        Line(points={{-90,0},{82,0}},     color={95,95,95}),
-        Polygon(
-          points={{90,0},{68,6},{68,-6},{90,0}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Line(points={{-100,60},{0,60}}, color={0,0,0}),
-        Line(points={{0,-60},{100,-60}}, color={0,0,0})}),
+        extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = -u</code>,

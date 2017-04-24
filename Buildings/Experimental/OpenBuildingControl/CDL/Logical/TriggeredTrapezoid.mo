@@ -169,6 +169,10 @@ sum of <i>offset</i> and <i>amplitude</i>. In contrast, after a falling
 edge (i.e., the input changes from true to false), the output is falling
 during <i>falling</i> to a value of <i>offset</i>.
 </p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/TriggeredTrapezoid.png\"
+     alt=\"TriggeredTrapezoid.png\" />
+</p>
 <p>
 Note, the case of edges before expiration of rising or falling is
 handled properly.</p>

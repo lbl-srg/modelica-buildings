@@ -50,13 +50,6 @@ input <code>u</code> and the output <code>y</code>
      y = ------------ * u
             T * s + 1
 </pre>
-<p>
-If you would like to be able to change easily between different
-transfer functions (FirstOrder, SecondOrder, ... ) by changing
-parameters, use the general block <code>TransferFunction</code> instead
-and model a derivative block with parameters<br/>
-<code>b = {k,0}</code>, <code>a = {T, 1}</code>.
-</p>
 
 <p>
 If <code>k=0</code>, the block reduces to <code>y=0</code>.
@@ -100,17 +93,5 @@ Modelica Standard Library.
     textString="k=%k")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}}), graphics={
-        Text(
-          extent={{-54,52},{50,10}},
-          lineColor={0,0,0},
-          textString="k s"),
-        Text(
-          extent={{-54,-6},{52,-52}},
-          lineColor={0,0,0},
-          textString="T s + 1"),
-        Line(points={{-50,0},{50,0}}),
-        Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,255}),
-        Line(points={{-100,0},{-60,0}}, color={0,0,255}),
-        Line(points={{60,0},{100,0}}, color={0,0,255})}));
+        extent={{-100,-100},{100,100}})));
 end Derivative;

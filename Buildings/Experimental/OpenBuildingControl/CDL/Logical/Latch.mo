@@ -69,9 +69,9 @@ equation
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{-73,-53},{-87,-67}},
-          lineColor=DynamicSelect({235,235,235}, if u > 0.5 then {0,255,0}
+          lineColor=DynamicSelect({235,235,235}, if u0 > 0.5 then {0,255,0}
                else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if u > 0.5 then {0,255,0}
+          fillColor=DynamicSelect({235,235,235}, if u0 > 0.5 then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
         Line(points={{-68,-62},{4,-62},{4,-22},{74,-22}}, color={255,0,255}),
@@ -99,9 +99,9 @@ When the <code>clr</code> input <code>u0</code> turns <code>ON</code>, the outpu
 </p>
 
 <table summary=\"summary\" border=\"1\">
-<tr><th> Scenario </th><th> <code>latch</code> input <code>u</code> </th>
-<th> <code>clr</code> input <code>u0</code> </th><th> output <code>y</code> </th>
-<th> Description </th>
+<tr><th> Scenario 
+<th> <code>clr</code> input <code>u0</code> </th><th> <code>latch</code> input <code>u</code> </th>
+<th> output <code>y</code> </th><th> Description </th>
 </tr>
 <tr><td> 1 </td><td> <code>OFF</code> </td><td> from <code>OFF</code> to <code>ON</code> </td><td> <code>ON</code> </td>
 <td>If <code>clr</code> <code>OFF</code> and <code>latch</code> switches from <code>OFF</code> to <code>ON</code>, then output <code>ON</code>.</td></tr>
@@ -117,6 +117,11 @@ When the <code>clr</code> input <code>u0</code> turns <code>ON</code>, the outpu
 <td>If <code>latch</code> <code>ON</code>, then output <code>OFF</code>.</td></tr>
 </table>
 <br/>
+
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Latch.png\"
+     alt=\"Latch.png\" />
+</p>
 
 </html>", revisions="<html>
 <ul>

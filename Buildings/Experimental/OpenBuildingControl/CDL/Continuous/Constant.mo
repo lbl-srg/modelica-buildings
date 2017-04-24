@@ -40,35 +40,7 @@ equation
           textString="k=%k")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}}), graphics={
-        Polygon(
-          points={{-80,90},{-86,68},{-74,68},{-80,90}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Line(points={{-80,68},{-80,-80}}, color={95,95,95}),
-        Line(
-          points={{-80,0},{80,0}},
-          color={0,0,255},
-          thickness=0.5),
-        Line(points={{-90,-70},{82,-70}}, color={95,95,95}),
-        Polygon(
-          points={{90,-70},{68,-64},{68,-76},{90,-70}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-83,92},{-30,74}},
-          lineColor={0,0,0},
-          textString="y"),
-        Text(
-          extent={{70,-80},{94,-100}},
-          lineColor={0,0,0},
-          textString="time"),
-        Text(
-          extent={{-101,8},{-81,-12}},
-          lineColor={0,0,0},
-          textString="k")}),
+        extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 Block that outputs a constant signal <code>y = k</code>,

@@ -42,26 +42,7 @@ equation
           lineColor={192,192,192},
           textString="sqrt")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}}), graphics={Line(points={{-92,-80},{84,-80}}, color={
-          192,192,192}),Polygon(
-            points={{100,-80},{84,-74},{84,-86},{100,-80}},
-            lineColor={192,192,192},
-            fillColor={192,192,192},
-            fillPattern=FillPattern.Solid),Line(points={{-80,-80},{-79.2,-68.7},
-          {-78.4,-64},{-76.8,-57.3},{-73.6,-47.9},{-67.9,-36.1},{-59.1,-22.2},
-          {-46.2,-6.49},{-28.5,10.7},{-4.42,30},{27.7,51.3},{69.5,74.7},{80,
-          80}}),Polygon(
-            points={{-80,98},{-86,82},{-74,82},{-80,98}},
-            lineColor={192,192,192},
-            fillColor={192,192,192},
-            fillPattern=FillPattern.Solid),Line(points={{-80,-90},{-80,84}},
-          color={192,192,192}),Text(
-            extent={{-71,98},{-44,78}},
-            lineColor={160,160,164},
-            textString="y"),Text(
-            extent={{60,-52},{84,-72}},
-            lineColor={160,160,164},
-            textString="u"),
+            100,100}}), graphics={
         Text(
           lineColor={0,0,255},
           extent={{-140,106},{160,146}},
