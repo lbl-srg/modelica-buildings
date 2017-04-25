@@ -11,11 +11,11 @@ model EconEnableDisable "Economizer enable/disable switch"
     "Output sets maximum allowable economizer damper position. Fixme: Should this remain as type real? Output can take two values: disable = yOutDamPosMin and enable = yOutDamPosMax."
     annotation (Placement(transformation(extent={{100,42},{138,80}}),
         iconTransformation(extent={{100,42},{138,80}})));
-  CDL.Interfaces.RealInput uOutDamPosMin
+  CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1)
     "Minimal economizer damper position, output from a separate sequence."
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  CDL.Interfaces.RealInput uOutDamPosMax
+  CDL.Interfaces.RealInput uOutDamPosMax(min=0, max=1)
     "Maximum economizer damper position, either 100% or set to a constant value <100% at commisioning."
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -48,9 +48,8 @@ equation
   connect(uOutDamPosMax, assignDamPos.u3) annotation (Line(points={{-120,0},{
           -30,0},{-30,12},{58,12}},
                               color={0,0,127}));
-  connect(uOutDamPosMin, assignDamPos.u1) annotation (Line(points={{-120,40},{
-          -30,40},{-30,28},{58,28}},
-                                 color={0,0,127}));
+  connect(uOutDamPosMin, assignDamPos.u1) annotation (Line(points={{-120,40},{-30,
+          40},{-30,28},{58,28}}, color={0,0,127}));
   connect(freezeProtectionStage0.y, compareFreProSig.uFreProStaRef) annotation (
      Line(points={{-59,80},{-50,80},{-50,92},{-42,92}},   color={255,85,85}));
   connect(uFreezeProtectionStatus, compareFreProSig.uFreProSta) annotation (
