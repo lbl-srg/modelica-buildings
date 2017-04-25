@@ -77,7 +77,7 @@ This was needed for the model
 <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
 Buildings.Fluid.Movers.FlowControlled_m_flow</a>
 when revising it for
-<a href=\"https://github.com/ibpsa/modelica/issues/417\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/417\">
 issue 417</a>.
 </li>
 <li>

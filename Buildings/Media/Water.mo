@@ -149,7 +149,7 @@ Modelica.Media.Interfaces.Types</a>
 sets a default value of <i>1E-5</i>.
 A similar change has been done for pressure and density.
 This fixes
-<a href=\"https://github.com/ibpsa/modelica/issues/266\">#266</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/266\">#266</a>.
 </li>
 <li>
 June 6, 2015, by Michael Wetter:<br/>
@@ -161,7 +161,7 @@ causes an error if
 Buildings.Media.Examples.WaterProperties</a>
 is translated in pedantic mode.
 This fixes
-<a href=\"https://github.com/ibpsa/modelica/issues/266\">#266</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/266\">#266</a>.
 </li>
 <li>
 June 5, 2015, by Michael Wetter:<br/>
@@ -173,7 +173,7 @@ Modelica.Media.Interfaces.PartialMedium</a>,
 and set <code>preferredMediumState=false</code>
 to keep the same states as were used before.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/260\">#260</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/260\">#260</a>.
 </li>
 <li>
 June 5, 2015, by Michael Wetter:<br/>
@@ -185,7 +185,7 @@ in Dymola 2016 using the pedantic model check.
 <li>
 May 1, 2015, by Michael Wetter:<br/>
 Added <code>Inline=true</code> for
-<a href=\"https://github.com/ibpsa/modelica/issues/227\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/227\">
 issue 227</a>.
 </li>
 <li>
@@ -199,7 +199,7 @@ to fail with the error message
 <li>
 October 15, 2014, by Michael Wetter:<br/>
 Reimplemented media based on
-<a href=\"https://github.com/ibpsa/modelica/blob/446aa83720884052476ad6d6d4f90a6a29bb8ec9/Buildings/Media/Water.mo\">446aa83</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/blob/446aa83720884052476ad6d6d4f90a6a29bb8ec9/Buildings/Media/Water.mo\">446aa83</a>.
 </li>
 <li>
 November 15, 2013, by Michael Wetter:<br/>

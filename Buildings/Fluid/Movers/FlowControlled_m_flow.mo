@@ -104,19 +104,19 @@ User's Guide</a> for more information.
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
 </li>
 <li>
 November 10, 2016, by Michael Wetter:<br/>
 Changed default values for <code>massFlowRates</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/583\">#583</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/583\">#583</a>.
 </li>
 <li>
 March 2, 2016, by Filip Jorissen:<br/>
 Refactored model such that it directly extends <code>PartialFlowMachine</code>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/417\">#417</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/417\">#417</a>.
 </li>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>

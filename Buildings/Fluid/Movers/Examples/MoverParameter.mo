@@ -101,13 +101,13 @@ set point for a mover model.
 <li>
 February 17, 2016, by Michael Wetter:<br/>
 Updated parameter names for
-<a href=\"https://github.com/ibpsa/modelica/issues/396\">#396</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/396\">#396</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 August 24, 2015, by Filip Jorissen:<br/>

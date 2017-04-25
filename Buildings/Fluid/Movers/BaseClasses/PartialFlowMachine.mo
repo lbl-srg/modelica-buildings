@@ -533,14 +533,14 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
 </li>
 <li>
 December 2, 2016, by Michael Wetter:<br/>
 Removed <code>min</code> attribute as otherwise numerical noise can cause
 the assertion on the limit to fail.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/606\">#606</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/606\">#606</a>.
 </li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
@@ -557,7 +557,7 @@ with a backwards compatible change.
 July 19, 2016, by Filip Jorissen:<br/>
 Created custom implementation for extractor.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/498\">#498</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/498\">#498</a>.
 </li>
 <li>
 June 16, 2016, by Filip Jorissen:<br/>
@@ -566,7 +566,7 @@ This is to have a consistent operating point tuple
 of <code>dp</code> and <code>m_flow</code> when having
 compressible flow.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/458\">#458</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/458\">#458</a>.
 </li>
 <li>
 February 19, 2016, by Michael Wetter and Filip Jorissen:<br/>
@@ -574,19 +574,19 @@ Refactored model to make implementation clearer.
 This model now includes code for both speed and flow prescribed models,
 eliminating the need for an additional level of partial models.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/417\">#417</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/417\">#417</a>.
 </li>
 <li>
 Removed the parameter <code>dynamicBalance</code>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/411\">#411</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/411\">#411</a>.
 </li>
 <li>
 November 19, 2015, by Michael Wetter:<br/>
 Removed assignment of parameter
 <code>showDesignFlowDirection</code> in <code>extends</code> statement.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/349\">#349</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/349\">#349</a>.
 Removed assignment of <code>min</code> and <code>max</code> attributes
 of the port mass flow rate as this is already done in the base class.
 Removed <code>import</code> statement.

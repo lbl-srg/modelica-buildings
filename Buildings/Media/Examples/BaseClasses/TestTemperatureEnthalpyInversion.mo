@@ -27,7 +27,7 @@ June 6, 2015 by Michael Wetter:<br/>
 Changed <code>Medium</code> base class to avoid a translation error
 in Dymola 2016 using pedantic mode.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/266\">#266</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/266\">#266</a>.
 </li>
 <li>
 February 12, 2015 by Michael Wetter:<br/>

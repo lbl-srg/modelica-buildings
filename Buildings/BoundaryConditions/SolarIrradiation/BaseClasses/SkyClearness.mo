@@ -70,7 +70,7 @@ September 23, 2016, by Michael Wetter:<br/>
 Changed <code>deltaX</code> from <code>0.1</code> to <code>0.01</code>,
 and also optimized the code.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/521\">issue 521</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/521\">issue 521</a>.
 </li>
 <li>
 May 5, 2015, by Michael Wetter:<br/>

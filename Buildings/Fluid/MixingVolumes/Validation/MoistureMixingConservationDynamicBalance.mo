@@ -46,10 +46,10 @@ model MoistureMixingConservationDynamicBalance
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=0) "Integral of leaving mass" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
-        rotation=270,
-        origin={50,-10})));
+        rotation=0,
+        origin={60,-100})));
   Modelica.Blocks.Math.Add3 add3Mass(k3=-1) "Adding 3 mass streams"
-    annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
+    annotation (Placement(transformation(extent={{86,-140},{106,-120}})));
   Modelica.Blocks.Continuous.Integrator intMasFloIn(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
@@ -64,8 +64,8 @@ model MoistureMixingConservationDynamicBalance
     y_start=0) "Integral of leaving enthalpy"
                                           annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
-        rotation=270,
-        origin={30,-30})));
+        rotation=0,
+        origin={50,-180})));
   Modelica.Blocks.Continuous.Integrator intEntIn(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
@@ -78,9 +78,9 @@ model MoistureMixingConservationDynamicBalance
         rotation=0,
         origin={-40,-212})));
   Modelica.Blocks.Math.Add3 add3Ent(k3=-1) "Adding 3 enthalpy streams"
-    annotation (Placement(transformation(extent={{60,-222},{80,-202}})));
-  Modelica.Blocks.Sources.Constant entIn(k=sou1.m_flow*sou1.h + sou2.m_flow*
-        sou2.h + Medium.enthalpyOfLiquid(273.15)*(mWatFlo1.k + mWatFlo2.k))
+    annotation (Placement(transformation(extent={{80,-214},{100,-194}})));
+  Modelica.Blocks.Sources.Constant entIn(
+    k=sou1.m_flow*sou1.h + sou2.m_flow*sou2.h)
     "Added enthalpy"
     annotation (Placement(transformation(extent={{-40,-242},{-20,-222}})));
   Modelica.Blocks.Math.Product pro "Water vapor flow rate" annotation (
@@ -101,9 +101,10 @@ initial equation
   U_start = {vol.U, vol1.U,vol2.U};
 
 
+
 equation
   connect(add.u1, mWatFlo2.y) annotation (Line(
-      points={{-42,-78},{-70,-78},{-70,-50},{-79,-50}},
+      points={{-42,-78},{-74,-78},{-74,-50},{-79,-50}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -125,23 +126,23 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(intMasFloVapIn.y,add3Vap. u3) annotation (Line(
-      points={{21,-70},{40,-70},{40,-58},{58,-58}},
+      points={{21,-70},{26,-70},{26,-58},{58,-58}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senMasFlo.m_flow, intMasFloOut.u) annotation (Line(
-      points={{70,9},{70,10},{50,10},{50,2}},
+      points={{70,9},{70,0},{40,0},{40,-100},{48,-100}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(add3Mass.y,cheMasFlo.u2)  annotation (Line(
-      points={{81,-130},{100,-130},{100,-124},{138,-124}},
+      points={{107,-130},{128,-130},{128,-124},{138,-124}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(masVol.y, add3Mass.u2) annotation (Line(
-      points={{4,-130},{58,-130}},
+      points={{4,-130},{84,-130}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intMasFloIn.y, add3Mass.u3) annotation (Line(
-      points={{21,-150},{40,-150},{40,-138},{58,-138}},
+      points={{21,-150},{40,-150},{40,-138},{84,-138}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intMasFloIn.u, masFloIn.y) annotation (Line(
@@ -149,15 +150,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(add3Ent.y,cheSpeEnt.u2)  annotation (Line(
-      points={{81,-212},{100.25,-212},{100.25,-204},{138,-204}},
+      points={{101,-204},{138,-204}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(entVol.y, add3Ent.u2) annotation (Line(
-      points={{4,-212},{58,-212}},
+      points={{4,-212},{40,-212},{40,-204},{78,-204}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intEntIn.y, add3Ent.u3) annotation (Line(
-      points={{21,-232},{40,-232},{40,-220},{58,-220}},
+      points={{21,-232},{40,-232},{40,-212},{78,-212}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(entIn.y, intEntIn.u) annotation (Line(
@@ -165,15 +166,16 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(add3Ent.u1, intEntOut.y) annotation (Line(
-      points={{58,-204},{30,-204},{30,-41}},
+      points={{78,-196},{72,-196},{72,-180},{64,-180},{62,-180},{62,-180},{61,
+          -180}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intEntOut.u, senSpeEnt.H_flow) annotation (Line(
-      points={{30,-18},{30,9}},
+      points={{38,-180},{38,-180},{36,-180},{36,-180},{30,-180},{30,9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(add.u3, mWatFlo3.y) annotation (Line(
-      points={{-42,-62},{-70,-62},{-70,60},{-12,60},{-12,70},{-19,70}},
+      points={{-42,-62},{-66,-62},{-66,60},{-66,60},{-66,90},{-79,90}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pro.u1, senMasFra.X) annotation (Line(
@@ -191,7 +193,8 @@ equation
   connect(intMasVapOut.u, pro.y)
     annotation (Line(points={{102,-30},{110,-30},{110,-21}}, color={0,0,127}));
   connect(add3Mass.u1, intMasFloOut.y)
-    annotation (Line(points={{58,-122},{50,-122},{50,-21}}, color={0,0,127}));
+    annotation (Line(points={{84,-122},{80,-122},{80,-100},{71,-100}},
+                                                            color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -280},{180,120}})),           Documentation(info="<html>
 <p>
@@ -218,11 +221,17 @@ for a discussion.
 </html>", revisions="<html>
 <ul>
 <li>
+April 24, 2017, by Michael Wetter:<br/>
+Removed enthalpy of liquid from <code>entIn</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings, #704</a>.
+</li>
+<li>
 November 2, 2016, by Michael Wetter:<br/>
 Changed assertions to blocks that compute the difference,
 and added the difference to the regression results.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/564\">issue 564</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/564\">issue 564</a>.
 </li>
 <li>
 May 22 2015 by Filip Jorissen:<br/>

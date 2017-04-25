@@ -48,7 +48,7 @@ This is for
 August 17, 2015 by Michael Wetter:<br/>
 Updated regression test to have slope that is different from one.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/303\">issue 303</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/303\">issue 303</a>.
 </li>
 <li>
 October 4, 2014, by Michael Wetter:<br/>
