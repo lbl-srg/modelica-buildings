@@ -1,7 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
 model Derivative "Validation model for the Derivative block"
 extends Modelica.Icons.Example;
-
+//   import Buildings.Experimental.OpenBuildingControl.CDL.Types.Init;
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Cos cos1
     "Block that outputs the cosine of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -11,7 +11,8 @@ extends Modelica.Icons.Example;
     height=6.283*5) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Derivative der1
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Derivative der1(
+    initType=Buildings.Experimental.OpenBuildingControl.CDL.Types.Init.InitialOutput)
     annotation (Placement(transformation(extent={{34,-10},{54,10}})));
 
 equation

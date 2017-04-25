@@ -73,7 +73,7 @@ protected
   IntegratorWithReset I(
     k=unitTime/Ti,
     y_start=xi_start,
-    initType=if initType == CDL.Types.Init.SteadyState then CDL.Types.Init.SteadyState else
+    initType=
         if initType == CDL.Types.Init.InitialState
          then CDL.Types.Init.InitialState else CDL.Types.Init.NoInit) if with_I
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
@@ -81,8 +81,8 @@ protected
     k=Td/unitTime,
     T=max([Td/Nd,1.e-14]),
     x_start=xd_start,
-    initType=if initType == CDL.Types.Init.SteadyState or initType == CDL.Types.Init.InitialOutput
-         then CDL.Types.Init.SteadyState else if initType == CDL.Types.Init.InitialState then
+    initType=if initType == CDL.Types.Init.InitialOutput
+         then CDL.Types.Init.InitialOutput else if initType == CDL.Types.Init.InitialState then
         CDL.Types.Init.InitialState else CDL.Types.Init.NoInit) if with_D
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Gain gainPID(k=k)

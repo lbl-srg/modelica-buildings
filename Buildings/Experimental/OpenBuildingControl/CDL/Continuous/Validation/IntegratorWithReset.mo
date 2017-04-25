@@ -2,7 +2,6 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
 model IntegratorWithReset "Test model for integrator with reset"
 extends Modelica.Icons.Example;
 
-
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons(k=10) "Constant as source term"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 

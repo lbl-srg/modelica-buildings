@@ -5,8 +5,7 @@ block Derivative "Approximated derivative block"
   parameter Modelica.SIunits.Time T(min=1E-60)=0.01
     "Time constants (T>0 required; T=0 is ideal derivative block)";
   parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.Init initType=Types.Init.NoInit
-    "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
-                                                                                    annotation(Evaluate=true,
+    "Type of initialization (1: no init, 2: initial state, 3: initial output)"      annotation(Evaluate=true,
       Dialog(group="Initialization"));
   parameter Real x_start=0 "Initial or guess value of state"
     annotation (Dialog(group="Initialization"));
@@ -23,9 +22,7 @@ block Derivative "Approximated derivative block"
 protected
   parameter Boolean zeroGain = abs(k) < 100*1E-15;
 initial equation
-  if initType == Init.SteadyState then
-    der(x) = 0;
-  elseif initType == Init.InitialState then
+  if initType == Init.InitialState then
     x = x_start;
   elseif initType == Init.InitialOutput then
     if zeroGain then
