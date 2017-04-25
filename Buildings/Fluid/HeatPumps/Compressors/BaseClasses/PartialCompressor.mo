@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps.Compressors.BaseClasses;
-model PartialCompressor "Partial compressor model"
+partial model PartialCompressor "Partial compressor model"
 
   replaceable package ref = Buildings.Media.Refrigerants.R410A
     "Refrigerant in the component"
@@ -38,8 +38,27 @@ model PartialCompressor "Partial compressor model"
   Modelica.SIunits.AbsolutePressure pCon(start = 1000e3)
     "Pressure of saturated liquid at condenser temperature";
 
+  Modelica.SIunits.AbsolutePressure pDis(start = 1000e3)
+    "Discharge pressure of the compressor";
+
+  Modelica.SIunits.AbsolutePressure pSuc(start = 100e3)
+    "Suction pressure of the compressor";
+
+  Modelica.SIunits.Temperature TSuc
+    "Temperature at suction of the compressor";
+
   Boolean isOn(fixed=true, start=false)
     "State of the compressor, true if turned on";
+
+  Modelica.SIunits.SpecificVolume vSuc(start = 1e-4, min = 0)
+    "Specific volume of the refrigerant at suction of the compressor";
+
+protected
+  Real PR(min = 0.0, unit = "1", start = 2.0)
+    "Pressure ratio";
+
+  Boolean shut_off(fixed=true, start=false)
+    "Shutdown signal for invalid pressure ratios";
 
 equation
   when initial() then
@@ -49,6 +68,20 @@ equation
   elsewhen y <= 0.0 then
     isOn = false;
   end when;
+
+  PR = max(pDis/pSuc, 0);
+  // The compressor is turned off if the resulting condensing pressure is lower
+  // than the evaporating pressure
+  when PR <= 1.0 then
+    shut_off = true;
+  elsewhen PR > 1.01 then
+    shut_off = false;
+  end when;
+
+  // The specific volume at suction of the compressor is calculated
+  // from the Martin-Hou equation of state
+  vSuc = ref.specificVolumeVap_pT(pSuc, TSuc);
+
 
   // Saturation pressure of refrigerant vapor at condenser temperature
   pCon = ref.pressureSatVap_T(port_b.T);
