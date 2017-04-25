@@ -52,7 +52,7 @@ partial model MoistureMixingConservation
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Modelica.Blocks.Sources.Constant mWatFlo3(k=-(mWatFlo1.k + mWatFlo2.k))
     "Withdrawn water rate"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Sources.Constant mWatFlo2(k=0.003) "Water mass flow rate 2"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   Modelica.Blocks.Math.Add cheMasFra(k2=-1)
@@ -102,15 +102,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(mWatFlo1.y, vol.mWat_flow) annotation (Line(
-      points={{-79,60},{-62,60},{-62,38}},
+      points={{-79,60},{-70,60},{-70,38},{-62,38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mWatFlo3.y, vol2.mWat_flow) annotation (Line(
-      points={{-19,70},{-12,70},{-12,38}},
+      points={{-79,90},{-30,90},{-30,38},{-12,38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mWatFlo2.y, vol1.mWat_flow) annotation (Line(
-      points={{-79,-50},{-70,-50},{-70,-38},{-62,-38}},
+      points={{-79,-50},{-74,-50},{-74,-38},{-62,-38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(vol1.ports[2], port_a) annotation (Line(

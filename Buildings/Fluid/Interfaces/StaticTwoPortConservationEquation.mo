@@ -336,6 +336,16 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 revisions="<html>
 <ul>
 <li>
+April 24, 2017, by Michael Wetter:<br/>
+Reverted change from April 21, 2017.<br/>
+See <a href=https://github.com/ibpsa/modelica-ibpsa/issues/741>#741</a>.
+</li>
+<li>
+April 21, 2017, by Filip Jorissen:<br/>
+Revised test for energy conservation at small mass flow rates.
+See <a href=https://github.com/ibpsa/modelica-ibpsa/issues/741>#741</a>.
+</li>
+<li>
 October 23, 2016, by Filip Jorissen:<br/>
 Added test for energy conservation at small mass flow rates.
 </li>
