@@ -50,12 +50,12 @@ equation
     pDis = pCon + pDro;
     // Refrigerant mass flow rate
     k = ref.isentropicExponentVap_Tv(TSuc, vSuc);
-    m_flow = if shut_off then 0 else
-      pisDis_norm * pisDis/vSuc * (1+cleFac-cleFac*(PR)^(1/k));
+    m_flow =if pressure_error then 0 else pisDis_norm*pisDis/vSuc*(1 + cleFac
+       - cleFac*(PR)^(1/k));
     // Theoretical power of the compressor
     PThe = k/(k-1) * m_flow*pSuc*vSuc*((PR)^((k-1)/k)-1);
     // Power consumed by the compressor
-    P = if shut_off then 0 else PThe / etaEle + PLos;
+    P =if pressure_error then 0 else PThe/etaEle + PLos;
     // Temperature at suction of the compressor
     TSuc = port_a.T + dTSup;
     // Energy balance of the compressor

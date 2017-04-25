@@ -59,7 +59,8 @@ equation
     pDis = pCon;
     // Refrigerant mass flow rate
     mLea_flow = leaCoe*PR;
-    m_flow = if shut_off then 0 else v_norm * Buildings.Utilities.Math.Functions.smoothMax(
+    m_flow =if pressure_error then 0 else v_norm*
+      Buildings.Utilities.Math.Functions.smoothMax(
       V_flow_nominal/vSuc - mLea_flow,
       1e-5*V_flow_nominal/vSuc,
       1e-6*V_flow_nominal/vSuc);
@@ -77,7 +78,7 @@ equation
     TSuc = port_a.T + dTSup;
 
     // Power consumed by the compressor
-    P = if shut_off then 0 else (PThe / etaEle + PLos);
+    P =if pressure_error then 0 else (PThe/etaEle + PLos);
 
     // Energy balance of the compressor
      port_a.Q_flow = m_flow * (hEva - hCon);

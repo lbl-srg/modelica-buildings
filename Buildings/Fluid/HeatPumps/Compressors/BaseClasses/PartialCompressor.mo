@@ -57,7 +57,7 @@ protected
   Real PR(min = 0.0, unit = "1", start = 2.0)
     "Pressure ratio";
 
-  Boolean shut_off(fixed=true, start=false)
+  Boolean pressure_error(fixed=true, start=false)
     "Shutdown signal for invalid pressure ratios";
 
 equation
@@ -72,11 +72,7 @@ equation
   PR = max(pDis/pSuc, 0);
   // The compressor is turned off if the resulting condensing pressure is lower
   // than the evaporating pressure
-  when PR <= 1.0 then
-    shut_off = true;
-  elsewhen PR > 1.01 then
-    shut_off = false;
-  end when;
+  pressure_error = (pre(pressure_error) and PR <= 1.01) or (not pre(pressure_error) and PR <= 1.0);
 
   // The specific volume at suction of the compressor is calculated
   // from the Martin-Hou equation of state
@@ -153,6 +149,13 @@ refrigerant mass flow is not accounted for and heat ports are used instead of fl
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 25, 2017, by Michael Wetter:<br/>
+Reformulated <code>when</code> condition and moved common assignments
+to this base class.<br/>
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/739\">#739</a>.
+</li>
 <li>
 November 11, 2016, by Massimo Cimmino:<br/>
 First implementation of this base class.
