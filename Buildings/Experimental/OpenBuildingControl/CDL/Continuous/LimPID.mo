@@ -299,10 +299,6 @@ blocks inside the PID controller are initialized according to the following tabl
       <td valign=\"top\">NoInit</td>
       <td valign=\"top\">NoInit</td></tr>
 
-  <tr><td valign=\"top\"><code>SteadyState</code></td>
-      <td valign=\"top\">SteadyState</td>
-      <td valign=\"top\">SteadyState</td></tr>
-
   <tr><td valign=\"top\"><code>InitialState</code></td>
       <td valign=\"top\">InitialState</td>
       <td valign=\"top\">InitialState</td></tr>
@@ -310,33 +306,9 @@ blocks inside the PID controller are initialized according to the following tabl
   <tr><td valign=\"top\"><code>InitialOutput</code><br/>
           and initial equation: y = y_start</td>
       <td valign=\"top\">NoInit</td>
-      <td valign=\"top\">SteadyState</td></tr>
+      <td valign=\"top\">InitialOutput</td></tr>
 
 </table>
-
-<p>
-In many cases, the most useful initial condition is
-<code>SteadyState</code> because initial transients are then no longer
-present. If initType = Init.SteadyState, then in some
-cases difficulties might occur. The reason is the
-equation of the integrator:
-</p>
-
-<pre>
-   <code>der</code>(y) = k*u;
-</pre>
-
-<p>
-The steady state equation <code>der(x)=0</code> leads to the condition that the input u to the
-integrator is zero. If the input u is already (directly or indirectly) defined
-by another initial condition, then the initialization problem is <code>singular</code>
-(has none or infinitely many solutions). This situation occurs often
-for mechanical systems, where, e.g., u = desiredSpeed - measuredSpeed and
-since speed is both a state and a derivative, it is natural to
-initialize it with zero. As sketched this is, however, not possible.
-The solution is to not initialize u_m or the variable that is used
-to compute u_m by an algebraic equation.
-</p>
 
 </html>", revisions="<html>
 <ul>
