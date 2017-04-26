@@ -373,7 +373,7 @@ January 2, 2017, by Filip Jorissen:<br/>
 Removed option for choosing what temperature
 should be used to compute the Carnot efficiency.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/497\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/497\">
 issue 497</a>.
 </li>
 <li>

@@ -159,7 +159,7 @@ which generally leads to better numeric performance.
 March 15, 2016, by Michael Wetter:<br/>
 Replaced <code>spliceFunction</code> with <code>regStep</code>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/300\">issue 300</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/300\">issue 300</a>.
 </li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>

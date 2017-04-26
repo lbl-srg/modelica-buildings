@@ -176,7 +176,7 @@ twice in the system model with the appropriate control settings.
 <li>
 October 10, 2016, by Michael Wetter:<br/>
 Added full path in the type declaration.<br/>
-This is for <a href=\"https://github.com/ibpsa/modelica/issues/540\">issue 540</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/540\">issue 540</a>.
 </li>
 <li>
 October 3, 2016, by Michael Wetter:<br/>

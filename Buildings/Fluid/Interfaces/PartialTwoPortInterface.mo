@@ -73,7 +73,7 @@ Buildings.Fluid.Movers.FlowControlled_m_flow</a>
 which leads to an error as the definition were different,
 and also renamed protected parameter <code>dp_start</code>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/552\">#552</a>
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/552\">#552</a>
 <br/>
 Moved computation of pressure drop to variable assignment so that
 the model won't mix graphical with textual modeling if used as a base
@@ -84,13 +84,13 @@ November 3, 2016, by Michael Wetter:<br/>
 Removed start values for mass flow rate and pressure difference
 to simplify the parameter window.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/552\">#552</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/552\">#552</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 October 3, 2014, by Michael Wetter:<br/>

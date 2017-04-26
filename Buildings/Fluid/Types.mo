@@ -89,7 +89,7 @@ Note that for a given heat exchanger, the
 March 27, 2017, by Michael Wetter:<br/>
 Added <code>ConstantTemperaturePhaseChange</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/694\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/694\">
 Buildings #694</a>.
 </li>
 <li>
@@ -134,7 +134,7 @@ The following heat exchanger flow regimes are available in this enumeration:
 March 27, 2017, by Michael Wetter:<br/>
 Added <code>ConstantTemperaturePhaseChange</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/694\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/694\">
 Buildings #694</a>.
 </li>
 <li>

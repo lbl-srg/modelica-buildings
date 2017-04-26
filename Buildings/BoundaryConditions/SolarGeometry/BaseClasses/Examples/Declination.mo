@@ -36,7 +36,7 @@ equation
 January 6, 2015, by Michael Wetter:<br/>
 Updated documentation and added validation.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/382\">issue 382</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/382\">issue 382</a>.
 </li>
 <li>
 May 17, 2010, by Wangda Zuo:<br/>

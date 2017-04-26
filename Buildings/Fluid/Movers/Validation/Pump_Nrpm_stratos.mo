@@ -270,7 +270,7 @@ revisions="<html>
 June 6, 2015, by Michael Wetter:<br/>
 Removed dublicate <code>experiment</code> annotation.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/266\">#266</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/266\">#266</a>.
 </li>
 <li>
 November 26, 2014, by Filip Jorissen:<br/>

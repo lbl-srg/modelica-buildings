@@ -24,7 +24,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/C
 January 12, 2017, by Thierry S. Nouidui:<br/>
 Modified example to prevent simultaneous events
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/646\">#646</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/646\">#646</a>.
 </li>
 <li>
 November 21, 2011, by Michael Wetter:<br/>

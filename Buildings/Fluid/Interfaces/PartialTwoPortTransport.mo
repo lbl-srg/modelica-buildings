@@ -126,13 +126,13 @@ September 15, 2016, by Michael Wetter:<br/>
 Removed wrong annotation, which caused an error in the pedantic model check
 of Dymola 2017 FD01.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/516\">#516</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/516\">#516</a>.
 </li>
 <li>
 January 22, 2016, by Henning Francke:<br/>
 Corrected type declaration of pressure.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 November 19, 2015, by Michael Wetter:<br/>
@@ -140,14 +140,14 @@ Removed assignments of parameters
 <code>port_a_exposesState</code> and
 <code>port_b_exposesState</code> in base class.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/351\">#351</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/351\">#351</a>.
 </li>
 <li>
 August 15, 2015, by Filip Jorissen:<br/>
 Implemented more efficient computation of <code>port_a.Xi_outflow</code>
 and <code>port_a.C_outflow</code> when <code>allowFlowReversal=false</code>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/305\">#305</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/305\">#305</a>.
 </li>
 <li>
 June 6, 2015, by Michael Wetter:<br/>
@@ -155,7 +155,7 @@ Removed protected conditional variables <code>state_a</code> and <code>state_b</
 as they were used outside of a connect statement, which causes an
 error during pedantic model check in Dymola 2016.
 This fixes
-<a href=\"https://github.com/ibpsa/modelica/issues/128\">#128</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/128\">#128</a>.
 </li>
 <li>
 April 1, 2015, by Michael Wetter:<br/>

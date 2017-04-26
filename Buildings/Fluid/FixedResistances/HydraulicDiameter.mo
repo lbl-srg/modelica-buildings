@@ -176,7 +176,7 @@ This leads to simpler equations.
 <li>
 December 1, 2016, by Michael Wetter:<br/>
 First implementation for
-<a href=\"https://github.com/ibpsa/modelica/issues/480\">#480</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/480\">#480</a>.
 </li>
 </ul>
 </html>"),
