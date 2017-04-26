@@ -23,8 +23,6 @@ type Init = enumeration(
 April 25, 2017, by Jianjun Hu:<br/>
 Removed SteadyState initialization type so to avoid global analysis when implementing it in CDL.
 </li>
-</ul>
-<ul>
 <li>
 March 23, 2017, by Jianjun Hu:<br/>
 First implementation.
