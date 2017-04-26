@@ -2,47 +2,30 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model LogicalSwitch "Validation model for the LogicalSwitch block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc1(
-    cycleOn = true,
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul1(
+    width = 0.7,
     period = 1.5)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,24},{-6,44}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=0.7)
-   "Constant as source term"
-    annotation (Placement(transformation(extent={{-76,24},{-56,44}})));
-
-   Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc2(
-     cycleOn = true, period=3)
+   Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul2(
+     width = 0.5, period=3)
      "Block that outputs cyclic on and off: switch between u1 and u3"
      annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
-   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons2(k=0.5)
-    "Constant as source term"
-     annotation (Placement(transformation(extent={{-76,-10},{-56,10}})));
-
-   Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc3(
-     cycleOn = true, period=5)
+   Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul3(
+     width = 0.5, period=5)
      "Block that outputs cyclic on and off"
      annotation (Placement(transformation(extent={{-26,-46},{-6,-26}})));
-   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons3(k=0.5)
-    "Constant as source term"
-     annotation (Placement(transformation(extent={{-76,-46},{-56,-26}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.LogicalSwitch logicalSwitch
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
 
 equation
-  connect(cons1.y, dutCyc1.u)
-    annotation (Line(points={{-55,34},{-41.5,34},{-28,34}}, color={0,0,127}));
-   connect(cons2.y, dutCyc2.u)
-     annotation (Line(points={{-55,0},{-28,0}},     color={0,0,127}));
-  connect(cons3.y, dutCyc3.u)
-    annotation (Line(points={{-55,-36},{-28,-36}}, color={0,0,127}));
-  connect(dutCyc2.y, logicalSwitch.u2)
+  connect(booPul2.y, logicalSwitch.u2)
     annotation (Line(points={{-5,0},{10,0},{24,0}}, color={255,0,255}));
-  connect(dutCyc1.y, logicalSwitch.u1) annotation (Line(points={{-5,34},{10,34},{10,
+  connect(booPul1.y, logicalSwitch.u1) annotation (Line(points={{-5,34},{10,34},{10,
           8},{24,8}}, color={255,0,255}));
-  connect(dutCyc3.y, logicalSwitch.u3) annotation (Line(points={{-5,-36},{10,-36},
+  connect(booPul3.y, logicalSwitch.u3) annotation (Line(points={{-5,-36},{10,-36},
           {10,-8},{24,-8}}, color={255,0,255}));
   annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),

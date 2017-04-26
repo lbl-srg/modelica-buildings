@@ -3,7 +3,7 @@ model OnOffController
   "Validation model for the OnOffController block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
     duration=5,
     offset=0,
     height=31.415926) "Block that generates ramp signal"

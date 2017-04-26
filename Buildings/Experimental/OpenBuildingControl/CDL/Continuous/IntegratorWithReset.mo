@@ -12,7 +12,7 @@ block IntegratorWithReset "Output the integral of the input signal"
      and therefore this setting is backward compatible
   */
   parameter Types.Init initType=Types.Init.InitialState
-    "Type of initialization (1: no init, 2: steady state, 3,4: initial output)"
+    "Type of initialization (1: no init, 2: initial state, 3: initial output)"
     annotation(Evaluate=true,
       Dialog(group="Initialization"));
 
@@ -51,9 +51,7 @@ protected
     "Needed to use conditional connector trigger";
 
 initial equation
-  if initType == Types.Init.SteadyState then
-     der(y) = 0;
-  elseif initType == Types.Init.InitialState or
+  if initType == Types.Init.InitialState or
          initType == Types.Init.InitialOutput then
     y = y_start;
   end if;

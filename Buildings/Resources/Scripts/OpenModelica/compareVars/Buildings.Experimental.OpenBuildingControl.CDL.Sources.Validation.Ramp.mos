@@ -1,4 +1,4 @@
 compareVars :=
   {
-    "dutCyc.y"
+    "ram.y"
   };

@@ -6,7 +6,7 @@ model FirstOrderHold "Example model for the FirstOrderHold block"
     samplePeriod = 0.2)
     "Block that first order hold of a sampled-data system"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
     duration=1,
     offset=0,
     height=6.2831852) "Block that generates ramp signal"

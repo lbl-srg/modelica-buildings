@@ -12,7 +12,6 @@ block Greater "Output y is true, if input u1 is greater than input u2"
 
 equation
   y = u1 > u2;
-
   annotation (
         defaultComponentName="gre",
         Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,

@@ -9,5 +9,4 @@ info="<html>
 Package with blocks that generate sources for the signals.
 </p>
 </html>"));
-
 end Sources;

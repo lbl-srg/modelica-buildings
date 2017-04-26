@@ -1,7 +1,7 @@
-within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
+within Buildings.Experimental.OpenBuildingControl.CDL.Sources;
 block Ramp "Generate ramp signal"
   parameter Real height=1 "Height of ramps";
-  parameter Modelica.SIunits.Time duration(min=Constants.eps)
+  parameter Modelica.SIunits.Time duration(min=Constants.small)
     "Duration of ramp (= 0.0 gives a Step)";
   parameter Real offset=0 "Offset of output signal";
   parameter Modelica.SIunits.Time startTime=0
@@ -53,13 +53,10 @@ The Real output y is a ramp signal:
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/Ramp.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Sources/Ramp.png\"
      alt=\"Ramp.png\" />
 </p>
 
-<p>
-If parameter <code>duration</code> is set to <code>0</code>, the limiting case of a step signal is achieved.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

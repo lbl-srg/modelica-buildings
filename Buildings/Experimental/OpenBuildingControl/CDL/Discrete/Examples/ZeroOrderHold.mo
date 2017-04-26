@@ -6,7 +6,7 @@ model ZeroOrderHold "Example model for the ZeroOrderHold block"
     samplePeriod = 0.2)
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
     duration=1,
     offset=0,
     height=6.2831852) "Block that generates ramp signal"

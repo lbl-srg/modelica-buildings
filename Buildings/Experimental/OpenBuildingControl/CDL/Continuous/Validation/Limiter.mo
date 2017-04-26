@@ -7,7 +7,7 @@ extends Modelica.Icons.Example;
     uMin = 1.2)
     "Block that limit the range of a signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
     duration=1,
     offset=0,
     height=4) "Block that generates ramp signal"
