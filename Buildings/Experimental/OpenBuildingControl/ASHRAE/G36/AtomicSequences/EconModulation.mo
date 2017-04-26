@@ -86,7 +86,7 @@ model EconModulation "Based on supply air temperature (SAT) setpoint and measure
   CDL.Continuous.Add add(k1=1, k2=-2)
     "A workaround to deduct 2degC from the cooling SAT in case the cooling signal is present."
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  CDL.Conversions.BooleanToReal booToRea
+  CDL.Conversions.BooleanToReal typeConverter
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(TSup,damPosController. u_m) annotation (Line(points={{-120,40},{-46,
@@ -140,10 +140,10 @@ equation
                      color={0,0,127}));
   connect(add.y,damPosController. u_s) annotation (Line(points={{-59,70},{-40,
           70},{-40,-30},{-22,-30}}, color={0,0,127}));
-  connect(coolingZoneState.y, booToRea.u) annotation (Line(points={{-59,0},{-52,
-          0},{-52,16},{-90,16},{-90,30},{-82,30}}, color={255,0,255}));
-  connect(booToRea.y, add.u2) annotation (Line(points={{-59,30},{-50,30},{-50,
-          50},{-90,50},{-90,64},{-82,64}}, color={0,0,127}));
+  connect(coolingZoneState.y, typeConverter.u) annotation (Line(points={{-59,0},
+          {-52,0},{-52,16},{-90,16},{-90,30},{-82,30}}, color={255,0,255}));
+  connect(typeConverter.y, add.u2) annotation (Line(points={{-59,30},{-50,30},{
+          -50,50},{-90,50},{-90,64},{-82,64}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ecoMod",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
