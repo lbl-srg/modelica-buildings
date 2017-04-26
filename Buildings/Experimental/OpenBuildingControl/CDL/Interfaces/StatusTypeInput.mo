@@ -1,6 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Interfaces;
-connector StatusTypeInput =
-                      input Types.Status
+connector StatusTypeInput = input Types.Status
                       "fixme Input connector for a value of type Status." annotation (
   defaultComponentName="u",
   Icon(graphics={

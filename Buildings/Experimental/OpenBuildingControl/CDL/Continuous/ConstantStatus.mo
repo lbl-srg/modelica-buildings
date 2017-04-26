@@ -2,11 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block ConstantStatus "Output constant signal of type Status"
 
   parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.Status refSta
-    "Array where each element is a freeze protection stage indicator";
-//     refSta={Buildings.Experimental.OpenBuildingControl.CDL.Types.Status.FreezeProtectionStage0,
-//       Buildings.Experimental.OpenBuildingControl.CDL.Types.Status.FreezeProtectionStage1,
-//       Buildings.Experimental.OpenBuildingControl.CDL.Types.Status.FreezeProtectionStage2,
-//       Buildings.Experimental.OpenBuildingControl.CDL.Types.Status.FreezeProtectionStage3}
+    "Select a freeze protection stage";
 
    Interfaces.StatusTypeOutput yFreProSta "Connector of Status type output signal"
      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
