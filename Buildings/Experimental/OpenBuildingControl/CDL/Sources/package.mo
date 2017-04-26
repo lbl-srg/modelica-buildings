@@ -2,10 +2,6 @@ within Buildings.Experimental.OpenBuildingControl.CDL;
 package Sources "Package with blocks that generate source signals"
 extends Modelica.Icons.SourcesPackage;
 
-
-
-
-
 annotation (
 Documentation(
 info="<html>
