@@ -73,10 +73,13 @@ model ReciprocatingWaterToWater_VariableSpeed
         pDro=99290)) "Reciprocating water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Modelica.Blocks.Sources.Trapezoid
-                               N(
+  Modelica.Blocks.Sources.Trapezoid N(
     startTime=100,
-    offset=0.0) "Heat pump control signal"
+    offset=0.0,
+    rising=200,
+    width=200,
+    falling=200,
+    period=1000) "Heat pump control signal"
     annotation (Placement(transformation(extent={{-52,-26},{-40,-14}})));
   Modelica.Blocks.Sources.Constant TLoa(k=285.15) "Load side temperature"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
@@ -106,7 +109,7 @@ equation
   annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_VariableSpeed.mos"
         "Simulate and plot"),
     experiment(
-      Tolerance=1e-6, StopTime=1000),
+      Tolerance=1e-6, StopTime=2000),
     Documentation(info="<html>
 <p>
 Model that demonstrates the use of the
