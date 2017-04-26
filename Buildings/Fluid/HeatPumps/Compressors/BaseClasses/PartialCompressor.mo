@@ -47,7 +47,7 @@ partial model PartialCompressor "Partial compressor model"
   Modelica.SIunits.Temperature TSuc
     "Temperature at suction of the compressor";
 
-  Boolean isOn(fixed=true, start=false)
+  Boolean isOn(fixed=false)
     "State of the compressor, true if turned on";
 
   Modelica.SIunits.SpecificVolume vSuc(start = 1e-4, min = 0)
@@ -60,12 +60,13 @@ protected
   Boolean pressure_error(fixed=true, start=false)
     "Shutdown signal for invalid pressure ratios";
 
+initial equation
+  isOn = if y > 0.01 then true else false;
+
 equation
-  when initial() then
-    isOn = if y > 0.01 then true else false;
-  elsewhen y > 0.01 then
+  when (not pre(isOn)) and y > 0.01 then
     isOn = true;
-  elsewhen y <= 0.0 then
+  elsewhen pre(isOn) and y <= 0.005 then
     isOn = false;
   end when;
 
@@ -151,7 +152,7 @@ refrigerant mass flow is not accounted for and heat ports are used instead of fl
 <ul>
 <li>
 April 25, 2017, by Michael Wetter:<br/>
-Reformulated <code>when</code> condition and moved common assignments
+Reformulated <code>when</code> conditions and moved common assignments
 to this base class.<br/>
 This is for
 <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/739\">#739</a>.
