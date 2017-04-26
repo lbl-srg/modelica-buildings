@@ -3,7 +3,7 @@ block BooleanPulse "Generate pulse signal of type Boolean"
 
   parameter Real width(
     final min=Constants.small,
-    final max=1,
+    final max=1-Constants.small,
     final unit = "1") = 0.5 "Width of pulse in fraction of period";
   parameter Modelica.SIunits.Time period(
     final min=Constants.small) "Time for one period";
@@ -14,9 +14,9 @@ block BooleanPulse "Generate pulse signal of type Boolean"
 
 protected
   parameter Modelica.SIunits.Time Twidth=period*width
-    "width of one pulse" annotation (HideResult=true);
-  discrete Modelica.SIunits.Time pulsStart "Start time of pulse"
-    annotation (HideResult=true);
+    "width of one pulse";
+  discrete Modelica.SIunits.Time pulsStart "Start time of pulse";
+
 initial equation
   pulsStart = startTime;
 equation
