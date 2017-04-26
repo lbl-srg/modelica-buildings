@@ -3,7 +3,7 @@ block Pulse "Generate pulse signal of type Real"
   parameter Real amplitude=1 "Amplitude of pulse";
   parameter Real width(
     final min=Constants.small,
-    final max=1,
+    final max=1-Constants.small,
     final unit = "1") = 0.5 "Width of pulse in fraction of period";
   parameter Modelica.SIunits.Time period(final min=Constants.small)
    "Time for one period";
