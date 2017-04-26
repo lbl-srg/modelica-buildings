@@ -3,7 +3,7 @@ block Pulse "Generate pulse signal of type Real"
   parameter Real amplitude=1 "Amplitude of pulse";
   parameter Real width(
     final min=Constants.small,
-    final max=1-Constants.small,
+    final max=1,
     final unit = "1") = 0.5 "Width of pulse in fraction of period";
   parameter Modelica.SIunits.Time period(final min=Constants.small)
    "Time for one period";
@@ -19,9 +19,9 @@ protected
   Modelica.SIunits.Time T_width=period*width "Pulse duration time";
   Modelica.SIunits.Time T_start "Start time of current period";
   Integer count "Period count";
-initial algorithm
-  count := integer((time - startTime)/period);
-  T_start := startTime + count*period;
+initial equation
+  count = integer((time - startTime)/period);
+  T_start = startTime + count*period;
 equation
   when integer((time - startTime)/period) > pre(count) then
     count = pre(count) + 1;

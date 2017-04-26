@@ -1,7 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Sources;
 block Ramp "Generate ramp signal"
   parameter Real height=1 "Height of ramps";
-  parameter Modelica.SIunits.Time duration(min=Constants.eps)
+  parameter Modelica.SIunits.Time duration(min=Constants.small)
     "Duration of ramp (= 0.0 gives a Step)";
   parameter Real offset=0 "Offset of output signal";
   parameter Modelica.SIunits.Time startTime=0
