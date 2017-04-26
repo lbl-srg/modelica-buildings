@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps.Compressors.BaseClasses;
-model PartialCompressor "Partial compressor model"
+partial model PartialCompressor "Partial compressor model"
 
   replaceable package ref = Buildings.Media.Refrigerants.R410A
     "Refrigerant in the component"
@@ -38,17 +38,47 @@ model PartialCompressor "Partial compressor model"
   Modelica.SIunits.AbsolutePressure pCon(start = 1000e3)
     "Pressure of saturated liquid at condenser temperature";
 
-  Boolean isOn(fixed=true, start=false)
+  Modelica.SIunits.AbsolutePressure pDis(start = 1000e3)
+    "Discharge pressure of the compressor";
+
+  Modelica.SIunits.AbsolutePressure pSuc(start = 100e3)
+    "Suction pressure of the compressor";
+
+  Modelica.SIunits.Temperature TSuc
+    "Temperature at suction of the compressor";
+
+  Boolean isOn(fixed=false)
     "State of the compressor, true if turned on";
 
+  Modelica.SIunits.SpecificVolume vSuc(start = 1e-4, min = 0)
+    "Specific volume of the refrigerant at suction of the compressor";
+
+protected
+  Real PR(min = 0.0, unit = "1", start = 2.0)
+    "Pressure ratio";
+
+  Boolean pressure_error(fixed=true, start=false)
+    "Shutdown signal for invalid pressure ratios";
+
+initial equation
+  isOn = if y > 0.01 then true else false;
+
 equation
-  when initial() then
-    isOn = if y > 0.01 then true else false;
-  elsewhen y > 0.01 then
+  when (not pre(isOn)) and y > 0.01 then
     isOn = true;
-  elsewhen y <= 0.0 then
+  elsewhen pre(isOn) and y <= 0.005 then
     isOn = false;
   end when;
+
+  PR = max(pDis/pSuc, 0);
+  // The compressor is turned off if the resulting condensing pressure is lower
+  // than the evaporating pressure
+  pressure_error = (pre(pressure_error) and PR <= 1.01) or (not pre(pressure_error) and PR <= 1.0);
+
+  // The specific volume at suction of the compressor is calculated
+  // from the Martin-Hou equation of state
+  vSuc = ref.specificVolumeVap_pT(pSuc, TSuc);
+
 
   // Saturation pressure of refrigerant vapor at condenser temperature
   pCon = ref.pressureSatVap_T(port_b.T);
@@ -120,6 +150,13 @@ refrigerant mass flow is not accounted for and heat ports are used instead of fl
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 25, 2017, by Michael Wetter:<br/>
+Reformulated <code>when</code> conditions and moved common assignments
+to this base class.<br/>
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/739\">#739</a>.
+</li>
 <li>
 November 11, 2016, by Massimo Cimmino:<br/>
 First implementation of this base class.
