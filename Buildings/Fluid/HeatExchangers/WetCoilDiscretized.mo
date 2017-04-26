@@ -14,7 +14,7 @@ model WetCoilDiscretized
   Modelica.SIunits.HeatFlowRate QSen2_flow = Q2_flow - QLat2_flow
     "Sensible heat input into air stream (negative if air is cooled)";
 
-  Modelica.SIunits.HeatFlowRate QLat2_flow =
+  Modelica.SIunits.HeatFlowRate QLat2_flow=
     Buildings.Utilities.Psychrometrics.Constants.h_fg * mWat_flow
     "Latent heat input into air (negative if air is dehumidified)";
 
@@ -56,6 +56,18 @@ Modelica.Media.Air.MoistAir</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2017, by David Blum:<br/>
+Added heat of condensation to coil surface heat balance
+and removed it from the air stream.
+This gives higher coil surface temperature and avoids
+overestimating the latent heat ratio that was
+observed in the previous implementation.
+The code change was in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent\">
+Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent</a>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/711\">#711</a>.
+</li>
 <li>
 April 12, 2017, by Michael Wetter:<br/>
 Added new variables <code>QSen2_flow</code>, <code>QLat2_flow</code> and <code>SHR</code>.
