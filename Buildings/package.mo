@@ -239,6 +239,20 @@ its class name ends with the string <code>Beta</code>.
                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.WetCoilCounterFlow<br/>
+                          Buildings.Fluid.HeatExchangers.WetCoilDiscretized<br/>
+                          Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent
+       </td>
+       <td valign=\"top\">Added heat of condensation to coil surface heat balance
+                          and removed it from the air stream.
+                          This gives higher coil surface temperature and avoids
+                          overestimating the latent heat ratio that was
+                          observed in the previous implementation.
+                          The code change was in
+                          <code>Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent</code><br/>
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/711\">#711</a>.
+       </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil
        </td>
        <td valign=\"top\">Corrected coefficient for temperature-dependency correction

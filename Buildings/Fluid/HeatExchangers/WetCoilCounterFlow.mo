@@ -11,7 +11,7 @@ model WetCoilCounterFlow
     "Sensible heat input into air stream (negative if air is cooled)";
 
   Modelica.SIunits.HeatFlowRate QLat2_flow=
-    sum(Medium2.enthalpyOfCondensingGas(ele[i].vol2.heatPort.T)*ele[i].vol2.mWat_flow for i in 1:nEle)
+    Buildings.Utilities.Psychrometrics.Constants.h_fg * mWat_flow
     "Latent heat input into air (negative if air is dehumidified)";
 
   Real SHR(
@@ -74,7 +74,23 @@ Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </html>", revisions="<html>
 <ul>
 <li>
+April 14, 2017, by David Blum:<br/>
+Added heat of condensation to coil surface heat balance
+and removed it from the air stream.
+This gives higher coil surface temperature and avoids
+overestimating the latent heat ratio that was
+observed in the previous implementation.
+The code change was in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent\">
+Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent</a>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/711\">#711</a>.
+</li>
+<li>
 April 11, 2017, by Michael Wetter:<br/>
+Changed computation of <code>QLat_flow</code> to be consistent with
+how it is computed in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent\">
+Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent</a>.<br/>
 Moved variable assignments out of equation section to avoid mixing
 textual and graphical modeling in equation section.
 </li>
