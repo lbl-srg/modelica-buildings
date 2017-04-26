@@ -10,5 +10,6 @@ compareVars :=
     "heaPum.QEva_flow",
     "heaPum.P",
     "heaPum.com.COP",
-    "heaPum.com.y"
+    "heaPum.com.y",
+    "heaPum.com.isOn"
   };
