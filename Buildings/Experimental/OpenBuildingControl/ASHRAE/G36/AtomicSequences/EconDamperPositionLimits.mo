@@ -32,13 +32,13 @@ model EconDamperPositionLimits "Based on measured and requred minimum outdoor ai
     "Physical or at the comissioning fixed minimum position of the economizer damper - economizer damper closed. Assuming VOut = 0 at this condition. This is the initial position of the economizer damper. fixme: It should always be 0 (pp), should we define this as final?"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
   CDL.Continuous.LimPID minOutAirDamPosController(
-    controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PID,
     Ti=0.9,
     Td=0.1,
     Nd=1,
     k=0.02,
     yMax=yConSigMax,
-    yMin=yConSigMin)
+    yMin=yConSigMin,
+    controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI)
     "Contoller that outputs a signal based on the error between the measured outdoor airflow and the minimum outdoor airflow requirement."
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
 
@@ -99,9 +99,10 @@ model EconDamperPositionLimits "Based on measured and requred minimum outdoor ai
 equation
   connect(uVOut,minOutAirDamPosController. u_m)
     annotation (Line(points={{-200,80},{-90,80},{-90,98}}, color={0,0,127}));
-  connect(uSupFan, nand.u1) annotation (Line(points={{-200,40},{-96,40},{-96,30},
-          {-82,30}},  color={255,0,255}));
-  connect(uAHUMod, nand.u2) annotation (Line(points={{-200,0},{-96,0},{-96,22},
+  connect(uSupFan, nand.u1) annotation (Line(points={{-200,40},{-100,40},{-100,
+          30},{-82,30}},
+                      color={255,0,255}));
+  connect(uAHUMod, nand.u2) annotation (Line(points={{-200,0},{-100,0},{-100,22},
           {-82,22}},       color={255,0,255}));
   connect(nand.y, outDamPosMax.u2) annotation (Line(points={{-59,30},{-50,30},{
           -50,-110},{-22,-110}},  color={255,0,255}));

@@ -9,8 +9,8 @@ model EconEnableDisable "Economizer enable/disable switch"
             120},{-100,160}}), iconTransformation(extent={{-140,120},{-100,160}})));
   CDL.Interfaces.RealOutput yOutDamPosMax(min=0, max=1)
     "Output sets maximum allowable economizer damper position. Fixme: Should this remain as type real? Output can take two values: disable = yOutDamPosMin and enable = yOutDamPosMax."
-    annotation (Placement(transformation(extent={{100,42},{138,80}}),
-        iconTransformation(extent={{100,42},{138,80}})));
+    annotation (Placement(transformation(extent={{100,40},{138,78}}),
+        iconTransformation(extent={{100,40},{138,78}})));
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1)
     "Minimal economizer damper position, output from a separate sequence."
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
@@ -43,15 +43,13 @@ equation
   connect(TOut, hysTOut.u) annotation (Line(points={{-120,140},{-114,140},{-62,
           140}}, color={0,0,127}));
   connect(assignDamPos.y, yOutDamPosMax) annotation (Line(points={{81,20},{81,
-          20},{90,20},{90,60},{106,60},{106,61},{119,61}},
+          20},{90,20},{90,60},{106,60},{106,59},{119,59}},
                                                        color={0,0,127}));
   connect(uOutDamPosMax, assignDamPos.u3) annotation (Line(points={{-120,0},{
           -30,0},{-30,12},{58,12}},
                               color={0,0,127}));
   connect(uOutDamPosMin, assignDamPos.u1) annotation (Line(points={{-120,40},{-30,
           40},{-30,28},{58,28}}, color={0,0,127}));
-  connect(freezeProtectionStage0.y, compareFreProSig.uFreProStaRef) annotation (
-     Line(points={{-59,80},{-50,80},{-50,92},{-42,92}},   color={255,85,85}));
   connect(uFreezeProtectionStatus, compareFreProSig.uFreProSta) annotation (
       Line(points={{-120,100},{-120,100},{-42,100}},color={255,85,85}));
   connect(compareFreProSig.y, not2.u) annotation (Line(points={{-19,100},{-10,
@@ -65,6 +63,9 @@ equation
   connect(or2.y, assignDamPos.u2) annotation (Line(points={{61,80},{60,80},{60,
           20},{58,20}},
                     color={255,0,255}));
+  connect(freezeProtectionStage0.yFreProSta, compareFreProSig.uFreProStaRef)
+    annotation (Line(points={{-59,80},{-50,80},{-50,92},{-42,92}}, color={255,
+          85,85}));
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=false,

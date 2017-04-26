@@ -15,7 +15,7 @@ model EconModulation "Based on supply air temperature (SAT) setpoint and measure
     slightly lower than the TCoo [PART5.P.3.b]."
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
                                   //fixme brakes the validation, introduce when ready (unit="K", displayUnit="degC")
-  CDL.Continuous.LimPID DamPosController(
+  CDL.Continuous.LimPID damPosController(
     yMax=1,
     yMin=0,
     Td=0.1,
@@ -44,10 +44,10 @@ model EconModulation "Based on supply air temperature (SAT) setpoint and measure
   CDL.Continuous.Line RetDamPos(limitBelow=true, limitAbove=true)
     "Damper position is linearly proportional to the control signal."
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
-  CDL.Continuous.Constant minSignalLimit(k=DamPosController.yMin)
+  CDL.Continuous.Constant minSignalLimit(k=damPosController.yMin)
     "Identical to controller parameter - Lower limit of output."
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  CDL.Continuous.Constant maxSignalLimit(k=DamPosController.yMax)
+  CDL.Continuous.Constant maxSignalLimit(k=damPosController.yMax)
     "Identical to controller parameter - Upper limit of output."
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   CDL.Interfaces.RealInput uHea(min=0, max=1)
@@ -91,7 +91,7 @@ model EconModulation "Based on supply air temperature (SAT) setpoint and measure
   CDL.Conversions.IntegerToReal integerToReal
     annotation (Placement(transformation(extent={{-80,36},{-60,56}})));
 equation
-  connect(TSup, DamPosController.u_m) annotation (Line(points={{-120,40},{-46,
+  connect(TSup,damPosController. u_m) annotation (Line(points={{-120,40},{-46,
           40},{-46,-30},{-10,-30},{-10,-22}}, color={0,0,127}));
   connect(outDamPos.y, yOutDamPos) annotation (Line(points={{81,10},{90,10},{90,
           -20},{110,-20}}, color={0,0,127}));
@@ -99,11 +99,11 @@ equation
           20},{110,20}}, color={0,0,127}));
   connect(maxSignalLimit.y, RetDamPos.x2) annotation (Line(points={{1,30},{30,
           30},{30,46},{58,46}}, color={0,0,127}));
-  connect(DamPosController.y, RetDamPos.u) annotation (Line(points={{1,-10},{20,
+  connect(damPosController.y, RetDamPos.u) annotation (Line(points={{1,-10},{20,
           -10},{20,50},{58,50}}, color={0,0,127}));
   connect(minSignalLimit.y, outDamPos.x1) annotation (Line(points={{1,70},{40,
           70},{40,18},{58,18}}, color={0,0,127}));
-  connect(DamPosController.y, outDamPos.u) annotation (Line(points={{1,-10},{30,
+  connect(damPosController.y, outDamPos.u) annotation (Line(points={{1,-10},{30,
           -10},{30,10},{58,10}}, color={0,0,127}));
   connect(coolingZoneState.u, uCoo)
     annotation (Line(points={{-82,0},{-82,0},{-120,0}}, color={0,0,127}));
@@ -148,7 +148,7 @@ equation
                                            color={255,127,0}));
   connect(integerToReal.y, add.u2) annotation (Line(points={{-59,46},{-56,46},{
           -56,62},{-90,62},{-90,74},{-82,74}},          color={0,0,127}));
-  connect(add.y, DamPosController.u_s) annotation (Line(points={{-59,80},{-40,
+  connect(add.y,damPosController. u_s) annotation (Line(points={{-59,80},{-40,
           80},{-40,-10},{-22,-10}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ecoMod",
