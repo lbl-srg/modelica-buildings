@@ -4,3 +4,5 @@ ThermalZoneFluctuatingIHG_North
 ThermalZoneFluctuatingIHG_WithPorts
 MultiZoneFluctuatingIHG
 VAVBranch
+MultiZoneSupplySplitter
+MultiZoneReturnSplitter
