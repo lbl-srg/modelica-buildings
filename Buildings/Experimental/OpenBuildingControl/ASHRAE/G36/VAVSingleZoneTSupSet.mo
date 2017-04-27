@@ -43,8 +43,8 @@ block VAVSingleZoneTSupSet
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  CDL.Interfaces.RealOutput THea(unit="K", displayUnit="degC")
-    "Heating supply air temperature setpoint"
+  CDL.Interfaces.RealOutput THeaEco(unit="K", displayUnit="degC")
+    "Temperature setpoint for heating coil and for economizer"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
   CDL.Interfaces.RealOutput TCoo(unit="K", displayUnit="degC")
@@ -162,9 +162,8 @@ equation
   connect(offSetTSetHea.y, addTHe.u2) annotation (Line(points={{21,150},{21,150},
           {40,150},{40,164},{58,164}},
                                 color={0,0,127}));
-  connect(addTHe.y, THea)
-    annotation (Line(points={{81,170},{92,170},{92,60},{110,60}},
-                                                color={0,0,127}));
+  connect(addTHe.y, THeaEco) annotation (Line(points={{81,170},{92,170},{92,60},
+          {110,60}}, color={0,0,127}));
   connect(TSetCooHig.y, addTCoo.u1) annotation (Line(points={{21,110},{40,110},
           {40,96},{58,96}},
                           color={0,0,127}));
@@ -253,25 +252,28 @@ equation
     annotation (Line(points={{-12,-190},{-19,-190}}, color={0,0,127}));
   connect(TDea.u, TSetZon)
     annotation (Line(points={{-82,0},{-82,0},{-120,0}},  color={0,0,127}));
-  connect(con0.y, TSetHeaHig.x1) annotation (Line(points={{-59,190},{-52,190},{-52,
-          186},{0,186}}, color={0,0,127}));
-  connect(TDea.y, TSetHeaHig.f1) annotation (Line(points={{-59,0},{-52,0},{-52,182},
-          {0,182}}, color={0,0,127}));
-  connect(con05.y, TSetHeaHig.x2) annotation (Line(points={{-59,120},{-46,120},{
-          -46,198},{0,198}}, color={0,0,127}));
-  connect(conTMax.y, TSetHeaHig.f2) annotation (Line(points={{-59,30},{-40,30},{
-          -40,194},{0,194}}, color={0,0,127}));
+  connect(con0.y, TSetHeaHig.x1) annotation (Line(points={{-59,190},{-52,190},{
+          -52,198},{0,198}},
+                         color={0,0,127}));
+  connect(TDea.y, TSetHeaHig.f1) annotation (Line(points={{-59,0},{-52,0},{-52,
+          194},{0,194}},
+                    color={0,0,127}));
+  connect(con05.y, TSetHeaHig.x2) annotation (Line(points={{-59,120},{-46,120},
+          {-46,186},{0,186}},color={0,0,127}));
+  connect(conTMax.y, TSetHeaHig.f2) annotation (Line(points={{-59,30},{-40,30},
+          {-40,182},{0,182}},color={0,0,127}));
   connect(uHea, TSetHeaHig.u) annotation (Line(points={{-120,80},{-90,80},{-90,70},
           {-36,70},{-36,190},{0,190}}, color={0,0,127}));
   connect(TSetHeaHig.y, addTHe.u1) annotation (Line(points={{23,190},{40,190},{
           40,176},{58,176}},
                         color={0,0,127}));
   connect(con0.y, offSetTSetHea.x1) annotation (Line(points={{-59,190},{-56,190},
-          {-56,146},{-2,146}}, color={0,0,127}));
-  connect(con25.y, offSetTSetHea.x2) annotation (Line(points={{-59,160},{-54,160},
-          {-54,158},{-2,158}}, color={0,0,127}));
+          {-56,158},{-2,158}}, color={0,0,127}));
+  connect(con25.y, offSetTSetHea.x2) annotation (Line(points={{-59,160},{-54,
+          160},{-54,146},{-2,146}},
+                               color={0,0,127}));
   connect(con0.y, offSetTSetHea.f1) annotation (Line(points={{-59,190},{-56,190},
-          {-56,142},{-2,142}}, color={0,0,127}));
+          {-56,154},{-2,154}}, color={0,0,127}));
   connect(yHea.u, uHea) annotation (Line(points={{-22,-70},{-90,-70},{-90,80},{-120,
           80}}, color={0,0,127}));
   connect(TDea.y, TDeaTMin.u1) annotation (Line(points={{-59,0},{-40,0},{-40,-14},
@@ -280,28 +282,34 @@ equation
           -50,-26},{-22,-26}}, color={0,0,127}));
   connect(TDeaTMin.y, addTDea.u)
     annotation (Line(points={{1,-20},{-2,-20},{8,-20}}, color={0,0,127}));
-  connect(addTDea.y, offSetTSetHea.f2) annotation (Line(points={{31,-20},{34,-20},
-          {34,40},{-14,40},{-14,154},{-2,154}}, color={0,0,127}));
-  connect(TSetCooHig.x1, con05.y) annotation (Line(points={{-2,106},{-24,106},{-46,
-          106},{-46,120},{-59,120}}, color={0,0,127}));
-  connect(TSetCooHig.f1, TDea.y) annotation (Line(points={{-2,102},{-10,102},{-52,
-          102},{-52,0},{-59,0}}, color={0,0,127}));
-  connect(TSetCooHig.x2, con75.y) annotation (Line(points={{-2,118},{-8,118},{-44,
-          118},{-44,90},{-59,90}}, color={0,0,127}));
-  connect(TSetCooHig.f2, conTMin.y) annotation (Line(points={{-2,114},{-2,114},{
-          -50,114},{-50,-30},{-59,-30}}, color={0,0,127}));
-  connect(offSetTSetCoo.f1, con0.y) annotation (Line(points={{-2,62},{-56,62},{-56,
-          190},{-59,190}}, color={0,0,127}));
-  connect(offSetTSetCoo.x1, con0.y) annotation (Line(points={{-2,66},{-56,66},{-56,
-          70},{-56,190},{-59,190}}, color={0,0,127}));
-  connect(offSetTSetCoo.x2, con05.y) annotation (Line(points={{-2,78},{-10,78},{
-          -46,78},{-46,120},{-59,120}}, color={0,0,127}));
+  connect(addTDea.y, offSetTSetHea.f2) annotation (Line(points={{31,-20},{34,
+          -20},{34,40},{-14,40},{-14,142},{-2,142}},
+                                                color={0,0,127}));
+  connect(TSetCooHig.x1, con05.y) annotation (Line(points={{-2,118},{-24,118},{
+          -46,118},{-46,120},{-59,120}},
+                                     color={0,0,127}));
+  connect(TSetCooHig.f1, TDea.y) annotation (Line(points={{-2,114},{-10,114},{
+          -52,114},{-52,0},{-59,0}},
+                                 color={0,0,127}));
+  connect(TSetCooHig.x2, con75.y) annotation (Line(points={{-2,106},{-8,106},{
+          -44,106},{-44,90},{-59,90}},
+                                   color={0,0,127}));
+  connect(TSetCooHig.f2, conTMin.y) annotation (Line(points={{-2,102},{-2,114},
+          {-50,114},{-50,-30},{-59,-30}},color={0,0,127}));
+  connect(offSetTSetCoo.f1, con0.y) annotation (Line(points={{-2,74},{-56,74},{
+          -56,190},{-59,190}},
+                           color={0,0,127}));
+  connect(offSetTSetCoo.x1, con0.y) annotation (Line(points={{-2,78},{-56,78},{
+          -56,70},{-56,190},{-59,190}},
+                                    color={0,0,127}));
+  connect(offSetTSetCoo.x2, con05.y) annotation (Line(points={{-2,66},{-10,66},
+          {-46,66},{-46,120},{-59,120}},color={0,0,127}));
   connect(TMaxTDea.u1, conTMax.y) annotation (Line(points={{-22,26},{-40,26},{-40,
           30},{-59,30}}, color={0,0,127}));
   connect(TDea.y, TMaxTDea.u2) annotation (Line(points={{-59,0},{-40,0},{-40,14},
           {-22,14}}, color={0,0,127}));
   connect(TMaxTDea.y, offSetTSetCoo.f2) annotation (Line(points={{1,20},{10,20},
-          {10,50},{-10,50},{-10,74},{-2,74}}, color={0,0,127}));
+          {10,50},{-10,50},{-10,62},{-2,62}}, color={0,0,127}));
   annotation (
   defaultComponentName = "setPoiVAV",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -367,7 +375,7 @@ equation
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="THea"),
+          textString="THeaEco"),
         Text(
           extent={{68,12},{94,-10}},
           lineColor={0,0,127},
@@ -449,7 +457,8 @@ equation
           textString="0.5 < y < 0.75")}),
     Documentation(info="<html>
 <p>
-Block that outputs the set points for the supply air temperature for heating and cooling
+Block that outputs the set points for the supply air temperature for
+cooling, heating and economizer control,
 and the fan speed for a single zone VAV system.
 </p>
 <p>
@@ -462,8 +471,10 @@ for heating and cooling, as obtained from the input <code>TSetZon</code>,
 constraint to be within <i>21</i>&deg;C (&asymp;<i>70</i> F) and
 <i>24</i>&deg;C (&asymp;<i>75</i> F).
 The setpoints are computed as shown in the figure below.
-Note that the setpoint for the supply air temperature for heating is
-lower than <code>TMin</code>, as shown in the figure.
+Note that the setpoint for the supply air temperature for heating
+and for economizer control is the same, and this setpoint is
+lower than <code>TMin</code> when the heating loop signal
+is zero and the economizer is in cooling mode, as shown in the figure.
 </p>
 <p>
 For the fan speed set point, the
@@ -480,11 +491,21 @@ The figure below shows the sequence.
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/VAVSingleZoneTSupSet.png\"/>
 </p>
 <p>
+The output <code>TCoo</code> is to be used to control the cooling coil,
+and the output
+<code>THeaEco</code> is to be used to control the heating coil and the
+economizer dampers.
+</p>
+<p>
 Note that the inputs <code>uHea</code> and <code>uCoo</code> must be computed
-based on the same temperature sensors and control loops.
+based on the same temperature sensors and control loops
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 26, 2017, by Michael Wetter:<br/>
+Updated documentation and renamed output signal to <code>THeaEco</code>.
+</li>
 <li>
 January 10, 2017, by Michael Wetter:<br/>
 First implementation.
