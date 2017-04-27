@@ -583,7 +583,7 @@ Set start value and removed max attribute for <code>mEva_flow</code> as this can
 <li>
 May 24, 2016, by Filip Jorissen:<br/>
 Corrected implementation of wet bulb temperature computation.
-See  <a href=\"https://github.com/ibpsa/modelica/issues/474\">Annex60, #474</a>
+See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/474\">Annex60, #474</a>
 for a discussion.
 </li>
 <li>

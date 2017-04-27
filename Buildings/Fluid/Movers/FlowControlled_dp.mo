@@ -128,32 +128,32 @@ User's Guide</a> for more information.
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
 </li>
 <li>
 December 2, 2016, by Michael Wetter:<br/>
 Removed <code>min</code> attribute as otherwise numerical noise can cause
 the assertion on the limit to fail.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/606\">#606</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/606\">#606</a>.
 </li>
 <li>
 November 14, 2016, by Michael Wetter:<br/>
 Changed default values for <code>heads</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/583\">#583</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/583\">#583</a>.
 </li>
 <li>
 March 2, 2016, by Filip Jorissen:<br/>
 Refactored model such that it directly extends <code>PartialFlowMachine</code>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/417\">#417</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/417\">#417</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 November 5, 2015, by Michael Wetter:<br/>

@@ -98,7 +98,7 @@ The function allows <i>r<sub>N</sub></i> to be zero.
 September 8, 2016, by Michael Wetter and Filip Jorissen:<br/>
 Changed implementation to allow <code>r_N = 0</code>.<br/>
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/458\">#458</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/458\">#458</a>.
 </li>
 <li>
 September 7, 2016, by Michael Wetter:<br/>

@@ -227,7 +227,7 @@ Changed the default value to <code>strict=true</code>
 in order to avoid events when the controller saturates.
 Also assigned propogated values to be <code>final</code>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/433\">issue 433</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/433\">issue 433</a>.
 </li>
 <li>
 February 24, 2010, by Michael Wetter:<br/>

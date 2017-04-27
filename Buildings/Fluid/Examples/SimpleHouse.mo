@@ -297,7 +297,7 @@ added cooling to supply air,
 changed capacity of heating system, switched heating pump off when heater is off,
 and added proportional controller for the air damper.<br/>
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/584\">#584</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/584\">#584</a>.
 </li>
 <li>
 September 9, 2016, by Michael Wetter:<br/>
@@ -314,13 +314,13 @@ March 11, 2016, by Michael Wetter:<br/>
 Corrected wrong limits for <code>hysAir</code> so that
 <code>uLow &lt; uHigh</code>.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/429\">#429</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/429\">#429</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 September 19, 2015, by Filip Jorissen:<br/>

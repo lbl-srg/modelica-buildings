@@ -19,7 +19,7 @@ algorithm
 <li><i>February 18, 2016</i>
     by Marcus Fuchs:<br/>
     Add function with <code>Inline = true</code> in annotations to package for better performance,
-    as suggested in <a href=\"https://github.com/ibpsa/modelica/issues/300\">#300</a> .</li>
+    as suggested in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/300\">#300</a> .</li>
 <li><i>April 29, 2008</i>
     by <a href=\"mailto:Martin.Otter@DLR.de\">Martin Otter</a>:<br/>
     Designed and implemented.</li>

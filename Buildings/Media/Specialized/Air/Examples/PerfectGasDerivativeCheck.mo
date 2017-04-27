@@ -49,7 +49,7 @@ is not correct, the model will stop with an assert statement.
 August 17, 2015, by Michael Wetter:<br/>
 Changed regression test to have slope different from one.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/303\">issue 303</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/303\">issue 303</a>.
 </li>
 <li>
 May 12, 2008, by Michael Wetter:<br/>

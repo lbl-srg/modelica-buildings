@@ -157,7 +157,7 @@ in OpenModelica to the error message
 <li>
 March 2, 2016, by Filip Jorissen:<br/>
 Revised implementation for
-<a href=\"https://github.com/ibpsa/modelica/issues/417\">#417</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/417\">#417</a>.
 </li>
 <li>
 November 5, 2015, by Michael Wetter:<br/>

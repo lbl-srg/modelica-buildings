@@ -18,9 +18,9 @@ protected
   Modelica.SIunits.PressureDifference dp_turbulent = (m_k)^2
     "Pressure where flow changes to turbulent";
 algorithm
- m_flow_der := (if noEvent(dp>dp_turbulent) then 0.5*k/sqrt(dp)
-                elseif noEvent(dp<-dp_turbulent) then 0.5*k/sqrt(-dp)
-                else 1.25*k/m_k-0.75*k/m_k^5*dp^2)*dp_der;
+ m_flow_der := (if noEvent(abs(dp)>dp_turbulent)
+                then 0.5*k/sqrt(abs(dp))
+                else k/m_k*(1.25-0.75*(dp/dp_turbulent)^2))*dp_der;
 
  annotation (LateInline=true,
              smoothOrder=1,
@@ -37,10 +37,17 @@ with respect to the mass flow rate.
 revisions="<html>
 <ul>
 <li>
+April 14, 2017, by Filip Jorissen:<br/>
+Changed implementation such that it cannot lead to square roots
+of negative numbers and reduced the number of required operations.
+This is
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/723\">#723</a>.
+</li>
+<li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 July 29, 2015, by Michael Wetter:<br/>

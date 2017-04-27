@@ -112,7 +112,7 @@ and is created to avoid errors in the implementation of the two depending exampl
 <li>
 February 22, 2016, by Michael Wetter:<br/>
 Removed parameter <code>dynamicBalance</code> for
-<a href=\"https://github.com/ibpsa/modelica/issues/411\">issue 411</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/411\">issue 411</a>.
 </li>
 <li>
 July 14, 2015, by Michael Wetter:<br/>
