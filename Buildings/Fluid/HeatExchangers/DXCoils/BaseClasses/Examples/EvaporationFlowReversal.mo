@@ -5,12 +5,12 @@ model EvaporationFlowReversal
   package Medium =Buildings.Media.Air;
 
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues
-                                                                          nomVal(
-          Q_flow_nominal=-5000,
-          COP_nominal=3,
-          SHR_nominal=0.8,
-          m_flow_nominal=5000/1006/10) "Nominal values for DX coil"
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues
+    nomVal(
+    Q_flow_nominal=-5000,
+    COP_nominal=3,
+    SHR_nominal=0.8,
+    m_flow_nominal=5000/1006/10) "Nominal values for DX coil"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
   parameter Modelica.SIunits.MassFraction XEvaIn_nominal=
@@ -28,8 +28,6 @@ model EvaporationFlowReversal
     annotation (Placement(transformation(extent={{40,6},{60,26}})));
   Modelica.Blocks.Sources.BooleanConstant offSignal(k=false)
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Modelica.Blocks.Sources.Constant TWat(k=293.15)
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Sources.TimeTable mAir_flow(table=[0,1; 300,1; 900,-1; 1200,-1;
         1500,0; 1800,0]) "Air flow rate"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -50,15 +48,11 @@ model EvaporationFlowReversal
 equation
 
   connect(offSignal.y, eva.on)        annotation (Line(
-      points={{1,70},{20,70},{20,24},{38,24}},
+      points={{1,70},{20,70},{20,22},{38,22}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(eva.TWat, TWat.y)    annotation (Line(
-      points={{38,14},{-34,14},{-34,40},{-59,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(mWat_flow.y, eva.mWat_flow) annotation (Line(
-      points={{-59,70},{-30,70},{-30,20},{38,20}},
+      points={{-59,70},{-30,70},{-30,16},{38,16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mAir_flow.y, gain.u) annotation (Line(
@@ -66,7 +60,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, eva.mAir_flow) annotation (Line(
-      points={{-27,10},{3.5,10},{3.5,8},{38,8}},
+      points={{-27,10},{3.5,10},{3.5,10},{38,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(eva.mTotWat_flow, int.u) annotation (Line(
@@ -104,5 +98,5 @@ First implementation.
 </html>"),
     experiment(
       StopTime=2400,
-      Tolerance=1e-05));
+      Tolerance=1e-6));
 end EvaporationFlowReversal;

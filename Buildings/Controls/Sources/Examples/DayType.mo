@@ -27,7 +27,7 @@ model DayType "Example model for the source that outputs the type of the day"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Sources/Examples/DayType.mos"
         "Simulate and plot"),
-        experiment(StartTime=-1814400, StopTime=1814400),
+        experiment(StartTime=-1.8144e+06, Tolerance=1e-6, StopTime=1.8144e+06),
     Documentation(
     info="<html>
 <p>

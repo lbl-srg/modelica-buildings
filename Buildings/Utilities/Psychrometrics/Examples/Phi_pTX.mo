@@ -31,7 +31,7 @@ equation
   connect(TDryBul.y, phi.T) annotation (Line(
       points={{-59,50},{-40,50},{-40,8},{-11,8}},
       color={0,0,127}));
-    annotation (experiment(StopTime=1.0),
+    annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/Phi_pTX.mos"
         "Simulate and plot"),
     Documentation(info="<html>

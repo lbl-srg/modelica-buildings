@@ -48,5 +48,5 @@ equation
         "Simulate and plot"),
     experiment(
       StopTime=10800,
-      Tolerance=1e-006));
+      Tolerance=1e-06));
 end RoomMixingBox;

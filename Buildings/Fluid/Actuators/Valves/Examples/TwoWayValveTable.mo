@@ -26,14 +26,14 @@ model TwoWayValveTable
         transformation(extent={{72,10},{52,30}})));
   Valves.TwoWayTable valTab(
     redeclare package Medium = Medium,
-    filteredOpening=false,
+    use_inputFilter=false,
     from_dp=true,
     flowCharacteristics=datVal,
     CvData=Buildings.Fluid.Types.CvTypes.Kv,
     Kv=0.65,
     m_flow_nominal=0.04)
     "Valve model with opening characteristics based on a table"
-         annotation (Placement(transformation(extent={{-20,10},{0,30}})));
+    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 
   parameter Data.Generic datVal(
     y={0,0.1667,0.3333,0.5,0.6667,1},
@@ -87,7 +87,7 @@ equation
   connect(sqrt1.y,kv. u2) annotation (Line(
       points={{49,-36},{54,-36},{54,-76},{58,-76}},
       color={0,0,127}));
-    annotation (experiment(StopTime=1.0),
+    annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValveTable.mos"
         "Simulate and plot"),
     Documentation(info="<html>

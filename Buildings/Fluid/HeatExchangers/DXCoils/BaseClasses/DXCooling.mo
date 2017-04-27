@@ -9,21 +9,17 @@ model DXCooling "DX cooling coil operation "
   constant Boolean variableSpeedCoil
     "Flag, set to true for coil with variable speed";
 
-  Modelica.Blocks.Interfaces.RealOutput TCoiSur(
-    quantity="ThermodynamicTemperature",
-    unit="K",
-    min=240,
-    max=400) "Coil surface temperature"
-          annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   WetCoil wetCoi(
     redeclare final package Medium = Medium,
     final variableSpeedCoil = variableSpeedCoil,
-    final datCoi=datCoi) "Wet coil condition"
+    datCoi=datCoi,
+    use_mCon_flow=use_mCon_flow) "Wet coil condition"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
   DryCoil dryCoi(
     redeclare final package Medium = Medium,
     final variableSpeedCoil = variableSpeedCoil,
-    final datCoi=datCoi) "Dry coil condition"
+    datCoi=datCoi,
+    use_mCon_flow=use_mCon_flow) "Dry coil condition"
     annotation (Placement(transformation(extent={{-50,-60},{-30,-40}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector dryWet
     "Actual coil condition"
@@ -37,6 +33,13 @@ model DXCooling "DX cooling coil operation "
     max=1.0)
     "Sensible Heat Ratio: Ratio of sensible heat load to total heat load"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealInput XEvaIn "Inlet air mass fraction"
+    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
+  Modelica.Blocks.Interfaces.RealInput p "Pressure at inlet of coil"
+    annotation (Placement(transformation(extent={{-120,-34},{-100,-14}})));
+  Modelica.Blocks.Interfaces.RealInput hEvaIn
+    "Specific enthalpy of air entering the coil"
+            annotation (Placement(transformation(extent={{-120,-87},{-100,-67}})));
 equation
 
   connect(TConIn, wetCoi.TConIn)  annotation (Line(
@@ -73,18 +76,6 @@ equation
       smooth=Smooth.None));
   connect(hEvaIn, wetCoi.hEvaIn)  annotation (Line(
       points={{-110,-77},{-56,-77},{-56,42.3},{-51,42.3}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(hEvaIn, dryCoi.hEvaIn)  annotation (Line(
-      points={{-110,-77},{-56,-77},{-56,-57.7},{-51,-57.7}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(p, dryCoi.p)  annotation (Line(
-      points={{-110,-24},{-64,-24},{-64,-52.4},{-51,-52.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(XEvaIn, dryCoi.XEvaIn)  annotation (Line(
-      points={{-110,-50},{-60,-50},{-60,-55},{-51,-55}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(speRat, wetCoi.speRat)  annotation (Line(
@@ -132,14 +123,6 @@ equation
       points={{-29,-46},{54,-46},{54,-11}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dryCoi.TDry, dryWet.TADPDry) annotation (Line(
-      points={{-29,-54},{46,-54},{46,-11}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(wetCoi.TADP, dryWet.TADPWet) annotation (Line(
-      points={{-29,46},{46,46},{46,11}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(dryWet.EIR, EIR) annotation (Line(
       points={{61,8},{70,8},{70,80},{110,80}},
       color={0,0,127},
@@ -153,10 +136,6 @@ equation
           5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dryWet.TADP, TCoiSur) annotation (Line(
-      points={{61,-4},{80,-4},{80,-40},{110,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(dryWet.mWat_flow, mWat_flow) annotation (Line(
       points={{61,-8},{70,-8},{70,-80},{110,-80}},
       color={0,0,127},
@@ -165,6 +144,10 @@ equation
       points={{-40,39},{-40,4},{39,4}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(mCon_flow, wetCoi.mCon_flow) annotation (Line(points={{-110,-100},{-84,
+          -100},{-84,40},{-51,40}}, color={0,0,127}));
+  connect(mCon_flow, dryCoi.mCon_flow) annotation (Line(points={{-110,-100},{-84,
+          -100},{-84,-60},{-51,-60}}, color={0,0,127}));
   annotation (defaultComponentName="dxCoo", Documentation(info="<html>
 <p>
 This block combines the models for the dry coil and the wet coil.

@@ -27,11 +27,11 @@ equation
   hMin = Medium.specificEnthalpy(Medium.setState_pTX(p=p, T=TADP, X=XEvaInVec));
 
   hDry = Buildings.Utilities.Math.Functions.smoothMin(
-    x1=  Buildings.Utilities.Math.Functions.smoothMax(
+    x1 = Buildings.Utilities.Math.Functions.smoothMax(
       x1=hEvaIn - delta_h,
       x2=hMin,
       deltaX=10),
-    x2=  hEvaIn+100,
+    x2 = hEvaIn+100,
     deltaX=10);
 
   TDry= Medium.temperature(Medium.setState_phX(p=p, h=hDry, X=XEvaInVec))

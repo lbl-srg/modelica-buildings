@@ -554,5 +554,5 @@ First implementation.
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/SpaceCooling/System2.mos"
         "Simulate and plot"),
-    experiment(StopTime=10800));
+    experiment(Tolerance=1e-6, StopTime=10800));
 end System2;

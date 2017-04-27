@@ -59,7 +59,7 @@ model LakeWaterHeatExchanger_T_Heating
     constrainedby Modelica.Blocks.Interfaces.SO "Water temperature"
     annotation (Placement(transformation(extent={{90,12},{70,32}})));
 
-  Modelica.Blocks.Sources.Constant TWatSou(k=275.15 + 15)
+  Modelica.Blocks.Sources.Constant TWatSou(k=273.15 + 15)
     "Ocean water temperature"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Sources.Constant
@@ -101,7 +101,7 @@ equation
           -48,10},{-32,10}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-    experiment(StopTime=3600),
+    experiment(Tolerance=1e-6, StopTime=3600),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Plants/Validation/LakeWaterHeatExchanger_T_Heating.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -113,6 +113,10 @@ reverses its direction.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 2, 2017, by Felix Buenning:<br/>
+Corrected offset for temperature from <i>275.15</i> to <i>273.15</i> in <code>TWatSou</code>.
+</li>
 <li>
 January 11, 2015, by Michael Wetter:<br/>
 First implementation.

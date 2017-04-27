@@ -18,7 +18,7 @@ equation
           {-22,30}},               color={0,0,127}));
   connect(expSine.y, sigRan.u[3]) annotation (Line(points={{-39,70},{-30,70},{
           -30,31.3333},{-22,31.3333}}, color={0,0,127}));
- annotation (experiment(StopTime=1.0),
+ annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/SignalRanker.mos"
         "Simulate and plot"),
     Documentation(info="<html>

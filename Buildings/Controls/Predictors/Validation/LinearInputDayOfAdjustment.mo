@@ -5,7 +5,7 @@ model LinearInputDayOfAdjustment
      baseLoad(use_dayOfAdj=true));
 
   annotation (
-  experiment(StopTime=5270400),
+  experiment(Tolerance=1e-6, StopTime=5270400),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Validation/LinearInputDayOfAdjustment.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -297,5 +297,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(StopTime=604800));
+    experiment(Tolerance=1e-6, StopTime=604800));
 end ElectroChromicWindow;

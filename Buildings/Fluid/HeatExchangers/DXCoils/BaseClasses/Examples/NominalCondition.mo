@@ -1,20 +1,21 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model NominalCondition "Test model for NominalCondition"
   extends Modelica.Icons.Example;
-  package Medium =
-      Buildings.Media.Air;
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition
-     nomCon(redeclare package Medium = Medium, per=nomVal)
+  package Medium = Buildings.Media.Air;
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition nomCon(
+    redeclare package Medium = Medium,
+    per=per)
     "Calculates nominal values"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  parameter Data.Generic.BaseClasses.NominalValues
-   nomVal(
+
+  parameter AirCooled.Data.Generic.BaseClasses.NominalValues per(
     Q_flow_nominal=-21000,
     COP_nominal=3,
     SHR_nominal=0.8,
     m_flow_nominal=1.5) "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  annotation (experiment(StopTime=60),
+
+  annotation (experiment(Tolerance=1e-6, StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/NominalCondition.mos"
         "Simulate and plot"),
           Documentation(info="<html>

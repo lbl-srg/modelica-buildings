@@ -105,7 +105,7 @@ algorithm
    assert(abs(yR1[1]-1.23) < 1E-5, "Error in function s2_r1");
 
   annotation (
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/IO/Python27/Functions/Examples/Exchange.mos"
         "Simulate and plot"),
 Documentation(info="<html>

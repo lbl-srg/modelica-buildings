@@ -46,7 +46,7 @@ equation
   connect(sine2.y, aveVec.u[3]) annotation (Line(
       points={{-59,-50},{-40,-50},{-40,-8.66667},{-22,-8.66667}},
       color={0,0,127}));
-  annotation (experiment(StopTime=1.0),
+  annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/VectorFunctions.mos"
         "Simulate and plot"),
     Documentation(info="<html>

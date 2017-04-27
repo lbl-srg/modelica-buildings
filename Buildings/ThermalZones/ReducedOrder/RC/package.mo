@@ -201,6 +201,10 @@ package RC
   loads directly to a specific surface or to connect components that distribute
   radiation and have a specific surface temperature, e.g. a floor heating.
   </p>
+  <h4>Parameter calculation</h4>
+  <p>To calculate parameters of all four models, the Python package TEASER <a
+  href=\"https://github.com/RWTH-EBC/TEASER\">
+  https://github.com/RWTH-EBC/TEASER</a> can be used.
   <h4>References</h4>
   <p>VDI. German Association of Engineers Guideline VDI 6007-1 March 2012.
   Calculation of transient thermal response of rooms and buildings - modelling of

@@ -72,18 +72,18 @@ power</a></td>
 </tr>
 </table>
 <p>*Note: This record should not be used
-(i.e. <code>use_powerCharacteristic</code> should be <code>false</code>) 
+(i.e. <code>use_powerCharacteristic</code> should be <code>false</code>)
 for the movers that take as a control signal
-the mass flow rate or the head, 
+the mass flow rate or the head,
 unless also values for the record <code>pressure</code> are provided.
 The reason is that for these movers the record <code>pressure</code>
 is required to be able to compute the mover speed,
 which is required to be able to compute the electrical power
-correctly using similarity laws. 
-If a <code>Pressure</code> record is not provided, 
+correctly using similarity laws.
+If a <code>Pressure</code> record is not provided,
 the model will internally override <code>use_powerCharacteristic=false</code>.
 In this case the efficiency records will be used.
-Note that in this case an error is still introduced, 
+Note that in this case an error is still introduced,
 but it is smaller than when using the power records.
 Compare
 <a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerSimplified\">
@@ -91,7 +91,7 @@ Buildings.Fluid.Movers.Validation.PowerSimplified</a>
 with
 <a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerSimplified\">
 Buildings.Fluid.Movers.Validation.PowerSimplified</a>
-for an illustration of this error. 
+for an illustration of this error.
 </p>
 <p>
 These performance curves are implemented in
@@ -291,13 +291,13 @@ at zero pressure difference, solving for the flow rate and the revolution leads 
 <p>
 However, the computation of the electrical power consumption
 requires the mover speed to be known
-and the computation of the mover speed requires the performance 
+and the computation of the mover speed requires the performance
 curves for the flow and efficiency/power characteristics.
-Therefore these performance curves do need to be provided 
+Therefore these performance curves do need to be provided
 if the user desires a correct electrical power computation.
-If the curves are not provided, a simplified computation is used, 
+If the curves are not provided, a simplified computation is used,
 where the efficiency curve is used and assumed to be correct for all speeds.
-This loss of accuracy has the advantage that it allows to use the 
+This loss of accuracy has the advantage that it allows to use the
 mover models without requiring flow and efficiency/power characteristics.
 </p>
 <p>
@@ -338,18 +338,18 @@ the mass flow rate is determined by the input signal or the above explained para
 </p>
 <h5>Start-up and shut-down transients</h5>
 <p>
-All models have a parameter <code>filteredSpeed</code>. This
+All models have a parameter <code>use_inputFilter</code>. This
 parameter affects the fan output as follows:
 </p>
 <ol>
 <li>
-If <code>filteredSpeed=false</code>, then the input signal <code>y</code> (or
+If <code>use_inputFilter=false</code>, then the input signal <code>y</code> (or
 <code>Nrpm</code>, <code>m_flow_in</code>, or <code>dp_in</code>)
 is equal to the fan speed (or the mass flow rate or pressure rise).
 Thus, a step change in the input signal causes a step change in the fan speed (or mass flow rate or pressure rise).
 </li>
 <li>
-If <code>filteredSpeed=true</code>, which is the default,
+If <code>use_inputFilter=true</code>, which is the default,
 then the fan speed (or the mass flow rate or the pressure rise)
 is equal to the output of a filter. This filter is implemented
 as a 2nd order differential equation and can be thought of as
@@ -363,7 +363,7 @@ if the fan is switched off, to reach a fan speed of <i>0.4%</i>.
 </li>
 </ol>
 <p>
-The figure below shows for a fan with <code>filteredSpeed=true</code>
+The figure below shows for a fan with <code>use_inputFilter=true</code>
 and <code>riseTime=30</code> seconds the
 speed input signal and the actual speed.</p>
 <p align=\"center\">
@@ -380,20 +380,20 @@ a fan switches on, is damped before it affects the air flow rate.
 This continuous change in flow rate turns out to be easier, and in
 some cases faster, to simulate compared to a step change.
 For most simulations, we therefore recommend to use the default settings
-of <code>filteredSpeed=true</code> and <code>riseTime=30</code> seconds.
+of <code>use_inputFilter=true</code> and <code>riseTime=30</code> seconds.
 An exception are situations in which the fan or pump is operated at a fixed speed during
-the whole simulation. In this case, set <code>filteredSpeed=false</code>.
+the whole simulation. In this case, set <code>use_inputFilter=false</code>.
 </p>
 <p>
 Note that if the fan is part of a closed loop control, then the filter affects
 the transient response of the control.
-When changing the value of <code>filteredSpeed</code>, the control gains
+When changing the value of <code>use_inputFilter</code>, the control gains
 may need to be retuned.
 We now present values control parameters that seem to work in most cases.
 Suppose there is a closed loop control with a PI-controller
 <a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
 Buildings.Controls.Continuous.LimPID</a>
-and a fan or pump, configured with <code>filteredOpening=true</code> and <code>riseTime=30</code> seconds.
+and a fan or pump, configured with <code>use_inputFilter=true</code> and <code>riseTime=30</code> seconds.
 Assume that the transient response of the other dynamic elements in the control loop is fast
 compared to the rise time of the filter.
 Then, a proportional gain of <code>k=0.5</code> and an integrator time constant of

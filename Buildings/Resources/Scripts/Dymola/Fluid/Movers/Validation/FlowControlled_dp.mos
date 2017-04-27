@@ -1,8 +1,8 @@
 // Switch off pedantic mode as this model writes a assertion with level= AssertionLevel.warning
 // because of the selected parameter values
-annex60_pedantic_old=Advanced.PedanticModelica;
+ibpsa_pedantic_old=Advanced.PedanticModelica;
 Advanced.PedanticModelica=false;
-simulateModel("Buildings.Fluid.Movers.Validation.FlowControlled_dp", method="dassl", tolerance=1e-06, resultFile="FlowControlled_dp");
+simulateModel("Buildings.Fluid.Movers.Validation.FlowControlled_dp", method="dassl", tolerance=1e-06, stopTime=1.0, resultFile="FlowControlled_dp");
 removePlots();
 createPlot(id=4, position={441, 13, 281, 255}, 
 y={"gain.u"},
@@ -16,4 +16,4 @@ range={0.0, 1.0, -0.2, 1.0000000000000002}, grid=true, filename="FlowControlled_
 createPlot(id=7, position={28, 343, 539, 334},
 y={"floMacSta.P", "floMacDyn.P"},
 range={0.0, 1.0, -100.0, 900.0}, grid=true, filename="FlowControlled_dp.mat", colors={{28,108,200}, {238,46,47}});
-Advanced.PedanticModelica=annex60_pedantic_old;
+Advanced.PedanticModelica=ibpsa_pedantic_old;

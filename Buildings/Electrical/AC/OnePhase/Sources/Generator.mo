@@ -69,8 +69,8 @@ Model of a generator that produces real power
 </p>
 <p>
 This model must be used with
-<a href=\"modelica://Buildings.Electrical.AC.Sources.Grid\">
-Buildings.Electrical.AC.Sources.Grid</a>
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.Grid\">
+Buildings.Electrical.AC.OnePhase.Sources.Grid</a>
 or with a voltage source from the package
 <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Sources\">
 Modelica.Electrical.QuasiStationary.SinglePhase.Sources</a>.

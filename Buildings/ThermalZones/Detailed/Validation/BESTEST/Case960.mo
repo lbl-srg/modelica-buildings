@@ -216,7 +216,7 @@ equation
       experiment(
       StopTime=3.1536e+07,
       Interval=3600,
-      Tolerance=1e-006),
+      Tolerance=1e-06),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,-240},{260,
             120}}), graphics={Text(
           extent={{106,-200},{252,-220}},

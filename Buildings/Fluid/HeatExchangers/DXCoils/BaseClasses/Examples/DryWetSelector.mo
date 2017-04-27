@@ -17,8 +17,6 @@ extends Modelica.Icons.Example;
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector dryWet
     "Averages dry and wet coil conditions"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Modelica.Blocks.Sources.Constant TWet(k=283.15)
-    annotation (Placement(transformation(extent={{-60,46},{-40,66}})));
   Modelica.Blocks.Sources.Constant mWetWat_flow(k=0.01)
     annotation (Placement(transformation(extent={{-88,30},{-68,50}})));
   Modelica.Blocks.Sources.Constant SHRWet(k=0.5)
@@ -27,8 +25,6 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-10,80},{10,100}})));
   Modelica.Blocks.Sources.Constant EIRWet(k=0.3)
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
-  Modelica.Blocks.Sources.Constant TDry(k=293.15)
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Modelica.Blocks.Sources.Constant QDry_flow(k=-2000)
     annotation (Placement(transformation(extent={{-48,-70},{-28,-50}})));
   Modelica.Blocks.Sources.Constant EIRDry(k=0.2)
@@ -46,10 +42,6 @@ equation
       points={{-67,40},{2,40},{2,11}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TWet.y, dryWet.TADPWet) annotation (Line(
-      points={{-39,56},{6,56},{6,11}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(SHRWet.y, dryWet.SHRWet) annotation (Line(
       points={{-13,72},{10,72},{10,11}},
       color={0,0,127},
@@ -62,10 +54,6 @@ equation
       points={{41,90},{52,90},{52,40},{18,40},{18,11}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TDry.y, dryWet.TADPDry) annotation (Line(
-      points={{-59,-40},{6,-40},{6,-11}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(QDry_flow.y, dryWet.QDry_flow) annotation (Line(
       points={{-27,-60},{14,-60},{14,-11}},
       color={0,0,127},
@@ -74,7 +62,7 @@ equation
       points={{1,-80},{18,-80},{18,-11}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (experiment(StopTime=60),
+  annotation (experiment(Tolerance=1e-6, StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/DryWetSelector.mos"
         "Simulate and plot"),
           Documentation(info="<html>
@@ -86,6 +74,10 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 13, 2017, by Michael Wetter:<br/>
+Removed connectors that are no longer needed.
+</li>
 <li>
 August 29, 2012 by Kaustubh Phalak:<br/>
 First implementation.

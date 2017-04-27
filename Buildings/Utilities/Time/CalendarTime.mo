@@ -40,10 +40,10 @@ protected
     "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
   final constant Integer lastYear = firstYear + size(timeStampsNewYear,1) - 1;
   constant Modelica.SIunits.Time timeStampsNewYear[12] = {
-    1262304000, 1293840000, 1325376000,
-    1356998400, 1388534400, 1420070400,
-    1451606400, 1483228800, 1514764800,
-    1546300800, 1577836800, 1609459200}
+    1262304000.0, 1293840000.0, 1325376000.0,
+    1356998400.0, 1388534400.0, 1420070400.0,
+    1451606400.0, 1483228800.0, 1514764800.0,
+    1546300800.0, 1577836800.0, 1609459200.0}
     "Epoch time stamps for new years day 2010 to 2021";
   constant Boolean isLeapYear[11] = {
     false, false, true, false,
@@ -286,12 +286,12 @@ using the model parameters <code>zerTim</code>, and, if
 the parameter <code>yearRef</code>.
 
 The user can choose from new year, midnight for a number of years:
-2010 to 2020 and also 1970. 
+2010 to 2020 and also 1970.
 The latter corresponds to a unix stamp of <i>0</i>.
 (Note that when choosing the reference time equal to 0 at 1970,
 the actual simulation time must be within the 2010-2020 range.
-For instance <code>startTime = 1262304000</code> corresponds 
-to the simulation starting on the 1st of January 2010 
+For instance <code>startTime = 1262304000</code> corresponds
+to the simulation starting on the 1st of January 2010
 when setting <code>zerTim = ZeroTime.UnixTimeStamp</code>.
 This is within the 2010-2020 range and is therefore allowed.)
 </p>

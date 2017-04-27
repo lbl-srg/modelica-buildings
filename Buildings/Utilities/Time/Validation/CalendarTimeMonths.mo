@@ -30,5 +30,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(StartTime=172800, StopTime=345600));
+    experiment(StartTime=172800, Tolerance=1e-6, StopTime=345600));
 end CalendarTimeMonths;

@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "hex.sta_a1.T",
+    "hex.sta_b1.T",
+    "hex.sta_a2.T",
+    "hex.sta_b2.T",
+    "TSur.y",
+    "hex.sta_b2.X[1]",
+    "humRatPre.X_w"
+  };

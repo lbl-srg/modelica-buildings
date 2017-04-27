@@ -9,8 +9,7 @@ model ApparatusDewPoint "Test model for ApparatusDewPoint"
   Modelica.Blocks.Sources.Constant p(
     k=101325) "Pressure"
     annotation (Placement(transformation(extent={{-80,-26},{-60,-6}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint
-                                                              adp(
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint adp(
     redeclare package Medium = Medium,
     datCoi=datCoi,
     variableSpeedCoil=true)
@@ -37,50 +36,32 @@ model ApparatusDewPoint "Test model for ApparatusDewPoint"
     startTime=0,
     table=[0.0,0.00; 600,0.25; 1800,0.5; 2700,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
-  parameter Data.Generic.DXCoil
-                datCoi(nSta=4, sta={
-        Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
-        spe=900/60,
-        nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues(
-          Q_flow_nominal=-12000,
-          COP_nominal=3,
-          SHR_nominal=0.8,
-          m_flow_nominal=0.9),
-        perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_I()),
-        Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
+  parameter AirCooled.Data.Generic.DXCoil datCoi(nSta=4, sta={
+     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
+      spe=900/60,
+      nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
+          Q_flow_nominal=-12000,COP_nominal=3,
+          SHR_nominal=0.8, m_flow_nominal=0.9),
+        perCur= Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_I_AirCooled()),
+        Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
         spe=1200/60,
-        nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues(
-          Q_flow_nominal=-18000,
-          COP_nominal=3,
-          SHR_nominal=0.8,
-          m_flow_nominal=1.2),
-        perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_I()),
-        Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
+        nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
+          Q_flow_nominal=-18000,COP_nominal=3,
+          SHR_nominal=0.8,m_flow_nominal=1.2),
+        perCur=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_I_AirCooled()),
+        Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
-        nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues(
-          Q_flow_nominal=-21000,
-          COP_nominal=3,
-          SHR_nominal=0.8,
-          m_flow_nominal=1.5),
-        perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_II()),
-        Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
+        nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
+          Q_flow_nominal=-21000,COP_nominal=3,
+          SHR_nominal=0.8,m_flow_nominal=1.5),
+        perCur=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_II_AirCooled()),
+        Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
         spe=2400/60,
-        nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues(
-          Q_flow_nominal=-30000,
-          COP_nominal=3,
-          SHR_nominal=0.8,
-          m_flow_nominal=1.8),
-        perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_III())})
-    "Coil data"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+        nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
+          Q_flow_nominal=-30000,COP_nominal=3,
+          SHR_nominal=0.8,m_flow_nominal=1.8),
+        perCur=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_III_AirCooled())})
+    "Coil data" annotation (Placement(transformation(extent={{60,60},{80,80}})));
 protected
   Modelica.Blocks.Logical.Hysteresis deaBan(
      uLow=minSpeRat - speRatDeaBan/2,
@@ -135,7 +116,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-experiment(StopTime=3600),
+experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/ApparatusDewPoint.mos"
         "Simulate and plot"),
           Documentation(info="<html>

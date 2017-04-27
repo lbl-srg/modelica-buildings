@@ -78,14 +78,13 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
     "Heat exchanged with water reservoir (positive if added to reservoir)"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear valCoo(
-    redeclare final package Medium =  Medium,
+    redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     dpValve_nominal=1000,
-    filteredOpening=false,
+    use_inputFilter=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     final dpFixed_nominal={if disableHeatExchanger then 0 else dpHex_nominal,0})
-    "Switching valve for cooling"                                       annotation (
-      Placement(transformation(
+    "Switching valve for cooling" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,60})));
@@ -93,11 +92,10 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     dpValve_nominal=1000,
-    filteredOpening=false,
+    use_inputFilter=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     final dpFixed_nominal={if disableHeatExchanger then 0 else dpHex_nominal,0})
-    "Switching valve for heating"
-    annotation (Placement(transformation(
+    "Switching valve for heating" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,-60})));
@@ -157,10 +155,10 @@ protected
   Modelica.Blocks.Sources.Constant TAppHex(k=TApp)
     "Approach temperature difference"
     annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
-  Modelica.Blocks.Math.Add TWatHea
+  Modelica.Blocks.Math.Add TWatHea(k2=-1)
     "Heat exchanger outlet, taking into account approach"
     annotation (Placement(transformation(extent={{40,190},{60,210}})));
-  Modelica.Blocks.Math.Add TWatCoo(k2=-1)
+  Modelica.Blocks.Math.Add TWatCoo
     "Heat exchanger outlet, taking into account approach"
     annotation (Placement(transformation(extent={{40,220},{60,240}})));
   Modelica.Blocks.Math.Add QExc_flow(k1=-1) "Heat added to water reservoir"
@@ -455,6 +453,10 @@ instances <code>valCoo</code> and <code>valHea</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 3, 2017, by Felix Buenning:<br/>
+Corrected wrong signs for <code>TApp</code> in <code>TWatCoo</code> and <code>TWatHea</code>.
+</li>
 <li>
 November 8, 2016, by Michael Wetter:<br/>
 Corrected wrong argument type in function call of <code>Medium.temperature_phX</code>.

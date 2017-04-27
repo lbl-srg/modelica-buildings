@@ -10,7 +10,7 @@ equation
       color={0,127,255}));
   end for;
   annotation (experiment(
-      StopTime=10000),
+      Tolerance=1e-6, StopTime=20),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-20},{100,
             100}}), graphics={Ellipse(
           extent={{66,0},{74,-8}},

@@ -57,7 +57,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (
-experiment(StartTime=1.82304e+07, StopTime=1.83168e+07),
+experiment(StartTime=1.82304e+07, Tolerance=1e-6, StopTime=1.83168e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/DiffusePerez.mos"
         "Simulate and plot"),
     Documentation(info="<html>

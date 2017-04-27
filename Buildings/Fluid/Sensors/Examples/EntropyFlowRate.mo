@@ -67,7 +67,7 @@ equation
   connect(senS.s, pro.u1) annotation (Line(points={{10,1},{10,26},{-16,26},{-16,
           70},{-2,70}}, color={0,0,127}));
     annotation (
-experiment(StopTime=60.0),
+experiment(Tolerance=1e-6, StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/EntropyFlowRate.mos"
         "Simulate and plot"),    Documentation(info="<html>
 <p>

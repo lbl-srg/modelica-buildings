@@ -90,7 +90,7 @@ equation
           70},{41,70}}, color={0,0,127}));
   connect(limPIDDef.y, assEqu.u2) annotation (Line(points={{41,30},{48,30},{48,
           44},{58,44}}, color={0,0,127}));
- annotation (experiment(StopTime=1.0),
+ annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Validation/LimPIDReset.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

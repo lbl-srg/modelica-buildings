@@ -10,7 +10,7 @@ model Example8 "Common subexpression elimination example"
           lineColor={0,0,255},
           textString="See code")}),
     experiment(
-      StopTime=100),
+      Tolerance=1e-6, StopTime=50),
     Documentation(revisions="<html>
 <ul>
 <li>

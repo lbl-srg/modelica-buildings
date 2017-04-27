@@ -142,7 +142,7 @@ equation
       points={{142,40},{160,40}},
       color={0,127,255}));
   annotation (
-experiment(StopTime=36000),
+experiment(Tolerance=1e-6, StopTime=36000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeFraction.mos"
         "Simulate and plot"),
   Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-100},{200,100}})),

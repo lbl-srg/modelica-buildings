@@ -58,7 +58,7 @@ equation
   annotation (__Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/BaseClasses/Examples/IndirectTankHeatExchanger.mos"
         "Simulate and Plot"),
-        experiment(StopTime=15.0),
+        experiment(Tolerance=1e-6, StopTime=15),
 Documentation(info="<html>
 <p>
 This model provides an example of how the

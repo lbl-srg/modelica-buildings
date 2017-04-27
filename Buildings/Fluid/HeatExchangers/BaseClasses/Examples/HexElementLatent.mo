@@ -131,7 +131,7 @@ equation
       points={{-40,-20},{-24,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation(experiment(StopTime=600),
+  annotation(experiment(Tolerance=1e-6, StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HexElementLatent.mos"
         "Simulate and plot"));
 end HexElementLatent;

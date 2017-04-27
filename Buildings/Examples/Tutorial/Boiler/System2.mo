@@ -32,7 +32,7 @@ model System2
     "Thermal conductance with the ambient"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*6/3600
+  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*1.2*6/3600
     "Nominal mass flow rate";
   parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 4000
     "Internal heat gains of the room";
@@ -48,9 +48,10 @@ model System2
   Modelica.Blocks.Sources.CombiTimeTable timTab(
       extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
       smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-      table=[-6*3600, 0;
-              8*3600, QRooInt_flow;
-             18*3600, 0]) "Time table for internal heat gain"
+      table=[-6, 0;
+              8, QRooInt_flow;
+             18, 0],
+      timeScale=3600) "Time table for internal heat gain"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 
 //-------------------------Step 5: Radiator Model-------------------------//
@@ -206,7 +207,7 @@ at the top-level of the model by adding the lines
 </p>
 <pre>
   replaceable package MediumW =
-      Buildings.Media.ConstantPropertyLiquidWater \"Medium model\";
+      Buildings.Media.Water \"Medium model\";
 </pre>
 </li>
 <li>
@@ -347,7 +348,7 @@ For numerical reasons, in particular in large system models, it is recommended t
 continuously change the mass flow rate, as opposed to having a step change.
 Therefore,
 in the instance <code>pumRad</code>, we leave the parameter
-<code>filteredSpeed</code> at its default value <code>true</code>.
+<code>use_inputFilter</code> at its default value <code>true</code>.
 This will approximate a continuous change in mass flow rate when the
 pump is switched on or off.
 Finally, we closed the control loop between the room temperature sensor and the
@@ -387,6 +388,11 @@ could have been used.
 </html>", revisions="<html>
 <ul>
 <li>
+March 6, 2017, by Michael Wetter:<br/>
+Added missing density to computation of air mass flow rate.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/673\">#673</a>.
+</li>
+<li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>
 to address issue
@@ -403,5 +409,5 @@ First implementation.
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System2.mos"
         "Simulate and plot"),
-    experiment(StopTime=172800));
+    experiment(Tolerance=1e-6, StopTime=172800));
 end System2;
