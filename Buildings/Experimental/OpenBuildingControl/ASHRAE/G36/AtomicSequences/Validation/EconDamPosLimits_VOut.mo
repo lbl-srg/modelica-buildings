@@ -16,7 +16,7 @@ model EconDamPosLimits_VOut
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   CDL.Logical.Constant AHUMode(k=true) "AHU is enabled"
     annotation (Placement(transformation(extent={{-80,-52},{-60,-32}})));
-  EconDamperPositionLimits econMinOutAirDamPosLimits
+  EconDamperPositionLimitsMultiZone econMinOutAirDamPosLimits
     "One of the economizer control sequences, it sets the min econ damper limit and the max return air damper limit in order to maintain the minimum outdoor airflow setpoint."
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 equation

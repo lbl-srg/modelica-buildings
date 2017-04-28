@@ -14,7 +14,7 @@ model EconModulation_TSup
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   CDL.Logical.Constant uSupFan(k=true) "Supply fan on or off"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  EconModulation ecoMod
+  EconModulationSingleZone ecoMod
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   CDL.Continuous.Constant uHea(k=0) "Heating signal, range 0 - 1"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));

@@ -1,6 +1,6 @@
 EconEnableDisable
-EconDamperPositionLimits
-EconModulation
+EconDamperPositionLimitsMultiZone
+EconModulationSingleZone
 FreezeProtection
 StandardAlarms
 VAVSingleZoneTSupSet
