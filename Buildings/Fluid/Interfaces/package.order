@@ -6,7 +6,10 @@ PartialFourPortInterface
 PartialTwoPort
 PartialTwoPortInterface
 PartialTwoPortTransport
+PartialTwoPortTransportInterface
+PartialPrescribedOutletState_T
 PrescribedOutletState
+PrescribedOutletState_TX
 StaticFourPortHeatMassExchanger
 StaticTwoPortConservationEquation
 StaticTwoPortHeatMassExchanger
