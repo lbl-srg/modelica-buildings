@@ -19,11 +19,12 @@ model EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
 
   CDL.Interfaces.RealInput uVOut
     "Measured outdoor airflow rate. Sensor output. Location: after the economizer damper intake."
-    annotation (Placement(transformation(extent={{-220,60},{-180,100}})));
+    annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
+        iconTransformation(extent={{-220,40},{-180,80}})));
   CDL.Interfaces.RealInput uVOutMinSet
     "Minimum outdoor airflow requirement, output of a separate sequence that calculates this value based on ASHRAE Standard 62.1-2013 or California Title 24"
-    annotation (Placement(transformation(extent={{-220,100},{-180,140}}),
-        iconTransformation(extent={{-220,100},{-180,140}})));
+    annotation (Placement(transformation(extent={{-220,102},{-180,142}}),
+        iconTransformation(extent={{-220,102},{-180,142}})));
   CDL.Continuous.Constant retDamPhyPosMinSig(k=retDamPhyPosMin)
     "Physical or at the comissioning fixed minimum opening of the return air damper. Assuming 0 airflow through the damper at this position. fixme: this maybe needs to be an input."
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
@@ -46,19 +47,21 @@ model EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
     "Fraction of the control signal for which the economizer damper is and stays fully open and above which the return air damper modulates downwards."
     annotation (Placement(transformation(extent={{-20,120},{0,140}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply Fan Status, on or off"
-    annotation (Placement(transformation(extent={{-220,20},{-180,60}})));
+    annotation (Placement(transformation(extent={{-220,-26},{-180,14}}),
+        iconTransformation(extent={{-220,-26},{-180,14}})));
   CDL.Interfaces.BooleanInput uAHUMod
     "AHU Mode, fixme: see pg. 103 in G36 for the full list of modes, here we use true = \"occupied\""
-    annotation (Placement(transformation(extent={{-220,-20},{-180,20}})));
+    annotation (Placement(transformation(extent={{-220,-90},{-180,-50}}),
+        iconTransformation(extent={{-220,-90},{-180,-50}})));
   CDL.Interfaces.RealOutput yOutDamPosMin
     "Minimum economizer damper position limit." annotation (Placement(
-        transformation(extent={{180,10},{200,30}}),  iconTransformation(extent={{180,10},
-            {200,30}})));
+        transformation(extent={{180,40},{200,60}}),  iconTransformation(extent={{180,40},
+            {200,60}})));
   CDL.Interfaces.RealOutput yRetDamPosMax
     "Maximum return air damper position limit" annotation (Placement(
-        transformation(extent={{180,-50},{200,-30}}),
-                                                    iconTransformation(extent={{180,-50},
-            {200,-30}})));
+        transformation(extent={{180,-52},{200,-32}}),
+                                                    iconTransformation(extent={{180,-52},
+            {200,-32}})));
   CDL.Continuous.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
     "Physical or at the comissioning fixed maximum opening of the return air damper. This is the initial condition of the return air damper."
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
@@ -73,7 +76,7 @@ model EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
     annotation (Placement(transformation(extent={{102,40},{122,60}})));
   CDL.Logical.Nand nand
     "If any of the input signals is not true, the block outputs true, damper modulation gets supressed and dampers are kept in their initial positions."
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-80,8},{-60,28}})));
   CDL.Logical.Switch RetDamPosMin
     "Set to RetDamPhyPosMax if the supply fan is off or the AHU mode is disabled to prevent any modulation"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
@@ -88,25 +91,25 @@ model EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   CDL.Interfaces.RealOutput yRetDamPosMin
     "Maximum return air damper position limit" annotation (Placement(
-        transformation(extent={{180,-30},{200,-10}}),
-                                                    iconTransformation(extent={{180,-30},
-            {200,-10}})));
+        transformation(extent={{180,-20},{200,0}}), iconTransformation(extent={{180,-20},
+            {200,0}})));
   CDL.Interfaces.RealOutput yOutDamPosMax
     "Minimum economizer damper position limit." annotation (Placement(
-        transformation(extent={{180,-10},{200,10}}), iconTransformation(extent=
-            {{100,0},{120,20}})));
+        transformation(extent={{180,-10},{200,10}}), iconTransformation(extent={{180,12},
+            {200,32}})));
 
 equation
   connect(uVOut,minOutAirDamPosController. u_m)
-    annotation (Line(points={{-200,80},{-90,80},{-90,98}}, color={0,0,127}));
-  connect(uSupFan, nand.u1) annotation (Line(points={{-200,40},{-100,40},{-100,
-          30},{-82,30}},
+    annotation (Line(points={{-200,60},{-90,60},{-90,98}}, color={0,0,127}));
+  connect(uSupFan, nand.u1) annotation (Line(points={{-200,-6},{-160,-6},{-160,
+          18},{-82,18}},
                       color={255,0,255}));
-  connect(uAHUMod, nand.u2) annotation (Line(points={{-200,0},{-100,0},{-100,22},
-          {-82,22}},       color={255,0,255}));
-  connect(nand.y, outDamPosMax.u2) annotation (Line(points={{-59,30},{-50,30},{
+  connect(uAHUMod, nand.u2) annotation (Line(points={{-200,-70},{-158,-70},{
+          -158,10},{-82,10}},
+                           color={255,0,255}));
+  connect(nand.y, outDamPosMax.u2) annotation (Line(points={{-59,18},{-50,18},{
           -50,-110},{-22,-110}},  color={255,0,255}));
-  connect(nand.y, RetDamPosMin.u2) annotation (Line(points={{-59,30},{-50,30},{
+  connect(nand.y, RetDamPosMin.u2) annotation (Line(points={{-59,18},{-50,18},{
           -50,-70},{-22,-70}},    color={255,0,255}));
   connect(outDamPhyPosMaxSig.y, outDamPosMax.u3) annotation (Line(points={{-119,
           -100},{-50,-100},{-50,-118},{-22,-118}}, color={0,0,127}));
@@ -117,7 +120,7 @@ equation
   connect(retDamPhyPosMinSig.y, RetDamPosMin.u3) annotation (Line(points={{-119,
           -60},{-56,-60},{-56,-78},{-22,-78}},     color={0,0,127}));
   connect(minRetDam.y, yRetDamPosMax) annotation (Line(points={{123,50},{160,50},
-          {160,-40},{190,-40}},color={0,0,127}));
+          {160,-42},{190,-42}},color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, minRetDam.f1) annotation (Line(points={{-119,
           -20},{12,-20},{12,54},{100,54}},
                                        color={0,0,127}));
@@ -142,79 +145,79 @@ equation
   connect(minOutAirDamPosController.y, minOutDam.u) annotation (Line(points={{-79,110},
           {-38,110},{-38,10},{100,10}},       color={0,0,127}));
   connect(retDamPhyPosMinSig.y, yRetDamPosMin) annotation (Line(points={{-119,
-          -60},{-56,-60},{-56,-144},{150,-144},{150,-20},{190,-20}},
+          -60},{-56,-60},{-56,-144},{150,-144},{150,-10},{190,-10}},
                                                                color={0,0,127}));
   connect(outDamPosMax.y, yOutDamPosMax) annotation (Line(points={{1,-110},{140,
           -110},{140,0},{190,0}},   color={0,0,127}));
   connect(minOutDam.y, yOutDamPosMin) annotation (Line(points={{123,10},{150,10},
-          {150,20},{190,20}}, color={0,0,127}));
-  connect(uVOutMinSet, minOutAirDamPosController.u_s) annotation (Line(points={
-          {-200,120},{-152,120},{-152,110},{-102,110}}, color={0,0,127}));
+          {150,50},{190,50}}, color={0,0,127}));
+  connect(uVOutMinSet, minOutAirDamPosController.u_s) annotation (Line(points={{-200,
+          122},{-160,122},{-160,110},{-102,110}},       color={0,0,127}));
   annotation (
     defaultComponentName = "ecoEnaDis",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}),                                        graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,
+            180}}),                                             graphics={
         Rectangle(
-        extent={{-100,-100},{100,100}},
+        extent={{-180,-140},{180,180}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
-        Line(
-          points={{2,66},{-64,-62},{66,-62},{2,66}},
-          color={28,108,200},
-          thickness=0.5),
         Text(
-          extent={{-96,100},{-26,64}},
+          extent={{-176,138},{-116,106}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="uVOutMin"),
         Text(
-          extent={{118,42},{188,6}},
+          extent={{106,34},{176,-2}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yOutDamPosMax"),
         Text(
-          extent={{-96,62},{-26,26}},
+          extent={{-176,70},{-136,48}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="uVOut"),
         Text(
-          extent={{118,64},{188,28}},
+          extent={{106,64},{176,28}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yOutDamPosMin"),
         Text(
-          extent={{-96,-20},{-26,-56}},
+          extent={{-176,-54},{-116,-86}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="uAHUMod"),
         Text(
-          extent={{-96,22},{-26,-14}},
+          extent={{-176,8},{-116,-18}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="uSupFan"),
         Text(
-          extent={{118,-10},{188,-46}},
+          extent={{106,-24},{176,-60}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yRetDamPosMax"),
         Text(
-          extent={{118,12},{188,-24}},
+          extent={{108,8},{178,-28}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yRetDamPosMin")}),
+          textString="yRetDamPosMin"),
+        Line(
+          points={{-118,-96},{130,-96},{-6,132},{-118,-96}},
+          color={28,108,200},
+          thickness=0.5)}),
     Diagram(coordinateSystem(                           extent={{-180,-180},{
             180,180}},
         initialScale=0.1)),

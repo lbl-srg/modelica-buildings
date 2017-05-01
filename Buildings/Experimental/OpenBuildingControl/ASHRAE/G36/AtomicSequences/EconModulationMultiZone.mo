@@ -1,9 +1,14 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
-model EconModulationSingleZone "Based on supply air temperature (SAT) setpoint and measured 
+model EconModulationMultiZone "Based on supply air temperature (SAT) setpoint and measured 
   supply air temperature, the controller resets the economizer and return air
   damper positions. Damper position limits are inputs to this model. To 
   prevent modulation, provide input signals that set max and min position
   limits to the same value."
+
+  parameter Real minLimRetDam(min=0, max=1, unit="1") = 0.5
+  "Intermediate control paramter between controller Upper limit of output and Lower limit of output: for return air damper";
+  parameter Real maxLimOutDam(min=0, max=1, unit="1") = 0.5
+  "Intermediate control paramter between controller Upper limit of output and Lower limit of output: for outdoor air damper";
 
   CDL.Interfaces.RealInput TSup
     "Measured supply air temperature. Sensor output."
@@ -26,7 +31,7 @@ model EconModulationSingleZone "Based on supply air temperature (SAT) setpoint a
     "Contoller that outputs a signal based on the error between the measured 
     SAT and SAT setpoint [SAT setpoint is the cooling setpoint, in case of 
     cooling reduced in 2F per G36]"
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+    annotation (Placement(transformation(extent={{-20,-74},{0,-54}})));
 
   CDL.Interfaces.BooleanInput uSupFan "Supply Fan Status, on or off"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
@@ -40,16 +45,16 @@ model EconModulationSingleZone "Based on supply air temperature (SAT) setpoint a
             100,10},{120,30}})));
   CDL.Continuous.Line outDamPos(limitBelow=true, limitAbove=true)
     "Damper position is linearly proportional to the control signal."
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+    annotation (Placement(transformation(extent={{60,8},{80,28}})));
   CDL.Continuous.Line RetDamPos(limitBelow=true, limitAbove=true)
     "Damper position is linearly proportional to the control signal."
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   CDL.Continuous.Constant minSignalLimit(k=damPosController.yMin)
     "Identical to controller parameter - Lower limit of output."
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+    annotation (Placement(transformation(extent={{-20,-6},{0,14}})));
   CDL.Continuous.Constant maxSignalLimit(k=damPosController.yMax)
     "Identical to controller parameter - Upper limit of output."
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+    annotation (Placement(transformation(extent={{-20,36},{0,56}})));
   CDL.Interfaces.RealInput uHea(min=0, max=1)
     "Heating control signal."
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
@@ -88,21 +93,25 @@ model EconModulationSingleZone "Based on supply air temperature (SAT) setpoint a
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   CDL.Conversions.BooleanToReal typeConverter
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+  CDL.Continuous.Constant minSignalLimit_RetDam(k=minLimRetDam)
+    "Intermediate control paramter between controller Upper limit of output and Lower limit of output."
+    annotation (Placement(transformation(extent={{-20,68},{0,88}})));
+  CDL.Continuous.Constant maxSignalLimit_OutDam(k=maxLimOutDam)
+    "Intermediate control paramter between controller Upper limit of output and Lower limit of output."
+    annotation (Placement(transformation(extent={{-20,-38},{0,-18}})));
 equation
   connect(TSup,damPosController. u_m) annotation (Line(points={{-120,40},{-46,40},
-          {-46,-48},{-10,-48},{-10,-42}},     color={0,0,127}));
-  connect(outDamPos.y, yOutDamPos) annotation (Line(points={{81,10},{90,10},{90,
+          {-46,-76},{-10,-76}},               color={0,0,127}));
+  connect(outDamPos.y, yOutDamPos) annotation (Line(points={{81,18},{90,18},{90,
           -20},{110,-20}}, color={0,0,127}));
   connect(RetDamPos.y, yRetDamPos) annotation (Line(points={{81,50},{90,50},{90,
           20},{110,20}}, color={0,0,127}));
-  connect(maxSignalLimit.y, RetDamPos.x2) annotation (Line(points={{1,30},{30,
-          30},{30,46},{58,46}}, color={0,0,127}));
-  connect(damPosController.y, RetDamPos.u) annotation (Line(points={{1,-30},{20,
-          -30},{20,50},{58,50}}, color={0,0,127}));
-  connect(minSignalLimit.y, outDamPos.x1) annotation (Line(points={{1,70},{40,
-          70},{40,18},{58,18}}, color={0,0,127}));
-  connect(damPosController.y, outDamPos.u) annotation (Line(points={{1,-30},{30,
-          -30},{30,10},{58,10}}, color={0,0,127}));
+  connect(maxSignalLimit.y, RetDamPos.x2) annotation (Line(points={{1,46},{30,46},
+          {58,46}},             color={0,0,127}));
+  connect(damPosController.y, RetDamPos.u) annotation (Line(points={{1,-64},{20,
+          -64},{20,50},{58,50}}, color={0,0,127}));
+  connect(damPosController.y, outDamPos.u) annotation (Line(points={{1,-64},{30,
+          -64},{30,18},{58,18}}, color={0,0,127}));
   connect(coolingZoneState.u, uCoo)
     annotation (Line(points={{-82,0},{-82,0},{-120,0}}, color={0,0,127}));
   connect(andBlock.u2, uSupFan) annotation (Line(points={{-82,-78},{-90,-78},{-90,
@@ -124,26 +133,29 @@ equation
           -120,-170},{-80,-170},{-80,-162},{-42,-162}}, color={0,0,127}));
   connect(uRetDamPosMax, DisableRetDamModulation.u3) annotation (Line(points={{
           -120,-200},{-80,-200},{-80,-178},{-42,-178}}, color={0,0,127}));
-  connect(minSignalLimit.y, RetDamPos.x1) annotation (Line(points={{1,70},{30,
-          70},{30,58},{58,58}}, color={0,0,127}));
   connect(uRetDamPosMax, RetDamPos.f1) annotation (Line(points={{-120,-200},{50,
           -200},{50,54},{58,54}}, color={0,0,127}));
   connect(DisableRetDamModulation.y, RetDamPos.f2) annotation (Line(points={{
           -19,-170},{10,-170},{10,42},{58,42}}, color={0,0,127}));
-  connect(uOutDamPosMin, outDamPos.f1) annotation (Line(points={{-120,-110},{
-          -32,-110},{-32,14},{58,14}}, color={0,0,127}));
+  connect(uOutDamPosMin, outDamPos.f1) annotation (Line(points={{-120,-110},{-32,
+          -110},{-32,22},{58,22}},     color={0,0,127}));
   connect(DisableEcoDamModulation.y, outDamPos.f2) annotation (Line(points={{-19,
-          -140},{40,-140},{40,2},{58,2}}, color={0,0,127}));
-  connect(maxSignalLimit.y, outDamPos.x2)
-    annotation (Line(points={{1,30},{30,30},{30,6},{58,6}}, color={0,0,127}));
+          -140},{40,-140},{40,10},{58,10}},
+                                          color={0,0,127}));
   connect(TCooSet, add.u1) annotation (Line(points={{-120,80},{-82,80},{-82,76}},
                      color={0,0,127}));
   connect(add.y,damPosController. u_s) annotation (Line(points={{-59,70},{-40,70},
-          {-40,-30},{-22,-30}},     color={0,0,127}));
+          {-40,-64},{-22,-64}},     color={0,0,127}));
   connect(coolingZoneState.y, typeConverter.u) annotation (Line(points={{-59,0},
           {-52,0},{-52,16},{-90,16},{-90,30},{-82,30}}, color={255,0,255}));
   connect(typeConverter.y, add.u2) annotation (Line(points={{-59,30},{-50,30},{-50,
           50},{-90,50},{-90,64},{-82,64}}, color={0,0,127}));
+  connect(minSignalLimit.y, outDamPos.x1) annotation (Line(points={{1,4},{8,4},{
+          16,4},{16,26},{58,26}}, color={0,0,127}));
+  connect(minSignalLimit_RetDam.y, RetDamPos.x1) annotation (Line(points={{1,78},
+          {10,78},{20,78},{20,58},{58,58}}, color={0,0,127}));
+  connect(maxSignalLimit_OutDam.y, outDamPos.x2) annotation (Line(points={{1,-28},
+          {24,-28},{24,14},{58,14}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ecoMod",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -196,10 +208,10 @@ equation
           horizontalAlignment=TextAlignment.Left,
           textString="uCoo"),
         Line(points={{20,58}}, color={28,108,200}),
-        Line(points={{-76,-64},{-30,-64},{40,62},{76,62}}, color={28,108,200},
+        Line(points={{-76,-64},{-30,-64},{6,62},{76,62}},  color={28,108,200},
           thickness=0.5),
         Line(
-          points={{-74,62},{-30,62},{40,-60},{62,-60}},
+          points={{-50,54},{6,54},{64,-68},{86,-68}},
           color={28,108,200},
           pattern=LinePattern.Dash,
           thickness=0.5),
@@ -245,7 +257,7 @@ equation
 <p>
 This atomic sequence sets the economizer and
 return air damper position. The implementation is according
-to ASHRAE Guidline 36 (G36), Part 5.P.3.b and functionaly it represents the
+to ASHRAE Guidline 36 (G36), PART5.N.2.c and functionaly it represents the
 final sequence in the composite economizer control sequence.
 </p>
 <p>
@@ -285,7 +297,7 @@ fixme: create our customized chart instead
 </p>
 <p align=\"center\">
 <img alt=\"Image of the modulation sequence expected performance\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/DamperModulationSequenceEcon.PNG\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/DamperModulationSequenceEcon_MultiZone.png\"/>
 </p>
 <p>
 bla
@@ -299,4 +311,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EconModulationSingleZone;
+end EconModulationMultiZone;
