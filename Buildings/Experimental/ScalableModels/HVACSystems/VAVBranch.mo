@@ -1,4 +1,4 @@
-within Buildings.Experimental.ScalableModels.ThermalZones.BaseClasses;
+within Buildings.Experimental.ScalableModels.HVACSystems;
 model VAVBranch "Supply branch of a VAV system"
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);

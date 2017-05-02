@@ -1,6 +1,6 @@
-within Buildings.Experimental.ScalableModels.ThermalZones.BaseClasses;
-model MultiZoneSupplySplitter
-  "Splitter group for supplying air to different zones"
+within Buildings.Experimental.ScalableModels.HVACSystems;
+model MultiZoneReturnSplitter
+  "Splitter group for returning air from different zones"
   package MediumA = Buildings.Media.Air "Medium model";
 
   parameter Integer nZon(min=1) = 1 "Number of zones per floor"
@@ -26,18 +26,16 @@ model MultiZoneSupplySplitter
     m0_flow for j in 1:nFlo} for i in 1:nZon}
     "Nominal flow rate for spliiter branch 3";
 
-
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b splSupIn(
-      redeclare each package Medium = MediumA) "Splitter group inlet"
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b splRetOut(
+      redeclare each package Medium = MediumA) "Splitter group outlet"
     annotation (Placement(transformation(extent={{-84,-19},{-46,-9}}),
         iconTransformation(extent={{-94,-26},{-56,-16}})));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b splSupToZon[nZon,nFlo](
-      redeclare each package Medium = MediumA) "Splitter group to zones"
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b splRetFrZon[nZon,nFlo](
+      redeclare each package Medium = MediumA) "Splitter group from zones"
     annotation (Placement(transformation(extent={{-18,54},{18,64}}),
         iconTransformation(extent={{-1,64},{35,74}})));
 
-
-  Buildings.Fluid.FixedResistances.Junction splSup[nZon, nFlo](
+  Buildings.Fluid.FixedResistances.Junction splRet[nZon, nFlo](
     redeclare each package Medium = MediumA,
     m_flow_nominal={{{m_flow_1[i,j],m_flow_2[i,j],m_flow_3[i,j]} for j in 1:nFlo} for i in 1:nZon},
     dp_nominal(displayUnit="Pa") = {10,10,10},
@@ -47,31 +45,28 @@ model MultiZoneSupplySplitter
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{-10,-10},{10,-30}})));
 
-
 equation
   for iZone in 1:nZon-1 loop
     for iFlo in 1:nFlo-1 loop
-      connect(splSup[iZon, iFlo].port_2, splSup[iZon+1, iFlo].port_1) annotation (Line(
+      connect(splRet[iZon, iFlo].port_2, splRet[iZon+1, iFlo].port_1) annotation (Line(
         points={{10,-20},{-22,-20},{-22,-38},{18,-38},{18,-20},{-10,-20}},color={191, 0,0}));
     end for;
   end for;
 
-  connect(splSupIn, splSup[1, 1].port_1) annotation (Line(
+  connect(splRetOut, splSup[1, 1].port_1) annotation (Line(
         points={{-65,-14},{-65,-14},{-10,-14},{-10,-20}},                 color={191, 0,0}));
   for iZone in 1:nZon-1 loop
     for iFlo in 1:nFlo-1 loop
-      connect(splSupToZon[iZon, iFlo], splSup[iZon, iFlo].port_3) annotation (Line(
+      connect(splRetFrZon[iZon, iFlo], splRet[iZon, iFlo].port_3) annotation (Line(
         points={{0,59},{0,59},{0,2},{0,-10}},                             color={191, 0,0}));
     end for;
   end for;
 
-
-
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -120},{120,100}}), graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},
+            {120,100}}), graphics={
         Polygon(
-          points={{-42,-62},{-42,6},{4,-2},{4,28},{32,28},{32,-6},{100,-18},{
-              100,-48},{-42,-62}},
+          points={{-42,-62},{-42,6},{4,-2},{4,28},{32,28},{32,-6},{100,-18},{100,
+              -48},{-42,-62}},
           lineColor={0,0,0},
           fillColor={175,175,175},
           fillPattern=FillPattern.Solid),
@@ -98,13 +93,12 @@ equation
           lineColor={0,0,0},
           fillColor={85,85,255},
           fillPattern=FillPattern.Solid,
-          textString="splSupIn"),
+          textString="splRetOut"),
         Text(
           extent={{22,64},{50,48}},
           lineColor={0,0,0},
           fillColor={85,85,255},
           fillPattern=FillPattern.Solid,
-          textString="splSupToZon")}),                           Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{120,
-            100}})));
-end MultiZoneSupplySplitter;
+          textString="splRetFrZon")}),                           Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{120,100}})));
+end MultiZoneReturnSplitter;
