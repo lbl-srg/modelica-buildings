@@ -2,5 +2,5 @@ VAVSingleZoneTSupSet_T
 VAVSingleZoneTSupSet_u
 EconEnableDisable_TOut
 EconEnableDisable_FreProSta
-EconDamPosLimits_VOut
-EconModulation_TSup
+EconDamPosLimitsMultiZon_VOut
+EconModulationSingleZone_TSup

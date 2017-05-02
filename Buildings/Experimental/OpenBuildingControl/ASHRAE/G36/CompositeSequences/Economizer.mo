@@ -3,9 +3,11 @@ model Economizer "Economizer control block"
 
   AtomicSequences.EconEnableDisable econEnableDisable
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  AtomicSequences.EconDamperPositionLimits ecoEnaDis
+  AtomicSequences.EconDamperPositionLimitsMultiZone
+                                           ecoEnaDis
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  AtomicSequences.EconModulation ecoMod
+  AtomicSequences.EconModulationSingleZone
+                                 ecoMod
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   CDL.Interfaces.RealInput TCooSet
     "Output of a ***TSupSet sequence. The economizer modulates to the TCoo rather 
@@ -46,50 +48,64 @@ model Economizer "Economizer control block"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
 equation
   connect(econEnableDisable.uOutDamPosMax, ecoEnaDis.yOutDamPosMax) annotation (
-     Line(points={{-22,-59},{-42,-59},{-42,31},{-59,31}}, color={0,0,127}));
+     Line(points={{-22,-57.7778},{-42,-57.7778},{-42,30.125},{-59.4444,30.125}},
+                                                          color={0,0,127}));
   connect(econEnableDisable.uOutDamPosMin, ecoEnaDis.yOutDamPosMin) annotation (
-     Line(points={{-22,-56},{-40,-56},{-40,22},{-40,32},{-51,32}},     color={0,
+     Line(points={{-22,-53.3333},{-40,-53.3333},{-40,22},{-40,31.875},{-59.4444,
+          31.875}},                                                    color={0,
           0,127}));
   connect(ecoEnaDis.yRetDamPosMin, ecoMod.uRetDamPosMin) annotation (Line(
-        points={{-51,28},{-26,28},{-26,-7},{38,-7}}, color={0,0,127}));
+        points={{-59.4444,28.125},{-26,28.125},{-26,3.07143},{39.3571,3.07143}},
+                                                     color={0,0,127}));
   connect(ecoEnaDis.yRetDamPosMax, ecoMod.uRetDamPosMax) annotation (Line(
-        points={{-51,26},{-30,26},{-30,-10},{38,-10}}, color={0,0,127}));
+        points={{-59.4444,26.125},{-30,26.125},{-30,1.07143},{39.3571,1.07143}},
+                                                       color={0,0,127}));
   connect(ecoEnaDis.yOutDamPosMin, ecoMod.uOutDamPosMin) annotation (Line(
-        points={{-51,32},{-20,32},{-20,32},{-20,-1},{38,-1}},
+        points={{-59.4444,31.875},{-20,31.875},{-20,7.21429},{39.3571,7.21429}},
         color={0,0,127}));
   connect(econEnableDisable.yOutDamPosMax, ecoMod.uOutDamPosMax) annotation (
-      Line(points={{1.9,-49.9},{10,-49.9},{10,-4},{38,-4}}, color={0,0,127}));
-  connect(ecoMod.yRetDamPos, yRetDamPos) annotation (Line(points={{61,12},{80,12},
-          {80,20},{110,20}}, color={0,0,127}));
-  connect(ecoMod.yOutDamPos, yOutDamPos) annotation (Line(points={{61,8},{80,8},
-          {80,-20},{110,-20}}, color={0,0,127}));
-  connect(TCooSet, ecoMod.TCooSet) annotation (Line(points={{-110,80},{-46,80},{
-          20,80},{20,18},{38,18}}, color={0,0,127}));
-  connect(TSup, ecoMod.TSup) annotation (Line(points={{-110,60},{10,60},{10,14},
-          {38,14}}, color={0,0,127}));
+      Line(points={{1.9,-51.2222},{10,-51.2222},{10,5.21429},{39.3571,5.21429}},
+                                                            color={0,0,127}));
+  connect(ecoMod.yRetDamPos, yRetDamPos) annotation (Line(points={{60.7143,
+          11.4286},{80,11.4286},{80,20},{110,20}},
+                             color={0,0,127}));
+  connect(ecoMod.yOutDamPos, yOutDamPos) annotation (Line(points={{60.7143,
+          8.57143},{80,8.57143},{80,-20},{110,-20}},
+                               color={0,0,127}));
+  connect(TCooSet, ecoMod.TCooSet) annotation (Line(points={{-110,80},{-46,80},
+          {20,80},{20,18.0714},{39.3571,18.0714}},
+                                   color={0,0,127}));
+  connect(TSup, ecoMod.TSup) annotation (Line(points={{-110,60},{10,60},{10,
+          16.2143},{39.3571,16.2143}},
+                    color={0,0,127}));
   connect(uCoo, ecoMod.uCoo) annotation (Line(points={{-110,-20},{-36,-20},{-36,
-          10},{38,10}}, color={0,0,127}));
+          14.0714},{39.3571,14.0714}},
+                        color={0,0,127}));
   connect(uHea, ecoMod.uHea) annotation (Line(points={{-110,-40},{-38,-40},{-38,
-          6},{38,6}}, color={0,0,127}));
+          11.7857},{39.2143,11.7857}},
+                      color={0,0,127}));
   connect(TOut, econEnableDisable.TOut) annotation (Line(points={{-110,100},{
-          -40,100},{-40,-42},{-22,-42}},
+          -40,100},{-40,-42.2222},{-22,-42.2222}},
                                      color={0,0,127}));
   connect(TSup, econEnableDisable.TSup) annotation (Line(points={{-110,60},{-50,
           60},{-50,-46},{-22,-46}}, color={0,0,127}));
-  connect(uSupFan, ecoEnaDis.uSupFan) annotation (Line(points={{-110,-60},{-90,
-          -60},{-90,34},{-90,34}},
+  connect(uSupFan, ecoEnaDis.uSupFan) annotation (Line(points={{-110,-60},{-88,
+          -60},{-88,28},{-81.1111,28},{-81.1111,28.375}},
                               color={255,0,255}));
   connect(uVOut, ecoEnaDis.uVOut) annotation (Line(points={{-110,20},{-98,20},{
-          -98,38},{-90,38}},
+          -98,32.5},{-81.1111,32.5}},
                          color={0,0,127}));
   connect(uVOutMinSet, ecoEnaDis.uVOutMinSet) annotation (Line(points={{-110,40},
-          {-98,40},{-98,42},{-90,42}}, color={0,0,127}));
-  connect(uAHUMod, ecoEnaDis.uAHUMod) annotation (Line(points={{-110,0},{-90,0},
-          {-90,30},{-90,30}}, color={255,0,255}));
+          {-98,40},{-98,36.375},{-81.1111,36.375}},
+                                       color={0,0,127}));
+  connect(uAHUMod, ecoEnaDis.uAHUMod) annotation (Line(points={{-110,0},{-92,0},
+          {-92,24},{-81.1111,24},{-81.1111,24.375}},
+                              color={255,0,255}));
   connect(uFre, econEnableDisable.uFre) annotation (Line(points={{-110,-80},{-66,
           -80},{-66,-50},{-22,-50}}, color={255,0,255}));
   connect(uSupFan, ecoMod.uSupFan) annotation (Line(points={{-110,-60},{-36,-60},
-          {-36,3},{38,3}}, color={255,0,255}));
+          {-36,9.5},{39.3571,9.5}},
+                           color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},

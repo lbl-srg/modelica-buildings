@@ -22,11 +22,13 @@ model EconEnableDisable_FreProSta
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(outDamPosMax.y, econEnableDisable.uOutDamPosMin) annotation (Line(
-        points={{-59,-30},{-36,-30},{-36,-2},{-2,-2}},    color={0,0,127}));
+        points={{-59,-30},{-36,-30},{-36,-4},{-2,-4}},    color={0,0,127}));
   connect(outDamPosMin.y, econEnableDisable.uOutDamPosMax) annotation (Line(
-        points={{-59,-64},{-32,-64},{-32,-6},{-2,-6}},    color={0,0,127}));
-  connect(TOut.y, econEnableDisable.TOut) annotation (Line(points={{-59,70},{-32,
-          70},{-32,8},{-2,8}},            color={0,0,127}));
+        points={{-59,-64},{-32,-64},{-32,-9.33333},{-2,-9.33333}},
+                                                          color={0,0,127}));
+  connect(TOut.y, econEnableDisable.TOut) annotation (Line(points={{-59,70},{
+          -32,70},{-32,9.33333},{-2,9.33333}},
+                                          color={0,0,127}));
   //fixme - turn into proper test and uncomment
   //__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/fixme.mos"
   //     "Simulate and plot"),

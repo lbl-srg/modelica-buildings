@@ -6,7 +6,7 @@ model EconEnableDisable_TOut
   parameter Real TOutAboveTreshold(min=297 + 1, max=350, unit="K", displayUnit="degC")=300 "Constant output value";
 
   EconEnableDisable econEnableDisable
-    annotation (Placement(transformation(extent={{0,-12},{20,12}})));
+    annotation (Placement(transformation(extent={{0,-12},{26,12}})));
   CDL.Continuous.Constant outDamPosMax(k=0.9)
     "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
@@ -22,16 +22,19 @@ model EconEnableDisable_TOut
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(outDamPosMax.y, econEnableDisable.uOutDamPosMin) annotation (Line(
-        points={{-59,-30},{-36,-30},{-36,-2},{-2,-2}},    color={0,0,127}));
+        points={{-59,-30},{-36,-30},{-36,-4},{-2.6,-4}},  color={0,0,127}));
   connect(outDamPosMin.y, econEnableDisable.uOutDamPosMax) annotation (Line(
-        points={{-59,-64},{-32,-64},{-32,-6},{-2,-6}},    color={0,0,127}));
+        points={{-59,-64},{-32,-64},{-32,-9.33333},{-2.6,-9.33333}},
+                                                          color={0,0,127}));
   connect(TOut.y, econEnableDisable.TOut) annotation (Line(points={{-59,70},{
-          -26,70},{-26,8},{-2,8}},        color={0,0,127}));
+          -26,70},{-26,9.33333},{-2.6,9.33333}},
+                                          color={0,0,127}));
   //fixme - turn into proper test and uncomment
   //__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/fixme.mos"
   //     "Simulate and plot"),
   connect(freezeProtectionStage.y, econEnableDisable.uFreezeProtectionStatus)
-    annotation (Line(points={{-59,30},{-30,30},{-30,4},{-2,4}}, color={255,85,
+    annotation (Line(points={{-59,30},{-30,30},{-30,4},{-2.6,4}},
+                                                                color={255,85,
           85}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(lineColor = {75,138,73},

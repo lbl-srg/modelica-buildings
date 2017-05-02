@@ -11,7 +11,7 @@ model FreezeProtection
           extent={{-220,-80},{-180,-40}})));
   CDL.Interfaces.RealInput TSup(unit="K", displayUnit="degC")
     "Supply air temperature" annotation (Placement(transformation(extent={{-220,
-            -20},{-180,20}}), iconTransformation(extent={{-220,-20},{-180,20}})));
+            -16},{-180,24}}), iconTransformation(extent={{-220,-16},{-180,24}})));
   //fixme: units for instantiated limits, example TOut limit is 75K, delta = 1K
   CDL.Logical.LessThreshold TSupThreshold(threshold=276.483)
     "fixme: timer still not implemented, threshold value provided in K, units not indicated. Fixme: add hysteresis"
@@ -27,8 +27,7 @@ model FreezeProtection
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
   CDL.Discrete.FreezeProtectionStage dayType1
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
-  CDL.Logical.LessThreshold TSupThreshold1(
-                                          threshold=276.483)
+  CDL.Logical.LessThreshold TSupThreshold1(threshold=273.15 + 3.333)
     "fixme: timer still not implemented, threshold value provided in K, units not indicated. Fixme: add hysteresis"
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
   CDL.Logical.Greater greater1
@@ -72,8 +71,8 @@ equation
           40},{-70,52},{-62,52}}, color={0,0,127}));
   connect(timer1.y, greater.u1) annotation (Line(points={{-79,70},{-70,70},{-70,
           60},{-62,60}},   color={0,0,127}));
-  connect(TSup, TSupThreshold.u) annotation (Line(points={{-200,0},{-200,0},{
-          -160,0},{-160,70},{-142,70}},
+  connect(TSup, TSupThreshold.u) annotation (Line(points={{-200,4},{-200,4},{
+          -158,4},{-158,70},{-142,70}},
                               color={0,0,127}));
   connect(TSupTimeLimit1.y, greater1.u2) annotation (Line(points={{-79,140},{
           -70,140},{-70,152},{-62,152}}, color={0,0,127}));
@@ -115,16 +114,16 @@ equation
         extent={{-180,-200},{180,200}},
         initialScale=0.1), graphics={
         Rectangle(
-          extent={{-100,-40},{100,160}},
+          extent={{-180,-200},{180,200}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-38,-8},{-38,126},{40,126}},
+          points={{-38,-140},{-38,126},{66,126}},
           color={28,108,200},
           thickness=0.5),
         Line(
-          points={{-38,72},{30,72}},
+          points={{-38,18},{42,18}},
           color={28,108,200},
           thickness=0.5)}),
     Diagram(coordinateSystem(
@@ -132,7 +131,7 @@ equation
         extent={{-180,-200},{180,200}},
         initialScale=0.1), graphics={
         Rectangle(extent={{-172,192},{166,106}},lineColor={0,0,255}),
-        Rectangle(extent={{-172,100},{110,0}},  lineColor={0,0,255}),
+        Rectangle(extent={{-172,100},{104,0}},  lineColor={0,0,255}),
         Rectangle(extent={{-172,-6},{172,-190}},  lineColor={0,0,255}),
         Text(
           extent={{128,114},{164,110}},

@@ -214,7 +214,11 @@ equation
           points={{-112,10},{-116,6},{-112,2},{-108,6},{-112,10}},
           lineColor={127,127,0},
           fillColor={127,127,0},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-44,244},{60,208}},
+          lineColor={85,0,255},
+          textString="%name")}),
     Diagram(coordinateSystem(                           extent={{-180,-180},{
             180,180}},
         initialScale=0.1)),

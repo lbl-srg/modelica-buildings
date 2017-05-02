@@ -1,17 +1,17 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
-model EconModulation_TSup
+model EconModulationSingleZone_TSup
   "Validation model for economizer and return air damper modulation to preserve the supply air temperature"
   extends Modelica.Icons.Example;
 
   CDL.Continuous.Constant TSupSet(k=70, unit="F", displayUnit="F")
     "Supply air temperature setpoint. The economizer control uses cooling supply temperature"
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+    annotation (Placement(transformation(extent={{-22,62},{-2,82}})));
   Modelica.Blocks.Sources.Ramp TSup(
     duration=1800,
     height=8,
     offset=64,
     unit="F", displayUnit="F") "Supply air temperature sensor output temperature"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-80,62},{-60,82}})));
   CDL.Logical.Constant uSupFan(k=true) "Supply fan on or off"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   EconModulationSingleZone ecoMod
@@ -32,28 +32,32 @@ equation
   //fixme - turn into proper test and uncomment
   //__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/fixme.mos"
   //     "Simulate and plot"),
-  connect(TSupSet.y, ecoMod.TCooSet) annotation (Line(points={{1,70},{8,70},{8,48},
-          {-20,48},{-20,38},{-2,38}},
+  connect(TSupSet.y, ecoMod.TCooSet) annotation (Line(points={{-1,72},{8,72},{8,
+          48},{-20,48},{-20,38.0714},{-0.642857,38.0714}},
                             color={0,0,127}));
-  connect(TSup.y,ecoMod.TSup)  annotation (Line(points={{-59,70},{-30,70},{-30,34},
-          {-2,34}},color={0,0,127}));
+  connect(TSup.y,ecoMod.TSup)  annotation (Line(points={{-59,72},{-30,72},{-30,
+          36.2143},{-0.642857,36.2143}},
+                   color={0,0,127}));
   connect(uCoo.y, ecoMod.uCoo)
-    annotation (Line(points={{-59,10},{-2,10},{-2,30}},    color={0,0,127}));
-  connect(uHea.y, ecoMod.uHea) annotation (Line(points={{-59,40},{-30,40},{-30,26},
-          {-2,26}}, color={0,0,127}));
-  connect(uSupFan.y, ecoMod.uSupFan) annotation (Line(points={{-59,-30},{-30.5,-30},
-          {-30.5,23},{-2,23}},  color={255,0,255}));
+    annotation (Line(points={{-59,10},{-38,10},{-38,34},{-0.642857,34},{
+          -0.642857,34.0714}},                             color={0,0,127}));
+  connect(uHea.y, ecoMod.uHea) annotation (Line(points={{-59,40},{-34,40},{-34,
+          31.7857},{-0.785714,31.7857}},
+                    color={0,0,127}));
+  connect(uSupFan.y, ecoMod.uSupFan) annotation (Line(points={{-59,-30},{-34.5,
+          -30},{-34.5,29.5},{-0.642857,29.5}},
+                                color={255,0,255}));
   connect(RetDamPosMax.y, ecoMod.uRetDamPosMax) annotation (Line(points={{41,-10},
-          {50,-10},{50,-30},{-20,-30},{-20,10},{-2,10}},
+          {46,-10},{46,-26},{-6,-26},{-6,20},{-6,21.0714},{-0.642857,21.0714}},
                                         color={0,0,127}));
   connect(RetDamPosMin.y, ecoMod.uRetDamPosMin) annotation (Line(points={{79,-10},
-          {90,-10},{90,-30},{-20,-30},{-20,13},{-2,13}},
+          {84,-10},{84,-30},{-20,-30},{-20,23.0714},{-0.642857,23.0714}},
                                          color={0,0,127}));
   connect(outDamPosMax.y, ecoMod.uOutDamPosMax) annotation (Line(points={{41,-50},
-          {50,-50},{50,-70},{-30,-70},{-30,16},{-2,16}},
+          {50,-50},{50,-66},{-30,-66},{-30,25.2143},{-0.642857,25.2143}},
                                          color={0,0,127}));
   connect(outDamPosMin.y, ecoMod.uOutDamPosMin) annotation (Line(points={{81,-50},
-          {90,-50},{90,-70},{-20,-70},{-20,19},{-2,19}},
+          {88,-50},{88,-70},{-24,-70},{-24,27.2143},{-0.642857,27.2143}},
                                          color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -85,4 +89,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EconModulation_TSup;
+end EconModulationSingleZone_TSup;

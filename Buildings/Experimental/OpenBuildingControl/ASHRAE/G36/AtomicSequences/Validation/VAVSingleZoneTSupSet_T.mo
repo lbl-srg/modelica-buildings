@@ -10,7 +10,7 @@ model VAVSingleZoneTSupSet_T
     TMin=289.15,
     yCooMax=0.9)
     "Block that computes the setpoints for temperature and fan speed"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    annotation (Placement(transformation(extent={{0,2},{20,22}})));
 
   CDL.Continuous.Constant uHea(k=0) "Heating control signal"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
@@ -32,20 +32,22 @@ model VAVSingleZoneTSupSet_T
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 equation
   connect(uCoo.y, setPoiVAV.uCoo) annotation (Line(points={{-59,50},{-31.5,50},
-          {-31.5,4},{-2,4}},color={0,0,127}));
-  connect(TZon.y, setPoiVAV.TZon) annotation (Line(points={{-59,-10},{-32,-10},{
-          -32,-4},{-2,-4}}, color={0,0,127}));
-  connect(TOut.y, setPoiVAV.TOut) annotation (Line(points={{-59,-50},{-28,-50},{
-          -28,-8},{-2,-8}}, color={0,0,127}));
+          {-31.5,16},{-2,16}},
+                            color={0,0,127}));
+  connect(TZon.y, setPoiVAV.TZon) annotation (Line(points={{-59,-10},{-32,-10},
+          {-32,8},{-2,8}},  color={0,0,127}));
+  connect(TOut.y, setPoiVAV.TOut) annotation (Line(points={{-59,-50},{-28,-50},
+          {-28,4},{-2,4}},  color={0,0,127}));
   connect(uHea.y, setPoiVAV.uHea) annotation (Line(points={{-59,80},{-59,80},{
-          -20,80},{-20,8},{-2,8}},
+          -20,80},{-20,20},{-2,20}},
                                color={0,0,127}));
   connect(dT.u1, TZon.y) annotation (Line(points={{-2,-34},{-32,-34},{-32,-10},{
           -59,-10}}, color={0,0,127}));
   connect(dT.u2, TOut.y) annotation (Line(points={{-2,-46},{-28,-46},{-28,-50},{
           -59,-50}}, color={0,0,127}));
   connect(TSetZon.y, setPoiVAV.TSetZon) annotation (Line(points={{-59,20},{-40,
-          20},{-40,0},{-2,0}}, color={0,0,127}));
+          20},{-40,12},{-2,12}},
+                               color={0,0,127}));
   annotation (
   experiment(StopTime=1.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/VAVSingleZoneTSupSet_T.mos"
