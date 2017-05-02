@@ -173,14 +173,14 @@ Disable: TSup above 7℃ [45°F] for 5 minutes
 Freeze Protection Stage 2:
 </p>
 <p>
-Enable: TOut below 3.5℃ [38°F] for 5 minutes<br/>
+Enable: TSup below 3.5℃ [38°F] for 5 minutes<br/>
 Disable: After 1 hour set to Stage 1
 </p>
 <p>
 Freeze Protection Stage 3:
 </p>
 <p>
-Enable: TOut below 4.5℃ [40°F] for 15 minutes or 
+Enable: TSup below 4.5℃ [40°F] for 15 minutes or 
 TOut below 1.1℃ [34°F] for 5 minutes or Freezestat Status is ON (if installed) <br/>
 Disable: Manual reset
 </p>
