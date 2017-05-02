@@ -212,6 +212,18 @@ its class name ends with the string <code>Beta</code>.
    that can lead to wrong simulation results):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.Airflow</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Airflow.Multizone.EffectiveAirLeakageArea
+       </td>
+       <td valign=\"top\">Corrected error in computation of <code>A</code> which was
+                          <code>A=CD/CDRat * L * dpRat^(0.5-m))</code> rather than
+                          <code>A=CDRat/CD * L * dpRat^(0.5-m))</code>.<br/>
+                          See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/743\">#743</a>.
+       </td>
+   </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
@@ -225,6 +237,20 @@ its class name ends with the string <code>Beta</code>.
                           the variable naming, and because the cooling coils interpret these variables
                           as if they contain the latent heat flow rate.<br/>
                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.WetCoilCounterFlow<br/>
+                          Buildings.Fluid.HeatExchangers.WetCoilDiscretized<br/>
+                          Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent
+       </td>
+       <td valign=\"top\">Added heat of condensation to coil surface heat balance
+                          and removed it from the air stream.
+                          This gives higher coil surface temperature and avoids
+                          overestimating the latent heat ratio that was
+                          observed in the previous implementation.
+                          The code change was in
+                          <code>Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent</code><br/>
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/711\">#711</a>.
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil

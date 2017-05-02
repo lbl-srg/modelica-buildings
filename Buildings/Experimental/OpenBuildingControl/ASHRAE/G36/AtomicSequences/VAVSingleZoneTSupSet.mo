@@ -41,8 +41,8 @@ block VAVSingleZoneTSupSet "Supply air set point for single zone VAV system"
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  CDL.Interfaces.RealOutput THea(unit="K", displayUnit="degC")
-    "Heating supply air temperature setpoint"
+  CDL.Interfaces.RealOutput THeaEco(unit="K", displayUnit="degC")
+    "Temperature setpoint for heating coil and for economizer"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
   CDL.Interfaces.RealOutput TCoo(unit="K", displayUnit="degC")
@@ -160,9 +160,8 @@ equation
   connect(offSetTSetHea.y, addTHe.u2) annotation (Line(points={{21,150},{21,150},
           {40,150},{40,164},{58,164}},
                                 color={0,0,127}));
-  connect(addTHe.y, THea)
-    annotation (Line(points={{81,170},{92,170},{92,60},{110,60}},
-                                                color={0,0,127}));
+  connect(addTHe.y, THeaEco) annotation (Line(points={{81,170},{92,170},{92,60},
+          {110,60}}, color={0,0,127}));
   connect(TSetCooHig.y, addTCoo.u1) annotation (Line(points={{21,110},{40,110},
           {40,96},{58,96}},
                           color={0,0,127}));
@@ -374,7 +373,7 @@ equation
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="THea"),
+          textString="THeaEco"),
         Text(
           extent={{68,12},{94,-10}},
           lineColor={0,0,127},
@@ -456,7 +455,8 @@ equation
           textString="0.5 < y < 0.75")}),
     Documentation(info="<html>
 <p>
-Block that outputs the set points for the supply air temperature for heating and cooling
+Block that outputs the set points for the supply air temperature for
+cooling, heating and economizer control,
 and the fan speed for a single zone VAV system.
 </p>
 <p>
@@ -469,8 +469,10 @@ for heating and cooling, as obtained from the input <code>TSetZon</code>,
 constraint to be within <i>21</i>&deg;C (&asymp;<i>70</i> F) and
 <i>24</i>&deg;C (&asymp;<i>75</i> F).
 The setpoints are computed as shown in the figure below.
-Note that the setpoint for the supply air temperature for heating is
-lower than <code>TMin</code>, as shown in the figure.
+Note that the setpoint for the supply air temperature for heating
+and for economizer control is the same, and this setpoint is
+lower than <code>TMin</code> when the heating loop signal
+is zero and the economizer is in cooling mode, as shown in the figure.
 </p>
 <p>
 For the fan speed set point, the
@@ -487,8 +489,14 @@ The figure below shows the sequence.
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/VAVSingleZoneTSupSet.png\"/>
 </p>
 <p>
+The output <code>TCoo</code> is to be used to control the cooling coil,
+and the output
+<code>THeaEco</code> is to be used to control the heating coil and the
+economizer dampers.
+</p>
+<p>
 Note that the inputs <code>uHea</code> and <code>uCoo</code> must be computed
-based on the same temperature sensors and control loops.
+based on the same temperature sensors and control loops
 </p>
 <p>
 fixme, mg notes: 
@@ -502,6 +510,10 @@ guidline text, see 3.2B.1.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 26, 2017, by Michael Wetter:<br/>
+Updated documentation and renamed output signal to <code>THeaEco</code>.
+</li>
 <li>
 January 10, 2017, by Michael Wetter:<br/>
 First implementation.

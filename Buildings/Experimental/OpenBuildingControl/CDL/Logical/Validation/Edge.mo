@@ -2,15 +2,11 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model Edge "Validation model for the Edge block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc(
-    cycleOn = true,
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul(
+    width = 0.5,
     period = 1.0)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-36,-8},{-16,12}})));
-
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=0.5)
-   "Constant as source term"
-    annotation (Placement(transformation(extent={{-76,-8},{-56,12}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Edge edge1
     annotation (Placement(transformation(extent={{2,-8},{22,12}})));
@@ -19,16 +15,14 @@ extends Modelica.Icons.Example;
     samplePeriod = 0.2)
     "Output the triggered sampled value of a continuous signal"
     annotation (Placement(transformation(extent={{42,44},{62,64}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
     duration=5,
     offset=0,
     height=20) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{2,44},{22,64}})));
 
 equation
-  connect(cons1.y, dutCyc.u)
-    annotation (Line(points={{-55,2},{-38,2}},            color={0,0,127}));
-  connect(dutCyc.y, edge1.u)
+  connect(booPul.y, edge1.u)
     annotation (Line(points={{-15,2},{0,2}},        color={255,0,255}));
   connect(edge1.y, triggeredSampler.trigger) annotation (Line(points={{23,2},{38,
           2},{38,42.2},{52,42.2}}, color={255,0,255}));

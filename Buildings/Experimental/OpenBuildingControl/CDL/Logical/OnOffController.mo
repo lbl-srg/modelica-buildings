@@ -5,7 +5,6 @@ block OnOffController "On-off controller"
 
   parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
 
-
   Interfaces.RealInput reference
     "Connector of Real input signal used as reference signal"
     annotation (Placement(transformation(extent={{-140,80},{-100,40}})));

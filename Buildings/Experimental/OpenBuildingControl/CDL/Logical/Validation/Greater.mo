@@ -2,12 +2,12 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model Greater "Validation model for the Greater block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
     duration=1,
     offset=-2,
     height=4)  "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-26,12},{-6,32}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
     duration=1,
     offset=-1,
     height=2) "Block that generates ramp signal"

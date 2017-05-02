@@ -3,7 +3,7 @@ model BooleanPulse "Validation model for the BooleanPulse block"
 extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul(
-    width = 50,
+    width = 0.5,
     period = 1)
     "Block that generates pulse signal of type Boolean"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

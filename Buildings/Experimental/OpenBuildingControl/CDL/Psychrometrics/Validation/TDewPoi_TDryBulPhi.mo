@@ -9,7 +9,7 @@ model TDewPoi_TDryBulPhi
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant p(k=101325) "Pressure"
                                     annotation (Placement(transformation(extent={{-94,8},
             {-74,28}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp phi(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp phi(
     duration=1,
     height=1,
     offset=0.001) "Relative humidity"   annotation (Placement(transformation(extent={{-94,40},
@@ -22,7 +22,7 @@ model TDewPoi_TDryBulPhi
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant p2(k=101325) "Pressure"
                                     annotation (Placement(transformation(extent={{-94,-94},
             {-74,-74}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp TDryBul2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp TDryBul2(
     duration=1,
     height=35,
     offset=273.15+2.0) "Dry bulb temperature"   annotation (Placement(transformation(extent={{-94,-28},

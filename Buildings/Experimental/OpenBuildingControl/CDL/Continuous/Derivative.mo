@@ -5,8 +5,7 @@ block Derivative "Approximated derivative block"
   parameter Modelica.SIunits.Time T(min=1E-60)=0.01
     "Time constants (T>0 required; T=0 is ideal derivative block)";
   parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.Init initType=Types.Init.NoInit
-    "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
-                                                                                    annotation(Evaluate=true,
+    "Type of initialization (1: no init, 2: initial state, 3: initial output)"      annotation(Evaluate=true,
       Dialog(group="Initialization"));
   parameter Real x_start=0 "Initial or guess value of state"
     annotation (Dialog(group="Initialization"));
@@ -23,9 +22,7 @@ block Derivative "Approximated derivative block"
 protected
   parameter Boolean zeroGain = abs(k) < 100*1E-15;
 initial equation
-  if initType == Init.SteadyState then
-    der(x) = 0;
-  elseif initType == Init.InitialState then
+  if initType == Init.InitialState then
     x = x_start;
   elseif initType == Init.InitialOutput then
     if zeroGain then
@@ -50,13 +47,6 @@ input <code>u</code> and the output <code>y</code>
      y = ------------ * u
             T * s + 1
 </pre>
-<p>
-If you would like to be able to change easily between different
-transfer functions (FirstOrder, SecondOrder, ... ) by changing
-parameters, use the general block <code>TransferFunction</code> instead
-and model a derivative block with parameters<br/>
-<code>b = {k,0}</code>, <code>a = {T, 1}</code>.
-</p>
 
 <p>
 If <code>k=0</code>, the block reduces to <code>y=0</code>.
@@ -100,17 +90,5 @@ Modelica Standard Library.
     textString="k=%k")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}}), graphics={
-        Text(
-          extent={{-54,52},{50,10}},
-          lineColor={0,0,0},
-          textString="k s"),
-        Text(
-          extent={{-54,-6},{52,-52}},
-          lineColor={0,0,0},
-          textString="T s + 1"),
-        Line(points={{-50,0},{50,0}}),
-        Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,255}),
-        Line(points={{-100,0},{-60,0}}, color={0,0,255}),
-        Line(points={{60,0},{100,0}}, color={0,0,255})}));
+        extent={{-100,-100},{100,100}})));
 end Derivative;

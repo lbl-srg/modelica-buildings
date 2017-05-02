@@ -3,7 +3,7 @@ model GreaterThreshold
   "Validation model for the GreaterThreshold block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
     duration=1,
     offset=-1,
     height=2) "Block that generates ramp signal"

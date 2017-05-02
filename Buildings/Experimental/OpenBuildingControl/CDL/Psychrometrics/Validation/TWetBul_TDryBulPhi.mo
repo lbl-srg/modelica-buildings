@@ -3,8 +3,7 @@ model TWetBul_TDryBulPhi
   "Model to test the wet bulb temperature computation"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Air     "Medium model"
-           annotation (choicesAllMatching = true);
+  package Medium = Buildings.Media.Air     "Medium model"     annotation (choicesAllMatching = true);
 
   Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.TWetBul_TDryBulPhi wetBulPhi
      "Model for wet bulb temperature"
@@ -12,7 +11,7 @@ model TWetBul_TDryBulPhi
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant p(k=101325) "Pressure"
                                     annotation (Placement(transformation(extent={{-90,-34},
             {-70,-14}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp phi(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp phi(
     duration=1,
     height=0.95,
     offset=0.05) "Relative humidity"   annotation (Placement(transformation(extent={{-90,6},
@@ -34,11 +33,8 @@ model TWetBul_TDryBulPhi
     annotation (Placement(transformation(extent={{-32,-30},{-20,-18}})));
   // ===================================================================
 
-  Continuous.Add add(k2=-1)
-    annotation (Placement(transformation(extent={{40,6},{60,26}})));
-  Continuous.Add add1(
-                     k2=-1)
-    annotation (Placement(transformation(extent={{40,-34},{60,-14}})));
+  Continuous.Add add(k2=-1)    annotation (Placement(transformation(extent={{40,6},{60,26}})));
+  Continuous.Add add1(k2=-1)    annotation (Placement(transformation(extent={{40,-34},{60,-14}})));
 equation
   connect(x_pTphi.X[1], wetBulXi.Xi[1])
     annotation (Line(points={{-19.4,-24},{-11,-24}},        color={0,0,127}));

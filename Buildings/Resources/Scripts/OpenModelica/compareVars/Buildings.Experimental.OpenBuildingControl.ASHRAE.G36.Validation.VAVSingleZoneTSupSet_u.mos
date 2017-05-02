@@ -2,7 +2,7 @@ compareVars :=
   {
     "setPoiVAV.uHea",
     "setPoiVAV.uCoo",
-    "setPoiVAV.THea",
+    "setPoiVAV.THeaEco",
     "setPoiVAV.TCoo",
     "setPoiVAV.y",
     "setPoiVAV.TZon",

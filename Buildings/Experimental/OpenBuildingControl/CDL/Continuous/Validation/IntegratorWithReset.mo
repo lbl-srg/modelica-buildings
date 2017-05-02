@@ -2,7 +2,6 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
 model IntegratorWithReset "Test model for integrator with reset"
 extends Modelica.Icons.Example;
 
-
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons(k=10) "Constant as source term"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
@@ -19,7 +18,7 @@ extends Modelica.Icons.Example;
     k=0.5)     "Integrator with reset and y_reset = 2"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse
-    booleanPulse(width=50, period=0.2) "Boolean pulse"
+    booleanPulse(width=0.5, period=0.2) "Boolean pulse"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.IntegratorWithReset intNoReset(
     reset=Types.Reset.Disabled,
@@ -30,7 +29,7 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.SampleTrigger
     sampleTrigger(period=0.2) "Sample trigger"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp(
     height=-1,
     duration=1,
     offset=-2) "Ramp as a source term"

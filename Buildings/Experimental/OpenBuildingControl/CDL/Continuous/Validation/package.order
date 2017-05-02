@@ -7,6 +7,7 @@ Atan2
 Average
 ChangeSign
 Cos
+Derivative
 Division
 Exp
 Feedback
@@ -22,9 +23,9 @@ Min
 Modulo
 NumberOfRequests
 Product
-RampLimiter
 SignalRanker
 Sin
+SlewRateLimiter
 Sqrt
 Tan
 Truncation

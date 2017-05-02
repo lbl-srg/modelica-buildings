@@ -3,7 +3,6 @@ block Edge "Output y is true, if the input u has a rising edge (y = edge(u))"
 
   parameter Boolean pre_u_start=false "Start value of pre(u) at initial time";
 
-
   Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 

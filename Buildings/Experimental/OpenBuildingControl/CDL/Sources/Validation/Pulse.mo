@@ -4,7 +4,7 @@ extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Pulse pulse(
     amplitude = 2.0,
-    width = 50,
+    width = 0.5,
     offset = 0.2,
     period = 1)
     "Block that generates pulse signal of type Real"

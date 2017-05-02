@@ -3,7 +3,8 @@ block BooleanPulse "Generate pulse signal of type Boolean"
 
   parameter Real width(
     final min=Constants.small,
-    final max=100) = 50 "Width of pulse in % of period";
+    final max=1,
+    final unit = "1") = 0.5 "Width of pulse in fraction of period";
   parameter Modelica.SIunits.Time period(
     final min=Constants.small) "Time for one period";
   parameter Modelica.SIunits.Time startTime=0 "Time instant of first pulse";
@@ -12,17 +13,17 @@ block BooleanPulse "Generate pulse signal of type Boolean"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  parameter Modelica.SIunits.Time Twidth=period*width/100
-    "width of one pulse" annotation (HideResult=true);
-  discrete Modelica.SIunits.Time pulsStart "Start time of pulse"
-    annotation (HideResult=true);
+  parameter Modelica.SIunits.Time Twidth=period*width
+    "width of one pulse";
+  discrete Modelica.SIunits.Time pulseStart "Start time of pulse";
+
 initial equation
-  pulsStart = startTime;
+  pulseStart = startTime;
 equation
   when sample(startTime, period) then
-    pulsStart = time;
+    pulseStart = time;
   end when;
-  y = time >= pulsStart and time < pulsStart + Twidth;
+  y = time >= pulseStart and time < pulseStart + Twidth;
   annotation (
     defaultComponentName="booPul",
     Icon(coordinateSystem(
@@ -59,61 +60,15 @@ equation
           fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}}), graphics={
-        Text(
-          extent={{-60,-74},{-19,-82}},
-          lineColor={0,0,0},
-          textString="startTime"),
-        Line(
-          points={{-78,-70},{-40,-70},{-40,20},{20,20},{20,-70},{50,-70},{50,
-              20},{100,20}},
-          color={0,0,255},
-          thickness=0.5),
-        Line(points={{-40,61},{-40,21}}, color={95,95,95}),
-        Line(points={{20,44},{20,20}}, color={95,95,95}),
-        Line(points={{50,58},{50,20}}, color={95,95,95}),
-        Line(points={{-40,53},{50,53}}, color={95,95,95}),
-        Line(points={{-40,35},{20,35}}, color={95,95,95}),
-        Text(
-          extent={{-30,65},{16,55}},
-          lineColor={0,0,0},
-          textString="period"),
-        Text(
-          extent={{-33,47},{14,37}},
-          lineColor={0,0,0},
-          textString="width"),
-        Line(points={{-70,20},{-41,20}}, color={95,95,95}),
-        Polygon(
-          points={{-40,35},{-31,37},{-31,33},{-40,35}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{20,35},{12,37},{12,33},{20,35}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-40,53},{-31,55},{-31,51},{-40,53}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{50,53},{42,55},{42,51},{50,53}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-95,26},{-66,17}},
-          lineColor={0,0,0},
-          textString="true"),
-        Text(
-          extent={{-96,-60},{-75,-69}},
-          lineColor={0,0,0},
-          textString="false")}),
+        extent={{-100,-100},{100,100}})),
       Documentation(info="<html>
 <p>
 The Boolean output y is a pulse signal:
+</p>
+
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Sources/BooleanPulse.png\"
+     alt=\"BooleanPulse.png\" />
 </p>
 
 </html>", revisions="<html>

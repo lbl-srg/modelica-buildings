@@ -55,14 +55,5 @@ Modelica Standard Library.
           textString="+",
           lineColor={0,0,0})}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}}), graphics={Ellipse(
-            extent={{-20,20},{20,-20}},
-            fillColor={235,235,235},
-            fillPattern=FillPattern.Solid,
-            lineColor={0,0,255}),Line(points={{-60,0},{-20,0}}, color={0,0,
-          255}),Line(points={{20,0},{80,0}}, color={0,0,255}),Line(points={{0,
-          -20},{0,-60}}, color={0,0,255}),Text(
-            extent={{-12,10},{84,-84}},
-            lineColor={0,0,0},
-            textString="-")}));
+            100,100}})));
 end Feedback;

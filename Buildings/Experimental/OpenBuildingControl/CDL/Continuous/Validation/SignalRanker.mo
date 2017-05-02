@@ -6,29 +6,29 @@ extends Modelica.Icons.Example;
     nin = 5)
     "Block that outputs signals such that y[i] >= y[i+1]"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
     duration=1,
     offset=-2,
     height=4)  "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,56},{-40,76}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
     duration=1,
     offset=-1,
     height=3) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,22},{-40,42}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp3(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp3(
     duration=1,
     offset=2,
     height=-4)  "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp4(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp4(
     duration=1,
     offset=3,
     height=-1) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-42},{-40,-22}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp5(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp5(
     duration=1,
     offset=0,
     height=4)  "Block that generates ramp signal"
