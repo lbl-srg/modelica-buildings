@@ -1,6 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Interfaces;
-connector StatusTypeOutput =
-                         output Types.Status
+connector StatusTypeOutput = output Types.Status
   "fixme Outputs a value of type Status."
 annotation (
   defaultComponentName="y",

@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
-model EconDamperPositionLimitsSingleZone "Based on the design outdoor airflow rate (DesOA) 
+block EconDamperPositionLimitsSingleZone "Based on the design outdoor airflow rate (DesOA) 
   and minimum outdoor airflow rate (MinOA), as well as the corresponded damper positions to achieve these flow rates 
   when the fan in minimum and maximum speed, given the outdoor airflow rate setpoint and current fan speed,
   to reset the min limit of the economizer damper positionBased on measured and requred minimum outdoor airflow the controller resets 
@@ -28,9 +28,9 @@ model EconDamperPositionLimitsSingleZone "Based on the design outdoor airflow ra
   parameter Modelica.SIunits.MassFlowRate desOutAir = 2.0
     "fixme: design outdoor airflow rate (Vbz_A+Vbz_p)/EzH. Should we use unit kg/s as the unit?";
 
-  CDL.Interfaces.RealInput uSupFanSpd "Current supply fan speed"
+  CDL.Interfaces.RealInput uSupFanSpd(min=minFanSpe, max=maxFanSpe, unit="1") "Current supply fan speed"
     annotation (Placement(transformation(extent={{-220,36},{-180,76}})));
-  CDL.Interfaces.RealInput uVOutMinSet
+  CDL.Interfaces.RealInput uVOutMinSet(min=minOutAir, max=desOutAir)
     "fixme: Minimum outdoor airflow requirement (setpoint, kg/s?), output of a separate sequence that calculates this value based on ASHRAE Standard 62.1-2013 or California Title 24"
     annotation (Placement(transformation(extent={{-220,118},{-180,158}}),
         iconTransformation(extent={{-220,118},{-180,158}})));
@@ -41,7 +41,7 @@ model EconDamperPositionLimitsSingleZone "Based on the design outdoor airflow ra
   CDL.Interfaces.BooleanInput uAHUMod
     "AHU Mode, fixme: see pg. 103 in G36 for the full list of modes, here we use true = \"occupied\""
     annotation (Placement(transformation(extent={{-220,-124},{-180,-84}})));
-  CDL.Interfaces.RealOutput yOutDamPosMin
+  CDL.Interfaces.RealOutput yOutDamPosMin(unit="1")
     "Minimum economizer damper position limit." annotation (Placement(
         transformation(extent={{180,10},{200,30}}),  iconTransformation(extent={{180,10},
             {200,30}})));
@@ -85,26 +85,6 @@ equation
     annotation (Line(points={{-200,-104},{112,-104}}, color={255,0,255}));
   connect(zeroDamInUnocc.y, outDamPosMin.u3) annotation (Line(points={{-119,-126},
           {-76,-126},{-76,-112},{112,-112}}, color={0,0,127}));
-  connect(maxFanSpd.y, desPosAtCurSpd.x1) annotation (Line(points={{-119,28},{-64,
-          28},{-64,-10},{-12,-10}},    color={0,0,127}));
-  connect(desPosAtMaxSpd.y, desPosAtCurSpd.f1) annotation (Line(points={{-119,-44},
-          {-119,-44},{-64,-44},{-64,-14},{-12,-14}},     color={0,0,127}));
-  connect(minFanSpd.y, desPosAtCurSpd.x2) annotation (Line(points={{-119,-8},{-119,
-          -8},{-70,-8},{-70,-22},{-12,-22}},       color={0,0,127}));
-  connect(desPosAtMinSpd.y, desPosAtCurSpd.f2) annotation (Line(points={{-119,-80},
-          {-119,-82},{-70,-82},{-70,-26},{-12,-26}},        color={0,0,127}));
-  connect(uSupFanSpd, desPosAtCurSpd.u) annotation (Line(points={{-200,56},{-200,
-          56},{-52,56},{-52,-18},{-12,-18}},     color={0,0,127}));
-  connect(maxFanSpd.y, minPosAtCurSpd.x1) annotation (Line(points={{-119,28},{-119,
-          28},{-64,28},{-64,64},{-12,64}},    color={0,0,127}));
-  connect(minPosAtMaxSpd.y, minPosAtCurSpd.f1) annotation (Line(points={{-119,112},
-          {-119,112},{-70,112},{-70,60},{-12,60}}, color={0,0,127}));
-  connect(minFanSpd.y, minPosAtCurSpd.x2) annotation (Line(points={{-119,-8},{-119,
-          -8},{-70,-8},{-70,52},{-12,52}},       color={0,0,127}));
-  connect(minPosAtMinSpd.y, minPosAtCurSpd.f2) annotation (Line(points={{-119,74},
-          {-119,74},{-74,74},{-74,48},{-12,48}},   color={0,0,127}));
-  connect(uSupFanSpd, minPosAtCurSpd.u)
-    annotation (Line(points={{-200,56},{-12,56}},         color={0,0,127}));
   connect(minOA.y, minOutDamForOutMinSet.x1) annotation (Line(points={{11,98},{26,
           98},{26,46},{60,46}}, color={0,0,127}));
   connect(desOA.y, minOutDamForOutMinSet.x2) annotation (Line(points={{11,22},{26,
@@ -119,6 +99,26 @@ equation
           38},{88,38},{88,-96},{112,-96}}, color={0,0,127}));
   connect(outDamPosMin.y, yOutDamPosMin) annotation (Line(points={{135,-104},{148,
           -104},{148,20},{190,20}}, color={0,0,127}));
+  connect(minFanSpd.y, desPosAtCurSpd.x1) annotation (Line(points={{-119,-8},{-66,
+          -8},{-66,-10},{-12,-10}}, color={0,0,127}));
+  connect(desPosAtMinSpd.y, desPosAtCurSpd.f1) annotation (Line(points={{-119,-80},
+          {-66,-80},{-66,-14},{-12,-14}}, color={0,0,127}));
+  connect(maxFanSpd.y, desPosAtCurSpd.x2) annotation (Line(points={{-119,28},{-98,
+          28},{-74,28},{-74,-22},{-12,-22}}, color={0,0,127}));
+  connect(desPosAtMaxSpd.y, desPosAtCurSpd.f2) annotation (Line(points={{-119,-44},
+          {-102,-44},{-74,-44},{-74,-26},{-12,-26}}, color={0,0,127}));
+  connect(minFanSpd.y, minPosAtCurSpd.x1) annotation (Line(points={{-119,-8},{-66,
+          -8},{-66,64},{-12,64}}, color={0,0,127}));
+  connect(minPosAtMinSpd.y, minPosAtCurSpd.f1) annotation (Line(points={{-119,74},
+          {-98,74},{-74,74},{-74,60},{-12,60}}, color={0,0,127}));
+  connect(maxFanSpd.y, minPosAtCurSpd.x2) annotation (Line(points={{-119,28},{-74,
+          28},{-74,52},{-12,52}}, color={0,0,127}));
+  connect(minPosAtMaxSpd.y, minPosAtCurSpd.f2) annotation (Line(points={{-119,112},
+          {-90,112},{-58,112},{-58,48},{-12,48}}, color={0,0,127}));
+  connect(uSupFanSpd, minPosAtCurSpd.u)
+    annotation (Line(points={{-200,56},{-12,56},{-12,56}}, color={0,0,127}));
+  connect(uSupFanSpd, desPosAtCurSpd.u) annotation (Line(points={{-200,56},{-146,
+          56},{-86,56},{-86,-18},{-12,-18}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ecoMinOAPos",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,200}}),
@@ -135,6 +135,11 @@ equation
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="uVOutMinSet"),
+        Rectangle(
+          extent={{-112,130},{148,-80}},
+          lineColor={28,108,200},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
         Text(
           extent={{104,40},{174,0}},
           lineColor={0,0,127},
@@ -216,7 +221,7 @@ equation
           fillColor={127,127,0},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-44,244},{60,208}},
+          extent={{-148,244},{104,208}},
           lineColor={85,0,255},
           textString="%name")}),
     Diagram(coordinateSystem(                           extent={{-180,-180},{

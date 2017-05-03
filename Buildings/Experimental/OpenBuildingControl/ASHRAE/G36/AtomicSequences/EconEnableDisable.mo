@@ -1,8 +1,8 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
-model EconEnableDisable "Economizer enable/disable switch"
+block EconEnableDisable "Economizer enable/disable switch"
 
-  parameter Real uHigLimtCutLow(min=273.15, max=350, unit="K", displayUnit="degC") = (297 - 1) "An example high limit cutoff, 75degF - hysteresis delta";
-  parameter Real uHigLimtCutHig(min=273.15, max=350, unit="K", displayUnit="degC") = 297 "An example high limit cutoff, 75degF";
+  parameter Real uHigLimCutLow(min=273.15, max=273.15+76.85, unit="K", displayUnit="degC") = ((273.15+23.85) - 1) "An example high limit cutoff, 75degF (23.85degC) - hysteresis delta";
+  parameter Real uHigLimCutHig(min=273.15, max=273.15+76.85, unit="K", displayUnit="degC") = (273.15+23.85) "An example high limit cutoff, 75degF (23.85degC)";
 
   CDL.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
     "Outdoor temperature" annotation (Placement(transformation(extent={{-140,
@@ -22,7 +22,7 @@ model EconEnableDisable "Economizer enable/disable switch"
   CDL.Logical.Switch assignDamPos
     "If any of the conditions provided by TOut and FreezeProtectionStatus inputs are violating the enable status, the max outdoor damper position is set to the minimum."
     annotation (Placement(transformation(extent={{62,10},{82,30}})));
-  CDL.Logical.Hysteresis hysTOut(final uLow=uHigLimtCutLow, uHigh=uHigLimtCutHig)
+  CDL.Logical.Hysteresis hysTOut(final uLow=uHigLimCutLow, uHigh=uHigLimCutHig)
     "Close damper when TOut is above the uHigh, open it again only when TOut falls down to uLow [fixme this needs to allow for regional dissagregation - sometimes there is a need for enthalpy evaluation as well]"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
   //fixme: units for instantiated limits, example TOut limit is 75K, delta = 1K
@@ -31,7 +31,7 @@ model EconEnableDisable "Economizer enable/disable switch"
   CDL.Logical.EqualStatus compareFreProSig
     "If the signal is other than Stage 0, disable the economizer"
     annotation (Placement(transformation(extent={{-52,90},{-32,110}})));
-  CDL.Continuous.ConstantStatus freezeProtectionStage0(final refSta=Buildings.Experimental.OpenBuildingControl.CDL.Types.Status.FreezeProtectionStage0)
+  CDL.Continuous.ConstantStatus freezeProtectionStage0(final refSta=CDL.Types.Status.FreezeProtectionStage0)
     "Reference freeze protection stage. If the input value is different from stage 0, the outdoor air damper should close."
     annotation (Placement(transformation(extent={{-94,64},{-74,84}})));
   CDL.Logical.Or or2
@@ -55,8 +55,8 @@ equation
       Line(points={{-120,100},{-120,100},{-54,100}},color={255,85,85}));
   connect(compareFreProSig.y, not2.u) annotation (Line(points={{-31,100},{-20,
           100}},     color={255,0,255}));
-  connect(not2.y, or2.u2) annotation (Line(points={{3,100},{8,100},{8,100},{10,
-          100},{10,72},{24,72}},
+  connect(not2.y, or2.u2) annotation (Line(points={{3,100},{8,100},{10,100},{10,
+          72},{24,72}},
                 color={255,0,255}));
   connect(hysTOut.y, or2.u1) annotation (Line(points={{-39,140},{16,140},{16,80},
           {24,80}},                 color={255,0,255}));
@@ -81,14 +81,14 @@ equation
           color={28,108,200},
           thickness=0.5),
         Text(
-          extent={{-94,40},{-24,4}},
+          extent={{-94,58},{-24,22}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="uOutDamPosMin"),
         Text(
-          extent={{-94,0},{-24,-36}},
+          extent={{-94,18},{-24,-18}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -100,25 +100,19 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yOutDamPosMax"),
-        Text(
-          extent={{-92,114},{-54,88}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="TSup"),
         Line(
           points={{-78,4},{2,4},{2,124}},
           color={28,108,200},
           thickness=0.5),
         Text(
-          extent={{-94,76},{-56,50}},
+          extent={{-94,106},{-76,94}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="uFre"),
         Text(
-          extent={{-94,154},{-56,128}},
+          extent={{-94,146},{-74,136}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,

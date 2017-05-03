@@ -43,13 +43,13 @@ equation
           16},{-20,0},{-2,0}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1.0),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/VAVSingleZoneTSupSet_u.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/VAVSingleZoneTSupSet_u.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.VAVSingleZoneTSupSet\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.VAVSingleZoneTSupSet</a>
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.VAVSingleZoneTSupSet\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.VAVSingleZoneTSupSet</a>
 for different control signals.
 </p>
 </html>", revisions="<html>

@@ -1,0 +1,5 @@
+simulateModel("Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation.EconDamPosLimitsSingleZone_SupFanSpd", method="dassl", stopTime=1800, tolerance=1e-06, resultFile="EconDamPosLimitsSingleZone_SupFanSpd");
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"VOutMinSet.y","econMinOutAirDamPosLimits.minOutAir","econMinOutAirDamPosLimits.desOutAir"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"econMinOutAirDamPosLimits.minFanSpe","econMinOutAirDamPosLimits.maxFanSpe","econMinOutAirDamPosLimits.uSupFanSpd"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"econMinOutAirDamPosLimits.minPosAtCurSpd.y","econMinOutAirDamPosLimits.desPosAtCurSpd.y","econMinOutAirDamPosLimits.minOutDamForOutMinSet.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47}});
+

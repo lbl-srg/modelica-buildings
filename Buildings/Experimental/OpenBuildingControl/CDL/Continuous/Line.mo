@@ -124,7 +124,10 @@ where
 and the coefficients <code>a</code> and <code>b</code>
 are determined so that the line intercepts the two input points
 specified by the two points <code>x1</code> and <code>f1</code>,
-and <code>x2</code> and <code>f2</code>.
+and <code>x2</code> and <code>f2</code>. 
+</p>
+<p>
+<code>x1</code> should be smaller than <code>x2</code>.
 </p>
 <p>
 The parameters <code>limitBelow</code> and <code>limitAbove</code>
@@ -132,6 +135,12 @@ determine whether <code>x1</code> and <code>x2</code> are also used
 to limit the input <code>u</code>.
 </p>
 </html>", revisions="<html>
+<ul>
+<li>
+May 03, 2017, by Jianjun Hu:<br/>
+Clarify that x1 should be less than x2.
+</li>
+</ul>
 <ul>
 <li>
 January 11, 2017, by Michael Wetter:<br/>

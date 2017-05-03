@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
-model EconModulationMultiZone "Based on supply air temperature (SAT) setpoint and measured 
+block EconModulationMultiZone "Based on supply air temperature (SAT) setpoint and measured 
   supply air temperature, the controller resets the economizer and return air
   damper positions. Damper position limits are inputs to this model. To 
   prevent modulation, provide input signals that set max and min position
@@ -38,11 +38,11 @@ model EconModulationMultiZone "Based on supply air temperature (SAT) setpoint an
   CDL.Interfaces.BooleanInput uSupFan "Supply Fan Status, on or off"
     annotation (Placement(transformation(extent={{-160,-36},{-120,4}}),
         iconTransformation(extent={{-138,-14},{-120,4}})));
-  CDL.Interfaces.RealOutput yOutDamPos "Economizer damper position"
+  CDL.Interfaces.RealOutput yOutDamPos(min=0, max=1, unit="1") "Economizer damper position"
                                                 annotation (Placement(
         transformation(extent={{120,-30},{140,-10}}), iconTransformation(extent={{120,-30},
             {140,-10}})));
-  CDL.Interfaces.RealOutput yRetDamPos "Return air damper position"
+  CDL.Interfaces.RealOutput yRetDamPos(min=0, max=1, unit="1") "Return air damper position"
                                                annotation (Placement(
         transformation(extent={{120,10},{140,30}}), iconTransformation(extent={{120,10},
             {140,30}})));
@@ -58,28 +58,28 @@ model EconModulationMultiZone "Based on supply air temperature (SAT) setpoint an
   CDL.Continuous.Constant maxSignalLimit(k=damPosController.yMax)
     "Identical to controller parameter - Upper limit of output."
     annotation (Placement(transformation(extent={{-20,36},{0,56}})));
-  CDL.Interfaces.RealInput uHea(min=0, max=1)
+  CDL.Interfaces.RealInput uHea(min=0, max=1, unit="1")
     "Heating control signal."
     annotation (Placement(transformation(extent={{-160,-10},{-120,30}}),
         iconTransformation(extent={{-138,12},{-120,30}})));
-  CDL.Interfaces.RealInput uCoo(min=0, max=1)
+  CDL.Interfaces.RealInput uCoo(min=0, max=1, unit="1")
     "Cooling control signal."
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-138,36},{-120,54}})));
-  CDL.Interfaces.RealInput uOutDamPosMin
+  CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1, unit="1")
     "Minimum economizer damper position limit as returned by the EconDamPosLimits sequence."
     annotation (Placement(transformation(extent={{-160,-62},{-120,-22}}),
         iconTransformation(extent={{-138,-40},{-120,-22}})));
-  CDL.Interfaces.RealInput uOutDamPosMax
+  CDL.Interfaces.RealInput uOutDamPosMax(min=0, max=1, unit="1")
     "Maximum economizer damper position limit as returned by the EconEnableDisable sequence. If the economizer is disabled, this value equals uOutDamPosMin"
     annotation (Placement(transformation(extent={{-160,-88},{-120,-48}}),
         iconTransformation(extent={{-138,-66},{-120,-48}})));
-  CDL.Interfaces.RealInput uRetDamPosMin
+  CDL.Interfaces.RealInput uRetDamPosMin(min=0, max=1, unit="1")
     "Minimum return air damper position limit as returned by the EconDamPosLimits sequence. 
     fixme: This is a fixed value and the mentioned sequence assignes the value, which should in principle always be 0, but I'd like to avoid setting the value in multiple places."
     annotation (Placement(transformation(extent={{-160,-116},{-120,-76}}),
         iconTransformation(extent={{-138,-94},{-120,-76}})));
-  CDL.Interfaces.RealInput uRetDamPosMax
+  CDL.Interfaces.RealInput uRetDamPosMax(min=0, max=1, unit="1")
     "Maximum return air damper position limit as returned by the EconDamPosLimits sequence."
     annotation (Placement(transformation(extent={{-160,-140},{-120,-100}}),
         iconTransformation(extent={{-138,-118},{-120,-100}})));
@@ -258,7 +258,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="uRetDamPosMax"),
         Text(
-          extent={{-44,152},{34,128}},
+          extent={{-106,154},{104,126}},
           lineColor={85,0,255},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-180},{

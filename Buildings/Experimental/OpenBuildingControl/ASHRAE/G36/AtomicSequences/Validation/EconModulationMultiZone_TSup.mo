@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
-model EconModulationSingleZone_TSup
+model EconModulationMultiZone_TSup
   "Validation model for economizer and return air damper modulation to preserve the supply air temperature"
   extends Modelica.Icons.Example;
 
@@ -13,7 +13,7 @@ model EconModulationSingleZone_TSup
     annotation (Placement(transformation(extent={{-80,62},{-60,82}})));
   CDL.Logical.Constant uSupFan(k=true) "Supply fan on or off"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  EconModulationSingleZone ecoMod
+  EconModulationMultiZone  ecoMod
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   CDL.Continuous.Constant uHea(k=0) "Heating signal, range 0 - 1"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
@@ -29,35 +29,35 @@ model EconModulationSingleZone_TSup
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 equation
   connect(TSupSet.y, ecoMod.TCooSet) annotation (Line(points={{-1,72},{8,72},{8,
-          48},{-20,48},{-20,38.0714},{-0.642857,38.0714}},
+          48},{-20,48},{-20,37.75},{-0.75,37.75}},
                             color={0,0,127}));
   connect(TSup.y,ecoMod.TSup)  annotation (Line(points={{-59,72},{-30,72},{-30,
-          36.2143},{-0.642857,36.2143}},
+          35.5833},{-0.75,35.5833}},
                    color={0,0,127}));
   connect(uCoo.y, ecoMod.uCoo)
-    annotation (Line(points={{-59,10},{-38,10},{-38,34},{-0.642857,34},{
-          -0.642857,34.0714}},                             color={0,0,127}));
-  connect(uHea.y, ecoMod.uHea) annotation (Line(points={{-59,40},{-34,40},{-34,
-          31.7857},{-0.642857,31.7857}},
+    annotation (Line(points={{-59,10},{-38,10},{-38,34},{-0.75,34},{-0.75,33.75}},
+                                                           color={0,0,127}));
+  connect(uHea.y, ecoMod.uHea) annotation (Line(points={{-59,40},{-34,40},{-34,31.75},
+          {-0.75,31.75}},
                     color={0,0,127}));
   connect(uSupFan.y, ecoMod.uSupFan) annotation (Line(points={{-59,-30},{-34.5,
-          -30},{-34.5,29.5},{-0.642857,29.5}},
+          -30},{-34.5,29.5833},{-0.75,29.5833}},
                                 color={255,0,255}));
   connect(RetDamPosMax.y, ecoMod.uRetDamPosMax) annotation (Line(points={{41,-10},
-          {46,-10},{46,-26},{-6,-26},{-6,20},{-6,21.0714},{-0.642857,21.0714}},
+          {46,-10},{46,-26},{-6,-26},{-6,20},{-6,20.9167},{-0.75,20.9167}},
                                         color={0,0,127}));
   connect(RetDamPosMin.y, ecoMod.uRetDamPosMin) annotation (Line(points={{79,-10},
-          {84,-10},{84,-30},{-20,-30},{-20,23.0714},{-0.642857,23.0714}},
+          {84,-10},{84,-30},{-20,-30},{-20,22.9167},{-0.75,22.9167}},
                                          color={0,0,127}));
   connect(outDamPosMax.y, ecoMod.uOutDamPosMax) annotation (Line(points={{41,-50},
-          {50,-50},{50,-66},{-30,-66},{-30,25.2143},{-0.642857,25.2143}},
+          {50,-50},{50,-66},{-30,-66},{-30,25.25},{-0.75,25.25}},
                                          color={0,0,127}));
   connect(outDamPosMin.y, ecoMod.uOutDamPosMin) annotation (Line(points={{81,-50},
-          {88,-50},{88,-70},{-24,-70},{-24,27.2143},{-0.642857,27.2143}},
+          {88,-50},{88,-70},{-24,-70},{-24,27.4167},{-0.75,27.4167}},
                                          color={0,0,127}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconModulationSingleZone_TSup.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconModulationMultiZone_TSup.mos"
     "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                       graphics={Ellipse(
@@ -75,16 +75,16 @@ equation
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconModulationSingleZone\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconModulationSingleZone</a>
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconModulationMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconModulationMultiZone</a>
 for different control signals.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 31, 2017, by Milica Grahovac:<br/>
+May 03, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end EconModulationSingleZone_TSup;
+end EconModulationMultiZone_TSup;

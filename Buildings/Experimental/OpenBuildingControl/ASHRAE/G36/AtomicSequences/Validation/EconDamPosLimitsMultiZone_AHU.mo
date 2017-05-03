@@ -1,28 +1,24 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
-model EconDamPosLimitsMultiZon_VOut
+model EconDamPosLimitsMultiZone_AHU
   "Validation model for setting the min econ damper limit and max return air damper limit."
   extends Modelica.Icons.Example;
 
   CDL.Logical.Constant FanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  CDL.Continuous.Constant VOutMinSet(k=0.5)
-    "Outdoor air temperature, constant below example 75 F"
+  CDL.Continuous.Constant VOutMinSet(k=0.5) "Outdoor airflow rate setpoint"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Blocks.Sources.Ramp VOut(
-    duration=1800,
+  CDL.Sources.Ramp        VOut(
     height=0.2,
-    offset=0.4)
-    "TSup falls below 38 F and remains there for longer than 5 min. "
+    duration=1800,
+    offset=0.4) "Outdoor flow rate"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  CDL.Logical.Constant AHUMode(k=true) "AHU is enabled"
-    annotation (Placement(transformation(extent={{-80,-52},{-60,-32}})));
+  CDL.Sources.BooleanPulse AHUMode(period=1800, width=0.6)
+    "AHU Mode changes from True to False"
+    annotation (Placement(transformation(extent={{-80,-54},{-60,-34}})));
   EconDamperPositionLimitsMultiZone econMinOutAirDamPosLimits
     "One of the economizer control sequences, it sets the min econ damper limit and the max return air damper limit in order to maintain the minimum outdoor airflow setpoint."
     annotation (Placement(transformation(extent={{-20,18},{0,38}})));
 equation
-  //fixme - turn into proper test and uncomment
-  //__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/fixme.mos"
-  //     "Simulate and plot"),
   connect(VOutMinSet.y, econMinOutAirDamPosLimits.uVOutMinSet) annotation (Line(
         points={{-59,70},{-42,70},{-42,34.375},{-21.1111,34.375}},
                                                       color={0,0,127}));
@@ -32,10 +28,13 @@ equation
   connect(FanStatus.y, econMinOutAirDamPosLimits.uSupFan) annotation (Line(
         points={{-59,-10},{-36,-10},{-36,26.375},{-21.1111,26.375}},
                                                         color={255,0,255}));
-  connect(AHUMode.y, econMinOutAirDamPosLimits.uAHUMod) annotation (Line(points={{-59,-42},
-          {-30,-42},{-30,22.375},{-21.1111,22.375}},
+  connect(AHUMode.y, econMinOutAirDamPosLimits.uAHUMod) annotation (Line(points={{-59,-44},
+          {-30,-44},{-30,22.375},{-21.1111,22.375}},
                                                   color={255,0,255}));
   annotation (
+  experiment(StopTime=1800.0, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconDamPosLimitsMultiZone_AHU.mos"
+    "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={Ellipse(
           lineColor={75,138,73},
           fillColor={255,255,255},
@@ -51,16 +50,16 @@ equation
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.EconEnableDisable\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.EconEnableDisable</a>
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamPosLimitsMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamPosLimitsMultiZone</a>
 for different control signals.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 31, 2017, by Milica Grahovac:<br/>
+May 03, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end EconDamPosLimitsMultiZon_VOut;
+end EconDamPosLimitsMultiZone_AHU;

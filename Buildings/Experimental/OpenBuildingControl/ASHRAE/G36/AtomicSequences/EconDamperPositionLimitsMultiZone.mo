@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
-model EconDamperPositionLimitsMultiZone "Based on measured and requred minimum outdoor airflow the controller resets 
+block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum outdoor airflow the controller resets 
   the min limit of the economizer damper and the max limit of the return air 
   damper in order to maintain the minimum required outdoor airflow."
   // fixme: add keep previous pos if VOut>VOutSet AND outDamPos>outDamPosMin
@@ -53,11 +53,11 @@ model EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
     "AHU Mode, fixme: see pg. 103 in G36 for the full list of modes, here we use true = \"occupied\""
     annotation (Placement(transformation(extent={{-220,-90},{-180,-50}}),
         iconTransformation(extent={{-220,-90},{-180,-50}})));
-  CDL.Interfaces.RealOutput yOutDamPosMin
+  CDL.Interfaces.RealOutput yOutDamPosMin(min=0, max=1, unit="1")
     "Minimum economizer damper position limit." annotation (Placement(
         transformation(extent={{180,40},{200,60}}),  iconTransformation(extent={{180,40},
             {200,60}})));
-  CDL.Interfaces.RealOutput yRetDamPosMax
+  CDL.Interfaces.RealOutput yRetDamPosMax(min=0, max=1, unit="1")
     "Maximum return air damper position limit" annotation (Placement(
         transformation(extent={{180,-52},{200,-32}}),
                                                     iconTransformation(extent={{180,-52},
@@ -67,7 +67,7 @@ model EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   CDL.Continuous.Constant outDamPhyPosMaxSig(k=outDamPhyPosMax)
     "Physical or at the comissioning fixed maximum position of the economizer damper - economizer damper fully open. fixme: this maybe needs to be an input."
-    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
+    annotation (Placement(transformation(extent={{-140,-108},{-120,-88}})));
   CDL.Continuous.Line minOutDam(limitBelow=true, limitAbove=true)
     "Damper position is linearly proportional to the control signal."
     annotation (Placement(transformation(extent={{102,0},{122,20}})));
@@ -82,18 +82,18 @@ model EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   CDL.Logical.Switch outDamPosMax
     "Set to EcoDamPhyPosMin if the supply fan is off or the AHU mode is disabled to prevent any modulation"
-    annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
+    annotation (Placement(transformation(extent={{-20,-124},{0,-104}})));
   CDL.Continuous.Constant minSignalLimit(k=0)
     "Identical to controller parameter - Lower limit of output. fixme - set equal to yMin from PID"
     annotation (Placement(transformation(extent={{-20,92},{0,112}})));
   CDL.Continuous.Constant maxSignalLimit(k=1)
     "Identical to controller parameter - Upper limit of output. foxme - set equal to param yMax from PID"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  CDL.Interfaces.RealOutput yRetDamPosMin
+  CDL.Interfaces.RealOutput yRetDamPosMin(min=0, max=1, unit="1")
     "Maximum return air damper position limit" annotation (Placement(
         transformation(extent={{180,-20},{200,0}}), iconTransformation(extent={{180,-20},
             {200,0}})));
-  CDL.Interfaces.RealOutput yOutDamPosMax
+  CDL.Interfaces.RealOutput yOutDamPosMax(min=0, max=1, unit="1")
     "Minimum economizer damper position limit." annotation (Placement(
         transformation(extent={{180,-10},{200,10}}), iconTransformation(extent={{180,12},
             {200,32}})));
@@ -107,18 +107,18 @@ equation
   connect(uAHUMod, nand.u2) annotation (Line(points={{-200,-70},{-154,-70},{
           -154,10},{-82,10}},
                            color={255,0,255}));
-  connect(nand.y, outDamPosMax.u2) annotation (Line(points={{-59,18},{-50,18},{
-          -50,-110},{-22,-110}},  color={255,0,255}));
-  connect(nand.y, RetDamPosMin.u2) annotation (Line(points={{-59,18},{-50,18},{
-          -50,-70},{-22,-70}},    color={255,0,255}));
+  connect(nand.y, outDamPosMax.u2) annotation (Line(points={{-59,18},{-44,18},{
+          -44,-114},{-22,-114}},  color={255,0,255}));
+  connect(nand.y, RetDamPosMin.u2) annotation (Line(points={{-59,18},{-44,18},{
+          -44,-70},{-22,-70}},    color={255,0,255}));
   connect(outDamPhyPosMaxSig.y, outDamPosMax.u3) annotation (Line(points={{-119,
-          -100},{-50,-100},{-50,-118},{-22,-118}}, color={0,0,127}));
+          -98},{-48,-98},{-48,-122},{-22,-122}},   color={0,0,127}));
   connect(outDamPhyPosMinSig.y, outDamPosMax.u1) annotation (Line(points={{-119,
-          -140},{-52,-140},{-52,-102},{-22,-102}}, color={0,0,127}));
+          -140},{-58,-140},{-58,-106},{-22,-106}}, color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, RetDamPosMin.u1) annotation (Line(points={{-119,
           -20},{-52,-20},{-52,-62},{-22,-62}},   color={0,0,127}));
   connect(retDamPhyPosMinSig.y, RetDamPosMin.u3) annotation (Line(points={{-119,
-          -60},{-56,-60},{-56,-78},{-22,-78}},     color={0,0,127}));
+          -60},{-66,-60},{-66,-78},{-22,-78}},     color={0,0,127}));
   connect(minRetDam.y, yRetDamPosMax) annotation (Line(points={{123,50},{134,50},
           {134,-42},{158,-42},{190,-42}},
                                color={0,0,127}));
@@ -134,8 +134,8 @@ equation
           70},{32,46},{100,46}},  color={0,0,127}));
   connect(minOutAirDamPosController.y, minRetDam.u) annotation (Line(points={{-79,110},
           {-28,110},{-28,50},{100,50}},     color={0,0,127}));
-  connect(outDamPosMax.y, minOutDam.f2) annotation (Line(points={{1,-110},{46,
-          -110},{46,2},{100,2}},      color={0,0,127}));
+  connect(outDamPosMax.y, minOutDam.f2) annotation (Line(points={{1,-114},{46,
+          -114},{46,2},{100,2}},      color={0,0,127}));
   connect(outDamPhyPosMinSig.y, minOutDam.f1) annotation (Line(points={{-119,
           -140},{32,-140},{32,14},{100,14}},
                                           color={0,0,127}));
@@ -146,10 +146,10 @@ equation
   connect(minOutAirDamPosController.y, minOutDam.u) annotation (Line(points={{-79,110},
           {-38,110},{-38,10},{100,10}},       color={0,0,127}));
   connect(retDamPhyPosMinSig.y, yRetDamPosMin) annotation (Line(points={{-119,
-          -60},{-56,-60},{-56,-144},{150,-144},{150,-10},{190,-10}},
+          -60},{-66,-60},{-66,-148},{150,-148},{150,-10},{190,-10}},
                                                                color={0,0,127}));
-  connect(outDamPosMax.y, yOutDamPosMax) annotation (Line(points={{1,-110},{140,
-          -110},{140,0},{190,0}},   color={0,0,127}));
+  connect(outDamPosMax.y, yOutDamPosMax) annotation (Line(points={{1,-114},{140,
+          -114},{140,0},{190,0}},   color={0,0,127}));
   connect(minOutDam.y, yOutDamPosMin) annotation (Line(points={{123,10},{150,10},
           {150,50},{190,50}}, color={0,0,127}));
   connect(uVOutMinSet, minOutAirDamPosController.u_s) annotation (Line(points={{-200,
@@ -225,10 +225,7 @@ equation
           textString="%name")}),
     Diagram(coordinateSystem(                           extent={{-180,-180},{
             180,180}},
-        initialScale=0.1), graphics={Text(
-          extent={{-80,200},{38,182}},
-          lineColor={28,108,200},
-          textString="%name")}),
+        initialScale=0.1)),
     Documentation(info="<html>      
 <p>
 This atomic sequence sets the minimum economizer damper position limit and

@@ -1,5 +1,5 @@
 ﻿within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
-model FreezeProtection
+block FreezeProtection
   "Freeze protection sequence according to G36 PART5.N.12 and O.9"
 
   CDL.Interfaces.RealInput TOut(unit="K", displayUnit="degC")

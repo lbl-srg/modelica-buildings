@@ -3,40 +3,40 @@ model EconEnableDisable_TOut
   "Validation model for disabling the economizer if any of the freeze protection stages 1 through 3 are activated."
   extends Modelica.Icons.Example;
 
-  parameter Real TOutAboveTreshold(min=297 + 1, max=350, unit="K", displayUnit="degC")=300 "Constant output value";
+  parameter Real TOutAboveThreshold(min=(273.15+23.85) + 1, max=(273.15+76.85), unit="K", displayUnit="degC")=(273.15+26.85) "Constant output value";
 
   EconEnableDisable econEnableDisable
     annotation (Placement(transformation(extent={{0,-12},{26,12}})));
   CDL.Continuous.Constant outDamPosMax(k=0.9)
     "Maximal allowed economizer damper position"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   CDL.Continuous.Constant outDamPosMin(k=0.1)
-    "Minimum allowed economizer damper position"
-    annotation (Placement(transformation(extent={{-80,-74},{-60,-54}})));
-  CDL.Continuous.Constant TOut(k=TOutAboveTreshold)
+    "Minimal allowed economizer damper position"
+    annotation (Placement(transformation(extent={{-80,-24},{-60,-4}})));
+  CDL.Continuous.Constant TOut(k=TOutAboveThreshold)
     "Outdoor air temperature, constant below example 75 F"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  CDL.Continuous.ConstantStatus freezeProtectionStage(refSta=Buildings.Experimental.OpenBuildingControl.CDL.Types.Status.FreezeProtectionStage0)
+  CDL.Continuous.ConstantStatus freezeProtectionStage(refSta=CDL.Types.Status.FreezeProtectionStage0)
     "None of the Stages 1 through 3 is activated"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
-  connect(outDamPosMax.y, econEnableDisable.uOutDamPosMin) annotation (Line(
-        points={{-59,-30},{-36,-30},{-36,-4},{-2.6,-4}},  color={0,0,127}));
-  connect(outDamPosMin.y, econEnableDisable.uOutDamPosMax) annotation (Line(
-        points={{-59,-64},{-32,-64},{-32,-9.33333},{-2.6,-9.33333}},
-                                                          color={0,0,127}));
   connect(TOut.y, econEnableDisable.TOut) annotation (Line(points={{-59,70},{
           -26,70},{-26,9.33333},{-2.6,9.33333}},
                                           color={0,0,127}));
-  //fixme - turn into proper test and uncomment
-  //__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/fixme.mos"
-  //     "Simulate and plot"),
-  connect(freezeProtectionStage.y, econEnableDisable.uFreezeProtectionStatus)
-    annotation (Line(points={{-59,30},{-30,30},{-30,4},{-2.6,4}},
-                                                                color={255,85,
-          85}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  connect(freezeProtectionStage.yFreProSta, econEnableDisable.uFreezeProtectionStatus)
+    annotation (Line(points={{-59,30},{-48,30},{-36,30},{-36,4},{-2.6,4}},
+        color={255,85,85}));
+  connect(outDamPosMin.y, econEnableDisable.uOutDamPosMin) annotation (Line(
+        points={{-59,-14},{-36,-14},{-36,-4},{-2.6,-4}}, color={0,0,127}));
+  connect(outDamPosMax.y, econEnableDisable.uOutDamPosMax) annotation (Line(
+        points={{-59,-50},{-26,-50},{-26,-9.33333},{-2.6,-9.33333}}, color={0,0,
+          127}));
+  annotation (
+  experiment(StopTime=1800.0, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisable_TOut.mos"
+    "Simulate and plot"),
+  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
@@ -51,8 +51,8 @@ equation
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.EconEnableDisable\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.EconEnableDisable</a>
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisable\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisable</a>
 for different control signals.
 </p>
 </html>", revisions="<html>

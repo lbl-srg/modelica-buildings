@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
-model EconModulationSingleZone "Based on supply air temperature (SAT) setpoint and measured 
+block EconModulationSingleZone "Based on supply air temperature (SAT) setpoint and measured 
   supply air temperature, the controller resets the economizer and return air
   damper positions. Damper position limits are inputs to this model. To 
   prevent modulation, provide input signals that set max and min position
@@ -33,11 +33,11 @@ model EconModulationSingleZone "Based on supply air temperature (SAT) setpoint a
   CDL.Interfaces.BooleanInput uSupFan "Supply Fan Status, on or off"
     annotation (Placement(transformation(extent={{-180,-38},{-140,2}}),
         iconTransformation(extent={{-158,-16},{-140,2}})));
-  CDL.Interfaces.RealOutput yOutDamPos "Economizer damper position"
+  CDL.Interfaces.RealOutput yOutDamPos(min=0, max=1, unit="1") "Economizer damper position"
                                                 annotation (Placement(
         transformation(extent={{140,-30},{160,-10}}), iconTransformation(extent={{140,-30},
             {160,-10}})));
-  CDL.Interfaces.RealOutput yRetDamPos "Return air damper position"
+  CDL.Interfaces.RealOutput yRetDamPos(min=0, max=1, unit="1") "Return air damper position"
                                                annotation (Placement(
         transformation(extent={{140,10},{160,30}}), iconTransformation(extent={{140,10},
             {160,30}})));
@@ -53,28 +53,28 @@ model EconModulationSingleZone "Based on supply air temperature (SAT) setpoint a
   CDL.Continuous.Constant maxSignalLimit(k=damPosController.yMax)
     "Identical to controller parameter - Upper limit of output."
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  CDL.Interfaces.RealInput uHea(min=0, max=1)
+  CDL.Interfaces.RealInput uHea(min=0, max=1, unit="1")
     "Heating control signal."
-    annotation (Placement(transformation(extent={{-182,-6},{-142,34}}),
-        iconTransformation(extent={{-160,16},{-142,34}})));
-  CDL.Interfaces.RealInput uCoo(min=0, max=1)
+    annotation (Placement(transformation(extent={{-180,-6},{-140,34}}),
+        iconTransformation(extent={{-158,16},{-140,34}})));
+  CDL.Interfaces.RealInput uCoo(min=0, max=1, unit="1")
     "Cooling control signal."
     annotation (Placement(transformation(extent={{-180,26},{-140,66}}),
         iconTransformation(extent={{-158,48},{-140,66}})));
-  CDL.Interfaces.RealInput uOutDamPosMin
+  CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1, unit="1")
     "Minimum economizer damper position limit as returned by the EconDamPosLimits sequence."
     annotation (Placement(transformation(extent={{-180,-70},{-140,-30}}),
         iconTransformation(extent={{-158,-48},{-140,-30}})));
-  CDL.Interfaces.RealInput uOutDamPosMax
+  CDL.Interfaces.RealInput uOutDamPosMax(min=0, max=1, unit="1")
     "Maximum economizer damper position limit as returned by the EconEnableDisable sequence. If the economizer is disabled, this value equals uOutDamPosMin"
     annotation (Placement(transformation(extent={{-180,-98},{-140,-58}}),
         iconTransformation(extent={{-158,-76},{-140,-58}})));
-  CDL.Interfaces.RealInput uRetDamPosMin
+  CDL.Interfaces.RealInput uRetDamPosMin(min=0, max=1, unit="1")
     "Minimum return air damper position limit as returned by the EconDamPosLimits sequence. 
     fixme: This is a fixed value and the mentioned sequence assignes the value, which should in principle always be 0, but I'd like to avoid setting the value in multiple places."
     annotation (Placement(transformation(extent={{-180,-128},{-140,-88}}),
         iconTransformation(extent={{-158,-106},{-140,-88}})));
-  CDL.Interfaces.RealInput uRetDamPosMax
+  CDL.Interfaces.RealInput uRetDamPosMax(min=0, max=1, unit="1")
     "Maximum return air damper position limit as returned by the EconDamPosLimits sequence."
     annotation (Placement(transformation(extent={{-180,-156},{-140,-116}}),
         iconTransformation(extent={{-158,-134},{-140,-116}})));
@@ -119,8 +119,8 @@ equation
   connect(andBlock.u2, uSupFan) annotation (Line(points={{-82,-78},{-114,-78},{
           -114,-18},{-160,-18}},
                             color={255,0,255}));
-  connect(uHea,ZoneStateStatusHeating. u) annotation (Line(points={{-162,14},{
-          -108,14},{-108,-34},{-84,-34},{-84,-34},{-82,-34},{-82,-34}},
+  connect(uHea,ZoneStateStatusHeating. u) annotation (Line(points={{-160,14},{
+          -108,14},{-108,-34},{-84,-34},{-82,-34}},
                                 color={0,0,127}));
   connect(ZoneStateStatusHeating.y, andBlock.u1) annotation (Line(points={{-59,-34},
           {-50,-34},{-50,-22},{-100,-22},{-100,-52},{-100,-70},{-82,-70}},
@@ -151,8 +151,9 @@ equation
           -112},{40,-112},{40,2},{58,2}}, color={0,0,127}));
   connect(maxSignalLimit.y, outDamPos.x2)
     annotation (Line(points={{1,30},{30,30},{30,6},{58,6}}, color={0,0,127}));
-  connect(TCooSet, add.u1) annotation (Line(points={{-160,102},{-82,102},{-82,
-          76}},      color={0,0,127}));
+  connect(TCooSet, add.u1) annotation (Line(points={{-160,102},{-94,102},{-94,
+          76},{-82,76}},
+                     color={0,0,127}));
   connect(add.y,damPosController. u_s) annotation (Line(points={{-59,70},{-38,
           70},{-38,-24},{-22,-24}}, color={0,0,127}));
   connect(coolingZoneState.y, typeConverter.u) annotation (Line(points={{-59,0},
