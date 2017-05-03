@@ -538,12 +538,12 @@ See also revision notes of
 <a href=\"modelica://Buildings.Media.Water\">
 Buildings.Media.Water</a>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/266\">#266</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/266\">#266</a>.
 </li>
 <li>
 May 1, 2015, by Michael Wetter:<br/>
 Added <code>Inline=true</code> for
-<a href=\"https://github.com/ibpsa/modelica/issues/227\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/227\">
 issue 227</a>.
 </li>
 <li>
@@ -646,7 +646,7 @@ space dimension</i>. CRC Press. 1998.
 March 15, 2016, by Michael Wetter:<br/>
 Replaced <code>spliceFunction</code> with <code>regStep</code>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/300\">issue 300</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/300\">issue 300</a>.
 </li>
 <li>
 November 13, 2014, by Michael Wetter:<br/>

@@ -117,14 +117,14 @@ This is for issue
 <li>
 April 11, 2016 by Michael Wetter:<br/>
 Corrected wrong hyperlink in documentation for
-<a href=\"https://github.com/ibpsa/modelica/issues/450\">issue 450</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/450\">issue 450</a>.
 </li>
 <li>
 January 19, 2016, by Michael Wetter:<br/>
 Updated documentation due to the addition of an input for trace substance
 in the mixing volume.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/372\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/372\">
 issue 372</a>.
 </li>
 <li>
@@ -143,7 +143,7 @@ Changed code for handling trace substance insertions using input <code>C_flow</c
 May 1, 2015 by Michael Wetter<br/>
 Set <code>final</code> keyword for <code>masExc(final k=0)</code>.
 This addresses
-<a href=\"https://github.com/ibpsa/modelica/issues/230\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/230\">
 issue 230</a>.
 </li>
 <li>

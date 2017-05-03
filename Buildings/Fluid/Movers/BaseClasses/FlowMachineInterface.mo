@@ -672,19 +672,19 @@ December 2, 2016, by Michael Wetter:<br/>
 Removed <code>min</code> attribute as otherwise numerical noise can cause
 the assertion on the limit to fail.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/606\">#606</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/606\">#606</a>.
 </li>
 <li>
 February 19, 2016, by Michael Wetter and Filip Jorissen:<br/>
 Refactored model to make implementation clearer.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/417\">#417</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/417\">#417</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference and reformatted code.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 September 2, 2015, by Michael Wetter:<br/>

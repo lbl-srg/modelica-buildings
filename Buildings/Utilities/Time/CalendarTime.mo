@@ -150,7 +150,7 @@ initial algorithm
    // input data range checks at initial time
   assert(time + offset + timOff >= timeStampsNewYear[1],
     if zerTim == Buildings.Utilities.Time.Types.ZeroTime.UnixTimeStamp then
-      "Could initialize date in the CalendarTime block.
+      "Could not initialize date in the CalendarTime block.
    You selected 1970 as the time=0 reference.
    Therefore the simulation startTime must be at least " + String(timeStampsNewYear[1]) + "."
     elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom then

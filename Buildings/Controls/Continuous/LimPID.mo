@@ -348,13 +348,13 @@ Revised implemenentation, added comments, made some parameter in the instances f
 </li>
 <li>July 18, 2016, by Philipp Mehrfeld:<br/>
 Added integrator reset.
-This is for <a href=\"https://github.com/ibpsa/modelica/issues/494\">issue 494</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/494\">issue 494</a>.
 </li>
 <li>
 March 15, 2016, by Michael Wetter:<br/>
 Changed the default value to <code>strict=true</code> in order to avoid events
 when the controller saturates.
-This is for <a href=\"https://github.com/ibpsa/modelica/issues/433\">issue 433</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/433\">issue 433</a>.
 </li>
 <li>
 February 24, 2010, by Michael Wetter:<br/>

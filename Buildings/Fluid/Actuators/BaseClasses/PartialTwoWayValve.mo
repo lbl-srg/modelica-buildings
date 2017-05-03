@@ -105,13 +105,13 @@ revisions="<html>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
 </li>
 <li>
 November 16, 2017, by Michael Wetter:<br/>
 Relaxed assertion on <code>phi</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/592\">#592</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/592\">#592</a>.
 </li>
 <li>
 October 27, 2016, by Filip Jorissen:<br/>
@@ -119,7 +119,7 @@ Added assert for <code>phi &gt; 0</code>.
 This fixes a bug that caused valves to behave
 like pumps for negative control signals.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/558\">#558</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/558\">#558</a>.
 </li>
 <li>
 April 23, 2016, by Michael Wetter:<br/>
@@ -138,7 +138,7 @@ This is for
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 January 29, 2015, by Filip Jorissen:<br/>

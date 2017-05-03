@@ -51,28 +51,28 @@ model PartialHexElement "Element of a heat exchanger 2"
 
   Modelica.Thermal.HeatTransfer.Components.Convection con1(dT(min=-200))
     "Convection (and conduction) on fluid side 1"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
   Modelica.Thermal.HeatTransfer.Components.Convection con2(dT(min=-200))
     "Convection (and conduction) on fluid side 2"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+    annotation (Placement(transformation(extent={{-50,-30},{-30,-50}})));
 equation
-  connect(Gc_1, con1.Gc) annotation (Line(points={{-40,100},{-40,40},{-50,40},{
-          -50,30}}, color={0,0,127}));
-  connect(Gc_2, con2.Gc) annotation (Line(points={{40,-100},{40,-76},{-34,-76},
-          {-34,-4},{-50,-4},{-50,-10}}, color={0,0,127}));
-  connect(con1.solid,mas. port) annotation (Line(points={{-60,20},{-66,20},{-66,
-          0},{-70,0},{-70,0},{-72,0},{-72,-6.12323e-16}},
+  connect(Gc_1, con1.Gc) annotation (Line(points={{-40,100},{-40,76},{-40,70}},
+                    color={0,0,127}));
+  connect(Gc_2, con2.Gc) annotation (Line(points={{40,-100},{40,-76},{-40,-76},
+          {-40,-50}},                   color={0,0,127}));
+  connect(con1.solid,mas. port) annotation (Line(points={{-50,60},{-66,60},{-66,
+          0},{-70,0},{-72,0},{-72,-6.12323e-16}},
                            color={191,0,0}));
   connect(con1.fluid, vol1.heatPort) annotation (Line(
-      points={{-40,20},{-20,20},{-20,60},{-10,60}},
+      points={{-30,60},{-10,60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(con2.fluid, vol2.heatPort) annotation (Line(
-      points={{-40,-20},{20,-20},{20,-60},{12,-60}},
+      points={{-30,-40},{20,-40},{20,-60},{12,-60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(con2.solid, con1.solid) annotation (Line(
-      points={{-60,-20},{-66,-20},{-66,20},{-60,20}},
+      points={{-50,-40},{-66,-40},{-66,60},{-50,60}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
@@ -137,7 +137,7 @@ revisions="<html>
 July 17, 2015, by Michael Wetter:<br/>
 Added <code>prescribedHeatFlowRate=false</code> for both volumes.
 This is for 
-<a href=\"https://github.com/ibpsa/modelica/issues/282\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/282\">
 issue 282</a> of the Annex 60 library.
 </li>
 <li>

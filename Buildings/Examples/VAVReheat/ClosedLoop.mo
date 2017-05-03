@@ -1018,20 +1018,20 @@ shading devices, Technical Report, Oct. 17, 2006.
 May 19, 2016, by Michael Wetter:<br/>
 Changed chilled water supply temperature to <i>6&circ;C</i>.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/509\">#509</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/509\">#509</a>.
 </li>
 <li>
 April 26, 2016, by Michael Wetter:<br/>
 Changed controller for freeze protection as the old implementation closed
 the outdoor air damper during summer.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/511\">#511</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/511\">#511</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 September 24, 2015 by Michael Wetter:<br/>

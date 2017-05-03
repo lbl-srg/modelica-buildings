@@ -78,7 +78,7 @@ Removed parameters
 <code>h_outflow_a2_start</code> and
 <code>h_outflow_b2_start</code>.
 This is for issue
-<a href=\"https://github.com/ibpsa/modelica/issues/299\">#299</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/299\">#299</a>.
 </li>
 <li>
 October 30, 2015, by Matthis Thorade:<br/>

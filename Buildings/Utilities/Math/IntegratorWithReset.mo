@@ -124,7 +124,7 @@ November 1, 2016, by Michael Wetter:<br/>
 Corrected wrong annotation for <code>y_reset</code>,
 and made rendering of <code>y_reset_in</code> conditional.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/562\">#562</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/562\">#562</a>.
 </li>
 <li>
 September 29, 2016, by Michael Wetter:<br/>

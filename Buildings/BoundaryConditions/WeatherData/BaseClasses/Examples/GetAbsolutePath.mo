@@ -26,7 +26,7 @@ November 18, 2016, by Michael Wetter:<br/>
 Removed tests that assumed that the regression test is run
 from the library root directory.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/596\">#596</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/596\">#596</a>.
 </li>
 <li>
 October 9, 2013, by Michael Wetter:<br/>

@@ -88,7 +88,7 @@ revisions="<html>
 March 2, 2017, by Filip Jorissen:<br/>
 Implemented simplification when <code>allowFlowReversal=false</code>.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/673\">#673</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/673\">#673</a>.
 </li>
 <li>
 March 20, 2016, by Michael Wetter:<br/>
@@ -98,7 +98,7 @@ Corrected documentation for <code>dp_in</code>.
 January 22, 2016, by Michael Wetter:<br/>
 Added units to the signal connectors.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 October 8, 2013, by Michael Wetter:<br/>

@@ -196,14 +196,14 @@ This is needed for the JModelica verification tests.
 November 4, 2016, by Michael Wetter:<br/>
 Removed wrong use of <code>each</code> keyword.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/575\">issue 575</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/575\">issue 575</a>.
 </li>
 <li>
 November 2, 2016, by Michael Wetter:<br/>
 Changed assertions to blocks that compute the difference,
 and added the difference to the regression results.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/564\">issue 564</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/564\">issue 564</a>.
 </li>
 <li>
 October 24, 2013, by Michael Wetter:<br/>

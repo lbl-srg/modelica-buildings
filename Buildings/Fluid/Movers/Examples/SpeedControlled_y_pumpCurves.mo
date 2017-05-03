@@ -176,7 +176,7 @@ December 2, 2016, by Michael Wetter:<br/>
 Changed the valve opening signal to not take on zero as otherwise <code>pum.port_a.p</code>
 is negative, violating the <code>min</code> attribute on the pressure variable.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/606\">#606</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/606\">#606</a>.
 </li>
 <li>
 March 11, 2016, by Michael Wetter:<br/>
@@ -186,7 +186,7 @@ Reformulated model for OpenModelica.
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 June 14, 2015, by Filip Jorissen:<br/>

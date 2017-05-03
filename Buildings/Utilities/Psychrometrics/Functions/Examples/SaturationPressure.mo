@@ -22,7 +22,7 @@ This example computes the saturation pressure of water.
 April 22, 2016, by Michael Wetter:<br/>
 Corrected script name to use capital letter.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/510\">Buildings, issue 510</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/510\">Buildings, issue 510</a>.
 </li>
 <li>
 November 20, 2013, by Michael Wetter:<br/>

@@ -136,7 +136,7 @@ Removed start values for inflowing density
 to simplify the parameter window, and because this can usually
 be computed from the state variables.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/552\">#552</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/552\">#552</a>.
 </li>
 <li>
 February 24, 2015 by Michael Wetter:<br/>

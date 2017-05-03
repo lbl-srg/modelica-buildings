@@ -9,6 +9,7 @@ isMonotonic
 polynomial
 powerLinearized
 quadraticLinear
+quinticHermite
 regNonZeroPower
 regStep
 smoothExponential

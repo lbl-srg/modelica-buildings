@@ -367,27 +367,27 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 November 17, 2016, by Filip Jorissen:<br/>
 Added pressure drop equations and parameters.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/586\">#586</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/586\">#586</a>.
 </li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
 Set <code>preHea(final alpha=0)</code> as this allows to simplify the
 system of equations.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/570\">#570</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/570\">#570</a>.
 </li>
 <li>
 March 17, 2016, by Michael Wetter:<br/>
 Reformulated model to reduce the dimension of the nonlinear system of equations.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/435\">#435</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/435\">#435</a>.
 </li>
 <li>
 November 19, 2015, by Michael Wetter:<br/>
 Removed assignment of parameter
 <code>showDesignFlowDirection</code> in <code>extends</code> statement.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/349\">#349</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/349\">#349</a>.
 </li>
 <li>
 April 11, 2015, by Filip Jorissen:<br/>

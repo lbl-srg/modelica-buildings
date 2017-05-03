@@ -216,7 +216,7 @@ Changed the fan control so that they have a control signal of exactly zero if th
 duct static pressure is zero. This leads to about a four times faster simulation
 as previously, a very small control signal was received by the fan during the night hours.<br/>
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/628\">#628</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/628\">#628</a>.
 </li>
 <li>
 March 22, 2016, by Michael Wetter:<br/>
@@ -227,7 +227,7 @@ model simulate twenty times faster.
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 </ul>
 </html>"),
