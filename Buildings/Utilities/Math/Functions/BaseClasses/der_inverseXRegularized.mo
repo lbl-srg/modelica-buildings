@@ -1,5 +1,6 @@
 within Buildings.Utilities.Math.Functions.BaseClasses;
 function der_inverseXRegularized "Derivative of inverseXRegularised function"
+  extends Modelica.Icons.Function;
  input Real x "Abscissa value";
  input Real delta(min=Modelica.Constants.eps)
     "Abscissa value below which approximation occurs";

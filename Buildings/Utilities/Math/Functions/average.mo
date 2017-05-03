@@ -1,5 +1,6 @@
 within Buildings.Utilities.Math.Functions;
 function average "Average of a vector"
+  extends Modelica.Icons.Function;
   input Integer nin "Number of inputs";
   input Real u[nin] "Input vector";
   output Real y "Result";

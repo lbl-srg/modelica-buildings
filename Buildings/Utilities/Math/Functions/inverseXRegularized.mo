@@ -1,6 +1,7 @@
 within Buildings.Utilities.Math.Functions;
 function inverseXRegularized
   "Function that approximates 1/x by a twice continuously differentiable function"
+  extends Modelica.Icons.Function;
  input Real x "Abscissa value";
  input Real delta(min=Modelica.Constants.eps)
     "Abscissa value below which approximation occurs";
