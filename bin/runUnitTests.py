@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #######################################################
 # Script that runs all unit tests or, optionally,
-# only checks the html syntax or the validaty of 
+# only checks the html syntax or the validaty of
 # the simulation parameters of the models
 #
 # To run the unit tests, this script
@@ -29,11 +29,11 @@
 #######################################################
 
 
-def _validate_mos_mo(path):
+def _validate_experiment_setup(path):
     import buildingspy.development.validator as v
 
     val = v.Validator()
-    retVal = val.validateModelParameters(path)
+    retVal = val.validateExperimentSetup(path)
 
 def _validate_html(path):
     import buildingspy.development.validator as v
@@ -128,8 +128,8 @@ if __name__ == '__main__':
     html_group.add_argument("--validate-html-only",
                            action="store_true")
 
-    mos_mo_group = parser.add_argument_group("arguments to check validity of .mos and .mo experiment settings only")
-    mos_mo_group.add_argument("--validate-mo-mos-only",
+    experiment_setup_group = parser.add_argument_group("arguments to check validity of .mos and .mo experiment setup only")
+    experiment_setup_group.add_argument("--validate-experiment-setup",
                            action="store_true")
 
     # Set environment variables
@@ -159,9 +159,9 @@ if __name__ == '__main__':
         ret_val = _validate_html(args.path)
         exit(ret_val)
 
-    if args.validate_mo_mos_only:
+    if args.validate_experiment_setup:
         # Match the mos file parameters with the mo files only, and then exit
-        ret_val = _validate_mos_mo(args.path)
+        ret_val = _validate_experiment_setup(args.path)
         exit(ret_val)
 
     if args.single_package:
