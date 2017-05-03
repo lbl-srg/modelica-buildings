@@ -25,7 +25,7 @@
 # non-zero exit value.
 #
 # MWetter@lbl.gov                            2011-02-23
-# TSNouidui@lbl.gov                          2017-04-11s
+# TSNouidui@lbl.gov                          2017-04-11
 #######################################################
 
 
@@ -128,7 +128,7 @@ if __name__ == '__main__':
     html_group.add_argument("--validate-html-only",
                            action="store_true")
 
-    mos_mo_group = parser.add_argument_group("arguments to check validity of .mos/.mo parameters only")
+    mos_mo_group = parser.add_argument_group("arguments to check validity of .mos and .mo experiment settings only")
     mos_mo_group.add_argument("--validate-mo-mos-only",
                            action="store_true")
 
