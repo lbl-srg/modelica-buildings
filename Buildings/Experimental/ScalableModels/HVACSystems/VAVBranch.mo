@@ -57,9 +57,9 @@ model VAVBranch "Supply branch of a VAV system"
     "Mass flow rate of this thermal zone";
   parameter Modelica.SIunits.Volume VRoo[nZon,nFlo] "Room volume";
 
-  Examples.VAVReheat.Controls.RoomVAV con[nZon,nFlo] "Room temperature controller"
+  Buildings.Experimental.ScalableModels.Controls.RoomVAV con[nZon,nFlo] "Room temperature controller"
     annotation (Placement(transformation(extent={{0,-6},{20,14}})));
-  Examples.VAVReheat.Controls.ControlBus controlBus[nZon,nFlo] annotation (Placement(
+  Buildings.Experimental.ScalableModels.Controls.ControlBus controlBus[nZon,nFlo] annotation (Placement(
         transformation(extent={{-110,-50},{-90,-30}}), iconTransformation(
           extent={{-110,-38},{-90,-18}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo[nZon,nFlo](
