@@ -61,7 +61,7 @@ public
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Modelica.Blocks.Sources.Constant TWat(k=273.15 + 5) "Water inlet temperature"
     annotation (Placement(transformation(extent={{-80,2},{-60,22}})));
-  Buildings.Fluid.HeatExchangers.HeaterCooler_T hea(
+  Buildings.Fluid.HeatExchangers.PrescribedOutlet hea(
     redeclare package Medium = Medium_A,
     m_flow_nominal=mA_flow_nominal,
     dp_nominal=0,
