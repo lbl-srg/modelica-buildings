@@ -12,7 +12,8 @@ model Humidifier_u
 
   Modelica.Blocks.Interfaces.RealInput u "Control input"
     annotation (Placement(transformation(
-          extent={{-140,40},{-100,80}})));
+          extent={{-140,30},{-100,70}}), iconTransformation(extent={{-120,50},{
+            -100,70}})));
 protected
   Modelica.Blocks.Math.Gain gai(final k=mWat_flow_nominal) "Gain"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
@@ -22,7 +23,7 @@ public
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
 equation
   connect(u, gai.u) annotation (Line(
-      points={{-120,60},{-82,60}},
+      points={{-120,50},{-102,50},{-102,60},{-82,60}},
       color={0,0,127}));
   connect(gai.y, vol.mWat_flow) annotation (Line(
       points={{-59,60},{-30,60},{-30,-18},{-11,-18}},

@@ -81,8 +81,8 @@ If no flow resistance is requested, set <code>dp_nominal=0</code>.
 <p>
 For a model that uses as an input the fluid temperature leaving at
 <code>port_b</code>, use
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_T\">
-Buildings.Fluid.HeatExchangers.HeaterCooler_T</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.PrescribedOutlet\">
+Buildings.Fluid.HeatExchangers.PrescribedOutlet</a>
 </p>
 <h4>Limitations</h4>
 <p>
@@ -129,8 +129,8 @@ Corrected typo in documentation.
 November 12, 2014, by Michael Wetter:<br/>
 Added output signal <code>Q_flow</code> so that it has
 the same output ports as
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Validation.HeaterCooler_T\">
-Buildings.Fluid.HeatExchangers.Validation.HeaterCooler_T</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Validation.PrescribedOutlet\">
+Buildings.Fluid.HeatExchangers.Validation.PrescribedOutlet</a>.
 </li>
 <li>
 September 11, 2014, by Christoph Nytsch-Geusen:<br/>
