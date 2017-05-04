@@ -111,7 +111,7 @@ protected
     final linearizeFlowResistance=linearizeFlowResistance,
     final deltaM=deltaM,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    Q_flow_maxCool=if disableHeatExchanger then 0 else -Modelica.Constants.inf)
+    QMin_flow=if disableHeatExchanger then 0 else -Modelica.Constants.inf)
     "Heat exchanger effect for mode in which water is cooled"
     annotation (Placement(transformation(extent={{10,50},{-10,70}})));
   Modelica.Blocks.Sources.RealExpression TWarIn(y=
@@ -132,7 +132,7 @@ protected
     final linearizeFlowResistance=linearizeFlowResistance,
     final deltaM=deltaM,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    Q_flow_maxHeat=if disableHeatExchanger then 0 else Modelica.Constants.inf)
+    QMax_flow=if disableHeatExchanger then 0 else Modelica.Constants.inf)
     "Heat exchanger effect for mode in which water is heated"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
   Modelica.Blocks.Sources.RealExpression TColIn(y=
