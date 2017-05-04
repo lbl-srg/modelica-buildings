@@ -2,9 +2,6 @@
 block FreezeProtection
   "Freeze protection sequence according to G36 PART5.N.12 and O.9"
 
-  CDL.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
-    "Outdoor temperature" annotation (Placement(transformation(extent={{-220,40},
-            {-180,80}}),       iconTransformation(extent={{-220,40},{-180,80}})));
   CDL.Interfaces.BooleanInput uFre(start=false) "Freezestat status" annotation (
      Placement(transformation(extent={{-220,-80},{-180,-40}}),
                                                              iconTransformation(
@@ -13,7 +10,7 @@ block FreezeProtection
     "Supply air temperature" annotation (Placement(transformation(extent={{-220,
             -16},{-180,24}}), iconTransformation(extent={{-220,-16},{-180,24}})));
   //fixme: units for instantiated limits, example TOut limit is 75K, delta = 1K
-  CDL.Logical.LessThreshold TSupThreshold(threshold=276.483)
+  CDL.Logical.LessThreshold TSupThreshold(threshold=273.15 + 3.3)
     "fixme: timer still not implemented, threshold value provided in K, units not indicated. Fixme: add hysteresis"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
   CDL.Logical.Timer timer1
@@ -27,7 +24,7 @@ block FreezeProtection
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
   CDL.Discrete.FreezeProtectionStage dayType1
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
-  CDL.Logical.LessThreshold TSupThreshold1(threshold=273.15 + 3.333)
+  CDL.Logical.LessThreshold TSupThreshold1(threshold=273.15 + 4.4)
     "fixme: timer still not implemented, threshold value provided in K, units not indicated. Fixme: add hysteresis"
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
   CDL.Logical.Greater greater1
@@ -38,8 +35,7 @@ block FreezeProtection
                                         k=300)
     "Max time during which TSup may be lower than temperature defined in the appropriate evaluation block. fixme: should this be a parameter, how do we deal with units"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
-  CDL.Logical.LessThreshold TSupThreshold2(
-                                          threshold=276.483)
+  CDL.Logical.LessThreshold TSupThreshold2(threshold=273.15 + 1.1)
     "fixme: timer still not implemented, threshold value provided in K, units not indicated. Fixme: add hysteresis"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
   CDL.Logical.Timer timer3
@@ -50,20 +46,20 @@ block FreezeProtection
     annotation (Placement(transformation(extent={{-20,-170},{0,-150}})));
   CDL.Logical.Greater greater2
     annotation (Placement(transformation(extent={{20,-150},{40,-130}})));
-  CDL.Logical.LessThreshold TSupThreshold3(
-                                          threshold=276.483)
+  CDL.Logical.LessThreshold TSupThreshold3(threshold=273.15 + 3.3)
     "fixme: timer still not implemented, threshold value provided in K, units not indicated. Fixme: add hysteresis"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
   CDL.Logical.Timer timer4
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-  CDL.Continuous.Constant TSupTimeLimit3(
-                                        k=300)
+  CDL.Continuous.Constant TSupTimeLimit3(k=900)
     "Max time during which TSup may be lower than temperature defined in the appropriate evaluation block. fixme: should this be a parameter, how do we deal with units"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   CDL.Logical.Greater greater3
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   CDL.Logical.Or3 or1
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
+  CDL.Logical.Latch lat1
+    annotation (Placement(transformation(extent={{-12,50},{8,70}})));
 equation
   connect(TSupThreshold.y, timer1.u) annotation (Line(points={{-119,70},{-119,
           70},{-102,70}},            color={255,0,255}));
@@ -80,12 +76,8 @@ equation
           -70,160},{-62,160}}, color={0,0,127}));
   connect(TSupThreshold1.y, timer2.u) annotation (Line(points={{-119,170},{-119,
           170},{-102,170}}, color={255,0,255}));
-  connect(TOut, TSupThreshold1.u) annotation (Line(points={{-200,60},{-180,60},
-          {-180,80},{-160,80},{-160,170},{-142,170}}, color={0,0,127}));
   connect(greater1.y, dayType1.uStage1OnOff) annotation (Line(points={{-39,160},
           {48.5,160},{48.5,14},{138,14}}, color={255,0,255}));
-  connect(greater.y, dayType1.uStage2OnOff) annotation (Line(points={{-39,60},{
-          20,60},{20,10},{138,10}}, color={255,0,255}));
   connect(dayType1.yFreezeProtectionStage, y) annotation (Line(points={{161,10},
           {172,10},{172,0},{190,0}}, color={255,85,85}));
   connect(timer3.y, greater2.u1) annotation (Line(points={{1,-130},{10,-130},{
@@ -108,6 +100,14 @@ equation
           -30},{78,-30}}, color={255,0,255}));
   connect(greater2.y, or1.u3) annotation (Line(points={{41,-140},{60,-140},{60,
           -38},{78,-38}}, color={255,0,255}));
+  connect(TSup, TSupThreshold1.u) annotation (Line(points={{-200,4},{-180,4},{
+          -158,4},{-158,170},{-142,170}}, color={0,0,127}));
+  connect(TSup, TSupThreshold3.u) annotation (Line(points={{-200,4},{-158,4},{
+          -158,-80},{-142,-80}}, color={0,0,127}));
+  connect(TSup, TSupThreshold2.u) annotation (Line(points={{-200,4},{-180,4},{
+          -158,4},{-158,-130},{-62,-130}}, color={0,0,127}));
+  connect(greater.y, lat1.u)
+    annotation (Line(points={{-39,60},{-13,60}}, color={255,0,255}));
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=false,

@@ -6,4 +6,5 @@ TriggeredMax
 TriggeredSampler
 UnitDelay
 ZeroOrderHold
+ConditionalHoldReal
 Examples
