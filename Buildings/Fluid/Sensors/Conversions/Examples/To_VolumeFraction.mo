@@ -158,8 +158,8 @@ the setpoint, which does not comply with ASHRAE regulations.
 <ul>
 <li>
 April 25, 2017 by Filip Jorissen:<br/>
-Increased model tolerance for 
-<a href=https://github.com/ibpsa/modelica-ibpsa/issues/750>#750</a>.
+Increased model tolerance for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/750\">#750</a>.
 </li>
 <li>
 March 27, 2013 by Michael Wetter:<br/>

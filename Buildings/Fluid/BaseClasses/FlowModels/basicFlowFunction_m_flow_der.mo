@@ -13,15 +13,20 @@ function basicFlowFunction_m_flow_der
     "Derivative of mass flow rate in design flow direction";
   output Real dp_der
     "Derivative of pressure difference between port_a and port_b (= port_a.p - port_b.p)";
+protected
+  Modelica.SIunits.PressureDifference dp_turbulent = (m_flow_turbulent/k)^2
+    "Pressure where flow changes to turbulent";
+  Real m_flowNormSq = (m_flow/m_flow_turbulent)^2
+    "Square of normalised mass flow rate";
 algorithm
- dp_der :=(if (m_flow>m_flow_turbulent) then 2 * m_flow/k^2
-           elseif (m_flow<-m_flow_turbulent) then -2 * m_flow/k^2
-           else (m_flow_turbulent+3*m_flow^2/m_flow_turbulent)/2/k^2) * m_flow_der;
+ dp_der :=(if noEvent(abs(m_flow)>m_flow_turbulent)
+           then sign(m_flow)*2*m_flow/k^2
+           else (0.375  + (2.25 - 0.625*m_flowNormSq)*m_flowNormSq)*dp_turbulent/m_flow_turbulent)*m_flow_der;
 
  annotation (LateInline=true,
              smoothOrder=1,
              derivative(order=2, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
-               Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der2,
+             Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der2,
 Documentation(info="<html>
 <p>
 Function that implements the first order derivative of
@@ -32,6 +37,14 @@ with respect to the mass flow rate.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 1, 2017, by Filip Jorissen:<br/>
+Revised implementation such that
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
+Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>
+is C2 continuous.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/725\">#725</a>.
+</li>
 <li>
 July 29, 2015, by Michael Wetter:<br/>
 First implementation to avoid in Dymola 2016 the warning

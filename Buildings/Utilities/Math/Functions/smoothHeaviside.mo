@@ -1,6 +1,7 @@
 within Buildings.Utilities.Math.Functions;
 function smoothHeaviside
   "Once continuously differentiable approximation to the Heaviside function"
+  extends Modelica.Icons.Function;
   input Real x "Argument";
   input Real delta "Parameter used for scaling";
   output Real y "Result";

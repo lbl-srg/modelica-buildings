@@ -1,6 +1,7 @@
 within Buildings.Fluid.Actuators.BaseClasses;
 function exponentialDamper
   "Damper opening characteristics for an exponential damper"
+  extends Modelica.Icons.Function;
   input Real y(min=0, max=1, unit="")
     "Control signal, y=0 is closed, y=1 is open";
   input Real a(unit="") "Coefficient a for damper characteristics";

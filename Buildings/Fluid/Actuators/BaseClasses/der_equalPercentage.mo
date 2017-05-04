@@ -1,6 +1,7 @@
 within Buildings.Fluid.Actuators.BaseClasses;
 function der_equalPercentage
   "Derivative of valve opening characteristics for equal percentage valve"
+  extends Modelica.Icons.Function;
 
   input Real y "Valve opening signal, y=1 is fully open";
   input Real R "Rangeability, R=50...100 typically";
