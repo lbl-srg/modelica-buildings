@@ -138,7 +138,7 @@ equation
     Documentation(info="<html>
 <p>
 This is a DC/DC converter, based on a power balance between the two DC sides.
-The paramater <i>conversionFactor</i> defines the ratio between the two averaged DC voltages.
+The parameter <i>conversionFactor</i> defines the ratio between the two averaged DC voltages.
 The loss of the converter is proportional to the power transmitted at the second DC side.
 The parameter <code>eta</code> is the efficiency of the transfer.
 The loss is computed as

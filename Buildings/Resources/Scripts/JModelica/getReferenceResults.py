@@ -25,7 +25,7 @@ if __name__ == "__main__":
     urlpath =urlopen(urlResPath)
     string = urlpath.read().decode('utf-8')
     
-    # Regular expresion to extract reference results
+    # Regular expression to extract reference results
     pattern = re.compile('(?<=\>)[a-zA-Z0-9_a-zA-Z0-9]+[.]+[txt]*') 
     filelist = pattern.findall(string)
 

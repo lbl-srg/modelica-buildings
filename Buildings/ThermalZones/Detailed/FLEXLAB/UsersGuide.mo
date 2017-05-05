@@ -133,7 +133,7 @@ package UsersGuide "User's Guide"
   taking weather data from the FLEXLAB weather sensors.
   </li>
   <li>The design of the radiant slab is not clearly documented.
-  The model of the radiant slab should be carefully checked when
+  The model of the radiant slab should be carefuly checked when
   the design information is available. Specific inputs which
   must be checked include: disPip, m_flow_nominal, iLayPip,
   construction for pipe, fluid flowing through the slab</li>

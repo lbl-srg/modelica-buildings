@@ -13,7 +13,7 @@ model StateMachineVoltCtrl "This model represents a simple voltage controller th
 protected
   discrete Boolean connected
     "Boolean variable that indicates when the load is connected";
-  discrete Real tSwitch "Time instant when the last event occured";
+  discrete Real tSwitch "Time instant when the last event occurred";
 initial algorithm
   // Initialize with load connected and last event at t = 0
   connected := true;

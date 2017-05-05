@@ -114,7 +114,7 @@ defaultComponentName="conACDC",
     Documentation(info="<html>
 <p>
 This is an AC/DC converter, based on a power balance between both circuit sides.
-The paramater <code>conversionFactor</code> defines the ratio between the RMS voltages
+The parameter <code>conversionFactor</code> defines the ratio between the RMS voltages
 as
 </p>
 
