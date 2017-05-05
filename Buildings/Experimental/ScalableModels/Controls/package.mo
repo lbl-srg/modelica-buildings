@@ -1,24 +1,6 @@
 within Buildings.Experimental.ScalableModels;
 package Controls
 
-  expandable connector ControlBus
-    "Empty control bus that is adapted to the signals connected to it"
-    extends Modelica.Icons.SignalBus;
-    annotation (
-      Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-              100}}), graphics={Rectangle(
-            extent={{-20,2},{22,-2}},
-            lineColor={255,204,51},
-            lineThickness=0.5)}),
-      Documentation(info="<html>
-<p>
-This connector defines the <code>expandable connector</code> ControlBus that
-is used to connect control signals.
-Note, this connector is empty. When using it, the actual content is
-constructed by the signals connected to this bus.
-</p>
-</html>"));
-  end ControlBus;
 
   block CoolingCoilTemperatureSetpoint
     "Set point scheduler for cooling coil"
@@ -95,6 +77,7 @@ constructed by the signals connected to this bus.
 
   block Economizer "Controller for economizer"
     import Buildings.Experimental.ScalableModels.Controls.OperationModes;
+  import Buildings;
     parameter Modelica.SIunits.TemperatureDifference dT(min=0.1)= 1
       "Temperture offset to activate economizer";
     parameter Modelica.SIunits.VolumeFlowRate VOut_flow_min(min=0)
@@ -1128,6 +1111,7 @@ This is for
   end RoomTemperatureSetpoint;
 
   block RoomVAV "Controller for room VAV box"
+  import Buildings;
     extends Modelica.Blocks.Icons.Block;
     parameter Real kPDamHea = 0.5
       "Proportional gain for VAV damper in heating mode";

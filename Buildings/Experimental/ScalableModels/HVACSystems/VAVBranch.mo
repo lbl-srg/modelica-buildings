@@ -10,7 +10,7 @@ model VAVBranch "Supply branch of a VAV system"
   parameter Integer nFlo(min=1) = 1 "Number of floors"
     annotation(Evaluate=true);
 
-  Fluid.Actuators.Dampers.PressureIndependent         vav[nZon,nFlo](
+  Fluid.Actuators.Dampers.PressureIndependent  vav[nZon,nFlo](
     redeclare each package Medium = MediumA,
     m_flow_nominal={{(m_flow_nominal[i,j]) for j in 1:nFlo} for i in 1:nZon},
     each A=0.6,
