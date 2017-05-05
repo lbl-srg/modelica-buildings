@@ -279,7 +279,7 @@ The returned object is \"%s\".",
       }
     }/* nDblRea > 0*/
     else{
-      /* Modelica has no arrays with zero lenght. Hence, dblValRea has size 1 if nDblRea = 0.*/
+      /* Modelica has no arrays with zero length. Hence, dblValRea has size 1 if nDblRea = 0.*/
       /* Assign a zero value to this element.*/
       dblValRea[0] = 0;
     }
@@ -326,7 +326,7 @@ The returned object is \"%s\".",
       }
     } /* end if nIntRea > 0*/
     else{
-      /* Modelica has no arrays with zero lenght. Hence, intValRea has size 1 if nIntRea = 0.*/
+      /* Modelica has no arrays with zero length. Hence, intValRea has size 1 if nIntRea = 0.*/
       /* Assign a zero value to this element.*/
       intValRea[0] = 0;
     }

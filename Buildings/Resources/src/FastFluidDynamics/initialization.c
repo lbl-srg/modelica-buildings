@@ -30,7 +30,7 @@ int initialize(PARA_DATA *para) {
 
   /* Overwrite the default values using user defined values*/
   if(read_parameter(para)) {
-    ffd_log("initialize(): Failed to read paramter file.", FFD_ERROR);
+    ffd_log("initialize(): Failed to read parameter file.", FFD_ERROR);
     return 1;
   }
 
@@ -126,7 +126,7 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
   para->outp->cal_mean = 0;
 
   /****************************************************************************
-  | Set inital value for FFD variables
+  | Set initial value for FFD variables
   ****************************************************************************/
   for(i=0; i<size; i++) {
     var[GX][i]      = 0.0;
@@ -322,7 +322,7 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
   }
 
   /****************************************************************************
-  | Conduct the data exchange at the inital state of cosimulation
+  | Conduct the data exchange at the initial state of cosimulation
   ****************************************************************************/
   if(para->solv->cosimulation==1) {
     /*------------------------------------------------------------------------
