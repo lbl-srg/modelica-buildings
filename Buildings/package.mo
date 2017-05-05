@@ -152,14 +152,30 @@ its class name ends with the string <code>Beta</code>.
    to <b style=\"color:blue\">existing</b> libraries:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Heater_T<br/>
+                        Buildings.Fluid.HeatExchangers.SensibleCooler_T
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Added these new components to allow modeling a heater
+                        and a sensible-only cooler that use an input signal to
+                        ideally control their outlet temperature,
+                        with optional capacity limitation
+                        and optional first order dynamics.
        </td>
-       </tr>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.MassExchangers</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.MassExchangers.Humidifier_X
+       </td>
+       <td valign=\"top\">Added component which allows setting the outlet water vapor
+                        mass fraction using an input signal, and controlling it ideally
+                        with optional capacity limitation
+                        and optional first order dynamics.
+       </td>
+   </tr>
    </table>
    <!-- Backward compatible changes -->
    <p>
@@ -195,6 +211,15 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.HeaterCooler_T
+       </td>
+       <td valign=\"top\">Renamed <code>Buildings.Fluid.HeatExchangers.HeaterCooler_T</code>
+                        to <code>Buildings.Fluid.HeatExchangers.PrescribedOutlet</code>
+                        as it now also allows to set the outlet water vapor mass fraction.<br/>
+                        For Dymola, a conversion script makes this change.</br>
+                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">IBPSA, #763</a>.
+       </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.MassExchangers.Humidifier_u
        </td>
        <td valign=\"top\">Removed parameters <code>use_T_in</code> and <code>T</code>,
@@ -202,9 +227,18 @@ its class name ends with the string <code>Beta</code>.
                           longer needed.<br/>
                           For Dymola, the conversion script will remove the parameter
                           settings.<br/>
+                          For Dymola, a conversion script makes this change.</br>
                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces
+       </td>
+       <td valign=\"top\">Renamed <code>PrescribedOutletState</code> to <code>PrescribedOutlet</code>
+                        and removed <code>PrescribedOutletStateParameters</code>.<br/>
+                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">IBPSA, #763</a>.
+       </td>
+   </tr>
+
    </table>
    <!-- Errors that have been fixed -->
    <p>
