@@ -216,7 +216,7 @@ its class name ends with the string <code>Beta</code>.
        <td valign=\"top\">Renamed <code>Buildings.Fluid.HeatExchangers.HeaterCooler_T</code>
                         to <code>Buildings.Fluid.HeatExchangers.PrescribedOutlet</code>
                         as it now also allows to set the outlet water vapor mass fraction.<br/>
-                        For Dymola, a conversion script makes this change.</br>
+                        For Dymola, a conversion script makes this change.<br/>
                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">IBPSA, #763</a>.
        </td>
    </tr>
@@ -227,7 +227,7 @@ its class name ends with the string <code>Beta</code>.
                           longer needed.<br/>
                           For Dymola, the conversion script will remove the parameter
                           settings.<br/>
-                          For Dymola, a conversion script makes this change.</br>
+                          For Dymola, a conversion script makes this change.<br/>
                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
        </td>
    </tr>
