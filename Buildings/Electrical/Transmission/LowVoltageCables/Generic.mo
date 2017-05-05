@@ -33,7 +33,7 @@ length, given this value the overall resistance is computed as
 R = R<sub>CHA</sub> l<sub>CABLE</sub>,
 </p>
 <p>
-where <i>R<sub>CHA</sub></i> is the characteristic resistance per unit lenght, and
+where <i>R<sub>CHA</sub></i> is the characteristic resistance per unit length, and
 <i>l<sub>CABLE</sub></i> is the length of the cable.
 </p>
 </html>"));
@@ -65,7 +65,7 @@ The overall inductance is computed as
 L = (X<sub>CHA</sub>/&omega;) l<sub>CABLE</sub>,
 </p>
 <p>
-where <i>X<sub>CHA</sub></i> is the characteristic reactance per unit lenght,
+where <i>X<sub>CHA</sub></i> is the characteristic reactance per unit length,
 <i>&omega; = 2 &pi; f</i> is the angular velocity, and <i>l<sub>CABLE</sub></i> is
 the length of the cable.
 </p>

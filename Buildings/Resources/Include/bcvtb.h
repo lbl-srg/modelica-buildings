@@ -39,7 +39,7 @@
  * This method establishes the client socket.
  *
  * @param docname Name of xml file that contains the socket information.
- * @return The socket file descripter, or a negative value if an error occured.
+ * @return The socket file descripter, or a negative value if an error occurred.
  */
 int establishModelicaClient(const char *const docname);
 
@@ -65,7 +65,7 @@ int establishModelicaClient(const char *const docname);
  * @param booValRea Boolean values read from socket.
  * @param nBooRea Number of boolean values to read.
  * @sa int establishclientsocket(uint16_t *portNo)
- * @return The exit value of \c send or \c read, or a negative value if an error occured.
+ * @return The exit value of \c send or \c read, or a negative value if an error occurred.
  */
 int exchangeModelicaClient(int sockfd,
 			   int flaWri, int *flaRea,
