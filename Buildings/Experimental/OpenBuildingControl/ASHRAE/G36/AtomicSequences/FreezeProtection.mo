@@ -156,8 +156,8 @@ Usage
 </p>
 <p>
 The sequence is designed to output the Freeze Protection Stage. This signal should
-get passed to any sequence influenced by the freeze protection stage, as perscribed
-in ASHRAE G36. The initial output value is Freeze Protection Stage 0, which enumerates
+get passed to any sequence influenced by the freeze protection stage as perscribed in ASHRAE G36, 
+through a request block or directly. The initial output value is Freeze Protection Stage 0, which enumerates
 a status where all relevant conditions are satisfying and freeze protection is not activated. 
 The conditions for stages 1 through 3 are as follows:
 </p>
@@ -165,21 +165,21 @@ The conditions for stages 1 through 3 are as follows:
 Freeze Protection Stage 1:
 </p>
 <p>
-Enable: TOut below 4.5℃ [40°F] for 5 minutes<br/>
+Enable: TSup below 4.5℃ [40°F] for 5 minutes<br/>
 Disable: TSup above 7℃ [45°F] for 5 minutes
 </p>
 <p>
 Freeze Protection Stage 2:
 </p>
 <p>
-Enable: TOut below 3.5℃ [38°F] for 5 minutes<br/>
+Enable: TSup below 3.5℃ [38°F] for 5 minutes<br/>
 Disable: After 1 hour set to Stage 1
 </p>
 <p>
 Freeze Protection Stage 3:
 </p>
 <p>
-Enable: TOut below 4.5℃ [40°F] for 15 minutes or 
+Enable: TSup below 4.5℃ [40°F] for 15 minutes or 
 TOut below 1.1℃ [34°F] for 5 minutes or Freezestat Status is ON (if installed) <br/>
 Disable: Manual reset
 </p>
