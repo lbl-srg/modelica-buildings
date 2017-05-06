@@ -18,11 +18,10 @@ model ResistanceVolumeFlowReversal
     nominalValuesDefineDefaultPressureCurve=true)
     "Pump model with unidirectional flow"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Buildings.Fluid.HeatExchangers.HeaterCooler_T hea(
+  Buildings.Fluid.HeatExchangers.Heater_T hea(
     redeclare package Medium = Medium,
     dp_nominal=1000,
-    Q_flow_maxHeat=1000,
-    Q_flow_maxCool=0,
+    QMax_flow=1000,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=allowFlowReversal.k) "Heater"
@@ -66,7 +65,7 @@ equation
       points={{-60,-20},{-40,-20}},
       color={0,127,255}));
   connect(pulse.y,hea. TSet) annotation (Line(
-      points={{-59,50},{-50,50},{-50,-14},{-42,-14}},
+      points={{-59,50},{-50,50},{-50,-12},{-42,-12}},
       color={0,0,127}));
   connect(pump.m_flow_in, gain.y) annotation (Line(
       points={{29.8,-8},{29.8,50},{-19,50}},

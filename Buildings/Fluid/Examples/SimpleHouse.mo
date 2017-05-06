@@ -151,12 +151,11 @@ model SimpleHouse
   Modelica.Blocks.Sources.Constant TSetRoo(k=273.15 + 24)
     "Room temperature set point for air system"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  HeatExchangers.HeaterCooler_T cooAir(
+  HeatExchangers.SensibleCooler_T cooAir(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mAir_flow_nominal,
     dp_nominal=0,
-    Q_flow_maxHeat=0,
     redeclare package Medium = MediumAir) "Cooling for supply air"
     annotation (Placement(transformation(extent={{30,110},{50,130}})));
   Modelica.Blocks.Sources.Constant TSupAirCoo(k=273.15 + 20)
@@ -238,7 +237,7 @@ equation
   connect(cooAir.port_b, vavDam.port_a)
     annotation (Line(points={{50,120},{50,120},{62,120}}, color={0,127,255}));
   connect(TSupAirCoo.y, cooAir.TSet) annotation (Line(points={{9,160},{20,160},{
-          20,126},{28,126}}, color={0,0,127}));
+          20,128},{28,128}}, color={0,0,127}));
   connect(bouAir.T_in, weaBus.TDryBul) annotation (Line(points={{-124,144},{
           -152,144},{-152,-8}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
