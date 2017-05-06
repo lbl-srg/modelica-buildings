@@ -1567,17 +1567,17 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 February 18, 2017, by Filip Jorissen:<br/>
 Infrared radiation on horizontal surface is now delayed by 30 minutes
 such that the results in
-<a href=modelica://Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody>TBlaSky</a>
+<a href=\"modelica://Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody\">TBlaSky</a>
 are consistent.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/648\">#648</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/648\">#648</a>.
 </li>
 <li>
 December 06, 2016, by Thierry S. Nouidui:<br/>
 Constrained the direct normal radiation to not be bigger than the solar constant when using
 global and diffuse solar radiation data provided via the inputs connectors.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/608\">#608</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/608\">#608</a>.
 </li>
 <li>
 April 21, 2016, by Michael Wetter:<br/>
@@ -1591,13 +1591,13 @@ This is for
 January 6, 2016, by Moritz Lauster:<br/>
 Changed output <code>radHorIR</code> to <code>HHorIR</code>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/376\">#376</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/376\">#376</a>.
 </li>
 <li>
 January 4, 2016, by Moritz Lauster:<br/>
 Added a table in documentation with output variables accessible via <code>weaBus</code>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/376\">#376</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/376\">#376</a>.
 </li>
 <li>
 December 15, 2015, by Michael Wetter:<br/>
@@ -1606,7 +1606,7 @@ connect the black body sky temperature to the weather bus, which is required
 in Dymola 2016 for the variable <code>weaBus.TBlaSky</code> to appear
 in the graphical editor.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/377\">#377</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/377\">#377</a>.
 </li>
 <li>
 September 24, 2015, by Marcus Fuchs:<br/>
@@ -1624,7 +1624,7 @@ This avoids a warning if
 Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyClearness</a>
 is translated in pedantic mode in Dymola 2016.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/266\">#266</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/266\">#266</a>.
 </li>
 <li>
 March 26, 2015, by Michael Wetter:<br/>

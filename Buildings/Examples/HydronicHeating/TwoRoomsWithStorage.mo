@@ -41,7 +41,6 @@ model TwoRoomsWithStorage
   Buildings.Fluid.Movers.SpeedControlled_y pumBoi(
     redeclare package Medium = MediumW,
     per(pressure(V_flow=mBoi_flow_nominal/1000*{0.5,1}, dp=(3000 + 2000)*{2,1})),
-
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for boiler circuit" annotation (Placement(transformation(extent={{-10,
@@ -460,11 +459,10 @@ model TwoRoomsWithStorage
     use_inputFilter=false)
     "Supply air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{160,510},{180,530}})));
-  Buildings.Fluid.HeatExchangers.HeaterCooler_T coo(
+  Buildings.Fluid.HeatExchangers.SensibleCooler_T coo(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
     dp_nominal=0,
-    Q_flow_maxHeat=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
                       "Coil for mechanical cooling"
     annotation (Placement(transformation(extent={{240,500},{260,520}})));
@@ -1094,7 +1092,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(cooCon.TSupCoo, coo.TSet) annotation (Line(
-      points={{121,546},{220,546},{220,516},{238,516}},
+      points={{121,546},{220,546},{220,518},{238,518}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(and1.y, T1.condition) annotation (Line(points={{461,-50},{480,-50},{
@@ -1220,7 +1218,7 @@ This is for
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 September 24, 2015 by Michael Wetter:<br/>

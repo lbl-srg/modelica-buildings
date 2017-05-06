@@ -46,10 +46,10 @@ November 19, 2015, by Michael Wetter:<br/>
 Removed parameters
 <code>port_a_exposesState</code> and
 <code>port_b_exposesState</code>
-for <a href=\"https://github.com/ibpsa/modelica/issues/351\">#351</a>
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/351\">#351</a>
 and
 <code>showDesignFlowDirection</code>
-for <a href=\"https://github.com/ibpsa/modelica/issues/349\">#349</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/349\">#349</a>.
 </li>
 <li>
 November 13, 2015, by Michael Wetter:<br/>

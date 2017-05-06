@@ -81,7 +81,7 @@ January 19, 2016, by Michael Wetter:<br/>
 Updated documentation due to the addition of an input for trace substance
 in the mixing volume.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/372\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/372\">
 issue 372</a>.
 </li>
 <li>

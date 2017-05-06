@@ -18,11 +18,10 @@ model ResistanceVolumeFlowReversal
     nominalValuesDefineDefaultPressureCurve=true)
     "Pump model with unidirectional flow"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Buildings.Fluid.HeatExchangers.HeaterCooler_T hea(
+  Buildings.Fluid.HeatExchangers.Heater_T hea(
     redeclare package Medium = Medium,
     dp_nominal=1000,
-    Q_flow_maxHeat=1000,
-    Q_flow_maxCool=0,
+    QMax_flow=1000,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=allowFlowReversal.k) "Heater"
@@ -66,7 +65,7 @@ equation
       points={{-60,-20},{-40,-20}},
       color={0,127,255}));
   connect(pulse.y,hea. TSet) annotation (Line(
-      points={{-59,50},{-50,50},{-50,-14},{-42,-14}},
+      points={{-59,50},{-50,50},{-50,-12},{-42,-12}},
       color={0,0,127}));
   connect(pump.m_flow_in, gain.y) annotation (Line(
       points={{29.8,-8},{29.8,50},{-19,50}},
@@ -118,7 +117,7 @@ function. This change allows Dymola to exploit knowledge about the <code>min</co
 of <code>m_flow</code>.
 When Dymola knows in which way the medium will flow, nonlinear systems can be simplified or completely removed.
 This is illustrated by the results below.
-See <a href=\"https://github.com/ibpsa/modelica/issues/216\">issue 216</a> for a discussion.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/216\">issue 216</a> for a discussion.
 </p>
 <p>
 Note that Dymola 2015FD01 can only reliable solve the last case. For the other
@@ -157,12 +156,12 @@ Sizes after manipulation of the nonlinear systems: {1, 9, <b>1</b>}
 <li>
 April 11, 2016 by Michael Wetter:<br/>
 Corrected wrong hyperlink in documentation for
-<a href=\"https://github.com/ibpsa/modelica/issues/450\">issue 450</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/450\">issue 450</a>.
 </li>
 <li>
 February 22, 2016, by Michael Wetter:<br/>
 Removed parameter <code>dynamicBalance</code> for
-<a href=\"https://github.com/ibpsa/modelica/issues/411\">issue 411</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/411\">issue 411</a>.
 </li>
 <li>
 April 17, 2015, by Filip Jorissen:<br/>

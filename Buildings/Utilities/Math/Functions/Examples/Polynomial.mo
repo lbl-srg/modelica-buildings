@@ -20,7 +20,7 @@ Buildings.Utilities.Math.Functions.polynomial</a>.
 December 14, 2016, by Michael Wetter:<br/>
 Renamed example and removed derivative computation.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/602\">issue 602</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/602\">issue 602</a>.
 </li>
 <li>
 April 22, 2016, by Michael Wetter:<br/>
@@ -34,7 +34,7 @@ This is for
 August 17, 2015 by Michael Wetter:<br/>
 Updated regression test to have slope that is different from one.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/303\">issue 303</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/303\">issue 303</a>.
 </li>
 <li>
 October 29, 2008, by Michael Wetter:<br/>

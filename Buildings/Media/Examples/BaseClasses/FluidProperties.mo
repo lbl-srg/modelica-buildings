@@ -53,6 +53,7 @@ protected
   constant Real conv(unit="1/s") = 1 "Conversion factor to satisfy unit check";
 
   function checkState
+    extends Modelica.Icons.Function;
     input Medium.ThermodynamicState state1 "Medium state";
     input Medium.ThermodynamicState state2 "Medium state";
     input String message "Message for error reporting";
@@ -121,7 +122,7 @@ causes an error if
 Buildings.Media.Examples.WaterProperties</a>
 is translated in pedantic mode.
 This fixes
-<a href=\"https://github.com/ibpsa/modelica/issues/266\">#266</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/266\">#266</a>.
 </li>
 <li>
 October 16, 2014, by Michael Wetter:<br/>

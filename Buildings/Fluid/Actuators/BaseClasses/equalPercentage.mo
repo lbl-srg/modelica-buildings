@@ -1,6 +1,7 @@
 within Buildings.Fluid.Actuators.BaseClasses;
 function equalPercentage
   "Valve opening characteristics for equal percentage valve"
+  extends Modelica.Icons.Function;
 
   input Real y "Valve opening signal, y=1 is fully open";
   input Real R "Rangeability, R=50...100 typically";
@@ -53,7 +54,7 @@ revisions="<html>
 <li>
 April 11, 2016 by Michael Wetter:<br/>
 Corrected wrong hyperlink in documentation for
-<a href=\"https://github.com/ibpsa/modelica/issues/450\">issue 450</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/450\">issue 450</a>.
 </li>
 <li>
 March 30, 2011 by Michael Wetter:<br/>

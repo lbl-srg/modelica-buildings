@@ -1,5 +1,6 @@
 within Buildings.Utilities.Math.Functions;
 function biquadratic "Biquadratic function"
+  extends Modelica.Icons.Function;
  input Real a[6] "Coefficients";
  input Real x1 "Independent variable";
  input Real x2 "Independent variable";

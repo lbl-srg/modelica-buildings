@@ -1,6 +1,7 @@
 within Buildings.Utilities.Math.Functions.BaseClasses;
 function der_2_regNonZeroPower
   "Power function, regularized near zero, but nonzero value for x=0"
+  extends Modelica.Icons.Function;
  input Real x "Abscissa value";
  input Real n "Exponent";
  input Real delta = 0.01 "Abscissa value where transition occurs";
@@ -46,7 +47,7 @@ revisions="<html>
 August 17, 2015 by Michael Wetter:<br/>
 Corrected wrong derivative implementation which omitted the <code>der_x</code> term.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/303\">issue 303</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/303\">issue 303</a>.
 </li>
 <li>
 April 9, 2009, by Michael Wetter:<br/>

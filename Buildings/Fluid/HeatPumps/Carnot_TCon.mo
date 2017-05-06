@@ -5,13 +5,12 @@ model Carnot_TCon
    final COP_is_for_cooling = false,
    final QEva_flow_nominal = -QCon_flow_nominal*(COP_nominal-1)/COP_nominal,
    PEle(y=QCon_flow/COP),
-   redeclare HeatExchangers.HeaterCooler_T con(
+   redeclare HeatExchangers.Heater_T con(
     final from_dp=from_dp1,
     final dp_nominal=dp1_nominal,
     final linearizeFlowResistance=linearizeFlowResistance1,
     final deltaM=deltaM1,
-    final Q_flow_maxHeat=QCon_flow_max,
-    final Q_flow_maxCool=0,
+    final QMax_flow=QCon_flow_max,
     final tau=tau1,
     final T_start=T1_start,
     final energyDynamics=energyDynamics,
@@ -46,13 +45,14 @@ initial equation
   assert(QCon_flow_nominal > 0, "Parameter QCon_flow_nominal must be positive.");
   assert(COP_nominal > 1, "The nominal COP of a heat pump must be bigger than one.");
 
+
 equation
   connect(TSet, con.TSet) annotation (Line(points={{-120,90},{-80,90},{-80,90},{
-          -80,66},{-12,66}}, color={0,0,127}));
-  connect(con.Q_flow, QCon_flow) annotation (Line(points={{11,66},{80,66},{80,90},
+          -80,68},{-12,68}}, color={0,0,127}));
+  connect(con.Q_flow, QCon_flow) annotation (Line(points={{11,68},{80,68},{80,90},
           {110,90}}, color={0,0,127}));
   connect(QEva_flow_internal.u1, con.Q_flow) annotation (Line(points={{-2,-24},{
-          -10,-24},{-10,0},{30,0},{30,66},{11,66}},   color={0,0,127}));
+          -10,-24},{-10,0},{30,0},{30,68},{11,68}},   color={0,0,127}));
   connect(QEva_flow_internal.u2, PEle.y) annotation (Line(points={{-2,-36},{-2,-36},
           {-20,-36},{-20,-14},{90,-14},{90,0},{61,0}}, color={0,0,127}));
   connect(QEva_flow_internal.y, yEva.u)
@@ -160,7 +160,7 @@ Removed parameters
 <code>effInpEva</code> and <code>effInpCon</code>
 and updated documentation.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/497\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/497\">
 issue 497</a>.
 </li>
 <li>
@@ -169,7 +169,7 @@ Changed default temperature to compute COP to be the leaving temperature as
 use of the entering temperature can violate the 2nd law if the temperature
 lift is small.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/497\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/497\">
 Annex 60, issue 497</a>.
 </li>
 <li>

@@ -9,7 +9,7 @@ partial model PartialMixingVolume
 
   // We set prescribedHeatFlowRate=false so that the
   // volume works without the user having to set this advanced parameter,
-  // but to get high robustness, a user can set it to the approriate value
+  // but to get high robustness, a user can set it to the appropriate value
   // as described in the info section.
   constant Boolean prescribedHeatFlowRate = false
     "Set to true if the model has a prescribed heat flow at its heatPort. If the heat flow rate at the heatPort is only based on temperature difference, then set to false";
@@ -324,7 +324,7 @@ This is for issue
 February 19, 2016 by Filip Jorissen:<br/>
 Added outputs U, m, mXi, mC for being able to
 check conservation of quantities.
-This if or <a href=\"https://github.com/ibpsa/modelica/issues/247\">
+This if or <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/247\">
 issue 247</a>.
 </li>
 <li>
@@ -357,7 +357,7 @@ Set <code>prescribedHeatFlowRate=prescribedHeatflowRate</code> for
 Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>.
 This results in equations that are solved more easily.
 See
-<a href=\"https://github.com/ibpsa/modelica/issues/282\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/282\">
 issue 282</a> for a discussion.
 </li>
 <li>
@@ -378,7 +378,7 @@ Moved assignment of <code>dynBal.U.start</code>
 from instance <code>dynBal</code> to the actual model implementation.
 This is required for a pedantic model check in Dymola 2016.
 It addresses
-<a href=\"https://github.com/ibpsa/modelica/issues/266\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/266\">
 issue 266</a>.
 </li>
 <li>

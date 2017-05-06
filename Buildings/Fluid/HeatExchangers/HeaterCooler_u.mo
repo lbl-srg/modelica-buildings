@@ -81,8 +81,8 @@ If no flow resistance is requested, set <code>dp_nominal=0</code>.
 <p>
 For a model that uses as an input the fluid temperature leaving at
 <code>port_b</code>, use
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_T\">
-Buildings.Fluid.HeatExchangers.HeaterCooler_T</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.PrescribedOutlet\">
+Buildings.Fluid.HeatExchangers.PrescribedOutlet</a>
 </p>
 <h4>Limitations</h4>
 <p>
@@ -105,14 +105,14 @@ November 3, 2016, by Michael Wetter:<br/>
 Set <code>preHea(final alpha=0)</code> as this allows to simplify the
 system of equations.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/570\">#570</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/570\">#570</a>.
 </li>
 <li>
 November 19, 2015, by Michael Wetter:<br/>
 Removed assignment of parameter
 <code>showDesignFlowDirection</code> in <code>extends</code> statement.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/349\">#349</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/349\">#349</a>.
 </li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>
@@ -129,8 +129,8 @@ Corrected typo in documentation.
 November 12, 2014, by Michael Wetter:<br/>
 Added output signal <code>Q_flow</code> so that it has
 the same output ports as
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Validation.HeaterCooler_T\">
-Buildings.Fluid.HeatExchangers.Validation.HeaterCooler_T</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Validation.PrescribedOutlet\">
+Buildings.Fluid.HeatExchangers.Validation.PrescribedOutlet</a>.
 </li>
 <li>
 September 11, 2014, by Christoph Nytsch-Geusen:<br/>

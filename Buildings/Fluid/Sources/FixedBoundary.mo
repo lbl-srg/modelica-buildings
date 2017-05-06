@@ -33,10 +33,12 @@ model FixedBoundary "Boundary source component"
     "Boundary trace substances"
     annotation (Dialog(group = "Only for trace-substance flow", enable=Medium.nC > 0));
 
-equation
+initial equation
   Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
                                         Medium.singleState, use_p, X,
                                         "FixedBoundary");
+
+equation
   if use_p or Medium.singleState then
     medium.p = p;
   else
@@ -82,6 +84,13 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 18, 2017, by Filip Jorissen:<br/>
+Changed <code>checkBoundary</code> implementation
+such that it is run as an initial equation
+since it depends on parameters only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/728\">#728</a>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Added <code>unit</code> and <code>quantity</code> attributes.

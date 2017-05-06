@@ -16,19 +16,21 @@ function basicFlowFunction_m_flow_der2
   output Real dp_der2
     "2nd derivative of pressure difference between port_a and port_b (= port_a.p - port_b.p)";
 protected
-  Real m_k = m_flow_turbulent/k "Auxiliary variable";
-  Modelica.SIunits.PressureDifference dp_turbulent = (m_k)^2
+  Modelica.SIunits.PressureDifference dp_turbulent = (m_flow_turbulent/k)^2
     "Pressure where flow changes to turbulent";
+  Real m_flowNorm = m_flow/m_flow_turbulent
+    "Normalised mass flow rate";
+  Real m_flowNormSq = m_flowNorm^2
+    "Square of normalised mass flow rate";
 algorithm
- dp_der2 :=if (m_flow>m_flow_turbulent) then
-             2/k^2 * (m_flow_der^2 + m_flow * m_flow_der2)
-            elseif (m_flow<-m_flow_turbulent) then
-             -2/k^2 * (m_flow_der^2 + m_flow * m_flow_der2)
-            else
-            0.5/k^2 * ((m_flow_turbulent+3*m_flow^2/m_flow_turbulent) * m_flow_der2
-                       + 6*m_flow/m_flow_turbulent * m_flow_der^2);
+ dp_der2 :=if noEvent(abs(m_flow)>m_flow_turbulent)
+           then sign(m_flow)*2/k^2 * (m_flow_der^2 + m_flow * m_flow_der2)
+           else dp_turbulent/m_flow_turbulent*(
+                 (0.375  + (2.25 - 0.625*m_flowNormSq)*m_flowNormSq)*m_flow_der2
+               + (4.5 - 2.5*m_flowNormSq)*m_flowNorm/m_flow_turbulent*m_flow_der^2);
 
- annotation (LateInline=true,
+ annotation (smoothOrder=0,
+ Inline=true,
 Documentation(info="<html>
 <p>
 Function that implements the second order derivative of
@@ -40,10 +42,18 @@ with respect to the mass flow rate.
 revisions="<html>
 <ul>
 <li>
+May 1, 2017, by Filip Jorissen:<br/>
+Revised implementation such that
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
+Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>
+is C2 continuous.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/725\">#725</a>.
+</li>
+<li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 July 29, 2015, by Michael Wetter:<br/>

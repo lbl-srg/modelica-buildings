@@ -1,6 +1,7 @@
 within Buildings.Utilities.Math.Functions;
 function smoothMax
   "Once continuously differentiable approximation to the maximum function"
+  extends Modelica.Icons.Function;
   input Real x1 "First argument";
   input Real x2 "Second argument";
   input Real deltaX "Width of transition interval";
@@ -27,7 +28,7 @@ revisions="<html>
 March 15, 2016, by Michael Wetter:<br/>
 Replaced <code>spliceFunction</code> with <code>regStep</code>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/300\">issue 300</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/300\">issue 300</a>.
 </li>
 <li>
 March 12, 2015, by Filip Jorissen:<br/>

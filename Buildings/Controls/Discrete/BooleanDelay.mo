@@ -44,7 +44,7 @@ for <code>firstTrigger</code>
 to avoid a translation warning in pedantic mode
 in Dymola 2016.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/266\">#266</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/266\">#266</a>.
 </li>
 <li>
 November 21, 2011, by Michael Wetter:<br/>

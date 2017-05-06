@@ -63,8 +63,8 @@ For a definition of the parameters, see the
 April 21, 2016, by Michael Wetter:<br/>
 Removed duplicate instance <code>weaBus</code>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/461\">
-https://github.com/ibpsa/modelica/issues/461</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/461\">
+https://github.com/ibpsa/modelica-ibpsa/issues/461</a>.
 </li>
 <li>
 December 12, 2010, by Michael Wetter:<br/>

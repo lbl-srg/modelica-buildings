@@ -1,6 +1,7 @@
 within Buildings.Utilities.Math.Functions;
 function inverseXRegularized
   "Function that approximates 1/x by a twice continuously differentiable function"
+  extends Modelica.Icons.Function;
  input Real x "Abscissa value";
  input Real delta(min=Modelica.Constants.eps)
     "Abscissa value below which approximation occurs";
@@ -75,7 +76,7 @@ August 10, 2015, by Michael Wetter:<br/>
 Removed dublicate entry <code>smoothOrder = 1</code>
 and reimplmented the function so it is twice continuously differentiable.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/302\">issue 302</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/302\">issue 302</a>.
 </li>
 <li>
 February 5, 2015, by Filip Jorissen:<br/>

@@ -142,7 +142,7 @@ equation
       points={{142,40},{160,40}},
       color={0,127,255}));
   annotation (
-experiment(Tolerance=1e-6, StopTime=36000),
+experiment(Tolerance=1e-8, StopTime=36000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeFraction.mos"
         "Simulate and plot"),
   Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-100},{200,100}})),
@@ -156,6 +156,11 @@ Note that for simplicity, we allow zero outside air flow rate if the CO<sub>2</s
 the setpoint, which does not comply with ASHRAE regulations.
 </html>", revisions="<html>
 <ul>
+<li>
+April 25, 2017 by Filip Jorissen:<br/>
+Increased model tolerance for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/750\">#750</a>.
+</li>
 <li>
 March 27, 2013 by Michael Wetter:<br/>
 Added a flow resistance between the volume and the ambient to decouple the

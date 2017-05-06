@@ -1,5 +1,6 @@
 within Buildings.Utilities.Math.Functions;
 function polynomial "Polynomial function"
+  extends Modelica.Icons.Function;
  input Real x "Independent variable";
  input Real a[:] "Coefficients";
  output Real y "Result";
@@ -25,7 +26,7 @@ revisions="<html>
 December 14, 2016, by Michael Wetter:<br/>
 Removed derivative annotation.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/602\">issue 602</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/602\">issue 602</a>.
 </li>
 <li>
 March 30, 2011, by Michael Wetter:<br/>

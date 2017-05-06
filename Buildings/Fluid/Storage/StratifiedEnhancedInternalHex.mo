@@ -139,7 +139,7 @@ model StratifiedEnhancedInternalHex
         origin={-87,32})));
 
   Modelica.SIunits.HeatFlowRate QHex_flow = -sum(indTanHex.port.Q_flow)
-    "Heat transfered from the heat exchanger to the tank";
+    "Heat transferred from the heat exchanger to the tank";
 protected
   final parameter Integer segHex_a = nSeg-integer(hHex_a/segHeight)
     "Tank segment in which port a1 of the heat exchanger is located in"
@@ -264,7 +264,7 @@ This closes
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 July 2, 2015, by Michael Wetter:<br/>

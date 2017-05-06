@@ -1,7 +1,7 @@
 ConstantEffectiveness
 EvaporatorCondenser
-HeaterCooler_T
-HeaterCooler_T_dynamic
 HeaterCooler_u
+PrescribedOutlet
+PrescribedOutlet_dynamic
 WetCoilDiscretizedInitialization
 WetCoilDiscretizedInitializationPerfectGases

@@ -4,8 +4,7 @@ block TWetBul_TDryBulXi
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package Medium =
-    Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
-                                                            annotation (
+    Modelica.Media.Interfaces.PartialCondensingGases "Medium model"                          annotation (
       choicesAllMatching = true);
 
   parameter Boolean approximateWetBulb=false
@@ -42,16 +41,12 @@ protected
   Modelica.SIunits.MassFraction XiSatRefIn
     "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
 
- parameter Integer iWat(fixed=false)
-    "Index of water in medium composition vector";
-initial algorithm
-  iWat:=-1;
-    for i in 1:Medium.nX loop
-      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
-                                            string2="Water", caseSensitive=false) then
-        iWat :=i;
-      end if;
-    end for;
+ parameter Integer iWat = sum({(
+   if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i], string2="Water", caseSensitive=false)
+   then i else 0) for i in 1:Medium.nX})
+     "Index of water in medium composition vector";
+
+initial equation
   assert(iWat > 0, "Did not find medium species 'water' in the medium model. Change medium model.");
 
 equation
@@ -156,7 +151,7 @@ with a mean error of less than <i>0.3</i> Kelvin.
 </p>
 <p>
 Otherwise a calculation based on an energy balance is used.
-See <a href=\"https://github.com/ibpsa/modelica/issues/474\">#474</a> for a discussion.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/474\">#474</a> for a discussion.
 </p>
 <p>
 For a model that takes the relative humidity instead of the mass fraction as an input, see
@@ -177,19 +172,25 @@ DOI: 10.1175/JAMC-D-11-0143.1
 revisions="<html>
 <ul>
 <li>
+May 1, 2017, by Filip Jorissen:<br/>
+Revised computation of <code>iWat</code>
+such that it does not require an initial algorithm.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/759\">#759</a>.
+</li>
+<li>
 November 3, 2016, by Michael Wetter:<br/>
 Changed icon.
 </li>
 <li>
 May 24, 2016, by Filip Jorissen:<br/>
 Corrected exact implementation.
-See  <a href=\"https://github.com/ibpsa/modelica/issues/474\">#474</a>
+See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/474\">#474</a>
 for a discussion.
 </li>
 <li>
 April 11, 2016 by Michael Wetter:<br/>
 Corrected wrong hyperlink in documentation for
-<a href=\"https://github.com/ibpsa/modelica/issues/450\">issue 450</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/450\">issue 450</a>.
 </li>
 <li>
 November 17, 2014, by Michael Wetter:<br/>

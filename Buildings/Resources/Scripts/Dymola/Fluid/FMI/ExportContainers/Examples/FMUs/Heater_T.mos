@@ -1,5 +1,5 @@
 translateModelFMU(
-  modelToOpen="Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HeaterCooler_T",
+  modelToOpen="Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.Heater_T",
   storeResult=false,
   modelName="",
   fmiVersion="2",

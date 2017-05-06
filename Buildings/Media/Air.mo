@@ -608,7 +608,7 @@ revisions="<html>
 <li>
 April 30, 2015, by Filip Jorissen and Michael Wetter:<br/>
 Added <code>Inline=true</code> for
-<a href=\"https://github.com/ibpsa/modelica/issues/227\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/227\">
 issue 227</a>.
 </li>
 </ul>
@@ -721,7 +721,7 @@ revisions="<html>
 <li>
 April 30, 2015, by Filip Jorissen and Michael Wetter:<br/>
 Added <code>Inline=true</code> for
-<a href=\"https://github.com/ibpsa/modelica/issues/227\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/227\">
 issue 227</a>.
 </li>
 </ul>
@@ -969,7 +969,7 @@ if <i>T=0</i> &deg;C and no water vapor is present.
 November 4, 2016, by Michael Wetter:<br/>
 Set default value for <code>dT.start</code> in base properties.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/575\">#575</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/575\">#575</a>.
 </li>
 <li>
 June 6, 2015, by Michael Wetter:<br/>
@@ -985,7 +985,7 @@ Modelica.Media.Interfaces.Types</a>
 sets a default value of <i>1E-5</i>.
 A similar change has been done for pressure.
 This fixes
-<a href=\"https://github.com/ibpsa/modelica/issues/266\">#266</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/266\">#266</a>.
 </li>
 <li>
 June 5, 2015, by Michael Wetter:<br/>
@@ -997,7 +997,7 @@ Modelica.Media.Interfaces.PartialMedium</a>.
 Note that the default is <code>preferredMediumState=false</code>
 and hence the same states are used as were used before.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/260\">#260</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/260\">#260</a>.
 </li>
 <li>
 May 11, 2015, by Michael Wetter:<br/>
@@ -1013,20 +1013,20 @@ causing the translation to stop with an error.
 <li>
 May 1, 2015, by Michael Wetter:<br/>
 Added <code>Inline=true</code> for
-<a href=\"https://github.com/ibpsa/modelica/issues/227\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/227\">
 issue 227</a>.
 </li>
 <li>
 March 20, 2015, by Michael Wetter:<br/>
 Added missing term <code>state.p/reference_p</code> in function
 <code>specificEntropy</code>.
-<a href=\"https://github.com/ibpsa/modelica/issues/193\">#193</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/193\">#193</a>.
 </li>
 <li>
 February 3, 2015, by Michael Wetter:<br/>
 Removed <code>stateSelect.prefer</code> for temperature.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/160\">#160</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/160\">#160</a>.
 </li>
 <li>
 July 24, 2014, by Michael Wetter:<br/>

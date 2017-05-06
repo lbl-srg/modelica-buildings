@@ -10,10 +10,18 @@ function basicFlowFunction_m_flow
     "Mass flow rate where transition to turbulent flow occurs";
   output Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
+protected
+  Modelica.SIunits.PressureDifference dp_turbulent = (m_flow_turbulent/k)^2
+    "Pressure where flow changes to turbulent";
+  Real m_flowNorm = m_flow/m_flow_turbulent
+    "Normalised mass flow rate";
+  Real m_flowNormSq = m_flowNorm^2
+    "Square of normalised mass flow rate";
+
 algorithm
- dp :=if (m_flow>m_flow_turbulent) then (m_flow/k)^2
-      elseif (m_flow<-m_flow_turbulent) then -(m_flow/k)^2
-      else (m_flow_turbulent*m_flow+m_flow^3/m_flow_turbulent)/2/k^2;
+ dp :=if noEvent(abs(m_flow)>m_flow_turbulent)
+      then sign(m_flow)*(m_flow/k)^2
+      else (0.375 + (0.75-0.125*m_flowNormSq)*m_flowNormSq)*dp_turbulent*m_flowNorm;
 
  annotation (LateInline=true,
              smoothOrder=2,
@@ -52,17 +60,25 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 revisions="<html>
 <ul>
 <li>
+May 1, 2017, by Filip Jorissen:<br/>
+Revised implementation such that
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
+Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>
+is C2 continuous.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/725\">#725</a>.
+</li>
+<li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 July 28, 2015, by Michael Wetter:<br/>
 Removed double declaration of <code>smooth(..)</code> and <code>smoothOrder</code>
 and changed <code>Inline=true</code> to <code>LateInline=true</code>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/301\">issue 301</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/301\">issue 301</a>.
 </li>
 <li>
 July 15, 2015, by Filip Jorissen:<br/>
@@ -70,7 +86,7 @@ New, more efficient implementation based on regularisation using simple polynomi
 Expanded common subexpressions for function inlining to be possible.
 Set <code>Inline=true</code> for inlining to occur.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/279\">#279</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/279\">#279</a>.
 </li>
 <li>
 August 10, 2011, by Michael Wetter:<br/>

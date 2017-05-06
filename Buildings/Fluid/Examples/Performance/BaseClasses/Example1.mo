@@ -19,11 +19,10 @@ partial model Example1 "Example 1 partial model"
     nominalValuesDefineDefaultPressureCurve=true)
     "Pump model with unidirectional flow"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Buildings.Fluid.HeatExchangers.HeaterCooler_T hea(
+  Buildings.Fluid.HeatExchangers.Heater_T hea(
     redeclare package Medium = Medium,
     dp_nominal=1000,
-    Q_flow_maxHeat=1000,
-    Q_flow_maxCool=0,
+    QMax_flow=1000,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=allowFlowReversal.k) "Heater"
@@ -70,7 +69,7 @@ equation
       points={{-40,20},{-30,20},{-30,30},{-20,30}},
       color={0,127,255}));
   connect(pulse.y,hea. TSet) annotation (Line(
-      points={{-39,80},{-22,80},{-22,36}},
+      points={{-39,80},{-30,80},{-30,38},{-24,38},{-24,38},{-22,38},{-22,38}},
       color={0,0,127}));
   connect(pump.m_flow_in, gain.y) annotation (Line(
       points={{49.8,42},{49.8,80},{21,80}},
@@ -112,7 +111,7 @@ and is created to avoid errors in the implementation of the two depending exampl
 <li>
 February 22, 2016, by Michael Wetter:<br/>
 Removed parameter <code>dynamicBalance</code> for
-<a href=\"https://github.com/ibpsa/modelica/issues/411\">issue 411</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/411\">issue 411</a>.
 </li>
 <li>
 July 14, 2015, by Michael Wetter:<br/>
