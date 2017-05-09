@@ -1,6 +1,5 @@
 within Buildings.Experimental.ScalableModels.ScalableDemo;
 model MultizoneWithVAV
-  import Buildings;
   extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air(T_default=293.15);

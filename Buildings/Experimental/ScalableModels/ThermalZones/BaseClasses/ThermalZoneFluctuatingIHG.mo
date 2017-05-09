@@ -163,8 +163,12 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
     annotation (Placement(transformation(extent={{-56,38},{-46,48}})));
   Modelica.Blocks.Math.Gain gain2(k=gainFactor)
     annotation (Placement(transformation(extent={{-40,38},{-30,48}})));
-  Schedules.IntLoad intLoad
-    annotation (Placement(transformation(extent={{-90,112},{-76,126}})));
+  Schedules.IntLoad intLoad(table=[
+    0, 0.1;
+    ((gainFactor-0.5)+8)*3600,1.0;
+    ((gainFactor-0.5)+18)*3600,0.1;
+    24*3600,0.1])
+    annotation (Placement(transformation(extent={{-90,114},{-76,128}})));
   Fluid.Sources.MassFlowSource_T  souInf(redeclare package Medium = MediumA,
     nPorts=1,
     use_m_flow_in=false,
@@ -222,18 +226,18 @@ equation
           {-22,70.8},{-16.8,70.8}}, color={0,0,127}));
   connect(gain2.y, multiplex3_1.u3[1]) annotation (Line(points={{-29.5,43},{-22,
           43},{-22,65.2},{-16.8,65.2}}, color={0,0,127}));
-  connect(intLoad.y[1], product1.u2) annotation (Line(points={{-75.3,119},{-68,
-          119},{-68,92},{-57,92}}, color={0,0,127}));
+  connect(intLoad.y[1], product1.u2) annotation (Line(points={{-75.3,121},{-68,121},
+          {-68,92},{-57,92}},      color={0,0,127}));
   connect(product1.u2, product2.u2) annotation (Line(points={{-57,92},{-62,92},
           {-68,92},{-68,65},{-57,65}}, color={0,0,127}));
   connect(product1.u2, product3.u2) annotation (Line(points={{-57,92},{-68,92},
           {-68,40},{-57,40}}, color={0,0,127}));
-  connect(souInf.ports[1], roo.ports[1]) annotation (Line(points={{-8,-52},{32,
-          -52},{32,-10},{39.75,-10}},   color={0,127,255}));
+  connect(souInf.ports[1], roo.ports[1]) annotation (Line(points={{-8,-52},{32,-52},
+          {32,-10},{39.75,-10}},        color={0,127,255}));
   connect(sinInf.ports[1], res.port_a)
     annotation (Line(points={{-10,-28},{-4,-28},{4,-28}}, color={0,127,255}));
-  connect(res.port_b, roo.ports[2]) annotation (Line(points={{24,-28},{26,-28},
-          {28,-28},{28,-7},{39.75,-7}}, color={0,127,255}));
+  connect(res.port_b, roo.ports[2]) annotation (Line(points={{24,-28},{26,-28},{
+          28,-28},{28,-7},{39.75,-7}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100, 100}}), graphics={
         Rectangle(
