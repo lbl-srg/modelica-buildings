@@ -131,7 +131,7 @@ May 8, 2017, by Michael Wetter:<br/>
 Updated model for new heater model.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">
-Buildings, issue 763</a>.
+Buildings, #763</a>.
 </li>
 <li>February 20, 2016, by Ruben Baetens:<br/>
 Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
