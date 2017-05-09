@@ -2,7 +2,7 @@ within Buildings.Experimental.ScalableModels.ThermalZones.BaseClasses;
 model ThermalZoneFluctuatingIHG_WithPorts "Thermal zone model"
   import Buildings;
   extends Buildings.Experimental.ScalableModels.ThermalZones.BaseClasses.ThermalZoneFluctuatingIHG(roo(
-    nPorts=5));
+    nPorts=4));
 
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
     "Medium model";
@@ -70,9 +70,9 @@ equation
           84.4,-66},{104,-66}},         color={0,0,127}));
   connect(TSetHea.y[1],TheatSetpoint)  annotation (Line(points={{84.4,-46},{
           84.4,-46},{104,-46}},         color={0,0,127}));
-  connect(supAirTem.port_b, roo.ports[4]) annotation (Line(points={{-12,15},{14,
+  connect(supAirTem.port_b, roo.ports[3]) annotation (Line(points={{-12,15},{14,
           15},{14,-8.5},{39.75,-8.5}}, color={0,127,255}));
-  connect(retAirTem.port_a, roo.ports[5]) annotation (Line(points={{-12,32},{14,
+  connect(retAirTem.port_a, roo.ports[4]) annotation (Line(points={{-12,32},{14,
           32},{14,-8.5},{39.75,-8.5}}, color={0,127,255}));
   connect(roo.heaPorAir, rooAirTem.port)
     annotation (Line(points={{50.25,-1},{50.25,36},{66,36}}, color={191,0,0}));
