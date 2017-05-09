@@ -74,7 +74,7 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
   Buildings.Fluid.Sources.Outside sinInf(redeclare package Medium = MediumA,
       nPorts=1) "Sink model for air infiltration"
            annotation (Placement(transformation(extent={{-22,-34},{-10,-22}})));
-  Modelica.Blocks.Sources.Constant InfiltrationRate(k=48*2.7*0.5/3600)
+  Modelica.Blocks.Sources.Constant InfiltrationRate(k=-VInf_flow)
     "0.41 ACH adjusted for the altitude (0.5 at sea level)"
     annotation (Placement(transformation(extent={{-96,-48},{-88,-40}})));
   Modelica.Blocks.Math.Product product
@@ -175,22 +175,24 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
     annotation (Placement(transformation(extent={{-40,38},{-30,48}})));
   Schedules.IntLoad intLoad
     annotation (Placement(transformation(extent={{-90,112},{-76,126}})));
-  Fluid.Sources.Outside           souInf(redeclare package Medium = MediumA,
-      nPorts=1) "Source model for air infiltration"
-    annotation (Placement(transformation(extent={{-22,-64},{-10,-52}})));
-  Fluid.Movers.BaseClasses.IdealSource           infMover(
-    control_m_flow=true,
-    allowFlowReversal=false,
-    redeclare package Medium = MediumA,
-    m_flow_small=1e-4)
-    annotation (Placement(transformation(extent={{0,-58},{8,-50}})));
+  Fluid.Sources.MassFlowSource_T  souInf(redeclare package Medium = MediumA,
+    use_m_flow_in=true,
+    nPorts=1)   "Source model for air infiltration"
+    annotation (Placement(transformation(extent={{-20,-58},{-8,-46}})));
+  Fluid.FixedResistances.PressureDrop res(
+    m_flow_nominal=VInf_flow*1.2,
+    dp_nominal=20,
+    linearized=true,
+    redeclare package Medium = MediumA) "Pressure drop for infiltration"
+    annotation (Placement(transformation(extent={{0,-38},{20,-18}})));
+  parameter Real VInf_flow=48*2.7*0.5/3600 "Infiltration volume flow rate";
 equation
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
       points={{-7.6,68},{20,68},{20,5},{34.8,5}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(density.port, roo.ports[3])  annotation (Line(
-      points={{-45,-68},{32,-68},{32,-6.5},{39.75,-6.5}},
+  connect(density.port, roo.ports[1])  annotation (Line(
+      points={{-45,-68},{32,-68},{32,-10.5},{39.75,-10.5}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(density.d, product.u2) annotation (Line(
@@ -206,8 +208,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(sinInf.ports[1], roo.ports[2]) annotation (Line(points={{-10,-28},{14,
-          -28},{14,-8.5},{39.75,-8.5}},   color={0,127,255}));
   connect(roo.surf_conBou[1], heaPorFlo) annotation (Line(points={{55.5,-13.375},
           {55.5,-86},{0,-86},{0,-100}}, color={191,0,0}));
   connect(roo.surf_conBou[2], heaPorWal1) annotation (Line(points={{55.5,-12.625},
@@ -246,24 +246,20 @@ equation
           {-22,70.8},{-16.8,70.8}}, color={0,0,127}));
   connect(gain2.y, multiplex3_1.u3[1]) annotation (Line(points={{-29.5,43},{-22,
           43},{-22,65.2},{-16.8,65.2}}, color={0,0,127}));
-  connect(product.y, infMover.m_flow_in) annotation (Line(points={{-39.5,-47},{1.6,
-          -47},{1.6,-50.8}}, color={0,0,127}));
-  connect(souInf.ports[1], infMover.port_a) annotation (Line(points={{-10,-58},{
-          -4,-58},{-4,-54},{0,-54}}, color={0,127,255}));
-   connect(infMover.port_b, roo.ports[1]) annotation (Line(
-      points={{8,-54},{26,-54},{26,-10.5},{39.75,-10.5}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(souInf.weaBus, weaBus) annotation (Line(
-      points={{-22,-57.88},{-30,-57.88},{-30,-80},{-74,-80}},
-      color={255,204,51},
-      thickness=0.5));
   connect(intLoad.y[1], product1.u2) annotation (Line(points={{-75.3,119},{-68,
           119},{-68,92},{-57,92}}, color={0,0,127}));
   connect(product1.u2, product2.u2) annotation (Line(points={{-57,92},{-62,92},
           {-68,92},{-68,65},{-57,65}}, color={0,0,127}));
   connect(product1.u2, product3.u2) annotation (Line(points={{-57,92},{-68,92},
           {-68,40},{-57,40}}, color={0,0,127}));
+  connect(sinInf.ports[1], res.port_a)
+    annotation (Line(points={{-10,-28},{-5,-28},{0,-28}}, color={0,127,255}));
+  connect(res.port_b, roo.ports[2]) annotation (Line(points={{20,-28},{24,-28},
+          {24,-8.5},{39.75,-8.5}}, color={0,127,255}));
+  connect(souInf.ports[1], roo.ports[3]) annotation (Line(points={{-8,-52},{28,
+          -52},{28,-6.5},{39.75,-6.5}}, color={0,127,255}));
+  connect(souInf.m_flow_in, product.y) annotation (Line(points={{-20,-47.2},{
+          -31,-47.2},{-31,-47},{-39.5,-47}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100, 100}}), graphics={
         Rectangle(
