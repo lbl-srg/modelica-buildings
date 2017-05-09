@@ -10,44 +10,42 @@ model Humidifier_u
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal
     "Water mass flow rate at u=1, positive for humidification";
 
-  Modelica.Blocks.Interfaces.RealInput u "Control input"
+  Modelica.Blocks.Interfaces.RealInput u(unit="1") "Control input"
     annotation (Placement(transformation(
-          extent={{-140,30},{-100,70}}), iconTransformation(extent={{-120,50},{
+          extent={{-140,40},{-100,80}}), iconTransformation(extent={{-120,50},{
             -100,70}})));
-protected
-  Modelica.Blocks.Math.Gain gai(final k=mWat_flow_nominal) "Gain"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-public
+
+  Modelica.Blocks.Interfaces.RealOutput mWat_flow(unit="kg/s")
+    "Water added to the fluid"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat port for total heat exchange with the control volume"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
+
+protected
+  Modelica.Blocks.Math.Gain gai(final k=mWat_flow_nominal) "Gain"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+
 equation
   connect(u, gai.u) annotation (Line(
-      points={{-120,50},{-102,50},{-102,60},{-82,60}},
+      points={{-120,60},{-82,60}},
       color={0,0,127}));
   connect(gai.y, vol.mWat_flow) annotation (Line(
       points={{-59,60},{-30,60},{-30,-18},{-11,-18}},
       color={0,0,127}));
   connect(vol.heatPort, heatPort) annotation (Line(points={{-9,-10},{-20,-10},{-20,
           -60},{-100,-60}}, color={191,0,0}));
+
+  connect(gai.y, mWat_flow)
+    annotation (Line(points={{-59,60},{110,60},{110,60}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
-        Rectangle(
-          extent={{-70,80},{70,-80}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={85,170,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-102,5},{99,-5}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
         Text(
-          extent={{-56,-12},{54,-72}},
-          lineColor={0,0,255},
-          textString="m=%m_flow_nominal"),
+          extent={{-52,-60},{58,-120}},
+          textString="m=%m_flow_nominal",
+          pattern=LinePattern.None,
+          lineColor={0,0,127}),
         Rectangle(
           extent={{-100,61},{-70,58}},
           lineColor={0,0,255},
@@ -55,15 +53,60 @@ equation
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-144,114},{-100,86}},
-          lineColor={0,0,255},
+          extent={{-114,104},{-70,76}},
+          lineColor={0,0,127},
           textString="u"),
         Rectangle(
           visible=use_T_in,
           extent={{-100,-59},{-70,-62}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={191,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-100,5},{101,-5}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={255,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-70,60},{70,-60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,62,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{42,42},{54,34},{54,34},{42,28},{42,30},{50,34},{50,34},{42,
+              40},{42,42}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{58,-54},{54,52}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{70,61},{100,58}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{30,112},{96,58}},
+          lineColor={0,0,127},
+          textString="mWat_flow"),
+        Polygon(
+          points={{42,10},{54,2},{54,2},{42,-4},{42,-2},{50,2},{50,2},{42,8},{
+              42,10}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{42,-26},{54,-34},{54,-34},{42,-40},{42,-38},{50,-34},{50,-34},
+              {42,-28},{42,-26}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
 defaultComponentName="hum",
 Documentation(info="<html>
@@ -83,11 +126,6 @@ where <i>u</i> is the control input signal and
 The parameter <code>mWat_flow_nominal</code> can be positive or negative.
 If <i>m&#775;<sub>wat</sub></i> is positive, then moisture is added
 to the air stream, otherwise it is removed.
-</p>
-<p>
-This model can only be used with medium models that define the integer constant
-<code>Water</code> which needs to be equal to the index of the water mass fraction
-in the species vector.
 </p>
 <p>
 If the heat port <code>heatPort</code> is unconnected, then the enthalpy of the
