@@ -344,12 +344,6 @@ equation
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
                       graphics={
         Rectangle(
-          extent={{-50,60},{46,-60}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
           extent={{-99,6},{102,-4}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
@@ -362,28 +356,74 @@ equation
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-94,94},{-76,72}},
+          extent={{-98,64},{-76,42}},
           lineColor={0,0,127},
-          textString="T",
-          visible=use_TSet),
-        Text(
-          extent={{48,96},{92,68}},
-          lineColor={0,0,127},
-          textString="Q_flow"),
-        Text(
-          extent={{-94,56},{-56,28}},
-          lineColor={0,0,127},
+          visible=use_X_wSet,
           textString="X_w"),
         Text(
-          extent={{50,56},{94,28}},
+          extent={{74,72},{120,44}},
           lineColor={0,0,127},
           textString="mWat_flow"),
         Rectangle(
-          extent={{-50,60},{-20,80}},
+          extent={{-70,60},{70,-60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-64,34},{-34,54}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{-50,60},{-38,70},{-50,80}}, color={0,0,0})}),
+        Line(points={{-64,34},{-52,44},{-64,54}}, color={0,0,0}),
+        Rectangle(
+          extent={{-70,60},{-66,82}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          visible=use_TSet,
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{66,60},{70,82}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-106,102},{-74,88}},
+          lineColor={0,0,127},
+          visible=use_TSet,
+          textString="T"),
+        Rectangle(
+          extent={{-100,82},{-70,78}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          visible=use_TSet,
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{72,108},{120,92}},
+          lineColor={0,0,127},
+          textString="Q_flow"),
+        Rectangle(
+          extent={{70,82},{100,78}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-100,41},{-70,38}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          visible=use_X_wSet,
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{70,41},{100,38}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
 This model sets the temperature or the water vapor mass fraction

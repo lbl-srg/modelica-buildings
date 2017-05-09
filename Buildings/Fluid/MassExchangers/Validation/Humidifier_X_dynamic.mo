@@ -9,7 +9,9 @@ annotation (
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Model that demonstrates the use of an adiabatic humidifier.
+Model that validates the use of an adiabatic humidifier
+configured as a dynamic model with limits on the maximum water mass flow rate
+that is added to the air stream.
 </p>
 </html>", revisions="<html>
 <ul>

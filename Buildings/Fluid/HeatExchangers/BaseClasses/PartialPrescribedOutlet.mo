@@ -51,22 +51,26 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
-          extent={{-70,60},{60,-60}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
           extent={{-102,5},{99,-5}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-70,60},{70,-60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
           fillPattern=FillPattern.Solid)}),
 defaultComponentName="hea",
 Documentation(info="<html>
 <p>
 Base class for model for an ideal heater, cooler, humidifier or dehumidifier
 with a prescribed outlet conditions.
+</p>
+<p>
+Models that extend this model need to configure the instance <code>outCon</code>
+and connect its input signals, in they are enabled.
 </p>
 </html>",
 revisions="<html>
