@@ -21,7 +21,8 @@ model MultizoneWithVAV
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=m_flow_nominal_each,
-    VRoo=VRoo)
+    VRoo=VRoo,
+    dpFixed_nominal(displayUnit="Pa") = 220 + 20)
     annotation (Placement(transformation(extent={{52,16},{82,46}})));
   ThermalZones.BaseClasses.MultiZoneFluctuatingIHG multiZoneFluctuatingIHG(
     nZon = nZon,
@@ -123,14 +124,6 @@ model MultizoneWithVAV
         MediumA, m_flow_nominal=m_flow_nominal)
     "Sensor for supply fan flow rate"
     annotation (Placement(transformation(extent={{26,-38},{42,-22}})));
-  Fluid.FixedResistances.PressureDrop dpZonBra[nZon,nFlo](
-    m_flow_nominal=m_flow_nominal_each,
-    redeclare each package Medium = MediumA,
-    each dp_nominal=20) "Pressure drop for each zone branch" annotation (Placement(
-        transformation(
-        extent={{8,-7},{-8,7}},
-        rotation=-90,
-        origin={67,-6})));
   Fluid.Sensors.TemperatureTwoPort  TRet(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Return air temperature sensor"
     annotation (Placement(transformation(extent={{-182,118},{-196,134}})));
@@ -247,13 +240,6 @@ equation
               {68.2,46},{68.2,61.8}},                                                                                                                color={0,127,
               255},
           thickness=0.5));
-        connect(senSupFlo.port_b, dpZonBra[iZon, iFlo].port_a) annotation (Line(points={{42,-30},
-              {42,-30},{67,-30},{67,-14}},  color={0,127,255},
-          thickness=0.5));
-        connect(dpZonBra[iZon, iFlo].port_b, vAVBranch.port_a[iZon, iFlo])  annotation (Line(points={{67,2},{
-              67,23.4}},                                                                                                          color={0,127,
-              255},
-          thickness=0.5));
         connect(multiZoneFluctuatingIHG.portsOut[iZon, iFlo], senRetFlo.port_a) annotation (
      Line(points={{68.2,89.8},{68.2,126},{28,126}}, color={0,127,255},
           thickness=0.5));
@@ -304,6 +290,9 @@ equation
       thickness=0.5));
   for iZon in 1:nZon loop
     for iFlo in 1:nFlo loop
+      connect(senSupFlo.port_b, vAVBranch.port_a[iZon, iFlo]) annotation (Line(points={{42,
+          -30},{58,-30},{68,-30},{68,23.4},{67,23.4}}, color={0,127,255}));
+
       connect(controlBus, vAVBranch.controlBus[iZon, iFlo]) annotation (Line(
           points={{-68,54},{-42,54},{-12,54},{-12,23.2},{52,23.2}},
           color={255,204,51},

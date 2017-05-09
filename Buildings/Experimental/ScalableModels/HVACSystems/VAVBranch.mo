@@ -10,11 +10,14 @@ model VAVBranch "Supply branch of a VAV system"
   parameter Integer nFlo(min=1) = 1 "Number of floors"
     annotation(Evaluate=true);
 
+  parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa")=0
+    "Pressure drop of duct and other resistances that are in series";
+
   Fluid.Actuators.Dampers.PressureIndependent  vav[nZon,nFlo](
     redeclare each package Medium = MediumA,
     m_flow_nominal={{(m_flow_nominal[i,j]) for j in 1:nFlo} for i in 1:nZon},
-    each A=0.6,
-    each dp_nominal(displayUnit="Pa") = 220 + 20) "VAV box for room" annotation (
+    each dpFixed_nominal=dpFixed_nominal,
+    each dp_nominal(displayUnit="Pa") = 20)       "VAV box for room" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -105,6 +108,7 @@ model VAVBranch "Supply branch of a VAV system"
     unit="K",
     displayUnit="degC") "Measured room temperature"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}})));
+
 equation
    for iZon in 1:nZon loop
     for iFlo in 1:nFlo loop
