@@ -2,9 +2,9 @@ within Buildings.Experimental.ScalableModels.ScalableDemo;
 model IdealHVAC_ScableZones
   import Buildings;
   extends Modelica.Icons.Example;
-  parameter Integer nZon(min=1) = 1 "Number of zones per floor"
+  parameter Integer nZon = 1 "Number of zones per floor"
     annotation(Evaluate=true);
-  parameter Integer nFlo(min=1) = 1 "Number of floors"
+  parameter Integer nFlo = 1 "Number of floors"
     annotation(Evaluate=true);
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
