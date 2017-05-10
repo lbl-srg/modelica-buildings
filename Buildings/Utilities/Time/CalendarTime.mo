@@ -15,10 +15,10 @@ model CalendarTime
     "Unix time stamp at local time"
         annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
         iconTransformation(extent={{100,-90},{120,-70}})));
-  discrete Modelica.Blocks.Interfaces.IntegerOutput year "Year"
+  discrete Modelica.Blocks.Interfaces.IntegerOutput year(start=2010) "Year"
     annotation (Placement(transformation(extent={{100,-32},{120,-12}}),
         iconTransformation(extent={{100,-32},{120,-12}})));
-  discrete Modelica.Blocks.Interfaces.IntegerOutput month "Month of the year"
+  discrete Modelica.Blocks.Interfaces.IntegerOutput month(start=1) "Month of the year"
     annotation (Placement(transformation(extent={{100,-4},{120,16}}),
         iconTransformation(extent={{100,-4},{120,16}})));
   Modelica.Blocks.Interfaces.IntegerOutput day(fixed=false) "Day of the month"
@@ -150,7 +150,7 @@ initial algorithm
    // input data range checks at initial time
   assert(time + offset + timOff >= timeStampsNewYear[1],
     if zerTim == Buildings.Utilities.Time.Types.ZeroTime.UnixTimeStamp then
-      "Could initialize date in the CalendarTime block.
+      "Could not initialize date in the CalendarTime block.
    You selected 1970 as the time=0 reference.
    Therefore the simulation startTime must be at least " + String(timeStampsNewYear[1]) + "."
     elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom then

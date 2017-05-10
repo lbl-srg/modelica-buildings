@@ -1,0 +1,13 @@
+simulateModel("Buildings.Fluid.Interfaces.Examples.PrescribedOutlet_Water", tolerance=1e-6, stopTime=1200, method="dassl", resultFile="PrescribedOutlet_Water");
+createPlot(id=1, position={9, 13, 416, 1007}, y={"heaHigPow.sta_a.T", "heaHigPow.sta_b.T"}, range={0.0, 1200.0, -10.0, 25.0}, grid=true, colors={{238,46,47}, {0,140,72}});
+createPlot(id=1, position={9, 13, 416, 249}, y={"cooLimPow.sta_a.T", "cooLimPow.sta_b.T"}, range={0.0, 1200.0, 15.0, 45.0}, grid=true, subPlot=2, colors={{238,46,47}, {0,140,72}});
+createPlot(id=1, position={9, 13, 416, 248}, y={"heaCooUnl.sta_a.T", "heaCooUnl.sta_b.T"}, range={0.0, 1200.0, 5.0, 30.0}, grid=true, subPlot=3, colors={{238,46,47}, {0,140,72}});
+createPlot(id=1, position={9, 13, 416, 249}, y={"steSta.sta_b.T"}, range={0.0, 1200.0, 5.0, 30.0}, grid=true, subPlot=4, colors={{238,46,47}});
+createPlot(id=2, position={445, 13, 367, 1012}, y={"heaHigPow.Q_flow"}, range={0.0, 1200.0, -1.5, 1.5}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={445, 13, 367, 250}, y={"cooLimPow.Q_flow"}, range={0.0, 1200.0, -1.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=2, position={445, 13, 367, 250}, y={"heaCooUnl.Q_flow"}, range={0.0, 1200.0, -1.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={445, 13, 367, 250}, y={"steSta.Q_flow"}, range={0.0, 1200.0, -1.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=4, position={1212, 11, 508, 996}, y={"heaHigPow.mWat_flow"}, range={0.0, 1200.0, -0.0002, 0.0012}, grid=true, colors={{28,108,200}});
+createPlot(id=4, position={1212, 11, 508, 246}, y={"cooLimPow.mWat_flow"}, range={0.0, 1200.0, -0.001, 0.0002000000000000001}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=4, position={1212, 11, 508, 246}, y={"heaCooUnl.mWat_flow"}, range={0.0, 1200.0, -0.0004, 0.0006000000000000001}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=4, position={1212, 11, 508, 246}, y={"steSta.mWat_flow"}, range={0.0, 1200.0, -0.0004, 0.0006000000000000001}, grid=true, subPlot=4, colors={{28,108,200}});

@@ -1,5 +1,6 @@
 within Buildings.Utilities.Math.Functions;
 function polynomial "Polynomial function"
+  extends Modelica.Icons.Function;
  input Real x "Independent variable";
  input Real a[:] "Coefficients";
  output Real y "Result";

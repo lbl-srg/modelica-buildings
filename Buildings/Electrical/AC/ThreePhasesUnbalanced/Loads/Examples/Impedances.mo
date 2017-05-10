@@ -88,7 +88,7 @@ This example model shows how to use three-phase unbalanced impedances with and w
 <p>
 This model contains two identical inductive impedances with and without neutral cable.
 The impedances have inputs that allow to change the value of their resistances and inductances
-externally. The values start to change from their minumum to their maximum values at time
+externally. The values start to change from their minimum to their maximum values at time
 <i>t = 0.25 s</i>.
 </p>
 <p>

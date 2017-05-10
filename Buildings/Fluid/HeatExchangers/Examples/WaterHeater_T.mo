@@ -9,13 +9,12 @@ model WaterHeater_T
     vol(V=V/1000),
     mov(nominalValuesDefineDefaultPressureCurve=true));
 
-  Buildings.Fluid.HeatExchangers.HeaterCooler_T hea(
+  Heater_T hea(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000,
-    Q_flow_maxCool=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    Q_flow_maxHeat=Q_flow_nominal) "Heater"
+    QMax_flow=Q_flow_nominal) "Heater"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Controls.SetPoints.Table tab(table=[0,273.15 + 10; 1,273.15 + 30])
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
@@ -73,5 +72,6 @@ First implementation.
       StopTime=172800,
       Tolerance=1e-6),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+            120,100}})),
+    Icon(coordinateSystem(extent={{-100,-100},{120,100}})));
 end WaterHeater_T;

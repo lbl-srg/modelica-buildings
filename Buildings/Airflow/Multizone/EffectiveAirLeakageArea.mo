@@ -2,7 +2,7 @@ within Buildings.Airflow.Multizone;
 model EffectiveAirLeakageArea "Effective air leakage area"
   extends Buildings.Airflow.Multizone.Orifice(
     m=0.65,
-    final A=CD/CDRat * L * dpRat^(0.5-m));
+    final A=CDRat/CD * L * dpRat^(0.5-m));
 
   parameter Modelica.SIunits.PressureDifference dpRat(min=0,
                                                       displayUnit="Pa") = 4
@@ -105,6 +105,13 @@ November, 2002.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 24, 2017, by Filip Jorissen:<br/>
+Corrected error in computation of <code>A</code> which was
+<code>A=CD/CDRat * L * dpRat^(0.5-m))</code> rather than
+<code>A=CDRat/CD * L * dpRat^(0.5-m))</code>.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/743\">#743</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

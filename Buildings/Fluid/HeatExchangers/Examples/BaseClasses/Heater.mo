@@ -53,11 +53,14 @@ partial model Heater "Base class for example model for the heater and cooler"
   Modelica.Blocks.Sources.Constant mFan_flow(k=m_flow_nominal)
     "Mass flow rate of the fan"
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
-  Sources.FixedBoundary bou(redeclare package Medium = Medium, nPorts=1)
+  Sources.FixedBoundary bou(
+    redeclare package Medium = Medium,
+    nPorts=1)
     "Fixed pressure boundary condition, required to set a reference pressure"
     annotation (Placement(transformation(extent={{110,-30},{90,-10}})));
-  Sensors.TemperatureTwoPort THeaOut(redeclare package Medium = Medium,
-      m_flow_nominal=m_flow_nominal) "Outlet temperature of the heater"
+  Sensors.TemperatureTwoPort THeaOut(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal) "Outlet temperature of the heater"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
@@ -123,6 +126,13 @@ and it also is required to account for a variation of density of the fluid.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 8, 2017, by Michael Wetter:<br/>
+Updated model for new heater model.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">
+Buildings, #763</a>.
+</li>
 <li>February 20, 2016, by Ruben Baetens:<br/>
 Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
 </li>
@@ -135,6 +145,7 @@ November 12, 2014, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}})));
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{120,100}})),
+    Icon(coordinateSystem(extent={{-100,-100},{120,100}})));
 end Heater;

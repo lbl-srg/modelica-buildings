@@ -1,6 +1,7 @@
 within Buildings.Utilities.Math.Functions;
 function powerLinearized
   "Power function that is linearized below a user-defined threshold"
+  extends Modelica.Icons.Function;
 
  input Real x "Abscissa value";
  input Real n "Exponent";

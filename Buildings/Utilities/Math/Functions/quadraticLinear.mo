@@ -1,6 +1,7 @@
 within Buildings.Utilities.Math.Functions;
 function quadraticLinear
   "Function that is quadratic in first argument and linear in second argument"
+  extends Modelica.Icons.Function;
  input Real a[6] "Coefficients";
  input Real x1 "Independent variable for quadratic part";
  input Real x2 "Independent variable for linear part";

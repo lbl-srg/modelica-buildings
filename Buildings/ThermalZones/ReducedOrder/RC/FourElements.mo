@@ -31,7 +31,7 @@ model FourElements "Thermal Zone with four elements for exterior walls,
       annotation (Placement(transformation(extent={{-21,170},{-1,190}}),
                        iconTransformation(extent={{-21,170},{-1,190}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a roofIndoorSurface if
-     indoorPortRoof "Auxilliary port at indoor surface of roof"
+     indoorPortRoof "Auxiliary port at indoor surface of roof"
       annotation (Placement(
       transformation(extent={{-50,-190},{-30,-170}}), iconTransformation(
       extent={{-50,-190},{-30,-170}})));

@@ -26,20 +26,8 @@ model ReciprocatingCompressor
   Modelica.SIunits.MassFlowRate m_flow
     "Refrigerant mass flow rate";
 
-  Modelica.SIunits.AbsolutePressure pDis(start = 1000e3)
-    "Discharge pressure of the compressor";
-
-  Modelica.SIunits.AbsolutePressure pSuc(start = 100e3)
-    "Suction pressure of the compressor";
-
-  Modelica.SIunits.SpecificVolume vSuc(start = 1e-4, min = 0)
-    "Specific volume of the refrigerant at suction of the compressor";
-
   Modelica.SIunits.Power PThe
     "Theoretical power consumed by the compressor";
-
-  Modelica.SIunits.Temperature TSuc
-    "Temperature at suction of the compressor";
 
   Modelica.SIunits.Efficiency COP
     "Heating COP of the compressor";
@@ -51,28 +39,7 @@ protected
   Real pisDis_norm
     "Normalized piston displacement at part load conditions";
 
-  Real PR(min = 1.0, final unit = "1", start = 2.0)
-    "Pressure ratio";
-
-  Boolean shut_off(fixed=true, start=false)
-    "Shutdown signal for invalid pressure ratios";
-
 equation
-
-  PR = max(pDis/pSuc, 0);
-
-  // The compressor is turned off if the resulting condensing pressure is lower
-  // than the evaporating pressure
-  when PR <= 1.0 then
-    shut_off = true;
-  elsewhen PR > 1.01 then
-    shut_off = false;
-  end when;
-
-  // The specific volume at suction of the compressor is calculated
-  // from the Martin-Hou equation of state
-  vSuc = ref.specificVolumeVap_pT(pSuc, TSuc);
-
   // Limit compressor speed to the full load speed
   pisDis_norm = Buildings.Utilities.Math.Functions.smoothLimit(y, 0.0, 1.0, 0.001);
 
@@ -83,12 +50,12 @@ equation
     pDis = pCon + pDro;
     // Refrigerant mass flow rate
     k = ref.isentropicExponentVap_Tv(TSuc, vSuc);
-    m_flow = if shut_off then 0 else
-      pisDis_norm * pisDis/vSuc * (1+cleFac-cleFac*(PR)^(1/k));
+    m_flow =if pressure_error then 0 else pisDis_norm*pisDis/vSuc*(1 + cleFac
+       - cleFac*(PR)^(1/k));
     // Theoretical power of the compressor
     PThe = k/(k-1) * m_flow*pSuc*vSuc*((PR)^((k-1)/k)-1);
     // Power consumed by the compressor
-    P = if shut_off then 0 else PThe / etaEle + PLos;
+    P =if pressure_error then 0 else PThe/etaEle + PLos;
     // Temperature at suction of the compressor
     TSuc = port_a.T + dTSup;
     // Energy balance of the compressor
@@ -112,7 +79,7 @@ equation
   annotation (    defaultComponentName="scrCom",
     Documentation(info="<html>
 <p>
-Model for a reciprocating processor, as detailed in Jin (2002). The rate of heat transfered to the evaporator is given by:
+Model for a reciprocating processor, as detailed in Jin (2002). The rate of heat transferred to the evaporator is given by:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q&#775;<sub>Eva</sub> = m&#775;<sub>ref</sub> ( h<sub>Vap</sub>(T<sub>Eva</sub>) - h<sub>Liq</sub>(T<sub>Con</sub>) ).
@@ -132,7 +99,7 @@ condensing pressure.
 <h4>Assumptions and limitations</h4>
 <p>
 The compression process is assumed isentropic. The thermal energy
-of superheating is ignored in the evaluation of the heat transfered to the refrigerant
+of superheating is ignored in the evaluation of the heat transferred to the refrigerant
 in the evaporator. There is no supercooling.
 </p>
 <h4>References</h4>

@@ -144,12 +144,8 @@ equation
   end if;
 
   if prescribedHeatFlowRate then
-    assert(noEvent(if abs(m_flow) < Modelica.Constants.small
-      then
-        abs(Q_flow) < 1E-10
-      else
-        abs(Q_flow/cp_default/m_flow) < 200),
-   "Energy may not be conserved for small mass flow rates. This model may require prescribedHeatFlowRate = false.");
+    assert(noEvent( abs(Q_flow) < 200*cp_default*max(m_flow_small/1E3, abs(m_flow))),
+   "Energy may not be conserved for small mass flow rates. The implementation may require prescribedHeatFlowRate = false.");
   end if;
 
   if allowFlowReversal then
@@ -335,6 +331,21 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 24, 2017, by Michael Wetter and Filip Jorissen:<br/>
+Reimplemented check for energy conversion.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/741\">#741</a>.
+</li>
+<li>
+April 24, 2017, by Michael Wetter:<br/>
+Reverted change from April 21, 2017.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/741\">#741</a>.
+</li>
+<li>
+April 21, 2017, by Filip Jorissen:<br/>
+Revised test for energy conservation at small mass flow rates.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/741\">#741</a>.
+</li>
 <li>
 October 23, 2016, by Filip Jorissen:<br/>
 Added test for energy conservation at small mass flow rates.
