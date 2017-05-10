@@ -6,6 +6,7 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
 
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Real gainFactor(start=1) "IHG fluctuating amplitude factor";
+  parameter Real VInf_flow=(roo.AFlo*roo.hRoo)*0.5/3600 "Infiltration volume flow rate";
 
   final parameter Modelica.SIunits.Angle S_=
     Buildings.Types.Azimuth.S "Azimuth for south walls";
@@ -175,13 +176,12 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
     m_flow=-VInf_flow*1.2)
                 "Source model for air infiltration"
     annotation (Placement(transformation(extent={{-20,-58},{-8,-46}})));
-  parameter Real VInf_flow=48*2.7*0.5/3600 "Infiltration volume flow rate";
   Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = MediumA,
     m_flow_nominal=VInf_flow*1.2,
     dp_nominal=20,
     linearized=true) "Pressure drop for infiltration"
-    annotation (Placement(transformation(extent={{4,-38},{24,-18}})));
+    annotation (Placement(transformation(extent={{2,-38},{22,-18}})));
 equation
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
       points={{-7.6,68},{20,68},{20,5},{34.8,5}},
@@ -235,8 +235,8 @@ equation
   connect(souInf.ports[1], roo.ports[1]) annotation (Line(points={{-8,-52},{32,-52},
           {32,-10},{39.75,-10}},        color={0,127,255}));
   connect(sinInf.ports[1], res.port_a)
-    annotation (Line(points={{-10,-28},{-4,-28},{4,-28}}, color={0,127,255}));
-  connect(res.port_b, roo.ports[2]) annotation (Line(points={{24,-28},{26,-28},{
+    annotation (Line(points={{-10,-28},{2,-28}},          color={0,127,255}));
+  connect(res.port_b, roo.ports[2]) annotation (Line(points={{22,-28},{22,-28},{
           28,-28},{28,-7},{39.75,-7}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100, 100}}), graphics={

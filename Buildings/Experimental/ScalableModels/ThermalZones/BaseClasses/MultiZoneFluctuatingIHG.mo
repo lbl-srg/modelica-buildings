@@ -36,16 +36,12 @@ model MultiZoneFluctuatingIHG "Multiple thermal zone models"
     annotation (Placement(transformation(extent={{-22,50},{14,60}}),
         iconTransformation(extent={{-17,64},{19,74}})));
   Modelica.Blocks.Interfaces.RealOutput TRooAir[nZon,nFlo] "Room air temperatures"
-    annotation (Placement(transformation(extent={{96,26},{116,46}}),
-        iconTransformation(extent={{96,26},{116,46}})));
+    annotation (Placement(transformation(extent={{100,-66},{120,-46}}),
+        iconTransformation(extent={{100,-66},{120,-46}})));
 
   Modelica.Blocks.Interfaces.RealOutput heaCooPow[nZon,nFlo] "HVAC power"
-    annotation (Placement(transformation(extent={{96,54},{116,74}})));
-  Modelica.Blocks.Interfaces.RealOutput TheatSetpoint[nZon,nFlo] "Heating setpoint"
-    annotation (Placement(transformation(extent={{94,-48},{114,-28}}),
-        iconTransformation(extent={{94,-48},{114,-28}})));
-  Modelica.Blocks.Interfaces.RealOutput TcoolSetpoint[nZon,nFlo] "Cooling setpoint"
-    annotation (Placement(transformation(extent={{94,-76},{114,-56}})));
+    annotation (Placement(transformation(extent={{100,54},{120,74}}),
+        iconTransformation(extent={{100,54},{120,74}})));
 equation
   for iZon in 1:nZon-1 loop
     for iFlo in 1:nFlo-1 loop
@@ -73,19 +69,11 @@ equation
       color={0,127,255},
       thickness=0.25));
       connect(TRooAir[iZon, iFlo], theZon[iZon, iFlo].TRooAir) annotation (Line(
-      points={{106,36},{38,36},{38,6},{16,6},{18.36,6},{18.36,6.48}},
+      points={{110,-56},{38,-56},{38,6},{16,6},{18.36,6},{18.36,6.48}},
       color={0,0,0},
       thickness=0.25));
       connect(heaCooPow[iZon, iFlo], theZon[iZon, iFlo].heaCooPow) annotation (Line(
-      points={{106,64},{36,64},{36,10},{16,10},{18.36,10},{18.36,10.08}},
-      color={0,0,0},
-      thickness=0.25));
-      connect(TheatSetpoint[iZon, iFlo], theZon[iZon, iFlo].TheatSetpoint) annotation (Line(
-      points={{104,-38},{38,-38},{38,-8},{18,-8},{18.72,-8},{18.72,-8.28}},
-      color={0,0,0},
-      thickness=0.25));
-      connect(TcoolSetpoint[iZon, iFlo], theZon[iZon, iFlo].TcoolSetpoint) annotation (Line(
-      points={{104,-66},{36,-66},{36,-12},{16,-12},{18.72,-12},{18.72,-11.88}},
+      points={{110,64},{36,64},{36,10},{16,10},{18.36,10},{18.36,10.08}},
       color={0,0,0},
       thickness=0.25));
     end for;

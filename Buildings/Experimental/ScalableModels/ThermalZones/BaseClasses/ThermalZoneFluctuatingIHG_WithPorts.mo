@@ -1,12 +1,12 @@
 within Buildings.Experimental.ScalableModels.ThermalZones.BaseClasses;
 model ThermalZoneFluctuatingIHG_WithPorts "Thermal zone model"
   import Buildings;
-  extends Buildings.Experimental.ScalableModels.ThermalZones.BaseClasses.ThermalZoneFluctuatingIHG(roo(
+  extends
+    Buildings.Experimental.ScalableModels.ThermalZones.BaseClasses.ThermalZoneFluctuatingIHG(      roo(
     nPorts=4));
 
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
     "Medium model";
-
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsInOut[2](
       redeclare package Medium = MediumA) "Fluid inlets and outlets"
@@ -15,18 +15,18 @@ model ThermalZoneFluctuatingIHG_WithPorts "Thermal zone model"
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor rooAirTem
     "Air temperature sensor"  annotation (Placement(transformation(extent={{66,30},
             {78,42}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort supAirTem(redeclare package Medium =
-                       MediumA, m_flow_nominal=1,
+  Buildings.Fluid.Sensors.TemperatureTwoPort supAirTem(redeclare package Medium
+      =                MediumA, m_flow_nominal=1,
     tau=30)
     "Supply air temperature sensor"  annotation (Placement(transformation(extent={{-24,9},
             {-12,21}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort retAirTem(redeclare package Medium =
-                       MediumA, m_flow_nominal=1,
+  Buildings.Fluid.Sensors.TemperatureTwoPort retAirTem(redeclare package Medium
+      =                MediumA, m_flow_nominal=1,
     tau=30)
     "Return air temperature sensor"  annotation (Placement(transformation(extent={{-12,26},
             {-24,38}})));
-  Buildings.Fluid.Sensors.MassFlowRate supplyAirFlow(redeclare package Medium =
-               MediumA)
+  Buildings.Fluid.Sensors.MassFlowRate supplyAirFlow(redeclare package Medium
+      =        MediumA)
     annotation (Placement(transformation(extent={{-44,10},{-34,20}})));
 
   Modelica.Blocks.Interfaces.RealOutput TRooAir "Room air temperatures"
@@ -37,16 +37,6 @@ model ThermalZoneFluctuatingIHG_WithPorts "Thermal zone model"
     annotation (Placement(transformation(extent={{54,46},{74,66}})));
   Modelica.Blocks.Interfaces.RealOutput heaCooPow "HVAC power"
     annotation (Placement(transformation(extent={{92,46},{112,66}})));
-  Buildings.ThermalZones.Detailed.Validation.BESTEST.BaseClasses.DaySchedule
-                          TSetHea(table=[0.0,273.15 + 20]) "Heating setpoint"
-    annotation (Placement(transformation(extent={{76,-50},{84,-42}})));
-  Buildings.ThermalZones.Detailed.Validation.BESTEST.BaseClasses.DaySchedule
-                          TSetCoo(table=[0.0,273.15 + 27]) "Cooling setpoint"
-    annotation (Placement(transformation(extent={{76,-70},{84,-62}})));
-  Modelica.Blocks.Interfaces.RealOutput TheatSetpoint "Heating setpoint"
-    annotation (Placement(transformation(extent={{94,-56},{114,-36}})));
-  Modelica.Blocks.Interfaces.RealOutput TcoolSetpoint "Cooling setpoint"
-    annotation (Placement(transformation(extent={{94,-76},{114,-56}})));
 equation
 
   connect(supAirTem.port_a,supplyAirFlow.port_b) annotation (Line(
@@ -66,10 +56,6 @@ equation
                     color={0,0,127}));
   connect(PowerCalc.y, heaCooPow)
     annotation (Line(points={{75,56},{102,56}}, color={0,0,127}));
-  connect(TSetCoo.y[1],TcoolSetpoint)  annotation (Line(points={{84.4,-66},{
-          84.4,-66},{104,-66}},         color={0,0,127}));
-  connect(TSetHea.y[1],TheatSetpoint)  annotation (Line(points={{84.4,-46},{
-          84.4,-46},{104,-46}},         color={0,0,127}));
   connect(supAirTem.port_b, roo.ports[3]) annotation (Line(points={{-12,15},{14,
           15},{14,-8.5},{39.75,-8.5}}, color={0,127,255}));
   connect(retAirTem.port_a, roo.ports[4]) annotation (Line(points={{-12,32},{14,

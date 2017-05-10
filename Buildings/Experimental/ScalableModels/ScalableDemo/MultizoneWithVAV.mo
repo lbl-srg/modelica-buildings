@@ -5,7 +5,7 @@ model MultizoneWithVAV
   replaceable package MediumA = Buildings.Media.Air(T_default=293.15);
   package MediumW = Buildings.Media.Water "Medium model for water";
 
-  parameter Integer nZon(min=1) = 2 "Number of zones per floor"    annotation(Evaluate=true);
+  parameter Integer nZon(min=1) = 6 "Number of zones per floor"    annotation(Evaluate=true);
   parameter Integer nFlo(min=1) = 1 "Number of floors"    annotation(Evaluate=true);
 
   parameter Real VRoo[nZon,nFlo] = {{6*8*2.7 for j in 1:nFlo} for i in 1:nZon} "Room volume";
@@ -14,14 +14,12 @@ model MultizoneWithVAV
     {{7*conv*VRoo[i,j] for j in 1:nFlo} for i in 1:nZon};
   parameter Real m_flow_nominal = (nZon*nFlo)*(7*conv)*6*8*2.7;
 
-  HVACSystems.VAVBranch vAVBranch(
-    nZon = nZon,
-    nFlo = nFlo,
-    redeclare package MediumA = MediumA,
-    redeclare package MediumW = MediumW,
-    m_flow_nominal=m_flow_nominal_each,
-    VRoo=VRoo,
-    dpFixed_nominal(displayUnit="Pa") = 220 + 20)
+  HVACSystems.VAVBranch vAVBranch[nZon,nFlo](
+    redeclare each package MediumA = MediumA,
+    redeclare each package MediumW = MediumW,
+    m_flow_nominal={{m_flow_nominal_each[i,j] for j in 1:nFlo} for i in 1:nZon},
+    VRoo={{VRoo[i,j] for j in 1:nFlo} for i in 1:nZon},
+    dpFixed_nominal = {{220 + 20 for j in 1:nFlo} for i in 1:nZon})
     annotation (Placement(transformation(extent={{52,16},{82,46}})));
   ThermalZones.BaseClasses.MultiZoneFluctuatingIHG multiZoneFluctuatingIHG(
     nZon = nZon,
@@ -29,10 +27,10 @@ model MultizoneWithVAV
     annotation (Placement(transformation(extent={{48,56},{88,96}})));
   Buildings.Fluid.Movers.FlowControlled_dp fan(
     redeclare package Medium = MediumA,
-    m_flow_nominal=10,
-    inputType=Buildings.Fluid.Types.InputType.Constant,
     constantHead=850,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=10,
+    inputType=Buildings.Fluid.Types.InputType.Constant)        "Supply air fan"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
   Fluid.HeatExchangers.DryEffectivenessNTU hex(
@@ -224,6 +222,11 @@ model MultizoneWithVAV
     annotation (Placement(transformation(extent={{12,158},{26,172}})));
   Buildings.Experimental.ScalableModels.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-78,44},{-58,64}})));
+  Schedules.HeatSetpoint                                       TSetHea "Heating setpoint"
+    annotation (Placement(transformation(extent={{-120,36},{-112,44}})));
+  Schedules.CoolSetpoint                                       TSetCoo1
+                                                                       "Cooling setpoint"
+    annotation (Placement(transformation(extent={{-120,20},{-112,28}})));
 equation
   connect(eco.port_Sup, TMix.port_a) annotation (Line(points={{-232,26},{-220,26},
           {-220,-30},{-208,-30}}, color={0,127,255},
@@ -235,16 +238,15 @@ equation
           -42},{-148,-66}}, color={0,127,255}));
   for iZon in 1:nZon loop
     for iFlo in 1:nFlo loop
-        connect(vAVBranch.port_b[iZon, iFlo], multiZoneFluctuatingIHG.portsIn[iZon, iFlo])  annotation (Line(points={{67,46},
+        connect(vAVBranch[iZon, iFlo].port_b, multiZoneFluctuatingIHG.portsIn[iZon, iFlo])  annotation (Line(points={{67,46},
               {68.2,46},{68.2,61.8}},                                                                                                                color={0,127,
               255},
           thickness=0.5));
         connect(multiZoneFluctuatingIHG.portsOut[iZon, iFlo], senRetFlo.port_a) annotation (
      Line(points={{68.2,89.8},{68.2,126},{28,126}}, color={0,127,255},
           thickness=0.5));
-        connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], vAVBranch.TRoo[iZon, iFlo]) annotation (Line(points={{89.2,
-              83.2},{89.2,83.2},{102,83.2},{102,82},{102,50},{44,50},{44,36},{50,
-              36}},
+        connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], vAVBranch[iZon, iFlo].TRoo) annotation (Line(points={{90,64.8},
+              {90,64.8},{90,66},{102,66},{102,50},{44,50},{44,36},{50,36}},
         color={0,0,127},
           pattern=LinePattern.Dash));
     end for;
@@ -289,31 +291,21 @@ equation
       thickness=0.5));
   for iZon in 1:nZon loop
     for iFlo in 1:nFlo loop
-      connect(senSupFlo.port_b, vAVBranch.port_a[iZon, iFlo]) annotation (Line(points={{42,
-          -30},{58,-30},{68,-30},{68,23.4},{67,23.4}}, color={0,127,255}));
+      connect(senSupFlo.port_b, vAVBranch[iZon, iFlo].port_a) annotation (Line(points={{42,-30},
+              {58,-30},{68,-30},{68,16},{67,16}},      color={0,127,255}));
 
-      connect(controlBus, vAVBranch.controlBus[iZon, iFlo]) annotation (Line(
+      connect(controlBus, vAVBranch[iZon, iFlo].controlBus) annotation (Line(
           points={{-68,54},{-42,54},{-12,54},{-12,23.2},{52,23.2}},
           color={255,204,51},
           thickness=0.5));
       connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], ave.u[iZon, iFlo]) annotation (Line(
-        points={{89.2,83.2},{102,83.2},{102,74},{108.8,74}},         color={0,0,127},
+        points={{90,64.8},{102,64.8},{102,74},{108.8,74}},           color={0,0,127},
       pattern=LinePattern.Dash));
       connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], min.u[iZon, iFlo]) annotation (Line(
-        points={{89.2,83.2},{102,83.2},{102,102},{108.8,102}},       color={0,0,127},
+        points={{90,64.8},{102,64.8},{102,102},{108.8,102}},         color={0,0,127},
       pattern=LinePattern.Dash));
     end for;
   end for;
-  connect(multiZoneFluctuatingIHG.TheatSetpoint[1, 1], controlBus.TRooSetHea)
-        annotation (Line(
-          points={{88.8,68.4},{96,68.4},{96,54},{-68,54}},
-          color={0,0,127},
-          pattern=LinePattern.Dash));
-  connect(multiZoneFluctuatingIHG.TcoolSetpoint[1, 1], controlBus.TRooSetCoo)
-        annotation (Line(
-          points={{88.8,62.8},{96,62.8},{96,54},{-68,54}},
-          color={0,0,127},
-          pattern=LinePattern.Dash));
   connect(TSupSetHea.y, heaCoiCon.u_s) annotation (Line(points={{-257.4,-60},{-193.2,-60}}, color={0,0,127}));
   connect(TSupSetHea.y, TSetCoo.TSetHea) annotation (Line(points={{-257.4,-60},{
           -248,-60},{-248,-88},{-239.2,-88}}, color={0,0,127}));
@@ -422,7 +414,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(controlBus, conEco.controlBus) annotation (Line(
-      points={{-68,54},{-98,54},{-140,54},{-140,104},{-285.6,104},{-285.6,94.4}},
+      points={{-68,54},{-68,54},{-124,54},{-124,104},{-285.6,104},{-285.6,94.4}},
       color={255,204,51},
       thickness=0.5));
 
@@ -443,6 +435,20 @@ equation
       points={{-175.455,53.4545},{-121.728,53.4545},{-121.728,54},{-68,54}},
       color={255,204,51},
       thickness=0.5));
+  connect(TSetHea.y[1], controlBus.TRooSetHea) annotation (Line(
+      points={{-111.6,40},{-92,40},{-92,54},{-68,54}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(TSetCoo1.y[1], controlBus.TRooSetCoo) annotation (Line(
+      points={{-111.6,24},{-92,24},{-92,54},{-68,54}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
   annotation (
             Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-360,-120},{140,200}})));
