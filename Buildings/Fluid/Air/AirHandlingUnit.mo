@@ -187,16 +187,14 @@ model AirHandlingUnit
     constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv
     "Two-way valve" annotation (
       Placement(transformation(
-        extent={{10,-10},{-10,10}},
+        extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={60,40})));
-  Buildings.Fluid.MassExchangers.Humidifier_u hum(
+  MassExchangers.Humidifier_X                 hum(
     redeclare final package Medium = Medium2,
-    final mWat_flow_nominal=dat.nomVal.mWat_flow_nominal,
     final allowFlowReversal=allowFlowReversal2,
     final m_flow_small=m2_flow_small,
     final show_T=show_T,
-    final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final from_dp=from_dp,
     final linearizeFlowResistance=linearized,
@@ -204,39 +202,39 @@ model AirHandlingUnit
     final tau=tauHum,
     final homotopyInitialization=homotopyInitialization,
     final dp_nominal=dat.nomVal.dpHumidifier_nominal,
-    final m_flow_nominal=m2_flow_nominal)
+    final m_flow_nominal=m2_flow_nominal,
+    mWatMax_flow=dat.nomVal.mWat_flow_nominal)
     "Humidifier" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
-        rotation=180,
-        origin={-22,-60})));
+        rotation=270,
+        origin={12,-42})));
   Buildings.Fluid.Air.BaseClasses.ElectricHeater eleHea(
     redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal2,
     final show_T=show_T,
     final m_flow_small=m2_flow_small,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final from_dp=from_dp,
     final linearizeFlowResistance=linearized,
     final deltaM=deltaMLaminar,
     final tau=tauEleHea,
     final homotopyInitialization=homotopyInitialization,
     final dp_nominal=dat.nomVal.dpHeater_nominal,
-    final Q_flow_nominal=dat.nomVal.QHeater_nominal,
+    final QMax_flow=dat.nomVal.QHeater_nominal,
     final eff=dat.nomVal.effHeater_nominal,
     final m_flow_nominal=m2_flow_nominal)
     "Electric heater" annotation (
       Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=-90,
-        origin={12,-34})));
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={-20,-60})));
   Modelica.Blocks.Interfaces.RealInput uWatVal
     "Actuator position (0: closed, 1: open) on water side"
-    annotation (Placement(transformation(extent={{-128,22},{-100,50}}),
-      iconTransformation(extent={{-120,30},{-100,50}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+      iconTransformation(extent={{-120,40},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput uFan "Input signal for the fan"
-    annotation (Placement(transformation(extent={{-128,-48},{-100,-20}}),
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-120,-40},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealOutput PFan
     "Electrical power consumed by the fan" annotation (Placement(transformation(
@@ -251,13 +249,14 @@ model AirHandlingUnit
   Modelica.Blocks.Interfaces.RealOutput y_valve "Actual valve position"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
       iconTransformation(extent={{100,30},{120,50}})));
-  Modelica.Blocks.Interfaces.RealInput uEleHea
-   "Control input for electric heater" annotation (Placement(transformation(
-        extent={{-128,-2},{-100,26}}), iconTransformation(extent={{-120,4},{
-          -100,24}})));
-  Modelica.Blocks.Interfaces.RealInput uMasFra "Control input" annotation (
-      Placement(transformation(extent={{-128,-24},{-100,4}}),
-        iconTransformation(extent={{-120,-18},{-100,2}})));
+  Modelica.Blocks.Interfaces.RealInput TSet
+    "Set point temperature of the fluid that leaves port_b" annotation (
+      Placement(transformation(extent={{-140,-30},{-100,10}}),
+        iconTransformation(extent={{-120,-10},{-100,10}})));
+  Modelica.Blocks.Interfaces.RealInput XSet_w
+    "Set point for water vapor mass fraction in kg/kg total air of the fluid that leaves port_b"
+    annotation (Placement(transformation(extent={{-140,-4},{-100,36}}),
+        iconTransformation(extent={{-120,16},{-100,36}})));
 equation
   connect(port_a1, cooCoi.port_a1) annotation (Line(points={{-100,60},{-60,60},{
           12,60},{12,4},{22,4}},    color={0,127,255}));
@@ -268,31 +267,30 @@ equation
   connect(watVal.port_b, port_b1) annotation (Line(points={{60,50},{60,50},{
         60,60},{100,60}},
                      color={0,127,255}));
-  connect(hum.port_b, fan.port_a) annotation (Line(points={{-32,-60},{-32,-60},
-        {-50,-60}},  color={0,127,255}));
   connect(fan.P, PFan) annotation (Line(points={{-71,-52},{-80,-52},{-80,-80},
         {-20,-80},{-20,-110}},
                             color={0,0,127}));
-  connect(watVal.y, uWatVal) annotation (Line(points={{72,40},{72,40},{80,40},
-        {80,56},{40,56},{40,36},{-114,36}},
+  connect(watVal.y, uWatVal) annotation (Line(points={{48,40},{48,40},{-120,40}},
                      color={0,0,127}));
-  connect(fan.y, uFan) annotation (Line(points={{-59.8,-48},{-59.8,-34},{-114,
-        -34}},   color={0,0,127}));
+  connect(fan.y, uFan) annotation (Line(points={{-59.8,-48},{-59.8,-40},{-120,
+          -40}}, color={0,0,127}));
   connect(eleHea.P, PHea)
-    annotation (Line(points={{18,-45},{18,-45},{18,-110}}, color={0,0,127}));
-  connect(watVal.y_actual, y_valve)
-    annotation (Line(points={{67,45},{68,45},{68,50},{86,50},{86,40},{110,40}},
-                                                        color={0,0,127}));
-  connect(hum.u, uMasFra) annotation (Line(points={{-10,-54},{0,-54},{0,-10},{-114,
-          -10}}, color={0,0,127}));
-  connect(uEleHea, eleHea.u) annotation (Line(points={{-114,12},{-58,12},{6,12},
-          {6,-22}}, color={0,0,127}));
+    annotation (Line(points={{-31,-66},{-40,-66},{-40,-80},{18,-80},{18,-110}},
+                                                           color={0,0,127}));
   connect(port_b2, fan.port_b) annotation (Line(points={{-100,-60},{-70,-60}},
                  color={0,127,255}));
-  connect(cooCoi.port_b2, eleHea.port_a)
-    annotation (Line(points={{22,-8},{12,-8},{12,-24}}, color={0,127,255}));
-  connect(eleHea.port_b, hum.port_a) annotation (Line(points={{12,-44},{12,-44},
-          {12,-60},{-12,-60}}, color={0,127,255}));
+  connect(watVal.y_actual, y_valve) annotation (Line(points={{53,45},{53,54},{80,
+          54},{80,40},{110,40}}, color={0,0,127}));
+  connect(fan.port_a, eleHea.port_b) annotation (Line(points={{-50,-60},{-40,
+          -60},{-30,-60}}, color={0,127,255}));
+  connect(cooCoi.port_b2, hum.port_a)
+    annotation (Line(points={{22,-8},{12,-8},{12,-32}}, color={0,127,255}));
+  connect(hum.port_b, eleHea.port_a)
+    annotation (Line(points={{12,-52},{12,-60},{-10,-60}}, color={0,127,255}));
+  connect(XSet_w, hum.X_w) annotation (Line(points={{-120,16},{-120,16},{6,16},
+          {6,-30}}, color={0,0,127}));
+  connect(TSet, eleHea.TSet) annotation (Line(points={{-120,-10},{0,-10},{0,-52},
+          {-8,-52}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
       Diagram(coordinateSystem(preserveAspectRatio=false),
