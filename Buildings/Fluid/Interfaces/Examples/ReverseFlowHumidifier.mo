@@ -12,7 +12,7 @@ package Medium = Buildings.Media.Air;
   Modelica.Blocks.Math.Add cheMas(k2=-1)
     "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  Buildings.Fluid.MassExchangers.Humidifier_u humBac(
+  Buildings.Fluid.Humidifiers.Humidifier_u humBac(
     redeclare package Medium = Medium,
     dp_nominal=0,
     m_flow(start=1),
@@ -21,7 +21,7 @@ package Medium = Buildings.Media.Air;
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Humidifier with backward flow"
     annotation (Placement(transformation(extent={{-32,-16},{-52,4}})));
-  Buildings.Fluid.MassExchangers.Humidifier_u humFor(
+  Buildings.Fluid.Humidifiers.Humidifier_u humFor(
     redeclare package Medium = Medium,
     dp_nominal=0,
     m_flow(start=1),

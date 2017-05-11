@@ -140,9 +140,10 @@ its class name ends with the string <code>Beta</code>.
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.Humidifiers
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Package with spray air washer, steam humidifier and a humidifer
+                          that adds a water vapor mass flow rate that is proportional to the control input.
        </td>
        </tr>
    </table>
@@ -222,7 +223,8 @@ its class name ends with the string <code>Beta</code>.
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.MassExchangers.Humidifier_u
        </td>
-       <td valign=\"top\">Removed parameters <code>use_T_in</code> and <code>T</code>,
+       <td valign=\"top\">Moved model to <code>Buildings.Fluid.Humidifiers.Humidifier_u</code>.<br/>
+                          Removed parameters <code>use_T_in</code> and <code>T</code>,
                           and removed input connector <code>T_in</code>, as these are no
                           longer needed.<br/>
                           For Dymola, the conversion script will remove the parameter

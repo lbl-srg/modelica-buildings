@@ -18,17 +18,19 @@ model PrescribedOutlet
     dp_nominal=6000,
     QMax_flow=1e4,
     use_X_wSet=false)
-                   "Steady-state model of the heater with high capacity"
+    "Steady-state model of the heater with high capacity"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort heaHigPowOut(redeclare package
-      Medium = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort heaHigPowOut(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{78,110},{98,130}})));
   Modelica.Blocks.Sources.TimeTable TSetHeat(table=[0,273.15 + 20.0; 120,273.15
     + 20.0; 120,273.15 + 60.0; 500,273.15 + 60.0; 500,273.15 + 30.0; 1200,273.15 + 30.0])
     "Setpoint heating"
     annotation (Placement(transformation(extent={{-10,160},{10,180}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort cooLimPowOut(redeclare package
-      Medium = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort cooLimPowOut(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{80,24},{100,44}})));
   Buildings.Fluid.HeatExchangers.PrescribedOutlet cooLimPow(
     redeclare package Medium = Medium,
@@ -53,8 +55,9 @@ model PrescribedOutlet
     + 20.0; 120,273.15 + 15.0; 500,273.15 + 15.0; 500,273.15 + 30.0; 1200,273.15
     + 30.0]) "Setpoint cooling"
     annotation (Placement(transformation(extent={{-8,-20},{12,0}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort heaCooUnlOut(redeclare package
-      Medium = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort heaCooUnlOut(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{78,-60},{98,-40}})));
   Modelica.Blocks.Sources.Ramp m_flow(
     height=-2*m_flow_nominal,
@@ -62,14 +65,17 @@ model PrescribedOutlet
     offset=m_flow_nominal,
     startTime=1000) "Mass flow rate"
     annotation (Placement(transformation(extent={{-80,32},{-60,52}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort heaHigPowIn(redeclare package Medium =
-        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort heaHigPowIn(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-8,110},{12,130}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort cooLimPowIn(redeclare package Medium =
-        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort cooLimPowIn(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-6,24},{14,44}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort heaCooUnlIn(redeclare package Medium =
-        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort heaCooUnlIn(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-8,-60},{12,-40}})));
   Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium,

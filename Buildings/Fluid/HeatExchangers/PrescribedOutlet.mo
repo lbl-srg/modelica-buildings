@@ -152,13 +152,21 @@ equation
 defaultComponentName="preOut",
 Documentation(info="<html>
 <p>
-Model for an ideal heater or cooler with a prescribed outlet temperature.
+Model that allows specifying the temperature and mass fraction of the fluid
+that leaves the model from <code>port_b</code>.
 </p>
 <p>
 This model forces the outlet temperature at <code>port_b</code> to be equal to the temperature
 of the input signal <code>TSet</code>, subject to optional limits on the
 heating or cooling capacity <code>QMax_flow &ge; 0</code> and <code>QMin_flow &le; 0</code>.
-By default, the model has unlimited capacity.
+Similarly than for the temperature, 
+this model also forces the outlet water mass fraction at <code>port_b</code> to be
+no lower than the
+input signal <code>X_wSet</code>, subject to optional limits on the
+maximum water vapor mass flow rate that is added, as
+described by the parameter <code>mWatMax_flow</code>.
+By default, the model has unlimited capacity, but control of temperature
+and humidity can be subject to capacity limits, or be disabled.
 </p>
 <p>
 The output signal <code>Q_flow</code> is the heat added (for heating) or subtracted (for cooling)
@@ -200,14 +208,21 @@ Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>
 </p>
 <h4>Limitations</h4>
 <p>
-This model only adds or removes heat for the flow from
+This model only adds or removes heat or water vapor for the flow from
 <code>port_a</code> to <code>port_b</code>.
 The enthalpy of the reverse flow is not affected by this model.
 </p>
 <p>
-This model does not affect the humidity of the air. Therefore,
-if used to cool air below the dew point temperature, the water mass fraction
+If this model is used to cool air below the dew point temperature, the water mass fraction
 will not change.
+</p>
+<p>
+Note that for <code>use_TSet = false</code>, the enthalpy of the leaving fluid
+will not be changed, even if moisture is added. The enthalpy added (or removed)
+by the change in humidity is neglected. To properly account for change in enthalpy
+due to humidification, use instead
+<a href=\"Buildings.Fluid.Humidifiers.SprayAirWasher_X\">
+Buildings.Fluid.Humidifiers.SprayAirWasher_X</a>.
 </p>
 <h4>Validation</h4>
 <p>

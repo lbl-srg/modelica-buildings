@@ -1,14 +1,14 @@
-within Buildings.Fluid.MassExchangers;
-model Humidifier_X
-  "Adiabatic humidifier (or dehumidifier) with leaving water mass fraction as input"
+within Buildings.Fluid.Humidifiers;
+model SprayAirWasher_X
+  "Spray air washer with leaving water mass fraction as input"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialPrescribedOutlet(
     outCon(
       final T_start=293.15,
       final X_start=X_start,
-      final use_TSet = false,
+      final use_TSet = true,
       final use_X_wSet = true,
-      final QMax_flow = 0,
-      final QMin_flow = 0,
+      final QMax_flow = Modelica.Constants.inf,
+      final QMin_flow = -Modelica.Constants.inf,
       final mWatMax_flow = mWatMax_flow,
       final mWatMin_flow = 0,
       final energyDynamics = Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -27,7 +27,6 @@ model Humidifier_X
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
-
   // Set maximum to a high value to avoid users mistakenly entering relative humidity.
   Modelica.Blocks.Interfaces.RealInput X_w(
     unit="1",
@@ -40,11 +39,29 @@ model Humidifier_X
     "Water added to the fluid (if flow is from port_a to port_b)"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
+protected
+  constant Modelica.SIunits.SpecificEnthalpy hSte = Medium.enthalpyOfLiquid(T=283.15)
+    "Enthalpy of water at 10 degree Celsius";
+
+  Modelica.SIunits.SpecificEnthalpy hLea=
+    inStream(port_a.h_outflow) +
+    {hSte} * (port_b.Xi_outflow - inStream(port_a.Xi_outflow))
+    "Approximation of leaving enthalpy, based on dh/dx=h_fg";
+
+  Modelica.Blocks.Sources.RealExpression TLea(y=
+    Medium.temperature_phX(p = port_b.p,
+                           h = hLea,
+                           X = port_b.Xi_outflow)) "Leaving air temperature"
+    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 equation
   connect(X_w, outCon.X_wSet)
-    annotation (Line(points={{-120,60},{0,60},{0,4},{19,4}}, color={0,0,127}));
+    annotation (Line(points={{-120,60},{-20,60},{-20,4},{19,4}},
+                                                             color={0,0,127}));
   connect(outCon.mWat_flow, mWat_flow) annotation (Line(points={{41,4},{80,4},{80,
           60},{110,60}}, color={0,0,127}));
+
+  connect(TLea.y, outCon.TSet)
+    annotation (Line(points={{11,20},{14,20},{14,8},{19,8}}, color={0,0,127}));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
@@ -106,7 +123,7 @@ equation
 defaultComponentName="hum",
 Documentation(info="<html>
 <p>
-Model for an adiabatic humidifier with a prescribed outlet water vapor mass fraction
+Model for a spray air washer with a prescribed outlet water vapor mass fraction
 in kg/kg total air.
 </p>
 <p>
@@ -121,6 +138,9 @@ By default, the model has unlimited capacity.
 The output signal <code>mWat_flow &ge; 0</code> is the moisture added
 to the medium if the flow rate is from <code>port_a</code> to <code>port_b</code>.
 If the flow is reversed, then <code>mWat_flow = 0</code>.
+The outlet specific enthalpy at <code>port_b</code> is increased by
+the enthalpy of liquid water at <i>10</i>&deg;C times the mass of water that was added.
+Therefore, the temperature of the leaving fluid is below the inlet temperature.
 </p>
 <p>
 The outlet conditions at <code>port_a</code> are not affected by this model,
@@ -152,8 +172,8 @@ Set <code>dp_nominal = 0</code> to disable the flow friction calculation.
 <p>
 For a model that uses a control signal <i>u &isin; [0, 1]</i> and multiplies
 this with the nominal water mass flow rate, use
-<a href=\"modelica://Buildings.Fluid.MassExchangers.Humidifier_u\">
-Buildings.Fluid.MassExchangers.Humidifier_u</a>
+<a href=\"modelica://Buildings.Fluid.Humidifiers.Humidifier_u\">
+Buildings.Fluid.Humidifiers.Humidifier_u</a>
 
 </p>
 <h4>Limitations</h4>
@@ -176,4 +196,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Humidifier_X;
+end SprayAirWasher_X;
