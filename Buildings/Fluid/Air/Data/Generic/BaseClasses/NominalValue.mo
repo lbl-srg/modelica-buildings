@@ -32,13 +32,13 @@ record NominalValue "Nominal conditions for air handling units"
     "Nominal pressure difference in the coil"
     annotation (Dialog(group="Cooling Coil"));
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal=Q_flow_nominal/
+  parameter Modelica.SIunits.ThermalConductance UA_nominal=m1_flow_nominal*1006*(T_b2_nominal-T_a2_nominal)/
      Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1_nominal,
         T_b1_nominal,
         T_a2_nominal,
         T_b2_nominal)
-    "Thermal conductance at nominal flow, used to compute time constant"
+    "Thermal conductance at nominal flow for sensible heat, used to compute time constant"
     annotation (Dialog(group="Cooling Coil"));
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient"
