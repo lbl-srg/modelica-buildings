@@ -9,8 +9,4 @@ PrescribedOutlet_X_wSetOnly
 ReverseFlowHumidifier
 ReverseFlowMassExchanger
 StaticTwoPortConservationEquation
-<<<<<<< HEAD
 BaseClasses
-=======
-PrescribedOutletState_TX
->>>>>>> 1123cd3ce758b035156e6ec66e48e0ec9c00900a
