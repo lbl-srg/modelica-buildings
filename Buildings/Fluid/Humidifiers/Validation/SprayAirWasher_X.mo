@@ -19,15 +19,15 @@ model SprayAirWasher_X
     nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=180,origin={110,0})));
 
-  replaceable Buildings.Fluid.Humidifiers.SprayAirWasher_X hum
-    constrainedby
-    Buildings.Fluid.HeatExchangers.BaseClasses.PartialPrescribedOutlet(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=6000,
+  replaceable Buildings.Fluid.Humidifiers.SprayAirWasher_X hum(
     mWatMax_flow=mWat_flow_nominal,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    show_T=true) "Humidifier with capacity limitation"
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+      constrainedby
+    Buildings.Fluid.HeatExchangers.BaseClasses.PartialPrescribedOutlet(
+        redeclare package Medium = Medium,
+        m_flow_nominal=m_flow_nominal,
+        dp_nominal=6000,
+        show_T=true) "Humidifier with capacity limitation"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Sources.MassFlowSource_T sou1(
