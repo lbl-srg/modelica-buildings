@@ -116,6 +116,13 @@ model AirHandlingUnit
     annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
   parameter Real yFan_start(min=0, max=1, unit="1")=0 "Initial value of speed"
     annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
+
+  parameter Real yMinVal(min=0, max=1, unit="1")=0.2
+  "Minimum valve position when valve is controled to maintain outlet water temperature"
+  annotation(Dialog(group="Valve"));
+
+  Medium2.Temperature T_inflow "Temperature of inflowing fluid at port_a of reheater";
+
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
     final UA_nominal=dat.nomVal.UA_nominal,
     final r_nominal=dat.nomVal.r_nominal,
@@ -228,7 +235,7 @@ model AirHandlingUnit
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-20,-60})));
+        origin={-22,-60})));
   Modelica.Blocks.Interfaces.RealInput uWatVal
     "Actuator position (0: closed, 1: open) on water side"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
@@ -257,7 +264,13 @@ model AirHandlingUnit
     "Set point for water vapor mass fraction in kg/kg total air of the fluid that leaves port_b"
     annotation (Placement(transformation(extent={{-140,-4},{-100,36}}),
         iconTransformation(extent={{-120,16},{-100,36}})));
+  Modelica.Blocks.Sources.BooleanExpression onOff(y=watVal.y_actual <= yMinVal
+         and T_inflow < TSet)
+    "Boolean expression to determine when to activate controller for reheat"
+    annotation (Placement(transformation(extent={{-80,-38},{-60,-18}})));
 equation
+    T_inflow = Medium2.temperature(state=Medium2.setState_phX(
+      p=eleHea.port_a.p, h=inStream(eleHea.port_a.h_outflow), X=inStream(eleHea.port_a.Xi_outflow)));
   connect(port_a1, cooCoi.port_a1) annotation (Line(points={{-100,60},{-60,60},{
           12,60},{12,4},{22,4}},    color={0,127,255}));
   connect(cooCoi.port_a2, port_a2) annotation (Line(points={{42,-8},{42,-8},{60,
@@ -272,25 +285,27 @@ equation
                             color={0,0,127}));
   connect(watVal.y, uWatVal) annotation (Line(points={{48,40},{48,40},{-120,40}},
                      color={0,0,127}));
-  connect(fan.y, uFan) annotation (Line(points={{-59.8,-48},{-59.8,-40},{-120,
-          -40}}, color={0,0,127}));
+  connect(fan.y, uFan) annotation (Line(points={{-59.8,-48},{-59.8,-40},{-120,-40}},
+                 color={0,0,127}));
   connect(eleHea.P, PHea)
-    annotation (Line(points={{-31,-66},{-40,-66},{-40,-80},{18,-80},{18,-110}},
+    annotation (Line(points={{-33,-66},{-40,-66},{-40,-80},{18,-80},{18,-110}},
                                                            color={0,0,127}));
   connect(port_b2, fan.port_b) annotation (Line(points={{-100,-60},{-70,-60}},
                  color={0,127,255}));
   connect(watVal.y_actual, y_valve) annotation (Line(points={{53,45},{53,54},{80,
           54},{80,40},{110,40}}, color={0,0,127}));
-  connect(fan.port_a, eleHea.port_b) annotation (Line(points={{-50,-60},{-40,
-          -60},{-30,-60}}, color={0,127,255}));
+  connect(fan.port_a, eleHea.port_b)
+    annotation (Line(points={{-50,-60},{-32,-60}}, color={0,127,255}));
   connect(cooCoi.port_b2, hum.port_a)
     annotation (Line(points={{22,-8},{12,-8},{12,-32}}, color={0,127,255}));
   connect(hum.port_b, eleHea.port_a)
-    annotation (Line(points={{12,-52},{12,-60},{-10,-60}}, color={0,127,255}));
-  connect(XSet_w, hum.X_w) annotation (Line(points={{-120,16},{-120,16},{6,16},
-          {6,-30}}, color={0,0,127}));
+    annotation (Line(points={{12,-52},{12,-60},{-12,-60}}, color={0,127,255}));
+  connect(XSet_w, hum.X_w) annotation (Line(points={{-120,16},{-120,16},{6,16},{
+          6,-30}}, color={0,0,127}));
   connect(TSet, eleHea.TSet) annotation (Line(points={{-120,-10},{0,-10},{0,-52},
-          {-8,-52}}, color={0,0,127}));
+          {-10,-52}}, color={0,0,127}));
+  connect(onOff.y, eleHea.On) annotation (Line(points={{-59,-28},{-34,-28},{-4,-28},
+          {-4,-57},{-10,-57}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
       Diagram(coordinateSystem(preserveAspectRatio=false),
