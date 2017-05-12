@@ -42,11 +42,7 @@ equation
           lineColor={192,192,192},
           textString="sqrt")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}}), graphics={
-        Text(
-          lineColor={0,0,255},
-          extent={{-140,106},{160,146}},
-          textString="%name")}),
+            100,100}})),
     Documentation(info="<html>
 <p>
 Block that outputs square root of the input <code>y = sqrt(u)</code>,
