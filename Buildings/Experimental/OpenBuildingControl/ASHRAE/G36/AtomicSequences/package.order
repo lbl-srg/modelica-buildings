@@ -5,6 +5,6 @@ EconModulationSingleZone
 EconModulationMultiZone
 FreezeProtection
 StandardAlarms
+OutdoorAirFlowSetpoint
 VAVSingleZoneTSupSet
-OutdoorAirFlowSetpointMultiZone
 Validation
