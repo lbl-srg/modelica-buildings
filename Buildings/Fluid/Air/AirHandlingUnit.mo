@@ -1,87 +1,54 @@
 within Buildings.Fluid.Air;
 model AirHandlingUnit
-  "Air Handling Unit Model without embeded control"
-  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
-      final m1_flow_nominal=dat.nomVal.m1_flow_nominal,
-      final m2_flow_nominal=dat.nomVal.m2_flow_nominal);
-  extends Buildings.Fluid.Air.BaseClasses.EssentialParameter;
-  //------------------------- cooling coil----------------------------------
-  parameter Boolean waterSideFlowDependent=true
-    "Set to false to make water-side hA independent of mass flow rate"
-    annotation (Dialog(tab="Heat transfer",group="Cooling Coil"));
-  parameter Boolean airSideFlowDependent=true
-    "Set to false to make air-side hA independent of mass flow rate"
-    annotation (Dialog(tab="Heat transfer",group="Cooling Coil"));
-  parameter Boolean waterSideTemperatureDependent=false
-    "Set to false to make water-side hA independent of temperature"
-    annotation (Dialog(tab="Heat transfer",group="Cooling Coil"));
-  parameter Boolean airSideTemperatureDependent=false
-    "Set to false to make air-side hA independent of temperature"
-    annotation (Dialog(tab="Heat transfer",group="Cooling Coil"));
-   // Dynamics
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  // Initialization of the fan
-  parameter Medium2.AbsolutePressure p_start = Medium2.p_default
-    "Start value of pressure"
-    annotation(Dialog(tab = "Initialization"));
-  parameter Medium2.Temperature T_start=Medium2.T_default
-    "Start value of temperature"
-    annotation(Dialog(tab = "Initialization"));
-  parameter Medium2.MassFraction X_start[Medium2.nX](
-       quantity=Medium2.substanceNames) = Medium2.X_default
-    "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", enable=Medium2.nXi > 0));
-  parameter Medium2.ExtraProperty C_start[Medium2.nC](
-       quantity=Medium2.extraPropertiesNames)=fill(0, Medium2.nC)
-    "Start value of trace substances"
-    annotation (Dialog(tab="Initialization", enable=Medium2.nC > 0));
-  parameter Medium2.ExtraProperty C_nominal[Medium2.nC](
-       quantity=Medium2.extraPropertiesNames) = fill(1E-2, Medium2.nC)
-    "Nominal value of trace substances. (Set to typical order of magnitude.)"
-   annotation (Dialog(tab="Initialization", enable=Medium2.nC > 0));
-  // valve parameters
-  parameter Real l(min=1e-10, max=1) = 0.0001
-    "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Valve"));
-  parameter Real kFixed(unit="", min=0)= 0
-    "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="Valve"));
+  extends Buildings.Fluid.Air.BaseClasses.PartialAirHandlingUnit(
+    redeclare Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage watVal(
+      final allowFlowReversal=allowFlowReversal1,
+      final show_T=show_T,
+      redeclare final package Medium = Medium1,
+      final dpFixed_nominal=0,
+      final deltaM=deltaM,
+      final l=l,
+      final kFixed=kFixed,
+      final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+      final R=R,
+      final delta0=delta0,
+      final from_dp=from_dp,
+      final homotopyInitialization=homotopyInitialization,
+      final linearized=linearized,
+      final rhoStd=rhoStd,
+      final use_inputFilter=use_inputFilterValve,
+      final riseTime=riseTimeValve,
+      final init=initValve,
+      final y_start=yValve_start,
+      final dpValve_nominal=dat.nomVal.dpValve_nominal,
+      final m_flow_nominal=m1_flow_nominal),
+    redeclare Buildings.Fluid.Movers.SpeedControlled_y fan(
+      final per=dat.perCur,
+      redeclare final package Medium = Medium2,
+      final allowFlowReversal=allowFlowReversal2,
+      final show_T=show_T,
+      final energyDynamics=energyDynamics,
+      final massDynamics=massDynamics,
+      final inputType=inputType,
+      final addPowerToMedium=addPowerToMedium,
+      final tau=tauFan,
+      final use_inputFilter=use_inputFilterFan,
+      final riseTime=riseTimeFan,
+      final init=initFan,
+      final y_start=yFan_start,
+      final p_start=p_start,
+      final T_start=T_start,
+      each final X_start=X_start,
+      each final C_start=C_start,
+      each final C_nominal=C_nominal,
+      final m_flow_small=m2_flow_small));
+
   parameter Real R=50 "Rangeability, R=50...100 typically"
   annotation(Dialog(group="Valve"));
   parameter Real delta0=0.01
     "Range of significant deviation from equal percentage law"
     annotation(Dialog(group="Valve"));
-  parameter Real deltaM = 0.02
-    "Fraction of nominal flow rate where linearization starts, if y=1"
-    annotation(Dialog(group="Valve"));
-  parameter Boolean from_dp = false
-    "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(tab="Advanced",group="Valve"));
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
-  parameter Boolean linearized = false
-    "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Evaluate=true, Dialog(tab="Advanced",group="Valve"));
-  parameter Modelica.SIunits.Density rhoStd=Medium1.density_pTX(101325, 273.15+4, Medium1.X_default)
-    "Inlet density for which valve coefficients are defined"
-  annotation(Dialog(group="Valve", tab="Advanced"));
-  parameter Boolean use_inputFilterValve=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Valve"));
-  parameter Modelica.SIunits.Time riseTimeValve=120
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
-  parameter Modelica.Blocks.Types.Init initValve=Modelica.Blocks.Types.Init.InitialOutput
-    "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
-  parameter Real yValve_start=1 "Initial value of output"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
- // electric heater
+  // electric heater
    parameter Real deltaMLaminar = 0.1
     "Fraction of nominal flow rate where where flowrate transitions to laminar"
     annotation(Dialog(group="Electric Heater",tab="Advanced"));
@@ -95,108 +62,21 @@ model AirHandlingUnit
   parameter Modelica.SIunits.Time tauHum = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
      annotation (Dialog(tab = "Dynamics", group="Humidifier"));
- // fan parameters
-   parameter Buildings.Fluid.Types.InputType inputType = Buildings.Fluid.Types.InputType.Continuous
-    "Control input type"
-    annotation(Dialog(group="Fan"));
-  parameter Boolean addPowerToMedium=true
-    "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
-    annotation(Dialog(group="Fan"));
-  parameter Modelica.SIunits.Time tauFan = 30
-    "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Dialog(tab = "Dynamics", group="Fan"));
-  parameter Boolean use_inputFilterFan=true
-    "= true, if speed is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Fan"));
-  parameter Modelica.SIunits.Time riseTimeFan=30
-    "Rise time of the filter (time to reach 99.6 % of the speed)"
-    annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
-  parameter Modelica.Blocks.Types.Init initFan=Modelica.Blocks.Types.Init.InitialOutput
-    "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
-  parameter Real yFan_start(min=0, max=1, unit="1")=0 "Initial value of speed"
-    annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
 
   parameter Real yMinVal(min=0, max=1, unit="1")=0.2
   "Minimum valve position when valve is controled to maintain outlet water temperature"
   annotation(Dialog(group="Valve"));
 
-  Medium2.Temperature T_inflow "Temperature of inflowing fluid at port_a of reheater";
+  // parameters for heater controller
+  parameter Real y1Low "if y1=true and y1<=y1Low, switch to y1=false";
+  parameter Real y1Hig "if y1=false and y1>=y1High, switch to y1=true";
+  parameter Real y2Low "if y2=true and y2<=y2Low, switch to y2=false";
+  parameter Real y2Hig "if y2=false and y2>=y2High, switch to y2=true";
+  parameter Boolean pre_start1=true "Value of pre(y) at initial time";
+  parameter Boolean pre_start2=true "Value of pre(y) at initial time";
 
-  Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
-    final UA_nominal=dat.nomVal.UA_nominal,
-    final r_nominal=dat.nomVal.r_nominal,
-    final nEle=dat.nomVal.nEle,
-    final tau1=dat.nomVal.tau1,
-    final tau2=dat.nomVal.tau2,
-    final tau_m=dat.nomVal.tau_m,
-    redeclare final package Medium1 = Medium1,
-    redeclare final package Medium2 = Medium2,
-    final allowFlowReversal1=allowFlowReversal1,
-    final allowFlowReversal2=allowFlowReversal2,
-    final show_T=show_T,
-    final m1_flow_small=m1_flow_small,
-    final m2_flow_small=m2_flow_small,
-    final waterSideFlowDependent=waterSideFlowDependent,
-    final airSideFlowDependent=airSideFlowDependent,
-    final waterSideTemperatureDependent=waterSideTemperatureDependent,
-    final airSideTemperatureDependent=airSideTemperatureDependent,
-    final energyDynamics=energyDynamics,
-    final dp1_nominal=dat.nomVal.dpCoil1_nominal,
-    final dp2_nominal=dat.nomVal.dpCoil2_nominal,
-    final m1_flow_nominal=m1_flow_nominal,
-    final m2_flow_nominal=m2_flow_nominal)
-    "Cooling coil"
-    annotation (Placement(transformation(extent={{22,-12},{42,8}})));
-  Buildings.Fluid.Movers.SpeedControlled_y fan(
-    final per=dat.perCur,
-    redeclare final package Medium = Medium2,
-    final allowFlowReversal=allowFlowReversal2,
-    final show_T=show_T,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
-    final inputType=inputType,
-    final addPowerToMedium=addPowerToMedium,
-    final tau=tauFan,
-    final use_inputFilter=use_inputFilterFan,
-    final riseTime=riseTimeFan,
-    final init=initFan,
-    final y_start=yFan_start,
-    final p_start=p_start,
-    final T_start=T_start,
-    each final X_start=X_start,
-    each final C_start=C_start,
-    each final C_nominal=C_nominal,
-    final m_flow_small=m2_flow_small)
-    "Fan"
-    annotation (Placement(transformation(extent={{-50,-70},{-70,-50}})));
-  replaceable Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage watVal(
-    final allowFlowReversal=allowFlowReversal1,
-    final show_T=show_T,
-    redeclare final package Medium = Medium1,
-    final dpFixed_nominal=0,
-    final deltaM=deltaM,
-    final l=l,
-    final kFixed=kFixed,
-    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    final R=R,
-    final delta0=delta0,
-    final from_dp=from_dp,
-    final homotopyInitialization=homotopyInitialization,
-    final linearized=linearized,
-    final rhoStd=rhoStd,
-    final use_inputFilter=use_inputFilterValve,
-    final riseTime=riseTimeValve,
-    final init=initValve,
-    final y_start=yValve_start,
-    final dpValve_nominal=dat.nomVal.dpValve_nominal,
-    final m_flow_nominal=m1_flow_nominal)
-    constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv
-    "Two-way valve" annotation (
-      Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=-90,
-        origin={60,40})));
+  Medium2.Temperature T_inflow_hea "Temperature of inflowing fluid at port_a of reheater";
+
   MassExchangers.Humidifier_X                 hum(
     redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal2,
@@ -215,7 +95,7 @@ model AirHandlingUnit
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
-        origin={12,-42})));
+        origin={12,-30})));
   Buildings.Fluid.Air.BaseClasses.ElectricHeater eleHea(
     redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal2,
@@ -236,26 +116,12 @@ model AirHandlingUnit
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-22,-60})));
-  Modelica.Blocks.Interfaces.RealInput uWatVal
-    "Actuator position (0: closed, 1: open) on water side"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-      iconTransformation(extent={{-120,40},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput uFan "Input signal for the fan"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-      iconTransformation(extent={{-120,-40},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealOutput PFan
-    "Electrical power consumed by the fan" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-20,-110})));
+
   Modelica.Blocks.Interfaces.RealOutput PHea
     "Power consumed by electric heater" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={18,-110})));
-  Modelica.Blocks.Interfaces.RealOutput y_valve "Actual valve position"
-    annotation (Placement(transformation(extent={{100,30},{120,50}}),
-      iconTransformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.RealInput TSet
     "Set point temperature of the fluid that leaves port_b" annotation (
       Placement(transformation(extent={{-140,-30},{-100,10}}),
@@ -264,48 +130,44 @@ model AirHandlingUnit
     "Set point for water vapor mass fraction in kg/kg total air of the fluid that leaves port_b"
     annotation (Placement(transformation(extent={{-140,-4},{-100,36}}),
         iconTransformation(extent={{-120,16},{-100,36}})));
-  Modelica.Blocks.Sources.BooleanExpression onOff(y=watVal.y_actual <= yMinVal
-         and T_inflow < TSet)
-    "Boolean expression to determine when to activate controller for reheat"
-    annotation (Placement(transformation(extent={{-80,-38},{-60,-18}})));
+  BaseClasses.ReheatControl heaCon(
+    final y1Low=y1Low,
+    final y1Hig=y1Hig,
+    final y2Low=y2Low,
+    final y2Hig=y2Hig,
+    final pre_start1=pre_start1,
+    final pre_start2=pre_start2)
+                     "Reheater on/off controller"
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  Modelica.Blocks.Sources.RealExpression e2(y=T_inflow_hea - TSet)
+    annotation (Placement(transformation(extent={{-76,-6},{-56,14}})));
+  Modelica.Blocks.Sources.RealExpression e1(y=y_valve - yMinVal)
+    annotation (Placement(transformation(extent={{-76,12},{-56,32}})));
 equation
-    T_inflow = Medium2.temperature(state=Medium2.setState_phX(
+    T_inflow_hea = Medium2.temperature(state=Medium2.setState_phX(
       p=eleHea.port_a.p, h=inStream(eleHea.port_a.h_outflow), X=inStream(eleHea.port_a.Xi_outflow)));
-  connect(port_a1, cooCoi.port_a1) annotation (Line(points={{-100,60},{-60,60},{
-          12,60},{12,4},{22,4}},    color={0,127,255}));
-  connect(cooCoi.port_a2, port_a2) annotation (Line(points={{42,-8},{42,-8},{60,
-          -8},{60,-60},{100,-60}}, color={0,127,255}));
-  connect(cooCoi.port_b1, watVal.port_a)
-    annotation (Line(points={{42,4},{60,4},{60,30}}, color={0,127,255}));
-  connect(watVal.port_b, port_b1) annotation (Line(points={{60,50},{60,50},{
-        60,60},{100,60}},
-                     color={0,127,255}));
-  connect(fan.P, PFan) annotation (Line(points={{-71,-52},{-80,-52},{-80,-80},
-        {-20,-80},{-20,-110}},
-                            color={0,0,127}));
-  connect(watVal.y, uWatVal) annotation (Line(points={{48,40},{48,40},{-120,40}},
-                     color={0,0,127}));
-  connect(fan.y, uFan) annotation (Line(points={{-59.8,-48},{-59.8,-40},{-120,-40}},
+  connect(TSet, eleHea.TSet)
+  annotation (Line(points={{-120,-10},{-80,-10},{-80, -32},{-6,-32},{-6,-52},{-10,-52}},
+  color={0,0,127}));
+  connect(XSet_w, hum.X_w) annotation (Line(points={{-120,16},{-80,16},{-80,-32},
+          {-6,-32},{-6,-32},{-6,-12},{6,-12},{6,-18}},
                  color={0,0,127}));
-  connect(eleHea.P, PHea)
-    annotation (Line(points={{-33,-66},{-40,-66},{-40,-80},{18,-80},{18,-110}},
-                                                           color={0,0,127}));
-  connect(port_b2, fan.port_b) annotation (Line(points={{-100,-60},{-70,-60}},
-                 color={0,127,255}));
-  connect(watVal.y_actual, y_valve) annotation (Line(points={{53,45},{53,54},{80,
-          54},{80,40},{110,40}}, color={0,0,127}));
-  connect(fan.port_a, eleHea.port_b)
-    annotation (Line(points={{-50,-60},{-32,-60}}, color={0,127,255}));
-  connect(cooCoi.port_b2, hum.port_a)
-    annotation (Line(points={{22,-8},{12,-8},{12,-32}}, color={0,127,255}));
-  connect(hum.port_b, eleHea.port_a)
-    annotation (Line(points={{12,-52},{12,-60},{-12,-60}}, color={0,127,255}));
-  connect(XSet_w, hum.X_w) annotation (Line(points={{-120,16},{-120,16},{6,16},{
-          6,-30}}, color={0,0,127}));
-  connect(TSet, eleHea.TSet) annotation (Line(points={{-120,-10},{0,-10},{0,-52},
-          {-10,-52}}, color={0,0,127}));
-  connect(onOff.y, eleHea.On) annotation (Line(points={{-59,-28},{-34,-28},{-4,-28},
-          {-4,-57},{-10,-57}}, color={255,0,255}));
+  connect(fan.port_a, eleHea.port_b) annotation (Line(points={{-50,-60},{-41,-60},
+          {-32,-60}}, color={0,127,255}));
+  connect(eleHea.port_a, hum.port_b)
+    annotation (Line(points={{-12,-60},{12,-60},{12,-40}}, color={0,127,255}));
+  connect(hum.port_a, cooCoi.port_b2)
+    annotation (Line(points={{12,-20},{12,-8},{22,-8}}, color={0,127,255}));
+  connect(eleHea.P, PHea) annotation (Line(points={{-33,-66},{-40,-66},{-40,-80},
+          {18,-80},{18,-110}}, color={0,0,127}));
+  connect(uFan,fan.y)
+    annotation (Line(points={{-120,-40},{-120,-48},{-59.8,-48}},color={0,0,127}));
+  connect(heaCon.y, eleHea.On) annotation (Line(points={{-19,10},{0,10},{0,-57},
+          {-10,-57}}, color={255,0,255}));
+  connect(e2.y, heaCon.y2)
+    annotation (Line(points={{-55,4},{-42,4},{-42,5}}, color={0,0,127}));
+  connect(e1.y, heaCon.y1) annotation (Line(points={{-55,22},{-52,22},{-52,15},{
+          -42,15}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
       Diagram(coordinateSystem(preserveAspectRatio=false),
