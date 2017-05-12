@@ -2,13 +2,17 @@ within Buildings.Fluid.Air.Example;
 model AirHandlingUnitControl
   "Model of a air handling unit that tests temperature and humidity control"
   extends Modelica.Icons.Example;
-  extends Buildings.Fluid.Air.Example.BaseClasses.PartialAirHandlerControl(sou_1(
-                  p(displayUnit="Pa")), sou_2(nPorts=1),
+  extends Buildings.Fluid.Air.Example.BaseClasses.PartialAirHandlerControl(sou_1(p(
+          displayUnit="bar") = 500000), sou_2(nPorts=1),
         masFra(redeclare package Medium = Medium2),
     TSet(table=[0,288.15 + 1; 600,288.15 + 1; 600,288.15 + 1; 1200,288.15 + 1; 1800,
           288.15 + 1; 2400,288.15 + 1; 2400,288.15 + 1]),
-    const(k=0.5));
-  Buildings.Fluid.Air.AirHandlingUnit ahu(
+    const(k=0.5),
+    TWat(startTime(displayUnit="min") = 600, height=-2),
+    sin_1(p(displayUnit="bar")));
+
+  parameter Real yMinVal=0.4;
+  AirHandlingUnit ahu(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     allowFlowReversal1=true,
@@ -16,8 +20,15 @@ model AirHandlingUnitControl
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dat=dat,
-    addPowerToMedium=false)
-    annotation (Placement(transformation(extent={{46,20},{66,40}})));
+    addPowerToMedium=false,
+    yMinVal=yMinVal,
+    yValve_start=0,
+    tauEleHea=1,
+    tauHum=1,
+    y1Low=0,
+    y1Hig=0.02,
+    y2Low=-0.1,
+    y2Hig=0.1) annotation (Placement(transformation(extent={{46,20},{66,40}})));
   Modelica.Blocks.Sources.Constant uFan(k=1) "Control input for fan"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Modelica.Blocks.Sources.TimeTable masFraSet(table=[0,0.009; 600,0.009; 600,0.009;
@@ -26,9 +37,12 @@ model AirHandlingUnitControl
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Controls.Continuous.LimPID PID(
     yMax=1,
-    yMin=0,
+    reverseAction=true,
+    yMin=yMinVal,
+    Td=120,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    reverseAction=true)
+    k=0.1,
+    Ti=40)
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
 equation
   connect(ahu.port_a2, sou_2.ports[1]) annotation (Line(points={{66,24},{80,24},
