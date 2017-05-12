@@ -5,7 +5,7 @@ model AirHandlingUnitMassFlow
   extends Buildings.Fluid.Air.Example.BaseClasses.PartialAirHandlerMassFlow(
     sou_2(nPorts=1),
     relHum(k=0.5));
- Buildings.Fluid.Air.AirHandlingUnit ahu(
+  AirHandlingUnit ahu(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     allowFlowReversal1=true,
@@ -13,13 +13,19 @@ model AirHandlingUnitMassFlow
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dat=dat,
-    addPowerToMedium=false)
-    annotation (Placement(transformation(extent={{54,16},{74,36}})));
+    addPowerToMedium=false,
+    yValve_start=0,
+    tauEleHea=1,
+    tauHum=1,
+    y1Low=0,
+    y1Hig=0.02,
+    y2Low=-0.1,
+    y2Hig=0.1) annotation (Placement(transformation(extent={{54,16},{74,36}})));
 
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
     redeclare package Medium = Medium2, m_flow_nominal=dat.nomVal.m2_flow_nominal)
     annotation (Placement(transformation(extent={{34,10},{14,30}})));
-  Modelica.Blocks.Sources.Constant uWatVal(k=0.3)
+  Modelica.Blocks.Sources.Constant uWatVal(k=0.2)
     "Control signal for water valve"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
   Modelica.Blocks.Sources.Constant uEleHea(k=15 + 273.15)
@@ -48,7 +54,7 @@ equation
   connect(uEleHea.y, ahu.TSet) annotation (Line(points={{21,-20},{40,-20},{40,
           26},{53,26}}, color={0,0,127}));
   connect(uHum.y, ahu.XSet_w) annotation (Line(points={{21,-50},{44,-50},{44,26},
-          {44,26},{44,28},{44,28.6},{48,28.6},{53,28.6}}, color={0,0,127}));
+          {44,28},{44,28.6},{48,28.6},{53,28.6}},         color={0,0,127}));
   connect(temSenAir2.port_a, senRelHum.port_b)
     annotation (Line(points={{0,20},{14,20}}, color={0,127,255}));
   connect(temSenWat1.port_b, ahu.port_a1) annotation (Line(points={{0,60},{20,
