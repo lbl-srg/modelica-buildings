@@ -18,6 +18,9 @@ model ElectricHeater "Test model for ElectricHeater"
    Controls.SetPoints.Table tab(table=[0,273.15 + 15; 1,273.15 + 30])
     "Temperature set point"
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
+  Modelica.Blocks.Sources.BooleanStep onOff(startTime(displayUnit="min") =
+      60000) "On/off signal"
+    annotation (Placement(transformation(extent={{-80,-98},{-60,-78}})));
 equation
   connect(mov.port_b, eleHea.port_a) annotation (Line(points={{-50,-40},{-35,-40},
           {-20,-40}}, color={0,127,255}));
@@ -27,6 +30,8 @@ equation
     annotation (Line(points={{-39,30},{-35.5,30},{-32,30}}, color={0,0,127}));
   connect(tab.y, eleHea.TSet) annotation (Line(points={{-9,30},{-4,30},{-4,-16},
           {-30,-16},{-30,-32},{-22,-32}}, color={0,0,127}));
+  connect(onOff.y, eleHea.On) annotation (Line(points={{-59,-88},{-36,-88},{-36,
+          -37},{-22,-37}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Air/BaseClasses/Example/ElectricHeater.mos"
