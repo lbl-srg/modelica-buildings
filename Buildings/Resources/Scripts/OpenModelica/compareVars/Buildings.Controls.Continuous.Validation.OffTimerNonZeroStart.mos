@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "offTim1.u",
+    "offTim1.y",
+    "offTim2.u",
+    "offTim2.y"
+  };

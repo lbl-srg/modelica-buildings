@@ -260,6 +260,18 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>
 
+   <tr><td colspan=\"2\"><b>Buildings.Controls</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Controls.Continuous.OffTimer
+       </td>
+       <td valign=\"top\">Corrected implementation as the timer had the wrong
+                          if the simulation did not start at <code>time = 0</code>.
+                          After the first reset, the value was correct.<br/>
+                          See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/743\">IBPSA, #743</a>.
+       </td>
+   </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
