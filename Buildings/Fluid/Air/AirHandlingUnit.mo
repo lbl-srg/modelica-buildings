@@ -150,7 +150,7 @@ equation
   annotation (Line(points={{-120,-10},{-80,-10},{-80, -32},{-6,-32},{-6,-52},{-10,-52}},
   color={0,0,127}));
   connect(XSet_w, hum.X_w) annotation (Line(points={{-120,16},{-80,16},{-80,-32},
-          {-6,-32},{-6,-32},{-6,-12},{6,-12},{6,-18}},
+          {-6,-32},{-6,-12},{6,-12},{6,-18}},
                  color={0,0,127}));
   connect(fan.port_a, eleHea.port_b) annotation (Line(points={{-50,-60},{-41,-60},
           {-32,-60}}, color={0,127,255}));
@@ -176,13 +176,29 @@ equation
                  Text(extent={{58,-64},{84,-70}},lineColor={0,0,255},
                      textString="Airside",textStyle={TextStyle.Bold})}),
     Documentation(info="<html>
-<p>This model can represent a typical air handler with a cooling coil, a variable-speed fan, a humidifier and an electric reheater. The heating coil is not included in this model. </p>
-<p>The water-side valve can be manipulated to control the outlet temperature on air side, as shown in <a href=\"modelica://Buildings.Fluid.Air.Example.AirHandlingUnitControl\">Buildings.Fluid.Air.Example.AirHandlingUnitControl.</a> </p>
-<p>To avoid that water-valve and reheater can control the outlet temperature at the same time, a buit-in reheater on/off controller is implemented. The detailed control logic about the reheater on/off control is shown in Buildings.Fluid.Air.BaseClasses.ReheatControl</p>
+    <p>This model can represent a typical air handler with a cooling coil, a variable-speed fan, 
+    a humidifier and an electric reheater. The heating coil is not included in this model. </p>
+    <p>The water-side valve can be manipulated to control the outlet temperature on air side, 
+    as shown in <a href=\"modelica://Buildings.Fluid.Air.Example.AirHandlingUnitControl\">
+    Buildings.Fluid.Air.Example.AirHandlingUnitControl.</a> </p>
+    <p>It's usually undesired to control the outlet air temperature by simultenanously 
+    manipulating the water-valve and reheater, because energy waste could happen in this case. For example,
+    under the part-load condition, the water valve might be in its maximum position with
+    the reheater turning on to maintain the outlet air temperature.
+    To avoid that water-valve and reheater control the outlet 
+    temperature at the same time, a buit-in reheater on/off controller is implemented. 
+    The detailed control logic about the reheater on/off control is shown in 
+    <a href=\"modelica://Buildings.Fluid.Air.BaseClasses.ReheatControl\">Buildings.Fluid.Air.BaseClasses.ReheatControl.</a></p>
+    <p>The humidfier is an adiabatic humidifier with a prescribed outlet water vapor mass fraction
+    in kg/kg total air.
+    Details can be found in <a href=\"modelica://Buildings.Fluid.MassExchangers.Humidifier_X\">
+    Buildings.Fluid.MassExchangers.Humidifier_X.</a> The humidifer can be turned off when the prescribed mass fraction 
+    is smaller than the current state at the outlet, for example, <code>XSet=0</code>.
+    </p>
 </html>", revisions="<html>
 <ul>
 <li>
-April 11, 2017 by Yangyang Fu:<br/>
+May 14, 2017 by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
