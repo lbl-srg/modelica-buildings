@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-model HexElementLatent "Element of a heat exchanger with humidity condensation of fluid 2"
+model HexElementLatent "Element of a heat exchanger"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement(
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2(
       final energyDynamics=energyDynamics,

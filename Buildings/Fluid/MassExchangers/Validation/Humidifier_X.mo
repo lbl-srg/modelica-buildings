@@ -2,14 +2,11 @@ within Buildings.Fluid.MassExchangers.Validation;
 model Humidifier_X
   "Model that demonstrates the ideal humidifier model, configured as steady-state"
   extends Modelica.Icons.Example;
-
   package Medium = Buildings.Media.Air;
-
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";
-
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = m_flow_nominal * 0.004
-    "Maximum humidification water mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = 4e-4
+    "Maximum humidification or dehumidification ratio";
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
@@ -18,7 +15,6 @@ model Humidifier_X
     T=293.15,
     nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=180,origin={110,0})));
-
   Buildings.Fluid.MassExchangers.Humidifier_X hum(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -28,35 +24,31 @@ model Humidifier_X
     show_T=true)
     "Steady-state model with capacity limitation"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-
   Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium,
     nPorts=1,
     m_flow=m_flow_nominal,
     T=293.15) "Flow source"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-
   Modelica.Blocks.Sources.CombiTimeTable XSet(
     tableOnFile=false,
     table=[
-      0.0,   0.01;
-      1*180, 0.012;
-      2*180, 0.015;
-      3*180, 0.01;
-      4*180, 0.008;
-      5*180, 0.004;
-      6*180, 0.01],
+      0.0,  0.01;
+      1*180,0.012;
+      2*180,0.015;
+      3*180,0.01;
+      4*180,0.008;
+      5*180,0.004;
+      6*180,0.01],
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Set point for humidity"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-
   Buildings.Fluid.Sensors.MassFractionTwoPort senHum(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0) "Mass fraction sensor"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-
 equation
   connect(sou1.ports[1], hum.port_a)
     annotation (Line(points={{-40,0},{-10,0},{20,0}},      color={0,127,255}));
@@ -72,9 +64,7 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Model that validates the use of an adiabatic humidifier
-configured as a steady-state model with limits on the maximum water mass flow rate
-that is added to the air stream.
+Model that demonstrates the use of an adiabatic humidifier.
 </p>
 </html>", revisions="<html>
 <ul>
