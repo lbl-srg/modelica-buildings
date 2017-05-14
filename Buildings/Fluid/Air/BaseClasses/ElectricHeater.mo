@@ -130,15 +130,15 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This model can be used to simulate electric heaters with continuously variable control signal. 
-The control signal is reheating heat flow. This electric heater has constant efficiency.
+Model for an ideal heater that controls its outlet temperature to
+a prescribed outlet temperature with constant efficiency.
+</p>
+<p>
+The switch model <code>swi</code> is used to turn on/off the heater. 
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-April 11, 2017 by Yangyang Fu:<br/>
-First implementation.
-</li>
+<li>May 11, 2017 by Yangyang Fu:<br>First implementation. </li>
 </ul>
 </html>"));
 end ElectricHeater;
