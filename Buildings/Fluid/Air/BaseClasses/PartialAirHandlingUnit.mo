@@ -240,22 +240,11 @@ equation
                  Text(extent={{58,-64},{84,-70}},lineColor={0,0,255},
                      textString="Airside",textStyle={TextStyle.Bold})}),
     Documentation(info="<html>
-<p>
-This model can represent a typical air handler with a cooling coil, a fan, a humidifier and an electric reheater. 
-The heating coil and temperature/humidity controller are not included in this model. 
-</p>
-<p>
-The controller developed by users can be connected to this model by specifying the control signals such as 
-the valve position on the water-side, the heat flow for reheater, and the fan speed etc. An example for the temperature 
-controller can be found in 
-<a href=\"modelica://Buildings.Fluid.Air.Example.BaseClasses.TemperatureControl\">Buildings.Fluid.Air.Example.BaseClasses.TemperatureControl</a>.
-</p>
+<p>This model describes a partial air handling unit model, which contains a water-side valve, a cooling coil and a fan model.</p>
+<p>The valve and fan are partial models, and should be redeclared when used in the air handling unit model.</p>
 </html>", revisions="<html>
 <ul>
-<li>
-April 11, 2017 by Yangyang Fu:<br/>
-First implementation.
-</li>
+<li>May 12, 2017 by Yangyang Fu:<br>First implementation. </li>
 </ul>
 </html>"));
 end PartialAirHandlingUnit;
