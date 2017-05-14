@@ -176,16 +176,9 @@ equation
                  Text(extent={{58,-64},{84,-70}},lineColor={0,0,255},
                      textString="Airside",textStyle={TextStyle.Bold})}),
     Documentation(info="<html>
-<p>
-This model can represent a typical air handler with a cooling coil, a fan, a humidifier and an electric reheater. 
-The heating coil and temperature/humidity controller are not included in this model. 
-</p>
-<p>
-The controller developed by users can be connected to this model by specifying the control signals such as 
-the valve position on the water-side, the heat flow for reheater, and the fan speed etc. An example for the temperature 
-controller can be found in 
-<a href=\"modelica://Buildings.Fluid.Air.Example.BaseClasses.TemperatureControl\">Buildings.Fluid.Air.Example.BaseClasses.TemperatureControl</a>.
-</p>
+<p>This model can represent a typical air handler with a cooling coil, a variable-speed fan, a humidifier and an electric reheater. The heating coil is not included in this model. </p>
+<p>The water-side valve can be manipulated to control the outlet temperature on air side, as shown in <a href=\"modelica://Buildings.Fluid.Air.Example.AirHandlingUnitControl\">Buildings.Fluid.Air.Example.AirHandlingUnitControl.</a> </p>
+<p>To avoid that water-valve and reheater can control the outlet temperature at the same time, a buit-in reheater on/off controller is implemented. The detailed control logic about the reheater on/off control is shown in Buildings.Fluid.Air.BaseClasses.ReheatControl</p>
 </html>", revisions="<html>
 <ul>
 <li>
