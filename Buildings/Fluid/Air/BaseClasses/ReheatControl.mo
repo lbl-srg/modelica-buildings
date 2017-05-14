@@ -51,6 +51,19 @@ equation
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This model can be used to generate on/off signal for the reheater.</p>
+<p>This model can be used to generate on/off signal for the reheater inside the AHU.</p>
+<p>This reheater will be on only if the following two conditions are satisfied at the same time:</p>
+<ul>
+<li>the position of the water-side valve reaches its minimum value, that is <code>y_valve-yMinVal&LT;=0</code>;</li>
+<li>the inlet temperature of reheater is still lower than required setpoint, that is <code>T_inflow_hea-TSet&LT;=0.</code></li>
+</ul>
+<p>And in the implementation, a hysteresis is used to avoid frequent switching.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 12, 2017 by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ReheatControl;
