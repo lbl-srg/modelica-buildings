@@ -1,5 +1,5 @@
 within Buildings.Fluid.Air.BaseClasses.Examples;
-model ReheatControl "Test ReheatControl"
+model ReheatControl "Test model for reheater controller with hysteresis"
   extends Modelica.Icons.Example;
   Buildings.Fluid.Air.BaseClasses.ReheatControl heaCon(
     y1Low=0,
@@ -41,7 +41,16 @@ equation
           38,-5}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Air/BaseClasses/Example/ReheatControl.mos"
-        "Simulate and Plot"));
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/Air/BaseClasses/Example/ReheatControl.mos"
+        "Simulate and Plot"),
+    Documentation(info="<html>
+<p>This example tests the reheater controller with two varing input error signals.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 12, 2017 by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ReheatControl;
