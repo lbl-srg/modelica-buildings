@@ -93,7 +93,7 @@ equation
     Documentation(info="<html>
 <p>
 This is an AC/AC converter, based on a power balance between both circuit sides.
-The paramater <i>conversionFactor</i> defines the ratio between the RMS voltages
+The parameter <i>conversionFactor</i> defines the ratio between the RMS voltages
 as
 </p>
 

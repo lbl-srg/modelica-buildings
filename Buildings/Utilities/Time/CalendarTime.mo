@@ -15,10 +15,10 @@ model CalendarTime
     "Unix time stamp at local time"
         annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
         iconTransformation(extent={{100,-90},{120,-70}})));
-  discrete Modelica.Blocks.Interfaces.IntegerOutput year "Year"
+  discrete Modelica.Blocks.Interfaces.IntegerOutput year(start=2010) "Year"
     annotation (Placement(transformation(extent={{100,-32},{120,-12}}),
         iconTransformation(extent={{100,-32},{120,-12}})));
-  discrete Modelica.Blocks.Interfaces.IntegerOutput month "Month of the year"
+  discrete Modelica.Blocks.Interfaces.IntegerOutput month(start=1) "Month of the year"
     annotation (Placement(transformation(extent={{100,-4},{120,16}}),
         iconTransformation(extent={{100,-4},{120,16}})));
   Modelica.Blocks.Interfaces.IntegerOutput day(fixed=false) "Day of the month"

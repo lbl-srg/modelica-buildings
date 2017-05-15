@@ -14,14 +14,14 @@ function basicFlowFunction_dp_der
   output Real m_flow_der(unit="kg/s2")
     "Derivative of mass flow rate in design flow direction";
 protected
-  Real m_k = m_flow_turbulent/k "Auxiliary variable";
-  Modelica.SIunits.PressureDifference dp_turbulent = (m_k)^2
+  Modelica.SIunits.PressureDifference dp_turbulent = (m_flow_turbulent/k)^2
     "Pressure where flow changes to turbulent";
+  Real dpNormSq=(dp/dp_turbulent)^2
+    "Square of normalised pressure difference";
 algorithm
  m_flow_der := (if noEvent(abs(dp)>dp_turbulent)
                 then 0.5*k/sqrt(abs(dp))
-                else k/m_k*(1.25-0.75*(dp/dp_turbulent)^2))*dp_der;
-
+                else (1.40625  + (0.78125*dpNormSq - 1.6875)*dpNormSq)*m_flow_turbulent/dp_turbulent)*dp_der;
  annotation (LateInline=true,
              smoothOrder=1,
              derivative(order=2, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
@@ -36,6 +36,14 @@ with respect to the mass flow rate.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 1, 2017, by Filip Jorissen:<br/>
+Revised implementation such that
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
+Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>
+is C2 continuous.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/725\">#725</a>.
+</li>
 <li>
 April 14, 2017, by Filip Jorissen:<br/>
 Changed implementation such that it cannot lead to square roots

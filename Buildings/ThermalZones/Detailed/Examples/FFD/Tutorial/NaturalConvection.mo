@@ -186,7 +186,7 @@ Name them as <code>TeasWal</code> and <code>TwesWal</code>, respectively.
 </li>
 </ul>
 Note that for the other four walls with adiabatic boundary conditions, we do not need to specify
-a zero heat flow boundary condition because the heat flow rate transfered through a heat port
+a zero heat flow boundary condition because the heat flow rate transferred through a heat port
 from the outside is zero if the heat port is not connected from the outside.
 </li>
 <li>

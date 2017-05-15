@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Validation;
-model HeaterCooler_T
+model PrescribedOutlet
   "Model that demonstrates the ideal heater/cooler model for a prescribed outlet temperature, configured as steady-state"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
@@ -12,11 +12,13 @@ model HeaterCooler_T
     T=293.15,
     nPorts=3) "Sink"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=180,origin={150,34})));
-  Buildings.Fluid.HeatExchangers.HeaterCooler_T heaHigPow(
+  Buildings.Fluid.HeatExchangers.PrescribedOutlet heaHigPow(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
-    Q_flow_maxHeat=1e4) "Steady-state model of the heater with high capacity"
+    QMax_flow=1e4,
+    use_X_wSet=false)
+                   "Steady-state model of the heater with high capacity"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort heaHigPowOut(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
@@ -28,21 +30,23 @@ model HeaterCooler_T
   Buildings.Fluid.Sensors.TemperatureTwoPort cooLimPowOut(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{80,24},{100,44}})));
-  Buildings.Fluid.HeatExchangers.HeaterCooler_T cooLimPow(
+  Buildings.Fluid.HeatExchangers.PrescribedOutlet cooLimPow(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
-    Q_flow_maxCool=-1000)
+    QMin_flow=-1000,
+    use_X_wSet=false)
     "Steady-state model of the cooler with limited capacity"
     annotation (Placement(transformation(extent={{40,24},{60,44}})));
   Modelica.Blocks.Sources.TimeTable TSetCool(table=[0,273.15 + 20.0; 120,273.15
     + 20.0; 120,273.15 + 15.0; 500,273.15 + 15.0; 500,273.15 + 10.0; 1200,273.15 + 10.0])
     "Setpoint cooling"
     annotation (Placement(transformation(extent={{-8,70},{12,90}})));
-  Buildings.Fluid.HeatExchangers.HeaterCooler_T heaCooUnl(
+  Buildings.Fluid.HeatExchangers.PrescribedOutlet heaCooUnl(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=6000)
+    dp_nominal=6000,
+    use_X_wSet=false)
     "Steady-state model of the heater or cooler with unlimited capacity"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Modelica.Blocks.Sources.TimeTable TSetCoolHeat(table=[0,273.15 + 20.0; 120,273.15
@@ -58,14 +62,14 @@ model HeaterCooler_T
     offset=m_flow_nominal,
     startTime=1000) "Mass flow rate"
     annotation (Placement(transformation(extent={{-80,32},{-60,52}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort heaHigPowIn(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort heaHigPowIn(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-8,110},{12,130}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort cooLimPowIn(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort cooLimPowIn(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-6,24},{14,44}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort heaCooUnlIn(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort heaCooUnlIn(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-8,-60},{12,-40}})));
   Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium,
@@ -90,19 +94,19 @@ equation
       points={{60,120},{78,120}},
       color={0,127,255}));
   connect(TSetHeat.y, heaHigPow.TSet) annotation (Line(
-      points={{11,170},{20,170},{20,126},{38,126}},
+      points={{11,170},{20,170},{20,128},{38,128}},
       color={0,0,127}));
   connect(cooLimPow.port_b, cooLimPowOut.port_a) annotation (Line(
       points={{60,34},{80,34}},
       color={0,127,255}));
   connect(TSetCool.y, cooLimPow.TSet) annotation (Line(
-      points={{13,80},{28,80},{28,40},{38,40}},
+      points={{13,80},{28,80},{28,42},{38,42}},
       color={0,0,127}));
   connect(heaCooUnl.port_b, heaCooUnlOut.port_a) annotation (Line(
       points={{60,-50},{78,-50}},
       color={0,127,255}));
   connect(TSetCoolHeat.y, heaCooUnl.TSet) annotation (Line(
-      points={{13,-10},{26,-10},{26,-44},{38,-44}},
+      points={{13,-10},{26,-10},{26,-42},{38,-42}},
       color={0,0,127}));
   connect(heaHigPowIn.port_b, heaHigPow.port_a) annotation (Line(
       points={{12,120},{40,120}},
@@ -142,7 +146,7 @@ equation
       color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{200,200}}),                                                                    graphics),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/HeaterCooler_T.mos"
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/PrescribedOutlet.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -177,4 +181,4 @@ First implementation.
     experiment(
       StopTime=1200,
       Tolerance=1e-6));
-end HeaterCooler_T;
+end PrescribedOutlet;

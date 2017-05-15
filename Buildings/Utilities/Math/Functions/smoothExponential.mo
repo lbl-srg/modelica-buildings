@@ -1,6 +1,7 @@
 within Buildings.Utilities.Math.Functions;
 function smoothExponential
   "Once continuously differentiable approximation to exp(-|x|) in interval |x| < delta"
+  extends Modelica.Icons.Function;
 
   input Real x "Input argument";
   input Real delta "Transition point where approximation occurs";

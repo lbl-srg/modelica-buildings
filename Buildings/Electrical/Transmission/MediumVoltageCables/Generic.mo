@@ -39,7 +39,7 @@ The correction is
 R = l<sub>CABLE</sub> R<sub>DC</sub> f<sub>CORR</sub>(s, m),
 </p>
 <p>
-where <i>R<sub>DC</sub> </i> is the characteristic DC resistance per unit lenght,
+where <i>R<sub>DC</sub> </i> is the characteristic DC resistance per unit length,
 <i>l<sub>CABLE</sub></i> is the length of the cable, and
 <i>f<sub>CORR</sub>(s, m)</i> is a function that corrects the DC value and depends on the
 size of the cable <i>s</i> and its material <i>m</i>. See

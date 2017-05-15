@@ -1,6 +1,7 @@
 within Buildings.Utilities.Math.Functions;
 function cubicHermiteLinearExtrapolation
   "Interpolate using a cubic Hermite spline with linear extrapolation"
+  extends Modelica.Icons.Function;
   input Real x "Abscissa value";
   input Real x1 "Lower abscissa value";
   input Real x2 "Upper abscissa value";

@@ -1,9 +1,0 @@
-simulateModel("Buildings.Fluid.Interfaces.Examples.PrescribedOutletState", tolerance=1e-6, stopTime=1200, numberOfIntervals=50000, method="dassl", resultFile="PrescribedOutletState");
-createPlot(id=2, position={35, 30, 535, 397},
-  y={"heaHigPow.port_a_T", "heaHigPow.port_b_T", "cooLimPow.port_a_T", "cooLimPow.port_b_T", "heaCooUnl.port_a_T", "heaCooUnl.port_b_T"},
-range={0.0, 1200.0, 0.0, 80.0}, grid=true, filename="PrescribedOutletState.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}}, markers={MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None,
-MarkerStyle.None, MarkerStyle.Cross});
-createPlot(id=2, position={35, 30, 535, 195},
-  y={"heaHigPow.m_flow"},
-range={0.0, 1200.0, -0.2, 0.2}, grid=true, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
-

@@ -1,6 +1,7 @@
 within Buildings.Utilities.Math.Functions;
 function quinticHermite
   "Quintic Hermite spline function for interpolation between two functions with a continuous second derivative"
+  extends Modelica.Icons.Function;
   input Real x "Abscissa value";
   input Real x1 "Lower abscissa value";
   input Real x2 "Upper abscissa value";

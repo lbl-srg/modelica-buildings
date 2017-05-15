@@ -30,28 +30,32 @@ protected
     Medium.specificHeatCapacityCp(sta_default)
     "Specific heat capacity of the fluid";
 
-  Buildings.Fluid.HeatExchangers.HeaterCooler_T coo(
+  Buildings.Fluid.HeatExchangers.PrescribedOutlet coo(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=m_flow_nominal,
     show_T=true,
-    Q_flow_maxHeat=0,
+    QMax_flow=0,
     dp_nominal=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    tau=60) "Cooling supply"
+    tau=60,
+    use_X_wSet=false)
+            "Cooling supply"
     annotation (Placement(transformation(extent={{40,-10},{20,10}})));
 
-  Buildings.Fluid.HeatExchangers.HeaterCooler_T hea(
+  Buildings.Fluid.HeatExchangers.PrescribedOutlet hea(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=m_flow_nominal,
     from_dp=false,
     show_T=true,
-    Q_flow_maxCool=0,
+    QMin_flow=0,
     dp_nominal=dp_nominal,
     linearizeFlowResistance=linearizeFlowResistance,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    tau=60) "Heat supply"
+    tau=60,
+    use_X_wSet=false)
+            "Heat supply"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
@@ -68,8 +72,8 @@ public
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 equation
   connect(QHea_flow, hea.Q_flow) annotation (Line(points={{110,60},{-10,60},{
-          -10,6},{-19,6}},  color={0,0,127}));
-  connect(coo.Q_flow, QCoo_flow) annotation (Line(points={{19,6},{10,6},{10,20},
+          -10,8},{-19,8}},  color={0,0,127}));
+  connect(coo.Q_flow, QCoo_flow) annotation (Line(points={{19,8},{10,8},{10,20},
           {10,40},{110,40}},             color={0,0,127}));
   connect(port_a, hea.port_a)
     annotation (Line(points={{-100,0},{-40,0}},         color={0,127,255}));
@@ -79,10 +83,10 @@ equation
     annotation (Line(points={{-20,0},{-15,0},{-10,0}}, color={0,127,255}));
   connect(senTem.port_b, coo.port_b)
     annotation (Line(points={{10,0},{15,0},{20,0}}, color={0,127,255}));
-  connect(hea.TSet, TSetHea) annotation (Line(points={{-42,6},{-58,6},{-58,80},
+  connect(hea.TSet, TSetHea) annotation (Line(points={{-42,8},{-58,8},{-58,80},
           {-120,80}}, color={0,0,127}));
   connect(TSetCoo, coo.TSet) annotation (Line(points={{-120,40},{-102,40},{-80,
-          40},{-80,20},{52,20},{52,6},{42,6}}, color={0,0,127}));
+          40},{-80,20},{52,20},{52,8},{42,8}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics={

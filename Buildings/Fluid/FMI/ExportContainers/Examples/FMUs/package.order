@@ -2,8 +2,8 @@ Fan
 FlowSplitter_u
 HVACZone
 HVACZones
-HeaterCooler_T
 HeaterCooler_u
+Heater_T
 Humidifier_u
 IdealSource_m_flow
 MixingVolume
