@@ -46,15 +46,7 @@ equation
           textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}}), graphics={
-        Text(
-          lineColor={0,0,255},
-          extent={{-152,104},{148,144}},
-          textString="%name"),
-        Text(
-          lineColor={0,0,255},
-          extent={{-130,116},{170,156}},
-          textString="%name")}),
+        extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 Block that outputs the input, truncated to the next smallest integer if the input is positive,

@@ -21,6 +21,7 @@ Log
 Log10
 Max
 Min
+MinMax
 Modulo
 NumberOfRequests
 Product
@@ -28,5 +29,6 @@ SignalRanker
 Sin
 SlewRateLimiter
 Sqrt
+Sum
 Tan
 Truncation
