@@ -5,26 +5,28 @@ model ReheatControl "Test model for reheater controller with hysteresis"
     y1Low=0,
     y1Hig=0.05,
     y2Low=-0.5,
-    y2Hig=0.5)
+    y2Hig=0.5) "Heater on/off controller"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Sources.Sine sig1(
     freqHz=1/100,
     amplitude=0.3,
-    offset=0.3)
+    offset=0.3) "Signal 1"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.Sine sig2(
     freqHz=1/100,
     amplitude=3,
     offset=273.15 + 15,
-    phase=1.0471975511966)
+    phase=1.0471975511966) "Signal 2"
     annotation (Placement(transformation(extent={{-80,-38},{-60,-18}})));
-  Modelica.Blocks.Sources.Constant set1(k=0.2)
+  Modelica.Blocks.Sources.Constant set1(k=0.2) "Set point for signal 1"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Modelica.Blocks.Sources.Constant set2(k=273.15 + 16)
+  Modelica.Blocks.Sources.Constant set2(k=273.15 + 16) "Set point for signal 2"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Math.Add add1(k1=+1, k2=-1)
+    "Error between signal 1 and setpoint 1"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Math.Add add2(k1=+1, k2=-1)
+    "Error between signal 2 and setpoint 2"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 equation
   connect(sig1.y, add1.u1) annotation (Line(points={{-59,50},{-52,50},{-52,36},{
