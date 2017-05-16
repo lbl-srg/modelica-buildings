@@ -49,7 +49,7 @@ model AirHandlingUnit
     "Range of significant deviation from equal percentage law"
     annotation(Dialog(group="Valve"));
   // electric heater
-   parameter Real deltaMLaminar = 0.1
+  parameter Real deltaMTurbulent = 0.1
     "Fraction of nominal flow rate where where flowrate transitions to laminar"
     annotation(Dialog(group="Electric Heater",tab="Advanced"));
   parameter Modelica.SIunits.Time tauEleHea = 30
@@ -62,22 +62,49 @@ model AirHandlingUnit
   parameter Modelica.SIunits.Time tauHum = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
      annotation (Dialog(tab = "Dynamics", group="Humidifier"));
-
   parameter Real yMinVal(min=0, max=1, unit="1")=0.2
   "Minimum valve position when valve is controled to maintain outlet water temperature"
   annotation(Dialog(group="Valve"));
 
   // parameters for heater controller
-  parameter Real y1Low "if y1=true and y1<=y1Low, switch to y1=false";
-  parameter Real y1Hig "if y1=false and y1>=y1High, switch to y1=true";
-  parameter Real y2Low "if y2=true and y2<=y2Low, switch to y2=false";
-  parameter Real y2Hig "if y2=false and y2>=y2High, switch to y2=true";
-  parameter Boolean pre_start1=true "Value of pre(y) at initial time";
-  parameter Boolean pre_start2=true "Value of pre(y) at initial time";
+  parameter Real y1Low(min=0,max=1,unit="1")= 0
+  "if y1=true and y1<=y1Low, switch to y1=false"
+  annotation(Dialog(group="Reheater Controller"));
+  parameter Real y1Hig(min=0,max=1,unit="1")= 0.05
+  "if y1=false and y1>=y1High, switch to y1=true"
+  annotation(Dialog(group="Reheater Controller"));
+  parameter Modelica.SIunits.TemperatureDifference y2Low(displayUnit="degC")=-0.1
+  "if y2=true and y2<=y2Low, switch to y2=false"
+  annotation(Dialog(group="Reheater Controller"));
+  parameter Modelica.SIunits.TemperatureDifference y2Hig(displayUnit="degC")= 0.1
+  "if y2=false and y2>=y2High, switch to y2=true"
+  annotation(Dialog(group="Reheater Controller"));
+  parameter Boolean pre_start1=true "Value of pre(y) at initial time"
+  annotation(Dialog(group="Reheater Controller"));
+  parameter Boolean pre_start2=true "Value of pre(y) at initial time"
+  annotation(Dialog(group="Reheater Controller"));
 
-  Medium2.Temperature T_inflow_hea "Temperature of inflowing fluid at port_a of reheater";
+  Modelica.Blocks.Interfaces.RealOutput PHea(unit="W")
+    "Power consumed by electric heater" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={18,-110})));
+  Modelica.Blocks.Interfaces.RealInput TSet(unit="K")
+    "Set point temperature of the fluid that leaves port_b" annotation (
+      Placement(transformation(extent={{-140,-30},{-100,10}}),
+        iconTransformation(extent={{-120,-10},{-100,10}})));
+  Modelica.Blocks.Interfaces.RealInput XSet_w
+    "Set point for water vapor mass fraction in kg/kg total air of the fluid that leaves port_b"
+    annotation (Placement(transformation(extent={{-140,-4},{-100,36}}),
+        iconTransformation(extent={{-120,16},{-100,36}})));
+  Modelica.Blocks.Sources.RealExpression e2(y=T_inflow_hea - TSet)
+    "Error between inlet temperature and temperature setpoint of the reheater"
+    annotation (Placement(transformation(extent={{-76,-6},{-56,14}})));
+  Modelica.Blocks.Sources.RealExpression e1(y=y_valve - yMinVal)
+    "Error between actual valve position and minimum valve position"
+    annotation (Placement(transformation(extent={{-76,12},{-56,32}})));
 
-  MassExchangers.Humidifier_X                 hum(
+  Buildings.Fluid.MassExchangers.Humidifier_X hum(
     redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal2,
     final m_flow_small=m2_flow_small,
@@ -85,7 +112,7 @@ model AirHandlingUnit
     final massDynamics=massDynamics,
     final from_dp=from_dp,
     final linearizeFlowResistance=linearized,
-    final deltaM=deltaMLaminar,
+    final deltaM=deltaMTurbulent,
     final tau=tauHum,
     final homotopyInitialization=homotopyInitialization,
     final dp_nominal=dat.nomVal.dpHumidifier_nominal,
@@ -104,12 +131,12 @@ model AirHandlingUnit
     final energyDynamics=energyDynamics,
     final from_dp=from_dp,
     final linearizeFlowResistance=linearized,
-    final deltaM=deltaMLaminar,
+    final deltaM=deltaMTurbulent,
     final tau=tauEleHea,
     final homotopyInitialization=homotopyInitialization,
     final dp_nominal=dat.nomVal.dpHeater_nominal,
     final QMax_flow=dat.nomVal.QHeater_nominal,
-    final eff=dat.nomVal.effHeater_nominal,
+    final eta=dat.nomVal.etaHeater_nominal,
     final m_flow_nominal=m2_flow_nominal)
     "Electric heater" annotation (
       Placement(transformation(
@@ -117,32 +144,19 @@ model AirHandlingUnit
         rotation=0,
         origin={-22,-60})));
 
-  Modelica.Blocks.Interfaces.RealOutput PHea
-    "Power consumed by electric heater" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={18,-110})));
-  Modelica.Blocks.Interfaces.RealInput TSet
-    "Set point temperature of the fluid that leaves port_b" annotation (
-      Placement(transformation(extent={{-140,-30},{-100,10}}),
-        iconTransformation(extent={{-120,-10},{-100,10}})));
-  Modelica.Blocks.Interfaces.RealInput XSet_w
-    "Set point for water vapor mass fraction in kg/kg total air of the fluid that leaves port_b"
-    annotation (Placement(transformation(extent={{-140,-4},{-100,36}}),
-        iconTransformation(extent={{-120,16},{-100,36}})));
-  BaseClasses.ReheatControl heaCon(
+  Buildings.Fluid.Air.BaseClasses.ReheatControl heaCon(
     final y1Low=y1Low,
     final y1Hig=y1Hig,
     final y2Low=y2Low,
     final y2Hig=y2Hig,
     final pre_start1=pre_start1,
     final pre_start2=pre_start2)
-                     "Reheater on/off controller"
+    "Reheater on/off controller"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Modelica.Blocks.Sources.RealExpression e2(y=T_inflow_hea - TSet)
-    annotation (Placement(transformation(extent={{-76,-6},{-56,14}})));
-  Modelica.Blocks.Sources.RealExpression e1(y=y_valve - yMinVal)
-    annotation (Placement(transformation(extent={{-76,12},{-56,32}})));
+
+protected
+  Medium2.Temperature T_inflow_hea "Temperature of inflowing fluid at port_a of reheater";
+
 equation
     T_inflow_hea = Medium2.temperature(state=Medium2.setState_phX(
       p=eleHea.port_a.p, h=inStream(eleHea.port_a.h_outflow), X=inStream(eleHea.port_a.Xi_outflow)));
