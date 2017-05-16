@@ -5,20 +5,21 @@ model ElectricHeater "Test model for ElectricHeater"
     redeclare package Medium = Buildings.Media.Air,
     m_flow_nominal=V*1.2*6/3600,
     Q_flow_nominal=30*6*6,
-    mov(nominalValuesDefineDefaultPressureCurve=true, dp_nominal=1200));
+    mov(nominalValuesDefineDefaultPressureCurve=true,
+    dp_nominal=1200));
   Buildings.Fluid.Air.BaseClasses.ElectricHeater eleHea(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     QMax_flow=Q_flow_nominal,
-    eff=0.8,
+    eta=1.0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal=1000)
     "Electric heater"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-   Controls.SetPoints.Table tab(table=[0,273.15 + 15; 1,273.15 + 30])
+   Buildings.Controls.SetPoints.Table tab(table=[0,273.15 + 15; 1,273.15 + 30])
     "Temperature set point"
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
-  Modelica.Blocks.Sources.BooleanStep onOff(startTime(displayUnit="min") =
+  Modelica.Blocks.Sources.BooleanStep onOff(startTime(displayUnit="min")=
       60000) "On/off signal"
     annotation (Placement(transformation(extent={{-80,-98},{-60,-78}})));
 equation
@@ -37,7 +38,8 @@ equation
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Air/BaseClasses/Example/ElectricHeater.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
-This model test the electric heater model: ElectricHeater.
+This model test the electric heater model: <a href=\"modelica://Buildings.Fluid.Air.BaseClasses.ElectricHeater\">
+Buildings.Fluid.Air.BaseClasses.ElectricHeater</a>.
 </html>", revisions="<html>
 <ul>
 <li>
