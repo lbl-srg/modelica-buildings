@@ -1,5 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
 model OutdoorAirFlowSetpoint
+  "Validate the model of calculating minimum outdoor airflow setpoint"
   extends Modelica.Icons.Example;
   parameter Integer numOfZon = 5 "Total number of zones that the system serves";
   Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.OutdoorAirFlowSetpoint
@@ -39,9 +40,9 @@ equation
   experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/OutdoorAirFlowSetpoint.mos"
     "Simulate and plot"),
-Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-Documentation(info="<html>
+    Icon(coordinateSystem(preserveAspectRatio=false)),
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
 <p>
 This example validates
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.OutdoorAirFlowSetpoint\">
@@ -55,6 +56,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
-
 end OutdoorAirFlowSetpoint;

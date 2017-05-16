@@ -367,7 +367,11 @@ equation
           fillPattern=FillPattern.Solid), Text(
           extent={{-92,82},{84,-68}},
           lineColor={0,0,0},
-          textString="minOATsp")}),                             Diagram(
+          textString="minOATsp"),
+        Text(
+          extent={{-100,124},{98,102}},
+          lineColor={0,0,255},
+          textString="%name")}),                                Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-40},{180,200}},
         initialScale=0.1), graphics={Rectangle(
           extent={{-100,104},{180,200}},
