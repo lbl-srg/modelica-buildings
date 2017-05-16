@@ -73,21 +73,7 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
   parameter Real yValve_start=1 "Initial value of output"
     annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
- // electric heater
-   parameter Real deltaMLaminar = 0.1
-    "Fraction of nominal flow rate where where flowrate transitions to laminar"
-    annotation(Dialog(group="Electric Heater",tab="Advanced"));
-  parameter Modelica.SIunits.Time tauEleHea = 30
-    "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Dialog(tab = "Dynamics", group="Electric Heater"));
-  // humidfier parameters
-  parameter Modelica.SIunits.Temperature THum = 293.15
-    "Temperature of water that is added to the fluid stream"
-    annotation (Dialog(group="Humidifier"));
-  parameter Modelica.SIunits.Time tauHum = 30
-    "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Dialog(tab = "Dynamics", group="Humidifier"));
- // fan parameters
+  // fan parameters
    parameter Buildings.Fluid.Types.InputType inputType = Buildings.Fluid.Types.InputType.Continuous
     "Control input type"
     annotation(Dialog(group="Fan"));
@@ -109,10 +95,29 @@ partial model PartialAirHandlingUnit "Partial AHU model "
   parameter Real yFan_start(min=0, max=1, unit="1")=0 "Initial value of speed"
     annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
 
-  parameter Real yMinVal(min=0, max=1, unit="1")=0.2
-  "Minimum valve position when valve is controled to maintain outlet water temperature"
-  annotation(Dialog(group="Valve"));
-
+  Modelica.Blocks.Interfaces.RealInput uWatVal(min=0,max=1,unit="1")
+    "Actuator position (0: closed, 1: open) on water side"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+      iconTransformation(extent={{-120,40},{-100,60}})));
+  Modelica.Blocks.Interfaces.RealInput uFan if
+   not inputType == Buildings.Fluid.Types.InputType.Stages
+   "Continuous input signal for the fan"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+      iconTransformation(extent={{-120,-40},{-100,-20}})));
+  Modelica.Blocks.Interfaces.RealOutput PFan(unit="W",displayUnit="W")
+    "Electrical power consumed by the fan" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-20,-110})));
+  Modelica.Blocks.Interfaces.RealOutput y_valve( min=0,max=1,unit="1")
+    "Actual valve position"
+    annotation (Placement(transformation(extent={{100,30},{120,50}}),
+      iconTransformation(extent={{100,30},{120,50}})));
+  Modelica.Blocks.Interfaces.IntegerInput stage if
+    inputType == Buildings.Fluid.Types.InputType.Stages
+    "Stage input signal for the pressure head"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-120,-40},{-100,-20}})));
 
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
     final UA_nominal=dat.nomVal.UA_nominal,
@@ -188,28 +193,7 @@ partial model PartialAirHandlingUnit "Partial AHU model "
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={60,40})));
-  Modelica.Blocks.Interfaces.RealInput uWatVal
-    "Actuator position (0: closed, 1: open) on water side"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-      iconTransformation(extent={{-120,40},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput uFan if
-   not inputType == Buildings.Fluid.Types.InputType.Stages
-   "Continuous input signal for the fan"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-      iconTransformation(extent={{-120,-40},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealOutput PFan
-    "Electrical power consumed by the fan" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-20,-110})));
-  Modelica.Blocks.Interfaces.RealOutput y_valve "Actual valve position"
-    annotation (Placement(transformation(extent={{100,30},{120,50}}),
-      iconTransformation(extent={{100,30},{120,50}})));
-  Modelica.Blocks.Interfaces.IntegerInput stage if
-    inputType == Buildings.Fluid.Types.InputType.Stages
-    "Stage input signal for the pressure head"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-        iconTransformation(extent={{-120,-40},{-100,-20}})));
+
 equation
 
   connect(port_a1, cooCoi.port_a1) annotation (Line(points={{-100,60},{-60,60},{
