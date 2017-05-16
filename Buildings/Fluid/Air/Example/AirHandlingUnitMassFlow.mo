@@ -5,7 +5,7 @@ model AirHandlingUnitMassFlow
   extends Buildings.Fluid.Air.Example.BaseClasses.PartialAirHandlerMassFlow(
     sou_2(nPorts=1),
     relHum(k=0.5));
-  AirHandlingUnit ahu(
+  Buildings.Fluid.Air.AirHandlingUnit ahu(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     allowFlowReversal1=true,
@@ -19,20 +19,21 @@ model AirHandlingUnitMassFlow
     tauHum=1,
     y1Low=0,
     y1Hig=0.02,
-    y2Low=-0.1,
-    y2Hig=0.1) annotation (Placement(transformation(extent={{54,16},{74,36}})));
+    y2Hig=0.1,
+    y2Low(displayUnit="degC") = -0.1) "Air handling unit"
+    annotation (Placement(transformation(extent={{54,16},{74,36}})));
 
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
     redeclare package Medium = Medium2, m_flow_nominal=dat.nomVal.m2_flow_nominal)
+    "Sensor for relative humidity"
     annotation (Placement(transformation(extent={{34,10},{14,30}})));
   Modelica.Blocks.Sources.Constant uWatVal(k=0.2)
     "Control signal for water valve"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Modelica.Blocks.Sources.Constant uEleHea(k=15 + 273.15)
-    "Control input for electric heater"
+  Modelica.Blocks.Sources.Constant temSet(k=15 + 273.15)
+    "Temperature setpoint "
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Modelica.Blocks.Sources.Constant uHum(k=0.01)
-                                             "Control input for humidifer"
+  Modelica.Blocks.Sources.Constant XSet(k=0.01) "Mass fraction set point"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Modelica.Blocks.Sources.Constant uFan(k=1) "Control input for fan"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
@@ -51,9 +52,9 @@ equation
   connect(uFan.y, ahu.uFan) annotation (Line(points={{21,-80},{48,-80},{48,16},
           {48,23},{50,23},{53,23}},
                    color={0,0,127}));
-  connect(uEleHea.y, ahu.TSet) annotation (Line(points={{21,-20},{40,-20},{40,
-          26},{53,26}}, color={0,0,127}));
-  connect(uHum.y, ahu.XSet_w) annotation (Line(points={{21,-50},{44,-50},{44,26},
+  connect(temSet.y, ahu.TSet) annotation (Line(points={{21,-20},{40,-20},{40,26},
+          {53,26}}, color={0,0,127}));
+  connect(XSet.y, ahu.XSet_w) annotation (Line(points={{21,-50},{44,-50},{44,26},
           {44,28},{44,28.6},{48,28.6},{53,28.6}},         color={0,0,127}));
   connect(temSenAir2.port_a, senRelHum.port_b)
     annotation (Line(points={{0,20},{14,20}}, color={0,127,255}));
