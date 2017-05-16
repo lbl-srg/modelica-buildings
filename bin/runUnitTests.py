@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #######################################################
 # Script that runs all unit tests or, optionally,
-# only checks the html syntax or the validaty of
+# only checks the html syntax or the validity of
 # the simulation parameters of the models
 #
 # To run the unit tests, this script

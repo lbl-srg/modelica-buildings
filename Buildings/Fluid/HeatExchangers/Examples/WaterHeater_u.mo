@@ -48,6 +48,13 @@ for a model that takes the leaving water temperature as an input.
 </html>", revisions="<html>
 <ul>
 <li>
+May 8, 2017, by Michael Wetter:<br/>
+Updated heater model.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">
+Buildings, #763</a>.
+</li>
+<li>
 January 27, 2016, by Michael Wetter;<br/>
 Removed algorithm specification in experiment annotation.
 </li>

@@ -6,7 +6,7 @@ model HeaterCooler_u "Heater or cooler with prescribed heat flow rate"
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
     "Heat flow rate at u=1, positive for heating";
-  Modelica.Blocks.Interfaces.RealInput u "Control input"
+  Modelica.Blocks.Interfaces.RealInput u(unit="1") "Control input"
     annotation (Placement(transformation(
           extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
@@ -35,6 +35,23 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
+          extent={{-100,8},{101,-5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-70,-60},{70,60},{-70,60},{-70,-60}},
+          fillColor={127,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Polygon(
+          points={{-70,-60},{70,60},{70,-60},{-70,-60}},
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
           extent={{70,60},{100,58}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
@@ -57,13 +74,7 @@ equation
         Text(
           extent={{72,96},{116,68}},
           lineColor={0,0,127},
-          textString="Q_flow"),
-        Rectangle(
-          extent={{-100,8},{101,-5}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}),
+          textString="Q_flow")}),
 defaultComponentName="hea",
 Documentation(info="<html>
 <p>
@@ -72,11 +83,16 @@ Model for an ideal heater or cooler with prescribed heat flow rate to the medium
 <p>
 This model adds heat in the amount of <code>Q_flow = u Q_flow_nominal</code> to the medium.
 The input signal <code>u</code> and the nominal heat flow rate <code>Q_flow_nominal</code>
-can be positive or negative.
+can be positive or negative. A positive value of <code>Q_flow</code> means
+heating, and negative means cooling.
+</p>
+<p>
+The outlet conditions at <code>port_a</code> are not affected by this model,
+other than for a possible pressure difference due to flow friction.
 </p>
 <p>
 Optionally, this model can have a flow resistance.
-If no flow resistance is requested, set <code>dp_nominal=0</code>.
+Set <code>dp_nominal = 0</code> to disable the flow friction calculation.
 </p>
 <p>
 For a model that uses as an input the fluid temperature leaving at
