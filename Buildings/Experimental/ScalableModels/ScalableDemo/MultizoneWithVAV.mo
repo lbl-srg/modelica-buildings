@@ -214,7 +214,8 @@ model MultizoneWithVAV
   Buildings.Utilities.Math.Average ave(nin=nZon*nFlo)
     "Compute average of room temperatures"
     annotation (Placement(transformation(extent={{110,68},{122,80}})));
-  Buildings.Utilities.Math.Min min(nin=nZon*nFlo) "Computes lowest room temperature"
+  Buildings.Utilities.Math.Min min1(nin=nZon*nFlo)
+    "Computes lowest room temperature"
     annotation (Placement(transformation(extent={{110,96},{122,108}})));
   Buildings.Experimental.ScalableModels.Controls.FanVFD
                                                  conFanRet(xSet_nominal(displayUnit="m3/s") = m_flow_nominal/
@@ -298,12 +299,14 @@ equation
           points={{-68,54},{-42,54},{-12,54},{-12,23.2},{52,23.2}},
           color={255,204,51},
           thickness=0.5));
-      connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], ave.u[iZon, iFlo]) annotation (Line(
+      connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], ave.u[iFlo+(iZon-1)*nFlo]) annotation (Line(
         points={{90,64.8},{102,64.8},{102,74},{108.8,74}}, color={0,0,127},
       pattern=LinePattern.Dash));
-      connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], min.u[iZon, iFlo]) annotation (Line(
-        points={{90,64.8},{102,64.8},{102,102},{108.8,102}}, color={0,0,127},
-      pattern=LinePattern.Dash));
+      connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], min1.u[iFlo+(iZon-1)*nFlo])
+        annotation (Line(
+          points={{90,64.8},{102,64.8},{102,102},{108.8,102}},
+          color={0,0,127},
+          pattern=LinePattern.Dash));
     end for;
   end for;
   connect(TSupSetHea.y, heaCoiCon.u_s) annotation (Line(points={{-257.4,-60},{-193.2,-60}}, color={0,0,127}));
@@ -418,7 +421,7 @@ equation
       color={255,204,51},
       thickness=0.5));
 
-  connect(min.y, controlBus.TRooMin) annotation (Line(
+  connect(min1.y, controlBus.TRooMin) annotation (Line(
       points={{122.6,102},{130,102},{130,10},{-68,10},{-68,54}},
       color={0,0,127},
       pattern=LinePattern.Dash));
