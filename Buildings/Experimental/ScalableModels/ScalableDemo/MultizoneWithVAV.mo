@@ -292,17 +292,17 @@ equation
   for iZon in 1:nZon loop
     for iFlo in 1:nFlo loop
       connect(senSupFlo.port_b, vAVBranch[iZon, iFlo].port_a) annotation (Line(points={{42,-30},
-              {58,-30},{68,-30},{68,16},{67,16}},      color={0,127,255}));
+              {58,-30},{68,-30},{68,16},{67,16}}, color={0,127,255}));
 
       connect(controlBus, vAVBranch[iZon, iFlo].controlBus) annotation (Line(
           points={{-68,54},{-42,54},{-12,54},{-12,23.2},{52,23.2}},
           color={255,204,51},
           thickness=0.5));
       connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], ave.u[iZon, iFlo]) annotation (Line(
-        points={{90,64.8},{102,64.8},{102,74},{108.8,74}},           color={0,0,127},
+        points={{90,64.8},{102,64.8},{102,74},{108.8,74}}, color={0,0,127},
       pattern=LinePattern.Dash));
       connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], min.u[iZon, iFlo]) annotation (Line(
-        points={{90,64.8},{102,64.8},{102,102},{108.8,102}},         color={0,0,127},
+        points={{90,64.8},{102,64.8},{102,102},{108.8,102}}, color={0,0,127},
       pattern=LinePattern.Dash));
     end for;
   end for;
