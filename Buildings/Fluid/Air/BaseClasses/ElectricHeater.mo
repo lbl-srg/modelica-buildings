@@ -5,15 +5,13 @@ model ElectricHeater "Model for electric heater"
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
-  parameter Real eff "Effciency of electrical heater";
+  parameter Modelica.SIunits.Efficiency eta "Effciency of electrical heater";
   parameter Modelica.SIunits.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)"
     annotation (Evaluate=true);
-
   parameter Modelica.SIunits.Temperature T_start=Medium.T_default
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization"));
-
    // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
@@ -24,13 +22,24 @@ model ElectricHeater "Model for electric heater"
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-
+  Modelica.Blocks.Interfaces.RealOutput Q_flow
+    "Heat flow rate added to the fluid (if flow is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput P(unit="W") "Power"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Modelica.Blocks.Sources.RealExpression powCal(y=hea.Q_flow/eff)
-    "Power calculator"
-    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
-  HeatExchangers.Heater_T hea(
+  Modelica.Blocks.Interfaces.BooleanInput On
+    "Set point temperature of the fluid that leaves port_b"
+    annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
+  Modelica.Blocks.Interfaces.RealInput TSet
+    "Set point temperature of the fluid that leaves port_b"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+  Modelica.Blocks.Logical.Switch swi "Swich for temperature setpoint"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+protected
+  Modelica.Blocks.Sources.Constant zer(final k=0) "Zero signal"
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+
+  Buildings.Fluid.HeatExchangers.Heater_T hea(
     final energyDynamics=energyDynamics,
     final T_start=T_start,
     final tau=tau,
@@ -47,24 +56,10 @@ model ElectricHeater "Model for electric heater"
     final QMax_flow=QMax_flow)
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
 
-  Modelica.Blocks.Interfaces.RealOutput Q_flow
-    "Heat flow rate added to the fluid (if flow is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  Modelica.Blocks.Interfaces.BooleanInput On
-    "Set point temperature of the fluid that leaves port_b"
-    annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
-  Modelica.Blocks.Interfaces.RealInput TSet
-    "Set point temperature of the fluid that leaves port_b"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Logical.Switch swi "Swich for temperature setpoint"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-protected
-  Modelica.Blocks.Sources.Constant zer(final k=0) "Zero signal"
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 equation
 
-  connect(powCal.y, P)
-    annotation (Line(points={{11,-60},{110,-60}},           color={0,0,127}));
+  P=hea.Q_flow/eta;
+
   connect(port_a, hea.port_a)
     annotation (Line(points={{-100,0},{-54,0},{-8,0}}, color={0,127,255}));
   connect(hea.port_b, port_b)
@@ -138,7 +133,9 @@ The switch model <code>swi</code> is used to turn on/off the heater.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>May 11, 2017 by Yangyang Fu:<br>First implementation. </li>
+<li>May 11, 2017 by Yangyang Fu:<br/>
+First implementation. 
+</li>
 </ul>
 </html>"));
 end ElectricHeater;
