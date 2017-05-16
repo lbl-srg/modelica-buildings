@@ -3,35 +3,38 @@ partial model PartialAirHandlerMassFlow
   "Partial model for testing air handler at variable mass flowrate"
 
   package Medium1 = Buildings.Media.Water "Medium model for water";
-  package Medium2 = Buildings.Media.Air
-    "Medium model for air";
+  package Medium2 = Buildings.Media.Air "Medium model for air";
   parameter Buildings.Fluid.Air.Example.Data.Data_I dat
   "Performance data for the air handler";
-    Sources.Boundary_pT sin_2(
+
+  Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
     T=dat.nomVal.T_a2_nominal,
     nPorts=1)
     "Sink for air"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Sources.Boundary_pT sou_2(
+  Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
     T=dat.nomVal.T_a2_nominal,
     X={0.02,1 - 0.02},
     use_T_in=true,
-    use_X_in=true) "Source for air"
+    use_X_in=true)
+    "Source for air"
     annotation (Placement(transformation(
           extent={{140,10},{120,30}})));
-  Sources.MassFlowSource_T sin_1(
+  Buildings.Fluid.Sources.MassFlowSource_T sin_1(
     redeclare package Medium = Medium1,
     T=dat.nomVal.T_a1_nominal,
     use_m_flow_in=true,
-    nPorts=1)           "Sink for water"
+    nPorts=1)
+    "Source for water"
     annotation (Placement(transformation(extent={{150,50},{130,70}})));
-  Sources.Boundary_pT sou_1(
+  Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     use_T_in=false,
     T=dat.nomVal.T_a1_nominal,
-    nPorts=1)                  "Source for water"
+    nPorts=1)
+    "Sink for water"
     annotation (Placement(transformation(extent={{-62,50},{-42,70}})));
   Modelica.Blocks.Sources.Constant relHum(k=0.8) "Relative humidity"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
@@ -43,18 +46,24 @@ partial model PartialAirHandlerMassFlow
   Modelica.Blocks.Math.Gain mWat_flow(k=-dat.nomVal.m1_flow_nominal)
     "Water mass flow rate"
     annotation (Placement(transformation(extent={{-42,100},{-22,120}})));
-  Modelica.Blocks.Sources.TimeTable mWatGai(table=[0,1; 3600*0.1,1; 3600*0.2,1;
-        3600*0.3,1])
+  Modelica.Blocks.Sources.TimeTable mWatGai(table=[0,1; 3600*0.1,1; 3600*0.2,
+        0.1; 3600*0.3,0.1])
     "Gain for water mass flow rate"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
-  Sensors.TemperatureTwoPort temSenWat1(redeclare package Medium = Medium1,
-      m_flow_nominal=dat.nomVal.m2_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSenWat1(
+    redeclare package Medium = Medium1,
+    m_flow_nominal=dat.nomVal.m2_flow_nominal)
+    "Temperature sensor for water"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Sensors.TemperatureTwoPort temSenWat2(redeclare package Medium = Medium1,
-      m_flow_nominal=dat.nomVal.m2_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSenWat2(
+    redeclare package Medium = Medium1,
+    m_flow_nominal=dat.nomVal.m2_flow_nominal)
+    "Temperature sensor for water"
     annotation (Placement(transformation(extent={{88,50},{108,70}})));
-  Sensors.TemperatureTwoPort temSenAir2(redeclare package Medium = Medium2,
-      m_flow_nominal=dat.nomVal.m2_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSenAir2(
+    redeclare package Medium = Medium2,
+    m_flow_nominal=dat.nomVal.m2_flow_nominal)
+    "Temperature for air"
     annotation (Placement(transformation(extent={{0,10},{-20,30}})));
 equation
   connect(x_pTphi.X, sou_2.X_in) annotation (Line(
@@ -90,5 +99,15 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -100},{200,180}})),
             Diagram(coordinateSystem(preserveAspectRatio=false,
-             extent={{-120,-100},{200,180}})));
+             extent={{-120,-100},{200,180}})),
+    Documentation(revisions="<html>
+<ul>
+<li>
+May 10, 2017 by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>Partial model for testing the air handling unit model with given control signals.</p>
+</html>"));
 end PartialAirHandlerMassFlow;
