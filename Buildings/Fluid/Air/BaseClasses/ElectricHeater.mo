@@ -5,7 +5,7 @@ model ElectricHeater "Model for electric heater"
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
-  parameter Modelica.SIunits.Efficiency eta "Effciency of electrical heater";
+  parameter Modelica.SIunits.Efficiency eta(max=1) "Effciency of electrical heater";
   parameter Modelica.SIunits.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)"
     annotation (Evaluate=true);
@@ -22,15 +22,15 @@ model ElectricHeater "Model for electric heater"
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  Modelica.Blocks.Interfaces.RealOutput Q_flow
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(quantity="HeatFlowRate",unit="W")
     "Heat flow rate added to the fluid (if flow is from port_a to port_b)"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  Modelica.Blocks.Interfaces.RealOutput P(unit="W") "Power"
+  Modelica.Blocks.Interfaces.RealOutput P(quantity="Power", unit="W") "Power"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Modelica.Blocks.Interfaces.BooleanInput On
-    "Set point temperature of the fluid that leaves port_b"
+    "Set to true to enable heater, or false to disable heater"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
-  Modelica.Blocks.Interfaces.RealInput TSet
+  Modelica.Blocks.Interfaces.RealInput TSet(unit="K",displayUnit="degC")
     "Set point temperature of the fluid that leaves port_b"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Logical.Switch swi "Swich for temperature setpoint"
@@ -54,6 +54,7 @@ protected
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
     final QMax_flow=QMax_flow)
+    "Heater with prescribed temperature"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
 
 equation
