@@ -1,6 +1,7 @@
 within Buildings.Utilities.Math.Functions.BaseClasses;
 function smoothTransition
   "Twice continuously differentiable transition between the regions"
+  extends Modelica.Icons.Function;
 
   // The function that transitions between the regions is implemented
   // using its own function. This allows Dymola 2016 to inline the function

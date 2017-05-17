@@ -2,8 +2,10 @@ within Buildings.Fluid.MassExchangers;
 model ConstantEffectiveness
   "Heat and moisture exchanger with constant effectiveness"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
-  redeclare replaceable package Medium1 = Modelica.Media.Interfaces.PartialCondensingGases,
-  redeclare replaceable package Medium2 = Modelica.Media.Interfaces.PartialCondensingGases,
+  redeclare replaceable package Medium1 =
+        Modelica.Media.Interfaces.PartialCondensingGases,
+  redeclare replaceable package Medium2 =
+        Modelica.Media.Interfaces.PartialCondensingGases,
   sensibleOnly1=false,
   sensibleOnly2=false,
   Q1_flow = epsS * QMax_flow + QLat_flow,
@@ -86,20 +88,10 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
-          extent={{-100,61},{-70,58}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-122,106},{-78,78}},
-          lineColor={0,0,255},
-          textString="u"),
-        Rectangle(
           extent={{-70,80},{70,-80}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={85,170,255},
+          fillColor={0,62,0},
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-62,50},{48,-10}},

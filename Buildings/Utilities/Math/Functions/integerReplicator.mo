@@ -1,5 +1,6 @@
 within Buildings.Utilities.Math.Functions;
 function integerReplicator "Replicates integer signals"
+  extends Modelica.Icons.Function;
   input Integer nout "Number of outputs";
   input Integer u "Integer input signal";
   output Integer y[nout] "Integer output signals";

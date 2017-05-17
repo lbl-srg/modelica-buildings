@@ -91,7 +91,7 @@ equation
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Rectangle(
-          extent={{-70,78},{70,-82}},
+          extent={{-70,78},{70,-80}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={95,95,95},

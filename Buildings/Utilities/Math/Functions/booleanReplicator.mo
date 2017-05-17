@@ -1,5 +1,6 @@
 within Buildings.Utilities.Math.Functions;
 function booleanReplicator "Replicates Boolean signals"
+  extends Modelica.Icons.Function;
   input Integer nout=1 "Number of outouts";
   input Boolean u "Boolean input signal";
   output Boolean y[nout] "Boolean output signals";

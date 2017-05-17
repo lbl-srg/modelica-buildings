@@ -15,6 +15,7 @@ PartialDuctPipeManifold
 PartialEffectiveness
 PartialHexElement
 PartialPipeManifold
+PartialPrescribedOutlet
 PipeManifoldFixedResistance
 PipeManifoldFlowDistributor
 PipeManifoldNoResistance

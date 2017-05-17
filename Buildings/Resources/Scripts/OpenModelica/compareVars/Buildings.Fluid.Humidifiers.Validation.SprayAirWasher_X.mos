@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "XSet.y[1]",
+    "senHum.X",
+    "hum.sta_a.T",
+    "hum.sta_b.T",
+    "hum.mWat_flow"
+  };

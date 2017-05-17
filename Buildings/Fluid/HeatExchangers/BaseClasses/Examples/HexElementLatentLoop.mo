@@ -61,11 +61,12 @@ public
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Modelica.Blocks.Sources.Constant TWat(k=273.15 + 5) "Water inlet temperature"
     annotation (Placement(transformation(extent={{-80,2},{-60,22}})));
-  Buildings.Fluid.HeatExchangers.HeaterCooler_T hea(
+  Buildings.Fluid.HeatExchangers.PrescribedOutlet hea(
     redeclare package Medium = Medium_A,
     m_flow_nominal=mA_flow_nominal,
     dp_nominal=0,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Heater"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_X_wSet=false)                                         "Heater"
     annotation (Placement(transformation(extent={{60,-82},{80,-62}})));
   Modelica.Blocks.Sources.Constant TAir(k=273.15 + 20) "Air inlet temperature"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
@@ -93,8 +94,8 @@ equation
     annotation (Line(points={{30,-72},{60,-72}}, color={0,127,255}));
   connect(hea.port_b, hex.port_a2) annotation (Line(points={{80,-72},{88,-72},{88,
           -4},{30,-4}}, color={0,127,255}));
-  connect(TAir.y, hea.TSet) annotation (Line(points={{41,-40},{48,-40},{48,-66},
-          {58,-66}}, color={0,0,127}));
+  connect(TAir.y, hea.TSet) annotation (Line(points={{41,-40},{48,-40},{48,-64},
+          {58,-64}}, color={0,0,127}));
   connect(TSur.y, TDewPoi.T)
     annotation (Line(points={{-59,70},{-41,70},{-41,70}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-6, StopTime=50),

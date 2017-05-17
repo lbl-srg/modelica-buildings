@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 #######################################################
 # Script that runs all unit tests or, optionally,
-# only checks the html syntax.
+# only checks the html syntax or the validity of
+# the simulation parameters of the models
 #
 # To run the unit tests, this script
 # - creates temporary directories for each processor,
@@ -24,7 +25,15 @@
 # non-zero exit value.
 #
 # MWetter@lbl.gov                            2011-02-23
+# TSNouidui@lbl.gov                          2017-04-11
 #######################################################
+
+
+def _validate_experiment_setup(path):
+    import buildingspy.development.validator as v
+
+    val = v.Validator()
+    retVal = val.validateExperimentSetup(path)
 
 def _validate_html(path):
     import buildingspy.development.validator as v
@@ -119,6 +128,9 @@ if __name__ == '__main__':
     html_group.add_argument("--validate-html-only",
                            action="store_true")
 
+    experiment_setup_group = parser.add_argument_group("arguments to check validity of .mos and .mo experiment setup only")
+    experiment_setup_group.add_argument("--validate-experiment-setup",
+                           action="store_true")
 
     # Set environment variables
     if platform.system() == "Windows":
@@ -145,6 +157,11 @@ if __name__ == '__main__':
     if args.validate_html_only:
         # Validate the html syntax only, and then exit
         ret_val = _validate_html(args.path)
+        exit(ret_val)
+
+    if args.validate_experiment_setup:
+        # Match the mos file parameters with the mo files only, and then exit
+        ret_val = _validate_experiment_setup(args.path)
         exit(ret_val)
 
     if args.single_package:

@@ -98,8 +98,8 @@ Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume</a>.
 For simple models that uses this model, see
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
 Buildings.Fluid.HeatExchangers.HeaterCooler_u</a> and
-<a href=\"modelica://Buildings.Fluid.MassExchangers.Humidifier_u\">
-Buildings.Fluid.MassExchangers.Humidifier_u</a>.
+<a href=\"modelica://Buildings.Fluid.Humidifiers.Humidifier_u\">
+Buildings.Fluid.Humidifiers.Humidifier_u</a>.
 </p>
 
 </html>", revisions="<html>
