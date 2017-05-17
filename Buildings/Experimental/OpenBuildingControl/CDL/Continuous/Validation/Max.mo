@@ -8,7 +8,7 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
     duration=1,
     offset=-2,
-    height=4)  "Block that generates ramp signal"
+    height=4) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,12},{-40,32}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
     duration=1,

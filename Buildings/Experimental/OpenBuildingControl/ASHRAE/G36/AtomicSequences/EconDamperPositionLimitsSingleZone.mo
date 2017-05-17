@@ -80,6 +80,14 @@ block EconDamperPositionLimitsSingleZone "Based on the design outdoor airflow ra
   CDL.Continuous.Line minOutDamForOutMinSet(limitBelow=true, limitAbove=true)
     "Outdoor air damper position, when fan operating at current speed to supply setpoint outdoor air flow"
     annotation (Placement(transformation(extent={{62,28},{82,48}})));
+  CDL.Interfaces.RealOutput yMinPosAtCurSpd(unit="1")
+    "Outdoor air damper position, when fan operating at current speed to supply minimum outdoor air flow."
+    annotation (Placement(transformation(extent={{180,50},{200,70}}),
+        iconTransformation(extent={{180,60},{200,80}})));
+  CDL.Interfaces.RealOutput yDesPosAtCurSpd(unit="1")
+    "Outdoor air damper position, when fan operating at current speed to supply design outdoor air flow."
+    annotation (Placement(transformation(extent={{180,-30},{200,-10}}),
+        iconTransformation(extent={{180,-40},{200,-20}})));
 equation
   connect(uAHUMod, outDamPosMin.u2)
     annotation (Line(points={{-200,-104},{112,-104}}, color={255,0,255}));
@@ -116,9 +124,13 @@ equation
   connect(minPosAtMaxSpd.y, minPosAtCurSpd.f2) annotation (Line(points={{-119,112},
           {-90,112},{-58,112},{-58,48},{-12,48}}, color={0,0,127}));
   connect(uSupFanSpd, minPosAtCurSpd.u)
-    annotation (Line(points={{-200,56},{-12,56},{-12,56}}, color={0,0,127}));
+    annotation (Line(points={{-200,56},{-12,56}},          color={0,0,127}));
   connect(uSupFanSpd, desPosAtCurSpd.u) annotation (Line(points={{-200,56},{-146,
           56},{-86,56},{-86,-18},{-12,-18}}, color={0,0,127}));
+  connect(minPosAtCurSpd.y, yMinPosAtCurSpd) annotation (Line(points={{11,56},{
+          86,56},{166,56},{166,60},{190,60}}, color={0,0,127}));
+  connect(desPosAtCurSpd.y, yDesPosAtCurSpd) annotation (Line(points={{11,-18},
+          {88,-18},{88,-16},{166,-16},{166,-20},{190,-20}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ecoMinOAPos",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,200}}),
@@ -223,7 +235,19 @@ equation
         Text(
           extent={{-148,244},{104,208}},
           lineColor={85,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{102,90},{172,50}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yMinPosAtCurSpd"),
+        Text(
+          extent={{102,-10},{172,-50}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yDesPosAtCurSpd")}),
     Diagram(coordinateSystem(                           extent={{-180,-180},{
             180,180}},
         initialScale=0.1)),
