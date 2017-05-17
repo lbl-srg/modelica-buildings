@@ -63,7 +63,7 @@ model ACACConverter "AC AC converter single phase systems (YY)"
     Documentation(info="<html>
 <p>
 This is an AC AC converter, based on a power balance between both circuit sides.
-The paramater <i>conversionFactor</i> defines the ratio between the RMS voltages
+The parameter <i>conversionFactor</i> defines the ratio between the RMS voltages
 </p>
 
 <p align=\"center\" style=\"font-style:italic;\">

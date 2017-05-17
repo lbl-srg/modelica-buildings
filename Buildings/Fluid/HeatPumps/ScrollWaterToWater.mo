@@ -30,7 +30,7 @@ in Jin (2002). The thermodynamic heat pump cycle is represented below.
 <img  alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatPumps/WaterToWater_Cycle.png\" border=\"1\"/>
 </p>
 <p>
-The rate of heat transfered to the evaporator is given by:
+The rate of heat transferred to the evaporator is given by:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q&#775;<sub>Eva</sub> = m&#775;<sub>ref</sub> ( h<sub>Vap</sub>(T<sub>Eva</sub>) - h<sub>Liq</sub>(T<sub>Con</sub>) ).
@@ -65,7 +65,7 @@ Buildings.Fluid.HeatPumps.Calibration.ScrollWaterToWater</a>.
 <h4>Assumptions and limitations</h4>
 <p>
 The compression process is assumed isentropic. The thermal energy
-of superheating is ignored in the evaluation of the heat transfered to the refrigerant
+of superheating is ignored in the evaluation of the heat transferred to the refrigerant
 in the evaporator. There is no supercooling.
 </p>
 <h4>References</h4>

@@ -101,18 +101,17 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
         origin={50,-60})));
 
 protected
-  Buildings.Fluid.HeatExchangers.HeaterCooler_T coo(
+  Buildings.Fluid.HeatExchangers.SensibleCooler_T coo(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=0,
-    final Q_flow_maxHeat=0,
     final allowFlowReversal=true,
     final show_T=false,
     final from_dp=from_dp,
     final linearizeFlowResistance=linearizeFlowResistance,
     final deltaM=deltaM,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    Q_flow_maxCool=if disableHeatExchanger then 0 else -Modelica.Constants.inf)
+    QMin_flow=if disableHeatExchanger then 0 else -Modelica.Constants.inf)
     "Heat exchanger effect for mode in which water is cooled"
     annotation (Placement(transformation(extent={{10,50},{-10,70}})));
   Modelica.Blocks.Sources.RealExpression TWarIn(y=
@@ -123,7 +122,7 @@ protected
               {1-sum(inStream(port_b1.Xi_outflow))})))
         "Warm water inlet temperature"
     annotation (Placement(transformation(extent={{-40,156},{-20,176}})));
-  Buildings.Fluid.HeatExchangers.HeaterCooler_T hea(
+  Buildings.Fluid.HeatExchangers.Heater_T hea(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=0,
@@ -133,8 +132,7 @@ protected
     final linearizeFlowResistance=linearizeFlowResistance,
     final deltaM=deltaM,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    Q_flow_maxCool=0,
-    Q_flow_maxHeat=if disableHeatExchanger then 0 else Modelica.Constants.inf)
+    QMax_flow=if disableHeatExchanger then 0 else Modelica.Constants.inf)
     "Heat exchanger effect for mode in which water is heated"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
   Modelica.Blocks.Sources.RealExpression TColIn(y=
@@ -187,14 +185,14 @@ equation
     annotation (Line(points={{29,114},{42,114},{42,120},{42,124},{50,124}},
                                                           color={0,0,127}));
   connect(minHeaLvg.y, hea.TSet) annotation (Line(points={{73,130},{86,130},{86,
-          -34},{12,-34}}, color={0,0,127}));
+          -32},{12,-32}}, color={0,0,127}));
   connect(TWarIn.y, minCooLvg.u1) annotation (Line(points={{-19,166},{-19,166},{
           6,166}},       color={0,0,127}));
   connect(minCooLvg.y, maxCooLea.u2)
     annotation (Line(points={{29,160},{29,160},{50,160}},
                                                 color={0,0,127}));
   connect(maxCooLea.y, coo.TSet) annotation (Line(points={{73,166},{80,166},{80,
-          80},{20,80},{20,66},{12,66}},
+          80},{20,80},{20,68},{12,68}},
                     color={0,0,127}));
   connect(TAppHex.y, TWatHea.u2)
     annotation (Line(points={{-59,190},{-40,190},{-40,194},{38,194}},
@@ -207,9 +205,9 @@ equation
   connect(TWatHea.y, maxHeaLea.u1) annotation (Line(points={{61,200},{68,200},{68,
           186},{-6,186},{-6,120},{6,120}},
                          color={0,0,127}));
-  connect(coo.Q_flow, QExc_flow.u1) annotation (Line(points={{-11,66},{-16,66},{
-          -16,6},{18,6}}, color={0,0,127}));
-  connect(hea.Q_flow, QExc_flow.u2) annotation (Line(points={{-11,-34},{-11,-34},
+  connect(coo.Q_flow, QExc_flow.u1) annotation (Line(points={{-11,68},{-16,68},
+          {-16,6},{18,6}},color={0,0,127}));
+  connect(hea.Q_flow, QExc_flow.u2) annotation (Line(points={{-11,-32},{-11,-34},
           {-14,-34},{-14,-6},{18,-6}}, color={0,0,127}));
   connect(QExc_flow.y, QWat_flow) annotation (Line(points={{41,0},{66,0},{90,0},
           {90,120},{110,120}}, color={0,0,127}));

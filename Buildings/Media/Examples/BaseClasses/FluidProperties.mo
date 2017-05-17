@@ -53,6 +53,7 @@ protected
   constant Real conv(unit="1/s") = 1 "Conversion factor to satisfy unit check";
 
   function checkState
+    extends Modelica.Icons.Function;
     input Medium.ThermodynamicState state1 "Medium state";
     input Medium.ThermodynamicState state2 "Medium state";
     input String message "Message for error reporting";

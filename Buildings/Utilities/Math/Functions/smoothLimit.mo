@@ -1,6 +1,7 @@
 within Buildings.Utilities.Math.Functions;
 function smoothLimit
   "Once continuously differentiable approximation to the limit function"
+  extends Modelica.Icons.Function;
   input Real x "Variable";
   input Real l "Low limit";
   input Real u "Upper limit";

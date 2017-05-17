@@ -1,5 +1,6 @@
 within Buildings.Utilities.Math.Functions;
 function spliceFunction
+  extends Modelica.Icons.Function;
     input Real pos "Argument of x > 0";
     input Real neg "Argument of x < 0";
     input Real x "Independent value";

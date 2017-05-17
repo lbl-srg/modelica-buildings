@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "con1.u_s",
+    "con1.u_m",
+    "con2.u_m",
+    "con1.y",
+    "con2.y"
+  };

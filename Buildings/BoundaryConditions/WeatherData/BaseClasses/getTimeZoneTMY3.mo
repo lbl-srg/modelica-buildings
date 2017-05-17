@@ -1,5 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 function getTimeZoneTMY3 "Gets the time zone from a TMY3 weather data file"
+  extends Modelica.Icons.Function;
  input String filNam "Name of weather data file"
  annotation (Dialog(
         loadSelector(filter="Weather files (*.mos)", caption=

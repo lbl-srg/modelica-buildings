@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "TSet.y",
+    "TOut.y",
+    "TVol.T",
+    "THeaOut.T",
+    "coo.TSet",
+    "coo.Q_flow"
+  };

@@ -1,5 +1,6 @@
 within Buildings.Utilities.Math.Functions;
 function trapezoidalIntegration "Integration using the trapezoidal rule"
+  extends Modelica.Icons.Function;
   input Integer N "Number of integrand points";
   input Real[:] f "Integrands";
   input Real deltaX "Width of interval for Trapezoidal integration";

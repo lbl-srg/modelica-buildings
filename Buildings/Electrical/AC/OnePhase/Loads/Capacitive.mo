@@ -180,7 +180,7 @@ i<sub>2</sub> = (P V<sub>2</sub> - Q V<sub>1</sub>)/V<sub>RMS</sub><sup>2</sup>,
 <p>
 where <i>V<sub>RMS</sub></i> is the Root Mean Square voltage os the AC system.
 Even though this linearized version of the load model introduces an approximation
-error in the current, it satisfies the contraints related to the ratio of the
+error in the current, it satisfies the constraints related to the ratio of the
 active and reactive powers.
 </p>
 
