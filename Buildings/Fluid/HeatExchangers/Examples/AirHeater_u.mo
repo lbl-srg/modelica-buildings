@@ -44,6 +44,13 @@ for a model that takes the leaving air temperature as an input.
 </html>", revisions="<html>
 <ul>
 <li>
+May 8, 2017, by Michael Wetter:<br/>
+Updated heater model.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">
+Buildings, #763</a>.
+</li>
+<li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised implementation.
 </li>
@@ -59,5 +66,6 @@ First implementation.
       StopTime=172800,
       Tolerance=1e-6),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+            120,100}})),
+    Icon(coordinateSystem(extent={{-100,-100},{120,100}})));
 end AirHeater_u;

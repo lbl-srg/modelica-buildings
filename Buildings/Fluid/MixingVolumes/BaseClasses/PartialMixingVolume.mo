@@ -9,7 +9,7 @@ partial model PartialMixingVolume
 
   // We set prescribedHeatFlowRate=false so that the
   // volume works without the user having to set this advanced parameter,
-  // but to get high robustness, a user can set it to the approriate value
+  // but to get high robustness, a user can set it to the appropriate value
   // as described in the info section.
   constant Boolean prescribedHeatFlowRate = false
     "Set to true if the model has a prescribed heat flow at its heatPort. If the heat flow rate at the heatPort is only based on temperature difference, then set to false";

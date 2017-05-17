@@ -11,7 +11,7 @@ model OffTimer "Records the time since the input changed to false"
 protected
   discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
 initial equation
-  pre(entryTime) = 0;
+  pre(entryTime) = time;
 equation
   when (not u) then
     entryTime = time;
@@ -38,13 +38,23 @@ equation
 defaultComponentName="offTim",
     Documentation(info="<html>
 <p>
-Block that records the time that has elapsed since its input signal switched to false.
+Timer that starts at the initial time with a value of <i>0</i>,
+and gets reset each time the input signal switches to <code>false</code>.
 </p>
 <p>
-At the beginning of the simulation, this block outputs the time that has elapsed since the start of the simulation. Afterwards, whenever its input switches to false, the timer is reset.
+For example, if the simulation starts at <i>t = 10</i> and at <i>t=11</i>,
+the input becomes <code>false</code>, then the timer outputs
+<i>y=t-10</i> for <i>t &lt; 11</i>, and <i>y=t-11</i> afterwards, unless
+the input becomes false again.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 12, 2017, by Michael Wetter:<br/>
+Corrected implementation for non-zero start time.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/780\">issue 780</a>.
+</li>
 <li>
 January 4, 2011, by Wangda Zuo and Michael Wetter:<br/>
 Revised implementation.

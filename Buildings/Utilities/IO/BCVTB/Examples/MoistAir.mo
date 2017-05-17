@@ -36,14 +36,13 @@ model MoistAir
     use_m_flow_in=false,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{204,-4},{224,16}})));
-  Buildings.Fluid.MassExchangers.Humidifier_u hum(
+  Buildings.Fluid.Humidifiers.Humidifier_u hum(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=200,
     redeclare package Medium = Medium,
     mWat_flow_nominal=0.01*m_flow_nominal,
     from_dp=false,
-    allowFlowReversal=false,
-    use_T_in=false) "Humidifier"
+    allowFlowReversal=false) "Humidifier"
     annotation (Placement(transformation(extent={{240,62},{260,82}})));
   Buildings.Fluid.HeatExchangers.HeaterCooler_u hex(
     m_flow_nominal=m_flow_nominal,
@@ -153,7 +152,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(PIDHum.y, hum.u)  annotation (Line(
-      points={{241,160},{260,160},{260,110},{226,110},{226,78},{238,78}},
+      points={{241,160},{260,160},{260,110},{226,110},{226,78},{239,78}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bcvtb.yR, deMultiplex2_1.u) annotation (Line(
@@ -224,7 +223,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(yFan.y, fan.y) annotation (Line(
-      points={{141,110},{150,110},{150,84}},
+      points={{141,110},{149.8,110},{149.8,84}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(occSch.occupied, switch1.u2) annotation (Line(
