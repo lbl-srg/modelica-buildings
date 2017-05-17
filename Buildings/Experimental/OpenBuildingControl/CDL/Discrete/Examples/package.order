@@ -7,3 +7,4 @@ TriggeredMax
 TriggeredSampler
 UnitDelay
 ZeroOrderHold
+ZeroOrderOnHold
