@@ -43,8 +43,7 @@ equation
           38,-5}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Air/BaseClasses/Examples/ReheatControl.mos"
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/Air/BaseClasses/Example/ReheatControl.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>This example tests the reheater controller with two varing input error signals.</p>
