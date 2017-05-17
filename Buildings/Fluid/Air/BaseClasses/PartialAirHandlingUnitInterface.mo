@@ -17,7 +17,9 @@ partial model PartialAirHandlingUnitInterface "Partial model for air handling un
 <p>This component describes a base interface for the air handling unit. It contains the performance data and fuild ports. </p>
 </html>", revisions="<html>
 <ul>
-<li>May 12, 2017 by Yangyang Fu:<br>First implementation. </li>
+<li>May 12, 2017 by Yangyang Fu:<br/>
+First implementation. 
+</li>
 </ul>
 </html>"));
 end PartialAirHandlingUnitInterface;
