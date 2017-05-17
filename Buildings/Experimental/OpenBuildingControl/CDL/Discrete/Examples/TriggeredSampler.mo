@@ -1,11 +1,8 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Discrete.Examples;
 model TriggeredSampler "Example model for the TriggeredSampler block"
+  import Buildings;
   extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Discrete.TriggeredSampler triggeredSampler(
-    samplePeriod = 0.2)
-    "Output the triggered sampled value of a continuous signal"
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
     duration=1,
     offset=0,
@@ -19,14 +16,17 @@ model TriggeredSampler "Example model for the TriggeredSampler block"
     width = 0.5,
     period = 0.2)
     "Block that outputs cyclic on and off"
-    annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Discrete.TriggeredSampler
+    triggeredSampler
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
-  connect(booPul.y, triggeredSampler.trigger) annotation (Line(points={{11,-38},{26,
-          -38},{26,-11.8},{40,-11.8}}, color={255,0,255}));
   connect(ramp1.y, sin1.u)
     annotation (Line(points={{-39,0},{-12,0},{-12,0}}, color={0,0,127}));
   connect(sin1.y, triggeredSampler.u)
-    annotation (Line(points={{11,0},{19.5,0},{28,0}}, color={0,0,127}));
+    annotation (Line(points={{11,0},{38,0}}, color={0,0,127}));
+  connect(booPul.y, triggeredSampler.trigger) annotation (Line(points={{11,-40},
+          {50,-40},{50,-12},{50,-11.8}}, color={255,0,255}));
   annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Discrete/Examples/TriggeredSampler.mos"
