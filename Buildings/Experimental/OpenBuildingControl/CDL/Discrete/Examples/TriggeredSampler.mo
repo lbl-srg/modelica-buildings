@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Discrete.Examples;
 model TriggeredSampler "Example model for the TriggeredSampler block"
-  import Buildings;
+
   extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
