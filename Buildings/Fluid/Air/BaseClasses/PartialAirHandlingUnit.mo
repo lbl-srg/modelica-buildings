@@ -104,12 +104,12 @@ partial model PartialAirHandlingUnit "Partial AHU model "
    "Continuous input signal for the fan"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-120,-40},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealOutput PFan(unit="W",displayUnit="W")
+  Modelica.Blocks.Interfaces.RealOutput PFan(quantity="Power",unit="W")
     "Electrical power consumed by the fan" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,-110})));
-  Modelica.Blocks.Interfaces.RealOutput y_valve( min=0,max=1,unit="1")
+  Modelica.Blocks.Interfaces.RealOutput y_valve(min=0,max=1,unit="1")
     "Actual valve position"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
       iconTransformation(extent={{100,30},{120,50}})));
@@ -228,7 +228,9 @@ equation
 <p>The valve and fan are partial models, and should be redeclared when used in the air handling unit model.</p>
 </html>", revisions="<html>
 <ul>
-<li>May 12, 2017 by Yangyang Fu:<br>First implementation. </li>
+<li>May 12, 2017 by Yangyang Fu:<br/>
+First implementation. 
+</li>
 </ul>
 </html>"));
 end PartialAirHandlingUnit;
