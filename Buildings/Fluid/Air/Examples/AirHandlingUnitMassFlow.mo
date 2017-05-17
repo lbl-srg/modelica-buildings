@@ -64,7 +64,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})),
 experiment(StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Air/Example/AirHandlingUnitMassFlow.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Air/Examples/AirHandlingUnitMassFlow.mos"
         "Simulate and PLot"),
 Documentation(info="<html>
 <p>

@@ -35,7 +35,8 @@ equation
           -37},{-22,-37}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Air/BaseClasses/Example/ElectricHeater.mos"
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Air/BaseClasses/Examples/ElectricHeater.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 This model test the electric heater model: <a href=\"modelica://Buildings.Fluid.Air.BaseClasses.ElectricHeater\">
