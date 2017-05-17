@@ -1,5 +1,6 @@
 within Buildings.Experimental.ScalableModels.ScalableDemo;
 model MultizoneWithVAV
+  import Buildings;
   extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air(T_default=293.15);
@@ -228,6 +229,9 @@ model MultizoneWithVAV
   Schedules.CoolSetpoint                                       TSetCoo1
                                                                        "Cooling setpoint"
     annotation (Placement(transformation(extent={{-120,20},{-112,28}})));
+  Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
+    "Occupancy schedule"
+    annotation (Placement(transformation(extent={{-120,0},{-112,8}})));
 equation
   connect(eco.port_Sup, TMix.port_a) annotation (Line(points={{-232,26},{-220,26},
           {-220,-30},{-208,-30}}, color={0,127,255},
@@ -447,6 +451,20 @@ equation
       extent={{6,3},{6,3}}));
   connect(TSetCoo1.y[1], controlBus.TRooSetCoo) annotation (Line(
       points={{-111.6,24},{-92,24},{-92,54},{-68,54}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(occSch.tNexOcc, controlBus.dTNexOcc) annotation (Line(
+      points={{-111.6,6.4},{-88,6.4},{-88,54},{-68,54}},
+      color={255,204,57},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(occSch.occupied, controlBus.occupied) annotation (Line(
+      points={{-111.6,1.6},{-88,1.6},{-88,54},{-68,54}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
