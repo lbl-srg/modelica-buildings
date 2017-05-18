@@ -7,18 +7,21 @@ block TriggeredSampler "Triggered sampling of continuous signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.RealOutput y "Connector with a Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Interfaces.BooleanInput trigger annotation (Placement(
+  Interfaces.BooleanInput trigger "Signal that triggers the sampler"
+    annotation (Placement(
         transformation(
         origin={0,-118},
         extent={{-20,-20},{20,20}},
         rotation=90)));
+initial equation
+  y = y_start;
 equation
   when trigger then
     y = u;
   end when;
-initial equation
-  y = y_start;
+
   annotation (
+    defaultComponentName="triSam",
     Icon(
       coordinateSystem(preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),
@@ -70,5 +73,18 @@ signal is rising (i.e., trigger changes from <b>false</b> to
 Before the first sampling, the output signal is equal to
 the initial value defined via parameter <b>y0</b>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 17, 2017, by Milica Grahovac:<br/>
+First revision, based on the implementation of the
+Modelica Standard Library.
+</li>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end TriggeredSampler;
