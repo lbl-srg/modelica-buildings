@@ -1,5 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Discrete;
 block TriggeredSampler "Triggered sampling of continuous signals"
+<<<<<<< HEAD
   //extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real y_start=0 "initial value of output signal";
 
@@ -10,10 +11,26 @@ block TriggeredSampler "Triggered sampling of continuous signals"
     "Connector with a Real output signal"                annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.BooleanInput trigger annotation (Placement(
+=======
+
+  parameter Real y_start=0 "initial value of output signal";
+
+  Interfaces.RealInput u "Connector with a Real input signal"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Interfaces.RealOutput y "Connector with a Real output signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Interfaces.BooleanInput trigger "Signal that triggers the sampler"
+    annotation (Placement(
+>>>>>>> origin/issue762_sampler_fix
         transformation(
         origin={0,-118},
         extent={{-20,-20},{20,20}},
         rotation=90)));
+<<<<<<< HEAD
+=======
+initial equation
+  y = y_start;
+>>>>>>> origin/issue762_sampler_fix
 equation
   when trigger then
     y = u;
@@ -72,5 +89,21 @@ signal is rising (i.e., trigger changes from <b>false</b> to
 Before the first sampling, the output signal is equal to
 the initial value defined via parameter <b>y0</b>.
 </p>
+<<<<<<< HEAD
+=======
+</html>", revisions="<html>
+<ul>
+<li>
+May 17, 2017, by Milica Grahovac:<br/>
+First revision, based on the implementation of the
+Modelica Standard Library.
+</li>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
+>>>>>>> origin/issue762_sampler_fix
 </html>"));
 end TriggeredSampler;
