@@ -1,6 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Discrete.Examples;
 model TriggeredSampler "Example model for the TriggeredSampler block"
-
   extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
@@ -18,11 +17,11 @@ model TriggeredSampler "Example model for the TriggeredSampler block"
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Discrete.TriggeredSampler
-    triggeredSampler
+    triggeredSampler "Triggered sampler"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
   connect(ramp1.y, sin1.u)
-    annotation (Line(points={{-39,0},{-12,0},{-12,0}}, color={0,0,127}));
+    annotation (Line(points={{-39,0},{-12,0}},         color={0,0,127}));
   connect(sin1.y, triggeredSampler.u)
     annotation (Line(points={{11,0},{38,0}}, color={0,0,127}));
   connect(booPul.y, triggeredSampler.trigger) annotation (Line(points={{11,-40},

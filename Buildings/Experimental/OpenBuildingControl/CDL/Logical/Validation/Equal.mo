@@ -14,6 +14,7 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Equal equal1
+    "Outputs true if both inputs are equal"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp3(
@@ -23,6 +24,7 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
   Modelica.Blocks.Discrete.TriggeredSampler triggeredSampler
+    "Triggered sampler"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 equation
   connect(ramp1.y, equal1.u1)
@@ -32,9 +34,9 @@ equation
           -8},{-2,-8}},
                     color={0,0,127}));
   connect(ramp3.y, triggeredSampler.u)
-    annotation (Line(points={{21,50},{38,50},{38,50}}, color={0,0,127}));
+    annotation (Line(points={{21,50},{38,50}},         color={0,0,127}));
   connect(equal1.y, triggeredSampler.trigger) annotation (Line(points={{21,0},{
-          36,0},{36,38.2},{50,38.2}}, color={255,0,255}));
+          50,0},{50,38.2}},           color={255,0,255}));
   annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Logical/Validation/Equal.mos"
