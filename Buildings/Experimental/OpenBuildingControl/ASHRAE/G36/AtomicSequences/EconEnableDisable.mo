@@ -5,71 +5,57 @@ block EconEnableDisable "Economizer enable/disable switch"
   parameter Real uHigLimCutHig(min=273.15, max=273.15+76.85, unit="K", displayUnit="degC") = (273.15+23.85) "An example high limit cutoff, 75degF (23.85degC)";
 
   CDL.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
-    "Outdoor temperature" annotation (Placement(transformation(extent={{-140,
-            120},{-100,160}}), iconTransformation(extent={{-140,120},{-100,160}})));
+    "Outdoor temperature" annotation (Placement(transformation(extent={{-180,
+            120},{-140,160}}), iconTransformation(extent={{-180,120},{-140,160}})));
   CDL.Interfaces.RealOutput yOutDamPosMax(min=0, max=1)
     "Output sets maximum allowable economizer damper position. Fixme: Should this remain as type real? Output can take two values: disable = yOutDamPosMin and enable = yOutDamPosMax."
-    annotation (Placement(transformation(extent={{100,40},{138,78}}),
-        iconTransformation(extent={{100,40},{138,78}})));
+    annotation (Placement(transformation(extent={{140,-20},{178,18}}),
+        iconTransformation(extent={{140,-20},{178,18}})));
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1)
     "Minimal economizer damper position, output from a separate sequence."
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-180,-120},{-140,-80}}),
+        iconTransformation(extent={{-180,-120},{-140,-80}})));
   CDL.Interfaces.RealInput uOutDamPosMax(min=0, max=1)
     "Maximum economizer damper position, either 100% or set to a constant value <100% at commisioning."
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-180,-160},{-140,-120}}),
+        iconTransformation(extent={{-180,-160},{-140,-120}})));
   CDL.Logical.Switch assignDamPos
     "If any of the conditions provided by TOut and FreezeProtectionStatus inputs are violating the enable status, the max outdoor damper position is set to the minimum."
-    annotation (Placement(transformation(extent={{62,10},{82,30}})));
+    annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
   CDL.Logical.Hysteresis hysTOut(final uLow=uHigLimCutLow, uHigh=uHigLimCutHig)
     "Close damper when TOut is above the uHigh, open it again only when TOut falls down to uLow [fixme this needs to allow for regional dissagregation - sometimes there is a need for enthalpy evaluation as well]"
-    annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
+    annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
   //fixme: units for instantiated limits, example TOut limit is 75K, delta = 1K
-  CDL.Interfaces.StatusTypeInput uFreezeProtectionStatus
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}})));
-  CDL.Logical.EqualStatus compareFreProSig
-    "If the signal is other than Stage 0, disable the economizer"
-    annotation (Placement(transformation(extent={{-52,90},{-32,110}})));
-  CDL.Continuous.ConstantStatus freezeProtectionStage0(final refSta=CDL.Types.Status.FreezeProtectionStage0)
-    "Reference freeze protection stage. If the input value is different from stage 0, the outdoor air damper should close."
-    annotation (Placement(transformation(extent={{-94,64},{-74,84}})));
   CDL.Logical.Or or2
-    annotation (Placement(transformation(extent={{26,70},{46,90}})));
+    annotation (Placement(transformation(extent={{20,80},{40,100}})));
   CDL.Logical.Not not2
-    annotation (Placement(transformation(extent={{-18,90},{2,110}})));
+    annotation (Placement(transformation(extent={{-22,-10},{-2,10}})));
 
+  CDL.Interfaces.IntegerInput uFreProSta
+    "Freeze Protection Status signal, it can be an integer 0 - 3"
+    annotation (Placement(transformation(extent={{-128,28},{-88,68}})));
 equation
-  connect(TOut, hysTOut.u) annotation (Line(points={{-120,140},{-114,140},{-62,
+  connect(TOut, hysTOut.u) annotation (Line(points={{-160,140},{-160,140},{-102,
           140}}, color={0,0,127}));
-  connect(assignDamPos.y, yOutDamPosMax) annotation (Line(points={{83,20},{83,
-          20},{90,20},{90,60},{106,60},{106,59},{119,59}},
-                                                       color={0,0,127}));
-  connect(uOutDamPosMax, assignDamPos.u3) annotation (Line(points={{-120,0},{
-          -30,0},{-30,12},{60,12}},
+  connect(uOutDamPosMax, assignDamPos.u3) annotation (Line(points={{-160,-140},
+          {-30,-140},{-30,-118},{78,-118}},
                               color={0,0,127}));
-  connect(uOutDamPosMin, assignDamPos.u1) annotation (Line(points={{-120,40},{
-          -30,40},{-30,28},{60,28}},
+  connect(uOutDamPosMin, assignDamPos.u1) annotation (Line(points={{-160,-100},
+          {-30,-100},{-30,-102},{78,-102}},
                                  color={0,0,127}));
-  connect(uFreezeProtectionStatus, compareFreProSig.uFreProSta) annotation (
-      Line(points={{-120,100},{-120,100},{-54,100}},color={255,85,85}));
-  connect(compareFreProSig.y, not2.u) annotation (Line(points={{-31,100},{-20,
-          100}},     color={255,0,255}));
-  connect(not2.y, or2.u2) annotation (Line(points={{3,100},{8,100},{10,100},{10,
-          72},{24,72}},
-                color={255,0,255}));
-  connect(hysTOut.y, or2.u1) annotation (Line(points={{-39,140},{16,140},{16,80},
-          {24,80}},                 color={255,0,255}));
-  connect(or2.y, assignDamPos.u2) annotation (Line(points={{47,80},{50,80},{52,
-          80},{52,20},{60,20}},
+  connect(hysTOut.y, or2.u1) annotation (Line(points={{-79,140},{16,140},{16,90},
+          {18,90}},                 color={255,0,255}));
+  connect(or2.y, assignDamPos.u2) annotation (Line(points={{41,90},{60,90},{60,
+          -110},{78,-110}},
                     color={255,0,255}));
-  connect(freezeProtectionStage0.yFreProSta, compareFreProSig.uFreProStaRef)
-    annotation (Line(points={{-73,74},{-62,74},{-62,92},{-54,92}}, color={255,
-          85,85}));
+  connect(assignDamPos.y, yOutDamPosMax) annotation (Line(points={{101,-110},{
+          122,-110},{122,-1},{159,-1}}, color={0,0,127}));
+  connect(not2.y, or2.u2)
+    annotation (Line(points={{-1,0},{8,0},{8,82},{18,82}}, color={255,0,255}));
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-100,-20},{100,160}},
+        extent={{-140,-160},{140,160}},
         initialScale=0.1), graphics={
         Rectangle(
           extent={{-100,-40},{100,160}},
@@ -123,7 +109,7 @@ equation
           textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-100,-20},{100,160}},
+        extent={{-140,-160},{140,160}},
         initialScale=0.1)),
     Documentation(info="<html>      
              <p>

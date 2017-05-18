@@ -2,9 +2,7 @@ DayType
 FirstOrderHold
 FreezeProtectionStage
 Sampler
-StatusType
 TriggeredMax
-TriggeredSampler
 UnitDelay
 ZeroOrderHold
-ZeroOrderOnHold
+?

@@ -4,7 +4,6 @@ Change
 Constant
 Edge
 Equal
-EqualStatus
 FallingEdge
 Greater
 GreaterEqual
