@@ -40,17 +40,17 @@ block EconDamperPositionLimitsSingleZone "Based on the design outdoor airflow ra
     annotation (Placement(transformation(extent={{-140,-18},{-120,2}})));
   CDL.Interfaces.BooleanInput uAHUMod
     "AHU Mode, fixme: see pg. 103 in G36 for the full list of modes, here we use true = \"occupied\""
-    annotation (Placement(transformation(extent={{-220,-124},{-180,-84}})));
+    annotation (Placement(transformation(extent={{-220,-120},{-180,-80}})));
   CDL.Interfaces.RealOutput yOutDamPosMin(unit="1")
     "Minimum economizer damper position limit." annotation (Placement(
         transformation(extent={{180,10},{200,30}}),  iconTransformation(extent={{180,10},
             {200,30}})));
-  CDL.Continuous.Constant zeroDamInUnocc(k=0)
+  CDL.Continuous.Constant outDamPhyPosMinSig(k=0)
     "If the minimum outdoor airflow setpoint becomes zero (when the zone is in other than occupied mode), the outdoor damper shall be zero."
-    annotation (Placement(transformation(extent={{-140,-136},{-120,-116}})));
+    annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
   CDL.Logical.Switch outDamPosMin
     "If zone is in other than occupied mode, uVOutMinSet shall be zero, so that the yOutDamPosMin shall be zero"
-    annotation (Placement(transformation(extent={{114,-114},{134,-94}})));
+    annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
 
   CDL.Continuous.Constant maxFanSpd(k=maxFanSpe) "Maximum supply fan speed"
     annotation (Placement(transformation(extent={{-140,18},{-120,38}})));
@@ -70,51 +70,51 @@ block EconDamperPositionLimitsSingleZone "Based on the design outdoor airflow ra
   CDL.Continuous.Constant minOA(k=minOutAir) "Minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-10,88},{10,108}})));
   CDL.Continuous.Constant desOA(k=desOutAir) "Design outdoor airflow rate"
-    annotation (Placement(transformation(extent={{-10,12},{10,32}})));
+    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   CDL.Continuous.Line minPosAtCurSpd(limitBelow=true, limitAbove=true)
     "Outdoor air damper position, when fan operating at current speed to supply minimum outdoor air flow"
     annotation (Placement(transformation(extent={{-10,46},{10,66}})));
   CDL.Continuous.Line desPosAtCurSpd(limitBelow=true, limitAbove=true)
     "Outdoor air damper position, when fan operating at current speed to supply design outdoor air flow"
-    annotation (Placement(transformation(extent={{-10,-28},{10,-8}})));
+    annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   CDL.Continuous.Line minOutDamForOutMinSet(limitBelow=true, limitAbove=true)
     "Outdoor air damper position, when fan operating at current speed to supply setpoint outdoor air flow"
-    annotation (Placement(transformation(extent={{62,28},{82,48}})));
-  CDL.Interfaces.RealOutput yMinPosAtCurSpd(unit="1")
-    "Outdoor air damper position, when fan operating at current speed to supply minimum outdoor air flow."
-    annotation (Placement(transformation(extent={{180,50},{200,70}}),
-        iconTransformation(extent={{180,60},{200,80}})));
-  CDL.Interfaces.RealOutput yDesPosAtCurSpd(unit="1")
-    "Outdoor air damper position, when fan operating at current speed to supply design outdoor air flow."
-    annotation (Placement(transformation(extent={{180,-30},{200,-10}}),
-        iconTransformation(extent={{180,-40},{200,-20}})));
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
 equation
   connect(uAHUMod, outDamPosMin.u2)
-    annotation (Line(points={{-200,-104},{112,-104}}, color={255,0,255}));
-  connect(zeroDamInUnocc.y, outDamPosMin.u3) annotation (Line(points={{-119,-126},
-          {-76,-126},{-76,-112},{112,-112}}, color={0,0,127}));
-  connect(minOA.y, minOutDamForOutMinSet.x1) annotation (Line(points={{11,98},{26,
-          98},{26,46},{60,46}}, color={0,0,127}));
-  connect(desOA.y, minOutDamForOutMinSet.x2) annotation (Line(points={{11,22},{26,
-          22},{26,34},{60,34}}, color={0,0,127}));
-  connect(minPosAtCurSpd.y, minOutDamForOutMinSet.f1) annotation (Line(points={{
-          11,56},{22,56},{34,56},{34,42},{60,42}}, color={0,0,127}));
-  connect(desPosAtCurSpd.y, minOutDamForOutMinSet.f2) annotation (Line(points={{
-          11,-18},{34,-18},{34,30},{60,30}}, color={0,0,127}));
-  connect(uVOutMinSet, minOutDamForOutMinSet.u) annotation (Line(points={{-200,138},
-          {-86,138},{30,138},{30,38},{60,38}}, color={0,0,127}));
-  connect(minOutDamForOutMinSet.y, outDamPosMin.u1) annotation (Line(points={{83,
-          38},{88,38},{88,-96},{112,-96}}, color={0,0,127}));
-  connect(outDamPosMin.y, yOutDamPosMin) annotation (Line(points={{135,-104},{148,
-          -104},{148,20},{190,20}}, color={0,0,127}));
-  connect(minFanSpd.y, desPosAtCurSpd.x1) annotation (Line(points={{-119,-8},{-66,
-          -8},{-66,-10},{-12,-10}}, color={0,0,127}));
-  connect(desPosAtMinSpd.y, desPosAtCurSpd.f1) annotation (Line(points={{-119,-80},
-          {-66,-80},{-66,-14},{-12,-14}}, color={0,0,127}));
-  connect(maxFanSpd.y, desPosAtCurSpd.x2) annotation (Line(points={{-119,28},{-98,
-          28},{-74,28},{-74,-22},{-12,-22}}, color={0,0,127}));
-  connect(desPosAtMaxSpd.y, desPosAtCurSpd.f2) annotation (Line(points={{-119,-44},
-          {-102,-44},{-74,-44},{-74,-26},{-12,-26}}, color={0,0,127}));
+    annotation (Line(points={{-200,-100},{118,-100}}, color={255,0,255}));
+  connect(outDamPhyPosMinSig.y, outDamPosMin.u3) annotation (Line(points={{-119,
+          -130},{-76,-130},{-76,-108},{118,-108}}, color={0,0,127}));
+  connect(minOA.y, minOutDamForOutMinSet.x1) annotation (Line(points={{11,98},{
+          26,98},{26,48},{58,48}},
+                                color={0,0,127}));
+  connect(desOA.y, minOutDamForOutMinSet.x2) annotation (Line(points={{11,20},{
+          26,20},{26,36},{58,36}},
+                                color={0,0,127}));
+  connect(minPosAtCurSpd.y, minOutDamForOutMinSet.f1) annotation (Line(points={{11,56},
+          {22,56},{34,56},{34,44},{58,44}},        color={0,0,127}));
+  connect(desPosAtCurSpd.y, minOutDamForOutMinSet.f2) annotation (Line(points={{11,-20},
+          {34,-20},{34,32},{58,32}},         color={0,0,127}));
+  connect(uVOutMinSet, minOutDamForOutMinSet.u) annotation (Line(points={{-200,
+          138},{-86,138},{30,138},{30,40},{58,40}},
+                                               color={0,0,127}));
+  connect(minOutDamForOutMinSet.y, outDamPosMin.u1) annotation (Line(points={{81,40},
+          {88,40},{88,-92},{118,-92}},     color={0,0,127}));
+  connect(outDamPosMin.y, yOutDamPosMin) annotation (Line(points={{141,-100},{
+          148,-100},{148,20},{190,20}},
+                                    color={0,0,127}));
+  connect(minFanSpd.y, desPosAtCurSpd.x1) annotation (Line(points={{-119,-8},{
+          -66,-8},{-66,-12},{-12,-12}},
+                                    color={0,0,127}));
+  connect(desPosAtMinSpd.y, desPosAtCurSpd.f1) annotation (Line(points={{-119,
+          -80},{-66,-80},{-66,-16},{-12,-16}},
+                                          color={0,0,127}));
+  connect(maxFanSpd.y, desPosAtCurSpd.x2) annotation (Line(points={{-119,28},{
+          -98,28},{-74,28},{-74,-24},{-12,-24}},
+                                             color={0,0,127}));
+  connect(desPosAtMaxSpd.y, desPosAtCurSpd.f2) annotation (Line(points={{-119,
+          -44},{-102,-44},{-74,-44},{-74,-28},{-12,-28}},
+                                                     color={0,0,127}));
   connect(minFanSpd.y, minPosAtCurSpd.x1) annotation (Line(points={{-119,-8},{-66,
           -8},{-66,64},{-12,64}}, color={0,0,127}));
   connect(minPosAtMinSpd.y, minPosAtCurSpd.f1) annotation (Line(points={{-119,74},
@@ -125,12 +125,9 @@ equation
           {-90,112},{-58,112},{-58,48},{-12,48}}, color={0,0,127}));
   connect(uSupFanSpd, minPosAtCurSpd.u)
     annotation (Line(points={{-200,56},{-12,56}},          color={0,0,127}));
-  connect(uSupFanSpd, desPosAtCurSpd.u) annotation (Line(points={{-200,56},{-146,
-          56},{-86,56},{-86,-18},{-12,-18}}, color={0,0,127}));
-  connect(minPosAtCurSpd.y, yMinPosAtCurSpd) annotation (Line(points={{11,56},{
-          86,56},{166,56},{166,60},{190,60}}, color={0,0,127}));
-  connect(desPosAtCurSpd.y, yDesPosAtCurSpd) annotation (Line(points={{11,-18},
-          {88,-18},{88,-16},{166,-16},{166,-20},{190,-20}}, color={0,0,127}));
+  connect(uSupFanSpd, desPosAtCurSpd.u) annotation (Line(points={{-200,56},{
+          -146,56},{-86,56},{-86,-20},{-12,-20}},
+                                             color={0,0,127}));
   annotation (
     defaultComponentName = "ecoMinOAPos",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,200}}),
