@@ -6,16 +6,16 @@ block EconEnableDisable "Economizer enable/disable switch"
   parameter Real uHigLimCutHig(min=273.15, max=273.15+76.85, unit="K", displayUnit="degC") = (273.15+23.85) "An example high limit cutoff, 75degF (23.85degC)";
 
   CDL.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
-    "Outdoor temperature" annotation (Placement(transformation(extent={{-160,70},
-            {-120,110}}),      iconTransformation(extent={{-160,70},{-120,110}})));
+    "Outdoor temperature" annotation (Placement(transformation(extent={{-160,80},
+            {-120,120}}),      iconTransformation(extent={{-160,80},{-120,120}})));
   CDL.Interfaces.RealOutput yOutDamPosMax(min=0, max=1)
     "Output sets maximum allowable economizer damper position. Fixme: Should this remain as type real? Output can take two values: disable = yOutDamPosMin and enable = yOutDamPosMax."
     annotation (Placement(transformation(extent={{120,-20},{158,18}}),
         iconTransformation(extent={{120,-20},{158,18}})));
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1)
     "Minimal economizer damper position, output from a separate sequence."
-    annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),
-        iconTransformation(extent={{-160,-100},{-120,-60}})));
+    annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
+        iconTransformation(extent={{-160,-120},{-120,-80}})));
   CDL.Interfaces.RealInput uOutDamPosMax(min=0, max=1)
     "Maximum economizer damper position, either 100% or set to a constant value <100% at commisioning."
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
@@ -28,27 +28,26 @@ block EconEnableDisable "Economizer enable/disable switch"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   //fixme: units for instantiated limits, example TOut limit is 75K, delta = 1K
 
-  CDL.Interfaces.IntegerInput uFreProSta
+  CDL.Interfaces.IntegerInput uFreProSta = 0
     "Freeze Protection Status signal, it can be an integer 0 - 3"
-    annotation (Placement(transformation(extent={{-160,0},{-120,40}})));
+    annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
+        iconTransformation(extent={{-160,20},{-120,60}})));
   CDL.Logical.Nor nor
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   CDL.Conversions.IntegerToReal intToRea
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
   CDL.Logical.Greater gre
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  parameter Real k "Freeeze Protection Stage 0";
   CDL.Continuous.Constant freProtStage0(k=0)
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 equation
-  connect(TOut, hysTOut.u) annotation (Line(points={{-140,90},{-140,90},{-62,90}},
-                 color={0,0,127}));
-  connect(enableDisable.y, yOutDamPosMax) annotation (Line(points={{103,-10},{
-          110,-10},{110,-1},{139,-1}}, color={0,0,127}));
-  connect(uOutDamPosMax, enableDisable.u1) annotation (Line(points={{-140,-40},
-          {-32,-40},{-32,-2},{80,-2}}, color={0,0,127}));
-  connect(uOutDamPosMin, enableDisable.u3) annotation (Line(points={{-140,-80},
-          {-32,-80},{-32,-18},{80,-18}}, color={0,0,127}));
+  connect(enableDisable.y, yOutDamPosMax) annotation (Line(points={{103,-10},{110,
+          -10},{110,-1},{139,-1}}, color={0,0,127}));
+  connect(uOutDamPosMax, enableDisable.u1) annotation (Line(points={{-140,-40},{
+          -32,-40},{-32,-2},{80,-2}}, color={0,0,127}));
+  connect(uOutDamPosMin, enableDisable.u3) annotation (Line(points={{-140,-100},
+          {-32,-100},{-32,-18},{80,-18}},
+                                        color={0,0,127}));
   connect(hysTOut.y, nor.u1) annotation (Line(points={{-39,90},{-10,90},{-10,30},
           {18,30}}, color={255,0,255}));
   connect(intToRea.y, gre.u1)
@@ -57,63 +56,39 @@ equation
         color={255,0,255}));
   connect(freProtStage0.y, gre.u2) annotation (Line(points={{-79,-10},{-60,-10},
           {-60,12},{-42,12}}, color={0,0,127}));
-  connect(uFreProSta, intToRea.u) annotation (Line(points={{-140,20},{-102,20},{
-          -102,20}}, color={255,127,0}));
+  connect(uFreProSta, intToRea.u) annotation (Line(points={{-140,40},{-116,40},
+          {-116,40},{-110,40},{-110,20},{-102,20}},
+                     color={255,127,0}));
   connect(nor.y, enableDisable.u2) annotation (Line(points={{41,30},{60,30},{60,
           -10},{80,-10}}, color={255,0,255}));
+  connect(TOut, hysTOut.u) annotation (Line(points={{-140,100},{-100,100},{-100,
+          90},{-62,90}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-120,-120},{120,120}},
         initialScale=0.1), graphics={
         Rectangle(
-          extent={{-100,-40},{100,160}},
+          extent={{-120,-120},{120,120}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{2,124},{82,124}},
+          points={{-2,60},{78,60}},
           color={28,108,200},
           thickness=0.5),
         Text(
-          extent={{-94,58},{-24,22}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          horizontalAlignment=TextAlignment.Left,
-          textString="uOutDamPosMin"),
-        Text(
-          extent={{-94,18},{-24,-18}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          horizontalAlignment=TextAlignment.Left,
-          textString="uOutDamPosMax"),
-        Text(
-          extent={{106,114},{176,78}},
+          extent={{132,54},{202,18}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yOutDamPosMax"),
         Line(
-          points={{-78,4},{2,4},{2,124}},
+          points={{-82,-64},{-2,-64},{-2,60}},
           color={28,108,200},
           thickness=0.5),
         Text(
-          extent={{-94,106},{-76,94}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          horizontalAlignment=TextAlignment.Left,
-          textString="uFre"),
-        Text(
-          extent={{-94,146},{-74,136}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="TOut"),
-        Text(
-          extent={{-32,190},{36,166}},
+          extent={{-36,160},{32,136}},
           lineColor={85,0,255},
           textString="%name")}),
     Diagram(coordinateSystem(
