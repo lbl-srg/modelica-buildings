@@ -17,19 +17,19 @@ model EconDamPosLimitsMultiZone_VOut
     annotation (Placement(transformation(extent={{-80,-54},{-60,-34}})));
   EconDamperPositionLimitsMultiZone econMinOutAirDamPosLimits
     "One of the economizer control sequences, it sets the min econ damper limit and the max return air damper limit in order to maintain the minimum outdoor airflow setpoint."
-    annotation (Placement(transformation(extent={{-20,18},{0,38}})));
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 equation
   connect(VOutMinSet.y, econMinOutAirDamPosLimits.uVOutMinSet) annotation (Line(
-        points={{-59,70},{-42,70},{-42,34.375},{-21.1111,34.375}},
+        points={{-59,70},{-42,70},{-42,36.375},{-21.1111,36.375}},
                                                       color={0,0,127}));
   connect(VOut.y, econMinOutAirDamPosLimits.uVOut) annotation (Line(points={{-59,30},
-          {-42,30},{-42,30.5},{-21.1111,30.5}},
+          {-42,30},{-42,32.5},{-21.1111,32.5}},
                                            color={0,0,127}));
   connect(FanStatus.y, econMinOutAirDamPosLimits.uSupFan) annotation (Line(
-        points={{-59,-10},{-36,-10},{-36,26.375},{-21.1111,26.375}},
+        points={{-59,-10},{-36,-10},{-36,28.375},{-21.1111,28.375}},
                                                         color={255,0,255}));
   connect(AHUMode.y, econMinOutAirDamPosLimits.uAHUMod) annotation (Line(points={{-59,-44},
-          {-30,-44},{-30,22.375},{-21.1111,22.375}},
+          {-30,-44},{-30,24.375},{-21.1111,24.375}},
                                                   color={255,0,255}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),

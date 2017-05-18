@@ -5,7 +5,7 @@ model EconModulationMultiZone_TSup
 
   CDL.Continuous.Constant TSupSet(k=273.15+21)
     "Supply air temperature setpoint. The economizer control uses cooling supply temperature"
-    annotation (Placement(transformation(extent={{-22,62},{-2,82}})));
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Modelica.Blocks.Sources.Ramp TSup(
     duration=1800,
     height=4.4,
@@ -28,7 +28,7 @@ model EconModulationMultiZone_TSup
   CDL.Continuous.Constant RetDamPosMax(k=1)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 equation
-  connect(TSupSet.y, ecoMod.TCooSet) annotation (Line(points={{-1,72},{8,72},{8,
+  connect(TSupSet.y, ecoMod.TCooSet) annotation (Line(points={{1,70},{8,70},{8,
           48},{-20,48},{-20,37.75},{-0.75,37.75}},
                             color={0,0,127}));
   connect(TSup.y,ecoMod.TSup)  annotation (Line(points={{-59,72},{-30,72},{-30,
