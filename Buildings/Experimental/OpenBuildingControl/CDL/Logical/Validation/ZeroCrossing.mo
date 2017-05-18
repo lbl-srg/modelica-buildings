@@ -26,7 +26,7 @@ extends Modelica.Icons.Example;
     height=31.415926) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
-  Discrete.TriggeredSampler triSam
+  Discrete.TriggeredSampler triggeredSampler
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 equation
   connect(booPul1.y, zeroCrossing.enable) annotation (Line(points={{-17,-34},{
@@ -35,9 +35,9 @@ equation
     annotation (Line(points={{-61,0},{-50.5,0},{-40,0}},    color={0,0,127}));
   connect(sin1.y, zeroCrossing.u)
     annotation (Line(points={{-17,0},{-2,0}},         color={0,0,127}));
-  connect(ramp2.y, triSam.u)
+  connect(ramp2.y, triggeredSampler.u)
     annotation (Line(points={{21,50},{58,50},{58,50}}, color={0,0,127}));
-  connect(zeroCrossing.y, triSam.trigger) annotation (Line(points={{21,0},{70,0},
+  connect(zeroCrossing.y, triggeredSampler.trigger) annotation (Line(points={{21,0},{70,0},
           {70,36},{70,38},{70,38},{70,38.2}}, color={255,0,255}));
   annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
