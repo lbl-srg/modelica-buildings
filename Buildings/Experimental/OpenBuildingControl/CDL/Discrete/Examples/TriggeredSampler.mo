@@ -20,8 +20,7 @@ model TriggeredSampler "Example model for the TriggeredSampler block"
     triggeredSampler "Triggered sampler"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Discrete.TriggeredSampler
-    triggeredSampler1(y_start=1)
-                     "Triggered sampler"
+    triggeredSampler1(y_start=1) "Triggered sampler"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 equation
   connect(ramp1.y, sin1.u)
