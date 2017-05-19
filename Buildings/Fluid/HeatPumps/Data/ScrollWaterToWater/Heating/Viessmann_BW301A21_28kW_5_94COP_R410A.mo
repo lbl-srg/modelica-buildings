@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater.Heating;
-record Viessmann_BW301.A29_28kW_5_94COP_R410A =
+record Viessmann_BW301A29_28kW_5_94COP_R410A =
   Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater.Generic (
     volRat = 2.30110444908,
     V_flow_nominal = 0.00375267244467,
