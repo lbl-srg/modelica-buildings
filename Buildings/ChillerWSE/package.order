@@ -2,5 +2,6 @@ ChillerParallel
 IntegratedPrimary
 IntegratedPrimarySecondary
 NonIntegrated
+ParallelElectricChiler
 Example
 BaseClasses
