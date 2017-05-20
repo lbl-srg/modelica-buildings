@@ -138,10 +138,10 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     final waterSideTemperatureDependent=waterSideTemperatureDependent,
     final airSideTemperatureDependent=airSideTemperatureDependent,
     final energyDynamics=energyDynamics,
-    final dp1_nominal=dat.nomVal.dpCoil1_nominal,
-    final dp2_nominal=dat.nomVal.dpCoil2_nominal,
     final m1_flow_nominal=m1_flow_nominal,
-    final m2_flow_nominal=m2_flow_nominal)
+    final m2_flow_nominal=m2_flow_nominal,
+    final dp1_nominal=dat.nomVal.dpCoil1_nominal,
+    final dp2_nominal=dat.nomVal.dpCoil2_nominal)
     "Cooling coil"
     annotation (Placement(transformation(extent={{22,-12},{42,8}})));
   replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine fan(
@@ -172,7 +172,6 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     final allowFlowReversal=allowFlowReversal1,
     final show_T=show_T,
     redeclare final package Medium = Medium1,
-    final dpFixed_nominal=0,
     final deltaM=deltaM,
     final l=l,
     final kFixed=kFixed,
@@ -186,7 +185,8 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     final init=initValve,
     final y_start=yValve_start,
     final dpValve_nominal=dat.nomVal.dpValve_nominal,
-    final m_flow_nominal=m1_flow_nominal)
+    final m_flow_nominal=m1_flow_nominal,
+    final dpFixed_nominal=0)
     constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv
     "Two-way valve" annotation (
       Placement(transformation(

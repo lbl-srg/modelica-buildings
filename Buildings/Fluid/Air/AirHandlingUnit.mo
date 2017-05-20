@@ -79,9 +79,9 @@ model AirHandlingUnit
   parameter Modelica.SIunits.TemperatureDifference y2Hig(displayUnit="degC")= 0.1
   "if y2=false and y2>=y2High, switch to y2=true"
   annotation(Dialog(group="Reheater Controller"));
-  parameter Boolean pre_start1=true "Value of pre(y) at initial time"
+  parameter Boolean pre_start1=true "Value of pre(y1) at initial time"
   annotation(Dialog(group="Reheater Controller"));
-  parameter Boolean pre_start2=true "Value of pre(y) at initial time"
+  parameter Boolean pre_start2=true "Value of pre(y2) at initial time"
   annotation(Dialog(group="Reheater Controller"));
 
   Modelica.Blocks.Interfaces.RealOutput PHea(unit="W")
