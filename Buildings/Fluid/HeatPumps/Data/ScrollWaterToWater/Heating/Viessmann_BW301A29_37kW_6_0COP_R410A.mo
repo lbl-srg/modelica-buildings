@@ -9,7 +9,7 @@ record Viessmann_BW301A29_37kW_6_0COP_R410A =
     dTSup = 0.532774492232,
     UACon = 27989.764814,
     UAEva = 58762.7503506)
-
+  "Calibrated parameters for Viessmann Vitocal 300G BW 301.A29"
   annotation (
     defaultComponentPrefixes = "parameter",
     defaultComponentName="datHeaPum",

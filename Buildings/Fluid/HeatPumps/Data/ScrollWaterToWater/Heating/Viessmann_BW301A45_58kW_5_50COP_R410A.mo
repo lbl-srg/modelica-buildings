@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater.Heating;
-record Viessmann_BW301A29_58kW_5_50COP_R410A =
+record Viessmann_BW301A45_58kW_5_50COP_R410A =
   Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater.Generic (
     volRat = 2.4538775738,
     V_flow_nominal = 0.00755495224539,
@@ -9,7 +9,7 @@ record Viessmann_BW301A29_58kW_5_50COP_R410A =
     dTSup = 0.0,
     UACon = 66989.2819213,
     UAEva = 147854.290996)
-
+  "Calibrated parameters for Viessmann Vitocal 300G BW 301.A45"
   annotation (
     defaultComponentPrefixes = "parameter",
     defaultComponentName="datHeaPum",
