@@ -7,21 +7,19 @@ extends Modelica.Icons.Example;
     "Block that generates sample trigger signal"
     annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Discrete.TriggeredSampler triggeredSampler(
-    samplePeriod = 0.2)
-    "Output the triggered sampled value of a continuous signal"
-    annotation (Placement(transformation(extent={{10,10},{30,30}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
     duration=5,
     offset=0,
     height=20) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
 
+  Discrete.TriggeredSampler triggeredSampler
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
 equation
-  connect(samTri.y, triggeredSampler.trigger) annotation (Line(points={{-9,-20},
-          {20,-20},{20,8.2}},         color={255,0,255}));
   connect(ramp2.y, triggeredSampler.u)
-    annotation (Line(points={{-9,20},{1.5,20},{8,20}},   color={0,0,127}));
+    annotation (Line(points={{-9,20},{18,20}}, color={0,0,127}));
+  connect(samTri.y, triggeredSampler.trigger) annotation (Line(points={{-9,-20},
+          {30,-20},{30,8},{30,8.2}}, color={255,0,255}));
   annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Sources/Validation/SampleTrigger.mos"
