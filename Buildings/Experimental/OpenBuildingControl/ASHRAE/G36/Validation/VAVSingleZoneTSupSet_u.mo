@@ -42,7 +42,7 @@ equation
   connect(TSetZon.y, setPoiVAV.TSetZon) annotation (Line(points={{-59,20},{-20,
           20},{-20,0},{-2,0}}, color={0,0,127}));
   annotation (
-  experiment(StopTime=1.0),
+  experiment(StopTime=1.0, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/VAVSingleZoneTSupSet_u.mos"
         "Simulate and plot"),
     Documentation(info="<html>
