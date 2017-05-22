@@ -3,18 +3,10 @@ partial model PartialParallelElectricEIR
   "Partial model for electric chiller parallel"
   extends PartialParallelPlant;
 
-  parameter Modelica.SIunits.Time tau1 = 30 "Time constant at nominal flow"
+  parameter Modelica.SIunits.Time tau1 = 30 "Time constant at nominal flow in chillers"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
-  parameter Modelica.SIunits.Time tau2 = 30 "Time constant at nominal flow"
+  parameter Modelica.SIunits.Time tau2 = 30 "Time constant at nominal flow in chillers"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
-
- //Advanced
-   parameter Medium1.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(m1_flow_nominal)
-    "Small mass flow rate for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced"));
-  parameter Medium2.MassFlowRate m2_flow_small(min=0) = 1E-4*abs(m2_flow_nominal)
-    "Small mass flow rate for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced"));
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -101,8 +93,7 @@ partial model PartialParallelElectricEIR
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Math.BooleanToReal booToRea[n](
     each final realTrue=1,
-    each final realFalse=0)
-    "Boolean to real (if true then 1 else 0)"
+    each final realFalse=0) "Boolean to real (if true then 1 else 0)"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Interfaces.RealInput TSet
     "Set point for leaving chilled water temperature"
