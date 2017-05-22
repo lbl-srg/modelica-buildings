@@ -1,37 +1,37 @@
 within Buildings.ChillerWSE.BaseClasses;
 partial model PartialParallelPlant
   "Partial source plant model with replaceable valves"
-  extends Buildings.Fluid.Interfaces.PartialFourPort;
+  extends Buildings.Fluid.Interfaces.PartialFourPortInterface;
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
      final computeFlowResistance1=true,
      final computeFlowResistance2=true);
 
   parameter Integer n(min=1)=2 "Number of identical plants";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
-    "Nominal mass flow at evaporator";
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
-    "Nominal mass flow at condenser";
+
   parameter Modelica.SIunits.PressureDifference dpValve1_nominal(min=0,displayUnit="Pa")
     "Pressure difference for the valve on Medium 1 side"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpValve2_nominal(min=0,displayUnit="Pa")
     "Pressure difference for the valve on Medium 2 side"
     annotation(Dialog(group = "Nominal condition"));
-
-  // Diagnostics
-  parameter Boolean show_T = false
-    "= true, if actual temperature at port is computed"
-    annotation(Dialog(tab="Advanced",group="Diagnostics"));
   // Advanced
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // valve parameters
-  parameter Real l(min=1e-10, max=1) = 0.0001
-    "Valve leakage, l=Kv(y=0)/Kv(y=1)"
+  parameter Real l1(min=1e-10, max=1) = 0.0001
+    "Valve 1 leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Valve"));
-  parameter Real kFixed(unit="", min=0)= 0
-    "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
+  parameter Real kFixed1(unit="", min=0) = if dp1_nominal > Modelica.Constants.eps
+   then m1_flow_nominal / sqrt(dp1_nominal) else 0
+    "Flow coefficient of fixed resistance that may be in series with valve 1, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
+    annotation(Dialog(group="Valve"));
+  parameter Real l2(min=1e-10, max=1) = 0.0001
+    "Valve 2 leakage, l=Kv(y=0)/Kv(y=1)"
+    annotation(Dialog(group="Valve"));
+  parameter Real kFixed2(unit="", min=0) = if dp2_nominal > Modelica.Constants.eps
+   then m2_flow_nominal / sqrt(dp2_nominal) else 0
+    "Flow coefficient of fixed resistance that may be in series with valve 2, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Valve"));
   parameter Real deltaM = 0.02
     "Fraction of nominal flow rate where linearization starts, if y=1"
@@ -67,8 +67,6 @@ partial model PartialParallelPlant
     each final show_T=show_T,
     each final dpValve_nominal=dpValve2_nominal,
     each final deltaM=deltaM,
-    each final l=l,
-    each final kFixed=kFixed,
     each final from_dp=from_dp,
     each final homotopyInitialization=homotopyInitialization,
     each final linearized=linearized,
@@ -76,7 +74,9 @@ partial model PartialParallelPlant
     each final riseTime=riseTimeValve,
     each final init=initValve,
     each final y_start=yValve2_start,
-    each final use_inputFilter=use_inputFilter)
+    each final use_inputFilter=use_inputFilter,
+    each final l=l2,
+    each final kFixed=kFixed2)
     constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv
     "Valves on medium 2 side" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -90,8 +90,6 @@ partial model PartialParallelPlant
     each final show_T=show_T,
     each final dpValve_nominal=dpValve1_nominal,
     each final deltaM=deltaM,
-    each final l=l,
-    each final kFixed=kFixed,
     each final from_dp=from_dp,
     each final homotopyInitialization=homotopyInitialization,
     each final linearized=linearized,
@@ -99,7 +97,9 @@ partial model PartialParallelPlant
     each final use_inputFilter=use_inputFilter,
     each final riseTime=riseTimeValve,
     each final init=initValve,
-    each final y_start=yValve1_start)
+    each final y_start=yValve1_start,
+    each final l=l1,
+    each final kFixed=kFixed1)
     constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv
     "Valves on medium 1 side" annotation (
       Placement(transformation(
