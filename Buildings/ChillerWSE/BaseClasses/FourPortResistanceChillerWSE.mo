@@ -10,11 +10,11 @@ record FourPortResistanceChillerWSE
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance1,
                 tab="Flow resistance", group="Medium 1"));
-  parameter Modelica.SIunits.PressureDifference dp1Chiller_nominal(
+  parameter Modelica.SIunits.PressureDifference dpChiller1_nominal(
     min=0,displayUnit="Pa")
     "Pressure difference"
     annotation(Dialog(group = "Chiller Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dp1WSE_nominal(
+  parameter Modelica.SIunits.PressureDifference dpWSE1_nominal(
     min=0,displayUnit="Pa")
     "Pressure difference"
     annotation(Dialog(group = "WSE Nominal condition"));
@@ -34,11 +34,11 @@ record FourPortResistanceChillerWSE
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance2,
                 tab="Flow resistance", group="Medium 2"));
-  parameter Modelica.SIunits.PressureDifference dp2Chiller_nominal(
+  parameter Modelica.SIunits.PressureDifference dpChiller2_nominal(
     min=0,displayUnit="Pa")
     "Pressure difference"
     annotation(Dialog(group = "Chiller Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dp2WSE_nominal(
+  parameter Modelica.SIunits.PressureDifference dpWSE2_nominal(
     min=0,displayUnit="Pa")
     "Pressure difference"
     annotation(Dialog(group = "WSE Nominal condition"));
