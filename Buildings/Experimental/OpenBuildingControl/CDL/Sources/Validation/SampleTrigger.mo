@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Sources.Validation;
 model SampleTrigger "Validation model for the SampleTrigger block"
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.SampleTrigger samTri(
     period = 0.5)
@@ -14,6 +14,7 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
 
   Discrete.TriggeredSampler triggeredSampler
+    "Triggered sampler"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 equation
   connect(ramp2.y, triggeredSampler.u)
