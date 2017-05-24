@@ -1,3 +1,5 @@
 simulateModel("Buildings.Experimental.OpenBuildingControl.CDL.Discrete.Examples.TriggeredSampler", stopTime=1.0, method="dassl", tolerance=1e-06, resultFile="TriggeredSampler1");
 createPlot(id=1, position={15, 10, 750, 230}, y={"triggeredSampler.u", "triggeredSampler.y"}, range={0.0, 1.0, -15, 15}, grid=true, colors={{238,46,47}, {28,108,200}});
 createPlot(id=2, position={15, 270, 750, 180}, y={"triggeredSampler.trigger"}, range={0.0, 1.0, -15, 15}, grid=true, colors={{238,46,47}});
+createPlot(id=3, position={15, 10, 750, 230}, y={"triggeredSampler1.u", "triggeredSampler1.y"}, range={0.0, 1.0, -15, 15}, grid=true, colors={{238,46,47}, {28,108,200}});
+createPlot(id=4, position={15, 270, 750, 180}, y={"triggeredSampler1.trigger"}, range={0.0, 1.0, -15, 15}, grid=true, colors={{238,46,47}});
