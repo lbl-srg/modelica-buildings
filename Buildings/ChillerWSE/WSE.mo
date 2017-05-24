@@ -48,48 +48,49 @@ model WSE "This is a temporary model for WSE"
   parameter Real delta0=0.01
     "Range of significant deviation from equal percentage law"
     annotation(Dialog(group="Valve"));
+  parameter Modelica.SIunits.Efficiency eps=0.8 "Efficiency of heat exchangers";
 
-  Fluid.HeatExchangers.ConstantEffectiveness hex(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
-    final allowFlowReversal1=allowFlowReversal1,
-    final allowFlowReversal2=allowFlowReversal2,
-    final m1_flow_nominal=m1_flow_nominal,
-    final m2_flow_nominal=m2_flow_nominal,
-    final dp1_nominal=0,
-    final dp2_nominal=0,
-    final m1_flow_small=m1_flow_small,
-    final m2_flow_small=m2_flow_small,
-    final show_T=show_T,
-    final from_dp1=from_dp1,
-    linearizeFlowResistance1=linearizeFlowResistance1,
-    deltaM1=deltaM1,
-    from_dp2=from_dp2,
-    linearizeFlowResistance2=linearizeFlowResistance2,
-    deltaM2=deltaM2,
-    final homotopyInitialization=homotopyInitialization) "Heat exchanger"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Buildings.ChillerWSE.BaseClasses.WSEWithTControl hex(
+    redeclare package MediumCHW = Medium1,
+    redeclare package MediumCW = Medium2,
+    dpCHW_nominal=dp1_nominal,
+    dpCW_nominal=dp2_nominal,
+    mCHW_flow_nominal=m1_flow_nominal,
+    mCW_flow_nominal=m2_flow_nominal,
+    GaiPi=1,
+    tIntPi=60,
+    dp_byp_nominal=100000,
+    eps=eps)                                             "Heat exchanger"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={0,0})));
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Math.BooleanToReal booToRea(each final realTrue=1, each final
             realFalse=0) "Boolean to real (if true then 1 else 0)"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+  Modelica.Blocks.Interfaces.RealInput TSet "temperature set point"
+    annotation (Placement(transformation(extent={{-140,-34},{-100,6}})));
 equation
-  connect(port_a1, hex.port_a1) annotation (Line(points={{-100,60},{-40,60},{-40,
-          6},{-10,6}}, color={0,127,255}));
-  connect(hex.port_b1, val1[1].port_a) annotation (Line(points={{10,6},{26,6},{40,
-          6},{40,22}}, color={0,127,255}));
-  connect(hex.port_b2, val2[1].port_a)
-    annotation (Line(points={{-10,-6},{-40,-6},{-40,-22}}, color={0,127,255}));
-  connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{40,-6},{40,
-          -60},{100,-60}},     color={0,127,255}));
   connect(on,booToRea. u) annotation (Line(points={{-120,40},{-101,40},{-82,40}},
         color={255,0,255}));
   connect(booToRea.y, val2[1].y) annotation (Line(points={{-59,40},{-56,40},{-56,
           -32},{-52,-32}}, color={0,0,127}));
   connect(booToRea.y, val1[1].y) annotation (Line(points={{-59,40},{20,40},{20,32},
           {28,32}}, color={0,0,127}));
+  connect(port_a1, hex.port_a_CW) annotation (Line(points={{-100,60},{-42,60},{-42,
+          10},{-8,10}}, color={0,127,255}));
+  connect(hex.port_b_CW, val1[1].port_a)
+    annotation (Line(points={{8,10},{40,10},{40,22}}, color={0,127,255}));
+  connect(port_a2, hex.port_a_CHW) annotation (Line(points={{100,-60},{38,-60},{
+          38,-10},{8,-10}}, color={0,127,255}));
+  connect(hex.port_b_CHW, val2[1].port_a) annotation (Line(points={{-8,-10},{-40,
+          -10},{-40,-22}}, color={0,127,255}));
+  connect(booToRea.y, hex.on) annotation (Line(points={{-59,40},{-30,40},{2.4,40},
+          {2.4,11}}, color={0,0,127}));
+  connect(hex.TSet, TSet) annotation (Line(points={{-1.6,11},{-1.6,22},{-56,22},
+          {-56,-14},{-120,-14}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end WSE;
