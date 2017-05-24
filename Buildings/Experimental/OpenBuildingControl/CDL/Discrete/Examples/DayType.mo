@@ -24,7 +24,7 @@ model DayType "Example model for the source that outputs the type of the day"
   annotation (
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Discrete/Examples/DayType.mos"
         "Simulate and plot"),
-        experiment(StartTime=-1814400, StopTime=1814400, Tolerance=1E-6),
+        experiment(StartTime=-1814400, StopTime=1.8144e+06, Tolerance=1E-6),
     Documentation(
     info="<html>
 <p>
