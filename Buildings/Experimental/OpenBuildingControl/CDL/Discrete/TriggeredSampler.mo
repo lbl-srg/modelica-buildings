@@ -52,7 +52,11 @@ equation
       Ellipse(lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid,
-        extent={{-45.0,-10.0},{-25.0,10.0}})}),
+        extent={{-45.0,-10.0},{-25.0,10.0}}),
+                                        Text(
+        extent={{-150,150},{150,110}},
+        textString="%name",
+        lineColor={0,0,255})}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}})),
     Documentation(info="<html>
