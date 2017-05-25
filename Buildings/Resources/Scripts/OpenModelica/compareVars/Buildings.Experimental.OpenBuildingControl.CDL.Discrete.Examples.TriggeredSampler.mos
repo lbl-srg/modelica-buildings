@@ -1,9 +1,7 @@
 compareVars :=
   {
-    "triggeredSampler.u",
-    "triggeredSampler.y",
-    "triggeredSampler.trigger",
-    "triggeredSampler1.u",
-    "triggeredSampler1.y",
-    "triggeredSampler1.trigger"
+    "booPul.y",
+    "sin1.y",
+    "triSam.y",
+    "triSam1.y"
   };

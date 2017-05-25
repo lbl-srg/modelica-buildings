@@ -9,30 +9,30 @@ model TriggeredSampler "Example model for the TriggeredSampler block"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sin sin1
     "Block that outputs the sine of the input"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul(
     width = 0.5,
     period = 0.2)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Discrete.TriggeredSampler
-    triggeredSampler "Triggered sampler"
+  Buildings.Experimental.OpenBuildingControl.CDL.Discrete.TriggeredSampler triSam
+    "Triggered sampler wity y_start = 0"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Discrete.TriggeredSampler
-    triggeredSampler1(y_start=1) "Triggered sampler"
+  Buildings.Experimental.OpenBuildingControl.CDL.Discrete.TriggeredSampler triSam1(y_start=1)
+    "Triggered sampler with y_start = 1"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 equation
   connect(ramp1.y, sin1.u)
-    annotation (Line(points={{-39,0},{-12,0}},         color={0,0,127}));
-  connect(sin1.y, triggeredSampler.u)
-    annotation (Line(points={{11,0},{38,0}}, color={0,0,127}));
-  connect(booPul.y, triggeredSampler.trigger) annotation (Line(points={{11,-40},
-          {50,-40},{50,-12},{50,-11.8}}, color={255,0,255}));
-  connect(sin1.y, triggeredSampler1.u)
-    annotation (Line(points={{11,0},{30,0},{30,50},{58,50}}, color={0,0,127}));
-  connect(booPul.y, triggeredSampler1.trigger) annotation (Line(points={{11,-40},
-          {70,-40},{70,38},{70,38.2}}, color={255,0,255}));
+    annotation (Line(points={{-39,0},{-22,0}},         color={0,0,127}));
+  connect(sin1.y, triSam.u)
+    annotation (Line(points={{1,0},{38,0}}, color={0,0,127}));
+  connect(booPul.y, triSam.trigger) annotation (Line(points={{11,-40},{50,-40},
+          {50,-12},{50,-11.8}}, color={255,0,255}));
+  connect(sin1.y, triSam1.u)
+    annotation (Line(points={{1,0},{30,0},{30,50},{58,50}}, color={0,0,127}));
+  connect(booPul.y, triSam1.trigger)
+    annotation (Line(points={{11,-40},{70,-40},{70,38.2}}, color={255,0,255}));
   annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Discrete/Examples/TriggeredSampler.mos"
