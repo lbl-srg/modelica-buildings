@@ -10,11 +10,9 @@ model OnHold
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Equal equ
     annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant ifZero(k=0)
-    annotation (Placement(transformation(extent={{-180,132},{-160,152}})));
+    annotation (Placement(transformation(extent={{-280,130},{-260,150}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant timeOn(k=3600)
-    annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant con2(k=3600)
-    annotation (Placement(transformation(extent={{-240,-100},{-220,-80}})));
+    annotation (Placement(transformation(extent={{-280,70},{-260,90}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Or  and1
@@ -32,9 +30,6 @@ model OnHold
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.And and5
     annotation (Placement(transformation(extent={{-120,-138},{-100,-118}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant ifZero1(
-                                                                            k=0)
-    annotation (Placement(transformation(extent={{-240,-140},{-220,-120}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Equal equ1
     annotation (Placement(transformation(extent={{-198,-140},{-178,-120}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Not not1
@@ -48,12 +43,10 @@ model OnHold
   Interfaces.BooleanInput u
     annotation (Placement(transformation(extent={{-320,-20},{-280,20}})));
 equation
-  connect(ifZero.y, equ.u2) annotation (Line(points={{-159,142},{-159,142},{
+  connect(ifZero.y, equ.u2) annotation (Line(points={{-259,140},{-259,142},{
           -122,142}},     color={0,0,127}));
-  connect(timeOn.y, gre.u2) annotation (Line(points={{-159,80},{-159,80},{-126,
+  connect(timeOn.y, gre.u2) annotation (Line(points={{-259,80},{-259,80},{-126,
           80}},       color={0,0,127}));
-  connect(con2.y, les1.u2) annotation (Line(points={{-219,-90},{-150,-90},{-150,
-          -98},{-148,-98}},   color={0,0,127}));
   connect(and1.y, or2.u2) annotation (Line(points={{-9,-70},{0,-70},{0,2},{58,2}},
                       color={255,0,255}));
   connect(or2.y, y) annotation (Line(points={{81,10},{140,10},{140,0},{290,0}},
@@ -86,8 +79,6 @@ equation
   connect(les1.y, and5.u1) annotation (Line(points={{-125,-90},{-124,-90},{-124,
           -128},{-122,-128}},
                   color={255,0,255}));
-  connect(ifZero1.y, equ1.u1)
-    annotation (Line(points={{-219,-130},{-200,-130}}, color={0,0,127}));
   connect(equ1.y, not1.u) annotation (Line(points={{-177,-130},{-170,-130},{
           -162,-130}},
         color={255,0,255}));
@@ -118,6 +109,10 @@ equation
   connect(u, and4.u2) annotation (Line(points={{-300,0},{-120,0},{-120,52},{-4,
           52}}, color={255,0,255}));
 
+  connect(timeOn.y, les1.u2) annotation (Line(points={{-259,80},{-259,-98},{
+          -258,-98},{-148,-98}}, color={0,0,127}));
+  connect(ifZero.y, equ1.u1) annotation (Line(points={{-259,140},{-240,140},{
+          -240,-130},{-200,-130}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-280,
             -240},{280,240}})),                                  Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-280,-240},{280,240}})),
