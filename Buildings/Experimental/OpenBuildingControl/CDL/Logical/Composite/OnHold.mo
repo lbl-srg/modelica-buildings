@@ -111,16 +111,17 @@ equation
   connect(timer.u, and2.y) annotation (Line(points={{206,-48},{98,-48},{98,-20},
           {81,-20}},
         color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-280,
-            -240},{280,240}})),                                  Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-280,-240},{280,240}})));
   connect(u, and1.u1) annotation (Line(points={{-300,0},{-160,0},{-160,-70},{
           -32,-70}}, color={255,0,255}));
   connect(u, and3.u2) annotation (Line(points={{-300,0},{-140,0},{-140,62},{-62,
           62}}, color={255,0,255}));
   connect(u, and4.u2) annotation (Line(points={{-300,0},{-120,0},{-120,52},{-4,
           52}}, color={255,0,255}));
-  annotation (Documentation(info="<html>
+
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-280,
+            -240},{280,240}})),                                  Diagram(coordinateSystem(
+          preserveAspectRatio=false, extent={{-280,-240},{280,240}})),
+              Documentation(info="<html>
     <p>
     Block that holds an on signal for a defined time period.
     </p>
@@ -152,5 +153,4 @@ equation
     </li>
     </ul>
     </html>"));
-
 end OnHold;
