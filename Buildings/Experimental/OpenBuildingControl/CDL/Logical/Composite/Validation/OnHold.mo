@@ -1,10 +1,11 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite.Validation;
 model OnHold "Validation model for the OnHold block"
+  import Buildings;
 extends Modelica.Icons.Example;
 
   Sources.BooleanPulse                                                booPul(period=8000)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  .Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite.OnHold onHold
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite.OnHold  onHold
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 equation
   connect(booPul.y, onHold.u) annotation (Line(points={{-59,10},{-20.7143,10}},
