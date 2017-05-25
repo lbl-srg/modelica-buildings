@@ -106,4 +106,37 @@ equation
         color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(
           preserveAspectRatio=false)));
+  annotation (Documentation(info="<html>
+    <p>
+    Block that holds an on signal for a defined time period.
+    </p>
+    <p>
+    A rising edge of the Boolean input <code>u</code> starts a timer and
+    the Boolean output <code>y</code> output stays true until the time
+    period provided as a parameter has elapsed. After that
+    the block evaluates the Boolean input <code>u</code> and if the input is true,
+    the timer gets started again, but if the input is false, the output is also
+    false. If the output value is false, it will become true with the first rising
+    edge of the inputs signal.
+    </p>
+
+    <p>
+    fixme - Simulation results of a typical example with a hold time of [fixme]
+    is shown in the next figure.
+    </p>
+
+    <p align=\"center\">
+    <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/fixme.png\"
+         alt=\"fixme.png\" />
+    </p>
+
+    </html>", revisions="<html>
+    <ul>
+    <li>
+    May 24, 2017, by Milica Grahovac:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"));
+
 end OnHold;
