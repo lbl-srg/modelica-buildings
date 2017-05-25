@@ -1,57 +1,82 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite;
 model OnHold
 
-  Less                                                        les1
-    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
-  Continuous.Constant Zero(k=0)
-    annotation (Placement(transformation(extent={{-280,130},{-260,150}})));
-  Continuous.Constant                                                timeOn(k=3600)
-    annotation (Placement(transformation(extent={{-280,70},{-260,90}})));
+  LessThreshold                                               les1(threshold=
+        holdOnDuration)
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+  Continuous.Constant Zero(final k=0)
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Timer                                                        timer
-    annotation (Placement(transformation(extent={{208,-58},{228,-38}})));
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Modelica.Blocks.Logical.Pre pre
-    annotation (Placement(transformation(extent={{136,-58},{156,-38}})));
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Not not1
-    annotation (Placement(transformation(extent={{-160,-100},{-140,-80}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Equal                                                        equ1
-    annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
-  Or or2 annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  And and2 annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
+  Or or2 annotation (Placement(transformation(extent={{-18,80},{2,100}})));
+  And and2 annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Interfaces.BooleanOutput                                                y
-    annotation (Placement(transformation(extent={{280,-10},{300,10}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
   Interfaces.BooleanInput u
-    annotation (Placement(transformation(extent={{-320,-20},{-280,20}})));
+    annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
+        iconTransformation(extent={{-120,-10},{-100,10}})));
+  parameter Real holdOnDuration(unit="s") = 3600 "Time duration of the ON hold.";
 equation
 
-  connect(timer.y,les1. u1) annotation (Line(points={{229,-48},{240,-48},{240,
-          -66},{-182,-66},{-182,-30},{-180,-30},{-162,-30}},
-                                                           color={0,0,127}));
-  connect(timeOn.y,les1. u2) annotation (Line(points={{-259,80},{-260,80},{-256,
-          80},{-210,80},{-210,-38},{-162,-38}}, color={0,0,127}));
-  connect(timer.u,pre. y) annotation (Line(points={{206,-48},{194,-48},{157,-48}},
+  connect(timer.u,pre. y) annotation (Line(points={{18,-30},{18,40},{61,40}},
                       color={255,0,255}));
-  connect(Zero.y,equ1. u1) annotation (Line(points={{-259,140},{-254,140},{-254,
-          -110},{-242,-110}}, color={0,0,127}));
-  connect(timer.y,equ1. u2) annotation (Line(points={{229,-48},{252,-48},{252,
-          -140},{-254,-140},{-254,-138},{-254,-118},{-242,-118}}, color={0,0,
+  connect(Zero.y,equ1. u1) annotation (Line(points={{-59,-70},{-8,-70},{-8,-28},
+          {-72,-28},{-72,30}},color={0,0,127}));
+  connect(timer.y,equ1. u2) annotation (Line(points={{41,-30},{64,-30},{64,-40},
+          {-36,-40},{-36,0},{-54,0},{-54,22},{-72,22}},           color={0,0,
           127}));
-  connect(equ1.y,not1. u) annotation (Line(points={{-219,-110},{-190,-110},{
-          -190,-90},{-162,-90}}, color={255,0,255}));
-  connect(u, or2.u1) annotation (Line(points={{-300,0},{-192,0},{-192,10},{-82,
-          10}}, color={255,0,255}));
-  connect(not1.y, or2.u2) annotation (Line(points={{-139,-90},{-108,-90},{-108,
-          2},{-82,2}}, color={255,0,255}));
-  connect(or2.y, and2.u1) annotation (Line(points={{-59,10},{-12,10},{-12,-30},
-          {38,-30}}, color={255,0,255}));
-  connect(les1.y, and2.u2) annotation (Line(points={{-139,-30},{-50,-30},{-50,
-          -38},{38,-38}}, color={255,0,255}));
-  connect(and2.y, pre.u) annotation (Line(points={{61,-30},{98,-30},{98,-48},{
-          134,-48}}, color={255,0,255}));
-  connect(or2.y, y) annotation (Line(points={{-59,10},{110,10},{110,0},{290,0}},
+  connect(equ1.y,not1. u) annotation (Line(points={{-49,30},{-90,30},{-90,40},{
+          -42,40}},              color={255,0,255}));
+  connect(u, or2.u1) annotation (Line(points={{-120,-10},{-78,-10},{-78,86},{
+          -50,86},{-50,90},{-20,90}},
         color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-280,
-            -240},{280,240}})),                                  Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-280,-240},{280,240}})),
+  connect(or2.y, and2.u1) annotation (Line(points={{3,90},{-12,90},{-12,60},{-2,
+          60}},     color={255,0,255}));
+  connect(les1.y, and2.u2) annotation (Line(points={{1,10},{-12,10},{-12,52},{
+          -2,52}},   color={255,0,255}));
+  connect(and2.y, pre.u) annotation (Line(points={{21,60},{30,60},{30,40},{38,
+          40}},  color={255,0,255}));
+  connect(or2.y, y) annotation (Line(points={{3,90},{40,90},{40,72},{78,72},{78,
+          0},{78,0},{78,0},{110,0},{110,0}},
+        color={255,0,255}));
+  connect(timer.y, les1.u) annotation (Line(points={{41,-30},{41,-22},{-70,-22},
+          {-70,10},{-22,10}},                 color={0,0,127}));
+  connect(or2.u2, not1.y) annotation (Line(points={{-20,82},{-50,82},{-50,40},{
+          -19,40}}, color={255,0,255}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}},
+        initialScale=0.1), graphics={
+                                 Rectangle(
+          extent={{-100,100},{100,-100}},
+          fillColor={210,210,210},
+          lineThickness=5.0,
+          fillPattern=FillPattern.Solid,
+          borderPattern=BorderPattern.Raised),
+          Line(points={{-72,22},{-48,22},{-48,66},{52,66},{52,22},{80,22}},
+              color={255,0,255}),
+          Line(points={{-68,-62},{-48,-62},{-48,-18},{22,-18},{22,-62},{78,-62}}),
+
+        Line(
+          points={{-48,38},{-4,38}},
+          color={28,108,200},
+          arrow={Arrow.Filled,Arrow.None}),
+        Line(
+          points={{10,38},{52,38}},
+          color={28,108,200},
+          arrow={Arrow.None,Arrow.Filled}),
+        Text(
+          extent={{0,42},{6,36}},
+          lineColor={28,108,200},
+          fontSize=12,
+          textString="t")}),                                     Diagram(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
               Documentation(info="<html>
     <p>
     Block that holds an on signal for a defined time period.
