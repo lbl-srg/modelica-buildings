@@ -23,6 +23,7 @@ OnDelay
 OnOffController
 Or
 Or3
+Pre
 Switch
 Timer
 Toggle
@@ -31,4 +32,3 @@ Xor
 ZeroCrossing
 Composite
 Validation
-Composite1
