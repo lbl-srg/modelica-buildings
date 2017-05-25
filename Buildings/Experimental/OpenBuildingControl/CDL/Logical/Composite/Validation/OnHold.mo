@@ -6,9 +6,13 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   .Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite.OnHold onHold
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+equation
+  connect(booPul.y, onHold.u) annotation (Line(points={{-59,10},{-20.7143,10}},
+        color={255,0,255}));
   annotation (
-  experiment(StopTime=10.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Logical/Validation/And.mos"
+  experiment(StopTime=15000.0, Tolerance=1e-06),
+  __Dymola_Commands(
+  file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Logical/Composite/Validation/OnHold.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
