@@ -3,13 +3,14 @@ model OnHold "Validation model for the OnHold block"
   import Buildings;
 extends Modelica.Icons.Example;
 
-  Sources.BooleanPulse                                                booPul(period=8000)
+  Sources.BooleanPulse                                                booPul(startTime
+      =200, period=8000)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite.OnHold  onHold
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite.OnHold
+    onHold annotation (Placement(transformation(extent={{-22,-14},{34,34}})));
 equation
-  connect(booPul.y, onHold.u) annotation (Line(points={{-59,10},{-20.7143,10}},
-        color={255,0,255}));
+  connect(booPul.y, onHold.u)
+    annotation (Line(points={{-59,10},{-24,10}}, color={255,0,255}));
   annotation (
   experiment(StopTime=15000.0, Tolerance=1e-06),
   __Dymola_Commands(

@@ -19,13 +19,13 @@ model OnHold
     annotation (Placement(transformation(extent={{208,-58},{228,-38}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.And and5
-    annotation (Placement(transformation(extent={{-110,-40},{-90,-20}})));
+    annotation (Placement(transformation(extent={{-102,-40},{-82,-20}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.And and2
-    annotation (Placement(transformation(extent={{64,-86},{84,-66}})));
+    annotation (Placement(transformation(extent={{66,-94},{86,-74}})));
   Interfaces.BooleanInput u
     annotation (Placement(transformation(extent={{-320,-20},{-280,20}})));
-  Modelica.Blocks.Logical.Pre pre2
-    annotation (Placement(transformation(extent={{160,-36},{180,-16}})));
+  Modelica.Blocks.Logical.Pre pre
+    annotation (Placement(transformation(extent={{160,-94},{180,-74}})));
   Not not1
     annotation (Placement(transformation(extent={{-160,-100},{-140,-80}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Equal equ1
@@ -33,13 +33,13 @@ model OnHold
 equation
   connect(or2.y, y) annotation (Line(points={{81,10},{140,10},{140,0},{290,0}},
         color={255,0,255}));
-  connect(timer.y, les1.u1) annotation (Line(points={{229,-48},{118,-48},{118,
-          -80},{118,-102},{-182,-102},{-182,-30},{-180,-30},{-162,-30}},
+  connect(timer.y, les1.u1) annotation (Line(points={{229,-48},{240,-48},{240,
+          -66},{240,-66},{-182,-66},{-182,-30},{-180,-30},{-162,-30}},
                                                            color={0,0,127}));
-  connect(les1.y, and5.u1) annotation (Line(points={{-139,-30},{-124,-30},{-112,
-          -30}},  color={255,0,255}));
+  connect(les1.y, and5.u1) annotation (Line(points={{-139,-30},{-104,-30}},
+                  color={255,0,255}));
   connect(or2.y, and2.u2) annotation (Line(points={{81,10},{120,10},{120,-40},{
-          48,-40},{48,-84},{62,-84}},
+          48,-40},{48,-92},{64,-92}},
                           color={255,0,255}));
   connect(u, and1.u1) annotation (Line(points={{-300,0},{-160,0},{-160,-10},{
           -42,-10}}, color={255,0,255}));
@@ -48,13 +48,13 @@ equation
 
   connect(timeOn.y, les1.u2) annotation (Line(points={{-259,80},{-260,80},{-256,
           80},{-210,80},{-210,-38},{-162,-38}}, color={0,0,127}));
-  connect(and5.y, and1.u2) annotation (Line(points={{-89,-30},{-66,-30},{-66,
+  connect(and5.y, and1.u2) annotation (Line(points={{-81,-30},{-66,-30},{-66,
           -18},{-42,-18}}, color={255,0,255}));
-  connect(and2.y, pre2.u) annotation (Line(points={{85,-76},{134,-76},{134,-26},
-          {158,-26}}, color={255,0,255}));
-  connect(timer.u, pre2.y) annotation (Line(points={{206,-48},{194,-48},{194,
-          -26},{181,-26}}, color={255,0,255}));
-  connect(and5.u2, not1.y) annotation (Line(points={{-112,-38},{-126,-38},{-126,
+  connect(and2.y, pre.u)
+    annotation (Line(points={{87,-84},{87,-84},{158,-84}}, color={255,0,255}));
+  connect(timer.u, pre.y) annotation (Line(points={{206,-48},{194,-48},{194,-84},
+          {181,-84}}, color={255,0,255}));
+  connect(and5.u2, not1.y) annotation (Line(points={{-104,-38},{-126,-38},{-126,
           -90},{-139,-90}}, color={255,0,255}));
   connect(Zero.y, equ1.u1) annotation (Line(points={{-259,140},{-254,140},{-254,
           -110},{-242,-110},{-242,-110}}, color={0,0,127}));
@@ -66,7 +66,7 @@ equation
   connect(equ1.y, and3.u1) annotation (Line(points={{-219,-110},{-200,-110},{
           -200,50},{-132,50},{-62,50}}, color={255,0,255}));
   connect(les1.y, and2.u1) annotation (Line(points={{-139,-30},{-120,-30},{-120,
-          -76},{-100,-76},{-100,-76},{62,-76}}, color={255,0,255}));
+          -84},{-12,-84},{64,-84}}, color={255,0,255}));
   connect(and3.y, or2.u1) annotation (Line(points={{-39,50},{8,50},{8,18},{58,
           18}}, color={255,0,255}));
   connect(and1.y, or2.u3) annotation (Line(points={{-19,-10},{20,-10},{20,2},{
