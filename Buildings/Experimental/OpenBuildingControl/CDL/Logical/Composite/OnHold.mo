@@ -58,19 +58,11 @@ equation
           Line(points={{-72,22},{-48,22},{-48,66},{52,66},{52,22},{80,22}},
               color={255,0,255}),
           Line(points={{-68,-62},{-48,-62},{-48,-18},{22,-18},{22,-62},{78,-62}}),
-        Line(
-          points={{-48,38},{-4,38}},
-          color={28,108,200},
-          arrow={Arrow.Filled,Arrow.None}),
-        Line(
-          points={{10,38},{52,38}},
-          color={28,108,200},
-          arrow={Arrow.None,Arrow.Filled}),
         Text(
-          extent={{0,42},{6,36}},
+          extent={{-8,46},{14,40}},
           lineColor={28,108,200},
           fontSize=12,
-          textString="t")}),                                     Diagram(coordinateSystem(
+          textString="hold on time")}),                          Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
               Documentation(info="<html>
     <p>
