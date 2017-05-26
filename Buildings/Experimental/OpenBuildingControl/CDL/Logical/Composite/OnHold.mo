@@ -66,25 +66,28 @@ equation
           preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
               Documentation(info="<html>
     <p>
-    Block that holds an on signal for a defined time period.
+    Block that holds a true signal for a defined time period.
     </p>
     <p>
     A rising edge of the Boolean input <code>u</code> starts a timer and
-    the Boolean output <code>y</code> output stays true until the time
+    the Boolean output <code>y</code> stays true until the time
     period provided as a parameter has elapsed. After that
     the block evaluates the Boolean input <code>u</code> and if the input is true,
-    the timer gets started again, but if the input is false, the output is also
+    the timer gets started again, but if the input is false, the output becomes
     false. If the output value is false, it will become true with the first rising
-    edge of the inputs signal.
+    edge of the inputs signal. In other words, any on signal is evaluated either 
+    at the rising edge time of the input or at the rising edge time plus the time 
+    period. The output can only be false if at the end of the time period the input 
+    is false.
     </p>
 
     <p>
-    fixme - Simulation results of a typical example with a hold time of [fixme]
+    Simulation results of a typical example with a hold time of 1 hour
     is shown in the next figure.
     </p>
 
     <p align=\"center\">
-    <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/fixme.png\"
+    <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold.PNG\"
          alt=\"fixme.png\" />
     </p>
 

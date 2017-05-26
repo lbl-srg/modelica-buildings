@@ -38,8 +38,8 @@ equation
           10,-20},{10,52},{18,52}}, color={255,0,255}));
   connect(andBeforeTimerAndSwitch.y, logSwi.u2) annotation (Line(points={{41,60},
           {42,60},{42,60},{42,60},{50,60},{50,30},{58,30}}, color={255,0,255}));
-  connect(u, logSwi.u1) annotation (Line(points={{-120,0},{-70,0},{-70,20},{0,
-          20},{0,20},{0,38},{58,38}},
+  connect(u, logSwi.u1) annotation (Line(points={{-120,0},{-70,0},{-70,20},{0,20},
+          {0,20},{0,38},{58,38}},
                    color={255,0,255}));
   connect(logSwi.y, y) annotation (Line(points={{81,30},{82,30},{82,30},{90,30},
           {100,30},{100,0},{110,0}},
@@ -50,8 +50,8 @@ equation
   connect(logSwi.u3, pre.y) annotation (Line(points={{58,22},{20,22},{20,-28},{70,
           -28},{70,-10},{61,-10}},
                  color={255,0,255}));
-  connect(pre.y, not1.u) annotation (Line(points={{61,-10},{96,-10},{96,88},{
-          -88,88},{-88,70},{-82,70}},
+  connect(pre.y, not1.u) annotation (Line(points={{61,-10},{96,-10},{96,88},{-88,
+          88},{-88,70},{-82,70}},
                 color={255,0,255}));
   connect(Zero.y, equ1.u2) annotation (Line(points={{-79,-30},{-72,-30},{-72,-28},
           {-62,-28}}, color={0,0,127}));
@@ -67,8 +67,8 @@ equation
           {80,-80},{80,-68},{80,-50},{73,-50}}, color={255,0,255}));
   connect(cha1.y, not3.u)
     annotation (Line(points={{41,-50},{50,-50}}, color={255,0,255}));
-  connect(not1.y, xor.u1) annotation (Line(points={{-59,70},{-56,70},{-56,60},{
-          -52,60}}, color={255,0,255}));
+  connect(not1.y, xor.u1) annotation (Line(points={{-59,70},{-56,70},{-56,60},{-52,
+          60}}, color={255,0,255}));
   connect(u, xor.u2) annotation (Line(points={{-120,0},{-80,0},{-80,52},{-52,52}},
         color={255,0,255}));
   connect(xor.y, not2.u)
@@ -83,8 +83,7 @@ equation
           lineColor={0,0,0}),
           Line(points={{-78,22},{-44,22},{-44,66},{-12,66},{-12,22},{-12,22}},
               color={255,0,255}),
-          Line(points={{-78,-62},{-48,-62},{-48,-18},{-24,-18},{-24,-62},{-24,
-              -62}}),
+          Line(points={{-78,-62},{-48,-62},{-48,-18},{-24,-18},{-24,-62},{-24,-62}}),
           Line(points={{-24,-62},{6,-62},{6,-18},{44,-18},{44,-62},{74,-62}}),
           Line(points={{-12,22},{20,22},{20,66},{52,66},{52,22},{72,22}},
               color={255,0,255}),
@@ -115,20 +114,19 @@ equation
     </p>
     <p>
     The block outputs a Boolean signal <code>y</code> based on the 
-    Boolean input <code>u</code> such that the output never switches from on to
-    off faster than the provided on-off time delay. After that time period has 
-    elapsed, the signal becomes equal to the input signal. If at that moment the
-    input signal causes a rising or a falling edge of the output, the output
-    remains constant for the mentioned time delay.
+    Boolean input <code>u</code> such that the output signal remains constant 
+    for the defined time period after a signal change. After that time period has 
+    elapsed, the signal becomes equal to the input signal. The purpose of the 
+    block is to disable quick changes in the output signal.
     </p>
 
     <p>
-    fixme - Simulation results of a typical example with a on off hold time of [fixme]
-    is shown in the next figure.
+    Simulation results of a typical example with the block default 
+    on off hold time of 15 min is shown in the next figure.
     </p>
 
     <p align=\"center\">
-    <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/fixme.png\"
+    <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnOffHold.PNG\"
          alt=\"fixme.png\" />
     </p>
 
