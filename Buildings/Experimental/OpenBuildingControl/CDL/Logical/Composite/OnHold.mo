@@ -3,7 +3,7 @@ model OnHold "Block that holds a signal on for a requested time period"
 
   LessThreshold                                               les1(threshold=
         holdOnDuration)
-    annotation (Placement(transformation(extent={{-20,-38},{0,-18}})));
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Continuous.Constant Zero(final k=0)
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Timer                                                        timer
@@ -34,14 +34,14 @@ equation
   connect(u, or2.u1) annotation (Line(points={{-120,-10},{-90,-10},{-90,70},{-22,
           70}},
         color={255,0,255}));
-  connect(les1.y, and2.u2) annotation (Line(points={{1,-28},{10,-28},{10,42},{18,
-          42}},      color={255,0,255}));
+  connect(les1.y, and2.u2) annotation (Line(points={{1,-30},{10,-30},{10,42},{
+          18,42}},   color={255,0,255}));
   connect(and2.y, pre.u) annotation (Line(points={{41,50},{48,50}},
                  color={255,0,255}));
   connect(or2.y, y) annotation (Line(points={{1,70},{1,70},{90,70},{90,0},{110,0}},
         color={255,0,255}));
-  connect(timer.y, les1.u) annotation (Line(points={{41,20},{50,20},{50,-50},{-30,
-          -50},{-30,-28},{-22,-28}},          color={0,0,127}));
+  connect(timer.y, les1.u) annotation (Line(points={{41,20},{50,20},{50,-50},{
+          -30,-50},{-30,-30},{-22,-30}},      color={0,0,127}));
   connect(or2.y, and2.u1) annotation (Line(points={{1,70},{10,70},{10,50},{18,50}},
         color={255,0,255}));
   connect(equ1.u1, Zero.y)
@@ -108,5 +108,4 @@ equation
     </li>
     </ul>
     </html>"));
-
 end OnHold;
