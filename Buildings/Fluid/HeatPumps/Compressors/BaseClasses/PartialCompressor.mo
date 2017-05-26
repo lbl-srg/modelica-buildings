@@ -61,14 +61,10 @@ protected
     "Shutdown signal for invalid pressure ratios";
 
 initial equation
-  isOn = if y > 0.01 then true else false;
+  pre(isOn) = if y > 0.01 then true else false;
 
 equation
-  when (not pre(isOn)) and y > 0.01 then
-    isOn = true;
-  elsewhen pre(isOn) and y <= 0.005 then
-    isOn = false;
-  end when;
+  isOn = not pre(isOn) and y > 0.01 or pre(isOn) and y >= 0.005;
 
   PR = max(pDis/pSuc, 0);
   // The compressor is turned off if the resulting condensing pressure is lower
@@ -150,6 +146,12 @@ refrigerant mass flow is not accounted for and heat ports are used instead of fl
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 26, 2017, by Michael Wetter and Thierry Nouidui:<br/>
+Reformulated <code>isOn</code> to use the same construct as the hysteresis block,
+and to work around a JModelica limitation.<br/>
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/774\">#774</a>.
 <li>
 April 25, 2017, by Michael Wetter:<br/>
 Reformulated <code>when</code> conditions and moved common assignments
