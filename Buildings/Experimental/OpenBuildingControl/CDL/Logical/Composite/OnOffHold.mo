@@ -22,7 +22,7 @@ model OnOffHold "The block makes sure that the signal does not change values unl
   And andBeforeTimerAndSwitch
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   LogicalSwitch logSwi
-    annotation (Placement(transformation(extent={{56,2},{76,22}})));
+    annotation (Placement(transformation(extent={{62,2},{82,22}})));
   GreaterThreshold greThr(threshold=900)
     annotation (Placement(transformation(extent={{-74,-92},{-54,-72}})));
   Equal equ2 annotation (Placement(transformation(extent={{-20,40},{0,60}})));
@@ -30,7 +30,6 @@ model OnOffHold "The block makes sure that the signal does not change values unl
     annotation (Placement(transformation(extent={{-52,44},{-32,64}})));
   Conversions.BooleanToReal booToRea1
     annotation (Placement(transformation(extent={{-72,14},{-52,34}})));
-  Change cha annotation (Placement(transformation(extent={{78,56},{98,76}})));
   Edge                                                        edge1
     "Outputs true if the input has a rising edge"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
@@ -48,19 +47,19 @@ equation
   connect(and2.y, andBeforeTimerAndSwitch.u2) annotation (Line(points={{-9,-32},
           {-10,-32},{-10,-18},{-2,-18}}, color={255,0,255}));
   connect(andBeforeTimerAndSwitch.y, logSwi.u2) annotation (Line(points={{21,
-          -10},{30,-10},{30,12},{54,12}}, color={255,0,255}));
+          -10},{30,-10},{30,12},{60,12}}, color={255,0,255}));
   connect(u, logSwi.u1) annotation (Line(points={{-120,-10},{-42,-10},{-42,20},
-          {54,20}},color={255,0,255}));
-  connect(logSwi.y, y) annotation (Line(points={{77,12},{82,12},{82,0},{110,0}},
+          {60,20}},color={255,0,255}));
+  connect(logSwi.y, y) annotation (Line(points={{83,12},{82,12},{82,0},{110,0}},
         color={255,0,255}));
-  connect(logSwi.y, pre.u) annotation (Line(points={{77,12},{98,12},{98,-20},{
+  connect(logSwi.y, pre.u) annotation (Line(points={{83,12},{98,12},{98,-20},{
           50,-20}},
                  color={255,0,255}));
-  connect(logSwi.u3, pre.y) annotation (Line(points={{54,4},{30,4},{30,-42},{94,
+  connect(logSwi.u3, pre.y) annotation (Line(points={{60,4},{30,4},{30,-42},{94,
           -42},{92,-42},{92,-20},{73,-20}},
                  color={255,0,255}));
   connect(pre.y, not1.u) annotation (Line(points={{73,-20},{114,-20},{114,46},{
-          66,46},{66,80},{-98,80},{-98,92},{-96,92},{-96,72},{-92,72}},
+          66,46},{66,88},{-96,88},{-96,72},{-92,72}},
                 color={255,0,255}));
   connect(Zero.y, equ1.u2) annotation (Line(points={{-79,-30},{-72,-30},{-72,
           -32},{-64,-32}},
@@ -77,8 +76,6 @@ equation
           {-74,24}}, color={255,0,255}));
   connect(booToRea1.y, equ2.u2) annotation (Line(points={{-51,24},{-38,24},{-38,
           42},{-22,42}}, color={0,0,127}));
-  connect(logSwi.y, cha.u)
-    annotation (Line(points={{77,12},{76,12},{76,66}}, color={255,0,255}));
   connect(pre.y, edge1.u) annotation (Line(points={{73,-20},{46,-20},{46,40},{
           18,40}}, color={255,0,255}));
   connect(timer1.u, not2.y) annotation (Line(points={{58,-114},{50,-114},{50,

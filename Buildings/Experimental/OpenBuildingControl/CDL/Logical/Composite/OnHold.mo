@@ -20,7 +20,7 @@ model OnHold "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
   Interfaces.BooleanInput u
-    annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
   parameter Real holdOnDuration(unit="s") = 3600 "Time duration of the ON hold.";
 equation
@@ -31,17 +31,16 @@ equation
   connect(timer.y,equ1. u2) annotation (Line(points={{41,20},{64,20},{64,-50},{-28,
           -50},{-72,-50},{-72,-38}},                              color={0,0,
           127}));
-  connect(u, or2.u1) annotation (Line(points={{-120,-10},{-90,-10},{-90,70},{-22,
-          70}},
+  connect(u, or2.u1) annotation (Line(points={{-120,0},{-90,0},{-90,70},{-22,70}},
         color={255,0,255}));
-  connect(les1.y, and2.u2) annotation (Line(points={{1,-30},{10,-30},{10,42},{
-          18,42}},   color={255,0,255}));
+  connect(les1.y, and2.u2) annotation (Line(points={{1,-30},{10,-30},{10,42},{18,
+          42}},      color={255,0,255}));
   connect(and2.y, pre.u) annotation (Line(points={{41,50},{48,50}},
                  color={255,0,255}));
   connect(or2.y, y) annotation (Line(points={{1,70},{1,70},{90,70},{90,0},{110,0}},
         color={255,0,255}));
-  connect(timer.y, les1.u) annotation (Line(points={{41,20},{50,20},{50,-50},{
-          -30,-50},{-30,-30},{-22,-30}},      color={0,0,127}));
+  connect(timer.y, les1.u) annotation (Line(points={{41,20},{50,20},{50,-50},{-30,
+          -50},{-30,-30},{-22,-30}},          color={0,0,127}));
   connect(or2.y, and2.u1) annotation (Line(points={{1,70},{10,70},{10,50},{18,50}},
         color={255,0,255}));
   connect(equ1.u1, Zero.y)
@@ -50,10 +49,7 @@ equation
           {-70,20},{-70,50},{-62,50}}, color={255,0,255}));
   connect(not1.y, or2.u2) annotation (Line(points={{-39,50},{-30,50},{-30,62},{-22,
           62}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}},
-        initialScale=0.1), graphics={
-                                 Rectangle(
+  annotation (Icon(graphics={    Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           lineThickness=5.0,
