@@ -3,19 +3,19 @@ model OnHold
 
   LessThreshold                                               les1(threshold=
         holdOnDuration)
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+    annotation (Placement(transformation(extent={{-20,-38},{0,-18}})));
   Continuous.Constant Zero(final k=0)
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Timer                                                        timer
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Modelica.Blocks.Logical.Pre pre
-    annotation (Placement(transformation(extent={{40,30},{60,50}})));
+    annotation (Placement(transformation(extent={{50,40},{70,60}})));
   Not not1
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Equal                                                        equ1
-    annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
-  Or or2 annotation (Placement(transformation(extent={{-18,80},{2,100}})));
-  And and2 annotation (Placement(transformation(extent={{0,50},{20,70}})));
+    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
+  Or or2 annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+  And and2 annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Interfaces.BooleanOutput                                                y
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
@@ -25,31 +25,32 @@ model OnHold
   parameter Real holdOnDuration(unit="s") = 3600 "Time duration of the ON hold.";
 equation
 
-  connect(timer.u,pre. y) annotation (Line(points={{18,-30},{18,40},{61,40}},
+  connect(timer.u,pre. y) annotation (Line(points={{18,20},{12,20},{12,0},{80,0},
+          {80,50},{71,50}},
                       color={255,0,255}));
-  connect(Zero.y,equ1. u1) annotation (Line(points={{-59,-70},{-8,-70},{-8,-28},
-          {-72,-28},{-72,30}},color={0,0,127}));
-  connect(timer.y,equ1. u2) annotation (Line(points={{41,-30},{64,-30},{64,-40},
-          {-36,-40},{-36,0},{-54,0},{-54,22},{-72,22}},           color={0,0,
+  connect(timer.y,equ1. u2) annotation (Line(points={{41,20},{64,20},{64,-50},{
+          -28,-50},{-72,-50},{-72,-38}},                          color={0,0,
           127}));
-  connect(equ1.y,not1. u) annotation (Line(points={{-49,30},{-90,30},{-90,40},{
-          -42,40}},              color={255,0,255}));
-  connect(u, or2.u1) annotation (Line(points={{-120,-10},{-78,-10},{-78,86},{
-          -50,86},{-50,90},{-20,90}},
+  connect(u, or2.u1) annotation (Line(points={{-120,-10},{-90,-10},{-90,70},{
+          -22,70}},
         color={255,0,255}));
-  connect(or2.y, and2.u1) annotation (Line(points={{3,90},{-12,90},{-12,60},{-2,
-          60}},     color={255,0,255}));
-  connect(les1.y, and2.u2) annotation (Line(points={{1,10},{-12,10},{-12,52},{
-          -2,52}},   color={255,0,255}));
-  connect(and2.y, pre.u) annotation (Line(points={{21,60},{30,60},{30,40},{38,
-          40}},  color={255,0,255}));
-  connect(or2.y, y) annotation (Line(points={{3,90},{40,90},{40,72},{78,72},{78,
-          0},{78,0},{78,0},{110,0},{110,0}},
+  connect(les1.y, and2.u2) annotation (Line(points={{1,-28},{10,-28},{10,42},{
+          18,42}},   color={255,0,255}));
+  connect(and2.y, pre.u) annotation (Line(points={{41,50},{48,50}},
+                 color={255,0,255}));
+  connect(or2.y, y) annotation (Line(points={{1,70},{1,70},{90,70},{90,0},{110,
+          0}},
         color={255,0,255}));
-  connect(timer.y, les1.u) annotation (Line(points={{41,-30},{41,-22},{-70,-22},
-          {-70,10},{-22,10}},                 color={0,0,127}));
-  connect(or2.u2, not1.y) annotation (Line(points={{-20,82},{-50,82},{-50,40},{
-          -19,40}}, color={255,0,255}));
+  connect(timer.y, les1.u) annotation (Line(points={{41,20},{50,20},{50,-50},{
+          -30,-50},{-30,-28},{-22,-28}},      color={0,0,127}));
+  connect(or2.y, and2.u1) annotation (Line(points={{1,70},{10,70},{10,50},{18,
+          50}}, color={255,0,255}));
+  connect(equ1.u1, Zero.y)
+    annotation (Line(points={{-72,-30},{-72,-30},{-79,-30}}, color={0,0,127}));
+  connect(equ1.y, not1.u) annotation (Line(points={{-49,-30},{-40,-30},{-40,20},
+          {-70,20},{-70,50},{-62,50}}, color={255,0,255}));
+  connect(not1.y, or2.u2) annotation (Line(points={{-39,50},{-30,50},{-30,62},{
+          -22,62}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}},
         initialScale=0.1), graphics={
