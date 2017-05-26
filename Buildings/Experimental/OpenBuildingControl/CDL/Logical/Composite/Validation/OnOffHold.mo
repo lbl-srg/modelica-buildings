@@ -4,7 +4,7 @@ model OnOffHold "Validation model for the OnOffHold block"
 extends Modelica.Icons.Example;
 
   Sources.BooleanPulse                                                booPul(period=
-        1600, startTime=0)
+        1600, startTime=150)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite.OnOffHold
     onOffHold annotation (Placement(transformation(extent={{20,-10},{40,10}})));

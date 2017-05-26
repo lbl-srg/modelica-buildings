@@ -4,14 +4,14 @@ model OnOffHold "The block makes sure that the signal does not change values unl
   Continuous.Constant Zero(final k=0)
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Timer                                                        timer
-    annotation (Placement(transformation(extent={{78,-76},{98,-56}})));
+    annotation (Placement(transformation(extent={{92,-96},{112,-76}})));
   Modelica.Blocks.Logical.Pre pre
     annotation (Placement(transformation(extent={{52,-30},{72,-10}})));
   Not not1
     annotation (Placement(transformation(extent={{-90,62},{-70,82}})));
   Equal                                                        equ1
-    annotation (Placement(transformation(extent={{-68,-42},{-48,-22}})));
-  Or  and2 annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+    annotation (Placement(transformation(extent={{-62,-34},{-42,-14}})));
+  Or  and2 annotation (Placement(transformation(extent={{-30,-42},{-10,-22}})));
   Interfaces.BooleanOutput                                                y
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
@@ -24,7 +24,7 @@ model OnOffHold "The block makes sure that the signal does not change values unl
   LogicalSwitch logSwi
     annotation (Placement(transformation(extent={{56,2},{76,22}})));
   GreaterThreshold greThr(threshold=900)
-    annotation (Placement(transformation(extent={{-76,-94},{-56,-74}})));
+    annotation (Placement(transformation(extent={{-74,-92},{-54,-72}})));
   Equal equ2 annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Conversions.BooleanToReal booToRea
     annotation (Placement(transformation(extent={{-52,44},{-32,64}})));
@@ -34,23 +34,19 @@ model OnOffHold "The block makes sure that the signal does not change values unl
   Edge                                                        edge1
     "Outputs true if the input has a rising edge"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Constant                                                    ramp2(k=true)
-               "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-22,74},{-2,94}})));
-  Discrete.TriggeredSampler triggeredSampler "Triggered sampler"
-    annotation (Placement(transformation(extent={{52,74},{72,94}})));
-  Conversions.BooleanToReal booToRea2
-    annotation (Placement(transformation(extent={{16,74},{36,94}})));
-  Conversions.RealToInteger reaToInt
-    annotation (Placement(transformation(extent={{78,74},{98,94}})));
-  Conversions.IntegerToBoolean intToBoo
-    annotation (Placement(transformation(extent={{38,-66},{58,-46}})));
+  Timer                                                        timer1
+    annotation (Placement(transformation(extent={{60,-124},{80,-104}})));
+  Not not2 annotation (Placement(transformation(extent={{20,-138},{40,-118}})));
+  Change cha1
+             annotation (Placement(transformation(extent={{58,-62},{78,-42}})));
+  Not not3 annotation (Placement(transformation(extent={{70,-96},{90,-76}})));
 equation
 
-  connect(equ1.y, and2.u1) annotation (Line(points={{-47,-32},{-42,-32},{-42,-30}},
+  connect(equ1.y, and2.u1) annotation (Line(points={{-41,-24},{-32,-24},{-32,
+          -32}},
         color={255,0,255}));
-  connect(and2.y, andBeforeTimerAndSwitch.u2) annotation (Line(points={{-19,-30},
-          {-10,-30},{-10,-18},{-2,-18}}, color={255,0,255}));
+  connect(and2.y, andBeforeTimerAndSwitch.u2) annotation (Line(points={{-9,-32},
+          {-10,-32},{-10,-18},{-2,-18}}, color={255,0,255}));
   connect(andBeforeTimerAndSwitch.y, logSwi.u2) annotation (Line(points={{21,
           -10},{30,-10},{30,12},{54,12}}, color={255,0,255}));
   connect(u, logSwi.u1) annotation (Line(points={{-120,-10},{-42,-10},{-42,20},
@@ -66,14 +62,11 @@ equation
   connect(pre.y, not1.u) annotation (Line(points={{73,-20},{114,-20},{114,46},{
           66,46},{66,80},{-98,80},{-98,92},{-96,92},{-96,72},{-92,72}},
                 color={255,0,255}));
-  connect(timer.y, equ1.u1) annotation (Line(points={{99,-66},{14,-66},{14,-32},
-          {-70,-32}}, color={0,0,127}));
-  connect(Zero.y, equ1.u2) annotation (Line(points={{-79,-30},{-74,-30},{-74,-40},
-          {-70,-40}}, color={0,0,127}));
-  connect(timer.y, greThr.u) annotation (Line(points={{99,-66},{99,-84},{-78,
-          -84}},      color={0,0,127}));
-  connect(and2.u2, greThr.y) annotation (Line(points={{-42,-38},{-38,-38},{-38,
-          -84},{-55,-84}}, color={255,0,255}));
+  connect(Zero.y, equ1.u2) annotation (Line(points={{-79,-30},{-72,-30},{-72,
+          -32},{-64,-32}},
+                      color={0,0,127}));
+  connect(and2.u2, greThr.y) annotation (Line(points={{-32,-40},{-42,-40},{-42,
+          -82},{-53,-82}}, color={255,0,255}));
   connect(andBeforeTimerAndSwitch.u1, equ2.y) annotation (Line(points={{-2,-10},
           {0,-10},{0,50},{1,50}}, color={255,0,255}));
   connect(not1.y, booToRea.u) annotation (Line(points={{-69,72},{-62,72},{-62,
@@ -86,20 +79,22 @@ equation
           42},{-22,42}}, color={0,0,127}));
   connect(logSwi.y, cha.u)
     annotation (Line(points={{77,12},{76,12},{76,66}}, color={255,0,255}));
-  connect(edge1.y,triggeredSampler. trigger) annotation (Line(points={{41,40},{
-          52,40},{52,72.2},{62,72.2}},    color={255,0,255}));
   connect(pre.y, edge1.u) annotation (Line(points={{73,-20},{46,-20},{46,40},{
           18,40}}, color={255,0,255}));
-  connect(ramp2.y, booToRea2.u)
-    annotation (Line(points={{-1,84},{14,84}}, color={255,0,255}));
-  connect(triggeredSampler.u, booToRea2.y)
-    annotation (Line(points={{50,84},{37,84}}, color={0,0,127}));
-  connect(triggeredSampler.y, reaToInt.u)
-    annotation (Line(points={{73,84},{76,84}}, color={0,0,127}));
-  connect(reaToInt.y, intToBoo.u) annotation (Line(points={{99,84},{68,84},{68,
-          -56},{36,-56}}, color={255,127,0}));
-  connect(timer.u, intToBoo.y) annotation (Line(points={{76,-66},{68,-66},{68,
-          -56},{59,-56}}, color={255,0,255}));
+  connect(timer1.u, not2.y) annotation (Line(points={{58,-114},{50,-114},{50,
+          -128},{41,-128}}, color={255,0,255}));
+  connect(pre.y, not2.u) annotation (Line(points={{73,-20},{46,-20},{46,-128},{
+          18,-128}}, color={255,0,255}));
+  connect(timer.y, greThr.u) annotation (Line(points={{113,-86},{16,-86},{16,
+          -82},{-76,-82}}, color={0,0,127}));
+  connect(timer.y, equ1.u1) annotation (Line(points={{113,-86},{24,-86},{24,-24},
+          {-64,-24}}, color={0,0,127}));
+  connect(pre.y, cha1.u) annotation (Line(points={{73,-20},{64,-20},{64,-52},{
+          56,-52}}, color={255,0,255}));
+  connect(cha1.y, not3.u) annotation (Line(points={{79,-52},{74,-52},{74,-86},{
+          68,-86}}, color={255,0,255}));
+  connect(timer.u, not3.y)
+    annotation (Line(points={{90,-86},{91,-86}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}},
         initialScale=0.1), graphics={
