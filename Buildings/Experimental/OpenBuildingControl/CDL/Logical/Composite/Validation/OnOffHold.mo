@@ -3,16 +3,16 @@ model OnOffHold "Validation model for the OnOffHold block"
   import Buildings;
 extends Modelica.Icons.Example;
 
-  Sources.BooleanPulse                                                booPul(startTime=
-       200, period=8000)
+  Sources.BooleanPulse                                                booPul(period=
+        1600, startTime=0)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite.OnOffHold
-    OnOffHold annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    onOffHold annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
-  connect(booPul.y, OnOffHold.u)
-    annotation (Line(points={{-19,0},{19,0}}, color={255,0,255}));
+  connect(booPul.y, onOffHold.u)
+    annotation (Line(points={{-19,0},{0,0},{19,0}}, color={255,0,255}));
   annotation (
-  experiment(StopTime=15000.0, Tolerance=1e-06),
+  experiment(StopTime=2000.0, Tolerance=1e-06),
   __Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Logical/Composite/Validation/OnOffHold.mos"
         "Simulate and plot"),
