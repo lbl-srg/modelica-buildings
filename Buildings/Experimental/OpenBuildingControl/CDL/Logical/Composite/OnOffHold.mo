@@ -80,19 +80,71 @@ equation
           {80,-80},{80,-68},{80,-50},{73,-50}}, color={255,0,255}));
   connect(cha1.y, not3.u)
     annotation (Line(points={{41,-50},{50,-50}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},
-            {100,100}},
-        initialScale=0.1), graphics={
-                                 Rectangle(
+  annotation (Icon(graphics={    Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
-          lineThickness=5.0,
           fillPattern=FillPattern.Solid,
-          borderPattern=BorderPattern.Raised),
-          Line(points={{-72,22},{-48,22},{-48,66},{52,66},{52,22},{80,22}},
+          borderPattern=BorderPattern.Raised,
+          lineColor={0,0,0}),
+          Line(points={{-78,22},{-44,22},{-44,66},{-10,66},{-10,22},{-10,22}},
               color={255,0,255}),
-          Line(points={{-68,-62},{-48,-62},{-48,-18},{22,-18},{22,-62},{78,-62}})}),
-                                                                 Diagram(coordinateSystem(
+          Line(points={{-78,-62},{-48,-62},{-48,-18},{-18,-18},{-18,-62},{-18,
+              -62}}),
+          Line(points={{-18,-62},{32,-62},{32,-18},{44,-18},{44,-62},{74,-62}}),
+          Line(points={{-10,22},{32,22},{32,66},{66,66},{66,22},{74,22}},
+              color={255,0,255}),
+        Line(
+          points={{-44,42},{-30,42}},
+          color={28,108,200},
+          arrow={Arrow.Filled,Arrow.None}),
+        Text(
+          extent={{-30,46},{-24,40}},
+          lineColor={28,108,200},
+          fontSize=12,
+          textString="t"),
+        Line(
+          points={{-24,42},{-10,42}},
+          color={28,108,200},
+          arrow={Arrow.None,Arrow.Filled}),
+        Text(
+          extent={{-64,46},{-58,40}},
+          lineColor={28,108,200},
+          fontSize=12,
+          textString="t"),
+        Line(
+          points={{-78,42},{-64,42}},
+          color={28,108,200},
+          arrow={Arrow.Filled,Arrow.None}),
+        Line(
+          points={{-58,42},{-44,42}},
+          color={28,108,200},
+          arrow={Arrow.None,Arrow.Filled}),
+        Line(
+          points={{52,42},{66,42}},
+          color={28,108,200},
+          arrow={Arrow.None,Arrow.Filled}),
+        Text(
+          extent={{46,46},{52,40}},
+          lineColor={28,108,200},
+          fontSize=12,
+          textString="t"),
+        Line(
+          points={{32,42},{46,42}},
+          color={28,108,200},
+          arrow={Arrow.Filled,Arrow.None}),
+        Line(
+          points={{16,42},{32,42}},
+          color={28,108,200},
+          arrow={Arrow.None,Arrow.Filled}),
+        Text(
+          extent={{8,46},{14,40}},
+          lineColor={28,108,200},
+          fontSize=12,
+          textString="> t"),
+        Line(
+          points={{-10,42},{4,42}},
+          color={28,108,200},
+          arrow={Arrow.Filled,Arrow.None})}),                    Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-120},{100,100}})),
               Documentation(info="<html>
     <p>
