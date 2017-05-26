@@ -1,6 +1,5 @@
-within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
-block VAVSingleZoneTSupSet
-  "Supply air set point for single zone VAV system"
+within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
+block VAVSingleZoneTSupSet "Supply air set point for single zone VAV system"
 
   parameter Modelica.SIunits.Temperature TMax
     "Maximum supply air temperature for heating"
@@ -21,7 +20,6 @@ block VAVSingleZoneTSupSet
   parameter Real yCooMax(min=0, max=1, unit="1") = 1
     "Maximum fan speed for cooling"
     annotation (Dialog(group="Speed"));
-
 
   CDL.Interfaces.RealInput uHea(min=0, max=1)
     "Heating control signal"
