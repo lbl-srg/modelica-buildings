@@ -7,6 +7,9 @@ model EvaporatorCondenser
 
   parameter Modelica.SIunits.ThermalConductance UA
     "Thermal conductance of heat exchanger";
+  parameter Modelica.SIunits.ThermalConductance UA_small=UA/10
+    "Small thermal conductance for regularisation of heat transfer "
+    annotation(Dialog(tab = "Advanced"));
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
     "Heat added to the fluid"
@@ -26,7 +29,8 @@ model EvaporatorCondenser
       NTU, 0, Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)), 0.999, 1.0e-4)
     "Effectiveness of heat exchanger";
 
-  Modelica.Blocks.Sources.RealExpression UAeff(final y=eps*cp_default*abs(port_a.m_flow)/(1 - eps))
+  Modelica.Blocks.Sources.RealExpression UAeff(
+    final y=Buildings.Utilities.Math.Functions.smoothMax(x1=UA, x2=eps*cp_default*abs(port_a.m_flow)/(1 - eps), x_small=UA_small))
     "Effective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-88,-80},{-68,-60}})));
 
@@ -56,9 +60,9 @@ equation
   connect(port_ref, con.solid) annotation (Line(points={{0,-60},{0,-90},{-36,-90},
           {-36,-80}}, color={191,0,0}));
   connect(con.fluid, heaFlo.port_a)
-    annotation (Line(points={{-36,-60},{-36,-50}},           color={191,0,0}));
-  connect(UAeff.y, con.Gc) annotation (Line(points={{-67,-70},{-56.5,-70},{-46,
-          -70}}, color={0,0,127}));
+    annotation (Line(points={{-36,-60},{-36,-56},{-36,-50}}, color={191,0,0}));
+  connect(UAeff.y, con.Gc) annotation (Line(points={{-67,-70},{-46,-70}},
+                 color={0,0,127}));
   annotation (Icon(graphics={
         Rectangle(
           extent={{70,60},{100,58}},
@@ -96,6 +100,12 @@ throughout the heat exchanger.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 27, 2017, by Filip Jorissen:<br/>
+Regularised heat transfer around zero flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/769\">#769</a>.
+</li>
 <li>
 April 12, 2017, by Michael Wetter:<br/>
 Corrected invalid syntax for computing the specific heat capacity.<br/>
