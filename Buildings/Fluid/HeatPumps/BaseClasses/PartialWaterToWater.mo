@@ -37,12 +37,23 @@ partial model PartialWaterToWater
     annotation (Dialog(tab="Dynamics", group="Evaporator"));
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
-    Modelica.Fluid.Types.Dynamics.SteadyState "Type of energy balance: dynamic (3 initialization options) or steady state"
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Dialog(tab="Dynamics", group="Evaporator and condenser"));
 
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Dialog(tab="Advanced"));
-
+  parameter Boolean enable_temPro = true
+    "Enable temperature protection"
+    annotation(Evaluate=true, Dialog(group="Temperature protection"));
+  parameter Modelica.SIunits.Temperature TConMax = Medium1.T_max-5
+    "Upper bound for condensor temperature"
+    annotation(Dialog(enable=enable_temPro, group="Temperature protection"));
+  parameter Modelica.SIunits.Temperature TEvaMin = Medium2.T_min+5
+    "Lower bound for evaporator temperature"
+    annotation(Dialog(enable=enable_temPro, group="Temperature protection"));
+  parameter Real dTHys(unit="K") = 5
+    "Hysteresis interval width"
+    annotation(Dialog(enable=enable_temPro, group="Temperature protection"));
   Modelica.Blocks.Interfaces.RealInput y(final unit = "1") if
     enable_variable_speed == true
     "Modulating signal for compressor frequency, equal to 1 at full load condition"
@@ -90,7 +101,7 @@ partial model PartialWaterToWater
     final homotopyInitialization=homotopyInitialization,
     final UA=UACon)
     "Condenser"
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+    annotation (Placement(transformation(extent={{40,50},{60,70}})));
 
   HeatExchangers.EvaporatorCondenser eva(
     redeclare final package Medium = Medium2,
@@ -108,7 +119,7 @@ partial model PartialWaterToWater
     final homotopyInitialization=homotopyInitialization,
     final UA=UAEva)
     "Evaporator"
-    annotation (Placement(transformation(extent={{10,-50},{-10,-70}})));
+    annotation (Placement(transformation(extent={{60,-50},{40,-70}})));
 
   replaceable Buildings.Fluid.HeatPumps.Compressors.BaseClasses.PartialCompressor com
     "Compressor"
@@ -116,7 +127,7 @@ partial model PartialWaterToWater
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={0,-6})));
+        origin={50,-6})));
 
 protected
   Modelica.Blocks.Math.IntegerToReal integerToReal if
@@ -131,38 +142,53 @@ protected
     "Limiter for control signal"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
 
+  Compressors.BaseClasses.TemperatureProtection temPro(
+    final TConMax=TConMax,
+    final TEvaMin=TEvaMin,
+    dTHys=dTHys) if                                       enable_temPro
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+
 equation
   connect(port_a1, con.port_a)
-    annotation (Line(points={{-100,60},{-10,60}}, color={0,127,255}));
+    annotation (Line(points={{-100,60},{40,60}},  color={0,127,255}));
   connect(con.port_b, port_b1)
-    annotation (Line(points={{10,60},{56,60},{100,60}}, color={0,127,255}));
-  connect(con.Q_flow, QCon_flow) annotation (Line(points={{11,66},{60,66},{60,90},
+    annotation (Line(points={{60,60},{60,60},{100,60}}, color={0,127,255}));
+  connect(con.Q_flow, QCon_flow) annotation (Line(points={{61,64},{60,64},{60,90},
           {110,90}}, color={0,0,127}));
   connect(eva.port_a, port_a2)
-    annotation (Line(points={{10,-60},{100,-60}}, color={0,127,255}));
+    annotation (Line(points={{60,-60},{100,-60}}, color={0,127,255}));
   connect(eva.port_b, port_b2)
-    annotation (Line(points={{-10,-60},{-100,-60}}, color={0,127,255}));
-  connect(eva.Q_flow, QEva_flow) annotation (Line(points={{-11,-66},{-20,-66},{-20,
+    annotation (Line(points={{40,-60},{-100,-60}},  color={0,127,255}));
+  connect(eva.Q_flow, QEva_flow) annotation (Line(points={{39,-64},{34,-64},{34,
           -90},{110,-90}}, color={0,0,127}));
   connect(com.port_b, con.port_ref)
-    annotation (Line(points={{0,4},{0,29},{0,54}}, color={191,0,0}));
-  connect(com.port_a, eva.port_ref) annotation (Line(points={{-4.44089e-016,-16},
-          {0,-16},{0,-54}}, color={191,0,0}));
+    annotation (Line(points={{50,4},{50,29},{50,54}},
+                                                   color={191,0,0}));
+  connect(com.port_a, eva.port_ref) annotation (Line(points={{50,-16},{50,-16},{
+          50,-54}},         color={191,0,0}));
   connect(com.P, P)
-    annotation (Line(points={{11,0},{110,0}},         color={0,0,127}));
+    annotation (Line(points={{61,0},{110,0}},         color={0,0,127}));
   if enable_variable_speed then
-    connect(y,com.y)
-      annotation (Line(points={{-120,30},{-66,30},{-66,0},{-11,0}},
+    connect(y,if enable_temPro then temPro.u else com.y)
+      annotation (Line(points={{-120,30},{-92,30},{-92,0},{-64,0},{0,0},{0,0},{-0.6,
+            0}},
         color={0,0,127}));
   else
-    connect(limiter.y, com.y) annotation (Line(points={{-29,-30},{-20,-30},{-20,0},
-          {-11,0}}, color={0,0,127}));
+    connect(limiter.y, if enable_temPro then temPro.u else com.y) annotation (Line(points={{-29,-30},{-24,-30},{-24,
+            -4},{-24,-4},{-24,0},{-0.6,0}},
+                    color={0,0,127}));
   end if;
   connect(stage, integerToReal.u) annotation (Line(points={{-120,30},{-120,30},{
           -92,30},{-92,-16},{-92,-30},{-82,-30}},                   color={255,127,
           0}));
   connect(integerToReal.y, limiter.u)
     annotation (Line(points={{-59,-30},{-52,-30}}, color={0,0,127}));
+  connect(temPro.y, com.y)
+    annotation (Line(points={{20.6,0},{39,0}},        color={0,0,127}));
+  connect(eva.T, temPro.TCon)
+    annotation (Line(points={{39,-68},{10,-68},{10,-10.6}}, color={0,0,127}));
+  connect(con.T, temPro.TEva)
+    annotation (Line(points={{61,68},{10,68},{10,10.6}}, color={0,0,127}));
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),       graphics={
