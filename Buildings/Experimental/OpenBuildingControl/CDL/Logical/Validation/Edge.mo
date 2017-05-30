@@ -9,6 +9,7 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Edge edge1
+    "Outputs true if the input has a rising edge"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
@@ -17,13 +18,13 @@ extends Modelica.Icons.Example;
     height=20) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
-  Discrete.TriggeredSampler triggeredSampler
+  Discrete.TriggeredSampler triggeredSampler "Triggered sampler"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 equation
   connect(booPul.y, edge1.u)
     annotation (Line(points={{-19,0},{-8,0},{-2,0}},color={255,0,255}));
-  connect(edge1.y, triggeredSampler.trigger) annotation (Line(points={{21,0},{50,0},{50,
-          38},{50,38},{50,38},{50,38.2}}, color={255,0,255}));
+  connect(edge1.y, triggeredSampler.trigger) annotation (Line(points={{21,0},{
+          50,0},{50,38},{50,38.2}},       color={255,0,255}));
   connect(ramp2.y, triggeredSampler.u)
     annotation (Line(points={{21,50},{29.5,50},{38,50}}, color={0,0,127}));
   annotation (

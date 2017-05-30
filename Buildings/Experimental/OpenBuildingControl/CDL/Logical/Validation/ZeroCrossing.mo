@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
-model ZeroCrossing "Validation model for the ZeroCrossing block"
+model ZeroCrossing "Validation model for the zero crossing block"
 extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
@@ -17,6 +17,7 @@ extends Modelica.Icons.Example;
      "Block that outputs cyclic on and off"
      annotation (Placement(transformation(extent={{-38,-44},{-18,-24}})));
     Buildings.Experimental.OpenBuildingControl.CDL.Logical.ZeroCrossing zeroCrossing
+      "Zero crossing block"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 
@@ -26,7 +27,7 @@ extends Modelica.Icons.Example;
     height=31.415926) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
-  Discrete.TriggeredSampler triggeredSampler
+  Discrete.TriggeredSampler triggeredSampler "Triggered sampler"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 equation
   connect(booPul1.y, zeroCrossing.enable) annotation (Line(points={{-17,-34},{
