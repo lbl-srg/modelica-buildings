@@ -136,6 +136,14 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
 </html>", revisions="<html>
 <ul>
 <li>
+May 30, 2017, by Filip Jorissen:<br/>
+Removed <code>pressure_error</code> as
+this is replaced by 
+<a href=\"modelica://Buildings.Fluid.HeatPumps.Compressors.BaseClasses.TemperatureProtection\">
+Buildings.Fluid.HeatPumps.Compressors.BaseClasses.TemperatureProtection</a>.
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/769\">#769</a>.
+</li>
+<li>
 November 11, 2016, by Massimo Cimmino:<br/>
 First implementation.
 </li>

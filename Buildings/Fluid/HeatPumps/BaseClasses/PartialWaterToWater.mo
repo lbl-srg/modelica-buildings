@@ -54,6 +54,14 @@ partial model PartialWaterToWater
   parameter Real dTHys(unit="K") = 5
     "Hysteresis interval width"
     annotation(Dialog(enable=enable_temPro, group="Temperature protection"));
+
+  final Boolean errEva = temPro.errEva
+    "if true, compressor disabled since evaporator temperature is above upper bound";
+  final Boolean errCon = temPro.errCon
+    "if true, compressor disabled since condenser temperature is below lower bound";
+  final Boolean errdT = temPro.errdT
+    "if true, compressor disabled since condenser temperature is below evaporator temperature";
+
   Modelica.Blocks.Interfaces.RealInput y(final unit = "1") if
     enable_variable_speed == true
     "Modulating signal for compressor frequency, equal to 1 at full load condition"
@@ -130,23 +138,20 @@ partial model PartialWaterToWater
         origin={50,-6})));
 
 protected
-  Modelica.Blocks.Math.IntegerToReal integerToReal if
-    enable_variable_speed == false
-    "Conversion for stage signal"
+  Modelica.Blocks.Math.IntegerToReal intToRea if
+    enable_variable_speed == false "Conversion for stage signal"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
-  Modelica.Blocks.Nonlinear.Limiter limiter(
-    final uMin=0,
-    final uMax=1) if
-    enable_variable_speed == false
-    "Limiter for control signal"
+  Modelica.Blocks.Nonlinear.Limiter lim(final uMin=0, final uMax=1) if
+    enable_variable_speed == false "Limiter for control signal"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
 
   Compressors.BaseClasses.TemperatureProtection temPro(
     final TConMax=TConMax,
     final TEvaMin=TEvaMin,
-    dTHys=dTHys) if                                       enable_temPro
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    final dTHys=dTHys) if enable_temPro
+    "Disables compressor when outside of allowed operation range"
+    annotation (Placement(transformation(extent={{0,10},{20,-10}})));
 
 equation
   connect(port_a1, con.port_a)
@@ -170,25 +175,22 @@ equation
     annotation (Line(points={{61,0},{110,0}},         color={0,0,127}));
   if enable_variable_speed then
     connect(y,if enable_temPro then temPro.u else com.y)
-      annotation (Line(points={{-120,30},{-92,30},{-92,0},{-64,0},{0,0},{0,0},{-0.6,
-            0}},
+      annotation (Line(points={{-120,30},{-90,30},{-90,0},{-62,0},{1.4,0}},
         color={0,0,127}));
   else
-    connect(limiter.y, if enable_temPro then temPro.u else com.y) annotation (Line(points={{-29,-30},{-24,-30},{-24,
-            -4},{-24,-4},{-24,0},{-0.6,0}},
-                    color={0,0,127}));
+    connect(lim.y, if enable_temPro then temPro.u else com.y)
+      annotation (Line(points={{-29,-30},{-20,-30},{-20,0}}, color={0,0,127}));
   end if;
-  connect(stage, integerToReal.u) annotation (Line(points={{-120,30},{-120,30},{
-          -92,30},{-92,-16},{-92,-30},{-82,-30}},                   color={255,127,
-          0}));
-  connect(integerToReal.y, limiter.u)
+  connect(stage, intToRea.u) annotation (Line(points={{-120,30},{-120,30},{-90,30},
+          {-90,-16},{-90,-30},{-82,-30}}, color={255,127,0}));
+  connect(intToRea.y, lim.u)
     annotation (Line(points={{-59,-30},{-52,-30}}, color={0,0,127}));
   connect(temPro.y, com.y)
-    annotation (Line(points={{20.6,0},{39,0}},        color={0,0,127}));
-  connect(eva.T, temPro.TCon)
-    annotation (Line(points={{39,-68},{10,-68},{10,-10.6}}, color={0,0,127}));
-  connect(con.T, temPro.TEva)
-    annotation (Line(points={{61,68},{10,68},{10,10.6}}, color={0,0,127}));
+    annotation (Line(points={{21,0},{39,0}},          color={0,0,127}));
+  connect(temPro.TCon, con.T) annotation (Line(points={{10,12},{10,76},{70,76},{
+          70,68},{61,68}},  color={0,0,127}));
+  connect(temPro.TEva, eva.T)
+    annotation (Line(points={{10,-12},{10,-68},{39,-68}},   color={0,0,127}));
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),       graphics={
@@ -292,6 +294,13 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2017, by Filip Jorissen:<br/>
+Added temperature protection block and
+set <code>energyDynamics=DynamicFreeInitial</code>.
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/769\">
+#769</a>.
+</li>
 <li>
 October 17, 2016, by Massimo Cimmino:<br/>
 First implementation.

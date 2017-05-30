@@ -146,6 +146,14 @@ refrigerant mass flow is not accounted for and heat ports are used instead of fl
 </html>", revisions="<html>
 <ul>
 <li>
+May 30, 2017, by Filip Jorissen:<br/>
+Removed <code>pressure_error</code> as
+this is replaced by 
+<a href=\"modelica://Buildings.Fluid.HeatPumps.Compressors.BaseClasses.TemperatureProtection\">
+Buildings.Fluid.HeatPumps.Compressors.BaseClasses.TemperatureProtection</a>.
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/769\">#769</a>.
+</li>
+<li>
 April 25, 2017, by Michael Wetter:<br/>
 Reformulated <code>when</code> conditions and moved common assignments
 to this base class.<br/>

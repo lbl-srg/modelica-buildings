@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater", method="dassl", tolerance=1e-6, stopTime=1000, resultFile="Validation_ScrollWaterToWater");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_Static", method="dassl", tolerance=1e-6, stopTime=1000, resultFile="ReciprocatingWaterToWater_Static");
 
 createPlot(id = 1,
    position = {60, 10, 640, 480},
@@ -8,7 +8,7 @@ createPlot(id = 1,
    autoreplot = true,
    grid = true,
    color = true,
-   filename = "Validation_ScrollWaterToWater.mat",
+   filename = "ReciprocatingWaterToWater.mat",
    leftTitleType = 1,
    bottomTitleType = 1);
 
@@ -20,7 +20,7 @@ createPlot(id = 2,
    autoreplot = true,
    grid = true,
    color = true,
-   filename = "Validation_ScrollWaterToWater.mat",
+   filename = "ReciprocatingWaterToWater.mat",
    leftTitleType = 1,
    bottomTitleType = 1);
 
@@ -32,6 +32,6 @@ createPlot(id = 3,
    autoreplot = true,
    grid = true,
    color = true,
-   filename = "Validation_ScrollWaterToWater.mat",
+   filename = "ReciprocatingWaterToWater.mat",
    leftTitleType = 1,
    bottomTitleType = 1);
