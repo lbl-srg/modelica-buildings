@@ -1,5 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
-block MinMax  "Output the minimum and the maximum element of the input vector"
+block MinMax
+  "Output the minimum and the maximum element of the input vector"
 
   parameter Integer nin(min=0) = 0 "Number of input connections"  annotation (Dialog(connectorSizing=true), HideResult=true);
   Interfaces.RealInput u[nin]  annotation (Placement(transformation(extent={{-140,20},{-100,-20}})));

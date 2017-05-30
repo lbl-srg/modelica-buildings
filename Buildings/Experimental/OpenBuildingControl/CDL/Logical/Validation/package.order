@@ -2,6 +2,7 @@ And
 And3
 Change
 Edge
+Equal
 FallingEdge
 Greater
 GreaterEqual
@@ -27,4 +28,3 @@ Toggle
 TriggeredTrapezoid
 Xor
 ZeroCrossing
-?

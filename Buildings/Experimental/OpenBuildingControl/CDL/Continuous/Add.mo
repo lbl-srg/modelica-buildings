@@ -1,6 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block Add "Output the sum of the two inputs"
-  // fixme: remove this and control econ to SATsp (not SATsp-C)
 
   parameter Real k1=+1 "Gain for input u1";
 

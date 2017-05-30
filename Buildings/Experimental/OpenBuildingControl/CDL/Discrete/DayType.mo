@@ -3,14 +3,14 @@ model DayType "Block that outputs a signal that indicates week-day or week-end"
   parameter Integer nout = 2
     "Number of days to output. Set to two for one day predictions";
   parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.Day[:] days={
-     Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.WorkingDay,
-     Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.WorkingDay,
-     Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.WorkingDay,
-     Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.WorkingDay,
-     Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.WorkingDay,
-     Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.NonWorkingDay,
-     Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.NonWorkingDay}
-     "Array where each element is a day indicator";
+    Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.WorkingDay,
+    Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.WorkingDay,
+    Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.WorkingDay,
+    Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.WorkingDay,
+    Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.WorkingDay,
+    Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.NonWorkingDay,
+    Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.NonWorkingDay}
+    "Array where each element is a day indicator";
    parameter Integer iStart(min=1, max=size(days, 1)) = 1
     "Index of element in days at simulation start";
 

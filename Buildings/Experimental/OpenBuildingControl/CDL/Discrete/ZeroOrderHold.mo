@@ -17,9 +17,15 @@ block ZeroOrderHold "Output the input signal with a zero order hold"
 protected
   output Boolean sampleTrigger "True, if sample time instant";
 
+  output Boolean firstTrigger(start=false, fixed=true)
+    "Rising edge signals first sample instant";
+
 equation
   // Declarations that are used for all discrete blocks
   sampleTrigger = sample(startTime, samplePeriod);
+  when sampleTrigger then
+    firstTrigger = time <= startTime + samplePeriod/2;
+  end when;
 
   // Declarations specific to this type of discrete block
   when {sampleTrigger, initial()} then

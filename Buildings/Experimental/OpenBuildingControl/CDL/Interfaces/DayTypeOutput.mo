@@ -26,7 +26,7 @@ annotation (
       extent={{30.0,60.0},{30.0,110.0}},
       textString="%name")}),
   Documentation(info="<html>
-  <p>
+<p>
 Connector with one output signal of type
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Types.Day\">
 Buildings.Experimental.OpenBuildingControl.CDL.Types.Day</a>.
@@ -34,7 +34,7 @@ Buildings.Experimental.OpenBuildingControl.CDL.Types.Day</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-January 11, 2017, by Milica Grahovac:<br/>
+January 11, 2016, by Milica Grahovac:<br/>
 First CDL implementation.
 </li>
 <li>
