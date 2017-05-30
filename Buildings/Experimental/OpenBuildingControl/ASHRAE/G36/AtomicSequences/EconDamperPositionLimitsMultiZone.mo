@@ -26,11 +26,11 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
     annotation (Placement(transformation(extent={{-220,100},{-180,140}}),
         iconTransformation(extent={{-220,100},{-180,140}})));
   CDL.Continuous.Constant retDamPhyPosMinSig(k=retDamPhyPosMin)
-    "Physical or at the comissioning fixed minimum opening of the return air damper. Assuming 0 airflow through the damper at this position. fixme: this maybe needs to be an input."
+    "Physical or at the comissioning fixed minimum opening of the return air damper. Assuming 0 airflow through the damper at this position. fixme: this maybe needs to be an input. fixme: Have this be a hardware input (make a \"physical data determined at comissioning block\")"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   //fixme add units, should be percentage
   CDL.Continuous.Constant outDamPhyPosMinSig(k=outDamPhyPosMin)
-    "Physical or at the comissioning fixed minimum position of the economizer damper - economizer damper closed. Assuming VOut = 0 at this condition. This is the initial position of the economizer damper. fixme: It should always be 0 (pp), should we define this as final?"
+    "Physical or at the comissioning fixed minimum position of the economizer damper - economizer damper closed. Assuming VOut = 0 at this condition. This is the initial position of the economizer damper. fixme: It should always be 0 (pp), should we define this as final? fixme: Have this be a hardware input (make a \"physical data determined at comissioning block\")"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
   CDL.Continuous.LimPID minOutAirDamPosController(
     Ti=0.9,
@@ -63,11 +63,11 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
                                                     iconTransformation(extent={{180,-50},
             {200,-30}})));
   CDL.Continuous.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
-    "Physical or at the comissioning fixed maximum opening of the return air damper. This is the initial condition of the return air damper."
+    "Physical or at the comissioning fixed maximum opening of the return air damper. This is the initial condition of the return air damper. fixme: Have this be a hardware input (make a \"physical data determined at comissioning block\")"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   CDL.Continuous.Constant outDamPhyPosMaxSig(k=outDamPhyPosMax)
-    "Physical or at the comissioning fixed maximum position of the economizer damper - economizer damper fully open. fixme: this maybe needs to be an input."
-    annotation (Placement(transformation(extent={{-140,-108},{-120,-88}})));
+    "Physical or at the comissioning fixed maximum position of the economizer damper - economizer damper fully open. fixme: Have this be a hardware input (make a \"physical data determined at comissioning block\")"
+    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
   CDL.Continuous.Line minOutDam(limitBelow=true, limitAbove=true)
     "Damper position is linearly proportional to the control signal."
     annotation (Placement(transformation(extent={{102,0},{122,20}})));
@@ -112,7 +112,7 @@ equation
   connect(nand.y, RetDamPosMin.u2) annotation (Line(points={{-59,18},{-44,18},{
           -44,-70},{-22,-70}},    color={255,0,255}));
   connect(outDamPhyPosMaxSig.y, outDamPosMax.u3) annotation (Line(points={{-119,
-          -98},{-48,-98},{-48,-122},{-22,-122}},   color={0,0,127}));
+          -100},{-48,-100},{-48,-122},{-22,-122}}, color={0,0,127}));
   connect(outDamPhyPosMinSig.y, outDamPosMax.u1) annotation (Line(points={{-119,
           -140},{-58,-140},{-58,-106},{-22,-106}}, color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, RetDamPosMin.u1) annotation (Line(points={{-119,
