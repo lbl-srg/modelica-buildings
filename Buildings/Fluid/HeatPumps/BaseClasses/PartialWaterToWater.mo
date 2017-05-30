@@ -51,15 +51,15 @@ partial model PartialWaterToWater
   parameter Modelica.SIunits.Temperature TEvaMin = Medium2.T_min+5
     "Lower bound for evaporator temperature"
     annotation(Dialog(enable=enable_temPro, group="Temperature protection"));
-  parameter Real dTHys(unit="K") = 5
+  parameter Real dTHys(unit="K",min=0) = 7.5
     "Hysteresis interval width"
     annotation(Dialog(enable=enable_temPro, group="Temperature protection"));
 
-  final Boolean errEva = temPro.errEva
+  Modelica.Blocks.Interfaces.BooleanOutput errEva if enable_temPro
     "if true, compressor disabled since evaporator temperature is above upper bound";
-  final Boolean errCon = temPro.errCon
+  Modelica.Blocks.Interfaces.BooleanOutput errCon if enable_temPro
     "if true, compressor disabled since condenser temperature is below lower bound";
-  final Boolean errdT = temPro.errdT
+  Modelica.Blocks.Interfaces.BooleanOutput errdT if enable_temPro
     "if true, compressor disabled since condenser temperature is below evaporator temperature";
 
   Modelica.Blocks.Interfaces.RealInput y(final unit = "1") if
@@ -154,6 +154,11 @@ protected
     annotation (Placement(transformation(extent={{0,10},{20,-10}})));
 
 equation
+  if enable_temPro then
+    connect(errEva, temPro.errEva);
+    connect(errCon, temPro.errCon);
+    connect(errdT, temPro.errdT);
+  end if;
   connect(port_a1, con.port_a)
     annotation (Line(points={{-100,60},{40,60}},  color={0,127,255}));
   connect(con.port_b, port_b1)
@@ -174,12 +179,23 @@ equation
   connect(com.P, P)
     annotation (Line(points={{61,0},{110,0}},         color={0,0,127}));
   if enable_variable_speed then
-    connect(y,if enable_temPro then temPro.u else com.y)
-      annotation (Line(points={{-120,30},{-90,30},{-90,0},{-62,0},{1.4,0}},
+    if enable_temPro then
+      connect(y,temPro.u)
+        annotation (Line(points={{-120,30},{-90,30},{-90,0},{-2,0},{-2,0}},
         color={0,0,127}));
+    else
+      connect(y,com.y)
+        annotation (Line(points={{-120,30},{-90,30},{-90,0},{39,0},{39,0}},
+        color={0,0,127}));
+    end if;
   else
-    connect(lim.y, if enable_temPro then temPro.u else com.y)
-      annotation (Line(points={{-29,-30},{-20,-30},{-20,0}}, color={0,0,127}));
+    if enable_temPro then
+      connect(lim.y, temPro.u)
+        annotation (Line(points={{-29,-30},{-2,-30},{-2,0}},   color={0,0,127}));
+    else
+      connect(lim.y, com.y)
+        annotation (Line(points={{-29,-30},{39,-30},{39,0}},   color={0,0,127}));
+    end if;
   end if;
   connect(stage, intToRea.u) annotation (Line(points={{-120,30},{-120,30},{-90,30},
           {-90,-16},{-90,-30},{-82,-30}}, color={255,127,0}));
