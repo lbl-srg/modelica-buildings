@@ -20,6 +20,9 @@ convertElement("Buildings.Fluid.HeatExchangers.HeaterCooler_T",
                "Q_flow_maxHeat", "QMax_flow");
 
 
+convertClass("IBPSA.Fluid.MassExchangers.Humidifier_u",
+             "IBPSA.Fluid.Humidifiers.Humidifier_u");
+
 
 convertModifiers("Buildings.Fluid.MassExchangers.Humidifier_u",
                  {"use_T_in"}, fill("",0), true);

@@ -1,6 +1,6 @@
-within Buildings.Fluid.MassExchangers.Validation;
-model Humidifier_X
-  "Model that demonstrates the ideal humidifier model, configured as steady-state"
+within Buildings.Fluid.Humidifiers.Validation;
+model SprayAirWasher_X
+  "Model that demonstrates the spray air washer model, configured as steady-state"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
@@ -15,14 +15,23 @@ model Humidifier_X
     T=293.15,
     nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=180,origin={110,0})));
+<<<<<<< HEAD:Buildings/Fluid/MassExchangers/Validation/Humidifier_X.mo
   Buildings.Fluid.MassExchangers.Humidifier_X hum(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
+=======
+
+  replaceable Buildings.Fluid.Humidifiers.SprayAirWasher_X hum(
+>>>>>>> upstream/issue685_crah:Buildings/Fluid/Humidifiers/Validation/SprayAirWasher_X.mo
     mWatMax_flow=mWat_flow_nominal,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    show_T=true)
-    "Steady-state model with capacity limitation"
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+      constrainedby
+    Buildings.Fluid.HeatExchangers.BaseClasses.PartialPrescribedOutlet(
+        redeclare package Medium = Medium,
+        m_flow_nominal=m_flow_nominal,
+        dp_nominal=6000,
+        show_T=true) "Humidifier with capacity limitation"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium,
@@ -60,11 +69,17 @@ equation
           100,0},{100,1.11022e-15}},              color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{200,200}})),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/MassExchangers/Validation/Humidifier_X.mos"
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/Validation/SprayAirWasher_X.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
+<<<<<<< HEAD:Buildings/Fluid/MassExchangers/Validation/Humidifier_X.mo
 Model that demonstrates the use of an adiabatic humidifier.
+=======
+Model that validates the use of a spray air washer
+configured as a steady-state model with limits on the maximum water mass flow rate
+that is added to the air stream.
+>>>>>>> upstream/issue685_crah:Buildings/Fluid/Humidifiers/Validation/SprayAirWasher_X.mo
 </p>
 </html>", revisions="<html>
 <ul>
@@ -77,4 +92,4 @@ First implementation.
     experiment(
       StopTime=1080,
       Tolerance=1e-6));
-end Humidifier_X;
+end SprayAirWasher_X;

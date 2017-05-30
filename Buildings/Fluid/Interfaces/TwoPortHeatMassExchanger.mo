@@ -127,8 +127,8 @@ Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>, and
 </li>
 <li>
 the ideal humidifier
-<a href=\"modelica://Buildings.Fluid.MassExchangers.Humidifier_u\">
-Buildings.Fluid.MassExchangers.Humidifier_u</a>.
+<a href=\"modelica://Buildings.Fluid.Humidifiers.Humidifier_u\">
+Buildings.Fluid.Humidifiers.Humidifier_u</a>.
 </li>
 </ul>
 

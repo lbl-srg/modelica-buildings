@@ -1,4 +1,4 @@
-within Buildings.Fluid.MassExchangers;
+within Buildings.Fluid.Humidifiers;
 model Humidifier_u
   "Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
