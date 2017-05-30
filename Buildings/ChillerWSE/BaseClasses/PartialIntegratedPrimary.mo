@@ -1,8 +1,7 @@
-within Buildings.ChillerWSE;
-model IntegratedPrimary "Integrated WSE for Primary Chilled Water System"
+within Buildings.ChillerWSE.BaseClasses;
+model PartialIntegratedPrimary
+  "Integrated WSE for Primary Chilled Water System"
   extends Buildings.ChillerWSE.BaseClasses.PartialChillerWSE;
-
-
 
   Fluid.Movers.SpeedControlled_y fan
     annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
@@ -35,4 +34,4 @@ equation
           {0,-40},{0,-80},{-20,-80}}, color={0,127,255}));
   connect(val3.port_b, port_b2) annotation (Line(points={{-40,-80},{-86,-80},{
           -86,-60},{-100,-60},{-100,-60}}, color={0,127,255}));
-end IntegratedPrimary;
+end PartialIntegratedPrimary;
