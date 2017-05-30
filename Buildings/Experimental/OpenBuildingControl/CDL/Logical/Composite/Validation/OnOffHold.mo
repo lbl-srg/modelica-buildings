@@ -13,7 +13,7 @@ equation
     annotation (Line(points={{-19,0},{18.8,0}},
                                               color={255,0,255}));
   annotation (
-  experiment(StopTime=15000.0, Tolerance=1e-06),
+  experiment(StopTime=7200.0, Tolerance=1e-06),
   __Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Logical/Composite/Validation/OnOffHold.mos"
         "Simulate and plot"),
