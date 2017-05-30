@@ -16,7 +16,7 @@ model EconEnableDisable_TOut
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   CDL.Conversions.RealToInteger reaToInt
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-  EconEnableDisable econEnableDisable
+  EconEnableDisableMultiZone econEnableDisable
     annotation (Placement(transformation(extent={{0,-2},{24,22}})));
   CDL.Continuous.Constant outDamPosMin1(k=300)
     "Minimal allowed economizer damper position"

@@ -5,7 +5,7 @@ model EconEnableDisable_FreProSta
 
   parameter Real TOutBelowThreshold(min=273.15, max=((273.15+23.85) - 2), unit="K", displayUnit="degC")=(273.15+15.85) "Constant output value";
 
-  EconEnableDisable econEnableDisable
+  EconEnableDisableMultiZone econEnableDisable
     annotation (Placement(transformation(extent={{2,-6},{20,12}})));
   CDL.Continuous.Constant outDamPosMax(k=0.9)
     "Maximal allowed economizer damper position"
