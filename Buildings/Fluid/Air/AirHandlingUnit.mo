@@ -104,7 +104,7 @@ model AirHandlingUnit
     "Error between actual valve position and minimum valve position"
     annotation (Placement(transformation(extent={{-76,12},{-56,32}})));
 
-  Buildings.Fluid.MassExchangers.Humidifier_X hum(
+  Humidifiers.SteamHumidifier_X               hum(
     redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal2,
     final m_flow_small=m2_flow_small,
