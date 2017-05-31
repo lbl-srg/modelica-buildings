@@ -1,0 +1,3 @@
+simulateModel("Buildings.Fluid.HeatPumps.Compressors.BaseClasses.Validation.TemperatureProtection", stopTime=5, method="dassl", resultFile="TemperatureProtection");
+
+createPlot(id=1, position={0, 0, 1241, 256}, y={"temPro.errHigPre", "temPro.errLowPre", "temPro.errNegTemDif"}, range={0.0, 5.0, -0.2, 1.2000000000000002}, erase=false, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
