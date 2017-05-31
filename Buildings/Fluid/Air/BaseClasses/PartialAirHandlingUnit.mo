@@ -1,7 +1,11 @@
 within Buildings.Fluid.Air.BaseClasses;
 partial model PartialAirHandlingUnit "Partial AHU model "
   extends Buildings.Fluid.Air.BaseClasses.PartialAirHandlingUnitInterface;
-  //------------------------- cooling coil----------------------------------
+  extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
+    final m_flow_nominal=m1_flow_nominal,
+    final dpValve_nominal=dat.nomVal.dpValve_nominal,
+    final rhoStd=Medium1.density_pTX(101325, 273.15+4, Medium1.X_default));
+  // Cooling coil
   parameter Boolean waterSideFlowDependent=true
     "Set to false to make water-side hA independent of mass flow rate"
     annotation (Dialog(tab="Heat transfer",group="Cooling Coil"));
@@ -47,10 +51,6 @@ partial model PartialAirHandlingUnit "Partial AHU model "
   parameter Real kFixed(unit="", min=0)= 0
     "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Valve"));
-
-  parameter Real deltaM = 0.02
-    "Fraction of nominal flow rate where linearization starts, if y=1"
-    annotation(Dialog(group="Valve"));
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced",group="Valve"));
@@ -59,9 +59,7 @@ partial model PartialAirHandlingUnit "Partial AHU model "
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Evaluate=true, Dialog(tab="Advanced",group="Valve"));
-  parameter Modelica.SIunits.Density rhoStd=Medium1.density_pTX(101325, 273.15+4, Medium1.X_default)
-    "Inlet density for which valve coefficients are defined"
-  annotation(Dialog(group="Valve", tab="Advanced"));
+
   parameter Boolean use_inputFilterValve=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Valve"));
@@ -175,7 +173,7 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     final deltaM=deltaM,
     final l=l,
     final kFixed=kFixed,
-    CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    final CvData=CvData,
     final from_dp=from_dp,
     final homotopyInitialization=homotopyInitialization,
     final linearized=linearized,
@@ -184,9 +182,12 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     final riseTime=riseTimeValve,
     final init=initValve,
     final y_start=yValve_start,
-    final dpValve_nominal=dat.nomVal.dpValve_nominal,
-    final m_flow_nominal=m1_flow_nominal,
-    final dpFixed_nominal=0)
+    final dpValve_nominal=dpValve_nominal,
+    final dpFixed_nominal=0,
+    final m_flow_nominal=m_flow_nominal,
+    Kv=Kv,
+    Cv=Cv,
+    Av=Av)
     constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv
     "Two-way valve" annotation (
       Placement(transformation(
