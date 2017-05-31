@@ -76,7 +76,7 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     "Output sets maximum allowable economizer damper position. Fixme: Should this remain as type real? Output can take two values: disable = yOutDamPosMin and enable = yOutDamPosMax."
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
         iconTransformation(extent={{100,20},{120,40}})));
-  CDL.Interfaces.RealOutput yRetDamPosMax
+  CDL.Interfaces.RealOutput yRetDamPosMin
     "Output sets the return air damper position, which is affected for a short period of time upon disabling the economizer"
     annotation (Placement(transformation(extent={{180,-110},{200,-90}}),
         iconTransformation(extent={{100,-40},{120,-20}})));
@@ -169,7 +169,7 @@ equation
         color={255,0,255}));
   connect(or2.y, nor.u1)
     annotation (Line(points={{-19,140},{0,140},{0,90},{18,90}}, color={255,0,255}));
-  connect(yRetDamPosMax, enableDisable1.y)
+  connect(yRetDamPosMin, enableDisable1.y)
     annotation (Line(points={{190,-100},{166,-100},{141,-100}}, color={0,0,127}));
   connect(OnOffDelay.y, not2.u) annotation (Line(points={{41,50},{48,50}}, color={255,0,255}));
   connect(not2.y, timer.u) annotation (Line(points={{71,50},{78,50}}, color={255,0,255}));

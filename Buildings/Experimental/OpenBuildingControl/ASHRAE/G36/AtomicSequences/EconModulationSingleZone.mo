@@ -123,7 +123,7 @@ equation
           -108,14},{-108,-34},{-84,-34},{-82,-34}},
                                 color={0,0,127}));
   connect(ZoneStateStatusHeating.y, andBlock.u1) annotation (Line(points={{-59,-34},
-          {-50,-34},{-50,-22},{-100,-22},{-100,-52},{-100,-70},{-82,-70}},
+          {-50,-34},{-50,-20},{-100,-20},{-100,-52},{-100,-70},{-82,-70}},
                                                                         color={255,
           0,255}));
   connect(andBlock.y, DisableEcoDamModulation.u2) annotation (Line(points={{-59,-70},
@@ -134,7 +134,7 @@ equation
           -78},{-122,-78},{-122,-94},{-68,-94},{-68,-104},{-42,-104}},
                                                    color={0,0,127}));
   connect(uOutDamPosMin, DisableEcoDamModulation.u3) annotation (Line(points={{-160,
-          -50},{-96,-50},{-96,-120},{-42,-120}},   color={0,0,127}));
+          -50},{-90,-50},{-90,-120},{-42,-120}},   color={0,0,127}));
   connect(uRetDamPosMin, DisableRetDamModulation.u1) annotation (Line(points={{-160,
           -108},{-86,-108},{-86,-142},{-42,-142}},      color={0,0,127}));
   connect(uRetDamPosMax, DisableRetDamModulation.u3) annotation (Line(points={{-160,
@@ -254,7 +254,12 @@ equation
           lineColor={85,0,255},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{
-            140,120}})),
+            140,120}}), graphics={Text(
+          extent={{-82,98},{-48,84}},
+          lineColor={28,108,200},
+          textString="Remove all this, using TCooSet, 
+no need for algebra here",
+          fontSize=12)}),
     Documentation(info="<html>      
     <p>
     fixme ?Brent: If the dampers are not interloacked, should the linear mapping have
