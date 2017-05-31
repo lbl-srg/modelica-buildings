@@ -34,7 +34,7 @@ model ReciprocatingWaterToWater_Static
     dp2_nominal=100,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    enableTemperatureProtection=false)
+    enable_temperature_protection=false)
                  "Reciprocating water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 

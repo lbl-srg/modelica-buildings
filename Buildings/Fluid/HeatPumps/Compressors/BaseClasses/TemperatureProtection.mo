@@ -3,7 +3,7 @@ model TemperatureProtection
   "Temperature protection for heat pump compressor"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Temperature TConMax
-    "Upper bound for condensor temperature";
+    "Upper bound for condenser temperature";
   parameter Modelica.SIunits.Temperature TEvaMin
     "Lower bound for evaporator temperature";
   parameter Real dTHys(unit="K") = 5
@@ -31,14 +31,14 @@ model TemperatureProtection
         rotation=0,
         origin={-120,80})));
 
-  Modelica.Blocks.Interfaces.BooleanOutput errCon
-    "Error signal condensor upper bound temperature "
+  Modelica.Blocks.Interfaces.BooleanOutput errHigPre
+    "Error signal condenser upper bound temperature "
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
-  Modelica.Blocks.Interfaces.BooleanOutput errEva
+  Modelica.Blocks.Interfaces.BooleanOutput errLowPre
     "Error signal evaporator lower bound temperature "
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
-  Modelica.Blocks.Interfaces.BooleanOutput errdT
-    "Error signal evaporator condensor temperature difference"
+  Modelica.Blocks.Interfaces.BooleanOutput errNegTemDif
+    "Error signal evaporator condenser temperature difference"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 protected
   Modelica.Blocks.Logical.Switch switch
@@ -46,7 +46,7 @@ protected
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Logical.Hysteresis hysHig(uLow=0, uHigh=dTHys,
     final pre_y_start=pre_y_start)
-    "Hysteresis for condensor upper bound temperature"
+    "Hysteresis for condenser upper bound temperature"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Modelica.Blocks.Sources.Constant zero(k=0)
     "Zero control signal when check fails"
@@ -56,7 +56,7 @@ protected
     "Hysteresis for evaporator lower bound temperature"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Sources.Constant TMax(k=TConMax)
-    "Condensor maximum temperature"
+    "Condenser maximum temperature"
     annotation (Placement(transformation(extent={{-92,-42},{-80,-30}})));
   Modelica.Blocks.Math.Add dTCon(k2=-1)
     "Difference between condenser temperature and its upper bound"
@@ -123,13 +123,13 @@ equation
                                     color={255,0,255}));
   connect(hysLow.y, notEva.u) annotation (Line(points={{1,30},{10,30},{10,90},{61.6,
           90}}, color={255,0,255}));
-  connect(notEva.y, errEva)
+  connect(notEva.y, errLowPre)
     annotation (Line(points={{77.2,90},{94,90},{110,90}}, color={255,0,255}));
   connect(notdT.u, hysdTConEva.y) annotation (Line(points={{61.6,70},{12,70},{12,
           0},{1,0}}, color={255,0,255}));
-  connect(notdT.y, errdT)
+  connect(notdT.y, errNegTemDif)
     annotation (Line(points={{77.2,70},{110,70}}, color={255,0,255}));
-  connect(notCon.y, errCon)
+  connect(notCon.y, errHigPre)
     annotation (Line(points={{77.2,50},{110,50},{110,50}}, color={255,0,255}));
   connect(notCon.u, hysHig.y) annotation (Line(points={{61.6,50},{14,50},{14,-30},
           {1,-30}}, color={255,0,255}));

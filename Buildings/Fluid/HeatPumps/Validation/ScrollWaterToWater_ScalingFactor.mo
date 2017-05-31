@@ -64,7 +64,7 @@ model ScrollWaterToWater_ScalingFactor
       V_flow_nominal=0.003,
       leaCoe=0.01),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    enableTemperatureProtection=false)
+    enable_temperature_protection=false)
               "Scroll water to water heat pump"
     annotation (Placement(transformation(extent={{-10,42},{10,62}})));
   Buildings.Fluid.HeatPumps.ScrollWaterToWater heaPum1(
@@ -88,7 +88,7 @@ model ScrollWaterToWater_ScalingFactor
       V_flow_nominal=0.003,
       leaCoe=0.01),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    enableTemperatureProtection=false)
+    enable_temperature_protection=false)
     "Scroll water to water heat pump with transient effects"
     annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
   Modelica.Blocks.Sources.Pulse N(width=60, period=500)

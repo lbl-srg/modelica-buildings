@@ -72,7 +72,7 @@ model ScrollWaterToWater_TemperatureProtection
       leaCoe=0.01),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TConMax=273.15 + 60,
-    enableTemperatureProtection=true)
+    enable_temperature_protection=true)
                     "Scroll water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Sine yLoa(

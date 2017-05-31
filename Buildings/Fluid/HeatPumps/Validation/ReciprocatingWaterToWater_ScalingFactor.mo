@@ -69,7 +69,7 @@ model ReciprocatingWaterToWater_ScalingFactor
         cleFac=0.069,
         pDro=99290),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    enableTemperatureProtection=false)
+    enable_temperature_protection=false)
                      "Reciprocating water to water heat pump"
     annotation (Placement(transformation(extent={{-10,42},{10,62}})));
 
@@ -93,7 +93,7 @@ model ReciprocatingWaterToWater_ScalingFactor
         cleFac=0.069,
         pDro=99290),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    enableTemperatureProtection=false)
+    enable_temperature_protection=false)
     "Reciprocating water to water heat pump with transient effects"
     annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
   Modelica.Blocks.Sources.Pulse N(width=60, period=500)

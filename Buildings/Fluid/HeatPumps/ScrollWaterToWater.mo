@@ -75,7 +75,7 @@ of heat pumps and moreover it avoids
 non-converging algebraic loops of equations,
 or freezing of evaporator medium.
 This option can be disabled by setting
-<code>enableTemperatureProtection = false</code>.
+<code>enable_temperature_protection = false</code>.
 </p>
 <h4>Assumptions and limitations</h4>
 <p>
