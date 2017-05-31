@@ -68,7 +68,8 @@ model ReciprocatingWaterToWater_Dynamic
         pisDis=0.00162,
         cleFac=0.069,
         pDro=99290),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    enable_temPro=false)
                      "Reciprocating water to water heat pump"
     annotation (Placement(transformation(extent={{-10,42},{10,62}})));
 
@@ -92,7 +93,8 @@ model ReciprocatingWaterToWater_Dynamic
         pisDis=0.00162,
         cleFac=0.069,
         pDro=99290),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    enable_temPro=false)
     "Reciprocating water to water heat pump with transient effects"
     annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
 
@@ -113,7 +115,7 @@ model ReciprocatingWaterToWater_Dynamic
     use_T_in=true,
     nPorts=1) "Source side flow source"
     annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
-  Modelica.Blocks.Sources.Constant TLoa(k=295.15) "Load side fluid temperature"
+  Modelica.Blocks.Sources.Constant TLoa(k=285.15) "Load side fluid temperature"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Modelica.Blocks.Sources.Constant TSou(k=283.15)
     "Source side fluid temperature"

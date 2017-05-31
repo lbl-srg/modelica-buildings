@@ -51,7 +51,7 @@ partial model PartialWaterToWater
   parameter Modelica.SIunits.Temperature TEvaMin = Medium2.T_min+5
     "Lower bound for evaporator temperature"
     annotation(Dialog(enable=enable_temPro, group="Temperature protection"));
-  parameter Real dTHys(unit="K",min=0) = 7.5
+  parameter Real dTHys(unit="K",min=0) = 5
     "Hysteresis interval width"
     annotation(Dialog(enable=enable_temPro, group="Temperature protection"));
 

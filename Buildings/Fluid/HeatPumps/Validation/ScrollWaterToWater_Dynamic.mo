@@ -66,7 +66,8 @@ model ScrollWaterToWater_Dynamic
       volRat=2,
       V_flow_nominal=0.003,
       leaCoe=0.01),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    enable_temPro=false)
               "Scroll water to water heat pump"
     annotation (Placement(transformation(extent={{-10,42},{10,62}})));
   Buildings.Fluid.HeatPumps.ScrollWaterToWater heaPum1(
@@ -90,7 +91,8 @@ model ScrollWaterToWater_Dynamic
       UAEva=4400,
       volRat=2,
       V_flow_nominal=0.003,
-      leaCoe=0.01))
+      leaCoe=0.01),
+    enable_temPro=false)
              "Scroll water to water heat pump with transient effects"
     annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
   Modelica.Blocks.Sources.Pulse N(width=60, period=500)
@@ -110,7 +112,7 @@ model ScrollWaterToWater_Dynamic
     use_T_in=true,
     nPorts=1) "Source side flow source"
     annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
-  Modelica.Blocks.Sources.Constant TLoa(k=295.15) "Load side fluid temperature"
+  Modelica.Blocks.Sources.Constant TLoa(k=285.15) "Load side fluid temperature"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Modelica.Blocks.Sources.Constant TSou(k=283.15)
     "Source side fluid temperature"

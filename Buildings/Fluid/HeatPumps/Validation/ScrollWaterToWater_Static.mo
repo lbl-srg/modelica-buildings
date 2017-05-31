@@ -70,7 +70,8 @@ model ScrollWaterToWater_Static
       volRat=2,
       V_flow_nominal=0.003,
       leaCoe=0.01),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    enable_temPro=false)
                     "Scroll water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp yLoa(
