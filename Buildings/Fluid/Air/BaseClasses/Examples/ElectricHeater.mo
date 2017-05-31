@@ -31,7 +31,7 @@ equation
     annotation (Line(points={{-39,30},{-35.5,30},{-32,30}}, color={0,0,127}));
   connect(tab.y, eleHea.TSet) annotation (Line(points={{-9,30},{-4,30},{-4,-16},
           {-30,-16},{-30,-32},{-22,-32}}, color={0,0,127}));
-  connect(onOff.y, eleHea.On) annotation (Line(points={{-59,-88},{-36,-88},{-36,
+  connect(onOff.y,eleHea.on)  annotation (Line(points={{-59,-88},{-36,-88},{-36,
           -37},{-22,-37}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
