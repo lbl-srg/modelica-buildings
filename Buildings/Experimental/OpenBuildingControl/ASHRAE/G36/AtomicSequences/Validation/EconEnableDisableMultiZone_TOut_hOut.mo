@@ -16,41 +16,30 @@ model EconEnableDisableMultiZone_TOut_hOut
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   CDL.Conversions.RealToInteger reaToInt
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-  EconEnableDisableMultiZone econEnableDisable
-    annotation (Placement(transformation(extent={{0,-2},{24,22}})));
   CDL.Continuous.Constant outDamPosMin1(k=300)
     "Minimal allowed economizer damper position"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
   EconEnableDisableMultiZone econEnableDisableMultiZone
-    annotation (Placement(transformation(extent={{42,54},{62,74}})));
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
 equation
   connect(freProtStage0.y, reaToInt.u)
     annotation (Line(points={{-59,30},{-52,30}}, color={0,0,127}));
-  connect(reaToInt.y, econEnableDisable.uFreProSta) annotation (Line(points={{-29,30},
-          {-12,30},{-12,12.4},{-4.8,12.4}},   color={255,127,0}));
-  connect(outDamPosMin.y, econEnableDisable.uOutDamPosMax) annotation (Line(
-        points={{-59,-10},{-30,-10},{-30,6.4},{-4.8,6.4}},
-                                                     color={0,0,127}));
-  connect(outDamPosMax.y, econEnableDisable.uOutDamPosMin) annotation (Line(
-        points={{-59,-50},{-20,-50},{-20,2.8},{-4.8,2.8}},
-                                                     color={0,0,127}));
-  connect(outDamPosMin1.y, econEnableDisable.TOut) annotation (Line(points={{-59,70},
-          {-20,70},{-20,22},{-4.8,22}},       color={0,0,127}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisable_TOut.mos"
     "Simulate and plot"),
-  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Ellipse(lineColor = {75,138,73},
-                fillColor={255,255,255},
-                fillPattern = FillPattern.Solid,
-                extent={{-100,-100},{100,100}}),
+  Icon(graphics={
+        Ellipse(
+          lineColor={75,138,73},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-100,-100},{100,100}}),
         Polygon(lineColor = {0,0,255},
                 fillColor = {75,138,73},
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+        coordinateSystem(preserveAspectRatio=false, extent={{-180,-180},{180,180}})),
   experiment(StopTime=1800.0),
     Documentation(info="<html>
 <p>

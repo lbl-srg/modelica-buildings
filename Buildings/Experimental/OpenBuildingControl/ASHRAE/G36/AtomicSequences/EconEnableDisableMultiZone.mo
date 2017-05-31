@@ -60,11 +60,11 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
   CDL.Interfaces.RealInput uRetDamPosMax(min=0, max=1)
     "Maximum return air damper position as calculated in the EconDamperPositionLimitsMultiZone sequence"
     annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
-        iconTransformation(extent={{-160,-50},{-120,-10}})));
+        iconTransformation(extent={{-204,-10},{-164,30}})));
   CDL.Interfaces.RealInput uRetDamPhyPosMax(min=0, max=1)
     "Physical or at the comissioning fixed maximum opening of the return air damper. fixme: connects to output of IO.Hardware.{Comissioning - physicalDamperPositionLimits} block"
     annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
-        iconTransformation(extent={{-160,-50},{-120,-10}})));
+        iconTransformation(extent={{-160,40},{-120,80}})));
 
   CDL.Interfaces.IntegerInput uFreProSta( quantity="Status")= 0
     "Freeze Protection Status signal, it can be an integer 0 - 3 [fixme check quantity]"
@@ -74,11 +74,11 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
   CDL.Interfaces.RealOutput yOutDamPosMax
     "Output sets maximum allowable economizer damper position. Fixme: Should this remain as type real? Output can take two values: disable = yOutDamPosMin and enable = yOutDamPosMax."
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
-        iconTransformation(extent={{-172,-82},{-152,-62}})));
+        iconTransformation(extent={{-160,-80},{-120,-40}})));
   CDL.Interfaces.RealOutput yRetDamPosMax
     "Output sets the return air damper position, which is affected for a short period of time upon disabling the economizer"
     annotation (Placement(transformation(extent={{180,-110},{200,-90}}),
-        iconTransformation(extent={{-172,-82},{-152,-62}})));
+        iconTransformation(extent={{-160,-120},{-120,-80}})));
 
   CDL.Logical.Switch EconDisableSwitch
     "If any of the conditions provided by TOut and FreezeProtectionStatus inputs are violating the enable status, the max outdoor damper position is set to the minimum."
@@ -195,7 +195,7 @@ equation
   annotation (
     Icon(graphics={
         Rectangle(
-          extent={{-120,-120},{120,120}},
+          extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
