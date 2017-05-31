@@ -104,8 +104,8 @@ equation
     annotation (Line(points={{-200,60},{-90,60},{-90,98}}, color={0,0,127}));
   connect(uSupFan, nand.u1) annotation (Line(points={{-200,0},{-160,0},{-160,18},
           {-82,18}},  color={255,0,255}));
-  connect(uAHUMod, nand.u2) annotation (Line(points={{-200,-60},{-154,-60},{
-          -154,10},{-82,10}},
+  connect(uAHUMod, nand.u2) annotation (Line(points={{-200,-60},{-150,-60},{
+          -150,10},{-82,10}},
                            color={255,0,255}));
   connect(nand.y, outDamPosMax.u2) annotation (Line(points={{-59,18},{-44,18},{
           -44,-114},{-22,-114}},  color={255,0,255}));
