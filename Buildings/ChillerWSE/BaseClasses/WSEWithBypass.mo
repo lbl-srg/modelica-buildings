@@ -1,197 +1,115 @@
 within Buildings.ChillerWSE.BaseClasses;
 model WSEWithBypass
   "Water side economizer with hotside outlet temperature control"
-  //---------------------------------------------------------------------------
-  //                          Declare Medium
-  //---------------------------------------------------------------------------
-  replaceable package MediumCHW =
-      Buildings.Media.Water
-    "Medium in the chilled water side";
-  replaceable package MediumCW =
-      Buildings.Media.Water
-    "Medium in the condenser water side";
+  extends Buildings.Fluid.Interfaces.PartialFourPortInterface;
+  extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
+   final computeFlowResistance1=(dp1_nominal > Modelica.Constants.eps),
+   final computeFlowResistance2=(dp2_nominal > Modelica.Constants.eps));
+  extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
+   rhoStd=Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
+   final dpValve_nominal=dp2_nominal,
+   final m_flow_nominal=m2_flow_nominal,
+   final deltaM=deltaM2);
 
-  //---------------------------------------------------------------------------
-  //                         Nominal Information
-  //---------------------------------------------------------------------------
-  parameter Modelica.SIunits.Pressure dpCHW_nominal
-    "Pressure difference at the chilled water side";
-  parameter Modelica.SIunits.Pressure dpCW_nominal
-    "Pressure difference at the condenser water wide";
-  parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal
-    "Nominal mass flow rate at the chilled water side";
-  parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal
-    "Nominal mass flow rate at the condenser water wide";
-  parameter Modelica.SIunits.Pressure dp_byp_nominal
-    "Pressure difference of three way valve";
-  //---------------------------------------------------------------------------
-  //                          Performance Data
-  //---------------------------------------------------------------------------
-  parameter Real eps "constant effectiveness";
+  parameter Modelica.SIunits.Efficiency eps "constant effectiveness";
+
+  parameter Real l(min=1e-10, max=1) = 0.0001
+    "Valve leakage, l=Kv(y=0)/Kv(y=1)";
+  parameter Real kFixed(unit="", min=0) = 0
+    "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
+  parameter Real R=50 "Rangeability, R=50...100 typically";
+  parameter Real delta0=0.01
+    "Range of significant deviation from equal percentage law";
+  // Filter opening
+  parameter Boolean use_inputFilter=true
+    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening"));
+  parameter Modelica.SIunits.Time riseTime=120
+    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
+    "Type of initialization (no init/steady state/initial state/initial output)"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+  parameter Real y_start=1 "Initial value of output"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+  // Advanced
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  Modelica.Blocks.Interfaces.RealInput bypSig(min=0,max=1)
+    "Signal for bypass valve(0: closed, 1: open)"
+    annotation (Placement(transformation(extent={{-128,-14},{-100,14}}),
+        iconTransformation(extent={{-120,-6},{-100,14}})));
+
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage bypVal(
+    redeclare package Medium = Medium2,
+    final m_flow_nominal=m_flow_nominal,
+    final dpValve_nominal=dpValve_nominal,
+    final dpFixed_nominal=0,
+    final allowFlowReversal=allowFlowReversal2,
+    final show_T=show_T,
+    final from_dp=from_dp2,
+    final linearized=linearizeFlowResistance2,
+    final CvData=CvData,
+    final Kv=Kv,
+    final Cv=Cv,
+    final Av=Av,
+    final rhoStd=rhoStd,
+    final deltaM=deltaM,
+    final homotopyInitialization=homotopyInitialization,
+    final use_inputFilter=use_inputFilter,
+    final riseTime=riseTime,
+    final init=init,
+    final y_start=y_start,
+    final l=l,
+    final kFixed=kFixed,
+    final R=R,
+    final delta0=delta0)
+    "Bypass valve used to control the outlet temperature "
+    annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
 
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
-   redeclare package Medium1 = MediumCW,
-   redeclare package Medium2 = MediumCHW,
-    m1_flow_nominal=mCW_flow_nominal,
-    m2_flow_nominal=mCHW_flow_nominal,
-    dp1_nominal=0,
-    dp2_nominal=dpCHW_nominal,
-    eps=eps)
-    annotation (Placement(transformation(extent={{4,-12},{36,22}})));
+    redeclare package Medium1 = Medium1,
+    redeclare package Medium2 = Medium2,
+    final allowFlowReversal1=allowFlowReversal1,
+    final allowFlowReversal2=allowFlowReversal2,
+    final m1_flow_nominal=m1_flow_nominal,
+    final m2_flow_nominal=m2_flow_nominal,
+    final m1_flow_small=m1_flow_small,
+    final m2_flow_small=m2_flow_small,
+    final show_T=show_T,
+    final from_dp1=from_dp1,
+    final dp1_nominal=dp1_nominal,
+    final linearizeFlowResistance1=linearizeFlowResistance1,
+    final deltaM1=deltaM1,
+    final from_dp2=from_dp2,
+    final dp2_nominal=dp2_nominal,
+    final linearizeFlowResistance2=linearizeFlowResistance2,
+    final deltaM2=deltaM2,
+    final eps=eps,
+    final homotopyInitialization=homotopyInitialization)
+    "Heat exchanger"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a_CHW(
-  redeclare package Medium = MediumCHW) "inlet port for hotside WSE"
-    annotation (Placement(transformation(extent={{130,-110},{150,-90}}),
-        iconTransformation(extent={{130,-110},{150,-90}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTCHWLeaWSE(redeclare package
-      Medium = MediumCHW, m_flow_nominal=mCHW_flow_nominal,
-    initType=Modelica.Blocks.Types.Init.InitialState)       annotation (
-      Placement(transformation(
-        extent={{12,-12},{-12,12}},
-        rotation=90,
-        origin={-84,-64})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b_CHW(
-  redeclare package Medium = MediumCHW) "outlet for hotside WSE"
-    annotation (Placement(transformation(extent={{-112,-110},{-92,-90}}),
-        iconTransformation(extent={{-112,-110},{-92,-90}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a_CW(
-  redeclare package Medium = MediumCW)
-    "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{-110,70},{-90,90}}),
-        iconTransformation(extent={{-110,70},{-90,90}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b_CW(
-  redeclare package Medium = MediumCW)
-    "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{130,70},{150,90}}),
-        iconTransformation(extent={{130,70},{150,90}})));
-  Modelica.Blocks.Interfaces.RealInput bypSig "(0: closed, 1: open)"
-    annotation (Placement(transformation(extent={{-128,-50},{-100,-22}}),
-        iconTransformation(extent={{-120,-42},{-100,-22}})));
-
-  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valByp(
-    redeclare package Medium = MediumCHW,
-    m_flow_nominal=mCHW_flow_nominal,
-    dpValve_nominal=dp_byp_nominal,
-    init=Modelica.Blocks.Types.Init.InitialOutput)
-    annotation (Placement(transformation(extent={{28,-62},{8,-42}})));
-
-  Fluid.Actuators.Valves.TwoWayEqualPercentage  valCW(
-    redeclare package Medium = MediumCW,
-    m_flow_nominal=mCW_flow_nominal,
-    allowFlowReversal=false,
-    dpValve_nominal=dpCW_nominal,
-    init=Modelica.Blocks.Types.Init.InitialOutput)
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
-        rotation=-90,
-        origin={74,40})));
-
-  Fluid.Actuators.Valves.TwoWayEqualPercentage  valCHW(
-    redeclare package Medium = MediumCHW,
-    m_flow_nominal=mCHW_flow_nominal,
-    dpValve_nominal=dp_byp_nominal,
-    init=Modelica.Blocks.Types.Init.InitialOutput)
-    annotation (Placement(transformation(extent={{-11,11},{11,-11}},
-        rotation=180,
-        origin={-57,-5})));
-  Modelica.Blocks.Interfaces.RealInput on
-    "Actuator position (0: closed, 1: open)"
-    annotation (Placement(transformation(extent={{-128,26},{-100,54}}),
-        iconTransformation(extent={{-120,14},{-100,34}})));
-  Modelica.Blocks.Math.Product pro "Product of no/off signal and bypass signal"
-    annotation (Placement(transformation(extent={{-66,-28},{-50,-44}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTCHWLeaHex(redeclare package
-      Medium = MediumCHW, m_flow_nominal=mCHW_flow_nominal)
-    "Temperature sensor for chilled water leaving the hex, which doesn't mix with bypass water"
-    annotation (Placement(transformation(extent={{-6,-16},{-26,6}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTCHWEntWSE(redeclare package
-      Medium = MediumCHW, m_flow_nominal=mCHW_flow_nominal,
-    initType=Modelica.Blocks.Types.Init.InitialState)
-    "Temperature sensor for chilled waterentering WSE"
-    annotation (Placement(transformation(extent={{120,-112},{96,-88}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTCWEntWSE(m_flow_nominal=
-        mCW_flow_nominal, redeclare package Medium = MediumCW)
-    "Temperature sensor for condense water entering WSE"
-    annotation (Placement(transformation(extent={{-76,68},{-52,92}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTCWLeaWSE(m_flow_nominal=
-        mCW_flow_nominal, redeclare package Medium = MediumCW)
-    "Temperature sensor for condense water leaving WSE"
-    annotation (Placement(transformation(extent={{96,68},{120,92}})));
 equation
 
-  connect(senTCHWLeaWSE.port_b, port_b_CHW) annotation (Line(
-      points={{-84,-76},{-84,-76},{-84,-100},{-102,-100}},
-      color={0,127,255},
-      thickness=1));
-  connect(hex.port_b1, valCW.port_a) annotation (Line(
-      points={{36,15.2},{74,15.2},{74,30}},
-      color={0,127,255},
-      thickness=1));
-  connect(valCHW.port_b, senTCHWLeaWSE.port_a) annotation (Line(
-      points={{-68,-5},{-68,-6},{-84,-6},{-84,-52}},
-      color={0,127,255},
-      thickness=1));
-  connect(valByp.port_b, valCHW.port_a) annotation (Line(
-      points={{8,-52},{-38,-52},{-38,-5},{-46,-5}},
-      color={0,127,255},
-      thickness=1));
-  connect(on, pro.u1) annotation (Line(
-      points={{-114,40},{-94,40},{-94,-8},{-94,-26},{-94,-40.8},{-67.6,-40.8}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(bypSig, pro.u2) annotation (Line(
-      points={{-114,-36},{-94,-36},{-94,-31.2},{-67.6,-31.2}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(pro.y, valByp.y) annotation (Line(
-      points={{-49.2,-36},{18,-36},{18,-40}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(hex.port_b2, senTCHWLeaHex.port_a) annotation (Line(
-      points={{4,-5.2},{-6,-5.2},{-6,-5}},
-      color={0,127,255},
-      thickness=1));
-  connect(senTCHWLeaHex.port_b, valCHW.port_a) annotation (Line(
-      points={{-26,-5},{-26,-5},{-46,-5}},
-      color={0,127,255},
-      thickness=1));
-  connect(port_a_CHW, senTCHWEntWSE.port_a) annotation (Line(
-      points={{140,-100},{130,-100},{120,-100}},
-      color={0,127,255},
-      thickness=1));
-  connect(senTCHWEntWSE.port_b, hex.port_a2) annotation (Line(
-      points={{96,-100},{74,-100},{74,-5.2},{36,-5.2}},
-      color={0,127,255},
-      thickness=1));
-  connect(senTCHWEntWSE.port_b, valByp.port_a) annotation (Line(
-      points={{96,-100},{74,-100},{74,-52},{28,-52}},
-      color={0,127,255},
-      thickness=1));
-  connect(hex.port_a1, senTCWEntWSE.port_b) annotation (Line(
-      points={{4,15.2},{-38,15.2},{-38,80},{-52,80}},
-      color={0,127,255},
-      thickness=1));
-  connect(senTCWEntWSE.port_a, port_a_CW) annotation (Line(
-      points={{-76,80},{-88,80},{-100,80}},
-      color={0,127,255},
-      thickness=1));
-  connect(valCW.port_b, senTCWLeaWSE.port_a) annotation (Line(
-      points={{74,50},{74,80},{96,80}},
-      color={0,127,255},
-      thickness=1));
-  connect(senTCWLeaWSE.port_b, port_b_CW) annotation (Line(
-      points={{120,80},{140,80}},
-      color={0,127,255},
-      thickness=1));
-  connect(on, valCHW.y) annotation (Line(
-      points={{-114,40},{-86,40},{-57,40},{-57,8.2}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(on, valCW.y) annotation (Line(
-      points={{-114,40},{62,40}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},
-            {140,100}}),                                        graphics={
+  connect(bypSig,bypVal. y) annotation (Line(points={{-114,1.77636e-15},{-114,0},
+          {-60,0},{-60,-20},{0,-20},{0,-28}},
+                     color={0,0,127}));
+  connect(port_a1, hex.port_a1) annotation (Line(points={{-100,60},{-100,60},{-40,
+          60},{-40,6},{-10,6}}, color={0,127,255}));
+  connect(hex.port_b1, port_b1) annotation (Line(points={{10,6},{40,6},{40,60},{
+          100,60}}, color={0,127,255}));
+  connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{40,-6},{40,-60},
+          {100,-60}}, color={0,127,255}));
+  connect(hex.port_b2, port_b2) annotation (Line(points={{-10,-6},{-40,-6},{-40,
+          -60},{-100,-60}}, color={0,127,255}));
+  connect(bypVal.port_a, port_a2) annotation (Line(points={{10,-40},{40,-40},{40,
+          -60},{100,-60}}, color={0,127,255}));
+  connect(bypVal.port_b, port_b2) annotation (Line(points={{-10,-40},{-40,-40},{
+          -40,-60},{-100,-60}}, color={0,127,255}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},
+            {100,80}}),                                         graphics={
         Text(
           extent={{-142,-162},{172,-132}},
           lineColor={0,0,255},
@@ -250,7 +168,7 @@ equation
           lineThickness=1,
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid)}),                      Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{140,100}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},{100,80}})),
     __Dymola_Commands,
     Documentation(info="<html>
 <p>This module simulates a heat exchanger with bypass used to modulate water flow rate.</p>
