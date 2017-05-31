@@ -14,19 +14,23 @@ model TemperatureProtection
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput y "Modified compressor control signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput TEva "Evaporator temperature"
+  Modelica.Blocks.Interfaces.RealInput TEva(
+    unit="K",
+    displayUnit="degC")
+    "Evaporator temperature"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,-80})));
-  Modelica.Blocks.Interfaces.RealInput TCon "Condenser temperature" annotation (
+  Modelica.Blocks.Interfaces.RealInput TCon(
+    unit="K",
+    displayUnit="degC")
+    "Condenser temperature" annotation (
      Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,80})));
-  Modelica.Blocks.Logical.Switch switch
-    "Switches control signal off when conditions not satisfied"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+
   Modelica.Blocks.Interfaces.BooleanOutput errCon
     "Error signal condensor upper bound temperature "
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
@@ -37,6 +41,9 @@ model TemperatureProtection
     "Error signal evaporator condensor temperature difference"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 protected
+  Modelica.Blocks.Logical.Switch switch
+    "Switches control signal off when conditions not satisfied"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Logical.Hysteresis hysHig(uLow=0, uHigh=dTHys,
     final pre_y_start=pre_y_start)
     "Hysteresis for condensor upper bound temperature"
@@ -136,7 +143,8 @@ First implementation.
 See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/769\">#769</a>.
 </li>
 </ul>
-</html>", info="<p>
+</html>",
+info="<html><p>
 Temperature protection block for heat pumps.
 This block overrides the heat pump control
 signal when the condenser temperature is too high,
@@ -153,5 +161,6 @@ and <code>TEvaMin</code>.
 <p>
 Parameter <code>dTHys</code> may be used
 to change the hysteresis interval.
-</p>"));
+</p>
+</html>"));
 end TemperatureProtection;
