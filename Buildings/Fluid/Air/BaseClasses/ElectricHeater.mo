@@ -27,7 +27,7 @@ model ElectricHeater "Model for electric heater"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput P(quantity="Power", unit="W") "Power"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Modelica.Blocks.Interfaces.BooleanInput On
+  Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable heater, or false to disable heater"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K",displayUnit="degC")
@@ -67,7 +67,7 @@ equation
     annotation (Line(points={{12,0},{56,0},{100,0}}, color={0,127,255}));
   connect(hea.Q_flow, Q_flow) annotation (Line(points={{13,8},{40,8},{40,80},{110,
           80}}, color={0,0,127}));
-  connect(On, swi.u2)
+  connect(on, swi.u2)
     annotation (Line(points={{-120,30},{-80,30},{-62,30}}, color={255,0,255}));
   connect(swi.y, hea.TSet) annotation (Line(points={{-39,30},{-20,30},{-20,8},{-10,
           8}}, color={0,0,127}));
