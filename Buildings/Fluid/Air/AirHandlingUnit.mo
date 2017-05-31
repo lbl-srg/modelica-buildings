@@ -20,8 +20,8 @@ model AirHandlingUnit
       final riseTime=riseTimeValve,
       final init=initValve,
       final y_start=yValve_start,
-      final dpValve_nominal=dat.nomVal.dpValve_nominal,
-      final m_flow_nominal=m1_flow_nominal),
+      final dpValve_nominal=dpValve_nominal,
+      final m_flow_nominal=m_flow_nominal),
     redeclare Buildings.Fluid.Movers.SpeedControlled_y fan(
       final per=dat.perCur,
       redeclare final package Medium = Medium2,
@@ -117,7 +117,8 @@ model AirHandlingUnit
     final homotopyInitialization=homotopyInitialization,
     final dp_nominal=dat.nomVal.dpHumidifier_nominal,
     final m_flow_nominal=m2_flow_nominal,
-    mWatMax_flow=dat.nomVal.mWat_flow_nominal)
+    mWatMax_flow=dat.nomVal.mWat_flow_nominal,
+    each final X_start=X_start)
     "Humidifier" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -137,7 +138,8 @@ model AirHandlingUnit
     final dp_nominal=dat.nomVal.dpHeater_nominal,
     final QMax_flow=dat.nomVal.QHeater_nominal,
     final eta=dat.nomVal.etaHeater_nominal,
-    final m_flow_nominal=m2_flow_nominal)
+    final m_flow_nominal=m2_flow_nominal,
+    final T_start=T_start)
     "Electric heater" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -176,7 +178,7 @@ equation
           {18,-80},{18,-110}}, color={0,0,127}));
   connect(uFan,fan.y)
     annotation (Line(points={{-120,-40},{-120,-48},{-59.8,-48}},color={0,0,127}));
-  connect(heaCon.y, eleHea.On) annotation (Line(points={{-19,10},{0,10},{0,-57},
+  connect(heaCon.y,eleHea.on)  annotation (Line(points={{-19,10},{0,10},{0,-57},
           {-10,-57}}, color={255,0,255}));
   connect(e2.y, heaCon.y2)
     annotation (Line(points={{-55,4},{-42,4},{-42,5}}, color={0,0,127}));
