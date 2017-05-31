@@ -40,16 +40,17 @@ model FlatPlate "Validation model for FlatPlate"
     tableName="TRNSYS",
     columns=2:5,
     fileName=Modelica.Utilities.Files.loadResource(
-       "modelica://Buildings/Fluid/SolarCollectors/Examples/ValidationData/TRNSYSAnnualData.txt"))
+       "modelica://Buildings/Fluid/SolarCollectors/Examples/ValidationData/TRNSYSAnnualData.txt"),
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Data reader with inlet conditions from TRNSYS"
-    annotation (Placement(transformation(extent={{-88,-20},{-68,0}})));
+    annotation (Placement(transformation(extent={{-90,-12},{-70,8}})));
 
   Modelica.Blocks.Math.Add add
     "Converts TRNSYS data from degree Celsius to Kelving"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
   Modelica.Blocks.Sources.Constant const(k=273.15)
     "Used to convert TRNSYS data from degree Celsius to Kelving"
-    annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
+    annotation (Placement(transformation(extent={{-90,-46},{-70,-26}})));
 
 equation
   connect(weaDat.weaBus, solCol.weaBus) annotation (Line(
@@ -62,7 +63,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(const.y, add.u2) annotation (Line(
-      points={{-69,-50},{-60,-50},{-60,-36},{-52,-36}},
+      points={{-69,-36},{-52,-36}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(add.y, bou.T_in)      annotation (Line(
@@ -70,11 +71,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[1], add.u1)        annotation (Line(
-      points={{-67,-10},{-60,-10},{-60,-24},{-52,-24}},
+      points={{-69,-2},{-60,-2},{-60,-24},{-52,-24}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[4], bou.m_flow_in)             annotation (Line(
-      points={{-67,-10},{-44,-10},{-44,-2},{-12,-2}},
+      points={{-69,-2},{-12,-2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou.ports[1], solCol.port_b) annotation (Line(
