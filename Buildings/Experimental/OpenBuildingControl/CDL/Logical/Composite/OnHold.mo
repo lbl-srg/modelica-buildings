@@ -70,9 +70,9 @@ equation
     </p>
     <p>
     A rising edge of the Boolean input <code>u</code> starts a timer and
-    the Boolean output <code>y</code> stays true until the time
+    the Boolean output <code>y</code> stays <code>true</code> until the time
     period provided as a parameter has elapsed. After that
-    the block evaluates the Boolean input <code>u</code> and if the input is true,
+    the block evaluates the Boolean input <code>u</code> and if the input is <code>true</code>,
     the timer gets started again, but if the input is false, the output becomes
     false. If the output value is false, it will become true with the first rising
     edge of the inputs signal. In other words, any on signal is evaluated either 
@@ -87,7 +87,7 @@ equation
     </p>
 
     <p align=\"center\">
-    <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold.PNG\"
+    <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold.png\"
          alt=\"fixme.png\" />
     </p>
 
