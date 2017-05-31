@@ -12,7 +12,7 @@ model Economizer_TSup_Vout
     offset=300)
     "TSup falls below 38 F and remains there for longer than 5 min. "
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Economizer economizer
+  EconomizerMultiZone economizer
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   CDL.Continuous.Constant VOutMinSet(k=0.5)
     "Outdoor air temperature, constant below example 75 F"
