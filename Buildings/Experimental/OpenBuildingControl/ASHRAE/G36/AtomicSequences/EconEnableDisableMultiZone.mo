@@ -227,7 +227,9 @@ equation
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-180,-160},{180,200}},
-        initialScale=0.1)),
+        initialScale=0.1), graphics={Polygon(points={{-232,-2},{-40,-14},{-24,
+              10},{46,34},{50,68},{218,54},{224,-134},{-228,-148},{-238,-122},{
+              -242,-94},{-232,-2}}, lineColor={28,108,200})}),
     Documentation(info="<html>      
              <p>
              implementation fixme: 10 min delay
