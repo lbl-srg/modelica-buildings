@@ -59,7 +59,7 @@ equation
     pDis = pCon;
     // Refrigerant mass flow rate
     mLea_flow = leaCoe*PR;
-    m_flow =if pressure_error then 0 else v_norm*
+    m_flow = v_norm*
       Buildings.Utilities.Math.Functions.smoothMax(
       V_flow_nominal/vSuc - mLea_flow,
       1e-5*V_flow_nominal/vSuc,
@@ -78,7 +78,7 @@ equation
     TSuc = port_a.T + dTSup;
 
     // Power consumed by the compressor
-    P =if pressure_error then 0 else (PThe/etaEle + PLos);
+    P = (PThe/etaEle + PLos);
 
     // Energy balance of the compressor
      port_a.Q_flow = m_flow * (hEva - hCon);
@@ -135,6 +135,14 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2017, by Filip Jorissen:<br/>
+Removed <code>pressure_error</code> as
+this is replaced by 
+<a href=\"modelica://Buildings.Fluid.HeatPumps.Compressors.BaseClasses.TemperatureProtection\">
+Buildings.Fluid.HeatPumps.Compressors.BaseClasses.TemperatureProtection</a>.
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/769\">#769</a>.
+</li>
 <li>
 November 11, 2016, by Massimo Cimmino:<br/>
 First implementation.
