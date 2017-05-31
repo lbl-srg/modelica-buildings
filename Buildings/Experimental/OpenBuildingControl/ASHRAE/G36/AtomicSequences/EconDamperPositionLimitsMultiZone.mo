@@ -76,7 +76,7 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
     annotation (Placement(transformation(extent={{102,40},{122,60}})));
   CDL.Logical.Nand nand
     "If any of the input signals is not true, the block outputs true, damper modulation gets supressed and dampers are kept in their initial positions."
-    annotation (Placement(transformation(extent={{-80,8},{-60,28}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   CDL.Logical.Switch RetDamPosMin
     "Set to RetDamPhyPosMax if the supply fan is off or the AHU mode is disabled to prevent any modulation"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
@@ -102,14 +102,14 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
 equation
   connect(uVOut,minOutAirDamPosController. u_m)
     annotation (Line(points={{-200,60},{-90,60},{-90,98}}, color={0,0,127}));
-  connect(uSupFan, nand.u1) annotation (Line(points={{-200,0},{-160,0},{-160,18},
-          {-82,18}},  color={255,0,255}));
+  connect(uSupFan, nand.u1) annotation (Line(points={{-200,0},{-160,0},{-160,20},
+          {-82,20}},  color={255,0,255}));
   connect(uAHUMod, nand.u2) annotation (Line(points={{-200,-60},{-150,-60},{
-          -150,10},{-82,10}},
+          -150,12},{-82,12}},
                            color={255,0,255}));
-  connect(nand.y, outDamPosMax.u2) annotation (Line(points={{-59,18},{-44,18},{
+  connect(nand.y, outDamPosMax.u2) annotation (Line(points={{-59,20},{-44,20},{
           -44,-114},{-22,-114}},  color={255,0,255}));
-  connect(nand.y, RetDamPosMin.u2) annotation (Line(points={{-59,18},{-44,18},{
+  connect(nand.y, RetDamPosMin.u2) annotation (Line(points={{-59,20},{-44,20},{
           -44,-70},{-22,-70}},    color={255,0,255}));
   connect(outDamPhyPosMaxSig.y, outDamPosMax.u3) annotation (Line(points={{-119,
           -100},{-48,-100},{-48,-122},{-22,-122}}, color={0,0,127}));
@@ -225,7 +225,12 @@ equation
           textString="%name")}),
     Diagram(coordinateSystem(                           extent={{-180,-180},{
             180,180}},
-        initialScale=0.1)),
+        initialScale=0.1), graphics={Text(
+          extent={{-144,10},{-84,-14}},
+          lineColor={28,108,200},
+          textString=
+              "Fixme: These should be inputs, comming from some IO.Hardware/Comissioning block"),
+          Rectangle(extent={{-146,6},{-78,-164}}, lineColor={28,108,200})}),
     Documentation(info="<html>      
 <p>
 This atomic sequence sets the minimum economizer damper position limit and

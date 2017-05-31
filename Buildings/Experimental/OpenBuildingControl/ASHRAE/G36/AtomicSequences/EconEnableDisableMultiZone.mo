@@ -35,50 +35,51 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
   CDL.Interfaces.RealInput TOut(unit="K", displayUnit="degC", quantity = "Temperature")
     "Outdoor temperature"
     annotation (Placement(transformation(extent={{-220,170},{-180,210}}),
-        iconTransformation(extent={{-160,80},{-120,120}})));
+        iconTransformation(extent={{-120,90},{-100,110}})));
   CDL.Interfaces.RealInput hOut(unit="J/kg", displayUnit="kJ/kg", quantity="SpecificEnthalpy") if fixEnt
     "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-220,100},{-180,140}}),
-        iconTransformation(extent={{-160,80},{-120,120}})));
+        iconTransformation(extent={{-120,40},{-100,60}})));
   CDL.Interfaces.RealInput TOutCut(unit="K", displayUnit="degC")
     "Outdoor temperature high limit cutoff [fixme: see #777]" annotation (
       Placement(transformation(extent={{-220,130},{-180,170}}),
-        iconTransformation(extent={{-160,80},{-120,120}})));
-  CDL.Interfaces.RealInput hOutCut(unit="J/kg", displayUnit="J/kg") if fixEnt
+        iconTransformation(extent={{-120,70},{-100,90}})));
+  CDL.Interfaces.RealInput hOutCut(unit="J/kg", displayUnit="kJ/kg") if
+                                                                       fixEnt
     "Outdoor enthalpy high limit cutoff [fixme: see #777]"
     annotation (Placement(transformation(extent={{-220,60},{-180,100}}),
-        iconTransformation(extent={{-160,80},{-120,120}})));
+        iconTransformation(extent={{-120,20},{-100,40}})));
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1)
     "Minimal economizer damper position, as calculated in the EconDamperPositionLimitsMultiZone sequence [fixme: add quantity to all damper position variables]"
     annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),
-        iconTransformation(extent={{-160,-80},{-120,-40}})));
+        iconTransformation(extent={{-120,-40},{-100,-20}})));
   CDL.Interfaces.RealInput uOutDamPosMax(min=0, max=1)
     "Maximum economizer damper position, fixme: connects to output of IO.Hardware.{Comissioning - physicalDamperPositionLimits} block"
     annotation (Placement(transformation(extent={{-220,-50},{-180,-10}}),
-        iconTransformation(extent={{-160,-50},{-120,-10}})));
+        iconTransformation(extent={{-120,-60},{-100,-40}})));
 
   CDL.Interfaces.RealInput uRetDamPosMax(min=0, max=1)
     "Maximum return air damper position as calculated in the EconDamperPositionLimitsMultiZone sequence"
     annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
-        iconTransformation(extent={{-204,-10},{-164,30}})));
+        iconTransformation(extent={{-120,-110},{-100,-90}})));
   CDL.Interfaces.RealInput uRetDamPhyPosMax(min=0, max=1)
     "Physical or at the comissioning fixed maximum opening of the return air damper. fixme: connects to output of IO.Hardware.{Comissioning - physicalDamperPositionLimits} block"
     annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
-        iconTransformation(extent={{-160,40},{-120,80}})));
+        iconTransformation(extent={{-120,-90},{-100,-70}})));
 
   CDL.Interfaces.IntegerInput uFreProSta( quantity="Status")= 0
     "Freeze Protection Status signal, it can be an integer 0 - 3 [fixme check quantity]"
     annotation (Placement(transformation(extent={{-220,20},{-180,60}}),
-        iconTransformation(extent={{-160,0},{-120,40}})));
+        iconTransformation(extent={{-120,-10},{-100,10}})));
 
   CDL.Interfaces.RealOutput yOutDamPosMax
     "Output sets maximum allowable economizer damper position. Fixme: Should this remain as type real? Output can take two values: disable = yOutDamPosMin and enable = yOutDamPosMax."
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
-        iconTransformation(extent={{-160,-80},{-120,-40}})));
+        iconTransformation(extent={{100,20},{120,40}})));
   CDL.Interfaces.RealOutput yRetDamPosMax
     "Output sets the return air damper position, which is affected for a short period of time upon disabling the economizer"
     annotation (Placement(transformation(extent={{180,-110},{200,-90}}),
-        iconTransformation(extent={{-160,-120},{-120,-80}})));
+        iconTransformation(extent={{100,-40},{120,-20}})));
 
   CDL.Logical.Switch EconDisableSwitch
     "If any of the conditions provided by TOut and FreezeProtectionStatus inputs are violating the enable status, the max outdoor damper position is set to the minimum."
@@ -204,7 +205,7 @@ equation
           color={28,108,200},
           thickness=0.5),
         Text(
-          extent={{132,54},{202,18}},
+          extent={{106,70},{176,34}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -216,7 +217,13 @@ equation
         Text(
           extent={{-36,160},{32,136}},
           lineColor={85,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{106,8},{176,-28}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yRetDamPosMax")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-180,-160},{180,200}},

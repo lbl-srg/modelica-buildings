@@ -15,7 +15,7 @@ block EconModulationSingleZone "Based on supply air temperature (SAT) setpoint a
     than to the THea. If Zone State is Cooling, economizer modulates to a temperture 
     slightly lower than the TCoo [PART5.P.3.b]."
     annotation (Placement(transformation(extent={{-180,82},{-140,122}}),
-        iconTransformation(extent={{-158,104},{-140,122}})));
+        iconTransformation(extent={{-160,100},{-142,118}})));
                                   //fixme brakes the validation, introduce when ready (unit="K", displayUnit="degC")
   CDL.Continuous.LimPID damPosController(
     yMax=1,
