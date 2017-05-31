@@ -16,7 +16,7 @@ model ScrollWaterToWater
         V_flow_nominal=V_flow_nominal,
         leaCoe=leaCoe),
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      enable_temPro=false),
+      enableTemperatureProtection=false),
     calDat(tableName="ManufacturerData",
            fileName=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/src/fluid/heatpumps/calibration/manufacturerData.txt")),

@@ -17,13 +17,13 @@ model TemperatureProtection
   Modelica.Blocks.Interfaces.RealInput TEva "Evaporator temperature"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,120})));
+        rotation=0,
+        origin={-120,-80})));
   Modelica.Blocks.Interfaces.RealInput TCon "Condenser temperature" annotation (
      Placement(transformation(
         extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={0,-120})));
+        rotation=0,
+        origin={-120,80})));
   Modelica.Blocks.Logical.Switch switch
     "Switches control signal off when conditions not satisfied"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -50,7 +50,7 @@ protected
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Sources.Constant TMax(k=TConMax)
     "Condensor maximum temperature"
-    annotation (Placement(transformation(extent={{-92,-40},{-80,-28}})));
+    annotation (Placement(transformation(extent={{-92,-42},{-80,-30}})));
   Modelica.Blocks.Math.Add dTCon(k2=-1)
     "Difference between condenser temperature and its upper bound"
     annotation (Placement(transformation(extent={{-60,-20},{-40,-40}})));
@@ -59,11 +59,9 @@ protected
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Constant TMin(k=TEvaMin)
     "Evaporator minimum temperature"
-    annotation (Placement(transformation(extent={{-92,28},{-80,40}})));
-  Modelica.Blocks.MathBoolean.And
-                              on(nu=3) "Compressor status"
+    annotation (Placement(transformation(extent={{-92,30},{-80,42}})));
+  Modelica.Blocks.MathBoolean.And on(nu=3) "Compressor status"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-
 
   Modelica.Blocks.Logical.Hysteresis hysdTConEva(
     uLow=0,
@@ -83,19 +81,19 @@ protected
 equation
   connect(zero.y,switch. u3) annotation (Line(points={{41,-30},{50,-30},{50,-8},
           {58,-8}},color={0,0,127}));
-  connect(u, switch.u1) annotation (Line(points={{-120,0},{-100,0},{-100,60},{50,
+  connect(u, switch.u1) annotation (Line(points={{-120,0},{-96,0},{-96,60},{50,
           60},{50,8},{58,8}}, color={0,0,127}));
   connect(switch.y, y)
     annotation (Line(points={{81,0},{110,0}},         color={0,0,127}));
-  connect(TMax.y, dTCon.u1) annotation (Line(points={{-79.4,-34},{-79.4,-36},{-62,
+  connect(TMax.y, dTCon.u1) annotation (Line(points={{-79.4,-36},{-79.4,-36},{-62,
           -36}}, color={0,0,127}));
-  connect(TMin.y, dTEva.u1) annotation (Line(points={{-79.4,34},{-62,34},{-62,36}},
+  connect(TMin.y, dTEva.u1) annotation (Line(points={{-79.4,36},{-62,36}},
                 color={0,0,127}));
-  connect(dTEva.u2, TEva) annotation (Line(points={{-62,24},{-70,24},{-70,80},{0,
-          80},{0,120}},
+  connect(dTEva.u2, TEva) annotation (Line(points={{-62,24},{-70,24},{-70,-80},
+          {-120,-80}},
                     color={0,0,127}));
-  connect(dTCon.u2, TCon) annotation (Line(points={{-62,-24},{-70,-24},{-70,-80},
-          {0,-80},{0,-120}},color={0,0,127}));
+  connect(dTCon.u2, TCon) annotation (Line(points={{-62,-24},{-76,-24},{-76,80},
+          {-120,80}},       color={0,0,127}));
   connect(dTEva.y, hysLow.u)
     annotation (Line(points={{-39,30},{-39,30},{-22,30}}, color={0,0,127}));
   connect(hysHig.u, dTCon.y)
@@ -105,10 +103,10 @@ equation
                                                     color={255,0,255}));
   connect(dTEvaCon.y, hysdTConEva.u)
     annotation (Line(points={{-39,0},{-32,0},{-22,0}}, color={0,0,127}));
-  connect(dTEvaCon.u2, TCon) annotation (Line(points={{-62,-6},{-70,-6},{-70,-80},
-          {0,-80},{0,-120}},      color={0,0,127}));
-  connect(dTEvaCon.u1, TEva) annotation (Line(points={{-62,6},{-70,6},{-70,80},{
-          0,80},{0,120}},  color={0,0,127}));
+  connect(dTEvaCon.u2, TCon) annotation (Line(points={{-62,-6},{-76,-6},{-76,80},
+          {-120,80}},             color={0,0,127}));
+  connect(dTEvaCon.u1, TEva) annotation (Line(points={{-62,6},{-70,6},{-70,-80},
+          {-120,-80}},     color={0,0,127}));
   connect(hysLow.y, on.u[1]) annotation (Line(points={{1,30},{10,30},{10,4.66667},
           {20,4.66667}},          color={255,0,255}));
   connect(hysdTConEva.y, on.u[2])

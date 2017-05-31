@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatPumps;
 model ScrollWaterToWater
   "Model for a scroll water to water heat pump"
-
   extends Buildings.Fluid.HeatPumps.BaseClasses.PartialWaterToWater(
     final UAEva=datHeaPum.UAEva*scaling_factor,
     final UACon=datHeaPum.UACon*scaling_factor,
@@ -76,7 +75,7 @@ of heat pumps and moreover it avoids
 non-converging algebraic loops of equations,
 or freezing of evaporator medium.
 This option can be disabled by setting
-<code>enable_temPro = false</code>.
+<code>enableTemperatureProtection = false</code>.
 </p>
 <h4>Assumptions and limitations</h4>
 <p>

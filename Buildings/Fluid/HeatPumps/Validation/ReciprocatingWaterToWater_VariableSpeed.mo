@@ -72,7 +72,7 @@ model ReciprocatingWaterToWater_VariableSpeed
         cleFac=0.069,
         pDro=99290),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    enable_temPro=false)
+    enableTemperatureProtection=false)
                      "Reciprocating water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 

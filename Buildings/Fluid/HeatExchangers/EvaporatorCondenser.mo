@@ -27,17 +27,27 @@ model EvaporatorCondenser
     (Buildings.Utilities.Math.Functions.smoothMax(abs(port_a.m_flow),m_flow_small,m_flow_small)*cp_default)
    "Number of transfer units of heat exchanger";
 
-  Modelica.SIunits.Efficiency eps = Buildings.Utilities.Math.Functions.smoothMin(Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
-      NTU, 0, Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)), 0.999, 1.0e-4)
+  Modelica.SIunits.Efficiency eps=
+    Buildings.Utilities.Math.Functions.smoothMin(
+      Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
+      NTU,
+      0,
+      Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)),
+      0.999,
+      1.0e-4)
     "Effectiveness of heat exchanger";
 
   Modelica.Blocks.Sources.RealExpression UAeff(
-    final y=Buildings.Utilities.Math.Functions.smoothMax(x1=UA, x2=eps*cp_default*abs(port_a.m_flow)/(1 - eps), deltaX=UA_small))
+    final y=Buildings.Utilities.Math.Functions.smoothMax(
+      x1=UA,
+      x2=eps*cp_default*abs(port_a.m_flow)/(1 - eps),
+      deltaX=UA_small))
     "Effective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-88,-80},{-68,-60}})));
 
 protected
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(sta_default)
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+    Medium.specificHeatCapacityCp(sta_default)
      "Density, used to compute fluid volume";
 
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo

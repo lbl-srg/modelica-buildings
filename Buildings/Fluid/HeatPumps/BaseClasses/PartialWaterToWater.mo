@@ -42,24 +42,24 @@ partial model PartialWaterToWater
 
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Dialog(tab="Advanced"));
-  parameter Boolean enable_temPro = true
+  parameter Boolean enableTemperatureProtection = true
     "Enable temperature protection"
     annotation(Evaluate=true, Dialog(group="Temperature protection"));
-  parameter Modelica.SIunits.Temperature TConMax = Medium1.T_max-5
+  parameter Modelica.SIunits.Temperature TConMax = Medium1.T_max-dTHys
     "Upper bound for condensor temperature"
-    annotation(Dialog(enable=enable_temPro, group="Temperature protection"));
-  parameter Modelica.SIunits.Temperature TEvaMin = Medium2.T_min+5
+    annotation(Dialog(enable=enableTemperatureProtection, group="Temperature protection"));
+  parameter Modelica.SIunits.Temperature TEvaMin = Medium2.T_min+dTHys
     "Lower bound for evaporator temperature"
-    annotation(Dialog(enable=enable_temPro, group="Temperature protection"));
+    annotation(Dialog(enable=enableTemperatureProtection, group="Temperature protection"));
   parameter Real dTHys(unit="K",min=0) = 5
     "Hysteresis interval width"
-    annotation(Dialog(enable=enable_temPro, group="Temperature protection"));
+    annotation(Dialog(enable=enableTemperatureProtection, group="Temperature protection"));
 
-  Modelica.Blocks.Interfaces.BooleanOutput errEva if enable_temPro
+  Modelica.Blocks.Interfaces.BooleanOutput errEva if enableTemperatureProtection
     "if true, compressor disabled since evaporator temperature is above upper bound";
-  Modelica.Blocks.Interfaces.BooleanOutput errCon if enable_temPro
+  Modelica.Blocks.Interfaces.BooleanOutput errCon if enableTemperatureProtection
     "if true, compressor disabled since condenser temperature is below lower bound";
-  Modelica.Blocks.Interfaces.BooleanOutput errdT if enable_temPro
+  Modelica.Blocks.Interfaces.BooleanOutput errdT if enableTemperatureProtection
     "if true, compressor disabled since condenser temperature is below evaporator temperature";
 
   Modelica.Blocks.Interfaces.RealInput y(final unit = "1") if
@@ -149,12 +149,12 @@ protected
   Compressors.BaseClasses.TemperatureProtection temPro(
     final TConMax=TConMax,
     final TEvaMin=TEvaMin,
-    final dTHys=dTHys) if enable_temPro
+    final dTHys=dTHys) if enableTemperatureProtection
     "Disables compressor when outside of allowed operation range"
-    annotation (Placement(transformation(extent={{0,10},{20,-10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 equation
-  if enable_temPro then
+  if enableTemperatureProtection then
     connect(errEva, temPro.errEva);
     connect(errCon, temPro.errCon);
     connect(errdT, temPro.errdT);
@@ -179,22 +179,25 @@ equation
   connect(com.P, P)
     annotation (Line(points={{61,0},{110,0}},         color={0,0,127}));
   if enable_variable_speed then
-    if enable_temPro then
+    if enableTemperatureProtection then
       connect(y,temPro.u)
-        annotation (Line(points={{-120,30},{-90,30},{-90,0},{-2,0},{-2,0}},
+        annotation (Line(points={{-120,30},{-90,30},{-90,0},{-2,0}},
         color={0,0,127}));
     else
       connect(y,com.y)
-        annotation (Line(points={{-120,30},{-90,30},{-90,0},{39,0},{39,0}},
+        annotation (Line(points={{-120,30},{32,30},{32,14},{32,3.9968e-15},{36,
+              3.9968e-15},{39,3.9968e-15}},
         color={0,0,127}));
     end if;
   else
-    if enable_temPro then
+    if enableTemperatureProtection then
       connect(lim.y, temPro.u)
-        annotation (Line(points={{-29,-30},{-2,-30},{-2,0}},   color={0,0,127}));
+        annotation (Line(points={{-29,-30},{-20,-30},{-20,0},{-2,0}},
+                                                               color={0,0,127}));
     else
       connect(lim.y, com.y)
-        annotation (Line(points={{-29,-30},{39,-30},{39,0}},   color={0,0,127}));
+        annotation (Line(points={{-29,-30},{32,-30},{32,0},{39,0},{39,0}},
+                                                               color={0,0,127}));
     end if;
   end if;
   connect(stage, intToRea.u) annotation (Line(points={{-120,30},{-120,30},{-90,30},
@@ -203,10 +206,12 @@ equation
     annotation (Line(points={{-59,-30},{-52,-30}}, color={0,0,127}));
   connect(temPro.y, com.y)
     annotation (Line(points={{21,0},{39,0}},          color={0,0,127}));
-  connect(temPro.TCon, con.T) annotation (Line(points={{10,12},{10,76},{70,76},{
-          70,68},{61,68}},  color={0,0,127}));
+  connect(temPro.TCon, con.T) annotation (Line(points={{-2,8},{-2,8},{-20,8},{
+          -20,76},{70,76},{70,68},{61,68}},
+                            color={0,0,127}));
   connect(temPro.TEva, eva.T)
-    annotation (Line(points={{10,-12},{10,-68},{39,-68}},   color={0,0,127}));
+    annotation (Line(points={{-2,-8},{-2,-8},{-12,-8},{-12,-68},{39,-68}},
+                                                            color={0,0,127}));
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),       graphics={
