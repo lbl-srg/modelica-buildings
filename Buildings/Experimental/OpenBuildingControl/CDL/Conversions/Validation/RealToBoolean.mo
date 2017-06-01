@@ -2,7 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Conversions.Validation;
 model RealToBoolean "Validation model for the RealToBoolean block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Conversions.RealToInteger reaToInt
+  Buildings.Experimental.OpenBuildingControl.CDL.Conversions.RealToBoolean reaToInt
     "Block that convert Integer to Real signal"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 
@@ -14,24 +14,23 @@ extends Modelica.Icons.Example;
 
 equation
   connect(ramp1.y, reaToInt.u)
-    annotation (Line(points={{-39,0},{28,0}},        color={0,0,127}));
-  annotation (
-  experiment(StopTime=1.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Conversions/Validation/RealToInteger.mos"
+    annotation (Line(points={{-39,0},{28,0}}, color={0,0,127}));
+  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Conversions/Validation/RealToBoolean.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Conversions.RealToInteger\">
-Buildings.Experimental.OpenBuildingControl.CDL.Conversions.RealToInteger</a>.
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Conversions.RealToBoolean\">
+Buildings.Experimental.OpenBuildingControl.CDL.Conversions.RealToBoolean</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 31, 2017, by Jianjun Hu:<br/>
-First implementation.
+June 1, 2017, by Milica Grahovac:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
 </li>
 </ul>
-
 </html>"));
 end RealToBoolean;

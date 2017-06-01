@@ -10,7 +10,8 @@ block RealToBoolean "Convert Real to Boolean signal"
 
 equation
   y = u >= threshold;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+  annotation (defaultComponentName="reaToBoo",
+        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
         {100,100}}), graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
