@@ -84,20 +84,25 @@ equation
       smooth=Smooth.None));
   annotation (
     Documentation(info="<html>
-      <p>
-        This model was used to validate the
-        <a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\">
-        Buildings.Fluid.SolarCollectors.ASHRAE93</a> solar collector model
-        against TRNSYS data. Data files are used to ensure that the
-        <a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\">
-        Buildings.Fluid.SolarCollectors.ASHRAE93</a> solar collector model and
-        the TRNSYS model use the same inlet and weather conditions. The
-        solar collector model must reference the
-        <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_TRNSYSValidation\">
-        Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_TRNSYSValidation</a>
-        data record when comparing model results to the stored TRNSYS results.
-      </p>
-    </html>",
+<p>
+This model was used to validate the
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\">
+Buildings.Fluid.SolarCollectors.ASHRAE93</a> solar collector model
+against TRNSYS data. Data files are used to ensure that the
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\">
+Buildings.Fluid.SolarCollectors.ASHRAE93</a> solar collector model and
+the TRNSYS model use the same inlet and weather conditions. The
+solar collector model must reference the
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_TRNSYSValidation\">
+Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_TRNSYSValidation</a>
+data record when comparing model results to the stored TRNSYS results.
+</p>
+<p>
+The solar collector temperature of the Modelica model has a spike
+in the morning. At this time, there is solar irradiation on the collector
+but no mass flow rate, which leads to an increase in temperature.
+</p>
+</html>",
 revisions="<html>
 <ul>
 <li>
@@ -117,7 +122,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Validation/FlatPlate.mos"
-        "Simulate and Plot"),
-    experiment(Tolerance=1e-6, StopTime=86400));
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Validation/FlatPlate.mos"
+    "Simulate and Plot"),
+  experiment(Tolerance=1e-6, StopTime=86400));
 end FlatPlate;
