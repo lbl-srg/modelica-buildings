@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite;
-model OnHold "Block that holds a signal on for a requested time period"
+block OnHold "Block that holds a signal on for a requested time period"
 
   parameter Real holdOnDuration(unit="s") = 3600 "Time duration of the ON hold.";
 

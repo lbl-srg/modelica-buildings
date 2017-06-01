@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite;
-model OnOffHold "The block makes sure that the signal does not change values unless a defined time period has elapsed."
+block OnOffHold "The block makes sure that the signal does not change values unless a defined time period has elapsed."
 
   parameter Real changeSignalOffset(unit="s") = 900 "Time duration of the ON/OFF offset";
 

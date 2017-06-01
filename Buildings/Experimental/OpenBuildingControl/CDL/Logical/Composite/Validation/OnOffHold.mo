@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite.Validation;
 model OnOffHold "Validation model for the OnOffHold block"
-  import Buildings;
+
 extends Modelica.Icons.Example;
 
   Sources.BooleanPulse                                                booPul(period=
