@@ -2,5 +2,6 @@ BooleanToInteger
 BooleanToReal
 IntegerToBoolean
 IntegerToReal
+RealToBoolean
 RealToInteger
 Validation
