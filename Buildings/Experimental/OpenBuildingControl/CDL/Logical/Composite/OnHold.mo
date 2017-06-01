@@ -1,30 +1,31 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite;
 model OnHold "Block that holds a signal on for a requested time period"
 
-  LessThreshold                                               les1(threshold=
-        holdOnDuration)
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Continuous.Constant Zero(final k=0)
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Timer                                                        timer
-    annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Modelica.Blocks.Logical.Pre pre
-    annotation (Placement(transformation(extent={{50,40},{70,60}})));
-  Not not1
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Equal                                                        equ1
-    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
-  Or or2 annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  And and2 annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Interfaces.BooleanOutput                                                y
+  parameter Real holdOnDuration(unit="s") = 3600 "Time duration of the ON hold.";
+
+  Interfaces.BooleanOutput y
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
   Interfaces.BooleanInput u
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
-  parameter Real holdOnDuration(unit="s") = 3600 "Time duration of the ON hold.";
-equation
 
+  Logical.LessThreshold les1(threshold=holdOnDuration)
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+  Continuous.Constant Zero(final k=0)
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+  Logical.Timer                                                        timer
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
+  Logical.Pre pre
+    annotation (Placement(transformation(extent={{50,40},{70,60}})));
+  Logical.Not not1
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+  Logical.Equal                                                        equ1
+    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
+  Logical.Or or2 annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+  Logical.And and2 annotation (Placement(transformation(extent={{20,40},{40,60}})));
+
+equation
   connect(timer.u,pre. y) annotation (Line(points={{18,20},{12,20},{12,0},{80,0},
           {80,50},{71,50}},
                       color={255,0,255}));

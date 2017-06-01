@@ -1,35 +1,38 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite;
 model OnOffHold "The block makes sure that the signal does not change values unless a defined time period has elapsed."
 
-  Continuous.Constant Zero(final k=0)
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Timer                                                        timer
-    annotation (Placement(transformation(extent={{-60,-112},{-40,-92}})));
-  Modelica.Blocks.Logical.Pre pre
-    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Not not1
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Equal                                                        equ1
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Or  and2 annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Interfaces.BooleanOutput                                                y
+  parameter Real changeSignalOffset(unit="s") = 900 "Time duration of the ON/OFF offset";
+
+  Interfaces.BooleanOutput y
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
   Interfaces.BooleanInput u
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-122,-10},{-102,10}})));
-  And andBeforeTimerAndSwitch
+
+  Continuous.Constant Zero(final k=0)
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+  Logical.Timer timer
+    annotation (Placement(transformation(extent={{-60,-112},{-40,-92}})));
+  Modelica.Blocks.Logical.Pre pre
+    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
+  Logical.Not not1
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  Logical.Equal equ1
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+  Logical.Or  and2 annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
+  Logical.And andBeforeTimerAndSwitch
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  LogicalSwitch logSwi
+  Logical.LogicalSwitch logSwi
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  GreaterThreshold greThr(threshold=changeSignalOffset)
+  Logical.GreaterThreshold greThr(threshold=changeSignalOffset)
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Change cha1
-             annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Not not3 annotation (Placement(transformation(extent={{52,-60},{72,-40}})));
-  parameter Real changeSignalOffset(unit="s") = 900 "Time duration of the ON/OFF offset";
-  Xor xor annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
-  Not not2 annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+  Logical.Change cha1
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+  Logical.Not not3 annotation (Placement(transformation(extent={{52,-60},{72,-40}})));
+
+  Logical.Xor xor annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
+  Logical.Not not2 annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 equation
 
   connect(equ1.y, and2.u1) annotation (Line(points={{-39,-20},{-32,-20},{-22,-20}},
