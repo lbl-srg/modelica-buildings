@@ -1,5 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite.Validation;
 model OnOffHold "Validation model for the OnOffHold block"
+  import Buildings;
 
 extends Modelica.Icons.Example;
 
@@ -10,8 +11,7 @@ extends Modelica.Icons.Example;
     onOffHold annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(booPul.y, onOffHold.u)
-    annotation (Line(points={{-19,0},{18.8,0}},
-                                              color={255,0,255}));
+    annotation (Line(points={{-19,0},{0,0},{18.8,0}}, color={255,0,255}));
   annotation (
   experiment(StopTime=7200.0, Tolerance=1e-06),
   __Dymola_Commands(
