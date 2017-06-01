@@ -120,17 +120,16 @@ equation
     Boolean input <code>u</code> such that the output signal remains constant 
     for the defined time period after a signal change. After that time period has 
     elapsed, the signal becomes equal to the input signal. The purpose of the 
-    block is to disable quick changes in the output signal.
+    block is to disable quick changes in the output signal, e.g. in order to prevent
+    sudden pressure changes in the system.
     </p>
-
     <p>
     Simulation results of a typical example with the block default 
     on off hold time of 15 min is shown in the next figure.
     </p>
 
     <p align=\"center\">
-    <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnOffHold.png\"
-         alt=\"fixme.png\" />
+    <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnOffHold.png\"/>
     </p>
 
     </html>", revisions="<html>

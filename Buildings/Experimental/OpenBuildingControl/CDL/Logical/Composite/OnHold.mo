@@ -71,25 +71,23 @@ equation
     </p>
     <p>
     A rising edge of the Boolean input <code>u</code> starts a timer and
-    the Boolean output <code>y</code> stays <code>true</code> until the time
-    period provided as a parameter has elapsed. After that
-    the block evaluates the Boolean input <code>u</code> and if the input is <code>true</code>,
-    the timer gets started again, but if the input is false, the output becomes
-    false. If the output value is false, it will become true with the first rising
-    edge of the inputs signal. In other words, any on signal is evaluated either 
-    at the rising edge time of the input or at the rising edge time plus the time 
-    period. The output can only be false if at the end of the time period the input 
-    is false.
+    the Boolean output <code>y</code> stays <code>true</code> for the time
+    period provided as a parameter. After that the block evaluates the Boolean
+    input <code>u</code> and if the input is <code>true</code>,
+    the timer gets started again, but if the input is <code>false</code>, the output becomes
+    <code>false</code>. If the output value is <code>false</code>, it will become 
+    <code>true</code> with the first rising edge of the inputs signal. In other words, 
+    any <code>true</code> signal is evaluated either at the rising edge time of the input or at 
+    the rising edge time plus the time period. The output can only be <code>false</code> 
+    if at the end of the time period the input is <code>false</code>.
     </p>
-
     <p>
     Simulation results of a typical example with a hold time of 1 hour
     is shown in the next figure.
     </p>
 
     <p align=\"center\">
-    <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold.png\"
-         alt=\"fixme.png\" />
+    <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold.png\"/>
     </p>
 
     </html>", revisions="<html>
