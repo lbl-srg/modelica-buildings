@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Conversions.Validation;
 model RealToInteger "Validation model for the RealToInteger block"
-  import Buildings;
+
 extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
