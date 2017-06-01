@@ -1,7 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite;
 block OnHold "Block that holds a signal on for a requested time period"
 
-  parameter Real holdOnDuration(unit="s") = 3600 "Time duration of the ON hold.";
+  parameter Modelica.SIunits.Time holdOnDuration = 3600 "Time duration of the ON hold.";
 
   Interfaces.BooleanInput u "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -14,7 +14,7 @@ block OnHold "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Continuous.Constant Zero(final k=0) "Constant equals zero"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Logical.Timer timer "Timer to measure time elapsed after the input signal rising edge"
+  Logical.Timer timer "Timer to measure time elapsed after the output signal rising edge"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Logical.Pre pre "Introduces infinitesimally small time delay"
     annotation (Placement(transformation(extent={{50,40},{70,60}})));

@@ -1,7 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite;
-block OnOffHold "The block makes sure that the signal does not change values unless a defined time period has elapsed."
+block OnOffHold "The block introduces a minimal offset between the input signal rising and falling edge"
 
-  parameter Real changeSignalOffset(unit="s") = 900 "Time duration of the ON/OFF offset";
+  parameter Modelica.SIunits.Time changeSignalOffset = 900 "Time duration of the ON/OFF offset";
 
   Interfaces.BooleanInput u "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -10,26 +10,26 @@ block OnOffHold "The block makes sure that the signal does not change values unl
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-  Continuous.Constant Zero(final k=0)
+  Continuous.Constant Zero(final k=0) "Constant equal to zero"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Logical.Timer timer
+  Logical.Timer timer "Timer to measure time elapsed after the output signal edge"
     annotation (Placement(transformation(extent={{-60,-112},{-40,-92}})));
-  Modelica.Blocks.Logical.Pre pre
+  Modelica.Blocks.Logical.Pre pre "Introduces infinitesimally small time delay"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Logical.Not not1
+  Logical.Not not1 "Not block"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Logical.Equal equ1
+  Logical.Equal equ1 "Equal block"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Logical.Or  and2 annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Logical.And andBeforeTimerAndSwitch
+  Logical.And andBeforeTimerAndSwitch "And block"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  Logical.LogicalSwitch logSwi
+  Logical.LogicalSwitch logSwi "Logical switch"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Logical.GreaterThreshold greThr(threshold=changeSignalOffset)
+  Logical.GreaterThreshold greThr(final threshold=changeSignalOffset)
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Logical.Change cha1
+  Logical.Change cha1 "Change block"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Logical.Not not3 annotation (Placement(transformation(extent={{52,-60},{72,-40}})));
+  Logical.Not not3 "Not block" annotation (Placement(transformation(extent={{52,-60},{72,-40}})));
 
   Logical.Xor xor annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
   Logical.Not not2 annotation (Placement(transformation(extent={{-20,50},{0,70}})));
