@@ -1,13 +1,11 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite.Validation;
 model OnHold "Validation model for the OnHold block"
-  import Buildings;
 extends Modelica.Icons.Example;
 
-  Sources.BooleanPulse                                                booPul(startTime=
-       200, period=8000)
+  Sources.BooleanPulse booPul(startTime=200, period=8000) "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite.OnHold
-    onHold annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+  Logical.Composite.OnHold onHold "Block that holds a signal on for a requested time period"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(booPul.y, onHold.u)
     annotation (Line(points={{-19,0},{0,0},{19,0}}, color={255,0,255}));
@@ -29,6 +27,5 @@ May 24, 2017, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
-
 </html>"));
 end OnHold;

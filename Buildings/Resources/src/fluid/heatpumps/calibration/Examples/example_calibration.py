@@ -41,14 +41,14 @@ def main():
     data = hp.calibrate.ManufacturerData(manufacturer, model, CoolingMode)
     with open(performanceData, 'r') as f:
         for line in f:
-            dataPoint = line[0:-2].split('\t')
-            EWT_Source = float(dataPoint[0])
-            EWT_Load = float(dataPoint[1])
-            flowSource = float(dataPoint[2])
-            flowLoad = float(dataPoint[3])
-            Capacity = float(dataPoint[4])
-            HR = float(dataPoint[5])
-            Power = float(dataPoint[6])
+            dataPoint = line[0:-2].split('\t') 
+            EWT_Source = float(dataPoint[0])    # Entering water temperature evaporator (K)
+            EWT_Load = float(dataPoint[1])      # Entering water temperature condenser (K)
+            flowSource = float(dataPoint[2])    # Entering water flow rate evaporator (kg/s)
+            flowLoad = float(dataPoint[3])      # Entering water flow rate condenser (kg/s)
+            Capacity = float(dataPoint[4])      # Heat transfer rate on the load side (kW).
+            HR = float(dataPoint[5])            # Heat transfer rate on the source side (kW).
+            Power = float(dataPoint[6])         # Electrical power input to heat pump (kW)
             # Add data point to Data object
             data.add_data_point(EWT_Source, EWT_Load, flowSource,
                                 flowLoad, Capacity, HR, Power)

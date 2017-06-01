@@ -1,35 +1,37 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite;
-model OnOffHold "The block makes sure that the signal does not change values unless a defined time period has elapsed."
+block OnOffHold "The block introduces a minimal offset between the input signal rising and falling edge"
 
-  Continuous.Constant Zero(final k=0)
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Timer                                                        timer
-    annotation (Placement(transformation(extent={{-60,-112},{-40,-92}})));
-  Modelica.Blocks.Logical.Pre pre
-    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Not not1
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Equal                                                        equ1
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Or  and2 annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Interfaces.BooleanOutput                                                y
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
-  Interfaces.BooleanInput u
+  parameter Modelica.SIunits.Time changeSignalOffset = 900 "Time duration of the ON/OFF offset";
+
+  Interfaces.BooleanInput u "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-122,-10},{-102,10}})));
-  And andBeforeTimerAndSwitch
+  Interfaces.BooleanOutput y "Boolean output signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
+
+  Continuous.Constant Zero(final k=0) "Constant equal to zero"
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+  Logical.Timer timer "Timer to measure time elapsed after the output signal edge"
+    annotation (Placement(transformation(extent={{-60,-112},{-40,-92}})));
+  Modelica.Blocks.Logical.Pre pre "Introduces infinitesimally small time delay"
+    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
+  Logical.Not not1 "Not block"
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  Logical.Equal equ1 "Equal block"
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+  Logical.Or  and2 annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
+  Logical.And andBeforeTimerAndSwitch "And block"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  LogicalSwitch logSwi
+  Logical.LogicalSwitch logSwi "Logical switch"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  GreaterThreshold greThr(threshold=changeSignalOffset)
+  Logical.GreaterThreshold greThr(final threshold=changeSignalOffset)
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Change cha1
-             annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Not not3 annotation (Placement(transformation(extent={{52,-60},{72,-40}})));
-  parameter Real changeSignalOffset(unit="s") = 900 "Time duration of the ON/OFF offset";
-  Xor xor annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
-  Not not2 annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+  Logical.Change cha1 "Change block"
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+  Logical.Not not3 "Not block" annotation (Placement(transformation(extent={{52,-60},{72,-40}})));
+  Logical.Xor xor annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
+  Logical.Not not2 annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 equation
 
   connect(equ1.y, and2.u1) annotation (Line(points={{-39,-20},{-32,-20},{-22,-20}},
@@ -76,7 +78,7 @@ equation
   connect(andBeforeTimerAndSwitch.u1, not2.y)
     annotation (Line(points={{18,60},{1,60}}, color={255,0,255}));
   annotation (Icon(graphics={    Rectangle(
-          extent={{-102,100},{98,-100}},
+          extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised,
@@ -117,17 +119,16 @@ equation
     Boolean input <code>u</code> such that the output signal remains constant 
     for the defined time period after a signal change. After that time period has 
     elapsed, the signal becomes equal to the input signal. The purpose of the 
-    block is to disable quick changes in the output signal.
+    block is to disable quick changes in the output signal, e.g. in order to prevent
+    sudden pressure changes in the system.
     </p>
-
     <p>
     Simulation results of a typical example with the block default 
     on off hold time of 15 min is shown in the next figure.
     </p>
 
     <p align=\"center\">
-    <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnOffHold.PNG\"
-         alt=\"fixme.png\" />
+    <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnOffHold.png\"/>
     </p>
 
     </html>", revisions="<html>

@@ -1,30 +1,31 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite;
-model OnHold "Block that holds a signal on for a requested time period"
+block OnHold "Block that holds a signal on for a requested time period"
 
-  LessThreshold                                               les1(threshold=
-        holdOnDuration)
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Continuous.Constant Zero(final k=0)
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Timer                                                        timer
-    annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Modelica.Blocks.Logical.Pre pre
-    annotation (Placement(transformation(extent={{50,40},{70,60}})));
-  Not not1
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Equal                                                        equ1
-    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
-  Or or2 annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  And and2 annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Interfaces.BooleanOutput                                                y
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
-  Interfaces.BooleanInput u
+  parameter Modelica.SIunits.Time holdOnDuration = 3600 "Time duration of the ON hold.";
+
+  Interfaces.BooleanInput u "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
-  parameter Real holdOnDuration(unit="s") = 3600 "Time duration of the ON hold.";
-equation
+  Interfaces.BooleanOutput y "Boolean output signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
 
+  Logical.LessThreshold les1(final threshold=holdOnDuration) "Less than threshold"
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+  Continuous.Constant Zero(final k=0) "Constant equals zero"
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+  Logical.Timer timer "Timer to measure time elapsed after the output signal rising edge"
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
+  Logical.Pre pre "Introduces infinitesimally small time delay"
+    annotation (Placement(transformation(extent={{50,40},{70,60}})));
+  Logical.Not not1 "Not block"
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+  Logical.Equal equ1 "Equal block"
+    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
+  Logical.Or or2 "Or block" annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+  Logical.And and2 "And block" annotation (Placement(transformation(extent={{20,40},{40,60}})));
+
+equation
   connect(timer.u,pre. y) annotation (Line(points={{18,20},{12,20},{12,0},{80,0},
           {80,50},{71,50}},
                       color={255,0,255}));
@@ -70,25 +71,23 @@ equation
     </p>
     <p>
     A rising edge of the Boolean input <code>u</code> starts a timer and
-    the Boolean output <code>y</code> stays true until the time
-    period provided as a parameter has elapsed. After that
-    the block evaluates the Boolean input <code>u</code> and if the input is true,
-    the timer gets started again, but if the input is false, the output becomes
-    false. If the output value is false, it will become true with the first rising
-    edge of the inputs signal. In other words, any on signal is evaluated either 
-    at the rising edge time of the input or at the rising edge time plus the time 
-    period. The output can only be false if at the end of the time period the input 
-    is false.
+    the Boolean output <code>y</code> stays <code>true</code> for the time
+    period provided as a parameter. After that the block evaluates the Boolean
+    input <code>u</code> and if the input is <code>true</code>,
+    the timer gets started again, but if the input is <code>false</code>, the output becomes
+    <code>false</code>. If the output value is <code>false</code>, it will become 
+    <code>true</code> with the first rising edge of the inputs signal. In other words, 
+    any <code>true</code> signal is evaluated either at the rising edge time of the input or at 
+    the rising edge time plus the time period. The output can only be <code>false</code> 
+    if at the end of the time period the input is <code>false</code>.
     </p>
-
     <p>
     Simulation results of a typical example with a hold time of 1 hour
     is shown in the next figure.
     </p>
 
     <p align=\"center\">
-    <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold.PNG\"
-         alt=\"fixme.png\" />
+    <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold.png\"/>
     </p>
 
     </html>", revisions="<html>
