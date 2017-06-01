@@ -30,7 +30,6 @@ block OnOffHold "The block introduces a minimal offset between the input signal 
   Logical.Change cha1 "Change block"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Logical.Not not3 "Not block" annotation (Placement(transformation(extent={{52,-60},{72,-40}})));
-
   Logical.Xor xor annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
   Logical.Not not2 annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 equation

@@ -1,6 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Conversions.Validation;
 model RealToBoolean "Validation model for the RealToBoolean block"
-  import Buildings;
 extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
