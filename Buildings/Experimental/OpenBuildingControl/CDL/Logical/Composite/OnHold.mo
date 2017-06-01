@@ -3,27 +3,27 @@ block OnHold "Block that holds a signal on for a requested time period"
 
   parameter Real holdOnDuration(unit="s") = 3600 "Time duration of the ON hold.";
 
-  Interfaces.BooleanOutput y
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
-  Interfaces.BooleanInput u
+  Interfaces.BooleanInput u "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
+  Interfaces.BooleanOutput y "Boolean output signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
 
-  Logical.LessThreshold les1(threshold=holdOnDuration)
+  Logical.LessThreshold les1(final threshold=holdOnDuration) "Less than threshold"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Continuous.Constant Zero(final k=0)
+  Continuous.Constant Zero(final k=0) "Constant equals zero"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Logical.Timer                                                        timer
+  Logical.Timer timer "Timer to measure time elapsed after the input signal rising edge"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Logical.Pre pre
+  Logical.Pre pre "Introduces infinitesimally small time delay"
     annotation (Placement(transformation(extent={{50,40},{70,60}})));
-  Logical.Not not1
+  Logical.Not not1 "Not block"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Logical.Equal                                                        equ1
+  Logical.Equal equ1 "Equal block"
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
-  Logical.Or or2 annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Logical.And and2 annotation (Placement(transformation(extent={{20,40},{40,60}})));
+  Logical.Or or2 "Or block" annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+  Logical.And and2 "And block" annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
 equation
   connect(timer.u,pre. y) annotation (Line(points={{18,20},{12,20},{12,0},{80,0},

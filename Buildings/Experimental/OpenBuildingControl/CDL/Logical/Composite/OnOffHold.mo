@@ -3,12 +3,12 @@ block OnOffHold "The block makes sure that the signal does not change values unl
 
   parameter Real changeSignalOffset(unit="s") = 900 "Time duration of the ON/OFF offset";
 
-  Interfaces.BooleanOutput y
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
-  Interfaces.BooleanInput u
+  Interfaces.BooleanInput u "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-122,-10},{-102,10}})));
+  Interfaces.BooleanOutput y "Boolean output signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
 
   Continuous.Constant Zero(final k=0)
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
@@ -79,7 +79,7 @@ equation
   connect(andBeforeTimerAndSwitch.u1, not2.y)
     annotation (Line(points={{18,60},{1,60}}, color={255,0,255}));
   annotation (Icon(graphics={    Rectangle(
-          extent={{-102,100},{98,-100}},
+          extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised,
