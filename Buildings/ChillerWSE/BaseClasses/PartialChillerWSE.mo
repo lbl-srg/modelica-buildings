@@ -203,44 +203,6 @@ partial model PartialChillerWSE
     delta0=delta0)
      "Identical chillers"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.ChillerWSE.WSE wse(
-    redeclare final replaceable package Medium1 = Medium1,
-    redeclare final replaceable package Medium2 = Medium2,
-    final allowFlowReversal1=allowFlowReversal1,
-    final allowFlowReversal2=allowFlowReversal2,
-    final m1_flow_small=m1_flow_small,
-    final m2_flow_small=m2_flow_small,
-    final show_T=show_T,
-    final from_dp1=from_dp1,
-    final linearizeFlowResistance1=linearizeFlowResistance1,
-    final deltaM1=deltaM1,
-    final from_dp2=from_dp2,
-    final linearizeFlowResistance2=linearizeFlowResistance2,
-    final deltaM2=deltaM2,
-    final dpValve1_nominal=dpValveWSE1_nominal,
-    final dpValve2_nominal=dpValveWSE2_nominal,
-    final homotopyInitialization=homotopyInitialization,
-    final use_inputFilter=use_inputFilter,
-    final riseTimeValve=riseTimeValve,
-    final initValve=initValve,
-    final yValve1_start=yValveWSE1_start,
-    final yValve2_start=yValveWSE2_start,
-    final m1_flow_nominal=mWSE1_flow_nominal,
-    final m2_flow_nominal=mWSE2_flow_nominal,
-    final dp1_nominal=dpWSE1_nominal,
-    final dp2_nominal=dpWSE2_nominal,
-    l1=lValveWSE1,
-    kFixed1=kFixedWSE1,
-    l2=lValveWSE2,
-    kFixed2=kFixedWSE2,
-    deltaM=deltaM,
-    R=R,
-    delta0=delta0,
-    from_dp=from_dp,
-    linearized=linearized,
-    rhoStd=rhoStd)
-    "Water Side Economizer"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Interfaces.BooleanInput on[nChi + 1]
     "Set to true to enable equipment, or false to disable equipment"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
@@ -249,10 +211,11 @@ partial model PartialChillerWSE
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
 equation
   for i in 1:nChi loop
-  connect(chiPar.on[i], on[i]) annotation (Line(points={{-42,4},{-72,4},{-72,40},{-120,
-          40}}, color={255,0,255}));
-  connect(on[nChi+1], wse.on) annotation (Line(points={{-120,40},{8,40},{8,4},{
-            18,4}},
+  connect(chiPar.on[i], on[i]) annotation (Line(points={{-42,4},{-92,4},{-92,40},
+            {-120,40}},
+                color={255,0,255}));
+  connect(on[nChi+1], wse.on) annotation (Line(points={{-120,40},{-58,40},{-58,
+            50},{6,50},{6,4},{18,4}},
         color={255,0,255}));
   end for;
   connect(chiPar.TSet, TSet) annotation (Line(points={{-42,-4},{-70,-4},{-70,-20},

@@ -1,0 +1,24 @@
+simulateModel("Buildings.ChillerWSE.Examples.HeatExchanger_T", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="HeatExchanger_T");
+
+removePlots();
+createPlot(id=1,
+ position={0, 0, 1549, 701},
+ y={"T1_in.y", "T2_in.y"},
+ range={0.0, 64.0, 276.0, 290.0},
+ grid=true,
+ filename="HeatExchanger_T.mat",
+ colors={{28,108,200}, {238,46,47}});
+createPlot(id=1,
+ position={0, 0, 1549, 231},
+ y={"hx.con.u_s", "hx.con.u_m"},
+ range={0.0, 64.0, 282.0, 288.0},
+ grid=true,
+ subPlot=2,
+ colors={{28,108,200}, {238,46,47}});
+createPlot(id=1,
+ position={0, 0, 1549, 231},
+ y={"hx.con.y", "hx.bypVal.y_actual"},
+ range={0.0, 64.0, -0.2, 1.2},
+ grid=true,
+ subPlot=3,
+ colors={{28,108,200}, {238,46,47}});

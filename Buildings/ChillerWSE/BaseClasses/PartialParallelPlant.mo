@@ -1,12 +1,7 @@
 within Buildings.ChillerWSE.BaseClasses;
 partial model PartialParallelPlant
   "Partial source plant model with replaceable valves"
-  extends Buildings.Fluid.Interfaces.PartialFourPortInterface;
-  extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
-     final computeFlowResistance1=true,
-     final computeFlowResistance2=true);
-
-  parameter Integer n(min=1)=2 "Number of identical plants";
+  extends Buildings.ChillerWSE.BaseClasses.PartialPlantParallelInterface;
 
   parameter Modelica.SIunits.PressureDifference dpValve1_nominal(min=0,displayUnit="Pa")
     "Pressure difference for the valve on Medium 1 side"
@@ -114,6 +109,12 @@ equation
     connect(val2[i].port_b, port_b2) annotation (Line(points={{-40,-42},{-40,-60},
             {-100,-60}}, color={0,127,255}));
   end for;
+  connect(on, booToRea.u) annotation (Line(points={{-120,40},{-102,40},{-82,40}},
+        color={255,0,255}));
+  connect(booToRea.y, val1.y) annotation (Line(points={{-59,40},{-20,40},{20,40},
+          {20,32},{28,32}}, color={0,0,127}));
+  connect(booToRea.y, val2.y) annotation (Line(points={{-59,40},{-56,40},{-56,-32},
+          {-52,-32}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
          Diagram(coordinateSystem(preserveAspectRatio=false)));

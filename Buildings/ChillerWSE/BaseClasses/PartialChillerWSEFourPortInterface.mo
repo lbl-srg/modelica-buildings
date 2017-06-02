@@ -29,7 +29,6 @@ partial model PartialChillerWSEFourPortInterface
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialChillerWSEFourPortInterface;

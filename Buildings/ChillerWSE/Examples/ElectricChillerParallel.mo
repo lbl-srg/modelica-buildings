@@ -1,4 +1,4 @@
-within Buildings.ChillerWSE.Example;
+within Buildings.ChillerWSE.Examples;
 model ElectricChillerParallel
   "Model that test electric chiller parallel"
   extends Modelica.Icons.Example;

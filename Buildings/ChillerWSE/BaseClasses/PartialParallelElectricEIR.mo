@@ -34,7 +34,6 @@ partial model PartialParallelElectricEIR
     final quantity=Medium1.extraPropertiesNames) = fill(1E-2, Medium1.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", group = "Medium 1", enable=Medium1.nC > 0));
-
   parameter Medium2.AbsolutePressure p2_start = Medium2.p_default
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization", group = "Medium 2"));
@@ -91,10 +90,6 @@ partial model PartialParallelElectricEIR
   Modelica.Blocks.Interfaces.BooleanInput on[n]
     "Set to true to enable compressor, or false to disable compressor"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Math.BooleanToReal booToRea[n](
-    each final realTrue=1,
-    each final realFalse=0) "Boolean to real (if true then 1 else 0)"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Interfaces.RealInput TSet
     "Set point for leaving chilled water temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
@@ -107,17 +102,10 @@ equation
   connect(chi[i].port_a2, port_a2) annotation (Line(points={{10,-6},{40,-6},{40,
           -60},{100,-60}}, color={0,127,255}));
   end for;
-
   connect(chi.port_b2, val2.port_a)
     annotation (Line(points={{-10,-6},{-40,-6},{-40,-22}}, color={0,127,255}));
   connect(chi.port_b1, val1.port_a)
     annotation (Line(points={{10,6},{40,6},{40,22}}, color={0,127,255}));
-  connect(booToRea.y, val1.y) annotation (Line(points={{-59,40},{20,40},{20,32},
-          {28,32}}, color={0,0,127}));
   connect(on, chi.on) annotation (Line(points={{-120,40},{-90,40},{-90,3},{-12,3}},
         color={255,0,255}));
-  connect(on, booToRea.u) annotation (Line(points={{-120,40},{-101,40},{-82,40}},
-        color={255,0,255}));
-  connect(booToRea.y, val2.y) annotation (Line(points={{-59,40},{-56,40},{-56,-32},
-          {-52,-32}}, color={0,0,127}));
 end PartialParallelElectricEIR;

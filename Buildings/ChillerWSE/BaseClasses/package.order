@@ -1,11 +1,9 @@
-BypassControlForWSE
 FourPortResistanceChillerWSE
 PartialChillerWSE
 PartialChillerWSEFourPortInterface
+PartialHeatExchanger_T
 PartialIntegratedPrimary
 PartialParallelElectricEIR
 PartialParallelPlant
-TimerSISO
-WSEWithBypass
-WSEWithTControl
+PartialPlantParallelInterface
 Examples

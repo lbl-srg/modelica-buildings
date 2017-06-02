@@ -3,6 +3,7 @@ IntegratedPrimary
 IntegratedPrimarySecondary
 NonIntegrated
 ElectricChilerParallel
-WSE
-Example
+HeatExchanger_T
+WatersideEconomizerParallel
+Examples
 BaseClasses
