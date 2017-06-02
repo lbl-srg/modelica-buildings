@@ -41,7 +41,7 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
     yMin=yConSigMin,
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI)
     "Contoller that outputs a signal based on the error between the measured outdoor airflow and the minimum outdoor airflow requirement."
-    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
+    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
 
   CDL.Continuous.Constant sigFraForOutDam(k=sigFraOutDam)
     "Fraction of the control signal for which the economizer damper is and stays fully open and above which the return air damper modulates downwards."
@@ -119,7 +119,7 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
     annotation (Placement(transformation(extent={{-220,-60},{-200,-40}})));
 equation
   connect(uVOut,minOutAirDamPosController. u_m)
-    annotation (Line(points={{-260,80},{-90,80},{-90,98}}, color={0,0,127}));
+    annotation (Line(points={{-260,80},{-90,80},{-90,108}},color={0,0,127}));
   connect(outDamPhyPosMaxSig.y, outDamPosMax.u3) annotation (Line(points={{-83,
           -152},{-48,-152},{-48,-170},{-8,-170}},  color={0,0,127}));
   connect(outDamPhyPosMinSig.y, outDamPosMax.u1) annotation (Line(points={{-83,
@@ -139,8 +139,8 @@ equation
                               color={0,0,127}));
   connect(maxSignalLimit.y, minRetDam.x2) annotation (Line(points={{1,70},{32,
           70},{32,46},{98,46}},   color={0,0,127}));
-  connect(minOutAirDamPosController.y, minRetDam.u) annotation (Line(points={{-79,110},
-          {-28,110},{-28,50},{98,50}},      color={0,0,127}));
+  connect(minOutAirDamPosController.y, minRetDam.u) annotation (Line(points={{-79,120},
+          {-28,120},{-28,50},{98,50}},      color={0,0,127}));
   connect(outDamPosMax.y, minOutDam.f2) annotation (Line(points={{15,-162},{46,
           -162},{46,2},{98,2}},       color={0,0,127}));
   connect(outDamPhyPosMinSig.y, minOutDam.f1) annotation (Line(points={{-83,
@@ -150,8 +150,8 @@ equation
           102},{36,18},{98,18}},    color={0,0,127}));
   connect(sigFraForOutDam.y, minOutDam.x2) annotation (Line(points={{1,140},{20,
           140},{20,6},{98,6}},  color={0,0,127}));
-  connect(minOutAirDamPosController.y, minOutDam.u) annotation (Line(points={{-79,110},
-          {-40,110},{-40,10},{98,10}},        color={0,0,127}));
+  connect(minOutAirDamPosController.y, minOutDam.u) annotation (Line(points={{-79,120},
+          {-40,120},{-40,10},{98,10}},        color={0,0,127}));
   connect(retDamPhyPosMinSig.y, yRetDamPosMin) annotation (Line(points={{-83,
           -112},{-66,-112},{-66,-148},{150,-148},{150,-20},{190,-20}},
                                                                color={0,0,127}));
@@ -161,7 +161,7 @@ equation
   connect(minOutDam.y, yOutDamPosMin) annotation (Line(points={{121,10},{150,10},
           {150,20},{190,20}}, color={0,0,127}));
   connect(uVOutMinSet, minOutAirDamPosController.u_s) annotation (Line(points={{-260,
-          120},{-160,120},{-160,110},{-102,110}},       color={0,0,127}));
+          120},{-160,120},{-102,120}},                  color={0,0,127}));
   connect(intToRea.y, ZoneStateStatusHeating.u) annotation (Line(points={{-199,
           -100},{-199,-100},{-182,-100}}, color={0,0,127}));
   connect(uFreProSta, intToRea.u)
@@ -265,7 +265,7 @@ equation
         Rectangle(extent={{-116,-40},{-42,-208}},
                                                 lineColor={28,108,200}),
         Text(
-          extent={{-48,-78},{18,-96}},
+          extent={{-32,-56},{34,-74}},
           lineColor={28,108,200},
           fontSize=12,
           textString="False means 
