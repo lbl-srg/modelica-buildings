@@ -117,6 +117,8 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
         iconTransformation(extent={{-120,-10},{-100,10}})));
   CDL.Continuous.Constant con(k=1)
     annotation (Placement(transformation(extent={{-220,-60},{-200,-40}})));
+  CDL.Logical.Equal equ
+    annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
 equation
   connect(uVOut,minOutAirDamPosController. u_m)
     annotation (Line(points={{-260,80},{-90,80},{-90,108}},color={0,0,127}));
@@ -179,8 +181,7 @@ equation
   connect(uAHUModSta, intToRea1.u) annotation (Line(points={{-260,-20},{-260,
           -20},{-222,-20}}, color={255,127,0}));
   connect(ZoneStateStatusHeating1.y, nand.u2) annotation (Line(points={{-159,
-          -20},{-152,-20},{-152,10},{-152,10},{-152,30},{-142,30}}, color={255,
-          0,255}));
+          -20},{-152,-20},{-152,10},{-152,30},{-142,30}}, color={255,0,255}));
   connect(intToRea1.y, ZoneStateStatusHeating1.u1)
     annotation (Line(points={{-199,-20},{-182,-20}}, color={0,0,127}));
   connect(ZoneStateStatusHeating1.u2, con.y) annotation (Line(points={{-182,-28},
@@ -265,7 +266,7 @@ equation
         Rectangle(extent={{-116,-40},{-42,-208}},
                                                 lineColor={28,108,200}),
         Text(
-          extent={{-32,-56},{34,-74}},
+          extent={{-26,-72},{40,-90}},
           lineColor={28,108,200},
           fontSize=12,
           textString="False means 

@@ -140,10 +140,9 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
   parameter Real smallDisableDelay
     "Per G36 the outdoor air damper can switch to its minimal position only a short time period after the disable signal got activated. The return air damper gets fully open before that in order to prevent pressure fluctuations";
   parameter Real smallDisDel(quantity="Time", unit="s") = 15 "Disable delay for the outdoor air damper";
-  CDL.Interfaces.RealOutput yRetDamPosMin1
-    "Output sets the return air damper position, which is affected for a short period of time upon disabling the economizer"
-    annotation (Placement(transformation(extent={{180,-316},{200,-296}}),
-        iconTransformation(extent={{100,-40},{120,-20}})));
+  CDL.Interfaces.RealOutput yRetDamPosMax annotation (Placement(transformation(
+          extent={{180,-316},{200,-296}}), iconTransformation(extent={{100,-40},
+            {120,-20}})));
 equation
   connect(intToRea.y, gre.u1)
     annotation (Line(points={{-139,0},{-139,0},{-102,0}}, color={0,0,127}));
@@ -241,7 +240,10 @@ equation
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-180,-320},{180,200}},
-        initialScale=0.1)),
+        initialScale=0.1), graphics={Text(
+          textString="Edit Here",
+          extent={{84,38},{140,22}},
+          lineColor={28,108,200})}),
     Documentation(info="<html>      
              <p>
              implementation fixme: 10 min delay
