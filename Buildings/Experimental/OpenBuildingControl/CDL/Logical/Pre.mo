@@ -51,14 +51,14 @@ equation
 <p>
 This block delays the Boolean input by an infinitesimal small time delay and
 therefore breaks algebraic loops. In a network of logical blocks, in every
-\"closed connection loop\" at least one logical block must have a delay,
+<i>closed connection loop</i>, at least one logical block must have a delay,
 since algebraic systems of Boolean equations are not solvable.
 </p>
 
 <p>
-The \"Pre\" block returns the value of the \"input\" signal from the
-last \"event iteration\". The \"event iteration\" stops, once both
-values are identical (u = pre(u)).
+This block returns the value of the input signal <code>u</code> from the
+last event iteration. The event iteration stops once both
+values are identical, i.e., if <code>u = pre(u)</code>.
 </p>
 </html>", revisions="<html>
 <ul>
