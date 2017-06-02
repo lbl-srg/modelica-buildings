@@ -90,7 +90,8 @@ is shown in the next figure.
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold.png\"/>
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold.png\"
+alt=\"Input and output of the block\"/>
     </p>
 
 </html>", revisions="<html>

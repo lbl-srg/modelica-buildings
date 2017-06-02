@@ -125,7 +125,8 @@ on off hold time of 15 min is shown in the next figure.
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnOffHold.png\"/>
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnOffHold.png\"
+alt=\"Input and output of the block\"/>
 </p>
 
 </html>", revisions="<html>
