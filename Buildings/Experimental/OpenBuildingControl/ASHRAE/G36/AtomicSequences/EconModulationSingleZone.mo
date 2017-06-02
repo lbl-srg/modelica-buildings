@@ -57,10 +57,6 @@ block EconModulationSingleZone "Based on supply air temperature (SAT) setpoint a
     "Heating control signal."
     annotation (Placement(transformation(extent={{-180,-6},{-140,34}}),
         iconTransformation(extent={{-158,16},{-140,34}})));
-  CDL.Interfaces.RealInput uCoo(min=0, max=1, unit="1")
-    "Cooling control signal."
-    annotation (Placement(transformation(extent={{-180,26},{-140,66}}),
-        iconTransformation(extent={{-158,48},{-140,66}})));
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1, unit="1")
     "Minimum economizer damper position limit as returned by the EconDamPosLimits sequence."
     annotation (Placement(transformation(extent={{-180,-70},{-140,-30}}),
@@ -84,19 +80,11 @@ block EconModulationSingleZone "Based on supply air temperature (SAT) setpoint a
   CDL.Logical.Switch DisableEcoDamModulation
     "If the heating is on or the fan is off, keep the economizer damper at its minimum limit set by the EconDamPosLimits sequence."
     annotation (Placement(transformation(extent={{-40,-122},{-20,-102}})));
-  CDL.Logical.GreaterThreshold coolingZoneState
-    "Checks whether the cooling control signal is larger than 0. fixme: use Zone State type instead as input."
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   CDL.Logical.LessEqualThreshold ZoneStateStatusHeating(threshold=0)
     "If true, the heating signal is 0. fixme: use ZoneState type instead."
     annotation (Placement(transformation(extent={{-80,-44},{-60,-24}})));
   CDL.Logical.And andBlock
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  CDL.Continuous.Add add(k1=1, k2=-2)
-    "A workaround to deduct 2degC from the cooling SAT in case the cooling signal is present."
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  CDL.Conversions.BooleanToReal typeConverter
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(TSup,damPosController. u_m) annotation (Line(points={{-160,76},{-100,
           76},{-100,56},{-44,56},{-44,-44},{-10,-44},{-10,-36}},
@@ -113,9 +101,6 @@ equation
           70},{40,18},{58,18}}, color={0,0,127}));
   connect(damPosController.y, outDamPos.u) annotation (Line(points={{1,-24},{30,
           -24},{30,10},{58,10}}, color={0,0,127}));
-  connect(coolingZoneState.u, uCoo)
-    annotation (Line(points={{-82,0},{-82,0},{-100,0},{-100,46},{-160,46}},
-                                                        color={0,0,127}));
   connect(andBlock.u2, uSupFan) annotation (Line(points={{-82,-78},{-114,-78},{
           -114,-18},{-160,-18}},
                             color={255,0,255}));
@@ -151,15 +136,8 @@ equation
           -112},{40,-112},{40,2},{58,2}}, color={0,0,127}));
   connect(maxSignalLimit.y, outDamPos.x2)
     annotation (Line(points={{1,30},{30,30},{30,6},{58,6}}, color={0,0,127}));
-  connect(TCooSet, add.u1) annotation (Line(points={{-160,102},{-94,102},{-94,
-          76},{-82,76}},
-                     color={0,0,127}));
-  connect(add.y,damPosController. u_s) annotation (Line(points={{-59,70},{-38,
-          70},{-38,-24},{-22,-24}}, color={0,0,127}));
-  connect(coolingZoneState.y, typeConverter.u) annotation (Line(points={{-59,0},
-          {-52,0},{-52,16},{-90,16},{-90,30},{-82,30}}, color={255,0,255}));
-  connect(typeConverter.y, add.u2) annotation (Line(points={{-59,30},{-50,30},{-50,
-          50},{-90,50},{-90,64},{-82,64}}, color={0,0,127}));
+  connect(TCooSet, damPosController.u_s) annotation (Line(points={{-160,102},{
+          -30,102},{-30,-24},{-22,-24}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ecoMod",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,
@@ -254,12 +232,7 @@ equation
           lineColor={85,0,255},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{
-            140,120}}), graphics={Text(
-          extent={{-82,98},{-48,84}},
-          lineColor={28,108,200},
-          textString="Remove all this, using TCooSet, 
-no need for algebra here",
-          fontSize=12)}),
+            140,120}})),
     Documentation(info="<html>      
     <p>
     fixme ?Brent: If the dampers are not interloacked, should the linear mapping have
