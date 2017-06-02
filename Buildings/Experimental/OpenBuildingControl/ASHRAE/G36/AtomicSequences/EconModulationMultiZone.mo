@@ -36,7 +36,7 @@ block EconModulationMultiZone "Based on supply air temperature (SAT) setpoint an
     annotation (Placement(transformation(extent={{-20,-74},{0,-54}})));
 
   CDL.Interfaces.BooleanInput uSupFan "Supply Fan Status, on or off"
-    annotation (Placement(transformation(extent={{-160,-44},{-120,-4}}),
+    annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
         iconTransformation(extent={{-138,-14},{-120,4}})));
   CDL.Interfaces.RealOutput yOutDamPos(min=0, max=1, unit="1") "Economizer damper position"
                                                 annotation (Placement(
@@ -111,7 +111,7 @@ equation
   connect(damPosController.y, outDamPos.u) annotation (Line(points={{1,-64},{30,
           -64},{30,10},{58,10}}, color={0,0,127}));
   connect(andBlock.u2, uSupFan) annotation (Line(points={{-82,-78},{-104,-78},{
-          -104,-24},{-140,-24}},
+          -104,-20},{-140,-20}},
                             color={255,0,255}));
   connect(uHea,ZoneStateStatusHeating. u) annotation (Line(points={{-140,28},{
           -94,28},{-94,-40},{-82,-40}},
