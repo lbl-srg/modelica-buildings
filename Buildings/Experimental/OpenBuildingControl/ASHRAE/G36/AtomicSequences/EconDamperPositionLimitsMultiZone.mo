@@ -19,19 +19,19 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
 
   CDL.Interfaces.RealInput uVOut
     "Measured outdoor airflow rate. Sensor output. Location: after the economizer damper intake."
-    annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
-        iconTransformation(extent={{-220,40},{-180,80}})));
+    annotation (Placement(transformation(extent={{-280,60},{-240,100}}),
+        iconTransformation(extent={{-280,60},{-240,100}})));
   CDL.Interfaces.RealInput uVOutMinSet
     "Minimum outdoor airflow requirement, output of a separate sequence that calculates this value based on ASHRAE Standard 62.1-2013 or California Title 24"
-    annotation (Placement(transformation(extent={{-220,100},{-180,140}}),
-        iconTransformation(extent={{-220,100},{-180,140}})));
+    annotation (Placement(transformation(extent={{-280,100},{-240,140}}),
+        iconTransformation(extent={{-280,100},{-240,140}})));
   CDL.Continuous.Constant retDamPhyPosMinSig(k=retDamPhyPosMin)
     "Physical or at the comissioning fixed minimum opening of the return air damper. Assuming 0 airflow through the damper at this position. fixme: this maybe needs to be an input. fixme: Have this be a hardware input (make a \"physical data determined at comissioning block\")"
-    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
+    annotation (Placement(transformation(extent={{-104,-122},{-84,-102}})));
   //fixme add units, should be percentage
   CDL.Continuous.Constant outDamPhyPosMinSig(k=outDamPhyPosMin)
     "Physical or at the comissioning fixed minimum position of the economizer damper - economizer damper closed. Assuming VOut = 0 at this condition. This is the initial position of the economizer damper. fixme: It should always be 0 (pp), should we define this as final? fixme: Have this be a hardware input (make a \"physical data determined at comissioning block\")"
-    annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
+    annotation (Placement(transformation(extent={{-104,-202},{-84,-182}})));
   CDL.Continuous.LimPID minOutAirDamPosController(
     Ti=0.9,
     Td=0.1,
@@ -47,12 +47,8 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
     "Fraction of the control signal for which the economizer damper is and stays fully open and above which the return air damper modulates downwards."
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply Fan Status, on or off"
-    annotation (Placement(transformation(extent={{-220,0},{-180,40}}),
-        iconTransformation(extent={{-220,0},{-180,40}})));
-  CDL.Interfaces.BooleanInput uAHUMod
-    "AHU Mode, fixme: see pg. 103 in G36 for the full list of modes, here we use true = \"occupied\""
-    annotation (Placement(transformation(extent={{-220,-40},{-180,0}}),
-        iconTransformation(extent={{-220,-40},{-180,0}})));
+    annotation (Placement(transformation(extent={{-280,0},{-240,40}}),
+        iconTransformation(extent={{-280,0},{-240,40}})));
   CDL.Interfaces.RealOutput yOutDamPosMin(min=0, max=1, unit="1")
     "Minimum economizer damper position limit." annotation (Placement(
         transformation(extent={{180,10},{200,30}}),  iconTransformation(extent={{180,10},
@@ -64,25 +60,25 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
             {200,-30}})));
   CDL.Continuous.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
     "Physical or at the comissioning fixed maximum opening of the return air damper. This is the initial condition of the return air damper. fixme: Have this be a hardware input (make a \"physical data determined at comissioning block\")"
-    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
+    annotation (Placement(transformation(extent={{-104,-82},{-84,-62}})));
   CDL.Continuous.Constant outDamPhyPosMaxSig(k=outDamPhyPosMax)
     "Physical or at the comissioning fixed maximum position of the economizer damper - economizer damper fully open. fixme: Have this be a hardware input (make a \"physical data determined at comissioning block\")"
-    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
+    annotation (Placement(transformation(extent={{-104,-162},{-84,-142}})));
   CDL.Continuous.Line minOutDam(limitBelow=true, limitAbove=true)
     "Damper position is linearly proportional to the control signal."
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
   CDL.Continuous.Line minRetDam(limitBelow=true, limitAbove=true)
     "Damper position is linearly proportional to the control signal."
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
-  CDL.Logical.Nand nand
+  CDL.Logical.And3 nand
     "If any of the input signals is not true, the block outputs true, damper modulation gets supressed and dampers are kept in their initial positions."
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   CDL.Logical.Switch RetDamPosMin
     "Set to RetDamPhyPosMax if the supply fan is off or the AHU mode is disabled to prevent any modulation"
-    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+    annotation (Placement(transformation(extent={{-6,-132},{14,-112}})));
   CDL.Logical.Switch outDamPosMax
     "Set to EcoDamPhyPosMin if the supply fan is off or the AHU mode is disabled to prevent any modulation"
-    annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
+    annotation (Placement(transformation(extent={{-6,-172},{14,-152}})));
   CDL.Continuous.Constant minSignalLimit(k=0)
     "Identical to controller parameter - Lower limit of output. fixme - set equal to yMin from PID"
     annotation (Placement(transformation(extent={{-20,92},{0,112}})));
@@ -101,35 +97,43 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
 
   CDL.Interfaces.IntegerInput uFreProSta( quantity="Status")= 0
     "Freeze Protection Status signal, it can be an integer 0 - 3 [fixme check quantity]"
-    annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),
+    annotation (Placement(transformation(extent={{-280,-120},{-240,-80}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
+  CDL.Conversions.IntegerToReal intToRea
+    annotation (Placement(transformation(extent={{-220,-110},{-200,-90}})));
+  CDL.Logical.LessEqualThreshold ZoneStateStatusHeating(threshold=1)
+    "If true, the heating signal is 0. fixme: use ZoneState type instead."
+    annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
+  CDL.Logical.Not not1
+    annotation (Placement(transformation(extent={{-110,20},{-90,40}})));
+  CDL.Logical.Equal              ZoneStateStatusHeating1
+    "If true, the heating signal is 0. fixme: use ZoneState type instead."
+    annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
+  CDL.Conversions.IntegerToReal intToRea1
+    annotation (Placement(transformation(extent={{-220,-30},{-200,-10}})));
+  CDL.Interfaces.IntegerInput uAHUModSta(quantity="Status")=0
+    "AHU System Mode status signal, [fixme: see documentation for more details]"
+    annotation (Placement(transformation(extent={{-280,-40},{-240,0}}),
+        iconTransformation(extent={{-120,-10},{-100,10}})));
+  CDL.Continuous.Constant con(k=1)
+    annotation (Placement(transformation(extent={{-220,-60},{-200,-40}})));
 equation
   connect(uVOut,minOutAirDamPosController. u_m)
-    annotation (Line(points={{-200,60},{-90,60},{-90,98}}, color={0,0,127}));
-  connect(uSupFan, nand.u1) annotation (Line(points={{-200,20},{-160,20},{-82,
-          20}},       color={255,0,255}));
-  connect(uAHUMod, nand.u2) annotation (Line(points={{-200,-20},{-150,-20},{
-          -150,12},{-82,12}},
-                           color={255,0,255}));
-  connect(nand.y, outDamPosMax.u2) annotation (Line(points={{-59,20},{-50,20},{
-          -50,-110},{-22,-110}},  color={255,0,255}));
-  connect(nand.y, RetDamPosMin.u2) annotation (Line(points={{-59,20},{-50,20},{
-          -50,-70},{-22,-70}},    color={255,0,255}));
-  connect(outDamPhyPosMaxSig.y, outDamPosMax.u3) annotation (Line(points={{-119,
-          -100},{-48,-100},{-48,-118},{-22,-118}}, color={0,0,127}));
-  connect(outDamPhyPosMinSig.y, outDamPosMax.u1) annotation (Line(points={{-119,
-          -140},{-60,-140},{-60,-102},{-22,-102}}, color={0,0,127}));
-  connect(retDamPhyPosMaxSig.y, RetDamPosMin.u1) annotation (Line(points={{-119,
-          -20},{-52,-20},{-52,-62},{-22,-62}},   color={0,0,127}));
-  connect(retDamPhyPosMinSig.y, RetDamPosMin.u3) annotation (Line(points={{-119,
-          -60},{-66,-60},{-66,-78},{-22,-78}},     color={0,0,127}));
+    annotation (Line(points={{-260,80},{-90,80},{-90,98}}, color={0,0,127}));
+  connect(outDamPhyPosMaxSig.y, outDamPosMax.u3) annotation (Line(points={{-83,
+          -152},{-48,-152},{-48,-170},{-8,-170}},  color={0,0,127}));
+  connect(outDamPhyPosMinSig.y, outDamPosMax.u1) annotation (Line(points={{-83,
+          -192},{-60,-192},{-60,-154},{-8,-154}},  color={0,0,127}));
+  connect(retDamPhyPosMaxSig.y, RetDamPosMin.u1) annotation (Line(points={{-83,-72},
+          {-52,-72},{-52,-114},{-8,-114}},       color={0,0,127}));
+  connect(retDamPhyPosMinSig.y, RetDamPosMin.u3) annotation (Line(points={{-83,
+          -112},{-66,-112},{-66,-130},{-8,-130}},  color={0,0,127}));
   connect(minRetDam.y, yRetDamPosMax) annotation (Line(points={{121,50},{130,50},
           {130,-40},{190,-40}},color={0,0,127}));
-  connect(retDamPhyPosMaxSig.y, minRetDam.f1) annotation (Line(points={{-119,
-          -20},{12,-20},{12,54},{98,54}},
-                                       color={0,0,127}));
-  connect(RetDamPosMin.y, minRetDam.f2) annotation (Line(points={{1,-70},{20,
-          -70},{20,42},{98,42}},    color={0,0,127}));
+  connect(retDamPhyPosMaxSig.y, minRetDam.f1) annotation (Line(points={{-83,-72},
+          {12,-72},{12,54},{98,54}},   color={0,0,127}));
+  connect(RetDamPosMin.y, minRetDam.f2) annotation (Line(points={{15,-122},{20,
+          -122},{20,42},{98,42}},   color={0,0,127}));
   connect(sigFraForOutDam.y, minRetDam.x1) annotation (Line(points={{1,140},{40,
           140},{40,58},{98,58}},
                               color={0,0,127}));
@@ -137,10 +141,10 @@ equation
           70},{32,46},{98,46}},   color={0,0,127}));
   connect(minOutAirDamPosController.y, minRetDam.u) annotation (Line(points={{-79,110},
           {-28,110},{-28,50},{98,50}},      color={0,0,127}));
-  connect(outDamPosMax.y, minOutDam.f2) annotation (Line(points={{1,-110},{46,
-          -110},{46,2},{98,2}},       color={0,0,127}));
-  connect(outDamPhyPosMinSig.y, minOutDam.f1) annotation (Line(points={{-119,
-          -140},{30,-140},{30,14},{98,14}},
+  connect(outDamPosMax.y, minOutDam.f2) annotation (Line(points={{15,-162},{46,
+          -162},{46,2},{98,2}},       color={0,0,127}));
+  connect(outDamPhyPosMinSig.y, minOutDam.f1) annotation (Line(points={{-83,
+          -192},{30,-192},{30,14},{98,14}},
                                           color={0,0,127}));
   connect(minSignalLimit.y, minOutDam.x1) annotation (Line(points={{1,102},{36,
           102},{36,18},{98,18}},    color={0,0,127}));
@@ -148,15 +152,39 @@ equation
           140},{20,6},{98,6}},  color={0,0,127}));
   connect(minOutAirDamPosController.y, minOutDam.u) annotation (Line(points={{-79,110},
           {-40,110},{-40,10},{98,10}},        color={0,0,127}));
-  connect(retDamPhyPosMinSig.y, yRetDamPosMin) annotation (Line(points={{-119,
-          -60},{-66,-60},{-66,-148},{150,-148},{150,-20},{190,-20}},
+  connect(retDamPhyPosMinSig.y, yRetDamPosMin) annotation (Line(points={{-83,
+          -112},{-66,-112},{-66,-148},{150,-148},{150,-20},{190,-20}},
                                                                color={0,0,127}));
-  connect(outDamPosMax.y, yOutDamPosMax) annotation (Line(points={{1,-110},{140,
-          -110},{140,0},{190,0}},   color={0,0,127}));
+  connect(outDamPosMax.y, yOutDamPosMax) annotation (Line(points={{15,-162},{
+          140,-162},{140,0},{190,0}},
+                                    color={0,0,127}));
   connect(minOutDam.y, yOutDamPosMin) annotation (Line(points={{121,10},{150,10},
           {150,20},{190,20}}, color={0,0,127}));
-  connect(uVOutMinSet, minOutAirDamPosController.u_s) annotation (Line(points={{-200,
+  connect(uVOutMinSet, minOutAirDamPosController.u_s) annotation (Line(points={{-260,
           120},{-160,120},{-160,110},{-102,110}},       color={0,0,127}));
+  connect(intToRea.y, ZoneStateStatusHeating.u) annotation (Line(points={{-199,
+          -100},{-199,-100},{-182,-100}}, color={0,0,127}));
+  connect(uFreProSta, intToRea.u)
+    annotation (Line(points={{-260,-100},{-222,-100}}, color={255,127,0}));
+  connect(uSupFan, nand.u1) annotation (Line(points={{-260,20},{-172,20},{-172,
+          38},{-142,38}}, color={255,0,255}));
+  connect(ZoneStateStatusHeating.y, nand.u3) annotation (Line(points={{-159,
+          -100},{-152,-100},{-152,22},{-142,22}}, color={255,0,255}));
+  connect(nand.y, not1.u)
+    annotation (Line(points={{-119,30},{-112,30}}, color={255,0,255}));
+  connect(not1.y, RetDamPosMin.u2) annotation (Line(points={{-89,30},{-52,30},{
+          -52,-122},{-8,-122}}, color={255,0,255}));
+  connect(not1.y, outDamPosMax.u2) annotation (Line(points={{-89,30},{-52,30},{
+          -52,-162},{-8,-162}}, color={255,0,255}));
+  connect(uAHUModSta, intToRea1.u) annotation (Line(points={{-260,-20},{-260,
+          -20},{-222,-20}}, color={255,127,0}));
+  connect(ZoneStateStatusHeating1.y, nand.u2) annotation (Line(points={{-159,
+          -20},{-152,-20},{-152,10},{-152,10},{-152,30},{-142,30}}, color={255,
+          0,255}));
+  connect(intToRea1.y, ZoneStateStatusHeating1.u1)
+    annotation (Line(points={{-199,-20},{-182,-20}}, color={0,0,127}));
+  connect(ZoneStateStatusHeating1.u2, con.y) annotation (Line(points={{-182,-28},
+          {-188,-28},{-188,-50},{-199,-50}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ecoEnaDis",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,
@@ -226,25 +254,26 @@ equation
           extent={{-124,216},{112,186}},
           lineColor={85,0,255},
           textString="%name")}),
-    Diagram(coordinateSystem(                           extent={{-180,-180},{
+    Diagram(coordinateSystem(                           extent={{-240,-220},{
             180,180}},
         initialScale=0.1), graphics={
         Text(
-          extent={{-172,10},{-52,-10}},
+          extent={{-128,-36},{-8,-56}},
           lineColor={28,108,200},
           textString="Fixme: These should be inputs, comming from
  some IO.Hardware/Comissioning block"),
-        Rectangle(extent={{-148,6},{-74,-162}}, lineColor={28,108,200}),
+        Rectangle(extent={{-116,-40},{-42,-208}},
+                                                lineColor={28,108,200}),
         Text(
-          extent={{-44,-40},{22,-58}},
+          extent={{-48,-78},{18,-96}},
           lineColor={28,108,200},
           fontSize=12,
           textString="False means 
-controller active"),
-        Text(
-          extent={{-232,-84},{-150,-114}},
-          lineColor={28,108,200},
-          textString="If 2 or 3")}),
+controller active, true means
+ that OutDamMin gets 
+assigned with OutDamPhyMin,
+ and RetDamMax gets assigned 
+with RetDamPhyMax")}),
     Documentation(info="<html>      
 <p>
 This atomic sequence sets the minimum economizer damper position limit and
