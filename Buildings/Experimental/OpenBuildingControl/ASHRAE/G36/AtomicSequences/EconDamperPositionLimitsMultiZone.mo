@@ -47,12 +47,12 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
     "Fraction of the control signal for which the economizer damper is and stays fully open and above which the return air damper modulates downwards."
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply Fan Status, on or off"
-    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
-        iconTransformation(extent={{-220,-20},{-180,20}})));
+    annotation (Placement(transformation(extent={{-220,0},{-180,40}}),
+        iconTransformation(extent={{-220,0},{-180,40}})));
   CDL.Interfaces.BooleanInput uAHUMod
     "AHU Mode, fixme: see pg. 103 in G36 for the full list of modes, here we use true = \"occupied\""
-    annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),
-        iconTransformation(extent={{-220,-80},{-180,-40}})));
+    annotation (Placement(transformation(extent={{-220,-40},{-180,0}}),
+        iconTransformation(extent={{-220,-40},{-180,0}})));
   CDL.Interfaces.RealOutput yOutDamPosMin(min=0, max=1, unit="1")
     "Minimum economizer damper position limit." annotation (Placement(
         transformation(extent={{180,10},{200,30}}),  iconTransformation(extent={{180,10},
@@ -99,12 +99,16 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
         transformation(extent={{180,-10},{200,10}}), iconTransformation(extent={{180,36},
             {200,56}})));
 
+  CDL.Interfaces.IntegerInput uFreProSta( quantity="Status")= 0
+    "Freeze Protection Status signal, it can be an integer 0 - 3 [fixme check quantity]"
+    annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),
+        iconTransformation(extent={{-120,-10},{-100,10}})));
 equation
   connect(uVOut,minOutAirDamPosController. u_m)
     annotation (Line(points={{-200,60},{-90,60},{-90,98}}, color={0,0,127}));
-  connect(uSupFan, nand.u1) annotation (Line(points={{-200,0},{-160,0},{-160,20},
-          {-82,20}},  color={255,0,255}));
-  connect(uAHUMod, nand.u2) annotation (Line(points={{-200,-60},{-150,-60},{
+  connect(uSupFan, nand.u1) annotation (Line(points={{-200,20},{-160,20},{-82,
+          20}},       color={255,0,255}));
+  connect(uAHUMod, nand.u2) annotation (Line(points={{-200,-20},{-150,-20},{
           -150,12},{-82,12}},
                            color={255,0,255}));
   connect(nand.y, outDamPosMax.u2) annotation (Line(points={{-59,20},{-50,20},{
@@ -236,7 +240,11 @@ equation
           lineColor={28,108,200},
           fontSize=12,
           textString="False means 
-controller active")}),
+controller active"),
+        Text(
+          extent={{-232,-84},{-150,-114}},
+          lineColor={28,108,200},
+          textString="If 2 or 3")}),
     Documentation(info="<html>      
 <p>
 This atomic sequence sets the minimum economizer damper position limit and

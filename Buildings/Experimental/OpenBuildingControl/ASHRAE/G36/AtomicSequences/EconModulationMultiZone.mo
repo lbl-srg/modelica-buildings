@@ -35,7 +35,8 @@ block EconModulationMultiZone "Based on supply air temperature (SAT) setpoint an
     cooling reduced in 2F per G36]"
     annotation (Placement(transformation(extent={{-20,-74},{0,-54}})));
 
-  CDL.Interfaces.BooleanInput uSupFan "Supply Fan Status, on or off"
+  CDL.Interfaces.BooleanInput uSupFan
+    "Supply Fan Status, on or off [fixme: G36 lists this condition under modulation. Could this condition be moved to enable disable?]"
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
         iconTransformation(extent={{-138,-14},{-120,4}})));
   CDL.Interfaces.RealOutput yOutDamPos(min=0, max=1, unit="1") "Economizer damper position"
@@ -58,10 +59,6 @@ block EconModulationMultiZone "Based on supply air temperature (SAT) setpoint an
   CDL.Continuous.Constant maxSignalLimit(k=damPosController.yMax)
     "Identical to controller parameter - Upper limit of output."
     annotation (Placement(transformation(extent={{-20,36},{0,56}})));
-  CDL.Interfaces.RealInput uHea(min=0, max=1, unit="1")
-    "Heating control signal."
-    annotation (Placement(transformation(extent={{-160,8},{-120,48}}),
-        iconTransformation(extent={{-138,12},{-120,30}})));
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1, unit="1")
     "Minimum economizer damper position limit as returned by the EconDamPosLimits sequence."
     annotation (Placement(transformation(extent={{-160,-70},{-120,-30}}),
@@ -85,9 +82,9 @@ block EconModulationMultiZone "Based on supply air temperature (SAT) setpoint an
   CDL.Logical.Switch DisableEcoDamModulation
     "If the heating is on or the fan is off, keep the economizer damper at its minimum limit set by the EconDamPosLimits sequence."
     annotation (Placement(transformation(extent={{-40,-180},{-20,-160}})));
-  CDL.Logical.LessEqualThreshold ZoneStateStatusHeating(threshold=0)
+  CDL.Logical.GreaterThreshold   ZoneStateStatusHeating(threshold=1)
     "If true, the heating signal is 0. fixme: use ZoneState type instead."
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   CDL.Logical.And andBlock
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   CDL.Continuous.Constant minSignalLimit_RetDam(k=minLimRetDam)
@@ -96,6 +93,12 @@ block EconModulationMultiZone "Based on supply air temperature (SAT) setpoint an
   CDL.Continuous.Constant maxSignalLimit_OutDam(k=maxLimOutDam)
     "Intermediate control paramter between controller Upper limit of output and Lower limit of output."
     annotation (Placement(transformation(extent={{-20,-38},{0,-18}})));
+  CDL.Interfaces.IntegerInput uZonSta(quantity="Status")=0
+    "Zone State signal (1 - Heating, 2 - Deadband, 3 - Cooling)" annotation (
+      Placement(transformation(extent={{-160,0},{-120,40}}), iconTransformation(
+          extent={{-120,-10},{-100,10}})));
+  CDL.Conversions.IntegerToReal intToRea
+    annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
 equation
   connect(TSup,damPosController. u_m) annotation (Line(points={{-140,56},{-44,
           56},{-44,-86},{-10,-86},{-10,-86},{-10,-86},{-10,-76},{-10,-76}},
@@ -113,11 +116,8 @@ equation
   connect(andBlock.u2, uSupFan) annotation (Line(points={{-82,-78},{-104,-78},{
           -104,-20},{-140,-20}},
                             color={255,0,255}));
-  connect(uHea,ZoneStateStatusHeating. u) annotation (Line(points={{-140,28},{
-          -94,28},{-94,-40},{-82,-40}},
-                                color={0,0,127}));
-  connect(ZoneStateStatusHeating.y, andBlock.u1) annotation (Line(points={{-59,-40},
-          {-50,-40},{-50,-20},{-100,-20},{-100,-52},{-100,-70},{-82,-70}},
+  connect(ZoneStateStatusHeating.y, andBlock.u1) annotation (Line(points={{-59,20},
+          {-50,20},{-50,-20},{-100,-20},{-100,-52},{-100,-70},{-82,-70}},
                                                                         color={255,
           0,255}));
   connect(andBlock.y, DisableEcoDamModulation.u2) annotation (Line(points={{-59,-70},
@@ -149,6 +149,10 @@ equation
           {24,-28},{24,6},{58,6}},   color={0,0,127}));
   connect(TCooSet, damPosController.u_s) annotation (Line(points={{-140,82},{
           -40,82},{-40,-64},{-22,-64}}, color={0,0,127}));
+  connect(uZonSta, intToRea.u)
+    annotation (Line(points={{-140,20},{-112,20}}, color={255,127,0}));
+  connect(ZoneStateStatusHeating.u, intToRea.y)
+    annotation (Line(points={{-82,20},{-89,20}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ecoMod",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,

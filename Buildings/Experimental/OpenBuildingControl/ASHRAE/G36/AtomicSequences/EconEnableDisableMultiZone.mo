@@ -29,7 +29,7 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     [fixme: harmonize with issue #777]"
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
   CDL.Continuous.Constant freProtStage0(k=0)
-    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
 
 
   CDL.Interfaces.RealInput TOut(unit="K", displayUnit="degC", quantity = "Temperature")
@@ -51,39 +51,39 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
         iconTransformation(extent={{-120,20},{-100,40}})));
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1)
     "Minimal economizer damper position, as calculated in the EconDamperPositionLimitsMultiZone sequence [fixme: add quantity to all damper position variables]"
-    annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),
+    annotation (Placement(transformation(extent={{-220,-226},{-180,-186}}),
         iconTransformation(extent={{-120,-40},{-100,-20}})));
   CDL.Interfaces.RealInput uOutDamPosMax(min=0, max=1)
     "Maximum economizer damper position, fixme: connects to output of IO.Hardware.{Comissioning - physicalDamperPositionLimits} block"
-    annotation (Placement(transformation(extent={{-220,-50},{-180,-10}}),
+    annotation (Placement(transformation(extent={{-220,-196},{-180,-156}}),
         iconTransformation(extent={{-120,-60},{-100,-40}})));
 
   CDL.Interfaces.RealInput uRetDamPosMax(min=0, max=1)
     "Maximum return air damper position as calculated in the EconDamperPositionLimitsMultiZone sequence"
-    annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
+    annotation (Placement(transformation(extent={{-220,-266},{-180,-226}}),
         iconTransformation(extent={{-120,-110},{-100,-90}})));
   CDL.Interfaces.RealInput uRetDamPhyPosMax(min=0, max=1)
     "Physical or at the comissioning fixed maximum opening of the return air damper. fixme: connects to output of IO.Hardware.{Comissioning - physicalDamperPositionLimits} block"
-    annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
+    annotation (Placement(transformation(extent={{-220,-296},{-180,-256}}),
         iconTransformation(extent={{-120,-90},{-100,-70}})));
 
   CDL.Interfaces.IntegerInput uFreProSta( quantity="Status")= 0
     "Freeze Protection Status signal, it can be an integer 0 - 3 [fixme check quantity]"
-    annotation (Placement(transformation(extent={{-220,20},{-180,60}}),
+    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
 
   CDL.Interfaces.RealOutput yOutDamPosMax
     "Output sets maximum allowable economizer damper position. Fixme: Should this remain as type real? Output can take two values: disable = yOutDamPosMin and enable = yOutDamPosMax."
-    annotation (Placement(transformation(extent={{180,-10},{200,10}}),
+    annotation (Placement(transformation(extent={{180,-186},{200,-166}}),
         iconTransformation(extent={{100,20},{120,40}})));
   CDL.Interfaces.RealOutput yRetDamPosMin
     "Output sets the return air damper position, which is affected for a short period of time upon disabling the economizer"
-    annotation (Placement(transformation(extent={{180,-110},{200,-90}}),
+    annotation (Placement(transformation(extent={{180,-256},{200,-236}}),
         iconTransformation(extent={{100,-40},{120,-20}})));
 
   CDL.Logical.Switch EconDisableSwitch
     "If any of the conditions provided by TOut and FreezeProtectionStatus inputs are violating the enable status, the max outdoor damper position is set to the minimum."
-    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+    annotation (Placement(transformation(extent={{60,-186},{80,-166}})));
   CDL.Logical.Hysteresis hysOutTem(                             uHigh=uTemHigLimCutHig, uLow=
         uTemHigLimCutLow)
     "Close damper when TOut is above the uTemHigh, open it again only when TOut drops to uTemLow [fixme: I'm using the same offset for hysteresis regardless of the region and standard]"
@@ -92,23 +92,21 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
         uEntHigLimCutHig)
     "Close damper when hOut is above the uEntHigh, open it again only when hOut drops to uEntLow [fixme: I'm using the same offset for hysteresis regardless of the region and standard, see del***His parameters]"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  CDL.Logical.Nor nor
-    annotation (Placement(transformation(extent={{20,80},{40,100}})));
   CDL.Conversions.IntegerToReal intToRea
-    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
+    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
   CDL.Logical.Greater gre
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
 
 
 
   CDL.Logical.Composite.OnOffHold OnOffDelay(changeSignalOffset(displayUnit="min")=
          900) "Makes sure there is a buffer of changeSignalOffset time between any edges"
-              annotation (Placement(transformation(extent={{20,40},{40,60}})));
+              annotation (Placement(transformation(extent={{0,130},{20,150}})));
   CDL.Logical.GreaterEqual greEqu
-    annotation (Placement(transformation(extent={{20,0},{40,20}})));
+    annotation (Placement(transformation(extent={{20,-146},{40,-126}})));
   CDL.Logical.Timer timer
-    annotation (Placement(transformation(extent={{80,40},{100,60}})));
+    annotation (Placement(transformation(extent={{80,-106},{100,-86}})));
 
 
   CDL.Logical.Or or2
@@ -125,38 +123,38 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   CDL.Continuous.Add add1(k2=-1)
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
-  CDL.Logical.Not not2 annotation (Placement(transformation(extent={{50,40},{70,60}})));
-  CDL.Logical.Less les1 annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
+  CDL.Logical.Not not2 annotation (Placement(transformation(extent={{50,-106},{
+            70,-86}})));
+  CDL.Logical.Less les1 annotation (Placement(transformation(extent={{60,-226},
+            {80,-206}})));
   CDL.Logical.Switch enableDisable1
     "If any of the conditions provided by TOut and FreezeProtectionStatus inputs are violating the enable status, the max outdoor damper position is set to the minimum."
-    annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
+    annotation (Placement(transformation(extent={{120,-256},{140,-236}})));
   CDL.Continuous.Constant openRetDam(k=retDamFullyOpenTime)
     "Keep return damper open to its physical maximum for a short period of time before closing the outdoor air damper and resuming the maximum return air damper position"
-    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+    annotation (Placement(transformation(extent={{-20,-226},{0,-206}})));
   CDL.Continuous.Constant disableDelay(k=smallDisDel)
     "Small delay before closing the outdoor air damper, per G36 Part N7"
-    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+    annotation (Placement(transformation(extent={{-20,-166},{0,-146}})));
   parameter Real retDamFullyOpenTime(quantity="Time", unit="s", displayUnit="min")= 900 "Constant output value";
   parameter Real smallDisableDelay
     "Per G36 the outdoor air damper can switch to its minimal position only a short time period after the disable signal got activated. The return air damper gets fully open before that in order to prevent pressure fluctuations";
   parameter Real smallDisDel(quantity="Time", unit="s") = 15 "Disable delay for the outdoor air damper";
   CDL.Interfaces.RealOutput yRetDamPosMin1
     "Output sets the return air damper position, which is affected for a short period of time upon disabling the economizer"
-    annotation (Placement(transformation(extent={{180,-170},{200,-150}}),
+    annotation (Placement(transformation(extent={{180,-316},{200,-296}}),
         iconTransformation(extent={{100,-40},{120,-20}})));
 equation
   connect(intToRea.y, gre.u1)
-    annotation (Line(points={{-79,40},{-79,40},{-42,40}}, color={0,0,127}));
-  connect(nor.u2, gre.y) annotation (Line(points={{18,82},{0,82},{0,40},{-19,40}},
-        color={255,0,255}));
-  connect(freProtStage0.y, gre.u2) annotation (Line(points={{-79,10},{-60,10},{-60,
-          32},{-42,32}},      color={0,0,127}));
-  connect(uFreProSta, intToRea.u) annotation (Line(points={{-200,40},{-102,40}},
-                     color={255,127,0}));
-  connect(EconDisableSwitch.y, yOutDamPosMax) annotation (Line(points={{81,-30},{90,-30},{140,-30},
-          {140,0},{190,0}}, color={0,0,127}));
-  connect(nor.y, OnOffDelay.u) annotation (Line(points={{41,90},{41,90},{50,90},{50,70},{10,70},{10,
-          50},{18.8,50}},     color={255,0,255}));
+    annotation (Line(points={{-139,0},{-139,0},{-102,0}}, color={0,0,127}));
+  connect(freProtStage0.y, gre.u2) annotation (Line(points={{-119,-50},{-110,
+          -50},{-110,-8},{-102,-8},{-102,-8},{-102,-8}},
+                              color={0,0,127}));
+  connect(uFreProSta, intToRea.u) annotation (Line(points={{-200,0},{-182,0},{
+          -162,0}},  color={255,127,0}));
+  connect(EconDisableSwitch.y, yOutDamPosMax) annotation (Line(points={{81,-176},
+          {90,-176},{140,-176},{190,-176}},
+                            color={0,0,127}));
   connect(TOut, add1.u1) annotation (Line(points={{-200,190},{-170,190},{-170,176},{-142,176}},
         color={0,0,127}));
   connect(TOutCut, add1.u2) annotation (Line(points={{-200,150},{-170,150},{-170,164},{-142,164}},
@@ -171,32 +169,44 @@ equation
         color={255,0,255}));
   connect(hysOutEnt.y, or2.u2) annotation (Line(points={{-79,100},{-60,100},{-60,132},{-42,132}},
         color={255,0,255}));
-  connect(or2.y, nor.u1)
-    annotation (Line(points={{-19,140},{0,140},{0,90},{18,90}}, color={255,0,255}));
   connect(yRetDamPosMin, enableDisable1.y)
-    annotation (Line(points={{190,-100},{166,-100},{141,-100}}, color={0,0,127}));
-  connect(OnOffDelay.y, not2.u) annotation (Line(points={{41,50},{48,50}}, color={255,0,255}));
-  connect(not2.y, timer.u) annotation (Line(points={{71,50},{78,50}}, color={255,0,255}));
+    annotation (Line(points={{190,-246},{166,-246},{141,-246}}, color={0,0,127}));
+  connect(OnOffDelay.y, not2.u) annotation (Line(points={{21,140},{30,140},{30,
+          -96},{48,-96}},                                                  color={255,0,255}));
+  connect(not2.y, timer.u) annotation (Line(points={{71,-96},{71,-96},{76,-96},
+          {76,-96},{78,-96},{78,-96}},                                color={255,0,255}));
   connect(disableDelay.y, greEqu.u2)
-    annotation (Line(points={{1,-10},{10,-10},{10,2},{18,2}}, color={0,0,127}));
-  connect(timer.y, greEqu.u1) annotation (Line(points={{101,50},{110,50},{110,30},{10,30},{10,10},{
-          18,10}}, color={0,0,127}));
+    annotation (Line(points={{1,-156},{10,-156},{10,-144},{18,-144}},
+                                                              color={0,0,127}));
+  connect(timer.y, greEqu.u1) annotation (Line(points={{101,-96},{110,-96},{110,
+          -80},{10,-80},{10,-136},{18,-136}},
+                   color={0,0,127}));
   connect(greEqu.y, EconDisableSwitch.u2)
-    annotation (Line(points={{41,10},{50,10},{50,-30},{58,-30}}, color={255,0,255}));
-  connect(uOutDamPosMin, EconDisableSwitch.u1) annotation (Line(points={{-200,-60},{-40,-60},{-40,-40},
-          {10,-40},{10,-22},{58,-22}}, color={0,0,127}));
+    annotation (Line(points={{41,-136},{50,-136},{50,-176},{58,-176}},
+                                                                 color={255,0,255}));
+  connect(uOutDamPosMin, EconDisableSwitch.u1) annotation (Line(points={{-200,
+          -206},{-40,-206},{-40,-186},{10,-186},{10,-168},{58,-168}},
+                                       color={0,0,127}));
   connect(uOutDamPosMax, EconDisableSwitch.u3)
-    annotation (Line(points={{-200,-30},{-40,-30},{-40,-38},{58,-38}}, color={0,0,127}));
-  connect(uRetDamPhyPosMax, enableDisable1.u1) annotation (Line(points={{-200,-130},{-40,-130},{-40,
-          -92},{118,-92}}, color={0,0,127}));
-  connect(uRetDamPosMax, enableDisable1.u3) annotation (Line(points={{-200,-100},{-30,-100},{-30,-108},
-          {118,-108}}, color={0,0,127}));
-  connect(enableDisable1.u2, les1.y) annotation (Line(points={{118,-100},{100,-100},{100,-70},{81,-70}},
+    annotation (Line(points={{-200,-176},{-40,-176},{-40,-184},{58,-184}},
+                                                                       color={0,0,127}));
+  connect(uRetDamPhyPosMax, enableDisable1.u1) annotation (Line(points={{-200,
+          -276},{-40,-276},{-40,-238},{118,-238}},
+                           color={0,0,127}));
+  connect(uRetDamPosMax, enableDisable1.u3) annotation (Line(points={{-200,-246},
+          {-30,-246},{-30,-254},{118,-254}},
+                       color={0,0,127}));
+  connect(enableDisable1.u2, les1.y) annotation (Line(points={{118,-246},{100,
+          -246},{100,-216},{81,-216}},
         color={255,0,255}));
-  connect(timer.y, les1.u1) annotation (Line(points={{101,50},{120,50},{120,-50},{50,-50},{50,-70},
-          {58,-70}}, color={0,0,127}));
+  connect(timer.y, les1.u1) annotation (Line(points={{101,-96},{120,-96},{120,
+          -196},{50,-196},{50,-216},{58,-216}},
+                     color={0,0,127}));
   connect(openRetDam.y, les1.u2)
-    annotation (Line(points={{1,-70},{30,-70},{30,-78},{58,-78}}, color={0,0,127}));
+    annotation (Line(points={{1,-216},{30,-216},{30,-224},{58,-224}},
+                                                                  color={0,0,127}));
+  connect(or2.y, OnOffDelay.u)
+    annotation (Line(points={{-19,140},{-1.2,140}}, color={255,0,255}));
   annotation (
     Icon(graphics={
         Rectangle(
@@ -230,10 +240,8 @@ equation
           textString="yRetDamPosMax")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-180,-200},{180,200}},
-        initialScale=0.1), graphics={Polygon(points={{-232,-2},{-40,-14},{-24,
-              10},{4,36},{6,74},{218,54},{224,-134},{-228,-148},{-238,-122},{
-              -242,-94},{-232,-2}}, lineColor={28,108,200})}),
+        extent={{-180,-320},{180,200}},
+        initialScale=0.1)),
     Documentation(info="<html>      
              <p>
              implementation fixme: 10 min delay
