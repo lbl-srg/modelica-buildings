@@ -93,7 +93,8 @@ partial model PartialHeatExchanger_T
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Interfaces.RealInput TSet "Temperature setpoint for port_b2"
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
 equation
   connect(port_a1, hex.port_a1) annotation (Line(points={{-100,60},{-100,60},{-40,
           60},{-40,6},{-10,6}}, color={0,127,255}));

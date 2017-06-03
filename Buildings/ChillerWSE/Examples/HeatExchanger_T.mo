@@ -29,7 +29,7 @@ model HeatExchanger_T
     annotation (Placement(transformation(extent={{-20,-30},{-40,-10}})));
 equation
   connect(TSet.y, hx.TSet) annotation (Line(points={{-79,70},{-44,70},{-24,70},
-          {-24,2},{-12,2}}, color={0,0,127}));
+          {-24,4},{-12,4}}, color={0,0,127}));
   connect(sou1.ports[1], hx.port_a1) annotation (Line(points={{-42,26},{-20,26},
           {-20,6},{-10,6}}, color={0,127,255}));
   connect(hx.port_b1, res1.port_a) annotation (Line(points={{10,6},{20,6},{20,
