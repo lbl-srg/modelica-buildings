@@ -1,6 +1,7 @@
 FourPortResistanceChillerWSE
 PartialChillerWSE
 PartialChillerWSEFourPortInterface
+PartialControllerInterface
 PartialHeatExchanger_T
 PartialIntegratedPrimary
 PartialParallelElectricEIR
