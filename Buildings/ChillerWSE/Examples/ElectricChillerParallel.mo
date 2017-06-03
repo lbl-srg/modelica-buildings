@@ -21,8 +21,6 @@ model ElectricChillerParallel
     m2_flow_nominal=mCon_flow_nominal,
     dp1_nominal=6000,
     dp2_nominal=6000,
-    dpValve1_nominal=4000,
-    dpValve2_nominal=4000,
     use_inputFilter=true)           "Identical chillers"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 equation
