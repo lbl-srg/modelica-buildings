@@ -1220,8 +1220,8 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.Case900<br/>
-                          Buildings.ThermalZones.Detailed.Validation.BESTEST.Case900
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case900<br/>
+                          Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case900
        </td>
        <td valign=\"top\">Added missing <code>parameter</code> keyword,
                           which is required as the variable (for the materials) is assigned to a parameter.
