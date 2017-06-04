@@ -6,14 +6,15 @@ model TemperatureProtection
     "Upper bound for condenser temperature";
   parameter Modelica.SIunits.Temperature TEvaMin
     "Lower bound for evaporator temperature";
-  parameter Real dTHys(unit="K") = 5
+  parameter Real dTHys(
+    final unit="K",
+    min=Modelica.Constants.small) = 5
     "Hysteresis interval width";
   parameter Boolean pre_y_start=false "Value of pre(y) of hysteresis at initial time";
 
   Modelica.Blocks.Interfaces.RealInput u "Compressor control signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput y "Modified compressor control signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
   Modelica.Blocks.Interfaces.RealInput TEva(
     unit="K",
     displayUnit="degC")
@@ -31,6 +32,9 @@ model TemperatureProtection
         rotation=0,
         origin={-120,80})));
 
+  Modelica.Blocks.Interfaces.RealOutput y "Modified compressor control signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
   Modelica.Blocks.Interfaces.BooleanOutput errHigPre
     "Error signal condenser upper bound temperature "
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
@@ -38,7 +42,7 @@ model TemperatureProtection
     "Error signal evaporator lower bound temperature "
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
   Modelica.Blocks.Interfaces.BooleanOutput errNegTemDif
-    "Error signal evaporator condenser temperature difference"
+    "Error signal if evaporator temperature is above condenser temperature"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 protected
   Modelica.Blocks.Logical.Switch switch
@@ -48,14 +52,14 @@ protected
     final pre_y_start=pre_y_start)
     "Hysteresis for condenser upper bound temperature"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Modelica.Blocks.Sources.Constant zero(k=0)
+  Modelica.Blocks.Sources.Constant zero(final k=0)
     "Zero control signal when check fails"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Modelica.Blocks.Logical.Hysteresis hysLow(uLow=0, uHigh=dTHys,
     final pre_y_start=pre_y_start)
     "Hysteresis for evaporator lower bound temperature"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Modelica.Blocks.Sources.Constant TMax(k=TConMax)
+  Modelica.Blocks.Sources.Constant TMax(final k=TConMax)
     "Condenser maximum temperature"
     annotation (Placement(transformation(extent={{-92,-42},{-80,-30}})));
   Modelica.Blocks.Math.Add dTCon(k2=-1)
@@ -64,19 +68,19 @@ protected
   Modelica.Blocks.Math.Add dTEva(k1=-1)
     "Difference between evaporator temperature and its lower bound"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Modelica.Blocks.Sources.Constant TMin(k=TEvaMin)
+  Modelica.Blocks.Sources.Constant TMin(final k=TEvaMin)
     "Evaporator minimum temperature"
     annotation (Placement(transformation(extent={{-92,30},{-80,42}})));
   Modelica.Blocks.MathBoolean.And on(nu=3) "Compressor status"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Modelica.Blocks.Logical.Hysteresis hysdTConEva(
-    uLow=0,
-    uHigh=dTHys,
+    final uLow=0,
+    final uHigh=dTHys,
     final pre_y_start=pre_y_start)
     "Hysteresis for temperature difference between evaporator and condenser"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Modelica.Blocks.Math.Add dTEvaCon(k1=-1)
+  Modelica.Blocks.Math.Add dTEvaCon(final k1=-1)
     "Difference between evaporator and condenser"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Blocks.MathBoolean.Not notEva "Negation of signal"
@@ -144,7 +148,8 @@ See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/769\">#769</a
 </li>
 </ul>
 </html>",
-info="<html><p>
+info="<html>
+<p>
 Temperature protection block for heat pumps.
 This block overrides the heat pump control
 signal when the condenser temperature is too high,

@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatPumps.Compressors.BaseClasses.Validation;
 model TemperatureProtection
   "Validation of temperature protection model"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   Buildings.Fluid.HeatPumps.Compressors.BaseClasses.TemperatureProtection
@@ -26,8 +25,7 @@ equation
           50},{-59,50}}, color={0,0,127}));
   connect(one.y, temPro.u)
     annotation (Line(points={{-59,10},{-40,10},{-22,10}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+  annotation (
     Documentation(info="<html>
 <p>
 Model that tests temperature protection functionality.
@@ -40,5 +38,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
+__Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/BaseClasses/Validation/TemperatureProtection.mos"
+        "Simulate and plot"),
     experiment(StopTime=5, Tolerance=1e-06));
 end TemperatureProtection;
