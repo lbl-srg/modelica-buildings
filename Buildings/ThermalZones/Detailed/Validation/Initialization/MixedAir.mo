@@ -1,5 +1,5 @@
-within Buildings.ThermalZones.Detailed.Validation;
-model MixedAirInitialization
+within Buildings.ThermalZones.Detailed.Validation.Initialization;
+model MixedAir
   "Validation model for the correct initialization of the mixed air model"
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.Air "Medium model";
@@ -200,7 +200,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{200,200}})),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/MixedAirInitialization.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/Initialization/MixedAir.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -240,11 +240,11 @@ Corrected error in the documentation.
 <li>
 March 26, 2015, by Michael Wetter:<br/>
 First implementation based on
-<a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.MixedAirInitialization\">
+<a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.Initialization.MixedAir\">
 Buildings.ThermalZones.Detailed.Examples.MixedAirInitialization</a>.
 </li>
 </ul>
 </html>"),
     experiment(
       Tolerance=1e-06, StopTime=172800));
-end MixedAirInitialization;
+end MixedAir;
