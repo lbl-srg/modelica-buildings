@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "temPro.TEva",
+    "temPro.TEvaMin",
+    "temPro.errLowPre",
+    "temPro.TCon",
+    "temPro.TConMax",
+    "temPro.errHigPre",
+    "temPro.TEva",
+    "temPro.TCon",
+    "temPro.errNegTemDif"
+  };
