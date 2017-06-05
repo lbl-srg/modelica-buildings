@@ -9,18 +9,19 @@ extends Modelica.Icons.Example;
     duration=1,
     offset=-2,
     height=4)  "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-60,6},{-40,26}})));
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
     duration=1,
     offset=1,
     height=2)  "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-60,-24},{-40,-4}})));
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
 
 equation
-  connect(ramp1.y, atan2_1.u1) annotation (Line(points={{-39,16},{-26,16},{-26,6},
-          {-12,6}}, color={0,0,127}));
-  connect(ramp2.y, atan2_1.u2) annotation (Line(points={{-39,-14},{-26,-14},{-26,
+  connect(ramp1.y, atan2_1.u1) annotation (Line(points={{-39,20},{-26,20},{-26,
+          6},{-12,6}},
+                    color={0,0,127}));
+  connect(ramp2.y, atan2_1.u2) annotation (Line(points={{-39,-20},{-26,-20},{-26,
           -6},{-12,-6}}, color={0,0,127}));
   annotation (
 experiment(StopTime=1.0, Tolerance=1e-06),
