@@ -4,7 +4,8 @@ extends Modelica.Icons.Example;
 
   Sources.BooleanPulse booPul(startTime=200, period=8000) "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Logical.Composite.OnHold onHold "Block that holds a signal on for a requested time period"
+  Logical.Composite.OnHold onHold(holdDuration=3600)
+                                  "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(booPul.y, onHold.u)

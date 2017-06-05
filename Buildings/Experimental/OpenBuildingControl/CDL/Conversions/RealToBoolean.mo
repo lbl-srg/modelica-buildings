@@ -10,6 +10,7 @@ block RealToBoolean "Convert Real to Boolean signal"
 
 equation
   y = u >= threshold;
+
   annotation (defaultComponentName="reaToBoo",
         Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
         {100,100}}), graphics={Rectangle(
@@ -33,15 +34,16 @@ equation
           textString="B")}),
 Documentation(info="<html>
 <p>
-This block computes the Boolean output <b>y</b>
-from the Real input <b>u</b> by the equation:
+This block outputs the Boolean signal
 </p>
 
-<pre>    y = u &ge; threshold;
+<pre>    y = u &ge; threshold,
 </pre>
 
 <p>
-where <b>threshold</b> is a parameter.
+where
+<code>u</code> is a Real input and
+<code>threshold</code> is a parameter.
 </p>
 </html>", revisions="<html>
 <ul>

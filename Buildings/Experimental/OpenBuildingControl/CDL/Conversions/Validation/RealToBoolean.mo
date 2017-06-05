@@ -5,11 +5,11 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
     duration=1,
     offset=-3.5,
-    height=7.0) "Block that generates ramp signal"
+    height=7.0) "Block that generates a ramp signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Conversions.RealToBoolean
-    reaToBoo "Block that converts Real to Boolean signal\""
+    reaToBoo "Block that converts Real to Boolean signal"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
   connect(ramp1.y, reaToBoo.u)

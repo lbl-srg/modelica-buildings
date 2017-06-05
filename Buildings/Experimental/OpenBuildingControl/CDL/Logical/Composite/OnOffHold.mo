@@ -1,7 +1,8 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite;
 block OnOffHold "The block introduces a minimal offset between the input signal rising and falling edge"
 
-  parameter Modelica.SIunits.Time changeSignalOffset = 900 "Time duration of the ON/OFF offset";
+  parameter Modelica.SIunits.Time holdDuration
+    "Time duration during which the output cannot change";
 
   Interfaces.BooleanInput u "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -20,23 +21,24 @@ block OnOffHold "The block introduces a minimal offset between the input signal 
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Logical.Equal equ1 "Equal block"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Logical.Or  and2 annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
+  Logical.Or or2 "Or block"
+    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Logical.And andBeforeTimerAndSwitch "And block"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Logical.LogicalSwitch logSwi "Logical switch"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Logical.GreaterThreshold greThr(final threshold=changeSignalOffset)
+  Logical.GreaterThreshold greThr(final threshold=holdDuration)
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Logical.Change cha1 "Change block"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Logical.Not not3 "Not block" annotation (Placement(transformation(extent={{52,-60},{72,-40}})));
-  Logical.Xor xor annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
-  Logical.Not not2 annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+  Logical.Xor xor "Xor block" annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
+  Logical.Not not2 "Not block" annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 equation
 
-  connect(equ1.y, and2.u1) annotation (Line(points={{-39,-20},{-32,-20},{-22,-20}},
+  connect(equ1.y, or2.u1) annotation (Line(points={{-39,-20},{-32,-20},{-22,-20}},
         color={255,0,255}));
-  connect(and2.y, andBeforeTimerAndSwitch.u2) annotation (Line(points={{1,-20},{
+  connect(or2.y, andBeforeTimerAndSwitch.u2) annotation (Line(points={{1,-20},{
           10,-20},{10,52},{18,52}}, color={255,0,255}));
   connect(andBeforeTimerAndSwitch.y, logSwi.u2) annotation (Line(points={{41,60},
           {42,60},{42,60},{42,60},{50,60},{50,30},{58,30}}, color={255,0,255}));
@@ -57,8 +59,8 @@ equation
                 color={255,0,255}));
   connect(Zero.y, equ1.u2) annotation (Line(points={{-79,-30},{-72,-30},{-72,-28},
           {-62,-28}}, color={0,0,127}));
-  connect(and2.u2, greThr.y) annotation (Line(points={{-22,-28},{-30,-28},{-30,-50},
-          {-39,-50}},      color={255,0,255}));
+  connect(or2.u2, greThr.y) annotation (Line(points={{-22,-28},{-30,-28},{-30,-50},
+          {-39,-50}}, color={255,0,255}));
   connect(timer.y, greThr.u) annotation (Line(points={{-39,-102},{-30,-102},{-30,
           -70},{-70,-70},{-70,-50},{-62,-50}}, color={0,0,127}));
   connect(timer.y, equ1.u1) annotation (Line(points={{-39,-102},{-30,-102},{-30,
@@ -83,60 +85,56 @@ equation
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised,
           lineColor={0,0,0}),
-          Line(points={{-78,22},{-44,22},{-44,66},{-12,66},{-12,22},{-12,22}},
+          Line(points={{-84,10},{-50,10},{-50,54},{-18,54},{-18,10},{-18,10}},
               color={255,0,255}),
-          Line(points={{-78,-62},{-48,-62},{-48,-18},{-24,-18},{-24,-62},{-24,-62}}),
-          Line(points={{-24,-62},{6,-62},{6,-18},{44,-18},{44,-62},{74,-62}}),
-          Line(points={{-12,22},{20,22},{20,66},{52,66},{52,22},{72,22}},
+          Line(points={{-78,-46},{-48,-46},{-48,-2},{-24,-2},{-24,-46},{-24,-46}}),
+          Line(points={{-24,-46},{6,-46},{6,-2},{44,-2},{44,-46},{74,-46}}),
+          Line(points={{-18,10},{14,10},{14,54},{46,54},{46,10},{66,10}},
               color={255,0,255}),
         Text(
-          extent={{-70,46},{-56,40}},
-          lineColor={28,108,200},
-          fontSize=12,
-          textString="offset"),
+          extent={{-150,150},{150,110}},
+          textString="%name",
+          lineColor={0,0,255}),
         Text(
-          extent={{-34,46},{-20,40}},
-          lineColor={28,108,200},
-          fontSize=12,
-          textString="offset"),
-        Text(
-          extent={{28,46},{42,40}},
-          lineColor={28,108,200},
-          fontSize=12,
-          textString="offset"),
-        Text(
-          extent={{-2,46},{12,40}},
-          lineColor={28,108,200},
-          fontSize=12,
-          textString="offset")}),                                Diagram(coordinateSystem(
+          extent={{-90,-62},{96,-90}},
+          lineColor={0,0,255},
+          textString="%holdDuration")}),                               Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-120},{100,100}})),
               Documentation(info="<html>
-    <p>
-    Block that holds an on or off signal constant for at least a defined time period.
-    </p>
-    <p>
-    The block outputs a Boolean signal <code>y</code> based on the 
-    Boolean input <code>u</code> such that the output signal remains constant 
-    for the defined time period after a signal change. After that time period has 
-    elapsed, the signal becomes equal to the input signal. The purpose of the 
-    block is to disable quick changes in the output signal, e.g. in order to prevent
-    sudden pressure changes in the system.
-    </p>
-    <p>
-    Simulation results of a typical example with the block default 
-    on off hold time of 15 min is shown in the next figure.
-    </p>
+<p>
+Block that holds an on or off signal constant for at least a defined time period.
+</p>
+<p>
+Whenever the input <code>u</code> switches, the output <code>y</code>
+switches and remains at that value for at least <code>holdDuration</code>
+seconds, where <code>holdDuration</code> is a parameter.
+After <code>holdDuration</code> elapsed, the output will be
+<code>y = u</code>.
+If this change required changing the value of <code>y</code>,
+then <code>y</code> will remain at that value for at least <code>holdDuration</code>.
+Otherwise, <code>y</code> will change immediately whenever <code>u</code>
+changes.
+</p>
+<p>
+This block could for example be used to disable an economizer,
+and not re-enable it for 10 minutes, and vice versa.
+</p>
+<p>
+Simulation results of a typical example with the block default
+on off hold time of 15 min is shown in the next figure.
+</p>
 
-    <p align=\"center\">
-    <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnOffHold.png\"/>
-    </p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnOffHold.png\"
+alt=\"Input and output of the block\"/>
+</p>
 
-    </html>", revisions="<html>
-    <ul>
-    <li>
-    May 24, 2017, by Milica Grahovac:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+</html>", revisions="<html>
+<ul>
+<li>
+May 24, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end OnOffHold;

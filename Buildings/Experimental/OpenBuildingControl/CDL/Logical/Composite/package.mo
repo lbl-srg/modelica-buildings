@@ -9,13 +9,5 @@ info="<html>
 Package with blocks composed of elementary mathematical functions
 for boolean variables.
 </p>
-</html>",
-revisions="<html>
-<ul>
-<li>
-May 24, 2017, by Milica Grahovac:<br/>
-First implementation.
-</li>
-</ul>
 </html>"));
 end Composite;
