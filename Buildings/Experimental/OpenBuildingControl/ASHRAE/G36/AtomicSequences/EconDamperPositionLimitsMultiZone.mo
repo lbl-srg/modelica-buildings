@@ -8,20 +8,20 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
   // modulating above the min)
   // fixme: potentially a better name since used in communication with Brent: OA control loop
 
-  parameter Real retDamPhyPosMax(min=0, max=1, unit="1")= 1 "Physical or at the comissioning fixed maximum opening of the return air damper.";
-  parameter Real retDamPhyPosMin(min=0, max=1, unit="1")=0 "Physical or at the comissioning fixed minimum opening of the return air damper.";
-  parameter Real outDamPhyPosMax(min=0, max=1, unit="1")=1 "Physical or at the comissioning fixed maximum opening of the outdoor air damper.";
-  parameter Real outDamPhyPosMin(min=0, max=1, unit="1")=0 "Physical or at the comissioning fixed minimum opening of the outdoor air damper.";
+  parameter Real retDamPhyPosMax(min=0, max=1, unit="1") = 1 "Physical or at the comissioning fixed maximum opening of the return air damper.";
+  parameter Real retDamPhyPosMin(min=0, max=1, unit="1") = 0 "Physical or at the comissioning fixed minimum opening of the return air damper.";
+  parameter Real outDamPhyPosMax(min=0, max=1, unit="1") = 1 "Physical or at the comissioning fixed maximum opening of the outdoor air damper.";
+  parameter Real outDamPhyPosMin(min=0, max=1, unit="1") = 0 "Physical or at the comissioning fixed minimum opening of the outdoor air damper.";
   parameter Real yConSigMin=0 "Lower limit of controller output";
   parameter Real yConSigMax=1 "Upper limit of controller output";
   parameter Real sigFraOutDam(min=yConSigMin, max=yConSigMax, unit="1")=0.5
     "Fraction of the control loop signal below which the outdoor air damper limit gets modulated and above which the return air damper limit gets modulated";
 
-  CDL.Interfaces.RealInput uVOut
-    "Measured outdoor airflow rate. Sensor output. Location: after the economizer damper intake."
+  CDL.Interfaces.RealInput uVOut(quantity="VolumeFlow", unit="m3/s", displayUnit="m3/h")
+    "Measured outdoor airflow rate. Sensor output. Location: after the economizer damper intake. [fixme: is quantity ok?]"
     annotation (Placement(transformation(extent={{-280,180},{-240,220}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput uVOutMinSet
+  CDL.Interfaces.RealInput uVOutMinSet(quantity="VolumeFlow", unit="m3/s", displayUnit="m3/h")
     "Minimum outdoor airflow requirement, output of a separate sequence that calculates this value based on ASHRAE Standard 62.1-2013 or California Title 24"
     annotation (Placement(transformation(extent={{-280,240},{-240,280}}),
         iconTransformation(extent={{-120,40},{-100,60}})));
@@ -102,7 +102,7 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
     "AHU System Mode status signal, [fixme: see documentation for more details]"
     annotation (Placement(transformation(extent={{-280,-200},{-240,-160}}),
         iconTransformation(extent={{-120,-60},{-100,-40}})));
-  CDL.Continuous.Constant con(k=1)
+  CDL.Continuous.Constant con(k=1) "AHU Mode Status is \"Occupied\""
     annotation (Placement(transformation(extent={{-220,-220},{-200,-200}})));
   CDL.Continuous.Constant outDamPhyPosMinSig(k=outDamPhyPosMin)
     "Physical or at the comissioning fixed minimum position of the outdoor damper. This is the initial position of the economizer damper."
@@ -203,57 +203,53 @@ equation
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-96,58},{-50,46}},
+          extent={{-96,58},{82,42}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          fontSize=24,
           textString="uVOutMinSet"),
         Text(
-          extent={{102,98},{172,62}},
+          extent={{80,56},{316,38}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yOutDamPosMax"),
         Text(
-          extent={{-96,86},{-72,76}},
+          extent={{-96,86},{92,74}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          fontSize=24,
           textString="uVOut"),
         Text(
-          extent={{102,58},{172,22}},
+          extent={{78,94},{314,76}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yOutDamPosMin"),
         Text(
-          extent={{-96,-40},{-46,-56}},
+          extent={{-96,-40},{98,-54}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          fontSize=23,
           textString="uAHUModSta"),
         Text(
-          extent={{-96,10},{-68,-8}},
+          extent={{-96,10},{88,-6}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          textString="uSupFan",
-          fontSize=24),
+          textString="uSupFan"),
         Text(
-          extent={{102,18},{172,-18}},
+          extent={{80,-28},{316,-46}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yRetDamPosMax"),
         Text(
-          extent={{102,-22},{172,-58}},
+          extent={{78,12},{314,-6}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -263,16 +259,15 @@ equation
           color={28,108,200},
           thickness=0.5),
         Text(
-          extent={{-124,216},{112,186}},
+          extent={{-88,134},{88,104}},
           lineColor={85,0,255},
-          textString="%name"),
+          textString="DamperLimits"),
         Text(
-          extent={{-96,-70},{-46,-86}},
+          extent={{-96,-70},{86,-86}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          fontSize=23,
           textString="uFreProSta")}),
     Diagram(coordinateSystem(                           extent={{-240,-280},{240,
             280}},
