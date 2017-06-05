@@ -3,42 +3,42 @@ model EconDamPosLimitsMultiZone_VOut
   "Validation model for setting the min econ damper limit and max return air damper limit."
   extends Modelica.Icons.Example;
 
-  parameter Real airflowSetpoint(quantity="VolumeFlow", unit="m3/s", displayUnit="m3/h")=0.71
+  parameter Real airflowSetpoint(unit="m3/s", displayUnit="m3/h")=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Real minSenOutVolAirflow(quantity="VolumeFlow", unit="m3/s", displayUnit="m3/h")=0.61
+  parameter Real minSenOutVolAirflow(unit="m3/s", displayUnit="m3/h")=0.61
     "Volumetric airflow sensor output, minimum value in the example";
-  parameter Real senOutVolAirIncrease(quantity="VolumeFlow", unit="m3/s", displayUnit="m3/h")=0.2
+  parameter Real senOutVolAirIncrease(unit="m3/s", displayUnit="m3/h")=0.2
     "Maximum increase in airflow volume during the example simulation";
 
   CDL.Logical.Constant FanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   CDL.Continuous.Constant VOutMinSet(k=airflowSetpoint)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.Ramp VOut(
     duration=1800,
     offset=minSenOutVolAirflow,
     height=senOutVolAirIncrease)
     "TSup falls below 38 F and remains there for longer than 5 min."
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  EconDamperPositionLimitsMultiZone ecoEnaDis
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   CDL.Integers.Constant AHUModeStatus(k=1) "Occupied = 1"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   CDL.Integers.Constant FreProStatus(k=0) "Freeze protection not needed = 0"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 
+  EconDamperPositionLimitsMultiZone ecoDamLim
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
-  connect(ecoEnaDis.uSupFan, FanStatus.y)
-    annotation (Line(points={{-1,0},{-30,0},{-59,0}}, color={255,0,255}));
-  connect(ecoEnaDis.uVOut, VOutMinSet.y) annotation (Line(points={{-1,8},{-30,8},
-          {-30,90},{-59,90}}, color={0,0,127}));
-  connect(VOut.y, ecoEnaDis.uVOutMinSet) annotation (Line(points={{-59,50},{-30,
-          50},{-30,5},{-1,5}}, color={0,0,127}));
-  connect(AHUModeStatus.y, ecoEnaDis.uAHUModSta) annotation (Line(points={{-59,-50},
-          {-30,-50},{-30,-5},{-1,-5}}, color={255,127,0}));
-  connect(FreProStatus.y, ecoEnaDis.uFreProSta) annotation (Line(points={{-59,-90},
-          {-30,-90},{-30,-8},{-1,-8}}, color={255,127,0}));
+  connect(FanStatus.y, ecoDamLim.uSupFan)
+    annotation (Line(points={{-59,0},{19,0}}, color={255,0,255}));
+  connect(VOut.y, ecoDamLim.uVOut) annotation (Line(points={{-59,90},{-20,90},{-20,
+          8},{19,8}}, color={0,0,127}));
+  connect(VOutMinSet.y, ecoDamLim.uVOutMinSet) annotation (Line(points={{-59,50},
+          {-20,50},{-20,5},{19,5}}, color={0,0,127}));
+  connect(AHUModeStatus.y, ecoDamLim.uAHUModSta) annotation (Line(points={{-59,-50},
+          {-20,-50},{-20,-5},{19,-5}}, color={255,127,0}));
+  connect(FreProStatus.y, ecoDamLim.uFreProSta) annotation (Line(points={{-59,-90},
+          {-20,-90},{-20,-8},{19,-8}}, color={255,127,0}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconDamPosLimitsMultiZone_VOut.mos"
