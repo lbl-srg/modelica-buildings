@@ -25,13 +25,7 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
     "Minimum outdoor airflow requirement, output of a separate sequence that calculates this value based on ASHRAE Standard 62.1-2013 or California Title 24"
     annotation (Placement(transformation(extent={{-280,100},{-240,140}}),
         iconTransformation(extent={{-280,100},{-240,140}})));
-  CDL.Continuous.Constant retDamPhyPosMinSig(k=retDamPhyPosMin)
-    "Physical or at the comissioning fixed minimum opening of the return air damper. Assuming 0 airflow through the damper at this position. fixme: this maybe needs to be an input. fixme: Have this be a hardware input (make a \"physical data determined at comissioning block\")"
-    annotation (Placement(transformation(extent={{-104,-122},{-84,-102}})));
   //fixme add units, should be percentage
-  CDL.Continuous.Constant outDamPhyPosMinSig(k=outDamPhyPosMin)
-    "Physical or at the comissioning fixed minimum position of the economizer damper - economizer damper closed. Assuming VOut = 0 at this condition. This is the initial position of the economizer damper. fixme: It should always be 0 (pp), should we define this as final? fixme: Have this be a hardware input (make a \"physical data determined at comissioning block\")"
-    annotation (Placement(transformation(extent={{-104,-202},{-84,-182}})));
   CDL.Continuous.LimPID minOutAirDamPosController(
     Ti=0.9,
     Td=0.1,
@@ -58,12 +52,6 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
         transformation(extent={{180,-50},{200,-30}}),
                                                     iconTransformation(extent={{180,-50},
             {200,-30}})));
-  CDL.Continuous.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
-    "Physical or at the comissioning fixed maximum opening of the return air damper. This is the initial condition of the return air damper. fixme: Have this be a hardware input (make a \"physical data determined at comissioning block\")"
-    annotation (Placement(transformation(extent={{-104,-80},{-84,-60}})));
-  CDL.Continuous.Constant outDamPhyPosMaxSig(k=outDamPhyPosMax)
-    "Physical or at the comissioning fixed maximum position of the economizer damper - economizer damper fully open. fixme: Have this be a hardware input (make a \"physical data determined at comissioning block\")"
-    annotation (Placement(transformation(extent={{-104,-162},{-84,-142}})));
   CDL.Continuous.Line minOutDam(limitBelow=true, limitAbove=true)
     "Damper position is linearly proportional to the control signal."
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
@@ -119,21 +107,35 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
     annotation (Placement(transformation(extent={{-220,-60},{-200,-40}})));
   CDL.Logical.Equal equ
     annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
+  CDL.Interfaces.RealInput retDamPhyPosMax1(quantity="RelativePosition", unit="1",
+    min=0,
+    max=1)
+    "Maximum return air damper position as determined at comissioning. This is a fixed physical limit."
+    annotation (Placement(transformation(extent={{-280,-170},{-240,-130}}),
+        iconTransformation(extent={{-280,100},{-240,140}})));
+  CDL.Interfaces.RealInput retDamPhyPosMin1(quantity="RelativePosition", unit="1",
+    min=0,
+    max=1)
+    "Minimum return air damper position as determined at comissioning. This is a fixed physical limit."
+    annotation (Placement(transformation(extent={{-280,-200},{-240,-160}}),
+        iconTransformation(extent={{-280,100},{-240,140}})));
+  CDL.Interfaces.RealInput outDamPhyPosMax2(quantity="RelativePosition", unit="1",
+    min=0,
+    max=1)
+    "Maximum outdoor air damper position as determined at comissioning. This is a fixed physical limit."
+    annotation (Placement(transformation(extent={{-280,-240},{-240,-200}}),
+        iconTransformation(extent={{-280,100},{-240,140}})));
+  CDL.Interfaces.RealInput outDamPhyPosMin1(quantity="RelativePosition", unit="1",
+    min=0,
+    max=1)
+    "Minimum outdoor air damper position as determined at comissioning. This is a fixed physical limit."
+    annotation (Placement(transformation(extent={{-280,-270},{-240,-230}}),
+        iconTransformation(extent={{-280,100},{-240,140}})));
 equation
   connect(uVOut,minOutAirDamPosController. u_m)
     annotation (Line(points={{-260,80},{-90,80},{-90,108}},color={0,0,127}));
-  connect(outDamPhyPosMaxSig.y, outDamPosMax.u3) annotation (Line(points={{-83,
-          -152},{-48,-152},{-48,-170},{-8,-170}},  color={0,0,127}));
-  connect(outDamPhyPosMinSig.y, outDamPosMax.u1) annotation (Line(points={{-83,
-          -192},{-60,-192},{-60,-154},{-8,-154}},  color={0,0,127}));
-  connect(retDamPhyPosMaxSig.y, RetDamPosMin.u1) annotation (Line(points={{-83,-70},
-          {-52,-70},{-52,-114},{-8,-114}},       color={0,0,127}));
-  connect(retDamPhyPosMinSig.y, RetDamPosMin.u3) annotation (Line(points={{-83,
-          -112},{-66,-112},{-66,-130},{-8,-130}},  color={0,0,127}));
   connect(minRetDam.y, yRetDamPosMax) annotation (Line(points={{121,50},{130,50},
           {130,-40},{190,-40}},color={0,0,127}));
-  connect(retDamPhyPosMaxSig.y, minRetDam.f1) annotation (Line(points={{-83,-70},
-          {12,-70},{12,54},{98,54}},   color={0,0,127}));
   connect(RetDamPosMin.y, minRetDam.f2) annotation (Line(points={{15,-122},{20,
           -122},{20,42},{98,42}},   color={0,0,127}));
   connect(sigFraForOutDam.y, minRetDam.x1) annotation (Line(points={{1,140},{40,
@@ -145,18 +147,12 @@ equation
           {-28,120},{-28,50},{98,50}},      color={0,0,127}));
   connect(outDamPosMax.y, minOutDam.f2) annotation (Line(points={{15,-162},{46,
           -162},{46,2},{98,2}},       color={0,0,127}));
-  connect(outDamPhyPosMinSig.y, minOutDam.f1) annotation (Line(points={{-83,
-          -192},{30,-192},{30,14},{98,14}},
-                                          color={0,0,127}));
   connect(minSignalLimit.y, minOutDam.x1) annotation (Line(points={{1,102},{36,
           102},{36,18},{98,18}},    color={0,0,127}));
   connect(sigFraForOutDam.y, minOutDam.x2) annotation (Line(points={{1,140},{20,
           140},{20,6},{98,6}},  color={0,0,127}));
   connect(minOutAirDamPosController.y, minOutDam.u) annotation (Line(points={{-79,120},
           {-40,120},{-40,10},{98,10}},        color={0,0,127}));
-  connect(retDamPhyPosMinSig.y, yRetDamPosMin) annotation (Line(points={{-83,
-          -112},{-66,-112},{-66,-148},{150,-148},{150,-20},{190,-20}},
-                                                               color={0,0,127}));
   connect(outDamPosMax.y, yOutDamPosMax) annotation (Line(points={{15,-162},{
           140,-162},{140,0},{190,0}},
                                     color={0,0,127}));
@@ -186,6 +182,20 @@ equation
     annotation (Line(points={{-199,-20},{-182,-20}}, color={0,0,127}));
   connect(ZoneStateStatusHeating1.u2, con.y) annotation (Line(points={{-182,-28},
           {-188,-28},{-188,-50},{-199,-50}}, color={0,0,127}));
+  connect(retDamPhyPosMax1, minRetDam.f1) annotation (Line(points={{-260,-150},
+          {-81,-150},{-81,54},{98,54}}, color={0,0,127}));
+  connect(retDamPhyPosMax1, RetDamPosMin.u1) annotation (Line(points={{-260,
+          -150},{-134,-150},{-134,-114},{-8,-114}}, color={0,0,127}));
+  connect(retDamPhyPosMin1, RetDamPosMin.u3) annotation (Line(points={{-260,
+          -180},{-134,-180},{-134,-130},{-8,-130}}, color={0,0,127}));
+  connect(retDamPhyPosMin1, yRetDamPosMin) annotation (Line(points={{-260,-180},
+          {-40,-180},{-40,-20},{190,-20}}, color={0,0,127}));
+  connect(outDamPhyPosMax2, outDamPosMax.u3) annotation (Line(points={{-260,
+          -220},{-126,-220},{-126,-170},{-8,-170}}, color={0,0,127}));
+  connect(outDamPhyPosMin1, minOutDam.f1) annotation (Line(points={{-260,-250},
+          {-68,-250},{-68,14},{98,14}}, color={0,0,127}));
+  connect(outDamPhyPosMin1, outDamPosMax.u1) annotation (Line(points={{-260,
+          -250},{-20,-250},{-20,-154},{-8,-154}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ecoEnaDis",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,
@@ -258,13 +268,6 @@ equation
     Diagram(coordinateSystem(                           extent={{-240,-220},{
             180,180}},
         initialScale=0.1), graphics={
-        Text(
-          extent={{-128,-36},{-8,-56}},
-          lineColor={28,108,200},
-          textString="Fixme: These should be inputs, comming from
- some IO.Hardware/Comissioning block"),
-        Rectangle(extent={{-116,-40},{-42,-208}},
-                                                lineColor={28,108,200}),
         Text(
           extent={{-26,-72},{40,-90}},
           lineColor={28,108,200},
