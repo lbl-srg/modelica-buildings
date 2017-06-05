@@ -50,16 +50,17 @@ equation
      Line(points={{-21,-55},{-42,-55},{-42,31.625},{-59.4444,31.625}},
                                                           color={0,0,127}));
   connect(econEnableDisable.uOutDamPosMin, ecoEnaDis.yOutDamPosMin) annotation (
-     Line(points={{-21,-53},{-40,-53},{-40,22},{-40,30},{-59.4444,30}},color={0,
+     Line(points={{-21,-53},{-40,-53},{-40,22},{-40,31.75},{-56.1111,31.75}},
+                                                                       color={0,
           0,127}));
   connect(ecoEnaDis.yRetDamPosMin, ecoMod.uRetDamPosMin) annotation (Line(
         points={{-59.4444,28.125},{-26,28.125},{-26,3.07143},{39.3571,3.07143}},
                                                      color={0,0,127}));
   connect(ecoEnaDis.yRetDamPosMax, ecoMod.uRetDamPosMax) annotation (Line(
-        points={{-59.4444,26.25},{-30,26.25},{-30,1.07143},{39.3571,1.07143}},
+        points={{-56.1111,28},{-30,28},{-30,1.07143},{39.3571,1.07143}},
                                                        color={0,0,127}));
   connect(ecoEnaDis.yOutDamPosMin, ecoMod.uOutDamPosMin) annotation (Line(
-        points={{-59.4444,30},{-20,30},{-20,7.21429},{39.3571,7.21429}},
+        points={{-56.1111,31.75},{-20,31.75},{-20,7.21429},{39.3571,7.21429}},
         color={0,0,127}));
   connect(econEnableDisable.yOutDamPosMax2, ecoMod.uOutDamPosMax) annotation (
       Line(points={{1.9,-51.2222},{10,-51.2222},{10,5.21429},{39.3571,5.21429}},
@@ -85,13 +86,13 @@ equation
   connect(TOut, econEnableDisable.TOut) annotation (Line(points={{-110,90},{-40,
           90},{-40,-40},{-21,-40}},  color={0,0,127}));
   connect(uSupFan, ecoEnaDis.uSupFan) annotation (Line(points={{-110,-70},{-88,
-          -70},{-88,28},{-84.4444,28},{-84.4444,30}},
+          -70},{-88,28},{-84.4444,28},{-84.4444,21.25}},
                               color={255,0,255}));
   connect(uVOut, ecoEnaDis.uVOut) annotation (Line(points={{-110,10},{-98,10},{
-          -98,33.75},{-84.4444,33.75}},
+          -98,40},{-84.4444,40}},
                          color={0,0,127}));
   connect(uVOutMinSet, ecoEnaDis.uVOutMinSet) annotation (Line(points={{-110,30},
-          {-98,30},{-98,36.25},{-84.4444,36.25}},
+          {-98,30},{-98,43.75},{-84.4444,43.75}},
                                        color={0,0,127}));
   connect(uSupFan, ecoMod.uSupFan) annotation (Line(points={{-110,-70},{-36,-70},
           {-36,9.5},{39.3571,9.5}},
@@ -99,7 +100,7 @@ equation
   connect(uFre, econEnableDisable.uFreProSta) annotation (Line(points={{-110,
           -90},{-70,-90},{-70,-50},{-21,-50}},           color={255,127,0}));
   connect(uAHUMod, ecoEnaDis.uAHUMod) annotation (Line(points={{-110,-10},{-88,
-          -10},{-88,18},{-88,25},{-81.1111,25},{-81.1111,25}}, color={255,0,255}));
+          -10},{-88,18},{-88,25},{-81.1111,25}},               color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
