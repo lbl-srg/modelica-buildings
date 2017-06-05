@@ -1,5 +1,16 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
-package AtomicSequences
+package AtomicSequences "Subsequences as defined in guidline G36"
+
+
+
+
+
+
+
+
+
+
+
 
 
   annotation (Icon(graphics={Rectangle(

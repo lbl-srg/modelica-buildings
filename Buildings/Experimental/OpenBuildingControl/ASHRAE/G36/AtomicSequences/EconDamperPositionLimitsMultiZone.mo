@@ -60,7 +60,7 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
             {200,-30}})));
   CDL.Continuous.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
     "Physical or at the comissioning fixed maximum opening of the return air damper. This is the initial condition of the return air damper. fixme: Have this be a hardware input (make a \"physical data determined at comissioning block\")"
-    annotation (Placement(transformation(extent={{-104,-82},{-84,-62}})));
+    annotation (Placement(transformation(extent={{-104,-80},{-84,-60}})));
   CDL.Continuous.Constant outDamPhyPosMaxSig(k=outDamPhyPosMax)
     "Physical or at the comissioning fixed maximum position of the economizer damper - economizer damper fully open. fixme: Have this be a hardware input (make a \"physical data determined at comissioning block\")"
     annotation (Placement(transformation(extent={{-104,-162},{-84,-142}})));
@@ -126,14 +126,14 @@ equation
           -152},{-48,-152},{-48,-170},{-8,-170}},  color={0,0,127}));
   connect(outDamPhyPosMinSig.y, outDamPosMax.u1) annotation (Line(points={{-83,
           -192},{-60,-192},{-60,-154},{-8,-154}},  color={0,0,127}));
-  connect(retDamPhyPosMaxSig.y, RetDamPosMin.u1) annotation (Line(points={{-83,-72},
-          {-52,-72},{-52,-114},{-8,-114}},       color={0,0,127}));
+  connect(retDamPhyPosMaxSig.y, RetDamPosMin.u1) annotation (Line(points={{-83,-70},
+          {-52,-70},{-52,-114},{-8,-114}},       color={0,0,127}));
   connect(retDamPhyPosMinSig.y, RetDamPosMin.u3) annotation (Line(points={{-83,
           -112},{-66,-112},{-66,-130},{-8,-130}},  color={0,0,127}));
   connect(minRetDam.y, yRetDamPosMax) annotation (Line(points={{121,50},{130,50},
           {130,-40},{190,-40}},color={0,0,127}));
-  connect(retDamPhyPosMaxSig.y, minRetDam.f1) annotation (Line(points={{-83,-72},
-          {12,-72},{12,54},{98,54}},   color={0,0,127}));
+  connect(retDamPhyPosMaxSig.y, minRetDam.f1) annotation (Line(points={{-83,-70},
+          {12,-70},{12,54},{98,54}},   color={0,0,127}));
   connect(RetDamPosMin.y, minRetDam.f2) annotation (Line(points={{15,-122},{20,
           -122},{20,42},{98,42}},   color={0,0,127}));
   connect(sigFraForOutDam.y, minRetDam.x1) annotation (Line(points={{1,140},{40,

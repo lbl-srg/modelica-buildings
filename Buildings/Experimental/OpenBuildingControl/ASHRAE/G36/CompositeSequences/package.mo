@@ -1,5 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
-package CompositeSequences
+package CompositeSequences "Sequences as defined in G36"
+
+
 
   annotation (Icon(graphics={
         Rectangle(
