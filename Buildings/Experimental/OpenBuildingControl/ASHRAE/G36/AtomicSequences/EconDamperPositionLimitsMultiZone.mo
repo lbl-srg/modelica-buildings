@@ -131,6 +131,18 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
     "Minimum outdoor air damper position as determined at comissioning. This is a fixed physical limit."
     annotation (Placement(transformation(extent={{-280,-270},{-240,-230}}),
         iconTransformation(extent={{-280,100},{-240,140}})));
+  CDL.Continuous.Constant outDamPhyPosMinSig(k=outDamPhyPosMin)
+    "Physical or at the comissioning fixed minimum position of the outdoor damper. This is the initial position of the economizer damper."
+    annotation (Placement(transformation(extent={{-200,-330},{-180,-310}})));
+  CDL.Continuous.Constant outDamPhyPosMaxSig(k=outDamPhyPosMax)
+    "Physical or at the comissioning fixed maximum open position of the outdoor air damper."
+    annotation (Placement(transformation(extent={{-200,-290},{-180,-270}})));
+  CDL.Continuous.Constant retDamPhyPosMinSig(k=retDamPhyPosMin)
+    "Physical or at the comissioning fixed minimum opening of the return air damper. Assuming 0 airflow through the damper at this position."
+    annotation (Placement(transformation(extent={{-200,-250},{-180,-230}})));
+  CDL.Continuous.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
+    "Physical or at the comissioning fixed maximum opening of the return air damper. This is the initial condition of the return air damper."
+    annotation (Placement(transformation(extent={{-200,-210},{-180,-190}})));
 equation
   connect(uVOut,minOutAirDamPosController. u_m)
     annotation (Line(points={{-260,80},{-90,80},{-90,108}},color={0,0,127}));

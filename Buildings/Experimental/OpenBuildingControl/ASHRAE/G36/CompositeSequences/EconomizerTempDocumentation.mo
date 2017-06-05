@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences;
-model EconomizerDocuTemporary
+model EconomizerTempDocumentation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
@@ -274,4 +274,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EconomizerDocuTemporary;
+end EconomizerTempDocumentation;

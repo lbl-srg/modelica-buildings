@@ -64,17 +64,17 @@ equation
   connect(econEnableDisable.yOutDamPosMax2, ecoMod.uOutDamPosMax) annotation (
       Line(points={{1.9,-51.2222},{10,-51.2222},{10,5.21429},{39.3571,5.21429}},
         color={0,0,127}));
-  connect(ecoMod.yRetDamPos, yRetDamPos) annotation (Line(points={{60.7143,11.4286},
-          {80,11.4286},{80,20},{110,20}},
+  connect(ecoMod.yRetDamPos, yRetDamPos) annotation (Line(points={{60.7143,
+          11.4286},{80,11.4286},{80,20},{110,20}},
                              color={0,0,127}));
-  connect(ecoMod.yOutDamPos, yOutDamPos) annotation (Line(points={{60.7143,8.57143},
-          {80,8.57143},{80,-20},{110,-20}},
+  connect(ecoMod.yOutDamPos, yOutDamPos) annotation (Line(points={{60.7143,
+          8.57143},{80,8.57143},{80,-20},{110,-20}},
                                color={0,0,127}));
   connect(TCooSet, ecoMod.TCooSet) annotation (Line(points={{-110,70},{-110,70},
           {20,70},{20,17.7857},{39.2143,17.7857}},
                                    color={0,0,127}));
-  connect(TSup, ecoMod.TSup) annotation (Line(points={{-110,50},{10,50},{10,16.2143},
-          {39.3571,16.2143}},
+  connect(TSup, ecoMod.TSup) annotation (Line(points={{-110,50},{10,50},{10,
+          16.2143},{39.3571,16.2143}},
                     color={0,0,127}));
   connect(uCoo, ecoMod.uCoo) annotation (Line(points={{-110,-30},{-36,-30},{-36,
           14.0714},{39.3571,14.0714}},
@@ -87,8 +87,8 @@ equation
   connect(uSupFan, ecoEnaDis.uSupFan) annotation (Line(points={{-110,-70},{-88,
           -70},{-88,28},{-84.4444,28},{-84.4444,30}},
                               color={255,0,255}));
-  connect(uVOut, ecoEnaDis.uVOut) annotation (Line(points={{-110,10},{-98,10},
-          {-98,33.75},{-84.4444,33.75}},
+  connect(uVOut, ecoEnaDis.uVOut) annotation (Line(points={{-110,10},{-98,10},{
+          -98,33.75},{-84.4444,33.75}},
                          color={0,0,127}));
   connect(uVOutMinSet, ecoEnaDis.uVOutMinSet) annotation (Line(points={{-110,30},
           {-98,30},{-98,36.25},{-84.4444,36.25}},
