@@ -104,5 +104,9 @@ First implementation.
         Line(points={{-18,24},{66,54}}, color={255,0,0}),
         Line(points={{-78,-50},{78,-50}}),
         Line(points={{70,-46},{78,-50}}),
-        Line(points={{70,-54},{78,-50}})}));
+        Line(points={{70,-54},{78,-50}}),
+        Text(
+          extent={{-150,150},{150,110}},
+          textString="%name",
+          lineColor={0,0,255})}));
 end NumberOfRequests;

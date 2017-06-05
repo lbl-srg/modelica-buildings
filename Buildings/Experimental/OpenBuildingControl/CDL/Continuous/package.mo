@@ -2,6 +2,40 @@ within Buildings.Experimental.OpenBuildingControl.CDL;
 package Continuous "Library with elementary mathematical functions for continuous variables"
   extends Modelica.Icons.Package;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 annotation (
 Documentation(
 info="<html>

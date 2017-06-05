@@ -108,7 +108,11 @@ Icon(coordinateSystem(
             extent={{70,-14},{370,26}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          textString="y")}),
+          textString="y"),
+        Text(
+          extent={{-150,150},{150,110}},
+          textString="%name",
+          lineColor={0,0,255})}),
     Documentation(info="<html>
 <p>
 This model is similar to

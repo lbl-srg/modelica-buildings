@@ -2,10 +2,10 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block Sum "Output the sum of the elements of the input vector"
 
   parameter Integer nin=1 "Number of inputs";
-  Interfaces.RealInput u[nin] "Connector of Real input signals" annotation (Placement(
-        transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y "Connector of Real output signal" annotation (Placement(
-        transformation(extent={{100,-10},{120,10}})));
+  Interfaces.RealInput u[nin] "Connector of Real input signals"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Interfaces.RealOutput y "Connector of Real output signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   parameter Real k[nin]=ones(nin) "Optional: sum coefficients";
 equation
   y = k*u;
