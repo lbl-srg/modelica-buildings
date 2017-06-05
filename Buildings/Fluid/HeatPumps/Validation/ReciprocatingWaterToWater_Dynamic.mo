@@ -67,7 +67,10 @@ model ReciprocatingWaterToWater_Dynamic
         UAEva=1540,
         pisDis=0.00162,
         cleFac=0.069,
-        pDro=99290)) "Reciprocating water to water heat pump"
+        pDro=99290),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    enable_temperature_protection=false)
+                     "Reciprocating water to water heat pump"
     annotation (Placement(transformation(extent={{-10,42},{10,62}})));
 
   Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater heaPum1(
@@ -78,7 +81,6 @@ model ReciprocatingWaterToWater_Dynamic
     dp1_nominal=1000,
     dp2_nominal=1000,
     redeclare package ref = Buildings.Media.Refrigerants.R410A,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     tau1=15,
     tau2=15,
     enable_variable_speed=false,
@@ -90,7 +92,9 @@ model ReciprocatingWaterToWater_Dynamic
         UAEva=1540,
         pisDis=0.00162,
         cleFac=0.069,
-        pDro=99290))
+        pDro=99290),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    enable_temperature_protection=false)
     "Reciprocating water to water heat pump with transient effects"
     annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
 
@@ -127,13 +131,12 @@ equation
     annotation (Line(points={{79,-52},{74,-52},{74,54},{60,54}},
                                                              color={0,0,127}));
   connect(heaPum.port_a2, sou.ports[1])
-    annotation (Line(points={{10,46},{26,46},{26,46},{40,46}},
-                                                         color={0,127,255}));
+    annotation (Line(points={{10,46},{26,46},{40,46}},   color={0,127,255}));
   connect(heaPum.port_b1, sin1.ports[1]) annotation (Line(points={{10,58},{20,
           58},{20,24},{26,24},{34,24},{34,22}},
                             color={0,127,255}));
   connect(heaPum.port_a1, loa.ports[1])
-    annotation (Line(points={{-10,58},{-40,58},{-40,58}},color={0,127,255}));
+    annotation (Line(points={{-10,58},{-40,58}},         color={0,127,255}));
   connect(heaPum.port_b2, sin2.ports[1]) annotation (Line(points={{-10,46},{-22,
           46},{-22,22}},            color={0,127,255}));
   connect(sin2.ports[2], heaPum1.port_b2) annotation (Line(points={{-22,18},{-22,
