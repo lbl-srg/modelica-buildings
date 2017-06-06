@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
-model EconDamPosLimitsMultiZone_VOut
+model EconDamperPositionLimitsMultiZone_VOut
   "Validation model for setting the min econ damper limit and max return air damper limit."
   extends Modelica.Icons.Example;
 
@@ -10,8 +10,6 @@ model EconDamPosLimitsMultiZone_VOut
   parameter Real senOutVolAirIncrease(unit="m3/s", displayUnit="m3/h")=0.2
     "Maximum increase in airflow volume during the example simulation";
 
-  CDL.Logical.Constant FanStatus(k=true) "Fan is on"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   CDL.Continuous.Constant VOutMinSet(k=airflowSetpoint)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
@@ -21,24 +19,26 @@ model EconDamPosLimitsMultiZone_VOut
     height=senOutVolAirIncrease)
     "TSup falls below 38 F and remains there for longer than 5 min."
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  CDL.Integers.Constant AHUModeStatus(k=1) "Occupied = 1"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  CDL.Integers.Constant FreProStatus(k=0) "Freeze protection not needed = 0"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 
+  CDL.Logical.Constant FanStatus(k=true) "Fan is on"
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+  CDL.Integers.Constant FreProSta(k=1) "Freeze Protection Status"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  CDL.Integers.Constant AHUMode(k=1) "AHU System Mode (1 = Occupied)"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   EconDamperPositionLimitsMultiZone ecoDamLim
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 equation
-  connect(FanStatus.y, ecoDamLim.uSupFan)
-    annotation (Line(points={{-59,0},{19,0}}, color={255,0,255}));
-  connect(VOut.y, ecoDamLim.uVOut) annotation (Line(points={{-59,90},{-20,90},{-20,
-          8},{19,8}}, color={0,0,127}));
+  connect(VOut.y, ecoDamLim.uVOut) annotation (Line(points={{-59,90},{-20,90},{
+          -20,8},{-1,8}}, color={0,0,127}));
   connect(VOutMinSet.y, ecoDamLim.uVOutMinSet) annotation (Line(points={{-59,50},
-          {-20,50},{-20,5},{19,5}}, color={0,0,127}));
-  connect(AHUModeStatus.y, ecoDamLim.uAHUModSta) annotation (Line(points={{-59,-50},
-          {-20,-50},{-20,-5},{19,-5}}, color={255,127,0}));
-  connect(FreProStatus.y, ecoDamLim.uFreProSta) annotation (Line(points={{-59,-90},
-          {-20,-90},{-20,-8},{19,-8}}, color={255,127,0}));
+          {-30,50},{-30,5},{-1,5}}, color={0,0,127}));
+  connect(FanStatus.y, ecoDamLim.uSupFan) annotation (Line(points={{-59,10},{
+          -40,10},{-40,0},{-1,0}}, color={255,0,255}));
+  connect(AHUMode.y, ecoDamLim.uAHUMode) annotation (Line(points={{-59,-30},{
+          -40,-30},{-40,-8},{-40,-8},{-40,-5},{-1,-5}}, color={255,127,0}));
+  connect(FreProSta.y, ecoDamLim.uFreProSta) annotation (Line(points={{-59,-70},
+          {-30,-70},{-30,-8},{-1,-8}}, color={255,127,0}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconDamPosLimitsMultiZone_VOut.mos"
@@ -67,9 +67,9 @@ for different control signals.
 </html>", revisions="<html>
 <ul>
 <li>
-March 31, 2017, by Milica Grahovac:<br/>
+June 06, 2017, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end EconDamPosLimitsMultiZone_VOut;
+end EconDamperPositionLimitsMultiZone_VOut;

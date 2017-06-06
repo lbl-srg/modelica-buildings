@@ -22,15 +22,15 @@ model EconEnableDisableMultiZone_FreProSta
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(TOut.y, econEnableDisable.TOut) annotation (Line(points={{-59,70},{
-          -32,70},{-32,12},{-1.6,12}},    color={0,0,127}));
+          -32,70},{-32,12},{1.1,12}},     color={0,0,127}));
   connect(freezeProtectionStage.yFreProSta, econEnableDisable.uFreezeProtectionStatus)
     annotation (Line(points={{-59,30},{-48,30},{-36,30},{-36,6},{0.2,6}}, color=
          {255,85,85}));
   connect(outDamPosMin.y, econEnableDisable.uOutDamPosMin) annotation (Line(
-        points={{-59,-26},{-46,-26},{-36,-26},{-36,-2.4},{-1.6,-2.4}},
+        points={{-59,-26},{-46,-26},{-36,-26},{-36,0.3},{1.1,0.3}},
                                                                 color={0,0,127}));
   connect(outDamPosMax.y, econEnableDisable.uOutDamPosMax) annotation (Line(
-        points={{-59,-64},{-44,-64},{-32,-64},{-32,0.3},{-1.6,0.3}},
+        points={{-59,-64},{-44,-64},{-32,-64},{-32,-1.5},{1.1,-1.5}},
                                                                   color={0,0,127}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),

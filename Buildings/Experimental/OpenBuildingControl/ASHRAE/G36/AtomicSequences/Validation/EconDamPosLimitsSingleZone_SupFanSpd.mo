@@ -23,7 +23,7 @@ equation
         points={{-59,0},{-16,0},{-16,-0.705888},{26.8889,-0.705888}}, color={0,0,
           127}));
   connect(AHUMode.y, econMinOutAirDamPosLimits.uAHUMod) annotation (Line(points={{-59,-54},
-          {-38,-54},{-38,-10.1177},{26.8889,-10.1177}},           color={255,0,255}));
+          {-38,-54},{-38,-9.88236},{26.8889,-9.88236}},           color={255,0,255}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconDamPosLimitsSingleZone_SupFanSpd.mos"

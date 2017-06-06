@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
-model EconDamPosLimitsMultiZone_AHU
+model EconDamperPositionLimitsMultiZone_LoopDisable
   "Validation model for setting the min econ damper limit and max return air damper limit."
   extends Modelica.Icons.Example;
 
@@ -20,14 +20,11 @@ model EconDamPosLimitsMultiZone_AHU
     annotation (Placement(transformation(extent={{-20,18},{0,38}})));
 equation
   connect(VOutMinSet.y, econMinOutAirDamPosLimits.uVOutMinSet) annotation (Line(
-        points={{-59,70},{-42,70},{-42,34.375},{-21.1111,34.375}},
-                                                      color={0,0,127}));
+        points={{-59,70},{-42,70},{-42,33},{-21,33}}, color={0,0,127}));
   connect(VOut.y, econMinOutAirDamPosLimits.uVOut) annotation (Line(points={{-59,30},
-          {-42,30},{-42,30.5},{-21.1111,30.5}},
-                                           color={0,0,127}));
+          {-42,30},{-42,36},{-21,36}},     color={0,0,127}));
   connect(FanStatus.y, econMinOutAirDamPosLimits.uSupFan) annotation (Line(
-        points={{-59,-10},{-36,-10},{-36,26.375},{-21.1111,26.375}},
-                                                        color={255,0,255}));
+        points={{-59,-10},{-36,-10},{-36,28},{-21,28}}, color={255,0,255}));
   connect(AHUMode.y, econMinOutAirDamPosLimits.uAHUMod) annotation (Line(points={{-59,-44},
           {-30,-44},{-30,22.375},{-21.1111,22.375}},
                                                   color={255,0,255}));
@@ -62,4 +59,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EconDamPosLimitsMultiZone_AHU;
+end EconDamperPositionLimitsMultiZone_LoopDisable;
