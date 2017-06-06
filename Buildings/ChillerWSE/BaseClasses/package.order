@@ -1,10 +1,10 @@
 FourPortResistanceChillerWSE
 PartialChillerWSE
-PartialChillerWSEFourPortInterface
+PartialChillerWSEInterface
 PartialControllerInterface
 PartialHeatExchanger_T
 PartialIntegratedPrimary
 PartialParallelElectricEIR
-PartialParallelPlant
+PartialPlantParallel
 PartialPlantParallelInterface
 Examples
