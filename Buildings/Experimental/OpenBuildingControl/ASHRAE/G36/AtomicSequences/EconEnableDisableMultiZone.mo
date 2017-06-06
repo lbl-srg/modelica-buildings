@@ -28,7 +28,8 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     Defaults to true, set to false if only the outdoor air dry bulb temperature sensor is implemented. 
     [fixme: harmonize with issue #777]"
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
-  CDL.Continuous.Constant freProtStage0(k=0)
+  CDL.Continuous.Constant freProtStage(k=0)
+    "Disable if any of the freeze protection stages >0 gets activated"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
 
 
@@ -133,7 +134,7 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
   CDL.Continuous.Constant openRetDam(k=retDamFullyOpenTime)
     "Keep return damper open to its physical maximum for a short period of time before closing the outdoor air damper and resuming the maximum return air damper position"
     annotation (Placement(transformation(extent={{-20,-226},{0,-206}})));
-  CDL.Continuous.Constant disableDelay(k=smallDisDel)
+  CDL.Continuous.Constant disableDelay(final k=smallDisDel)
     "Small delay before closing the outdoor air damper, per G36 Part N7"
     annotation (Placement(transformation(extent={{-20,-166},{0,-146}})));
   parameter Real retDamFullyOpenTime(quantity="Time", unit="s", displayUnit="min")= 900 "Constant output value";
@@ -143,12 +144,13 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
   CDL.Interfaces.RealOutput yRetDamPosMax annotation (Placement(transformation(
           extent={{180,-316},{200,-296}}), iconTransformation(extent={{100,-40},
             {120,-20}})));
+  CDL.Logical.Or or1
+    annotation (Placement(transformation(extent={{40,50},{60,70}})));
 equation
   connect(intToRea.y, gre.u1)
     annotation (Line(points={{-139,0},{-139,0},{-102,0}}, color={0,0,127}));
-  connect(freProtStage0.y, gre.u2) annotation (Line(points={{-119,-50},{-110,
-          -50},{-110,-8},{-102,-8},{-102,-8},{-102,-8}},
-                              color={0,0,127}));
+  connect(freProtStage.y, gre.u2) annotation (Line(points={{-119,-50},{-110,-50},
+          {-110,-8},{-102,-8}}, color={0,0,127}));
   connect(uFreProSta, intToRea.u) annotation (Line(points={{-200,0},{-182,0},{
           -162,0}},  color={255,127,0}));
   connect(EconDisableSwitch.y, yOutDamPosMax) annotation (Line(points={{81,-176},
@@ -170,8 +172,6 @@ equation
         color={255,0,255}));
   connect(yRetDamPosMin, enableDisable1.y)
     annotation (Line(points={{190,-246},{166,-246},{141,-246}}, color={0,0,127}));
-  connect(OnOffDelay.y, not2.u) annotation (Line(points={{21,140},{30,140},{30,
-          -96},{48,-96}},                                                  color={255,0,255}));
   connect(not2.y, timer.u) annotation (Line(points={{71,-96},{71,-96},{76,-96},
           {76,-96},{78,-96},{78,-96}},                                color={255,0,255}));
   connect(disableDelay.y, greEqu.u2)
@@ -206,6 +206,12 @@ equation
                                                                   color={0,0,127}));
   connect(or2.y, OnOffDelay.u)
     annotation (Line(points={{-19,140},{-1.2,140}}, color={255,0,255}));
+  connect(gre.y, or1.u2) annotation (Line(points={{-79,0},{-20,0},{-20,52},{38,
+          52}}, color={255,0,255}));
+  connect(OnOffDelay.y, or1.u1) annotation (Line(points={{21,140},{30,140},{30,
+          60},{38,60}}, color={255,0,255}));
+  connect(or1.y, not2.u) annotation (Line(points={{61,60},{80,60},{80,56},{80,
+          56},{80,-40},{40,-40},{40,-96},{48,-96}}, color={255,0,255}));
   annotation (
     Icon(graphics={
         Rectangle(
@@ -242,7 +248,7 @@ equation
         extent={{-180,-320},{180,200}},
         initialScale=0.1), graphics={Text(
           textString="Edit Here",
-          extent={{84,38},{140,22}},
+          extent={{202,80},{258,64}},
           lineColor={28,108,200})}),
     Documentation(info="<html>      
              <p>
