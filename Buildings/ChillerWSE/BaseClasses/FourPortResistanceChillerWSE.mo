@@ -12,11 +12,11 @@ record FourPortResistanceChillerWSE
                 tab="Flow resistance", group="Medium 1"));
   parameter Modelica.SIunits.PressureDifference dpChiller1_nominal(
     min=0,displayUnit="Pa")
-    "Pressure difference"
+    "Pressure difference on medium 1 side"
     annotation(Dialog(group = "Chiller Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpWSE1_nominal(
     min=0,displayUnit="Pa")
-    "Pressure difference"
+    "Pressure difference on medium 1 side"
     annotation(Dialog(group = "WSE Nominal condition"));
   parameter Boolean linearizeFlowResistance1 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -36,11 +36,11 @@ record FourPortResistanceChillerWSE
                 tab="Flow resistance", group="Medium 2"));
   parameter Modelica.SIunits.PressureDifference dpChiller2_nominal(
     min=0,displayUnit="Pa")
-    "Pressure difference"
+    "Pressure difference on medium 2 side"
     annotation(Dialog(group = "Chiller Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpWSE2_nominal(
     min=0,displayUnit="Pa")
-    "Pressure difference"
+    "Pressure difference on medium 2 side"
     annotation(Dialog(group = "WSE Nominal condition"));
   parameter Boolean linearizeFlowResistance2 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
