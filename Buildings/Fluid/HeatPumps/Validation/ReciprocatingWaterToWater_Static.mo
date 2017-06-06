@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatPumps.Validation;
-model ScrollWaterToWater
-  "Test model for scroll water to water heat pump"
+model ReciprocatingWaterToWater_Static
+  "Test model for static, reciprocating water to water heat pump"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water "Medium model";
   package Medium2 = Buildings.Media.Water "Medium model";
@@ -15,6 +15,29 @@ model ScrollWaterToWater
   parameter Modelica.SIunits.MassFlowRate flowLoad = 0.47
     "Mass flow rate on the evaporator side";
 
+  Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater heaPum(
+     per = Data.ReciprocatingWaterToWater.Generic(
+      etaEle=0.696,
+      PLos=100,
+      dTSup=9.82,
+      UACon=2210,
+      UAEva=1540,
+      pisDis=0.00162,
+      cleFac=0.069,
+      pDro=99290),
+    redeclare package Medium1 = Medium1,
+    redeclare package Medium2 = Medium2,
+    redeclare package ref = Buildings.Media.Refrigerants.R410A,
+    m1_flow_nominal=m1_flow_nominal,
+    m2_flow_nominal=m2_flow_nominal,
+    dp1_nominal=100,
+    dp2_nominal=100,
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    enable_temperature_protection=false)
+                 "Reciprocating water to water heat pump"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
   Buildings.Fluid.Sources.FixedBoundary sin2(
     redeclare package Medium = Medium2, nPorts=1) "Source side sink"
     annotation (Placement(
@@ -27,9 +50,6 @@ model ScrollWaterToWater
         transformation(
         extent={{10,-10},{-10,10}},
         origin={58,20})));
-  Modelica.Blocks.Sources.Constant isOn(k=1)
-    "Heat pump control signal"
-    annotation (Placement(transformation(extent={{-52,-26},{-40,-14}})));
   Modelica.Fluid.Sources.MassFlowSource_T loa(
     redeclare package Medium = Medium1,
     m_flow=flowLoad,
@@ -42,35 +62,14 @@ model ScrollWaterToWater
     m_flow=flowSource,
     use_m_flow_in=true,
     use_T_in=true,
-    nPorts=1) "Source side flow source"
+    nPorts=1) "Sourc side flow source"
     annotation (Placement(transformation(extent={{68,-16},{48,4}})));
   Modelica.Blocks.Sources.RealExpression mLoa(y=flowLoad)
-    "Load side mass flwo rate"
+    "Load side mass flow rate"
     annotation (Placement(transformation(extent={{-100,18},{-80,38}})));
   Modelica.Blocks.Sources.RealExpression mSou(y=flowSource)
     "Source side mass flow rate"
     annotation (Placement(transformation(extent={{100,-8},{80,12}})));
-  Buildings.Fluid.HeatPumps.ScrollWaterToWater heaPum(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
-    m1_flow_nominal=m1_flow_nominal,
-    m2_flow_nominal=m2_flow_nominal,
-    dp1_nominal=1000,
-    dp2_nominal=1000,
-    redeclare package ref =
-        Buildings.Media.Refrigerants.R410A,
-    show_T=true,
-    enable_variable_speed=true,
-    datHeaPum(
-      etaEle=0.696,
-      PLos=500,
-      dTSup=10,
-      UACon=4400,
-      UAEva=4400,
-      volRat=2,
-      V_flow_nominal=0.003,
-      leaCoe=0.01)) "Scroll water to water heat pump"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp yLoa(
     height=20,
     duration=750,
@@ -83,34 +82,39 @@ model ScrollWaterToWater
     offset=283.15,
     startTime=0) "Source side fluid temperature"
     annotation (Placement(transformation(extent={{100,-38},{80,-18}})));
+  Modelica.Blocks.Sources.Constant          isOn(k=1)
+    "Heat pump control signal"
+    annotation (Placement(transformation(extent={{-52,-26},{-40,-14}})));
 equation
   connect(mSou.y, sou.m_flow_in)
-    annotation (Line(points={{79,2},{68,2}},                 color={0,0,127}));
-  connect(mLoa.y, loa.m_flow_in) annotation (Line(points={{-79,28},{-72,28},{
+    annotation (Line(points={{79,2},{79,2},{78,2},{68,2}},   color={0,0,127}));
+  connect(mLoa.y, loa.m_flow_in) annotation (Line(points={{-79,28},{-79,28},{
           -66,28}},      color={0,0,127}));
   connect(yLoa.y, loa.T_in) annotation (Line(points={{-79,0},{-74,0},{-74,24},{
-          -68,24}},      color={0,0,127}));
+          -68,24}},  color={0,0,127}));
   connect(ySou.y, sou.T_in) annotation (Line(points={{79,-28},{72,-28},{72,-2},
-          {70,-2}}, color={0,0,127}));
+          {70,-2}},
+                color={0,0,127}));
   connect(isOn.y,heaPum.y)  annotation (Line(points={{-39.4,-20},{-32,-20},{-32,
           3},{-12,3}}, color={0,0,127}));
-  connect(sin2.ports[1], heaPum.port_b2) annotation (Line(points={{-60,-40},{
-          -20,-40},{-20,-6},{-10,-6}}, color={0,127,255}));
-  connect(sou.ports[1], heaPum.port_a2)
-    annotation (Line(points={{48,-6},{29,-6},{10,-6}}, color={0,127,255}));
-  connect(sin1.ports[1], heaPum.port_b1) annotation (Line(points={{48,20},{20,
-          20},{20,6},{10,6}}, color={0,127,255}));
   connect(loa.ports[1], heaPum.port_a1) annotation (Line(points={{-46,20},{-20,
           20},{-20,6},{-10,6}}, color={0,127,255}));
-  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater.mos"
+  connect(heaPum.port_b1, sin1.ports[1]) annotation (Line(points={{10,6},{20,6},
+          {20,20},{48,20}}, color={0,127,255}));
+  connect(heaPum.port_a2, sou.ports[1])
+    annotation (Line(points={{10,-6},{48,-6}},         color={0,127,255}));
+  connect(sin2.ports[1], heaPum.port_b2) annotation (Line(points={{-60,-40},{
+          -20,-40},{-20,-6},{-10,-6}}, color={0,127,255}));
+  annotation (    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_Static.mos"
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6, StopTime=1000),
     Documentation(info="<html>
 <p>
 Model that demonstrates the use of the
-<a href=\"modelica://Buildings.Fluid.HeatPumps.ScrollWaterToWater\">
-Buildings.Fluid.HeatPumps.ScrollWaterToWater</a> heat pump model.
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater\">
+Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater</a> heat pump model.
 </p>
 <p>
 The heat pump power, condenser heat transfer rate and evaporator heat transfer
@@ -125,4 +129,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ScrollWaterToWater;
+end ReciprocatingWaterToWater_Static;

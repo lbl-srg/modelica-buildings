@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "heaPum.errNegTemDif",
+    "heaPum.errHigPre",
+    "heaPum.errLowPre",
+    "heaPum.com.isOn",
+    "heaPum.TEvaMin",
+    "heaPum.eva.vol.T",
+    "heaPum.con.T",
+    "heaPum.TConMax",
+    "heaPum.QCon_flow"
+  };
