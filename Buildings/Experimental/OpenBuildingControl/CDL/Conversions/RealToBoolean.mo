@@ -31,7 +31,11 @@ equation
         Text(
           extent={{8,-4},{92,-94}},
           lineColor={255,0,255},
-          textString="B")}),
+          textString="B"),
+        Text(
+          extent={{-150,150},{150,110}},
+          textString="%name",
+          lineColor={0,0,255})}),
 Documentation(info="<html>
 <p>
 This block outputs the Boolean signal

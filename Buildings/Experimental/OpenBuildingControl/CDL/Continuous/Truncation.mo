@@ -42,7 +42,7 @@ equation
         Line(points={{65,46},{98,46}}),
         Text(
           lineColor={0,0,255},
-          extent={{-126,102},{116,134}},
+          extent={{-150,110},{150,150}},
           textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,

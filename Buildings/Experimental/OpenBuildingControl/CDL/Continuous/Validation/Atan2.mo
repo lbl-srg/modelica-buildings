@@ -16,7 +16,6 @@ extends Modelica.Icons.Example;
     height=2)  "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
-
 equation
   connect(ramp1.y, atan2_1.u1) annotation (Line(points={{-39,20},{-26,20},{-26,
           6},{-12,6}},
