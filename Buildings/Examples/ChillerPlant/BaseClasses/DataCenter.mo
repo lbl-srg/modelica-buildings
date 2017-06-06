@@ -255,7 +255,7 @@ partial model DataCenter
   Modelica.Blocks.Logical.Or or1
     annotation (Placement(transformation(extent={{20,190},{40,210}})));
   Modelica.Blocks.Math.BooleanToReal mCWFlo(realTrue=mCW_flow_nominal)
-    "Mass flow rate of condensor loop"
+    "Mass flow rate of condenser loop"
     annotation (Placement(transformation(extent={{60,190},{80,210}})));
   Modelica.Blocks.Sources.RealExpression PHVAC(y=fan.P + pumCHW.P + pumCW.P +
         cooTow.PFan + chi.P) "Power consumed by HVAC system"
