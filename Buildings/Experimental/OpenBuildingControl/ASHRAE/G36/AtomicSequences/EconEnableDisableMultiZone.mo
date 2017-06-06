@@ -106,7 +106,7 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
   CDL.Continuous.Constant deltaTemHis(k=delTemHis)
     "Delta between the temperature hysteresis high and low limit. delTemHis = uTemHigLimCutHig - uTemHigLimCutLow "
-    annotation (Placement(transformation(extent={{140,170},{160,190}})));
+    annotation (Placement(transformation(extent={{140,180},{160,200}})));
   CDL.Continuous.Constant deltaEntHis(k=delEntHis)
     "Delta between the enthalpy hysteresis high and low limit. delEntHis = uEntHigLimCutHig - uTemEntLimCutLow "
     annotation (Placement(transformation(extent={{140,140},{160,160}})));
@@ -242,9 +242,24 @@ equation
         preserveAspectRatio=false,
         extent={{-180,-320},{180,240}},
         initialScale=0.1), graphics={Text(
-          textString="Edit Here",
-          extent={{202,80},{258,64}},
-          lineColor={28,108,200})}),
+          extent={{-172,38},{-92,22}},
+          lineColor={28,108,200},
+          textString="Outdoor air conditions"),
+        Rectangle(extent={{-180,240},{180,20}}, lineColor={28,108,200}),
+        Rectangle(extent={{-180,20},{180,-80}}, lineColor={28,108,200}),
+        Rectangle(extent={{-180,-80},{180,-320}}, lineColor={28,108,200}),
+                                     Text(
+          extent={{62,-60},{168,-76}},
+          lineColor={28,108,200},
+          textString="Freeze protection conditions"),
+                                     Text(
+          extent={{-170,-86},{-52,-124}},
+          lineColor={28,108,200},
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=12,
+          textString="Enable-disable damper limit 
+assignments with time delays 
+per G36 PART5.N.7")}),
     Documentation(info="<html>      
              <p>
              implementation fixme: 10 min delay
