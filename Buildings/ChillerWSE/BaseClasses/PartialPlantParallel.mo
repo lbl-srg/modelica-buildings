@@ -1,5 +1,5 @@
 within Buildings.ChillerWSE.BaseClasses;
-partial model PartialParallelPlant
+partial model PartialPlantParallel
   "Partial source plant model with replaceable valves"
   extends Buildings.ChillerWSE.BaseClasses.PartialPlantParallelInterface;
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
@@ -29,7 +29,7 @@ partial model PartialParallelPlant
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Valve"));
   parameter Real kFixed[2](each unit="", each min=0)=
-    {m1_flow_nominal / sqrt(dp1_nominal),m2_flow_nominal / sqrt(dp2_nominal)}
+    {m1_flow_nominal,m2_flow_nominal} ./ sqrt({dp1_nominal,  dp2_nominal})
     "Flow coefficient of fixed resistance that may be in series with valve 1, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
    annotation(Dialog(group="Valve"));
 
@@ -117,4 +117,4 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
          Diagram(coordinateSystem(preserveAspectRatio=false)));
-end PartialParallelPlant;
+end PartialPlantParallel;

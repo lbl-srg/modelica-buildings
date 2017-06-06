@@ -1,5 +1,5 @@
 within Buildings.ChillerWSE.BaseClasses;
-partial model PartialChillerWSEFourPortInterface
+partial model PartialChillerWSEInterface
   "Partial model that defines the interface for chiller and WSE package"
   extends Buildings.Fluid.Interfaces.PartialFourPort;
 
@@ -28,7 +28,22 @@ partial model PartialChillerWSEFourPortInterface
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
+  parameter Integer n(min=1)=2 "Number of chillers and WSE";
+
+
+
+
+
+  Modelica.Blocks.Interfaces.RealInput TSet
+    "Set point for leaving water temperature"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
+  Modelica.Blocks.Interfaces.BooleanInput on[n]
+    "Set to true to enable equipment, or false to disable equipment"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end PartialChillerWSEFourPortInterface;
+
+end PartialChillerWSEInterface;
