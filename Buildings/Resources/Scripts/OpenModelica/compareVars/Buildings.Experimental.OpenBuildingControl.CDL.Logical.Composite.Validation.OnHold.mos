@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "onHold.u",
+    "onHold.y"
+  };

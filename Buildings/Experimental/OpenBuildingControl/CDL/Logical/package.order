@@ -23,10 +23,12 @@ OnDelay
 OnOffController
 Or
 Or3
+Pre
 Switch
 Timer
 Toggle
 TriggeredTrapezoid
 Xor
 ZeroCrossing
+Composite
 Validation
