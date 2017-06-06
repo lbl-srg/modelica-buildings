@@ -27,7 +27,7 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
   CDL.Integers.Constant AHUMode(k=1) "AHU System Mode (1 = Occupied)"
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
   EconDamperPositionLimitsMultiZone ecoDamLim annotation (Placement(transformation(extent={{-120,
-            -30},{-100,-10}})));
+            -20},{-100,0}})));
   CDL.Continuous.Constant VOutMinSet1(
                                      k=airflowSetpoint)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
@@ -47,8 +47,8 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
   CDL.Integers.Constant AHUMode1(k=2) "AHU System Mode (2 != Occupied)"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   EconDamperPositionLimitsMultiZone ecoDamLim1
-                                              annotation (Placement(transformation(extent={{20,-30},
-            {40,-10}})));
+                                              annotation (Placement(transformation(extent={{20,-20},
+            {40,0}})));
   CDL.Continuous.Constant VOutMinSet2(
                                      k=airflowSetpoint)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
@@ -69,43 +69,42 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
                                 k=1) "AHU System Mode (1 = Occupied)"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   EconDamperPositionLimitsMultiZone ecoDamLim2
-                                              annotation (Placement(transformation(extent={{160,-30},
-            {180,-10}})));
+                                              annotation (Placement(transformation(extent={{160,-20},
+            {180,0}})));
 equation
   connect(VOut.y, ecoDamLim.uVOut) annotation (Line(points={{-179,70},{-140,70},
-          {-140,-12},{-121,-12}},                                                              color={0,0,127}));
+          {-140,-2},{-121,-2}},                                                                color={0,0,127}));
   connect(VOutMinSet.y, ecoDamLim.uVOutMinSet)
-    annotation (Line(points={{-179,30},{-150,30},{-150,-15},{-121,-15}},
+    annotation (Line(points={{-179,30},{-150,30},{-150,-5},{-121,-5}},
                                                                 color={0,0,127}));
   connect(FanStatus.y, ecoDamLim.uSupFan)
-    annotation (Line(points={{-179,-10},{-160,-10},{-160,-20},{-121,-20}},
-                                                                color={255,0,255}));
+    annotation (Line(points={{-179,-10},{-160,-10},{-121,-10}}, color={255,0,255}));
   connect(AHUMode.y, ecoDamLim.uAHUMode)
-    annotation (Line(points={{-179,-50},{-160,-50},{-160,-28},{-160,-25},{-121,
-          -25}},                                                                      color={255,127,0}));
+    annotation (Line(points={{-179,-50},{-160,-50},{-160,-28},{-160,-15},{-121,
+          -15}},                                                                      color={255,127,0}));
   connect(FreProSta.y, ecoDamLim.uFreProSta)
-    annotation (Line(points={{-179,-90},{-150,-90},{-150,-28},{-121,-28}},
+    annotation (Line(points={{-179,-90},{-150,-90},{-150,-18},{-121,-18}},
                                                                     color={255,127,0}));
   connect(VOut1.y, ecoDamLim1.uVOut) annotation (Line(points={{-39,70},{0,70},{
-          0,-12},{19,-12}}, color={0,0,127}));
+          0,-2},{19,-2}}, color={0,0,127}));
   connect(VOutMinSet1.y, ecoDamLim1.uVOutMinSet) annotation (Line(points={{-39,
-          30},{-10,30},{-10,-15},{19,-15}}, color={0,0,127}));
+          30},{-10,30},{-10,-5},{19,-5}}, color={0,0,127}));
   connect(FanStatus1.y, ecoDamLim1.uSupFan) annotation (Line(points={{-39,-10},
-          {-20,-10},{-20,-20},{19,-20}}, color={255,0,255}));
+          {-20,-10},{19,-10}}, color={255,0,255}));
   connect(AHUMode1.y, ecoDamLim1.uAHUMode) annotation (Line(points={{-39,-50},{
-          -20,-50},{-20,-28},{-20,-25},{19,-25}}, color={255,127,0}));
+          -20,-50},{-20,-28},{-20,-15},{19,-15}}, color={255,127,0}));
   connect(FreProSta1.y, ecoDamLim1.uFreProSta) annotation (Line(points={{-39,
-          -90},{-10,-90},{-10,-28},{19,-28}}, color={255,127,0}));
+          -90},{-10,-90},{-10,-18},{19,-18}}, color={255,127,0}));
   connect(VOut2.y, ecoDamLim2.uVOut) annotation (Line(points={{101,70},{140,70},
-          {140,-12},{159,-12}}, color={0,0,127}));
+          {140,-2},{159,-2}}, color={0,0,127}));
   connect(VOutMinSet2.y, ecoDamLim2.uVOutMinSet) annotation (Line(points={{101,
-          30},{130,30},{130,-15},{159,-15}}, color={0,0,127}));
+          30},{130,30},{130,-5},{159,-5}}, color={0,0,127}));
   connect(FanStatus2.y, ecoDamLim2.uSupFan) annotation (Line(points={{101,-10},
-          {120,-10},{120,-20},{159,-20}}, color={255,0,255}));
+          {120,-10},{159,-10}}, color={255,0,255}));
   connect(AHUMode2.y, ecoDamLim2.uAHUMode) annotation (Line(points={{101,-50},{
-          120,-50},{120,-28},{120,-25},{159,-25}}, color={255,127,0}));
+          120,-50},{120,-28},{120,-15},{159,-15}}, color={255,127,0}));
   connect(FreProSta2.y, ecoDamLim2.uFreProSta) annotation (Line(points={{101,
-          -90},{130,-90},{130,-28},{159,-28}}, color={255,127,0}));
+          -90},{130,-90},{130,-18},{159,-18}}, color={255,127,0}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconDamperPositionLimitsMultiZone_LoopDisable.mos"

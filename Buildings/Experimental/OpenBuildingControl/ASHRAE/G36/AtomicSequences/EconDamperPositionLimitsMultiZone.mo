@@ -233,7 +233,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="yRetDamPosMin"),
         Text(
-          extent={{-88,134},{88,104}},
+          extent={{-88,138},{88,108}},
           lineColor={85,0,255},
           textString="DamperLimits"),
         Text(
