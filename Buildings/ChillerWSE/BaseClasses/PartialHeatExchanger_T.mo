@@ -15,15 +15,17 @@ partial model PartialHeatExchanger_T
     redeclare package Medium=Medium2);
 
   parameter Modelica.SIunits.Efficiency eta=0.8 "constant effectiveness";
-  parameter Real fraK(min=0, max=1) = 0.7
-    "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)";
-  parameter Real l[2](min=1e-10, max=1) = {0.0001,0.0001}
-    "Valve leakage, l=Kv(y=0)/Kv(y=1)";
-  parameter Real kFixed(unit="", min=0) = 0
-    "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
-  parameter Real R=50 "Rangeability, R=50...100 typically";
+  parameter Real fraK_BypVal(min=0, max=1) = 0.7
+    "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)for the bypass valve"
+    annotation(Dialog(group="Bypass Valve"));
+  parameter Real l_BypVal[2](min=1e-10, max=1) = {0.0001,0.0001}
+    "Bypass valve leakage, l=Kv(y=0)/Kv(y=1)"
+    annotation(Dialog(group="Bypass Valve"));
+  parameter Real R=50 "Rangeability, R=50...100 typically for bypass valve"
+    annotation(Dialog(group="Bypass Valve"));
   parameter Real delta0=0.01
-    "Range of significant deviation from equal percentage law";
+    "Range of significant deviation from equal percentage law for bypass valve"
+    annotation(Dialog(group="Bypass Valve"));
   // Filter opening
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
@@ -34,7 +36,7 @@ partial model PartialHeatExchanger_T
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Real y_startFilter=1 "Initial value of output from filter in the valve"
+  parameter Real yBypVal_start=1 "Initial value of output from the filter in the bypass valve"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
   // Advanced
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -52,20 +54,20 @@ partial model PartialHeatExchanger_T
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTime,
     final init=init,
-    final l=l,
     final R=R,
     final delta0=delta0,
-    final fraK=fraK,
+    final fraK=fraK_BypVal,
     final dpFixed_nominal={dp2_nominal,0},
     final energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
-    p_start=p_start,
-    T_start=T_start,
+    final massDynamics=massDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
     each final C_start=C_start,
     each final C_nominal=C_nominal,
     each final X_start=X_start,
-    final y_start=y_startFilter,
-    CvData=Buildings.Fluid.Types.CvTypes.OpPoint)
+    final y_start=yBypVal_start,
+    CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    each final l=l_BypVal)
     "Bypass valve used to control the outlet temperature "
     annotation (Placement(transformation(extent={{-40,-30},{-60,-10}})));
 

@@ -1,8 +1,29 @@
 within Buildings.ChillerWSE;
 model WatersideEconomizer "Parallel heat exchangers"
-  extends Buildings.ChillerWSE.BaseClasses.PartialParallelPlant(
+  extends Buildings.ChillerWSE.BaseClasses.PartialPlantParallel(
     final n=1);
   extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface;
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+    final mSenFac=1,
+    redeclare package Medium=Medium2);
+
+  // Filter opening
+  parameter Real yBypVal_start=1 "Initial value of output from the filter in the bypass valve"
+    annotation(Dialog(tab="Dynamics",group="Valve",enable=use_inputFilter));
+ // Heat exchanger
+  parameter Modelica.SIunits.Efficiency eta=0.8 "constant effectiveness";
+ // Bypass valve parameters
+  parameter Real fraK_BypVal(min=0, max=1) = 0.7
+    "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)for the bypass valve"
+    annotation(Dialog(group="Bypass Valve"));
+  parameter Real l_BypVal[2](min=1e-10, max=1) = {0.0001,0.0001}
+    "Bypass valve leakage, l=Kv(y=0)/Kv(y=1)"
+    annotation(Dialog(group="Bypass Valve"));
+  parameter Real R=50 "Rangeability, R=50...100 typically for bypass valve"
+    annotation(Dialog(group="Bypass Valve"));
+  parameter Real delta0=0.01
+    "Range of significant deviation from equal percentage law for bypass valve"
+    annotation(Dialog(group="Bypass Valve"));
 
   Buildings.ChillerWSE.HeatExchanger_T heaExc(
     redeclare final replaceable package Medium1 = Medium1,
@@ -27,7 +48,36 @@ model WatersideEconomizer "Parallel heat exchangers"
     final y_startController=y_startController,
     final reverseAction=reverseAction,
     final reset=reset,
-    final y_reset=y_reset) "Water-to-water heat exchanger"
+    final y_reset=y_reset,
+    final allowFlowReversal1=allowFlowReversal1,
+    final allowFlowReversal2=allowFlowReversal2,
+    final m1_flow_small=m1_flow_small,
+    final m2_flow_small=m2_flow_small,
+    final show_T=show_T,
+    final from_dp1=from_dp1,
+    final linearizeFlowResistance1=linearizeFlowResistance1,
+    final deltaM1=deltaM1,
+    final from_dp2=from_dp2,
+    final linearizeFlowResistance2=linearizeFlowResistance2,
+    final deltaM2=deltaM2,
+    final homotopyInitialization=homotopyInitialization,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
+    each final X_start=X_start,
+    each final C_start=C_start,
+    each final C_nominal=C_nominal,
+    final use_inputFilter=use_inputFilter,
+    final riseTime=riseTimeValve,
+    final init=initValve,
+    final yBypVal_start=yBypVal_start,
+    final eta=eta,
+    final fraK_BypVal=fraK_BypVal,
+    each final l_BypVal=l_BypVal,
+    final R=R,
+    final delta0=delta0)
+    "Water-to-water heat exchanger"
     annotation (Placement(transformation(extent={{-10,-12},{10,4}})));
 equation
   connect(port_a1, heaExc.port_a1) annotation (Line(points={{-100,60},{-40,60},

@@ -1,7 +1,7 @@
 within Buildings.ChillerWSE.BaseClasses;
 partial model PartialParallelElectricEIR
   "Partial model for electric chiller parallel"
-  extends PartialParallelPlant;
+  extends PartialPlantParallel;
 
   parameter Modelica.SIunits.Time tau1 = 30 "Time constant at nominal flow in chillers"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
@@ -90,13 +90,11 @@ partial model PartialParallelElectricEIR
   Modelica.Blocks.Interfaces.BooleanInput on[n]
     "Set to true to enable compressor, or false to disable compressor"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput TSet
-    "Set point for leaving chilled water temperature"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+
 equation
   for i in 1:n loop
-  connect(TSet, chi[i].TSet) annotation (Line(points={{-120,-40},{-90,-40},{-90,
-          -3},{-12,-3}}, color={0,0,127}));
+  connect(TSet, chi[i].TSet) annotation (Line(points={{-120,0},{-90,0},{-90,-3},
+            {-12,-3}},   color={0,0,127}));
   connect(chi[i].port_a1, port_a1) annotation (Line(points={{-10,6},{-40,6},{-40,
           60},{-100,60}}, color={0,127,255}));
   connect(chi[i].port_a2, port_a2) annotation (Line(points={{10,-6},{40,-6},{40,
