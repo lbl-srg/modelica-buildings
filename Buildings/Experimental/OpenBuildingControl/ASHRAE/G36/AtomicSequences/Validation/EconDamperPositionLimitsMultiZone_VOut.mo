@@ -26,22 +26,20 @@ model EconDamperPositionLimitsMultiZone_VOut
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   CDL.Integers.Constant AHUMode(k=1) "AHU System Mode (1 = Occupied)"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  EconDamperPositionLimitsMultiZone ecoDamLim
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  EconDamperPositionLimitsMultiZone ecoDamLim annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 equation
-  connect(VOut.y, ecoDamLim.uVOut) annotation (Line(points={{-59,90},{-20,90},{
-          -20,8},{-1,8}}, color={0,0,127}));
-  connect(VOutMinSet.y, ecoDamLim.uVOutMinSet) annotation (Line(points={{-59,50},
-          {-30,50},{-30,5},{-1,5}}, color={0,0,127}));
-  connect(FanStatus.y, ecoDamLim.uSupFan) annotation (Line(points={{-59,10},{
-          -40,10},{-40,0},{-1,0}}, color={255,0,255}));
-  connect(AHUMode.y, ecoDamLim.uAHUMode) annotation (Line(points={{-59,-30},{
-          -40,-30},{-40,-8},{-40,-8},{-40,-5},{-1,-5}}, color={255,127,0}));
-  connect(FreProSta.y, ecoDamLim.uFreProSta) annotation (Line(points={{-59,-70},
-          {-30,-70},{-30,-8},{-1,-8}}, color={255,127,0}));
+  connect(VOut.y, ecoDamLim.uVOut) annotation (Line(points={{-59,90},{-20,90},{-20,8},{-1,8}}, color={0,0,127}));
+  connect(VOutMinSet.y, ecoDamLim.uVOutMinSet)
+    annotation (Line(points={{-59,50},{-30,50},{-30,5},{-1,5}}, color={0,0,127}));
+  connect(FanStatus.y, ecoDamLim.uSupFan)
+    annotation (Line(points={{-59,10},{-40,10},{-40,0},{-1,0}}, color={255,0,255}));
+  connect(AHUMode.y, ecoDamLim.uAHUMode)
+    annotation (Line(points={{-59,-30},{-40,-30},{-40,-8},{-40,-8},{-40,-5},{-1,-5}}, color={255,127,0}));
+  connect(FreProSta.y, ecoDamLim.uFreProSta)
+    annotation (Line(points={{-59,-70},{-30,-70},{-30,-8},{-1,-8}}, color={255,127,0}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconDamPosLimitsMultiZone_VOut.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconDamperPositionLimitsMultiZone_VOut.mos"
     "Simulate and plot"),
     Icon(coordinateSystem(extent={{-100,-120},{100,120}}),
          graphics={Ellipse(
@@ -60,8 +58,8 @@ equation
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamPosLimitsMultiZone\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamPosLimitsMultiZone</a>
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone</a>
 for different control signals.
 </p>
 </html>", revisions="<html>
