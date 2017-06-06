@@ -1,22 +1,35 @@
 within Buildings.ChillerWSE.BaseClasses;
 partial model PartialChillerWSE
   "Partial model that contains chillers and WSE without connected configurations"
-  extends Buildings.ChillerWSE.BaseClasses.PartialChillerWSEFourPortInterface;
+  extends Buildings.ChillerWSE.BaseClasses.PartialChillerWSEInterface(
+    final n=nChi+1);
   extends Buildings.ChillerWSE.BaseClasses.FourPortResistanceChillerWSE(
      final computeFlowResistance1=true,
      final computeFlowResistance2=true);
 
   parameter Integer nChi(min=1) "Number of identical chillers";
-  parameter Modelica.SIunits.PressureDifference dpValveChiller1_nominal(min=0,displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpValveChiller1_nominal(
+    min=0,
+    displayUnit="Pa",
+    fixed= if CvData==Buildings.Fluid.Types.CvTypes.OpPoint then true else false)=6000
     "Pressure difference for the chiller valve on Medium 1 side"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpValveChiller2_nominal(min=0,displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpValveChiller2_nominal(
+    min=0,
+    displayUnit="Pa",
+    fixed= if CvData==Buildings.Fluid.Types.CvTypes.OpPoint then true else false)=6000
     "Pressure difference for the chiller valve on Medium 2 side"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpValveWSE1_nominal(min=0,displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpValveWSE1_nominal(
+    min=0,
+    displayUnit="Pa",
+    fixed= if CvData==Buildings.Fluid.Types.CvTypes.OpPoint then true else false)=6000
     "Pressure difference for the WSE valve on Medium 1 side"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpValveWSE2_nominal(min=0,displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpValveWSE2_nominal(
+    min=0,
+    displayUnit="Pa",
+    fixed= if CvData==Buildings.Fluid.Types.CvTypes.OpPoint then true else false)=6000
     "Pressure difference for the WSE valve on Medium 2 side"
     annotation(Dialog(group = "Nominal condition"));
 
@@ -25,36 +38,20 @@ partial model PartialChillerWSE
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
  // valve parameters
-  parameter Real lValveChiller1(min=1e-10, max=1) = 0.0001
-    "Valve 1 leakage, l=Kv(y=0)/Kv(y=1)"
+  parameter Real[2] lValveChiller(each min=1e-10, each max=1) = {0.0001,0.0001}
+    "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Valve"));
-  parameter Real kFixedChiller1(unit="", min=0) = if dpChiller1_nominal > Modelica.Constants.eps
-   then mChiller1_flow_nominal / sqrt(dpChiller1_nominal) else 0
-    "Flow coefficient of fixed resistance that may be in series with valve 1 
+  parameter Real[2] kFixedChiller(each unit="",each min=0)=
+    {mChiller1_flow_nominal,mChiller2_flow_nominal} ./ sqrt({dpChiller1_nominal,dpChiller2_nominal})
+    "Flow coefficient of fixed resistance that may be in series with valves
     in chillers, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Valve"));
-  parameter Real lValveChiller2(min=1e-10, max=1) = 0.0001
-    "Valve 2 leakage, l=Kv(y=0)/Kv(y=1)"
+  parameter Real[2] lValveWSE(each min=1e-10, each max=1) = {0.0001,0.0001}
+    "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Valve"));
-  parameter Real kFixedChiller2(unit="", min=0) = if dpChiller2_nominal > Modelica.Constants.eps
-   then mChiller2_flow_nominal / sqrt(dpChiller2_nominal) else 0
-    "Flow coefficient of fixed resistance that may be in series with valve 2 
-    in chillers, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="Valve"));
-  parameter Real lValveWSE1(min=1e-10, max=1) = 0.0001
-    "Valve 1 leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Valve"));
-  parameter Real kFixedWSE1(unit="", min=0) = if dpWSE1_nominal > Modelica.Constants.eps
-   then mWSE1_flow_nominal / sqrt(dpWSE1_nominal) else 0
-    "Flow coefficient of fixed resistance that may be in series with valve 1 
-    in WSE, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="Valve"));
-  parameter Real lValveWSE2(min=1e-10, max=1) = 0.0001
-    "Valve 2 leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Valve"));
-  parameter Real kFixedWSE2(unit="", min=0) = if dpWSE2_nominal > Modelica.Constants.eps
-   then mWSE2_flow_nominal / sqrt(dpWSE2_nominal) else 0
-    "Flow coefficient of fixed resistance that may be in series with valve 2 
+  parameter Real[2] kFixedWSE(each unit="", each min=0)=
+    {mWSE1_flow_nominal,mWSE2_flow_nominal} ./ sqrt({dpWSE1_nominal,dpWSE2_nominal})
+    "Flow coefficient of fixed resistance that may be in series with valves 
     in WSE, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Valve"));
   parameter Real deltaM = 0.02
@@ -203,12 +200,8 @@ partial model PartialChillerWSE
     delta0=delta0)
      "Identical chillers"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Modelica.Blocks.Interfaces.BooleanInput on[nChi + 1]
-    "Set to true to enable equipment, or false to disable equipment"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput TSet
-    "Set point for leaving chilled water temperature"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
+  WatersideEconomizer wse "Waterside economizer"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   for i in 1:nChi loop
   connect(chiPar.on[i], on[i]) annotation (Line(points={{-42,4},{-92,4},{-92,40},
@@ -218,16 +211,16 @@ equation
             50},{6,50},{6,4},{18,4}},
         color={255,0,255}));
   end for;
-  connect(chiPar.TSet, TSet) annotation (Line(points={{-42,-4},{-70,-4},{-70,-20},
-          {-120,-20}}, color={0,0,127}));
+  connect(chiPar.TSet, TSet) annotation (Line(points={{-42,0},{-120,0}},
+                       color={0,0,127}));
   connect(port_a1, chiPar.port_a1) annotation (Line(points={{-100,60},{-80,60},
           {-80,48},{-60,48},{-60,6},{-40,6}}, color={0,127,255}));
   connect(chiPar.port_b1, port_b1) annotation (Line(points={{-20,6},{-10,6},{
           -10,60},{100,60}}, color={0,127,255}));
-  connect(port_a1, wse.port_a1) annotation (Line(points={{-100,60},{-80,60},{
-          -80,48},{0,48},{0,6},{20,6}}, color={0,127,255}));
-  connect(wse.port_b1, port_b1) annotation (Line(points={{40,6},{60,6},{60,60},
-          {100,60}}, color={0,127,255}));
+  connect(wse.port_b1, port_b1) annotation (Line(points={{40,6},{60,6},{60,60},{
+          100,60}}, color={0,127,255}));
+  connect(port_a1, wse.port_a1) annotation (Line(points={{-100,60},{-80,60},{-80,
+          48},{10,48},{10,6},{20,6}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialChillerWSE;
