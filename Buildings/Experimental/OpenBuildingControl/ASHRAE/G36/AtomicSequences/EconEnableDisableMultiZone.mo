@@ -136,7 +136,8 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
   CDL.Logical.LessEqualThreshold equ(final threshold=threshold)
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
   parameter Real threshold=0 "Comparison with respect to threshold";
-  CDL.Interfaces.IntegerInput uZoneState "Zone state input (0=Heating, 1=Deadband, 2=Cooling)"
+  CDL.Interfaces.IntegerInput uZoneState
+    "Zone state input (0=Heating, 1=Deadband, 2=Cooling)"
     annotation (Placement(transformation(extent={{-220,-70},{-180,-30}}), iconTransformation(extent={{-120,-10},{-100,10}})));
   CDL.Conversions.IntegerToReal intToRea1
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
