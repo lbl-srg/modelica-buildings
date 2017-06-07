@@ -42,7 +42,7 @@ Modelica Standard Library.
           lineColor={0,0,0},
           textString="k=%k"),
         Text(
-          extent={{-150,140},{150,100}},
+          extent={{-150,144},{150,104}},
           textString="%name",
           lineColor={0,0,255})}));
 end Gain;

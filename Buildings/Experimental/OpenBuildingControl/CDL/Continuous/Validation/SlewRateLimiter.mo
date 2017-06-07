@@ -1,6 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
 model SlewRateLimiter "Validation model for the SlewRateLimiter block"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.SlewRateLimiter sleRatLim(

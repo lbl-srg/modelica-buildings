@@ -144,5 +144,9 @@ First implementation.
         Text(
           extent={{42,-30},{92,-80}},
           lineColor={0,0,127},
-          textString="TRet")}));
+          textString="TRet"),
+        Text(
+          extent={{-150,150},{150,110}},
+          textString="%name",
+          lineColor={0,0,255})}));
 end HotWaterTemperatureReset;

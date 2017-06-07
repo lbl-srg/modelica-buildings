@@ -1,6 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Validation;
 model h_TDryBulPhi "Model to test the specific enthalpy computation"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.h_TDryBulPhi   hBulPhi

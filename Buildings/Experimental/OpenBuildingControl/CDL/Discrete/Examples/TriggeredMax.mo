@@ -19,14 +19,14 @@ model TriggeredMax "Example model for the TriggeredMax block"
     width = 0.5,
     period = 0.2)
     "Block that outputs cyclic on and off"
-    annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation
-  connect(booPul.y, triggeredMax.trigger) annotation (Line(points={{11,-38},{26,
-          -38},{26,-11.8},{40,-11.8}}, color={255,0,255}));
   connect(ramp1.y, sin1.u)
     annotation (Line(points={{-39,0},{-12,0},{-12,0}}, color={0,0,127}));
   connect(sin1.y, triggeredMax.u)
     annotation (Line(points={{11,0},{19.5,0},{28,0}}, color={0,0,127}));
+  connect(booPul.y, triggeredMax.trigger) annotation (Line(points={{11,-40},{26,
+          -40},{40,-40},{40,-11.8}}, color={255,0,255}));
   annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Discrete/Examples/TriggeredMax.mos"

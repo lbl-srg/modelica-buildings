@@ -65,7 +65,9 @@ model ScrollWaterToWater_VariableSpeed
       UAEva=4400,
       volRat=2,
       V_flow_nominal=0.003,
-      leaCoe=0.01))
+      leaCoe=0.01),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    enable_temperature_protection=false)
     "Scroll water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp N(

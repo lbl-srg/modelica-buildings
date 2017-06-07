@@ -41,7 +41,11 @@ equation
         Line(
           points={{-60,-14},{0,-14}},
           color={0,0,0},
-          thickness=0.5)}),
+          thickness=0.5),
+        Text(
+          extent={{-150,150},{150,110}},
+          textString="%name",
+          lineColor={0,0,255})}),
     Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if

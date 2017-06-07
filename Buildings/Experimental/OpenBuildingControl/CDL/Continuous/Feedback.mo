@@ -49,7 +49,7 @@ Modelica Standard Library.
                                         textString="-"),
         Text(
           lineColor={0,0,255},
-          extent={{-150,44},{150,94}},
+          extent={{-150,48},{150,98}},
           textString="%name"),
         Text(extent={{-100,-4},{-40,56}},
           textString="+",

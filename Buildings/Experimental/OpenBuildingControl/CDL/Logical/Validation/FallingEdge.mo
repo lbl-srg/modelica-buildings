@@ -25,8 +25,8 @@ equation
                                                     color={255,0,255}));
   connect(ramp2.y, triggeredSampler.u)
     annotation (Line(points={{21,50},{29.5,50},{38,50}}, color={0,0,127}));
-  connect(falEdg.y, triggeredSampler.trigger) annotation (Line(points={{21,0},{36,0},{36,
-          38.2},{50,38.2}}, color={255,0,255}));
+  connect(falEdg.y, triggeredSampler.trigger) annotation (Line(points={{21,0},{
+          36,0},{50,0},{50,38.2}}, color={255,0,255}));
   annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Logical/Validation/FallingEdge.mos"
