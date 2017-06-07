@@ -55,8 +55,8 @@ otherwise, <code>dy/dt = thr</code>.
 </p>
 <h4>Implementation</h4>
 <p>
-For the block to work with arbitrary inputs and in order to produce a differential output, 
-the input is numerically differentiated with derivative time constant <code>Td</code>. 
+For the block to work with arbitrary inputs and in order to produce a differential output,
+the input is numerically differentiated with derivative time constant <code>Td</code>.
 Smaller time constant <code>Td</code> means nearer ideal derivative.
 </p>
 
