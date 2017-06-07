@@ -2,24 +2,12 @@ within Buildings.ChillerWSE.BaseClasses;
 partial model PartialPlantParallel
   "Partial source plant model with replaceable valves"
   extends Buildings.ChillerWSE.BaseClasses.PartialPlantParallelInterface;
-  extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
-    final deltaM=(deltaM1+deltaM2)/2,
-    final m_flow_nominal=(m1_flow_nominal+m2_flow_nominal)/2,
-    final dpValve_nominal=(dpValve1_nominal+dpValve2_nominal)/2,
-    final rhoStd=Medium1.density_pTX(101325, 273.15+4, Medium1.X_default));
+  extends Buildings.ChillerWSE.BaseClasses.ValvesParameters(
+    nVal = 2,
+    m_flow_nominal = {m1_flow_nominal,m2_flow_nominal},
+    rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
+            Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)});
 
-  parameter Modelica.SIunits.PressureDifference dpValve1_nominal(
-    min=0,
-    displayUnit="Pa",
-    fixed= if CvData==Buildings.Fluid.Types.CvTypes.OpPoint then true else false)=6000
-    "Pressure difference for the valves"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpValve2_nominal(
-    min=0,
-    displayUnit="Pa",
-    fixed= if CvData==Buildings.Fluid.Types.CvTypes.OpPoint then true else false)=6000
-    "Pressure difference for the valves"
-    annotation(Dialog(group = "Nominal condition"));
   // Advanced
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
@@ -51,10 +39,9 @@ partial model PartialPlantParallel
     redeclare each replaceable package Medium = Medium2,
     each final allowFlowReversal=allowFlowReversal2,
     each final m_flow_nominal=m2_flow_nominal,
-    each final dpFixed_nominal=dp2_nominal,
+    each dpFixed_nominal=dp2_nominal,
     each final show_T=show_T,
     each final homotopyInitialization=homotopyInitialization,
-    each final rhoStd=rhoStd,
     each final riseTime=riseTimeValve,
     each final init=initValve,
     each final use_inputFilter=use_inputFilter,
@@ -62,13 +49,11 @@ partial model PartialPlantParallel
     each final l=l[2],
     each final kFixed=kFixed[2],
     final y_start=yValve2_start,
-    each final dpValve_nominal=dpValve2_nominal,
-    each final CvData=CvData,
-    each final Kv=Kv,
-    each final Cv=Cv,
-    each final Av=Av,
+    each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final from_dp=from_dp2,
-    each final linearized=linearizeFlowResistance2)
+    each final linearized=linearizeFlowResistance2,
+    each final rhoStd=rhoStd[2],
+    each final dpValve_nominal=dpValve_nominal[2])
     "Valves on medium 2 side for on/off use" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
@@ -77,10 +62,9 @@ partial model PartialPlantParallel
     redeclare each replaceable package Medium = Medium1,
     each final allowFlowReversal=allowFlowReversal1,
     each final m_flow_nominal=m1_flow_nominal,
-    each final dpFixed_nominal=dp1_nominal,
+    each dpFixed_nominal=dp1_nominal,
     each final show_T=show_T,
     each final homotopyInitialization=homotopyInitialization,
-    each final rhoStd=rhoStd,
     each final use_inputFilter=use_inputFilter,
     each final riseTime=riseTimeValve,
     each final init=initValve,
@@ -88,13 +72,11 @@ partial model PartialPlantParallel
     each final deltaM=deltaM1,
     each final l=l[1],
     each final kFixed=kFixed[1],
-    each final dpValve_nominal=dpValve1_nominal,
-    each final CvData=CvData,
-    each final Kv=Kv,
-    each final Cv=Cv,
-    each final Av=Av,
+    each final dpValve_nominal=dpValve_nominal[1],
+    each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final from_dp=from_dp1,
-    each final linearized=linearizeFlowResistance1)
+    each final linearized=linearizeFlowResistance1,
+    each final rhoStd=rhoStd[1])
     "Valves on medium 1 side for on/off use" annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},

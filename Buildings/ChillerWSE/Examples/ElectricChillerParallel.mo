@@ -21,7 +21,8 @@ model ElectricChillerParallel
     m2_flow_nominal=mCon_flow_nominal,
     dp1_nominal=6000,
     dp2_nominal=6000,
-    use_inputFilter=true)           "Identical chillers"
+    use_inputFilter=true,
+    dpValve_nominal={6000,6000})    "Identical chillers"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 equation
   connect(chiPar.port_b1, res1.port_a) annotation (Line(points={{10,16},{20,16},
@@ -36,8 +37,9 @@ equation
           90},{-16,13},{-12,13}}, color={255,0,255}));
   connect(greaterThreshold.y, chiPar.on[2]) annotation (Line(points={{-19,90},{-16,
           90},{-16,15},{-12,15}}, color={255,0,255}));
-  connect(TSet.y, chiPar.TSet) annotation (Line(points={{-59,60},{-28,60},{-28,6},
-          {-12,6}}, color={0,0,127}));
+  connect(TSet.y, chiPar.TSet) annotation (Line(points={{-59,60},{-28,60},{-28,
+          10},{-12,10}},
+                    color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ChillerWSE/Examples/ElectricChillerParallel.mos"

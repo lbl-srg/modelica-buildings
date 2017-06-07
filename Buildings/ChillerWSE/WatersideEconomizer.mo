@@ -1,7 +1,15 @@
 within Buildings.ChillerWSE;
 model WatersideEconomizer "Parallel heat exchangers"
   extends Buildings.ChillerWSE.BaseClasses.PartialPlantParallel(
-    final n=1);
+    final n=1,
+    final nVal=3,
+    final m_flow_nominal={m1_flow_nominal,m2_flow_nominal,m2_flow_nominal},
+    rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
+            Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
+            Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
+    final deltaM=deltaM2,
+    val2(each final dpFixed_nominal=0),
+    val1(each final dpFixed_nominal=dp1_nominal));
   extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface;
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1,
@@ -76,7 +84,10 @@ model WatersideEconomizer "Parallel heat exchangers"
     final fraK_BypVal=fraK_BypVal,
     each final l_BypVal=l_BypVal,
     final R=R,
-    final delta0=delta0)
+    final delta0=delta0,
+    final dpValve_nominal=dpValve_nominal[3],
+    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    final rhoStd=rhoStd[3])
     "Water-to-water heat exchanger"
     annotation (Placement(transformation(extent={{-10,-12},{10,4}})));
 equation
@@ -91,8 +102,9 @@ equation
   connect(booToRea.y, val1.y) annotation (Line(points={{-59,40},{-26,40},{20,40},
           {20,32},{28,32}}, color={0,0,127}));
 
-  connect(y_reset_in, heaExc.y_reset_in) annotation (Line(points={{-120,-50},{-80,
-          -50},{-80,-9},{-12,-9}}, color={0,0,127}));
+  connect(y_reset_in, heaExc.y_reset_in) annotation (Line(points={{-90,-100},{-90,
+          -100},{-90,-80},{-10,-80},{-10,-14}},
+                                   color={0,0,127}));
   connect(trigger, heaExc.trigger) annotation (Line(points={{-60,-100},{-60,-80},
           {-6,-80},{-6,-14}}, color={255,0,255}));
   connect(heaExc.port_b1, val1[1].port_a)

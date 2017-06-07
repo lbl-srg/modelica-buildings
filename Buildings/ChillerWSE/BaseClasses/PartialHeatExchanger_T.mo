@@ -6,8 +6,7 @@ partial model PartialHeatExchanger_T
    final computeFlowResistance1=(dp1_nominal > Modelica.Constants.eps),
    final computeFlowResistance2=(dp2_nominal > Modelica.Constants.eps));
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
-   final rhoStd=Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
-   final dpValve_nominal=dp2_nominal,
+   rhoStd=Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
    final m_flow_nominal=m2_flow_nominal,
    final deltaM=deltaM2);
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
@@ -62,12 +61,12 @@ partial model PartialHeatExchanger_T
     final massDynamics=massDynamics,
     final p_start=p_start,
     final T_start=T_start,
-    each final C_start=C_start,
-    each final C_nominal=C_nominal,
-    each final X_start=X_start,
+    final C_start=C_start,
+    final C_nominal=C_nominal,
+    final X_start=X_start,
     final y_start=yBypVal_start,
-    CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    each final l=l_BypVal)
+    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    final l=l_BypVal)
     "Bypass valve used to control the outlet temperature "
     annotation (Placement(transformation(extent={{-40,-30},{-60,-10}})));
 
