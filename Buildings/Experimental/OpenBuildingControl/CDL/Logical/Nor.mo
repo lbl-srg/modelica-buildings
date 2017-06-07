@@ -51,7 +51,7 @@ equation
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
           textString="%name")}),
-                               Documentation(info="<html>
+  Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if none of the inputs is <code>true</code>.
 Otherwise the output is <code>false</code>.

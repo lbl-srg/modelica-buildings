@@ -40,7 +40,7 @@ equation
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
           textString="%name")}),
-                             Documentation(info="<html>
+Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if the Real input is less than
 the parameter <code>threshold</code>.
