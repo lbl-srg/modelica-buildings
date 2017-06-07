@@ -341,7 +341,7 @@ class ManufacturerData(object):
         :param flowLoad: Fluid mass flow rate on the load side (kg/s).
         :param Capacity: Heat pump capacity (kW).
         :param HR: Heat transfer rate on the source side (kW).
-        :param Power: Power input ot the heat pump (kW).
+        :param Power: Power input to the heat pump (kW).
 
         """
         self.EWT_Source.append(EWT_Source)
@@ -497,7 +497,7 @@ class SimulationResults(object):
                           side (kg/s).
         :param Capacity: Array of heat pump capacity (W).
         :param HR: Array of heat transfer rate on the source side (W).
-        :param Power: Array of power input ot the heat pump (W).
+        :param Power: Array of power input to the heat pump (W).
         :param name: Name of the heat pump.
 
     """
