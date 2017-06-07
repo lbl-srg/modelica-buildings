@@ -7,4 +7,6 @@ PartialIntegratedPrimary
 PartialParallelElectricEIR
 PartialPlantParallel
 PartialPlantParallelInterface
+PartialOperationSequenceInterface
+ValvesParameters
 Examples
