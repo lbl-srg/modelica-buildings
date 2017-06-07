@@ -13,9 +13,9 @@ model EconEnableDisableMultiZone_TOut_hOut
 
   EconEnableDisableMultiZone econEnableDisableMultiZone
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  CDL.Continuous.Constant retDamPosMax(k=0.9) "Maximal allowed economizer damper position"
+  CDL.Continuous.Constant retDamPosMax(k=0.8) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
-  CDL.Continuous.Constant retDamPosMin(k=0.1) "Minimal allowed economizer damper position"
+  CDL.Continuous.Constant retDamPosMin(k=0)   "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
   CDL.Continuous.Constant retDamPhyPosMax(k=1) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
