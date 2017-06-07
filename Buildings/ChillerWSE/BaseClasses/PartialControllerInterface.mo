@@ -70,8 +70,12 @@ partial model PartialControllerInterface
   Modelica.Blocks.Interfaces.RealInput y_reset_in if
        reset == Buildings.Types.Reset.Input
     "Input signal for state to which integrator is reset, enabled if reset = Buildings.Types.Reset.Input"
-    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
-        iconTransformation(extent={{-140,-70},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-90,-100}),
+        iconTransformation(extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-100,-100})));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},
             {100,80}})),                                         Diagram(

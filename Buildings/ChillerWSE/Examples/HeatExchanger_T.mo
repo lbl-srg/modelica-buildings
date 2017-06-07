@@ -20,15 +20,15 @@ model HeatExchanger_T
     use_inputFilter=true,
     yBypVal_start=1,
     Ti=80,
-    k=0.4) "Water-to-water heat exchanger"
+    k=0.4,
+    dpValve_nominal=dp2_nominal)
+           "Water-to-water heat exchanger"
     annotation (Placement(transformation(extent={{-10,-8},{10,8}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium2,
     m_flow_nominal=m2_flow_nominal,
     T_start=273.15 + 10) "Temperature sensor"
     annotation (Placement(transformation(extent={{-20,-30},{-40,-10}})));
-  WatersideEconomizer watersideEconomizer
-    annotation (Placement(transformation(extent={{-82,-88},{-62,-68}})));
 equation
   connect(TSet.y, hx.TSet) annotation (Line(points={{-79,70},{-44,70},{-24,70},
           {-24,4},{-12,4}}, color={0,0,127}));

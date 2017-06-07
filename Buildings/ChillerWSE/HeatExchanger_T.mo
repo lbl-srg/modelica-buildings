@@ -41,8 +41,9 @@ equation
     annotation (Line(points={{-120,40},{-120,40},{-82,40}}, color={0,0,127}));
   connect(con.y, bypVal.y)
     annotation (Line(points={{-59,40},{-50,40},{-50,-8}}, color={0,0,127}));
-  connect(y_reset_in, con.y_reset_in) annotation (Line(points={{-120,-50},{-100,
-          -50},{-100,32},{-82,32}}, color={0,0,127}));
+  connect(y_reset_in, con.y_reset_in) annotation (Line(points={{-90,-100},{-90,
+          -100},{-90,-68},{-78,-68},{-78,20},{-88,20},{-88,32},{-82,32}},
+                                    color={0,0,127}));
   connect(trigger, con.trigger) annotation (Line(points={{-60,-100},{-60,-100},{
           -60,-40},{-78,-40},{-78,28}},color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},

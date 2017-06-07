@@ -31,9 +31,6 @@ partial model PartialChillerWSEInterface
   parameter Integer n(min=1)=2 "Number of chillers and WSE";
 
 
-
-
-
   Modelica.Blocks.Interfaces.RealInput TSet
     "Set point for leaving water temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
