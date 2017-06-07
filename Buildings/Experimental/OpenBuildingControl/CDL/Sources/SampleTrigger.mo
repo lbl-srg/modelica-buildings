@@ -47,7 +47,11 @@ equation
                else {235,235,235}),
           fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
                else {235,235,235}),
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          lineColor={0,0,255},
+          extent={{-150,110},{150,150}},
+          textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}})),

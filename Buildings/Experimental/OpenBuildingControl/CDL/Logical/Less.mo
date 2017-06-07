@@ -34,7 +34,12 @@ equation
         Line(points={{-100,-80},{42,-80},{42,0}}, color={0,0,127}),
         Line(
           points={{-6,18},{-50,-2},{-6,-20}},
-          thickness=0.5)}), Documentation(info="<html>
+          thickness=0.5),
+        Text(
+          extent={{-150,150},{150,110}},
+          lineColor={0,0,255},
+          textString="%name")}),
+                            Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if the Real input <code>u1</code>
 is less than the Real input <code>u2</code>.

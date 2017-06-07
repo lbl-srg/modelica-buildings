@@ -40,7 +40,11 @@ equation
         Text(
           extent={{-8,-4},{64,-52}},
           lineColor={192,192,192},
-          textString="sqrt")}),
+          textString="sqrt"),
+        Text(
+          extent={{-150,150},{150,110}},
+          textString="%name",
+          lineColor={0,0,255})}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}})),
     Documentation(info="<html>

@@ -84,5 +84,9 @@ Modelica Standard Library.
           points={{84,0},{62,8},{62,-8},{84,0}},
           lineColor={192,192,192},
           fillColor={192,192,192},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-150,150},{150,110}},
+          lineColor={0,0,255},
+          textString="%name")}));
 end ZeroCrossing;

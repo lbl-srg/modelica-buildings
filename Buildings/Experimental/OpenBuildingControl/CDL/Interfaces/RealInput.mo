@@ -6,7 +6,11 @@ connector RealInput = input Real "'input Real' as connector" annotation (
       lineColor={0,0,127},
       fillColor={0,0,127},
       fillPattern=FillPattern.Solid,
-      points={{-100.0,100.0},{100.0,0.0},{-100.0,-100.0}})},
+      points={{-100.0,100.0},{100.0,0.0},{-100.0,-100.0}}),
+    Text(
+      lineColor={0,0,127},
+      extent={{-100,100},{-100,140}},
+      textString="%name")},
     coordinateSystem(extent={{-100.0,-100.0},{100.0,100.0}},
       preserveAspectRatio=true,
       initialScale=0.2)),

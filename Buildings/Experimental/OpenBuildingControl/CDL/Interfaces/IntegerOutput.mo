@@ -8,7 +8,10 @@ connector IntegerOutput = output Integer "'output Integer' as connector"
         points={{-100,100},{100,0},{-100,-100},{-100,100}},
         lineColor={255,127,0},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}),
+        fillPattern=FillPattern.Solid), Text(
+        extent={{40,140},{40,100}},
+        lineColor={255,127,0},
+        textString="%name")}),
   Diagram(coordinateSystem(
       preserveAspectRatio=true,
       extent={{-100,-100},{100,100}}), graphics={Polygon(

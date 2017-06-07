@@ -50,7 +50,11 @@ equation
                else {235,235,235}),
           fillColor=DynamicSelect({235,235,235}, if u2 > 0.5 then {0,255,0}
                else {235,235,235}),
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-150,150},{150,110}},
+          textString="%name",
+          lineColor={0,0,255})}),
     Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if all inputs are <code>true</code>.

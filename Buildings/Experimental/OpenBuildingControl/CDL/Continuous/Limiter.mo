@@ -11,7 +11,8 @@ block Limiter "Limit the range of a signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
-  y = homotopy(actual = smooth(0, noEvent(if u > uMax then uMax else if u < uMin then uMin else u)), simplified=u);
+  y = homotopy(actual = smooth(0, noEvent(if u > uMax then uMax
+      else if u < uMin then uMin else u)), simplified=u);
    annotation (
 defaultComponentName="lim",
 Documentation(info="<html>

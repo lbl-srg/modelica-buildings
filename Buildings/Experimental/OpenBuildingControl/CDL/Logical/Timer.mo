@@ -47,7 +47,11 @@ annotation (
       Line(points={{-80.0,-70.0},{-60.0,-70.0},{-60.0,-26.0},{38.0,-26.0},{38.0,-70.0},{66.0,-70.0}},
         color={255,0,255}),
       Line(points={{-80.0,0.0},{-62.0,0.0},{40.0,90.0},{40.0,0.0},{68.0,0.0}},
-        color={0,0,127})}),
+        color={0,0,127}),
+        Text(
+          extent={{-150,150},{150,110}},
+          lineColor={0,0,255},
+          textString="%name")}),
     Documentation(info="<html>
 <p>
 Block that represents a timer.
