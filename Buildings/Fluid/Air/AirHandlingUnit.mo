@@ -110,13 +110,13 @@ model AirHandlingUnit
     final massDynamics=massDynamics,
     final from_dp=from_dp,
     final linearizeFlowResistance=linearized,
-    final deltaM=deltaMTurbulent,
     final tau=tauHum,
     final homotopyInitialization=homotopyInitialization,
     final dp_nominal=0,
     final m_flow_nominal=m2_flow_nominal,
     mWatMax_flow=dat.nomVal.mWat_flow_nominal,
-    each final X_start=X_start)
+    each final X_start=X_start,
+    final deltaM=deltaM)
     "Humidifier" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -130,14 +130,14 @@ model AirHandlingUnit
     final energyDynamics=energyDynamics,
     final from_dp=from_dp,
     final linearizeFlowResistance=linearized,
-    final deltaM=deltaMTurbulent,
     final tau=tauEleHea,
     final homotopyInitialization=homotopyInitialization,
     final dp_nominal=0,
     final QMax_flow=dat.nomVal.QHeater_nominal,
     final eta=dat.nomVal.etaHeater_nominal,
     final m_flow_nominal=m2_flow_nominal,
-    final T_start=T_start)
+    final T_start=T_start,
+    final deltaM=deltaM)
     "Electric heater" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
