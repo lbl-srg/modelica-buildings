@@ -3,8 +3,16 @@ partial model PartialAirHandlingUnit "Partial AHU model "
   extends Buildings.Fluid.Air.BaseClasses.PartialAirHandlingUnitInterface;
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
     final m_flow_nominal=m1_flow_nominal,
-    final dpValve_nominal=dat.nomVal.dpValve_nominal,
-    final rhoStd=Medium1.density_pTX(101325, 273.15+4, Medium1.X_default));
+    dpValve_nominal=dat.nomVal.dpValve_nominal,
+    final rhoStd=Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
+    final deltaM = deltaM2);
+  extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
+    final computeFlowResistance1=true,
+    final computeFlowResistance2=true,
+    final dp1_nominal = dat.nomVal.dpCoil1_nominal,
+    final dp2_nominal = dat.nomVal.dpCoil2_nominal +
+      dat.nomVal.dpHumidifier_nominal+dat.nomVal.dpHeater_nominal);
+
   // Cooling coil
   parameter Boolean waterSideFlowDependent=true
     "Set to false to make water-side hA independent of mass flow rate"
@@ -48,17 +56,12 @@ partial model PartialAirHandlingUnit "Partial AHU model "
   parameter Real l(min=1e-10, max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Valve"));
-  parameter Real kFixed(unit="", min=0)= 0
+  parameter Real kFixed(unit="", min=0) = m1_flow_nominal / sqrt(dp1_nominal)
     "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Valve"));
-  parameter Boolean from_dp = false
-    "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(tab="Advanced",group="Valve"));
+
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
-  parameter Boolean linearized = false
-    "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Evaluate=true, Dialog(tab="Advanced",group="Valve"));
 
   parameter Boolean use_inputFilterValve=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
@@ -139,7 +142,7 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
     final dp1_nominal=0,
-    dp2_nominal=dat.nomVal.dpCoil2_nominal)
+    final dp2_nominal=dp2_nominal)
     "Cooling coil"
     annotation (Placement(transformation(extent={{22,-12},{42,8}})));
   replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine fan(
@@ -170,21 +173,21 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     final allowFlowReversal=allowFlowReversal1,
     final show_T=show_T,
     redeclare final package Medium = Medium1,
-    final deltaM=deltaM,
     final l=l,
     final kFixed=kFixed,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    final from_dp=from_dp,
+    final from_dp=from_dp1,
     final homotopyInitialization=homotopyInitialization,
-    final linearized=linearized,
+    final linearized=linearizeFlowResistance1,
     final rhoStd=rhoStd,
     final use_inputFilter=use_inputFilterValve,
     final riseTime=riseTimeValve,
     final init=initValve,
     final y_start=yValve_start,
     final dpValve_nominal=dpValve_nominal,
-    final dpFixed_nominal=dat.nomVal.dpCoil1_nominal,
-    final m_flow_nominal=m_flow_nominal)
+    final m_flow_nominal=m_flow_nominal,
+    final deltaM=deltaM1,
+    final dpFixed_nominal=dp1_nominal)
     constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv
     "Two-way valve" annotation (
       Placement(transformation(

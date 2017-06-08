@@ -5,23 +5,23 @@ model AirHandlingUnit
       final allowFlowReversal=allowFlowReversal1,
       final show_T=show_T,
       redeclare final package Medium = Medium1,
-      final dpFixed_nominal=0,
-      final deltaM=deltaM,
+      final dpFixed_nominal=dp1_nominal,
       final l=l,
       final kFixed=kFixed,
       final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
       final R=R,
       final delta0=delta0,
-      final from_dp=from_dp,
+      final from_dp=from_dp1,
       final homotopyInitialization=homotopyInitialization,
-      final linearized=linearized,
+      final linearized=linearizeFlowResistance1,
       final rhoStd=rhoStd,
       final use_inputFilter=use_inputFilterValve,
       final riseTime=riseTimeValve,
       final init=initValve,
       final y_start=yValve_start,
       final dpValve_nominal=dpValve_nominal,
-      final m_flow_nominal=m_flow_nominal),
+      final m_flow_nominal=m_flow_nominal,
+      final deltaM=deltaM1),
     redeclare Buildings.Fluid.Movers.SpeedControlled_y fan(
       final per=dat.perCur,
       redeclare final package Medium = Medium2,
@@ -41,9 +41,7 @@ model AirHandlingUnit
       each final X_start=X_start,
       each final C_start=C_start,
       each final C_nominal=C_nominal,
-      final m_flow_small=m2_flow_small),
-    CooCoi(final dp2_nominal = dat.nomVal.dpCoil2_nominal +
-      dat.nomVal.dpHumidifier_nominal+dat.nomVal.dpHeater_nominal));
+      final m_flow_small=m2_flow_small));
 
   parameter Real R=50 "Rangeability, R=50...100 typically"
   annotation(Dialog(group="Valve"));
@@ -108,15 +106,15 @@ model AirHandlingUnit
     final m_flow_small=m2_flow_small,
     final show_T=show_T,
     final massDynamics=massDynamics,
-    final from_dp=from_dp,
-    final linearizeFlowResistance=linearized,
     final tau=tauHum,
     final homotopyInitialization=homotopyInitialization,
     final dp_nominal=0,
     final m_flow_nominal=m2_flow_nominal,
-    mWatMax_flow=dat.nomVal.mWat_flow_nominal,
+    final mWatMax_flow=dat.nomVal.mWat_flow_nominal,
     each final X_start=X_start,
-    final deltaM=deltaM)
+    final from_dp=from_dp2,
+    final linearizeFlowResistance=linearizeFlowResistance2,
+    final deltaM=deltaM2)
     "Humidifier" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -128,8 +126,6 @@ model AirHandlingUnit
     final show_T=show_T,
     final m_flow_small=m2_flow_small,
     final energyDynamics=energyDynamics,
-    final from_dp=from_dp,
-    final linearizeFlowResistance=linearized,
     final tau=tauEleHea,
     final homotopyInitialization=homotopyInitialization,
     final dp_nominal=0,
@@ -137,7 +133,9 @@ model AirHandlingUnit
     final eta=dat.nomVal.etaHeater_nominal,
     final m_flow_nominal=m2_flow_nominal,
     final T_start=T_start,
-    final deltaM=deltaM)
+    final from_dp=from_dp2,
+    final linearizeFlowResistance=linearizeFlowResistance2,
+    final deltaM=deltaM2)
     "Electric heater" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
