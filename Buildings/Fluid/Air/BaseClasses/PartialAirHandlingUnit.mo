@@ -138,8 +138,8 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     final energyDynamics=energyDynamics,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
-    final dp1_nominal=dat.nomVal.dpCoil1_nominal,
-    final dp2_nominal=dat.nomVal.dpCoil2_nominal)
+    final dp1_nominal=0,
+    dp2_nominal=dat.nomVal.dpCoil2_nominal)
     "Cooling coil"
     annotation (Placement(transformation(extent={{22,-12},{42,8}})));
   replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine fan(
@@ -162,7 +162,7 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     each final C_start=C_start,
     each final C_nominal=C_nominal,
     final m_flow_small=m2_flow_small,
-    m_flow_nominal=m1_flow_nominal)
+    final m_flow_nominal=m1_flow_nominal)
     constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine
     "Fan"
     annotation (Placement(transformation(extent={{-50,-70},{-70,-50}})));
@@ -173,7 +173,7 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     final deltaM=deltaM,
     final l=l,
     final kFixed=kFixed,
-    final CvData=CvData,
+    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final from_dp=from_dp,
     final homotopyInitialization=homotopyInitialization,
     final linearized=linearized,
@@ -183,11 +183,8 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     final init=initValve,
     final y_start=yValve_start,
     final dpValve_nominal=dpValve_nominal,
-    final dpFixed_nominal=0,
-    final m_flow_nominal=m_flow_nominal,
-    Kv=Kv,
-    Cv=Cv,
-    Av=Av)
+    final dpFixed_nominal=dat.nomVal.dpCoil1_nominal,
+    final m_flow_nominal=m_flow_nominal)
     constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv
     "Two-way valve" annotation (
       Placement(transformation(
