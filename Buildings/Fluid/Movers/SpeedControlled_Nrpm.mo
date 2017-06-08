@@ -61,17 +61,29 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
             Text(
-              visible = inputType == Buildings.Fluid.Types.InputType.Continuous,
-              extent={{20,126},{118,104}},
-              textString="Nrpm [rpm]"),
-            Text(
-          visible=inputType == Buildings.Fluid.Types.InputType.Constant,
-          extent={{-80,136},{78,102}},
-          lineColor={0,0,255},
-          textString="%speed"),
-        Text(extent={{52,70},{102,56}},
-          lineColor={0,0,127},
-          textString="N_rpm")}),
+              extent={{26,136},{124,114}},
+          textString="Nrpm [rpm]",
+          lineColor={0,0,127}),
+        Rectangle(
+          visible=use_inputFilter,
+          extent={{-34,40},{32,100}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          visible=use_inputFilter,
+          extent={{-34,100},{32,40}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Text(
+          visible=use_inputFilter,
+          extent={{-22,92},{20,46}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          textString="M",
+          textStyle={TextStyle.Bold})}),
     Documentation(info="<html>
 This model describes a fan or pump with prescribed speed in revolutions per minute.
 The head is computed based on the performance curve that take as an argument
