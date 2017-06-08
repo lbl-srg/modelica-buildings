@@ -41,7 +41,9 @@ model AirHandlingUnit
       each final X_start=X_start,
       each final C_start=C_start,
       each final C_nominal=C_nominal,
-      final m_flow_small=m2_flow_small));
+      final m_flow_small=m2_flow_small),
+    CooCoi(final dp2_nominal = dat.nomVal.dpCoil2_nominal +
+      dat.nomVal.dpHumidifier_nominal+dat.nomVal.dpHeater_nominal));
 
   parameter Real R=50 "Rangeability, R=50...100 typically"
   annotation(Dialog(group="Valve"));
@@ -50,7 +52,7 @@ model AirHandlingUnit
     annotation(Dialog(group="Valve"));
   // electric heater
   parameter Real deltaMTurbulent = 0.1
-    "Fraction of nominal flow rate where where flowrate transitions to laminar"
+    "Fraction of nominal flow rate where flowrate transitions to laminar"
     annotation(Dialog(group="Electric Heater",tab="Advanced"));
   parameter Modelica.SIunits.Time tauEleHea = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
@@ -93,7 +95,7 @@ model AirHandlingUnit
     "Set point temperature of the fluid that leaves port_b" annotation (
       Placement(transformation(extent={{-140,-30},{-100,10}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
-  Modelica.Blocks.Interfaces.RealInput XSet_w
+  Modelica.Blocks.Interfaces.RealInput XSet_w(unit="kg/kg")
     "Set point for water vapor mass fraction in kg/kg total air of the fluid that leaves port_b"
     annotation (Placement(transformation(extent={{-140,-4},{-100,36}}),
         iconTransformation(extent={{-120,16},{-100,36}})));
@@ -115,7 +117,7 @@ model AirHandlingUnit
     final deltaM=deltaMTurbulent,
     final tau=tauHum,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dat.nomVal.dpHumidifier_nominal,
+    final dp_nominal=0,
     final m_flow_nominal=m2_flow_nominal,
     mWatMax_flow=dat.nomVal.mWat_flow_nominal,
     each final X_start=X_start)
@@ -135,7 +137,7 @@ model AirHandlingUnit
     final deltaM=deltaMTurbulent,
     final tau=tauEleHea,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dat.nomVal.dpHeater_nominal,
+    final dp_nominal=0,
     final QMax_flow=dat.nomVal.QHeater_nominal,
     final eta=dat.nomVal.etaHeater_nominal,
     final m_flow_nominal=m2_flow_nominal,
