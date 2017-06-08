@@ -95,19 +95,19 @@ equation
       points={{-59,80},{-50,80},{-50,72}},
       color={0,0,127}));
   connect(m_flowSet.y, pump_m_flow.m_flow_in) annotation (Line(
-      points={{2.2,0},{-50.2,0},{-50.2,-8}},
+      points={{2.2,0},{-50,0},{-50,-8}},
       color={0,0,127}));
   connect(result.u1[1], pump_Nrpm.P) annotation (Line(
-      points={{18,-43},{-30,-43},{-30,68},{-39,68}},
+      points={{18,-43},{-30,-43},{-30,69},{-39,69}},
       color={0,0,127}));
   connect(result.u2[1], pump_dp.P) annotation (Line(
-      points={{18,-50},{-30,-50},{-30,28},{-39,28}},
+      points={{18,-50},{-30,-50},{-30,29},{-39,29}},
       color={0,0,127}));
   connect(result.u3[1], pump_m_flow.P) annotation (Line(
-      points={{18,-57},{-30,-57},{-30,-12},{-39,-12}},
+      points={{18,-57},{-30,-57},{-30,-11},{-39,-11}},
       color={0,0,127}));
   connect(dpSet.y, pump_dp.dp_in) annotation (Line(
-      points={{2.2,40},{-50.2,40},{-50.2,32}},
+      points={{2.2,40},{-50,40},{-50,32}},
       color={0,0,127}));
   annotation (    experiment(Tolerance=1e-6, StopTime=200),
     __Dymola_Commands(file=
