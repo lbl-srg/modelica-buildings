@@ -50,10 +50,6 @@ model AirHandlingUnit
   parameter Real delta0=0.01
     "Range of significant deviation from equal percentage law"
     annotation(Dialog(group="Valve"));
-  // electric heater
-  parameter Real deltaMTurbulent = 0.1
-    "Fraction of nominal flow rate where flowrate transitions to laminar"
-    annotation(Dialog(group="Electric Heater",tab="Advanced"));
   parameter Modelica.SIunits.Time tauEleHea = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
      annotation (Dialog(tab = "Dynamics", group="Electric Heater"));
