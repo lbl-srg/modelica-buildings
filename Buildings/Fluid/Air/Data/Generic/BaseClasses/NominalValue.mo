@@ -29,7 +29,7 @@ record NominalValue "Nominal conditions for air handling units"
   parameter Modelica.SIunits.PressureDifference dpCoil2_nominal(min=0,displayUnit="Pa")
     "Nominal pressure difference in the coil"
     annotation (Dialog(group="Cooling Coil"));
-  parameter Modelica.SIunits.ThermalConductance UA_nominal=m1_flow_nominal*1006*(T_b2_nominal-T_a2_nominal)/
+  parameter Modelica.SIunits.ThermalConductance UA_nominal=m2_flow_nominal*1006*(T_b2_nominal-T_a2_nominal)/
      Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1_nominal,
         T_b1_nominal,
