@@ -4,9 +4,9 @@ model ReheatControl "Electric heater on/off controller"
 
   parameter Real y1Low(min=0, max=1, unit="1") "if y1=true and y1<=y1Low, switch to y1=false";
   parameter Real y1Hig(min=0, max=1, unit="1") "if y1=false and y1>=y1High, switch to y1=true";
-  parameter Modelica.SIunits.TemperatureDifference y2Low(displayUnit="degC")
+  parameter Modelica.SIunits.TemperatureDifference y2Low
   "if y2=true and y2<=y2Low, switch to y2=false";
-  parameter Modelica.SIunits.TemperatureDifference y2Hig(displayUnit="degC")
+  parameter Modelica.SIunits.TemperatureDifference y2Hig
   "if y2=false and y2>=y2High, switch to y2=true";
   parameter Boolean pre_start1=true "Value of pre(y1) at initial time";
   parameter Boolean pre_start2=true "Value of pre(y2) at initial time";

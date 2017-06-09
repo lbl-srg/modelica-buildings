@@ -69,14 +69,10 @@ model AirHandlingUnit
   parameter Real y1Hig(min=0, max=1, unit="1")= 0.05
   "if y1=false and y1>=y1High, switch to y1=true"
   annotation(Dialog(group="Reheater Controller"));
-  parameter Modelica.SIunits.TemperatureDifference y2Low(
-    unit="K",
-    displayUnit="degC")=-0.1
+  parameter Modelica.SIunits.TemperatureDifference y2Low= -0.1
   "if y2=true and y2<=y2Low, switch to y2=false"
   annotation(Dialog(group="Reheater Controller"));
-  parameter Modelica.SIunits.TemperatureDifference y2Hig(
-    unit="K",
-    displayUnit="degC")= 0.1
+  parameter Modelica.SIunits.TemperatureDifference y2Hig = 0.1
   "if y2=false and y2>=y2High, switch to y2=true"
   annotation(Dialog(group="Reheater Controller"));
   parameter Boolean pre_start1=true "Value of pre(y1) at initial time"
@@ -104,7 +100,7 @@ model AirHandlingUnit
     "Error between actual valve position and minimum valve position"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
 
-  Humidifiers.SteamHumidifier_X               hum(
+  Humidifiers.SteamHumidifier_X hum(
     redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal2,
     final m_flow_small=m2_flow_small,

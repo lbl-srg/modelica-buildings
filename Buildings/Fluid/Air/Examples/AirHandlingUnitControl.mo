@@ -49,8 +49,8 @@ model AirHandlingUnitControl
 equation
   connect(ahu.port_a2, sou_2.ports[1]) annotation (Line(points={{66,24},{80,24},
           {80,10},{154,10}}, color={0,127,255}));
-  connect(uFan.y, ahu.uFan) annotation (Line(points={{21,-30},{30,-30},{30,27},{
-          45,27}}, color={0,0,127}));
+  connect(uFan.y, ahu.uFan) annotation (Line(points={{21,-30},{30,-30},{30,26},
+          {45,26}},color={0,0,127}));
   connect(ahu.port_b2, temSenAir2.port_a) annotation (Line(points={{46,24},{-12,
           24},{-12,10},{-26,10}}, color={0,127,255}));
   connect(temSenWat1.port_b, ahu.port_a1) annotation (Line(points={{-20,50},{
@@ -59,12 +59,12 @@ equation
     annotation (Line(points={{-49,90},{-25.5,90},{-2,90}}, color={0,0,127}));
   connect(temSenAir2.T, PID.u_m) annotation (Line(points={{-36,21},{-36,28},{10,
           28},{10,78}}, color={0,0,127}));
-  connect(PID.y, ahu.uWatVal) annotation (Line(points={{21,90},{32,90},{32,35},
-          {45,35}}, color={0,0,127}));
+  connect(PID.y, ahu.uWatVal) annotation (Line(points={{21,90},{32,90},{32,34},
+          {45,34}}, color={0,0,127}));
   connect(masFraSet.y, ahu.XSet_w) annotation (Line(points={{-19,-70},{32,-70},
-          {32,32.6},{45,32.6}}, color={0,0,127}));
+          {32,31},{45,31}},     color={0,0,127}));
   connect(TSet.y, ahu.TSet) annotation (Line(points={{-49,90},{-10,90},{-10,60},
-          {30,60},{30,30},{45,30}}, color={0,0,127}));
+          {30,60},{30,29},{45,29}}, color={0,0,127}));
   connect(ahu.port_b1, temSenWat2.port_a) annotation (Line(points={{66,36},{80,
           36},{80,50},{96,50}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,-100},
