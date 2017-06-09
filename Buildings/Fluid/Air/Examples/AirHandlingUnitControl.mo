@@ -68,7 +68,7 @@ equation
           36},{80,50},{96,50}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
             -100},{260,160}})),
-experiment(StopTime=1200),
+experiment(Tolerance=1E-6, StopTime=1200),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Air/Examples/AirHandlingUnitControl.mos"
         "Simulate and PLot"),
@@ -76,9 +76,9 @@ Documentation(info="<html>
 <p>
 This model demonstrates the use of
 <a href=\"modelica://Buildings.Fluid.Air.AirHandlingUnit\">
-Buildings.Fluid.Air.AirHandlingUnit</a>. The valve on the water-side and 
+Buildings.Fluid.Air.AirHandlingUnit</a>. The valve on the water-side and
 the electric heater on the air-side is regulated to track a setpoint temperature
-for the air outlet. The humidifier on the air-side is manipulated to control the humidity 
+for the air outlet. The humidifier on the air-side is manipulated to control the humidity
 of the air outlet.
 </p>
 </html>", revisions="<html>

@@ -63,7 +63,7 @@ equation
           60},{80,32},{74,32}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})),
-experiment(StopTime=1000),
+experiment(Tolerance=1E-6, StopTime=1000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Air/Examples/AirHandlingUnitMassFlow.mos"
         "Simulate and PLot"),
 Documentation(info="<html>
