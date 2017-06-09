@@ -50,20 +50,20 @@ equation
         points={{-119,70},{-50,70},{-50,14},{19,14}}, color={0,0,127}));
   connect(FreProSta.y, econEnableDisableMultiZone.uFreProSta) annotation (Line(
         points={{-79,50},{-20,50},{-20,12},{19,12}}, color={255,127,0}));
-  connect(outDamPosMax.y, econEnableDisableMultiZone.uOutDamPosMax) annotation
-    (Line(points={{-119,-30},{-50,-30},{-50,8},{19,8}}, color={0,0,127}));
-  connect(outDamPosMin.y, econEnableDisableMultiZone.uOutDamPosMin) annotation
-    (Line(points={{-119,-70},{-110,-70},{-110,-40},{-40,-40},{-40,6},{19,6}},
+  connect(outDamPosMax.y, econEnableDisableMultiZone.uOutDamPosMax) annotation (
+     Line(points={{-119,-30},{-50,-30},{-50,8},{19,8}}, color={0,0,127}));
+  connect(outDamPosMin.y, econEnableDisableMultiZone.uOutDamPosMin) annotation (
+     Line(points={{-119,-70},{-110,-70},{-110,-40},{-40,-40},{-40,6},{19,6}},
         color={0,0,127}));
   connect(retDamPhyPosMax.y, econEnableDisableMultiZone.uRetDamPhyPosMax)
     annotation (Line(points={{-39,-70},{-10,-70},{-10,4},{19,4}}, color={0,0,
           127}));
-  connect(retDamPosMax.y, econEnableDisableMultiZone.uRetDamPosMax) annotation
-    (Line(points={{-39,-110},{-6,-110},{-6,2},{19,2}}, color={0,0,127}));
-  connect(retDamPosMin.y, econEnableDisableMultiZone.uRetDamPosMin) annotation
-    (Line(points={{-39,-150},{-2,-150},{-2,0},{19,0}}, color={0,0,127}));
+  connect(retDamPosMax.y, econEnableDisableMultiZone.uRetDamPosMax) annotation (
+     Line(points={{-39,-110},{-6,-110},{-6,2},{19,2}}, color={0,0,127}));
+  connect(retDamPosMin.y, econEnableDisableMultiZone.uRetDamPosMin) annotation (
+     Line(points={{-39,-150},{-2,-150},{-2,0},{19,0}}, color={0,0,127}));
   connect(econEnableDisableMultiZone.uZoneState, ZoneState.y)
-    annotation (Line(points={{19,10},{-79,10},{-79,10}}, color={255,127,0}));
+    annotation (Line(points={{19,10},{-79,10}},          color={255,127,0}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisable_TOut.mos"

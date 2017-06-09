@@ -224,12 +224,6 @@ equation
           points={{-2,60},{78,60}},
           color={28,108,200},
           thickness=0.5),
-        Text(
-          extent={{104,110},{432,82}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="yOutDamPosMax"),
         Line(
           points={{-82,-64},{-2,-64},{-2,60}},
           color={28,108,200},
@@ -237,49 +231,7 @@ equation
         Text(
           extent={{-164,154},{164,116}},
           lineColor={85,0,255},
-          textString="EnableDisable"),
-        Text(
-          extent={{68,32},{468,4}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="yRetDamPosMax"),
-        Text(
-          extent={{-240,104},{88,76}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="T"),
-        Text(
-          extent={{-238,64},{90,36}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="h"),
-        Text(
-          extent={{-148,-16},{180,-44}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="OutDamPos"),
-        Text(
-          extent={{-148,-62},{180,-90}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="RetDamPos"),
-        Text(
-          extent={{-196,24},{132,-4}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="FrePro"),
-        Text(
-          extent={{64,-28},{464,-56}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="yRetDamPosMin")}),
+          textString="EnableDisable")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-180,-320},{180,240}},
