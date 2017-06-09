@@ -1,6 +1,5 @@
 within Buildings.Fluid.Air.BaseClasses;
 model ElectricHeater "Model for electric heater"
-  //extends Buildings.Fluid.HeatExchangers.Heater_T;
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
@@ -22,7 +21,7 @@ model ElectricHeater "Model for electric heater"
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  Modelica.Blocks.Interfaces.RealOutput Q_flow(quantity="HeatFlowRate",unit="W")
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(quantity="HeatFlowRate", unit="W")
     "Heat flow rate added to the fluid (if flow is from port_a to port_b)"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput P(quantity="Power", unit="W") "Power"
@@ -30,12 +29,14 @@ model ElectricHeater "Model for electric heater"
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable heater, or false to disable heater"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
-  Modelica.Blocks.Interfaces.RealInput TSet(unit="K",displayUnit="degC")
+  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
     "Set point temperature of the fluid that leaves port_b"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+
+protected
   Modelica.Blocks.Logical.Switch swi "Swich for temperature setpoint"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-protected
+
   Modelica.Blocks.Sources.Constant zer(final k=0) "Zero signal"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 

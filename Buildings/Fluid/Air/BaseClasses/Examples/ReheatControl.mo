@@ -41,8 +41,7 @@ equation
           {-22,-56}}, color={0,0,127}));
   connect(add2.y, heaCon.y2) annotation (Line(points={{1,-50},{20,-50},{20,-5},{
           38,-5}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+  annotation (experiment(Tolerance=1e-6, StopTime=100),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Air/BaseClasses/Examples/ReheatControl.mos"
         "Simulate and Plot"),

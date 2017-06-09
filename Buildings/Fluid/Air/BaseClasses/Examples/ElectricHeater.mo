@@ -33,8 +33,7 @@ equation
           {-30,-16},{-30,-32},{-22,-32}}, color={0,0,127}));
   connect(onOff.y,eleHea.on)  annotation (Line(points={{-59,-88},{-36,-88},{-36,
           -37},{-22,-37}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+  annotation (experiment(Tolerance=1e-6, StopTime=172800),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Air/BaseClasses/Examples/ElectricHeater.mos"
         "Simulate and Plot"),
