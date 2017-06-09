@@ -4,16 +4,15 @@ model AirHandlingUnitControl
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Air.Examples.BaseClasses.PartialAirHandlerControl(
     relHum(k=0.5),
-    sou_1(p(displayUnit="bar") = 500000),
+    sou_1(p = 500000),
     sou_2(nPorts=1),
     masFra(redeclare package Medium = Medium2),
     TSet(table=[0,288.15 + 1; 600,288.15 + 1; 600,288.15 + 1; 1200,288.15 + 1;
           1800,288.15 + 1; 2400,288.15 + 1; 2400,288.15 + 1]),
-    TWat(startTime(displayUnit="min") = 600, height=-2),
-    sin_1(p(displayUnit="bar")));
+    TWat(startTime = 600, height=-2));
 
   parameter Real yMinVal(min=0, max=1, unit="1")=0.4
-  "Minimum valve position when valve is controled to maintain outlet water temperature";
+  "Minimum valve position when valve is controlled to maintain outlet water temperature";
 
   Buildings.Fluid.Air.AirHandlingUnit ahu(
     redeclare package Medium1 = Medium1,
@@ -67,9 +66,9 @@ equation
           {30,60},{30,29},{45,29}}, color={0,0,127}));
   connect(ahu.port_b1, temSenWat2.port_a) annotation (Line(points={{66,36},{80,
           36},{80,50},{96,50}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,-100},
-            {220,160}})),
-experiment(StopTime=3600),
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
+            -100},{260,160}})),
+experiment(StopTime=1200),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Air/Examples/AirHandlingUnitControl.mos"
         "Simulate and PLot"),
