@@ -1,5 +1,7 @@
 within Buildings.Fluid.Air.BaseClasses;
 model ReheatControl "Electric heater on/off controller"
+  extends Modelica.Blocks.Icons.PartialBooleanBlock;
+
   parameter Real y1Low(min=0, max=1, unit="1") "if y1=true and y1<=y1Low, switch to y1=false";
   parameter Real y1Hig(min=0, max=1, unit="1") "if y1=false and y1>=y1High, switch to y1=true";
   parameter Modelica.SIunits.TemperatureDifference y2Low(displayUnit="degC")
@@ -52,12 +54,46 @@ equation
     annotation (Line(points={{61,0},{110,0}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255}),
-                                 Text(
-          extent={{-151,147},{149,107}},
-          lineColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255},
-          textString="%name")}),                                 Diagram(
+                                           Line(points={{-61,65},{-61,-83}},
+          color={192,192,192}),Line(points={{-86,-72},{86,-72}}, color={192,
+          192,192}),        Line(
+            points={{-76,-72},{34,-72}},
+            thickness=0.5),Line(
+            points={{-46,8},{84,8}},
+            thickness=0.5),Line(
+            points={{-46,8},{-46,-72}},
+            thickness=0.5),Line(
+            points={{34,8},{34,-72}},
+            thickness=0.5),Line(
+            points={{-6,-67},{4,-72},{-6,-77}},
+            thickness=0.5),Line(
+            points={{-6,13},{-16,8},{-6,3}},
+            thickness=0.5),Line(
+            points={{-51,-22},{-46,-32},{-40,-22}},
+            thickness=0.5),Line(
+            points={{29,-32},{34,-21},{39,-32}},
+            thickness=0.5),Text(
+            extent={{-95,0},{-66,16}},
+            lineColor={160,160,164},
+            textString="true"), Text(
+            extent={{23,-89},{48,-72}},
+            lineColor={0,0,0},
+            textString="uHigh"),
+                               Line(points={{-65,8},{-56,8}},   color={160,
+          160,164}),           Text(
+            extent={{-94,-89},{-62,-75}},
+            lineColor={160,160,164},
+            textString="false"),
+                    Polygon(
+            points={{94,-72},{72,-64},{72,-80},{94,-72}},
+            lineColor={192,192,192},
+            fillColor={192,192,192},
+            fillPattern=FillPattern.Solid),
+                                  Polygon(
+            points={{-61,87},{-69,65},{-53,65},{-61,87}},
+            lineColor={192,192,192},
+            fillColor={192,192,192},
+            fillPattern=FillPattern.Solid)}),                    Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>This model can be used to generate on/off signal for the reheater inside the AHU.</p>

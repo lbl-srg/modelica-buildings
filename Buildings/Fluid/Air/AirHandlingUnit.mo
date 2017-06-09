@@ -63,16 +63,20 @@ model AirHandlingUnit
   annotation(Dialog(group="Valve"));
 
   // parameters for heater controller
-  parameter Real y1Low(min=0,max=1,unit="1")= 0
+  parameter Real y1Low(min=0, max=1, unit="1")= 0
   "if y1=true and y1<=y1Low, switch to y1=false"
   annotation(Dialog(group="Reheater Controller"));
-  parameter Real y1Hig(min=0,max=1,unit="1")= 0.05
+  parameter Real y1Hig(min=0, max=1, unit="1")= 0.05
   "if y1=false and y1>=y1High, switch to y1=true"
   annotation(Dialog(group="Reheater Controller"));
-  parameter Modelica.SIunits.TemperatureDifference y2Low(displayUnit="degC")=-0.1
+  parameter Modelica.SIunits.TemperatureDifference y2Low(
+    unit="K",
+    displayUnit="degC")=-0.1
   "if y2=true and y2<=y2Low, switch to y2=false"
   annotation(Dialog(group="Reheater Controller"));
-  parameter Modelica.SIunits.TemperatureDifference y2Hig(displayUnit="degC")= 0.1
+  parameter Modelica.SIunits.TemperatureDifference y2Hig(
+    unit="K",
+    displayUnit="degC")= 0.1
   "if y2=false and y2>=y2High, switch to y2=true"
   annotation(Dialog(group="Reheater Controller"));
   parameter Boolean pre_start1=true "Value of pre(y1) at initial time"
@@ -87,18 +91,18 @@ model AirHandlingUnit
         origin={18,-110})));
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K")
     "Set point temperature of the fluid that leaves port_b" annotation (
-      Placement(transformation(extent={{-140,-30},{-100,10}}),
-        iconTransformation(extent={{-120,-10},{-100,10}})));
+      Placement(transformation(extent={{-140,-40},{-100,0}}),
+        iconTransformation(extent={{-120,-20},{-100,0}})));
   Modelica.Blocks.Interfaces.RealInput XSet_w(unit="kg/kg")
     "Set point for water vapor mass fraction in kg/kg total air of the fluid that leaves port_b"
-    annotation (Placement(transformation(extent={{-140,-4},{-100,36}}),
-        iconTransformation(extent={{-120,16},{-100,36}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-120,0},{-100,20}})));
   Modelica.Blocks.Sources.RealExpression e2(y=T_inflow_hea - TSet)
     "Error between inlet temperature and temperature setpoint of the reheater"
-    annotation (Placement(transformation(extent={{-76,-6},{-56,14}})));
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Modelica.Blocks.Sources.RealExpression e1(y=y_valve - yMinVal)
     "Error between actual valve position and minimum valve position"
-    annotation (Placement(transformation(extent={{-76,12},{-56,32}})));
+    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
 
   Humidifiers.SteamHumidifier_X               hum(
     redeclare final package Medium = Medium2,
@@ -118,8 +122,8 @@ model AirHandlingUnit
     "Humidifier" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
-        rotation=270,
-        origin={12,-30})));
+        rotation=180,
+        origin={20,-60})));
   Buildings.Fluid.Air.BaseClasses.ElectricHeater eleHea(
     redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal2,
@@ -153,40 +157,44 @@ model AirHandlingUnit
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
 protected
-  Medium2.Temperature T_inflow_hea "Temperature of inflowing fluid at port_a of reheater";
+  Medium2.Temperature T_inflow_hea = Medium2.temperature(
+    state=Medium2.setState_phX(
+      p=eleHea.port_a.p,
+      h=inStream(eleHea.port_a.h_outflow),
+      X=inStream(eleHea.port_a.Xi_outflow)))
+      "Temperature of inflowing fluid at port_a of reheater";
 
 equation
-    T_inflow_hea = Medium2.temperature(state=Medium2.setState_phX(
-      p=eleHea.port_a.p, h=inStream(eleHea.port_a.h_outflow), X=inStream(eleHea.port_a.Xi_outflow)));
+
   connect(TSet, eleHea.TSet)
-  annotation (Line(points={{-120,-10},{-80,-10},{-80, -32},{-6,-32},{-6,-52},{-10,-52}},
+  annotation (Line(points={{-120,-20},{-88,-20},{-88,-40},{-4,-40},{-4,-52},{-10,
+          -52}},
   color={0,0,127}));
-  connect(XSet_w, hum.X_w) annotation (Line(points={{-120,16},{-80,16},{-80,-32},
-          {-6,-32},{-6,-12},{6,-12},{6,-18}},
+  connect(XSet_w, hum.X_w) annotation (Line(points={{-120,0},{-80,0},{-80,-20},{
+          -4,-20},{-4,-20},{32,-20},{32,-54}},
                  color={0,0,127}));
   connect(fan.port_a, eleHea.port_b) annotation (Line(points={{-50,-60},{-41,-60},
           {-32,-60}}, color={0,127,255}));
   connect(eleHea.port_a, hum.port_b)
-    annotation (Line(points={{-12,-60},{12,-60},{12,-40}}, color={0,127,255}));
+    annotation (Line(points={{-12,-60},{10,-60}},          color={0,127,255}));
   connect(hum.port_a, cooCoi.port_b2)
-    annotation (Line(points={{12,-20},{12,-8},{22,-8}}, color={0,127,255}));
-  connect(eleHea.P, PHea) annotation (Line(points={{-33,-66},{-40,-66},{-40,-80},
-          {18,-80},{18,-110}}, color={0,0,127}));
+    annotation (Line(points={{30,-60},{30,-60},{40,-60},{40,32},{10,32},{10,48},
+          {22,48}},                                     color={0,127,255}));
+  connect(eleHea.P, PHea) annotation (Line(points={{-33,-66},{-40,-66},{-40,-76},
+          {18,-76},{18,-110}}, color={0,0,127}));
   connect(uFan,fan.y)
-    annotation (Line(points={{-120,-40},{-120,-48},{-59.8,-48}},color={0,0,127}));
+    annotation (Line(points={{-120,-50},{-120,-48},{-60,-48}},  color={0,0,127}));
   connect(heaCon.y,eleHea.on)  annotation (Line(points={{-19,10},{0,10},{0,-57},
           {-10,-57}}, color={255,0,255}));
   connect(e2.y, heaCon.y2)
-    annotation (Line(points={{-55,4},{-42,4},{-42,5}}, color={0,0,127}));
-  connect(e1.y, heaCon.y1) annotation (Line(points={{-55,22},{-52,22},{-52,15},{
-          -42,15}}, color={0,0,127}));
+    annotation (Line(points={{-49,0},{-46,0},{-46,4},{-42,4},{-42,5}},
+                                                       color={0,0,127}));
+  connect(e1.y, heaCon.y1) annotation (Line(points={{-49,20},{-46,20},{-46,20},{
+          -46,15},{-44,15},{-42,15}},
+                    color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
-      Diagram(coordinateSystem(preserveAspectRatio=false),
-        graphics={Text(extent={{54,70},{80,64}},lineColor={0,0,255},
-                     textString="Waterside",textStyle={TextStyle.Bold}),
-                 Text(extent={{58,-64},{84,-70}},lineColor={0,0,255},
-                     textString="Airside",textStyle={TextStyle.Bold})}),
+      Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
     <p>This model can represent a typical air handler with a cooling coil, a variable-speed fan, 
     a humidifier and an electric reheater. The heating coil is not included in this model. </p>
