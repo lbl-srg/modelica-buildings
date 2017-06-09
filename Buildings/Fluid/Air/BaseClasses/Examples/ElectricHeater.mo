@@ -11,9 +11,9 @@ model ElectricHeater "Test model for ElectricHeater"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     QMax_flow=Q_flow_nominal,
-    eta=1.0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp_nominal=1000)
+    dp_nominal=1000,
+    eta=0.95)
     "Electric heater"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
    Buildings.Controls.SetPoints.Table tab(table=[0,273.15 + 15; 1,273.15 + 30])

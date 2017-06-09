@@ -1,7 +1,7 @@
 within Buildings.Fluid.Air.BaseClasses;
 model ReheatControl "Electric heater on/off controller"
-  parameter Real y1Low(min=0,max=1,unit="1") "if y1=true and y1<=y1Low, switch to y1=false";
-  parameter Real y1Hig(min=0,max=1,unit="1") "if y1=false and y1>=y1High, switch to y1=true";
+  parameter Real y1Low(min=0, max=1, unit="1") "if y1=true and y1<=y1Low, switch to y1=false";
+  parameter Real y1Hig(min=0, max=1, unit="1") "if y1=false and y1>=y1High, switch to y1=true";
   parameter Modelica.SIunits.TemperatureDifference y2Low(displayUnit="degC")
   "if y2=true and y2<=y2Low, switch to y2=false";
   parameter Modelica.SIunits.TemperatureDifference y2Hig(displayUnit="degC")
@@ -24,15 +24,15 @@ model ReheatControl "Electric heater on/off controller"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Modelica.Blocks.Logical.Hysteresis hys1(
-    pre_y_start=pre_start1,
-    uLow=y1Low,
-    uHigh=y1Hig)
+    final pre_y_start=pre_start1,
+    final uLow=y1Low,
+    final uHigh=y1Hig)
     "Hysteresis for signal 1"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Logical.Hysteresis hys2(
-    pre_y_start=pre_start2,
-    uLow=y2Low,
-    uHigh=y2Hig)
+    final pre_y_start=pre_start2,
+    final uLow=y2Low,
+    final uHigh=y2Hig)
     "Hysteresis for signal 2"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Modelica.Blocks.Logical.Nor nor
