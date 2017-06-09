@@ -1,18 +1,18 @@
-simulateModel("Buildings.Fluid.Air.Examples.AirHandlingUnitControl", stopTime=1200, method="dassl", tolerance=1e-05, resultFile="AirHandlingUnitControl");
+simulateModel("Buildings.Fluid.Air.Examples.AirHandlingUnitControl", stopTime=1200, method="dassl", tolerance=1e-06, resultFile="AirHandlingUnitControl");
 removePlots();
-createPlot(id=1, 
-  position={24, 9, 592, 648}, 
-  y={"ahu.port_a1.m_flow", "ahu.port_a2.m_flow"}, 
+createPlot(id=1,
+  position={24, 9, 592, 648},
+  y={"ahu.port_a1.m_flow", "ahu.port_a2.m_flow"},
   range={0.0, 65.0, -1.0, 4.0},
   grid=true,
   filename="AirHandlingUnitControl.mat",
   colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, 
-  position={24, 9, 592, 214}, 
-  y={"temSenWat1.T", "temSenWat2.T"}, 
+createPlot(id=1,
+  position={24, 9, 592, 214},
+  y={"temSenWat1.T", "temSenWat2.T"},
   range={0.0, 65.0, 5.0, 25.0},
-  grid=true, 
-  subPlot=2, 
+  grid=true,
+  subPlot=2,
   colors={{28,108,200}, {238,46,47}});
 createPlot(id=1,
   position={24, 9, 592, 213},
@@ -44,5 +44,5 @@ createPlot(id=2,
   y={"masFraSet.y", "masFra.X"},
   range={0.0, 65.0, 0.0085, 0.0105},
   grid=true,
-  subPlot=4, 
+  subPlot=4,
   colors={{28,108,200}, {238,46,47}});
