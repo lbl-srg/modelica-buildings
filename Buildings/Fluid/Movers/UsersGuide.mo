@@ -301,6 +301,21 @@ This loss of accuracy has the advantage that it allows to use the
 mover models without requiring flow and efficiency/power characteristics.
 </p>
 <p>
+The model <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+Buildings.Fluid.Movers.FlowControlled_dp</a>
+has an option to control the mover such
+that the pressure difference set point is obtained
+across two remote points in the system.
+To use this functionality 
+parameter <code>prescribeSystemPressure</code> has
+to be enabled and a differential pressure measurement 
+must be connected to
+the pump input <code>dpMea</code>.
+This functionality is demonstrated in 
+<a href=\"Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem\">
+Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
+</p>
+<p>
 The models <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
 Buildings.Fluid.Movers.FlowControlled_dp</a> and
 <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
