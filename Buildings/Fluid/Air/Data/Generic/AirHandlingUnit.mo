@@ -4,7 +4,7 @@ record AirHandlingUnit "Performance data for air handling unit"
 
   parameter Buildings.Fluid.Air.Data.Generic.BaseClasses.NominalValue nomVal
   "Data record for AHU nominal values";
-  parameter Buildings.Fluid.Air.Data.Generic.BaseClasses.PerformanceCurve perCur
+  parameter Buildings.Fluid.Movers.Data.Generic perCur
   "Data record for fan performance data";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
