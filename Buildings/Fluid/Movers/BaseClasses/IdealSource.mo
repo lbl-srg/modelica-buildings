@@ -4,8 +4,13 @@ model IdealSource
   extends Buildings.Fluid.Interfaces.PartialTwoPortTransport(show_T=false);
 
   // Quantity to control
-  parameter Boolean control_m_flow "= false to control dp instead of m_flow"
+  parameter Boolean control_m_flow
+    "if true, then the mass flow rate is equal to the value of m_flow_in"
     annotation(Evaluate = true);
+  parameter Boolean control_dp = not control_m_flow
+    "if true, then the head is equal to the value of dp_in"
+    annotation(Evaluate = true);
+
   Modelica.Blocks.Interfaces.RealInput m_flow_in(unit="kg/s") if control_m_flow
     "Prescribed mass flow rate"
     annotation (Placement(transformation(
@@ -15,7 +20,7 @@ model IdealSource
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={-60,80})));
-  Modelica.Blocks.Interfaces.RealInput dp_in(unit="Pa") if not control_m_flow
+  Modelica.Blocks.Interfaces.RealInput dp_in(unit="Pa") if control_dp
     "Prescribed pressure difference port_a.p-port_b.p"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -35,10 +40,13 @@ equation
   // Ideal control
   if control_m_flow then
     m_flow = m_flow_internal;
-    dp_internal = 0;
   else
-    dp = dp_internal;
     m_flow_internal = 0;
+  end if;
+  if control_dp then
+    dp = dp_internal;
+  else
+    dp_internal = 0;
   end if;
 
   connect(dp_internal, dp_in);
@@ -81,9 +89,27 @@ both the heat and the flow work are added to the volume of
 air or water. This simplifies the equations compared to
 adding heat to the volume, and flow work to this model.
 </p>
+<p>
+Typically either <code>control_m_flow</code> or
+<code>control_dp</code> should be <code>true</code> to avoid a
+singular system.
+If <code>control_m_flow = true</code>, then the mass flow rate
+is set to the value of the input connector <code>m_flow_in</code>.
+Otherwise, this model does not specify the mass flow rate.
+Similarly, if <code>control_dp = true</code>, the head is equal to the
+value of the input connector <code>dp_in</code>.
+Otherwise, this model does not specify the head.
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 4, 2017, by Filip Jorissen:<br/>
+Implemented option to set <code>control_dp</code> 
+independently from <code>control_m_flow</code>.
+This is
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/770\">#770</a>.
+</li>
 <li>
 March 2, 2017, by Filip Jorissen:<br/>
 Implemented simplification when <code>allowFlowReversal=false</code>.

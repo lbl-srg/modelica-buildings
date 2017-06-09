@@ -177,6 +177,16 @@ its class name ends with the string <code>Beta</code>.
                         and optional first order dynamics.
        </td>
    </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Sources.MassFlowSource_WeatherData
+       </td>
+       <td valign=\"top\">Added component which allows prescribing
+                          a mass flow rate that has thermal properties
+                          obtained from weather data.
+       </td>
+   </tr>
    </table>
    <!-- Backward compatible changes -->
    <p>
@@ -185,6 +195,16 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp
+       </td>
+       <td valign=\"top\">Added optional input signal for
+                          differential pressure measurement,
+                          which will then be tracked by the model.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
        </td>
    </tr>

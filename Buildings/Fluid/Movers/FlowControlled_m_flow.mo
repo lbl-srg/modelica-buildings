@@ -53,17 +53,17 @@ model FlowControlled_m_flow
         origin={0,120}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={-2,120})));
+        origin={0,120})));
   Modelica.Blocks.Interfaces.RealOutput m_flow_actual(
     final unit="kg/s",
     nominal=m_flow_nominal) "Actual mass flow rate"
-    annotation (Placement(transformation(extent={{100,10},{120,30}}),
-        iconTransformation(extent={{100,10},{120,30}})));
+    annotation (Placement(transformation(extent={{100,40},{120,60}}),
+        iconTransformation(extent={{100,40},{120,60}})));
 
 equation
   if use_inputFilter then
     connect(filter.y, m_flow_actual) annotation (Line(
-      points={{34.7,88},{44,88},{44,20},{110,20}},
+      points={{34.7,88},{44,88},{44,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   else
@@ -72,8 +72,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   end if;
-    connect(m_flow_actual, preSou.m_flow_in) annotation (Line(
-      points={{110,20},{44,20},{44,8}},
+   connect(m_flow_actual, preSou.m_flow_in) annotation (Line(
+      points={{110,50},{44,50},{44,8}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -152,17 +152,32 @@ Revised implementation to allow zero flow rate.
           extent={{22,146},{114,102}},
           textString="m_flow_in"),
         Line(
-          points={{32,50},{100,50}},
+          points={{2,50},{100,50}},
           color={0,0,0},
           smooth=Smooth.None),
-        Text(extent={{50,68},{100,54}},
+        Text(extent={{50,66},{100,52}},
           lineColor={0,0,127},
           textString="m_flow"),
+        Rectangle(
+          visible=use_inputFilter,
+          extent={{-34,40},{32,100}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          visible=use_inputFilter,
+          extent={{-34,100},{32,40}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
         Text(
-          visible=inputType == Buildings.Fluid.Types.InputType.Constant,
-          extent={{-80,136},{78,102}},
-          lineColor={0,0,255},
-          textString="%m_flow_nominal")}),
+          visible=use_inputFilter,
+          extent={{-22,92},{20,46}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          textString="M",
+          textStyle={TextStyle.Bold})}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
 end FlowControlled_m_flow;
