@@ -1,4 +1,4 @@
-within Buildings.Fluid.Air.Example.Data;
+within Buildings.Fluid.Air.Examples.Data;
 record Data_I
   extends Buildings.Fluid.Air.Data.Generic.AirHandlingUnit(
   nomVal(T_a1_nominal=6 + 273.15,

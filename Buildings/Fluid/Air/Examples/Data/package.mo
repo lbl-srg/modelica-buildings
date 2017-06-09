@@ -1,4 +1,4 @@
-within Buildings.Fluid.Air.Example;
+within Buildings.Fluid.Air.Examples;
 package Data "Performance data for air handling unit"
 extends Modelica.Icons.MaterialPropertiesPackage;
 

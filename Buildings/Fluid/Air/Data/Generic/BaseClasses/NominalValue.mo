@@ -23,27 +23,23 @@ record NominalValue "Nominal conditions for air handling units"
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Cooling Coil"));
-
   parameter Modelica.SIunits.PressureDifference dpCoil1_nominal(min=0,displayUnit="Pa")
     "Nominal pressure difference in the coil"
     annotation (Dialog(tab="General",group="Cooling Coil"));
-
   parameter Modelica.SIunits.PressureDifference dpCoil2_nominal(min=0,displayUnit="Pa")
     "Nominal pressure difference in the coil"
     annotation (Dialog(group="Cooling Coil"));
-
-  parameter Modelica.SIunits.ThermalConductance UA_nominal=Q_flow_nominal/
+  parameter Modelica.SIunits.ThermalConductance UA_nominal=m2_flow_nominal*1006*(T_b2_nominal-T_a2_nominal)/
      Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1_nominal,
         T_b1_nominal,
         T_a2_nominal,
         T_b2_nominal)
-    "Thermal conductance at nominal flow, used to compute time constant"
+    "Thermal conductance at nominal flow for sensible heat, used to compute time constant"
     annotation (Dialog(group="Cooling Coil"));
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient"
     annotation (Dialog(group="Cooling Coil"));
-
   parameter Modelica.SIunits.Time tau1 = 20 "Time constant at nominal flow of medium 1"
    annotation (Dialog(group="Cooling Coil"));
   parameter Modelica.SIunits.Time tau2 = 1 "Time constant at nominal flow of medium 2"
@@ -62,7 +58,6 @@ record NominalValue "Nominal conditions for air handling units"
   parameter Modelica.SIunits.PressureDifference dpHumidifier_nominal(min=0,displayUnit="Pa")=0
     "Nominal pressure difference in the humidifier"
     annotation (Dialog(tab="General",group="Humidifier"));
-
  //------------------Nominal conditions of the Electric Heater-----------------------------//
   parameter Modelica.SIunits.PressureDifference dpHeater_nominal(min=0,displayUnit="Pa")=0
     "Nominal pressure difference in the electric heater"
@@ -70,9 +65,8 @@ record NominalValue "Nominal conditions for air handling units"
   parameter Modelica.SIunits.HeatFlowRate QHeater_nominal(min=0)
     "Nominal heating capacity of eletric heater,positive"
     annotation (Dialog(group="Electric Heater"));
-  parameter Real effHeater_nominal(min=0.01,max=1)=0.9 "Efficiency of electrical heater"
+  parameter Modelica.SIunits.Efficiency etaHeater_nominal = 1.0 "Efficiency of electrical heater"
     annotation (Dialog(group="Electric Heater"));
-
  //------------------Nominal conditions of the water-side two-way valve-----------------------------//
   parameter Modelica.SIunits.PressureDifference dpValve_nominal(min=0,displayUnit="Pa")
     "Nominal pressure difference in the water-side two-way valve"

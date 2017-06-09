@@ -26,9 +26,7 @@ model SensibleCooler_T
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
-  Modelica.Blocks.Interfaces.RealInput TSet(
-    unit="K",
-    displayUnit="degC")
+  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
     "Set point temperature of the fluid that leaves port_b"
     annotation (Placement(transformation(origin={-120,80},
               extent={{20,-20},{-20,20}},rotation=180)));
@@ -46,27 +44,24 @@ equation
     defaultComponentName="coo",
 Documentation(info="<html>
 <p>
-Model for an ideal sensible-only cooler that controls its outlet temperature to
-a prescribed outlet temperature.
+Model for an ideal sensible cooling device with a prescribed outlet temperature.
 </p>
 <p>
-This model forces the outlet temperature at <code>port_b</code> to be
-no higher than the temperature of the input signal
-<code>TSet</code>, subject to optional limits on the
+This model forces the outlet temperature at <code>port_b</code> to be no higher than the temperature
+of the input signal <code>TSet</code>, subject to optional limits on the
 capacity.
-By default, the model has unlimited cooling capacity.
+By default, the model has unlimited capacity.
 </p>
 <p>
-The output signal <code>Q_flow &le; 0</code> is the heat added
-to the medium if the mass flow rate is from <code>port_a</code> to <code>port_b</code>.
+The output signal <code>Q_flow &lt; 0</code> is the heat added
+to the medium if the flow rate is from <code>port_a</code> to <code>port_b</code>.
 If the flow is reversed, then <code>Q_flow=0</code>.
 </p>
 <p>
-The outlet conditions at <code>port_a</code> are not affected by this model,
-other than for a possible pressure difference due to flow friction.
+The outlet conditions at <code>port_a</code> are not affected by this model.
 </p>
 <p>
-If the parameter <code>energyDynamics</code> is different from
+If the parameter <code>energyDynamics</code> is not equal to
 <code>Modelica.Fluid.Types.Dynamics.SteadyState</code>,
 the component models the dynamic response using a first order differential equation.
 The time constant of the component is equal to the parameter <code>tau</code>.
@@ -86,7 +81,7 @@ control volume would have.
 </p>
 <p>
 Optionally, this model can have a flow resistance.
-Set <code>dp_nominal = 0</code> to disable the flow friction calculation.
+If no flow resistance is requested, set <code>dp_nominal=0</code>.
 </p>
 <p>
 For a similar model that is a heater, use
@@ -122,60 +117,12 @@ revisions="<html>
 <ul>
 <li>
 May 3, 2017, by Michael Wetter:<br/>
-First implementation.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">
-Buildings, #763</a>.
+First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={
-        Rectangle(
-          extent={{-70,60},{70,-60}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-                   Text(
-          extent={{20,-10},{64,-56}},
+    Icon(graphics={Text(
+          extent={{14,-8},{58,-54}},
           lineColor={255,255,255},
-          textString="-"),
-        Rectangle(
-          extent={{-64,34},{-34,54}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(points={{-64,34},{-52,44},{-64,54}}, color={0,0,0}),
-        Text(
-          extent={{26,108},{94,84}},
-          lineColor={0,0,127},
-          textString="Q_flow"),
-        Rectangle(
-          extent={{70,82},{100,78}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{66,60},{70,82}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-70,60},{-66,82}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-100,82},{-70,78}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-110,102},{-74,84}},
-          lineColor={0,0,127},
-          textString="T")}));
+          textString="-")}));
 end SensibleCooler_T;

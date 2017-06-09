@@ -46,13 +46,6 @@ Buildings.Fluid.HeatExchangers.PrescribedOutlet</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-May 8, 2017, by Michael Wetter:<br/>
-Updated heater model.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">
-Buildings, #763</a>.
-</li>
-<li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
