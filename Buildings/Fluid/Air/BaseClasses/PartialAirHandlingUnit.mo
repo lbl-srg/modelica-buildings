@@ -220,8 +220,7 @@ equation
   connect(fan.stage, stage) annotation (Line(points={{-60,-48},{-60,-40},{-90,
           -40},{-90,-50},{-120,-50}},
         color={255,127,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
       Diagram(coordinateSystem(preserveAspectRatio=false),
         graphics={Text(extent={{54,42},{80,36}},lineColor={0,0,255},
                      textString="Waterside",textStyle={TextStyle.Bold}),

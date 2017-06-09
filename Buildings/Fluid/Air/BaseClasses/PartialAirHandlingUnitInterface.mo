@@ -6,12 +6,11 @@ partial model PartialAirHandlingUnitInterface "Partial model for air handling un
   extends Buildings.Fluid.Air.BaseClasses.EssentialParameter;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
-      Diagram(coordinateSystem(preserveAspectRatio=false),
-        graphics={Text(extent={{54,70},{80,64}},lineColor={0,0,255},
-                     textString="Waterside",textStyle={TextStyle.Bold}),
-                 Text(extent={{58,-64},{84,-70}},lineColor={0,0,255},
-                     textString="Airside",textStyle={TextStyle.Bold})}),
+        Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255}),
+        Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}),
+      Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This component describes a base interface for the air handling unit.

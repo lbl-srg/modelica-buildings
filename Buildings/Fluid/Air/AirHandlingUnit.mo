@@ -167,11 +167,11 @@ protected
 equation
 
   connect(TSet, eleHea.TSet)
-  annotation (Line(points={{-120,-20},{-88,-20},{-88,-40},{-4,-40},{-4,-52},{-10,
-          -52}},
+  annotation (Line(points={{-120,-20},{-88,-20},{-88,-28},{-4,-28},{-4,-52},{
+          -10,-52}},
   color={0,0,127}));
-  connect(XSet_w, hum.X_w) annotation (Line(points={{-120,0},{-80,0},{-80,-20},{
-          -4,-20},{-4,-20},{32,-20},{32,-54}},
+  connect(XSet_w, hum.X_w) annotation (Line(points={{-120,0},{-80,0},{-80,-20},
+          {36,-20},{36,-54},{32,-54}},
                  color={0,0,127}));
   connect(fan.port_a, eleHea.port_b) annotation (Line(points={{-50,-60},{-41,-60},
           {-32,-60}}, color={0,127,255}));
@@ -192,8 +192,7 @@ equation
   connect(e1.y, heaCon.y1) annotation (Line(points={{-49,20},{-46,20},{-46,20},{
           -46,15},{-44,15},{-42,15}},
                     color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
       Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
     <p>This model can represent a typical air handler with a cooling coil, a variable-speed fan, 
