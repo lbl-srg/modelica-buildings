@@ -22,7 +22,8 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
   Py_ssize_t nRet = 0;
   /*//////////////////////////////////////////////////////////////////////////*/
   /* Initialize Python interpreter*/
-  Py_Initialize();
+  if (!Py_IsInitialized())
+    Py_Initialize();
   /* Set the entries for sys.argv.*/
   /* This is required if a script uses sys.argv, such as bacpypes.*/
   /* See also http://stackoverflow.com/questions/19381441/python-modelica-connection-fails-due-to-import-error*/
