@@ -2,7 +2,7 @@ within Buildings.Fluid.Sensors;
 model Pressure "Ideal pressure sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
   extends Modelica.Icons.RotationalSensor;
-  Modelica.Blocks.Interfaces.RealOutput p(final quantity="Pressure",
+  Modelica.Blocks.Interfaces.RealOutput p(final quantity="AbsolutePressure",
                                           final unit="Pa",
                                           min=0) "Pressure at port"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -31,6 +31,11 @@ The sensor is ideal, i.e., it does not influence the fluid.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 9, 2017, by Filip Jorissen:<br/>
+Changed output quantity to <code>AbsolutePressure</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/770\">#770</a>.
+</li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
 First implementation, based on <code>Modelica.Fluid</code>.
