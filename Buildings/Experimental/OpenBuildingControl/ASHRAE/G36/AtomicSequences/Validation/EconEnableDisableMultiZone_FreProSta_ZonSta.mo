@@ -41,6 +41,8 @@ model EconEnableDisableMultiZone_FreProSta_ZonSta
     annotation (Placement(transformation(extent={{82,40},{102,60}})));
   EconEnableDisableMultiZone econEnableDisableMultiZone1
     annotation (Placement(transformation(extent={{82,-40},{102,-20}})));
+  CDL.Logical.Constant SupFanSta(k=true)
+    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 equation
   connect(TOutBellowCutoff.y, econEnableDisableMultiZone.TOut) annotation (Line(
         points={{-19,150},{32,150},{32,60},{81,60}}, color={0,0,127}));
@@ -91,6 +93,10 @@ equation
     annotation (Line(points={{-79,-50},{0,-50},{0,-38},{81,-38}}, color={0,0,127}));
   connect(retDamPhyPosMax.y, econEnableDisableMultiZone1.uRetDamPhyPosMax)
     annotation (Line(points={{-79,-10},{0,-10},{0,-36},{81,-36}}, color={0,0,127}));
+  connect(SupFanSta.y, econEnableDisableMultiZone.uSupFan) annotation (Line(
+        points={{-139,-30},{-34,-30},{-34,57},{72,57}}, color={255,0,255}));
+  connect(SupFanSta.y, econEnableDisableMultiZone1.uSupFan) annotation (Line(
+        points={{-139,-30},{-34,-30},{-34,-23},{72,-23}}, color={255,0,255}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisableMultiZone_FreProSta_ZonSta.mos"

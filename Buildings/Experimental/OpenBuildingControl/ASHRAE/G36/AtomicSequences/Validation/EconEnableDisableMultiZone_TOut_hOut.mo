@@ -29,7 +29,7 @@ model EconEnableDisableMultiZone_TOut_hOut
 
 
   CDL.Integers.Constant ZoneState(k=1) "Zone State is not heating"
-    annotation (Placement(transformation(extent={{-240,-40},{-220,-20}})));
+    annotation (Placement(transformation(extent={{-240,-32},{-220,-12}})));
   EconEnableDisableMultiZone econEnableDisableMultiZone1
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   CDL.Continuous.Constant TOutCut1(
@@ -66,6 +66,8 @@ model EconEnableDisableMultiZone_TOut_hOut
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   EconEnableDisableMultiZone econEnableDisableMultiZone2(fixEnt=false)
     annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
+  CDL.Logical.Constant SupFanSta(k=true)
+    annotation (Placement(transformation(extent={{-240,-62},{-220,-42}})));
 equation
   connect(TOutCut.y, econEnableDisableMultiZone.TOutCut) annotation (Line(
         points={{-179,70},{-152,70},{-152,-22},{-121,-22}},
@@ -94,7 +96,8 @@ equation
      Line(points={{-179,-190},{-142,-190},{-142,-40},{-121,-40}},
                                                        color={0,0,127}));
   connect(econEnableDisableMultiZone.uZoneState, ZoneState.y)
-    annotation (Line(points={{-121,-30},{-219,-30}},     color={255,127,0}));
+    annotation (Line(points={{-121,-30},{-170,-30},{-170,-22},{-219,-22}},
+                                                         color={255,127,0}));
   connect(TOutCut1.y, econEnableDisableMultiZone1.TOutCut) annotation (Line(
         points={{-19,70},{8,70},{8,-22},{39,-22}},      color={0,0,127}));
   connect(hOutCut1.y, econEnableDisableMultiZone1.hOutCut) annotation (Line(
@@ -118,7 +121,7 @@ equation
   connect(FreProSta.y, econEnableDisableMultiZone1.uFreProSta) annotation (Line(
         points={{-219,10},{-92,10},{-92,-28},{39,-28}}, color={255,127,0}));
   connect(ZoneState.y, econEnableDisableMultiZone1.uZoneState) annotation (Line(
-        points={{-219,-30},{-200,-30},{-200,0},{120,0},{120,-30},{39,-30}},
+        points={{-219,-22},{-200,-22},{-200,-6},{-36,-6},{-36,-30},{39,-30}},
         color={255,127,0}));
   connect(outDamPosMax.y, econEnableDisableMultiZone1.uOutDamPosMax)
     annotation (Line(points={{-259,-70},{-34,-70},{-34,-32},{39,-32}}, color={0,
@@ -144,7 +147,8 @@ equation
   connect(FreProSta.y, econEnableDisableMultiZone2.uFreProSta) annotation (Line(
         points={{-219,10},{130,10},{130,-28},{179,-28}}, color={255,127,0}));
   connect(ZoneState.y, econEnableDisableMultiZone2.uZoneState) annotation (Line(
-        points={{-219,-30},{-30,-30},{179,-30}}, color={255,127,0}));
+        points={{-219,-22},{-208,-22},{-208,0},{-208,0},{110,0},{110,-30},{179,
+          -30}},                                 color={255,127,0}));
   connect(outDamPosMax.y, econEnableDisableMultiZone2.uOutDamPosMax)
     annotation (Line(points={{-259,-70},{138,-70},{138,-32},{179,-32}}, color={
           0,0,127}));
@@ -160,6 +164,14 @@ equation
   connect(retDamPosMin.y, econEnableDisableMultiZone2.uRetDamPosMin)
     annotation (Line(points={{-179,-190},{158,-190},{158,-40},{179,-40}}, color=
          {0,0,127}));
+  connect(SupFanSta.y, econEnableDisableMultiZone.uSupFan) annotation (Line(
+        points={{-219,-52},{-174,-52},{-174,-23},{-130,-23}}, color={255,0,255}));
+  connect(SupFanSta.y, econEnableDisableMultiZone1.uSupFan) annotation (Line(
+        points={{-219,-52},{-48,-52},{-48,-24},{-10,-24},{-10,-23},{30,-23}},
+        color={255,0,255}));
+  connect(SupFanSta.y, econEnableDisableMultiZone2.uSupFan) annotation (Line(
+        points={{-219,-52},{122,-52},{122,-24},{146,-24},{146,-23},{170,-23}},
+        color={255,0,255}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisableMultiZone_TOut_hOut.mos"
@@ -186,17 +198,17 @@ ASHRAE 90.1-2013:
 Device Type: Fixed Enthalpy + Fixed Drybulb
 TOut > 75 degF [24 degC] [297 K]
 hOut > 28 Btu/lb [65.1 kJ/kg]"),                                                               Text(
-          extent={{-280,170},{-156,142}},
+          extent={{-280,168},{-156,140}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           fontSize=12,
           textString="Temperature"),                                                           Text(
-          extent={{-120,170},{8,142}},
+          extent={{-18,166},{110,138}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           fontSize=12,
           textString="Entahlpy"),                                                              Text(
-          extent={{160,170},{288,142}},
+          extent={{142,168},{270,140}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           fontSize=12,
