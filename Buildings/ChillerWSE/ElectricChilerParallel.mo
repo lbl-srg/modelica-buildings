@@ -2,8 +2,6 @@ within Buildings.ChillerWSE;
 model ElectricChilerParallel "Ensembled multiple electric chillers via vector"
   extends Buildings.ChillerWSE.BaseClasses.PartialParallelElectricEIR(
     redeclare each final Buildings.Fluid.Chillers.ElectricEIR chi[n](
-      redeclare each final replaceable package Medium1 = Medium1,
-      redeclare each final replaceable package Medium2 = Medium2,
       per=per));
 
   replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[n]

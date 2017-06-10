@@ -12,7 +12,7 @@ model IntegratedPrimary "Integrated WSE for Primary Chilled Water System"
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)});
-  extends Buildings.ChillerWSE.BaseClasses.PartialOperationSequenceInterface;
+
 
   parameter Real lValve3(min=1e-10,max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
@@ -62,6 +62,9 @@ model IntegratedPrimary "Integrated WSE for Primary Chilled Water System"
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-28,-120})));
+  Modelica.Blocks.Interfaces.BooleanInput wseMod
+    "=true, activate fully wse mode"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 equation
   for i in 1:nChi loop
   connect(val1.port_b, pum[i].port_a) annotation (Line(points={{40,-20},{14,-20},{14,
@@ -74,14 +77,17 @@ equation
           30,-80},{10,-80}}, color={0,127,255}));
   connect(val3.port_b, port_b2) annotation (Line(points={{-10,-80},{-40,-80},{-40,
           -60},{-100,-60}}, color={0,127,255}));
-  connect(booToRea.y, val2.y) annotation (Line(points={{-39.4,72},{-26,72},{-26,
-          0},{-50,0},{-50,-8}}, color={0,0,127}));
-  connect(inv.y,val1.y)  annotation (Line(points={{-16.6,92},{-6,92},{-6,0},{50,
-          0},{50,-8}}, color={0,0,127}));
-  connect(on[nChi+1], booToRea.u) annotation (Line(points={{-120,40},{-92,40},{-92,56},
-          {-60,56},{-60,72},{-53.2,72}}, color={255,0,255}));
+  connect(inv.y,val1.y)  annotation (Line(points={{-2.6,94},{4,94},{4,0},{50,0},
+          {50,-8}},    color={0,0,127}));
   connect(pum.y, yPum) annotation (Line(points={{0.2,-28},{0.2,-10},{-26,-10},{-26,
           -40},{-120,-40}}, color={0,0,127}));
   connect(val3.y, yVal3) annotation (Line(points={{0,-68},{0,-68},{0,-60},{-28,-60},
           {-28,-120}}, color={0,0,127}));
+
+  connect(y_actual[1], inv.u2)
+    annotation (Line(points={{-20,74},{-8,74},{-8,89.2}}, color={0,0,127}));
+  connect(y_actual[1], val2.y) annotation (Line(points={{-20,74},{-14,74},{-14,0},
+          {-50,0},{-50,-8}}, color={0,0,127}));
+  connect(booToRea.u, wseMod) annotation (Line(points={{-81.2,74},{-120,74},{-120,
+          80}}, color={255,0,255}));
 end IntegratedPrimary;

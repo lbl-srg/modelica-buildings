@@ -8,7 +8,7 @@ partial model PartialPlantParallelInterface
   Modelica.Blocks.Math.BooleanToReal booToRea[n](
     each final realTrue=1,
     each final realFalse=0) "Boolean to real (if true then 1 else 0)"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-80,34},{-68,46}})));
   Modelica.Blocks.Interfaces.RealInput TSet
     "Set point for leaving water temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -18,7 +18,8 @@ partial model PartialPlantParallelInterface
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 equation
-  connect(on, booToRea.u) annotation (Line(points={{-120,40},{-120,40},{-82,40}},
+  connect(on, booToRea.u) annotation (Line(points={{-120,40},{-120,40},{-81.2,
+          40}},
         color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

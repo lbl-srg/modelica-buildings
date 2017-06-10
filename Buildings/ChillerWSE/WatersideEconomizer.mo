@@ -17,7 +17,7 @@ model WatersideEconomizer "Parallel heat exchangers"
 
   // Filter opening
   parameter Real yBypVal_start=1 "Initial value of output from the filter in the bypass valve"
-    annotation(Dialog(tab="Dynamics",group="Valve",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_inputFilter));
  // Heat exchanger
   parameter Modelica.SIunits.Efficiency eta=0.8 "constant effectiveness";
  // Bypass valve parameters
@@ -99,8 +99,6 @@ equation
                               color={0,127,255}));
   connect(TSet, heaExc.TSet) annotation (Line(points={{-120,0},{-12,0}},
                        color={0,0,127}));
-  connect(booToRea.y, val1.y) annotation (Line(points={{-59,40},{-26,40},{20,40},
-          {20,32},{28,32}}, color={0,0,127}));
 
   connect(y_reset_in, heaExc.y_reset_in) annotation (Line(points={{-90,-100},{-90,
           -100},{-90,-80},{-10,-80},{-10,-14}},

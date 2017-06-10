@@ -7,7 +7,8 @@ partial model PartialPlantParallel
     m_flow_nominal = {m1_flow_nominal,m2_flow_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)});
-
+  extends  Buildings.ChillerWSE.BaseClasses.SignalFilter(
+    final nFilter=n);
   // Advanced
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
@@ -21,20 +22,6 @@ partial model PartialPlantParallel
     "Flow coefficient of fixed resistance that may be in series with valve 1, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
    annotation(Dialog(group="Valve"));
 
-  parameter Boolean use_inputFilter=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Valve"));
-  parameter Modelica.SIunits.Time riseTimeValve=120
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
-  parameter Modelica.Blocks.Types.Init initValve=Modelica.Blocks.Types.Init.InitialOutput
-    "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
-  parameter Real yValve1_start[n]=ones(n) "Initial value of output from valve 1"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
-  parameter Real yValve2_start[n]=ones(n) "Initial value of output from valve 2"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
-
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val2[n](
     redeclare each replaceable package Medium = Medium2,
     each final allowFlowReversal=allowFlowReversal2,
@@ -44,18 +31,18 @@ partial model PartialPlantParallel
     each final homotopyInitialization=homotopyInitialization,
     each final riseTime=riseTimeValve,
     each final init=initValve,
-    each final use_inputFilter=use_inputFilter,
+    each final use_inputFilter=false,
     each final deltaM=deltaM2,
     each final l=l[2],
     each final kFixed=kFixed[2],
-    final y_start=yValve2_start,
+    final y_start=yValve_start,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final from_dp=from_dp2,
     each final linearized=linearizeFlowResistance2,
     each final rhoStd=rhoStd[2],
     each final dpValve_nominal=dpValve_nominal[2])
     "Valves on medium 2 side for on/off use" annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
+        extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-40,-32})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val1[n](
@@ -65,10 +52,10 @@ partial model PartialPlantParallel
     each dpFixed_nominal=dp1_nominal,
     each final show_T=show_T,
     each final homotopyInitialization=homotopyInitialization,
-    each final use_inputFilter=use_inputFilter,
+    each final use_inputFilter=false,
     each final riseTime=riseTimeValve,
     each final init=initValve,
-    final y_start=yValve1_start,
+    final y_start=yValve_start,
     each final deltaM=deltaM1,
     each final l=l[1],
     each final kFixed=kFixed[1],
@@ -90,12 +77,19 @@ equation
     connect(val2[i].port_b, port_b2) annotation (Line(points={{-40,-42},{-40,-60},
             {-100,-60}}, color={0,127,255}));
   end for;
-  connect(on, booToRea.u) annotation (Line(points={{-120,40},{-102,40},{-82,40}},
+  if use_inputFilter then
+    connect(booToRea.y, filter.u) annotation (Line(points={{-67.4,40},{-60,40},{-60,
+          80},{-55.2,80}}, color={0,0,127}));
+  else
+    connect(booToRea.y, y_actual) annotation (Line(points={{-67.4,40},{-60,40},{-60,
+          66},{-20,66}}, color={0,0,127}));
+  end if;
+  connect(on, booToRea.u) annotation (Line(points={{-120,40},{-81.2,40},{-81.2,40}},
         color={255,0,255}));
-  connect(booToRea.y, val1.y) annotation (Line(points={{-59,40},{-20,40},{20,40},
-          {20,32},{28,32}}, color={0,0,127}));
-  connect(booToRea.y, val2.y) annotation (Line(points={{-59,40},{-56,40},{-56,-32},
-          {-52,-32}}, color={0,0,127}));
+  connect(y_actual, val1.y) annotation (Line(points={{-20,66},{-20,66},{20,66},{
+          20,32},{28,32}}, color={0,0,127}));
+  connect(y_actual, val2.y)
+    annotation (Line(points={{-20,66},{-20,-32},{-28,-32}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
          Diagram(coordinateSystem(preserveAspectRatio=false)));

@@ -8,8 +8,11 @@ partial model PartialChillerWSE
      final computeFlowResistance2=true);
   extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface;
   extends Buildings.ChillerWSE.BaseClasses.ValvesParameters(
-     nVal=5);
-
+     nVal=5,
+     final deltaM=0.1);
+  extends Buildings.ChillerWSE.BaseClasses.PartialSignalFilter(
+     final nFilter=1,
+     final yValve_start=yValveWSE_start);
   parameter Integer nChi(min=1) "Number of identical chillers";
 
   // Advanced
@@ -46,24 +49,10 @@ partial model PartialChillerWSE
   parameter Real delta0=0.01
     "Range of significant deviation from equal percentage law for bypass valve"
     annotation(Dialog(group="Bypass Valve"));
-
-  parameter Boolean use_inputFilter=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Valve"));
-  parameter Modelica.SIunits.Time riseTimeValve=120
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
-  parameter Modelica.Blocks.Types.Init initValve=Modelica.Blocks.Types.Init.InitialOutput
-    "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
-  parameter Real[nChi] yValveChiller1_start=ones(nChi) "Initial value of output from valve 1 in chillers"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
-  parameter Real[nChi] yValveChiller2_start=ones(nChi) "Initial value of output from valve 2 in chillers"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
-  parameter Real[1] yValveWSE1_start={1} "Initial value of output from valve 1 in WSE"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
-  parameter Real[1] yValveWSE2_start={1} "Initial value of output from valve 2 in WSE"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
+  parameter Real[nChi] yValveChiller_start=fill(0,nChi) "Initial value of output from valve 1 in chillers"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilterValve));
+  parameter Real[1] yValveWSE_start={0} "Initial value of output from valve 1 in WSE"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilterValve));
 
     // Dynamics
  parameter Modelica.SIunits.Time tau1 = 30 "Time constant at nominal flow in chillers"
@@ -142,8 +131,6 @@ partial model PartialChillerWSE
     final use_inputFilter=use_inputFilter,
     final riseTimeValve=riseTimeValve,
     final initValve=initValve,
-    final yValve1_start=yValveWSE1_start,
-    final yValve2_start=yValveWSE2_start,
     final m1_flow_nominal=mChiller1_flow_nominal,
     final m2_flow_nominal=mChiller2_flow_nominal,
     final dp1_nominal=dpChiller1_nominal,
@@ -165,7 +152,8 @@ partial model PartialChillerWSE
     final kFixed=kFixedChiller,
     final dp2_nominal=dpChiller2_nominal,
     each final dpValve_nominal=dpValve_nominal[1:2],
-    final rhoStd=rhoStd[1:2])
+    final rhoStd=rhoStd[1:2],
+    final yValve_start=yValveChiller_start)
      "Identical chillers"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.ChillerWSE.WatersideEconomizer wse(
@@ -193,8 +181,6 @@ partial model PartialChillerWSE
     final use_inputFilter=use_inputFilter,
     final riseTimeValve=riseTimeValve,
     final initValve=initValve,
-    each final yValve1_start=yValveWSE1_start,
-    each final yValve2_start=yValveWSE2_start,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p_start=p2_start,
@@ -225,7 +211,8 @@ partial model PartialChillerWSE
     final R=R,
     final delta0=delta0,
     final dpValve_nominal=dpValve_nominal[3:5],
-    final rhoStd=rhoStd[3:5])
+    final rhoStd=rhoStd[3:5],
+    final yValve_start=yValveWSE_start)
     "Waterside economizer"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 equation
@@ -255,6 +242,8 @@ equation
   connect(trigger, wse.trigger) annotation (Line(points={{-60,-100},{-60,-100},{
           -60,-80},{-90,-80},{-90,10},{44,10},{44,20}},
                                        color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
+                                                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialChillerWSE;

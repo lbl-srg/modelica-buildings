@@ -3,6 +3,11 @@ model PartialIntegratedPrimary
   "Integrated WSE for Primary Chilled Water System"
   extends Buildings.ChillerWSE.BaseClasses.PartialChillerWSE(
     nVal=7);
+  extends Buildings.ChillerWSE.BaseClasses.SignalFilter(
+    final nFilter=1,
+    final yValve_start=yValveWSE_start);
+  extends Buildings.ChillerWSE.BaseClasses.PartialOperationSequenceInterface;
+
   //WSE mode valve parameters
   parameter Real lValve1(min=1e-10,max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
@@ -62,4 +67,12 @@ equation
           -60},{-100,-60}}, color={0,127,255}));
   connect(val2.port_b, port_b2) annotation (Line(points={{-60,-20},{-80,-20},{-80,
           -60},{-100,-60}}, color={0,127,255}));
+  if use_inputFilter then
+  connect(booToRea.y, filter[1].u) annotation (Line(points={{-67.4,74},{-60,74},
+          {-60,84},{-55.2,84}}, color={0,0,127}));
+  else
+  connect(booToRea.y, y_actual[1]) annotation (Line(points={{-67.4,74},{-60,74},
+            {-20,74}},        color={0,0,127}));
+  end if;
+
 end PartialIntegratedPrimary;

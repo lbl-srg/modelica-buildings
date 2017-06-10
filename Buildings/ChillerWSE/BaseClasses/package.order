@@ -8,5 +8,7 @@ PartialParallelElectricEIR
 PartialPlantParallel
 PartialPlantParallelInterface
 PartialOperationSequenceInterface
+PartialSignalFilter
+SignalFilter
 ValvesParameters
 Examples
