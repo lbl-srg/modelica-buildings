@@ -88,13 +88,11 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     annotation (Placement(transformation(
           extent={{180,-260},{200,-240}}), iconTransformation(extent={{100,-40},{140,0}})));
 
-  CDL.Logical.Hysteresis hysOutTem(                             uHigh=uTemHigLimCutHig, uLow=
-        uTemHigLimCutLow)
+  CDL.Logical.Hysteresis hysOutTem(uHigh=uTemHigLimCutHig, uLow=uTemHigLimCutLow)
     "Close damper when TOut is above the uTemHigh, open it again only when TOut drops to uTemLow [fixme: I'm using the same offset 
     for hysteresis regardless of the region and standard]"
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
-  CDL.Logical.Hysteresis hysOutEnt(final uLow=uEntHigLimCutLow, uHigh=
-        uEntHigLimCutHig)
+  CDL.Logical.Hysteresis hysOutEnt(final uLow=uEntHigLimCutLow, uHigh=uEntHigLimCutHig) if fixEnt
     "Close damper when hOut is above the uEntHigh, open it again only when hOut drops to uEntLow [fixme: I'm using the same offset 
     for hysteresis regardless of the region and standard, see del***His parameters]"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
@@ -114,15 +112,14 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
   CDL.Logical.Timer timer
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
-  CDL.Logical.Nor or2
-    annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
+  CDL.Logical.Nor nor1 annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
   CDL.Continuous.Constant deltaTemHis(k=delTemHis)
     "Delta between the temperature hysteresis high and low limit. delTemHis = uTemHigLimCutHig - uTemHigLimCutLow "
     annotation (Placement(transformation(extent={{140,180},{160,200}})));
   CDL.Continuous.Constant deltaEntHis(k=delEntHis)
     "Delta between the enthalpy hysteresis high and low limit. delEntHis = uEntHigLimCutHig - uTemEntLimCutLow "
     annotation (Placement(transformation(extent={{140,140},{160,160}})));
-  CDL.Continuous.Add add2(k2=-1)
+  CDL.Continuous.Add add2(k2=-1) if fixEnt
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   CDL.Continuous.Add add1(k2=-1)
     annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
@@ -158,10 +155,12 @@ equation
   connect(hOutCut, add2.u2)
     annotation (Line(points={{-200,80},{-160,80},{-160,94},{-142,94}}, color={0,0,127}));
   connect(add2.y, hysOutEnt.u) annotation (Line(points={{-119,100},{-102,100}}, color={0,0,127}));
-  connect(hysOutTem.y, or2.u1) annotation (Line(points={{-79,180},{-60,180},{-60,140},{-42,140}},
-        color={255,0,255}));
-  connect(hysOutEnt.y, or2.u2) annotation (Line(points={{-79,100},{-60,100},{-60,132},{-42,132}},
-        color={255,0,255}));
+  connect(hysOutTem.y, nor1.u1) annotation (Line(points={{-79,180},{-60,180},{-60,140},{-42,140}}, color={255,0,255}));
+  if fixEnt then
+    connect(hysOutEnt.y, nor1.u2) annotation (Line(points={{-79,100},{-60,100},{-60,132},{-42,132}}, color={255,0,255}));
+  else
+    nor1.u2 = false;
+  end if;
   connect(disableDelay.y, greEqu.u2)
     annotation (Line(points={{1,-150},{10,-150},{10,-148},{38,-148}},
                                                               color={0,0,127}));
@@ -178,8 +177,7 @@ equation
     annotation (Line(points={{-200,-270},{-30,-270},{-30,-258},{78,-258}}, color={0,0,127}));
   connect(timer.y, les1.u1) annotation (Line(points={{101,-100},{120,-100},{120,-200},{20,-200},{20,-220},{38,-220}},
                      color={0,0,127}));
-  connect(or2.y, OnOffDelay.u)
-    annotation (Line(points={{-19,140},{-1.2,140}}, color={255,0,255}));
+  connect(nor1.y, OnOffDelay.u) annotation (Line(points={{-19,140},{-1.2,140}}, color={255,0,255}));
   connect(OnOffDelay.y, andEnaDis.u1) annotation (Line(points={{21,140},{30,140},{30,8},{38,8}}, color={255,0,255}));
   connect(andEnaDis.y, not2.u)
     annotation (Line(points={{61,0},{80,0},{80,-60},{20,-60},{20,-100},{38,-100}}, color={255,0,255}));
