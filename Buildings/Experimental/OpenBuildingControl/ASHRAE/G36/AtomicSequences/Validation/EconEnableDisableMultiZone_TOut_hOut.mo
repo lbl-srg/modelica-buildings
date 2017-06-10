@@ -53,11 +53,6 @@ model EconEnableDisableMultiZone_TOut_hOut
   CDL.Continuous.Constant TOutCut1(
                                   k=TOutCutoff) annotation (Placement(transformation(extent={{100,60},
             {120,80}})));
-  Modelica.Blocks.Sources.Ramp hOut1(
-    duration=1800,
-    height=4000,
-    offset=hOutCutoff - 2200)
-                    annotation (Placement(transformation(extent={{20,60},{40,80}})));
   CDL.Continuous.Constant hOutCut1(
                                   k=hOutCutoff) "Outdoor air enthalpy cutoff"
                                                     annotation (Placement(transformation(extent={{20,20},
@@ -68,18 +63,28 @@ model EconEnableDisableMultiZone_TOut_hOut
   CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 1000)
     "Outdoor air enthalpy is slightly below the cufoff"
     annotation (Placement(transformation(extent={{-220,60},{-200,80}})));
-  CDL.Continuous.Constant TOut1(k=TOutCutoff - 2)
+  CDL.Continuous.Constant TOutBellowCutoff(k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
   CDL.Logical.TriggeredTrapezoid TOut(
     rising=1000,
     falling=800,
     amplitude=4,
-    offset=TOutCutoff - 2)
+    offset=TOutCutoff - 2) "Outoor air temperature, varying"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
   CDL.Sources.BooleanPulse booPul(startTime=10, period=2000)
     "Generates one constant true signal between a rising and a falling edge (since simulation time is 1800 in the example)"
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
+  CDL.Sources.BooleanPulse booPul1(
+                                  startTime=10, period=2000)
+    "Generates one constant true signal between a rising and a falling edge (since simulation time is 1800 in the example)"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+  CDL.Logical.TriggeredTrapezoid hOut1(
+    amplitude=4000,
+    offset=hOutCutoff - 2200,
+    rising=1000,
+    falling=800) "Outdoor air enthalpy, varying"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(TOutCut.y, econEnableDisableMultiZone.TOutCut) annotation (Line(
         points={{-119,70},{-92,70},{-92,-22},{-61,-22}},
@@ -111,12 +116,10 @@ equation
     annotation (Line(points={{-61,-30},{-159,-30}},      color={255,127,0}));
   connect(TOutCut1.y, econEnableDisableMultiZone1.TOutCut) annotation (Line(
         points={{121,70},{148,70},{148,-22},{179,-22}}, color={0,0,127}));
-  connect(hOut1.y, econEnableDisableMultiZone1.hOut) annotation (Line(points={{41,
-          70},{80,70},{80,50},{130,50},{130,-24},{179,-24}}, color={0,0,127}));
   connect(hOutCut1.y, econEnableDisableMultiZone1.hOutCut) annotation (Line(
         points={{41,30},{110,30},{110,-26},{179,-26}}, color={0,0,127}));
   connect(FreProSta1.y, econEnableDisableMultiZone1.uFreProSta) annotation (
-      Line(points={{81,10},{140,10},{140,-28},{179,-28}}, color={255,127,0}));
+      Line(points={{81,10},{100,10},{100,-28},{179,-28}}, color={255,127,0}));
   connect(outDamPosMax1.y, econEnableDisableMultiZone1.uOutDamPosMax)
     annotation (Line(points={{41,-70},{110,-70},{110,-32},{179,-32}}, color={0,0,
           127}));
@@ -137,12 +140,17 @@ equation
   connect(hOutBelowCutoff.y, econEnableDisableMultiZone.hOut) annotation (Line(
         points={{-199,70},{-160,70},{-160,46},{-110,46},{-110,-24},{-61,-24}},
         color={0,0,127}));
-  connect(TOut1.y, econEnableDisableMultiZone1.TOut) annotation (Line(points={{121,
-          110},{150,110},{150,-20},{180,-20},{179,-20}}, color={0,0,127}));
+  connect(TOutBellowCutoff.y, econEnableDisableMultiZone1.TOut) annotation (
+      Line(points={{121,110},{150,110},{150,-20},{180,-20},{179,-20}}, color={0,
+          0,127}));
   connect(booPul.y, TOut.u)
     annotation (Line(points={{-159,110},{-142,110}}, color={255,0,255}));
   connect(TOut.y, econEnableDisableMultiZone.TOut) annotation (Line(points={{-119,
           110},{-90,110},{-90,-20},{-61,-20}}, color={0,0,127}));
+  connect(booPul1.y, hOut1.u)
+    annotation (Line(points={{41,70},{50,70},{58,70}}, color={255,0,255}));
+  connect(hOut1.y, econEnableDisableMultiZone1.hOut) annotation (Line(points={{
+          81,70},{90,70},{90,40},{130,40},{130,-24},{179,-24}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisable_TOut.mos"
