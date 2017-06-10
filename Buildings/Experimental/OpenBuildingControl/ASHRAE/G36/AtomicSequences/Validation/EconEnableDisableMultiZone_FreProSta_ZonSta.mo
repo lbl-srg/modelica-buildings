@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
-model EconEnableDisableMultiZone_FreProSta
+model EconEnableDisableMultiZone_FreProSta_ZonSta
   "Validation model to disable the economizer if any of the freeze protection stages 1 through 3 are activated"
   extends Modelica.Icons.Example;
 
@@ -93,7 +93,7 @@ equation
     annotation (Line(points={{-79,-10},{0,-10},{0,-36},{81,-36}}, color={0,0,127}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisable_FreProSta.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisableMultiZone_FreProSta_ZonSta.mos"
     "Simulate and plot"),
   Icon(graphics={
         Ellipse(
@@ -111,8 +111,8 @@ equation
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisable\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisable</a>
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone</a>
 for different control signals.
 </p>
 </html>", revisions="<html>
@@ -123,4 +123,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EconEnableDisableMultiZone_FreProSta;
+end EconEnableDisableMultiZone_FreProSta_ZonSta;
