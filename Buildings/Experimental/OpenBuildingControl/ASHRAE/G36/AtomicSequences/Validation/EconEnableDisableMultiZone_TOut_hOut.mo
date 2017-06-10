@@ -136,8 +136,8 @@ equation
     annotation (Line(points={{-179,-190},{-8,-190},{-8,-40},{39,-40}}, color={0,
           0,127}));
   connect(TOut.y, econEnableDisableMultiZone2.TOut) annotation (Line(points={{
-          -179,110},{-122,110},{-122,140},{158,140},{158,-20},{179,-20}}, color
-        ={0,0,127}));
+          -179,110},{-122,110},{-122,140},{158,140},{158,-20},{179,-20}}, color=
+         {0,0,127}));
   connect(TOutCut.y, econEnableDisableMultiZone2.TOutCut) annotation (Line(
         points={{-179,70},{-222,70},{-222,134},{148,134},{148,-22},{179,-22}},
         color={0,0,127}));
@@ -152,17 +152,17 @@ equation
     annotation (Line(points={{-259,-110},{-220,-110},{-220,-90},{148,-90},{148,
           -58},{148,-34},{179,-34}}, color={0,0,127}));
   connect(retDamPhyPosMax.y, econEnableDisableMultiZone2.uRetDamPhyPosMax)
-    annotation (Line(points={{-179,-110},{152,-110},{152,-36},{179,-36}}, color
-        ={0,0,127}));
+    annotation (Line(points={{-179,-110},{152,-110},{152,-36},{179,-36}}, color=
+         {0,0,127}));
   connect(retDamPosMax.y, econEnableDisableMultiZone2.uRetDamPosMax)
-    annotation (Line(points={{-179,-150},{156,-150},{156,-38},{179,-38}}, color
-        ={0,0,127}));
+    annotation (Line(points={{-179,-150},{156,-150},{156,-38},{179,-38}}, color=
+         {0,0,127}));
   connect(retDamPosMin.y, econEnableDisableMultiZone2.uRetDamPosMin)
-    annotation (Line(points={{-179,-190},{158,-190},{158,-40},{179,-40}}, color
-        ={0,0,127}));
+    annotation (Line(points={{-179,-190},{158,-190},{158,-40},{179,-40}}, color=
+         {0,0,127}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisable_TOut.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisable_TOut_hOut.mos"
     "Simulate and plot"),
   Icon(graphics={
         Ellipse(
@@ -177,10 +177,10 @@ equation
                 points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-300,-220},{300,
             220}}),                                                                  graphics={Text(
-          extent={{-280,226},{-148,164}},
+          extent={{-278,226},{-146,164}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
+          fontSize=10,
           textString="Example high limit cutoff conditions:
 ASHRAE 90.1-2013:
 Device Type: Fixed Enthalpy + Fixed Drybulb
