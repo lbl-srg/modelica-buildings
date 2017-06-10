@@ -249,7 +249,18 @@ equation
             120,100}}), graphics={Text(
           extent={{-44,-150},{-14,-158}},
           lineColor={28,108,200},
-          textString="Enable modulation")}),
+          textString="Enable modulation"),
+                                     Text(
+          extent={{-14,-126},{130,-208}},
+          lineColor={28,108,200},
+          fontSize=12,
+          textString="Fixme: move supfan to enable disable. zone
+ state is already there. this eliminates the
+ need for the switches, so this sequence
+ becomes a bit more readable. enable disable
+ will set min to max if no modulation is
+ allowed/required.
+")}),
     Documentation(info="<html>      
     <p>
     fixme ?Brent: If the dampers are not interloacked, should the linear mapping have
