@@ -141,7 +141,8 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
   CDL.Logical.GreaterThreshold greThr "Heating = 0" annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
 
   CDL.Logical.GreaterThreshold greThr2(threshold=0) annotation (Placement(transformation(extent={{80,-230},{100,-210}})));
-  CDL.Logical.And and2 annotation (Placement(transformation(extent={{124,-230},{144,-210}})));
+  CDL.Logical.And and2 annotation (Placement(transformation(extent={{120,-230},
+            {140,-210}})));
 
 equation
   connect(OutDamSwitch.y, yOutDamPosMax) annotation (Line(points={{101,-180},{101,-180},{190,-180}}, color={0,0,127}));
@@ -193,12 +194,16 @@ equation
   connect(intToRea1.y, greThr.u) annotation (Line(points={{-139,-50},{-134,-50},{-130,-50},{-122,-50}}, color={0,0,127}));
   connect(greThr.y, andEnaDis.u3) annotation (Line(points={{-99,-50},{-20,-50},{-20,-8},{38,-8}}, color={255,0,255}));
   connect(les1.y, and2.u1)
-    annotation (Line(points={{61,-220},{70,-220},{70,-236},{86,-236},{116,-236},{116,-220},{122,-220}}, color={255,0,255}));
-  connect(greThr2.y, and2.u2) annotation (Line(points={{101,-220},{112,-220},{112,-228},{122,-228}}, color={255,0,255}));
+    annotation (Line(points={{61,-220},{70,-220},{70,-236},{86,-236},{116,-236},
+          {116,-220},{118,-220}},                                                                       color={255,0,255}));
+  connect(greThr2.y, and2.u2) annotation (Line(points={{101,-220},{112,-220},{
+          112,-228},{118,-228}},                                                                     color={255,0,255}));
   connect(and2.y, MaxRetDamSwitch.u2)
-    annotation (Line(points={{145,-220},{152,-220},{152,-270},{60,-270},{60,-250},{78,-250}}, color={255,0,255}));
+    annotation (Line(points={{141,-220},{152,-220},{152,-270},{60,-270},{60,
+          -250},{78,-250}},                                                                   color={255,0,255}));
   connect(and2.y, MinRetDamSwitch.u2)
-    annotation (Line(points={{145,-220},{152,-220},{152,-270},{60,-270},{60,-290},{78,-290}}, color={255,0,255}));
+    annotation (Line(points={{141,-220},{152,-220},{152,-270},{60,-270},{60,
+          -290},{78,-290}},                                                                   color={255,0,255}));
   connect(timer.y, greThr2.u)
     annotation (Line(points={{101,-100},{130,-100},{130,-200},{74,-200},{74,-220},{78,-220}}, color={0,0,127}));
   connect(not2.y, RetDamSwitch.u2) annotation (Line(points={{61,-100},{68,-100},{68,-128},{-30,-128},{-30,-250},{-16,-250},{-16,-300},
