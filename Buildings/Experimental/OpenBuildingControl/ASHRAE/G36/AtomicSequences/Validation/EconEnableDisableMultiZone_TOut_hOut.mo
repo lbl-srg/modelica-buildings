@@ -79,21 +79,21 @@ equation
         points={{-219,10},{-160,10},{-160,-28},{-121,-28}},
                                                      color={255,127,0}));
   connect(outDamPosMax.y, econEnableDisableMultiZone.uOutDamPosMax) annotation (
-     Line(points={{-259,-70},{-190,-70},{-190,-32},{-121,-32}},
+     Line(points={{-259,-70},{-190,-70},{-190,-34},{-121,-34}},
                                                         color={0,0,127}));
   connect(outDamPosMin.y, econEnableDisableMultiZone.uOutDamPosMin) annotation (
-     Line(points={{-259,-110},{-250,-110},{-250,-80},{-180,-80},{-180,-34},{
-          -121,-34}},
+     Line(points={{-259,-110},{-250,-110},{-250,-80},{-180,-80},{-180,-36},{
+          -121,-36}},
         color={0,0,127}));
   connect(retDamPhyPosMax.y, econEnableDisableMultiZone.uRetDamPhyPosMax)
-    annotation (Line(points={{-179,-110},{-150,-110},{-150,-36},{-121,-36}},
+    annotation (Line(points={{-179,-110},{-150,-110},{-150,-38},{-121,-38}},
                                                                   color={0,0,
           127}));
   connect(retDamPosMax.y, econEnableDisableMultiZone.uRetDamPosMax) annotation (
-     Line(points={{-179,-150},{-146,-150},{-146,-38},{-121,-38}},
+     Line(points={{-179,-150},{-146,-150},{-146,-40},{-121,-40}},
                                                        color={0,0,127}));
   connect(retDamPosMin.y, econEnableDisableMultiZone.uRetDamPosMin) annotation (
-     Line(points={{-179,-190},{-142,-190},{-142,-40},{-121,-40}},
+     Line(points={{-179,-190},{-142,-190},{-142,-42},{-121,-42}},
                                                        color={0,0,127}));
   connect(econEnableDisableMultiZone.uZoneState, ZoneState.y)
     annotation (Line(points={{-121,-30},{-170,-30},{-170,-22},{-219,-22}},
@@ -124,19 +124,19 @@ equation
         points={{-219,-22},{-200,-22},{-200,-6},{-36,-6},{-36,-30},{39,-30}},
         color={255,127,0}));
   connect(outDamPosMax.y, econEnableDisableMultiZone1.uOutDamPosMax)
-    annotation (Line(points={{-259,-70},{-34,-70},{-34,-32},{39,-32}}, color={0,
+    annotation (Line(points={{-259,-70},{-34,-70},{-34,-34},{39,-34}}, color={0,
           0,127}));
   connect(outDamPosMin.y, econEnableDisableMultiZone1.uOutDamPosMin)
     annotation (Line(points={{-259,-110},{-230,-110},{-230,-84},{-30,-84},{-30,
-          -34},{39,-34}}, color={0,0,127}));
+          -36},{39,-36}}, color={0,0,127}));
   connect(retDamPhyPosMax.y, econEnableDisableMultiZone1.uRetDamPhyPosMax)
-    annotation (Line(points={{-179,-110},{-24,-110},{-24,-36},{39,-36}}, color=
+    annotation (Line(points={{-179,-110},{-24,-110},{-24,-38},{39,-38}}, color=
           {0,0,127}));
   connect(retDamPosMax.y, econEnableDisableMultiZone1.uRetDamPosMax)
-    annotation (Line(points={{-179,-150},{-20,-150},{-20,-38},{39,-38}}, color=
+    annotation (Line(points={{-179,-150},{-20,-150},{-20,-40},{39,-40}}, color=
           {0,0,127}));
   connect(retDamPosMin.y, econEnableDisableMultiZone1.uRetDamPosMin)
-    annotation (Line(points={{-179,-190},{-8,-190},{-8,-40},{39,-40}}, color={0,
+    annotation (Line(points={{-179,-190},{-8,-190},{-8,-42},{39,-42}}, color={0,
           0,127}));
   connect(TOut.y, econEnableDisableMultiZone2.TOut) annotation (Line(points={{
           -179,110},{-122,110},{-122,140},{158,140},{158,-20},{179,-20}}, color=
@@ -147,30 +147,30 @@ equation
   connect(FreProSta.y, econEnableDisableMultiZone2.uFreProSta) annotation (Line(
         points={{-219,10},{130,10},{130,-28},{179,-28}}, color={255,127,0}));
   connect(ZoneState.y, econEnableDisableMultiZone2.uZoneState) annotation (Line(
-        points={{-219,-22},{-208,-22},{-208,0},{-208,0},{110,0},{110,-30},{179,
-          -30}},                                 color={255,127,0}));
+        points={{-219,-22},{-208,-22},{-208,0},{110,0},{110,-30},{179,-30}},
+                                                 color={255,127,0}));
   connect(outDamPosMax.y, econEnableDisableMultiZone2.uOutDamPosMax)
-    annotation (Line(points={{-259,-70},{138,-70},{138,-32},{179,-32}}, color={
+    annotation (Line(points={{-259,-70},{138,-70},{138,-34},{179,-34}}, color={
           0,0,127}));
   connect(outDamPosMin.y, econEnableDisableMultiZone2.uOutDamPosMin)
     annotation (Line(points={{-259,-110},{-220,-110},{-220,-90},{148,-90},{148,
-          -58},{148,-34},{179,-34}}, color={0,0,127}));
+          -58},{148,-36},{179,-36}}, color={0,0,127}));
   connect(retDamPhyPosMax.y, econEnableDisableMultiZone2.uRetDamPhyPosMax)
-    annotation (Line(points={{-179,-110},{152,-110},{152,-36},{179,-36}}, color=
+    annotation (Line(points={{-179,-110},{152,-110},{152,-38},{179,-38}}, color=
          {0,0,127}));
   connect(retDamPosMax.y, econEnableDisableMultiZone2.uRetDamPosMax)
-    annotation (Line(points={{-179,-150},{156,-150},{156,-38},{179,-38}}, color=
+    annotation (Line(points={{-179,-150},{156,-150},{156,-40},{179,-40}}, color=
          {0,0,127}));
   connect(retDamPosMin.y, econEnableDisableMultiZone2.uRetDamPosMin)
-    annotation (Line(points={{-179,-190},{158,-190},{158,-40},{179,-40}}, color=
+    annotation (Line(points={{-179,-190},{158,-190},{158,-42},{179,-42}}, color=
          {0,0,127}));
   connect(SupFanSta.y, econEnableDisableMultiZone.uSupFan) annotation (Line(
-        points={{-219,-52},{-174,-52},{-174,-23},{-130,-23}}, color={255,0,255}));
+        points={{-219,-52},{-174,-52},{-174,-32},{-121,-32}}, color={255,0,255}));
   connect(SupFanSta.y, econEnableDisableMultiZone1.uSupFan) annotation (Line(
-        points={{-219,-52},{-48,-52},{-48,-24},{-10,-24},{-10,-23},{30,-23}},
+        points={{-219,-52},{-48,-52},{-48,-24},{-10,-24},{-10,-32},{39,-32}},
         color={255,0,255}));
   connect(SupFanSta.y, econEnableDisableMultiZone2.uSupFan) annotation (Line(
-        points={{-219,-52},{122,-52},{122,-24},{146,-24},{146,-23},{170,-23}},
+        points={{-219,-52},{122,-52},{122,-24},{146,-24},{146,-32},{179,-32}},
         color={255,0,255}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
