@@ -58,22 +58,23 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1)
     "Minimal economizer damper position, as calculated in the EconDamperPositionLimitsMultiZone sequence."
     annotation (Placement(transformation(extent={{-220,-220},{-180,-180}}),
-        iconTransformation(extent={{-120,-50},{-100,-30}})));
+        iconTransformation(extent={{-120,-70},{-100,-50}})));
   CDL.Interfaces.RealInput uOutDamPosMax(min=0, max=1)
     "Maximum economizer damper position, as calculated in the EconDamperPositionLimitsMultiZone sequence."
     annotation (Placement(transformation(extent={{-220,-190},{-180,-150}}),
-        iconTransformation(extent={{-120,-30},{-100,-10}})));
+        iconTransformation(extent={{-120,-50},{-100,-30}})));
   CDL.Interfaces.RealInput uRetDamPosMax(min=0, max=1)
     "Maximum return air damper position as calculated in the EconDamperPositionLimitsMultiZone sequence"
     annotation (Placement(transformation(extent={{-220,-290},{-180,-250}}),
-        iconTransformation(extent={{-120,-90},{-100,-70}})));
+        iconTransformation(extent={{-120,-110},{-100,-90}})));
   CDL.Interfaces.RealInput uRetDamPosMin(min=0, max=1)
     "Minimum return air damper position as calculated in the EconDamperPositionLimitsMultiZone sequence" annotation (
-      Placement(transformation(extent={{-220,-320},{-180,-280}}), iconTransformation(extent={{-120,-110},{-100,-90}})));
+      Placement(transformation(extent={{-220,-320},{-180,-280}}), iconTransformation(extent={{-120,
+            -130},{-100,-110}})));
   CDL.Interfaces.RealInput uRetDamPhyPosMax(min=0, max=1)
     "Physical or at the comissioning fixed maximum opening of the return air damper. Connects to the damper limit sequence output"
     annotation (Placement(transformation(extent={{-220,-260},{-180,-220}}),
-        iconTransformation(extent={{-120,-70},{-100,-50}})));
+        iconTransformation(extent={{-120,-90},{-100,-70}})));
 
   CDL.Interfaces.RealOutput yOutDamPosMax
     "Output sets maximum allowable economizer damper position. Fixme: Should this remain as type real? Output can take two values: disable = yOutDamPosMin and enable = yOutDamPosMax."
@@ -146,7 +147,8 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
             {140,-210}})));
 
   CDL.Interfaces.BooleanInput uSupFan
-    annotation (Placement(transformation(extent={{-220,50},{-180,90}})));
+    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
+        iconTransformation(extent={{-120,-30},{-100,-10}})));
   CDL.Logical.And and1
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
 equation
@@ -228,8 +230,9 @@ equation
     annotation (Line(points={{-200,-240},{-62,-240},{-62,-282},{78,-282}}, color={0,0,127}));
   connect(OnOffDelay.y, and1.u1) annotation (Line(points={{21,170},{30,170},{30,
           90},{-10,90},{-10,70},{-2,70}}, color={255,0,255}));
-  connect(uSupFan, and1.u2) annotation (Line(points={{-200,70},{-102,70},{-102,
-          62},{-2,62}}, color={255,0,255}));
+  connect(uSupFan, and1.u2) annotation (Line(points={{-120,-30},{-102,-30},{
+          -102,62},{-2,62}},
+                        color={255,0,255}));
   connect(and1.y, andEnaDis.u1) annotation (Line(points={{21,70},{21,72},{30,72},
           {30,8},{38,8}}, color={255,0,255}));
   annotation (
