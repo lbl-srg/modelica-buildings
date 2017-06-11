@@ -55,20 +55,20 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
             -90},{-100,-70}})));
   CDL.Interfaces.RealOutput yOutDamPosMin(min=0, max=1, unit="1")
     "Minimum economizer damper position limit." annotation (Placement(
-        transformation(extent={{240,70},{260,90}}),  iconTransformation(extent={{100,10},
-            {120,30}})));
+        transformation(extent={{240,70},{260,90}}),  iconTransformation(extent={{100,20},
+            {120,40}})));
   CDL.Interfaces.RealOutput yRetDamPosMax(min=0, max=1, unit="1")
     "Maximum return air damper position limit" annotation (Placement(
         transformation(extent={{240,-50},{260,-30}}),
-        iconTransformation(extent={{100,-70}, {120,-50}})));
+        iconTransformation(extent={{100,-42},{120,-22}})));
   CDL.Interfaces.RealOutput yRetDamPosMin(min=0, max=1, unit="1")
     "Maximum return air damper position limit" annotation (Placement(
-        transformation(extent={{240,-10},{260,10}}),iconTransformation(extent={{100,-30},
-            {120,-10}})));
+        transformation(extent={{240,-10},{260,10}}),iconTransformation(extent={{100,-20},
+            {120,0}})));
   CDL.Interfaces.RealOutput yOutDamPosMax(min=0, max=1, unit="1")
     "Minimum economizer damper position limit." annotation (Placement(
-        transformation(extent={{240,30},{260,50}}),  iconTransformation(extent={{100,50},
-            {120,70}})));
+        transformation(extent={{240,30},{260,50}}),  iconTransformation(extent={{100,60},
+            {120,80}})));
 
   CDL.Continuous.LimPID damLimController(
     Ti=0.9,
@@ -109,6 +109,12 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
   CDL.Logical.Equal equ1 annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
 
 
+  CDL.Interfaces.RealOutput yRetDamPhyPosMax(
+    min=0,
+    max=1,
+    unit="1") "Physical maximum return air damper position limit" annotation (
+      Placement(transformation(extent={{240,-90},{260,-70}}),
+        iconTransformation(extent={{100,-64},{120,-44}})));
 equation
   connect(minRetDam.y,yRetDamPosMax)  annotation (Line(points={{161,110},{180,110},{180,20},{220,20},
           {220,-40},{250,-40}},                   color={0,0,127}));
@@ -172,6 +178,8 @@ equation
     annotation (Line(points={{-199,-220},{-190.5,-220},{-182,-220}}, color={0,0,127}));
   connect(AHUMode.y, equ1.u2) annotation (Line(points={{-199,-250},{-190,-250},{-190,-228},{-182,-228}},
         color={0,0,127}));
+  connect(retDamPhyPosMaxSig.y, yRetDamPhyPosMax) annotation (Line(points={{
+          -199,-40},{198,-40},{198,-80},{250,-80}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ecoDamLim",
     Icon(graphics={
@@ -199,7 +207,7 @@ equation
           textString="Outdoor airflow 
 control loop."),                     Rectangle(extent={{-100,280},{240,-110}},
             lineColor={28,108,200}), Text(
-          extent={{96,-48},{240,-130}},
+          extent={{34,-48},{178,-130}},
           lineColor={28,108,200},
           fontSize=12,
           textString="Damper position limit 

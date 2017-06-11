@@ -230,9 +230,8 @@ equation
     annotation (Line(points={{-200,-240},{-62,-240},{-62,-282},{78,-282}}, color={0,0,127}));
   connect(OnOffDelay.y, and1.u1) annotation (Line(points={{21,170},{30,170},{30,
           90},{-10,90},{-10,70},{-2,70}}, color={255,0,255}));
-  connect(uSupFan, and1.u2) annotation (Line(points={{-120,-30},{-102,-30},{
-          -102,62},{-2,62}},
-                        color={255,0,255}));
+  connect(uSupFan, and1.u2) annotation (Line(points={{-120,-30},{-102,-30},{-102,
+          62},{-2,62}}, color={255,0,255}));
   connect(and1.y, andEnaDis.u1) annotation (Line(points={{21,70},{21,72},{30,72},
           {30,8},{38,8}}, color={255,0,255}));
   annotation (
