@@ -3,8 +3,6 @@ model EconomizerMultiZone "Economizer control block"
 
   parameter Boolean fixEnt = true
     "Set to true if there is an enthalpy sensor and the economizer uses fixed enthalpy + fixed dry bulb temperature sensors";
-  AtomicSequences.EconDamperPositionLimitsMultiZone ecoEnaDis
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   CDL.Interfaces.RealInput TCooSet
     "Output of a ***TSupSet sequence. The economizer modulates to the TCoo rather 
     than to the THea. If Zone State is Cooling, economizer modulates to a temperature 
@@ -63,46 +61,19 @@ model EconomizerMultiZone "Economizer control block"
   AtomicSequences.EconModulationMultiZone ecoMod
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   AtomicSequences.EconEnableDisableMultiZone econEnableDisableMultiZone(fixEnt=true)
+    "Block that determines whether the economizer is enabled or disabled"
     annotation (Placement(transformation(extent={{-18,-20},{2,0}})));
+  AtomicSequences.EconDamperPositionLimitsMultiZone ecoDamLim
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 equation
-  connect(uSupFan, ecoEnaDis.uSupFan) annotation (Line(points={{-150,-10},{-100,
-          -10},{-100,30},{-81,30}},
-                              color={255,0,255}));
-  connect(uVOut, ecoEnaDis.uVOut) annotation (Line(points={{-150,30},{-150,30},{
-          -120,30},{-120,38},{-81,38}},
-                         color={0,0,127}));
-  connect(uVOutMinSet, ecoEnaDis.uVOutMinSet) annotation (Line(points={{-150,40},
-          {-98,40},{-98,35},{-81,35}}, color={0,0,127}));
-  connect(uAHUMode, ecoEnaDis.uAHUMode) annotation (Line(points={{-150,-60},{-116,
-          -60},{-116,25},{-81,25}}, color={255,127,0}));
-  connect(uFreProSta, ecoEnaDis.uFreProSta) annotation (Line(points={{-150,-100},
-          {-150,-100},{-90,-100},{-90,-40},{-90,22},{-81,22}},
-                                                             color={255,127,0}));
   connect(TCooSet, ecoMod.TCooSet) annotation (Line(points={{-150,70},{22,70},{22,
           36},{22,19},{30,19},{39,19}}, color={0,0,127}));
   connect(TSup, ecoMod.TSup) annotation (Line(points={{-150,60},{0,60},{0,16},{39,
           16}}, color={0,0,127}));
-  connect(ecoEnaDis.yOutDamPosMin, ecoMod.uOutDamPosMin) annotation (Line(
-        points={{-59,33},{-10.5,33},{-10.5,8},{39,8}}, color={0,0,127}));
   connect(ecoMod.yRetDamPos, yRetDamPos) annotation (Line(points={{61,12},{112,12},
           {112,40},{170,40}}, color={0,0,127}));
   connect(ecoMod.yOutDamPos, yOutDamPos) annotation (Line(points={{61,8},{113.5,
           8},{113.5,-20},{170,-20}}, color={0,0,127}));
-  connect(ecoEnaDis.yRetDamPhyPosMax, econEnableDisableMultiZone.uRetDamPhyPosMax)
-    annotation (Line(points={{-59,24.6},{-48.5,24.6},{-48.5,-18},{-19,-18}},
-        color={0,0,127}));
-  connect(ecoEnaDis.yRetDamPosMax, econEnableDisableMultiZone.uRetDamPosMax)
-    annotation (Line(points={{-59,26.8},{-48.5,26.8},{-48.5,-20},{-19,-20}},
-        color={0,0,127}));
-  connect(ecoEnaDis.yRetDamPosMin, econEnableDisableMultiZone.uRetDamPosMin)
-    annotation (Line(points={{-59,29},{-48.5,29},{-48.5,-22},{-19,-22}}, color={
-          0,0,127}));
-  connect(ecoEnaDis.yOutDamPosMin, econEnableDisableMultiZone.uOutDamPosMin)
-    annotation (Line(points={{-59,33},{-48.5,33},{-48.5,-16},{-19,-16}}, color={
-          0,0,127}));
-  connect(ecoEnaDis.yOutDamPosMax, econEnableDisableMultiZone.uOutDamPosMax)
-    annotation (Line(points={{-59,37},{-54,37},{-54,38},{-50,38},{-50,-14},{-19,
-          -14}}, color={0,0,127}));
   connect(uSupFan, econEnableDisableMultiZone.uSupFan) annotation (Line(points={
           {-150,-10},{-94,-10},{-94,-12},{-19,-12}}, color={255,0,255}));
   connect(uZoneState, econEnableDisableMultiZone.uZoneState) annotation (Line(
@@ -124,6 +95,33 @@ equation
     annotation (Line(points={{4,-12},{22,-12},{22,4},{39,4}}, color={0,0,127}));
   connect(econEnableDisableMultiZone.yRetDamPosMin, ecoMod.uRetDamPosMin)
     annotation (Line(points={{4,-18},{22,-18},{22,1},{39,1}}, color={0,0,127}));
+  connect(uVOutMinSet, ecoDamLim.uVOutMinSet) annotation (Line(points={{-150,40},
+          {-124,40},{-124,35},{-101,35}}, color={0,0,127}));
+  connect(uVOut, ecoDamLim.uVOut) annotation (Line(points={{-150,30},{-124,30},
+          {-124,38},{-101,38}}, color={0,0,127}));
+  connect(uSupFan, ecoDamLim.uSupFan) annotation (Line(points={{-150,-10},{-124,
+          -10},{-124,30},{-101,30}}, color={255,0,255}));
+  connect(uAHUMode, ecoDamLim.uAHUMode) annotation (Line(points={{-150,-60},{
+          -122,-60},{-122,24},{-112,24},{-112,25},{-101,25}}, color={255,127,0}));
+  connect(uFreProSta, ecoDamLim.uFreProSta) annotation (Line(points={{-150,-100},
+          {-120,-100},{-120,22},{-101,22}}, color={255,127,0}));
+  connect(ecoDamLim.yOutDamPosMax, econEnableDisableMultiZone.uOutDamPosMax)
+    annotation (Line(points={{-79,37},{-48.5,37},{-48.5,-14},{-19,-14}}, color=
+          {0,0,127}));
+  connect(ecoDamLim.yOutDamPosMin, ecoMod.uOutDamPosMin) annotation (Line(
+        points={{-79,33},{-19.5,33},{-19.5,8},{39,8}}, color={0,0,127}));
+  connect(ecoDamLim.yOutDamPosMin, econEnableDisableMultiZone.uOutDamPosMin)
+    annotation (Line(points={{-79,33},{-47.5,33},{-47.5,-16},{-19,-16}}, color=
+          {0,0,127}));
+  connect(ecoDamLim.yRetDamPosMin, econEnableDisableMultiZone.uRetDamPosMin)
+    annotation (Line(points={{-79,29},{-49.5,29},{-49.5,-22},{-19,-22}}, color=
+          {0,0,127}));
+  connect(ecoDamLim.yRetDamPhyPosMax, econEnableDisableMultiZone.uRetDamPhyPosMax)
+    annotation (Line(points={{-79,24.6},{-62,24.6},{-62,24},{-54,24},{-54,-18},
+          {-19,-18}}, color={0,0,127}));
+  connect(ecoDamLim.yRetDamPosMax, econEnableDisableMultiZone.uRetDamPosMax)
+    annotation (Line(points={{-79,26.8},{-64,26.8},{-64,26},{-52,26},{-52,-20},
+          {-19,-20}}, color={0,0,127}));
   annotation (Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},

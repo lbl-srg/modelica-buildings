@@ -172,7 +172,8 @@ equation
     annotation (Line(points={{-199,-180},{-190,-180},{-182,-180}}, color={0,0,127}));
   connect(uAHUMode, intToRea1.u) annotation (Line(points={{-260,-218},{-242,-218},{-242,-220},{-222,-220}},
         color={255,127,0}));
-  connect(and1.u3, equ1.y) annotation (Line(points={{-142,-138},{-152,-138},{-152,-220},{-159,-220}},
+  connect(and1.u3, equ1.y) annotation (Line(points={{-142,-138},{-146,-138},{
+          -146,-220},{-159,-220}},
         color={255,0,255}));
   connect(intToRea1.y, equ1.u1)
     annotation (Line(points={{-199,-220},{-190.5,-220},{-182,-220}}, color={0,0,127}));
