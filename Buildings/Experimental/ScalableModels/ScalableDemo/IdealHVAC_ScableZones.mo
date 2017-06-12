@@ -2,7 +2,7 @@ within Buildings.Experimental.ScalableModels.ScalableDemo;
 model IdealHVAC_ScableZones
   import Buildings;
   extends Modelica.Icons.Example;
-  parameter Integer nZon(min=1) = 1 "Number of zones per floor"
+  parameter Integer nZon(min=1) = 6 "Number of zones per floor"
     annotation(Evaluate=true);
   parameter Integer nFlo(min=1) = 1 "Number of floors"
     annotation(Evaluate=true);

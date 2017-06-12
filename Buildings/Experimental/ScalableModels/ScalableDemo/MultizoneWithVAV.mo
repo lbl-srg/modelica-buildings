@@ -7,7 +7,7 @@ model MultizoneWithVAV
   package MediumW = Buildings.Media.Water "Medium model for water";
 
   parameter Integer nZon(min=1) = 6 "Number of zones per floor"    annotation(Evaluate=true);
-  parameter Integer nFlo(min=1) = 1 "Number of floors"    annotation(Evaluate=true);
+  parameter Integer nFlo(min=1) = 2 "Number of floors"    annotation(Evaluate=true);
 
   parameter Real VRoo[nZon,nFlo] = {{6*8*2.7 for j in 1:nFlo} for i in 1:nZon} "Room volume";
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
@@ -223,7 +223,8 @@ model MultizoneWithVAV
       1.2, r_N_min=0.2) "Controller for fan"
     annotation (Placement(transformation(extent={{12,158},{26,172}})));
   Buildings.Experimental.ScalableModels.Controls.ControlBus controlBus
-    annotation (Placement(transformation(extent={{-78,44},{-58,64}})));
+    annotation (Placement(transformation(extent={{-78,44},{-58,64}}),
+        iconTransformation(extent={{-128,136},{-108,156}})));
   Schedules.HeatSetpoint                                       TSetHea "Heating setpoint"
     annotation (Placement(transformation(extent={{-120,36},{-112,44}})));
   Schedules.CoolSetpoint                                       TSetCoo1
