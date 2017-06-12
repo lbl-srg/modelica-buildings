@@ -8,10 +8,15 @@ model ReheatControl "Electric heater on/off controller"
   "if y2=true and y2<=y2Low, switch to y2=false";
   parameter Modelica.SIunits.TemperatureDifference y2Hig
   "if y2=false and y2>=y2High, switch to y2=true";
-  parameter Boolean pre_start1=true "Value of pre(y1) at initial time";
-  parameter Boolean pre_start2=true "Value of pre(y2) at initial time";
+  parameter Boolean pre_start1=true "Previous value of y1 used at initialization"
+    annotation (Dialog(tab="Initialization"));
+  parameter Boolean pre_start2=true "Previous value of y2 used at initialization"
+    annotation (Dialog(tab="Initialization"));
 
-  Modelica.Blocks.Interfaces.RealInput y1(min=0,max=1,unit="1")
+  Modelica.Blocks.Interfaces.RealInput y1(
+    min=0,
+    max=1,
+    unit="1")
   "Input signal 1"
    annotation (Placement(transformation(
           extent={{-140,30},{-100,70}}), iconTransformation(extent={{-140,30},{-100,
