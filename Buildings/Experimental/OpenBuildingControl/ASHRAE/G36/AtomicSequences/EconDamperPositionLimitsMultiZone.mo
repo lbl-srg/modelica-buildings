@@ -34,7 +34,7 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
         iconTransformation(extent={{-120,-10},{-100,10}})));
   CDL.Interfaces.RealOutput yOutDamPosMin(min=0, max=1, unit="1")
     "Minimum economizer damper position limit." annotation (Placement(
-        transformation(extent={{240,70},{260,90}}),  iconTransformation(extent={{100,20}, {120,40}})));
+        transformation(extent={{240,70},{260,90}}), iconTransformation(extent={{100,20}, {120,40}})));
   CDL.Interfaces.RealOutput yRetDamPosMax(min=0, max=1, unit="1")
     "Maximum return air damper position limit" annotation (Placement(
         transformation(extent={{240,-50},{260,-30}}),
@@ -44,7 +44,7 @@ block EconDamperPositionLimitsMultiZone "Based on measured and requred minimum o
         transformation(extent={{240,-10},{260,10}}),iconTransformation(extent={{100,-20},{120,0}})));
   CDL.Interfaces.RealOutput yOutDamPosMax(min=0, max=1, unit="1")
     "Minimum economizer damper position limit." annotation (Placement(
-        transformation(extent={{240,30},{260,50}}),  iconTransformation(extent={{100,60},
+        transformation(extent={{240,30},{260,50}}), iconTransformation(extent={{100,60},
             {120,80}})));
   CDL.Interfaces.RealOutput yRetDamPhyPosMax(min=0, max=1, unit="1") "Physical maximum return air damper position limit"
   annotation (Placement(transformation(extent={{240,-90},{260,-70}}),
