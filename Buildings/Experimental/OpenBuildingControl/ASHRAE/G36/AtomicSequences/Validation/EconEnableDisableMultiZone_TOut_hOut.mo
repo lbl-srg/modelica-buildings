@@ -207,12 +207,12 @@ hOut > 28 Btu/lb [65.1 kJ/kg]"),                                                
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           fontSize=12,
-          textString="Entahlpy"),                                                              Text(
+          textString="Enthalpy"),                                                              Text(
           extent={{142,168},{270,140}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           fontSize=12,
-          textString="No fixed entahlpy sensor")}),
+          textString="No fixed enthalpy sensor")}),
   experiment(StopTime=1800.0),
     Documentation(info="<html>
 <p>

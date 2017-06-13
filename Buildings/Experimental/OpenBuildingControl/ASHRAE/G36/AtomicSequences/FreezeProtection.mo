@@ -4,9 +4,8 @@ block FreezeProtection
 
   CDL.Interfaces.BooleanInput uFre(start=false) "Freezestat status" annotation (
      Placement(transformation(extent={{-220,-80},{-180,-40}}),
-                                                             iconTransformation(
-          extent={{-220,-80},{-180,-40}})));
-  CDL.Interfaces.RealInput TSup(unit="K", displayUnit="degC")
+     iconTransformation(extent={{-220,-80},{-180,-40}})));
+  CDL.Interfaces.RealInput TSup(unit="K", quantity="ThermodynamicTemperature")
     "Supply air temperature" annotation (Placement(transformation(extent={{-220,
             -16},{-180,24}}), iconTransformation(extent={{-220,-16},{-180,24}})));
   //fixme: units for instantiated limits, example TOut limit is 75K, delta = 1K

@@ -31,8 +31,8 @@ block EconModulationSingleZone "Based on supply air temperature (SAT) setpoint a
     annotation (Placement(transformation(extent={{-20,-34},{0,-14}})));
 
   CDL.Interfaces.BooleanInput uSupFan "Supply Fan Status, on or off"
-    annotation (Placement(transformation(extent={{-180,-38},{-140,2}}),
-        iconTransformation(extent={{-158,-16},{-140,2}})));
+    annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
+        iconTransformation(extent={{-158,-18},{-140,0}})));
   CDL.Interfaces.RealOutput yOutDamPos(min=0, max=1, unit="1") "Economizer damper position"
                                                 annotation (Placement(
         transformation(extent={{140,-30},{160,-10}}), iconTransformation(extent={{140,-30},
@@ -55,7 +55,7 @@ block EconModulationSingleZone "Based on supply air temperature (SAT) setpoint a
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   CDL.Interfaces.RealInput uHea(min=0, max=1, unit="1")
     "Heating control signal."
-    annotation (Placement(transformation(extent={{-180,-6},{-140,34}}),
+    annotation (Placement(transformation(extent={{-180,-10},{-140,30}}),
         iconTransformation(extent={{-158,16},{-140,34}})));
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1, unit="1")
     "Minimum economizer damper position limit as returned by the EconDamPosLimits sequence."
@@ -63,7 +63,7 @@ block EconModulationSingleZone "Based on supply air temperature (SAT) setpoint a
         iconTransformation(extent={{-158,-48},{-140,-30}})));
   CDL.Interfaces.RealInput uOutDamPosMax(min=0, max=1, unit="1")
     "Maximum economizer damper position limit as returned by the EconEnableDisable sequence. If the economizer is disabled, this value equals uOutDamPosMin"
-    annotation (Placement(transformation(extent={{-180,-98},{-140,-58}}),
+    annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
         iconTransformation(extent={{-158,-76},{-140,-58}})));
   CDL.Interfaces.RealInput uRetDamPosMin(min=0, max=1, unit="1")
     "Minimum return air damper position limit as returned by the EconDamPosLimits sequence. 
@@ -72,7 +72,7 @@ block EconModulationSingleZone "Based on supply air temperature (SAT) setpoint a
         iconTransformation(extent={{-158,-106},{-140,-88}})));
   CDL.Interfaces.RealInput uRetDamPosMax(min=0, max=1, unit="1")
     "Maximum return air damper position limit as returned by the EconDamPosLimits sequence."
-    annotation (Placement(transformation(extent={{-180,-156},{-140,-116}}),
+    annotation (Placement(transformation(extent={{-180,-160},{-140,-120}}),
         iconTransformation(extent={{-158,-134},{-140,-116}})));
   CDL.Logical.Switch DisableRetDamModulation
     "If the heating is on or the fan is off, keep return air damper at it's maximum limit set by the EconDamPosLimits sequence."
@@ -102,10 +102,10 @@ equation
   connect(damPosController.y, outDamPos.u) annotation (Line(points={{1,-24},{30,
           -24},{30,10},{58,10}}, color={0,0,127}));
   connect(andBlock.u2, uSupFan) annotation (Line(points={{-82,-78},{-114,-78},{
-          -114,-18},{-160,-18}},
+          -114,-20},{-160,-20}},
                             color={255,0,255}));
-  connect(uHea,ZoneStateStatusHeating. u) annotation (Line(points={{-160,14},{
-          -108,14},{-108,-34},{-84,-34},{-82,-34}},
+  connect(uHea,ZoneStateStatusHeating. u) annotation (Line(points={{-160,10},{
+          -108,10},{-108,-34},{-84,-34},{-82,-34}},
                                 color={0,0,127}));
   connect(ZoneStateStatusHeating.y, andBlock.u1) annotation (Line(points={{-59,-34},
           {-50,-34},{-50,-20},{-100,-20},{-100,-52},{-100,-70},{-82,-70}},
@@ -116,18 +116,18 @@ equation
   connect(andBlock.y, DisableRetDamModulation.u2) annotation (Line(points={{-59,-70},
           {-50,-70},{-50,-150},{-42,-150}},      color={255,0,255}));
   connect(uOutDamPosMax, DisableEcoDamModulation.u1) annotation (Line(points={{-160,
-          -78},{-122,-78},{-122,-94},{-68,-94},{-68,-104},{-42,-104}},
+          -80},{-120,-80},{-120,-90},{-70,-90},{-70,-104},{-42,-104}},
                                                    color={0,0,127}));
   connect(uOutDamPosMin, DisableEcoDamModulation.u3) annotation (Line(points={{-160,
           -50},{-90,-50},{-90,-120},{-42,-120}},   color={0,0,127}));
   connect(uRetDamPosMin, DisableRetDamModulation.u1) annotation (Line(points={{-160,
-          -108},{-86,-108},{-86,-142},{-42,-142}},      color={0,0,127}));
+          -108},{-90,-108},{-90,-142},{-42,-142}},      color={0,0,127}));
   connect(uRetDamPosMax, DisableRetDamModulation.u3) annotation (Line(points={{-160,
-          -136},{-80,-136},{-80,-158},{-42,-158}},      color={0,0,127}));
+          -140},{-80,-140},{-80,-158},{-42,-158}},      color={0,0,127}));
   connect(minSignalLimit.y, RetDamPos.x1) annotation (Line(points={{1,70},{30,
           70},{30,58},{58,58}}, color={0,0,127}));
-  connect(uRetDamPosMax, RetDamPos.f1) annotation (Line(points={{-160,-136},{50,
-          -136},{50,54},{58,54}}, color={0,0,127}));
+  connect(uRetDamPosMax, RetDamPos.f1) annotation (Line(points={{-160,-140},{50,
+          -140},{50,54},{58,54}}, color={0,0,127}));
   connect(DisableRetDamModulation.y, RetDamPos.f2) annotation (Line(points={{-19,
           -150},{10,-150},{10,42},{58,42}},     color={0,0,127}));
   connect(uOutDamPosMin, outDamPos.f1) annotation (Line(points={{-160,-50},{-32,

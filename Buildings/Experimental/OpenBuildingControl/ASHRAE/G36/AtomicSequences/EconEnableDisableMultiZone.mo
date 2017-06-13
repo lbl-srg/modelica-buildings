@@ -26,11 +26,6 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     "Per G36 the outdoor air damper can switch to its minimal position only a short time period after the disable 
     signal got activated. The return air damper gets fully open before that in order to prevent pressure fluctuations";
 
-  CDL.Logical.Constant fixedEntSwitch(k=fixEnt)
-    "Set to true if there is an enthalpy sensor and the economizer uses fixed enthalpy + fixed dry bulb temperature sensors. 
-    Defaults to true, set to false if only the outdoor air dry bulb temperature sensor is implemented. 
-    [fixme: harmonize with issue #777]"
-    annotation (Placement(transformation(extent={{100,210},{120,230}})));
   CDL.Continuous.Constant openRetDam(k=retDamFullyOpenTime)
     "Keep return damper open to its physical maximum for a short period of time before closing the outdoor air damper 
     and resuming the maximum return air damper position, per G36 Part N7"
@@ -115,12 +110,6 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
   CDL.Logical.Nor nor1 annotation (Placement(transformation(extent={{-40,160},{
             -20,180}})));
-  CDL.Continuous.Constant deltaTemHis(k=delTemHis)
-    "Delta between the temperature hysteresis high and low limit. delTemHis = uTemHigLimCutHig - uTemHigLimCutLow "
-    annotation (Placement(transformation(extent={{140,210},{160,230}})));
-  CDL.Continuous.Constant deltaEntHis(k=delEntHis)
-    "Delta between the enthalpy hysteresis high and low limit. delEntHis = uEntHigLimCutHig - uTemEntLimCutLow "
-    annotation (Placement(transformation(extent={{140,170},{160,190}})));
   CDL.Continuous.Add add2(k2=-1) if fixEnt
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
   CDL.Continuous.Add add1(k2=-1)
@@ -141,16 +130,17 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
   CDL.Conversions.IntegerToReal intToRea1
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
   CDL.Logical.GreaterThreshold greThr "Heating = 0" annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
-
   CDL.Logical.GreaterThreshold greThr2(threshold=0) annotation (Placement(transformation(extent={{80,-230},{100,-210}})));
   CDL.Logical.And and2 annotation (Placement(transformation(extent={{120,-230},
             {140,-210}})));
-
   CDL.Interfaces.BooleanInput uSupFan
     annotation (Placement(transformation(extent={{-220,50},{-180,90}}),
         iconTransformation(extent={{-120,-30},{-100,-10}})));
   CDL.Logical.And and1
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
+  CDL.Logical.Constant entSubst(final k=false) if not fixEnt
+    "Implemented for the no fixed enthalpy measurement case."
+    annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
 equation
   connect(OutDamSwitch.y, yOutDamPosMax) annotation (Line(points={{101,-180},{101,-180},{190,-180}}, color={0,0,127}));
   connect(TOut, add1.u1) annotation (Line(points={{-200,230},{-170,230},{-170,
@@ -170,10 +160,11 @@ equation
   connect(hysOutTem.y, nor1.u1) annotation (Line(points={{-79,210},{-60,210},{
           -60,170},{-42,170}},                                                                     color={255,0,255}));
   if fixEnt then
-    connect(hysOutEnt.y, nor1.u2) annotation (Line(points={{-79,130},{-60,130},
-            {-60,162},{-42,162}},                                                                    color={255,0,255}));
+    connect(hysOutEnt.y, nor1.u2)
+      annotation (Line(points={{-79,130},{-60,130}, {-60,162},{-42,162}}, color={255,0,255}));
   else
-    nor1.u2 = false;
+    connect(entSubst.y, nor1.u2) annotation (Line(points={{-79,160},{-60,160},{-60,
+          162},{-42,162}}, color={255,0,255}));
   end if;
   connect(disableDelay.y, greEqu.u2)
     annotation (Line(points={{1,-150},{10,-150},{10,-148},{38,-148}},
@@ -233,8 +224,9 @@ equation
           90},{-10,90},{-10,70},{-2,70}}, color={255,0,255}));
   connect(uSupFan, and1.u2) annotation (Line(points={{-200,70},{-102,70},{-102,
           62},{-2,62}}, color={255,0,255}));
-  connect(and1.y, andEnaDis.u1) annotation (Line(points={{21,70},{21,72},{30,72},
+  connect(and1.y, andEnaDis.u1) annotation (Line(points={{21,70},{21,70},{30,70},
           {30,8},{38,8}}, color={255,0,255}));
+                                //fixme nicer blue
   annotation (
     Icon(graphics={
         Rectangle(
@@ -244,15 +236,15 @@ equation
           fillPattern=FillPattern.Solid),
         Line(
           points={{-2,60},{78,60}},
-          color={28,108,200},
+          color={0,0,127},
           thickness=0.5),
         Line(
           points={{-78,-64},{-2,-64},{-2,60}},
-          color={28,108,200},
+          color={0,0,127},
           thickness=0.5),
         Text(
           extent={{-170,150},{158,112}},
-          lineColor={85,0,255},
+          lineColor={0,0,127},
           textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
@@ -290,13 +282,10 @@ when in heating",
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           textString="Supply fan"),  Text(
-          extent={{-118,162},{-8,152}},
+          extent={{-34,204},{76,194}},
           lineColor={28,108,200},
-          textString="fixme: add conditional const"),
-                                     Text(
-          extent={{-14,198},{96,188}},
-          lineColor={28,108,200},
-          textString="fixme: expose duration and fixedEnth, remove 3 const blocks")}),
+          textString="fixme: expose duration and fixedEnth, 
+remove 3 const blocks")}),
     Documentation(info="<html>      
              <p>
              implementation fixme: 10 min delay
@@ -343,5 +332,5 @@ March 31, 2017, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));                     //fixme nicer blue
+</html>"));
 end EconEnableDisableMultiZone;

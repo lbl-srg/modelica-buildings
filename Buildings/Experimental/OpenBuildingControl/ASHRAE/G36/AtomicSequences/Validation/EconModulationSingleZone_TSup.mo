@@ -29,7 +29,7 @@ model EconModulationSingleZone_TSup
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 equation
   connect(TSupSet.y, ecoMod.TCooSet) annotation (Line(points={{-1,72},{8,72},{8,
-          48},{-20,48},{-20,38.0714},{-0.642857,38.0714}},
+          48},{-20,48},{-20,37.7857},{-0.785714,37.7857}},
                             color={0,0,127}));
   connect(TSup.y,ecoMod.TSup)  annotation (Line(points={{-59,72},{-30,72},{-30,
           36.2143},{-0.642857,36.2143}},
@@ -41,7 +41,7 @@ equation
           31.7857},{-0.642857,31.7857}},
                     color={0,0,127}));
   connect(uSupFan.y, ecoMod.uSupFan) annotation (Line(points={{-59,-30},{-34.5,
-          -30},{-34.5,29.5},{-0.642857,29.5}},
+          -30},{-34.5,29.3571},{-0.642857,29.3571}},
                                 color={255,0,255}));
   connect(RetDamPosMax.y, ecoMod.uRetDamPosMax) annotation (Line(points={{41,-10},
           {46,-10},{46,-26},{-6,-26},{-6,20},{-6,21.0714},{-0.642857,21.0714}},

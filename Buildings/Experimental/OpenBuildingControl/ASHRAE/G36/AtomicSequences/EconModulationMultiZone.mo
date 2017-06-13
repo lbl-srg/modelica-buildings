@@ -124,17 +124,19 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(points={{20,58}}, color={28,108,200}),
-        Line(points={{-92,-84},{-50,-84},{12,70},{82,70}}, color={28,108,200},
+        Line(
+          points={{-92,-84},{-50,-84},{12,70},{82,70}},
+          color={0,0,127},
           thickness=0.5),
         Line(
           points={{-66,58},{12,58},{50,-76},{100,-76}},
-          color={28,108,200},
+          color={0,0,127},
           pattern=LinePattern.Dash,
           thickness=0.5),
         Text(
           extent={{-108,138},{102,110}},
-          lineColor={85,0,255},
-          textString="EconModul")}),
+          lineColor={0,0,127},
+          textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),
     Documentation(info="<html>      
