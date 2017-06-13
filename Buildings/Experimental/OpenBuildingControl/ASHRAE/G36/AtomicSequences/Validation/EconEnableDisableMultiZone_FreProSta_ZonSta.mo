@@ -75,7 +75,7 @@ equation
   connect(retDamPhyPosMax.y, econEnableDisableMultiZone.uRetDamPhyPosMax)
     annotation (Line(points={{-79,-10},{-70,-10},{-70,42},{81,42}}, color={0,0,127}));
   connect(retDamPosMin.y, econEnableDisableMultiZone.uRetDamPosMin) annotation (
-     Line(points={{-79,-90},{-66,-90},{-66,40},{8,40},{8,38},{81,38}}, color={0,
+     Line(points={{-79,-90},{-66,-90},{-66,38},{8,38},{8,38},{81,38}}, color={0,
           0,127}));
   connect(outDamPosMax.y, econEnableDisableMultiZone.uOutDamPosMax) annotation (
      Line(points={{-39,-110},{-30,-110},{-30,46},{81,46}}, color={0,0,127}));
