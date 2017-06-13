@@ -226,7 +226,6 @@ equation
           62},{-2,62}}, color={255,0,255}));
   connect(and1.y, andEnaDis.u1) annotation (Line(points={{21,70},{21,70},{30,70},
           {30,8},{38,8}}, color={255,0,255}));
-                                //fixme nicer blue
   annotation (
     Icon(graphics={
         Rectangle(
