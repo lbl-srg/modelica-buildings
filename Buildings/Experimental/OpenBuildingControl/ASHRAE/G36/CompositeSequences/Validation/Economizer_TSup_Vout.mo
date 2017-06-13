@@ -91,8 +91,7 @@ equation
           -10},{79,-10}}, color={0,0,127}));
   connect(VOutMinSet.y, economizer.uVOutMinSet) annotation (Line(points={{1,30},
           {10,30},{10,-12},{79,-12}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},
-            {120,120}}),                                        graphics={
+  annotation (Icon(graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,

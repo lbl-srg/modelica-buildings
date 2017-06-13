@@ -71,32 +71,32 @@ equation
   connect(ZoneState1.y, econEnableDisableMultiZone1.uZoneState) annotation (
       Line(points={{61,-70},{72,-70},{72,-30},{81,-30}}, color={255,127,0}));
   connect(retDamPosMax.y, econEnableDisableMultiZone.uRetDamPosMax) annotation (
-     Line(points={{-79,-50},{-68,-50},{-68,42},{81,42}}, color={0,0,127}));
+     Line(points={{-79,-50},{-68,-50},{-68,40},{81,40}}, color={0,0,127}));
   connect(retDamPhyPosMax.y, econEnableDisableMultiZone.uRetDamPhyPosMax)
-    annotation (Line(points={{-79,-10},{-70,-10},{-70,44},{81,44}}, color={0,0,127}));
+    annotation (Line(points={{-79,-10},{-70,-10},{-70,42},{81,42}}, color={0,0,127}));
   connect(retDamPosMin.y, econEnableDisableMultiZone.uRetDamPosMin) annotation (
-     Line(points={{-79,-90},{-66,-90},{-66,40},{8,40},{8,40},{81,40}}, color={0,
+     Line(points={{-79,-90},{-66,-90},{-66,40},{8,40},{8,38},{81,38}}, color={0,
           0,127}));
   connect(outDamPosMax.y, econEnableDisableMultiZone.uOutDamPosMax) annotation (
-     Line(points={{-39,-110},{-30,-110},{-30,48},{81,48}}, color={0,0,127}));
+     Line(points={{-39,-110},{-30,-110},{-30,46},{81,46}}, color={0,0,127}));
   connect(outDamPosMin.y, econEnableDisableMultiZone.uOutDamPosMin) annotation (
-     Line(points={{-39,-150},{-28,-150},{-28,46},{81,46}}, color={0,0,127}));
+     Line(points={{-39,-150},{-28,-150},{-28,44},{81,44}}, color={0,0,127}));
   connect(outDamPosMin.y, econEnableDisableMultiZone1.uOutDamPosMin)
-    annotation (Line(points={{-39,-150},{22,-150},{22,-34},{81,-34}}, color={0,0,
+    annotation (Line(points={{-39,-150},{22,-150},{22,-36},{81,-36}}, color={0,0,
           127}));
   connect(outDamPosMax.y, econEnableDisableMultiZone1.uOutDamPosMax)
-    annotation (Line(points={{-39,-110},{20,-110},{20,-32},{81,-32}}, color={0,0,
+    annotation (Line(points={{-39,-110},{20,-110},{20,-34},{81,-34}}, color={0,0,
           127}));
   connect(retDamPosMin.y, econEnableDisableMultiZone1.uRetDamPosMin)
-    annotation (Line(points={{-79,-90},{30,-90},{30,-40},{81,-40}}, color={0,0,127}));
+    annotation (Line(points={{-79,-90},{30,-90},{30,-42},{81,-42}}, color={0,0,127}));
   connect(retDamPosMax.y, econEnableDisableMultiZone1.uRetDamPosMax)
-    annotation (Line(points={{-79,-50},{0,-50},{0,-38},{81,-38}}, color={0,0,127}));
+    annotation (Line(points={{-79,-50},{0,-50},{0,-40},{81,-40}}, color={0,0,127}));
   connect(retDamPhyPosMax.y, econEnableDisableMultiZone1.uRetDamPhyPosMax)
-    annotation (Line(points={{-79,-10},{0,-10},{0,-36},{81,-36}}, color={0,0,127}));
+    annotation (Line(points={{-79,-10},{0,-10},{0,-38},{81,-38}}, color={0,0,127}));
   connect(SupFanSta.y, econEnableDisableMultiZone.uSupFan) annotation (Line(
-        points={{-139,-30},{-34,-30},{-34,57},{72,57}}, color={255,0,255}));
+        points={{-139,-30},{-34,-30},{-34,48},{81,48}}, color={255,0,255}));
   connect(SupFanSta.y, econEnableDisableMultiZone1.uSupFan) annotation (Line(
-        points={{-139,-30},{-34,-30},{-34,-23},{72,-23}}, color={255,0,255}));
+        points={{-139,-30},{-34,-30},{-34,-32},{81,-32}}, color={255,0,255}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisableMultiZone_FreProSta_ZonSta.mos"

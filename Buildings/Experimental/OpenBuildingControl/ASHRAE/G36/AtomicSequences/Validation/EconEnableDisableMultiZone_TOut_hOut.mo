@@ -188,7 +188,7 @@ equation
                 fillPattern = FillPattern.Solid,
                 points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-300,-220},{300,
-            220}}),                                                                  graphics={Text(
+            240}}),                                                                  graphics={Text(
           extent={{-278,226},{-146,164}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
@@ -203,7 +203,7 @@ hOut > 28 Btu/lb [65.1 kJ/kg]"),                                                
           horizontalAlignment=TextAlignment.Left,
           fontSize=12,
           textString="Temperature"),                                                           Text(
-          extent={{-18,166},{110,138}},
+          extent={{2,166},{130,138}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           fontSize=12,
