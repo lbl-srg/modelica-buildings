@@ -79,62 +79,62 @@ model ThermalZone "Thermal zone model"
 
   final parameter HeatTransfer.Data.Solids.Plywood matFur(x=0.15, nStaRef=5)
     "Material for furniture"
-    annotation (Placement(transformation(extent={{122,138},{142,158}})));
+    annotation (Placement(transformation(extent={{160,120},{180,140}})));
 
   final parameter HeatTransfer.Data.Solids.Concrete matCon(
     x=0.1,
     k=1.311,
     c=836,
     nStaRef=5) "Concrete"
-    annotation (Placement(transformation(extent={{122,108},{142,128}})));
+    annotation (Placement(transformation(extent={{160,98},{180,118}})));
   final parameter HeatTransfer.Data.Solids.Plywood matWoo(
     x=0.01,
     k=0.11,
     d=544,
     nStaRef=1) "Wood for exterior construction"
-    annotation (Placement(transformation(extent={{122,78},{142,98}})));
+    annotation (Placement(transformation(extent={{160,78},{180,98}})));
   final parameter HeatTransfer.Data.Solids.Generic matIns(
     x=0.087,
     k=0.049,
     c=836.8,
     d=265,
     nStaRef=5) "Steelframe construction with insulation"
-    annotation (Placement(transformation(extent={{162,78},{182,98}})));
+    annotation (Placement(transformation(extent={{200,120},{220,140}})));
   final parameter HeatTransfer.Data.Solids.GypsumBoard matGyp(
     x=0.0127,
     k=0.16,
     c=830,
     d=784,
     nStaRef=2) "Gypsum board"
-    annotation (Placement(transformation(extent={{120,50},{140,70}})));
+    annotation (Placement(transformation(extent={{160,58},{180,78}})));
   final parameter HeatTransfer.Data.Solids.GypsumBoard matGyp2(
     x=0.025,
     k=0.16,
     c=830,
     d=784,
     nStaRef=2) "Gypsum board"
-    annotation (Placement(transformation(extent={{160,50},{180,70}})));
+    annotation (Placement(transformation(extent={{160,38},{180,58}})));
   final parameter HeatTransfer.Data.OpaqueConstructions.Generic conExtWal(final nLay=3,
       material={matWoo,matIns,matGyp}) "Exterior construction"
-    annotation (Placement(transformation(extent={{194,138},{214,158}})));
+    annotation (Placement(transformation(extent={{240,140},{260,160}})));
   final parameter HeatTransfer.Data.OpaqueConstructions.Generic conIntWal(final nLay=1,
       material={matGyp2}) "Interior wall construction"
-    annotation (Placement(transformation(extent={{234,138},{254,158}})));
+    annotation (Placement(transformation(extent={{240,112},{260,132}})));
   final parameter HeatTransfer.Data.OpaqueConstructions.Generic conFlo(final nLay=1, material={
         matCon}) "Floor construction (opa_a is carpet)"
-    annotation (Placement(transformation(extent={{196,98},{216,118}})));
+    annotation (Placement(transformation(extent={{240,86},{260,106}})));
   final parameter HeatTransfer.Data.Solids.Plywood matCarTra(
     k=0.11,
     d=544,
     nStaRef=1,
     x=0.215/0.11) "Wood for floor"
-    annotation (Placement(transformation(extent={{84,138},{104,158}})));
+    annotation (Placement(transformation(extent={{160,140},{180,160}})));
   final parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     haveInteriorShade=false,
     haveExteriorShade=false) "Data record for the glazing system"
-    annotation (Placement(transformation(extent={{154,138},{174,158}})));
+    annotation (Placement(transformation(extent={{200,140},{220,160}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorWal1
     "Heat port connected to common wall" annotation (Placement(transformation(
           extent={{-110,-26},{-90,-6}}), iconTransformation(extent={{-110,-26},

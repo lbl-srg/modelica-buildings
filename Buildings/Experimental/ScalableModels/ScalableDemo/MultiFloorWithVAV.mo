@@ -6,7 +6,7 @@ model MultiFloorWithVAV
   package MediumW = Buildings.Media.Water "Medium model for water";
 
   parameter Integer nZon(min=1) = 6 "Number of zones per floor"    annotation(Evaluate=true);
-  parameter Integer nFlo(min=1) = 1 "Number of floors"    annotation(Evaluate=true);
+  parameter Integer nFlo(min=1) = 2 "Number of floors"    annotation(Evaluate=true);
 
   parameter Real VRoo[nZon,nFlo] = {{6*8*2.7 for j in 1:nFlo} for i in 1:nZon} "Room volume";
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
@@ -30,7 +30,7 @@ model MultiFloorWithVAV
     each constantHead=850,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     each m_flow_nominal=10,
-    each inputType=Buildings.Fluid.Types.InputType.Constant)        "Supply air fan"
+    each inputType=Buildings.Fluid.Types.InputType.Constant)  "Supply air fan"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
   Fluid.HeatExchangers.DryEffectivenessNTU hex[nFlo](
@@ -74,7 +74,8 @@ model MultiFloorWithVAV
     redeclare each package Medium = MediumW,
     each p=300000,
     each T=318.15,
-    each nPorts=1) "Sink for heating coil" annotation (Placement(transformation(
+    each nPorts=1) "Sink for heating coil"
+    annotation (Placement(transformation(
         extent={{-8,-8},{8,8}},
         rotation=90,
         origin={-148,-74})));
@@ -82,7 +83,8 @@ model MultiFloorWithVAV
     redeclare each package Medium = MediumW,
     each p(displayUnit="Pa") = 300000 + 12000,
     each T=318.15,
-    each nPorts=1) "Source for heating coil" annotation (Placement(transformation(
+    each nPorts=1) "Source for heating coil"
+    annotation (Placement(transformation(
         extent={{-8,-8},{8,8}},
         rotation=90,
         origin={-120,-74})));
@@ -98,7 +100,8 @@ model MultiFloorWithVAV
     redeclare each package Medium = MediumW,
     each p=3E5 + 12000,
     each T=279.15,
-    each nPorts=1) "Source for cooling coil" annotation (Placement(transformation(
+    each nPorts=1) "Source for cooling coil"
+    annotation (Placement(transformation(
         extent={{-8,-8},{8,8}},
         rotation=90,
         origin={-50,-74})));
@@ -155,7 +158,7 @@ model MultiFloorWithVAV
     each dpValve_nominal=6000,
     each from_dp=true,
     each dpFixed_nominal=6000) "Cooling coil valve"
-                                       annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=90,
         origin={-51,-55})));
@@ -178,7 +181,7 @@ model MultiFloorWithVAV
       min=0),
     k=273.15 + 10) "Supply air temperature setpoint for heating"
     annotation (Placement(transformation(extent={{-270,-66},{-258,-54}})));
-  Buildings.Experimental.ScalableModels.Controls.CoolingCoilTemperatureSetpoint TSetCoo
+  Examples.VAVReheat.Controls.CoolingCoilTemperatureSetpoint TSetCoo[nFlo]
     "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-238,-94},{-226,-82}})));
   Buildings.Controls.Continuous.LimPID cooCoiCon[nFlo](
@@ -200,9 +203,9 @@ model MultiFloorWithVAV
     each Ti=600,
     each k=0.01) "Controller for heating coil"
     annotation (Placement(transformation(extent={{-192,-66},{-180,-54}})));
-  Buildings.Experimental.ScalableModels.Controls.ModeSelector modeSelector[nFlo]
+  Examples.VAVReheat.Controls.ModeSelector modeSelector[nFlo]
     annotation (Placement(transformation(extent={{-178,40},{-162,56}})));
-  Buildings.Experimental.ScalableModels.Controls.Economizer conEco[nFlo](
+  Examples.VAVReheat.Controls.Economizer conEco[nFlo](
     each dT=1,
     each VOut_flow_min=0.3*m_flow_nominal/1.2,
     each Ti=600,
@@ -210,22 +213,22 @@ model MultiFloorWithVAV
     annotation (Placement(transformation(extent={{-288,88},{-276,100}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
-    annotation (Placement(transformation(extent={{-360,164},{-340,184}})));
+    annotation (Placement(transformation(extent={{-360,160},{-340,180}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
-    annotation (Placement(transformation(extent={{-334,164},{-314,184}})));
+    annotation (Placement(transformation(extent={{-334,160},{-314,180}})));
   Modelica.Blocks.Routing.RealPassThrough TOut(
     y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC",
       min=0))
-    annotation (Placement(transformation(extent={{-328,142},{-316,154}})));
+    annotation (Placement(transformation(extent={{-328,140},{-316,152}})));
   Buildings.Utilities.Math.Average ave[nFlo](each nin=nZon)
     "Compute average of room temperatures"
-    annotation (Placement(transformation(extent={{110,68},{122,80}})));
+    annotation (Placement(transformation(extent={{108,68},{120,80}})));
   Buildings.Utilities.Math.Min min1[nFlo](each nin=nZon)
     "Computes lowest room temperature"
     annotation (Placement(transformation(extent={{108,94},{120,106}})));
-  Buildings.Experimental.ScalableModels.Controls.FanVFD  conFanRet[nFlo](
+  Examples.VAVReheat.Controls.FanVFD conFanRet[nFlo](
     each xSet_nominal(displayUnit="m3/s") = m_flow_nominal/1.2,
     each r_N_min=0.2)  "Controller for fan"
     annotation (Placement(transformation(extent={{12,158},{26,172}})));
@@ -237,7 +240,7 @@ model MultiFloorWithVAV
   Schedules.CoolSetpoint TSetCoo1 "Cooling setpoint"
     annotation (Placement(transformation(extent={{-130,10},{-118,22}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(
-    each occupancy=3600*{6,19})  "Occupancy schedule"
+    occupancy=3600*{6,19})  "Occupancy schedule"
     annotation (Placement(transformation(extent={{-128,70},{-116,82}})));
 
 equation
@@ -259,11 +262,11 @@ equation
       annotation (Line(
         points={{-257.4,-60},{-193.2,-60}},
         color={0,0,127}));
-    connect(TSupSetHea.y, TSetCoo.TSetHea)
+    connect(TSupSetHea.y, TSetCoo[iFlo].TSetHea)
       annotation (Line(
         points={{-257.4,-60},{-248,-60},{-248,-88},{-239.2,-88}},
         color={0,0,127}));
-    connect(TSetCoo.TSet, cooCoiCon[iFlo].u_s)
+    connect(TSetCoo[iFlo].TSet, cooCoiCon[iFlo].u_s)
       annotation (Line(
         points={{-225.4,-88},{-225.4,-88},{-193.2,-88}},
         color={0,0,127}));
@@ -301,8 +304,8 @@ equation
         pattern=LinePattern.Dash));
     connect(VOut1[iFlo].V_flow, conEco[iFlo].VOut_flow)
       annotation (Line(
-        points={{-284,30.8},{-284,30.8},{-284,56},{-284,66},{-302,66},{-302,93.6},
-          {-288.8,93.6}},
+        points={{-284,30.8},{-284,30.8},{-284,54},{-284,64},{-302,64},{-302,93.6},
+            {-288.8,93.6}},
         color={0,0,127},
         pattern=LinePattern.Dash));
     connect(TSupSetHea.y, conEco[iFlo].TSupHeaSet)
@@ -310,7 +313,7 @@ equation
         points={{-257.4,-60},{-216,-60},{-216,68},{-298,68},{-298,91.2},{-288.8,91.2}},
         color={0,0,127},
         pattern=LinePattern.Dash));
-    connect(TSetCoo.TSet, conEco[iFlo].TSupCooSet)
+    connect(TSetCoo[iFlo].TSet, conEco[iFlo].TSupCooSet)
       annotation (Line(
         points={{-225.4,-88},{-212,-88},{-212,72},{-294,72},{-294,88.8},{-288.8,88.8}},
         color={0,0,127},
@@ -322,7 +325,7 @@ equation
         pattern=LinePattern.Dash));
     connect(weaBus, amb[iFlo].weaBus)
       annotation (Line(
-        points={{-324,174},{-300,174},{-300,114},{-340,114},{-340,39.14},{-320,39.14}},
+        points={{-324,170},{-300,170},{-300,120},{-340,120},{-340,39.14},{-320,39.14}},
         color={255,204,51},
         thickness=0.5), Text(
         string="%first",
@@ -335,7 +338,7 @@ equation
         pattern=LinePattern.Dash));
     connect(conFanRet[iFlo].u, senSupFlo[iFlo].V_flow)
       annotation (Line(
-        points={{10.6,165},{0,165},{0,-2},{40,-2},{40,-21.2}},
+        points={{10.6,165},{0,165},{0,0},{40,0},{40,-21.2}},
         color={0,0,127},
         pattern=LinePattern.Dash));
     connect(conFanRet[iFlo].y, fanRet[iFlo].y)
@@ -361,7 +364,7 @@ equation
       annotation (Line(
         points={{-56,-42},{-51,-42},{-51,-50}},
         color={0,127,255}));
-    connect(modeSelector[iFlo].cb, TSetCoo.controlBus)
+    connect(modeSelector[iFlo].cb, TSetCoo[iFlo].controlBus)
       annotation (Line(
         points={{-175.455,53.4545},{-206,53.4545},{-206,-92.8},{-233.08,-92.8}},
         color={255,204,51},
@@ -385,17 +388,17 @@ equation
         thickness=0.5));
     connect(min1[iFlo].y, controlBus.subBus[iFlo].TRooMin)
       annotation (Line(
-        points={{120.6,100},{130,100},{130,10},{-67.95,10},{-67.95,54.05}},
+        points={{120.6,100},{130,100},{130,6},{-67.95,6},{-67.95,54.05}},
         color={0,0,127},
         pattern=LinePattern.Dash));
     connect(ave[iFlo].y, controlBus.subBus[iFlo].TRooAve)
       annotation (Line(
-        points={{122.6,74},{130,74},{130,10},{-67.95,10},{-67.95,54.05}},
+        points={{120.6,74},{130,74},{130,6},{-67.95,6},{-67.95,54.05}},
         color={0,0,127},
         pattern=LinePattern.Dash));
     connect(TOut.y, controlBus.subBus[iFlo].TOut)
       annotation (Line(
-        points={{-315.4,148},{-315.4,148},{-67.95,148},{-67.95,54.05}},
+        points={{-315.4,146},{-315.4,148},{-67.95,148},{-67.95,54.05}},
         color={0,0,127},
         pattern=LinePattern.Dash));
     connect(TSetHea.y[1], controlBus.subBus[iFlo].TRooSetHea)
@@ -507,8 +510,7 @@ equation
           thickness=0.5));
       connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], vAVBranch[iZon, iFlo].TRoo)
         annotation (Line(
-          points={{90,68.8},{86,68.8},{86,68},{100,68},{100,52},{40,52},{40,32},
-              {50,32}},
+          points={{90,68.8},{100,68.8},{100,68},{100,52},{40,52},{40,32},{50,32}},
           color={0,0,127},
           pattern=LinePattern.Dash));
       connect(senSupFlo[iFlo].port_b, vAVBranch[iZon, iFlo].port_a)
@@ -523,7 +525,7 @@ equation
           thickness=0.5));
       connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], ave[iFlo].u[iZon])
         annotation (Line(
-          points={{90,68.8},{100,68.8},{100,74},{108.8,74}}, color={0,0,127},
+          points={{90,68.8},{100,68.8},{100,74},{106.8,74}}, color={0,0,127},
           pattern=LinePattern.Dash));
       connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], min1[iFlo].u[iZon])
         annotation (Line(
@@ -535,12 +537,12 @@ equation
 
   connect(weaDat.weaBus, weaBus)
     annotation (Line(
-      points={{-340,174},{-324,174}},
+      points={{-340,170},{-336,170},{-324,170}},
       color={255,204,51},
       thickness=0.5));
   connect(weaBus.TDryBul, TOut.u)
     annotation (Line(
-      points={{-324,174},{-326,174},{-326,170},{-334,170},{-334,148},{-329.2,148}},
+      points={{-324,170},{-326,170},{-334,170},{-334,146},{-329.2,146}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -548,7 +550,7 @@ equation
       extent={{-6,3},{-6,3}}));
   connect(weaBus, multiZoneFluctuatingIHG.weaBus)
     annotation (Line(
-      points={{-324,174},{-324,174},{-44,174},{-44,80},{51.6,80}},
+      points={{-324,170},{-324,170},{-44,170},{-44,80},{51.6,80}},
       color={255,204,51},
       thickness=0.5));
   annotation (

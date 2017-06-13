@@ -10,17 +10,17 @@ model MultiZoneFluctuatingIHG "Multiple thermal zone models"
 
   parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
 
-  parameter Real ampFactor[nZon,nFlo]=
-    if (nZon*nFlo)<=5 then
-        {{abs(cos(i*j*3.1415926/(nZon*nFlo))) for j in 1:nFlo} for i in 1:nZon}
+  parameter Real ampFactor[nZon]=
+    if nZon<=5 then
+        {abs(cos(i*3.1415926/(nZon))) for i in 1:nZon}
     else
-        {{abs(cos(i*j*3.1415926/5)) for j in 1:nFlo} for i in 1:nZon}
+        {abs(cos(i*3.1415926/5)) for i in 1:nZon}
     "IHG fluctuating amplitude factor";
 
   BaseClasses.ThermalZoneFluctuatingIHG_WithPorts theZon[nZon, nFlo](
     redeclare each package MediumA = MediumA,
     each final lat=lat,
-    gainFactor={{ampFactor[i,j] for j in 1:nFlo} for i in 1:nZon})  "Thermal zone model"
+    gainFactor={{ampFactor[i] for j in 1:nFlo} for i in 1:nZon})  "Thermal zone model"
     annotation (Placement(transformation(extent={{-18,-18},{18,18}})));
 
   Buildings.BoundaryConditions.WeatherData.Bus weaBus  "Weather data bus"

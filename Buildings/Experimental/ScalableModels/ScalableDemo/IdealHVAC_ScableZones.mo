@@ -1,10 +1,9 @@
 within Buildings.Experimental.ScalableModels.ScalableDemo;
 model IdealHVAC_ScableZones
-  import Buildings;
   extends Modelica.Icons.Example;
   parameter Integer nZon(min=1) = 6 "Number of zones per floor"
     annotation(Evaluate=true);
-  parameter Integer nFlo(min=1) = 1 "Number of floors"
+  parameter Integer nFlo(min=1) = 2 "Number of floors"
     annotation(Evaluate=true);
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -34,13 +33,13 @@ equation
       thickness=0.5));
   for iZon in 1:nZon loop
     for iFlo in 1:nFlo loop
-  connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], idealAir_P.Tmea[iZon, iFlo])    annotation (Line(points={{6.2,
+      connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], idealAir_P.Tmea[iZon, iFlo])    annotation (Line(points={{6.2,
               -12.76},{21.66,-12.76},{21.66,-9.2},{32.6,-9.2}},
         color={0,0,127}));
-  connect(idealAir_P.supplyAir[iZon, iFlo], multiZoneFluctuatingIHG.portsIn[iZon, iFlo])    annotation (Line(points={{71.7,-2},
+      connect(idealAir_P.supplyAir[iZon, iFlo], multiZoneFluctuatingIHG.portsIn[iZon, iFlo])    annotation (Line(points={{71.7,-2},
               {84,-2},{84,-34},{-17.78,-34},{-17.78,-15.91}},
         color={0,127,255}));
-  connect(multiZoneFluctuatingIHG.heaCooPow[iZon, iFlo], Energy[iZon, iFlo].u) annotation (
+      connect(multiZoneFluctuatingIHG.heaCooPow[iZon, iFlo], Energy[iZon, iFlo].u) annotation (
       Line(points={{6.2,12.44},{13.66,12.44},{13.66,34},{40,34}},  color={0,0,127}));
       connect(TSetHea.y[1], idealAir_P.TheatSetpoint[iZon, iFlo]) annotation (
           Line(points={{-1.6,42},{26,42},{26,10.6},{32.6,10.6}}, color={0,0,127}));

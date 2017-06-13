@@ -1,6 +1,5 @@
 within Buildings.Experimental.ScalableModels.ThermalZones.BaseClasses;
 model ThermalZoneFluctuatingIHG_WithPorts "Thermal zone model"
-  import Buildings;
   extends
     Buildings.Experimental.ScalableModels.ThermalZones.BaseClasses.ThermalZoneFluctuatingIHG(      roo(
     nPorts=4));
@@ -15,18 +14,18 @@ model ThermalZoneFluctuatingIHG_WithPorts "Thermal zone model"
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor rooAirTem
     "Air temperature sensor"  annotation (Placement(transformation(extent={{66,30},
             {78,42}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort supAirTem(redeclare package Medium
-      =                MediumA, m_flow_nominal=1,
+  Buildings.Fluid.Sensors.TemperatureTwoPort supAirTem(redeclare package Medium =
+                       MediumA, m_flow_nominal=1,
     tau=30)
     "Supply air temperature sensor"  annotation (Placement(transformation(extent={{-24,9},
             {-12,21}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort retAirTem(redeclare package Medium
-      =                MediumA, m_flow_nominal=1,
+  Buildings.Fluid.Sensors.TemperatureTwoPort retAirTem(redeclare package Medium =
+                       MediumA, m_flow_nominal=1,
     tau=30)
     "Return air temperature sensor"  annotation (Placement(transformation(extent={{-12,26},
             {-24,38}})));
-  Buildings.Fluid.Sensors.MassFlowRate supplyAirFlow(redeclare package Medium
-      =        MediumA)
+  Buildings.Fluid.Sensors.MassFlowRate supplyAirFlow(redeclare package Medium =
+               MediumA)
     annotation (Placement(transformation(extent={{-44,10},{-34,20}})));
 
   Modelica.Blocks.Interfaces.RealOutput TRooAir "Room air temperatures"
