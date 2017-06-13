@@ -1,32 +1,18 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.Validation;
-model Economizer_TSup_Vout
-  "Validation model for disabling the economizer if the supply temperature remains below a predefined limit for longer than a predefined time duration."
+model EconomizerMultiZone_TSup_VOut
+  "Validation model for the multizone economizer model."
   extends Modelica.Icons.Example;
 
   parameter Real TOutCutoff(unit="K", displayUnit="degC", quantity="Temperature")=297 "Outdoor temperature high limit cutoff";
   parameter Real hOutCutoff(unit="J/kg", displayUnit="kJ/kg", quantity="SpecificEnthalpy")=65100 "Outdoor air enthalpy high limit cutoff";
   parameter Real airflowSetpoint(unit="m3/s", displayUnit="m3/h")=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
+  parameter Real TSupSet(unit="K", displayUnit="degC", quantity="Temperature")=291 "Supply air temperature setpoint";
 
-  Modelica.Blocks.Sources.Ramp TSup(
-    height=-10,
-    duration=1800,
-    offset=300)
-    "TSup falls below 38 F and remains there for longer than 5 min. "
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   EconomizerMultiZone economizer
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
   CDL.Logical.Constant FanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  CDL.Continuous.Constant TSupSet(k=294)
-    "Supply air temperature setpoint. The economizer control uses cooling supply temperature. fixme: change to a more realistic supply profile in the control domain"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Modelica.Blocks.Sources.Ramp TOut(
-    startTime=0,
-    height=9,
-    duration=1800,
-    offset=292)  "297K is the cut off temeprature to disable the econ. "
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
   CDL.Integers.Constant FreProSta(k=0) "Freeze Protection Status"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   CDL.Integers.Constant ZoneState(k=1) "Zone State is not heating"
@@ -54,44 +40,44 @@ model Economizer_TSup_Vout
     offset=airflowSetpoint - 0.1)
     "TSup falls below 38 F and remains there for longer than 5 min."
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+  Modelica.Blocks.Sources.Ramp TSup(
+    duration=900,
+    height=4,
+    offset=TSupSet - 2)    "Supply air temperature sensor output temperature"
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+  CDL.Continuous.Constant TSupSetSig(k=TSupSet)
+    "Example supply air temperature setpoint. The economizer control uses cooling supply temperature."
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 equation
-  //fixme - turn into proper test and uncomment
-  //__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/CompositeSequences/Validation/fixme.mos"
-  //     "Simulate and plot"),
-  connect(TOut.y, economizer.TOut) annotation (Line(points={{41,70},{60,70},{60,
-          2},{79,2}},   color={0,0,127}));
-  connect(TSupSet.y, economizer.TCooSet) annotation (Line(points={{-39,70},{-30,
-          70},{-30,50},{-30,-8},{79,-8}},          color={0,0,127}));
-  connect(TSup.y, economizer.TSup) annotation (Line(points={{-39,30},{-34,30},{
-          -30,30},{-30,-6},{79,-6}},  color={0,0,127}));
   connect(FanStatus.y, economizer.uSupFan) annotation (Line(points={{1,-30},{10,
-          -30},{10,-14},{79,-14}},
-                                color={255,0,255}));
+          -30},{10,-14},{79,-14}}, color={255,0,255}));
   connect(FreProSta.y, economizer.uFreProSta) annotation (Line(points={{1,-70},{
-          20,-70},{20,-20},{79,-20}},
-                                   color={255,127,0}));
+          20,-70},{20,-20},{79,-20}}, color={255,127,0}));
   connect(AHUMode.y, economizer.uAHUMode) annotation (Line(points={{-39,-70},{-30,
-          -70},{-30,-52},{16,-52},{16,-16},{79,-16}},
-                                                  color={255,127,0}));
+          -70},{-30,-52},{16,-52},{16,-16},{79,-16}}, color={255,127,0}));
   connect(ZoneState.y, economizer.uZoneState) annotation (Line(points={{-39,-40},
-          {18,-40},{18,-18},{79,-18}},
-                                 color={255,127,0}));
+          {18,-40},{18,-18},{79,-18}}, color={255,127,0}));
   connect(TOutBellowCutoff.y, economizer.TOut) annotation (Line(points={{-79,90},
-          {14,90},{14,2},{79,2}},      color={0,0,127}));
+          {14,90},{14,2},{79,2}},color={0,0,127}));
   connect(TOutCut1.y, economizer.TOutCut) annotation (Line(points={{-79,60},{-70,
-          60},{-70,50},{12,50},{12,0},{79,0}},
-                                 color={0,0,127}));
+          60},{-70,50},{12,50},{12,0},{79,0}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer.hOut) annotation (Line(points={{-79,12},
-          {-32,12},{-32,-2},{16,-2},{80,-2},{79,-2}},
-                                      color={0,0,127}));
+          {-32,12},{-32,-2},{16,-2},{80,-2},{79,-2}}, color={0,0,127}));
   connect(hOutCut.y, economizer.hOutCut) annotation (Line(points={{-79,-30},{-70,
-          -30},{-70,-20},{-32,-20},{-32,-4},{79,-4}},
-                                  color={0,0,127}));
+          -30},{-70,-20},{-32,-20},{-32,-4},{79,-4}}, color={0,0,127}));
   connect(VOut.y, economizer.uVOut) annotation (Line(points={{1,70},{12,70},{12,
           -10},{79,-10}}, color={0,0,127}));
   connect(VOutMinSet.y, economizer.uVOutMinSet) annotation (Line(points={{1,30},
           {10,30},{10,-12},{79,-12}}, color={0,0,127}));
-  annotation (Icon(graphics={
+  connect(TSup.y, economizer.TSup) annotation (Line(points={{-39,70},{-30,70},{-30,
+          -6},{79,-6}}, color={0,0,127}));
+  connect(TSupSetSig.y, economizer.TCooSet) annotation (Line(points={{-39,30},{-30,
+          30},{-30,-8},{79,-8}}, color={0,0,127}));
+  annotation (
+    experiment(StopTime=1800.0, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/CompositeSequences/Validation/EconomizerMultiZone_TSup_VOut.mos"
+    "Simulate and plot"),
+  Icon(graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
@@ -104,23 +90,21 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,120}}),
         graphics={Text(
           extent={{52,106},{86,84}},
-          lineColor={28,108,200},
-          textString="Change T inputs to properly 
-tagged ones and debug")}),
+          lineColor={28,108,200})}),
   experiment(StopTime=1800.0),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.EconEnableDisable\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.EconEnableDisable</a>
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.EconomizerMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.EconomizerMultiZone</a>
 for different control signals.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 31, 2017, by Milica Grahovac:<br/>
+June 12, 2017, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end Economizer_TSup_Vout;
+end EconomizerMultiZone_TSup_VOut;
