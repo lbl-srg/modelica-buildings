@@ -286,17 +286,9 @@ when in heating",
           textString="fixme: expose duration and fixedEnth,
 remove 3 const blocks")}),
     Documentation(info="<html>
-             <p>
-             implementation fixme: 10 min delay
-             - pg. 119 - Ret damper position when disabled: before releasing
-             the return air damper to be controled by the minimum air req
-             (EconDamPosLimits): open fully, wait 15 sec MaxOA-P = MinOA-P,
-             wait 3 min after that and release ret dam for EconDamPosLimits
-             control.
-             </p>
-             <p>
-             This sequence enables or disables the economizer based on
-             conditions provided in G36 PART5.N.7.
+   <p>
+  This sequence enables or disables the economizer based on
+  conditions provided in G36 PART5.N.7.
   Fixme: There might be a need to convert this block in a generic enable-disable
   control block that receives one or more hysteresis conditions, one or more
   timed conditions, and one or more additional boolean signal conditions. For
@@ -310,16 +302,6 @@ remove 3 const blocks")}),
   its high (yOutDamPosMax) or to its low limit (yOutDamPosMin).
   </p>
 <p>
-Fixme: Edit conditions based on any additional stakeholder input, e.g. include
-space averaged MAT sensor output.
-</p>
-<p>
-Fixme - feature related issues: Delay placement - 10 min delay right before
-this block's output should cover this condition, since listed in G36;
-test excluding hysteresis by simply setting the delta parameter to 0.
-Notes: Delay seems to replace hysteresis in practice,
-at least based on our current project partners input.
-</p>
 <p align=\"center\">
 <img alt=\"Image of economizer enable-disable state machine chart\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconHighLimitLockout.png\"/>
