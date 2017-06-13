@@ -12,9 +12,9 @@ PART5.M (Air Handling Unit System Modes).
 </p>   
 <p>
 PART5.B.6 - Zone State<br/>
-1 - Heating<br/>
-2 - Deadband<br/>
-3 - Cooling<br/>
+0 - Heating<br/>
+1 - Deadband<br/>
+2 - Cooling<br/>
 <br/>
 
 PART5.M.1 - AHU System Mode<br/>

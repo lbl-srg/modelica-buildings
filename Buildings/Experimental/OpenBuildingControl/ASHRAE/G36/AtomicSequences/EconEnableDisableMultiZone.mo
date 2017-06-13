@@ -39,14 +39,14 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     "Small delay before closing the outdoor air damper, per G36 Part N7"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
 
-  CDL.Interfaces.RealInput TOut(unit="K", displayUnit="degC", quantity = "Temperature")
+  CDL.Interfaces.RealInput TOut(unit="K", displayUnit="degC", quantity = "ThermodynamicTemperature")
     "Outdoor temperature"
     annotation (Placement(transformation(extent={{-220,210},{-180,250}}),
-        iconTransformation(extent={{-120,90},{-100,110}})));
+        iconTransformation(extent={{-120,90},{-100,110}})));                                         //fixme: quantity
   CDL.Interfaces.RealInput hOut(unit="J/kg", displayUnit="kJ/kg", quantity="SpecificEnthalpy") if fixEnt
       "Outdoor air enthalpy"
       annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
-        iconTransformation(extent={{-120,50},{-100,70}})));
+        iconTransformation(extent={{-120,50},{-100,70}})));                                              //use specenergy, see bui.flui.sens for info
   CDL.Interfaces.RealInput TOutCut(unit="K", displayUnit="degC")
     "Outdoor temperature high limit cutoff [fixme: see #777]" annotation (
       Placement(transformation(extent={{-220,170},{-180,210}}),
@@ -218,8 +218,9 @@ equation
           -290},{78,-290}},                                                                   color={255,0,255}));
   connect(timer.y, greThr2.u)
     annotation (Line(points={{101,-100},{130,-100},{130,-200},{74,-200},{74,-220},{78,-220}}, color={0,0,127}));
-  connect(not2.y, RetDamSwitch.u2) annotation (Line(points={{61,-100},{68,-100},{68,-128},{-30,-128},{-30,-250},{-16,-250},{-16,-300},
-          {-2,-300}}, color={255,0,255}));
+  connect(not2.y, RetDamSwitch.u2) annotation (Line(points={{61,-100},{68,-100},
+          {68,-120},{-30,-120},{-30,-250},{-16,-250},{-16,-300},{-2,-300}},
+                      color={255,0,255}));
   connect(uRetDamPosMax, RetDamSwitch.u1)
     annotation (Line(points={{-200,-270},{-102,-270},{-102,-292},{-2,-292}}, color={0,0,127}));
   connect(uRetDamPosMin, RetDamSwitch.u3)
@@ -246,13 +247,13 @@ equation
           color={28,108,200},
           thickness=0.5),
         Line(
-          points={{-82,-64},{-2,-64},{-2,60}},
+          points={{-78,-64},{-2,-64},{-2,60}},
           color={28,108,200},
           thickness=0.5),
         Text(
-          extent={{-164,154},{164,116}},
+          extent={{-170,150},{158,112}},
           lineColor={85,0,255},
-          textString="EnableDisable")}),
+          textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-180,-320},{180,240}},
@@ -288,7 +289,14 @@ when in heating",
           extent={{82,58},{190,46}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
-          textString="Supply fan")}),
+          textString="Supply fan"),  Text(
+          extent={{-118,162},{-8,152}},
+          lineColor={28,108,200},
+          textString="fixme: add conditional const"),
+                                     Text(
+          extent={{-14,198},{96,188}},
+          lineColor={28,108,200},
+          textString="fixme: expose duration and fixedEnth, remove 3 const blocks")}),
     Documentation(info="<html>      
              <p>
              implementation fixme: 10 min delay
@@ -335,5 +343,5 @@ March 31, 2017, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"));                     //fixme nicer blue
 end EconEnableDisableMultiZone;
