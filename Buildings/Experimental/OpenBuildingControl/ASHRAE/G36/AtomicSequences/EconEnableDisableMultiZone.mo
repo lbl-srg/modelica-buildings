@@ -37,11 +37,11 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
   CDL.Interfaces.RealInput TOut(unit="K", displayUnit="degC", quantity = "ThermodynamicTemperature")
     "Outdoor temperature"
     annotation (Placement(transformation(extent={{-220,210},{-180,250}}),
-        iconTransformation(extent={{-120,90},{-100,110}})));                                         //fixme: quantity
+        iconTransformation(extent={{-120,90},{-100,110}})));
   CDL.Interfaces.RealInput hOut(unit="J/kg", quantity="SpecificEnergy") if fixEnt
       "Outdoor air enthalpy"
       annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
-        iconTransformation(extent={{-120,50},{-100,70}})));                                              //use specenergy, see bui.flui.sens for info
+        iconTransformation(extent={{-120,50},{-100,70}})));   //fixme quantities see bui.flui.sens for info
   CDL.Interfaces.RealInput TOutCut(unit="K", displayUnit="degC")
     "Outdoor temperature high limit cutoff [fixme: see #777]" annotation (
       Placement(transformation(extent={{-220,170},{-180,210}}),
