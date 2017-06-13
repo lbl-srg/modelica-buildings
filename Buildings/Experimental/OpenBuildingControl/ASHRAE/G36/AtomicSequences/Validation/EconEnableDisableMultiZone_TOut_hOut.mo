@@ -3,8 +3,8 @@ model EconEnableDisableMultiZone_TOut_hOut
   "Validation model for disabling the economizer if any of the outdoor air conditions are above the cutoff "
   extends Modelica.Icons.Example;
 
-  parameter Real TOutCutoff(unit="K", displayUnit="degC", quantity="Temperature")=297 "Outdoor temperature high limit cutoff";
-  parameter Real hOutCutoff(unit="J/kg", displayUnit="kJ/kg", quantity="SpecificEnthalpy")=65100 "Outdoor air enthalpy high limit cutoff";
+  parameter Real TOutCutoff(unit="K", quantity="TermodynamicTemperature")=297 "Outdoor temperature high limit cutoff";
+  parameter Real hOutCutoff(unit="J/kg", quantity="SpecificEnergy")=65100 "Outdoor air enthalpy high limit cutoff";
 
   CDL.Continuous.Constant outDamPosMax(k=0.9) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-280,-80},{-260,-60}})));

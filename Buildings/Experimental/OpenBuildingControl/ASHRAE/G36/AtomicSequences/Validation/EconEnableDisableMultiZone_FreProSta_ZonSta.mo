@@ -3,8 +3,8 @@ model EconEnableDisableMultiZone_FreProSta_ZonSta
   "Validation model to disable the economizer if any of the freeze protection stages 1 through 3 are activated"
   extends Modelica.Icons.Example;
 
-  parameter Real TOutCutoff(unit="K", displayUnit="degC", quantity="Temperature")=297 "Outdoor temperature high limit cutoff";
-  parameter Real hOutCutoff(unit="J/kg", displayUnit="kJ/kg", quantity="SpecificEnthalpy")=65100 "Outdoor air enthalpy high limit cutoff";
+  parameter Real TOutCutoff(unit="K", quantity="TermodynamicTemperature")=297 "Outdoor temperature high limit cutoff";
+  parameter Real hOutCutoff(unit="J/kg", quantity="SpecificEnergy")=65100 "Outdoor air enthalpy high limit cutoff";
 
   CDL.Continuous.Constant TOutBellowCutoff(k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"

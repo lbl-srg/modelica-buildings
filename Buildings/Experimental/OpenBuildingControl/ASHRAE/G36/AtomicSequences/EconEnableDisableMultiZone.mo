@@ -3,31 +3,31 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
 
   parameter Boolean fixEnt = true
     "Set to true if there is an enthalpy sensor and the economizer uses fixed enthalpy + fixed dry bulb temperature sensors";
-  parameter Real delTemHis(unit="K", displayUnit="degC", quantity="Temperature")=1
+  parameter Real delTemHis(unit="K", quantity="TermodynamicTemperature")=1
     "Delta between the temperature hysteresis high and low limit";
-  parameter Real delEntHis(unit="J/kg", displayUnit="kJ/kg", quantity="SpecificEnthalpy")=1000
+  parameter Real delEntHis(unit="J/kg", quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limit"
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt));
   parameter Real uTemHigLimCutHig(final unit="K", displayUnit="degC") = 0
-    "Hysteresis high limit cutoff, refering to the delta between the cutoff and the outdoor conditions 
+    "Hysteresis high limit cutoff, refering to the delta between the cutoff and the outdoor conditions
     [fixme: maybe we don't need to expose these limits, revise all once the sequence runs ok]";
   parameter Real uTemHigLimCutLow(final unit="K", displayUnit="degC") = uTemHigLimCutHig - delTemHis
     "Hysteresis low limit cutoff, refering to the delta between the cutoff and the outdoor conditions";
-  parameter Real uEntHigLimCutHig(unit="J/kg", displayUnit="kJ/kg", quantity="SpecificEnthalpy") = 0
+  parameter Real uEntHigLimCutHig(unit="J/kg", quantity="SpecificEnergy") = 0
     "Hysteresis high limit cutoff, refering to the delta between the cutoff and the outdoor conditions"
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt));
-  parameter Real uEntHigLimCutLow(unit="J/kg", displayUnit="kJ/kg", quantity="SpecificEnthalpy") = uEntHigLimCutHig - delEntHis
+  parameter Real uEntHigLimCutLow(unit="J/kg", quantity="SpecificEnergy") = uEntHigLimCutHig - delEntHis
     "Hysteresis low limit cutoff, refering to the delta between the cutoff and the outdoor conditions"
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt));
   parameter Modelica.SIunits.Time retDamFullyOpenTime = 180
-    "Per G36 as the economizer disables the return air damper opens fully for this period of time before modulating 
+    "Per G36 as the economizer disables the return air damper opens fully for this period of time before modulating
     back to the min OA maximum, in order to avoid pressure fluctuations.";
   parameter Modelica.SIunits.Time smallDisDel = 15
-    "Per G36 the outdoor air damper can switch to its minimal position only a short time period after the disable 
+    "Per G36 the outdoor air damper can switch to its minimal position only a short time period after the disable
     signal got activated. The return air damper gets fully open before that in order to prevent pressure fluctuations";
 
   CDL.Continuous.Constant openRetDam(k=retDamFullyOpenTime)
-    "Keep return damper open to its physical maximum for a short period of time before closing the outdoor air damper 
+    "Keep return damper open to its physical maximum for a short period of time before closing the outdoor air damper
     and resuming the maximum return air damper position, per G36 Part N7"
     annotation (Placement(transformation(extent={{-20,-230},{0,-210}})));
   CDL.Continuous.Constant disableDelay(final k=smallDisDel)
@@ -38,7 +38,7 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     "Outdoor temperature"
     annotation (Placement(transformation(extent={{-220,210},{-180,250}}),
         iconTransformation(extent={{-120,90},{-100,110}})));                                         //fixme: quantity
-  CDL.Interfaces.RealInput hOut(unit="J/kg", displayUnit="kJ/kg", quantity="SpecificEnthalpy") if fixEnt
+  CDL.Interfaces.RealInput hOut(unit="J/kg", quantity="SpecificEnergy") if fixEnt
       "Outdoor air enthalpy"
       annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
         iconTransformation(extent={{-120,50},{-100,70}})));                                              //use specenergy, see bui.flui.sens for info
@@ -85,22 +85,22 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
           extent={{180,-260},{200,-240}}), iconTransformation(extent={{100,-40},{140,0}})));
 
   CDL.Logical.Hysteresis hysOutTem(uHigh=uTemHigLimCutHig, uLow=uTemHigLimCutLow)
-    "Close damper when TOut is above the uTemHigh, open it again only when TOut drops to uTemLow [fixme: I'm using the same offset 
+    "Close damper when TOut is above the uTemHigh, open it again only when TOut drops to uTemLow [fixme: I'm using the same offset
     for hysteresis regardless of the region and standard]"
     annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
   CDL.Logical.Hysteresis hysOutEnt(final uLow=uEntHigLimCutLow, uHigh=uEntHigLimCutHig) if fixEnt
-    "Close damper when hOut is above the uEntHigh, open it again only when hOut drops to uEntLow [fixme: I'm using the same offset 
+    "Close damper when hOut is above the uEntHigh, open it again only when hOut drops to uEntLow [fixme: I'm using the same offset
     for hysteresis regardless of the region and standard, see del***His parameters]"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
 
-  CDL.Logical.Switch OutDamSwitch "If any of the conditions provided by TOut and FreezeProtectionStatus inputs are violating the enable status, the max outdoor 
+  CDL.Logical.Switch OutDamSwitch "If any of the conditions provided by TOut and FreezeProtectionStatus inputs are violating the enable status, the max outdoor
     damper position is set to the minimum." annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
   CDL.Logical.Switch RetDamSwitch
-    "If any of the conditions provided by TOut and FreezeProtectionStatus inputs are violating the enable status, 
+    "If any of the conditions provided by TOut and FreezeProtectionStatus inputs are violating the enable status,
     the max outdoor damper position is set to the minimum." annotation (Placement(transformation(extent={{0,-310},{20,-290}})));
-  CDL.Logical.Switch MaxRetDamSwitch "If any of the conditions provided by TOut and FreezeProtectionStatus inputs are violating the enable status, 
+  CDL.Logical.Switch MaxRetDamSwitch "If any of the conditions provided by TOut and FreezeProtectionStatus inputs are violating the enable status,
     the max outdoor damper position is set to the minimum." annotation (Placement(transformation(extent={{80,-260},{100,-240}})));
-  CDL.Logical.Switch MinRetDamSwitch "If any of the conditions provided by TOut and FreezeProtectionStatus inputs are violating the enable status, 
+  CDL.Logical.Switch MinRetDamSwitch "If any of the conditions provided by TOut and FreezeProtectionStatus inputs are violating the enable status,
     the max outdoor damper position is set to the minimum." annotation (Placement(transformation(extent={{80,-300},{100,-280}})));
   CDL.Logical.Composite.OnOffHold OnOffDelay(holdDuration=600) "10 min on/off delay"
               annotation (Placement(transformation(extent={{0,160},{20,180}})));
@@ -260,20 +260,20 @@ equation
           extent={{82,34},{204,16}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
-          textString="Freeze protection 
+          textString="Freeze protection
 conditions"),                        Text(
           extent={{-170,-86},{-52,-124}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           fontSize=12,
-          textString="Enable-disable damper limit 
-assignments with time delays 
+          textString="Enable-disable damper limit
+assignments with time delays
 per G36 PART5.N.7"),
         Rectangle(extent={{-180,-20},{180,-80}},lineColor={28,108,200}),
                                      Text(
           extent={{84,-28},{196,-42}},
           lineColor={28,108,200},
-          textString="Zone State - disable 
+          textString="Zone State - disable
 when in heating",
           horizontalAlignment=TextAlignment.Left),
         Rectangle(extent={{-180,100},{180,40}}, lineColor={28,108,200}),
@@ -284,29 +284,29 @@ when in heating",
           textString="Supply fan"),  Text(
           extent={{-34,204},{76,194}},
           lineColor={28,108,200},
-          textString="fixme: expose duration and fixedEnth, 
+          textString="fixme: expose duration and fixedEnth,
 remove 3 const blocks")}),
-    Documentation(info="<html>      
+    Documentation(info="<html>
              <p>
              implementation fixme: 10 min delay
-             - pg. 119 - Ret damper position when disabled: before releasing 
-             the return air damper to be controled by the minimum air req 
+             - pg. 119 - Ret damper position when disabled: before releasing
+             the return air damper to be controled by the minimum air req
              (EconDamPosLimits): open fully, wait 15 sec MaxOA-P = MinOA-P,
              wait 3 min after that and release ret dam for EconDamPosLimits
              control.
-             </p>   
+             </p>
              <p>
-             This sequence enables or disables the economizer based on 
-             conditions provided in G36 PART5.N.7.           
+             This sequence enables or disables the economizer based on
+             conditions provided in G36 PART5.N.7.
   Fixme: There might be a need to convert this block in a generic enable-disable
-  control block that receives one or more hysteresis conditions, one or more 
-  timed conditions, and one or more additional boolean signal conditions. For 
+  control block that receives one or more hysteresis conditions, one or more
+  timed conditions, and one or more additional boolean signal conditions. For
   now, the block is implemented as economizer enable-disable control block, an
   atomic sequence which is a part in the economizer control composite sequence.
   </p>
   <p>
-  The economizer enable-disable sequence implements conditions from 
-  ASHRAE guidline 36 (G36) as listed on the state machine diagram below. The 
+  The economizer enable-disable sequence implements conditions from
+  ASHRAE guidline 36 (G36) as listed on the state machine diagram below. The
   sequence output is binary, it either sets the economizer damper position to
   its high (yOutDamPosMax) or to its low limit (yOutDamPosMin).
   </p>
@@ -316,9 +316,9 @@ space averaged MAT sensor output.
 </p>
 <p>
 Fixme - feature related issues: Delay placement - 10 min delay right before
-this block's output should cover this condition, since listed in G36; 
-test excluding hysteresis by simply setting the delta parameter to 0. 
-Notes: Delay seems to replace hysteresis in practice, 
+this block's output should cover this condition, since listed in G36;
+test excluding hysteresis by simply setting the delta parameter to 0.
+Notes: Delay seems to replace hysteresis in practice,
 at least based on our current project partners input.
 </p>
 <p align=\"center\">

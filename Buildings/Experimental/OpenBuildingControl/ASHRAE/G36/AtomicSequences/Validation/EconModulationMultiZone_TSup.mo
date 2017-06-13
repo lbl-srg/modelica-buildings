@@ -3,7 +3,7 @@ model EconModulationMultiZone_TSup
   "Validation model for economizer and return air damper modulation to preserve the supply air temperature"
   extends Modelica.Icons.Example;
 
-  parameter Real TSupSet(unit="K", displayUnit="degC", quantity="Temperature")=291 "Supply air temperature setpoint";
+  parameter Real TSupSet(unit="K", quantity="TermodynamicTemperature")=291 "Supply air temperature setpoint";
 
   CDL.Continuous.Constant TSupSetSig(k=TSupSet)
     "Example supply air temperature setpoint. The economizer control uses cooling supply temperature."

@@ -3,11 +3,11 @@ model EconomizerMultiZone_TSup_VOut
   "Validation model for the multizone economizer model."
   extends Modelica.Icons.Example;
 
-  parameter Real TOutCutoff(unit="K", displayUnit="degC", quantity="Temperature")=297 "Outdoor temperature high limit cutoff";
-  parameter Real hOutCutoff(unit="J/kg", displayUnit="kJ/kg", quantity="SpecificEnthalpy")=65100 "Outdoor air enthalpy high limit cutoff";
+  parameter Real TOutCutoff(unit="K", quantity="TermodynamicTemperature")=297 "Outdoor temperature high limit cutoff";
+  parameter Real hOutCutoff(unit="J/kg", quantity="SpecificEnergy")=65100 "Outdoor air enthalpy high limit cutoff";
   parameter Real airflowSetpoint(unit="m3/s", displayUnit="m3/h")=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Real TSupSet(unit="K", displayUnit="degC", quantity="Temperature")=291 "Supply air temperature setpoint";
+  parameter Real TSupSet(unit="K", quantity="TermodynamicTemperature")=291 "Supply air temperature setpoint";
 
   EconomizerMultiZone economizer
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));

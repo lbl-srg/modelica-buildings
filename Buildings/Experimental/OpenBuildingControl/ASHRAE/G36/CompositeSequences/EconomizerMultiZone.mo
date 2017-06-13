@@ -44,7 +44,7 @@ model EconomizerMultiZone "Economizer control block"
     "Outdoor temperature high limit cutoff [fixme: see #777]" annotation (
       Placement(transformation(extent={{-160,110},{-140,130}}),
         iconTransformation(extent={{-120,90},{-100,110}})));
-  CDL.Interfaces.RealInput hOut(unit="J/kg", displayUnit="kJ/kg", quantity="SpecificEnthalpy") if fixEnt
+  CDL.Interfaces.RealInput hOut(unit="J/kg", quantity="SpecificEnergy") if fixEnt
     "Outdoor air enthalpy"
     annotation (Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt),
     Placement(transformation(extent={{-160,90},{-140,110}}),
