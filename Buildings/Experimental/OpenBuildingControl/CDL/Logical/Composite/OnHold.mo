@@ -10,48 +10,45 @@ block OnHold "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-  Logical.Timer timer "Timer to measure time elapsed after the output signal rising edge"
+  Logical.Timer timer "Timer to measure time after state became active"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
 protected
-  Logical.LessThreshold les1(final threshold=holdDuration) "Less than threshold"
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Continuous.Constant Zero(final k=0) "Constant equals zero"
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Logical.Pre pre "Introduces infinitesimally small time delay"
-    annotation (Placement(transformation(extent={{50,40},{70,60}})));
-  Logical.Not not1 "Not block"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Logical.Equal equ1 "Equal block"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Logical.Or or2 "Or block" annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Logical.And and2 "And block" annotation (Placement(transformation(extent={{20,40},{40,60}})));
+  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
+    annotation (Placement(transformation(extent={{70,68},{90,88}})));
+  Modelica.StateGraph.InitialStep initialStep
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+  Modelica.StateGraph.StepWithSignal outputTrue
+    "Holds the output at true"
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+  Modelica.StateGraph.TransitionWithSignal toOutputTrue
+    "Transition that activates sending a true output signal"
+    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
+  Modelica.StateGraph.TransitionWithSignal toInitial
+    "Transition that activates the initial state"
+    annotation (Placement(transformation(extent={{30,50},{50,70}})));
+  GreaterEqualThreshold greEquThr(final threshold=holdDuration)
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
 equation
-  connect(timer.u,pre. y) annotation (Line(points={{18,20},{12,20},{12,0},{80,0},
-          {80,50},{71,50}},
-                      color={255,0,255}));
-  connect(timer.y,equ1. u2) annotation (Line(points={{41,20},{60,20},{60,-50},{
-          -70,-50},{-70,-38},{-62,-38}},                          color={0,0,
-          127}));
-  connect(u, or2.u1) annotation (Line(points={{-120,0},{-90,0},{-90,70},{-22,70}},
-        color={255,0,255}));
-  connect(les1.y, and2.u2) annotation (Line(points={{1,-30},{10,-30},{10,42},{18,
-          42}},      color={255,0,255}));
-  connect(and2.y, pre.u) annotation (Line(points={{41,50},{48,50}},
-                 color={255,0,255}));
-  connect(or2.y, y) annotation (Line(points={{1,70},{1,70},{90,70},{90,0},{110,0}},
-        color={255,0,255}));
-  connect(timer.y, les1.u) annotation (Line(points={{41,20},{60,20},{60,-50},{
-          -30,-50},{-30,-30},{-22,-30}},      color={0,0,127}));
-  connect(or2.y, and2.u1) annotation (Line(points={{1,70},{10,70},{10,50},{18,50}},
-        color={255,0,255}));
-  connect(equ1.u1, Zero.y)
-    annotation (Line(points={{-62,-30},{-62,-30},{-79,-30}}, color={0,0,127}));
-  connect(equ1.y, not1.u) annotation (Line(points={{-39,-30},{-32,-30},{-32,20},
-          {-70,20},{-70,50},{-62,50}}, color={255,0,255}));
-  connect(not1.y, or2.u2) annotation (Line(points={{-39,50},{-30,50},{-30,62},{-22,
-          62}}, color={255,0,255}));
+  connect(initialStep.outPort[1], toOutputTrue.inPort)
+    annotation (Line(points={{-59.5,60},{-44,60}}, color={0,0,0}));
+  connect(outputTrue.active, y) annotation (Line(points={{0,49},{0,0},{110,0}},
+                                                   color={255,0,255}));
+  connect(toOutputTrue.condition, u)
+    annotation (Line(points={{-40,48},{-40,0},{-120,0}}, color={255,0,255}));
+  connect(toInitial.outPort, initialStep.inPort[1]) annotation (Line(points={{41.5,60},
+          {52,60},{52,86},{-90,86},{-90,60},{-81,60}},   color={0,0,0}));
+  connect(outputTrue.active, timer.u) annotation (Line(points={{0,49},{0,20},{18,
+          20}},                           color={255,0,255}));
+  connect(timer.y, greEquThr.u)
+    annotation (Line(points={{41,20},{58,20}},     color={0,0,127}));
+  connect(greEquThr.y, toInitial.condition) annotation (Line(points={{81,20},{88,
+          20},{88,40},{40,40},{40,48}},     color={255,0,255}));
+  connect(toOutputTrue.outPort, outputTrue.inPort[1])
+    annotation (Line(points={{-38.5,60},{-11,60}}, color={0,0,0}));
+  connect(outputTrue.outPort[1], toInitial.inPort)
+    annotation (Line(points={{10.5,60},{36,60}}, color={0,0,0}));
   annotation (Icon(graphics={    Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
@@ -72,17 +69,28 @@ equation
           preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
               Documentation(info="<html>
 <p>
-Block that holds a true signal for a defined time period.
+Block that holds a <code>true</code> input signal for a defined time period.
 </p>
 <p>
-If the input <code>u</code> becomes <code>true</code>, a timer starts
+At initialization, the output <code>y</code> is equal to the input <code>u</code>.
+If the input <code>u</code> becomes <code>true</code>, or is <code>true</code>
+during intialization, a timer starts
 and the Boolean output <code>y</code> stays <code>true</code> for the time
 period provided by the parameter <code>holdDuration</code>.
 When this time is elapsed, the input is checked again. If
 it is <code>true</code>, then the timer is restarted and the output remains
 <code>true</code> for another <code>holdDuration</code> seconds.
-If the input <code>u</code> is <code>false</code> when the timer is running for
-<code>holdTime</code> seconds, then the ouput is switched to <code>false</code>.
+If the input <code>u</code> is <code>false</code> after the time run for
+<code>holdTime</code> seconds, then the ouput is switched to <code>false</code>,
+until the input becomes <code>true</code> again.
+</p>
+<p>
+The figure below shows the state chart of the implementation. Note that the
+transition are done in zero time.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHoldImplementation.png\"
+alt=\"Input and output of the block\"/>
 </p>
 <p>
 The figure below shows an example with a hold time of <i>3600</i> seconds
@@ -98,16 +106,35 @@ alt=\"Input and output of the block\"/>
 The figure below shows an example with a hold time of <i>60</i> seconds
 and a pulse width period <i>3600</i> seconds that starts at <i>t=0</i> seconds.
 </p>
-
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold1.png\"
 alt=\"Input and output of the block\"/>
-    </p>
+</p>
+<p>
+The next two figures show the same experiment, except that the input <code>u</code>
+has been negated. The figure below has again a hold time of <i>3600</i> seconds
+and a pulse width period <i>9000</i> seconds that starts at <i>t=200</i> seconds.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold2.png\"
+alt=\"Input and output of the block\"/>
+</p>
+<p>
+The figure below has again a hold time of <i>60</i> seconds
+and a pulse width period <i>3600</i> seconds that starts at <i>t=0</i> seconds.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold3.png\"
+alt=\"Input and output of the block\"/>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
 June 13, 2017, by Michael Wetter:<br/>
-Revised documentation.
+Reimplemented model using a state graph to avoid having to test for equality within tolerance.
+This implementation is also easier to understand.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/789\">issue 789</a>.
 </li>
 <li>
 May 24, 2017, by Milica Grahovac:<br/>
