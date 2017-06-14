@@ -10,12 +10,14 @@ block OnHold "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
+  Logical.Timer timer "Timer to measure time elapsed after the output signal rising edge"
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
+
+protected
   Logical.LessThreshold les1(final threshold=holdDuration) "Less than threshold"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Continuous.Constant Zero(final k=0) "Constant equals zero"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Logical.Timer timer "Timer to measure time elapsed after the output signal rising edge"
-    annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Logical.Pre pre "Introduces infinitesimally small time delay"
     annotation (Placement(transformation(extent={{50,40},{70,60}})));
   Logical.Not not1 "Not block"
@@ -66,24 +68,21 @@ equation
         Text(
           extent={{-90,-62},{96,-90}},
           lineColor={0,0,255},
-          textString="%holdDuration")}),                         Diagram(coordinateSystem(
+          textString="%holdDuration")}), Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
               Documentation(info="<html>
 <p>
 Block that holds a true signal for a defined time period.
 </p>
 <p>
-A rising edge of the Boolean input <code>u</code> starts a timer and
-the Boolean output <code>y</code> stays <code>true</code> for the time
+If the input <code>u</code> becomes <code>true</code>, a timer starts
+and the Boolean output <code>y</code> stays <code>true</code> for the time
 period provided by the parameter <code>holdDuration</code>.
-After that the block evaluates the Boolean
-input <code>u</code> and if the input is <code>true</code>,
-the timer gets started again, but if the input is <code>false</code>, the output becomes
-<code>false</code>. If the output value is <code>false</code>, it will become
-<code>true</code> with the first rising edge of the inputs signal. In other words,
-any <code>true</code> signal is evaluated either at the rising edge time of the input or at
-the rising edge time plus the time period. The output can only be <code>false</code>
-if at the end of the time period the input is <code>false</code>.
+When this time is elapsed, the input is checked again. If
+it is <code>true</code>, then the timer is restarted and the output remains
+<code>true</code> for another <code>holdDuration</code> seconds.
+If the input <code>u</code> is <code>false</code> when the timer is running for
+<code>holdTime</code> seconds, then the ouput is switched to <code>false</code>.
 </p>
 <p>
 The figure below shows an example with a hold time of <i>3600</i> seconds

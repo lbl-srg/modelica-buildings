@@ -5,5 +5,11 @@ compareVars :=
     "onHold.timer.y",
     "booPul1.y",
     "onHold1.y",
-    "onHold1.timer.y"
+    "onHold1.timer.y",
+    "onHold2.u",
+    "onHold2.y",
+    "onHold2.timer.y",
+    "onHold3.u",
+    "onHold3.y",
+    "onHold3.timer.y"
   };
