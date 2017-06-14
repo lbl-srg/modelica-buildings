@@ -126,7 +126,7 @@ and the current state has been active for at least <code>holdDuration</code> sec
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/MinimumOnOffTimeImplementation.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/TrueFalseHoldImplementation.png\"
 alt=\"Input and output of the block\"/>
 </p>
 
@@ -135,7 +135,7 @@ Simulation results of a typical example with <code>holdDuration = 1000</code> se
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/MinimumOnOffTime.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/TrueFalseHold.png\"
 alt=\"Input and output of the block\"/>
 </p>
 
