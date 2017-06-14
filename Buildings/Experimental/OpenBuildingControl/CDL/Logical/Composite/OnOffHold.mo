@@ -7,14 +7,22 @@ block OnOffHold "The block introduces a minimal offset between the input signal 
   Interfaces.BooleanInput u "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-122,-10},{-102,10}})));
+
   Interfaces.BooleanOutput y "Boolean output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-  Modelica.StateGraph.InitialStepWithSignal initialStep
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+  Timer timer1 "Timer for false output"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+
+  Timer timer2 "Timer for true output"
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
+
+protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
+  Modelica.StateGraph.InitialStepWithSignal initialStep
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.StateGraph.TransitionWithSignal transitionToTrue
     "Transition to true"
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
@@ -25,23 +33,15 @@ block OnOffHold "The block introduces a minimal offset between the input signal 
   Modelica.StateGraph.TransitionWithSignal transitionToFalse
     "Transition to false"
     annotation (Placement(transformation(extent={{30,20},{50,40}})));
-  Timer timer2
-    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-protected
   GreaterEqualThreshold greEquThr2(final threshold=holdDuration)
     "Output true when timer elapsed the required time"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
-public
   And and2 "Check for input and elapsed timer"
     annotation (Placement(transformation(extent={{68,-110},{88,-90}})));
-  Timer timer1
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-protected
   GreaterEqualThreshold greEquThr1(
                                   final threshold=holdDuration)
     "Output true when timer elapsed the required time"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
-public
   And and1 "Check for input and elapsed timer"
     annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
 equation
@@ -98,11 +98,12 @@ equation
         Text(
           extent={{-90,-62},{96,-90}},
           lineColor={0,0,255},
-          textString="%holdDuration")}),                               Diagram(coordinateSystem(
+          textString="%holdDuration")}),
+        Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-120},{100,100}})),
-              Documentation(info="<html>
+Documentation(info="<html>
 <p>
-Block that holds an on or off signal constant for at least a defined time period.
+Block that holds a <code>true</code> or <code>false</code> signal constant for at least a defined time period.
 </p>
 <p>
 Whenever the input <code>u</code> switches, the output <code>y</code>
@@ -117,7 +118,7 @@ changes.
 </p>
 <p>
 This block could for example be used to disable an economizer,
-and not re-enable it for 10 minutes, and vice versa.
+and not re-enable it for <i>10</i> minutes, and vice versa.
 </p>
 <p>
 The image below shows the implementation with a state graph in which

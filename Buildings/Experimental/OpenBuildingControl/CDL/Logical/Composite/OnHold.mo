@@ -80,7 +80,7 @@ period provided by the parameter <code>holdDuration</code>.
 When this time is elapsed, the input is checked again. If
 it is <code>true</code>, then the timer is restarted and the output remains
 <code>true</code> for another <code>holdDuration</code> seconds.
-If the input <code>u</code> is <code>false</code> after the time run for
+If the input <code>u</code> is <code>false</code> after
 <code>holdTime</code> seconds, then the ouput is switched to <code>false</code>,
 until the input becomes <code>true</code> again.
 </p>
