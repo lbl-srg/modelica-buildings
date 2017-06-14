@@ -1,3 +1,6 @@
-simulateModel("Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite.Validation.OnHold", stopTime=15000.0, method="dassl", tolerance=1e-06, resultFile="OnHold1");
-createPlot(id=1, position={15, 10, 590, 420}, y={"onHold.u", "onHold.y"}, range={0.0, 1.0, -15, 15}, grid=true, colors={{238,46,47}, {28,108,200}});
+simulateModel("Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite.Validation.OnHold", stopTime=15000.0, method="dassl", tolerance=1e-06, resultFile="OnHold");
+createPlot(id=1, position={36, 75, 1307, 558}, y={"onHold.u", "onHold.y"}, range={0.0, 250.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}, {28,108,200}}, timeUnit="min");
+createPlot(id=1, position={36, 75, 1307, 277}, y={"onHold.timer.y"}, range={0.0, 250.0, -1000.0, 4000.0}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="min");
+createPlot(id=2, position={32, 738, 1301, 578}, y={"booPul1.y", "onHold1.y"}, range={0.0, 250.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="min");
+createPlot(id=2, position={32, 738, 1301, 287}, y={"onHold1.timer.y"}, range={0.0, 250.0, -100.0, 700.0}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="min");
 

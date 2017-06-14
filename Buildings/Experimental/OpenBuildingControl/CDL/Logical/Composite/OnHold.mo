@@ -1,7 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite;
 block OnHold "Block that holds a signal on for a requested time period"
 
-  parameter Modelica.SIunits.Time holdDuration "Time duration of the ON hold.";
+  parameter Modelica.SIunits.Time holdDuration "Time duration of the on hold.";
 
   Interfaces.BooleanInput u "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -75,7 +75,8 @@ Block that holds a true signal for a defined time period.
 <p>
 A rising edge of the Boolean input <code>u</code> starts a timer and
 the Boolean output <code>y</code> stays <code>true</code> for the time
-period provided as a parameter. After that the block evaluates the Boolean
+period provided by the parameter <code>holdDuration</code>.
+After that the block evaluates the Boolean
 input <code>u</code> and if the input is <code>true</code>,
 the timer gets started again, but if the input is <code>false</code>, the output becomes
 <code>false</code>. If the output value is <code>false</code>, it will become
@@ -85,17 +86,30 @@ the rising edge time plus the time period. The output can only be <code>false</c
 if at the end of the time period the input is <code>false</code>.
 </p>
 <p>
-Simulation results of a typical example with a hold time of 1 hour
-is shown in the next figure.
+The figure below shows an example with a hold time of <i>3600</i> seconds
+and a pulse width period <i>9000</i> seconds that starts at <i>t=200</i> seconds.
 </p>
 
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold.png\"
 alt=\"Input and output of the block\"/>
-    </p>
+</p>
 
+<p>
+The figure below shows an example with a hold time of <i>60</i> seconds
+and a pulse width period <i>3600</i> seconds that starts at <i>t=0</i> seconds.
+</p>
+
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold1.png\"
+alt=\"Input and output of the block\"/>
+    </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 13, 2017, by Michael Wetter:<br/>
+Revised documentation.
+</li>
 <li>
 May 24, 2017, by Milica Grahovac:<br/>
 First implementation.

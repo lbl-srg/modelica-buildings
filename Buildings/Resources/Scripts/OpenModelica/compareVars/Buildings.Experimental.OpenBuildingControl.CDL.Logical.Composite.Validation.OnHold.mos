@@ -1,5 +1,9 @@
 compareVars :=
   {
     "onHold.u",
-    "onHold.y"
+    "onHold.y",
+    "onHold.timer.y",
+    "booPul1.y",
+    "onHold1.y",
+    "onHold1.timer.y"
   };
