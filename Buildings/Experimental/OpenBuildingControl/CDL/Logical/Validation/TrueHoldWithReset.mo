@@ -2,30 +2,38 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model TrueHoldWithReset "Validation model for the TrueHoldWithReset block"
   extends Modelica.Icons.Example;
 
-  Sources.BooleanPulse booPul(period(displayUnit="s") = 9000, startTime=300)
+  Sources.BooleanPulse booPul(
+    period = 9000,
+    startTime=300)
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Logical.TrueHoldWithReset truHol(holdDuration=3600)
+  Logical.TrueHoldWithReset truHol(
+    holdDuration=3600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Sources.BooleanPulse booPul1(period=3600)
+  Sources.BooleanPulse booPul1(
+    period=3600)
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Logical.TrueHoldWithReset truHol1(holdDuration=600)
+  Logical.TrueHoldWithReset truHol1(
+    holdDuration=600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Sources.BooleanPulse booPul2(
-                              period(displayUnit="s") = 9000, startTime=300)
+    period = 9000,
+    startTime=300)
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Logical.TrueHoldWithReset truHol2(
-                                  holdDuration=3600)
+    holdDuration=3600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Sources.BooleanPulse booPul3(period=3600)
+  Sources.BooleanPulse booPul3(
+    period=3600)
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Logical.TrueHoldWithReset truHol3(holdDuration=600)
+  Logical.TrueHoldWithReset truHol3(
+    holdDuration=600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Logical.Not not2 "Negation of input signal"

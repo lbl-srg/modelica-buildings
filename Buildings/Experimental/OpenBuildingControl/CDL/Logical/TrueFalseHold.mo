@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical;
-block TrueFalseHold "The block introduces a minimal offset between the input signal rising and falling edge"
+block TrueFalseHold "Block that holds an output signal for a specified duration"
 
   parameter Modelica.SIunits.Time holdDuration
     "Time duration during which the output cannot change";
@@ -43,8 +43,8 @@ protected
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
   And and1 "Check for input and elapsed timer"
     annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
-equation
 
+equation
   connect(u, notU.u) annotation (Line(points={{-120,0},{-88,0},{-88,-108},{18,-108}},
         color={255,0,255}));
   connect(transitionToTrue.outPort, outputTrue.inPort[1])
@@ -78,10 +78,7 @@ equation
           -50},{-44,-50},{-44,-70},{-32,-70},{-32,-70}}, color={255,0,255}));
   connect(and1.y, transitionToTrue.condition) annotation (Line(points={{-9,-70},
           {-4,-70},{-4,-10},{-20,-10},{-20,18}}, color={255,0,255}));
-
-  annotation (
-  defaultComponentName = "truFalHol",
-  Icon(graphics={    Rectangle(
+  annotation (Icon(graphics={    Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -129,7 +126,7 @@ and the current state has been active for at least <code>holdDuration</code> sec
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/TrueFalseHoldImplementation.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/MinimumOnOffTimeImplementation.png\"
 alt=\"Input and output of the block\"/>
 </p>
 
@@ -138,7 +135,7 @@ Simulation results of a typical example with <code>holdDuration = 1000</code> se
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/TrueFalseHold.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/MinimumOnOffTime.png\"
 alt=\"Input and output of the block\"/>
 </p>
 

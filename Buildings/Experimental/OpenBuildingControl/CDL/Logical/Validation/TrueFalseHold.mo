@@ -2,61 +2,77 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model TrueFalseHold "Validation model for the TrueFalseHold block"
 extends Modelica.Icons.Example;
 
-  Sources.BooleanPulse booPul(             startTime=0, period=1500)
-                                                        "Boolean pulse input signal"
+  Sources.BooleanPulse booPul(
+    startTime=0,
+    period=1500)
+    "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
   Logical.TrueFalseHold truFalHol(holdDuration=1000)
-                                        "The block introduces a minimal offset between the input signal rising and falling edge"
+    "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Sources.BooleanPulse booPul1(            startTime=0,
+  Sources.BooleanPulse booPul1(
+    startTime=0,
     period=1000,
-    width=0.25)                                         "Boolean pulse input signal"
+    width=0.25)
+    "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   Logical.TrueFalseHold truFalHol1(holdDuration=1000)
-                                        "The block introduces a minimal offset between the input signal rising and falling edge"
+    "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Sources.BooleanPulse booPul2(            startTime=0, period=1500)
-                                                        "Boolean pulse input signal"
+  Sources.BooleanPulse booPul2(
+    startTime=0,
+    period=1500)
+    "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
   Logical.TrueFalseHold truFalHol2(holdDuration=1000)
-                                        "The block introduces a minimal offset between the input signal rising and falling edge"
+    "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Sources.BooleanPulse booPul3(            startTime=0,
+  Sources.BooleanPulse booPul3(
+    startTime=0,
     period=1000,
-    width=0.25)                                         "Boolean pulse input signal"
+    width=0.25)
+    "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
   Logical.TrueFalseHold truFalHol3(holdDuration=1000)
-                                        "The block introduces a minimal offset between the input signal rising and falling edge"
+    "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Logical.Not not1 "Negation of input signal"
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
   Logical.Not not3 "Negation of input signal"
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
-  Sources.BooleanPulse booPul4(            startTime=100, period=1500)
-                                                        "Boolean pulse input signal"
+  Sources.BooleanPulse booPul4(
+    startTime=100,
+    period=1500)
+    "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Logical.TrueFalseHold truFalHol4(holdDuration=1000)
-                                        "The block introduces a minimal offset between the input signal rising and falling edge"
+    "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
-  Sources.BooleanPulse booPul5(            startTime=100,
+  Sources.BooleanPulse booPul5(
+    startTime=100,
     period=1000,
-    width=0.25)                                         "Boolean pulse input signal"
+    width=0.25)
+    "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Logical.TrueFalseHold truFalHol5(holdDuration=1000)
-                                        "The block introduces a minimal offset between the input signal rising and falling edge"
+    "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
-  Sources.BooleanPulse booPul6(            startTime=100, period=1500)
-                                                        "Boolean pulse input signal"
+  Sources.BooleanPulse booPul6(
+    startTime=100,
+    period=1500)
+    "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Logical.TrueFalseHold truFalHol6(holdDuration=1000)
-                                        "The block introduces a minimal offset between the input signal rising and falling edge"
+    "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{120,-20},{140,0}})));
-  Sources.BooleanPulse booPul7(            startTime=100,
+  Sources.BooleanPulse booPul7(
+    startTime=100,
     period=1000,
-    width=0.25)                                         "Boolean pulse input signal"
+    width=0.25)
+    "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Logical.TrueFalseHold truFalHol7(holdDuration=1000)
-                                        "The block introduces a minimal offset between the input signal rising and falling edge"
+    "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
   Logical.Not not2 "Negation of input signal"
     annotation (Placement(transformation(extent={{70,-20},{90,0}})));

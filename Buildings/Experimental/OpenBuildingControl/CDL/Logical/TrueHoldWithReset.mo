@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical;
-block TrueHoldWithReset "Block that holds a signal on for a requested time period"
+block TrueHoldWithReset "Block that holds a true signal for a requested duration"
 
   parameter Modelica.SIunits.Time holdDuration "Time duration of the on hold.";
 
