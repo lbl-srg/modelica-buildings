@@ -1,5 +1,5 @@
-within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite;
-block OnHold "Block that holds a signal on for a requested time period"
+within Buildings.Experimental.OpenBuildingControl.CDL.Logical;
+block TrueHoldWithReset "Block that holds a signal on for a requested time period"
 
   parameter Modelica.SIunits.Time holdDuration "Time duration of the on hold.";
 
@@ -10,10 +10,9 @@ block OnHold "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
+protected
   Logical.Timer timer "Timer to measure time after state became active"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-
-protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{70,68},{90,88}})));
   Modelica.StateGraph.InitialStep initialStep
@@ -49,7 +48,10 @@ equation
     annotation (Line(points={{-38.5,60},{-11,60}}, color={0,0,0}));
   connect(outputTrue.outPort[1], toInitial.inPort)
     annotation (Line(points={{10.5,60},{36,60}}, color={0,0,0}));
-  annotation (Icon(graphics={    Rectangle(
+
+  annotation (
+  defaultComponentName = "TruHol",
+  Icon(graphics={    Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           lineThickness=5.0,
@@ -89,7 +91,7 @@ The figure below shows the state chart of the implementation. Note that the
 transition are done in zero time.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHoldImplementation.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/TrueHoldWithResetImplementation.png\"
 alt=\"Input and output of the block\"/>
 </p>
 <p>
@@ -98,7 +100,7 @@ and a pulse width period <i>9000</i> seconds that starts at <i>t=200</i> seconds
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/TrueHoldWithReset.png\"
 alt=\"Input and output of the block\"/>
 </p>
 
@@ -107,7 +109,7 @@ The figure below shows an example with a hold time of <i>60</i> seconds
 and a pulse width period <i>3600</i> seconds that starts at <i>t=0</i> seconds.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold1.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/TrueHoldWithReset1.png\"
 alt=\"Input and output of the block\"/>
 </p>
 <p>
@@ -116,7 +118,7 @@ has been negated. The figure below has again a hold time of <i>3600</i> seconds
 and a pulse width period <i>9000</i> seconds that starts at <i>t=200</i> seconds.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold2.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/TrueHoldWithReset2.png\"
 alt=\"Input and output of the block\"/>
 </p>
 <p>
@@ -124,7 +126,7 @@ The figure below has again a hold time of <i>60</i> seconds
 and a pulse width period <i>3600</i> seconds that starts at <i>t=0</i> seconds.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/OnHold3.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/TrueHoldWithReset3.png\"
 alt=\"Input and output of the block\"/>
 </p>
 </html>", revisions="<html>
@@ -142,4 +144,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OnHold;
+end TrueHoldWithReset;

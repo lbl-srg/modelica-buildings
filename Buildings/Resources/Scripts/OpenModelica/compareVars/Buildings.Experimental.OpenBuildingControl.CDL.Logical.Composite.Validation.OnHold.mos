@@ -1,15 +1,15 @@
 compareVars :=
   {
-    "onHold.u",
-    "onHold.y",
-    "onHold.timer.y",
+    "truHol.u",
+    "truHol.y",
+    "truHol.timer.y",
     "booPul1.y",
-    "onHold1.y",
-    "onHold1.timer.y",
-    "onHold2.u",
-    "onHold2.y",
-    "onHold2.timer.y",
-    "onHold3.u",
-    "onHold3.y",
-    "onHold3.timer.y"
+    "truHol1.y",
+    "truHol1.timer.y",
+    "truHol2.u",
+    "truHol2.y",
+    "truHol2.timer.y",
+    "truHol3.u",
+    "truHol3.y",
+    "truHol3.timer.y"
   };

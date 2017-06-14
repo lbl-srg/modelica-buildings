@@ -1,5 +1,5 @@
-within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite;
-block OnOffHold "The block introduces a minimal offset between the input signal rising and falling edge"
+within Buildings.Experimental.OpenBuildingControl.CDL.Logical;
+block TrueFalseHold "The block introduces a minimal offset between the input signal rising and falling edge"
 
   parameter Modelica.SIunits.Time holdDuration
     "Time duration during which the output cannot change";
@@ -12,13 +12,13 @@ block OnOffHold "The block introduces a minimal offset between the input signal 
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
+protected
   Timer timer1 "Timer for false output"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
   Timer timer2 "Timer for true output"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
-protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Modelica.StateGraph.InitialStepWithSignal initialStep
@@ -38,8 +38,7 @@ protected
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
   And and2 "Check for input and elapsed timer"
     annotation (Placement(transformation(extent={{68,-110},{88,-90}})));
-  GreaterEqualThreshold greEquThr1(
-                                  final threshold=holdDuration)
+  GreaterEqualThreshold greEquThr1(final threshold=holdDuration)
     "Output true when timer elapsed the required time"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
   And and1 "Check for input and elapsed timer"
@@ -79,7 +78,10 @@ equation
           -50},{-44,-50},{-44,-70},{-32,-70},{-32,-70}}, color={255,0,255}));
   connect(and1.y, transitionToTrue.condition) annotation (Line(points={{-9,-70},
           {-4,-70},{-4,-10},{-20,-10},{-20,18}}, color={255,0,255}));
-  annotation (Icon(graphics={    Rectangle(
+
+  annotation (
+  defaultComponentName = "truFalHol",
+  Icon(graphics={    Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -127,7 +129,7 @@ and the current state has been active for at least <code>holdDuration</code> sec
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/MinimumOnOffTimeImplementation.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/TrueFalseHoldImplementation.png\"
 alt=\"Input and output of the block\"/>
 </p>
 
@@ -136,7 +138,7 @@ Simulation results of a typical example with <code>holdDuration = 1000</code> se
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Composite/MinimumOnOffTime.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/TrueFalseHold.png\"
 alt=\"Input and output of the block\"/>
 </p>
 
@@ -156,4 +158,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OnOffHold;
+end TrueFalseHold;
