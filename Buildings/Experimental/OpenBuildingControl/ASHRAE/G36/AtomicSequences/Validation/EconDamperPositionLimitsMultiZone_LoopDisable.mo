@@ -137,7 +137,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          textString="AHU Mode is other 
+          textString="AHU Mode is other
 than \"Occupied\"",
           fontSize=16),
         Text(
