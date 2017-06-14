@@ -4,8 +4,9 @@ model MixingVolumeMoistureReverseFlow
   extends
     Buildings.Fluid.MixingVolumes.Validation.BaseClasses.MixingVolumeReverseFlow(
     gain(k=0.005),
-    redeclare MixingVolumeMoistAir volDyn,
-    redeclare MixingVolumeMoistAir volSte);
+    redeclare MixingVolumeMoistAir volDyn(V=0.5),
+    redeclare MixingVolumeMoistAir volSte(V=0.5),
+    m_flow(duration=5));
 
 equation
   connect(volDyn.mWat_flow, gain.y) annotation (Line(points={{8,18},{-2,18},{-10,
@@ -26,6 +27,12 @@ The mass flow rate starts positive and reverses its direction at <i>t=5</i> seco
 </html>", revisions="<html>
 <ul>
 <li>
+June 8, 2017, by Thierry S. Nouidui:<br/>
+Reformulated the example for JModelica verification.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/799\">Buildings #799</a>.
+</li>
+<li>
 April 12, 2017, by Michael Wetter:<br/>
 Removed temperature connection that is no longer needed.<br/>
 This is for issue
@@ -39,7 +46,7 @@ First implementation.
 </html>"),
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeMoistureReverseFlow.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-8, StopTime=10),
+    experiment(Tolerance=1e-8, StopTime=5),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
 end MixingVolumeMoistureReverseFlow;

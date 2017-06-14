@@ -30,7 +30,7 @@ Documentation(info="<html>
 <p>
 Three way valve with equal percentage characteristics
 between <code>port_1</code> and <code>port_2</code>
-and linear opening characteristic between <code>port_1</code> and <code>port_2</code>.
+and linear opening characteristic between <code>port_3</code> and <code>port_2</code>.
 Such opening characteristics were typical for valves from Landis &amp; Gyr (now
 Siemens).
 </p><p>
