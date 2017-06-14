@@ -1,5 +1,19 @@
 compareVars :=
   {
     "onOffHold.u",
-    "onOffHold.y"
+    "onOffHold.y",
+    "onOffHold1.u",
+    "onOffHold1.y",
+    "onOffHold2.u",
+    "onOffHold2.y",
+    "onOffHold3.u",
+    "onOffHold3.y",
+    "onOffHold4.u",
+    "onOffHold4.y",
+    "onOffHold5.u",
+    "onOffHold5.y",
+    "onOffHold6.u",
+    "onOffHold6.y",
+    "onOffHold7.u",
+    "onOffHold7.y"
   };
