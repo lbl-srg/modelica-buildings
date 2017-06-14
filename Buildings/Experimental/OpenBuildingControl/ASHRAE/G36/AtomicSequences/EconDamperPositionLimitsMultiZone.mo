@@ -252,11 +252,11 @@ physical or at  comissioning fixed limits, as illustrated below:
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits state machine chart\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsStateMachineChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsStateMachineChartMultiZone.png\"/>
 </p>
 <p>
-The controller ensure that the outdoor and return damper position limits are such 
-that the outdoor airflow rate, <code>uVOut</code>, always stays equal or above the 
+The controller controls the outdoor and return damper position limits so
+that the outdoor airflow rate, <code>uVOut</code>, stays equal or above the 
 minimum outdoor air setpoint, <code>VOutMinSet</code>. Fraction of the controller 
 output signal between <code>yConSigMin</code> and <code>sigFraOutDam</code> is 
 linearly mapped to the outdoor air damper minimal position, <code>yOutDamPosMin</code>, 
@@ -270,7 +270,7 @@ limits for a well tuned controller. Control diagram:
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits control diagram\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlDiagram.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlDiagramMultiZone.png\"/>
 </p>
 <p>
 Expected control performance (damper position limits vs. control loop signal):
