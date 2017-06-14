@@ -2,64 +2,60 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Composite.Validati
 model OnOffHold "Validation model for the OnOffHold block"
 extends Modelica.Icons.Example;
 
-  Sources.BooleanPulse booPul(period=1600, startTime=0) "Boolean pulse input signal"
+  Sources.BooleanPulse booPul(             startTime=0, period=1500)
+                                                        "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
-  Logical.Composite.OnOffHold onOffHold(holdDuration=900)
+  Logical.Composite.OnOffHold onOffHold(holdDuration=1000)
                                         "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Sources.BooleanPulse booPul1(            startTime=0, period=900)
-                                                        "Boolean pulse input signal"
+  Sources.BooleanPulse booPul1(            startTime=0,
+    period=1000,
+    width=0.25)                                         "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
-  Logical.Composite.OnOffHold onOffHold1(
-                                        holdDuration=900)
+  Logical.Composite.OnOffHold onOffHold1(holdDuration=1000)
                                         "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Sources.BooleanPulse booPul2(
-                              period=1600, startTime=0) "Boolean pulse input signal"
+  Sources.BooleanPulse booPul2(            startTime=0, period=1500)
+                                                        "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  Logical.Composite.OnOffHold onOffHold2(
-                                        holdDuration=900)
+  Logical.Composite.OnOffHold onOffHold2(holdDuration=1000)
                                         "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Sources.BooleanPulse booPul3(            startTime=0, period=900)
-                                                        "Boolean pulse input signal"
+  Sources.BooleanPulse booPul3(            startTime=0,
+    period=1000,
+    width=0.25)                                         "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
-  Logical.Composite.OnOffHold onOffHold3(
-                                        holdDuration=900)
+  Logical.Composite.OnOffHold onOffHold3(holdDuration=1000)
                                         "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Not not1 "Negation of input signal"
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
   Not not3 "Negation of input signal"
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
-  Sources.BooleanPulse booPul4(
-                              period=1600, startTime=100)
+  Sources.BooleanPulse booPul4(            startTime=100, period=1500)
                                                         "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Logical.Composite.OnOffHold onOffHold4(
-                                        holdDuration=900)
+  Logical.Composite.OnOffHold onOffHold4(holdDuration=1000)
                                         "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
-  Sources.BooleanPulse booPul5(period=900, startTime=100)
-                                                        "Boolean pulse input signal"
+  Sources.BooleanPulse booPul5(            startTime=100,
+    period=1000,
+    width=0.25)                                         "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Logical.Composite.OnOffHold onOffHold5(
-                                        holdDuration=900)
+  Logical.Composite.OnOffHold onOffHold5(holdDuration=1000)
                                         "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
-  Sources.BooleanPulse booPul6(
-                              period=1600, startTime=100)
+  Sources.BooleanPulse booPul6(            startTime=100, period=1500)
                                                         "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Logical.Composite.OnOffHold onOffHold6(
-                                        holdDuration=900)
+  Logical.Composite.OnOffHold onOffHold6(holdDuration=1000)
                                         "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{120,-20},{140,0}})));
-  Sources.BooleanPulse booPul7(period=900, startTime=100)
-                                                        "Boolean pulse input signal"
+  Sources.BooleanPulse booPul7(            startTime=100,
+    period=1000,
+    width=0.25)                                         "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Logical.Composite.OnOffHold onOffHold7(
-                                        holdDuration=900)
+  Logical.Composite.OnOffHold onOffHold7(holdDuration=1000)
                                         "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
   Not not2 "Negation of input signal"
