@@ -1,4 +1,5 @@
 VAVSingleZoneTSupSet
-ActuatedReliefDamperWithoutFan
+ActuatedReliefDamperWithoutFan_MultiZone
+ActuatedReliefDamperWithoutFan_SingleZone
 ReliefFanControl
 Validation
