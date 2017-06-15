@@ -62,7 +62,8 @@ equation
 This example validates
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone\">
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone</a>
-for different control signals.
+for the following control signals: <code>uVOut<\code>, <code>uVOutMinSet<\code>. The control loop is always enabled in this 
+example.
 </p>
 </html>", revisions="<html>
 <ul>
