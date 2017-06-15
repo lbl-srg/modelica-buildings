@@ -1,6 +1,6 @@
 within Buildings.Controls.Predictors.Examples;
 model BESTEST "This example applies the load prediction to a BESTEST model"
-  extends Buildings.ThermalZones.Detailed.Validation.BESTEST.Case600;
+  extends Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600;
   ElectricalLoad preReg(predictionModel=Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
     "Load prediction based on regression"
     annotation (Placement(transformation(extent={{160,10},{180,30}})));

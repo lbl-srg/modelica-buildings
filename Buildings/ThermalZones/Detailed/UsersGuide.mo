@@ -579,8 +579,8 @@ model, as this allows to avoid
 a nonlinear system of equation to compute the radiative heat transfer,
 thereby leading to faster simulation.
 See
-<a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BESTEST.Case960\">
-Buildings.ThermalZones.Detailed.Validation.BESTEST.Case960</a>
+<a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case960\">
+Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case960</a>
 for an example.
 </p>
 <p>
