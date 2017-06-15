@@ -14,7 +14,7 @@ block EconDamperPositionLimitsMultiZone
   parameter Real conSigMin=0 "Lower limit of control signal output";
   parameter Real conSigMax=1 "Upper limit of control signal output";
   parameter Real conSigFraOutDam(min=conSigMin, max=conSigMax, unit="1")=0.5
-    "Fraction of the control loop signal below which the outdoor air damper limit gets 
+    "Fraction of control loop signal output below which the outdoor air damper limit gets 
     modulated and above which the return air damper limit gets modulated";
 
   CDL.Interfaces.RealInput uVOut(unit="m3/s")
@@ -58,42 +58,6 @@ block EconDamperPositionLimitsMultiZone
     annotation (Placement(transformation(extent={{240,-90},{260,-70}}),
         iconTransformation(extent={{100,-80},{120,-60}})));
 
-protected
-  parameter Real occupied=1
-    "AHU System Mode = Occupied [fixme: implement conversion to enumeration]";
-  parameter Real higestIgnFreProSta=1
-    "Highest freeze protection status that does not deactivate the controller
-    [fixme: implement conversion to enumeration]";
-  CDL.Continuous.Constant outDamPhyPosMinSig(k=outDamPhyPosMin)
-    "Physical or at the comissioning fixed minimum position of the outdoor air damper. 
-    This is the initial position of the economizer damper."
-    annotation (Placement(transformation(extent={{-220,70},{-200,90}})));
-  CDL.Continuous.Constant outDamPhyPosMaxSig(k=outDamPhyPosMax)
-    "Physical or at the comissioning fixed maximum position of the outdoor 
-    air damper."
-    annotation (Placement(transformation(extent={{-220,30},{-200,50}})));
-  CDL.Continuous.Constant retDamPhyPosMinSig(k=retDamPhyPosMin)
-    "Physical or at the comissioning fixed minimum position of the return air damper"
-    annotation (Placement(transformation(extent={{-220,-10},{-200,10}})));
-  CDL.Continuous.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
-    "Physical or at the comissioning fixed maximum position of the return air damper. 
-    This is the initial condition of the return air damper."
-    annotation (Placement(transformation(extent={{-220,-50},{-200,-30}})));
-  CDL.Continuous.Constant minSignalLimit(k=conSigMin)
-    "Equals minimum controller output signal"
-    annotation (Placement(transformation(extent={{-20,240},{0,260}})));
-  CDL.Continuous.Constant maxSignalLimit(k=conSigMax)
-    "Equals maximum controller output signal"
-    annotation (Placement(transformation(extent={{100,240},{120,260}})));
-  CDL.Continuous.Constant sigFraForOutDam(k=conSigFraOutDam)
-    "Equals the fraction of the control loop signal below which the outdoor air damper 
-    limit gets modulated and above which the return air damper limit gets modulated"
-    annotation (Placement(transformation(extent={{40,240},{60,260}})));
-  CDL.Continuous.Constant AHUMode(final k=occupied)
-    "Generates AHU System Mode = Occupied signal
-    [fixme: implement conversion to enumeration]"
-    annotation (Placement(transformation(extent={{-220,-260},{-200,-240}})));
-
   CDL.Continuous.LimPID damLimController(
     Ti=0.9,
     Td=0.1,
@@ -133,6 +97,42 @@ protected
     annotation (Placement(transformation(extent={{-180,-190},{-160,-170}})));
   CDL.Logical.Equal equ1 annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
 
+protected
+  parameter Real occupied=1
+    "AHU System Mode = Occupied [fixme: implement conversion to enumeration]";
+  parameter Real higestIgnFreProSta=1
+    "Highest freeze protection status that does not deactivate the controller
+    [fixme: implement conversion to enumeration]";
+  CDL.Continuous.Constant outDamPhyPosMinSig(k=outDamPhyPosMin)
+    "Physical or at the comissioning fixed minimum position of the outdoor air damper. 
+    This is the initial position of the economizer damper."
+    annotation (Placement(transformation(extent={{-220,70},{-200,90}})));
+  CDL.Continuous.Constant outDamPhyPosMaxSig(k=outDamPhyPosMax)
+    "Physical or at the comissioning fixed maximum position of the outdoor 
+    air damper."
+    annotation (Placement(transformation(extent={{-220,30},{-200,50}})));
+  CDL.Continuous.Constant retDamPhyPosMinSig(k=retDamPhyPosMin)
+    "Physical or at the comissioning fixed minimum position of the return air damper"
+    annotation (Placement(transformation(extent={{-220,-10},{-200,10}})));
+  CDL.Continuous.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
+    "Physical or at the comissioning fixed maximum position of the return air damper. 
+    This is the initial condition of the return air damper."
+    annotation (Placement(transformation(extent={{-220,-50},{-200,-30}})));
+  CDL.Continuous.Constant minSignalLimit(k=conSigMin)
+    "Equals minimum controller output signal"
+    annotation (Placement(transformation(extent={{-20,240},{0,260}})));
+  CDL.Continuous.Constant maxSignalLimit(k=conSigMax)
+    "Equals maximum controller output signal"
+    annotation (Placement(transformation(extent={{100,240},{120,260}})));
+  CDL.Continuous.Constant sigFraForOutDam(k=conSigFraOutDam)
+    "Equals the fraction of the control loop signal below which the outdoor air damper 
+    limit gets modulated and above which the return air damper limit gets modulated"
+    annotation (Placement(transformation(extent={{40,240},{60,260}})));
+  CDL.Continuous.Constant AHUMode(final k=occupied)
+    "Generates AHU System Mode = Occupied signal
+    [fixme: implement conversion to enumeration]"
+    annotation (Placement(transformation(extent={{-220,-260},{-200,-240}})));
+
 equation
   connect(minRetDam.y,yRetDamPosMax)  annotation (Line(points={{161,110},{180,110},{180,20},{220,20},
           {220,-40},{250,-40}}, color={0,0,127}));
@@ -163,7 +163,7 @@ equation
   connect(retDamPhyPosMaxSig.y, retDamPosMinSwitch.u1)
     annotation (Line(points={{-199,-40},{-48,-40},{-48,8},{38,8}}, color={0,0,127}));
   connect(retDamPhyPosMaxSig.y,minRetDam. f1)
-    annotation (Line(points={{-199,-40},{-134,-40},{-134,114}, {-68,114},{138,114}}, color={0,0,127}));
+    annotation (Line(points={{-199,-40},{-140,-40},{-140,114},{-140,114},{138,114}}, color={0,0,127}));
   connect(retDamPhyPosMinSig.y, retDamPosMinSwitch.u3)
     annotation (Line(points={{-199,0},{-90,0},{-90,-8},{38,-8}}, color={0,0,127}));
   connect(outDamPhyPosMaxSig.y, outDamPosMaxSwitch.u3)
@@ -171,7 +171,7 @@ equation
   connect(outDamPhyPosMinSig.y, outDamPosMaxSwitch.u1)
     annotation (Line(points={{-199,80},{-20,80},{-20,48},{38,48}}, color={0,0,127}));
   connect(outDamPhyPosMinSig.y,minOutDam. f1)
-    annotation (Line(points={{-199,80},{-48,80},{-48,174},{138,174}}, color={0,0,127}));
+    annotation (Line(points={{-199,80},{-20,80},{-20,174},{138,174}}, color={0,0,127}));
   connect(uSupFan,and1. u1)
     annotation (Line(points={{-260,-140},{-168,-140},{-168,-122},{-142,-122}}, color={255,0,255}));
   connect(and1.y,not1. u)
