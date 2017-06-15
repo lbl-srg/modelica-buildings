@@ -16,10 +16,11 @@ model AirHandlingUnitMassFlow
     yValve_start=0,
     tauEleHea=1,
     tauHum=1,
-    y1Low=0,
-    y1Hig=0.02,
-    y2Hig=0.1,
-    y2Low(displayUnit="degC") = -0.1) "Air handling unit"
+    yValLow=0.3,
+    yValHig=0.32,
+    dTLow=-0.1,
+    dTHig=0.1)
+              "Air handling unit"
     annotation (Placement(transformation(extent={{54,16},{74,36}})));
 
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
@@ -45,16 +46,15 @@ equation
       points={{54,20},{34,20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(uWatVal.y, ahu.uWatVal) annotation (Line(points={{21,90},{46,90},{46,
-          31},{53,31}},
-                    color={0,0,127}));
-  connect(uFan.y, ahu.uFan) annotation (Line(points={{21,-80},{48,-80},{48,16},
-          {48,23},{50,23},{53,23}},
+  connect(uWatVal.y, ahu.uWatVal) annotation (Line(points={{21,90},{46,90},{46,30},
+          {53,30}}, color={0,0,127}));
+  connect(uFan.y, ahu.uFan) annotation (Line(points={{21,-80},{48,-80},{48,16},{
+          48,23},{53,23},{53,22}},
                    color={0,0,127}));
-  connect(temSet.y, ahu.TSet) annotation (Line(points={{21,-20},{40,-20},{40,26},
-          {53,26}}, color={0,0,127}));
+  connect(temSet.y, ahu.TSet) annotation (Line(points={{21,-20},{40,-20},{40,25},
+          {53,25}}, color={0,0,127}));
   connect(XSet.y, ahu.XSet_w) annotation (Line(points={{21,-50},{44,-50},{44,26},
-          {44,28},{44,28.6},{48,28.6},{53,28.6}},         color={0,0,127}));
+          {44,28},{44,28.6},{53,28.6},{53,27}},           color={0,0,127}));
   connect(temSenAir2.port_a, senRelHum.port_b)
     annotation (Line(points={{0,20},{14,20}}, color={0,127,255}));
   connect(temSenWat1.port_b, ahu.port_a1) annotation (Line(points={{0,60},{20,

@@ -11,9 +11,6 @@ model AirHandlingUnitControl
           1800,288.15 + 1; 2400,288.15 + 1; 2400,288.15 + 1]),
     TWat(startTime = 600, height=-2));
 
-  parameter Real yMinVal(min=0, max=1, unit="1")=0.4
-  "Minimum valve position when valve is controlled to maintain outlet water temperature";
-
   Buildings.Fluid.Air.AirHandlingUnit ahu(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -26,7 +23,8 @@ model AirHandlingUnitControl
     yValve_start=0,
     tauEleHea=1,
     tauHum=1,
-    yMinVal=yMinVal)
+    yValLow=0.4,
+    yValHig=0.45)
     "Air handling unit"
       annotation (Placement(transformation(extent={{46,20},{66,40}})));
   Modelica.Blocks.Sources.Constant uFan(k=1) "Control input for fan"
@@ -38,7 +36,7 @@ model AirHandlingUnitControl
   Buildings.Controls.Continuous.LimPID PID(
     yMax=1,
     reverseAction=true,
-    yMin=yMinVal,
+    yMin=0.3,
     Td=120,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,

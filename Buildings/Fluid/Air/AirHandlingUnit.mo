@@ -58,29 +58,25 @@ model AirHandlingUnit
   parameter Modelica.SIunits.Time tauHum = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
      annotation (Dialog(tab = "Dynamics", group="Humidifier"));
-  parameter Real yMinVal(min=0, max=1, unit="1")=0.2
-  "Minimum valve position when valve is controled to maintain outlet water temperature"
-  annotation(Dialog(group="Valve"));
 
   // parameters for heater controller
-  parameter Real y1Low(min=0, max=1, unit="1")= 0
-  "if y1=true and y1<=y1Low, switch to y1=false"
+  parameter Real yValLow(min=0, max=1, unit="1")=0.1
+  "if yVal<=yValLow, hysVal.y switches to false"
   annotation(Dialog(group="Reheat controller"));
-  parameter Real y1Hig(min=0, max=1, unit="1")= 0.05
-  "if y1=false and y1>=y1High, switch to y1=true"
+  parameter Real yValHig(min=0, max=1, unit="1")=0.15
+  "if yVal>=yValHig, hysVal.y switches to true"
   annotation(Dialog(group="Reheat controller"));
-  parameter Modelica.SIunits.TemperatureDifference y2Low= -0.1
-  "if y2=true and y2<=y2Low, switch to y2=false"
+  parameter Modelica.SIunits.TemperatureDifference dTLow=-0.5
+  "if dT<=dTLow, hysTemDif.y switches to false"
   annotation(Dialog(group="Reheat controller"));
-  parameter Modelica.SIunits.TemperatureDifference y2Hig = 0.1
-  "if y2=false and y2>=y2High, switch to y2=true"
+  parameter Modelica.SIunits.TemperatureDifference dTHig=0.5
+  "if dT>=dTHig, hysTemDif.y switches to true"
   annotation(Dialog(group="Reheat controller"));
 
-  parameter Boolean pre_start1=true "Previous value of y1 used at initialization"
+  parameter Boolean pre_yVal_start=true "Previous value of hysVal.y used at initialization"
     annotation (Dialog(group="Reheat controller", tab="Initialization"));
-  parameter Boolean pre_start2=true "Previous value of y2 used at initialization"
+  parameter Boolean pre_dT_start=true "Previous value of hysTemDif.y used at initialization"
     annotation (Dialog(group="Reheat controller", tab="Initialization"));
-
 
   Modelica.Blocks.Interfaces.RealOutput PHea(unit="W")
     "Power consumed by electric heater" annotation (Placement(transformation(
@@ -95,12 +91,9 @@ model AirHandlingUnit
     "Set point for water vapor mass fraction in kg/kg total air of the fluid that leaves port_b"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-120,0},{-100,20}})));
-  Modelica.Blocks.Sources.RealExpression e2(y=T_inflow_hea - TSet)
-    "Error between inlet temperature and temperature setpoint of the reheater"
-    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
-  Modelica.Blocks.Sources.RealExpression e1(y=y_valve - yMinVal)
-    "Error between actual valve position and minimum valve position"
-    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
+  Modelica.Blocks.Sources.RealExpression dT(y(unit="K")=T_inflow_hea - TSet)
+    "Difference between inlet temperature and temperature setpoint of the reheater"
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
   Humidifiers.SteamHumidifier_X hum(
     redeclare final package Medium = Medium2,
@@ -145,14 +138,16 @@ model AirHandlingUnit
         origin={-22,-60})));
 
   Buildings.Fluid.Air.BaseClasses.ReheatControl heaCon(
-    final y1Low=y1Low,
-    final y1Hig=y1Hig,
-    final y2Low=y2Low,
-    final y2Hig=y2Hig,
-    final pre_start1=pre_start1,
-    final pre_start2=pre_start2)
+    final pre_yVal_start=pre_yVal_start,
+    final pre_dT_start=pre_dT_start,
+    final yValLow=yValLow,
+    final yValHig=yValHig,
+    final dTLow=dTLow,
+    final dTHig=dTHig)
     "Reheater on/off controller"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={0,10})));
 
 protected
   Medium2.Temperature T_inflow_hea = Medium2.temperature(
@@ -182,14 +177,13 @@ equation
           {18,-76},{18,-110}}, color={0,0,127}));
   connect(uFan,fan.y)
     annotation (Line(points={{-120,-50},{-120,-48},{-60,-48}},  color={0,0,127}));
-  connect(heaCon.y,eleHea.on)  annotation (Line(points={{-19,10},{0,10},{0,-57},
-          {-10,-57}}, color={255,0,255}));
-  connect(e2.y, heaCon.y2)
-    annotation (Line(points={{-49,0},{-46,0},{-46,4},{-42,4},{-42,5}},
+  connect(dT.y,heaCon.dT)
+    annotation (Line(points={{-19,40},{-22,40},{-5,40},{-5,22}},
                                                        color={0,0,127}));
-  connect(e1.y, heaCon.y1) annotation (Line(points={{-49,20},{-46,20},{-46,15},{
-          -44,15},{-42,15}},
-                    color={0,0,127}));
+  connect(watVal.y_actual, heaCon.yVal) annotation (Line(points={{75,67},{84,67},
+          {84,80},{0,80},{0,40},{5,40},{5,22}}, color={0,0,127}));
+  connect(heaCon.y, eleHea.on)
+    annotation (Line(points={{0,-1},{0,-57},{-10,-57}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
       Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
