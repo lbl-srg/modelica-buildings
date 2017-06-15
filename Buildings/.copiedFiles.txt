@@ -836,7 +836,6 @@ Buildings/Media/Specialized/package.order
 Buildings/Media/Water.mo
 Buildings/Media/package.mo
 Buildings/Media/package.order
-Buildings/PressureDrop_stats.email
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.odp
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.png
 Buildings/Resources/Images/Airflow/Multizone/Examples/3roomValidation.png
