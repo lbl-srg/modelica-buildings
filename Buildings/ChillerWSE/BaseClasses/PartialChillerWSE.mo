@@ -6,13 +6,14 @@ partial model PartialChillerWSE
   extends Buildings.ChillerWSE.BaseClasses.FourPortResistanceChillerWSE(
      final computeFlowResistance1=true,
      final computeFlowResistance2=true);
-  extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface;
+  extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface(
+     final reverseAction=true);
   extends Buildings.ChillerWSE.BaseClasses.ValvesParameters(
      nVal=5,
      final deltaM=0.1);
   extends Buildings.ChillerWSE.BaseClasses.PartialSignalFilter(
      final nFilter=1,
-     final yValve_start=yValveWSE_start);
+     final yValve_start={yValveWSE_start});
   parameter Integer nChi(min=1) "Number of identical chillers";
 
   // Advanced
@@ -51,9 +52,10 @@ partial model PartialChillerWSE
     annotation(Dialog(group="Bypass Valve"));
   parameter Real[nChi] yValveChiller_start=fill(0,nChi) "Initial value of output from valve 1 in chillers"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilterValve));
-  parameter Real[1] yValveWSE_start={0} "Initial value of output from valve 1 in WSE"
+  parameter Real yValveWSE_start=0 "Initial value of output from valve 1 in WSE"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilterValve));
-
+  parameter Real yBypValWSE_start=0 "Initial value of output from bypass valve in WSE"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilterValve));
     // Dynamics
  parameter Modelica.SIunits.Time tau1 = 30 "Time constant at nominal flow in chillers"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
@@ -202,7 +204,6 @@ partial model PartialChillerWSE
     final xi_start=xi_start,
     final xd_start=xd_start,
     final y_startController=y_startController,
-    final reverseAction=reverseAction,
     final reset=reset,
     final y_reset=y_reset,
     final eta=eta,
@@ -212,7 +213,8 @@ partial model PartialChillerWSE
     final delta0=delta0,
     final dpValve_nominal=dpValve_nominal[3:5],
     final rhoStd=rhoStd[3:5],
-    final yValve_start=yValveWSE_start)
+    final yBypVal_start=yBypValWSE_start,
+    final yValWSE_start=yValveWSE_start)
     "Waterside economizer"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 equation

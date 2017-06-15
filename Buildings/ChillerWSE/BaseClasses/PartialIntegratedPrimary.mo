@@ -5,7 +5,7 @@ model PartialIntegratedPrimary
     nVal=7);
   extends Buildings.ChillerWSE.BaseClasses.SignalFilter(
     final nFilter=1,
-    final yValve_start=yValveWSE_start);
+    final yValve_start = {yValveWSE_start});
   extends Buildings.ChillerWSE.BaseClasses.PartialOperationSequenceInterface;
 
   //WSE mode valve parameters

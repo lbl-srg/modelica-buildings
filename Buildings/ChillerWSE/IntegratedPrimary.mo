@@ -11,12 +11,22 @@ model IntegratedPrimary "Integrated WSE for Primary Chilled Water System"
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
-            Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)});
+            Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
+    val2(final y_start=yValve_start[1]),
+    val1(final y_start=1 - yValve_start[1]));
 
-
+  parameter Integer numPum=nChi "Number of pumps";
   parameter Real lValve3(min=1e-10,max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Valve"));
+  parameter Modelica.SIunits.Time riseTimePum=120
+    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening in pumps",enable=use_inputFilter));
+  parameter Modelica.Blocks.Types.Init initPum=initValve
+    "Type of initialization (no init/steady state/initial state/initial output)"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening in pumps",enable=use_inputFilter));
+  parameter Real[numPum] yPum_start=fill(0,numPum) "Initial value of output:0-closed, 1-fully opened"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening in pumps",enable=use_inputFilter));
 
   Buildings.Fluid.Movers.SpeedControlled_y pum[nChi](
     redeclare each final package Medium = Medium2,
@@ -31,7 +41,12 @@ model IntegratedPrimary "Integrated WSE for Primary Chilled Water System"
     final per=perPum,
     each addPowerToMedium=false,
     each final energyDynamics=energyDynamics,
-    each final massDynamics=massDynamics)
+    each final massDynamics=massDynamics,
+    each final inputType=Buildings.Fluid.Types.InputType.Continuous,
+    each final use_inputFilter=use_inputFilter,
+    each final riseTime=riseTimePum,
+    each final init=initPum,
+    final y_start=yPum_start)                   "Pumps"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val3(
     redeclare final package Medium = Medium2,
@@ -71,7 +86,6 @@ equation
           -40},{10,-40}}, color={0,127,255}));
   connect(pum[i].port_b, val2.port_a) annotation (Line(points={{-10,-40},{-16,-40},
           {-16,-20},{-40,-20}}, color={0,127,255}));
-
   end for;
   connect(val1.port_b, val3.port_a) annotation (Line(points={{40,-20},{30,-20},{
           30,-80},{10,-80}}, color={0,127,255}));

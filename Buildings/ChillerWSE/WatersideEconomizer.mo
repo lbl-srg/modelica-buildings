@@ -9,14 +9,18 @@ model WatersideEconomizer "Parallel heat exchangers"
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
     final deltaM=deltaM2,
     val2(each final dpFixed_nominal=0),
-    val1(each final dpFixed_nominal=dp1_nominal));
-  extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface;
+    val1(each final dpFixed_nominal=dp1_nominal),
+    final yValve_start={yValWSE_start});
+  extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface(
+    final reverseAction=true);
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1,
     redeclare package Medium=Medium2);
 
   // Filter opening
   parameter Real yBypVal_start=1 "Initial value of output from the filter in the bypass valve"
+    annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_inputFilter));
+  parameter Real yValWSE_start=1 "Initial value of output from the filter in the bypass valve"
     annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_inputFilter));
  // Heat exchanger
   parameter Modelica.SIunits.Efficiency eta=0.8 "constant effectiveness";
@@ -54,7 +58,6 @@ model WatersideEconomizer "Parallel heat exchangers"
     final xi_start=xi_start,
     final xd_start=xd_start,
     final y_startController=y_startController,
-    final reverseAction=reverseAction,
     final reset=reset,
     final y_reset=y_reset,
     final allowFlowReversal1=allowFlowReversal1,

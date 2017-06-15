@@ -1,7 +1,6 @@
 within Buildings.ChillerWSE.Examples.BaseClasses;
 partial model PartialPlantWithControl
   "Partial model that tests source plant with temperature control"
-  import Buildings;
   extends Modelica.Icons.Example;
  package Medium1 = Buildings.Media.Water "Medium model";
  package Medium2 = Buildings.Media.Water "Medium model";
@@ -15,7 +14,7 @@ partial model PartialPlantWithControl
   parameter Modelica.SIunits.Pressure dp2_nominal=60000
     "Nominal pressure difference on medium 2 side";
 
-  Fluid.Sources.MassFlowSource_T           sou1(
+  Buildings.Fluid.Sources.MassFlowSource_T           sou1(
     redeclare package Medium = Medium1,
     use_T_in=true,
     m_flow=m1_flow_nominal,
@@ -26,7 +25,7 @@ partial model PartialPlantWithControl
     offset=273.15 + 5,
     startTime=300)    "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  Fluid.Sources.MassFlowSource_T           sou2(
+  Buildings.Fluid.Sources.MassFlowSource_T           sou2(
     redeclare package Medium = Medium2,
     use_T_in=true,
     m_flow=m2_flow_nominal,
@@ -36,25 +35,25 @@ partial model PartialPlantWithControl
                                T2_in(k=273.15 + 15)
                    "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{58,-60},{78,-40}})));
-  Fluid.Sources.FixedBoundary           sin1(
+  Buildings.Fluid.Sources.FixedBoundary           sin1(
     redeclare package Medium = Medium1,
     nPorts=1)                           annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={90,48})));
-  Fluid.FixedResistances.PressureDrop           res1(
+  Buildings.Fluid.FixedResistances.PressureDrop           res1(
     redeclare package Medium = Medium1,
     dp_nominal=6000,
     m_flow_nominal=m1_flow_nominal)
                      "Flow resistance"
     annotation (Placement(transformation(extent={{40,38},{60,58}})));
-  Fluid.Sources.FixedBoundary           sin2(
+  Buildings.Fluid.Sources.FixedBoundary           sin2(
     redeclare package Medium = Medium2,
     nPorts=1)                           annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-90,-20})));
-  Fluid.FixedResistances.PressureDrop           res2(
+ Buildings.Fluid.FixedResistances.PressureDrop           res2(
     redeclare package Medium = Medium2,
     m_flow_nominal=m2_flow_nominal,
     dp_nominal=6000)                  "Flow resistance"

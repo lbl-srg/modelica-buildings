@@ -2,7 +2,8 @@ within Buildings.ChillerWSE;
 model HeatExchanger_T
   "Heat exchanger with outlet temperature control on medium 2 side"
   extends Buildings.ChillerWSE.BaseClasses.PartialHeatExchanger_T;
-  extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface;
+  extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface(
+    final reverseAction=true);
 
   Buildings.Controls.Continuous.LimPID con(
     final controllerType=controllerType,
