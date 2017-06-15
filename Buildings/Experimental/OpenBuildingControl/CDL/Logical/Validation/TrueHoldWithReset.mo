@@ -8,7 +8,7 @@ model TrueHoldWithReset "Validation model for the TrueHoldWithReset block"
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Logical.TrueHoldWithReset truHol(
-    holdDuration=3600)
+    duration=3600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Sources.BooleanPulse booPul1(
@@ -16,7 +16,7 @@ model TrueHoldWithReset "Validation model for the TrueHoldWithReset block"
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Logical.TrueHoldWithReset truHol1(
-    holdDuration=600)
+    duration=600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Sources.BooleanPulse booPul2(
@@ -25,7 +25,7 @@ model TrueHoldWithReset "Validation model for the TrueHoldWithReset block"
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Logical.TrueHoldWithReset truHol2(
-    holdDuration=3600)
+    duration=3600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Sources.BooleanPulse booPul3(
@@ -33,7 +33,7 @@ model TrueHoldWithReset "Validation model for the TrueHoldWithReset block"
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Logical.TrueHoldWithReset truHol3(
-    holdDuration=600)
+    duration=600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Logical.Not not2 "Negation of input signal"
@@ -42,7 +42,8 @@ model TrueHoldWithReset "Validation model for the TrueHoldWithReset block"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
   connect(booPul.y, truHol.u)
-    annotation (Line(points={{-19,80},{19,80}},     color={255,0,255}));
+    annotation (Line(points={{-19,80},{2,80},{19,80}},
+                                                    color={255,0,255}));
   connect(booPul1.y, truHol1.u)
     annotation (Line(points={{-19,30},{19,30}},
                                               color={255,0,255}));
@@ -65,8 +66,16 @@ Validation test for the block
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Logical.TrueHoldWithReset\">
 Buildings.Experimental.OpenBuildingControl.CDL.Logical.TrueHoldWithReset</a>.
 </p>
+<p>
+The validation uses different instances to validate different hold durations, different lengths
+of the input pulse, and different initial values for the input signal.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 14, 2017, by Michael Wetter:<br/>
+Added more tests for different initial signals and different hold values.
+</li>
 <li>
 May 24, 2017, by Milica Grahovac:<br/>
 First implementation.

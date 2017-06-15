@@ -7,7 +7,7 @@ extends Modelica.Icons.Example;
     period=1500)
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
-  Logical.TrueFalseHold truFalHol(holdDuration=1000)
+  Logical.TrueFalseHold truFalHol(duration=1000)
     "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Sources.BooleanPulse booPul1(
@@ -16,7 +16,7 @@ extends Modelica.Icons.Example;
     width=0.25)
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
-  Logical.TrueFalseHold truFalHol1(holdDuration=1000)
+  Logical.TrueFalseHold truFalHol1(duration=1000)
     "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Sources.BooleanPulse booPul2(
@@ -24,7 +24,7 @@ extends Modelica.Icons.Example;
     period=1500)
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  Logical.TrueFalseHold truFalHol2(holdDuration=1000)
+  Logical.TrueFalseHold truFalHol2(duration=1000)
     "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Sources.BooleanPulse booPul3(
@@ -33,7 +33,7 @@ extends Modelica.Icons.Example;
     width=0.25)
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
-  Logical.TrueFalseHold truFalHol3(holdDuration=1000)
+  Logical.TrueFalseHold truFalHol3(duration=1000)
     "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Logical.Not not1 "Negation of input signal"
@@ -45,7 +45,7 @@ extends Modelica.Icons.Example;
     period=1500)
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Logical.TrueFalseHold truFalHol4(holdDuration=1000)
+  Logical.TrueFalseHold truFalHol4(duration=1000)
     "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
   Sources.BooleanPulse booPul5(
@@ -54,7 +54,7 @@ extends Modelica.Icons.Example;
     width=0.25)
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Logical.TrueFalseHold truFalHol5(holdDuration=1000)
+  Logical.TrueFalseHold truFalHol5(duration=1000)
     "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
   Sources.BooleanPulse booPul6(
@@ -62,7 +62,7 @@ extends Modelica.Icons.Example;
     period=1500)
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Logical.TrueFalseHold truFalHol6(holdDuration=1000)
+  Logical.TrueFalseHold truFalHol6(duration=1000)
     "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{120,-20},{140,0}})));
   Sources.BooleanPulse booPul7(
@@ -71,7 +71,7 @@ extends Modelica.Icons.Example;
     width=0.25)
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Logical.TrueFalseHold truFalHol7(holdDuration=1000)
+  Logical.TrueFalseHold truFalHol7(duration=1000)
     "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
   Logical.Not not2 "Negation of input signal"
@@ -114,8 +114,16 @@ Validation test for the block
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Logical.TrueFalseHold\">
 Buildings.Experimental.OpenBuildingControl.CDL.Logical.TrueFalseHold</a>.
 </p>
+<p>
+The validation uses different instances to validate different hold durations, different lengths
+of the input pulse, and different initial values for the input signal.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 14, 2017, by Michael Wetter:<br/>
+Added more tests for different initial signals and different hold values.
+</li>
 <li>
 May 24, 2017, by Milica Grahovac:<br/>
 First implementation.

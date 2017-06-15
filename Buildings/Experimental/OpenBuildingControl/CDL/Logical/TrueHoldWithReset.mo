@@ -1,7 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical;
-block TrueHoldWithReset "Block that holds a true signal for a requested duration"
+block TrueHoldWithReset "Block that holds a true signal for at least a requested duration"
 
-  parameter Modelica.SIunits.Time holdDuration "Time duration of the on hold.";
+  parameter Modelica.SIunits.Time duration "Time duration of the true output signal hold";
 
   Interfaces.BooleanInput u "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -14,8 +14,9 @@ protected
   Logical.Timer timer "Timer to measure time after state became active"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
+    "Root of state graph"
     annotation (Placement(transformation(extent={{70,68},{90,88}})));
-  Modelica.StateGraph.InitialStep initialStep
+  Modelica.StateGraph.InitialStep initialStep "Initial step"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Modelica.StateGraph.StepWithSignal outputTrue
     "Holds the output at true"
@@ -26,7 +27,8 @@ protected
   Modelica.StateGraph.TransitionWithSignal toInitial
     "Transition that activates the initial state"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
-  GreaterEqualThreshold greEquThr(final threshold=holdDuration)
+  GreaterEqualThreshold greEquThr(final threshold=duration)
+    "Greater or equal threshold for timer signal"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
 equation
@@ -67,21 +69,21 @@ equation
         Text(
           extent={{-90,-62},{96,-90}},
           lineColor={0,0,255},
-          textString="%holdDuration")}), Diagram(coordinateSystem(
+          textString="%duration")}), Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
               Documentation(info="<html>
 <p>
-Block that holds a <code>true</code> input signal for a defined time period.
+Block that holds a <code>true</code> input signal for at least a defined time period.
 </p>
 <p>
 At initialization, the output <code>y</code> is equal to the input <code>u</code>.
 If the input <code>u</code> becomes <code>true</code>, or is <code>true</code>
 during intialization, a timer starts
 and the Boolean output <code>y</code> stays <code>true</code> for the time
-period provided by the parameter <code>holdDuration</code>.
+period provided by the parameter <code>duration</code>.
 When this time is elapsed, the input is checked again. If
 it is <code>true</code>, then the timer is restarted and the output remains
-<code>true</code> for another <code>holdDuration</code> seconds.
+<code>true</code> for another <code>duration</code> seconds.
 If the input <code>u</code> is <code>false</code> after
 <code>holdTime</code> seconds, then the ouput is switched to <code>false</code>,
 until the input becomes <code>true</code> again.
