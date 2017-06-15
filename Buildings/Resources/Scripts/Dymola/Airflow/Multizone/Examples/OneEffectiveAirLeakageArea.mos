@@ -1,5 +1,5 @@
 simulateModel("Buildings.Airflow.Multizone.Examples.OneEffectiveAirLeakageArea", stopTime=7200,
-    method="radau", tolerance=1e-06, resultFile="OneEffectiveAirLeakageArea");
+    method="radau", tolerance=1e-08, resultFile="OneEffectiveAirLeakageArea");
 createPlot(id = 1,
  position = {73, 34, 537, 565},
  y = {"cra.v"},

@@ -47,7 +47,7 @@ model HeatingCoolingCarnot_T
     "Heat from ambient to heat pump evaporator"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Modelica.Blocks.Interfaces.RealOutput QAmbChi_flow(unit="W")
-    "Heat from chiller condensor to ambient"
+    "Heat from chiller condenser to ambient"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 protected
   replaceable package MediumSin =

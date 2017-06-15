@@ -74,7 +74,7 @@ First implementation.
         "Simulate and plot"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-6),
+      Tolerance=1e-8),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{120,
             100}})),
     Icon(coordinateSystem(extent={{-100,-100},{120,100}})));

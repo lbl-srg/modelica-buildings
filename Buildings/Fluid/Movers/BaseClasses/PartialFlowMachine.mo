@@ -74,13 +74,14 @@ partial model PartialFlowMachine
   Modelica.Blocks.Interfaces.RealOutput y_actual(
     final unit="1")
     "Actual normalised pump speed that is used for computations"
-    annotation (Placement(transformation(extent={{100,40},{120,60}}),
-        iconTransformation(extent={{100,40},{120,60}})));
+    annotation (Placement(transformation(extent={{100,60},{120,80}}),
+        iconTransformation(extent={{100,60},{120,80}})));
 
   Modelica.Blocks.Interfaces.RealOutput P(
     quantity="Power",
     final unit="W") "Electrical power consumed"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,80},{120,100}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat dissipation to environment"
@@ -428,8 +429,9 @@ equation
           -64}},                          color={0,0,127}));
   connect(eff.m_flow, senMasFlo.m_flow) annotation (Line(points={{-34,-54},{-34,
           -54},{-40,-54},{-40,-11}},               color={0,0,127}));
-  connect(eff.PEle, P) annotation (Line(points={{-11,-59},{0,-59},{0,-50},{90,-50},
-          {90,80},{110,80}}, color={0,0,127}));
+  connect(eff.PEle, P) annotation (Line(points={{-11,-59},{0,-59},{0,-50},{90,
+          -50},{90,90},{110,90}},
+                             color={0,0,127}));
   connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-11,-56},{-8,-56},{-8,-86},
           {48,-86}},      color={0,0,127}));
   connect(inputSwitch.y, filter.u) annotation (Line(points={{1,50},{16,50},{16,88},
@@ -437,8 +439,9 @@ equation
 
   connect(senRelPre.p_rel, eff.dp_in) annotation (Line(points={{50.5,-26.35},{50.5,
           -38},{-18,-38},{-18,-46}},               color={0,0,127}));
-  connect(eff.y_out, y_actual) annotation (Line(points={{-11,-48},{92,-48},{92,50},
-          {110,50}}, color={0,0,127}));
+  connect(eff.y_out, y_actual) annotation (Line(points={{-11,-48},{92,-48},{92,
+          70},{110,70}},
+                     color={0,0,127}));
   connect(port_a, vol.ports[1])
     annotation (Line(points={{-100,0},{-78,0},{-78,0}}, color={0,127,255}));
   connect(vol.ports[2], senMasFlo.port_a)
@@ -449,11 +452,11 @@ equation
     extent={{-100,-100},{100,100}}),
     graphics={
         Line(
-          points={{0,50},{100,50}},
+          points={{0,70},{100,70}},
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{0,80},{100,80}},
+          points={{0,90},{100,90}},
           color={0,0,0},
           smooth=Smooth.None),
         Line(
@@ -481,29 +484,16 @@ equation
           fillPattern=FillPattern.Sphere,
           visible=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
           fillColor={0,100,199}),
-        Rectangle(
-          visible=use_inputFilter,
-          extent={{-34,40},{32,100}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          visible=use_inputFilter,
-          extent={{-34,100},{32,40}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Text(
-          visible=use_inputFilter,
-          extent={{-22,92},{20,46}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid,
-          textString="M",
-          textStyle={TextStyle.Bold}),
-        Text(extent={{64,98},{114,84}},
+        Text(extent={{64,106},{114,92}},
           lineColor={0,0,127},
-          textString="P")}),
+          textString="P"),
+        Text(extent={{42,86},{92,72}},
+          lineColor={0,0,127},
+          textString="y_actual"),
+        Line(
+          points={{0,100},{0,50}},
+          color={0,0,0},
+          smooth=Smooth.None)}),
     Documentation(info="<html>
 <p>
 This is the base model for fans and pumps.

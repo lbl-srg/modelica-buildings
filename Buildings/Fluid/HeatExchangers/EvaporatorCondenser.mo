@@ -7,10 +7,15 @@ model EvaporatorCondenser
 
   parameter Modelica.SIunits.ThermalConductance UA
     "Thermal conductance of heat exchanger";
+  parameter Modelica.SIunits.ThermalConductance UA_small=UA/10
+    "Small thermal conductance for regularisation of heat transfer "
+    annotation(Dialog(tab = "Advanced"));
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
     "Heat added to the fluid"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
+  Modelica.Blocks.Interfaces.RealOutput T(unit="K") "Medium temperature"
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_ref
     "Temperature and heat flow from the refrigerant"
@@ -22,16 +27,27 @@ model EvaporatorCondenser
     (Buildings.Utilities.Math.Functions.smoothMax(abs(port_a.m_flow),m_flow_small,m_flow_small)*cp_default)
    "Number of transfer units of heat exchanger";
 
-  Modelica.SIunits.Efficiency eps = Buildings.Utilities.Math.Functions.smoothMin(Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
-      NTU, 0, Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)), 0.999, 1.0e-4)
+  Modelica.SIunits.Efficiency eps=
+    Buildings.Utilities.Math.Functions.smoothMin(
+      Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
+      NTU,
+      0,
+      Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)),
+      0.999,
+      1.0e-4)
     "Effectiveness of heat exchanger";
 
-  Modelica.Blocks.Sources.RealExpression UAeff(final y=eps*cp_default*abs(port_a.m_flow)/(1 - eps))
+  Modelica.Blocks.Sources.RealExpression UAeff(
+    final y=Buildings.Utilities.Math.Functions.smoothMax(
+      x1=UA,
+      x2=eps*cp_default*abs(port_a.m_flow)/(1 - eps),
+      deltaX=UA_small))
     "Effective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-88,-80},{-68,-60}})));
 
 protected
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(sta_default)
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+    Medium.specificHeatCapacityCp(sta_default)
      "Density, used to compute fluid volume";
 
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
@@ -48,17 +64,24 @@ protected
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-36,-70})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
+    "Temperature sensor"
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
 equation
   connect(heaFlo.port_b, vol.heatPort) annotation (Line(points={{-36,-30},{-36,
           -30},{-36,-10},{-9,-10}}, color={191,0,0}));
   connect(heaFlo.Q_flow, Q_flow) annotation (Line(points={{-26,-40},{-20,-40},{
-          60,-40},{60,60},{110,60}}, color={0,0,127}));
+          60,-40},{60,40},{110,40}}, color={0,0,127}));
   connect(port_ref, con.solid) annotation (Line(points={{0,-60},{0,-90},{-36,-90},
           {-36,-80}}, color={191,0,0}));
   connect(con.fluid, heaFlo.port_a)
-    annotation (Line(points={{-36,-60},{-36,-50}},           color={191,0,0}));
-  connect(UAeff.y, con.Gc) annotation (Line(points={{-67,-70},{-56.5,-70},{-46,
-          -70}}, color={0,0,127}));
+    annotation (Line(points={{-36,-60},{-36,-56},{-36,-50}}, color={191,0,0}));
+  connect(UAeff.y, con.Gc) annotation (Line(points={{-67,-70},{-46,-70}},
+                 color={0,0,127}));
+  connect(senTem.port, vol.heatPort)
+    annotation (Line(points={{0,30},{-9,30},{-9,-10}}, color={191,0,0}));
+  connect(senTem.T, T) annotation (Line(points={{20,30},{40,30},{40,80},{110,80}},
+        color={0,0,127}));
   annotation (Icon(graphics={
         Rectangle(
           extent={{70,60},{100,58}},
@@ -96,6 +119,12 @@ throughout the heat exchanger.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 27, 2017, by Filip Jorissen:<br/>
+Regularised heat transfer around zero flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/769\">#769</a>.
+</li>
 <li>
 April 12, 2017, by Michael Wetter:<br/>
 Corrected invalid syntax for computing the specific heat capacity.<br/>
