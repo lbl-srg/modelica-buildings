@@ -11,9 +11,9 @@ block EconDamperPositionLimitsMultiZone
     "Physical or at the comissioning fixed maximum opening of the outdoor air damper";
   parameter Real outDamPhyPosMin(min=0, max=1, unit="1") = 0
     "Physical or at the comissioning fixed minimum opening of the outdoor air damper";
-  parameter Real yConSigMin=0 "Lower limit of control signal output";
-  parameter Real yConSigMax=1 "Upper limit of control signal output";
-  parameter Real sigFraOutDam(min=yConSigMin, max=yConSigMax, unit="1")=0.5
+  parameter Real conSigMin=0 "Lower limit of control signal output";
+  parameter Real conSigMax=1 "Upper limit of control signal output";
+  parameter Real conSigFraOutDam(min=conSigMin, max=conSigMax, unit="1")=0.5
     "Fraction of the control loop signal below which the outdoor air damper limit gets 
     modulated and above which the return air damper limit gets modulated";
 
@@ -79,13 +79,13 @@ protected
     "Physical or at the comissioning fixed maximum position of the return air damper. 
     This is the initial condition of the return air damper."
     annotation (Placement(transformation(extent={{-220,-50},{-200,-30}})));
-  CDL.Continuous.Constant minSignalLimit(k=yConSigMin)
+  CDL.Continuous.Constant minSignalLimit(k=conSigMin)
     "Equals minimum controller output signal"
     annotation (Placement(transformation(extent={{-20,240},{0,260}})));
-  CDL.Continuous.Constant maxSignalLimit(k=yConSigMax)
+  CDL.Continuous.Constant maxSignalLimit(k=conSigMax)
     "Equals maximum controller output signal"
     annotation (Placement(transformation(extent={{100,240},{120,260}})));
-  CDL.Continuous.Constant sigFraForOutDam(k=sigFraOutDam)
+  CDL.Continuous.Constant sigFraForOutDam(k=conSigFraOutDam)
     "Equals the fraction of the control loop signal below which the outdoor air damper 
     limit gets modulated and above which the return air damper limit gets modulated"
     annotation (Placement(transformation(extent={{40,240},{60,260}})));
@@ -98,8 +98,8 @@ protected
     Ti=0.9,
     Td=0.1,
     Nd=1,
-    yMax=yConSigMax,
-    yMin=yConSigMin,
+    yMax=conSigMax,
+    yMin=conSigMin,
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
     k=1)
     "Contoller that outputs a signal based on the error between the measured outdoor 
@@ -217,26 +217,35 @@ equation
     Diagram(coordinateSystem(extent={{-240,-280},{240,280}},
         initialScale=0.1), graphics={
         Rectangle(extent={{-240,280},{-100,160}}, lineColor={28,108,200}),
-    Text( extent={{-174,192},{-114,166}},
+    Text( extent={{-204,198},{-144,172}},
           lineColor={28,108,200},
           fontSize=12,
           textString="Outdoor airflow control loop."),
           Rectangle(extent={{-100,280},{240,-110}},
           lineColor={28,108,200}), Text(
-          extent={{40,-48},{184,-130}},
+          extent={{76,-56},{220,-138}},
           lineColor={28,108,200},
           fontSize=12,
           textString="Damper position limit calculation and assignments."),
      Rectangle(extent={{-240,160},{-100,-110}},
           lineColor={28,108,200}), Text(
-          extent={{-240,-48},{-96,-130}},
+          extent={{-246,-48},{-102,-130}},
           lineColor={28,108,200},
           fontSize=12,
-          textString="Physical damper position  limits set at commissioning."),
-          Text(extent={{22,84},{70,48}},
+          textString="Physical damper position
+limits set at commissioning."),
+          Text(extent={{22,86},{70,50}},
           lineColor={28,108,200},
           fontSize=8,
-          textString="Switches that deactivate the limit modulation.")}),
+          textString="Switches that deactivate
+the limit modulation."),
+          Rectangle(extent={{-240,-110},{240,-280}},
+          lineColor={28,108,200}), Text(
+          extent={{108,-218},{252,-300}},
+          lineColor={28,108,200},
+          fontSize=12,
+          textString="Enable/disable conditions for 
+damper position control loop.")}),
     Documentation(info="<html>      
 <p>
 This block models the multiple zone VAV AHU minimum outdoor air control with a single 
@@ -258,10 +267,10 @@ src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASH
 The controller controls the outdoor and return damper position limits so
 that the outdoor airflow rate, <code>uVOut</code>, stays equal or above the 
 minimum outdoor air setpoint, <code>VOutMinSet</code>. Fraction of the controller 
-output signal between <code>yConSigMin</code> and <code>sigFraOutDam</code> is 
+output signal between <code>conSigMin</code> and <code>conSigFraOutDam</code> is 
 linearly mapped to the outdoor air damper minimal position, <code>yOutDamPosMin</code>, 
-while the fraction of the controller output between <code>sigFraOutDam</code> and 
-<code>yConSigMax</code> is linearly mapped to the return air damper maximum position,
+while the fraction of the controller output between <code>conSigFraOutDam</code> and 
+<code>conSigMax</code> is linearly mapped to the return air damper maximum position,
 <code>yRetDamPosMax</code>.
 </p>
 <p>
@@ -279,7 +288,7 @@ Expected control performance (damper position limits vs. control loop signal):
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits control chart\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlChartMultiZone.png\"/>
 </p>
 
 </html>", revisions="<html>
