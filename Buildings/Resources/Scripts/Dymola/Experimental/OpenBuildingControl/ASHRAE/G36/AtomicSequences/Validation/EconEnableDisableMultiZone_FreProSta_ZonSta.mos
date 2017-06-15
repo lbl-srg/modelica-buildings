@@ -1,0 +1,6 @@
+simulateModel("Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation.EconEnableDisableMultiZone_FreProSta_ZonSta", method="dassl", stopTime=1800, tolerance=1e-06, resultFile="EconEnableDisableMultiZone_FreProSta_ZonSta");
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"econEnableDisableMultiZone.yOutDamPosMax", "econEnableDisableMultiZone.yRetDamPosMin", "econEnableDisableMultiZone.yRetDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"econEnableDisableMultiZone.andEnaDis.y", "econEnableDisableMultiZone.OnOffDelay.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=1, y={"econEnableDisableMultiZone1.yOutDamPosMax", "econEnableDisableMultiZone1.yRetDamPosMin", "econEnableDisableMultiZone1.yRetDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=2, y={"econEnableDisableMultiZone1.andEnaDis.y", "econEnableDisableMultiZone1.OnOffDelay.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});

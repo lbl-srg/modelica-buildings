@@ -1,6 +1,8 @@
-within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
+within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
 package Validation "Package with validation models"
   extends Modelica.Icons.ExamplesPackage;
+
+
 
 annotation (Documentation(revisions="<html>
 </html>", info="<html>

@@ -1,0 +1,16 @@
+simulateModel("Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation.EconDamperPositionLimitsMultiZone_LoopDisable", method="dassl", stopTime=1800, tolerance=1e-06, resultFile="EconDamPosLimitsMultiZone_LoopDisable");
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"VOutMinSet.y","VOut.y","FanStatus.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{0,140,72}});
+//fixme: how do I move the third y variable above to the right y axis (applicable for all 3 plots)
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"ecoDamLim.yOutDamPosMin","ecoDamLim.yOutDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"ecoDamLim.yRetDamPosMin","ecoDamLim.yRetDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=4, y={"ecoDamLim.damLimController.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=1, y={"VOutMinSet1.y","VOut1.y","AHUMode1.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{0,140,72}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=2, y={"ecoDamLim1.yOutDamPosMin","ecoDamLim1.yOutDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=3, y={"ecoDamLim1.yRetDamPosMin","ecoDamLim1.yRetDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=4, y={"ecoDamLim1.damLimController.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=1, y={"VOutMinSet2.y","VOut2.y","FreProSta2.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{0,140,72}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=2, y={"ecoDamLim2.yOutDamPosMin","ecoDamLim2.yOutDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=3, y={"ecoDamLim2.yRetDamPosMin","ecoDamLim2.yRetDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=4, y={"ecoDamLim2.damLimController.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});

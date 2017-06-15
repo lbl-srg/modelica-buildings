@@ -1,4 +1,4 @@
-within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Validation;
+within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
 model VAVSingleZoneTSupSet_T
   "Validation model for outdoor minus room air temperature"
   extends Modelica.Icons.Example;
@@ -48,13 +48,13 @@ equation
           20},{-40,0},{-2,0}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1.0, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/VAVSingleZoneTSupSet_T.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/VAVSingleZoneTSupSet_T.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.VAVSingleZoneTSupSet\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.VAVSingleZoneTSupSet</a>
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.VAVSingleZoneTSupSet\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.VAVSingleZoneTSupSet</a>
 for a change in temperature difference between zone air and outdoor air.
 Hence, this model validates whether the adjustment of the fan speed for medium
 cooling load is correct implemented.

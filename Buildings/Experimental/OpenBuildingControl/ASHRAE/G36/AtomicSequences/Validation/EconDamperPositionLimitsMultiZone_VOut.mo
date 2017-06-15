@@ -1,0 +1,78 @@
+within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
+model EconDamperPositionLimitsMultiZone_VOut
+  "Validation model for the control loop of the minimum outdoor air control with a single common damper for 
+  minimum outdoor air and economizer functions"
+  extends Modelica.Icons.Example;
+
+  parameter Real airflowSetpoint(unit="m3/s")=0.71
+    "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
+  parameter Real minSenOutVolAirflow(unit="m3/s")=0.61
+    "Volumetric airflow sensor output, minimum value in the example";
+  parameter Real senOutVolAirIncrease(unit="m3/s")=0.2
+    "Maximum increase in airflow volume during the example simulation";
+
+  CDL.Continuous.Constant VOutMinSet(k=airflowSetpoint)
+    "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  CDL.Logical.Constant FanStatus(k=true) "Fan is on"
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+  CDL.Integers.Constant FreProSta(k=1) "Freeze Protection Status"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  CDL.Integers.Constant AHUMode(k=1) "AHU System Mode (1 = Occupied)"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Modelica.Blocks.Sources.Ramp VOut(
+    duration=1800,
+    offset=minSenOutVolAirflow,
+    height=senOutVolAirIncrease)
+    "Measured outdoor airflow rate"
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+  EconDamperPositionLimitsMultiZone ecoDamLim
+    "Block for minimum outdoor air control with a single common damper for minimum 
+    outdoor air and economizer functions"
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+
+equation
+  connect(VOut.y, ecoDamLim.uVOut) annotation (Line(points={{-59,90},{-20,90},{
+          -20,18},{-1,18}}, color={0,0,127}));
+  connect(VOutMinSet.y, ecoDamLim.uVOutMinSet)
+    annotation (Line(points={{-59,50},{-30,50},{-30,15},{-1,15}}, color={0,0,127}));
+  connect(FanStatus.y, ecoDamLim.uSupFan)
+    annotation (Line(points={{-59,10},{-40,10},{-1,10}}, color={255,0,255}));
+  connect(AHUMode.y, ecoDamLim.uAHUMode)
+    annotation (Line(points={{-59,-30},{-40,-30},{-40,-8},{-40,5},{-1,5}}, color={255,127,0}));
+  connect(FreProSta.y, ecoDamLim.uFreProSta)
+    annotation (Line(points={{-59,-70},{-30,-70},{-30,2},{-1,2}}, color={255,127,0}));
+  annotation (
+  experiment(StopTime=1800.0, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconDamperPositionLimitsMultiZone_VOut.mos"
+    "Simulate and plot"),
+    Icon(graphics={Ellipse(
+          lineColor={75,138,73},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-100,-100},{100,100}}), Polygon(
+          lineColor={0,0,255},
+          fillColor={75,138,73},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,
+            120}})),
+    experiment(StopTime=1800.0),
+    Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone</a>
+for the following control signals: <code>uVOut<\code>, <code>uVOutMinSet<\code>. The control loop is always enabled in this 
+example.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 06, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end EconDamperPositionLimitsMultiZone_VOut;
