@@ -28,7 +28,8 @@ Switch
 Timer
 Toggle
 TriggeredTrapezoid
+TrueFalseHold
+TrueHoldWithReset
 Xor
 ZeroCrossing
-Composite
 Validation
