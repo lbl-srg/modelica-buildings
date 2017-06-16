@@ -1,63 +1,41 @@
 within Buildings.Fluid.Air;
 model AirHandlingUnit
   extends Buildings.Fluid.Air.BaseClasses.PartialAirHandlingUnit(
+    redeclare package Medium1 = Buildings.Media.Water,
+    redeclare package Medium2 = Buildings.Media.Air,
     redeclare Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage watVal(
-      final allowFlowReversal=allowFlowReversal1,
-      final show_T=show_T,
-      redeclare final package Medium = Medium1,
-      final dpFixed_nominal=dp1_nominal,
-      final l=l,
-      final kFixed=kFixed,
-      final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
       final R=R,
-      final delta0=delta0,
-      final from_dp=from_dp1,
-      final homotopyInitialization=homotopyInitialization,
-      final linearized=linearizeFlowResistance1,
-      final rhoStd=rhoStd,
-      final use_inputFilter=use_inputFilterValve,
-      final riseTime=riseTimeValve,
-      final init=initValve,
-      final y_start=yValve_start,
-      final dpValve_nominal=dpValve_nominal,
-      final m_flow_nominal=m_flow_nominal,
-      final deltaM=deltaM1),
-    redeclare Buildings.Fluid.Movers.SpeedControlled_y fan(
-      final per=dat.perCur,
-      redeclare final package Medium = Medium2,
-      final allowFlowReversal=allowFlowReversal2,
-      final show_T=show_T,
-      final energyDynamics=energyDynamics,
-      final massDynamics=massDynamics,
-      final inputType=inputType,
-      final addPowerToMedium=addPowerToMedium,
-      final tau=tauFan,
-      final use_inputFilter=use_inputFilterFan,
-      final riseTime=riseTimeFan,
-      final init=initFan,
-      final y_start=yFan_start,
-      final p_start=p_start,
-      final T_start=T_start,
-      each final X_start=X_start,
-      each final C_start=C_start,
-      each final C_nominal=C_nominal,
-      final m_flow_small=m2_flow_small));
+      final delta0=delta0),
+    redeclare Buildings.Fluid.Movers.SpeedControlled_y fan);
 
+  // Parameters for water-side valve
   parameter Real R=50 "Rangeability, R=50...100 typically"
   annotation(Dialog(group="Valve"));
   parameter Real delta0=0.01
     "Range of significant deviation from equal percentage law"
     annotation(Dialog(group="Valve"));
+
+  // Parameters for electric heater
   parameter Modelica.SIunits.Time tauEleHea = 30
-    "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Dialog(tab = "Dynamics", group="Electric Heater"));
-  // humidfier parameters
+    "Time constant at nominal flow for electric heater (if energyDynamics <> SteadyState)"
+     annotation (Dialog(tab = "Dynamics", group="Electric heater",
+       enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
+  parameter Modelica.SIunits.Efficiency etaHea = 1.0 "Efficiency of electrical heater"
+    annotation (Dialog(group="Electric heater"));
+  parameter Modelica.SIunits.HeatFlowRate QHeaMax_flow(min=0)
+    "Nominal heating capacity of eletric heater,positive"
+    annotation (Dialog(group="Electric heater"));
+  // Parameters for humidifier
+  parameter Modelica.SIunits.MassFlowRate mWatMax_flow(min=0)
+    "Nominal humidification capacity for humidifier, positive for humidification"
+    annotation (Dialog(tab="General",group="Humidifier"));
   parameter Modelica.SIunits.Temperature THum = 293.15
-    "Temperature of water that is added to the fluid stream"
+    "Temperature of water that is added to the fluid stream by the humidifier"
     annotation (Dialog(group="Humidifier"));
   parameter Modelica.SIunits.Time tauHum = 30
-    "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Dialog(tab = "Dynamics", group="Humidifier"));
+    "Time constant at nominal flow for humidifier(if energyDynamics <> SteadyState)"
+     annotation (Dialog(tab = "Dynamics", group="Humidifier",
+       enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
 
   // parameters for heater controller
   parameter Real yValLow(min=0, max=1, unit="1")=0.1
@@ -72,7 +50,6 @@ model AirHandlingUnit
   parameter Modelica.SIunits.TemperatureDifference dTHig=0.5
   "if dT>=dTHig, hysTemDif.y switches to true"
   annotation(Dialog(group="Reheat controller"));
-
   parameter Boolean pre_yVal_start=true "Previous value of hysVal.y used at initialization"
     annotation (Dialog(group="Reheat controller", tab="Initialization"));
   parameter Boolean pre_dT_start=true "Previous value of hysTemDif.y used at initialization"
@@ -91,12 +68,11 @@ model AirHandlingUnit
     "Set point for water vapor mass fraction in kg/kg total air of the fluid that leaves port_b"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-120,0},{-100,20}})));
-  Modelica.Blocks.Sources.RealExpression dT(y(unit="K")=T_inflow_hea - TSet)
+  Modelica.Blocks.Sources.RealExpression dT(y=T_inflow_hea - TSet)
     "Difference between inlet temperature and temperature setpoint of the reheater"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
-  Humidifiers.SteamHumidifier_X hum(
-    redeclare final package Medium = Medium2,
+  Buildings.Fluid.Humidifiers.SteamHumidifier_X hum(
     final allowFlowReversal=allowFlowReversal2,
     final m_flow_small=m2_flow_small,
     final show_T=show_T,
@@ -105,18 +81,18 @@ model AirHandlingUnit
     final homotopyInitialization=homotopyInitialization,
     final dp_nominal=0,
     final m_flow_nominal=m2_flow_nominal,
-    final mWatMax_flow=dat.nomVal.mWat_flow_nominal,
+    final mWatMax_flow=mWatMax_flow,
     each final X_start=X_start,
     final from_dp=from_dp2,
     final linearizeFlowResistance=linearizeFlowResistance2,
-    final deltaM=deltaM2)
+    final deltaM=deltaM2,
+    redeclare final package Medium = Medium2)
     "Humidifier" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={20,-60})));
   Buildings.Fluid.Air.BaseClasses.ElectricHeater eleHea(
-    redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal2,
     final show_T=show_T,
     final m_flow_small=m2_flow_small,
@@ -124,13 +100,14 @@ model AirHandlingUnit
     final tau=tauEleHea,
     final homotopyInitialization=homotopyInitialization,
     final dp_nominal=0,
-    final QMax_flow=dat.nomVal.QHeater_nominal,
-    final eta=dat.nomVal.etaHeater_nominal,
+    final QMax_flow=QHeaMax_flow,
+    final eta=etaHea,
     final m_flow_nominal=m2_flow_nominal,
     final T_start=T_start,
     final from_dp=from_dp2,
     final linearizeFlowResistance=linearizeFlowResistance2,
-    final deltaM=deltaM2)
+    final deltaM=deltaM2,
+    redeclare final package Medium = Medium2)
     "Electric heater" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -184,7 +161,71 @@ equation
           {84,80},{0,80},{0,40},{5,40},{5,22}}, color={0,0,127}));
   connect(heaCon.y, eleHea.on)
     annotation (Line(points={{0,-1},{0,-57},{-10,-57}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Rectangle(
+          extent={{-92,62},{92,-64}},
+          lineColor={0,0,255},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-94,62},{107,59}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-98,-61},{102,-64}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{0,80},{4,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{18,80},{22,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{38,80},{42,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{60,70},{60,50},{72,60},{60,70}},
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Polygon(
+          points={{80,70},{80,50},{68,60},{80,70}},
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+                   Text(
+          extent={{-42,-20},{2,-66}},
+          lineColor={255,255,255},
+          textString="+"),
+                   Text(
+          extent={{-66,-20},{-22,-66}},
+          lineColor={255,255,255},
+          textString="+"),
+        Ellipse(
+          extent={{-60,-52},{-80,-72}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,100,199}),
+        Polygon(
+          points={{-64,-54},{-64,-70},{-80,-62},{-64,-54}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255})}),
       Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
     <p>This model can represent a typical air handler with a cooling coil, a variable-speed fan, 

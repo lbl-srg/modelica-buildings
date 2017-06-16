@@ -4,18 +4,28 @@ partial model PartialAirHandlerMassFlow
 
   package Medium1 = Buildings.Media.Water "Medium model for water";
   package Medium2 = Buildings.Media.Air "Medium model for air";
-  parameter Buildings.Fluid.Air.Examples.Data.Data_I dat
-    "Performance data for the air handler";
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)=2.9
+    "Nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0)=3.3
+    "Nominal mass flow rate";
+  parameter Modelica.SIunits.Temperature T_a1_nominal=6 + 273.15
+    "Nominal water inlet temperature";
+  parameter Modelica.SIunits.Temperature T_b1_nominal=11 + 273.15
+    "Nominal water outlet temperature";
+  parameter Modelica.SIunits.Temperature T_a2_nominal=26 + 273.15
+    "Nominal air inlet temperature";
+  parameter Modelica.SIunits.Temperature T_b2_nominal=12 + 273.15
+    "Nominal air outlet temperature";
 
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
-    T=dat.nomVal.T_a2_nominal,
+    T=T_a2_nominal,
     nPorts=1)
     "Sink for air"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
-    T=dat.nomVal.T_a2_nominal,
+    T=T_a2_nominal,
     X={0.02,1 - 0.02},
     use_T_in=true,
     use_X_in=true)
@@ -24,7 +34,7 @@ partial model PartialAirHandlerMassFlow
           extent={{140,10},{120,30}})));
   Buildings.Fluid.Sources.MassFlowSource_T sin_1(
     redeclare package Medium = Medium1,
-    T=dat.nomVal.T_a1_nominal,
+    T=T_a1_nominal,
     use_m_flow_in=true,
     nPorts=1)
     "Source for water"
@@ -32,7 +42,7 @@ partial model PartialAirHandlerMassFlow
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     use_T_in=false,
-    T=dat.nomVal.T_a1_nominal,
+    T=T_a1_nominal,
     nPorts=1)
     "Sink for water"
     annotation (Placement(transformation(extent={{-62,50},{-42,70}})));
@@ -40,10 +50,10 @@ partial model PartialAirHandlerMassFlow
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
     annotation (Placement(transformation(extent={{150,-42},{170,-22}})));
-  Modelica.Blocks.Sources.Constant temSou_2(k=dat.nomVal.T_a2_nominal)
+  Modelica.Blocks.Sources.Constant temSou_2(k=T_a2_nominal)
     "Temperature boundary condition"
     annotation (Placement(transformation(extent={{100,-38},{120,-18}})));
-  Modelica.Blocks.Math.Gain mWat_flow(k=-dat.nomVal.m1_flow_nominal)
+  Modelica.Blocks.Math.Gain mWat_flow(k=-m1_flow_nominal)
     "Water mass flow rate"
     annotation (Placement(transformation(extent={{-42,100},{-22,120}})));
   Modelica.Blocks.Sources.TimeTable mWatGai(table=[0,1; 3600*0.1,1; 3600*0.2,
@@ -52,17 +62,17 @@ partial model PartialAirHandlerMassFlow
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSenWat1(
     redeclare package Medium = Medium1,
-    m_flow_nominal=dat.nomVal.m2_flow_nominal)
+    m_flow_nominal=m2_flow_nominal)
     "Temperature sensor for water"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSenWat2(
     redeclare package Medium = Medium1,
-    m_flow_nominal=dat.nomVal.m2_flow_nominal)
+    m_flow_nominal=m2_flow_nominal)
     "Temperature sensor for water"
     annotation (Placement(transformation(extent={{88,50},{108,70}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSenAir2(
     redeclare package Medium = Medium2,
-    m_flow_nominal=dat.nomVal.m2_flow_nominal)
+    m_flow_nominal=m2_flow_nominal)
     "Temperature for air"
     annotation (Placement(transformation(extent={{0,10},{-20,30}})));
 equation

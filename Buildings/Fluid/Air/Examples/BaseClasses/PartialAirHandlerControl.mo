@@ -3,8 +3,19 @@ partial model PartialAirHandlerControl
   "Partial model for testing air hanlders with temperature and humidity control"
   package Medium1 = Buildings.Media.Water "Medium model for water";
   package Medium2 = Buildings.Media.Air "Medium model for air";
-  parameter Buildings.Fluid.Air.Examples.Data.Data_I dat
-    "Performance data for the air handler";
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)=2.9
+    "Nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0)=3.3
+    "Nominal mass flow rate";
+  parameter Modelica.SIunits.Temperature T_a1_nominal=6 + 273.15
+    "Nominal water inlet temperature";
+  parameter Modelica.SIunits.Temperature T_b1_nominal=11 + 273.15
+    "Nominal water outlet temperature";
+  parameter Modelica.SIunits.Temperature T_a2_nominal=26 + 273.15
+    "Nominal air inlet temperature";
+  parameter Modelica.SIunits.Temperature T_b2_nominal=12 + 273.15
+    "Nominal air outlet temperature";
+
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
     nPorts=1,
@@ -15,7 +26,6 @@ partial model PartialAirHandlerControl
      annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
-    T=dat.nomVal.T_a2_nominal,
     X={0.02,1 - 0.02},
     use_T_in=true,
     use_X_in=true,
@@ -42,14 +52,14 @@ partial model PartialAirHandlerControl
     from_dp=true,
     redeclare package Medium = Medium2,
     dp_nominal=100,
-    m_flow_nominal=dat.nomVal.m2_flow_nominal)
+    m_flow_nominal=m2_flow_nominal)
     "Flow resistance"
     annotation (Placement(transformation(extent={{-88,0},{-108,20}})));
   Buildings.Fluid.FixedResistances.PressureDrop res_1(
     from_dp=true,
     redeclare package Medium = Medium1,
     dp_nominal=3000,
-    m_flow_nominal=dat.nomVal.m1_flow_nominal)
+    m_flow_nominal=m1_flow_nominal)
     "Flow resistance"
     annotation (Placement(transformation(extent={{124,40},{144,60}})));
   Modelica.Blocks.Sources.TimeTable TSet(table=[0,288.15; 600,288.15; 600,288.15;
@@ -60,33 +70,29 @@ partial model PartialAirHandlerControl
     annotation (Placement(transformation(extent={{134,-80},{154,-60}})));
   Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
     annotation (Placement(transformation(extent={{184,-52},{204,-32}})));
-  Modelica.Blocks.Sources.Constant temSou_2(k=dat.nomVal.T_a2_nominal)
+  Modelica.Blocks.Sources.Constant temSou_2(k=T_a2_nominal)
     "Temperature boundary for source 2"
     annotation (Placement(transformation(extent={{134,-48},{154,-28}})));
   Modelica.Blocks.Sources.Step TWat(
-    offset=dat.nomVal.T_a1_nominal,
+    offset=T_a1_nominal,
     height=3,
     startTime=1500)
    "Water temperature"
     annotation (Placement(transformation(extent={{-110,44},{-90,64}})));
   Buildings.Fluid.Sensors.MassFractionTwoPort masFra(
-    redeclare package Medium = Medium2,
-    m_flow_nominal=dat.nomVal.m2_flow_nominal)
+    redeclare package Medium = Medium2, m_flow_nominal=m2_flow_nominal)
     "Sensor for mass fraction"
     annotation (Placement(transformation(extent={{-54,0},{-74,20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSenWat1(
-    redeclare package Medium = Medium1,
-    m_flow_nominal=dat.nomVal.m2_flow_nominal)
+    redeclare package Medium = Medium1, m_flow_nominal=m2_flow_nominal)
     "Temperature sensor for water"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSenAir2(
-    redeclare package Medium = Medium2,
-    m_flow_nominal=dat.nomVal.m2_flow_nominal)
+    redeclare package Medium = Medium2, m_flow_nominal=m2_flow_nominal)
     "Temperature for air"
     annotation (Placement(transformation(extent={{-26,0},{-46,20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSenWat2(
-    redeclare package Medium = Medium1,
-    m_flow_nominal=dat.nomVal.m2_flow_nominal)
+    redeclare package Medium = Medium1, m_flow_nominal=m2_flow_nominal)
     "Temperature for water"
     annotation (Placement(transformation(extent={{96,40},{116,60}})));
 equation

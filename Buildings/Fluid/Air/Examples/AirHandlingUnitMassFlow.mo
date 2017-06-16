@@ -4,6 +4,14 @@ model AirHandlingUnitMassFlow
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Air.Examples.BaseClasses.PartialAirHandlerMassFlow(
       sou_2(nPorts=1), relHum(k=0.5));
+  parameter Modelica.SIunits.ThermalConductance UA_nominal=m2_flow_nominal*1006*(12-26)/
+     Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
+        T_a1_nominal,
+        T_b1_nominal,
+        T_a2_nominal,
+        T_b2_nominal)
+    "Thermal conductance at nominal flow for sensible heat, used to compute time constant";
+
   Buildings.Fluid.Air.AirHandlingUnit ahu(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -11,20 +19,25 @@ model AirHandlingUnitMassFlow
     allowFlowReversal2=true,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dat=dat,
-    addPowerToMedium=false,
     yValve_start=0,
     tauEleHea=1,
     tauHum=1,
-    yValLow=0.3,
-    yValHig=0.32,
-    dTLow=-0.1,
-    dTHig=0.1)
+    yValLow=0.4,
+    m1_flow_nominal=m1_flow_nominal,
+    m2_flow_nominal=m2_flow_nominal,
+    UA_nominal=UA_nominal,
+    dpValve_nominal=6000,
+    dp1_nominal=6000,
+    dp2_nominal=6000,
+    QHeaMax_flow=10000,
+    mWatMax_flow=0.01,
+    perFan(pressure(V_flow=m2_flow_nominal*{0,0.5,1}, dp=300*{1.2,1.12,1})),
+    yValHig=0.41)
               "Air handling unit"
     annotation (Placement(transformation(extent={{54,16},{74,36}})));
 
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
-    redeclare package Medium = Medium2, m_flow_nominal=dat.nomVal.m2_flow_nominal)
+    redeclare package Medium = Medium2, m_flow_nominal=m2_flow_nominal)
     "Sensor for relative humidity"
     annotation (Placement(transformation(extent={{34,10},{14,30}})));
   Modelica.Blocks.Sources.Constant uWatVal(k=0.2)
@@ -48,13 +61,13 @@ equation
       smooth=Smooth.None));
   connect(uWatVal.y, ahu.uWatVal) annotation (Line(points={{21,90},{46,90},{46,30},
           {53,30}}, color={0,0,127}));
-  connect(uFan.y, ahu.uFan) annotation (Line(points={{21,-80},{48,-80},{48,16},{
-          48,23},{53,23},{53,22}},
+  connect(uFan.y, ahu.uFan) annotation (Line(points={{21,-80},{48,-80},{48,22},
+          {48,23},{53,23},{53,22}},
                    color={0,0,127}));
   connect(temSet.y, ahu.TSet) annotation (Line(points={{21,-20},{40,-20},{40,25},
           {53,25}}, color={0,0,127}));
-  connect(XSet.y, ahu.XSet_w) annotation (Line(points={{21,-50},{44,-50},{44,26},
-          {44,28},{44,28.6},{53,28.6},{53,27}},           color={0,0,127}));
+  connect(XSet.y, ahu.XSet_w) annotation (Line(points={{21,-50},{44,-50},{44,28},
+          {53,28},{53,27}},                               color={0,0,127}));
   connect(temSenAir2.port_a, senRelHum.port_b)
     annotation (Line(points={{0,20},{14,20}}, color={0,127,255}));
   connect(temSenWat1.port_b, ahu.port_a1) annotation (Line(points={{0,60},{20,

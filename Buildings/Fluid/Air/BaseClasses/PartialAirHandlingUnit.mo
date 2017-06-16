@@ -1,38 +1,29 @@
 within Buildings.Fluid.Air.BaseClasses;
 partial model PartialAirHandlingUnit "Partial AHU model "
-  extends Buildings.Fluid.Air.BaseClasses.PartialAirHandlingUnitInterface;
+  extends Buildings.Fluid.Interfaces.PartialFourPortInterface;
+  extends Buildings.Fluid.Air.BaseClasses.EssentialParameter;
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
     final m_flow_nominal=m1_flow_nominal,
-    dpValve_nominal=dat.nomVal.dpValve_nominal,
     final rhoStd=Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
     final deltaM = deltaM2);
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
     final computeFlowResistance1=true,
-    final computeFlowResistance2=true,
-    final dp1_nominal = dat.nomVal.dpCoil1_nominal,
-    final dp2_nominal = dat.nomVal.dpCoil2_nominal +
-      dat.nomVal.dpHumidifier_nominal+dat.nomVal.dpHeater_nominal);
+    final computeFlowResistance2=true);
 
   // Cooling coil
   parameter Boolean waterSideFlowDependent=true
     "Set to false to make water-side hA independent of mass flow rate"
-    annotation (Dialog(tab="Heat transfer",group="Cooling Coil"));
+    annotation (Dialog(tab="Heat transfer",group="Cooling coil"));
   parameter Boolean airSideFlowDependent=true
     "Set to false to make air-side hA independent of mass flow rate"
-    annotation (Dialog(tab="Heat transfer",group="Cooling Coil"));
+    annotation (Dialog(tab="Heat transfer",group="Cooling coil"));
   parameter Boolean waterSideTemperatureDependent=false
     "Set to false to make water-side hA independent of temperature"
-    annotation (Dialog(tab="Heat transfer",group="Cooling Coil"));
+    annotation (Dialog(tab="Heat transfer",group="Cooling coil"));
   parameter Boolean airSideTemperatureDependent=false
     "Set to false to make air-side hA independent of temperature"
-    annotation (Dialog(tab="Heat transfer",group="Cooling Coil"));
-   // Dynamics
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation (Dialog(tab="Heat transfer",group="Cooling coil"));
+
   // Initialization of the fan
   parameter Medium2.AbsolutePressure p_start = Medium2.p_default
     "Start value of pressure"
@@ -95,6 +86,8 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
   parameter Real yFan_start(min=0, max=1, unit="1")=0 "Initial value of speed"
     annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
+  replaceable parameter Movers.Data.Generic perFan "Performance data for the fan"
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
   Modelica.Blocks.Interfaces.RealInput uWatVal(min=0,max=1,unit="1")
     "Actuator position (0: closed, 1: open) on water side"
@@ -121,12 +114,12 @@ partial model PartialAirHandlingUnit "Partial AHU model "
         iconTransformation(extent={{-120,-50},{-100,-30}})));
 
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
-    final UA_nominal=dat.nomVal.UA_nominal,
-    final r_nominal=dat.nomVal.r_nominal,
-    final nEle=dat.nomVal.nEle,
-    final tau1=dat.nomVal.tau1,
-    final tau2=dat.nomVal.tau2,
-    final tau_m=dat.nomVal.tau_m,
+    final UA_nominal=UA_nominal,
+    final r_nominal=r_nominal,
+    final nEle=nEle,
+    final tau1=tau1,
+    final tau2=tau2,
+    final tau_m=tau_m,
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
     final allowFlowReversal1=allowFlowReversal1,
@@ -145,50 +138,49 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     final dp2_nominal=dp2_nominal)
     "Cooling coil"
     annotation (Placement(transformation(extent={{22,44},{42,64}})));
-  replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine fan(
-    final per=dat.perCur,
-    redeclare final package Medium = Medium2,
-    final allowFlowReversal=allowFlowReversal2,
-    final show_T=show_T,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
-    final inputType=inputType,
-    final addPowerToMedium=addPowerToMedium,
-    final tau=tauFan,
-    final use_inputFilter=use_inputFilterFan,
-    final riseTime=riseTimeFan,
-    final init=initFan,
-    final y_start=yFan_start,
-    final p_start=p_start,
-    final T_start=T_start,
-    each final X_start=X_start,
-    each final C_start=C_start,
-    each final C_nominal=C_nominal,
-    final m_flow_small=m2_flow_small,
-    final m_flow_nominal=m1_flow_nominal)
-    constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine
+  replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine fan
+    constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+      final per=perFan,
+      redeclare final package Medium = Medium2,
+      final allowFlowReversal=allowFlowReversal2,
+      final show_T=show_T,
+      final energyDynamics=energyDynamics,
+      final massDynamics=massDynamics,
+      final inputType=inputType,
+      final tau=tauFan,
+      final addPowerToMedium=addPowerToMedium,
+      final use_inputFilter=use_inputFilterFan,
+      final riseTime=riseTimeFan,
+      final init=initFan,
+      final y_start=yFan_start,
+      final p_start=p_start,
+      final T_start=T_start,
+      each final X_start=X_start,
+      each final C_start=C_start,
+      each final C_nominal=C_nominal,
+      final m_flow_small=m2_flow_small)
     "Fan"
     annotation (Placement(transformation(extent={{-50,-70},{-70,-50}})));
-  replaceable Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv watVal(
-    final allowFlowReversal=allowFlowReversal1,
-    final show_T=show_T,
-    redeclare final package Medium = Medium1,
-    final l=l,
-    final kFixed=kFixed,
-    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    final from_dp=from_dp1,
-    final homotopyInitialization=homotopyInitialization,
-    final linearized=linearizeFlowResistance1,
-    final rhoStd=rhoStd,
-    final use_inputFilter=use_inputFilterValve,
-    final riseTime=riseTimeValve,
-    final init=initValve,
-    final y_start=yValve_start,
-    final dpValve_nominal=dpValve_nominal,
-    final m_flow_nominal=m_flow_nominal,
-    final deltaM=deltaM1,
-    final dpFixed_nominal=dp1_nominal)
-    constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv
+  replaceable Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv watVal
+    constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv(
+      final allowFlowReversal=allowFlowReversal1,
+      final show_T=show_T,
+      redeclare final package Medium = Medium1,
+      final l=l,
+      final kFixed=kFixed,
+      final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+      final from_dp=from_dp1,
+      final homotopyInitialization=homotopyInitialization,
+      final linearized=linearizeFlowResistance1,
+      final rhoStd=rhoStd,
+      final use_inputFilter=use_inputFilterValve,
+      final riseTime=riseTimeValve,
+      final init=initValve,
+      final y_start=yValve_start,
+      final dpValve_nominal=dpValve_nominal,
+      final m_flow_nominal=m_flow_nominal,
+      final deltaM=deltaM1,
+      final dpFixed_nominal=dp1_nominal)
     "Two-way valve" annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
@@ -200,8 +192,7 @@ equation
   connect(port_a1, cooCoi.port_a1) annotation (Line(points={{-100,60},{22,60}},
                                     color={0,127,255}));
   connect(cooCoi.port_a2, port_a2) annotation (Line(points={{42,48},{42,48},{48,
-          48},{48,48},{48,48},{48,-60},{100,-60}},
-                                   color={0,127,255}));
+          48},{48,-60},{100,-60}}, color={0,127,255}));
   connect(cooCoi.port_b1, watVal.port_a)
     annotation (Line(points={{42,60},{60,60}},       color={0,127,255}));
   connect(watVal.port_b, port_b1) annotation (Line(points={{80,60},{100,60}},
@@ -209,8 +200,8 @@ equation
   connect(fan.P, PFan) annotation (Line(points={{-71,-51},{-80,-51},{-80,-80},{
           -20,-80},{-20,-110}},
                             color={0,0,127}));
-  connect(watVal.y, uWatVal) annotation (Line(points={{70,72},{70,80},{70,80},{
-          70,90},{-50,90},{-50,30},{-120,30}},
+  connect(watVal.y, uWatVal) annotation (Line(points={{70,72},{70,80},{70,90},{-50,
+          90},{-50,30},{-120,30}},
                      color={0,0,127}));
   connect(port_b2, fan.port_b) annotation (Line(points={{-100,-60},{-70,-60}},
                  color={0,127,255}));
