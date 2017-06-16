@@ -1,8 +1,6 @@
 within Buildings.Fluid.Air;
 model AirHandlingUnit
   extends Buildings.Fluid.Air.BaseClasses.PartialAirHandlingUnit(
-    redeclare package Medium1 = Buildings.Media.Water,
-    redeclare package Medium2 = Buildings.Media.Air,
     redeclare Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage watVal(
       final R=R,
       final delta0=delta0),
@@ -68,7 +66,7 @@ model AirHandlingUnit
     "Set point for water vapor mass fraction in kg/kg total air of the fluid that leaves port_b"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-120,0},{-100,20}})));
-  Modelica.Blocks.Sources.RealExpression dT(y=T_inflow_hea - TSet)
+  Modelica.Blocks.Sources.RealExpression dT(y(unit="K")=T_inflow_hea - TSet)
     "Difference between inlet temperature and temperature setpoint of the reheater"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
@@ -127,21 +125,21 @@ model AirHandlingUnit
         origin={0,10})));
 
 protected
-  Medium2.Temperature T_inflow_hea = Medium2.temperature(
-    state=Medium2.setState_phX(
-      p=eleHea.port_a.p,
-      h=inStream(eleHea.port_a.h_outflow),
-      X=inStream(eleHea.port_a.Xi_outflow)))
+  Medium2.Temperature T_inflow_hea= Medium2.temperature(state=Medium2.setState_phX(port_b2.p,
+                           noEvent(actualStream(port_b2.h_outflow)),
+                           noEvent(actualStream(port_b2.Xi_outflow))))
       "Temperature of inflowing fluid at port_a of reheater";
 
+
 equation
+
 
   connect(TSet, eleHea.TSet)
   annotation (Line(points={{-120,-20},{-88,-20},{-88,-28},{-4,-28},{-4,-52},{
           -10,-52}},
   color={0,0,127}));
-  connect(XSet_w, hum.X_w) annotation (Line(points={{-120,0},{-80,0},{-80,-20},
-          {36,-20},{36,-54},{32,-54}},
+  connect(XSet_w, hum.X_w) annotation (Line(points={{-120,0},{-80,0},{-80,-20},{
+          36,-20},{36,-54},{32,-54}},
                  color={0,0,127}));
   connect(fan.port_a, eleHea.port_b) annotation (Line(points={{-50,-60},{-41,-60},
           {-32,-60}}, color={0,127,255}));

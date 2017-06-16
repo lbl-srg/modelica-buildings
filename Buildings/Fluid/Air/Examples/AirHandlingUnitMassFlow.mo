@@ -17,7 +17,6 @@ model AirHandlingUnitMassFlow
     redeclare package Medium2 = Medium2,
     allowFlowReversal1=true,
     allowFlowReversal2=true,
-    show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     yValve_start=0,
     tauEleHea=1,
@@ -27,13 +26,13 @@ model AirHandlingUnitMassFlow
     m2_flow_nominal=m2_flow_nominal,
     UA_nominal=UA_nominal,
     dpValve_nominal=6000,
-    dp1_nominal=6000,
-    dp2_nominal=6000,
     QHeaMax_flow=10000,
     mWatMax_flow=0.01,
     perFan(pressure(V_flow=m2_flow_nominal*{0,0.5,1}, dp=300*{1.2,1.12,1})),
-    yValHig=0.41)
-              "Air handling unit"
+    yValHig=0.41,
+    dp1_nominal=3000,
+    dp2_nominal=200)
+    "Air handling unit"
     annotation (Placement(transformation(extent={{54,16},{74,36}})));
 
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
@@ -61,8 +60,8 @@ equation
       smooth=Smooth.None));
   connect(uWatVal.y, ahu.uWatVal) annotation (Line(points={{21,90},{46,90},{46,30},
           {53,30}}, color={0,0,127}));
-  connect(uFan.y, ahu.uFan) annotation (Line(points={{21,-80},{48,-80},{48,22},
-          {48,23},{53,23},{53,22}},
+  connect(uFan.y, ahu.uFan) annotation (Line(points={{21,-80},{48,-80},{48,22},{
+          48,23},{53,23},{53,22}},
                    color={0,0,127}));
   connect(temSet.y, ahu.TSet) annotation (Line(points={{21,-20},{40,-20},{40,25},
           {53,25}}, color={0,0,127}));

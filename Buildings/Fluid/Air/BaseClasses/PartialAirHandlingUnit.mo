@@ -1,6 +1,7 @@
 within Buildings.Fluid.Air.BaseClasses;
 partial model PartialAirHandlingUnit "Partial AHU model "
-  extends Buildings.Fluid.Interfaces.PartialFourPortInterface;
+  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
+    final show_T=true);
   extends Buildings.Fluid.Air.BaseClasses.EssentialParameter;
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
     final m_flow_nominal=m1_flow_nominal,
@@ -55,10 +56,10 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   parameter Boolean use_inputFilterValve=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
+    "= true, if opening is filtered with a 2nd order CriticalDamping filter for the water-side valve"
     annotation(Dialog(tab="Dynamics", group="Valve"));
   parameter Modelica.SIunits.Time riseTimeValve=120
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+    "Rise time of the filter for the water-side valve (time to reach 99.6 % of an opening step)"
     annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
   parameter Modelica.Blocks.Types.Init initValve=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
