@@ -50,6 +50,14 @@ partial model Carnot
     "Pressure difference over evaporator"
     annotation (Dialog(group="Nominal condition"));
 
+  parameter Modelica.SIunits.TemperatureDifference TAppCon_nominal(min=0) = if cp1_default < 1500 then 5 else 2
+    "Temperature difference between refrigerant and working fluid outlet in condenser"
+    annotation (Dialog(group="Efficiency"));
+
+  parameter Modelica.SIunits.TemperatureDifference TAppEva_nominal(min=0) = if cp2_default < 1500 then 5 else 2
+    "Temperature difference between refrigerant and working fluid outlet in evaporator"
+    annotation (Dialog(group="Efficiency"));
+
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Dialog(tab="Advanced"));
 
@@ -128,10 +136,10 @@ partial model Carnot
     x2=TCon-TEva,
     deltaX=0.25) "Carnot efficiency";
 
-  Modelica.SIunits.Temperature TCon(start=TCon_nominal) = Medium1.temperature(staB1)
-    "Condenser temperature used to compute efficiency";
-  Modelica.SIunits.Temperature TEva(start=TEva_nominal) = Medium2.temperature(staB2)
-    "Evaporator temperature used to compute efficiency";
+  Modelica.SIunits.Temperature TCon(start=TCon_nominal) = Medium1.temperature(staB1)+QCon_flow/QCon_flow_nominal*TAppCon_nominal
+    "Condenser temperature used to compute efficiency (dT_pinch above water/air temperature at nominal conditions)";
+  Modelica.SIunits.Temperature TEva(start=TEva_nominal) = Medium2.temperature(staB2)-QEva_flow/QEva_flow_nominal*TAppEva_nominal
+    "Evaporator temperature used to compute efficiency (dt_pinch below water/air temperature at nominal conditions)";
 
 protected
   constant Boolean COP_is_for_cooling
@@ -368,6 +376,13 @@ and the part load ratio are set up.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 28, 2017, by Felix Buenning:<br/>
+Added temperature difference between fluids in condenser and evaporator.
+The difference is based on discussions with Emerson Climate Technologies.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/698\">
+#698</a>.
+</li>
 <li>
 January 2, 2017, by Filip Jorissen:<br/>
 Removed option for choosing what temperature
