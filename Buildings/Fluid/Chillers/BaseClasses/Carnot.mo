@@ -22,13 +22,13 @@ partial model Carnot
   parameter Boolean use_eta_Carnot_nominal = true
     "Set to true to use Carnot effectiveness etaCarnot_nominal rather than COP_nominal"
     annotation(Dialog(group="Efficiency"));
-  parameter Real etaCarnot_nominal(
-    unit="1") = COP_nominal / (TUse_nominal/(TCon_nominal-TEva_nominal))
+  parameter Real etaCarnot_nominal(unit="1") = COP_nominal/
+    (TUseAct_nominal/(TCon_nominal+TAppCon_nominal - (TEva_nominal-TAppEva_nominal)))
     "Carnot effectiveness (=COP/COP_Carnot) used if use_eta_Carnot_nominal = true"
     annotation (Dialog(group="Efficiency", enable=use_eta_Carnot_nominal));
 
-  parameter Real COP_nominal(
-    unit="1") = etaCarnot_nominal * TUse_nominal/(TCon_nominal-TEva_nominal)
+  parameter Real COP_nominal(unit="1") = etaCarnot_nominal*TUseAct_nominal/
+    (TCon_nominal+TAppCon_nominal - (TEva_nominal-TAppEva_nominal))
     "Coefficient of performance at TEva_nominal and TCon_nominal, used if use_eta_Carnot_nominal = false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
 
@@ -131,25 +131,28 @@ partial model Carnot
   Real COP(min=0, final unit="1") = etaCarnot_nominal_internal * COPCar * etaPL
     "Coefficient of performance";
 
-  Real COPCar(min=0) = TUse / Buildings.Utilities.Math.Functions.smoothMax(
+  Real COPCar(min=0) = TUseAct/Buildings.Utilities.Math.Functions.smoothMax(
     x1=1,
-    x2=TCon-TEva,
+    x2=TConAct - TEvaAct,
     deltaX=0.25) "Carnot efficiency";
 
-  Modelica.SIunits.Temperature TCon(start=TCon_nominal) = Medium1.temperature(staB1)+QCon_flow/QCon_flow_nominal*TAppCon_nominal
-    "Condenser temperature used to compute efficiency (dT_pinch above water/air temperature at nominal conditions)";
-  Modelica.SIunits.Temperature TEva(start=TEva_nominal) = Medium2.temperature(staB2)-QEva_flow/QEva_flow_nominal*TAppEva_nominal
-    "Evaporator temperature used to compute efficiency (dt_pinch below water/air temperature at nominal conditions)";
+  Modelica.SIunits.Temperature TConAct(start=TCon_nominal + TAppCon_nominal)=
+    Medium1.temperature(staB1) + QCon_flow/QCon_flow_nominal*TAppCon_nominal
+    "Condenser temperature used to compute efficiency, taking into account pinch temperature between fluid and refrigerant";
+
+  Modelica.SIunits.Temperature TEvaAct(start=TEva_nominal - TAppEva_nominal)=
+    Medium2.temperature(staB2) - QEva_flow/QEva_flow_nominal*TAppEva_nominal
+    "Evaporator temperature used to compute efficiency, taking into account pinch temperature between fluid and refrigerant";
 
 protected
   constant Boolean COP_is_for_cooling
     "Set to true if the specified COP is for cooling";
 
-  parameter Real etaCarnot_nominal_internal(
-    unit="1") = if use_eta_Carnot_nominal then
-      etaCarnot_nominal
-    else
-      COP_nominal / (TUse_nominal/(TCon_nominal-TEva_nominal))
+  parameter Real etaCarnot_nominal_internal(unit="1") =
+    if use_eta_Carnot_nominal
+      then etaCarnot_nominal
+      else COP_nominal/
+           (TUseAct_nominal / (TCon_nominal + TAppCon_nominal - (TEva_nominal - TAppEva_nominal)))
     "Carnot effectiveness (=COP/COP_Carnot) used to compute COP";
 
   // For Carnot_y, computing etaPL = f(yPL) introduces a nonlinear equation.
@@ -159,11 +162,13 @@ protected
     "Flag, true if etaPL should be computed as it depends on yPL"
     annotation(Evaluate=true);
 
-  final parameter Modelica.SIunits.Temperature TUse_nominal=
-   if COP_is_for_cooling then TEva_nominal else TCon_nominal
-    "Nominal evaporator temperature for chiller or condenser temperature for heat pump";
-  Modelica.SIunits.Temperature TUse = if COP_is_for_cooling then TEva else TCon
-    "Temperature of useful heat (evaporator for chiller, condenser for heat pump";
+  final parameter Modelica.SIunits.Temperature TUseAct_nominal=
+    if COP_is_for_cooling
+      then TEva_nominal - TAppEva_nominal
+      else TCon_nominal + TAppCon_nominal
+    "Nominal evaporator temperature for chiller or condenser temperature for heat pump, taking into account pinch temperature between fluid and refrigerant";
+  Modelica.SIunits.Temperature TUseAct=if COP_is_for_cooling then TEvaAct else TConAct
+    "Temperature of useful heat (evaporator for chiller, condenser for heat pump), taking into account pinch temperature between fluid and refrigerant";
 
   final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
     Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
@@ -171,6 +176,7 @@ protected
       T = Medium1.T_default,
       X = Medium1.X_default))
     "Specific heat capacity of medium 1 at default medium state";
+
   final parameter Modelica.SIunits.SpecificHeatCapacity cp2_default=
     Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
       p = Medium2.p_default,
@@ -222,7 +228,6 @@ initial equation
   assert(abs(Buildings.Utilities.Math.Functions.polynomial(
          a=a, x=1)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
   assert(etaCarnot_nominal_internal < 1,   "Parameters lead to etaCarnot_nominal > 1. Check parameters.");
-
 
 
 equation
@@ -376,6 +381,13 @@ and the part load ratio are set up.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 16, 2017, by Michael Wetter:<br/>
+Added temperature difference between fluids in condenser and evaporator
+for computation of nominal COP and effectiveness.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/698\">
+#698</a>.
+</li>
 <li>
 March 28, 2017, by Felix Buenning:<br/>
 Added temperature difference between fluids in condenser and evaporator.
