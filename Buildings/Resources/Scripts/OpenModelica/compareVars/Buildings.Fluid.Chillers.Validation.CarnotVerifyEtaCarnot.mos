@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "chi_TEva.COP_nominal",
+    "chi_TEva.COP",
+    "chi_y.COP_nominal",
+    "chi_y.COP"
+  };
