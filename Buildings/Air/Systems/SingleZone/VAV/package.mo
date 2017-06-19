@@ -1,10 +1,10 @@
 
 within Buildings.Air.Systems.SingleZone;
-package VAV "fixme: add brief description"
+package VAV "VAV system model"
   extends Modelica.Icons.Package;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-fixme: add a package description.
+VAV system model that serves a single thermal zone.
 </p>
 </html>"));
 end VAV;
