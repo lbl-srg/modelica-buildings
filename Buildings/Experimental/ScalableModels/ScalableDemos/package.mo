@@ -1,4 +1,5 @@
 within Buildings.Experimental.ScalableModels;
-package ScalableDemo
+package ScalableDemos
 
-end ScalableDemo;
+
+end ScalableDemos;

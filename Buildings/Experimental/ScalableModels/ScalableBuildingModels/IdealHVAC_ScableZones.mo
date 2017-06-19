@@ -1,4 +1,4 @@
-within Buildings.Experimental.ScalableModels.ScalableDemo;
+within Buildings.Experimental.ScalableModels.ScalableBuildingModels;
 model IdealHVAC_ScableZones
   extends Modelica.Icons.Example;
   parameter Integer nZon(min=1) = 6 "Number of zones per floor"
@@ -52,7 +52,7 @@ equation
 
   annotation (
   experiment(StopTime=604800, Tolerance=1e-06,__Dymola_Algorithm="Radau"),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/ScalableModels/ScalableDemo/IdealHVAC_ScableZones.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/ScalableModels/ScalableBuildingModels/IdealHVAC_ScableZones.mos"
         "Simulate and plot"),
   Diagram(coordinateSystem(preserveAspectRatio=false)));
 end IdealHVAC_ScableZones;

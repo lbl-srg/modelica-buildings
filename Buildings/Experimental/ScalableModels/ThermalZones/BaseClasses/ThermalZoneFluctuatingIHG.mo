@@ -268,6 +268,29 @@ equation
           pattern=LinePattern.None,
           lineColor={117,148,176},
           fillColor={170,213,255},
-          fillPattern=FillPattern.Sphere)}),                      Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{280,180}})));
+          fillPattern=FillPattern.Sphere)}),
+      Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{280,180}})),
+      Documentation(info="<html>
+<p>
+This model consist a building enveloped model which is extented from 
+<a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">
+Buildings.ThermalZones.Detailed.MixedAir</a>.
+</p>
+<p>
+Internal heat gain which includes radiative heat gain <code>qRadGai_flow</code>,
+convective heat gain <code>qConGai_flow</code>, and latent heat gain 
+<code>qLatGai_flow</code> are referenced from ASHRAE Handbook fundamental. 
+The factor <code>gainFactor</code> is used to scale down the heat gain.
+The gain schdule is specified by <code>intLoad</code>.
+Air infiltration from outside is assumed to be 0.5 ACH.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 10, 2016, by Jianjun Hu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ThermalZoneFluctuatingIHG;

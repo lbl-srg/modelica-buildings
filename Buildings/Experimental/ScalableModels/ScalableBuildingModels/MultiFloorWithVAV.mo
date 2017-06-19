@@ -1,4 +1,4 @@
-within Buildings.Experimental.ScalableModels.ScalableDemo;
+within Buildings.Experimental.ScalableModels.ScalableBuildingModels;
 model MultiFloorWithVAV
   extends Modelica.Icons.Example;
 
@@ -576,7 +576,7 @@ equation
       thickness=0.5));
   annotation (
   experiment(StopTime=604800, Tolerance=1e-06,__Dymola_Algorithm="Radau"),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/ScalableModels/ScalableDemo/MultiFloorWithVAV.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/ScalableModels/ScalableBuildingModels/MultiFloorWithVAV.mos"
         "Simulate and plot"),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-120},{140,200}})),
   Documentation(info="<html>

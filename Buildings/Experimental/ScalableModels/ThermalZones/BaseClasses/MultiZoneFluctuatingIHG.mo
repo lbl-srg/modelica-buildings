@@ -129,10 +129,28 @@ equation
           pattern=LinePattern.DashDot,
           thickness=0.5),
         Line(points={{0,38},{0,22}}, color={85,170,255}),
-        Line(points={{2,-40},{2,-26}}, color={85,170,255})}),    Diagram(
+        Line(points={{2,-40},{2,-26}}, color={85,170,255}),
+        Text(
+          extent={{-100,126},{100,100}},
+          lineColor={0,0,255},
+          textString="Multizone model with: %nZon zones in %nZon floors")}),
+    Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(
-      StopTime=172800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"));
+    experiment(StopTime=172800, Tolerance=1e-06,
+      __Dymola_Algorithm="Radau"),
+    Documentation(info="<html>
+<p>
+This model groups multiple zones by linking their neighbor walls and floor/ceiling.
+The factor <code>ampFactor</code> controls the fluctuating amplitude 
+of internal heat gain in each zone.  
+</p>
+
+</html>", revisions="<html>
+<ul>
+<li>
+April 10, 2016, by Jianjun Hu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end MultiZoneFluctuatingIHG;
