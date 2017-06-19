@@ -29,8 +29,8 @@ model ChillerDXHeatingEconomizer
                 "Supply air port"
     annotation (Placement(transformation(extent={{190,-20},{210,60}}),
         iconTransformation(extent={{190,-20},{210,60}})));
-  Modelica.Fluid.Interfaces.FluidPorts_b returnAir[1](redeclare package Medium
-      = MediumAir) "Return air port"
+  Modelica.Fluid.Interfaces.FluidPorts_b returnAir[1](redeclare package Medium =
+        MediumAir) "Return air port"
     annotation (Placement(transformation(extent={{190,-140},{210,-60}}),
         iconTransformation(extent={{190,-140},{210,-60}})));
   Modelica.Blocks.Interfaces.RealInput TheatSetpoint
@@ -75,7 +75,7 @@ model ChillerDXHeatingEconomizer
     use_inputFilter=false,
     redeclare package Medium = MediumAir) "Supply fan"
     annotation (Placement(transformation(extent={{-32,38},{-12,58}})));
-  SOEPDemo.HVACSystems.Controllers.HeatingCooling control(
+  Buildings.Examples.ControllerHeatingCooling control(
     designAirFlow=designAirFlow,
     minAirFlow=minAirFlow,
     sensitivityGainHeat=sensitivityGainHeat,
@@ -279,7 +279,7 @@ public
   Buildings.Fluid.Sources.FixedBoundary fixedBou(redeclare package Medium =
         MediumWater, nPorts=1)
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  SOEPDemo.HVACSystems.Controllers.Economizer economizer(sensitivityGainEco=
+  Buildings.Examples.ControllerEconomizer economizer(sensitivityGainEco=
         sensitivityGainEco) "Economizer control"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
   Modelica.Blocks.Math.Product ecoProduct

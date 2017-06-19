@@ -135,11 +135,10 @@ model Case600_AirHVAC
 
   Buildings.ThermalZones.Detailed.MixedAir roo(
     redeclare package Medium = MediumA,
-    nPorts=6,
+    nPorts=5,
     hRoo=2.7,
     nConExtWin=nConExtWin,
     nConBou=1,
-    nPorts=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     AFlo=48,
     datConBou(
@@ -268,7 +267,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(density.port, roo.ports[1])  annotation (Line(
-      points={{-45,-76},{2,-76},{2,-25},{15.75,-25}},
+      points={{-45,-76},{2,-76},{2,-24.9},{15.75,-24.9}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(density.d, product.u2) annotation (Line(
@@ -293,7 +292,7 @@ equation
       smooth=Smooth.None));
 
   connect(sinInf.ports[1], roo.ports[2]) annotation (Line(points={{-12,-20},{14,
-          -20},{14,-24},{15.75,-24}},     color={0,127,255}));
+          -20},{14,-23.7},{15.75,-23.7}}, color={0,127,255}));
   connect(weaBus,sinInf. weaBus) annotation (Line(
       points={{-90,104},{-90,104},{-90,-20},{-24,-20},{-24,-19.88}},
       color={255,204,51},
@@ -322,7 +321,7 @@ equation
   connect(souInf.ports[1], infMover.port_a)
     annotation (Line(points={{-52,-34},{-38,-34}}, color={0,127,255}));
   connect(infMover.port_b, roo.ports[3]) annotation (Line(points={{-30,-34},{-6,
-          -34},{-6,-24},{-6,-23},{15.75,-23}},         color={0,127,255}));
+          -34},{-6,-24},{-6,-22.5},{15.75,-22.5}},     color={0,127,255}));
   connect(product.y, infMover.m_flow_in) annotation (Line(points={{-39.5,
           -55},{-34,-55},{-34,-44},{-44,-44},{-44,-26},{-36.4,-26},{-36.4,
           -30.8}}, color={0,0,127}));
@@ -348,14 +347,14 @@ equation
     annotation (Line(points={{-60,100},{-60,48},{-56,48}}, color={0,127,255}));
   connect(supplyAirFlow.port_b, supplyAirTemp.port_a)
     annotation (Line(points={{-36,48},{-28,48}}, color={0,127,255}));
-  connect(supplyAirTemp.port_b, roo.ports[4]) annotation (Line(points={{-8,48},{
-          -8,48},{-8,-18},{-8,-22},{15.75,-22}},     color={0,127,255}));
+  connect(supplyAirTemp.port_b, roo.ports[4]) annotation (Line(points={{-8,48},
+          {-8,48},{-8,-18},{-8,-21.3},{15.75,-21.3}},color={0,127,255}));
   connect(returnAirFlow.port_b, returnAir) annotation (Line(points={{-20,68},
           {-30,68},{-30,100}}, color={0,127,255}));
   connect(returnAirFlow.port_a, returnAirTemp.port_b)
     annotation (Line(points={{0,68},{4,68},{8,68}}, color={0,127,255}));
-  connect(returnAirTemp.port_a, roo.ports[5]) annotation (Line(points={{28,68},{
-          32,68},{34,68},{34,10},{4,10},{4,-21},{15.75,-21}},
+  connect(returnAirTemp.port_a, roo.ports[5]) annotation (Line(points={{28,68},
+          {32,68},{34,68},{34,10},{4,10},{4,-20.1},{15.75,-20.1}},
         color={0,127,255}));
   connect(tSetCoo.y[1], TcoolSetpoint) annotation (Line(points={{81,-80},{110,-80}},
                                color={0,0,127}));
