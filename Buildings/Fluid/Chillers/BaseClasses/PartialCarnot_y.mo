@@ -29,7 +29,7 @@ partial model PartialCarnot_y
       final homotopyInitialization=homotopyInitialization,
       final Q_flow_nominal=QEva_flow_nominal));
 
-  parameter Modelica.SIunits.Power P_nominal
+  parameter Modelica.SIunits.Power P_nominal(min=0)
     "Nominal compressor power (at y=1)"
     annotation (Dialog(group="Nominal condition"));
 
@@ -165,6 +165,10 @@ that uses the leaving fluid temperature as the control signal.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 15, 2017, by Michael Wetter:<br/>
+Added <code>min</code> attribute to parameter <code>P_nominal</code>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Implemented in the Annex 60 library the models
