@@ -1,4 +1,4 @@
-within Buildings.Examples;
+within Buildings.Air.Systems.SingleZone.VAV;
 model ChillerDXHeatingEconomizer
   "HVAC system model with a dry cooling coil, air-cooled chiller, electric heating coil, variable speed fan, and mixing box with economizer control."
   replaceable package MediumAir =
@@ -75,7 +75,7 @@ model ChillerDXHeatingEconomizer
     use_inputFilter=false,
     redeclare package Medium = MediumAir) "Supply fan"
     annotation (Placement(transformation(extent={{-32,38},{-12,58}})));
-  Buildings.Examples.ControllerHeatingCooling control(
+  Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerHeatingCooling control(
     designAirFlow=designAirFlow,
     minAirFlow=minAirFlow,
     sensitivityGainHeat=sensitivityGainHeat,
@@ -279,7 +279,7 @@ public
   Buildings.Fluid.Sources.FixedBoundary fixedBou(redeclare package Medium =
         MediumWater, nPorts=1)
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  Buildings.Examples.ControllerEconomizer economizer(sensitivityGainEco=
+  Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerEconomizer economizer(sensitivityGainEco=
         sensitivityGainEco) "Economizer control"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
   Modelica.Blocks.Math.Product ecoProduct

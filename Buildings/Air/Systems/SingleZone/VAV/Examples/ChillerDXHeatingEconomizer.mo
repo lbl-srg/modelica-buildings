@@ -1,10 +1,10 @@
-within Buildings.Examples;
-model VAV_SingleZone_drycoil_fan_mix_chiller_eco
+within Buildings.Air.Systems.SingleZone.VAV.Examples;
+model ChillerDXHeatingEconomizer
   "Example for SingleZoneVAV with a dry cooling coil, air-cooled chiller, electric heating coil, variable speed fan, and mixing box with economizer."
   extends Modelica.Icons.Example;
   package MediumAir = Buildings.Media.Air "Buildings library air media package";
   package MediumWater = Buildings.Media.Water "Buildings library air media package";
-  Buildings.Examples.ChillerDXHeatingEconomizer HVAC(
+  Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer HVAC(
     designAirFlow=0.75,
     minAirFlow=0.2*0.75,
     designHeatingEfficiency=0.99,
@@ -19,7 +19,7 @@ model VAV_SingleZone_drycoil_fan_mix_chiller_eco
     chwsTempSet=279.15,
     sensitivityGainEco=0.25) "Single Zone VAV system"
     annotation (Placement(transformation(extent={{-40,-10},{0,22}})));
-  Buildings.Examples.Case600_AirHVAC Zone(designAirFlow=0.75, lat=weaDat.lat)
+  Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.Room Zone(designAirFlow=0.75, lat=weaDat.lat)
     "Thermal envelope of single zone"
     annotation (Placement(transformation(extent={{32,-4},{52,16}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -88,4 +88,4 @@ system is based on a conventional VAV system with air cooled chiller and
 economizer.  See documentation for the specific models for more information.
 </p>
 </html>"));
-end VAV_SingleZone_drycoil_fan_mix_chiller_eco;
+end ChillerDXHeatingEconomizer;

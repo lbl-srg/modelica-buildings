@@ -1,4 +1,4 @@
-within Buildings.Examples;
+within Buildings.Air.Systems.SingleZone.VAV.BaseClasses;
 model ControllerHeatingCooling "Controller for heating and cooling"
 
   Modelica.Blocks.Math.Gain heatGain(k=1/sensitivityGainHeat)

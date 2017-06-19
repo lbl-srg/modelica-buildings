@@ -1,4 +1,4 @@
-within Buildings.Examples;
+within Buildings.Air.Systems.SingleZone.VAV.BaseClasses;
 model ControllerEconomizer "Controller for economizer"
   parameter Real sensitivityGainEco = 0.25 "Controller gain";
   Modelica.Blocks.Interfaces.RealInput T_mixSet
