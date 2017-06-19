@@ -18,7 +18,7 @@ model ChillerDXHeatingEconomizer
   parameter Real sensitivityGainHeat = 2 "[K] Gain sensitivity on heating controller";
   parameter Real sensitivityGainCool = 2 "[K] Gain sensitivity on cooling controller";
   parameter Real sensitivityGainEco = 0.25 "[K] Gain sensitivity on economizer controller";
-  Modelica.Blocks.Interfaces.RealInput Tmea "Zone temperature measurement"
+  Modelica.Blocks.Interfaces.RealInput TRoo(final unit="K") "Zone temperature measurement"
                                          annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
@@ -33,15 +33,13 @@ model ChillerDXHeatingEconomizer
         MediumAir) "Return air port"
     annotation (Placement(transformation(extent={{190,-140},{210,-60}}),
         iconTransformation(extent={{190,-140},{210,-60}})));
-  Modelica.Blocks.Interfaces.RealInput TheatSetpoint
-    "Zone heating setpoint temperature"  annotation (Placement(
-        transformation(
+  Modelica.Blocks.Interfaces.RealInput TSetRooHea(final unit="K")
+    "Zone heating setpoint temperature" annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
         rotation=180,
         origin={-220,140})));
-  Modelica.Blocks.Interfaces.RealInput TcoolSetpoint
-    "Zone cooling setpoint temperature"  annotation (Placement(
-        transformation(
+  Modelica.Blocks.Interfaces.RealInput TSetRooCoo(final unit="K")
+    "Zone cooling setpoint temperature" annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
         rotation=180,
         origin={-220,80})));
@@ -59,7 +57,8 @@ model ChillerDXHeatingEconomizer
     dp_nominal=0,
     allowFlowReversal=false,
     tau=90,
-    redeclare package Medium = MediumAir)
+    redeclare package Medium = MediumAir,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
             "Air heating coil"
     annotation (Placement(transformation(extent={{52,38},{72,58}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
@@ -164,7 +163,8 @@ model ChillerDXHeatingEconomizer
     dpFixed_nominal={0,0},
     use_inputFilter=true,
     tau=10,
-    riseTime=300)
+    riseTime=300,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
@@ -260,7 +260,9 @@ model ChillerDXHeatingEconomizer
       TEvaLvgMax=293.15,
       TConEnt_nominal=302.55,
       TConEntMin=274.15,
-      TConEntMax=323.15)) "Air cooled chiller"
+      TConEntMax=323.15),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                          "Air cooled chiller"
     annotation (Placement(transformation(extent={{110,-132},{90,-152}})));
   Modelica.Blocks.Sources.Constant chwsTempSetConst(k=chwsTempSet)
     annotation (Placement(transformation(extent={{160,-126},{140,-106}})));
@@ -292,13 +294,11 @@ equation
           48},{200,20}},      color={0,127,255}));
   connect(control.fanSet, supplyFan.m_flow_in) annotation (Line(points={{-119,4},
           {-98,4},{-98,80},{-22,80},{-22,60}},     color={0,0,127}));
-  connect(TheatSetpoint, control.TheatSet) annotation (Line(points={{-220,
-          140},{-160,140},{-160,17},{-141,17}},
-                                          color={0,0,127}));
-  connect(TcoolSetpoint, control.TcoolSet) annotation (Line(points={{-220,80},
-          {-202,80},{-178,80},{-178,12},{-141,12}},
-                                              color={0,0,127}));
-  connect(Tmea, control.Tmea) annotation (Line(points={{-220,0},{-181,0},{-181,2.8},
+  connect(TSetRooHea, control.TheatSet) annotation (Line(points={{-220,140},{-160,
+          140},{-160,17},{-141,17}}, color={0,0,127}));
+  connect(TSetRooCoo, control.TcoolSet) annotation (Line(points={{-220,80},{-202,
+          80},{-178,80},{-178,12},{-141,12}}, color={0,0,127}));
+  connect(TRoo, control.Tmea) annotation (Line(points={{-220,0},{-181,0},{-181,2.8},
           {-141,2.8}}, color={0,0,127}));
   connect(supplyFan.port_b, totalRes.port_a)
     annotation (Line(points={{-12,48},{-2,48}},  color={0,127,255}));

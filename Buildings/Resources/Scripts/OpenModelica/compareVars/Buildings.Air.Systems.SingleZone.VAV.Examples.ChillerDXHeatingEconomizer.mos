@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "hvac.TRoo",
+    "hvac.TSetRooHea",
+    "hvac.TSetRooCoo",
+    "EFan.y",
+    "EHea.y",
+    "ECoo.y",
+    "EHVAC.y",
+    "EPum.y"
+  };
