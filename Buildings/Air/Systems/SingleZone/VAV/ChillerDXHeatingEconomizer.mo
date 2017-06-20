@@ -1,36 +1,41 @@
 within Buildings.Air.Systems.SingleZone.VAV;
 model ChillerDXHeatingEconomizer
   "HVAC system model with a dry cooling coil, air-cooled chiller, electric heating coil, variable speed fan, and mixing box with economizer control."
-  replaceable package MediumAir =
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component of type air"
+  replaceable package MediumA = Buildings.Media.Air "Medium model for air"
       annotation (choicesAllMatching = true);
-  replaceable package MediumWater =
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component of type water"
+  replaceable package MediumW = Buildings.Media.Water "Medium model for water"
       annotation (choicesAllMatching = true);
+
   parameter Modelica.SIunits.MassFlowRate designAirFlow "Design airflow rate of system";
   parameter Modelica.SIunits.MassFlowRate minAirFlow "Minimum airflow rate of system";
   parameter Modelica.SIunits.DimensionlessRatio minOAFra "Minimum outdoor air fraction of system";
   parameter Modelica.SIunits.Temperature supplyAirTempSet "Cooling supply air temperature setpoint";
   parameter Modelica.SIunits.Temperature chwsTempSet "Chilled water supply temperature setpoint";
-  parameter Modelica.SIunits.Power designHeatingCapacity "Design heating capacity of heating coil";
-  parameter Real designHeatingEfficiency "Design heating efficiency of the heating coil";
-  parameter Modelica.SIunits.Power designCoolingCapacity "Design heating capacity of cooling coil";
+  parameter Modelica.SIunits.Power designHeatingCapacity(min=0) "Design heating capacity of heating coil";
+  parameter Real designHeatingEfficiency(min=0, max=1, unit="1") "Design heating efficiency of the heating coil";
+  parameter Modelica.SIunits.Power(max=0) designCoolingCapacity "Design heating capacity of cooling coil";
+  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa") = 500
+    "Design pressure drop of flow leg with fan";
+
+  // fixme: change to kP
   parameter Real sensitivityGainHeat = 2 "[K] Gain sensitivity on heating controller";
   parameter Real sensitivityGainCool = 2 "[K] Gain sensitivity on cooling controller";
   parameter Real sensitivityGainEco = 0.25 "[K] Gain sensitivity on economizer controller";
+
   Modelica.Blocks.Interfaces.RealInput TRoo(final unit="K") "Zone temperature measurement"
-                                         annotation (Placement(
+  annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-220,0})));
-  Modelica.Fluid.Interfaces.FluidPorts_b supplyAir(redeclare package Medium =
-        MediumAir)
-                "Supply air port"
+  Modelica.Fluid.Interfaces.FluidPorts_b supplyAir(
+    redeclare package Medium = MediumA)
+    "Supply air port"
     annotation (Placement(transformation(extent={{190,-20},{210,60}}),
         iconTransformation(extent={{190,-20},{210,60}})));
-  Modelica.Fluid.Interfaces.FluidPorts_b returnAir[1](redeclare package Medium =
-        MediumAir) "Return air port"
+  Modelica.Fluid.Interfaces.FluidPorts_b returnAir[1](
+  redeclare package Medium = MediumA)
+  "Return air port"
     annotation (Placement(transformation(extent={{190,-140},{210,-60}}),
         iconTransformation(extent={{190,-140},{210,-60}})));
   Modelica.Blocks.Interfaces.RealInput TSetRooHea(final unit="K")
@@ -43,12 +48,11 @@ model ChillerDXHeatingEconomizer
         extent={{20,-20},{-20,20}},
         rotation=180,
         origin={-220,80})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort
-                                      supplyAirTemp(
-                m_flow_nominal=designAirFlow,
+  Buildings.Fluid.Sensors.TemperatureTwoPort supplyAirTemp(
+    m_flow_nominal=designAirFlow,
     allowFlowReversal=false,
     tau=0,
-    redeclare package Medium = MediumAir) "Supply air temperature sensor"
+    redeclare package Medium = MediumA) "Supply air temperature sensor"
     annotation (Placement(transformation(extent={{128,38},{148,58}})));
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heatCoil(
     m_flow_nominal=designAirFlow,
@@ -57,13 +61,15 @@ model ChillerDXHeatingEconomizer
     dp_nominal=0,
     allowFlowReversal=false,
     tau=90,
-    redeclare package Medium = MediumAir,
+    redeclare package Medium = MediumA,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-            "Air heating coil"
+     "Air heating coil"
     annotation (Placement(transformation(extent={{52,38},{72,58}})));
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
+  annotation (Placement(
         transformation(extent={{-190,148},{-150,188}}), iconTransformation(
           extent={{-180,160},{-160,180}})));
+
   Buildings.Fluid.Movers.FlowControlled_m_flow supplyFan(
     m_flow_nominal=designAirFlow,
     nominalValuesDefineDefaultPressureCurve=true,
@@ -72,7 +78,7 @@ model ChillerDXHeatingEconomizer
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=false,
     use_inputFilter=false,
-    redeclare package Medium = MediumAir) "Supply fan"
+    redeclare package Medium = MediumA) "Supply fan"
     annotation (Placement(transformation(extent={{-32,38},{-12,58}})));
   Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerHeatingCooling control(
     designAirFlow=designAirFlow,
@@ -82,9 +88,9 @@ model ChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
   Buildings.Fluid.FixedResistances.PressureDrop totalRes(
     m_flow_nominal=designAirFlow,
-    dp_nominal=500,
+    dp_nominal=dp_nominal,
     allowFlowReversal=false,
-    redeclare package Medium = MediumAir)
+    redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{-2,38},{18,58}})));
   Modelica.Blocks.Interfaces.RealOutput fanPower
     "Electrical power consumed by the supply fan"
@@ -101,53 +107,57 @@ model ChillerDXHeatingEconomizer
   Modelica.Blocks.Math.Gain eff(k=1/designHeatingEfficiency)
     annotation (Placement(transformation(extent={{120,90},{140,110}})));
   Buildings.Fluid.Sensors.MassFlowRate returnAirFlow(
-                allowFlowReversal=false, redeclare package Medium = MediumAir)
+    allowFlowReversal=false,
+    redeclare package Medium = MediumA)
                 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-66,-6})));
   Buildings.Fluid.Sensors.MassFlowRate exhaustAirFlow(
-                allowFlowReversal=false, redeclare package Medium = MediumAir)
+    allowFlowReversal=false,
+    redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{-20,-110},{-40,-90}})));
   Buildings.Fluid.Sensors.MassFlowRate oaAirFlow(
-                allowFlowReversal=false, redeclare package Medium = MediumAir)
+    allowFlowReversal=false,
+    redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{-100,38},{-80,58}})));
   Buildings.Fluid.Sources.Outside out(
-                nPorts=3, redeclare package Medium = MediumAir)
+    nPorts=3,
+    redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{-140,36},{-120,56}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort mixedAirTemp(
     m_flow_nominal=designAirFlow,
     allowFlowReversal=false,
     tau=0,
-    redeclare package Medium = MediumAir)
+    redeclare package Medium = MediumA)
             "Mixed air temperature sensor"
     annotation (Placement(transformation(extent={{-60,38},{-40,58}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort freezeStat(
     m_flow_nominal=designAirFlow,
     allowFlowReversal=false,
     tau=0,
-    redeclare package Medium = MediumAir)
-            "Temperature sensor to detect freezing conditions"
+    redeclare package Medium = MediumA)
+    "Temperature sensor to detect freezing conditions"
     annotation (Placement(transformation(extent={{24,38},{44,58}})));
   Buildings.Fluid.Movers.BaseClasses.IdealSource idealSourceExhaust(
     control_m_flow=true,
     allowFlowReversal=false,
     m_flow_small=1e-4,
-    redeclare package Medium = MediumAir)
+    redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{40,-110},{20,-90}})));
   Buildings.Fluid.Movers.BaseClasses.IdealSource idealSourceRelief(
     control_m_flow=true,
     allowFlowReversal=false,
     m_flow_small=1E-4,
-    redeclare package Medium = MediumAir)
+    redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{-80,-110},{-100,-90}})));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU coolCoil(
-    redeclare package Medium1 = MediumWater,
-    redeclare package Medium2 = MediumAir,
+    redeclare package Medium1 = MediumW,
+    redeclare package Medium2 = MediumA,
     dp1_nominal=0,
     dp2_nominal=0,
     m2_flow_nominal=designAirFlow,
-    Q_flow_nominal=designCoolingCapacity,
+    Q_flow_nominal=-designCoolingCapacity,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     allowFlowReversal1=false,
     allowFlowReversal2=false,
@@ -157,7 +167,7 @@ model ChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{110,52},{90,32}})));
 
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
-    redeclare package Medium = MediumWater,
+    redeclare package Medium = MediumW,
     m_flow_nominal=m_flow_chws,
     dpValve_nominal=12000,
     dpFixed_nominal={0,0},
@@ -170,18 +180,18 @@ model ChillerDXHeatingEconomizer
         rotation=-90,
         origin={80,-20})));
   Buildings.Fluid.Sources.MassFlowSource_T cwSou(
-    redeclare package Medium = MediumAir,
+    redeclare package Medium = MediumA,
     nPorts=1,
     use_T_in=true,
     m_flow=m_flow_cas)
-                   annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={138,-148})));
   Buildings.Fluid.Sensors.TemperatureTwoPort chwsTemp(
     allowFlowReversal=false,
     tau=0,
-    redeclare package Medium = MediumWater,
+    redeclare package Medium = MediumW,
     m_flow_nominal=m_flow_chws)
     "Chilled water supply temperature sensor" annotation (Placement(
         transformation(
@@ -191,37 +201,40 @@ model ChillerDXHeatingEconomizer
   Buildings.Fluid.Sensors.TemperatureTwoPort chwrTemp(
     allowFlowReversal=false,
     tau=0,
-    redeclare package Medium = MediumWater,
+    redeclare package Medium = MediumW,
     m_flow_nominal=m_flow_chws)
     "Chilled water return temperature sensor" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={80,-50})));
-  Buildings.Fluid.Sensors.MassFlowRate chwsFlow(allowFlowReversal=false,
-      redeclare package Medium = MediumWater) annotation (Placement(
+  Buildings.Fluid.Sensors.MassFlowRate chwsFlow(
+    allowFlowReversal=false,
+    redeclare package Medium = MediumW) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={120,0})));
-  Modelica.Blocks.Sources.Constant supplyAirTempSetConst(k=supplyAirTempSet)
+  Modelica.Blocks.Sources.Constant supplyAirTempSetConst(final k=supplyAirTempSet)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  // fixme: check k gain and reverse action
   Buildings.Controls.Continuous.LimPID conP(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     yMax=0,
     yMin=-1,
     k=4e-1)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
-  Modelica.Blocks.Math.Product product annotation (Placement(transformation(
+  Modelica.Blocks.Math.Product product "Product to close valve"
+  annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={32,6})));
-  Modelica.Blocks.Math.Gain gain(k=-1)
+  Modelica.Blocks.Math.Gain gain(final k=-1) "Gain to invert control gain"
     annotation (Placement(transformation(extent={{48,0},{60,12}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow chwPump(
     use_inputFilter=false,
     allowFlowReversal=false,
-    redeclare package Medium = MediumWater,
+    redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m_flow_chws,
     addPowerToMedium=false,
@@ -229,16 +242,18 @@ model ChillerDXHeatingEconomizer
       hydraulicEfficiency(eta={1}),
       motorEfficiency(eta={0.9}),
       motorCooledByFluid=false),
-    dp_nominal=12000)                                         annotation (
+    dp_nominal=12000)
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={120,-86})));
+
   Buildings.Fluid.Chillers.ElectricEIR chillerAirCooled(
     allowFlowReversal1=false,
     allowFlowReversal2=false,
-    redeclare package Medium1 = MediumAir,
-    redeclare package Medium2 = MediumWater,
+    redeclare package Medium1 = MediumA,
+    redeclare package Medium2 = MediumW,
     m2_flow_nominal=m_flow_chws,
     dp1_nominal=0,
     m1_flow_nominal=m_flow_cas,
@@ -262,31 +277,38 @@ model ChillerDXHeatingEconomizer
       TConEntMin=274.15,
       TConEntMax=323.15),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                          "Air cooled chiller"
+    "Air cooled chiller"
     annotation (Placement(transformation(extent={{110,-132},{90,-152}})));
-  Modelica.Blocks.Sources.Constant chwsTempSetConst(k=chwsTempSet)
+  Modelica.Blocks.Sources.Constant chwsTempSetConst(final k=chwsTempSet)
     annotation (Placement(transformation(extent={{160,-126},{140,-106}})));
-  Modelica.Blocks.Sources.Constant chwsMassFlowConst(k=m_flow_chws)
+  Modelica.Blocks.Sources.Constant chwsMassFlowConst(final k=m_flow_chws)
     annotation (Placement(transformation(extent={{160,-80},{140,-60}})));
   Modelica.Blocks.Interfaces.RealOutput pumpPower
     "Electrical power consumed by the pumps"
     annotation (Placement(transformation(extent={{200,70},{220,90}})));
-  Modelica.Blocks.Sources.BooleanConstant on
+  Modelica.Blocks.Sources.BooleanConstant on "On signal for chiller"
     annotation (Placement(transformation(extent={{198,-150},{178,-130}})));
 protected
-  final parameter Modelica.SIunits.DimensionlessRatio COP_nominal = 5.5 "Nominal COP of the chiller";
-  final parameter Modelica.SIunits.MassFlowRate m_flow_chws = designCoolingCapacity/4184/4 "Design chilled water supply flow";
-  final parameter Modelica.SIunits.MassFlowRate m_flow_cas = designCoolingCapacity*(1+1/COP_nominal)/1008/10 "Design condenser air flow";
+  final parameter Modelica.SIunits.DimensionlessRatio COP_nominal = 5.5
+    "Nominal COP of the chiller";
+    // fixme: use cp
+  final parameter Modelica.SIunits.MassFlowRate m_flow_chws = -designCoolingCapacity/4184/4
+    "Design chilled water supply flow";
+  final parameter Modelica.SIunits.MassFlowRate m_flow_cas = -designCoolingCapacity*(1+1/COP_nominal)/1008/10 "Design condenser air flow";
 public
-  Buildings.Fluid.Sources.FixedBoundary fixedBou(redeclare package Medium =
-        MediumWater, nPorts=1)
+  Buildings.Fluid.Sources.FixedBoundary fixedBou(
+    redeclare package Medium = MediumW,
+    nPorts=1)
+    "Pressure boundary condition for chilled water loop"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerEconomizer economizer(sensitivityGainEco=
-        sensitivityGainEco) "Economizer control"
+  Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerEconomizer economizer(
+    sensitivityGainEco=sensitivityGainEco) "Economizer control"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
   Modelica.Blocks.Math.Product ecoProduct
+    "Product for computation of economizer mass flow rate"
     annotation (Placement(transformation(extent={{-40,-50},{-60,-30}})));
-  Modelica.Blocks.Sources.Constant minOAFraConst(k=minOAFra)
+  Modelica.Blocks.Sources.Constant minOAFraConst(final k=minOAFra)
+    "Minimum outside air fraction"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
 equation
 
@@ -602,29 +624,29 @@ equation
       __Dymola_Algorithm="Radau"),
       Documentation(info="<html>
 <p>
-This is a conventional single zone VAV HVAC system model.  The system contains
-a variable speed supply fan, electric heating coil, water-based cooling coil, 
-economizer, and air-cooled chiller.  The control of the system is that of 
-conventional VAV heating and cooling.  During cooling, the supply air 
-temperature is held constant while the supply air flow is modulated from 
-maximum to minimum according to zone load.  This is done by modulating the 
-fan speed.  During heating, the supply air flow is held at a constant minimum 
-while the heating coil is modulated accoding to zone load.  The mass flow of 
-chilled water through the cooling coil is controlled by a three-way valve to 
-maintain the supply air temperature setpoint during cooling.  
-The mixing box maintains the minimum outside airflow fraction unless 
-conditions for economizer are met, in which case the economizer controller 
-adjusts the outside airflow fraction to meet a mixed air temperature setpoint.  
-The economizer is enabled if the outside air drybulb temperature is lower 
-than the return air temperature and the system is not in heating mode.  
+This is a conventional single zone VAV HVAC system model. The system contains
+a variable speed supply fan, electric heating coil, water-based cooling coil,
+economizer, and air-cooled chiller. The control of the system is that of
+conventional VAV heating and cooling. During cooling, the supply air
+temperature is held constant while the supply air flow is modulated from
+maximum to minimum according to zone load. This is done by modulating the
+fan speed. During heating, the supply air flow is held at a constant minimum
+while the heating coil is modulated accoding to zone load. The mass flow of
+chilled water through the cooling coil is controlled by a three-way valve to
+maintain the supply air temperature setpoint during cooling.
+The mixing box maintains the minimum outside airflow fraction unless
+conditions for economizer are met, in which case the economizer controller
+adjusts the outside airflow fraction to meet a mixed air temperature setpoint.
+The economizer is enabled if the outside air drybulb temperature is lower
+than the return air temperature and the system is not in heating mode.
 </p>
 <p>
-There are a number of assumptions in the model.  Pressure drops through the 
-system are collected into a single component.  The mass flow of return air
-is equal to the mass flow of supply air.  The mass flow of outside air and 
-relief air in the mixing box is ideally controlled so that the supply air is 
+There are a number of assumptions in the model. Pressure drops through the
+system are collected into a single component. The mass flow of return air
+is equal to the mass flow of supply air. The mass flow of outside air and
+relief air in the mixing box is ideally controlled so that the supply air is
 composed of the specified outside airflow fraction, rather than having
-feedback control of damper positions.  The cooling coil is a dry coil model.  
+feedback control of damper positions. The cooling coil is a dry coil model.
 </p>
 </html>"));
 end ChillerDXHeatingEconomizer;

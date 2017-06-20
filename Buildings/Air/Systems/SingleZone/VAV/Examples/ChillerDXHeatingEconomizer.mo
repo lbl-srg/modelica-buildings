@@ -11,7 +11,7 @@ model ChillerDXHeatingEconomizer
     designHeatingCapacity=7000,
     redeclare package MediumAir = MediumAir,
     redeclare package MediumWater = MediumWater,
-    designCoolingCapacity=7000,
+    designCoolingCapacity=-7000,
     sensitivityGainHeat=0.25,
     sensitivityGainCool=0.25,
     minOAFra=0.2,
@@ -81,8 +81,8 @@ equation
       __Dymola_Algorithm="Radau"),
      Documentation(info="<html>
 <p>
-The thermal zone is based on the BESTEST Case 600 envelope, while the HVAC 
-system is based on a conventional VAV system with air cooled chiller and 
+The thermal zone is based on the BESTEST Case 600 envelope, while the HVAC
+system is based on a conventional VAV system with air cooled chiller and
 economizer.  See documentation for the specific models for more information.
 </p>
 </html>"));
