@@ -206,9 +206,9 @@ model Room
     allowFlowReversal=false,
     tau=0)
     annotation (Placement(transformation(extent={{28,58},{8,78}})));
-  Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.TSetRooCoo tSetCoo
+  Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.RoomCoolingSetpointTemperature tSetCoo
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
-  Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.TSetRooHea tSetHea
+  Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.RoomHeatingSetpointTemperature tSetHea
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
     "Heat port to air volume"
@@ -244,7 +244,7 @@ model Room
     redeclare package Medium = MediumA,
     m_flow_small=1e-4)
     annotation (Placement(transformation(extent={{-38,-38},{-30,-30}})));
-  Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.IntLoa intLoad
+  Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.InternalLoads intLoad
     annotation (Placement(transformation(extent={{-80,12},{-72,20}})));
   Modelica.Blocks.Math.Product product1
     annotation (Placement(transformation(extent={{-52,4},{-44,12}})));
