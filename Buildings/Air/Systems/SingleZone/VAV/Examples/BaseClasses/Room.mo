@@ -119,7 +119,7 @@ model Room
         rotation=-90,
         origin={33,-35})));
 
-  parameter Modelica.SIunits.MassFlowRate designAirFlow "Design airflow rate of system";
+  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal "Design airflow rate of system";
   Modelica.Blocks.Interfaces.RealOutput TcoolSetpoint "Cooling setpoint"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   Modelica.Blocks.Interfaces.RealOutput TheatSetpoint "Heating setpoint"
@@ -193,16 +193,16 @@ model Room
   Buildings.Fluid.Sensors.MassFlowRate supplyAirFlow(redeclare package Medium =
         MediumA, allowFlowReversal=false)
     annotation (Placement(transformation(extent={{-56,38},{-36,58}})));
-  Buildings.Fluid.Sensors.MassFlowRate returnAirFlow(redeclare package Medium =
+  Buildings.Fluid.Sensors.MassFlowRate senMRetAir_flow(redeclare package Medium =
         MediumA, allowFlowReversal=false)
     annotation (Placement(transformation(extent={{0,58},{-20,78}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort supplyAirTemp(redeclare package
-      Medium = MediumA, m_flow_nominal=designAirFlow,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTSup(redeclare package
+      Medium = MediumA, m_flow_nominal=mAir_flow_nominal,
     allowFlowReversal=false,
     tau=0)
     annotation (Placement(transformation(extent={{-28,38},{-8,58}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort returnAirTemp(redeclare package
-      Medium = MediumA, m_flow_nominal=designAirFlow,
+      Medium = MediumA, m_flow_nominal=mAir_flow_nominal,
     allowFlowReversal=false,
     tau=0)
     annotation (Placement(transformation(extent={{28,58},{8,78}})));
@@ -345,13 +345,13 @@ equation
           -14},{-36,-14},{-36,-4.8},{-32.8,-4.8}}, color={0,0,127}));
   connect(supplyAir, supplyAirFlow.port_a)
     annotation (Line(points={{-60,100},{-60,48},{-56,48}}, color={0,127,255}));
-  connect(supplyAirFlow.port_b, supplyAirTemp.port_a)
+  connect(supplyAirFlow.port_b, senTSup.port_a)
     annotation (Line(points={{-36,48},{-28,48}}, color={0,127,255}));
-  connect(supplyAirTemp.port_b, roo.ports[4]) annotation (Line(points={{-8,48},
+  connect(senTSup.port_b, roo.ports[4]) annotation (Line(points={{-8,48},
           {-8,48},{-8,-18},{-8,-21.3},{15.75,-21.3}},color={0,127,255}));
-  connect(returnAirFlow.port_b, returnAir) annotation (Line(points={{-20,68},
+  connect(senMRetAir_flow.port_b, returnAir) annotation (Line(points={{-20,68},
           {-30,68},{-30,100}}, color={0,127,255}));
-  connect(returnAirFlow.port_a, returnAirTemp.port_b)
+  connect(senMRetAir_flow.port_a, returnAirTemp.port_b)
     annotation (Line(points={{0,68},{4,68},{8,68}}, color={0,127,255}));
   connect(returnAirTemp.port_a, roo.ports[5]) annotation (Line(points={{28,68},
           {32,68},{34,68},{34,10},{4,10},{4,-20.1},{15.75,-20.1}},

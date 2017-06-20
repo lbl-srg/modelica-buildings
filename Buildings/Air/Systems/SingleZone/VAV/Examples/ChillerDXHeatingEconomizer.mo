@@ -5,22 +5,22 @@ model ChillerDXHeatingEconomizer
   package MediumA = Buildings.Media.Air "Buildings library air media package";
   package MediumW = Buildings.Media.Water "Buildings library air media package";
   Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer hvac(
-    designAirFlow=0.75,
-    minAirFlow=0.2*0.75,
-    designHeatingEfficiency=0.99,
-    designHeatingCapacity=7000,
+    mAir_flow_nominal=0.75,
+    mAir_flow_min=0.2*0.75,
+    etaHea_nominal=0.99,
+    QHea_flow_nominal=7000,
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
-    designCoolingCapacity=-7000,
+    QCoo_flow_nominal=-7000,
     sensitivityGainHeat=0.25,
     sensitivityGainCool=0.25,
     minOAFra=0.2,
     sensitivityGainEco=0.25,
-    supplyAirTempSet=286.15,
-    chwsTempSet=279.15) "Single zone VAV system"
+    TSetSupAir=286.15,
+    TSetSupChi=279.15) "Single zone VAV system"
     annotation (Placement(transformation(extent={{-40,-10},{0,22}})));
   Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.Room zon(
-      designAirFlow=0.75, lat=weaDat.lat) "Thermal envelope of single zone"
+      mAir_flow_nominal=0.75, lat=weaDat.lat) "Thermal envelope of single zone"
     annotation (Placement(transformation(extent={{32,-4},{52,16}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false, filNam=
@@ -55,11 +55,11 @@ equation
       points={{-80,90},{-37,90},{-37,23}},
       color={255,204,51},
       thickness=0.5));
-  connect(hvac.fanPower, EFan.u) annotation (Line(points={{1,20},{10,20},{10,-30},
+  connect(hvac.PFan, EFan.u) annotation (Line(points={{1,20},{10,20},{10,-30},
           {18,-30}}, color={0,0,127}));
-  connect(hvac.heatPower, EHea.u) annotation (Line(points={{1,18},{8,18},{8,-50},
+  connect(hvac.QHea_flow, EHea.u) annotation (Line(points={{1,18},{8,18},{8,-50},
           {18,-50}}, color={0,0,127}));
-  connect(hvac.coolPower, ECoo.u) annotation (Line(points={{1,16},{6,16},{6,-70},
+  connect(hvac.PCoo, ECoo.u) annotation (Line(points={{1,16},{6,16},{6,-70},
           {18,-70}}, color={0,0,127}));
   connect(EFan.y, EHVAC.u[1]) annotation (Line(points={{41,-30},{48,-30},{48,-71.5},
           {58,-71.5}}, color={0,0,127}));
@@ -69,7 +69,7 @@ equation
           {58,-69.5}}, color={0,0,127}));
   connect(EPum.y, EHVAC.u[4]) annotation (Line(points={{41,-90},{48,-90},{48,-68.5},
           {58,-68.5}}, color={0,0,127}));
-  connect(EPum.u, hvac.pumpPower) annotation (Line(points={{18,-90},{4,-90},{4,
+  connect(EPum.u, hvac.PPum) annotation (Line(points={{18,-90},{4,-90},{4,
           14},{1,14}}, color={0,0,127}));
   annotation (
     experiment(
