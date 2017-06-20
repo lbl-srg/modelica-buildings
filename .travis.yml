@@ -43,7 +43,7 @@ before_install:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
   - docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2017fd01-x86-64
 
-# Install dependencies
+# Install dependencies.
 # For sphinx, we need to install specific package versions, otherwise
 # the html output may have small formatting differences which causes
 # the test to fail
