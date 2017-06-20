@@ -2,15 +2,15 @@ within Buildings.Air.Systems.SingleZone.VAV.Examples;
 model ChillerDXHeatingEconomizer
   "Example for SingleZoneVAV with a dry cooling coil, air-cooled chiller, electric heating coil, variable speed fan, and mixing box with economizer."
   extends Modelica.Icons.Example;
-  package MediumAir = Buildings.Media.Air "Buildings library air media package";
-  package MediumWater = Buildings.Media.Water "Buildings library air media package";
+  package MediumA = Buildings.Media.Air "Buildings library air media package";
+  package MediumW = Buildings.Media.Water "Buildings library air media package";
   Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer hvac(
     designAirFlow=0.75,
     minAirFlow=0.2*0.75,
     designHeatingEfficiency=0.99,
     designHeatingCapacity=7000,
-    redeclare package MediumAir = MediumAir,
-    redeclare package MediumWater = MediumWater,
+    redeclare package MediumA = MediumA,
+    redeclare package MediumW = MediumW,
     designCoolingCapacity=-7000,
     sensitivityGainHeat=0.25,
     sensitivityGainCool=0.25,
@@ -72,13 +72,12 @@ equation
   connect(EPum.u, hvac.pumpPower) annotation (Line(points={{18,-90},{4,-90},{4,
           14},{1,14}}, color={0,0,127}));
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
       StopTime=504800,
       Interval=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"),
+      Tolerance=1e-06),
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/ChillerDXHeatingEconomizer.mos"
+        "Simulate and plot"),
      Documentation(info="<html>
 <p>
 The thermal zone is based on the BESTEST Case 600 envelope, while the HVAC

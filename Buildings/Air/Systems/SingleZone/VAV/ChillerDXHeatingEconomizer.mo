@@ -13,7 +13,7 @@ model ChillerDXHeatingEconomizer
   parameter Modelica.SIunits.Temperature chwsTempSet "Chilled water supply temperature setpoint";
   parameter Modelica.SIunits.Power designHeatingCapacity(min=0) "Design heating capacity of heating coil";
   parameter Real designHeatingEfficiency(min=0, max=1, unit="1") "Design heating efficiency of the heating coil";
-  parameter Modelica.SIunits.Power(max=0) designCoolingCapacity "Design heating capacity of cooling coil";
+  parameter Modelica.SIunits.Power designCoolingCapacity(max=0) "Design heating capacity of cooling coil";
   parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa") = 500
     "Design pressure drop of flow leg with fan";
 
@@ -264,7 +264,7 @@ model ChillerDXHeatingEconomizer
       EIRFunT={0.5961915,-0.0099496,0.0007888,0.0004506,0.0004875,-0.0007623},
       EIRFunPLR={1.6853121,-0.9993443,0.3140322},
       COP_nominal=COP_nominal,
-      QEva_flow_nominal=-designCoolingCapacity,
+      QEva_flow_nominal=designCoolingCapacity,
       mEva_flow_nominal=m_flow_chws,
       mCon_flow_nominal=m_flow_cas,
       TEvaLvg_nominal=chwsTempSet,
