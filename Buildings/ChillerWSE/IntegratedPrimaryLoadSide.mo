@@ -36,6 +36,10 @@ model IntegratedPrimaryLoadSide
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation (Dialog(group="Pump nomincal conditions"));
+ parameter Modelica.SIunits.Time tauPump = 30
+  "Time constant of fluid volume for nominal flow in pumps, used if energy or mass balance is dynamic"
+   annotation (Dialog(tab = "Dynamics", group="Pump",
+     enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   Buildings.Fluid.Movers.SpeedControlled_y pum[nChi](
     redeclare each final package Medium = Medium2,
@@ -55,7 +59,8 @@ model IntegratedPrimaryLoadSide
     each final use_inputFilter=use_inputFilter,
     each final riseTime=riseTimePum,
     each final init=initPum,
-    final y_start=yPum_start)                   "Pumps"
+    final y_start=yPum_start,
+    each final tau=tauPump)                     "Pumps"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val3(
     redeclare final package Medium = Medium2,
