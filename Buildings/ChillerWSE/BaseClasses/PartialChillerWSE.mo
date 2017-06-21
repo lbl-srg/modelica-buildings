@@ -50,12 +50,12 @@ partial model PartialChillerWSE
   parameter Real delta0=0.01
     "Range of significant deviation from equal percentage law for bypass valve"
     annotation(Dialog(group="Bypass Valve"));
-  parameter Real[nChi] yValveChiller_start=fill(0,nChi) "Initial value of output from valve 1 in chillers"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilterValve));
-  parameter Real yValveWSE_start=0 "Initial value of output from valve 1 in WSE"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilterValve));
-  parameter Real yBypValWSE_start=0 "Initial value of output from bypass valve in WSE"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilterValve));
+  parameter Real[nChi] yValveChiller_start=fill(0,nChi) "Initial value of output from on/off valves in chillers"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+  parameter Real yValveWSE_start=0 "Initial value of output from on/off valve in WSE"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+  parameter Real yBypValWSE_start=0 "Initial value of output from three-way bypass valve in WSE"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
     // Dynamics
  parameter Modelica.SIunits.Time tauChiller1 = 30 "Time constant at nominal flow in chillers"
      annotation (Dialog(tab = "Dynamics", group="Chiller"));

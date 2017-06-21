@@ -12,25 +12,25 @@ model IntegratedPrimarySecondary
    parameter Real yValve1_start = 0 "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum[nChi]
-    annotation (Dialog(group="Pump nomincal conditions"),
+    annotation (Dialog(group="Pump"),
           Placement(transformation(extent={{38,78},{58,98}})));
 
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
-    annotation (Dialog(group="Pump nomincal conditions"));
+    annotation (Dialog(group="Pump"));
 
   parameter Modelica.SIunits.Time riseTimePum=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening in pumps",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Filtered flowrate",enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init initPum=initValve
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening in pumps",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Filtered flowrate",enable=use_inputFilter));
   parameter Real[numPum] yPum_start(each min=0)=fill(0,numPum) "Initial value of output:0-closed, 1-fully opened"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening in pumps",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Filtered flowrate",enable=use_inputFilter));
   parameter Real[numPum] m_flow_start(each min=0)=fill(0,numPum) "Initial value of output:0-closed, 1-fully opened"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening in pumps"));
+    annotation(Dialog(tab="Dynamics", group="Filtered flowrate"));
   parameter Modelica.SIunits.MassFlowRate mPump_flow_nominal(min=0)=mChiller2_flow_nominal
-   annotation (Dialog(group="Pump nomincal conditions"));
+   annotation (Dialog(group="Pump"));
     // Dynamics
  parameter Modelica.SIunits.Time tauPump = 30
   "Time constant of fluid volume for nominal flow in pumps, used if energy or mass balance is dynamic"

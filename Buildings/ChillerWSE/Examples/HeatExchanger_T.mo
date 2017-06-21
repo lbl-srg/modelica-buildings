@@ -16,7 +16,6 @@ model HeatExchanger_T
     dp2_nominal=dp2_nominal,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     T_start=273.15 + 10,
-    use_inputFilter=true,
     yBypVal_start=1,
     Ti=80,
     k=0.4)
