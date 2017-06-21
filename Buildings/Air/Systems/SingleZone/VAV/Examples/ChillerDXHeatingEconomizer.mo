@@ -6,18 +6,17 @@ model ChillerDXHeatingEconomizer
   package MediumW = Buildings.Media.Water "Buildings library air media package";
   Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer hvac(
     mAir_flow_nominal=0.75,
-    mAir_flow_min=0.2*0.75,
     etaHea_nominal=0.99,
     QHea_flow_nominal=7000,
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     QCoo_flow_nominal=-7000,
-    sensitivityGainHeat=0.25,
-    sensitivityGainCool=0.25,
     minOAFra=0.2,
-    sensitivityGainEco=0.25,
+    kPFan=4,
+    kPEco=4,
+    kPHea=4,
     TSetSupAir=286.15,
-    TSetSupChi=279.15) "Single zone VAV system"
+    TSetSupChi=279.15)           "Single zone VAV system"
     annotation (Placement(transformation(extent={{-40,-10},{0,22}})));
   Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.Room zon(
       mAir_flow_nominal=0.75, lat=weaDat.lat) "Thermal envelope of single zone"
@@ -25,7 +24,7 @@ model ChillerDXHeatingEconomizer
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false, filNam=
         "modelica://Buildings/Resources/weatherdata/DRYCOLD.mos")
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Continuous.Integrator EFan "Total fan energy"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Modelica.Blocks.Continuous.Integrator EHea "Total heating energy"
@@ -53,14 +52,14 @@ model ChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{-90,2},{-70,22}})));
 equation
   connect(weaDat.weaBus, zon.weaBus) annotation (Line(
-      points={{-80,90},{-26,90},{35.3333,90},{35.3333,14}},
+      points={{-60,70},{-60,70},{-38,70},{-38,70},{35.3333,70},{35.3333,14}},
       color={255,204,51},
       thickness=0.5));
   connect(zon.TRooAir, hvac.TRoo) annotation (Line(points={{52.8333,6},{52.8333,
           6},{70,6},{70,-16},{-64,-16},{-64,8.52632},{-42,8.52632}}, color={0,0,
           127}));
   connect(weaDat.weaBus,hvac. weaBus) annotation (Line(
-      points={{-80,90},{-37,90},{-37,22.8421}},
+      points={{-60,70},{-37,70},{-37,22.8421}},
       color={255,204,51},
       thickness=0.5));
   connect(hvac.PFan, EFan.u) annotation (Line(points={{1,20.3158},{10,20.3158},
