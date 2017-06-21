@@ -18,10 +18,11 @@ partial model PartialChillerWSE
   //Chiller
   parameter Integer nChi(min=1) "Number of identical chillers"
     annotation(Dialog(group="Chiller"));
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[nChi]
-    "Performance data"
-    annotation (choicesAllMatching = true,Dialog(group="Chiller"),
-                Placement(transformation(extent={{70,78},{90,98}})));
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi[nChi]
+    "Performance data for chillers" annotation (
+    choicesAllMatching=true,
+    Dialog(group="Chiller"),
+    Placement(transformation(extent={{70,78},{90,98}})));
   parameter Real[2] lValveChiller(each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="On/Off valve"));
@@ -133,7 +134,7 @@ partial model PartialChillerWSE
     final linearizeFlowResistance2=linearizeFlowResistance2,
     final deltaM2=deltaM2,
     final n=nChi,
-    final per=per,
+    final per=perChi,
     final homotopyInitialization=homotopyInitialization,
     final use_inputFilter=use_inputFilter,
     final riseTimeValve=riseTimeValve,
@@ -160,8 +161,7 @@ partial model PartialChillerWSE
     final dp2_nominal=dpChiller2_nominal,
     each final dpValve_nominal=dpValve_nominal[1:2],
     final rhoStd=rhoStd[1:2],
-    final yValve_start=yValveChiller_start)
-     "Identical chillers"
+    final yValve_start=yValveChiller_start) "Identical chillers"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.ChillerWSE.WatersideEconomizer wse(
     final replaceable package Medium1 = Medium1,

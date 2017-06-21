@@ -5,20 +5,20 @@ model PartialIntegratedPrimary
     nVal=6);
 
   //WSE mode valve parameters
-  parameter Real lValve1(min=1e-10,max=1) = 0.0001
+  parameter Real lValve5(min=1e-10,max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="On/Off valve"));
-  parameter Real lValve2(min=1e-10,max=1) = 0.0001
+  parameter Real lValve6(min=1e-10,max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="On/Off valve"));
 
-  parameter Real yValve1_start = 0 "Initial value of output:0-closed, 1-fully opened"
+  parameter Real yValve5_start = 0 "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Real yValve2_start = 1-yValve1_start "Initial value of output:0-closed, 1-fully opened"
+  parameter Real yValve6_start = 1-yValve5_start "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
 
 
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear val1(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
     redeclare final package Medium = Medium2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final allowFlowReversal=allowFlowReversal2,
@@ -33,12 +33,13 @@ model PartialIntegratedPrimary
     final init=initValve,
     final dpFixed_nominal=0,
     final dpValve_nominal=dpValve_nominal[5],
-    final l=lValve1,
+    final l=lValve5,
     final kFixed=0,
     final rhoStd=rhoStd[5],
-    final y_start=yValve1_start)
+    final y_start=yValve5_start)
+    "On/Off valve: closed when fully mechanic cooling is activated; open when fully mechanic cooling is activated"
     annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear val2(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val6(
     redeclare final package Medium = Medium2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final m_flow_nominal=mWSE2_flow_nominal,
@@ -53,22 +54,23 @@ model PartialIntegratedPrimary
     final init=initValve,
     final dpFixed_nominal=0,
     final dpValve_nominal=dpValve_nominal[6],
-    final l=lValve2,
+    final l=lValve6,
     final kFixed=0,
     final rhoStd=rhoStd[6],
-    final y_start=yValve2_start)
+    final y_start=yValve6_start)
+    "On/Off valve: closed when free cooling mode is deactivated; open when free cooling is activated"
     annotation (Placement(transformation(extent={{-40,-30},{-60,-10}})));
 equation
-  connect(port_a2,val1. port_a) annotation (Line(points={{100,-60},{80,-60},{80,
+  connect(port_a2,val5. port_a) annotation (Line(points={{100,-60},{80,-60},{80,
           -20},{60,-20}}, color={0,127,255}));
   connect(port_a2, wse.port_a2) annotation (Line(points={{100,-60},{88,-60},{80,
           -60},{80,24},{60,24}}, color={0,127,255}));
-  connect(wse.port_b2,val1. port_b) annotation (Line(points={{40,24},{20,24},{20,
+  connect(wse.port_b2,val5. port_b) annotation (Line(points={{40,24},{20,24},{20,
           20},{20,-20},{40,-20}}, color={0,127,255}));
-  connect(val2.port_a, chiPar.port_a2) annotation (Line(points={{-40,-20},{-20,-20},
+  connect(val6.port_a, chiPar.port_a2) annotation (Line(points={{-40,-20},{-20,-20},
           {-20,24},{-40,24}}, color={0,127,255}));
   connect(chiPar.port_b2, port_b2) annotation (Line(points={{-60,24},{-80,24},{-80,
           -60},{-100,-60}}, color={0,127,255}));
-  connect(val2.port_b, port_b2) annotation (Line(points={{-60,-20},{-80,-20},{-80,
+  connect(val6.port_b, port_b2) annotation (Line(points={{-60,-20},{-80,-20},{-80,
           -60},{-100,-60}}, color={0,127,255}));
 end PartialIntegratedPrimary;
