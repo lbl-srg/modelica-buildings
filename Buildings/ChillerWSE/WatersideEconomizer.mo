@@ -2,14 +2,13 @@ within Buildings.ChillerWSE;
 model WatersideEconomizer "Parallel heat exchangers"
   extends Buildings.ChillerWSE.BaseClasses.PartialPlantParallel(
     final n=1,
-    final nVal=3,
-    final m_flow_nominal={m1_flow_nominal,m2_flow_nominal,m2_flow_nominal},
+    final nVal=2,
+    final m_flow_nominal={m1_flow_nominal,m2_flow_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
-            Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
-    final deltaM=deltaM2,
     val2(each final dpFixed_nominal=0),
     val1(each final dpFixed_nominal=dp1_nominal),
+    kFixed={m1_flow_nominal/sqrt(dp1_nominal),0},
     final yValve_start={yValWSE_start});
   extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface(
     final reverseAction=true);
@@ -23,7 +22,7 @@ model WatersideEconomizer "Parallel heat exchangers"
   parameter Real yValWSE_start=1 "Initial value of output from the filter in the bypass valve"
     annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_inputFilter));
  // Heat exchanger
-  parameter Modelica.SIunits.Efficiency eta=0.8 "constant effectiveness";
+  parameter Modelica.SIunits.Efficiency eta(start=0.8) "constant effectiveness";
  // Bypass valve parameters
   parameter Real fraK_BypVal(min=0, max=1) = 0.7
     "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)for the bypass valve"
@@ -36,6 +35,21 @@ model WatersideEconomizer "Parallel heat exchangers"
   parameter Real delta0=0.01
     "Range of significant deviation from equal percentage law for bypass valve"
     annotation(Dialog(group="Bypass Valve"));
+  parameter Modelica.SIunits.Time tau_BypVal=10
+    "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
+    annotation(Dialog(tab="Dynamics", group="Nominal condition",
+               enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+
+ // Advanced
+  parameter Modelica.Fluid.Types.PortFlowDirection portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+    "Flow direction for port_1 in the three-way valve"
+   annotation(Dialog(tab="Advanced"));
+  parameter Modelica.Fluid.Types.PortFlowDirection portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+    "Flow direction for port_2 in the three-way valve"
+   annotation(Dialog(tab="Advanced"));
+  parameter Modelica.Fluid.Types.PortFlowDirection portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+    "Flow direction for port_3 in the three-way valve"
+   annotation(Dialog(tab="Advanced"));
 
   Buildings.ChillerWSE.HeatExchanger_T heaExc(
     redeclare final replaceable package Medium1 = Medium1,
@@ -88,9 +102,11 @@ model WatersideEconomizer "Parallel heat exchangers"
     each final l_BypVal=l_BypVal,
     final R=R,
     final delta0=delta0,
-    final dpValve_nominal=dpValve_nominal[3],
-    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    final rhoStd=rhoStd[3])
+    final tau_BypVal=tau_BypVal,
+    final portFlowDirection_1=portFlowDirection_1,
+    final portFlowDirection_2=portFlowDirection_2,
+    final portFlowDirection_3=portFlowDirection_3,
+    final rhoStd=rhoStd[2])
     "Water-to-water heat exchanger"
     annotation (Placement(transformation(extent={{-10,-12},{10,4}})));
 equation
