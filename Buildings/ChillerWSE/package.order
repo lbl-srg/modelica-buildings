@@ -1,4 +1,5 @@
-IntegratedPrimary
+IntegratedPrimaryLoadSide
+IntegratedPrimaryPlantSide
 IntegratedPrimarySecondary
 NonIntegrated
 ElectricChilerParallel

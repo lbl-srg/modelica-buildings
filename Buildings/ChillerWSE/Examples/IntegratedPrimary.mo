@@ -18,7 +18,7 @@ model IntegratedPrimary
   parameter Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 perPum[nChi]
     annotation (Placement(transformation(extent={{20,78},{40,98}})));
 
-  Buildings.ChillerWSE.IntegratedPrimary intWSEPri(
+  Buildings.ChillerWSE.IntegratedPrimaryLoadSide intWSEPri(
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -35,8 +35,7 @@ model IntegratedPrimary
     per=per,
     perPum=perPum,
     k=0.4,
-    Ti=80)
-    "Integrated WSE on the load side in a primary-only system"
+    Ti=80) "Integrated WSE on the load side in a primary-only system"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Fluid.Sources.Boundary_pT      sou2(
     redeclare package Medium = Medium2,
