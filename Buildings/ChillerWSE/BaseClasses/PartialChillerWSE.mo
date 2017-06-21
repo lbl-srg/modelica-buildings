@@ -9,8 +9,8 @@ partial model PartialChillerWSE
   extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface(
      final reverseAction=true);
   extends Buildings.ChillerWSE.BaseClasses.ValvesParameters(
-     nVal=5,
-     final deltaM=0.1);
+     nVal=4,
+     final deltaM=deltaM1);
   extends Buildings.ChillerWSE.BaseClasses.PartialSignalFilter(
      final nFilter=1,
      final yValve_start={yValveWSE_start});
@@ -32,7 +32,7 @@ partial model PartialChillerWSE
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Valve"));
   parameter Real[2] kFixedWSE(each unit="", each min=0)=
-    {mWSE1_flow_nominal,mWSE2_flow_nominal} ./ sqrt({dpWSE1_nominal,dpWSE2_nominal})
+    {mWSE1_flow_nominal/ sqrt(dpWSE1_nominal),0}
     "Flow coefficient of fixed resistance that may be in series with valves 
     in WSE, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Valve"));
@@ -57,10 +57,14 @@ partial model PartialChillerWSE
   parameter Real yBypValWSE_start=0 "Initial value of output from bypass valve in WSE"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilterValve));
     // Dynamics
- parameter Modelica.SIunits.Time tau1 = 30 "Time constant at nominal flow in chillers"
-     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
-  parameter Modelica.SIunits.Time tau2 = 30 "Time constant at nominal flow in chillers"
-     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
+ parameter Modelica.SIunits.Time tauChiller1 = 30 "Time constant at nominal flow in chillers"
+     annotation (Dialog(tab = "Dynamics", group="Chiller"));
+ parameter Modelica.SIunits.Time tauChiller2 = 30 "Time constant at nominal flow in chillers"
+     annotation (Dialog(tab = "Dynamics", group="Chiller"));
+ parameter Modelica.SIunits.Time tauWSE=10
+    "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
+    annotation(Dialog(tab="Dynamics", group="WSE",
+               enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -136,8 +140,8 @@ partial model PartialChillerWSE
     final m1_flow_nominal=mChiller1_flow_nominal,
     final m2_flow_nominal=mChiller2_flow_nominal,
     final dp1_nominal=dpChiller1_nominal,
-    final tau1=tau1,
-    final tau2=tau2,
+    final tau1=tauChiller1,
+    final tau2=tauChiller2,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p1_start=p1_start,
@@ -211,10 +215,11 @@ partial model PartialChillerWSE
     final l_BypVal=l_BypVal,
     final R=R,
     final delta0=delta0,
-    final dpValve_nominal=dpValve_nominal[3:5],
-    final rhoStd=rhoStd[3:5],
+    final dpValve_nominal=dpValve_nominal[3:4],
+    final rhoStd=rhoStd[3:4],
     final yBypVal_start=yBypValWSE_start,
-    final yValWSE_start=yValveWSE_start)
+    final yValWSE_start=yValveWSE_start,
+    final tau_BypVal=tauWSE)
     "Waterside economizer"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 equation

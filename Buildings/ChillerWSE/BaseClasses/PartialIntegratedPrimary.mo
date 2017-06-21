@@ -2,11 +2,7 @@ within Buildings.ChillerWSE.BaseClasses;
 model PartialIntegratedPrimary
   "Integrated WSE for Primary Chilled Water System"
   extends Buildings.ChillerWSE.BaseClasses.PartialChillerWSE(
-    nVal=7);
-  extends Buildings.ChillerWSE.BaseClasses.SignalFilter(
-    final nFilter=1,
-    final yValve_start = {yValveWSE_start});
-  extends Buildings.ChillerWSE.BaseClasses.PartialOperationSequenceInterface;
+    nVal=6);
 
   //WSE mode valve parameters
   parameter Real lValve1(min=1e-10,max=1) = 0.0001
@@ -15,6 +11,12 @@ model PartialIntegratedPrimary
   parameter Real lValve2(min=1e-10,max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Valve"));
+
+  parameter Real yValve1_start = 0 "Initial value of output:0-closed, 1-fully opened"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+  parameter Real yValve2_start = 1-yValve1_start "Initial value of output:0-closed, 1-fully opened"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val1(
     redeclare final package Medium = Medium2,
@@ -30,10 +32,11 @@ model PartialIntegratedPrimary
     final riseTime=riseTimeValve,
     final init=initValve,
     final dpFixed_nominal=0,
-    final dpValve_nominal=dpValve_nominal[6],
+    final dpValve_nominal=dpValve_nominal[5],
     final l=lValve1,
     final kFixed=0,
-    final rhoStd=rhoStd[6])
+    final rhoStd=rhoStd[5],
+    final y_start=yValve1_start)
     annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val2(
     redeclare final package Medium = Medium2,
@@ -49,10 +52,11 @@ model PartialIntegratedPrimary
     final riseTime=riseTimeValve,
     final init=initValve,
     final dpFixed_nominal=0,
-    final dpValve_nominal=dpValve_nominal[7],
+    final dpValve_nominal=dpValve_nominal[6],
     final l=lValve2,
     final kFixed=0,
-    final rhoStd=rhoStd[7])
+    final rhoStd=rhoStd[6],
+    final y_start=yValve2_start)
     annotation (Placement(transformation(extent={{-40,-30},{-60,-10}})));
 equation
   connect(port_a2,val1. port_a) annotation (Line(points={{100,-60},{80,-60},{80,
@@ -68,11 +72,7 @@ equation
   connect(val2.port_b, port_b2) annotation (Line(points={{-60,-20},{-80,-20},{-80,
           -60},{-100,-60}}, color={0,127,255}));
   if use_inputFilter then
-  connect(booToRea.y, filter[1].u) annotation (Line(points={{-67.4,74},{-60,74},
-          {-60,84},{-55.2,84}}, color={0,0,127}));
   else
-  connect(booToRea.y, y_actual[1]) annotation (Line(points={{-67.4,74},{-60,74},
-            {-20,74}},        color={0,0,127}));
   end if;
 
 end PartialIntegratedPrimary;
