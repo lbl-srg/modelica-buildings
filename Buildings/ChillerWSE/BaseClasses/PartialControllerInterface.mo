@@ -45,7 +45,7 @@ partial model PartialControllerInterface
     annotation (Dialog(group="Initialization",tab="Controller",
                 enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
                 controllerType==.Modelica.Blocks.Types.SimpleController.PID));
-  parameter Real y_startController=0 "Initial value of output from the controller"
+  parameter Real yCon_start=0 "Initial value of output from the controller"
     annotation(Dialog(enable=initType == Modelica.Blocks.Types.InitPID.InitialOutput, group=
           "Initialization",tab="Controller"));
   parameter Boolean reverseAction = false

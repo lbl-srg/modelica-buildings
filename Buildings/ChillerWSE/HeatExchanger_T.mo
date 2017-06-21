@@ -19,7 +19,7 @@ model HeatExchanger_T
     final initType=initType,
     final xi_start=xi_start,
     final xd_start=xd_start,
-    final y_start=y_startController,
+    final y_start=yCon_start,
     final reverseAction=reverseAction,
     final reset=reset,
     final y_reset=y_reset)

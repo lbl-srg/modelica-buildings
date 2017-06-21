@@ -4,21 +4,23 @@ model IntegratedPrimarySecondary
   extends Buildings.ChillerWSE.BaseClasses.PartialChillerWSE(
   final nVal=5);
 
-  parameter Integer numPum=nChi "Number of pumps";
+ // Dynamics
+ parameter Modelica.SIunits.Time tauPump = 30
+  "Time constant of fluid volume for nominal flow in pumps, used if energy or mass balance is dynamic"
+   annotation (Dialog(tab = "Dynamics", group="Pump",
+     enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
-  parameter Real lValve1(min=1e-10,max=1) = 0.0001
-    "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Valve"));
-   parameter Real yValve1_start = 0 "Initial value of output:0-closed, 1-fully opened"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+  //Pump
+  parameter Integer numPum=nChi "Number of pumps"
+    annotation(Dialog(group="Pump"));
+  parameter Modelica.SIunits.MassFlowRate mPump_flow_nominal(min=0)=mChiller2_flow_nominal
+   annotation (Dialog(group="Pump"));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum[nChi]
     annotation (Dialog(group="Pump"),
           Placement(transformation(extent={{38,78},{58,98}})));
-
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation (Dialog(group="Pump"));
-
   parameter Modelica.SIunits.Time riseTimePum=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation(Dialog(tab="Dynamics", group="Filtered flowrate",enable=use_inputFilter));
@@ -29,15 +31,15 @@ model IntegratedPrimarySecondary
     annotation(Dialog(tab="Dynamics", group="Filtered flowrate",enable=use_inputFilter));
   parameter Real[numPum] m_flow_start(each min=0)=fill(0,numPum) "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered flowrate"));
-  parameter Modelica.SIunits.MassFlowRate mPump_flow_nominal(min=0)=mChiller2_flow_nominal
-   annotation (Dialog(group="Pump"));
-    // Dynamics
- parameter Modelica.SIunits.Time tauPump = 30
-  "Time constant of fluid volume for nominal flow in pumps, used if energy or mass balance is dynamic"
-   annotation (Dialog(tab = "Dynamics", group="Pump",
-     enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
-  Fluid.Actuators.Valves.TwoWayLinear           val1(
+ //Valve
+  parameter Real lValve1(min=1e-10,max=1) = 0.0001
+    "Valve leakage, l=Kv(y=0)/Kv(y=1)"
+    annotation(Dialog(group="On/Off valve"));
+   parameter Real yValve1_start = 0 "Initial value of output:0-closed, 1-fully opened"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear           val1(
     redeclare final package Medium = Medium2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final allowFlowReversal=allowFlowReversal2,
@@ -57,7 +59,7 @@ model IntegratedPrimarySecondary
     final rhoStd=rhoStd[5],
     final y_start=yValve1_start)
     annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
-  Fluid.Movers.FlowControlled_m_flow       pum[nChi](
+  Buildings.Fluid.Movers.FlowControlled_m_flow       pum[nChi](
     redeclare each final package Medium = Medium2,
     each final p_start=p2_start,
     each final T_start=T2_start,

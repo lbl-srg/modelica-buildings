@@ -7,10 +7,10 @@ model PartialIntegratedPrimary
   //WSE mode valve parameters
   parameter Real lValve1(min=1e-10,max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Valve"));
+    annotation(Dialog(group="On/Off valve"));
   parameter Real lValve2(min=1e-10,max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Valve"));
+    annotation(Dialog(group="On/Off valve"));
 
   parameter Real yValve1_start = 0 "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
@@ -71,8 +71,4 @@ equation
           -60},{-100,-60}}, color={0,127,255}));
   connect(val2.port_b, port_b2) annotation (Line(points={{-60,-20},{-80,-20},{-80,
           -60},{-100,-60}}, color={0,127,255}));
-  if use_inputFilter then
-  else
-  end if;
-
 end PartialIntegratedPrimary;

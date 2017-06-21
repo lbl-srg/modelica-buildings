@@ -6,16 +6,16 @@ partial model PartialChillerWSEInterface
   // Nominal conditions
   parameter Modelica.SIunits.MassFlowRate mChiller1_flow_nominal(min=0)
     "Nominal mass flow rate on the medium 2 side in the chiller"
-    annotation(Dialog(group = "Chiller Nominal condition"));
+    annotation(Dialog(group = "Chiller"));
   parameter Modelica.SIunits.MassFlowRate mChiller2_flow_nominal(min=0)
     "Nominal mass flow rate on the medium 2 side in the chiller"
-    annotation(Dialog(group = "Chiller Nominal condition"));
+    annotation(Dialog(group = "Chiller"));
   parameter Modelica.SIunits.MassFlowRate mWSE1_flow_nominal(min=0)
     "Nominal mass flow rate on the medium 2 side in the chiller"
-    annotation(Dialog(group = "WSE Nominal condition"));
+    annotation(Dialog(group = "WSE"));
   parameter Modelica.SIunits.MassFlowRate mWSE2_flow_nominal(min=0)
     "Nominal mass flow rate on the medium 2 side in the chiller"
-    annotation(Dialog(group = "WSE Nominal condition"));
+    annotation(Dialog(group = "WSE"));
 
   // Advanced
   parameter Medium1.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(mChiller1_flow_nominal)
@@ -28,7 +28,7 @@ partial model PartialChillerWSEInterface
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
-  parameter Integer n(min=1)=2 "Number of chillers and WSE";
+  parameter Integer n(min=1)=2 "Total number of chillers and WSE";
 
 
   Modelica.Blocks.Interfaces.RealInput TSet

@@ -71,7 +71,7 @@ model WatersideEconomizer "Parallel heat exchangers"
     final initType=initType,
     final xi_start=xi_start,
     final xd_start=xd_start,
-    final y_startController=y_startController,
+    final yCon_start=yCon_start,
     final reset=reset,
     final y_reset=y_reset,
     final allowFlowReversal1=allowFlowReversal1,

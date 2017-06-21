@@ -14,65 +14,71 @@ partial model PartialChillerWSE
   extends Buildings.ChillerWSE.BaseClasses.PartialSignalFilter(
      final nFilter=1,
      final yValve_start={yValveWSE_start});
-  parameter Integer nChi(min=1) "Number of identical chillers";
 
-  // Advanced
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
- // valve parameters
+  //Chiller
+  parameter Integer nChi(min=1) "Number of identical chillers"
+    annotation(Dialog(group="Chiller"));
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[nChi]
+    "Performance data"
+    annotation (choicesAllMatching = true,Dialog(group="Chiller"),
+                Placement(transformation(extent={{70,78},{90,98}})));
   parameter Real[2] lValveChiller(each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Valve"));
+    annotation(Dialog(group="On/Off valve"));
   parameter Real[2] kFixedChiller(each unit="",each min=0)=
     {mChiller1_flow_nominal,mChiller2_flow_nominal} ./ sqrt({dpChiller1_nominal,dpChiller2_nominal})
     "Flow coefficient of fixed resistance that may be in series with valves
     in chillers, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="Valve"));
+    annotation(Dialog(group="On/Off valve"));
+  parameter Real[nChi] yValveChiller_start=fill(0,nChi) "Initial value of output from on/off valves in chillers"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+
+  //WSE
+  parameter Modelica.SIunits.Efficiency eta=0.8 "Heat exchange effectiveness"
+    annotation(Dialog(group="WSE"));
   parameter Real[2] lValveWSE(each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Valve"));
+    annotation(Dialog(group="On/Off valve"));
   parameter Real[2] kFixedWSE(each unit="", each min=0)=
     {mWSE1_flow_nominal/ sqrt(dpWSE1_nominal),0}
     "Flow coefficient of fixed resistance that may be in series with valves 
     in WSE, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="Valve"));
-// Heat exchanger
-  parameter Modelica.SIunits.Efficiency eta=0.8 "constant effectiveness";
- // Bypass valve parameters
+    annotation(Dialog(group="On/Off valve"));
   parameter Real fraK_BypVal(min=0, max=1) = 0.7
     "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)for the bypass valve"
-    annotation(Dialog(group="Bypass Valve"));
+    annotation(Dialog(group="Three-way valve"));
   parameter Real l_BypVal[2](min=1e-10, max=1) = {0.0001,0.0001}
     "Bypass valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Bypass Valve"));
+    annotation(Dialog(group="Three-way valve"));
   parameter Real R=50 "Rangeability, R=50...100 typically for bypass valve"
-    annotation(Dialog(group="Bypass Valve"));
+    annotation(Dialog(group="Three-way valve"));
   parameter Real delta0=0.01
     "Range of significant deviation from equal percentage law for bypass valve"
-    annotation(Dialog(group="Bypass Valve"));
-  parameter Real[nChi] yValveChiller_start=fill(0,nChi) "Initial value of output from on/off valves in chillers"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(group="Three-way valve"));
   parameter Real yValveWSE_start=0 "Initial value of output from on/off valve in WSE"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
   parameter Real yBypValWSE_start=0 "Initial value of output from three-way bypass valve in WSE"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-    // Dynamics
- parameter Modelica.SIunits.Time tauChiller1 = 30 "Time constant at nominal flow in chillers"
-     annotation (Dialog(tab = "Dynamics", group="Chiller"));
- parameter Modelica.SIunits.Time tauChiller2 = 30 "Time constant at nominal flow in chillers"
-     annotation (Dialog(tab = "Dynamics", group="Chiller"));
- parameter Modelica.SIunits.Time tauWSE=10
-    "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
-    annotation(Dialog(tab="Dynamics", group="WSE",
-               enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
-  // Assumptions
+  // Advanced
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  parameter Modelica.SIunits.Time tauChiller1 = 30 "Time constant at nominal flow in chillers"
+     annotation (Dialog(tab = "Dynamics", group="Chiller"));
+  parameter Modelica.SIunits.Time tauChiller2 = 30 "Time constant at nominal flow in chillers"
+     annotation (Dialog(tab = "Dynamics", group="Chiller"));
+  parameter Modelica.SIunits.Time tauWSE=10
+    "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
+    annotation(Dialog(tab="Dynamics", group="WSE",
+               enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   // Initialization
   parameter Medium1.AbsolutePressure p1_start = Medium1.p_default
@@ -92,7 +98,6 @@ partial model PartialChillerWSE
     final quantity=Medium1.extraPropertiesNames) = fill(1E-2, Medium1.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", group = "Medium 1", enable=Medium1.nC > 0));
-
   parameter Medium2.AbsolutePressure p2_start = Medium2.p_default
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization", group = "Medium 2"));
@@ -111,10 +116,6 @@ partial model PartialChillerWSE
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", group = "Medium 2", enable=Medium2.nC > 0));
 
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[nChi]
-    "Performance data"
-    annotation (choicesAllMatching = true,
-                Placement(transformation(extent={{70,78},{90,98}})));
 
   Buildings.ChillerWSE.ElectricChilerParallel chiPar(
     redeclare final replaceable package Medium1 = Medium1,
@@ -207,7 +208,7 @@ partial model PartialChillerWSE
     final initType=initType,
     final xi_start=xi_start,
     final xd_start=xd_start,
-    final y_startController=y_startController,
+    final yCon_start=yCon_start,
     final reset=reset,
     final y_reset=y_reset,
     final eta=eta,
