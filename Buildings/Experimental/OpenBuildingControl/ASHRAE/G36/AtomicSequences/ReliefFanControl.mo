@@ -13,6 +13,7 @@ block ReliefFanControl
   CDL.Continuous.Abs abs
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Math.Mean mean(f=1/sliTim, x0=uBuiPre)
+    "fixme: there is no mean block in current CDL package."
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   CDL.Interfaces.BooleanInput uSupFans[numSupFan]
     "Status of supply fans that associated with relief fans"
