@@ -34,7 +34,7 @@ protected
 
 equation
   T_outflow=Medium2.temperature(state=Medium2.setState_phX(
-      p=port_b2.p, h=port_b2.h_outflow, X=port_b2.Xi_outflow));
+      p=port_b2.p, h=actualStream(port_b2.h_outflow), X=actualStream(port_b2.Xi_outflow)));
 
   connect(T_port_b2.y, con.u_m)
     annotation (Line(points={{-79,0},{-70,0},{-70,28}},  color={0,0,127}));
@@ -52,7 +52,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},{100,80}})),
     __Dymola_Commands,
     Documentation(info="<html>
-<p>This module simulates a heat exchanger with bypass used to modulate water flow rate.</p>
+<p>This module simulates a heat exchanger with a three-way valve used to modulate water flow rate.The three-way valve has the same differential pressure as the heat exchanger.</p>
 </html>", revisions="<html>
 <ul>
 <li>
