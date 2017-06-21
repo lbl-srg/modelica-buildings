@@ -5,15 +5,11 @@ partial model PartialHeatExchanger_T
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
    final computeFlowResistance1=(dp1_nominal > Modelica.Constants.eps),
    final computeFlowResistance2=(dp2_nominal > Modelica.Constants.eps));
-  extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
-   rhoStd=Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
-   final m_flow_nominal=m2_flow_nominal,
-   final deltaM=deltaM2);
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1,
     redeclare package Medium=Medium2);
 
-  parameter Modelica.SIunits.Efficiency eta=0.8 "constant effectiveness";
+  parameter Modelica.SIunits.Efficiency eta(start=0.8) "constant effectiveness";
   parameter Real fraK_BypVal(min=0, max=1) = 0.7
     "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)for the bypass valve"
     annotation(Dialog(group="Bypass Valve"));
@@ -37,18 +33,33 @@ partial model PartialHeatExchanger_T
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
   parameter Real yBypVal_start=1 "Initial value of output from the filter in the bypass valve"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+ // Time constant
+   parameter Modelica.SIunits.Time tau_BypVal=10
+    "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
+    annotation(Dialog(tab="Dynamics", group="Nominal condition",
+               enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   // Advanced
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
+  parameter Modelica.Fluid.Types.PortFlowDirection portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+    "Flow direction for port_1 in the three-way valve"
+   annotation(Dialog(tab="Advanced"));
+  parameter Modelica.Fluid.Types.PortFlowDirection portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+    "Flow direction for port_2 in the three-way valve"
+   annotation(Dialog(tab="Advanced"));
+  parameter Modelica.Fluid.Types.PortFlowDirection portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+    "Flow direction for port_3 in the three-way valve"
+   annotation(Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.Density rhoStd = Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)
+    "Inlet density for which valve coefficients are defined"
+  annotation(Dialog(group="Nominal condition", tab="Advanced"));
+
 
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear   bypVal(
     redeclare package Medium = Medium2,
-    final m_flow_nominal=m_flow_nominal,
-    final dpValve_nominal=dpValve_nominal,
     final from_dp=from_dp2,
     final linearized={linearizeFlowResistance2,linearizeFlowResistance2},
     final rhoStd=rhoStd,
-    final deltaM=deltaM,
     final homotopyInitialization=homotopyInitialization,
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTime,
@@ -66,7 +77,14 @@ partial model PartialHeatExchanger_T
     final X_start=X_start,
     final y_start=yBypVal_start,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    final l=l_BypVal)
+    final l=l_BypVal,
+    final dpValve_nominal=dp2_nominal,
+    final deltaM=deltaM2,
+    final m_flow_nominal=m2_flow_nominal,
+    final portFlowDirection_1=portFlowDirection_1,
+    final portFlowDirection_2=portFlowDirection_2,
+    final portFlowDirection_3=portFlowDirection_3,
+    final tau=tau_BypVal)
     "Bypass valve used to control the outlet temperature "
     annotation (Placement(transformation(extent={{-40,-30},{-60,-10}})));
 
