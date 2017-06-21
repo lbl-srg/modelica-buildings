@@ -6,7 +6,8 @@ partial model PartialPlantParallel
     nVal = 2,
     m_flow_nominal = {m1_flow_nominal,m2_flow_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
-            Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)});
+            Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
+    final deltaM=deltaM1);
   extends  Buildings.ChillerWSE.BaseClasses.SignalFilter(
     final nFilter=n);
   // Advanced
