@@ -114,7 +114,7 @@ partial model PartialChillerWSE
   replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[nChi]
     "Performance data"
     annotation (choicesAllMatching = true,
-                Placement(transformation(extent={{42,74},{62,94}})));
+                Placement(transformation(extent={{70,78},{90,98}})));
 
   Buildings.ChillerWSE.ElectricChilerParallel chiPar(
     redeclare final replaceable package Medium1 = Medium1,
