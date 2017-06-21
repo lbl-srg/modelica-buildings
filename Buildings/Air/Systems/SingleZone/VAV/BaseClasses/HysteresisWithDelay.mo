@@ -8,13 +8,13 @@ model HysteresisWithDelay
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.StateGraph.Transition transition(
     enableTimer=true,
-    condition=u > 0.15,
-    waitTime=waitTimeToOn)
+    waitTime=waitTimeToOn,
+    condition=u > uHigh)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.StateGraph.Transition transition1(
     enableTimer=true,
-    condition=u < 0.05,
-    waitTime=waitTimeToOff)
+    waitTime=waitTimeToOff,
+    condition=u < uLow)
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
   Modelica.StateGraph.StepWithSignal ecoAct "Economizer active"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));

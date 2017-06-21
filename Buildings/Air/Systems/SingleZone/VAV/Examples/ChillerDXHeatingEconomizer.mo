@@ -26,15 +26,15 @@ model ChillerDXHeatingEconomizer
         "modelica://Buildings/Resources/weatherdata/DRYCOLD.mos")
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Continuous.Integrator EFan "Total fan energy"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Modelica.Blocks.Continuous.Integrator EHea "Total heating energy"
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Modelica.Blocks.Continuous.Integrator ECoo "Total cooling energy"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
+  Modelica.Blocks.Continuous.Integrator ECoo "Total cooling energy"
+    annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
   Modelica.Blocks.Math.Sum EHVAC(nin=4) "Total HVAC energy"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Modelica.Blocks.Continuous.Integrator EPum "Total pump energy"
-    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
+    annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
 
   Modelica.Blocks.Sources.CombiTimeTable TSetRooCoo(
     table=[0,15 + 273.15; 8*3600,20 + 273.15; 18*3600,15 + 273.15; 24*3600,15
@@ -56,30 +56,33 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(zon.TRooAir, hvac.TRoo) annotation (Line(points={{52.8333,6},{52.8333,
-          6},{70,6},{70,-16},{-64,-16},{-64,8.52632},{-42,8.52632}}, color={0,0,
+          6},{70,6},{70,-16},{-54,-16},{-54,8.52632},{-42,8.52632}}, color={0,0,
           127}));
   connect(weaDat.weaBus,hvac. weaBus) annotation (Line(
       points={{-60,70},{-37,70},{-37,22.8421}},
       color={255,204,51},
       thickness=0.5));
   connect(hvac.PFan, EFan.u) annotation (Line(points={{1,20.3158},{10,20.3158},
-          {10,-30},{18,-30}},
+          {10,-40},{18,-40}},
                      color={0,0,127}));
   connect(hvac.QHea_flow, EHea.u) annotation (Line(points={{1,18.6316},{8,
-          18.6316},{8,-50},{18,-50}},
+          18.6316},{8,-70},{18,-70}},
                      color={0,0,127}));
   connect(hvac.PCoo, ECoo.u) annotation (Line(points={{1,16.9474},{6,16.9474},{
-          6,-70},{18,-70}},
+          6,-100},{18,-100}},
                      color={0,0,127}));
-  connect(EFan.y, EHVAC.u[1]) annotation (Line(points={{41,-30},{48,-30},{48,-71.5},
-          {58,-71.5}}, color={0,0,127}));
-  connect(EHea.y, EHVAC.u[2]) annotation (Line(points={{41,-50},{41,-70.5},{58,
+  connect(EFan.y, EHVAC.u[1]) annotation (Line(points={{41,-40},{48,-40},{48,
+          -71.5},{58,-71.5}},
+                       color={0,0,127}));
+  connect(EHea.y, EHVAC.u[2]) annotation (Line(points={{41,-70},{41,-70.5},{58,
           -70.5}}, color={0,0,127}));
-  connect(ECoo.y, EHVAC.u[3]) annotation (Line(points={{41,-70},{50,-70},{50,-69.5},
-          {58,-69.5}}, color={0,0,127}));
-  connect(EPum.y, EHVAC.u[4]) annotation (Line(points={{41,-90},{48,-90},{48,-68.5},
-          {58,-68.5}}, color={0,0,127}));
-  connect(EPum.u, hvac.PPum) annotation (Line(points={{18,-90},{4,-90},{4,
+  connect(ECoo.y, EHVAC.u[3]) annotation (Line(points={{41,-100},{50,-100},{50,
+          -69.5},{58,-69.5}},
+                       color={0,0,127}));
+  connect(EPum.y, EHVAC.u[4]) annotation (Line(points={{41,-130},{48,-130},{48,
+          -68.5},{58,-68.5}},
+                       color={0,0,127}));
+  connect(EPum.u, hvac.PPum) annotation (Line(points={{18,-130},{4,-130},{4,
           15.2632},{1,15.2632}},
                        color={0,0,127}));
   connect(hvac.supplyAir, zon.supplyAir) annotation (Line(points={{0,11.8947},{
@@ -104,5 +107,7 @@ The thermal zone is based on the BESTEST Case 600 envelope, while the HVAC
 system is based on a conventional VAV system with air cooled chiller and
 economizer.  See documentation for the specific models for more information.
 </p>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-100,-140},{100,120}})),
+    Icon(coordinateSystem(extent={{-100,-140},{100,120}})));
 end ChillerDXHeatingEconomizer;
