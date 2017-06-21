@@ -15,14 +15,12 @@ model HeatExchanger_T
     dp1_nominal=dp1_nominal,
     dp2_nominal=dp2_nominal,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    reverseAction=true,
     T_start=273.15 + 10,
     use_inputFilter=true,
     yBypVal_start=1,
     Ti=80,
-    k=0.4,
-    dpValve_nominal=dp2_nominal)
-           "Water-to-water heat exchanger"
+    k=0.4)
+    "Water-to-water heat exchanger"
     annotation (Placement(transformation(extent={{-10,-8},{10,8}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium2,
