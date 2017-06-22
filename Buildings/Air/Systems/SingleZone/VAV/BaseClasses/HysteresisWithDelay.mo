@@ -41,4 +41,21 @@ equation
           -40},{-50,-40},{-50,0},{-41,0}}, color={0,0,0}));
   connect(on, ecoAct.active) annotation (Line(points={{110,0},{110,0},{80,0},{80,
           -50},{30,-50},{30,-11}}, color={255,0,255}));
+  annotation (Documentation(info="<html>
+<p>
+Model for a hysteresis block that optionally allows to specify
+a wait time. During this wait time, the current state is hold.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 21, 2017, by Michael Wetter:<br/>
+Refactored implementation.
+</li>
+<li>
+June 1, 2017, by David Blum:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end HysteresisWithDelay;

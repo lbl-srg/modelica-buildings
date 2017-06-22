@@ -24,7 +24,8 @@ model ControllerHeatingCooling "Controller for heating and cooling"
     annotation (Placement(transformation(rotation=0, extent={{-120,50},{-100,70}})));
   Modelica.Blocks.Interfaces.RealOutput yFan(unit="1") "Control signal for fan"
     annotation (Placement(transformation(rotation=0, extent={{100,-70},{120,-50}})));
-  Modelica.Blocks.Interfaces.RealOutput yHea(unit="1") "Control signal for heating coil"
+  Modelica.Blocks.Interfaces.RealOutput yHea(unit="1")
+    "Control signal for heating coil"
     annotation (Placement(transformation(rotation=0, extent={{100,50},{120,70}})));
   Controls.Continuous.LimPID conHeaCoi(
       k=kPHea, controllerType=Modelica.Blocks.Types.SimpleController.P)
@@ -53,4 +54,20 @@ equation
 
   connect(conFan.y, yFan)
     annotation (Line(points={{-19,-60},{110,-60}}, color={0,0,127}));
+  annotation (Documentation(info="<html>
+<p>
+Controller for heating coil and fan speed.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 21, 2017, by Michael Wetter:<br/>
+Refactored implementation.
+</li>
+<li>
+June 1, 2017, by David Blum:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ControllerHeatingCooling;

@@ -1,0 +1,176 @@
+within Buildings.Air.Systems.SingleZone.VAV;
+model ChillerDXHeatingEconomizerController
+  "Controller for single zone VAV system"
+  extends Modelica.Blocks.Icons.Block;
+
+  parameter Modelica.SIunits.Temperature TSupChi_nominal
+    "Design value for chiller leaving water temperature";
+  parameter Real minAirFlo(
+    min=0,
+    max=1,
+    unit="1") = 0.2
+    "Minimum airflow rate of system"
+    annotation(Dialog(group="Air design"));
+
+  parameter Modelica.SIunits.DimensionlessRatio minOAFra "Minimum outdoor air fraction of system"
+    annotation(Dialog(group="Air design"));
+
+  parameter Modelica.SIunits.Temperature TSetSupAir "Cooling supply air temperature setpoint"
+    annotation(Dialog(group="Air design"));
+
+  parameter Real kPHea(min=Modelica.Constants.small) = 2
+    "Proportional gain of heating controller"
+    annotation(Dialog(group="Control gain"));
+
+  parameter Real kPCoo(min=Modelica.Constants.small)=1
+    "Gain of controller for cooling valve"
+    annotation(Dialog(group="Control gain"));
+
+  parameter Real kPFan(min=Modelica.Constants.small) = 0.5
+    "Gain of controller for fan"
+    annotation(Dialog(group="Control gain"));
+
+  parameter Real kPEco(min=Modelica.Constants.small) = 4
+    "Gain of controller for economizer"
+    annotation(Dialog(group="Control gain"));
+
+
+  Modelica.Blocks.Interfaces.RealInput TRoo(
+    final unit="K",
+    displayUnit="degC") "Zone temperature measurement"
+  annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-120,-60})));
+  Modelica.Blocks.Interfaces.RealInput TSetRooCoo(
+    final unit="K",
+    displayUnit="degC")
+    "Zone cooling setpoint temperature" annotation (Placement(transformation(
+        extent={{20,-20},{-20,20}},
+        rotation=180,
+        origin={-120,60})));
+  Modelica.Blocks.Interfaces.RealInput TSetRooHea(
+    final unit="K",
+    displayUnit="degC")
+    "Zone heating setpoint temperature" annotation (Placement(transformation(
+        extent={{20,-20},{-20,20}},
+        rotation=180,
+        origin={-120,100})));
+  BaseClasses.ControllerHeatingCooling conSup(
+    minAirFlo = minAirFlo,
+    kPHea = kPHea,
+    kPFan = kPFan) "Heating coil, cooling coil and fan controller"
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+  BaseClasses.ControllerEconomizer conEco(
+      kPEco = kPEco) "Economizer control"
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+  Modelica.Blocks.Sources.Constant conMinOAFra(final k=minOAFra)
+    "Minimum outside air fraction"
+    annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
+  Modelica.Blocks.Sources.Constant TSetSupAirConst(final k=TSetSupAir)
+    "Set point for supply air temperature"
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+  BaseClasses.HysteresisWithDelay hysChiPla(
+    waitTimeToOn=0,
+    uLow=0,
+    uHigh=1)    "Hysteresis with delay to switch on cooling"
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+  Modelica.Blocks.Math.Feedback feedback
+    annotation (Placement(transformation(extent={{-42,-80},{-22,-60}})));
+  Controls.Continuous.LimPID           conCooVal(
+    controllerType=Modelica.Blocks.Types.SimpleController.P,
+    yMax=1,
+    yMin=0,
+    k=kPCoo,
+    reverseAction=true)
+    "Cooling coil valve controller"
+    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
+  Modelica.Blocks.Sources.Constant TSetSupChiConst(final k=TSupChi_nominal)
+    "Set point for chiller temperature"
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
+  Modelica.Blocks.Interfaces.BooleanOutput chiOn "On signal for chiller"
+    annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
+  Modelica.Blocks.Interfaces.RealInput TMix "Measured mixed air temperature"
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
+  Modelica.Blocks.Interfaces.RealInput TOut "Measured outside air temperature"
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
+  Modelica.Blocks.Interfaces.RealOutput yHea "Control signal for heating coil"
+    annotation (Placement(transformation(extent={{100,80},{120,100}})));
+  Modelica.Blocks.Interfaces.RealOutput yFan "Control signal for fan"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+  Modelica.Blocks.Interfaces.RealOutput yOutAirFra
+    "Control signal for outside air fraction"
+    annotation (Placement(transformation(extent={{100,20},{120,40}})));
+  Modelica.Blocks.Interfaces.RealOutput yCooCoiVal
+    "Control signal for cooling coil valve"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealOutput TSetSupChi
+    "Set point for chiller leaving water temperature"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+  Modelica.Blocks.Interfaces.RealInput TSup
+    "Measure supply air temperature after the cooling coil"
+    annotation (Placement(transformation(extent={{-140,-110},{-100,-70}})));
+equation
+  connect(conMinOAFra.y,conEco. minOAFra) annotation (Line(points={{-49,50},{-1,
+          50}},                             color={0,0,127}));
+  connect(TSetSupAirConst.y,conEco. T_mixSet) annotation (Line(points={{-39,-20},
+          {-20,-20},{-20,58},{-1,58}},                                  color={
+          0,0,127}));
+  connect(feedback.y,hysChiPla. u)
+    annotation (Line(points={{-23,-70},{39,-70}},   color={0,0,127}));
+  connect(TSetRooCoo,feedback. u2) annotation (Line(points={{-120,60},{-80,60},
+          {-80,-86},{-32,-86},{-32,-78}},     color={0,0,127}));
+  connect(feedback.u1,TRoo)  annotation (Line(points={{-40,-70},{-74,-70},{-74,
+          -60},{-120,-60}},  color={0,0,127}));
+  connect(TSetSupAirConst.y,conCooVal. u_s)
+    annotation (Line(points={{-39,-20},{-2,-20}},        color={0,0,127}));
+  connect(hysChiPla.on, chiOn)
+    annotation (Line(points={{61,-70},{110,-70}}, color={255,0,255}));
+  connect(conSup.TSetRooHea, TSetRooHea) annotation (Line(points={{-41,86},{-88,
+          86},{-88,100},{-120,100}},
+                                   color={0,0,127}));
+  connect(conSup.TSetRooCoo, TSetRooCoo) annotation (Line(points={{-41,80},{-80,
+          80},{-80,60},{-120,60}}, color={0,0,127}));
+  connect(conSup.TRoo, TRoo) annotation (Line(points={{-41,74},{-74,74},{-74,
+          -60},{-120,-60}},
+                       color={0,0,127}));
+  connect(conSup.yHea, conEco.yHea) annotation (Line(points={{-19,86},{-10,86},{
+          -10,42},{-1,42}}, color={0,0,127}));
+  connect(conEco.T_mix, TMix) annotation (Line(points={{-1,55},{-40,55},{-40,20},
+          {-120,20}},color={0,0,127}));
+  connect(conEco.TRet, TRoo) annotation (Line(points={{-1,52.8},{-34,52.8},{-34,
+          12},{-88,12},{-88,-60},{-120,-60}}, color={0,0,127}));
+  connect(conEco.TOut, TOut) annotation (Line(points={{-1,46},{-30,46},{-30,8},
+          {-94,8},{-94,-20},{-120,-20}},   color={0,0,127}));
+  connect(conSup.yHea, yHea) annotation (Line(points={{-19,86},{46,86},{46,90},{
+          110,90}}, color={0,0,127}));
+  connect(conSup.yFan, yFan) annotation (Line(points={{-19,74},{90,74},{90,60},{
+          110,60}}, color={0,0,127}));
+  connect(conEco.yOutAirFra, yOutAirFra) annotation (Line(points={{21,50},{80,50},
+          {80,30},{110,30}}, color={0,0,127}));
+  connect(conCooVal.y, yCooCoiVal)
+    annotation (Line(points={{21,-20},{76,-20},{76,0},{110,0}},
+                                              color={0,0,127}));
+  connect(TSetSupChiConst.y, TSetSupChi)
+    annotation (Line(points={{61,-40},{110,-40}}, color={0,0,127}));
+  connect(conCooVal.u_m, TSup)
+    annotation (Line(points={{10,-32},{10,-90},{-120,-90}}, color={0,0,127}));
+  annotation (Icon(graphics={Line(points={{-100,-100},{0,2},{-100,100}}, color=
+              {0,0,0})}), Documentation(info="<html>
+<p>
+This is the controller for the VAV system with economizer, heating coil and cooling coil.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 21, 2017, by Michael Wetter:<br/>
+Refactored implementation.
+</li>
+<li>
+June 1, 2017, by David Blum:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end ChillerDXHeatingEconomizerController;

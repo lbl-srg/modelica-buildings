@@ -1,8 +1,8 @@
 compareVars :=
   {
-    "hvac.TRoo",
-    "hvac.TSetRooHea",
-    "hvac.TSetRooCoo",
+    "con.TRoo",
+    "con.TSetRooHea",
+    "con.TSetRooCoo",
     "EFan.y",
     "EHea.y",
     "ECoo.y",

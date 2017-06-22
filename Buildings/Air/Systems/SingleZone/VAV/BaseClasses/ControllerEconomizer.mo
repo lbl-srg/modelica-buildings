@@ -22,7 +22,7 @@ model ControllerEconomizer "Controller for economizer"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Sources.Constant const(k=1)
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Modelica.Blocks.Interfaces.RealInput T_oa "Measured outside air temperature"
+  Modelica.Blocks.Interfaces.RealInput TOut "Measured outside air temperature"
                                             annotation (Placement(
         transformation(rotation=0, extent={{-120,-50},{-100,-30}})));
   Modelica.Blocks.Logical.Switch switch1
@@ -74,7 +74,7 @@ equation
     annotation (Line(points={{-110,50},{-70,50},{-70,68}}, color={0,0,127}));
   connect(con.y, switch1.u1) annotation (Line(points={{-59,80},{12,80},{12,28},
           {18,28}}, color={0,0,127}));
-  connect(T_oa, feedback.u2) annotation (Line(points={{-110,-40},{-80,-40},{-80,
+  connect(TOut, feedback.u2) annotation (Line(points={{-110,-40},{-80,-40},{-80,
           -28}}, color={0,0,127}));
   connect(feedback.u1, T_mix) annotation (Line(points={{-88,-20},{-96,-20},{-96,
           50},{-110,50}}, color={0,0,127}));
@@ -88,7 +88,7 @@ equation
     annotation (Line(points={{-59,-80},{-52,-80}}, color={255,0,255}));
   connect(feedback1.u1, TRet)
     annotation (Line(points={{-76,28},{-110,28}}, color={0,0,127}));
-  connect(feedback1.u2, T_oa)
+  connect(feedback1.u2,TOut)
     annotation (Line(points={{-68,20},{-68,-40},{-110,-40}}, color={0,0,127}));
   connect(feedback1.y, hysCooPot.u)
     annotation (Line(points={{-59,28},{-51,28}}, color={0,0,127}));
@@ -99,5 +99,21 @@ equation
   connect(not1.y, and1.u[3]) annotation (Line(points={{-29,-80},{-26,-80},{-26,
           -24.6667},{-20,-24.6667}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+Economizer controller.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 21, 2017, by Michael Wetter:<br/>
+Refactored implementation.
+</li>
+<li>
+June 1, 2017, by David Blum:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ControllerEconomizer;
