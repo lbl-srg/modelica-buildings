@@ -2,10 +2,7 @@ within Buildings.Fluid.MixingVolumes.Validation;
 model MixingVolumeMoistureReverseFlowPrescribedHeatFlowRate
   "Validation model for mixing volume with moisture input and flow reversal and prescribed heat flow rate"
   extends MixingVolumeMoistureReverseFlow(
-    prescribedHeatFlowRate=true,
-    m_flow(duration=10),
-    volDyn(V=1),
-    volSte(V=1));
+    prescribedHeatFlowRate=true);
   annotation (Documentation(
 info="<html>
 <p>
