@@ -32,8 +32,8 @@ model ChillerDXHeatingEconomizer
       lat=weaDat.lat) "Thermal envelope of single zone"
     annotation (Placement(transformation(extent={{40,-20},{80,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-      computeWetBulbTemperature=false, filNam=
-        "modelica://Buildings/Resources/weatherdata/DRYCOLD.mos")
+      computeWetBulbTemperature=false,
+      filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos")
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Continuous.Integrator EFan "Total fan energy"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
@@ -47,15 +47,21 @@ model ChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 
   Modelica.Blocks.Sources.CombiTimeTable TSetRooHea(
-    table=[0,15 + 273.15; 8*3600,20 + 273.15; 18*3600,15 + 273.15; 24*3600,15 +
-        273.15],
+    table=[
+      0,       15 + 273.15;
+      8*3600,  20 + 273.15;
+      18*3600, 15 + 273.15;
+      24*3600, 15 + 273.15],
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating setpoint for room temperature"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
   Modelica.Blocks.Sources.CombiTimeTable TSetRooCoo(
-    table=[0,30 + 273.15; 8*3600,25 + 273.15; 18*3600,30 + 273.15; 24*3600,30
-         + 273.15],
+    table=[
+      0,       30 + 273.15;
+      8*3600,  25 + 273.15;
+      18*3600, 30 + 273.15;
+      24*3600, 30 + 273.15],
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Cooling setpoint for room temperature"

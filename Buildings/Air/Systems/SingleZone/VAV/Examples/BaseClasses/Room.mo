@@ -2,8 +2,13 @@ within Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses;
 model Room
   "BESTest Case 600 with fluid ports for air HVAC and internal load"
 
-  package MediumA = Buildings.Media.Air "Medium model";
+  replaceable package MediumA = Buildings.Media.Air "Medium model";
+
+  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal
+    "Design airflow rate of system";
+
   parameter Modelica.SIunits.Angle lat "Building latitude";
+
   parameter Modelica.SIunits.Angle S_=
     Buildings.Types.Azimuth.S "Azimuth for south walls";
   parameter Modelica.SIunits.Angle E_=
@@ -27,79 +32,84 @@ model Room
     absIR_b=0.9,
     absSol_a=0.6,
     absSol_b=0.6,
-    material={Buildings.HeatTransfer.Data.Solids.Generic(
+    material={
+      Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.009,
         k=0.140,
         c=900,
         d=530,
         nStaRef=Buildings.ThermalZones.Detailed.Validation.BESTEST.nStaRef),
-                         Buildings.HeatTransfer.Data.Solids.Generic(
+      Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.066,
         k=0.040,
         c=840,
         d=12,
         nStaRef=Buildings.ThermalZones.Detailed.Validation.BESTEST.nStaRef),
-                         Buildings.HeatTransfer.Data.Solids.Generic(
+      Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.012,
         k=0.160,
         c=840,
         d=950,
         nStaRef=Buildings.ThermalZones.Detailed.Validation.BESTEST.nStaRef)})
-                           "Exterior wall"
+    "Exterior wall"
     annotation (Placement(transformation(extent={{100,80},{114,94}})));
-  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
-                                                          matFlo(final nLay=
-           2,
+
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matFlo(
+    final nLay= 2,
     absIR_a=0.9,
     absIR_b=0.9,
     absSol_a=0.6,
     absSol_b=0.6,
-    material={Buildings.HeatTransfer.Data.Solids.Generic(
+    material={
+      Buildings.HeatTransfer.Data.Solids.Generic(
         x=1.003,
         k=0.040,
         c=0,
         d=0,
         nStaRef=Buildings.ThermalZones.Detailed.Validation.BESTEST.nStaRef),
-                         Buildings.HeatTransfer.Data.Solids.Generic(
+     Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.025,
         k=0.140,
         c=1200,
         d=650,
         nStaRef=Buildings.ThermalZones.Detailed.Validation.BESTEST.nStaRef)})
-                           "Floor"
+    "Floor"
     annotation (Placement(transformation(extent={{160,80},{174,94}})));
-   parameter Buildings.HeatTransfer.Data.Solids.Generic soil(
+  parameter Buildings.HeatTransfer.Data.Solids.Generic soil(
     x=2,
     k=1.3,
     c=800,
     d=1500) "Soil properties"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
-  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic roof(nLay=3,
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic roof(
+    nLay=3,
     absIR_a=0.9,
     absIR_b=0.9,
     absSol_a=0.6,
     absSol_b=0.6,
-    material={Buildings.HeatTransfer.Data.Solids.Generic(
+    material={
+      Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.019,
         k=0.140,
         c=900,
         d=530,
         nStaRef=Buildings.ThermalZones.Detailed.Validation.BESTEST.nStaRef),
-                         Buildings.HeatTransfer.Data.Solids.Generic(
+     Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.1118,
         k=0.040,
         c=840,
         d=12,
         nStaRef=Buildings.ThermalZones.Detailed.Validation.BESTEST.nStaRef),
-                         Buildings.HeatTransfer.Data.Solids.Generic(
+     Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.010,
         k=0.160,
         c=840,
         d=950,
         nStaRef=Buildings.ThermalZones.Detailed.Validation.BESTEST.nStaRef)})
-                           "Roof"
+    "Roof"
     annotation (Placement(transformation(extent={{140,80},{154,94}})));
+
   parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.Win600 window600(
     UFra=3,
     haveExteriorShade=false,
@@ -112,13 +122,11 @@ model Room
     stateAtSurface_a=false,
     stateAtSurface_b=true,
     T_a_start=283.15,
-    T_b_start=283.75) "2m deep soil (per definition on p.4 of ASHRAE 140-2007)"
+    T_b_start=283.75) "2 m deep soil (per definition on p.4 of ASHRAE 140-2007)"
     annotation (Placement(transformation(
         extent={{12.5,-12.5},{-7.5,7.5}},
         rotation=-90,
         origin={70.5,-47.5})));
-
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal "Design airflow rate of system";
 
   Modelica.Fluid.Interfaces.FluidPort_a supplyAir(redeclare final package
       Medium = MediumA) "Supply air"
@@ -128,6 +136,15 @@ model Room
       Medium = MediumA) "Return air"
     annotation (Placement(transformation(extent={{-210,-30},{-190,-10}}),
         iconTransformation(extent={{-210,-30},{-190,-10}})));
+
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus
+    "Weather data bus"
+    annotation (Placement(transformation(extent={{-148,172},{-132,188}}),
+        iconTransformation(extent={{-148,172},{-132,188}})));
+
+  Modelica.Blocks.Interfaces.RealOutput TRooAir "Room air temperature"
+    annotation (Placement(transformation(extent={{200,-10},{220,10}}),
+        iconTransformation(extent={{200,-10},{220,10}})));
 
   Buildings.ThermalZones.Detailed.MixedAir roo(
     redeclare package Medium = MediumA,
@@ -172,7 +189,7 @@ model Room
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=288/48) "Radiative heat gain"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
 
-  Modelica.Blocks.Routing.Multiplex3 multiplex3_1
+  Modelica.Blocks.Routing.Multiplex3 mul "Multiplex"
     annotation (Placement(transformation(extent={{0,80},{22,102}})));
 
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=96/48) "Latent heat gain"
@@ -187,7 +204,7 @@ model Room
     redeclare package Medium = MediumA,
     nPorts=1,
     use_m_flow_in=true)
-                "Sink model for air infiltration"
+    "Sink model for air infiltration"
            annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Modelica.Blocks.Sources.Constant InfiltrationRate(k=48*2.7*0.5/3600)
     "0.41 ACH adjusted for the altitude (0.5 at sea level)"
@@ -197,35 +214,33 @@ model Room
   Buildings.Fluid.Sensors.Density density(redeclare package Medium = MediumA)
     "Air density inside the building"
     annotation (Placement(transformation(extent={{0,-100},{-20,-80}})));
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus
-    annotation (Placement(transformation(extent={{-148,172},{-132,188}}),
-        iconTransformation(extent={{-148,172},{-132,188}})));
 
-  Modelica.Blocks.Interfaces.RealOutput TRooAir "Room air temperature"
-    annotation (Placement(transformation(extent={{200,-10},{220,10}}),
-        iconTransformation(extent={{200,-10},{220,10}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTZon
     "Zone air temperature sensor"
     annotation (Placement(transformation(extent={{160,-10},{180,10}})));
+
   Fluid.Sources.MassFlowSource_WeatherData souInf(
     redeclare package Medium = MediumA,
     use_m_flow_in=true,
     nPorts=1)   "Source model for air infiltration"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+
   Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.InternalLoads intLoad
+    "Internal loads"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
-  Modelica.Blocks.Math.Product product1
+protected
+  Modelica.Blocks.Math.Product pro1 "Product for internal gain"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
-  Modelica.Blocks.Math.Product product2
+  Modelica.Blocks.Math.Product pro2 "Product for internal gain"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Modelica.Blocks.Math.Product product3
+  Modelica.Blocks.Math.Product pro3 "Product for internal gain"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
   Modelica.Blocks.Math.Gain gaiInf(final k=-1) "Gain for infiltration"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 
 equation
-  connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
+  connect(mul.y, roo.qGai_flow) annotation (Line(
       points={{23.1,91},{28,91},{28,10.4},{31.92,10.4}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -267,20 +282,20 @@ equation
                     color={0,0,127}));
   connect(senTZon.port, roo.heaPorAir) annotation (Line(points={{160,0},{58.7,0}},
                              color={191,0,0}));
-  connect(qRadGai_flow.y, product1.u1) annotation (Line(points={{-99,130},{-80,130},
-          {-80,136},{-42,136}},     color={0,0,127}));
-  connect(qLatGai_flow.y, product2.u1) annotation (Line(points={{-99,70},{-70,70},
-          {-70,76},{-42,76}},         color={0,0,127}));
-  connect(qConGai_flow.y, product3.u1) annotation (Line(points={{-99,100},{-94,100},
-          {-94,96},{-82,96}},              color={0,0,127}));
-  connect(intLoad.y[1], product2.u2) annotation (Line(points={{-99,160},{-90,160},
-          {-90,64},{-42,64}},                 color={0,0,127}));
-  connect(product1.y, multiplex3_1.u1[1]) annotation (Line(points={{-19,130},{-12,
-          130},{-12,98.7},{-2.2,98.7}},   color={0,0,127}));
-  connect(product3.y, multiplex3_1.u2[1]) annotation (Line(points={{-59,90},{-58,
-          90},{-58,91},{-2.2,91}},    color={0,0,127}));
-  connect(product2.y, multiplex3_1.u3[1]) annotation (Line(points={{-19,70},{-12,
-          70},{-12,83.3},{-2.2,83.3}},             color={0,0,127}));
+  connect(qRadGai_flow.y, pro1.u1) annotation (Line(points={{-99,130},{-80,130},
+          {-80,136},{-42,136}}, color={0,0,127}));
+  connect(qLatGai_flow.y, pro2.u1) annotation (Line(points={{-99,70},{-70,70},{
+          -70,76},{-42,76}}, color={0,0,127}));
+  connect(qConGai_flow.y, pro3.u1) annotation (Line(points={{-99,100},{-94,100},
+          {-94,96},{-82,96}}, color={0,0,127}));
+  connect(intLoad.y[1], pro2.u2) annotation (Line(points={{-99,160},{-90,160},{
+          -90,64},{-42,64}}, color={0,0,127}));
+  connect(pro1.y, mul.u1[1]) annotation (Line(points={{-19,130},{-12,130},{-12,
+          98.7},{-2.2,98.7}}, color={0,0,127}));
+  connect(pro3.y, mul.u2[1]) annotation (Line(points={{-59,90},{-58,90},{-58,91},
+          {-2.2,91}}, color={0,0,127}));
+  connect(pro2.y, mul.u3[1]) annotation (Line(points={{-19,70},{-12,70},{-12,
+          83.3},{-2.2,83.3}}, color={0,0,127}));
   connect(souInf.weaBus, weaBus) annotation (Line(
       points={{-40,-49.8},{-56,-49.8},{-56,-42},{-140,-42},{-140,180}},
       color={255,204,51},
@@ -300,21 +315,21 @@ equation
         color={0,127,255}));
   connect(InfiltrationRate.y, product.u1)
     annotation (Line(points={{-159,-84},{-122,-84}}, color={0,0,127}));
-  connect(intLoad.y[1], product1.u2) annotation (Line(points={{-99,160},{-90,160},
-          {-90,124},{-42,124}}, color={0,0,127}));
-  connect(product3.u2, intLoad.y[1]) annotation (Line(points={{-82,84},{-90,84},
-          {-90,160},{-99,160}}, color={0,0,127}));
+  connect(intLoad.y[1], pro1.u2) annotation (Line(points={{-99,160},{-90,160},{
+          -90,124},{-42,124}}, color={0,0,127}));
+  connect(pro3.u2, intLoad.y[1]) annotation (Line(points={{-82,84},{-90,84},{-90,
+          160},{-99,160}}, color={0,0,127}));
 annotation (Documentation(info="<html>
 <p>
-This is a single zone model based on the envelope of the BESTEST Case 600 
+This is a single zone model based on the envelope of the BESTEST Case 600
 building, though it has some modifications.  Supply and return air ports are
-included for simulation with air-based HVAC systems.  Heating and cooling 
-setpoints and internal loads are time-varying according to an assumed 
+included for simulation with air-based HVAC systems.  Heating and cooling
+setpoints and internal loads are time-varying according to an assumed
 occupancy schedule.
 </p>
 <p>
 This zone model utilizes schedules and constructions from
-the <code>Schedules</code> and <code>Constructions</code> packages.  
+the <code>Schedules</code> and <code>Constructions</code> packages.
 </p>
 </html>", revisions="<html>
 <ul>

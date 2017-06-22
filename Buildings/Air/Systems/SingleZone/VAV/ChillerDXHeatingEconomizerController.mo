@@ -34,7 +34,6 @@ model ChillerDXHeatingEconomizerController
     "Gain of controller for economizer"
     annotation(Dialog(group="Control gain"));
 
-
   Modelica.Blocks.Interfaces.RealInput TRoo(
     final unit="K",
     displayUnit="degC") "Zone temperature measurement"
@@ -43,6 +42,7 @@ model ChillerDXHeatingEconomizerController
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,-60})));
+
   Modelica.Blocks.Interfaces.RealInput TSetRooCoo(
     final unit="K",
     displayUnit="degC")
@@ -57,62 +57,93 @@ model ChillerDXHeatingEconomizerController
         extent={{20,-20},{-20,20}},
         rotation=180,
         origin={-120,100})));
+
+  Modelica.Blocks.Interfaces.RealInput TMix(
+    final unit="K",
+    displayUnit="degC")
+    "Measured mixed air temperature"
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
+
+  Modelica.Blocks.Interfaces.RealInput TSup(
+    final unit="K",
+    displayUnit="degC")
+    "Measured supply air temperature after the cooling coil"
+    annotation (Placement(transformation(extent={{-140,-110},{-100,-70}})));
+
+  Modelica.Blocks.Interfaces.RealInput TOut (
+    final unit="K",
+    displayUnit="degC")
+    "Measured outside air temperature"
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
+
+  Modelica.Blocks.Interfaces.RealOutput yHea(final unit="1") "Control signal for heating coil"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+
+  Modelica.Blocks.Interfaces.RealOutput yFan(final unit="1") "Control signal for fan"
+    annotation (Placement(transformation(extent={{100,80},{120,100}})));
+
+  Modelica.Blocks.Interfaces.RealOutput yOutAirFra(final unit="1")
+    "Control signal for outside air fraction"
+    annotation (Placement(transformation(extent={{100,20},{120,40}})));
+
+  Modelica.Blocks.Interfaces.RealOutput yCooCoiVal(final unit="1")
+    "Control signal for cooling coil valve"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+  Modelica.Blocks.Interfaces.RealOutput TSetSupChi(
+    final unit="K",
+    displayUnit="degC")
+    "Set point for chiller leaving water temperature"
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
+
+  Modelica.Blocks.Interfaces.BooleanOutput chiOn "On signal for chiller"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+
   BaseClasses.ControllerHeatingFan conSup(
     minAirFlo = minAirFlo,
     kPHea = kPHea,
     kPFan = kPFan) "Heating coil, cooling coil and fan controller"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   BaseClasses.ControllerEconomizer conEco(
-      kPEco = kPEco) "Economizer control"
+    final kPEco = kPEco)
+    "Economizer control"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Modelica.Blocks.Sources.Constant conMinOAFra(final k=minOAFra)
-    "Minimum outside air fraction"
-    annotation (Placement(transformation(extent={{-70,38},{-50,58}})));
-  Modelica.Blocks.Sources.Constant TSetSupAirConst(final k=TSetSupAir)
-    "Set point for supply air temperature"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+
   BaseClasses.HysteresisWithDelay hysChiPla(
     uLow=-1,
     uHigh=0,
     waitTimeToOn=0)
-                "Hysteresis with delay to switch on cooling"
+    "Hysteresis with delay to switch on cooling"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
+
   Modelica.Blocks.Math.Feedback errTRooCoo
     "Control error on room temperature for cooling"
     annotation (Placement(transformation(extent={{-42,-70},{-22,-50}})));
-  Controls.Continuous.LimPID           conCooVal(
+  Controls.Continuous.LimPID conCooVal(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
-    yMax=1,
-    yMin=0,
-    k=kPCoo,
-    reverseAction=true)
+    final yMax=1,
+    final yMin=0,
+    final k=kPCoo,
+    final reverseAction=true)
     "Cooling coil valve controller"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Modelica.Blocks.Sources.Constant TSetSupChiConst(final k=TSupChi_nominal)
+
+protected
+  Modelica.Blocks.Sources.Constant TSetSupChiConst(
+    final k=TSupChi_nominal)
     "Set point for chiller temperature"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Modelica.Blocks.Interfaces.BooleanOutput chiOn "On signal for chiller"
-    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-  Modelica.Blocks.Interfaces.RealInput TMix "Measured mixed air temperature"
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
-  Modelica.Blocks.Interfaces.RealInput TOut "Measured outside air temperature"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
-  Modelica.Blocks.Interfaces.RealOutput yHea "Control signal for heating coil"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Interfaces.RealOutput yFan "Control signal for fan"
-    annotation (Placement(transformation(extent={{100,80},{120,100}})));
-  Modelica.Blocks.Interfaces.RealOutput yOutAirFra
-    "Control signal for outside air fraction"
-    annotation (Placement(transformation(extent={{100,20},{120,40}})));
-  Modelica.Blocks.Interfaces.RealOutput yCooCoiVal
-    "Control signal for cooling coil valve"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealOutput TSetSupChi
-    "Set point for chiller leaving water temperature"
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
-  Modelica.Blocks.Interfaces.RealInput TSup
-    "Measure supply air temperature after the cooling coil"
-    annotation (Placement(transformation(extent={{-140,-110},{-100,-70}})));
+
+  Modelica.Blocks.Sources.Constant conMinOAFra(
+    final k=minOAFra)
+    "Minimum outside air fraction"
+    annotation (Placement(transformation(extent={{-70,38},{-50,58}})));
+
+  Modelica.Blocks.Sources.Constant TSetSupAirConst(
+    final k=TSetSupAir)
+    "Set point for supply air temperature"
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+
 equation
   connect(conMinOAFra.y,conEco. minOAFra) annotation (Line(points={{-49,48},{
           -26,48},{-1,48}},                 color={0,0,127}));

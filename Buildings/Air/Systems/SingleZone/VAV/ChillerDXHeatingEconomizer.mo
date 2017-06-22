@@ -36,6 +36,72 @@ model ChillerDXHeatingEconomizer
     -QCoo_flow_nominal*(1+1/COP_nominal)/Buildings.Utilities.Psychrometrics.Constants.cpAir/10
     "Design condenser air flow";
 
+  Modelica.Blocks.Interfaces.BooleanInput chiOn "On signal for chiller plant"
+    annotation (Placement(transformation(extent={{-240,-160},{-200,-120}})));
+
+  Modelica.Blocks.Interfaces.RealInput uFan(
+    final unit="1") "Fan control signal"
+    annotation (Placement(transformation(extent={{-240,120},{-200,160}})));
+  Modelica.Blocks.Interfaces.RealInput uHea(
+    final unit="1") "Control input for heater"
+    annotation (Placement(transformation(extent={{-240,60},{-200,100}})));
+  Modelica.Blocks.Interfaces.RealInput uCooVal(final unit="1")
+    "Control signal for cooling valve"
+    annotation (Placement(transformation(extent={{-240,-10},{-200,30}})));
+  Modelica.Blocks.Interfaces.RealInput TSetChi(
+    final unit="K",
+    displayUnit="degC")
+    "Set point for leaving chilled water temperature"
+    annotation (Placement(transformation(extent={{-240,-210},{-200,-170}})));
+  Modelica.Blocks.Interfaces.RealInput uEco "Control signal for economizer"
+    annotation (Placement(transformation(extent={{-240,-80},{-200,-40}})));
+
+  Modelica.Fluid.Interfaces.FluidPort_a supplyAir(
+    redeclare final package Medium = MediumA) "Supply air"
+    annotation (Placement(transformation(extent={{190,30},{210,50}}),
+        iconTransformation(extent={{190,30},{210,50}})));
+  Modelica.Fluid.Interfaces.FluidPort_b returnAir(
+    redeclare final package Medium = MediumA) "Return air"
+    annotation (Placement(transformation(extent={{190,-50},{210,-30}}),
+        iconTransformation(extent={{190,-50},{210,-30}})));
+
+  Modelica.Blocks.Interfaces.RealOutput PFan(final unit="W")
+    "Electrical power consumed by the supply fan"
+    annotation (Placement(transformation(extent={{200,130},{220,150}}),
+        iconTransformation(extent={{200,130},{220,150}})));
+
+  Modelica.Blocks.Interfaces.RealOutput QHea_flow(final unit="W")
+    "Electrical power consumed by the heating equipment" annotation (Placement(
+        transformation(extent={{200,110},{220,130}}), iconTransformation(extent={{200,110},
+            {220,130}})));
+
+  Modelica.Blocks.Interfaces.RealOutput PCoo(final unit="W")
+    "Electrical power consumed by the cooling equipment" annotation (Placement(
+        transformation(extent={{200,90},{220,110}}), iconTransformation(extent={{200,90},
+            {220,110}})));
+  Modelica.Blocks.Interfaces.RealOutput PPum(final unit="W")
+    "Electrical power consumed by the pumps"
+    annotation (Placement(transformation(extent={{200,70},{220,90}}),
+        iconTransformation(extent={{200,70},{220,90}})));
+
+  Modelica.Blocks.Interfaces.RealOutput TMixAir(
+    final unit="K",
+    displayUnit="degC") "Mixed air temperature"
+    annotation (Placement(transformation(extent={{200,-90},{220,-70}}),
+        iconTransformation(extent={{200,-90},{220,-70}})));
+
+  Modelica.Blocks.Interfaces.RealOutput TSup(
+    final unit="K",
+    displayUnit="degC")
+    "Supply air temperature after cooling coil"
+    annotation (Placement(transformation(extent={{200,-120},{220,-100}}),
+        iconTransformation(extent={{200,-120},{220,-100}})));
+
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
+  annotation (Placement(
+        transformation(extent={{-200,20},{-160,60}}),   iconTransformation(
+          extent={{-170,128},{-150,148}})));
+
   Buildings.Fluid.Sensors.TemperatureTwoPort senTSup(
     m_flow_nominal=mAir_flow_nominal,
     allowFlowReversal=false,
@@ -54,10 +120,6 @@ model ChillerDXHeatingEconomizer
     show_T=true)
      "Air heating coil"
     annotation (Placement(transformation(extent={{52,30},{72,50}})));
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
-  annotation (Placement(
-        transformation(extent={{-200,20},{-160,60}}),   iconTransformation(
-          extent={{-170,128},{-150,148}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow fanSup(
     m_flow_nominal=mAir_flow_nominal,
@@ -76,21 +138,6 @@ model ChillerDXHeatingEconomizer
     allowFlowReversal=false,
     redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
-
-  Modelica.Blocks.Interfaces.RealOutput PFan(final unit="W")
-    "Electrical power consumed by the supply fan"
-    annotation (Placement(transformation(extent={{200,130},{220,150}}),
-        iconTransformation(extent={{200,130},{220,150}})));
-
-  Modelica.Blocks.Interfaces.RealOutput QHea_flow(final unit="W")
-    "Electrical power consumed by the heating equipment" annotation (Placement(
-        transformation(extent={{200,110},{220,130}}), iconTransformation(extent={{200,110},
-            {220,130}})));
-
-  Modelica.Blocks.Interfaces.RealOutput PCoo(final unit="W")
-    "Electrical power consumed by the cooling equipment" annotation (Placement(
-        transformation(extent={{200,90},{220,110}}), iconTransformation(extent={{200,90},
-            {220,110}})));
 
   Modelica.Blocks.Math.Gain eff(k=1/etaHea_nominal)
     annotation (Placement(transformation(extent={{120,90},{140,110}})));
@@ -183,29 +230,15 @@ model ChillerDXHeatingEconomizer
       TConEnt_nominal=302.55,
       TConEntMin=274.15,
       TConEntMax=323.15),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp2_nominal=12E3)
+    dp2_nominal=12E3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Air cooled chiller"
     annotation (Placement(transformation(extent={{110,-158},{90,-178}})));
-
-  Modelica.Blocks.Interfaces.RealOutput PPum(final unit="W")
-    "Electrical power consumed by the pumps"
-    annotation (Placement(transformation(extent={{200,70},{220,90}}),
-        iconTransformation(extent={{200,70},{220,90}})));
 
   Buildings.Fluid.Sources.FixedBoundary bouPreChi(
     redeclare package Medium = MediumW, nPorts=1)
     "Pressure boundary condition for chilled water loop"
     annotation (Placement(transformation(extent={{50,-172},{70,-152}})));
-
-  Modelica.Fluid.Interfaces.FluidPort_a supplyAir(
-    redeclare final package Medium = MediumA) "Supply air"
-    annotation (Placement(transformation(extent={{190,30},{210,50}}),
-        iconTransformation(extent={{190,30},{210,50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b returnAir(
-    redeclare final package Medium = MediumA) "Return air"
-    annotation (Placement(transformation(extent={{190,-50},{210,-30}}),
-        iconTransformation(extent={{190,-50},{210,-30}})));
 
   Modelica.Blocks.Math.Gain gaiFan(k=mAir_flow_nominal)
     "Gain for fan mass flow rate"
@@ -215,36 +248,11 @@ model ChillerDXHeatingEconomizer
     redeclare package Medium = MediumW,
     final m_flow_nominal = mChiEva_flow_nominal) "Ideal valve"
     annotation (Placement(transformation(rotation=0, extent={{70,0},{90,20}})));
+
   Modelica.Blocks.Math.BooleanToReal booleanToInteger(
-    realTrue=mChiEva_flow_nominal)
+    final realTrue=mChiEva_flow_nominal)
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-  Modelica.Blocks.Interfaces.BooleanInput chiOn "On signal for chiller plant"
-    annotation (Placement(transformation(extent={{-240,-160},{-200,-120}})));
-  Modelica.Blocks.Interfaces.RealInput uFan(
-    min=0,
-    max=1,
-    final unit="1") "Fan control signal"
-    annotation (Placement(transformation(extent={{-240,120},{-200,160}})));
-  Modelica.Blocks.Interfaces.RealInput uHea(
-    min=0,
-    max=1,
-    final unit="1") "Control input for heater"
-    annotation (Placement(transformation(extent={{-240,60},{-200,100}})));
-  Modelica.Blocks.Interfaces.RealInput uCooVal
-    "Control signal for cooling valve"
-    annotation (Placement(transformation(extent={{-240,-10},{-200,30}})));
-  Modelica.Blocks.Interfaces.RealInput TSetChi
-    "Set point for leaving chilled water temperature"
-    annotation (Placement(transformation(extent={{-240,-210},{-200,-170}})));
-  Modelica.Blocks.Interfaces.RealInput uEco "Control signal for economizer"
-    annotation (Placement(transformation(extent={{-240,-80},{-200,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput TMixAir "Mixed air temperature"
-    annotation (Placement(transformation(extent={{200,-90},{220,-70}}),
-        iconTransformation(extent={{200,-90},{220,-70}})));
-  Modelica.Blocks.Interfaces.RealOutput TSup
-    "Supply air temperature after cooling coil"
-    annotation (Placement(transformation(extent={{200,-120},{220,-100}}),
-        iconTransformation(extent={{200,-120},{220,-100}})));
+
   IdealValve ideEco(
     redeclare package Medium = MediumA,
     final m_flow_nominal=mAir_flow_nominal) "Ideal economizer" annotation (
