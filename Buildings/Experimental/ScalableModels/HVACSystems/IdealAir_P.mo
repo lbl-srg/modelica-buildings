@@ -46,9 +46,9 @@ model IdealAir_P "Simple ideal heating and cooling"
   Modelica.Blocks.Math.Feedback feedback1[nZon,nFlo]
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
 
-  Modelica.Blocks.Nonlinear.Limiter limiter[nZon,nFlo](each uMin=0)
+  Modelica.Blocks.Nonlinear.Limiter limiter[nZon,nFlo](each uMin=0, each uMax=1)
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter1[nZon,nFlo](each uMin=0)
+  Modelica.Blocks.Nonlinear.Limiter limiter1[nZon,nFlo](each uMin=0, each uMax=1)
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Modelica.Blocks.Logical.Switch switch1[nZon,nFlo]
     "Switch between cooling/heating supply flowrate"
