@@ -1,4 +1,3 @@
-
 within Buildings.Air;
 package Systems "Package with pre-configured HVAC systems"
   extends Modelica.Icons.Package;

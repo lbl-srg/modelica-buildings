@@ -1,4 +1,3 @@
-
 within Buildings.Air.Systems;
 package SingleZone "Package with pre-configured system models that serve a single thermal zone"
   extends Modelica.Icons.Package;
