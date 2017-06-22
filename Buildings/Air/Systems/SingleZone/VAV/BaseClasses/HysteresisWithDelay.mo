@@ -4,20 +4,20 @@ model HysteresisWithDelay
 
   parameter Real uLow = 0.05 "if y=true and u<=uLow, switch to y=false";
   parameter Real uHigh = 0.15 "if y=false and u>=uHigh, switch to y=true";
-  Modelica.StateGraph.InitialStep ecoOff "Economizer is off"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Modelica.StateGraph.Transition transition(
-    enableTimer=true,
+  Modelica.StateGraph.InitialStep staOff "Off state"
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+  Modelica.StateGraph.Transition toOn(
     waitTime=waitTimeToOn,
-    condition=u > uHigh)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.StateGraph.Transition transition1(
-    enableTimer=true,
+    condition=u > uHigh,
+    enableTimer=waitTimeToOn > 0) "Transition to on"
+    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
+  Modelica.StateGraph.Transition toOff(
     waitTime=waitTimeToOff,
-    condition=u < uLow)
-    annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
-  Modelica.StateGraph.StepWithSignal ecoAct "Economizer active"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    condition=u < uLow,
+    enableTimer=waitTimeToOff > 0) "Transition to off"
+    annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
+  Modelica.StateGraph.StepWithSignal staOn "On state"
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Modelica.Blocks.Interfaces.BooleanOutput on "On signal" annotation (Placement(
         transformation(rotation=0, extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput u(unit="1") "Control input" annotation (
@@ -31,16 +31,16 @@ model HysteresisWithDelay
 initial equation
   assert(uLow < uHigh, "Require uLow < uHigh.");
 equation
-  connect(transition.inPort, ecoOff.outPort[1])
-    annotation (Line(points={{-4,0},{-19.5,0}}, color={0,0,0}));
-  connect(transition.outPort, ecoAct.inPort[1])
-    annotation (Line(points={{1.5,0},{19,0}}, color={0,0,0}));
-  connect(ecoAct.outPort[1], transition1.inPort) annotation (Line(points={{40.5,
-          0},{50,0},{50,-40},{4,-40}}, color={0,0,0}));
-  connect(transition1.outPort, ecoOff.inPort[1]) annotation (Line(points={{-1.5,
-          -40},{-50,-40},{-50,0},{-41,0}}, color={0,0,0}));
-  connect(on, ecoAct.active) annotation (Line(points={{110,0},{110,0},{80,0},{80,
-          -50},{30,-50},{30,-11}}, color={255,0,255}));
+  connect(toOn.inPort, staOff.outPort[1])
+    annotation (Line(points={{-4,20},{-19.5,20}}, color={0,0,0}));
+  connect(toOn.outPort, staOn.inPort[1])
+    annotation (Line(points={{1.5,20},{19,20}}, color={0,0,0}));
+  connect(staOn.outPort[1], toOff.inPort) annotation (Line(points={{40.5,20},{
+          50,20},{50,-20},{4,-20}}, color={0,0,0}));
+  connect(toOff.outPort, staOff.inPort[1]) annotation (Line(points={{-1.5,-20},
+          {-50,-20},{-50,20},{-41,20}}, color={0,0,0}));
+  connect(on, staOn.active) annotation (Line(points={{110,0},{110,0},{30,0},{30,
+          0},{30,9}}, color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>
 Model for a hysteresis block that optionally allows to specify
