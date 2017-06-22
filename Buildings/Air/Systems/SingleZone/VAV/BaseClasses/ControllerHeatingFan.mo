@@ -1,5 +1,5 @@
 within Buildings.Air.Systems.SingleZone.VAV.BaseClasses;
-model ControllerHeatingCooling "Controller for heating and cooling"
+model ControllerHeatingFan "Controller for heating and cooling"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real kPHea(min=Modelica.Constants.small) = 1
@@ -80,4 +80,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ControllerHeatingCooling;
+end ControllerHeatingFan;

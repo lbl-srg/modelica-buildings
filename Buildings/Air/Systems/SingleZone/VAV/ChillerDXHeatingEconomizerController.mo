@@ -57,7 +57,7 @@ model ChillerDXHeatingEconomizerController
         extent={{20,-20},{-20,20}},
         rotation=180,
         origin={-120,100})));
-  BaseClasses.ControllerHeatingCooling conSup(
+  BaseClasses.ControllerHeatingFan conSup(
     minAirFlo = minAirFlo,
     kPHea = kPHea,
     kPFan = kPFan) "Heating coil, cooling coil and fan controller"
