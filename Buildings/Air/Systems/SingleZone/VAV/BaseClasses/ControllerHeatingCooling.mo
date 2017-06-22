@@ -23,14 +23,14 @@ model ControllerHeatingCooling "Controller for heating and cooling"
   Modelica.Blocks.Interfaces.RealInput TSetRooHea "Zone heating setpoint"
     annotation (Placement(transformation(rotation=0, extent={{-120,50},{-100,70}})));
   Modelica.Blocks.Interfaces.RealOutput yFan(unit="1") "Control signal for fan"
-    annotation (Placement(transformation(rotation=0, extent={{100,-70},{120,-50}})));
+    annotation (Placement(transformation(rotation=0, extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.RealOutput yHea(unit="1")
     "Control signal for heating coil"
-    annotation (Placement(transformation(rotation=0, extent={{100,50},{120,70}})));
+    annotation (Placement(transformation(rotation=0, extent={{100,-50},{120,-30}})));
   Controls.Continuous.LimPID conHeaCoi(
       k=kPHea, controllerType=Modelica.Blocks.Types.SimpleController.P)
                "Controller for heating coil"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Controls.Continuous.LimPID conFan(
       k=kPFan,
     yMax=1,
@@ -38,22 +38,26 @@ model ControllerHeatingCooling "Controller for heating and cooling"
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     reverseAction=true)
                "Controller for fan"
-    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
 equation
   connect(TSetRooHea, conHeaCoi.u_s)
-    annotation (Line(points={{-110,60},{-42,60}},    color={0,0,127}));
-  connect(TRoo, conHeaCoi.u_m) annotation (Line(points={{-110,-60},{-72,-60},{-72,
-          28},{-30,28},{-30,48}},      color={0,0,127}));
+    annotation (Line(points={{-110,60},{-60,60},{-60,-40},{-12,-40}},
+                                                     color={0,0,127}));
+  connect(TRoo, conHeaCoi.u_m) annotation (Line(points={{-110,-60},{-80,-60},{
+          -80,-60},{0,-60},{0,-52}},   color={0,0,127}));
   connect(conHeaCoi.y, yHea)
-    annotation (Line(points={{-19,60},{110,60}}, color={0,0,127}));
-  connect(conFan.u_s, TSetRooCoo) annotation (Line(points={{-42,-60},{-60,-60},{
-          -60,0},{-110,0}},                      color={0,0,127}));
-  connect(TRoo, conFan.u_m) annotation (Line(points={{-110,-60},{-72,-60},{-72,-80},
-          {-30,-80},{-30,-72}},                 color={0,0,127}));
+    annotation (Line(points={{11,-40},{60,-40},{110,-40}},
+                                                 color={0,0,127}));
+  connect(conFan.u_s, TSetRooCoo) annotation (Line(points={{18,40},{18,40},{-48,
+          40},{-48,40},{-80,40},{-80,0},{-110,0}},
+                                                 color={0,0,127}));
+  connect(TRoo, conFan.u_m) annotation (Line(points={{-110,-60},{-110,-60},{30,
+          -60},{30,28}},                        color={0,0,127}));
 
   connect(conFan.y, yFan)
-    annotation (Line(points={{-19,-60},{110,-60}}, color={0,0,127}));
+    annotation (Line(points={{41,40},{41,40},{110,40}},
+                                                   color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 Controller for heating coil and fan speed.

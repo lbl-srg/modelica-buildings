@@ -1,8 +1,8 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples;
 model ChillerDXHeatingEconomizer
   "Example for SingleZoneVAV with a dry cooling coil, air-cooled chiller, electric heating coil, variable speed fan, and mixing box with economizer."
-  import Buildings;
   extends Modelica.Icons.Example;
+
   package MediumA = Buildings.Media.Air "Buildings library air media package";
   package MediumW = Buildings.Media.Water "Buildings library air media package";
 
@@ -28,7 +28,8 @@ model ChillerDXHeatingEconomizer
     TSupChi_nominal=TSupChi_nominal)   "Single zone VAV system"
     annotation (Placement(transformation(extent={{-40,-20},{0,20}})));
   Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.Room zon(
-      mAir_flow_nominal=0.75, lat=weaDat.lat) "Thermal envelope of single zone"
+      mAir_flow_nominal=0.75,
+      lat=weaDat.lat) "Thermal envelope of single zone"
     annotation (Placement(transformation(extent={{40,-20},{80,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false, filNam=
@@ -40,7 +41,7 @@ model ChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Modelica.Blocks.Continuous.Integrator ECoo "Total cooling energy"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
-  Modelica.Blocks.Math.Sum EHVAC(nin=4) "Total HVAC energy"
+  Modelica.Blocks.Math.MultiSum EHVAC(nu=4)  "Total HVAC energy"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Modelica.Blocks.Continuous.Integrator EPum "Total pump energy"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
@@ -71,17 +72,6 @@ equation
                      color={0,0,127}));
   connect(hvac.PCoo, ECoo.u) annotation (Line(points={{1,14},{20,14},{20,-100},
           {38,-100}},color={0,0,127}));
-  connect(EFan.y, EHVAC.u[1]) annotation (Line(points={{61,-40},{68,-40},{68,
-          -71.5},{78,-71.5}},
-                       color={0,0,127}));
-  connect(EHea.y, EHVAC.u[2]) annotation (Line(points={{61,-70},{61,-70.5},{78,
-          -70.5}}, color={0,0,127}));
-  connect(ECoo.y, EHVAC.u[3]) annotation (Line(points={{61,-100},{70,-100},{70,
-          -69.5},{78,-69.5}},
-                       color={0,0,127}));
-  connect(EPum.y, EHVAC.u[4]) annotation (Line(points={{61,-130},{68,-130},{68,
-          -68.5},{78,-68.5}},
-                       color={0,0,127}));
   connect(EPum.u, hvac.PPum) annotation (Line(points={{38,-130},{18,-130},{18,
           12},{1,12}}, color={0,0,127}));
   connect(hvac.supplyAir, zon.supplyAir) annotation (Line(points={{0,8},{10,8},
@@ -89,19 +79,18 @@ equation
   connect(hvac.returnAir, zon.returnAir) annotation (Line(points={{0,0},{6,0},{
           6,-2},{10,-2},{10,-2},{40,-2}},
                                    color={0,127,255}));
-  connect(con.yFan, hvac.uFan) annotation (Line(points={{-79,6},{-60,6},{-60,18},
+  connect(con.yFan, hvac.uFan) annotation (Line(points={{-79,9},{-60,9},{-60,18},
           {-42,18}},               color={0,0,127}));
-  connect(hvac.uHea, con.yHea) annotation (Line(points={{-42,12},{-42,12},{-48,
-          12},{-48,12},{-64,12},{-64,9},{-79,9}},
-                                     color={0,0,127}));
+  connect(hvac.uHea, con.yHea) annotation (Line(points={{-42,12},{-40,12},{-56,
+          12},{-56,6},{-79,6}},      color={0,0,127}));
   connect(con.yCooCoiVal, hvac.uCooVal) annotation (Line(points={{-79,0},{-54,0},
           {-54,5},{-42,5}},             color={0,0,127}));
   connect(con.yOutAirFra, hvac.uEco) annotation (Line(points={{-79,3},{-50,3},{
           -50,-2},{-42,-2}},             color={0,0,127}));
-  connect(hvac.chiOn, con.chiOn) annotation (Line(points={{-42,-10},{-50,-10},{
-          -50,-10},{-72,-10},{-72,-7},{-79,-7}},            color={255,0,255}));
-  connect(con.TSetSupChi, hvac.TSetChi) annotation (Line(points={{-79,-4},{-70,
-          -4},{-70,-15},{-42,-15}},           color={0,0,127}));
+  connect(hvac.chiOn, con.chiOn) annotation (Line(points={{-42,-10},{-60,-10},{
+          -60,-10},{-60,-4},{-79,-4}},                      color={255,0,255}));
+  connect(con.TSetSupChi, hvac.TSetChi) annotation (Line(points={{-79,-8},{-70,
+          -8},{-70,-15},{-42,-15}},           color={0,0,127}));
   connect(con.TMix, hvac.TMixAir) annotation (Line(points={{-102,2},{-112,2},{
           -112,-40},{10,-40},{10,-4},{1,-4}},             color={0,0,127}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
@@ -131,6 +120,14 @@ equation
     annotation (Line(points={{-102,10},{-119,10}}, color={0,0,127}));
   connect(TSetRooCoo.y[1], con.TSetRooCoo) annotation (Line(points={{-119,-20},{
           -116,-20},{-116,6},{-102,6}}, color={0,0,127}));
+  connect(EFan.y, EHVAC.u[1]) annotation (Line(points={{61,-40},{70,-40},{70,
+          -64.75},{80,-64.75}}, color={0,0,127}));
+  connect(EHea.y, EHVAC.u[2])
+    annotation (Line(points={{61,-70},{80,-70},{80,-68.25}}, color={0,0,127}));
+  connect(ECoo.y, EHVAC.u[3]) annotation (Line(points={{61,-100},{70,-100},{70,
+          -71.75},{80,-71.75}}, color={0,0,127}));
+  connect(EPum.y, EHVAC.u[4]) annotation (Line(points={{61,-130},{74,-130},{74,
+          -75.25},{80,-75.25}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=504800,

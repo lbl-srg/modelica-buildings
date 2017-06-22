@@ -57,5 +57,24 @@ June 1, 2017, by David Blum:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+          Line(points={{-2,2},{34,2}}),
+          Polygon(
+            points={{34,8},{46,2},{34,-4},{34,8}},
+            lineColor={0,0,0},
+            fillColor={0,0,0},
+            fillPattern=FillPattern.Solid),
+          Rectangle(extent={{46,18},{84,-16}}, lineColor={0,0,0}),
+          Line(points={{-2,34},{-2,-36}}),
+          Polygon(
+            points={{-14,8},{-2,2},{-14,-4},{-14,8}},
+            lineColor={0,0,0},
+            fillColor={0,0,0},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-46,2},{-14,2}}),
+          Rectangle(extent={{-84,18},{-46,-16}}, lineColor={0,0,0}),
+        Text(
+          extent={{-68,-40},{60,-82}},
+          lineColor={0,0,0},
+          textString="%uLow     %uHigh")}));
 end HysteresisWithDelay;

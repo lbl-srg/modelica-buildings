@@ -28,13 +28,13 @@ model ChillerDXHeatingEconomizer
     "Design pressure drop of flow leg with fan"
     annotation(Dialog(group="Air design"));
 
-    // fixme: use cp
   final parameter Modelica.SIunits.MassFlowRate mChiEva_flow_nominal=
-    -QCoo_flow_nominal/4184/4
+    -QCoo_flow_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/4
     "Design chilled water supply flow";
 
   final parameter Modelica.SIunits.MassFlowRate mChiCon_flow_nominal=
-    -QCoo_flow_nominal*(1+1/COP_nominal)/1008/10 "Design condenser air flow";
+    -QCoo_flow_nominal*(1+1/COP_nominal)/Buildings.Utilities.Psychrometrics.Constants.cpAir/10
+    "Design condenser air flow";
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTSup(
     m_flow_nominal=mAir_flow_nominal,
