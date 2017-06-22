@@ -77,8 +77,7 @@ equation
   connect(hvac.supplyAir, zon.supplyAir) annotation (Line(points={{0,8},{10,8},
           {10,2},{40,2}},          color={0,127,255}));
   connect(hvac.returnAir, zon.returnAir) annotation (Line(points={{0,0},{6,0},{
-          6,-2},{10,-2},{10,-2},{40,-2}},
-                                   color={0,127,255}));
+          6,-2},{10,-2},{40,-2}},  color={0,127,255}));
   connect(con.yFan, hvac.uFan) annotation (Line(points={{-79,9},{-60,9},{-60,18},
           {-42,18}},               color={0,0,127}));
   connect(hvac.uHea, con.yHea) annotation (Line(points={{-42,12},{-40,12},{-56,
@@ -88,7 +87,7 @@ equation
   connect(con.yOutAirFra, hvac.uEco) annotation (Line(points={{-79,3},{-50,3},{
           -50,-2},{-42,-2}},             color={0,0,127}));
   connect(hvac.chiOn, con.chiOn) annotation (Line(points={{-42,-10},{-60,-10},{
-          -60,-10},{-60,-4},{-79,-4}},                      color={255,0,255}));
+          -60,-4},{-79,-4}},                                color={255,0,255}));
   connect(con.TSetSupChi, hvac.TSetChi) annotation (Line(points={{-79,-8},{-70,
           -8},{-70,-15},{-42,-15}},           color={0,0,127}));
   connect(con.TMix, hvac.TMixAir) annotation (Line(points={{-102,2},{-112,2},{

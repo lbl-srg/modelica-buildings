@@ -72,9 +72,10 @@ model ChillerDXHeatingEconomizerController
     "Set point for supply air temperature"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   BaseClasses.HysteresisWithDelay hysChiPla(
-    waitTimeToOn=0,
     uLow=-1,
-    uHigh=0)    "Hysteresis with delay to switch on cooling"
+    uHigh=0,
+    waitTimeToOn=0)
+                "Hysteresis with delay to switch on cooling"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Modelica.Blocks.Math.Feedback errTRooCoo
     "Control error on room temperature for cooling"
@@ -118,7 +119,7 @@ equation
   connect(TSetSupAirConst.y, conEco.TMixSet) annotation (Line(points={{-39,-20},
           {-20,-20},{-20,58},{-1,58}}, color={0,0,127}));
   connect(errTRooCoo.y, hysChiPla.u) annotation (Line(points={{-23,-60},{0,-60},
-          {0,-40},{0,-40},{40,-40},{40,-40},{39,-40}}, color={0,0,127}));
+          {0,-40},{40,-40},{39,-40}},                  color={0,0,127}));
   connect(TSetRooCoo, errTRooCoo.u2) annotation (Line(points={{-120,60},{-80,60},
           {-80,-80},{-32,-80},{-32,-68}}, color={0,0,127}));
   connect(errTRooCoo.u1, TRoo) annotation (Line(points={{-40,-60},{-74,-60},{

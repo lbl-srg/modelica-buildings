@@ -148,7 +148,8 @@ model ChillerDXHeatingEconomizer
       motorEfficiency(eta={0.9}),
       motorCooledByFluid=false),
     dp_nominal=12000,
-    inputType=Buildings.Fluid.Types.InputType.Continuous)
+    inputType=Buildings.Fluid.Types.InputType.Continuous,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Pump for chilled water loop"
     annotation (
       Placement(transformation(
@@ -297,9 +298,6 @@ equation
   connect(chi.P, PCoo) annotation (Line(points={{89,-177},{84,-177},{84,-128},{98,
           -128},{98,-50},{178,-50},{178,100},{210,100}},
         color={0,0,127}));
-  connect(PPum, PPum)
-    annotation (Line(points={{210,80},{220,80},{220,76},{228,76},{228,80},{210,80}},
-                                                          color={0,0,127}));
   connect(ideVal.port_2, chi.port_a2)
     annotation (Line(points={{86,0.2},{86,-162},{90,-162}},
                                                           color={0,127,255}));
@@ -315,6 +313,7 @@ equation
                               color={0,127,255}));
   connect(gaiFan.y, fanSup.m_flow_in)
     annotation (Line(points={{-59,140},{-20,140},{-20,52}}, color={0,0,127}));
+
 protected
   model IdealValve
     extends Modelica.Blocks.Icons.Block;
