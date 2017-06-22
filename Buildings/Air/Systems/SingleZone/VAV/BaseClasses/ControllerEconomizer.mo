@@ -6,53 +6,81 @@ model ControllerEconomizer "Controller for economizer"
     "Proportional gain of controller"
     annotation(Dialog(group="Control gain"));
 
-  Modelica.Blocks.Interfaces.RealInput TMixSet "Mixed air setpoint temperature"
+  Modelica.Blocks.Interfaces.RealInput TMixSet(
+    final unit="K",
+    displayUnit="degC")
+    "Mixed air setpoint temperature"
     annotation (Placement(transformation(rotation=0, extent={{-120,70},{-100,90}})));
-  Modelica.Blocks.Interfaces.RealInput TMix "Measured mixed air temperature"
+  Modelica.Blocks.Interfaces.RealInput TMix(
+    final unit="K",
+    displayUnit="degC")
+    "Measured mixed air temperature"
     annotation (Placement(transformation(rotation=0, extent={{-120,40},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealOutput yOutAirFra
-    "Control signal for outside air fraction"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput minOAFra "Minimum outside air fraction"
-                                                annotation (Placement(
-        transformation(rotation=0, extent={{-120,-30},{-100,-10}})));
-  Modelica.Blocks.Nonlinear.VariableLimiter Limiter(strict=true)
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Modelica.Blocks.Sources.Constant const(k=1)
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Modelica.Blocks.Interfaces.RealInput TOut "Measured outside air temperature"
-                                            annotation (Placement(
+
+  Modelica.Blocks.Interfaces.RealInput TOut (
+    final unit="K",
+    displayUnit="degC")
+    "Measured outside air temperature"
+    annotation (Placement(
         transformation(rotation=0, extent={{-120,-60},{-100,-40}})));
-  Modelica.Blocks.Logical.Switch switch1
-    annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Modelica.Blocks.Interfaces.RealInput yHea(unit="1")
+  Modelica.Blocks.Interfaces.RealInput yHea(final unit="1")
     "Control signal for heating coil" annotation (Placement(transformation(
           rotation=0, extent={{-120,-90},{-100,-70}})));
-  Modelica.Blocks.MathBoolean.And
-                              and1(nu=3)
+
+  Modelica.Blocks.Interfaces.RealInput TRet(
+    final unit="K",
+    displayUnit="degC")
+    "Return air temperature"
+    annotation (Placement(transformation(rotation=0, extent={{-120,10},{-100,30}})));
+
+  Modelica.Blocks.Interfaces.RealInput minOAFra(
+    min = 0,
+    max = 1,
+    final unit="1")
+    "Minimum outside air fraction"
+    annotation (Placement(transformation(rotation=0, extent={{-120,-30},{-100,-10}})));
+
+  Modelica.Blocks.Interfaces.RealOutput yOutAirFra(final unit="1")
+    "Control signal for outside air fraction"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+  Modelica.Blocks.Nonlinear.VariableLimiter Limiter(strict=true)
+    "Signal limiter"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Modelica.Blocks.Sources.Constant const(final k=1)
+    "Constant output signal with value 1"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+
+  Modelica.Blocks.Logical.Switch switch1 "Switch to select control output"
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
+
+  Modelica.Blocks.MathBoolean.And and1(final nu=3) "Logical and"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Controls.Continuous.LimPID con(
     final k=kPEco,
-    reverseAction=true,
-    yMax=Modelica.Constants.inf,
-    yMin=-Modelica.Constants.inf,
+    final reverseAction=true,
+    final yMax=Modelica.Constants.inf,
+    final yMin=-Modelica.Constants.inf,
     controllerType=Modelica.Blocks.Types.SimpleController.P)
-                                  "Controller"
+    "Controller"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  Modelica.Blocks.Math.Feedback feedback
+  Modelica.Blocks.Math.Feedback feedback "Control error"
     annotation (Placement(transformation(extent={{-50,-38},{-30,-18}})));
   HysteresisWithDelay hysYHea "Hysteresis with delay for heating signal"
     annotation (Placement(transformation(rotation=0, extent={{-80,-90},{-60,-70}})));
-  HysteresisWithDelay hysTMix(uLow=-0.5, uHigh=0.5)
+  HysteresisWithDelay hysTMix(
+    uLow=-0.5,
+    uHigh=0.5)
     "Hysteresis with delay for mixed air temperature"
     annotation (Placement(transformation(rotation=0, extent={{-20,-60},{0,-40}})));
   Modelica.Blocks.Logical.Not not1
     annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
-  Modelica.Blocks.Interfaces.RealInput TRet "Return air temperature"
-    annotation (Placement(transformation(rotation=0, extent={{-120,10},{-100,30}})));
+
   Modelica.Blocks.Math.Feedback feedback1
     annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
-  HysteresisWithDelay hysCooPot(uHigh=0.5, uLow=0)
+  HysteresisWithDelay hysCooPot(
+    uHigh=0.5,
+    uLow=0)
     "Hysteresis with delay to check for cooling potential of outside air"
     annotation (Placement(transformation(rotation=0, extent={{-40,20},{-20,40}})));
 equation

@@ -4,32 +4,44 @@ model HysteresisWithDelay
 
   parameter Real uLow = 0.05 "if y=true and u<=uLow, switch to y=false";
   parameter Real uHigh = 0.15 "if y=false and u>=uHigh, switch to y=true";
-  Modelica.StateGraph.InitialStep staOff "Off state"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Modelica.StateGraph.Transition toOn(
-    waitTime=waitTimeToOn,
-    condition=u > uHigh,
-    enableTimer=waitTimeToOn > 0) "Transition to on"
-    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-  Modelica.StateGraph.Transition toOff(
-    waitTime=waitTimeToOff,
-    condition=u < uLow,
-    enableTimer=waitTimeToOff > 0) "Transition to off"
-    annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
-  Modelica.StateGraph.StepWithSignal staOn "On state"
-    annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Modelica.Blocks.Interfaces.BooleanOutput on "On signal" annotation (Placement(
-        transformation(rotation=0, extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput u(unit="1") "Control input" annotation (
-      Placement(transformation(rotation=0, extent={{-120,-10},{-100,10}})));
-  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+
   parameter Modelica.SIunits.Time waitTimeToOn=15*60
     "Wait time before transition fires to active";
+
   parameter Modelica.SIunits.Time waitTimeToOff=15*60
     "Wait time before transition fires to off";
+
+  Modelica.Blocks.Interfaces.RealInput u "Control input" annotation (
+      Placement(transformation(rotation=0, extent={{-120,-10},{-100,10}})));
+
+  Modelica.Blocks.Interfaces.BooleanOutput on "On signal" annotation (Placement(
+      transformation(rotation=0, extent={{100,-10},{120,10}})));
+
+protected
+  Modelica.StateGraph.InitialStep staOff "Off state"
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+
+  Modelica.StateGraph.Transition toOn(
+    final waitTime=waitTimeToOn,
+    final condition=u > uHigh,
+    final enableTimer=waitTimeToOn > 0) "Transition to on"
+    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
+
+  Modelica.StateGraph.Transition toOff(
+    final waitTime=waitTimeToOff,
+    final condition=u < uLow,
+    final enableTimer=waitTimeToOff > 0) "Transition to off"
+    annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
+
+  Modelica.StateGraph.StepWithSignal staOn "On state"
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
+
+  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+
 initial equation
-  assert(uLow < uHigh, "Require uLow < uHigh.");
+  assert(uLow < uHigh, "Require uLow < uHigh. Check parameter values.");
+
 equation
   connect(toOn.inPort, staOff.outPort[1])
     annotation (Line(points={{-4,20},{-19.5,20}}, color={0,0,0}));

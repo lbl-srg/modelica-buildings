@@ -5,6 +5,7 @@ model ControllerHeatingCooling "Controller for heating and cooling"
   parameter Real kPHea(min=Modelica.Constants.small) = 1
     "Proportional gain of heating controller"
     annotation(Dialog(group="Control gain"));
+
   parameter Real kPFan(min=Modelica.Constants.small) = 1
     "Gain of controller for fan"
     annotation(Dialog(group="Control gain"));
@@ -18,26 +19,28 @@ model ControllerHeatingCooling "Controller for heating and cooling"
   Modelica.Blocks.Interfaces.RealInput TSetRooCoo "Zone cooling setpoint"
     annotation (Placement(transformation(rotation=0, extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealInput TRoo
-    "Zone temperature measurement"          annotation (Placement(
-        transformation(rotation=0, extent={{-120,-70},{-100,-50}})));
-  Modelica.Blocks.Interfaces.RealInput TSetRooHea "Zone heating setpoint"
+    "Zone temperature measurement"
+    annotation (Placement(transformation(rotation=0, extent={{-120,-70},{-100,-50}})));
+  Modelica.Blocks.Interfaces.RealInput TSetRooHea(
+    final unit="K",
+    displayUnit="degC") "Zone heating setpoint"
     annotation (Placement(transformation(rotation=0, extent={{-120,50},{-100,70}})));
-  Modelica.Blocks.Interfaces.RealOutput yFan(unit="1") "Control signal for fan"
+  Modelica.Blocks.Interfaces.RealOutput yFan(final unit="1") "Control signal for fan"
     annotation (Placement(transformation(rotation=0, extent={{100,30},{120,50}})));
-  Modelica.Blocks.Interfaces.RealOutput yHea(unit="1")
+  Modelica.Blocks.Interfaces.RealOutput yHea(final unit="1")
     "Control signal for heating coil"
     annotation (Placement(transformation(rotation=0, extent={{100,-50},{120,-30}})));
   Controls.Continuous.LimPID conHeaCoi(
-      k=kPHea,
-      controllerType=Modelica.Blocks.Types.SimpleController.P)
-      "Controller for heating coil"
+    final k=kPHea,
+    controllerType=Modelica.Blocks.Types.SimpleController.P)
+    "Controller for heating coil"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Controls.Continuous.LimPID conFan(
-    k=kPFan,
-    yMax=1,
-    yMin=minAirFlo,
+    final k=kPFan,
+    final yMax=1,
+    final yMin=minAirFlo,
     controllerType=Modelica.Blocks.Types.SimpleController.P,
-    reverseAction=true)
+    final reverseAction=true)
     "Controller for fan"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
