@@ -1,0 +1,17 @@
+last-generated=2017-06-16
+statistics-initialization=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": "1, 1"
+}
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+chi_TEva.COP_nominal=[3e+00, 3e+00]
+chi_TEva.COP=[3e+00, 3e+00]
+time=[0e+00, 3.6e+03]
+chi_y.COP_nominal=[3e+00, 3e+00]
+chi_y.COP=[3e+00, 3e+00]

@@ -44,8 +44,6 @@ protected
 initial equation
   assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be negative.");
 
-
-
 equation
   connect(TSet, eva.TSet) annotation (Line(points={{-120,90},{-66,90},{28,90},{28,
           -52},{12,-52}}, color={0,0,127}));
