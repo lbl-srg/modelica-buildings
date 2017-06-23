@@ -68,14 +68,14 @@ model Plant_T_ClosedLoop
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=0,
     u(unit="W"),
-    y(unit="J")) "Cooling energy in Joules"
+    y(unit="J")) "Cooling energy"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Modelica.Blocks.Continuous.Integrator EHea(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=0,
     u(unit="W"),
-    y(unit="J")) "Heating energy in Joules"
+    y(unit="J")) "Heating energy"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 protected
   Modelica.Blocks.Sources.Constant TSetH(k=273.15 + 12)
