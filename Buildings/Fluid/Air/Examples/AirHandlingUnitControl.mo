@@ -4,29 +4,43 @@ model AirHandlingUnitControl
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Air.Examples.BaseClasses.PartialAirHandlerControl(
     relHum(k=0.5),
-    sou_1(p = 500000),
+    sou_1(p=500000),
     sou_2(nPorts=1),
     masFra(redeclare package Medium = Medium2),
     TSet(table=[0,288.15 + 1; 600,288.15 + 1; 600,288.15 + 1; 1200,288.15 + 1;
           1800,288.15 + 1; 2400,288.15 + 1; 2400,288.15 + 1]),
     TWat(startTime = 600, height=-2));
 
-  parameter Real yMinVal(min=0, max=1, unit="1")=0.4
-  "Minimum valve position when valve is controlled to maintain outlet water temperature";
+  parameter Modelica.SIunits.ThermalConductance UA_nominal=m2_flow_nominal*1006*(T_b2_nominal-T_a2_nominal)/
+     Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
+        T_a1_nominal,
+        T_b1_nominal,
+        T_a2_nominal,
+        T_b2_nominal)
+    "Thermal conductance at nominal flow for sensible heat, used to compute time constant";
 
   Buildings.Fluid.Air.AirHandlingUnit ahu(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     allowFlowReversal1=true,
     allowFlowReversal2=true,
-    show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dat=dat,
-    addPowerToMedium=false,
-    yValve_start=0,
     tauEleHea=1,
     tauHum=1,
-    yMinVal=yMinVal)
+    m1_flow_nominal=m1_flow_nominal,
+    m2_flow_nominal=m2_flow_nominal,
+    UA_nominal=UA_nominal,
+    dpValve_nominal=6000,
+    QHeaMax_flow=10000,
+    mWatMax_flow=0.01,
+    perFan(pressure(V_flow=m2_flow_nominal*{0,0.5,1}, dp=300*{1.2,1.12,1})),
+    yValve_start=1,
+    dp1_nominal=3000,
+    dp2_nominal=200,
+    yValLow=0.4,
+    yValHig=0.45,
+    dTLow=-0.1,
+    dTHig=0.1)
     "Air handling unit"
       annotation (Placement(transformation(extent={{46,20},{66,40}})));
   Modelica.Blocks.Sources.Constant uFan(k=1) "Control input for fan"
@@ -38,11 +52,11 @@ model AirHandlingUnitControl
   Buildings.Controls.Continuous.LimPID PID(
     yMax=1,
     reverseAction=true,
-    yMin=yMinVal,
     Td=120,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
-    Ti=40)
+    Ti=40,
+    yMin=0.4)
     "PID controller for the water-side valve in air handling units"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
 equation

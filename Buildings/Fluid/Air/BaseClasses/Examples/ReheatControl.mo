@@ -2,10 +2,10 @@ within Buildings.Fluid.Air.BaseClasses.Examples;
 model ReheatControl "Test model for reheater controller with hysteresis"
   extends Modelica.Icons.Example;
   Buildings.Fluid.Air.BaseClasses.ReheatControl heaCon(
-    y1Low=0,
-    y1Hig=0.05,
-    y2Low=-0.5,
-    y2Hig=0.5) "Heater on/off controller"
+    yValLow=0.3,
+    yValHig=0.35,
+    dTLow=-0.5,
+    dTHig=0.5) "Heater on/off controller"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Sources.Sine sig1(
     freqHz=1/100,
@@ -33,13 +33,13 @@ equation
           -22,36}}, color={0,0,127}));
   connect(set1.y, add1.u2) annotation (Line(points={{-59,10},{-52,10},{-52,24},{
           -22,24}}, color={0,0,127}));
-  connect(add1.y, heaCon.y1)
+  connect(add1.y, heaCon.yVal)
     annotation (Line(points={{1,30},{20,30},{20,5},{38,5}}, color={0,0,127}));
   connect(sig2.y, add2.u1) annotation (Line(points={{-59,-28},{-52,-28},{-52,-44},
           {-22,-44}}, color={0,0,127}));
   connect(set2.y, add2.u2) annotation (Line(points={{-59,-70},{-52,-70},{-52,-56},
           {-22,-56}}, color={0,0,127}));
-  connect(add2.y, heaCon.y2) annotation (Line(points={{1,-50},{20,-50},{20,-5},{
+  connect(add2.y,heaCon.dT)  annotation (Line(points={{1,-50},{20,-50},{20,-5},{
           38,-5}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=100),
     __Dymola_Commands(file=
