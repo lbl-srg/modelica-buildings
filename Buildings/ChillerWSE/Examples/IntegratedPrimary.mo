@@ -120,8 +120,6 @@ model IntegratedPrimary
   Fluid.Sensors.TemperatureTwoPort senEvaOut(redeclare package Medium = Medium2,
       m_flow_nominal=m2_flow_nominal) "Temperature at evaporator outlet"
     annotation (Placement(transformation(extent={{-30,-90},{-50,-70}})));
-  IntegratedPrimarySecondary integratedPrimarySecondary
-    annotation (Placement(transformation(extent={{-86,14},{-66,34}})));
 equation
   connect(TCon_in.y, sou1.T_in)
     annotation (Line(points={{-119,-28},{-112,-28},{-112,-16},{-102,-16}},
