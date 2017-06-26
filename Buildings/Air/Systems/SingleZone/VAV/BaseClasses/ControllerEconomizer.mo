@@ -17,7 +17,7 @@ model ControllerEconomizer "Controller for economizer"
     "Measured mixed air temperature"
     annotation (Placement(transformation(rotation=0, extent={{-120,40},{-100,60}})));
 
-  Modelica.Blocks.Interfaces.RealInput TOut (
+  Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC")
     "Measured outside air temperature"
@@ -66,9 +66,9 @@ model ControllerEconomizer "Controller for economizer"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   Modelica.Blocks.Math.Feedback feedback "Control error"
     annotation (Placement(transformation(extent={{-50,-38},{-30,-18}})));
-  HysteresisWithDelay hysYHea "Hysteresis with delay for heating signal"
+  HysteresisWithHold  hysYHea "Hysteresis with delay for heating signal"
     annotation (Placement(transformation(rotation=0, extent={{-80,-90},{-60,-70}})));
-  HysteresisWithDelay hysTMix(
+  HysteresisWithHold  hysTMix(
     uLow=-0.5,
     uHigh=0.5)
     "Hysteresis with delay for mixed air temperature"
@@ -78,7 +78,7 @@ model ControllerEconomizer "Controller for economizer"
 
   Modelica.Blocks.Math.Feedback feedback1
     annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
-  HysteresisWithDelay hysCooPot(
+  HysteresisWithHold  hysCooPot(
     uHigh=0.5,
     uLow=0)
     "Hysteresis with delay to check for cooling potential of outside air"
@@ -109,9 +109,9 @@ equation
   connect(Limiter.y, yOutAirFra)
     annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
   connect(hysYHea.u, yHea)
-    annotation (Line(points={{-81,-80},{-110,-80}}, color={0,0,127}));
+    annotation (Line(points={{-82,-80},{-110,-80}}, color={0,0,127}));
   connect(feedback.y, hysTMix.u)
-    annotation (Line(points={{-31,-28},{-28,-28},{-28,-50},{-21,-50}},
+    annotation (Line(points={{-31,-28},{-28,-28},{-28,-50},{-22,-50}},
                                                    color={0,0,127}));
   connect(hysYHea.on, not1.u)
     annotation (Line(points={{-59,-80},{-52,-80}}, color={255,0,255}));
@@ -121,7 +121,7 @@ equation
   connect(feedback1.u2,TOut)
     annotation (Line(points={{-60,22},{-60,-50},{-110,-50}}, color={0,0,127}));
   connect(feedback1.y, hysCooPot.u)
-    annotation (Line(points={{-51,30},{-48,30},{-41,30}},
+    annotation (Line(points={{-51,30},{-42,30},{-42,30}},
                                                  color={0,0,127}));
   connect(hysCooPot.on, and1.u[1]) annotation (Line(points={{-19,30},{8,30},{8,
           -45.3333},{20,-45.3333}},      color={255,0,255}));
