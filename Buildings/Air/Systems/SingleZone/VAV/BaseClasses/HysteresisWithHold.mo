@@ -61,7 +61,6 @@ protected
 initial equation
   assert(uLow < uHigh, "Require uLow < uHigh. Check parameter values.");
 
-
 equation
   connect(initialStep.outPort[1], toTrue1.inPort)
     annotation (Line(points={{-19.5,90.25},{-2,90},{16,90}},  color={0,0,0}));
@@ -109,11 +108,9 @@ equation
           {190,-24},{120,-24},{120,-12}}, color={255,0,255}));
   connect(outputTrue.active, on) annotation (Line(points={{90,-11},{90,-11},{90,
           -20},{180,-20},{180,0},{230,0}}, color={255,0,255}));
-  annotation (
-    defaultComponentName="hysWitHol",
-    Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{220,120}})), Icon(
-        graphics={
+  annotation (defaultComponentName="hysWitHol",
+Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{220,120}})),
+Icon(   graphics={
         Text(
           extent={{-66,-40},{62,-82}},
           lineColor={0,0,0},
@@ -132,5 +129,18 @@ equation
             fillColor={0,0,0},
             fillPattern=FillPattern.Solid),
           Rectangle(extent={{48,18},{86,-16}}, lineColor={0,0,0}),
-          Rectangle(extent={{-82,18},{-44,-16}}, lineColor={0,0,0})}));
+          Rectangle(extent={{-82,18},{-44,-16}}, lineColor={0,0,0})}),
+Documentation(info="<html>
+<p>
+Model for a hysteresis block that optionally allows to specify a hold time. 
+During the hold time, the new state is hold.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 26, 2017, by Jianjun Hu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end HysteresisWithHold;
