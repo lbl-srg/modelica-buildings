@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
+﻿within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic;
 block ActuatedReliefDamperWithoutFan_MultiZone
   "Control of actuated relief  dampers without fans"
   parameter Modelica.SIunits.Pressure buiPreSet=

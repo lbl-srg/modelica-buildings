@@ -1,4 +1,4 @@
-within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
+within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic;
 block ReliefFanControl
   CDL.Continuous.Constant buiPreSetpoint(k=buiPreSet)
     "Building pressure setpoint"

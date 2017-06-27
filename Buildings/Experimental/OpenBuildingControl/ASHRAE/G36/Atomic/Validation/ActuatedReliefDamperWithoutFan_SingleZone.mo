@@ -1,8 +1,8 @@
-within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
+within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.Validation;
 model ActuatedReliefDamperWithoutFan_SingleZone
   "Validate the model of control actuated relief damper without fan"
   extends Modelica.Icons.Example;
-  Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.ActuatedReliefDamperWithoutFan_SingleZone
+  Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.ActuatedReliefDamperWithoutFan_SingleZone
     relDamPos "Block of controlling actuated relief damper without fan"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Constant supFan(k=true)
@@ -22,15 +22,15 @@ equation
           -40,40},{-40,6},{-11,6}},  color={0,0,127}));
   annotation (
 experiment(StopTime=1200.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/ActuatedReliefDamperWithoutFan_SingleZone.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/ActuatedReliefDamperWithoutFan_SingleZone.mos"
     "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.ActuatedReliefDamperWithoutFan_SingleZone\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.ActuatedReliefDamperWithoutFan_SingleZone</a>.
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.ActuatedReliefDamperWithoutFan_SingleZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.ActuatedReliefDamperWithoutFan_SingleZone</a>.
 </p>
 </html>", revisions="<html>
 <ul>

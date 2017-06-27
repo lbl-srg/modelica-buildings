@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
-package CompositeSequences
+package Composite
 
   annotation (Icon(graphics={
         Rectangle(
@@ -22,4 +22,4 @@ package CompositeSequences
           points={{-30,-40},{0,-40},{0,-10},{30,-10}},
           color={28,108,200},
           thickness=0.5)}));
-end CompositeSequences;
+end Composite;

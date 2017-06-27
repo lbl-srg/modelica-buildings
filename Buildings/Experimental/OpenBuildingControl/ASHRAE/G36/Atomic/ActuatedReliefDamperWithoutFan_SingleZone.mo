@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
+﻿within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic;
 block ActuatedReliefDamperWithoutFan_SingleZone
   "Control of actuated relief  dampers without fans"
   parameter Real minRelDamPos(min=0, max=1, unit="1") = 0.1

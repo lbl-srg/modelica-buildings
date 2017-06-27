@@ -1,11 +1,10 @@
-within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
+within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.Validation;
 model ActuatedReliefDamperWithoutFan_MultiZone
   "Validate the model of control actuated relief damper without fan"
   extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.ActuatedReliefDamperWithoutFan_MultiZone
-    relDamPos
-    "Block of controlling actuated relief damper without fan"
+  Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.ActuatedReliefDamperWithoutFan_MultiZone
+    relDamPos "Block of controlling actuated relief damper without fan"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Constant supFan(k=true)
     "Supply fan status"
@@ -25,15 +24,15 @@ equation
           -42},{-40,-6},{-11,-6}}, color={255,0,255}));
   annotation (
 experiment(StopTime=1200.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/ActuatedReliefDamperWithoutFan_MultiZone.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/ActuatedReliefDamperWithoutFan_MultiZone.mos"
     "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.ActuatedReliefDamperWithoutFan_MultiZone\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.ActuatedReliefDamperWithoutFan_MultiZone</a>.
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.ActuatedReliefDamperWithoutFan_MultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.ActuatedReliefDamperWithoutFan_MultiZone</a>.
 </p>
 </html>", revisions="<html>
 <ul>
