@@ -111,7 +111,8 @@ model ChillerDXHeatingEconomizerController
 
   BaseClasses.HysteresisWithHold  hysChiPla(
     uLow=-1,
-    uHigh=0)
+    uHigh=0,
+    onHolDur=60*15)
     "Hysteresis with delay to switch on cooling"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 

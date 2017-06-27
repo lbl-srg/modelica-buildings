@@ -56,6 +56,7 @@ Buildings.Air.Systems.SingleZone.VAV.BaseClasses.HysteresisWithHold</a>.
 </p>
 <p>
 The validation uses different instances to validate different hold durations.
+</p>
 <ul>
 <li>
 On hold duration time <code>onHolDur</code>=0, 
@@ -76,7 +77,6 @@ Off hold duration time <code>offHolDur</code>=30; The on hold period covers
 the instance when it should be off.
 </li>
 </ul>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

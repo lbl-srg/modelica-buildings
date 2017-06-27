@@ -66,11 +66,15 @@ model ControllerEconomizer "Controller for economizer"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   Modelica.Blocks.Math.Feedback feedback "Control error"
     annotation (Placement(transformation(extent={{-50,-38},{-30,-18}})));
-  HysteresisWithHold  hysYHea "Hysteresis with delay for heating signal"
+  HysteresisWithHold  hysYHea(
+    onHolDur=60*15,
+    uLow=0.05,
+    uHigh=0.15)               "Hysteresis with delay for heating signal"
     annotation (Placement(transformation(rotation=0, extent={{-80,-90},{-60,-70}})));
   HysteresisWithHold  hysTMix(
     uLow=-0.5,
-    uHigh=0.5)
+    uHigh=0.5,
+    onHolDur=60*15)
     "Hysteresis with delay for mixed air temperature"
     annotation (Placement(transformation(rotation=0, extent={{-20,-60},{0,-40}})));
   Modelica.Blocks.Logical.Not not1
@@ -80,7 +84,8 @@ model ControllerEconomizer "Controller for economizer"
     annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
   HysteresisWithHold  hysCooPot(
     uHigh=0.5,
-    uLow=0)
+    uLow=0,
+    onHolDur=60*15)
     "Hysteresis with delay to check for cooling potential of outside air"
     annotation (Placement(transformation(rotation=0, extent={{-40,20},{-20,40}})));
 equation
@@ -121,8 +126,7 @@ equation
   connect(feedback1.u2,TOut)
     annotation (Line(points={{-60,22},{-60,-50},{-110,-50}}, color={0,0,127}));
   connect(feedback1.y, hysCooPot.u)
-    annotation (Line(points={{-51,30},{-42,30},{-42,30}},
-                                                 color={0,0,127}));
+    annotation (Line(points={{-51,30},{-42,30}}, color={0,0,127}));
   connect(hysCooPot.on, and1.u[1]) annotation (Line(points={{-19,30},{8,30},{8,
           -45.3333},{20,-45.3333}},      color={255,0,255}));
   connect(hysTMix.on, and1.u[2]) annotation (Line(points={{1,-50},{1,-50},{20,

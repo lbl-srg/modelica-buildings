@@ -66,8 +66,6 @@ initial equation
 
 
 
-
-
 equation
   connect(initialStep.outPort[1], toTrue1.inPort)
     annotation (Line(points={{-19.5,90.25},{-2,90},{16,90}},  color={0,0,0}));
@@ -142,7 +140,6 @@ Documentation(info="<html>
 Model for a hysteresis block that optionally allows to specify a hold time. 
 During the hold time, the new state is hold.
 </p>
-<p>
 <ul>
 <li>
 When the input <code>u</code> becomes greater than <code>uHigh</code>, the 
@@ -159,7 +156,6 @@ After the duration time (<code>onHolDur</code>, <code>offHolDur</code>), the
 value of Boolean output <code>on</code> will change immediately whenever <code>
 u</code> is greater than <code>uHigh</code> (<code>True</code>) 
 or less than <code>uLow</code> (<code>False</code>).
-</p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Air/Systems/SingleZone/VAV/HysteresisWithHold.png\"
 alt=\"Input and output of the block\"/>
@@ -169,7 +165,6 @@ This model for example could be used to disable an economizer, and not re-enable
 it for <i>10</i> minutes, and vice versa. Using hysteresis can avoid the 
 distraction from the input noise.
 </p>
-
 </html>", revisions="<html>
 <ul>
 <li>
