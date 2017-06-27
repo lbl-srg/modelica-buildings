@@ -217,19 +217,19 @@ equation
     Diagram(coordinateSystem(extent={{-240,-280},{240,280}},
         initialScale=0.1), graphics={
         Rectangle(extent={{-240,280},{-100,160}}, lineColor={28,108,200}),
-    Text( extent={{-204,198},{-144,172}},
+    Text( extent={{-244,190},{-130,160}},
           lineColor={28,108,200},
           fontSize=12,
           textString="Outdoor airflow control loop."),
           Rectangle(extent={{-100,280},{240,-110}},
           lineColor={28,108,200}), Text(
-          extent={{76,-56},{220,-138}},
+          extent={{36,-84},{268,-104}},
           lineColor={28,108,200},
           fontSize=12,
           textString="Damper position limit calculation and assignments."),
      Rectangle(extent={{-240,160},{-100,-110}},
           lineColor={28,108,200}), Text(
-          extent={{-246,-48},{-102,-130}},
+          extent={{-258,-48},{-114,-130}},
           lineColor={28,108,200},
           fontSize=12,
           textString="Physical damper position

@@ -19,12 +19,10 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
   parameter Real uEntHigLimCutHig(final unit="J/kg", quantity="SpecificEnergy") = 0
     "Hysteresis block high limit cutoff (the delta between the 
     cutoff and the outdoor enthalpy)";
-    annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt));
   parameter Real uEntHigLimCutLow(
     final unit="J/kg", quantity="SpecificEnergy") = uEntHigLimCutHig - delEntHis
     "Hysteresis block low limit cutoff (the delta between the cutoff 
     and the outdoor temperature)";
-    annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt));
   parameter Modelica.SIunits.Time retDamFullyOpenTime = 180
     "Per G36, as the economizer gets disabled, the return air damper opens fully for this 
     period of time before modulating back to the min OA maximum, in order to avoid pressure 
@@ -110,8 +108,8 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     the max outdoor damper position is set to the minimum." annotation (Placement(transformation(extent={{80,-260},{100,-240}})));
   CDL.Logical.Switch MinRetDamSwitch "If any of the conditions provided by TOut and FreezeProtectionStatus inputs are violating the enable status,
     the max outdoor damper position is set to the minimum." annotation (Placement(transformation(extent={{80,-300},{100,-280}})));
-  CDL.Logical.Composite.OnOffHold OnOffDelay(holdDuration=600) "10 min on/off delay"
-              annotation (Placement(transformation(extent={{0,160},{20,180}})));
+  CDL.Logical.TrueFalseHold TrueFalseHold(duration=600) "10 min on/off delay"
+    annotation (Placement(transformation(extent={{0,160},{20,180}})));
   CDL.Logical.GreaterEqual greEqu
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
   CDL.Logical.Timer timer
@@ -147,7 +145,7 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
   CDL.Logical.And and1
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   CDL.Logical.Constant entSubst(final k=false) if not fixEnt
-    "Implemented for the no fixed enthalpy measurement case."
+    "Deactivates outdoor air enthalpy condition in case that there is no fixed enthalpy measurement."
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
 equation
   connect(OutDamSwitch.y, yOutDamPosMax) annotation (Line(points={{101,-180},{101,-180},{190,-180}}, color={0,0,127}));
@@ -190,7 +188,7 @@ equation
     annotation (Line(points={{-200,-270},{-30,-270},{-30,-258},{78,-258}}, color={0,0,127}));
   connect(timer.y, les1.u1) annotation (Line(points={{101,-100},{120,-100},{120,-200},{20,-200},{20,-220},{38,-220}},
                      color={0,0,127}));
-  connect(nor1.y, OnOffDelay.u) annotation (Line(points={{-19,170},{-1.2,170}}, color={255,0,255}));
+  connect(nor1.y, TrueFalseHold.u) annotation (Line(points={{-19,170},{-1,170}}, color={255,0,255}));
   connect(andEnaDis.y, not2.u)
     annotation (Line(points={{61,0},{80,0},{80,-60},{20,-60},{20,-100},{38,-100}}, color={255,0,255}));
   connect(MinRetDamSwitch.y, yRetDamPosMin) annotation (Line(points={{101,-290},{190,-290}}, color={0,0,127}));
@@ -204,21 +202,14 @@ equation
   connect(uZoneState, intToRea1.u) annotation (Line(points={{-200,-50},{-182,-50},{-162,-50}}, color={255,127,0}));
   connect(intToRea1.y, greThr.u) annotation (Line(points={{-139,-50},{-134,-50},{-130,-50},{-122,-50}}, color={0,0,127}));
   connect(greThr.y, andEnaDis.u3) annotation (Line(points={{-99,-50},{-20,-50},{-20,-8},{38,-8}}, color={255,0,255}));
-  connect(les1.y, and2.u1)
-    annotation (Line(points={{61,-220},{70,-220},{70,-236},{86,-236},{116,-236},
-          {116,-220},{118,-220}},                                                                       color={255,0,255}));
-  connect(greThr2.y, and2.u2) annotation (Line(points={{101,-220},{112,-220},{
-          112,-228},{118,-228}},                                                                     color={255,0,255}));
   connect(and2.y, MaxRetDamSwitch.u2)
-    annotation (Line(points={{141,-220},{152,-220},{152,-270},{60,-270},{60,
-          -250},{78,-250}},                                                                   color={255,0,255}));
+    annotation (Line(points={{141,-220},{150,-220},{150,-270},{60,-270},{60,-250},{78,-250}}, color={255,0,255}));
   connect(and2.y, MinRetDamSwitch.u2)
-    annotation (Line(points={{141,-220},{152,-220},{152,-270},{60,-270},{60,
-          -290},{78,-290}},                                                                   color={255,0,255}));
+    annotation (Line(points={{141,-220},{150,-220},{150,-270},{60,-270},{60,-290},{78,-290}}, color={255,0,255}));
   connect(timer.y, greThr2.u)
     annotation (Line(points={{101,-100},{130,-100},{130,-200},{74,-200},{74,-220},{78,-220}}, color={0,0,127}));
-  connect(not2.y, RetDamSwitch.u2) annotation (Line(points={{61,-100},{68,-100},
-          {68,-120},{-30,-120},{-30,-250},{-16,-250},{-16,-300},{-2,-300}},
+  connect(not2.y, RetDamSwitch.u2) annotation (Line(points={{61,-100},{68,-100},{68,-114},{-30,-114},{-30,-250},{-16,
+          -250},{-16,-300},{-2,-300}},
                       color={255,0,255}));
   connect(uRetDamPosMax, RetDamSwitch.u1)
     annotation (Line(points={{-200,-270},{-102,-270},{-102,-292},{-2,-292}}, color={0,0,127}));
@@ -228,13 +219,17 @@ equation
     annotation (Line(points={{21,-300},{50,-300},{50,-298},{78,-298}}, color={0,0,127}));
   connect(uRetDamPhyPosMax, MinRetDamSwitch.u1)
     annotation (Line(points={{-200,-240},{-62,-240},{-62,-282},{78,-282}}, color={0,0,127}));
-  connect(OnOffDelay.y, and1.u1) annotation (Line(points={{21,170},{30,170},{30,
-          90},{-10,90},{-10,70},{-2,70}}, color={255,0,255}));
+  connect(TrueFalseHold.y, and1.u1)
+    annotation (Line(points={{21,170},{30,170},{30,90},{-10,90},{-10,70},{-2,70}}, color={255,0,255}));
   connect(uSupFan, and1.u2) annotation (Line(points={{-200,70},{-102,70},{-102,
           62},{-2,62}}, color={255,0,255}));
   connect(and1.y, andEnaDis.u1) annotation (Line(points={{21,70},{21,70},{30,70},
           {30,8},{38,8}}, color={255,0,255}));
-  annotation (
+  connect(greThr2.y, and2.u1) annotation (Line(points={{101,-220},{109.5,-220},{118,-220}}, color={255,0,255}));
+  connect(les1.y, and2.u2)
+    annotation (Line(points={{61,-220},{70,-220},{70,-234},{110,-234},{110,-228},{118,-228}}, color={255,0,255}));
+    annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt),
+               Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt),
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
