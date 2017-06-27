@@ -2,16 +2,16 @@ within Buildings.Air.Systems.SingleZone.VAV.BaseClasses;
 model HysteresisWithHold
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real uLow = 0.05 "if y=true and u<=uLow, switch to y=false";
-  parameter Real uHigh = 0.15 "if y=false and u>=uHigh, switch to y=true";
+  parameter Real uLow "if y=true and u<=uLow, switch to y=false";
+  parameter Real uHigh "if y=false and u>=uHigh, switch to y=true";
 
-  parameter Modelica.SIunits.Time onHolDur=15*60
+  parameter Modelica.SIunits.Time onHolDur
     "On hold duration time";
 
-  parameter Modelica.SIunits.Time offHolDur=15*60
+  parameter Modelica.SIunits.Time offHolDur = onHolDur
     "Off hold duration time";
 
-  Modelica.Blocks.Interfaces.RealInput u
+  Modelica.Blocks.Interfaces.RealInput u "Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Modelica.Blocks.Interfaces.BooleanOutput on "On signal"
@@ -20,16 +20,19 @@ model HysteresisWithHold
 
 protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
+    "Root of state graph"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Modelica.StateGraph.InitialStep initialStep(nOut=2)
+  Modelica.StateGraph.InitialStep initialStep(nOut=2, nIn=0)
+    "Initial state"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Modelica.StateGraph.TransitionWithSignal toTrue1
+  Modelica.StateGraph.TransitionWithSignal toTrue1 "Transition to true"
     annotation (Placement(transformation(extent={{10,80},{30,100}})));
-  Modelica.StateGraph.TransitionWithSignal toFalse1
+  Modelica.StateGraph.TransitionWithSignal toFalse1 "Transition to false"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
-  Modelica.Blocks.Logical.Not not1
+  Modelica.Blocks.Logical.Not not1 "Negation of input"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=uLow, uHigh=uHigh)
+    "Transform Real to Boolean signal with Hysteresis"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.StateGraph.StepWithSignal outputTrue(nIn=2)
     "State with true output signal"
@@ -39,7 +42,7 @@ protected
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.StateGraph.TransitionWithSignal toTrue "Transition to true"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  Modelica.StateGraph.TransitionWithSignal toFalse "Transition to galse"
+  Modelica.StateGraph.TransitionWithSignal toFalse "Transition to false"
     annotation (Placement(transformation(extent={{110,-10},{130,10}})));
   Modelica.Blocks.Logical.Timer timer "Timer for false output"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
@@ -47,7 +50,7 @@ protected
     final threshold=offHolDur)
     "Output true when timer elapsed the required time"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Modelica.Blocks.Logical.And and1
+  Modelica.Blocks.Logical.And and1 "Check for input and elapsed timer"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Modelica.Blocks.Logical.Timer timer1  "Timer for true output"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
@@ -55,11 +58,15 @@ protected
     final threshold=onHolDur)
     "Output true when timer elapsed the required time"
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
-  Modelica.Blocks.Logical.And and2
+  Modelica.Blocks.Logical.And and2 "Check for input and elapsed timer"
     annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
 
 initial equation
   assert(uLow < uHigh, "Require uLow < uHigh. Check parameter values.");
+
+
+
+
 
 equation
   connect(initialStep.outPort[1], toTrue1.inPort)
@@ -135,6 +142,34 @@ Documentation(info="<html>
 Model for a hysteresis block that optionally allows to specify a hold time. 
 During the hold time, the new state is hold.
 </p>
+<p>
+<ul>
+<li>
+When the input <code>u</code> becomes greater than <code>uHigh</code>, the 
+output <code>on</code> becomes <code>True</code> and hold the <code>True</code>
+for at least <code>onHolDur</code> seconds.
+</li>
+<li>
+When the input <code>u</code> becomes less than <code>uLow</code>, the output
+<code>u</code> becomes <code>False</code> and hold the <code>False</code> for 
+at least <code>offHolDur</code> seconds.
+</li>
+</ul>
+After the duration time (<code>onHolDur</code>, <code>offHolDur</code>), the 
+value of Boolean output <code>on</code> will change immediately whenever <code>
+u</code> is greater than <code>uHigh</code> (<code>True</code>) 
+or less than <code>uLow</code> (<code>False</code>).
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Air/Systems/SingleZone/VAV/HysteresisWithHold.png\"
+alt=\"Input and output of the block\"/>
+</p>
+<p>
+This model for example could be used to disable an economizer, and not re-enable
+it for <i>10</i> minutes, and vice versa. Using hysteresis can avoid the 
+distraction from the input noise.
+</p>
+
 </html>", revisions="<html>
 <ul>
 <li>
