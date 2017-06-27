@@ -1,6 +1,5 @@
 within Buildings.Air.Systems.SingleZone.VAV.BaseClasses.Validation;
 model HysteresisWithHold
-  import Buildings;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Sine pulse1(amplitude=0.2, freqHz=1/360)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
