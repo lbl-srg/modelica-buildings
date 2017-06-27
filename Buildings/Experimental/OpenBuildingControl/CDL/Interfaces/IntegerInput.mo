@@ -6,10 +6,8 @@ connector IntegerInput = input Integer "'input Integer' as connector"
         points={{-100,100},{100,0},{-100,-100},{-100,100}},
         lineColor={255,127,0},
         fillColor={255,127,0},
-        fillPattern=FillPattern.Solid), Text(
-        extent={{-100,140},{-100,102}},
-        lineColor={255,127,0},
-        textString="%name")},            coordinateSystem(
+        fillPattern=FillPattern.Solid)},
+        coordinateSystem(
       extent={{-100,-100},{100,100}},
       preserveAspectRatio=true,
       initialScale=0.2)),
