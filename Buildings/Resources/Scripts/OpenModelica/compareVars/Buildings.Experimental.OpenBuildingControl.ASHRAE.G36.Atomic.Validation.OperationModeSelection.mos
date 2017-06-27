@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "operationModeSelection.opeMod",
+    "operationModeSelection.TunoHeaSet",
+    "operationModeSelection.TunoCooSet",
+    "operationModeSelection.THeaSet",
+    "operationModeSelection.TCooSet",
+    "operationModeSelection.Tzon[1]"
+  };
