@@ -2,29 +2,37 @@ within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
 block EconEnableDisableMultiZone "Economizer enable/disable switch"
 
   parameter Boolean fixEnt = true
-    "Set to true if there is an enthalpy sensor and the economizer uses fixed enthalpy + fixed dry bulb temperature sensors";
+    "Set to true if there is an enthalpy sensor and the economizer uses fixed enthalpy 
+    in addition to fixed dry bulb temperature sensors";
   parameter Real delTemHis(unit="K", quantity="TermodynamicTemperature")=1
     "Delta between the temperature hysteresis high and low limit";
   parameter Real delEntHis(unit="J/kg", quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limit"
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt));
   parameter Real uTemHigLimCutHig(final unit="K", quantity = "ThermodynamicTemperature") = 0
-    "Hysteresis high limit cutoff, refering to the delta between the cutoff and the outdoor conditions
-    [fixme: maybe we don't need to expose these limits, revise all once the sequence runs ok]";
-  parameter Real uTemHigLimCutLow(final unit="K", quantity = "ThermodynamicTemperature") = uTemHigLimCutHig - delTemHis
-    "Hysteresis low limit cutoff, refering to the delta between the cutoff and the outdoor conditions";
-  parameter Real uEntHigLimCutHig(unit="J/kg", quantity="SpecificEnergy") = 0
-    "Hysteresis high limit cutoff, refering to the delta between the cutoff and the outdoor conditions"
+    "Hysteresis block high limit cutoff (the delta between the 
+    cutoff and the outdoor temperature)";
+  parameter Real uTemHigLimCutLow(
+    final unit="K", quantity = "ThermodynamicTemperature") = uTemHigLimCutHig - delTemHis
+    "Hysteresis block low limit cutoff (the delta between the cutoff 
+    and the outdoor temperature)";
+  parameter Real uEntHigLimCutHig(final unit="J/kg", quantity="SpecificEnergy") = 0
+    "Hysteresis block high limit cutoff (the delta between the 
+    cutoff and the outdoor enthalpy)";
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt));
-  parameter Real uEntHigLimCutLow(unit="J/kg", quantity="SpecificEnergy") = uEntHigLimCutHig - delEntHis
-    "Hysteresis low limit cutoff, refering to the delta between the cutoff and the outdoor conditions"
+  parameter Real uEntHigLimCutLow(
+    final unit="J/kg", quantity="SpecificEnergy") = uEntHigLimCutHig - delEntHis
+    "Hysteresis block low limit cutoff (the delta between the cutoff 
+    and the outdoor temperature)";
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt));
   parameter Modelica.SIunits.Time retDamFullyOpenTime = 180
-    "Per G36 as the economizer disables the return air damper opens fully for this period of time before modulating
-    back to the min OA maximum, in order to avoid pressure fluctuations.";
+    "Per G36, as the economizer gets disabled, the return air damper opens fully for this 
+    period of time before modulating back to the min OA maximum, in order to avoid pressure 
+    fluctuations";
   parameter Modelica.SIunits.Time smallDisDel = 15
-    "Per G36 the outdoor air damper can switch to its minimal position only a short time period after the disable
-    signal got activated. The return air damper gets fully open before that in order to prevent pressure fluctuations";
+    "Per G36, the outdoor air damper can switch to its minimal position only this time period 
+    after the disable signal got activated. The return air damper gets fully open before that 
+    in order to prevent pressure fluctuations";
 
   CDL.Continuous.Constant openRetDam(k=retDamFullyOpenTime)
     "Keep return damper open to its physical maximum for a short period of time before closing the outdoor air damper
