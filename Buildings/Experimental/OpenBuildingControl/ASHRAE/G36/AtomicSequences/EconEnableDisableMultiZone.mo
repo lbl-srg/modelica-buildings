@@ -49,11 +49,12 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
       annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
         iconTransformation(extent={{-120,50},{-100,70}})));   //fixme quantities see bui.flui.sens for info
   CDL.Interfaces.RealInput TOutCut(unit="K", quantity = "ThermodynamicTemperature")
-    "Outdoor temperature high limit cutoff [fixme: see #777]" annotation (
+    "Outdoor temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
+                                                              annotation (
       Placement(transformation(extent={{-220,170},{-180,210}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
   CDL.Interfaces.RealInput hOutCut(unit="J/kg", displayUnit="kJ/kg") if fixEnt
-    "Outdoor enthalpy high limit cutoff [fixme: see #777]"
+    "Outdoor enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-220,90},{-180,130}}),
         iconTransformation(extent={{-120,30},{-100,50}})));
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1)
@@ -208,8 +209,8 @@ equation
     annotation (Line(points={{141,-220},{150,-220},{150,-270},{60,-270},{60,-290},{78,-290}}, color={255,0,255}));
   connect(timer.y, greThr2.u)
     annotation (Line(points={{101,-100},{130,-100},{130,-200},{74,-200},{74,-220},{78,-220}}, color={0,0,127}));
-  connect(not2.y, RetDamSwitch.u2) annotation (Line(points={{61,-100},{68,-100},{68,-114},{-30,-114},{-30,-250},{-16,
-          -250},{-16,-300},{-2,-300}},
+  connect(not2.y, RetDamSwitch.u2) annotation (Line(points={{61,-100},{68,-100},{68,-114},{-30,-114},{-30,-250},{-16,-250},
+          {-16,-300},{-2,-300}},
                       color={255,0,255}));
   connect(uRetDamPosMax, RetDamSwitch.u1)
     annotation (Line(points={{-200,-270},{-102,-270},{-102,-292},{-2,-292}}, color={0,0,127}));
@@ -289,30 +290,37 @@ when in heating",
           textString="fixme: expose duration and fixedEnth,
 remove 3 const blocks")}),
     Documentation(info="<html>
-   <p>
-  This sequence enables or disables the economizer based on
-  conditions provided in G36 PART5.N.7.
-  Fixme: There might be a need to convert this block in a generic enable-disable
-  control block that receives one or more hysteresis conditions, one or more
-  timed conditions, and one or more additional boolean signal conditions. For
-  now, the block is implemented as economizer enable-disable control block, an
-  atomic sequence which is a part in the economizer control composite sequence.
+  <p>
+  This is an economizer enable/disable sequence for a multiple zone VAV AHU 
+  based on conditions provided in ASHRAE G36 PART5-N.7 and PART5-A.17. Additional
+  conditions included in the sequence are: freeze protection (freeze protection 
+  stage 0-3, see PART5-N.12), supply fan status (on or off, see PART5-N.5), 
+  and zone state (cooling, heating, or deadband, as illustrated in the 
+  modulation control chart, PART5-N.2.c).
   </p>
   <p>
-  The economizer enable-disable sequence implements conditions from
-  ASHRAE guidline 36 (G36) as listed on the state machine diagram below. The
-  sequence output is binary, it either sets the economizer damper position to
-  its high (yOutDamPosMax) or to its low limit (yOutDamPosMin).
+  Economizer shall be disabled whenever the outdoor air conditions 
+  exceed the economizer high limit setpoint as specified by the local 
+  code. This sequence allows for all device types listed in 
+  ASHRAE 90.1-2013 and Title 24-2013.
+  </p>
+  <p>
+  Economizer shall be disabled whenever any of the following is true:
+  supply fan is off, zone state is <code>Heating<\code>, freeze protection stage 
+  is not <code>0<\code>.
+  </p>
+  <p>
+  The following state machine chart illustrates the above listed conditions:
   </p>
 <p>
 <p align=\"center\">
 <img alt=\"Image of economizer enable-disable state machine chart\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconHighLimitLockout.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconHighLimitLockoutMultizone.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 31, 2017, by Milica Grahovac:<br/>
+June 27, 2017, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
