@@ -49,7 +49,8 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
       annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
         iconTransformation(extent={{-120,50},{-100,70}})));   //fixme quantities see bui.flui.sens for info
   CDL.Interfaces.RealInput TOutCut(unit="K", quantity = "ThermodynamicTemperature")
-    "Outdoor temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
+    "Outdoor temperature high limit cutoff. 
+    For differential dry bulb temeprature condition use return air temperature measurement"
       annotation (Placement(transformation(extent={{-220,170},{-180,210}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
   CDL.Interfaces.RealInput hOutCut(unit="J/kg", displayUnit="kJ/kg") if fixEnt
