@@ -22,7 +22,7 @@ block EconDamperPositionLimitsMultiZone
     annotation (Placement(transformation(extent={{-280,180},{-240,220}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
   CDL.Interfaces.RealInput uVOutMinSet(unit="m3/s")
-    "Minimum outdoor airflow rate set point"
+    "Minimum outdoor airflow rate setpoint"
     annotation (Placement(transformation(extent={{-280,240},{-240,280}}),
         iconTransformation(extent={{-120,40},{-100,60}})));
   CDL.Interfaces.IntegerInput uAHUMode
