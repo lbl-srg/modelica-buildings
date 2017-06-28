@@ -2,10 +2,10 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block SignalRanker "Ranks output signals such that y[i] >= y[i+1]"
   parameter Integer nin=1 "Number of inputs";
   final parameter Integer nout=nin "Number of outputs";
-  Interfaces.RealInput u[nin] "Connector of Real input signals" annotation (Placement(
-        transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y[nout] "Connector of Real output signals" annotation (Placement(
-        transformation(extent={{100,-10},{120,10}})));
+  Interfaces.RealInput u[nin] "Connector of Real input signals"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Interfaces.RealOutput y[nout] "Connector of Real output signals"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
   Real t "Temporary variable";

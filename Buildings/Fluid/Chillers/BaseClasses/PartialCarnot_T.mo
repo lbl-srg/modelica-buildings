@@ -1,7 +1,7 @@
 within Buildings.Fluid.Chillers.BaseClasses;
 partial model PartialCarnot_T
   "Partial model for chiller with performance curve adjusted based on Carnot efficiency"
-  extends Carnot;
+  extends Buildings.Fluid.Chillers.BaseClasses.Carnot;
 
 protected
   Modelica.Blocks.Sources.RealExpression PEle "Electrical power consumption"

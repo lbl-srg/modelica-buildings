@@ -9,17 +9,18 @@ extends Modelica.Icons.Example;
     duration=1,
     offset=-2,
     height=6) "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-60,8},{-40,28}})));
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
     duration=1,
     offset=1.5,
     height=3.0) "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-60,-26},{-40,-6}})));
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
-  connect(ramp1.y, avg1.u1) annotation (Line(points={{-39,18},{-26,18},{-26,6},{
-          -12,6}}, color={0,0,127}));
-  connect(ramp2.y, avg1.u2) annotation (Line(points={{-39,-16},{-26,-16},{-26,-6},
-          {-12,-6}}, color={0,0,127}));
+  connect(ramp1.y, avg1.u1) annotation (Line(points={{-39,20},{-26,20},{-26,6},
+          {-12,6}},color={0,0,127}));
+  connect(ramp2.y, avg1.u2) annotation (Line(points={{-39,-20},{-26,-20},{-26,
+          -6},{-12,-6}},
+                     color={0,0,127}));
   annotation (
 experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/Average.mos"

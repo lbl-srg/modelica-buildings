@@ -88,8 +88,11 @@ equation
           lineColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          textString="Latch input")}),
-                                Documentation(info="<html>
+          textString="Latch input"),
+        Text(
+          extent={{-150,150},{150,110}},
+          lineColor={0,0,255},
+          textString="%name")}),Documentation(info="<html>
 <p>
 The block maintains an <code>ON</code> signal until some other condition occurs to turn the signal <code>OFF</code>.
 Once the <code>latch</code> input <code>u</code> receives an <code>ON</code> signal, the output <code>y</code>

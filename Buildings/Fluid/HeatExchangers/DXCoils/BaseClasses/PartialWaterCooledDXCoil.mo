@@ -215,7 +215,7 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
   // Variables
   Modelica.SIunits.Temperature TConEnt=
     MediumCon.temperature(MediumCon.setState_phX(portCon_a.p, inStream(portCon_a.h_outflow)))
-    "Temperature of fluid entering the condensor";
+    "Temperature of fluid entering the condenser";
 
   MediumEva.ThermodynamicState sta_a1=MediumEva.setState_phX(
       port_a.p,
@@ -258,7 +258,7 @@ protected
     annotation (Placement(transformation(extent={{40,-90},{20,-70}})));
 
   Modelica.Blocks.Sources.RealExpression TConEntWat(final y=TConEnt)
-    "Temperature of water entering condensor" annotation (Placement(
+    "Temperature of water entering condenser" annotation (Placement(
         transformation(
         extent={{-10,-9},{10,9}},
         origin={-50,11})));

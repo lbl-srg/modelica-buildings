@@ -57,23 +57,14 @@ protected
   Real PR(min = 0.0, unit = "1", start = 2.0)
     "Pressure ratio";
 
-  Boolean pressure_error(fixed=true, start=false)
-    "Shutdown signal for invalid pressure ratios";
-
 initial equation
-  isOn = if y > 0.01 then true else false;
+  pre(isOn) = if y > 0.01 then true else false;
 
 equation
-  when (not pre(isOn)) and y > 0.01 then
-    isOn = true;
-  elsewhen pre(isOn) and y <= 0.005 then
-    isOn = false;
-  end when;
+  isOn = not pre(isOn) and y > 0.01 or pre(isOn) and y >= 0.005;
 
   PR = max(pDis/pSuc, 0);
-  // The compressor is turned off if the resulting condensing pressure is lower
-  // than the evaporating pressure
-  pressure_error = (pre(pressure_error) and PR <= 1.01) or (not pre(pressure_error) and PR <= 1.0);
+
 
   // The specific volume at suction of the compressor is calculated
   // from the Martin-Hou equation of state
@@ -150,6 +141,21 @@ refrigerant mass flow is not accounted for and heat ports are used instead of fl
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2017, by Filip Jorissen:<br/>
+Removed <code>pressure_error</code> as
+this is replaced by
+<a href=\"modelica://Buildings.Fluid.HeatPumps.Compressors.BaseClasses.TemperatureProtection\">
+Buildings.Fluid.HeatPumps.Compressors.BaseClasses.TemperatureProtection</a>.
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/769\">#769</a>.
+</li>
+<li>
+May 26, 2017, by Michael Wetter and Thierry Nouidui:<br/>
+Reformulated <code>isOn</code> to use the same construct as the hysteresis block,
+and to work around a JModelica limitation.<br/>
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/774\">#774</a>.
+</li>
 <li>
 April 25, 2017, by Michael Wetter:<br/>
 Reformulated <code>when</code> conditions and moved common assignments

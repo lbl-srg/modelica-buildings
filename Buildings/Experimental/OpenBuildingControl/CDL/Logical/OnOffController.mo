@@ -53,8 +53,11 @@ equation
                else {235,235,235}),
           fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
                else {235,235,235}),
-          fillPattern=FillPattern.Solid)}),
-                                Documentation(info="<html>
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-150,150},{150,110}},
+          lineColor={0,0,255},
+          textString="%name")}),Documentation(info="<html>
 <p>
 Block that represents and on/off controller.
 </p>

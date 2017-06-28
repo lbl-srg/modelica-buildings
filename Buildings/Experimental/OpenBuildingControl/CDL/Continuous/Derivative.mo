@@ -5,17 +5,17 @@ block Derivative "Approximated derivative block"
   parameter Modelica.SIunits.Time T(min=1E-60)=0.01
     "Time constants (T>0 required; T=0 is ideal derivative block)";
   parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.Init initType=Types.Init.NoInit
-    "Type of initialization (1: no init, 2: initial state, 3: initial output)"      annotation(Evaluate=true,
-      Dialog(group="Initialization"));
+    "Type of initialization (1: no init, 2: initial state, 3: initial output)"
+    annotation(Evaluate=true, Dialog(group="Initialization"));
   parameter Real x_start=0 "Initial or guess value of state"
     annotation (Dialog(group="Initialization"));
   parameter Real y_start=0 "Initial value of output (= state)"
     annotation(Dialog(enable=initType == Init.InitialOutput, group=
           "Initialization"));
-  Interfaces.RealInput u "Connector of Real input signal" annotation (Placement(
-        transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y "Connector of Real output signal" annotation (Placement(
-        transformation(extent={{100,-10},{120,10}})));
+  Interfaces.RealInput u "Connector of Real input signal"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Interfaces.RealOutput y "Connector of Real output signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   output Real x(start=x_start) "State of block";
 
@@ -87,7 +87,11 @@ Modelica Standard Library.
     extent={{-30.0,14.0},{86.0,60.0}},
     textString="DT1"),
   Text(extent={{-150.0,-150.0},{150.0,-110.0}},
-    textString="k=%k")}),
+    textString="k=%k"),
+        Text(
+        extent={{-150,150},{150,110}},
+        textString="%name",
+        lineColor={0,0,255})}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}})));

@@ -70,7 +70,11 @@ equation
         Rectangle(extent={{-91,-49},{-8,-92}}, lineColor={192,192,192}),
         Line(points={{-49,-29},{-49,-49}}, color={192,192,192}),
         Rectangle(extent={{2,-49},{91,-92}}, lineColor={192,192,192}),
-        Line(points={{41,-29},{41,-49}}, color={192,192,192})}),
+        Line(points={{41,-29},{41,-49}}, color={192,192,192}),
+        Text(
+          extent={{-150,150},{150,110}},
+          lineColor={0,0,255},
+          textString="%name")}),
     Documentation(info="<html>
 <p>
 Block that transforms a <code>Real</code> input signal into a <code>Boolean</code>

@@ -31,9 +31,9 @@ block LimPID
     "The higher Nd, the more ideal the derivative block"
        annotation(Dialog(enable=controllerType==CDL.Types.SimpleController.PD or
                                 controllerType==CDL.Types.SimpleController.PID));
-  parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.Init initType= CDL.Types.Init.InitialState
-    "Type of initialization"         annotation(Evaluate=true,
-      Dialog(group="Initialization"));
+  parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.Init initType=
+    CDL.Types.Init.InitialState  "Type of initialization"
+    annotation(Evaluate=true,Dialog(group="Initialization"));
   parameter Boolean limitsAtInit = true
     "= false, if limits are ignored during initialization"
     annotation(Evaluate=true, Dialog(group="Initialization"));
@@ -82,8 +82,9 @@ protected
     T=max([Td/Nd,1.e-14]),
     x_start=xd_start,
     initType=if initType == CDL.Types.Init.InitialOutput
-         then CDL.Types.Init.InitialOutput else if initType == CDL.Types.Init.InitialState then
-        CDL.Types.Init.InitialState else CDL.Types.Init.NoInit) if with_D
+         then CDL.Types.Init.InitialOutput
+         else if initType == CDL.Types.Init.InitialState then
+           CDL.Types.Init.InitialState else CDL.Types.Init.NoInit) if with_D
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Gain gainPID(k=k)
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
@@ -210,7 +211,8 @@ Via parameter <code>controllerType</code> either <code>P</code>, <code>PI</code>
 or <code>PID</code> can be selected. If, e.g., PI is selected, all components belonging to the
 D-part are removed from the block (via conditional declarations).
 The example model
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Continuous.LimPID\">Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.LimPID</a>
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Continuous.LimPID\">
+Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.LimPID</a>
 demonstrates the usage of this controller.
 Several practical aspects of PID controller design are incorporated
 according to chapter 3 of the book:

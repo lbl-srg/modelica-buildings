@@ -67,7 +67,10 @@ model ReciprocatingWaterToWater_ScalingFactor
         UAEva=1540,
         pisDis=0.00162,
         cleFac=0.069,
-        pDro=99290)) "Reciprocating water to water heat pump"
+        pDro=99290),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    enable_temperature_protection=false)
+                     "Reciprocating water to water heat pump"
     annotation (Placement(transformation(extent={{-10,42},{10,62}})));
 
   Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater heaPum1(
@@ -88,7 +91,9 @@ model ReciprocatingWaterToWater_ScalingFactor
         UAEva=1540,
         pisDis=0.00162,
         cleFac=0.069,
-        pDro=99290))
+        pDro=99290),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    enable_temperature_protection=false)
     "Reciprocating water to water heat pump with transient effects"
     annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
   Modelica.Blocks.Sources.Pulse N(width=60, period=500)
@@ -109,7 +114,7 @@ model ReciprocatingWaterToWater_ScalingFactor
     nPorts=1) "Source side flow source"
     annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
   Modelica.Blocks.Sources.Constant TLoa(k=285.15) "Load side fluid temperature"
-    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
+    annotation (Placement(transformation(extent={{-102,-68},{-82,-48}})));
   Modelica.Blocks.Sources.Constant TSou(k=283.15)
     "Source side fluid temperature"
     annotation (Placement(transformation(extent={{100,-90},{80,-70}})));
@@ -149,10 +154,12 @@ equation
           {62,-56}}, color={0,0,127}));
   connect(sou.T_in, sou1.T_in) annotation (Line(points={{62,50},{70,50},{70,-56},
           {62,-56}}, color={0,0,127}));
-  connect(TLoa.y, loa1.T_in) annotation (Line(points={{-79,-60},{-70,-60},{-70,-44},
-          {-62,-44}}, color={0,0,127}));
-  connect(TLoa.y, loa.T_in) annotation (Line(points={{-79,-60},{-70,-60},{-70,62},
-          {-62,62}}, color={0,0,127}));
+  connect(TLoa.y, loa1.T_in) annotation (Line(points={{-81,-58},{-70,-58},{-70,
+          -44},{-62,-44}},
+                      color={0,0,127}));
+  connect(TLoa.y, loa.T_in) annotation (Line(points={{-81,-58},{-70,-58},{-70,
+          62},{-62,62}},
+                     color={0,0,127}));
   connect(loa1.ports[1], heaPum1.port_a1) annotation (Line(points={{-40,-48},{
           -26,-48},{-10,-48}}, color={0,127,255}));
   connect(heaPum1.port_b1, sin1.ports[2]) annotation (Line(points={{10,-48},{20,

@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial model PartialDXCoil "Partial model for DX coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    redeclare package Medium =
+    redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
       prescribedHeatFlowRate=true),
@@ -17,6 +17,13 @@ partial model PartialDXCoil "Partial model for DX coil"
     displayUnit="degC")
     "Outside air dry bulb temperature for an air cooled condenser or wetbulb temperature for an evaporative cooled condenser"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
+
+  Modelica.Blocks.Interfaces.RealInput mCon_flow(
+    quantity="MassFlowRate",
+    unit="kg/s") if use_mCon_flow
+    "Water mass flow rate for condenser"
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
+
   Modelica.Blocks.Interfaces.RealOutput P(
     quantity="Power",
     unit="W") "Electrical power consumed by the unit"
@@ -85,12 +92,7 @@ protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
     "Temperature of the control volume"
     annotation (Placement(transformation(extent={{66,16},{78,28}})));
-public
-  Modelica.Blocks.Interfaces.RealInput mCon_flow(
-    quantity="MassFlowRate",
-    unit="kg/s") if use_mCon_flow
-    "Water mass flowrate for an a water-cooled condenser"
-    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
+
 initial algorithm
   // Make sure that |Q_flow_nominal[nSta]| >= |Q_flow_nominal[i]| for all stages because the data
   // of nSta are used in the evaporation model
@@ -114,7 +116,6 @@ initial algorithm
   assert(i_x > 0, "Substance '" + substanceName + "' is not present in medium '"
                   + Medium.mediumName + "'.\n"
                   + "Change medium model to one that has '" + substanceName + "' as a substance.");
-
 
 equation
   connect(TConIn, dxCoo.TConIn)  annotation (Line(
@@ -201,7 +202,10 @@ equation
       smooth=Smooth.None));
   connect(mCon_flow, dxCoo.mCon_flow) annotation (Line(points={{-110,-30},{-24,
           -30},{-24,40},{-21,40}}, color={0,0,127}));
-  annotation (              defaultComponentName="dxCoi", Documentation(info="<html>
+
+  annotation (
+defaultComponentName="dxCoi",
+Documentation(info="<html>
 <p>
 This partial model is the base class for
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\">
@@ -220,6 +224,12 @@ for an explanation of the model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 19, 2017, by Michael Wetter:<br/>
+Added missing <code>replaceable</code> to the medium declaration.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/810\">Buildings #810</a>.
+</li>
 <li>
 April 12, 2017, by Michael Wetter:<br/>
 Removed temperature connection that is no longer needed.<br/>

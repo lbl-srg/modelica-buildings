@@ -9,7 +9,7 @@ extends Modelica.Icons.Example;
     duration=1,
     offset=-2,
     height=4)  "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-60,18},{-40,38}})));
+    annotation (Placement(transformation(extent={{-60,22},{-40,42}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
     height=2,
     duration=1,
@@ -19,14 +19,15 @@ extends Modelica.Icons.Example;
     height=3,
     duration=1,
     offset=-1) "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-60,-38},{-40,-18}})));
+    annotation (Placement(transformation(extent={{-60,-42},{-40,-22}})));
 equation
-  connect(ramp1.y, add1.u1) annotation (Line(points={{-39,28},{-26,28},{-26,8},{
-          -12,8}}, color={0,0,127}));
+  connect(ramp1.y, add1.u1) annotation (Line(points={{-39,32},{-26,32},{-26,8},
+          {-12,8}},color={0,0,127}));
   connect(ramp2.y, add1.u2) annotation (Line(points={{-39,0},{-26,0},{-12,0}},
                      color={0,0,127}));
-  connect(ramp3.y, add1.u3) annotation (Line(points={{-39,-28},{-26,-28},{-26,-8},
-          {-12,-8}}, color={0,0,127}));
+  connect(ramp3.y, add1.u3) annotation (Line(points={{-39,-32},{-26,-32},{-26,
+          -8},{-12,-8}},
+                     color={0,0,127}));
   annotation (
 experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/Add3.mos"

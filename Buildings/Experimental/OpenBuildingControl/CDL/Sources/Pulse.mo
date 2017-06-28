@@ -57,7 +57,11 @@ equation
         Text(
           extent={{-147,-152},{153,-112}},
           lineColor={0,0,0},
-          textString="period=%period")}),
+          textString="period=%period"),
+        Text(
+          lineColor={0,0,255},
+          extent={{-150,110},{150,150}},
+          textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}})),

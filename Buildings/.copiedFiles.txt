@@ -244,7 +244,6 @@ Buildings/Fluid/Actuators/Valves/Examples/TwoWayValveTable.mo
 Buildings/Fluid/Actuators/Valves/Examples/TwoWayValves.mo
 Buildings/Fluid/Actuators/Valves/Examples/TwoWayValvesMotor.mo
 Buildings/Fluid/Actuators/Valves/Examples/TwoWayValvesTable.mo
-Buildings/Fluid/Actuators/Valves/Examples/ValveParameterization.mo
 Buildings/Fluid/Actuators/Valves/Examples/package.mo
 Buildings/Fluid/Actuators/Valves/Examples/package.order
 Buildings/Fluid/Actuators/Valves/ThreeWayEqualPercentageLinear.mo
@@ -254,6 +253,10 @@ Buildings/Fluid/Actuators/Valves/TwoWayLinear.mo
 Buildings/Fluid/Actuators/Valves/TwoWayPressureIndependent.mo
 Buildings/Fluid/Actuators/Valves/TwoWayQuickOpening.mo
 Buildings/Fluid/Actuators/Valves/TwoWayTable.mo
+Buildings/Fluid/Actuators/Valves/Validation/ThreeWayValveParameterization.mo
+Buildings/Fluid/Actuators/Valves/Validation/TwoWayValveParameterization.mo
+Buildings/Fluid/Actuators/Valves/Validation/package.mo
+Buildings/Fluid/Actuators/Valves/Validation/package.order
 Buildings/Fluid/Actuators/Valves/package.mo
 Buildings/Fluid/Actuators/Valves/package.order
 Buildings/Fluid/Actuators/package.mo
@@ -291,6 +294,8 @@ Buildings/Fluid/Chillers/Examples/Carnot_TEva.mo
 Buildings/Fluid/Chillers/Examples/Carnot_y.mo
 Buildings/Fluid/Chillers/Examples/package.mo
 Buildings/Fluid/Chillers/Examples/package.order
+Buildings/Fluid/Chillers/Validation/CarnotVerifyCOP.mo
+Buildings/Fluid/Chillers/Validation/CarnotVerifyEtaCarnot.mo
 Buildings/Fluid/Chillers/Validation/Carnot_TEva_2ndLaw.mo
 Buildings/Fluid/Chillers/Validation/Carnot_TEva_HighTemperature.mo
 Buildings/Fluid/Chillers/Validation/Carnot_TEva_LimitedCapacity.mo
@@ -328,6 +333,20 @@ Buildings/Fluid/Examples/Performance/Example5.mo
 Buildings/Fluid/Examples/Performance/Example6.mo
 Buildings/Fluid/Examples/Performance/Example7.mo
 Buildings/Fluid/Examples/Performance/Example8.mo
+Buildings/Fluid/Examples/Performance/PressureDrop/ParallelDp.mo
+Buildings/Fluid/Examples/Performance/PressureDrop/ParallelDpOptimised.mo
+Buildings/Fluid/Examples/Performance/PressureDrop/ParallelFlow.mo
+Buildings/Fluid/Examples/Performance/PressureDrop/ParallelFlowOptimised.mo
+Buildings/Fluid/Examples/Performance/PressureDrop/SeriesDp.mo
+Buildings/Fluid/Examples/Performance/PressureDrop/SeriesDpOptimised.mo
+Buildings/Fluid/Examples/Performance/PressureDrop/SeriesFlow.mo
+Buildings/Fluid/Examples/Performance/PressureDrop/SeriesFlowOptimised.mo
+Buildings/Fluid/Examples/Performance/PressureDrop/SeriesParallelDp.mo
+Buildings/Fluid/Examples/Performance/PressureDrop/SeriesParallelDpOptimised.mo
+Buildings/Fluid/Examples/Performance/PressureDrop/SeriesParallelFlow.mo
+Buildings/Fluid/Examples/Performance/PressureDrop/SeriesParallelFlowOptimised.mo
+Buildings/Fluid/Examples/Performance/PressureDrop/package.mo
+Buildings/Fluid/Examples/Performance/PressureDrop/package.order
 Buildings/Fluid/Examples/Performance/package.mo
 Buildings/Fluid/Examples/Performance/package.order
 Buildings/Fluid/Examples/ResistanceVolumeFlowReversal.mo
@@ -679,6 +698,7 @@ Buildings/Fluid/Movers/Validation/BaseClasses/package.order
 Buildings/Fluid/Movers/Validation/ControlledFlowMachine.mo
 Buildings/Fluid/Movers/Validation/ControlledFlowMachineDynamic.mo
 Buildings/Fluid/Movers/Validation/FlowControlled_dp.mo
+Buildings/Fluid/Movers/Validation/FlowControlled_dpSystem.mo
 Buildings/Fluid/Movers/Validation/FlowControlled_m_flow.mo
 Buildings/Fluid/Movers/Validation/PowerExact.mo
 Buildings/Fluid/Movers/Validation/PowerSimplified.mo
@@ -756,6 +776,7 @@ Buildings/Fluid/Sources/BaseClasses/package.mo
 Buildings/Fluid/Sources/BaseClasses/package.order
 Buildings/Fluid/Sources/Boundary_pT.mo
 Buildings/Fluid/Sources/Boundary_ph.mo
+Buildings/Fluid/Sources/Examples/MassFlowSource_WeatherData.mo
 Buildings/Fluid/Sources/Examples/Outside.mo
 Buildings/Fluid/Sources/Examples/Outside_CpLowRise.mo
 Buildings/Fluid/Sources/Examples/TraceSubstancesFlowSource.mo
@@ -763,6 +784,7 @@ Buildings/Fluid/Sources/Examples/package.mo
 Buildings/Fluid/Sources/Examples/package.order
 Buildings/Fluid/Sources/FixedBoundary.mo
 Buildings/Fluid/Sources/MassFlowSource_T.mo
+Buildings/Fluid/Sources/MassFlowSource_WeatherData.mo
 Buildings/Fluid/Sources/MassFlowSource_h.mo
 Buildings/Fluid/Sources/Outside.mo
 Buildings/Fluid/Sources/Outside_CpLowRise.mo
@@ -989,7 +1011,8 @@ Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValveTa
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValves.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValvesMotor.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValvesTable.mos
-Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/ValveParameterization.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Validation/ThreeWayValveParameterization.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Validation/TwoWayValveParameterization.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/BasicFlowFunction_dp_DerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/BasicFlowFunction_dp_DerivativeCheck2.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/BasicFlowFunction_m_flow_DerivativeCheck.mos
@@ -999,6 +1022,8 @@ Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/Inver
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/InvertingBasicFlowFunction_m_flow.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/Carnot_TEva.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/Carnot_y.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/CarnotVerifyCOP.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/CarnotVerifyEtaCarnot.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/Carnot_TEva_2ndLaw.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/Carnot_TEva_HighTemperature.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/Carnot_TEva_LimitedCapacity.mos
@@ -1022,6 +1047,18 @@ Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/Example5.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/Example6.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/Example7.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/Example8.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/PressureDrop/ParallelDp.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/PressureDrop/ParallelDpOptimised.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/PressureDrop/ParallelFlow.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/PressureDrop/ParallelFlowOptimised.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/PressureDrop/SeriesDp.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/PressureDrop/SeriesDpOptimised.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/PressureDrop/SeriesFlow.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/PressureDrop/SeriesFlowOptimised.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/PressureDrop/SeriesParallelDp.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/PressureDrop/SeriesParallelDpOptimised.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/PressureDrop/SeriesParallelFlow.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/PressureDrop/SeriesParallelFlowOptimised.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Examples/ResistanceVolumeFlowReversal.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Examples/SimpleHouse.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FMI/Adaptors/Examples/ThermalZoneHVACNoExhaust.mos
@@ -1148,6 +1185,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/SpeedControlled_y_pumpC
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/ControlledFlowMachine.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/ControlledFlowMachineDynamic.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/FlowControlled_dp.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/FlowControlled_dpSystem.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/FlowControlled_m_flow.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerExact.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerSimplified.mos
@@ -1174,6 +1212,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TemperatureWetBulb.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TraceSubstances.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/Velocity.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/VolumeFlowRate.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/MassFlowSource_WeatherData.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside_CpLowRise.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/TraceSubstancesFlowSource.mos

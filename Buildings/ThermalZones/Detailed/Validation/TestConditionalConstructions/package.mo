@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.Validation;
-package TestConditionalConstructions "Package that tests if constructions can be conditionally removed"
+package TestConditionalConstructions "Package with models that verify whether constructions can be conditionally removed"
   extends Modelica.Icons.ExamplesPackage;
 
 

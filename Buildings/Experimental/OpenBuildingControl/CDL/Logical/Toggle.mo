@@ -93,15 +93,17 @@ equation
           lineColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          textString="Toggle input")}),
-                                Documentation(info="<html>
+          textString="Toggle input"),
+        Text(
+          extent={{-150,150},{150,110}},
+          lineColor={0,0,255},
+          textString="%name")}),Documentation(info="<html>
 <p>
 The block toggles output value whenever input turns <code>ON</code>. For instance, when the <code>toggle</code> input <code>u</code>
 turns <code>ON</code>, the output <code>y</code> turns <code>ON</code> and remains <code>ON</code> when the input <code>u</code> turns <code>OFF</code> again.
 When the input <code>u</code> turns back <code>ON</code>, the output turns <code>OFF</code>.
 When the <code>clr</code> input turns <code>ON</code>, the output turns <code>OFF</code>.
 </p>
-
 
 
 <table summary=\"summary\" border=\"1\">

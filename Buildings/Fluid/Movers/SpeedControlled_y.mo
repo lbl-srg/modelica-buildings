@@ -29,7 +29,7 @@ model SpeedControlled_y
         origin={0,120}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={-2,120})));
+        origin={0,120})));
 
 protected
   Modelica.Blocks.Math.Gain gain(final k=-1) "Pressure gain"
@@ -66,17 +66,29 @@ equation
             100}}),
             graphics={
             Text(
-              visible = inputType == Buildings.Fluid.Types.InputType.Continuous,
-              extent={{10,124},{102,102}},
-              textString="y [0, 1]"),
-            Text(
-          visible=inputType == Buildings.Fluid.Types.InputType.Constant,
-          extent={{-80,136},{78,102}},
-          lineColor={0,0,255},
-          textString="%normalized_speed"),
-        Text(extent={{64,68},{114,54}},
+              extent={{6,136},{104,114}},
           lineColor={0,0,127},
-          textString="y")}),
+          textString="y [0..1]"),
+        Rectangle(
+          visible=use_inputFilter,
+          extent={{-34,40},{32,100}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          visible=use_inputFilter,
+          extent={{-34,100},{32,40}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Text(
+          visible=use_inputFilter,
+          extent={{-22,92},{20,46}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          textString="M",
+          textStyle={TextStyle.Bold})}),
     Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed normalized speed.

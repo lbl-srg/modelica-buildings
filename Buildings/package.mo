@@ -177,6 +177,16 @@ its class name ends with the string <code>Beta</code>.
                         and optional first order dynamics.
        </td>
    </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Sources.MassFlowSource_WeatherData
+       </td>
+       <td valign=\"top\">Added component which allows prescribing
+                          a mass flow rate that has thermal properties
+                          obtained from weather data.
+       </td>
+   </tr>
    </table>
    <!-- Backward compatible changes -->
    <p>
@@ -185,12 +195,47 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot_TEva<br/>
+                          Buildings.Fluid.Chillers.Carnot_y
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Added approach temperature to avoid
+                          too large COPs if the temperature lift is small.<br/>
+                          This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/698\">IBPSA, #698</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.Carnot_TCon<br/>
+                          Buildings.Fluid.HeatPumps.Carnot_y
+       </td>
+       <td valign=\"top\">Added approach temperature to avoid
+                          too large COPs if the temperature lift is small.<br/>
+                          This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/698\">IBPSA, #698</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp
+       </td>
+       <td valign=\"top\">Added optional input signal for
+                          differential pressure measurement,
+                          which will then be tracked by the model.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
+                          Buildings.Fluid.SolarCollectors.EN12975
+       </td>
+       <td valign=\"top\">Changed models for incidence angles below 60&deg;
+                          in order to increase the accuracy near sunrise and sunset.<br/>
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/785\">#785</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>xxx</b>
@@ -1217,8 +1262,8 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.Case900<br/>
-                          Buildings.ThermalZones.Detailed.Validation.BESTEST.Case900
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case900<br/>
+                          Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case900
        </td>
        <td valign=\"top\">Added missing <code>parameter</code> keyword,
                           which is required as the variable (for the materials) is assigned to a parameter.
