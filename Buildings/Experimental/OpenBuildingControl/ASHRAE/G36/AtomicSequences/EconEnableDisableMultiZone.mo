@@ -315,7 +315,7 @@ remove 3 const blocks")}),
 <p>
 <p align=\"center\">
 <img alt=\"Image of economizer enable-disable state machine chart\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconHighLimitLockoutMultizone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconEnableDisableStateMachineChartMultizone.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
