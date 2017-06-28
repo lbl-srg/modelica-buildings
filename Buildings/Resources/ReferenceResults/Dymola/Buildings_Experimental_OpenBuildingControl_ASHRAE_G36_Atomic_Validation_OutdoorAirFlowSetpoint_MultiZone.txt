@@ -1,0 +1,19 @@
+last-generated=2017-06-28
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+numOfOccupant[5].y=[2e+00, 2e+00]
+numOfOccupant[3].y=[2e+00, 2e+00]
+numOfOccupant[4].y=[2e+00, 2e+00]
+numOfOccupant[1].y=[2e+00, 2e+00]
+numOfOccupant[2].y=[2e+00, 2e+00]
+time=[0e+00, 1e+00]
+zonPriFloRat[5].y=[1.000000014901161e-01, 1.000000014901161e-01]
+zonPriFloRat[4].y=[9.000000357627869e-02, 9.000000357627869e-02]
+zonPriFloRat[3].y=[2.000000029802322e-01, 2.000000029802322e-01]
+zonPriFloRat[2].y=[1.19999997317791e-01, 1.19999997317791e-01]
+zonPriFloRat[1].y=[1.000000014901161e-01, 1.000000014901161e-01]
+outdoorAirFlowSetpoint.yVOutMinSet=[8.943081647157669e-02, 8.943081647157669e-02]

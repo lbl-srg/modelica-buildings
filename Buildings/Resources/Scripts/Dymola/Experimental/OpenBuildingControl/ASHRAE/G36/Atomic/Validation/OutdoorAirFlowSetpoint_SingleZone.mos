@@ -1,0 +1,3 @@
+simulateModel("Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.Validation.OutdoorAirFlowSetpoint_SingleZone", method="dassl", stopTime=1, tolerance=1e-06, resultFile="OutdoorAirFlowSetpoint_SingleZone");
+createPlot(id=1, position={20, 10, 1200, 750}, subPlot=1, y={"numOfOccupant.y"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 750}, subPlot=2, y={"outdoorAirFlowSetpoint.yVOutMinSet"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});

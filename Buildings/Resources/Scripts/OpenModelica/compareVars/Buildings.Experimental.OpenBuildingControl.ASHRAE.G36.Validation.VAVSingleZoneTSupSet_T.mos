@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "setPoiVAV.y",
-    "setPoiVAV.yMin",
-    "setPoiVAV.yCooMax"
-  };
