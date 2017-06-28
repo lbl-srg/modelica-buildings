@@ -60,15 +60,15 @@ model AirHandlingUnit
         origin={18,-110})));
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K")
     "Set point temperature of the fluid that leaves port_b" annotation (
-      Placement(transformation(extent={{-140,-40},{-100,0}}),
-        iconTransformation(extent={{-120,-20},{-100,0}})));
+      Placement(transformation(extent={{-140,-30},{-100,10}}),
+        iconTransformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealInput XSet_w(unit="kg/kg")
     "Set point for water vapor mass fraction in kg/kg total air of the fluid that leaves port_b"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-120,0},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-10},{-100,30}}),
+        iconTransformation(extent={{-120,10},{-100,30}})));
   Modelica.Blocks.Sources.RealExpression dT(y(unit="K")=T_inflow_hea - TSet)
     "Difference between inlet temperature and temperature setpoint of the reheater"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{-62,-10},{-42,10}})));
 
   Buildings.Fluid.Humidifiers.SteamHumidifier_X hum(
     final allowFlowReversal=allowFlowReversal2,
@@ -121,8 +121,8 @@ model AirHandlingUnit
     final dTHig=dTHig)
     "Reheater on/off controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={0,10})));
+        rotation=0,
+        origin={-12,6})));
 
 protected
   Medium2.Temperature T_inflow_hea= Medium2.temperature(state=Medium2.setState_phX(port_b2.p,
@@ -135,11 +135,11 @@ equation
 
 
   connect(TSet, eleHea.TSet)
-  annotation (Line(points={{-120,-20},{-88,-20},{-88,-28},{-4,-28},{-4,-52},{
+  annotation (Line(points={{-120,-10},{-88,-10},{-88,-28},{-4,-28},{-4,-52},{
           -10,-52}},
   color={0,0,127}));
-  connect(XSet_w, hum.X_w) annotation (Line(points={{-120,0},{-80,0},{-80,-20},{
-          36,-20},{36,-54},{32,-54}},
+  connect(XSet_w, hum.X_w) annotation (Line(points={{-120,10},{-80,10},{-80,-20},
+          {36,-20},{36,-54},{32,-54}},
                  color={0,0,127}));
   connect(fan.port_a, eleHea.port_b) annotation (Line(points={{-50,-60},{-41,-60},
           {-32,-60}}, color={0,127,255}));
@@ -151,14 +151,16 @@ equation
   connect(eleHea.P, PHea) annotation (Line(points={{-33,-66},{-40,-66},{-40,-76},
           {18,-76},{18,-110}}, color={0,0,127}));
   connect(uFan,fan.y)
-    annotation (Line(points={{-120,-50},{-120,-48},{-60,-48}},  color={0,0,127}));
+    annotation (Line(points={{-120,-40},{-120,-48},{-60,-48}},  color={0,0,127}));
   connect(dT.y,heaCon.dT)
-    annotation (Line(points={{-19,40},{-22,40},{-5,40},{-5,22}},
+    annotation (Line(points={{-41,0},{-41,0},{-24,0},{-24,1}},
                                                        color={0,0,127}));
   connect(watVal.y_actual, heaCon.yVal) annotation (Line(points={{75,67},{84,67},
-          {84,80},{0,80},{0,40},{5,40},{5,22}}, color={0,0,127}));
+          {84,80},{0,80},{0,40},{-40,40},{-40,10},{-24,10},{-24,11}},
+                                                color={0,0,127}));
   connect(heaCon.y, eleHea.on)
-    annotation (Line(points={{0,-1},{0,-57},{-10,-57}}, color={255,0,255}));
+    annotation (Line(points={{-1,6},{-1,6},{2,6},{2,-56},{2,-56},{2,-57},{-10,
+          -57}},                                        color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-92,62},{92,-64}},
