@@ -5,9 +5,9 @@ block EconModulationMultiZone "Based on supply air temperature (SAT) setpoint an
   prevent modulation, provide input signals that set max and min position
   limits to the same value."
 
-  parameter Real retDamMinSig(min=0, max=1, unit="1") = 0.5
+  parameter Real retDamConSigMin(min=0, max=1, unit="1") = 0.5
   "Minimum control loop signal for the return air damper";
-  parameter Real outDamMaxSig(min=0, max=1, unit="1") = retDamMinSig
+  parameter Real outDamConSigMax(min=0, max=1, unit="1") = retDamConSigMin
   "Maximum control loop signal for the outdoor air damper";
   parameter Real yConSigMin=0 "Lower limit of controller output";
   parameter Real yConSigMax=1 "Upper limit of controller output";
@@ -76,10 +76,10 @@ protected
     "Maximal control loop signal for the return air damper."
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
-  CDL.Continuous.Constant retDamMinLimSig(k=retDamMinSig)
+  CDL.Continuous.Constant retDamMinLimSig(k=retDamConSigMin)
     "Minimal control loop signal for the return air damper."
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  CDL.Continuous.Constant outDamMaxLimSig(k=outDamMaxSig)
+  CDL.Continuous.Constant outDamMaxLimSig(k=outDamConSigMax)
     "Maximum control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 equation
@@ -146,58 +146,42 @@ equation
     fixme - issues: initiate inputs and outputs
     </p>
 <p>
-This atomic sequence sets the economizer and
-return air damper position. The implementation is according
-to ASHRAE Guidline 36 (G36), PART5.N.2.c and functionaly it represents the
-final sequence in the composite economizer control sequence.
+This sequence sets the outdoor and return air damper positions
+for the multiple zone VAV AHU. The implementation is based on ASHRAE 
+Guidline 36 (G36), PART5.N.2.c. Damper positions are linearly mapped to
+the supply air control loop signal. This is a final sequence in the 
+composite multizone AHU economizer control sequence. Damper position 
+limits, which are the inputs to the sequence, are the outputs of 
+<code>EconDamperPositionLimitsMultiZone<\code> and 
+<code>EconEnableDisableMultiZone<\code> sequences.
 </p>
 <p>
-The controller is enabled indirectly through the output of the the EconEnableDisable 
-sequence, which defines the maximum economizer damper position. Thus, strictly 
-speaking, the modulation sequence remains active, but if the economizer gets
-disabled, the range of economizer damper modulation equals zero.
-fixme: return air damper may be modulated even if econ disable, according to
-this control loop. Check if that is desired. Last time I reflected on this
-it seemed it would not pose functional dificulties.
-</p>
-<p>
-fixme: interpret corresponding text from G36 as implemented here.
+When the economizer is enabled, the PI controller modulates the damper 
+positions. When the economizer is disabled, the damper positions
+are set to the minimum outdoor air damper position limits. 
 </p>
 <p>
 Control charts below show the input-output structure and an economizer damper 
 modulation sequence assuming a well tuned controller. Control diagram:
 </p>
 <p align=\"center\">
-<img alt=\"Image of the modulation sequence control diagram\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationControlDiagram.png\"/>
+<img alt=\"Image of the multizone AHU modulation sequence control diagram\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationControlDiagramMultiZone.png\"/>
 </p>
 <p>
-The modulation is indirectly enabled through outputs of EconDamPosLimits, but also the conditions illustrated here:
+Multizone AHU economizer modulation control chart:
 <br>
 </br>
 </p>
 <p align=\"center\">
-<img alt=\"Image of the modulation sequence state machine chart\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationStateMachineChart.png\"/>
-</p>
-<p>
-Expected control performance, upon tuning:
-fixme: create our customized chart instead
-<br>
-</br>
-</p>
-<p align=\"center\">
-<img alt=\"Image of the modulation sequence expected performance\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/DamperModulationSequenceEcon_MultiZone.png\"/>
-</p>
-<p>
-bla
+<img alt=\"Image of the multizone AHU modulation sequence expected performance\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationControlChartMultiZone.png\"/>
 </p>
 
 </html>", revisions="<html>
 <ul>
 <li>
-April 07, 2017, by Milica Grahovac:<br/>
+June 28, 2017, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
