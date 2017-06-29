@@ -1,25 +1,29 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic;
-block OperationModeSelection "Block to specify system operation mode"
+block OperationModeSelection "Block that outputs the operation mode"
 
   parameter Integer numOfZon = 10 "Number of zones";
+
   parameter Modelica.SIunits.Time preWarCooTim = 3*3600 "Maximum cool-down/warm-up time";
+
   parameter Real bouLim = 1.1
     "Value limit to indicate the end of setback/setup mode";
+
   parameter Real freProThrVal = 4.4
     "Threshold zone temperature value to activate freeze protection mode";
+
   parameter Real freProEndVal = 7.2
     "Threshold zone temperature value to finish the freeze protection mode";
 
   CDL.Interfaces.IntegerOutput opeMod "Operation mode" annotation (Placement(
         transformation(extent={{460,-30},{480,-10}}), iconTransformation(extent=
            {{100,-10},{120,10}})));
-  CDL.Interfaces.RealInput Tzon[numOfZon] "Temperature of each zone"
+  CDL.Interfaces.RealInput TZon[numOfZon] "Temperature of each zone"
     annotation (Placement(transformation(extent={{-260,-30},{-220,10}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
-  CDL.Interfaces.RealInput TunoCooSet "Unoccupied cooling setpoint"
+  CDL.Interfaces.RealInput TUnoCooSet "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-260,-290},{-220,-250}}),
         iconTransformation(extent={{-120,-100},{-100,-80}})));
-  CDL.Interfaces.RealInput TunoHeaSet "Unoccupied heating setpoint temperature"
+  CDL.Interfaces.RealInput TUnoHeaSet "Unoccupied heating setpoint temperature"
     annotation (Placement(transformation(extent={{-260,-70},{-220,-30}}),
         iconTransformation(extent={{-120,-78},{-100,-58}})));
   CDL.Continuous.Constant occModInd(k=occModRan)  "Occupied mode index"
@@ -29,18 +33,18 @@ block OperationModeSelection "Block to specify system operation mode"
   CDL.Conversions.RealToInteger occMod
     annotation (Placement(transformation(extent={{300,240},{320,260}})));
   CDL.Interfaces.RealInput warUpTim[numOfZon]
-    "Warm up time retrieved from ventor specified optimal control code"
+    "Warm-up time retrieved from optimal warm-up block"
     annotation (Placement(transformation(extent={{-260,96},{-220,136}}),
         iconTransformation(extent={{-120,12},{-100,32}})));
   CDL.Interfaces.RealInput cooDowTim[numOfZon]
-    "Cool-down time retrieved from ventor specified optimal control code"
+    "Cool-down time retrieved from optimal control-down block"
     annotation (Placement(transformation(extent={{-260,176},{-220,216}}),
         iconTransformation(extent={{-120,34},{-100,54}})));
-  CDL.Continuous.Constant unoPerInd(k=0) "Index to indicate unoccupied period"
+  CDL.Continuous.Constant unoPerInd(final k=0) "Index to indicate unoccupied period"
     annotation (Placement(transformation(extent={{-160,220},{-140,240}})));
-  CDL.Continuous.MinMax minMax(nin=numOfZon)
+  CDL.Continuous.MinMax minMax(final nin=numOfZon)
     annotation (Placement(transformation(extent={{-140,184},{-120,204}})));
-  CDL.Continuous.MinMax minMax1(nin=numOfZon)
+  CDL.Continuous.MinMax minMax1(final nin=numOfZon)
     annotation (Placement(transformation(extent={{-140,104},{-120,124}})));
   CDL.Logical.Switch corCooDowTim "Corrected cool down period"
     annotation (Placement(transformation(extent={{0,170},{20,190}})));
@@ -50,9 +54,9 @@ block OperationModeSelection "Block to specify system operation mode"
     annotation (Placement(transformation(extent={{200,140},{220,160}})));
   CDL.Conversions.BooleanToReal booToRea1
     annotation (Placement(transformation(extent={{200,180},{220,200}})));
-  CDL.Continuous.Gain cooDowInd(k=cooDowRan) "Cool down mode: 2nd rank"
+  CDL.Continuous.Gain cooDowInd(final k=cooDowRan) "Cool down mode: 2nd rank"
     annotation (Placement(transformation(extent={{240,180},{260,200}})));
-  CDL.Continuous.Gain warUpInd(k=warUpRan)  "Warm-up mode: 4th rank"
+  CDL.Continuous.Gain warUpInd(final k=warUpRan)  "Warm-up mode: 4th rank"
     annotation (Placement(transformation(extent={{240,140},{260,160}})));
   CDL.Interfaces.BooleanInput uOcc "True/False if the zones are occupied"
     annotation (Placement(transformation(extent={{-260,280},{-220,320}}),
@@ -63,21 +67,21 @@ block OperationModeSelection "Block to specify system operation mode"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   CDL.Continuous.Sum sum1(nin=numOfZon)
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  CDL.Logical.GreaterEqualThreshold greEquThr(threshold=5)
+  CDL.Logical.GreaterEqualThreshold greEquThr(final threshold=5)
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  CDL.Logical.GreaterEqualThreshold greEquThr1(threshold=numOfZon)
+  CDL.Logical.GreaterEqualThreshold greEquThr1(final threshold=numOfZon)
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   CDL.Logical.Or or1
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
   CDL.Logical.Hysteresis hys(
-    uLow=bouLim*(-0.5),
-    uHigh=bouLim*0.5,
+    uLow=-0.5*bouLim,
+    uHigh=0.5*bouLim,
     pre_y_start=false)
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
-  CDL.Continuous.MinMax minMaxZonTem(nin=numOfZon)
+  CDL.Continuous.MinMax minMaxZonTem(final nin=numOfZon)
     "Min/Max of zone temperature among all zones"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
-  CDL.Continuous.Gain setBacInd(k=setBacRan) "Set-back mode: 5th rank"
+  CDL.Continuous.Gain setBacInd(final k=setBacRan) "Set-back mode: 5th rank"
     annotation (Placement(transformation(extent={{220,-20},{240,0}})));
   CDL.Logical.FallingEdge falEdg
     annotation (Placement(transformation(extent={{180,-60},{200,-40}})));
@@ -91,25 +95,25 @@ block OperationModeSelection "Block to specify system operation mode"
     annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
   CDL.Conversions.BooleanToReal booToRea4
     annotation (Placement(transformation(extent={{180,-120},{200,-100}})));
-  CDL.Continuous.Gain freProSetBacInd(k=freProRan)
+  CDL.Continuous.Gain freProSetBacInd(final k=freProRan)
     "Freeze protection setback mode: 6th rank"
     annotation (Placement(transformation(extent={{220,-120},{240,-100}})));
   CDL.Logical.Switch swi4
     annotation (Placement(transformation(extent={{260,-120},{280,-100}})));
   CDL.Conversions.BooleanToReal booToRea5[numOfZon]
     annotation (Placement(transformation(extent={{-80,-220},{-60,-200}})));
-  CDL.Continuous.Sum sum2(nin=numOfZon)
+  CDL.Continuous.Sum sum2(final nin=numOfZon)
     annotation (Placement(transformation(extent={{0,-220},{20,-200}})));
   CDL.Logical.GreaterEqualThreshold greEquThr2(threshold=5)
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
-  CDL.Logical.GreaterEqualThreshold greEquThr3(threshold=numOfZon)
+  CDL.Logical.GreaterEqualThreshold greEquThr3(final threshold=numOfZon)
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
   CDL.Logical.Or or4
     annotation (Placement(transformation(extent={{80,-220},{100,-200}})));
   CDL.Logical.Hysteresis hys1(
     pre_y_start=false,
-    uLow=bouLim*(-0.5),
-    uHigh=bouLim*0.5)
+    uLow=-0.5*bouLim,
+    uHigh=0.5*bouLim)
     annotation (Placement(transformation(extent={{140,-260},{160,-240}})));
   CDL.Logical.Latch lat2
     annotation (Placement(transformation(extent={{140,-220},{160,-200}})));
@@ -307,19 +311,19 @@ equation
     connect(uWinSta[i], swi1[i].u2) annotation (Line(points={{-240,30},{-214,30},
             {-214,-8},{-214,-30},{-202,-30}},
                                  color={255,0,255}));
-    connect(TunoHeaSet, swi1[i].u1) annotation (Line(points={{-240,-50},{-210,-50},
+    connect(TUnoHeaSet, swi1[i].u1) annotation (Line(points={{-240,-50},{-210,-50},
             {-210,-38},{-202,-38}},
                                   color={0,0,127}));
-    connect(Tzon[i], swi1[i].u3) annotation (Line(points={{-240,-10},{-210,-10},
+    connect(TZon[i], swi1[i].u3) annotation (Line(points={{-240,-10},{-210,-10},
             {-210,-22},{-202,-22}},
                             color={0,0,127}));
     connect(uWinSta[i], swi2[i].u2) annotation (Line(points={{-240,30},{-214,30},
             {-214,-100},{-214,-210},{-202,-210}},
                                    color={255,0,255}));
-    connect(TunoCooSet, swi2[i].u1) annotation (Line(points={{-240,-270},{-212,-270},
+    connect(TUnoCooSet, swi2[i].u1) annotation (Line(points={{-240,-270},{-212,-270},
             {-212,-218},{-202,-218}},
                                     color={0,0,127}));
-    connect(Tzon[i], swi2[i].u3) annotation (Line(points={{-240,-10},{-212,-10},
+    connect(TZon[i], swi2[i].u3) annotation (Line(points={{-240,-10},{-212,-10},
             {-212,-202},{-202,-202}},    color={0,0,127}));
     connect(cooDowTim[i], pro[i].u1) annotation (Line(points={{-240,196},{-240,196},
             {-182,196}},          color={0,0,127}));
@@ -339,7 +343,7 @@ equation
                                                       color={0,0,127}));
     connect(swi1[i].y, add9[i].u1) annotation (Line(points={{-179,-30},{-179,-30},
           {-164,-30},{-164,-4},{-142,-4}}, color={0,0,127}));
-    connect(TunoHeaSet, add9[i].u2) annotation (Line(points={{-240,-50},{-198,-50},
+    connect(TUnoHeaSet, add9[i].u2) annotation (Line(points={{-240,-50},{-198,-50},
           {-156,-50},{-156,-16},{-142,-16}}, color={0,0,127}));
     connect(add9[i].y, hys8[i].u) annotation (Line(points={{-119,-10},{-82,-10}},
                  color={0,0,127}));
@@ -347,7 +351,7 @@ equation
           {-42,-10}}, color={255,0,255}));
     connect(swi2[i].y, add10[i].u1) annotation (Line(points={{-179,-210},{-179,-210},
           {-170,-210},{-170,-204},{-162,-204}}, color={0,0,127}));
-    connect(TunoCooSet, add10[i].u2) annotation (Line(points={{-240,-270},{-240,-270},
+    connect(TUnoCooSet, add10[i].u2) annotation (Line(points={{-240,-270},{-240,-270},
           {-170,-270},{-170,-216},{-162,-216}}, color={0,0,127}));
     connect(add10[i].y, hys11[i].u) annotation (Line(points={{-139,-210},{-139,-210},
           {-122,-210}}, color={0,0,127}));
@@ -367,7 +371,7 @@ equation
           -10}},  color={255,0,255}));
   connect(greEquThr1.y, or1.u2) annotation (Line(points={{61,-40},{68,-40},{68,
           -18},{78,-18}},   color={255,0,255}));
-  connect(Tzon, minMaxZonTem.u[1:numOfZon]) annotation (Line(points={{-240,-10},
+  connect(TZon, minMaxZonTem.u[1:numOfZon]) annotation (Line(points={{-240,-10},
           {-160,-10},{-160,-80},{-142,-80}},
                                         color={0,0,127}));
   connect(or1.y, lat.u) annotation (Line(points={{101,-10},{110,-10},{120,-10},
@@ -512,12 +516,12 @@ equation
           {0,-76},{78,-76}}, color={0,0,127}));
   connect(add2.y, hys.u) annotation (Line(points={{101,-70},{108,-70},{108,-50},
           {138,-50}}, color={0,0,127}));
-  connect(TunoHeaSet, add2.u1) annotation (Line(points={{-240,-50},{-240,-50},{0,
+  connect(TUnoHeaSet, add2.u1) annotation (Line(points={{-240,-50},{-240,-50},{0,
           -50},{0,-64},{78,-64}}, color={0,0,127}));
   connect(minMaxZonTem.yMax, add1.u1) annotation (Line(points={{-119,-74},{-40,-74},
           {-40,-264},{78,-264}},
         color={0,0,127}));
-  connect(TunoCooSet, add1.u2) annotation (Line(points={{-240,-270},{-40,-270},{
+  connect(TUnoCooSet, add1.u2) annotation (Line(points={{-240,-270},{-40,-270},{
           -40,-276},{78,-276}}, color={0,0,127}));
   connect(add1.y, hys1.u) annotation (Line(points={{101,-270},{108,-270},{108,-250},
           {138,-250}}, color={0,0,127}));
@@ -617,19 +621,7 @@ equation
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
-          textString="Occpuied mode"),
-        Text(
-          extent={{364,148},{452,106}},
-          lineColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
-          textString="Cool-down mode"),
-        Text(
-          extent={{366,100},{454,60}},
-          lineColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
-          textString="Warm-up mode"),
+          textString="Occupied mode"),
         Text(
           extent={{384,18},{454,-18}},
           lineColor={0,0,255},
@@ -653,7 +645,19 @@ equation
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
-          textString="Freeze protection setback mode")}),
+          textString="Freeze protection setback mode"),
+        Text(
+          extent={{366,100},{454,60}},
+          lineColor={0,0,255},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          textString="Warm-up mode"),
+        Text(
+          extent={{364,148},{452,106}},
+          lineColor={0,0,255},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          textString="Cool-down mode")}),
    Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -728,73 +732,79 @@ equation
           rotation=90)}),
    Documentation(info="<html>
 <p>
-This block outputs VAV system operation mode. It is implemented according to 
-ASHRAE guideline G36, PART5.C.6 (Zone group operating modes).
+This block outputs VAV system operation mode. It is implemented according to
+ASHRAE guideline G36, PART5.C.6 (zone group operating modes).
+The block has the modes listed below.
 </p>
+<h4>Occupied Mode</h4>
 <p>
-a. <i>Occupied Mode</i>: A Zone Group is in the <i>Occupied Mode</i> when 
-occupancy input <code>uOcc</code> is true. This input can be retrieved from 
-other sequence that specifies occupancy variation and the remaining time to 
+A Zone Group is in the <i>occupied mode</i> when
+occupancy input <code>uOcc</code> is true. This input shall be retrieved from
+other sequences that specifies occupancy variation and time remaining to the
 next occupied period <code>tNexOcc</code>.
 </p>
+<h4>Warmup Mode</h4>
 <p>
-b. <i>Warmup Mode</i>: 
-Warmup Mode shall start based on the zone with the longest calculated warm up 
-time <code>warUpTim</code> requirement, but no earlier than 3 hours before 
-the start of the scheduled occupied period, and shall end at the scheduled 
-Occupied start hour. Zones where the window switch indicates that a window 
-is open shall be ignored. Note that the each zone <code>warUpTim</code> can be 
-output from <i>Optimal Start</i> sequences in separate block, 
-or from sequences designed by control vendor.
+Warmup mode shall start based on the zone with the longest calculated warm up
+time <code>warUpTim</code> requirement, but no earlier than 3 hours before
+the start of the scheduled occupied period, and shall end at the scheduled
+occupied start hour. Zones where the window switch indicates that a window
+is open shall be ignored. Note that for each zone, the optimal warm-up time
+<code>warUpTim</code> shall be obtained from an <i>Optimal Start</i>
+sequences, computed in a separate block.
 The figure below shows the sequence.
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Warm-upModeDefinition.png\"/>
 </p>
+<h4>Cool-Down Mode</h4>
 <p>
-c. <i>Cool-Down Mode</i>:  
-Cool-down Mode shall start based on the zone with the longest calculated 
-cool-down time <code>cooDowTim</code> requirement, but no earlier than 3 hours 
-before the start of the scheduled occupied period, and shall end at the 
-scheduled Occupied start hour. Zones where the window switch indicates that a 
-window is open shall be ignored. Note that the each zone <code>cooDowTim</code> 
-can be output from <i>Optimal Start</i> sequences in separate block, 
-or from sequences designed by control vendor.
+Cool-down mode shall start based on the zone with the longest calculated
+cool-down time <code>cooDowTim</code> requirement, but no earlier than 3 hours
+before the start of the scheduled occupied period, and shall end at the
+scheduled occupied start hour. Zones where the window switch indicates that a
+window is open shall be ignored. Note that the each zone <code>cooDowTim</code>
+shall be obtained from an <i>Optimal Start</i>
+sequences, computed in a separate block.
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Cool-downModeDefinition.png\"/>
 </p>
+<h4>Setback Mode</h4>
 <p>
-d. <i>Setback Mode</i>: During <i>Unoccupied Mode</i>, if any 5 zones (or all zones, 
-if fewer than 5) in the Zone Group fall below their unoccupied heating setpoints 
-<code>TunoHeaSet</code>, the Zone Group shall enter <i>Setback Mode</i> until 
-all spaces in the Zone Group are 1.1 C (2 F) above their unoccupied setpoints.
+During <i>unoccupied mode</i>, if any 5 zones (or all zones,
+if fewer than 5) in the zone group fall below their unoccupied heating setpoints
+<code>TUnoHeaSet</code>, the zone group shall enter <i>setback mode</i> until
+all spaces in the zone group are <i>1.1</i>&deg;C (<i>2</i> F) above their unoccupied setpoints.
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/SetbackModeDefinition.png\"/>
 </p>
+<h4>Freeze Protection Setback Mode</h4>
 <p>
-e. <i>Freeze Protection Setback Mode</i>: During <i>Unoccupied Mode</i>, if 
-any single zone falls below 4.4 C (40 F), the Zone Group shall enter 
-<i>Setback Mode</i> until all zones are above 7.2 C (45 F), 
+During <i>unoccupied Mode</i>, if
+any single zone falls below <i>4.4</i>&deg;C (<i>40</i> F), the zone group shall enter
+<i>setback mode</i> until all zones are above <i>7.2</i>&deg;C (<i>45</i> F),
 and a Level 3 alarm <code>yFreProAla</code> shall be set.
 </p>
+<h4>Setup Mode</h4>
 <p>
-f. <i>Setup Mode</i>: During <i>Unoccupied Mode</i>, if any 5 zones (or all zones, 
-if fewer than 5) in the Zone rise above their unoccupied cooling setpoints 
-<code>TunoCooSet</code>, the Zone Group shall enter <i>Setup Mode</i> until 
-all spaces in the Zone Group are 1.1 C (2 F) below their unoccupied setpoints. 
+During <i>unoccupied mode</i>, if any 5 zones (or all zones,
+if fewer than 5) in the zone rise above their unoccupied cooling setpoints
+<code>TUnoCooSet</code>, the zone group shall enter <i>setup mode</i> until
+all spaces in the zone group are <i>1.1</i>&deg;C (<i>2</i> F) below their unoccupied setpoints.
 Zones where the window switch indicates that a window is open shall be ignored.
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/SetupModeDefinition.png\"/>
 </p>
+<h4>Unoccupied Mode</h4>
 <p>
-g. <i>Unoccupied Mode</i>: When the Zone Group is not in any other mode.
+<i>Unoccupied mode</i> shall be active if the zone group is not in any other mode.
 </p>
 </html>",
 revisions="<html>

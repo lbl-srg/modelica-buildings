@@ -46,17 +46,17 @@ equation
     annotation (Line(points={{-75,0},{-64,0},{-54,0}}, color={0,0,127}));
   connect(sin1.y, addPar.u)
     annotation (Line(points={{-31,0},{-2,0}}, color={0,0,127}));
-  connect(addPar.y, operationModeSelection.Tzon[1])
-    annotation (Line(points={{21,0},{59,0}},               color={0,0,127}));
+  connect(addPar.y, operationModeSelection.TZon[1])
+    annotation (Line(points={{21,0},{59,0}}, color={0,0,127}));
   connect(occHeaSet.y, operationModeSelection.THeaSet) annotation (Line(points={{-39,-30},
           {-20,-30},{-20,-12},{34,-12},{34,-2.2},{59,-2.2}},            color={
           0,0,127}));
   connect(occCooSet.y, operationModeSelection.TCooSet) annotation (Line(points={{21,-30},
           {28,-30},{36,-30},{36,-4.6},{59,-4.6}},       color={0,0,127}));
-  connect(unoHeaSet.y, operationModeSelection.TunoHeaSet) annotation (Line(
+  connect(unoHeaSet.y,operationModeSelection.TUnoHeaSet)  annotation (Line(
         points={{-39,-70},{-20,-70},{-20,-48},{38,-48},{38,-6.8},{59,-6.8}},
         color={0,0,127}));
-  connect(unoCooSet.y, operationModeSelection.TunoCooSet) annotation (Line(
+  connect(unoCooSet.y,operationModeSelection.TUnoCooSet)  annotation (Line(
         points={{21,-70},{30,-70},{40,-70},{40,-9},{59,-9}}, color={0,0,127}));
   connect(warUpTim.y, operationModeSelection.warUpTim[1]) annotation (Line(
         points={{-39,40},{-20,40},{-20,20},{34,20},{34,2},{46,2},{46,2.2},{59,
