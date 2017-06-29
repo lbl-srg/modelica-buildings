@@ -88,17 +88,17 @@ partial model PartialAirHandlingUnit "Partial AHU model "
   parameter Real yFan_start(min=0, max=1, unit="1")=0 "Initial value of speed"
     annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
   replaceable parameter Movers.Data.Generic perFan "Performance data for the fan"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{-80,68},{-60,88}})));
 
   Modelica.Blocks.Interfaces.RealInput uWatVal(min=0,max=1,unit="1")
     "Actuator position (0: closed, 1: open) on water side"
-    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
-      iconTransformation(extent={{-120,30},{-100,50}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+      iconTransformation(extent={{-120,40},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput uFan if
    not inputType == Buildings.Fluid.Types.InputType.Stages
    "Continuous input signal for the fan"
-    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
-      iconTransformation(extent={{-120,-50},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+      iconTransformation(extent={{-120,-40},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealOutput PFan(quantity="Power",unit="W")
     "Electrical power consumed by the fan" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -111,8 +111,8 @@ partial model PartialAirHandlingUnit "Partial AHU model "
   Modelica.Blocks.Interfaces.IntegerInput stage if
     inputType == Buildings.Fluid.Types.InputType.Stages
     "Stage input signal for the pressure head"
-    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
-        iconTransformation(extent={{-120,-50},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-120,-40},{-100,-20}})));
 
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
     final UA_nominal=UA_nominal,
@@ -201,16 +201,16 @@ equation
   connect(fan.P, PFan) annotation (Line(points={{-71,-51},{-80,-51},{-80,-80},{
           -20,-80},{-20,-110}},
                             color={0,0,127}));
-  connect(watVal.y, uWatVal) annotation (Line(points={{70,72},{70,80},{70,90},{-50,
-          90},{-50,30},{-120,30}},
+  connect(watVal.y, uWatVal) annotation (Line(points={{70,72},{70,80},{70,90},{
+          -50,90},{-50,40},{-120,40}},
                      color={0,0,127}));
   connect(port_b2, fan.port_b) annotation (Line(points={{-100,-60},{-70,-60}},
                  color={0,127,255}));
-  connect(watVal.y_actual, y_valve) annotation (Line(points={{75,67},{75,68},{
-          84,68},{84,40},{110,40}},
+  connect(watVal.y_actual, y_valve) annotation (Line(points={{75,67},{84,67},{
+          84,66},{84,66},{84,66},{84,40},{110,40}},
                                  color={0,0,127}));
   connect(fan.stage, stage) annotation (Line(points={{-60,-48},{-60,-40},{-90,
-          -40},{-90,-50},{-120,-50}},
+          -40},{-120,-40}},
         color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
       Diagram(coordinateSystem(preserveAspectRatio=false),
