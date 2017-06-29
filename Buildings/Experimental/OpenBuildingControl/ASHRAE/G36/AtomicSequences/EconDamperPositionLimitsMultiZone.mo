@@ -81,9 +81,7 @@ block EconDamperPositionLimitsMultiZone
   CDL.Logical.Switch outDamPosMaxSwitch
     "A switch to deactivate the outdoor air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  CDL.Logical.And3 and1
-    "Evaluates input signals to determine whether the minimum outdoor airflow control
-    should be enabled or disabled"
+  CDL.Logical.And3 and1 "Locical and block"
     annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
   CDL.Logical.Not not1 "Logical not block"
     annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
@@ -92,10 +90,10 @@ block EconDamperPositionLimitsMultiZone
   CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
     annotation (Placement(transformation(extent={{-220,-230},{-200,-210}})));
   CDL.Logical.LessEqualThreshold equ(final threshold=higestIgnFreProSta)
-    "Logical block that determines whether the freeze protection stage is below the
-    disable threshold"
+    "Logical block that determines whether the freeze protection stage is below the disable threshold"
     annotation (Placement(transformation(extent={{-180,-190},{-160,-170}})));
-  CDL.Logical.Equal equ1 annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
+  CDL.Logical.Equal equ1 "Logical equal block"
+    annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
 
 protected
   parameter Real occupied=1
