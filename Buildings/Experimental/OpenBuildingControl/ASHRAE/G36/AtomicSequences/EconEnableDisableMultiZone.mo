@@ -1,6 +1,13 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
 block EconEnableDisableMultiZone "Economizer enable/disable switch"
 
+  parameter Types.FreezeProtectionStage freProDisabled=
+    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Types.FreezeProtectionStage.stage0
+    "Indicates that the freeze protection is disabled";
+
+  parameter Real freProDisabledNum = Integer(freProDisabled)-1
+    "Numerical value indicating that the freeze protection is disabled";
+
   parameter Boolean fixEnt = true
     "Set to true if there is an enthalpy sensor and the economizer uses fixed enthalpy 
     in addition to fixed dry bulb temperature sensors";
@@ -111,13 +118,13 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     the max outdoor damper position is set to the minimum." annotation (Placement(transformation(extent={{80,-300},{100,-280}})));
   CDL.Logical.TrueFalseHold TrueFalseHold(duration=600) "10 min on/off delay"
     annotation (Placement(transformation(extent={{0,160},{20,180}})));
-  CDL.Logical.GreaterEqual greEqu
+  CDL.Logical.GreaterEqual greEqu "Logical greater or equal block"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
-  CDL.Logical.Timer timer
+  CDL.Logical.Timer timer "Timer"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
   CDL.Logical.Nor nor1 annotation (Placement(transformation(extent={{-40,160},{
             -20,180}})));
-  CDL.Continuous.Add add2(k2=-1) if fixEnt
+  CDL.Continuous.Add add2(k2=-1) if fixEnt "Add block"
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
   CDL.Continuous.Add add1(k2=-1)
     annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
@@ -128,11 +135,11 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
         transformation(extent={{-220,-10},{-180,30}}),    iconTransformation(extent={{-120,10},{-100,30}})));
   CDL.Conversions.IntegerToReal intToRea
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  CDL.Logical.LessEqualThreshold equ(final threshold=threshold)
+  CDL.Logical.LessEqualThreshold equ(final threshold=freProDisabledNum)
+    "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  parameter Real threshold=0 "Comparison with respect to threshold";
   CDL.Interfaces.IntegerInput uZoneState
-    "Zone state input (0=Heating, 1=Deadband, 2=Cooling)"
+    "Zone state input (integer, see Types for values)"
     annotation (Placement(transformation(extent={{-220,-70},{-180,-30}}), iconTransformation(extent={{-120,-10},{-100,10}})));
   CDL.Conversions.IntegerToReal intToRea1
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
@@ -150,11 +157,9 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
 equation
   connect(OutDamSwitch.y, yOutDamPosMax) annotation (Line(points={{101,-180},{101,-180},{190,-180}}, color={0,0,127}));
-  connect(TOut, add1.u1) annotation (Line(points={{-200,230},{-170,230},{-170,
-          216},{-142,216}},
+  connect(TOut, add1.u1) annotation (Line(points={{-200,230},{-160,230},{-160,216},{-142,216}},
         color={0,0,127}));
-  connect(TOutCut, add1.u2) annotation (Line(points={{-200,190},{-170,190},{
-          -170,204},{-142,204}},
+  connect(TOutCut, add1.u2) annotation (Line(points={{-200,190},{-160,190},{-160,204},{-142,204}},
         color={0,0,127}));
   connect(add1.y, hysOutTem.u) annotation (Line(points={{-119,210},{-102,210}}, color={0,0,127}));
   connect(hOut, add2.u1) annotation (Line(points={{-200,150},{-160,150},{-160,
@@ -209,21 +214,20 @@ equation
     annotation (Line(points={{141,-220},{150,-220},{150,-270},{60,-270},{60,-290},{78,-290}}, color={255,0,255}));
   connect(timer.y, greThr2.u)
     annotation (Line(points={{101,-100},{130,-100},{130,-200},{74,-200},{74,-220},{78,-220}}, color={0,0,127}));
-  connect(not2.y, RetDamSwitch.u2) annotation (Line(points={{61,-100},{68,-100},{68,-114},{-30,-114},{-30,-250},{-16,-250},
-          {-16,-300},{-2,-300}},
-                      color={255,0,255}));
+  connect(not2.y, RetDamSwitch.u2) annotation (Line(points={{61,-100},{68,-100},{68,-114},{-50,-114},{-50,-252},{-50,-300},
+          {-2,-300}}, color={255,0,255}));
   connect(uRetDamPosMax, RetDamSwitch.u1)
-    annotation (Line(points={{-200,-270},{-102,-270},{-102,-292},{-2,-292}}, color={0,0,127}));
+    annotation (Line(points={{-200,-270},{-100,-270},{-100,-292},{-2,-292}}, color={0,0,127}));
   connect(uRetDamPosMin, RetDamSwitch.u3)
     annotation (Line(points={{-200,-300},{-100,-300},{-100,-308},{-2,-308}}, color={0,0,127}));
   connect(RetDamSwitch.y, MinRetDamSwitch.u3)
     annotation (Line(points={{21,-300},{50,-300},{50,-298},{78,-298}}, color={0,0,127}));
   connect(uRetDamPhyPosMax, MinRetDamSwitch.u1)
-    annotation (Line(points={{-200,-240},{-62,-240},{-62,-282},{78,-282}}, color={0,0,127}));
+    annotation (Line(points={{-200,-240},{-60,-240},{-60,-282},{78,-282}}, color={0,0,127}));
   connect(TrueFalseHold.y, and1.u1)
     annotation (Line(points={{21,170},{30,170},{30,90},{-10,90},{-10,70},{-2,70}}, color={255,0,255}));
-  connect(uSupFan, and1.u2) annotation (Line(points={{-200,70},{-102,70},{-102,
-          62},{-2,62}}, color={255,0,255}));
+  connect(uSupFan, and1.u2) annotation (Line(points={{-200,70},{-100,70},{-100,62},{-2,62}},
+                        color={255,0,255}));
   connect(and1.y, andEnaDis.u1) annotation (Line(points={{21,70},{21,70},{30,70},
           {30,8},{38,8}}, color={255,0,255}));
   connect(greThr2.y, and2.u1) annotation (Line(points={{101,-220},{109.5,-220},{118,-220}}, color={255,0,255}));
@@ -253,42 +257,39 @@ equation
         preserveAspectRatio=false,
         extent={{-180,-320},{180,240}},
         initialScale=0.1), graphics={Text(
-          extent={{76,116},{186,106}},
+          extent={{84,112},{194,102}},
           lineColor={28,108,200},
-          textString="Outdoor air conditions"),
+          textString="Outdoor air conditions",
+          fontSize=12),
         Rectangle(extent={{-180,240},{180,100}},lineColor={28,108,200}),
         Rectangle(extent={{-180,40},{180,-20}}, lineColor={28,108,200}),
         Rectangle(extent={{-180,-80},{180,-320}}, lineColor={28,108,200}),
                                      Text(
-          extent={{82,34},{204,16}},
+          extent={{100,30},{222,12}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
-          textString="Freeze protection
-conditions"),                        Text(
-          extent={{-170,-86},{-52,-124}},
+          textString="Freeze protection conditions",
+          fontSize=12),              Text(
+          extent={{-176,-82},{-58,-120}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           fontSize=12,
           textString="Enable-disable damper limit
-assignments with time delays
-per G36 PART5.N.7"),
+          assignments with time delays per G36 PART5.N.7"),
         Rectangle(extent={{-180,-20},{180,-80}},lineColor={28,108,200}),
                                      Text(
-          extent={{84,-28},{196,-42}},
-          lineColor={28,108,200},
-          textString="Zone State - disable
-when in heating",
-          horizontalAlignment=TextAlignment.Left),
-        Rectangle(extent={{-180,100},{180,40}}, lineColor={28,108,200}),
-                                     Text(
-          extent={{82,58},{190,46}},
+          extent={{100,-18},{170,-60}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
-          textString="Supply fan"),  Text(
-          extent={{-34,204},{76,194}},
+          textString="Zone State - disable when in heating",
+          fontSize=12),
+        Rectangle(extent={{-180,100},{180,40}}, lineColor={28,108,200}),
+                                     Text(
+          extent={{100,54},{208,42}},
           lineColor={28,108,200},
-          textString="fixme: expose duration and fixedEnth,
-remove 3 const blocks")}),
+          horizontalAlignment=TextAlignment.Left,
+          textString="Supply fan",
+          fontSize=12)}),
     Documentation(info="<html>
   <p>
   This is an economizer enable/disable sequence for a multiple zone VAV AHU 
