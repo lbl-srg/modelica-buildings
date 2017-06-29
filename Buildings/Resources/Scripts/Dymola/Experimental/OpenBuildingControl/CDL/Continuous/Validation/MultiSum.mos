@@ -1,0 +1,2 @@
+simulateModel("Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.MultiSum", method="dassl", tolerance=1e-06, stopTime=1.0, resultFile="MultiSum_1");
+createPlot(id=1, position={15, 10, 750, 600}, y={"mulSum.u[1]", "mulSum.u[2]", "mulSum.u[3]", "mulSum.u[4]", "mulSum.u[5]","mulSum.y"}, range={0.0, 1.0, -5, 6}, grid=true, colors={{0,140,72}, {238,46,47}, {217,67,180}, {238,46,47}, {217,67,180},{28,108,200}});

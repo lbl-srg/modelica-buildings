@@ -10,6 +10,7 @@ GreaterEqual
 GreaterEqualThreshold
 GreaterThreshold
 Hysteresis
+HysteresisWithHold
 Latch
 Less
 LessEqual
