@@ -6,11 +6,11 @@ block MultiSum
     annotation (Dialog(tab="Advanced"));
   parameter Integer nu(min=0) = 0 "Number of input connections"
     annotation (Dialog(connectorSizing=true), HideResult=true);
+  parameter Real k[nu]=fill(1, nu) "Input gains";
   Interfaces.RealInput u[nu]
     annotation (Placement(transformation(extent={{-120,70},{-80,-70}})));
   Interfaces.RealOutput y
     annotation (Placement(transformation(extent={{100,-17},{134,17}})));
-  parameter Real k[nu]=fill(1, nu) "Input gains";
 equation
   if size(u, 1) > 0 then
     y = k*u;
@@ -59,7 +59,8 @@ connectorSizing annotation).
 
 <p>
 The usage is demonstrated, e.g., in example
-<a href=\"modelica://Modelica.Blocks.Examples.RealNetwork1\">Modelica.Blocks.Examples.RealNetwork1</a>.
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.MultiSum\">
+Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.MultiSum</a>.
 </p>
 
 <p>
@@ -71,7 +72,7 @@ the output is set to zero: y=0.
 revisions="<html>
 <ul>
 <li>
-May 24, 2017, by Milica Grahovac:<br/>
+June 28, 2017, by Jianjun Hu:<br/>
 First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/825\">issue 825</a>.
 </li>

@@ -33,4 +33,5 @@ TrueFalseHold
 TrueHoldWithReset
 Xor
 ZeroCrossing
+MultiAnd
 Validation

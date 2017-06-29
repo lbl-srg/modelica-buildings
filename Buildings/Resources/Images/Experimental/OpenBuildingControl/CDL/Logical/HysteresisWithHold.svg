@@ -13,7 +13,7 @@
    id="svg5447"
    sodipodi:docname="HysteresisWithHold.svg"
    inkscape:version="0.92.1 unknown"
-   inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/Air/Systems/SingleZone/VAV/HysteresisWithHold.png"
+   inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/HysteresisWithHold.png"
    inkscape:export-xdpi="86.407402"
    inkscape:export-ydpi="86.407402">
   <metadata
@@ -24,7 +24,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1228,20 +1228,14 @@
      transform="translate(0,-9)" />
   <text
      xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.8590498px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#0000ec;fill-opacity:1;stroke:none;stroke-width:0.37147489px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.85866674px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#0000ec;fill-opacity:1;stroke:none;stroke-width:0.37147489px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
      x="326.13898"
      y="41.297443"
      id="text5457"><tspan
        sodipodi:role="line"
-       id="tspan5582"
-       x="326.13898"
-       y="41.297443"
-       style="stroke-width:0.37147489px">Instances when the output  on should be </tspan><tspan
+       id="tspan4999">Instances when the output  on should be </tspan><tspan
        sodipodi:role="line"
-       id="tspan5584"
-       x="326.13898"
-       y="59.871254"
-       style="stroke-width:0.37147489px">True, but keeps False due to the offHold.</tspan></text>
+       id="tspan5001">true, but keep false due to the offHold.</tspan></text>
   <path
      style="opacity:1;fill:none;fill-rule:evenodd;stroke:#0000ec;stroke-width:0.7143569;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.42871384, 0.71435692;stroke-dashoffset:0;stroke-opacity:1"
      d="M 334.83855,47.334388 335,324.11865"
@@ -1284,12 +1278,10 @@
      inkscape:connector-curvature="0" />
   <text
      xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.85866642px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#0000ec;fill-opacity:1;stroke:none;stroke-width:0.37147489px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.85866674px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#0000ec;fill-opacity:1;stroke:none;stroke-width:0.37147489px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
      x="84.418365"
      y="447.67679"
      id="text5457-4"><tspan
        sodipodi:role="line"
-       id="tspan5611"
-       x="84.418365"
-       y="447.67679">Instances when the output  on should be False, but keeps True due to the onHold.</tspan></text>
+       id="tspan5003">Instances when the output  on should be false, but keep true due to the onHold.</tspan></text>
 </svg>

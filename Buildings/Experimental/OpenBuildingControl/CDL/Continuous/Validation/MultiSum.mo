@@ -59,9 +59,9 @@ with gain factor of 1;</li>
 with gain factor of 0.5;</li>
 <li>input <code>u3</code> varies from <i>-1</i> to <i>+2</i>, 
 with gain factor of 0.1;</li>
-<li>input <code>u3</code> varies from <i>-2</i> to <i>+1</i>, 
+<li>input <code>u4</code> varies from <i>-2</i> to <i>+1</i>, 
 with gain factor of 1;</li>
-<li>input <code>u3</code> varies from <i>-3</i> to <i>0</i>, 
+<li>input <code>u5</code> varies from <i>-3</i> to <i>0</i>, 
 with gain factor of 2;</li>
 </ul>
 
