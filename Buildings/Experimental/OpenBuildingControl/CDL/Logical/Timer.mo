@@ -22,8 +22,8 @@ equation
   y = if u then time - entryTime else 0.0;
 
 annotation (
+    defaultComponentName="tim",
     Icon(
-      defaultComponentName="tim",
       coordinateSystem(preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),
         graphics={                       Rectangle(
