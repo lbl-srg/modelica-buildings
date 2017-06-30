@@ -176,8 +176,8 @@ equation
     annotation (Line(points={{-200,-200},{-78,-200},{-78,-202},{38,-202}}, color={0,0,127}));
   connect(uRetDamPosMax, MaxRetDamSwitch.u3)
     annotation (Line(points={{-200,-230},{-78,-230},{-78,-218},{38,-218}}, color={0,0,127}));
-  connect(timer.y, les1.u1) annotation (Line(points={{51,-60},{72,-60},{72,-154},{-20,-154},{-20,-180},{-10,-180}},
-        color={0,0,127}));
+  connect(timer.y, les1.u1)
+    annotation (Line(points={{51,-60},{72,-60},{72,-154},{-20,-154},{-20,-180},{-10,-180}},color={0,0,127}));
   connect(nor1.y, TrueFalseHold.u) annotation (Line(points={{-19,210},{-1,210}}, color={255,0,255}));
   connect(andEnaDis.y, not2.u)
     annotation (Line(points={{61,40},{72,40},{72,-20},{-20,-20},{-20,-60},{-12,-60}}, color={255,0,255}));
@@ -189,11 +189,12 @@ equation
   connect(not2.y, timer.u) annotation (Line(points={{11,-60},{28,-60}},   color={255,0,255}));
   connect(uFreProSta, intToRea.u) annotation (Line(points={{-200,50},{-200,50},{-162,50}}, color={255,127,0}));
   connect(intToRea.y, equ.u) annotation (Line(points={{-139,50},{-134,50},{-122,50}}, color={0,0,127}));
-  connect(equ.y, andEnaDis.u2) annotation (Line(points={{-99,50},{-62,50},{-20,50},{-20,40},{38,40}},
-                                                                                                    color={255,0,255}));
+  connect(equ.y, andEnaDis.u2)
+    annotation (Line(points={{-99,50},{-62,50},{-20,50},{-20,40},{38,40}},color={255,0,255}));
   connect(uZoneState, intToRea1.u) annotation (Line(points={{-200,-10},{-182,-10},{-162,-10}}, color={255,127,0}));
   connect(intToRea1.y, greThr.u) annotation (Line(points={{-139,-10},{-134,-10},{-130,-10},{-122,-10}}, color={0,0,127}));
-  connect(greThr.y, andEnaDis.u3) annotation (Line(points={{-99,-10},{-20,-10},{-20,32},{38,32}}, color={255,0,255}));
+  connect(greThr.y, andEnaDis.u3)
+    annotation (Line(points={{-99,-10},{-20,-10},{-20,32},{38,32}}, color={255,0,255}));
   connect(and2.y, MaxRetDamSwitch.u2)
     annotation (Line(points={{141,-180},{150,-180},{150,-230},{20,-230},{20,-210},{38,-210}}, color={255,0,255}));
   connect(and2.y, MinRetDamSwitch.u2)
@@ -201,7 +202,7 @@ equation
   connect(timer.y, greThr2.u)
     annotation (Line(points={{51,-60},{82,-60},{82,-172},{86,-172}},   color={0,0,127}));
   connect(not2.y, RetDamSwitch.u2)
-    annotation (Line(points={{11,-60},{20,-60},{20,-72},{-90,-72},{-90,-260},{-62,-260}},     color={255,0,255}));
+    annotation (Line(points={{11,-60},{20,-60},{20,-72},{-90,-72},{-90,-260},{-62,-260}},color={255,0,255}));
   connect(uRetDamPosMax, RetDamSwitch.u1)
     annotation (Line(points={{-200,-230},{-140,-230},{-140,-252},{-62,-252}},color={0,0,127}));
   connect(uRetDamPosMin, RetDamSwitch.u3)
@@ -211,17 +212,15 @@ equation
   connect(uRetDamPhyPosMax, MinRetDamSwitch.u1)
     annotation (Line(points={{-200,-200},{-120,-200},{-120,-242},{38,-242}},color={0,0,127}));
   connect(TrueFalseHold.y, and1.u1)
-    annotation (Line(points={{21,210},{30,210},{30,130},{-10,130},{-10,110},{-2,110}},
-                                                                                   color={255,0,255}));
+    annotation (Line(points={{21,210},{30,210},{30,130},{-10,130},{-10,110},{-2,110}},color={255,0,255}));
   connect(and1.y, andEnaDis.u1)
-    annotation (Line(points={{21,110},{21,110},{30,110},{30,48},{38,48}},
-                                                                     color={255,0,255}));
+    annotation (Line(points={{21,110},{21,110},{30,110},{30,48},{38,48}},color={255,0,255}));
   connect(greThr2.y, and2.u1)
     annotation (Line(points={{109,-172},{114,-172},{114,-180},{118,-180}}, color={255,0,255}));
   connect(les1.y, and2.u2)
     annotation (Line(points={{13,-180},{20,-180},{20,-188},{118,-188}},color={255,0,255}));
-  connect(uSupFan, and1.u2) annotation (Line(points={{-200,110},{-102,110},{-102,102},{-2,102}},
-                                                                                             color={255,0,255}));
+  connect(uSupFan, and1.u2)
+    annotation (Line(points={{-200,110},{-102,110},{-102,102},{-2,102}},color={255,0,255}));
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt),
                Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt),
     Icon(graphics={
