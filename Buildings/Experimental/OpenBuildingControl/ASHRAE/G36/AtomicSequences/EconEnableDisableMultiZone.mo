@@ -8,9 +8,9 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
   parameter Real delEntHis(unit="J/kg", quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limit"
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt));
-  parameter Modelica.SIunits.Time retDamFullyOpenTime = 180
+  parameter Modelica.SIunits.Time retDamFulOpeTim = 180
     "Time period to keep RA damper fully open at disable to avoid pressure fluctuations";
-  parameter Modelica.SIunits.Time smallDisDel = 15
+  parameter Modelica.SIunits.Time smaDisDel = 15
     "Small time delay before closing the OA damper at disable to avoid pressure fluctuations";
 
   CDL.Interfaces.RealInput TOut(unit="K", quantity = "ThermodynamicTemperature") "Outdoor air temperature"
@@ -129,11 +129,11 @@ protected
   parameter Types.ZoneState heating = Types.ZoneState.heating "Heating zone state";
   parameter Real heatingNum = Integer(heating) "Numerical value for heating zone state (=1)";
 
-  CDL.Continuous.Constant openRetDam(final k=retDamFullyOpenTime)
+  CDL.Continuous.Constant openRetDam(final k=retDamFulOpeTim)
     "Keep return damper open to its physical maximum for a short period of time before closing the outdoor air damper
     and resuming the maximum return air damper position, per G36 Part N7"
     annotation (Placement(transformation(extent={{-60,-230},{-40,-210}})));
-  CDL.Continuous.Constant disableDelay(final k=smallDisDel)
+  CDL.Continuous.Constant disableDelay(final k=smaDisDel)
     "Small delay before closing the outdoor air damper to avoid pressure fluctuations"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
   CDL.Continuous.Add add2(k2=-1) if fixEnt "Add block determines difference between hOut and hOutCut"
@@ -243,54 +243,55 @@ equation
         extent={{-180,-320},{180,240}},
         initialScale=0.1), graphics={
         Rectangle(
-          extent={{-180,-80},{180,-320}},
+          extent={{-170,-84},{170,-312}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-180,-20},{180,-80}},
+          extent={{-170,-24},{170,-76}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-180,40},{180,-20}},
+          extent={{-170,36},{170,-16}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-180,100},{180,40}},
+          extent={{-170,96},{170,44}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-180,240},{180,100}},
+          extent={{-170,232},{170,104}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                      Text(
-          extent={{100,122},{186,112}},
+          extent={{102,128},{184,116}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Outdoor air
 conditions"),                        Text(
-          extent={{100,36},{278,2}},
+          extent={{100,30},{278,-4}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Freeze protection -
 disable if \"stage1\"
 and above"),                         Text(
-          extent={{100,-78},{268,-126}},
+          extent={{100,-82},{268,-130}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 limit assignments
 with delays"),                       Text(
-          extent={{100,-12},{216,-60}},
+          extent={{102,-22},{218,-70}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          textString="Zone state - disable
-if \"heating\""),                    Text(
-          extent={{100,56},{194,46}},
+          textString="Zone state - 
+disable if 
+\"heating\""),                       Text(
+          extent={{100,62},{194,52}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Supply fan status")}),
