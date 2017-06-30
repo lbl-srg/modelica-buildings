@@ -8,9 +8,9 @@ model EconEnableDisableMultiZone_FreProSta_ZonSta
   parameter Real hOutCutoff(final unit="J/kg", quantity="SpecificEnergy")=65100
     "Outdoor air enthalpy high limit cutoff";
 
-  EconEnableDisableMultiZone econEnableDisableMultiZone
+  EconEnableDisableMultiZone econEnableDisableMultiZone "Multizone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,40},{102,60}})));
-  EconEnableDisableMultiZone econEnableDisableMultiZone1
+  EconEnableDisableMultiZone econEnableDisableMultiZone1 "Multizone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,-40},{102,-20}})));
 
 
@@ -25,9 +25,9 @@ protected
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   CDL.Continuous.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  CDL.Integers.Constant FreProSta(k=0) "Freeze Protection Status"
-    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Integers.Constant ZoneState(k=1) "Zone State is not heating"
+  CDL.Integers.Constant FreProSta1(k=2) "Freeze Protection Status (Activated > 0)"
+    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
+  CDL.Integers.Constant ZoneState(k=1) "Zone State is heating (heating = 1)"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
   CDL.Continuous.Constant outDamPosMax(k=0.9) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
@@ -39,9 +39,9 @@ protected
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   CDL.Continuous.Constant retDamPosMin(k=0) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  CDL.Integers.Constant FreProSta1(k=2) "Freeze Protection Status"
-    annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  CDL.Integers.Constant ZoneState1(k=0) "Zone State is not heating"
+  CDL.Integers.Constant FreProSta(k=0) "Freeze Protection Status (Deactivated = 0)"
+    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
+  CDL.Integers.Constant ZoneState1(k=2) "Zone State is not heating (heating = 1)"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   CDL.Logical.Constant SupFanSta(k=true)
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
@@ -64,11 +64,11 @@ equation
   connect(hOutCut.y, econEnableDisableMultiZone1.hOutCut) annotation (Line(
         points={{-79,70},{-70,70},{-70,54},{6,54},{6,-26},{81,-26}}, color={0,0,127}));
   connect(ZoneState.y, econEnableDisableMultiZone.uZoneState) annotation (Line(
-        points={{-139,10},{-122,10},{-122,50},{81,50}}, color={255,127,0}));
-  connect(FreProSta1.y, econEnableDisableMultiZone.uFreProSta) annotation (Line(
-        points={{61,90},{70,90},{70,52},{81,52}}, color={255,127,0}));
-  connect(FreProSta.y, econEnableDisableMultiZone1.uFreProSta) annotation (Line(
-        points={{-139,50},{2,50},{2,-28},{81,-28}}, color={255,127,0}));
+        points={{-139,10},{-120,10},{-120,50},{81,50}}, color={255,127,0}));
+  connect(FreProSta.y, econEnableDisableMultiZone.uFreProSta)
+    annotation (Line(points={{-139,50},{-130,50},{-130,52},{81,52}}, color={255,127,0}));
+  connect(FreProSta1.y, econEnableDisableMultiZone1.uFreProSta)
+    annotation (Line(points={{61,-110},{70,-110},{70,-28},{81,-28}}, color={255,127,0}));
   connect(ZoneState1.y, econEnableDisableMultiZone1.uZoneState) annotation (
       Line(points={{61,-70},{72,-70},{72,-30},{81,-30}}, color={255,127,0}));
   connect(retDamPosMax.y, econEnableDisableMultiZone.uRetDamPosMax) annotation (

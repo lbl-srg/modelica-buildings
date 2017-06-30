@@ -1,12 +1,15 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
 block EconEnableDisableMultiZone "Economizer enable/disable switch"
 
-  parameter Types.FreezeProtectionStage freProDisabled=
-    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Types.FreezeProtectionStage.stage0
+  parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
     "Indicates that the freeze protection is disabled";
-
   parameter Real freProDisabledNum = Integer(freProDisabled)-1
-    "Numerical value indicating that the freeze protection is disabled";
+    "Numerical value indicating that the freeze protection is disabled (=0)";
+
+  parameter Types.ZoneState heating = Types.ZoneState.heating
+    "Indicates that the freeze protection is disabled";
+  parameter Real heatingNum = Integer(heating)
+    "Numerical value for heating zone state (=1)";
 
   parameter Boolean fixEnt = true
     "Set to true if there is an enthalpy sensor and the economizer uses fixed enthalpy 
@@ -47,8 +50,7 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     "Small delay before closing the outdoor air damper, per G36 Part N7"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
 
-  CDL.Interfaces.RealInput TOut(unit="K", quantity = "ThermodynamicTemperature")
-    "Outdoor temperature"
+  CDL.Interfaces.RealInput TOut(unit="K", quantity = "ThermodynamicTemperature") "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-220,210},{-180,250}}),
         iconTransformation(extent={{-120,90},{-100,110}})));
   CDL.Interfaces.RealInput hOut(unit="J/kg", quantity="SpecificEnergy") if fixEnt
@@ -56,11 +58,10 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
       annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
         iconTransformation(extent={{-120,50},{-100,70}})));   //fixme quantities see bui.flui.sens for info
   CDL.Interfaces.RealInput TOutCut(unit="K", quantity = "ThermodynamicTemperature")
-    "Outdoor temperature high limit cutoff. 
-    For differential dry bulb temeprature condition use return air temperature measurement"
+    "Outdoor temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
       annotation (Placement(transformation(extent={{-220,170},{-180,210}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput hOutCut(unit="J/kg", displayUnit="kJ/kg") if fixEnt
+  CDL.Interfaces.RealInput hOutCut(unit="J/kg") if fixEnt
     "Outdoor enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-220,90},{-180,130}}),
         iconTransformation(extent={{-120,30},{-100,50}})));
@@ -85,6 +86,10 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     annotation (Placement(transformation(extent={{-220,-260},{-180,-220}}),
         iconTransformation(extent={{-120,-90},{-100,-70}})));
 
+  CDL.Interfaces.BooleanInput uSupFan "Supply fan on/off status"
+    annotation (Placement(transformation(extent={{-220,50},{-180,90}}),
+        iconTransformation(extent={{-120,-30},{-100,-10}})));
+
   CDL.Interfaces.RealOutput yOutDamPosMax
     "Output sets maximum allowable economizer damper position. Fixme: Should this remain as type real? Output can take two values: disable = yOutDamPosMin and enable = yOutDamPosMax."
     annotation (Placement(transformation(extent={{180,-190},{200,-170}}),
@@ -97,6 +102,11 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     "Output sets the max return air damper position, which is affected for a short period of time upon disabling the economizer"
     annotation (Placement(transformation(
           extent={{180,-260},{200,-240}}), iconTransformation(extent={{100,-40},{140,0}})));
+
+  CDL.Interfaces.IntegerInput uZoneState "Zone state input (integer, see Types for values)"
+    annotation (Placement(transformation(extent={{-220,-70},{-180,-30}}), iconTransformation(extent={{-120,-10},{-100,10}})));
+  CDL.Interfaces.IntegerInput uFreProSta "Freeze Protection Status" annotation (Placement(
+        transformation(extent={{-220,-10},{-180,30}}), iconTransformation(extent={{-120,10},{-100,30}})));
 
   CDL.Logical.Hysteresis hysOutTem(uHigh=uTemHigLimCutHig, uLow=uTemHigLimCutLow)
     "Close damper when TOut is above the uTemHigh, open it again only when TOut drops to uTemLow [fixme: I'm using the same offset
@@ -120,41 +130,41 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     annotation (Placement(transformation(extent={{0,160},{20,180}})));
   CDL.Logical.GreaterEqual greEqu "Logical greater or equal block"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
-  CDL.Logical.Timer timer "Timer"
+  CDL.Logical.Timer timer "Timer gets started as the economizer gets disabled"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
-  CDL.Logical.Nor nor1 annotation (Placement(transformation(extent={{-40,160},{
-            -20,180}})));
+  CDL.Logical.Nor nor1 "Logical nor"
+    annotation (Placement(transformation(extent={{-40,160},{-20,180}})));
   CDL.Continuous.Add add2(k2=-1) if fixEnt "Add block"
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
-  CDL.Continuous.Add add1(k2=-1)
+  CDL.Continuous.Add add1(k2=-1) "Add block"
     annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
-  CDL.Logical.Not not2 annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
-  CDL.Logical.Less les1 annotation (Placement(transformation(extent={{40,-230},{60,-210}})));
-  CDL.Logical.And3 andEnaDis annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  CDL.Interfaces.IntegerInput uFreProSta "Freeze Protection Status" annotation (Placement(
-        transformation(extent={{-220,-10},{-180,30}}),    iconTransformation(extent={{-120,10},{-100,30}})));
-  CDL.Conversions.IntegerToReal intToRea
+  CDL.Logical.Not not2 "Logical not"
+    annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
+  CDL.Logical.Less les1 "Logical less"
+    annotation (Placement(transformation(extent={{40,-230},{60,-210}})));
+  CDL.Logical.And3 andEnaDis "Logical and"
+   annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
+  CDL.Conversions.IntegerToReal intToRea "Integer to real converter"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
+  CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
+    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
+
   CDL.Logical.LessEqualThreshold equ(final threshold=freProDisabledNum)
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  CDL.Interfaces.IntegerInput uZoneState
-    "Zone state input (integer, see Types for values)"
-    annotation (Placement(transformation(extent={{-220,-70},{-180,-30}}), iconTransformation(extent={{-120,-10},{-100,10}})));
-  CDL.Conversions.IntegerToReal intToRea1
-    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
-  CDL.Logical.GreaterThreshold greThr "Heating = 0" annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
-  CDL.Logical.GreaterThreshold greThr2(threshold=0) annotation (Placement(transformation(extent={{80,-230},{100,-210}})));
-  CDL.Logical.And and2 annotation (Placement(transformation(extent={{120,-230},
-            {140,-210}})));
-  CDL.Interfaces.BooleanInput uSupFan
-    annotation (Placement(transformation(extent={{-220,50},{-180,90}}),
-        iconTransformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Logical.And and1
+  CDL.Logical.GreaterThreshold greThr(final threshold=heatingNum) "Check if ZoneState is other than heating"
+    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
+  CDL.Logical.GreaterThreshold greThr2(final threshold=0) "Check if the timer got started"
+    annotation (Placement(transformation(extent={{80,-230},{100,-210}})));
+  CDL.Logical.And and2 "Logical and"
+    annotation (Placement(transformation(extent={{120,-230},{140,-210}})));
+  CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   CDL.Logical.Constant entSubst(final k=false) if not fixEnt
     "Deactivates outdoor air enthalpy condition in case that there is no fixed enthalpy measurement."
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
+
 equation
   connect(OutDamSwitch.y, yOutDamPosMax) annotation (Line(points={{101,-180},{101,-180},{190,-180}}, color={0,0,127}));
   connect(TOut, add1.u1) annotation (Line(points={{-200,230},{-160,230},{-160,216},{-142,216}},

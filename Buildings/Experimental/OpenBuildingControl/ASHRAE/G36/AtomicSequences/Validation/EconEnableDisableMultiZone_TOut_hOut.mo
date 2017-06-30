@@ -18,13 +18,13 @@ model EconEnableDisableMultiZone_TOut_hOut
     annotation (Placement(transformation(extent={{-200,-200},{-180,-180}})));
   CDL.Continuous.Constant retDamPhyPosMax(k=1) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-200,-120},{-180,-100}})));
-  CDL.Integers.Constant FreProSta(k=0) "Freeze Protection Status"
+  CDL.Integers.Constant FreProSta(k=0) "Freeze Protection Status - Disabled"
     annotation (Placement(transformation(extent={{-240,0},{-220,20}})));
   CDL.Continuous.Constant TOutCut(k=TOutCutoff)
     annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
   CDL.Continuous.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-280,20},{-260,40}})));
-  CDL.Integers.Constant ZoneState(k=1) "Zone State is not heating"
+  CDL.Integers.Constant ZoneState(k=2) "Zone State is not heating (heating = 1)"
     annotation (Placement(transformation(extent={{-240,-32},{-220,-12}})));
   EconEnableDisableMultiZone econEnableDisableMultiZone1
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
