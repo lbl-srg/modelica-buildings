@@ -18,7 +18,7 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
   CDL.Integers.Constant FreProSta(k=1) "Freeze Protection Status"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
-  CDL.Integers.Constant AHUMode(k=1) "AHU System Mode (1 = Occupied)"
+  CDL.Integers.Constant OperationMode(k=1) "AHU System Mode (1 = Occupied)"
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
   CDL.Continuous.Constant VOutMinSet1(k=airflowSetpoint)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
@@ -27,7 +27,7 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   CDL.Integers.Constant FreProSta1(k=1) "Freeze Protection Status"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  CDL.Integers.Constant AHUMode1(k=2) "AHU System Mode (2 != Occupied)"
+  CDL.Integers.Constant OperationMode1(k=2) "AHU System Mode (2 != Occupied)"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   CDL.Continuous.Constant VOutMinSet2(k=airflowSetpoint)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
@@ -37,7 +37,7 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
   CDL.Integers.Constant FreProSta2(k=3)
     "Freeze Protection Status 2 deactivates the loop"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  CDL.Integers.Constant AHUMode2(k=1) "AHU System Mode (1 = Occupied)"
+  CDL.Integers.Constant OperationMode2(k=1) "AHU System Mode (1 = Occupied)"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
   Modelica.Blocks.Sources.Ramp VOut(
@@ -80,7 +80,7 @@ equation
     annotation (Line(points={{-179,30},{-150,30},{-150,-5},{-121,-5}}, color={0,0,127}));
   connect(FanStatus.y, ecoDamLim.uSupFan)
     annotation (Line(points={{-179,-10},{-160,-10},{-121,-10}}, color={255,0,255}));
-  connect(AHUMode.y, ecoDamLim.uAHUMode)
+  connect(OperationMode.y, ecoDamLim.uOperationMode)
     annotation (Line(points={{-179,-50},{-160,-50},{-160,-28},{-160,-15},{-121,-15}},
     color={255,127,0}));
   connect(FreProSta.y, ecoDamLim.uFreProSta)
@@ -91,7 +91,7 @@ equation
           30},{-10,30},{-10,-5},{19,-5}}, color={0,0,127}));
   connect(FanStatus1.y, ecoDamLim1.uSupFan) annotation (Line(points={{-39,-10},
           {-20,-10},{19,-10}}, color={255,0,255}));
-  connect(AHUMode1.y, ecoDamLim1.uAHUMode) annotation (Line(points={{-39,-50},{
+  connect(OperationMode1.y, ecoDamLim1.uOperationMode) annotation (Line(points={{-39,-50},{
           -20,-50},{-20,-28},{-20,-15},{19,-15}}, color={255,127,0}));
   connect(FreProSta1.y, ecoDamLim1.uFreProSta) annotation (Line(points={{-39,
           -90},{-10,-90},{-10,-18},{19,-18}}, color={255,127,0}));
@@ -101,7 +101,7 @@ equation
           30},{130,30},{130,-5},{159,-5}}, color={0,0,127}));
   connect(FanStatus2.y, ecoDamLim2.uSupFan) annotation (Line(points={{101,-10},
           {120,-10},{159,-10}}, color={255,0,255}));
-  connect(AHUMode2.y, ecoDamLim2.uAHUMode) annotation (Line(points={{101,-50},{
+  connect(OperationMode2.y, ecoDamLim2.uOperationMode) annotation (Line(points={{101,-50},{
           120,-50},{120,-28},{120,-15},{159,-15}}, color={255,127,0}));
   connect(FreProSta2.y, ecoDamLim2.uFreProSta) annotation (Line(points={{101,
           -90},{130,-90},{130,-18},{159,-18}}, color={255,127,0}));
@@ -154,7 +154,7 @@ equation
 This example validates enable/disable conditions for
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone\">
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone</a>
-for the following input signals: <code>uSupFan<\code>, <code>uFreProSta<\code>, <code>uAHUMode<\code>.
+for the following input signals: <code>uSupFan<\code>, <code>uFreProSta<\code>, <code>uOperationMode<\code>.
 </p>
 </html>", revisions="<html>
 <ul>

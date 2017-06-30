@@ -18,7 +18,7 @@ model EconDamperPositionLimitsMultiZone_VOut
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   CDL.Integers.Constant FreProSta(k=1) "Freeze Protection Status"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  CDL.Integers.Constant AHUMode(k=1) "AHU System Mode (1 = Occupied)"
+  CDL.Integers.Constant OperationMode(k=1) "AHU System Mode (1 = Occupied)"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Modelica.Blocks.Sources.Ramp VOut(
     duration=1800,
@@ -38,7 +38,7 @@ equation
     annotation (Line(points={{-59,50},{-30,50},{-30,15},{-1,15}}, color={0,0,127}));
   connect(FanStatus.y, ecoDamLim.uSupFan)
     annotation (Line(points={{-59,10},{-40,10},{-1,10}}, color={255,0,255}));
-  connect(AHUMode.y, ecoDamLim.uAHUMode)
+  connect(OperationMode.y, ecoDamLim.uOperationMode)
     annotation (Line(points={{-59,-30},{-40,-30},{-40,-8},{-40,5},{-1,5}}, color={255,127,0}));
   connect(FreProSta.y, ecoDamLim.uFreProSta)
     annotation (Line(points={{-59,-70},{-30,-70},{-30,2},{-1,2}}, color={255,127,0}));
