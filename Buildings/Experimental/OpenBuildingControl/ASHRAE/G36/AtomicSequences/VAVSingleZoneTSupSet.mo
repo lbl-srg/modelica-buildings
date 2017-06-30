@@ -503,7 +503,7 @@ fixme, mg notes:
 - pg 145 Supply fan should not run if the building is in an unoccupied
 mode.
 - pg 145 Provide a ramp function to prevent changes in fan speed of more than 10% per minute.
-- pg 145 2.c.1 yHeaMax and yHeaMin should be set at comissioning as I'm reading the 
+- pg 145 2.c.1 yHeaMax and yHeaMin should be set at commissioning as I'm reading the 
 guidline text, see 3.2B.1.
 - pg 146 fan on signal.
 

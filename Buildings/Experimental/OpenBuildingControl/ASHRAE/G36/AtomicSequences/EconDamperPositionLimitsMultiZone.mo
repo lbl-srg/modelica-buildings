@@ -4,13 +4,13 @@ block EconDamperPositionLimitsMultiZone
   minimum outdoor air and economizer functions"
 
   parameter Real retDamPhyPosMax(min=0, max=1, unit="1") = 1
-    "Physical or at the comissioning fixed maximum opening of the return air damper";
+    "Physical or at the commissioning fixed maximum position of the return air damper";
   parameter Real retDamPhyPosMin(min=0, max=1, unit="1") = 0
-    "Physical or at the comissioning fixed minimum opening of the return air damper";
+    "Physical or at the commissioning fixed minimum position of the return air damper";
   parameter Real outDamPhyPosMax(min=0, max=1, unit="1") = 1
-    "Physical or at the comissioning fixed maximum opening of the outdoor air damper";
+    "Physical or at the commissioning fixed maximum position of the outdoor air damper";
   parameter Real outDamPhyPosMin(min=0, max=1, unit="1") = 0
-    "Physical or at the comissioning fixed minimum opening of the outdoor air damper";
+    "Physical or at the commissioning fixed minimum opening of the outdoor air damper";
   parameter Real conSigMin=0 "Lower limit of control signal output";
   parameter Real conSigMax=1 "Upper limit of control signal output";
   parameter Real conSigFraOutDam(min=conSigMin, max=conSigMax, unit="1")=0.5
@@ -18,24 +18,23 @@ block EconDamperPositionLimitsMultiZone
     modulated and above which the return air damper limit gets modulated";
 
   CDL.Interfaces.RealInput uVOut(unit="m3/s")
-    "Measured outdoor airflow rate [fixme: which quantity attribute should we use]"
+    "Measured outdoor airflow rate [fixme: which quantity attribute should we use, add for all volume flow]"
     annotation (Placement(transformation(extent={{-280,180},{-240,220}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
   CDL.Interfaces.RealInput uVOutMinSet(unit="m3/s")
     "Minimum outdoor airflow rate setpoint"
     annotation (Placement(transformation(extent={{-280,240},{-240,280}}),
         iconTransformation(extent={{-120,40},{-100,60}})));
-  CDL.Interfaces.IntegerInput uOperationMode
-    "AHU System Mode [fixme: implement conversion to enumeration]"
+  CDL.Interfaces.IntegerInput uOperationMode "AHU system operation mode status signal"
     annotation (Placement(transformation(extent={{-280,-240},{-240,-200}}),
     iconTransformation(extent={{-120,-60},{-100,-40}})));
-  CDL.Interfaces.IntegerInput uFreProSta
-    "Freeze Protection Status [fixme: implement conversion to enumeration]"
+  CDL.Interfaces.IntegerInput uFreProSta "Freeze protection status signal"
     annotation (Placement(transformation(extent={{-280,-200},{-240,-160}}),
     iconTransformation(extent={{-120,-90},{-100,-70}})));
-  CDL.Interfaces.BooleanInput uSupFan "Supply Fan Status"
+  CDL.Interfaces.BooleanInput uSupFan "Supply fan status signal"
     annotation (Placement(transformation(extent={{-280,-160},{-240,-120}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
+
   CDL.Interfaces.RealOutput yOutDamPosMin(min=0, max=1, unit="1")
     "Minimum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{240,70},{260,90}}),
@@ -44,17 +43,17 @@ block EconDamperPositionLimitsMultiZone
     "Maximum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{240,30},{260,50}}),
     iconTransformation(extent={{100,60},{120,80}})));
-  CDL.Interfaces.RealOutput yRetDamPosMax(min=0, max=1, unit="1")
-    "Maximum return air damper position limit"
-    annotation (Placement(transformation(extent={{240,-50},{260,-30}}),
-        iconTransformation(extent={{100,-50},{120,-30}})));
   CDL.Interfaces.RealOutput yRetDamPosMin(min=0, max=1, unit="1")
     "Minimum return air damper position limit"
     annotation (Placement(transformation(extent={{240,-10},{260,10}}),
     iconTransformation(extent={{100,-20},{120,0}})));
+  CDL.Interfaces.RealOutput yRetDamPosMax(min=0, max=1, unit="1")
+    "Maximum return air damper position limit"
+    annotation (Placement(transformation(extent={{240,-50},{260,-30}}),
+        iconTransformation(extent={{100,-50},{120,-30}})));
   CDL.Interfaces.RealOutput yRetDamPhyPosMax(min=0, max=1, unit="1")
     "Physical maximum return air damper position limit. Required as an input for the
-    economizer enable disable sequence."
+    economizer enable disable sequence"
     annotation (Placement(transformation(extent={{240,-90},{260,-70}}),
         iconTransformation(extent={{100,-80},{120,-60}})));
 
@@ -102,18 +101,18 @@ protected
     "Highest freeze protection status that does not deactivate the controller
     [fixme: implement conversion to enumeration]";
   CDL.Continuous.Constant outDamPhyPosMinSig(k=outDamPhyPosMin)
-    "Physical or at the comissioning fixed minimum position of the outdoor air damper.
+    "Physical or at the commissioning fixed minimum position of the outdoor air damper.
     This is the initial position of the economizer damper."
     annotation (Placement(transformation(extent={{-220,70},{-200,90}})));
   CDL.Continuous.Constant outDamPhyPosMaxSig(k=outDamPhyPosMax)
-    "Physical or at the comissioning fixed maximum position of the outdoor
+    "Physical or at the commissioning fixed maximum position of the outdoor
     air damper."
     annotation (Placement(transformation(extent={{-220,30},{-200,50}})));
   CDL.Continuous.Constant retDamPhyPosMinSig(k=retDamPhyPosMin)
-    "Physical or at the comissioning fixed minimum position of the return air damper"
+    "Physical or at the commissioning fixed minimum position of the return air damper"
     annotation (Placement(transformation(extent={{-220,-10},{-200,10}})));
   CDL.Continuous.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
-    "Physical or at the comissioning fixed maximum position of the return air damper.
+    "Physical or at the commissioning fixed maximum position of the return air damper.
     This is the initial condition of the return air damper."
     annotation (Placement(transformation(extent={{-220,-50},{-200,-30}})));
   CDL.Continuous.Constant minSignalLimit(k=conSigMin)
@@ -255,7 +254,7 @@ The controller is enabled when the supply fan is proven on (<code>uSupFan=true</
 the AHU is in Occupied Mode (<code>uOperationMode=1</code>[fixme: enumeration]),
 and Freeze Protection Stage <code>uFreProSta</code> is not larger than 1.
 Otherwise the damper position limits are set to their corresponding maximum and minimum
-physical or at  comissioning fixed limits, as illustrated below:
+physical or at  commissioning fixed limits, as illustrated below:
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits state machine chart\"
