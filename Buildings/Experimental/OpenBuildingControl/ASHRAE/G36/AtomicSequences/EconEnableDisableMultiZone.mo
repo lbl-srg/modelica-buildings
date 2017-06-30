@@ -285,7 +285,7 @@ and above"),                         Text(
           textString="Damper position
 limit assignments
 with delays"),                       Text(
-          extent={{102,-22},{218,-70}},
+          extent={{102,-22},{226,-74}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Zone state - 
