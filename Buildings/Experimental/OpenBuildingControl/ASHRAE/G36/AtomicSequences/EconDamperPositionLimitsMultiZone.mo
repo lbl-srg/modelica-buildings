@@ -1,16 +1,15 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
 block EconDamperPositionLimitsMultiZone
-  "Multiple zone VAV AHU minimum outdoor air control with a single common damper for
-  minimum outdoor air and economizer functions"
+  "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
 
   parameter Real retDamPhyPosMax(min=0, max=1, unit="1") = 1
-    "Physical or at the commissioning fixed maximum position of the return air damper";
+    "Physically fixed maximum position of the return air damper"; //fixme: this is set at commissioning, we should add .Data blocks to generate these signals (or similar)
   parameter Real retDamPhyPosMin(min=0, max=1, unit="1") = 0
-    "Physical or at the commissioning fixed minimum position of the return air damper";
+    "Physically fixed minimum position of the return air damper";
   parameter Real outDamPhyPosMax(min=0, max=1, unit="1") = 1
-    "Physical or at the commissioning fixed maximum position of the outdoor air damper";
+    "Physically fixed maximum position of the outdoor air damper";
   parameter Real outDamPhyPosMin(min=0, max=1, unit="1") = 0
-    "Physical or at the commissioning fixed minimum opening of the outdoor air damper";
+    "Physically fixed minimum position of the outdoor air damper";
   parameter Real conSigMin=0 "Lower limit of control signal output";
   parameter Real conSigMax=1 "Upper limit of control signal output";
   parameter Real conSigFraOutDam(min=conSigMin, max=conSigMax, unit="1")=0.5
@@ -38,7 +37,7 @@ block EconDamperPositionLimitsMultiZone
   CDL.Interfaces.RealOutput yOutDamPosMin(min=0, max=1, unit="1")
     "Minimum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{180,70},{200,90}}),
-    iconTransformation(extent={{100,20}, {120,40}})));
+    iconTransformation(extent={{100,40},{120,60}})));
   CDL.Interfaces.RealOutput yOutDamPosMax(min=0, max=1, unit="1")
     "Maximum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{180,30},{200,50}}),
@@ -46,16 +45,16 @@ block EconDamperPositionLimitsMultiZone
   CDL.Interfaces.RealOutput yRetDamPosMin(min=0, max=1, unit="1")
     "Minimum return air damper position limit"
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
-    iconTransformation(extent={{100,-20},{120,0}})));
+    iconTransformation(extent={{100,-10},{120,10}})));
   CDL.Interfaces.RealOutput yRetDamPosMax(min=0, max=1, unit="1")
     "Maximum return air damper position limit"
     annotation (Placement(transformation(extent={{180,-50},{200,-30}}),
-        iconTransformation(extent={{100,-50},{120,-30}})));
+        iconTransformation(extent={{100,-30},{120,-10}})));
   CDL.Interfaces.RealOutput yRetDamPhyPosMax(min=0, max=1, unit="1")
     "Physical maximum return air damper position limit. Required as an input for the
     economizer enable disable sequence"
     annotation (Placement(transformation(extent={{180,-90},{200,-70}}),
-        iconTransformation(extent={{100,-80},{120,-60}})));
+        iconTransformation(extent={{100,-50},{120,-30}})));
 
   CDL.Continuous.LimPID damLimController(
     Ti=0.9,
@@ -88,18 +87,20 @@ block EconDamperPositionLimitsMultiZone
     annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
   CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
     annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
-  CDL.Logical.LessEqualThreshold equ(final threshold=higestIgnFreProSta)
+  CDL.Logical.LessEqualThreshold equ(final threshold=allowedFreProStaNum)
     "Logical block that determines whether the freeze protection stage is below the disable threshold"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
   CDL.Logical.Equal equ1 "Logical equal block"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
 
 protected
-  parameter Real occupied=1
-    "AHU System Mode = Occupied [fixme: implement conversion to enumeration]";
-  parameter Real higestIgnFreProSta=1
-    "Highest freeze protection status that does not deactivate the controller
-    [fixme: implement conversion to enumeration]";
+  parameter Types.FreezeProtectionStage allowedFreProSta = Types.FreezeProtectionStage.stage1
+    "Freeze protection stage 0 (disabled)";
+  parameter Real allowedFreProStaNum = Integer(allowedFreProSta)-1
+    "Freeze protection stage control loop upper enable limit (=1)";
+  parameter Types.OperationMode occupied = Types.OperationMode.occupied "Operation mode is \"Occupied\"";
+  parameter Real occupiedNum = Integer(occupied) "Numerical value for \"Occupied\" operation mode (=1)";
+
   CDL.Continuous.Constant outDamPhyPosMinSig(k=outDamPhyPosMin)
     "Physical or at the commissioning fixed minimum position of the outdoor air damper.
     This is the initial position of the economizer damper."
@@ -125,7 +126,7 @@ protected
     "Equals the fraction of the control loop signal below which the outdoor air damper
     limit gets modulated and above which the return air damper limit gets modulated"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
-  CDL.Continuous.Constant OperationMode(final k=occupied)
+  CDL.Continuous.Constant OperationMode(final k=occupiedNum)
     "Generates AHU System Mode = Occupied signal
     [fixme: implement conversion to enumeration]"
     annotation (Placement(transformation(extent={{-160,-220},{-140,-200}})));
@@ -133,8 +134,8 @@ protected
 equation
   connect(minRetDam.y,yRetDamPosMax)  annotation (Line(points={{141,110},{150,110},{150,20},{150,-40},{190,-40}},
                                 color={0,0,127}));
-  connect(retDamPosMinSwitch.y, minRetDam.f2) annotation (Line(points={{61,-20},{61,-18},{61,-20},{100,-20},{100,102},{
-          118,102}},           color={0,0,127}));
+  connect(retDamPosMinSwitch.y, minRetDam.f2) annotation (Line(points={{61,-20},{61,-18},{61,-20},{100,-20},{100,102},{118,
+          102}},               color={0,0,127}));
   connect(sigFraForOutDam.y,minRetDam. x1)
     annotation (Line(points={{-39,210},{-30,210},{-30,118},{118,118}},
                                                                     color={0,0,127}));
@@ -245,30 +246,28 @@ equation
           extent={{32,228},{146,204}},
           lineColor={0,0,0},
           fontSize=12,
+          horizontalAlignment=TextAlignment.Left,
           textString="Damper position limit 
-calculation and assignments.",
-          horizontalAlignment=TextAlignment.Left),
-                                   Text(
+calculation and assignments"),     Text(
           extent={{-160,152},{-16,70}},
           lineColor={0,0,0},
           fontSize=12,
+          horizontalAlignment=TextAlignment.Left,
           textString="Physical damper position
-limits set at commissioning.",
-          horizontalAlignment=TextAlignment.Left),
+limits set at commissioning"),
           Text(extent={{36,68},{114,28}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Switches to deactivate
 limit modulation"),                Text(
-          extent={{-78,-176},{66,-258}},
+          extent={{-78,-170},{66,-252}},
           lineColor={0,0,0},
           fontSize=12,
+          horizontalAlignment=TextAlignment.Left,
           textString="Enable/disable conditions
 for damper position limits 
-control loop.",
-          horizontalAlignment=TextAlignment.Left),
-                                   Text(
-          extent={{-160,186},{-16,104}},
+control loop"),                    Text(
+          extent={{-160,170},{-16,122}},
           lineColor={0,0,0},
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,
