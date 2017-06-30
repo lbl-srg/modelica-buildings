@@ -12,13 +12,13 @@ model EconDamperPositionLimitsMultiZone_VOut
     "Maximum increase in airflow volume during the example simulation";
 
   CDL.Continuous.Constant VOutMinSet(k=airflowSetpoint)
-    "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
+    "Outdoor volumetric airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   CDL.Logical.Constant FanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  CDL.Integers.Constant FreProSta(k=1) "Freeze Protection Status"
+  CDL.Integers.Constant FreProSta(k=1) "Freeze protection status"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  CDL.Integers.Constant OperationMode(k=1) "AHU System Mode (1 = Occupied)"
+  CDL.Integers.Constant OperationMode(k=1) "Operation mode (1 = Occupied)"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Modelica.Blocks.Sources.Ramp VOut(
     duration=1800,

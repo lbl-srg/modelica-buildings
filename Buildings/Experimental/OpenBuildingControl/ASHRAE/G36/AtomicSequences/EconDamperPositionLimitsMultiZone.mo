@@ -15,6 +15,7 @@ block EconDamperPositionLimitsMultiZone
   parameter Real conSigFraOutDam(min=conSigMin, max=conSigMax, unit="1")=0.5
     "Fraction of control loop signal output below which the outdoor air damper limit gets
     modulated and above which the return air damper limit gets modulated";
+  parameter Real controllerGain=1 "Gain of controller";
 
   CDL.Interfaces.RealInput uVOut(unit="m3/s")
     "Measured outdoor airflow rate [fixme: which quantity attribute should we use, add for all volume flow]"
@@ -24,7 +25,7 @@ block EconDamperPositionLimitsMultiZone
     "Minimum outdoor airflow rate setpoint"
     annotation (Placement(transformation(extent={{-220,200},{-180,240}}),
         iconTransformation(extent={{-120,40},{-100,60}})));
-  CDL.Interfaces.IntegerInput uOperationMode "AHU system operation mode status signal"
+  CDL.Interfaces.IntegerInput uOperationMode "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-220,-200},{-180,-160}}),
     iconTransformation(extent={{-120,-60},{-100,-40}})));
   CDL.Interfaces.IntegerInput uFreProSta "Freeze protection status signal"
@@ -50,9 +51,8 @@ block EconDamperPositionLimitsMultiZone
     "Maximum return air damper position limit"
     annotation (Placement(transformation(extent={{180,-50},{200,-30}}),
         iconTransformation(extent={{100,-30},{120,-10}})));
-  CDL.Interfaces.RealOutput yRetDamPhyPosMax(min=0, max=1, unit="1")
-    "Physical maximum return air damper position limit. Required as an input for the
-    economizer enable disable sequence"
+  CDL.Interfaces.RealOutput yRetDamPhyPosMax(min=0, max=1, unit="1") "Physical maximum return air damper position limit. Required as an input for the
+economizer enable disable sequence"
     annotation (Placement(transformation(extent={{180,-90},{200,-70}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
 
@@ -63,15 +63,13 @@ block EconDamperPositionLimitsMultiZone
     yMax=conSigMax,
     yMin=conSigMin,
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
-    k=1)
-    "Contoller that outputs a signal based on the error between the measured outdoor
-    airflow and the minimum outdoor airflow requirement."
+    k=controllerGain) "Damper position limit controller"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
   CDL.Continuous.Line minOutDam(limitBelow=true, limitAbove=true)
-    "The line maps the outdoor air damper position to the control signal"
+    "Linear mapping of the outdoor air damper position to the control signal"
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
   CDL.Continuous.Line minRetDam(limitBelow=true, limitAbove=true)
-    "The line maps the return air damper position to the control signal"
+    "Linear mapping of the return air damper position to the control signal"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
   CDL.Logical.Switch retDamPosMinSwitch
     "A switch to deactivate the return air damper minimal outdoor airflow control"
@@ -88,7 +86,7 @@ block EconDamperPositionLimitsMultiZone
   CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
     annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
   CDL.Logical.LessEqualThreshold equ(final threshold=allowedFreProStaNum)
-    "Logical block that determines whether the freeze protection stage is below the disable threshold"
+    "Freeze protection stage above allowedFreProStaNum disables the control"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
   CDL.Logical.Equal equ1 "Logical equal block"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
@@ -101,20 +99,17 @@ protected
   parameter Types.OperationMode occupied = Types.OperationMode.occupied "Operation mode is \"Occupied\"";
   parameter Real occupiedNum = Integer(occupied) "Numerical value for \"Occupied\" operation mode (=1)";
 
-  CDL.Continuous.Constant outDamPhyPosMinSig(k=outDamPhyPosMin)
-    "Physical or at the commissioning fixed minimum position of the outdoor air damper.
-    This is the initial position of the economizer damper."
+  CDL.Continuous.Constant outDamPhyPosMinSig(k=outDamPhyPosMin) "Physically fixed minimum position of the outdoor air damper.
+ This is the initial position of the economizer damper"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
   CDL.Continuous.Constant outDamPhyPosMaxSig(k=outDamPhyPosMax)
-    "Physical or at the commissioning fixed maximum position of the outdoor
-    air damper."
+    "Physically fixed maximum position of the outdoor air damper."
     annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
   CDL.Continuous.Constant retDamPhyPosMinSig(k=retDamPhyPosMin)
-    "Physical or at the commissioning fixed minimum position of the return air damper"
+    "Physically fixed minimum position of the return air damper"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
   CDL.Continuous.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
-    "Physical or at the commissioning fixed maximum position of the return air damper.
-    This is the initial condition of the return air damper."
+    "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
   CDL.Continuous.Constant minSignalLimit(k=conSigMin)
     "Equals minimum controller output signal"
@@ -126,9 +121,7 @@ protected
     "Equals the fraction of the control loop signal below which the outdoor air damper
     limit gets modulated and above which the return air damper limit gets modulated"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
-  CDL.Continuous.Constant OperationMode(final k=occupiedNum)
-    "Generates AHU System Mode = Occupied signal
-    [fixme: implement conversion to enumeration]"
+  CDL.Continuous.Constant OperationMode(final k=occupiedNum) "Control loop is enabled in occupied operation mode"
     annotation (Placement(transformation(extent={{-160,-220},{-140,-200}})));
 
 equation
@@ -275,56 +268,56 @@ control loop"),                    Text(
 outdoor air volume flow
 control loop")}),
     Documentation(info="<html>
-<p>
-This block models the multiple zone VAV AHU minimum outdoor air control with a single
-common damper for minimum outdoor air and economizer functions based on outdoor airflow
-measurement, designed in line with ASHRAE Guidline 36 (G36), PART5.N.6.c.
-</p>
-<p>
-The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
-the AHU is in Occupied Mode (<code>uOperationMode=1</code>[fixme: enumeration]),
-and Freeze Protection Stage <code>uFreProSta</code> is not larger than 1.
-Otherwise the damper position limits are set to their corresponding maximum and minimum
-physical or at  commissioning fixed limits, as illustrated below:
-</p>
-<p align=\"center\">
-<img alt=\"Image of damper position limits state machine chart\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsStateMachineChartMultiZone.png\"/>
-</p>
-<p>
-The controller controls the outdoor and return damper position limits so
-that the outdoor airflow rate, <code>uVOut</code>, stays equal or above the
-minimum outdoor air setpoint, <code>VOutMinSet</code>. Fraction of the controller
-output signal between <code>conSigMin</code> and <code>conSigFraOutDam</code> is
-linearly mapped to the outdoor air damper minimal position, <code>yOutDamPosMin</code>,
-while the fraction of the controller output between <code>conSigFraOutDam</code> and
-<code>conSigMax</code> is linearly mapped to the return air damper maximum position,
-<code>yRetDamPosMax</code>.
-</p>
-<p>
-The following control charts show the input-output structure and an expected damper position
-limits for a well tuned controller. Control diagram:
-</p>
-<p align=\"center\">
-<img alt=\"Image of damper position limits control diagram\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlDiagramMultiZone.png\"/>
-</p>
-<p>
-Expected control performance (damper position limits vs. control loop signal):
-<br>
-</br>
-</p>
-<p align=\"center\">
-<img alt=\"Image of damper position limits control chart\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlChartMultiZone.png\"/>
-</p>
-
-</html>", revisions="<html>
-<ul>
-<li>
-June 06, 2017, by Milica Grahovac:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
+    <p>
+    This block models the multiple zone VAV AHU minimum outdoor air control with a single
+    common damper for minimum outdoor air and economizer functions based on outdoor airflow
+    measurement, designed in line with ASHRAE Guidline 36 (G36), PART5.N.6.c.
+    </p>
+    <p>
+    The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
+    the AHU is in Occupied Mode (<code>uOperationMode=1</code>[fixme: enumeration]),
+    and Freeze Protection Stage <code>uFreProSta</code> is not larger than 1.
+    Otherwise the damper position limits are set to their corresponding maximum and minimum
+    physical or at  commissioning fixed limits, as illustrated below:
+    </p>
+    <p align=\"center\">
+    <img alt=\"Image of damper position limits state machine chart\"
+    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsStateMachineChartMultiZone.png\"/>
+    </p>
+    <p>
+    The controller controls the outdoor and return damper position limits so
+    that the outdoor airflow rate, <code>uVOut</code>, stays equal or above the
+    minimum outdoor air setpoint, <code>VOutMinSet</code>. Fraction of the controller
+    output signal between <code>conSigMin</code> and <code>conSigFraOutDam</code> is
+    linearly mapped to the outdoor air damper minimal position, <code>yOutDamPosMin</code>,
+    while the fraction of the controller output between <code>conSigFraOutDam</code> and
+    <code>conSigMax</code> is linearly mapped to the return air damper maximum position,
+    <code>yRetDamPosMax</code>.
+    </p>
+    <p>
+    The following control charts show the input-output structure and an expected damper position
+    limits for a well tuned controller. Control diagram:
+    </p>
+    <p align=\"center\">
+    <img alt=\"Image of damper position limits control diagram\"
+    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlDiagramMultiZone.png\"/>
+    </p>
+    <p>
+    Expected control performance (damper position limits vs. control loop signal):
+    <br>
+    </br>
+    </p>
+    <p align=\"center\">
+    <img alt=\"Image of damper position limits control chart\"
+    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlChartMultiZone.png\"/>
+    </p>
+    
+    </html>", revisions="<html>
+    <ul>
+    <li>
+    June 06, 2017, by Milica Grahovac:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"));
 end EconDamperPositionLimitsMultiZone;

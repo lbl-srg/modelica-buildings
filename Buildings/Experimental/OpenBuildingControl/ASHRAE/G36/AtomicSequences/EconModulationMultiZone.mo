@@ -8,6 +8,7 @@ block EconModulationMultiZone "Outdoor and return air damper position modulation
   "Maximum control loop signal for the outdoor air damper";
   parameter Real yConSigMin=0 "Lower limit of controller output";
   parameter Real yConSigMax=1 "Upper limit of controller output";
+  parameter Real controllerGain=1 "Gain of controller";
 
   CDL.Interfaces.RealInput TSup(unit="K", quantity = "ThermodynamicTemperature")
     "Measured supply air temperature"
@@ -48,10 +49,10 @@ block EconModulationMultiZone "Outdoor and return air damper position modulation
     Td=0.1,
     Nd=1,
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
-    k=1,
     Ti=300,
     yMax=yConSigMax,
-    yMin=yConSigMin)
+    yMin=yConSigMin,
+    k=controllerGain)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT cooling setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
