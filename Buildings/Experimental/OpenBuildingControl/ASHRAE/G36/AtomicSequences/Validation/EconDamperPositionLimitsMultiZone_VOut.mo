@@ -1,7 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
 model EconDamperPositionLimitsMultiZone_VOut
-  "Validation model for the control loop of the minimum outdoor air control with a single common damper for 
-  minimum outdoor air and economizer functions"
+  "Validation model for the multiple zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
   parameter Real airflowSetpoint(unit="m3/s")=0.71

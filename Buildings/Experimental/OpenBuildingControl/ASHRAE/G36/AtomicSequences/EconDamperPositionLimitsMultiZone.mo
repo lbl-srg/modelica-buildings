@@ -51,8 +51,8 @@ block EconDamperPositionLimitsMultiZone
     "Maximum return air damper position limit"
     annotation (Placement(transformation(extent={{180,-50},{200,-30}}),
         iconTransformation(extent={{100,-30},{120,-10}})));
-  CDL.Interfaces.RealOutput yRetDamPhyPosMax(min=0, max=1, unit="1") "Physical maximum return air damper position limit. Required as an input for the
-economizer enable disable sequence"
+  CDL.Interfaces.RealOutput yRetDamPhyPosMax(min=0, max=1, unit="1")
+    "Physical maximum return air damper position limit. Required as an input for the economizer enable disable sequence"
     annotation (Placement(transformation(extent={{180,-90},{200,-70}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
 
@@ -99,8 +99,8 @@ protected
   parameter Types.OperationMode occupied = Types.OperationMode.occupied "Operation mode is \"Occupied\"";
   parameter Real occupiedNum = Integer(occupied) "Numerical value for \"Occupied\" operation mode (=1)";
 
-  CDL.Continuous.Constant outDamPhyPosMinSig(k=outDamPhyPosMin) "Physically fixed minimum position of the outdoor air damper.
- This is the initial position of the economizer damper"
+  CDL.Continuous.Constant outDamPhyPosMinSig(k=outDamPhyPosMin)
+    "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
   CDL.Continuous.Constant outDamPhyPosMaxSig(k=outDamPhyPosMax)
     "Physically fixed maximum position of the outdoor air damper."
