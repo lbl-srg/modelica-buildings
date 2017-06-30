@@ -1,16 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
 block EconEnableDisableMultiZone "Economizer enable/disable switch"
 
-  parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
-    "Indicates that the freeze protection is disabled";
-  parameter Real freProDisabledNum = Integer(freProDisabled)-1
-    "Numerical value indicating that the freeze protection is disabled (=0)";
-
-  parameter Types.ZoneState heating = Types.ZoneState.heating
-    "Indicates that the freeze protection is disabled";
-  parameter Real heatingNum = Integer(heating)
-    "Numerical value for heating zone state (=1)";
-
   parameter Boolean fixEnt = true
     "Set to true if there is an enthalpy sensor and the economizer uses fixed enthalpy 
     in addition to fixed dry bulb temperature sensors";
@@ -24,8 +14,7 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     cutoff and the outdoor temperature)";
   parameter Real uTemHigLimCutLow(
     final unit="K", quantity = "ThermodynamicTemperature") = uTemHigLimCutHig - delTemHis
-    "Hysteresis block low limit cutoff (the delta between the cutoff 
-    and the outdoor temperature)";
+    "Hysteresis block low limit cutoff (delta between the cutoff and the outdoor temperature)";
   parameter Real uEntHigLimCutHig(final unit="J/kg", quantity="SpecificEnergy") = 0
     "Hysteresis block high limit cutoff (the delta between the 
     cutoff and the outdoor enthalpy)";
@@ -165,6 +154,16 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
     "Deactivates outdoor air enthalpy condition in case that there is no fixed enthalpy measurement."
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
 
+protected
+  parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
+    "Freeze protection stage 0 (disabled)";
+  parameter Real freProDisabledNum = Integer(freProDisabled)-1
+    "Numerical value for freeze protection stage 0 (=0)";
+  parameter Types.ZoneState heating = Types.ZoneState.heating
+    "Heating zone state";
+  parameter Real heatingNum = Integer(heating)
+    "Numerical value for heating zone state (=1)";
+
 equation
   connect(OutDamSwitch.y, yOutDamPosMax) annotation (Line(points={{101,-180},{101,-180},{190,-180}}, color={0,0,127}));
   connect(TOut, add1.u1) annotation (Line(points={{-200,230},{-160,230},{-160,216},{-142,216}},
@@ -266,40 +265,57 @@ equation
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-180,-320},{180,240}},
-        initialScale=0.1), graphics={Text(
-          extent={{84,112},{194,102}},
-          lineColor={28,108,200},
-          textString="Outdoor air conditions",
-          fontSize=12),
-        Rectangle(extent={{-180,240},{180,100}},lineColor={28,108,200}),
-        Rectangle(extent={{-180,40},{180,-20}}, lineColor={28,108,200}),
-        Rectangle(extent={{-180,-80},{180,-320}}, lineColor={28,108,200}),
+        initialScale=0.1), graphics={
+        Rectangle(
+          extent={{-180,-80},{180,-320}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-180,-20},{180,-80}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-180,40},{180,-20}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-180,100},{180,40}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-180,240},{180,100}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
                                      Text(
-          extent={{100,30},{222,12}},
-          lineColor={28,108,200},
+          extent={{76,120},{184,110}},
+          lineColor={0,0,0},
+          textString="Outdoor air 
+conditions"),                        Text(
+          extent={{100,34},{212,18}},
+          lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          textString="Freeze protection conditions",
-          fontSize=12),              Text(
-          extent={{-176,-82},{-58,-120}},
-          lineColor={28,108,200},
+          textString="Freeze protection
+conditions"),                        Text(
+          extent={{-176,-84},{152,-128}},
+          lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Enable-disable damper limit
-          assignments with time delays per G36 PART5.N.7"),
-        Rectangle(extent={{-180,-20},{180,-80}},lineColor={28,108,200}),
-                                     Text(
-          extent={{100,-18},{170,-60}},
-          lineColor={28,108,200},
+assignments with time delays 
+per G36 PART5.N.7"),                 Text(
+          extent={{100,-8},{248,-66}},
+          lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          textString="Zone State - disable when in heating",
-          fontSize=12),
-        Rectangle(extent={{-180,100},{180,40}}, lineColor={28,108,200}),
-                                     Text(
-          extent={{100,54},{208,42}},
-          lineColor={28,108,200},
+          textString="Zone State - disable 
+when in heating"),                   Text(
+          extent={{100,54},{194,44}},
+          lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          textString="Supply fan",
-          fontSize=12)}),
+          textString="Supply fan")}),
     Documentation(info="<html>
   <p>
   This is an economizer enable/disable sequence for a multiple zone VAV AHU 
