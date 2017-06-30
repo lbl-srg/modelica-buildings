@@ -1,0 +1,3 @@
+simulateModel("Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.MovingMean", stopTime=1800.0, method="dassl", tolerance=1e-06, resultFile="MovingMean1");
+createPlot(id=1, position={15, 10, 1000, 750}, subPlot=1, y={"uniformNoise.y"}, range={0.0, 5.0, 0, 1}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={15, 10, 1000, 750}, subPlot=2, y={"movingMean_100.y","movingMean_200.y","movingMean_300.y","movingMean_400.y","movingMean_500.y"}, range={0.0, 5.0, 0, 1}, grid=true, colors={{238,46,47},{0,140,72},{28,108,200},{0,140,72},{28,108,200}});

@@ -26,22 +26,33 @@ model MultiSum "Model to validate the application of MultiSum block"
     duration=1,
     offset=-3) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.MultiSum mulSum(
-    nu=5,
-    k={1,0.5,0.1,1,2})
-    "Sum of Reals: y = k[1]*u[1] + k[2]*u[2] + ... + k[n]*u[n]"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.MultiSum mulSum_5(nu=5, k={
+        1,0.5,0.1,1,2})
+    "Sum of Reals: y = k[1]*u[1] + k[2]*u[2] + ... + k[5]*u[5]"
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.MultiSum mulSum_2(nu=2, k={
+        1,0.5}) "Sum of Reals: y = k[1]*u[1] + k[2]*u[2]"
+    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.MultiSum mulSum_1(nu=1, k={
+        1}) "Sum of Reals: y = k[1]*u[1]"
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
 equation
-  connect(ramp1.y, mulSum.u[1]) annotation (Line(points={{-39,60},{-4,60},{32,60},
-          {32,5.6},{40,5.6}}, color={0,0,127}));
-  connect(ramp2.y, mulSum.u[2]) annotation (Line(points={{-39,30},{-10,30},{22,30},
-          {22,2.8},{40,2.8}}, color={0,0,127}));
-  connect(ramp3.y, mulSum.u[3])
-    annotation (Line(points={{-39,0},{40,0}}, color={0,0,127}));
-  connect(ramp4.y, mulSum.u[4]) annotation (Line(points={{-39,-30},{20,-30},{20,
-          -2.8},{40,-2.8}}, color={0,0,127}));
-  connect(ramp5.y, mulSum.u[5]) annotation (Line(points={{-39,-60},{30,-60},{30,
-          -5.6},{40,-5.6}}, color={0,0,127}));
+  connect(ramp1.y, mulSum_5.u[1]) annotation (Line(points={{-39,60},{-39,60},{
+          20,60},{20,-24.4},{40,-24.4}}, color={0,0,127}));
+  connect(ramp2.y, mulSum_5.u[2]) annotation (Line(points={{-39,30},{-39,30},{
+          10,30},{10,-27.2},{40,-27.2}}, color={0,0,127}));
+  connect(ramp3.y, mulSum_5.u[3]) annotation (Line(points={{-39,0},{0,0},{0,-30},
+          {40,-30}}, color={0,0,127}));
+  connect(ramp4.y, mulSum_5.u[4]) annotation (Line(points={{-39,-30},{20,-30},{
+          20,-32.8},{40,-32.8}}, color={0,0,127}));
+  connect(ramp5.y, mulSum_5.u[5]) annotation (Line(points={{-39,-60},{20,-60},{
+          20,-35.6},{40,-35.6}}, color={0,0,127}));
+  connect(ramp1.y, mulSum_1.u[1]) annotation (Line(points={{-39,60},{20,60},{20,
+          50},{40,50}}, color={0,0,127}));
+  connect(ramp1.y, mulSum_2.u[1]) annotation (Line(points={{-39,60},{20,60},{20,
+          13.5},{40,13.5}}, color={0,0,127}));
+  connect(ramp2.y, mulSum_2.u[2]) annotation (Line(points={{-39,30},{10,30},{10,
+          6.5},{40,6.5}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/MultiSum.mos"

@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "uniformNoise.y",
+    "movingMean_100.y",
+    "movingMean_200.y",
+    "movingMean_300.y",
+    "movingMean_400.y",
+    "movingMean_500.y"
+  };

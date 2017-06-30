@@ -23,6 +23,7 @@ Max
 Min
 MinMax
 Modulo
+MovingMean
 MultiSum
 NumberOfRequests
 Product
@@ -33,5 +34,4 @@ Sqrt
 Sum
 Tan
 Truncation
-MovingMean
 Validation

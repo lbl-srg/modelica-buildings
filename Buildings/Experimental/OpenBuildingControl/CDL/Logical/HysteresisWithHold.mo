@@ -64,6 +64,7 @@ protected
 initial equation
   assert(uLow < uHigh, "Require uLow < uHigh. Check parameter values.");
 
+
 equation
   connect(initialStep.outPort[1], toTrue1.inPort)
     annotation (Line(points={{-19.5,90.25},{-2,90},{16,90}},  color={0,0,0}));
@@ -153,19 +154,19 @@ During the hold time, the new state is hold.
 <ul>
 <li>
 When the input <code>u</code> becomes greater than <code>uHigh</code>, the 
-output <code>on</code> becomes <code>True</code> and hold the <code>True</code>
+output <code>on</code> becomes <code>true</code> and hold the <code>true</code>
 for at least <code>onHolDur</code> seconds.
 </li>
 <li>
 When the input <code>u</code> becomes less than <code>uLow</code>, the output
-<code>u</code> becomes <code>False</code> and hold the <code>False</code> for 
+<code>u</code> becomes <code>false</code> and hold the <code>false</code> for 
 at least <code>offHolDur</code> seconds.
 </li>
 </ul>
 After the duration time (<code>onHolDur</code>, <code>offHolDur</code>), the 
 value of Boolean output <code>on</code> will change immediately whenever <code>
-u</code> is greater than <code>uHigh</code> (<code>True</code>) 
-or less than <code>uLow</code> (<code>False</code>).
+u</code> is greater than <code>uHigh</code> (<code>true</code>) 
+or less than <code>uLow</code> (<code>false</code>).
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/HysteresisWithHold.png\"
 alt=\"Input and output of the block\"/>

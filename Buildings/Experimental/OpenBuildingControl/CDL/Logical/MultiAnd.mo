@@ -4,9 +4,9 @@ block MultiAnd
 
   parameter Integer nu(min=0) = 0 "Number of input connections"
     annotation (Dialog(connectorSizing=true), HideResult=true);
-  Interfaces.BooleanInput u[nu]
+  Interfaces.BooleanInput u[nu] "Connector of Boolean input signals"
     annotation (Placement(transformation(extent={{-120,70},{-80,-70}})));
-  Interfaces.BooleanOutput y
+  Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-17},{134,17}})));
 
 protected
@@ -19,8 +19,9 @@ equation
       uTemp[i] = u[i] and uTemp[i-1];
     end for;
     y = uTemp[nu];
-  elseif (size(u, 1) > 0) and (size(u, 1) < 2) then
-    y = u[1];
+  elseif (size(u, 1) == 1) then
+    uTemp[1] = u[1];
+    y = uTemp[1];
   else
     y = false;
   end if;
@@ -42,7 +43,7 @@ equation
           textString="AND")}),
     Documentation(info="<html>
 <p>
-This blocks computes the Boolean output \"y\" as <code>true</true> when the 
+This blocks computes the Boolean output \"y\" as <code>true</code> when the 
 elements of the Boolean input signal vector u are <code>true</code>, otherwise, 
 the output is <code>false</code>:
 </p>

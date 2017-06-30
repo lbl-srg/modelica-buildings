@@ -1,15 +1,13 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block MultiSum
   "Sum of Reals: y = k[1]*u[1] + k[2]*u[2] + ... + k[n]*u[n]"
-  parameter Integer significantDigits(min=1) = 3
-    "Number of significant digits to be shown in dynamic diagram layer for y"
-    annotation (Dialog(tab="Advanced"));
+
   parameter Integer nu(min=0) = 0 "Number of input connections"
     annotation (Dialog(connectorSizing=true), HideResult=true);
   parameter Real k[nu]=fill(1, nu) "Input gains";
-  Interfaces.RealInput u[nu]
+  Interfaces.RealInput u[nu] "Connector of Real input signals"
     annotation (Placement(transformation(extent={{-120,70},{-80,-70}})));
-  Interfaces.RealOutput y
+  Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-17},{134,17}})));
 equation
   if size(u, 1) > 0 then

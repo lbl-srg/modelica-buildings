@@ -16,6 +16,7 @@ LessEqual
 LessEqualThreshold
 LessThreshold
 LogicalSwitch
+MultiAnd
 Nand
 Nor
 Not
@@ -31,4 +32,3 @@ TrueFalseHold
 TrueHoldWithReset
 Xor
 ZeroCrossing
-MultiAnd
