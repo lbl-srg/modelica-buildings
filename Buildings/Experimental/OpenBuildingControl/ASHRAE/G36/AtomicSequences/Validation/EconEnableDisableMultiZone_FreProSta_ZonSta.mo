@@ -1,13 +1,12 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
 model EconEnableDisableMultiZone_FreProSta_ZonSta
-  "Model validates economizer disable at heating Zone State or at Freeze Protection Stages 1 through 3"
+  "Model validates economizer disable for heating zone state and activated freeze protection"
   extends Modelica.Icons.Example;
 
   parameter Real TOutCutoff(final unit="K", quantity="TermodynamicTemperature")=297
     "Outdoor temperature high limit cutoff";
   parameter Real hOutCutoff(final unit="J/kg", quantity="SpecificEnergy")=65100
     "Outdoor air enthalpy high limit cutoff";
-
   parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
     "Indicates that the freeze protection is disabled";
   parameter Integer freProDisabledNum = Integer(freProDisabled)-1
@@ -16,7 +15,6 @@ model EconEnableDisableMultiZone_FreProSta_ZonSta
     "Zone state is heating";
   parameter Integer heatingNum = Integer(heating)
     "Numerical value for heating zone state (=1)";
-
   parameter Types.FreezeProtectionStage freProEnabled = Types.FreezeProtectionStage.stage2
     "Indicates that the freeze protection is eanbled";
   parameter Integer freProEnabledNum = Integer(freProEnabled)-1
@@ -61,7 +59,6 @@ protected
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   CDL.Continuous.Constant retDamPosMin(k=0) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-
   CDL.Logical.Constant SupFanSta(k=true)
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
@@ -142,20 +139,20 @@ equation
           horizontalAlignment=TextAlignment.Left,
           fontSize=12,
           textString="Tests freeze protection disable condition")}),
-  experiment(StopTime=1800.0),
+    experiment(StopTime=1800.0),
     Documentation(info="<html>
-<p>
-This example validates
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone</a>
-for different control signals.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-June 13, 2017, by Milica Grahovac:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
+  <p>
+  This example validates
+  <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone\">
+  Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone</a>
+  for the following control signals: zone state, freeze protection stage.
+  </p>
+  </html>", revisions="<html>
+  <ul>
+  <li>
+  June 13, 2017, by Milica Grahovac:<br/>
+  First implementation.
+  </li>
+  </ul>
+  </html>"));
 end EconEnableDisableMultiZone_FreProSta_ZonSta;
