@@ -8,11 +8,28 @@ model EconEnableDisableMultiZone_FreProSta_ZonSta
   parameter Real hOutCutoff(final unit="J/kg", quantity="SpecificEnergy")=65100
     "Outdoor air enthalpy high limit cutoff";
 
+  parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
+    "Indicates that the freeze protection is disabled";
+  parameter Integer freProDisabledNum = Integer(freProDisabled)-1
+    "Numerical value for freeze protection stage 0 (=0)";
+  parameter Types.ZoneState heating = Types.ZoneState.heating
+    "Zone state is heating";
+  parameter Integer heatingNum = Integer(heating)
+    "Numerical value for heating zone state (=1)";
+
+  parameter Types.FreezeProtectionStage freProEnabled = Types.FreezeProtectionStage.stage2
+    "Indicates that the freeze protection is eanbled";
+  parameter Integer freProEnabledNum = Integer(freProEnabled)-1
+    "Numerical value for freeze protection stage 0 (=0)";
+  parameter Types.ZoneState cooling = Types.ZoneState.cooling
+    "Zone state is cooling";
+  parameter Integer coolingNum = Integer(cooling)
+    "Numerical value for cooling zone state (=2)";
+
   EconEnableDisableMultiZone econEnableDisableMultiZone "Multizone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,40},{102,60}})));
   EconEnableDisableMultiZone econEnableDisableMultiZone1 "Multizone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,-40},{102,-20}})));
-
 
 protected
   CDL.Continuous.Constant TOutBellowCutoff(k=TOutCutoff - 2)
@@ -25,10 +42,15 @@ protected
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   CDL.Continuous.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  CDL.Integers.Constant FreProSta1(k=2) "Freeze Protection Status (Activated > 0)"
-    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  CDL.Integers.Constant ZoneState(k=1) "Zone State is heating (heating = 1)"
+  CDL.Integers.Constant FreProSta(k=freProDisabledNum) "Freeze Protection Status (Deactivated = 0)"
+    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
+  CDL.Integers.Constant ZoneState(k=heatingNum) "Zone State is heating (heating = 1)"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
+  CDL.Integers.Constant FreProSta1(k=freProEnabledNum) "Freeze Protection Status (Activated > 0)"
+    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
+  CDL.Integers.Constant ZoneState1(k=coolingNum) "Zone State is not heating (heating = 1)"
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+
   CDL.Continuous.Constant outDamPosMax(k=0.9) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
   CDL.Continuous.Constant outDamPosMin(k=0.1) "Minimal allowed economizer damper position"
@@ -39,10 +61,7 @@ protected
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   CDL.Continuous.Constant retDamPosMin(k=0) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  CDL.Integers.Constant FreProSta(k=0) "Freeze Protection Status (Deactivated = 0)"
-    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Integers.Constant ZoneState1(k=2) "Zone State is not heating (heating = 1)"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+
   CDL.Logical.Constant SupFanSta(k=true)
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
@@ -110,7 +129,19 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-180,-180},{180,180}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-180,-180},{180,180}}), graphics={
+        Text(
+          extent={{80,42},{164,14}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=12,
+          textString="Tests zone state disable condition"),
+        Text(
+          extent={{80,-36},{174,-64}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=12,
+          textString="Tests freeze protection disable condition")}),
   experiment(StopTime=1800.0),
     Documentation(info="<html>
 <p>
