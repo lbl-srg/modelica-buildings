@@ -2,11 +2,11 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block SlewRateLimiter "Limit the increase or decrease rate of input"
 
   parameter Real raisingSlewRate(
-    min = Modelica.Constants.small,
+    min = Constants.small,
     final unit = "1/s") "Speed with which to increase the output";
 
   parameter Real fallingSlewRate(
-    max = -Modelica.Constants.small,
+    max = -Constants.small,
     final unit = "1/s") = -raisingSlewRate "Speed with which to decrease the output";
 
   parameter Modelica.SIunits.Time Td(min=Constants.eps) = 0.001
