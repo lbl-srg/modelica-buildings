@@ -33,12 +33,12 @@ partial model PartialChillerWSEInterface
 
   Modelica.Blocks.Interfaces.RealInput TSet
     "Set point for leaving water temperature"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,84},{-100,124}}),
+        iconTransformation(extent={{-132,92},{-100,124}})));
   Modelica.Blocks.Interfaces.BooleanInput on[n]
     "Set to true to enable equipment, or false to disable equipment"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,52},{-100,92}}),
+        iconTransformation(extent={{-132,60},{-100,92}})));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),

@@ -225,26 +225,26 @@ partial model PartialChillerWSE
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 equation
   for i in 1:nChi loop
-  connect(chiPar.on[i], on[i]) annotation (Line(points={{-62,34},{-92,34},{-92,40},
-            {-120,40}},
+  connect(chiPar.on[i], on[i]) annotation (Line(points={{-62,34},{-92,34},{-92,
+            72},{-120,72}},
                 color={255,0,255}));
   end for;
-  connect(on[nChi+1], wse.on[1]) annotation (Line(points={{-120,40},{-92,40},{-92,
-          56},{20,56},{20,34},{38,34}},
+  connect(on[nChi+1], wse.on[1]) annotation (Line(points={{-120,72},{-92,72},{
+          -92,72},{20,72},{20,34},{38,34}},
         color={255,0,255}));
-  connect(chiPar.TSet, TSet) annotation (Line(points={{-62,30},{-92,30},{-92,0},
-          {-120,0}},   color={0,0,127}));
+  connect(chiPar.TSet, TSet) annotation (Line(points={{-62,30},{-84,30},{-84,
+          104},{-120,104}},
+                       color={0,0,127}));
   connect(port_a1, chiPar.port_a1) annotation (Line(points={{-100,60},{-80,60},{
           -72,60},{-72,36},{-60,36}},         color={0,127,255}));
   connect(chiPar.port_b1, port_b1) annotation (Line(points={{-40,36},{-20,36},{-20,
           60},{100,60}},     color={0,127,255}));
   connect(wse.port_b1, port_b1) annotation (Line(points={{60,36},{80,36},{80,60},
           {100,60}},color={0,127,255}));
-  connect(port_a1, wse.port_a1) annotation (Line(points={{-100,60},{-80,60},{-80,
-          66},{0,66},{0,36},{40,36}}, color={0,127,255}));
-  connect(TSet, wse.TSet) annotation (Line(points={{-120,0},{-94,0},{-92,0},{-92,
-          56},{20,56},{20,30},{38,30}},
-                                    color={0,0,127}));
+  connect(port_a1, wse.port_a1) annotation (Line(points={{-100,60},{-80,60},{0,
+          60},{0,36},{40,36}},        color={0,127,255}));
+  connect(TSet, wse.TSet) annotation (Line(points={{-120,104},{-84,104},{-84,80},
+          {16,80},{16,30},{38,30}}, color={0,0,127}));
   connect(y_reset_in, wse.y_reset_in) annotation (Line(points={{-90,-100},{-90,-100},
           {-90,10},{40,10},{40,20}},                   color={0,0,127}));
   connect(trigger, wse.trigger) annotation (Line(points={{-60,-100},{-60,-100},{

@@ -12,7 +12,6 @@ model IntegratedPrimaryLoadSide
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)});
-  extends Buildings.ChillerWSE.BaseClasses.PartialOperationSequenceInterface;
 
  //Dynamics
  parameter Modelica.SIunits.Time tauPump = 30
@@ -90,16 +89,17 @@ model IntegratedPrimaryLoadSide
 
   Modelica.Blocks.Interfaces.RealInput yPum[nChi]
     "Constant normalized rotational speed"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-132,-28},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealInput yVal7
     "Position signal for valve 7 (0: closed, 1: open) " annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={-28,-120})));
-  Modelica.Blocks.Sources.BooleanExpression wseMod(y=if Modelica.Math.BooleanVectors.anyTrue(on[1:nChi]) then false else true)
-   "If any chiller is on then the plant is not in free cooling mode"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+        origin={-28,-120}), iconTransformation(
+        extent={{-16,-16},{16,16}},
+        rotation=90,
+        origin={-32,-116})));
 equation
   for i in 1:nChi loop
   connect(val5.port_b, pum[i].port_a) annotation (Line(points={{40,-20},{14,-20},{14,
@@ -111,17 +111,12 @@ equation
           30,-80},{10,-80}}, color={0,127,255}));
   connect(val7.port_b, port_b2) annotation (Line(points={{-10,-80},{-40,-80},{-40,
           -60},{-100,-60}}, color={0,127,255}));
- connect(pum.y, yPum) annotation (Line(points={{0.2,-28},{0.2,-10},{-26,-10},{-26,
-          -40},{-120,-40}}, color={0,0,127}));
+ connect(pum.y, yPum) annotation (Line(points={{0.2,-28},{0.2,-10},{-26,-10},{
+          -26,-40},{-120,-40}},
+                            color={0,0,127}));
   connect(val7.y, yVal7) annotation (Line(points={{0,-68},{0,-68},{0,-60},{-28,-60},
           {-28,-120}}, color={0,0,127}));
 
-  connect(booToRea.y,val6.y)  annotation (Line(points={{-47.4,74},{-28,74},{-28,
-          0},{-50,0},{-50,-8}}, color={0,0,127}));
-  connect(inv.y,val5.y)  annotation (Line(points={{-2.6,94},{8,94},{8,0},{50,0},
-          {50,-8}}, color={0,0,127}));
-  connect(wseMod.y, booToRea.u) annotation (Line(points={{-79,80},{-70,80},{-70,
-          74},{-61.2,74}}, color={255,0,255}));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

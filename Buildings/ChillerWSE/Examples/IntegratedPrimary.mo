@@ -125,13 +125,16 @@ equation
     annotation (Line(points={{-119,-28},{-112,-28},{-112,-16},{-102,-16}},
                                                    color={0,0,127}));
   connect(onChi1.y, intWSEPri.on[1]) annotation (Line(points={{-119,90},{-40,90},
-          {-40,-36},{-12,-36}}, color={255,0,255}));
+          {-40,-32.4},{-11.6,-32.4}},
+                                color={255,0,255}));
   connect(onChi2.y, intWSEPri.on[2]) annotation (Line(points={{-119,50},{-40,50},
-          {-40,-36},{-12,-36}}, color={255,0,255}));
-  connect(onWSE.y, intWSEPri.on[3]) annotation (Line(points={{-21,80},{-34,80},{
-          -34,-36},{-12,-36}}, color={255,0,255}));
-  connect(wseMod.y, intWSEPri.wseMod) annotation (Line(points={{-21,40},{-28,40},
-          {-28,-32},{-12,-32}}, color={255,0,255}));
+          {-40,-32.4},{-11.6,-32.4}},
+                                color={255,0,255}));
+  connect(onWSE.y, intWSEPri.on[3]) annotation (Line(points={{-21,80},{-34,80},
+          {-34,-32.4},{-11.6,-32.4}},
+                               color={255,0,255}));
+  connect(wseMod.y, intWSEPri.FC) annotation (Line(points={{-21,40},{-28,40},{-28,
+          -32},{-12,-32}}, color={255,0,255}));
   connect(sou1.ports[1], intWSEPri.port_a1) annotation (Line(points={{-80,-20},{
           -80,-20},{-48,-20},{-48,-34},{-10,-34}},
                                color={0,127,255}));
@@ -145,12 +148,15 @@ equation
   connect(sin2.ports[1], res2.port_b) annotation (Line(points={{-102,-82},{-102,
           -80},{-90,-80}},
                       color={0,127,255}));
-  connect(TSet.y, intWSEPri.TSet) annotation (Line(points={{-119,10},{-20,10},{-20,
-          -40},{-12,-40}}, color={0,0,127}));
-  connect(yPum.y, intWSEPri.yPum[1]) annotation (Line(points={{-119,-60},{-46,-60},
-          {-46,-44},{-12,-44}}, color={0,0,127}));
-  connect(yPum.y, intWSEPri.yPum[2]) annotation (Line(points={{-119,-60},{-119,-60},
-          {-46,-60},{-46,-44},{-12,-44}}, color={0,0,127}));
+  connect(TSet.y, intWSEPri.TSet) annotation (Line(points={{-119,10},{-20,10},{
+          -20,-29.2},{-11.6,-29.2}},
+                           color={0,0,127}));
+  connect(yPum.y, intWSEPri.yPum[1]) annotation (Line(points={{-119,-60},{-46,
+          -60},{-46,-44.4},{-11.6,-44.4}},
+                                color={0,0,127}));
+  connect(yPum.y, intWSEPri.yPum[2]) annotation (Line(points={{-119,-60},{-119,
+          -60},{-46,-60},{-46,-44.4},{-11.6,-44.4}},
+                                          color={0,0,127}));
   connect(intWSEPri.yVal3, yVal3.y)
     annotation (Line(points={{-2.8,-52},{-2,-52},{-2,-79}}, color={0,0,127}));
   connect(intWSEPri.port_b1, senConOut.port_a) annotation (Line(points={{10,-34},

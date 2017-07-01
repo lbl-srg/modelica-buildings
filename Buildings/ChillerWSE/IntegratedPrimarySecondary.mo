@@ -89,15 +89,17 @@ model IntegratedPrimarySecondary
     each final tau=tauPump,
     each final m_flow_nominal=mPump_flow_nominal) "Constant speed pumps"
     annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
-  Modelica.Blocks.Math.BooleanToReal booToRea(final realTrue=0, final realFalse=
-       1)                "Boolean to real (if true then 1 else 0)"
-    annotation (Placement(transformation(extent={{-60,80},{-48,92}})));
-  Modelica.Blocks.Sources.BooleanExpression wseMod(y=if Modelica.Math.BooleanVectors.anyTrue(on[1:nChi]) then false else true)
-   "If any chiller is on then the plant is not in free cooling mode"
-    annotation (Placement(transformation(extent={{-96,76},{-76,96}})));
   Modelica.Blocks.Interfaces.RealInput m_flow_in[numPum]
     "Prescribed mass flow rate for primary pumps"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-130,-50},{-100,-20}})));
+  Modelica.Blocks.Interfaces.RealInput yVal5
+    "Actuator position for valve 5 (0: closed, 1: open)" annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-120,26}), iconTransformation(extent={{-16,-16},{16,16}},
+          origin={-116,30})));
 equation
   connect(wse.port_a2, port_a2) annotation (Line(points={{60,24},{80,24},{80,-60},
           {100,-60}}, color={0,127,255}));
@@ -110,20 +112,16 @@ equation
           {-100,-60}}, color={0,127,255}));
   connect(chiPar.port_b2, port_b2) annotation (Line(points={{-60,24},{-60,24},{-74,
           24},{-74,-60},{-100,-60}}, color={0,127,255}));
-  connect(booToRea.y,val5. y) annotation (Line(points={{-47.4,86},{-47.4,86},{8,
-          86},{8,0},{50,0},{50,-8}},
-                                  color={0,0,127}));
   for i in 1:numPum loop
     connect(pum[i].port_a,val5. port_b)
     annotation (Line(points={{10,-20},{40,-20}}, color={0,127,255}));
     connect(pum[i].port_b, chiPar.port_a2) annotation (Line(points={{-10,-20},{-20,
           -20},{-20,24},{-40,24}}, color={0,127,255}));
   end for;
-  connect(wseMod.y, booToRea.u)
-    annotation (Line(points={{-75,86},{-75,86},{-61.2,86}},
-                                                   color={255,0,255}));
   connect(m_flow_in, pum.m_flow_in) annotation (Line(points={{-120,-40},{-60,-40},
           {-60,0},{0.2,0},{0.2,-8}}, color={0,0,127}));
+  connect(val5.y, yVal5) annotation (Line(points={{50,-8},{50,6},{-94,6},{-94,
+          26},{-120,26}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

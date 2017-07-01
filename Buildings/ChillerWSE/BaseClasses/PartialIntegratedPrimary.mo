@@ -60,6 +60,24 @@ model PartialIntegratedPrimary
     final y_start=yValve6_start)
     "On/Off valve: closed when free cooling mode is deactivated; open when free cooling is activated"
     annotation (Placement(transformation(extent={{-40,-30},{-60,-10}})));
+  Modelica.Blocks.Interfaces.RealInput yVal6
+    "Actuator position for valve 6 (0: closed, 1: open)" annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-120,-10}), iconTransformation(
+        extent={{-16,-16},{16,16}},
+        rotation=0,
+        origin={-116,-2})));
+  Modelica.Blocks.Interfaces.RealInput yVal5
+    "Actuator position for valve 5(0: closed, 1: open)" annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-120,20}), iconTransformation(
+        extent={{16,16},{-16,-16}},
+        rotation=180,
+        origin={-116,30})));
 equation
   connect(port_a2,val5. port_a) annotation (Line(points={{100,-60},{80,-60},{80,
           -20},{60,-20}}, color={0,127,255}));
@@ -73,6 +91,10 @@ equation
           -60},{-100,-60}}, color={0,127,255}));
   connect(val6.port_b, port_b2) annotation (Line(points={{-60,-20},{-80,-20},{-80,
           -60},{-100,-60}}, color={0,127,255}));
+  connect(val5.y, yVal5) annotation (Line(points={{50,-8},{50,0},{50,0},{-94,0},
+          {-94,20},{-120,20}}, color={0,0,127}));
+  connect(yVal6, val6.y) annotation (Line(points={{-120,-10},{-94,-10},{-94,0},
+          {-50,0},{-50,-8}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 Partial model that implements integrated waterside economizer in primary-ony chilled water system.
 </html>", revisions="<html>
