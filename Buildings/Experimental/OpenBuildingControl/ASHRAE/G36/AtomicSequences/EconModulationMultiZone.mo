@@ -127,7 +127,31 @@ equation
           lineColor={0,0,127},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
-            120}})),
+            120}}), graphics={
+        Rectangle(
+          extent={{-118,118},{18,-118}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{22,118},{118,-118}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+                                   Text(
+          extent={{-84,56},{-40,16}},
+          lineColor={0,0,0},
+          fontSize=12,
+          horizontalAlignment=TextAlignment.Left,
+          textString="Damper position 
+supply air temperature
+control loop"),                    Text(
+          extent={{82,128},{126,88}},
+          lineColor={0,0,0},
+          fontSize=12,
+          horizontalAlignment=TextAlignment.Left,
+          textString="Damper position 
+assignments")}),
     Documentation(info="<html>      
 <p>
 This sequence sets the outdoor and return air damper positions
