@@ -18,7 +18,6 @@ block EconModulationMultiZone "Outdoor and return air damper position modulation
     "Supply air temperature cooling setpoint"
     annotation (Placement(transformation(extent={{-160,-10},{-120,30}}),
         iconTransformation(extent={{-120,80},{-100,100}})));
-
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1, unit="1")
     "Minimum economizer damper position limit as returned by the EconDamperPositionLimitsMultiZone sequence"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
@@ -28,7 +27,6 @@ block EconModulationMultiZone "Outdoor and return air damper position modulation
     If the economizer is disabled, this value equals uOutDamPosMin"
     annotation (Placement(transformation(extent={{-160,-90},{-120,-50}}),
         iconTransformation(extent={{-120,0},{-100,20}})));
-
   CDL.Interfaces.RealInput uRetDamPosMin(min=0, max=1, unit="1")
     "Minimum return air damper position limit as returned by the EconEnableDisableMultiZone sequence"
     annotation (Placement(transformation(extent={{-160,40},{-120,80}}),
@@ -55,7 +53,6 @@ block EconModulationMultiZone "Outdoor and return air damper position modulation
     k=controllerGain)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT cooling setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-
   CDL.Continuous.Line outDamPos(limitBelow=true, limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
