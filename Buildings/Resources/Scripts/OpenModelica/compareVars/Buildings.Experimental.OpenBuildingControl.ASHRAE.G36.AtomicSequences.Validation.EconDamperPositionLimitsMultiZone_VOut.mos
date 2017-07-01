@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "VOutMinSet.y",
+    "VOut.y",
+    "ecoDamLim.yOutDamPosMin",
+    "ecoDamLim.yOutDamPosMax",
+    "ecoDamLim.yRetDamPosMin",
+    "ecoDamLim.yRetDamPosMax",
+    "ecoDamLim.damLimController.y"
+  };

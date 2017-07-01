@@ -19,6 +19,12 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
     "Numerical value for AHU operation mode \"Occupied\"";
   parameter Integer warmupNum = Integer(warmup)
     "Numerical value for AHU operation mode \"Warmup\"";
+  parameter Real airflowSetpoint(unit="m3/s")=0.71
+    "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
+  parameter Real minSenOutVolAirflow(unit="m3/s")=0.61
+    "Volumetric airflow sensor output, minimum value in the example";
+  parameter Real senOutVolAirIncrease(unit="m3/s")=0.2
+    "Maximum increase in airflow volume during the example simulation";
 
   // Fan Status
   CDL.Logical.Constant FanStatus(k=false) "Fan is off"
@@ -45,24 +51,6 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   CDL.Integers.Constant OperationMode2(k=occupiedNum) "AHU operation mode is \"Occupied\""
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-
-  EconDamperPositionLimitsMultiZone ecoDamLim
-    "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
-      annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  EconDamperPositionLimitsMultiZone ecoDamLim1
-    "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
-      annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  EconDamperPositionLimitsMultiZone ecoDamLim2
-    "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
-      annotation (Placement(transformation(extent={{160,-20},{180,0}})));
-
-protected
-  parameter Real airflowSetpoint(unit="m3/s")=0.71
-    "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Real minSenOutVolAirflow(unit="m3/s")=0.61
-    "Volumetric airflow sensor output, minimum value in the example";
-  parameter Real senOutVolAirIncrease(unit="m3/s")=0.2
-    "Maximum increase in airflow volume during the example simulation";
 
   Modelica.Blocks.Sources.Ramp VOut(
     duration=1800,
@@ -92,6 +80,16 @@ protected
   CDL.Continuous.Constant VOutMinSet2(k=airflowSetpoint)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
+
+  EconDamperPositionLimitsMultiZone ecoDamLim
+    "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
+      annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
+  EconDamperPositionLimitsMultiZone ecoDamLim1
+    "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
+      annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+  EconDamperPositionLimitsMultiZone ecoDamLim2
+    "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
+      annotation (Placement(transformation(extent={{160,-20},{180,0}})));
 
 equation
   connect(VOut.y, ecoDamLim.uVOut) annotation (Line(points={{-179,70},{-140,70},
