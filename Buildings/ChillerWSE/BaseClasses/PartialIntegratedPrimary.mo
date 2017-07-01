@@ -1,6 +1,6 @@
 within Buildings.ChillerWSE.BaseClasses;
 model PartialIntegratedPrimary
-  "Integrated WSE for Primary Chilled Water System"
+  "Integrated water-side economizer for primary-only chilled water system"
   extends Buildings.ChillerWSE.BaseClasses.PartialChillerWSE(
     nVal=6);
 
@@ -73,4 +73,14 @@ equation
           -60},{-100,-60}}, color={0,127,255}));
   connect(val6.port_b, port_b2) annotation (Line(points={{-60,-20},{-80,-20},{-80,
           -60},{-100,-60}}, color={0,127,255}));
+  annotation (Documentation(info="<html>
+Partial model that implements integrated waterside economizer in primary-ony chilled water system.
+</html>", revisions="<html>
+<ul>
+<li>
+July 1, 2017, by Yangyang Fu:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PartialIntegratedPrimary;

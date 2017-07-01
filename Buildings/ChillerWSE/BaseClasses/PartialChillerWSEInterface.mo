@@ -43,6 +43,17 @@ partial model PartialChillerWSEInterface
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
                                                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+This model implements an interface for chillers and integrated/nonitegrated water-side economizers. 
+</html>",
+        revisions="<html>
+<ul>
+<li>
+June 30, 2017, by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 
 end PartialChillerWSEInterface;

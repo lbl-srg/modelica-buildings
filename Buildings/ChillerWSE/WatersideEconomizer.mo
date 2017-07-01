@@ -128,4 +128,14 @@ equation
     annotation (Line(points={{10,2},{40,2},{40,22}}, color={0,127,255}));
   connect(val2[1].port_a, heaExc.port_b2) annotation (Line(points={{-40,-22},{-40,
           -22},{-40,-10},{-10,-10}}, color={0,127,255}));
+  annotation (Documentation(info="<html>
+This model implements a heat exchanger parallel with <code>n</code> identical heat exchangers.
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2017, by Yangyang Fu:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end WatersideEconomizer;

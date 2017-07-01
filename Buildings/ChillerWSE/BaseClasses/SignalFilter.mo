@@ -1,6 +1,7 @@
 within Buildings.ChillerWSE.BaseClasses;
 partial model SignalFilter  "Partial model that implements the filtered opening for valves and dampers"
-  extends Buildings.ChillerWSE.BaseClasses.PartialSignalFilter;
+  extends Buildings.ChillerWSE.BaseClasses.SignalFilterParameters;
+
 protected
   Modelica.Blocks.Interfaces.RealOutput[nFilter] y_actual "Actual valve position"
     annotation (Placement(transformation(extent={{-28,66},{-12,82}})));
@@ -32,5 +33,16 @@ equation
  end if;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+June 30, 2017, by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+Partial model that implements the filters that are used to approximate the travel time of the actuators.
+The signal <code>y_actual</code> is used to obtain the current position of the actuators.
+</html>"));
 end SignalFilter;

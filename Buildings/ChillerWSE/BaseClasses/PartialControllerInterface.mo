@@ -82,17 +82,11 @@ partial model PartialControllerInterface
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},{100,80}})),
     __Dymola_Commands,
     Documentation(info="<html>
-<p>This module simulates a heat exchanger with bypass used to modulate water flow rate.</p>
+<p>This module implements a PID controller interface.</p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 08, 2016, by Yangyang Fu:<br>
-Delete parameter: nominal flowrate of temperaure sensors. 
-</li>
-</ul>
-<ul>
-<li>
-July 30, 2016, by Yangyang Fu:<br>
+June 30, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

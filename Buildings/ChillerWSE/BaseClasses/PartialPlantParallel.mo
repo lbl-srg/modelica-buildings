@@ -1,6 +1,6 @@
 within Buildings.ChillerWSE.BaseClasses;
 partial model PartialPlantParallel
-  "Partial source plant model with replaceable valves"
+  "Partial source plant model with associated valves"
   extends Buildings.ChillerWSE.BaseClasses.PartialPlantParallelInterface;
   extends Buildings.ChillerWSE.BaseClasses.ValvesParameters(
     nVal = 2,
@@ -95,5 +95,31 @@ equation
     annotation (Line(points={{-20,74},{-20,-32},{-28,-32}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
-         Diagram(coordinateSystem(preserveAspectRatio=false)));
+         Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+Partial model that can be extended to construct parallel chillers such as 
+<a href=\"modelica://Buildings.ChillerWSE.ElectricChilerParallel\">
+Buildings.ChillerWSE.ElectricChilerParallel</a> 
+and water-side economizers <a href=\"modelica://Buildings.ChillerWSE.WatersideEconomizer\">
+Buildings.ChillerWSE.WatersideEconomizer</a>.
+<p>
+<p>
+The associated valve group <code>val1</code> and <code>val2</code> 
+on <code>medium 1</code> and <code>medium 2</code> side are for on/off use only. 
+The number of valves in each group is specified by the parameter <code>n</code>. 
+The valve parameters can be specified differently.
+</p>
+<p>
+The signal filter is used to smoothe the on/off signal for the valves.
+</p>
+</html>",
+        revisions="<html>
+<ul>
+<li>
+June 30, 2017, by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PartialPlantParallel;

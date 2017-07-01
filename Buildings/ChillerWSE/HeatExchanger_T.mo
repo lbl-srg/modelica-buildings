@@ -52,17 +52,15 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},{100,80}})),
     __Dymola_Commands,
     Documentation(info="<html>
-<p>This module simulates a heat exchanger with a three-way valve used to modulate water flow rate.The three-way valve has the same differential pressure as the heat exchanger.</p>
+<p>
+This module simulates a heat exchanger with a three-way valve used to modulate water flow rate 
+in order to control the temperature at <code>port_b2</code> by a PID controller <code>con</code>.
+The three-way valve has the same differential pressure as the heat exchanger.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 08, 2016, by Yangyang Fu:<br>
-Delete parameter: nominal flowrate of temperaure sensors. 
-</li>
-</ul>
-<ul>
-<li>
-July 30, 2016, by Yangyang Fu:<br>
+June 30, 2017, by Yangyang Fu:<br>
 First implementation.
 </li>
 </ul>

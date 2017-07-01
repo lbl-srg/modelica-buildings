@@ -1,6 +1,6 @@
 within Buildings.ChillerWSE;
 model NonIntegrated
-  "Non-integrated chilled and WSE cooling system for data centers"
+  "Non-integrated waterside economizer in chilled water system"
   extends Buildings.ChillerWSE.BaseClasses.PartialChillerWSE;
 
 equation
@@ -13,5 +13,61 @@ equation
   connect(chiPar.port_b2, port_b2) annotation (Line(points={{-60,24},{-72,24},{
           -72,-60},{-100,-60}},                 color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This model implements a non-integrated water-side economizer (WSE) 
+in the chilled water system, as shown in the following figure. 
+In the configuration, users can model multiple chillers with only one integrated WSE. 
+This model can be used in both primary-only and primary-secondary pumping system.
+</p>
+<p align=\"center\">
+  <img src=\"modelica://Buildings/Resources/Images/ChillerWSE/Nonintegrated.png\" alt=\"image\"/> 
+</p>
+<h4>Implementation</h4>
+<p>
+The WSE is in parallel with chillers on both the condenser and chilled water sides. 
+If the economizer cannot meet the entire load then it must be shut off. 
+Otherwise, the relatively warm economier leaving water will be mixed with the cold chiller leaving water 
+and hence the plant leaving water temperature will be above setpoint. 
+For this configuration, there are only two cooling modes: 
+free cooling (FC) mode and fully mechanical cooling (FMC) mode.
+</p>
+<p>
+There are 4 valves for on/off use only, 
+which can be controlled in order to switch between FC and FMC mode.
+</p>
+<ul>
+ <li>V1 and V2 are associated with the chiller. 
+ When the chiller is commanded to run, V1 and V2 will be open, and vice versa. 
+ Note that when the number of chillers are larger than 1, 
+ V1 and V2 are vectored models with the same dimension as the chillers.
+ </li>
+ <li>V3 and V4 are associated with the WSE. 
+ When the WSE is commanded to run, V3 and V4 will be open, and vice versa. 
+ </li>
+</ul>
+<p>
+The details about how to switch among different cooling modes are shown as: 
+</p>
+<p style=\"margin-left: 30px;\">
+For Free Cooling (FC) Mode:
+</p>
+<ul>
+ <li style=\"margin-left: 45px;\">V1 and V2 are closed, and V3 and V4 are open;</li>
+</ul>
+<p style=\"margin-left: 30px;\">
+For Fully Mechanical Cooling (FMC) Mode:
+</p>
+<ul>
+ <li style=\"margin-left: 45px;\">V1 and V2 are open, and V3 and V4 are closed;</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+July 1, 2017, by Yangyang Fu:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end NonIntegrated;

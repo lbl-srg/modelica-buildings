@@ -112,4 +112,16 @@ equation
     annotation (Line(points={{10,6},{40,6},{40,22}}, color={0,127,255}));
   connect(on, chi.on) annotation (Line(points={{-120,40},{-90,40},{-90,3},{-12,3}},
         color={255,0,255}));
+  annotation (Documentation(info="<html>
+Partial model that implements the parallel electric chillers with associated valves.
+The parallel have <code>n</code> identical chillers. 
+</html>",
+        revisions="<html>
+<ul>
+<li>
+June 30, 2017, by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PartialParallelElectricEIR;
