@@ -14,7 +14,7 @@
    viewBox="0 0 554.71523 127.49892"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.1 unknown"
    inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/SetupModeDefinition.png"
    inkscape:export-xdpi="108.331"
    inkscape:export-ydpi="108.331"
@@ -231,9 +231,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.2896497"
-     inkscape:cx="266.19232"
-     inkscape:cy="89.175328"
+     inkscape:zoom="2.0996754"
+     inkscape:cx="214.21219"
+     inkscape:cy="47.699612"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -241,8 +241,8 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1855"
-     inkscape:window-height="1098"
+     inkscape:window-width="1332"
+     inkscape:window-height="798"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1">
@@ -260,7 +260,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -271,79 +271,63 @@
      transform="translate(21.829078,-236.70103)">
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.41918564px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-21.53055"
-       y="250.59735"
-       id="text4181-3-36"
-       sodipodi:linespacing="125%"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.47763538px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.78980285px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-21.537939"
+       y="250.63307"
+       id="text4181-3-36"><tspan
          sodipodi:role="line"
-         id="tspan4423"
-         x="-21.53055"
-         y="250.59735">Tzon</tspan></text>
+         id="tspan6495"
+         x="-21.537939"
+         y="250.63307"
+         style="stroke-width:0.78980285px">TZon</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.25500298px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-21.801994"
-       y="296.52753"
-       id="text4181-3-36-1"
-       sodipodi:linespacing="125%"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.30871582px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.77572626px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-21.809879"
+       y="296.56564"
+       id="text4181-3-36-1"><tspan
          sodipodi:role="line"
-         id="tspan8879"
-         x="-21.801994"
-         y="296.52753">TunoCooSet</tspan></text>
+         id="tspan6497"
+         x="-21.809879"
+         y="296.56564"
+         style="stroke-width:0.77572626px">TUnoCooSet</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:8.14960957px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="53.412556"
        y="251.22952"
-       id="text4181-91"
-       sodipodi:linespacing="125%"><tspan
+       id="text4181-91"><tspan
          sodipodi:role="line"
          id="tspan7750"
          x="53.412556"
-         y="251.22952">Any 5 zones (if more than 5 zones),</tspan><tspan
+         y="251.22952"
+         style="font-size:8.14960957px;line-height:1.25">Any 5 zones (if more than 5 zones),</tspan><tspan
          sodipodi:role="line"
          id="tspan7752"
          x="53.412556"
-         y="261.41653">or, </tspan><tspan
+         y="261.41653"
+         style="font-size:8.14960957px;line-height:1.25">or, </tspan><tspan
          sodipodi:role="line"
          id="tspan7754"
          x="53.412556"
-         y="271.60355">all zones (if less than 5 zones),</tspan><tspan
+         y="271.60355"
+         style="font-size:8.14960957px;line-height:1.25">all zones (if less than 5 zones),</tspan><tspan
          sodipodi:role="line"
          id="tspan7756"
          x="53.412556"
-         y="281.79056"></tspan></text>
+         y="281.79056"
+         style="font-size:8.14960957px;line-height:1.25"> </tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:8.14960957px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="255.66217"
-       y="286.90302"
-       id="text4181-9-5"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan8881"
-         x="255.66217"
-         y="286.90302">Tzon[i]</tspan><tspan
-         sodipodi:role="line"
-         id="tspan8883"
-         x="255.66217"
-         y="297.09003">       &gt;</tspan><tspan
-         sodipodi:role="line"
-         id="tspan8885"
-         x="255.66217"
-         y="307.27704">       TunoCooSet?</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.29969692px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="461.28445"
        y="286.55521"
-       id="text4181-1-7-1-9"
-       sodipodi:linespacing="125%"><tspan
+       id="text4181-1-7-1-9"><tspan
          sodipodi:role="line"
          id="tspan8893"
          x="461.28445"
-         y="286.55521">Setup mode?</tspan></text>
+         y="286.55521"
+         style="font-size:9.29969692px;line-height:1.25">Setup mode?</tspan></text>
     <rect
        style="opacity:1;fill:none;fill-opacity:0;stroke:#000000;stroke-width:1.03839839;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.98500001"
        id="rect7100"
@@ -412,25 +396,6 @@
        d="m 235.9187,302.36217 19.0813,0"
        id="path7818"
        inkscape:connector-curvature="0" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:8.14960957px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="255.35333"
-       y="333.03583"
-       id="text4181-9-5-1"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan8887"
-         x="255.35333"
-         y="333.03583">All Zone Temp</tspan><tspan
-         sodipodi:role="line"
-         id="tspan8889"
-         x="255.35333"
-         y="343.22284">       &lt;</tspan><tspan
-         sodipodi:role="line"
-         id="tspan8891"
-         x="255.35333"
-         y="353.40985">TunoCooSet - 1.1 C?</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 230,287.36217 0,45"
@@ -445,15 +410,15 @@
        y="322.36215" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.29969692px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="369.005"
        y="342.63965"
-       id="text4181-1-7-1-9-5"
-       sodipodi:linespacing="125%"><tspan
+       id="text4181-1-7-1-9-5"><tspan
          sodipodi:role="line"
          id="tspan7968"
          x="369.005"
-         y="342.63965">Not</tspan></text>
+         y="342.63965"
+         style="font-size:9.29969692px;line-height:1.25">Not</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker8170)"
        d="m 330,340.36217 35,0"
@@ -464,5 +429,38 @@
        d="m 415,339.36217 25,0 0,-45"
        id="path7974"
        inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:8.18970966px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.20474268px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="255.27031"
+       y="288.09433"
+       id="text6507"><tspan
+         sodipodi:role="line"
+         id="tspan6505"
+         x="255.27031"
+         y="288.09433"
+         style="stroke-width:0.20474268px">TZon[i]</tspan><tspan
+         sodipodi:role="line"
+         x="255.27031"
+         y="298.33148"
+         style="stroke-width:0.20474268px"
+         id="tspan6509">       &gt;</tspan><tspan
+         sodipodi:role="line"
+         x="255.27031"
+         y="308.5686"
+         style="stroke-width:0.20474268px"
+         id="tspan6511">       TUnoCooSet?</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:8.16112554px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.20402686px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-font-specification:'sans-serif, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+       x="256.83212"
+       y="332.5849"
+       id="text6515"><tspan
+         sodipodi:role="line"
+         id="tspan6521">All Zone Temp</tspan><tspan
+         sodipodi:role="line"
+         id="tspan6523">       &lt;</tspan><tspan
+         sodipodi:role="line"
+         id="tspan6525">TUnoCooSet - 1.1 C?</tspan></text>
   </g>
 </svg>

@@ -9,12 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="156.55296mm"
+   width="156.55524mm"
    height="35.983028mm"
-   viewBox="0 0 554.71523 127.49892"
+   viewBox="0 0 554.72329 127.49892"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.1 unknown"
    inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/SetbackModeDefinition.png"
    inkscape:export-xdpi="108.331"
    inkscape:export-ydpi="108.331"
@@ -24,30 +24,32 @@
     <marker
        inkscape:stockid="Arrow2Lstart"
        orient="auto"
-       refY="0.0"
-       refX="0.0"
+       refY="0"
+       refX="0"
        id="Arrow2Lstart"
        style="overflow:visible"
        inkscape:isstock="true">
       <path
          id="path4565"
-         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
-         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
-         transform="scale(1.1) translate(1,0)" />
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(1.1,0,0,1.1,1.1,0)"
+         inkscape:connector-curvature="0" />
     </marker>
     <marker
        inkscape:stockid="Arrow1Lstart"
        orient="auto"
-       refY="0.0"
-       refX="0.0"
+       refY="0"
+       refX="0"
        id="Arrow1Lstart"
        style="overflow:visible"
        inkscape:isstock="true">
       <path
          id="path4547"
-         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
-         transform="scale(0.8) translate(12.5,0)" />
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         inkscape:connector-curvature="0" />
     </marker>
     <marker
        inkscape:stockid="Arrow2Lend"
@@ -229,9 +231,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.2896497"
-     inkscape:cx="266.19235"
-     inkscape:cy="89.175343"
+     inkscape:zoom="2.0996754"
+     inkscape:cx="193.18173"
+     inkscape:cy="22.961955"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -239,15 +241,15 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1855"
-     inkscape:window-height="1098"
+     inkscape:window-width="1332"
+     inkscape:window-height="798"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
        id="grid4136"
-       originx="21.829106"
+       originx="21.837139"
        originy="-688.16224" />
   </sodipodi:namedview>
   <metadata
@@ -266,82 +268,66 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(21.829109,-236.70104)">
+     transform="translate(21.837141,-236.70103)">
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.41918564px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-21.53055"
-       y="250.59735"
-       id="text4181-3-36"
-       sodipodi:linespacing="125%"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.47763538px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.78980279px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-21.537949"
+       y="250.63304"
+       id="text4181-3-36"><tspan
          sodipodi:role="line"
-         id="tspan4423"
-         x="-21.53055"
-         y="250.59735">Tzon</tspan></text>
+         id="tspan5533"
+         x="-21.537949"
+         y="250.63304"
+         style="stroke-width:0.78980279px">TZon</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.25500298px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-21.801994"
-       y="296.52753"
-       id="text4181-3-36-1"
-       sodipodi:linespacing="125%"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.29632092px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.77469331px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-21.809906"
+       y="296.56598"
+       id="text4181-3-36-1"><tspan
          sodipodi:role="line"
-         id="tspan7781"
-         x="-21.801994"
-         y="296.52753">TunoHeaSet</tspan></text>
+         id="tspan5535"
+         x="-21.809906"
+         y="296.56598"
+         style="stroke-width:0.77469331px">TUnoHeaSet</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:8.14960957px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="53.412556"
        y="251.22952"
-       id="text4181-91"
-       sodipodi:linespacing="125%"><tspan
+       id="text4181-91"><tspan
          sodipodi:role="line"
          id="tspan7750"
          x="53.412556"
-         y="251.22952">Any 5 zones (if more than 5 zones),</tspan><tspan
+         y="251.22952"
+         style="font-size:8.14960957px;line-height:1.25">Any 5 zones (if more than 5 zones),</tspan><tspan
          sodipodi:role="line"
          id="tspan7752"
          x="53.412556"
-         y="261.41653">or, </tspan><tspan
+         y="261.41653"
+         style="font-size:8.14960957px;line-height:1.25">or, </tspan><tspan
          sodipodi:role="line"
          id="tspan7754"
          x="53.412556"
-         y="271.60355">all zones (if less than 5 zones),</tspan><tspan
+         y="271.60355"
+         style="font-size:8.14960957px;line-height:1.25">all zones (if less than 5 zones),</tspan><tspan
          sodipodi:role="line"
          id="tspan7756"
          x="53.412556"
-         y="281.79056"></tspan></text>
+         y="281.79056"
+         style="font-size:8.14960957px;line-height:1.25"> </tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:8.14960957px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="255.66217"
-       y="286.90302"
-       id="text4181-9-5"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan7783"
-         x="255.66217"
-         y="286.90302">Tzon[i]</tspan><tspan
-         sodipodi:role="line"
-         id="tspan7785"
-         x="255.66217"
-         y="297.09003">       &lt;</tspan><tspan
-         sodipodi:role="line"
-         id="tspan7787"
-         x="255.66217"
-         y="307.27704">       TunoHeaSet?</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.29969692px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="461.28445"
        y="286.55521"
-       id="text4181-1-7-1-9"
-       sodipodi:linespacing="125%"><tspan
+       id="text4181-1-7-1-9"><tspan
          sodipodi:role="line"
          id="tspan7976"
          x="461.28445"
-         y="286.55521">Setback mode?</tspan></text>
+         y="286.55521"
+         style="font-size:9.29969692px;line-height:1.25">Setback mode?</tspan></text>
     <rect
        style="opacity:1;fill:none;fill-opacity:0;stroke:#000000;stroke-width:1.03839839;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.98500001"
        id="rect7100"
@@ -358,12 +344,12 @@
        y="242.7079" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Lend)"
-       d="m -19.88248,257.36217 69.882476,0"
+       d="M -19.88248,257.36217 H 49.999996"
        id="path7764"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker7996)"
-       d="m 200,257.36217 30,0 0,30 25,0"
+       d="m 200,257.36217 h 30 v 30 h 25"
        id="path7775"
        inkscape:connector-curvature="0" />
     <rect
@@ -375,7 +361,7 @@
        y="277.36218" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker8048)"
-       d="m 330,294.36217 202.05029,0"
+       d="M 330,294.36217 H 532.05029"
        id="path7789"
        inkscape:connector-curvature="0" />
     <rect
@@ -387,51 +373,32 @@
        y="323.36218" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker8398)"
-       d="m 229.39008,332.36217 25.60992,0"
+       d="M 229.39008,332.36217 H 255"
        id="path7810"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow2Lstart)"
-       d="m 255,347.36217 -205.000004,0"
+       d="M 255,347.36217 H 49.999996"
        id="path7812"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 49.999996,347.36217 0,-45"
+       d="m 49.999996,347.36217 v -45"
        id="path7814"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m -20.132547,302.36217 245.614497,0"
+       d="M -20.132547,302.36217 H 225.48195"
        id="path7816"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker8316)"
-       d="m 235.9187,302.36217 19.0813,0"
+       d="M 235.9187,302.36217 H 255"
        id="path7818"
        inkscape:connector-curvature="0" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:8.14960957px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="255.35333"
-       y="333.03583"
-       id="text4181-9-5-1"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan8586"
-         x="255.35333"
-         y="333.03583">All Zone Temp</tspan><tspan
-         sodipodi:role="line"
-         id="tspan8588"
-         x="255.35333"
-         y="343.22284">       &gt;</tspan><tspan
-         sodipodi:role="line"
-         id="tspan8590"
-         x="255.35333"
-         y="353.40985">TunoHeaSet + 1.1 C?</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 230,287.36217 0,45"
+       d="m 230,287.36217 v 45"
        id="path7946"
        inkscape:connector-curvature="0" />
     <rect
@@ -443,24 +410,56 @@
        y="322.36215" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.29969692px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="369.005"
        y="342.63965"
-       id="text4181-1-7-1-9-5"
-       sodipodi:linespacing="125%"><tspan
+       id="text4181-1-7-1-9-5"><tspan
          sodipodi:role="line"
          id="tspan7968"
          x="369.005"
-         y="342.63965">Not</tspan></text>
+         y="342.63965"
+         style="font-size:9.29969692px;line-height:1.25">Not</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker8170)"
-       d="m 330,340.36217 35,0"
+       d="m 330,340.36217 h 35"
        id="path7972"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker8106)"
-       d="m 415,339.36217 25,0 0,-45"
+       d="m 415,339.36217 h 25 v -45"
        id="path7974"
        inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.67212486px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.21680221px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="257.50409"
+       y="287.55203"
+       id="text5545"><tspan
+         sodipodi:role="line"
+         id="tspan5557"
+         x="257.50409"
+         y="287.55203">TZon[i]</tspan><tspan
+         sodipodi:role="line"
+         id="tspan5559"
+         x="257.50409"
+         y="298.39218">           &lt;</tspan><tspan
+         sodipodi:role="line"
+         id="tspan5561"
+         x="257.50409"
+         y="309.23233">     TUnoHeaSet?</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.67212505px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.21680221px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+       x="255.62909"
+       y="333.48953"
+       id="text5545-4"
+       inkscape:export-xdpi="108.331"
+       inkscape:export-ydpi="108.331"><tspan
+         sodipodi:role="line"
+         id="tspan5695">All Zone Temp</tspan><tspan
+         sodipodi:role="line"
+         id="tspan5697">           &gt;</tspan><tspan
+         sodipodi:role="line"
+         id="tspan5699">TUnoHeaSet+1.1 C?</tspan></text>
   </g>
 </svg>
