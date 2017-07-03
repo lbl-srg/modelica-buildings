@@ -62,8 +62,7 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
     duration=1800,
     offset=minSenOutVolAirflow,
     height=senOutVolAirIncrease)
-    "Measured outdoor airflow rate [fixme: I repeat input signal blocks in this example for clarity, we could 
-    revert to plugging the same source into multiple ecoDamLim blocks if they are the same]"
+    "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Sources.Ramp VOut2(
     duration=1800,

@@ -3,8 +3,10 @@ model EconomizerMultiZone_Disable
   "Validates multizone VAV AHU economizer model modulation and damper position limit control loop disable"
   extends Modelica.Icons.Example;
 
-  parameter Real TOutCutoff(unit="K", quantity="TermodynamicTemperature")=297 "Outdoor temperature high limit cutoff";
-  parameter Real hOutCutoff(unit="J/kg", quantity="SpecificEnergy")=65100 "Outdoor air enthalpy high limit cutoff";
+  parameter Real TOutCutoff(unit="K", quantity="TermodynamicTemperature")=297
+    "Outdoor temperature high limit cutoff";
+  parameter Real hOutCutoff(unit="J/kg", quantity="SpecificEnergy")=65100
+    "Outdoor air enthalpy high limit cutoff";
   parameter Real airflowSetpoint(unit="m3/s", displayUnit="m3/h")=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
   parameter Real TSupSet(unit="K", quantity="TermodynamicTemperature")=291 "Supply air temperature setpoint";
@@ -34,17 +36,18 @@ model EconomizerMultiZone_Disable
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   CDL.Integers.Constant ZoneState(k=heatingNum) "Zone State is heating"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  CDL.Integers.Constant OperationMode(k=occupiedNum)
-                                           "AHU System Mode (1 = Occupied)"
+  CDL.Integers.Constant OperationMode(k=occupiedNum) "AHU operation mode is \"Occupied\""
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-  CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 40000) "Outdoor air enthalpy is below the cufoff"
+  CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 40000)
+    "Outdoor air enthalpy is below the cufoff"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   CDL.Continuous.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
-                                                    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Continuous.Constant TOutBellowCutoff(k=TOutCutoff - 30) "Outdoor air temperature is below the cutoff"
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+  CDL.Continuous.Constant TOutBellowCutoff(k=TOutCutoff - 30)
+    "Outdoor air temperature is below the cutoff"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  CDL.Continuous.Constant TOutCut1(
-                                  k=TOutCutoff) annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+  CDL.Continuous.Constant TOutCut1(k=TOutCutoff)
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   CDL.Continuous.Constant VOutMinSet(k=airflowSetpoint)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
@@ -52,12 +55,13 @@ model EconomizerMultiZone_Disable
     duration=1800,
     height=0.2,
     offset=airflowSetpoint - 0.1)
-    "TSup falls below 38 F and remains there for longer than 5 min."
+    "Measured outdoor air volumetric airflow"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Modelica.Blocks.Sources.Ramp TSup(
     height=4,
     offset=TSupSet - 2,
-    duration=1800) "This supply air temperature would cause modulation if the economizer was enabled"
+    duration=1800)
+    "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   CDL.Continuous.Constant TSupSetSig(k=TSupSet) "Cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));

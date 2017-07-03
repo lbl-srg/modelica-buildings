@@ -20,7 +20,8 @@ model EconDamperPositionLimitsMultiZone_VOut
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
-  EconDamperPositionLimitsMultiZone ecoDamLim "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
+  EconDamperPositionLimitsMultiZone ecoDamLim
+    "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected

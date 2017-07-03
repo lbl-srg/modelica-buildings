@@ -1,13 +1,16 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.Validation;
 model EconomizerMultiZone_Mod_DamLim
-  "Validates multizone VAV AHU economizer model damper modulation and minimum ooutdoor air requirement damper position limits"
-                                    //fixme: add mos file
+  "Validates multizone VAV AHU economizer: damper modulation and minimum ooutdoor air requirement damper position limits"
   extends Modelica.Icons.Example;
 
-  parameter Real TOutCutoff(unit="K", quantity="TermodynamicTemperature")=297 "Outdoor temperature high limit cutoff";
-  parameter Real hOutCutoff(unit="J/kg", quantity="SpecificEnergy")=65100 "Outdoor air enthalpy high limit cutoff";
-  parameter Real TCooSet(unit="K", quantity="TermodynamicTemperature")=291 "Supply air temperature cooling setpoint";
-  parameter Real TSup(unit="K", quantity="TermodynamicTemperature")=290 "Measured supply air temperature";
+  parameter Real TOutCutoff(unit="K", quantity="TermodynamicTemperature")=297
+    "Outdoor temperature high limit cutoff";
+  parameter Real hOutCutoff(unit="J/kg", quantity="SpecificEnergy")=65100
+    "Outdoor air enthalpy high limit cutoff";
+  parameter Real TCooSet(unit="K", quantity="TermodynamicTemperature")=291
+    "Supply air temperature cooling setpoint";
+  parameter Real TSup(unit="K", quantity="TermodynamicTemperature")=290
+    "Measured supply air temperature";
 
   parameter Real minVOutSet(unit="m3/s")=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
@@ -29,7 +32,7 @@ model EconomizerMultiZone_Mod_DamLim
   parameter Integer deadbandNum = Integer(deadband)
     "Numerical value for deadband zone state (=2)";
 
-  EconomizerMultiZone economizer(fixEnt=true) "Multizone VAV AHU economizer "
+  EconomizerMultiZone economizer(fixEnt=true) "Multizone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   CDL.Logical.Constant FanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
@@ -37,19 +40,18 @@ model EconomizerMultiZone_Mod_DamLim
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   CDL.Integers.Constant ZoneState(k=deadbandNum) "Zone State is deadband"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Integers.Constant OperationMode(k=occupiedNum)
-                                           "AHU System Mode (1 = Occupied)"
+  CDL.Integers.Constant OperationMode(k=occupiedNum) "AHU operation mode is \"Occupied\""
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 10000)
     "Outdoor air enthalpy is slightly below the cufoff"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   CDL.Continuous.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
-                                                    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   CDL.Continuous.Constant TOutBellowCutoff(k=TOutCutoff - 5)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  CDL.Continuous.Constant TOutCut1(
-                                  k=TOutCutoff) annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+  CDL.Continuous.Constant TOutCut1(k=TOutCutoff)
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   CDL.Continuous.Constant VOutMinSet(k=minVOutSet)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
@@ -57,14 +59,13 @@ model EconomizerMultiZone_Mod_DamLim
     duration=1800,
     offset=minVOut,
     height=VOutIncrease)
-    "TSup falls below 38 F and remains there for longer than 5 min."
+    "Measured outdoor air volumetric airflow"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   CDL.Continuous.Constant TSupSetSig(k=TCooSet) "Cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   CDL.Continuous.Constant TSupSig(k=TSup) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  EconomizerMultiZone economizer1(fixEnt=false)
-                                              "Multizone VAV AHU economizer "
+  EconomizerMultiZone economizer1(fixEnt=false) "Multizone VAV AHU economizer "
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   Modelica.Blocks.Sources.Ramp TSupSig1(
     duration=900,
@@ -83,7 +84,7 @@ equation
   connect(TOutBellowCutoff.y, economizer.TOut)
     annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},color={0,0,127}));
   connect(TOutCut1.y, economizer.TOutCut)
-    annotation (Line(points={{-99,70},{-10,70},{-10,20},{19,20}},         color={0,0,127}));
+    annotation (Line(points={{-99,70},{-10,70},{-10,20},{19,20}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer.hOut)
     annotation (Line(points={{-99,20},{-60,20},{-60,18},{-4,18},{19,18}},color={0,0,127}));
   connect(hOutCut.y, economizer.hOutCut)
@@ -169,10 +170,10 @@ validate damper position limits")}),
     <p>
     This example validates
     <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.EconomizerMultiZone\">
-    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.EconomizerMultiZone</a>
-    minimum outdoor air damper position limits control loop <code>economizer<\code> and modulation 
-    control loop <code>economizer1<\code> for <code>VOut<\code> and <code>TSup<\code> control signals. Both control
-    loops are enabled during the validation test. 
+    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.EconomizerMultiZone</a> control loops:
+    minimum outdoor air damper position limits control loop (<code>economizer<\code> block) and modulation 
+    control loop (<code>economizer1<\code> block) for <code>VOut<\code> and <code>TSup<\code> control signals. Both control
+    loops are enabled during the validation test.
     </p>
     </html>", revisions="<html>
     <ul>
