@@ -6,7 +6,7 @@ model EconomizerMultiZone_Mod_DamLim
 
   parameter Real TOutCutoff(unit="K", quantity="TermodynamicTemperature")=297 "Outdoor temperature high limit cutoff";
   parameter Real hOutCutoff(unit="J/kg", quantity="SpecificEnergy")=65100 "Outdoor air enthalpy high limit cutoff";
-  parameter Real TSupSet(unit="K", quantity="TermodynamicTemperature")=291 "Supply air temperature cooling setpoint";
+  parameter Real TCooSet(unit="K", quantity="TermodynamicTemperature")=291 "Supply air temperature cooling setpoint";
   parameter Real TSup(unit="K", quantity="TermodynamicTemperature")=290 "Measured supply air temperature";
 
   parameter Real minVOutSet(unit="m3/s")=0.71
@@ -59,13 +59,21 @@ model EconomizerMultiZone_Mod_DamLim
     height=VOutIncrease)
     "TSup falls below 38 F and remains there for longer than 5 min."
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  CDL.Continuous.Constant TSupSetSig(k=TSupSet) "Cooling supply air temperature setpoint"
+  CDL.Continuous.Constant TSupSetSig(k=TCooSet) "Cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   CDL.Continuous.Constant TSupSig(k=TSup) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+  EconomizerMultiZone economizer1(fixEnt=false)
+                                              "Multizone VAV AHU economizer "
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
+  Modelica.Blocks.Sources.Ramp TSupSig1(
+    duration=900,
+    height=2,
+    offset=TCooSet - 1) "Measured supply air temperature"
+    annotation (Placement(transformation(extent={{40,80},{60,100}})));
 equation
   connect(FanStatus.y, economizer.uSupFan)
-    annotation (Line(points={{-59,-80},{-10,-80},{-10,6},{19,6}}, color={255,0,255}));
+    annotation (Line(points={{-59,-80},{-14,-80},{-14,6},{19,6}}, color={255,0,255}));
   connect(FreProSta.y, economizer.uFreProSta)
     annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},color={255,127,0}));
   connect(OperationMode.y, economizer.uOperationMode)
@@ -88,6 +96,29 @@ equation
     annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}},color={0,0,127}));
   connect(TSupSig.y, economizer.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}}, color={0,0,127}));
+  connect(TOutBellowCutoff.y, economizer1.TOut)
+    annotation (Line(points={{-99,110},{90,110},{90,-18},{99,-18}}, color={0,0,127}));
+  connect(TOutCut1.y, economizer1.TOutCut)
+    annotation (Line(points={{-99,70},{88,70},{88,-20},{99,-20}}, color={0,0,127}));
+  connect(TSupSig1.y, economizer1.TSup) annotation (Line(points={{61,90},{80,90},{80,-26},{99,-26}}, color={0,0,127}));
+  connect(TSupSetSig.y, economizer1.TCooSet)
+    annotation (Line(points={{-59,50},{-54,50},{-54,-20},{20,-20},{20,-28},{99,-28}}, color={0,0,127}));
+  connect(VOut.y, economizer1.uVOut)
+    annotation (Line(points={{-19,90},{-10,90},{-10,-22},{18,-22},{18,-30},{99,-30}}, color={0,0,127}));
+  connect(VOutMinSet.y, economizer1.uVOutMinSet)
+    annotation (Line(points={{-19,50},{-12,50},{-12,-24},{16,-24},{16,-32},{99,-32}}, color={0,0,127}));
+  connect(FanStatus.y, economizer1.uSupFan)
+    annotation (Line(points={{-59,-80},{20,-80},{20,-34},{99,-34}}, color={255,0,255}));
+  connect(OperationMode.y, economizer1.uOperationMode)
+    annotation (Line(points={{-99,-100},{22,-100},{22,-36},{99,-36}}, color={255,127,0}));
+  connect(FreProSta.y, economizer1.uFreProSta)
+    annotation (Line(points={{-59,-120},{26,-120},{26,-40},{99,-40}}, color={255,127,0}));
+  connect(ZoneState.y, economizer1.uZoneState)
+    annotation (Line(points={{-99,-60},{24,-60},{24,-38},{99,-38}}, color={255,127,0}));
+  connect(hOutBelowCutoff.y, economizer1.hOut)
+    annotation (Line(points={{-99,20},{0,20},{0,-22},{99,-22}}, color={0,0,127}));
+  connect(hOutCut.y, economizer1.hOutCut)
+    annotation (Line(points={{-99,-20},{0,-20},{0,-24},{99,-24}}, color={0,0,127}));
   annotation (
     experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/CompositeSequences/Validation/EconomizerMultiZone_Mod_DamLim.mos"
@@ -120,13 +151,15 @@ equation
           textString="Enable damper limit 
 control and modulation"),
         Text(
-          extent={{102,156},{138,136}},
+          extent={{100,4},{136,-16}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=8,
-          textString="Validate damper modulation"),
+          textString="Validate damper modulation
+and absence of enthalpy 
+measurement"),
         Text(
-          extent={{2,158},{38,138}},
+          extent={{20,46},{56,26}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=8,

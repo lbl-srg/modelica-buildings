@@ -59,8 +59,10 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control block"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}}),
     iconTransformation(extent={{100,-30}, {120,-10}})));
 
-  AtomicSequences.EconEnableDisableMultiZone econEnableDisableMultiZone(fixEnt=true, delEntHis=delEntHis,
-    delTemHis=delTemHis)
+  AtomicSequences.EconEnableDisableMultiZone econEnableDisableMultiZone(
+    delEntHis=delEntHis,
+    delTemHis=delTemHis,
+    fixEnt=fixEnt)
     "Multizone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   AtomicSequences.EconDamperPositionLimitsMultiZone ecoDamLim(
@@ -83,11 +85,11 @@ equation
   connect(uFreProSta, econEnableDisableMultiZone.uFreProSta)
     annotation (Line(points={{-130,-120},{-60,-120},{-60,-28},{-1,-28}},color={255,127,0}));
   connect(hOutCut, econEnableDisableMultiZone.hOutCut)
-    annotation (Line(points={{-130,80},{-40,80},{-40,-26},{-1,-26}},color={0,0,127}));
+    annotation (Line(points={{-130,80},{-46,80},{-46,-26},{-1,-26}},color={0,0,127}));
   connect(hOut, econEnableDisableMultiZone.hOut)
-    annotation (Line(points={{-130,100},{-40,100},{-40,-24},{-1,-24}},color={0,0,127}));
+    annotation (Line(points={{-130,100},{-44,100},{-44,-24},{-1,-24}},color={0,0,127}));
   connect(TOutCut, econEnableDisableMultiZone.TOutCut)
-    annotation (Line(points={{-130,120},{-40,120},{-40,-22},{-1,-22}},color={0,0,127}));
+    annotation (Line(points={{-130,120},{-42,120},{-42,-22},{-1,-22}},color={0,0,127}));
   connect(TOut, econEnableDisableMultiZone.TOut)
     annotation (Line(points={{-130,140},{-40,140},{-40,-20},{-1,-20}},color={0,0,127}));
   connect(uVOutMinSet, ecoDamLim.uVOutMinSet)
@@ -121,17 +123,17 @@ equation
     annotation (Line(points={{22,-25.2},{50,-25.2},{50,-10},{50,11},{59,11}},
     color={0,0,127}));
   connect(econEnableDisableMultiZone.yRetDamPosMax, ecoMod.uRetDamPosMax)
-    annotation (Line(points={{22,-32},{50,-32},{50,4},{59,4}},color={0,0,127}));
-  connect(econEnableDisableMultiZone.yRetDamPosMin, ecoMod.uRetDamPosMin)
-    annotation (Line(points={{22,-38},{42,-38},{42,-18},{42,1},{59,1}},color={0,0,127}));
+    annotation (Line(points={{22,-32},{52,-32},{52,4},{59,4}},color={0,0,127}));
   connect(ecoDamLim.yOutDamPosMin, ecoMod.uOutDamPosMin)
     annotation (Line(points={{-59,15},{-20,15},{20,15},{20,12},{20,8},{59,8}},
       color={0,0,127}));
-  connect(TCooSet, ecoMod.TCooSet) annotation (Line(points={{-130,40},{50,40},{50,19},{59,19}},
+  connect(TCooSet, ecoMod.TCooSet) annotation (Line(points={{-130,40},{52,40},{52,19},{59,19}},
       color={0,0,127}));
   connect(TSup, ecoMod.TSup) annotation (Line(points={{-130,60},{50,60},{50,16},{59,16}},color={0,0,127}));
   connect(yOutDamPos, yOutDamPos) annotation (Line(points={{130,-40},{130,-40}}, color={0,0,127}));
   connect(yRetDamPos, yRetDamPos) annotation (Line(points={{130,40},{130,40}}, color={0,0,127}));
+  connect(econEnableDisableMultiZone.yRetDamPosMin, ecoMod.uRetDamPosMin)
+    annotation (Line(points={{22,-38},{54,-38},{54,0},{54,1},{59,1}}, color={0,0,127}));
   annotation (defaultComponentName = "multiZoneEconomizer",
         Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},

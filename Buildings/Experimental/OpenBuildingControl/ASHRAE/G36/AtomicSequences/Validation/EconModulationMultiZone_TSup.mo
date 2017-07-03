@@ -3,15 +3,15 @@ model EconModulationMultiZone_TSup
   "Validation model for the outdoor and return air damper position modulation sequence for multiple zone VAV AHU"
   extends Modelica.Icons.Example;
 
-  parameter Real TSupSet(unit="K", quantity="TermodynamicTemperature")=291
+  parameter Real TCooSet(unit="K", quantity="TermodynamicTemperature")=291
     "Supply air temperature setpoint";
 
-  CDL.Continuous.Constant TSupSetSig(k=TSupSet) "Supply air temperature setpoint"
+  CDL.Continuous.Constant TCooSetSig(k=TCooSet) "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Modelica.Blocks.Sources.Ramp TSup(
     duration=900,
     height=4,
-    offset=TSupSet - 2) "Measured supply air temperature"
+    offset=TCooSet - 2) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
   CDL.Continuous.Constant outDamPosMin(k=0)
@@ -27,7 +27,7 @@ model EconModulationMultiZone_TSup
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
 equation
-  connect(TSupSetSig.y, ecoMod.TCooSet) annotation (Line(points={{1,70},{8,70},{
+  connect(TCooSetSig.y, ecoMod.TCooSet) annotation (Line(points={{1,70},{8,70},{
           8,48},{8,39},{39,39}}, color={0,0,127}));
   connect(TSup.y,ecoMod.TSup)  annotation (Line(points={{-39,70},{-30,70},{-30,36},
           {39,36}},color={0,0,127}));
