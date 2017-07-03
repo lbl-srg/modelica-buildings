@@ -166,7 +166,6 @@ equation
           horizontalAlignment=TextAlignment.Left,
           fontSize=16,
           textString="Freeze protection status is higher than 1")}),
-    experiment(StopTime=1800.0),
     Documentation(info="<html>
   <p>
   This example validates enable/disable conditions for

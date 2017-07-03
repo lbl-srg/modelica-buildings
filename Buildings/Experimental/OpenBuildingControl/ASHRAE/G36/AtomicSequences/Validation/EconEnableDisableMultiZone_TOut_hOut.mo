@@ -190,7 +190,6 @@ equation
           horizontalAlignment=TextAlignment.Left,
           fontSize=12,
           textString="No enthalpy sensor")}),
-    experiment(StopTime=1800.0),
     Documentation(info="<html>
     <p>
     This example validates
