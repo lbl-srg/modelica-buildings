@@ -126,62 +126,55 @@ protected
 
 equation
   connect(minRetDam.y,yRetDamPosMax)  annotation (Line(points={{141,110},{150,110},{150,20},{150,-40},{190,-40}},
-                                color={0,0,127}));
-  connect(retDamPosMinSwitch.y, minRetDam.f2) annotation (Line(points={{61,-20},{61,-18},{61,-20},{100,-20},{100,102},{118,
-          102}},               color={0,0,127}));
+    color={0,0,127}));
+  connect(retDamPosMinSwitch.y, minRetDam.f2)
+    annotation (Line(points={{61,-20},{61,-18},{61,-20},{100,-20},{100,102},{118,102}},color={0,0,127}));
   connect(sigFraForOutDam.y,minRetDam. x1)
-    annotation (Line(points={{-39,210},{-30,210},{-30,118},{118,118}},
-                                                                    color={0,0,127}));
+    annotation (Line(points={{-39,210},{-30,210},{-30,118},{118,118}},color={0,0,127}));
   connect(maxSignalLimit.y,minRetDam. x2)
-    annotation (Line(points={{1,210},{8,210},{8,106},{118,106}},        color={0,0,127}));
+    annotation (Line(points={{1,210},{8,210},{8,106},{118,106}},color={0,0,127}));
   connect(VOut,damLimController. u_m)
     annotation (Line(points={{-200,170},{-130,170},{-130,178}},color={0,0,127}));
   connect(VOutMinSet,damLimController. u_s)
-    annotation (Line(points={{-200,220},{-160,220},{-160,190},{-142,190}},  color={0,0,127}));
+    annotation (Line(points={{-200,220},{-160,220},{-160,190},{-142,190}},color={0,0,127}));
   connect(damLimController.y,minRetDam. u)
-    annotation (Line(points={{-119,190},{-80,190},{-80,110},{118,110}}, color={0,0,127}));
+    annotation (Line(points={{-119,190},{-80,190},{-80,110},{118,110}},color={0,0,127}));
   connect(outDamPosMaxSwitch.y, minOutDam.f2)
     annotation (Line(points={{61,20},{110,20},{110,142},{118,142}}, color={0,0,127}));
   connect(minSignalLimit.y,minOutDam. x1)
-    annotation (Line(points={{-79,210},{-70,210},{-70,158},{118,158}},
-                                                                   color={0,0,127}));
+    annotation (Line(points={{-79,210},{-70,210},{-70,158},{118,158}},color={0,0,127}));
   connect(sigFraForOutDam.y,minOutDam. x2)
-    annotation (Line(points={{-39,210},{-39,210},{-30,210},{-30,146},{118,146}},
-                                                                    color={0,0,127}));
+    annotation (Line(points={{-39,210},{-39,210},{-30,210},{-30,146},{118,146}},color={0,0,127}));
   connect(damLimController.y,minOutDam. u)
     annotation (Line(points={{-119,190},{-80,190},{-80,150},{118,150}},  color={0,0,127}));
   connect(outDamPosMaxSwitch.y, yOutDamPosMax)
-    annotation (Line(points={{61,20},{126,20},{126,40},{190,40}},
-                                                         color={0,0,127}));
+    annotation (Line(points={{61,20},{126,20},{126,40},{190,40}},color={0,0,127}));
   connect(minOutDam.y,yOutDamPosMin)
     annotation (Line(points={{141,150},{160,150},{160,80},{190,80}}, color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, retDamPosMinSwitch.u1)
     annotation (Line(points={{-139,-40},{0,-40},{0,-12},{38,-12}}, color={0,0,127}));
   connect(retDamPhyPosMaxSig.y,minRetDam. f1)
-    annotation (Line(points={{-139,-40},{-60,-40},{-60,114},{118,114}},              color={0,0,127}));
+    annotation (Line(points={{-139,-40},{-60,-40},{-60,114},{118,114}},color={0,0,127}));
   connect(retDamPhyPosMinSig.y, retDamPosMinSwitch.u3)
-    annotation (Line(points={{-139,0},{-120,0},{-120,-28},{38,-28}},
-                                                                 color={0,0,127}));
+    annotation (Line(points={{-139,0},{-120,0},{-120,-28},{38,-28}},color={0,0,127}));
   connect(outDamPhyPosMaxSig.y, outDamPosMaxSwitch.u3)
-    annotation (Line(points={{-139,40},{-120,40},{-120,12},{38,12}}, color={0,0,127}));
+    annotation (Line(points={{-139,40},{-120,40},{-120,12},{38,12}},color={0,0,127}));
   connect(outDamPhyPosMinSig.y, outDamPosMaxSwitch.u1)
-    annotation (Line(points={{-139,80},{0,80},{0,28},{38,28}},     color={0,0,127}));
+    annotation (Line(points={{-139,80},{0,80},{0,28},{38,28}},color={0,0,127}));
   connect(outDamPhyPosMinSig.y,minOutDam. f1)
-    annotation (Line(points={{-139,80},{0,80},{0,154},{118,154}},     color={0,0,127}));
+    annotation (Line(points={{-139,80},{0,80},{0,154},{118,154}},color={0,0,127}));
   connect(uSupFan,and1. u1)
-    annotation (Line(points={{-200,-100},{-108,-100},{-108,-82},{-82,-82}},    color={255,0,255}));
+    annotation (Line(points={{-200,-100},{-108,-100},{-108,-82},{-82,-82}},color={255,0,255}));
   connect(and1.y,not1. u)
-    annotation (Line(points={{-59,-90},{-42,-90}},     color={255,0,255}));
+    annotation (Line(points={{-59,-90},{-42,-90}},color={255,0,255}));
   connect(not1.y, retDamPosMinSwitch.u2)
-    annotation (Line(points={{-19,-90},{20,-90},{20,-20},{38,-20}},
-                                                                color={255,0,255}));
+    annotation (Line(points={{-19,-90},{20,-90},{20,-20},{38,-20}},color={255,0,255}));
   connect(not1.y, outDamPosMaxSwitch.u2)
-    annotation (Line(points={{-19,-90},{-19,-90},{20,-90},{20,20},{38,20}},  color={255,0,255}));
+    annotation (Line(points={{-19,-90},{-19,-90},{20,-90},{20,20},{38,20}},color={255,0,255}));
   connect(retDamPosMinSwitch.y, yRetDamPosMin)
-    annotation (Line(points={{61,-20},{126,-20},{126,0},{190,0}},
-                                                      color={0,0,127}));
+    annotation (Line(points={{61,-20},{126,-20},{126,0},{190,0}},color={0,0,127}));
   connect(and1.u2, equ.y)
-    annotation (Line(points={{-82,-90},{-90,-90},{-90,-140},{-99,-140}},       color={255,0,255}));
+    annotation (Line(points={{-82,-90},{-90,-90},{-90,-140},{-99,-140}},color={255,0,255}));
   connect(intToRea.u, uFreProSta)
     annotation (Line(points={{-162,-140},{-162,-140},{-200,-140}}, color={255,127,0}));
   connect(intToRea.y, equ.u)
@@ -189,13 +182,13 @@ equation
   connect(uOperationMode, intToRea1.u)
     annotation (Line(points={{-200,-180},{-182,-180},{-162,-180}}, color={255,127,0}));
   connect(and1.u3, equ1.y)
-    annotation (Line(points={{-82,-98},{-86,-98},{-86,-180},{-99,-180}},       color={255,0,255}));
+    annotation (Line(points={{-82,-98},{-86,-98},{-86,-180},{-99,-180}},color={255,0,255}));
   connect(intToRea1.y, equ1.u1)
     annotation (Line(points={{-139,-180},{-130.5,-180},{-122,-180}}, color={0,0,127}));
   connect(OperationMode.y, equ1.u2)
-    annotation (Line(points={{-139,-210},{-130,-210},{-130,-188},{-122,-188}}, color={0,0,127}));
+    annotation (Line(points={{-139,-210},{-130,-210},{-130,-188},{-122,-188}},color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, yRetDamPhyPosMax)
-    annotation (Line(points={{-139,-40},{40,-40},{40,-80},{190,-80}},   color={0,0,127}));
+    annotation (Line(points={{-139,-40},{40,-40},{40,-80},{190,-80}},color={0,0,127}));
   connect(yRetDamPosMin, yRetDamPosMin) annotation (Line(points={{190,0},{190,0}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ecoDamLim",
@@ -275,27 +268,26 @@ control loop")}),
     </p>
     <p>
     The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
-    the AHU is in Occupied Mode (<code>uOperationMode=1</code>[fixme: enumeration]),
-    and Freeze Protection Stage <code>uFreProSta</code> is not larger than 1.
-    Otherwise the damper position limits are set to their corresponding maximum and minimum
-    physical or at  commissioning fixed limits, as illustrated below:
+    the AHU operation mode (<code>OperationMode</code>) is \"Occupied\", and Freeze protection stage 
+    <code>uFreProSta</code> is not larger than 1. Otherwise the damper position limits are set to 
+    their corresponding maximum and minimum physical or at commissioning fixed limits, as illustrated below:
     </p>
     <p align=\"center\">
     <img alt=\"Image of damper position limits state machine chart\"
     src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsStateMachineChartMultiZone.png\"/>
     </p>
     <p>
-    The controller controls the outdoor and return damper position limits so
+    The controller sets the outdoor and return damper position limits so
     that the outdoor airflow rate, <code>VOut</code>, stays equal or above the
     minimum outdoor air setpoint, <code>VOutMinSet</code>. Fraction of the controller
     output signal between <code>conSigMin</code> and <code>conSigFraOutDam</code> is
     linearly mapped to the outdoor air damper minimal position, <code>yOutDamPosMin</code>,
     while the fraction of the controller output between <code>conSigFraOutDam</code> and
     <code>conSigMax</code> is linearly mapped to the return air damper maximum position,
-    <code>yRetDamPosMax</code>.
+    <code>yRetDamPosMax</code>. Thus the dampers are not interlocked.
     </p>
     <p>
-    The following control charts show the input-output structure and an expected damper position
+    The following control charts show the input/output structure and an expected damper position
     limits for a well tuned controller. Control diagram:
     </p>
     <p align=\"center\">
