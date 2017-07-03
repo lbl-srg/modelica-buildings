@@ -185,11 +185,12 @@ equation
           fontSize=12,
           textString="Tests enthalpy hysteresis"),
         Text(
-          extent={{220,-40},{348,-68}},
+          extent={{220,-46},{348,-74}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=12,
-          textString="No enthalpy sensor")}),
+          textString="No enthalpy 
+sensor")}),
     Documentation(info="<html>
     <p>
     This example validates

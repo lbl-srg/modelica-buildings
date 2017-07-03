@@ -17,11 +17,11 @@ block EconDamperPositionLimitsMultiZone
     modulated and above which the return air damper limit gets modulated";
   parameter Real controllerGain=1 "Gain of controller";
 
-  CDL.Interfaces.RealInput uVOut(unit="m3/s")
+  CDL.Interfaces.RealInput VOut(unit="m3/s")
     "Measured outdoor volumetric airflow rate [fixme: which quantity attribute should we use, add for all volume flow]"
     annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput uVOutMinSet(unit="m3/s")
+  CDL.Interfaces.RealInput VOutMinSet(unit="m3/s")
     "Minimum outdoor volumetric airflow rate setpoint"
     annotation (Placement(transformation(extent={{-220,200},{-180,240}}),
         iconTransformation(extent={{-120,40},{-100,60}})));
@@ -134,9 +134,9 @@ equation
                                                                     color={0,0,127}));
   connect(maxSignalLimit.y,minRetDam. x2)
     annotation (Line(points={{1,210},{8,210},{8,106},{118,106}},        color={0,0,127}));
-  connect(uVOut,damLimController. u_m)
+  connect(VOut,damLimController. u_m)
     annotation (Line(points={{-200,170},{-130,170},{-130,178}},color={0,0,127}));
-  connect(uVOutMinSet,damLimController. u_s)
+  connect(VOutMinSet,damLimController. u_s)
     annotation (Line(points={{-200,220},{-160,220},{-160,190},{-142,190}},  color={0,0,127}));
   connect(damLimController.y,minRetDam. u)
     annotation (Line(points={{-119,190},{-80,190},{-80,110},{118,110}}, color={0,0,127}));
@@ -240,7 +240,7 @@ equation
           lineColor={0,0,0},
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,
-          textString="Damper position limit 
+          textString="Damper position limit
 calculation and assignments"),     Text(
           extent={{-160,152},{-16,70}},
           lineColor={0,0,0},
@@ -258,13 +258,13 @@ limit modulation"),                Text(
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,
           textString="Enable/disable conditions
-for damper position limits 
+for damper position limits
 control loop"),                    Text(
           extent={{-160,170},{-16,122}},
           lineColor={0,0,0},
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,
-          textString="Damper position limits 
+          textString="Damper position limits
 outdoor air volume flow
 control loop")}),
     Documentation(info="<html>
@@ -286,7 +286,7 @@ control loop")}),
     </p>
     <p>
     The controller controls the outdoor and return damper position limits so
-    that the outdoor airflow rate, <code>uVOut</code>, stays equal or above the
+    that the outdoor airflow rate, <code>VOut</code>, stays equal or above the
     minimum outdoor air setpoint, <code>VOutMinSet</code>. Fraction of the controller
     output signal between <code>conSigMin</code> and <code>conSigFraOutDam</code> is
     linearly mapped to the outdoor air damper minimal position, <code>yOutDamPosMin</code>,
@@ -311,7 +311,7 @@ control loop")}),
     <img alt=\"Image of damper position limits control chart\"
     src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlChartMultiZone.png\"/>
     </p>
-    
+
     </html>", revisions="<html>
     <ul>
     <li>

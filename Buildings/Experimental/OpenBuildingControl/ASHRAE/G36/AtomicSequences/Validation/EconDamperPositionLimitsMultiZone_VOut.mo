@@ -41,8 +41,8 @@ protected
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
 equation
-  connect(VOut.y, ecoDamLim.uVOut) annotation (Line(points={{-39,80},{0,80},{0,8},{19,8}},color={0,0,127}));
-  connect(VOutMinSet.y, ecoDamLim.uVOutMinSet)
+  connect(VOut.y, ecoDamLim.VOut) annotation (Line(points={{-39,80},{0,80},{0,8},{19,8}},color={0,0,127}));
+  connect(VOutMinSet.y, ecoDamLim.VOutMinSet)
     annotation (Line(points={{-39,40},{-10,40},{-10,5},{19,5}},color={0,0,127}));
   connect(FanStatus.y, ecoDamLim.uSupFan)
     annotation (Line(points={{-39,0},{-20,0},{19,0}},color={255,0,255}));
@@ -71,7 +71,7 @@ equation
   This example validates
   <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone\">
   Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone</a>
-  for the following control signals: <code>uVOut<\code>, <code>uVOutMinSet<\code>. The control loop is always enabled in this 
+  for the following control signals: <code>VOut<\code>, <code>VOutMinSet<\code>. The control loop is always enabled in this 
   example.
   </p>
   </html>", revisions="<html>

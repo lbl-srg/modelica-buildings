@@ -88,9 +88,9 @@ equation
     annotation (Line(points={{-99,20},{-60,20},{-60,18},{-4,18},{19,18}},color={0,0,127}));
   connect(hOutCut.y, economizer.hOutCut)
     annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,16},{19,16}},color={0,0,127}));
-  connect(VOut.y, economizer.uVOut)
+  connect(VOut.y, economizer.VOut)
     annotation (Line(points={{-19,90},{-8,90},{-8,10},{19,10}},color={0,0,127}));
-  connect(VOutMinSet.y, economizer.uVOutMinSet)
+  connect(VOutMinSet.y, economizer.VOutMinSet)
     annotation (Line(points={{-19,50},{-12,50},{-12,8},{19,8}},color={0,0,127}));
   connect(TSupSetSig.y, economizer.TCooSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}},color={0,0,127}));
@@ -103,9 +103,9 @@ equation
   connect(TSupSig1.y, economizer1.TSup) annotation (Line(points={{61,90},{80,90},{80,-26},{99,-26}}, color={0,0,127}));
   connect(TSupSetSig.y, economizer1.TCooSet)
     annotation (Line(points={{-59,50},{-54,50},{-54,-20},{20,-20},{20,-28},{99,-28}}, color={0,0,127}));
-  connect(VOut.y, economizer1.uVOut)
+  connect(VOut.y, economizer1.VOut)
     annotation (Line(points={{-19,90},{-10,90},{-10,-22},{18,-22},{18,-30},{99,-30}}, color={0,0,127}));
-  connect(VOutMinSet.y, economizer1.uVOutMinSet)
+  connect(VOutMinSet.y, economizer1.VOutMinSet)
     annotation (Line(points={{-19,50},{-12,50},{-12,-24},{16,-24},{16,-32},{99,-32}}, color={0,0,127}));
   connect(FanStatus.y, economizer1.uSupFan)
     annotation (Line(points={{-59,-80},{20,-80},{20,-34},{99,-34}}, color={255,0,255}));
@@ -148,16 +148,16 @@ equation
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
-          textString="Enable damper limit 
-control and modulation"),
+          textString="Enable both damper limit 
+and modulation control loops"),
         Text(
           extent={{100,4},{136,-16}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=8,
           textString="Validate damper modulation
-and absence of enthalpy 
-measurement"),
+(example without 
+enthalpy measurement)"),
         Text(
           extent={{20,46},{56,26}},
           lineColor={0,0,0},

@@ -92,9 +92,9 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
       annotation (Placement(transformation(extent={{160,-20},{180,0}})));
 
 equation
-  connect(VOut.y, ecoDamLim.uVOut) annotation (Line(points={{-179,70},{-140,70},
+  connect(VOut.y, ecoDamLim.VOut) annotation (Line(points={{-179,70},{-140,70},
           {-140,-2},{-121,-2}}, color={0,0,127}));
-  connect(VOutMinSet.y, ecoDamLim.uVOutMinSet)
+  connect(VOutMinSet.y, ecoDamLim.VOutMinSet)
     annotation (Line(points={{-179,30},{-150,30},{-150,-5},{-121,-5}}, color={0,0,127}));
   connect(FanStatus.y, ecoDamLim.uSupFan)
     annotation (Line(points={{-179,-10},{-160,-10},{-121,-10}}, color={255,0,255}));
@@ -103,9 +103,9 @@ equation
     color={255,127,0}));
   connect(FreProSta.y, ecoDamLim.uFreProSta)
     annotation (Line(points={{-179,-90},{-150,-90},{-150,-18},{-121,-18}}, color={255,127,0}));
-  connect(VOut1.y, ecoDamLim1.uVOut) annotation (Line(points={{-39,70},{0,70},{
+  connect(VOut1.y, ecoDamLim1.VOut) annotation (Line(points={{-39,70},{0,70},{
           0,-2},{19,-2}}, color={0,0,127}));
-  connect(VOutMinSet1.y, ecoDamLim1.uVOutMinSet) annotation (Line(points={{-39,
+  connect(VOutMinSet1.y, ecoDamLim1.VOutMinSet) annotation (Line(points={{-39,
           30},{-10,30},{-10,-5},{19,-5}}, color={0,0,127}));
   connect(FanStatus1.y, ecoDamLim1.uSupFan) annotation (Line(points={{-39,-10},
           {-20,-10},{19,-10}}, color={255,0,255}));
@@ -113,9 +113,9 @@ equation
           -20,-50},{-20,-28},{-20,-15},{19,-15}}, color={255,127,0}));
   connect(FreProSta1.y, ecoDamLim1.uFreProSta) annotation (Line(points={{-39,
           -90},{-10,-90},{-10,-18},{19,-18}}, color={255,127,0}));
-  connect(VOut2.y, ecoDamLim2.uVOut) annotation (Line(points={{101,70},{140,70},
+  connect(VOut2.y, ecoDamLim2.VOut) annotation (Line(points={{101,70},{140,70},
           {140,-2},{159,-2}}, color={0,0,127}));
-  connect(VOutMinSet2.y, ecoDamLim2.uVOutMinSet) annotation (Line(points={{101,
+  connect(VOutMinSet2.y, ecoDamLim2.VOutMinSet) annotation (Line(points={{101,
           30},{130,30},{130,-5},{159,-5}}, color={0,0,127}));
   connect(FanStatus2.y, ecoDamLim2.uSupFan) annotation (Line(points={{101,-10},
           {120,-10},{159,-10}}, color={255,0,255}));
