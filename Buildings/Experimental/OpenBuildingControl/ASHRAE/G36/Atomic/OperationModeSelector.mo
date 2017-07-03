@@ -936,7 +936,7 @@ next occupied period <code>tNexOcc</code>.
 Warmup mode shall start based on the zone with the longest calculated warm up
 time <code>warUpTim</code> requirement, but no earlier than 3 hours before
 the start of the scheduled occupied period, and shall end at the scheduled
-occupied start hour. Zones where the window switch indicates that a window
+occupied start time. Zones where the window switch indicates that a window
 is open shall be ignored. Note that for each zone, the optimal warm-up time
 <code>warUpTim</code> shall be obtained from an <i>Optimal Start</i>
 sequences, computed in a separate block.
@@ -951,10 +951,10 @@ src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASH
 Cool-down mode shall start based on the zone with the longest calculated
 cool-down time <code>cooDowTim</code> requirement, but no earlier than 3 hours
 before the start of the scheduled occupied period, and shall end at the
-scheduled occupied start hour. Zones where the window switch indicates that a
+scheduled occupied start time. Zones where the window switch indicates that a
 window is open shall be ignored. Note that the each zone <code>cooDowTim</code>
-shall be obtained from an <i>Optimal Start</i>
-sequences, computed in a separate block.
+shall be obtained from an <i>Optimal Start</i> sequences, computed in a 
+separate block.
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
@@ -962,10 +962,11 @@ src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASH
 </p>
 <h4>Setback Mode</h4>
 <p>
-During <i>unoccupied mode</i>, if any 5 zones (or all zones,
-if fewer than 5) in the zone group fall below their unoccupied heating setpoints
+During <i>unoccupied mode</i>, if any 5 zones (or all zones, if fewer than 5) 
+in the zone group fall below their unoccupied heating setpoints
 <code>TUnoHeaSet</code>, the zone group shall enter <i>setback mode</i> until
-all spaces in the zone group are <i>1.1</i>&deg;C (<i>2</i> F) above their unoccupied setpoints.
+all spaces in the zone group are <i>1.1</i> &deg;C (<i>2</i> &deg;F) above their 
+unoccupied setpoints.
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
@@ -973,18 +974,18 @@ src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASH
 </p>
 <h4>Freeze Protection Setback Mode</h4>
 <p>
-During <i>unoccupied Mode</i>, if
-any single zone falls below <i>4.4</i>&deg;C (<i>40</i> F), the zone group shall enter
-<i>setback mode</i> until all zones are above <i>7.2</i>&deg;C (<i>45</i> F),
-and a Level 3 alarm <code>yFreProAla</code> shall be set.
+During <i>unoccupied Mode</i>, if any single zone falls below <i>4.4</i> &deg;C 
+(<i>40</i> &deg;F), the zone group shall enter <i>setback mode</i> until all zones 
+are above <i>7.2</i> &deg;C (<i>45</i> &deg;F), and a Level 3 alarm 
+<code>yFreProAla</code> shall be set.
 </p>
 <h4>Setup Mode</h4>
 <p>
-During <i>unoccupied mode</i>, if any 5 zones (or all zones,
-if fewer than 5) in the zone rise above their unoccupied cooling setpoints
-<code>TUnoCooSet</code>, the zone group shall enter <i>setup mode</i> until
-all spaces in the zone group are <i>1.1</i>&deg;C (<i>2</i> F) below their unoccupied setpoints.
-Zones where the window switch indicates that a window is open shall be ignored.
+During <i>unoccupied mode</i>, if any 5 zones (or all zones, if fewer than 5) 
+in the zone rise above their unoccupied cooling setpoints <code>TUnoCooSet</code>, 
+the zone group shall enter <i>setup mode</i> until all spaces in the zone group 
+are <i>1.1</i> &deg;C (<i>2</i> &deg;F) below their unoccupied setpoints. Zones 
+where the window switch indicates that a window is open shall be ignored.
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
