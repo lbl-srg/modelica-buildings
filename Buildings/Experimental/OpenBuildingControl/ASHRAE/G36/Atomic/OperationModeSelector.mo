@@ -64,13 +64,13 @@ block OperationModeSelector "Block that outputs the operation mode"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-110})));
-  CDL.Interfaces.IntegerOutput opeMod "Operation mode" annotation (Placement(
+  CDL.Interfaces.IntegerOutput opeMod "Operation mode"
+    annotation (Placement(
         transformation(extent={{460,-30},{480,-10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
   CDL.Interfaces.IntegerOutput freProAlaLev "Level 3 alarm: freeze protection"
     annotation (Placement(transformation(extent={{460,-150},{480,-130}}),
         iconTransformation(extent={{100,-60},{120,-40}})));
-
   CDL.Continuous.Constant occModInd(
     k=Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.OperationModes.occModInd)
     "Occupied mode index"
@@ -154,14 +154,16 @@ block OperationModeSelector "Block that outputs the operation mode"
   CDL.Logical.Latch lat2
     annotation (Placement(transformation(extent={{140,-220},{160,-200}})));
   CDL.Continuous.Gain setUpInd(
-    final k=Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.OperationModes.setUpInd) "Setup mode: 3th rank"
+    final k=Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.OperationModes.setUpInd)
+    "Setup mode: 3th rank"
     annotation (Placement(transformation(extent={{220,-220},{240,-200}})));
   CDL.Logical.FallingEdge falEdg1
     "Whether or not the unoccupied cooling setpoint  becomes higher than 
     maximum zone temperature: true to false"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}})));
   CDL.Continuous.Gain unoInd(
-    final k=Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.OperationModes.unoModInd)   "Unoccupied mode: 7th rank"
+    final k=Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.OperationModes.unoModInd)
+    "Unoccupied mode: 7th rank"
     annotation (Placement(transformation(extent={{220,-320},{240,-300}})));
   CDL.Integers.Add3 add3Int "Sum of the three inputs"
    annotation (Placement(transformation(extent={{360,180},{380,200}})));
@@ -286,7 +288,6 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Whether or not the zone temperature is higher than setpoint, with 
     deadband of 0.2 degC"
     annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
-
   CDL.Continuous.AddParameter addPar2(p=preWarCooTim, final k=-1)
     "Calculate the differential between maximum cool down time and the 
     allowed maximum cool down time"
@@ -300,7 +301,8 @@ block OperationModeSelector "Block that outputs the operation mode"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
 
 protected
-  CDL.Conversions.RealToInteger occMod "Convert Real number to Integer number"
+  CDL.Conversions.RealToInteger occMod
+    "Convert Real number to Integer number"
     annotation (Placement(transformation(extent={{300,240},{320,260}})));
   CDL.Conversions.RealToInteger cooDowMod
     "Convert Real number to Integer number"
