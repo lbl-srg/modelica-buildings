@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.Validation;
-model EconomizerMultiZone_Modulation
+model EconomizerMultiZone_Mod_DamLim
   "Validates multizone VAV AHU economizer model damper modulation and minimum ooutdoor air requirement damper position limits"
                                     //fixme: add mos file
   extends Modelica.Icons.Example;
@@ -14,10 +14,6 @@ model EconomizerMultiZone_Modulation
     "Indicates that the freeze protection is disabled";
   parameter Integer freProDisabledNum = Integer(freProDisabled)-1
     "Numerical value for freeze protection stage 0 (=0)";
-  parameter Types.FreezeProtectionStage freProEnabled = Types.FreezeProtectionStage.stage2
-    "Indicates that the freeze protection is enabled";
-  parameter Integer freProEnabledNum = Integer(freProEnabled)-1
-    "Numerical value for freeze protection stage 2 (=2)";
   parameter Types.OperationMode occupied = Types.OperationMode.occupied
     "AHU operation mode is \"Occupied\"";
   parameter Integer occupiedNum = Integer(occupied)
@@ -30,9 +26,9 @@ model EconomizerMultiZone_Modulation
   EconomizerMultiZone economizer(fixEnt=true) "Multizone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   CDL.Logical.Constant FanStatus(k=true) "Fan is on"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   CDL.Integers.Constant FreProSta(k=freProDisabledNum) "Freeze protection status is 0"
-    annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
+    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   CDL.Integers.Constant ZoneState(k=heatingNum) "Zone State is heating"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   CDL.Integers.Constant OperationMode(k=occupiedNum)
@@ -67,14 +63,14 @@ model EconomizerMultiZone_Modulation
   EconomizerMultiZone economizer1 "Multizone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 equation
-  connect(FanStatus.y, economizer.uSupFan) annotation (Line(points={{-19,-10},{-10,-10},{-10,6},{19,6}},
+  connect(FanStatus.y, economizer.uSupFan) annotation (Line(points={{-59,-80},{-10,-80},{-10,6},{19,6}},
                                    color={255,0,255}));
-  connect(FreProSta.y, economizer.uFreProSta) annotation (Line(points={{-99,-140},{0,-140},{0,0},{19,0}},
+  connect(FreProSta.y, economizer.uFreProSta) annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},
                                       color={255,127,0}));
   connect(OperationMode.y, economizer.uOperationMode) annotation (Line(points={{-99,-100},{-50,-100},{-50,-30},{-4,-30},
           {-4,4},{19,4}},                             color={255,127,0}));
-  connect(ZoneState.y, economizer.uZoneState) annotation (Line(points={{-99,-60},{-50,-60},{-50,-30},{-2,-30},{-2,2},{19,
-          2}},                         color={255,127,0}));
+  connect(ZoneState.y, economizer.uZoneState) annotation (Line(points={{-99,-60},{-50,-60},{-50,-30},{-2,-30},{-2,2},{
+          19,2}},                      color={255,127,0}));
   connect(TOutBellowCutoff.y, economizer.TOut) annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},
                                  color={0,0,127}));
   connect(TOutCut1.y, economizer.TOutCut) annotation (Line(points={{-99,70},{-90,70},{-8,70},{-8,20},{19,20}},
@@ -91,7 +87,7 @@ equation
                         color={0,0,127}));
   connect(TSupSetSig.y, economizer.TCooSet) annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}},
                                  color={0,0,127}));
-  connect(TOutCut1.y, economizer1.TOutCut) annotation (Line(points={{-99,70},{72,70},{72,0},{99,0}}, color={0,0,127}));
+  connect(TOutCut1.y, economizer1.TOutCut) annotation (Line(points={{-99,70},{74,70},{74,0},{99,0}}, color={0,0,127}));
   connect(TOutBellowCutoff.y, economizer1.TOut)
     annotation (Line(points={{-99,110},{80,110},{80,2},{99,2}}, color={0,0,127}));
   connect(hOutCut.y, economizer1.hOutCut)
@@ -101,12 +97,13 @@ equation
   connect(TSup.y, economizer1.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,118},{82,118},{82,-6},{99,-6}}, color={0,0,127}));
   connect(TSupSetSig.y, economizer1.TCooSet)
-    annotation (Line(points={{-59,50},{-52,50},{-52,68},{74,68},{74,-8},{99,-8}}, color={0,0,127}));
+    annotation (Line(points={{-59,50},{-52,50},{-52,68},{72,68},{72,-8},{99,-8}}, color={0,0,127}));
   connect(VOut.y, economizer1.uVOut) annotation (Line(points={{-19,90},{78,90},{78,-10},{99,-10}}, color={0,0,127}));
   connect(VOutMinSet.y, economizer1.uVOutMinSet)
     annotation (Line(points={{-19,50},{70,50},{70,-12},{99,-12}}, color={0,0,127}));
   connect(FanStatus.y, economizer1.uSupFan)
-    annotation (Line(points={{-19,-10},{20,-10},{20,-14},{99,-14}}, color={255,0,255}));
+    annotation (Line(points={{-59,-80},{16,-80},{16,-14},{58,-14},{58,-14},{99,-14}},
+                                                                    color={255,0,255}));
   connect(ZoneState.y, economizer1.uZoneState)
     annotation (Line(points={{-99,-60},{20,-60},{20,-18},{99,-18}}, color={255,127,0}));
   connect(OperationMode.y, economizer1.uOperationMode)
@@ -127,28 +124,22 @@ equation
                 fillPattern = FillPattern.Solid,
                 points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}}),
-        graphics={Text(
+        graphics={
+        Rectangle(
+          extent={{-136,-44},{-44,-156}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+                  Text(
           extent={{52,106},{86,84}},
           lineColor={28,108,200}),
         Text(
-          extent={{2,156},{86,128}},
+          extent={{-130,-132},{-46,-160}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
-          textString="Disable modulation 
-(uZoneState is Heating), 
-enable minimal 
-outdoor air control"),
-        Text(
-          extent={{82,152},{166,124}},
-          lineColor={0,0,0},
-          horizontalAlignment=TextAlignment.Left,
-          fontSize=9,
-          textString="Disable modulation
-(uZoneState is Heating)
-disable minimal 
-outdoor air control
-(uFreProSta is Stage2)")}),
+          textString="Enable damper limit 
+control and modulation")}),
   experiment(StopTime=1800.0),
     Documentation(info="<html>
 <p>
@@ -165,4 +156,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EconomizerMultiZone_Modulation;
+end EconomizerMultiZone_Mod_DamLim;
