@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences;
-model EconomizerMultiZone "Multiple zone VAV AHU economizer control block"
+model EconomizerMultiZone "Multiple zone VAV AHU economizer control"
 
   parameter Boolean fixEnt = true
     "Set to true if enthalpy measurement is used in addition to temperature measurement";

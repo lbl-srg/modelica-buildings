@@ -1,19 +1,20 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
-block EconEnableDisableMultiZone "Economizer enable/disable switch"
+block EconEnableDisableMultiZone
+  "Multiple zone VAV AHU economizer enable/disable switch"
 
   parameter Boolean fixEnt = true
     "Set to true to evaluate outdoor air enthalpy in addition to temperature";
   parameter Real delTemHis(unit="K", quantity="TermodynamicTemperature")=1
     "Delta between the temperature hysteresis high and low limit";
   parameter Real delEntHis(unit="J/kg", quantity="SpecificEnergy")=1000
-    "Delta between the enthalpy hysteresis high and low limit"
+    "Delta between the enthalpy hysteresis high and low limits"
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt));
   parameter Modelica.SIunits.Time retDamFulOpeTim = 180
     "Time period to keep RA damper fully open at disable to avoid pressure fluctuations";
   parameter Modelica.SIunits.Time smaDisDel = 15
     "Small time delay before closing the OA damper at disable to avoid pressure fluctuations";
 
-  CDL.Interfaces.RealInput TOut(unit="K", quantity = "ThermodynamicTemperature") "Outdoor air temperature"
+  CDL.Interfaces.RealInput TOut(unit="K", quantity = "ThermodynamicTemperature") "Outdoor air (OA) temperature"
     annotation (Placement(transformation(extent={{-220,250},{-180,290}}),
         iconTransformation(extent={{-120,90},{-100,110}})));
   CDL.Interfaces.RealInput hOut(unit="J/kg", quantity="SpecificEnergy") if fixEnt
@@ -21,18 +22,18 @@ block EconEnableDisableMultiZone "Economizer enable/disable switch"
       annotation (Placement(transformation(extent={{-220,170},{-180,210}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
   CDL.Interfaces.RealInput TOutCut(unit="K", quantity = "ThermodynamicTemperature")
-    "Outdoor temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
+    "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-220,210},{-180,250}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
   CDL.Interfaces.RealInput hOutCut(unit="J/kg") if fixEnt
-    "Outdoor enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
+    "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),iconTransformation(extent={{-120,30},{-100,50}})));
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1)
-    "Minimum outdoor air (OA) damper position, from EconDamperPositionLimitsMultiZone sequence"
+    "Minimum outdoor air damper position, from EconDamperPositionLimitsMultiZone sequence"
     annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
         iconTransformation(extent={{-120,-70},{-100,-50}})));
   CDL.Interfaces.RealInput uOutDamPosMax(min=0, max=1)
-    "Maximum outdoor air (OA) damper position, from EconDamperPositionLimitsMultiZone sequence"
+    "Maximum outdoor air damper position, from EconDamperPositionLimitsMultiZone sequence"
     annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));
   CDL.Interfaces.RealInput uRetDamPosMax(min=0, max=1)
@@ -299,8 +300,8 @@ disable if
           textString="Supply fan status")}),
     Documentation(info="<html>
       <p>
-      This is an economizer enable/disable sequence for a multiple zone VAV AHU
-      based on conditions provided in ASHRAE G36 PART5-N.7 and PART5-A.17. Additional
+      This is a multiple zone VAV AHU economizer enable/disable sequence  
+      based on ASHRAE G36 PART5-N.7 and PART5-A.17. Additional
       conditions included in the sequence are: freeze protection (freeze protection
       stage 0-3, see PART5-N.12), supply fan status (on or off, see PART5-N.5),
       and zone state (cooling, heating, or deadband, as illustrated in the
@@ -313,9 +314,9 @@ disable if
       ASHRAE 90.1-2013 and Title 24-2013.
       </p>
       <p>
-      Economizer shall be disabled whenever any of the following is true:
-      supply fan is off, zone state is <code>Heating<\code>, freeze protection stage
-      is not <code>0<\code>.
+      In addition, economizer shall be intantly disabled whenever any of the 
+      following is true: supply fan is off, zone state is <code>Heating<\code>, 
+      freeze protection stage is not <code>0<\code>.
       </p>
       <p>
       The following state machine chart illustrates the above listed conditions:
