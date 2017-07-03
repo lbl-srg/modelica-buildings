@@ -5,9 +5,9 @@ model EconDamperPositionLimitsMultiZone_VOut
 
   parameter Real minVOutSet(unit="m3/s")=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Real minVOut(unit="m3/s")=0.705
+  parameter Real minVOut(unit="m3/s")=0.61
     "Minimal measured volumetric airflow";
-  parameter Real VOutIncrease(unit="m3/s")=0.03
+  parameter Real VOutIncrease(unit="m3/s")=0.2
     "Maximum volumetric airflow increase during the example simulation";
 
   CDL.Continuous.Constant VOutMinSet(k=minVOutSet)

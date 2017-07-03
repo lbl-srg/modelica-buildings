@@ -64,29 +64,30 @@ model EconomizerMultiZone_Mod_DamLim
   CDL.Continuous.Constant TSupSig(k=TSup) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 equation
-  connect(FanStatus.y, economizer.uSupFan) annotation (Line(points={{-59,-80},{-10,-80},{-10,6},{19,6}},
-                                   color={255,0,255}));
-  connect(FreProSta.y, economizer.uFreProSta) annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},
-                                      color={255,127,0}));
-  connect(OperationMode.y, economizer.uOperationMode) annotation (Line(points={{-99,-100},{-50,-100},{-50,-30},{-4,-30},
-          {-4,4},{19,4}},                             color={255,127,0}));
-  connect(ZoneState.y, economizer.uZoneState) annotation (Line(points={{-99,-60},{-48,-60},{-48,-32},{-2,-32},{-2,2},{
-          19,2}},                      color={255,127,0}));
-  connect(TOutBellowCutoff.y, economizer.TOut) annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},
-                                 color={0,0,127}));
-  connect(TOutCut1.y, economizer.TOutCut) annotation (Line(points={{-99,70},{-10,70},{-10,70},{-10,20},{19,20}},
-                                               color={0,0,127}));
-  connect(hOutBelowCutoff.y, economizer.hOut) annotation (Line(points={{-99,20},{-60,20},{-60,18},{-4,18},{19,18}},
-                                                      color={0,0,127}));
-  connect(hOutCut.y, economizer.hOutCut) annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,16},{19,16}},
-                                                      color={0,0,127}));
-  connect(VOut.y, economizer.uVOut) annotation (Line(points={{-19,90},{-8,90},{-8,10},{19,10}},
-                          color={0,0,127}));
-  connect(VOutMinSet.y, economizer.uVOutMinSet) annotation (Line(points={{-19,50},{-12,50},{-12,8},{19,8}},
-                                      color={0,0,127}));
-  connect(TSupSetSig.y, economizer.TCooSet) annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}},
-                                 color={0,0,127}));
-  connect(TSupSig.y, economizer.TSup) annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}}, color={0,0,127}));
+  connect(FanStatus.y, economizer.uSupFan)
+    annotation (Line(points={{-59,-80},{-10,-80},{-10,6},{19,6}}, color={255,0,255}));
+  connect(FreProSta.y, economizer.uFreProSta)
+    annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},color={255,127,0}));
+  connect(OperationMode.y, economizer.uOperationMode)
+    annotation (Line(points={{-99,-100},{-50,-100},{-50,-30},{-4,-30},{-4,4},{19,4}},color={255,127,0}));
+  connect(ZoneState.y, economizer.uZoneState)
+    annotation (Line(points={{-99,-60},{-48,-60},{-48,-32},{-2,-32},{-2,2},{19,2}}, color={255,127,0}));
+  connect(TOutBellowCutoff.y, economizer.TOut)
+    annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},color={0,0,127}));
+  connect(TOutCut1.y, economizer.TOutCut)
+    annotation (Line(points={{-99,70},{-10,70},{-10,70},{-10,20},{19,20}},color={0,0,127}));
+  connect(hOutBelowCutoff.y, economizer.hOut)
+    annotation (Line(points={{-99,20},{-60,20},{-60,18},{-4,18},{19,18}},color={0,0,127}));
+  connect(hOutCut.y, economizer.hOutCut)
+    annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,16},{19,16}},color={0,0,127}));
+  connect(VOut.y, economizer.uVOut)
+    annotation (Line(points={{-19,90},{-8,90},{-8,10},{19,10}},color={0,0,127}));
+  connect(VOutMinSet.y, economizer.uVOutMinSet)
+    annotation (Line(points={{-19,50},{-12,50},{-12,8},{19,8}},color={0,0,127}));
+  connect(TSupSetSig.y, economizer.TCooSet)
+    annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}},color={0,0,127}));
+  connect(TSupSig.y, economizer.TSup)
+    annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}}, color={0,0,127}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/CompositeSequences/Validation/EconomizerMultiZone_Mod_DamLim.mos"
@@ -131,20 +132,21 @@ control and modulation"),
           fontSize=8,
           textString="Economizer fully enabled - 
 validate damper position limits")}),
-  experiment(StopTime=1800.0),
     Documentation(info="<html>
-<p>
-This example validates
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.EconomizerMultiZone\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.EconomizerMultiZone</a>
-for control signals which disable minimum outdoor airflow control loop <code><\code>.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-June 12, 2017, by Milica Grahovac:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
+    <p>
+    This example validates
+    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.EconomizerMultiZone\">
+    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.EconomizerMultiZone</a>
+    minimum outdoor air damper position limits control loop <code>economizer<\code> and modulation 
+    control loop <code>economizer1<\code> for <code>VOut<\code> and <code>TSup<\code> control signals. Both control
+    loops are enabled during the validation test. 
+    </p>
+    </html>", revisions="<html>
+    <ul>
+    <li>
+    June 12, 2017, by Milica Grahovac:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"));
 end EconomizerMultiZone_Mod_DamLim;
