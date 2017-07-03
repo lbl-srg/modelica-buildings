@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
 model EconModulationMultiZone_TSup
-  "Validation model for the outdoor and return air damper position modulation sequence for multiple zone VAV AHU"
+  "Validation model for multiple zone VAV AHU outdoor and return air damper position modulation sequence"
   extends Modelica.Icons.Example;
 
   parameter Real TCooSet(unit="K", quantity="TermodynamicTemperature")=291
@@ -59,7 +59,8 @@ equation
   This example validates
   <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconModulationMultiZone\">
   Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconModulationMultiZone</a>
-  for supply air temeperature control signal.
+  for supply air temeperature and supply air temperature cooling setpoint (<code>TSup, TCooSet<\code>) 
+  control signals.
   </p>
   </html>", revisions="<html>
   <ul>

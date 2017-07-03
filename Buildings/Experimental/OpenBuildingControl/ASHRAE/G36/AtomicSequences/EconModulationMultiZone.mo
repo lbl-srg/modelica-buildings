@@ -1,27 +1,25 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
-block EconModulationMultiZone "Outdoor and return air damper position modulation 
-  sequence for multiple zone VAV AHU"
+block EconModulationMultiZone
+  "Outdoor and return air damper position modulation sequence for multiple zone VAV AHU"
 
-  parameter Real retDamConSigMin(min=0, max=1, unit="1") = 0.5
-  "Minimum control loop signal for the return air damper";
   parameter Real outDamConSigMax(min=0, max=1, unit="1") = retDamConSigMin
   "Maximum control loop signal for the outdoor air damper";
+  parameter Real retDamConSigMin(min=0, max=1, unit="1") = 0.5
+  "Minimum control loop signal for the return air damper";
   parameter Real yConSigMin=0 "Lower limit of controller output";
   parameter Real yConSigMax=1 "Upper limit of controller output";
   parameter Real controllerGain=1 "Gain of controller";
 
   CDL.Interfaces.RealInput TSup(unit="K", quantity = "ThermodynamicTemperature")
-    "Measured supply air temperature"
-    annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
+    "Measured supply air temperature" annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
   CDL.Interfaces.RealInput TCooSet(unit="K", quantity = "ThermodynamicTemperature")
-    "Supply air temperature cooling setpoint"
-    annotation (Placement(transformation(extent={{-160,-10},{-120,30}}),
+    "Supply air temperature cooling setpoint" annotation (Placement(transformation(extent={{-160,-10},{-120,30}}),
         iconTransformation(extent={{-120,80},{-100,100}})));
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1, unit="1")
     "Minimum economizer damper position limit as returned by the EconDamperPositionLimitsMultiZone sequence"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
-        iconTransformation(extent={{-120,-30},{-100,-10}})));    //fixme: add quantity for damper position
+        iconTransformation(extent={{-120,-30},{-100,-10}})));    //fixme: add quantity for ALL damper positions?
   CDL.Interfaces.RealInput uOutDamPosMax(min=0, max=1, unit="1")
     "Maximum economizer damper position limit as returned by the EconEnableDisableMultiZone sequence. 
     If the economizer is disabled, this value equals uOutDamPosMin"
@@ -67,7 +65,6 @@ protected
   CDL.Continuous.Constant outDamMaxLimSig(k=outDamConSigMax)
     "Maximum control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-
   CDL.Continuous.Constant retDamMinLimSig(k=retDamConSigMin)
     "Minimal control loop signal for the return air damper."
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
@@ -154,11 +151,12 @@ control loop"),                    Text(
 assignments")}),
     Documentation(info="<html>      
 <p>
-This sequence sets the outdoor and return air damper positions
-for the multiple zone VAV AHU. The implementation is based on ASHRAE 
+This is a multiple zone VAV AHU economizer modulation block. It calculates 
+the outdoor and return air damper positions based on the supply air temperature
+control loop signal. The implementation is in line with ASHRAE 
 Guidline 36 (G36), PART5.N.2.c. Damper positions are linearly mapped to
 the supply air control loop signal. This is a final sequence in the 
-composite multizone AHU economizer control sequence. Damper position 
+composite multizone VAV AHU economizer control sequence. Damper position 
 limits, which are the inputs to the sequence, are the outputs of 
 <code>EconDamperPositionLimitsMultiZone<\code> and 
 <code>EconEnableDisableMultiZone<\code> sequences.
