@@ -18,11 +18,11 @@ block EconDamperPositionLimitsMultiZone
   parameter Real controllerGain=1 "Gain of controller";
 
   CDL.Interfaces.RealInput uVOut(unit="m3/s")
-    "Measured outdoor airflow rate [fixme: which quantity attribute should we use, add for all volume flow]"
+    "Measured outdoor volumetric airflow rate [fixme: which quantity attribute should we use, add for all volume flow]"
     annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
   CDL.Interfaces.RealInput uVOutMinSet(unit="m3/s")
-    "Minimum outdoor airflow rate setpoint"
+    "Minimum outdoor volumetric airflow rate setpoint"
     annotation (Placement(transformation(extent={{-220,200},{-180,240}}),
         iconTransformation(extent={{-120,40},{-100,60}})));
   CDL.Interfaces.IntegerInput uOperationMode "AHU operation mode status signal"

@@ -3,6 +3,12 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control block"
 
   parameter Boolean fixEnt = true
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
+  parameter Real delEntHis(unit="J/kg", quantity="SpecificEnergy")=1000
+    "Delta between the enthalpy hysteresis high and low limit"
+    annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt));
+  parameter Real delTemHis=1 "Delta between the temperature hysteresis high and low limit";
+  parameter Real damLimControllerGain=1 "Gain of damper limit controller";
+  parameter Real modControllerGain=1 "Gain of modulation controller";
 
   CDL.Interfaces.RealInput TCooSet(unit="K", quantity = "ThermodynamicTemperature")
     "Supply air temperature cooling set point" annotation (Placement(transformation(
@@ -10,7 +16,6 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control block"
   CDL.Interfaces.RealInput TSup(unit="K", quantity = "ThermodynamicTemperature")
     "Measured supply air temperature" annotation (Placement(transformation(
     extent={{-140,50},{-120,70}}), iconTransformation(extent={{-120,30},{-100,50}})));
-
   CDL.Interfaces.RealInput TOut(unit="K", quantity = "ThermodynamicTemperature")
     "Outdoor air temperature" annotation (Placement(transformation(extent={{-140,130},{-120,150}}),
     iconTransformation(extent={{-120,110},{-100,130}})));
@@ -19,37 +24,30 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control block"
     For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}}),
         iconTransformation(extent={{-120,90},{-100,110}})));
-
   CDL.Interfaces.RealInput hOut(unit="J/kg", quantity="SpecificEnergy") if fixEnt
-    "Outdoor air enthalpy"
-    annotation (Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt),
-    Placement(transformation(extent={{-140,90},{-120,110}}),
-        iconTransformation(extent={{-120,70},{-100,90}})));
+    "Outdoor air enthalpy" annotation (Placement(transformation(extent={{-140,90},{-120,110}}),
+    iconTransformation(extent={{-120,70},{-100,90}})));
   CDL.Interfaces.RealInput hOutCut(unit="J/kg", quantity="SpecificEnergy") if fixEnt
     "Outdoor enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
-    annotation (Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt),
-    Placement(transformation(extent={{-140,70},{-120,90}}),
+    annotation (Placement(transformation(extent={{-140,70},{-120,90}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
-
   CDL.Interfaces.RealInput uVOut(unit="m3/s")
-    "Measured outdoor airflow rate [fixme: which quantity attribute should we use]"
+    "Measured outdoor volumentirc airflow rate [fixme: which quantity attribute should we use]"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
   CDL.Interfaces.RealInput uVOutMinSet(unit="m3/s")
-    "Minimum outdoor airflow rate setpoint"
+    "Minimum outdoor volumentric airflow rate setpoint"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}}),
         iconTransformation(extent={{-120,-30},{-100,-10}})));
-
-  CDL.Interfaces.IntegerInput uFreProSta "Freeze protection status [fixme: implement conversion to enumeration]"
+  CDL.Interfaces.IntegerInput uFreProSta "Freeze protection status"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}}),
       iconTransformation(extent={{-120,-110},{-100,-90}})));
-  CDL.Interfaces.IntegerInput uAHUMode "AHU system mode [fixme: implement conversion to enumeration]"
+  CDL.Interfaces.IntegerInput uOperationMode "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}}),
       iconTransformation(extent={{-120,-70},{-100,-50}})));
   CDL.Interfaces.IntegerInput uZoneState "Zone state input [fixme: implement conversion to enumeration]"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}}),iconTransformation(extent={{-120,
             -90},{-100,-70}})));
-
   CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));
@@ -61,13 +59,19 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control block"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}}),
     iconTransformation(extent={{100,-30}, {120,-10}})));
 
-  AtomicSequences.EconEnableDisableMultiZone econEnableDisableMultiZone(fixEnt=true)
+  AtomicSequences.EconEnableDisableMultiZone econEnableDisableMultiZone(fixEnt=true, delEntHis=delEntHis,
+    delTemHis=delTemHis)
     "Multizone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  AtomicSequences.EconDamperPositionLimitsMultiZone ecoDamLim
+  AtomicSequences.EconDamperPositionLimitsMultiZone ecoDamLim(
+    retDamPhyPosMax=0.9,
+    retDamPhyPosMin=0,
+    outDamPhyPosMax=0.9,
+    outDamPhyPosMin=0,
+    controllerGain=damLimControllerGain)
     "Multizone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  AtomicSequences.EconModulationMultiZone ecoMod
+  AtomicSequences.EconModulationMultiZone ecoMod(controllerGain=modControllerGain)
     "Multizone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
@@ -92,7 +96,7 @@ equation
     annotation (Line(points={{-130,20},{-110,20},{-110,18},{-81,18}},color={0,0,127}));
   connect(uSupFan, ecoDamLim.uSupFan)
     annotation (Line(points={{-130,-40},{-104,-40},{-104,10},{-81,10}},color={255,0,255}));
-  connect(uAHUMode, ecoDamLim.uAHUMode)
+  connect(uOperationMode, ecoDamLim.uOperationMode)
     annotation (Line(points={{-130,-80},{-102,-80},{-102,4},{-102,5},{-81,5}}, color={255,127,0}));
   connect(uFreProSta, ecoDamLim.uFreProSta)
     annotation (Line(points={{-130,-120},{-100,-120},{-100,2},{-81,2}},color={255,127,0}));
@@ -100,14 +104,15 @@ equation
     annotation (Line(points={{-59,17},{-24,17},{-24,16},{-24,-34},{-1,-34}},
     color={0,0,127}));
   connect(ecoDamLim.yOutDamPosMin, econEnableDisableMultiZone.uOutDamPosMin)
-    annotation (Line(points={{-59,13},{-26,13},{-26,12},{-26,-36},{-1,-36}},
+    annotation (Line(points={{-59,15},{-26,15},{-26,12},{-26,-36},{-1,-36}},
     color={0,0,127}));
   connect(ecoDamLim.yRetDamPosMin, econEnableDisableMultiZone.uRetDamPosMin)
-    annotation (Line(points={{-59,9},{-28,9},{-28,8},{-28,-42},{-1,-42}},color={0,0,127}));
+    annotation (Line(points={{-59,10},{-28,10},{-28,8},{-28,-42},{-1,-42}},
+                                                                         color={0,0,127}));
   connect(ecoDamLim.yRetDamPhyPosMax, econEnableDisableMultiZone.uRetDamPhyPosMax)
-    annotation (Line(points={{-59,3},{-32,3},{-32,2},{-32,-38},{-1,-38}},color={0,0,127}));
+    annotation (Line(points={{-59,6},{-32,6},{-32,2},{-32,-38},{-1,-38}},color={0,0,127}));
   connect(ecoDamLim.yRetDamPosMax, econEnableDisableMultiZone.uRetDamPosMax)
-    annotation (Line(points={{-59,6},{-30,6},{-30,-40},{-1,-40}},color={0,0,127}));
+    annotation (Line(points={{-59,8},{-30,8},{-30,-40},{-1,-40}},color={0,0,127}));
   connect(ecoMod.yRetDamPos, yRetDamPos)
     annotation (Line(points={{81,12},{100,12},{100,40},{130,40}},color={0,0,127}));
   connect(ecoMod.yOutDamPos, yOutDamPos)
@@ -118,9 +123,9 @@ equation
   connect(econEnableDisableMultiZone.yRetDamPosMax, ecoMod.uRetDamPosMax)
     annotation (Line(points={{22,-32},{50,-32},{50,4},{59,4}},color={0,0,127}));
   connect(econEnableDisableMultiZone.yRetDamPosMin, ecoMod.uRetDamPosMin)
-    annotation (Line(points={{22,-38},{50,-38},{50,-20},{50,1},{59,1}},color={0,0,127}));
+    annotation (Line(points={{22,-38},{42,-38},{42,-18},{42,1},{59,1}},color={0,0,127}));
   connect(ecoDamLim.yOutDamPosMin, ecoMod.uOutDamPosMin)
-    annotation (Line(points={{-59,13},{-20,13},{20,13},{20,12},{20,8},{59,8}},
+    annotation (Line(points={{-59,15},{-20,15},{20,15},{20,12},{20,8},{59,8}},
       color={0,0,127}));
   connect(TCooSet, ecoMod.TCooSet) annotation (Line(points={{-130,40},{50,40},{50,19},{59,19}},
       color={0,0,127}));

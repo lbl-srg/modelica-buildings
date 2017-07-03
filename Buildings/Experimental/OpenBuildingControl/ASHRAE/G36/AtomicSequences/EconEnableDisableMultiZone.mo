@@ -222,7 +222,6 @@ equation
   connect(uSupFan, and1.u2)
     annotation (Line(points={{-200,110},{-102,110},{-102,102},{-2,102}},color={255,0,255}));
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt),
-               Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt),
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

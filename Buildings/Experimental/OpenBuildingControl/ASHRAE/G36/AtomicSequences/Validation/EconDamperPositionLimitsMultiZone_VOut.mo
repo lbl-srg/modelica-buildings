@@ -29,9 +29,9 @@ protected
   parameter Integer freProDisabledNum = Integer(freProDisabled)-1
     "Numerical value for freeze protection stage 0 (=0)";
   parameter Types.OperationMode occupied = Types.OperationMode.occupied
-    "Zone state is deadband";
+    "Operation mode is \"Occupied\"";
   parameter Integer occupiedNum = Integer(occupied)
-    "Numerical value for deadband zone state (=2)";
+    "Numerical value for \"Occupied\" operation mode (=1)";
 
   CDL.Logical.Constant FanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
