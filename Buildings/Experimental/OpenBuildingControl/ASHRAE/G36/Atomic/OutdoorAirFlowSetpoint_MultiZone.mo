@@ -1,6 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic;
 block OutdoorAirFlowSetpoint_MultiZone
-  "Find out the minimum outdoor airflow rate setpoint"
+  "Find out the minimum outdoor airflow rate setpoint for systems with 
+  multiple zones"
 
   parameter Integer numOfZon(min=2) = 5
     "Total number of zones that the system serves";
@@ -16,7 +17,7 @@ block OutdoorAirFlowSetpoint_MultiZone
     "Area of each zone"
     annotation(Evaluate=true, Dialog(group="Design Parameters"));
   parameter Boolean occSen[numOfZon] = fill(true, numOfZon)
-    "Indicate if the zones have occupancy sensor, true or false";
+    "Indicate if the zones have occupancy sensor";
   parameter Real occDen[numOfZon](each unit="1") = fill(0.05, numOfZon)
     "Default number of person in unit area";
   parameter Real zonDisEffHea[numOfZon](each unit="1") = fill(0.8, numOfZon)
@@ -42,18 +43,19 @@ block OutdoorAirFlowSetpoint_MultiZone
   parameter Real peaSysPou(unit="1") = 20 "Peak system population"
     annotation(Evaluate=true, Dialog(group="Design Parameters"));
 
-  CDL.Interfaces.RealInput occCou[numOfZon](each unit="1")
+  CDL.Interfaces.RealInput occCou[numOfZon](each final unit="1")
     "Number of human counts"
     annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
         iconTransformation(extent={{-120,60},{-100,80}})));
   CDL.Interfaces.RealInput cooCtrSig(
     min=0,
     max=1,
-    unit="1") "Cooling control signal." annotation (Placement(transformation(
+    final unit="1") "Cooling control signal." annotation (Placement(transformation(
           extent={{-220,-80},{-180,-40}}), iconTransformation(extent={{-120,24},
             {-100,44}})));
   CDL.Interfaces.RealInput priAirflow[numOfZon](
-    each min=minZonPriFlo, each unit="m3/s")
+    each min=minZonPriFlo, each final unit="m3/s",
+    each quantity="VolumeFlowRate")
     "Primary airflow rate to the ventilation zone from the air handler, 
     including outdoor air and recirculated air."
     annotation (Placement(transformation(extent={{-220,-206},{-180,-166}}),
@@ -64,18 +66,21 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Interfaces.BooleanInput uWindow[numOfZon] "Window status, On or Off"
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
         iconTransformation(extent={{-120,-12},{-100,8}})));
-  CDL.Interfaces.RealOutput desOutMin(min=0, unit="m3/s")
+  CDL.Interfaces.RealOutput desOutMin(min=0, final unit="m3/s",
+    quantity="VolumeFlowRate")
     "Design minimum outdoor airflow rate" annotation (Placement(transformation(
           extent={{240,90},{280,130}}), iconTransformation(extent={{100,38},{
             120,58}})));
-  CDL.Interfaces.RealOutput desUncOutMin(min=0, unit="m3/s")
-    "Design uncorrected minimum outdoor airflow rate" annotation (Placement(
-        transformation(extent={{240,160},{280,200}}), iconTransformation(extent
-          ={{100,68},{120,88}})));
-  CDL.Interfaces.RealOutput outMinSet(min=0, unit="m3/s")
-    "Effective minimum outdoor airflow setpoint" annotation (Placement(
-        transformation(extent={{240,-90},{280,-50}}), iconTransformation(extent
-          ={{100,-10},{120,10}})));
+  CDL.Interfaces.RealOutput desUncOutMin(min=0, final unit="m3/s",
+    quantity="VolumeFlowRate")
+    "Design uncorrected minimum outdoor airflow rate"
+    annotation (Placement(transformation(extent={{240,160},{280,200}}),
+      iconTransformation(extent={{100,68},{120,88}})));
+  CDL.Interfaces.RealOutput outMinSet(min=0, final unit="m3/s",
+    quantity="VolumeFlowRate")
+    "Effective minimum outdoor airflow setpoint"
+    annotation (Placement(transformation(extent={{240,-90},{280,-50}}),
+      iconTransformation(extent={{100,-10},{120,10}})));
 
   CDL.Continuous.Add breZon[numOfZon] "Breathing zone airflow"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
@@ -423,14 +428,13 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{240,280
           lineColor={0,0,255})}),
  Documentation(info="<html>      
 <p>
-This atomic sequence sets the minimum outdoor airflow setpoint. The
-implementation is according to ASHRAE Guidline 36 (G36), PART5.N.3.a, 
-PART5.B.2.b, PART3.1-D.2.a.
+This atomic sequence sets the minimum outdoor airflow setpoint for compliance 
+with the ventilation rate procedure of ASHRAE 62.1-2013. The implementation 
+is according to ASHRAE Guidline 36 (G36), PART5.N.3.a, PART5.B.2.b, 
+PART3.1-D.2.a.
 </p>   
-<h4>Multizone AHU: minimum outdoor airflow setpoint (PART5.N.3.a)</h4>
 <p>
-<i>A. Zone outdoor airflow requirement <code>zonOutAirRate</code>, for compliance 
-with the ventilation rate procedure of ASHRAE 62.1-2013</i>
+<i>A. Zone outdoor airflow requirement <code>zonOutAirRate</code></i>
 </p>
 
 <ol>
@@ -476,15 +480,14 @@ space temperature: <code>zonOutAirRate = breZonAre/disEffHea</code></li>
 </ol>
 
 <p>
-<i>B. Setpoints <code>unCorOutAirInk</code> (Uncorrected design outdoor air 
-rate) and <code>desOutAirInt</code> (Design total outdoor air rate). 
-<code>unCorOutAirInk</code> and <code>desOutAirInt</code> can be determined 
-using the 62MZCal spreadsheet provided with the ASHRAE 62.1 user manual.</i>
+<i>B. <code>unCorOutAirInk</code> (Uncorrected design outdoor air 
+rate) and <code>desOutAirInt</code> (Design total outdoor air rate):</i> 
+determined using the 62MZCal spreadsheet provided with the ASHRAE 62.1 user manual. 
 </p>
 
 <ul>
 <li><code>unCorOutAirInk</code>: the uncorrected design outdoor air rate, 
-including diversity where applicable.</li>
+including diversity where applicable. </li>
 <li><code>desOutAirInt</code>: design tool outdoor air rate.</li>
 </ul>
 
@@ -512,6 +515,14 @@ the system ventilation efficiency <code>sysVenEff</code>, but no larger than
 the design total outdoor air rate, <code>desOutAirInt</code>: 
 <code>yVOutMinSet = MIN(sysUncOutAir/sysVenEff, desOutAirInt)</code></li>
 </ol>
+
+<h4>References</h4>
+<p>
+<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR.
+<i>ASHRAE Guideline 36P, High Performance Sequences of Operation for HVAC 
+systems</i>. First Public Review Draft (June 2016)</a>
+</p>
+
 </html>", revisions="<html>
 <ul>
 <li>

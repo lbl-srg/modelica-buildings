@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.Validation;
-model OutdoorAirFlowSetpoint_MultiZone
+model OutAirFlowSet_MultiZone
   "Validate the model of calculating minimum outdoor airflow setpoint"
   extends Modelica.Icons.Example;
   parameter Integer numOfZon = 5 "Total number of zones that the system serves";
@@ -37,10 +37,8 @@ equation
 
    annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/OutdoorAirFlowSetpoint_MultiZone.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/OutAirFlowSet_MultiZone.mos"
     "Simulate and plot"),
-    Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This example validates
@@ -55,4 +53,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OutdoorAirFlowSetpoint_MultiZone;
+end OutAirFlowSet_MultiZone;

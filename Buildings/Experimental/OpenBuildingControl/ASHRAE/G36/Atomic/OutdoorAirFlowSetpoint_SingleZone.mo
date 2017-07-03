@@ -1,6 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic;
 block OutdoorAirFlowSetpoint_SingleZone
-  "Find out the minimum outdoor airflow rate setpoint: single zone AHU"
+  "Find out the minimum outdoor airflow rate setpoint for systems with 
+  single zone"
 
   parameter Modelica.SIunits.VolumeFlowRate outAirPerAre = 3e-4
     "Area outdoor air rate Ra, m3/s per unit area"
@@ -22,16 +23,16 @@ block OutdoorAirFlowSetpoint_SingleZone
     "Zone air distribution effectiveness (cooling supply), 
     if no value scheduled";
 
-  CDL.Interfaces.RealInput occCou(unit="1")
+  CDL.Interfaces.RealInput occCou(final unit="1")
     "Number of human counts"
     annotation (Placement(transformation(extent={{-140,140},{-100,180}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
   CDL.Interfaces.RealInput cooCtrSig(
     min=0,
     max=1,
-    unit="1") "Cooling control signal." annotation (Placement(transformation(
-          extent={{-140,0},{-100,40}}), iconTransformation(extent={{-120,10},{-100,
-            30}})));
+    final unit="1") "Cooling control signal."
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
+      iconTransformation(extent={{-120,10},{-100,30}})));
   CDL.Interfaces.BooleanInput uSupFan
     "Supply Fan Status, on or off"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
@@ -40,10 +41,11 @@ block OutdoorAirFlowSetpoint_SingleZone
     "Window status, On or Off"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Interfaces.RealOutput outMinSet(min=0, unit="m3/s")
-    "Effective minimum outdoor airflow setpoint" annotation (Placement(
-        transformation(extent={{180,40},{220,80}}), iconTransformation(extent={
-            {100,-10},{120,10}})));
+  CDL.Interfaces.RealOutput outMinSet(min=0, final unit="m3/s",
+    quantity="VolumeFlowRate")
+    "Effective minimum outdoor airflow setpoint"
+    annotation (Placement(transformation(extent={{180,40},{220,80}}),
+      iconTransformation(extent={{100,-10},{120,10}})));
 
   CDL.Continuous.Add breZon "Breathing zone airflow"
     annotation (Placement(transformation(extent={{0,150},{20,170}})));
@@ -164,11 +166,11 @@ Icon(graphics={Rectangle(
         initialScale=0.1)),
  Documentation(info="<html>      
 <p>
-This atomic sequence sets the minimum outdoor airflow setpoint. The implementation 
+This atomic sequence sets the minimum outdoor airflow setpoint for compliance 
+with the ventilation rate procedure of ASHRAE 62.1-2013. The implementation 
 is according to ASHRAE Guidline 36 (G36), PART5.P.4.b, PART5.B.2.b, PART3.1-D.2.a.
 </p>   
 
-<h4>Single zone AHU: minimum outdoor airflow setpoint (PART5.P.4.b)</h4>
 <ol> 
 <li>Calculate the required zone outdoor airflow <code>zonOutAirRate</code> 
 as follows:
@@ -201,6 +203,12 @@ when the window is open.</li>
 <li>When the zone is in other than Occupied Mode, <code>yVOutMinSet</code> 
 shall be zero.</li>
 </ol>
+<h4>References</h4>
+<p>
+<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR.
+<i>ASHRAE Guideline 36P, High Performance Sequences of Operation for HVAC 
+systems</i>. First Public Review Draft (June 2016)</a>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

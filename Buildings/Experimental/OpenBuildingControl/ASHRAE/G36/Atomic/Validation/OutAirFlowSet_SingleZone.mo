@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.Validation;
-model OutdoorAirFlowSetpoint_SingleZone
+model OutAirFlowSet_SingleZone
   "Validate the model of calculating minimum outdoor airflow setpoint"
   extends Modelica.Icons.Example;
 
@@ -29,7 +29,7 @@ equation
 
 annotation (
   experiment(StopTime=20.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/OutdoorAirFlowSetpoint_SingleZone.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/OutAirFlowSet_SingleZone.mos"
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -45,4 +45,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OutdoorAirFlowSetpoint_SingleZone;
+end OutAirFlowSet_SingleZone;
