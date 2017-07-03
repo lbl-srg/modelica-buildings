@@ -34,12 +34,12 @@ model EconomizerMultiZone_Mod_DamLim
   CDL.Integers.Constant OperationMode(k=occupiedNum)
                                            "AHU System Mode (1 = Occupied)"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 40000)
+  CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 10000)
     "Outdoor air enthalpy is slightly below the cufoff"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   CDL.Continuous.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
                                                     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Continuous.Constant TOutBellowCutoff(k=TOutCutoff - 30)
+  CDL.Continuous.Constant TOutBellowCutoff(k=TOutCutoff - 5)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
   CDL.Continuous.Constant TOutCut1(
@@ -69,7 +69,7 @@ equation
                                       color={255,127,0}));
   connect(OperationMode.y, economizer.uOperationMode) annotation (Line(points={{-99,-100},{-50,-100},{-50,-30},{-4,-30},
           {-4,4},{19,4}},                             color={255,127,0}));
-  connect(ZoneState.y, economizer.uZoneState) annotation (Line(points={{-99,-60},{-50,-60},{-50,-30},{-2,-30},{-2,2},{
+  connect(ZoneState.y, economizer.uZoneState) annotation (Line(points={{-99,-60},{-48,-60},{-48,-32},{-2,-32},{-2,2},{
           19,2}},                      color={255,127,0}));
   connect(TOutBellowCutoff.y, economizer.TOut) annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},
                                  color={0,0,127}));
@@ -91,9 +91,9 @@ equation
   connect(TOutBellowCutoff.y, economizer1.TOut)
     annotation (Line(points={{-99,110},{80,110},{80,2},{99,2}}, color={0,0,127}));
   connect(hOutCut.y, economizer1.hOutCut)
-    annotation (Line(points={{-99,-20},{-90,-20},{-90,78},{76,78},{76,-4},{99,-4}}, color={0,0,127}));
+    annotation (Line(points={{-99,-20},{-90,-20},{-90,72},{76,72},{76,-4},{99,-4}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer1.hOut)
-    annotation (Line(points={{-99,20},{-80,20},{-80,28},{-80,28},{68,28},{68,-2},{99,-2}}, color={0,0,127}));
+    annotation (Line(points={{-99,20},{-80,20},{-80,28},{68,28},{68,-2},{99,-2}},          color={0,0,127}));
   connect(TSup.y, economizer1.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,118},{82,118},{82,-6},{99,-6}}, color={0,0,127}));
   connect(TSupSetSig.y, economizer1.TCooSet)
@@ -102,7 +102,7 @@ equation
   connect(VOutMinSet.y, economizer1.uVOutMinSet)
     annotation (Line(points={{-19,50},{70,50},{70,-12},{99,-12}}, color={0,0,127}));
   connect(FanStatus.y, economizer1.uSupFan)
-    annotation (Line(points={{-59,-80},{16,-80},{16,-14},{58,-14},{58,-14},{99,-14}},
+    annotation (Line(points={{-59,-80},{16,-80},{16,-14},{58,-14},{99,-14}},
                                                                     color={255,0,255}));
   connect(ZoneState.y, economizer1.uZoneState)
     annotation (Line(points={{-99,-60},{20,-60},{20,-18},{99,-18}}, color={255,127,0}));
@@ -134,12 +134,25 @@ equation
           extent={{52,106},{86,84}},
           lineColor={28,108,200}),
         Text(
-          extent={{-130,-132},{-46,-160}},
+          extent={{-128,-130},{-44,-158}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
           textString="Enable damper limit 
-control and modulation")}),
+control and modulation"),
+        Text(
+          extent={{102,156},{138,136}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=8,
+          textString="Validate damper modulation"),
+        Text(
+          extent={{2,158},{38,138}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=8,
+          textString="Dampers fully open - 
+validate damper position limits")}),
   experiment(StopTime=1800.0),
     Documentation(info="<html>
 <p>

@@ -72,9 +72,9 @@ equation
                                    color={255,0,255}));
   connect(FreProSta.y, economizer.uFreProSta) annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},
                                       color={255,127,0}));
-  connect(OperationMode.y, economizer.uOperationMode) annotation (Line(points={{-59,-90},{-50,-90},{-50,-30},{-4,-30},{
+  connect(OperationMode.y, economizer.uOperationMode) annotation (Line(points={{-59,-90},{-52,-90},{-52,-30},{-4,-30},{
           -4,4},{19,4}},                              color={255,127,0}));
-  connect(ZoneState.y, economizer.uZoneState) annotation (Line(points={{-59,-60},{-50,-60},{-50,-30},{-2,-30},{-2,2},{
+  connect(ZoneState.y, economizer.uZoneState) annotation (Line(points={{-59,-60},{-50,-60},{-50,-32},{-2,-32},{-2,2},{
           19,2}},                      color={255,127,0}));
   connect(TOutBellowCutoff.y, economizer.TOut) annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},
                                  color={0,0,127}));
@@ -92,17 +92,17 @@ equation
                         color={0,0,127}));
   connect(TSupSetSig.y, economizer.TCooSet) annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}},
                                  color={0,0,127}));
-  connect(TOutCut1.y, economizer1.TOutCut) annotation (Line(points={{-99,70},{72,70},{72,0},{99,0}}, color={0,0,127}));
+  connect(TOutCut1.y, economizer1.TOutCut) annotation (Line(points={{-99,70},{74,70},{74,0},{99,0}}, color={0,0,127}));
   connect(TOutBellowCutoff.y, economizer1.TOut)
     annotation (Line(points={{-99,110},{80,110},{80,2},{99,2}}, color={0,0,127}));
   connect(hOutCut.y, economizer1.hOutCut)
-    annotation (Line(points={{-99,-20},{-90,-20},{-90,78},{76,78},{76,-4},{99,-4}}, color={0,0,127}));
+    annotation (Line(points={{-99,-20},{-90,-20},{-90,72},{76,72},{76,-4},{99,-4}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer1.hOut)
     annotation (Line(points={{-99,20},{-80,20},{-80,28},{-80,28},{68,28},{68,-2},{99,-2}}, color={0,0,127}));
   connect(TSup.y, economizer1.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,118},{82,118},{82,-6},{99,-6}}, color={0,0,127}));
   connect(TSupSetSig.y, economizer1.TCooSet)
-    annotation (Line(points={{-59,50},{-52,50},{-52,68},{74,68},{74,-8},{99,-8}}, color={0,0,127}));
+    annotation (Line(points={{-59,50},{-52,50},{-52,68},{72,68},{72,-8},{99,-8}}, color={0,0,127}));
   connect(VOut.y, economizer1.uVOut) annotation (Line(points={{-19,90},{78,90},{78,-10},{99,-10}}, color={0,0,127}));
   connect(VOutMinSet.y, economizer1.uVOutMinSet)
     annotation (Line(points={{-19,50},{70,50},{70,-12},{99,-12}}, color={0,0,127}));
