@@ -1,6 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.Validation;
-model EconomizerMultiZone_Disable
-  "Validates multizone VAV AHU economizer model modulation and damper position limit control loop disable"
+model EconomizerMultiZone_Modulation
+  "Validates multizone VAV AHU economizer model damper modulation and minimum ooutdoor air requirement damper position limits"
+                                    //fixme: add mos file
   extends Modelica.Icons.Example;
 
   parameter Real TOutCutoff(unit="K", quantity="TermodynamicTemperature")=297 "Outdoor temperature high limit cutoff";
@@ -21,22 +22,22 @@ model EconomizerMultiZone_Disable
     "AHU operation mode is \"Occupied\"";
   parameter Integer occupiedNum = Integer(occupied)
     "Numerical value for \"Occupied\" AHU operation mode";
-  parameter Types.ZoneState heating = Types.ZoneState.heating
-    "Zone state is heating";
-  parameter Integer heatingNum = Integer(heating)
-    "Numerical value for heating zone state (=1)";
+  parameter Types.ZoneState deadband = Types.ZoneState.deadband
+    "Zone state is deadband";
+  parameter Integer deadbandNum = Integer(deadband)
+    "Numerical value for deadband zone state (=2)";
 
   EconomizerMultiZone economizer(fixEnt=true) "Multizone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   CDL.Logical.Constant FanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   CDL.Integers.Constant FreProSta(k=freProDisabledNum) "Freeze protection status is 0"
-    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
+    annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
   CDL.Integers.Constant ZoneState(k=heatingNum) "Zone State is heating"
-    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   CDL.Integers.Constant OperationMode(k=occupiedNum)
                                            "AHU System Mode (1 = Occupied)"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
+    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 40000)
     "Outdoor air enthalpy is slightly below the cufoff"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
@@ -65,17 +66,15 @@ model EconomizerMultiZone_Disable
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   EconomizerMultiZone economizer1 "Multizone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
-  CDL.Integers.Constant FreProSta2(k=freProEnabledNum) "Freeze protection stage is 2"
-    annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
 equation
   connect(FanStatus.y, economizer.uSupFan) annotation (Line(points={{-19,-10},{-10,-10},{-10,6},{19,6}},
                                    color={255,0,255}));
-  connect(FreProSta.y, economizer.uFreProSta) annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},
+  connect(FreProSta.y, economizer.uFreProSta) annotation (Line(points={{-99,-140},{0,-140},{0,0},{19,0}},
                                       color={255,127,0}));
-  connect(OperationMode.y, economizer.uOperationMode) annotation (Line(points={{-59,-90},{-50,-90},{-50,-30},{-4,-30},{
-          -4,4},{19,4}},                              color={255,127,0}));
-  connect(ZoneState.y, economizer.uZoneState) annotation (Line(points={{-59,-60},{-50,-60},{-50,-30},{-2,-30},{-2,2},{
-          19,2}},                      color={255,127,0}));
+  connect(OperationMode.y, economizer.uOperationMode) annotation (Line(points={{-99,-100},{-50,-100},{-50,-30},{-4,-30},
+          {-4,4},{19,4}},                             color={255,127,0}));
+  connect(ZoneState.y, economizer.uZoneState) annotation (Line(points={{-99,-60},{-50,-60},{-50,-30},{-2,-30},{-2,2},{19,
+          2}},                         color={255,127,0}));
   connect(TOutBellowCutoff.y, economizer.TOut) annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},
                                  color={0,0,127}));
   connect(TOutCut1.y, economizer.TOutCut) annotation (Line(points={{-99,70},{-90,70},{-8,70},{-8,20},{19,20}},
@@ -109,11 +108,10 @@ equation
   connect(FanStatus.y, economizer1.uSupFan)
     annotation (Line(points={{-19,-10},{20,-10},{20,-14},{99,-14}}, color={255,0,255}));
   connect(ZoneState.y, economizer1.uZoneState)
-    annotation (Line(points={{-59,-60},{20,-60},{20,-18},{99,-18}}, color={255,127,0}));
+    annotation (Line(points={{-99,-60},{20,-60},{20,-18},{99,-18}}, color={255,127,0}));
   connect(OperationMode.y, economizer1.uOperationMode)
-    annotation (Line(points={{-59,-90},{18,-90},{18,-16},{99,-16}}, color={255,127,0}));
-  connect(FreProSta2.y, economizer1.uFreProSta)
-    annotation (Line(points={{81,-120},{90,-120},{90,-20},{99,-20}}, color={255,127,0}));
+    annotation (Line(points={{-99,-100},{18,-100},{18,-16},{99,-16}},
+                                                                    color={255,127,0}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/CompositeSequences/Validation/EconomizerMultiZone_TSup_VOut.mos"
@@ -167,4 +165,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EconomizerMultiZone_Disable;
+end EconomizerMultiZone_Modulation;
