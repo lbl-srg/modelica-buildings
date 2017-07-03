@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "numOfOcc[1].y",
+    "numOfOcc[2].y",
+    "numOfOcc[3].y",
+    "numOfOcc[4].y",
+    "numOfOcc[5].y",
+    "zonPriFloRat[1].y",
+    "zonPriFloRat[2].y",
+    "zonPriFloRat[3].y",
+    "zonPriFloRat[4].y",
+    "zonPriFloRat[5].y",
+    "outAirSet_MulZon.outMinSet"
+  };

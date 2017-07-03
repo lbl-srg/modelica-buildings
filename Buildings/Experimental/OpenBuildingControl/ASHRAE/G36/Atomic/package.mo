@@ -3,6 +3,8 @@ package Atomic "Subsequences as defined in guidline G36"
 
 
 
+
+
   annotation (Documentation(info="<html>
 <p>
 This package provides atomic sequences referred from ASHRAE guideline G36. The
@@ -22,5 +24,8 @@ July 1, 2017, by Jianjun:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),Icon(graphics={Rectangle(
+          extent={{-60,60},{60,-60}},
+          lineColor={28,108,200},
+          lineThickness=0.5)}));
 end Atomic;

@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "numOfOccupant.y",
-    "outdoorAirFlowSetpoint.yVOutMinSet"
-  };
