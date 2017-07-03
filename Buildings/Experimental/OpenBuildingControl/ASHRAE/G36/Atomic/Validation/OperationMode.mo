@@ -1,8 +1,9 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.Validation;
-model OperationModeSelection
+model OperationMode "Validate block OperationModeSelector"
   extends Modelica.Icons.Example;
-  Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.OperationModeSelection
-    operationModeSelection(numOfZon=1)
+  Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.OperationModeSelector
+    operationModeSelector(numOfZon=1)
+    "Block that outputs the operation mode"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
     offset=0,
@@ -38,48 +39,47 @@ model OperationModeSelection
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={70,-40})));
-  Controls.SetPoints.OccupancySchedule
-                    occSch
+  Controls.SetPoints.OccupancySchedule occSch
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
 equation
   connect(ramp1.y, sin1.u)
     annotation (Line(points={{-75,0},{-64,0},{-54,0}}, color={0,0,127}));
   connect(sin1.y, addPar.u)
     annotation (Line(points={{-31,0},{-2,0}}, color={0,0,127}));
-  connect(addPar.y, operationModeSelection.TZon[1])
+  connect(addPar.y, operationModeSelector.TZon[1])
     annotation (Line(points={{21,0},{59,0}}, color={0,0,127}));
-  connect(occHeaSet.y, operationModeSelection.THeaSet) annotation (Line(points={{-39,-30},
+  connect(occHeaSet.y, operationModeSelector.THeaSet) annotation (Line(points={{-39,-30},
           {-20,-30},{-20,-12},{34,-12},{34,-2.2},{59,-2.2}},            color={
           0,0,127}));
-  connect(occCooSet.y, operationModeSelection.TCooSet) annotation (Line(points={{21,-30},
+  connect(occCooSet.y, operationModeSelector.TCooSet) annotation (Line(points={{21,-30},
           {28,-30},{36,-30},{36,-4.6},{59,-4.6}},       color={0,0,127}));
-  connect(unoHeaSet.y,operationModeSelection.TUnoHeaSet)  annotation (Line(
+  connect(unoHeaSet.y,operationModeSelector.TUnoHeaSet)  annotation (Line(
         points={{-39,-70},{-20,-70},{-20,-48},{38,-48},{38,-6.8},{59,-6.8}},
         color={0,0,127}));
-  connect(unoCooSet.y,operationModeSelection.TUnoCooSet)  annotation (Line(
+  connect(unoCooSet.y,operationModeSelector.TUnoCooSet)  annotation (Line(
         points={{21,-70},{30,-70},{40,-70},{40,-9},{59,-9}}, color={0,0,127}));
-  connect(warUpTim.y, operationModeSelection.warUpTim[1]) annotation (Line(
+  connect(warUpTim.y, operationModeSelector.warUpTim[1]) annotation (Line(
         points={{-39,40},{-20,40},{-20,20},{34,20},{34,2},{46,2},{46,2.2},{59,
           2.2}},                                                       color={0,
           0,127}));
-  connect(cooDowTim.y, operationModeSelection.cooDowTim[1]) annotation (Line(
+  connect(cooDowTim.y, operationModeSelector.cooDowTim[1]) annotation (Line(
         points={{21,40},{36,40},{36,4},{48,4},{48,4.4},{59,4.4}},
                                                     color={0,0,127}));
-  connect(uWinSta.y, operationModeSelection.uWinSta[1])
+  connect(uWinSta.y, operationModeSelector.uWinSta[1])
     annotation (Line(points={{70,-29},{70,-20},{70,-11}}, color={255,0,255}));
-  connect(occSch.tNexOcc, operationModeSelection.tNexOcc) annotation (Line(
+  connect(occSch.tNexOcc, operationModeSelector.tNexOcc) annotation (Line(
         points={{21,76},{38,76},{38,6.6},{59,6.6}}, color={0,0,127}));
-  connect(occSch.occupied, operationModeSelection.uOcc) annotation (Line(points=
+  connect(occSch.occupied, operationModeSelector.uOcc) annotation (Line(points=
          {{21,64},{40,64},{40,9},{59,9}}, color={255,0,255}));
   annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/OperationModeSelection.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/OperationMode.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.OperationModeSelection\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.OperationModeSelection</a>
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.OperationModeSelector\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.OperationModeSelector</a>
 for a change of zone temperature along with the occupancy schedule, to specify the 
 system operation mode.
 </p>
@@ -91,4 +91,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OperationModeSelection;
+end OperationMode;
