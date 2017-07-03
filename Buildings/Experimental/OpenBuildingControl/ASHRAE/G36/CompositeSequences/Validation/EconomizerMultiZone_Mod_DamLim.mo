@@ -75,7 +75,7 @@ equation
   connect(TOutBellowCutoff.y, economizer.TOut)
     annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},color={0,0,127}));
   connect(TOutCut1.y, economizer.TOutCut)
-    annotation (Line(points={{-99,70},{-10,70},{-10,70},{-10,20},{19,20}},color={0,0,127}));
+    annotation (Line(points={{-99,70},{-10,70},{-10,20},{19,20}},         color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer.hOut)
     annotation (Line(points={{-99,20},{-60,20},{-60,18},{-4,18},{19,18}},color={0,0,127}));
   connect(hOutCut.y, economizer.hOutCut)
@@ -89,7 +89,7 @@ equation
   connect(TSupSig.y, economizer.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}}, color={0,0,127}));
   annotation (
-    experiment(StopTime=1800.0, Tolerance=1e-06),
+    experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/CompositeSequences/Validation/EconomizerMultiZone_Mod_DamLim.mos"
     "Simulate and plot"),
   Icon(graphics={
