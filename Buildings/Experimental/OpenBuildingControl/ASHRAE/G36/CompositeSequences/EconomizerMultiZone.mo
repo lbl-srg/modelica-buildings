@@ -4,39 +4,38 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
   parameter Boolean fixEnt = true
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
   parameter Real delEntHis(unit="J/kg", quantity="SpecificEnergy")=1000
-    "Delta between the enthalpy hysteresis high and low limit"
+    "Delta between the enthalpy hysteresis high and low limits"
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt));
-  parameter Real delTemHis=1 "Delta between the temperature hysteresis high and low limit";
+  parameter Real delTemHis=1 "Delta between the temperature hysteresis high and low limits";
   parameter Real damLimControllerGain=1 "Gain of damper limit controller";
   parameter Real modControllerGain=1 "Gain of modulation controller";
 
   CDL.Interfaces.RealInput TCooSet(unit="K", quantity = "ThermodynamicTemperature")
-    "Supply air temperature cooling set point" annotation (Placement(transformation(
+    "Supply air temperature cooling setpoint" annotation (Placement(transformation(
     extent={{-140,30},{-120,50}}), iconTransformation(extent={{-120,10},{-100,30}})));
   CDL.Interfaces.RealInput TSup(unit="K", quantity = "ThermodynamicTemperature")
     "Measured supply air temperature" annotation (Placement(transformation(
     extent={{-140,50},{-120,70}}), iconTransformation(extent={{-120,30},{-100,50}})));
   CDL.Interfaces.RealInput TOut(unit="K", quantity = "ThermodynamicTemperature")
-    "Outdoor air temperature" annotation (Placement(transformation(extent={{-140,130},{-120,150}}),
+    "Outdoor air (OA) temperature" annotation (Placement(transformation(extent={{-140,130},{-120,150}}),
     iconTransformation(extent={{-120,110},{-100,130}})));
   CDL.Interfaces.RealInput TOutCut(unit="K", quantity = "ThermodynamicTemperature")
-    "Outdoor temperature high limit cutoff. 
-    For differential dry bulb temeprature condition use return air temperature measurement"
+    "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}}),
         iconTransformation(extent={{-120,90},{-100,110}})));
   CDL.Interfaces.RealInput hOut(unit="J/kg", quantity="SpecificEnergy") if fixEnt
     "Outdoor air enthalpy" annotation (Placement(transformation(extent={{-140,90},{-120,110}}),
     iconTransformation(extent={{-120,70},{-100,90}})));
   CDL.Interfaces.RealInput hOutCut(unit="J/kg", quantity="SpecificEnergy") if fixEnt
-    "Outdoor enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
+    "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
   CDL.Interfaces.RealInput VOut(unit="m3/s")
-    "Measured outdoor volumentirc airflow rate [fixme: which quantity attribute should we use]"
+    "Measured outdoor volumetirc airflow rate [fixme: which quantity attribute should we use? add for all V]"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
   CDL.Interfaces.RealInput VOutMinSet(unit="m3/s")
-    "Minimum outdoor volumentric airflow rate setpoint"
+    "Minimum outdoor volumetric airflow rate setpoint"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}}),
         iconTransformation(extent={{-120,-30},{-100,-10}})));
   CDL.Interfaces.IntegerInput uFreProSta "Freeze protection status"
@@ -45,9 +44,9 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
   CDL.Interfaces.IntegerInput uOperationMode "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}}),
       iconTransformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Interfaces.IntegerInput uZoneState "Zone state input [fixme: implement conversion to enumeration]"
-    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}}),iconTransformation(extent={{-120,
-            -90},{-100,-70}})));
+  CDL.Interfaces.IntegerInput uZoneState "Zone state input"
+    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}}),
+    iconTransformation(extent={{-120,-90},{-100,-70}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));
@@ -152,29 +151,29 @@ equation
           color={28,108,200},
           thickness=0.5)}),
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
-Documentation(info="<html>      
-<p>
-This sequence calculates outdoor and return air damper positions
-for the multiple zone VAV AHU. The implementation is based on ASHRAE 
-Guidline 36, sections: PART5 N.2.c, N.5, N.6.c, N.7, A.17, N.12.
-The sequence comprises the following atomic sequences: 
-<code>EconDamperPositionLimitsMultiZone<\code>, 
-<code>EconEnableDisableMultiZone<\code>, and 
-<code>EconModulationMultiZone<\code> sequences.
-</p>
-<p>
-The structure of the composite sequence: [fixme: how do I remove the grey area?]
-</p>
-<p align=\"center\">
-<img alt=\"Image of the multizone AHU modulation sequence control diagram\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconCompositeSequenceMultiZone.png\"/>
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-June 28, 2017, by Milica Grahovac:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
+  Documentation(info="<html>      
+  <p>
+  This is multiple zone VAV AHU economizer control sequence. It calculates 
+  outdoor and return air damper positions based on ASHRAE 
+  Guidline 36, sections: PART5 N.2.c, N.5, N.6.c, N.7, A.17, N.12.
+  The sequence comprises the following atomic sequences: 
+  <code>EconDamperPositionLimitsMultiZone<\code>, 
+  <code>EconEnableDisableMultiZone<\code>, and 
+  <code>EconModulationMultiZone<\code>.
+  </p>
+  <p>
+  The structure of the economizer control sequence: [fixme: how do I remove the grey area from the image?]
+  </p>
+  <p align=\"center\">
+  <img alt=\"Image of the multizone AHU modulation sequence control diagram\"
+  src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconCompositeSequenceMultiZone.png\"/>
+  </p>
+  </html>", revisions="<html>
+  <ul>
+  <li>
+  June 28, 2017, by Milica Grahovac:<br/>
+  First implementation.
+  </li>
+  </ul>
+  </html>"));
 end EconomizerMultiZone;
