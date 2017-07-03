@@ -1,0 +1,9 @@
+simulateModel("Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.Validation.EconomizerMultiZone_Disable", method="dassl", stopTime=1800, tolerance=1e-06, resultFile="EconomizerMultiZone_Disable");
+
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"economizer.econEnableDisableMultiZone.andEnaDis.y","economizer.uZoneState"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"economizer.ecoDamLim.yOutDamPosMin","economizer.ecoDamLim.yRetDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"economizer.yOutDamPos","economizer.yRetDamPos"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=1, y={"economizer1.econEnableDisableMultiZone.andEnaDis.y","economizer1.uZoneState","economizer1.uFreProSta"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=2, y={"economizer1.ecoDamLim.yOutDamPosMin","economizer1.ecoDamLim.yRetDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=3, y={"economizer1.yOutDamPos","economizer1.yRetDamPos"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});

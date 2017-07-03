@@ -3,20 +3,20 @@ model EconDamperPositionLimitsMultiZone_VOut
   "Validation model for the multiple zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
-  parameter Real airflowSetpoint(unit="m3/s")=0.71
+  parameter Real minVOutSet(unit="m3/s")=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Real minSenOutVolAirflow(unit="m3/s")=0.61
+  parameter Real minVOut(unit="m3/s")=0.705
     "Minimal measured volumetric airflow";
-  parameter Real senOutVolAirIncrease(unit="m3/s")=0.2
+  parameter Real VOutIncrease(unit="m3/s")=0.03
     "Maximum volumetric airflow increase during the example simulation";
 
-  CDL.Continuous.Constant VOutMinSet(k=airflowSetpoint)
+  CDL.Continuous.Constant VOutMinSet(k=minVOutSet)
     "Outdoor volumetric airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Modelica.Blocks.Sources.Ramp VOut(
     duration=1800,
-    offset=minSenOutVolAirflow,
-    height=senOutVolAirIncrease)
+    offset=minVOut,
+    height=VOutIncrease)
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
