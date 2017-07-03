@@ -13,10 +13,8 @@ block OutdoorAirFlowSetpoint_SingleZone
     annotation(Evaluate=true, Dialog(group="Design Parameters"));
   parameter Boolean occSen = true
     "Indicate if the zones have occupancy sensor, true or false";
-
   parameter Real occDen(unit="1") = 0.05
     "Default number of person in unit area";
-
   parameter Real zonDisEffHea(unit="1") = 0.8
     "Zone air distribution effectiveness (heating supply), 
      if no value scheduled";
@@ -24,73 +22,74 @@ block OutdoorAirFlowSetpoint_SingleZone
     "Zone air distribution effectiveness (cooling supply), 
     if no value scheduled";
 
-  CDL.Continuous.Constant breZonAre(k=outAirPerAre*zonAre)
-    "Area component of the breathing zone outdoor airflow"
-    annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
-  CDL.Continuous.Constant breZonPop(k=outAirPerPer*zonAre*occDen)
-    "Population component of the breathing zone outdoor airflow"
-    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
-
-  CDL.Interfaces.RealInput occCou(unit="1") "Number of human counts"
+  CDL.Interfaces.RealInput occCou(unit="1")
+    "Number of human counts"
     annotation (Placement(transformation(extent={{-140,140},{-100,180}}),
-        iconTransformation(extent={{-120,50},{-100,70}})));
+      iconTransformation(extent={{-120,50},{-100,70}})));
+  CDL.Interfaces.RealInput cooCtrSig(
+    min=0,
+    max=1,
+    unit="1") "Cooling control signal." annotation (Placement(transformation(
+          extent={{-140,0},{-100,40}}), iconTransformation(extent={{-120,10},{-100,
+            30}})));
+  CDL.Interfaces.BooleanInput uSupFan
+    "Supply Fan Status, on or off"
+    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
+      iconTransformation(extent={{-120,-70},{-100,-50}})));
+  CDL.Interfaces.BooleanInput uWindow
+    "Window status, On or Off"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+      iconTransformation(extent={{-120,-30},{-100,-10}})));
+  CDL.Interfaces.RealOutput outMinSet(min=0, unit="m3/s")
+    "Effective minimum outdoor airflow setpoint" annotation (Placement(
+        transformation(extent={{180,40},{220,80}}), iconTransformation(extent={
+            {100,-10},{120,10}})));
 
   CDL.Continuous.Add breZon "Breathing zone airflow"
     annotation (Placement(transformation(extent={{0,150},{20,170}})));
-
-  CDL.Continuous.Gain gai(k=outAirPerPer) "Outdoor airflow rate per person"
-                                             annotation (Placement(transformation(extent={{-80,150},
-            {-60,170}})));
+  CDL.Continuous.Gain gai(k=outAirPerPer)
+    "Outdoor airflow rate per person"
+    annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
   CDL.Logical.Switch swi
-    "If there is occupancy sensor, then using the real time occupant; otherwise, using the default occupant "
-                            annotation (Placement(transformation(extent={{-40,120},
-            {-20,140}})));
+    "If there is occupancy sensor, then using the real time occupant; 
+    otherwise, using the default occupant "
+    annotation (Placement(transformation(extent={{-40,120}, {-20,140}})));
   CDL.Logical.Switch swi1
     "Switch between cooling or heating distribution effectiveness"
-                             annotation (Placement(transformation(extent={{-20,10},
-            {0,30}})));
-  CDL.Continuous.Constant disEffHea(k=zonDisEffHea)
-    "Zone distribution effectiveness: Heating"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  CDL.Continuous.Constant disEffCoo(k=zonDisEffCoo)
-    "Zone distribution effectiveness: Cooling"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-
-  CDL.Interfaces.RealInput uCoo(min=0, max=1, unit="1")
-    "Cooling control signal."
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
-        iconTransformation(extent={{-120,10},{-100,30}})));
+    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   CDL.Continuous.Division zonOutAirRate
     "Required zone outdoor airflow rate"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
   CDL.Logical.GreaterThreshold greThr
     "Whether or not the cooling signal is on (greater than 0)"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+  CDL.Logical.Switch swi2
+    "If window is open or it is not in occupied mode, the required outdoor 
+    airflow rate should be zero"
+    annotation (Placement(transformation(extent={{100,90},{120,70}})));
+  CDL.Logical.Switch swi3
+    "If supply fan is off, then outdoor airflow rate should be zero."
+    annotation (Placement(transformation(extent={{140,50},{160,70}})));
+
+protected
+  CDL.Logical.Constant occSenor(k=occSen) "If there is occupancy sensor"
+    annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
   CDL.Continuous.Constant zerOutAir(k=0)
     "Zero required outdoor airflow rate when window open 
     or is not in occupied mode."
     annotation (Placement(transformation(extent={{40,42},{60,62}})));
-  CDL.Interfaces.BooleanInput uSupFan "Supply Fan Status, on or off"
-    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
-        iconTransformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Interfaces.BooleanInput uWindow "Window status, On or Off"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-        iconTransformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Logical.Switch swi2
-    "If window is open or it is not in occupied mode, the required outdoor airflow rate should be zero"
-                             annotation (Placement(transformation(extent={{100,90},
-            {120,70}})));
-  CDL.Logical.Switch swi3
-    "If supply fan is off, then outdoor airflow rate should be zero."
-    annotation (Placement(transformation(extent={{140,50},{160,70}})));
-  CDL.Interfaces.RealOutput yVOutMinSet(min=0, unit="m3/s")
-    "Effective minimum outdoor airflow setpoint"
-    annotation (
-      Placement(transformation(extent={{180,40},{220,80}}), iconTransformation(
-          extent={{100,-10},{120,10}})));
-
-  CDL.Logical.Constant occSenor(k=occSen) "If there is occupancy sensor"
-    annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
+  CDL.Continuous.Constant disEffHea(k=zonDisEffHea)
+    "Zone distribution effectiveness: Heating"
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+  CDL.Continuous.Constant disEffCoo(k=zonDisEffCoo)
+    "Zone distribution effectiveness: Cooling"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+  CDL.Continuous.Constant breZonAre(k=outAirPerAre*zonAre)
+    "Area component of the breathing zone outdoor airflow"
+    annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
+  CDL.Continuous.Constant breZonPop(k=outAirPerPer*zonAre*occDen)
+    "Population component of the breathing zone outdoor airflow"
+    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
 
 equation
   connect(breZonAre.y, breZon.u1)
@@ -110,7 +109,7 @@ equation
       color={0,0,127}));
   connect(disEffHea.y, swi1.u3)
     annotation (Line(points={{-59,-10},{-40,-10},{-40,12},{-22,12}},
-        color={0,0,127}));
+      color={0,0,127}));
   connect(breZon.y, zonOutAirRate.u1)
     annotation (Line(points={{21,160},{30,160},{30,156},{38,156}},
       color={0,0,127}));
@@ -131,22 +130,21 @@ equation
       color={0,0,127}));
   connect(swi.u2, occSenor.y)
     annotation (Line(points={{-42,130},{-79,130}},color={255,0,255}));
-  connect(uCoo, greThr.u)
-    annotation (Line(points={{-120,20},{-102,20},{-82,20}},
-      color={0,0,127}));
+  connect(cooCtrSig, greThr.u)
+    annotation (Line(points={{-120,20},{-102,20},{-82,20}}, color={0,0,127}));
   connect(occCou, gai.u)
     annotation (Line(points={{-120,160},{-94,160},{-82,160}},
-        color={0,0,127}));
-  connect(swi3.y, yVOutMinSet)
+      color={0,0,127}));
+  connect(swi3.y, outMinSet)
     annotation (Line(points={{161,60},{200,60}}, color={0,0,127}));
   connect(zerOutAir.y, swi3.u3)
-    annotation (Line(points={{61,52},{138,52}},          color={0,0,127}));
+    annotation (Line(points={{61,52},{138,52}}, color={0,0,127}));
   connect(swi2.y, swi3.u1)
     annotation (Line(points={{121,80},{124,80},{128,80},
-          {128,68},{138,68}}, color={0,0,127}));
+      {128,68},{138,68}}, color={0,0,127}));
   connect(uSupFan, swi3.u2)
-    annotation (Line(points={{-120,-30},{4,-30},{128,
-          -30},{128,60},{138,60}}, color={255,0,255}));
+    annotation (Line(points={{-120,-30},{4,-30},{128,-30},{128,60},{138,60}},
+      color={255,0,255}));
  annotation (
 defaultComponentName="outAirSingleZone",
 Icon(graphics={Rectangle(
