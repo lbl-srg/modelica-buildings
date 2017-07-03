@@ -38,11 +38,16 @@ block OutdoorAirFlowSetpoint_SingleZone
   CDL.Continuous.Add breZon "Breathing zone airflow"
     annotation (Placement(transformation(extent={{0,150},{20,170}})));
 
-  CDL.Continuous.Gain gai(k=outAirPerPer)    annotation (Placement(transformation(extent={{-80,150},
+  CDL.Continuous.Gain gai(k=outAirPerPer) "Outdoor airflow rate per person"
+                                             annotation (Placement(transformation(extent={{-80,150},
             {-60,170}})));
-  CDL.Logical.Switch swi    annotation (Placement(transformation(extent={{-40,120},
+  CDL.Logical.Switch swi
+    "If there is occupancy sensor, then using the real time occupant; otherwise, using the default occupant "
+                            annotation (Placement(transformation(extent={{-40,120},
             {-20,140}})));
-  CDL.Logical.Switch swi1    annotation (Placement(transformation(extent={{-20,10},
+  CDL.Logical.Switch swi1
+    "Switch between cooling or heating distribution effectiveness"
+                             annotation (Placement(transformation(extent={{-20,10},
             {0,30}})));
   CDL.Continuous.Constant disEffHea(k=zonDisEffHea)
     "Zone distribution effectiveness: Heating"
@@ -59,6 +64,7 @@ block OutdoorAirFlowSetpoint_SingleZone
     "Required zone outdoor airflow rate"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
   CDL.Logical.GreaterThreshold greThr
+    "Whether or not the cooling signal is on (greater than 0)"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   CDL.Continuous.Constant zerOutAir(k=0)
     "Zero required outdoor airflow rate when window open 
@@ -70,9 +76,12 @@ block OutdoorAirFlowSetpoint_SingleZone
   CDL.Interfaces.BooleanInput uWindow "Window status, On or Off"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Logical.Switch swi2    annotation (Placement(transformation(extent={{100,90},
+  CDL.Logical.Switch swi2
+    "If window is open or it is not in occupied mode, the required outdoor airflow rate should be zero"
+                             annotation (Placement(transformation(extent={{100,90},
             {120,70}})));
   CDL.Logical.Switch swi3
+    "If supply fan is off, then outdoor airflow rate should be zero."
     annotation (Placement(transformation(extent={{140,50},{160,70}})));
   CDL.Interfaces.RealOutput yVOutMinSet(min=0, unit="m3/s")
     "Effective minimum outdoor airflow setpoint"
@@ -131,7 +140,7 @@ equation
   connect(swi3.y, yVOutMinSet)
     annotation (Line(points={{161,60},{200,60}}, color={0,0,127}));
   connect(zerOutAir.y, swi3.u3)
-    annotation (Line(points={{61,52},{138,52},{138,52}}, color={0,0,127}));
+    annotation (Line(points={{61,52},{138,52}},          color={0,0,127}));
   connect(swi2.y, swi3.u1)
     annotation (Line(points={{121,80},{124,80},{128,80},
           {128,68},{138,68}}, color={0,0,127}));

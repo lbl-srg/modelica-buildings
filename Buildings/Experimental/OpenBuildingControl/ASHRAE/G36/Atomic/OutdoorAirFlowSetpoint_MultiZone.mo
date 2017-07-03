@@ -71,11 +71,16 @@ block OutdoorAirFlowSetpoint_MultiZone
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   CDL.Continuous.Gain gai[numOfZon](
-    k = {outAirPerPer[i] for i in 1:numOfZon}) annotation (Placement(transformation(extent={{-160,50},
+    k = {outAirPerPer[i] for i in 1:numOfZon}) "Outdoor air per person"
+                                               annotation (Placement(transformation(extent={{-160,50},
             {-140,70}})));
-  CDL.Logical.Switch swi[numOfZon]    annotation (Placement(transformation(extent={{-120,10},
+  CDL.Logical.Switch swi[numOfZon]
+    "If there is occupancy sensor, then using the real time occupant; otherwise, using the default occupant "
+                                      annotation (Placement(transformation(extent={{-120,10},
             {-100,30}})));
-  CDL.Logical.Switch swi1[numOfZon]    annotation (Placement(transformation(extent={{-80,-70},
+  CDL.Logical.Switch swi1[numOfZon]
+    "Switch between cooling or heating distribution effectiveness"
+                                       annotation (Placement(transformation(extent={{-80,-70},
             {-60,-50}})));
   CDL.Continuous.Constant disEffHea[numOfZon](
     k = {zonDisEffHea[i] for i in 1:numOfZon})
@@ -94,9 +99,10 @@ block OutdoorAirFlowSetpoint_MultiZone
     "Required zone outdoor airflow rate"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   CDL.Logical.GreaterThreshold greThr
+    "Whether or not the cooling signal is on (greater than 0)"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   CDL.Continuous.Constant zerOutAir[numOfZon](k=fill(0,numOfZon))
-    "Zero required outdoor airflow rate when window open or is not in occupied mode."
+    "Zero required outdoor airflow rate when window is open or is not in occupied mode."
     annotation (Placement(transformation(extent={{-40,-28},{-20,-8}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply Fan Status, on or off"
     annotation (Placement(transformation(extent={{-220,-169},{-180,-130}}),
@@ -104,11 +110,13 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Interfaces.BooleanInput uWindow[numOfZon] "Window status, On or Off"
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
         iconTransformation(extent={{-120,-12},{-100,8}})));
-  CDL.Logical.Not not1
+  CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
   CDL.Logical.Switch swi2[numOfZon]
+    "If window is open or it is not in occupied mode, the required outdoor airflow rate should be zero"
     annotation (Placement(transformation(extent={{20,0},{40,-20}})));
   CDL.Logical.Switch swi3[numOfZon]
+    "If supply fan is off, then outdoor airflow rate should be zero."
     annotation (Placement(transformation(extent={{60,-40},{80,-60}})));
   CDL.Interfaces.RealInput priAirflow[numOfZon](
     each min=minZonPriFlo, each unit="m3/s")
@@ -173,7 +181,7 @@ block OutdoorAirFlowSetpoint_MultiZone
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   CDL.Continuous.Add unCorOutAirInk "Uncorrected outdoor air intake"
     annotation (Placement(transformation(extent={{20,211},{40,230}})));
-  CDL.Continuous.Product pro
+  CDL.Continuous.Product pro "Product of inputs"
     annotation (Placement(transformation(extent={{-20,240},{0,260}})));
   CDL.Continuous.Constant maxSysPriFlow(k=maxSysPriFlo)
     "Highest expected system primary airflow"
@@ -191,6 +199,7 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Continuous.Division desOutAirInt "Design system outdoor air intake"
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
   CDL.Continuous.Min min
+    "Minimum outdoor airflow rate should not be more than designed outdoor airflow rate"
     annotation (Placement(transformation(extent={{200,-120},{220,-100}})));
   CDL.Continuous.Min min1
     "Uncorrected outdoor air rate should not be higher than its design value."
@@ -205,7 +214,8 @@ block OutdoorAirFlowSetpoint_MultiZone
       iconTransformation(extent={{100,68},{120,88}})));
 
   CDL.Logical.Constant occSenor[numOfZon](
-    k={occSen[i] for i in 1:numOfZon}) "If there is occupancy sensor"
+    k={occSen[i] for i in 1:numOfZon})
+    "Whether or not there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
 equation
   for i in 1:numOfZon loop
