@@ -8,19 +8,19 @@ extends Modelica.Icons.Example;
     samplePeriod=6)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.MovingMean movingMean_300(
-    timHor=300) "Moving average with 300 sec sliding window"
+    delta=300) "Moving average with 300 sec sliding window"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.MovingMean movingMean_200(
-    timHor=200) "Moving average with 200 sec sliding window"
+    delta=200) "Moving average with 200 sec sliding window"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.MovingMean movingMean_100(
-    timHor=100) "Moving average with 100 sec sliding window"
+    delta=100) "Moving average with 100 sec sliding window"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.MovingMean movingMean_400(
-    timHor=400) "Moving average with 400 sec sliding window"
+    delta=400) "Moving average with 400 sec sliding window"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.MovingMean movingMean_500(
-    timHor=500) "Moving average with 500 sec sliding window"
+    delta=500) "Moving average with 500 sec sliding window"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 equation
   connect(uniformNoise.y, movingMean_300.u)
@@ -44,8 +44,8 @@ Buildings.Experimental.OpenBuildingControl.CDL.Continuous.MovingMean</a>.
 </p>
 <p>
 The input <code>uniformNoise</code> generates random value ranging from 0 to 1.
-Different time horizon, i.e. <code>timHor=100s, 200s, 300s, 400s, 500s</code>, are
-used to find the moving average of the input.
+Different time horizon, i.e. <code>delta=100s, 200s, 300s, 400s, 500s</code>, are
+used to compute the moving average of the input.
 </p>
 </html>", revisions="<html>
 <ul>

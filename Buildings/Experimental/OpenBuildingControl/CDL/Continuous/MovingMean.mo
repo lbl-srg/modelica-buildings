@@ -2,8 +2,8 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block MovingMean
   "Block to output moving average with centain time horizon"
 
-  parameter Modelica.SIunits.Time timHor
-    "Time horizon during when the input being averaged.";
+  parameter Modelica.SIunits.Time delta(min=2*CDL.Constants.eps)
+    "Time horizon over which the input is averaged";
 
   Interfaces.RealInput u "Connector of Real input signal"
    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -11,18 +11,20 @@ block MovingMean
    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
+  parameter Modelica.SIunits.Time tStart(fixed=false) "Start time";
   Real mu "Internal integrator variable";
   Real muDel "Internal integrator variable with delay";
 
 initial equation
+  tStart = time;
   mu = u;
 equation
   u =der(mu);
-  muDel = delay(mu, timHor);
-  if (time > timHor) then
-    y = (mu-muDel)/timHor;
-  elseif time > 0 then
-    y = (mu-muDel)/time;
+  muDel = delay(mu, delta);
+  if (time >= delta) then
+    y = (mu-muDel)/delta;
+  elseif (time-tStart) >= Constants.eps then
+    y = (mu-muDel)/(time-tStart);
   else
     y = u;
   end if;
@@ -61,24 +63,46 @@ equation
           textString="%name",
           lineColor={0,0,255})}),
    Documentation(info="<html>
-   <p>
-   This block continuously calculates the mean value of its input signal. 
-   It uses the function:</p>
-<blockquote>
-<pre>     integral( u over [time, time-timHor])
-y = ---------------------------------------
-                 timHor</pre>
-</blockquote>
-<p>This can be used to determine moving average value of a input with random 
-noise signal.</p>
+<p>
+This block outputs the mean value of its input signal as
+</p>
+<pre>
+      1  t
+y =   -  &int;   u(s) ds
+      &delta;  t-&delta;
+</pre>
+    
+<p>where <i>&delta;</i> is a parameter that determines
+the time window over which the input is averaged.
+During the start of the simulation, the block outputs <code>y = u</code> for
+the first <i>1E-15</i> seconds (to avoid a division by zero), and for <i> 1E-15 &le; t &le; &delta;</i> seconds,
+it outputs
+</P>
+<pre>
+       1    t
+y =   ----  &int;   u(s) ds
+      t-t<sub>0</sub>  t<sub>0</sub>
+</pre>
+<p>
+where <i>t<sub>0</sub></i> is the initial time.
+</p>
+<p>
+This block can for example be used to output the moving
+average of a noisy measurement signal.
+</p>
 
 <p>
-This block is demonstrated in the examples
+See
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.MovingMean\">
-Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.MovingMean</a>,
+Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.MovingMean</a>
+for an example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 3, 2017, by Michael Wetter:<br/>
+Revised implementation to allow non-zero start time.
+</li>
 <li>
 June 29, 2017, by Jianjun Hu:<br/>
 First implementation. This is for
