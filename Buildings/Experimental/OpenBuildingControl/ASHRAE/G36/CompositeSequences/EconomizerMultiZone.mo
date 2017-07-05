@@ -157,9 +157,9 @@ equation
   outdoor and return air damper positions based on ASHRAE 
   Guidline 36, sections: PART5 N.2.c, N.5, N.6.c, N.7, A.17, N.12.
   The sequence comprises the following atomic sequences: 
-  <code>EconDamperPositionLimitsMultiZone<\code>, 
-  <code>EconEnableDisableMultiZone<\code>, and 
-  <code>EconModulationMultiZone<\code>.
+  <code>EconDamperPositionLimitsMultiZone</code>, 
+  <code>EconEnableDisableMultiZone</code>, and 
+  <code>EconModulationMultiZone</code>.
   </p>
   <p>
   The structure of the economizer control sequence: [fixme: how do I remove the grey area from the image?]

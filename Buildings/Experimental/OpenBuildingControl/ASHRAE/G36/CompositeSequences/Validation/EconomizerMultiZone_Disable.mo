@@ -161,8 +161,8 @@ outdoor air control
     This example validates
     <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.EconomizerMultiZone\">
     Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.EconomizerMultiZone</a>
-    for control signals which disable modulation control loop only (<code>economizer<\code> block)
-    and both minimum outdoor airflow and modulation control loops (<code>economizer1<\code> block).
+    for control signals which disable modulation control loop only (<code>economizer</code> block)
+    and both minimum outdoor airflow and modulation control loops (<code>economizer1</code> block).
     </p>
     </html>", revisions="<html>
     <ul>

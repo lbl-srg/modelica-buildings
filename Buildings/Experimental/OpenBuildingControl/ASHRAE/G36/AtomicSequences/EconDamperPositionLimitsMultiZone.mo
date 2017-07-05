@@ -296,14 +296,12 @@ control loop")}),
     </p>
     <p>
     Expected control performance (damper position limits vs. control loop signal):
-    <br>
-    </br>
+    <br/>
     </p>
     <p align=\"center\">
     <img alt=\"Image of damper position limits control chart\"
     src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlChartMultiZone.png\"/>
     </p>
-
     </html>", revisions="<html>
     <ul>
     <li>

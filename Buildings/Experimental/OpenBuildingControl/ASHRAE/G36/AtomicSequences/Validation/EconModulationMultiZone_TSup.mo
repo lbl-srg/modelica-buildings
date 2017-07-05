@@ -59,7 +59,7 @@ equation
   This example validates
   <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconModulationMultiZone\">
   Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconModulationMultiZone</a>
-  for supply air temeperature and supply air temperature cooling setpoint (<code>TSup, TCooSet<\code>) 
+  for supply air temeperature and supply air temperature cooling setpoint (<code>TSup, TCooSet</code>) 
   control signals.
   </p>
   </html>", revisions="<html>

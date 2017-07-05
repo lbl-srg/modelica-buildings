@@ -314,14 +314,13 @@ disable if
       ASHRAE 90.1-2013 and Title 24-2013.
       </p>
       <p>
-      In addition, economizer shall be intantly disabled whenever any of the 
-      following is true: supply fan is off, zone state is <code>Heating<\code>, 
-      freeze protection stage is not <code>0<\code>.
+      In addition, economizer shall be disabled without a delay whenever any of the 
+      following is true: supply fan is off, zone state is <code>Heating</code>, 
+      freeze protection stage is not <code>0</code>.
       </p>
       <p>
       The following state machine chart illustrates the above listed conditions:
       </p>
-      <p>
       <p align=\"center\">
       <img alt=\"Image of economizer enable-disable state machine chart\"
       src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconEnableDisableStateMachineChartMultiZone.png\"/>

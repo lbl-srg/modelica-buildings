@@ -150,46 +150,45 @@ control loop"),                    Text(
           textString="Damper position 
 assignments")}),
     Documentation(info="<html>      
-<p>
-This is a multiple zone VAV AHU economizer modulation block. It calculates 
-the outdoor and return air damper positions based on the supply air temperature
-control loop signal. The implementation is in line with ASHRAE 
-Guidline 36 (G36), PART5.N.2.c. Damper positions are linearly mapped to
-the supply air control loop signal. This is a final sequence in the 
-composite multizone VAV AHU economizer control sequence. Damper position 
-limits, which are the inputs to the sequence, are the outputs of 
-<code>EconDamperPositionLimitsMultiZone<\code> and 
-<code>EconEnableDisableMultiZone<\code> sequences.
-</p>
-<p>
-When the economizer is enabled, the PI controller modulates the damper 
-positions. Return and outdoor damper are not interlocked. When the economizer is disabled, 
-the damper positions are set to the minimum outdoor air damper position limits. 
-</p>
-<p>
-Control charts below show the input-output structure and an economizer damper 
-modulation sequence assuming a well tuned controller. Control diagram:
-</p>
-<p align=\"center\">
-<img alt=\"Image of the multizone AHU modulation sequence control diagram\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationControlDiagramMultiZone.png\"/>
-</p>
-<p>
-Multizone AHU economizer modulation control chart:
-<br>
-</br>
-</p>
-<p align=\"center\">
-<img alt=\"Image of the multizone AHU modulation sequence expected performance\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationControlChartMultiZone.png\"/>
-</p>
-
-</html>", revisions="<html>
-<ul>
-<li>
-June 28, 2017, by Milica Grahovac:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
+    <p>
+    This is a multiple zone VAV AHU economizer modulation block. It calculates 
+    the outdoor and return air damper positions based on the supply air temperature
+    control loop signal. The implementation is in line with ASHRAE 
+    Guidline 36 (G36), PART5.N.2.c. Damper positions are linearly mapped to
+    the supply air control loop signal. This is a final sequence in the 
+    composite multizone VAV AHU economizer control sequence. Damper position 
+    limits, which are the inputs to the sequence, are the outputs of 
+    <code>EconDamperPositionLimitsMultiZone</code> and 
+    <code>EconEnableDisableMultiZone</code> sequences.
+    </p>
+    <p>
+    When the economizer is enabled, the PI controller modulates the damper 
+    positions. Return and outdoor damper are not interlocked. When the economizer is disabled, 
+    the damper positions are set to the minimum outdoor air damper position limits. 
+    </p>
+    <p>
+    Control charts below show the input-output structure and an economizer damper 
+    modulation sequence assuming a well tuned controller. Control diagram:
+    </p>
+    <p align=\"center\">
+    <img alt=\"Image of the multizone AHU modulation sequence control diagram\"
+    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationControlDiagramMultiZone.png\"/>
+    </p>
+    <p>
+    Multizone AHU economizer modulation control chart:
+    <br/>
+    </p>
+    <p align=\"center\">
+    <img alt=\"Image of the multizone AHU modulation sequence expected performance\"
+    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationControlChartMultiZone.png\"/>
+    </p>
+    
+    </html>", revisions="<html>
+    <ul>
+    <li>
+    June 28, 2017, by Milica Grahovac:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"));
 end EconModulationMultiZone;

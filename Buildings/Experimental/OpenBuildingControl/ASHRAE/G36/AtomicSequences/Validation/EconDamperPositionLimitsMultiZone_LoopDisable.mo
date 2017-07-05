@@ -170,7 +170,7 @@ equation
   This example validates enable/disable conditions for
   <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone\">
   Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone</a>
-  for the following input signals: <code>uSupFan<\code>, <code>uFreProSta<\code>, <code>uOperationMode<\code>.
+  for the following input signals: <code>uSupFan</code>, <code>uFreProSta</code>, <code>uOperationMode</code>.
   </p>
   </html>", revisions="<html>
   <ul>
