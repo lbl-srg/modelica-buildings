@@ -4,7 +4,11 @@ model OutAirFlowSet_MultiZone
   extends Modelica.Icons.Example;
   parameter Integer numOfZon = 5 "Total number of zones that the system serves";
   Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.OutdoorAirFlowSetpoint_MultiZone
-    outAirSet_MulZon(numOfZon=numOfZon)
+    outAirSet_MulZon(numOfZon=numOfZon,
+    zonAre=fill(40, numOfZon),
+    maxSysPriFlo=1,
+    minZonPriFlo=fill(0.08, numOfZon),
+    peaSysPop=20)
     "Block to output minimum outdoor airflow rate for system with multiple zones "
     annotation (Placement(transformation(extent={{-14,-12},{28,30}})));
   CDL.Continuous.Constant numOfOcc[numOfZon](k=fill(2, numOfZon))
@@ -18,20 +22,20 @@ model OutAirFlowSet_MultiZone
   CDL.Logical.Constant supFan(k=true) "Status of supply fan"
     annotation (Placement(transformation(extent={{-90,-26},{-80,-16}})));
   CDL.Continuous.Constant zonPriFloRat[numOfZon](k={0.1,0.12,0.2,0.09,0.1})
-    "Detected primary flow rate in each zone"
+    "Measured primary flow rate in each zone at VAV box"
     annotation (Placement(transformation(extent={{-90,-52},{-80,-42}})));
 equation
   for i in 1:numOfZon loop
-    connect(numOfOcc[i].y, outAirSet_MulZon.occCou[i]) annotation (Line(points=
-            {{-79.5,45},{-30,45},{-30,23.7},{-16.1,23.7}}, color={0,0,127}));
+    connect(numOfOcc[i].y, outAirSet_MulZon.nOcc[i]) annotation (Line(points={{
+            -79.5,45},{-30,45},{-30,23.7},{-16.1,23.7}}, color={0,0,127}));
     connect(cooCtr.y, outAirSet_MulZon.cooCtrSig) annotation (Line(points={{-79.5,
-            25},{-40,25},{-40,16.14},{-16.1,16.14}}, color={0,0,127}));
-    connect(winSta[i].y, outAirSet_MulZon.uWindow[i]) annotation (Line(points={
-            {-79.5,3},{-51.75,3},{-51.75,8.58},{-16.1,8.58}}, color={255,0,255}));
+            25},{-40,25},{-40,17.4},{-16.1,17.4}},   color={0,0,127}));
+    connect(winSta[i].y, outAirSet_MulZon.uWindow[i]) annotation (Line(points={{-79.5,3},
+            {-51.75,3},{-51.75,9},{-16.1,9}},                 color={255,0,255}));
     connect(supFan.y, outAirSet_MulZon.uSupFan) annotation (Line(points={{-79.5,
             -21},{-40,-21},{-40,1.02},{-16.1,1.02}}, color={255,0,255}));
     connect(zonPriFloRat[i].y, outAirSet_MulZon.priAirflow[i]) annotation (Line(
-          points={{-79.5,-47},{-30,-47},{-30,-6.12},{-16.1,-6.12}}, color={0,0,
+          points={{-79.5,-47},{-30,-47},{-30,-5.7},{-16.1,-5.7}},   color={0,0,
             127}));
   end for;
 
