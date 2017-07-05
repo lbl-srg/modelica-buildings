@@ -1,4 +1,4 @@
-simulateModel("Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation.EconDamperPositionLimitsMultiZone_LoopDisable", method="dassl", stopTime=1800, tolerance=1e-06, resultFile="EconDamPosLimitsMultiZone_LoopDisable");
+simulateModel("Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation.EconDamperPositionLimitsMultiZone_LoopDisable", method="dassl", stopTime=1800, tolerance=1e-06, resultFile="EconDamperPositionLimitsMultiZone_LoopDisable");
 createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"VOutMinSet.y","VOut.y","FanStatus.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{0,140,72}});
 //fixme: how do I move the third y variable above to the right y axis (applicable for all 3 plots)
 createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"ecoDamLim.yOutDamPosMin","ecoDamLim.yOutDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
