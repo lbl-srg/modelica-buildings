@@ -65,21 +65,20 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Interfaces.BooleanInput uWindow[numOfZon] "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
-  CDL.Interfaces.RealOutput desOutMin(
+  CDL.Interfaces.RealOutput VDesOutMin_flow_nominal(
+    min=0,
+    final unit="m3/s",
+    quantity="VolumeFlowRate") "Design minimum outdoor airflow rate"
+    annotation (Placement(transformation(extent={{240,90},{280,130}}),
+        iconTransformation(extent={{100,38},{120,58}})));
+  CDL.Interfaces.RealOutput VDesUncOutMin_flow_nominal(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
-    "Design minimum outdoor airflow rate" annotation (Placement(transformation(
-          extent={{240,90},{280,130}}), iconTransformation(extent={{100,38},{
-            120,58}})));
-  CDL.Interfaces.RealOutput desUncOutMin(
-    min=0,
-    final unit="m3/s",
-    quantity="VolumeFlowRate")
-    "Design uncorrected minimum outdoor airflow rate"
-    annotation (Placement(transformation(extent={{240,160},{280,200}}),
-      iconTransformation(extent={{100,68},{120,88}})));
-  CDL.Interfaces.RealOutput outMinSet(
+    "Design uncorrected minimum outdoor airflow rate" annotation (Placement(
+        transformation(extent={{240,160},{280,200}}), iconTransformation(extent=
+           {{100,68},{120,88}})));
+  CDL.Interfaces.RealOutput VOutMinSet_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
@@ -195,7 +194,7 @@ protected
   CDL.Continuous.Constant breZonAre[numOfZon](
     k={outAirPerAre[i]*zonAre[i] for i in 1:numOfZon})
     "Area component of the breathing zone outdoor airflow"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+    annotation (Placement(transformation(extent={{-170,110},{-150,130}})));
   CDL.Continuous.Constant breZonPop[numOfZon](
     k={outAirPerPer[i]*zonAre[i]*occDen[i] for i in 1:numOfZon})
     "Population component of the breathing zone outdoor airflow"
@@ -229,7 +228,8 @@ protected
 equation
   for i in 1:numOfZon loop
     connect(breZonAre[i].y, breZon[i].u1)
-      annotation (Line(points={{-99,70},{-90,70},{-90,36},{-82,36}},
+      annotation (Line(points={{-149,120},{-140,120},{-140,110},{-90,110},{-90,36},
+            {-82,36}},
         color={0,0,127}));
     connect(gai[i].y, swi[i].u1)
       annotation (Line(points={{-139,60},{-128,60},{-128,28},{-122,28}},
@@ -287,8 +287,8 @@ equation
       annotation (Line(points={{-200,-186},{-200,-185},{-26,-185},{-26,-110},
         {-2,-110}},color={0,0,127}));
     connect(breZonAre[i].y, desBreZon[i].u2)
-      annotation (Line(points={{-99,70},{-90,70},{-90,100},{-140,100},
-        {-140,144},{-122,144}}, color={0,0,127}));
+      annotation (Line(points={{-149,120},{-140,120},{-140,120},{-140,120},{-140,
+            144},{-122,144}},   color={0,0,127}));
     connect(desBreZonPer[i].y, desBreZon[i].u1)
       annotation (Line(points={{-147,190},{-140,190},{-140,156},{-122,156}},
         color={0,0,127}));
@@ -311,7 +311,7 @@ equation
       annotation (Line(points={{-147,190},{-140,190},{-140,210},{-62,210}},
         color={0,0,127}));
     connect(breZonAre[i].y, sumDesBreZonAre.u[i])
-      annotation (Line(points={{-99,70}, {-40,70},{-40,110},{-22,110}},
+      annotation (Line(points={{-149,120},{-140,120},{-140,110},{-22,110}},
         color={0,0,127}));
     connect(desZonPriOutAirRate[i].y, zonVenEff[i].u2)
       annotation (Line(points={{1,170}, {60,170},{60,144},{98,144}},
@@ -396,12 +396,13 @@ equation
   connect(desOutAirInt.y, min.u1)
     annotation (Line(points={{161,110},{188,110},{188,56},{188,-104},
       {198,-104}}, color={0,0,127}));
-  connect(unCorOutAirInk.y, desUncOutMin) annotation (Line(points={{41,220.5},{
-          104,220.5},{104,220},{180,220},{180,180},{260,180}}, color={0,0,127}));
-  connect(min.y, outMinSet) annotation (Line(points={{221,-110},{221,-110},{232,
+  connect(unCorOutAirInk.y, VDesUncOutMin_flow_nominal) annotation (Line(points=
+         {{41,220.5},{104,220.5},{104,220},{180,220},{180,180},{260,180}},
+        color={0,0,127}));
+  connect(min.y, VOutMinSet_flow) annotation (Line(points={{221,-110},{221,-110},{232,
           -110},{232,-70},{260,-70}}, color={0,0,127}));
-  connect(desOutAirInt.y, desOutMin) annotation (Line(points={{161,110},{161,
-          110},{188,110},{260,110}}, color={0,0,127}));
+  connect(desOutAirInt.y, VDesOutMin_flow_nominal) annotation (Line(points={{161,
+          110},{161,110},{188,110},{260,110}}, color={0,0,127}));
   connect(occDivFra.y, pro.u1)
     annotation (Line(points={{-77,254},{-52,254},{-52,256},{-22,256}},
       color={0,0,127}));
@@ -432,13 +433,16 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{240,280
           textString="Design condition",
           lineColor={0,0,255})}),
  Documentation(info="<html>      
-<p>
+ <p>
+ fixme: Update section structure.
+ 
 This atomic sequence sets the minimum outdoor airflow setpoint for compliance 
 with the ventilation rate procedure of ASHRAE 62.1-2013. The implementation 
 is according to ASHRAE Guidline 36 (G36), PART5.N.3.a, PART5.B.2.b, 
 PART3.1-D.2.a.
+The calculation is done using the components below.
 </p>   
-<h4>Zone outdoor airflow requirement</h4>
+<h4>Step 1: Zone outdoor airflow requirement</h4>
 <p>
 The zone outdoor airflow requirements <code>zonOutAirRate</code> are
 composed of the following components:
@@ -449,18 +453,23 @@ composed of the following components:
 Zone ventilation setpoints (G36, PART3.1A.2.a)
 <ul>
 <li>The area component of the breathing zone outdoor airflow: 
-<code>breZonAre = zonAre*outAirPerAre</code></li>
+<code>breZonAre = zonAre*outAirPerAre</code>.
+</li>
 <li>The population component of the breathing zone outdoor airflow: 
-<code>breZonPop = occCou*outAirPerPer</code></li>
+<code>breZonPop = occCou*outAirPerPer</code>.
+</li>
 <li>Zone air distribution effectiveness <code>disEffHea</code> during heating 
-(defaults to 0.8 if no value is scheduled)</li>
+(defaults to 0.8 if no value is scheduled).
+</li>
 <li>Zone air distribution effectiveness <code>disEffCoo</code> during cooling 
-(defaults to 1.0 if no value is scheduled)</li>
+(defaults to 1.0 if no value is scheduled).
+</li>
 </ul>
 </li>
 <li>For each zone in any mode other than occupied mode and for zones that have 
 window switches and the window is open, <code>zonOutAirRate</code> shall be 
-zero.</li>
+zero.
+</li>
 <li>Otherwise, the required zone outdoor airflow <code>zonOutAirRate</code> 
 shall be calculated as follows:
 <ul>
@@ -469,7 +478,8 @@ If the zone is populated, or if there is no occupancy sensor:
 <ul>
 <li>If discharge air temperature at the terminal unit is less than or equal to 
 zone space temperature: <code>zonOutAirRate = (breZonAre+breZonPop)
-/disEffCoo</code></li>
+/disEffCoo</code>.
+</li>
 <li>If discharge air temperature at the terminal unit is greater than zone space 
 temperature: <code>zonOutAirRate = (breZonAre+breZonPop)/disEffHea</code></li>
 </ul>
@@ -486,7 +496,7 @@ space temperature: <code>zonOutAirRate = breZonAre/disEffHea</code></li>
 </li>
 </ol>
 
-<h4>Uncorrected design outdoor air rate and design total outdoor air rate</h4>
+<h4>Step 2: Uncorrected design outdoor air rate and design total outdoor air rate</h4>
 <p>
 The uncorrected design outdoor air rate <code>unCorOutAirInk</code>,
 including diversity where applicable, and
@@ -494,11 +504,12 @@ the design total outdoor air rate <code>desOutAirInt</code> are
 determined using the 62MZCal spreadsheet provided with the ASHRAE 62.1 user manual. 
 </p>
 
-<h4>Outdoor air absolute minimum and design minimum setpoints</h4>
+<h4>Step 3: Outdoor air absolute minimum and design minimum setpoints</h4>
 <p>
 The outdoor air absolute minimum and design minimum setpoints are 
 recalculated continuously based on the mode of the zones being served.</i>
 </p>
+
 <ol>
 <li>The <code>sysUncOutAir</code> is the sum of <code>zonOutAirRate</code> for all 
 zones in all zone groups that are in occupied mode, but shall be no larger than 
@@ -524,7 +535,7 @@ The system ventilation efficiency is
 </li>
 <li>
 The effective minimum outdoor air setpoint is
-<code>yVOutMinSet = min(sysUncOutAir/sysVenEff, desOutAirInt)</code>
+<code>yVVOutMinSet_flow = min(sysUncOutAir/sysVenEff, desOutAirInt)</code>
 </li>
 </ol>
 

@@ -10,5 +10,5 @@ compareVars :=
     "zonPriFloRat[3].y",
     "zonPriFloRat[4].y",
     "zonPriFloRat[5].y",
-    "outAirSet_MulZon.outMinSet"
+    "outAirSet_MulZon.VOutMinSet_flow"
   };

@@ -17,8 +17,6 @@ model OutAirFlowSet_SingleZone
     annotation (Placement(transformation(extent={{-90,-2},{-80,8}})));
   CDL.Logical.Constant supFan(k=true) "Status of supply fan"
     annotation (Placement(transformation(extent={{-90,-26},{-80,-16}})));
-  OutdoorAirFlowSetpoint_MultiZone outAirSetPoi
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 equation
   connect(numOfOcc.y, outAirSet_SinZon.nOcc) annotation (Line(points={{-79.5,45},
           {-30,45},{-30,18},{-1,18}}, color={0,0,127}));

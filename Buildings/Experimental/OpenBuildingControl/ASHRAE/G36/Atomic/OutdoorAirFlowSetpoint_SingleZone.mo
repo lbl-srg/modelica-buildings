@@ -38,7 +38,7 @@ block OutdoorAirFlowSetpoint_SingleZone
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
       iconTransformation(extent={{-240,-100},{-200,-60}})));
-  CDL.Interfaces.RealOutput outMinSet(
+  CDL.Interfaces.RealOutput VOutMinSet_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
@@ -135,7 +135,7 @@ equation
                                                             color={0,0,127}));
   connect(nOcc, gai.u) annotation (Line(points={{-220,160},{-162,160}},
         color={0,0,127}));
-  connect(swi3.y, outMinSet)
+  connect(swi3.y, VOutMinSet_flow)
     annotation (Line(points={{161,0},{220,0}},   color={0,0,127}));
   connect(zerOutAir.y, swi3.u3)
     annotation (Line(points={{41,-30},{128,-30},{128,-8},{138,-8}},
@@ -180,9 +180,11 @@ is according to ASHRAE Guidline 36 (G36), PART5.P.4.b, PART5.B.2.b, PART3.1-D.2.
 as follows:
 <ul>
 <li>If discharge air temperature at the terminal unit is less than zone space 
-temperature: <code>zonOutAirRate = (breZonAre+breZonPop)/disEffCoo</code></li>
+temperature, then <code>zonOutAirRate = (breZonAre+breZonPop)/disEffCoo</code>.
+</li>
 <li>If discharge air temperature at the terminal unit is greater than zone space 
-temperature: <code>zonOutAirRate = (breZonAre+breZonPop)/disEffCoo</code></li>
+temperature, then <code>zonOutAirRate = (breZonAre+breZonPop)/disEffHea</code>.
+</li>
 </ul>
 </li>
 
@@ -190,25 +192,28 @@ temperature: <code>zonOutAirRate = (breZonAre+breZonPop)/disEffCoo</code></li>
 zone outdoor airflow as follows:
 <ul>
 <li>If discharge air temperature at the terminal unit is less than zone space 
-temperature: <code>zonOutAirRateAre = breZonAre/disEffCoo</code></li>
+temperature, then <code>zonOutAirRateAre = breZonAre/disEffCoo</code>.
+</li>
 <li>If discharge air temperature at the terminal unit is greater than zone space 
-temperature: <code>zonOutAirRateAre = breZonAre/disEffHea</code></li>
+temperature, then <code>zonOutAirRateAre = breZonAre/disEffHea</code>.
+</li>
 </ul>
 </li>
 
 <li>While the zone is in Occupied Mode, the minimum outdoor air setpoint 
-<code>yVOutMinSet</code> shall be reset based on the zone CO2 control loop 
+<code>yVVOutMinSet_flow</code> shall be reset based on the zone CO2 control loop 
 signal from <code>zonOutAirRateAre</code> at <code>0%</code> signal 
 to <code>zonOutAirRate</code> at <code>100%</code> signal.</li>
-<li>If the zone has an occupancy sensor, <code>yVOutMinSet</code> shall equal
+<li>If the zone has an occupancy sensor, <code>yVVOutMinSet_flow</code> shall equal
 <code>zonOutAirRateAre</code> when the zone is unpopulated.</li>
-<li>If the zone has a window switch, <code>yVOutMinSet</code> shall be zero 
+<li>If the zone has a window switch, <code>yVVOutMinSet_flow</code> shall be zero 
 when the window is open.</li>
-<li>When the zone is in other than Occupied Mode, <code>yVOutMinSet</code> 
+<li>When the zone is in other than Occupied Mode, <code>yVVOutMinSet_flow</code> 
 shall be zero.</li>
 </ol>
 <h4>References</h4>
 <p>
+fixme: It is not clear what BSR below stands for.
 <a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR.
 <i>ASHRAE Guideline 36P, High Performance Sequences of Operation for HVAC 
 systems</i>. First Public Review Draft (June 2016)</a>
