@@ -61,7 +61,11 @@ equation
         Text(
           extent={{-140,152},{160,112}},
           textString="%name",
-          lineColor={0,0,255})}),
+          lineColor={0,0,255}),
+        Text(
+          extent={{-42,-63},{41,-106}},
+          lineColor={192,192,192},
+          textString="%delta s")}),
    Documentation(info="<html>
 <p>
 This block outputs the mean value of its input signal as
@@ -71,12 +75,12 @@ This block outputs the mean value of its input signal as
 y =   -  &int;   u(s) ds
       &delta;  t-&delta;
 </pre>
-    
-<p>where <i>&delta;</i> is a parameter that determines
-the time window over which the input is averaged.
+<p>
+where <i>&delta;</i> is a parameter that determines the time window over 
+which the input is averaged.
 During the start of the simulation, the block outputs <code>y = u</code> for
-the first <i>1E-15</i> seconds (to avoid a division by zero), and for <i> 1E-15 &le; t &le; &delta;</i> seconds,
-it outputs
+the first <i>1E-15</i> seconds (to avoid a division by zero), and for 
+<i> 1E-15 &le; t &le; &delta;</i> seconds, it outputs
 </P>
 <pre>
        1    t
@@ -90,7 +94,6 @@ where <i>t<sub>0</sub></i> is the initial time.
 This block can for example be used to output the moving
 average of a noisy measurement signal.
 </p>
-
 <p>
 See
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.MovingMean\">

@@ -40,38 +40,35 @@ equation
           lineColor={0,0,255})}),
     Documentation(info="<html>
 <p>
-This blocks computes the scalar Real output \"y\" as sum of the elements of the
-Real input signal vector u:
+The block outputs the scalar Real value <code>y</code> as sum of the 
+elements of the Real input signal vector <code>u</code>, with gain 
+factor <code>k</code>:
 </p>
-<blockquote><pre>
-y = k[1]*u[1] + k[2]*u[2] + ... k[N]*u[N];
-</pre></blockquote>
+<p>
+<code>y = k[1]*u[1] + k[2]*u[2] + ... k[N]*u[N]</code>;
+</p>
+<p>
+The Real input connector is a vector. The vector dimension can be enlarged when
+additional connection line is drawn. The connection is automatically connected 
+to this new free index.
+</p>
 
 <p>
-The input connector is a vector of Real input signals.
-When a connection line is drawn, the dimension of the input
-vector is enlarged by one and the connection is automatically
-connected to this new free index (thanks to the
-connectorSizing annotation).
+If no connection to the input connector <code>u</code> is present,
+the output is set to zero: <code>y=0</code>.
 </p>
-
 <p>
 The usage is demonstrated, e.g., in example
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.MultiSum\">
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.MultiSum</a>.
 </p>
-
-<p>
-If no connection to the input connector \"u\" is present,
-the output is set to zero: y=0.
-</p>
-
 </html>",
 revisions="<html>
 <ul>
 <li>
 June 28, 2017, by Jianjun Hu:<br/>
-First implementation. This is for
+First implementation, based on the implementation of the Modelica Standard 
+Library. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/825\">issue 825</a>.
 </li>
 </ul>

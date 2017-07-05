@@ -1,5 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
-model MovingMean "Validation model for the MovingMean block"
+model MovingMean_nonZeroStart
+  "Validation model for the MovingMean block"
 extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.Sine sinInpNoDel(freqHz=1/80)
@@ -58,8 +59,8 @@ equation
           -20},{40,-20},{40,-50},{58,-50}}, color={0,0,127}));
   connect(sinInp100sDel.y, movingMean_8.u)
     annotation (Line(points={{21,-20},{58,-20}}, color={0,0,127}));
-  annotation (experiment(StopTime=900.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/MovingMean.mos"
+  annotation (experiment(StartTime=100, StopTime=900.0, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/MovingMean_nonZeroStart.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -80,6 +81,5 @@ June 29, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
-
 </html>"));
-end MovingMean;
+end MovingMean_nonZeroStart;

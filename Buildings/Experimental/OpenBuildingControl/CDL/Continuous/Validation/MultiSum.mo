@@ -26,15 +26,18 @@ model MultiSum "Model to validate the application of MultiSum block"
     duration=1,
     offset=-3) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.MultiSum mulSum_5(nu=5, k={
-        1,0.5,0.1,1,2})
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.MultiSum mulSum_5(
+    nu=5,
+    k={1,0.5,0.1,1,2})
     "Sum of Reals: y = k[1]*u[1] + k[2]*u[2] + ... + k[5]*u[5]"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.MultiSum mulSum_2(nu=2, k={
-        1,0.5}) "Sum of Reals: y = k[1]*u[1] + k[2]*u[2]"
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.MultiSum mulSum_2(
+    nu=2,
+    k={1,0.5}) "Sum of Reals: y = k[1]*u[1] + k[2]*u[2]"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.MultiSum mulSum_1(nu=1, k={
-        1}) "Sum of Reals: y = k[1]*u[1]"
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.MultiSum mulSum_1(
+    nu=1,
+    k={1}) "Sum of Reals: y = k[1]*u[1]"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 equation
   connect(ramp1.y, mulSum_5.u[1]) annotation (Line(points={{-39,60},{-39,60},{
@@ -65,17 +68,16 @@ Buildings.Experimental.OpenBuildingControl.CDL.Continuous.MultiSum</a>.
 </p>
 <ul>
 <li>input <code>u1</code> varies from <i>-2</i> to <i>+2</i>, 
-with gain factor of 1;</li>
+with gain factor of <i>1</i>;</li>
 <li>input <code>u2</code> varies from <i>-1</i> to <i>+1</i>, 
-with gain factor of 0.5;</li>
+with gain factor of <i>0.5</i>;</li>
 <li>input <code>u3</code> varies from <i>-1</i> to <i>+2</i>, 
-with gain factor of 0.1;</li>
+with gain factor of <i>0.1</i>;</li>
 <li>input <code>u4</code> varies from <i>-2</i> to <i>+1</i>, 
-with gain factor of 1;</li>
+with gain factor of <i>1</i>;</li>
 <li>input <code>u5</code> varies from <i>-3</i> to <i>0</i>, 
-with gain factor of 2;</li>
+with gain factor of <i>2</i>;</li>
 </ul>
-
 </html>", revisions="<html>
 <ul>
 <li>

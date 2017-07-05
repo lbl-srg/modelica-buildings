@@ -43,33 +43,27 @@ equation
           textString="AND")}),
     Documentation(info="<html>
 <p>
-This blocks computes the Boolean output \"y\" as <code>true</code> when the 
-elements of the Boolean input signal vector u are <code>true</code>, otherwise, 
-the output is <code>false</code>:
+This blocks computes the Boolean output <code>y</code> as <code>true</code> 
+when the elements of the Boolean input signal vector u are <code>true</code>, 
+otherwise, the output is <code>false</code>:
 </p>
-<blockquote><pre>
+<p><code>
 y = AND(u[1], u[2], u[3], ......);
-</pre></blockquote>
-
+</code></p>
 <p>
-The input connector is a vector of Boolean input signals.
-When a connection line is drawn, the dimension of the input
-vector is enlarged by one and the connection is automatically
-connected to this new free index (thanks to the
-connectorSizing annotation).
+The Boolean input connector is a vector. The vector dimension can be enlarged 
+when additional connection line is drawn. The connection is automatically 
+connected to this new free index.
 </p>
-
+<p>
+If no connection to the input connector <code>u</code> is present,
+the output is set to <code>false</code>: <code>y=false</code>.
+</p>
 <p>
 The usage is demonstrated, e.g., in example
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation.MultiAnd\">
 Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation.MultiAnd</a>.
 </p>
-
-<p>
-If no connection to the input connector \"u\" is present,
-the output is set to <code>false</code>: <code>y=false</code>.
-</p>
-
 </html>",
 revisions="<html>
 <ul>
