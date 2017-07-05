@@ -98,7 +98,10 @@ average of a noisy measurement signal.
 See
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.MovingMean\">
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.MovingMean</a>
-for an example.
+and 
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.MovingMean_nonZeroStart\">
+Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.MovingMean_nonZeroStart</a>
+for example.
 </p>
 </html>", revisions="<html>
 <ul>
