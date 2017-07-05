@@ -1,9 +1,9 @@
 within Buildings.Air.Systems.SingleZone.VAV.BaseClasses.Validation;
-model HysteresisWithHold
+model HysteresisWithHold "Validate the block HysteresisWithHold"
   extends Modelica.Icons.Example;
-  Modelica.Blocks.Sources.Sine pulse1(
+  Modelica.Blocks.Sources.Sine sinInp(
     amplitude = 0.2,
-    freqHz =    1/360)
+    freqHz =    1/360) "Sine input"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Air.Systems.SingleZone.VAV.BaseClasses.HysteresisWithHold noHold(
@@ -35,19 +35,19 @@ model HysteresisWithHold
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
 equation
-  connect(pulse1.y, onHold_150sec.u) annotation (Line(points={{-19,0},{0,0},{0,-60},
-          {18,-60}}, color={0,0,127}));
-  connect(pulse1.y, noHold.u)
+  connect(sinInp.y, onHold_150sec.u)
+    annotation (Line(points={{-19,0},{0,0},{0,-60},{18,-60}}, color={0,0,127}));
+  connect(sinInp.y, noHold.u)
     annotation (Line(points={{-19,0},{0,0},{0,60},{18,60}}, color={0,0,127}));
-  connect(pulse1.y, offHold_300sec.u) annotation (Line(points={{-19,0},{-10,0},{
-          0,0},{0,-20},{18,-20}}, color={0,0,127}));
-  connect(pulse1.y, onHold_30sec.u)
+  connect(sinInp.y, offHold_300sec.u)
+    annotation (Line(points={{-19,0},{-10,0},{0,0},{0,-20},{18,-20}},
+      color={0,0,127}));
+  connect(sinInp.y, onHold_30sec.u)
     annotation (Line(points={{-19,0},{0,0},{0,20},{18,20}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1800,  Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/BaseClasses/Validation/HysteresisWithHold.mos"
         "Simulate and plot"),
-  Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
 Validation test for the block 
@@ -59,21 +59,21 @@ The validation uses different instances to validate different hold durations.
 </p>
 <ul>
 <li>
-On hold duration time <code>onHolDur</code>=0, 
-Off hold duration time <code>offHolDur</code>=0;
+On hold duration time <code>onHolDur=0</code>, 
+Off hold duration time <code>offHolDur=0</code>;
 </li>
 <li>
-On hold duration time <code>onHolDur</code>=30, 
-Off hold duration time <code>offHolDur</code>=30;
+On hold duration time <code>onHolDur=30</code>, 
+Off hold duration time <code>offHolDur=30</code>;
 </li>
 <li>
-On hold duration time <code>onHolDur</code>=30, 
-Off hold duration time <code>offHolDur</code>=300; The off hold period covers
+On hold duration time <code>onHolDur=30</code>, 
+Off hold duration time <code>offHolDur=300</code>; The off hold period covers
 the instance when it should be on.
 </li>
 <li>
-On hold duration time <code>onHolDur</code>=150, 
-Off hold duration time <code>offHolDur</code>=30; The on hold period covers
+On hold duration time <code>onHolDur=150</code>, 
+Off hold duration time <code>offHolDur=30</code>; The on hold period covers
 the instance when it should be off.
 </li>
 </ul>

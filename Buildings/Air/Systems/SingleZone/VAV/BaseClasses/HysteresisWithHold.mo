@@ -19,10 +19,11 @@ model HysteresisWithHold
         iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
-  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    "Root of state graph"
+  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot "Root of state graph"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Modelica.StateGraph.InitialStep initialStep(nOut=2, nIn=0)
+  Modelica.StateGraph.InitialStep initialStep(
+    nOut=2,
+    nIn=0)
     "Initial state"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Modelica.StateGraph.TransitionWithSignal toTrue1 "Transition to true"
@@ -31,7 +32,9 @@ protected
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Modelica.Blocks.Logical.Not not1 "Negation of input"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=uLow, uHigh=uHigh)
+  Modelica.Blocks.Logical.Hysteresis hysteresis(
+    uLow=uLow,
+    uHigh=uHigh)
     "Transform Real to Boolean signal with Hysteresis"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.StateGraph.StepWithSignal outputTrue(nIn=2)
@@ -164,6 +167,11 @@ alt=\"Input and output of the block\"/>
 This model for example could be used to disable an economizer, and not re-enable
 it for <i>10</i> minutes, and vice versa. Using hysteresis can avoid the 
 distraction from the input noise.
+</p>
+<p>
+The usage is demonstrated, e.g., in example
+<a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.BaseClasses.Validation.HysteresisWithHold\">
+Buildings.Air.Systems.SingleZone.VAV.BaseClasses.Validation.HysteresisWithHold</a>.
 </p>
 </html>", revisions="<html>
 <ul>
