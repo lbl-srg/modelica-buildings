@@ -41,7 +41,9 @@ block OutdoorAirFlowSetpoint_SingleZone
     "Window status, On or Off"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Interfaces.RealOutput outMinSet(min=0, final unit="m3/s",
+  CDL.Interfaces.RealOutput outMinSet(
+    min=0,
+    final unit="m3/s",
     quantity="VolumeFlowRate")
     "Effective minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{180,40},{220,80}}),

@@ -29,8 +29,7 @@ block OutdoorAirFlowSetpoint_MultiZone
     each unit="1") = fill(3, numOfZon)
     "Design zone population: expected peak population"
     annotation(Evaluate=true, Dialog(group="Design Parameters"));
-  parameter Real desZonDisEff[numOfZon](
-    each unit="1") = fill(1.0, numOfZon)
+  parameter Real desZonDisEff[numOfZon](each unit="1") = fill(1.0, numOfZon)
     "Design zone air distribution effectiveness"
     annotation(Evaluate=true, Dialog(group="Design Parameters"));
   parameter Modelica.SIunits.VolumeFlowRate maxSysPriFlo = 1
@@ -54,7 +53,8 @@ block OutdoorAirFlowSetpoint_MultiZone
           extent={{-220,-80},{-180,-40}}), iconTransformation(extent={{-120,24},
             {-100,44}})));
   CDL.Interfaces.RealInput priAirflow[numOfZon](
-    each min=minZonPriFlo, each final unit="m3/s",
+    each min=minZonPriFlo,
+    each final unit="m3/s",
     each quantity="VolumeFlowRate")
     "Primary airflow rate to the ventilation zone from the air handler, 
     including outdoor air and recirculated air."
@@ -66,17 +66,23 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Interfaces.BooleanInput uWindow[numOfZon] "Window status, On or Off"
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
         iconTransformation(extent={{-120,-12},{-100,8}})));
-  CDL.Interfaces.RealOutput desOutMin(min=0, final unit="m3/s",
+  CDL.Interfaces.RealOutput desOutMin(
+    min=0,
+    final unit="m3/s",
     quantity="VolumeFlowRate")
     "Design minimum outdoor airflow rate" annotation (Placement(transformation(
           extent={{240,90},{280,130}}), iconTransformation(extent={{100,38},{
             120,58}})));
-  CDL.Interfaces.RealOutput desUncOutMin(min=0, final unit="m3/s",
+  CDL.Interfaces.RealOutput desUncOutMin(
+    min=0,
+    final unit="m3/s",
     quantity="VolumeFlowRate")
     "Design uncorrected minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{240,160},{280,200}}),
       iconTransformation(extent={{100,68},{120,88}})));
-  CDL.Interfaces.RealOutput outMinSet(min=0, final unit="m3/s",
+  CDL.Interfaces.RealOutput outMinSet(
+    min=0,
+    final unit="m3/s",
     quantity="VolumeFlowRate")
     "Effective minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{240,-90},{280,-50}}),
