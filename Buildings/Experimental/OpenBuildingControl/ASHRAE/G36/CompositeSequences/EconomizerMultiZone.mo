@@ -9,6 +9,8 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
   parameter Real delTemHis=1 "Delta between the temperature hysteresis high and low limits";
   parameter Real damLimControllerGain=1 "Gain of damper limit controller";
   parameter Real modControllerGain=1 "Gain of modulation controller";
+  parameter Modelica.SIunits.Time TiPIDamLim=0.9 "Time constant of damper limit controller integrator block";
+  parameter Modelica.SIunits.Time TiPIMod=300 "Time constant of modulation controller integrator block";
 
   CDL.Interfaces.RealInput TCooSet(unit="K", quantity = "ThermodynamicTemperature")
     "Supply air temperature cooling setpoint" annotation (Placement(transformation(
@@ -69,10 +71,11 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     retDamPhyPosMin=0,
     outDamPhyPosMax=0.9,
     outDamPhyPosMin=0,
-    controllerGain=damLimControllerGain)
+    kPIDamLim=damLimControllerGain,
+    TiPIDamLim=TiPIDamLim)
     "Multizone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  AtomicSequences.EconModulationMultiZone ecoMod(controllerGain=modControllerGain)
+  AtomicSequences.EconModulationMultiZone ecoMod(kPIMod=modControllerGain, TiPIMod=TiPIMod)
     "Multizone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
