@@ -4,10 +4,10 @@ model MultiFloorWithVAV
 
   replaceable package MediumA = Buildings.Media.Air(T_default=293.15);
   package MediumW = Buildings.Media.Water "Medium model for water";
-  parameter Integer nZon(min=1) = 6
-    "Number of zones per floor"    annotation(Evaluate=true);
-  parameter Integer nFlo(min=1) = 1
-    "Number of floors"    annotation(Evaluate=true);
+  parameter Integer nZon(min=1) = 6    "Number of zones per floor"
+    annotation(Evaluate=true);
+  parameter Integer nFlo(min=1) = 1    "Number of floors"
+    annotation(Evaluate=true);
   parameter Modelica.SIunits.PressureDifference dP_pre=850
     "Prescribed pressure difference";
   parameter Real VRoo[nZon,nFlo] = {{6*8*2.7 for j in 1:nFlo} for i in 1:nZon}
@@ -24,10 +24,11 @@ model MultiFloorWithVAV
     m_flow_nominal={{m_flow_nominal_each[i,j] for j in 1:nFlo} for i in 1:nZon},
     VRoo={{VRoo[i,j] for j in 1:nFlo} for i in 1:nZon},
     dpFixed_nominal = {{220 + 20 for j in 1:nFlo} for i in 1:nZon})
+    "Supply branch of VAV system"
     annotation (Placement(transformation(extent={{52,12},{82,42}})));
   ThermalZones.BaseClasses.MultiZoneFluctuatingIHG multiZoneFluctuatingIHG(
     nZon = nZon,
-    nFlo = nFlo)
+    nFlo = nFlo) "Multizone model with flexible number of zones"
     annotation (Placement(transformation(extent={{48,60},{88,100}})));
   Buildings.Fluid.Movers.FlowControlled_dp fan[nFlo](
     redeclare each package Medium = MediumA,
@@ -97,7 +98,8 @@ model MultiFloorWithVAV
     redeclare each package Medium = MediumW,
     each p=300000,
     each T=285.15,
-    each nPorts=1) "Sink for cooling coil" annotation (Placement(transformation(
+    each nPorts=1) "Sink for cooling coil"
+    annotation (Placement(transformation(
         extent={{-8,-8},{8,8}},
         rotation=90,
         origin={-80,-74})));
@@ -178,7 +180,7 @@ model MultiFloorWithVAV
     annotation (Placement(transformation(extent={{-102,-38},{-88,-22}})));
   Fluid.Sensors.TemperatureTwoPort TSup[nFlo](
     redeclare each package Medium = MediumA,
-    each m_flow_nominal=m_flow_nominal)
+    each m_flow_nominal=m_flow_nominal) "Supply air temperature sensor"
     annotation (Placement(transformation(extent={{4,-38},{20,-22}})));
   Modelica.Blocks.Sources.Constant TSupSetHea(
     y(final quantity="ThermodynamicTemperature",
@@ -210,6 +212,7 @@ model MultiFloorWithVAV
     each k=0.1)   "Controller for heating coil"
     annotation (Placement(transformation(extent={{-192,-66},{-180,-54}})));
   Examples.VAVReheat.Controls.ModeSelector modeSelector[nFlo]
+    "Finite State Machine for the operational modes"
     annotation (Placement(transformation(extent={{-178,40},{-162,56}})));
   Examples.VAVReheat.Controls.Economizer conEco[nFlo](
     each dT=1,
@@ -226,7 +229,7 @@ model MultiFloorWithVAV
     y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC",
-      min=0))
+      min=0)) "Outdoor temperature"
     annotation (Placement(transformation(extent={{-328,140},{-316,152}})));
   Buildings.Utilities.Math.Average ave[nFlo](each nin=nZon)
     "Compute average of room temperatures"
@@ -250,7 +253,7 @@ model MultiFloorWithVAV
                             "Occupancy schedule"
     annotation (Placement(transformation(extent={{-128,70},{-116,82}})));
   Controls.Fan_dP_On_Off fan_dP_On_Off[nFlo](
-   each dP_pre=dP_pre)
+   each dP_pre=dP_pre) "controller outputs fan on or off"
     annotation (Placement(transformation(extent={{-70,-14},{-56,0}})));
 
 equation
@@ -398,13 +401,13 @@ equation
         thickness=0.5));
     connect(controlBus.subBus[iFlo], fan_dP_On_Off[iFlo].controlBus)
       annotation (
-      Line(
-      points={{-67.95,54.05},{-67.95,54.05},{-67.95,-1.4},{-67.2,-1.4}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
+        Line(
+        points={{-67.95,54.05},{-67.95,54.05},{-67.95,-1.4},{-67.2,-1.4}},
+        color={255,204,51},
+        thickness=0.5),
+        Text(string="%first",
+        index=-1,
+        extent={{-6,3},{-6,3}}));
     connect(min1[iFlo].y, controlBus.subBus[iFlo].TRooMin)
       annotation (Line(
         points={{120.6,100},{130,100},{130,6},{-67.95,6},{-67.95,54.05}},

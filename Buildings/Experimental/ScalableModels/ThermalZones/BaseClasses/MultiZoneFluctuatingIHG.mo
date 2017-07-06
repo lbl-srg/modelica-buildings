@@ -7,7 +7,6 @@ model MultiZoneFluctuatingIHG "Multiple thermal zone models"
     annotation(Evaluate=true);
   parameter Integer nFlo(min=1) = 1 "Number of floors"
     annotation(Evaluate=true);
-
   parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
 
   parameter Real ampFactor[nZon]=
@@ -16,17 +15,6 @@ model MultiZoneFluctuatingIHG "Multiple thermal zone models"
     else
         {abs(cos(i*3.1415926/5)) for i in 1:nZon}
     "IHG fluctuating amplitude factor";
-
-  BaseClasses.ThermalZoneFluctuatingIHG_WithPorts theZon[nZon, nFlo](
-    redeclare each package MediumA = MediumA,
-    each final lat=lat,
-    gainFactor={{ampFactor[i] for j in 1:nFlo} for i in 1:nZon})  "Thermal zone model"
-    annotation (Placement(transformation(extent={{-18,-18},{18,18}})));
-
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus  "Weather data bus"
-  annotation (Placement(transformation(extent={{-92,-10},{-72,10}}),
-        iconTransformation(extent={{-92,-10},{-72,10}})));
-
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsIn[nZon,nFlo](
       redeclare each package Medium = MediumA) "Fluid inlets"
     annotation (Placement(transformation(extent={{-18,-76},{20,-66}}),
@@ -38,48 +26,64 @@ model MultiZoneFluctuatingIHG "Multiple thermal zone models"
   Modelica.Blocks.Interfaces.RealOutput TRooAir[nZon,nFlo] "Room air temperatures"
     annotation (Placement(transformation(extent={{100,-66},{120,-46}}),
         iconTransformation(extent={{100,-66},{120,-46}})));
-
   Modelica.Blocks.Interfaces.RealOutput heaCooPow[nZon,nFlo] "HVAC power"
     annotation (Placement(transformation(extent={{100,54},{120,74}}),
         iconTransformation(extent={{100,54},{120,74}})));
+  BaseClasses.ThermalZoneFluctuatingIHG_WithPorts theZon[nZon, nFlo](
+    redeclare each package MediumA = MediumA,
+    each final lat=lat,
+    gainFactor={{ampFactor[i] for j in 1:nFlo} for i in 1:nZon})  "Thermal zone model"
+    annotation (Placement(transformation(extent={{-18,-18},{18,18}})));
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus  "Weather data bus"
+    annotation (Placement(transformation(extent={{-92,-10},{-72,10}}),
+        iconTransformation(extent={{-92,-10},{-72,10}})));
+
 equation
   for iZon in 1:nZon-1 loop
     for iFlo in 1:nFlo-1 loop
-      connect(theZon[iZon, iFlo].heaPorFlo, theZon[iZon, if iFlo == nFlo then 1 else iFlo+1].heaPorCei) annotation (Line(
-        points={{0,-18.36},{0,-20},{10,-20},{10,20},{0,20},{0,18}},color={191,0,
-          0}));
-      connect(theZon[iZon, iFlo].heaPorWal1, theZon[if iZon == nZon then 1 else iZon+1, iFlo].heaPorWal2) annotation (Line(
-        points={{-18,-2.88},{-18,-2.88},{-18,24},{12.36,24},{12.36,0},{18.36,0}},
-                                                                     color={191,
-          0,0}));
+      connect(theZon[iZon, iFlo].heaPorFlo, theZon[iZon,
+          if iFlo == nFlo then 1 else iFlo+1].heaPorCei)
+        annotation (Line(
+          points={{0,-18.36},{0,-20},{10,-20},{10,20},{0,20},{0,18}},
+          color={191,0,0}));
+      connect(theZon[iZon, iFlo].heaPorWal1, theZon[if iZon == nZon then 1
+          else iZon+1, iFlo].heaPorWal2)
+        annotation (Line(
+          points={{-18,-2.88},{-18,-2.88},{-18,24},{12.36,24},{12.36,0},{18.36,0}},
+          color={191,0,0}));
     end for;
   end for;
   for iZon in 1:nZon loop
     for iFlo in 1:nFlo loop
-      connect(weaBus, theZon[iZon, iFlo].weaBus) annotation (Line(
-      points={{-82,0},{-44,0},{-44,-14.4},{-13.32,-14.4}},
-      color={255,204,51},
-      thickness=0.5));
-      connect(portsIn[iZon, iFlo], theZon[iZon, iFlo].portsInOut[1]) annotation (Line(
-      points={{1,-71},{-14.04,-71},{-14.04,4.32}},
-      color={0,127,255},
-      thickness=0.25));
-      connect(portsOut[iZon, iFlo], theZon[iZon, iFlo].portsInOut[2]) annotation (Line(
-      points={{-4,55},{-10.44,55},{-10.44,4.32}},
-      color={0,127,255},
-      thickness=0.25));
-      connect(TRooAir[iZon, iFlo], theZon[iZon, iFlo].TRooAir) annotation (Line(
-      points={{110,-56},{38,-56},{38,6},{16,6},{18.36,6},{18.36,6.48}},
-      color={0,0,0},
-      thickness=0.25));
-      connect(heaCooPow[iZon, iFlo], theZon[iZon, iFlo].heaCooPow) annotation (Line(
-      points={{110,64},{36,64},{36,10},{16,10},{18.36,10},{18.36,10.08}},
-      color={0,0,0},
-      thickness=0.25));
+      connect(weaBus, theZon[iZon, iFlo].weaBus)
+        annotation (Line(
+          points={{-82,0},{-44,0},{-44,-14.4},{-13.32,-14.4}},
+          color={255,204,51},
+          thickness=0.5));
+      connect(portsIn[iZon, iFlo], theZon[iZon, iFlo].portsInOut[1])
+        annotation (Line(
+          points={{1,-71},{-14.04,-71},{-14.04,4.32}},
+          color={0,127,255},
+          thickness=0.25));
+      connect(portsOut[iZon, iFlo], theZon[iZon, iFlo].portsInOut[2])
+        annotation (Line(
+          points={{-4,55},{-10.44,55},{-10.44,4.32}},
+          color={0,127,255},
+          thickness=0.25));
+      connect(TRooAir[iZon, iFlo], theZon[iZon, iFlo].TRooAir)
+        annotation (Line(
+          points={{110,-56},{38,-56},{38,6},{16,6},{18.36,6},{18.36,6.48}},
+          color={0,0,0},
+          thickness=0.25));
+      connect(heaCooPow[iZon, iFlo], theZon[iZon, iFlo].heaCooPow)
+        annotation (Line(
+          points={{110,64},{36,64},{36,10},{16,10},{18.36,10},{18.36,10.08}},
+          color={0,0,0},
+          thickness=0.25));
     end for;
   end for;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -134,10 +138,7 @@ equation
           extent={{-100,126},{100,100}},
           lineColor={0,0,255},
           textString="Multizone model with: %nZon zones in %nZon floors")}),
-    Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=172800, Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"),
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This model groups multiple zones by linking their neighbor walls and floor/ceiling.
@@ -148,7 +149,7 @@ of internal heat gain in each zone.
 </html>", revisions="<html>
 <ul>
 <li>
-April 10, 2016, by Jianjun Hu:<br/>
+April 10, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

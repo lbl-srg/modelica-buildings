@@ -136,24 +136,25 @@ model ThermalZone "Thermal zone model"
     haveExteriorShade=false) "Data record for the glazing system"
     annotation (Placement(transformation(extent={{200,140},{220,160}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorWal1
-    "Heat port connected to common wall" annotation (Placement(transformation(
-          extent={{-110,-26},{-90,-6}}), iconTransformation(extent={{-110,-26},
-            {-90,-6}})));
+    "Heat port connected to common wall"
+    annotation (Placement(transformation(extent={{-110,-26},{-90,-6}}),
+      iconTransformation(extent={{-110,-26}, {-90,-6}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorFlo
-    "Heat port connected to floor" annotation (Placement(transformation(extent={
-            {-10,-110},{10,-90}}), iconTransformation(extent={{-10,-112},{10,-92}})));
+    "Heat port connected to floor"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
+      iconTransformation(extent={{-10,-112},{10,-92}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorCei
-    "Heat port connected to ceiling" annotation (Placement(transformation(
-          extent={{-10,90},{10,110}}), iconTransformation(extent={{-10,90},{10,110}})));
+    "Heat port connected to ceiling"
+    annotation (Placement(transformation(extent={{-10,90},{10,110}}),
+      iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorWal2
-    "Heat port connected to common wall" annotation (Placement(transformation(
-          extent={{110,-10},{130,10}}), iconTransformation(extent={{92,-10},{112,
-            10}})));
+    "Heat port connected to common wall"
+    annotation (Placement(transformation(extent={{110,-10},{130,10}}),
+      iconTransformation(extent={{92,-10},{112,10}})));
   Fluid.Sources.MassFlowSource_T  souInf(redeclare package Medium = MediumA,
     nPorts=1,
     use_m_flow_in=false,
-    m_flow=-VInf_flow*1.2)
-                "Source model for air infiltration"
+    m_flow=-VInf_flow*1.2)  "Source model for air infiltration"
     annotation (Placement(transformation(extent={{-20,-58},{-8,-46}})));
   Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = MediumA,
@@ -182,8 +183,7 @@ equation
   connect(roo.surf_conBou[1], heaPorFlo) annotation (Line(points={{55.5,-13.375},
           {55.5,-86},{0,-86},{0,-100}}, color={191,0,0}));
   connect(roo.surf_conBou[2], heaPorWal1) annotation (Line(points={{55.5,
-          -12.625},{55.5,-16},{-80,-16},{-100,-16}},
-                                                  color={191,0,0}));
+          -12.625},{55.5,-16},{-80,-16},{-100,-16}}, color={191,0,0}));
   connect(roo.surf_surBou[1], heaPorCei) annotation (Line(points={{48.15,-11.875},
           {48.15,-20},{0,-20},{0,100}}, color={191,0,0}));
   connect(roo.surf_surBou[1], heaPorWal2) annotation (Line(points={{48.15,-11.875},
@@ -203,8 +203,7 @@ equation
   connect(res.port_b, roo.ports[2]) annotation (Line(points={{22,-28},{28,-28},{
           28,-7},{39.75,-7}},   color={0,127,255}));
   connect(souInf.ports[1], roo.ports[1]) annotation (Line(points={{-8,-52},{-8,-52},
-          {32,-52},{32,-10},{39.75,-10}},
-                                        color={0,127,255}));
+          {32,-52},{32,-10},{39.75,-10}},  color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100, 100}}), graphics={
         Rectangle(

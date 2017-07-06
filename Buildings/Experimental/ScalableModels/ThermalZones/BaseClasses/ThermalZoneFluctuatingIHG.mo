@@ -68,7 +68,6 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
     annotation (Placement(transformation(extent={{-88,40},{-76,52}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
     annotation (Placement(transformation(extent={{-16,64},{-8,72}})));
-
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
     annotation (Placement(transformation(extent={{-16,80},{-8,88}})));
@@ -117,14 +116,17 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
     d=784,
     nStaRef=2) "Gypsum board"
     annotation (Placement(transformation(extent={{160,38},{180,58}})));
-  final parameter HeatTransfer.Data.OpaqueConstructions.Generic conExtWal(final nLay=3,
-      material={matWoo,matIns,matGyp}) "Exterior construction"
+  final parameter HeatTransfer.Data.OpaqueConstructions.Generic conExtWal(
+    final nLay=3,
+    material={matWoo,matIns,matGyp}) "Exterior construction"
     annotation (Placement(transformation(extent={{240,140},{260,160}})));
-  final parameter HeatTransfer.Data.OpaqueConstructions.Generic conIntWal(final nLay=1,
-      material={matGyp2}) "Interior wall construction"
+  final parameter HeatTransfer.Data.OpaqueConstructions.Generic conIntWal(
+    final nLay=1,
+    material={matGyp2}) "Interior wall construction"
     annotation (Placement(transformation(extent={{240,112},{260,132}})));
-  final parameter HeatTransfer.Data.OpaqueConstructions.Generic conFlo(final nLay=1, material={
-        matCon}) "Floor construction (opa_a is carpet)"
+  final parameter HeatTransfer.Data.OpaqueConstructions.Generic conFlo(
+    final nLay=1,
+    material={matCon}) "Floor construction (opa_a is carpet)"
     annotation (Placement(transformation(extent={{240,86},{260,106}})));
   final parameter HeatTransfer.Data.Solids.Plywood matCarTra(
     k=0.11,
@@ -139,19 +141,21 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
     haveExteriorShade=false) "Data record for the glazing system"
     annotation (Placement(transformation(extent={{200,140},{220,160}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorWal1
-    "Heat port connected to common wall" annotation (Placement(transformation(
-          extent={{-110,-26},{-90,-6}}), iconTransformation(extent={{-110,-26},{
-            -90,-6}})));
+    "Heat port connected to common wall"
+    annotation (Placement(transformation(extent={{-110,-26},{-90,-6}}),
+      iconTransformation(extent={{-110,-26},{-90,-6}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorFlo
-    "Heat port connected to floor" annotation (Placement(transformation(extent={
-            {-10,-110},{10,-90}}), iconTransformation(extent={{-10,-112},{10,-92}})));
+    "Heat port connected to floor"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
+      iconTransformation(extent={{-10,-112},{10,-92}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorCei
-    "Heat port connected to ceiling" annotation (Placement(transformation(
-          extent={{-10,90},{10,110}}), iconTransformation(extent={{-10,90},{10,110}})));
+    "Heat port connected to ceiling"
+    annotation (Placement(transformation(extent={{-10,90},{10,110}}),
+      iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorWal2
-    "Heat port connected to common wall" annotation (Placement(transformation(
-          extent={{110,-10},{130,10}}), iconTransformation(extent={{92,-10},{112,
-            10}})));
+    "Heat port connected to common wall"
+    annotation (Placement(transformation(extent={{110,-10},{130,10}}),
+      iconTransformation(extent={{92,-10},{112,10}})));
   Modelica.Blocks.Math.Product product1
     annotation (Placement(transformation(extent={{-56,90},{-46,100}})));
   Modelica.Blocks.Math.Gain gain(k=gainFactor)
@@ -170,11 +174,11 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
     ((gainFactor-0.5)+18)*3600,0.1;
     24*3600,0.1])
     annotation (Placement(transformation(extent={{-90,114},{-76,128}})));
-  Fluid.Sources.MassFlowSource_T  souInf(redeclare package Medium = MediumA,
+  Fluid.Sources.MassFlowSource_T  souInf(
+    redeclare package Medium = MediumA,
     nPorts=1,
     use_m_flow_in=false,
-    m_flow=-VInf_flow*1.2)
-                "Source model for air infiltration"
+    m_flow=-VInf_flow*1.2)  "Source model for air infiltration"
     annotation (Placement(transformation(extent={{-20,-58},{-8,-46}})));
   Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = MediumA,
@@ -187,17 +191,16 @@ equation
       points={{-7.6,68},{20,68},{20,5},{34.8,5}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(roo.surf_conBou[1], heaPorFlo) annotation (Line(points={{55.5,-13.375},
           {55.5,-86},{0,-86},{0,-100}}, color={191,0,0}));
   connect(roo.surf_conBou[2], heaPorWal1) annotation (Line(points={{55.5,-12.625},
-          {55.5,-16},{-100,-16}},                 color={191,0,0}));
+          {55.5,-16},{-100,-16}},  color={191,0,0}));
   connect(roo.surf_surBou[1], heaPorCei) annotation (Line(points={{48.15,-11.875},
           {48.15,-20},{0,-20},{0,100}}, color={191,0,0}));
   connect(roo.surf_surBou[1], heaPorWal2) annotation (Line(points={{48.15,-11.875},
           {48.15,-20},{120,-20},{120,0}}, color={191,0,0}));
   connect(uSha.y, roo.uSha[1]) annotation (Line(points={{-7.6,84},{26,84},{26,12.5},
-          {34.8,12.5}},       color={0,0,127}));
+          {34.8,12.5}},  color={0,0,127}));
   connect(weaBus, roo.weaBus) annotation (Line(
       points={{-74,-80},{-74,-80},{72,-80},{72,12.425},{64.425,12.425}},
       color={255,204,51},
@@ -207,17 +210,15 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(qLatGai_flow.y, product3.u1) annotation (Line(points={{-75.4,46},{-75.4,
-          46},{-57,46}},          color={0,0,127}));
+          46},{-57,46}}, color={0,0,127}));
   connect(product3.y, gain2.u) annotation (Line(points={{-45.5,43},{-45.5,43},{-41,
-          43}},      color={0,0,127}));
+          43}}, color={0,0,127}));
   connect(product2.y, gain1.u) annotation (Line(points={{-45.5,68},{-45.5,68},{-41,
-          68}},      color={0,0,127}));
+          68}}, color={0,0,127}));
   connect(product1.y, gain.u) annotation (Line(points={{-45.5,95},{-45.5,95},{-41,
-          95}},     color={0,0,127}));
+          95}}, color={0,0,127}));
   connect(gain1.y, multiplex3_1.u2[1]) annotation (Line(points={{-29.5,68},{-26,
           68},{-16.8,68}}, color={0,0,127}));
-
-
   connect(qConGai_flow.y, product2.u1)
     annotation (Line(points={{-75.4,72},{-57,72},{-57,71}}, color={0,0,127}));
   connect(qRadGai_flow.y, product1.u1)
