@@ -10,12 +10,14 @@ GreaterEqual
 GreaterEqualThreshold
 GreaterThreshold
 Hysteresis
+HysteresisWithHold
 Latch
 Less
 LessEqual
 LessEqualThreshold
 LessThreshold
 LogicalSwitch
+MultiAnd
 Nand
 Nor
 Not
