@@ -1,7 +1,7 @@
 compareVars :=
   {
-    "VOutMinSet.y",
-    "VOut.y",
+    "VOut_flowMinSet.y",
+    "VOut_flow.y",
     "ecoDamLim.yOutDamPosMin",
     "ecoDamLim.yOutDamPosMax",
     "ecoDamLim.yRetDamPosMin",

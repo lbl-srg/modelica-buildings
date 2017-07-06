@@ -13,12 +13,12 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
     "Numerical value for freeze protection stage 2";
   parameter Types.OperationMode occupied = Types.OperationMode.occupied
     "AHU operation mode is \"Occupied\"";
-  parameter Types.OperationMode warmup = Types.OperationMode.warmup
+  parameter Types.OperationMode warmUp = Types.OperationMode.warmUp
     "AHU operation mode is \"Warmup\"";
   parameter Integer occupiedNum = Integer(occupied)
     "Numerical value for AHU operation mode \"Occupied\"";
-  parameter Integer warmupNum = Integer(warmup)
-    "Numerical value for AHU operation mode \"Warmup\"";
+  parameter Integer warmUpNum = Integer(warmUp)
+    "Numerical value for AHU operation mode \"WarmUp\"";
   parameter Real airflowSetpoint(unit="m3/s")=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
   parameter Real minSenOutVolAirflow(unit="m3/s")=0.61
@@ -39,7 +39,7 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   CDL.Integers.Constant FreProSta1(k=freProStage1Num) "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  CDL.Integers.Constant OperationMode1(k=warmupNum)
+  CDL.Integers.Constant OperationMode1(k=warmUpNum)
     "AHU operation mode is NOT \"Occupied\""
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 

@@ -12,11 +12,11 @@ model EconomizerMultiZone_Mod_DamLim
   parameter Real TSup(unit="K", quantity="TermodynamicTemperature")=290
     "Measured supply air temperature";
 
-  parameter Real minVOut_flowSet(unit="m3/s")=0.71
+  parameter Modelica.SIunits.VolumeFlowRate minVOut_flowSet=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Real minVOut_flow(unit="m3/s")=0.705
+  parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=0.705
     "Minimal measured volumetric airflow";
-  parameter Real VOut_flowIncrease(unit="m3/s")=0.03
+  parameter Modelica.SIunits.VolumeFlowRate VOut_flowIncrease=0.03
     "Maximum volumetric airflow increase during the example simulation";
 
   parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
