@@ -21,7 +21,7 @@ initial equation
 equation
   u =der(mu);
   muDel = delay(mu, delta);
-  if (time >= delta) then
+  if (time-tStart) >= delta then
     y = (mu-muDel)/delta;
   elseif (time-tStart) >= Constants.eps then
     y = (mu-muDel)/(time-tStart);
@@ -106,7 +106,7 @@ for example.
 </html>", revisions="<html>
 <ul>
 <li>
-July 3, 2017, by Michael Wetter:<br/>
+July 5, 2017, by Michael Wetter:<br/>
 Revised implementation to allow non-zero start time.
 </li>
 <li>
