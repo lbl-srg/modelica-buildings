@@ -3,20 +3,20 @@ model EconDamperPositionLimitsMultiZone_VOut_flow
   "Validation model for the multiple zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
-  parameter Real minVOutSet(unit="m3/s")=0.71
+  parameter Real minVOut_flowSet(unit="m3/s")=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Real minVOut(unit="m3/s")=0.61
+  parameter Real minVOut_flow(unit="m3/s")=0.61
     "Minimal measured volumetric airflow";
-  parameter Real VOutIncrease(unit="m3/s")=0.2
+  parameter Real VOut_flowIncrease(unit="m3/s")=0.2
     "Maximum volumetric airflow increase during the example simulation";
 
-  CDL.Continuous.Constant VOutMinSet(k=minVOutSet)
+  CDL.Continuous.Constant VOut_flowMinSet(k=minVOut_flowSet)
     "Outdoor volumetric airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Modelica.Blocks.Sources.Ramp VOut(
+  Modelica.Blocks.Sources.Ramp VOut_flow(
     duration=1800,
-    offset=minVOut,
-    height=VOutIncrease)
+    offset=minVOut_flow,
+    height=VOut_flowIncrease)
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
@@ -42,8 +42,8 @@ protected
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
 equation
-  connect(VOut.y, ecoDamLim.VOut) annotation (Line(points={{-39,80},{0,80},{0,8},{19,8}},color={0,0,127}));
-  connect(VOutMinSet.y, ecoDamLim.VOutMinSet)
+  connect(VOut_flow.y, ecoDamLim.VOut_flow) annotation (Line(points={{-39,80},{0,80},{0,8},{19,8}},color={0,0,127}));
+  connect(VOut_flowMinSet.y, ecoDamLim.VOut_flowMinSet)
     annotation (Line(points={{-39,40},{-10,40},{-10,5},{19,5}},color={0,0,127}));
   connect(FanStatus.y, ecoDamLim.uSupFan)
     annotation (Line(points={{-39,0},{-20,0},{19,0}},color={255,0,255}));
@@ -72,7 +72,7 @@ equation
   This example validates
   <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone\">
   Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone</a>
-  for the following control signals: <code>VOut</code>, <code>VOutMinSet</code>. The control loop is always enabled in this 
+  for the following control signals: <code>VOut_flow</code>, <code>VOut_flowMinSet</code>. The control loop is always enabled in this 
   example.
   </p>
   </html>", revisions="<html>
