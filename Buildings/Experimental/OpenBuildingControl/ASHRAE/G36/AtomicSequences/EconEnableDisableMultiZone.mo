@@ -291,8 +291,8 @@ with delays"),                       Text(
           extent={{102,18},{226,-34}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          textString="Zone state - 
-disable if 
+          textString="Zone state -
+disable if
 \"heating\""),                       Text(
           extent={{100,102},{194,92}},
           lineColor={0,0,0},
@@ -300,7 +300,7 @@ disable if
           textString="Supply fan status")}),
     Documentation(info="<html>
       <p>
-      This is a multiple zone VAV AHU economizer enable/disable sequence  
+      This is a multiple zone VAV AHU economizer enable/disable sequence
       based on ASHRAE G36 PART5-N.7 and PART5-A.17. Additional
       conditions included in the sequence are: freeze protection (freeze protection
       stage 0-3, see PART5-N.12), supply fan status (on or off, see PART5-N.5),
@@ -314,8 +314,8 @@ disable if
       ASHRAE 90.1-2013 and Title 24-2013.
       </p>
       <p>
-      In addition, economizer shall be disabled without a delay whenever any of the 
-      following is true: supply fan is off, zone state is <code>Heating</code>, 
+      In addition, economizer shall be disabled without a delay whenever any of the
+      following is true: supply fan is off, zone state is <code>Heating</code>,
       freeze protection stage is not <code>0</code>.
       </p>
       <p>

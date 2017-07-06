@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
-model EconDamperPositionLimitsMultiZone_VOut
+model EconDamperPositionLimitsMultiZone_VOut_flow
   "Validation model for the multiple zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
@@ -53,7 +53,7 @@ equation
     annotation (Line(points={{-39,-80},{-10,-80},{-10,-8},{19,-8}},color={255,127,0}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconDamperPositionLimitsMultiZone_VOut.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconDamperPositionLimitsMultiZone_VOut_flow.mos"
     "Simulate and plot"),
     Icon(coordinateSystem(extent={{-80,-100},{80,100}}),
          graphics={Ellipse(
@@ -83,4 +83,4 @@ equation
   </li>
   </ul>
   </html>"));
-end EconDamperPositionLimitsMultiZone_VOut;
+end EconDamperPositionLimitsMultiZone_VOut_flow;

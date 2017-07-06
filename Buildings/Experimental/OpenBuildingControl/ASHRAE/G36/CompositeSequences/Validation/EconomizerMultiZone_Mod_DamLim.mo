@@ -12,11 +12,11 @@ model EconomizerMultiZone_Mod_DamLim
   parameter Real TSup(unit="K", quantity="TermodynamicTemperature")=290
     "Measured supply air temperature";
 
-  parameter Real minVOutSet(unit="m3/s")=0.71
+  parameter Real minVOut_flowSet(unit="m3/s")=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Real minVOut(unit="m3/s")=0.705
+  parameter Real minVOut_flow(unit="m3/s")=0.705
     "Minimal measured volumetric airflow";
-  parameter Real VOutIncrease(unit="m3/s")=0.03
+  parameter Real VOut_flowIncrease(unit="m3/s")=0.03
     "Maximum volumetric airflow increase during the example simulation";
 
   parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
@@ -52,13 +52,13 @@ model EconomizerMultiZone_Mod_DamLim
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
   CDL.Continuous.Constant TOutCut1(k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  CDL.Continuous.Constant VOutMinSet(k=minVOutSet)
+  CDL.Continuous.Constant VOut_flowMinSet(k=minVOut_flowSet)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Blocks.Sources.Ramp VOut(
+  Modelica.Blocks.Sources.Ramp VOut_flow(
     duration=1800,
-    offset=minVOut,
-    height=VOutIncrease)
+    offset=minVOut_flow,
+    height=VOut_flowIncrease)
     "Measured outdoor air volumetric airflow"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   CDL.Continuous.Constant TSupSetSig(k=TCooSet) "Cooling supply air temperature setpoint"
@@ -89,9 +89,9 @@ equation
     annotation (Line(points={{-99,20},{-60,20},{-60,18},{-4,18},{19,18}},color={0,0,127}));
   connect(hOutCut.y, economizer.hOutCut)
     annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,16},{19,16}},color={0,0,127}));
-  connect(VOut.y, economizer.VOut)
+  connect(VOut_flow.y, economizer.VOut_flow)
     annotation (Line(points={{-19,90},{-8,90},{-8,10},{19,10}},color={0,0,127}));
-  connect(VOutMinSet.y, economizer.VOutMinSet)
+  connect(VOut_flowMinSet.y, economizer.VOut_flowMinSet)
     annotation (Line(points={{-19,50},{-12,50},{-12,8},{19,8}},color={0,0,127}));
   connect(TSupSetSig.y, economizer.TCooSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}},color={0,0,127}));
@@ -104,9 +104,9 @@ equation
   connect(TSupSig1.y, economizer1.TSup) annotation (Line(points={{61,90},{80,90},{80,-26},{99,-26}}, color={0,0,127}));
   connect(TSupSetSig.y, economizer1.TCooSet)
     annotation (Line(points={{-59,50},{-54,50},{-54,-20},{20,-20},{20,-28},{99,-28}}, color={0,0,127}));
-  connect(VOut.y, economizer1.VOut)
+  connect(VOut_flow.y, economizer1.VOut_flow)
     annotation (Line(points={{-19,90},{-10,90},{-10,-22},{18,-22},{18,-30},{99,-30}}, color={0,0,127}));
-  connect(VOutMinSet.y, economizer1.VOutMinSet)
+  connect(VOut_flowMinSet.y, economizer1.VOut_flowMinSet)
     annotation (Line(points={{-19,50},{-12,50},{-12,-24},{16,-24},{16,-32},{99,-32}}, color={0,0,127}));
   connect(FanStatus.y, economizer1.uSupFan)
     annotation (Line(points={{-59,-80},{20,-80},{20,-34},{99,-34}}, color={255,0,255}));
@@ -172,7 +172,7 @@ validate damper position limits")}),
     <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.EconomizerMultiZone\">
     Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.EconomizerMultiZone</a> control loops:
     minimum outdoor air damper position limits control loop (<code>economizer</code> block) and modulation 
-    control loop (<code>economizer1</code> block) for <code>VOut</code> and <code>TSup</code> control signals. Both control
+    control loop (<code>economizer1</code> block) for <code>VOut_flow</code> and <code>TSup</code> control signals. Both control
     loops are enabled during the validation test.
     </p>
     </html>", revisions="<html>

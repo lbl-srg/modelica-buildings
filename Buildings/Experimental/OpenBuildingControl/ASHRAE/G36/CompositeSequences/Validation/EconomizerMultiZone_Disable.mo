@@ -48,10 +48,10 @@ model EconomizerMultiZone_Disable
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
   CDL.Continuous.Constant TOutCut1(k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  CDL.Continuous.Constant VOutMinSet(k=airflowSetpoint)
+  CDL.Continuous.Constant VOut_flowMinSet(k=airflowSetpoint)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Blocks.Sources.Ramp VOut(
+  Modelica.Blocks.Sources.Ramp VOut_flow(
     duration=1800,
     height=0.2,
     offset=airflowSetpoint - 0.1)
@@ -87,9 +87,9 @@ equation
     annotation (Line(points={{-99,20},{-60,20},{-60,18},{-4,18},{19,18}},color={0,0,127}));
   connect(hOutCut.y, economizer.hOutCut)
     annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,16},{19,16}},color={0,0,127}));
-  connect(VOut.y, economizer.VOut)
+  connect(VOut_flow.y, economizer.VOut_flow)
     annotation (Line(points={{-19,90},{-8,90},{-8,10},{19,10}},color={0,0,127}));
-  connect(VOutMinSet.y, economizer.VOutMinSet)
+  connect(VOut_flowMinSet.y, economizer.VOut_flowMinSet)
     annotation (Line(points={{-19,50},{-10,50},{-10,8},{19,8}},color={0,0,127}));
   connect(TSup.y, economizer.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}},color={0,0,127}));
@@ -107,9 +107,9 @@ equation
     annotation (Line(points={{-59,90},{-50,90},{-50,118},{82,118},{82,-6},{99,-6}}, color={0,0,127}));
   connect(TSupSetSig.y, economizer1.TCooSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,68},{72,68},{72,-8},{99,-8}}, color={0,0,127}));
-  connect(VOut.y, economizer1.VOut)
+  connect(VOut_flow.y, economizer1.VOut_flow)
     annotation (Line(points={{-19,90},{78,90},{78,-10},{99,-10}}, color={0,0,127}));
-  connect(VOutMinSet.y, economizer1.VOutMinSet)
+  connect(VOut_flowMinSet.y, economizer1.VOut_flowMinSet)
     annotation (Line(points={{-19,50},{70,50},{70,-12},{99,-12}}, color={0,0,127}));
   connect(FanStatus.y, economizer1.uSupFan)
     annotation (Line(points={{-19,-10},{20,-10},{20,-14},{99,-14}}, color={255,0,255}));

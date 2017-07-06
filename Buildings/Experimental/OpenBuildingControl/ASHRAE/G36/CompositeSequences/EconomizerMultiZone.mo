@@ -3,11 +3,7 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
 
   parameter Boolean use_enthalpy = true
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
-  parameter Real delEntHis(unit="J/kg", quantity="SpecificEnergy")=1000
-    "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy));
-  parameter Real delTemHis=1 "Delta between the temperature hysteresis high and low limits";
-  parameter Real damLimControllerGain=1 "Gain of damper limit controller";
+  parameter Real kPI_damLim=1 "Gain of damper limit controller";
   parameter Real modControllerGain=1 "Gain of modulation controller";
   parameter Modelica.SIunits.Time TiPIDamLim=0.9 "Time constant of damper limit controller integrator block";
   parameter Modelica.SIunits.Time TiPIMod=300 "Time constant of modulation controller integrator block";
@@ -32,11 +28,11 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
-  CDL.Interfaces.RealInput VOut(unit="m3/s")
+  CDL.Interfaces.RealInput VOut_flow(unit="m3/s")
     "Measured outdoor volumetirc airflow rate [fixme: which quantity attribute should we use? add for all V]"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
-  CDL.Interfaces.RealInput VOutMinSet(unit="m3/s")
+  CDL.Interfaces.RealInput VOut_flowMinSet(unit="m3/s")
     "Minimum outdoor volumetric airflow rate setpoint"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}}),
         iconTransformation(extent={{-120,-30},{-100,-10}})));
@@ -61,8 +57,8 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     iconTransformation(extent={{100,-30}, {120,-10}})));
 
   AtomicSequences.EconEnableDisableMultiZone econEnableDisableMultiZone(
-    delEntHis=delEntHis,
-    delTemHis=delTemHis,
+    final delEntHis=delEntHis,
+    final delTemHis=delTemHis,
     use_enthalpy=use_enthalpy)
     "Multizone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
@@ -71,13 +67,20 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     retDamPhyPosMin=0,
     outDamPhyPosMax=0.9,
     outDamPhyPosMin=0,
-    kPIDamLim=damLimControllerGain,
+    kPIDamLim=kPI_damLim,
     TiPIDamLim=TiPIDamLim)
     "Multizone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   AtomicSequences.EconModulationMultiZone ecoMod(kPIMod=modControllerGain, TiPIMod=TiPIMod)
     "Multizone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
+
+protected
+  parameter Real delEntHis(unit="J/kg", quantity="SpecificEnergy")=1000
+    "Delta between the enthalpy hysteresis high and low limits"
+    annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy));
+  parameter Real delTemHis(unit="K", quantity = "ThermodynamicTemperature")=1
+    "Delta between the temperature hysteresis high and low limits";
 
 equation
   connect(uSupFan, econEnableDisableMultiZone.uSupFan)
@@ -94,9 +97,9 @@ equation
     annotation (Line(points={{-130,120},{-42,120},{-42,-22},{-1,-22}},color={0,0,127}));
   connect(TOut, econEnableDisableMultiZone.TOut)
     annotation (Line(points={{-130,140},{-40,140},{-40,-20},{-1,-20}},color={0,0,127}));
-  connect(VOutMinSet, ecoDamLim.VOutMinSet)
+  connect(VOut_flowMinSet, ecoDamLim.VOut_flowMinSet)
     annotation (Line(points={{-130,0},{-110,0},{-110,14},{-110,15},{-81,15}},color={0,0,127}));
-  connect(VOut, ecoDamLim.VOut)
+  connect(VOut_flow, ecoDamLim.VOut_flow)
     annotation (Line(points={{-130,20},{-110,20},{-110,18},{-81,18}},color={0,0,127}));
   connect(uSupFan, ecoDamLim.uSupFan)
     annotation (Line(points={{-130,-40},{-104,-40},{-104,10},{-81,10}},color={255,0,255}));
@@ -154,14 +157,14 @@ equation
           color={28,108,200},
           thickness=0.5)}),
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
-  Documentation(info="<html>      
+  Documentation(info="<html>
   <p>
-  This is multiple zone VAV AHU economizer control sequence. It calculates 
-  outdoor and return air damper positions based on ASHRAE 
+  This is multiple zone VAV AHU economizer control sequence. It calculates
+  outdoor and return air damper positions based on ASHRAE
   Guidline 36, sections: PART5 N.2.c, N.5, N.6.c, N.7, A.17, N.12.
-  The sequence comprises the following atomic sequences: 
-  <code>EconDamperPositionLimitsMultiZone</code>, 
-  <code>EconEnableDisableMultiZone</code>, and 
+  The sequence comprises the following atomic sequences:
+  <code>EconDamperPositionLimitsMultiZone</code>,
+  <code>EconEnableDisableMultiZone</code>, and
   <code>EconModulationMultiZone</code>.
   </p>
   <p>
