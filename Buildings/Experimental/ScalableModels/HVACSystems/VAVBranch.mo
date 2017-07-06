@@ -33,9 +33,8 @@ model VAVBranch "Supply branch of a VAV system"
     m_flow_nominal=m_flow_nominal,
     dpFixed_nominal=dpFixed_nominal,
     dp_nominal(displayUnit="Pa") = 20)       "VAV box for room"
-    annotation (
-      Placement(transformation(extent={{-10,-10},{10,10}}, rotation=90,
-        origin={50,104})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90, origin={50,104})));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU terHea(
     redeclare package Medium1 = MediumA,
     redeclare package Medium2 = MediumW,
@@ -59,9 +58,8 @@ model VAVBranch "Supply branch of a VAV system"
   Buildings.Examples.VAVReheat.Controls.RoomVAV con "Room temperature controller"
     annotation (Placement(transformation(extent={{0,-6},{20,14}})));
   Buildings.Experimental.ScalableModels.Controls.ControlBus controlBus
-    annotation (Placement(
-        transformation(extent={{-110,-50},{-90,-30}}), iconTransformation(
-          extent={{-110,-38},{-90,-18}})));
+    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}}),
+      iconTransformation(extent={{-110,-38},{-90,-18}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare package Medium =  MediumA) "Sensor for mass flow rate"
     annotation (Placement( transformation(extent={{-10,10},{10,-10}},
@@ -238,7 +236,7 @@ equation
 <p>
 The model is developed based on 
 <a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.VAVBranch\">
-Buildings.Examples.VAVReheat.ThermalZones.VAVBranch</a>, but using new VAV
+Buildings.Examples.VAVReheat.ThermalZones.VAVBranch</a>, but using different VAV
 box model 
 <a href=\"modelica://Buildings.Fluid.Actuators.Dampers.PressureIndependent\">
 Buildings.Fluid.Actuators.Dampers.PressureIndependent</a>.

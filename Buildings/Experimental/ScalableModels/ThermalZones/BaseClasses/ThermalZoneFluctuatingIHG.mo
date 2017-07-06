@@ -82,7 +82,6 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
   final parameter HeatTransfer.Data.Solids.Plywood matFur(x=0.15, nStaRef=5)
     "Material for furniture"
     annotation (Placement(transformation(extent={{160,120},{180,140}})));
-
   final parameter HeatTransfer.Data.Solids.Concrete matCon(
     x=0.1,
     k=1.311,

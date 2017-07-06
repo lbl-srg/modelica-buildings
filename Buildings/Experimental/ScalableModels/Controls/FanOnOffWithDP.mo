@@ -1,8 +1,12 @@
 within Buildings.Experimental.ScalableModels.Controls;
-block Fan_dP_On_Off "Controller for fan on/off, and provide prescribced dP"
+block FanOnOffWithDP
+  "Controller for fan on/off, and provide prescribed dP"
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
-  parameter Modelica.SIunits.PressureDifference dP_pre=850
+  parameter Modelica.SIunits.PressureDifference preRis=850
     "Prescribed pressure difference";
+  Modelica.Blocks.Interfaces.RealOutput y
+    "Supply fan ON/OFF with giving pressure rise"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Examples.VAVReheat.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
   Modelica.Blocks.Routing.Extractor extractor(
@@ -11,10 +15,9 @@ block Fan_dP_On_Off "Controller for fan on/off, and provide prescribced dP"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Sources.Constant off(k=0) "Off signal"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Modelica.Blocks.Sources.Constant on(k=dP_pre) "On signal"
+  Modelica.Blocks.Sources.Constant on(k=preRis) "On signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Modelica.Blocks.Interfaces.RealOutput y "Supply fan ON/OFF"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
 equation
   connect(off.y, extractor.u[Integer(OperationModes.unoccupiedOff)])
     annotation (Line(
@@ -59,7 +62,9 @@ equation
     annotation (Line(
       points={{41,0},{41,0},{60,0},{110,0}},
       color={0,0,127}));
-  annotation ( Icon(graphics={Rectangle(
+  annotation (
+  defaultComponentName="fanOnOffDp",
+  Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
@@ -75,11 +80,10 @@ equation
 Documentation(info="<html>
 <p>This model outputs <code>ON/OFF</code> signal to control fan operation. 
 When the system is in mode like <code>unoccupiedOff, safety</code>, it outputs
-<code>false</code> so that fan should be <code>OFF</code>; When the system is 
-in mode like <code>unoccupiedNightSetBack,occupied,unoccupiedWarmUp,
+<code>false</code> so that fan should be <code>OFF</code> and provide 0 pressure rise; 
+When the system is in mode like <code>unoccupiedNightSetBack,occupied,unoccupiedWarmUp,
 unoccupiedPreCool</code>, it outputs <code>true</code> so that fan should be 
-<code>ON</code>;  
-
+<code>ON</code> and provide <code>preRis</code> pressure rise.  
 </p></html>", revisions="<html>
 <ul>
 <li>
@@ -88,4 +92,4 @@ First implementation.<br/>
 </li>
 </ul>
 </html>"));
-end Fan_dP_On_Off;
+end FanOnOffWithDP;

@@ -14,7 +14,7 @@ annotation (
 The model demonstrates the scalability of model 
 <a href=\"modelica://Buildings.Experimental.ScalableModels.ScalableBuildingModels.MultiFloorWithVAV\">
 Buildings.Experimental.ScalableModels.ScalableBuildingModels.MultiFloorWithVAV</a> 
-by setting it to be a multizone model of 8 zones in each of the 2 floors, i.e.
+by setting it to be a multizone model with 8 zones in each of the 2 floors, i.e.
 <code>nFlo=2, nZon=8</code>.
 </p></html>", revisions="<html>
 <ul>

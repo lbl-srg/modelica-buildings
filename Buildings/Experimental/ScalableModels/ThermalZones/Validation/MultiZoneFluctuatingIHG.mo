@@ -20,7 +20,8 @@ model MultiZoneFluctuatingIHG "Multiple thermal zone models"
   BaseClasses.ThermalZoneFluctuatingIHG theZon[nZon, nFlo](
     redeclare each package MediumA = MediumA,
     each final lat=lat,
-    gainFactor={{(ampFactor[i]) for j in 1:nFlo} for i in 1:nZon})           "Thermal zone model"
+    gainFactor={{(ampFactor[i]) for j in 1:nFlo} for i in 1:nZon})
+      "Thermal zone model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -29,21 +30,24 @@ model MultiZoneFluctuatingIHG "Multiple thermal zone models"
 equation
   for iZon in 1:nZon-1 loop
     for iFlo in 1:nFlo-1 loop
-      connect(theZon[iZon, iFlo].heaPorFlo, theZon[iZon, if iFlo == nFlo then 1 else iFlo+1].heaPorCei) annotation (Line(
-        points={{0,-10.2},{0,-20},{16,-20},{16,20},{0,20},{0,10}}, color={191,0,
-          0}));
-      connect(theZon[iZon, iFlo].heaPorWal1, theZon[if iZon == nZon then 1 else iZon+1, iFlo].heaPorWal2) annotation (Line(
-        points={{-10,-1.6},{-20,-1.6},{-20,-24},{20,-24},{20,0},{10.2,0}},
-                                                                     color={191,
-          0,0}));
+      connect(theZon[iZon, iFlo].heaPorFlo, theZon[iZon, if iFlo == nFlo
+                  then 1 else iFlo+1].heaPorCei)
+        annotation (Line(
+          points={{0,-10.2},{0,-20},{16,-20},{16,20},{0,20},{0,10}},
+          color={191,0,0}));
+      connect(theZon[iZon, iFlo].heaPorWal1, theZon[if iZon == nZon
+                then 1 else iZon+1, iFlo].heaPorWal2)
+        annotation (Line(
+          points={{-10,-1.6},{-20,-1.6},{-20,-24},{20,-24},{20,0},{10.2,0}},
+          color={191,0,0}));
     end for;
   end for;
   for iZon in 1:nZon loop
     for iFlo in 1:nFlo loop
-      connect(weaDat.weaBus, theZon[iZon, iFlo].weaBus) annotation (Line(
-      points={{-40,-30},{-7.4,-30},{-7.4,-8}},
-      color={255,204,51},
-      thickness=0.5));
+      connect(weaDat.weaBus, theZon[iZon, iFlo].weaBus)
+        annotation (Line(
+          points={{-40,-30},{-7.4,-30},{-7.4,-8}},
+          color={255,204,51}, thickness=0.5));
     end for;
   end for;
 

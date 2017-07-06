@@ -250,10 +250,10 @@ model MultiFloorWithVAV
   Schedules.CoolSetpoint TSetCoo1 "Cooling setpoint"
     annotation (Placement(transformation(extent={{-130,10},{-118,22}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
-                            "Occupancy schedule"
+    "Occupancy schedule"
     annotation (Placement(transformation(extent={{-128,70},{-116,82}})));
-  Controls.Fan_dP_On_Off fan_dP_On_Off[nFlo](
-   each dP_pre=dP_pre) "controller outputs fan on or off"
+  Controls.FanOnOffWithDP fan_dP_On_Off[nFlo](each dP_pre=dP_pre)
+    "controller outputs fan on or off"
     annotation (Placement(transformation(extent={{-70,-14},{-56,0}})));
 
 equation
