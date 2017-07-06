@@ -6,18 +6,18 @@ block OutdoorAirFlowSetpoint_MultiZone
     "Total number of zones that the system serves";
   parameter Real outAirPerAre[numOfZon](each final unit = "m3/(s.m2)")=
       fill(3e-4, numOfZon)
-    "Area outdoor air rate per unit area"
+    "Outdoor air rate per unit area"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.VolumeFlowRate outAirPerPer[numOfZon]=
       fill(2.5e-3, numOfZon)
-    "People outdoor air rate per person"
+    "Outdoor air rate per person"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Area zonAre[numOfZon]
     "Area of each zone"
     annotation(Dialog(group="Nominal condition"));
   parameter Boolean occSen[numOfZon] = fill(true, numOfZon)
     "Set to true if zones have occupancy sensor";
-  parameter Real occDen[numOfZon](each unit="1/m2") = fill(0.05, numOfZon)
+  parameter Real occDen[numOfZon](each final unit="1/m2") = fill(0.05, numOfZon)
     "Default number of person in unit area";
   parameter Real zonDisEffHea[numOfZon](each final unit="1") = fill(0.8, numOfZon)
     "Zone air distribution effectiveness during heating";
@@ -31,7 +31,14 @@ block OutdoorAirFlowSetpoint_MultiZone
     each unit="1") = {occDen[i]*zonAre[i] for i in 1:numOfZon}
     "Design zone population during peak occupancy"
     annotation(Dialog(group="Nominal condition"));
-
+  parameter Real uLow(final unit="K",
+    quantity="ThermodynamicTemperature") = -0.5
+    "If zone space temperature minus supply air temperature is less than uLow, then it should use heating supply air distribution effectiveness"
+    annotation (Dialog(tab="Advanced"));
+  parameter Real uHigh(final unit="K",
+    quantity="ThermodynamicTemperature") = 0.5
+    "If zone space temperature minus supply air temperature is more than uHig, then it should use cooling supply air distribution effectiveness"
+    annotation (Dialog(tab="Advanced"));
   parameter Modelica.SIunits.VolumeFlowRate maxSysPriFlo
     "Maximum expected system primary airflow at design stage"
     annotation(Dialog(group="Nominal condition"));
@@ -44,40 +51,47 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Interfaces.RealInput nOcc[numOfZon](each final unit="1")
     "Number of occupants"
     annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
-        iconTransformation(extent={{-120,60},{-100,80}})));
-  CDL.Interfaces.RealInput cooCtrSig(
-    min=0,
-    max=1,
-    final unit="1") "Cooling control signal." annotation (Placement(transformation(
-          extent={{-220,-80},{-180,-40}}), iconTransformation(extent={{-120,30},
-            {-100,50}})));
+        iconTransformation(extent={{-120,70},{-100,90}})));
   CDL.Interfaces.RealInput priAirflow[numOfZon](
     min=minZonPriFlo,
     each final unit="m3/s",
     each quantity="VolumeFlowRate")
-    "Primary airflow rate to the ventilation zone from the air handler, 
-    including outdoor air and recirculated air"
+    "Primary airflow rate to the ventilation zone from the air handler, including outdoor air and recirculated air"
     annotation (Placement(transformation(extent={{-220,-206},{-180,-166}}),
-        iconTransformation(extent={{-120,-80},{-100,-60}})));
-  CDL.Interfaces.BooleanInput uSupFan "Supply fan status, true if on, false if off"
+        iconTransformation(extent={{-120,-90},{-100,-70}})));
+  CDL.Interfaces.RealInput TZon[numOfZon](
+    each final unit="K",
+    each quantity="ThermodynamicTemperature")
+    "Measured zone air temperature"
+    annotation (Placement(transformation(extent={{-220,-60},{-180,-20}}),
+      iconTransformation(extent={{-120,40},{-100,60}})));
+  CDL.Interfaces.RealInput TSup[numOfZon](
+    each final unit="K",
+    each quantity="ThermodynamicTemperature")
+    "Supply air temperature"
+    annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),
+      iconTransformation(extent={{-120,10},{-100,30}})));
+  CDL.Interfaces.BooleanInput uSupFan
+    "Supply fan status, true if on, false if off"
     annotation (Placement(transformation(extent={{-220,-169},{-180,-130}}),
-        iconTransformation(extent={{-120,-48},{-100,-28}})));
-  CDL.Interfaces.BooleanInput uWindow[numOfZon] "Window status, true if open, false if closed"
+        iconTransformation(extent={{-120,-60},{-100,-40}})));
+  CDL.Interfaces.BooleanInput uWindow[numOfZon]
+    "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
-        iconTransformation(extent={{-120,-10},{-100,10}})));
+        iconTransformation(extent={{-120,-30},{-100,-10}})));
   CDL.Interfaces.RealOutput VDesOutMin_flow_nominal(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{240,90},{280,130}}),
-        iconTransformation(extent={{100,38},{120,58}})));
+      iconTransformation(extent={{100,38},{120,58}})));
   CDL.Interfaces.RealOutput VDesUncOutMin_flow_nominal(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
-    "Design uncorrected minimum outdoor airflow rate" annotation (Placement(
-        transformation(extent={{240,160},{280,200}}), iconTransformation(extent=
-           {{100,68},{120,88}})));
+    "Design uncorrected minimum outdoor airflow rate"
+    annotation (Placement(transformation(extent={{240,160},{280,200}}),
+      iconTransformation(extent={{100,68},{120,88}})));
   CDL.Interfaces.RealOutput VOutMinSet_flow(
     min=0,
     final unit="m3/s",
@@ -92,8 +106,7 @@ block OutdoorAirFlowSetpoint_MultiZone
     k = outAirPerPer) "Outdoor air per person"
     annotation (Placement(transformation(extent={{-160,50}, {-140,70}})));
   CDL.Logical.Switch swi[numOfZon]
-    "If there is occupancy sensor, then using the real time occupant; 
-    otherwise, using the default occupant "
+    "If there is occupancy sensor, then using the real time occupant; otherwise, using the default occupant "
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   CDL.Logical.Switch swi1[numOfZon]
     "Switch between cooling or heating distribution effectiveness"
@@ -101,9 +114,6 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Continuous.Division zonOutAirRate[numOfZon]
     "Required zone outdoor airflow rate"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  CDL.Logical.GreaterThreshold greThr
-    "Check whether or not the cooling signal is on (greater than 0)"
-    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
   CDL.Logical.Switch swi2[numOfZon]
@@ -162,6 +172,9 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Continuous.Add zonVenEff[numOfZon](each final k2=-1)
     "Zone ventilation efficiency"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
+  CDL.Continuous.Add add2[numOfZon](each final k1=+1, each final k2=-1)
+    "Zone space temperature minus supply air temperature"
+    annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
   CDL.Continuous.Division desOutAirInt "Design system outdoor air intake"
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
   CDL.Continuous.MinMax  desSysVenEff(nin=numOfZon)
@@ -176,19 +189,24 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Continuous.Min min1
     "Uncorrected outdoor air rate should not be higher than its design value"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
+  CDL.Logical.Hysteresis hys[numOfZon](
+    each uLow=uLow,
+    each uHigh=uHigh,
+    each pre_y_start=true)
+    "Check if cooling or heating air distribution effectiveness should be applied, with 1 degC deadband"
+    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
 
 protected
   CDL.Logical.Constant occSenor[numOfZon](
-    k=occSen)
+    k = occSen)
     "Whether or not there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
-    // fixme: use a direct assignment rather than vectors
   CDL.Continuous.Constant desDisEff[numOfZon](
-    k = {desZonDisEff[i] for i in 1:numOfZon})
+    k = desZonDisEff)
     "Design zone air distribution effectiveness"
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
   CDL.Continuous.Constant minZonFlo[numOfZon](
-    k = {minZonPriFlo[i] for i in 1:numOfZon})
+    k = minZonPriFlo)
     "Minimum expected zone primary flow rate"
     annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
   CDL.Continuous.Constant breZonAre[numOfZon](
@@ -200,15 +218,15 @@ protected
     "Population component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
   CDL.Continuous.Constant disEffHea[numOfZon](
-    k = {zonDisEffHea[i] for i in 1:numOfZon})
+    k = zonDisEffHea)
     "Zone distribution effectiveness for heating"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
   CDL.Continuous.Constant disEffCoo[numOfZon](
-    k = {zonDisEffCoo[i] for i in 1:numOfZon})
+    k = zonDisEffCoo)
     "Zone distribution effectiveness fo cooling"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   CDL.Continuous.Constant desZonPopulation[numOfZon](
-    k={desZonPop[i] for i in 1:numOfZon})
+    k=desZonPop)
     "Design zone population"
     annotation (Placement(transformation(extent={{-168,220},{-148,240}})));
   CDL.Continuous.Constant zerOutAir[numOfZon](k=fill(0,numOfZon))
@@ -229,8 +247,7 @@ equation
   for i in 1:numOfZon loop
     connect(breZonAre[i].y, breZon[i].u1)
       annotation (Line(points={{-149,120},{-140,120},{-140,110},{-90,110},{-90,36},
-            {-82,36}},
-        color={0,0,127}));
+        {-82,36}}, color={0,0,127}));
     connect(gai[i].y, swi[i].u1)
       annotation (Line(points={{-139,60},{-128,60},{-128,28},{-122,28}},
         color={0,0,127}));
@@ -254,9 +271,6 @@ equation
     connect(swi1[i].y, zonOutAirRate[i].u2)
       annotation (Line(points={{-59,-60},{-50,-60},{-50,24},{-42,24}},
         color={0,0,127}));
-    connect(greThr.y, swi1[i].u2)
-      annotation (Line(points={{-99,-60},{-99,-60},{-82,-60}},
-        color={255,0,255}));
     connect(uWindow[i], swi2[i].u2)
       annotation (Line(points={{-200,-120},{-40,-120},
         {-40,-54},{-8,-54},{-8,-10},{18,-10}}, color={255,0,255}));
@@ -287,8 +301,8 @@ equation
       annotation (Line(points={{-200,-186},{-200,-185},{-26,-185},{-26,-110},
         {-2,-110}},color={0,0,127}));
     connect(breZonAre[i].y, desBreZon[i].u2)
-      annotation (Line(points={{-149,120},{-140,120},{-140,120},{-140,120},{-140,
-            144},{-122,144}},   color={0,0,127}));
+      annotation (Line(points={{-149,120},{-140,120},{-140,120},{-140,120},
+        {-140,144},{-122,144}},   color={0,0,127}));
     connect(desBreZonPer[i].y, desBreZon[i].u1)
       annotation (Line(points={{-147,190},{-140,190},{-140,156},{-122,156}},
         color={0,0,127}));
@@ -322,10 +336,18 @@ equation
     connect(swi[i].u2, occSenor[i].y)
       annotation (Line(points={{-122,20},{-134,20},{-134,30},{-139,30}},
         color={255,0,255}));
+    connect(TSup[i], add2[i].u2) annotation (Line(points={{-200,-80},{-172,-80},
+            {-172,-66},{-162,-66}}, color={0,0,127}));
+    connect(TZon[i], add2[i].u1) annotation (Line(points={{-200,-40},{-172,-40},
+            {-172,-54},{-162,-54}}, color={0,0,127}));
+    connect(add2[i].y, hys[i].u)
+      annotation (Line(points={{-139,-60},{-130.5,-60},{-122,-60}},
+        color={0,0,127}));
+    connect(hys[i].y, swi1[i].u2)
+      annotation (Line(points={{-99,-60},{-90,-60},{-82,-60}},
+        color={255,0,255}));
   end for;
 
-  connect(cooCtrSig, greThr.u) annotation (Line(points={{-200,-60},{-200,-60},{
-          -122,-60}}, color={0,0,127}));
   connect(uSupFan, not1.u)
     annotation (Line(points={{-200,-149.5},{-178,-149.5},{-178,-150},
       {-122,-150}}, color={255,0,255}));
@@ -347,9 +369,8 @@ equation
     annotation (Line(points={{141,-110},{141,-110},{142,-110},{148,-110},
       {148,-116},{158,-116}}, color={0,0,127}));
   connect(sumDesZonPop.y, occDivFra.u2)
-    annotation (Line(points={{-119,230},{-112,230},{-112,248},{-106,248},{-106,
-          248},{-100,248},{-100,248}},
-      color={0,0,127}));
+    annotation (Line(points={{-119,230},{-112,230},{-112,248},{-106,248},
+      {-106,248},{-100,248},{-100,248}},  color={0,0,127}));
   connect(peaSysPopulation.y, occDivFra.u1)
     annotation (Line(points={{-147,260},{-100,260}},
       color={0,0,127}));
@@ -396,18 +417,20 @@ equation
   connect(desOutAirInt.y, min.u1)
     annotation (Line(points={{161,110},{188,110},{188,56},{188,-104},
       {198,-104}}, color={0,0,127}));
-  connect(unCorOutAirInk.y, VDesUncOutMin_flow_nominal) annotation (Line(points=
-         {{41,220.5},{104,220.5},{104,220},{180,220},{180,180},{260,180}},
-        color={0,0,127}));
-  connect(min.y, VOutMinSet_flow) annotation (Line(points={{221,-110},{221,-110},{232,
-          -110},{232,-70},{260,-70}}, color={0,0,127}));
-  connect(desOutAirInt.y, VDesOutMin_flow_nominal) annotation (Line(points={{161,
-          110},{161,110},{188,110},{260,110}}, color={0,0,127}));
+  connect(unCorOutAirInk.y, VDesUncOutMin_flow_nominal)
+    annotation (Line(points={{41,220.5},{104,220.5},{104,220},{180,220},
+      {180,180},{260,180}},  color={0,0,127}));
+  connect(min.y, VOutMinSet_flow)
+    annotation (Line(points={{221,-110},{221,-110},{232,-110},{232,-70},
+      {260,-70}}, color={0,0,127}));
+  connect(desOutAirInt.y, VDesOutMin_flow_nominal)
+    annotation (Line(points={{161,110},{161,110},{188,110},{260,110}},
+      color={0,0,127}));
   connect(occDivFra.y, pro.u1)
     annotation (Line(points={{-77,254},{-52,254},{-52,256},{-22,256}},
       color={0,0,127}));
  annotation (
-defaultComponentName="outAirSetPoi",
+defaultComponentName="outAirSetPoi_MulZon",
 Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -434,23 +457,14 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{240,280
           lineColor={0,0,255})}),
  Documentation(info="<html>      
  <p>
- fixme: Update section structure.
- 
 This atomic sequence sets the minimum outdoor airflow setpoint for compliance 
 with the ventilation rate procedure of ASHRAE 62.1-2013. The implementation 
 is according to ASHRAE Guidline 36 (G36), PART5.N.3.a, PART5.B.2.b, 
 PART3.1-D.2.a.
-The calculation is done using the components below.
-</p>   
-<h4>Step 1: Zone outdoor airflow requirement</h4>
-<p>
-The zone outdoor airflow requirements <code>zonOutAirRate</code> are
-composed of the following components:
-</p>
-
-<ol>
-<li>
-Zone ventilation setpoints (G36, PART3.1A.2.a)
+The calculation is done using the steps below.
+</p>  
+ 
+<h4>Step 1: Minimum breathing zone outdoor airflow required <code>breZon</code></h4>
 <ul>
 <li>The area component of the breathing zone outdoor airflow: 
 <code>breZonAre = zonAre*outAirPerAre</code>.
@@ -458,92 +472,147 @@ Zone ventilation setpoints (G36, PART3.1A.2.a)
 <li>The population component of the breathing zone outdoor airflow: 
 <code>breZonPop = occCou*outAirPerPer</code>.
 </li>
-<li>Zone air distribution effectiveness <code>disEffHea</code> during heating 
-(defaults to 0.8 if no value is scheduled).
-</li>
-<li>Zone air distribution effectiveness <code>disEffCoo</code> during cooling 
-(defaults to 1.0 if no value is scheduled).
-</li>
 </ul>
-</li>
-<li>For each zone in any mode other than occupied mode and for zones that have 
+<p>
+The number of occupant <code>occCou</code> in each zone can be retrieved 
+directly from occupancy sensor <code>nOcc</code> if the sensor exists 
+(<code>occSen=true</code>), or using the default occupant density 
+<code>occDen</code> to find it <code>zonAre*occDen</code>. The occupant 
+density can be found from Table 6.2.2.1 in ASHRAE Standard 62.1-2013.
+For design purpose, use design zone population <code>desZonPop</code> to find
+out the minimum requirement at the ventilation-design condition.
+</p>
+
+<h4>Step 2: Zone air-distribution effectiveness <code>zonDisEff</code></h4>
+<p>
+Table 6.2.2.2 in ASHRAE 62.1-2013 lists some typical values for setting the 
+effectiveness. Depending on difference between zone space temperature 
+<code>TZon</code> and supply air temperature <code>TSup</code>, Warm-air 
+effectiveness <code>zonDisEffHea</code> or Cool-air effectiveness 
+<code>zonDisEffCoo</code> should be applied.
+</p>
+
+<h4>Step 3: Minimum required zone outdoor airflow <code>zonOutAirRate</code></h4>
+<p>For each zone in any mode other than occupied mode and for zones that have 
 window switches and the window is open, <code>zonOutAirRate</code> shall be 
 zero.
-</li>
-<li>Otherwise, the required zone outdoor airflow <code>zonOutAirRate</code> 
+Otherwise, the required zone outdoor airflow <code>zonOutAirRate</code> 
 shall be calculated as follows:
-<ul>
-<li>
-If the zone is populated, or if there is no occupancy sensor:
-<ul>
-<li>If discharge air temperature at the terminal unit is less than or equal to 
-zone space temperature: <code>zonOutAirRate = (breZonAre+breZonPop)
-/disEffCoo</code>.
-</li>
-<li>If discharge air temperature at the terminal unit is greater than zone space 
-temperature: <code>zonOutAirRate = (breZonAre+breZonPop)/disEffHea</code></li>
-</ul>
-</li>
-<li>If the zone has an occupancy sensor and is unpopulated:
-<ul>
-<li>If discharge air temperature at the terminal unit is less than or equal to 
-zone space temperature: <code>zonOutAirRate = breZonAre/disEffCoo</code></li>
-<li>If discharge air temperature at the terminal unit is greater than zone 
-space temperature: <code>zonOutAirRate = breZonAre/disEffHea</code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-
-<h4>Step 2: Uncorrected design outdoor air rate and design total outdoor air rate</h4>
-<p>
-The uncorrected design outdoor air rate <code>unCorOutAirInk</code>,
-including diversity where applicable, and
-the design total outdoor air rate <code>desOutAirInt</code> are
-determined using the 62MZCal spreadsheet provided with the ASHRAE 62.1 user manual. 
 </p>
+<i>If the zone is populated, or if there is no occupancy sensor:</i>
+<ul>
+<li>
+If discharge air temperature at the terminal unit is less than or equal to 
+zone space temperature: <code>zonOutAirRate = (breZonAre+breZonPop)/disEffCoo</code>.
+</li>
+<li>
+If discharge air temperature at the terminal unit is greater than zone space 
+temperature: <code>zonOutAirRate = (breZonAre+breZonPop)/disEffHea</code>
+</li>
+</ul>
+<i>If the zone has an occupancy sensor and is unpopulated:</i>
+<ul>
+<li>
+If discharge air temperature at the terminal unit is less than or equal to 
+zone space temperature: <code>zonOutAirRate = breZonAre/disEffCoo</code>
+</li>
+<li>
+If discharge air temperature at the terminal unit is greater than zone 
+space temperature: <code>zonOutAirRate = breZonAre/disEffHea</code>
+</li>
+</ul>
 
-<h4>Step 3: Outdoor air absolute minimum and design minimum setpoints</h4>
-<p>
-The outdoor air absolute minimum and design minimum setpoints are 
-recalculated continuously based on the mode of the zones being served.</i>
-</p>
+<h4>Step 4: Outdoor air fraction for each zone <code>priOutAirFra</code> </h4>
+The zone outdoor air fraction: 
+<pre>
+    priOutAirFra = zonOutAirRate/priAirflow
+</pre>
+where, <code>priAirflow</code> is measured from zone VAV box.
+For design purpose, the design zone outdoor air fraction <code>desZonPriOutAirRate</code>
+is found by 
+<pre>
+    desZonPriOutAirRate = desZonOutAirRate/minZonFlo 
+</pre>
+where <code>minZonFlo</code> is the minimum expected zone primary flow rate and 
+<code>desZonOutAirRate</code> is required design zone outdoor airflow rate.
 
-<ol>
-<li>The <code>sysUncOutAir</code> is the sum of <code>zonOutAirRate</code> for all 
-zones in all zone groups that are in occupied mode, but shall be no larger than 
-the design uncorrected outdoor air rate, <code>unCorOutAirInk</code>.
-</li>
-<li>
-The <code>sysPriAirRate</code> is the sum of the zone primary airflow rates, 
-<code>priAirflow</code>, as measured by the VAV boxes for all zones in all zone 
-groups that are in occupied mode.
-</li>
-<li>
-For each zone in occupied mode, the zone primary outdoor air 
-fraction is
-<code>priOutAirFra = zonOutAirRate/priAirflow</code>
-</li>
-<li>
-The maximum zone outdoor air fraction is
-<code>maxPriOutAirFra = MAX(priOutAirFra)</code>
-</li>
-<li>
-The system ventilation efficiency is
-<code>sysVenEff =1+(sysUncOutAir/sysPriAirRate)-maxPriOutAirFra</code>
-</li>
-<li>
-The effective minimum outdoor air setpoint is
-<code>yVVOutMinSet_flow = min(sysUncOutAir/sysVenEff, desOutAirInt)</code>
-</li>
-</ol>
+<h4>Step 5: Occupancy diversity fraction<code>occDivFra</code></h4>
+For actual system operation, the system population equals the sum of zone population,
+so <code>occDivFra=1</code>. It has no impact on the calculation of uncorrected 
+outdoor airflow <code>sysUncOutAir</code>.
+For design purpose, find <code>occDivFra</code> based on the peak system population
+<code>peaSysPopulation</code> and the sum of design population <code>desZonPopulation</code> 
+for all zones:
+<pre>           
+    occDivFra = peaSysPopulation/sum(desZonPopulation)   
+</pre>
+
+<h4>Step 6: Uncorrected outdoor airflow <code>unCorOutAirInk</code>, 
+<code>sysUncOutAir</code></h4>
+<pre>
+    unCorOutAirInk = occDivFra*sum(breZonPop)+sum(breZonAre)
+</pre>
+
+<h4>Step 7: System primary airflow <code>sysPriAirRate</code></h4>
+The system primary airflow equals to the sum of discharge airflow rate measured
+from each VAV box <code>priAirflow</code>. 
+For design purpose, a highest expected system primary airflow <code>maxSysPriFlow</code>
+should be applied. It usually is usually estimated with load-diversity factor,
+e.g. 0.7. (Stanke, 2010)
+
+<h4>Step 8: Outdoor air fraction</h4>
+The average outdoor air fraction should be found as following:
+<pre>
+    outAirFra = sysUncOutAir/sysPriAirRate
+</pre>
+For design purpose, it should be found as:
+<pre>
+    aveOutAirFra = unCorOutAirInk/maxSysPriFlow
+</pre>
+
+<h4>Step 9: Zone ventilation efficiency <code>zonVenEff</code> (for design purpose)</h4>
+<pre>
+    zonVenEff[i] = 1 + aveOutAirFra + desZonPriOutAirRate[i]
+</pre>
+where the <code>desZonPriOutAirRate</code> is design zone outdoor airflow fraction.
+
+<h4>Step 10: System ventilation efficiency</h4>
+In actual system operation, the system ventilation efficiency <code>sysVenEff</code>:
+<pre>
+    sysVenEff = 1 + outAirFra + MAX(priOutAirFra[i])
+</pre>
+Design system ventilation efficiency <code>desSysVenEff</code>:
+<pre>
+    desSysVenEff = MIN(zonVenEff[i])
+</pre>
+
+<h4>Step 11: Minimum required system outdoor air intake flow </h4>
+The minimum required system outdoor air intake flow should be the uncorrected 
+outdoor air intake <code>sysUncOutAir</code> divided by the system ventilation 
+efficiency <code>sysVenEff</code>, but should not be larger than the design 
+outdoor air rate <code>desOutAirInt</code>.
+<pre>
+    effMinOutAirInt = MIN(sysUncOutAir/sysVenEff, desOutAirInt)
+</pre>
+where the design outdoor air rate <code>desOutAirInt</code> should be:
+<pre>
+    desOutAirInt = unCorOutAirInk/desSysVenEff
+</pre>
 
 <h4>References</h4>
 <p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR.
-<i>ASHRAE Guideline 36P, High Performance Sequences of Operation for HVAC 
-systems</i>. First Public Review Draft (June 2016)</a>
+<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of 
+Standards Review)/ASHRAE Guideline 36P, 
+<i>High Performance Sequences of Operation for HVAC systems</i>. 
+First Public Review Draft (June 2016)</a>
+</p>
+<p>
+ANSI/ASHRAE Standard 62.1-2013, 
+<i>Ventilation for Acceptable Indoor Air Quality.</i>
+</p>
+<p>
+Stanke, D., 2010. <i>Dynamic Reset for Multiple-Zone Systems.</i> ASHRAE Journal, March
+2010.
 </p>
 
 </html>", revisions="<html>

@@ -10,37 +10,52 @@ model OutAirFlowSet_MultiZone
     minZonPriFlo=fill(0.08, numOfZon),
     peaSysPop=20)
     "Block to output minimum outdoor airflow rate for system with multiple zones "
-    annotation (Placement(transformation(extent={{-14,-12},{28,30}})));
+    annotation (Placement(transformation(extent={{20,-20},{60,20}})));
   CDL.Continuous.Constant numOfOcc[numOfZon](k=fill(2, numOfZon))
     "Number of occupant detected in each zone"
-    annotation (Placement(transformation(extent={{-90,40},{-80,50}})));
-  CDL.Continuous.Constant cooCtr(k=0.5) "Cooling control signal"
-    annotation (Placement(transformation(extent={{-90,20},{-80,30}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   CDL.Logical.Constant winSta[numOfZon](k=fill(false,numOfZon))
     "Status of windows in each zone"
-    annotation (Placement(transformation(extent={{-90,-2},{-80,8}})));
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   CDL.Logical.Constant supFan(k=true) "Status of supply fan"
-    annotation (Placement(transformation(extent={{-90,-26},{-80,-16}})));
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   CDL.Continuous.Constant zonPriFloRat[numOfZon](k={0.1,0.12,0.2,0.09,0.1})
     "Measured primary flow rate in each zone at VAV box"
-    annotation (Placement(transformation(extent={{-90,-52},{-80,-42}})));
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
+  CDL.Sources.Ramp TZon[numOfZon](
+    each height=6,
+    each offset=273.15 + 17,
+    each duration=3600) "Zone space temperature"
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+  CDL.Sources.Ramp TSup[numOfZon](
+    each height=4,
+    each duration=3600,
+    each offset=273.15 + 18) "Supply air temperature"
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation
   for i in 1:numOfZon loop
-    connect(numOfOcc[i].y, outAirSet_MulZon.nOcc[i]) annotation (Line(points={{
-            -79.5,45},{-30,45},{-30,23.7},{-16.1,23.7}}, color={0,0,127}));
-    connect(cooCtr.y, outAirSet_MulZon.cooCtrSig) annotation (Line(points={{-79.5,
-            25},{-40,25},{-40,17.4},{-16.1,17.4}},   color={0,0,127}));
-    connect(winSta[i].y, outAirSet_MulZon.uWindow[i]) annotation (Line(points={{-79.5,3},
-            {-51.75,3},{-51.75,9},{-16.1,9}},                 color={255,0,255}));
-    connect(supFan.y, outAirSet_MulZon.uSupFan) annotation (Line(points={{-79.5,
-            -21},{-40,-21},{-40,1.02},{-16.1,1.02}}, color={255,0,255}));
-    connect(zonPriFloRat[i].y, outAirSet_MulZon.priAirflow[i]) annotation (Line(
-          points={{-79.5,-47},{-30,-47},{-30,-5.7},{-16.1,-5.7}},   color={0,0,
-            127}));
+    connect(numOfOcc[i].y, outAirSet_MulZon.nOcc[i])
+      annotation (Line(points={{-39,70}, {0,70},{0,16},{18,16}},
+        color={0,0,127}));
+    connect(winSta[i].y, outAirSet_MulZon.uWindow[i])
+      annotation (Line(points={{-39,-20}, {-19.75,-20},{-19.75,-4},{18,-4}},
+        color={255,0,255}));
+    connect(supFan.y, outAirSet_MulZon.uSupFan)
+      annotation (Line(points={{-39,-50}, {-10,-50},{-10,-10},{18,-10}},
+        color={255,0,255}));
+    connect(zonPriFloRat[i].y, outAirSet_MulZon.priAirflow[i])
+      annotation (Line(points={{-39,-80},{0,-80},{0,-16},{18,-16}},
+        color={0,0, 127}));
+    connect(TZon[i].y, outAirSet_MulZon.TZon[i])
+      annotation (Line(points={{-39,40},{-10,40},{-10,10},{18,10}},
+        color={0,0,127}));
+    connect(TSup[i].y, outAirSet_MulZon.TSup[i])
+      annotation (Line(points={{-39,10},{-20,10},{-20,4},{18,4}},
+        color={0,0,127}));
   end for;
 
-   annotation (
-  experiment(StopTime=1.0, Tolerance=1e-06),
+  annotation (
+  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/OutAirFlowSet_MultiZone.mos"
     "Simulate and plot"),
     Documentation(info="<html>
