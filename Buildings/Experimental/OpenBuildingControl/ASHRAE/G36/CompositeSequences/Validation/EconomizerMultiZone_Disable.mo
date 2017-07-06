@@ -28,7 +28,7 @@ model EconomizerMultiZone_Disable
   parameter Integer heatingNum = Integer(heating)
     "Numerical value for heating zone state (=1)";
 
-  EconomizerMultiZone economizer(fixEnt=true) "Multizone VAV AHU economizer "
+  EconomizerMultiZone economizer(use_enthalpy=true) "Multizone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   CDL.Logical.Constant FanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));

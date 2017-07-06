@@ -1,11 +1,11 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences;
 model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
 
-  parameter Boolean fixEnt = true
+  parameter Boolean use_enthalpy = true
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
   parameter Real delEntHis(unit="J/kg", quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = fixEnt));
+    annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy));
   parameter Real delTemHis=1 "Delta between the temperature hysteresis high and low limits";
   parameter Real damLimControllerGain=1 "Gain of damper limit controller";
   parameter Real modControllerGain=1 "Gain of modulation controller";
@@ -25,10 +25,10 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}}),
         iconTransformation(extent={{-120,90},{-100,110}})));
-  CDL.Interfaces.RealInput hOut(unit="J/kg", quantity="SpecificEnergy") if fixEnt
+  CDL.Interfaces.RealInput hOut(unit="J/kg", quantity="SpecificEnergy") if use_enthalpy
     "Outdoor air enthalpy" annotation (Placement(transformation(extent={{-140,90},{-120,110}}),
     iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput hOutCut(unit="J/kg", quantity="SpecificEnergy") if fixEnt
+  CDL.Interfaces.RealInput hOutCut(unit="J/kg", quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
@@ -63,7 +63,7 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
   AtomicSequences.EconEnableDisableMultiZone econEnableDisableMultiZone(
     delEntHis=delEntHis,
     delTemHis=delTemHis,
-    fixEnt=fixEnt)
+    use_enthalpy=use_enthalpy)
     "Multizone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   AtomicSequences.EconDamperPositionLimitsMultiZone ecoDamLim(

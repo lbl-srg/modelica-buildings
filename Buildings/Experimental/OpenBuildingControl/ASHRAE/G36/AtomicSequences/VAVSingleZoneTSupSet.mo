@@ -21,11 +21,11 @@ block VAVSingleZoneTSupSet "Supply air set point for single zone VAV system"
     "Maximum fan speed for cooling"
     annotation (Dialog(group="Speed"));
 
-  CDL.Interfaces.RealInput uHea(min=0, max=1)
+  CDL.Interfaces.RealInput uHea(min=0, max=1, unit="1")
     "Heating control signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
-  CDL.Interfaces.RealInput uCoo(min=0, max=1)
+  CDL.Interfaces.RealInput uCoo(min=0, max=1, unit="1")
     "Cooling control signal"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
@@ -499,14 +499,6 @@ Note that the inputs <code>uHea</code> and <code>uCoo</code> must be computed
 based on the same temperature sensors and control loops
 </p>
 <p>
-fixme, mg notes: 
-- pg 145 Supply fan should not run if the building is in an unoccupied
-mode.
-- pg 145 Provide a ramp function to prevent changes in fan speed of more than 10% per minute.
-- pg 145 2.c.1 yHeaMax and yHeaMin should be set at commissioning as I'm reading the 
-guidline text, see 3.2B.1.
-- pg 146 fan on signal.
-
 </p>
 </html>", revisions="<html>
 <ul>

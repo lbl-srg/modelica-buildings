@@ -47,7 +47,7 @@ model EconEnableDisableMultiZone_TOut_hOut
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   EconEnableDisableMultiZone econEnableDisableMultiZone1 "Multizone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  EconEnableDisableMultiZone econEnableDisableMultiZone2(fixEnt=false)
+  EconEnableDisableMultiZone econEnableDisableMultiZone2(use_enthalpy=false)
     "Multizone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{220,-40},{240,-20}})));
 
@@ -164,13 +164,13 @@ equation
                 points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-260,-220},{260,220}}),
         graphics={Text(
-          extent={{-238,206},{342,154}},
+          extent={{-234,206},{346,154}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Example high limit cutoff conditions:
                       ASHRAE 90.1-2013:
                       Device Type: Fixed Enthalpy + Fixed Drybulb, Fixed Drybulb
-                      TOut > 75 degF [24 degC] [297 K]
+                      TOut > 75 degF [24 degC]
                       hOut > 28 Btu/lb [65.1 kJ/kg]"),
         Text(
           extent={{-82,-40},{42,-68}},
@@ -196,7 +196,8 @@ sensor")}),
     This example validates
     <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone\">
     Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone</a>
-    for the following control signals: TOut, TOutCut, hOut, hOutCut.
+    for the following control signals: <code>TOut</code>, <code>TOutCut</code>, 
+    <code>hOut</code>, <code>hOutCut</code>.
     </p>
     </html>", revisions="<html>
     <ul>

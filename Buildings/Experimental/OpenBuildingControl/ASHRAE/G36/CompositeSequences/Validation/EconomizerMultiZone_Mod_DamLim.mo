@@ -32,7 +32,7 @@ model EconomizerMultiZone_Mod_DamLim
   parameter Integer deadbandNum = Integer(deadband)
     "Numerical value for deadband zone state (=2)";
 
-  EconomizerMultiZone economizer(fixEnt=true) "Multizone VAV AHU economizer"
+  EconomizerMultiZone economizer(use_enthalpy=true) "Multizone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   CDL.Logical.Constant FanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
@@ -65,7 +65,7 @@ model EconomizerMultiZone_Mod_DamLim
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   CDL.Continuous.Constant TSupSig(k=TSup) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  EconomizerMultiZone economizer1(fixEnt=false) "Multizone VAV AHU economizer "
+  EconomizerMultiZone economizer1(use_enthalpy=false) "Multizone VAV AHU economizer "
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   Modelica.Blocks.Sources.Ramp TSupSig1(
     duration=900,

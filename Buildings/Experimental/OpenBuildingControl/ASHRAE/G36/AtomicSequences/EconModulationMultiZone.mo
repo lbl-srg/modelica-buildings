@@ -159,8 +159,11 @@ assignments")}),
     the supply air control loop signal. This is a final sequence in the 
     composite multizone VAV AHU economizer control sequence. Damper position 
     limits, which are the inputs to the sequence, are the outputs of 
-    <code>EconDamperPositionLimitsMultiZone</code> and 
-    <code>EconEnableDisableMultiZone</code> sequences.
+    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone\">
+    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone</a> and 
+    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone\">
+    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone</a> 
+    sequences.
     </p>
     <p>
     When the economizer is enabled, the PI controller modulates the damper 
