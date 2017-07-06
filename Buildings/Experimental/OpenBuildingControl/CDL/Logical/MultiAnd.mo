@@ -1,16 +1,16 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical;
 block MultiAnd
-  "Logical 'MultiAnd': y = u1 and u2 and u3 and ..."
+  "Logical MultiAnd, y = u[1] and u[2] and u[3] and ..."
 
   parameter Integer nu(min=0) = 0 "Number of input connections"
     annotation (Dialog(connectorSizing=true), HideResult=true);
   Interfaces.BooleanInput u[nu] "Connector of Boolean input signals"
-    annotation (Placement(transformation(extent={{-120,70},{-80,-70}})));
+    annotation (Placement(transformation(extent={{-140,70},{-100,-70}})));
   Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-17},{134,17}})));
 
 protected
-  Boolean uTemp[nu];
+  Boolean uTemp[nu] "Temporary variable";
 
 equation
   if size(u, 1) > 1 then
@@ -43,26 +43,19 @@ equation
           textString="AND")}),
     Documentation(info="<html>
 <p>
-This blocks computes the Boolean output <code>y</code> as <code>true</code> 
-when the elements of the Boolean input signal vector u are <code>true</code>, 
-otherwise, the output is <code>false</code>:
-</p>
-<p><code>
-y = AND(u[1], u[2], u[3], ......);
-</code></p>
-<p>
-The Boolean input connector is a vector. The vector dimension can be enlarged 
-when additional connection line is drawn. The connection is automatically 
-connected to this new free index.
-</p>
+Block that outputs <code>y = true</code> if and only if
+all elements of the input vector <code>u</code> are <code>true</code>.
+The dimension of the input vector <code>u</code> is automatically enlarged
+when a new connection is made.
 <p>
 If no connection to the input connector <code>u</code> is present,
-the output is set to <code>false</code>: <code>y=false</code>.
+the output is <code>y=false</code>.
 </p>
 <p>
-The usage is demonstrated, e.g., in example
+See
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation.MultiAnd\">
-Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation.MultiAnd</a>.
+Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation.MultiAnd</a>
+for an example.
 </p>
 </html>",
 revisions="<html>

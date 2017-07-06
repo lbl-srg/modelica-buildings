@@ -26,28 +26,30 @@ model MultiAnd "Model to validate the application of MultiAnd block"
     "Logical 'MultiAnd': 1 input connection y=u"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.MultiAnd mulAnd_2(nu=2)
-    "Logical 'MultiAnd': 2 input connection y=and (u1, u2)"
+    "Logical 'MultiAnd': 2 input connection y=and(u1, u2)"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.MultiAnd mulAnd_5(nu=5)
-    "Logical 'MultiAnd': 5 input connection y=and(u1,u2, ...,u5)"
+    "Logical 'MultiAnd': 5 input connection y=and(u1, u2, ..., u5)"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+
 equation
   connect(booPul1.y, mulAnd_5.u[1]) annotation (Line(points={{-39,60},{-39,60},{
-          20,60},{20,-24.4},{40,-24.4}}, color={255,0,255}));
+          20,60},{20,-24.4},{38,-24.4}}, color={255,0,255}));
   connect(booPul2.y, mulAnd_5.u[2]) annotation (Line(points={{-39,30},{14,30},{14,
-          -27.2},{40,-27.2}}, color={255,0,255}));
+          -27.2},{38,-27.2}}, color={255,0,255}));
   connect(booPul3.y, mulAnd_5.u[3]) annotation (Line(points={{-39,0},{0,0},{0,-30},
-          {40,-30}}, color={255,0,255}));
+          {38,-30}}, color={255,0,255}));
   connect(booPul4.y, mulAnd_5.u[4]) annotation (Line(points={{-39,-30},{-39,-30},
-          {14,-30},{14,-32.8},{40,-32.8}}, color={255,0,255}));
+          {-4,-30},{-4,-32},{-4,-32},{-4,-32.8},{38,-32.8}},
+                                           color={255,0,255}));
   connect(booPul5.y, mulAnd_5.u[5]) annotation (Line(points={{-39,-60},{-39,-60},
-          {20,-60},{20,-35.6},{40,-35.6}}, color={255,0,255}));
+          {20,-60},{20,-35.6},{38,-35.6}}, color={255,0,255}));
   connect(booPul1.y, mulAnd_2.u[1]) annotation (Line(points={{-39,60},{-39,60},{
-          20,60},{20,3.5},{40,3.5}}, color={255,0,255}));
+          20,60},{20,3.5},{38,3.5}}, color={255,0,255}));
   connect(booPul2.y, mulAnd_2.u[2]) annotation (Line(points={{-39,30},{-39,30},{
-          14,30},{14,-3.5},{40,-3.5}}, color={255,0,255}));
+          14,30},{14,-3.5},{38,-3.5}}, color={255,0,255}));
   connect(booPul1.y, mulAnd_1.u[1]) annotation (Line(points={{-39,60},{20,60},{20,
-          30},{40,30}}, color={255,0,255}));
+          30},{38,30}}, color={255,0,255}));
   annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Logical/Validation/MultiAnd.mos"
@@ -58,17 +60,19 @@ Validation test for the block
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Logical.MultiAnd\">
 Buildings.Experimental.OpenBuildingControl.CDL.Logical.MultiAnd</a>.
 </p>
+<p>
+The input signals are configured as follows:</p>
 <ul>
-<li>input <code>u1</code> is booleanPulse with <code>period=1 Sec</code>, 
-<code>width=0.5</code>;</li>
-<li>input <code>u2</code> is booleanPulse with <code>period=2 Sec</code>, 
-<code>width=0.5</code>;</li>
-<li>input <code>u3</code> is booleanPulse with <code>period=3 Sec</code>, 
-<code>width=0.5</code>;</li>
-<li>input <code>u4</code> is booleanPulse with <code>period=4 Sec</code>, 
-<code>width=0.5</code>;</li>
-<li>input <code>u5</code> is booleanPulse with <code>period=5 Sec</code>, 
-<code>width=0.5</code>;</li>
+<li>input <i>u<sub>1</sub></i> has a period of <i>1</i> s and a width of
+<i>0.5</i> s.</li>
+<li>input <i>u<sub>2</sub></i> has a period of <i>2</i> s and a width of
+<i>0.5</i> s.</li>
+<li>input <i>u<sub>3</sub></i> has a period of <i>3</i> s and a width of
+<i>0.5</i> s.</li>
+<li>input <i>u<sub>4</sub></i> has a period of <i>4</i> s and a width of
+<i>0.5</i> s.</li>
+<li>input <i>u<sub>5</sub></i> has a period of <i>5</i> s and a width of
+<i>0.5</i> s.</li>
 </ul>
 
 </html>", revisions="<html>
@@ -78,6 +82,5 @@ June 28, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
-
 </html>"));
 end MultiAnd;

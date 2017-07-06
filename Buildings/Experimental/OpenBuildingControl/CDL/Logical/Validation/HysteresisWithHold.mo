@@ -9,14 +9,14 @@ model HysteresisWithHold
     onHolDur =  0,
     offHolDur = 0,
     uLow =      0.05,
-    uHigh =     0.15) "No On/Off hold"
+    uHigh =     0.15) "No on/off hold"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.HysteresisWithHold onHold_30sec(
     onHolDur =  30,
     offHolDur = 30,
     uLow =      0.05,
     uHigh =     0.15)
-    "On/Off signal are hold for short period"
+    "On/off signal are hold for short period"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.HysteresisWithHold offHold_300sec(
     onHolDur =  30,
