@@ -62,13 +62,6 @@ block LimPID
         transformation(extent={{100,-10},{120,10}})));
 
 protected
-  parameter Boolean with_I = controllerType==CDL.Types.SimpleController.PI or
-                             controllerType==CDL.Types.SimpleController.PID
-                             annotation(Evaluate=true, HideResult=true);
-  parameter Boolean with_D = controllerType==CDL.Types.SimpleController.PD or
-                             controllerType==CDL.Types.SimpleController.PID
-                             annotation(Evaluate=true, HideResult=true);
-
   constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
 
   Add addP(k1=wp, k2=-1)
@@ -110,6 +103,13 @@ protected
     uMax=yMax,
     uMin=yMin)
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+
+  parameter Boolean with_I = controllerType==CDL.Types.SimpleController.PI or
+                             controllerType==CDL.Types.SimpleController.PID
+                             annotation(Evaluate=true, HideResult=true);
+  parameter Boolean with_D = controllerType==CDL.Types.SimpleController.PD or
+                             controllerType==CDL.Types.SimpleController.PID
+                             annotation(Evaluate=true, HideResult=true);
 
   Constant Dzero(k=0) if not with_D
     annotation (Placement(transformation(extent={{-30,20},{-20,30}})));
@@ -262,11 +262,11 @@ together) and using the following strategy:
      order of the time constant of the oscillations occurring with
      the P-controller. If, e.g., vibrations in the order of T=10 ms
      occur in the previous step, start with Ti=0.01 s.</li>
-// <li> If you want to make the reaction of the control loop faster
-//      (but probably less robust against disturbances and measurement noise)
-//      select a <code>PID</code>-Controller and manually adjust parameters
-//      <code>k</code>, <code>Ti</code>, <code>Td</code> (time constant of derivative block).</li>
-// <li> Set the limits yMax and yMin according to your specification.</li>
+<li> If you want to make the reaction of the control loop faster
+     (but probably less robust against disturbances and measurement noise)
+     select a <code>PID</code>-Controller and manually adjust parameters
+     <code>k</code>, <code>Ti</code>, <code>Td</code> (time constant of derivative block).</li>
+<li> Set the limits yMax and yMin according to your specification.</li>
 <li> Perform simulations such that the output of the PID controller
      goes in its limits. Tune <code>Ni</code> (Ni*Ti is the time constant of
      the anti-windup compensation) such that the input to the limiter
@@ -308,8 +308,7 @@ blocks inside the PID controller are initialized according to the following tabl
   <tr><td valign=\"top\"><code>InitialOutput</code><br/>
           and initial equation: y = y_start</td>
       <td valign=\"top\">NoInit</td>
-      <td valign=\"top\">InitialOutput</
-      ></tr>
+      <td valign=\"top\">InitialOutput</td></tr>
 
 </table>
 
