@@ -3,8 +3,8 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
 
   parameter Boolean use_enthalpy = true
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
-  parameter Real kPI_damLim=1 "Gain of damper limit controller";
-  parameter Real modControllerGain=1 "Gain of modulation controller";
+  parameter Real kPIDamLim=1 "Gain of damper limit controller";
+  parameter Real kPIMod=1 "Gain of modulation controller";
   parameter Modelica.SIunits.Time TiPIDamLim=0.9 "Time constant of damper limit controller integrator block";
   parameter Modelica.SIunits.Time TiPIMod=300 "Time constant of modulation controller integrator block";
 
@@ -67,11 +67,11 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     retDamPhyPosMin=0,
     outDamPhyPosMax=0.9,
     outDamPhyPosMin=0,
-    kPIDamLim=kPI_damLim,
+    kPIDamLim=kPIDamLim,
     TiPIDamLim=TiPIDamLim)
     "Multizone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  AtomicSequences.EconModulationMultiZone ecoMod(kPIMod=modControllerGain, TiPIMod=TiPIMod)
+  AtomicSequences.EconModulationMultiZone ecoMod(kPIMod=kPIMod, TiPIMod=TiPIMod)
     "Multizone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
