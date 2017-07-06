@@ -70,36 +70,30 @@ model PumpCurveDerivatives
     height=100,
     offset=0) "Ramp signal for speed"
     annotation (Placement(transformation(extent={{-100,-32},{-88,-20}})));
-  Sensors.RelativePressure               relPre(redeclare package Medium =
+  Sensors.RelativePressure relPre(redeclare package Medium =
         Medium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-50,10})));
-  Modelica.Blocks.Continuous.Der ddp_dm_flow
+  Modelica.Blocks.Continuous.Derivative ddp_dm_flow(
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    x_start=-11502.5)
     "Derivative of dp for changing m_flow"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Buildings.Utilities.Diagnostics.AssertInequality assIne(threShold=1e-8)
-    "Assertion check for positive derivatives"
-    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Fluid.Sensors.RelativePressure relPre1(
     redeclare package Medium = Medium) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={-50,-70})));
-  Modelica.Blocks.Continuous.Der ddp_dNrpm "Derivative of dp for changing rpm"
+  Modelica.Blocks.Continuous.Derivative ddp_dNrpm(
+    initType=Modelica.Blocks.Types.Init.InitialState)
+    "Derivative of dp for changing rpm"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
   Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-30,-30},{-10,-50}})));
-  Modelica.Blocks.Continuous.Der dm_flow_dNrpm
+  Modelica.Blocks.Continuous.Derivative dm_flow_dNrpm(
+    initType=Modelica.Blocks.Types.Init.InitialState)
     "Derivative of m_flow for changing rpm"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Utilities.Diagnostics.AssertInequality assIne1(threShold=1e-8)
-    "Assertion check for positive derivatives"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  Buildings.Utilities.Diagnostics.AssertInequality assIne2(threShold=1e-8)
-    "Assertion check for positive derivatives"
-    annotation (Placement(transformation(extent={{40,-100},{60,-120}})));
-  Modelica.Blocks.Sources.Constant zero(k=0) "Zero threshold"
-    annotation (Placement(transformation(extent={{18,-94},{28,-84}})));
 equation
   connect(sou.ports[1], pump1.port_a) annotation (Line(
       points={{-100,2},{-70,2},{-70,40},{-60,40}},
@@ -115,7 +109,7 @@ equation
       color={0,127,255}));
 
   connect(forcedPump1.m_flow_in, min1.y) annotation (Line(
-      points={{47.8,52},{48,52},{48,63},{40.5,63}},
+      points={{48,52},{48,52},{48,63},{40.5,63}},
       color={0,0,127}));
   connect(min1.u1, m_flow.y) annotation (Line(
       points={{29,66},{2,66},{-23.4,66}},
@@ -130,8 +124,8 @@ equation
           94,-2},{110,-2}},  color={0,127,255}));
   connect(m_flow1.y, pump2.Nrpm) annotation (Line(points={{-87.4,-26},{-87.4,-26},
           {-50,-26},{-50,-28}},      color={0,0,127}));
-  connect(ddp_dm_flow.u, relPre.p_rel) annotation (Line(points={{-2,-10},{-2,
-          -10},{-50,-10},{-50,1}}, color={0,0,127}));
+  connect(ddp_dm_flow.u, relPre.p_rel) annotation (Line(points={{-2,-10},{-50,
+          -10},{-50,1}},           color={0,0,127}));
   connect(relPre1.port_b, pump2.port_a) annotation (Line(points={{-60,-70},{-60,
           -70},{-60,-40}}, color={0,127,255}));
   connect(relPre1.port_a, pump2.port_b) annotation (Line(points={{-40,-70},{-40,
@@ -144,22 +138,10 @@ equation
     annotation (Line(points={{-10,-40},{14,-40},{40,-40}}, color={0,127,255}));
   connect(senMasFlo.m_flow, dm_flow_dNrpm.u)
     annotation (Line(points={{-20,-51},{-20,-70},{-2,-70}}, color={0,0,127}));
-  connect(dm_flow_dNrpm.y, assIne1.u1) annotation (Line(points={{21,-70},{22,-70},
-          {22,-64},{38,-64}},      color={0,0,127}));
-  connect(zero.y, assIne1.u2) annotation (Line(points={{28.5,-89},{28.5,-76},{38,
-          -76}},    color={0,0,127}));
-  connect(ddp_dNrpm.y, assIne2.u1) annotation (Line(points={{21,-110},{22,-110},
-          {22,-116},{38,-116}}, color={0,0,127}));
-  connect(assIne2.u2, zero.y) annotation (Line(points={{38,-104},{28.5,-104},{28.5,
-          -89}},       color={0,0,127}));
   connect(relPre.port_b, pump1.port_b) annotation (Line(points={{-40,10},{-40,10},
           {-40,40}},              color={0,127,255}));
   connect(relPre.port_a, pump1.port_a)
     annotation (Line(points={{-60,10},{-60,10},{-60,40}}, color={0,127,255}));
-  connect(ddp_dm_flow.y, assIne.u1) annotation (Line(points={{21,-10},{22,-10},
-          {22,-4},{38,-4}}, color={0,0,127}));
-  connect(assIne.u2, zero.y) annotation (Line(points={{38,-16},{28.5,-16},{28.5,
-          -89}},  color={0,0,127}));
   annotation (
 experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file=
@@ -174,6 +156,12 @@ monotoneously increasing or decreasing relations between <code>dp</code>,
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 5, 2017, by Michael Wetter:<br/>
+Replaced exact derivative with derivative approximation, and removed the assertions.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/807\">#807</a>.
+</li>
 <li>
 April 6, 2017, by Thierry S. Nouidui:<br/>
 Added <code>experiment</code> annotation
