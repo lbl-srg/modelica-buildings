@@ -142,7 +142,7 @@ protected
   CDL.Continuous.Add add1(k2=-1) "Add block determines difference between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,240},{-120,260}})));
   CDL.Logical.Constant entSubst(final k=false) if not fixEnt
-    "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor."
+    "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
 
 equation

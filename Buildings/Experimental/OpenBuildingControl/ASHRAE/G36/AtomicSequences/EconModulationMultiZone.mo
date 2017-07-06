@@ -30,7 +30,7 @@ block EconModulationMultiZone
     annotation (Placement(transformation(extent={{-160,40},{-120,80}}),
         iconTransformation(extent={{-120,-100},{-100,-80}})));
   CDL.Interfaces.RealInput uRetDamPosMax(min=0, max=1, unit="1")
-    "Maximum return air damper position limit as returned by the EconEnableDisableMultiZone sequence."
+    "Maximum return air damper position limit as returned by the EconEnableDisableMultiZone sequence"
     annotation (Placement(transformation(extent={{-160,80},{-120,120}}),
         iconTransformation(extent={{-120,-70},{-100,-50}})));
 
@@ -60,16 +60,16 @@ block EconModulationMultiZone
 
 protected
   CDL.Continuous.Constant outDamMinLimSig(final k=damPosController.yMin)
-    "Minimal control loop signal for the outdoor air damper."
+    "Minimal control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   CDL.Continuous.Constant outDamMaxLimSig(k=outDamConSigMax)
     "Maximum control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   CDL.Continuous.Constant retDamMinLimSig(k=retDamConSigMin)
-    "Minimal control loop signal for the return air damper."
+    "Minimal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   CDL.Continuous.Constant retDamMaxLimSig(k=damPosController.yMax)
-    "Maximal control loop signal for the return air damper."
+    "Maximal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
 equation
