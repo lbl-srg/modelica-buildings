@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.Validation;
 model EconomizerMultiZone_Disable
-  "Validates multizone VAV AHU economizer model modulation and damper position limit control loop disable"
+  "Validation model for disabling the multizone VAV AHU economizer modulation and damper position limit control loops"
   extends Modelica.Icons.Example;
 
   parameter Real TOutCutoff(unit="K", quantity="TermodynamicTemperature")=297

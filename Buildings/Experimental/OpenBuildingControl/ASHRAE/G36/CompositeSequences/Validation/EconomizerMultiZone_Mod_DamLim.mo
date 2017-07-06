@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences.Validation;
 model EconomizerMultiZone_Mod_DamLim
-  "Validates multizone VAV AHU economizer: damper modulation and minimum ooutdoor air requirement damper position limits"
+  "Validation model for multizone VAV AHU economizer operation: damper modulation and minimum ooutdoor air requirement damper position limits"
   extends Modelica.Icons.Example;
 
   parameter Real TOutCutoff(unit="K", quantity="TermodynamicTemperature")=297
