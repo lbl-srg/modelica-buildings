@@ -8,7 +8,7 @@ block EconModulationMultiZone
   "Minimum control loop signal for the return air damper";
   parameter Real yConSigMin=0 "Lower limit of controller output";
   parameter Real yConSigMax=1 "Upper limit of controller output";
-  parameter Real controllerGain=1 "Gain of controller";
+  parameter Real kPIMod=1 "Gain of controller";
 
   CDL.Interfaces.RealInput TSup(unit="K", quantity = "ThermodynamicTemperature")
     "Measured supply air temperature" annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
@@ -42,15 +42,15 @@ block EconModulationMultiZone
         iconTransformation(extent={{100,10},{120,30}})));
 
   CDL.Continuous.LimPID damPosController(
-    Td=0.1,
-    Nd=1,
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
+    Td=0.1,
     Ti=300,
-    yMax=yConSigMax,
-    yMin=yConSigMin,
-    k=controllerGain)
+    final yMax=yConSigMax,
+    final yMin=yConSigMin,
+    k=kPIMod)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT cooling setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    //fixme: Td=0.1 - not used in the model, but still required by LimPID,
   CDL.Continuous.Line outDamPos(limitBelow=true, limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
