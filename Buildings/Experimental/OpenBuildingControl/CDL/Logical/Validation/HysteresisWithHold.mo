@@ -6,41 +6,41 @@ model HysteresisWithHold
     freqHz =    1/360)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.HysteresisWithHold noHold(
-    onHolDur =  0,
-    offHolDur = 0,
+    trueHoldDuration =  0,
+    falseHoldDuration = 0,
     uLow =      0.05,
-    uHigh =     0.15) "No on/off hold"
+    uHigh =     0.15) "No true/false hold"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Logical.HysteresisWithHold onHold_30sec(
-    onHolDur =  30,
-    offHolDur = 30,
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.HysteresisWithHold onHold_30s(
+    trueHoldDuration =  30,
+    falseHoldDuration = 30,
     uLow =      0.05,
     uHigh =     0.15)
     "On/off signal are hold for short period"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Logical.HysteresisWithHold offHold_300sec(
-    onHolDur =  30,
-    offHolDur = 300,
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.HysteresisWithHold offHold_300s(
+    trueHoldDuration =  30,
+    falseHoldDuration = 300,
     uLow =      0.05,
     uHigh =     0.15)
     "Off signal being hold even when it should be on"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Logical.HysteresisWithHold onHold_150sec(
-    onHolDur =  150,
-    offHolDur = 30,
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.HysteresisWithHold onHold_150s(
+    trueHoldDuration =  150,
+    falseHoldDuration = 30,
     uLow =      0.05,
     uHigh =     0.15)
     "On signal being hold even when it should be off."
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
 equation
-  connect(pulse1.y, onHold_150sec.u)
+  connect(pulse1.y, onHold_150s.u)
     annotation (Line(points={{-19,0},{0,0},{0,-60},{18,-60}}, color={0,0,127}));
   connect(pulse1.y, noHold.u)
     annotation (Line(points={{-19,0},{0,0},{0,60},{18,60}}, color={0,0,127}));
-  connect(pulse1.y, offHold_300sec.u)
+  connect(pulse1.y, offHold_300s.u)
     annotation (Line(points={{-19,0},{-10,0},{0,0},{0,-20},{18,-20}}, color={0,0,127}));
-  connect(pulse1.y, onHold_30sec.u)
+  connect(pulse1.y, onHold_30s.u)
     annotation (Line(points={{-19,0},{0,0},{0,20},{18,20}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1800,  Tolerance=1e-06),
@@ -48,30 +48,32 @@ equation
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
-Validation test for the block 
+Validation test for the block
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Logical.HysteresisWithHold\">
 Buildings.Experimental.OpenBuildingControl.CDL.Logical.HysteresisWithHold</a>.
 </p>
 <p>
-The validation uses different instances to validate different hold durations.
+The hold durations are configured as follows:
 </p>
 <ul>
 <li>
-On hold duration time <code>onHolDur</code>=0, 
-Off hold duration time <code>offHolDur</code>=0;
+<code>true</code> hold duration time <code>trueHoldDuration=0</code>,
+<code>false</code> hold duration time <code>falseHoldDuration=0</code>.
 </li>
 <li>
-On hold duration time <code>onHolDur</code>=30, 
-Off hold duration time <code>offHolDur</code>=30;
+<code>true</code> hold duration time <code>trueHoldDuration=30</code>,
+<code>false</code> hold duration time <code>falseHoldDuration=30</code>.
 </li>
 <li>
-On hold duration time <code>onHolDur</code>=30, 
-Off hold duration time <code>offHolDur</code>=300; The off hold period covers
+<code>true</code> hold duration time <code>trueHoldDuration=30</code>,
+<code>false</code> hold duration time <code>falseHoldDuration=300</code>.
+The <code>false</code> hold period covers
 the instance when it should be on.
 </li>
 <li>
-On hold duration time <code>onHolDur</code>=150, 
-Off hold duration time <code>offHolDur</code>=30; The on hold period covers
+<code>true</code> hold duration time <code>trueHoldDuration</code>=150,
+<code>false</code> hold duration time <code>falseHoldDuration=30</code>.
+The <code>true</code> hold period covers
 the instance when it should be off.
 </li>
 </ul>

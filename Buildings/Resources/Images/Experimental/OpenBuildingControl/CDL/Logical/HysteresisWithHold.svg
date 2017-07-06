@@ -12,8 +12,8 @@
    version="1.1"
    id="svg5447"
    sodipodi:docname="HysteresisWithHold.svg"
-   inkscape:version="0.92.1 unknown"
-   inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/HysteresisWithHold.png"
+   inkscape:version="0.91 r13725"
+   inkscape:export-filename="HysteresisWithHold.png"
    inkscape:export-xdpi="86.407402"
    inkscape:export-ydpi="86.407402">
   <metadata
@@ -39,15 +39,15 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1855"
-     inkscape:window-height="1098"
+     inkscape:window-width="1413"
+     inkscape:window-height="855"
      id="namedview5449"
      showgrid="false"
      inkscape:zoom="1.18"
-     inkscape:cx="440.41455"
-     inkscape:cy="387.33687"
-     inkscape:window-x="65"
-     inkscape:window-y="24"
+     inkscape:cx="301.4315"
+     inkscape:cy="411.70315"
+     inkscape:window-x="27"
+     inkscape:window-y="1"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg5447"
      fit-margin-top="0"
@@ -573,7 +573,7 @@
      dominant-baseline="central"
      font-size="13"
      id="text5193"
-     style="font-size:13px;font-family:helvetica;dominant-baseline:central;text-anchor:start;fill:#000000">offHold_300sec.u</text>
+     style="font-size:13px;font-family:helvetica;dominant-baseline:central;text-anchor:start;fill:#000000">offHold_300s.u</text>
   <polyline
      points="197.000000,18.000000 227.000000,18.000000"
      id="polyline5195"
@@ -585,7 +585,7 @@
      dominant-baseline="central"
      font-size="13"
      id="text5197"
-     style="font-size:13px;font-family:helvetica;dominant-baseline:central;text-anchor:start;fill:#000000">offHold_300sec.on</text>
+     style="font-size:13px;font-family:helvetica;dominant-baseline:central;text-anchor:start;fill:#000000">offHold_300s.y</text>
   <polyline
      points="342.000000,18.000000 372.000000,18.000000"
      id="polyline5199"
@@ -597,7 +597,7 @@
      dominant-baseline="central"
      font-size="13"
      id="text5201"
-     style="font-size:13px;font-family:helvetica;dominant-baseline:central;text-anchor:start;fill:#000000">offHold_300sec.uLow</text>
+     style="font-size:13px;font-family:helvetica;dominant-baseline:central;text-anchor:start;fill:#000000">offHold_300s.uLow</text>
   <polyline
      points="502.000000,18.000000 532.000000,18.000000"
      id="polyline5203"
@@ -609,7 +609,7 @@
      dominant-baseline="central"
      font-size="13"
      id="text5205"
-     style="font-size:13px;font-family:helvetica;dominant-baseline:central;text-anchor:start;fill:#000000">offHold_300sec.uHigh</text>
+     style="font-size:13px;font-family:helvetica;dominant-baseline:central;text-anchor:start;fill:#000000">offHold_300s.uHigh</text>
   <clipPath
      id="clipArea1">
     <rect
@@ -1156,7 +1156,7 @@
      dominant-baseline="central"
      font-size="13"
      id="text5422"
-     style="font-size:13px;font-family:helvetica;dominant-baseline:central;text-anchor:start;fill:#000000">onHold_150sec.u</text>
+     style="font-size:13px;font-family:helvetica;dominant-baseline:central;text-anchor:start;fill:#000000">onHold_150s.u</text>
   <polyline
      points="197.000000,418.000000 227.000000,418.000000"
      id="polyline5424"
@@ -1168,7 +1168,7 @@
      dominant-baseline="central"
      font-size="13"
      id="text5426"
-     style="font-size:13px;font-family:helvetica;dominant-baseline:central;text-anchor:start;fill:#000000">onHold_150sec.on</text>
+     style="font-size:13px;font-family:helvetica;dominant-baseline:central;text-anchor:start;fill:#000000">onHold_150s.y</text>
   <polyline
      points="342.000000,418.000000 372.000000,418.000000"
      id="polyline5428"
@@ -1180,7 +1180,7 @@
      dominant-baseline="central"
      font-size="13"
      id="text5430"
-     style="font-size:13px;font-family:helvetica;dominant-baseline:central;text-anchor:start;fill:#000000">onHold_150sec.uLow</text>
+     style="font-size:13px;font-family:helvetica;dominant-baseline:central;text-anchor:start;fill:#000000">onHold_150s.uLow</text>
   <polyline
      points="502.000000,418.000000 532.000000,418.000000"
      id="polyline5432"
@@ -1192,7 +1192,7 @@
      dominant-baseline="central"
      font-size="13"
      id="text5434"
-     style="font-size:13px;font-family:helvetica;dominant-baseline:central;text-anchor:start;fill:#000000">onHold_150sec.uHigh</text>
+     style="font-size:13px;font-family:helvetica;dominant-baseline:central;text-anchor:start;fill:#000000">onHold_150s.uHigh</text>
   <clipPath
      id="clipArea2">
     <rect
@@ -1233,9 +1233,9 @@
      y="41.297443"
      id="text5457"><tspan
        sodipodi:role="line"
-       id="tspan4999">Instances when the output  on should be </tspan><tspan
+       id="tspan4999">Instants when y should be </tspan><tspan
        sodipodi:role="line"
-       id="tspan5001">true, but keep false due to the offHold.</tspan></text>
+       id="tspan5001">true, but is kept false due to the offHold.</tspan></text>
   <path
      style="opacity:1;fill:none;fill-rule:evenodd;stroke:#0000ec;stroke-width:0.7143569;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.42871384, 0.71435692;stroke-dashoffset:0;stroke-opacity:1"
      d="M 334.83855,47.334388 335,324.11865"
@@ -1278,10 +1278,13 @@
      inkscape:connector-curvature="0" />
   <text
      xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.85866674px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#0000ec;fill-opacity:1;stroke:none;stroke-width:0.37147489px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.85866642px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#0000ec;fill-opacity:1;stroke:none;stroke-width:0.37147489px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
      x="84.418365"
      y="447.67679"
-     id="text5457-4"><tspan
+     id="text5457-4"
+     sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
-       id="tspan5003">Instances when the output  on should be false, but keep true due to the onHold.</tspan></text>
+       id="tspan5003"
+       x="84.418365"
+       y="447.67679">Instants when y should be false, but is kept true due to the onHold.</tspan></text>
 </svg>

@@ -1,37 +1,41 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical;
 block HysteresisWithHold
-  "hysteresis block that optionally allows to specify a hold time"
+  "Hysteresis block that optionally allows to specify a hold time"
 
   parameter Real uLow "if y=true and u<=uLow, switch to y=false";
   parameter Real uHigh "if y=false and u>=uHigh, switch to y=true";
 
-  parameter Modelica.SIunits.Time onHolDur
-    "On hold duration time";
+  parameter Modelica.SIunits.Time trueHoldDuration
+    "true hold duration";
 
-  parameter Modelica.SIunits.Time offHolDur = onHolDur
-    "Off hold duration time";
+  parameter Modelica.SIunits.Time falseHoldDuration = trueHoldDuration
+    "false hold duration";
 
   Interfaces.RealInput u "Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.BooleanOutput on "On signal"
+  Interfaces.BooleanOutput y "Boolean output signal"
     annotation (Placement(transformation(extent={{220,-10},{240,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+      iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     "Root of state graph"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Modelica.StateGraph.InitialStep initialStep(nOut=2, nIn=0)
+  Modelica.StateGraph.InitialStep initialStep(
+    nOut=2,
+    nIn=0)
     "Initial state"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Modelica.StateGraph.TransitionWithSignal toTrue1 "Transition to true"
     annotation (Placement(transformation(extent={{10,80},{30,100}})));
   Modelica.StateGraph.TransitionWithSignal toFalse1 "Transition to false"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
-  Not  not1 "Negation of input"
+  Not not1 "Negation of input"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Hysteresis hysteresis(uLow=uLow, uHigh=uHigh)
+  Hysteresis hysteresis(
+    final uLow=uLow,
+    final uHigh=uHigh)
     "Transform Real to Boolean signal with Hysteresis"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.StateGraph.StepWithSignal outputTrue(nIn=2)
@@ -44,18 +48,16 @@ protected
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   Modelica.StateGraph.TransitionWithSignal toFalse "Transition to false"
     annotation (Placement(transformation(extent={{110,-10},{130,10}})));
-  Timer  timer "Timer for false output"
+  Timer timer "Timer for false output"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  GreaterEqualThreshold greaterEqualThreshold(
-    final threshold=offHolDur)
+  GreaterEqualThreshold greEquThr(final threshold=falseHoldDuration)
     "Output true when timer elapsed the required time"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   And and1 "Check for input and elapsed timer"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Timer timer1  "Timer for true output"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  GreaterEqualThreshold greaterEqualThreshold1(
-    final threshold=onHolDur)
+  GreaterEqualThreshold greEquThr1(final threshold=trueHoldDuration)
     "Output true when timer elapsed the required time"
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
   And and2 "Check for input and elapsed timer"
@@ -63,7 +65,6 @@ protected
 
 initial equation
   assert(uLow < uHigh, "Require uLow < uHigh. Check parameter values.");
-
 
 equation
   connect(initialStep.outPort[1], toTrue1.inPort)
@@ -90,9 +91,9 @@ equation
           90},{46,90},{70,90},{70,-0.5},{79,-0.5}}, color={0,0,0}));
   connect(toFalse.outPort, outputFalse.inPort[2]) annotation (Line(points={{121.5,
           0},{140,0},{140,20},{12,20},{12,-0.5},{19,-0.5}}, color={0,0,0}));
-  connect(timer.y, greaterEqualThreshold.u)
+  connect(timer.y, greEquThr.u)
     annotation (Line(points={{-39,-50},{-22,-50}}, color={0,0,127}));
-  connect(greaterEqualThreshold.y, and1.u1)
+  connect(greEquThr.y, and1.u1)
     annotation (Line(points={{1,-50},{18,-50}}, color={255,0,255}));
   connect(hysteresis.y, and1.u2) annotation (Line(points={{-59,0},{-50,0},{-50,-16},
           {-80,-16},{-80,-80},{10,-80},{10,-58},{18,-58}}, color={255,0,255}));
@@ -102,16 +103,16 @@ equation
           60,-50},{60,-12}}, color={255,0,255}));
   connect(outputTrue.active, timer1.u) annotation (Line(points={{90,-11},{90,-11},
           {90,-20},{64,-20},{64,-50},{78,-50}}, color={255,0,255}));
-  connect(timer1.y, greaterEqualThreshold1.u)
+  connect(timer1.y, greEquThr1.u)
     annotation (Line(points={{101,-50},{118,-50}}, color={0,0,127}));
-  connect(greaterEqualThreshold1.y, and2.u1)
+  connect(greEquThr1.y, and2.u1)
     annotation (Line(points={{141,-50},{158,-50}}, color={255,0,255}));
   connect(not1.y, and2.u2) annotation (Line(points={{-19,50},{-19,50},{200,50},{
           200,-80},{150,-80},{150,-58},{158,-58}}, color={255,0,255}));
   connect(and2.y, toFalse.condition) annotation (Line(points={{181,-50},{190,-50},
           {190,-24},{120,-24},{120,-12}}, color={255,0,255}));
-  connect(outputTrue.active, on) annotation (Line(points={{90,-11},{90,-11},{90,
-          -20},{180,-20},{180,0},{230,0}}, color={255,0,255}));
+  connect(outputTrue.active, y) annotation (Line(points={{90,-11},{90,-20},{180,
+          -20},{180,0},{230,0}},      color={255,0,255}));
   annotation (defaultComponentName="hysWitHol",
   Diagram(coordinateSystem(preserveAspectRatio=false,
   extent={{-100,-100},{220,120}})),
@@ -148,32 +149,28 @@ equation
           lineColor={0,0,255})}),
 Documentation(info="<html>
 <p>
-Model for a hysteresis block that optionally allows to specify a hold time. 
-During the hold time, the new state is hold.
+Model for a hysteresis block that optionally allows to specify a hold time.
+During the hold time, the output is not allowed to switch.
 </p>
-<ul>
-<li>
-When the input <code>u</code> becomes greater than <code>uHigh</code>, the 
-output <code>on</code> becomes <code>true</code> and hold the <code>true</code>
-for at least <code>onHolDur</code> seconds.
-</li>
-<li>
+<p>
+When the input <code>u</code> becomes greater than <code>uHigh</code>, the
+output <code>y</code> becomes <code>true</code> and remains <code>true</code>
+for at least <code>trueHoldDuration</code> seconds, after which time it is allowed
+to switch immediately.
+</p>
+<p>
 When the input <code>u</code> becomes less than <code>uLow</code>, the output
-<code>u</code> becomes <code>false</code> and hold the <code>false</code> for 
-at least <code>offHolDur</code> seconds.
-</li>
-</ul>
-After the duration time (<code>onHolDur</code>, <code>offHolDur</code>), the 
-value of Boolean output <code>on</code> will change immediately whenever <code>
-u</code> is greater than <code>uHigh</code> (<code>true</code>) 
-or less than <code>uLow</code> (<code>false</code>).
+<code>y</code> becomes <code>false</code> and remains <code>false</code> for
+at least <code>falseHoldDuration</code> seconds, after which time it is allowed
+to switch immediately.
+</p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/HysteresisWithHold.png\"
 alt=\"Input and output of the block\"/>
 </p>
 <p>
 This model for example could be used to disable an economizer, and not re-enable
-it for <i>10</i> minutes, and vice versa. Using hysteresis can avoid the 
+it for <i>10</i> minutes, and vice versa. Using hysteresis can avoid the
 distraction from the input noise.
 </p>
 </html>", revisions="<html>
