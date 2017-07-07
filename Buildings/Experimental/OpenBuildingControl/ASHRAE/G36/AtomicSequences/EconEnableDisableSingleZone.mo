@@ -92,8 +92,6 @@ block EconEnableDisableSingleZone "Single zone VAV AHU economizer enable/disable
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   CDL.Logical.GreaterThreshold greThr2(final threshold=0) "Check if the timer got started"
     annotation (Placement(transformation(extent={{88,-182},{108,-162}})));
-  CDL.Logical.And and2 "Logical and"
-    annotation (Placement(transformation(extent={{120,-190},{140,-170}})));
   CDL.Logical.And and1 "Logical \"and\" checks supply fan status"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   CDL.Conversions.IntegerToReal intToRea "Integer to real converter"
@@ -178,18 +176,16 @@ equation
     annotation (Line(points={{21,210},{30,210},{30,130},{-10,130},{-10,110},{-2,110}},color={255,0,255}));
   connect(and1.y, andEnaDis.u1)
     annotation (Line(points={{21,110},{21,110},{30,110},{30,48},{38,48}},color={255,0,255}));
-  connect(greThr2.y, and2.u1)
-    annotation (Line(points={{109,-172},{114,-172},{114,-180},{118,-180}}, color={255,0,255}));
   connect(uSupFan, and1.u2)
     annotation (Line(points={{-200,110},{-102,110},{-102,102},{-2,102}},color={255,0,255}));
   connect(retDamPhyPosMaxSig.y, MinRetDamSwitch.u1)
     annotation (Line(points={{-119,-210},{0,-210},{0,-232},{38,-232}}, color={0,0,127}));
   connect(retDamPhyPosMinSig.y, MinRetDamSwitch.u3)
     annotation (Line(points={{-119,-248},{0,-248},{38,-248}}, color={0,0,127}));
-  connect(and2.y, MinRetDamSwitch.u2)
-    annotation (Line(points={{141,-180},{158,-180},{158,-220},{20,-220},{20,-240},{38,-240}}, color={255,0,255}));
   connect(retDamPhyPosMaxSig.y, yRetDamPosMax)
     annotation (Line(points={{-119,-210},{190,-210},{190,-210}}, color={0,0,127}));
+  connect(greThr2.y, MinRetDamSwitch.u2)
+    annotation (Line(points={{109,-172},{118,-172},{118,-200},{20,-200},{20,-240},{38,-240}}, color={255,0,255}));
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy),
     Icon(graphics={
         Rectangle(

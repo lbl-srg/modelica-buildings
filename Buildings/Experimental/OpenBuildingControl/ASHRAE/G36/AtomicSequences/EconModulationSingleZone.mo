@@ -179,7 +179,7 @@ assignments")}),
     </html>", revisions="<html>
     <ul>
     <li>
-    June 28, 2017, by Milica Grahovac:<br/>
+    July 07, 2017, by Milica Grahovac:<br/>
     First implementation.
     </li>
     </ul>
