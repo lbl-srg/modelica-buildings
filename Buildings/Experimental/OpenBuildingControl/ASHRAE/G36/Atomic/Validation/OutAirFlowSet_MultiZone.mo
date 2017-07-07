@@ -67,6 +67,10 @@ Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.OutdoorAirFlowSetpo
 </html>", revisions="<html>
 <ul>
 <li>
+July 6, 2017, by Jianjun Hu:<br/>
+Revised implementation.
+</li>
+<li>
 May 12, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>

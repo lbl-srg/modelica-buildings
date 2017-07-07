@@ -618,6 +618,12 @@ Stanke, D., 2010. <i>Dynamic Reset for Multiple-Zone Systems.</i> ASHRAE Journal
 </html>", revisions="<html>
 <ul>
 <li>
+July 6, 2017, by Jianjun Hu:<br/>
+Replaced <code>cooCtrlSig</code> input with <code>TZon</code> and <code>TSup</code>
+inputs to check if cool or warm air distribution effectiveness should be applied.
+Applied hysteresis to avoid rapid change.
+</li>
+<li>
 July 5, 2017, by Michael Wetter:<br/>
 Revised implementation.
 </li>
