@@ -17,139 +17,126 @@ model EconEnableDisableSingleZone_TOut_hOut
     "Numerical value for deadband zone state (=2)";
 
   CDL.Continuous.Constant TOutCut(k=TOutCutoff) "Outdoor air temperature cutoff"
-    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
+    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   CDL.Continuous.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
-    annotation (Placement(transformation(extent={{-240,40},{-220,60}})));
+    annotation (Placement(transformation(extent={{-240,0},{-220,20}})));
   CDL.Continuous.Constant TOutCut1(k=TOutCutoff) "Outdoor air temperature cutoff"
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
   CDL.Continuous.Constant hOutCut1(k=hOutCutoff) "Outdoor air enthalpy cutoff"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 1000)
     "Outdoor air enthalpy is slightly below the cufoff"
-    annotation (Placement(transformation(extent={{-240,80},{-220,100}})));
+    annotation (Placement(transformation(extent={{-240,40},{-220,60}})));
   CDL.Continuous.Constant TOutBellowCutoff(k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"
-    annotation (Placement(transformation(extent={{40,80},{60,100}})));
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
   CDL.Logical.TriggeredTrapezoid TOut(
     rising=1000,
     falling=800,
     amplitude=4,
     offset=TOutCutoff - 2) "Outoor air temperature"
-    annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
+    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
   CDL.Logical.TriggeredTrapezoid hOut(
     amplitude=4000,
     offset=hOutCutoff - 2200,
     rising=1000,
     falling=800) "Outdoor air enthalpy"
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
-  EconEnableDisableMultiZone econEnableDisableMultiZone "Multizone VAV AHU economizer enable disable sequence"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  EconEnableDisableMultiZone econEnableDisableMultiZone1 "Multizone VAV AHU economizer enable disable sequence"
-    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  EconEnableDisableMultiZone econEnableDisableMultiZone2(use_enthalpy=false)
-    "Multizone VAV AHU economizer enable disable sequence"
-    annotation (Placement(transformation(extent={{220,-40},{240,-20}})));
+  EconEnableDisableSingleZone econEnableDisableSingleZone
+                                                        "Singlezone VAV AHU economizer enable disable sequence"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  EconEnableDisableSingleZone econEnableDisableSingleZone1
+                                                         "Singlezone VAV AHU economizer enable disable sequence"
+    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
+  EconEnableDisableSingleZone econEnableDisableSingleZone2(
+                                                         use_enthalpy=false)
+    "Singlezone VAV AHU economizer enable disable sequence"
+    annotation (Placement(transformation(extent={{220,-80},{240,-60}})));
 
 protected
   CDL.Integers.Constant ZoneState(k=deadbandNum) "Zone State is deadband"
-    annotation (Placement(transformation(extent={{-200,-12},{-180,8}})));
+    annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
   CDL.Continuous.Constant outDamPosMax(k=0.9) "Maximal allowed economizer damper position"
-    annotation (Placement(transformation(extent={{-240,-80},{-220,-60}})));
-  CDL.Continuous.Constant outDamPosMin(k=0.1) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
-  CDL.Continuous.Constant retDamPosMax(k=0.8) "Maximal allowed economizer damper position"
-    annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
-  CDL.Continuous.Constant retDamPosMin(k=0)   "Minimal allowed economizer damper position"
-    annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
-  CDL.Continuous.Constant retDamPhyPosMax(k=1) "Maximal allowed economizer damper position"
-    annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
+  CDL.Continuous.Constant outDamPosMin(k=0.1) "Minimal allowed economizer damper position"
+    annotation (Placement(transformation(extent={{-240,-160},{-220,-140}})));
   CDL.Integers.Constant FreProSta(k=freProDisabledNum) "Freeze Protection Status - Disabled"
-    annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
+    annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
   CDL.Sources.BooleanPulse booPul(final startTime=10, period=2000) "Boolean pulse signal"
-    annotation (Placement(transformation(extent={{-200,120},{-180,140}})));
+    annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
   CDL.Sources.BooleanPulse booPul1(final startTime=10, period=2000) "Boolean pulse signal"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   CDL.Logical.Constant SupFanSta(k=true) "Supply fan status signal"
-      annotation (Placement(transformation(extent={{-200,-42},{-180,-22}})));
+      annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
 
 equation
-  connect(TOutCut.y, econEnableDisableMultiZone.TOutCut) annotation (Line(
-        points={{-139,90},{-112,90},{-112,-22},{-81,-22}}, color={0,0,127}));
-  connect(hOutCut.y, econEnableDisableMultiZone.hOutCut) annotation (Line(
-        points={{-219,50},{-150,50},{-150,-26},{-81,-26}}, color={0,0,127}));
-  connect(FreProSta.y, econEnableDisableMultiZone.uFreProSta) annotation (Line(
-        points={{-179,30},{-120,30},{-120,-28},{-81,-28}}, color={255,127,0}));
-  connect(outDamPosMax.y, econEnableDisableMultiZone.uOutDamPosMax) annotation (
-     Line(points={{-219,-70},{-150,-70},{-150,-34},{-81,-34}}, color={0,0,127}));
-  connect(outDamPosMin.y, econEnableDisableMultiZone.uOutDamPosMin)
-    annotation (Line(points={{-219,-110},{-210,-110},{-210,-60},{-140,-60},{-140,-36},{-81,-36}},
+  connect(TOutCut.y, econEnableDisableSingleZone.TOutCut) annotation (Line(
+        points={{-139,50},{-112,50},{-112,-62},{-81,-62}}, color={0,0,127}));
+  connect(hOutCut.y, econEnableDisableSingleZone.hOutCut) annotation (Line(
+        points={{-219,10},{-150,10},{-150,-66},{-81,-66}}, color={0,0,127}));
+  connect(FreProSta.y, econEnableDisableSingleZone.uFreProSta) annotation (Line(
+        points={{-179,-10},{-120,-10},{-120,-68},{-81,-68}},
+                                                           color={255,127,0}));
+  connect(outDamPosMax.y, econEnableDisableSingleZone.uOutDamPosMax) annotation (
+     Line(points={{-219,-110},{-150,-110},{-150,-74},{-81,-74}},
+                                                               color={0,0,127}));
+  connect(outDamPosMin.y, econEnableDisableSingleZone.uOutDamPosMin)
+    annotation (Line(points={{-219,-150},{-210,-150},{-210,-100},{-140,-100},{-140,-76},{-81,-76}},
         color={0,0,127}));
-  connect(retDamPhyPosMax.y, econEnableDisableMultiZone.uRetDamPhyPosMax)
-    annotation (Line(points={{-139,-110},{-110,-110},{-110,-38},{-81,-38}}, color={0,0,127}));
-  connect(retDamPosMax.y, econEnableDisableMultiZone.uRetDamPosMax)
-    annotation (Line(points={{-139,-150},{-106,-150},{-106,-40},{-81,-40}}, color={0,0,127}));
-  connect(retDamPosMin.y, econEnableDisableMultiZone.uRetDamPosMin) annotation (
-     Line(points={{-139,-190},{-102,-190},{-102,-42},{-81,-42}}, color={0,0,127}));
-  connect(econEnableDisableMultiZone.uZoneState, ZoneState.y)
-    annotation (Line(points={{-81,-30},{-140,-30},{-140,-2},{-179,-2}}, color={255,127,0}));
-  connect(TOutCut1.y, econEnableDisableMultiZone1.TOutCut) annotation (Line(
-        points={{21,90},{30,90},{30,-22},{79,-22}},color={0,0,127}));
-  connect(hOutCut1.y, econEnableDisableMultiZone1.hOutCut) annotation (Line(
-        points={{-59,50},{10,50},{10,-26},{79,-26}}, color={0,0,127}));
-  connect(hOutBelowCutoff.y, econEnableDisableMultiZone.hOut) annotation (Line(
-        points={{-219,90},{-180,90},{-180,66},{-130,66},{-130,-24},{-81,-24}},color={0,0,127}));
-  connect(TOutBellowCutoff.y, econEnableDisableMultiZone1.TOut) annotation (
-      Line(points={{61,90},{70,90},{70,-20},{80,-20},{79,-20}},    color={0,0,127}));
+  connect(econEnableDisableSingleZone.uZoneState, ZoneState.y)
+    annotation (Line(points={{-81,-70},{-140,-70},{-140,-40},{-179,-40}},
+                                                                        color={255,127,0}));
+  connect(TOutCut1.y, econEnableDisableSingleZone1.TOutCut) annotation (Line(
+        points={{21,50},{30,50},{30,-62},{79,-62}},color={0,0,127}));
+  connect(hOutCut1.y, econEnableDisableSingleZone1.hOutCut) annotation (Line(
+        points={{-59,10},{10,10},{10,-66},{79,-66}}, color={0,0,127}));
+  connect(hOutBelowCutoff.y, econEnableDisableSingleZone.hOut) annotation (Line(
+        points={{-219,50},{-180,50},{-180,26},{-130,26},{-130,-64},{-81,-64}},color={0,0,127}));
+  connect(TOutBellowCutoff.y, econEnableDisableSingleZone1.TOut) annotation (
+      Line(points={{61,50},{70,50},{70,-60},{80,-60},{79,-60}},    color={0,0,127}));
   connect(booPul.y, TOut.u)
-    annotation (Line(points={{-179,130},{-162,130}}, color={255,0,255}));
-  connect(TOut.y, econEnableDisableMultiZone.TOut)
-    annotation (Line(points={{-139,130},{-110,130},{-110,-20},{-81,-20}},color={0,0,127}));
-  connect(booPul1.y, hOut.u) annotation (Line(points={{-59,90},{-50,90},{-42,90}}, color={255,0,255}));
-  connect(hOut.y, econEnableDisableMultiZone1.hOut)
-    annotation (Line(points={{-19,90},{-10,90},{-10,60},{20,60},{20,-24},{79,-24}}, color={0,0,127}));
-  connect(FreProSta.y, econEnableDisableMultiZone1.uFreProSta) annotation (Line(
-        points={{-179,30},{-52,30},{-52,-28},{79,-28}}, color={255,127,0}));
-  connect(ZoneState.y, econEnableDisableMultiZone1.uZoneState) annotation (Line(
-        points={{-179,-2},{-160,-2},{-160,14},{4,14},{4,-30},{79,-30}},      color={255,127,0}));
-  connect(outDamPosMax.y, econEnableDisableMultiZone1.uOutDamPosMax)
-    annotation (Line(points={{-219,-70},{8,-70},{8,-34},{79,-34}},     color={0,0,127}));
-  connect(outDamPosMin.y, econEnableDisableMultiZone1.uOutDamPosMin)
-    annotation (Line(points={{-219,-110},{-190,-110},{-190,-64},{12,-64},{12,-36},{79,-36}},   color={0,0,127}));
-  connect(retDamPhyPosMax.y, econEnableDisableMultiZone1.uRetDamPhyPosMax)
-    annotation (Line(points={{-139,-110},{16,-110},{16,-38},{79,-38}},   color={0,0,127}));
-  connect(retDamPosMax.y, econEnableDisableMultiZone1.uRetDamPosMax)
-    annotation (Line(points={{-139,-150},{20,-150},{20,-40},{79,-40}},   color={0,0,127}));
-  connect(retDamPosMin.y, econEnableDisableMultiZone1.uRetDamPosMin)
-    annotation (Line(points={{-139,-190},{32,-190},{32,-42},{79,-42}}, color={0,0,127}));
-  connect(TOut.y, econEnableDisableMultiZone2.TOut) annotation (Line(points={{-139,130},{-82,130},{200,130},{200,-20},{
-          219,-20}}, color={0,0,127}));
-  connect(TOutCut.y, econEnableDisableMultiZone2.TOutCut) annotation (Line(
-        points={{-139,90},{-120,90},{-120,120},{188,120},{188,-22},{219,-22}},color={0,0,127}));
-  connect(FreProSta.y, econEnableDisableMultiZone2.uFreProSta) annotation (Line(
-        points={{-179,30},{170,30},{170,-28},{219,-28}}, color={255,127,0}));
-  connect(ZoneState.y, econEnableDisableMultiZone2.uZoneState) annotation (Line(
-        points={{-179,-2},{-168,-2},{-168,20},{150,20},{150,-30},{219,-30}},color={255,127,0}));
-  connect(outDamPosMax.y, econEnableDisableMultiZone2.uOutDamPosMax)
-    annotation (Line(points={{-219,-70},{178,-70},{178,-34},{219,-34}}, color={0,0,127}));
-  connect(outDamPosMin.y, econEnableDisableMultiZone2.uOutDamPosMin)
-    annotation (Line(points={{-219,-110},{-180,-110},{-180,-70},{188,-70},{188,-38},{188,-36},{219,-36}},
+    annotation (Line(points={{-179,90},{-162,90}},   color={255,0,255}));
+  connect(TOut.y, econEnableDisableSingleZone.TOut)
+    annotation (Line(points={{-139,90},{-110,90},{-110,-60},{-81,-60}},  color={0,0,127}));
+  connect(booPul1.y, hOut.u) annotation (Line(points={{-59,50},{-50,50},{-42,50}}, color={255,0,255}));
+  connect(hOut.y, econEnableDisableSingleZone1.hOut)
+    annotation (Line(points={{-19,50},{-10,50},{-10,20},{20,20},{20,-64},{79,-64}}, color={0,0,127}));
+  connect(FreProSta.y, econEnableDisableSingleZone1.uFreProSta) annotation (Line(
+        points={{-179,-10},{-30,-10},{-30,-68},{79,-68}},
+                                                        color={255,127,0}));
+  connect(ZoneState.y, econEnableDisableSingleZone1.uZoneState) annotation (Line(
+        points={{-179,-40},{-160,-40},{-160,-26},{4,-26},{4,-70},{79,-70}},  color={255,127,0}));
+  connect(outDamPosMax.y, econEnableDisableSingleZone1.uOutDamPosMax)
+    annotation (Line(points={{-219,-110},{8,-110},{8,-74},{79,-74}},   color={0,0,127}));
+  connect(outDamPosMin.y, econEnableDisableSingleZone1.uOutDamPosMin)
+    annotation (Line(points={{-219,-150},{-190,-150},{-190,-104},{12,-104},{12,-76},{79,-76}}, color={0,0,127}));
+  connect(TOut.y, econEnableDisableSingleZone2.TOut) annotation (Line(points={{-139,90},{-82,90},{200,90},{200,-60},{
+          219,-60}}, color={0,0,127}));
+  connect(TOutCut.y, econEnableDisableSingleZone2.TOutCut) annotation (Line(
+        points={{-139,50},{-120,50},{-120,80},{188,80},{188,-62},{219,-62}},  color={0,0,127}));
+  connect(FreProSta.y, econEnableDisableSingleZone2.uFreProSta) annotation (Line(
+        points={{-179,-10},{170,-10},{170,-68},{219,-68}},
+                                                         color={255,127,0}));
+  connect(ZoneState.y, econEnableDisableSingleZone2.uZoneState) annotation (Line(
+        points={{-179,-40},{-170,-40},{-170,-20},{150,-20},{150,-70},{219,-70}},
+                                                                            color={255,127,0}));
+  connect(outDamPosMax.y, econEnableDisableSingleZone2.uOutDamPosMax)
+    annotation (Line(points={{-219,-110},{180,-110},{180,-74},{219,-74}},
+                                                                        color={0,0,127}));
+  connect(outDamPosMin.y, econEnableDisableSingleZone2.uOutDamPosMin)
+    annotation (Line(points={{-219,-150},{-180,-150},{-180,-120},{190,-120},{190,-76},{219,-76}},
         color={0,0,127}));
-  connect(retDamPhyPosMax.y, econEnableDisableMultiZone2.uRetDamPhyPosMax)
-    annotation (Line(points={{-139,-110},{192,-110},{192,-38},{219,-38}}, color={0,0,127}));
-  connect(retDamPosMax.y, econEnableDisableMultiZone2.uRetDamPosMax)
-    annotation (Line(points={{-139,-150},{196,-150},{196,-40},{219,-40}}, color={0,0,127}));
-  connect(retDamPosMin.y, econEnableDisableMultiZone2.uRetDamPosMin)
-    annotation (Line(points={{-139,-190},{198,-190},{198,-42},{219,-42}}, color={0,0,127}));
-  connect(SupFanSta.y, econEnableDisableMultiZone.uSupFan) annotation (Line(
-        points={{-179,-32},{-134,-32},{-81,-32}},             color={255,0,255}));
-  connect(SupFanSta.y, econEnableDisableMultiZone1.uSupFan) annotation (Line(
-        points={{-179,-32},{-160,-32},{-160,-12},{-20,-12},{-20,-32},{79,-32}},color={255,0,255}));
-  connect(SupFanSta.y, econEnableDisableMultiZone2.uSupFan) annotation (Line(
-        points={{-179,-32},{-170,-32},{-170,-12},{140,-12},{140,-32},{219,-32}},color={255,0,255}));
+  connect(SupFanSta.y, econEnableDisableSingleZone.uSupFan) annotation (Line(
+        points={{-179,-70},{-150,-70},{-150,-70},{-150,-72},{-81,-72}},
+                                                              color={255,0,255}));
+  connect(SupFanSta.y, econEnableDisableSingleZone1.uSupFan) annotation (Line(
+        points={{-179,-70},{-160,-70},{-160,-54},{-40,-54},{-40,-72},{79,-72}},color={255,0,255}));
+  connect(SupFanSta.y, econEnableDisableSingleZone2.uSupFan) annotation (Line(
+        points={{-179,-70},{-170,-70},{-170,-50},{140,-50},{140,-72},{219,-72}},color={255,0,255}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisableMultiZone_TOut_hOut.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisableSingleZone_TOut_hOut.mos"
     "Simulate and plot"),
   Icon(graphics={
         Ellipse(
@@ -162,9 +149,9 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-260,-220},{260,220}}),
+        coordinateSystem(preserveAspectRatio=false, extent={{-260,-180},{260,180}}),
         graphics={Text(
-          extent={{-234,206},{346,154}},
+          extent={{-234,166},{346,114}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Example high limit cutoff conditions:
@@ -173,19 +160,19 @@ equation
                       TOut > 75 degF [24 degC]
                       hOut > 28 Btu/lb [65.1 kJ/kg]"),
         Text(
-          extent={{-82,-40},{42,-68}},
+          extent={{-82,-80},{42,-108}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=12,
           textString="Tests temperature hysteresis"),
         Text(
-          extent={{80,-40},{208,-68}},
+          extent={{80,-80},{208,-108}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=12,
           textString="Tests enthalpy hysteresis"),
         Text(
-          extent={{220,-46},{348,-74}},
+          extent={{220,-86},{348,-114}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=12,
@@ -194,8 +181,8 @@ sensor")}),
     Documentation(info="<html>
     <p>
     This example validates
-    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone\">
-    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone</a>
+    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableSingleZone\">
+    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableSingleZone</a>
     for the following control signals: <code>TOut</code>, <code>TOutCut</code>, 
     <code>hOut</code>, <code>hOutCut</code>.
     </p>
