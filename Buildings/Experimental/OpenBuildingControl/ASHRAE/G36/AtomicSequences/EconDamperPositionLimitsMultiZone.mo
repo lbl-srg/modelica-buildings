@@ -3,7 +3,7 @@ block EconDamperPositionLimitsMultiZone
   "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
 
   parameter Real retDamPhyPosMax(min=0, max=1, unit="1") = 1
-    "Physically fixed maximum position of the return air damper"; //fixme: this is set at commissioning, we should add .Data blocks to generate these signals (or similar)
+    "Physically fixed maximum position of the return air damper";
   parameter Real retDamPhyPosMin(min=0, max=1, unit="1") = 0
     "Physically fixed minimum position of the return air damper";
   parameter Real outDamPhyPosMax(min=0, max=1, unit="1") = 1
