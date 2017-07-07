@@ -168,7 +168,7 @@ assignments")}),
     src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationControlDiagramSingleZone.png\"/>
     </p>
     <p>
-    single zone AHU economizer modulation control chart:
+    Single zone AHU economizer modulation control chart:
     <br/>
     </p>
     <p align=\"center\">
