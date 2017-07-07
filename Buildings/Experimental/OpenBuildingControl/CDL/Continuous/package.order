@@ -23,6 +23,8 @@ Max
 Min
 MinMax
 Modulo
+MovingMean
+MultiSum
 NumberOfRequests
 Product
 SignalRanker
