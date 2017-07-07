@@ -27,7 +27,7 @@ before_install:
   - sudo chmod +x /usr/local/bin/dymola
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
   - docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2017fd01-x86-64
-  - sudo useradd --uid 1000 docker travis
+  - sudo useradd --uid 1000 travis
   - sudo groupadd --gid 1000 docker
   - sudo usermod -a -G docker travis
 
