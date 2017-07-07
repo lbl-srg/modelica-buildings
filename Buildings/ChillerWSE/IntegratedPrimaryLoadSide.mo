@@ -20,9 +20,9 @@ model IntegratedPrimaryLoadSide
      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   //Pump
-  parameter Integer numPum=nChi "Number of pumps"
+  parameter Integer nPum=nChi "Number of pumps"
     annotation(Dialog(group="Pump"));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum[nChi]
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum[nPum]
     annotation (Dialog(group="Pump"),
           Placement(transformation(extent={{38,78},{58,98}})));
   parameter Boolean addPowerToMedium=true
@@ -34,7 +34,7 @@ model IntegratedPrimaryLoadSide
   parameter Modelica.Blocks.Types.Init initPum=initValve
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
-  parameter Real[numPum] yPum_start=fill(0,numPum) "Initial value of output:0-closed, 1-fully opened"
+  parameter Real[nPum] yPum_start=fill(0,nPum) "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
 
  //Valve
@@ -44,7 +44,7 @@ model IntegratedPrimaryLoadSide
   parameter Real yValve7_start = 0 "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
 
-  Buildings.Fluid.Movers.SpeedControlled_y pum[nChi](
+  Buildings.Fluid.Movers.SpeedControlled_y pum[nPum](
     redeclare each final package Medium = Medium2,
     each final p_start=p2_start,
     each final T_start=T2_start,
@@ -87,7 +87,7 @@ model IntegratedPrimaryLoadSide
     "Adjustable valve: the valve position is manipulated to maintain the minimum flow requirement through chillers"
     annotation (Placement(transformation(extent={{10,-90},{-10,-70}})));
 
-  Modelica.Blocks.Interfaces.RealInput yPum[nChi]
+  Modelica.Blocks.Interfaces.RealInput yPum[nPum]
     "Constant normalized rotational speed"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-132,-28},{-100,-60}})));
