@@ -104,8 +104,9 @@ block EconEnableDisableMultiZone
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   CDL.Logical.GreaterThreshold greThr2(final threshold=0) "Check if the timer got started"
     annotation (Placement(transformation(extent={{88,-182},{108,-162}})));
-  CDL.Logical.And and2 "Logical and"
-    annotation (Placement(transformation(extent={{120,-190},{140,-170}})));
+  CDL.Logical.And3 and2
+                       "Logical and"
+    annotation (Placement(transformation(extent={{130,-200},{150,-180}})));
   CDL.Logical.And and1 "Logical \"and\" checks supply fan status"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   CDL.Conversions.IntegerToReal intToRea "Integer to real converter"
@@ -197,9 +198,9 @@ equation
   connect(greThr.y, andEnaDis.u3)
     annotation (Line(points={{-99,-10},{-20,-10},{-20,32},{38,32}}, color={255,0,255}));
   connect(and2.y, MaxRetDamSwitch.u2)
-    annotation (Line(points={{141,-180},{150,-180},{150,-230},{20,-230},{20,-210},{38,-210}}, color={255,0,255}));
+    annotation (Line(points={{151,-190},{162,-190},{162,-230},{20,-230},{20,-210},{38,-210}}, color={255,0,255}));
   connect(and2.y, MinRetDamSwitch.u2)
-    annotation (Line(points={{141,-180},{150,-180},{150,-230},{20,-230},{20,-250},{38,-250}}, color={255,0,255}));
+    annotation (Line(points={{151,-190},{162,-190},{162,-230},{20,-230},{20,-250},{38,-250}}, color={255,0,255}));
   connect(timer.y, greThr2.u)
     annotation (Line(points={{51,-60},{82,-60},{82,-172},{86,-172}},   color={0,0,127}));
   connect(not2.y, RetDamSwitch.u2)
@@ -217,11 +218,14 @@ equation
   connect(and1.y, andEnaDis.u1)
     annotation (Line(points={{21,110},{21,110},{30,110},{30,48},{38,48}},color={255,0,255}));
   connect(greThr2.y, and2.u1)
-    annotation (Line(points={{109,-172},{114,-172},{114,-180},{118,-180}}, color={255,0,255}));
+    annotation (Line(points={{109,-172},{120,-172},{120,-182},{128,-182}}, color={255,0,255}));
   connect(les1.y, and2.u2)
-    annotation (Line(points={{13,-180},{20,-180},{20,-188},{118,-188}},color={255,0,255}));
+    annotation (Line(points={{13,-180},{20,-180},{20,-188},{112,-188},{112,-190},{128,-190}},
+                                                                       color={255,0,255}));
   connect(uSupFan, and1.u2)
     annotation (Line(points={{-200,110},{-102,110},{-102,102},{-2,102}},color={255,0,255}));
+  connect(not2.y, and2.u3)
+    annotation (Line(points={{11,-60},{20,-60},{20,-76},{78,-76},{78,-198},{128,-198}}, color={255,0,255}));
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy),
     Icon(graphics={
         Rectangle(
