@@ -438,8 +438,8 @@ equation
           70},{188,-80},{210,-80}}, color={0,0,127}));
   connect(senTSup.T, TSup) annotation (Line(points={{138,51},{138,64},{170,64},{
           170,-110},{210,-110}}, color={0,0,127}));
-  connect(out.ports[2], ideEco.port_1) annotation (Line(points={{-120,40},{-109.8,
-          40},{-109.8,40},{-99.8,40}}, color={0,127,255}));
+  connect(out.ports[2], ideEco.port_1) annotation (Line(points={{-120,40},{
+          -109.8,40},{-99.8,40}},      color={0,127,255}));
   connect(ideEco.port_2, senTMixAir.port_a)
     annotation (Line(points={{-80.2,40},{-60,40}}, color={0,127,255}));
   connect(ideEco.port_3, returnAir) annotation (Line(points={{-90,36},{-90,-40},
