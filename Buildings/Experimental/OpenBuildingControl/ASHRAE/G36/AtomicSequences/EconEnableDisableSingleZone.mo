@@ -91,7 +91,7 @@ block EconEnableDisableSingleZone "Single zone VAV AHU economizer enable/disable
   CDL.Logical.GreaterThreshold greThr(final threshold=heatingNum) "Check if ZoneState is other than heating"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   CDL.Logical.GreaterThreshold greThr2(final threshold=0) "Check if the timer got started"
-    annotation (Placement(transformation(extent={{88,-182},{108,-162}})));
+    annotation (Placement(transformation(extent={{80,-180},{100,-160}})));
   CDL.Logical.And and1 "Logical \"and\" checks supply fan status"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   CDL.Conversions.IntegerToReal intToRea "Integer to real converter"
@@ -127,6 +127,8 @@ protected
     "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
 
+public
+  CDL.Logical.And and2 annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
 equation
   connect(OutDamSwitch.y, yOutDamPosMax) annotation (Line(points={{61,-140},{61,-140},{190,-140}}, color={0,0,127}));
   connect(TOut, add1.u1) annotation (Line(points={{-200,270},{-160,270},{-160,256},{-142,256}},
@@ -148,7 +150,7 @@ equation
   end if;
   connect(disableDelay.y, greEqu.u2)
     annotation (Line(points={{-39,-110},{-20,-110},{-20,-108},{-12,-108}}, color={0,0,127}));
-  connect(timer.y, greEqu.u1) annotation (Line(points={{51,-60},{62,-60},{62,-80},{-20,-80},{-20,-100},{-12,-100}},
+  connect(timer.y, greEqu.u1) annotation (Line(points={{51,-60},{60,-60},{60,-80},{-20,-80},{-20,-100},{-12,-100}},
         color={0,0,127}));
   connect(greEqu.y, OutDamSwitch.u2) annotation (Line(points={{11,-100},{20,-100},{20,-140},{38,-140}}, color={255,0,255}));
   connect(uOutDamPosMin, OutDamSwitch.u1)
@@ -171,7 +173,7 @@ equation
   connect(greThr.y, andEnaDis.u3)
     annotation (Line(points={{-99,-10},{-20,-10},{-20,32},{38,32}}, color={255,0,255}));
   connect(timer.y, greThr2.u)
-    annotation (Line(points={{51,-60},{82,-60},{82,-172},{86,-172}},   color={0,0,127}));
+    annotation (Line(points={{51,-60},{70,-60},{70,-170},{78,-170}},   color={0,0,127}));
   connect(TrueFalseHold.y, and1.u1)
     annotation (Line(points={{21,210},{30,210},{30,130},{-10,130},{-10,110},{-2,110}},color={255,0,255}));
   connect(and1.y, andEnaDis.u1)
@@ -179,13 +181,18 @@ equation
   connect(uSupFan, and1.u2)
     annotation (Line(points={{-200,110},{-102,110},{-102,102},{-2,102}},color={255,0,255}));
   connect(retDamPhyPosMaxSig.y, MinRetDamSwitch.u1)
-    annotation (Line(points={{-119,-210},{0,-210},{0,-232},{38,-232}}, color={0,0,127}));
+    annotation (Line(points={{-119,-210},{-4,-210},{-4,-232},{38,-232}},
+                                                                       color={0,0,127}));
   connect(retDamPhyPosMinSig.y, MinRetDamSwitch.u3)
     annotation (Line(points={{-119,-248},{0,-248},{38,-248}}, color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, yRetDamPosMax)
     annotation (Line(points={{-119,-210},{190,-210},{190,-210}}, color={0,0,127}));
-  connect(greThr2.y, MinRetDamSwitch.u2)
-    annotation (Line(points={{109,-172},{118,-172},{118,-200},{20,-200},{20,-240},{38,-240}}, color={255,0,255}));
+  connect(and2.y, MinRetDamSwitch.u2)
+    annotation (Line(points={{141,-160},{150,-160},{150,-200},{30,-200},{30,-240},{38,-240}}, color={255,0,255}));
+  connect(not2.y, and2.u1)
+    annotation (Line(points={{11,-60},{22,-60},{22,-120},{114,-120},{114,-160},{118,-160}}, color={255,0,255}));
+  connect(greThr2.y, and2.u2)
+    annotation (Line(points={{101,-170},{110,-170},{110,-168},{118,-168}}, color={255,0,255}));
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy),
     Icon(graphics={
         Rectangle(
