@@ -299,12 +299,12 @@ disable if
           textString="Supply fan status")}),
     Documentation(info="<html>
       <p>
-      This is a multiple zone VAV AHU economizer enable/disable sequence
-      based on ASHRAE G36 PART5-N.7 and PART5-A.17. Additional
+      This is a single zone VAV AHU economizer enable/disable sequence
+      based on ASHRAE G36 PART5-P.5 and PART5-A.17. Additional
       conditions included in the sequence are: freeze protection (freeze protection
-      stage 0-3, see PART5-N.12), supply fan status (on or off, see PART5-N.5),
+      stage 0-3, see PART5-P.9), supply fan status (on or off, based on PART5-P.4.d),
       and zone state (cooling, heating, or deadband, as illustrated in the
-      modulation control chart, PART5-N.2.c).
+      modulation control chart, PART5-P.3.b).
       </p>
       <p>
       Economizer shall be disabled whenever the outdoor air conditions

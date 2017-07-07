@@ -309,7 +309,7 @@ fixme: add option for separate minimum outdoor air damper.
     Finalized for the integration in the composite single zone VAV AHU economizer sequence.
     </li>
     <li>
-    May 06, 2017, by Jianjun Hu:<br/>
+    April 15, 2017, by Jianjun Hu:<br/>
     First implementation.
     </li>
     </ul>
