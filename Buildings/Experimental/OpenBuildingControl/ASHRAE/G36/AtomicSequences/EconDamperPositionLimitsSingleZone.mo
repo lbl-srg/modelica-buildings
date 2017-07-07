@@ -30,8 +30,8 @@ block EconDamperPositionLimitsSingleZone
   CDL.Interfaces.BooleanInput uAHUMod
     "AHU Mode, fixme: see pg. 103 in G36 for the full list of modes, here we use true = \"occupied\""
     annotation (Placement(transformation(extent={{-220,-120},{-180,-80}})));
-  CDL.Interfaces.RealOutput yOutDamPosMin(unit="1")
-    "Minimum economizer damper position limit." annotation (Placement(
+  CDL.Interfaces.RealOutput yOutDamPosMin(unit="1") "Minimum economizer damper position limit."
+                                                annotation (Placement(
         transformation(extent={{180,10},{200,30}}),  iconTransformation(extent={{180,10},
             {200,30}})));
   CDL.Continuous.Constant outDamPhyPosMinSig(k=0)
@@ -46,13 +46,13 @@ block EconDamperPositionLimitsSingleZone
 
   CDL.Continuous.Constant minPosAtMinSpe(k=minPosMin)
     "Outdoor air damper position, when fan operating at minimum speed to supply minimum outdoor air flow"
-    annotation (Placement(transformation(extent={{-140,64},{-120,84}})));
+    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   CDL.Continuous.Constant desPosAtMinSpe(k=desPosMin)
     "Outdoor air damper position, when fan operating at minimum speed to supply design outdoor air flow"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
   CDL.Continuous.Constant minPosAtMaxSpe(k=minPosMax)
     "Outdoor air damper position, when fan operating at maximum speed to supply minimum outdoor air flow"
-    annotation (Placement(transformation(extent={{-140,102},{-120,122}})));
+    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
   CDL.Continuous.Constant desPosAtMaxSpe(k=desPosMax)
     "Outdoor air damper position, when fan operating at maximum speed to supply design outdoor air flow"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
@@ -69,6 +69,8 @@ block EconDamperPositionLimitsSingleZone
   CDL.Continuous.Line minOutDamForOutMinSet(limitBelow=true, limitAbove=true)
     "Outdoor air damper position, when fan operating at current speed to supply setpoint outdoor air flow"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
+  CDL.Interfaces.RealOutput yOutDamPosMax(unit="1") "Minimum economizer damper position limit."
+    annotation (Placement(transformation(extent={{180,50},{200,70}}), iconTransformation(extent={{180,10},{200,30}})));
 equation
   connect(uAHUMod, outDamPosMin.u2)
     annotation (Line(points={{-200,-100},{118,-100}}, color={255,0,255}));
@@ -100,14 +102,14 @@ equation
                                                      color={0,0,127}));
   connect(minFanSpe.y, minPosAtCurSpe.x1) annotation (Line(points={{-119,-8},{-66,-8},{-66,68},{-22,68}},
                                   color={0,0,127}));
-  connect(minPosAtMinSpe.y, minPosAtCurSpe.f1) annotation (Line(points={{-119,74},{-98,74},{-74,74},{-74,64},{-22,64}},
+  connect(minPosAtMinSpe.y, minPosAtCurSpe.f1) annotation (Line(points={{-119,80},{-119,80},{-74,80},{-74,64},{-22,64}},
                                                 color={0,0,127}));
   connect(maxFanSpe.y, minPosAtCurSpe.x2) annotation (Line(points={{-119,28},{-74,28},{-74,56},{-22,56}},
                                   color={0,0,127}));
-  connect(minPosAtMaxSpe.y, minPosAtCurSpe.f2) annotation (Line(points={{-119,112},{-90,112},{-58,112},{-58,52},{-22,52}},
+  connect(minPosAtMaxSpe.y, minPosAtCurSpe.f2) annotation (Line(points={{-119,110},{-60,110},{-60,110},{-60,52},{-22,52}},
                                                   color={0,0,127}));
   connect(uSupFanSpe, minPosAtCurSpe.u)
-    annotation (Line(points={{-200,56},{-112,56},{-112,60},{-22,60}},
+    annotation (Line(points={{-200,56},{-110,56},{-110,60},{-22,60}},
                                                            color={0,0,127}));
   connect(uSupFanSpe, desPosAtCurSpe.u) annotation (Line(points={{-200,56},{-146,56},{-86,56},{-86,-30},{-22,-30}},
                                              color={0,0,127}));
@@ -178,7 +180,12 @@ equation
           textString="%name")}),
     Diagram(coordinateSystem(                           extent={{-180,-180},{
             180,180}},
-        initialScale=0.1)),
+        initialScale=0.1), graphics={Text(
+          extent={{92,96},{184,88}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="Where is the out dam phy pos max signal?")}),
     Documentation(info="<html>      
 <p>
 This atomic sequence sets the minimum economizer damper position limit. The implementation is according

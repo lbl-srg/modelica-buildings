@@ -1,12 +1,8 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
 block EconModulationSingleZone "Outdoor and return air damper position modulation sequence for single zone VAV AHU"
 
-  parameter Real outDamConSigMax(min=0, max=1, unit="1") = retDamConSigMin
-  "Maximum control loop signal for the outdoor air damper";
-  parameter Real retDamConSigMin(min=0, max=1, unit="1") = 0.5
-  "Minimum control loop signal for the return air damper";
-  parameter Real yConSigMin=0 "Lower limit of controller output";
-  parameter Real yConSigMax=1 "Upper limit of controller output";
+  parameter Real conSigMin=0 "Lower limit of controller output";
+  parameter Real conSigMax=1 "Upper limit of controller output";
   parameter Real kPIMod=1 "Gain of modulation controller";
   parameter Modelica.SIunits.Time TiPIMod=300 "Time constant of modulation controller integrator block";
 
@@ -44,10 +40,10 @@ block EconModulationSingleZone "Outdoor and return air damper position modulatio
   CDL.Continuous.LimPID damPosController(
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
     Td=0.1,
-    final yMax=yConSigMax,
-    final yMin=yConSigMin,
+    final yMax=conSigMax,
+    final yMin=conSigMin,
     k=kPIMod,
-    Ti=TiPIMod)
+    final Ti=TiPIMod)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT cooling setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
     //fixme: Td=0.1 - not used in the model, but still required by LimPID,
@@ -62,12 +58,6 @@ protected
   CDL.Continuous.Constant outDamMinLimSig(final k=damPosController.yMin)
     "Minimal control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  CDL.Continuous.Constant outDamMaxLimSig(k=outDamConSigMax)
-    "Maximum control loop signal for the outdoor air damper"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  CDL.Continuous.Constant retDamMinLimSig(k=retDamConSigMin)
-    "Minimal control loop signal for the return air damper"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   CDL.Continuous.Constant retDamMaxLimSig(k=damPosController.yMax)
     "Maximal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
@@ -91,16 +81,16 @@ equation
           -100},{28,-100},{28,-26},{58,-26}}, color={0,0,127}));
   connect(outDamMinLimSig.y, outDamPos.x1) annotation (Line(points={{1,-10},{1,-10},
           {28,-10},{28,-22},{58,-22}}, color={0,0,127}));
-  connect(retDamMinLimSig.y,retDamPos. x1) annotation (Line(points={{1,80},{2,80},
-          {40,80},{40,78},{58,78}}, color={0,0,127}));
-  connect(outDamMaxLimSig.y, outDamPos.x2) annotation (Line(points={{1,-50},{32,
-          -50},{32,-34},{58,-34}}, color={0,0,127}));
   connect(TCooSet, damPosController.u_s) annotation (Line(points={{-140,10},{-140,
           10},{-82,10}}, color={0,0,127}));
   connect(uRetDamPosMin,retDamPos. f2)
     annotation (Line(points={{-140,60},{-40,60},{-40,62},{58,62}}, color={0,0,127}));
   connect(uOutDamPosMax, outDamPos.f2) annotation (Line(points={{-140,-70},{40,-70},
           {40,-38},{50,-38},{58,-38}}, color={0,0,127}));
+  connect(retDamMaxLimSig.y, outDamPos.x2)
+    annotation (Line(points={{1,40},{30,40},{30,-34},{58,-34}}, color={0,0,127}));
+  connect(outDamMinLimSig.y, retDamPos.x1)
+    annotation (Line(points={{1,-10},{24,-10},{24,78},{58,78}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ecoMod",
     Icon(graphics={
@@ -157,7 +147,7 @@ assignments")}),
     Guidline 36 (G36), PART5.P.3.b. Damper positions are linearly mapped to
     the supply air control loop signal. This is a final sequence in the 
     composite single zone VAV AHU economizer control sequence. Damper position 
-    limits, which are the inputs to the sequence, are the outputs of 
+    limits, which are the inputs to the sequence, are the outputs of
     <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsSingleZone\">
     Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsSingleZone</a> and 
     <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableSingleZone\">
