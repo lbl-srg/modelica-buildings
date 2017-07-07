@@ -151,17 +151,17 @@ control loop"),                    Text(
 assignments")}),
     Documentation(info="<html>      
     <p>
-    This is a multiple zone VAV AHU economizer modulation block. It calculates 
+    This is a single zone VAV AHU economizer modulation block. It calculates 
     the outdoor and return air damper positions based on the supply air temperature
     control loop signal. The implementation is in line with ASHRAE 
-    Guidline 36 (G36), PART5.N.2.c. Damper positions are linearly mapped to
+    Guidline 36 (G36), PART5.P.3.b. Damper positions are linearly mapped to
     the supply air control loop signal. This is a final sequence in the 
-    composite multizone VAV AHU economizer control sequence. Damper position 
+    composite single zone VAV AHU economizer control sequence. Damper position 
     limits, which are the inputs to the sequence, are the outputs of 
-    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone\">
-    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone</a> and 
-    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone\">
-    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone</a> 
+    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsSingleZone\">
+    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsSingleZone</a> and 
+    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableSingleZone\">
+    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableSingleZone</a> 
     sequences.
     </p>
     <p>
@@ -174,16 +174,16 @@ assignments")}),
     modulation sequence assuming a well tuned controller. Control diagram:
     </p>
     <p align=\"center\">
-    <img alt=\"Image of the multizone AHU modulation sequence control diagram\"
-    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationControlDiagramMultiZone.png\"/>
+    <img alt=\"Image of the single zone AHU modulation sequence control diagram\"
+    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationControlDiagramSingleZone.png\"/>
     </p>
     <p>
-    Multizone AHU economizer modulation control chart:
+    single zone AHU economizer modulation control chart:
     <br/>
     </p>
     <p align=\"center\">
-    <img alt=\"Image of the multizone AHU modulation sequence expected performance\"
-    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationControlChartMultiZone.png\"/>
+    <img alt=\"Image of the single zone AHU modulation sequence expected performance\"
+    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationControlChartSingleZone.png\"/>
     </p>
     
     </html>", revisions="<html>
