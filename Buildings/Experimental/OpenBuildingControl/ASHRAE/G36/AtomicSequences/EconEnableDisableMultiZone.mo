@@ -104,8 +104,13 @@ block EconEnableDisableMultiZone
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   CDL.Logical.GreaterThreshold greThr2(final threshold=0) "Check if the timer got started"
     annotation (Placement(transformation(extent={{88,-182},{108,-162}})));
+<<<<<<< HEAD
   CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{120,-190},{140,-170}})));
+=======
+  CDL.Logical.And3 and2 "Logical and"
+    annotation (Placement(transformation(extent={{130,-200},{150,-180}})));
+>>>>>>> issue805_multizone_econ
   CDL.Logical.And and1 "Logical \"and\" checks supply fan status"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   CDL.Conversions.IntegerToReal intToRea "Integer to real converter"
