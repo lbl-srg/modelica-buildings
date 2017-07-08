@@ -16,103 +16,154 @@ block EconDamperPositionLimitsSingleZone
     "fixme: minimum outdoor airflow rate (Vbz_A/EzC). Should we use unit kg/s as the unit?";
   parameter Modelica.SIunits.MassFlowRate desVOut_flowSet = 2.0
     "fixme: design outdoor airflow rate (Vbz_A+Vbz_p)/EzH. Should we use unit kg/s as the unit?";
+  parameter Real outDamPhyPosMax(min=0, max=1, unit="1") = 1
+    "Physically fixed maximum position of the outdoor air damper";
+  parameter Real outDamPhyPosMin(min=0, max=1, unit="1") = 0
+    "Physically fixed minimum position of the outdoor air damper";
 
   CDL.Interfaces.RealInput uSupFanSpe(min=minFanSpe, max=maxFanSpe, unit="1") "Current supply fan speed"
-    annotation (Placement(transformation(extent={{-220,36},{-180,76}}), iconTransformation(extent={{-220,40},{-180,80}})));
+    annotation (Placement(transformation(extent={{-220,90},{-180,130}}),iconTransformation(extent={{-220,90},{-180,130}})));
   CDL.Interfaces.RealInput uVOut_flowMinSet(min=minVOut_flowSet, max=desVOut_flowSet)
     "fixme: Minimum outdoor airflow requirement (setpoint, kg/s?), output of a separate sequence that calculates this value based on ASHRAE Standard 62.1-2013 or California Title 24"
-    annotation (Placement(transformation(extent={{-220,118},{-180,158}}),
-        iconTransformation(extent={{-220,120},{-180,160}})));
+    annotation (Placement(transformation(extent={{-220,180},{-180,220}}),
+        iconTransformation(extent={{-220,180},{-180,220}})));
   //fixme add units, should be percentage
 
   CDL.Continuous.Constant minFanSpeSig(k=minFanSpe) "Minimum supply fan speed"
-    annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  CDL.Interfaces.BooleanInput uAHUMod
-    "AHU Mode, fixme: see pg. 103 in G36 for the full list of modes, here we use true = \"occupied\""
-    annotation (Placement(transformation(extent={{-220,-120},{-180,-80}})));
+    annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   CDL.Interfaces.RealOutput yOutDamPosMin(unit="1") "Minimum economizer damper position limit."
                                                 annotation (Placement(
-        transformation(extent={{180,10},{200,30}}),  iconTransformation(extent={{180,10},
-            {200,30}})));
-  CDL.Continuous.Constant outDamPhyPosMinSig(k=0)
+        transformation(extent={{180,70},{200,90}}),  iconTransformation(extent={{180,70},{200,90}})));
+  CDL.Continuous.Constant outDamPhyPosMinSig(final k=outDamPhyPosMin)
     "If the minimum outdoor airflow setpoint becomes zero (when the zone is in other than occupied mode), the outdoor damper shall be zero."
-    annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
+    annotation (Placement(transformation(extent={{80,-20},{100,0}})));
   CDL.Logical.Switch outDamPosMin
     "If zone is in other than occupied mode, uVOutMinSet shall be zero, so that the yOutDamPosMin shall be zero"
-    annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
+    annotation (Placement(transformation(extent={{140,70},{160,90}})));
 
   CDL.Continuous.Constant maxFanSpeSig(k=maxFanSpe) "Maximum supply fan speed"
-    annotation (Placement(transformation(extent={{-140,18},{-120,38}})));
+    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
   CDL.Continuous.Constant minPosAtMinSpe(k=minPosMin)
     "Outdoor air damper position, when fan operating at minimum speed to supply minimum outdoor air flow"
-    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
+    annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
   CDL.Continuous.Constant desPosAtMinSpe(k=desPosMin)
     "Outdoor air damper position, when fan operating at minimum speed to supply design outdoor air flow"
-    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
+    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   CDL.Continuous.Constant minPosAtMaxSpe(k=minPosMax)
     "Outdoor air damper position, when fan operating at maximum speed to supply minimum outdoor air flow"
-    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
+    annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
   CDL.Continuous.Constant desPosAtMaxSpe(k=desPosMax)
     "Outdoor air damper position, when fan operating at maximum speed to supply design outdoor air flow"
-    annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
+    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
   CDL.Continuous.Constant minOA(k=minVOut_flowSet) "Minimum outdoor airflow rate"
-    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
+    annotation (Placement(transformation(extent={{-20,150},{0,170}})));
   CDL.Continuous.Constant desOA(k=desVOut_flowSet) "Design outdoor airflow rate"
-    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   CDL.Continuous.Line minPosAtCurSpe(limitBelow=true, limitAbove=true)
     "Outdoor air damper position, when fan operating at current speed to supply minimum outdoor air flow"
-    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+    annotation (Placement(transformation(extent={{-20,110},{0,130}})));
   CDL.Continuous.Line desPosAtCurSpe(limitBelow=true, limitAbove=true)
     "Outdoor air damper position, when fan operating at current speed to supply design outdoor air flow"
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   CDL.Continuous.Line minOutDamForOutMinSet(limitBelow=true, limitAbove=true)
     "Outdoor air damper position, when fan operating at current speed to supply setpoint outdoor air flow"
-    annotation (Placement(transformation(extent={{60,30},{80,50}})));
+    annotation (Placement(transformation(extent={{60,90},{80,110}})));
   CDL.Interfaces.RealOutput yOutDamPosMax(unit="1") "Minimum economizer damper position limit."
-    annotation (Placement(transformation(extent={{180,50},{200,70}}), iconTransformation(extent={{180,10},{200,30}})));
+    annotation (Placement(transformation(extent={{180,110},{200,130}}),
+                                                                      iconTransformation(extent={{180,10},{200,30}})));
+  CDL.Continuous.Constant outDamPhyPosMaxSig(final k=outDamPhyPosMax)
+    "If the minimum outdoor airflow setpoint becomes zero (when the zone is in other than occupied mode), the outdoor damper shall be zero."
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
+  CDL.Logical.And3 and1 "Locical and block"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  CDL.Logical.Not not1 "Logical not block"
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+  CDL.Conversions.IntegerToReal intToRea "Integer to real converter"
+    annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
+  CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
+    annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
+  CDL.Logical.LessEqualThreshold equ(final threshold=allowedFreProStaNum)
+    "Freeze protection stage above allowedFreProStaNum disables the control"
+    annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
+  CDL.Logical.Equal equ1 "Logical equal block"
+    annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
+protected
+  CDL.Continuous.Constant OperationMode(final k=occupiedNum) "Control loop is enabled in occupied operation mode"
+    annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
+public
+  CDL.Interfaces.IntegerInput uOperationMode "AHU operation mode status signal"
+    annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
+    iconTransformation(extent={{-120,-60},{-100,-40}})));
+  CDL.Interfaces.IntegerInput uFreProSta "Freeze protection status signal"
+    annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
+    iconTransformation(extent={{-120,-90},{-100,-70}})));
+  CDL.Interfaces.BooleanInput uSupFan "Supply fan status signal"
+    annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),
+        iconTransformation(extent={{-120,-10},{-100,10}})));
+
+protected
+  parameter Types.FreezeProtectionStage allowedFreProSta = Types.FreezeProtectionStage.stage1
+    "Freeze protection stage 1";
+  parameter Real allowedFreProStaNum = Integer(allowedFreProSta)-1
+    "Freeze protection stage control loop upper enable limit (=1)";
+  parameter Types.OperationMode occupied = Types.OperationMode.occupied "Operation mode is \"Occupied\"";
+  parameter Real occupiedNum = Integer(occupied) "Numerical value for \"Occupied\" operation mode (=1)";
+
 equation
-  connect(uAHUMod, outDamPosMin.u2)
-    annotation (Line(points={{-200,-100},{118,-100}}, color={255,0,255}));
-  connect(outDamPhyPosMinSig.y, outDamPosMin.u3) annotation (Line(points={{-119,
-          -130},{-76,-130},{-76,-108},{118,-108}}, color={0,0,127}));
-  connect(minOA.y, minOutDamForOutMinSet.x1) annotation (Line(points={{1,100},{26,100},{26,48},{58,48}},
+  connect(minOA.y, minOutDamForOutMinSet.x1) annotation (Line(points={{1,160},{50,160},{50,108},{58,108}},
                                 color={0,0,127}));
-  connect(desOA.y, minOutDamForOutMinSet.x2) annotation (Line(points={{1,20},{26,20},{26,36},{58,36}},
+  connect(desOA.y, minOutDamForOutMinSet.x2) annotation (Line(points={{1,80},{40,80},{40,96},{58,96}},
                                 color={0,0,127}));
-  connect(minPosAtCurSpe.y, minOutDamForOutMinSet.f1) annotation (Line(points={{1,60},{1,60},{40,60},{40,44},{58,44}},
+  connect(minPosAtCurSpe.y, minOutDamForOutMinSet.f1) annotation (Line(points={{1,120},{1,120},{40,120},{40,104},{58,104}},
                                                    color={0,0,127}));
-  connect(desPosAtCurSpe.y, minOutDamForOutMinSet.f2) annotation (Line(points={{1,-30},{34,-30},{34,32},{58,32}},
+  connect(desPosAtCurSpe.y, minOutDamForOutMinSet.f2) annotation (Line(points={{1,30},{50,30},{50,92},{58,92}},
                                              color={0,0,127}));
-  connect(uVOutMinSet, minOutDamForOutMinSet.u) annotation (Line(points={{-200,
-          138},{-86,138},{30,138},{30,40},{58,40}},
-                                               color={0,0,127}));
-  connect(minOutDamForOutMinSet.y, outDamPosMin.u1) annotation (Line(points={{81,40},
-          {88,40},{88,-92},{118,-92}},     color={0,0,127}));
-  connect(outDamPosMin.y, yOutDamPosMin) annotation (Line(points={{141,-100},{
-          148,-100},{148,20},{190,20}},
+  connect(outDamPosMin.y, yOutDamPosMin) annotation (Line(points={{161,80},{148,80},{190,80}},
                                     color={0,0,127}));
-  connect(minFanSpe.y, desPosAtCurSpe.x1) annotation (Line(points={{-119,-8},{-66,-8},{-66,-22},{-22,-22}},
-                                    color={0,0,127}));
-  connect(desPosAtMinSpe.y, desPosAtCurSpe.f1) annotation (Line(points={{-119,-80},{-66,-80},{-66,-26},{-22,-26}},
+  connect(desPosAtMinSpe.y, desPosAtCurSpe.f1) annotation (Line(points={{-119,-20},{-60,-20},{-60,34},{-22,34}},
                                           color={0,0,127}));
-  connect(maxFanSpe.y, desPosAtCurSpe.x2) annotation (Line(points={{-119,28},{-98,28},{-74,28},{-74,-34},{-22,-34}},
-                                             color={0,0,127}));
-  connect(desPosAtMaxSpe.y, desPosAtCurSpe.f2) annotation (Line(points={{-119,-40},{-102,-40},{-74,-40},{-74,-38},{-22,-38}},
+  connect(desPosAtMaxSpe.y, desPosAtCurSpe.f2) annotation (Line(points={{-119,10},{-120,10},{-80,10},{-80,22},{-22,22}},
                                                      color={0,0,127}));
-  connect(minFanSpe.y, minPosAtCurSpe.x1) annotation (Line(points={{-119,-8},{-66,-8},{-66,68},{-22,68}},
-                                  color={0,0,127}));
-  connect(minPosAtMinSpe.y, minPosAtCurSpe.f1) annotation (Line(points={{-119,80},{-119,80},{-74,80},{-74,64},{-22,64}},
+  connect(minPosAtMinSpe.y, minPosAtCurSpe.f1) annotation (Line(points={{-119,140},{-119,140},{-80,140},{-80,124},{-22,124}},
                                                 color={0,0,127}));
-  connect(maxFanSpe.y, minPosAtCurSpe.x2) annotation (Line(points={{-119,28},{-74,28},{-74,56},{-22,56}},
-                                  color={0,0,127}));
-  connect(minPosAtMaxSpe.y, minPosAtCurSpe.f2) annotation (Line(points={{-119,110},{-60,110},{-60,110},{-60,52},{-22,52}},
+  connect(minPosAtMaxSpe.y, minPosAtCurSpe.f2) annotation (Line(points={{-119,170},{-60,170},{-60,112},{-22,112}},
                                                   color={0,0,127}));
   connect(uSupFanSpe, minPosAtCurSpe.u)
-    annotation (Line(points={{-200,56},{-110,56},{-110,60},{-22,60}},
+    annotation (Line(points={{-200,110},{-110,110},{-110,120},{-22,120}},
                                                            color={0,0,127}));
-  connect(uSupFanSpe, desPosAtCurSpe.u) annotation (Line(points={{-200,56},{-146,56},{-86,56},{-86,-30},{-22,-30}},
-                                             color={0,0,127}));
+  connect(outDamPhyPosMaxSig.y, yOutDamPosMax)
+    annotation (Line(points={{101,30},{110,30},{110,120},{190,120}}, color={0,0,127}));
+  connect(maxFanSpeSig.y, minPosAtCurSpe.x2)
+    annotation (Line(points={{-119,90},{-66,90},{-66,116},{-22,116}}, color={0,0,127}));
+  connect(minFanSpeSig.y, minPosAtCurSpe.x1)
+    annotation (Line(points={{-119,60},{-70,60},{-70,128},{-22,128}}, color={0,0,127}));
+  connect(minFanSpeSig.y, desPosAtCurSpe.x1)
+    annotation (Line(points={{-119,60},{-70,60},{-70,38},{-22,38}}, color={0,0,127}));
+  connect(maxFanSpeSig.y, desPosAtCurSpe.x2)
+    annotation (Line(points={{-119,90},{-80,90},{-80,26},{-22,26}}, color={0,0,127}));
+  connect(uVOut_flowMinSet, minOutDamForOutMinSet.u)
+    annotation (Line(points={{-200,200},{-90,200},{30,200},{30,100},{58,100}}, color={0,0,127}));
+  connect(uSupFanSpe, desPosAtCurSpe.u)
+    annotation (Line(points={{-200,110},{-110,110},{-110,30},{-22,30}}, color={0,0,127}));
+  connect(uSupFan,and1. u1)
+    annotation (Line(points={{-200,-80},{-108,-80},{-108,-62},{-82,-62}},  color={255,0,255}));
+  connect(and1.y,not1. u)
+    annotation (Line(points={{-59,-70},{-42,-70}},color={255,0,255}));
+  connect(and1.u2,equ. y)
+    annotation (Line(points={{-82,-70},{-90,-70},{-90,-120},{-99,-120}},color={255,0,255}));
+  connect(intToRea.u,uFreProSta)
+    annotation (Line(points={{-162,-120},{-162,-120},{-200,-120}}, color={255,127,0}));
+  connect(intToRea.y,equ. u)
+    annotation (Line(points={{-139,-120},{-130,-120},{-122,-120}}, color={0,0,127}));
+  connect(uOperationMode,intToRea1. u)
+    annotation (Line(points={{-200,-160},{-182,-160},{-162,-160}}, color={255,127,0}));
+  connect(and1.u3,equ1. y)
+    annotation (Line(points={{-82,-78},{-86,-78},{-86,-160},{-99,-160}},color={255,0,255}));
+  connect(intToRea1.y,equ1. u1)
+    annotation (Line(points={{-139,-160},{-130.5,-160},{-122,-160}}, color={0,0,127}));
+  connect(OperationMode.y,equ1. u2)
+    annotation (Line(points={{-139,-190},{-130,-190},{-130,-168},{-122,-168}},color={0,0,127}));
   annotation (
     defaultComponentName = "ecoMinOAPos",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,200}}),
@@ -178,14 +229,26 @@ equation
           extent={{-148,244},{104,208}},
           lineColor={0,0,127},
           textString="%name")}),
-    Diagram(coordinateSystem(                           extent={{-180,-180},{
-            180,180}},
+    Diagram(coordinateSystem(                           extent={{-180,-220},{180,220}},
         initialScale=0.1), graphics={Text(
-          extent={{92,96},{184,88}},
+          extent={{84,180},{176,172}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="Where is the out dam phy pos max signal?")}),
+          textString="Where is the out dam phy pos max signal?"),
+        Rectangle(
+          extent={{-172,-52},{-6,-212}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+                                   Text(
+          extent={{-86,-150},{58,-232}},
+          lineColor={0,0,0},
+          fontSize=12,
+          horizontalAlignment=TextAlignment.Left,
+          textString="Enable/disable conditions
+for damper position limits
+control loop")}),
     Documentation(info="<html>      
 <p>
 This atomic sequence sets the minimum economizer damper position limit. The implementation is according
@@ -219,11 +282,11 @@ to ensure design outdoor air flow rate (<code>desVOut_flowSet</code>);
 given the calculated air damper positions (<code>minPosAtCurSpe</code>, <code>desPosAtCurSpe</code>) 
 and the outdoor air flow rate limits (<code>minVOut_flowSet</code>, <code>desVOut_flowSet</code>), 
 it caculates the minimum outdoor air damper position (<code>yOutDamPosMin</code>), 
-to ensure outdoor air flow rate setpoint (<code>uVOutMinSet</code>) 
+to ensure outdoor air flow rate setpoint (<code>uVOut_flowMinSet</code>) 
 under current supply fan speed (<code>uSupFanSpe</code>).
 </li>
 </ul>
-Both the outdoor air flow rate setpoint (code>uVOutMinSet</code>) 
+Both the outdoor air flow rate setpoint (code>uVOut_flowMinSet</code>) 
 and current supply fan speed (<code>uSupFanSpe</code>) are output from separate sequences.
 </p>
 <p>
@@ -237,18 +300,18 @@ src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASH
 </p>
 <p>
 fixme: additional text about the functioning of the sequence
-Note that VOut depends on whether the economizer damper is controlled to a 
+Note that VOut_flow depends on whether the economizer damper is controlled to a 
 position higher than it's minimum limit. This is defined by the EconEnableDisable
 and EconModulate [fixme check seq name] sequences. Fixme feature add: For this reason
 we may want to implement something like:
-while VOut > VOutSet and outDamPos>outDamPosMin, keep previous outDamPosMin.
+while VOut_flow > VOut_flowSet and outDamPos>outDamPosMin, keep previous outDamPosMin.
 fixme: add option for separate minimum outdoor air damper.
 </p>
     </html>", revisions="<html>
     <ul>
     <li>
     July 06, 2017, by Milica Grahovac:<br/>
-    Finalized for the integration in the composite single zone VAV AHU economizer sequence.
+    Refactored implementation.
     </li>
     <li>
     April 15, 2017, by Jianjun Hu:<br/>
