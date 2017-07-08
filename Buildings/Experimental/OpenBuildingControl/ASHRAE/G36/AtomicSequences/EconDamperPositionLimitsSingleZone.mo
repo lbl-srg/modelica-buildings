@@ -164,6 +164,11 @@ equation
     annotation (Line(points={{-139,-160},{-130.5,-160},{-122,-160}}, color={0,0,127}));
   connect(OperationMode.y,equ1. u2)
     annotation (Line(points={{-139,-190},{-130,-190},{-130,-168},{-122,-168}},color={0,0,127}));
+  connect(not1.y, outDamPosMin.u2) annotation (Line(points={{-19,-70},{60,-70},{60,80},{138,80}}, color={255,0,255}));
+  connect(outDamPhyPosMinSig.y, outDamPosMin.u1)
+    annotation (Line(points={{101,-10},{120,-10},{120,88},{138,88}}, color={0,0,127}));
+  connect(minOutDamForOutMinSet.y, outDamPosMin.u3)
+    annotation (Line(points={{81,100},{100,100},{100,72},{138,72}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ecoMinOAPos",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,200}}),
