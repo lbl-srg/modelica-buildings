@@ -66,7 +66,7 @@ equation
   <ul>
   <li>
   June 30, 2017, by Milica Grahovac:<br/>
-  First implementation.
+  First revision.
   </li>
   </ul>
   </html>"));

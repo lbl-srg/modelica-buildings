@@ -99,13 +99,13 @@ protected
   parameter Types.OperationMode occupied = Types.OperationMode.occupied "Operation mode is \"Occupied\"";
   parameter Real occupiedNum = Integer(occupied) "Numerical value for \"Occupied\" operation mode (=1)";
 
-  CDL.Continuous.Constant outDamPhyPosMinSig(final k=outDamPhyPosMin)
+  CDL.Continuous.Constant outDamPhyPosMinSig(k=outDamPhyPosMin)
     "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
-  CDL.Continuous.Constant outDamPhyPosMaxSig(final k=outDamPhyPosMax)
+  CDL.Continuous.Constant outDamPhyPosMaxSig(k=outDamPhyPosMax)
     "Physically fixed maximum position of the outdoor air damper."
     annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
-  CDL.Continuous.Constant retDamPhyPosMinSig(final k=retDamPhyPosMin)
+  CDL.Continuous.Constant retDamPhyPosMinSig(k=retDamPhyPosMin)
     "Physically fixed minimum position of the return air damper"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
   CDL.Continuous.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
@@ -114,10 +114,10 @@ protected
   CDL.Continuous.Constant minSignalLimit(k=conSigMin)
     "Equals minimum controller output signal"
     annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
-  CDL.Continuous.Constant maxSignalLimit(final k=conSigMax)
+  CDL.Continuous.Constant maxSignalLimit(k=conSigMax)
     "Equals maximum controller output signal"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
-  CDL.Continuous.Constant sigFraForOutDam(final k=conSigFraOutDam)
+  CDL.Continuous.Constant sigFraForOutDam(k=conSigFraOutDam)
     "Equals the fraction of the control loop signal below which the outdoor air damper
     limit gets modulated and above which the return air damper limit gets modulated"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));

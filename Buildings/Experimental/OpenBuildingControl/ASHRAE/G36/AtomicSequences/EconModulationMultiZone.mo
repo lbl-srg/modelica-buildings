@@ -6,8 +6,8 @@ block EconModulationMultiZone
   "Maximum control loop signal for the outdoor air damper";
   parameter Real retDamConSigMin(min=0, max=1, unit="1") = 0.5
   "Minimum control loop signal for the return air damper";
-  parameter Real conSigMin=0 "Lower limit of controller output";
-  parameter Real conSigMax=1 "Upper limit of controller output";
+  parameter Real yConSigMin=0 "Lower limit of controller output";
+  parameter Real yConSigMax=1 "Upper limit of controller output";
   parameter Real kPIMod=1 "Gain of modulation controller";
   parameter Modelica.SIunits.Time TiPIMod=300 "Time constant of modulation controller integrator block";
 
@@ -45,8 +45,8 @@ block EconModulationMultiZone
   CDL.Continuous.LimPID damPosController(
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
     Td=0.1,
-    final yMax=conSigMax,
-    final yMin=conSigMin,
+    final yMax=yConSigMax,
+    final yMin=yConSigMin,
     k=kPIMod,
     Ti=TiPIMod)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT cooling setpoint"
