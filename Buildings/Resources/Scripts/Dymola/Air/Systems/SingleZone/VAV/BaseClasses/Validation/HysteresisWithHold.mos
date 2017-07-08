@@ -1,6 +1,0 @@
-simulateModel("Buildings.Air.Systems.SingleZone.VAV.BaseClasses.Validation.HysteresisWithHold", stopTime=1800, tolerance=1e-06, resultFile="HysteresisWithHold");
-createPlot(id=1, position={10, 20, 730, 800}, subPlot=1,y={"noHold.u","noHold.on","noHold.uLow","noHold.uHigh"}, range={0.0, 1800.0, 14.0, 32.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72},{0,140,72}});
-createPlot(id=1, position={10, 20, 730, 800}, subPlot=2,y={"onHold_30sec.u","onHold_30sec.on","onHold_30sec.uLow","onHold_30sec.uHigh"}, range={0.0, 1800.0, 14.0, 32.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72},{0,140,72}});
-createPlot(id=2, position={750, 20, 730, 800}, subPlot=1,y={"offHold_300sec.u","offHold_300sec.on","offHold_300sec.uLow","offHold_300sec.uHigh"}, range={0.0, 1800.0, 14.0, 32.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72},{0,140,72}});
-createPlot(id=2, position={750, 20, 730, 800}, subPlot=2,y={"onHold_150sec.u","onHold_150sec.on","onHold_150sec.uLow","onHold_150sec.uHigh"}, range={0.0, 1800.0, 14.0, 32.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72},{0,140,72}});
-

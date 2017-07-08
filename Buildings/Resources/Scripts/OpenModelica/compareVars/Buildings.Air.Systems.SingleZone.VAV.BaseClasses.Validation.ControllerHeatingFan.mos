@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "conHeaFan.yHea",
-    "conHeaFan.yFan",
-    "conHeaFan.TSetRooCoo",
-    "conHeaFan.TRoo",
-    "conHeaFan.TSetRooHea"
-  };
