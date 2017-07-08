@@ -93,7 +93,7 @@ block EconDamperPositionLimitsMultiZone
 
 protected
   parameter Types.FreezeProtectionStage allowedFreProSta = Types.FreezeProtectionStage.stage1
-    "Freeze protection stage 0 (disabled)";
+    "Freeze protection stage 1";
   parameter Real allowedFreProStaNum = Integer(allowedFreProSta)-1
     "Freeze protection stage control loop upper enable limit (=1)";
   parameter Types.OperationMode occupied = Types.OperationMode.occupied "Operation mode is \"Occupied\"";
