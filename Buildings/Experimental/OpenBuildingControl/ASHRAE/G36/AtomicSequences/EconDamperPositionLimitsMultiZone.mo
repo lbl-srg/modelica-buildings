@@ -111,7 +111,7 @@ protected
   CDL.Continuous.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
     "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
-  CDL.Continuous.Constant minSignalLimit(k=conSigMin)
+  CDL.Continuous.Constant minSignalLimit(final k=conSigMin)
     "Equals minimum controller output signal"
     annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
   CDL.Continuous.Constant maxSignalLimit(final k=conSigMax)
