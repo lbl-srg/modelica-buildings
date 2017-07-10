@@ -85,7 +85,8 @@ Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.OperationModeSelect
 for a change of zone temperature along with the occupancy schedule, to specify the 
 system operation mode.
 </p>
-</html>", revisions="<html>
+</html>",
+        revisions="<html>
 <ul>
 <li>
 June 19, 2017, by Jianjun Hu:<br/>
