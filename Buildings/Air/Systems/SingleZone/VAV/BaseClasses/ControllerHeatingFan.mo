@@ -16,9 +16,13 @@ model ControllerHeatingFan "Controller for heating and cooling"
     unit="1")
     "Minimum airflow rate of system";
 
-  Modelica.Blocks.Interfaces.RealInput TSetRooCoo "Zone cooling setpoint"
+  Modelica.Blocks.Interfaces.RealInput TSetRooCoo(
+    final unit="K",
+    displayUnit="degC") "Zone cooling setpoint"
     annotation (Placement(transformation(rotation=0, extent={{-120,-10},{-100,10}})));
-  Modelica.Blocks.Interfaces.RealInput TRoo
+  Modelica.Blocks.Interfaces.RealInput TRoo(
+    final unit="K",
+    displayUnit="degC")
     "Zone temperature measurement"
     annotation (Placement(transformation(rotation=0, extent={{-120,-70},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealInput TSetRooHea(
