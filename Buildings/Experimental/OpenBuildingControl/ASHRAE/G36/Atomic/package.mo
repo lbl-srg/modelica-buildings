@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
-package Atomic "Control subsequences as defined in guidline G36"
+package Atomic "Control subsequences as defined in guideline G36"
 
 
 

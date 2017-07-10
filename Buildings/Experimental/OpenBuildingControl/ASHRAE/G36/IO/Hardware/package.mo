@@ -3,7 +3,7 @@ package Hardware
 annotation (
 Documentation(info="<html>
 <p>
-This package contains hardware 
+This package contains hardware
 input-output (IO) blocks
 for ASHRAE G36 control sequences.
 </p>
