@@ -157,31 +157,31 @@ package Composite "Sequences as defined in G36"
             color={28,108,200},
             thickness=0.5)}),
           Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
-    Documentation(info="<html>
-  <p>
-  This is multiple zone VAV AHU economizer control sequence. It calculates
-  outdoor and return air damper positions based on ASHRAE
-  Guidline 36, sections: PART5 N.2.c, N.5, N.6.c, N.7, A.17, N.12.
-  The sequence comprises the following atomic sequences:
-  <code>EconDamperPositionLimitsMultiZone</code>,
-  <code>EconEnableDisableMultiZone</code>, and
-  <code>EconModulationMultiZone</code>.
-  </p>
-  <p>
-  The structure of the economizer control sequence: [fixme: how do I remove the grey area from the image?]
-  </p>
-  <p align=\"center\">
-  <img alt=\"Image of the multizone AHU modulation sequence control diagram\"
-  src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Composite/EconCompositeSequenceMultiZone.png\"/>
-  </p>
-  </html>",   revisions="<html>
-  <ul>
-  <li>
-  June 28, 2017, by Milica Grahovac:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"));
+  Documentation(info="<html>
+<p>
+This is multiple zone VAV AHU economizer control sequence. It calculates
+outdoor and return air damper positions based on ASHRAE
+Guidline 36, sections: PART5 N.2.c, N.5, N.6.c, N.7, A.17, N.12.
+The sequence comprises the following atomic sequences:
+<code>EconDamperPositionLimitsMultiZone</code>,
+<code>EconEnableDisableMultiZone</code>, and
+<code>EconModulationMultiZone</code>.
+</p>
+<p>
+The structure of the economizer control sequence: [fixme: how do I remove the grey area from the image?]
+</p>
+<p align=\"center\">
+<img alt=\"Image of the multizone AHU modulation sequence control diagram\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Composite/EconCompositeSequenceMultiZone.png\"/>
+</p>
+</html>",   revisions="<html>
+<ul>
+<li>
+June 28, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
   end EconomizerMultiZone;
 
   package Validation "Package with validation models"
@@ -208,9 +208,9 @@ package Composite "Sequences as defined in G36"
       parameter Integer freProEnabledNum = Integer(freProEnabled)-1
         "Numerical value for freeze protection stage 2";
       parameter Types.OperationMode occupied = Types.OperationMode.occupied
-        "AHU operation mode is \"Occupied\"";
+        "AHU operation mode is Occupied";
       parameter Integer occupiedNum = Integer(occupied)
-        "Numerical value for \"Occupied\" AHU operation mode";
+        "Numerical value for Occupied AHU operation mode";
       parameter Types.ZoneState heating = Types.ZoneState.heating
         "Zone state is heating";
       parameter Integer heatingNum = Integer(heating)
@@ -224,7 +224,7 @@ package Composite "Sequences as defined in G36"
         annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
       CDL.Integers.Constant ZoneState(k=heatingNum) "Zone State is heating"
         annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-      CDL.Integers.Constant OperationMode(k=occupiedNum) "AHU operation mode is \"Occupied\""
+      CDL.Integers.Constant OperationMode(k=occupiedNum) "AHU operation mode is Occupied"
         annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
       CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 40000)
         "Outdoor air enthalpy is below the cufoff"
@@ -344,22 +344,22 @@ outdoor air control"),
 disable minimal
 outdoor air control
 (uFreProSta is Stage2)")}),
-        Documentation(info="<html>
-    <p>
-    This example validates
-    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone\">
-    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone</a>
-    for control signals which disable modulation control loop only (<code>economizer</code> block)
-    and both minimum outdoor airflow and modulation control loops (<code>economizer1</code> block).
-    </p>
-    </html>",     revisions="<html>
-    <ul>
-    <li>
-    June 12, 2017, by Milica Grahovac:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+    Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone</a>
+for control signals which disable modulation control loop only (<code>economizer</code> block)
+and both minimum outdoor airflow and modulation control loops (<code>economizer1</code> block).
+</p>
+</html>",     revisions="<html>
+<ul>
+<li>
+June 12, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
     end EconomizerMultiZone_Disable;
 
     model EconomizerMultiZone_Mod_DamLim
@@ -387,9 +387,9 @@ outdoor air control
       parameter Integer freProDisabledNum = Integer(freProDisabled)-1
         "Numerical value for freeze protection stage 0";
       parameter Types.OperationMode occupied = Types.OperationMode.occupied
-        "AHU operation mode is \"Occupied\"";
+        "AHU operation mode is Occupied";
       parameter Integer occupiedNum = Integer(occupied)
-        "Numerical value for \"Occupied\" AHU operation mode";
+        "Numerical value for Occupied AHU operation mode";
       parameter Types.ZoneState deadband = Types.ZoneState.deadband
         "Zone state is deadband";
       parameter Integer deadbandNum = Integer(deadband)
@@ -403,7 +403,7 @@ outdoor air control
         annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
       CDL.Integers.Constant ZoneState(k=deadbandNum) "Zone State is deadband"
         annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-      CDL.Integers.Constant operationMode(k=occupiedNum) "AHU operation mode is \"Occupied\""
+      CDL.Integers.Constant operationMode(k=occupiedNum) "AHU operation mode is Occupied"
         annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
       CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 10000)
         "Outdoor air enthalpy is slightly below the cufoff"
@@ -529,23 +529,23 @@ enthalpy measurement)"),
               fontSize=8,
               textString="Economizer fully enabled -
 validate damper position limits")}),
-        Documentation(info="<html>
-    <p>
-    This example validates
-    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone\">
-    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone</a> control loops:
-    minimum outdoor air damper position limits control loop (<code>economizer</code> block) and modulation
-    control loop (<code>economizer1</code> block) for <code>VOut_flow</code> and <code>TSup</code> control signals. Both control
-    loops are enabled during the validation test.
-    </p>
-    </html>",     revisions="<html>
-    <ul>
-    <li>
-    June 12, 2017, by Milica Grahovac:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+    Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone</a> control loops:
+minimum outdoor air damper position limits control loop (<code>economizer</code> block) and modulation
+control loop (<code>economizer1</code> block) for <code>VOut_flow</code> and <code>TSup</code> control signals. Both control
+loops are enabled during the validation test.
+</p>
+</html>",     revisions="<html>
+<ul>
+<li>
+June 12, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
     end EconomizerMultiZone_Mod_DamLim;
   annotation (Documentation(revisions="<html>
 </html>",   info="<html>

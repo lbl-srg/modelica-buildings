@@ -54,20 +54,20 @@ equation
           fillPattern=FillPattern.Solid,
           points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
-    Documentation(info="<html>
-  <p>
-  This example validates
-  <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationMultiZone\">
-  Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationMultiZone</a>
-  for supply air temeperature (<code>TSup</code>) and supply air temperature cooling setpoint (<code>TCooSet</code>) 
-  control signals.
-  </p>
-  </html>", revisions="<html>
-  <ul>
-  <li>
-  June 30, 2017, by Milica Grahovac:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"));
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationMultiZone</a>
+for supply air temeperature (<code>TSup</code>) and supply air temperature cooling setpoint (<code>TCooSet</code>)
+control signals.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 30, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EconModulationMultiZone_TSup;

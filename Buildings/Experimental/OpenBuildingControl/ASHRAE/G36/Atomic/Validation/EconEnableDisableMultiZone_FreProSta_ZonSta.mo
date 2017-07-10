@@ -139,19 +139,19 @@ equation
           horizontalAlignment=TextAlignment.Left,
           fontSize=12,
           textString="Tests freeze protection disable condition")}),
-    Documentation(info="<html>
-  <p>
-  This example validates
-  <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone\">
-  Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone</a>
-  for the following control signals: zone state, freeze protection stage.
-  </p>
-  </html>", revisions="<html>
-  <ul>
-  <li>
-  June 13, 2017, by Milica Grahovac:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"));
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone</a>
+for the following control signals: zone state, freeze protection stage.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 13, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EconEnableDisableMultiZone_FreProSta_ZonSta;

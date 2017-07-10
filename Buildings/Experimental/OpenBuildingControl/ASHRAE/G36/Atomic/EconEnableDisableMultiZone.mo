@@ -296,44 +296,44 @@ with delays"),                       Text(
           horizontalAlignment=TextAlignment.Left,
           textString="Zone state -
 disable if
-\"heating\""),                       Text(
+Heating"),                       Text(
           extent={{100,102},{194,92}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Supply fan status")}),
-    Documentation(info="<html>
-      <p>
-      This is a multiple zone VAV AHU economizer enable/disable sequence
-      based on ASHRAE G36 PART5-N.7 and PART5-A.17. Additional
-      conditions included in the sequence are: freeze protection (freeze protection
-      stage 0-3, see PART5-N.12), supply fan status (on or off, see PART5-N.5),
-      and zone state (cooling, heating, or deadband, as illustrated in the
-      modulation control chart, PART5-N.2.c).
-      </p>
-      <p>
-      Economizer shall be disabled whenever the outdoor air conditions
-      exceed the economizer high limit setpoint as specified by the local
-      code. This sequence allows for all device types listed in
-      ASHRAE 90.1-2013 and Title 24-2013.
-      </p>
-      <p>
-      In addition, economizer shall be disabled without a delay whenever any of the
-      following is true: supply fan is off, zone state is <code>Heating</code>,
-      freeze protection stage is not <code>0</code>.
-      </p>
-      <p>
-      The following state machine chart illustrates the above listed conditions:
-      </p>
-      <p align=\"center\">
-      <img alt=\"Image of economizer enable-disable state machine chart\"
-      src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconEnableDisableStateMachineChartMultiZone.png\"/>
-      </p>
-      </html>", revisions="<html>
-      <ul>
-      <li>
-      June 27, 2017, by Milica Grahovac:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"));
+Documentation(info="<html>
+<p>
+This is a multiple zone VAV AHU economizer enable/disable sequence
+based on ASHRAE G36 PART5-N.7 and PART5-A.17. Additional
+conditions included in the sequence are: freeze protection (freeze protection
+stage 0-3, see PART5-N.12), supply fan status (on or off, see PART5-N.5),
+and zone state (cooling, heating, or deadband, as illustrated in the
+modulation control chart, PART5-N.2.c).
+</p>
+<p>
+Economizer shall be disabled whenever the outdoor air conditions
+exceed the economizer high limit setpoint as specified by the local
+code. This sequence allows for all device types listed in
+ASHRAE 90.1-2013 and Title 24-2013.
+</p>
+<p>
+In addition, economizer shall be disabled without a delay whenever any of the
+following is true: supply fan is off, zone state is <code>Heating</code>,
+freeze protection stage is not <code>0</code>.
+</p>
+<p>
+The following state machine chart illustrates the above listed conditions:
+</p>
+<p align=\"center\">
+<img alt=\"Image of economizer enable-disable state machine chart\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconEnableDisableStateMachineChartMultiZone.png\"/>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 27, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EconEnableDisableMultiZone;

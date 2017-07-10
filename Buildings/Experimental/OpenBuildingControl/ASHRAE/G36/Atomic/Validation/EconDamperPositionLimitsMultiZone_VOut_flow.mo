@@ -30,9 +30,9 @@ protected
   parameter Integer freProDisabledNum = Integer(freProDisabled)-1
     "Numerical value for freeze protection stage 0";
   parameter Types.OperationMode occupied = Types.OperationMode.occupied
-    "Operation mode is \"Occupied\"";
+    "Operation mode is Occupied";
   parameter Integer occupiedNum = Integer(occupied)
-    "Numerical value for \"Occupied\" operation mode";
+    "Numerical value for Occupied operation mode";
 
   CDL.Logical.Constant fanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
@@ -67,20 +67,20 @@ equation
           fillPattern=FillPattern.Solid,
           points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-100},{80,100}})),
-    Documentation(info="<html>
-  <p>
-  This example validates
-  <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone\">
-  Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone</a>
-  for the following control signals: <code>VOut_flow</code>, <code>VOutMinSet_flow</code>. The control loop is always enabled in this 
-  example.
-  </p>
-  </html>", revisions="<html>
-  <ul>
-  <li>
-  June 06, 2017, by Milica Grahovac:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"));
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone</a>
+for the following control signals: <code>VOut_flow</code>, <code>VOutMinSet_flow</code>. The control loop is always enabled in this
+example.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 06, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EconDamperPositionLimitsMultiZone_VOut_flow;

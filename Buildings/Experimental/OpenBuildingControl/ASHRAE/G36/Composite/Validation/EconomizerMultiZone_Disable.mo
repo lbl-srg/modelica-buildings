@@ -20,9 +20,9 @@ model EconomizerMultiZone_Disable
   parameter Integer freProEnabledNum = Integer(freProEnabled)-1
     "Numerical value for freeze protection stage 2";
   parameter Types.OperationMode occupied = Types.OperationMode.occupied
-    "AHU operation mode is \"Occupied\"";
+    "AHU operation mode is Occupied";
   parameter Integer occupiedNum = Integer(occupied)
-    "Numerical value for \"Occupied\" AHU operation mode";
+    "Numerical value for Occupied AHU operation mode";
   parameter Types.ZoneState heating = Types.ZoneState.heating
     "Zone state is heating";
   parameter Integer heatingNum = Integer(heating)
@@ -36,7 +36,7 @@ model EconomizerMultiZone_Disable
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   CDL.Integers.Constant ZoneState(k=heatingNum) "Zone State is heating"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  CDL.Integers.Constant OperationMode(k=occupiedNum) "AHU operation mode is \"Occupied\""
+  CDL.Integers.Constant OperationMode(k=occupiedNum) "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 40000)
     "Outdoor air enthalpy is below the cufoff"
@@ -156,20 +156,20 @@ outdoor air control"),
 disable minimal
 outdoor air control
 (uFreProSta is Stage2)")}),
-    Documentation(info="<html>
-    <p>
-    This example validates
-    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone\">
-    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone</a>
-    for control signals which disable modulation control loop only (<code>economizer</code> block)
-    and both minimum outdoor airflow and modulation control loops (<code>economizer1</code> block).
-    </p>
-    </html>", revisions="<html>
-    <ul>
-    <li>
-    June 12, 2017, by Milica Grahovac:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone</a>
+for control signals which disable modulation control loop only (<code>economizer</code> block)
+and both minimum outdoor airflow and modulation control loops (<code>economizer1</code> block).
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 12, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EconomizerMultiZone_Disable;

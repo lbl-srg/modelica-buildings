@@ -12,11 +12,11 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
   parameter Integer freProStage2Num = Integer(freProStage2)-1
     "Numerical value for freeze protection stage 2";
   parameter Types.OperationMode occupied = Types.OperationMode.occupied
-    "AHU operation mode is \"Occupied\"";
+    "AHU operation mode is Occupied";
   parameter Types.OperationMode warmUp = Types.OperationMode.warmUp
     "AHU operation mode is \"Warmup\"";
   parameter Integer occupiedNum = Integer(occupied)
-    "Numerical value for AHU operation mode \"Occupied\"";
+    "Numerical value for AHU operation mode Occupied";
   parameter Integer warmUpNum = Integer(warmUp)
     "Numerical value for AHU operation mode \"WarmUp\"";
   parameter Real VOutSet_flow(unit="m3/s", quantity="VolumeFlowRate")=0.71
@@ -31,7 +31,7 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
   CDL.Integers.Constant freProSta(k=freProStage1Num) "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
-  CDL.Integers.Constant operationMode(k=occupiedNum) "AHU operation mode is \"Occupied\""
+  CDL.Integers.Constant operationMode(k=occupiedNum) "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
 
   // Operation Mode
@@ -40,7 +40,7 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
   CDL.Integers.Constant freProSta1(k=freProStage1Num) "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   CDL.Integers.Constant operationMode1(k=warmUpNum)
-    "AHU operation mode is NOT \"Occupied\""
+    "AHU operation mode is NOT Occupied"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
   // Freeze Protection Stage
@@ -49,7 +49,7 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
   CDL.Integers.Constant freProSta2(k=freProStage2Num)
     "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  CDL.Integers.Constant operationMode2(k=occupiedNum) "AHU operation mode is \"Occupied\""
+  CDL.Integers.Constant operationMode2(k=occupiedNum) "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
   Modelica.Blocks.Sources.Ramp VOut_flow(
@@ -155,7 +155,7 @@ equation
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           fontSize=16,
-          textString="Operation mode is other than \"Occupied\""),
+          textString="Operation mode is other than Occupied"),
         Text(
           extent={{80,114},{208,96}},
           lineColor={0,0,0},
@@ -165,19 +165,19 @@ equation
           horizontalAlignment=TextAlignment.Left,
           fontSize=16,
           textString="Freeze protection status is higher than 1")}),
-    Documentation(info="<html>
-  <p>
-  This example validates enable/disable conditions for
-  <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone\">
-  Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone</a>
-  for the following input signals: <code>uSupFan</code>, <code>uFreProSta</code>, <code>uOperationMode</code>.
-  </p>
-  </html>", revisions="<html>
-  <ul>
-  <li>
-  June 06, 2017, by Milica Grahovac:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"));
+Documentation(info="<html>
+<p>
+This example validates enable/disable conditions for
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone</a>
+for the following input signals: <code>uSupFan</code>, <code>uFreProSta</code>, <code>uOperationMode</code>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 06, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EconDamperPositionLimitsMultiZone_LoopDisable;

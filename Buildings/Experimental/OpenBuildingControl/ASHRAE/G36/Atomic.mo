@@ -98,8 +98,8 @@ package Atomic "Subsequences as defined in guidline G36"
       "Freeze protection stage 1";
     parameter Real allowedFreProStaNum = Integer(allowedFreProSta)-1
       "Freeze protection stage control loop upper enable limit";
-    parameter Types.OperationMode occupied = Types.OperationMode.occupied "Operation mode is \"Occupied\"";
-    parameter Real occupiedNum = Integer(occupied) "Numerical value for \"Occupied\" operation mode";
+    parameter Types.OperationMode occupied = Types.OperationMode.occupied "Operation mode is Occupied";
+    parameter Real occupiedNum = Integer(occupied) "Numerical value for Occupied operation mode";
 
     CDL.Continuous.Constant outDamPhyPosMinSig(final k=outDamPhyPosMin)
       "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"
@@ -262,56 +262,56 @@ control loop"),                      Text(
             textString="Damper position limits
 outdoor air volume flow
 control loop")}),
-      Documentation(info="<html>
-    <p>
-    This block models the multiple zone VAV AHU minimum outdoor air control with a single
-    common damper for minimum outdoor air and economizer functions based on outdoor airflow
-    measurement, designed in line with ASHRAE Guidline 36 (G36), PART5.N.6.c.
-    </p>
-    <p>
-    The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
-    the AHU operation mode (<code>OperationMode</code>) is \"Occupied\", and Freeze protection stage
-    <code>uFreProSta</code> is not larger than 1. Otherwise the damper position limits are set to
-    their corresponding maximum and minimum physical or at commissioning fixed limits, as illustrated below:
-    </p>
-    <p align=\"center\">
-    <img alt=\"Image of damper position limits state machine chart\"
-    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconDamperLimitsStateMachineChartMultiZone.png\"/>
-    </p>
-    <p>
-    The controller sets the outdoor and return damper position limits so
-    that the outdoor airflow rate, <code>VOut_flow</code>, stays equal or above the
-    minimum outdoor air setpoint, <code>VOutMinSet_flow</code>. Fraction of the controller
-    output signal between <code>conSigMin</code> and <code>conSigFraOutDam</code> is
-    linearly mapped to the outdoor air damper minimal position, <code>yOutDamPosMin</code>,
-    while the fraction of the controller output between <code>conSigFraOutDam</code> and
-    <code>conSigMax</code> is linearly mapped to the return air damper maximum position,
-    <code>yRetDamPosMax</code>. Thus the dampers are not interlocked.
-    </p>
-    <p>
-    The following control charts show the input/output structure and an expected damper position
-    limits for a well tuned controller. Control diagram:
-    </p>
-    <p align=\"center\">
-    <img alt=\"Image of damper position limits control diagram\"
-    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconDamperLimitsControlDiagramMultiZone.png\"/>
-    </p>
-    <p>
-    Expected control performance (damper position limits vs. control loop signal):
-    <br/>
-    </p>
-    <p align=\"center\">
-    <img alt=\"Image of damper position limits control chart\"
-    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconDamperLimitsControlChartMultiZone.png\"/>
-    </p>
-    </html>",   revisions="<html>
-    <ul>
-    <li>
-    June 06, 2017, by Milica Grahovac:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+  Documentation(info="<html>
+<p>
+This block models the multiple zone VAV AHU minimum outdoor air control with a single
+common damper for minimum outdoor air and economizer functions based on outdoor airflow
+measurement, designed in line with ASHRAE Guidline 36 (G36), PART5.N.6.c.
+</p>
+<p>
+The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
+the AHU operation mode (<code>OperationMode</code>) is Occupied, and Freeze protection stage
+<code>uFreProSta</code> is not larger than 1. Otherwise the damper position limits are set to
+their corresponding maximum and minimum physical or at commissioning fixed limits, as illustrated below:
+</p>
+<p align=\"center\">
+<img alt=\"Image of damper position limits state machine chart\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconDamperLimitsStateMachineChartMultiZone.png\"/>
+</p>
+<p>
+The controller sets the outdoor and return damper position limits so
+that the outdoor airflow rate, <code>VOut_flow</code>, stays equal or above the
+minimum outdoor air setpoint, <code>VOutMinSet_flow</code>. Fraction of the controller
+output signal between <code>conSigMin</code> and <code>conSigFraOutDam</code> is
+linearly mapped to the outdoor air damper minimal position, <code>yOutDamPosMin</code>,
+while the fraction of the controller output between <code>conSigFraOutDam</code> and
+<code>conSigMax</code> is linearly mapped to the return air damper maximum position,
+<code>yRetDamPosMax</code>. Thus the dampers are not interlocked.
+</p>
+<p>
+The following control charts show the input/output structure and an expected damper position
+limits for a well tuned controller. Control diagram:
+</p>
+<p align=\"center\">
+<img alt=\"Image of damper position limits control diagram\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconDamperLimitsControlDiagramMultiZone.png\"/>
+</p>
+<p>
+Expected control performance (damper position limits vs. control loop signal):
+<br/>
+</p>
+<p align=\"center\">
+<img alt=\"Image of damper position limits control chart\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconDamperLimitsControlChartMultiZone.png\"/>
+</p>
+</html>",   revisions="<html>
+<ul>
+<li>
+June 06, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
   end EconDamperPositionLimitsMultiZone;
 
   block EconEnableDisableMultiZone
@@ -611,46 +611,46 @@ with delays"),                         Text(
             horizontalAlignment=TextAlignment.Left,
             textString="Zone state -
 disable if
-\"heating\""),                         Text(
+Heating"),                         Text(
             extent={{100,102},{194,92}},
             lineColor={0,0,0},
             horizontalAlignment=TextAlignment.Left,
             textString="Supply fan status")}),
-      Documentation(info="<html>
-      <p>
-      This is a multiple zone VAV AHU economizer enable/disable sequence
-      based on ASHRAE G36 PART5-N.7 and PART5-A.17. Additional
-      conditions included in the sequence are: freeze protection (freeze protection
-      stage 0-3, see PART5-N.12), supply fan status (on or off, see PART5-N.5),
-      and zone state (cooling, heating, or deadband, as illustrated in the
-      modulation control chart, PART5-N.2.c).
-      </p>
-      <p>
-      Economizer shall be disabled whenever the outdoor air conditions
-      exceed the economizer high limit setpoint as specified by the local
-      code. This sequence allows for all device types listed in
-      ASHRAE 90.1-2013 and Title 24-2013.
-      </p>
-      <p>
-      In addition, economizer shall be disabled without a delay whenever any of the
-      following is true: supply fan is off, zone state is <code>Heating</code>,
-      freeze protection stage is not <code>0</code>.
-      </p>
-      <p>
-      The following state machine chart illustrates the above listed conditions:
-      </p>
-      <p align=\"center\">
-      <img alt=\"Image of economizer enable-disable state machine chart\"
-      src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconEnableDisableStateMachineChartMultiZone.png\"/>
-      </p>
-      </html>",   revisions="<html>
-      <ul>
-      <li>
-      June 27, 2017, by Milica Grahovac:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"));
+  Documentation(info="<html>
+<p>
+This is a multiple zone VAV AHU economizer enable/disable sequence
+based on ASHRAE G36 PART5-N.7 and PART5-A.17. Additional
+conditions included in the sequence are: freeze protection (freeze protection
+stage 0-3, see PART5-N.12), supply fan status (on or off, see PART5-N.5),
+and zone state (cooling, heating, or deadband, as illustrated in the
+modulation control chart, PART5-N.2.c).
+</p>
+<p>
+Economizer shall be disabled whenever the outdoor air conditions
+exceed the economizer high limit setpoint as specified by the local
+code. This sequence allows for all device types listed in
+ASHRAE 90.1-2013 and Title 24-2013.
+</p>
+<p>
+In addition, economizer shall be disabled without a delay whenever any of the
+following is true: supply fan is off, zone state is <code>Heating</code>,
+freeze protection stage is not <code>0</code>.
+</p>
+<p>
+The following state machine chart illustrates the above listed conditions:
+</p>
+<p align=\"center\">
+<img alt=\"Image of economizer enable-disable state machine chart\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconEnableDisableStateMachineChartMultiZone.png\"/>
+</p>
+</html>",   revisions="<html>
+<ul>
+<li>
+June 27, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
   end EconEnableDisableMultiZone;
 
   block EconModulationMultiZone
@@ -804,51 +804,50 @@ control loop"),                      Text(
             horizontalAlignment=TextAlignment.Left,
             textString="Damper position
 assignments")}),
-      Documentation(info="<html>
-    <p>
-    This is a multiple zone VAV AHU economizer modulation block. It calculates
-    the outdoor and return air damper positions based on the supply air temperature
-    control loop signal. The implementation is in line with ASHRAE
-    Guidline 36 (G36), PART5.N.2.c. Damper positions are linearly mapped to
-    the supply air control loop signal. This is a final sequence in the
-    composite multizone VAV AHU economizer control sequence. Damper position
-    limits, which are the inputs to the sequence, are the outputs of
-    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone\">
-    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone</a> and
-    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone\">
-    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone</a>
-    sequences.
-    </p>
-    <p>
-    When the economizer is enabled, the PI controller modulates the damper
-    positions. Return and outdoor damper are not interlocked. When the economizer is disabled,
-    the damper positions are set to the minimum outdoor air damper position limits.
-    </p>
-    <p>
-    Control charts below show the input-output structure and an economizer damper
-    modulation sequence assuming a well tuned controller. Control diagram:
-    </p>
-    <p align=\"center\">
-    <img alt=\"Image of the multizone AHU modulation sequence control diagram\"
-    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconModulationControlDiagramMultiZone.png\"/>
-    </p>
-    <p>
-    Multizone AHU economizer modulation control chart:
-    <br/>
-    </p>
-    <p align=\"center\">
-    <img alt=\"Image of the multizone AHU modulation sequence expected performance\"
-    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconModulationControlChartMultiZone.png\"/>
-    </p>
-
-    </html>",   revisions="<html>
-    <ul>
-    <li>
-    June 28, 2017, by Milica Grahovac:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+  Documentation(info="<html>
+<p>
+This is a multiple zone VAV AHU economizer modulation block. It calculates
+the outdoor and return air damper positions based on the supply air temperature
+control loop signal. The implementation is in line with ASHRAE
+Guidline 36 (G36), PART5.N.2.c. Damper positions are linearly mapped to
+the supply air control loop signal. This is a final sequence in the
+composite multizone VAV AHU economizer control sequence. Damper position
+limits, which are the inputs to the sequence, are the outputs of
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone</a> and
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone</a>
+sequences.
+</p>
+<p>
+When the economizer is enabled, the PI controller modulates the damper
+positions. Return and outdoor damper are not interlocked. When the economizer is disabled,
+the damper positions are set to the minimum outdoor air damper position limits.
+</p>
+<p>
+Control charts below show the input-output structure and an economizer damper
+modulation sequence assuming a well tuned controller. Control diagram:
+</p>
+<p align=\"center\">
+<img alt=\"Image of the multizone AHU modulation sequence control diagram\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconModulationControlDiagramMultiZone.png\"/>
+</p>
+<p>
+Multizone AHU economizer modulation control chart:
+<br/>
+</p>
+<p align=\"center\">
+<img alt=\"Image of the multizone AHU modulation sequence expected performance\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconModulationControlChartMultiZone.png\"/>
+</p>
+</html>",   revisions="<html>
+<ul>
+<li>
+June 28, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
   end EconModulationMultiZone;
 
   block VAVSingleZoneTSupSet "Supply air set point for single zone VAV system"
@@ -1306,62 +1305,62 @@ assignments")}),
             fillPattern=FillPattern.Solid,
             textString="0.5 < y < 0.75")}),
             Documentation(info="<html>
-     <p>
-     Block that outputs the set points for the supply air temperature for
-     cooling, heating and economizer control,
-     and the fan speed for a single zone VAV system.
-     </p>
-     <p>
-     For the temperature set points, the
-     parameters are the maximum supply air temperature <code>TMax</code>,
-     and the minimum supply air temperature for cooling <code>TMin</code>.
-     The deadband temperature is equal to the
-     average set point for the zone temperature
-     for heating and cooling, as obtained from the input <code>TSetZon</code>,
-     constraint to be within <i>21</i>&deg;C (&asymp;<i>70</i> F) and
-     <i>24</i>&deg;C (&asymp;<i>75</i> F).
-     The setpoints are computed as shown in the figure below.
-     Note that the setpoint for the supply air temperature for heating
-     and for economizer control is the same, and this setpoint is
-     lower than <code>TMin</code> when the heating loop signal
-     is zero and the economizer is in cooling mode, as shown in the figure.
-     </p>
-     <p>
-     For the fan speed set point, the
-     parameters are the maximu fan speed at heating <code>yHeaMax</code>,
-     the minimum fan speed <code>yMin</code> and
-     the maximum fan speed for cooling <code>yCooMax</code>.
-     For a cooling control signal of <code>yCoo &gt; 0.25</code>,
-     the speed is faster increased the larger the difference is between
-     the zone temperature minus outdoor temperature <code>TZon-TOut</code>.
-     The figure below shows the sequence.
-     </p>
-     <p align=\"center\">
-     <img alt=\"Image of set point reset\"
-     src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/VAVSingleZoneTSupSet.png\"/>
-     </p>
-     <p>
-     The output <code>TCoo</code> is to be used to control the cooling coil,
-     and the output
-     <code>THeaEco</code> is to be used to control the heating coil and the
-     economizer dampers.
-     </p>
-     <p>
-     Note that the inputs <code>uHea</code> and <code>uCoo</code> must be computed
-     based on the same temperature sensors and control loops
-     </p>
-     </html>",   revisions="<html>
-     <ul>
-     <li>
-     April 26, 2017, by Michael Wetter:<br/>
-     Updated documentation and renamed output signal to <code>THeaEco</code>.
-     </li>
-     <li>
-     January 10, 2017, by Michael Wetter:<br/>
-     First implementation.
-     </li>
-     </ul>
-     </html>"));
+<p>
+Block that outputs the set points for the supply air temperature for
+cooling, heating and economizer control,
+and the fan speed for a single zone VAV system.
+</p>
+<p>
+For the temperature set points, the
+parameters are the maximum supply air temperature <code>TMax</code>,
+and the minimum supply air temperature for cooling <code>TMin</code>.
+The deadband temperature is equal to the
+average set point for the zone temperature
+for heating and cooling, as obtained from the input <code>TSetZon</code>,
+constraint to be within <i>21</i>&deg;C (&asymp;<i>70</i> F) and
+<i>24</i>&deg;C (&asymp;<i>75</i> F).
+The setpoints are computed as shown in the figure below.
+Note that the setpoint for the supply air temperature for heating
+and for economizer control is the same, and this setpoint is
+lower than <code>TMin</code> when the heating loop signal
+is zero and the economizer is in cooling mode, as shown in the figure.
+</p>
+<p>
+For the fan speed set point, the
+parameters are the maximu fan speed at heating <code>yHeaMax</code>,
+the minimum fan speed <code>yMin</code> and
+the maximum fan speed for cooling <code>yCooMax</code>.
+For a cooling control signal of <code>yCoo &gt; 0.25</code>,
+the speed is faster increased the larger the difference is between
+the zone temperature minus outdoor temperature <code>TZon-TOut</code>.
+The figure below shows the sequence.
+</p>
+<p align=\"center\">
+<img alt=\"Image of set point reset\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/VAVSingleZoneTSupSet.png\"/>
+</p>
+<p>
+The output <code>TCoo</code> is to be used to control the cooling coil,
+and the output
+<code>THeaEco</code> is to be used to control the heating coil and the
+economizer dampers.
+</p>
+<p>
+Note that the inputs <code>uHea</code> and <code>uCoo</code> must be computed
+based on the same temperature sensors and control loops
+</p>
+</html>",   revisions="<html>
+<ul>
+<li>
+April 26, 2017, by Michael Wetter:<br/>
+Updated documentation and renamed output signal to <code>THeaEco</code>.
+</li>
+<li>
+January 10, 2017, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
   end VAVSingleZoneTSupSet;
 
   package Validation "Package with validation models"
@@ -1399,7 +1398,7 @@ assignments")}),
         annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
       CDL.Integers.Constant freProSta(k=freProStage1Num) "Freeze protection stage is 1"
         annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
-      CDL.Integers.Constant operationMode(k=occupiedNum) "AHU operation mode is \"Occupied\""
+      CDL.Integers.Constant operationMode(k=occupiedNum) "AHU operation mode is Occupied"
         annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
 
       // Operation Mode
@@ -1535,19 +1534,19 @@ assignments")}),
               textString="Freeze protection status is higher than 1")}),
         Documentation(info="<html>
   <p>
-  This example validates enable/disable conditions for
-  <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone\">
-  Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone</a>
-  for the following input signals: <code>uSupFan</code>, <code>uFreProSta</code>, <code>uOperationMode</code>.
-  </p>
-  </html>",     revisions="<html>
-  <ul>
-  <li>
-  June 06, 2017, by Milica Grahovac:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"));
+This example validates enable/disable conditions for
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone</a>
+for the following input signals: <code>uSupFan</code>, <code>uFreProSta</code>, <code>uOperationMode</code>.
+</p>
+</html>",     revisions="<html>
+<ul>
+<li>
+June 06, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
     end EconDamperPositionLimitsMultiZone_LoopDisable;
 
     model EconDamperPositionLimitsMultiZone_VOut_flow
@@ -1581,9 +1580,9 @@ assignments")}),
       parameter Integer freProDisabledNum = Integer(freProDisabled)-1
         "Numerical value for freeze protection stage 0";
       parameter Types.OperationMode occupied = Types.OperationMode.occupied
-        "Operation mode is \"Occupied\"";
+        "Operation mode is Occupied";
       parameter Integer occupiedNum = Integer(occupied)
-        "Numerical value for \"Occupied\" operation mode";
+        "Numerical value for Occupied operation mode";
 
       CDL.Logical.Constant fanStatus(k=true) "Fan is on"
         annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
@@ -1619,21 +1618,21 @@ assignments")}),
               points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-100},{80,100}})),
         Documentation(info="<html>
-  <p>
-  This example validates
-  <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone\">
-  Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone</a>
-  for the following control signals: <code>VOut_flow</code>, <code>VOutMinSet_flow</code>. The control loop is always enabled in this
-  example.
-  </p>
-  </html>",     revisions="<html>
-  <ul>
-  <li>
-  June 06, 2017, by Milica Grahovac:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"));
+<p>
+This example validates
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone</a>
+for the following control signals: <code>VOut_flow</code>, <code>VOutMinSet_flow</code>. The control loop is always enabled in this
+example.
+</p>
+</html>",     revisions="<html>
+<ul>
+<li>
+June 06, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
     end EconDamperPositionLimitsMultiZone_VOut_flow;
 
     model EconEnableDisableMultiZone_FreProSta_ZonSta
@@ -1777,20 +1776,20 @@ assignments")}),
               fontSize=12,
               textString="Tests freeze protection disable condition")}),
         Documentation(info="<html>
-  <p>
-  This example validates
-  <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone\">
-  Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone</a>
-  for the following control signals: zone state, freeze protection stage.
-  </p>
-  </html>",     revisions="<html>
-  <ul>
-  <li>
-  June 13, 2017, by Milica Grahovac:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"));
+<p>
+This example validates
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone</a>
+for the following control signals: zone state, freeze protection stage.
+</p>
+</html>",     revisions="<html>
+<ul>
+<li>
+June 13, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
     end EconEnableDisableMultiZone_FreProSta_ZonSta;
 
     model EconEnableDisableMultiZone_TOut_hOut
@@ -1985,22 +1984,22 @@ assignments")}),
               fontSize=12,
               textString="No enthalpy
 sensor")}),
-        Documentation(info="<html>
-    <p>
-    This example validates
-    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone\">
-    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone</a>
-    for the following control signals: <code>TOut</code>, <code>TOutCut</code>,
-    <code>hOut</code>, <code>hOutCut</code>.
-    </p>
-    </html>",     revisions="<html>
-    <ul>
-    <li>
-    June 13, 2017, by Milica Grahovac:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+    Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone</a>
+for the following control signals: <code>TOut</code>, <code>TOutCut</code>,
+<code>hOut</code>, <code>hOutCut</code>.
+</p>
+</html>",     revisions="<html>
+<ul>
+<li>
+June 13, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
     end EconEnableDisableMultiZone_TOut_hOut;
 
     model EconModulationMultiZone_TSup
@@ -2059,21 +2058,21 @@ sensor")}),
               points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
         Documentation(info="<html>
-  <p>
-  This example validates
-  <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationMultiZone\">
-  Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationMultiZone</a>
-  for supply air temeperature (<code>TSup</code>) and supply air temperature cooling setpoint (<code>TCooSet</code>)
-  control signals.
-  </p>
-  </html>",     revisions="<html>
-  <ul>
-  <li>
-  June 30, 2017, by Milica Grahovac:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"));
+<p>
+This example validates
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationMultiZone</a>
+for supply air temeperature (<code>TSup</code>) and supply air temperature cooling setpoint (<code>TCooSet</code>)
+control signals.
+</p>
+</html>",     revisions="<html>
+<ul>
+<li>
+June 30, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
     end EconModulationMultiZone_TSup;
 
     model VAVSingleZoneTSupSet_T

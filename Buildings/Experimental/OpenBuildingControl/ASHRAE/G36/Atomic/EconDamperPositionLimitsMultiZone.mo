@@ -96,8 +96,8 @@ protected
     "Freeze protection stage 1";
   parameter Real allowedFreProStaNum = Integer(allowedFreProSta)-1
     "Freeze protection stage control loop upper enable limit";
-  parameter Types.OperationMode occupied = Types.OperationMode.occupied "Operation mode is \"Occupied\"";
-  parameter Real occupiedNum = Integer(occupied) "Numerical value for \"Occupied\" operation mode";
+  parameter Types.OperationMode occupied = Types.OperationMode.occupied "Operation mode is Occupied";
+  parameter Real occupiedNum = Integer(occupied) "Numerical value for Occupied operation mode";
 
   CDL.Continuous.Constant outDamPhyPosMinSig(final k=outDamPhyPosMin)
     "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"
@@ -260,54 +260,54 @@ control loop"),                    Text(
           textString="Damper position limits
 outdoor air volume flow
 control loop")}),
-    Documentation(info="<html>
-    <p>
-    This block models the multiple zone VAV AHU minimum outdoor air control with a single
-    common damper for minimum outdoor air and economizer functions based on outdoor airflow
-    measurement, designed in line with ASHRAE Guidline 36 (G36), PART5.N.6.c.
-    </p>
-    <p>
-    The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
-    the AHU operation mode (<code>OperationMode</code>) is \"Occupied\", and Freeze protection stage
-    <code>uFreProSta</code> is not larger than 1. Otherwise the damper position limits are set to
-    their corresponding maximum and minimum physical or at commissioning fixed limits, as illustrated below:
-    </p>
-    <p align=\"center\">
-    <img alt=\"Image of damper position limits state machine chart\"
-    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconDamperLimitsStateMachineChartMultiZone.png\"/>
-    </p>
-    <p>
-    The controller sets the outdoor and return damper position limits so
-    that the outdoor airflow rate, <code>VOut_flow</code>, stays equal or above the
-    minimum outdoor air setpoint, <code>VOutMinSet_flow</code>. Fraction of the controller
-    output signal between <code>conSigMin</code> and <code>conSigFraOutDam</code> is
-    linearly mapped to the outdoor air damper minimal position, <code>yOutDamPosMin</code>,
-    while the fraction of the controller output between <code>conSigFraOutDam</code> and
-    <code>conSigMax</code> is linearly mapped to the return air damper maximum position,
-    <code>yRetDamPosMax</code>. Thus the dampers are not interlocked.
-    </p>
-    <p>
-    The following control charts show the input/output structure and an expected damper position
-    limits for a well tuned controller. Control diagram:
-    </p>
-    <p align=\"center\">
-    <img alt=\"Image of damper position limits control diagram\"
-    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconDamperLimitsControlDiagramMultiZone.png\"/>
-    </p>
-    <p>
-    Expected control performance (damper position limits vs. control loop signal):
-    <br/>
-    </p>
-    <p align=\"center\">
-    <img alt=\"Image of damper position limits control chart\"
-    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconDamperLimitsControlChartMultiZone.png\"/>
-    </p>
-    </html>", revisions="<html>
-    <ul>
-    <li>
-    June 06, 2017, by Milica Grahovac:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+Documentation(info="<html>
+<p>
+This block models the multiple zone VAV AHU minimum outdoor air control with a single
+common damper for minimum outdoor air and economizer functions based on outdoor airflow
+measurement, designed in line with ASHRAE Guidline 36 (G36), PART5.N.6.c.
+</p>
+<p>
+The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
+the AHU operation mode (<code>OperationMode</code>) is Occupied, and Freeze protection stage
+<code>uFreProSta</code> is not larger than 1. Otherwise the damper position limits are set to
+their corresponding maximum and minimum physical or at commissioning fixed limits, as illustrated below:
+</p>
+<p align=\"center\">
+<img alt=\"Image of damper position limits state machine chart\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconDamperLimitsStateMachineChartMultiZone.png\"/>
+</p>
+<p>
+The controller sets the outdoor and return damper position limits so
+that the outdoor airflow rate, <code>VOut_flow</code>, stays equal or above the
+minimum outdoor air setpoint, <code>VOutMinSet_flow</code>. Fraction of the controller
+output signal between <code>conSigMin</code> and <code>conSigFraOutDam</code> is
+linearly mapped to the outdoor air damper minimal position, <code>yOutDamPosMin</code>,
+while the fraction of the controller output between <code>conSigFraOutDam</code> and
+<code>conSigMax</code> is linearly mapped to the return air damper maximum position,
+<code>yRetDamPosMax</code>. Thus the dampers are not interlocked.
+</p>
+<p>
+The following control charts show the input/output structure and an expected damper position
+limits for a well tuned controller. Control diagram:
+</p>
+<p align=\"center\">
+<img alt=\"Image of damper position limits control diagram\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconDamperLimitsControlDiagramMultiZone.png\"/>
+</p>
+<p>
+Expected control performance (damper position limits vs. control loop signal):
+<br/>
+</p>
+<p align=\"center\">
+<img alt=\"Image of damper position limits control chart\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconDamperLimitsControlChartMultiZone.png\"/>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 06, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EconDamperPositionLimitsMultiZone;

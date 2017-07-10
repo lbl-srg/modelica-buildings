@@ -24,9 +24,9 @@ model EconomizerMultiZone_Mod_DamLim
   parameter Integer freProDisabledNum = Integer(freProDisabled)-1
     "Numerical value for freeze protection stage 0";
   parameter Types.OperationMode occupied = Types.OperationMode.occupied
-    "AHU operation mode is \"Occupied\"";
+    "AHU operation mode is Occupied";
   parameter Integer occupiedNum = Integer(occupied)
-    "Numerical value for \"Occupied\" AHU operation mode";
+    "Numerical value for Occupied AHU operation mode";
   parameter Types.ZoneState deadband = Types.ZoneState.deadband
     "Zone state is deadband";
   parameter Integer deadbandNum = Integer(deadband)
@@ -40,7 +40,7 @@ model EconomizerMultiZone_Mod_DamLim
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   CDL.Integers.Constant ZoneState(k=deadbandNum) "Zone State is deadband"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Integers.Constant operationMode(k=occupiedNum) "AHU operation mode is \"Occupied\""
+  CDL.Integers.Constant operationMode(k=occupiedNum) "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 10000)
     "Outdoor air enthalpy is slightly below the cufoff"
@@ -149,7 +149,7 @@ equation
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
-          textString="Enable both damper limit 
+          textString="Enable both damper limit
 and modulation control loops"),
         Text(
           extent={{100,4},{136,-16}},
@@ -157,30 +157,30 @@ and modulation control loops"),
           horizontalAlignment=TextAlignment.Left,
           fontSize=8,
           textString="Validate damper modulation
-(example without 
+(example without
 enthalpy measurement)"),
         Text(
           extent={{20,46},{56,26}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=8,
-          textString="Economizer fully enabled - 
+          textString="Economizer fully enabled -
 validate damper position limits")}),
-    Documentation(info="<html>
-    <p>
-    This example validates
-    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone\">
-    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone</a> control loops:
-    minimum outdoor air damper position limits control loop (<code>economizer</code> block) and modulation 
-    control loop (<code>economizer1</code> block) for <code>VOut_flow</code> and <code>TSup</code> control signals. Both control
-    loops are enabled during the validation test.
-    </p>
-    </html>", revisions="<html>
-    <ul>
-    <li>
-    June 12, 2017, by Milica Grahovac:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone</a> control loops:
+minimum outdoor air damper position limits control loop (<code>economizer</code> block) and modulation
+control loop (<code>economizer1</code> block) for <code>VOut_flow</code> and <code>TSup</code> control signals. Both control
+loops are enabled during the validation test.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 12, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EconomizerMultiZone_Mod_DamLim;
