@@ -1,8 +1,8 @@
 within Buildings.Experimental.ScalableModels.ThermalZones.BaseClasses;
 model ThermalZoneFluctuatingIHG_WithPorts "Thermal zone model"
   extends
-    Buildings.Experimental.ScalableModels.ThermalZones.BaseClasses.ThermalZoneFluctuatingIHG(      roo(
-    nPorts=4));
+    Buildings.Experimental.ScalableModels.ThermalZones.BaseClasses.ThermalZoneFluctuatingIHG(
+      roo(nPorts=4));
 
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
     "Medium model";

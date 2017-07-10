@@ -22,63 +22,6 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
     Buildings.Types.Tilt.Floor "Tilt for floor";
   final parameter Modelica.SIunits.Angle Z_=
     Buildings.Types.Tilt.Wall "Tilt for wall";
-
-  Buildings.ThermalZones.Detailed.MixedAir roo(
-    redeclare package Medium = MediumA,
-    hRoo=2.7,
-    nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    AFlo=6*8,
-    datConExtWin(
-      layers={conExtWal},
-      A={8*2.7},
-      glaSys={glaSys},
-      wWin={2*3},
-      hWin={2},
-      fFra={0.001},
-      til={Z_},
-      azi={S_}),
-    datConBou(
-      layers={conFlo, conIntWal},
-      A={6*8, 6*2.7},
-      til={F_, Z_}),
-    surBou(
-      A={6*8, 6*2.7},
-      til={C_, Z_},
-      absIR = {conFlo.absIR_a, conIntWal.absIR_a},
-      absSol = {conFlo.absSol_a, conIntWal.absSol_a}),
-    datConPar(
-      layers={conIntWal},
-      A={8*2.7/2},
-      til={Buildings.Types.Tilt.Wall}),
-    nConExt=0,
-    nConPar=1,
-    nSurBou=2,
-    nConBou=2,
-    nConExtWin=1,
-    lat=lat)
-    "Room model, adapted from BESTEST Case 600 and VAVReheat model (for constructions)"
-    annotation (Placement(transformation(extent={{36,-16},{66,14}})));
-
-  Modelica.Blocks.Sources.Constant qConGai_flow(k=579/48) "Convective heat gain"
-    annotation (Placement(transformation(extent={{-88,66},{-76,78}})));
-  Modelica.Blocks.Sources.Constant qRadGai_flow(k=689/48) "Radiative heat gain"
-    annotation (Placement(transformation(extent={{-88,92},{-76,104}})));
-  Modelica.Blocks.Sources.Constant qLatGai_flow(k=146.5/48) "Latent heat gain"
-    annotation (Placement(transformation(extent={{-88,40},{-76,52}})));
-  Modelica.Blocks.Routing.Multiplex3 multiplex3_1
-    annotation (Placement(transformation(extent={{-16,64},{-8,72}})));
-  Modelica.Blocks.Sources.Constant uSha(k=0)
-    "Control signal for the shading device"
-    annotation (Placement(transformation(extent={{-16,80},{-8,88}})));
-  Buildings.Fluid.Sources.Outside sinInf(redeclare package Medium = MediumA,
-      nPorts=1) "Sink model for air infiltration"
-           annotation (Placement(transformation(extent={{-22,-34},{-10,-22}})));
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus
-    "Weather data bus"
-    annotation (Placement(transformation(extent={{-82,-88},{-66,-72}}),
-        iconTransformation(extent={{-82,-88},{-66,-72}})));
-
   final parameter HeatTransfer.Data.Solids.Plywood matFur(x=0.15, nStaRef=5)
     "Material for furniture"
     annotation (Placement(transformation(extent={{160,120},{180,140}})));
@@ -139,6 +82,7 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
     haveInteriorShade=false,
     haveExteriorShade=false) "Data record for the glazing system"
     annotation (Placement(transformation(extent={{200,140},{220,160}})));
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorWal1
     "Heat port connected to common wall"
     annotation (Placement(transformation(extent={{-110,-26},{-90,-6}}),
@@ -155,6 +99,61 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
     "Heat port connected to common wall"
     annotation (Placement(transformation(extent={{110,-10},{130,10}}),
       iconTransformation(extent={{92,-10},{112,10}})));
+  Buildings.ThermalZones.Detailed.MixedAir roo(
+    redeclare package Medium = MediumA,
+    hRoo=2.7,
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    AFlo=6*8,
+    datConExtWin(
+      layers={conExtWal},
+      A={8*2.7},
+      glaSys={glaSys},
+      wWin={2*3},
+      hWin={2},
+      fFra={0.001},
+      til={Z_},
+      azi={S_}),
+    datConBou(
+      layers={conFlo, conIntWal},
+      A={6*8, 6*2.7},
+      til={F_, Z_}),
+    surBou(
+      A={6*8, 6*2.7},
+      til={C_, Z_},
+      absIR = {conFlo.absIR_a, conIntWal.absIR_a},
+      absSol = {conFlo.absSol_a, conIntWal.absSol_a}),
+    datConPar(
+      layers={conIntWal},
+      A={8*2.7/2},
+      til={Buildings.Types.Tilt.Wall}),
+    nConExt=0,
+    nConPar=1,
+    nSurBou=2,
+    nConBou=2,
+    nConExtWin=1,
+    lat=lat)
+    "Room model, adapted from BESTEST Case 600 and VAVReheat model (for constructions)"
+    annotation (Placement(transformation(extent={{36,-16},{66,14}})));
+
+  Modelica.Blocks.Sources.Constant qConGai_flow(k=579/48) "Convective heat gain"
+    annotation (Placement(transformation(extent={{-88,66},{-76,78}})));
+  Modelica.Blocks.Sources.Constant qRadGai_flow(k=689/48) "Radiative heat gain"
+    annotation (Placement(transformation(extent={{-88,92},{-76,104}})));
+  Modelica.Blocks.Sources.Constant qLatGai_flow(k=146.5/48) "Latent heat gain"
+    annotation (Placement(transformation(extent={{-88,40},{-76,52}})));
+  Modelica.Blocks.Routing.Multiplex3 multiplex3_1
+    annotation (Placement(transformation(extent={{-16,64},{-8,72}})));
+  Modelica.Blocks.Sources.Constant uSha(k=0)
+    "Control signal for the shading device"
+    annotation (Placement(transformation(extent={{-16,80},{-8,88}})));
+  Buildings.Fluid.Sources.Outside sinInf(redeclare package Medium = MediumA,
+      nPorts=1) "Sink model for air infiltration"
+           annotation (Placement(transformation(extent={{-22,-34},{-10,-22}})));
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus
+    "Weather data bus"
+    annotation (Placement(transformation(extent={{-82,-88},{-66,-72}}),
+        iconTransformation(extent={{-82,-88},{-66,-72}})));
   Modelica.Blocks.Math.Product product1
     annotation (Placement(transformation(extent={{-56,90},{-46,100}})));
   Modelica.Blocks.Math.Gain gain(k=gainFactor)
@@ -185,59 +184,76 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
     dp_nominal=20,
     linearized=true) "Pressure drop for infiltration"
     annotation (Placement(transformation(extent={{2,-38},{22,-18}})));
+
 equation
-  connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{-7.6,68},{20,68},{20,5},{34.8,5}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(roo.surf_conBou[1], heaPorFlo) annotation (Line(points={{55.5,-13.375},
-          {55.5,-86},{0,-86},{0,-100}}, color={191,0,0}));
-  connect(roo.surf_conBou[2], heaPorWal1) annotation (Line(points={{55.5,-12.625},
-          {55.5,-16},{-100,-16}},  color={191,0,0}));
-  connect(roo.surf_surBou[1], heaPorCei) annotation (Line(points={{48.15,-11.875},
-          {48.15,-20},{0,-20},{0,100}}, color={191,0,0}));
-  connect(roo.surf_surBou[1], heaPorWal2) annotation (Line(points={{48.15,-11.875},
-          {48.15,-20},{120,-20},{120,0}}, color={191,0,0}));
-  connect(uSha.y, roo.uSha[1]) annotation (Line(points={{-7.6,84},{26,84},{26,12.5},
-          {34.8,12.5}},  color={0,0,127}));
-  connect(weaBus, roo.weaBus) annotation (Line(
-      points={{-74,-80},{-74,-80},{72,-80},{72,12.425},{64.425,12.425}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(sinInf.weaBus, weaBus) annotation (Line(
-      points={{-22,-27.88},{-30,-27.88},{-30,-80},{-74,-80}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(qLatGai_flow.y, product3.u1) annotation (Line(points={{-75.4,46},{-75.4,
-          46},{-57,46}}, color={0,0,127}));
-  connect(product3.y, gain2.u) annotation (Line(points={{-45.5,43},{-45.5,43},{-41,
-          43}}, color={0,0,127}));
-  connect(product2.y, gain1.u) annotation (Line(points={{-45.5,68},{-45.5,68},{-41,
-          68}}, color={0,0,127}));
-  connect(product1.y, gain.u) annotation (Line(points={{-45.5,95},{-45.5,95},{-41,
-          95}}, color={0,0,127}));
-  connect(gain1.y, multiplex3_1.u2[1]) annotation (Line(points={{-29.5,68},{-26,
-          68},{-16.8,68}}, color={0,0,127}));
+  connect(multiplex3_1.y, roo.qGai_flow)
+    annotation (Line(points={{-7.6,68},{20,68},{20,5},{34.8,5}},
+      color={0,0,127}, smooth=Smooth.None));
+  connect(roo.surf_conBou[1], heaPorFlo)
+    annotation (Line(points={{55.5,-13.375},{55.5,-86},{0,-86},{0,-100}},
+      color={191,0,0}));
+  connect(roo.surf_conBou[2], heaPorWal1)
+    annotation (Line(points={{55.5,-12.625},{55.5,-16},{-100,-16}},
+      color={191,0,0}));
+  connect(roo.surf_surBou[1], heaPorCei)
+    annotation (Line(points={{48.15,-11.875},{48.15,-20},{0,-20},{0,100}},
+      color={191,0,0}));
+  connect(roo.surf_surBou[1], heaPorWal2)
+    annotation (Line(points={{48.15,-11.875},{48.15,-20},{120,-20},{120,0}},
+      color={191,0,0}));
+  connect(uSha.y, roo.uSha[1])
+    annotation (Line(points={{-7.6,84},{26,84},{26,12.5},{34.8,12.5}},
+      color={0,0,127}));
+  connect(weaBus, roo.weaBus)
+    annotation (Line(points={{-74,-80},{-74,-80},{72,-80},{72,12.425},
+      {64.425,12.425}},  color={255,204,51},   thickness=0.5));
+  connect(sinInf.weaBus, weaBus)
+    annotation (Line(points={{-22,-27.88},{-30,-27.88},{-30,-80},{-74,-80}},
+      color={255,204,51}, thickness=0.5));
+  connect(qLatGai_flow.y, product3.u1)
+    annotation (Line(points={{-75.4,46},{-75.4,46},{-57,46}},
+      color={0,0,127}));
+  connect(product3.y, gain2.u)
+    annotation (Line(points={{-45.5,43},{-45.5,43},{-41,43}},
+      color={0,0,127}));
+  connect(product2.y, gain1.u)
+    annotation (Line(points={{-45.5,68},{-45.5,68},{-41,68}},
+      color={0,0,127}));
+  connect(product1.y, gain.u)
+    annotation (Line(points={{-45.5,95},{-45.5,95},{-41,95}},
+      color={0,0,127}));
+  connect(gain1.y, multiplex3_1.u2[1])
+    annotation (Line(points={{-29.5,68},{-26,68},{-16.8,68}},
+      color={0,0,127}));
   connect(qConGai_flow.y, product2.u1)
-    annotation (Line(points={{-75.4,72},{-57,72},{-57,71}}, color={0,0,127}));
+    annotation (Line(points={{-75.4,72},{-57,72},{-57,71}},
+      color={0,0,127}));
   connect(qRadGai_flow.y, product1.u1)
-    annotation (Line(points={{-75.4,98},{-66,98},{-57,98}}, color={0,0,127}));
-  connect(gain.y, multiplex3_1.u1[1]) annotation (Line(points={{-29.5,95},{-22,95},
-          {-22,70.8},{-16.8,70.8}}, color={0,0,127}));
-  connect(gain2.y, multiplex3_1.u3[1]) annotation (Line(points={{-29.5,43},{-22,
-          43},{-22,65.2},{-16.8,65.2}}, color={0,0,127}));
-  connect(intLoad.y[1], product1.u2) annotation (Line(points={{-75.3,121},{-68,121},
-          {-68,92},{-57,92}},      color={0,0,127}));
-  connect(product1.u2, product2.u2) annotation (Line(points={{-57,92},{-62,92},
-          {-68,92},{-68,65},{-57,65}}, color={0,0,127}));
-  connect(product1.u2, product3.u2) annotation (Line(points={{-57,92},{-68,92},
-          {-68,40},{-57,40}}, color={0,0,127}));
-  connect(souInf.ports[1], roo.ports[1]) annotation (Line(points={{-8,-52},{32,-52},
-          {32,-10},{39.75,-10}},        color={0,127,255}));
+    annotation (Line(points={{-75.4,98},{-66,98},{-57,98}},
+      color={0,0,127}));
+  connect(gain.y, multiplex3_1.u1[1])
+    annotation (Line(points={{-29.5,95},{-22,95},{-22,70.8},{-16.8,70.8}},
+      color={0,0,127}));
+  connect(gain2.y, multiplex3_1.u3[1])
+    annotation (Line(points={{-29.5,43},{-22,43},{-22,65.2},{-16.8,65.2}},
+      color={0,0,127}));
+  connect(intLoad.y[1], product1.u2)
+    annotation (Line(points={{-75.3,121},{-68,121},{-68,92},{-57,92}},
+      color={0,0,127}));
+  connect(product1.u2, product2.u2)
+    annotation (Line(points={{-57,92},{-62,92},{-68,92},{-68,65},{-57,65}},
+      color={0,0,127}));
+  connect(product1.u2, product3.u2)
+    annotation (Line(points={{-57,92},{-68,92},{-68,40},{-57,40}},
+      color={0,0,127}));
+  connect(souInf.ports[1], roo.ports[1])
+    annotation (Line(points={{-8,-52},{32,-52},{32,-10},{39.75,-10}},
+      color={0,127,255}));
   connect(sinInf.ports[1], res.port_a)
-    annotation (Line(points={{-10,-28},{2,-28}},          color={0,127,255}));
-  connect(res.port_b, roo.ports[2]) annotation (Line(points={{22,-28},{22,-28},{
-          28,-28},{28,-7},{39.75,-7}}, color={0,127,255}));
+    annotation (Line(points={{-10,-28},{2,-28}}, color={0,127,255}));
+  connect(res.port_b, roo.ports[2])
+    annotation (Line(points={{22,-28},{22,-28},{28,-28},{28,-7},{39.75,-7}},
+      color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100, 100}}), graphics={
         Rectangle(
