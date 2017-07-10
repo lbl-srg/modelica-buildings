@@ -79,7 +79,7 @@ protected
   parameter Real delEntHis(unit="J/kg", quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy));
-  parameter Real delTemHis(unit="K", quantity = "ThermodynamicTemperature")=1
+  parameter Modelica.SIunits.Temperature delTemHis=1
     "Delta between the temperature hysteresis high and low limits";
 
 equation

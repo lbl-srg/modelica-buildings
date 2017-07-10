@@ -3,7 +3,7 @@ model EconModulationMultiZone_TSup
   "Validation model for multiple zone VAV AHU outdoor and return air damper position modulation sequence"
   extends Modelica.Icons.Example;
 
-  parameter Real TCooSet(unit="K", quantity="TermodynamicTemperature")=291.15
+  parameter Modelica.SIunits.Temperature TCooSet=291.15
     "Supply air temperature setpoint";
 
   CDL.Continuous.Constant TCooSetSig(k=TCooSet) "Supply air temperature setpoint"

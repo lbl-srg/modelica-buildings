@@ -4,7 +4,7 @@ block EconEnableDisableMultiZone
 
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air enthalpy in addition to temperature";
-  parameter Real delTemHis(unit="K", quantity="TermodynamicTemperature")=1
+  parameter Modelica.SIunits.Temperature delTemHis=1
     "Delta between the temperature hysteresis high and low limit";
   parameter Real delEntHis(unit="J/kg", quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"

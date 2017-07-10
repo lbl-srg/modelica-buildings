@@ -3,7 +3,7 @@ model EconEnableDisableMultiZone_TOut_hOut
   "Model validates economizer disable in case outdoor air conditions are above cutoff"
   extends Modelica.Icons.Example;
 
-  parameter Real TOutCutoff(final unit="K", quantity="TermodynamicTemperature")=297
+  parameter Modelica.SIunits.Temperature TOutCutoff=297
     "Outdoor temperature high limit cutoff";
   parameter Real hOutCutoff(final unit="J/kg", quantity="SpecificEnergy")=65100
     "Outdoor air enthalpy high limit cutoff";
@@ -27,7 +27,7 @@ model EconEnableDisableMultiZone_TOut_hOut
   CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 1000)
     "Outdoor air enthalpy is slightly below the cufoff"
     annotation (Placement(transformation(extent={{-240,80},{-220,100}})));
-  CDL.Continuous.Constant TOutBellowCutoff(k=TOutCutoff - 2)
+  CDL.Continuous.Constant TOutBelowCutoff(k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   CDL.Logical.TriggeredTrapezoid TOut(
@@ -99,7 +99,7 @@ equation
         points={{-59,50},{10,50},{10,-26},{79,-26}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, econEnableDisableMultiZone.hOut) annotation (Line(
         points={{-219,90},{-180,90},{-180,66},{-130,66},{-130,-24},{-81,-24}},color={0,0,127}));
-  connect(TOutBellowCutoff.y, econEnableDisableMultiZone1.TOut) annotation (
+  connect(TOutBelowCutoff.y, econEnableDisableMultiZone1.TOut) annotation (
       Line(points={{61,90},{70,90},{70,-20},{80,-20},{79,-20}},    color={0,0,127}));
   connect(booPul.y, TOut.u)
     annotation (Line(points={{-179,130},{-162,130}}, color={255,0,255}));

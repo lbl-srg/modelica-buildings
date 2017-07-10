@@ -27,29 +27,29 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
     "Maximum increase in airflow volume during the example simulation";
 
   // Fan Status
-  CDL.Logical.Constant FanStatus(k=false) "Fan is off"
+  CDL.Logical.Constant fanStatus(k=false) "Fan is off"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
-  CDL.Integers.Constant FreProSta(k=freProStage1Num) "Freeze protection stage is 1"
+  CDL.Integers.Constant freProSta(k=freProStage1Num) "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
-  CDL.Integers.Constant OperationMode(k=occupiedNum) "AHU operation mode is \"Occupied\""
+  CDL.Integers.Constant operationMode(k=occupiedNum) "AHU operation mode is \"Occupied\""
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
 
   // Operation Mode
-  CDL.Logical.Constant FanStatus1(k=true)  "Fan is on"
+  CDL.Logical.Constant fanStatus1(k=true)  "Fan is on"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  CDL.Integers.Constant FreProSta1(k=freProStage1Num) "Freeze protection stage is 1"
+  CDL.Integers.Constant freProSta1(k=freProStage1Num) "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  CDL.Integers.Constant OperationMode1(k=warmUpNum)
+  CDL.Integers.Constant operationMode1(k=warmUpNum)
     "AHU operation mode is NOT \"Occupied\""
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
   // Freeze Protection Stage
-  CDL.Logical.Constant FanStatus2(k=true)  "Fan is on"
+  CDL.Logical.Constant fanStatus2(k=true)  "Fan is on"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
-  CDL.Integers.Constant FreProSta2(k=freProStage2Num)
+  CDL.Integers.Constant freProSta2(k=freProStage2Num)
     "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  CDL.Integers.Constant OperationMode2(k=occupiedNum) "AHU operation mode is \"Occupied\""
+  CDL.Integers.Constant operationMode2(k=occupiedNum) "AHU operation mode is \"Occupied\""
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
   Modelica.Blocks.Sources.Ramp VOut_flow(
@@ -95,32 +95,32 @@ equation
           {-140,-2},{-121,-2}}, color={0,0,127}));
   connect(VOut_flowMinSet.y, ecoDamLim.VOut_flowMinSet)
     annotation (Line(points={{-179,30},{-150,30},{-150,-5},{-121,-5}}, color={0,0,127}));
-  connect(FanStatus.y, ecoDamLim.uSupFan)
+  connect(fanStatus.y, ecoDamLim.uSupFan)
     annotation (Line(points={{-179,-10},{-160,-10},{-121,-10}}, color={255,0,255}));
-  connect(OperationMode.y, ecoDamLim.uOperationMode)
+  connect(operationMode.y, ecoDamLim.uOperationMode)
     annotation (Line(points={{-179,-50},{-160,-50},{-160,-28},{-160,-15},{-121,-15}},
     color={255,127,0}));
-  connect(FreProSta.y, ecoDamLim.uFreProSta)
+  connect(freProSta.y, ecoDamLim.uFreProSta)
     annotation (Line(points={{-179,-90},{-150,-90},{-150,-18},{-121,-18}}, color={255,127,0}));
   connect(VOut_flow1.y, ecoDamLim1.VOut_flow) annotation (Line(points={{-39,70},{0,70},{
           0,-2},{19,-2}}, color={0,0,127}));
   connect(VOut_flowMinSet1.y, ecoDamLim1.VOut_flowMinSet) annotation (Line(points={{-39,
           30},{-10,30},{-10,-5},{19,-5}}, color={0,0,127}));
-  connect(FanStatus1.y, ecoDamLim1.uSupFan) annotation (Line(points={{-39,-10},
+  connect(fanStatus1.y, ecoDamLim1.uSupFan) annotation (Line(points={{-39,-10},
           {-20,-10},{19,-10}}, color={255,0,255}));
-  connect(OperationMode1.y, ecoDamLim1.uOperationMode) annotation (Line(points={{-39,-50},{
+  connect(operationMode1.y, ecoDamLim1.uOperationMode) annotation (Line(points={{-39,-50},{
           -20,-50},{-20,-28},{-20,-15},{19,-15}}, color={255,127,0}));
-  connect(FreProSta1.y, ecoDamLim1.uFreProSta) annotation (Line(points={{-39,
+  connect(freProSta1.y, ecoDamLim1.uFreProSta) annotation (Line(points={{-39,
           -90},{-10,-90},{-10,-18},{19,-18}}, color={255,127,0}));
   connect(VOut_flow2.y, ecoDamLim2.VOut_flow) annotation (Line(points={{101,70},{140,70},
           {140,-2},{159,-2}}, color={0,0,127}));
   connect(VOut_flowMinSet2.y, ecoDamLim2.VOut_flowMinSet) annotation (Line(points={{101,
           30},{130,30},{130,-5},{159,-5}}, color={0,0,127}));
-  connect(FanStatus2.y, ecoDamLim2.uSupFan) annotation (Line(points={{101,-10},
+  connect(fanStatus2.y, ecoDamLim2.uSupFan) annotation (Line(points={{101,-10},
           {120,-10},{159,-10}}, color={255,0,255}));
-  connect(OperationMode2.y, ecoDamLim2.uOperationMode) annotation (Line(points={{101,-50},{
+  connect(operationMode2.y, ecoDamLim2.uOperationMode) annotation (Line(points={{101,-50},{
           120,-50},{120,-28},{120,-15},{159,-15}}, color={255,127,0}));
-  connect(FreProSta2.y, ecoDamLim2.uFreProSta) annotation (Line(points={{101,
+  connect(freProSta2.y, ecoDamLim2.uFreProSta) annotation (Line(points={{101,
           -90},{130,-90},{130,-18},{159,-18}}, color={255,127,0}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),

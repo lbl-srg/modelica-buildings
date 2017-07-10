@@ -3,7 +3,7 @@ model EconomizerMultiZone_Disable
   "Validation model for disabling the multizone VAV AHU economizer modulation and damper position limit control loops"
   extends Modelica.Icons.Example;
 
-  parameter Real TOutCutoff(unit="K", quantity="TermodynamicTemperature")=297
+  parameter Modelica.SIunits.Temperature TOutCutoff=297
     "Outdoor temperature high limit cutoff";
   parameter Real hOutCutoff(unit="J/kg", quantity="SpecificEnergy")=65100
     "Outdoor air enthalpy high limit cutoff";
@@ -30,9 +30,9 @@ model EconomizerMultiZone_Disable
 
   EconomizerMultiZone economizer(use_enthalpy=true) "Multizone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  CDL.Logical.Constant FanStatus(k=true) "Fan is on"
+  CDL.Logical.Constant fanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  CDL.Integers.Constant FreProSta(k=freProDisabledNum) "Freeze protection status is 0"
+  CDL.Integers.Constant freProSta(k=freProDisabledNum) "Freeze protection status is 0"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   CDL.Integers.Constant ZoneState(k=heatingNum) "Zone State is heating"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
@@ -43,7 +43,7 @@ model EconomizerMultiZone_Disable
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   CDL.Continuous.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Continuous.Constant TOutBellowCutoff(k=TOutCutoff - 30)
+  CDL.Continuous.Constant TOutBelowCutoff(k=TOutCutoff - 30)
     "Outdoor air temperature is below the cutoff"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
   CDL.Continuous.Constant TOutCut1(k=TOutCutoff)
@@ -67,19 +67,19 @@ model EconomizerMultiZone_Disable
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   EconomizerMultiZone economizer1 "Multizone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
-  CDL.Integers.Constant FreProSta2(k=freProEnabledNum) "Freeze protection stage is 2"
+  CDL.Integers.Constant freProSta2(k=freProEnabledNum) "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
 
 equation
-  connect(FanStatus.y, economizer.uSupFan) annotation (Line(points={{-19,-10},{-10,-10},{-10,6},{19,6}},
+  connect(fanStatus.y, economizer.uSupFan) annotation (Line(points={{-19,-10},{-10,-10},{-10,6},{19,6}},
     color={255,0,255}));
-  connect(FreProSta.y, economizer.uFreProSta)
+  connect(freProSta.y, economizer.uFreProSta)
     annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},color={255,127,0}));
   connect(OperationMode.y, economizer.uOperationMode)
     annotation (Line(points={{-59,-90},{-52,-90},{-52,-30},{-4,-30},{-4,4},{19,4}},color={255,127,0}));
   connect(ZoneState.y, economizer.uZoneState)
     annotation (Line(points={{-59,-60},{-50,-60},{-50,-32},{-2,-32},{-2,2},{19,2}}, color={255,127,0}));
-  connect(TOutBellowCutoff.y, economizer.TOut)
+  connect(TOutBelowCutoff.y, economizer.TOut)
     annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},color={0,0,127}));
   connect(TOutCut1.y, economizer.TOutCut)
     annotation (Line(points={{-99,70},{-90,70},{-8,70},{-8,20},{19,20}},color={0,0,127}));
@@ -97,7 +97,7 @@ equation
     annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}},color={0,0,127}));
   connect(TOutCut1.y, economizer1.TOutCut)
     annotation (Line(points={{-99,70},{74,70},{74,0},{99,0}}, color={0,0,127}));
-  connect(TOutBellowCutoff.y, economizer1.TOut)
+  connect(TOutBelowCutoff.y, economizer1.TOut)
     annotation (Line(points={{-99,110},{80,110},{80,2},{99,2}}, color={0,0,127}));
   connect(hOutCut.y, economizer1.hOutCut)
     annotation (Line(points={{-99,-20},{-90,-20},{-90,-28},{76,-28},{76,-4},{99,-4}},color={0,0,127}));
@@ -111,13 +111,13 @@ equation
     annotation (Line(points={{-19,90},{78,90},{78,-10},{99,-10}}, color={0,0,127}));
   connect(VOut_flowMinSet.y, economizer1.VOut_flowMinSet)
     annotation (Line(points={{-19,50},{70,50},{70,-12},{99,-12}}, color={0,0,127}));
-  connect(FanStatus.y, economizer1.uSupFan)
+  connect(fanStatus.y, economizer1.uSupFan)
     annotation (Line(points={{-19,-10},{20,-10},{20,-14},{99,-14}}, color={255,0,255}));
   connect(ZoneState.y, economizer1.uZoneState)
     annotation (Line(points={{-59,-60},{20,-60},{20,-18},{99,-18}}, color={255,127,0}));
   connect(OperationMode.y, economizer1.uOperationMode)
     annotation (Line(points={{-59,-90},{18,-90},{18,-16},{99,-16}}, color={255,127,0}));
-  connect(FreProSta2.y, economizer1.uFreProSta)
+  connect(freProSta2.y, economizer1.uFreProSta)
     annotation (Line(points={{81,-120},{90,-120},{90,-20},{99,-20}}, color={255,127,0}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),

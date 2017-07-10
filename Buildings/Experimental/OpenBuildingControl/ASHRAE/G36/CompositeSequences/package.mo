@@ -1,8 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
 package CompositeSequences "Sequences as defined in G36"
-
-
-
   annotation (Icon(graphics={
         Rectangle(
         extent={{-70,60},{-30,20}},

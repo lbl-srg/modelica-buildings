@@ -34,22 +34,22 @@ protected
   parameter Integer occupiedNum = Integer(occupied)
     "Numerical value for \"Occupied\" operation mode (=1)";
 
-  CDL.Logical.Constant FanStatus(k=true) "Fan is on"
+  CDL.Logical.Constant fanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  CDL.Integers.Constant FreProSta(k=freProDisabledNum) "Freeze protection status - disabled"
+  CDL.Integers.Constant freProSta(k=freProDisabledNum) "Freeze protection status - disabled"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  CDL.Integers.Constant OperationMode(k=occupiedNum) "Operation mode - occupied"
+  CDL.Integers.Constant operationMode(k=occupiedNum) "Operation mode - occupied"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
 equation
   connect(VOut_flow.y, ecoDamLim.VOut_flow) annotation (Line(points={{-39,80},{0,80},{0,8},{19,8}},color={0,0,127}));
   connect(VOut_flowMinSet.y, ecoDamLim.VOut_flowMinSet)
     annotation (Line(points={{-39,40},{-10,40},{-10,5},{19,5}},color={0,0,127}));
-  connect(FanStatus.y, ecoDamLim.uSupFan)
+  connect(fanStatus.y, ecoDamLim.uSupFan)
     annotation (Line(points={{-39,0},{-20,0},{19,0}},color={255,0,255}));
-  connect(OperationMode.y, ecoDamLim.uOperationMode)
+  connect(operationMode.y, ecoDamLim.uOperationMode)
     annotation (Line(points={{-39,-40},{-20,-40},{-20,-18},{-20,-5},{19,-5}},color={255,127,0}));
-  connect(FreProSta.y, ecoDamLim.uFreProSta)
+  connect(freProSta.y, ecoDamLim.uFreProSta)
     annotation (Line(points={{-39,-80},{-10,-80},{-10,-8},{19,-8}},color={255,127,0}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
