@@ -293,7 +293,7 @@ disable if
       </p>
       <p align=\"center\">
       <img alt=\"Image of economizer enable-disable state machine chart\"
-      src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconEnableDisableStateMachineChartSingleZone.png\"/>
+      src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/EconEnableDisableStateMachineChartSingleZone.png\"/>
       </p>
       </html>", revisions="<html>
       <ul>

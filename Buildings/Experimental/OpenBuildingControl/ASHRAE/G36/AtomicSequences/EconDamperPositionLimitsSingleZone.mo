@@ -254,11 +254,11 @@ equation
           textString="Enable/disable conditions
 for damper position limits
 control loop")}),
-    Documentation(info="<html>      
+    Documentation(info="<html>
 <p>
 This atomic sequence sets the minimum economizer damper position limit. The implementation is according
 to ASHRAE Guidline 36 (G36), PART5.P.4.d.
-</p>   
+</p>
 <p>
 The controller is enabled when the zone is in occupied mode. Otherwise, the outdoor air damper position limit is set to
 minimum physical or at commissioning fixed limits. The state machine diagram below illustrates this.
@@ -266,32 +266,32 @@ minimum physical or at commissioning fixed limits. The state machine diagram bel
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits state machine chart\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsStateMachineChartSingleZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/EconDamperLimitsStateMachineChartSingleZone.png\"/>
 </p>
 <p>
-According to article from G36, 
+According to article from G36,
 <ul>
 <li>
-based on current supply fan speed (<code>uSupFanSpe</code>), it calculates outdoor air damper position (<code>minPosAtCurSpe</code>), 
-to ensure minimum outdoor air flow rate (<code>minVOut_flowSet</code>); 
+based on current supply fan speed (<code>uSupFanSpe</code>), it calculates outdoor air damper position (<code>minPosAtCurSpe</code>),
+to ensure minimum outdoor air flow rate (<code>minVOut_flowSet</code>);
 </li>
 </ul>
 <ul>
 <li>
-based on current supply fan speed (<code>uSupFanSpe</code>), it calculates outdoor air damper position (<code>desPosAtCurSpe</code>), 
+based on current supply fan speed (<code>uSupFanSpe</code>), it calculates outdoor air damper position (<code>desPosAtCurSpe</code>),
 to ensure design outdoor air flow rate (<code>desVOut_flowSet</code>);
 </li>
 </ul>
 <ul>
 <li>
-given the calculated air damper positions (<code>minPosAtCurSpe</code>, <code>desPosAtCurSpe</code>) 
-and the outdoor air flow rate limits (<code>minVOut_flowSet</code>, <code>desVOut_flowSet</code>), 
-it caculates the minimum outdoor air damper position (<code>yOutDamPosMin</code>), 
-to ensure outdoor air flow rate setpoint (<code>uVOut_flowMinSet</code>) 
+given the calculated air damper positions (<code>minPosAtCurSpe</code>, <code>desPosAtCurSpe</code>)
+and the outdoor air flow rate limits (<code>minVOut_flowSet</code>, <code>desVOut_flowSet</code>),
+it caculates the minimum outdoor air damper position (<code>yOutDamPosMin</code>),
+to ensure outdoor air flow rate setpoint (<code>uVOut_flowMinSet</code>)
 under current supply fan speed (<code>uSupFanSpe</code>).
 </li>
 </ul>
-Both the outdoor air flow rate setpoint (code>uVOut_flowMinSet</code>) 
+Both the outdoor air flow rate setpoint (code>uVOut_flowMinSet</code>)
 and current supply fan speed (<code>uSupFanSpe</code>) are output from separate sequences.
 </p>
 <p>
@@ -301,11 +301,11 @@ This chart illustrates the OA damper position calculation based on the supply fa
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits control chart\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlChartSingleZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/EconDamperLimitsControlChartSingleZone.png\"/>
 </p>
 <p>
 fixme: additional text about the functioning of the sequence
-Note that VOut_flow depends on whether the economizer damper is controlled to a 
+Note that VOut_flow depends on whether the economizer damper is controlled to a
 position higher than it's minimum limit. This is defined by the EconEnableDisable
 and EconModulate [fixme check seq name] sequences. Fixme feature add: For this reason
 we may want to implement something like:

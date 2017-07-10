@@ -486,7 +486,7 @@ equation
      </p>
      <p align=\"center\">
      <img alt=\"Image of set point reset\"
-     src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/VAVSingleZoneTSupSet.png\"/>
+     src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/VAVSingleZoneTSupSet.png\"/>
      </p>
      <p>
      The output <code>TCoo</code> is to be used to control the cooling coil,
