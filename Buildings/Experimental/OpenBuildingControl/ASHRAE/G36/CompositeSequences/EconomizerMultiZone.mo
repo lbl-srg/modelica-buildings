@@ -172,7 +172,7 @@ equation
   </p>
   <p align=\"center\">
   <img alt=\"Image of the multizone AHU modulation sequence control diagram\"
-  src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconCompositeSequenceMultiZone.png\"/>
+  src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/CompositeSequences/EconCompositeSequenceMultiZone.png\"/>
   </p>
   </html>", revisions="<html>
   <ul>

@@ -22,7 +22,7 @@ block EconModulationMultiZone
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
         iconTransformation(extent={{-120,-30},{-100,-10}})));    //fixme: add quantity for ALL damper positions?
   CDL.Interfaces.RealInput uOutDamPosMax(min=0, max=1, unit="1")
-    "Maximum economizer damper position limit as returned by the EconEnableDisableMultiZone sequence. 
+    "Maximum economizer damper position limit as returned by the EconEnableDisableMultiZone sequence.
     If the economizer is disabled, this value equals uOutDamPosMin"
     annotation (Placement(transformation(extent={{-160,-90},{-120,-50}}),
         iconTransformation(extent={{-120,0},{-100,20}})));
@@ -141,42 +141,42 @@ equation
           lineColor={0,0,0},
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,
-          textString="Damper position 
+          textString="Damper position
 supply air temperature
 control loop"),                    Text(
           extent={{82,128},{126,88}},
           lineColor={0,0,0},
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,
-          textString="Damper position 
+          textString="Damper position
 assignments")}),
-    Documentation(info="<html>      
+    Documentation(info="<html>
     <p>
-    This is a multiple zone VAV AHU economizer modulation block. It calculates 
+    This is a multiple zone VAV AHU economizer modulation block. It calculates
     the outdoor and return air damper positions based on the supply air temperature
-    control loop signal. The implementation is in line with ASHRAE 
+    control loop signal. The implementation is in line with ASHRAE
     Guidline 36 (G36), PART5.N.2.c. Damper positions are linearly mapped to
-    the supply air control loop signal. This is a final sequence in the 
-    composite multizone VAV AHU economizer control sequence. Damper position 
-    limits, which are the inputs to the sequence, are the outputs of 
+    the supply air control loop signal. This is a final sequence in the
+    composite multizone VAV AHU economizer control sequence. Damper position
+    limits, which are the inputs to the sequence, are the outputs of
     <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone\">
-    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone</a> and 
+    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone</a> and
     <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone\">
-    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone</a> 
+    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone</a>
     sequences.
     </p>
     <p>
-    When the economizer is enabled, the PI controller modulates the damper 
-    positions. Return and outdoor damper are not interlocked. When the economizer is disabled, 
-    the damper positions are set to the minimum outdoor air damper position limits. 
+    When the economizer is enabled, the PI controller modulates the damper
+    positions. Return and outdoor damper are not interlocked. When the economizer is disabled,
+    the damper positions are set to the minimum outdoor air damper position limits.
     </p>
     <p>
-    Control charts below show the input-output structure and an economizer damper 
+    Control charts below show the input-output structure and an economizer damper
     modulation sequence assuming a well tuned controller. Control diagram:
     </p>
     <p align=\"center\">
     <img alt=\"Image of the multizone AHU modulation sequence control diagram\"
-    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationControlDiagramMultiZone.png\"/>
+    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/EconModulationControlDiagramMultiZone.png\"/>
     </p>
     <p>
     Multizone AHU economizer modulation control chart:
@@ -184,9 +184,9 @@ assignments")}),
     </p>
     <p align=\"center\">
     <img alt=\"Image of the multizone AHU modulation sequence expected performance\"
-    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationControlChartMultiZone.png\"/>
+    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/EconModulationControlChartMultiZone.png\"/>
     </p>
-    
+
     </html>", revisions="<html>
     <ul>
     <li>

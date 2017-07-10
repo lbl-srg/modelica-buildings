@@ -268,13 +268,13 @@ control loop")}),
     </p>
     <p>
     The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
-    the AHU operation mode (<code>OperationMode</code>) is \"Occupied\", and Freeze protection stage 
-    <code>uFreProSta</code> is not larger than 1. Otherwise the damper position limits are set to 
+    the AHU operation mode (<code>OperationMode</code>) is \"Occupied\", and Freeze protection stage
+    <code>uFreProSta</code> is not larger than 1. Otherwise the damper position limits are set to
     their corresponding maximum and minimum physical or at commissioning fixed limits, as illustrated below:
     </p>
     <p align=\"center\">
     <img alt=\"Image of damper position limits state machine chart\"
-    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsStateMachineChartMultiZone.png\"/>
+    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/EconDamperLimitsStateMachineChartMultiZone.png\"/>
     </p>
     <p>
     The controller sets the outdoor and return damper position limits so
@@ -292,7 +292,7 @@ control loop")}),
     </p>
     <p align=\"center\">
     <img alt=\"Image of damper position limits control diagram\"
-    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlDiagramMultiZone.png\"/>
+    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/EconDamperLimitsControlDiagramMultiZone.png\"/>
     </p>
     <p>
     Expected control performance (damper position limits vs. control loop signal):
@@ -300,7 +300,7 @@ control loop")}),
     </p>
     <p align=\"center\">
     <img alt=\"Image of damper position limits control chart\"
-    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlChartMultiZone.png\"/>
+    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/EconDamperLimitsControlChartMultiZone.png\"/>
     </p>
     </html>", revisions="<html>
     <ul>
