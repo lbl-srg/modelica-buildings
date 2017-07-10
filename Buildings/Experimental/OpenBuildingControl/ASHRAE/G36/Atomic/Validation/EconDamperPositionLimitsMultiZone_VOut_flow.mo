@@ -3,20 +3,20 @@ model EconDamperPositionLimitsMultiZone_VOut_flow
   "Validation model for the multiple zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
-  parameter Real minVOut_flowSet(unit="m3/s")=0.71
+  parameter Real minVOutSet_flow(unit="m3/s", quantity="VolumeFlowRate")=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Real minVOut_flow(unit="m3/s")=0.61
+  parameter Real minVOut_flow(unit="m3/s", quantity="VolumeFlowRate")=0.61
     "Minimal measured volumetric airflow";
-  parameter Real VOut_flowIncrease(unit="m3/s")=0.2
+  parameter Real VOutIncrease_flow(unit="m3/s", quantity="VolumeFlowRate")=0.2
     "Maximum volumetric airflow increase during the example simulation";
 
-  CDL.Continuous.Constant VOut_flowMinSet(k=minVOut_flowSet)
+  CDL.Continuous.Constant VOutMinSet_flow(k=minVOutSet_flow)
     "Outdoor volumetric airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Modelica.Blocks.Sources.Ramp VOut_flow(
     duration=1800,
     offset=minVOut_flow,
-    height=VOut_flowIncrease)
+    height=VOutIncrease_flow)
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
@@ -28,11 +28,11 @@ protected
   parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
     "Indicates that the freeze protection is disabled";
   parameter Integer freProDisabledNum = Integer(freProDisabled)-1
-    "Numerical value for freeze protection stage 0 (=0)";
+    "Numerical value for freeze protection stage 0";
   parameter Types.OperationMode occupied = Types.OperationMode.occupied
     "Operation mode is \"Occupied\"";
   parameter Integer occupiedNum = Integer(occupied)
-    "Numerical value for \"Occupied\" operation mode (=1)";
+    "Numerical value for \"Occupied\" operation mode";
 
   CDL.Logical.Constant fanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
@@ -43,7 +43,7 @@ protected
 
 equation
   connect(VOut_flow.y, ecoDamLim.VOut_flow) annotation (Line(points={{-39,80},{0,80},{0,8},{19,8}},color={0,0,127}));
-  connect(VOut_flowMinSet.y, ecoDamLim.VOut_flowMinSet)
+  connect(VOutMinSet_flow.y, ecoDamLim.VOutMinSet_flow)
     annotation (Line(points={{-39,40},{-10,40},{-10,5},{19,5}},color={0,0,127}));
   connect(fanStatus.y, ecoDamLim.uSupFan)
     annotation (Line(points={{-39,0},{-20,0},{19,0}},color={255,0,255}));
@@ -72,7 +72,7 @@ equation
   This example validates
   <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone\">
   Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone</a>
-  for the following control signals: <code>VOut_flow</code>, <code>VOut_flowMinSet</code>. The control loop is always enabled in this 
+  for the following control signals: <code>VOut_flow</code>, <code>VOutMinSet_flow</code>. The control loop is always enabled in this 
   example.
   </p>
   </html>", revisions="<html>

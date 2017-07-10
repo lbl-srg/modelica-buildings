@@ -126,9 +126,9 @@ protected
   parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
     "Freeze protection stage 0 (disabled)";
   parameter Real freProDisabledNum = Integer(freProDisabled)-1
-    "Numerical value for freeze protection stage 0 (=0)";
+    "Numerical value for freeze protection stage 0";
   parameter Types.ZoneState heating = Types.ZoneState.heating "Heating zone state";
-  parameter Real heatingNum = Integer(heating) "Numerical value for heating zone state (=1)";
+  parameter Real heatingNum = Integer(heating) "Numerical value for heating zone state";
 
   CDL.Continuous.Constant openRetDam(final k=retDamFulOpeTim)
     "Keep return damper open to its physical maximum for a short period of time before closing the outdoor air damper

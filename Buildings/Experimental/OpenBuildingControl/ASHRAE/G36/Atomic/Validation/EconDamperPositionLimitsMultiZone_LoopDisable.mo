@@ -19,11 +19,11 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
     "Numerical value for AHU operation mode \"Occupied\"";
   parameter Integer warmUpNum = Integer(warmUp)
     "Numerical value for AHU operation mode \"WarmUp\"";
-  parameter Real airflowSetpoint(unit="m3/s")=0.71
+  parameter Real VOutSet_flow(unit="m3/s", quantity="VolumeFlowRate")=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Real minSenOutVolAirflow(unit="m3/s")=0.61
+  parameter Real minSenOutVolAirflow(unit="m3/s", quantity="VolumeFlowRate")=0.61
     "Volumetric airflow sensor output, minimum value in the example";
-  parameter Real senOutVolAirIncrease(unit="m3/s")=0.2
+  parameter Real senOutVolAirIncrease(unit="m3/s", quantity="VolumeFlowRate")=0.2
     "Maximum increase in airflow volume during the example simulation";
 
   // Fan Status
@@ -58,25 +58,25 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
     height=senOutVolAirIncrease)
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
-  Modelica.Blocks.Sources.Ramp VOut_flow1(
+  Modelica.Blocks.Sources.Ramp VOut1_flow(
     duration=1800,
     offset=minSenOutVolAirflow,
     height=senOutVolAirIncrease)
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Modelica.Blocks.Sources.Ramp VOut_flow2(
+  Modelica.Blocks.Sources.Ramp VOut2_flow(
     duration=1800,
     offset=minSenOutVolAirflow,
     height=senOutVolAirIncrease)
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  CDL.Continuous.Constant VOut_flowMinSet(k=airflowSetpoint)
+  CDL.Continuous.Constant VOutMinSet_flow(k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
-  CDL.Continuous.Constant VOut_flowMinSet1(k=airflowSetpoint)
+  CDL.Continuous.Constant VOutMinSet_flow1(k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  CDL.Continuous.Constant VOut_flowMinSet2(k=airflowSetpoint)
+  CDL.Continuous.Constant VOutMinSet_flow2(k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
@@ -93,7 +93,7 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
 equation
   connect(VOut_flow.y, ecoDamLim.VOut_flow) annotation (Line(points={{-179,70},{-140,70},
           {-140,-2},{-121,-2}}, color={0,0,127}));
-  connect(VOut_flowMinSet.y, ecoDamLim.VOut_flowMinSet)
+  connect(VOutMinSet_flow.y, ecoDamLim.VOutMinSet_flow)
     annotation (Line(points={{-179,30},{-150,30},{-150,-5},{-121,-5}}, color={0,0,127}));
   connect(fanStatus.y, ecoDamLim.uSupFan)
     annotation (Line(points={{-179,-10},{-160,-10},{-121,-10}}, color={255,0,255}));
@@ -102,9 +102,9 @@ equation
     color={255,127,0}));
   connect(freProSta.y, ecoDamLim.uFreProSta)
     annotation (Line(points={{-179,-90},{-150,-90},{-150,-18},{-121,-18}}, color={255,127,0}));
-  connect(VOut_flow1.y, ecoDamLim1.VOut_flow) annotation (Line(points={{-39,70},{0,70},{
+  connect(VOut1_flow.y, ecoDamLim1.VOut_flow) annotation (Line(points={{-39,70},{0,70},{
           0,-2},{19,-2}}, color={0,0,127}));
-  connect(VOut_flowMinSet1.y, ecoDamLim1.VOut_flowMinSet) annotation (Line(points={{-39,
+  connect(VOutMinSet_flow1.y, ecoDamLim1.VOutMinSet_flow) annotation (Line(points={{-39,
           30},{-10,30},{-10,-5},{19,-5}}, color={0,0,127}));
   connect(fanStatus1.y, ecoDamLim1.uSupFan) annotation (Line(points={{-39,-10},
           {-20,-10},{19,-10}}, color={255,0,255}));
@@ -112,9 +112,9 @@ equation
           -20,-50},{-20,-28},{-20,-15},{19,-15}}, color={255,127,0}));
   connect(freProSta1.y, ecoDamLim1.uFreProSta) annotation (Line(points={{-39,
           -90},{-10,-90},{-10,-18},{19,-18}}, color={255,127,0}));
-  connect(VOut_flow2.y, ecoDamLim2.VOut_flow) annotation (Line(points={{101,70},{140,70},
+  connect(VOut2_flow.y, ecoDamLim2.VOut_flow) annotation (Line(points={{101,70},{140,70},
           {140,-2},{159,-2}}, color={0,0,127}));
-  connect(VOut_flowMinSet2.y, ecoDamLim2.VOut_flowMinSet) annotation (Line(points={{101,
+  connect(VOutMinSet_flow2.y, ecoDamLim2.VOutMinSet_flow) annotation (Line(points={{101,
           30},{130,30},{130,-5},{159,-5}}, color={0,0,127}));
   connect(fanStatus2.y, ecoDamLim2.uSupFan) annotation (Line(points={{101,-10},
           {120,-10},{159,-10}}, color={255,0,255}));

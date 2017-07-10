@@ -17,14 +17,14 @@ package Atomic "Subsequences as defined in guidline G36"
     parameter Real conSigFraOutDam(min=conSigMin, max=conSigMax, unit="1")=0.5
       "Fraction of control loop signal output below which the outdoor air damper limit gets
     modulated and above which the return air damper limit gets modulated";
-    parameter Real kPIDamLim=1 "Gain of damper limit controller";
-    parameter Modelica.SIunits.Time TiPIDamLim=0.9 "Time constant of damper limit controller integrator block";
+    parameter Real kPDamLim=1 "Gain of damper limit controller";
+    parameter Modelica.SIunits.Time TiDamLim=0.9 "Time constant of damper limit controller integrator block";
 
-    CDL.Interfaces.RealInput VOut_flow(unit="m3/s")
+    CDL.Interfaces.RealInput VOut_flow(unit="m3/s", quantity="VolumeFlowRate")
       "Measured outdoor volumetric airflow rate [fixme: which quantity attribute should we use, add for all volume flow]"
       annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
           iconTransformation(extent={{-120,70},{-100,90}})));
-    CDL.Interfaces.RealInput VOut_flowMinSet(unit="m3/s")
+    CDL.Interfaces.RealInput VOutMinSet_flow(unit="m3/s", quantity="VolumeFlowRate")
       "Minimum outdoor volumetric airflow rate setpoint"
       annotation (Placement(transformation(extent={{-220,200},{-180,240}}),
           iconTransformation(extent={{-120,40},{-100,60}})));
@@ -60,12 +60,12 @@ package Atomic "Subsequences as defined in guidline G36"
           iconTransformation(extent={{100,-50},{120,-30}})));
 
     CDL.Continuous.LimPID damLimController(
-      Ti=TiPIDamLim,
+      Ti=TiDamLim,
       Td=0.1,
       final yMax=conSigMax,
       final yMin=conSigMin,
       controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
-      k=kPIDamLim) "Damper position limit controller"
+      k=kPDamLim) "Damper position limit controller"
       annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
     CDL.Continuous.Line minOutDam(limitBelow=true, limitAbove=true)
       "Linear mapping of the outdoor air damper position to the control signal"
@@ -97,9 +97,9 @@ package Atomic "Subsequences as defined in guidline G36"
     parameter Types.FreezeProtectionStage allowedFreProSta = Types.FreezeProtectionStage.stage1
       "Freeze protection stage 1";
     parameter Real allowedFreProStaNum = Integer(allowedFreProSta)-1
-      "Freeze protection stage control loop upper enable limit (=1)";
+      "Freeze protection stage control loop upper enable limit";
     parameter Types.OperationMode occupied = Types.OperationMode.occupied "Operation mode is \"Occupied\"";
-    parameter Real occupiedNum = Integer(occupied) "Numerical value for \"Occupied\" operation mode (=1)";
+    parameter Real occupiedNum = Integer(occupied) "Numerical value for \"Occupied\" operation mode";
 
     CDL.Continuous.Constant outDamPhyPosMinSig(final k=outDamPhyPosMin)
       "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"
@@ -137,7 +137,7 @@ package Atomic "Subsequences as defined in guidline G36"
       annotation (Line(points={{1,210},{8,210},{8,106},{118,106}},color={0,0,127}));
     connect(VOut_flow,damLimController. u_m)
       annotation (Line(points={{-200,170},{-130,170},{-130,178}},color={0,0,127}));
-    connect(VOut_flowMinSet,damLimController. u_s)
+    connect(VOutMinSet_flow,damLimController. u_s)
       annotation (Line(points={{-200,220},{-160,220},{-160,190},{-142,190}},color={0,0,127}));
     connect(damLimController.y,minRetDam. u)
       annotation (Line(points={{-119,190},{-80,190},{-80,110},{118,110}},color={0,0,127}));
@@ -281,7 +281,7 @@ control loop")}),
     <p>
     The controller sets the outdoor and return damper position limits so
     that the outdoor airflow rate, <code>VOut_flow</code>, stays equal or above the
-    minimum outdoor air setpoint, <code>VOut_flowMinSet</code>. Fraction of the controller
+    minimum outdoor air setpoint, <code>VOutMinSet_flow</code>. Fraction of the controller
     output signal between <code>conSigMin</code> and <code>conSigFraOutDam</code> is
     linearly mapped to the outdoor air damper minimal position, <code>yOutDamPosMin</code>,
     while the fraction of the controller output between <code>conSigFraOutDam</code> and
@@ -321,7 +321,7 @@ control loop")}),
       "Set to true to evaluate outdoor air enthalpy in addition to temperature";
     parameter Modelica.SIunits.Temperature delTemHis=1
       "Delta between the temperature hysteresis high and low limit";
-    parameter Real delEntHis(unit="J/kg", quantity="SpecificEnergy")=1000
+    parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
       "Delta between the enthalpy hysteresis high and low limits"
       annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy));
     parameter Modelica.SIunits.Time retDamFulOpeTim = 180
@@ -441,9 +441,9 @@ control loop")}),
     parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
       "Freeze protection stage 0 (disabled)";
     parameter Real freProDisabledNum = Integer(freProDisabled)-1
-      "Numerical value for freeze protection stage 0 (=0)";
+      "Numerical value for freeze protection stage 0";
     parameter Types.ZoneState heating = Types.ZoneState.heating "Heating zone state";
-    parameter Real heatingNum = Integer(heating) "Numerical value for heating zone state (=1)";
+    parameter Real heatingNum = Integer(heating) "Numerical value for heating zone state";
 
     CDL.Continuous.Constant openRetDam(final k=retDamFulOpeTim)
       "Keep return damper open to its physical maximum for a short period of time before closing the outdoor air damper
@@ -662,8 +662,8 @@ disable if
     "Minimum control loop signal for the return air damper";
     parameter Real conSigMin=0 "Lower limit of controller output";
     parameter Real conSigMax=1 "Upper limit of controller output";
-    parameter Real kPIMod=1 "Gain of modulation controller";
-    parameter Modelica.SIunits.Time TiPIMod=300 "Time constant of modulation controller integrator block";
+    parameter Real kPMod=1 "Gain of modulation controller";
+    parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block";
 
     CDL.Interfaces.RealInput TSup(unit="K", quantity = "ThermodynamicTemperature")
       "Measured supply air temperature" annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
@@ -701,8 +701,8 @@ disable if
       Td=0.1,
       final yMax=conSigMax,
       final yMin=conSigMin,
-      k=kPIMod,
-      Ti=TiPIMod)
+      k=kPMod,
+      Ti=TiMod)
       "Contoller that outputs a signal based on the error between the measured SAT and SAT cooling setpoint"
       annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
       //fixme: Td=0.1 - not used in the model, but still required by LimPID,
@@ -1380,18 +1380,18 @@ assignments")}),
       parameter Integer freProStage2Num = Integer(freProStage2)-1
         "Numerical value for freeze protection stage 2";
       parameter Types.OperationMode occupied = Types.OperationMode.occupied
-        "AHU operation mode is \"Occupied\"";
+        "AHU operation mode is Occupied";
       parameter Types.OperationMode warmUp = Types.OperationMode.warmUp
-        "AHU operation mode is \"Warmup\"";
+        "AHU operation mode is WarmUp";
       parameter Integer occupiedNum = Integer(occupied)
-        "Numerical value for AHU operation mode \"Occupied\"";
+        "Numerical value for AHU operation mode Occupied";
       parameter Integer warmUpNum = Integer(warmUp)
-        "Numerical value for AHU operation mode \"WarmUp\"";
-      parameter Real airflowSetpoint(unit="m3/s")=0.71
+        "Numerical value for AHU operation mode WarmUp";
+      parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=0.71
         "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-      parameter Real minSenOutVolAirflow(unit="m3/s")=0.61
+      parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=0.61
         "Volumetric airflow sensor output, minimum value in the example";
-      parameter Real senOutVolAirIncrease(unit="m3/s")=0.2
+      parameter Modelica.SIunits.VolumeFlowRate VOutIncrease_flow=0.2
         "Maximum increase in airflow volume during the example simulation";
 
       // Fan Status
@@ -1408,7 +1408,7 @@ assignments")}),
       CDL.Integers.Constant freProSta1(k=freProStage1Num) "Freeze protection stage is 1"
         annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
       CDL.Integers.Constant operationMode1(k=warmUpNum)
-        "AHU operation mode is NOT \"Occupied\""
+        "AHU operation mode is NOT Occupied"
         annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
       // Freeze Protection Stage
@@ -1417,34 +1417,34 @@ assignments")}),
       CDL.Integers.Constant freProSta2(k=freProStage2Num)
         "Freeze protection stage is 2"
         annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-      CDL.Integers.Constant operationMode2(k=occupiedNum) "AHU operation mode is \"Occupied\""
+      CDL.Integers.Constant operationMode2(k=occupiedNum) "AHU operation mode is Occupied"
         annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
       Modelica.Blocks.Sources.Ramp VOut_flow(
         duration=1800,
-        offset=minSenOutVolAirflow,
-        height=senOutVolAirIncrease)
+        offset=VOutMin_flow,
+        height=VOutIncrease_flow)
         "Measured outdoor airflow rate"
         annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
-      Modelica.Blocks.Sources.Ramp VOut_flow1(
+      Modelica.Blocks.Sources.Ramp VOut1_flow(
         duration=1800,
-        offset=minSenOutVolAirflow,
-        height=senOutVolAirIncrease)
+        offset=VOutMin_flow,
+        height=VOutIncrease_flow)
         "Measured outdoor airflow rate"
         annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-      Modelica.Blocks.Sources.Ramp VOut_flow2(
+      Modelica.Blocks.Sources.Ramp VOut2_flow(
         duration=1800,
-        offset=minSenOutVolAirflow,
-        height=senOutVolAirIncrease)
+        offset=VOutMin_flow,
+        height=VOutIncrease_flow)
         "Measured outdoor airflow rate"
         annotation (Placement(transformation(extent={{80,60},{100,80}})));
-      CDL.Continuous.Constant VOut_flowMinSet(k=airflowSetpoint)
+      CDL.Continuous.Constant VOutMinSet_flow(k=VOutSet_flow)
         "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
         annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
-      CDL.Continuous.Constant VOut_flowMinSet1(k=airflowSetpoint)
+      CDL.Continuous.Constant VOutMinSet1_flow(k=VOutSet_flow)
         "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
         annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-      CDL.Continuous.Constant VOut_flowMinSet2(k=airflowSetpoint)
+      CDL.Continuous.Constant VOutMinSet2_flow(k=VOutSet_flow)
         "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
         annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
@@ -1461,7 +1461,7 @@ assignments")}),
     equation
       connect(VOut_flow.y, ecoDamLim.VOut_flow) annotation (Line(points={{-179,70},{-140,70},
               {-140,-2},{-121,-2}}, color={0,0,127}));
-      connect(VOut_flowMinSet.y, ecoDamLim.VOut_flowMinSet)
+      connect(VOutMinSet_flow.y, ecoDamLim.VOutMinSet_flow)
         annotation (Line(points={{-179,30},{-150,30},{-150,-5},{-121,-5}}, color={0,0,127}));
       connect(fanStatus.y, ecoDamLim.uSupFan)
         annotation (Line(points={{-179,-10},{-160,-10},{-121,-10}}, color={255,0,255}));
@@ -1470,9 +1470,9 @@ assignments")}),
         color={255,127,0}));
       connect(freProSta.y, ecoDamLim.uFreProSta)
         annotation (Line(points={{-179,-90},{-150,-90},{-150,-18},{-121,-18}}, color={255,127,0}));
-      connect(VOut_flow1.y, ecoDamLim1.VOut_flow) annotation (Line(points={{-39,70},{0,70},{
+      connect(VOut1_flow.y, ecoDamLim1.VOut_flow) annotation (Line(points={{-39,70},{0,70},{
               0,-2},{19,-2}}, color={0,0,127}));
-      connect(VOut_flowMinSet1.y, ecoDamLim1.VOut_flowMinSet) annotation (Line(points={{-39,
+      connect(VOutMinSet1_flow.y, ecoDamLim1.VOutMinSet_flow) annotation (Line(points={{-39,
               30},{-10,30},{-10,-5},{19,-5}}, color={0,0,127}));
       connect(fanStatus1.y, ecoDamLim1.uSupFan) annotation (Line(points={{-39,-10},
               {-20,-10},{19,-10}}, color={255,0,255}));
@@ -1480,9 +1480,9 @@ assignments")}),
               -20,-50},{-20,-28},{-20,-15},{19,-15}}, color={255,127,0}));
       connect(freProSta1.y, ecoDamLim1.uFreProSta) annotation (Line(points={{-39,
               -90},{-10,-90},{-10,-18},{19,-18}}, color={255,127,0}));
-      connect(VOut_flow2.y, ecoDamLim2.VOut_flow) annotation (Line(points={{101,70},{140,70},
+      connect(VOut2_flow.y, ecoDamLim2.VOut_flow) annotation (Line(points={{101,70},{140,70},
               {140,-2},{159,-2}}, color={0,0,127}));
-      connect(VOut_flowMinSet2.y, ecoDamLim2.VOut_flowMinSet) annotation (Line(points={{101,
+      connect(VOutMinSet2_flow.y, ecoDamLim2.VOutMinSet_flow) annotation (Line(points={{101,
               30},{130,30},{130,-5},{159,-5}}, color={0,0,127}));
       connect(fanStatus2.y, ecoDamLim2.uSupFan) annotation (Line(points={{101,-10},
               {120,-10},{159,-10}}, color={255,0,255}));
@@ -1523,7 +1523,7 @@ assignments")}),
               fillPattern=FillPattern.Solid,
               horizontalAlignment=TextAlignment.Left,
               fontSize=16,
-              textString="Operation mode is other than \"Occupied\""),
+              textString="Operation mode is other than Occupied"),
             Text(
               extent={{80,114},{208,96}},
               lineColor={0,0,0},
@@ -1554,20 +1554,20 @@ assignments")}),
       "Validation model for the multiple zone VAV AHU minimum outdoor air control - damper position limits"
       extends Modelica.Icons.Example;
 
-      parameter Real minVOut_flowSet(unit="m3/s")=0.71
+      parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
         "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-      parameter Real minVOut_flow(unit="m3/s")=0.61
+      parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=0.61
         "Minimal measured volumetric airflow";
-      parameter Real VOut_flowIncrease(unit="m3/s")=0.2
+      parameter Modelica.SIunits.VolumeFlowRate VOutIncrease_flow=0.2
         "Maximum volumetric airflow increase during the example simulation";
 
-      CDL.Continuous.Constant VOut_flowMinSet(k=minVOut_flowSet)
+      CDL.Continuous.Constant VOutMinSet_flow(k=minVOutSet_flow)
         "Outdoor volumetric airflow rate setpoint, 15cfm/occupant and 100 occupants"
         annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
       Modelica.Blocks.Sources.Ramp VOut_flow(
         duration=1800,
         offset=minVOut_flow,
-        height=VOut_flowIncrease)
+        height=VOutIncrease_flow)
         "Measured outdoor airflow rate"
         annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
@@ -1579,11 +1579,11 @@ assignments")}),
       parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
         "Indicates that the freeze protection is disabled";
       parameter Integer freProDisabledNum = Integer(freProDisabled)-1
-        "Numerical value for freeze protection stage 0 (=0)";
+        "Numerical value for freeze protection stage 0";
       parameter Types.OperationMode occupied = Types.OperationMode.occupied
         "Operation mode is \"Occupied\"";
       parameter Integer occupiedNum = Integer(occupied)
-        "Numerical value for \"Occupied\" operation mode (=1)";
+        "Numerical value for \"Occupied\" operation mode";
 
       CDL.Logical.Constant fanStatus(k=true) "Fan is on"
         annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
@@ -1594,7 +1594,7 @@ assignments")}),
 
     equation
       connect(VOut_flow.y, ecoDamLim.VOut_flow) annotation (Line(points={{-39,80},{0,80},{0,8},{19,8}},color={0,0,127}));
-      connect(VOut_flowMinSet.y, ecoDamLim.VOut_flowMinSet)
+      connect(VOutMinSet_flow.y, ecoDamLim.VOutMinSet_flow)
         annotation (Line(points={{-39,40},{-10,40},{-10,5},{19,5}},color={0,0,127}));
       connect(fanStatus.y, ecoDamLim.uSupFan)
         annotation (Line(points={{-39,0},{-20,0},{19,0}},color={255,0,255}));
@@ -1623,7 +1623,7 @@ assignments")}),
   This example validates
   <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone\">
   Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone</a>
-  for the following control signals: <code>VOut_flow</code>, <code>VOut_flowMinSet</code>. The control loop is always enabled in this
+  for the following control signals: <code>VOut_flow</code>, <code>VOutMinSet_flow</code>. The control loop is always enabled in this
   example.
   </p>
   </html>",     revisions="<html>
@@ -1642,24 +1642,24 @@ assignments")}),
 
       parameter Modelica.SIunits.Temperature TOutCutoff=297
         "Outdoor temperature high limit cutoff";
-      parameter Real hOutCutoff(final unit="J/kg", quantity="SpecificEnergy")=65100
+      parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
         "Outdoor air enthalpy high limit cutoff";
       parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
         "Indicates that the freeze protection is disabled";
       parameter Integer freProDisabledNum = Integer(freProDisabled)-1
-        "Numerical value for freeze protection stage 0 (=0)";
+        "Numerical value for freeze protection stage 0";
       parameter Types.ZoneState heating = Types.ZoneState.heating
         "Zone state is heating";
       parameter Integer heatingNum = Integer(heating)
-        "Numerical value for heating zone state (=1)";
+        "Numerical value for heating zone state";
       parameter Types.FreezeProtectionStage freProEnabled = Types.FreezeProtectionStage.stage2
         "Indicates that the freeze protection is eanbled";
       parameter Integer freProEnabledNum = Integer(freProEnabled)-1
-        "Numerical value for freeze protection stage 0 (=0)";
+        "Numerical value for freeze protection stage 0";
       parameter Types.ZoneState cooling = Types.ZoneState.cooling
         "Zone state is cooling";
       parameter Integer coolingNum = Integer(cooling)
-        "Numerical value for cooling zone state (=2)";
+        "Numerical value for cooling zone state";
 
       EconEnableDisableMultiZone econEnableDisableMultiZone "Multizone VAV AHU enable disable sequence"
         annotation (Placement(transformation(extent={{82,40},{102,60}})));
@@ -1799,16 +1799,16 @@ assignments")}),
 
       parameter Modelica.SIunits.Temperature TOutCutoff=297
         "Outdoor temperature high limit cutoff";
-      parameter Real hOutCutoff(final unit="J/kg", quantity="SpecificEnergy")=65100
+      parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
         "Outdoor air enthalpy high limit cutoff";
       parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
         "Indicates that the freeze protection is disabled";
       parameter Integer freProDisabledNum = Integer(freProDisabled)-1
-        "Numerical value for freeze protection stage 0 (=0)";
+        "Numerical value for freeze protection stage 0";
       parameter Types.ZoneState deadband = Types.ZoneState.deadband
         "Zone state is deadband";
       parameter Integer deadbandNum = Integer(deadband)
-        "Numerical value for deadband zone state (=2)";
+        "Numerical value for deadband zone state";
 
       CDL.Continuous.Constant TOutCut(k=TOutCutoff) "Outdoor air temperature cutoff"
         annotation (Placement(transformation(extent={{-160,80},{-140,100}})));

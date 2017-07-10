@@ -10,11 +10,11 @@ model EconEnableDisableMultiZone_TOut_hOut
   parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
     "Indicates that the freeze protection is disabled";
   parameter Integer freProDisabledNum = Integer(freProDisabled)-1
-    "Numerical value for freeze protection stage 0 (=0)";
+    "Numerical value for freeze protection stage 0";
   parameter Types.ZoneState deadband = Types.ZoneState.deadband
     "Zone state is deadband";
   parameter Integer deadbandNum = Integer(deadband)
-    "Numerical value for deadband zone state (=2)";
+    "Numerical value for deadband zone state";
 
   CDL.Continuous.Constant TOutCut(k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));

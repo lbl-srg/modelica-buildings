@@ -10,19 +10,19 @@ model EconEnableDisableMultiZone_FreProSta_ZonSta
   parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
     "Indicates that the freeze protection is disabled";
   parameter Integer freProDisabledNum = Integer(freProDisabled)-1
-    "Numerical value for freeze protection stage 0 (=0)";
+    "Numerical value for freeze protection stage 0";
   parameter Types.ZoneState heating = Types.ZoneState.heating
     "Zone state is heating";
   parameter Integer heatingNum = Integer(heating)
-    "Numerical value for heating zone state (=1)";
+    "Numerical value for heating zone state";
   parameter Types.FreezeProtectionStage freProEnabled = Types.FreezeProtectionStage.stage2
     "Indicates that the freeze protection is eanbled";
   parameter Integer freProEnabledNum = Integer(freProEnabled)-1
-    "Numerical value for freeze protection stage 0 (=0)";
+    "Numerical value for freeze protection stage 0";
   parameter Types.ZoneState cooling = Types.ZoneState.cooling
     "Zone state is cooling";
   parameter Integer coolingNum = Integer(cooling)
-    "Numerical value for cooling zone state (=2)";
+    "Numerical value for cooling zone state";
 
   EconEnableDisableMultiZone econEnableDisableMultiZone "Multizone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,40},{102,60}})));

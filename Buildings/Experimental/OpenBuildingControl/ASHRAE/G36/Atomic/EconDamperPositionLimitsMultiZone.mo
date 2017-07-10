@@ -18,11 +18,11 @@ block EconDamperPositionLimitsMultiZone
   parameter Real kPIDamLim=1 "Gain of damper limit controller";
   parameter Modelica.SIunits.Time TiPIDamLim=0.9 "Time constant of damper limit controller integrator block";
 
-  CDL.Interfaces.RealInput VOut_flow(unit="m3/s")
+  CDL.Interfaces.RealInput VOut_flow(unit="m3/s", quantity="VolumeFlowRate")
     "Measured outdoor volumetric airflow rate [fixme: which quantity attribute should we use, add for all volume flow]"
     annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput VOut_flowMinSet(unit="m3/s")
+  CDL.Interfaces.RealInput VOutMinSet_flow(unit="m3/s", quantity="VolumeFlowRate")
     "Minimum outdoor volumetric airflow rate setpoint"
     annotation (Placement(transformation(extent={{-220,200},{-180,240}}),
         iconTransformation(extent={{-120,40},{-100,60}})));
@@ -95,9 +95,9 @@ protected
   parameter Types.FreezeProtectionStage allowedFreProSta = Types.FreezeProtectionStage.stage1
     "Freeze protection stage 1";
   parameter Real allowedFreProStaNum = Integer(allowedFreProSta)-1
-    "Freeze protection stage control loop upper enable limit (=1)";
+    "Freeze protection stage control loop upper enable limit";
   parameter Types.OperationMode occupied = Types.OperationMode.occupied "Operation mode is \"Occupied\"";
-  parameter Real occupiedNum = Integer(occupied) "Numerical value for \"Occupied\" operation mode (=1)";
+  parameter Real occupiedNum = Integer(occupied) "Numerical value for \"Occupied\" operation mode";
 
   CDL.Continuous.Constant outDamPhyPosMinSig(final k=outDamPhyPosMin)
     "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"
@@ -135,7 +135,7 @@ equation
     annotation (Line(points={{1,210},{8,210},{8,106},{118,106}},color={0,0,127}));
   connect(VOut_flow,damLimController. u_m)
     annotation (Line(points={{-200,170},{-130,170},{-130,178}},color={0,0,127}));
-  connect(VOut_flowMinSet,damLimController. u_s)
+  connect(VOutMinSet_flow,damLimController. u_s)
     annotation (Line(points={{-200,220},{-160,220},{-160,190},{-142,190}},color={0,0,127}));
   connect(damLimController.y,minRetDam. u)
     annotation (Line(points={{-119,190},{-80,190},{-80,110},{118,110}},color={0,0,127}));
@@ -279,7 +279,7 @@ control loop")}),
     <p>
     The controller sets the outdoor and return damper position limits so
     that the outdoor airflow rate, <code>VOut_flow</code>, stays equal or above the
-    minimum outdoor air setpoint, <code>VOut_flowMinSet</code>. Fraction of the controller
+    minimum outdoor air setpoint, <code>VOutMinSet_flow</code>. Fraction of the controller
     output signal between <code>conSigMin</code> and <code>conSigFraOutDam</code> is
     linearly mapped to the outdoor air damper minimal position, <code>yOutDamPosMin</code>,
     while the fraction of the controller output between <code>conSigFraOutDam</code> and

@@ -28,11 +28,11 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
-  CDL.Interfaces.RealInput VOut_flow(unit="m3/s")
+  CDL.Interfaces.RealInput VOut_flow(unit="m3/s", quantity="VolumeFlowRate")
     "Measured outdoor volumetirc airflow rate [fixme: which quantity attribute should we use? add for all V]"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
-  CDL.Interfaces.RealInput VOut_flowMinSet(unit="m3/s")
+  CDL.Interfaces.RealInput VOutMinSet_flow(unit="m3/s", quantity="VolumeFlowRate")
     "Minimum outdoor volumetric airflow rate setpoint"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}}),
         iconTransformation(extent={{-120,-30},{-100,-10}})));
@@ -97,7 +97,7 @@ equation
     annotation (Line(points={{-130,120},{-42,120},{-42,-22},{-1,-22}},color={0,0,127}));
   connect(TOut, econEnableDisableMultiZone.TOut)
     annotation (Line(points={{-130,140},{-40,140},{-40,-20},{-1,-20}},color={0,0,127}));
-  connect(VOut_flowMinSet, ecoDamLim.VOut_flowMinSet)
+  connect(VOutMinSet_flow, ecoDamLim.VOutMinSet_flow)
     annotation (Line(points={{-130,0},{-110,0},{-110,14},{-110,15},{-81,15}},color={0,0,127}));
   connect(VOut_flow, ecoDamLim.VOut_flow)
     annotation (Line(points={{-130,20},{-110,20},{-110,18},{-81,18}},color={0,0,127}));
