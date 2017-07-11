@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "economizer.econEnableDisableMultiZone.andEnaDis.y",
+    "economizer.ecoEnaDis.andEnaDis.y",
     "economizer.VOut_flow",
     "economizer.VOutMinSet_flow",
     "economizer.yOutDamPos",
@@ -10,7 +10,7 @@ compareVars :=
     "economizer.ecoDamLim.yRetDamPosMin",
     "economizer.ecoDamLim.yRetDamPosMax",
     "economizer.ecoDamLim.yRetDamPhyPosMax",
-    "economizer1.econEnableDisableMultiZone.andEnaDis.y",
+    "economizer1.ecoEnaDis.andEnaDis.y",
     "economizer1.VOut_flow",
     "economizer1.VOutMinSet_flow",
     "economizer1.TSup",
