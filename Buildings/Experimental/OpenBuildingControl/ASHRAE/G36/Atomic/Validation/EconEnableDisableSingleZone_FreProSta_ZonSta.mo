@@ -24,11 +24,9 @@ model EconEnableDisableSingleZone_FreProSta_ZonSta
   parameter Integer coolingNum = Integer(cooling)
     "Numerical value for cooling zone state (=2)";
 
-  EconEnableDisableSingleZone econEnableDisableSingleZone
-                                                        "Singlezone VAV AHU enable disable sequence"
+  EconEnableDisableSingleZone ecoEnaDis "Singlezone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,40},{102,60}})));
-  EconEnableDisableSingleZone econEnableDisableSingleZone1
-                                                         "Singlezone VAV AHU enable disable sequence"
+  EconEnableDisableSingleZone ecoEnaDis1 "Singlezone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,-40},{102,-20}})));
 
 protected
@@ -59,42 +57,41 @@ protected
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
 equation
-  connect(TOutBellowCutoff.y, econEnableDisableSingleZone.TOut) annotation (Line(
-        points={{-19,150},{32,150},{32,60},{81,60}}, color={0,0,127}));
-  connect(TOutCut.y, econEnableDisableSingleZone.TOutCut) annotation (Line(
-        points={{-19,110},{31.5,110},{31.5,58},{81,58}}, color={0,0,127}));
-  connect(TOutCut.y, econEnableDisableSingleZone1.TOutCut) annotation (Line(
-        points={{-19,110},{32,110},{32,-22},{81,-22}}, color={0,0,127}));
-  connect(TOutBellowCutoff.y, econEnableDisableSingleZone1.TOut) annotation (
-      Line(points={{-19,150},{32,150},{32,-20},{81,-20}}, color={0,0,127}));
-  connect(hOutBelowCutoff.y, econEnableDisableSingleZone.hOut) annotation (Line(
-        points={{-79,110},{-60,110},{-60,56},{81,56}}, color={0,0,127}));
-  connect(hOutCut.y, econEnableDisableSingleZone.hOutCut) annotation (Line(
-        points={{-79,70},{-70,70},{-70,54},{81,54}}, color={0,0,127}));
-  connect(hOutBelowCutoff.y, econEnableDisableSingleZone1.hOut) annotation (Line(
-        points={{-79,110},{-60,110},{-60,56},{10,56},{10,-24},{81,-24}}, color={0,0,127}));
-  connect(hOutCut.y, econEnableDisableSingleZone1.hOutCut) annotation (Line(
-        points={{-79,70},{-70,70},{-70,54},{6,54},{6,-26},{81,-26}}, color={0,0,127}));
-  connect(ZoneState.y, econEnableDisableSingleZone.uZonSta) annotation (Line(
-        points={{-139,10},{-120,10},{-120,50},{81,50}}, color={255,127,0}));
-  connect(FreProSta.y, econEnableDisableSingleZone.uFreProSta)
+  connect(TOutBellowCutoff.y, ecoEnaDis.TOut)
+    annotation (Line(points={{-19,150},{32,150},{32,60},{81,60}}, color={0,0,127}));
+  connect(TOutCut.y, ecoEnaDis.TOutCut)
+    annotation (Line(points={{-19,110},{31.5,110},{31.5,58},{81,58}}, color={0,0,127}));
+  connect(TOutCut.y, ecoEnaDis1.TOutCut)
+    annotation (Line(points={{-19,110},{32,110},{32,-22},{81,-22}}, color={0,0,127}));
+  connect(TOutBellowCutoff.y, ecoEnaDis1.TOut)
+    annotation (Line(points={{-19,150},{32,150},{32,-20},{81,-20}}, color={0,0,127}));
+  connect(hOutBelowCutoff.y, ecoEnaDis.hOut)
+    annotation (Line(points={{-79,110},{-60,110},{-60,56},{81,56}}, color={0,0,127}));
+  connect(hOutCut.y, ecoEnaDis.hOutCut) annotation (Line(points={{-79,70},{-70,70},{-70,54},{81,54}}, color={0,0,127}));
+  connect(hOutBelowCutoff.y, ecoEnaDis1.hOut)
+    annotation (Line(points={{-79,110},{-60,110},{-60,56},{10,56},{10,-24},{81,-24}}, color={0,0,127}));
+  connect(hOutCut.y, ecoEnaDis1.hOutCut)
+    annotation (Line(points={{-79,70},{-70,70},{-70,54},{6,54},{6,-26},{81,-26}}, color={0,0,127}));
+  connect(ZoneState.y, ecoEnaDis.uZonSta)
+    annotation (Line(points={{-139,10},{-120,10},{-120,50},{81,50}}, color={255,127,0}));
+  connect(FreProSta.y, ecoEnaDis.uFreProSta)
     annotation (Line(points={{-139,50},{-130,50},{-130,52},{81,52}}, color={255,127,0}));
-  connect(FreProSta1.y, econEnableDisableSingleZone1.uFreProSta)
+  connect(FreProSta1.y, ecoEnaDis1.uFreProSta)
     annotation (Line(points={{61,-110},{70,-110},{70,-28},{81,-28}}, color={255,127,0}));
-  connect(ZoneState1.y, econEnableDisableSingleZone1.uZonSta) annotation (
-      Line(points={{61,-70},{72,-70},{72,-30},{81,-30}}, color={255,127,0}));
-  connect(outDamPosMax.y, econEnableDisableSingleZone.uOutDamPosMax) annotation (
-     Line(points={{-39,-110},{-30,-110},{-30,46},{81,46}}, color={0,0,127}));
-  connect(outDamPosMin.y, econEnableDisableSingleZone.uOutDamPosMin) annotation (
-     Line(points={{-39,-150},{-28,-150},{-28,44},{81,44}}, color={0,0,127}));
-  connect(outDamPosMin.y, econEnableDisableSingleZone1.uOutDamPosMin)
+  connect(ZoneState1.y, ecoEnaDis1.uZonSta)
+    annotation (Line(points={{61,-70},{72,-70},{72,-30},{81,-30}}, color={255,127,0}));
+  connect(outDamPosMax.y, ecoEnaDis.uOutDamPosMax)
+    annotation (Line(points={{-39,-110},{-30,-110},{-30,46},{81,46}}, color={0,0,127}));
+  connect(outDamPosMin.y, ecoEnaDis.uOutDamPosMin)
+    annotation (Line(points={{-39,-150},{-28,-150},{-28,44},{81,44}}, color={0,0,127}));
+  connect(outDamPosMin.y, ecoEnaDis1.uOutDamPosMin)
     annotation (Line(points={{-39,-150},{22,-150},{22,-36},{81,-36}}, color={0,0,127}));
-  connect(outDamPosMax.y, econEnableDisableSingleZone1.uOutDamPosMax)
+  connect(outDamPosMax.y, ecoEnaDis1.uOutDamPosMax)
     annotation (Line(points={{-39,-110},{20,-110},{20,-34},{81,-34}}, color={0,0,127}));
-  connect(SupFanSta.y, econEnableDisableSingleZone.uSupFan) annotation (Line(
-        points={{-139,-30},{-34,-30},{-34,48},{81,48}}, color={255,0,255}));
-  connect(SupFanSta.y, econEnableDisableSingleZone1.uSupFan) annotation (Line(
-        points={{-139,-30},{-34,-30},{-34,-32},{81,-32}}, color={255,0,255}));
+  connect(SupFanSta.y, ecoEnaDis.uSupFan)
+    annotation (Line(points={{-139,-30},{-34,-30},{-34,48},{81,48}}, color={255,0,255}));
+  connect(SupFanSta.y, ecoEnaDis1.uSupFan)
+    annotation (Line(points={{-139,-30},{-34,-30},{-34,-32},{81,-32}}, color={255,0,255}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconEnableDisableSingleZone_FreProSta_ZonSta.mos"
