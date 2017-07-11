@@ -1,13 +1,13 @@
 compareVars :=
   {
-    "econEnableDisableMultiZone.yOutDamPosMax",
-    "econEnableDisableMultiZone.yRetDamPosMin",
-    "econEnableDisableMultiZone.yRetDamPosMax",
-    "econEnableDisableMultiZone.andEnaDis.y",
-    "econEnableDisableMultiZone.TrueFalseHold.y",
-    "econEnableDisableMultiZone1.yOutDamPosMax",
-    "econEnableDisableMultiZone1.yRetDamPosMin",
-    "econEnableDisableMultiZone1.yRetDamPosMax",
-    "econEnableDisableMultiZone1.andEnaDis.y",
-    "econEnableDisableMultiZone1.TrueFalseHold.y"
+    "ecoEnaDis.yOutDamPosMax",
+    "ecoEnaDis.yRetDamPosMin",
+    "ecoEnaDis.yRetDamPosMax",
+    "ecoEnaDis.andEnaDis.y",
+    "ecoEnaDis.TrueFalseHold.y",
+    "ecoEnaDis1.yOutDamPosMax",
+    "ecoEnaDis1.yRetDamPosMin",
+    "ecoEnaDis1.yRetDamPosMax",
+    "ecoEnaDis1.andEnaDis.y",
+    "ecoEnaDis1.TrueFalseHold.y"
   };

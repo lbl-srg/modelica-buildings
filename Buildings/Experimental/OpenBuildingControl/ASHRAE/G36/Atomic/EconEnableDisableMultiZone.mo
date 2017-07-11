@@ -226,6 +226,7 @@ equation
     annotation (Line(points={{11,-60},{20,-60},{20,-76},{78,-76},{78,-198},{128,-198}}, color={255,0,255}));
   connect(intToRea1.u, uZonSta) annotation (Line(points={{-162,-10},{-170,-10},{-200,-10}}, color={255,127,0}));
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy),
+        defaultComponentName = "ecoEnaDis",
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

@@ -143,7 +143,7 @@ equation
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
           textString="Disable modulation
-( is Heating),
+(zone state is Heating),
 enable minimal
 outdoor air control"),
         Text(
