@@ -3,10 +3,7 @@ EconDamperPositionLimitsSingleZone
 EconEnableDisableMultiZone
 EconEnableDisableSingleZone
 EconModulationMultiZone
-<<<<<<< HEAD:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/package.order
 EconModulationSingleZone
-=======
 OperationModeSelector
->>>>>>> issue805_multizone_econ:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/package.order
 VAVSingleZoneTSupSet
 Validation

@@ -6,17 +6,10 @@ block EconModulationMultiZone
   "Maximum control loop signal for the outdoor air damper";
   parameter Real retDamConSigMin(min=0, max=1, unit="1") = 0.5
   "Minimum control loop signal for the return air damper";
-<<<<<<< HEAD:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/EconModulationMultiZone.mo
-  parameter Real yConSigMin=0 "Lower limit of controller output";
-  parameter Real yConSigMax=1 "Upper limit of controller output";
-  parameter Real kPIMod=1 "Gain of modulation controller";
-  parameter Modelica.SIunits.Time TiPIMod=300 "Time constant of modulation controller integrator block";
-=======
   parameter Real conSigMin=0 "Lower limit of controller output";
   parameter Real conSigMax=1 "Upper limit of controller output";
   parameter Real kPMod=1 "Gain of modulation controller";
   parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block";
->>>>>>> issue805_multizone_econ:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconModulationMultiZone.mo
 
   CDL.Interfaces.RealInput TSup(unit="K", quantity = "ThermodynamicTemperature")
     "Measured supply air temperature" annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
@@ -52,17 +45,10 @@ block EconModulationMultiZone
   CDL.Continuous.LimPID damPosController(
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
     Td=0.1,
-<<<<<<< HEAD:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/EconModulationMultiZone.mo
-    final yMax=yConSigMax,
-    final yMin=yConSigMin,
-    k=kPIMod,
-    Ti=TiPIMod)
-=======
     final yMax=conSigMax,
     final yMin=conSigMin,
     k=kPMod,
     Ti=TiMod)
->>>>>>> issue805_multizone_econ:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconModulationMultiZone.mo
     "Contoller that outputs a signal based on the error between the measured SAT and SAT cooling setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   CDL.Continuous.Line outDamPos(limitBelow=true, limitAbove=true)
@@ -163,54 +149,7 @@ control loop"),                    Text(
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 assignments")}),
-<<<<<<< HEAD:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/EconModulationMultiZone.mo
     Documentation(info="<html>
-    <p>
-    This is a multiple zone VAV AHU economizer modulation block. It calculates
-    the outdoor and return air damper positions based on the supply air temperature
-    control loop signal. The implementation is in line with ASHRAE
-    Guidline 36 (G36), PART5.N.2.c. Damper positions are linearly mapped to
-    the supply air control loop signal. This is a final sequence in the
-    composite multizone VAV AHU economizer control sequence. Damper position
-    limits, which are the inputs to the sequence, are the outputs of
-    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone\">
-    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone</a> and
-    <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone\">
-    Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone</a>
-    sequences.
-    </p>
-    <p>
-    When the economizer is enabled, the PI controller modulates the damper
-    positions. Return and outdoor damper are not interlocked. When the economizer is disabled,
-    the damper positions are set to the minimum outdoor air damper position limits.
-    </p>
-    <p>
-    Control charts below show the input-output structure and an economizer damper
-    modulation sequence assuming a well tuned controller. Control diagram:
-    </p>
-    <p align=\"center\">
-    <img alt=\"Image of the multizone AHU modulation sequence control diagram\"
-    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/EconModulationControlDiagramMultiZone.png\"/>
-    </p>
-    <p>
-    Multizone AHU economizer modulation control chart:
-    <br/>
-    </p>
-    <p align=\"center\">
-    <img alt=\"Image of the multizone AHU modulation sequence expected performance\"
-    src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/EconModulationControlChartMultiZone.png\"/>
-    </p>
-
-    </html>", revisions="<html>
-    <ul>
-    <li>
-    June 28, 2017, by Milica Grahovac:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
-=======
-Documentation(info="<html>
 <p>
 This is a multiple zone VAV AHU economizer modulation block. It calculates
 the outdoor and return air damper positions based on the supply air temperature
@@ -219,10 +158,10 @@ Guidline 36 (G36), PART5.N.2.c. Damper positions are linearly mapped to
 the supply air control loop signal. This is a final sequence in the
 composite multizone VAV AHU economizer control sequence. Damper position
 limits, which are the inputs to the sequence, are the outputs of
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone</a> and
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone</a>
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconDamperPositionLimitsMultiZone</a> and
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconEnableDisableMultiZone</a>
 sequences.
 </p>
 <p>
@@ -236,7 +175,7 @@ modulation sequence assuming a well tuned controller. Control diagram:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the multizone AHU modulation sequence control diagram\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconModulationControlDiagramMultiZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/EconModulationControlDiagramMultiZone.png\"/>
 </p>
 <p>
 Multizone AHU economizer modulation control chart:
@@ -244,7 +183,7 @@ Multizone AHU economizer modulation control chart:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the multizone AHU modulation sequence expected performance\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconModulationControlChartMultiZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/EconModulationControlChartMultiZone.png\"/>
 </p>
 
 </html>", revisions="<html>
@@ -255,5 +194,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
->>>>>>> issue805_multizone_econ:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconModulationMultiZone.mo
 end EconModulationMultiZone;
