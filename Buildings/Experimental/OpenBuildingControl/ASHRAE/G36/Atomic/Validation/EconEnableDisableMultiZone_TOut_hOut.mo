@@ -91,11 +91,6 @@ equation
     annotation (Line(points={{-139,-150},{-106,-150},{-106,-40},{-81,-40}}, color={0,0,127}));
   connect(retDamPosMin.y, econEnableDisableMultiZone.uRetDamPosMin) annotation (
      Line(points={{-139,-190},{-102,-190},{-102,-42},{-81,-42}}, color={0,0,127}));
-<<<<<<< HEAD:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisableMultiZone_TOut_hOut.mo
-  connect(econEnableDisableMultiZone.uZoneState, ZoneState.y)
-    annotation (Line(points={{-81,-30},{-140,-30},{-140,0},{-179,0}},   color={255,127,0}));
-=======
->>>>>>> issue805_multizone_econ:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconEnableDisableMultiZone_TOut_hOut.mo
   connect(TOutCut1.y, econEnableDisableMultiZone1.TOutCut) annotation (Line(
         points={{21,90},{30,90},{30,-22},{79,-22}},color={0,0,127}));
   connect(hOutCut1.y, econEnableDisableMultiZone1.hOutCut) annotation (Line(
@@ -112,13 +107,7 @@ equation
   connect(hOut.y, econEnableDisableMultiZone1.hOut)
     annotation (Line(points={{-19,90},{-10,90},{-10,60},{20,60},{20,-24},{79,-24}}, color={0,0,127}));
   connect(FreProSta.y, econEnableDisableMultiZone1.uFreProSta) annotation (Line(
-<<<<<<< HEAD:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisableMultiZone_TOut_hOut.mo
-        points={{-179,30},{-52,30},{-52,-28},{79,-28}}, color={255,127,0}));
-  connect(ZoneState.y, econEnableDisableMultiZone1.uZoneState) annotation (Line(
-        points={{-179,0},{-160,0},{-160,14},{4,14},{4,-30},{79,-30}},        color={255,127,0}));
-=======
         points={{-179,30},{-46,30},{-46,-28},{79,-28}}, color={255,127,0}));
->>>>>>> issue805_multizone_econ:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconEnableDisableMultiZone_TOut_hOut.mo
   connect(outDamPosMax.y, econEnableDisableMultiZone1.uOutDamPosMax)
     annotation (Line(points={{-219,-70},{8,-70},{8,-34},{79,-34}},     color={0,0,127}));
   connect(outDamPosMin.y, econEnableDisableMultiZone1.uOutDamPosMin)
@@ -135,11 +124,6 @@ equation
         points={{-139,90},{-120,90},{-120,120},{188,120},{188,-22},{219,-22}},color={0,0,127}));
   connect(FreProSta.y, econEnableDisableMultiZone2.uFreProSta) annotation (Line(
         points={{-179,30},{170,30},{170,-28},{219,-28}}, color={255,127,0}));
-<<<<<<< HEAD:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisableMultiZone_TOut_hOut.mo
-  connect(ZoneState.y, econEnableDisableMultiZone2.uZoneState) annotation (Line(
-        points={{-179,0},{-170,0},{-170,20},{150,20},{150,-30},{219,-30}},  color={255,127,0}));
-=======
->>>>>>> issue805_multizone_econ:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconEnableDisableMultiZone_TOut_hOut.mo
   connect(outDamPosMax.y, econEnableDisableMultiZone2.uOutDamPosMax)
     annotation (Line(points={{-219,-70},{178,-70},{178,-34},{219,-34}}, color={0,0,127}));
   connect(outDamPosMin.y, econEnableDisableMultiZone2.uOutDamPosMin)
@@ -156,9 +140,6 @@ equation
   connect(SupFanSta.y, econEnableDisableMultiZone1.uSupFan) annotation (Line(
         points={{-179,-32},{-160,-32},{-160,-12},{-20,-12},{-20,-32},{79,-32}},color={255,0,255}));
   connect(SupFanSta.y, econEnableDisableMultiZone2.uSupFan) annotation (Line(
-<<<<<<< HEAD:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisableMultiZone_TOut_hOut.mo
-        points={{-179,-32},{-170,-32},{-170,-8},{140,-8},{140,-32},{219,-32}},  color={255,0,255}));
-=======
         points={{-179,-32},{-170,-32},{-170,-12},{140,-12},{140,-32},{219,-32}},color={255,0,255}));
   connect(ZoneState.y, econEnableDisableMultiZone.uZonSta)
     annotation (Line(points={{-179,0},{-132,0},{-132,-30},{-81,-30}}, color={255,127,0}));
@@ -166,7 +147,6 @@ equation
     annotation (Line(points={{-179,0},{-48,0},{-48,-30},{79,-30}}, color={255,127,0}));
   connect(ZoneState.y, econEnableDisableMultiZone2.uZonSta)
     annotation (Line(points={{-179,0},{160,0},{160,-30},{160,-30},{220,-30},{220,-30},{219,-30}}, color={255,127,0}));
->>>>>>> issue805_multizone_econ:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconEnableDisableMultiZone_TOut_hOut.mo
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconEnableDisableMultiZone_TOut_hOut.mos"

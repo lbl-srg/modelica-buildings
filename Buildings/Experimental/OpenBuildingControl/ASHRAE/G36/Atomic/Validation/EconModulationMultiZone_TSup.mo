@@ -54,24 +54,6 @@ equation
           fillPattern=FillPattern.Solid,
           points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
-<<<<<<< HEAD:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconModulationMultiZone_TSup.mo
-    Documentation(info="<html>
-  <p>
-  This example validates
-  <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconModulationMultiZone\">
-  Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.EconModulationMultiZone</a>
-  for supply air temeperature (<code>TSup</code>) and supply air temperature cooling setpoint (<code>TCooSet</code>) 
-  control signals.
-  </p>
-  </html>", revisions="<html>
-  <ul>
-  <li>
-  June 30, 2017, by Milica Grahovac:<br/>
-  First revision.
-  </li>
-  </ul>
-  </html>"));
-=======
 Documentation(info="<html>
 <p>
 This example validates
@@ -88,5 +70,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
->>>>>>> issue805_multizone_econ:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconModulationMultiZone_TSup.mo
 end EconModulationMultiZone_TSup;
