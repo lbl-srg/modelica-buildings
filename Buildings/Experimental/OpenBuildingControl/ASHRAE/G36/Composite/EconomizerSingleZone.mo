@@ -3,10 +3,10 @@ model EconomizerSingleZone "Single zone VAV AHU economizer control sequence"
 
   parameter Boolean use_enthalpy = true
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
-  parameter Real kPIDamLim=1 "Gain of damper limit controller";
-  parameter Real kPIMod=1 "Gain of modulation controller";
-  parameter Modelica.SIunits.Time TiPIDamLim=0.9 "Time constant of damper limit controller integrator block";
-  parameter Modelica.SIunits.Time TiPIMod=300 "Time constant of modulation controller integrator block";
+  parameter Real kPDamLim=1 "Gain of damper limit controller";
+  parameter Real kPMod=1 "Gain of modulation controller";
+  parameter Modelica.SIunits.Time TiDamLim=0.9 "Time constant of damper limit controller integrator block";
+  parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block";
 
   CDL.Interfaces.RealInput TCooSet(unit="K", quantity = "ThermodynamicTemperature")
     "Supply air temperature cooling setpoint" annotation (Placement(transformation(
@@ -67,11 +67,11 @@ model EconomizerSingleZone "Single zone VAV AHU economizer control sequence"
     retDamPhyPosMin=0,
     outDamPhyPosMax=0.9,
     outDamPhyPosMin=0,
-    kPIDamLim=kPIDamLim,
-    TiPIDamLim=TiPIDamLim)
+    kPDamLim=kPDamLim,
+    TiDamLim=TiDamLim)
     "Multizone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  AtomicSequences.EconModulationMultiZone ecoMod(kPIMod=kPIMod, TiPIMod=TiPIMod)
+  AtomicSequences.EconModulationMultiZone ecoMod(kPMod=kPMod, TiMod=TiMod)
     "Multizone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 

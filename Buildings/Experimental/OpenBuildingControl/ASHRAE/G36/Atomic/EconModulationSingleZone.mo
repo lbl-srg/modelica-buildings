@@ -43,7 +43,7 @@ block EconModulationSingleZone "Outdoor and return air damper position modulatio
     final yMax=conSigMax,
     final yMin=conSigMin,
     k=kPMod,
-    final Ti=TiPIMod)
+    final Ti=TiMod)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT cooling setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   CDL.Continuous.Line outDamPos(limitBelow=true, limitAbove=true)
