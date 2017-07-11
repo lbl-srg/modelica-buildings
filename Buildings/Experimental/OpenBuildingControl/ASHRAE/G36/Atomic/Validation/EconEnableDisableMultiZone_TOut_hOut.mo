@@ -1,0 +1,230 @@
+within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.Validation;
+model EconEnableDisableMultiZone_TOut_hOut
+  "Model validates economizer disable in case outdoor air conditions are above cutoff"
+  extends Modelica.Icons.Example;
+
+  parameter Modelica.SIunits.Temperature TOutCutoff=297
+    "Outdoor temperature high limit cutoff";
+  parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
+    "Outdoor air enthalpy high limit cutoff";
+  parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
+    "Indicates that the freeze protection is disabled";
+  parameter Integer freProDisabledNum = Integer(freProDisabled)-1
+    "Numerical value for freeze protection stage 0";
+  parameter Types.ZoneState deadband = Types.ZoneState.deadband
+    "Zone state is deadband";
+  parameter Integer deadbandNum = Integer(deadband)
+    "Numerical value for deadband zone state";
+
+  CDL.Continuous.Constant TOutCut(k=TOutCutoff) "Outdoor air temperature cutoff"
+    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
+  CDL.Continuous.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
+    annotation (Placement(transformation(extent={{-240,40},{-220,60}})));
+  CDL.Continuous.Constant TOutCut1(k=TOutCutoff) "Outdoor air temperature cutoff"
+    annotation (Placement(transformation(extent={{0,80},{20,100}})));
+  CDL.Continuous.Constant hOutCut1(k=hOutCutoff) "Outdoor air enthalpy cutoff"
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 1000)
+    "Outdoor air enthalpy is slightly below the cufoff"
+    annotation (Placement(transformation(extent={{-240,80},{-220,100}})));
+  CDL.Continuous.Constant TOutBelowCutoff(k=TOutCutoff - 2)
+    "Outdoor air temperature is slightly below the cutoff"
+    annotation (Placement(transformation(extent={{40,80},{60,100}})));
+  CDL.Logical.TriggeredTrapezoid TOut(
+    rising=1000,
+    falling=800,
+    amplitude=4,
+    offset=TOutCutoff - 2) "Outoor air temperature"
+    annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
+  CDL.Logical.TriggeredTrapezoid hOut(
+    amplitude=4000,
+    offset=hOutCutoff - 2200,
+    rising=1000,
+    falling=800) "Outdoor air enthalpy"
+    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+
+  EconEnableDisableMultiZone econEnableDisableMultiZone "Multizone VAV AHU economizer enable disable sequence"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  EconEnableDisableMultiZone econEnableDisableMultiZone1 "Multizone VAV AHU economizer enable disable sequence"
+    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
+  EconEnableDisableMultiZone econEnableDisableMultiZone2(use_enthalpy=false)
+    "Multizone VAV AHU economizer enable disable sequence"
+    annotation (Placement(transformation(extent={{220,-40},{240,-20}})));
+
+protected
+  CDL.Integers.Constant ZoneState(k=deadbandNum) "Zone State is deadband"
+    annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
+  CDL.Continuous.Constant outDamPosMax(k=0.9) "Maximal allowed economizer damper position"
+    annotation (Placement(transformation(extent={{-240,-80},{-220,-60}})));
+  CDL.Continuous.Constant outDamPosMin(k=0.1) "Minimal allowed economizer damper position"
+    annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
+  CDL.Continuous.Constant retDamPosMax(k=0.8) "Maximal allowed economizer damper position"
+    annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
+  CDL.Continuous.Constant retDamPosMin(k=0)   "Minimal allowed economizer damper position"
+    annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
+  CDL.Continuous.Constant retDamPhyPosMax(k=1) "Maximal allowed economizer damper position"
+    annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
+  CDL.Integers.Constant FreProSta(k=freProDisabledNum) "Freeze Protection Status - Disabled"
+    annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
+  CDL.Sources.BooleanPulse booPul(final startTime=10, period=2000) "Boolean pulse signal"
+    annotation (Placement(transformation(extent={{-200,120},{-180,140}})));
+  CDL.Sources.BooleanPulse booPul1(final startTime=10, period=2000) "Boolean pulse signal"
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+  CDL.Logical.Constant SupFanSta(k=true) "Supply fan status signal"
+      annotation (Placement(transformation(extent={{-200,-42},{-180,-22}})));
+
+equation
+  connect(TOutCut.y, econEnableDisableMultiZone.TOutCut) annotation (Line(
+        points={{-139,90},{-112,90},{-112,-22},{-81,-22}}, color={0,0,127}));
+  connect(hOutCut.y, econEnableDisableMultiZone.hOutCut) annotation (Line(
+        points={{-219,50},{-150,50},{-150,-26},{-81,-26}}, color={0,0,127}));
+  connect(FreProSta.y, econEnableDisableMultiZone.uFreProSta) annotation (Line(
+        points={{-179,30},{-120,30},{-120,-28},{-81,-28}}, color={255,127,0}));
+  connect(outDamPosMax.y, econEnableDisableMultiZone.uOutDamPosMax) annotation (
+     Line(points={{-219,-70},{-150,-70},{-150,-34},{-81,-34}}, color={0,0,127}));
+  connect(outDamPosMin.y, econEnableDisableMultiZone.uOutDamPosMin)
+    annotation (Line(points={{-219,-110},{-210,-110},{-210,-60},{-140,-60},{-140,-36},{-81,-36}},
+        color={0,0,127}));
+  connect(retDamPhyPosMax.y, econEnableDisableMultiZone.uRetDamPhyPosMax)
+    annotation (Line(points={{-139,-110},{-110,-110},{-110,-38},{-81,-38}}, color={0,0,127}));
+  connect(retDamPosMax.y, econEnableDisableMultiZone.uRetDamPosMax)
+    annotation (Line(points={{-139,-150},{-106,-150},{-106,-40},{-81,-40}}, color={0,0,127}));
+  connect(retDamPosMin.y, econEnableDisableMultiZone.uRetDamPosMin) annotation (
+     Line(points={{-139,-190},{-102,-190},{-102,-42},{-81,-42}}, color={0,0,127}));
+<<<<<<< HEAD:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisableMultiZone_TOut_hOut.mo
+  connect(econEnableDisableMultiZone.uZoneState, ZoneState.y)
+    annotation (Line(points={{-81,-30},{-140,-30},{-140,0},{-179,0}},   color={255,127,0}));
+=======
+>>>>>>> issue805_multizone_econ:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconEnableDisableMultiZone_TOut_hOut.mo
+  connect(TOutCut1.y, econEnableDisableMultiZone1.TOutCut) annotation (Line(
+        points={{21,90},{30,90},{30,-22},{79,-22}},color={0,0,127}));
+  connect(hOutCut1.y, econEnableDisableMultiZone1.hOutCut) annotation (Line(
+        points={{-59,50},{10,50},{10,-26},{79,-26}}, color={0,0,127}));
+  connect(hOutBelowCutoff.y, econEnableDisableMultiZone.hOut) annotation (Line(
+        points={{-219,90},{-180,90},{-180,66},{-130,66},{-130,-24},{-81,-24}},color={0,0,127}));
+  connect(TOutBelowCutoff.y, econEnableDisableMultiZone1.TOut) annotation (
+      Line(points={{61,90},{70,90},{70,-20},{80,-20},{79,-20}},    color={0,0,127}));
+  connect(booPul.y, TOut.u)
+    annotation (Line(points={{-179,130},{-162,130}}, color={255,0,255}));
+  connect(TOut.y, econEnableDisableMultiZone.TOut)
+    annotation (Line(points={{-139,130},{-110,130},{-110,-20},{-81,-20}},color={0,0,127}));
+  connect(booPul1.y, hOut.u) annotation (Line(points={{-59,90},{-50,90},{-42,90}}, color={255,0,255}));
+  connect(hOut.y, econEnableDisableMultiZone1.hOut)
+    annotation (Line(points={{-19,90},{-10,90},{-10,60},{20,60},{20,-24},{79,-24}}, color={0,0,127}));
+  connect(FreProSta.y, econEnableDisableMultiZone1.uFreProSta) annotation (Line(
+<<<<<<< HEAD:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisableMultiZone_TOut_hOut.mo
+        points={{-179,30},{-52,30},{-52,-28},{79,-28}}, color={255,127,0}));
+  connect(ZoneState.y, econEnableDisableMultiZone1.uZoneState) annotation (Line(
+        points={{-179,0},{-160,0},{-160,14},{4,14},{4,-30},{79,-30}},        color={255,127,0}));
+=======
+        points={{-179,30},{-46,30},{-46,-28},{79,-28}}, color={255,127,0}));
+>>>>>>> issue805_multizone_econ:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconEnableDisableMultiZone_TOut_hOut.mo
+  connect(outDamPosMax.y, econEnableDisableMultiZone1.uOutDamPosMax)
+    annotation (Line(points={{-219,-70},{8,-70},{8,-34},{79,-34}},     color={0,0,127}));
+  connect(outDamPosMin.y, econEnableDisableMultiZone1.uOutDamPosMin)
+    annotation (Line(points={{-219,-110},{-190,-110},{-190,-64},{12,-64},{12,-36},{79,-36}},   color={0,0,127}));
+  connect(retDamPhyPosMax.y, econEnableDisableMultiZone1.uRetDamPhyPosMax)
+    annotation (Line(points={{-139,-110},{16,-110},{16,-38},{79,-38}},   color={0,0,127}));
+  connect(retDamPosMax.y, econEnableDisableMultiZone1.uRetDamPosMax)
+    annotation (Line(points={{-139,-150},{20,-150},{20,-40},{79,-40}},   color={0,0,127}));
+  connect(retDamPosMin.y, econEnableDisableMultiZone1.uRetDamPosMin)
+    annotation (Line(points={{-139,-190},{32,-190},{32,-42},{79,-42}}, color={0,0,127}));
+  connect(TOut.y, econEnableDisableMultiZone2.TOut) annotation (Line(points={{-139,130},{-82,130},{200,130},{200,-20},{
+          219,-20}}, color={0,0,127}));
+  connect(TOutCut.y, econEnableDisableMultiZone2.TOutCut) annotation (Line(
+        points={{-139,90},{-120,90},{-120,120},{188,120},{188,-22},{219,-22}},color={0,0,127}));
+  connect(FreProSta.y, econEnableDisableMultiZone2.uFreProSta) annotation (Line(
+        points={{-179,30},{170,30},{170,-28},{219,-28}}, color={255,127,0}));
+<<<<<<< HEAD:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisableMultiZone_TOut_hOut.mo
+  connect(ZoneState.y, econEnableDisableMultiZone2.uZoneState) annotation (Line(
+        points={{-179,0},{-170,0},{-170,20},{150,20},{150,-30},{219,-30}},  color={255,127,0}));
+=======
+>>>>>>> issue805_multizone_econ:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconEnableDisableMultiZone_TOut_hOut.mo
+  connect(outDamPosMax.y, econEnableDisableMultiZone2.uOutDamPosMax)
+    annotation (Line(points={{-219,-70},{178,-70},{178,-34},{219,-34}}, color={0,0,127}));
+  connect(outDamPosMin.y, econEnableDisableMultiZone2.uOutDamPosMin)
+    annotation (Line(points={{-219,-110},{-180,-110},{-180,-70},{188,-70},{188,-38},{188,-36},{219,-36}},
+        color={0,0,127}));
+  connect(retDamPhyPosMax.y, econEnableDisableMultiZone2.uRetDamPhyPosMax)
+    annotation (Line(points={{-139,-110},{192,-110},{192,-38},{219,-38}}, color={0,0,127}));
+  connect(retDamPosMax.y, econEnableDisableMultiZone2.uRetDamPosMax)
+    annotation (Line(points={{-139,-150},{196,-150},{196,-40},{219,-40}}, color={0,0,127}));
+  connect(retDamPosMin.y, econEnableDisableMultiZone2.uRetDamPosMin)
+    annotation (Line(points={{-139,-190},{198,-190},{198,-42},{219,-42}}, color={0,0,127}));
+  connect(SupFanSta.y, econEnableDisableMultiZone.uSupFan) annotation (Line(
+        points={{-179,-32},{-134,-32},{-81,-32}},             color={255,0,255}));
+  connect(SupFanSta.y, econEnableDisableMultiZone1.uSupFan) annotation (Line(
+        points={{-179,-32},{-160,-32},{-160,-12},{-20,-12},{-20,-32},{79,-32}},color={255,0,255}));
+  connect(SupFanSta.y, econEnableDisableMultiZone2.uSupFan) annotation (Line(
+<<<<<<< HEAD:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/Validation/EconEnableDisableMultiZone_TOut_hOut.mo
+        points={{-179,-32},{-170,-32},{-170,-8},{140,-8},{140,-32},{219,-32}},  color={255,0,255}));
+=======
+        points={{-179,-32},{-170,-32},{-170,-12},{140,-12},{140,-32},{219,-32}},color={255,0,255}));
+  connect(ZoneState.y, econEnableDisableMultiZone.uZonSta)
+    annotation (Line(points={{-179,0},{-132,0},{-132,-30},{-81,-30}}, color={255,127,0}));
+  connect(ZoneState.y, econEnableDisableMultiZone1.uZonSta)
+    annotation (Line(points={{-179,0},{-48,0},{-48,-30},{79,-30}}, color={255,127,0}));
+  connect(ZoneState.y, econEnableDisableMultiZone2.uZonSta)
+    annotation (Line(points={{-179,0},{160,0},{160,-30},{160,-30},{220,-30},{220,-30},{219,-30}}, color={255,127,0}));
+>>>>>>> issue805_multizone_econ:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconEnableDisableMultiZone_TOut_hOut.mo
+  annotation (
+  experiment(StopTime=1800.0, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconEnableDisableMultiZone_TOut_hOut.mos"
+    "Simulate and plot"),
+  Icon(graphics={
+        Ellipse(
+          lineColor={75,138,73},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-260,-220},{260,220}}),
+        graphics={Text(
+          extent={{-234,206},{346,154}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          textString="Example high limit cutoff conditions:
+                      ASHRAE 90.1-2013:
+                      Device Type: Fixed Enthalpy + Fixed Drybulb, Fixed Drybulb
+                      TOut > 75 degF [24 degC]
+                      hOut > 28 Btu/lb [65.1 kJ/kg]"),
+        Text(
+          extent={{-82,-40},{42,-68}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=12,
+          textString="Tests temperature hysteresis"),
+        Text(
+          extent={{80,-40},{208,-68}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=12,
+          textString="Tests enthalpy hysteresis"),
+        Text(
+          extent={{220,-46},{348,-74}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=12,
+          textString="No enthalpy
+sensor")}),
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone</a>
+for the following control signals: <code>TOut</code>, <code>TOutCut</code>,
+<code>hOut</code>, <code>hOutCut</code>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 13, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end EconEnableDisableMultiZone_TOut_hOut;
