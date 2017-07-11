@@ -19,11 +19,11 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
     "Numerical value for AHU operation mode Occupied";
   parameter Integer warmUpNum = Integer(warmUp)
     "Numerical value for AHU operation mode \"WarmUp\"";
-  parameter Real VOutSet_flow(unit="m3/s", quantity="VolumeFlowRate")=0.71
+  parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Real minSenOutVolAirflow(unit="m3/s", quantity="VolumeFlowRate")=0.61
+  parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.61
     "Volumetric airflow sensor output, minimum value in the example";
-  parameter Real senOutVolAirIncrease(unit="m3/s", quantity="VolumeFlowRate")=0.2
+  parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=0.2
     "Maximum increase in airflow volume during the example simulation";
 
   // Fan Status
@@ -54,20 +54,20 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
 
   Modelica.Blocks.Sources.Ramp VOut_flow(
     duration=1800,
-    offset=minSenOutVolAirflow,
-    height=senOutVolAirIncrease)
+    offset=minVOutSet_flow,
+    height=incVOutSet_flow)
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
   Modelica.Blocks.Sources.Ramp VOut1_flow(
     duration=1800,
-    offset=minSenOutVolAirflow,
-    height=senOutVolAirIncrease)
+    offset=minVOutSet_flow,
+    height=incVOutSet_flow)
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Sources.Ramp VOut2_flow(
     duration=1800,
-    offset=minSenOutVolAirflow,
-    height=senOutVolAirIncrease)
+    offset=minVOutSet_flow,
+    height=incVOutSet_flow)
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
   CDL.Continuous.Constant VOutMinSet_flow(k=VOutSet_flow)

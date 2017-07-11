@@ -6,7 +6,7 @@ block EconEnableDisableMultiZone
     "Set to true to evaluate outdoor air enthalpy in addition to temperature";
   parameter Modelica.SIunits.Temperature delTemHis=1
     "Delta between the temperature hysteresis high and low limit";
-  parameter Real delEntHis(unit="J/kg", quantity="SpecificEnergy")=1000
+  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
     "Delta between the enthalpy hysteresis high and low limits"
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy));
   parameter Modelica.SIunits.Time retDamFulOpeTim = 180
@@ -25,7 +25,7 @@ block EconEnableDisableMultiZone
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-220,210},{-180,250}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput hOutCut(unit="J/kg") if use_enthalpy
+  CDL.Interfaces.RealInput hOutCut(unit="J/kg", quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),iconTransformation(extent={{-120,30},{-100,50}})));
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1)

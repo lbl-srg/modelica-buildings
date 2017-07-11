@@ -5,7 +5,7 @@ model EconEnableDisableMultiZone_TOut_hOut
 
   parameter Modelica.SIunits.Temperature TOutCutoff=297
     "Outdoor temperature high limit cutoff";
-  parameter Real hOutCutoff(final unit="J/kg", quantity="SpecificEnergy")=65100
+  parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
   parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
     "Indicates that the freeze protection is disabled";
