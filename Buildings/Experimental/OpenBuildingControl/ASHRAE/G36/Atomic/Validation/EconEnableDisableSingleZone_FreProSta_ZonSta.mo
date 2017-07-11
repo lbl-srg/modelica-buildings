@@ -124,18 +124,18 @@ equation
           fontSize=12,
           textString="Tests freeze protection disable condition")}),
     Documentation(info="<html>
-  <p>
- This example validates
- <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableSingleZone\">
- Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableSingleZone</a>
- for the following control signals: zone state, freeze protection stage.
- </p>
- </html>", revisions="<html>
- <ul>
- <li>
- June 13, 2017, by Milica Grahovac:<br/>
- First implementation.
- </li>
- </ul>
- </html>"));
+<p>
+This example validates
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableSingleZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableSingleZone</a>
+for the following control signals: zone state, freeze protection stage.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 13, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EconEnableDisableSingleZone_FreProSta_ZonSta;

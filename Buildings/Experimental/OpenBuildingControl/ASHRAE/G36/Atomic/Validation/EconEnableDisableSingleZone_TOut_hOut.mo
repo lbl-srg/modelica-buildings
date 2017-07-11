@@ -178,20 +178,20 @@ equation
           fontSize=12,
           textString="No enthalpy
 sensor")}),
- Documentation(info="<html>
- <p>
- This example validates
- <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableSingleZone\">
- Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableSingleZone</a>
- for the following control signals: <code>TOut</code>, <code>TOutCut</code>,
- <code>hOut</code>, <code>hOutCut</code>.
- </p>
- </html>", revisions="<html>
- <ul>
- <li>
- June 13, 2017, by Milica Grahovac:<br/>
- First implementation.
- </li>
- </ul>
- </html>"));
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableSingleZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableSingleZone</a>
+for the following control signals: <code>TOut</code>, <code>TOutCut</code>,
+<code>hOut</code>, <code>hOutCut</code>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 13, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EconEnableDisableSingleZone_TOut_hOut;

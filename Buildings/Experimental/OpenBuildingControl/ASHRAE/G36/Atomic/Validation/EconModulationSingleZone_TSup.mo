@@ -55,19 +55,19 @@ equation
           points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
-  <p>
- This example validates
- <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationSingleZone\">
- Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationSingleZone</a>
- for supply air temeperature (<code>TSup</code>) and supply air temperature cooling setpoint (<code>TCooSet</code>)
- control signals.
- </p>
- </html>", revisions="<html>
- <ul>
- <li>
- July 07, 2017, by Milica Grahovac:<br/>
- First implementation.
- </li>
- </ul>
- </html>"));
+<p>
+This example validates
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationSingleZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationSingleZone</a>
+for supply air temeperature (<code>TSup</code>) and supply air temperature cooling setpoint (<code>TCooSet</code>)
+control signals.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 07, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EconModulationSingleZone_TSup;
