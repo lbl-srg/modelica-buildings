@@ -31,16 +31,20 @@ block EconDamperPositionLimitsSingleZone
   CDL.Interfaces.RealInput uVOutMinSet_flow(min=minVOut_flow, max=desVOut_flow) "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-220,180},{-180,220}}),
       iconTransformation(extent={{-220,180},{-180,220}})));
-
-  CDL.Continuous.Constant minFanSpeSig(k=minFanSpe) "Minimum supply fan speed"
-    annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   CDL.Interfaces.RealOutput yOutDamPosMin(unit="1") "Minimum economizer damper position limit"
     annotation (Placement(transformation(extent={{180,70},{200,90}}),
       iconTransformation(extent={{180,70},{200,90}})));
+
+  CDL.Continuous.Constant minFanSpeSig(k=minFanSpe) "Minimum supply fan speed"
+    annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
+
   CDL.Continuous.Constant outDamPhyPosMinSig(final k=outDamPhyPosMin)
-    "If the minimum outdoor airflow setpoint becomes zero (when the zone is in other than occupied mode), the outdoor damper shall be zero"
+    "Physically fixed minimum position of the outdoor air (OA) damper"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
-  CDL.Logical.Switch outDamPosMin
+  CDL.Continuous.Constant outDamPhyPosMaxSig(final k=outDamPhyPosMax)
+    "Physically fixed maximum position of the outdoor air (OA) damper"
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
+  CDL.Logical.Switch enaDis
     "If zone is in other than occupied mode, uVOutMinSet shall be zero, so that the yOutDamPosMin shall be zero"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
 
@@ -75,9 +79,7 @@ block EconDamperPositionLimitsSingleZone
   CDL.Interfaces.RealOutput yOutDamPosMax(unit="1") "Minimum economizer damper position limit"
     annotation (Placement(transformation(extent={{180,110},{200,130}}),
                                                                       iconTransformation(extent={{180,10},{200,30}})));
-  CDL.Continuous.Constant outDamPhyPosMaxSig(final k=outDamPhyPosMax)
-    "If the minimum outdoor airflow setpoint becomes zero (when the zone is in other than occupied mode), the outdoor damper shall be zero"
-    annotation (Placement(transformation(extent={{80,20},{100,40}})));
+
   CDL.Logical.And3 and1 "Locical and block"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   CDL.Logical.Not not1 "Logical not block"
@@ -122,7 +124,7 @@ equation
                                                    color={0,0,127}));
   connect(desPosAtCurSpe.y, minOutDamForOutMinSet.f2) annotation (Line(points={{1,30},{50,30},{50,92},{58,92}},
                                              color={0,0,127}));
-  connect(outDamPosMin.y, yOutDamPosMin) annotation (Line(points={{161,80},{148,80},{190,80}},
+  connect(enaDis.y, yOutDamPosMin) annotation (Line(points={{161,80},{148,80},{190,80}},
                                     color={0,0,127}));
   connect(desVOutMinFanSpeOutDamPosSig.y, desPosAtCurSpe.f1) annotation (Line(points={{-119,-20},{-60,-20},{-60,34},{-22,34}},
                                           color={0,0,127}));
@@ -167,10 +169,10 @@ equation
     annotation (Line(points={{-139,-160},{-130.5,-160},{-122,-160}}, color={0,0,127}));
   connect(OperationMode.y,equ1. u2)
     annotation (Line(points={{-139,-190},{-130,-190},{-130,-168},{-122,-168}},color={0,0,127}));
-  connect(not1.y, outDamPosMin.u2) annotation (Line(points={{-19,-70},{60,-70},{60,80},{138,80}}, color={255,0,255}));
-  connect(outDamPhyPosMinSig.y, outDamPosMin.u1)
+  connect(not1.y, enaDis.u2) annotation (Line(points={{-19,-70},{60,-70},{60,80},{138,80}}, color={255,0,255}));
+  connect(outDamPhyPosMinSig.y, enaDis.u1)
     annotation (Line(points={{101,-10},{120,-10},{120,88},{138,88}}, color={0,0,127}));
-  connect(minOutDamForOutMinSet.y, outDamPosMin.u3)
+  connect(minOutDamForOutMinSet.y, enaDis.u3)
     annotation (Line(points={{81,100},{100,100},{100,72},{138,72}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ecoMinOAPos",
