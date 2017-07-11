@@ -5,11 +5,11 @@ model EconomizerMultiZone_Disable
 
   parameter Modelica.SIunits.Temperature TOutCutoff=297
     "Outdoor temperature high limit cutoff";
-  parameter Real hOutCutoff(unit="J/kg", quantity="SpecificEnergy")=65100
+  parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
-  parameter Real VOutSet_flow(unit="m3/s", displayUnit="m3/h")=0.71
+  parameter Modelica.SIunits.SpecificEnergy VOutSet_flow=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Real TSupSet(unit="K", quantity="TermodynamicTemperature")=291 "Supply air temperature setpoint";
+  parameter Modelica.SIunits.Temperature TSupSet=291 "Supply air temperature setpoint";
 
   parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
     "Indicates that the freeze protection is disabled";

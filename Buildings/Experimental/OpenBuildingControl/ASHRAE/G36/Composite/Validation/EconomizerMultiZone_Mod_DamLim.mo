@@ -5,7 +5,7 @@ model EconomizerMultiZone_Mod_DamLim
 
   parameter Modelica.SIunits.Temperature TOutCutoff=297
     "Outdoor temperature high limit cutoff";
-  parameter Real hOutCutoff(unit="J/kg", quantity="SpecificEnergy")=65100
+  parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
   parameter Modelica.SIunits.Temperature TCooSet=291
     "Supply air temperature cooling setpoint";
