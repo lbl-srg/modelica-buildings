@@ -1,9 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite;
 package Validation "Package with validation models"
   extends Modelica.Icons.ExamplesPackage;
-
-
-
 annotation (Documentation(info="<html>
 <p>
 This package contains models that validate the control sequences.

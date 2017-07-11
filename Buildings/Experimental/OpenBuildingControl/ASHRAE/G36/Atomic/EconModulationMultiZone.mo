@@ -8,8 +8,8 @@ block EconModulationMultiZone
   "Minimum control loop signal for the return air damper";
   parameter Real conSigMin=0 "Lower limit of controller output";
   parameter Real conSigMax=1 "Upper limit of controller output";
-  parameter Real kPIMod=1 "Gain of modulation controller";
-  parameter Modelica.SIunits.Time TiPIMod=300 "Time constant of modulation controller integrator block";
+  parameter Real kPMod=1 "Gain of modulation controller";
+  parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block";
 
   CDL.Interfaces.RealInput TSup(unit="K", quantity = "ThermodynamicTemperature")
     "Measured supply air temperature" annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
@@ -47,8 +47,8 @@ block EconModulationMultiZone
     Td=0.1,
     final yMax=conSigMax,
     final yMin=conSigMin,
-    k=kPIMod,
-    Ti=TiPIMod)
+    k=kPMod,
+    Ti=TiMod)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT cooling setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
     //fixme: Td=0.1 - not used in the model, but still required by LimPID,

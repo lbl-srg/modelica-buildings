@@ -75,10 +75,6 @@ equation
     color={255,0,255}));
   connect(freProSta.y, economizer.uFreProSta)
     annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},color={255,127,0}));
-  connect(OperationMode.y, economizer.uOperationMode)
-    annotation (Line(points={{-59,-90},{-52,-90},{-52,-30},{-4,-30},{-4,4},{19,4}},color={255,127,0}));
-  connect(ZoneState.y, economizer.ERROR)
-    annotation (Line(points={{-59,-60},{-50,-60},{-50,-32},{-2,-32},{-2,2},{19,2}}, color={255,127,0}));
   connect(TOutBelowCutoff.y, economizer.TOut)
     annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},color={0,0,127}));
   connect(TOutCut1.y, economizer.TOutCut)
@@ -113,12 +109,16 @@ equation
     annotation (Line(points={{-19,50},{70,50},{70,-12},{99,-12}}, color={0,0,127}));
   connect(fanStatus.y, economizer1.uSupFan)
     annotation (Line(points={{-19,-10},{20,-10},{20,-14},{99,-14}}, color={255,0,255}));
-  connect(ZoneState.y, economizer1.ERROR)
-    annotation (Line(points={{-59,-60},{20,-60},{20,-18},{99,-18}}, color={255,127,0}));
-  connect(OperationMode.y, economizer1.uOperationMode)
-    annotation (Line(points={{-59,-90},{18,-90},{18,-16},{99,-16}}, color={255,127,0}));
   connect(freProSta2.y, economizer1.uFreProSta)
     annotation (Line(points={{81,-120},{90,-120},{90,-20},{99,-20}}, color={255,127,0}));
+  connect(ZoneState.y, economizer.uZonSta)
+    annotation (Line(points={{-59,-60},{-2,-60},{-2,2},{19,2}}, color={255,127,0}));
+  connect(OperationMode.y, economizer.uOpeMod)
+    annotation (Line(points={{-59,-90},{-4,-90},{-4,4},{19,4}}, color={255,127,0}));
+  connect(OperationMode.y, economizer1.uOpeMod)
+    annotation (Line(points={{-59,-90},{20,-90},{20,-16},{99,-16}}, color={255,127,0}));
+  connect(ZoneState.y, economizer1.uZonSta)
+    annotation (Line(points={{-59,-60},{22,-60},{22,-18},{99,-18}}, color={255,127,0}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Composite/Validation/EconomizerMultiZone_Disable.mos"

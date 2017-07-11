@@ -77,9 +77,9 @@ equation
     annotation (Line(points={{-59,-80},{-14,-80},{-14,6},{19,6}}, color={255,0,255}));
   connect(freProSta.y, economizer.uFreProSta)
     annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},color={255,127,0}));
-  connect(operationMode.y, economizer.uOperationMode)
+  connect(operationMode.y, economizer.uOpeMod)
     annotation (Line(points={{-99,-100},{-50,-100},{-50,-30},{-4,-30},{-4,4},{19,4}},color={255,127,0}));
-  connect(ZoneState.y, economizer.)
+  connect(ZoneState.y, economizer.uZonSta)
     annotation (Line(points={{-99,-60},{-48,-60},{-48,-32},{-2,-32},{-2,2},{19,2}}, color={255,127,0}));
   connect(TOutBelowCutoff.y, economizer.TOut)
     annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},color={0,0,127}));
@@ -110,16 +110,16 @@ equation
     annotation (Line(points={{-19,50},{-12,50},{-12,-24},{16,-24},{16,-32},{99,-32}}, color={0,0,127}));
   connect(fanStatus.y, economizer1.uSupFan)
     annotation (Line(points={{-59,-80},{20,-80},{20,-34},{99,-34}}, color={255,0,255}));
-  connect(operationMode.y, economizer1.uOperationMode)
-    annotation (Line(points={{-99,-100},{22,-100},{22,-36},{99,-36}}, color={255,127,0}));
   connect(freProSta.y, economizer1.uFreProSta)
     annotation (Line(points={{-59,-120},{26,-120},{26,-40},{99,-40}}, color={255,127,0}));
-  connect(ZoneState.y, economizer1.)
-    annotation (Line(points={{-99,-60},{24,-60},{24,-38},{99,-38}}, color={255,127,0}));
   connect(hOutBelowCutoff.y, economizer1.hOut)
     annotation (Line(points={{-99,20},{0,20},{0,-22},{99,-22}}, color={0,0,127}));
   connect(hOutCut.y, economizer1.hOutCut)
     annotation (Line(points={{-99,-20},{0,-20},{0,-24},{99,-24}}, color={0,0,127}));
+  connect(operationMode.y, economizer1.uOpeMod)
+    annotation (Line(points={{-99,-100},{22,-100},{22,-36},{99,-36}}, color={255,127,0}));
+  connect(ZoneState.y, economizer1.uZonSta)
+    annotation (Line(points={{-99,-60},{24,-60},{24,-38},{99,-38}}, color={255,127,0}));
   annotation (
     experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Composite/Validation/EconomizerMultiZone_Mod_DamLim.mos"

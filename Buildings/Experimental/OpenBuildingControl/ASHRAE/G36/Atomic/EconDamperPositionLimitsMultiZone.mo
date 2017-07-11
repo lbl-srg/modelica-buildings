@@ -15,8 +15,8 @@ block EconDamperPositionLimitsMultiZone
   parameter Real conSigFraOutDam(min=conSigMin, max=conSigMax, unit="1")=0.5
     "Fraction of control loop signal output below which the outdoor air damper limit gets
     modulated and above which the return air damper limit gets modulated";
-  parameter Real kPIDamLim=1 "Gain of damper limit controller";
-  parameter Modelica.SIunits.Time TiPIDamLim=0.9 "Time constant of damper limit controller integrator block";
+  parameter Real kPDamLim=1 "Gain of damper limit controller";
+  parameter Modelica.SIunits.Time TiDamLim=0.9 "Time constant of damper limit controller integrator block";
 
   CDL.Interfaces.RealInput VOut_flow(unit="m3/s", quantity="VolumeFlowRate")
     "Measured outdoor volumetric airflow rate [fixme: which quantity attribute should we use, add for all volume flow]"
@@ -58,12 +58,12 @@ block EconDamperPositionLimitsMultiZone
         iconTransformation(extent={{100,-50},{120,-30}})));
 
   CDL.Continuous.LimPID damLimController(
-    Ti=TiPIDamLim,
+    Ti=TiDamLim,
     Td=0.1,
     final yMax=conSigMax,
     final yMin=conSigMin,
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
-    k=kPIDamLim) "Damper position limit controller"
+    k=kPDamLim) "Damper position limit controller"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
   CDL.Continuous.Line minOutDam(limitBelow=true, limitAbove=true)
     "Linear mapping of the outdoor air damper position to the control signal"
