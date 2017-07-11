@@ -29,7 +29,7 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
   CDL.Interfaces.RealInput VOut_flow(unit="m3/s", quantity="VolumeFlowRate")
-    "Measured outdoor volumetirc airflow rate [fixme: which quantity attribute should we use? add for all V]"
+    "Measured outdoor volumetric airflow rate"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
   CDL.Interfaces.RealInput VOutMinSet_flow(unit="m3/s", quantity="VolumeFlowRate")
@@ -158,29 +158,32 @@ equation
           color={0,0,127},
           thickness=0.5)}),
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
-  Documentation(info="<html>
-  <p>
-  This is multiple zone VAV AHU economizer control sequence. It calculates
-  outdoor and return air damper positions based on ASHRAE
-  Guidline 36, sections: PART5 N.2.c, N.5, N.6.c, N.7, A.17, N.12.
-  The sequence comprises the following atomic sequences:
-  <code>EconDamperPositionLimitsMultiZone</code>,
-  <code>EconEnableDisableMultiZone</code>, and
-  <code>EconModulationMultiZone</code>.
-  </p>
-  <p>
-  The structure of the economizer control sequence: [fixme: how do I remove the grey area from the image?]
-  </p>
-  <p align=\"center\">
-  <img alt=\"Image of the multizone AHU modulation sequence control diagram\"
-  src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Composite/EconCompositeSequenceMultiZone.png\"/>
-  </p>
-  </html>", revisions="<html>
-  <ul>
-  <li>
-  June 28, 2017, by Milica Grahovac:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"));
+Documentation(info="<html>
+<p>
+This is multiple zone VAV AHU economizer control sequence. It calculates
+outdoor and return air damper positions based on ASHRAE
+Guidline 36, sections: PART5 N.2.c, N.5, N.6.c, N.7, A.17, N.12.
+The sequence comprises the following atomic sequences:
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone</a>,
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconEnableDisableMultiZone</a>,
+and <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationMultiZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationMultiZone</a>.
+</p>
+<p>
+The structure of the economizer control sequence:
+</p>
+<p align=\"center\">
+<img alt=\"Image of the multizone AHU modulation sequence control diagram\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Composite/EconCompositeSequenceMultiZone.png\"/>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 28, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EconomizerMultiZone;
