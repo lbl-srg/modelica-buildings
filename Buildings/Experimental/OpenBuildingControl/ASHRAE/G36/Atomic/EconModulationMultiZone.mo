@@ -27,7 +27,7 @@ block EconModulationMultiZone
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1, unit="1")
     "Minimum economizer damper position limit as returned by the EconDamperPositionLimitsMultiZone sequence"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
-        iconTransformation(extent={{-120,-30},{-100,-10}})));    //fixme: add quantity for ALL damper positions?
+        iconTransformation(extent={{-120,-30},{-100,-10}})));
   CDL.Interfaces.RealInput uOutDamPosMax(min=0, max=1, unit="1")
     "Maximum economizer damper position limit as returned by the EconEnableDisableMultiZone sequence.
     If the economizer is disabled, this value equals uOutDamPosMin"
@@ -65,7 +65,6 @@ block EconModulationMultiZone
 >>>>>>> issue805_multizone_econ:Buildings/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconModulationMultiZone.mo
     "Contoller that outputs a signal based on the error between the measured SAT and SAT cooling setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-    //fixme: Td=0.1 - not used in the model, but still required by LimPID,
   CDL.Continuous.Line outDamPos(limitBelow=true, limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));

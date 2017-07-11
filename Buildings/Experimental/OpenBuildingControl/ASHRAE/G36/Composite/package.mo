@@ -1,7 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
 package Composite "Control sequences as defined in G36"
-
-
   annotation (Icon(graphics={
         Rectangle(
           extent={{-70,60},{-30,20}},
@@ -26,7 +24,7 @@ package Composite "Control sequences as defined in G36"
 Documentation(info="<html>
 <p>
 This package contains composite control sequences from
-ASHRAE Guideline 36. Composite sequences consist of atomic 
+ASHRAE Guideline 36. Composite sequences consist of atomic
 control sequences from <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic\">
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic</a> package.
 </p>

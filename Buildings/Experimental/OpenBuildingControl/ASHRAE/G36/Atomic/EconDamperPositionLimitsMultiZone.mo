@@ -19,7 +19,7 @@ block EconDamperPositionLimitsMultiZone
   parameter Modelica.SIunits.Time TiDamLim=0.9 "Time constant of damper limit controller integrator block";
 
   CDL.Interfaces.RealInput VOut_flow(unit="m3/s", quantity="VolumeFlowRate")
-    "Measured outdoor volumetric airflow rate [fixme: which quantity attribute should we use, add for all volume flow]"
+    "Measured outdoor volumetric airflow rate"
     annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
   CDL.Interfaces.RealInput VOutMinSet_flow(unit="m3/s", quantity="VolumeFlowRate")
