@@ -73,10 +73,10 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
   CDL.Continuous.Constant VOutMinSet_flow(k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
-  CDL.Continuous.Constant VOutMinSet_flow1(k=VOutSet_flow)
+  CDL.Continuous.Constant VOutMinSet1_flow(k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  CDL.Continuous.Constant VOutMinSet_flow2(k=VOutSet_flow)
+  CDL.Continuous.Constant VOutMinSet2_flow(k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
@@ -97,31 +97,30 @@ equation
     annotation (Line(points={{-179,30},{-150,30},{-150,-5},{-121,-5}}, color={0,0,127}));
   connect(fanStatus.y, ecoDamLim.uSupFan)
     annotation (Line(points={{-179,-10},{-160,-10},{-121,-10}}, color={255,0,255}));
-  connect(operationMode.y, ecoDamLim.uOperationMode)
-    annotation (Line(points={{-179,-50},{-160,-50},{-160,-28},{-160,-15},{-121,-15}},
-    color={255,127,0}));
   connect(freProSta.y, ecoDamLim.uFreProSta)
-    annotation (Line(points={{-179,-90},{-150,-90},{-150,-18},{-121,-18}}, color={255,127,0}));
+    annotation (Line(points={{-179,-90},{-140,-90},{-140,-18},{-121,-18}}, color={255,127,0}));
   connect(VOut1_flow.y, ecoDamLim1.VOut_flow) annotation (Line(points={{-39,70},{0,70},{
           0,-2},{19,-2}}, color={0,0,127}));
-  connect(VOutMinSet_flow1.y, ecoDamLim1.VOutMinSet_flow) annotation (Line(points={{-39,
+  connect(VOutMinSet1_flow.y, ecoDamLim1.VOutMinSet_flow) annotation (Line(points={{-39,
           30},{-10,30},{-10,-5},{19,-5}}, color={0,0,127}));
   connect(fanStatus1.y, ecoDamLim1.uSupFan) annotation (Line(points={{-39,-10},
           {-20,-10},{19,-10}}, color={255,0,255}));
-  connect(operationMode1.y, ecoDamLim1.uOperationMode) annotation (Line(points={{-39,-50},{
-          -20,-50},{-20,-28},{-20,-15},{19,-15}}, color={255,127,0}));
-  connect(freProSta1.y, ecoDamLim1.uFreProSta) annotation (Line(points={{-39,
-          -90},{-10,-90},{-10,-18},{19,-18}}, color={255,127,0}));
+  connect(freProSta1.y, ecoDamLim1.uFreProSta) annotation (Line(points={{-39,-90},{0,-90},{0,-18},{19,-18}},
+                                              color={255,127,0}));
   connect(VOut2_flow.y, ecoDamLim2.VOut_flow) annotation (Line(points={{101,70},{140,70},
           {140,-2},{159,-2}}, color={0,0,127}));
-  connect(VOutMinSet_flow2.y, ecoDamLim2.VOutMinSet_flow) annotation (Line(points={{101,
+  connect(VOutMinSet2_flow.y, ecoDamLim2.VOutMinSet_flow) annotation (Line(points={{101,
           30},{130,30},{130,-5},{159,-5}}, color={0,0,127}));
   connect(fanStatus2.y, ecoDamLim2.uSupFan) annotation (Line(points={{101,-10},
           {120,-10},{159,-10}}, color={255,0,255}));
-  connect(operationMode2.y, ecoDamLim2.uOperationMode) annotation (Line(points={{101,-50},{
-          120,-50},{120,-28},{120,-15},{159,-15}}, color={255,127,0}));
-  connect(freProSta2.y, ecoDamLim2.uFreProSta) annotation (Line(points={{101,
-          -90},{130,-90},{130,-18},{159,-18}}, color={255,127,0}));
+  connect(freProSta2.y, ecoDamLim2.uFreProSta) annotation (Line(points={{101,-90},{140,-90},{140,-18},{159,-18}},
+                                               color={255,127,0}));
+  connect(operationMode.y, ecoDamLim.uOpeMod)
+    annotation (Line(points={{-179,-50},{-150,-50},{-150,-15},{-121,-15}}, color={255,127,0}));
+  connect(operationMode1.y, ecoDamLim1.uOpeMod)
+    annotation (Line(points={{-39,-50},{-10,-50},{-10,-15},{19,-15}}, color={255,127,0}));
+  connect(operationMode2.y, ecoDamLim2.uOpeMod)
+    annotation (Line(points={{101,-50},{130,-50},{130,-15},{159,-15}}, color={255,127,0}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconDamperPositionLimitsMultiZone_LoopDisable.mos"

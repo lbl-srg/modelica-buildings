@@ -77,7 +77,7 @@ equation
     annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},color={255,127,0}));
   connect(OperationMode.y, economizer.uOperationMode)
     annotation (Line(points={{-59,-90},{-52,-90},{-52,-30},{-4,-30},{-4,4},{19,4}},color={255,127,0}));
-  connect(ZoneState.y, economizer.uZoneState)
+  connect(ZoneState.y, economizer.ERROR)
     annotation (Line(points={{-59,-60},{-50,-60},{-50,-32},{-2,-32},{-2,2},{19,2}}, color={255,127,0}));
   connect(TOutBelowCutoff.y, economizer.TOut)
     annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},color={0,0,127}));
@@ -113,7 +113,7 @@ equation
     annotation (Line(points={{-19,50},{70,50},{70,-12},{99,-12}}, color={0,0,127}));
   connect(fanStatus.y, economizer1.uSupFan)
     annotation (Line(points={{-19,-10},{20,-10},{20,-14},{99,-14}}, color={255,0,255}));
-  connect(ZoneState.y, economizer1.uZoneState)
+  connect(ZoneState.y, economizer1.ERROR)
     annotation (Line(points={{-59,-60},{20,-60},{20,-18},{99,-18}}, color={255,127,0}));
   connect(OperationMode.y, economizer1.uOperationMode)
     annotation (Line(points={{-59,-90},{18,-90},{18,-16},{99,-16}}, color={255,127,0}));
@@ -143,7 +143,7 @@ equation
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
           textString="Disable modulation
-(uZoneState is Heating),
+( is Heating),
 enable minimal
 outdoor air control"),
         Text(
@@ -152,7 +152,7 @@ outdoor air control"),
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
           textString="Disable modulation
-(uZoneState is Heating)
+( is Heating)
 disable minimal
 outdoor air control
 (uFreProSta is Stage2)")}),

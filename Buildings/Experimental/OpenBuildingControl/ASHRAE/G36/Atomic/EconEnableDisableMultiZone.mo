@@ -50,12 +50,12 @@ block EconEnableDisableMultiZone
         iconTransformation(extent={{-120,-90},{-100,-70}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply fan on/off status signal"
     annotation (Placement(transformation(extent={{-220,90},{-180,130}}),iconTransformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Interfaces.IntegerInput uZoneState "Zone state status signal"
-    annotation (Placement(transformation(extent={{-220,-30},{-180,10}}),
-        iconTransformation(extent={{-120,-10},{-100,10}})));
   CDL.Interfaces.IntegerInput uFreProSta "Freeze protection stage status signal"
     annotation (Placement(transformation(extent={{-220,30},{-180,70}}),
         iconTransformation(extent={{-120,10},{-100,30}})));
+  CDL.Interfaces.IntegerInput uZonSta "Zone state signal"
+    annotation (Placement(transformation(extent={{-220,-30},{-180,10}}),
+        iconTransformation(extent={{-120,-10},{-100,10}})));
 
   CDL.Interfaces.RealOutput yOutDamPosMax "Maximum outdoor air damper position"
     annotation (Placement(transformation(extent={{180,-150},{200,-130}}),
@@ -100,7 +100,7 @@ block EconEnableDisableMultiZone
   CDL.Logical.LessEqualThreshold equ(final threshold=freProDisabledNum)
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  CDL.Logical.GreaterThreshold greThr(final threshold=heatingNum) "Check if ZoneState is other than heating"
+  CDL.Logical.GreaterThreshold greThr(final threshold=heatingNum) "Check if zone state is other than heating"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   CDL.Logical.GreaterThreshold greThr2(final threshold=0) "Check if the timer got started"
     annotation (Placement(transformation(extent={{88,-182},{108,-162}})));
@@ -192,7 +192,6 @@ equation
   connect(intToRea.y, equ.u) annotation (Line(points={{-139,50},{-134,50},{-122,50}}, color={0,0,127}));
   connect(equ.y, andEnaDis.u2)
     annotation (Line(points={{-99,50},{-62,50},{-20,50},{-20,40},{38,40}},color={255,0,255}));
-  connect(uZoneState, intToRea1.u) annotation (Line(points={{-200,-10},{-182,-10},{-162,-10}}, color={255,127,0}));
   connect(intToRea1.y, greThr.u) annotation (Line(points={{-139,-10},{-134,-10},{-130,-10},{-122,-10}}, color={0,0,127}));
   connect(greThr.y, andEnaDis.u3)
     annotation (Line(points={{-99,-10},{-20,-10},{-20,32},{38,32}}, color={255,0,255}));
@@ -225,6 +224,7 @@ equation
     annotation (Line(points={{-200,110},{-102,110},{-102,102},{-2,102}},color={255,0,255}));
   connect(not2.y, and2.u3)
     annotation (Line(points={{11,-60},{20,-60},{20,-76},{78,-76},{78,-198},{128,-198}}, color={255,0,255}));
+  connect(intToRea1.u, uZonSta) annotation (Line(points={{-162,-10},{-170,-10},{-200,-10}}, color={255,127,0}));
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy),
     Icon(graphics={
         Rectangle(
@@ -291,7 +291,7 @@ and above"),                         Text(
           textString="Damper position
 limit assignments
 with delays"),                       Text(
-          extent={{102,18},{226,-34}},
+          extent={{102,18},{214,-30}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Zone state -

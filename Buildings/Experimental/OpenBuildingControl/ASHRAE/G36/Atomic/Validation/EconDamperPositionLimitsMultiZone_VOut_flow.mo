@@ -47,10 +47,10 @@ equation
     annotation (Line(points={{-39,40},{-10,40},{-10,5},{19,5}},color={0,0,127}));
   connect(fanStatus.y, ecoDamLim.uSupFan)
     annotation (Line(points={{-39,0},{-20,0},{19,0}},color={255,0,255}));
-  connect(operationMode.y, ecoDamLim.uOperationMode)
-    annotation (Line(points={{-39,-40},{-20,-40},{-20,-18},{-20,-5},{19,-5}},color={255,127,0}));
   connect(freProSta.y, ecoDamLim.uFreProSta)
-    annotation (Line(points={{-39,-80},{-10,-80},{-10,-8},{19,-8}},color={255,127,0}));
+    annotation (Line(points={{-39,-80},{0,-80},{0,-8},{19,-8}},    color={255,127,0}));
+  connect(operationMode.y, ecoDamLim.uOpeMod)
+    annotation (Line(points={{-39,-40},{-10,-40},{-10,-5},{19,-5}}, color={255,127,0}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconDamperPositionLimitsMultiZone_VOut_flow.mos"

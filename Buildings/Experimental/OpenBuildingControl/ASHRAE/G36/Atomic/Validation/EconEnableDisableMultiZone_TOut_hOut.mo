@@ -53,7 +53,7 @@ model EconEnableDisableMultiZone_TOut_hOut
 
 protected
   CDL.Integers.Constant ZoneState(k=deadbandNum) "Zone State is deadband"
-    annotation (Placement(transformation(extent={{-200,-12},{-180,8}})));
+    annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
   CDL.Continuous.Constant outDamPosMax(k=0.9) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-80},{-220,-60}})));
   CDL.Continuous.Constant outDamPosMin(k=0.1) "Minimal allowed economizer damper position"
@@ -91,8 +91,6 @@ equation
     annotation (Line(points={{-139,-150},{-106,-150},{-106,-40},{-81,-40}}, color={0,0,127}));
   connect(retDamPosMin.y, econEnableDisableMultiZone.uRetDamPosMin) annotation (
      Line(points={{-139,-190},{-102,-190},{-102,-42},{-81,-42}}, color={0,0,127}));
-  connect(econEnableDisableMultiZone.uZoneState, ZoneState.y)
-    annotation (Line(points={{-81,-30},{-140,-30},{-140,-2},{-179,-2}}, color={255,127,0}));
   connect(TOutCut1.y, econEnableDisableMultiZone1.TOutCut) annotation (Line(
         points={{21,90},{30,90},{30,-22},{79,-22}},color={0,0,127}));
   connect(hOutCut1.y, econEnableDisableMultiZone1.hOutCut) annotation (Line(
@@ -109,9 +107,7 @@ equation
   connect(hOut.y, econEnableDisableMultiZone1.hOut)
     annotation (Line(points={{-19,90},{-10,90},{-10,60},{20,60},{20,-24},{79,-24}}, color={0,0,127}));
   connect(FreProSta.y, econEnableDisableMultiZone1.uFreProSta) annotation (Line(
-        points={{-179,30},{-52,30},{-52,-28},{79,-28}}, color={255,127,0}));
-  connect(ZoneState.y, econEnableDisableMultiZone1.uZoneState) annotation (Line(
-        points={{-179,-2},{-160,-2},{-160,14},{4,14},{4,-30},{79,-30}},      color={255,127,0}));
+        points={{-179,30},{-46,30},{-46,-28},{79,-28}}, color={255,127,0}));
   connect(outDamPosMax.y, econEnableDisableMultiZone1.uOutDamPosMax)
     annotation (Line(points={{-219,-70},{8,-70},{8,-34},{79,-34}},     color={0,0,127}));
   connect(outDamPosMin.y, econEnableDisableMultiZone1.uOutDamPosMin)
@@ -128,8 +124,6 @@ equation
         points={{-139,90},{-120,90},{-120,120},{188,120},{188,-22},{219,-22}},color={0,0,127}));
   connect(FreProSta.y, econEnableDisableMultiZone2.uFreProSta) annotation (Line(
         points={{-179,30},{170,30},{170,-28},{219,-28}}, color={255,127,0}));
-  connect(ZoneState.y, econEnableDisableMultiZone2.uZoneState) annotation (Line(
-        points={{-179,-2},{-168,-2},{-168,20},{150,20},{150,-30},{219,-30}},color={255,127,0}));
   connect(outDamPosMax.y, econEnableDisableMultiZone2.uOutDamPosMax)
     annotation (Line(points={{-219,-70},{178,-70},{178,-34},{219,-34}}, color={0,0,127}));
   connect(outDamPosMin.y, econEnableDisableMultiZone2.uOutDamPosMin)
@@ -147,6 +141,12 @@ equation
         points={{-179,-32},{-160,-32},{-160,-12},{-20,-12},{-20,-32},{79,-32}},color={255,0,255}));
   connect(SupFanSta.y, econEnableDisableMultiZone2.uSupFan) annotation (Line(
         points={{-179,-32},{-170,-32},{-170,-12},{140,-12},{140,-32},{219,-32}},color={255,0,255}));
+  connect(ZoneState.y, econEnableDisableMultiZone.uZonSta)
+    annotation (Line(points={{-179,0},{-132,0},{-132,-30},{-81,-30}}, color={255,127,0}));
+  connect(ZoneState.y, econEnableDisableMultiZone1.uZonSta)
+    annotation (Line(points={{-179,0},{-48,0},{-48,-30},{79,-30}}, color={255,127,0}));
+  connect(ZoneState.y, econEnableDisableMultiZone2.uZonSta)
+    annotation (Line(points={{-179,0},{160,0},{160,-30},{160,-30},{220,-30},{220,-30},{219,-30}}, color={255,127,0}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconEnableDisableMultiZone_TOut_hOut.mos"

@@ -79,7 +79,7 @@ equation
     annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},color={255,127,0}));
   connect(operationMode.y, economizer.uOperationMode)
     annotation (Line(points={{-99,-100},{-50,-100},{-50,-30},{-4,-30},{-4,4},{19,4}},color={255,127,0}));
-  connect(ZoneState.y, economizer.uZoneState)
+  connect(ZoneState.y, economizer.)
     annotation (Line(points={{-99,-60},{-48,-60},{-48,-32},{-2,-32},{-2,2},{19,2}}, color={255,127,0}));
   connect(TOutBelowCutoff.y, economizer.TOut)
     annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},color={0,0,127}));
@@ -114,7 +114,7 @@ equation
     annotation (Line(points={{-99,-100},{22,-100},{22,-36},{99,-36}}, color={255,127,0}));
   connect(freProSta.y, economizer1.uFreProSta)
     annotation (Line(points={{-59,-120},{26,-120},{26,-40},{99,-40}}, color={255,127,0}));
-  connect(ZoneState.y, economizer1.uZoneState)
+  connect(ZoneState.y, economizer1.)
     annotation (Line(points={{-99,-60},{24,-60},{24,-38},{99,-38}}, color={255,127,0}));
   connect(hOutBelowCutoff.y, economizer1.hOut)
     annotation (Line(points={{-99,20},{0,20},{0,-22},{99,-22}}, color={0,0,127}));

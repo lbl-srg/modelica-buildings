@@ -1,6 +1,15 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
 package Atomic "Subsequences as defined in guideline G36"
-  annotation (Documentation(info="<html>
+
+
+
+
+
+  annotation (Icon(graphics={Rectangle(
+            extent={{-60,60},{60,-60}},
+            lineColor={0,0,127},
+            lineThickness=0.5)}),
+            Documentation(info="<html>
   <p>
   This package contains atomic control sequences from
   ASHRAE Guideline 36 (G36). The sequences are created using CDL basic blocks:
@@ -23,8 +32,5 @@ package Atomic "Subsequences as defined in guideline G36"
   First implementation.
   </li>
   </ul>
-  </html>"),Icon(graphics={Rectangle(
-            extent={{-60,60},{60,-60}},
-            lineColor={0,0,127},
-            lineThickness=0.5)}));
-  end Atomic;
+  </html>"));
+end Atomic;

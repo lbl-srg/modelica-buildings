@@ -79,14 +79,10 @@ equation
         points={{-79,110},{-60,110},{-60,56},{10,56},{10,-24},{81,-24}}, color={0,0,127}));
   connect(hOutCut.y, econEnableDisableMultiZone1.hOutCut) annotation (Line(
         points={{-79,70},{-70,70},{-70,54},{6,54},{6,-26},{81,-26}}, color={0,0,127}));
-  connect(zoneState.y, econEnableDisableMultiZone.uZoneState) annotation (Line(
-        points={{-139,10},{-120,10},{-120,50},{81,50}}, color={255,127,0}));
   connect(freProSta.y, econEnableDisableMultiZone.uFreProSta)
     annotation (Line(points={{-139,50},{-130,50},{-130,52},{81,52}}, color={255,127,0}));
   connect(freProSta1.y, econEnableDisableMultiZone1.uFreProSta)
-    annotation (Line(points={{61,-110},{70,-110},{70,-28},{81,-28}}, color={255,127,0}));
-  connect(zoneState1.y, econEnableDisableMultiZone1.uZoneState) annotation (
-      Line(points={{61,-70},{72,-70},{72,-30},{81,-30}}, color={255,127,0}));
+    annotation (Line(points={{61,-110},{68,-110},{68,-28},{81,-28}}, color={255,127,0}));
   connect(retDamPosMax.y, econEnableDisableMultiZone.uRetDamPosMax) annotation (
      Line(points={{-79,-50},{-68,-50},{-68,40},{81,40}}, color={0,0,127}));
   connect(retDamPhyPosMax.y, econEnableDisableMultiZone.uRetDamPhyPosMax)
@@ -111,6 +107,10 @@ equation
         points={{-139,-30},{-34,-30},{-34,48},{81,48}}, color={255,0,255}));
   connect(SupFanSta.y, econEnableDisableMultiZone1.uSupFan) annotation (Line(
         points={{-139,-30},{-34,-30},{-34,-32},{81,-32}}, color={255,0,255}));
+  connect(zoneState.y, econEnableDisableMultiZone.uZonSta)
+    annotation (Line(points={{-139,10},{-100,10},{-100,50},{81,50}}, color={255,127,0}));
+  connect(zoneState1.y, econEnableDisableMultiZone1.uZonSta)
+    annotation (Line(points={{61,-70},{70,-70},{70,-30},{81,-30}}, color={255,127,0}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconEnableDisableMultiZone_FreProSta_ZonSta.mos"

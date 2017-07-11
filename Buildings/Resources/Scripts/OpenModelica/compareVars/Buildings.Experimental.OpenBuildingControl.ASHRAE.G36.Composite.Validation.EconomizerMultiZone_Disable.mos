@@ -1,13 +1,13 @@
 compareVars :=
   {
     "economizer.econEnableDisableMultiZone.andEnaDis.y",
-    "economizer.uZonSta",
+    "economizer.uZoneState",
     "economizer.ecoDamLim.yOutDamPosMin",
     "economizer.ecoDamLim.yRetDamPosMax",
     "economizer.yOutDamPos",
     "economizer.yRetDamPos",
     "economizer1.econEnableDisableMultiZone.andEnaDis.y",
-    "economizer1.uZonSta",
+    "economizer1.uZoneState",
     "economizer1.uFreProSta",
     "economizer1.ecoDamLim.yOutDamPosMin",
     "economizer1.ecoDamLim.yRetDamPosMax",

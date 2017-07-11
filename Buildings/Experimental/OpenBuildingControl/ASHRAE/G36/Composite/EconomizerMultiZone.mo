@@ -39,12 +39,9 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
   CDL.Interfaces.IntegerInput uFreProSta "Freeze protection status"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}}),
       iconTransformation(extent={{-120,-110},{-100,-90}})));
-  CDL.Interfaces.IntegerInput uOperationMode "AHU operation mode status signal"
+  CDL.Interfaces.IntegerInput uOpeMod "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}}),
       iconTransformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Interfaces.IntegerInput uZoneState "Zone state input"
-    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}}),
-    iconTransformation(extent={{-120,-90},{-100,-70}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));
@@ -82,11 +79,13 @@ protected
   parameter Modelica.SIunits.Temperature delTemHis=1
     "Delta between the temperature hysteresis high and low limits";
 
+public
+  CDL.Interfaces.IntegerInput uZonSta "Zone state signal"
+    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}}),
+        iconTransformation(extent={{-120,-90},{-100,-70}})));
 equation
   connect(uSupFan, econEnableDisableMultiZone.uSupFan)
     annotation (Line(points={{-130,-40},{-80,-40},{-80,-32},{-1,-32}},color={255,0,255}));
-  connect(uZoneState, econEnableDisableMultiZone.uZoneState)
-    annotation (Line(points={{-130,-100},{-70,-100},{-70,-30},{-1,-30}},color={255,127,0}));
   connect(uFreProSta, econEnableDisableMultiZone.uFreProSta)
     annotation (Line(points={{-130,-120},{-60,-120},{-60,-28},{-1,-28}},color={255,127,0}));
   connect(hOutCut, econEnableDisableMultiZone.hOutCut)
@@ -103,7 +102,7 @@ equation
     annotation (Line(points={{-130,20},{-110,20},{-110,18},{-81,18}},color={0,0,127}));
   connect(uSupFan, ecoDamLim.uSupFan)
     annotation (Line(points={{-130,-40},{-104,-40},{-104,10},{-81,10}},color={255,0,255}));
-  connect(uOperationMode, ecoDamLim.uOperationMode)
+  connect(uOpeMod, ecoDamLim.uOpeMod)
     annotation (Line(points={{-130,-80},{-102,-80},{-102,4},{-102,5},{-81,5}}, color={255,127,0}));
   connect(uFreProSta, ecoDamLim.uFreProSta)
     annotation (Line(points={{-130,-120},{-100,-120},{-100,2},{-81,2}},color={255,127,0}));
@@ -139,6 +138,8 @@ equation
   connect(yRetDamPos, yRetDamPos) annotation (Line(points={{130,40},{130,40}}, color={0,0,127}));
   connect(econEnableDisableMultiZone.yRetDamPosMin, ecoMod.uRetDamPosMin)
     annotation (Line(points={{22,-38},{54,-38},{54,0},{54,1},{59,1}}, color={0,0,127}));
+  connect(uZonSta, econEnableDisableMultiZone.uZonSta)
+    annotation (Line(points={{-130,-100},{-58,-100},{-58,-30},{-1,-30}}, color={255,127,0}));
   annotation (defaultComponentName = "multiZoneEconomizer",
         Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
