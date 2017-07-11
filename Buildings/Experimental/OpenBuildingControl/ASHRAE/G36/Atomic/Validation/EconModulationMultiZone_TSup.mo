@@ -13,7 +13,6 @@ model EconModulationMultiZone_TSup
     height=4,
     offset=TCooSet - 2) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-
   CDL.Continuous.Constant outDamPosMin(k=0)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   CDL.Continuous.Constant outDamPosMax(k=1)

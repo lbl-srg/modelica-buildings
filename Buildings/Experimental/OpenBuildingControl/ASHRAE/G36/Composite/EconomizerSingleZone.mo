@@ -145,16 +145,18 @@ equation
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
-        Line(points={{-66,-36},{-42,-36},{-4,40},{34,40}}, color={28,108,200},
+        Line(
+          points={{-66,-36},{-42,-36},{-4,40},{34,40}},
+          color={0,0,127},
           thickness=0.5),
         Line(
           points={{-64,40},{-38,40},{2,-40},{66,-40}},
-          color={28,108,200},
+          color={0,0,127},
           pattern=LinePattern.Dash,
           thickness=0.5),
         Line(
           points={{34,40},{34,-36},{34,-36},{66,-36}},
-          color={28,108,200},
+          color={0,0,127},
           thickness=0.5)}),
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
 Documentation(info="<html>

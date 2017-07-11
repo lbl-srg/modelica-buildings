@@ -3,9 +3,9 @@ block EconEnableDisableSingleZone "Single zone VAV AHU economizer enable/disable
 
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air (OA) enthalpy in addition to temperature";
-  parameter Real delTemHis(unit="K", quantity="TermodynamicTemperature")=1
+  parameter Modelica.SIunits.Temperature delTemHis=1
     "Delta between the temperature hysteresis high and low limit";
-  parameter Real delEntHis(unit="J/kg", quantity="SpecificEnergy")=1000
+  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
     "Delta between the enthalpy hysteresis high and low limits"
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy));
   parameter Modelica.SIunits.Time smaDisDel = 0
@@ -26,7 +26,7 @@ block EconEnableDisableSingleZone "Single zone VAV AHU economizer enable/disable
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-220,210},{-180,250}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput hOutCut(unit="J/kg") if use_enthalpy
+  CDL.Interfaces.RealInput hOutCut(unit="J/kg", quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),iconTransformation(extent={{-120,30},{-100,50}})));
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1)
@@ -39,7 +39,7 @@ block EconEnableDisableSingleZone "Single zone VAV AHU economizer enable/disable
         iconTransformation(extent={{-120,-50},{-100,-30}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply fan on/off status signal"
     annotation (Placement(transformation(extent={{-220,90},{-180,130}}),iconTransformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Interfaces.IntegerInput uZoneState "Zone state status signal"
+  CDL.Interfaces.IntegerInput uZonSta "Zone state status signal"
     annotation (Placement(transformation(extent={{-220,-30},{-180,10}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
   CDL.Interfaces.IntegerInput uFreProSta "Freeze protection stage status signal"
@@ -168,7 +168,7 @@ equation
   connect(intToRea.y, equ.u) annotation (Line(points={{-139,50},{-134,50},{-122,50}}, color={0,0,127}));
   connect(equ.y, andEnaDis.u2)
     annotation (Line(points={{-99,50},{-62,50},{-20,50},{-20,40},{38,40}},color={255,0,255}));
-  connect(uZoneState, intToRea1.u) annotation (Line(points={{-200,-10},{-182,-10},{-162,-10}}, color={255,127,0}));
+  connect(uZonSta, intToRea1.u) annotation (Line(points={{-200,-10},{-182,-10},{-162,-10}}, color={255,127,0}));
   connect(intToRea1.y, greThr.u) annotation (Line(points={{-139,-10},{-134,-10},{-130,-10},{-122,-10}}, color={0,0,127}));
   connect(greThr.y, andEnaDis.u3)
     annotation (Line(points={{-99,-10},{-20,-10},{-20,32},{38,32}}, color={255,0,255}));

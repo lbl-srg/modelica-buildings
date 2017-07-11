@@ -12,9 +12,9 @@ block EconDamperPositionLimitsSingleZone
     "Outdoor air damper position, when fan operating at maximum speed to supply minimum outdoor air flow";
   parameter Real desPosMax(min=0, max=1, unit="1") = 0.8
     "Outdoor air damper position, when fan operating at maximum speed to supply design outdoor air flow";
-  parameter Modelica.SIunits.MassFlowRate minVOut_flowSet = 1.0
+  parameter Modelica.SIunits.MassFlowRate minVOutSet_flow = 1.0
     "fixme: minimum outdoor airflow rate (Vbz_A/EzC). Should we use unit kg/s as the unit?";
-  parameter Modelica.SIunits.MassFlowRate desVOut_flowSet = 2.0
+  parameter Modelica.SIunits.MassFlowRate desVOutSet_flow = 2.0
     "fixme: design outdoor airflow rate (Vbz_A+Vbz_p)/EzH. Should we use unit kg/s as the unit?";
   parameter Real outDamPhyPosMax(min=0, max=1, unit="1") = 1
     "Physically fixed maximum position of the outdoor air damper";
@@ -23,7 +23,7 @@ block EconDamperPositionLimitsSingleZone
 
   CDL.Interfaces.RealInput uSupFanSpe(min=minFanSpe, max=maxFanSpe, unit="1") "Current supply fan speed"
     annotation (Placement(transformation(extent={{-220,90},{-180,130}}),iconTransformation(extent={{-220,90},{-180,130}})));
-  CDL.Interfaces.RealInput uVOut_flowMinSet(min=minVOut_flowSet, max=desVOut_flowSet)
+  CDL.Interfaces.RealInput uVOutMinSet_flow(min=minVOutSet_flow, max=desVOutSet_flow)
     "fixme: Minimum outdoor airflow requirement (setpoint, kg/s?), output of a separate sequence that calculates this value based on ASHRAE Standard 62.1-2013 or California Title 24"
     annotation (Placement(transformation(extent={{-220,180},{-180,220}}),
         iconTransformation(extent={{-220,180},{-180,220}})));
@@ -56,9 +56,9 @@ block EconDamperPositionLimitsSingleZone
   CDL.Continuous.Constant desPosAtMaxSpe(k=desPosMax)
     "Outdoor air damper position, when fan operating at maximum speed to supply design outdoor air flow"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-  CDL.Continuous.Constant minOA(k=minVOut_flowSet) "Minimum outdoor airflow rate"
+  CDL.Continuous.Constant minOA(k=minVOutSet_flow) "Minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-20,150},{0,170}})));
-  CDL.Continuous.Constant desOA(k=desVOut_flowSet) "Design outdoor airflow rate"
+  CDL.Continuous.Constant desOA(k=desVOutSet_flow) "Design outdoor airflow rate"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   CDL.Continuous.Line minPosAtCurSpe(limitBelow=true, limitAbove=true)
     "Outdoor air damper position, when fan operating at current speed to supply minimum outdoor air flow"
@@ -142,7 +142,7 @@ equation
     annotation (Line(points={{-119,60},{-70,60},{-70,38},{-22,38}}, color={0,0,127}));
   connect(maxFanSpeSig.y, desPosAtCurSpe.x2)
     annotation (Line(points={{-119,90},{-80,90},{-80,26},{-22,26}}, color={0,0,127}));
-  connect(uVOut_flowMinSet, minOutDamForOutMinSet.u)
+  connect(uVOutMinSet_flow, minOutDamForOutMinSet.u)
     annotation (Line(points={{-200,200},{-90,200},{30,200},{30,100},{58,100}}, color={0,0,127}));
   connect(uSupFanSpe, desPosAtCurSpe.u)
     annotation (Line(points={{-200,110},{-110,110},{-110,30},{-22,30}}, color={0,0,127}));
@@ -273,25 +273,25 @@ According to article from G36,
 <ul>
 <li>
 based on current supply fan speed (<code>uSupFanSpe</code>), it calculates outdoor air damper position (<code>minPosAtCurSpe</code>),
-to ensure minimum outdoor air flow rate (<code>minVOut_flowSet</code>);
+to ensure minimum outdoor air flow rate (<code>minVOutSet_flow</code>);
 </li>
 </ul>
 <ul>
 <li>
 based on current supply fan speed (<code>uSupFanSpe</code>), it calculates outdoor air damper position (<code>desPosAtCurSpe</code>),
-to ensure design outdoor air flow rate (<code>desVOut_flowSet</code>);
+to ensure design outdoor air flow rate (<code>desVOutSet_flow</code>);
 </li>
 </ul>
 <ul>
 <li>
 given the calculated air damper positions (<code>minPosAtCurSpe</code>, <code>desPosAtCurSpe</code>)
-and the outdoor air flow rate limits (<code>minVOut_flowSet</code>, <code>desVOut_flowSet</code>),
+and the outdoor air flow rate limits (<code>minVOutSet_flow</code>, <code>desVOutSet_flow</code>),
 it caculates the minimum outdoor air damper position (<code>yOutDamPosMin</code>),
-to ensure outdoor air flow rate setpoint (<code>uVOut_flowMinSet</code>)
+to ensure outdoor air flow rate setpoint (<code>uVOutMinSet_flow</code>)
 under current supply fan speed (<code>uSupFanSpe</code>).
 </li>
 </ul>
-Both the outdoor air flow rate setpoint (code>uVOut_flowMinSet</code>)
+Both the outdoor air flow rate setpoint (code>uVOutMinSet_flow</code>)
 and current supply fan speed (<code>uSupFanSpe</code>) are output from separate sequences.
 </p>
 <p>

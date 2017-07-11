@@ -3,9 +3,9 @@ model EconEnableDisableSingleZone_TOut_hOut
   "Model validates economizer disable in case outdoor air conditions are above cutoff"
   extends Modelica.Icons.Example;
 
-  parameter Real TOutCutoff(final unit="K", quantity="TermodynamicTemperature")=297
+  parameter Modelica.SIunits.Temperature TOutCutoff=297
     "Outdoor temperature high limit cutoff";
-  parameter Real hOutCutoff(final unit="J/kg", quantity="SpecificEnergy")=65100
+  parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
   parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
     "Indicates that the freeze protection is disabled";
@@ -84,7 +84,7 @@ equation
   connect(outDamPosMin.y, econEnableDisableSingleZone.uOutDamPosMin)
     annotation (Line(points={{-219,-150},{-210,-150},{-210,-100},{-140,-100},{-140,-76},{-81,-76}},
         color={0,0,127}));
-  connect(econEnableDisableSingleZone.uZoneState, ZoneState.y)
+  connect(econEnableDisableSingleZone.uZonSta, ZoneState.y)
     annotation (Line(points={{-81,-70},{-140,-70},{-140,-40},{-179,-40}},
                                                                         color={255,127,0}));
   connect(TOutCut1.y, econEnableDisableSingleZone1.TOutCut) annotation (Line(
@@ -105,7 +105,7 @@ equation
   connect(FreProSta.y, econEnableDisableSingleZone1.uFreProSta) annotation (Line(
         points={{-179,-10},{-30,-10},{-30,-68},{79,-68}},
                                                         color={255,127,0}));
-  connect(ZoneState.y, econEnableDisableSingleZone1.uZoneState) annotation (Line(
+  connect(ZoneState.y, econEnableDisableSingleZone1.uZonSta) annotation (Line(
         points={{-179,-40},{-160,-40},{-160,-26},{4,-26},{4,-70},{79,-70}},  color={255,127,0}));
   connect(outDamPosMax.y, econEnableDisableSingleZone1.uOutDamPosMax)
     annotation (Line(points={{-219,-110},{8,-110},{8,-74},{79,-74}},   color={0,0,127}));
@@ -118,7 +118,7 @@ equation
   connect(FreProSta.y, econEnableDisableSingleZone2.uFreProSta) annotation (Line(
         points={{-179,-10},{170,-10},{170,-68},{219,-68}},
                                                          color={255,127,0}));
-  connect(ZoneState.y, econEnableDisableSingleZone2.uZoneState) annotation (Line(
+  connect(ZoneState.y, econEnableDisableSingleZone2.uZonSta) annotation (Line(
         points={{-179,-40},{-170,-40},{-170,-20},{150,-20},{150,-70},{219,-70}},
                                                                             color={255,127,0}));
   connect(outDamPosMax.y, econEnableDisableSingleZone2.uOutDamPosMax)
