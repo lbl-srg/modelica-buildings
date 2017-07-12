@@ -186,7 +186,7 @@ equation
   connect(retDamPhyPosMinSig.y, MinRetDamSwitch.u3)
     annotation (Line(points={{-119,-248},{0,-248},{38,-248}}, color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, yRetDamPosMax)
-    annotation (Line(points={{-119,-210},{190,-210},{190,-210}}, color={0,0,127}));
+    annotation (Line(points={{-119,-210},{190,-210}},            color={0,0,127}));
   connect(and2.y, MinRetDamSwitch.u2)
     annotation (Line(points={{141,-160},{150,-160},{150,-200},{30,-200},{30,-240},{38,-240}}, color={255,0,255}));
   connect(not2.y, and2.u1)
