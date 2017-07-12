@@ -175,7 +175,7 @@ modulation sequence assuming a well tuned controller. Control diagram:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the multizone AHU modulation sequence control diagram\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/EconModulationControlDiagramMultiZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconModulationControlDiagramMultiZone.png\"/>
 </p>
 <p>
 Multizone AHU economizer modulation control chart:
@@ -183,7 +183,7 @@ Multizone AHU economizer modulation control chart:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the multizone AHU modulation sequence expected performance\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/AtomicSequences/EconModulationControlChartMultiZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconModulationControlChartMultiZone.png\"/>
 </p>
 
 </html>", revisions="<html>
