@@ -27,10 +27,10 @@ block EconDamperPositionLimitsSingleZone
 
   CDL.Interfaces.RealInput uSupFanSpe(min=minFanSpe, max=maxFanSpe, unit="1") "Supply fan speed"
     annotation (Placement(transformation(extent={{-220,90},{-180,130}}),
-      iconTransformation(extent={{-220,90},{-180,130}})));
+      iconTransformation(extent={{-120,28},{-100,48}})));
   CDL.Interfaces.RealInput uVOutMinSet_flow(min=minVOut_flow, max=desVOut_flow) "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-220,180},{-180,220}}),
-      iconTransformation(extent={{-220,180},{-180,220}})));
+      iconTransformation(extent={{-120,60},{-100,80}})));
   CDL.Interfaces.IntegerInput uOperationMode "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
     iconTransformation(extent={{-120,-60},{-100,-40}})));
@@ -39,14 +39,14 @@ block EconDamperPositionLimitsSingleZone
     iconTransformation(extent={{-120,-90},{-100,-70}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply fan status signal"
     annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),
-        iconTransformation(extent={{-120,-10},{-100,10}})));
+        iconTransformation(extent={{-120,-30},{-100,-10}})));
 
   CDL.Interfaces.RealOutput yOutDamPosMin(min=outDamPhyPosMin, max=outDamPhyPosMax, unit="1")
     "Minimum outdoor air damper position limit" annotation (Placement(transformation(extent={{180,70},{200,90}}),
-      iconTransformation(extent={{180,70},{200,90}})));
+      iconTransformation(extent={{100,30},{120,50}})));
   CDL.Interfaces.RealOutput yOutDamPosMax(min=outDamPhyPosMin, max=outDamPhyPosMax, unit="1")
     "Maximum outdoor air damper position limit" annotation (Placement(transformation(extent={{180,110},{200,130}}),
-    iconTransformation(extent={{180,10},{200,30}})));
+    iconTransformation(extent={{100,-50},{120,-30}})));
 
 protected
   parameter Types.FreezeProtectionStage allowedFreProSta = Types.FreezeProtectionStage.stage1
@@ -177,69 +177,63 @@ equation
                 Placement(transformation(extent={{-140,160},{-120,180}})),
                 Placement(transformation(extent={{-140,0},{-120,20}})),
     defaultComponentName = "ecoDamLim",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,200}}),
-                                                                graphics={
+    Icon(graphics={
         Rectangle(
-        extent={{-180,-140},{180,200}},
+        extent={{-100,-100},{100,100}},
         lineColor={0,0,0},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
-        Line(points={{-112,130},{-112,-80},{148,-80}}, color={0,0,127}),
         Ellipse(
-          extent={{-88,124},{-84,120}},
+          extent={{-76,80},{-72,76}},
           lineColor={28,108,200},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-88,-26},{-84,-30}},
+          extent={{-78,-56},{-74,-60}},
           lineColor={28,108,200},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{96,96},{100,92}},
+          extent={{72,60},{76,56}},
           lineColor={28,108,200},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{96,-48},{100,-52}},
+          extent={{72,-74},{76,-78}},
           lineColor={28,108,200},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-86,122},{98,94}},
+          points={{-74,78},{72,58}},
           color={0,0,127},
           thickness=0.5),
         Line(
-          points={{-86,-28},{98,-50}},
+          points={{-74,-58},{74,-76}},
           color={0,0,127},
           thickness=0.5),
         Line(
-          points={{14,-40},{14,108}},
+          points={{-2,-66},{-2,70}},
           color={0,0,127},
           thickness=0.5),
         Rectangle(
-          extent={{12,-38},{16,-42}},
+          extent={{-4,-64},{0,-68}},
           lineColor={0,0,127},
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{12,110},{16,106}},
-          lineColor={0,0,127},
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{14,6},{-112,6}},
-          color={0,0,127},
-          pattern=LinePattern.Dot),
-        Polygon(
-          points={{14,10},{10,6},{14,2},{18,6},{14,10}},
+          extent={{-4,70},{0,66}},
           lineColor={0,0,127},
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-148,244},{104,208}},
+          extent={{-124,146},{128,110}},
           lineColor={0,0,127},
-          textString="%name")}),
+          textString="%name"),
+        Ellipse(
+          extent={{-4,-10},{0,-14}},
+          lineColor={28,108,200},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(                           extent={{-180,-220},{180,220}},
         initialScale=0.1), graphics={
         Rectangle(
