@@ -111,6 +111,9 @@ protected
   CDL.Logical.Equal equ1 "Logical equal block"
     annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
 
+  CDL.Logical.Switch enaDis1
+    "Logical switch to enable damper position limit calculation or disable it (set limit to physical minimum)"
+    annotation (Placement(transformation(extent={{140,20},{160,40}})));
 equation
   connect(minVOutSig.y, minVOutSetCurFanSpePos.x1)
     annotation (Line(points={{1,160},{50,160},{50,108},{58,108}}, color={0,0,127}));
@@ -132,8 +135,6 @@ equation
     annotation (Line(points={{-119,170},{-60,170},{-60,112},{-22,112}},color={0,0,127}));
   connect(uSupFanSpe, minVOutCurFanSpePos.u)
     annotation (Line(points={{-200,110},{-110,110},{-110,120},{-22,120}},color={0,0,127}));
-  connect(outDamPhyPosMaxSig.y, yOutDamPosMax)
-    annotation (Line(points={{101,30},{110,30},{110,120},{190,120}}, color={0,0,127}));
   connect(maxFanSpeSig.y, minVOutCurFanSpePos.x2)
     annotation (Line(points={{-119,90},{-66,90},{-66,116},{-22,116}}, color={0,0,127}));
   connect(minFanSpeSig.y, minVOutCurFanSpePos.x1)
@@ -169,6 +170,12 @@ equation
     annotation (Line(points={{101,-10},{120,-10},{120,88},{138,88}}, color={0,0,127}));
   connect(minVOutSetCurFanSpePos.y, enaDis.u3)
     annotation (Line(points={{81,100},{100,100},{100,72},{138,72}}, color={0,0,127}));
+  connect(outDamPhyPosMinSig.y, enaDis1.u1)
+    annotation (Line(points={{101,-10},{120,-10},{120,38},{138,38}}, color={0,0,127}));
+  connect(outDamPhyPosMaxSig.y, enaDis1.u3)
+    annotation (Line(points={{101,30},{110,30},{110,22},{138,22}}, color={0,0,127}));
+  connect(enaDis1.y, yOutDamPosMax) annotation (Line(points={{161,30},{172,30},{172,120},{190,120}}, color={0,0,127}));
+  connect(not1.y, enaDis1.u2) annotation (Line(points={{-19,-70},{130,-70},{130,30},{138,30}}, color={255,0,255}));
     annotation (Placement(transformation(extent={{-20,110},{0,130}})),
                 Placement(transformation(extent={{-20,20},{0,40}})),
                 Placement(transformation(extent={{60,90},{80,110}})),
