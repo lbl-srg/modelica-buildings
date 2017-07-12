@@ -88,7 +88,7 @@ equation
   connect(retDamPosMax.y, ecoEnaDis.uRetDamPosMax)
     annotation (Line(points={{-139,-150},{-106,-150},{-106,-40},{-81,-40}}, color={0,0,127}));
   connect(retDamPosMin.y, ecoEnaDis.uRetDamPosMin)
-    annotation (Line(points={{-139,-190},{-102,-190},{-102,-42},{-81,-42}}, color={0,0,127}));
+    annotation (Line(points={{-139,-190},{-100,-190},{-100,-42},{-81,-42}}, color={0,0,127}));
   connect(TOutCut1.y, ecoEnaDis1.TOutCut)
     annotation (Line(points={{21,90},{30,90},{30,-22},{79,-22}}, color={0,0,127}));
   connect(hOutCut1.y, ecoEnaDis1.hOutCut)
@@ -115,7 +115,7 @@ equation
   connect(retDamPosMax.y, ecoEnaDis1.uRetDamPosMax)
     annotation (Line(points={{-139,-150},{20,-150},{20,-40},{79,-40}}, color={0,0,127}));
   connect(retDamPosMin.y, ecoEnaDis1.uRetDamPosMin)
-    annotation (Line(points={{-139,-190},{32,-190},{32,-42},{79,-42}}, color={0,0,127}));
+    annotation (Line(points={{-139,-190},{30,-190},{30,-42},{79,-42}}, color={0,0,127}));
   connect(TOut.y, ecoEnaDis2.TOut)
     annotation (Line(points={{-139,130},{-82,130},{200,130},{200,-20},{219,-20}}, color={0,0,127}));
   connect(TOutCut.y, ecoEnaDis2.TOutCut)
