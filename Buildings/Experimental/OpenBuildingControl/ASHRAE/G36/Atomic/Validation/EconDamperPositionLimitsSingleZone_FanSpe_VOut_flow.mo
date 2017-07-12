@@ -1,28 +1,33 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.Validation;
 model EconDamperPositionLimitsSingleZone_FanSpe_VOut_flow
-  "Validation model for the Singleple zone VAV AHU minimum outdoor air control - damper position limits"
+  "Validation model for the Single zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
-    "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=0.61
-    "Minimal measured volumetric airflow";
-  parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=0.2
-    "Maximum volumetric airflow increase during the example simulation";
+  parameter Real minFanSpe=0.1 "Minimum supply fan operation speed";
+  parameter Real maxFanSpe=0.9 "Maximum supply fan operation speed";
+  parameter Real delFanSpe = maxFanSpe - minFanSpe "Delta between the min and max supply fan speed";
+  parameter Real fanSpe = (maxFanSpe + minFanSpe)/2 "Constant supply fan speed";
+  parameter Modelica.SIunits.VolumeFlowRate desVOut_flow=2.0 "Calculated design outdoor airflow rate";
+  parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=1.0 "Calculated minimum outdoor airflow rate";
+  parameter Modelica.SIunits.VolumeFlowRate delVOut_flow = desVOut_flow - minVOut_flow
+    "Delta between minimum and design outdoor airflow rate";
+  parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=(desVOut_flow + minVOut_flow)/2
+    "Constant minimum outdoor airflow setpoint";
 
-  CDL.Continuous.Constant VOutMinSet_flow(k=minVOutSet_flow)
-    "Outdoor volumetric airflow rate setpoint, 15cfm/occupant and 100 occupants"
-    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
-  Modelica.Blocks.Sources.Ramp VOut_flow(
+  CDL.Continuous.Constant VOutMinSetSig(k=VOutSet_flow)
+    "Constant minimum outdoor airflow setpoint" annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+  Modelica.Blocks.Sources.Ramp SupFanSpeSig(
     duration=1800,
-    offset=minVOut_flow,
-    height=incVOutSet_flow)
-    "Measured outdoor airflow rate"
-    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+    offset=minFanSpe,
+    height=delFanSpe) "Supply fan speed signal" annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 
-  EconDamperPositionLimitsSingleZone ecoDamLim
-    "Singleple zone VAV AHU minimum outdoor air control - damper position limits"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  EconDamperPositionLimitsSingleZone ecoDamLim(
+    minFanSpe=minFanSpe,
+    maxFanSpe=maxFanSpe,
+    minVOut_flow=minVOut_flow,
+    desVOut_flow=desVOut_flow)
+    "Single zone VAV AHU minimum outdoor air control - damper position limits"
+    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 
 protected
   parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
@@ -35,64 +40,54 @@ protected
     "Numerical value for Occupied operation mode";
 
   CDL.Logical.Constant fanStatus(k=true) "Fan is on"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   CDL.Integers.Constant freProSta(k=freProDisabledNum) "Freeze protection status - disabled"
-    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
+    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
   CDL.Integers.Constant operationMode(k=occupiedNum) "Operation mode - occupied"
-    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
 
 public
-  CDL.Continuous.Constant VOutMinSet_flow1(
-                                          k=minVOutSet_flow)
-    "Outdoor volumetric airflow rate setpoint, 15cfm/occupant and 100 occupants"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Modelica.Blocks.Sources.Ramp VOut_flow1(
+  CDL.Continuous.Constant SupFanSpeSig1(k=fanSpe)                    "Supply fan speed signal"
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+  Modelica.Blocks.Sources.Ramp VOutMinSetSig1(
     duration=1800,
     offset=minVOut_flow,
-    height=incVOutSet_flow)
-    "Measured outdoor airflow rate"
-    annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  EconDamperPositionLimitsSingleZone ecoDamLim1
-    "Singleple zone VAV AHU minimum outdoor air control - damper position limits"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-protected
-  CDL.Logical.Constant fanStatus1(
-                                 k=true) "Fan is on"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  CDL.Integers.Constant freProSta1(
-                                  k=freProDisabledNum) "Freeze protection status - disabled"
-    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  CDL.Integers.Constant operationMode1(
-                                      k=occupiedNum) "Operation mode - occupied"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+    height=delVOut_flow) "Constant minimum outdoor airflow setpoint"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+  EconDamperPositionLimitsSingleZone ecoDamLim1(
+    minFanSpe=minFanSpe,
+    maxFanSpe=maxFanSpe,
+    minVOut_flow=minVOut_flow,
+    desVOut_flow=desVOut_flow)
+    "Single zone VAV AHU minimum outdoor air control - damper position limits"
+    annotation (Placement(transformation(extent={{100,-20},{120,0}})));
+
 equation
-  connect(VOut_flow.y, ecoDamLim.VOut_flow) annotation (Line(points={{-99,80},{-60,80},{-60,8},{-41,8}},
-                                                                                                   color={0,0,127}));
-  connect(VOutMinSet_flow.y, ecoDamLim.VOutMinSet_flow)
-    annotation (Line(points={{-99,40},{-70,40},{-70,5},{-41,5}},
-                                                               color={0,0,127}));
-  connect(fanStatus.y, ecoDamLim.uSupFan)
-    annotation (Line(points={{-99,0},{-36.1111,0},{-36.1111,-1.76471}},
-                                                     color={255,0,255}));
   connect(freProSta.y, ecoDamLim.uFreProSta)
-    annotation (Line(points={{-99,-80},{-60,-80},{-60,-6.47059},{-36.1111,-6.47059}},
+    annotation (Line(points={{-99,-90},{-60,-90},{-60,-18},{-41,-18}},
                                                                    color={255,127,0}));
+  connect(ecoDamLim.uSupFan, fanStatus.y)
+    annotation (Line(points={{-41,-12},{-70,-12},{-70,-10},{-99,-10}}, color={255,0,255}));
   connect(operationMode.y, ecoDamLim.uOpeMod)
-    annotation (Line(points={{-99,-40},{-70,-40},{-70,-5},{-41,-5}},color={255,127,0}));
-  connect(VOut_flow1.y, ecoDamLim1.VOut_flow)
-    annotation (Line(points={{41,80},{80,80},{80,8},{99,8}}, color={0,0,127}));
-  connect(VOutMinSet_flow1.y, ecoDamLim1.VOutMinSet_flow)
-    annotation (Line(points={{41,40},{70,40},{70,5},{99,5}}, color={0,0,127}));
-  connect(fanStatus1.y, ecoDamLim1.uSupFan) annotation (Line(points={{41,0},{103.889,0},{103.889,-1.76471}},
-                                                                                            color={255,0,255}));
-  connect(freProSta1.y, ecoDamLim1.uFreProSta)
-    annotation (Line(points={{41,-80},{80,-80},{80,-6.47059},{103.889,-6.47059}},
-                                                                 color={255,127,0}));
-  connect(operationMode1.y, ecoDamLim1.uOpeMod)
-    annotation (Line(points={{41,-40},{70,-40},{70,-5},{99,-5}}, color={255,127,0}));
+    annotation (Line(points={{-99,-50},{-70,-50},{-70,-16},{-70,-16},{-70,-15},{-56,-15},{-41,-15}},
+                                                                       color={255,127,0}));
+  connect(fanStatus.y, ecoDamLim1.uSupFan)
+    annotation (Line(points={{-99,-10},{-80,-10},{-80,-30},{60,-30},{60,-12},{99,-12}}, color={255,0,255}));
+  connect(operationMode.y, ecoDamLim1.uOpeMod)
+    annotation (Line(points={{-99,-50},{70,-50},{70,-16},{70,-15},{80,-15},{99,-15}}, color={255,127,0}));
+  connect(freProSta.y, ecoDamLim1.uFreProSta)
+    annotation (Line(points={{-99,-90},{80,-90},{80,-18},{99,-18}}, color={255,127,0}));
+  connect(VOutMinSetSig.y, ecoDamLim.uVOutMinSet_flow)
+    annotation (Line(points={{-99,70},{-60,70},{-60,-3},{-41,-3}}, color={0,0,127}));
+  connect(SupFanSpeSig.y, ecoDamLim.uSupFanSpe)
+    annotation (Line(points={{-99,30},{-70,30},{-70,-6.2},{-41,-6.2}}, color={0,0,127}));
+  connect(SupFanSpeSig1.y, ecoDamLim1.uSupFanSpe)
+    annotation (Line(points={{41,30},{70,30},{70,-6.2},{99,-6.2}}, color={0,0,127}));
+  connect(VOutMinSetSig1.y, ecoDamLim1.uVOutMinSet_flow)
+    annotation (Line(points={{41,70},{80,70},{80,-3},{99,-3}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconDamperPositionLimitsSingleZone_VOut_flow.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconDamperPositionLimitsSingleZone_FanSpe_VOut_flow.mos"
     "Simulate and plot"),
     Icon(graphics={Ellipse(
           lineColor={75,138,73},
@@ -104,7 +99,28 @@ equation
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-120},{160,120}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}}), graphics={
+        Text(
+          extent={{-120,116},{-86,104}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=16,
+          textString="Variable supply fan speed, 
+constant minimum outdoor airflow setpoint"),
+        Text(
+          extent={{0,112},{34,100}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=16,
+          textString="Variable minimum outdoor airflow setpoint, 
+constant supply fan speed 
+")}),
 Documentation(info="<html>
 <p>
 This example validates
