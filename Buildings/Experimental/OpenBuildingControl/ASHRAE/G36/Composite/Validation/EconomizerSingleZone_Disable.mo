@@ -1,15 +1,16 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.Validation;
-model EconomizerMultiZone_Disable
-  "Validation model for disabling the multizone VAV AHU economizer modulation and damper position limit control loops"
+model EconomizerSingleZone_Disable
+  "Validation model for disabling the single zone VAV AHU economizer modulation and damper position limit control loops"
   extends Modelica.Icons.Example;
 
   parameter Modelica.SIunits.Temperature TOutCutoff=297
     "Outdoor temperature high limit cutoff";
   parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
-  parameter Modelica.SIunits.SpecificEnergy VOutSet_flow=0.71
-    "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
   parameter Modelica.SIunits.Temperature TSupSet=291 "Supply air temperature setpoint";
+  parameter Real delFanSpe = maxFanSpe - minFanSpe "Delta between the min and max supply fan speed";
+  parameter Modelica.SIunits.VolumeFlowRate delVOut_flow = desVOut_flow - minVOut_flow
+    "Delta between minimum and design outdoor airflow rate";
 
   parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
     "Indicates that the freeze protection is disabled";
@@ -28,7 +29,11 @@ model EconomizerMultiZone_Disable
   parameter Integer heatingNum = Integer(heating)
     "Numerical value for heating zone state";
 
-  EconomizerMultiZone economizer(use_enthalpy=true) "Multizone VAV AHU economizer "
+  EconomizerSingleZone economizer(use_enthalpy=true,
+    minFanSpe=minFanSpe,
+    maxFanSpe=maxFanSpe,
+    minVOut_flow=minVOut_flow,
+    desVOut_flow=desVOut_flow)                      "Singlezone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   CDL.Logical.Constant fanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
@@ -48,15 +53,6 @@ model EconomizerMultiZone_Disable
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
   CDL.Continuous.Constant TOutCut1(k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  CDL.Continuous.Constant VOutMinSet_flow(k=VOutSet_flow)
-    "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Blocks.Sources.Ramp VOut_flow(
-    duration=1800,
-    height=0.2,
-    offset=VOutSet_flow - 0.1)
-    "Measured outdoor air volumetric airflow"
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Modelica.Blocks.Sources.Ramp TSup(
     height=4,
     offset=TSupSet - 2,
@@ -65,11 +61,29 @@ model EconomizerMultiZone_Disable
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   CDL.Continuous.Constant TSupSetSig(k=TSupSet) "Cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  EconomizerMultiZone economizer1 "Multizone VAV AHU economizer"
+  EconomizerSingleZone economizer1(
+    minFanSpe=minFanSpe,
+    maxFanSpe=maxFanSpe,
+    minVOut_flow=minVOut_flow,
+    desVOut_flow=desVOut_flow)    "Singlezone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   CDL.Integers.Constant freProSta2(k=freProEnabledNum) "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
 
+  parameter Real minFanSpe=0.1 "Minimum supply fan operation speed";
+  parameter Real maxFanSpe=0.9 "Maximum supply fan operation speed";
+  parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=1.0 "Calculated minimum outdoor airflow rate";
+  parameter Modelica.SIunits.VolumeFlowRate desVOut_flow=2.0 "Calculated design outdoor airflow rate";
+public
+  Modelica.Blocks.Sources.Ramp VOutMinSetSig(
+    duration=1800,
+    offset=minVOut_flow,
+    height=delVOut_flow) "Constant minimum outdoor airflow setpoint"
+    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+  Modelica.Blocks.Sources.Ramp SupFanSpeSig(
+    duration=1800,
+    offset=minFanSpe,
+    height=delFanSpe) "Supply fan speed signal" annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
   connect(fanStatus.y, economizer.uSupFan) annotation (Line(points={{-19,-10},{-10,-10},{-10,6},{19,6}},
     color={255,0,255}));
@@ -83,10 +97,6 @@ equation
     annotation (Line(points={{-99,20},{-60,20},{-60,18},{-4,18},{19,18}},color={0,0,127}));
   connect(hOutCut.y, economizer.hOutCut)
     annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,16},{19,16}},color={0,0,127}));
-  connect(VOut_flow.y, economizer.VOut_flow)
-    annotation (Line(points={{-19,90},{-8,90},{-8,10},{19,10}},color={0,0,127}));
-  connect(VOutMinSet_flow.y, economizer.VOutMinSet_flow)
-    annotation (Line(points={{-19,50},{-10,50},{-10,8},{19,8}},color={0,0,127}));
   connect(TSup.y, economizer.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}},color={0,0,127}));
   connect(TSupSetSig.y, economizer.TCooSet)
@@ -103,10 +113,6 @@ equation
     annotation (Line(points={{-59,90},{-50,90},{-50,118},{82,118},{82,-6},{99,-6}}, color={0,0,127}));
   connect(TSupSetSig.y, economizer1.TCooSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,68},{72,68},{72,-8},{99,-8}}, color={0,0,127}));
-  connect(VOut_flow.y, economizer1.VOut_flow)
-    annotation (Line(points={{-19,90},{78,90},{78,-10},{99,-10}}, color={0,0,127}));
-  connect(VOutMinSet_flow.y, economizer1.VOutMinSet_flow)
-    annotation (Line(points={{-19,50},{70,50},{70,-12},{99,-12}}, color={0,0,127}));
   connect(fanStatus.y, economizer1.uSupFan)
     annotation (Line(points={{-19,-10},{20,-10},{20,-14},{99,-14}}, color={255,0,255}));
   connect(freProSta2.y, economizer1.uFreProSta)
@@ -119,9 +125,17 @@ equation
     annotation (Line(points={{-59,-90},{20,-90},{20,-16},{99,-16}}, color={255,127,0}));
   connect(ZoneState.y, economizer1.uZonSta)
     annotation (Line(points={{-59,-60},{22,-60},{22,-18},{99,-18}}, color={255,127,0}));
+  connect(VOutMinSetSig.y, economizer.uVOutMinSet_flow)
+    annotation (Line(points={{-19,90},{0,90},{0,10},{19,10}}, color={0,0,127}));
+  connect(SupFanSpeSig.y, economizer.uSupFanSpe)
+    annotation (Line(points={{-19,50},{0,50},{0,8},{19,8}}, color={0,0,127}));
+  connect(VOutMinSetSig.y, economizer1.uVOutMinSet_flow)
+    annotation (Line(points={{-19,90},{78,90},{78,-10},{99,-10}}, color={0,0,127}));
+  connect(SupFanSpeSig.y, economizer1.uSupFanSpe)
+    annotation (Line(points={{-19,50},{68,50},{68,-12},{99,-12}}, color={0,0,127}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Composite/Validation/EconomizerMultiZone_Disable.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Composite/Validation/EconomizerSingleZone_Disable.mos"
     "Simulate and plot"),
   Icon(graphics={
         Ellipse(lineColor = {75,138,73},
@@ -159,8 +173,8 @@ outdoor air control
 Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone</a>
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerSingleZone\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerSingleZone</a>
 for control signals which disable modulation control loop only (<code>economizer</code> block)
 and both minimum outdoor airflow and modulation control loops (<code>economizer1</code> block).
 </p>
@@ -172,4 +186,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EconomizerMultiZone_Disable;
+end EconomizerSingleZone_Disable;
