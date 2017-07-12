@@ -55,8 +55,7 @@ equation
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconDamperPositionLimitsMultiZone_VOut_flow.mos"
     "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-80,-100},{80,100}}),
-         graphics={Ellipse(
+    Icon(graphics={Ellipse(
           lineColor={75,138,73},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,

@@ -169,7 +169,7 @@ Documentation(info="<html>
 This example validates enable/disable conditions for
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone\">
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone</a>
-for the following input signals: <code>uSupFan</code>, <code>uFreProSta</code>, <code>uOperationMode</code>.
+for the following input signals: <code>uSupFan</code>, <code>uFreProSta</code>, <code>uOpeMod</code>.
 </p>
 </html>", revisions="<html>
 <ul>

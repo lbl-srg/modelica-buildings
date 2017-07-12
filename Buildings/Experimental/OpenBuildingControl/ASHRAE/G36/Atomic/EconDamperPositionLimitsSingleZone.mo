@@ -31,7 +31,7 @@ block EconDamperPositionLimitsSingleZone
   CDL.Interfaces.RealInput uVOutMinSet_flow(min=minVOut_flow, max=desVOut_flow) "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-220,180},{-180,220}}),
       iconTransformation(extent={{-120,60},{-100,80}})));
-  CDL.Interfaces.IntegerInput uOperationMode "AHU operation mode status signal"
+  CDL.Interfaces.IntegerInput uOpeMod "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
     iconTransformation(extent={{-120,-60},{-100,-40}})));
   CDL.Interfaces.IntegerInput uFreProSta "Freeze protection status signal"
@@ -156,7 +156,7 @@ equation
     annotation (Line(points={{-162,-120},{-162,-120},{-200,-120}}, color={255,127,0}));
   connect(intToRea.y,equ. u)
     annotation (Line(points={{-139,-120},{-130,-120},{-122,-120}}, color={0,0,127}));
-  connect(uOperationMode,intToRea1. u)
+  connect(uOpeMod,intToRea1. u)
     annotation (Line(points={{-200,-160},{-182,-160},{-162,-160}}, color={255,127,0}));
   connect(and1.u3,equ1. y)
     annotation (Line(points={{-82,-78},{-86,-78},{-86,-160},{-99,-160}},color={255,0,255}));
