@@ -10,5 +10,6 @@ EconModulationMultiZone_TSup
 EconModulationSingleZone_TSup
 HeatingCoolingControlLoops_TRoo
 OperationMode
+OutAirFlowSet_SingleZone
 VAVSingleZoneTSupSet_T
 VAVSingleZoneTSupSet_u
