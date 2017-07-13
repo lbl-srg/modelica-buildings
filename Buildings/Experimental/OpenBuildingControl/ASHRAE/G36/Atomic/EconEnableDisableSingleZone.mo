@@ -75,8 +75,8 @@ block EconEnableDisableSingleZone "Single zone VAV AHU economizer enable/disable
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
   CDL.Logical.TrueFalseHold TrueFalseHold(duration=600) "10 min on/off delay"
     annotation (Placement(transformation(extent={{0,200},{20,220}})));
-  CDL.Logical.GreaterEqual greEqu "Logical greater or equal block"
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  CDL.Logical.Greater      greEqu "Logical greater or equal block"
+    annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
   CDL.Logical.Timer timer "Timer gets started as the economizer gets disabled"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
   CDL.Logical.Nor nor1 "Logical nor"
@@ -118,7 +118,7 @@ protected
 
   CDL.Continuous.Constant disableDelay(final k=smaDisDel)
     "Small delay before closing the outdoor air damper to avoid pressure fluctuations"
-    annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
+    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   CDL.Continuous.Add add2(k2=-1) if use_enthalpy "Add block determines difference between hOut and hOutCut"
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
   CDL.Continuous.Add add1(k2=-1) "Add block determines difference between TOut and TOutCut"
@@ -129,6 +129,8 @@ protected
 
 public
   CDL.Logical.And and2 annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
+public
+  CDL.Logical.And and3 annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
 equation
   connect(OutDamSwitch.y, yOutDamPosMax) annotation (Line(points={{61,-140},{61,-140},{190,-140}}, color={0,0,127}));
   connect(TOut, add1.u1) annotation (Line(points={{-200,270},{-160,270},{-160,256},{-142,256}},
@@ -148,11 +150,8 @@ equation
   else
     connect(entSubst.y, nor1.u2) annotation (Line(points={{-79,200},{-60,200},{-60,202},{-42,202}}, color={255,0,255}));
   end if;
-  connect(disableDelay.y, greEqu.u2)
-    annotation (Line(points={{-39,-110},{-20,-110},{-20,-108},{-12,-108}}, color={0,0,127}));
-  connect(timer.y, greEqu.u1) annotation (Line(points={{51,-60},{60,-60},{60,-80},{-20,-80},{-20,-100},{-12,-100}},
+  connect(timer.y, greEqu.u1) annotation (Line(points={{51,-60},{60,-60},{60,-80},{-80,-80},{-80,-100},{-72,-100}},
         color={0,0,127}));
-  connect(greEqu.y, OutDamSwitch.u2) annotation (Line(points={{11,-100},{20,-100},{20,-140},{38,-140}}, color={255,0,255}));
   connect(uOutDamPosMin, OutDamSwitch.u1)
     annotation (Line(points={{-200,-160},{-120,-160},{-60,-160},{-60,-132},{38,-132}},   color={0,0,127}));
   connect(uOutDamPosMax, OutDamSwitch.u3)
@@ -190,9 +189,16 @@ equation
   connect(and2.y, MinRetDamSwitch.u2)
     annotation (Line(points={{141,-160},{150,-160},{150,-200},{30,-200},{30,-240},{38,-240}}, color={255,0,255}));
   connect(not2.y, and2.u1)
-    annotation (Line(points={{11,-60},{22,-60},{22,-120},{114,-120},{114,-160},{118,-160}}, color={255,0,255}));
+    annotation (Line(points={{11,-60},{20,-60},{20,-120},{114,-120},{114,-160},{118,-160}}, color={255,0,255}));
   connect(greThr2.y, and2.u2)
     annotation (Line(points={{101,-170},{110,-170},{110,-168},{118,-168}}, color={255,0,255}));
+  connect(disableDelay.y, greEqu.u2)
+    annotation (Line(points={{-99,-110},{-86,-110},{-86,-108},{-72,-108}}, color={0,0,127}));
+  connect(greEqu.y, and3.u2) annotation (Line(points={{-49,-100},{-36,-100},{-36,-108},{-22,-108}}, color={255,0,255}));
+  connect(not2.y, and3.u1)
+    annotation (Line(points={{11,-60},{16,-60},{16,-74},{-30,-74},{-30,-100},{-22,-100}}, color={255,0,255}));
+  connect(and3.y, OutDamSwitch.u2)
+    annotation (Line(points={{1,-100},{12,-100},{12,-140},{38,-140}}, color={255,0,255}));
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy),
     Icon(graphics={
         Rectangle(
