@@ -75,7 +75,7 @@ block EconEnableDisableSingleZone "Single zone VAV AHU economizer enable/disable
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
   CDL.Logical.TrueFalseHold TrueFalseHold(duration=600) "10 min on/off delay"
     annotation (Placement(transformation(extent={{0,200},{20,220}})));
-  CDL.Logical.Greater      greEqu "Logical greater or equal block"
+  CDL.Logical.GreaterEqual greEqu "Logical greater or equal block"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
   CDL.Logical.Timer timer "Timer gets started as the economizer gets disabled"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
