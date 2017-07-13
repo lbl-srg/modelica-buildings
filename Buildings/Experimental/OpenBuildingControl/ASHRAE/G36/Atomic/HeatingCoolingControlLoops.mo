@@ -10,12 +10,12 @@ block HeatingCoolingControlLoops "Generates heating and cooling signals to maint
 
   Modelica.Blocks.Interfaces.RealInput TSetRooHea(unit="K")
     "Zone heating setpoint temperature" annotation (Placement(transformation(
-      extent={{20,-20},{-20,20}},rotation=180, origin={-80,40}),  iconTransformation(
-      extent={{20,-20},{-20,20}},rotation=180,origin={-124,82})));
+      extent={{-20,-20},{20,20}},rotation=0, origin={-80,40}),  iconTransformation(
+      extent={{-20,-20},{20,20}},origin={-124,82})));
   Modelica.Blocks.Interfaces.RealInput TSetRooCoo(unit="K")
     "Zone cooling setpoint temperature" annotation (Placement(transformation(
-      extent={{20,-20},{-20,20}},rotation=180,origin={-80,0}),   iconTransformation(
-      extent={{20,-20},{-20,20}},rotation=180,origin={-118,38})));
+      extent={{-20,-20},{20,20}},rotation=0,origin={-80,0}),   iconTransformation(
+      extent={{-20,-20},{20,20}},origin={-118,38})));
   Modelica.Blocks.Interfaces.RealInput TRoo(unit="K") "Zone temperature measurement"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-80,-40}),
       iconTransformation(extent={{-20,-20},{20,20}}, origin={-104,-38})));
