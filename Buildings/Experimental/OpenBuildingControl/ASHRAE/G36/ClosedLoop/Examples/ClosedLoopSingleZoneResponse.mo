@@ -85,6 +85,7 @@ model ClosedLoopSingleZoneResponse
   CDL.Integers.Constant zonSta(k=2) annotation (Placement(transformation(extent={{-30,-76},{-10,-56}})));
   CDL.Integers.Constant opeMod(k=1) annotation (Placement(transformation(extent={{-30,-108},{-10,-88}})));
   CDL.Integers.Constant freProSta(k=0) annotation (Placement(transformation(extent={{-30,-140},{-10,-120}})));
+  CDL.Continuous.Constant TChilWat(k=278.15) annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{40,140},{72,140},{72,80},{84,80}},
@@ -191,6 +192,7 @@ equation
   connect(TSetRooHea.y[1], mean.u1) annotation (Line(points={{-199,10},{-180,10},{-180,6},{-162,6}}, color={0,0,127}));
   connect(TSetRooCoo.y[1], mean.u2)
     annotation (Line(points={{-199,-20},{-180,-20},{-180,-6},{-162,-6}}, color={0,0,127}));
+  connect(TChilWat.y, hvac.TSetChi) annotation (Line(points={{61,-130},{70,-130},{70,-15},{78,-15}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=504800,
