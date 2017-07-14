@@ -14,7 +14,7 @@ block EconModulationMultiZone
   CDL.Interfaces.RealInput TSup(unit="K", quantity = "ThermodynamicTemperature")
     "Measured supply air temperature" annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
-  CDL.Interfaces.RealInput TCooSet(unit="K", quantity = "ThermodynamicTemperature")
+  CDL.Interfaces.RealInput THeaSet(unit="K", quantity = "ThermodynamicTemperature")
     "Supply air temperature cooling setpoint" annotation (Placement(transformation(extent={{-160,-10},{-120,30}}),
         iconTransformation(extent={{-120,80},{-100,100}})));
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1, unit="1")
