@@ -22,10 +22,10 @@ block HeatingCoolingControlLoops "Generates heating and cooling control signals 
 
   CDL.Interfaces.RealOutput yHea(min=conSigMin, max=conSigMin, unit="1") "Heating control signal"
     annotation (Placement(transformation(extent={{60,30},{80,50}}),
-      iconTransformation(extent={{100,-50},{120,-30}})));
+      iconTransformation(extent={{100,30},{120,50}})));
   CDL.Interfaces.RealOutput yCoo(min=conSigMin, max=conSigMin, unit="1") "Cooling control signal"
     annotation (Placement(transformation(extent={{60,-10},{80,10}}),
-      iconTransformation(extent={{100,30},{120,50}})));
+      iconTransformation(extent={{100,-50},{120,-30}})));
 
 protected
   CDL.Continuous.LimPID conCooVal(
