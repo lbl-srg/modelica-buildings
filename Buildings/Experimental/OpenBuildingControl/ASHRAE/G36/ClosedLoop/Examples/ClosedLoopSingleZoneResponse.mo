@@ -32,7 +32,7 @@ model ClosedLoopSingleZoneResponse
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false,
       filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos")
-    annotation (Placement(transformation(extent={{40,70},{60,90}})));
+    annotation (Placement(transformation(extent={{20,130},{40,150}})));
   Modelica.Blocks.Continuous.Integrator EFan "Total fan energy"
     annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
   Modelica.Blocks.Continuous.Integrator EHea "Total heating energy"
@@ -68,9 +68,6 @@ model ClosedLoopSingleZoneResponse
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{74,70},{94,90}})));
 
-  CDL.Continuous.Constant airDensity(k=meanAirDensity) "Air density at 20C"
-    annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
-  CDL.Continuous.Product massToVolume annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
   Atomic.VAVSingleZoneTSupSet setPoiVAV annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Atomic.OutdoorAirFlowSetpoint_SingleZone OutAirSetPoi_SinZon
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
@@ -85,9 +82,12 @@ model ClosedLoopSingleZoneResponse
   CDL.Logical.Constant fanStatus(k=true) annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   CDL.Logical.Constant windowClosed(k=true) annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
   CDL.Logical.Constant chillerOn(k=true) annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
+  CDL.Integers.Constant zonSta(k=2) annotation (Placement(transformation(extent={{-30,-76},{-10,-56}})));
+  CDL.Integers.Constant opeMod(k=1) annotation (Placement(transformation(extent={{-30,-108},{-10,-88}})));
+  CDL.Integers.Constant freProSta(k=0) annotation (Placement(transformation(extent={{-30,-140},{-10,-120}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{60,80},{84,80}},
+      points={{40,140},{72,140},{72,80},{84,80}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -130,9 +130,6 @@ equation
     annotation (Line(points={{-119,74},{-80,74},{-80,78},{-42,78}}, color={0,0,127}));
   connect(conLoo.yCoo, setPoiVAV.uCoo)
     annotation (Line(points={{-119,66},{-70,66},{-70,74},{-42,74}}, color={0,0,127}));
-  connect(TSetRooHea.y[2], mean.u1) annotation (Line(points={{-199,10},{-190,10},{-190,6},{-162,6}}, color={0,0,127}));
-  connect(TSetRooCoo.y[2], mean.u2)
-    annotation (Line(points={{-199,-20},{-188,-20},{-188,-6},{-162,-6}}, color={0,0,127}));
   connect(mean.y, setPoiVAV.TSetZon) annotation (Line(points={{-139,0},{-60,0},{-60,70},{-42,70}},color={0,0,127}));
   connect(TSetRooHea.y[1], conLoo.TRooHeaSet)
     annotation (Line(points={{-199,10},{-180,10},{-180,76},{-141,76}}, color={0,0,127}));
@@ -181,6 +178,19 @@ equation
   connect(conLoo.yCoo, hvac.uCooVal)
     annotation (Line(points={{-119,66},{-80,66},{-80,8},{-2,8},{-2,5},{78,5}}, color={0,0,127}));
   connect(chillerOn.y, hvac.chiOn) annotation (Line(points={{61,-90},{70,-90},{70,-10},{78,-10}}, color={255,0,255}));
+  connect(hvac.TSup, economizer.TSup)
+    annotation (Line(points={{121,-7},{122,-7},{126,-7},{126,-42},{-6,-42},{-6,-26},{-1,-26}}, color={0,0,127}));
+  connect(zonSta.y, economizer.uZonSta)
+    annotation (Line(points={{-9,-66},{-4,-66},{-4,-38},{-1,-38}}, color={255,127,0}));
+  connect(opeMod.y, economizer.uOpeMod)
+    annotation (Line(points={{-9,-98},{-4,-98},{-4,-36},{-1,-36}}, color={255,127,0}));
+  connect(freProSta.y, economizer.uFreProSta)
+    annotation (Line(points={{-9,-130},{-4,-130},{-4,-40},{-1,-40}}, color={255,127,0}));
+  connect(economizer.yOutDamPos, hvac.uEco)
+    annotation (Line(points={{21,-32},{50,-32},{50,-2},{78,-2}}, color={0,0,127}));
+  connect(TSetRooHea.y[1], mean.u1) annotation (Line(points={{-199,10},{-180,10},{-180,6},{-162,6}}, color={0,0,127}));
+  connect(TSetRooCoo.y[1], mean.u2)
+    annotation (Line(points={{-199,-20},{-180,-20},{-180,-6},{-162,-6}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=504800,
