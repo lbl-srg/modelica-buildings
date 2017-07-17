@@ -23,9 +23,9 @@ equation
           borderPattern=BorderPattern.Raised),
         Ellipse(
           extent={{71,7},{85,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
                else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
         Line(points={{-90,-70},{72,-70}}, color={255,0,255}),
@@ -40,7 +40,7 @@ equation
           fillColor={255,0,255},
           fillPattern=FillPattern.Solid),
         Line(points={{-80,66},{-80,-82}}, color={255,0,255}),
-                                                   Line(points={{-80,0},{80,0}}),
+                                                   Line(points={{-80,0},{64,0}}),
           Text(
           extent={{-150,-140},{150,-110}},
           lineColor={0,0,0},
