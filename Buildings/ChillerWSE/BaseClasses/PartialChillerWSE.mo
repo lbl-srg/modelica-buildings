@@ -73,9 +73,11 @@ partial model PartialChillerWSE
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.SIunits.Time tauChiller1 = 30 "Time constant at nominal flow in chillers"
-     annotation (Dialog(tab = "Dynamics", group="Chiller"));
+     annotation (Dialog(tab = "Dynamics", group="Chiller",
+                 enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   parameter Modelica.SIunits.Time tauChiller2 = 30 "Time constant at nominal flow in chillers"
-     annotation (Dialog(tab = "Dynamics", group="Chiller"));
+     annotation (Dialog(tab = "Dynamics", group="Chiller",
+                 enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   parameter Modelica.SIunits.Time tauWSE=10
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
     annotation(Dialog(tab="Dynamics", group="WSE",
