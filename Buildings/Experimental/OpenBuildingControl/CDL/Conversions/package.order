@@ -4,4 +4,7 @@ IntegerToBoolean
 IntegerToReal
 RealToBoolean
 RealToInteger
+IsWorkingDay
+IsNonWorkingDay
+IsHoliday
 Validation

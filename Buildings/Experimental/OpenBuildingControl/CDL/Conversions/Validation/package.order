@@ -4,3 +4,4 @@ IntegerToBoolean
 IntegerToReal
 RealToBoolean
 RealToInteger
+DayTypeCheck
