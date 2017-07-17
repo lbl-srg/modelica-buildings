@@ -100,7 +100,6 @@ model System6
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mBoi_flow_nominal,-mRadVal_flow_nominal,-mBoi_flow_nominal},
-
     dp_nominal={200,-200,-50}) "Splitter of boiler loop bypass" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -276,6 +275,25 @@ model System6
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
 //------------------------------------------------------------------------------//
 
+  Modelica_Requirements.ChecksInSlidingWindow.MaxFrequency maxFrequency(
+    window=3600,
+    freqHzMeanMax=1/(15*60),
+    check=booToReaRad.u) "Checks the maximum frequency"
+    annotation (Placement(transformation(extent={{120,-50},{160,-30}})));
+  Modelica_Requirements.Verify.BooleanRequirement requirement(text=
+        "Pump does not short-cycle")
+    annotation (Placement(transformation(extent={{176,-50},{236,-30}})));
+  inner Modelica_Requirements.Verify.PrintViolations printViolations
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
+  inner Modelica_Requirements.Interfaces.ObservationID observationID(name=
+        "Space cooling")
+    annotation (Placement(transformation(extent={{120,20},{140,40}})));
+  Modelica_Requirements.ChecksInFixedWindow.MinDuration minDuration1(
+      durationMin=120, check=booToReaRad.u)
+    annotation (Placement(transformation(extent={{120,-80},{160,-60}})));
+  Modelica_Requirements.Verify.Requirement requirement1(text=
+        "Pump runs for minimum time")
+    annotation (Placement(transformation(extent={{176,-80},{236,-60}})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{40,50},{50,50},{50,30},{60,30}},
@@ -481,7 +499,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
-      points={{-119,-70},{-90.5,-70},{-90.5,-70.2},{-62,-70.2}},
+      points={{-119,-70},{-90.5,-70},{-90.5,-70},{-62,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conPIDRad.y, valRad.y) annotation (Line(
@@ -489,7 +507,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaRad1.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-119,-280},{-90.5,-280},{-90.5,-280.2},{-62,-280.2}},
+      points={{-119,-280},{-90.5,-280},{-90.5,-280},{-62,-280}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conPIDBoi.y, valBoi.y) annotation (Line(
@@ -500,6 +518,13 @@ equation
           149.5,-260},{158,-260}}, color={0,0,127}));
   connect(temRet.T, conPIDBoi.u_m) annotation (Line(points={{71,-280},{114,-280},
           {170,-280},{170,-272}}, color={0,0,127}));
+  connect(maxFrequency.y, requirement.u)
+    annotation (Line(points={{161,-40},{174,-40}}, color={255,0,255}));
+  connect(minDuration1.y, requirement1.property)
+    annotation (Line(points={{161,-70},{174,-70}}, color={255,0,128}));
+  connect(minDuration1.condition, and1.y) annotation (Line(points={{118,-69.9},
+          {0,-69.9},{0,-90},{-140,-90},{-140,-150},{-159,-150}}, color={255,0,
+          255}));
   annotation (Documentation(info="<html>
 <p>
 This part of the system model adds to the model that is implemented in

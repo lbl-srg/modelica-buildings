@@ -142,6 +142,25 @@ model System3
   Modelica.Blocks.Math.BooleanToReal mWat_flow(realTrue=0, realFalse=
         mW_flow_nominal) "Conversion from boolean to real for water flow rate"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
+  Modelica_Requirements.ChecksInSlidingWindow.MaxFrequency maxFrequency(
+    window=3600,
+    check=con.y,
+    freqHzMeanMax=1/(15*60)) "Checks the maximum frequency"
+    annotation (Placement(transformation(extent={{120,-110},{160,-90}})));
+  Modelica_Requirements.Verify.BooleanRequirement requirement(text=
+        "Pump does not short-cycle")
+    annotation (Placement(transformation(extent={{176,-110},{236,-90}})));
+  inner Modelica_Requirements.Verify.PrintViolations printViolations
+    annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
+  inner Modelica_Requirements.Interfaces.ObservationID observationID(name=
+        "Space cooling")
+    annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
+  Modelica_Requirements.ChecksInFixedWindow.MinDuration minDuration1(check=con.y,
+      durationMin=1120)
+    annotation (Placement(transformation(extent={{120,-140},{160,-120}})));
+  Modelica_Requirements.Verify.Requirement requirement1(text=
+        "Pump runs for minimum time")
+    annotation (Placement(transformation(extent={{176,-140},{236,-120}})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{40,50},{50,50},{50,30},{60,30}},
@@ -198,7 +217,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(fan.m_flow_in, mAir_flow.y) annotation (Line(
-      points={{49.8,-8},{49.8,10},{21,10}},
+      points={{50,-8},{50,10},{21,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hex.port_b1, senTemHXOut.port_a) annotation (Line(
@@ -241,6 +260,14 @@ equation
       points={{-59,-100},{-50,-100},{-50,-92},{-40,-92}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(maxFrequency.y, requirement.u) annotation (Line(points={{161,-100},{
+          168,-100},{168,-100},{166,-100},{166,-100},{174,-100}}, color={255,0,
+          255}));
+  connect(minDuration1.condition, con.y) annotation (Line(points={{118,-129.9},
+          {16,-129.9},{16,-130},{-90,-130},{-90,-100},{-99,-100}}, color={255,0,
+          255}));
+  connect(minDuration1.y, requirement1.property)
+    annotation (Line(points={{161,-130},{174,-130}}, color={255,0,128}));
   annotation (Documentation(info="<html>
 <p>
 This part of the system model modifies
@@ -370,7 +397,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-180,-160},{120,
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-180,-160},{240,
             100}})),
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/SpaceCooling/System3.mos"
