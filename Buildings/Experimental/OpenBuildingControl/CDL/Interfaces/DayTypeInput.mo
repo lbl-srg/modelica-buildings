@@ -1,43 +1,40 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Interfaces;
-connector DayTypeOutput =output Types.Day  "Output connector for day types"
+connector DayTypeInput = input Types.Day "Input connector for day types"
 annotation (
-  defaultComponentName="y",
+  defaultComponentName="u",
   Icon(
     coordinateSystem(preserveAspectRatio=true,
       extent={{-100.0,-100.0},{100.0,100.0}}),
       graphics={
     Polygon(
       lineColor={0,127,0},
-      fillColor={255,255,255},
+      fillColor={0,127,0},
       fillPattern=FillPattern.Solid,
       points={{-100.0,100.0},{100.0,0.0},{-100.0,-100.0}})}),
   Diagram(
     coordinateSystem(preserveAspectRatio=true,
+      initialScale=0.2,
       extent={{-100.0,-100.0},{100.0,100.0}}),
       graphics={
     Polygon(
       lineColor={0,127,0},
-      fillColor={255,255,255},
+      fillColor={0,127,0},
       fillPattern=FillPattern.Solid,
-      points={{-100.0,50.0},{0.0,0.0},{-100.0,-50.0}}),
+      points={{0,50},{100,0},{0,-50}}),
     Text(
-      lineColor={0,0,127},
-      extent={{30.0,60.0},{30.0,110.0}},
+      lineColor={0,127,0},
+      extent={{-10.0,60.0},{-10.0,85.0}},
       textString="%name")}),
   Documentation(info="<html>
 <p>
-Connector with one output signal of type
+Connector with one input signal of type
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Types.Day\">
 Buildings.Experimental.OpenBuildingControl.CDL.Types.Day</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-January 11, 2016, by Milica Grahovac:<br/>
-First CDL implementation.
-</li>
-<li>
-March 20, 2014 by Michael Wetter:<br/>
+July 17, 2017 by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

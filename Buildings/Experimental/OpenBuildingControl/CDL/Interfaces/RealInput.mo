@@ -1,5 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Interfaces;
-connector RealInput = input Real "'input Real' as connector" annotation (
+connector RealInput = input Real "'input Real' as connector"
+annotation (
   defaultComponentName="u",
   Icon(graphics={
     Polygon(
