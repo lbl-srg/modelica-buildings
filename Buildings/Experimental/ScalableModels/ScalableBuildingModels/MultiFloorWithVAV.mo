@@ -252,7 +252,7 @@ model MultiFloorWithVAV
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-128,70},{-116,82}})));
-  Controls.FanOnOffWithDP fan_dP_On_Off[nFlo](each dP_pre=dP_pre)
+  Controls.FanOnOffWithDP fan_dP_On_Off[nFlo](each preRis=dP_pre)
     "controller outputs fan on or off"
     annotation (Placement(transformation(extent={{-70,-14},{-56,0}})));
 
