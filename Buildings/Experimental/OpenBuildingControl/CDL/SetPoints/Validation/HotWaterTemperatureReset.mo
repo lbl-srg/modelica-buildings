@@ -8,7 +8,7 @@ model HotWaterTemperatureReset "Test model for the heating curve"
       TRet_nominal=313.15,
       TOut_nominal=263.15)
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Modelica.Blocks.Sources.Ramp TOut(
+  Continuous.Sources.Ramp      TOut(
       height=40,
       duration=1,
       offset=263.15)
@@ -21,15 +21,16 @@ model HotWaterTemperatureReset "Test model for the heating curve"
       TOut_nominal=263.15,
       dTOutHeaBal=15)
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Modelica.Blocks.Sources.Step TRoo1(
+  Continuous.Sources.Pulse     TRoo1(
     offset=273.15 + 20,
     startTime=0.5,
-    height=-5) "Night set back from 20 to 15 deg C"
+    amplitude=-5,
+    period=1)  "Night set back from 20 to 15 deg C"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Modelica.Blocks.Sources.Constant TOut1(k=273.15 - 10)
+  Continuous.Sources.Constant      TOut1(k=273.15 - 10)
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Modelica.Blocks.Sources.Constant TRoo(k=273.15 + 20)
+  Continuous.Sources.Constant      TRoo(k=273.15 + 20)
     "Room temperature 20degC"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 equation
