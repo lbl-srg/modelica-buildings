@@ -3,15 +3,15 @@ model EconModulationMultiZone_TSup
   "Validation model for multiple zone VAV AHU outdoor and return air damper position modulation sequence"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Temperature TCooSet=291.15
+  parameter Modelica.SIunits.Temperature THeaSet=291.15
     "Supply air temperature setpoint";
 
-  CDL.Continuous.Constant TCooSetSig(k=TCooSet) "Supply air temperature setpoint"
+  CDL.Continuous.Constant THeaSetSig(k=THeaSet) "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Modelica.Blocks.Sources.Ramp TSup(
     duration=900,
     height=4,
-    offset=TCooSet - 2) "Measured supply air temperature"
+    offset=THeaSet - 2) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
   CDL.Continuous.Constant outDamPosMin(k=0)
@@ -27,8 +27,6 @@ model EconModulationMultiZone_TSup
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
 equation
-  connect(TCooSetSig.y, ecoMod.TCooSet) annotation (Line(points={{1,70},{8,70},{
-          8,48},{8,39},{39,39}}, color={0,0,127}));
   connect(TSup.y,ecoMod.TSup)  annotation (Line(points={{-39,70},{-30,70},{-30,36},
           {39,36}},color={0,0,127}));
   connect(RetDamPosMax.y, ecoMod.uRetDamPosMax) annotation (Line(points={{-59,-40},
@@ -39,6 +37,7 @@ equation
           {-48,20},{-30,20},{-30,31},{39,31}}, color={0,0,127}));
   connect(outDamPosMin.y, ecoMod.uOutDamPosMin) annotation (Line(points={{-59,-10},
           {-34,-10},{-24,-10},{-24,28},{39,28}}, color={0,0,127}));
+  connect(THeaSetSig.y, ecoMod.THeaSet) annotation (Line(points={{1,70},{20,70},{20,39},{39,39}}, color={0,0,127}));
   annotation (
   experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconModulationMultiZone_TSup.mos"
@@ -59,7 +58,7 @@ Documentation(info="<html>
 This example validates
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationMultiZone\">
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationMultiZone</a>
-for supply air temeperature (<code>TSup</code>) and supply air temperature cooling setpoint (<code>TCooSet</code>)
+for supply air temeperature (<code>TSup</code>) and supply air temperature cooling setpoint (<code>THeaSet</code>)
 control signals.
 </p>
 </html>", revisions="<html>

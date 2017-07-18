@@ -7,14 +7,6 @@ model EconEnableDisableMultiZone_TOut_hOut
     "Outdoor temperature high limit cutoff";
   parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
-  parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
-    "Indicates that the freeze protection is disabled";
-  parameter Integer freProDisabledNum = Integer(freProDisabled)-1
-    "Numerical value for freeze protection stage 0";
-  parameter Types.ZoneState deadband = Types.ZoneState.deadband
-    "Zone state is deadband";
-  parameter Integer deadbandNum = Integer(deadband)
-    "Numerical value for deadband zone state";
 
   CDL.Continuous.Constant TOutCut(k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
@@ -51,8 +43,6 @@ model EconEnableDisableMultiZone_TOut_hOut
     annotation (Placement(transformation(extent={{220,-40},{240,-20}})));
 
 protected
-  CDL.Integers.Constant ZoneState(k=deadbandNum) "Zone State is deadband"
-    annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
   CDL.Continuous.Constant outDamPosMax(k=0.9) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-80},{-220,-60}})));
   CDL.Continuous.Constant outDamPosMin(k=0.1) "Minimal allowed economizer damper position"
@@ -63,7 +53,9 @@ protected
     annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
   CDL.Continuous.Constant retDamPhyPosMax(k=1) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
-  CDL.Integers.Constant FreProSta(k=freProDisabledNum) "Freeze Protection Status - Disabled"
+  CDL.Integers.Constant ZoneState(k=Constants.ZoneStates.deadband) "Zone State is deadband"
+    annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
+  CDL.Integers.Constant FreProSta(k=Constants.FreezeProtectionStages.stage0) "Freeze Protection Status - Disabled"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
   CDL.Sources.BooleanPulse booPul(final startTime=10, period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-200,120},{-180,140}})));

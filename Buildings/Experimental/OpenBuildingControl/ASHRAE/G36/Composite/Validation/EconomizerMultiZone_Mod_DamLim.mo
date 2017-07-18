@@ -93,8 +93,6 @@ equation
     annotation (Line(points={{-19,90},{-8,90},{-8,10},{19,10}},color={0,0,127}));
   connect(VOutMinSet_flow.y, economizer.VOutMinSet_flow)
     annotation (Line(points={{-19,50},{-12,50},{-12,8},{19,8}},color={0,0,127}));
-  connect(TSupSetSig.y, economizer.TCooSet)
-    annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}},color={0,0,127}));
   connect(TSupSig.y, economizer.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}}, color={0,0,127}));
   connect(TOutBelowCutoff.y, economizer1.TOut)
@@ -102,8 +100,6 @@ equation
   connect(TOutCut1.y, economizer1.TOutCut)
     annotation (Line(points={{-99,70},{88,70},{88,-20},{99,-20}}, color={0,0,127}));
   connect(TSupSig1.y, economizer1.TSup) annotation (Line(points={{61,90},{80,90},{80,-26},{99,-26}}, color={0,0,127}));
-  connect(TSupSetSig.y, economizer1.TCooSet)
-    annotation (Line(points={{-59,50},{-54,50},{-54,-20},{20,-20},{20,-28},{99,-28}}, color={0,0,127}));
   connect(VOut_flow.y, economizer1.VOut_flow)
     annotation (Line(points={{-19,90},{-10,90},{-10,-22},{18,-22},{18,-30},{99,-30}}, color={0,0,127}));
   connect(VOutMinSet_flow.y, economizer1.VOutMinSet_flow)
@@ -120,6 +116,10 @@ equation
     annotation (Line(points={{-99,-100},{22,-100},{22,-36},{99,-36}}, color={255,127,0}));
   connect(ZoneState.y, economizer1.uZonSta)
     annotation (Line(points={{-99,-60},{24,-60},{24,-38},{99,-38}}, color={255,127,0}));
+  connect(economizer.THeaSet, TSupSetSig.y)
+    annotation (Line(points={{19,12},{-52,12},{-52,50},{-59,50}}, color={0,0,127}));
+  connect(TSupSetSig.y, economizer1.THeaSet)
+    annotation (Line(points={{-59,50},{-54,50},{-54,-28},{-48,-28},{-48,-28},{99,-28}}, color={0,0,127}));
   annotation (
     experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Composite/Validation/EconomizerMultiZone_Mod_DamLim.mos"

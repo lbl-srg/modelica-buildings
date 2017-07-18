@@ -95,7 +95,7 @@ equation
           {40,80},{40,78},{58,78}}, color={0,0,127}));
   connect(outDamMaxLimSig.y, outDamPos.x2) annotation (Line(points={{1,-50},{32,
           -50},{32,-34},{58,-34}}, color={0,0,127}));
-  connect(TCooSet, damPosController.u_s) annotation (Line(points={{-140,10},{-140,
+  connect(THeaSet, damPosController.u_s) annotation (Line(points={{-140,10},{-140,
           10},{-82,10}}, color={0,0,127}));
   connect(uRetDamPosMin,retDamPos. f2)
     annotation (Line(points={{-140,60},{-40,60},{-40,62},{58,62}}, color={0,0,127}));

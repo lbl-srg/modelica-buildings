@@ -7,22 +7,6 @@ model EconEnableDisableMultiZone_FreProSta_ZonSta
     "Outdoor temperature high limit cutoff";
   parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
-  parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
-    "Indicates that the freeze protection is disabled";
-  parameter Integer freProDisabledNum = Integer(freProDisabled)-1
-    "Numerical value for freeze protection stage 0";
-  parameter Types.ZoneState heating = Types.ZoneState.heating
-    "Zone state is heating";
-  parameter Integer heatingNum = Integer(heating)
-    "Numerical value for heating zone state";
-  parameter Types.FreezeProtectionStage freProEnabled = Types.FreezeProtectionStage.stage2
-    "Indicates that the freeze protection is eanbled";
-  parameter Integer freProEnabledNum = Integer(freProEnabled)-1
-    "Numerical value for freeze protection stage 0";
-  parameter Types.ZoneState cooling = Types.ZoneState.cooling
-    "Zone state is cooling";
-  parameter Integer coolingNum = Integer(cooling)
-    "Numerical value for cooling zone state";
 
   EconEnableDisableMultiZone ecoEnaDis "Multizone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,40},{102,60}})));
@@ -40,13 +24,13 @@ protected
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   CDL.Continuous.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  CDL.Integers.Constant freProSta(k=freProDisabledNum) "Freeze Protection Status (Deactivated = 0)"
+  CDL.Integers.Constant freProSta(k=Constants.FreezeProtectionStages.stage0) "Freeze Protection Status (Deactivated = 0)"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Integers.Constant zoneState(k=heatingNum) "Zone State is heating (heating = 1)"
+  CDL.Integers.Constant zoneState(k=Constants.ZoneStates.heating) "Zone State is heating"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  CDL.Integers.Constant freProSta1(k=freProEnabledNum) "Freeze Protection Status (Activated > 0)"
+  CDL.Integers.Constant freProSta1(k=Constants.FreezeProtectionStages.stage1) "Freeze Protection Status (Activated > 0)"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  CDL.Integers.Constant zoneState1(k=coolingNum) "Zone State is not heating (heating = 1)"
+  CDL.Integers.Constant zoneState1(k=Constants.ZoneStates.deadband) "Zone State is deadband"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
   CDL.Continuous.Constant outDamPosMax(k=0.9) "Maximal allowed economizer damper position"

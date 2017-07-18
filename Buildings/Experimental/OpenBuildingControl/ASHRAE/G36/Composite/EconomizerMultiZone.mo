@@ -8,7 +8,7 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
   parameter Modelica.SIunits.Time TiDamLim=0.9 "Time constant of damper limit controller integrator block";
   parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block";
 
-  CDL.Interfaces.RealInput TCooSet(unit="K", quantity = "ThermodynamicTemperature")
+  CDL.Interfaces.RealInput THeaSet(unit="K", quantity = "ThermodynamicTemperature")
     "Supply air temperature cooling setpoint" annotation (Placement(transformation(
     extent={{-140,30},{-120,50}}), iconTransformation(extent={{-120,10},{-100,30}})));
   CDL.Interfaces.RealInput TSup(unit="K", quantity = "ThermodynamicTemperature")
@@ -124,8 +124,6 @@ equation
   connect(ecoDamLim.yOutDamPosMin, ecoMod.uOutDamPosMin)
     annotation (Line(points={{-59,15},{-20,15},{20,15},{20,12},{20,8},{59,8}},
       color={0,0,127}));
-  connect(TCooSet, ecoMod.TCooSet) annotation (Line(points={{-130,40},{52,40},{52,19},{59,19}},
-      color={0,0,127}));
   connect(TSup, ecoMod.TSup) annotation (Line(points={{-130,60},{50,60},{50,16},{59,16}},color={0,0,127}));
   connect(yOutDamPos, yOutDamPos) annotation (Line(points={{130,-40},{130,-40}}, color={0,0,127}));
   connect(yRetDamPos, yRetDamPos) annotation (Line(points={{130,40},{130,40}}, color={0,0,127}));
@@ -133,6 +131,7 @@ equation
     annotation (Line(points={{22,-38},{54,-38},{54,0},{54,1},{59,1}}, color={0,0,127}));
   connect(uZonSta, ecoEnaDis.uZonSta)
     annotation (Line(points={{-130,-100},{-58,-100},{-58,-30},{-1,-30}}, color={255,127,0}));
+  connect(THeaSet, ecoMod.THeaSet) annotation (Line(points={{-130,40},{40,40},{40,19},{59,19}}, color={0,0,127}));
   annotation (defaultComponentName = "economizer",
         Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
