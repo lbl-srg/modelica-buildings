@@ -2,16 +2,12 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model Or "Validation model for the Or block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul1(
-    width = 0.5,
-    period = 1.5)
-    "Block that outputs cyclic on and off"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul1(
+      width=0.5, period=1.5) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,8},{-6,28}})));
-   Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul2(
-     width = 0.5,
-     period = 3)
-     "Block that outputs cyclic on and off"
-     annotation (Placement(transformation(extent={{-26,-26},{-6,-6}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul2(
+      width=0.5, period=3) "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{-26,-26},{-6,-6}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Or or1
     annotation (Placement(transformation(extent={{26,-8},{46,12}})));
 

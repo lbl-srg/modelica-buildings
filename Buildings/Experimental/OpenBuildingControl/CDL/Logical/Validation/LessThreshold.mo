@@ -2,7 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model LessThreshold "Validation model for the LessThreshold block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=-2,
     height=4)  "Block that generates ramp signal"

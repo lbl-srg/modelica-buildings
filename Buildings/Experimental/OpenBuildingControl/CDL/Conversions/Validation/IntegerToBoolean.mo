@@ -11,7 +11,7 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Truncation truncation
     "Block that discards the fractional portion of input and provides a whol number output"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=-3.5,
     height=7.0) "Block that generates ramp signal"

@@ -2,7 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Discrete.Examples;
 model TriggeredSampler "Example model for the TriggeredSampler block"
   extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=0,
     height=6.2831852) "Block that generates ramp signal"
@@ -11,10 +11,8 @@ model TriggeredSampler "Example model for the TriggeredSampler block"
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul(
-    width = 0.5,
-    period = 0.2)
-    "Block that outputs cyclic on and off"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul(
+      width=0.5, period=0.2) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Discrete.TriggeredSampler triSam
     "Triggered sampler wity y_start = 0"
