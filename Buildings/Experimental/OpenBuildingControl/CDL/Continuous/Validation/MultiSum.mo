@@ -2,27 +2,27 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
 model MultiSum "Model to validate the application of MultiSum block"
   extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=-2,
     height=4)  "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp2(
     height=2,
     duration=1,
     offset=-1) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp3(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp3(
     height=3,
     duration=1,
     offset=-1) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp4(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp4(
     height=3,
     duration=1,
     offset=-2) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp5(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp5(
     height=3,
     duration=1,
     offset=-3) "Block that generates ramp signal"

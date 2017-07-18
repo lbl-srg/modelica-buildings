@@ -6,7 +6,7 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sum sum1(nin=sizOfVec)
     "Block that outputs the sum of the elements of the input vector"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant con[sizOfVec](k={1,2,3,4,5})
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant con[sizOfVec](k={1,2,3,4,5})
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
 equation

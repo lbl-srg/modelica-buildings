@@ -130,17 +130,17 @@ protected
   CDL.Continuous.Line TSetHeaHig
     "Block to compute the setpoint for heating for uHea = 0...1"
     annotation (Placement(transformation(extent={{2,180},{22,200}})));
-  CDL.Continuous.Constant con0(final k=0) "Contant that outputs zero"
+  CDL.Continuous.Sources.Constant con0(final k=0) "Contant that outputs zero"
     annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
-  CDL.Continuous.Constant con25(final k=0.25) "Contant that outputs 0.25"
+  CDL.Continuous.Sources.Constant con25(final k=0.25) "Contant that outputs 0.25"
     annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
-  CDL.Continuous.Constant con05(final k=0.5) "Contant that outputs 0.5"
+  CDL.Continuous.Sources.Constant con05(final k=0.5) "Contant that outputs 0.5"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
-  CDL.Continuous.Constant con75(final k=0.75) "Contant that outputs 0.75"
+  CDL.Continuous.Sources.Constant con75(final k=0.75) "Contant that outputs 0.75"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  CDL.Continuous.Constant conTMax(final k=TMax) "Constant that outputs TMax"
+  CDL.Continuous.Sources.Constant conTMax(final k=TMax) "Constant that outputs TMax"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  CDL.Continuous.Constant conTMin(final k=TMin) "Constant that outputs TMin"
+  CDL.Continuous.Sources.Constant conTMin(final k=TMin) "Constant that outputs TMin"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   CDL.Continuous.Add TDeaTMin(final k2=-1) "Outputs TDea-TMin"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));

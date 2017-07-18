@@ -2,10 +2,8 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model Not "Validation model for the Not block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul(
-    width = 0.5,
-    period = 1.5)
-    "Block that outputs cyclic on and off"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul(
+      width=0.5, period=1.5) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));

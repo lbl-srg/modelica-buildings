@@ -2,12 +2,12 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model Equal "Validation model for the Equal block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp1(
     duration=5,
     offset=-2,
     height=6)  "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-50,8},{-30,28}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp2(
     duration=5,
     offset=-3,
     height=8) "Block that generates ramp signal"
@@ -17,7 +17,7 @@ extends Modelica.Icons.Example;
     "Outputs true if both inputs are equal"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp3(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp3(
     duration=5,
     offset=0,
     height=20) "Block that generates ramp signal"

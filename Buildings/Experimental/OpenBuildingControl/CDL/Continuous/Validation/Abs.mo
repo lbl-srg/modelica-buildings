@@ -5,7 +5,7 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Abs abs1
     "Block that outputs the absolute value of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp(
     height=2,
     duration=1,
     offset=-1) "Block that generates ramp signal"

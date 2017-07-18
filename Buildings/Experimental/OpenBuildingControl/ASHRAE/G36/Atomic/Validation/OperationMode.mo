@@ -5,7 +5,7 @@ model OperationMode "Validate block OperationModeSelector"
     operationModeSelector(numOfZon=1)
     "Block that outputs the operation mode"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp1(
     offset=0,
     height=6.2831852,
     duration=24*3600) "Block that generates ramp signal"
@@ -16,25 +16,25 @@ model OperationMode "Validate block OperationModeSelector"
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.AddParameter addPar(
       p=22.5, k=12.5)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant unoHeaSet(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant unoHeaSet(
       k=12) "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant unoCooSet(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant unoCooSet(
       k=30) "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant occHeaSet(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant occHeaSet(
       k=20) "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant occCooSet(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant occCooSet(
       k=24) "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant warUpTim(k=
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant warUpTim(k=
        1800) "Warm-up time"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cooDowTim(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant cooDowTim(
       k=1800) "Cooling down time"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Constant uWinSta(k=false)
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Constant uWinSta(k=false)
     "Window on/off status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

@@ -2,26 +2,21 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model MultiAnd "Model to validate the application of MultiAnd block"
   extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul1(
-     width = 0.5, period=1)
-    "Block that outputs cyclic on and off"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul1(
+      width=0.5, period=1) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul2(
-     width = 0.5, period=2)
-     "Block that outputs cyclic on and off"
-     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-   Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul3(
-     width = 0.5, period=3)
-     "Block that outputs cyclic on and off"
-     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-   Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul4(
-     width = 0.5, period=4)
-     "Block that outputs cyclic on and off"
-     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-   Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul5(
-     width = 0.5, period=5)
-     "Block that outputs cyclic on and off"
-     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul2(
+      width=0.5, period=2) "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul3(
+      width=0.5, period=3) "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul4(
+      width=0.5, period=4) "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul5(
+      width=0.5, period=5) "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.MultiAnd mulAnd_1(nu=1)
     "Logical 'MultiAnd': 1 input connection y=u"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));

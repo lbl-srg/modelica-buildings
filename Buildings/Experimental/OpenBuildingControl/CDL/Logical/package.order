@@ -1,7 +1,6 @@
 And
 And3
 Change
-Constant
 Edge
 Equal
 FallingEdge
@@ -34,4 +33,5 @@ TrueFalseHold
 TrueHoldWithReset
 Xor
 ZeroCrossing
+Sources
 Validation

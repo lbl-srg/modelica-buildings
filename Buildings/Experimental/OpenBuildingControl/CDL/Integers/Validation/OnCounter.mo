@@ -6,16 +6,12 @@ extends Modelica.Icons.Example;
     "Block that outputs increment if the input switches to true"
     annotation (Placement(transformation(extent={{16,-10},{36,10}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul(
-    width = 0.5,
-    period = 0.1)
-    "Block that outputs cyclic on and off"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul(
+      width=0.5, period=0.1) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse reset(
-    width = 0.5,
-    period = 1.0)
-    "Block that outputs cyclic on and off"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse reset(
+      width=0.5, period=1.0) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,-50},{-6,-30}})));
 
 equation

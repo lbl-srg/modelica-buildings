@@ -2,20 +2,18 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model Switch "Validation model for the Switch block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp1(
     duration=5,
     offset=-1,
     height=6)  "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-26,22},{-6,42}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp2(
     duration=5,
     offset=-1,
     height=2) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-26,-42},{-6,-22}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul(
-    width = 0.5,
-    period = 2)
-    "Block that outputs cyclic on and off"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul(
+      width=0.5, period=2) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Switch switch1
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
