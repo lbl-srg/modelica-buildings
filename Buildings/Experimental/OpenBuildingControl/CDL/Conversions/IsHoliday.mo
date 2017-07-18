@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Conversions;
 block IsHoliday
-  "Block to output true/false by checking if it is holiday"
+  "Block that outputs true if the input is a holiday"
 
   Interfaces.DayTypeInput u "Connector of DayType input signal"
     annotation ( Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -8,21 +8,14 @@ block IsHoliday
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
-  y = if u==CDL.Types.Day.Holiday then true else false;
+  y = u == CDL.Types.Day.Holiday;
 
 annotation (
-defaultComponentName="isHoliday",
+defaultComponentName="isHol",
 Documentation(info="<html>
 <p>
-Block that outputs the <code>Boolean</code> value by checking if 
-it is holiday.
-</p>
-<pre>
-y = if u==CDL.Types.Day.Holiday then true else false;
-</pre>
-<p>
-where <code>u</code> is of <code>Day</code> type and <code>y</code> is 
-<code>Boolean</code> type.
+Block that outputs <code>true</code> if the input signal is
+of type holiday.
 </p>
 </html>", revisions="<html>
 <ul>

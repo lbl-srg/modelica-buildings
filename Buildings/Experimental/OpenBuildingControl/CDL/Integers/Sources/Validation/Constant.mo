@@ -2,8 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Integers.Sources.Validatio
 model Constant "Validate the Constant block"
   extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Integers.Sources.Constant
-    con(k=5) "Block output integer constant value"
+  CDL.Integers.Sources.Constant con(k=5) "Block output integer constant value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
@@ -20,7 +19,7 @@ Buildings.Experimental.OpenBuildingControl.CDL.Integers.Sources.Constant</a>.
 <ul>
 <li>
 July 17, 2017, by Jianjun Hu:<br/>
-First implemented in CDL.Integers.Sources package.
+First implementation.
 </li>
 </ul>
 </html>"));

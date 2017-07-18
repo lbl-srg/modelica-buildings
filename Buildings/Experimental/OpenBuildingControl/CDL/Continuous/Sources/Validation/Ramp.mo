@@ -24,7 +24,7 @@ Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp</a>.
 <ul>
 <li>
 July 17, 2017, by Jianjun Hu:<br/>
-First implemented in CDL.Continuous.Sources package.
+First implementation.
 </li>
 </ul>
 </html>"));

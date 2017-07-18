@@ -8,12 +8,12 @@ block Pulse "Generate pulse signal of type Boolean"
   parameter Modelica.SIunits.Time period(
     final min=Constants.small) "Time for one period";
   parameter Modelica.SIunits.Time startTime=0 "Time instant of first pulse";
-  Interfaces.BooleanOutput y    "Connector of Boolean output signal"
+  Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
   parameter Modelica.SIunits.Time Twidth=period*width
-    "width of one pulse";
+    "Width of one pulse";
   discrete Modelica.SIunits.Time pulseStart "Start time of pulse";
 
 initial equation

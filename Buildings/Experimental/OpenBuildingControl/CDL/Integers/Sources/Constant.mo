@@ -2,7 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Integers.Sources;
 block Constant "Output constant signal of type Integer"
   parameter Integer k "Constant output value";
 
-  Interfaces.IntegerOutput y    "Connector of Integer output signal"
+  Interfaces.IntegerOutput y "Connector of Integer output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation

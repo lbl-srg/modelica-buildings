@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Conversions;
 block IsNonWorkingDay
-  "Block to output true/false by checking if it is non-working day"
+  "Block that outputs true if the input is a non-working day"
 
   Interfaces.DayTypeInput u "Connector of DayType input signal"
     annotation ( Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -8,21 +8,14 @@ block IsNonWorkingDay
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
-  y = if u==CDL.Types.Day.NonWorkingDay then true else false;
+  y = u == CDL.Types.Day.NonWorkingDay;
 
 annotation (
 defaultComponentName="isNonWorDay",
 Documentation(info="<html>
 <p>
-Block that outputs the <code>Boolean</code> value by checking if 
-it is non-working day.
-</p>
-<pre>
-y = if u==CDL.Types.Day.NonWorkingDay then true else false;
-</pre>
-<p>
-where <code>u</code> is of <code>Day</code> type and <code>y</code> is 
-<code>Boolean</code> type.
+Block that outputs <code>true</code> if the input signal is
+of type non-working day.
 </p>
 </html>", revisions="<html>
 <ul>

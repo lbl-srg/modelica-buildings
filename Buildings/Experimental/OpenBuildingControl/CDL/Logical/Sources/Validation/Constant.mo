@@ -20,7 +20,7 @@ Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Constant</a>.
 <ul>
 <li>
 July 17, 2017, by Jianjun Hu:<br/>
-First implemented in CDL.Logical.Sources package.
+First implementation.
 </li>
 </ul>
 </html>"));

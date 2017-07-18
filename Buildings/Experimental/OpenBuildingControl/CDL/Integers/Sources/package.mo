@@ -6,7 +6,7 @@ annotation (
 Documentation(
 info="<html>
 <p>
-Package with blocks that generate sources for the signals.
+Package with blocks that generate signals.
 </p>
 </html>"));
 end Sources;
