@@ -1,3 +1,8 @@
+ElectricChillerParallel
+HeatExchanger_T
 IntegratedPrimaryLoadSide
 IntegratedPrimaryPlantSide
+IntegratedPrimarySecondary
+NonIntegrated
+WatersideEconomizer
 BaseClasses

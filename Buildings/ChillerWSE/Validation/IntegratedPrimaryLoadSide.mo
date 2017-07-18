@@ -37,6 +37,18 @@ model IntegratedPrimaryLoadSide
     annotation (Placement(transformation(extent={{40,10},{20,30}})));
   Modelica.Blocks.Sources.Constant yPum(k=1) "Conrol signal for pumps"
     annotation (Placement(transformation(extent={{40,40},{20,60}})));
+  Modelica.Blocks.Sources.RealExpression yVal5(y=if onChi.y and not onWSE.y
+         then 1 else 0) "On/off signal for valve 5"
+    annotation (Placement(transformation(extent={{40,86},{20,106}})));
+  Modelica.Blocks.Sources.RealExpression yVal6(y=if not onChi.y and onWSE.y
+         then 1 else 0) "On/off signal for valve 6"
+    annotation (Placement(transformation(extent={{40,66},{20,86}})));
+  Modelica.Blocks.Sources.BooleanStep onChi(startTime(displayUnit="h") = 7200)
+    "On and off signal for the chiller"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  Modelica.Blocks.Sources.BooleanStep onWSE(startTime(displayUnit="h") = 14400,
+      startValue=true) "On and off signal for the WSE"
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 equation
   connect(onChi.y, intWSEPri.on[1]) annotation (Line(points={{-79,90},{-68,90},
           {-20,90},{-20,-30.4},{-11.6,-30.4}}, color={255,0,255}));

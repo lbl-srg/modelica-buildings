@@ -1,6 +1,6 @@
 within Buildings.ChillerWSE.Validation;
-model IntegratedPrimaryPlantSide
-  "Integrated WSE on the plant side in a primary-only chilled water system"
+model IntegratedPrimarySecondary
+  "Integrated WSE on the load side in a primary-secondary chilled water system"
   import Buildings;
   extends Modelica.Icons.Example;
   extends Buildings.ChillerWSE.Validation.BaseClasses.PartialChillerWSE(
@@ -11,9 +11,9 @@ model IntegratedPrimaryPlantSide
           14400,273.15 + 8.33; 14400,273.15 + 16.67]),
     TEva_in(k=273.15 + 15.28),
     redeclare Buildings.Fluid.Sources.MassFlowSource_T sou2(
-         nPorts=1, m_flow=mCHW_flow_nominal));
+         nPorts=1, m_flow=1.00*mCHW_flow_nominal));
 
-  Buildings.ChillerWSE.IntegratedPrimaryPlantSide intWSEPri(
+  Buildings.ChillerWSE.IntegratedPrimarySecondary intWSEPriSec(
     mChiller1_flow_nominal=mCW_flow_nominal,
     mChiller2_flow_nominal=mCHW_flow_nominal,
     mWSE1_flow_nominal=mCW_flow_nominal,
@@ -31,15 +31,16 @@ model IntegratedPrimaryPlantSide
     k=0.4,
     Ti=80,
     nChi=nChi,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+    addPowerToMedium=false)
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 
   Modelica.Blocks.Sources.RealExpression yVal5(y=if onChi.y and not onWSE.y
          then 1 else 0) "On/off signal for valve 5"
     annotation (Placement(transformation(extent={{40,86},{20,106}})));
-  Modelica.Blocks.Sources.RealExpression yVal6(y=if not onChi.y and onWSE.y
-         then 1 else 0) "On/off signal for valve 6"
-    annotation (Placement(transformation(extent={{40,66},{20,86}})));
+  Modelica.Blocks.Sources.Constant yPum(k=mCHW_flow_nominal)
+                                             "Conrol signal for pumps"
+    annotation (Placement(transformation(extent={{40,40},{20,60}})));
   Modelica.Blocks.Sources.BooleanStep onChi(startTime(displayUnit="h") = 7200)
     "On and off signal for the chiller"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -47,25 +48,25 @@ model IntegratedPrimaryPlantSide
       startValue=true) "On and off signal for the WSE"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 equation
-  connect(onChi.y, intWSEPri.on[1]) annotation (Line(points={{-79,90},{-68,90},
-          {-20,90},{-20,-30.4},{-11.6,-30.4}}, color={255,0,255}));
-  connect(onWSE.y, intWSEPri.on[2]) annotation (Line(points={{-79,20},{-46,20},
-          {-20,20},{-20,-30.4},{-11.6,-30.4}}, color={255,0,255}));
-  connect(TSet.y, intWSEPri.TSet) annotation (Line(points={{-79,60},{-48,60},{
-          -20,60},{-20,-27.2},{-11.6,-27.2}}, color={0,0,127}));
-  connect(yVal5.y, intWSEPri.yVal5) annotation (Line(points={{19,96},{4,96},{
-          -16,96},{-16,-35},{-11.6,-35}}, color={0,0,127}));
-  connect(yVal6.y, intWSEPri.yVal6) annotation (Line(points={{19,76},{-6,76},{
-          -16,76},{-16,-38.2},{-11.6,-38.2}}, color={0,0,127}));
-  connect(intWSEPri.port_a1, sou1.ports[1]) annotation (Line(points={{-10,-32},
+  connect(onChi.y, intWSEPriSec.on[1]) annotation (Line(points={{-79,90},{-68,
+          90},{-20,90},{-20,-30.4},{-11.6,-30.4}}, color={255,0,255}));
+  connect(onWSE.y, intWSEPriSec.on[2]) annotation (Line(points={{-79,20},{-46,
+          20},{-20,20},{-20,-30.4},{-11.6,-30.4}}, color={255,0,255}));
+  connect(TSet.y, intWSEPriSec.TSet) annotation (Line(points={{-79,60},{-48,60},
+          {-20,60},{-20,-27.2},{-11.6,-27.2}}, color={0,0,127}));
+  connect(yVal5.y, intWSEPriSec.yVal5) annotation (Line(points={{19,96},{4,96},
+          {-16,96},{-16,-35},{-11.6,-35}}, color={0,0,127}));
+  connect(intWSEPriSec.port_a1, sou1.ports[1]) annotation (Line(points={{-10,-32},
           {-22,-32},{-28,-32},{-28,-4},{-40,-4}}, color={0,127,255}));
-  connect(intWSEPri.port_b2, TSup.port_a) annotation (Line(points={{-10,-44},{
-          -20,-44},{-40,-44}}, color={0,127,255}));
-  connect(intWSEPri.port_b1, sin1.ports[1]) annotation (Line(points={{10,-32},{
-          26,-32},{26,-4},{80,-4}}, color={0,127,255}));
-  connect(intWSEPri.port_a2, sou2.ports[1]) annotation (Line(points={{10,-44},{
-          20,-44},{26,-44},{26,-74},{38,-74}}, color={0,127,255}));
+  connect(intWSEPriSec.port_b2, TSup.port_a) annotation (Line(points={{-10,-44},
+          {-20,-44},{-40,-44}}, color={0,127,255}));
+  connect(intWSEPriSec.port_b1, sin1.ports[1]) annotation (Line(points={{10,-32},
+          {26,-32},{26,-4},{80,-4}}, color={0,127,255}));
+  connect(intWSEPriSec.port_a2, sou2.ports[1]) annotation (Line(points={{10,-44},
+          {20,-44},{26,-44},{26,-74},{38,-74}}, color={0,127,255}));
+  connect(intWSEPriSec.m_flow_in[1], yPum.y) annotation (Line(points={{-11.5,
+          -41.5},{-16,-41.5},{-16,50},{19,50}}, color={0,0,127}));
   annotation (__Dymola_Commands(file=
-          "Resources/Scripts/Dymola/ChillerWSE/Validation/IntegratedPrimaryPlantSide.mos"
+          "Resources/Scripts/Dymola/ChillerWSE/Validation/IntegratedPrimarySecondary.mos"
         "Simulate and Plot"));
-end IntegratedPrimaryPlantSide;
+end IntegratedPrimarySecondary;

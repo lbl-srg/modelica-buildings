@@ -3,8 +3,8 @@ partial model PartialChillerWSE
   "Partial examples for chillers and WSE configurations"
   extends Modelica.Icons.Example;
 
-  replaceable package MediumCHW = Buildings.Media.Water "Medium model";
-  replaceable package MediumCW = Buildings.Media.Water "Medium model";
+  package MediumCHW = Buildings.Media.Water "Medium model";
+  package MediumCW = Buildings.Media.Water "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal=2567.1*1000/(
       4200*10) "Nominal mass flow rate at chilled water";
@@ -60,20 +60,7 @@ partial model PartialChillerWSE
   Modelica.Blocks.Sources.Constant TSet(k(displayUnit="degC")=273.15+15.56)
     "Leaving chilled water temperature setpoint"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Modelica.Blocks.Sources.BooleanStep
-                                   onChi(startTime(displayUnit="h") = 7200)
-    "On and off signal for the chiller"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Modelica.Blocks.Sources.BooleanStep onWSE(startTime(displayUnit="h") = 14400,
-      startValue=true) "On and off signal for the WSE"
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 
-  Modelica.Blocks.Sources.RealExpression yVal5(y=if onChi.y and not onWSE.y
-         then 1 else 0) "On/off signal for valve 5"
-    annotation (Placement(transformation(extent={{40,86},{20,106}})));
-  Modelica.Blocks.Sources.RealExpression yVal6(y=if not onChi.y and onWSE.y
-         then 1 else 0) "On/off signal for valve 6"
-    annotation (Placement(transformation(extent={{40,66},{20,86}})));
   Fluid.Sensors.TemperatureTwoPort TSup(redeclare package Medium = MediumCHW,
       m_flow_nominal=mCHW_flow_nominal)
     annotation (Placement(transformation(extent={{-40,-54},{-60,-34}})));
