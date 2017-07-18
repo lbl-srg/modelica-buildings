@@ -14,12 +14,12 @@ block EconEnableDisableMultiZone
   parameter Modelica.SIunits.Time smaDisDel = 15
     "Small time delay before closing the OA damper at disable to avoid pressure fluctuations";
 
-  CDL.Interfaces.RealInput TOut(unit="K", quantity = "ThermodynamicTemperature") "Outdoor air (OA) temperature"
+  CDL.Interfaces.RealInput TOut(unit="K", quantity = "ThermodynamicTemperature")
+    "Outdoor air (OA) temperature"
     annotation (Placement(transformation(extent={{-220,250},{-180,290}}),
         iconTransformation(extent={{-120,90},{-100,110}})));
   CDL.Interfaces.RealInput hOut(unit="J/kg", quantity="SpecificEnergy") if use_enthalpy
-      "Outdoor air enthalpy"
-      annotation (Placement(transformation(extent={{-220,170},{-180,210}}),
+      "Outdoor air enthalpy" annotation (Placement(transformation(extent={{-220,170},{-180,210}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
   CDL.Interfaces.RealInput TOutCut(unit="K", quantity = "ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
@@ -67,52 +67,10 @@ block EconEnableDisableMultiZone
     annotation (Placement(transformation(
         extent={{180,-220},{200,-200}}), iconTransformation(extent={{100,-40},{140,0}})));
 
-  CDL.Logical.Hysteresis hysOutTem(final uHigh=uTemHigLimCutHig, final uLow=uTemHigLimCutLow)
-    "Outdoor air temperature hysteresis for both fixed and differential dry bulb temperature cutoff conditions"
-    annotation (Placement(transformation(extent={{-100,240},{-80,260}})));
-  CDL.Logical.Hysteresis hysOutEnt(final uLow=uEntHigLimCutLow, final uHigh=uEntHigLimCutHig) if use_enthalpy
-    "Outdoor air enthalpy hysteresis for both fixed and differential enthalpy cutoff conditions"
-    annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
-  CDL.Logical.Switch OutDamSwitch "Set maximum OA damper position to minimum at disable (after time delay)"
-    annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
-  CDL.Logical.Switch RetDamSwitch "Set minimum RA damper position to maximum at disable"
-    annotation (Placement(transformation(extent={{-60,-270},{-40,-250}})));
-  CDL.Logical.Switch MaxRetDamSwitch
-    "Keep maximum RA damper position at physical maximum for a short time period after disable signal"
-    annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
-  CDL.Logical.Switch MinRetDamSwitch
-    "Keep minimum RA damper position at physical maximum for a short time period after disable"
-    annotation (Placement(transformation(extent={{40,-260},{60,-240}})));
   CDL.Logical.TrueFalseHold TrueFalseHold(duration=600) "10 min on/off delay"
     annotation (Placement(transformation(extent={{0,200},{20,220}})));
-  CDL.Logical.GreaterEqual greEqu "Logical greater or equal block"
-    annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
-  CDL.Logical.Timer timer "Timer gets started as the economizer gets disabled"
-    annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
-  CDL.Logical.Nor nor1 "Logical nor"
-    annotation (Placement(transformation(extent={{-40,200},{-20,220}})));
-  CDL.Logical.Not not2 "Logical \"not\" starts the timer at disable signal "
-    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
-  CDL.Logical.Less les1 "Check if the RA damper should be fully open"
-    annotation (Placement(transformation(extent={{-8,-190},{12,-170}})));
   CDL.Logical.And3 andEnaDis "Logical \"and\" checks freeze protection stage and zone state"
    annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  CDL.Logical.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage0)
-    "Logical block to check if the freeze protection is deactivated"
-    annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  CDL.Logical.GreaterThreshold greThr(final threshold=Constants.ZoneStates.heating)
-    "Check if zone state is other than heating"
-    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  CDL.Logical.GreaterThreshold greThr2(final threshold=0) "Check if the timer got started"
-    annotation (Placement(transformation(extent={{88,-182},{108,-162}})));
-  CDL.Logical.And3 and2 "Logical and"
-    annotation (Placement(transformation(extent={{130,-200},{150,-180}})));
-  CDL.Logical.And and1 "Logical \"and\" checks supply fan status"
-    annotation (Placement(transformation(extent={{0,100},{20,120}})));
-  CDL.Conversions.IntegerToReal intToRea "Integer to real converter"
-    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
-    annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
 
 protected
   parameter Real uTemHigLimCutHig(final unit="K", quantity = "ThermodynamicTemperature") = 0
@@ -129,6 +87,9 @@ protected
     "Keep return damper open to its physical maximum for a short period of time before closing the outdoor air damper
     and resuming the maximum return air damper position, per G36 Part N7"
     annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
+  CDL.Logical.Constant entSubst(final k=false) if not use_enthalpy
+    "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
+    annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
   CDL.Continuous.Constant disableDelay(final k=smaDisDel)
     "Small delay before closing the outdoor air damper to avoid pressure fluctuations"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
@@ -136,13 +97,51 @@ protected
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
   CDL.Continuous.Add add1(k2=-1) "Add block determines difference between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,240},{-120,260}})));
-  CDL.Logical.Constant entSubst(final k=false) if not use_enthalpy
-    "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
-    annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
-
-public
+  CDL.Logical.Hysteresis hysOutTem(final uHigh=uTemHigLimCutHig, final uLow=uTemHigLimCutLow)
+    "Outdoor air temperature hysteresis for both fixed and differential dry bulb temperature cutoff conditions"
+    annotation (Placement(transformation(extent={{-100,240},{-80,260}})));
+  CDL.Logical.Hysteresis hysOutEnt(final uLow=uEntHigLimCutLow, final uHigh=uEntHigLimCutHig) if use_enthalpy
+    "Outdoor air enthalpy hysteresis for both fixed and differential enthalpy cutoff conditions"
+    annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
+  CDL.Logical.Switch OutDamSwitch "Set maximum OA damper position to minimum at disable (after time delay)"
+    annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
+  CDL.Logical.Switch RetDamSwitch "Set minimum RA damper position to maximum at disable"
+    annotation (Placement(transformation(extent={{-60,-270},{-40,-250}})));
+  CDL.Logical.Switch MaxRetDamSwitch
+    "Keep maximum RA damper position at physical maximum for a short time period after disable signal"
+    annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
+  CDL.Logical.Switch MinRetDamSwitch
+    "Keep minimum RA damper position at physical maximum for a short time period after disable"
+    annotation (Placement(transformation(extent={{40,-260},{60,-240}})));
+  CDL.Logical.GreaterEqual greEqu "Logical greater or equal block"
+    annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
+  CDL.Logical.Timer timer "Timer gets started as the economizer gets disabled"
+    annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
+  CDL.Logical.Nor nor1 "Logical nor"
+    annotation (Placement(transformation(extent={{-40,200},{-20,220}})));
+  CDL.Logical.Not not2 "Logical \"not\" starts the timer at disable signal "
+    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
+  CDL.Logical.Less les1 "Check if the RA damper should be fully open"
+    annotation (Placement(transformation(extent={{-8,-190},{12,-170}})));
+  CDL.Logical.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage0)
+    "Logical block to check if the freeze protection is deactivated"
+    annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
+  CDL.Logical.GreaterThreshold greThr(final threshold=Constants.ZoneStates.heating)
+    "Check if zone state is other than heating"
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
+  CDL.Logical.GreaterThreshold greThr2(final threshold=0) "Check if the timer got started"
+    annotation (Placement(transformation(extent={{88,-182},{108,-162}})));
+  CDL.Logical.And3 and2 "Logical and"
+    annotation (Placement(transformation(extent={{130,-200},{150,-180}})));
+  CDL.Logical.And and1 "Logical \"and\" checks supply fan status"
+    annotation (Placement(transformation(extent={{0,100},{20,120}})));
+  CDL.Conversions.IntegerToReal intToRea "Integer to real converter"
+    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
+  CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
+    annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
   CDL.Logical.And and3 "Logical \"and\" checks supply fan status"
     annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
+
 equation
   connect(OutDamSwitch.y, yOutDamPosMax) annotation (Line(points={{61,-140},{61,-140},{190,-140}}, color={0,0,127}));
   connect(TOut, add1.u1) annotation (Line(points={{-200,270},{-160,270},{-160,256},{-142,256}},
@@ -155,12 +154,14 @@ equation
   connect(hOutCut, add2.u2)
     annotation (Line(points={{-200,150},{-160,150},{-160,164},{-142,164}}, color={0,0,127}));
   connect(add2.y, hysOutEnt.u) annotation (Line(points={{-119,170},{-102,170}}, color={0,0,127}));
-  connect(hysOutTem.y, nor1.u1) annotation (Line(points={{-79,250},{-60,250},{-60,210},{-42,210}}, color={255,0,255}));
+  connect(hysOutTem.y, nor1.u1) annotation (Line(points={{-79,250},{-60,250},{-60,210},{-42,210}},
+    color={255,0,255}));
   if use_enthalpy then
     connect(hysOutEnt.y, nor1.u2)
-      annotation (Line(points={{-79,170},{-60,170},{-60,202},{-42,202}},  color={255,0,255}));
+      annotation (Line(points={{-79,170},{-60,170},{-60,202},{-42,202}},color={255,0,255}));
   else
-    connect(entSubst.y, nor1.u2) annotation (Line(points={{-79,200},{-60,200},{-60,202},{-42,202}}, color={255,0,255}));
+    connect(entSubst.y, nor1.u2) annotation (Line(points={{-79,200},{-60,200},{-60,202},{-42,202}},
+    color={255,0,255}));
   end if;
   connect(disableDelay.y, greEqu.u2)
     annotation (Line(points={{-99,-110},{-80,-110},{-80,-108},{-72,-108}}, color={0,0,127}));
@@ -189,7 +190,8 @@ equation
   connect(intToRea.y, equ.u) annotation (Line(points={{-139,50},{-134,50},{-122,50}}, color={0,0,127}));
   connect(equ.y, andEnaDis.u2)
     annotation (Line(points={{-99,50},{-62,50},{-20,50},{-20,40},{38,40}},color={255,0,255}));
-  connect(intToRea1.y, greThr.u) annotation (Line(points={{-139,-10},{-134,-10},{-130,-10},{-122,-10}}, color={0,0,127}));
+  connect(intToRea1.y, greThr.u) annotation (Line(points={{-139,-10},{-134,-10},{-130,-10},{-122,-10}},
+    color={0,0,127}));
   connect(greThr.y, andEnaDis.u3)
     annotation (Line(points={{-99,-10},{-20,-10},{-20,32},{38,32}}, color={255,0,255}));
   connect(and2.y, MaxRetDamSwitch.u2)
@@ -321,8 +323,12 @@ ASHRAE 90.1-2013 and Title 24-2013.
 </p>
 <p>
 In addition, economizer shall be disabled without a delay whenever any of the
-following is true: supply fan is off, zone state is <code>Heating</code>,
-freeze protection stage is not <code>0</code>.
+following is true: supply fan is off (<code>TSupFan = False</code>), 
+zone state (<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.ZoneStates\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.ZoneStates</a>) is <code>heating</code>,
+freeze protection stage 
+(<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages</a>) is not <code>stage0</code>.
 </p>
 <p>
 The following state machine chart illustrates the above listed conditions:

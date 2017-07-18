@@ -263,9 +263,13 @@ measurement, designed in line with ASHRAE Guidline 36 (G36), PART5.N.6.c.
 </p>
 <p>
 The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
-the AHU operation mode (<code>OperationMode</code>) is Occupied, and Freeze protection stage
-<code>uFreProSta</code> is not larger than 1. Otherwise the damper position limits are set to
-their corresponding maximum and minimum physical or at commissioning fixed limits, as illustrated below:
+the AHU operation mode, <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.OperationModes\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.OperationModes</a>, equals <code>occModInt</code>, 
+and freeze protection stage, <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages</a>, is not higher than
+<code>stage1</code>.
+Otherwise the damper position limits are set to their corresponding maximum and minimum physical or at 
+commissioning fixed limits. State machine chart below illustrates listed conditions:
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits state machine chart\"
