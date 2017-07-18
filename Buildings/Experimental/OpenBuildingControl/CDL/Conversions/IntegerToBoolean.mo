@@ -62,9 +62,9 @@ Modelica Standard Library.
           textString="%name",
           lineColor={0,0,255}),    Ellipse(
           extent={{71,7},{85,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
                else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid)}));
 end IntegerToBoolean;

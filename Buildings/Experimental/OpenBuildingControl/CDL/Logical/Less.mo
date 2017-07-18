@@ -25,9 +25,9 @@ equation
           borderPattern=BorderPattern.Raised),
         Ellipse(
           extent={{73,7},{87,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
                else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(extent={{32,10},{52,-10}}, lineColor={0,0,127}),
