@@ -2,43 +2,37 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model TrueHoldWithReset "Validation model for the TrueHoldWithReset block"
   extends Modelica.Icons.Example;
 
-  Sources.BooleanPulse booPul(
-    period = 9000,
-    startTime=300)
-    "Boolean pulse input signal"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul(
+      period=9000, startTime=300) "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Logical.TrueHoldWithReset truHol(
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.TrueHoldWithReset truHol(
     duration=3600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Sources.BooleanPulse booPul1(
-    period=3600)
-    "Boolean pulse input signal"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul1(
+      period=3600) "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Logical.TrueHoldWithReset truHol1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.TrueHoldWithReset truHol1(
     duration=600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Sources.BooleanPulse booPul2(
-    period = 9000,
-    startTime=300)
-    "Boolean pulse input signal"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul2(
+      period=9000, startTime=300) "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Logical.TrueHoldWithReset truHol2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.TrueHoldWithReset truHol2(
     duration=3600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Sources.BooleanPulse booPul3(
-    period=3600)
-    "Boolean pulse input signal"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul3(
+      period=3600) "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Logical.TrueHoldWithReset truHol3(
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.TrueHoldWithReset truHol3(
     duration=600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-  Logical.Not not2 "Negation of input signal"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Not not2 "Negation of input signal"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
-  Logical.Not not3 "Negation of input signal"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Not not3 "Negation of input signal"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
   connect(booPul.y, truHol.u)

@@ -12,23 +12,23 @@ model VAVSingleZoneTSupSet_T
     "Block that computes the setpoints for temperature and fan speed"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  CDL.Continuous.Constant uHea(k=0) "Heating control signal"
+  CDL.Continuous.Sources.Constant uHea(k=0) "Heating control signal"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  CDL.Continuous.Constant uCoo(k=0.6) "Cooling control signal"
+  CDL.Continuous.Sources.Constant uCoo(k=0.6) "Cooling control signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
-  Modelica.Blocks.Sources.Ramp TOut(
+  CDL.Continuous.Sources.Ramp TOut(
     duration=1,
     height=18,
     offset=273.15 + 10) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
-  CDL.Continuous.Constant TZon(k=273.15 + 22) "Zone temperature"
+  CDL.Continuous.Sources.Constant TZon(k=273.15 + 22) "Zone temperature"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   CDL.Continuous.Add dT(k2=-1) "Difference zone minus outdoor temperature"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  CDL.Continuous.Constant TSetZon(k=273.15 + 22) "Average zone set point"
+  CDL.Continuous.Sources.Constant TSetZon(k=273.15 + 22) "Average zone set point"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 equation
   connect(uCoo.y, setPoiVAV.uCoo) annotation (Line(points={{-59,50},{-31.5,50},

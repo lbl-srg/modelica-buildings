@@ -5,7 +5,7 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Cos cos1
     "Block that outputs the cosine of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=0,
     height=6.283) "Block that generates ramp signal"

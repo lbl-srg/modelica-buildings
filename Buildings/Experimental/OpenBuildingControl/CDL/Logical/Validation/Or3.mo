@@ -2,23 +2,18 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model Or3 "Validation model for the Or3 block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul1(
-    width = 0.5,
-    period = 1.5)
-    "Block that outputs cyclic on and off"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul1(
+      width=0.5, period=1.5) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,26},{-6,46}})));
-   Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul2(
-     width = 0.5,
-     period = 3)
-     "Block that outputs cyclic on and off"
-     annotation (Placement(transformation(extent={{-26,-8},{-6,12}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul2(
+      width=0.5, period=3) "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{-26,-8},{-6,12}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Or3 or1
     annotation (Placement(transformation(extent={{26,-8},{46,12}})));
 
-   Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul3(
-     width = 0.5, period=5)
-     "Block that outputs cyclic on and off"
-     annotation (Placement(transformation(extent={{-26,-42},{-6,-22}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul3(
+      width=0.5, period=5) "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{-26,-42},{-6,-22}})));
 equation
   connect(booPul3.y, or1.u3) annotation (Line(points={{-5,-32},{8,-32},{8,-6},{24,
           -6}}, color={255,0,255}));

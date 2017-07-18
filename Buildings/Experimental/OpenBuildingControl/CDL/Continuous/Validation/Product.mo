@@ -5,12 +5,12 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Product product1
     "Block that outputs product of the two inputs"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=-2,
     height=4)  "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp2(
     duration=1,
     offset=-1,
     height=3) "Block that generates ramp signal"
