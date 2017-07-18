@@ -3,22 +3,6 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
   "Validation model for the multiple zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
-  parameter Types.FreezeProtectionStage freProStage1 = Types.FreezeProtectionStage.stage1
-    "Freeze protection stage 1";
-  parameter Types.FreezeProtectionStage freProStage2 = Types.FreezeProtectionStage.stage2
-    "Freeze protection stage 2";
-  parameter Integer freProStage1Num = Integer(freProStage1)-1
-    "Numerical value for freeze protection stage 1";
-  parameter Integer freProStage2Num = Integer(freProStage2)-1
-    "Numerical value for freeze protection stage 2";
-  parameter Types.OperationMode occupied = Types.OperationMode.occupied
-    "AHU operation mode is Occupied";
-  parameter Types.OperationMode warmUp = Types.OperationMode.warmUp
-    "AHU operation mode is \"Warmup\"";
-  parameter Integer occupiedNum = Integer(occupied)
-    "Numerical value for AHU operation mode Occupied";
-  parameter Integer warmUpNum = Integer(warmUp)
-    "Numerical value for AHU operation mode \"WarmUp\"";
   parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
   parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.61
@@ -29,27 +13,27 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
   // Fan Status
   CDL.Logical.Constant fanStatus(k=false) "Fan is off"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
-  CDL.Integers.Constant freProSta(k=freProStage1Num) "Freeze protection stage is 1"
+  CDL.Integers.Constant freProSta(k=Constants.FreezeProtectionStages.stage1) "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
-  CDL.Integers.Constant operationMode(k=occupiedNum) "AHU operation mode is Occupied"
+  CDL.Integers.Constant operationMode(k=Constants.OperationModes.occModInd) "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
 
   // Operation Mode
-  CDL.Logical.Constant fanStatus1(k=true)  "Fan is on"
+  CDL.Logical.Constant fanStatus1(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  CDL.Integers.Constant freProSta1(k=freProStage1Num) "Freeze protection stage is 1"
+  CDL.Integers.Constant freProSta1(k=Constants.FreezeProtectionStages.stage1) "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  CDL.Integers.Constant operationMode1(k=warmUpNum)
+  CDL.Integers.Constant operationMode1(k=Constants.OperationModes.warUpInd)
     "AHU operation mode is NOT Occupied"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
   // Freeze Protection Stage
-  CDL.Logical.Constant fanStatus2(k=true)  "Fan is on"
+  CDL.Logical.Constant fanStatus2(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
-  CDL.Integers.Constant freProSta2(k=freProStage2Num)
+  CDL.Integers.Constant freProSta2(k=Constants.FreezeProtectionStages.stage2)
     "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  CDL.Integers.Constant operationMode2(k=occupiedNum) "AHU operation mode is Occupied"
+  CDL.Integers.Constant operationMode2(k=Constants.OperationModes.occModInd) "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
   Modelica.Blocks.Sources.Ramp VOut_flow(
@@ -154,7 +138,7 @@ equation
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           fontSize=16,
-          textString="Operation mode is other than Occupied"),
+          textString="Operation mode is other than occModInd"),
         Text(
           extent={{80,114},{208,96}},
           lineColor={0,0,0},
