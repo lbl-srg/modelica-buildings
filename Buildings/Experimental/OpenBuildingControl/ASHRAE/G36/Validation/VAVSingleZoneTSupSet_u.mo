@@ -10,23 +10,23 @@ model VAVSingleZoneTSupSet_u "Validation model for control input"
     "Block that computes the setpoints for temperature and fan speed"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  CDL.Continuous.Constant TZon(k=273.15 + 23) "Zone air temperature"
+  CDL.Continuous.Sources.Constant TZon(k=273.15 + 23) "Zone air temperature"
     annotation (Placement(transformation(extent={{-80,-22},{-60,0}})));
 
-  CDL.Continuous.Constant TOut(k=273.15 + 21) "Outdoor temperature"
+  CDL.Continuous.Sources.Constant TOut(k=273.15 + 21) "Outdoor temperature"
     annotation (Placement(transformation(extent={{-80,-62},{-60,-40}})));
 
-  Modelica.Blocks.Sources.Ramp uHea(
+  CDL.Continuous.Sources.Ramp uHea(
     duration=0.25,
     height=-1,
     offset=1) "Heating control signal"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  Modelica.Blocks.Sources.Ramp uCoo(duration=0.25, startTime=0.75)
+  CDL.Continuous.Sources.Ramp uCoo(duration=0.25, startTime=0.75)
     "Cooling control signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
-  CDL.Continuous.Constant TSetZon(k=273.15 + 22) "Average zone set point"
+  CDL.Continuous.Sources.Constant TSetZon(k=273.15 + 22) "Average zone set point"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 equation
   connect(TZon.y, setPoiVAV.TZon) annotation (Line(points={{-59,-11},{-31.5,-11},

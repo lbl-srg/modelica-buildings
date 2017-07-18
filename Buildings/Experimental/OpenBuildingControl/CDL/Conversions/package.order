@@ -2,9 +2,9 @@ BooleanToInteger
 BooleanToReal
 IntegerToBoolean
 IntegerToReal
+IsHoliday
+IsNonWorkingDay
+IsWorkingDay
 RealToBoolean
 RealToInteger
-IsWorkingDay
-IsNonWorkingDay
-IsHoliday
 Validation

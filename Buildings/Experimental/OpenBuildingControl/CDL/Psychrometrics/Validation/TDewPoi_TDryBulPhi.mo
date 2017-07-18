@@ -6,28 +6,28 @@ model TDewPoi_TDryBulPhi
   Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.TDewPoi_TDryBulPhi dewBulPhi
    "Model for dew point temperature"
     annotation (Placement(transformation(extent={{16,74},{36,94}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant p(k=101325) "Pressure"
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant p(k=101325) "Pressure"
                                     annotation (Placement(transformation(extent={{-94,8},
             {-74,28}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp phi(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp phi(
     duration=1,
     height=1,
     offset=0.001) "Relative humidity"   annotation (Placement(transformation(extent={{-94,40},
             {-74,60}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant TDryBul(k=273.15 + 29.4)
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant TDryBul(k=273.15 + 29.4)
     "Dry bulb temperature"          annotation (Placement(transformation(extent={{-94,74},
             {-74,94}})));
 
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant p2(k=101325) "Pressure"
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant p2(k=101325) "Pressure"
                                     annotation (Placement(transformation(extent={{-94,-94},
             {-74,-74}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp TDryBul2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp TDryBul2(
     duration=1,
     height=35,
     offset=273.15+2.0) "Dry bulb temperature"   annotation (Placement(transformation(extent={{-94,-28},
             {-74,-8}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant phi2(k=0.4)
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant phi2(k=0.4)
     "Relative humidity"          annotation (Placement(transformation(extent={{-94,-60},
             {-74,-40}})));
 

@@ -8,22 +8,20 @@ extends Modelica.Icons.Example;
     "Block that out the value of the input x along a line specified by two points"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant x1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant x1(
     k = 1.0) "Block that generate x1"
     annotation (Placement(transformation(extent={{-60,52},{-40,72}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant f1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant f1(
     k = 1.0) "Block that generate f(x1)"
     annotation (Placement(transformation(extent={{-56,20},{-36,40}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant x2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant x2(
     k = 2.0) "Block that generate x2"
     annotation (Placement(transformation(extent={{-56,-42},{-36,-22}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant f2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant f2(
     k = 4.0) "Block that generate f(x2)"
     annotation (Placement(transformation(extent={{-60,-76},{-40,-56}})));
 
-
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=0,
     height=2) "Block that generates ramp signal"

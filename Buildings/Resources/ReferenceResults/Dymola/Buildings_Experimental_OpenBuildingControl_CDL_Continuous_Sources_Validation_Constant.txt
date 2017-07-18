@@ -1,0 +1,9 @@
+last-generated=2017-07-17
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+con.y=[2.5e+00, 2.5e+00]
+time=[0e+00, 1e+00]
