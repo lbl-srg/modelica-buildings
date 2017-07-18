@@ -6,7 +6,6 @@ Atan
 Atan2
 Average
 ChangeSign
-Constant
 Cos
 Derivative
 Division
@@ -34,4 +33,5 @@ Sqrt
 Sum
 Tan
 Truncation
+Sources
 Validation

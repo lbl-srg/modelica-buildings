@@ -2,7 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model ZeroCrossing "Validation model for the zero crossing block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp1(
     duration=5,
     offset=0,
     height=31.415926) "Block that generates ramp signal"
@@ -11,17 +11,14 @@ extends Modelica.Icons.Example;
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-38,-10},{-18,10}})));
 
-   Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul1(
-     width = 0.15,
-     period = 5)
-     "Block that outputs cyclic on and off"
-     annotation (Placement(transformation(extent={{-38,-44},{-18,-24}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul1(
+      width=0.15, period=5) "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{-38,-44},{-18,-24}})));
     Buildings.Experimental.OpenBuildingControl.CDL.Logical.ZeroCrossing zeroCrossing
       "Zero crossing block"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp2(
     duration=5,
     offset=0,
     height=31.415926) "Block that generates ramp signal"

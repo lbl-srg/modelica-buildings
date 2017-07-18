@@ -1,6 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Interfaces;
-connector DayTypeOutput =output Types.Day
-  "Output connector for day types."
+connector DayTypeOutput =output Types.Day  "Output connector for day types"
 annotation (
   defaultComponentName="y",
   Icon(

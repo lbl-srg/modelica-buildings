@@ -2,10 +2,8 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model Timer "Validation model for the Timer block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul(
-    width = 0.5,
-    period = 2)
-    "Block that outputs cyclic on and off"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul(
+      width=0.5, period=2) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Timer timer1
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));

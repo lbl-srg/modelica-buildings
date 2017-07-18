@@ -2,17 +2,15 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model Change "Validation model for the Change block."
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul(
-    width = 0.5,
-    period = 1.0)
-    "Block that outputs cyclic on and off"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul(
+      width=0.5, period=1.0) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Change change
     "Outputs true if the input changes"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp2(
     duration=5,
     offset=0,
     height=20) "Block that generates ramp signal"
