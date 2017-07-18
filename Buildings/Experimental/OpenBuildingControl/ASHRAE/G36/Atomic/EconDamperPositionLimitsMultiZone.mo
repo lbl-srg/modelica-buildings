@@ -65,40 +65,8 @@ block EconDamperPositionLimitsMultiZone
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
     k=kPDamLim) "Damper position limit controller"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
-  CDL.Continuous.Line minOutDam(limitBelow=true, limitAbove=true)
-    "Linear mapping of the outdoor air damper position to the control signal"
-    annotation (Placement(transformation(extent={{120,140},{140,160}})));
-  CDL.Continuous.Line minRetDam(limitBelow=true, limitAbove=true)
-    "Linear mapping of the return air damper position to the control signal"
-    annotation (Placement(transformation(extent={{120,100},{140,120}})));
-  CDL.Logical.Switch retDamPosMinSwitch
-    "A switch to deactivate the return air damper minimal outdoor airflow control"
-    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  CDL.Logical.Switch outDamPosMaxSwitch
-    "A switch to deactivate the outdoor air damper minimal outdoor airflow control"
-    annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  CDL.Logical.And3 and1 "Locical and block"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-  CDL.Logical.Not not1 "Logical not block"
-    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  CDL.Conversions.IntegerToReal intToRea "Integer to real converter"
-    annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
-  CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
-    annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
-  CDL.Logical.LessEqualThreshold equ(final threshold=allowedFreProStaNum)
-    "Freeze protection stage above allowedFreProStaNum disables the control"
-    annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
-  CDL.Logical.Equal equ1 "Logical equal block"
-    annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
 
 protected
-  parameter Types.FreezeProtectionStage allowedFreProSta = Types.FreezeProtectionStage.stage1
-    "Freeze protection stage 1";
-  parameter Real allowedFreProStaNum = Integer(allowedFreProSta)-1
-    "Freeze protection stage control loop upper enable limit";
-  parameter Types.OperationMode occupied = Types.OperationMode.occupied "Operation mode is Occupied";
-  parameter Real occupiedNum = Integer(occupied) "Numerical value for Occupied operation mode";
-
   CDL.Continuous.Constant outDamPhyPosMinSig(final k=outDamPhyPosMin)
     "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
@@ -121,8 +89,35 @@ protected
     "Equals the fraction of the control loop signal below which the outdoor air damper
     limit gets modulated and above which the return air damper limit gets modulated"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
-  CDL.Continuous.Constant OperationMode(final k=occupiedNum) "Control loop is enabled in occupied operation mode"
+  CDL.Continuous.Constant OperationMode(final k=Constants.OperationModes.occModInd)
+    "Control loop is enabled in occupied operation mode"
     annotation (Placement(transformation(extent={{-160,-220},{-140,-200}})));
+
+  CDL.Continuous.Line minOutDam(limitBelow=true, limitAbove=true)
+    "Linear mapping of the outdoor air damper position to the control signal"
+    annotation (Placement(transformation(extent={{120,140},{140,160}})));
+  CDL.Continuous.Line minRetDam(limitBelow=true, limitAbove=true)
+    "Linear mapping of the return air damper position to the control signal"
+    annotation (Placement(transformation(extent={{120,100},{140,120}})));
+  CDL.Logical.Switch retDamPosMinSwitch
+    "A switch to deactivate the return air damper minimal outdoor airflow control"
+    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
+  CDL.Logical.Switch outDamPosMaxSwitch
+    "A switch to deactivate the outdoor air damper minimal outdoor airflow control"
+    annotation (Placement(transformation(extent={{40,10},{60,30}})));
+  CDL.Logical.And3 and1 "Locical and block"
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
+  CDL.Logical.Not not1 "Logical not block"
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+  CDL.Conversions.IntegerToReal intToRea "Integer to real converter"
+    annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
+  CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
+    annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
+  CDL.Logical.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage1)
+    "Any freeze protection stage above 1 disables the control"
+    annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
+  CDL.Logical.Equal equ1 "Logical equal block"
+    annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
 
 equation
   connect(minRetDam.y,yRetDamPosMax)  annotation (Line(points={{141,110},{150,110},{150,20},{150,-40},{190,-40}},

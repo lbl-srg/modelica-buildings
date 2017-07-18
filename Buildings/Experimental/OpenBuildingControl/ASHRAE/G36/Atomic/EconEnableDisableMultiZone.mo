@@ -97,10 +97,11 @@ block EconEnableDisableMultiZone
     annotation (Placement(transformation(extent={{-8,-190},{12,-170}})));
   CDL.Logical.And3 andEnaDis "Logical \"and\" checks freeze protection stage and zone state"
    annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  CDL.Logical.LessEqualThreshold equ(final threshold=freProDisabledNum)
+  CDL.Logical.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage0)
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  CDL.Logical.GreaterThreshold greThr(final threshold=heatingNum) "Check if zone state is other than heating"
+  CDL.Logical.GreaterThreshold greThr(final threshold=Constants.ZoneStates.heating)
+    "Check if zone state is other than heating"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   CDL.Logical.GreaterThreshold greThr2(final threshold=0) "Check if the timer got started"
     annotation (Placement(transformation(extent={{88,-182},{108,-162}})));
@@ -123,12 +124,6 @@ protected
     "Hysteresis block high limit cutoff";
   parameter Real uEntHigLimCutLow(final unit="J/kg", quantity="SpecificEnergy") = uEntHigLimCutHig - delEntHis
     "Hysteresis block low limit cutoff";
-  parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
-    "Freeze protection stage 0 (disabled)";
-  parameter Real freProDisabledNum = Integer(freProDisabled)-1
-    "Numerical value for freeze protection stage 0";
-  parameter Types.ZoneState heating = Types.ZoneState.heating "Heating zone state";
-  parameter Real heatingNum = Integer(heating) "Numerical value for heating zone state";
 
   CDL.Continuous.Constant openRetDam(final k=retDamFulOpeTim)
     "Keep return damper open to its physical maximum for a short period of time before closing the outdoor air damper

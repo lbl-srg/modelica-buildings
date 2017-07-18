@@ -7,11 +7,10 @@ model EconomizerMultiZone_Mod_DamLim
     "Outdoor temperature high limit cutoff";
   parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
-  parameter Modelica.SIunits.Temperature TCooSet=291
+  parameter Modelica.SIunits.Temperature THeaSet=291
     "Supply air temperature cooling setpoint";
   parameter Modelica.SIunits.Temperature TSup=290
     "Measured supply air temperature";
-
   parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
   parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=0.705
@@ -19,28 +18,21 @@ model EconomizerMultiZone_Mod_DamLim
   parameter Modelica.SIunits.VolumeFlowRate VOutIncrease_flow=0.03
     "Maximum volumetric airflow increase during the example simulation";
 
-  parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
-    "Indicates that the freeze protection is disabled";
-  parameter Integer freProDisabledNum = Integer(freProDisabled)-1
-    "Numerical value for freeze protection stage 0";
-  parameter Types.OperationMode occupied = Types.OperationMode.occupied
-    "AHU operation mode is Occupied";
-  parameter Integer occupiedNum = Integer(occupied)
-    "Numerical value for Occupied AHU operation mode";
-  parameter Types.ZoneState deadband = Types.ZoneState.deadband
-    "Zone state is deadband";
-  parameter Integer deadbandNum = Integer(deadband)
-    "Numerical value for deadband zone state";
-
   EconomizerMultiZone economizer(use_enthalpy=true) "Multizone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
+  EconomizerMultiZone economizer1(use_enthalpy=false) "Multizone VAV AHU economizer "
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
+
+protected
   CDL.Logical.Constant fanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  CDL.Integers.Constant freProSta(k=freProDisabledNum) "Freeze protection status is 0"
+  CDL.Integers.Constant freProSta(k=Constants.FreezeProtectionStages.stage0)
+    "Freeze protection status is 0"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  CDL.Integers.Constant ZoneState(k=deadbandNum) "Zone State is deadband"
+  CDL.Integers.Constant ZoneState(k=Constants.ZoneStates.deadband) "Zone State is deadband"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Integers.Constant operationMode(k=occupiedNum) "AHU operation mode is Occupied"
+  CDL.Integers.Constant operationMode(k=Constants.OperationModes.occModInd)
+    "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 10000)
     "Outdoor air enthalpy is slightly below the cufoff"
@@ -61,17 +53,16 @@ model EconomizerMultiZone_Mod_DamLim
     height=VOutIncrease_flow)
     "Measured outdoor air volumetric airflow"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  CDL.Continuous.Constant TSupSetSig(k=TCooSet) "Cooling supply air temperature setpoint"
+  CDL.Continuous.Constant TSupSetSig(k=THeaSet) "Cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   CDL.Continuous.Constant TSupSig(k=TSup) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  EconomizerMultiZone economizer1(use_enthalpy=false) "Multizone VAV AHU economizer "
-    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   Modelica.Blocks.Sources.Ramp TSupSig1(
     duration=900,
     height=2,
-    offset=TCooSet - 1) "Measured supply air temperature"
+    offset=THeaSet - 1) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
+
 equation
   connect(fanStatus.y, economizer.uSupFan)
     annotation (Line(points={{-59,-80},{-14,-80},{-14,6},{19,6}}, color={255,0,255}));

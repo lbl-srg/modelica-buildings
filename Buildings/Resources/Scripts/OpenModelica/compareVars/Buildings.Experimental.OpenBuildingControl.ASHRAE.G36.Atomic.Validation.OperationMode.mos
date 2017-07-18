@@ -4,6 +4,6 @@ compareVars :=
     "operationModeSelector.TUnoHeaSet",
     "operationModeSelector.TUnoCooSet",
     "operationModeSelector.THeaSet",
-    "operationModeSelector.TCooSet",
+    "operationModeSelector.THeaSet",
     "operationModeSelector.TZon[1]"
   };
