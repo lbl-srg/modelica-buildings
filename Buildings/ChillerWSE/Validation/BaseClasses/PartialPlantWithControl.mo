@@ -1,4 +1,4 @@
-within Buildings.ChillerWSE.Examples.BaseClasses;
+within Buildings.ChillerWSE.Validation.BaseClasses;
 partial model PartialPlantWithControl
   "Partial model that tests source plant with temperature control"
   extends Modelica.Icons.Example;

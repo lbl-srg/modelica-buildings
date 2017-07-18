@@ -1,6 +1,5 @@
-within Buildings.ChillerWSE.Examples;
-model ElectricChillerParallel
-  "Model that test electric chiller parallel"
+within Buildings.ChillerWSE.Validation;
+model ElectricChillerParallel "Model that test electric chiller parallel"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric(
       P_nominal=-per[1].QEva_flow_nominal/per[1].COP_nominal,
@@ -41,6 +40,7 @@ equation
                     color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ChillerWSE/Examples/ElectricChillerParallel.mos"
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/ChillerWSE/Validation/ElectricChillerParallel.mos"
         "Simulate and Plot"));
 end ElectricChillerParallel;

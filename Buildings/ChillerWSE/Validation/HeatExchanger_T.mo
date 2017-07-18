@@ -1,8 +1,8 @@
-within Buildings.ChillerWSE.Examples;
+within Buildings.ChillerWSE.Validation;
 model HeatExchanger_T
   "Model that demonstrates use of a waterside economizer with outlet temperature control"
   extends Modelica.Icons.Example;
-  extends Buildings.ChillerWSE.Examples.BaseClasses.PartialPlantWithControl(
+  extends Buildings.ChillerWSE.Validation.BaseClasses.PartialPlantWithControl(
     sou1(nPorts=1),
     sou2(nPorts=1),
     T1_in(offset=273.15 + 4, startTime=1800));
@@ -41,7 +41,7 @@ equation
           20,-10},{60,-10}}, color={0,127,255}));
   annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/ChillerWSE/Examples/HeatExchanger_T.mos"
+          "Resources/Scripts/Dymola/ChillerWSE/Validation/HeatExchanger_T.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
