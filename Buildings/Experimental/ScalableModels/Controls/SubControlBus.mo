@@ -2,14 +2,14 @@ within Buildings.Experimental.ScalableModels.Controls;
 expandable connector SubControlBus
   "Sub-control bus that is adapted to the signals connected to it"
   extends Modelica.Icons.SignalSubBus;
-  Modelica.SIunits.Temperature TRooMin;
-  Modelica.SIunits.Temperature TRooAve;
-  Modelica.SIunits.Temperature TRooSetHea;
-  Modelica.SIunits.Temperature TRooSetCoo;
-  Modelica.SIunits.Temperature TOut;
-  Modelica.SIunits.Time dTNexOcc;
-  Boolean occupied;
-  Integer controlMode;
+  Modelica.SIunits.Temperature TRooMin "Minimum temperature of multiple zones";
+  Modelica.SIunits.Temperature TRooAve "Average temperature of multiple zones";
+  Modelica.SIunits.Temperature TRooSetHea "Room heating setpoint temperature";
+  Modelica.SIunits.Temperature TRooSetCoo "Room cooling setpoint temperature";
+  Modelica.SIunits.Temperature TOut "Outdoor air temperature";
+  Modelica.SIunits.Time dTNexOcc "Time to next occupancy period";
+  Boolean occupied "Occupancy status";
+  Integer controlMode "System operation modes";
 
   annotation (
     defaultComponentPrefixes="protected",
