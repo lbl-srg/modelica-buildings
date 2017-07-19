@@ -20,13 +20,20 @@ expandable connector SubControlBus
                   lineThickness=0.5)}),
     Documentation(info="<html>
 <p>
-This connector defines the \"expandable connector\" SubControlBus that
+This connector defines the <code>expandable connector</code> SubControlBus that
 is used as sub-bus in the
 <a href=\"modelica://Modelica.Blocks.Examples.BusUsage\">BusUsage</a> example.
-Note, this is an expandable connector which has a \"default\" set of
+Note, this is an expandable connector which has a <i>default</i> set of
 signals (the input/output causalities of the signals are
 determined from the connections to this bus).
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 16, 2017, by Jianjun Hu:<br/>
+First implementation.<br/>
+</li>
+</ul>
 </html>"));
 
 end SubControlBus;

@@ -142,35 +142,36 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
     annotation (Placement(transformation(extent={{-88,92},{-76,104}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=146.5/48) "Latent heat gain"
     annotation (Placement(transformation(extent={{-88,40},{-76,52}})));
-  Modelica.Blocks.Routing.Multiplex3 multiplex3_1
+  Modelica.Blocks.Routing.Multiplex3 multiplex3_1 "Sum of heat gain"
     annotation (Placement(transformation(extent={{-16,64},{-8,72}})));
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
     annotation (Placement(transformation(extent={{-16,80},{-8,88}})));
   Buildings.Fluid.Sources.Outside sinInf(redeclare package Medium = MediumA,
       nPorts=1) "Sink model for air infiltration"
-           annotation (Placement(transformation(extent={{-22,-34},{-10,-22}})));
+    annotation (Placement(transformation(extent={{-22,-34},{-10,-22}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
     annotation (Placement(transformation(extent={{-82,-88},{-66,-72}}),
         iconTransformation(extent={{-82,-88},{-66,-72}})));
-  Modelica.Blocks.Math.Product product1
+  Modelica.Blocks.Math.Product product1 "Scheduled radiative heat gain"
     annotation (Placement(transformation(extent={{-56,90},{-46,100}})));
-  Modelica.Blocks.Math.Gain gain(k=gainFactor)
+  Modelica.Blocks.Math.Gain gain(k=gainFactor) "Factorized radiative heat gain"
     annotation (Placement(transformation(extent={{-40,90},{-30,100}})));
-  Modelica.Blocks.Math.Product product2
+  Modelica.Blocks.Math.Product product2 "Scheduled convective heat gain"
     annotation (Placement(transformation(extent={{-56,63},{-46,73}})));
   Modelica.Blocks.Math.Gain gain1(k=gainFactor)
+    "Factorized convective heat gain"
     annotation (Placement(transformation(extent={{-40,63},{-30,73}})));
-  Modelica.Blocks.Math.Product product3
+  Modelica.Blocks.Math.Product product3 "Scheduled latent heat gain"
     annotation (Placement(transformation(extent={{-56,38},{-46,48}})));
-  Modelica.Blocks.Math.Gain gain2(k=gainFactor)
+  Modelica.Blocks.Math.Gain gain2(k=gainFactor) "Factorized latent heat gain"
     annotation (Placement(transformation(extent={{-40,38},{-30,48}})));
   Schedules.IntLoad intLoad(table=[
     0, 0.1;
     ((gainFactor-0.5)+8)*3600,1.0;
     ((gainFactor-0.5)+18)*3600,0.1;
-    24*3600,0.1])
+    24*3600,0.1]) "Internal load schedule"
     annotation (Placement(transformation(extent={{-90,114},{-76,128}})));
   Fluid.Sources.MassFlowSource_T  souInf(
     redeclare package Medium = MediumA,
@@ -254,6 +255,7 @@ equation
   connect(res.port_b, roo.ports[2])
     annotation (Line(points={{22,-28},{22,-28},{28,-28},{28,-7},{39.75,-7}},
       color={0,127,255}));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100, 100}}), graphics={
         Rectangle(

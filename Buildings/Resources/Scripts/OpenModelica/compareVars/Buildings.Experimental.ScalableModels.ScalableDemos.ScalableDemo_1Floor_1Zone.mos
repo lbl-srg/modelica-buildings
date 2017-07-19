@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "weaDat.weaBus.TDryBul",
-    "weaDat.weaBus.HDirNor",
-    "weaDat.weaBus.HGloHor",
-    "multiZoneFluctuatingIHG.theZon[1, 1].roo.heaPorAir.T",
-    "multiZoneFluctuatingIHG.theZon[1, 1].heaCooPow"
-  };

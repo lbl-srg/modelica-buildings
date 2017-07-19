@@ -58,14 +58,17 @@ model ThermalZone "Thermal zone model"
     d=784,
     nStaRef=2) "Gypsum board"
     annotation (Placement(transformation(extent={{160,38},{180,58}})));
-  final parameter HeatTransfer.Data.OpaqueConstructions.Generic conExtWal(final nLay=3,
-      material={matWoo,matIns,matGyp}) "Exterior construction"
+  final parameter HeatTransfer.Data.OpaqueConstructions.Generic conExtWal(
+    final nLay=3,
+    material={matWoo,matIns,matGyp}) "Exterior construction"
     annotation (Placement(transformation(extent={{240,140},{260,160}})));
-  final parameter HeatTransfer.Data.OpaqueConstructions.Generic conIntWal(final nLay=1,
-      material={matGyp2}) "Interior wall construction"
+  final parameter HeatTransfer.Data.OpaqueConstructions.Generic conIntWal(
+    final nLay=1,
+    material={matGyp2}) "Interior wall construction"
     annotation (Placement(transformation(extent={{240,112},{260,132}})));
-  final parameter HeatTransfer.Data.OpaqueConstructions.Generic conFlo(final nLay=1, material={
-        matCon}) "Floor construction (opa_a is carpet)"
+  final parameter HeatTransfer.Data.OpaqueConstructions.Generic conFlo(
+    final nLay=1,
+    material={matCon}) "Floor construction (opa_a is carpet)"
     annotation (Placement(transformation(extent={{240,86},{260,106}})));
   final parameter HeatTransfer.Data.Solids.Plywood matCarTra(
     k=0.11,
@@ -205,6 +208,7 @@ equation
   connect(souInf.ports[1], roo.ports[1])
     annotation (Line(points={{-8,-52},{-8,-52},{32,-52},{32,-10},{39.75,-10}},
       color={0,127,255}));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100, 100}}), graphics={
         Rectangle(

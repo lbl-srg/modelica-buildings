@@ -15,8 +15,10 @@ model MultiFloorWithVAV
   constant Real conv=1.2/3600
     "Conversion factor for nominal mass flow rate";
   parameter Real m_flow_nominal_each[nZon,nFlo]=
-    {{7*conv*VRoo[i,j] for j in 1:nFlo} for i in 1:nZon};
-  parameter Real m_flow_nominal = nZon*(7*conv)*6*8*2.7;
+    {{7*conv*VRoo[i,j] for j in 1:nFlo} for i in 1:nZon}
+    "Nominal flow rate to each zone";
+  parameter Real m_flow_nominal = nZon*(7*conv)*6*8*2.7
+    "Nominal system flow rate";
 
   HVACSystems.VAVBranch vAVBranch[nZon,nFlo](
     redeclare each package MediumA = MediumA,
@@ -28,7 +30,7 @@ model MultiFloorWithVAV
     annotation (Placement(transformation(extent={{52,12},{82,42}})));
   ThermalZones.BaseClasses.MultiZoneFluctuatingIHG multiZoneFluctuatingIHG(
     nZon = nZon,
-    nFlo = nFlo) "Multizone model with flexible number of zones"
+    nFlo = nFlo) "Multizone model with scalable number of zones"
     annotation (Placement(transformation(extent={{48,60},{88,100}})));
   Buildings.Fluid.Movers.FlowControlled_dp fan[nFlo](
     redeclare each package Medium = MediumA,

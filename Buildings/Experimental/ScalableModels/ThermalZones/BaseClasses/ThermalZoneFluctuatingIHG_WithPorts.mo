@@ -26,7 +26,7 @@ model ThermalZoneFluctuatingIHG_WithPorts "Thermal zone model"
     "Return air temperature sensor"
     annotation (Placement(transformation(extent={{-12,26}, {-24,38}})));
   Buildings.Fluid.Sensors.MassFlowRate supplyAirFlow(
-    redeclare package Medium = MediumA)
+    redeclare package Medium = MediumA) "Supply air flow rate"
     annotation (Placement(transformation(extent={{-44,10},{-34,20}})));
   Modelica.Blocks.Interfaces.RealOutput TRooAir "Room air temperatures"
     annotation (Placement(transformation(extent={{92,26},{112,46}}),
@@ -63,6 +63,7 @@ equation
       color={0,127,255}));
   connect(roo.heaPorAir, rooAirTem.port)
     annotation (Line(points={{50.25,-1},{50.25,36},{66,36}}, color={191,0,0}));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100, 100}}), graphics={
         Rectangle(

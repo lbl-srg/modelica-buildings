@@ -1,12 +1,13 @@
 within Buildings.Experimental.ScalableModels.ScalableDemos;
-model ScalableDemo_1Floor_2Zone
+model ScalableDemo_2Floor_2Zone
+  "Building model with 2 zone in 2 floor"
   extends
     Buildings.Experimental.ScalableModels.ScalableBuildingModels.MultiFloorWithVAV(
-     nFlo=1, nZon=2);
+     nFlo=2, nZon=2);
 
 annotation (
   experiment(StopTime=604800, Tolerance=1e-06,__Dymola_Algorithm="Radau"),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/ScalableModels/ScalableDemos/ScalableDemo_1Floor_2Zone.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/ScalableModels/ScalableDemos/ScalableDemo_2Floor_2Zone.mos"
         "Simulate and plot"),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-120},{140,200}})),
   Documentation(info="<html>
@@ -14,8 +15,8 @@ annotation (
 The model demonstrates the scalability of model 
 <a href=\"modelica://Buildings.Experimental.ScalableModels.ScalableBuildingModels.MultiFloorWithVAV\">
 Buildings.Experimental.ScalableModels.ScalableBuildingModels.MultiFloorWithVAV</a> 
-by setting it to be a multizone model with 2 zones in 1 floor, i.e.
-<code>nFlo=1, nZon=2</code>.
+by setting it to be a multizone model with 2 zones in 2 floor, i.e.
+<code>nFlo=2, nZon=2</code>.
 </p></html>", revisions="<html>
 <ul>
 <li>
@@ -24,4 +25,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ScalableDemo_1Floor_2Zone;
+end ScalableDemo_2Floor_2Zone;
