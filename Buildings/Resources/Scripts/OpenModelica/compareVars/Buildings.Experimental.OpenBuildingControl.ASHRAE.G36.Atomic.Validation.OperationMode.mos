@@ -1,9 +1,9 @@
 compareVars :=
   {
-    "operationModeSelector.opeMod",
-    "operationModeSelector.TUnoHeaSet",
-    "operationModeSelector.TUnoCooSet",
-    "operationModeSelector.THeaSet",
-    "operationModeSelector.THeaSet",
-    "operationModeSelector.TZon[1]"
+    "opeModSel.opeMod",
+    "opeModSel.TUnoHeaSet",
+    "opeModSel.TUnoCooSet",
+    "opeModSel.THeaSet",
+    "opeModSel.THeaSet",
+    "opeModSel.TZon[1]"
   };

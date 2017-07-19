@@ -89,7 +89,7 @@ protected
     "Equals the fraction of the control loop signal below which the outdoor air damper
     limit gets modulated and above which the return air damper limit gets modulated"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
-  CDL.Continuous.Sources.Constant OperationMode(final k=Constants.OperationModes.occModInd)
+  CDL.Continuous.Sources.Constant opeMod(final k=Constants.OperationModes.occModInd)
     "Control loop is enabled in occupied operation mode"
     annotation (Placement(transformation(extent={{-160,-220},{-140,-200}})));
 
@@ -113,7 +113,8 @@ protected
     annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
   CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
     annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
-  CDL.Logical.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage1)
+  CDL.Logical.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage1
+         + 0.5)
     "Any freeze protection stage above 1 disables the control"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
   CDL.Logical.Equal equ1 "Logical equal block"
@@ -180,8 +181,8 @@ equation
     annotation (Line(points={{-82,-98},{-86,-98},{-86,-180},{-99,-180}},color={255,0,255}));
   connect(intToRea1.y, equ1.u1)
     annotation (Line(points={{-139,-180},{-130.5,-180},{-122,-180}}, color={0,0,127}));
-  connect(OperationMode.y, equ1.u2)
-    annotation (Line(points={{-139,-210},{-130,-210},{-130,-188},{-122,-188}},color={0,0,127}));
+  connect(opeMod.y, equ1.u2) annotation (Line(points={{-139,-210},{-130,-210},{
+          -130,-188},{-122,-188}}, color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, yRetDamPhyPosMax)
     annotation (Line(points={{-139,-40},{40,-40},{40,-80},{190,-80}},color={0,0,127}));
   connect(yRetDamPosMin, yRetDamPosMin) annotation (Line(points={{190,0},{190,0}}, color={0,0,127}));

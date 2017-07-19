@@ -48,18 +48,19 @@ block EconModulationMultiZone
   CDL.Continuous.Line retDamPos(limitBelow=true, limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  CDL.Continuous.LimPID damPosController(
+  CDL.Continuous.LimPID damPosCon(
     final controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
+
     final Td=0.1,
     final yMax=conSigMax,
     final yMin=conSigMin,
     final k=kPMod,
     final Ti=TiMod)
-    "Contoller that outputs a signal based on the error between the measured SAT and SAT cooling setpoint"
+    "Controller that outputs a signal based on the error between the measured SAT and SAT cooling setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
 protected
-  CDL.Continuous.Sources.Constant outDamMinLimSig(final k=damPosController.yMin)
+  CDL.Continuous.Sources.Constant outDamMinLimSig(final k=damPosCon.yMin)
     "Minimal control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   CDL.Continuous.Sources.Constant outDamMaxLimSig(final k=outDamConSigMax)
@@ -68,23 +69,23 @@ protected
   CDL.Continuous.Sources.Constant retDamMinLimSig(final k=retDamConSigMin)
     "Minimal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  CDL.Continuous.Sources.Constant retDamMaxLimSig(final k=damPosController.yMax)
+  CDL.Continuous.Sources.Constant retDamMaxLimSig(final k=damPosCon.yMax)
     "Maximal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
 equation
-  connect(TSup,damPosController. u_m)
-    annotation (Line(points={{-140,-20},{-70,-20},{-70,-2}},color={0,0,127}));
+  connect(TSup, damPosCon.u_m)
+    annotation (Line(points={{-140,-20},{-70,-20},{-70,-2}}, color={0,0,127}));
   connect(outDamPos.y, yOutDamPos)
     annotation (Line(points={{81,-30},{100,-30},{100,-20},{120,-20},{130,-20}},color={0,0,127}));
   connect(retDamPos.y, yRetDamPos)
     annotation (Line(points={{81,70},{100,70},{100, 20},{130,20}}, color={0,0,127}));
   connect(retDamMaxLimSig.y,retDamPos. x2)
     annotation (Line(points={{1,40},{2,40}, {0,40},{40,40},{40,66},{58,66},{58,66}},color={0,0,127}));
-  connect(damPosController.y,retDamPos. u) annotation (Line(points={{-59,10},{30,
-          10},{30,70},{58,70}}, color={0,0,127}));
-  connect(damPosController.y, outDamPos.u) annotation (Line(points={{-59,10},{40,
-          10},{40,-30},{58,-30}},color={0,0,127}));
+  connect(damPosCon.y, retDamPos.u) annotation (Line(points={{-59,10},{30,10},{
+          30,70},{58,70}}, color={0,0,127}));
+  connect(damPosCon.y, outDamPos.u) annotation (Line(points={{-59,10},{40,10},{
+          40,-30},{58,-30}}, color={0,0,127}));
   connect(uRetDamPosMax,retDamPos. f1) annotation (Line(points={{-140,100},{50,100},
           {50,74},{58,74}}, color={0,0,127}));
   connect(uOutDamPosMin, outDamPos.f1) annotation (Line(points={{-140,-100},{-140,
@@ -95,8 +96,8 @@ equation
           {40,80},{40,78},{58,78}}, color={0,0,127}));
   connect(outDamMaxLimSig.y, outDamPos.x2) annotation (Line(points={{1,-50},{32,
           -50},{32,-34},{58,-34}}, color={0,0,127}));
-  connect(THeaSet, damPosController.u_s) annotation (Line(points={{-140,10},{-140,
-          10},{-82,10}}, color={0,0,127}));
+  connect(THeaSet, damPosCon.u_s)
+    annotation (Line(points={{-140,10},{-140,10},{-82,10}}, color={0,0,127}));
   connect(uRetDamPosMin,retDamPos. f2)
     annotation (Line(points={{-140,60},{-40,60},{-40,62},{58,62}}, color={0,0,127}));
   connect(uOutDamPosMax, outDamPos.f2) annotation (Line(points={{-140,-70},{40,-70},

@@ -7,8 +7,8 @@ block EconEnableDisableMultiZone
   parameter Modelica.SIunits.Temperature delTemHis=1
     "Delta between the temperature hysteresis high and low limit";
   parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
-    "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy));
+    "Delta between the enthalpy hysteresis high and low limits, used if use_enthalpy = true"
+    annotation(Evaluate=true, Dialog(enable = use_enthalpy));
   parameter Modelica.SIunits.Time retDamFulOpeTim = 180
     "Time period to keep RA damper fully open at disable to avoid pressure fluctuations";
   parameter Modelica.SIunits.Time smaDisDel = 15
@@ -123,10 +123,12 @@ protected
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   CDL.Logical.Less les1 "Check if the RA damper should be fully open"
     annotation (Placement(transformation(extent={{-8,-190},{12,-170}})));
-  CDL.Logical.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage0)
+  CDL.Logical.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage0
+         + 0.5)
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  CDL.Logical.GreaterThreshold greThr(final threshold=Constants.ZoneStates.heating)
+  CDL.Logical.GreaterThreshold greThr(final threshold=Constants.ZoneStates.heating
+         + 0.5)
     "Check if zone state is other than heating"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   CDL.Logical.GreaterThreshold greThr2(final threshold=0) "Check if the timer got started"
