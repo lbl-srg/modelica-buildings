@@ -15,7 +15,7 @@ block EconModulationMultiZone
     "Measured supply air temperature" annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
   CDL.Interfaces.RealInput THeaSet(unit="K", quantity = "ThermodynamicTemperature")
-    "Supply air temperature cooling setpoint" annotation (Placement(transformation(extent={{-160,-10},{-120,30}}),
+    "Supply air temperature heating setpoint" annotation (Placement(transformation(extent={{-160,-10},{-120,30}}),
         iconTransformation(extent={{-120,80},{-100,100}})));
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1, unit="1")
     "Minimum economizer damper position limit as returned by the EconDamperPositionLimitsMultiZone sequence"
@@ -50,7 +50,6 @@ block EconModulationMultiZone
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   CDL.Continuous.LimPID damPosCon(
     final controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
-
     final Td=0.1,
     final yMax=conSigMax,
     final yMin=conSigMin,
