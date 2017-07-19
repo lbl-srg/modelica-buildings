@@ -17,7 +17,7 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     "Physically fixed minimum position of the outdoor air damper";
 
   CDL.Interfaces.RealInput THeaSet(unit="K", quantity = "ThermodynamicTemperature")
-    "Supply air temperature cooling setpoint" annotation (Placement(transformation(
+    "Supply air temperature heating setpoint" annotation (Placement(transformation(
     extent={{-140,30},{-120,50}}), iconTransformation(extent={{-120,10},{-100,30}})));
   CDL.Interfaces.RealInput TSup(unit="K", quantity = "ThermodynamicTemperature")
     "Measured supply air temperature" annotation (Placement(transformation(
