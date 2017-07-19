@@ -8,7 +8,7 @@ block EconEnableDisableMultiZone
     "Delta between the temperature hysteresis high and low limit";
   parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
     "Delta between the enthalpy hysteresis high and low limits, used if use_enthalpy = true"
-    annotation(Evaluate=true, Dialog(enable = use_enthalpy));
+    annotation(Dialog(enable = use_enthalpy));
   parameter Modelica.SIunits.Time retDamFulOpeTim = 180
     "Time period to keep RA damper fully open at disable to avoid pressure fluctuations";
   parameter Modelica.SIunits.Time smaDisDel = 15
@@ -231,8 +231,9 @@ equation
   connect(not2.y, and3.u1)
     annotation (Line(points={{11,-60},{20,-60},{20,-86},{-28,-86},{-28,-110},{-22,-110}}, color={255,0,255}));
   connect(greEqu.y, and3.u2) annotation (Line(points={{-49,-100},{-36,-100},{-36,-118},{-22,-118}}, color={255,0,255}));
-    annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy),
-        defaultComponentName = "ecoEnaDis",
+
+  annotation (
+    defaultComponentName = "ecoEnaDis",
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
