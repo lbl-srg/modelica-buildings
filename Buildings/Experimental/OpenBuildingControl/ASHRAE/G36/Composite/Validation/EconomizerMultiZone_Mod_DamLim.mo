@@ -8,7 +8,7 @@ model EconomizerMultiZone_Mod_DamLim
   parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
   parameter Modelica.SIunits.Temperature THeaSet=291
-    "Supply air temperature cooling setpoint";
+    "Supply air temperature heating setpoint";
   parameter Modelica.SIunits.Temperature TSup=290
     "Measured supply air temperature";
   parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
@@ -53,7 +53,7 @@ protected
     height=VOutIncrease_flow)
     "Measured outdoor air volumetric airflow"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  CDL.Continuous.Sources.Constant TSupSetSig(k=THeaSet) "Cooling supply air temperature setpoint"
+  CDL.Continuous.Sources.Constant TSupSetSig(k=THeaSet) "Heating supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   CDL.Continuous.Sources.Constant TSupSig(k=TSup) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));

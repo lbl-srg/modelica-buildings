@@ -46,7 +46,7 @@ model EconomizerMultiZone_Disable
     duration=1800)
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  CDL.Continuous.Sources.Constant TSupSetSig(k=TSupSet) "Cooling supply air temperature setpoint"
+  CDL.Continuous.Sources.Constant TSupSetSig(k=TSupSet) "Heating supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   EconomizerMultiZone economizer1 "Multizone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));

@@ -58,7 +58,7 @@ Documentation(info="<html>
 This example validates
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationMultiZone\">
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationMultiZone</a>
-for supply air temeperature (<code>TSup</code>) and supply air temperature cooling setpoint (<code>THeaSet</code>)
+for supply air temeperature (<code>TSup</code>) and supply air temperature heating setpoint (<code>THeaSet</code>)
 control signals.
 </p>
 </html>", revisions="<html>

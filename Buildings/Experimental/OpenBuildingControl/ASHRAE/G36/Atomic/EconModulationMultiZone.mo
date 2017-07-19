@@ -55,7 +55,7 @@ block EconModulationMultiZone
     final yMin=conSigMin,
     final k=kPMod,
     final Ti=TiMod)
-    "Controller that outputs a signal based on the error between the measured SAT and SAT cooling setpoint"
+    "Controller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
 protected
