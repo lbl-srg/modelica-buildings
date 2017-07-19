@@ -68,24 +68,22 @@ model ClosedLoopSingleZoneResponse
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{74,70},{94,90}})));
 
-  Atomic.VAVSingleZoneTSupSet setPoiVAV annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Atomic.OutdoorAirFlowSetpoint_SingleZone OutAirSetPoi_SinZon
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   CDL.Continuous.Constant numberOcupants(k=numOcupants) "Number of occupants"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
-  Atomic.HeatingCoolingControlLoops conLoo annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
   CDL.Continuous.Add mean(k1=0.5, k2=0.5) annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Composite.EconomizerSingleZone economizer(use_enthalpy=false)
-                                            annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   CDL.Continuous.Constant TOutCut(k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   CDL.Logical.Constant fanStatus(k=true) annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   CDL.Logical.Constant windowClosed(k=true) annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
   CDL.Logical.Constant chillerOn(k=true) annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  CDL.Integers.Constant zonSta(k=2) annotation (Placement(transformation(extent={{-30,-76},{-10,-56}})));
-  CDL.Integers.Constant opeMod(k=1) annotation (Placement(transformation(extent={{-30,-108},{-10,-88}})));
-  CDL.Integers.Constant freProSta(k=0) annotation (Placement(transformation(extent={{-30,-140},{-10,-120}})));
+  CDL.Integers.Constant zonSta(k=2) annotation (Placement(transformation(extent={{-42,-84},{-22,-64}})));
+  CDL.Integers.Constant opeMod(k=1) annotation (Placement(transformation(extent={{-42,-116},{-22,-96}})));
+  CDL.Integers.Constant freProSta(k=0) annotation (Placement(transformation(extent={{-42,-148},{-22,-128}})));
   CDL.Continuous.Constant TChilWat(k=278.15) annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
+  SingleZoneVAVControl singleZoneAHUController
+    annotation (Placement(transformation(rotation=0, extent={{-20,20},{0,40}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{40,140},{72,140},{72,80},{84,80}},
@@ -127,68 +125,54 @@ equation
                                 color={0,0,127}));
   connect(EPum.y, EHVAC.u[4]) annotation (Line(points={{181,-130},{194,-130},{194,-75.25},{200,-75.25}},
                                 color={0,0,127}));
-  connect(conLoo.yHea, setPoiVAV.uHea)
-    annotation (Line(points={{-119,74},{-80,74},{-80,78},{-42,78}}, color={0,0,127}));
-  connect(conLoo.yCoo, setPoiVAV.uCoo)
-    annotation (Line(points={{-119,66},{-70,66},{-70,74},{-42,74}}, color={0,0,127}));
-  connect(mean.y, setPoiVAV.TSetZon) annotation (Line(points={{-139,0},{-60,0},{-60,70},{-42,70}},color={0,0,127}));
-  connect(TSetRooHea.y[1], conLoo.TRooHeaSet)
-    annotation (Line(points={{-199,10},{-180,10},{-180,76},{-141,76}}, color={0,0,127}));
-  connect(TSetRooCoo.y[1], conLoo.TRooCooSet)
-    annotation (Line(points={{-199,-20},{-170,-20},{-170,72},{-141,72}}, color={0,0,127}));
-  connect(zon.TRooAir, conLoo.TRoo)
-    annotation (Line(points={{201,0},{220,0},{220,100},{-144,100},{-144,66},{-141,66}}, color={0,0,127}));
-  connect(zon.TRooAir, setPoiVAV.TZon)
-    annotation (Line(points={{201,0},{230,0},{230,120},{-52,120},{-52,66},{-42,66}}, color={0,0,127}));
-  connect(weaBus.TDryBul, setPoiVAV.TOut) annotation (Line(
-      points={{84,80},{84,80},{84,62},{84,62},{84,56},{-52,56},{-52,62},{-42,62}},
+  connect(mean.y, singleZoneAHUController.TSetZon)
+    annotation (Line(points={{-139,0},{-40,0},{-40,40},{-8,40}}, color={0,0,127}));
+  connect(TSetRooHea.y[1], singleZoneAHUController.TRooHeaSet)
+    annotation (Line(points={{-199,10},{-180,10},{-180,35},{-20,35}}, color={0,0,127}));
+  connect(TSetRooCoo.y[1], singleZoneAHUController.TRooCooSet)
+    annotation (Line(points={{-199,-20},{-170,-20},{-170,33},{-20,33}}, color={0,0,127}));
+  connect(zon.TRooAir, singleZoneAHUController.TRoo)
+    annotation (Line(points={{201,0},{220,0},{220,98},{-60,98},{-60,37},{-20,37}}, color={0,0,127}));
+  connect(TOutCut.y, singleZoneAHUController.TOutCut)
+    annotation (Line(points={{-59,-90},{-9,-90},{-9,20}}, color={0,0,127}));
+  connect(weaBus.TDryBul, singleZoneAHUController.TOut) annotation (Line(
+      points={{84,80},{20,80},{20,38},{0,38}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(TOutCut.y, economizer.TOutCut)
-    annotation (Line(points={{-59,-90},{-50,-90},{-50,-20},{-1,-20}}, color={0,0,127}));
-  connect(weaBus.TDryBul, economizer.TOut) annotation (Line(
-      points={{84,80},{-10,80},{-10,-18},{-1,-18}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(economizer.uVOutMinSet_flow, OutAirSetPoi_SinZon.VOutMinSet_flow)
-    annotation (Line(points={{-1,-30},{-79,-30},{-79,-30}}, color={0,0,127}));
-  connect(setPoiVAV.THeaEco, economizer.TCooSet)
-    annotation (Line(points={{-19,76},{-10,76},{-10,-28},{-1,-28}}, color={0,0,127}));
-  connect(setPoiVAV.y, economizer.uSupFanSpe)
-    annotation (Line(points={{-19,64},{-10,64},{-10,-32},{-1,-32}}, color={0,0,127}));
+  connect(singleZoneAHUController.uVOutMinSet_flow, OutAirSetPoi_SinZon.VOutMinSet_flow)
+    annotation (Line(points={{0,22},{16,22},{16,-30},{-79,-30}}, color={0,0,127}));
   connect(numberOcupants.y, OutAirSetPoi_SinZon.nOcc)
     annotation (Line(points={{-139,-30},{-120,-30},{-120,-22},{-101,-22}}, color={0,0,127}));
   connect(zon.TRooAir, OutAirSetPoi_SinZon.TZon) annotation (Line(points={{201,0},{210,0},{210,-24},{40,-24},{40,-10},{
           -110,-10},{-110,-25},{-101,-25}}, color={0,0,127}));
   connect(hvac.TSup, OutAirSetPoi_SinZon.TSup)
-    annotation (Line(points={{121,-7},{130,-7},{130,-44},{-112,-44},{-112,-28},{-101,-28}}, color={0,0,127}));
+    annotation (Line(points={{121,-7},{130,-7},{130,-44},{-110,-44},{-110,-28},{-101,-28}}, color={0,0,127}));
   connect(fanStatus.y, OutAirSetPoi_SinZon.uSupFan)
     annotation (Line(points={{-119,-70},{-110,-70},{-110,-38},{-101,-38}}, color={255,0,255}));
   connect(windowClosed.y, OutAirSetPoi_SinZon.uWindow)
     annotation (Line(points={{-119,-110},{-110,-110},{-110,-34},{-101,-34}}, color={255,0,255}));
-  connect(fanStatus.y, economizer.uSupFan)
-    annotation (Line(points={{-119,-70},{-60,-70},{-60,-34},{-1,-34}}, color={255,0,255}));
-  connect(setPoiVAV.y, hvac.uFan) annotation (Line(points={{-19,64},{30,64},{30,18},{78,18}}, color={0,0,127}));
-  connect(conLoo.yHea, hvac.uHea) annotation (Line(points={{-119,74},{-100,74},{-100,12},{78,12}}, color={0,0,127}));
-  connect(conLoo.yCoo, hvac.uCooVal)
-    annotation (Line(points={{-119,66},{-80,66},{-80,8},{-2,8},{-2,5},{78,5}}, color={0,0,127}));
+  connect(fanStatus.y, singleZoneAHUController.uSupFan)
+    annotation (Line(points={{-119,-70},{-60,-70},{-60,-50},{-1,-50},{-1,20},{-11,20}}, color={255,0,255}));
+  connect(singleZoneAHUController.y, hvac.uFan)
+    annotation (Line(points={{0,35},{40,35},{40,28},{40,18},{78,18}}, color={0,0,127}));
+  connect(singleZoneAHUController.yHea, hvac.uHea)
+    annotation (Line(points={{0,26},{20,26},{20,12},{78,12}}, color={0,0,127}));
+  connect(singleZoneAHUController.yCoo, hvac.uCooVal)
+    annotation (Line(points={{0,24},{0,5},{20,5},{78,5}}, color={0,0,127}));
   connect(chillerOn.y, hvac.chiOn) annotation (Line(points={{61,-90},{70,-90},{70,-10},{78,-10}}, color={255,0,255}));
-  connect(hvac.TSup, economizer.TSup)
-    annotation (Line(points={{121,-7},{122,-7},{126,-7},{126,-42},{-6,-42},{-6,-26},{-1,-26}}, color={0,0,127}));
-  connect(zonSta.y, economizer.uZonSta)
-    annotation (Line(points={{-9,-66},{-4,-66},{-4,-38},{-1,-38}}, color={255,127,0}));
-  connect(opeMod.y, economizer.uOpeMod)
-    annotation (Line(points={{-9,-98},{-4,-98},{-4,-36},{-1,-36}}, color={255,127,0}));
-  connect(freProSta.y, economizer.uFreProSta)
-    annotation (Line(points={{-9,-130},{-4,-130},{-4,-40},{-1,-40}}, color={255,127,0}));
-  connect(economizer.yOutDamPos, hvac.uEco)
-    annotation (Line(points={{21,-32},{50,-32},{50,-2},{78,-2}}, color={0,0,127}));
+  connect(hvac.TSup, singleZoneAHUController.TSup)
+    annotation (Line(points={{121,-7},{122,-7},{126,-7},{126,-42},{-6,-42},{-6,20}}, color={0,0,127}));
+  connect(zonSta.y, singleZoneAHUController.uZonSta)
+    annotation (Line(points={{-21,-74},{0,-74},{0,20}}, color={255,127,0}));
+  connect(opeMod.y, singleZoneAHUController.uOpeMod)
+    annotation (Line(points={{-21,-106},{-2,-106},{-2,20}}, color={255,127,0}));
+  connect(freProSta.y, singleZoneAHUController.uFreProSta)
+    annotation (Line(points={{-21,-138},{-4,-138},{-4,20}}, color={255,127,0}));
+  connect(singleZoneAHUController.yOutDamPos, hvac.uEco)
+    annotation (Line(points={{0,24},{50,24},{50,-2},{78,-2}}, color={0,0,127}));
   connect(TSetRooHea.y[1], mean.u1) annotation (Line(points={{-199,10},{-180,10},{-180,6},{-162,6}}, color={0,0,127}));
   connect(TSetRooCoo.y[1], mean.u2)
     annotation (Line(points={{-199,-20},{-180,-20},{-180,-6},{-162,-6}}, color={0,0,127}));
