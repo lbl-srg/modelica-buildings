@@ -6,5 +6,5 @@ compareVars :=
     "ecoDamLim.yOutDamPosMax",
     "ecoDamLim.yRetDamPosMin",
     "ecoDamLim.yRetDamPosMax",
-    "ecoDamLim.damLimController.y"
+    "ecoDamLim.damLimCon.y"
   };

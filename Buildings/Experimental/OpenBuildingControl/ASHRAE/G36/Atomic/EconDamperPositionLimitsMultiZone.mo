@@ -57,7 +57,7 @@ block EconDamperPositionLimitsMultiZone
     annotation (Placement(transformation(extent={{180,-90},{200,-70}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
 
-  CDL.Continuous.LimPID damLimController(
+  CDL.Continuous.LimPID damLimCon(
     final Ti=TiDamLim,
     final Td=0.1,
     final yMax=conSigMax,
@@ -132,11 +132,11 @@ equation
     annotation (Line(points={{-39,210},{-30,210},{-30,118},{118,118}},color={0,0,127}));
   connect(maxSignalLimit.y,minRetDam. x2)
     annotation (Line(points={{1,210},{8,210},{8,106},{118,106}},color={0,0,127}));
-  connect(VOut_flow,damLimController. u_m)
+  connect(VOut_flow,damLimCon. u_m)
     annotation (Line(points={{-200,170},{-130,170},{-130,178}},color={0,0,127}));
-  connect(VOutMinSet_flow,damLimController. u_s)
+  connect(VOutMinSet_flow,damLimCon. u_s)
     annotation (Line(points={{-200,220},{-160,220},{-160,190},{-142,190}},color={0,0,127}));
-  connect(damLimController.y,minRetDam. u)
+  connect(damLimCon.y,minRetDam. u)
     annotation (Line(points={{-119,190},{-80,190},{-80,110},{118,110}},color={0,0,127}));
   connect(outDamPosMaxSwitch.y, minOutDam.f2)
     annotation (Line(points={{61,20},{110,20},{110,142},{118,142}}, color={0,0,127}));
@@ -144,7 +144,7 @@ equation
     annotation (Line(points={{-79,210},{-70,210},{-70,158},{118,158}},color={0,0,127}));
   connect(sigFraForOutDam.y,minOutDam. x2)
     annotation (Line(points={{-39,210},{-39,210},{-30,210},{-30,146},{118,146}},color={0,0,127}));
-  connect(damLimController.y,minOutDam. u)
+  connect(damLimCon.y,minOutDam. u)
     annotation (Line(points={{-119,190},{-80,190},{-80,150},{118,150}},  color={0,0,127}));
   connect(outDamPosMaxSwitch.y, yOutDamPosMax)
     annotation (Line(points={{61,20},{126,20},{126,40},{190,40}},color={0,0,127}));
