@@ -13,25 +13,25 @@ model EconomizerMultiZone_Disable
 
   EconomizerMultiZone economizer(use_enthalpy=true) "Multizone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  CDL.Logical.Constant fanStatus(k=true) "Fan is on"
+  CDL.Logical.Sources.Constant fanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  CDL.Integers.Constant freProSta(k=Constants.FreezeProtectionStages.stage0) "Freeze protection status is 0"
+  CDL.Integers.Sources.Constant freProSta(k=Constants.FreezeProtectionStages.stage0) "Freeze protection status is 0"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  CDL.Integers.Constant ZoneState(k=Constants.ZoneStates.heating) "Zone State is heating"
+  CDL.Integers.Sources.Constant ZoneState(k=Constants.ZoneStates.heating) "Zone State is heating"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  CDL.Integers.Constant OperationMode(k=Constants.OperationModes.occModInd) "AHU operation mode is Occupied"
+  CDL.Integers.Sources.Constant OperationMode(k=Constants.OperationModes.occModInd) "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-  CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 40000)
+  CDL.Continuous.Sources.Constant hOutBelowCutoff(k=hOutCutoff - 40000)
     "Outdoor air enthalpy is below the cufoff"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  CDL.Continuous.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
+  CDL.Continuous.Sources.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Continuous.Constant TOutBelowCutoff(k=TOutCutoff - 30)
+  CDL.Continuous.Sources.Constant TOutBelowCutoff(k=TOutCutoff - 30)
     "Outdoor air temperature is below the cutoff"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  CDL.Continuous.Constant TOutCut1(k=TOutCutoff)
+  CDL.Continuous.Sources.Constant TOutCut1(k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  CDL.Continuous.Constant VOutMinSet_flow(k=VOutSet_flow)
+  CDL.Continuous.Sources.Constant VOutMinSet_flow(k=VOutSet_flow)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.Ramp VOut_flow(
@@ -46,11 +46,11 @@ model EconomizerMultiZone_Disable
     duration=1800)
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  CDL.Continuous.Constant TSupSetSig(k=TSupSet) "Cooling supply air temperature setpoint"
+  CDL.Continuous.Sources.Constant TSupSetSig(k=TSupSet) "Cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   EconomizerMultiZone economizer1 "Multizone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
-  CDL.Integers.Constant freProSta2(k=Constants.FreezeProtectionStages.stage2) "Freeze protection stage is 2"
+  CDL.Integers.Sources.Constant freProSta2(k=Constants.FreezeProtectionStages.stage2) "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
 
 equation

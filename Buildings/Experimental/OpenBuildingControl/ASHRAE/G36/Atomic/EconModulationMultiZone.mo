@@ -59,16 +59,16 @@ block EconModulationMultiZone
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
 protected
-  CDL.Continuous.Constant outDamMinLimSig(final k=damPosController.yMin)
+  CDL.Continuous.Sources.Constant outDamMinLimSig(final k=damPosController.yMin)
     "Minimal control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  CDL.Continuous.Constant outDamMaxLimSig(final k=outDamConSigMax)
+  CDL.Continuous.Sources.Constant outDamMaxLimSig(final k=outDamConSigMax)
     "Maximum control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  CDL.Continuous.Constant retDamMinLimSig(final k=retDamConSigMin)
+  CDL.Continuous.Sources.Constant retDamMinLimSig(final k=retDamConSigMin)
     "Minimal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  CDL.Continuous.Constant retDamMaxLimSig(final k=damPosController.yMax)
+  CDL.Continuous.Sources.Constant retDamMaxLimSig(final k=damPosController.yMax)
     "Maximal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 

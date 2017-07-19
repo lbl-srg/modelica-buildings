@@ -83,14 +83,14 @@ protected
   parameter Real uEntHigLimCutLow(final unit="J/kg", quantity="SpecificEnergy") = uEntHigLimCutHig - delEntHis
     "Hysteresis block low limit cutoff";
 
-  CDL.Continuous.Constant openRetDam(final k=retDamFulOpeTim)
+  CDL.Continuous.Sources.Constant openRetDam(final k=retDamFulOpeTim)
     "Keep return damper open to its physical maximum for a short period of time before closing the outdoor air damper
     and resuming the maximum return air damper position, per G36 Part N7"
     annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
-  CDL.Logical.Constant entSubst(final k=false) if not use_enthalpy
+  CDL.Logical.Sources.Constant entSubst(final k=false) if not use_enthalpy
     "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
-  CDL.Continuous.Constant disableDelay(final k=smaDisDel)
+  CDL.Continuous.Sources.Constant disableDelay(final k=smaDisDel)
     "Small delay before closing the outdoor air damper to avoid pressure fluctuations"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   CDL.Continuous.Add add2(k2=-1) if use_enthalpy "Add block determines difference between hOut and hOutCut"

@@ -24,27 +24,27 @@ model EconomizerMultiZone_Mod_DamLim
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
 protected
-  CDL.Logical.Constant fanStatus(k=true) "Fan is on"
+  CDL.Logical.Sources.Constant fanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  CDL.Integers.Constant freProSta(k=Constants.FreezeProtectionStages.stage0)
+  CDL.Integers.Sources.Constant freProSta(k=Constants.FreezeProtectionStages.stage0)
     "Freeze protection status is 0"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  CDL.Integers.Constant ZoneState(k=Constants.ZoneStates.deadband) "Zone State is deadband"
+  CDL.Integers.Sources.Constant ZoneState(k=Constants.ZoneStates.deadband) "Zone State is deadband"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Integers.Constant operationMode(k=Constants.OperationModes.occModInd)
+  CDL.Integers.Sources.Constant operationMode(k=Constants.OperationModes.occModInd)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 10000)
+  CDL.Continuous.Sources.Constant hOutBelowCutoff(k=hOutCutoff - 10000)
     "Outdoor air enthalpy is slightly below the cufoff"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  CDL.Continuous.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
+  CDL.Continuous.Sources.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Continuous.Constant TOutBelowCutoff(k=TOutCutoff - 5)
+  CDL.Continuous.Sources.Constant TOutBelowCutoff(k=TOutCutoff - 5)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  CDL.Continuous.Constant TOutCut1(k=TOutCutoff)
+  CDL.Continuous.Sources.Constant TOutCut1(k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  CDL.Continuous.Constant VOutMinSet_flow(k=minVOutSet_flow)
+  CDL.Continuous.Sources.Constant VOutMinSet_flow(k=minVOutSet_flow)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.Ramp VOut_flow(
@@ -53,9 +53,9 @@ protected
     height=VOutIncrease_flow)
     "Measured outdoor air volumetric airflow"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  CDL.Continuous.Constant TSupSetSig(k=THeaSet) "Cooling supply air temperature setpoint"
+  CDL.Continuous.Sources.Constant TSupSetSig(k=THeaSet) "Cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  CDL.Continuous.Constant TSupSig(k=TSup) "Measured supply air temperature"
+  CDL.Continuous.Sources.Constant TSupSig(k=TSup) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Modelica.Blocks.Sources.Ramp TSupSig1(
     duration=900,

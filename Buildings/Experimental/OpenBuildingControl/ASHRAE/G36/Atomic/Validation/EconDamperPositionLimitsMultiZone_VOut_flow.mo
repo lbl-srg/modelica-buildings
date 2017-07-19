@@ -10,7 +10,7 @@ model EconDamperPositionLimitsMultiZone_VOut_flow
   parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=0.2
     "Maximum volumetric airflow increase during the example simulation";
 
-  CDL.Continuous.Constant VOutMinSet_flow(k=minVOutSet_flow)
+  CDL.Continuous.Sources.Constant VOutMinSet_flow(k=minVOutSet_flow)
     "Outdoor volumetric airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Modelica.Blocks.Sources.Ramp VOut_flow(
@@ -25,11 +25,11 @@ model EconDamperPositionLimitsMultiZone_VOut_flow
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected
-  CDL.Logical.Constant fanStatus(k=true) "Fan is on"
+  CDL.Logical.Sources.Constant fanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  CDL.Integers.Constant freProSta(k=Constants.FreezeProtectionStages.stage0) "Freeze protection status 0 - disabled"
+  CDL.Integers.Sources.Constant freProSta(k=Constants.FreezeProtectionStages.stage0) "Freeze protection status 0 - disabled"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  CDL.Integers.Constant operationMode(k=Constants.OperationModes.occModInd) "Operation mode is Occupied"
+  CDL.Integers.Sources.Constant operationMode(k=Constants.OperationModes.occModInd) "Operation mode is Occupied"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
 equation

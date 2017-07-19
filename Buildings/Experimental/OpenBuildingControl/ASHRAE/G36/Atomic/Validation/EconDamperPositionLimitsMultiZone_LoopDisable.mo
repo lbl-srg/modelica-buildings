@@ -11,29 +11,29 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
     "Maximum increase in airflow volume during the example simulation";
 
   // Fan Status
-  CDL.Logical.Constant fanStatus(k=false) "Fan is off"
+  CDL.Logical.Sources.Constant fanStatus(k=false) "Fan is off"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
-  CDL.Integers.Constant freProSta(k=Constants.FreezeProtectionStages.stage1) "Freeze protection stage is 1"
+  CDL.Integers.Sources.Constant freProSta(k=Constants.FreezeProtectionStages.stage1) "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
-  CDL.Integers.Constant operationMode(k=Constants.OperationModes.occModInd) "AHU operation mode is Occupied"
+  CDL.Integers.Sources.Constant operationMode(k=Constants.OperationModes.occModInd) "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
 
   // Operation Mode
-  CDL.Logical.Constant fanStatus1(k=true) "Fan is on"
+  CDL.Logical.Sources.Constant fanStatus1(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  CDL.Integers.Constant freProSta1(k=Constants.FreezeProtectionStages.stage1) "Freeze protection stage is 1"
+  CDL.Integers.Sources.Constant freProSta1(k=Constants.FreezeProtectionStages.stage1) "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  CDL.Integers.Constant operationMode1(k=Constants.OperationModes.warUpInd)
+  CDL.Integers.Sources.Constant operationMode1(k=Constants.OperationModes.warUpInd)
     "AHU operation mode is NOT Occupied"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
   // Freeze Protection Stage
-  CDL.Logical.Constant fanStatus2(k=true) "Fan is on"
+  CDL.Logical.Sources.Constant fanStatus2(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
-  CDL.Integers.Constant freProSta2(k=Constants.FreezeProtectionStages.stage2)
+  CDL.Integers.Sources.Constant freProSta2(k=Constants.FreezeProtectionStages.stage2)
     "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  CDL.Integers.Constant operationMode2(k=Constants.OperationModes.occModInd) "AHU operation mode is Occupied"
+  CDL.Integers.Sources.Constant operationMode2(k=Constants.OperationModes.occModInd) "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
   Modelica.Blocks.Sources.Ramp VOut_flow(
@@ -54,13 +54,13 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
     height=incVOutSet_flow)
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  CDL.Continuous.Constant VOutMinSet_flow(k=VOutSet_flow)
+  CDL.Continuous.Sources.Constant VOutMinSet_flow(k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
-  CDL.Continuous.Constant VOutMinSet1_flow(k=VOutSet_flow)
+  CDL.Continuous.Sources.Constant VOutMinSet1_flow(k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  CDL.Continuous.Constant VOutMinSet2_flow(k=VOutSet_flow)
+  CDL.Continuous.Sources.Constant VOutMinSet2_flow(k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
 

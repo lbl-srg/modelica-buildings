@@ -67,29 +67,29 @@ block EconDamperPositionLimitsMultiZone
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
 
 protected
-  CDL.Continuous.Constant outDamPhyPosMinSig(final k=outDamPhyPosMin)
+  CDL.Continuous.Sources.Constant outDamPhyPosMinSig(final k=outDamPhyPosMin)
     "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
-  CDL.Continuous.Constant outDamPhyPosMaxSig(final k=outDamPhyPosMax)
+  CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(final k=outDamPhyPosMax)
     "Physically fixed maximum position of the outdoor air damper."
     annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
-  CDL.Continuous.Constant retDamPhyPosMinSig(final k=retDamPhyPosMin)
+  CDL.Continuous.Sources.Constant retDamPhyPosMinSig(final k=retDamPhyPosMin)
     "Physically fixed minimum position of the return air damper"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  CDL.Continuous.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
+  CDL.Continuous.Sources.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
     "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
-  CDL.Continuous.Constant minSignalLimit(final k=conSigMin)
+  CDL.Continuous.Sources.Constant minSignalLimit(final k=conSigMin)
     "Equals minimum controller output signal"
     annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
-  CDL.Continuous.Constant maxSignalLimit(final k=conSigMax)
+  CDL.Continuous.Sources.Constant maxSignalLimit(final k=conSigMax)
     "Equals maximum controller output signal"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
-  CDL.Continuous.Constant sigFraForOutDam(final k=conSigFraOutDam)
+  CDL.Continuous.Sources.Constant sigFraForOutDam(final k=conSigFraOutDam)
     "Equals the fraction of the control loop signal below which the outdoor air damper
     limit gets modulated and above which the return air damper limit gets modulated"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
-  CDL.Continuous.Constant OperationMode(final k=Constants.OperationModes.occModInd)
+  CDL.Continuous.Sources.Constant OperationMode(final k=Constants.OperationModes.occModInd)
     "Control loop is enabled in occupied operation mode"
     annotation (Placement(transformation(extent={{-160,-220},{-140,-200}})));
 
