@@ -11,12 +11,13 @@ block HotWaterTemperatureReset
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Temperature TOut_nominal "Outside temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal(displayUnit="K") = 8 "Offset for heating curve";
+  parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal(displayUnit="K") = 8
+    "Offset for heating curve";
 
   Interfaces.RealInput TSetZon(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
-    displayUnit = "degC", min=200)
+    displayUnit = "degC", min=200) "Zone setpoint temperature"
     annotation (Placement(transformation(extent={{-139,-80},{-99,-40}})));
 
   Interfaces.RealInput TOut(

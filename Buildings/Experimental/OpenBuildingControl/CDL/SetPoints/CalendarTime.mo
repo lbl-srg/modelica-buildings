@@ -11,22 +11,22 @@ model CalendarTime
     "Offset that is added to 'time', may be used for computing time in different time zone"
     annotation(Dialog(tab="Advanced"));
 
-  discrete Modelica.Blocks.Interfaces.IntegerOutput year "Year"
+  discrete Interfaces.IntegerOutput  year "Year"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
         iconTransformation(extent={{100,-40},{120,-20}})));
-  discrete Modelica.Blocks.Interfaces.IntegerOutput month "Month of the year"
+  discrete Interfaces.IntegerOutput                 month "Month of the year"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.IntegerOutput day(fixed=false) "Day of the month"
+  Interfaces.IntegerOutput day(fixed=false) "Day of the month"
     annotation (Placement(transformation(extent={{100,20},{120,40}}),
         iconTransformation(extent={{100,20},{120,40}})));
-  Modelica.Blocks.Interfaces.IntegerOutput hour(fixed=false) "Hour of the day"
+  Interfaces.IntegerOutput hour(fixed=false) "Hour of the day"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
         iconTransformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Interfaces.RealOutput minute "Minute of the hour"
+  Interfaces.RealOutput minute "Minute of the hour"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
-  Modelica.Blocks.Interfaces.IntegerOutput weekDay(fixed=false)
+  Interfaces.IntegerOutput weekDay(fixed=false)
     "Integer output representing week day (monday = 1, sunday = 7)"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
