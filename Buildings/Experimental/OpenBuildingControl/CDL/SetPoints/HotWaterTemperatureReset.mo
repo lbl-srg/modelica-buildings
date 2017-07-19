@@ -19,21 +19,18 @@ block HotWaterTemperatureReset
     final unit = "K",
     displayUnit = "degC", min=200) "Zone setpoint temperature"
     annotation (Placement(transformation(extent={{-139,-80},{-99,-40}})));
-
   Interfaces.RealInput TOut(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC",
     min=200) "Outside temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-
   Interfaces.RealOutput TSup(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC",
     min=200) "Setpoint for supply temperature"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-
   Interfaces.RealOutput TRet(
     final quantity="ThermodynamicTemperature",
     final unit = "K",

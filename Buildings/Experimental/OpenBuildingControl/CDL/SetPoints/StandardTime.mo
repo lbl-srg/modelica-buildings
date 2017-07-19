@@ -3,6 +3,7 @@ block StandardTime "Standard time"
 
   Interfaces.RealOutput y "Connector of Real output signal" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));
+
 equation
   y = time;
 

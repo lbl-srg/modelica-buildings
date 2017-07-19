@@ -35,6 +35,7 @@ model HotWaterTemperatureReset "Test model for the heating curve"
   Continuous.Sources.Constant  TRoo(k=273.15 + 20)
     "Room temperature 20 degC"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+
 equation
   connect(TOut1.y, heaCur1.TOut)
     annotation (Line(points={{-39,-20},{-20,-20},{0,-20},{0,-34},{18,-34}},
@@ -48,6 +49,7 @@ equation
   connect(TRoo1.y, heaCur1.TSetZon)
     annotation (Line(points={{-39,-60},{0,-60},{0,-46},{18.1,-46}},
       color={0,0,127}));
+
   annotation (experiment(Tolerance=1e-6, StopTime=1.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/SetPoints/Validation/HotWaterTemperatureReset.mos"
       "Simulate and plot"),

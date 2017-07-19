@@ -23,12 +23,12 @@ model TimeTable "Validation model for TimeTable block"
       table=[0,0; 6*3600,1; 18*3600,0.5; 24*3600,0])
     "Time table with smoothness method of constant segments"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-
   Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.TimeTable timTabLinCon(
       smoothness=Buildings.Experimental.OpenBuildingControl.CDL.Types.Smoothness.LinearSegments,
       table=[0,0; 6*3600,0; 6*3600,1; 18*3600,0.5; 24*3600,0])
     "Time table with smoothness method of linear segments"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+
   annotation (experiment(Tolerance=1e-6, StopTime=172800),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/SetPoints/Validation/TimeTable.mos"
        "Simulate and plot"),

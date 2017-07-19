@@ -14,7 +14,7 @@ model CalendarTime
   discrete Interfaces.IntegerOutput  year "Year"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
         iconTransformation(extent={{100,-40},{120,-20}})));
-  discrete Interfaces.IntegerOutput                 month "Month of the year"
+  discrete Interfaces.IntegerOutput  month "Month of the year"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
   Interfaces.IntegerOutput day(fixed=false) "Day of the month"
@@ -30,6 +30,7 @@ model CalendarTime
     "Integer output representing week day (monday = 1, sunday = 7)"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
+
 protected
   final constant Integer firstYear = 2010
     "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
@@ -41,6 +42,7 @@ protected
     final yearRef=yearRef,
     final offset=offset) "Calendar time"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
 equation
   connect(calTim.minute, minute) annotation (Line(points={{11,9},{55.5,9},{55.5,
           90},{110,90}}, color={0,0,127}));
