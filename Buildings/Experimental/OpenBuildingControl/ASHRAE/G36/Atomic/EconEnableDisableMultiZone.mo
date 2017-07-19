@@ -41,11 +41,11 @@ block EconEnableDisableMultiZone
     annotation (Placement(transformation(extent={{-220,-250},{-180,-210}}),
         iconTransformation(extent={{-120,-110},{-100,-90}})));
   CDL.Interfaces.RealInput uRetDamPosMin(min=0, max=1)
-    "Minimum return air damper position, from EconDamperPositionLimitsMultiZone sequence"
+    "Minimum return air damper position, get from sequence which defines damper position limits"
     annotation (Placement(transformation(extent={{-220,-280},{-180,-240}}),
         iconTransformation(extent={{-120,-130},{-100,-110}})));
   CDL.Interfaces.RealInput uRetDamPhyPosMax(min=0, max=1)
-    "Physical maximum return air damper position, from EconDamperPositionLimitsMultiZone sequence"
+    "Physical maximum return air damper position, get from sequence which defines damper position limits"
     annotation (Placement(transformation(extent={{-220,-220},{-180,-180}}),
         iconTransformation(extent={{-120,-90},{-100,-70}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply fan on/off status signal"
@@ -103,14 +103,14 @@ protected
   CDL.Logical.Hysteresis hysOutEnt(final uLow=uEntHigLimCutLow, final uHigh=uEntHigLimCutHig) if use_enthalpy
     "Outdoor air enthalpy hysteresis for both fixed and differential enthalpy cutoff conditions"
     annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
-  CDL.Logical.Switch OutDamSwitch "Set maximum OA damper position to minimum at disable (after time delay)"
+  CDL.Logical.Switch outDamSwitch "Set maximum OA damper position to minimum at disable (after time delay)"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
-  CDL.Logical.Switch RetDamSwitch "Set minimum RA damper position to maximum at disable"
+  CDL.Logical.Switch retDamSwitch "Set minimum RA damper position to maximum at disable"
     annotation (Placement(transformation(extent={{-60,-270},{-40,-250}})));
-  CDL.Logical.Switch MaxRetDamSwitch
+  CDL.Logical.Switch MaxretDamSwitch
     "Keep maximum RA damper position at physical maximum for a short time period after disable signal"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
-  CDL.Logical.Switch MinRetDamSwitch
+  CDL.Logical.Switch MinretDamSwitch
     "Keep minimum RA damper position at physical maximum for a short time period after disable"
     annotation (Placement(transformation(extent={{40,-260},{60,-240}})));
   CDL.Logical.GreaterEqual greEqu "Logical greater or equal block"
@@ -143,7 +143,7 @@ protected
     annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
 
 equation
-  connect(OutDamSwitch.y, yOutDamPosMax) annotation (Line(points={{61,-140},{61,-140},{190,-140}}, color={0,0,127}));
+  connect(outDamSwitch.y, yOutDamPosMax) annotation (Line(points={{61,-140},{61,-140},{190,-140}}, color={0,0,127}));
   connect(TOut, add1.u1) annotation (Line(points={{-200,270},{-160,270},{-160,256},{-142,256}},
         color={0,0,127}));
   connect(TOutCut, add1.u2) annotation (Line(points={{-200,230},{-160,230},{-160,244},{-142,244}},
@@ -156,33 +156,33 @@ equation
   connect(add2.y, hysOutEnt.u) annotation (Line(points={{-119,170},{-102,170}}, color={0,0,127}));
   connect(hysOutTem.y, nor1.u1) annotation (Line(points={{-79,250},{-60,250},{-60,210},{-42,210}},
     color={255,0,255}));
-  if use_enthalpy then
+  //if use_enthalpy then
     connect(hysOutEnt.y, nor1.u2)
       annotation (Line(points={{-79,170},{-60,170},{-60,202},{-42,202}},color={255,0,255}));
-  else
+  //else
     connect(entSubst.y, nor1.u2) annotation (Line(points={{-79,200},{-60,200},{-60,202},{-42,202}},
     color={255,0,255}));
-  end if;
+  //end if;
   connect(disableDelay.y, greEqu.u2)
     annotation (Line(points={{-99,-110},{-80,-110},{-80,-108},{-72,-108}}, color={0,0,127}));
   connect(timer.y, greEqu.u1) annotation (Line(points={{51,-60},{60,-60},{60,-80},{-80,-80},{-80,-100},{-72,-100}},
         color={0,0,127}));
-  connect(uOutDamPosMin, OutDamSwitch.u1)
+  connect(uOutDamPosMin, outDamSwitch.u1)
     annotation (Line(points={{-200,-160},{-120,-160},{-120,-134},{-120,-132},{38,-132}}, color={0,0,127}));
-  connect(uOutDamPosMax, OutDamSwitch.u3)
+  connect(uOutDamPosMax, outDamSwitch.u3)
     annotation (Line(points={{-200,-130},{-80,-130},{-80,-148},{38,-148}}, color={0,0,127}));
-  connect(uRetDamPhyPosMax, MaxRetDamSwitch.u1)
+  connect(uRetDamPhyPosMax, MaxretDamSwitch.u1)
     annotation (Line(points={{-200,-200},{-78,-200},{-78,-202},{38,-202}}, color={0,0,127}));
-  connect(uRetDamPosMax, MaxRetDamSwitch.u3)
+  connect(uRetDamPosMax, MaxretDamSwitch.u3)
     annotation (Line(points={{-200,-230},{-78,-230},{-78,-218},{38,-218}}, color={0,0,127}));
   connect(timer.y, les1.u1)
     annotation (Line(points={{51,-60},{72,-60},{72,-154},{-20,-154},{-20,-180},{-10,-180}},color={0,0,127}));
   connect(nor1.y, TrueFalseHold.u) annotation (Line(points={{-19,210},{-1,210}}, color={255,0,255}));
   connect(andEnaDis.y, not2.u)
     annotation (Line(points={{61,40},{72,40},{72,-20},{-20,-20},{-20,-60},{-12,-60}}, color={255,0,255}));
-  connect(MinRetDamSwitch.y, yRetDamPosMin)
+  connect(MinretDamSwitch.y, yRetDamPosMin)
     annotation (Line(points={{61,-250},{124,-250},{190,-250}}, color={0,0,127}));
-  connect(MaxRetDamSwitch.y, yRetDamPosMax) annotation (Line(points={{61,-210},{190,-210}},  color={0,0,127}));
+  connect(MaxretDamSwitch.y, yRetDamPosMax) annotation (Line(points={{61,-210},{190,-210}},  color={0,0,127}));
   connect(openRetDam.y, les1.u2)
     annotation (Line(points={{-39,-180},{-30,-180},{-30,-188},{-10,-188}}, color={0,0,127}));
   connect(not2.y, timer.u) annotation (Line(points={{11,-60},{28,-60}},   color={255,0,255}));
@@ -194,21 +194,21 @@ equation
     color={0,0,127}));
   connect(greThr.y, andEnaDis.u3)
     annotation (Line(points={{-99,-10},{-20,-10},{-20,32},{38,32}}, color={255,0,255}));
-  connect(and2.y, MaxRetDamSwitch.u2)
+  connect(and2.y, MaxretDamSwitch.u2)
     annotation (Line(points={{151,-190},{162,-190},{162,-230},{20,-230},{20,-210},{38,-210}}, color={255,0,255}));
-  connect(and2.y, MinRetDamSwitch.u2)
+  connect(and2.y, MinretDamSwitch.u2)
     annotation (Line(points={{151,-190},{162,-190},{162,-230},{20,-230},{20,-250},{38,-250}}, color={255,0,255}));
   connect(timer.y, greThr2.u)
     annotation (Line(points={{51,-60},{82,-60},{82,-172},{86,-172}},   color={0,0,127}));
-  connect(not2.y, RetDamSwitch.u2)
+  connect(not2.y, retDamSwitch.u2)
     annotation (Line(points={{11,-60},{20,-60},{20,-72},{-90,-72},{-90,-260},{-62,-260}},color={255,0,255}));
-  connect(uRetDamPosMax, RetDamSwitch.u1)
+  connect(uRetDamPosMax, retDamSwitch.u1)
     annotation (Line(points={{-200,-230},{-140,-230},{-140,-252},{-62,-252}},color={0,0,127}));
-  connect(uRetDamPosMin, RetDamSwitch.u3)
+  connect(uRetDamPosMin, retDamSwitch.u3)
     annotation (Line(points={{-200,-260},{-140,-260},{-140,-268},{-62,-268}},color={0,0,127}));
-  connect(RetDamSwitch.y, MinRetDamSwitch.u3)
+  connect(retDamSwitch.y, MinretDamSwitch.u3)
     annotation (Line(points={{-39,-260},{-30,-260},{-30,-258},{38,-258}},color={0,0,127}));
-  connect(uRetDamPhyPosMax, MinRetDamSwitch.u1)
+  connect(uRetDamPhyPosMax, MinretDamSwitch.u1)
     annotation (Line(points={{-200,-200},{-120,-200},{-120,-242},{38,-242}},color={0,0,127}));
   connect(TrueFalseHold.y, and1.u1)
     annotation (Line(points={{21,210},{30,210},{30,130},{-10,130},{-10,110},{-2,110}},color={255,0,255}));
@@ -224,7 +224,7 @@ equation
   connect(not2.y, and2.u3)
     annotation (Line(points={{11,-60},{20,-60},{20,-76},{78,-76},{78,-198},{128,-198}}, color={255,0,255}));
   connect(intToRea1.u, uZonSta) annotation (Line(points={{-162,-10},{-170,-10},{-200,-10}}, color={255,127,0}));
-  connect(OutDamSwitch.u2, and3.y)
+  connect(outDamSwitch.u2, and3.y)
     annotation (Line(points={{38,-140},{20,-140},{20,-110},{1,-110}}, color={255,0,255}));
   connect(not2.y, and3.u1)
     annotation (Line(points={{11,-60},{20,-60},{20,-86},{-28,-86},{-28,-110},{-22,-110}}, color={255,0,255}));

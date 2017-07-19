@@ -58,12 +58,12 @@ block EconDamperPositionLimitsMultiZone
         iconTransformation(extent={{100,-50},{120,-30}})));
 
   CDL.Continuous.LimPID damLimController(
-    Ti=TiDamLim,
-    Td=0.1,
+    final Ti=TiDamLim,
+    final Td=0.1,
     final yMax=conSigMax,
     final yMin=conSigMin,
-    controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
-    k=kPDamLim) "Damper position limit controller"
+    final controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
+    final k=kPDamLim) "Damper position limit controller"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
 
 protected

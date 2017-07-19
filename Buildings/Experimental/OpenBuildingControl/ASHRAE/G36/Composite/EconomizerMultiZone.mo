@@ -7,6 +7,14 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
   parameter Real kPMod=1 "Gain of modulation controller";
   parameter Modelica.SIunits.Time TiDamLim=0.9 "Time constant of damper limit controller integrator block";
   parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block";
+  parameter Real retDamPhyPosMax(min=0, max=1, unit="1") = 1
+    "Physically fixed maximum position of the return air damper";
+  parameter Real retDamPhyPosMin(min=0, max=1, unit="1") = 0
+    "Physically fixed minimum position of the return air damper";
+  parameter Real outDamPhyPosMax(min=0, max=1, unit="1") = 1
+    "Physically fixed maximum position of the outdoor air damper";
+  parameter Real outDamPhyPosMin(min=0, max=1, unit="1") = 0
+    "Physically fixed minimum position of the outdoor air damper";
 
   CDL.Interfaces.RealInput THeaSet(unit="K", quantity = "ThermodynamicTemperature")
     "Supply air temperature cooling setpoint" annotation (Placement(transformation(
@@ -42,6 +50,9 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
   CDL.Interfaces.IntegerInput uOpeMod "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}}),
       iconTransformation(extent={{-120,-70},{-100,-50}})));
+  CDL.Interfaces.IntegerInput uZonSta "Zone state signal"
+    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}}),
+        iconTransformation(extent={{-120,-90},{-100,-70}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));
@@ -56,15 +67,15 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
   Atomic.EconEnableDisableMultiZone ecoEnaDis(
     final delEntHis=delEntHis,
     final delTemHis=delTemHis,
-    use_enthalpy=use_enthalpy) "Multizone VAV AHU economizer enable/disable sequence"
+    final use_enthalpy=use_enthalpy) "Multizone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Atomic.EconDamperPositionLimitsMultiZone ecoDamLim(
-    retDamPhyPosMax=0.9,
-    retDamPhyPosMin=0,
-    outDamPhyPosMax=0.9,
-    outDamPhyPosMin=0,
-    kPDamLim=kPDamLim,
-    TiDamLim=TiDamLim)
+    final retDamPhyPosMax=retDamPhyPosMax,
+    final retDamPhyPosMin=retDamPhyPosMin,
+    final outDamPhyPosMax=outDamPhyPosMax,
+    final outDamPhyPosMin=outDamPhyPosMin,
+    final kPDamLim=kPDamLim,
+    final TiDamLim=TiDamLim)
     "Multizone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Atomic.EconModulationMultiZone ecoMod(kPMod=kPMod, TiMod=TiMod)
@@ -78,10 +89,6 @@ protected
   parameter Modelica.SIunits.Temperature delTemHis=1
     "Delta between the temperature hysteresis high and low limits";
 
-public
-  CDL.Interfaces.IntegerInput uZonSta "Zone state signal"
-    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}}),
-        iconTransformation(extent={{-120,-90},{-100,-70}})));
 equation
   connect(uSupFan, ecoEnaDis.uSupFan)
     annotation (Line(points={{-130,-40},{-80,-40},{-80,-32},{-1,-32}}, color={255,0,255}));

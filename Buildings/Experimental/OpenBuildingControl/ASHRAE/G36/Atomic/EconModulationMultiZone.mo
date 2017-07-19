@@ -49,12 +49,12 @@ block EconModulationMultiZone
     "Damper position is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   CDL.Continuous.LimPID damPosController(
-    controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
-    Td=0.1,
+    final controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
+    final Td=0.1,
     final yMax=conSigMax,
     final yMin=conSigMin,
-    k=kPMod,
-    Ti=TiMod)
+    final k=kPMod,
+    final Ti=TiMod)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT cooling setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
