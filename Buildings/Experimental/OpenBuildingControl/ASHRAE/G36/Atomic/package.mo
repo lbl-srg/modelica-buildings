@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
-package Atomic
-annotation (Icon(graphics={
+package Atomic "Subsequences as defined in guideline G36"
+  annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},

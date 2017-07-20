@@ -21,11 +21,13 @@ block OutdoorAirFlowSetpoint_SingleZone
     "Zone air distribution effectiveness during cooling";
   parameter Real uLow(final unit="K",
     quantity="ThermodynamicTemperature") = -0.5
-    "If zone space temperature minus supply air temperature is less than uLow, then it should use heating supply air distribution effectiveness"
+    "If zone space temperature minus supply air temperature is less than uLow, 
+     then it should use heating supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
-  parameter Real uHigh(final unit="K",
+  parameter Real uHig(final unit="K",
     quantity="ThermodynamicTemperature") = 0.5
-    "If zone space temperature minus supply air temperature is more than uHig, then it should use cooling supply air distribution effectiveness"
+    "If zone space temperature minus supply air temperature is more than uHig, 
+     then it should use cooling supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
 
   CDL.Interfaces.RealInput nOcc(final unit="1") "Number of occupants"
@@ -33,29 +35,26 @@ block OutdoorAirFlowSetpoint_SingleZone
         iconTransformation(extent={{-240,140},{-200,180}})));
   CDL.Interfaces.RealInput TZon(
     final unit="K",
-    quantity="ThermodynamicTemperature")
-    "Measured zone air temperature"
+    quantity="ThermodynamicTemperature")  "Measured zone air temperature"
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
       iconTransformation(extent={{-240,80},{-200,120}})));
   CDL.Interfaces.RealInput TSup(
     final unit="K",
-    quantity="ThermodynamicTemperature")
-    "Supply air temperature"
+    quantity="ThermodynamicTemperature")   "Supply air temperature"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
       iconTransformation(extent={{-240,20},{-200,60}})));
   CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status, true if on, false if off"
     annotation (Placement(transformation(extent={{-240,-180},{-200,-140}}),
       iconTransformation(extent={{-240,-180},{-200,-140}})));
-  CDL.Interfaces.BooleanInput uWindow
-    "Window status, true if open, false if closed"
-    annotation (Placement(transformation(extent={{-240,-10},{-200,30}}),
-      iconTransformation(extent={{-240,-100},{-200,-60}})));
+  CDL.Interfaces.BooleanInput uWin
+    "Window status, true if open, false if closed" annotation (Placement(
+        transformation(extent={{-240,-10},{-200,30}}), iconTransformation(
+          extent={{-240,-100},{-200,-60}})));
   CDL.Interfaces.RealOutput VOutMinSet_flow(
     min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate")
-    "Effective minimum outdoor airflow setpoint"
+    quantity="VolumeFlowRate")   "Effective minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
       iconTransformation(extent={{200,-20},{240,20}})));
 
@@ -85,13 +84,14 @@ block OutdoorAirFlowSetpoint_SingleZone
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
   CDL.Logical.Hysteresis hys(
     uLow=uLow,
-    uHigh=uHigh,
+    uHigh=uHig,
     pre_y_start=true)
     "Check if cooling or heating air distribution effectiveness should be applied, with 1 degC deadband"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 
 protected
-  CDL.Logical.Sources.Constant occSenor(final k=occSen) "If there is occupancy sensor"
+  CDL.Logical.Sources.Constant occSenor(final k=occSen)
+    "Boolean constant to indicate if there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   CDL.Continuous.Sources.Constant zerOutAir(final k=0)
     "Zero required outdoor airflow rate when window open or zone is not in occupied mode"
@@ -134,9 +134,8 @@ equation
   connect(swi1.y, zonOutAirRate.u2)
     annotation (Line(points={{-19,-60},{10,-60},{10,24},{18,24}},
       color={0,0,127}));
-  connect(uWindow, swi2.u2)
-    annotation (Line(points={{-220,10},{-190,10},{78,10}},
-      color={255,0,255}));
+  connect(uWin, swi2.u2)
+    annotation (Line(points={{-220,10},{-190,10},{78,10}}, color={255,0,255}));
   connect(zerOutAir.y, swi2.u1)
     annotation (Line(points={{41,-30},{60,-30},{60,2},{78,2}},
       color={0,0,127}));

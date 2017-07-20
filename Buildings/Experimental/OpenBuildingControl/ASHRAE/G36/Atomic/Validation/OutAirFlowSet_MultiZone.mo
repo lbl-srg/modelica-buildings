@@ -25,7 +25,7 @@ model OutAirFlowSet_MultiZone
   CDL.Continuous.Sources.Ramp TZon[numOfZon](
     each height=6,
     each offset=273.15 + 17,
-    each duration=3600) "Zone space temperature"
+    each duration=3600) "Measured zone temperature"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   CDL.Continuous.Sources.Ramp TSup[numOfZon](
     each height=4,
@@ -37,9 +37,8 @@ equation
     connect(numOfOcc[i].y, outAirSet_MulZon.nOcc[i])
       annotation (Line(points={{-39,70}, {0,70},{0,16},{18,16}},
         color={0,0,127}));
-    connect(winSta[i].y, outAirSet_MulZon.uWindow[i])
-      annotation (Line(points={{-39,-20}, {-19.75,-20},{-19.75,-4},{18,-4}},
-        color={255,0,255}));
+    connect(winSta[i].y, outAirSet_MulZon.uWin[i]) annotation (Line(points={{-39,
+            -20},{-19.75,-20},{-19.75,-4},{18,-4}}, color={255,0,255}));
     connect(supFan.y, outAirSet_MulZon.uSupFan)
       annotation (Line(points={{-39,-50}, {-10,-50},{-10,-10},{18,-10}},
         color={255,0,255}));

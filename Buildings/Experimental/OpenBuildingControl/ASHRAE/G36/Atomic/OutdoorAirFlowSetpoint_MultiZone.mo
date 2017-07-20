@@ -33,11 +33,13 @@ block OutdoorAirFlowSetpoint_MultiZone
     annotation(Dialog(group="Nominal condition"));
   parameter Real uLow(final unit="K",
     quantity="ThermodynamicTemperature") = -0.5
-    "If zone space temperature minus supply air temperature is less than uLow, then it should use heating supply air distribution effectiveness"
+    "If zone space temperature minus supply air temperature is less than uLow, 
+     then it should use heating supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
-  parameter Real uHigh(final unit="K",
+  parameter Real uHig(final unit="K",
     quantity="ThermodynamicTemperature") = 0.5
-    "If zone space temperature minus supply air temperature is more than uHig, then it should use cooling supply air distribution effectiveness"
+    "If zone space temperature minus supply air temperature is more than uHig, 
+     then it should use cooling supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
   parameter Modelica.SIunits.VolumeFlowRate maxSysPriFlo
     "Maximum expected system primary airflow at design stage"
@@ -75,10 +77,10 @@ block OutdoorAirFlowSetpoint_MultiZone
     "Supply fan status, true if on, false if off"
     annotation (Placement(transformation(extent={{-220,-149},{-180,-110}}),
         iconTransformation(extent={{-120,-60},{-100,-40}})));
-  CDL.Interfaces.BooleanInput uWindow[numOfZon]
-    "Window status, true if open, false if closed"
-    annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
-        iconTransformation(extent={{-120,-30},{-100,-10}})));
+  CDL.Interfaces.BooleanInput uWin[numOfZon]
+    "Window status, true if open, false if closed" annotation (Placement(
+        transformation(extent={{-220,-120},{-180,-80}}), iconTransformation(
+          extent={{-120,-30},{-100,-10}})));
   CDL.Interfaces.RealOutput VDesOutMin_flow_nominal(
     min=0,
     final unit="m3/s",
@@ -106,7 +108,7 @@ block OutdoorAirFlowSetpoint_MultiZone
     k = outAirPerPer) "Outdoor air per person"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
   CDL.Logical.Switch swi[numOfZon]
-    "If there is occupancy sensor, then using the real time occupant; otherwise, using the default occupant "
+    "If there is occupancy sensor, then using the real time occupancy; otherwise, using the default occupancy"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   CDL.Logical.Switch swi1[numOfZon]
     "Switch between cooling or heating distribution effectiveness"
@@ -134,9 +136,10 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Continuous.Sum sysPriAirRate(final nin=numOfZon)
     "System primary airflow rate"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
-  CDL.Continuous.Division outAirFra "Average outdoor air fraction"
+  CDL.Continuous.Division outAirFra "System outdoor air fraction"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   CDL.Continuous.AddParameter addPar(final p=1, final k=1)
+    "System outdoor air flow fraction plus 1"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   CDL.Continuous.Add sysVenEff(final k2=-1)
     "Current system ventilation efficiency"
@@ -194,7 +197,7 @@ block OutdoorAirFlowSetpoint_MultiZone
     annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
   CDL.Logical.Hysteresis hys[numOfZon](
     each uLow=uLow,
-    each uHigh=uHigh,
+    each uHigh=uHig,
     each pre_y_start=true)
     "Check if cooling or heating air distribution effectiveness should be applied, with 1 degC deadband"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
@@ -202,7 +205,7 @@ block OutdoorAirFlowSetpoint_MultiZone
 protected
   CDL.Logical.Sources.Constant occSenor[numOfZon](
     k = occSen)
-    "Whether or not there is occupancy sensor"
+    "Boolean constant to indicate if there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   CDL.Continuous.Sources.Constant desDisEff[numOfZon](
     k = desZonDisEff)
@@ -252,9 +255,8 @@ protected
 equation
   for i in 1:numOfZon loop
     connect(breZonAre[i].y, breZon[i].u1)
-      annotation (Line(points={{-149,120},{-140,120},{-140,110},{-90,110},{-90,56},
-            {-82,56}},
-                   color={0,0,127}));
+      annotation (Line(points={{-149,120},{-140,120},{-140,110},{-90,110},
+        {-90,56}, {-82,56}}, color={0,0,127}));
     connect(gai[i].y, swi[i].u1)
       annotation (Line(points={{-139,80},{-128,80},{-128,48},{-122,48}},
         color={0,0,127}));
@@ -278,9 +280,8 @@ equation
     connect(swi1[i].y, zonOutAirRate[i].u2)
       annotation (Line(points={{-59,-40},{-50,-40},{-50,44},{-42,44}},
         color={0,0,127}));
-    connect(uWindow[i], swi2[i].u2)
-      annotation (Line(points={{-200,-100},{-40,-100},{-40,-34},{-8,-34},{-8,10},
-            {18,10}},                          color={255,0,255}));
+    connect(uWin[i], swi2[i].u2) annotation (Line(points={{-200,-100},{-40,-100},
+        {-40,-34},{-8,-34},{-8,10},{18,10}}, color={255,0,255}));
     connect(zerOutAir[i].y, swi2[i].u1)
       annotation (Line(points={{-19,2},{0,2},{18,2}},
         color={0,0,127}));
@@ -295,10 +296,10 @@ equation
         color={0,0,127}));
     connect(not1.y, swi3[i].u2)
       annotation (Line(points={{-99,-130},{-38,-130},{-38,-36},{-6,-36},{-6,-30},
-            {58,-30}},     color={255,0,255}));
+        {58,-30}},  color={255,0,255}));
     connect(swi3[i].y, priOutAirFra[i].u1)
-      annotation (Line(points={{81,-30},{90,-30},{90,-56},{-20,-56},{-20,-154},{
-            -2,-154}},         color={0,0,127}));
+      annotation (Line(points={{81,-30},{90,-30},{90,-56},{-20,-56},{-20,-154},
+        {-2,-154}}, color={0,0,127}));
     connect(swi3[i].y,sysUncOutAir. u[i])
       annotation (Line(points={{81,-30},{81,-30},{98,-30}},color={0,0,127}));
     connect(breZonAre[i].y, desBreZon[i].u2)
@@ -359,8 +360,8 @@ equation
       annotation (Line(points={{-39,-166},{-22,-166},{-22,-90},{-2,-90}},
         color={0,0,127}));
     connect(zerPriAir[i].y, swi4[i].u1)
-      annotation (Line(points={{-99,-190},{-80,-190},
-          {-80,-174},{-62,-174}}, color={0,0,127}));
+      annotation (Line(points={{-99,-190},{-80,-190},{-80,-174},{-62,-174}},
+        color={0,0,127}));
     connect(priAirflow[i], swi4[i].u3)
       annotation (Line(points={{-200,-166},{-150,-166},{-100,-166},
         {-100,-158},{-62,-158}}, color={0,0,127}));
@@ -368,7 +369,7 @@ equation
 
   connect(uSupFan, not1.u)
     annotation (Line(points={{-200,-129.5},{-178,-129.5},{-178,-130},{-122,-130}},
-                    color={255,0,255}));
+      color={255,0,255}));
   connect(priOutAirFra.y, maxPriOutAirFra.u[1:5])
     annotation (Line(points={{21,-160},{21,-160},{58,-160}}, color={0,0,127}));
   connect(sysPriAirRate.y, outAirFra.u2)
@@ -378,14 +379,14 @@ equation
     annotation (Line(points={{61,-90},{61,-90},{78,-90}},
       color={0,0,127}));
   connect(addPar.y, sysVenEff.u1)
-    annotation (Line(points={{101,-90},{101,-90},{100,-90},{102,-90},{110,-90},{
-          110,-84},{118,-84}},           color={0,0,127}));
+    annotation (Line(points={{101,-90},{101,-90},{100,-90},{102,-90},{110,-90},
+      {110,-84},{118,-84}}, color={0,0,127}));
   connect(maxPriOutAirFra.yMax, sysVenEff.u2)
     annotation (Line(points={{81,-154},{110,-154},{110,-96},{118,-96}},
       color={0,0,127}));
   connect(sysVenEff.y, effMinOutAirInt.u2)
-    annotation (Line(points={{141,-90},{141,-90},{142,-90},{148,-90},{148,-96},{
-          158,-96}},          color={0,0,127}));
+    annotation (Line(points={{141,-90},{141,-90},{142,-90},{148,-90},{148,-96},
+      {158,-96}}, color={0,0,127}));
   connect(sumDesZonPop.y, occDivFra.u2)
     annotation (Line(points={{-119,230},{-112,230},{-112,248},{-106,248},
       {-106,248},{-100,248},{-100,248}},  color={0,0,127}));
@@ -418,29 +419,29 @@ equation
     annotation (Line(points={{161,144},{168,144},{168,134},{114,134},
       {114,104},{138,104}}, color={0,0,127}));
   connect(min1.y, effMinOutAirInt.u1)
-    annotation (Line(points={{161,-30},{180,-30},{180,-60},{146,-60},{146,-84},{
-          158,-84}},          color={0,0,127}));
+    annotation (Line(points={{161,-30},{180,-30},{180,-60},{146,-60},{146,-84},
+      {158,-84}}, color={0,0,127}));
   connect(sysUncOutAir.y, min1.u2)
     annotation (Line(points={{121,-30},{121,-30},{128,-30},{128,-36},{138,-36}},
       color={0,0,127}));
   connect(min1.y, outAirFra.u1)
-    annotation (Line(points={{161,-30},{180,-30},{180,-60},{128,-60},{26,-60},{26,
-          -84},{38,-84}},            color={0,0,127}));
+    annotation (Line(points={{161,-30},{180,-30},{180,-60},{128,-60},{26,-60},
+      {26,-84},{38,-84}},   color={0,0,127}));
   connect(unCorOutAirInk.y, min1.u1)
     annotation (Line(points={{41,220.5},{180,220.5},{180,80},{128,80},{128,-24},
-          {138,-24}},       color={0,0,127}));
+      {138,-24}},       color={0,0,127}));
   connect(effMinOutAirInt.y, min.u2)
     annotation (Line(points={{181,-90},{181,-90},{188,-90},{188,-96},{198,-96}},
-                   color={0,0,127}));
+      color={0,0,127}));
   connect(desOutAirInt.y, min.u1)
     annotation (Line(points={{161,110},{188,110},{188,76},{188,-84},{198,-84}},
-                   color={0,0,127}));
+      color={0,0,127}));
   connect(unCorOutAirInk.y, VDesUncOutMin_flow_nominal)
     annotation (Line(points={{41,220.5},{104,220.5},{104,220},{180,220},
       {180,180},{260,180}},  color={0,0,127}));
   connect(min.y, VOutMinSet_flow)
     annotation (Line(points={{221,-90},{221,-90},{232,-90},{232,-50},{260,-50}},
-                  color={0,0,127}));
+      color={0,0,127}));
   connect(desOutAirInt.y, VDesOutMin_flow_nominal)
     annotation (Line(points={{161,110},{161,110},{188,110},{260,110}},
       color={0,0,127}));
