@@ -6,7 +6,7 @@ model TriggeredMax "Example model for the TriggeredMax block"
     samplePeriod = 0.2)
     "Output the maximum, absolute value of a continuous signal at trigger instants"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=0,
     height=6.2831852) "Block that generates ramp signal"
@@ -15,10 +15,8 @@ model TriggeredMax "Example model for the TriggeredMax block"
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul(
-    width = 0.5,
-    period = 0.2)
-    "Block that outputs cyclic on and off"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul(
+      width=0.5, period=0.2) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation
   connect(ramp1.y, sin1.u)

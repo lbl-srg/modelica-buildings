@@ -71,11 +71,11 @@ block OperationModeSelector "Block that outputs the operation mode"
   CDL.Interfaces.IntegerOutput freProAlaLev "Level 3 alarm: freeze protection"
     annotation (Placement(transformation(extent={{460,-150},{480,-130}}),
         iconTransformation(extent={{100,-60},{120,-40}})));
-  CDL.Continuous.Constant occModInd(
+  CDL.Continuous.Sources.Constant occModInd(
     k=Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.OperationModes.occModInd)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{140,290},{160,310}})));
-  CDL.Continuous.Constant unoPerInd(final k=0)
+  CDL.Continuous.Sources.Constant unoPerInd(final k=0)
     "Index to indicate unoccupied period"
     annotation (Placement(transformation(extent={{-160,220},{-140,240}})));
   CDL.Continuous.MinMax minMax(final nin=numOfZon)
@@ -296,7 +296,7 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Calculate the differential between maximum warm-up time and the 
     allowed maximum warm-up time"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
-  CDL.Continuous.Constant maxWarCooTime(k=preWarCooTim)
+  CDL.Continuous.Sources.Constant maxWarCooTime(k=preWarCooTim)
     "Allowed maximum warm-up/cool-down time"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
 

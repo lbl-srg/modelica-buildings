@@ -60,23 +60,23 @@ equation
           borderPattern=BorderPattern.Raised),
         Ellipse(
           extent={{-73,9},{-87,-5}},
-          lineColor=DynamicSelect({235,235,235}, if u > 0.5 then {0,255,0}
+          lineColor=DynamicSelect({235,235,235}, if u then {0,255,0}
                else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if u > 0.5 then {0,255,0}
+          fillColor=DynamicSelect({235,235,235}, if u then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{81,7},{95,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
                else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{-73,-53},{-87,-67}},
-          lineColor=DynamicSelect({235,235,235}, if u0 > 0.5 then {0,255,0}
+          lineColor=DynamicSelect({235,235,235}, if u0 then {0,255,0}
                else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if u0 > 0.5 then {0,255,0}
+          fillColor=DynamicSelect({235,235,235}, if u0 then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
         Line(points={{-68,-62},{4,-62},{4,-22},{74,-22}}, color={255,0,255}),

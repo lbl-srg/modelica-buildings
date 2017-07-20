@@ -2,13 +2,13 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
 model IntegratorWithReset "Test model for integrator with reset"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons(k=10) "Constant as source term"
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant cons(k=10) "Constant as source term"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.IntegratorWithReset intWitRes1(
     y_start=5, reset=Types.Reset.Parameter,
     k=0.5,
-    y_reset=2)                                      "Integrator with reset"
+    y_reset=2)   "Integrator with reset"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.IntegratorWithReset intWitRes2(
@@ -17,7 +17,7 @@ extends Modelica.Icons.Example;
     reset=Types.Reset.Input,
     k=0.5)     "Integrator with reset and y_reset = 2"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse
     booleanPulse(width=0.5, period=0.2) "Boolean pulse"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.IntegratorWithReset intNoReset(
@@ -26,10 +26,10 @@ extends Modelica.Icons.Example;
     y_start=1)
     "Integrator without reset"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.SampleTrigger
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.SampleTrigger
     sampleTrigger(period=0.2) "Sample trigger"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp(
     height=-1,
     duration=1,
     offset=-2) "Ramp as a source term"

@@ -52,7 +52,7 @@ equation
     annotation (Line(points={{10.5,60},{36,60}}, color={0,0,0}));
 
   annotation (
-  defaultComponentName = "TruHol",
+  defaultComponentName = "truHol",
   Icon(graphics={    Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},

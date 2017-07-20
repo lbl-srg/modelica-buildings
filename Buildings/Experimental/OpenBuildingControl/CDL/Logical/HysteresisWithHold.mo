@@ -129,24 +129,31 @@ equation
           lineColor={0,0,0},
           textString="%uLow     %uHigh"),
           Polygon(
-            points={{-12,8},{0,2},{-12,-4},{-12,8}},
+            points={{-22,8},{-10,2},{-22,-4},{-22,8}},
             lineColor={0,0,0},
             fillColor={0,0,0},
             fillPattern=FillPattern.Solid),
-          Line(points={{-44,2},{-12,2}}),
-          Line(points={{0,34},{0,-36}}),
-          Line(points={{0,2},{36,2}}),
+          Line(points={{-48,2},{-16,2}}),
+          Line(points={{-10,34},{-10,-36}}),
+          Line(points={{-18,2},{18,2}}),
           Polygon(
-            points={{36,8},{48,2},{36,-4},{36,8}},
+            points={{12,8},{24,2},{12,-4},{12,8}},
             lineColor={0,0,0},
             fillColor={0,0,0},
             fillPattern=FillPattern.Solid),
-          Rectangle(extent={{48,18},{86,-16}}, lineColor={0,0,0}),
-          Rectangle(extent={{-82,18},{-44,-16}}, lineColor={0,0,0}),
+          Rectangle(extent={{24,18},{62,-16}}, lineColor={0,0,0}),
+          Rectangle(extent={{-86,18},{-48,-16}}, lineColor={0,0,0}),
         Text(
           extent={{-140,148},{160,108}},
           textString="%name",
-          lineColor={0,0,255})}),
+          lineColor={0,0,255}),
+        Ellipse(
+          extent={{71,7},{85,-7}},
+          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
+               else {235,235,235}),
+          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
+               else {235,235,235}),
+          fillPattern=FillPattern.Solid)}),
 Documentation(info="<html>
 <p>
 Model for a hysteresis block that optionally allows to specify a hold time.

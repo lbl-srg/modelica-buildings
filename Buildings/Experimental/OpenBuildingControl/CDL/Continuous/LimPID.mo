@@ -111,9 +111,9 @@ protected
                              controllerType==CDL.Types.SimpleController.PID
                              annotation(Evaluate=true, HideResult=true);
 
-  Constant Dzero(k=0) if not with_D
+  Sources.Constant Dzero(k=0) if not with_D
     annotation (Placement(transformation(extent={{-30,20},{-20,30}})));
-  Constant Izero(k=0) if not with_I
+  Sources.Constant Izero(k=0) if not with_I
     annotation (Placement(transformation(extent={{10,-55},{0,-45}})));
 initial equation
   if initType==CDL.Types.Init.InitialOutput then
