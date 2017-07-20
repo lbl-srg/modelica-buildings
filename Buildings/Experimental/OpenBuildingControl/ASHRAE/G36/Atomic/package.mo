@@ -1,14 +1,13 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
-<<<<<<< HEAD
-package Atomic "Subsequences as defined in guidline G36"
+package Atomic
 
-  annotation (Documentation(info="<html>
-<p>
-This package provides atomic sequences referred from ASHRAE guideline G36. The
-sequences are composed with the elemental blocks from
-=======
-package Atomic "Subsequences as defined in guideline G36"
-  annotation (Icon(graphics={
+
+
+
+
+
+
+annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},
@@ -22,7 +21,6 @@ package Atomic "Subsequences as defined in guideline G36"
 <p>
 This package contains atomic control sequences from
 ASHRAE Guideline 36 (G36). The sequences are created using CDL basic blocks:
->>>>>>> issue609_cdl
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL\">
 Buildings.Experimental.OpenBuildingControl.CDL</a>.
 </p>

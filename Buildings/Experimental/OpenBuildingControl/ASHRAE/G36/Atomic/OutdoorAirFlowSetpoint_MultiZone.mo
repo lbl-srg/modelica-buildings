@@ -200,52 +200,52 @@ block OutdoorAirFlowSetpoint_MultiZone
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
 
 protected
-  CDL.Logical.Constant occSenor[numOfZon](
+  CDL.Logical.Sources.Constant occSenor[numOfZon](
     k = occSen)
     "Whether or not there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Continuous.Constant desDisEff[numOfZon](
+  CDL.Continuous.Sources.Constant desDisEff[numOfZon](
     k = desZonDisEff)
     "Design zone air distribution effectiveness"
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
-  CDL.Continuous.Constant minZonFlo[numOfZon](
+  CDL.Continuous.Sources.Constant minZonFlo[numOfZon](
     k = minZonPriFlo)
     "Minimum expected zone primary flow rate"
     annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
-  CDL.Continuous.Constant breZonAre[numOfZon](
+  CDL.Continuous.Sources.Constant breZonAre[numOfZon](
     k={outAirPerAre[i]*zonAre[i] for i in 1:numOfZon})
     "Area component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-170,110},{-150,130}})));
-  CDL.Continuous.Constant breZonPop[numOfZon](
+  CDL.Continuous.Sources.Constant breZonPop[numOfZon](
     k={outAirPerPer[i]*zonAre[i]*occDen[i] for i in 1:numOfZon})
     "Population component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  CDL.Continuous.Constant disEffHea[numOfZon](
+  CDL.Continuous.Sources.Constant disEffHea[numOfZon](
     k = zonDisEffHea)
     "Zone distribution effectiveness for heating"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
-  CDL.Continuous.Constant disEffCoo[numOfZon](
+  CDL.Continuous.Sources.Constant disEffCoo[numOfZon](
     k = zonDisEffCoo)
     "Zone distribution effectiveness fo cooling"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  CDL.Continuous.Constant desZonPopulation[numOfZon](
+  CDL.Continuous.Sources.Constant desZonPopulation[numOfZon](
     k=desZonPop)
     "Design zone population"
     annotation (Placement(transformation(extent={{-168,220},{-148,240}})));
-  CDL.Continuous.Constant zerOutAir[numOfZon](k=fill(0,numOfZon))
+  CDL.Continuous.Sources.Constant zerOutAir[numOfZon](k=fill(0,numOfZon))
     "Zero required outdoor airflow rate when window is open or when zone is not in occupied mode"
     annotation (Placement(transformation(extent={{-40,-8},{-20,12}})));
-  CDL.Continuous.Constant desBreZonPer[numOfZon](
+  CDL.Continuous.Sources.Constant desBreZonPer[numOfZon](
     k={outAirPerPer[i]*desZonPop[i] for i in 1:numOfZon})
     "Population component of the breathing zone design outdoor airflow"
     annotation (Placement(transformation(extent={{-168,180},{-148,200}})));
-  CDL.Continuous.Constant peaSysPopulation(k=peaSysPop)
+  CDL.Continuous.Sources.Constant peaSysPopulation(k=peaSysPop)
     "Peak system population"
     annotation (Placement(transformation(extent={{-168,250},{-148,270}})));
-  CDL.Continuous.Constant maxSysPriFlow(k=maxSysPriFlo)
+  CDL.Continuous.Sources.Constant maxSysPriFlow(k=maxSysPriFlo)
     "Highest expected system primary airflow"
     annotation (Placement(transformation(extent={{20,140},{40,160}})));
-  CDL.Continuous.Constant zerPriAir[numOfZon](k=fill(0.1, numOfZon))
+  CDL.Continuous.Sources.Constant zerPriAir[numOfZon](k=fill(0.1, numOfZon))
     "Near zero primary airflow so to avoid divide-by-zero issue in later process when supply fan is off"
     annotation (Placement(transformation(extent={{-120,-200},{-100,-180}})));
 

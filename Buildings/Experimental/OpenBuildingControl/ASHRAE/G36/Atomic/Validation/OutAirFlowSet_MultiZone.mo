@@ -11,23 +11,23 @@ model OutAirFlowSet_MultiZone
     peaSysPop=20)
     "Block to output minimum outdoor airflow rate for system with multiple zones "
     annotation (Placement(transformation(extent={{20,-20},{60,20}})));
-  CDL.Continuous.Constant numOfOcc[numOfZon](k=fill(2, numOfZon))
+  CDL.Continuous.Sources.Constant numOfOcc[numOfZon](k=fill(2, numOfZon))
     "Number of occupant detected in each zone"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  CDL.Logical.Constant winSta[numOfZon](k=fill(false,numOfZon))
+  CDL.Logical.Sources.Constant winSta[numOfZon](k=fill(false,numOfZon))
     "Status of windows in each zone"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  CDL.Logical.Constant supFan(k=true) "Status of supply fan"
+  CDL.Logical.Sources.Constant supFan(k=true) "Status of supply fan"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  CDL.Continuous.Constant zonPriFloRat[numOfZon](k={0.1,0.12,0.2,0.09,0.1})
+  CDL.Continuous.Sources.Constant zonPriFloRat[numOfZon](k={0.1,0.12,0.2,0.09,0.1})
     "Measured primary flow rate in each zone at VAV box"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  CDL.Sources.Ramp TZon[numOfZon](
+  CDL.Continuous.Sources.Ramp TZon[numOfZon](
     each height=6,
     each offset=273.15 + 17,
     each duration=3600) "Zone space temperature"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  CDL.Sources.Ramp TSup[numOfZon](
+  CDL.Continuous.Sources.Ramp TSup[numOfZon](
     each height=4,
     each duration=3600,
     each offset=273.15 + 18) "Supply air temperature"

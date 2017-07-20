@@ -91,21 +91,21 @@ block OutdoorAirFlowSetpoint_SingleZone
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 
 protected
-  CDL.Logical.Constant occSenor(final k=occSen) "If there is occupancy sensor"
+  CDL.Logical.Sources.Constant occSenor(final k=occSen) "If there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Continuous.Constant zerOutAir(final k=0)
+  CDL.Continuous.Sources.Constant zerOutAir(final k=0)
     "Zero required outdoor airflow rate when window open or zone is not in occupied mode"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  CDL.Continuous.Constant disEffHea(final k=zonDisEffHea)
+  CDL.Continuous.Sources.Constant disEffHea(final k=zonDisEffHea)
     "Zone distribution effectiveness during heating"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  CDL.Continuous.Constant disEffCoo(final k=zonDisEffCoo)
+  CDL.Continuous.Sources.Constant disEffCoo(final k=zonDisEffCoo)
     "Zone distribution effectiveness for cooling"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  CDL.Continuous.Constant breZonAre(final k=outAirPerAre*zonAre)
+  CDL.Continuous.Sources.Constant breZonAre(final k=outAirPerAre*zonAre)
     "Area component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  CDL.Continuous.Constant breZonPop(final k=outAirPerPer*zonAre*occDen)
+  CDL.Continuous.Sources.Constant breZonPop(final k=outAirPerPer*zonAre*occDen)
     "Population component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 

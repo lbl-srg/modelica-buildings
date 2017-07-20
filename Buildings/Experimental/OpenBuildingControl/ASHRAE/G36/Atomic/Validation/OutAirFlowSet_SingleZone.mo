@@ -7,20 +7,20 @@ model OutAirFlowSet_SingleZone
     outAirSet_SinZon(zonAre=40)
     "Block to output minimum outdoor airflow rate for system with single zone "
     annotation (Placement(transformation(extent={{20,-20},{60,20}})));
-  CDL.Sources.Ramp numOfOcc(height=4, duration=3600)
+  CDL.Continuous.Sources.Ramp numOfOcc(height=4, duration=3600)
     "Number of occupant detected in zone"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  CDL.Logical.Constant winSta(k=false)
+  CDL.Logical.Sources.Constant winSta(k=false)
     "Status of windows in each zone"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  CDL.Logical.Constant supFan(k=true) "Status of supply fan"
+  CDL.Logical.Sources.Constant supFan(k=true) "Status of supply fan"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  CDL.Sources.Ramp TZon(
+  CDL.Continuous.Sources.Ramp TZon(
     height=6,
     offset=273.15 + 17,
     duration=3600) "Zone space temperature"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  CDL.Sources.Ramp TSup(
+  CDL.Continuous.Sources.Ramp TSup(
     height=4,
     duration=3600,
     offset=273.15 + 18) "Supply air temperature"

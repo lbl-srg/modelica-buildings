@@ -1,10 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
-<<<<<<< HEAD
-package Composite "Sequences as defined in G36"
+package Composite
 
-=======
-package Composite "Control sequences as defined in G36"
->>>>>>> issue609_cdl
+
   annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
@@ -30,11 +27,6 @@ package Composite "Control sequences as defined in G36"
           thickness=0.5),
         Line(
           points={{-30,-40},{0,-40},{0,-10},{30,-10}},
-<<<<<<< HEAD
-          color={28,108,200},
-          thickness=0.5)}));
-
-=======
           color={0,0,127},
           thickness=0.5)}),
 Documentation(info="<html>
@@ -56,5 +48,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
->>>>>>> issue609_cdl
 end Composite;
