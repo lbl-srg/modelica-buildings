@@ -1,7 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
 package Composite
 
-
   annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
