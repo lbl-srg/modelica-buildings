@@ -39,7 +39,49 @@ partial model PartialChillerWSEInterface
     "Set to true to enable equipment, or false to disable equipment"
     annotation (Placement(transformation(extent={{-140,52},{-100,92}}),
         iconTransformation(extent={{-132,60},{-100,92}})));
+  Medium1.MassFlowRate m1_flow = port_a1.m_flow
+    "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";
+  Modelica.SIunits.PressureDifference dp1(displayUnit="Pa") = port_a1.p - port_b1.p
+    "Pressure difference between port_a1 and port_b1";
 
+  Medium2.MassFlowRate m2_flow = port_a2.m_flow
+    "Mass flow rate from port_a2 to port_b2 (m2_flow > 0 is design flow direction)";
+  Modelica.SIunits.PressureDifference dp2(displayUnit="Pa") = port_a2.p - port_b2.p
+    "Pressure difference between port_a2 and port_b2";
+
+  Medium1.ThermodynamicState sta_a1=
+      Medium1.setState_phX(port_a1.p,
+                           noEvent(actualStream(port_a1.h_outflow)),
+                           noEvent(actualStream(port_a1.Xi_outflow))) if
+         show_T "Medium properties in port_a1";
+  Medium1.ThermodynamicState sta_b1=
+      Medium1.setState_phX(port_b1.p,
+                           noEvent(actualStream(port_b1.h_outflow)),
+                           noEvent(actualStream(port_b1.Xi_outflow))) if
+         show_T "Medium properties in port_b1";
+  Medium2.ThermodynamicState sta_a2=
+      Medium2.setState_phX(port_a2.p,
+                           noEvent(actualStream(port_a2.h_outflow)),
+                           noEvent(actualStream(port_a2.Xi_outflow))) if
+         show_T "Medium properties in port_a2";
+  Medium2.ThermodynamicState sta_b2=
+      Medium2.setState_phX(port_b2.p,
+                           noEvent(actualStream(port_b2.h_outflow)),
+                           noEvent(actualStream(port_b2.Xi_outflow))) if
+         show_T "Medium properties in port_b2";
+protected
+  Medium1.ThermodynamicState state_a1_inflow=
+    Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow), inStream(port_a1.Xi_outflow))
+    "state for medium inflowing through port_a1";
+  Medium1.ThermodynamicState state_b1_inflow=
+    Medium1.setState_phX(port_b1.p, inStream(port_b1.h_outflow), inStream(port_b1.Xi_outflow))
+    "state for medium inflowing through port_b1";
+  Medium2.ThermodynamicState state_a2_inflow=
+    Medium2.setState_phX(port_a2.p, inStream(port_a2.h_outflow), inStream(port_a2.Xi_outflow))
+    "state for medium inflowing through port_a2";
+  Medium2.ThermodynamicState state_b2_inflow=
+    Medium2.setState_phX(port_b2.p, inStream(port_b2.h_outflow), inStream(port_b2.Xi_outflow))
+    "state for medium inflowing through port_b2";
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
                                                                  Diagram(
