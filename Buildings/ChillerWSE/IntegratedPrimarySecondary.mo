@@ -100,6 +100,9 @@ model IntegratedPrimarySecondary
         rotation=0,
         origin={-120,26}), iconTransformation(extent={{-16,-16},{16,16}},
           origin={-116,30})));
+  Fluid.Sensors.MassFlowRate bypFlo(redeclare package Medium = Medium2)
+    "Bypass flowrate"
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 equation
   connect(wse.port_a2, port_a2) annotation (Line(points={{60,24},{80,24},{80,-60},
           {100,-60}}, color={0,127,255}));
@@ -108,10 +111,6 @@ equation
   connect(wse.port_b2,val5. port_b) annotation (Line(points={{40,24},{20,24},{20,
           -20},{40,-20}}, color={0,127,255}));
 
-  connect(val5.port_b, port_b2) annotation (Line(points={{40,-20},{30,-20},{30,-60},
-          {-100,-60}}, color={0,127,255}));
-  connect(chiPar.port_b2, port_b2) annotation (Line(points={{-60,24},{-60,24},{-74,
-          24},{-74,-60},{-100,-60}}, color={0,127,255}));
   for i in 1:numPum loop
     connect(pum[i].port_a,val5. port_b)
     annotation (Line(points={{10,-20},{40,-20}}, color={0,127,255}));
@@ -122,6 +121,12 @@ equation
           {-60,0},{0.2,0},{0.2,-8}}, color={0,0,127}));
   connect(val5.y, yVal5) annotation (Line(points={{50,-8},{50,6},{-94,6},{-94,
           26},{-120,26}}, color={0,0,127}));
+  connect(chiPar.port_b2, port_b2) annotation (Line(points={{-60,24},{-78,24},{
+          -78,-60},{-100,-60}}, color={0,127,255}));
+  connect(val5.port_b, bypFlo.port_b) annotation (Line(points={{40,-20},{30,-20},
+          {30,-60},{-20,-60}}, color={0,127,255}));
+  connect(bypFlo.port_a, port_b2)
+    annotation (Line(points={{-40,-60},{-100,-60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
