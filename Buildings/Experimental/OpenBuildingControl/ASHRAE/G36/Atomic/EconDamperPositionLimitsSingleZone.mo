@@ -329,8 +329,7 @@ between <code>minVOutCurFanSpePos</code> and <code>desVOutCurFanSpePos</code>, p
 <code>uVOutMinSet_flow</code> to <code>desVOut_flow</code> and <code>minVOut_flow</code>
 <p>
 This chart illustrates the OA damper position limit calculation:
-<br>
-</br>
+<br/>
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits control chart\"
