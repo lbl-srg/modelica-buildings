@@ -114,44 +114,6 @@ protected
     final threshold=Constants.FreezeProtectionStages.stage1 + 0.5)
     "Any freeze protection stage above 1 disables the control"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
-<<<<<<< HEAD
-  CDL.Logical.Equal equ1 "Logical equal block"
-    annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
-
-protected
-  parameter Types.FreezeProtectionStage allowedFreProSta = Types.FreezeProtectionStage.stage1
-    "Freeze protection stage 1";
-  parameter Real allowedFreProStaNum = Integer(allowedFreProSta)-1
-    "Freeze protection stage control loop upper enable limit";
-  parameter Types.OperationMode occupied = Types.OperationMode.occupied "Operation mode is Occupied";
-  parameter Real occupiedNum = Integer(occupied) "Numerical value for Occupied operation mode";
-
-  CDL.Continuous.Constant outDamPhyPosMinSig(k=outDamPhyPosMin)
-    "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"
-    annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
-  CDL.Continuous.Constant outDamPhyPosMaxSig(k=outDamPhyPosMax)
-    "Physically fixed maximum position of the outdoor air damper."
-    annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
-  CDL.Continuous.Constant retDamPhyPosMinSig(k=retDamPhyPosMin)
-    "Physically fixed minimum position of the return air damper"
-    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  CDL.Continuous.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
-    "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
-    annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
-  CDL.Continuous.Constant minSignalLimit(final k=conSigMin)
-    "Equals minimum controller output signal"
-    annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
-  CDL.Continuous.Constant maxSignalLimit(k=conSigMax)
-    "Equals maximum controller output signal"
-    annotation (Placement(transformation(extent={{-20,200},{0,220}})));
-  CDL.Continuous.Constant sigFraForOutDam(k=conSigFraOutDam)
-    "Equals the fraction of the control loop signal below which the outdoor air damper
-    limit gets modulated and above which the return air damper limit gets modulated"
-    annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
-  CDL.Continuous.Constant OperationMode(final k=occupiedNum) "Control loop is enabled in occupied operation mode"
-    annotation (Placement(transformation(extent={{-160,-220},{-140,-200}})));
-=======
->>>>>>> issue609_cdl
 
   CDL.Logical.GreaterThreshold greThr(
     final threshold=Constants.OperationModes.occModInd - 0.5)

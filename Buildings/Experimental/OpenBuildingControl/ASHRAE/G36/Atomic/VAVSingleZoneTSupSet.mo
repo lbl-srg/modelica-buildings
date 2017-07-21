@@ -454,11 +454,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="0.5 < y < 0.75")}),
       Documentation(info="<html>
-<<<<<<< HEAD
-   <p>
-=======
 <p>
->>>>>>> issue609_cdl
 Block that outputs the set points for the supply air temperature for
 cooling, heating and economizer control,
 and the fan speed for a single zone VAV system.
