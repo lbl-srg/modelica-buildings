@@ -55,8 +55,7 @@ model EconomizerSingleZone_Disable
   Modelica.Blocks.Sources.Ramp TSup(
     final height=4,
     final offset=TSupSet - 2,
-    final duration=1800)
-    "Supply air temperature"
+    final duration=1800) "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Modelica.Blocks.Sources.Ramp VOutMinSetSig(
     final duration=1800,
@@ -132,7 +131,7 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
-        HeardinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}}),
+        coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}}),
         graphics={Text(
           extent={{52,106},{86,84}},
           lineColor={28,108,200}),
@@ -142,7 +141,7 @@ equation
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
           textString="Disable modulation
-(zone state is Heating),
+(zone state is heating),
 enable minimal
 outdoor air control"),
         Text(
@@ -151,10 +150,10 @@ outdoor air control"),
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
           textString="Disable modulation
-(zone state is Heating)
+(zone state is heating)
 disable minimal
 outdoor air control
-(uFreProSta is Stage2)")}),
+(freeze protection is at stage2)")}),
 Documentation(info="<html>
 <p>
 This example validates

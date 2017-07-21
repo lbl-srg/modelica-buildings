@@ -126,7 +126,7 @@ equation
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
           textString="Disable modulation
-(zone state is Heating),
+(zone state is heating),
 enable minimal
 outdoor air control"),
         Text(
@@ -135,10 +135,10 @@ outdoor air control"),
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
           textString="Disable modulation
-(zone state is Heating)
+(zone state is heating)
 disable minimal
 outdoor air control
-(uFreProSta is Stage2)")}),
+(freeze protection is at stage2)")}),
 Documentation(info="<html>
 <p>
 This example validates

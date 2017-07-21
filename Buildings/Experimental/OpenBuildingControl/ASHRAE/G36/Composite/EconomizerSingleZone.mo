@@ -147,7 +147,7 @@ equation
           extent={{-170,150},{158,112}},
           lineColor={0,0,127},
           textString="%name")}),
-        Diagram(HeardinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
+        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
 Documentation(info="<html>
 <p>
 This is single zone VAV AHU economizer control sequence. It calculates

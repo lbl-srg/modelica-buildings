@@ -139,7 +139,7 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
-        HeardinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}}),
+        coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}}),
         graphics={
         Rectangle(
           extent={{-136,-44},{-44,-156}},
