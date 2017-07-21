@@ -96,6 +96,8 @@ block EconEnableDisableSingleZone "Single zone VAV AHU economizer enable/disable
     annotation (Placement(transformation(extent={{80,-180},{100,-160}})));
   CDL.Logical.And and1 "Logical \"and\" checks supply fan status"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
+  CDL.Logical.And and2 annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
+  CDL.Logical.And and3 annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   CDL.Conversions.IntegerToReal intToRea "Integer to real converter"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
@@ -123,10 +125,6 @@ protected
     "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
 
-public
-  CDL.Logical.And and2 annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
-public
-  CDL.Logical.And and3 annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
 equation
   connect(OutDamSwitch.y, yOutDamPosMax) annotation (Line(points={{61,-140},{61,-140},{190,-140}}, color={0,0,127}));
   connect(TOut, add1.u1) annotation (Line(points={{-200,270},{-160,270},{-160,256},{-142,256}},

@@ -62,12 +62,12 @@ model EconomizerSingleZone "Single zone VAV AHU economizer control sequence"
     use_enthalpy=use_enthalpy) "Singlezone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Atomic.EconDamperPositionLimitsSingleZone ecoDamLim(
-    minFanSpe=minFanSpe,
-    maxFanSpe=maxFanSpe,
-    outDamPhyPosMax=1,
-    outDamPhyPosMin=0,
-    minVOut_flow=minVOut_flow,
-    desVOut_flow=desVOut_flow)
+    final minFanSpe=minFanSpe,
+    final maxFanSpe=maxFanSpe,
+    final outDamPhyPosMax=1,
+    final outDamPhyPosMin=0,
+    final minVOut_flow=minVOut_flow,
+    final desVOut_flow=desVOut_flow)
     "Singlezone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Atomic.EconModulationSingleZone ecoMod(kPMod=kPMod, TiMod=TiMod)

@@ -25,10 +25,10 @@ block EconDamperPositionLimitsSingleZone
   parameter Modelica.SIunits.VolumeFlowRate desVOut_flow = 2.0
     "Calculated design outdoor airflow rate";
 
-  CDL.Interfaces.RealInput uSupFanSpe(min=minFanSpe, max=maxFanSpe, unit="1") "Supply fan speed"
+  CDL.Interfaces.RealInput uSupFanSpe(final min=minFanSpe, max=maxFanSpe, unit="1") "Supply fan speed"
     annotation (Placement(transformation(extent={{-200,90},{-160,130}}),
       iconTransformation(extent={{-120,28},{-100,48}})));
-  CDL.Interfaces.RealInput uVOutMinSet_flow(min=minVOut_flow, max=desVOut_flow) "Minimum outdoor airflow setpoint"
+  CDL.Interfaces.RealInput uVOutMinSet_flow(final min=minVOut_flow, max=desVOut_flow) "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-200,160},{-160,200}}),
       iconTransformation(extent={{-120,60},{-100,80}})));
   CDL.Interfaces.IntegerInput uOpeMod "AHU operation mode status signal"
@@ -41,10 +41,10 @@ block EconDamperPositionLimitsSingleZone
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
         iconTransformation(extent={{-120,-30},{-100,-10}})));
 
-  CDL.Interfaces.RealOutput yOutDamPosMin(min=outDamPhyPosMin, max=outDamPhyPosMax, unit="1")
+  CDL.Interfaces.RealOutput yOutDamPosMin(final min=outDamPhyPosMin, max=outDamPhyPosMax, unit="1")
     "Minimum outdoor air damper position limit" annotation (Placement(transformation(extent={{160,-50},{180,-30}}),
       iconTransformation(extent={{100,30},{120,50}})));
-  CDL.Interfaces.RealOutput yOutDamPosMax(min=outDamPhyPosMin, max=outDamPhyPosMax, unit="1")
+  CDL.Interfaces.RealOutput yOutDamPosMax(final min=outDamPhyPosMin, max=outDamPhyPosMax, unit="1")
     "Maximum outdoor air damper position limit" annotation (Placement(transformation(extent={{160,30},{180,50}}),
     iconTransformation(extent={{100,-50},{120,-30}})));
 
@@ -114,66 +114,56 @@ equation
   connect(minVOutSig.y, minVOutSetCurFanSpePos.x1)
     annotation (Line(points={{37,180},{76,180},{76,128},{98,128}},color={0,0,127}));
   connect(desVOutSig.y, minVOutSetCurFanSpePos.x2)
-    annotation (Line(points={{37,100},{66,100},{66,116},{98,116}},
-                                                             color={0,0,127}));
+    annotation (Line(points={{37,100},{66,100},{66,116},{98,116}},color={0,0,127}));
   connect(minVOutCurFanSpePos.y, minVOutSetCurFanSpePos.f1)
-    annotation (Line(points={{37,140},{37,142},{66,142},{66,124},{98,124}},
-                                                                         color={0,0,127}));
+    annotation (Line(points={{37,140},{37,142},{66,142},{66,124},{98,124}}, color={0,0,127}));
   connect(desVOutCurFanSpePos.y, minVOutSetCurFanSpePos.f2)
-    annotation (Line(points={{37,50},{76,50},{76,112},{98,112}},
-                                                              color={0,0,127}));
+    annotation (Line(points={{37,50},{76,50},{76,112},{98,112}}, color={0,0,127}));
   connect(enaDis.y, yOutDamPosMin)
     annotation (Line(points={{103,-110},{104,-110},{108,-110},{150,-110},{150,-40},{170,-40}},
-                                                         color={0,0,127}));
+    color={0,0,127}));
   connect(desVOutMinFanSpePosSig.y, desVOutCurFanSpePos.f1)
-    annotation (Line(points={{-119,-20},{-100,-20},{-100,54},{14,54}},
-                                                                     color={0,0,127}));
+    annotation (Line(points={{-119,-20},{-100,-20},{-100,54},{14,54}}, color={0,0,127}));
   connect(desVOutMaxFanSpePosSig.y, desVOutCurFanSpePos.f2)
-    annotation (Line(points={{-119,10},{-104,10},{-96,10},{-4,10},{-4,42},{14,42}},
-                                                                             color={0,0,127}));
+    annotation (Line(points={{-119,10},{-104,10},{-96,10},{-4,10},{-4,42},{14,42}}, color={0,0,127}));
   connect(minVOutMinFansSpePosSig.y, minVOutCurFanSpePos.f1)
-    annotation (Line(points={{-119,130},{-120,130},{-118,130},{-28,130},{-28,144},{14,144}},
-                                                                                  color={0,0,127}));
+    annotation (Line(points={{-119,130},{-120,130},{-118,130},{-28,130},{-28,144},{14,144}}, color={0,0,127}));
   connect(minVOutMaxFanSpePosSig.y, minVOutCurFanSpePos.f2)
     annotation (Line(points={{-119,160},{-58,160},{-58,132},{14,132}}, color={0,0,127}));
   connect(uSupFanSpe, minVOutCurFanSpePos.u)
-    annotation (Line(points={{-180,110},{-24,110},{-24,140},{14,140}},   color={0,0,127}));
+    annotation (Line(points={{-180,110},{-24,110},{-24,140},{14,140}}, color={0,0,127}));
   connect(maxFanSpeSig.y, minVOutCurFanSpePos.x2)
-    annotation (Line(points={{-119,90},{2,90},{2,136},{14,136}},      color={0,0,127}));
+    annotation (Line(points={{-119,90},{2,90},{2,136},{14,136}}, color={0,0,127}));
   connect(minFanSpeSig.y, minVOutCurFanSpePos.x1)
-    annotation (Line(points={{-119,60},{-4,60},{-4,148},{14,148}},    color={0,0,127}));
+    annotation (Line(points={{-119,60},{-4,60},{-4,148},{14,148}}, color={0,0,127}));
   connect(minFanSpeSig.y, desVOutCurFanSpePos.x1)
-    annotation (Line(points={{-119,60},{-4,60},{-4,58},{14,58}},    color={0,0,127}));
+    annotation (Line(points={{-119,60},{-4,60},{-4,58},{14,58}}, color={0,0,127}));
   connect(maxFanSpeSig.y, desVOutCurFanSpePos.x2)
-    annotation (Line(points={{-119,90},{-14,90},{-14,46},{14,46}},  color={0,0,127}));
+    annotation (Line(points={{-119,90},{-14,90},{-14,46},{14,46}}, color={0,0,127}));
   connect(uVOutMinSet_flow, minVOutSetCurFanSpePos.u)
-    annotation (Line(points={{-180,180},{-20,180},{-20,160},{60,160},{60,120},{98,120}},
-                                                                               color={0,0,127}));
+    annotation (Line(points={{-180,180},{-20,180},{-20,160},{60,160},{60,120},{98,120}}, color={0,0,127}));
   connect(uSupFanSpe, desVOutCurFanSpePos.u)
-    annotation (Line(points={{-180,110},{-24,110},{-24,50},{14,50}},    color={0,0,127}));
+    annotation (Line(points={{-180,110},{-24,110},{-24,50},{14,50}}, color={0,0,127}));
   connect(and1.y,not1. u)
-    annotation (Line(points={{-38.3,-70},{-22,-70}},
-                                                  color={255,0,255}));
+    annotation (Line(points={{-38.3,-70},{-22,-70}}, color={255,0,255}));
   connect(intToRea.u,uFreProSta)
     annotation (Line(points={{-142,-120},{-142,-120},{-180,-120}}, color={255,127,0}));
   connect(intToRea.y,equ. u)
     annotation (Line(points={{-119,-120},{-110,-120},{-102,-120}}, color={0,0,127}));
   connect(uOpeMod,intToRea1. u)
     annotation (Line(points={{-180,-160},{-162,-160},{-142,-160}}, color={255,127,0}));
-  connect(not1.y, enaDis.u2) annotation (Line(points={{1,-70},{2,-70},{2,-70},{0,-70},{40,-70},{40,-110},{80,-110}},
-                                                                                            color={255,0,255}));
+  connect(not1.y, enaDis.u2)
+    annotation (Line(points={{1,-70},{2,-70},{2,-70},{0,-70},{40,-70},{40,-110},{80,-110}},color={255,0,255}));
   connect(outDamPhyPosMinSig.y, enaDis.u1)
     annotation (Line(points={{-19,-10},{68,-10},{68,-102},{80,-102}},color={0,0,127}));
   connect(minVOutSetCurFanSpePos.y, enaDis.u3)
-    annotation (Line(points={{121,120},{130,120},{130,20},{60,20},{60,-118},{80,-118}},
-                                                                    color={0,0,127}));
+    annotation (Line(points={{121,120},{130,120},{130,20},{60,20},{60,-118},{80,-118}},color={0,0,127}));
   connect(outDamPhyPosMinSig.y, enaDis1.u1)
-    annotation (Line(points={{-19,-10},{40,-10},{40,-62},{78,-62}},  color={0,0,127}));
+    annotation (Line(points={{-19,-10},{40,-10},{40,-62},{78,-62}},color={0,0,127}));
   connect(outDamPhyPosMaxSig.y, enaDis1.u3)
-    annotation (Line(points={{-59,-10},{-50,-10},{-50,-30},{20,-30},{20,-78},{78,-78}},
-                                                                   color={0,0,127}));
+    annotation (Line(points={{-59,-10},{-50,-10},{-50,-30},{20,-30},{20,-78},{78,-78}},color={0,0,127}));
   connect(enaDis1.y, yOutDamPosMax) annotation (Line(points={{101,-70},{140,-70},{140,40},{170,40}}, color={0,0,127}));
-  connect(not1.y, enaDis1.u2) annotation (Line(points={{1,-70},{48,-70},{78,-70}},             color={255,0,255}));
+  connect(not1.y, enaDis1.u2) annotation (Line(points={{1,-70},{48,-70},{78,-70}}, color={255,0,255}));
   connect(uSupFan, and1.u[1])
     annotation (Line(points={{-180,-80},{-122,-80},{-122,-64.75},{-62,-64.75}}, color={255,0,255}));
   connect(equ.y, and1.u[2])
@@ -251,7 +241,7 @@ equation
           lineColor={28,108,200},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(                           extent={{-160,-220},{160,220}},
+    Diagram(coordinateSystem(extent={{-160,-220},{160,220}},
         initialScale=0.1), graphics={
         Rectangle(
           extent={{-152,-52},{152,-214}},
