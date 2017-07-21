@@ -1,14 +1,17 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block Limiter "Limit the range of a signal"
 
-  parameter Real uMax(min=uMin+1E-20) "Upper limit of input signal";
-  parameter Real uMin(max=uMax-1E-20) "Lower limit of input signal";
+  parameter Real uMax "Upper limit of input signal";
+  parameter Real uMin "Lower limit of input signal";
 
   Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+initial equation
+    assert(uMin < uMax, "uMin must be smaller than uMax. Check parameters.");
 
 equation
   y = homotopy(actual = smooth(0, noEvent(if u > uMax then uMax
@@ -29,16 +32,18 @@ If <code>uMax &lt; uMin</code>, an error occurs and no output is produced.
 </html>", revisions="<html>
 <ul>
 <li>
+July 17, 2017, by Michael Wetter:<br/>
+Removed cyclical definition.
+</li>
+<li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.
 </li>
 </ul>
-</html>"), Icon(coordinateSystem(
-    preserveAspectRatio=true,
-    extent={{-100,-100},{100,100}}), graphics={
-        Text(
-          lineColor={0,0,255},
+</html>"),
+Icon(graphics={
+   Text(  lineColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Rectangle(
@@ -64,13 +69,9 @@ Modelica Standard Library.
       textString="%name",
       lineColor={0,0,255}),
     Line(
-      visible=strict,
-      points={{50,70},{80,70}},
-      color={255,0,0}),
+      points={{50,70},{80,70}}),
     Line(
-      visible=strict,
-      points={{-80,-70},{-50,-70}},
-      color={255,0,0}),
+      points={{-80,-70},{-50,-70}}),
     Text(
       extent={{12,72},{94,98}},
       lineColor={0,0,0},

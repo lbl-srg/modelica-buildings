@@ -57,14 +57,39 @@ block EconDamperPositionLimitsMultiZone
     annotation (Placement(transformation(extent={{180,-90},{200,-70}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
 
-  CDL.Continuous.LimPID damLimController(
-    Ti=TiDamLim,
-    Td=0.1,
+  CDL.Continuous.LimPID damLimCon(
+    final Ti=TiDamLim,
+    final Td=0.1,
     final yMax=conSigMax,
     final yMin=conSigMin,
-    controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
-    k=kPDamLim) "Damper position limit controller"
+    final controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
+    final k=kPDamLim) "Damper position limit controller"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
+
+protected
+  CDL.Continuous.Sources.Constant outDamPhyPosMinSig(final k=outDamPhyPosMin)
+    "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"
+    annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
+  CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(final k=outDamPhyPosMax)
+    "Physically fixed maximum position of the outdoor air damper."
+    annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
+  CDL.Continuous.Sources.Constant retDamPhyPosMinSig(final k=retDamPhyPosMin)
+    "Physically fixed minimum position of the return air damper"
+    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+  CDL.Continuous.Sources.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
+    "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
+    annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
+  CDL.Continuous.Sources.Constant minSignalLimit(final k=conSigMin)
+    "Equals minimum controller output signal"
+    annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
+  CDL.Continuous.Sources.Constant maxSignalLimit(final k=conSigMax)
+    "Equals maximum controller output signal"
+    annotation (Placement(transformation(extent={{-20,200},{0,220}})));
+  CDL.Continuous.Sources.Constant sigFraForOutDam(final k=conSigFraOutDam)
+    "Equals the fraction of the control loop signal below which the outdoor air damper
+    limit gets modulated and above which the return air damper limit gets modulated"
+    annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
+
   CDL.Continuous.Line minOutDam(limitBelow=true, limitAbove=true)
     "Linear mapping of the outdoor air damper position to the control signal"
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
@@ -77,7 +102,7 @@ block EconDamperPositionLimitsMultiZone
   CDL.Logical.Switch outDamPosMaxSwitch
     "A switch to deactivate the outdoor air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  CDL.Logical.And3 and1 "Locical and block"
+  CDL.Logical.MultiAnd and1(nu=4) "Locigal and block"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   CDL.Logical.Not not1 "Logical not block"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
@@ -85,9 +110,11 @@ block EconDamperPositionLimitsMultiZone
     annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
   CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
     annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
-  CDL.Logical.LessEqualThreshold equ(final threshold=allowedFreProStaNum)
-    "Freeze protection stage above allowedFreProStaNum disables the control"
+  CDL.Logical.LessEqualThreshold equ(
+    final threshold=Constants.FreezeProtectionStages.stage1 + 0.5)
+    "Any freeze protection stage above 1 disables the control"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
+<<<<<<< HEAD
   CDL.Logical.Equal equ1 "Logical equal block"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
 
@@ -123,7 +150,17 @@ protected
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
   CDL.Continuous.Constant OperationMode(final k=occupiedNum) "Control loop is enabled in occupied operation mode"
     annotation (Placement(transformation(extent={{-160,-220},{-140,-200}})));
+=======
+>>>>>>> issue609_cdl
 
+  CDL.Logical.GreaterThreshold greThr(
+    final threshold=Constants.OperationModes.occModInd - 0.5)
+      "Tests whether operation mode is occupied"
+    annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
+  CDL.Logical.LessThreshold lesThr(
+    final threshold=Constants.OperationModes.occModInd + 0.5)
+    "Tests whether operation mode is occupied"
+    annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
 equation
   connect(minRetDam.y,yRetDamPosMax)  annotation (Line(points={{141,110},{150,110},{150,20},{150,-40},{190,-40}},
     color={0,0,127}));
@@ -133,11 +170,11 @@ equation
     annotation (Line(points={{-39,210},{-30,210},{-30,118},{118,118}},color={0,0,127}));
   connect(maxSignalLimit.y,minRetDam. x2)
     annotation (Line(points={{1,210},{8,210},{8,106},{118,106}},color={0,0,127}));
-  connect(VOut_flow,damLimController. u_m)
+  connect(VOut_flow,damLimCon. u_m)
     annotation (Line(points={{-200,170},{-130,170},{-130,178}},color={0,0,127}));
-  connect(VOutMinSet_flow,damLimController. u_s)
+  connect(VOutMinSet_flow,damLimCon. u_s)
     annotation (Line(points={{-200,220},{-160,220},{-160,190},{-142,190}},color={0,0,127}));
-  connect(damLimController.y,minRetDam. u)
+  connect(damLimCon.y,minRetDam. u)
     annotation (Line(points={{-119,190},{-80,190},{-80,110},{118,110}},color={0,0,127}));
   connect(outDamPosMaxSwitch.y, minOutDam.f2)
     annotation (Line(points={{61,20},{110,20},{110,142},{118,142}}, color={0,0,127}));
@@ -145,7 +182,7 @@ equation
     annotation (Line(points={{-79,210},{-70,210},{-70,158},{118,158}},color={0,0,127}));
   connect(sigFraForOutDam.y,minOutDam. x2)
     annotation (Line(points={{-39,210},{-39,210},{-30,210},{-30,146},{118,146}},color={0,0,127}));
-  connect(damLimController.y,minOutDam. u)
+  connect(damLimCon.y,minOutDam. u)
     annotation (Line(points={{-119,190},{-80,190},{-80,150},{118,150}},  color={0,0,127}));
   connect(outDamPosMaxSwitch.y, yOutDamPosMax)
     annotation (Line(points={{61,20},{126,20},{126,40},{190,40}},color={0,0,127}));
@@ -163,33 +200,36 @@ equation
     annotation (Line(points={{-139,80},{0,80},{0,28},{38,28}},color={0,0,127}));
   connect(outDamPhyPosMinSig.y,minOutDam. f1)
     annotation (Line(points={{-139,80},{0,80},{0,154},{118,154}},color={0,0,127}));
-  connect(uSupFan,and1. u1)
-    annotation (Line(points={{-200,-100},{-108,-100},{-108,-82},{-82,-82}},color={255,0,255}));
   connect(and1.y,not1. u)
-    annotation (Line(points={{-59,-90},{-42,-90}},color={255,0,255}));
+    annotation (Line(points={{-58.3,-90},{-42,-90}},
+                                                  color={255,0,255}));
   connect(not1.y, retDamPosMinSwitch.u2)
     annotation (Line(points={{-19,-90},{20,-90},{20,-20},{38,-20}},color={255,0,255}));
   connect(not1.y, outDamPosMaxSwitch.u2)
     annotation (Line(points={{-19,-90},{-19,-90},{20,-90},{20,20},{38,20}},color={255,0,255}));
   connect(retDamPosMinSwitch.y, yRetDamPosMin)
     annotation (Line(points={{61,-20},{126,-20},{126,0},{190,0}},color={0,0,127}));
-  connect(and1.u2, equ.y)
-    annotation (Line(points={{-82,-90},{-90,-90},{-90,-140},{-99,-140}},color={255,0,255}));
   connect(intToRea.u, uFreProSta)
     annotation (Line(points={{-162,-140},{-162,-140},{-200,-140}}, color={255,127,0}));
   connect(intToRea.y, equ.u)
     annotation (Line(points={{-139,-140},{-130,-140},{-122,-140}}, color={0,0,127}));
   connect(uOpeMod, intToRea1.u)
     annotation (Line(points={{-200,-180},{-182,-180},{-162,-180}}, color={255,127,0}));
-  connect(and1.u3, equ1.y)
-    annotation (Line(points={{-82,-98},{-86,-98},{-86,-180},{-99,-180}},color={255,0,255}));
-  connect(intToRea1.y, equ1.u1)
-    annotation (Line(points={{-139,-180},{-130.5,-180},{-122,-180}}, color={0,0,127}));
-  connect(OperationMode.y, equ1.u2)
-    annotation (Line(points={{-139,-210},{-130,-210},{-130,-188},{-122,-188}},color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, yRetDamPhyPosMax)
     annotation (Line(points={{-139,-40},{40,-40},{40,-80},{190,-80}},color={0,0,127}));
   connect(yRetDamPosMin, yRetDamPosMin) annotation (Line(points={{190,0},{190,0}}, color={0,0,127}));
+  connect(and1.u[1], uSupFan) annotation (Line(points={{-82,-84.75},{-160,-84.75},
+          {-160,-100},{-200,-100}}, color={255,0,255}));
+  connect(equ.y, and1.u[2]) annotation (Line(points={{-99,-140},{-96,-140},{-96,
+          -88.25},{-82,-88.25}}, color={255,0,255}));
+  connect(intToRea1.y, greThr.u) annotation (Line(points={{-139,-180},{-130,-180},
+          {-130,-170},{-122,-170}}, color={0,0,127}));
+  connect(intToRea1.y, lesThr.u) annotation (Line(points={{-139,-180},{-130,-180},
+          {-130,-200},{-122,-200}}, color={0,0,127}));
+  connect(greThr.y, and1.u[3]) annotation (Line(points={{-99,-170},{-92,-170},{-92,
+          -91.75},{-82,-91.75}}, color={255,0,255}));
+  connect(lesThr.y, and1.u[4]) annotation (Line(points={{-99,-200},{-90,-200},{-90,
+          -95.25},{-82,-95.25}}, color={255,0,255}));
   annotation (
     defaultComponentName = "ecoDamLim",
     Icon(graphics={
@@ -209,12 +249,12 @@ equation
     Diagram(coordinateSystem(extent={{-180,-240},{180,240}},
         initialScale=0.1), graphics={
         Rectangle(
-          extent={{-172,232},{16,128}},
+          extent={{-172,-72},{16,-232}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-172,-72},{16,-232}},
+          extent={{-172,232},{16,128}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
@@ -268,9 +308,13 @@ measurement, designed in line with ASHRAE Guidline 36 (G36), PART5.N.6.c.
 </p>
 <p>
 The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
-the AHU operation mode (<code>OperationMode</code>) is Occupied, and Freeze protection stage
-<code>uFreProSta</code> is not larger than 1. Otherwise the damper position limits are set to
-their corresponding maximum and minimum physical or at commissioning fixed limits, as illustrated below:
+the AHU operation mode, <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.OperationModes\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.OperationModes</a>, equals <code>occModInt</code>,
+and freeze protection stage, <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages</a>, is not higher than
+<code>stage1</code>.
+Otherwise the damper position limits are set to their corresponding maximum and minimum physical or at
+commissioning fixed limits. State machine chart below illustrates listed conditions:
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits state machine chart\"
@@ -304,6 +348,11 @@ src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASH
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 17, 2017, by Michael Wetter:<br/>
+Replaced block that checks for equality of real values within a tolerance
+by two inequality checks.
+</li>
 <li>
 June 06, 2017, by Milica Grahovac:<br/>
 First implementation.

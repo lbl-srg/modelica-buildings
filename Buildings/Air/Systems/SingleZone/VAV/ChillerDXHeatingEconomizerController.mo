@@ -70,7 +70,7 @@ model ChillerDXHeatingEconomizerController
     "Measured supply air temperature after the cooling coil"
     annotation (Placement(transformation(extent={{-140,-110},{-100,-70}})));
 
-  Modelica.Blocks.Interfaces.RealInput TOut (
+  Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC")
     "Measured outside air temperature"
@@ -109,10 +109,10 @@ model ChillerDXHeatingEconomizerController
     "Economizer control"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
-  BaseClasses.HysteresisWithDelay hysChiPla(
+  BaseClasses.HysteresisWithHold  hysChiPla(
     uLow=-1,
     uHigh=0,
-    waitTimeToOn=0)
+    onHolDur=60*15)
     "Hysteresis with delay to switch on cooling"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 
@@ -150,7 +150,7 @@ equation
   connect(TSetSupAirConst.y, conEco.TMixSet) annotation (Line(points={{-39,-20},
           {-20,-20},{-20,58},{-1,58}}, color={0,0,127}));
   connect(errTRooCoo.y, hysChiPla.u) annotation (Line(points={{-23,-60},{0,-60},
-          {0,-40},{40,-40},{39,-40}},                  color={0,0,127}));
+          {0,-40},{38,-40}},                           color={0,0,127}));
   connect(TSetRooCoo, errTRooCoo.u2) annotation (Line(points={{-120,60},{-80,60},
           {-80,-80},{-32,-80},{-32,-68}}, color={0,0,127}));
   connect(errTRooCoo.u1, TRoo) annotation (Line(points={{-40,-60},{-74,-60},{

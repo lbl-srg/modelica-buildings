@@ -1,6 +1,12 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
 package Atomic "Subsequences as defined in guideline G36"
-  annotation (Icon(graphics={Rectangle(
+  annotation (Icon(graphics={
+        Rectangle(
+          lineColor={200,200,200},
+          fillColor={248,248,248},
+          fillPattern=FillPattern.HorizontalCylinder,
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0),      Rectangle(
             extent={{-60,60},{60,-60}},
             lineColor={0,0,127},
             lineThickness=0.5)}),

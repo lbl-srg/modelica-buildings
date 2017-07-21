@@ -8,15 +8,15 @@ model TWetBul_TDryBulPhi
   Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.TWetBul_TDryBulPhi wetBulPhi
      "Model for wet bulb temperature"
     annotation (Placement(transformation(extent={{-10,46},{10,66}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant p(k=101325) "Pressure"
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant p(k=101325) "Pressure"
                                     annotation (Placement(transformation(extent={{-90,-34},
             {-70,-14}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp phi(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp phi(
     duration=1,
     height=0.95,
     offset=0.05) "Relative humidity"   annotation (Placement(transformation(extent={{-90,6},
             {-70,26}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant TDryBul(k=273.15 + 29.4)
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant TDryBul(k=273.15 + 29.4)
     "Dry bulb temperature"          annotation (Placement(transformation(extent={{-90,46},
             {-70,66}})));
 

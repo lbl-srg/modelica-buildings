@@ -2,7 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
 model LimPID "Test model for LimPID controller"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Pulse pulse(period=0.25)
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Pulse pulse(period=0.25)
     annotation (Placement(transformation(extent={{-90,14},{-70,34}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.LimPID limPID(
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PID,
@@ -20,7 +20,7 @@ extends Modelica.Icons.Example;
     yMin=-1,
     initType=Buildings.Experimental.OpenBuildingControl.CDL.Types.Init.InitialState)
           annotation (Placement(transformation(extent={{-30,74},{-10,94}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant const(k=0.5)
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant const(k=0.5)
     annotation (Placement(transformation(extent={{-90,-22},{-70,-2}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.LimPID limPI(

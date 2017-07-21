@@ -28,19 +28,29 @@ equation
 
   annotation (
   defaultComponentName="mulAnd",
-  Icon(graphics={   Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
+  Icon(graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          lineThickness=5.0,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          borderPattern=BorderPattern.Raised),
         Text(
           extent={{-144,150},{156,110}},
           textString="%name",
           lineColor={0,0,255}),
         Text(
-          extent={{-62,52},{74,-52}},
+          extent={{-80,52},{56,-52}},
           lineColor={0,0,0},
-          textString="AND")}),
+          textString="AND"),
+        Ellipse(
+          extent={{71,7},{85,-7}},
+          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
+               else {235,235,235}),
+          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
+               else {235,235,235}),
+          fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = true</code> if and only if
