@@ -6,7 +6,7 @@ model EconModulationSingleZone_TSup
   parameter Modelica.SIunits.Temperature TCooSet=291.15
     "Supply air temperature setpoint";
 
-  CDL.Continuous.Constant TCooSetSig(k=TCooSet) "Supply air temperature setpoint"
+  CDL.Continuous.Sources.Constant TCooSetSig(k=TCooSet) "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Modelica.Blocks.Sources.Ramp TSup(
     duration=900,
@@ -14,13 +14,13 @@ model EconModulationSingleZone_TSup
     offset=TCooSet - 2) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
-  CDL.Continuous.Constant outDamPosMin(k=0)
+  CDL.Continuous.Sources.Constant outDamPosMin(k=0)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  CDL.Continuous.Constant outDamPosMax(k=1)
+  CDL.Continuous.Sources.Constant outDamPosMax(k=1)
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  CDL.Continuous.Constant RetDamPosMin(k=0)
+  CDL.Continuous.Sources.Constant RetDamPosMin(k=0)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  CDL.Continuous.Constant RetDamPosMax(k=1)
+  CDL.Continuous.Sources.Constant RetDamPosMax(k=1)
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
   EconModulationSingleZone ecoMod "Economizer modulation sequence"

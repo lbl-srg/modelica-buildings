@@ -59,28 +59,28 @@ public
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
-  CDL.Logical.Constant fanStatus1(
+  CDL.Logical.Sources.Constant fanStatus1(
                                  k=false) "Fan is off"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
-  CDL.Integers.Constant freProSta1(
+  CDL.Integers.Sources.Constant freProSta1(
                                   k=freProStage1Num) "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-160,-100},{-140,-80}})));
-  CDL.Integers.Constant operationMode1(
+  CDL.Integers.Sources.Constant operationMode1(
                                       k=occupiedNum) "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
-  CDL.Logical.Constant fanStatus2(k=true)  "Fan is on"
+  CDL.Logical.Sources.Constant fanStatus2(k=true)  "Fan is on"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  CDL.Integers.Constant freProSta2(k=freProStage1Num) "Freeze protection stage is 1"
+  CDL.Integers.Sources.Constant freProSta2(k=freProStage1Num) "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  CDL.Integers.Constant operationMode2(k=warmUpNum)
+  CDL.Integers.Sources.Constant operationMode2(k=warmUpNum)
     "AHU operation mode is NOT Occupied"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  CDL.Logical.Constant fanStatus3(k=true)  "Fan is on"
+  CDL.Logical.Sources.Constant fanStatus3(k=true)  "Fan is on"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  CDL.Integers.Constant freProSta3(k=freProStage2Num)
+  CDL.Integers.Sources.Constant freProSta3(k=freProStage2Num)
     "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  CDL.Integers.Constant operationMode3(k=occupiedNum) "AHU operation mode is Occupied"
+  CDL.Integers.Sources.Constant operationMode3(k=occupiedNum) "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   EconDamperPositionLimitsSingleZone ecoDamLim3 annotation (Placement(transformation(extent={{140,-20},{160,0}})));
 equation

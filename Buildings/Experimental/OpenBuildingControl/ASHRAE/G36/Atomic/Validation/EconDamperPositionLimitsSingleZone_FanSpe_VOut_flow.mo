@@ -14,7 +14,7 @@ model EconDamperPositionLimitsSingleZone_FanSpe_VOut_flow
   parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=(desVOut_flow + minVOut_flow)/2
     "Constant minimum outdoor airflow setpoint";
 
-  CDL.Continuous.Constant VOutMinSetSig(k=VOutSet_flow)
+  CDL.Continuous.Sources.Constant VOutMinSetSig(k=VOutSet_flow)
     "Constant minimum outdoor airflow setpoint" annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Modelica.Blocks.Sources.Ramp SupFanSpeSig(
     duration=1800,
@@ -39,15 +39,15 @@ protected
   parameter Integer occupiedNum = Integer(occupied)
     "Numerical value for Occupied operation mode";
 
-  CDL.Logical.Constant fanStatus(k=true) "Fan is on"
+  CDL.Logical.Sources.Constant fanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  CDL.Integers.Constant freProSta(k=freProDisabledNum) "Freeze protection status - disabled"
+  CDL.Integers.Sources.Constant freProSta(k=freProDisabledNum) "Freeze protection status - disabled"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-  CDL.Integers.Constant operationMode(k=occupiedNum) "Operation mode - occupied"
+  CDL.Integers.Sources.Constant operationMode(k=occupiedNum) "Operation mode - occupied"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
 
 public
-  CDL.Continuous.Constant SupFanSpeSig1(k=fanSpe)                    "Supply fan speed signal"
+  CDL.Continuous.Sources.Constant SupFanSpeSig1(k=fanSpe)                    "Supply fan speed signal"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Sources.Ramp VOutMinSetSig1(
     duration=1800,

@@ -16,18 +16,18 @@ model EconEnableDisableSingleZone_TOut_hOut
   parameter Integer deadbandNum = Integer(deadband)
     "Numerical value for deadband zone state (=2)";
 
-  CDL.Continuous.Constant TOutCut(k=TOutCutoff) "Outdoor air temperature cutoff"
+  CDL.Continuous.Sources.Constant TOutCut(k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Continuous.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
+  CDL.Continuous.Sources.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-240,0},{-220,20}})));
-  CDL.Continuous.Constant TOutCut1(k=TOutCutoff) "Outdoor air temperature cutoff"
+  CDL.Continuous.Sources.Constant TOutCut1(k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  CDL.Continuous.Constant hOutCut1(k=hOutCutoff) "Outdoor air enthalpy cutoff"
+  CDL.Continuous.Sources.Constant hOutCut1(k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 1000)
+  CDL.Continuous.Sources.Constant hOutBelowCutoff(k=hOutCutoff - 1000)
     "Outdoor air enthalpy is slightly below the cufoff"
     annotation (Placement(transformation(extent={{-240,40},{-220,60}})));
-  CDL.Continuous.Constant TOutBellowCutoff(k=TOutCutoff - 2)
+  CDL.Continuous.Sources.Constant TOutBellowCutoff(k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   CDL.Logical.TriggeredTrapezoid TOut(
@@ -51,19 +51,19 @@ model EconEnableDisableSingleZone_TOut_hOut
     annotation (Placement(transformation(extent={{220,-80},{240,-60}})));
 
 protected
-  CDL.Integers.Constant ZoneState(k=deadbandNum) "Zone State is deadband"
+  CDL.Integers.Sources.Constant ZoneState(k=deadbandNum) "Zone State is deadband"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
-  CDL.Continuous.Constant outDamPosMax(k=0.9) "Maximal allowed economizer damper position"
+  CDL.Continuous.Sources.Constant outDamPosMax(k=0.9) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
-  CDL.Continuous.Constant outDamPosMin(k=0.1) "Minimal allowed economizer damper position"
+  CDL.Continuous.Sources.Constant outDamPosMin(k=0.1) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-160},{-220,-140}})));
-  CDL.Integers.Constant FreProSta(k=freProDisabledNum) "Freeze Protection Status - Disabled"
+  CDL.Integers.Sources.Constant FreProSta(k=freProDisabledNum) "Freeze Protection Status - Disabled"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
   CDL.Sources.BooleanPulse booPul(final startTime=10, period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
   CDL.Sources.BooleanPulse booPul1(final startTime=10, period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  CDL.Logical.Constant SupFanSta(k=true) "Supply fan status signal"
+  CDL.Logical.Sources.Constant SupFanSta(k=true) "Supply fan status signal"
       annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
 
 equation

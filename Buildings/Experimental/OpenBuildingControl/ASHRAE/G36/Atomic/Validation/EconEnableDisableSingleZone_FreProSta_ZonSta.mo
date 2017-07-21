@@ -30,30 +30,30 @@ model EconEnableDisableSingleZone_FreProSta_ZonSta
     annotation (Placement(transformation(extent={{82,-40},{102,-20}})));
 
 protected
-  CDL.Continuous.Constant TOutBellowCutoff(k=TOutCutoff - 2)
+  CDL.Continuous.Sources.Constant TOutBellowCutoff(k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
-  CDL.Continuous.Constant TOutCut(k=TOutCutoff)
+  CDL.Continuous.Sources.Constant TOutCut(k=TOutCutoff)
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
-  CDL.Continuous.Constant hOutBelowCutoff(k=hOutCutoff - 1000)
+  CDL.Continuous.Sources.Constant hOutBelowCutoff(k=hOutCutoff - 1000)
     "Outdoor air enthalpy is slightly below the cufoff"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  CDL.Continuous.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
+  CDL.Continuous.Sources.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  CDL.Integers.Constant FreProSta(k=freProDisabledNum) "Freeze Protection Status (Deactivated = 0)"
+  CDL.Integers.Sources.Constant FreProSta(k=freProDisabledNum) "Freeze Protection Status (Deactivated = 0)"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Integers.Constant ZoneState(k=heatingNum) "Zone State is heating (heating = 1)"
+  CDL.Integers.Sources.Constant ZoneState(k=heatingNum) "Zone State is heating (heating = 1)"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  CDL.Integers.Constant FreProSta1(k=freProEnabledNum) "Freeze Protection Status (Activated > 0)"
+  CDL.Integers.Sources.Constant FreProSta1(k=freProEnabledNum) "Freeze Protection Status (Activated > 0)"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  CDL.Integers.Constant ZoneState1(k=coolingNum) "Zone State is not heating (heating = 1)"
+  CDL.Integers.Sources.Constant ZoneState1(k=coolingNum) "Zone State is not heating (heating = 1)"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
-  CDL.Continuous.Constant outDamPosMax(k=0.9) "Maximal allowed economizer damper position"
+  CDL.Continuous.Sources.Constant outDamPosMax(k=0.9) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
-  CDL.Continuous.Constant outDamPosMin(k=0.1) "Minimal allowed economizer damper position"
+  CDL.Continuous.Sources.Constant outDamPosMin(k=0.1) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
-  CDL.Logical.Constant SupFanSta(k=true)
+  CDL.Logical.Sources.Constant SupFanSta(k=true)
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
 equation

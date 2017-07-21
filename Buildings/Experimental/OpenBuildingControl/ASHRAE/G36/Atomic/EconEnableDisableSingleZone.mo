@@ -56,10 +56,10 @@ block EconEnableDisableSingleZone "Single zone VAV AHU economizer enable/disable
     annotation (Placement(transformation(
         extent={{180,-220},{200,-200}}), iconTransformation(extent={{100,-40},{140,0}})));
 
-  CDL.Continuous.Constant retDamPhyPosMinSig(final k=retDamPhyPosMin)
+  CDL.Continuous.Sources.Constant retDamPhyPosMinSig(final k=retDamPhyPosMin)
     "Physically fixed minimum position of the return air damper"
     annotation (Placement(transformation(extent={{-140,-258},{-120,-238}})));
-  CDL.Continuous.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
+  CDL.Continuous.Sources.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
     "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
     annotation (Placement(transformation(extent={{-140,-220},{-120,-200}})));
   CDL.Logical.Hysteresis hysOutTem(final uHigh=uTemHigLimCutHig, final uLow=uTemHigLimCutLow)
@@ -116,14 +116,14 @@ protected
   parameter Types.ZoneState heating = Types.ZoneState.heating "Heating zone state";
   parameter Real heatingNum = Integer(heating) "Numerical value for heating zone state (=1)";
 
-  CDL.Continuous.Constant disableDelay(final k=smaDisDel)
+  CDL.Continuous.Sources.Constant disableDelay(final k=smaDisDel)
     "Small delay before closing the outdoor air damper to avoid pressure fluctuations"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   CDL.Continuous.Add add2(k2=-1) if use_enthalpy "Add block determines difference between hOut and hOutCut"
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
   CDL.Continuous.Add add1(k2=-1) "Add block determines difference between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,240},{-120,260}})));
-  CDL.Logical.Constant entSubst(final k=false) if not use_enthalpy
+  CDL.Logical.Sources.Constant entSubst(final k=false) if not use_enthalpy
     "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
 
