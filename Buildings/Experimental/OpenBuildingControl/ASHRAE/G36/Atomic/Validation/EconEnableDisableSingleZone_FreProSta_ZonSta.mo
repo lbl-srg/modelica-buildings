@@ -3,26 +3,10 @@ model EconEnableDisableSingleZone_FreProSta_ZonSta
   "Model validates economizer disable for heating zone state and activated freeze protection"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Temperature TOutCutoff=297
+  parameter Modelica.SIunits.Temperature TOutCutoff=297.15
     "Outdoor temperature high limit cutoff";
   parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
-  parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
-    "Indicates that the freeze protection is disabled";
-  parameter Integer freProDisabledNum = Integer(freProDisabled)-1
-    "Numerical value for freeze protection stage 0 (=0)";
-  parameter Types.ZoneState heating = Types.ZoneState.heating
-    "Zone state is heating";
-  parameter Integer heatingNum = Integer(heating)
-    "Numerical value for heating zone state (=1)";
-  parameter Types.FreezeProtectionStage freProEnabled = Types.FreezeProtectionStage.stage2
-    "Indicates that the freeze protection is eanbled";
-  parameter Integer freProEnabledNum = Integer(freProEnabled)-1
-    "Numerical value for freeze protection stage 0 (=0)";
-  parameter Types.ZoneState cooling = Types.ZoneState.cooling
-    "Zone state is cooling";
-  parameter Integer coolingNum = Integer(cooling)
-    "Numerical value for cooling zone state (=2)";
 
   EconEnableDisableSingleZone ecoEnaDis "Singlezone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,40},{102,60}})));
@@ -30,7 +14,7 @@ model EconEnableDisableSingleZone_FreProSta_ZonSta
     annotation (Placement(transformation(extent={{82,-40},{102,-20}})));
 
 protected
-  CDL.Continuous.Sources.Constant TOutBellowCutoff(k=TOutCutoff - 2)
+  CDL.Continuous.Sources.Constant TOutBelowCutoff(k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
   CDL.Continuous.Sources.Constant TOutCut(k=TOutCutoff)
@@ -40,13 +24,17 @@ protected
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   CDL.Continuous.Sources.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  CDL.Integers.Sources.Constant FreProSta(k=freProDisabledNum) "Freeze Protection Status (Deactivated = 0)"
+  CDL.Integers.Sources.Constant freProSta(k=Constants.FreezeProtectionStages.stage0)
+    "Freeze protection status is stage0"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Integers.Sources.Constant ZoneState(k=heatingNum) "Zone State is heating (heating = 1)"
+  CDL.Integers.Sources.Constant zoneState(k=Constants.ZoneStates.heating)
+    "Zone state is heating"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  CDL.Integers.Sources.Constant FreProSta1(k=freProEnabledNum) "Freeze Protection Status (Activated > 0)"
+  CDL.Integers.Sources.Constant freProSta1(k=Constants.FreezeProtectionStages.stage1)
+    "Freeze protection status is stage1"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  CDL.Integers.Sources.Constant ZoneState1(k=coolingNum) "Zone State is not heating (heating = 1)"
+  CDL.Integers.Sources.Constant zoneState1(k=Constants.ZoneStates.deadband)
+    "Zone state is deadband"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
   CDL.Continuous.Sources.Constant outDamPosMax(k=0.9) "Maximal allowed economizer damper position"
@@ -57,28 +45,29 @@ protected
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
 equation
-  connect(TOutBellowCutoff.y, ecoEnaDis.TOut)
+  connect(TOutBelowCutoff.y, ecoEnaDis.TOut)
     annotation (Line(points={{-19,150},{32,150},{32,60},{81,60}}, color={0,0,127}));
   connect(TOutCut.y, ecoEnaDis.TOutCut)
     annotation (Line(points={{-19,110},{31.5,110},{31.5,58},{81,58}}, color={0,0,127}));
   connect(TOutCut.y, ecoEnaDis1.TOutCut)
     annotation (Line(points={{-19,110},{32,110},{32,-22},{81,-22}}, color={0,0,127}));
-  connect(TOutBellowCutoff.y, ecoEnaDis1.TOut)
+  connect(TOutBelowCutoff.y, ecoEnaDis1.TOut)
     annotation (Line(points={{-19,150},{32,150},{32,-20},{81,-20}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, ecoEnaDis.hOut)
     annotation (Line(points={{-79,110},{-60,110},{-60,56},{81,56}}, color={0,0,127}));
-  connect(hOutCut.y, ecoEnaDis.hOutCut) annotation (Line(points={{-79,70},{-70,70},{-70,54},{81,54}}, color={0,0,127}));
+  connect(hOutCut.y, ecoEnaDis.hOutCut)
+    annotation (Line(points={{-79,70},{-70,70},{-70,54},{81,54}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, ecoEnaDis1.hOut)
     annotation (Line(points={{-79,110},{-60,110},{-60,56},{10,56},{10,-24},{81,-24}}, color={0,0,127}));
   connect(hOutCut.y, ecoEnaDis1.hOutCut)
     annotation (Line(points={{-79,70},{-70,70},{-70,54},{6,54},{6,-26},{81,-26}}, color={0,0,127}));
-  connect(ZoneState.y, ecoEnaDis.uZonSta)
+  connect(zoneState.y, ecoEnaDis.uZonSta)
     annotation (Line(points={{-139,10},{-120,10},{-120,50},{81,50}}, color={255,127,0}));
-  connect(FreProSta.y, ecoEnaDis.uFreProSta)
+  connect(freProSta.y, ecoEnaDis.uFreProSta)
     annotation (Line(points={{-139,50},{-130,50},{-130,52},{81,52}}, color={255,127,0}));
-  connect(FreProSta1.y, ecoEnaDis1.uFreProSta)
+  connect(freProSta1.y, ecoEnaDis1.uFreProSta)
     annotation (Line(points={{61,-110},{70,-110},{70,-28},{81,-28}}, color={255,127,0}));
-  connect(ZoneState1.y, ecoEnaDis1.uZonSta)
+  connect(zoneState1.y, ecoEnaDis1.uZonSta)
     annotation (Line(points={{61,-70},{72,-70},{72,-30},{81,-30}}, color={255,127,0}));
   connect(outDamPosMax.y, ecoEnaDis.uOutDamPosMax)
     annotation (Line(points={{-39,-110},{-30,-110},{-30,46},{81,46}}, color={0,0,127}));

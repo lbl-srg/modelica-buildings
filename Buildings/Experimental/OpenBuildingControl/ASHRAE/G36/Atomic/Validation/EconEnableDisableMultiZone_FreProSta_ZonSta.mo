@@ -24,13 +24,17 @@ protected
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   CDL.Continuous.Sources.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  CDL.Integers.Sources.Constant freProSta(k=Constants.FreezeProtectionStages.stage0) "Freeze Protection Status (Deactivated = 0)"
+  CDL.Integers.Sources.Constant freProSta(k=Constants.FreezeProtectionStages.stage0)
+    "Freeze protection status is stage0"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Integers.Sources.Constant zoneState(k=Constants.ZoneStates.heating) "Zone State is heating"
+  CDL.Integers.Sources.Constant zoneState(k=Constants.ZoneStates.heating)
+    "Zone state is heating"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  CDL.Integers.Sources.Constant freProSta1(k=Constants.FreezeProtectionStages.stage1) "Freeze Protection Status (Activated > 0)"
+  CDL.Integers.Sources.Constant freProSta1(k=Constants.FreezeProtectionStages.stage1)
+    "Freeze protection status is stage1"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  CDL.Integers.Sources.Constant zoneState1(k=Constants.ZoneStates.deadband) "Zone State is deadband"
+  CDL.Integers.Sources.Constant zoneState1(k=Constants.ZoneStates.deadband)
+    "Zone state is deadband"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
   CDL.Continuous.Sources.Constant outDamPosMax(k=0.9) "Maximal allowed economizer damper position"

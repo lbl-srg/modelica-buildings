@@ -69,7 +69,7 @@ block EconEnableDisableMultiZone
 
   CDL.Logical.TrueFalseHold TrueFalseHold(duration=600) "10 min on/off delay"
     annotation (Placement(transformation(extent={{0,200},{20,220}})));
-  CDL.Logical.And3 andEnaDis "Logical \"and\" checks freeze protection stage and zone state"
+  CDL.Logical.And3 andEnaDis "Logical and to check freeze protection stage and zone state"
    annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
 protected
@@ -123,12 +123,12 @@ protected
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   CDL.Logical.Less les1 "Check if the RA damper should be fully open"
     annotation (Placement(transformation(extent={{-8,-190},{12,-170}})));
-  CDL.Logical.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage0
-         + 0.5)
+  CDL.Logical.LessEqualThreshold equ(
+    final threshold=Constants.FreezeProtectionStages.stage0 + 0.5)
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  CDL.Logical.GreaterThreshold greThr(final threshold=Constants.ZoneStates.heating
-         + 0.5)
+  CDL.Logical.GreaterThreshold greThr(
+    final threshold=Constants.ZoneStates.heating + 0.5)
     "Check if zone state is other than heating"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   CDL.Logical.GreaterThreshold greThr2(final threshold=0) "Check if the timer got started"
@@ -158,13 +158,10 @@ equation
   connect(add2.y, hysOutEnt.u) annotation (Line(points={{-119,170},{-102,170}}, color={0,0,127}));
   connect(hysOutTem.y, nor1.u1) annotation (Line(points={{-79,250},{-60,250},{-60,210},{-42,210}},
     color={255,0,255}));
-  //if use_enthalpy then
-    connect(hysOutEnt.y, nor1.u2)
-      annotation (Line(points={{-79,170},{-60,170},{-60,202},{-42,202}},color={255,0,255}));
-  //else
-    connect(entSubst.y, nor1.u2) annotation (Line(points={{-79,200},{-60,200},{-60,202},{-42,202}},
+  connect(hysOutEnt.y, nor1.u2)
+    annotation (Line(points={{-79,170},{-60,170},{-60,202},{-42,202}},color={255,0,255}));
+  connect(entSubst.y, nor1.u2) annotation (Line(points={{-79,200},{-60,200},{-60,202},{-42,202}},
     color={255,0,255}));
-  //end if;
   connect(disableDelay.y, greEqu.u2)
     annotation (Line(points={{-99,-110},{-80,-110},{-80,-108},{-72,-108}}, color={0,0,127}));
   connect(timer.y, greEqu.u1) annotation (Line(points={{51,-60},{60,-60},{60,-80},{-80,-80},{-80,-100},{-72,-100}},
