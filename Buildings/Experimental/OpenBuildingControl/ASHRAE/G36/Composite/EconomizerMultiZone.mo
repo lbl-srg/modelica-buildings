@@ -179,7 +179,7 @@ The structure of the economizer control sequence:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the multizone AHU modulation sequence control diagram\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Composite/EconCompositeSequenceMultiZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Composite/EconCompositeMultiZone.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
