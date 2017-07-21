@@ -9,8 +9,8 @@ block EconModulationSingleZone "Outdoor and return air damper position modulatio
   CDL.Interfaces.RealInput TSup(unit="K", quantity = "ThermodynamicTemperature")
     "Measured supply air temperature" annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
-  CDL.Interfaces.RealInput TCooSet(unit="K", quantity = "ThermodynamicTemperature")
-    "Supply air temperature cooling setpoint" annotation (Placement(transformation(extent={{-160,-10},{-120,30}}),
+  CDL.Interfaces.RealInput THeaSet(unit="K", quantity = "ThermodynamicTemperature")
+    "Supply air temperature heating setpoint" annotation (Placement(transformation(extent={{-160,-10},{-120,30}}),
         iconTransformation(extent={{-120,80},{-100,100}})));
   CDL.Interfaces.RealInput uOutDamPosMin(min=0, max=1, unit="1")
     "Minimum economizer damper position limit as returned by the EconDamperPositionLimitsMultiZone sequence"
@@ -39,12 +39,12 @@ block EconModulationSingleZone "Outdoor and return air damper position modulatio
 
   CDL.Continuous.LimPID damPosController(
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
-    Td=0.1,
+    final Td=0.1,
     final yMax=conSigMax,
     final yMin=conSigMin,
-    k=kPMod,
+    final k=kPMod,
     final Ti=TiMod)
-    "Contoller that outputs a signal based on the error between the measured SAT and SAT cooling setpoint"
+    "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   CDL.Continuous.Line outDamPos(limitBelow=true, limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
@@ -80,7 +80,7 @@ equation
           -100},{28,-100},{28,-26},{58,-26}}, color={0,0,127}));
   connect(outDamMinLimSig.y, outDamPos.x1) annotation (Line(points={{1,-10},{1,-10},
           {28,-10},{28,-22},{58,-22}}, color={0,0,127}));
-  connect(TCooSet, damPosController.u_s) annotation (Line(points={{-140,10},{-140,
+  connect(THeaSet, damPosController.u_s) annotation (Line(points={{-140,10},{-140,
           10},{-82,10}}, color={0,0,127}));
   connect(uRetDamPosMin,retDamPos. f2)
     annotation (Line(points={{-140,60},{-40,60},{-40,62},{58,62}}, color={0,0,127}));

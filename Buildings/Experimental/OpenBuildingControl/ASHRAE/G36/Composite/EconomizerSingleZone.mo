@@ -10,8 +10,8 @@ model EconomizerSingleZone "Single zone VAV AHU economizer control sequence"
   parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=1.0 "Calculated minimum outdoor airflow rate";
   parameter Modelica.SIunits.VolumeFlowRate desVOut_flow=2.0 "Calculated design outdoor airflow rate";
 
-  CDL.Interfaces.RealInput TCooSet(unit="K", quantity = "ThermodynamicTemperature")
-    "Supply air temperature cooling setpoint" annotation (Placement(transformation(
+  CDL.Interfaces.RealInput THeaSet(unit="K", quantity = "ThermodynamicTemperature")
+    "Supply air temperature Healing setpoint" annotation (Placement(transformation(
     extent={{-140,30},{-120,50}}), iconTransformation(extent={{-120,10},{-100,30}})));
   CDL.Interfaces.RealInput TSup(unit="K", quantity = "ThermodynamicTemperature")
     "Measured supply air temperature" annotation (Placement(transformation(
@@ -113,7 +113,7 @@ equation
   connect(ecoDamLim.yOutDamPosMin, ecoMod.uOutDamPosMin)
     annotation (Line(points={{-59,14},{-20,14},{20,14},{20,12},{20,8},{59,8}},
       color={0,0,127}));
-  connect(TCooSet, ecoMod.TCooSet) annotation (Line(points={{-130,40},{52,40},{52,19},{59,19}},
+  connect(THeaSet, ecoMod.THeaSet) annotation (Line(points={{-130,40},{52,40},{52,19},{59,19}},
       color={0,0,127}));
   connect(TSup, ecoMod.TSup) annotation (Line(points={{-130,60},{50,60},{50,16},{59,16}},color={0,0,127}));
   connect(yOutDamPos, yOutDamPos) annotation (Line(points={{130,-40},{130,-40}}, color={0,0,127}));
@@ -147,7 +147,7 @@ equation
           extent={{-170,150},{158,112}},
           lineColor={0,0,127},
           textString="%name")}),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
+        Diagram(HeardinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
 Documentation(info="<html>
 <p>
 This is single zone VAV AHU economizer control sequence. It calculates

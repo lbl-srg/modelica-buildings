@@ -59,9 +59,9 @@ protected
     annotation (Placement(transformation(extent={{-240,-160},{-220,-140}})));
   CDL.Integers.Sources.Constant FreProSta(k=freProDisabledNum) "Freeze Protection Status - Disabled"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
-  CDL.Sources.BooleanPulse booPul(final startTime=10, period=2000) "Boolean pulse signal"
+  CDL.Sources.Sources.Pulse booPul(final startTime=10, period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
-  CDL.Sources.BooleanPulse booPul1(final startTime=10, period=2000) "Boolean pulse signal"
+  CDL.Sources.Sources.Pulse booPul1(final startTime=10, period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   CDL.Logical.Sources.Constant SupFanSta(k=true) "Supply fan status signal"
       annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));

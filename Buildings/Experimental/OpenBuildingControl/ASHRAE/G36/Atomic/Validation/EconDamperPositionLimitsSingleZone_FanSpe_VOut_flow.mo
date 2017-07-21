@@ -5,62 +5,51 @@ model EconDamperPositionLimitsSingleZone_FanSpe_VOut_flow
 
   parameter Real minFanSpe=0.1 "Minimum supply fan operation speed";
   parameter Real maxFanSpe=0.9 "Maximum supply fan operation speed";
-  parameter Real delFanSpe = maxFanSpe - minFanSpe "Delta between the min and max supply fan speed";
-  parameter Real fanSpe = (maxFanSpe + minFanSpe)/2 "Constant supply fan speed";
+  final parameter Real fanSpe = (maxFanSpe + minFanSpe)/2 "Constant supply fan speed";
   parameter Modelica.SIunits.VolumeFlowRate desVOut_flow=2.0 "Calculated design outdoor airflow rate";
   parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=1.0 "Calculated minimum outdoor airflow rate";
-  parameter Modelica.SIunits.VolumeFlowRate delVOut_flow = desVOut_flow - minVOut_flow
-    "Delta between minimum and design outdoor airflow rate";
-  parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=(desVOut_flow + minVOut_flow)/2
+  final parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=(desVOut_flow + minVOut_flow)/2
     "Constant minimum outdoor airflow setpoint";
 
-  CDL.Continuous.Sources.Constant VOutMinSetSig(k=VOutSet_flow)
-    "Constant minimum outdoor airflow setpoint" annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+  CDL.Continuous.Sources.Constant VOutMinSetSig(final k=VOutSet_flow)
+    "Constant minimum outdoor airflow setpoint"
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Modelica.Blocks.Sources.Ramp SupFanSpeSig(
-    duration=1800,
-    offset=minFanSpe,
-    height=delFanSpe) "Supply fan speed signal" annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
-
+    final duration=1800,
+    final offset=minFanSpe,
+    final height=maxFanSpe - minFanSpe) "Supply fan speed signal"
+    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
+  Modelica.Blocks.Sources.Ramp VOutMinSetSig1(
+    final duration=1800,
+    final offset=minVOut_flow,
+    final height=desVOut_flow - minVOut_flow) "Constant minimum outdoor airflow setpoint"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+  CDL.Continuous.Sources.Constant SupFanSpeSig1(final k=fanSpe) "Supply fan speed signal"
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
   EconDamperPositionLimitsSingleZone ecoDamLim(
-    minFanSpe=minFanSpe,
-    maxFanSpe=maxFanSpe,
-    minVOut_flow=minVOut_flow,
-    desVOut_flow=desVOut_flow)
+    final minFanSpe=minFanSpe,
+    final maxFanSpe=maxFanSpe,
+    final minVOut_flow=minVOut_flow,
+    final desVOut_flow=desVOut_flow)
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-
-protected
-  parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
-    "Indicates that the freeze protection is disabled";
-  parameter Integer freProDisabledNum = Integer(freProDisabled)-1
-    "Numerical value for freeze protection stage 0";
-  parameter Types.OperationMode occupied = Types.OperationMode.occupied
-    "Operation mode is Occupied";
-  parameter Integer occupiedNum = Integer(occupied)
-    "Numerical value for Occupied operation mode";
-
-  CDL.Logical.Sources.Constant fanStatus(k=true) "Fan is on"
-    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  CDL.Integers.Sources.Constant freProSta(k=freProDisabledNum) "Freeze protection status - disabled"
-    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-  CDL.Integers.Sources.Constant operationMode(k=occupiedNum) "Operation mode - occupied"
-    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
-
-public
-  CDL.Continuous.Sources.Constant SupFanSpeSig1(k=fanSpe)                    "Supply fan speed signal"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Modelica.Blocks.Sources.Ramp VOutMinSetSig1(
-    duration=1800,
-    offset=minVOut_flow,
-    height=delVOut_flow) "Constant minimum outdoor airflow setpoint"
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
   EconDamperPositionLimitsSingleZone ecoDamLim1(
-    minFanSpe=minFanSpe,
-    maxFanSpe=maxFanSpe,
-    minVOut_flow=minVOut_flow,
-    desVOut_flow=desVOut_flow)
+    final minFanSpe=minFanSpe,
+    final maxFanSpe=maxFanSpe,
+    final minVOut_flow=minVOut_flow,
+    final desVOut_flow=desVOut_flow)
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
+
+protected
+  CDL.Logical.Sources.Constant fanStatus(final k=true) "Fan is on"
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
+  CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
+    "Freeze protection status - disabled"
+    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
+  CDL.Integers.Sources.Constant operationMode(final k=Constants.OperationModes.occModInd)
+    "Operation mode - occupied"
+    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
 
 equation
   connect(freProSta.y, ecoDamLim.uFreProSta)

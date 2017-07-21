@@ -73,7 +73,7 @@ block EconEnableDisableSingleZone "Single zone VAV AHU economizer enable/disable
   CDL.Logical.Switch MinRetDamSwitch
     "Keep minimum RA damper position at physical maximum for a short time period after disable"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
-  CDL.Logical.TrueFalseHold TrueFalseHold(duration=600) "10 min on/off delay"
+  CDL.Logical.TrueFalseHold trueFalseHold(duration=600) "10 min on/off delay"
     annotation (Placement(transformation(extent={{0,200},{20,220}})));
   CDL.Logical.GreaterEqual greEqu "Logical greater or equal block"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
@@ -85,10 +85,11 @@ block EconEnableDisableSingleZone "Single zone VAV AHU economizer enable/disable
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   CDL.Logical.And3 andEnaDis "Logical \"and\" checks freeze protection stage and zone state"
    annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  CDL.Logical.LessEqualThreshold equ(final threshold=freProDisabledNum)
+  CDL.Logical.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage0)
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  CDL.Logical.GreaterThreshold greThr(final threshold=heatingNum) "Check if ZoneState is other than heating"
+  CDL.Logical.GreaterThreshold greThr(final threshold=Constants.ZoneStates.heating)
+    "Check if ZoneState is other than heating"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   CDL.Logical.GreaterThreshold greThr2(final threshold=0) "Check if the timer got started"
     annotation (Placement(transformation(extent={{80,-180},{100,-160}})));
@@ -109,12 +110,6 @@ protected
     "Hysteresis block high limit cutoff";
   parameter Real uEntHigLimCutLow(final unit="J/kg", quantity="SpecificEnergy") = uEntHigLimCutHig - delEntHis
     "Hysteresis block low limit cutoff";
-  parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
-    "Freeze protection stage 0 (disabled)";
-  parameter Real freProDisabledNum = Integer(freProDisabled)-1
-    "Numerical value for freeze protection stage 0 (=0)";
-  parameter Types.ZoneState heating = Types.ZoneState.heating "Heating zone state";
-  parameter Real heatingNum = Integer(heating) "Numerical value for heating zone state (=1)";
 
   CDL.Continuous.Sources.Constant disableDelay(final k=smaDisDel)
     "Small delay before closing the outdoor air damper to avoid pressure fluctuations"
@@ -156,7 +151,7 @@ equation
     annotation (Line(points={{-200,-160},{-120,-160},{-60,-160},{-60,-132},{38,-132}},   color={0,0,127}));
   connect(uOutDamPosMax, OutDamSwitch.u3)
     annotation (Line(points={{-200,-130},{-80,-130},{-80,-148},{38,-148}}, color={0,0,127}));
-  connect(nor1.y, TrueFalseHold.u) annotation (Line(points={{-19,210},{-1,210}}, color={255,0,255}));
+  connect(nor1.y, trueFalseHold.u) annotation (Line(points={{-19,210},{-1,210}}, color={255,0,255}));
   connect(andEnaDis.y, not2.u)
     annotation (Line(points={{61,40},{72,40},{72,-20},{-20,-20},{-20,-60},{-12,-60}}, color={255,0,255}));
   connect(MinRetDamSwitch.y, yRetDamPosMin)
@@ -173,7 +168,7 @@ equation
     annotation (Line(points={{-99,-10},{-20,-10},{-20,32},{38,32}}, color={255,0,255}));
   connect(timer.y, greThr2.u)
     annotation (Line(points={{51,-60},{70,-60},{70,-170},{78,-170}},   color={0,0,127}));
-  connect(TrueFalseHold.y, and1.u1)
+  connect(trueFalseHold.y, and1.u1)
     annotation (Line(points={{21,210},{30,210},{30,130},{-10,130},{-10,110},{-2,110}},color={255,0,255}));
   connect(and1.y, andEnaDis.u1)
     annotation (Line(points={{21,110},{21,110},{30,110},{30,48},{38,48}},color={255,0,255}));
