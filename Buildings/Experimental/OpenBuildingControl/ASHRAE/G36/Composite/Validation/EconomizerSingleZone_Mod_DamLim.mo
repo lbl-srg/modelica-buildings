@@ -7,8 +7,8 @@ model EconomizerSingleZone_Mod_DamLim
     "Outdoor temperature high limit cutoff";
   parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
-  parameter Modelica.SIunits.Temperature TCooSet=291
-    "Supply air temperature cooling setpoint";
+  parameter Modelica.SIunits.Temperature THeaSet=291
+    "Supply air temperature Healing setpoint";
   parameter Modelica.SIunits.Temperature TSup=290
     "Measured supply air temperature";
 
@@ -16,73 +16,65 @@ model EconomizerSingleZone_Mod_DamLim
   parameter Real maxFanSpe=0.9 "Maximum supply fan operation speed";
   parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=1.0 "Calculated minimum outdoor airflow rate";
   parameter Modelica.SIunits.VolumeFlowRate desVOut_flow=2.0 "Calculated design outdoor airflow rate";
-  parameter Real delFanSpe = maxFanSpe - minFanSpe "Delta between the min and max supply fan speed";
-  parameter Modelica.SIunits.VolumeFlowRate delVOut_flow = desVOut_flow - minVOut_flow
-    "Delta between minimum and design outdoor airflow rate";
 
-  parameter Types.FreezeProtectionStage freProDisabled = Types.FreezeProtectionStage.stage0
-    "Indicates that the freeze protection is disabled";
-  parameter Integer freProDisabledNum = Integer(freProDisabled)-1
-    "Numerical value for freeze protection stage 0";
-  parameter Types.OperationMode occupied = Types.OperationMode.occupied
-    "AHU operation mode is Occupied";
-  parameter Integer occupiedNum = Integer(occupied)
-    "Numerical value for Occupied AHU operation mode";
-  parameter Types.ZoneState deadband = Types.ZoneState.deadband
-    "Zone state is deadband";
-  parameter Integer deadbandNum = Integer(deadband)
-    "Numerical value for deadband zone state";
-
-  EconomizerSingleZone economizer(
-                                 use_enthalpy=true,
-    minFanSpe=minFanSpe,
-    maxFanSpe=maxFanSpe,
-    minVOut_flow=minVOut_flow,
-    desVOut_flow=desVOut_flow)                      "Singlezone VAV AHU economizer"
-    annotation (Placement(transformation(extent={{20,0},{40,20}})));
   CDL.Logical.Sources.Constant fanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  CDL.Integers.Sources.Constant freProSta(k=freProDisabledNum) "Freeze protection status is 0"
+  CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
+    "Freeze protection status is 0"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  CDL.Integers.Sources.Constant ZoneState(k=deadbandNum) "Zone State is deadband"
+  CDL.Integers.Sources.Constant ZoneState(final k=Constants.ZoneStates.deadband)
+    "Zone State is deadband"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Integers.Sources.Constant operationMode(k=occupiedNum) "AHU operation mode is Occupied"
+  CDL.Integers.Sources.Constant operationMode(final k=Constants.OperationModes.occModInd)
+    "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  CDL.Continuous.Sources.Constant hOutBelowCutoff(k=hOutCutoff - 10000)
+  CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 10000)
     "Outdoor air enthalpy is slightly below the cufoff"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  CDL.Continuous.Sources.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
+  CDL.Continuous.Sources.Constant hOutCut(final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Continuous.Sources.Constant TOutBelowCutoff(k=TOutCutoff - 5)
+  CDL.Continuous.Sources.Constant TOutBelowCutoff(final k=TOutCutoff - 5)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  CDL.Continuous.Sources.Constant TOutCut1(k=TOutCutoff)
+  CDL.Continuous.Sources.Constant TOutCut1(final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  CDL.Continuous.Sources.Constant TSupSetSig(k=TCooSet) "Cooling supply air temperature setpoint"
+  CDL.Continuous.Sources.Constant TSupSetSig(final k=THeaSet) "Healing supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  CDL.Continuous.Sources.Constant TSupSig(k=TSup) "Measured supply air temperature"
+  CDL.Continuous.Sources.Constant TSupSig(final k=TSup) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  EconomizerSingleZone economizer1(
-                                  use_enthalpy=false,
-    minFanSpe=minFanSpe,
-    maxFanSpe=maxFanSpe,
-    minVOut_flow=minVOut_flow,
-    desVOut_flow=desVOut_flow)                        "Singlezone VAV AHU economizer "
-    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
+
   Modelica.Blocks.Sources.Ramp TSupSig1(
-    duration=900,
-    height=2,
-    offset=TCooSet - 1) "Measured supply air temperature"
+    final duration=900,
+    final height=2,
+    final offset=THeaSet - 1) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   Modelica.Blocks.Sources.Ramp VOutMinSetSig(
-    duration=1800,
-    offset=minVOut_flow,
-    height=delVOut_flow) "Constant minimum outdoor airflow setpoint"
+    final duration=1800,
+    final offset=minVOut_flow,
+    final height=desVOut_flow - minVOut_flow) "Constant minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Modelica.Blocks.Sources.Ramp SupFanSpeSig(
-    duration=1800,
-    offset=minFanSpe,
-    height=delFanSpe) "Supply fan speed signal" annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    final duration=1800,
+    final offset=minFanSpe,
+    final height=maxFanSpe - minFanSpe) "Supply fan speed signal"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+
+  EconomizerSingleZone economizer(
+    final use_enthalpy=true,
+    final minFanSpe=minFanSpe,
+    final maxFanSpe=maxFanSpe,
+    final minVOut_flow=minVOut_flow,
+    final desVOut_flow=desVOut_flow)
+    "Singlezone VAV AHU economizer"
+    annotation (Placement(transformation(extent={{20,0},{40,20}})));
+  EconomizerSingleZone economizer1(
+    final use_enthalpy=false,
+    final minFanSpe=minFanSpe,
+    final maxFanSpe=maxFanSpe,
+    final minVOut_flow=minVOut_flow,
+    final desVOut_flow=desVOut_flow)
+    "Singlezone VAV AHU economizer"
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
 equation
   connect(fanStatus.y, economizer.uSupFan)
@@ -101,7 +93,7 @@ equation
     annotation (Line(points={{-99,20},{-60,20},{-60,18},{-4,18},{19,18}},color={0,0,127}));
   connect(hOutCut.y, economizer.hOutCut)
     annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,16},{19,16}},color={0,0,127}));
-  connect(TSupSetSig.y, economizer.TCooSet)
+  connect(TSupSetSig.y, economizer.THeaSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}},color={0,0,127}));
   connect(TSupSig.y, economizer.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}}, color={0,0,127}));
@@ -109,19 +101,18 @@ equation
     annotation (Line(points={{-99,110},{90,110},{90,-18},{99,-18}}, color={0,0,127}));
   connect(TOutCut1.y, economizer1.TOutCut)
     annotation (Line(points={{-99,70},{88,70},{88,-20},{99,-20}}, color={0,0,127}));
-  connect(TSupSig1.y, economizer1.TSup) annotation (Line(points={{61,90},{80,90},{80,-26},{99,-26}}, color={0,0,127}));
-  connect(TSupSetSig.y, economizer1.TCooSet)
+  connect(TSupSig1.y, economizer1.TSup)
+    annotation (Line(points={{61,90},{80,90},{80,-26},{99,-26}}, color={0,0,127}));
+  connect(TSupSetSig.y, economizer1.THeaSet)
     annotation (Line(points={{-59,50},{-54,50},{-54,-20},{20,-20},{20,-28},{99,-28}}, color={0,0,127}));
   connect(fanStatus.y, economizer1.uSupFan)
     annotation (Line(points={{-59,-80},{20,-80},{20,-34},{99,-34}}, color={255,0,255}));
   connect(freProSta.y, economizer1.uFreProSta)
     annotation (Line(points={{-59,-120},{26,-120},{26,-40},{99,-40}}, color={255,127,0}));
   connect(hOutBelowCutoff.y, economizer1.hOut)
-    annotation (Line(points={{-99,20},{-64,20},{-64,-12},{24,-12},{24,-22},{99,-22}},
-                                                                color={0,0,127}));
+    annotation (Line(points={{-99,20},{-64,20},{-64,-12},{24,-12},{24,-22},{99,-22}},color={0,0,127}));
   connect(hOutCut.y, economizer1.hOutCut)
-    annotation (Line(points={{-99,-20},{-20,-20},{-20,-24},{99,-24}},
-                                                                  color={0,0,127}));
+    annotation (Line(points={{-99,-20},{-20,-20},{-20,-24},{99,-24}}, color={0,0,127}));
   connect(operationMode.y, economizer1.uOpeMod)
     annotation (Line(points={{-99,-100},{22,-100},{22,-36},{99,-36}}, color={255,127,0}));
   connect(ZoneState.y, economizer1.uZonSta)
@@ -148,7 +139,7 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}}),
+        HeardinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}}),
         graphics={
         Rectangle(
           extent={{-136,-44},{-44,-156}},
