@@ -67,7 +67,7 @@ block EconEnableDisableMultiZone
     annotation (Placement(transformation(
         extent={{180,-220},{200,-200}}), iconTransformation(extent={{100,-40},{140,0}})));
 
-  CDL.Logical.TrueFalseHold TrueFalseHold(duration=600) "10 min on/off delay"
+  CDL.Logical.TrueFalseHold trueFalseHold(duration=600) "10 min on/off delay"
     annotation (Placement(transformation(extent={{0,200},{20,220}})));
   CDL.Logical.And3 andEnaDis "Logical and to check freeze protection stage and zone state"
    annotation (Placement(transformation(extent={{40,30},{60,50}})));
@@ -176,7 +176,7 @@ equation
     annotation (Line(points={{-200,-230},{-78,-230},{-78,-218},{38,-218}}, color={0,0,127}));
   connect(timer.y, les1.u1)
     annotation (Line(points={{51,-60},{72,-60},{72,-154},{-20,-154},{-20,-180},{-10,-180}},color={0,0,127}));
-  connect(nor1.y, TrueFalseHold.u) annotation (Line(points={{-19,210},{-1,210}}, color={255,0,255}));
+  connect(nor1.y, trueFalseHold.u) annotation (Line(points={{-19,210},{-1,210}}, color={255,0,255}));
   connect(andEnaDis.y, not2.u)
     annotation (Line(points={{61,40},{72,40},{72,-20},{-20,-20},{-20,-60},{-12,-60}}, color={255,0,255}));
   connect(MinretDamSwitch.y, yRetDamPosMin)
@@ -209,7 +209,7 @@ equation
     annotation (Line(points={{-39,-260},{-30,-260},{-30,-258},{38,-258}},color={0,0,127}));
   connect(uRetDamPhyPosMax, MinretDamSwitch.u1)
     annotation (Line(points={{-200,-200},{-120,-200},{-120,-242},{38,-242}},color={0,0,127}));
-  connect(TrueFalseHold.y, and1.u1)
+  connect(trueFalseHold.y, and1.u1)
     annotation (Line(points={{21,210},{30,210},{30,130},{-10,130},{-10,110},{-2,110}},color={255,0,255}));
   connect(and1.y, andEnaDis.u1)
     annotation (Line(points={{21,110},{21,110},{30,110},{30,48},{38,48}},color={255,0,255}));
