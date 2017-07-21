@@ -10,5 +10,6 @@ PartialPlantParallelInterface
 PartialOperationSequenceInterface
 SignalFilterParameters
 SignalFilter
+ThreeWayValveParameters
 ValvesParameters
 Examples
