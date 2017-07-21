@@ -2,8 +2,7 @@ within Buildings.ChillerWSE;
 model HeatExchanger_T
   "Heat exchanger with outlet temperature control on medium 2 side"
   extends Buildings.ChillerWSE.BaseClasses.PartialHeatExchanger_T;
-  extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface(
-    final reverseAction=true);
+  extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface;
 
   Buildings.Controls.Continuous.LimPID con(
     final controllerType=controllerType,
@@ -22,10 +21,10 @@ model HeatExchanger_T
     final y_start=yCon_start,
     final reverseAction=reverseAction,
     final reset=reset,
-    final y_reset=y_reset)
+    final y_reset=y_reset) if use_Controller
     "Controller for temperature at port_b2"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Modelica.Blocks.Sources.RealExpression T_port_b2(y=T_outflow)
+  Modelica.Blocks.Sources.RealExpression T_port_b2(y=T_outflow) if use_Controller
     "Temperature at port_b2"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
@@ -36,13 +35,16 @@ equation
   T_outflow=Medium2.temperature(state=Medium2.setState_phX(
       p=port_b2.p, h=actualStream(port_b2.h_outflow), X=actualStream(port_b2.Xi_outflow)));
 
+  if use_Controller then
   connect(T_port_b2.y, con.u_m)
     annotation (Line(points={{-79,0},{-70,0},{-70,28}},  color={0,0,127}));
   connect(TSet, con.u_s)
     annotation (Line(points={{-120,40},{-120,40},{-82,40}}, color={0,0,127}));
   connect(con.y, bypVal.y)
-    annotation (Line(points={{-59,40},{-50,40},{-50,-8}}, color={0,0,127}));
-  connect(y_reset_in, con.y_reset_in) annotation (Line(points={{-90,-100},{-90,
+    annotation (Line(points={{-59,40},{-50,40},{-50,-18}},color={0,0,127}));
+
+  end if;
+ connect(y_reset_in, con.y_reset_in) annotation (Line(points={{-90,-100},{-90,
           -100},{-90,-68},{-78,-68},{-78,20},{-88,20},{-88,32},{-82,32}},
                                     color={0,0,127}));
   connect(trigger, con.trigger) annotation (Line(points={{-60,-100},{-60,-100},{

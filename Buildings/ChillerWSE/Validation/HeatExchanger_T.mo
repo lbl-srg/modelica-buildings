@@ -1,6 +1,7 @@
 within Buildings.ChillerWSE.Validation;
 model HeatExchanger_T
   "Model that demonstrates use of a waterside economizer with outlet temperature control"
+  import Buildings;
   extends Modelica.Icons.Example;
   extends Buildings.ChillerWSE.Validation.BaseClasses.PartialPlantWithControl(
     sou1(nPorts=1),
@@ -14,11 +15,8 @@ model HeatExchanger_T
     eta=0.8,
     dp1_nominal=dp1_nominal,
     dp2_nominal=dp2_nominal,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     T_start=273.15 + 10,
-    yBypVal_start=1,
-    Ti=80,
-    k=0.4)
+    use_Controller=false)
     "Water-to-water heat exchanger"
     annotation (Placement(transformation(extent={{-10,-8},{10,8}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
@@ -26,6 +24,7 @@ model HeatExchanger_T
     m_flow_nominal=m2_flow_nominal,
     T_start=273.15 + 10) "Temperature sensor"
     annotation (Placement(transformation(extent={{-20,-30},{-40,-10}})));
+
 equation
   connect(TSet.y, hx.TSet) annotation (Line(points={{-79,70},{-44,70},{-24,70},
           {-24,4},{-12,4}}, color={0,0,127}));

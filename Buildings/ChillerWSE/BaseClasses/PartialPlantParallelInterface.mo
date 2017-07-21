@@ -10,10 +10,6 @@ partial model PartialPlantParallelInterface "Partial model that implements the i
     each final realTrue=1,
     each final realFalse=0) "Boolean to real (if true then 1 else 0)"
     annotation (Placement(transformation(extent={{-80,34},{-68,46}})));
-  Modelica.Blocks.Interfaces.RealInput TSet
-    "Set point for leaving water temperature"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.BooleanInput on[n]
     "Set to true to enable equipment, or false to disable equipment"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),

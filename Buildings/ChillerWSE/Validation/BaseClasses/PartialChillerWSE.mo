@@ -57,7 +57,7 @@ partial model PartialChillerWSE
                                TEva_in(k=273.15 + 25.28)
                    "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{100,-80},{80,-60}})));
-  Modelica.Blocks.Sources.Constant TSet(k(displayUnit="degC")=273.15+15.56)
+  Modelica.Blocks.Sources.Constant TSet(k(unit="K",displayUnit="degC")=273.15+15.56)
     "Leaving chilled water temperature setpoint"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 

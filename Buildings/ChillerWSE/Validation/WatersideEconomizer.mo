@@ -24,7 +24,8 @@ model WatersideEconomizer
     m2_flow_nominal=mCHW_flow_nominal,
     eta=0.8,
     dp1_nominal=dpCW_nominal,
-    dp2_nominal=dpCHW_nominal)
+    dp2_nominal=dpCHW_nominal,
+    use_Controller=true)
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 
   Modelica.Blocks.Sources.BooleanStep onWSE(startValue=true, startTime(

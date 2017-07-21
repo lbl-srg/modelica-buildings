@@ -8,51 +8,36 @@ partial model PartialHeatExchanger_T
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1,
     redeclare package Medium=Medium2);
+  extends Buildings.ChillerWSE.BaseClasses.ThreeWayValveParameters;
 
   parameter Modelica.SIunits.Efficiency eta(start=0.8) "constant effectiveness";
-  parameter Real fraK_BypVal(min=0, max=1) = 0.7
-    "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)for the bypass valve"
-    annotation(Dialog(group="Bypass Valve"));
-  parameter Real l_BypVal[2](min=1e-10, max=1) = {0.0001,0.0001}
-    "Bypass valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Bypass Valve"));
-  parameter Real R=50 "Rangeability, R=50...100 typically for bypass valve"
-    annotation(Dialog(group="Bypass Valve"));
-  parameter Real delta0=0.01
-    "Range of significant deviation from equal percentage law for bypass valve"
-    annotation(Dialog(group="Bypass Valve"));
-  // Filter opening
-  parameter Boolean use_inputFilter=true
+
+   // Filter opening
+  parameter Boolean use_inputFilter=true if use_Controller
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening"));
-  parameter Modelica.SIunits.Time riseTime=120
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_Controller));
+  parameter Modelica.SIunits.Time riseTime=120 if use_Controller
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=(use_Controller and use_inputFilter)));
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput if use_Controller
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Real yBypVal_start=1 "Initial value of output from the filter in the bypass valve"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=(use_Controller and use_inputFilter)));
+  parameter Real yBypVal_start=1 if use_Controller "Initial value of output from the filter in the bypass valve"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=(use_Controller and use_inputFilter)));
+
  // Time constant
-   parameter Modelica.SIunits.Time tau_BypVal=10
+   parameter Modelica.SIunits.Time tau_BypVal=10 if use_Controller
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
     annotation(Dialog(tab="Dynamics", group="Nominal condition",
-               enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+               enable=(use_Controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+
   // Advanced
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.Fluid.Types.PortFlowDirection portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-    "Flow direction for port_1 in the three-way valve"
-   annotation(Dialog(tab="Advanced"));
-  parameter Modelica.Fluid.Types.PortFlowDirection portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-    "Flow direction for port_2 in the three-way valve"
-   annotation(Dialog(tab="Advanced"));
-  parameter Modelica.Fluid.Types.PortFlowDirection portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-    "Flow direction for port_3 in the three-way valve"
-   annotation(Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Density rhoStd = Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)
+  parameter Modelica.SIunits.Density rhoStd = Medium2.density_pTX(101325, 273.15+4, Medium2.X_default) if
+       use_Controller
     "Inlet density for which valve coefficients are defined"
-  annotation(Dialog(group="Nominal condition", tab="Advanced"));
+  annotation(Dialog(group="Nominal condition", tab="Advanced",enable=use_Controller));
 
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear   bypVal(
     redeclare package Medium = Medium2,
@@ -83,9 +68,9 @@ partial model PartialHeatExchanger_T
     final portFlowDirection_1=portFlowDirection_1,
     final portFlowDirection_2=portFlowDirection_2,
     final portFlowDirection_3=portFlowDirection_3,
-    final tau=tau_BypVal)
+    final tau=tau_BypVal) if use_Controller
     "Bypass valve used to control the outlet temperature "
-    annotation (Placement(transformation(extent={{-40,-30},{-60,-10}})));
+    annotation (Placement(transformation(extent={{-40,-40},{-60,-20}})));
 
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = Medium1,
@@ -110,22 +95,34 @@ partial model PartialHeatExchanger_T
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Modelica.Blocks.Interfaces.RealInput TSet "Temperature setpoint for port_b2"
+  Modelica.Blocks.Interfaces.RealInput TSet(unit="K",displayUnit="degC") if use_Controller
+  "Temperature setpoint for port_b2"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 equation
+
   connect(port_a1, hex.port_a1) annotation (Line(points={{-100,60},{-100,60},{-40,
           60},{-40,6},{-10,6}}, color={0,127,255}));
   connect(hex.port_b1, port_b1) annotation (Line(points={{10,6},{40,6},{40,60},{
           100,60}}, color={0,127,255}));
   connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{40,-6},{40,-60},
           {100,-60}}, color={0,127,255}));
-  connect(hex.port_b2, bypVal.port_1) annotation (Line(points={{-10,-6},{-20,-6},
-          {-20,-20},{-40,-20}}, color={0,127,255}));
-  connect(port_a2, bypVal.port_3) annotation (Line(points={{100,-60},{-50,-60},{
-          -50,-30}}, color={0,127,255}));
-  connect(bypVal.port_2, port_b2) annotation (Line(points={{-60,-20},{-60,-20},{
-          -80,-20},{-80,-60},{-100,-60}}, color={0,127,255}));
+
+  if use_Controller then
+    connect(hex.port_b2, bypVal.port_1) annotation (Line(points={{-10,-6},{-28,-6},
+            {-28,-30},{-40,-30}},
+                                color={0,127,255}));
+    connect(port_a2, bypVal.port_3) annotation (Line(points={{100,-60},{-50,-60},
+            {-50,-40}},
+                     color={0,127,255}));
+    connect(bypVal.port_2, port_b2) annotation (Line(points={{-60,-30},{-60,-30},
+            {-80,-30},{-80,-60},{-100,-60}},
+                                          color={0,127,255}));
+  else
+connect(port_b2, hex.port_b2) annotation (Line(points={{-100,-60},{-80,-60},{-80,
+          -60},{-80,-6},{-10,-6}}, color={0,127,255}));
+  end if;
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},
             {100,80}}), graphics={
         Ellipse(

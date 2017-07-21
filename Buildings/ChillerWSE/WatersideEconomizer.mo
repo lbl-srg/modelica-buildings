@@ -10,50 +10,34 @@ model WatersideEconomizer "Parallel heat exchangers"
     val1(each final dpFixed_nominal=dp1_nominal),
     kFixed={m1_flow_nominal/sqrt(dp1_nominal),0},
     final yValve_start={yValWSE_start});
-  extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface(
-    final reverseAction=true);
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1,
     redeclare package Medium=Medium2);
 
+  extends Buildings.ChillerWSE.BaseClasses.ThreeWayValveParameters;
+  extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface;
+
   // Filter opening
-  parameter Real yBypVal_start=1 "Initial value of output from the filter in the bypass valve"
+  parameter Real yBypVal_start=1 if use_Controller
+   "Initial value of output from the filter in the bypass valve"
+    annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_Controller and use_inputFilter));
+
+  parameter Real yValWSE_start=1 "Initial value of output from the filter in the shutoff valve"
     annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_inputFilter));
-  parameter Real yValWSE_start=1 "Initial value of output from the filter in the bypass valve"
-    annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_inputFilter));
+
  // Heat exchanger
   parameter Modelica.SIunits.Efficiency eta(start=0.8) "constant effectiveness";
+
  // Bypass valve parameters
-  parameter Real fraK_BypVal(min=0, max=1) = 0.7
-    "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)for the bypass valve"
-    annotation(Dialog(group="Bypass Valve"));
-  parameter Real l_BypVal[2](min=1e-10, max=1) = {0.0001,0.0001}
-    "Bypass valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Bypass Valve"));
-  parameter Real R=50 "Rangeability, R=50...100 typically for bypass valve"
-    annotation(Dialog(group="Bypass Valve"));
-  parameter Real delta0=0.01
-    "Range of significant deviation from equal percentage law for bypass valve"
-    annotation(Dialog(group="Bypass Valve"));
-  parameter Modelica.SIunits.Time tau_BypVal=10
+  parameter Modelica.SIunits.Time tau_BypVal=10 if use_Controller
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
     annotation(Dialog(tab="Dynamics", group="Nominal condition",
-               enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
-
- // Advanced
-  parameter Modelica.Fluid.Types.PortFlowDirection portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-    "Flow direction for port_1 in the three-way valve"
-   annotation(Dialog(tab="Advanced"));
-  parameter Modelica.Fluid.Types.PortFlowDirection portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-    "Flow direction for port_2 in the three-way valve"
-   annotation(Dialog(tab="Advanced"));
-  parameter Modelica.Fluid.Types.PortFlowDirection portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-    "Flow direction for port_3 in the three-way valve"
-   annotation(Dialog(tab="Advanced"));
+               enable=use_Controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   Buildings.ChillerWSE.HeatExchanger_T heaExc(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
+    final use_Controller=use_Controller,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
     final dp1_nominal=dp1_nominal,
@@ -106,9 +90,14 @@ model WatersideEconomizer "Parallel heat exchangers"
     final portFlowDirection_1=portFlowDirection_1,
     final portFlowDirection_2=portFlowDirection_2,
     final portFlowDirection_3=portFlowDirection_3,
-    final rhoStd=rhoStd[2])
+    final rhoStd=rhoStd[2],
+    final reverseAction=reverseAction)
     "Water-to-water heat exchanger"
     annotation (Placement(transformation(extent={{-10,-12},{10,4}})));
+  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC") if use_Controller
+    "Set point for leaving water temperature" annotation (Placement(
+        transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
+          extent={{-140,-20},{-100,20}})));
 equation
   connect(port_a1, heaExc.port_a1) annotation (Line(points={{-100,60},{-40,60},
             {-40,2},{-10,2}},

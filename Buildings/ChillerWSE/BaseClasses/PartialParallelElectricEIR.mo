@@ -98,6 +98,10 @@ partial model PartialParallelElectricEIR
   Modelica.Blocks.Interfaces.BooleanInput on[n]
     "Set to true to enable compressor, or false to disable compressor"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
+    "Set point for leaving water temperature" annotation (Placement(
+        transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
+          extent={{-140,-20},{-100,20}})));
 
 equation
   for i in 1:n loop

@@ -14,6 +14,7 @@ partial model PartialChillerWSE
   extends Buildings.ChillerWSE.BaseClasses.SignalFilterParameters(
      final nFilter=1,
      final yValve_start={yValveWSE_start});
+  extends Buildings.ChillerWSE.BaseClasses.ThreeWayValveParameters;
 
   //Chiller
   parameter Integer nChi(min=1) "Number of identical chillers"
@@ -45,21 +46,10 @@ partial model PartialChillerWSE
     "Flow coefficient of fixed resistance that may be in series with valves 
     in WSE, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="On/Off valve"));
-  parameter Real fraK_BypVal(min=0, max=1) = 0.7
-    "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)for the bypass valve"
-    annotation(Dialog(group="Three-way valve"));
-  parameter Real l_BypVal[2](min=1e-10, max=1) = {0.0001,0.0001}
-    "Bypass valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Three-way valve"));
-  parameter Real R=50 "Rangeability, R=50...100 typically for bypass valve"
-    annotation(Dialog(group="Three-way valve"));
-  parameter Real delta0=0.01
-    "Range of significant deviation from equal percentage law for bypass valve"
-    annotation(Dialog(group="Three-way valve"));
   parameter Real yValveWSE_start=0 "Initial value of output from on/off valve in WSE"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Real yBypValWSE_start=0 "Initial value of output from three-way bypass valve in WSE"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+  parameter Real yBypValWSE_start=0 if use_Controller "Initial value of output from three-way bypass valve in WSE"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_Controller and use_inputFilter));
 
   // Advanced
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -78,10 +68,10 @@ partial model PartialChillerWSE
   parameter Modelica.SIunits.Time tauChiller2 = 30 "Time constant at nominal flow in chillers"
      annotation (Dialog(tab = "Dynamics", group="Chiller",
                  enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
-  parameter Modelica.SIunits.Time tauWSE=10
+  parameter Modelica.SIunits.Time tauWSE=10 if use_Controller
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
     annotation(Dialog(tab="Dynamics", group="WSE",
-               enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+               enable= use_Controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   // Initialization
   parameter Medium1.AbsolutePressure p1_start = Medium1.p_default
@@ -175,7 +165,6 @@ partial model PartialChillerWSE
     final m2_flow_nominal=mWSE2_flow_nominal,
     final m1_flow_small=m1_flow_small,
     final m2_flow_small=m2_flow_small,
-    final show_T=homotopyInitialization,
     final from_dp1=from_dp1,
     final dp1_nominal=dpWSE1_nominal,
     final linearizeFlowResistance1=linearizeFlowResistance1,
@@ -222,7 +211,13 @@ partial model PartialChillerWSE
     final rhoStd=rhoStd[3:4],
     final yBypVal_start=yBypValWSE_start,
     final yValWSE_start=yValveWSE_start,
-    final tau_BypVal=tauWSE)
+    final tau_BypVal=tauWSE,
+    final use_Controller=use_Controller,
+    final reverseAction=reverseAction,
+    final show_T=show_T,
+    final portFlowDirection_1=portFlowDirection_1,
+    final portFlowDirection_2=portFlowDirection_2,
+    final portFlowDirection_3=portFlowDirection_3)
     "Waterside economizer"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 equation
@@ -231,8 +226,8 @@ equation
             72},{-120,72}},
                 color={255,0,255}));
   end for;
-  connect(on[nChi+1], wse.on[1]) annotation (Line(points={{-120,72},{-92,72},{
-          -92,72},{20,72},{20,34},{38,34}},
+  connect(on[nChi+1], wse.on[1]) annotation (Line(points={{-120,72},{-92,72},{20,
+          72},{20,34},{38,34}},
         color={255,0,255}));
   connect(chiPar.TSet, TSet) annotation (Line(points={{-62,30},{-84,30},{-84,
           104},{-120,104}},
