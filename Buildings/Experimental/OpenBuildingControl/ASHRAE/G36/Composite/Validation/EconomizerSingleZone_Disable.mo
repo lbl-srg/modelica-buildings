@@ -8,8 +8,8 @@ model EconomizerSingleZone_Disable
   parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
   parameter Modelica.SIunits.Temperature TSupSet=291.15 "Supply air temperature setpoint";
-  parameter Real minFanSpe=0.1 "Minimum supply fan operation speed";
-  parameter Real maxFanSpe=0.9 "Maximum supply fan operation speed";
+  parameter Real minFanSpe(min=0, max=1, unit="1")=0.1 "Minimum supply fan operation speed";
+  parameter Real maxFanSpe(min=0, max=1, unit="1")=0.9 "Maximum supply fan operation speed";
   parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=1.0 "Calculated minimum outdoor airflow rate";
   parameter Modelica.SIunits.VolumeFlowRate desVOut_flow=2.0 "Calculated design outdoor airflow rate";
 
