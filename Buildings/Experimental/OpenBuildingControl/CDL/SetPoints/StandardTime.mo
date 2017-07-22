@@ -1,14 +1,15 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints;
 block StandardTime "Standard time"
 
-  Interfaces.RealOutput y "Connector of Real output signal" annotation (Placement(
+  Interfaces.RealOutput y(final unit="s")
+    "Connector of Real output signal" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));
 
 equation
   y = time;
 
   annotation (
-    defaultComponentName="staTim",
+    defaultComponentName="modTim",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
@@ -46,9 +47,15 @@ Documentation(info="<html>
 </p>
 <h4>Implementation</h4>
 <p>
-This block outputs the time of the model, or in the case of a building
-automation system, the standard time.
-Daylight saving time is not taken into account.
+This block outputs the time of the model.
+In the case of a building automation system, the
+building automation system synchronizes time, and hence
+need to assign a value for the output of this block.
+Daylight saving time shall not be taken into account,
+e.g, the block always outputs standard time rather than
+daylight savings time.
+</p>
+<p>
 If a simulation starts
 at <i>t=-1</i>, then this block outputs first <i>t=-1</i>,
 and its output is advanced at the same rate as the simulation time.

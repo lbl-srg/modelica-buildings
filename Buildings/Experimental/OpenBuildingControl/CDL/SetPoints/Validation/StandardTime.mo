@@ -11,7 +11,7 @@ model StandardTime "Test model for the StandardTime block"
   Documentation(info="<html>
 <p>
 This model tests the implementation of the block that outputs the 
-standard time.
+model time.
 </p>
 </html>", revisions="<html>
 <ul>

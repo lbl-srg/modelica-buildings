@@ -1,8 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.Validation;
 model HotWaterTemperatureReset "Test model for the heating curve"
   extends Modelica.Icons.Example;
-  Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.HotWaterTemperatureReset
-  heaCur(
+  Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.HotWaterTemperatureReset heaCur(
     m=1,
     TSup_nominal=333.15,
     TRet_nominal=313.15,
@@ -12,7 +11,8 @@ model HotWaterTemperatureReset "Test model for the heating curve"
   Continuous.Sources.Ramp TOut(
     height=40,
     duration=1,
-    offset=263.15) "Outdoor temperature varying from -10 degC to 30 degC"
+    offset=263.15,
+    y(unit="K")) "Outdoor temperature varying from -10 degC to 30 degC"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.HotWaterTemperatureReset
   heaCur1(
@@ -23,16 +23,21 @@ model HotWaterTemperatureReset "Test model for the heating curve"
     TOut_nominal=263.15)
     "Compute the supply and return set point of heating systems with changing room setpoint temperature"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Continuous.Sources.Pulse  TRoo1(
+  Continuous.Sources.Pulse TRoo1(
     offset=273.15 + 20,
     startTime=0.5,
     amplitude=-5,
-    period=1)  "Night set back from 20 degC to 15 degC"
+    period=1,
+    y(unit="K"))  "Night set back from 20 degC to 15 degC"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Continuous.Sources.Constant  TOut1(k=273.15 - 10)
+  Continuous.Sources.Constant TOut1(
+    k=273.15 - 10,
+    y(unit="K"))
     "Constant outdoor air temperature"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Continuous.Sources.Constant  TRoo(k=273.15 + 20)
+  Continuous.Sources.Constant  TRoo(
+    k=273.15 + 20,
+    y(unit="K"))
     "Room temperature 20 degC"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
