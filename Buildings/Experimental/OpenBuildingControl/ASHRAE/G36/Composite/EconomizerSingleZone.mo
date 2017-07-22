@@ -58,7 +58,7 @@ model EconomizerSingleZone "Single zone VAV AHU economizer control sequence"
 
   Atomic.EconEnableDisableSingleZone ecoEnaDis(
     final delEntHis=delEntHis,
-    final delTemHis=delTemHis,
+    final delTOutHis=delTOutHis,
     use_enthalpy=use_enthalpy) "Singlezone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Atomic.EconDamperPositionLimitsSingleZone ecoDamLim(
@@ -78,7 +78,7 @@ protected
   parameter Real delEntHis(unit="J/kg", quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy));
-  parameter Modelica.SIunits.Temperature delTemHis=1
+  parameter Modelica.SIunits.Temperature delTOutHis=1
     "Delta between the temperature hysteresis high and low limits";
 
 equation
