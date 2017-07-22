@@ -33,17 +33,17 @@ model EconDamperPositionLimitsSingleZone_Disable
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   EconDamperPositionLimitsSingleZone ecoDamLim2(
-    minFanSpe=minFanSpe,
-    maxFanSpe=maxFanSpe,
-    minVOut_flow=minVOut_flow,
-    desVOut_flow=desVOut_flow)
+    final minFanSpe=minFanSpe,
+    final maxFanSpe=maxFanSpe,
+    final minVOut_flow=minVOut_flow,
+    final desVOut_flow=desVOut_flow)
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   EconDamperPositionLimitsSingleZone ecoDamLim3(
-    minFanSpe=minFanSpe,
-    maxFanSpe=maxFanSpe,
-    minVOut_flow=minVOut_flow,
-    desVOut_flow=desVOut_flow)
+    final minFanSpe=minFanSpe,
+    final maxFanSpe=maxFanSpe,
+    final minVOut_flow=minVOut_flow,
+    final desVOut_flow=desVOut_flow)
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
 
@@ -61,7 +61,7 @@ model EconDamperPositionLimitsSingleZone_Disable
     "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   CDL.Integers.Sources.Constant operationMode2(k=Constants.OperationModes.warUpInd)
-    "AHU operation mode is NOT Occupied"
+    "AHU operation mode is NOT occupied"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   CDL.Logical.Sources.Constant fanStatus3(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
@@ -69,7 +69,7 @@ model EconDamperPositionLimitsSingleZone_Disable
     "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   CDL.Integers.Sources.Constant operationMode3(k=Constants.OperationModes.occModInd)
-    "AHU operation mode is Occupied"
+    "AHU operation mode is occupied"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 
 equation

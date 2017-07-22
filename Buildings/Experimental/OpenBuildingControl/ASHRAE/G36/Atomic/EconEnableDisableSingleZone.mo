@@ -48,13 +48,16 @@ block EconEnableDisableSingleZone
     annotation (Placement(transformation(extent={{-220,30},{-180,70}}),
       iconTransformation(extent={{-120,10},{-100,30}})));
 
-  CDL.Interfaces.RealOutput yOutDamPosMax(final min=0, max=1) "Maximum outdoor air damper position"
+  CDL.Interfaces.RealOutput yOutDamPosMax(final min=0, max=1, unit="1")
+    "Maximum outdoor air damper position"
     annotation (Placement(transformation(extent={{180,-150},{200,-130}}),
       iconTransformation(extent={{100,28},{140,68}})));
-  CDL.Interfaces.RealOutput yRetDamPosMin(final min=0, max=1) "Minimum return air damper position"
+  CDL.Interfaces.RealOutput yRetDamPosMin(final min=retDamPhyPosMin, max=retDamPhyPosMax, unit="1")
+    "Minimum return air damper position"
     annotation (Placement(transformation(extent={{180,-250},{200,-230}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
-  CDL.Interfaces.RealOutput yRetDamPosMax(final min=0, max=1) "Maximum return air damper position"
+  CDL.Interfaces.RealOutput yRetDamPosMax(final min=retDamPhyPosMin, max=retDamPhyPosMax, unit="1")
+    "Maximum return air damper position"
     annotation (Placement(transformation(
       extent={{180,-220},{200,-200}}), iconTransformation(extent={{100,-40},{140,0}})));
 
