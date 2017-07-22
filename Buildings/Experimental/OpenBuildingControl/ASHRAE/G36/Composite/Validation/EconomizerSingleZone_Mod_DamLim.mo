@@ -22,7 +22,7 @@ model EconomizerSingleZone_Mod_DamLim
   CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
     "Freeze protection status is 0"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  CDL.Integers.Sources.Constant ZoneState(final k=Constants.ZoneStates.deadband)
+  CDL.Integers.Sources.Constant zoneState(final k=Constants.ZoneStates.deadband)
     "Zone State is deadband"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   CDL.Integers.Sources.Constant operationMode(final k=Constants.OperationModes.occModInd)
@@ -83,7 +83,7 @@ equation
     annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},color={255,127,0}));
   connect(operationMode.y, economizer.uOpeMod)
     annotation (Line(points={{-99,-100},{-50,-100},{-50,-30},{-4,-30},{-4,4},{19,4}},color={255,127,0}));
-  connect(ZoneState.y, economizer.uZonSta)
+  connect(zoneState.y, economizer.uZonSta)
     annotation (Line(points={{-99,-60},{-48,-60},{-48,-32},{-2,-32},{-2,2},{19,2}}, color={255,127,0}));
   connect(TOutBelowCutoff.y, economizer.TOut)
     annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},color={0,0,127}));
@@ -115,14 +115,14 @@ equation
     annotation (Line(points={{-99,-20},{-20,-20},{-20,-24},{99,-24}}, color={0,0,127}));
   connect(operationMode.y, economizer1.uOpeMod)
     annotation (Line(points={{-99,-100},{22,-100},{22,-36},{99,-36}}, color={255,127,0}));
-  connect(ZoneState.y, economizer1.uZonSta)
+  connect(zoneState.y, economizer1.uZonSta)
     annotation (Line(points={{-99,-60},{24,-60},{24,-38},{99,-38}}, color={255,127,0}));
   connect(VOutMinSetSig.y, economizer.uVOutMinSet_flow)
     annotation (Line(points={{-19,90},{0,90},{0,10},{19,10}}, color={0,0,127}));
   connect(VOutMinSetSig.y, economizer1.uVOutMinSet_flow)
     annotation (Line(points={{-19,90},{14,90},{14,-30},{48,-30},{48,-30},{99,-30}}, color={0,0,127}));
   connect(SupFanSpeSig.y, economizer.uSupFanSpe)
-    annotation (Line(points={{-19,50},{-20,50},{-20,50},{10,50},{-2,50},{-2,8},{19,8},{19,8}}, color={0,0,127}));
+    annotation (Line(points={{-19,50},{-20,50},{10,50},{-2,50},{-2,8},{19,8}},                 color={0,0,127}));
   connect(SupFanSpeSig.y, economizer1.uSupFanSpe)
     annotation (Line(points={{-19,50},{78,50},{78,-32},{99,-32}}, color={0,0,127}));
   annotation (

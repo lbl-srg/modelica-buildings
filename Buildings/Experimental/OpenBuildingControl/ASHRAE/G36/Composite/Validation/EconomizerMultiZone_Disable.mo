@@ -17,9 +17,9 @@ model EconomizerMultiZone_Disable
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   CDL.Integers.Sources.Constant freProSta(k=Constants.FreezeProtectionStages.stage0) "Freeze protection status is 0"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  CDL.Integers.Sources.Constant ZoneState(k=Constants.ZoneStates.heating) "Zone State is heating"
+  CDL.Integers.Sources.Constant zoneState(k=Constants.ZoneStates.heating) "Zone State is heating"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  CDL.Integers.Sources.Constant OperationMode(k=Constants.OperationModes.occModInd) "AHU operation mode is Occupied"
+  CDL.Integers.Sources.Constant operationMode(k=Constants.OperationModes.occModInd) "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   CDL.Continuous.Sources.Constant hOutBelowCutoff(k=hOutCutoff - 40000)
     "Outdoor air enthalpy is below the cufoff"
@@ -90,13 +90,13 @@ equation
     annotation (Line(points={{-19,-10},{20,-10},{20,-14},{99,-14}}, color={255,0,255}));
   connect(freProSta2.y, economizer1.uFreProSta)
     annotation (Line(points={{81,-120},{90,-120},{90,-20},{99,-20}}, color={255,127,0}));
-  connect(ZoneState.y, economizer.uZonSta)
+  connect(zoneState.y, economizer.uZonSta)
     annotation (Line(points={{-59,-60},{-2,-60},{-2,2},{19,2}}, color={255,127,0}));
-  connect(OperationMode.y, economizer.uOpeMod)
+  connect(operationMode.y, economizer.uOpeMod)
     annotation (Line(points={{-59,-90},{-4,-90},{-4,4},{19,4}}, color={255,127,0}));
-  connect(OperationMode.y, economizer1.uOpeMod)
+  connect(operationMode.y, economizer1.uOpeMod)
     annotation (Line(points={{-59,-90},{20,-90},{20,-16},{99,-16}}, color={255,127,0}));
-  connect(ZoneState.y, economizer1.uZonSta)
+  connect(zoneState.y, economizer1.uZonSta)
     annotation (Line(points={{-59,-60},{22,-60},{22,-18},{99,-18}}, color={255,127,0}));
   connect(TSupSetSig.y, economizer.THeaSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}}, color={0,0,127}));
