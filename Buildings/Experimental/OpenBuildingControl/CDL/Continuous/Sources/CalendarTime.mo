@@ -1,4 +1,4 @@
-within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints;
+within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources;
 model CalendarTime
   "Computes the unix time stamp and calendar time from the simulation time"
 

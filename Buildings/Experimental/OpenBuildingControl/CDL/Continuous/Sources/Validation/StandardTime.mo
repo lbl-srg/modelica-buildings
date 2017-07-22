@@ -1,12 +1,12 @@
-within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.Validation;
+within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Validation;
 model StandardTime "Test model for the StandardTime block"
   extends Modelica.Icons.Example;
-  Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.StandardTime staTim
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.ModelTime staTim
     "Standard time"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   annotation (experiment(StartTime=-1,Tolerance=1e-6, StopTime=1),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/SetPoints/Validation/StandardTime.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Sources/Validation/StandardTime.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>

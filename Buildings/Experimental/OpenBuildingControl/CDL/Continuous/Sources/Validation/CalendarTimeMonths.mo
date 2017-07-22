@@ -1,20 +1,20 @@
-within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.Validation;
+within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Validation;
 model CalendarTimeMonths
   "Validation model for the calendar time model"
   extends Modelica.Icons.Example;
-  Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.CalendarTime calTim(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.CalendarTime calTim(
     zerTim=Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.NY2017)
     "Computes date and time assuming time=0 corresponds to new year 2017"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   annotation (experiment(StartTime=172800, Tolerance=1e-6, StopTime=345600),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/SetPoints/Validation/CalendarTimeMonths.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Sources/Validation/CalendarTimeMonths.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This model validates the use of the
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.CalendarTime\">
-Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.CalendarTime</a>
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.CalendarTime\">
+Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.CalendarTime</a>
 block for a period of a couple of months.
 This shorter simulation time has been selected to
 store the reference results that are used in the regression tests

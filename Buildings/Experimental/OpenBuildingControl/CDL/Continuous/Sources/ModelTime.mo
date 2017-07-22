@@ -1,5 +1,5 @@
-within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints;
-block StandardTime "Standard time"
+within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources;
+block ModelTime "Standard time"
 
   Interfaces.RealOutput y(final unit="s")
     "Connector of Real output signal" annotation (Placement(
@@ -83,4 +83,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end StandardTime;
+end ModelTime;

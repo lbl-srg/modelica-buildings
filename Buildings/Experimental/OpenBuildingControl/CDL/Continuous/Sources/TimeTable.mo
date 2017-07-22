@@ -1,4 +1,4 @@
-within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints;
+within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources;
 block TimeTable
   "Table look-up with respect to time and linear or periodic extrapolation"
 
