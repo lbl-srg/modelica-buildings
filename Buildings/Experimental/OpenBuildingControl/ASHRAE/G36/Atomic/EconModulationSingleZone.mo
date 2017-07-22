@@ -37,7 +37,7 @@ block EconModulationSingleZone
         iconTransformation(extent={{100,10},{120,30}})));
 
   CDL.Continuous.LimPID damPosController(
-    controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
+    final controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
     final Td=0.1,
     final yMax=conSigMax,
     final yMin=conSigMin,
