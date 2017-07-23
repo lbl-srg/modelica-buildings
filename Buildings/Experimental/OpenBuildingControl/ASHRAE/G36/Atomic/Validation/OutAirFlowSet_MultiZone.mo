@@ -32,26 +32,26 @@ model OutAirFlowSet_MultiZone
     each duration=3600,
     each offset=273.15 + 18) "Supply air temperature"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+
 equation
-  for i in 1:numOfZon loop
-    connect(numOfOcc[i].y, outAirSet_MulZon.nOcc[i])
-      annotation (Line(points={{-39,70}, {0,70},{0,16},{18,16}},
-        color={0,0,127}));
-    connect(winSta[i].y, outAirSet_MulZon.uWin[i]) annotation (Line(points={{-39,
-            -20},{-19.75,-20},{-19.75,-4},{18,-4}}, color={255,0,255}));
-    connect(supFan.y, outAirSet_MulZon.uSupFan)
-      annotation (Line(points={{-39,-50}, {-10,-50},{-10,-10},{18,-10}},
-        color={255,0,255}));
-    connect(zonPriFloRat[i].y, outAirSet_MulZon.priAirflow[i])
-      annotation (Line(points={{-39,-80},{0,-80},{0,-16},{18,-16}},
-        color={0,0, 127}));
-    connect(TZon[i].y, outAirSet_MulZon.TZon[i])
-      annotation (Line(points={{-39,40},{-10,40},{-10,10},{18,10}},
-        color={0,0,127}));
-    connect(TSup[i].y, outAirSet_MulZon.TSup[i])
-      annotation (Line(points={{-39,10},{-20,10},{-20,4},{18,4}},
-        color={0,0,127}));
-  end for;
+  connect(numOfOcc.y, outAirSet_MulZon.nOcc)
+    annotation (Line(points={{-39,70}, {0,70},{0,16},{18,16}},
+      color={0,0,127}));
+  connect(winSta.y, outAirSet_MulZon.uWin)
+    annotation (Line(points={{-39,-20},{-19.75,-20},{-19.75,-4},{18,-4}},
+      color={255,0,255}));
+  connect(supFan.y, outAirSet_MulZon.uSupFan)
+    annotation (Line(points={{-39,-50}, {-10,-50},{-10,-10},{18,-10}},
+      color={255,0,255}));
+  connect(zonPriFloRat.y, outAirSet_MulZon.priAirflow)
+    annotation (Line(points={{-39,-80},{0,-80},{0,-16},{18,-16}},
+      color={0,0, 127}));
+  connect(TZon.y, outAirSet_MulZon.TZon)
+    annotation (Line(points={{-39,40},{-10,40},{-10,10},{18,10}},
+      color={0,0,127}));
+  connect(TSup.y, outAirSet_MulZon.TSup)
+    annotation (Line(points={{-39,10},{-20,10},{-20,4},{18,4}},
+      color={0,0,127}));
 
   annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),

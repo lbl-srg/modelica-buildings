@@ -254,123 +254,123 @@ protected
 
 equation
   for i in 1:numOfZon loop
-    connect(breZonAre[i].y, breZon[i].u1)
-      annotation (Line(points={{-149,120},{-140,120},{-140,110},{-90,110},
-        {-90,56}, {-82,56}}, color={0,0,127}));
-    connect(gai[i].y, swi[i].u1)
-      annotation (Line(points={{-139,80},{-128,80},{-128,48},{-122,48}},
-        color={0,0,127}));
-    connect(breZonPop[i].y, swi[i].u3)
-      annotation (Line(points={{-139,10},{-134,10},{-134,32},{-122,32}},
-        color={0,0,127}));
-    connect(gai[i].u, nOcc[i])
-      annotation (Line(points={{-162,80},{-200,80}}, color={0,0,127}));
-    connect(swi[i].y, breZon[i].u2)
-      annotation (Line(points={{-99,40},{-99,40},{-90,40},{-90,44},{-82,44}},
-        color={0,0,127}));
-    connect(disEffCoo[i].y, swi1[i].u1)
-      annotation (Line(points={{-99,-10},{-92,-10},{-92,-32},{-82,-32}},
-        color={0,0,127}));
-    connect(disEffHea[i].y, swi1[i].u3)
-      annotation (Line(points={{-99,-70},{-92,-70},{-92,-48},{-82,-48}},
-        color={0,0,127}));
-    connect(breZon[i].y, zonOutAirRate[i].u1)
-      annotation (Line(points={{-59,50},{-50,50},{-50,56},{-42,56}},
-        color={0,0,127}));
-    connect(swi1[i].y, zonOutAirRate[i].u2)
-      annotation (Line(points={{-59,-40},{-50,-40},{-50,44},{-42,44}},
-        color={0,0,127}));
-    connect(uWin[i], swi2[i].u2) annotation (Line(points={{-200,-100},{-40,-100},
-        {-40,-34},{-8,-34},{-8,10},{18,10}}, color={255,0,255}));
-    connect(zerOutAir[i].y, swi2[i].u1)
-      annotation (Line(points={{-19,2},{0,2},{18,2}},
-        color={0,0,127}));
-    connect(zonOutAirRate[i].y, swi2[i].u3)
-      annotation (Line(points={{-19,50},{0,50},{0,18},{18,18}},
-        color={0,0,127}));
-    connect(swi2[i].y, swi3[i].u3)
-      annotation (Line(points={{41,10},{48,10},{48,-22},{58,-22}},
-        color={0,0,127}));
-    connect(zerOutAir[i].y, swi3[i].u1)
-      annotation (Line(points={{-19,2},{-19,2},{0,2},{0,-38},{58,-38}},
-        color={0,0,127}));
     connect(not1.y, swi3[i].u2)
-      annotation (Line(points={{-99,-130},{-38,-130},{-38,-36},{-6,-36},{-6,-30},
-        {58,-30}},  color={255,0,255}));
-    connect(swi3[i].y, priOutAirFra[i].u1)
-      annotation (Line(points={{81,-30},{90,-30},{90,-56},{-20,-56},{-20,-154},
-        {-2,-154}}, color={0,0,127}));
-    connect(swi3[i].y,sysUncOutAir. u[i])
-      annotation (Line(points={{81,-30},{81,-30},{98,-30}},color={0,0,127}));
-    connect(breZonAre[i].y, desBreZon[i].u2)
-      annotation (Line(points={{-149,120},{-140,120},{-140,120},{-140,120},
-        {-140,144},{-122,144}},   color={0,0,127}));
-    connect(desBreZonPer[i].y, desBreZon[i].u1)
-      annotation (Line(points={{-147,190},{-140,190},{-140,156},{-122,156}},
-        color={0,0,127}));
-    connect(desDisEff[i].y, desZonOutAirRate[i].u2)
-      annotation (Line(points={{-99,190},{-88,190},{-88,164},{-62,164}},
-        color={0,0,127}));
-    connect(desBreZon[i].y, desZonOutAirRate[i].u1)
-      annotation (Line(points={{-99,150},{-80,150},{-80,176},{-62,176}},
-        color={0,0,127}));
-    connect(desZonOutAirRate[i].y, desZonPriOutAirRate[i].u1)
-      annotation (Line(points={{-39,170},{-30,170},{-30,176},{-22,176}},
-        color={0,0,127}));
-    connect(minZonFlo[i].y, desZonPriOutAirRate[i].u2)
-      annotation (Line(points={{-39,130}, {-30,130},{-30,164},{-22,164}},
-        color={0,0,127}));
-    connect(desZonPopulation[i].y, sumDesZonPop.u[i])
-      annotation (Line(points={{-147,230},{-142,230}},
-        color={0,0,127}));
-    connect(desBreZonPer[i].y, sumDesBreZonPop.u[i])
-      annotation (Line(points={{-147,190},{-140,190},{-140,210},{-62,210}},
-        color={0,0,127}));
-    connect(breZonAre[i].y, sumDesBreZonAre.u[i])
-      annotation (Line(points={{-149,120},{-140,120},{-140,110},{-22,110}},
-        color={0,0,127}));
-    connect(desZonPriOutAirRate[i].y, zonVenEff[i].u2)
-      annotation (Line(points={{1,170}, {60,170},{60,144},{98,144}},
-        color={0,0,127}));
-    connect(addPar1.y, zonVenEff[i].u1)
-      annotation (Line(points={{121,190},{128,190},{128,170},{90,170},
-        {90,156},{98,156}}, color={0,0,127}));
-    connect(swi[i].u2, occSenor[i].y)
-      annotation (Line(points={{-122,40},{-134,40},{-134,50},{-139,50}},
-        color={255,0,255}));
-    connect(TSup[i], add2[i].u2)
-      annotation (Line(points={{-200,-60},{-172,-60},{-172,-46},{-162,-46}},
-        color={0,0,127}));
-    connect(TZon[i], add2[i].u1)
-      annotation (Line(points={{-200,-20},{-180,-20},{-180,-20},{-172,-20},
-        {-172,-34},{-162,-34}},    color={0,0,127}));
-    connect(add2[i].y, hys[i].u)
-      annotation (Line(points={{-139,-40},{-130.5,-40},{-122,-40}},
-        color={0,0,127}));
-    connect(hys[i].y, swi1[i].u2)
-      annotation (Line(points={{-99,-40},{-90,-40},{-82,-40}},
-        color={255,0,255}));
+      annotation (Line(points={{-99,-130},{-38,-130},{-38,-36},{-6,-36},
+        {-6,-30},{58,-30}},  color={255,0,255}));
     connect(not1.y, swi4[i].u2)
       annotation (Line(points={{-99,-130},{-90,-130},{-80,-130},{-80,-166},
         {-62,-166}}, color={255,0,255}));
-    connect(swi4[i].y, priOutAirFra[i].u2)
-      annotation (Line(points={{-39,-166},{-20.5,-166},{-2,-166}},
-        color={0,0,127}));
-    connect(swi4[i].y, sysPriAirRate.u[i])
-      annotation (Line(points={{-39,-166},{-22,-166},{-22,-90},{-2,-90}},
-        color={0,0,127}));
-    connect(zerPriAir[i].y, swi4[i].u1)
-      annotation (Line(points={{-99,-190},{-80,-190},{-80,-174},{-62,-174}},
-        color={0,0,127}));
-    connect(priAirflow[i], swi4[i].u3)
-      annotation (Line(points={{-200,-166},{-150,-166},{-100,-166},
-        {-100,-158},{-62,-158}}, color={0,0,127}));
+    connect(addPar1.y, zonVenEff[i].u1)
+      annotation (Line(points={{121,190},{128,190},{128,170},{90,170},
+        {90,156},{98,156}}, color={0,0,127}));
   end for;
-
+  connect(breZonAre.y, breZon.u1)
+    annotation (Line(points={{-149,120},{-140,120},{-140,110},{-90,110},
+      {-90,56}, {-82,56}}, color={0,0,127}));
+  connect(gai.y, swi.u1)
+    annotation (Line(points={{-139,80},{-128,80},{-128,48},{-122,48}},
+      color={0,0,127}));
+  connect(breZonPop.y, swi.u3)
+    annotation (Line(points={{-139,10},{-134,10},{-134,32},{-122,32}},
+      color={0,0,127}));
+  connect(gai.u, nOcc)
+    annotation (Line(points={{-162,80},{-200,80}}, color={0,0,127}));
+ connect(swi.y, breZon.u2)
+    annotation (Line(points={{-99,40},{-99,40},{-90,40},{-90,44},{-82,44}},
+      color={0,0,127}));
+  connect(disEffCoo.y, swi1.u1)
+    annotation (Line(points={{-99,-10},{-92,-10},{-92,-32},{-82,-32}},
+      color={0,0,127}));
+  connect(disEffHea.y, swi1.u3)
+    annotation (Line(points={{-99,-70},{-92,-70},{-92,-48},{-82,-48}},
+      color={0,0,127}));
+  connect(breZon.y, zonOutAirRate.u1)
+    annotation (Line(points={{-59,50},{-50,50},{-50,56},{-42,56}},
+      color={0,0,127}));
+  connect(swi1.y, zonOutAirRate.u2)
+    annotation (Line(points={{-59,-40},{-50,-40},{-50,44},{-42,44}},
+      color={0,0,127}));
+  connect(uWin, swi2.u2)
+    annotation (Line(points={{-200,-100},{-40,-100},
+      {-40,-34},{-8,-34},{-8,10},{18,10}}, color={255,0,255}));
+  connect(zerOutAir.y, swi2.u1)
+    annotation (Line(points={{-19,2},{0,2},{18,2}},
+      color={0,0,127}));
+  connect(zonOutAirRate.y, swi2.u3)
+    annotation (Line(points={{-19,50},{0,50},{0,18},{18,18}},
+      color={0,0,127}));
+  connect(swi2.y, swi3.u3)
+    annotation (Line(points={{41,10},{48,10},{48,-22},{58,-22}},
+      color={0,0,127}));
+  connect(zerOutAir.y, swi3.u1)
+    annotation (Line(points={{-19,2},{-19,2},{0,2},{0,-38},{58,-38}},
+      color={0,0,127}));
+  connect(swi3.y, priOutAirFra.u1)
+    annotation (Line(points={{81,-30},{90,-30},{90,-56},{-20,-56},{-20,-154},
+      {-2,-154}}, color={0,0,127}));
+  connect(swi3.y,sysUncOutAir.u)
+    annotation (Line(points={{81,-30},{81,-30},{98,-30}},color={0,0,127}));
+  connect(breZonAre.y, desBreZon.u2)
+    annotation (Line(points={{-149,120},{-140,120},{-140,120},{-140,120},
+      {-140,144},{-122,144}},   color={0,0,127}));
+  connect(desBreZonPer.y, desBreZon.u1)
+    annotation (Line(points={{-147,190},{-140,190},{-140,156},{-122,156}},
+      color={0,0,127}));
+  connect(desDisEff.y, desZonOutAirRate.u2)
+    annotation (Line(points={{-99,190},{-88,190},{-88,164},{-62,164}},
+      color={0,0,127}));
+  connect(desBreZon.y, desZonOutAirRate.u1)
+    annotation (Line(points={{-99,150},{-80,150},{-80,176},{-62,176}},
+      color={0,0,127}));
+  connect(desZonOutAirRate.y, desZonPriOutAirRate.u1)
+    annotation (Line(points={{-39,170},{-30,170},{-30,176},{-22,176}},
+      color={0,0,127}));
+  connect(minZonFlo.y, desZonPriOutAirRate.u2)
+    annotation (Line(points={{-39,130}, {-30,130},{-30,164},{-22,164}},
+      color={0,0,127}));
+  connect(desZonPopulation.y, sumDesZonPop.u)
+    annotation (Line(points={{-147,230},{-142,230}},
+      color={0,0,127}));
+  connect(desBreZonPer.y, sumDesBreZonPop.u)
+    annotation (Line(points={{-147,190},{-140,190},{-140,210},{-62,210}},
+      color={0,0,127}));
+  connect(breZonAre.y, sumDesBreZonAre.u)
+    annotation (Line(points={{-149,120},{-140,120},{-140,110},{-22,110}},
+      color={0,0,127}));
+  connect(desZonPriOutAirRate.y, zonVenEff.u2)
+    annotation (Line(points={{1,170}, {60,170},{60,144},{98,144}},
+      color={0,0,127}));
+  connect(swi.u2, occSenor.y)
+    annotation (Line(points={{-122,40},{-134,40},{-134,50},{-139,50}},
+      color={255,0,255}));
+  connect(TSup, add2.u2)
+    annotation (Line(points={{-200,-60},{-172,-60},{-172,-46},{-162,-46}},
+      color={0,0,127}));
+  connect(TZon, add2.u1)
+    annotation (Line(points={{-200,-20},{-180,-20},{-180,-20},{-172,-20},
+      {-172,-34},{-162,-34}},    color={0,0,127}));
+  connect(add2.y, hys.u)
+    annotation (Line(points={{-139,-40},{-130.5,-40},{-122,-40}},
+      color={0,0,127}));
+  connect(hys.y, swi1.u2)
+    annotation (Line(points={{-99,-40},{-90,-40},{-82,-40}},
+      color={255,0,255}));
+  connect(swi4.y, priOutAirFra.u2)
+    annotation (Line(points={{-39,-166},{-20.5,-166},{-2,-166}},
+      color={0,0,127}));
+  connect(swi4.y, sysPriAirRate.u)
+    annotation (Line(points={{-39,-166},{-22,-166},{-22,-90},{-2,-90}},
+      color={0,0,127}));
+  connect(zerPriAir.y, swi4.u1)
+    annotation (Line(points={{-99,-190},{-80,-190},{-80,-174},{-62,-174}},
+      color={0,0,127}));
+  connect(priAirflow, swi4.u3)
+    annotation (Line(points={{-200,-166},{-150,-166},{-100,-166},
+      {-100,-158},{-62,-158}}, color={0,0,127}));
   connect(uSupFan, not1.u)
     annotation (Line(points={{-200,-129.5},{-178,-129.5},{-178,-130},{-122,-130}},
       color={255,0,255}));
-  connect(priOutAirFra.y, maxPriOutAirFra.u[1:5])
+  connect(priOutAirFra.y, maxPriOutAirFra.u)
     annotation (Line(points={{21,-160},{21,-160},{58,-160}}, color={0,0,127}));
   connect(sysPriAirRate.y, outAirFra.u2)
     annotation (Line(points={{21,-90},{30,-90},{30,-96},{38,-96}},
@@ -410,7 +410,7 @@ equation
       color={0,0,127}));
   connect(aveOutAirFra.y, addPar1.u)
     annotation (Line(points={{81,190},{88,190},{98,190}},  color={0,0,127}));
-  connect(zonVenEff.y, desSysVenEff.u[1:5])
+  connect(zonVenEff.y, desSysVenEff.u)
     annotation (Line(points={{121,150},{138,150}},color={0,0,127}));
   connect(unCorOutAirInk.y, desOutAirInt.u1)
     annotation (Line(points={{41,220.5},{180,220.5},{180,128},{120,128},
