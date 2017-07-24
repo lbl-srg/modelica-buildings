@@ -24,7 +24,7 @@ partial model PartialChillerWSE
           1.1,1.0,0.6}));
 
   Fluid.Sources.FixedBoundary           sin1(
-              redeclare package Medium = MediumCW)
+              redeclare package Medium = MediumCW) "Sink on medium 1 side"
                                         annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -33,7 +33,7 @@ partial model PartialChillerWSE
     use_T_in=true,
     redeclare package Medium = MediumCW,
     m_flow=mCW_flow_nominal,
-    T=298.15)
+    T=298.15) "Source on medium 1 side"
     annotation (Placement(transformation(extent={{-60,-14},{-40,6}})));
   Modelica.Blocks.Sources.TimeTable TCon_in(
     table=[0,273.15 + 12.78; 7200,273.15 + 12.78; 7200,273.15 + 18.33; 14400,273.15
@@ -42,16 +42,16 @@ partial model PartialChillerWSE
     startTime=0)      "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Fluid.Sources.FixedBoundary           sin2(
-    nPorts=1, redeclare package Medium = MediumCHW)
+    nPorts=1, redeclare package Medium = MediumCHW) "Sink on medium 2 side"
                                         annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-90,-70})));
-  redeclare replaceable Fluid.Sources.Boundary_pT                sou2
+  redeclare replaceable Fluid.Sources.Boundary_pT                sou2(T=291.15)
   constrainedby Modelica.Fluid.Sources.BaseClasses.PartialSource(
     use_T_in=true,
     redeclare package Medium = MediumCHW,
-    T=291.15)
+    T=291.15) "Source on medium 2 side"
     annotation (Placement(transformation(extent={{58,-84},{38,-64}})));
   Modelica.Blocks.Sources.Constant
                                TEva_in(k=273.15 + 25.28)
@@ -70,7 +70,7 @@ equation
                                                    color={0,0,127}));
   connect(sou2.T_in, TEva_in.y)
     annotation (Line(points={{60,-70},{79,-70}},          color={0,0,127}));
-  connect(sin2.ports[1], TSup.port_b) annotation (Line(points={{-80,-70},{-70,-70},
-          {-70,-44},{-60,-44},{-60,-44}},
+  connect(sin2.ports[1], TSup.port_b) annotation (Line(points={{-80,-70},{-70,
+          -70},{-70,-44},{-60,-44}},
                       color={0,127,255}));
 end PartialChillerWSE;

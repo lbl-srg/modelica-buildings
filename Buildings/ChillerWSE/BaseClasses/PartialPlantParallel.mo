@@ -14,14 +14,14 @@ partial model PartialPlantParallel
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  // valve parameters
+  // Shutoff valve parameters
   parameter Real l[2](each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Valve"));
+    annotation(Dialog(group="Shutoff valve"));
   parameter Real kFixed[2](each unit="", each min=0)=
     {m1_flow_nominal,m2_flow_nominal} ./ sqrt({dp1_nominal,  dp2_nominal})
     "Flow coefficient of fixed resistance that may be in series with valve 1, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-   annotation(Dialog(group="Valve"));
+   annotation(Dialog(group="Shutoff valve"));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val2[n](
     redeclare each replaceable package Medium = Medium2,

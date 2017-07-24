@@ -33,6 +33,7 @@ model IntegratedPrimarySecondary
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     addPowerToMedium=false,
     show_T=true)
+    "Integrated waterside economizer on the load side of a primary-secondary chilled water system"
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 
   Modelica.Blocks.Sources.RealExpression yVal5(y=if onChi.y and not onWSE.y

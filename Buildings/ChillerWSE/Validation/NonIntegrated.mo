@@ -31,6 +31,7 @@ model NonIntegrated "Non-integrated WSE  in a chilled water system"
     Ti=80,
     nChi=nChi,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    "Non-integrated waterside economizer "
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 
   Modelica.Blocks.Sources.BooleanStep onChi(startTime(displayUnit="h") = 7200)

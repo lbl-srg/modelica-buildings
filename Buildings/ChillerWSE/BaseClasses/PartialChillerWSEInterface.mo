@@ -5,17 +5,17 @@ partial model PartialChillerWSEInterface
 
   // Nominal conditions
   parameter Modelica.SIunits.MassFlowRate mChiller1_flow_nominal(min=0)
-    "Nominal mass flow rate on the medium 2 side in the chiller"
+    "Nominal mass flow rate on the medium 1 side in the chiller"
     annotation(Dialog(group = "Chiller"));
   parameter Modelica.SIunits.MassFlowRate mChiller2_flow_nominal(min=0)
     "Nominal mass flow rate on the medium 2 side in the chiller"
     annotation(Dialog(group = "Chiller"));
   parameter Modelica.SIunits.MassFlowRate mWSE1_flow_nominal(min=0)
-    "Nominal mass flow rate on the medium 2 side in the chiller"
-    annotation(Dialog(group = "WSE"));
+    "Nominal mass flow rate on the medium 1 side in the waterside economizer"
+    annotation(Dialog(group = "Waterside economizer"));
   parameter Modelica.SIunits.MassFlowRate mWSE2_flow_nominal(min=0)
-    "Nominal mass flow rate on the medium 2 side in the chiller"
-    annotation(Dialog(group = "WSE"));
+    "Nominal mass flow rate on the medium 2 side in the waterside economizer"
+    annotation(Dialog(group = "Waterside economizer"));
 
   // Advanced
   parameter Medium1.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(mChiller1_flow_nominal)
@@ -28,10 +28,10 @@ partial model PartialChillerWSEInterface
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
-  parameter Integer n(min=1)=2 "Total number of chillers and WSE";
+  parameter Integer n(min=1)=2 "Total number of chillers and waterside economizer";
 
 
-  Modelica.Blocks.Interfaces.RealInput TSet
+  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
     "Set point for leaving water temperature"
     annotation (Placement(transformation(extent={{-140,84},{-100,124}}),
         iconTransformation(extent={{-132,92},{-100,124}})));

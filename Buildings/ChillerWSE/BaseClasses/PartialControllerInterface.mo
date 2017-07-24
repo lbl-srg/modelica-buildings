@@ -1,9 +1,10 @@
 within Buildings.ChillerWSE.BaseClasses;
 partial model PartialControllerInterface
   "Partial interface model for waterside economizer temperature controller"
-  parameter Boolean use_Controller=false;
- // Controller
 
+  parameter Boolean use_Controller=false;
+
+ // Controller
   parameter Modelica.Blocks.Types.SimpleController controllerType=
          Modelica.Blocks.Types.SimpleController.PID if use_Controller "Type of controller"
     annotation(Dialog(tab="Controller",enable=use_Controller));
@@ -43,7 +44,8 @@ partial model PartialControllerInterface
         use_Controller and
         (controllerType==.Modelica.Blocks.Types.SimpleController.PD or
         controllerType==.Modelica.Blocks.Types.SimpleController.PID),tab="Controller"));
-  parameter Modelica.Blocks.Types.InitPID initType= Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState if
+  parameter Modelica.Blocks.Types.InitPID initType=
+    Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState if
        use_Controller
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
   annotation(Evaluate=true,Dialog(group="Initialization",tab="Controller",enable=use_Controller));

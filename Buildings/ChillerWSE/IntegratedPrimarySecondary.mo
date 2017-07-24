@@ -65,6 +65,7 @@ model IntegratedPrimarySecondary
     final rhoStd=rhoStd[5],
     final y_start=yValve5_start,
     final l=lValve5)
+    "Shutoff valve: closed when fully mechanic cooling is activated; open when fully mechanic cooling is activated"
     annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pum[numPum](
     redeclare each final package Medium = Medium2,
@@ -101,7 +102,7 @@ model IntegratedPrimarySecondary
         origin={-120,26}), iconTransformation(extent={{-16,-16},{16,16}},
           origin={-116,30})));
   Fluid.Sensors.MassFlowRate bypFlo(redeclare package Medium = Medium2)
-    "Bypass flowrate"
+    "Bypass water mass flowrate"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 equation
   connect(wse.port_a2, port_a2) annotation (Line(points={{60,24},{80,24},{80,-60},

@@ -23,6 +23,7 @@ model IntegratedPrimaryLoadSide
   parameter Integer nPum=nChi "Number of pumps"
     annotation(Dialog(group="Pump"));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum[nPum]
+   "Performance data for the pumps"
     annotation (Dialog(group="Pump"),
           Placement(transformation(extent={{38,78},{58,98}})));
   parameter Boolean addPowerToMedium=true
@@ -40,9 +41,23 @@ model IntegratedPrimaryLoadSide
  //Valve
   parameter Real lValve7(min=1e-10,max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="On/Off valve"));
+    annotation(Dialog(group="Shutoff valve"));
   parameter Real yValve7_start = 0 "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+
+   Modelica.Blocks.Interfaces.RealInput yPum[nPum](each min=0, max=1)
+    "Constant normalized rotational speed"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-132,-28},{-100,-60}})));
+   Modelica.Blocks.Interfaces.RealInput yVal7(min=0,max=1)
+    "Position signal for valve 7 (0: closed, 1: open) " annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-28,-120}), iconTransformation(
+        extent={{-16,-16},{16,16}},
+        rotation=90,
+        origin={-32,-116})));
 
   Buildings.Fluid.Movers.SpeedControlled_y pum[nPum](
     redeclare each final package Medium = Medium2,
@@ -63,7 +78,7 @@ model IntegratedPrimaryLoadSide
     each final riseTime=riseTimePum,
     each final init=initPum,
     final y_start=yPum_start,
-    each final tau=tauPump) "Pumps"
+    each final tau=tauPump) "Identical pumps"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val7(
     redeclare final package Medium = Medium2,
@@ -84,22 +99,10 @@ model IntegratedPrimaryLoadSide
     final riseTime=riseTimeValve,
     final init=initValve,
     final y_start=yValve7_start)
-    "Adjustable valve: the valve position is manipulated to maintain the minimum flow requirement through chillers"
+    "Valve: the valve position is manipulated to maintain the minimum flow requirement through chillers"
     annotation (Placement(transformation(extent={{10,-90},{-10,-70}})));
 
-  Modelica.Blocks.Interfaces.RealInput yPum[nPum]
-    "Constant normalized rotational speed"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-        iconTransformation(extent={{-132,-28},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealInput yVal7
-    "Position signal for valve 7 (0: closed, 1: open) " annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={-28,-120}), iconTransformation(
-        extent={{-16,-16},{16,16}},
-        rotation=90,
-        origin={-32,-116})));
+
 equation
   for i in 1:nChi loop
   connect(val5.port_b, pum[i].port_a) annotation (Line(points={{40,-20},{14,-20},{14,

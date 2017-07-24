@@ -1,24 +1,24 @@
 within Buildings.ChillerWSE.BaseClasses;
-partial model ValvesParameters "Model with parameters for valves"
+partial model ValvesParameters "Model with parameters for multiple valves"
 
   parameter Integer nVal "Number of valves";
   parameter Buildings.Fluid.Types.CvTypes CvData=Buildings.Fluid.Types.CvTypes.OpPoint
     "Selection of flow coefficient"
-   annotation(Dialog(group = "On/Off valve"));
+   annotation(Dialog(group = "Shutoff valve"));
   parameter Real[nVal] Kv(
     each fixed= if CvData==Buildings.Fluid.Types.CvTypes.Kv then true else false)
     "Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]"
-  annotation(Dialog(group = "On/Off valve",
+  annotation(Dialog(group = "Shutoff valve",
                     enable = (CvData==Buildings.Fluid.Types.CvTypes.Kv)));
   parameter Real[nVal] Cv(
     each fixed= if CvData==Buildings.Fluid.Types.CvTypes.Cv then true else false)
     "Cv (US) flow coefficient [USG/min/(psi)^(1/2)]"
-  annotation(Dialog(group = "On/Off valve",
+  annotation(Dialog(group = "Shutoff valve",
                     enable = (CvData==Buildings.Fluid.Types.CvTypes.Cv)));
   parameter Modelica.SIunits.Area[nVal] Av(
     each fixed= if CvData==Buildings.Fluid.Types.CvTypes.Av then true else false)
     "Av (metric) flow coefficient"
-   annotation(Dialog(group = "On/Off valve",
+   annotation(Dialog(group = "Shutoff valve",
                      enable = (CvData==Buildings.Fluid.Types.CvTypes.Av)));
 
   parameter Real deltaM = 0.02
@@ -26,25 +26,25 @@ partial model ValvesParameters "Model with parameters for valves"
     annotation(Dialog(group="Pressure-flow linearization"));
   parameter Modelica.SIunits.MassFlowRate[nVal] m_flow_nominal
     "Nominal mass flow rate"
-    annotation(Dialog(group = "On/Off valve"));
+    annotation(Dialog(group = "Shutoff valve"));
   parameter Modelica.SIunits.PressureDifference[nVal] dpValve_nominal(
      each displayUnit="Pa",
      each min=0,
      each fixed= if CvData==Buildings.Fluid.Types.CvTypes.OpPoint then true else false)=fill(6000,nVal)
     "Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint"
-    annotation(Dialog(group="On/Off valve",
+    annotation(Dialog(group="Shutoff valve",
                enable = (CvData==Buildings.Fluid.Types.CvTypes.OpPoint)));
 
   parameter Modelica.SIunits.Density[nVal] rhoStd
     "Inlet density for which valve coefficients are defined"
-  annotation(Dialog(group="On/Off valve", tab="Advanced"));
+  annotation(Dialog(group="Shutoff valve", tab="Advanced"));
 
 protected
   parameter Real[nVal] Kv_SI(
     each min=0,
     each fixed= false)
     "Flow coefficient for fully open valve in SI units, Kv=m_flow/sqrt(dp) [kg/s/(Pa)^(1/2)]"
-  annotation(Dialog(group = "On/Off valve",
+  annotation(Dialog(group = "Shutoff valve",
                     enable = (CvData==Buildings.Fluid.Types.CvTypes.OpPoint)));
 initial equation
   if  CvData == Buildings.Fluid.Types.CvTypes.OpPoint then

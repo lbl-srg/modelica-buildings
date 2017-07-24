@@ -59,6 +59,13 @@ partial model PartialParallelElectricEIR
     final quantity=Medium2.extraPropertiesNames) = fill(1E-2, Medium2.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", group = "Medium 2", enable=Medium2.nC > 0));
+  Modelica.Blocks.Interfaces.BooleanInput on[n]
+    "Set to true to enable compressor, or false to disable compressor"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
+    "Set point for leaving water temperature" annotation (Placement(
+        transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
+          extent={{-140,-20},{-100,20}})));
 
   replaceable Buildings.Fluid.Chillers.BaseClasses.PartialElectric chi[n](
     redeclare each replaceable package Medium1 = Medium1,
@@ -95,13 +102,7 @@ partial model PartialParallelElectricEIR
     each final C2_nominal=C2_nominal)
     "Identical chiller with number n"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Interfaces.BooleanInput on[n]
-    "Set to true to enable compressor, or false to disable compressor"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
-    "Set point for leaving water temperature" annotation (Placement(
-        transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
-          extent={{-140,-20},{-100,20}})));
+
 
 equation
   for i in 1:n loop

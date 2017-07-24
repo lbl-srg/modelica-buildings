@@ -4,6 +4,7 @@ partial model PartialPlantParallelInterface "Partial model that implements the i
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
      final computeFlowResistance1=true,
      final computeFlowResistance2=true);
+
   parameter Integer n(min=1)=2 "Number of equipment";
 
   Modelica.Blocks.Math.BooleanToReal booToRea[n](

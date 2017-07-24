@@ -1,6 +1,6 @@
 within Buildings.ChillerWSE.Validation;
 model WatersideEconomizer
-  "Waterside economizer in a chilled water system"
+  "Validate model Buildings.ChillerWSE.WatersideEconomizer"
   import Buildings;
   extends Modelica.Icons.Example;
   extends Buildings.ChillerWSE.Validation.BaseClasses.PartialChillerWSE(
@@ -25,7 +25,7 @@ model WatersideEconomizer
     eta=0.8,
     dp1_nominal=dpCW_nominal,
     dp2_nominal=dpCHW_nominal,
-    use_Controller=true)
+    use_Controller=true) "Waterside economizer"
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 
   Modelica.Blocks.Sources.BooleanStep onWSE(startValue=true, startTime(

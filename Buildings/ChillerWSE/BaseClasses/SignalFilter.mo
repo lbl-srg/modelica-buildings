@@ -15,10 +15,10 @@ protected
      each final filterType=Modelica.Blocks.Types.FilterType.LowPass,
      x(each stateSelect=StateSelect.always)) if
         use_inputFilter
-    "Second order filter to approximate valve opening time, and to improve numerics"
+    "Second order filters to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{-54,78},{-42,90}})));
   Modelica.Blocks.Interfaces.RealOutput[nFilter] y_filtered if use_inputFilter
-    "Filtered valve position in the range 0..1"
+    "Filtered valve positions in the range 0..1"
     annotation (Placement(transformation(extent={{-28,76},{-12,92}}),
         iconTransformation(extent={{60,50},{80,70}})));
 

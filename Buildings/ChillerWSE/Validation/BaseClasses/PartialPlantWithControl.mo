@@ -18,7 +18,7 @@ partial model PartialPlantWithControl
     redeclare package Medium = Medium1,
     use_T_in=true,
     m_flow=m1_flow_nominal,
-    T=298.15)
+    T=298.15) "Source on medium 1 side"
     annotation (Placement(transformation(extent={{-62,16},{-42,36}})));
   Modelica.Blocks.Sources.Step T1_in(
     height=2,
@@ -29,7 +29,7 @@ partial model PartialPlantWithControl
     redeclare package Medium = Medium2,
     use_T_in=true,
     m_flow=m2_flow_nominal,
-    T=291.15)
+    T=291.15) "Source on medium 2 side"
     annotation (Placement(transformation(extent={{80,-20},{60,0}})));
   Modelica.Blocks.Sources.Constant
                                T2_in(k=273.15 + 15)
@@ -37,7 +37,7 @@ partial model PartialPlantWithControl
     annotation (Placement(transformation(extent={{58,-60},{78,-40}})));
   Buildings.Fluid.Sources.FixedBoundary           sin1(
     redeclare package Medium = Medium1,
-    nPorts=1)                           annotation (Placement(
+    nPorts=1) "Sink on medium 1 side"   annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={90,48})));
@@ -49,7 +49,7 @@ partial model PartialPlantWithControl
     annotation (Placement(transformation(extent={{40,38},{60,58}})));
   Buildings.Fluid.Sources.FixedBoundary           sin2(
     redeclare package Medium = Medium2,
-    nPorts=1)                           annotation (Placement(
+    nPorts=1) "Sink on medium 2 side"   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-90,-20})));

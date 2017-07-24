@@ -1,7 +1,7 @@
 within Buildings.ChillerWSE.Validation;
 model HeatExchanger
   "Model that demonstrates use of a waterside economizer with outlet temperature control"
-  import Buildings;
+
   extends Modelica.Icons.Example;
   extends Buildings.ChillerWSE.Validation.BaseClasses.PartialPlantWithControl(
     sou1(nPorts=1),
@@ -39,8 +39,8 @@ equation
           20,-10},{60,-10}}, color={0,127,255}));
   annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/ChillerWSE/Validation/HeatExchanger_T.mos"
-        "Simulate and plot"),
+          "Resources/Scripts/Dymola/ChillerWSE/Validation/HeatExchanger.mos"
+        "Simulate and Plot"),
 Documentation(info="<html>
 <p>
 This model tests
@@ -51,7 +51,7 @@ for different inlet conditions.
 </html>", revisions="<html>
 <ul>
 <li>
-April 28, 2008, by Michael Wetter:<br/>
+July 22, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,9 +1,9 @@
+ElectricChilerParallel
+HeatExchanger
 IntegratedPrimaryLoadSide
 IntegratedPrimaryPlantSide
 IntegratedPrimarySecondary
 NonIntegrated
-ElectricChilerParallel
-HeatExchanger_T
 WatersideEconomizer
 Examples
 Validation

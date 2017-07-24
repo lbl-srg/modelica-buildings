@@ -1,5 +1,5 @@
 within Buildings.ChillerWSE;
-model WatersideEconomizer "Parallel heat exchangers"
+model WatersideEconomizer "Waterside economizer"
   extends Buildings.ChillerWSE.BaseClasses.PartialPlantParallel(
     final n=1,
     final nVal=2,
@@ -29,12 +29,12 @@ model WatersideEconomizer "Parallel heat exchangers"
   parameter Modelica.SIunits.Efficiency eta(start=0.8) "constant effectiveness";
 
  // Bypass valve parameters
-  parameter Modelica.SIunits.Time tau_BypVal=10 if use_Controller
+  parameter Modelica.SIunits.Time tau_ThrWayVal=10 if use_Controller
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
     annotation(Dialog(tab="Dynamics", group="Nominal condition",
                enable=use_Controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
-  Buildings.ChillerWSE.HeatExchanger_T heaExc(
+  Buildings.ChillerWSE.HeatExchanger heaExc(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
     final use_Controller=use_Controller,
@@ -82,17 +82,16 @@ model WatersideEconomizer "Parallel heat exchangers"
     final init=initValve,
     final yBypVal_start=yBypVal_start,
     final eta=eta,
-    final fraK_BypVal=fraK_BypVal,
-    each final l_BypVal=l_BypVal,
+    final fraK_ThrWayVal=fraK_ThrWayVal,
+    each final l_ThrWayVal=l_ThrWayVal,
     final R=R,
     final delta0=delta0,
-    final tau_BypVal=tau_BypVal,
+    final tau_ThrWayVal=tau_ThrWayVal,
     final portFlowDirection_1=portFlowDirection_1,
     final portFlowDirection_2=portFlowDirection_2,
     final portFlowDirection_3=portFlowDirection_3,
     final rhoStd=rhoStd[2],
-    final reverseAction=reverseAction)
-    "Water-to-water heat exchanger"
+    final reverseAction=reverseAction) "Water-to-water heat exchanger"
     annotation (Placement(transformation(extent={{-10,-12},{10,4}})));
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC") if use_Controller
     "Set point for leaving water temperature" annotation (Placement(
@@ -118,7 +117,22 @@ equation
   connect(val2[1].port_a, heaExc.port_b2) annotation (Line(points={{-40,-22},{-40,
           -22},{-40,-10},{-10,-10}}, color={0,127,255}));
   annotation (Documentation(info="<html>
-This model implements a heat exchanger parallel with <code>n</code> identical heat exchangers.
+<p>
+This module impliments a waterside economizer model that consists of a 
+<a href=\"Modelica://Buildings.ChillerWSE.HeatExchanger\">heat exchanger</a> and a shutoff valve on each medium side. 
+This waterside economizer model can be used in two different control scenarios:
+</p>
+<ol>
+<li>The temperature at <code>port_b2</code> is controlled by a built-in PID controller and a three-way valve 
+by setting the parameter <code>use_Controller</code> as <code>true</code>.
+</li>
+<li>The temperature at <code>port_b2</code> is NOT controlled by a built-in controller 
+by setting the parameter <code>use_Controller</code> as <code>false</code>. 
+Hence, an outside controller can be used to control the temperature. For example, in the free-cooling mode,
+the speed of variable-speed cooling tower fans can be adjusted to maintain the supply chilled water temperature 
+around the setpoint.
+</li>
+</ol>
 </html>", revisions="<html>
 <ul>
 <li>

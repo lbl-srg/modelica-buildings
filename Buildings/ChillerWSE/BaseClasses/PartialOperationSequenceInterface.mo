@@ -10,6 +10,7 @@ partial model PartialOperationSequenceInterface
 protected
   Modelica.Blocks.Sources.Constant uni(final k=1) "Unitary signal"
     annotation (Placement(transformation(extent={{-60,88},{-48,100}})));
+
 equation
   connect(uni.y, inv.u1) annotation (Line(points={{-47.4,94},{-12.8,94}},
         color={0,0,127}));

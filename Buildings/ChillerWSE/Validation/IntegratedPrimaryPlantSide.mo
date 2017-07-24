@@ -1,7 +1,7 @@
 within Buildings.ChillerWSE.Validation;
 model IntegratedPrimaryPlantSide
   "Integrated WSE on the plant side in a primary-only chilled water system"
-  import Buildings;
+
   extends Modelica.Icons.Example;
   extends Buildings.ChillerWSE.Validation.BaseClasses.PartialChillerWSE(
     sou1(nPorts=1),
@@ -26,12 +26,13 @@ model IntegratedPrimaryPlantSide
     dpWSE2_nominal=dpCHW_nominal,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     redeclare
-      Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHF_2567kW_11_77COP_VSD
+      Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHF_2567kW_11_77COP_VSD
       perChi,
     k=0.4,
     Ti=80,
     nChi=nChi,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    "Integrated waterside economizer in the primary-only chilled water system"
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 
   Modelica.Blocks.Sources.RealExpression yVal5(y=if onChi.y and not onWSE.y

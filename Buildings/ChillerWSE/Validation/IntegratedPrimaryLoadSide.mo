@@ -31,6 +31,7 @@ model IntegratedPrimaryLoadSide
     perPum=perPum,
     nChi=nChi,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    "Integrated waterside economizer on the load side of the primary-only chilled water system"
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 
   Modelica.Blocks.Sources.Constant yVal7(k=0) "Conrol signal for valve 7"
