@@ -26,26 +26,27 @@ partial model PartialChillerWSE
     Placement(transformation(extent={{70,78},{90,98}})));
   parameter Real[2] lValveChiller(each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="On/Off valve"));
+    annotation(Dialog(group="Shutoff valve"));
   parameter Real[2] kFixedChiller(each unit="",each min=0)=
     {mChiller1_flow_nominal,mChiller2_flow_nominal} ./ sqrt({dpChiller1_nominal,dpChiller2_nominal})
     "Flow coefficient of fixed resistance that may be in series with valves
     in chillers, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="On/Off valve"));
+    annotation(Dialog(group="Shutoff valve"));
   parameter Real[nChi] yValveChiller_start=fill(0,nChi) "Initial value of output from on/off valves in chillers"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
 
   //WSE
-  parameter Modelica.SIunits.Efficiency eta=0.8 "Heat exchange effectiveness"
-    annotation(Dialog(group="WSE"));
+  parameter Modelica.SIunits.Efficiency eta(min=0,max=1)=0.8 "Heat exchange effectiveness"
+    annotation(Dialog(group="Waterside economizer"));
+
   parameter Real[2] lValveWSE(each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="On/Off valve"));
+    annotation(Dialog(group="Shutoff valve"));
   parameter Real[2] kFixedWSE(each unit="", each min=0)=
     {mWSE1_flow_nominal/ sqrt(dpWSE1_nominal),0}
     "Flow coefficient of fixed resistance that may be in series with valves 
     in WSE, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="On/Off valve"));
+    annotation(Dialog(group="Shutoff valve"));
   parameter Real yValveWSE_start=0 "Initial value of output from on/off valve in WSE"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
   parameter Real yBypValWSE_start=0 if use_Controller "Initial value of output from three-way bypass valve in WSE"
@@ -70,7 +71,7 @@ partial model PartialChillerWSE
                  enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   parameter Modelica.SIunits.Time tauWSE=10 if use_Controller
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
-    annotation(Dialog(tab="Dynamics", group="WSE",
+    annotation(Dialog(tab="Dynamics", group="Waterside economizer",
                enable= use_Controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   // Initialization
@@ -203,22 +204,21 @@ partial model PartialChillerWSE
     final reset=reset,
     final y_reset=y_reset,
     final eta=eta,
-    final fraK_BypVal=fraK_BypVal,
-    final l_BypVal=l_BypVal,
+    final fraK_ThrWayVal=fraK_ThrWayVal,
+    final l_ThrWayVal=l_ThrWayVal,
     final R=R,
     final delta0=delta0,
     final dpValve_nominal=dpValve_nominal[3:4],
     final rhoStd=rhoStd[3:4],
     final yBypVal_start=yBypValWSE_start,
     final yValWSE_start=yValveWSE_start,
-    final tau_BypVal=tauWSE,
+    final tau_ThrWayVal=tauWSE,
     final use_Controller=use_Controller,
     final reverseAction=reverseAction,
     final show_T=show_T,
     final portFlowDirection_1=portFlowDirection_1,
     final portFlowDirection_2=portFlowDirection_2,
-    final portFlowDirection_3=portFlowDirection_3)
-    "Waterside economizer"
+    final portFlowDirection_3=portFlowDirection_3) "Waterside economizer"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 equation
   for i in 1:nChi loop
@@ -226,8 +226,8 @@ equation
             72},{-120,72}},
                 color={255,0,255}));
   end for;
-  connect(on[nChi+1], wse.on[1]) annotation (Line(points={{-120,72},{-92,72},{20,
-          72},{20,34},{38,34}},
+  connect(on[nChi+1], wse.on[1]) annotation (Line(points={{-120,72},{-120,72},{
+          30,72},{30,34},{38,34}},
         color={255,0,255}));
   connect(chiPar.TSet, TSet) annotation (Line(points={{-62,30},{-84,30},{-84,
           104},{-120,104}},
@@ -241,7 +241,7 @@ equation
   connect(port_a1, wse.port_a1) annotation (Line(points={{-100,60},{-80,60},{0,
           60},{0,36},{40,36}},        color={0,127,255}));
   connect(TSet, wse.TSet) annotation (Line(points={{-120,104},{-84,104},{-84,80},
-          {16,80},{16,30},{38,30}}, color={0,0,127}));
+          {26,80},{26,30},{38,30}}, color={0,0,127}));
   connect(y_reset_in, wse.y_reset_in) annotation (Line(points={{-90,-100},{-90,-100},
           {-90,10},{40,10},{40,20}},                   color={0,0,127}));
   connect(trigger, wse.trigger) annotation (Line(points={{-60,-100},{-60,-100},{
