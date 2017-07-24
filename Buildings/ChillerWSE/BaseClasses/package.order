@@ -2,7 +2,7 @@ FourPortResistanceChillerWSE
 PartialChillerWSE
 PartialChillerWSEInterface
 PartialControllerInterface
-PartialHeatExchanger_T
+PartialHeatExchanger
 PartialIntegratedPrimary
 PartialParallelElectricEIR
 PartialPlantParallel
@@ -12,4 +12,3 @@ SignalFilterParameters
 SignalFilter
 ThreeWayValveParameters
 ValvesParameters
-Examples

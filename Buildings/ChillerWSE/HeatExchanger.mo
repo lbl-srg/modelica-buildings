@@ -1,6 +1,5 @@
 within Buildings.ChillerWSE;
-model HeatExchanger_T
-  "Heat exchanger with outlet temperature control on medium 2 side"
+model HeatExchanger "Heat exchanger"
   extends Buildings.ChillerWSE.BaseClasses.PartialHeatExchanger_T;
   extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface;
 
@@ -24,9 +23,9 @@ model HeatExchanger_T
     final y_reset=y_reset) if use_Controller
     "Controller for temperature at port_b2"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Modelica.Blocks.Sources.RealExpression T_port_b2(y=T_outflow) if use_Controller
+  Modelica.Blocks.Sources.RealExpression T_b2(y=T_outflow) if use_Controller
     "Temperature at port_b2"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
 protected
   Medium2.Temperature T_outflow "Temperature of outflowing fluid at port_b on medium 2 side";
@@ -36,8 +35,8 @@ equation
       p=port_b2.p, h=actualStream(port_b2.h_outflow), X=actualStream(port_b2.Xi_outflow)));
 
   if use_Controller then
-  connect(T_port_b2.y, con.u_m)
-    annotation (Line(points={{-79,0},{-70,0},{-70,28}},  color={0,0,127}));
+  connect(T_b2.y, con.u_m) annotation (Line(points={{-59,70},{-44,70},{-44,20},
+            {-70,20},{-70,28}}, color={0,0,127}));
   connect(TSet, con.u_s)
     annotation (Line(points={{-120,40},{-120,40},{-82,40}}, color={0,0,127}));
   connect(con.y, bypVal.y)
@@ -55,9 +54,14 @@ equation
     __Dymola_Commands,
     Documentation(info="<html>
 <p>
-This module simulates a heat exchanger with a three-way valve used to modulate water flow rate 
-in order to control the temperature at <code>port_b2</code> by a PID controller <code>con</code>.
-The three-way valve has the same differential pressure as the heat exchanger.
+This module impliments a heat exchanger model with a built-in PID controller to 
+control the outlet temperature at <code>port_b2</code> if set parameter 
+<code>use_Controller=true </code>. Otherwise, if <code>use_Controller=false</code>, 
+the PID controller and the three-way valve are removed and the outlet temperature at <code>port_b2</code> will
+not be controlled.  
+</p>
+<p>  
+Note that if the three-way valve is activated, it'll have the same differential pressure as the heat exchanger.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -67,4 +71,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HeatExchanger_T;
+end HeatExchanger;

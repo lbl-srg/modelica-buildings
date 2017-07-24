@@ -1,5 +1,5 @@
 within Buildings.ChillerWSE.Validation;
-model HeatExchanger_T
+model HeatExchanger
   "Model that demonstrates use of a waterside economizer with outlet temperature control"
   import Buildings;
   extends Modelica.Icons.Example;
@@ -7,7 +7,7 @@ model HeatExchanger_T
     sou1(nPorts=1),
     sou2(nPorts=1),
     T1_in(offset=273.15 + 4, startTime=1800));
-  Buildings.ChillerWSE.HeatExchanger_T hx(
+  Buildings.ChillerWSE.HeatExchanger hx(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=m1_flow_nominal,
@@ -16,8 +16,7 @@ model HeatExchanger_T
     dp1_nominal=dp1_nominal,
     dp2_nominal=dp2_nominal,
     T_start=273.15 + 10,
-    use_Controller=false)
-    "Water-to-water heat exchanger"
+    use_Controller=true) "Water-to-water heat exchanger"
     annotation (Placement(transformation(extent={{-10,-8},{10,8}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium2,
@@ -57,4 +56,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HeatExchanger_T;
+end HeatExchanger;
