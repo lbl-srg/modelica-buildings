@@ -4,11 +4,6 @@ block EconEnableDisableSingleZone
 
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air (OA) enthalpy in addition to temperature";
-  parameter Modelica.SIunits.Temperature delTOutHis=1
-    "Delta between the temperature hysteresis high and low limit";
-  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
-    "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy));
   parameter Modelica.SIunits.Time smaDisDel = 0
     "Optional small time delay before closing the OA damper at disable to avoid pressure fluctuations";
   parameter Real retDamPhyPosMax(final min=0, max=1, unit="1") = 1
@@ -16,27 +11,27 @@ block EconEnableDisableSingleZone
   parameter Real retDamPhyPosMin(final min=0, max=1, unit="1") = 0
     "Physically fixed minimum position of the return air damper";
 
-  CDL.Interfaces.RealInput TOut(final unit="K", quantity = "ThermodynamicTemperature")
+  CDL.Interfaces.RealInput TOut(final unit="K", final quantity = "ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-220,250},{-180,290}}),
       iconTransformation(extent={{-120,90},{-100,110}})));
-  CDL.Interfaces.RealInput hOut(final unit="J/kg", quantity="SpecificEnergy") if use_enthalpy
+  CDL.Interfaces.RealInput hOut(final unit="J/kg", final quantity="SpecificEnergy") if use_enthalpy
     "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-220,170},{-180,210}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
-  CDL.Interfaces.RealInput TOutCut(final unit="K", quantity = "ThermodynamicTemperature")
+  CDL.Interfaces.RealInput TOutCut(final unit="K", final quantity = "ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-220,210},{-180,250}}),
       iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput hOutCut(final unit="J/kg", quantity="SpecificEnergy") if use_enthalpy
+  CDL.Interfaces.RealInput hOutCut(final unit="J/kg", final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),iconTransformation(extent={{-120,30},{-100,50}})));
-  CDL.Interfaces.RealInput uOutDamPosMin(final min=0, max=1)
-    "Minimum outdoor air damper position, from EconDamperPositionLimitsMultiZone sequence"
+  CDL.Interfaces.RealInput uOutDamPosMin(final min=0, final max=1)
+    "Minimum outdoor air damper position, get from damper position limits sequence"
     annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
       iconTransformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Interfaces.RealInput uOutDamPosMax(final min=0, max=1)
-    "Maximum outdoor air damper position, from EconDamperPositionLimitsMultiZone sequence"
+  CDL.Interfaces.RealInput uOutDamPosMax(final min=0, final max=1)
+    "Maximum outdoor air damper position, get from damper position limits sequence"
     annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
       iconTransformation(extent={{-120,-50},{-100,-30}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply fan on/off status signal"
@@ -48,19 +43,45 @@ block EconEnableDisableSingleZone
     annotation (Placement(transformation(extent={{-220,30},{-180,70}}),
       iconTransformation(extent={{-120,10},{-100,30}})));
 
-  CDL.Interfaces.RealOutput yOutDamPosMax(final min=0, max=1, unit="1")
+  CDL.Interfaces.RealOutput yOutDamPosMax(final min=0, final max=1, final unit="1")
     "Maximum outdoor air damper position"
     annotation (Placement(transformation(extent={{180,-150},{200,-130}}),
       iconTransformation(extent={{100,28},{140,68}})));
-  CDL.Interfaces.RealOutput yRetDamPosMin(final min=retDamPhyPosMin, max=retDamPhyPosMax, unit="1")
+  CDL.Interfaces.RealOutput yRetDamPosMin(final min=retDamPhyPosMin, final max=retDamPhyPosMax, final unit="1")
     "Minimum return air damper position"
     annotation (Placement(transformation(extent={{180,-250},{200,-230}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
-  CDL.Interfaces.RealOutput yRetDamPosMax(final min=retDamPhyPosMin, max=retDamPhyPosMax, unit="1")
+  CDL.Interfaces.RealOutput yRetDamPosMax(final min=retDamPhyPosMin, final max=retDamPhyPosMax, final unit="1")
     "Maximum return air damper position"
     annotation (Placement(transformation(
       extent={{180,-220},{200,-200}}), iconTransformation(extent={{100,-40},{140,0}})));
 
+  CDL.Logical.And3 andEnaDis "Logical and that checks freeze protection stage and zone state"
+   annotation (Placement(transformation(extent={{40,30},{60,50}})));
+  CDL.Logical.TrueFalseHold trueFalseHold(duration=600) "10 min on/off delay"
+    annotation (Placement(transformation(extent={{0,200},{20,220}})));
+
+protected
+  final parameter Modelica.SIunits.Temperature delTOutHis=1
+    "Delta between the temperature hysteresis high and low limit";
+  final parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
+    "Delta between the enthalpy hysteresis high and low limits"
+    annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy));
+  final parameter Modelica.SIunits.Temperature TOutHigLimCutHig = 0
+    "Hysteresis high limit cutoff";
+  final parameter Modelica.SIunits.Temperature TOutHigLimCutLow = TOutHigLimCutHig - delTOutHis
+    "Hysteresis low limit cutoff";
+  final parameter Modelica.SIunits.SpecificEnergy hOutHigLimCutHig = 0
+    "Hysteresis block high limit cutoff";
+  final parameter Modelica.SIunits.SpecificEnergy hOutHigLimCutLow = hOutHigLimCutHig - delEntHis
+    "Hysteresis block low limit cutoff";
+
+  CDL.Continuous.Sources.Constant disableDelay(final k=smaDisDel)
+    "Small delay before closing the outdoor air damper to avoid pressure fluctuations"
+    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
+  CDL.Logical.Sources.Constant entSubst(final k=false) if not use_enthalpy
+    "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
+    annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
   CDL.Continuous.Sources.Constant retDamPhyPosMinSig(final k=retDamPhyPosMin)
     "Physically fixed minimum position of the return air damper"
     annotation (Placement(transformation(extent={{-140,-258},{-120,-238}})));
@@ -73,13 +94,17 @@ block EconEnableDisableSingleZone
   CDL.Logical.Hysteresis hysOutEnt(final uLow=hOutHigLimCutLow, final uHigh=hOutHigLimCutHig) if use_enthalpy
     "Outdoor air enthalpy hysteresis for both fixed and differential enthalpy cutoff conditions"
     annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
+  CDL.Continuous.Add add2(final k2=-1) if use_enthalpy
+    "Add block that determines the difference between hOut and hOutCut"
+    annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
+  CDL.Continuous.Add add1(final k2=-1)
+    "Add block that determines difference the between TOut and TOutCut"
+    annotation (Placement(transformation(extent={{-140,240},{-120,260}})));
   CDL.Logical.Switch outDamSwitch "Set maximum OA damper position to minimum at disable (after time delay)"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
   CDL.Logical.Switch minRetDamSwitch
     "Keep minimum RA damper position at physical maximum for a short time period after disable"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
-  CDL.Logical.TrueFalseHold trueFalseHold(duration=600) "10 min on/off delay"
-    annotation (Placement(transformation(extent={{0,200},{20,220}})));
   CDL.Logical.GreaterEqual greEqu "Logical greater or equal block"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
   CDL.Logical.Timer timer "Timer gets started as the economizer gets disabled"
@@ -88,8 +113,6 @@ block EconEnableDisableSingleZone
     annotation (Placement(transformation(extent={{-40,200},{-20,220}})));
   CDL.Logical.Not not2 "Logical not that starts the timer at disable signal "
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
-  CDL.Logical.And3 andEnaDis "Logical and that checks freeze protection stage and zone state"
-   annotation (Placement(transformation(extent={{40,30},{60,50}})));
   CDL.Logical.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage0)
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
@@ -109,38 +132,17 @@ block EconEnableDisableSingleZone
   CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
     annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
 
-protected
-  final parameter Modelica.SIunits.Temperature TOutHigLimCutHig = 0
-    "Hysteresis high limit cutoff";
-  final parameter Modelica.SIunits.Temperature TOutHigLimCutLow = TOutHigLimCutHig - delTOutHis
-    "Hysteresis low limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutHigLimCutHig = 0
-    "Hysteresis block high limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutHigLimCutLow = hOutHigLimCutHig - delEntHis
-    "Hysteresis block low limit cutoff";
-
-  CDL.Continuous.Sources.Constant disableDelay(final k=smaDisDel)
-    "Small delay before closing the outdoor air damper to avoid pressure fluctuations"
-    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
-  CDL.Continuous.Add add2(final k2=-1) if use_enthalpy
-    "Add block that determines the difference between hOut and hOutCut"
-    annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
-  CDL.Continuous.Add add1(final k2=-1)
-    "Add block that determines difference the between TOut and TOutCut"
-    annotation (Placement(transformation(extent={{-140,240},{-120,260}})));
-  CDL.Logical.Sources.Constant entSubst(final k=false) if not use_enthalpy
-    "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
-    annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
-
 equation
-  connect(outDamSwitch.y, yOutDamPosMax) annotation (Line(points={{61,-140},{61,-140},{190,-140}}, color={0,0,127}));
-  connect(TOut, add1.u1) annotation (Line(points={{-200,270},{-160,270},{-160,256},{-142,256}},
-        color={0,0,127}));
-  connect(TOutCut, add1.u2) annotation (Line(points={{-200,230},{-160,230},{-160,244},{-142,244}},
-        color={0,0,127}));
-  connect(add1.y, hysOutTem.u) annotation (Line(points={{-119,250},{-102,250}}, color={0,0,127}));
-  connect(hOut, add2.u1) annotation (Line(points={{-200,190},{-160,190},{-160,176},{-142,176}},
-        color={0,0,127}));
+  connect(outDamSwitch.y, yOutDamPosMax)
+    annotation (Line(points={{61,-140},{61,-140},{190,-140}}, color={0,0,127}));
+  connect(TOut, add1.u1)
+    annotation (Line(points={{-200,270},{-160,270},{-160,256},{-142,256}},color={0,0,127}));
+  connect(TOutCut, add1.u2)
+    annotation (Line(points={{-200,230},{-160,230},{-160,244},{-142,244}},color={0,0,127}));
+  connect(add1.y, hysOutTem.u)
+    annotation (Line(points={{-119,250},{-102,250}}, color={0,0,127}));
+  connect(hOut, add2.u1)
+    annotation (Line(points={{-200,190},{-160,190},{-160,176},{-142,176}},color={0,0,127}));
   connect(hOutCut, add2.u2)
     annotation (Line(points={{-200,150},{-160,150},{-160,164},{-142,164}}, color={0,0,127}));
   connect(add2.y, hysOutEnt.u) annotation (Line(points={{-119,170},{-102,170}}, color={0,0,127}));
@@ -274,10 +276,11 @@ heating"),                           Text(
 <p>
 This is a single zone VAV AHU economizer enable/disable sequence
 based on ASHRAE G36 PART5-P.5 and PART5-A.17. Additional
-conditions included in the sequence are: freeze protection (freeze protection
-stage 0-3, see PART5-P.9), supply fan status (on or off, based on PART5-P.4.d),
-and zone state (cooling, heating, or deadband, as illustrated in the
-modulation control chart, PART5-P.3.b).
+conditions included in the sequence are: <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages</a> (PART5-P.9), 
+supply fan status <code>TSupFan</code> (PART5-P.4.d), 
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.ZoneStates\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.ZoneStates</a> (PART5-P.3.b).
 </p>
 <p>
 Economizer shall be disabled whenever the outdoor air conditions
@@ -287,7 +290,7 @@ ASHRAE 90.1-2013 and Title 24-2013.
 </p>
 <p>
 In addition, economizer shall be disabled without a delay whenever any of the
-following is true: supply fan is off, zone state is <code>Heating</code>,
+following is true: supply fan is off, zone state is <code>heating</code>,
 freeze protection stage is not <code>0</code>.
 </p>
 <p>
