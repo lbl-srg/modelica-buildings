@@ -5,37 +5,43 @@ block EconModulationSingleZone
   parameter Real kPMod=1 "Gain of modulation controller";
   parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block";
 
-  CDL.Interfaces.RealInput TSup(final unit="K", quantity = "ThermodynamicTemperature")
+  CDL.Interfaces.RealInput TSup(final unit="K", final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature" annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
-  CDL.Interfaces.RealInput THeaSet(final unit="K", quantity = "ThermodynamicTemperature")
+  CDL.Interfaces.RealInput THeaSet(final unit="K", final quantity = "ThermodynamicTemperature")
     "Supply air temperature heating setpoint" annotation (Placement(transformation(extent={{-160,-10},{-120,30}}),
         iconTransformation(extent={{-120,80},{-100,100}})));
-  CDL.Interfaces.RealInput uOutDamPosMin(final min=0, max=1, unit="1")
+  CDL.Interfaces.RealInput uOutDamPosMin(final min=0, final max=1, final unit="1")
     "Minimum economizer damper position limit as returned by the damper position limits sequence"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
         iconTransformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Interfaces.RealInput uOutDamPosMax(final min=0, max=1, unit="1")
+  CDL.Interfaces.RealInput uOutDamPosMax(final min=0, final max=1, final unit="1")
     "Maximum economizer damper position limit as returned by the economizer enable-disable sequence.
     If the economizer is disabled, this value equals uOutDamPosMin"
     annotation (Placement(transformation(extent={{-160,-90},{-120,-50}}),
         iconTransformation(extent={{-120,0},{-100,20}})));
-  CDL.Interfaces.RealInput uRetDamPosMin(final min=0, max=1, unit="1")
+  CDL.Interfaces.RealInput uRetDamPosMin(final min=0, final max=1, final unit="1")
     "Minimum return air damper position limit as returned by the economizer enable-disable sequence"
     annotation (Placement(transformation(extent={{-160,40},{-120,80}}),
         iconTransformation(extent={{-120,-100},{-100,-80}})));
-  CDL.Interfaces.RealInput uRetDamPosMax(final min=0, max=1, unit="1")
+  CDL.Interfaces.RealInput uRetDamPosMax(final min=0, final max=1, final unit="1")
     "Maximum return air damper position limit as returned by the economizer enable-disable sequence"
     annotation (Placement(transformation(extent={{-160,80},{-120,120}}),
         iconTransformation(extent={{-120,-70},{-100,-50}})));
 
-  CDL.Interfaces.RealOutput yOutDamPos(final min=0, max=1, unit="1") "Economizer damper position"
+  CDL.Interfaces.RealOutput yOutDamPos(final min=0, final max=1, final unit="1") "Economizer damper position"
     annotation (Placement(transformation(extent={{120,-30},{140,-10}}),
         iconTransformation(extent={{100,-30},{120,-10}})));
-  CDL.Interfaces.RealOutput yRetDamPos(final min=0, max=1, unit="1") "Return air damper position"
+  CDL.Interfaces.RealOutput yRetDamPos(final min=0, final max=1, final unit="1") "Return air damper position"
     annotation (Placement(transformation(extent={{120,10},{140,30}}),
         iconTransformation(extent={{100,10},{120,30}})));
 
+  CDL.Continuous.Line outDamPos(limitBelow=true, limitAbove=true)
+    "Damper position is linearly proportional to the control signal between signal limits"
+    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+  CDL.Continuous.Line retDamPos(limitBelow=true, limitAbove=true)
+    "Damper position is linearly proportional to the control signal between signal limits"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   CDL.Continuous.LimPID damPosCon(
     final controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
     final Td=0.1,
@@ -45,12 +51,6 @@ block EconModulationSingleZone
     final Ti=TiMod)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  CDL.Continuous.Line outDamPos(limitBelow=true, limitAbove=true)
-    "Damper position is linearly proportional to the control signal between signal limits"
-    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  CDL.Continuous.Line retDamPos(limitBelow=true, limitAbove=true)
-    "Damper position is linearly proportional to the control signal between signal limits"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
 protected
   final parameter Real conSigMin=0 "Lower limit of controller output";
@@ -59,7 +59,7 @@ protected
   CDL.Continuous.Sources.Constant outDamMinLimSig(final k=damPosCon.yMin)
     "Minimal control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  CDL.Continuous.Sources.Constant retDamMaxLimSig(k=damPosCon.yMax)
+  CDL.Continuous.Sources.Constant retDamMaxLimSig(final k=damPosCon.yMax)
     "Maximal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
