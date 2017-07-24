@@ -1,6 +1,6 @@
 within Buildings.ChillerWSE;
 model HeatExchanger "Heat exchanger"
-  extends Buildings.ChillerWSE.BaseClasses.PartialHeatExchanger_T;
+  extends Buildings.ChillerWSE.BaseClasses.PartialHeatExchanger;
   extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface;
 
   Buildings.Controls.Continuous.LimPID con(
