@@ -3,13 +3,6 @@ model EconDamperPositionLimitsMultiZone_VOut_flow
   "Validation model for the multiple zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
-    "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=0.61
-    "Minimal measured volumetric airflow";
-  parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=0.2
-    "Maximum volumetric airflow increase during the example simulation";
-
   CDL.Continuous.Sources.Constant VOutMinSet_flow(k=minVOutSet_flow)
     "Outdoor volumetric airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
@@ -25,6 +18,13 @@ model EconDamperPositionLimitsMultiZone_VOut_flow
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected
+  parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
+    "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
+  parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=0.61
+    "Minimal measured volumetric airflow";
+  parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=0.2
+    "Maximum volumetric airflow increase during the example simulation";
+
   CDL.Logical.Sources.Constant fanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   CDL.Integers.Sources.Constant freProSta(k=Constants.FreezeProtectionStages.stage0) "Freeze protection status 0 - disabled"
