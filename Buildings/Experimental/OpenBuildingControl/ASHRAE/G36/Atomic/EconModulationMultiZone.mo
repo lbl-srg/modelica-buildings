@@ -139,7 +139,7 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                    Text(
-          extent={{-84,56},{-40,16}},
+          extent={{-80,54},{-36,14}},
           lineColor={0,0,0},
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,

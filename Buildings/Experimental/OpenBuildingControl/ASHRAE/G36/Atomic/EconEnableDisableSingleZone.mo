@@ -253,7 +253,7 @@ conditions"),                        Text(
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Freeze protection -
-disable if \"stage1\"
+disable if stage1
 and above"),                         Text(
           extent={{100,-34},{214,-86}},
           lineColor={0,0,0},
@@ -265,7 +265,7 @@ limit assignments"),                 Text(
           horizontalAlignment=TextAlignment.Left,
           textString="Zone state -
 disable if
-\"heating\""),                       Text(
+heating"),                           Text(
           extent={{100,102},{182,92}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,

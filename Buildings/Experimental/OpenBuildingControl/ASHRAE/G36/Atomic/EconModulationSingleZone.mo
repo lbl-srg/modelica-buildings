@@ -36,7 +36,7 @@ block EconModulationSingleZone
     annotation (Placement(transformation(extent={{120,10},{140,30}}),
         iconTransformation(extent={{100,10},{120,30}})));
 
-  CDL.Continuous.LimPID damPosController(
+  CDL.Continuous.LimPID damPosCon(
     final controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
     final Td=0.1,
     final yMax=conSigMax,
@@ -56,15 +56,15 @@ protected
   final parameter Real conSigMin=0 "Lower limit of controller output";
   final parameter Real conSigMax=1 "Upper limit of controller output";
 
-  CDL.Continuous.Sources.Constant outDamMinLimSig(final k=damPosController.yMin)
+  CDL.Continuous.Sources.Constant outDamMinLimSig(final k=damPosCon.yMin)
     "Minimal control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  CDL.Continuous.Sources.Constant retDamMaxLimSig(k=damPosController.yMax)
+  CDL.Continuous.Sources.Constant retDamMaxLimSig(k=damPosCon.yMax)
     "Maximal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
 equation
-  connect(TSup,damPosController. u_m)
+  connect(TSup,damPosCon. u_m)
     annotation (Line(points={{-140,-20},{-70,-20},{-70,-2}},color={0,0,127}));
   connect(outDamPos.y, yOutDamPos)
     annotation (Line(points={{81,-30},{100,-30},{100,-20},{120,-20},{130,-20}},color={0,0,127}));
@@ -72,9 +72,9 @@ equation
     annotation (Line(points={{81,70},{100,70},{100, 20},{130,20}}, color={0,0,127}));
   connect(retDamMaxLimSig.y,retDamPos. x2)
     annotation (Line(points={{1,40},{2,40}, {0,40},{40,40},{40,66},{58,66},{58,66}},color={0,0,127}));
-  connect(damPosController.y,retDamPos. u) annotation (Line(points={{-59,10},{30,
+  connect(damPosCon.y,retDamPos. u) annotation (Line(points={{-59,10},{30,
           10},{30,70},{58,70}}, color={0,0,127}));
-  connect(damPosController.y, outDamPos.u) annotation (Line(points={{-59,10},{40,
+  connect(damPosCon.y, outDamPos.u) annotation (Line(points={{-59,10},{40,
           10},{40,-30},{58,-30}},color={0,0,127}));
   connect(uRetDamPosMax,retDamPos. f1) annotation (Line(points={{-140,100},{50,100},
           {50,74},{58,74}}, color={0,0,127}));
@@ -82,7 +82,7 @@ equation
           -100},{28,-100},{28,-26},{58,-26}}, color={0,0,127}));
   connect(outDamMinLimSig.y, outDamPos.x1) annotation (Line(points={{1,-10},{1,-10},
           {28,-10},{28,-22},{58,-22}}, color={0,0,127}));
-  connect(THeaSet, damPosController.u_s) annotation (Line(points={{-140,10},{-140,
+  connect(THeaSet, damPosCon.u_s) annotation (Line(points={{-140,10},{-140,
           10},{-82,10}}, color={0,0,127}));
   connect(uRetDamPosMin,retDamPos. f2)
     annotation (Line(points={{-140,60},{-40,60},{-40,62},{58,62}}, color={0,0,127}));
@@ -127,7 +127,7 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                    Text(
-          extent={{-84,56},{-40,16}},
+          extent={{-80,56},{-36,16}},
           lineColor={0,0,0},
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,

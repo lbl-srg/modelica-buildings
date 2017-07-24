@@ -79,10 +79,10 @@ protected
   CDL.Continuous.Sources.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
     "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
-  CDL.Continuous.Sources.Constant minSignalLimit(final k=conSigMin)
+  CDL.Continuous.Sources.Constant minSigLim(final k=conSigMin)
     "Equals minimum controller output signal"
     annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
-  CDL.Continuous.Sources.Constant maxSignalLimit(final k=conSigMax)
+  CDL.Continuous.Sources.Constant maxSigLim(final k=conSigMax)
     "Equals maximum controller output signal"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
   CDL.Continuous.Sources.Constant sigFraForOutDam(final k=conSigFraOutDam)
@@ -130,7 +130,7 @@ equation
     annotation (Line(points={{61,-20},{61,-18},{61,-20},{100,-20},{100,102},{118,102}},color={0,0,127}));
   connect(sigFraForOutDam.y,minRetDam. x1)
     annotation (Line(points={{-39,210},{-30,210},{-30,118},{118,118}},color={0,0,127}));
-  connect(maxSignalLimit.y,minRetDam. x2)
+  connect(maxSigLim.y,minRetDam. x2)
     annotation (Line(points={{1,210},{8,210},{8,106},{118,106}},color={0,0,127}));
   connect(VOut_flow,damLimCon. u_m)
     annotation (Line(points={{-200,170},{-130,170},{-130,178}},color={0,0,127}));
@@ -140,7 +140,7 @@ equation
     annotation (Line(points={{-119,190},{-80,190},{-80,110},{118,110}},color={0,0,127}));
   connect(outDamPosMaxSwitch.y, minOutDam.f2)
     annotation (Line(points={{61,20},{110,20},{110,142},{118,142}}, color={0,0,127}));
-  connect(minSignalLimit.y,minOutDam. x1)
+  connect(minSigLim.y,minOutDam. x1)
     annotation (Line(points={{-79,210},{-70,210},{-70,158},{118,158}},color={0,0,127}));
   connect(sigFraForOutDam.y,minOutDam. x2)
     annotation (Line(points={{-39,210},{-39,210},{-30,210},{-30,146},{118,146}},color={0,0,127}));

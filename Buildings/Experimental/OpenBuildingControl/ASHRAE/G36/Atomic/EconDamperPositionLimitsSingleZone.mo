@@ -2,33 +2,35 @@ within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic;
 block EconDamperPositionLimitsSingleZone
   "Single zone VAV AHU minimum outdoor air control - damper position limits"
 
-  parameter Real minFanSpe(final min=0, max=1, unit="1") = 0.1 "Minimum supply fan operation speed";
-  parameter Real maxFanSpe(final min=0, max=1, unit="1") = 0.9 "Maximum supply fan operation speed";
-  parameter Real outDamPhyPosMax(final min=0, max=1, unit="1") = 1
+  parameter Real minFanSpe(final min=0, final max=1, final unit="1") = 0.1 "Minimum supply fan operation speed";
+  parameter Real maxFanSpe(final min=0, final max=1, final unit="1") = 0.9 "Maximum supply fan operation speed";
+  parameter Real outDamPhyPosMax(final min=0, final max=1, final unit="1") = 1
     "Physically fixed maximum position of the outdoor air (OA) damper";
-  parameter Real outDamPhyPosMin(final min=0, max=1, unit="1") = 0
+  parameter Real outDamPhyPosMin(final min=0, final max=1, final unit="1") = 0
     "Physically fixed minimum position of the outdoor air damper";
   parameter Real minVOutMinFansSpePos(
-    final min=minVOutMaxFanSpePos, max=desVOutMinFanSpePos, unit="1") = 0.4
+    final min=minVOutMaxFanSpePos, final max=desVOutMinFanSpePos, final unit="1") = 0.4
     "OA damper position to supply minimum outdoor airflow at minimum fan speed";
   parameter Real minVOutMaxFanSpePos(
-    final min=outDamPhyPosMin, max=minVOutMinFansSpePos, unit="1") = 0.3
+    final min=outDamPhyPosMin, final max=minVOutMinFansSpePos, final unit="1") = 0.3
     "OA damper position to supply minimum outdoor airflow at maximum fan speed";
   parameter Real desVOutMinFanSpePos(
-    final min=desVOutMaxFanSpePos, max=outDamPhyPosMax, unit="1") = 0.9
+    final min=desVOutMaxFanSpePos, final max=outDamPhyPosMax, final unit="1") = 0.9
     "OA damper position to supply design outdoor airflow at minimum fan speed";
   parameter Real desVOutMaxFanSpePos(
-    final min=minVOutMaxFanSpePos, max=desVOutMinFanSpePos, unit="1") = 0.8
+    final min=minVOutMaxFanSpePos, final max=desVOutMinFanSpePos, final unit="1") = 0.8
     "OA damper position to supply design outdoor airflow at maximum fan speed";
   parameter Modelica.SIunits.VolumeFlowRate minVOut_flow = 1.0
     "Calculated minimum outdoor airflow rate";
   parameter Modelica.SIunits.VolumeFlowRate desVOut_flow = 2.0
     "Calculated design outdoor airflow rate";
 
-  CDL.Interfaces.RealInput uSupFanSpe(final min=minFanSpe, max=maxFanSpe, unit="1") "Supply fan speed"
+  CDL.Interfaces.RealInput uSupFanSpe(final min=minFanSpe, final max=maxFanSpe, final unit="1")
+    "Supply fan speed"
     annotation (Placement(transformation(extent={{-200,90},{-160,130}}),
       iconTransformation(extent={{-120,28},{-100,48}})));
-  CDL.Interfaces.RealInput uVOutMinSet_flow(final min=minVOut_flow, max=desVOut_flow) "Minimum outdoor airflow setpoint"
+  CDL.Interfaces.RealInput uVOutMinSet_flow(final min=minVOut_flow, final max=desVOut_flow)
+    "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-200,160},{-160,200}}),
       iconTransformation(extent={{-120,60},{-100,80}})));
   CDL.Interfaces.IntegerInput uOpeMod "AHU operation mode status signal"
@@ -41,11 +43,13 @@ block EconDamperPositionLimitsSingleZone
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
         iconTransformation(extent={{-120,-30},{-100,-10}})));
 
-  CDL.Interfaces.RealOutput yOutDamPosMin(final min=outDamPhyPosMin, max=outDamPhyPosMax, unit="1")
-    "Minimum outdoor air damper position limit" annotation (Placement(transformation(extent={{160,-50},{180,-30}}),
+  CDL.Interfaces.RealOutput yOutDamPosMin(final min=outDamPhyPosMin, final max=outDamPhyPosMax, final unit="1")
+    "Minimum outdoor air damper position limit"
+    annotation (Placement(transformation(extent={{160,-50},{180,-30}}),
       iconTransformation(extent={{100,30},{120,50}})));
-  CDL.Interfaces.RealOutput yOutDamPosMax(final min=outDamPhyPosMin, max=outDamPhyPosMax, unit="1")
-    "Maximum outdoor air damper position limit" annotation (Placement(transformation(extent={{160,30},{180,50}}),
+  CDL.Interfaces.RealOutput yOutDamPosMax(final min=outDamPhyPosMin, final max=outDamPhyPosMax, final unit="1")
+    "Maximum outdoor air damper position limit"
+    annotation (Placement(transformation(extent={{160,30},{180,50}}),
     iconTransformation(extent={{100,-50},{120,-30}})));
 
 protected
@@ -75,19 +79,19 @@ protected
     annotation (Placement(transformation(extent={{16,170},{36,190}})));
   CDL.Continuous.Sources.Constant desVOutSig(final k=desVOut_flow) "Design outdoor airflow rate"
     annotation (Placement(transformation(extent={{16,90},{36,110}})));
-  CDL.Continuous.Line minVOutCurFanSpePos(limitBelow=true, limitAbove=true)
+  CDL.Continuous.Line minVOutCurFanSpePos(final limitBelow=true, final limitAbove=true)
     "Calculates OA damper position required to supply minimum outdoor airflow at current fan speed"
     annotation (Placement(transformation(extent={{16,130},{36,150}})));
-  CDL.Continuous.Line desVOutCurFanSpePos(limitBelow=true, limitAbove=true)
+  CDL.Continuous.Line desVOutCurFanSpePos(final limitBelow=true, final limitAbove=true)
     "Calculates OA damper position required to supply design outdoor airflow at current fan speed"
     annotation (Placement(transformation(extent={{16,40},{36,60}})));
-  CDL.Continuous.Line minVOutSetCurFanSpePos(limitBelow=true, limitAbove=true)
+  CDL.Continuous.Line minVOutSetCurFanSpePos(final limitBelow=true, final limitAbove=true)
     "Calculates OA damper position required to supply minimum outdoor airflow setpoint at current fan speed"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
   CDL.Logical.Switch enaDis
     "Logical switch to enable damper position limit calculation or disable it (set min limit to physical minimum)"
     annotation (Placement(transformation(extent={{82,-120},{102,-100}})));
-  CDL.Logical.MultiAnd and1(nu=4) "Logical and block"
+  CDL.Logical.MultiAnd and1(final nu=4) "Logical and block"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   CDL.Logical.Not not1 "Logical not block"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
@@ -95,8 +99,7 @@ protected
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
   CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
-  CDL.Logical.LessEqualThreshold equ(
-    final threshold=Constants.FreezeProtectionStages.stage1)
+  CDL.Logical.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage1)
     "Freeze protection stage above stage1 disables the control"
     annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
   CDL.Logical.Switch enaDis1
@@ -125,7 +128,7 @@ equation
   connect(desVOutMinFanSpePosSig.y, desVOutCurFanSpePos.f1)
     annotation (Line(points={{-119,-20},{-100,-20},{-100,54},{14,54}}, color={0,0,127}));
   connect(desVOutMaxFanSpePosSig.y, desVOutCurFanSpePos.f2)
-    annotation (Line(points={{-119,10},{-104,10},{-96,10},{-4,10},{-4,42},{14,42}}, color={0,0,127}));
+    annotation (Line(points={{-119,10},{-104,10},{-96,10},{-8,10},{-8,42},{14,42}}, color={0,0,127}));
   connect(minVOutMinFansSpePosSig.y, minVOutCurFanSpePos.f1)
     annotation (Line(points={{-119,130},{-120,130},{-118,130},{-28,130},{-28,144},{14,144}}, color={0,0,127}));
   connect(minVOutMaxFanSpePosSig.y, minVOutCurFanSpePos.f2)
@@ -135,9 +138,9 @@ equation
   connect(maxFanSpeSig.y, minVOutCurFanSpePos.x2)
     annotation (Line(points={{-119,90},{2,90},{2,136},{14,136}}, color={0,0,127}));
   connect(minFanSpeSig.y, minVOutCurFanSpePos.x1)
-    annotation (Line(points={{-119,60},{-4,60},{-4,148},{14,148}}, color={0,0,127}));
+    annotation (Line(points={{-119,60},{-8,60},{-8,148},{14,148}}, color={0,0,127}));
   connect(minFanSpeSig.y, desVOutCurFanSpePos.x1)
-    annotation (Line(points={{-119,60},{-4,60},{-4,58},{14,58}}, color={0,0,127}));
+    annotation (Line(points={{-119,60},{-8,60},{-8,58},{14,58}}, color={0,0,127}));
   connect(maxFanSpeSig.y, desVOutCurFanSpePos.x2)
     annotation (Line(points={{-119,90},{-14,90},{-14,46},{14,46}}, color={0,0,127}));
   connect(uVOutMinSet_flow, minVOutSetCurFanSpePos.u)
@@ -162,8 +165,10 @@ equation
     annotation (Line(points={{-19,-10},{40,-10},{40,-62},{78,-62}},color={0,0,127}));
   connect(outDamPhyPosMaxSig.y, enaDis1.u3)
     annotation (Line(points={{-59,-10},{-50,-10},{-50,-30},{20,-30},{20,-78},{78,-78}},color={0,0,127}));
-  connect(enaDis1.y, yOutDamPosMax) annotation (Line(points={{101,-70},{140,-70},{140,40},{170,40}}, color={0,0,127}));
-  connect(not1.y, enaDis1.u2) annotation (Line(points={{1,-70},{48,-70},{78,-70}}, color={255,0,255}));
+  connect(enaDis1.y, yOutDamPosMax)
+    annotation (Line(points={{101,-70},{140,-70},{140,40},{170,40}}, color={0,0,127}));
+  connect(not1.y, enaDis1.u2)
+    annotation (Line(points={{1,-70},{48,-70},{78,-70}}, color={255,0,255}));
   connect(uSupFan, and1.u[1])
     annotation (Line(points={{-180,-80},{-122,-80},{-122,-64.75},{-62,-64.75}}, color={255,0,255}));
   connect(equ.y, and1.u[2])
@@ -302,19 +307,19 @@ Once the calculation is enabled, the outdoor air damper position (<code>yOutDamP
 follows:<br/>
 <br/>
 Calculate outdoor air damper position which ensures minimum outdoor airflow rate (<code>minVOut_flow</code>) 
-at current supply fan speed (<code>uSupFanSpe</code>), (<code>minVOutCurFanSpePos</code>), as a linear 
+at current supply fan speed (<code>uSupFanSpe</code>), <code>minVOutCurFanSpePos</code>, as a linear 
 interpolation between the following values set at commissioning:<br/>
 - minimum damper position at minimum fan speed for minimum outdoor airflow (<code>minVOutMinFanSpePos</code>) and<br/>
 - minimum damper position at maximum fan speed for minimum outdoor airflow (<code>minVOutMaxFanSpePos</code>);<br/>
 <br/>
 Calculate outdoor air damper position which ensures design outdoor airflow rate (<code>desVOut_flow</code>) at 
-current supply fan speed (<code>uSupFanSpe</code>), (<code>desVOutCurFanSpePos</code>), as a linear 
+current supply fan speed (<code>uSupFanSpe</code>), <code>desVOutCurFanSpePos</code>, as a linear 
 interpolation between the following values set at commissioning:<br/>
 - minimum damper position at minimum fan speed for design outdoor airflow (<code>desVOutMinFanSpePos</code>) and<br/>
 - minimum damper position at maximum fan speed for design outdoor airflow (<code>desVOutMaxFanSpePos</code>);<br/>
 <br/>
 Calculate outdoor air damper position which ensures outdoor airflow setpoint (<code>uVOutMinSet_flow</code>)
-at current supply fan speed (<code>uSupFanSpe</code>), (<code>yOutDamPosMin</code>), as a linear interpolation
+at current supply fan speed (<code>uSupFanSpe</code>), <code>yOutDamPosMin</code>, as a linear interpolation
 between <code>minVOutCurFanSpePos</code> and <code>desVOutCurFanSpePos</code>, proportional to ratios of
 <code>uVOutMinSet_flow</code> to <code>desVOut_flow</code> and <code>minVOut_flow</code>
 <p>
