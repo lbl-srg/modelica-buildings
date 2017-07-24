@@ -275,12 +275,12 @@ heating"),                           Text(
     Documentation(info="<html>
 <p>
 This is a single zone VAV AHU economizer enable/disable sequence
-based on ASHRAE G36 PART5-P.5 and PART5-A.17. Additional
+based on ASHRAE G36 PART5.5 and PART5.A.17. Additional
 conditions included in the sequence are: <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages</a> (PART5-P.9), 
-supply fan status <code>TSupFan</code> (PART5-P.4.d), 
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages</a> (PART5.9),
+supply fan status <code>TSupFan</code> (PART5.4.d),
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.ZoneStates\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.ZoneStates</a> (PART5-P.3.b).
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.ZoneStates</a> (PART5.3.b).
 </p>
 <p>
 Economizer shall be disabled whenever the outdoor air conditions

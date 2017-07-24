@@ -310,11 +310,11 @@ Heating"),                       Text(
 Documentation(info="<html>
 <p>
 This is a multiple zone VAV AHU economizer enable/disable sequence
-based on ASHRAE G36 PART5-N.7 and PART5-A.17. Additional
+based on ASHRAE G36 PART5.N.7 and PART5.A.17. Additional
 conditions included in the sequence are: freeze protection (freeze protection
-stage 0-3, see PART5-N.12), supply fan status (on or off, see PART5-N.5),
+stage 0-3, see PART5.N.12), supply fan status (on or off, see PART5.N.5),
 and zone state (cooling, heating, or deadband, as illustrated in the
-modulation control chart, PART5-N.2.c).
+modulation control chart, PART5.N.2.c).
 </p>
 <p>
 Economizer shall be disabled whenever the outdoor air conditions
@@ -324,10 +324,10 @@ ASHRAE 90.1-2013 and Title 24-2013.
 </p>
 <p>
 In addition, economizer shall be disabled without a delay whenever any of the
-following is true: supply fan is off (<code>TSupFan = False</code>), 
+following is true: supply fan is off (<code>TSupFan = False</code>),
 zone state (<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.ZoneStates\">
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.ZoneStates</a>) is <code>heating</code>,
-freeze protection stage 
+freeze protection stage
 (<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages\">
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages</a>) is not <code>stage0</code>.
 </p>
