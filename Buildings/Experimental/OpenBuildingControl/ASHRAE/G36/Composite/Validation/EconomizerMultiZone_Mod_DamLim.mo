@@ -3,64 +3,64 @@ model EconomizerMultiZone_Mod_DamLim
   "Validation model for multizone VAV AHU economizer operation: damper modulation and minimum ooutdoor air requirement damper position limits"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Temperature TOutCutoff=297
-    "Outdoor temperature high limit cutoff";
-  parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
-    "Outdoor air enthalpy high limit cutoff";
-  parameter Modelica.SIunits.Temperature THeaSet=291
-    "Supply air temperature heating setpoint";
-  parameter Modelica.SIunits.Temperature TSup=290
-    "Measured supply air temperature";
-  parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
-    "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=0.705
-    "Minimal measured volumetric airflow";
-  parameter Modelica.SIunits.VolumeFlowRate VOutIncrease_flow=0.03
-    "Maximum volumetric airflow increase during the example simulation";
-
-  EconomizerMultiZone economizer(use_enthalpy=true) "Multizone VAV AHU economizer"
+  EconomizerMultiZone economizer "Multizone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   EconomizerMultiZone economizer1(use_enthalpy=false) "Multizone VAV AHU economizer "
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
 protected
-  CDL.Logical.Sources.Constant fanStatus(k=true) "Fan is on"
+  final parameter Modelica.SIunits.Temperature TOutCutoff=297.15
+    "Outdoor temperature high limit cutoff";
+  final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
+    "Outdoor air enthalpy high limit cutoff";
+  final parameter Modelica.SIunits.Temperature THeaSet=291
+    "Supply air temperature heating setpoint";
+  final parameter Modelica.SIunits.Temperature TSup=290.15
+    "Measured supply air temperature";
+  final parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
+    "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
+  final parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=0.705
+    "Minimal measured volumetric airflow";
+  final parameter Modelica.SIunits.VolumeFlowRate VOutIncrease_flow=0.03
+    "Maximum volumetric airflow increase during the example simulation";
+
+  CDL.Logical.Sources.Constant fanStatus(final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  CDL.Integers.Sources.Constant freProSta(k=Constants.FreezeProtectionStages.stage0)
+  CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
     "Freeze protection status is 0"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  CDL.Integers.Sources.Constant ZoneState(k=Constants.ZoneStates.deadband) "Zone State is deadband"
+  CDL.Integers.Sources.Constant ZoneState(final k=Constants.ZoneStates.deadband) "Zone State is deadband"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Integers.Sources.Constant operationMode(k=Constants.OperationModes.occModInd)
+  CDL.Integers.Sources.Constant operationMode(final k=Constants.OperationModes.occModInd)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  CDL.Continuous.Sources.Constant hOutBelowCutoff(k=hOutCutoff - 10000)
+  CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 10000)
     "Outdoor air enthalpy is slightly below the cufoff"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  CDL.Continuous.Sources.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
+  CDL.Continuous.Sources.Constant hOutCut(final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Continuous.Sources.Constant TOutBelowCutoff(k=TOutCutoff - 5)
+  CDL.Continuous.Sources.Constant TOutBelowCutoff(final k=TOutCutoff - 5)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  CDL.Continuous.Sources.Constant TOutCut1(k=TOutCutoff)
+  CDL.Continuous.Sources.Constant TOutCut1(final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  CDL.Continuous.Sources.Constant VOutMinSet_flow(k=minVOutSet_flow)
+  CDL.Continuous.Sources.Constant VOutMinSet_flow(final k=minVOutSet_flow)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.Ramp VOut_flow(
-    duration=1800,
-    offset=minVOut_flow,
-    height=VOutIncrease_flow)
+    final duration=1800,
+    final offset=minVOut_flow,
+    final height=VOutIncrease_flow)
     "Measured outdoor air volumetric airflow"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  CDL.Continuous.Sources.Constant TSupSetSig(k=THeaSet) "Heating supply air temperature setpoint"
+  CDL.Continuous.Sources.Constant TSupSetSig(final k=THeaSet) "Heating supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  CDL.Continuous.Sources.Constant TSupSig(k=TSup) "Measured supply air temperature"
+  CDL.Continuous.Sources.Constant TSupSig(final k=TSup) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Modelica.Blocks.Sources.Ramp TSupSig1(
-    duration=900,
-    height=2,
-    offset=THeaSet - 1) "Measured supply air temperature"
+    final duration=900,
+    final height=2,
+    final offset=THeaSet - 1) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
 
 equation
