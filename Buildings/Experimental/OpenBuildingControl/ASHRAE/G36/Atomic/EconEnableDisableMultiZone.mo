@@ -2,7 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic;
 block EconEnableDisableMultiZone
   "Multiple zone VAV AHU economizer enable/disable switch"
 
-  final parameter Boolean use_enthalpy = true
+  parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air enthalpy in addition to temperature";
   parameter Modelica.SIunits.Time retDamFulOpeTim = 180
     "Time period to keep RA damper fully open at disable to avoid pressure fluctuations";

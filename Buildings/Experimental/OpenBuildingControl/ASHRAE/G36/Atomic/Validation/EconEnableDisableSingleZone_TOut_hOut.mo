@@ -3,37 +3,22 @@ model EconEnableDisableSingleZone_TOut_hOut
   "Model validates economizer disable in case outdoor air conditions are above cutoff"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Temperature TOutCutoff=297.15
-    "Outdoor temperature high limit cutoff";
-  parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
-    "Outdoor air enthalpy high limit cutoff";
-
-  CDL.Continuous.Sources.Constant TOutCut(k=TOutCutoff) "Outdoor air temperature cutoff"
-    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Continuous.Sources.Constant hOutCut(k=hOutCutoff) "Outdoor air enthalpy cutoff"
-    annotation (Placement(transformation(extent={{-240,0},{-220,20}})));
-  CDL.Continuous.Sources.Constant TOutCut1(k=TOutCutoff) "Outdoor air temperature cutoff"
-    annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  CDL.Continuous.Sources.Constant hOutCut1(k=hOutCutoff) "Outdoor air enthalpy cutoff"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  CDL.Continuous.Sources.Constant hOutBelowCutoff(k=hOutCutoff - 1000)
-    "Outdoor air enthalpy is slightly below the cufoff"
-    annotation (Placement(transformation(extent={{-240,40},{-220,60}})));
-  CDL.Continuous.Sources.Constant TOutBellowCutoff(k=TOutCutoff - 2)
-    "Outdoor air temperature is slightly below the cutoff"
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
   CDL.Logical.TriggeredTrapezoid TOut(
-    rising=1000,
-    falling=800,
-    amplitude=4,
-    offset=TOutCutoff - 2) "Outoor air temperature"
+    final rising=1000,
+    final falling=800,
+    final amplitude=4,
+    final offset=TOutCutoff - 2) "Outoor air temperature"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
   CDL.Logical.TriggeredTrapezoid hOut(
-    amplitude=4000,
-    offset=hOutCutoff - 2200,
-    rising=1000,
-    falling=800) "Outdoor air enthalpy"
+    final amplitude=4000,
+    final offset=hOutCutoff - 2200,
+    final rising=1000,
+    final falling=800) "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  CDL.Continuous.Sources.Constant TOutCut(final k=TOutCutoff) "Outdoor air temperature cutoff"
+    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
+  CDL.Continuous.Sources.Constant hOutCut(final k=hOutCutoff) "Outdoor air enthalpy cutoff"
+    annotation (Placement(transformation(extent={{-240,0},{-220,20}})));
 
   EconEnableDisableSingleZone ecoEnaDis "Singlezone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
@@ -43,6 +28,21 @@ model EconEnableDisableSingleZone_TOut_hOut
     annotation (Placement(transformation(extent={{220,-80},{240,-60}})));
 
 protected
+  final parameter Modelica.SIunits.Temperature TOutCutoff=297.15
+    "Outdoor temperature high limit cutoff";
+  final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
+    "Outdoor air enthalpy high limit cutoff";
+
+  CDL.Continuous.Sources.Constant TOutCut1(final k=TOutCutoff) "Outdoor air temperature cutoff"
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+  CDL.Continuous.Sources.Constant hOutCut1(final k=hOutCutoff) "Outdoor air enthalpy cutoff"
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+  CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 1000)
+    "Outdoor air enthalpy is slightly below the cufoff"
+    annotation (Placement(transformation(extent={{-240,40},{-220,60}})));
+  CDL.Continuous.Sources.Constant TOutBellowCutoff(final k=TOutCutoff - 2)
+    "Outdoor air temperature is slightly below the cutoff"
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
   CDL.Integers.Sources.Constant zoneState(final k=Constants.ZoneStates.deadband) "Zone State is deadband"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
   CDL.Continuous.Sources.Constant outDamPosMax(final k=0.9) "Maximal allowed economizer damper position"
@@ -52,12 +52,12 @@ protected
   CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
     "Freeze Protection Status - Disabled"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
+  CDL.Logical.Sources.Constant supFanSta(k=true) "Supply fan status signal"
+      annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
   CDL.Logical.Sources.Pulse booPul(final startTime=10, period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
   CDL.Logical.Sources.Pulse booPul1(final startTime=10, period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  CDL.Logical.Sources.Constant supFanSta(k=true) "Supply fan status signal"
-      annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
 
 equation
   connect(TOutCut.y, ecoEnaDis.TOutCut)

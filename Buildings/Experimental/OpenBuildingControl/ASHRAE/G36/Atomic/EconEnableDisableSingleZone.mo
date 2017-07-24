@@ -6,9 +6,9 @@ block EconEnableDisableSingleZone
     "Set to true to evaluate outdoor air (OA) enthalpy in addition to temperature";
   parameter Modelica.SIunits.Time smaDisDel = 0
     "Optional small time delay before closing the OA damper at disable to avoid pressure fluctuations";
-  parameter Real retDamPhyPosMax(final min=0, max=1, unit="1") = 1
+  parameter Real retDamPhyPosMax(final min=0, final max=1, final unit="1") = 1
     "Physically fixed maximum position of the return air damper";
-  parameter Real retDamPhyPosMin(final min=0, max=1, unit="1") = 0
+  parameter Real retDamPhyPosMin(final min=0, final max=1, final unit="1") = 0
     "Physically fixed minimum position of the return air damper";
 
   CDL.Interfaces.RealInput TOut(final unit="K", final quantity = "ThermodynamicTemperature")

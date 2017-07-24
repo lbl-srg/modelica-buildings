@@ -3,28 +3,6 @@ model EconDamperPositionLimitsSingleZone_Disable
   "Validation model for the Single zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
-  parameter Real minFanSpe=0.1 "Minimum supply fan operation speed";
-  parameter Real maxFanSpe=0.9 "Maximum supply fan operation speed";
-  parameter Modelica.SIunits.VolumeFlowRate desVOut_flow=2.0 "Calculated design outdoor airflow rate";
-  parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=1.0 "Calculated minimum outdoor airflow rate";
-  parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=0.71
-    "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.61
-    "Volumetric airflow sensor output, minimum value in the example";
-  parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=0.2
-    "Maximum increase in airflow volume during the example simulation";
-
-  Modelica.Blocks.Sources.Ramp SupFanSpeSig(
-    final duration=1800,
-    final offset=minFanSpe,
-    final height=maxFanSpe - minFanSpe) "Supply fan speed signal"
-    annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
-  Modelica.Blocks.Sources.Ramp VOutMinSetSig(
-    duration=1800,
-    offset=minVOut_flow,
-    height=desVOut_flow - minVOut_flow) "Constant minimum outdoor airflow setpoint"
-    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
-
   EconDamperPositionLimitsSingleZone ecoDamLim1(
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
@@ -47,6 +25,28 @@ model EconDamperPositionLimitsSingleZone_Disable
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
 
+protected
+  final parameter Real minFanSpe=0.1 "Minimum supply fan operation speed";
+  final parameter Real maxFanSpe=0.9 "Maximum supply fan operation speed";
+  final parameter Modelica.SIunits.VolumeFlowRate desVOut_flow=2.0 "Calculated design outdoor airflow rate";
+  final parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=1.0 "Calculated minimum outdoor airflow rate";
+  final parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=0.71
+    "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
+  final parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.61
+    "Volumetric airflow sensor output, minimum value in the example";
+  final parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=0.2
+    "Maximum increase in airflow volume during the example simulation";
+
+  Modelica.Blocks.Sources.Ramp SupFanSpeSig(
+    final duration=1800,
+    final offset=minFanSpe,
+    final height=maxFanSpe - minFanSpe) "Supply fan speed signal"
+    annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
+  Modelica.Blocks.Sources.Ramp VOutMinSetSig(
+    duration=1800,
+    offset=minVOut_flow,
+    height=desVOut_flow - minVOut_flow) "Constant minimum outdoor airflow setpoint"
+    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
   CDL.Logical.Sources.Constant fanStatus1(k=false) "Fan is off"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
   CDL.Integers.Sources.Constant freProSta1(k=Constants.FreezeProtectionStages.stage1)
