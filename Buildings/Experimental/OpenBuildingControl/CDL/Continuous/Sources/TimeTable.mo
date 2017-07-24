@@ -1,4 +1,4 @@
-within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints;
+within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources;
 block TimeTable
   "Table look-up with respect to time and linear or periodic extrapolation"
 
@@ -8,15 +8,12 @@ block TimeTable
     "Smoothness of table interpolation";
   parameter CDL.Types.Extrapolation extrapolation=CDL.Types.Extrapolation.Periodic
     "Extrapolation of data outside the definition range";
-
   parameter Real offset[:]={0} "Offsets of output signals";
-
   parameter Modelica.SIunits.Time timeScale=1
     "Time scale of first table column. Set to 3600 if time in table is in hours";
 
   Interfaces.RealOutput y[nout] "Output of the table"
-  annotation (Placement(
-        transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
   final parameter Integer nout=size(table, 2)-1
