@@ -25,14 +25,15 @@ model PartialIntegratedPrimary
     "Type of initialization of the temperature sensor (InitialState and InitialOutput are identical)"
   annotation(Evaluate=true, Dialog(tab="Dynamics", group="Temperature Sensor"));
 
-  Modelica.Blocks.Interfaces.RealOutput TWSE_b2(final quantity="ThermodynamicTemperature",
-                                          final unit="K",
-                                          displayUnit = "degC",
-                                          min = 0,
-                                          start=T2_start)
-    "Temperature of the passing fluid at port_b2 in the waterside economizer"
-    annotation (Placement(transformation(extent={{100,30},{120,50}}),
-        iconTransformation(extent={{100,30},{120,50}})));
+  Modelica.Blocks.Interfaces.RealOutput wseCHWST(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC",
+    min=0,
+    start=T2_start)
+    "Chilled water supply temperature in the waterside economizer" annotation (
+      Placement(transformation(extent={{100,30},{120,50}}), iconTransformation(
+          extent={{100,30},{120,50}})));
 
 
  Modelica.Blocks.Interfaces.RealInput yVal6(min=0,max=1)
@@ -127,9 +128,8 @@ equation
     annotation (Line(points={{40,24},{28,24}}, color={0,127,255}));
   connect(senTem.port_b, val5.port_b) annotation (Line(points={{8,24},{-4,24},{-4,
           -20},{40,-20}}, color={0,127,255}));
-  connect(senTem.T, TWSE_b2) annotation (Line(points={{18,35},{18,35},{18,52},{
-          90,52},{90,40},{110,40}},
-                color={0,0,127}));
+  connect(senTem.T, wseCHWST) annotation (Line(points={{18,35},{18,35},{18,52},
+          {90,52},{90,40},{110,40}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 Partial model that implements integrated waterside economizer in primary-ony chilled water system.
 </html>", revisions="<html>
