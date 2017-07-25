@@ -3,7 +3,6 @@ block ExtractSignal "Extract signals from an input signal vector"
   parameter Integer nin = 1 "Number of inputs";
   parameter Integer nout = 1 "Number of outputs";
   parameter Integer extract[nout]=1:nout "Extracting vector";
-
   Interfaces.RealInput u[nin] "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.RealOutput y[nout] "Connector of Real output signal"
@@ -36,8 +35,7 @@ equation
             fillColor={0,0,127},
             fillPattern=FillPattern.Solid,
             lineColor={0,0,127}),
-          Line(points={{-72,2},{-60.1395,12.907},{-49.1395,12.907}}, color={0,0,
-                127}),
+          Line(points={{-72,2},{-60.1395,12.907},{-49.1395,12.907}}, color={0,0,127}),
           Line(points={{-73,4},{-59,40},{-49,40}}, color={0,0,127}),
           Line(points={{-113,0},{-76.0373,-0.0180176}}, color={0,0,127}),
           Ellipse(
@@ -46,8 +44,7 @@ equation
             fillPattern=FillPattern.Solid,
             lineColor={0,0,127}),
           Line(points={{-73,-5},{-60,-40},{-49,-40}}, color={0,0,127}),
-          Line(points={{-72,-2},{-60.0698,-12.907},{-49.0698,-12.907}}, color={
-                0,0,127}),
+          Line(points={{-72,-2},{-60.0698,-12.907},{-49.0698,-12.907}}, color={0,0,127}),
           Polygon(
             points={{-48.8808,-11},{-48.8808,-15},{-44.8808,-13},{-48.8808,-11}},
             fillColor={255,255,255},
@@ -68,8 +65,7 @@ equation
             fillPattern=FillPattern.Solid,
             lineColor={0,0,127}),
           Polygon(
-            points={{-48.9983,14.8801},{-48.9983,10.8801},{-44.9983,12.8801},{-48.9983,
-                14.8801}},
+            points={{-48.9983,14.8801},{-48.9983,10.8801},{-44.9983,12.8801},{-48.9983,14.8801}},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid,
             lineColor={0,0,127}),
@@ -80,20 +76,17 @@ equation
             lineColor={0,0,127}),
           Line(points={{80,0},{100,0}}, color={0,0,127}),
           Polygon(
-            points={{43.1618,32.3085},{43.1618,28.3085},{47.1618,30.3085},{
-                43.1618,32.3085}},
+            points={{43.1618,32.3085},{43.1618,28.3085},{47.1618,30.3085},{43.1618,32.3085}},
             fillColor={0,0,127},
             fillPattern=FillPattern.Solid,
             lineColor={0,0,127}),
           Polygon(
-            points={{43.2575,1.80443},{43.2575,-2.19557},{47.2575,-0.195573},{
-                43.2575,1.80443}},
+            points={{43.2575,1.80443},{43.2575,-2.19557},{47.2575,-0.195573},{43.2575,1.80443}},
             fillColor={0,0,127},
             fillPattern=FillPattern.Solid,
             lineColor={0,0,127}),
           Polygon(
-            points={{43.8805,-28.1745},{43.8805,-32.1745},{47.8805,-30.1745},{
-                43.8805,-28.1745}},
+            points={{43.8805,-28.1745},{43.8805,-32.1745},{47.8805,-30.1745},{43.8805,-28.1745}},
             fillColor={0,0,127},
             fillPattern=FillPattern.Solid,
             lineColor={0,0,127}),
@@ -127,8 +120,7 @@ equation
             lineColor={0,0,255},
             fillColor={0,0,0},
             fillPattern=FillPattern.Solid),
-          Line(points={{-72,2},{-60.1395,12.907},{-49.1395,12.907}}, color={0,0,
-                255}),
+          Line(points={{-72,2},{-60.1395,12.907},{-49.1395,12.907}}, color={0,0,255}),
           Line(points={{-73,4},{-59,40},{-49,40}}, color={0,0,255}),
           Line(points={{-112,0},{-75.0373,-0.0180176}}, color={0,0,255}),
           Ellipse(
@@ -137,8 +129,7 @@ equation
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid),
           Line(points={{-73,-5},{-60,-40},{-49,-40}}, color={0,0,255}),
-          Line(points={{-72,-2},{-60.0698,-12.907},{-49.0698,-12.907}}, color={
-                0,0,255}),
+          Line(points={{-72,-2},{-60.0698,-12.907},{-49.0698,-12.907}}, color={0,0,255}),
           Polygon(
             points={{-48.8808,-11},{-48.8808,-15},{-44.8808,-13},{-48.8808,-11}},
             lineColor={0,0,255},
@@ -159,8 +150,7 @@ equation
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
           Polygon(
-            points={{-48.9983,14.8801},{-48.9983,10.8801},{-44.9983,12.8801},{-48.9983,
-                14.8801}},
+            points={{-48.9983,14.8801},{-48.9983,10.8801},{-44.9983,12.8801},{-48.9983,14.8801}},
             lineColor={0,0,255},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
@@ -171,20 +161,17 @@ equation
             fillPattern=FillPattern.Solid),
           Line(points={{80,0},{105,0}}, color={0,0,255}),
           Polygon(
-            points={{44.1618,32.3085},{44.1618,28.3085},{48.1618,30.3085},{
-                44.1618,32.3085}},
+            points={{44.1618,32.3085},{44.1618,28.3085},{48.1618,30.3085},{44.1618,32.3085}},
             lineColor={0,0,255},
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid),
           Polygon(
-            points={{44.2575,1.80443},{44.2575,-2.19557},{48.2575,-0.195573},{
-                44.2575,1.80443}},
+            points={{44.2575,1.80443},{44.2575,-2.19557},{48.2575,-0.195573},{44.2575,1.80443}},
             lineColor={0,0,255},
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid),
           Polygon(
-            points={{44.8805,-28.1745},{44.8805,-32.1745},{48.8805,-30.1745},{
-                44.8805,-28.1745}},
+            points={{44.8805,-28.1745},{44.8805,-32.1745},{48.8805,-30.1745},{44.8805,-28.1745}},
             lineColor={0,0,255},
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid),
