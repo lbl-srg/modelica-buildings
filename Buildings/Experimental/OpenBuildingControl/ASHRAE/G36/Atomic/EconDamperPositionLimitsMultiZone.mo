@@ -123,6 +123,7 @@ protected
     final threshold=Constants.OperationModes.occModInd + 0.5)
     "Tests whether operation mode is occupied"
     annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
+
 equation
   connect(minRetDam.y,yRetDamPosMax)  annotation (Line(points={{141,110},{150,110},{150,20},{150,-40},{190,-40}},
     color={0,0,127}));

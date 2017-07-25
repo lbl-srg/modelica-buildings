@@ -69,11 +69,11 @@ protected
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy));
   final parameter Modelica.SIunits.Temperature TOutHigLimCutHig = 0
     "Hysteresis high limit cutoff";
-  final parameter Modelica.SIunits.Temperature TOutHigLimCutLow = TOutHigLimCutHig - delTOutHis
+  final parameter Real TOutHigLimCutLow = TOutHigLimCutHig - delTOutHis
     "Hysteresis low limit cutoff";
   final parameter Modelica.SIunits.SpecificEnergy hOutHigLimCutHig = 0
     "Hysteresis block high limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutHigLimCutLow = hOutHigLimCutHig - delEntHis
+  final parameter Real hOutHigLimCutLow = hOutHigLimCutHig - delEntHis
     "Hysteresis block low limit cutoff";
 
   CDL.Continuous.Sources.Constant disableDelay(final k=smaDisDel)

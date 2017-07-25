@@ -60,11 +60,11 @@ block EconEnableDisableMultiZone
   CDL.Interfaces.RealOutput yRetDamPosMin(final min=0, final max=1) "Minimum return air damper position"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
-  CDL.Interfaces.RealOutput yRetDamPosMax(final min=0, max=1) "Maximum return air damper position"
+  CDL.Interfaces.RealOutput yRetDamPosMax(final min=0, final max=1) "Maximum return air damper position"
     annotation (Placement(transformation(
         extent={{180,-220},{200,-200}}), iconTransformation(extent={{100,-40},{140,0}})));
 
-  CDL.Logical.TrueFalseHold trueFalseHold(duration=600) "10 min on/off delay"
+  CDL.Logical.TrueFalseHold trueFalseHold(final duration=600) "10 min on/off delay"
     annotation (Placement(transformation(extent={{0,200},{20,220}})));
   CDL.Logical.And3 andEnaDis "Logical and to check freeze protection stage and zone state"
    annotation (Placement(transformation(extent={{40,30},{60,50}})));
@@ -77,11 +77,11 @@ protected
     annotation(Dialog(enable = use_enthalpy));
   final parameter Modelica.SIunits.Temperature TOutHigLimCutHig = 0
     "Hysteresis high limit cutoff";
-  final parameter Modelica.SIunits.Temperature TOutHigLimCutLow = TOutHigLimCutHig - delTOutHis
+  final parameter Real TOutHigLimCutLow = TOutHigLimCutHig - delTOutHis
     "Hysteresis low limit cutoff";
   final parameter Modelica.SIunits.SpecificEnergy hOutHigLimCutHig = 0
     "Hysteresis block high limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutHigLimCutLow = hOutHigLimCutHig - delEntHis
+  final parameter Real hOutHigLimCutLow = hOutHigLimCutHig - delEntHis
     "Hysteresis block low limit cutoff";
 
   CDL.Continuous.Sources.Constant openRetDam(final k=retDamFulOpeTim)
@@ -98,7 +98,7 @@ protected
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
   CDL.Continuous.Add add1(final k2=-1) "Add block determines difference between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,240},{-120,260}})));
-  CDL.Logical.Hysteresis hysOutTem(final uHigh=TOutHigLimCutHig, final uLow=TOutHigLimCutLow)
+  CDL.Logical.Hysteresis hysOutTem(final uLow=TOutHigLimCutLow, final uHigh=TOutHigLimCutHig)
     "Outdoor air temperature hysteresis for both fixed and differential dry bulb temperature cutoff conditions"
     annotation (Placement(transformation(extent={{-100,240},{-80,260}})));
   CDL.Logical.Hysteresis hysOutEnt(final uLow=hOutHigLimCutLow, final uHigh=hOutHigLimCutHig) if use_enthalpy

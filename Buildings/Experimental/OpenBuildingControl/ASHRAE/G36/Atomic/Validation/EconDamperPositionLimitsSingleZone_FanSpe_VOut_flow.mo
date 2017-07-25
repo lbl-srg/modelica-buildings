@@ -58,7 +58,7 @@ equation
   connect(ecoDamLim.uSupFan, fanStatus.y)
     annotation (Line(points={{-41,-12},{-70,-12},{-70,-10},{-99,-10}}, color={255,0,255}));
   connect(operationMode.y, ecoDamLim.uOpeMod)
-    annotation (Line(points={{-99,-50},{-70,-50},{-70,-16},{-70,-16},{-70,-15},{-56,-15},{-41,-15}},
+    annotation (Line(points={{-99,-50},{-70,-50},{-70,-16},{-70,-15},{-56,-15},{-41,-15}},
                                                                        color={255,127,0}));
   connect(fanStatus.y, ecoDamLim1.uSupFan)
     annotation (Line(points={{-99,-10},{-80,-10},{-80,-30},{60,-30},{60,-12},{99,-12}}, color={255,0,255}));
