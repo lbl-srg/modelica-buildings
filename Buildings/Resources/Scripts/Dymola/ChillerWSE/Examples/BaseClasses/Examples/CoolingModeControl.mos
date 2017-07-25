@@ -2,17 +2,24 @@ simulateModel("Buildings.ChillerWSE.Examples.BaseClasses.Examples.CoolingModeCon
 
 removePlots(false);
 createPlot(id=1,
- position={0, 0, 863, 468},
- y={"wseCHWST.y", "wseCHWRT.y", "CHWSTSet.y"},
- range={0.0, 600.0, 0.0, 25.0},
+ position={0, 0, 889, 503},
+ y={"wseCHWST.y", "wseCHWRT.y", "CHWSTSet.y", "TWetBub.y"},
+ range={0.0, 600.0, 275.0, 295.0},
  grid=true,
  filename="CoolingModeControl.mat",
- colors={{28,108,200}, {238,46,47}, {0,140,72}});
+ colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
 createPlot(id=1,
- position={0, 0, 863, 232},
- y={"cooModCon.cooMod"},
- range={0.0, 600.0, -0.5, 2.5},
+ position={0, 0, 889, 165},
+ y={"TTowApp.y"},
+ range={0.0, 600.0, 4.0, 6.0},
  grid=true,
  subPlot=2,
  colors={{28,108,200}});
+createPlot(id=1,
+ position={0, 0, 889, 165},
+ y={"cooModCon.cooMod"},
+ range={0.0, 600.0, -1.0, 3.0},
+ grid=true, subPlot=3,
+ colors={{28,108,200}});
+
 

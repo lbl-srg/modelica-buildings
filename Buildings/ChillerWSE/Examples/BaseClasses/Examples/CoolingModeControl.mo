@@ -6,7 +6,7 @@ model CoolingModeControl
   Buildings.ChillerWSE.Examples.BaseClasses.CoolingModeControl cooModCon(
     deaBan1=1,
     deaBan2=1,
-    tWai=60)
+    tWai=30)
     "Cooling mode controller used in integrared waterside economizer chilled water system"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Pulse wseCHWST(
