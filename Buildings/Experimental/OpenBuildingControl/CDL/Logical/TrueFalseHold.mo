@@ -106,7 +106,7 @@ equation
   connect(notU.y, toFalse1.condition)
     annotation (Line(points={{-119,70},{-80,70},{-80,78}},color={255,0,255}));
   annotation (defaultComponentName="truFalHol",
-          Icon(graphics={    Rectangle(
+          Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
