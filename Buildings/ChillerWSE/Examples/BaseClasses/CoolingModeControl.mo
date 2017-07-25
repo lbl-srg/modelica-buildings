@@ -94,7 +94,7 @@ parameter Modelica.SIunits.TemperatureDifference deaBan2 "Dead band width 2 for 
     "Supply chilled water temperature setpoint "
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput towTApp(
-    final quantity="ThermodynamicTemperature",
+    final quantity="TemperatureDifference",
     final unit="K",
     displayUnit="degC") "Approach temperature in the cooling tower"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -164,7 +164,7 @@ The waterside economizer is enabled when
 <ol>
 <li>The waterside economizer has been disabled for at least 20 minutes, and</li>
 <li><i>
-	T<sub>WSE_CHWST</sub> &GT; T<sub>WetBul</sub> + T<sub>TowApp</sub> + DeaBan1 
+        T<sub>WSE_CHWST</sub> &GT; T<sub>WetBul</sub> + T<sub>TowApp</sub> + DeaBan1 
 </i></li>
 </ol>
 <p>The waterside economizer is disabled when </p>
