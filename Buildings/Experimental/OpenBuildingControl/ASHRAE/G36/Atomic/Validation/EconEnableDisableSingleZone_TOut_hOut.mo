@@ -3,6 +3,10 @@ model EconEnableDisableSingleZone_TOut_hOut
   "Model validates economizer disable in case outdoor air conditions are above cutoff"
   extends Modelica.Icons.Example;
 
+  CDL.Continuous.Sources.Constant TOutCut(final k=TOutCutoff) "Outdoor air temperature cutoff"
+    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
+  CDL.Continuous.Sources.Constant hOutCut1(final k=hOutCutoff) "Outdoor air enthalpy cutoff"
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   CDL.Logical.TriggeredTrapezoid TOut(
     final rising=1000,
     final falling=800,
@@ -15,10 +19,6 @@ model EconEnableDisableSingleZone_TOut_hOut
     final rising=1000,
     final falling=800) "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  CDL.Continuous.Sources.Constant TOutCut(final k=TOutCutoff) "Outdoor air temperature cutoff"
-    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Continuous.Sources.Constant hOutCut(final k=hOutCutoff) "Outdoor air enthalpy cutoff"
-    annotation (Placement(transformation(extent={{-240,0},{-220,20}})));
 
   EconEnableDisableSingleZone ecoEnaDis "Singlezone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
@@ -32,15 +32,14 @@ protected
     "Outdoor temperature high limit cutoff";
   final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
-
+  CDL.Continuous.Sources.Constant hOutCut(final k=hOutCutoff) "Outdoor air enthalpy cutoff"
+    annotation (Placement(transformation(extent={{-240,0},{-220,20}})));
   CDL.Continuous.Sources.Constant TOutCut1(final k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  CDL.Continuous.Sources.Constant hOutCut1(final k=hOutCutoff) "Outdoor air enthalpy cutoff"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 1000)
     "Outdoor air enthalpy is slightly below the cufoff"
     annotation (Placement(transformation(extent={{-240,40},{-220,60}})));
-  CDL.Continuous.Sources.Constant TOutBellowCutoff(final k=TOutCutoff - 2)
+  CDL.Continuous.Sources.Constant TOutBelowCutoff(final k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   CDL.Integers.Sources.Constant zoneState(final k=Constants.ZoneStates.deadband) "Zone State is deadband"
@@ -78,7 +77,7 @@ equation
     annotation (Line(points={{-59,10},{10,10},{10,-66},{79,-66}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, ecoEnaDis.hOut)
     annotation (Line(points={{-219,50},{-180,50},{-180,26},{-130,26},{-130,-64},{-81,-64}}, color={0,0,127}));
-  connect(TOutBellowCutoff.y, ecoEnaDis1.TOut)
+  connect(TOutBelowCutoff.y, ecoEnaDis1.TOut)
     annotation (Line(points={{61,50},{70,50},{70,-60},{80,-60},{79,-60}}, color={0,0,127}));
   connect(booPul.y, TOut.u)
     annotation (Line(points={{-179,90},{-162,90}},   color={255,0,255}));

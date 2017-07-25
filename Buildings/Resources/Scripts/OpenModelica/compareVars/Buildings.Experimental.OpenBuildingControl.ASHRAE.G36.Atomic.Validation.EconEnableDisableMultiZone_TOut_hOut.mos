@@ -6,7 +6,7 @@ compareVars :=
     "ecoEnaDis.yRetDamPosMax",
     "ecoEnaDis.yRetDamPosMin",
     "ecoEnaDis.yOutDamPosMax",
-    "hOutCut.y",
+    "hOutCut1.y",
     "hOut.y",
     "ecoEnaDis1.trueFalseHold.y",
     "ecoEnaDis1.yRetDamPosMax",
