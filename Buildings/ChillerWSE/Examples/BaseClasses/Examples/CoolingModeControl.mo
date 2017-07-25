@@ -38,6 +38,7 @@ equation
           -70},{-26,-8},{-12,-8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/ChillerWSE/Examples/BaseClasses/Examples/CoolingModeControl.mos"
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/ChillerWSE/Examples/BaseClasses/Examples/CoolingModeControl.mos"
         "Simulate and Plot"));
 end CoolingModeControl;
