@@ -1,0 +1,28 @@
+simulateModel("Buildings.ChillerWSE.Examples.BaseClasses.Examples.ConstantSpeedPumpStageControl", stopTime=1080,tolerance=1e-6, method="dassl", resultFile="ConstantSpeedPumpStageControl");
+
+removePlots(false);
+createPlot(id=1,
+ position={15, 10, 592, 427},
+ y={"cooMod.y[1]"},
+ range={0.0, 1100.0, -1.0, 3.0},
+ erase=false,
+ grid=true,
+ filename="ConstatnSpeedPumpStageControl.mat",
+ colors={{28,108,200}});
+createPlot(id=1,
+ position={15, 10, 592, 139},
+ y={"chiNumOn.y[1]"},
+ range={0.0, 1100.0, -2.0, 4.0},
+ erase=false,
+ grid=true,
+ subPlot=2,
+ colors={{28,108,200}});
+createPlot(id=1,
+ position={15, 10, 592, 140},
+ y={"conSpePumSta.y[1]", "conSpePumSta.y[2]"},
+ range={0.0, 1100.0, -1.0, 2.0},
+ erase=false,
+ grid=true,
+ subPlot=3,
+ colors={{28,108,200}, {238,46,47}});
+
