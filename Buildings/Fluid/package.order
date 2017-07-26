@@ -1,5 +1,6 @@
 UsersGuide
 Actuators
+Air
 Boilers
 Chillers
 Delays
@@ -7,6 +8,7 @@ FMI
 FixedResistances
 HeatExchangers
 HeatPumps
+Humidifiers
 MassExchangers
 MixingVolumes
 Movers

@@ -72,7 +72,7 @@ protected
   final parameter Real HMinDel = 0.001
     "Delta of the smoothing function for HTot";
 
-  Real iamBea "Incident angle modifier for director solar radiation";
+  Real iamBea "Incident angle modifier for direct solar radiation";
   Real iam "Weighted incident angle modifier";
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_internal
@@ -104,24 +104,17 @@ equation
   end if;
 
   // E+ Equ (555)
-  iamBea = Buildings.Utilities.Math.Functions.smoothHeaviside(1/3*
-  Modelica.Constants.pi- incAng, Modelica.Constants.pi/60)*
-  SolarCollectors.BaseClasses.IAM(
-    incAng,
-    B0,
-    B1);
+  iamBea = SolarCollectors.BaseClasses.IAM(incAng, B0, B1);
   // E+ Equ (556)
-  iam = Buildings.Utilities.Math.Functions.smoothHeaviside(
-      1/3*Modelica.Constants.pi-incAng,Modelica.Constants.pi/60)*
-      ((HDirTil*iamBea + HSkyDifTil*iamSky + HGroDifTil*iamGro)/
-      Buildings.Utilities.Math.Functions.smoothMax((HDirTil +
-      HSkyDifTil + HGroDifTil), HTotMin, HMinDel));
+  iam = (HDirTil*iamBea + HSkyDifTil*iamSky + HGroDifTil*iamGro)/
+      Buildings.Utilities.Math.Functions.smoothMax((
+        HDirTil + HSkyDifTil + HGroDifTil), HTotMin, HMinDel);
   // Modified from EnergyPlus Equ (559) by applying shade effect for
   //direct solar radiation
   // Only solar heat gain is considered here
   for i in 1 : nSeg loop
-    QSol_flow[i] = A_c/nSeg*(y_intercept*iam*(HDirTil*(1.0 -
-    shaCoe_internal) + HSkyDifTil + HGroDifTil))*
+    QSol_flow[i] = A_c/nSeg*(y_intercept*iam*
+      (HDirTil*(1.0 - shaCoe_internal) + HSkyDifTil + HGroDifTil))*
       smooth(1, if TFlu[i] < TMedMax2
         then 1
         else Buildings.Utilities.Math.Functions.smoothHeaviside(TMedMax-TFlu[i], dTMax));
@@ -227,6 +220,13 @@ equation
     </html>",
     revisions="<html>
     <ul>
+<li>
+May 31, 2017, by Michael Wetter and Filip Jorissen:<br/>
+Change limits for incident angle modifier to avoid dip in temperature
+at shallow incidence angles.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/785\">issue 785</a>.
+</li>
 <li>
 September 17, 2016, by Michael Wetter:<br/>
 Corrected quantity from <code>Temperature</code> to <code>ThermodynamicTemperature</code>

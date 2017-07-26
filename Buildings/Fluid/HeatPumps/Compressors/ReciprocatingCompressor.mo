@@ -50,12 +50,12 @@ equation
     pDis = pCon + pDro;
     // Refrigerant mass flow rate
     k = ref.isentropicExponentVap_Tv(TSuc, vSuc);
-    m_flow =if pressure_error then 0 else pisDis_norm*pisDis/vSuc*(1 + cleFac
+    m_flow = pisDis_norm*pisDis/vSuc*(1 + cleFac
        - cleFac*(PR)^(1/k));
     // Theoretical power of the compressor
     PThe = k/(k-1) * m_flow*pSuc*vSuc*((PR)^((k-1)/k)-1);
     // Power consumed by the compressor
-    P =if pressure_error then 0 else PThe/etaEle + PLos;
+    P = PThe/etaEle + PLos;
     // Temperature at suction of the compressor
     TSuc = port_a.T + dTSup;
     // Energy balance of the compressor
@@ -112,6 +112,14 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2017, by Filip Jorissen:<br/>
+Removed <code>pressure_error</code> as
+this is replaced by 
+<a href=\"modelica://Buildings.Fluid.HeatPumps.Compressors.BaseClasses.TemperatureProtection\">
+Buildings.Fluid.HeatPumps.Compressors.BaseClasses.TemperatureProtection</a>.
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/769\">#769</a>.
+</li>
 <li>
 November 14, 2016, by Massimo Cimmino:<br/>
 First implementation.

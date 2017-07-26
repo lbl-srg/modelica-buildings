@@ -140,9 +140,10 @@ its class name ends with the string <code>Beta</code>.
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.Humidifiers
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Package with spray air washer, steam humidifier and a humidifer
+                          that adds a water vapor mass flow rate that is proportional to the control input.
        </td>
        </tr>
    </table>
@@ -176,6 +177,16 @@ its class name ends with the string <code>Beta</code>.
                         and optional first order dynamics.
        </td>
    </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Sources.MassFlowSource_WeatherData
+       </td>
+       <td valign=\"top\">Added component which allows prescribing
+                          a mass flow rate that has thermal properties
+                          obtained from weather data.
+       </td>
+   </tr>
    </table>
    <!-- Backward compatible changes -->
    <p>
@@ -184,12 +195,47 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot_TEva<br/>
+                          Buildings.Fluid.Chillers.Carnot_y
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Added approach temperature to avoid
+                          too large COPs if the temperature lift is small.<br/>
+                          This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/698\">IBPSA, #698</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.Carnot_TCon<br/>
+                          Buildings.Fluid.HeatPumps.Carnot_y
+       </td>
+       <td valign=\"top\">Added approach temperature to avoid
+                          too large COPs if the temperature lift is small.<br/>
+                          This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/698\">IBPSA, #698</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp
+       </td>
+       <td valign=\"top\">Added optional input signal for
+                          differential pressure measurement,
+                          which will then be tracked by the model.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
+                          Buildings.Fluid.SolarCollectors.EN12975
+       </td>
+       <td valign=\"top\">Changed models for incidence angles below 60&deg;
+                          in order to increase the accuracy near sunrise and sunset.<br/>
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/785\">#785</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>xxx</b>
@@ -222,7 +268,8 @@ its class name ends with the string <code>Beta</code>.
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.MassExchangers.Humidifier_u
        </td>
-       <td valign=\"top\">Removed parameters <code>use_T_in</code> and <code>T</code>,
+       <td valign=\"top\">Moved model to <code>Buildings.Fluid.Humidifiers.Humidifier_u</code>.<br/>
+                          Removed parameters <code>use_T_in</code> and <code>T</code>,
                           and removed input connector <code>T_in</code>, as these are no
                           longer needed.<br/>
                           For Dymola, the conversion script will remove the parameter
@@ -255,6 +302,18 @@ its class name ends with the string <code>Beta</code>.
                           <code>A=CD/CDRat * L * dpRat^(0.5-m))</code> rather than
                           <code>A=CDRat/CD * L * dpRat^(0.5-m))</code>.<br/>
                           See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/743\">#743</a>.
+       </td>
+   </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Controls</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Controls.Continuous.OffTimer
+       </td>
+       <td valign=\"top\">Corrected implementation as the timer had the wrong
+                          if the simulation did not start at <code>time = 0</code>.
+                          After the first reset, the value was correct.<br/>
+                          See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/743\">IBPSA, #743</a>.
        </td>
    </tr>
 
@@ -1203,8 +1262,8 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.Case900<br/>
-                          Buildings.ThermalZones.Detailed.Validation.BESTEST.Case900
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case900<br/>
+                          Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case900
        </td>
        <td valign=\"top\">Added missing <code>parameter</code> keyword,
                           which is required as the variable (for the materials) is assigned to a parameter.
