@@ -4,11 +4,10 @@ PartialChillerWSEInterface
 PartialControllerInterface
 PartialHeatExchanger
 PartialIntegratedPrimary
-PartialOperationSequenceInterface
 PartialParallelElectricEIR
 PartialPlantParallel
 PartialPlantParallelInterface
-PartialPumpParallel
+PartialOperationSequenceInterface
 SignalFilterParameters
 SignalFilter
 ThreeWayValveParameters
