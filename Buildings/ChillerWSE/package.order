@@ -3,7 +3,9 @@ HeatExchanger
 IntegratedPrimaryLoadSide
 IntegratedPrimaryPlantSide
 IntegratedPrimarySecondary
+MassflowControlledPumpParallel
 NonIntegrated
+SpeedControlledPumpParallel
 WatersideEconomizer
 Examples
 Validation

@@ -1,6 +1,6 @@
 within Buildings.ChillerWSE.Validation;
 model NonIntegrated "Non-integrated WSE  in a chilled water system"
-  import Buildings;
+
   extends Modelica.Icons.Example;
   extends Buildings.ChillerWSE.Validation.BaseClasses.PartialChillerWSE(
     sou1(nPorts=1),

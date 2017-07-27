@@ -1,6 +1,6 @@
 ChillerStageControl
 ConstantSpeedPumpStageControl
 CoolingModeControl
+CoolingTowerSpeedControl
 VariableSpeedPumpStageControl
 Examples
-CoolingTowerSpeedControl

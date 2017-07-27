@@ -2,7 +2,6 @@ within Buildings.ChillerWSE.Examples.BaseClasses;
 model ConstantSpeedPumpStageControl "Staging control for constant speed pumps"
 
   parameter Modelica.SIunits.Time tWai "Waiting time";
-  parameter Modelica.SIunits.Power QEva_nominal=-1000*3.517*1000 "Nominal cooling capaciaty(Negative means cooling)";
 
   Modelica.Blocks.Interfaces.RealInput cooMod
     "Cooling mode - 0: free cooling mode; 1: partially mechanical cooling; 2: fully mechanical cooling"

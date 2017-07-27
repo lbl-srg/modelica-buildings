@@ -31,6 +31,7 @@ model IntegratedPrimaryLoadSide2
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
           V_flow=mChiller2_flow_nominal/1000*{0.2,0.6,1.0,1.2}, dp=dpChiller2_nominal*{1.2,
           1.1,1.0,0.6}));
+  parameter Modelica.SIunits.Time tWai=1200 "Waiting time";
 
   Buildings.ChillerWSE.IntegratedPrimaryLoadSide intWSEPri(
     redeclare package Medium1 = MediumW,
@@ -50,28 +51,30 @@ model IntegratedPrimaryLoadSide2
       Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes
       perChi)
     "Integrated waterside economizer on the load side of a primary-only chilled water system"
-    annotation (Placement(transformation(extent={{64,22},{84,42}})));
+    annotation (Placement(transformation(extent={{126,22},{146,42}})));
   Buildings.Fluid.Storage.ExpansionVessel expVesChi(redeclare package Medium =
         MediumW, V_start=1)
     annotation (Placement(transformation(extent={{210,99},{230,119}})));
   Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow[nChi](
-    redeclare package Medium = MediumW,
-    PFan_nominal=6000,
-    TAirInWB_nominal(displayUnit="degC") = 283.15,
-    TApp_nominal=6,
-    dp_nominal=14930 + 14930 + 74650,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    m_flow_nominal=mChiller1_flow_nominal) "Cooling tower" annotation (
-      Placement(transformation(extent={{10,-10},{-10,10}}, origin={99,131})));
+    redeclare each package Medium = MediumW,
+    each m_flow_nominal=mChiller1_flow_nominal,
+    each dp_nominal=14930 + 14930 + 74650,
+    each TAirInWB_nominal(displayUnit="degC") = 283.15,
+    each TApp_nominal=6,
+    each PFan_nominal=6000,
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+                                           "Cooling tower" annotation (
+      Placement(transformation(extent={{10,-10},{-10,10}}, origin={175,139})));
   Fluid.Sources.FixedBoundary           sin2(
     nPorts=1, redeclare package Medium = MediumW)   "Sink on medium 2 side"
                                         annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        origin={-206,-96})));
-  Fluid.Sensors.TemperatureTwoPort TSup(redeclare package Medium = MediumW,
+        origin={8,-88})));
+  Fluid.Sensors.TemperatureTwoPort CHWST(redeclare package Medium = MediumW,
       m_flow_nominal=nChi*mChiller2_flow_nominal)
-    annotation (Placement(transformation(extent={{-140,-80},{-160,-60}})));
+    "Chilled water supply temperature"
+    annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
   redeclare replaceable Fluid.Sources.Boundary_pT                sou2(
     nPorts=1,
     redeclare package Medium = MediumW,
@@ -80,30 +83,32 @@ model IntegratedPrimaryLoadSide2
     use_T_in=true,
     redeclare package Medium = MediumCHW,
     T=291.15) "Source on medium 2 side"
-    annotation (Placement(transformation(extent={{132,-84},{112,-64}})));
+    annotation (Placement(transformation(extent={{206,-36},{186,-16}})));
   Modelica.Blocks.Sources.Constant
                                TEva_in(k=273.15 + 25.28)
                    "Evaporator inlet temperature"
-    annotation (Placement(transformation(extent={{236,-80},{216,-60}})));
-  Modelica.Blocks.Sources.Constant TSet(k(unit="K",displayUnit="degC")=273.15+15.56)
-    "Leaving chilled water temperature setpoint"
-    annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
+    annotation (Placement(transformation(extent={{280,-32},{260,-12}})));
+  Modelica.Blocks.Sources.Constant CHWSTSet(k(
+      unit="K",
+      displayUnit="degC") = 273.15 + 15.56)
+    "Chilled water supply temperature setpoint"
+    annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
   Modelica.Blocks.Sources.Constant yVal7(k=0) "Conrol signal for valve 7"
-    annotation (Placement(transformation(extent={{42,-22},{62,-2}})));
+    annotation (Placement(transformation(extent={{68,-10},{88,10}})));
   Modelica.Blocks.Sources.Constant yPum[nChi](k=1) "Conrol signal for pumps"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Modelica.Blocks.Sources.Constant yFanCT(k=1) "Conrol signal for pumps"
-    annotation (Placement(transformation(extent={{200,178},{180,198}})));
+    annotation (Placement(transformation(extent={{-18,-30},{2,-10}})));
   BoundaryConditions.WeatherData.ReaderTMY3           weaData(filNam=
         "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
-    annotation (Placement(transformation(extent={{-200,168},{-180,188}})));
+    annotation (Placement(transformation(extent={{-220,-78},{-200,-58}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
-    annotation (Placement(transformation(extent={{-170,160},{-150,180}})));
-  Fluid.Sensors.TemperatureTwoPort TSupCW(redeclare package Medium = MediumW,
+    annotation (Placement(transformation(extent={{-210,-38},{-190,-18}})));
+  Fluid.Sensors.TemperatureTwoPort CWST(redeclare package Medium = MediumW,
       m_flow_nominal=nChi*mChiller1_flow_nominal)
-    annotation (Placement(transformation(extent={{12,78},{-8,98}})));
-  Fluid.Sensors.TemperatureTwoPort TRetCW(redeclare package Medium = MediumW,
+    "Condenser water supply temperature"
+    annotation (Placement(transformation(extent={{150,130},{130,150}})));
+  Fluid.Sensors.TemperatureTwoPort CWRT(redeclare package Medium = MediumW,
       m_flow_nominal=nChi*mChiller1_flow_nominal)
+    "Condenser water return temperature"
     annotation (Placement(transformation(extent={{180,28},{200,48}})));
   Fluid.Movers.FlowControlled_m_flow pumCW[2](
     redeclare package Medium = MediumW,
@@ -111,130 +116,163 @@ model IntegratedPrimaryLoadSide2
     m_flow_nominal=mChiller1_flow_nominal) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-34,60})));
-  Modelica.Blocks.Sources.Constant mPumCW[nChi](k=mChiller1_flow_nominal)
-    "Conrol signal for pumps"
-    annotation (Placement(transformation(extent={{-126,50},{-106,70}})));
+        origin={112,90})));
   BaseClasses.CoolingModeControl cooModCon(
-    tWai=1200,
     deaBan1=1,
-    deaBan2=1) "Cooling mode controller"
-    annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
+    deaBan2=1,
+    tWai=tWai) "Cooling mode controller"
+    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Modelica.Blocks.Sources.RealExpression towTApp(y=max(cooTow[1:nChi].TAppAct))
     "Cooling tower approach temperature"
-    annotation (Placement(transformation(extent={{-200,106},{-180,126}})));
-  BaseClasses.ChillerStageControl chiStaCon(tWai=1200, QEva_nominal=-300*3517)
+    annotation (Placement(transformation(extent={{-160,108},{-140,128}})));
+  BaseClasses.ChillerStageControl chiStaCon(           QEva_nominal=-300*3517, tWai=0)
                                             "Chiller staging control"
-    annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
-  Modelica.Blocks.Sources.RealExpression cooLoaChi(y=intWSEPri.port_a2.m_flow*
-        4180*(intWSEPri.wseCHWST - TSet.y))
-                                      "Cooling load in chillers"
-    annotation (Placement(transformation(extent={{-120,178},{-100,198}})));
+    annotation (Placement(transformation(extent={{-20,130},{0,150}})));
+  Modelica.Blocks.Sources.RealExpression cooLoaChi(y=intWSEPri.port_a2.m_flow*4180
+        *(intWSEPri.wseCHWST - CHWSTSet.y)) "Cooling load in chillers"
+    annotation (Placement(transformation(extent={{-100,134},{-80,154}})));
   Modelica.Blocks.Math.RealToBoolean chiOn[nChi](threshold=0.5)
     "Real value to boolean value"
-    annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
+    annotation (Placement(transformation(extent={{20,130},{40,150}})));
   Modelica.Blocks.Math.RealToBoolean reaToBoo(threshold=1.5)
     "Inverse on/off signal for the WSE"
-    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
+    annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Modelica.Blocks.Logical.Not wseOn "True: WSE is on; False: WSE is off "
-    annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
-  Modelica.Blocks.Sources.RealExpression yVal5(y=if (chiOn[1].y or chiOn[2].y)
-         and not wseOn.y then 1 else 0)
-                        "On/off signal for valve 5"
-    annotation (Placement(transformation(extent={{-80,18},{-60,38}})));
-  Modelica.Blocks.Sources.RealExpression yVal6(y=if not (chiOn[1].y and chiOn[2].y)
-         and wseOn.y then 1 else 0)
-                        "On/off signal for valve 6"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{20,100},{40,120}})));
+  Modelica.Blocks.Sources.RealExpression yVal5(y=if cooModCon.cooMod > 1.5
+         then 1 else 0) "On/off signal for valve 5"
+    annotation (Placement(transformation(extent={{-18,18},{2,38}})));
+  Modelica.Blocks.Sources.RealExpression yVal6(y=if cooModCon.cooMod < 0.5
+         then 1 else 0) "On/off signal for valve 6"
+    annotation (Placement(transformation(extent={{-18,0},{2,20}})));
+  BaseClasses.ConstantSpeedPumpStageControl CWPumCon(tWai=0)
+    "Condenser water pump controller"
+    annotation (Placement(transformation(extent={{-22,60},{-2,80}})));
+  Modelica.Blocks.Sources.RealExpression chiNumOn(y=sum(chiStaCon.y))
+    "The number of running chillers"
+    annotation (Placement(transformation(extent={{-100,64},{-80,84}})));
+  Modelica.Blocks.Math.Gain gai[nChi](k=mChiller1_flow_nominal) "Gain effect"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+  BaseClasses.CoolingTowerSpeedControl cooTowSpeCon(controllerType=Modelica.Blocks.Types.SimpleController.PI,
+      reset=Buildings.Types.Reset.Disabled)
+    "Cooling tower speed control"
+    annotation (Placement(transformation(extent={{-20,170},{0,186}})));
+  Modelica.Blocks.Sources.Constant CWSTSet(k(
+      unit="K",
+      displayUnit="degC") = 273.15 + 20)
+    "Condenser water supply temperature setpoint"
+    annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
+
 equation
   connect(sou2.T_in,TEva_in. y)
-    annotation (Line(points={{134,-70},{215,-70}},        color={0,0,127}));
-  connect(intWSEPri.port_b2, TSup.port_a) annotation (Line(points={{64,26},{38,
-          26},{38,-70},{-140,-70}}, color={0,127,255}));
-  connect(TSup.port_b, sin2.ports[1]) annotation (Line(points={{-160,-70},{-180,
-          -70},{-180,-96},{-196,-96}},
-                                color={0,127,255}));
-  connect(intWSEPri.port_a2, sou2.ports[1]) annotation (Line(points={{84,26},{
-          98,26},{98,-74},{112,-74}},
+    annotation (Line(points={{208,-22},{208,-22},{214,-22},{259,-22}},
+                                                          color={0,0,127}));
+  connect(intWSEPri.port_b2, CHWST.port_a) annotation (Line(points={{126,26},{
+          112,26},{112,-60},{60,-60}}, color={0,127,255}));
+  connect(CHWST.port_b, sin2.ports[1]) annotation (Line(points={{40,-60},{28,-60},
+          {28,-88},{18,-88}}, color={0,127,255}));
+  connect(intWSEPri.port_a2, sou2.ports[1]) annotation (Line(points={{146,26},{166,
+          26},{166,-26},{186,-26}},
                                   color={0,127,255}));
-  connect(TSet.y, intWSEPri.TSet) annotation (Line(points={{-179,150},{-162,150},
-          {-162,42.8},{62.4,42.8}},     color={0,0,127}));
-  connect(yVal7.y, intWSEPri.yVal7) annotation (Line(points={{63,-12},{63,-12},{
-          70.8,-12},{70.8,20.4}},        color={0,0,127}));
+  connect(yVal7.y, intWSEPri.yVal7) annotation (Line(points={{89,0},{89,0},{132.8,
+          0},{132.8,20.4}},              color={0,0,127}));
   connect(weaData.weaBus, weaBus.TWetBul) annotation (Line(
-      points={{-180,178},{-180,178},{-160,178},{-160,170}},
+      points={{-200,-68},{-200,-28}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(intWSEPri.port_b1, TRetCW.port_a)
-    annotation (Line(points={{84,38},{180,38}},
-                                             color={0,127,255}));
-  connect(TRetCW.port_b, expVesChi.port_a)
-    annotation (Line(points={{200,38},{220,38},{220,99}},
-                                                     color={0,127,255}));
+  connect(intWSEPri.port_b1, CWRT.port_a)
+    annotation (Line(points={{146,38},{180,38}}, color={0,127,255}));
+  connect(CWRT.port_b, expVesChi.port_a)
+    annotation (Line(points={{200,38},{220,38},{220,99}}, color={0,127,255}));
 
    for i in 1:nChi loop
-     connect(cooTow[i].TAir, weaBus.TWetBul.TWetBul) annotation (Line(points={{111,135},
-            {120,135},{120,170},{-160,170}},
+     connect(cooTow[i].TAir, weaBus.TWetBul.TWetBul) annotation (Line(points={{187,143},
+            {214,143},{250,143},{250,214},{-188,214},{-188,-28},{-200,-28}},
                                        color={0,0,127}));
 
-     connect(cooTow[i].y, yFanCT.y) annotation (Line(points={{111,139},{140,139},
-            {140,188},{140,188},{179,188}},
-                     color={0,0,127}));
      connect(cooTow[i].port_a, expVesChi.port_a)
-       annotation (Line(points={{109,131},{140,131},{140,132},{140,132},{140,80},
-            {220,80},{220,99}},                           color={0,127,255}));
-     connect(TSupCW.port_a, cooTow[i].port_b) annotation (Line(points={{12,88},
-            {40,88},{40,131},{89,131}},
-                                 color={0,127,255}));
+       annotation (Line(points={{185,139},{200,139},{200,138},{200,80},{220,80},
+            {220,99}},                                    color={0,127,255}));
+    connect(CWST.port_a, cooTow[i].port_b) annotation (Line(points={{150,140},{
+            164,140},{164,139},{165,139}}, color={0,127,255}));
      connect(pumCW[i].port_b, intWSEPri.port_a1)
-      annotation (Line(points={{-34,50},{-34,38},{64,38}},color={0,127,255}));
+      annotation (Line(points={{112,80},{112,38},{126,38}},
+                                                          color={0,127,255}));
 
-      connect(pumCW[i].port_a, TSupCW.port_b)
-    annotation (Line(points={{-34,70},{-34,88},{-8,88}},  color={0,127,255}));
-    connect(chiOn[i].y, intWSEPri.on[i]) annotation (Line(points={{-19,150},{32,
-            150},{32,39.6},{62.4,39.6}}, color={255,0,255}));
+    connect(pumCW[i].port_a, CWST.port_b) annotation (Line(points={{112,100},{
+            112,140},{130,140}}, color={0,127,255}));
+    connect(chiOn[i].y, intWSEPri.on[i]) annotation (Line(points={{41,140},{92,140},
+            {92,39.6},{124.4,39.6}},     color={255,0,255}));
    end for;
-  connect(TSet.y, cooModCon.CHWSTSet) annotation (Line(points={{-179,150},{-162,
-          150},{-162,138},{-142,138}}, color={0,0,127}));
-  connect(towTApp.y, cooModCon.towTApp) annotation (Line(points={{-179,116},{
-          -166,116},{-166,118},{-166,130},{-142,130}}, color={0,0,127}));
+  connect(CHWSTSet.y, cooModCon.CHWSTSet) annotation (Line(points={{-139,160},{-120,
+          160},{-120,118},{-102,118}}, color={0,0,127}));
+  connect(towTApp.y, cooModCon.towTApp) annotation (Line(points={{-139,118},{-139,
+          118},{-102,118},{-102,110}},                 color={0,0,127}));
   connect(weaBus.TWetBul.TWetBul, cooModCon.TWetBul) annotation (Line(
-      points={{-160,170},{-160,170},{-160,168},{-160,154},{-156,154},{-156,134},
-          {-142,134}},
+      points={{-200,-28},{-186,-28},{-186,214},{-120,214},{-120,114},{-102,114}},
       color={255,204,51},
       thickness=0.5));
-  connect(intWSEPri.wseCHWST, cooModCon.wseCHWST) annotation (Line(points={{85,36},
-          {114,36},{114,106},{-160,106},{-160,126},{-142,126}},
+  connect(intWSEPri.wseCHWST, cooModCon.wseCHWST) annotation (Line(points={{147,36},
+          {160,36},{160,214},{-120,214},{-120,106},{-102,106}},
         color={0,0,127}));
-  connect(TEva_in.y, cooModCon.wseCHWRT) annotation (Line(points={{215,-70},{
-          154,-70},{154,106},{-156,106},{-156,122},{-142,122}}, color={0,0,127}));
-  connect(cooModCon.cooMod, chiStaCon.cooMod) annotation (Line(points={{-119,130},
-          {-102,130},{-102,158},{-82,158}}, color={0,0,127}));
-  connect(mPumCW.y, pumCW.m_flow_in)
-    annotation (Line(points={{-105,60},{-46,60},{-46,60.2}}, color={0,0,127}));
-  connect(cooLoaChi.y, chiStaCon.QTot) annotation (Line(points={{-99,188},{-94,188},
-          {-94,154},{-82,154}}, color={0,0,127}));
-  connect(chiStaCon.y, chiOn.u) annotation (Line(points={{-59,150},{-50.5,150},
-          {-42,150}}, color={0,0,127}));
-  connect(cooModCon.cooMod,reaToBoo. u) annotation (Line(points={{-119,130},{-102,
-          130},{-102,120},{-82,120}}, color={0,0,127}));
-  connect(reaToBoo.y, wseOn.u) annotation (Line(points={{-59,120},{-50.5,120},{
-          -42,120}}, color={255,0,255}));
-  connect(wseOn.y, intWSEPri.on[nChi + 1]) annotation (Line(points={{-19,120},{
-          -10,120},{32,120},{32,39.6},{62.4,39.6}}, color={255,0,255}));
-  connect(yPum.y, intWSEPri.yPum) annotation (Line(points={{-59,-20},{-2,-20},{
-          -2,27.6},{62.4,27.6}}, color={0,0,127}));
-  connect(yVal5.y, intWSEPri.yVal5) annotation (Line(points={{-59,28},{-38,28},
-          {-38,35},{62.4,35}}, color={0,0,127}));
-  connect(yVal6.y, intWSEPri.yVal6) annotation (Line(points={{-59,10},{-36,10},
-          {-36,31.8},{62.4,31.8}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-220,
-            -120},{240,200}})),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-220,-120},{240,
-            200}})),
+  connect(TEva_in.y, cooModCon.wseCHWRT) annotation (Line(points={{259,-22},{250,
+          -22},{250,214},{-120,214},{-120,102},{-102,102}},     color={0,0,127}));
+  connect(cooModCon.cooMod, chiStaCon.cooMod) annotation (Line(points={{-79,110},
+          {-40,110},{-40,148},{-22,148}},   color={0,0,127}));
+  connect(cooLoaChi.y, chiStaCon.QTot) annotation (Line(points={{-79,144},{-34,144},
+          {-22,144}},           color={0,0,127}));
+  connect(chiStaCon.y, chiOn.u) annotation (Line(points={{1,140},{9.5,140},{18,140}},
+                      color={0,0,127}));
+  connect(cooModCon.cooMod,reaToBoo. u) annotation (Line(points={{-79,110},{-64,
+          110},{-22,110}},            color={0,0,127}));
+  connect(reaToBoo.y, wseOn.u) annotation (Line(points={{1,110},{9.5,110},{18,110}},
+                     color={255,0,255}));
+  connect(wseOn.y, intWSEPri.on[nChi + 1]) annotation (Line(points={{41,110},{50,
+          110},{92,110},{92,39.6},{124.4,39.6}},    color={255,0,255}));
+  connect(yPum.y, intWSEPri.yPum) annotation (Line(points={{3,-20},{60,-20},{60,
+          27.6},{124.4,27.6}},   color={0,0,127}));
+  connect(yVal5.y, intWSEPri.yVal5) annotation (Line(points={{3,28},{24,28},{24,
+          35},{124.4,35}},     color={0,0,127}));
+  connect(yVal6.y, intWSEPri.yVal6) annotation (Line(points={{3,10},{26,10},{26,
+          31.8},{124.4,31.8}},     color={0,0,127}));
+  connect(cooModCon.cooMod, CWPumCon.cooMod) annotation (Line(points={{-79,110},
+          {-40,110},{-40,78},{-24,78}}, color={0,0,127}));
+  connect(chiNumOn.y, CWPumCon.chiNumOn)
+    annotation (Line(points={{-79,74},{-79,74},{-24,74}}, color={0,0,127}));
+  connect(CWPumCon.y, gai.u)
+    annotation (Line(points={{-1,70},{18,70}},         color={0,0,127}));
+  connect(gai.y, pumCW.m_flow_in) annotation (Line(points={{41,70},{80,70},{80,90},
+          {100,90}}, color={0,0,127}));
+  connect(CWSTSet.y, cooTowSpeCon.CWST_set) annotation (Line(points={{-79,180},
+          {-40,180},{-40,186},{-22,186}}, color={0,0,127}));
+  connect(cooModCon.cooMod, cooTowSpeCon.cooMod) annotation (Line(points={{-79,110},
+          {-40,110},{-40,182.444},{-22,182.444}},
+                                               color={0,0,127}));
+  connect(CHWSTSet.y, cooTowSpeCon.CHWST_set) annotation (Line(points={{-139,
+          160},{-120,160},{-120,214},{-40,214},{-40,178.889},{-22,178.889}},
+                                                                     color={0,0,
+          127}));
+  connect(CWST.T, cooTowSpeCon.CWST) annotation (Line(points={{140,151},{140,
+          166},{160,166},{160,214},{-40,214},{-40,175.333},{-22,175.333}},
+                                                                   color={0,0,
+          127}));
+  connect(CHWST.T, cooTowSpeCon.CHWST) annotation (Line(points={{50,-49},{50,
+          214},{-40,214},{-40,171.778},{-22,171.778}},
+                                               color={0,0,127}));
+  connect(cooTowSpeCon.y, cooTow[1].y) annotation (Line(points={{1,178.889},{
+          202,178.889},{202,147},{187,147}},
+                                         color={0,0,127}));
+  connect(cooTowSpeCon.y, cooTow[2].y) annotation (Line(points={{1,178.889},{
+          202,178.889},{202,147},{187,147}},
+                                         color={0,0,127}));
+  connect(intWSEPri.TSet, CHWSTSet.y) annotation (Line(points={{124.4,42.8},{62,
+          42.8},{-120,42.8},{-120,160},{-139,160}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-220,-120},
+            {280,200}})),                                        Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-220,-120},{280,200}})),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/ChillerWSE/Examples/IntegratedPrimaryLoadSide.mos"
         "Simulate and Plot"));
