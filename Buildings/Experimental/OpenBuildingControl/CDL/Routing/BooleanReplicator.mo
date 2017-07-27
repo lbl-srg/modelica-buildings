@@ -30,7 +30,8 @@ equation
           textString="%name")}),
     Documentation(info="<html>
 <p>
-This block replicates the Boolean input signal to an array of <code>nout</code> identical Boolean output signals.
+This block replicates the Boolean input signal to an array of <code>nout</code>
+identical Boolean output signals.
 </p>
 </html>", revisions="<html>
 <ul>

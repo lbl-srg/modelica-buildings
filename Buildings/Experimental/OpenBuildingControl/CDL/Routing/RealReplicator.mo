@@ -30,7 +30,8 @@ equation
           textString="%name")}),
     Documentation(info="<html>
 <p>
-This block replicates the input signal to an array of <code>nout</code> identical output signals.
+This block replicates the Real input signal to an array of <code>nout</code>
+identical Real output signals.
 </p>
 </html>", revisions="<html>
 <ul>
