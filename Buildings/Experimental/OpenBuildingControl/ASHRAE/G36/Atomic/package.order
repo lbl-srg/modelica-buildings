@@ -4,6 +4,7 @@ EconEnableDisableMultiZone
 EconEnableDisableSingleZone
 EconModulationMultiZone
 EconModulationSingleZone
+HeatingCoolingControlLoops
 OperationModeSelector
 VAVSingleZoneTSupSet
 Validation

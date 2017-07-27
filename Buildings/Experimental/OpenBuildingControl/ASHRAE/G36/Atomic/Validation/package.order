@@ -8,6 +8,7 @@ EconEnableDisableSingleZone_FreProSta_ZonSta
 EconEnableDisableSingleZone_TOut_hOut
 EconModulationMultiZone_TSup
 EconModulationSingleZone_TSup
+HeatingCoolingControlLoops_TRoo
 OperationMode
 VAVSingleZoneTSupSet_T
 VAVSingleZoneTSupSet_u
