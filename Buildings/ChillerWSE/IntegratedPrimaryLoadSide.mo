@@ -35,8 +35,15 @@ model IntegratedPrimaryLoadSide
   parameter Modelica.Blocks.Types.Init initPum=initValve
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
-  parameter Real[nPum] yPum_start=fill(0,nPum) "Initial value of output:0-closed, 1-fully opened"
+  parameter Real[nPum] yPump_start=fill(0,nPum) "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
+  parameter Real[nPum] yValvePump_start = fill(0,nPum) "Initial value of output:0-closed, 1-fully opened"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+  parameter Real l_ValvePump=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
+    annotation(Dialog(group="Pump"));
+  parameter Real kFixed_ValvePump=pum.m_flow_nominal/sqrt(pum.dpValve_nominal)
+    "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
+    annotation(Dialog(group="Pump"));
 
  //Valve
   parameter Real lValve7(min=1e-10,max=1) = 0.0001
@@ -59,26 +66,34 @@ model IntegratedPrimaryLoadSide
         rotation=90,
         origin={-32,-116})));
 
-  Buildings.Fluid.Movers.SpeedControlled_y pum[nPum](
+  SpeedControlledPumpParallel pum(
     redeclare each final package Medium = Medium2,
     each final p_start=p2_start,
     each final T_start=T2_start,
     each final X_start=X2_start,
     each final C_start=C2_start,
     each final C_nominal=C2_nominal,
-    each final allowFlowReversal=allowFlowReversal2,
     each final m_flow_small=m2_flow_small,
     each final show_T=show_T,
     final per=perPum,
     each addPowerToMedium=addPowerToMedium,
     each final energyDynamics=energyDynamics,
     each final massDynamics=massDynamics,
-    each final inputType=Buildings.Fluid.Types.InputType.Continuous,
     each final use_inputFilter=use_inputFilter,
-    each final riseTime=riseTimePum,
     each final init=initPum,
-    final y_start=yPum_start,
-    each final tau=tauPump) "Identical pumps"
+    each final tau=tauPump,
+    each final allowFlowReversal=allowFlowReversal2,
+    final nPum=nPum,
+    final m_flow_nominal=mChiller2_flow_nominal,
+    dpValve_nominal=6000,
+    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    final deltaM=deltaM2,
+    riseTimePump=riseTimePum,
+    riseTimeValve=riseTimeValve,
+    final yValve_start=yValvePump_start,
+    final l=l_ValvePump,
+    final kFixed=kFixed_ValvePump,
+    final yPump_start=yPump_start)                      "Identical pumps"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val7(
     redeclare final package Medium = Medium2,
@@ -103,23 +118,23 @@ model IntegratedPrimaryLoadSide
     annotation (Placement(transformation(extent={{10,-90},{-10,-70}})));
 
 
+
 equation
-  for i in 1:nChi loop
-  connect(val5.port_b, pum[i].port_a) annotation (Line(points={{40,-20},{14,-20},{14,
+
+  connect(val5.port_b, pum.port_a) annotation (Line(points={{40,-20},{14,-20},{14,
           -40},{10,-40}}, color={0,127,255}));
-  connect(pum[i].port_b,val6.port_a)  annotation (Line(points={{-10,-40},{-16,-40},
+  connect(pum.port_b,val6.port_a)  annotation (Line(points={{-10,-40},{-16,-40},
           {-16,-20},{-40,-20}}, color={0,127,255}));
-  end for;
+
   connect(val5.port_b,val7. port_a) annotation (Line(points={{40,-20},{30,-20},{
           30,-80},{10,-80}}, color={0,127,255}));
   connect(val7.port_b, port_b2) annotation (Line(points={{-10,-80},{-40,-80},{-40,
           -60},{-100,-60}}, color={0,127,255}));
- connect(pum.y, yPum) annotation (Line(points={{0.2,-28},{0.2,-10},{-26,-10},{
-          -26,-40},{-120,-40}},
-                            color={0,0,127}));
   connect(val7.y, yVal7) annotation (Line(points={{0,-68},{0,-68},{0,-60},{-28,-60},
           {-28,-120}}, color={0,0,127}));
 
+  connect(yPum, pum.u) annotation (Line(points={{-120,-40},{-30,-40},{-30,-28},{
+          18,-28},{18,-35},{11,-35}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
