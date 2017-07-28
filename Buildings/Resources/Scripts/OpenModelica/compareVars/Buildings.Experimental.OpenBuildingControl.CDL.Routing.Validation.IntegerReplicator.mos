@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "ram.y",
+    "reaToInt.y",
+    "intRep.y[1]",
+    "intRep.y[2]",
+    "intRep.y[3]"
+  };

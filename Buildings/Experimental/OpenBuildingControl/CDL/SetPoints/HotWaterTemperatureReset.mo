@@ -11,28 +11,26 @@ block HotWaterTemperatureReset
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Temperature TOut_nominal "Outside temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal(displayUnit="K") = 8 "Offset for heating curve";
+  parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal(displayUnit="K") = 8
+    "Offset for heating curve";
 
   Interfaces.RealInput TSetZon(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
-    displayUnit = "degC", min=200)
+    displayUnit = "degC", min=200) "Zone setpoint temperature"
     annotation (Placement(transformation(extent={{-139,-80},{-99,-40}})));
-
   Interfaces.RealInput TOut(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC",
     min=200) "Outside temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-
   Interfaces.RealOutput TSup(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC",
     min=200) "Setpoint for supply temperature"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-
   Interfaces.RealOutput TRet(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
@@ -43,9 +41,7 @@ block HotWaterTemperatureReset
 protected
   parameter Modelica.SIunits.Temperature TOutOffSet_nominal =  TOut_nominal + dTOutHeaBal
     "Effective outside temperature for heat transfer at nominal conditions (takes into account zone heat gains)";
-
   Real qRel "Relative heating load = Q_flow/Q_flow_nominal";
-
   Modelica.SIunits.Temperature TOutOffSet
     "Effective outside temperature for heat transfer (takes into account zone heat gains)";
 
@@ -64,9 +60,8 @@ Documentation(info="<html>
 <p>
 This block computes the set point temperatures for the
 supply and return temperature of a heating system.
-The set point for the zone air temperature can either be specified
-by a parameter, or it can be an input to the model. The latter allows
-to use this model with systems that have night set back.
+The set point for the zone air temperature can be an input to the model. 
+It allows to use this model with systems that have night set back.
 </p>
 <p>
 The parameter <code>dTOutHeaBal</code> can be used to shift the heating curve
