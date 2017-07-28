@@ -16,14 +16,6 @@ model PartialIntegratedPrimary
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
   parameter Real yValve6_start = 1-yValve5_start "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  // Temperature sensor
-  parameter Modelica.SIunits.Time tau_SenT=1
-    "Time constant at nominal flow rate (use tau=0 for steady-state sensor, but see user guide for potential problems)"
-   annotation(Dialog(tab="Dynamics", group="Temperature Sensor",
-     enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
-  parameter Modelica.Blocks.Types.Init initTSenor = Modelica.Blocks.Types.Init.InitialState
-    "Type of initialization of the temperature sensor (InitialState and InitialOutput are identical)"
-  annotation(Evaluate=true, Dialog(tab="Dynamics", group="Temperature Sensor"));
 
   Modelica.Blocks.Interfaces.RealOutput wseCHWST(
     final quantity="ThermodynamicTemperature",
@@ -99,16 +91,6 @@ model PartialIntegratedPrimary
     "Shutoff valve: closed when free cooling mode is deactivated; open when free cooling is activated"
     annotation (Placement(transformation(extent={{-40,-30},{-60,-10}})));
 
-  Fluid.Sensors.TemperatureTwoPort senTem(
-    redeclare final replaceable package Medium = Medium2,
-    final m_flow_nominal=mWSE2_flow_nominal,
-    final tau=tau_SenT,
-    final initType=initTSenor,
-    final T_start=T2_start,
-    final allowFlowReversal=allowFlowReversal2,
-    final m_flow_small=m2_flow_small) "Temperature sensor"
-    annotation (Placement(transformation(extent={{28,14},{8,34}})));
-
 equation
   connect(port_a2,val5. port_a) annotation (Line(points={{100,-60},{80,-60},{80,
           -20},{60,-20}}, color={0,127,255}));
@@ -124,12 +106,8 @@ equation
           {-94,20},{-120,20}}, color={0,0,127}));
   connect(yVal6, val6.y) annotation (Line(points={{-120,-10},{-94,-10},{-94,0},
           {-50,0},{-50,-8}}, color={0,0,127}));
-  connect(wse.port_b2, senTem.port_a)
-    annotation (Line(points={{40,24},{28,24}}, color={0,127,255}));
-  connect(senTem.port_b, val5.port_b) annotation (Line(points={{8,24},{-4,24},{-4,
+  connect(senTem.port_b, val5.port_b) annotation (Line(points={{8,24},{0,24},{0,
           -20},{40,-20}}, color={0,127,255}));
-  connect(senTem.T, wseCHWST) annotation (Line(points={{18,35},{18,35},{18,52},
-          {90,52},{90,40},{110,40}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 Partial model that implements integrated waterside economizer in primary-ony chilled water system.
 </html>", revisions="<html>

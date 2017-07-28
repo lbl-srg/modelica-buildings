@@ -110,6 +110,14 @@ partial model PartialChillerWSE
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", group = "Medium 2", enable=Medium2.nC > 0));
 
+  // Temperature sensor
+  parameter Modelica.SIunits.Time tau_SenT=1
+    "Time constant at nominal flow rate (use tau=0 for steady-state sensor, but see user guide for potential problems)"
+   annotation(Dialog(tab="Dynamics", group="Temperature Sensor",
+     enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Blocks.Types.Init initTSenor = Modelica.Blocks.Types.Init.InitialState
+    "Type of initialization of the temperature sensor (InitialState and InitialOutput are identical)"
+  annotation(Evaluate=true, Dialog(tab="Dynamics", group="Temperature Sensor"));
 
   Buildings.ChillerWSE.ElectricChilerParallel chiPar(
     redeclare final replaceable package Medium1 = Medium1,
@@ -220,6 +228,24 @@ partial model PartialChillerWSE
     final portFlowDirection_2=portFlowDirection_2,
     final portFlowDirection_3=portFlowDirection_3) "Waterside economizer"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
+  Fluid.Sensors.TemperatureTwoPort senTem(
+    redeclare final replaceable package Medium = Medium2,
+    final m_flow_nominal=mWSE2_flow_nominal,
+    final tau=tau_SenT,
+    final initType=initTSenor,
+    final T_start=T2_start,
+    final allowFlowReversal=allowFlowReversal2,
+    final m_flow_small=m2_flow_small) "Temperature sensor"
+    annotation (Placement(transformation(extent={{28,14},{8,34}})));
+  Modelica.Blocks.Interfaces.RealOutput wseCHWST(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC",
+    min=0,
+    start=T2_start)
+    "Chilled water supply temperature in the waterside economizer" annotation (
+      Placement(transformation(extent={{100,30},{120,50}}), iconTransformation(
+          extent={{100,30},{120,50}})));
 equation
   for i in 1:nChi loop
   connect(chiPar.on[i], on[i]) annotation (Line(points={{-62,34},{-92,34},{-92,
@@ -247,6 +273,10 @@ equation
   connect(trigger, wse.trigger) annotation (Line(points={{-60,-100},{-60,-100},{
           -60,-80},{-90,-80},{-90,10},{44,10},{44,20}},
                                        color={255,0,255}));
+  connect(senTem.T,wseCHWST)  annotation (Line(points={{18,35},{18,35},{18,52},
+          {90,52},{90,40},{110,40}}, color={0,0,127}));
+  connect(wse.port_b2, senTem.port_a)
+    annotation (Line(points={{40,24},{34,24},{28,24}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
                                                                  Diagram(

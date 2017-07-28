@@ -109,8 +109,6 @@ equation
           {100,-60}}, color={0,127,255}));
   connect(port_a2,val5. port_a) annotation (Line(points={{100,-60},{100,-60},{80,
           -60},{80,-20},{60,-20}}, color={0,127,255}));
-  connect(wse.port_b2,val5. port_b) annotation (Line(points={{40,24},{20,24},{20,
-          -20},{40,-20}}, color={0,127,255}));
 
   for i in 1:numPum loop
     connect(pum[i].port_a,val5. port_b)
@@ -118,8 +116,8 @@ equation
     connect(pum[i].port_b, chiPar.port_a2) annotation (Line(points={{-10,-20},{-20,
           -20},{-20,24},{-40,24}}, color={0,127,255}));
   end for;
-  connect(m_flow_in, pum.m_flow_in) annotation (Line(points={{-120,-40},{-60,-40},
-          {-60,0},{0.2,0},{0.2,-8}}, color={0,0,127}));
+  connect(m_flow_in, pum.m_flow_in) annotation (Line(points={{-120,-40},{-60,
+          -40},{-60,0},{0,0},{0,-8}},color={0,0,127}));
   connect(val5.y, yVal5) annotation (Line(points={{50,-8},{50,6},{-94,6},{-94,
           26},{-120,26}}, color={0,0,127}));
   connect(chiPar.port_b2, port_b2) annotation (Line(points={{-60,24},{-78,24},{
@@ -128,6 +126,8 @@ equation
           {30,-60},{-20,-60}}, color={0,127,255}));
   connect(bypFlo.port_a, port_b2)
     annotation (Line(points={{-40,-60},{-100,-60}}, color={0,127,255}));
+  connect(senTem.port_b, val5.port_b) annotation (Line(points={{8,24},{2,24},{2,
+          0},{30,0},{30,-20},{40,-20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
