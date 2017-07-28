@@ -117,7 +117,7 @@ block OutdoorAirFlowSetpoint_MultiZone
     "Required zone outdoor airflow rate"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   CDL.Logical.Not not1 "Logical not"
-    annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
+    annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
   CDL.Logical.Switch swi2[numOfZon]
     "If window is open or it is not in occupied mode, the required outdoor airflow rate should be zero"
     annotation (Placement(transformation(extent={{20,20},{40,0}})));
@@ -251,19 +251,14 @@ protected
   CDL.Continuous.Sources.Constant zerPriAir[numOfZon](k=fill(0.1, numOfZon))
     "Near zero primary airflow so to avoid divide-by-zero issue in later process when supply fan is off"
     annotation (Placement(transformation(extent={{-120,-200},{-100,-180}})));
+  CDL.Routing.BooleanReplicator booRep(nout=numOfZon)
+    "Replicate boolean input"
+    annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
+  CDL.Routing.RealReplicator reaRep(nout=numOfZon)
+    "Replicate real input signal"
+    annotation (Placement(transformation(extent={{140,180},{160,200}})));
 
 equation
-  for i in 1:numOfZon loop
-    connect(not1.y, swi3[i].u2)
-      annotation (Line(points={{-99,-130},{-38,-130},{-38,-36},{-6,-36},
-        {-6,-30},{58,-30}},  color={255,0,255}));
-    connect(not1.y, swi4[i].u2)
-      annotation (Line(points={{-99,-130},{-90,-130},{-80,-130},{-80,-166},
-        {-62,-166}}, color={255,0,255}));
-    connect(addPar1.y, zonVenEff[i].u1)
-      annotation (Line(points={{121,190},{128,190},{128,170},{90,170},
-        {90,156},{98,156}}, color={0,0,127}));
-  end for;
   connect(breZonAre.y, breZon.u1)
     annotation (Line(points={{-149,120},{-140,120},{-140,110},{-90,110},
       {-90,56}, {-82,56}}, color={0,0,127}));
@@ -368,7 +363,7 @@ equation
     annotation (Line(points={{-200,-166},{-150,-166},{-100,-166},
       {-100,-158},{-62,-158}}, color={0,0,127}));
   connect(uSupFan, not1.u)
-    annotation (Line(points={{-200,-129.5},{-178,-129.5},{-178,-130},{-122,-130}},
+    annotation (Line(points={{-200,-129.5},{-178,-129.5},{-178,-130},{-162,-130}},
       color={255,0,255}));
   connect(priOutAirFra.y, maxPriOutAirFra.u)
     annotation (Line(points={{21,-160},{21,-160},{58,-160}}, color={0,0,127}));
@@ -448,7 +443,21 @@ equation
   connect(occDivFra.y, pro.u1)
     annotation (Line(points={{-77,254},{-52,254},{-52,256},{-22,256}},
       color={0,0,127}));
-
+  connect(not1.y, booRep.u)
+    annotation (Line(points={{-139,-130},{-122,-130},{-122,-130}},
+      color={255,0,255}));
+  connect(booRep.y, swi4.u2)
+    annotation (Line(points={{-99,-130},{-90,-130},{-80,-130},{-80,-166},
+      {-62,-166}}, color={255,0,255}));
+  connect(booRep.y, swi3.u2)
+    annotation (Line(points={{-99,-130},{-80,-130},{-80,-104},{-36,-104},
+      {-36,-30},{58,-30}}, color={255,0,255}));
+  connect(addPar1.y, reaRep.u)
+    annotation (Line(points={{121,190},{130,190},{138,190}},
+      color={0,0,127}));
+  connect(reaRep.y, zonVenEff.u1)
+    annotation (Line(points={{161,190},{170,190},{170,170},{80,170},{80,156},
+      {98,156}}, color={0,0,127}));
  annotation (
 defaultComponentName="outAirSetPoi_MulZon",
 Icon(graphics={Rectangle(

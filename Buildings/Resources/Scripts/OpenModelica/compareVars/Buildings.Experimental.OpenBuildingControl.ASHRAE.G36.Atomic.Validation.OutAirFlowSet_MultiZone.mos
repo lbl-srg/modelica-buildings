@@ -1,10 +1,10 @@
 compareVars :=
   {
-    "numOfOcc[1].y",
-    "numOfOcc[2].y",
-    "numOfOcc[3].y",
-    "numOfOcc[4].y",
-    "numOfOcc[5].y",
+    "numOfOcc1.y",
+    "numOfOcc2.y",
+    "numOfOcc3.y",
+    "numOfOcc4.y",
+    "numOfOcc5.y",
     "zonPriFloRat[1].y",
     "zonPriFloRat[2].y",
     "zonPriFloRat[3].y",

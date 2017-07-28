@@ -11,15 +11,13 @@ model OutAirFlowSet_MultiZone
     peaSysPop=20)
     "Block to output minimum outdoor airflow rate for system with multiple zones "
     annotation (Placement(transformation(extent={{20,-20},{60,20}})));
-  CDL.Continuous.Sources.Constant numOfOcc[numOfZon](k=fill(2, numOfZon))
-    "Number of occupant detected in each zone"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   CDL.Logical.Sources.Constant winSta[numOfZon](k=fill(false,numOfZon))
     "Status of windows in each zone"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   CDL.Logical.Sources.Constant supFan(k=true) "Status of supply fan"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  CDL.Continuous.Sources.Constant zonPriFloRat[numOfZon](k={0.1,0.12,0.2,0.09,0.1})
+  CDL.Continuous.Sources.Constant zonPriFloRat[numOfZon](
+    k={0.1,0.12,0.2,0.09,0.1})
     "Measured primary flow rate in each zone at VAV box"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   CDL.Continuous.Sources.Ramp TZon[numOfZon](
@@ -32,11 +30,34 @@ model OutAirFlowSet_MultiZone
     each duration=3600,
     each offset=273.15 + 18) "Supply air temperature"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+  CDL.Continuous.Sources.Ramp numOfOcc1(
+    height=2,
+    duration=3600)
+    "Occupant number in zone 1"
+    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
+  CDL.Continuous.Sources.Ramp numOfOcc2(
+    duration=3600,
+    height=3)
+    "Occupant number in zone 2"
+    annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
+  CDL.Continuous.Sources.Ramp numOfOcc3(
+    duration=3600,
+    height=3,
+    startTime=900) "Occupant number in zone 3"
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+  CDL.Continuous.Sources.Ramp numOfOcc4(
+    duration=3600,
+    startTime=900,
+    height=2) "Occupant number in zone 4"
+    annotation (Placement(transformation(extent={{30,70},{50,90}})));
+  CDL.Continuous.Sources.Ramp numOfOcc5(
+    duration=3600,
+    startTime=0,
+    height=-3,
+    offset=3) "Occupant number in zone 4"
+    annotation (Placement(transformation(extent={{70,70},{90,90}})));
 
 equation
-  connect(numOfOcc.y, outAirSet_MulZon.nOcc)
-    annotation (Line(points={{-39,70}, {0,70},{0,16},{18,16}},
-      color={0,0,127}));
   connect(winSta.y, outAirSet_MulZon.uWin)
     annotation (Line(points={{-39,-20},{-19.75,-20},{-19.75,-4},{18,-4}},
       color={255,0,255}));
@@ -52,7 +73,21 @@ equation
   connect(TSup.y, outAirSet_MulZon.TSup)
     annotation (Line(points={{-39,10},{-20,10},{-20,4},{18,4}},
       color={0,0,127}));
-
+  connect(numOfOcc1.y, outAirSet_MulZon.nOcc[1])
+    annotation (Line(points={{-69,80},{-60,80},{-60,60},{0,60},{0,16},
+      {18,16}}, color={0,0,127}));
+  connect(numOfOcc2.y, outAirSet_MulZon.nOcc[2])
+    annotation (Line(points={{-29,80},{-20,80},{-20,60},{0,60},{0,16},
+      {18,16}}, color={0,0,127}));
+  connect(numOfOcc3.y, outAirSet_MulZon.nOcc[3])
+    annotation (Line(points={{11,80},{20,80},{20,60},{0,60},{0,16},
+      {18,16}}, color={0,0,127}));
+  connect(numOfOcc4.y, outAirSet_MulZon.nOcc[4])
+    annotation (Line(points={{51,80},{60,80},{60,60},{0,60},{0,16},
+      {18,16}}, color={0,0,127}));
+  connect(numOfOcc5.y, outAirSet_MulZon.nOcc[5])
+    annotation (Line(points={{91,80},{94,80},{96,80},{96,60},{0,60},
+      {0,16},{18,16}}, color={0,0,127}));
   annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/OutAirFlowSet_MultiZone.mos"
