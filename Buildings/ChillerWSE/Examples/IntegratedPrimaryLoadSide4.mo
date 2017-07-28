@@ -121,7 +121,7 @@ model IntegratedPrimaryLoadSide4
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={112,90})));
-  BaseClasses.CoolingModeControl cooModCon(
+  BaseClasses.Controls.CoolingModeControl cooModCon(
     deaBan1=1,
     deaBan2=1,
     tWai=tWai) "Cooling mode controller"
@@ -129,8 +129,8 @@ model IntegratedPrimaryLoadSide4
   Modelica.Blocks.Sources.RealExpression towTApp(y=max(cooTow[1:nChi].TAppAct))
     "Cooling tower approach temperature"
     annotation (Placement(transformation(extent={{-160,108},{-140,128}})));
-  BaseClasses.ChillerStageControl chiStaCon(           QEva_nominal=-300*3517, tWai=0)
-                                            "Chiller staging control"
+  BaseClasses.Controls.ChillerStageControl chiStaCon(QEva_nominal=-300*3517,
+      tWai=0) "Chiller staging control"
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
   Modelica.Blocks.Sources.RealExpression cooLoaChi(y=intWSEPri.port_a2.m_flow*4180
         *(intWSEPri.wseCHWST - CHWSTSet.y)) "Cooling load in chillers"
@@ -149,7 +149,7 @@ model IntegratedPrimaryLoadSide4
   Modelica.Blocks.Sources.RealExpression yVal6(y=if cooModCon.cooMod < 0.5
          then 1 else 0) "On/off signal for valve 6"
     annotation (Placement(transformation(extent={{-120,4},{-100,24}})));
-  BaseClasses.ConstantSpeedPumpStageControl CWPumCon(tWai=0)
+  BaseClasses.Controls.ConstantSpeedPumpStageControl CWPumCon(tWai=0)
     "Condenser water pump controller"
     annotation (Placement(transformation(extent={{-22,60},{-2,80}})));
   Modelica.Blocks.Sources.RealExpression chiNumOn(y=sum(chiStaCon.y))
@@ -157,8 +157,8 @@ model IntegratedPrimaryLoadSide4
     annotation (Placement(transformation(extent={{-100,64},{-80,84}})));
   Modelica.Blocks.Math.Gain gai[nChi](k=mChiller1_flow_nominal) "Gain effect"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  BaseClasses.CoolingTowerSpeedControl cooTowSpeCon(controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      reset=Buildings.Types.Reset.Disabled)
+  BaseClasses.Controls.CoolingTowerSpeedControl cooTowSpeCon(controllerType=
+        Modelica.Blocks.Types.SimpleController.PI, reset=Buildings.Types.Reset.Disabled)
     "Cooling tower speed control"
     annotation (Placement(transformation(extent={{-20,170},{0,186}})));
   Modelica.Blocks.Sources.Constant CWSTSet(k(

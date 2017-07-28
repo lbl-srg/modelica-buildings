@@ -1,4 +1,4 @@
-within Buildings.ChillerWSE.Examples.BaseClasses;
+within Buildings.ChillerWSE.Examples.BaseClasses.Controls;
 model CoolingModeControl
   "Mode controller for integrated waterside economizer and chiller"
 

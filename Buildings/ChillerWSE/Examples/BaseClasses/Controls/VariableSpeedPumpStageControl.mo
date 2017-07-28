@@ -1,19 +1,19 @@
-within Buildings.ChillerWSE.Examples.BaseClasses;
-model ChillerStageControl
+within Buildings.ChillerWSE.Examples.BaseClasses.Controls;
+model VariableSpeedPumpStageControl "Staging control for variable speed pumps"
 
   parameter Modelica.SIunits.Time tWai "Waiting time";
-  parameter Modelica.SIunits.Power QEva_nominal=-1000*3.517*1000 "Nominal cooling capaciaty(Negative means cooling)";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate of the identical variable-speed pumps";
 
-  Modelica.Blocks.Interfaces.RealInput cooMod
-    "Cooling mode - 0: free cooling mode; 1: partially mechanical cooling; 2: fully mechanical cooling"
+  Modelica.Blocks.Interfaces.RealInput masFloPum
+    "Total mass flowrate in the variable speed pumps"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput QTot
-    "Total cooling load in the chillers, negative"
+  Modelica.Blocks.Interfaces.RealInput speSig "Speed signal"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.StateGraph.Transition con1(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod > 0.5)
+    condition=speSig > 0.05)
     "Fire condition 1: free cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -37,7 +37,7 @@ model ChillerStageControl
   Modelica.StateGraph.Transition con2(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod > 0.5 and -QTot > -0.8*QEva_nominal)
+    condition=speSig > 0.95 and masFloPum > 0.85*m_flow_nominal)
     "Fire condition 2: partially mechanical cooling to fully mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -46,7 +46,7 @@ model ChillerStageControl
   Modelica.StateGraph.Transition con3(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod > 0.5 and -QTot < -0.6*QEva_nominal)
+    condition=speSig < 0.3 or masFloPum < 0.6*m_flow_nominal)
     "Fire condition 3: fully mechanical cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -55,7 +55,7 @@ model ChillerStageControl
   Modelica.StateGraph.Transition con4(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod < 0.5)
+    condition=speSig <= 0.05)
     "Fire condition 4: partially mechanical cooling to free cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -69,8 +69,7 @@ model ChillerStageControl
     y_default=0)
     "Switch boolean signals to real signal"
     annotation (Placement(transformation(extent={{24,-6},{48,6}})));
-  Modelica.Blocks.Interfaces.RealOutput y[2]
-    "On/off signal for the chillers - 0: off; 1: on"
+  Modelica.Blocks.Interfaces.RealOutput y[2] "On/off signal - 0: off; 1: on"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table=[0,0,0; 1,1,0; 2,1,1])
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -133,4 +132,4 @@ equation
           extent={{132,116},{-124,168}},
           lineColor={0,0,255},
           textString="%name")}));
-end ChillerStageControl;
+end VariableSpeedPumpStageControl;

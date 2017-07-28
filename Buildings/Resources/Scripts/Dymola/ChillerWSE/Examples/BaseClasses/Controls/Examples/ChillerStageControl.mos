@@ -1,4 +1,4 @@
-simulateModel("Buildings.ChillerWSE.Examples.BaseClasses.Examples.ChillerStageControl",tolerance=1e-6, stopTime=1080, method="dassl", resultFile="ChillerStageControl");
+simulateModel("Buildings.ChillerWSE.Examples.BaseClasses.Controls.Examples.ChillerStageControl",tolerance=1e-6, stopTime=1080, method="dassl", resultFile="ChillerStageControl");
 
 removePlots(false);
 createPlot(id=1,

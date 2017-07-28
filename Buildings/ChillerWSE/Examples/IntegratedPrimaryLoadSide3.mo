@@ -116,7 +116,7 @@ model IntegratedPrimaryLoadSide3
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={112,90})));
-  BaseClasses.CoolingModeControl cooModCon(
+  BaseClasses.Controls.CoolingModeControl cooModCon(
     deaBan1=1,
     deaBan2=1,
     tWai=tWai) "Cooling mode controller"
@@ -124,8 +124,8 @@ model IntegratedPrimaryLoadSide3
   Modelica.Blocks.Sources.RealExpression towTApp(y=max(cooTow[1:nChi].TAppAct))
     "Cooling tower approach temperature"
     annotation (Placement(transformation(extent={{-160,108},{-140,128}})));
-  BaseClasses.ChillerStageControl chiStaCon(           QEva_nominal=-300*3517, tWai=
-        tWai)                               "Chiller staging control"
+  BaseClasses.Controls.ChillerStageControl chiStaCon(QEva_nominal=-300*3517,
+      tWai=tWai) "Chiller staging control"
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
   Modelica.Blocks.Sources.RealExpression cooLoaChi(y=intWSEPri.port_a2.m_flow*4180
         *(intWSEPri.wseCHWST - CHWSTSet.y)) "Cooling load in chillers"
@@ -144,7 +144,7 @@ model IntegratedPrimaryLoadSide3
   Modelica.Blocks.Sources.RealExpression yVal6(y=if cooModCon.cooMod < 0.5
          then 1 else 0) "On/off signal for valve 6"
     annotation (Placement(transformation(extent={{-18,0},{2,20}})));
-  BaseClasses.ConstantSpeedPumpStageControl CWPumCon(tWai=tWai)
+  BaseClasses.Controls.ConstantSpeedPumpStageControl CWPumCon(tWai=tWai)
     "Condenser water pump controller"
     annotation (Placement(transformation(extent={{-22,60},{-2,80}})));
   Modelica.Blocks.Sources.RealExpression chiNumOn(y=sum(chiStaCon.y))

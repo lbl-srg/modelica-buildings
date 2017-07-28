@@ -60,7 +60,8 @@ model IntegratedPrimaryLoadSide5
     dpWSE2_nominal=dpWSE2_nominal,
     redeclare
       Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes
-      perChi)
+      perChi,
+    use_inputFilter=false)
     "Integrated waterside economizer on the load side of a primary-only chilled water system"
     annotation (Placement(transformation(extent={{126,22},{146,42}})));
   Buildings.Fluid.Storage.ExpansionVessel expVesChi(redeclare package Medium =
@@ -80,10 +81,6 @@ model IntegratedPrimaryLoadSide5
       m_flow_nominal=nChi*mChiller2_flow_nominal)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{96,-14},{76,6}})));
-  Modelica.Blocks.Sources.Constant
-                               TEva_in(k=273.15 + 25)
-                   "Evaporator inlet temperature"
-    annotation (Placement(transformation(extent={{280,-32},{260,-12}})));
   Modelica.Blocks.Sources.Constant CHWSTSet(k(
       unit="K",
       displayUnit="degC") = 273.15 + 6.56)
@@ -111,7 +108,8 @@ model IntegratedPrimaryLoadSide5
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={112,90})));
-  BaseClasses.CoolingModeControl cooModCon(
+  Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControl
+    cooModCon(
     deaBan1=1,
     deaBan2=1,
     tWai=tWai) "Cooling mode controller"
@@ -119,8 +117,8 @@ model IntegratedPrimaryLoadSide5
   Modelica.Blocks.Sources.RealExpression towTApp(y=max(cooTow[1:nChi].TAppAct))
     "Cooling tower approach temperature"
     annotation (Placement(transformation(extent={{-160,108},{-140,128}})));
-  BaseClasses.ChillerStageControl chiStaCon(           QEva_nominal=-300*3517, tWai=0)
-                                            "Chiller staging control"
+  Buildings.ChillerWSE.Examples.BaseClasses.Controls.ChillerStageControl
+    chiStaCon(QEva_nominal=-300*3517, tWai=0) "Chiller staging control"
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
   Modelica.Blocks.Sources.RealExpression cooLoaChi(y=intWSEPri.port_a2.m_flow*4180
         *(intWSEPri.wseCHWST - CHWSTSet.y)) "Cooling load in chillers"
@@ -139,17 +137,17 @@ model IntegratedPrimaryLoadSide5
   Modelica.Blocks.Sources.RealExpression yVal6(y=if cooModCon.cooMod < 0.5
          then 1 else 0) "On/off signal for valve 6"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  BaseClasses.ConstantSpeedPumpStageControl CWPumCon(tWai=0)
-    "Condenser water pump controller"
+  Buildings.ChillerWSE.Examples.BaseClasses.Controls.ConstantSpeedPumpStageControl
+    CWPumCon(tWai=0) "Condenser water pump controller"
     annotation (Placement(transformation(extent={{-22,60},{-2,80}})));
   Modelica.Blocks.Sources.RealExpression chiNumOn(y=sum(chiStaCon.y))
     "The number of running chillers"
     annotation (Placement(transformation(extent={{-100,64},{-80,84}})));
   Modelica.Blocks.Math.Gain gai[nChi](k=mChiller1_flow_nominal) "Gain effect"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  BaseClasses.CoolingTowerSpeedControl cooTowSpeCon(controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      reset=Buildings.Types.Reset.Disabled)
-    "Cooling tower speed control"
+  Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingTowerSpeedControl
+    cooTowSpeCon(controllerType=Modelica.Blocks.Types.SimpleController.PI,
+      reset=Buildings.Types.Reset.Disabled) "Cooling tower speed control"
     annotation (Placement(transformation(extent={{-20,170},{0,186}})));
   Modelica.Blocks.Sources.Constant CWSTSet(k(
       unit="K",
@@ -189,8 +187,9 @@ model IntegratedPrimaryLoadSide5
   Modelica.Blocks.Sources.Constant uFan(k = 1)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{12,-102},{32,-82}})));
-  BaseClasses.VariableSpeedPumpStageControl varSpeCon(tWai=tWai, m_flow_nominal=
-       mChiller2_flow_nominal) "Speed controller"
+  Buildings.ChillerWSE.Examples.BaseClasses.Controls.VariableSpeedPumpStageControl
+    varSpeCon(tWai=tWai, m_flow_nominal=mChiller2_flow_nominal)
+    "Speed controller"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.RealExpression mPum_flow(y=intWSEPri.port_b2.m_flow)
     "Mass flowrate of variable speed pumps"

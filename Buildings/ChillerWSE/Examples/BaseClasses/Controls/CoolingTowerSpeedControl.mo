@@ -1,12 +1,11 @@
-within Buildings.ChillerWSE.Examples.BaseClasses;
-model CoolingTowerSpeedControl
-  "Controller for the fan speed in cooling towers"
+within Buildings.ChillerWSE.Examples.BaseClasses.Controls;
+model CoolingTowerSpeedControl "Controller for the fan speed in cooling towers"
   extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface(
     final use_Controller=true);
   Modelica.Blocks.Interfaces.RealInput cooMod
     "Cooling mode - 0: free cooling mode; 1: partially mechanical cooling; 2: fully mechanical cooling"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Controls.Continuous.LimPID conPID(
+  .Buildings.Controls.Continuous.LimPID conPID(
     controllerType=controllerType,
     k=k,
     Ti=Ti,
@@ -23,8 +22,7 @@ model CoolingTowerSpeedControl
     y_start=yCon_start,
     reverseAction=reverseAction,
     y_reset=y_reset,
-    reset=reset)
-    "PID controller"
+    reset=reset) "PID controller"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Modelica.Blocks.Interfaces.RealInput CHWST_set(
     final quantity="ThermodynamicTemperature",
