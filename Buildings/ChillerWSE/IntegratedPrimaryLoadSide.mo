@@ -29,7 +29,7 @@ model IntegratedPrimaryLoadSide
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation (Dialog(group="Pump"));
-  parameter Modelica.SIunits.Time riseTimePum=120
+  parameter Modelica.SIunits.Time riseTimePump=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init initPum=initValve
@@ -66,7 +66,7 @@ model IntegratedPrimaryLoadSide
         rotation=90,
         origin={-32,-116})));
 
-  SpeedControlledPumpParallel pum(
+  Buildings.ChillerWSE.SpeedControlledPumpParallel pum(
     redeclare each final package Medium = Medium2,
     each final p_start=p2_start,
     each final T_start=T2_start,
@@ -88,12 +88,16 @@ model IntegratedPrimaryLoadSide
     dpValve_nominal=6000,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final deltaM=deltaM2,
-    riseTimePump=riseTimePum,
-    riseTimeValve=riseTimeValve,
+    final riseTimePump=riseTimePump,
+    final riseTimeValve=riseTimeValve,
     final yValve_start=yValvePump_start,
     final l=l_ValvePump,
     final kFixed=kFixed_ValvePump,
-    final yPump_start=yPump_start)                      "Identical pumps"
+    final yPump_start=yPump_start,
+    final from_dp=from_dp2,
+    final homotopyInitialization=homotopyInitialization,
+    final linearizeFlowResistance=linearizeFlowResistance2)
+    "Identical pumps"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val7(
     redeclare final package Medium = Medium2,
@@ -116,8 +120,6 @@ model IntegratedPrimaryLoadSide
     final y_start=yValve7_start)
     "Valve: the valve position is manipulated to maintain the minimum flow requirement through chillers"
     annotation (Placement(transformation(extent={{10,-90},{-10,-70}})));
-
-
 
 equation
 
