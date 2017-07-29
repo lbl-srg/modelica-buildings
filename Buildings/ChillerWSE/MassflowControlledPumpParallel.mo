@@ -3,7 +3,7 @@ model MassflowControlledPumpParallel
   "Identical m_flow controlled pumps"
   extends Buildings.ChillerWSE.BaseClasses.PartialPumpParallel(
     redeclare Buildings.Fluid.Movers.FlowControlled_m_flow pum(each final
-        m_flow_nominal=m_flow_nominal, each final m_flow_start=yPump_start),
+        m_flow_nominal=m_flow_nominal, final m_flow_start=yPump_start),
     rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default),
     threshold=1e-03*m_flow_nominal);
 
