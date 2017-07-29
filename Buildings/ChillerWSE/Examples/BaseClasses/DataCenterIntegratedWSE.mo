@@ -1,22 +1,22 @@
-within Buildings.ChillerWSE.Examples;
-model NonIntegratedPrimarySecondary
-  "Example that show how to use Buildings.ChillerWSE.IntegratedPrimaryLoadSide"
- extends Modelica.Icons.Example;
-  extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenter( redeclare
-      Buildings.ChillerWSE.NonIntegrated chiWSE(
-      controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      Ti=60));
+within Buildings.ChillerWSE.Examples.BaseClasses;
+partial model DataCenterIntegratedWSE
+  "Partial model that implements cooling systems with control for data centers"
+  extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenter;
 
   Modelica.Blocks.Sources.Constant CHWSTSet(k(
       unit="K",
       displayUnit="degC") = 273.15 + 6.56)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-190,150},{-170,170}})));
-  BaseClasses.Controls.CoolingModeControlNonIntegrated cooModCon(
-    tWai=tWai,
-    deaBan=1,
-    wseTra=273.15 + 5) "Cooling mode controller"
+  Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControl
+    cooModCon(
+    deaBan1=1,
+    deaBan2=1,
+    tWai=tWai) "Cooling mode controller"
     annotation (Placement(transformation(extent={{-130,100},{-110,120}})));
+  Modelica.Blocks.Sources.RealExpression towTApp(y=max(cooTow[1:nChi].TAppAct))
+    "Cooling tower approach temperature"
+    annotation (Placement(transformation(extent={{-190,100},{-170,120}})));
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.ChillerStageControl
     chiStaCon(QEva_nominal=-300*3517, tWai=0) "Chiller staging control"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
@@ -33,15 +33,15 @@ model NonIntegratedPrimarySecondary
     annotation (Placement(transformation(extent={{-52,60},{-32,80}})));
   Modelica.Blocks.Sources.RealExpression chiNumOn(y=sum(chiStaCon.y))
     "The number of running chillers"
-    annotation (Placement(transformation(extent={{-182,64},{-162,84}})));
+    annotation (Placement(transformation(extent={{-130,64},{-110,84}})));
   Modelica.Blocks.Math.Gain gai[nChi](each k=mChiller1_flow_nominal)
                                                                 "Gain effect"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingTowerSpeedControl
     cooTowSpeCon(controllerType=Modelica.Blocks.Types.SimpleController.PI,
       reset=Buildings.Types.Reset.Disabled,
-    Ti=40,
-    k=5)                                    "Cooling tower speed control"
+    k=5,
+    Ti=40)                                  "Cooling tower speed control"
     annotation (Placement(transformation(extent={{-50,170},{-30,186}})));
   Modelica.Blocks.Sources.Constant CWSTSet(k(
       unit="K",
@@ -88,39 +88,6 @@ model NonIntegratedPrimarySecondary
       Medium =                                                                          MediumA,
       m_flow_nominal=mAir_flow_nominal) "Supply air temperature"
     annotation (Placement(transformation(extent={{114,-150},{94,-130}})));
-  Buildings.ChillerWSE.SpeedControlledPumpParallel
-                              secPum(
-    redeclare package Medium = MediumW,
-    dpValve_nominal=6000,
-    per=perPum,
-    addPowerToMedium=false,
-    m_flow_nominal=mChiller2_flow_nominal)
-                                     "Secondary pumps" annotation (Placement(
-        transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=-90,
-        origin={72,-52})));
-  Buildings.ChillerWSE.MassflowControlledPumpParallel priPum(
-    redeclare package Medium = MediumW,
-    dpValve_nominal=6000,
-    per=perPum,
-    m_flow_nominal=mChiller2_flow_nominal,
-    addPowerToMedium=false) "Constant speed pumps" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={222,0})));
-  Buildings.ChillerWSE.Examples.BaseClasses.Controls.ConstantSpeedPumpStageControl
-    PriPumCon(
-             tWai=0) "Chilled water primary pump controller"
-    annotation (Placement(transformation(extent={{-92,22},{-72,42}})));
-  Modelica.Blocks.Math.Gain gai2[
-                                nChi](each k=mChiller2_flow_nominal)
-                                                                "Gain effect"
-    annotation (Placement(transformation(extent={{-50,22},{-30,42}})));
-  Modelica.Blocks.Sources.RealExpression cooLoaChi(y=chiWSE.port_a2.m_flow*4180*
-        (chiWSE.wseCHWST - CHWSTSet.y))     "Cooling load in chillers"
-    annotation (Placement(transformation(extent={{-130,134},{-110,154}})));
   Modelica.Blocks.Math.Product cooTowSpe[nChi] "Cooling tower speed"
     annotation (Placement(transformation(extent={{60,166},{76,182}})));
 equation
@@ -158,14 +125,17 @@ equation
         thickness=0.5));
     connect(chiOn[i].y, chiWSE.on[i]) annotation (Line(points={{11,140},{40,140},
             {40,39.6},{124.4,39.6}}, color={255,0,255}));
-   connect(cooTowSpeCon.y, cooTowSpe[i].u1) annotation (Line(points={{-29,
-            178.889},{36,178.889},{36,178.8},{58.4,178.8}},
+  connect(cooTowSpeCon.y, cooTowSpe[i].u1) annotation (Line(points={{-29,
+            178.889},{24,178.889},{24,178.8},{58.4,178.8}},
                                                  color={0,0,127}));
    end for;
   connect(CHWSTSet.y, cooModCon.CHWSTSet) annotation (Line(points={{-169,160},{-150,
-          160},{-150,116},{-132,116}}, color={0,0,127}));
+          160},{-150,118},{-132,118}}, color={0,0,127}));
+  connect(towTApp.y, cooModCon.towTApp) annotation (Line(points={{-169,110},{-170,
+          110},{-170,110},{-168,110},{-132,110},{-132,110}},
+                                                       color={0,0,127}));
   connect(weaBus.TWetBul.TWetBul, cooModCon.TWetBul) annotation (Line(
-      points={{-200,-28},{-216,-28},{-216,200},{-150,200},{-150,112},{-132,112}},
+      points={{-200,-28},{-216,-28},{-216,200},{-150,200},{-150,114},{-132,114}},
       color={255,204,51},
       thickness=0.5));
   connect(cooModCon.cooMod, chiStaCon.cooMod) annotation (Line(points={{-109,110},
@@ -181,7 +151,7 @@ equation
   connect(cooModCon.cooMod, CWPumCon.cooMod) annotation (Line(points={{-109,110},
           {-70,110},{-70,78},{-54,78}}, color={0,0,127}));
   connect(chiNumOn.y, CWPumCon.chiNumOn)
-    annotation (Line(points={{-161,74},{-161,74},{-54,74}},
+    annotation (Line(points={{-109,74},{-109,74},{-54,74}},
                                                           color={0,0,127}));
   connect(CWPumCon.y, gai.u)
     annotation (Line(points={{-31,70},{-12,70}},       color={0,0,127}));
@@ -209,6 +179,9 @@ equation
       points={{172,0},{160,0},{160,26},{146,26}},
       color={0,127,255},
       thickness=0.5));
+  connect(cooModCon.wseCHWRT, CHWRT.T) annotation (Line(points={{-132,102},{-150,
+          102},{-150,200},{260,200},{260,20},{182,20},{182,11}},          color=
+         {0,0,127}));
   connect(SAXSet.y, ahu.XSet_w) annotation (Line(points={{9,-126},{60,-126},{60,
           -119},{153,-119}},
                            color={0,0,127}));
@@ -262,43 +235,17 @@ equation
   connect(SATSet.y, ahu.TSet) annotation (Line(points={{-59,-88},{-40,-88},{-40,
           -66},{60,-66},{60,-121},{153,-121}},
                                              color={0,0,127}));
-  connect(secPum.port_b, ahu.port_a1) annotation (Line(points={{72,-62},{72,-62},
-          {72,-114},{154,-114}}, color={0,127,255}));
-  connect(CHWST.port_b, secPum.port_a)
-    annotation (Line(points={{84,0},{72,0},{72,-42}}, color={0,127,255}));
-  connect(CHWRT.port_a, priPum.port_b)
-    annotation (Line(points={{192,0},{202,0},{212,0}}, color={0,127,255}));
-  connect(priPum.port_a, ahu.port_b1) annotation (Line(points={{232,-8.88178e-16},
-          {242,-8.88178e-16},{242,-58},{242,-84},{242,-114},{174,-114}}, color={
-          0,127,255}));
-  connect(secPum.port_a, priPum.port_a) annotation (Line(points={{72,-42},{72,-42},
-          {72,-28},{242,-28},{242,0},{232,0}}, color={0,127,255}));
-  connect(pumSpeSig.y, secPum.u) annotation (Line(points={{12.8,-14},{34,-14},{67,
-          -14},{67,-41}}, color={0,0,127}));
-  connect(chiNumOn.y, PriPumCon.chiNumOn) annotation (Line(points={{-161,74},{-102,
-          74},{-102,76},{-102,36},{-94,36}}, color={0,0,127}));
-  connect(cooModCon.cooMod, PriPumCon.cooMod) annotation (Line(points={{-109,110},
-          {-102,110},{-102,40},{-94,40}}, color={0,0,127}));
-  connect(PriPumCon.y, gai2.u)
-    annotation (Line(points={{-71,32},{-62,32},{-52,32}}, color={0,0,127}));
-  connect(gai2.y, priPum.u) annotation (Line(points={{-29,32},{-2,32},{40,32},{40,
-          200},{260,200},{260,-5},{233,-5}}, color={0,0,127}));
-  connect(cooLoaChi.y, chiStaCon.QTot) annotation (Line(points={{-109,144},{-80.5,
-          144},{-52,144}}, color={0,0,127}));
-  connect(chiNumOn.y, cooModCon.numOnChi) annotation (Line(points={{-161,74},{-150,
-          74},{-150,104},{-132,104}}, color={0,0,127}));
-  connect(CHWST.T, cooModCon.CHWST) annotation (Line(points={{94,11},{94,36},{40,
-          36},{40,200},{-150,200},{-150,108},{-132,108}}, color={0,0,127}));
-  connect(CWPumCon.y, val.y) annotation (Line(points={{-31,70},{-22,70},{-22,94},
-          {40,94},{40,200},{180,200},{180,152}}, color={0,0,127}));
-  connect(CWPumCon.y, cooTowSpe.u2) annotation (Line(points={{-31,70},{-22,70},{
-          -22,94},{40,94},{40,169.2},{58.4,169.2}}, color={0,0,127}));
-  connect(cooTowSpe.y, cooTow.y) annotation (Line(points={{76.8,174},{100,174},{
-          100,200},{160,200},{160,147},{153,147}}, color={0,0,127}));
+  connect(CWPumCon.y, cooTowSpe.u2) annotation (Line(points={{-31,70},{-20,70},{
+          -20,90},{40,90},{40,169.2},{58.4,169.2}}, color={0,0,127}));
+  connect(cooTowSpe.y, cooTow.y) annotation (Line(points={{76.8,174},{122,174},{
+          122,200},{160,200},{160,147},{153,147}}, color={0,0,127}));
+  connect(CWPumCon.y, val.y) annotation (Line(points={{-31,70},{-20,70},{-20,70},
+          {-20,70},{-20,90},{40,90},{40,200},{180,200},{180,152}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-220,-180},{280,
             200}})),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/ChillerWSE/Examples/NonIntegratedPrimarySecondary.mos"
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/ChillerWSE/Examples/IntegratedPrimaryLoadSide.mos"
         "Simulate and Plot"));
-end NonIntegratedPrimarySecondary;
+end DataCenterIntegratedWSE;

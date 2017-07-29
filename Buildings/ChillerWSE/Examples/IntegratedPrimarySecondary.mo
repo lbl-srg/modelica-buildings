@@ -2,7 +2,7 @@ within Buildings.ChillerWSE.Examples;
 model IntegratedPrimarySecondary
   "Example that show how to use Buildings.ChillerWSE.IntegratedPrimarySecondary"
   extends Modelica.Icons.Example;
-  extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenter(
+  extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenterIntegratedWSE(
     redeclare Buildings.ChillerWSE.IntegratedPrimarySecondary chiWSE(
         addPowerToMedium=false, perPum=perPum));
 
@@ -37,7 +37,7 @@ equation
   connect(yVal5.y, chiWSE.yVal5) annotation (Line(points={{11,40},{40,40},{40,35},
           {124.4,35}}, color={0,0,127}));
   connect(CHWRT.port_a, ahu.port_b1) annotation (Line(
-      points={{224,0},{232,0},{232,-86},{172,-86}},
+      points={{192,0},{232,0},{232,-114},{174,-114}},
       color={0,127,255},
       thickness=0.5));
   connect(chiWSE.wseCHWST, cooModCon.wseCHWST) annotation (Line(points={{147,36},
@@ -48,14 +48,15 @@ equation
     annotation (Line(points={{84,0},{72,0},{72,-16}}, color={0,127,255},
       thickness=0.5));
   connect(secPum.port_b, ahu.port_a1)
-    annotation (Line(points={{72,-36},{72,-86},{152,-86}}, color={0,127,255},
+    annotation (Line(points={{72,-36},{72,-114},{154,-114}},
+                                                           color={0,127,255},
       thickness=0.5));
   connect(pumSpeSig.y, secPum.u) annotation (Line(points={{12.8,-14},{40,-14},{
           40,0},{67,0},{67,-15}}, color={0,0,127}));
   connect(chiNumOn.y, PriPumCon.chiNumOn) annotation (Line(points={{-109,74},{
           -102,74},{-102,36},{-94,36}}, color={0,0,127}));
-  connect(cooModCon.cooMod, PriPumCon.cooMod) annotation (Line(points={{-109,
-          110},{-102,110},{-102,108},{-102,40},{-102,40},{-94,40}}, color={0,0,
+  connect(cooModCon.cooMod, PriPumCon.cooMod) annotation (Line(points={{-109,110},
+          {-102,110},{-102,108},{-102,40},{-94,40}},                color={0,0,
           127}));
   connect(PriPumCon.y, gai2.u)
     annotation (Line(points={{-71,32},{-52,32}}, color={0,0,127}));
