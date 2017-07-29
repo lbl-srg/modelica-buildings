@@ -14,11 +14,11 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
   // Fan Status
-  CDL.Logical.Sources.Constant fanStatus(final k=false) "Fan is off"
+  CDL.Logical.Sources.Constant fanSta(final k=false) "Fan is off"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
 
   // Operation Mode
-  CDL.Integers.Sources.Constant operationMode1(final k=Constants.OperationModes.warUpInd)
+  CDL.Integers.Sources.Constant opeMod1(final k=Constants.OperationModes.warUpInd)
     "AHU operation mode is NOT Occupied"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
@@ -67,7 +67,7 @@ protected
   CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage1)
     "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
-  CDL.Integers.Sources.Constant operationMode(final k=Constants.OperationModes.occModInd)
+  CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occModInd)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
   CDL.Logical.Sources.Constant fanStatus1(final k=true) "Fan is on"
@@ -77,7 +77,7 @@ protected
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   CDL.Logical.Sources.Constant fanStatus2(final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
-  CDL.Integers.Sources.Constant operationMode2(final k=Constants.OperationModes.occModInd)
+  CDL.Integers.Sources.Constant opeMod2(final k=Constants.OperationModes.occModInd)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
@@ -86,7 +86,7 @@ equation
           {-140,-2},{-121,-2}}, color={0,0,127}));
   connect(VOutMinSet_flow.y, ecoDamLim.VOutMinSet_flow)
     annotation (Line(points={{-179,30},{-150,30},{-150,-5},{-121,-5}}, color={0,0,127}));
-  connect(fanStatus.y, ecoDamLim.uSupFan)
+  connect(fanSta.y, ecoDamLim.uSupFan)
     annotation (Line(points={{-179,-10},{-160,-10},{-121,-10}}, color={255,0,255}));
   connect(freProSta.y, ecoDamLim.uFreProSta)
     annotation (Line(points={{-179,-90},{-140,-90},{-140,-18},{-121,-18}}, color={255,127,0}));
@@ -106,11 +106,11 @@ equation
           {120,-10},{159,-10}}, color={255,0,255}));
   connect(freProSta2.y, ecoDamLim2.uFreProSta)
     annotation (Line(points={{101,-90},{140,-90},{140,-18},{159,-18}},color={255,127,0}));
-  connect(operationMode.y, ecoDamLim.uOpeMod)
+  connect(opeMod.y, ecoDamLim.uOpeMod)
     annotation (Line(points={{-179,-50},{-150,-50},{-150,-15},{-121,-15}}, color={255,127,0}));
-  connect(operationMode1.y, ecoDamLim1.uOpeMod)
+  connect(opeMod1.y, ecoDamLim1.uOpeMod)
     annotation (Line(points={{-39,-50},{-10,-50},{-10,-15},{19,-15}}, color={255,127,0}));
-  connect(operationMode2.y, ecoDamLim2.uOpeMod)
+  connect(opeMod2.y, ecoDamLim2.uOpeMod)
     annotation (Line(points={{101,-50},{130,-50},{130,-15},{159,-15}}, color={255,127,0}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),

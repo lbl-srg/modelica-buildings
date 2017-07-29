@@ -5,57 +5,101 @@ model EconomizerSingleZone "Single zone VAV AHU economizer control sequence"
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
   parameter Real kPMod=1 "Gain of modulation controller";
   parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block";
-  parameter Real minFanSpe(final min=0, final max=1, final unit="1") = 0.1 "Minimum supply fan operation speed";
-  parameter Real maxFanSpe(final min=0, final max=1, final unit="1") = 0.9 "Maximum supply fan operation speed";
+  parameter Real minFanSpe(
+    final min=0,
+    final max=1,
+    final unit="1") = 0.1 "Minimum supply fan operation speed";
+  parameter Real maxFanSpe(
+    final min=0,
+    final max=1,
+    final unit="1") = 0.9 "Maximum supply fan operation speed";
   parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=1.0 "Calculated minimum outdoor airflow rate";
   parameter Modelica.SIunits.VolumeFlowRate desVOut_flow=2.0 "Calculated design outdoor airflow rate";
   parameter Real minVOutMinFansSpePos(
-    final min=minVOutMaxFanSpePos, final max=desVOutMinFanSpePos, final unit="1") = 0.4
+    final min=minVOutMaxFanSpePos,
+    final max=desVOutMinFanSpePos,
+    final unit="1") = 0.4
     "OA damper position to supply minimum outdoor airflow at minimum fan speed";
   parameter Real minVOutMaxFanSpePos(
-    final min=outDamPhyPosMin, final max=minVOutMinFansSpePos, final unit="1") = 0.3
+    final min=outDamPhyPosMin,
+    final max=minVOutMinFansSpePos,
+    final unit="1") = 0.3
     "OA damper position to supply minimum outdoor airflow at maximum fan speed";
   parameter Real desVOutMinFanSpePos(
-    final min=desVOutMaxFanSpePos, final max=outDamPhyPosMax, final unit="1") = 0.9
+    final min=desVOutMaxFanSpePos,
+    final max=outDamPhyPosMax,
+    final unit="1") = 0.9
     "OA damper position to supply design outdoor airflow at minimum fan speed";
   parameter Real desVOutMaxFanSpePos(
-    final min=minVOutMaxFanSpePos, final max=desVOutMinFanSpePos, final unit="1") = 0.8
+    final min=minVOutMaxFanSpePos,
+    final max=desVOutMinFanSpePos,
+    final unit="1") = 0.8
     "OA damper position to supply design outdoor airflow at maximum fan speed";
-  parameter Real outDamPhyPosMax(final min=0, final max=1, final unit="1") = 1
+  parameter Real outDamPhyPosMax(
+    final min=0,
+    final max=1,
+    final unit="1") = 1
     "Physically fixed maximum position of the outdoor air (OA) damper";
-  parameter Real outDamPhyPosMin(final min=0, final max=1, final unit="1") = 0
+  parameter Real outDamPhyPosMin(
+    final min=0,
+    final max=1,
+    final unit="1") = 0
     "Physically fixed minimum position of the outdoor air damper";
-  parameter Real retDamPhyPosMax(final min=0, final max=1, final unit="1") = 1
+  parameter Real retDamPhyPosMax(
+    final min=0,
+    final max=1,
+    final unit="1") = 1
     "Physically fixed maximum position of the return air damper";
-  parameter Real retDamPhyPosMin(final min=0, final max=1, final unit="1") = 0
+  parameter Real retDamPhyPosMin(
+    final min=0,
+    final max=1,
+    final unit="1") = 0
     "Physically fixed minimum position of the return air damper";
 
-  CDL.Interfaces.RealInput THeaSet(final unit="K", final quantity = "ThermodynamicTemperature")
+  CDL.Interfaces.RealInput THeaSet(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
     "Supply air temperature Healing setpoint" annotation (Placement(transformation(
     extent={{-140,30},{-120,50}}), iconTransformation(extent={{-120,10},{-100,30}})));
-  CDL.Interfaces.RealInput TSup(final unit="K", final quantity = "ThermodynamicTemperature")
+  CDL.Interfaces.RealInput TSup(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature" annotation (Placement(transformation(
     extent={{-140,50},{-120,70}}), iconTransformation(extent={{-120,30},{-100,50}})));
-  CDL.Interfaces.RealInput TOut(final unit="K", final quantity = "ThermodynamicTemperature")
+  CDL.Interfaces.RealInput TOut(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
     "Outdoor air (OA) temperature" annotation (Placement(transformation(extent={{-140,130},{-120,150}}),
     iconTransformation(extent={{-120,110},{-100,130}})));
-  CDL.Interfaces.RealInput TOutCut(final unit="K", final quantity = "ThermodynamicTemperature")
+  CDL.Interfaces.RealInput TOutCut(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}}),
         iconTransformation(extent={{-120,90},{-100,110}})));
-  CDL.Interfaces.RealInput hOut(final unit="J/kg", final quantity="SpecificEnergy") if use_enthalpy
+  CDL.Interfaces.RealInput hOut(
+    final unit="J/kg",
+    final quantity="SpecificEnergy") if use_enthalpy
     "Outdoor air enthalpy" annotation (Placement(transformation(extent={{-140,90},{-120,110}}),
     iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput hOutCut(final unit="J/kg", final quantity="SpecificEnergy") if use_enthalpy
+  CDL.Interfaces.RealInput hOutCut(
+    final unit="J/kg",
+    final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}}),
-        iconTransformation(extent={{-120,50},{-100,70}})));
-  CDL.Interfaces.RealInput uVOutMinSet_flow(final min=minVOut_flow, final max=desVOut_flow,
-    final unit="J/kg", final quantity="SpecificEnergy")
+      iconTransformation(extent={{-120,50},{-100,70}})));
+  CDL.Interfaces.RealInput uVOutMinSet_flow(
+    final min=minVOut_flow,
+    final max=desVOut_flow,
+    final unit="J/kg",
+    final quantity="SpecificEnergy")
     "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
-  CDL.Interfaces.RealInput uSupFanSpe(final min=minFanSpe, final max=maxFanSpe, final unit="1")
+  CDL.Interfaces.RealInput uSupFanSpe(
+    final min=minFanSpe,
+    final max=maxFanSpe,
+    final unit="1")
     "Supply fan speed"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}}),
       iconTransformation(extent={{-120,-30},{-100,-10}})));
@@ -72,11 +116,17 @@ model EconomizerSingleZone "Single zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));
 
-  CDL.Interfaces.RealOutput yRetDamPos(final min=0, final max=1, final unit="1")
+  CDL.Interfaces.RealOutput yRetDamPos(
+    final min=0,
+    final max=1,
+    final unit="1")
     "Return air damper position"
     annotation (Placement(transformation(extent={{120,30},{140,50}}),
     iconTransformation(extent={{100,10}, {120,30}})));
-  CDL.Interfaces.RealOutput yOutDamPos(final min=0, final max=1, final unit="1")
+  CDL.Interfaces.RealOutput yOutDamPos(
+    final min=0,
+    final max=1,
+    final unit="1")
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}}),
     iconTransformation(extent={{100,-30}, {120,-10}})));
@@ -100,7 +150,9 @@ model EconomizerSingleZone "Single zone VAV AHU economizer control sequence"
     final desVOutMaxFanSpePos=desVOutMaxFanSpePos)
     "Singlezone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Atomic.EconModulationSingleZone ecoMod(final kPMod=kPMod, final TiMod=TiMod)
+  Atomic.EconModulationSingleZone ecoMod(
+    final kPMod=kPMod,
+    final TiMod=TiMod)
     "Singlezone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
@@ -111,10 +163,12 @@ equation
     annotation (Line(points={{-130,-120},{-60,-120},{-60,-28},{-1,-28}}, color={255,127,0}));
   connect(hOutCut, ecoEnaDis.hOutCut)
     annotation (Line(points={{-130,80},{-46,80},{-46,-26},{-1,-26}}, color={0,0,127}));
-  connect(hOut, ecoEnaDis.hOut) annotation (Line(points={{-130,100},{-44,100},{-44,-24},{-1,-24}}, color={0,0,127}));
+  connect(hOut, ecoEnaDis.hOut)
+    annotation (Line(points={{-130,100},{-44,100},{-44,-24},{-1,-24}}, color={0,0,127}));
   connect(TOutCut, ecoEnaDis.TOutCut)
     annotation (Line(points={{-130,120},{-42,120},{-42,-22},{-1,-22}}, color={0,0,127}));
-  connect(TOut, ecoEnaDis.TOut) annotation (Line(points={{-130,140},{-40,140},{-40,-20},{-1,-20}}, color={0,0,127}));
+  connect(TOut, ecoEnaDis.TOut)
+    annotation (Line(points={{-130,140},{-40,140},{-40,-20},{-1,-20}}, color={0,0,127}));
   connect(uSupFan, ecoDamLim.uSupFan)
     annotation (Line(points={{-130,-40},{-104,-40},{-104,8},{-81,8}},  color={255,0,255}));
   connect(uOpeMod, ecoDamLim.uOpeMod)

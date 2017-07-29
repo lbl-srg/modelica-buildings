@@ -15,9 +15,10 @@ protected
     "Outdoor air enthalpy high limit cutoff";
 
   CDL.Continuous.Sources.Constant TOutBelowCutoff(final k=TOutCutoff - 2)
-    "Outdoor air temperature is slightly below the cutoff"
+    "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
   CDL.Continuous.Sources.Constant TOutCut(final k=TOutCutoff)
+    "Outdoor temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 1000)
     "Outdoor air enthalpy is slightly below the cufoff"
@@ -27,20 +28,22 @@ protected
   CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
     "Freeze protection status is stage0"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Integers.Sources.Constant zoneState(final k=Constants.ZoneStates.heating)
+  CDL.Integers.Sources.Constant zonSta(final k=Constants.ZoneStates.heating)
     "Zone state is heating"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
   CDL.Integers.Sources.Constant freProSta1(final k=Constants.FreezeProtectionStages.stage1)
     "Freeze protection status is stage1"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  CDL.Integers.Sources.Constant zoneState1(final k=Constants.ZoneStates.deadband)
+  CDL.Integers.Sources.Constant zonSta1(final k=Constants.ZoneStates.deadband)
     "Zone state is deadband"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  CDL.Continuous.Sources.Constant outDamPosMax(final k=0.9) "Maximal allowed economizer damper position"
+  CDL.Continuous.Sources.Constant outDamPosMax(final k=0.9)
+    "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
-  CDL.Continuous.Sources.Constant outDamPosMin(final k=0.1) "Minimal allowed economizer damper position"
+  CDL.Continuous.Sources.Constant outDamPosMin(final k=0.1)
+    "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
-  CDL.Logical.Sources.Constant SupFanSta(k=true)
+  CDL.Logical.Sources.Constant supFanSta(final k=true)
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
 equation
@@ -60,13 +63,13 @@ equation
     annotation (Line(points={{-79,110},{-60,110},{-60,56},{10,56},{10,-24},{81,-24}}, color={0,0,127}));
   connect(hOutCut.y, ecoEnaDis1.hOutCut)
     annotation (Line(points={{-79,70},{-70,70},{-70,54},{6,54},{6,-26},{81,-26}}, color={0,0,127}));
-  connect(zoneState.y, ecoEnaDis.uZonSta)
+  connect(zonSta.y, ecoEnaDis.uZonSta)
     annotation (Line(points={{-139,10},{-120,10},{-120,50},{81,50}}, color={255,127,0}));
   connect(freProSta.y, ecoEnaDis.uFreProSta)
     annotation (Line(points={{-139,50},{-130,50},{-130,52},{81,52}}, color={255,127,0}));
   connect(freProSta1.y, ecoEnaDis1.uFreProSta)
     annotation (Line(points={{61,-110},{70,-110},{70,-28},{81,-28}}, color={255,127,0}));
-  connect(zoneState1.y, ecoEnaDis1.uZonSta)
+  connect(zonSta1.y, ecoEnaDis1.uZonSta)
     annotation (Line(points={{61,-70},{72,-70},{72,-30},{81,-30}}, color={255,127,0}));
   connect(outDamPosMax.y, ecoEnaDis.uOutDamPosMax)
     annotation (Line(points={{-39,-110},{-30,-110},{-30,46},{81,46}}, color={0,0,127}));
@@ -76,11 +79,12 @@ equation
     annotation (Line(points={{-39,-150},{22,-150},{22,-36},{81,-36}}, color={0,0,127}));
   connect(outDamPosMax.y, ecoEnaDis1.uOutDamPosMax)
     annotation (Line(points={{-39,-110},{20,-110},{20,-34},{81,-34}}, color={0,0,127}));
-  connect(SupFanSta.y, ecoEnaDis.uSupFan)
+  connect(supFanSta.y, ecoEnaDis.uSupFan)
     annotation (Line(points={{-139,-30},{-34,-30},{-34,48},{81,48}}, color={255,0,255}));
-  connect(SupFanSta.y, ecoEnaDis1.uSupFan)
+  connect(supFanSta.y, ecoEnaDis1.uSupFan)
     annotation (Line(points={{-139,-30},{-34,-30},{-34,-32},{81,-32}}, color={255,0,255}));
-  annotation (
+    annotation (Placement(transformation(extent={{-40,140},{-20,160}})),
+                Placement(transformation(extent={{-40,100},{-20,120}})),
     experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconEnableDisableSingleZone_FreProSta_ZonSta.mos"
     "Simulate and plot"),

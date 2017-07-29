@@ -24,7 +24,8 @@ model EconEnableDisableMultiZone_TOut_hOut
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   EconEnableDisableMultiZone ecoEnaDis1 "Multizone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  EconEnableDisableMultiZone ecoEnaDis2(use_enthalpy=false) "Multizone VAV AHU economizer enable disable sequence"
+  EconEnableDisableMultiZone ecoEnaDis2(final use_enthalpy=false)
+    "Multizone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{220,-40},{240,-20}})));
 
 protected
@@ -53,15 +54,19 @@ protected
     annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
   CDL.Continuous.Sources.Constant retDamPhyPosMax(final k=1) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
-  CDL.Integers.Sources.Constant ZoneState(final k=Constants.ZoneStates.deadband) "Zone State is deadband"
+  CDL.Integers.Sources.Constant zonSta(final k=Constants.ZoneStates.deadband) "Zone State is deadband"
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
-  CDL.Integers.Sources.Constant FreProSta(final k=Constants.FreezeProtectionStages.stage0) "Freeze Protection Status - Disabled"
+  CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0) "Freeze Protection Status - Disabled"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
   CDL.Logical.Sources.Constant SupFanSta(final k=true) "Supply fan status signal"
       annotation (Placement(transformation(extent={{-200,-42},{-180,-22}})));
-  CDL.Logical.Sources.Pulse booPul(final startTime=10, final period=2000) "Boolean pulse signal"
+  CDL.Logical.Sources.Pulse booPul(
+    final startTime=10,
+    final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-200,120},{-180,140}})));
-  CDL.Logical.Sources.Pulse booPul1(final startTime=10, final period=2000) "Boolean pulse signal"
+  CDL.Logical.Sources.Pulse booPul1(
+    final startTime=10,
+    final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
 equation
@@ -69,7 +74,7 @@ equation
     annotation (Line(points={{-139,90},{-112,90},{-112,-22},{-81,-22}}, color={0,0,127}));
   connect(hOutCut.y, ecoEnaDis.hOutCut)
     annotation (Line(points={{-219,50},{-150,50},{-150,-26},{-81,-26}}, color={0,0,127}));
-  connect(FreProSta.y, ecoEnaDis.uFreProSta)
+  connect(freProSta.y, ecoEnaDis.uFreProSta)
     annotation (Line(points={{-179,30},{-120,30},{-120,-28},{-81,-28}}, color={255,127,0}));
   connect(outDamPosMax.y, ecoEnaDis.uOutDamPosMax)
     annotation (Line(points={{-219,-70},{-150,-70},{-150,-34},{-81,-34}}, color={0,0,127}));
@@ -96,7 +101,7 @@ equation
   connect(booPul1.y, hOut.u) annotation (Line(points={{-59,90},{-50,90},{-42,90}}, color={255,0,255}));
   connect(hOut.y, ecoEnaDis1.hOut)
     annotation (Line(points={{-19,90},{-10,90},{-10,60},{20,60},{20,-24},{79,-24}}, color={0,0,127}));
-  connect(FreProSta.y, ecoEnaDis1.uFreProSta)
+  connect(freProSta.y, ecoEnaDis1.uFreProSta)
     annotation (Line(points={{-179,30},{-46,30},{-46,-28},{79,-28}}, color={255,127,0}));
   connect(outDamPosMax.y, ecoEnaDis1.uOutDamPosMax)
     annotation (Line(points={{-219,-70},{8,-70},{8,-34},{79,-34}}, color={0,0,127}));
@@ -112,7 +117,7 @@ equation
     annotation (Line(points={{-139,130},{-82,130},{200,130},{200,-20},{219,-20}}, color={0,0,127}));
   connect(TOutCut.y, ecoEnaDis2.TOutCut)
     annotation (Line(points={{-139,90},{-120,90},{-120,120},{188,120},{188,-22},{219,-22}}, color={0,0,127}));
-  connect(FreProSta.y, ecoEnaDis2.uFreProSta)
+  connect(freProSta.y, ecoEnaDis2.uFreProSta)
     annotation (Line(points={{-179,30},{170,30},{170,-28},{219,-28}}, color={255,127,0}));
   connect(outDamPosMax.y, ecoEnaDis2.uOutDamPosMax)
     annotation (Line(points={{-219,-70},{178,-70},{178,-34},{219,-34}}, color={0,0,127}));
@@ -130,11 +135,11 @@ equation
     annotation (Line(points={{-179,-32},{-160,-32},{-160,-12},{-20,-12},{-20,-32},{79,-32}}, color={255,0,255}));
   connect(SupFanSta.y, ecoEnaDis2.uSupFan)
     annotation (Line(points={{-179,-32},{-170,-32},{-170,-12},{140,-12},{140,-32},{219,-32}}, color={255,0,255}));
-  connect(ZoneState.y, ecoEnaDis.uZonSta)
+  connect(zonSta.y, ecoEnaDis.uZonSta)
     annotation (Line(points={{-179,0},{-132,0},{-132,-30},{-81,-30}}, color={255,127,0}));
-  connect(ZoneState.y, ecoEnaDis1.uZonSta)
+  connect(zonSta.y, ecoEnaDis1.uZonSta)
     annotation (Line(points={{-179,0},{-48,0},{-48,-30},{79,-30}}, color={255,127,0}));
-  connect(ZoneState.y, ecoEnaDis2.uZonSta)
+  connect(zonSta.y, ecoEnaDis2.uZonSta)
     annotation (Line(points={{-179,0},{160,0},{160,-30},{220,-30},{219,-30}}, color={255,127,0}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),

@@ -3,14 +3,16 @@ model EconomizerSingleZone_Disable
   "Validation model for disabling the single zone VAV AHU economizer modulation and damper position limit control loops"
   extends Modelica.Icons.Example;
 
-  EconomizerSingleZone economizer(final use_enthalpy=true,
+  EconomizerSingleZone economizer(
+    final use_enthalpy=true,
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
     final desVOut_flow=desVOut_flow)
     "Singlezone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  EconomizerSingleZone economizer1(final use_enthalpy=true,
+  EconomizerSingleZone economizer1(
+    final use_enthalpy=true,
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
@@ -24,19 +26,25 @@ protected
   final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
   final parameter Modelica.SIunits.Temperature TSupSet=291.15 "Supply air temperature setpoint";
-  final parameter Real minFanSpe(final min=0, final max=1, final unit="1")=0.1 "Minimum supply fan operation speed";
-  final parameter Real maxFanSpe(final min=0, final max=1, final unit="1")=0.9 "Maximum supply fan operation speed";
+  final parameter Real minFanSpe(
+    final min=0,
+    final max=1,
+    final unit="1")=0.1 "Minimum supply fan operation speed";
+  final parameter Real maxFanSpe(
+    final min=0,
+    final max=1,
+    final unit="1")=0.9 "Maximum supply fan operation speed";
   final parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=1.0 "Calculated minimum outdoor airflow rate";
   final parameter Modelica.SIunits.VolumeFlowRate desVOut_flow=2.0 "Calculated design outdoor airflow rate";
 
-  CDL.Logical.Sources.Constant fanStatus(final k=true) "Fan is on"
+  CDL.Logical.Sources.Constant fanSta(final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
     "Freeze protection stage is 0"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  CDL.Integers.Sources.Constant ZoneState(final k=Constants.ZoneStates.heating) "Zone State is heating"
+  CDL.Integers.Sources.Constant zonSta(final k=Constants.ZoneStates.heating) "Zone State is heating"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  CDL.Integers.Sources.Constant OperationMode(final k=Constants.OperationModes.occModInd) "AHU operation mode is Occupied"
+  CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occModInd) "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 40000)
     "Outdoor air enthalpy is below the cufoff"
@@ -70,7 +78,7 @@ protected
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
 equation
-  connect(fanStatus.y, economizer.uSupFan) annotation (Line(points={{-19,-10},{-10,-10},{-10,6},{19,6}},
+  connect(fanSta.y, economizer.uSupFan) annotation (Line(points={{-19,-10},{-10,-10},{-10,6},{19,6}},
     color={255,0,255}));
   connect(freProSta.y, economizer.uFreProSta)
     annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},color={255,127,0}));
@@ -98,17 +106,17 @@ equation
     annotation (Line(points={{-59,90},{-50,90},{-50,118},{82,118},{82,-6},{99,-6}}, color={0,0,127}));
   connect(TSupSetSig.y, economizer1.THeaSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,68},{72,68},{72,-8},{99,-8}}, color={0,0,127}));
-  connect(fanStatus.y, economizer1.uSupFan)
+  connect(fanSta.y, economizer1.uSupFan)
     annotation (Line(points={{-19,-10},{20,-10},{20,-14},{99,-14}}, color={255,0,255}));
   connect(freProSta2.y, economizer1.uFreProSta)
     annotation (Line(points={{81,-120},{90,-120},{90,-20},{99,-20}}, color={255,127,0}));
-  connect(ZoneState.y, economizer.uZonSta)
+  connect(zonSta.y, economizer.uZonSta)
     annotation (Line(points={{-59,-60},{-2,-60},{-2,2},{19,2}}, color={255,127,0}));
-  connect(OperationMode.y, economizer.uOpeMod)
+  connect(opeMod.y, economizer.uOpeMod)
     annotation (Line(points={{-59,-90},{-4,-90},{-4,4},{19,4}}, color={255,127,0}));
-  connect(OperationMode.y, economizer1.uOpeMod)
+  connect(opeMod.y, economizer1.uOpeMod)
     annotation (Line(points={{-59,-90},{20,-90},{20,-16},{99,-16}}, color={255,127,0}));
-  connect(ZoneState.y, economizer1.uZonSta)
+  connect(zonSta.y, economizer1.uZonSta)
     annotation (Line(points={{-59,-60},{22,-60},{22,-18},{99,-18}}, color={255,127,0}));
   connect(VOutMinSetSig.y, economizer.uVOutMinSet_flow)
     annotation (Line(points={{-19,90},{0,90},{0,10},{19,10}}, color={0,0,127}));

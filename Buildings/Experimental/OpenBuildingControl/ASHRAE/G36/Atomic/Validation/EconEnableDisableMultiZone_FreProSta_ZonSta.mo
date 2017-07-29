@@ -27,13 +27,13 @@ protected
   CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
     "Freeze protection status is stage0"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Integers.Sources.Constant zoneState(final k=Constants.ZoneStates.heating)
+  CDL.Integers.Sources.Constant zonSta(final k=Constants.ZoneStates.heating)
     "Zone state is heating"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
   CDL.Integers.Sources.Constant freProSta1(final k=Constants.FreezeProtectionStages.stage1)
     "Freeze protection status is stage1"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  CDL.Integers.Sources.Constant zoneState1(final k=Constants.ZoneStates.deadband)
+  CDL.Integers.Sources.Constant zonSta1(final k=Constants.ZoneStates.deadband)
     "Zone state is deadband"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
@@ -95,9 +95,9 @@ equation
     annotation (Line(points={{-139,-30},{-34,-30},{-34,48},{81,48}}, color={255,0,255}));
   connect(SupFanSta.y, ecoEnaDis1.uSupFan)
     annotation (Line(points={{-139,-30},{-34,-30},{-34,-32},{81,-32}}, color={255,0,255}));
-  connect(zoneState.y, ecoEnaDis.uZonSta)
+  connect(zonSta.y, ecoEnaDis.uZonSta)
     annotation (Line(points={{-139,10},{-100,10},{-100,50},{81,50}}, color={255,127,0}));
-  connect(zoneState1.y, ecoEnaDis1.uZonSta)
+  connect(zonSta1.y, ecoEnaDis1.uZonSta)
     annotation (Line(points={{61,-70},{70,-70},{70,-30},{81,-30}}, color={255,127,0}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),

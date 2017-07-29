@@ -29,20 +29,26 @@ protected
     "Supply air temperature Healing setpoint";
   parameter Modelica.SIunits.Temperature TSup=290.15
     "Measured supply air temperature";
-  parameter Real minFanSpe(final min=0, final max=1, final unit="1") = 0.1 "Minimum supply fan operation speed";
-  parameter Real maxFanSpe(final min=0, final max=1, final unit="1") = 0.9 "Maximum supply fan operation speed";
+  parameter Real minFanSpe(
+    final min=0,
+    final max=1,
+    final unit="1") = 0.1 "Minimum supply fan operation speed";
+  parameter Real maxFanSpe(
+    final min=0,
+    final max=1,
+    final unit="1") = 0.9 "Maximum supply fan operation speed";
   parameter Modelica.SIunits.VolumeFlowRate minVOut_flow = 1.0 "Calculated minimum outdoor airflow rate";
   parameter Modelica.SIunits.VolumeFlowRate desVOut_flow = 2.0 "Calculated design outdoor airflow rate";
 
-  CDL.Logical.Sources.Constant fanStatus(k=true) "Fan is on"
+  CDL.Logical.Sources.Constant fanSta(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
     "Freeze protection status is 0"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  CDL.Integers.Sources.Constant zoneState(final k=Constants.ZoneStates.deadband)
+  CDL.Integers.Sources.Constant zonSta(final k=Constants.ZoneStates.deadband)
     "Zone State is deadband"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Integers.Sources.Constant operationMode(final k=Constants.OperationModes.occModInd)
+  CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occModInd)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 10000)
@@ -76,13 +82,13 @@ protected
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
 equation
-  connect(fanStatus.y, economizer.uSupFan)
+  connect(fanSta.y, economizer.uSupFan)
     annotation (Line(points={{-59,-80},{-14,-80},{-14,6},{19,6}}, color={255,0,255}));
   connect(freProSta.y, economizer.uFreProSta)
     annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},color={255,127,0}));
-  connect(operationMode.y, economizer.uOpeMod)
+  connect(opeMod.y, economizer.uOpeMod)
     annotation (Line(points={{-99,-100},{-50,-100},{-50,-30},{-4,-30},{-4,4},{19,4}},color={255,127,0}));
-  connect(zoneState.y, economizer.uZonSta)
+  connect(zonSta.y, economizer.uZonSta)
     annotation (Line(points={{-99,-60},{-48,-60},{-48,-32},{-2,-32},{-2,2},{19,2}}, color={255,127,0}));
   connect(TOutBelowCutoff.y, economizer.TOut)
     annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},color={0,0,127}));
@@ -104,7 +110,7 @@ equation
     annotation (Line(points={{61,90},{80,90},{80,-26},{99,-26}}, color={0,0,127}));
   connect(TSupSetSig.y, economizer1.THeaSet)
     annotation (Line(points={{-59,50},{-54,50},{-54,-20},{20,-20},{20,-28},{99,-28}}, color={0,0,127}));
-  connect(fanStatus.y, economizer1.uSupFan)
+  connect(fanSta.y, economizer1.uSupFan)
     annotation (Line(points={{-59,-80},{20,-80},{20,-34},{99,-34}}, color={255,0,255}));
   connect(freProSta.y, economizer1.uFreProSta)
     annotation (Line(points={{-59,-120},{26,-120},{26,-40},{99,-40}}, color={255,127,0}));
@@ -112,9 +118,9 @@ equation
     annotation (Line(points={{-99,20},{-64,20},{-64,-12},{24,-12},{24,-22},{99,-22}},color={0,0,127}));
   connect(hOutCut.y, economizer1.hOutCut)
     annotation (Line(points={{-99,-20},{-20,-20},{-20,-24},{99,-24}}, color={0,0,127}));
-  connect(operationMode.y, economizer1.uOpeMod)
+  connect(opeMod.y, economizer1.uOpeMod)
     annotation (Line(points={{-99,-100},{22,-100},{22,-36},{99,-36}}, color={255,127,0}));
-  connect(zoneState.y, economizer1.uZonSta)
+  connect(zonSta.y, economizer1.uZonSta)
     annotation (Line(points={{-99,-60},{24,-60},{24,-38},{99,-38}}, color={255,127,0}));
   connect(VOutMinSetSig.y, economizer.uVOutMinSet_flow)
     annotation (Line(points={{-19,90},{0,90},{0,10},{19,10}}, color={0,0,127}));

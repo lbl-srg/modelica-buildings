@@ -2,27 +2,46 @@ within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic;
 block EconDamperPositionLimitsMultiZone
   "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
 
-  parameter Real retDamPhyPosMax(final min=0, final max=1, final unit="1") = 1
+  parameter Real retDamPhyPosMax(
+    final min=0,
+    final max=1,
+    final unit="1") = 1
     "Physically fixed maximum position of the return air damper";
-  parameter Real retDamPhyPosMin(final min=0, final max=1, final unit="1") = 0
+  parameter Real retDamPhyPosMin(
+    final min=0,
+    final max=1,
+    final unit="1") = 0
     "Physically fixed minimum position of the return air damper";
-  parameter Real outDamPhyPosMax(final min=0, final max=1, final unit="1") = 1
+  parameter Real outDamPhyPosMax(
+    final min=0,
+    final max=1,
+    final unit="1") = 1
     "Physically fixed maximum position of the outdoor air damper";
-  parameter Real outDamPhyPosMin(final min=0, final max=1, final unit="1") = 0
+  parameter Real outDamPhyPosMin(
+    final min=0,
+    final max=1,
+    final unit="1") = 0
     "Physically fixed minimum position of the outdoor air damper";
   parameter Real conSigMin=0 "Lower limit of control signal output";
   parameter Real conSigMax=1 "Upper limit of control signal output";
-  parameter Real conSigFraOutDam(final min=conSigMin, final max=conSigMax, final unit="1")=0.5
+  parameter Real conSigFraOutDam(
+    final min=conSigMin,
+    final max=conSigMax,
+    final unit="1")=0.5
     "Fraction of control loop signal output below which the outdoor air damper limit gets
     modulated and above which the return air damper limit gets modulated";
   parameter Real kPDamLim=1 "Gain of damper limit controller";
   parameter Modelica.SIunits.Time TiDamLim=0.9 "Time constant of damper limit controller integrator block";
 
-  CDL.Interfaces.RealInput VOut_flow(final unit="m3/s", final quantity="VolumeFlowRate")
+  CDL.Interfaces.RealInput VOut_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
     "Measured outdoor volumetric airflow rate"
     annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput VOutMinSet_flow(final unit="m3/s", final quantity="VolumeFlowRate")
+  CDL.Interfaces.RealInput VOutMinSet_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
     "Minimum outdoor volumetric airflow rate setpoint"
     annotation (Placement(transformation(extent={{-220,200},{-180,240}}),
         iconTransformation(extent={{-120,40},{-100,60}})));
@@ -36,23 +55,38 @@ block EconDamperPositionLimitsMultiZone
     annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
 
-  CDL.Interfaces.RealOutput yOutDamPosMin(final min=outDamPhyPosMin, final max=outDamPhyPosMax, final unit="1")
+  CDL.Interfaces.RealOutput yOutDamPosMin(
+    final min=outDamPhyPosMin,
+    final max=outDamPhyPosMax,
+    final unit="1")
     "Minimum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{180,70},{200,90}}),
     iconTransformation(extent={{100,40},{120,60}})));
-  CDL.Interfaces.RealOutput yOutDamPosMax(final min=outDamPhyPosMin, final max=outDamPhyPosMax, final unit="1")
+  CDL.Interfaces.RealOutput yOutDamPosMax(
+    final min=outDamPhyPosMin,
+    final max=outDamPhyPosMax,
+    final unit="1")
     "Maximum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{180,30},{200,50}}),
     iconTransformation(extent={{100,60},{120,80}})));
-  CDL.Interfaces.RealOutput yRetDamPosMin(final min=retDamPhyPosMin, final max=retDamPhyPosMax, final unit="1")
+  CDL.Interfaces.RealOutput yRetDamPosMin(
+    final min=retDamPhyPosMin,
+    final max=retDamPhyPosMax,
+    final unit="1")
     "Minimum return air damper position limit"
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
     iconTransformation(extent={{100,-10},{120,10}})));
-  CDL.Interfaces.RealOutput yRetDamPosMax(final min=retDamPhyPosMin, final max=retDamPhyPosMax, final unit="1")
+  CDL.Interfaces.RealOutput yRetDamPosMax(
+    final min=retDamPhyPosMin,
+    final max=retDamPhyPosMax,
+    final unit="1")
     "Maximum return air damper position limit"
     annotation (Placement(transformation(extent={{180,-50},{200,-30}}),
         iconTransformation(extent={{100,-30},{120,-10}})));
-  CDL.Interfaces.RealOutput yRetDamPhyPosMax(final min=0, final max=1, final unit="1")
+  CDL.Interfaces.RealOutput yRetDamPhyPosMax(
+    final min=0,
+    final max=1,
+    final unit="1")
     "Physical maximum return air damper position limit. Required as an input for the economizer enable disable sequence"
     annotation (Placement(transformation(extent={{180,-90},{200,-70}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
@@ -90,10 +124,14 @@ protected
     limit gets modulated and above which the return air damper limit gets modulated"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
 
-  CDL.Continuous.Line minOutDam(limitBelow=true, limitAbove=true)
+  CDL.Continuous.Line minOutDam(
+    final limitBelow=true,
+    final limitAbove=true)
     "Linear mapping of the outdoor air damper position to the control signal"
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
-  CDL.Continuous.Line minRetDam(limitBelow=true, limitAbove=true)
+  CDL.Continuous.Line minRetDam(
+    final limitBelow=true,
+    final limitAbove=true)
     "Linear mapping of the return air damper position to the control signal"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
   CDL.Logical.Switch retDamPosMinSwitch
@@ -102,7 +140,7 @@ protected
   CDL.Logical.Switch outDamPosMaxSwitch
     "A switch to deactivate the outdoor air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  CDL.Logical.MultiAnd and1(nu=4) "Locigal and block"
+  CDL.Logical.MultiAnd and1(final nu=4) "Locigal and block"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   CDL.Logical.Not not1 "Logical not block"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
