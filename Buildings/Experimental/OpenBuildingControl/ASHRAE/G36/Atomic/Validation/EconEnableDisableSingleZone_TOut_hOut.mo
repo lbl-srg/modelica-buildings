@@ -24,7 +24,8 @@ model EconEnableDisableSingleZone_TOut_hOut
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   EconEnableDisableSingleZone ecoEnaDis1 "Singlezone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  EconEnableDisableSingleZone ecoEnaDis2(use_enthalpy=false) "Singlezone VAV AHU economizer enable disable sequence"
+  EconEnableDisableSingleZone ecoEnaDis2(use_enthalpy=false)
+    "Singlezone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{220,-80},{240,-60}})));
 
 protected
