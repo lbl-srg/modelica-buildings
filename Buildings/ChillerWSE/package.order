@@ -1,11 +1,11 @@
 ElectricChilerParallel
+FlowMachine_m
+FlowMachine_y
 HeatExchanger
 IntegratedPrimaryLoadSide
 IntegratedPrimaryPlantSide
 IntegratedPrimarySecondary
-MassflowControlledPumpParallel
 NonIntegrated
-SpeedControlledPumpParallel
 WatersideEconomizer
 Examples
 Validation

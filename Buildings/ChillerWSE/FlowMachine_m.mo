@@ -1,6 +1,5 @@
 within Buildings.ChillerWSE;
-model MassflowControlledPumpParallel
-  "Identical m_flow controlled pumps"
+model FlowMachine_m "Identical m_flow controlled pumps"
   extends Buildings.ChillerWSE.BaseClasses.PartialPumpParallel(
     redeclare Buildings.Fluid.Movers.FlowControlled_m_flow pum(each final
         m_flow_nominal=m_flow_nominal, final m_flow_start=yPump_start),
@@ -24,4 +23,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end MassflowControlledPumpParallel;
+end FlowMachine_m;

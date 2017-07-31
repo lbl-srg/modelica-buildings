@@ -1,5 +1,5 @@
 within Buildings.ChillerWSE;
-model SpeedControlledPumpParallel "Identical speed controlled pumps"
+model FlowMachine_y "Identical speed controlled flow machines"
   extends Buildings.ChillerWSE.BaseClasses.PartialPumpParallel(
   redeclare Buildings.Fluid.Movers.SpeedControlled_y pum,
   rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
@@ -21,4 +21,4 @@ First implementation.
 The shutoff valves are used to avoid circulating flow among pumps.
 </p>
 </html>"));
-end SpeedControlledPumpParallel;
+end FlowMachine_y;
