@@ -60,9 +60,8 @@ partial model DataCenter
       perChi,
     use_inputFilter=false) "Chillers and waterside economizer"
     annotation (Placement(transformation(extent={{126,22},{146,42}})));
-  Buildings.Fluid.Storage.ExpansionVessel expVesChi(redeclare replaceable
-      package Medium =
-        MediumW, V_start=1)
+  Buildings.Fluid.Storage.ExpansionVessel expVesCW(redeclare replaceable
+      package Medium = MediumW, V_start=1) "Expansion tank"
     annotation (Placement(transformation(extent={{230,125},{250,145}})));
   Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow[nChi](
     redeclare each replaceable package Medium = MediumW,
@@ -121,8 +120,8 @@ partial model DataCenter
       m_flow_nominal=nChi*mChiller2_flow_nominal)
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{240,-10},{220,10}})));
-  Buildings.Fluid.Storage.ExpansionVessel expVesChi1(
-        redeclare replaceable package Medium = MediumW, V_start=1)
+  Buildings.Fluid.Storage.ExpansionVessel expVesChi(redeclare replaceable
+      package Medium = MediumW, V_start=1) "Expansion tank"
     annotation (Placement(transformation(extent={{260,-59},{280,-39}})));
   Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare replaceable
       package Medium =                                                                      MediumW)
@@ -162,8 +161,9 @@ equation
       points={{146,38},{160,38},{160,60},{202,60}},
       color={0,127,255},
       thickness=0.5));
-  connect(CWRT.port_b, expVesChi.port_a)
-    annotation (Line(points={{222,60},{240,60},{240,125}},color={0,127,255},
+  connect(CWRT.port_b, expVesCW.port_a) annotation (Line(
+      points={{222,60},{240,60},{240,125}},
+      color={0,127,255},
       thickness=0.5));
 
    for i in 1:nChi loop
@@ -182,13 +182,13 @@ equation
     connect(pumCW[i].port_a, CWST.port_b) annotation (Line(points={{70,110},{70,
             140},{100,140}},     color={0,127,255},
         thickness=0.5));
-    connect(val[i].port_a, expVesChi.port_a) annotation (Line(points={{190,140},
-            {220,140},{220,120},{240,120},{240,125}},
-                                               color={0,127,255}));
+    connect(val[i].port_a, expVesCW.port_a) annotation (Line(points={{190,140},
+            {220,140},{220,120},{240,120},{240,125}}, color={0,127,255}));
 
    end for;
-  connect(expVesChi1.port_a, ahu.port_b1) annotation (Line(points={{270,-59},{270,
-          -59},{270,-114},{174,-114}},             color={0,127,255},
+  connect(expVesChi.port_a, ahu.port_b1) annotation (Line(
+      points={{270,-59},{270,-59},{270,-114},{174,-114}},
+      color={0,127,255},
       thickness=0.5));
   connect(senRelPre.port_a, ahu.port_a1) annotation (Line(points={{150,-96},{72,
           -96},{72,-114},{154,-114}},    color={0,127,255},
@@ -212,9 +212,9 @@ equation
           139},{160.5,140},{170,140}},
                                   color={0,127,255},
       thickness=0.5));
-  connect(val[1].port_a, expVesChi.port_a) annotation (Line(points={{190,140},{
-          220,140},{220,120},{240,120},{240,125}},
-                                               color={0,127,255},
+  connect(val[1].port_a, expVesCW.port_a) annotation (Line(
+      points={{190,140},{220,140},{220,120},{240,120},{240,125}},
+      color={0,127,255},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),                                  Diagram(

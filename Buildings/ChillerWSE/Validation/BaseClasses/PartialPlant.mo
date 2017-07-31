@@ -1,5 +1,5 @@
 within Buildings.ChillerWSE.Validation.BaseClasses;
-partial model PartialChillerWSE
+partial model PartialPlant
   "Partial examples for chillers and WSE configurations"
   extends Modelica.Icons.Example;
 
@@ -73,4 +73,4 @@ equation
   connect(sin2.ports[1], TSup.port_b) annotation (Line(points={{-80,-70},{-70,
           -70},{-70,-44},{-60,-44}},
                       color={0,127,255}));
-end PartialChillerWSE;
+end PartialPlant;

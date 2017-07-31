@@ -2,25 +2,28 @@ within Buildings.ChillerWSE.Validation;
 model ElectricChillerParallel "Model that test electric chiller parallel"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric(
-      P_nominal=-per[1].QEva_flow_nominal/per[1].COP_nominal,
-      mEva_flow_nominal=per[1].mEva_flow_nominal,
-      mCon_flow_nominal=per[1].mCon_flow_nominal,
+      P_nominal=-per1.QEva_flow_nominal/per1.COP_nominal,
+      mEva_flow_nominal=per1.mEva_flow_nominal,
+      mCon_flow_nominal=per1.mCon_flow_nominal,
       sou1(nPorts=1, m_flow=2*mCon_flow_nominal),
       sou2(nPorts=1, m_flow=2*mEva_flow_nominal));
 
   parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes
-    per[2] "Chiller performance data"
+    per1 "Chiller performance data"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
+  parameter Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_563kW_10_61COP_Vanes
+    per2 "Chiller performance data"
+    annotation (Placement(transformation(extent={{32,80},{52,100}})));
   ElectricChilerParallel chiPar(
     n=2,
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
-    per=per,
     m1_flow_nominal=mEva_flow_nominal,
     m2_flow_nominal=mCon_flow_nominal,
     dp1_nominal=6000,
     dp2_nominal=6000,
-    dpValve_nominal={6000,6000})    "Identical chillers"
+    dpValve_nominal={6000,6000},
+    per={per1,per2})                "Identical chillers"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 equation
   connect(chiPar.port_b1, res1.port_a) annotation (Line(points={{10,16},{20,16},
@@ -42,5 +45,17 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ChillerWSE/Validation/ElectricChillerParallel.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+    Documentation(info="<html>
+<p>
+This example demonstrates how the chiller parallel can operate under different performance curves.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 10, 2017, by Yangyang Fu:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ElectricChillerParallel;

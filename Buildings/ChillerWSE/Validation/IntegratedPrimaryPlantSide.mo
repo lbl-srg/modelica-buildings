@@ -3,12 +3,10 @@ model IntegratedPrimaryPlantSide
   "Integrated WSE on the plant side in a primary-only chilled water system"
 
   extends Modelica.Icons.Example;
-  extends Buildings.ChillerWSE.Validation.BaseClasses.PartialChillerWSE(
+  extends Buildings.ChillerWSE.Validation.BaseClasses.PartialPlant(
     sou1(nPorts=1),
     sin1(nPorts=1),
     TSet(k=273.15 + 5.56),
-    TCon_in(table=[0,273.15 + 2.78; 7200,273.15 + 2.78; 7200,273.15 + 8.33;
-          14400,273.15 + 8.33; 14400,273.15 + 16.67]),
     TEva_in(k=273.15 + 15.28),
     redeclare Buildings.Fluid.Sources.MassFlowSource_T sou2(
          nPorts=1, m_flow=mCHW_flow_nominal));
@@ -68,5 +66,18 @@ equation
           20,-44},{26,-44},{26,-74},{38,-74}}, color={0,127,255}));
   annotation (__Dymola_Commands(file=
           "Resources/Scripts/Dymola/ChillerWSE/Validation/IntegratedPrimaryPlantSide.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"), Documentation(info="<html>
+<p>
+This example demonstrates how the model responses 
+according to different cooling mode signals
+(free cooling mode, partially mechanical cooling and fully mechanical cooling).
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 22, 2017, by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end IntegratedPrimaryPlantSide;

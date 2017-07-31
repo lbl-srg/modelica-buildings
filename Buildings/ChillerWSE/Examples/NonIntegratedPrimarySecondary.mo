@@ -59,8 +59,9 @@ equation
       points={{146,38},{160,38},{160,60},{202,60}},
       color={0,127,255},
       thickness=0.5));
-  connect(CWRT.port_b, expVesChi.port_a)
-    annotation (Line(points={{222,60},{240,60},{240,125}},color={0,127,255},
+  connect(CWRT.port_b, expVesCW.port_a) annotation (Line(
+      points={{222,60},{240,60},{240,125}},
+      color={0,127,255},
       thickness=0.5));
 
    for i in 1:nChi loop
@@ -130,8 +131,9 @@ equation
                            color={0,0,127}));
   connect(uFan.y, ahu.uFan) annotation (Line(points={{9,-166},{60,-166},{60,-124},
           {153,-124}},color={0,0,127}));
-  connect(expVesChi1.port_a, ahu.port_b1) annotation (Line(points={{270,-59},{270,
-          -59},{270,-114},{174,-114}},             color={0,127,255},
+  connect(expVesChi.port_a, ahu.port_b1) annotation (Line(
+      points={{270,-59},{270,-59},{270,-114},{174,-114}},
+      color={0,127,255},
       thickness=0.5));
   connect(mPum_flow.y, varSpeCon.masFloPum) annotation (Line(points={{-105,4},{-50,
           4}},                       color={0,0,127}));
@@ -181,16 +183,17 @@ equation
   connect(CHWST.port_b, secPum.port_a)
     annotation (Line(points={{84,0},{72,0},{72,-42}}, color={0,127,255},
       thickness=0.5));
-  connect(pumSpeSig.y, secPum.u) annotation (Line(points={{12.8,-14},{34,-14},{67,
-          -14},{67,-41}}, color={0,0,127}));
+  connect(pumSpeSig.y, secPum.u) annotation (Line(points={{12.8,-14},{34,-14},{
+          68,-14},{68,-40}},
+                          color={0,0,127}));
   connect(chiNumOn.y, PriPumCon.chiNumOn) annotation (Line(points={{-161,74},{-102,
           74},{-102,76},{-102,36},{-94,36}}, color={0,0,127}));
   connect(cooModCon.cooMod, PriPumCon.cooMod) annotation (Line(points={{-109,110},
           {-102,110},{-102,40},{-94,40}}, color={0,0,127}));
   connect(PriPumCon.y, gai2.u)
     annotation (Line(points={{-71,32},{-62,32},{-52,32}}, color={0,0,127}));
-  connect(gai2.y, priPum.u) annotation (Line(points={{-29,32},{-2,32},{40,32},{40,
-          200},{260,200},{260,32},{200,32},{200,5},{191,5}},
+  connect(gai2.y, priPum.u) annotation (Line(points={{-29,32},{-2,32},{40,32},{
+          40,200},{260,200},{260,32},{200,32},{200,4},{192,4}},
                                              color={0,0,127}));
   connect(cooLoaChi.y, chiStaCon.QTot) annotation (Line(points={{-109,144},{-80.5,
           144},{-52,144}}, color={0,0,127}));

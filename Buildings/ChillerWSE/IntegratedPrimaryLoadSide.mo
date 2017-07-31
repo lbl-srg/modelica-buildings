@@ -2,13 +2,12 @@ within Buildings.ChillerWSE;
 model IntegratedPrimaryLoadSide
   "Integrated water-side economizer on the load side in a primary-only chilled water system"
   extends Buildings.ChillerWSE.BaseClasses.PartialIntegratedPrimary(
-    final nVal=7,
+    final nVal=6,
     final m_flow_nominal={mChiller1_flow_nominal,mChiller2_flow_nominal,mWSE1_flow_nominal,
-      mWSE2_flow_nominal,nChi*mChiller2_flow_nominal,mWSE2_flow_nominal,mChiller2_flow_nominal},
+      mWSE2_flow_nominal,nChi*mChiller2_flow_nominal,mWSE2_flow_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
-            Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)});
@@ -45,26 +44,10 @@ model IntegratedPrimaryLoadSide
     "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Pump"));
 
- //Valve
-  parameter Real lValve7(min=1e-10,max=1) = 0.0001
-    "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Shutoff valve"));
-  parameter Real yValve7_start = 0 "Initial value of output:0-closed, 1-fully opened"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-
    Modelica.Blocks.Interfaces.RealInput yPum[nPum](each min=0, max=1)
     "Constant normalized rotational speed"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-132,-28},{-100,-60}})));
-   Modelica.Blocks.Interfaces.RealInput yVal7(min=0,max=1)
-    "Position signal for valve 7 (0: closed, 1: open) " annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={-28,-120}), iconTransformation(
-        extent={{-16,-16},{16,16}},
-        rotation=90,
-        origin={-32,-116})));
 
   Buildings.ChillerWSE.FlowMachine_y pum(
     redeclare each final package Medium = Medium2,
@@ -98,27 +81,6 @@ model IntegratedPrimaryLoadSide
     final homotopyInitialization=homotopyInitialization,
     final linearizeFlowResistance=linearizeFlowResistance2) "Identical pumps"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear val7(
-    redeclare final package Medium = Medium2,
-    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    final m_flow_nominal=mChiller2_flow_nominal,
-    final dpFixed_nominal=0,
-    final l=lValve7,
-    final kFixed=0,
-    final deltaM=deltaM2,
-    final rhoStd=rhoStd[7],
-    final dpValve_nominal=dpValve_nominal[7],
-    final allowFlowReversal=allowFlowReversal2,
-    final show_T=show_T,
-    final from_dp=from_dp2,
-    final homotopyInitialization=homotopyInitialization,
-    final linearized=linearizeFlowResistance2,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTimeValve,
-    final init=initValve,
-    final y_start=yValve7_start)
-    "Valve: the valve position is manipulated to maintain the minimum flow requirement through chillers"
-    annotation (Placement(transformation(extent={{10,-90},{-10,-70}})));
 
 equation
 
@@ -127,15 +89,8 @@ equation
   connect(pum.port_b,val6.port_a)  annotation (Line(points={{-10,-40},{-16,-40},
           {-16,-20},{-40,-20}}, color={0,127,255}));
 
-  connect(val5.port_b,val7. port_a) annotation (Line(points={{40,-20},{30,-20},{
-          30,-80},{10,-80}}, color={0,127,255}));
-  connect(val7.port_b, port_b2) annotation (Line(points={{-10,-80},{-40,-80},{-40,
-          -60},{-100,-60}}, color={0,127,255}));
-  connect(val7.y, yVal7) annotation (Line(points={{0,-68},{0,-68},{0,-60},{-28,-60},
-          {-28,-120}}, color={0,0,127}));
-
-  connect(yPum, pum.u) annotation (Line(points={{-120,-40},{-30,-40},{-30,-28},
-          {18,-28},{18,-36},{12,-36}},color={0,0,127}));
+  connect(yPum, pum.u) annotation (Line(points={{-120,-40},{-30,-40},{-30,-28},{
+          18,-28},{18,-36},{12,-36}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

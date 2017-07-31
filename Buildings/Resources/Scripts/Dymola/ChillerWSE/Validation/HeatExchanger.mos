@@ -1,24 +1,19 @@
 simulateModel("Buildings.ChillerWSE.Validation.HeatExchanger", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="HeatExchanger_T");
-
 removePlots();
-createPlot(id=1,
- position={0, 0, 1549, 701},
- y={"T1_in.y", "T2_in.y"},
- range={0.0, 64.0, 276.0, 290.0},
+createPlot(id=3,
+ position={0, 0, 863, 450},
+ y={"TCon_in.y", "TEva_in.y"},
+ range={0.0, 0.25, 285.0, 305.0},
+ erase=false,
  grid=true,
- filename="HeatExchanger_T.mat",
+ filename="HeatExchanger.mat",
  colors={{28,108,200}, {238,46,47}});
-createPlot(id=1,
- position={0, 0, 1549, 231},
- y={"hx.con.u_s", "hx.con.u_m"},
- range={0.0, 64.0, 282.0, 288.0},
+createPlot(id=3,
+ position={0, 0, 863, 223},
+ y={"TSen1.T", "TSen2.T", "TSet.y"},
+ range={0.0, 0.25, 10.0, 30.0},
+ erase=false,
  grid=true,
  subPlot=2,
- colors={{28,108,200}, {238,46,47}});
-createPlot(id=1,
- position={0, 0, 1549, 231},
- y={"hx.con.y", "hx.bypVal.y_actual"},
- range={0.0, 64.0, -0.2, 1.2},
- grid=true,
- subPlot=3,
- colors={{28,108,200}, {238,46,47}});
+ colors={{28,108,200}, {238,46,47}, {0,140,72}});
+

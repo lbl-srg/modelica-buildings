@@ -3,12 +3,10 @@ model WatersideEconomizer
   "Validate model Buildings.ChillerWSE.WatersideEconomizer"
   import Buildings;
   extends Modelica.Icons.Example;
-  extends Buildings.ChillerWSE.Validation.BaseClasses.PartialChillerWSE(
+  extends Buildings.ChillerWSE.Validation.BaseClasses.PartialPlant(
     sou1(nPorts=1),
     sin1(nPorts=1),
-    TSet(k=273.15 + 5.56),
-    TCon_in(table=[0,273.15 + 2.78; 7200,273.15 + 2.78; 7200,273.15 + 16.67; 14400,
-          273.15 + 16.67]),
+    TSet(k=273.15 + 13.56),
     TEva_in(k=273.15 + 15.28),
     redeclare Buildings.Fluid.Sources.MassFlowSource_T sou2(
          nPorts=1, m_flow=mCHW_flow_nominal));
@@ -45,5 +43,15 @@ equation
   connect(WSE.on[1], onWSE.y) annotation (Line(points={{-12,-34},{-28,-34},{-28,
           20},{-79,20}}, color={255,0,255}));
   annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/ChillerWSE/Validation/WatersideEconomizer.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"), Documentation(info="<html>
+This example demonstrates that the temperature at port_b2 is controlled by setting 
+<code>use_Controller=true</code>.
+</html>", revisions="<html>
+<ul>
+<li>
+July 10, 2017, by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end WatersideEconomizer;

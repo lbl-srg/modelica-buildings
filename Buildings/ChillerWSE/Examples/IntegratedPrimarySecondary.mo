@@ -52,7 +52,7 @@ equation
                                                            color={0,127,255},
       thickness=0.5));
   connect(pumSpeSig.y, secPum.u) annotation (Line(points={{12.8,-14},{40,-14},{
-          40,0},{67,0},{67,-15}}, color={0,0,127}));
+          40,0},{68,0},{68,-14}}, color={0,0,127}));
   connect(chiNumOn.y, PriPumCon.chiNumOn) annotation (Line(points={{-161,74},{
           -102,74},{-102,36},{-94,36}}, color={0,0,127}));
   connect(PriPumCon.y, gai2.u)
@@ -75,8 +75,9 @@ equation
       points={{146,38},{160,38},{160,60},{202,60}},
       color={0,127,255},
       thickness=0.5));
-  connect(CWRT.port_b, expVesChi.port_a)
-    annotation (Line(points={{222,60},{240,60},{240,125}},color={0,127,255},
+  connect(CWRT.port_b, expVesCW.port_a) annotation (Line(
+      points={{222,60},{240,60},{240,125}},
+      color={0,127,255},
       thickness=0.5));
 
    for i in 1:nChi loop
@@ -115,8 +116,9 @@ equation
   connect(cooModCon.wseCHWRT, CHWRT.T) annotation (Line(points={{-132,102},{
           -150,102},{-150,200},{260,200},{260,20},{230,20},{230,11}},     color=
          {0,0,127}));
-  connect(expVesChi1.port_a, ahu.port_b1) annotation (Line(points={{270,-59},{270,
-          -59},{270,-114},{174,-114}},             color={0,127,255},
+  connect(expVesChi.port_a, ahu.port_b1) annotation (Line(
+      points={{270,-59},{270,-59},{270,-114},{174,-114}},
+      color={0,127,255},
       thickness=0.5));
   connect(senRelPre.port_a, ahu.port_a1) annotation (Line(points={{150,-96},{72,
           -96},{72,-114},{154,-114}},    color={0,127,255},

@@ -90,8 +90,9 @@ equation
   connect(sou.ports[1], dp1.port_a)
     annotation (Line(points={{-76,40},{-68,40},{-60,40}},
                                                        color={0,127,255}));
-  connect(y.y, pumPar1.u) annotation (Line(points={{-71,80},{-28,80},{-28,45},{-19,
-          45}}, color={0,0,127}));
+  connect(y.y, pumPar1.u) annotation (Line(points={{-71,80},{-28,80},{-28,44},{
+          -20,44}},
+                color={0,0,127}));
   connect(dp3.port_a, sou.ports[2]) annotation (Line(points={{-60,-40},{-68,-40},
           {-68,36},{-76,36}}, color={0,127,255}));
   connect(dp3.port_b, pumPar2.port_a) annotation (Line(points={{-40,-40},{-29,-40},
@@ -110,11 +111,25 @@ equation
   connect(senMasFlo.m_flow, gain.u) annotation (Line(points={{64,51},{64,60},{46,
           60},{46,0},{22,0}}, color={0,0,127}));
  for i in 1:nPum loop
-  connect(gain.y, pumPar2.u[i]) annotation (Line(points={{-1,0},{-28,0},{-28,-35},
-          {-19,-35}}, color={0,0,127}));
+  connect(gain.y, pumPar2.u[i]) annotation (Line(points={{-1,0},{-28,0},{-28,
+            -36},{-20,-36}},
+                      color={0,0,127}));
  end for;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file="Resources/Scripts/Dymola/ChillerWSE/Validation/PumpParallel.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+    Documentation(info="<html>
+<p>
+This example demonstrates the use of the flow model with two different configurations.
+At steady-state, all flow models have the same mass flow rate and pressure difference.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 22, 2017, by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PumpParallel;

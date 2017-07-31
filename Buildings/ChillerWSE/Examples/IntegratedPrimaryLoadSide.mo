@@ -15,8 +15,6 @@ model IntegratedPrimaryLoadSide
   Modelica.Blocks.Sources.RealExpression towTApp(y=max(cooTow[1:nChi].TAppAct))
     "Cooling tower approach temperature"
     annotation (Placement(transformation(extent={{-190,100},{-170,120}})));
-  Modelica.Blocks.Sources.Constant yVal7(k=0) "Conrol signal for valve 7"
-    annotation (Placement(transformation(extent={{-52,26},{-32,46}})));
   Modelica.Blocks.Sources.RealExpression yVal5(y=if cooModCon.cooMod > 1.5
          then 1 else 0) "On/off signal for valve 5"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
@@ -39,9 +37,6 @@ equation
       points={{84,0},{72,0},{72,-114},{154,-114}},
       color={0,127,255},
       thickness=0.5));
-  connect(yVal7.y, chiWSE.yVal7) annotation (Line(points={{-31,36},{-20,36},{-20,
-          10},{40,10},{40,28},{116,28},{116,10},{132.8,10},{132.8,20.4}}, color=
-         {0,0,127}));
   connect(chiWSE.wseCHWST, cooModCon.wseCHWST) annotation (Line(points={{147,36},
           {260,36},{260,200},{-150,200},{-150,106},{-132,106}}, color={0,0,127}));
   connect(cooLoaChi.y, chiStaCon.QTot)
@@ -61,8 +56,9 @@ equation
       points={{146,38},{160,38},{160,60},{202,60}},
       color={0,127,255},
       thickness=0.5));
-  connect(CWRT.port_b, expVesChi.port_a)
-    annotation (Line(points={{222,60},{240,60},{240,125}},color={0,127,255},
+  connect(CWRT.port_b, expVesCW.port_a) annotation (Line(
+      points={{222,60},{240,60},{240,125}},
+      color={0,127,255},
       thickness=0.5));
    for i in 1:nChi loop
 
@@ -102,8 +98,9 @@ equation
   connect(cooModCon.wseCHWRT, CHWRT.T) annotation (Line(points={{-132,102},{
           -150,102},{-150,200},{260,200},{260,20},{230,20},{230,11}},     color=
          {0,0,127}));
-  connect(expVesChi1.port_a, ahu.port_b1) annotation (Line(points={{270,-59},{270,
-          -59},{270,-114},{174,-114}},             color={0,127,255},
+  connect(expVesChi.port_a, ahu.port_b1) annotation (Line(
+      points={{270,-59},{270,-59},{270,-114},{174,-114}},
+      color={0,127,255},
       thickness=0.5));
   connect(senRelPre.port_a, ahu.port_a1) annotation (Line(points={{150,-96},{72,
           -96},{72,-114},{154,-114}},    color={0,127,255},
