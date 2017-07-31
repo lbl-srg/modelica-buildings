@@ -8,7 +8,7 @@ model PumpParallel "Example that tests the model pump parallels"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=6000/3600*1.2
     "Nominal mass flow rate";
 
-  Buildings.ChillerWSE.SpeedControlledPumpParallel pumPar1(
+  Buildings.ChillerWSE.FlowMachine_y pumPar1(
     nPum=nPum,
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
@@ -54,7 +54,7 @@ model PumpParallel "Example that tests the model pump parallels"
     each startTime=0)
               "Input signal"
     annotation (Placement(transformation(extent={{-92,70},{-72,90}})));
-  MassflowControlledPumpParallel pumPar2(
+  FlowMachine_m pumPar2(
     nPum=nPum,
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
