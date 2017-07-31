@@ -76,7 +76,7 @@ model IntegratedPrimarySecondary
     final l=lValve5)
     "Shutoff valve: closed when fully mechanic cooling is activated; open when fully mechanic cooling is activated"
     annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
-  Buildings.ChillerWSE.MassflowControlledPumpParallel pum(
+  Buildings.ChillerWSE.FlowMachine_m pum(
     redeclare each final package Medium = Medium2,
     each final p_start=p2_start,
     each final T_start=T2_start,
@@ -106,7 +106,7 @@ model IntegratedPrimarySecondary
     final linearizeFlowResistance=linearizeFlowResistance2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final riseTimePump=riseTimePump,
-    final yPump_start=yPump_start)                  "Constant speed pumps"
+    final yPump_start=yPump_start) "Constant speed pumps"
     annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
   Modelica.Blocks.Interfaces.RealInput m_flow_in[nPum]
     "Prescribed mass flow rate for primary pumps"

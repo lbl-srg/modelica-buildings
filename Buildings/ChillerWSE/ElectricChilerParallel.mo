@@ -17,7 +17,7 @@ This model implements a chiller parallel with <code>n</code> identical chillers.
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">Buildings.Fluid.Chillers.ElectricEIR</a>.
 </p>
 <p>
-Note that altough the chillers have identical nominal conditions, they can have different 
+Note that although the chillers have identical nominal conditions, they can have different 
 performance curves specified in performance data <code>per</code>. 
 </p>
 </html>", revisions="<html>

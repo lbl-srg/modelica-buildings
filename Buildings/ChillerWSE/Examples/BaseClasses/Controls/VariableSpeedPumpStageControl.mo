@@ -131,5 +131,25 @@ equation
         Text(
           extent={{132,116},{-124,168}},
           lineColor={0,0,255},
-          textString="%name")}));
+          textString="%name")}), Documentation(info="<html>
+<p>This model implements a simple staging control logic for variable speed pumps.
+</p>
+<ul>
+<li>
+When the mass flowrate in each pump is greater than a critical point, eg., <code>0.85m_flow_nominal</code>, 
+then activate one more pump;
+</li>
+<li>
+When the mass flowrate in each pump is less than a critical point, eg. <code>0.3m_flow_nominal</code>,
+then deactivate one more pump.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+July 30, 2017, by Yangyang Fu:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end VariableSpeedPumpStageControl;

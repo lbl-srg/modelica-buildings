@@ -80,10 +80,55 @@ equation
   connect(swi.y, cooMod)
     annotation (Line(points={{88.6,0},{110,0},{110,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,127})}),
+          Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,127}),
+        Text(
+          extent={{128,114},{-128,166}},
+          lineColor={0,0,255},
+          textString="%name")}),
       Diagram(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{128,114},{-128,166}},
           lineColor={0,0,255},
-          textString="%name")}));
+          textString="%name")}),
+    Documentation(info="<html>
+<p>Chilled water plant with a non-integrated waterside economizer (WSE) have two cooling modes: 
+free cooling (FC) mode and fully mechanical cooling (FMC) mode. This model determines when to 
+activate FC or FMC.
+</p>
+<p>
+The FMC mode is activated when
+</p>
+<ul>
+<li>
+<i>T<sub>WetBulb</sub>&ge; T<sub>WetBulb,tran</sub></i>
+</li>
+<li>
+<i><b>or</b> T<sub>CHWST</sub>&ge;T<sub>CHWSTSet</sub> + DeaBan </i>
+</li>
+</ul>
+<p>The FC mode is activated when
+</p>
+<ul>
+<li>
+<i>T<sub>WetBulb</sub>&lt; T<sub>WetBulb,tran</sub></i>
+</li>
+<li>
+<i><b>and</b> numOnChi&lt;2 </i>
+</li>
+</ul>
+<p>
+Where <i>T<sub>WetBulb</sub></i> is the wet bulb temperature of the outdoor air,
+<i>T<sub>WetBulb,tran</sub></i> is the wet bulb temperature transition point 
+for switching between FC and FMC,
+<i>T<sub>CHWST</sub></i> is the chilled water supply temperature, <i>T<sub>CHWSTSet</sub></i> is
+the chilled water supply temperature setpoint,and <i>numOnChi</i> is the number of running chillers.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 30, 2017, by Yangyang Fu:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end CoolingModeControlNonIntegrated;

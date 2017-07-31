@@ -2,127 +2,47 @@ within Buildings.ChillerWSE.Examples;
 model NonIntegratedPrimarySecondary
   "Example that show how to use Buildings.ChillerWSE.IntegratedPrimaryLoadSide"
  extends Modelica.Icons.Example;
-  extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenter( redeclare
+  extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenterControl( redeclare
       Buildings.ChillerWSE.NonIntegrated chiWSE(
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
       Ti=60));
 
-  Modelica.Blocks.Sources.Constant CHWSTSet(k(
-      unit="K",
-      displayUnit="degC") = 273.15 + 6.56)
-    "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-190,150},{-170,170}})));
-  BaseClasses.Controls.CoolingModeControlNonIntegrated cooModCon(
+  Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControlNonIntegrated cooModCon(
     tWai=tWai,
     deaBan=1,
     wseTra=273.15 + 5) "Cooling mode controller"
     annotation (Placement(transformation(extent={{-130,100},{-110,120}})));
-  Buildings.ChillerWSE.Examples.BaseClasses.Controls.ChillerStageControl
-    chiStaCon(QEva_nominal=-300*3517, tWai=0) "Chiller staging control"
-    annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
-  Modelica.Blocks.Math.RealToBoolean chiOn[nChi](each threshold=0.5)
-    "Real value to boolean value"
-    annotation (Placement(transformation(extent={{-10,130},{10,150}})));
-  Modelica.Blocks.Math.RealToBoolean reaToBoo(threshold=1.5)
-    "Inverse on/off signal for the WSE"
-    annotation (Placement(transformation(extent={{-50,100},{-30,120}})));
-  Modelica.Blocks.Logical.Not wseOn "True: WSE is on; False: WSE is off "
-    annotation (Placement(transformation(extent={{-10,100},{10,120}})));
-  Buildings.ChillerWSE.Examples.BaseClasses.Controls.ConstantSpeedPumpStageControl
-    CWPumCon(tWai=0) "Condenser water pump controller"
-    annotation (Placement(transformation(extent={{-52,60},{-32,80}})));
-  Modelica.Blocks.Sources.RealExpression chiNumOn(y=sum(chiStaCon.y))
-    "The number of running chillers"
-    annotation (Placement(transformation(extent={{-182,64},{-162,84}})));
-  Modelica.Blocks.Math.Gain gai[nChi](each k=mChiller1_flow_nominal)
-                                                                "Gain effect"
-    annotation (Placement(transformation(extent={{-10,60},{10,80}})));
-  Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingTowerSpeedControl
-    cooTowSpeCon(controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      reset=Buildings.Types.Reset.Disabled,
-    Ti=40,
-    k=5)                                    "Cooling tower speed control"
-    annotation (Placement(transformation(extent={{-50,170},{-30,186}})));
-  Modelica.Blocks.Sources.Constant CWSTSet(k(
-      unit="K",
-      displayUnit="degC") = 273.15 + 20)
-    "Condenser water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-130,170},{-110,190}})));
 
-  Modelica.Blocks.Sources.Constant SATSet(k(
-      unit="K",
-      displayUnit="degC") = 273.15 + 16) "Supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{-80,-98},{-60,-78}})));
-  Modelica.Blocks.Sources.Constant SAXSet(k=MediumA.X_default[1])
-    "Supply air mass fraction setpoint"
-    annotation (Placement(transformation(extent={{-12,-136},{8,-116}})));
-  Modelica.Blocks.Sources.Constant uFan(k = 1)
-    "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-12,-176},{8,-156}})));
-  Buildings.ChillerWSE.Examples.BaseClasses.Controls.VariableSpeedPumpStageControl
-    varSpeCon(tWai=tWai, m_flow_nominal=mChiller2_flow_nominal)
-    "Speed controller"
-    annotation (Placement(transformation(extent={{-48,-14},{-28,6}})));
-  Modelica.Blocks.Sources.RealExpression mPum_flow(y=chiWSE.port_b2.m_flow)
-    "Mass flowrate of variable speed pumps"
-    annotation (Placement(transformation(extent={{-126,-6},{-106,14}})));
-  Buildings.Controls.Continuous.LimPID pumSpe(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.1,
-    Ti=40,
-    yMin=0.2) "Pump speed controller"
-    annotation (Placement(transformation(extent={{-126,-30},{-106,-10}})));
-  Modelica.Blocks.Sources.Constant dpSet(k=0.3*dpChiller2_nominal)
-    "Differential pressure setpoint"
-    annotation (Placement(transformation(extent={{-176,-30},{-156,-10}})));
-  Modelica.Blocks.Math.Product pumSpeSig[nChi] "Pump speed signal"
-    annotation (Placement(transformation(extent={{-4,-22},{12,-6}})));
-  Buildings.Controls.Continuous.LimPID ahuValSig(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.1,
-    Ti=40,
-    yMin=0.2,
-    reverseAction=true) "Valve position signal for the AHU"
-    annotation (Placement(transformation(extent={{-12,-98},{8,-78}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort SAT(redeclare replaceable package
-      Medium =                                                                          MediumA,
-      m_flow_nominal=mAir_flow_nominal) "Supply air temperature"
-    annotation (Placement(transformation(extent={{114,-150},{94,-130}})));
-  Buildings.ChillerWSE.SpeedControlledPumpParallel
-                              secPum(
+  Buildings.ChillerWSE.FlowMachine_y secPum(
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
     per=perPum,
     addPowerToMedium=false,
-    m_flow_nominal=mChiller2_flow_nominal)
-                                     "Secondary pumps" annotation (Placement(
-        transformation(
+    m_flow_nominal=mChiller2_flow_nominal) "Secondary pumps" annotation (
+      Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={72,-52})));
-  Buildings.ChillerWSE.MassflowControlledPumpParallel priPum(
+  Buildings.ChillerWSE.FlowMachine_m priPum(
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
     per=perPum,
     m_flow_nominal=mChiller2_flow_nominal,
     addPowerToMedium=false) "Constant speed pumps" annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-10,10},{10,-10}},
         rotation=180,
-        origin={222,0})));
+        origin={180,0})));
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.ConstantSpeedPumpStageControl
     PriPumCon(
              tWai=0) "Chilled water primary pump controller"
     annotation (Placement(transformation(extent={{-92,22},{-72,42}})));
-  Modelica.Blocks.Math.Gain gai2[
-                                nChi](each k=mChiller2_flow_nominal)
-                                                                "Gain effect"
+  Modelica.Blocks.Math.Gain gai2[nChi](each k=mChiller2_flow_nominal)
+    "Gain effect"
     annotation (Placement(transformation(extent={{-50,22},{-30,42}})));
-  Modelica.Blocks.Sources.RealExpression cooLoaChi(y=chiWSE.port_a2.m_flow*4180*
-        (chiWSE.wseCHWST - CHWSTSet.y))     "Cooling load in chillers"
+  Modelica.Blocks.Sources.RealExpression cooLoaChi(y=ahu.port_a1.m_flow*4180*(
+        CHWRT.T - CHWSTSet.y))              "Cooling load in chillers"
     annotation (Placement(transformation(extent={{-130,134},{-110,154}})));
-  Modelica.Blocks.Math.Product cooTowSpe[nChi] "Cooling tower speed"
-    annotation (Placement(transformation(extent={{60,166},{76,182}})));
 equation
   connect(chiWSE.port_b2, CHWST.port_a) annotation (Line(
       points={{126,26},{112,26},{112,0},{104,0}},
@@ -205,10 +125,6 @@ equation
                                                color={0,0,127}));
   connect(chiWSE.TSet, CHWSTSet.y) annotation (Line(points={{124.4,42.8},{40,42.8},
           {40,200},{-150,200},{-150,160},{-169,160}}, color={0,0,127}));
-  connect(CHWRT.port_b, chiWSE.port_a2) annotation (Line(
-      points={{172,0},{160,0},{160,26},{146,26}},
-      color={0,127,255},
-      thickness=0.5));
   connect(SAXSet.y, ahu.XSet_w) annotation (Line(points={{9,-126},{60,-126},{60,
           -119},{153,-119}},
                            color={0,0,127}));
@@ -221,9 +137,6 @@ equation
           4}},                       color={0,0,127}));
   connect(senRelPre.port_a, ahu.port_a1) annotation (Line(points={{150,-96},{72,
           -96},{72,-114},{154,-114}},    color={0,127,255},
-      thickness=0.5));
-  connect(senRelPre.port_b, ahu.port_b1) annotation (Line(points={{170,-96},{242,
-          -96},{242,-114},{174,-114}},   color={0,127,255},
       thickness=0.5));
   connect(pumSpe.y, varSpeCon.speSig) annotation (Line(points={{-105,-20},{-76,-20},
           {-76,0},{-50,0}},        color={0,0,127}));
@@ -263,16 +176,11 @@ equation
           -66},{60,-66},{60,-121},{153,-121}},
                                              color={0,0,127}));
   connect(secPum.port_b, ahu.port_a1) annotation (Line(points={{72,-62},{72,-62},
-          {72,-114},{154,-114}}, color={0,127,255}));
+          {72,-114},{154,-114}}, color={0,127,255},
+      thickness=0.5));
   connect(CHWST.port_b, secPum.port_a)
-    annotation (Line(points={{84,0},{72,0},{72,-42}}, color={0,127,255}));
-  connect(CHWRT.port_a, priPum.port_b)
-    annotation (Line(points={{192,0},{202,0},{212,0}}, color={0,127,255}));
-  connect(priPum.port_a, ahu.port_b1) annotation (Line(points={{232,-8.88178e-16},
-          {242,-8.88178e-16},{242,-58},{242,-84},{242,-114},{174,-114}}, color={
-          0,127,255}));
-  connect(secPum.port_a, priPum.port_a) annotation (Line(points={{72,-42},{72,-42},
-          {72,-28},{242,-28},{242,0},{232,0}}, color={0,127,255}));
+    annotation (Line(points={{84,0},{72,0},{72,-42}}, color={0,127,255},
+      thickness=0.5));
   connect(pumSpeSig.y, secPum.u) annotation (Line(points={{12.8,-14},{34,-14},{67,
           -14},{67,-41}}, color={0,0,127}));
   connect(chiNumOn.y, PriPumCon.chiNumOn) annotation (Line(points={{-161,74},{-102,
@@ -282,7 +190,8 @@ equation
   connect(PriPumCon.y, gai2.u)
     annotation (Line(points={{-71,32},{-62,32},{-52,32}}, color={0,0,127}));
   connect(gai2.y, priPum.u) annotation (Line(points={{-29,32},{-2,32},{40,32},{40,
-          200},{260,200},{260,-5},{233,-5}}, color={0,0,127}));
+          200},{260,200},{260,32},{200,32},{200,5},{191,5}},
+                                             color={0,0,127}));
   connect(cooLoaChi.y, chiStaCon.QTot) annotation (Line(points={{-109,144},{-80.5,
           144},{-52,144}}, color={0,0,127}));
   connect(chiNumOn.y, cooModCon.numOnChi) annotation (Line(points={{-161,74},{-150,
@@ -295,10 +204,110 @@ equation
           -22,94},{40,94},{40,169.2},{58.4,169.2}}, color={0,0,127}));
   connect(cooTowSpe.y, cooTow.y) annotation (Line(points={{76.8,174},{100,174},{
           100,200},{160,200},{160,147},{153,147}}, color={0,0,127}));
+  connect(priPum.port_a, CHWST.port_a) annotation (Line(
+      points={{190,-1.33227e-15},{198,-1.33227e-15},{198,-24},{112,-24},{112,0},
+          {104,0}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(priPum.port_a, CHWRT.port_b) annotation (Line(
+      points={{190,-1.33227e-15},{220,-1.33227e-15},{220,0}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(CHWRT.port_a, ahu.port_b1) annotation (Line(
+      points={{240,0},{250,0},{250,-62},{250,-114},{174,-114}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(chiWSE.port_a2, priPum.port_b) annotation (Line(
+      points={{146,26},{160,26},{160,0},{170,0}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-220,-180},{280,
             200}})),
     __Dymola_Commands(file="Resources/Scripts/Dymola/ChillerWSE/Examples/NonIntegratedPrimarySecondary.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+    Documentation(info="<html>
+<h4>System Configuration</h4>
+<p>This example demonstrates the implementation of a chiller plant 
+with water-side economizer (WSE) to cool a data center. The system schematics is as shown below. </p>
+<p>The system is a primary-secondary chiller plant with two chillers and a non-integrated WSE.</p>
+<p>
+<img src=\"modelica://Buildings/Resources/Images/ChillerWSE/Examples/NonIntegratedPrimarySecondary.png\"/>
+</p>
+<h4>Control Logic</h4>
+<p>This section describes the detailed control logic used in this chilled water plant system.</p>
+<h5>Cooling Mode Control</h5>
+<p>The chilled water system with non-integrated waterside economizer can run among two modes: 
+free cooling (FC) mode, and fully mechanical cooling (FMC) mode. 
+The detailed control logics about how to switch between these two cooling modes are described in 
+<a href=\"modelica://Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControlNonIntegrated\">
+Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControlNonIntegrated</a>.
+Details on how the valves are operated under different cooling modes are presented in 
+<a href=\"modelica://Buildings.ChillerWSE.NonIntegrated\">
+Buildings.ChillerWSE.NonIntegrated</a>.
+</p>
+<h5>Chiller Staging Control </h5>
+<p>
+The staging sequence of multiple chillers are descibed as below:
+</p>
+<ul>
+<li>
+The chillers are all off when cooling mode is FC.
+</li>
+<li>
+One chiller is commanded on when cooling mode is not FC. 
+</li>
+<li>
+Two chillers are commanded on when cooling mode is not FC and the cooling load addressed by chillers is larger than
+a critical point, for example, <code>0.8QEva_nominal</code>, where <code>QEva_nominal</code> represents the 
+chiller's nominal cooling capaciy. 
+</li>
+</ul>
+<p>
+The detailed implementation is shown in 
+<a href=\"modelica://Buildings.ChillerWSE.Examples.BaseClasses.Controls.ChillerStageControl\">
+Buildings.ChillerWSE.Examples.BaseClasses.Controls.ChillerStageControl</a>.
+</p>
+<h5>Pump Staging Control </h5>
+<p>
+For constant speed pumps, the number of running pumps equals to the number of running chillers.
+</p>
+<p>
+For variable speed pumps, the number of runing pumps is controlled by the speed signal and the mass flowrate. 
+Details are shown in 
+<a href=\"modelica://Buildings.ChillerWSE.Examples.BaseClasses.Controls.VariableSpeedPumpStageControl\">
+Buildings.ChillerWSE.Examples.BaseClasses.Controls.VariableSpeedPumpStageControl</a>. And the speed is 
+controlled by maintaining a fixed differential pressure between the outlet and inlet on the waterside
+of the Computer Room Air Handler (CRAH).
+</p>
+<h5>Cooling Tower Speed Control</h5>
+<p>
+The control logic for cooling tower fan speed is described as:
+</p>
+<ul>
+<li>
+When in FMC mode, the cooling tower speed is controlled to maintain 
+the condenser water supply temperature (CWST) at its setpoint.
+</li>
+<li>
+When in FC mode, the fan speed is modulated to maintain chilled water supply temperature at its setpoint.
+</li>
+</ul>
+<p>
+Detailed implementation of cooling tower speed control can be found in 
+<a href=\"modelica://Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingTowerSpeedControl\">
+Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingTowerSpeedControl</a>.
+</p>
+<p>
+Note that for simplicity, the temperature and differential pressure reset control are not implemented in this example.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 30, 2017, by Yangyang Fu:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end NonIntegratedPrimarySecondary;

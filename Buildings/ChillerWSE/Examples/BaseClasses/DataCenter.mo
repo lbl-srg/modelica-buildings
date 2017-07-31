@@ -120,7 +120,7 @@ partial model DataCenter
       package Medium =                                                                    MediumW,
       m_flow_nominal=nChi*mChiller2_flow_nominal)
     "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{192,-10},{172,10}})));
+    annotation (Placement(transformation(extent={{240,-10},{220,10}})));
   Buildings.Fluid.Storage.ExpansionVessel expVesChi1(
         redeclare replaceable package Medium = MediumW, V_start=1)
     annotation (Placement(transformation(extent={{260,-59},{280,-39}})));
@@ -187,10 +187,6 @@ equation
                                                color={0,127,255}));
 
    end for;
-  connect(CHWRT.port_b, chiWSE.port_a2) annotation (Line(
-      points={{172,0},{160,0},{160,26},{146,26}},
-      color={0,127,255},
-      thickness=0.5));
   connect(expVesChi1.port_a, ahu.port_b1) annotation (Line(points={{270,-59},{270,
           -59},{270,-114},{174,-114}},             color={0,127,255},
       thickness=0.5));
@@ -226,5 +222,17 @@ equation
             200}})),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/ChillerWSE/Examples/IntegratedPrimaryLoadSide.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+    Documentation(info="<html>
+<p>
+This is a partial model that describes the chilled water cooling system in a data center. The sizing data
+are collected from the reference.
+</p>
+<h4>Reference </h4>
+<ul>
+<li>
+Taylor, S. T. (2014). How to design & control waterside economizers. ASHRAE Journal, 56(6), 30-36.
+</li>
+</ul>
+</html>"));
 end DataCenter;

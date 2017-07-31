@@ -164,21 +164,21 @@ The waterside economizer is enabled when
 <ol>
 <li>The waterside economizer has been disabled for at least 20 minutes, and</li>
 <li><i>
-        T<sub>WSE_CHWST</sub> &GT; T<sub>WetBul</sub> + T<sub>TowApp</sub> + DeaBan1 
+        T<sub>WSE_CHWST</sub> &gt; T<sub>WetBul</sub> + T<sub>TowApp</sub> + DeaBan1 
 </i></li>
 </ol>
 <p>The waterside economizer is disabled when </p>
 <ol>
 <li>The waterside economizer has been enabled for at least 20 minutes, and</li>
 <li><i>
-  T<sub>WSE_CHWRT</sub> &LT; T<sub>WSE_CHWST</sub> + DeaBan2 
+  T<sub>WSE_CHWRT</sub> &lt; T<sub>WSE_CHWST</sub> + DeaBan2 
 </i></li>
 </ol>
 <p>The chiller is enabled when </p>
 <ol>
 <li>The chiller has been disabled for at leat 20 minutes, and </li>
 <li><i>
-  T<sub>WSE_CHWST</sub> &GT; T<sub>CHWSTSet</sub> 
+  T<sub>WSE_CHWST</sub> &gt; T<sub>CHWSTSet</sub> 
 </i></li>
 </ol>
 <p>The chiller is disabled when </p>

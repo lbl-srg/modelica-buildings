@@ -130,5 +130,27 @@ equation
         Text(
           extent={{132,116},{-124,168}},
           lineColor={0,0,255},
-          textString="%name")}));
+          textString="%name")}), Documentation(info="<html>
+<p>
+This model describes a simple staging control for two constant-speed pumps in 
+a chilled water plant with two chillers and a waterside economizer (WSE). The staging sequence
+is shown as below.
+</p>
+<ul>
+<li>
+When WSE is enabled, all the constant speed pumps are commanded on.
+</li>
+<li>
+When fully mechanical cooling (FMC) mode is enabled, the number of running constant speed pumps 
+equals to the number of running chillers.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+July 30, 2017, by Yangyang Fu:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ConstantSpeedPumpStageControl;

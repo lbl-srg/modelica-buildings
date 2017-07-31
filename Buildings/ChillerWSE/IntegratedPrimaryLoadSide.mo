@@ -66,7 +66,7 @@ model IntegratedPrimaryLoadSide
         rotation=90,
         origin={-32,-116})));
 
-  Buildings.ChillerWSE.SpeedControlledPumpParallel pum(
+  Buildings.ChillerWSE.FlowMachine_y pum(
     redeclare each final package Medium = Medium2,
     each final p_start=p2_start,
     each final T_start=T2_start,
@@ -96,8 +96,7 @@ model IntegratedPrimaryLoadSide
     final yPump_start=yPump_start,
     final from_dp=from_dp2,
     final homotopyInitialization=homotopyInitialization,
-    final linearizeFlowResistance=linearizeFlowResistance2)
-    "Identical pumps"
+    final linearizeFlowResistance=linearizeFlowResistance2) "Identical pumps"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val7(
     redeclare final package Medium = Medium2,
@@ -135,8 +134,8 @@ equation
   connect(val7.y, yVal7) annotation (Line(points={{0,-68},{0,-68},{0,-60},{-28,-60},
           {-28,-120}}, color={0,0,127}));
 
-  connect(yPum, pum.u) annotation (Line(points={{-120,-40},{-30,-40},{-30,-28},{
-          18,-28},{18,-35},{11,-35}}, color={0,0,127}));
+  connect(yPum, pum.u) annotation (Line(points={{-120,-40},{-30,-40},{-30,-28},
+          {18,-28},{18,-36},{12,-36}},color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

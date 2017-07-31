@@ -132,5 +132,29 @@ equation
         Text(
           extent={{132,116},{-124,168}},
           lineColor={0,0,255},
-          textString="%name")}));
+          textString="%name")}), Documentation(info="<html>
+<p>
+The staging sequence of multiple chillers are descibed as below:
+</p>
+<ul>
+<li>
+The chillers are all off when cooling mode is FC.
+</li>
+<li>
+One chiller is commanded on when cooling mode is not FC. 
+</li>
+<li>
+Two chillers are commanded on when cooling mode is not FC and the cooling load addressed by chillers is larger than
+a critical point, for example, <code>0.8QEva_nominal</code>, where <code>QEva_nominal</code> represents the 
+chiller's nominal cooling capaciy. 
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+July 30, 2017, by Yangyang Fu:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ChillerStageControl;

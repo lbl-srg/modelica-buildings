@@ -83,8 +83,8 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   Modelica.Blocks.Interfaces.RealInput u[nPum]
     "Continuous input signal for the flow machine"
                                           annotation (Placement(transformation(
-          extent={{-140,20},{-100,60}}), iconTransformation(extent={{-120,40},{-100,
-            60}})));
+          extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{
+            -100,60}})));
   Modelica.Blocks.Interfaces.RealOutput P[nPum](quantity="Power", unit="W")
     "Electrical power consumed by the pumps" annotation (Placement(
         transformation(
@@ -167,43 +167,21 @@ equation
           fillColor={0,127,255},
           fillPattern=FillPattern.HorizontalCylinder),
         Ellipse(
-          extent={{-88,42},{-2,-42}},
+          extent={{-58,52},{58,-58}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           fillColor={0,100,199}),
         Polygon(
-          points={{-44,42},{-44,-42},{-2,2},{-44,42}},
+          points={{0,50},{0,-58},{58,-2},{0,50}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={255,255,255}),
         Ellipse(
-          extent={{-42,16},{-12,-14}},
+          extent={{0,12},{30,-18}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           visible=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
-          fillColor={0,100,199}),
-        Polygon(
-          points={{50,2},{12,40},{12,-40},{50,2}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{50,2},{86,40},{86,-40},{50,2}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{12,40},{50,2},{84,40},{84,40},{12,40}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{14,-40},{50,2},{84,-38},{84,-40},{14,-40}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),                      Diagram(
+          fillColor={0,100,199})}),                              Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialPumpParallel;
