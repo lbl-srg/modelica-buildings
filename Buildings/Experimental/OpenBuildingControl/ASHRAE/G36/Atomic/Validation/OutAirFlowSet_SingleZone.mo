@@ -12,9 +12,9 @@ model OutAirFlowSet_SingleZone
     duration=3600)
     "Number of occupant detected in zone"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  CDL.Logical.Sources.Constant winSta(k=false)   "Window status"
+  CDL.Logical.Sources.Constant winSta(k=false) "Window status"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  CDL.Logical.Sources.Constant supFan(k=true)   "Supply fan status"
+  CDL.Logical.Sources.Constant supFan(k=true) "Supply fan status"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   CDL.Continuous.Sources.Ramp TZon(
     height=6,
