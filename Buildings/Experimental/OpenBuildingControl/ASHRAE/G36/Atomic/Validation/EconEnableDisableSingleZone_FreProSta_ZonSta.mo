@@ -83,8 +83,7 @@ equation
     annotation (Line(points={{-139,-30},{-34,-30},{-34,48},{81,48}}, color={255,0,255}));
   connect(supFanSta.y, ecoEnaDis1.uSupFan)
     annotation (Line(points={{-139,-30},{-34,-30},{-34,-32},{81,-32}}, color={255,0,255}));
-    annotation (Placement(transformation(extent={{-40,140},{-20,160}})),
-                Placement(transformation(extent={{-40,100},{-20,120}})),
+    annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconEnableDisableSingleZone_FreProSta_ZonSta.mos"
     "Simulate and plot"),
