@@ -9,5 +9,7 @@ EconEnableDisableSingleZone_TOut_hOut
 EconModulationMultiZone_TSup
 EconModulationSingleZone_TSup
 OperationMode
+OutdoorAirFlowSetpoint_MultiZone
+OutdoorAirFlowSetpoint_SingleZone
 VAVSingleZoneTSupSet_T
 VAVSingleZoneTSupSet_u
