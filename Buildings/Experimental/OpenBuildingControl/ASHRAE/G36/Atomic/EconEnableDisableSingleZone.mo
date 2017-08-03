@@ -4,8 +4,8 @@ block EconEnableDisableSingleZone
 
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air (OA) enthalpy in addition to temperature";
-  parameter Modelica.SIunits.Time smaDisDel = 0
-    "Optional small time delay before closing the OA damper at disable to avoid pressure fluctuations";
+  parameter Modelica.SIunits.Time smaDisDel = -1
+    "Set to positive number to enable small time delay before closing the OA damper at disable to avoid pressure fluctuations";
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
@@ -41,12 +41,14 @@ block EconEnableDisableSingleZone
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),iconTransformation(extent={{-120,30},{-100,50}})));
   CDL.Interfaces.RealInput uOutDamPosMin(
+    final unit="1",
     final min=0,
     final max=1)
     "Minimum outdoor air damper position, get from damper position limits sequence"
     annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
       iconTransformation(extent={{-120,-70},{-100,-50}})));
   CDL.Interfaces.RealInput uOutDamPosMax(
+    final unit="1",
     final min=0,
     final max=1)
     "Maximum outdoor air damper position, get from damper position limits sequence"
@@ -150,12 +152,8 @@ protected
   CDL.Logical.GreaterThreshold greThr(final threshold=Constants.ZoneStates.heating)
     "Check if ZoneState is other than heating"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  CDL.Logical.GreaterThreshold greThr2(final threshold=0) "Check if the timer got started"
-    annotation (Placement(transformation(extent={{80,-180},{100,-160}})));
   CDL.Logical.And and1 "Logical and checks supply fan status"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
-  CDL.Logical.And and2 "Logical and"
-    annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
   CDL.Logical.And and3 "Logical and"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   CDL.Conversions.IntegerToReal intToRea "Integer to real converter"
@@ -204,8 +202,6 @@ equation
     color={0,0,127}));
   connect(greThr.y, andEnaDis.u3)
     annotation (Line(points={{-99,-10},{-20,-10},{-20,32},{38,32}}, color={255,0,255}));
-  connect(timer.y, greThr2.u)
-    annotation (Line(points={{51,-60},{70,-60},{70,-170},{78,-170}}, color={0,0,127}));
   connect(truFalHol.y, and1.u1)
     annotation (Line(points={{21,210},{30,210},{30,130},{-10,130},{-10,110},{-2,110}},color={255,0,255}));
   connect(and1.y, andEnaDis.u1)
@@ -218,12 +214,6 @@ equation
     annotation (Line(points={{-119,-248},{0,-248},{38,-248}}, color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, yRetDamPosMax)
     annotation (Line(points={{-119,-210},{190,-210}}, color={0,0,127}));
-  connect(and2.y, minRetDamSwitch.u2)
-    annotation (Line(points={{141,-160},{150,-160},{150,-200},{30,-200},{30,-240},{38,-240}}, color={255,0,255}));
-  connect(not2.y, and2.u1)
-    annotation (Line(points={{11,-60},{20,-60},{20,-120},{114,-120},{114,-160},{118,-160}}, color={255,0,255}));
-  connect(greThr2.y, and2.u2)
-    annotation (Line(points={{101,-170},{110,-170},{110,-168},{118,-168}}, color={255,0,255}));
   connect(disableDelay.y, greEqu.u2)
     annotation (Line(points={{-99,-110},{-86,-110},{-86,-108},{-72,-108}}, color={0,0,127}));
   connect(greEqu.y, and3.u2) annotation (Line(points={{-49,-100},{-36,-100},{-36,-108},{-22,-108}},
@@ -232,6 +222,8 @@ equation
     annotation (Line(points={{11,-60},{16,-60},{16,-74},{-30,-74},{-30,-100},{-22,-100}}, color={255,0,255}));
   connect(and3.y, outDamSwitch.u2)
     annotation (Line(points={{1,-100},{12,-100},{12,-140},{38,-140}}, color={255,0,255}));
+  connect(not2.y, minRetDamSwitch.u2) annotation (Line(points={{11,-60},{16,-60},
+          {16,-240},{38,-240}}, color={255,0,255}));
     annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy),
     Icon(graphics={
         Rectangle(
@@ -311,25 +303,43 @@ heating"),                           Text(
 <p>
 This is a single zone VAV AHU economizer enable/disable sequence
 based on ASHRAE G36 PART5.5 and PART5.A.17. Additional
-conditions included in the sequence are: <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages\">
+conditions included in the sequence are:
+</p>
+<ul>
+<li>
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages\">
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages</a> (PART5.9),
+</li>
+<li>
 supply fan status <code>TSupFan</code> (PART5.4.d),
+</li>
+<li>
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.ZoneStates\">
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.ZoneStates</a> (PART5.3.b).
-</p>
+</li>
+</ul>
 <p>
-Economizer shall be disabled whenever the outdoor air conditions
-exceed the economizer high limit setpoint as specified by the local
-code. This sequence allows for all device types listed in
+The economizer is disabled whenever the outdoor air conditions
+exceed the economizer high limit setpoint.
+This sequence allows for all device types listed in
 ASHRAE 90.1-2013 and Title 24-2013.
 </p>
 <p>
-In addition, economizer shall be disabled without a delay whenever any of the
-following is true: supply fan is off, zone state is <code>heating</code>,
-freeze protection stage is not <code>0</code>.
+In addition, the economizer is disabled without a delay whenever any of the
+following is <code>true</code>:
 </p>
+<ul>
+<li>supply fan is off,
+</li>
+<li>
+zone state is <code>heating</code>,
+</li>
+<li>
+freeze protection stage is not <code>0</code>.
+</li>
+</ul>
 <p>
-The following state machine chart illustrates the above listed conditions:
+The following state machine chart illustrates the transitions between enabling and disabling:
 </p>
 <p align=\"center\">
 <img alt=\"Image of economizer enable-disable state machine chart\"

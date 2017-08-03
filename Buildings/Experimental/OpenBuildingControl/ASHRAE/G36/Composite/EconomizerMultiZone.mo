@@ -3,9 +3,9 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
 
   parameter Boolean use_enthalpy = true
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
-  parameter Real kPDamLim=1 "Gain of damper limit controller";
-  parameter Real kPMod=1 "Gain of modulation controller";
-  parameter Modelica.SIunits.Time TiDamLim=0.9 "Time constant of damper limit controller integrator block";
+  parameter Real kPDamLim=1 "Proportional gain of damper limit controller";
+  parameter Real kPMod=1 "Proportional gain of modulation controller";
+  parameter Modelica.SIunits.Time TiDamLim=300 "Time constant of damper limit controller integrator block";
   parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block";
   parameter Real retDamPhyPosMax(
     final min=0,
@@ -170,7 +170,7 @@ equation
   connect(uZonSta, ecoEnaDis.uZonSta)
     annotation (Line(points={{-130,-100},{-58,-100},{-58,-30},{-1,-30}}, color={255,127,0}));
   connect(THeaSet, ecoMod.THeaSet) annotation (Line(points={{-130,40},{40,40},{40,19},{59,19}}, color={0,0,127}));
-  annotation (defaultComponentName = "economizer",
+  annotation (defaultComponentName = "conEco",
         Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
@@ -194,9 +194,11 @@ equation
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
 Documentation(info="<html>
 <p>
-This is multiple zone VAV AHU economizer control sequence. It calculates
+Multiple zone VAV AHU economizer control sequence that calculates
 outdoor and return air damper positions based on ASHRAE
 Guidline 36, PART5 sections: N.2.c, N.5, N.6.c, N.7, A.17, N.12.
+</p>
+<p>
 The sequence comprises the following atomic sequences:
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone\">
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone</a>,
@@ -206,7 +208,7 @@ and <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.A
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationMultiZone</a>.
 </p>
 <p>
-The structure of the economizer control sequence:
+The figure below shows the block diagram of the control sequence.
 </p>
 <p align=\"center\">
 <img alt=\"Image of the multizone AHU modulation sequence control diagram\"

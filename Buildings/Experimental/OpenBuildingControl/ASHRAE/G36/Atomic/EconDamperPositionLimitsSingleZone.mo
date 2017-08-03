@@ -40,9 +40,9 @@ block EconDamperPositionLimitsSingleZone
     final max=desVOutMinFanSpePos,
     final unit="1") = 0.8
     "OA damper position to supply design outdoor airflow at maximum fan speed";
-  parameter Modelica.SIunits.VolumeFlowRate minVOut_flow = 1.0
+  parameter Modelica.SIunits.VolumeFlowRate minVOut_flow
     "Calculated minimum outdoor airflow rate";
-  parameter Modelica.SIunits.VolumeFlowRate desVOut_flow = 2.0
+  parameter Modelica.SIunits.VolumeFlowRate desVOut_flow
     "Calculated design outdoor airflow rate";
 
   CDL.Interfaces.RealInput uSupFanSpe(
@@ -53,6 +53,8 @@ block EconDamperPositionLimitsSingleZone
     annotation (Placement(transformation(extent={{-200,90},{-160,130}}),
       iconTransformation(extent={{-120,28},{-100,48}})));
   CDL.Interfaces.RealInput uVOutMinSet_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
     final min=minVOut_flow,
     final max=desVOut_flow)
     "Minimum outdoor airflow setpoint"
@@ -323,15 +325,15 @@ control loop"),
 calculation and assignments")}),
     Documentation(info="<html>
 <p>
-This block models the single zone VAV AHU minimum outdoor air control with a single
+This block implements the single zone VAV AHU minimum outdoor air control with a single
 common damper for minimum outdoor air and economizer functions based on outdoor airflow
-setpoint (<code>uVOutMinSet_flow</code>) and supply fan speed ((<code>uSupFanSpe</code>)), 
+setpoint (<code>uVOutMinSet_flow</code>) and supply fan speed (<code>uSupFanSpe</code>),
 designed in line with ASHRAE Guidline 36 (G36), PART5.P.4.d.
 </p>
 <p>
 The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
-the AHU operation mode (<code>OperationMode</code>) is Occupied, and Freeze protection stage
-<code>uFreProSta</code> is not larger than 1. Otherwise the damper position limits are set to
+the AHU operation mode <code>OperationMode</code> is Occupied, and Freeze protection stage
+<code>uFreProSta</code> is 1 or smaller. Otherwise the damper position limits are set to
 their corresponding maximum and minimum physical or at commissioning fixed limits, as illustrated below:
 <br/>
 </p>
@@ -340,27 +342,50 @@ their corresponding maximum and minimum physical or at commissioning fixed limit
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconDamperLimitsStateMachineChartSingleZone.png\"/>
 </p>
 <p>
-Once the calculation is enabled, the outdoor air damper position (<code>yOutDamPosMin</code>) is computed as
-follows:<br/>
-<br/>
-Calculate outdoor air damper position which ensures minimum outdoor airflow rate (<code>minVOut_flow</code>) 
-at current supply fan speed (<code>uSupFanSpe</code>), <code>minVOutCurFanSpePos</code>, as a linear 
+If limit modulation is enabled, the outdoor air damper position <code>yOutDamPosMin</code> is computed as
+follows:</p>
+<ol>
+<li>
+Calculate outdoor air damper position <code>minVOutCurFanSpePos</code>
+which ensures minimum outdoor airflow rate <code>minVOut_flow</code>
+at current supply fan speed <code>uSupFanSpe</code> as a linear
 interpolation between the following values set at commissioning:<br/>
-- minimum damper position at minimum fan speed for minimum outdoor airflow (<code>minVOutMinFanSpePos</code>) and<br/>
-- minimum damper position at maximum fan speed for minimum outdoor airflow (<code>minVOutMaxFanSpePos</code>);<br/>
-<br/>
-Calculate outdoor air damper position which ensures design outdoor airflow rate (<code>desVOut_flow</code>) at 
-current supply fan speed (<code>uSupFanSpe</code>), <code>desVOutCurFanSpePos</code>, as a linear 
+<ul>
+<li>minimum damper position at minimum fan speed for minimum outdoor airflow
+<code>minVOutMinFanSpePos</code> and
+</li>
+<li>
+minimum damper position at maximum fan speed for minimum outdoor airflow
+<code>minVOutMaxFanSpePos</code>.
+</li>
+</ul>
+</li>
+<li>
+Calculate outdoor air damper position <code>desVOutCurFanSpePos</code>
+which ensures design outdoor airflow rate <code>desVOut_flow</code> at
+current supply fan speed <code>uSupFanSpe</code>, as a linear
 interpolation between the following values set at commissioning:<br/>
-- minimum damper position at minimum fan speed for design outdoor airflow (<code>desVOutMinFanSpePos</code>) and<br/>
-- minimum damper position at maximum fan speed for design outdoor airflow (<code>desVOutMaxFanSpePos</code>);<br/>
-<br/>
-Calculate outdoor air damper position which ensures outdoor airflow setpoint (<code>uVOutMinSet_flow</code>)
-at current supply fan speed (<code>uSupFanSpe</code>), <code>yOutDamPosMin</code>, as a linear interpolation
+<ul>
+<li>
+minimum damper position at minimum fan speed for design outdoor airflow
+<code>desVOutMinFanSpePos</code> and
+</li>
+<li>
+minimum damper position at maximum fan speed for design outdoor airflow
+<code>desVOutMaxFanSpePos</code>.
+</li>
+</ul>
+</li>
+<li>
+Calculate outdoor air damper position <code>yOutDamPosMin</code>
+which ensures outdoor airflow setpoint <code>uVOutMinSet_flow</code>
+at current supply fan speed <code>uSupFanSpe</code> as a linear interpolation
 between <code>minVOutCurFanSpePos</code> and <code>desVOutCurFanSpePos</code>, proportional to ratios of
-<code>uVOutMinSet_flow</code> to <code>desVOut_flow</code> and <code>minVOut_flow</code>
+<code>uVOutMinSet_flow</code> to <code>desVOut_flow</code> and <code>minVOut_flow</code>.
+</li>
+</ol>
 <p>
-This chart illustrates the OA damper position limit calculation:
+The chart below illustrates the OA damper position limit calculation:
 <br/>
 </p>
 <p align=\"center\">

@@ -91,8 +91,8 @@ model EconomizerSingleZone "Single zone VAV AHU economizer control sequence"
   CDL.Interfaces.RealInput uVOutMinSet_flow(
     final min=minVOut_flow,
     final max=desVOut_flow,
-    final unit="J/kg",
-    final quantity="SpecificEnergy")
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
     "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
@@ -203,7 +203,7 @@ equation
     annotation (Line(points={{-130,0},{-106,0},{-106,13.8},{-81,13.8}}, color={0,0,127}));
   connect(uVOutMinSet_flow, ecoDamLim.uVOutMinSet_flow)
     annotation (Line(points={{-130,20},{-106,20},{-106,17},{-81,17}}, color={0,0,127}));
-  annotation (defaultComponentName = "economizer",
+  annotation (defaultComponentName = "conEco",
         Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
@@ -227,9 +227,11 @@ equation
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
 Documentation(info="<html>
 <p>
-This is single zone VAV AHU economizer control sequence. It calculates
+Single zone VAV AHU economizer control sequence that calculates
 outdoor and return air damper positions based on ASHRAE
 Guidline 36, PART5 sections: P.4.d, P.5, P.9, P.3.b, A.17.
+</p>
+<p>
 The sequence comprises the following atomic sequences:
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsSingleZone\">
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsSingleZone</a>,
@@ -239,7 +241,7 @@ and <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.A
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationSingleZone</a>.
 </p>
 <p>
-The structure of the economizer control sequence:
+The figure below shows the block diagram of the control sequence.
 </p>
 <p align=\"center\">
 <img alt=\"Image of the multizone AHU modulation sequence control diagram\"

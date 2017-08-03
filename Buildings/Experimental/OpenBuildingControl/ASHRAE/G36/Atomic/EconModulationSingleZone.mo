@@ -188,8 +188,8 @@ positions. Return and outdoor damper are not interlocked. When the economizer is
 the damper positions are set to the minimum outdoor air damper position limits.
 </p>
 <p>
-Control charts below show the input-output structure and an economizer damper
-modulation sequence assuming a well tuned controller. Control diagram:
+The control charts below show the input-output structure and an economizer damper
+modulation sequence assuming a well configured controller. Control diagram:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the single zone AHU modulation sequence control diagram\"

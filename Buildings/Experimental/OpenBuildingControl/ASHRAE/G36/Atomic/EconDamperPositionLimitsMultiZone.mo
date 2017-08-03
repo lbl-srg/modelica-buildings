@@ -31,7 +31,7 @@ block EconDamperPositionLimitsMultiZone
     "Fraction of control loop signal output below which the outdoor air damper limit gets
     modulated and above which the return air damper limit gets modulated";
   parameter Real kPDamLim=1 "Gain of damper limit controller";
-  parameter Modelica.SIunits.Time TiDamLim=0.9 "Time constant of damper limit controller integrator block";
+  parameter Modelica.SIunits.Time TiDamLim=30 "Time constant of damper limit controller integrator block";
 
   CDL.Interfaces.RealInput VOut_flow(
     final unit="m3/s",
@@ -309,13 +309,12 @@ measurement, designed in line with ASHRAE Guidline 36 (G36), PART5.N.6.c.
 </p>
 <p>
 The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
-the AHU operation mode, <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.OperationModes\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.OperationModes</a>, equals <code>occModInt</code>,
-and freeze protection stage, <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages</a>, is not higher than
-<code>stage1</code>.
+the AHU operation mode <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.OperationModes\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.OperationModes</a> equals <code>occModInt</code>,
+and the freeze protection stage <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages</a> is <code>stage1</code> or lower.
 Otherwise the damper position limits are set to their corresponding maximum and minimum physical or at
-commissioning fixed limits. State machine chart below illustrates listed conditions:
+commissioning fixed limits. The state machine chart below illustrates listed conditions:
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits state machine chart\"
@@ -323,25 +322,24 @@ src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASH
 </p>
 <p>
 The controller sets the outdoor and return damper position limits so
-that the outdoor airflow rate, <code>VOut_flow</code>, stays equal or above the
-minimum outdoor air setpoint, <code>VOutMinSet_flow</code>. Fraction of the controller
+that the outdoor airflow rate <code>VOut_flow</code> stays equal or above the
+minimum outdoor air setpoint <code>VOutMinSet_flow</code>. The fraction of the controller
 output signal between <code>conSigMin</code> and <code>conSigFraOutDam</code> is
-linearly mapped to the outdoor air damper minimal position, <code>yOutDamPosMin</code>,
+linearly mapped to the outdoor air damper minimal position <code>yOutDamPosMin</code>
 while the fraction of the controller output between <code>conSigFraOutDam</code> and
-<code>conSigMax</code> is linearly mapped to the return air damper maximum position,
+<code>conSigMax</code> is linearly mapped to the return air damper maximum position
 <code>yRetDamPosMax</code>. Thus the dampers are not interlocked.
 </p>
 <p>
 The following control charts show the input/output structure and an expected damper position
-limits for a well tuned controller. Control diagram:
+limits for a well configured controller. Control diagram:
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits control diagram\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconDamperLimitsControlDiagramMultiZone.png\"/>
 </p>
 <p>
-Expected control performance (damper position limits vs. control loop signal):
-<br/>
+Expected damper position limits vs. control loop signal:
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits control chart\"
