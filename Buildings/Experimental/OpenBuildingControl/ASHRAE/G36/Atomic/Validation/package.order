@@ -4,5 +4,7 @@ EconEnableDisableMultiZone_FreProSta_ZonSta
 EconEnableDisableMultiZone_TOut_hOut
 EconModulationMultiZone_TSup
 OperationMode
+OutdoorAirFlowSetpoint_MultiZone
+OutdoorAirFlowSetpoint_SingleZone
 VAVSingleZoneTSupSet_T
 VAVSingleZoneTSupSet_u

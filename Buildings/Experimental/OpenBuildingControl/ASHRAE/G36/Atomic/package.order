@@ -2,5 +2,7 @@ EconDamperPositionLimitsMultiZone
 EconEnableDisableMultiZone
 EconModulationMultiZone
 OperationModeSelector
+OutdoorAirFlowSetpoint_MultiZone
+OutdoorAirFlowSetpoint_SingleZone
 VAVSingleZoneTSupSet
 Validation
