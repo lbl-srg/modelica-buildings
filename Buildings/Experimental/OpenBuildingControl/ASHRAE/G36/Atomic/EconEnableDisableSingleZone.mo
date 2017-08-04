@@ -5,8 +5,6 @@ block EconEnableDisableSingleZone
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air (OA) enthalpy in addition to temperature"
     annotation(Dialog(group="Conditional parameters"));
-  parameter Modelica.SIunits.Time smaDisDel = -1
-    "Set to positive number to enable small time delay before closing the OA damper at disable to avoid pressure fluctuations";
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
@@ -108,9 +106,6 @@ protected
   final parameter Real hOutHigLimCutLow = hOutHigLimCutHig - delEntHis
     "Hysteresis block low limit cutoff";
 
-  CDL.Continuous.Sources.Constant disableDelay(final k=smaDisDel)
-    "Small delay before closing the outdoor air damper to avoid pressure fluctuations"
-    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   CDL.Logical.Sources.Constant entSubst(final k=false) if not use_enthalpy
     "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
@@ -141,10 +136,6 @@ protected
   CDL.Logical.Switch minRetDamSwitch
     "Keep minimum RA damper position at physical maximum for a short time period after disable"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
-  CDL.Logical.GreaterEqual greEqu "Logical greater or equal block"
-    annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
-  CDL.Logical.Timer timer "Timer gets started as the economizer gets disabled"
-    annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
   CDL.Logical.Nor nor1 "Logical nor"
     annotation (Placement(transformation(extent={{-40,200},{-20,220}})));
   CDL.Logical.Not not2 "Logical not that starts the timer at disable signal "
@@ -157,8 +148,6 @@ protected
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   CDL.Logical.And and1 "Logical and checks supply fan status"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
-  CDL.Logical.And and3 "Logical and"
-    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   CDL.Conversions.IntegerToReal intToRea "Integer to real converter"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
@@ -184,8 +173,6 @@ equation
     annotation (Line(points={{-79,170},{-60,170},{-60,202},{-42,202}},  color={255,0,255}));
   connect(entSubst.y, nor1.u2) annotation (Line(points={{-79,200},{-60,200},{-60,202},{-42,202}},
     color={255,0,255}));
-  connect(timer.y, greEqu.u1) annotation (Line(points={{51,-60},{60,-60},{60,-80},{-80,-80},{-80,-100},{-72,-100}},
-        color={0,0,127}));
   connect(uOutDamPosMin, outDamSwitch.u1)
     annotation (Line(points={{-200,-160},{-120,-160},{-60,-160},{-60,-132},{38,-132}},color={0,0,127}));
   connect(uOutDamPosMax, outDamSwitch.u3)
@@ -195,7 +182,6 @@ equation
     annotation (Line(points={{61,40},{72,40},{72,-20},{-20,-20},{-20,-60},{-12,-60}}, color={255,0,255}));
   connect(minRetDamSwitch.y, yRetDamPosMin)
     annotation (Line(points={{61,-240},{100,-240},{146,-240},{190,-240}}, color={0,0,127}));
-  connect(not2.y, timer.u) annotation (Line(points={{11,-60},{28,-60}}, color={255,0,255}));
   connect(uFreProSta, intToRea.u) annotation (Line(points={{-200,50},{-200,50},{-162,50}}, color={255,127,0}));
   connect(intToRea.y, equ.u) annotation (Line(points={{-139,50},{-134,50},{-122,50}}, color={0,0,127}));
   connect(equ.y, andEnaDis.u2)
@@ -217,16 +203,9 @@ equation
     annotation (Line(points={{-119,-248},{0,-248},{38,-248}}, color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, yRetDamPosMax)
     annotation (Line(points={{-119,-210},{190,-210}}, color={0,0,127}));
-  connect(disableDelay.y, greEqu.u2)
-    annotation (Line(points={{-99,-110},{-86,-110},{-86,-108},{-72,-108}}, color={0,0,127}));
-  connect(greEqu.y, and3.u2) annotation (Line(points={{-49,-100},{-36,-100},{-36,-108},{-22,-108}},
-    color={255,0,255}));
-  connect(not2.y, and3.u1)
-    annotation (Line(points={{11,-60},{16,-60},{16,-74},{-30,-74},{-30,-100},{-22,-100}}, color={255,0,255}));
-  connect(and3.y, outDamSwitch.u2)
-    annotation (Line(points={{1,-100},{12,-100},{12,-140},{38,-140}}, color={255,0,255}));
   connect(not2.y, minRetDamSwitch.u2) annotation (Line(points={{11,-60},{16,-60},
           {16,-240},{38,-240}}, color={255,0,255}));
+  connect(not2.y, outDamSwitch.u2) annotation (Line(points={{11,-60},{28,-60},{28,-140},{38,-140}}, color={255,0,255}));
     annotation (
     Icon(graphics={
         Rectangle(
@@ -347,11 +326,6 @@ The following state machine chart illustrates the transitions between enabling a
 <p align=\"center\">
 <img alt=\"Image of economizer enable-disable state machine chart\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconEnableDisableStateMachineChartSingleZone.png\"/>
-</p>
-<p>
-Parameter <code>smaDisDel</code> can be used to introduce a small time delay before actuating the outdoor air 
-damper to its minimum outdoor airflow position after the economizer gets disabled. However, the parameter is not 
-explicitly provided in PART5.P and it defaults to <code>0<\code>.
 </p>
 </html>", revisions="<html>
 <ul>
