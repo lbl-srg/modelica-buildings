@@ -98,7 +98,7 @@ protected
     "Delta between the temperature hysteresis high and low limit";
   final parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy));
+    annotation(Dialog(enable = use_enthalpy));
   final parameter Modelica.SIunits.Temperature TOutHigLimCutHig = 0
     "Hysteresis high limit cutoff";
   final parameter Real TOutHigLimCutLow = TOutHigLimCutHig - delTOutHis
@@ -227,7 +227,7 @@ equation
     annotation (Line(points={{1,-100},{12,-100},{12,-140},{38,-140}}, color={255,0,255}));
   connect(not2.y, minRetDamSwitch.u2) annotation (Line(points={{11,-60},{16,-60},
           {16,-240},{38,-240}}, color={255,0,255}));
-    annotation(Evaluate=true, Dialog(group="Enthalpy sensor in use", enable = use_enthalpy),
+    annotation (
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
