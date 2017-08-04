@@ -16,6 +16,7 @@ model MultiZone "Multiple thermal zone models"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    "Weather data"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
   for iZon in 1:nZon-1 loop

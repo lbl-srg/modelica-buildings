@@ -4,20 +4,22 @@ model MultiFloorWithVAV
 
   replaceable package MediumA = Buildings.Media.Air(T_default=293.15);
   package MediumW = Buildings.Media.Water "Medium model for water";
-  parameter Integer nZon(min=1) = 6    "Number of zones per floor"
+
+  parameter Integer nZon(min=1) = 6 "Number of zones per floor"
     annotation(Evaluate=true);
-  parameter Integer nFlo(min=1) = 1    "Number of floors"
+  parameter Integer nFlo(min=1) = 1 "Number of floors"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.PressureDifference dP_pre=850
     "Prescribed pressure difference";
-  parameter Real VRoo[nZon,nFlo] = {{6*8*2.7 for j in 1:nFlo} for i in 1:nZon}
+
+  parameter Modelica.SIunits.Volume VRoo[nZon,nFlo] = {{6*8*2.7 for j in 1:nFlo} for i in 1:nZon}
     "Room volume";
   constant Real conv=1.2/3600
     "Conversion factor for nominal mass flow rate";
-  parameter Real m_flow_nominal_each[nZon,nFlo]=
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_each[nZon,nFlo]=
     {{7*conv*VRoo[i,j] for j in 1:nFlo} for i in 1:nZon}
     "Nominal flow rate to each zone";
-  parameter Real m_flow_nominal = nZon*(7*conv)*6*8*2.7
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = nZon*(7*conv)*6*8*2.7
     "Nominal system flow rate";
 
   HVACSystems.VAVBranch vAVBranch[nZon,nFlo](
@@ -28,7 +30,7 @@ model MultiFloorWithVAV
     dpFixed_nominal = {{220 + 20 for j in 1:nFlo} for i in 1:nZon})
     "Supply branch of VAV system"
     annotation (Placement(transformation(extent={{52,12},{82,42}})));
-  ThermalZones.BaseClasses.MultiZoneFluctuatingIHG multiZoneFluctuatingIHG(
+  ThermalZones.BaseClasses.MultiZoneFluctuatingIHG roo(
     nZon = nZon,
     nFlo = nFlo) "Multizone model with scalable number of zones"
     annotation (Placement(transformation(extent={{48,60},{88,100}})));
@@ -54,14 +56,14 @@ model MultiFloorWithVAV
     each T_a2_nominal=323.15) "Heating coil"
     annotation (Placement(transformation(extent={{-144,-46},{-124,-26}})));
   Fluid.HeatExchangers.WetCoilCounterFlow cooCoi[nFlo](
+    redeclare each package Medium1 = MediumW,
+    redeclare each package Medium2 = MediumA,
     each UA_nominal=m_flow_nominal*1000*15/
         Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1=26.2,
         T_b1=12.8,
         T_a2=6,
         T_b2=16),
-    redeclare each package Medium1 = MediumW,
-    redeclare each package Medium2 = MediumA,
     each m1_flow_nominal=m_flow_nominal*1000*15/4200/10,
     each m2_flow_nominal=m_flow_nominal,
     each dp2_nominal=0,
@@ -72,8 +74,8 @@ model MultiFloorWithVAV
         rotation=180,
         origin={-66,-36})));
   Fluid.FixedResistances.PressureDrop fil[nFlo](
-    each m_flow_nominal=m_flow_nominal,
     redeclare each package Medium = MediumA,
+    each m_flow_nominal=m_flow_nominal,
     each dp_nominal=200 + 200 + 100,
     each from_dp=false,
     each linearized=false) "Filter"
@@ -116,7 +118,7 @@ model MultiFloorWithVAV
         origin={-50,-74})));
   Fluid.Sources.Outside amb[nFlo](
     redeclare each package Medium = MediumA,
-    each nPorts=2)   "Ambient conditions"
+    each nPorts=2) "Ambient conditions"
     annotation (Placement(transformation(extent={{-320,32},{-306,46}})));
   Fluid.Actuators.Dampers.MixingBox  eco[nFlo](
     redeclare each package Medium = MediumA,
@@ -524,17 +526,17 @@ equation
 
   for iFlo in 1:nFlo loop
     for iZon in 1:nZon loop
-      connect(vAVBranch[iZon, iFlo].port_b, multiZoneFluctuatingIHG.portsIn[iZon, iFlo])
+      connect(vAVBranch[iZon, iFlo].port_b, roo.portsIn[iZon, iFlo])
         annotation (Line(
           points={{67,42},{68.2,42},{68.2,65.8}},
           color={0,127,255},
           thickness=0.5));
-      connect(multiZoneFluctuatingIHG.portsOut[iZon, iFlo], senRetFlo[iFlo].port_a)
+      connect(roo.portsOut[iZon, iFlo], senRetFlo[iFlo].port_a)
         annotation (Line(
           points={{68.2,93.8},{68.2,126},{28,126}},
           color={0,127,255},
           thickness=0.5));
-      connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], vAVBranch[iZon, iFlo].TRoo)
+      connect(roo.TRooAir[iZon, iFlo], vAVBranch[iZon, iFlo].TRoo)
         annotation (Line(
           points={{90,68.8},{100,68.8},{100,68},{100,52},{40,52},{40,32},{50,32}},
           color={0,0,127},
@@ -549,11 +551,11 @@ equation
           points={{-67.95,54.05},{-67.95,54.05},{-40,54.05},{-40,19.2},{52,19.2}},
           color={255,204,51},
           thickness=0.5));
-      connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], ave[iFlo].u[iZon])
+      connect(roo.TRooAir[iZon, iFlo], ave[iFlo].u[iZon])
         annotation (Line(
           points={{90,68.8},{100,68.8},{100,74},{106.8,74}}, color={0,0,127},
           pattern=LinePattern.Dash));
-      connect(multiZoneFluctuatingIHG.TRooAir[iZon, iFlo], min1[iFlo].u[iZon])
+      connect(roo.TRooAir[iZon, iFlo], min1[iFlo].u[iZon])
         annotation (Line(
           points={{90,68.8},{100,68.8},{100,100},{106.8,100}},
           color={0,0,127},
@@ -574,7 +576,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(weaBus, multiZoneFluctuatingIHG.weaBus)
+  connect(weaBus, roo.weaBus)
     annotation (Line(
       points={{-324,170},{-324,170},{-44,170},{-44,80},{51.6,80}},
       color={255,204,51},
@@ -586,23 +588,24 @@ equation
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-120},{140,200}})),
   Documentation(info="<html>
 <p>
-This model consist of an HVAC system, a building envelope model.
+Model an buiding that has multiple thermal zones on each floor,
+and an HVAC system on each floor.
 </p>
 <p>
 The HVAC system is a variable air volume (VAV) flow system with economizer
 and a heating and cooling coil in the air handler unit. There is also a
 reheat coil and an air damper in each zone inlet branches.
-The figure below shows the schematic diagram of the HVAC system
+The figure below shows the schematic diagram of the HVAC system.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Experimental/ScableModels/vavSchematics.png\" border=\"1\"/>
 </p>
 <p>
-Control sequence in the model regulates supply fan speed to ensure a 
-prescribed pressure rise (<code>850 Pa</code>) when the supply fan runs
+The control sequence regulates the supply fan speed to ensure a
+prescribed pressure rise of <code>850 Pa</code> when the supply fan runs
 during operation modes <i>occupied</i>, <i>unoccupied night set back</i>,
 <i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>.
-The economizer dampers are modulated to track the setpoint for the 
+The economizer dampers are modulated to track the setpoint for the
 mixed air dry bulb temperature.
 Priority is given to maintain a minimum outside air volume flow rate.
 In each zone, the VAV damper is adjusted to meet the room temperature
@@ -625,12 +628,12 @@ surfaces. The convective heat transfer coefficient is computed based
 on the temperature difference between the surface and the room air.
 There is also a layer-by-layer short-wave radiation,
 long-wave radiation, convection and conduction heat transfer model for the
-windows. The model is similar to the Window 5 model and described in 
+windows. The model is similar to the Window 5 model and described in
 TARCOG 2006.
 </p>
 <p>
-Each thermal zone can have air flow from the HVAC system, through leakages of 
-the building envelope. 
+Each thermal zone can have air flow from the HVAC system, through leakages of
+the building envelope.
 </p>
 <h4>References</h4>
 <p>

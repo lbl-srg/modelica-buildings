@@ -5,5 +5,5 @@ annotation (Documentation(info="<html>
 This package contains base classes that are used to construct the models in
 <a href=\"modelica://Buildings.Experimental.ScalableModels.ThermalZones\">Buildings.Experimental.ScalableModels.ThermalZones</a>.
 </p>
-</html>Buildings.Experimental.ScalableModels.ThermalZones"));
+</html>"));
 end BaseClasses;

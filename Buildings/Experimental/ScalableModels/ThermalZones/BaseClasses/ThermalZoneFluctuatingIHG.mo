@@ -301,7 +301,7 @@ convective heat gain <code>qConGai_flow</code>, and latent heat gain
 <code>qLatGai_flow</code> are referenced from ASHRAE Handbook fundamental. 
 The factor <code>gainFactor</code> is used to scale down the heat gain.
 The gain schdule is specified by <code>intLoad</code>.
-Air infiltration from outside is assumed to be 0.5 ACH.
+A constant air infiltration from outside is assumed.
 </p>
 </html>", revisions="<html>
 <ul>

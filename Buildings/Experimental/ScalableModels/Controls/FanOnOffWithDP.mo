@@ -1,11 +1,11 @@
 within Buildings.Experimental.ScalableModels.Controls;
 block FanOnOffWithDP
-  "Controller for fan on/off, and provide prescribed dP"
+  "Controller for fan on/off and to provide prescribed dP"
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
   parameter Modelica.SIunits.PressureDifference preRis=850
     "Prescribed pressure difference";
-  Modelica.Blocks.Interfaces.RealOutput y
-    "Supply fan ON/OFF with giving pressure rise"
+  Modelica.Blocks.Interfaces.RealOutput y(unit="Pa")
+    "Supply fan requested pressure rise, or zero if fan should be off"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Examples.VAVReheat.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-70,70},{-50,90}})));

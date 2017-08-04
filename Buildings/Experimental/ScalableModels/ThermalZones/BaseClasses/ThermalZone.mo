@@ -251,7 +251,8 @@ Buildings.ThermalZones.Detailed.MixedAir</a>.
 <p>
 Internal heat gain includes radiative heat gain <code>qRadGai_flow</code>,
 convective heat gain <code>qConGai_flow</code>, and latent heat gain 
-<code>qLatGai_flow</code>. Air infiltration from outside is assumed to be 0.5 ACH.
+<code>qLatGai_flow</code>.
+A constant air infiltration from outside is assumed.
 </p>
 </html>", revisions="<html>
 <ul>

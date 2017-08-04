@@ -234,14 +234,17 @@ equation
           textString="TRooAir")}),
      Documentation(info="<html>
 <p>
-The model is developed based on 
+Model for a VAV branch.
+</p>
+<p>
+The model has been developed based on
 <a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.VAVBranch\">
 Buildings.Examples.VAVReheat.ThermalZones.VAVBranch</a>, but using different VAV
-box model 
+box model
 <a href=\"modelica://Buildings.Fluid.Actuators.Dampers.PressureIndependent\">
 Buildings.Fluid.Actuators.Dampers.PressureIndependent</a>.
-
-</p></html>", revisions="<html>
+</p>
+</html>",     revisions="<html>
 <ul>
 <li>
 June 6, 2017 by Jianjun Hu:<br/>

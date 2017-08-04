@@ -3,7 +3,8 @@ model ScalableDemo_2Floor_2Zone
   "Building model with 2 zone in 2 floor"
   extends
     Buildings.Experimental.ScalableModels.ScalableBuildingModels.MultiFloorWithVAV(
-     nFlo=2, nZon=2);
+     nFlo=2,
+     nZon=2);
 
 annotation (
   experiment(StopTime=604800, Tolerance=1e-06,__Dymola_Algorithm="Radau"),
