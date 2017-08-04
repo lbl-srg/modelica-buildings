@@ -5,9 +5,12 @@ block EconModulationMultiZone
   parameter Real retDamConSigMin(
     final min=0,
     final max=1,
-    final unit="1") = 0.5 "Minimum control loop signal for the return air damper";
-  parameter Real kPMod=1 "Gain of modulation controller";
-  parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block";
+    final unit="1") = 0.5 "Minimum control loop signal for the return air damper"
+    annotation(Dialog(group="Controller parameters"));
+  parameter Real kPMod=1 "Gain of modulation controller"
+    annotation(Dialog(group="Controller parameters"));
+  parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block"
+    annotation(Dialog(group="Controller parameters"));
 
   CDL.Interfaces.RealInput TSup(
     final unit="K",

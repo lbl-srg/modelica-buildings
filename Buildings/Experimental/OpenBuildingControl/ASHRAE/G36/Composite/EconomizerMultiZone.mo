@@ -3,30 +3,39 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
 
   parameter Boolean use_enthalpy = true
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
-  parameter Real kPDamLim=1 "Proportional gain of damper limit controller";
-  parameter Real kPMod=1 "Proportional gain of modulation controller";
-  parameter Modelica.SIunits.Time TiDamLim=300 "Time constant of damper limit controller integrator block";
-  parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block";
+    annotation(Dialog(group="Conditional parameters"));
+  parameter Real kPDamLim=1 "Proportional gain of damper limit controller"
+    annotation(Dialog(group="Controller parameters"));
+  parameter Real kPMod=1 "Proportional gain of modulation controller"
+    annotation(Dialog(group="Controller parameters"));
+  parameter Modelica.SIunits.Time TiDamLim=300 "Time constant of damper limit controller integrator block"
+    annotation(Dialog(group="Controller parameters"));
+  parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block"
+    annotation(Dialog(group="Controller parameters"));
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
-    "Physically fixed maximum position of the return air damper";
+    "Physically fixed maximum position of the return air damper"
+    annotation(Dialog(group="Physical damper position limits"));
   parameter Real retDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
-    "Physically fixed minimum position of the return air damper";
+    "Physically fixed minimum position of the return air damper"
+    annotation(Dialog(group="Physical damper position limits"));
   parameter Real outDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
-    "Physically fixed maximum position of the outdoor air damper";
+    "Physically fixed maximum position of the outdoor air damper"
+    annotation(Dialog(group="Physical damper position limits"));
   parameter Real outDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
-    "Physically fixed minimum position of the outdoor air damper";
+    "Physically fixed minimum position of the outdoor air damper"
+    annotation(Dialog(group="Physical damper position limits"));
 
   CDL.Interfaces.RealInput THeaSet(
     final unit="K",
@@ -102,8 +111,8 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}}),
     iconTransformation(extent={{100,-30}, {120,-10}})));
 
-  Atomic.EconEnableDisableMultiZone ecoEnaDis(
-    final use_enthalpy=use_enthalpy) "Multizone VAV AHU economizer enable/disable sequence"
+  Atomic.EconEnableDisableMultiZone ecoEnaDis(final use_enthalpy=true)
+                                     "Multizone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Atomic.EconDamperPositionLimitsMultiZone ecoDamLim(
     final retDamPhyPosMax=retDamPhyPosMax,

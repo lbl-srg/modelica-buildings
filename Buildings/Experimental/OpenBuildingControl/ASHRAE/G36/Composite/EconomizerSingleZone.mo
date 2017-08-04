@@ -3,58 +3,72 @@ model EconomizerSingleZone "Single zone VAV AHU economizer control sequence"
 
   parameter Boolean use_enthalpy = true
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
-  parameter Real kPMod=1 "Gain of modulation controller";
-  parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block";
+  parameter Real kPMod=1 "Gain of modulation controller"
+    annotation(Dialog(group="Controller parameters"));
+  parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block"
+    annotation(Dialog(group="Controller parameters"));
   parameter Real minFanSpe(
     final min=0,
     final max=1,
-    final unit="1") = 0.1 "Minimum supply fan operation speed";
+    final unit="1") = 0.1 "Minimum supply fan operation speed"
+    annotation(Dialog(group="Damper position limit parameters"));
   parameter Real maxFanSpe(
     final min=0,
     final max=1,
-    final unit="1") = 0.9 "Maximum supply fan operation speed";
-  parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=1.0 "Calculated minimum outdoor airflow rate";
-  parameter Modelica.SIunits.VolumeFlowRate desVOut_flow=2.0 "Calculated design outdoor airflow rate";
+    final unit="1") = 0.9 "Maximum supply fan operation speed"
+    annotation(Dialog(group="Damper position limit parameters"));
+  parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=1.0 "Calculated minimum outdoor airflow rate"
+    annotation(Dialog(group="Damper position limit parameters"));
+  parameter Modelica.SIunits.VolumeFlowRate desVOut_flow=2.0 "Calculated design outdoor airflow rate"
+    annotation(Dialog(group="Damper position limit parameters"));
   parameter Real minVOutMinFansSpePos(
     final min=minVOutMaxFanSpePos,
     final max=desVOutMinFanSpePos,
     final unit="1") = 0.4
-    "OA damper position to supply minimum outdoor airflow at minimum fan speed";
+    "OA damper position to supply minimum outdoor airflow at minimum fan speed"
+    annotation(Dialog(group="Damper position limit parameters"));
   parameter Real minVOutMaxFanSpePos(
     final min=outDamPhyPosMin,
     final max=minVOutMinFansSpePos,
     final unit="1") = 0.3
-    "OA damper position to supply minimum outdoor airflow at maximum fan speed";
+    "OA damper position to supply minimum outdoor airflow at maximum fan speed"
+    annotation(Dialog(group="Damper position limit parameters"));
   parameter Real desVOutMinFanSpePos(
     final min=desVOutMaxFanSpePos,
     final max=outDamPhyPosMax,
     final unit="1") = 0.9
-    "OA damper position to supply design outdoor airflow at minimum fan speed";
+    "OA damper position to supply design outdoor airflow at minimum fan speed"
+    annotation(Dialog(group="Damper position limit parameters"));
   parameter Real desVOutMaxFanSpePos(
     final min=minVOutMaxFanSpePos,
     final max=desVOutMinFanSpePos,
     final unit="1") = 0.8
-    "OA damper position to supply design outdoor airflow at maximum fan speed";
+    "OA damper position to supply design outdoor airflow at maximum fan speed"
+    annotation(Dialog(group="Damper position limit parameters"));
   parameter Real outDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
-    "Physically fixed maximum position of the outdoor air (OA) damper";
+    "Physically fixed maximum position of the outdoor air (OA) damper"
+    annotation(Dialog(group="Physical damper position limits"));
   parameter Real outDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
-    "Physically fixed minimum position of the outdoor air damper";
+    "Physically fixed minimum position of the outdoor air damper"
+    annotation(Dialog(group="Physical damper position limits"));
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
-    "Physically fixed maximum position of the return air damper";
+    "Physically fixed maximum position of the return air damper"
+    annotation(Dialog(group="Physical damper position limits"));
   parameter Real retDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
-    "Physically fixed minimum position of the return air damper";
+    "Physically fixed minimum position of the return air damper"
+    annotation(Dialog(group="Physical damper position limits"));
 
   CDL.Interfaces.RealInput THeaSet(
     final unit="K",

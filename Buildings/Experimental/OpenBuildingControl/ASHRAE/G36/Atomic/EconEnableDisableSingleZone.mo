@@ -3,19 +3,22 @@ block EconEnableDisableSingleZone
   "Single zone VAV AHU economizer enable/disable switch"
 
   parameter Boolean use_enthalpy = true
-    "Set to true to evaluate outdoor air (OA) enthalpy in addition to temperature";
+    "Set to true to evaluate outdoor air (OA) enthalpy in addition to temperature"
+    annotation(Dialog(group="Conditional parameters"));
   parameter Modelica.SIunits.Time smaDisDel = -1
     "Set to positive number to enable small time delay before closing the OA damper at disable to avoid pressure fluctuations";
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
-    "Physically fixed maximum position of the return air damper";
+    "Physically fixed maximum position of the return air damper"
+    annotation(Dialog(group="Physical damper position limits"));
   parameter Real retDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
-    "Physically fixed minimum position of the return air damper";
+    "Physically fixed minimum position of the return air damper"
+    annotation(Dialog(group="Physical damper position limits"));
 
   CDL.Interfaces.RealInput TOut(
     final unit="K",

@@ -2,36 +2,45 @@ within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic;
 block EconDamperPositionLimitsMultiZone
   "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
 
-  parameter Real retDamPhyPosMax(
-    final min=0,
-    final max=1,
-    final unit="1") = 1
-    "Physically fixed maximum position of the return air damper";
-  parameter Real retDamPhyPosMin(
-    final min=0,
-    final max=1,
-    final unit="1") = 0
-    "Physically fixed minimum position of the return air damper";
-  parameter Real outDamPhyPosMax(
-    final min=0,
-    final max=1,
-    final unit="1") = 1
-    "Physically fixed maximum position of the outdoor air damper";
-  parameter Real outDamPhyPosMin(
-    final min=0,
-    final max=1,
-    final unit="1") = 0
-    "Physically fixed minimum position of the outdoor air damper";
-  parameter Real conSigMin=0 "Lower limit of control signal output";
-  parameter Real conSigMax=1 "Upper limit of control signal output";
+  parameter Real conSigMin=0 "Lower limit of control signal output"
+    annotation(Dialog(group="Controller parameters"));
+  parameter Real conSigMax=1 "Upper limit of control signal output"
+    annotation(Dialog(group="Controller parameters"));
   parameter Real conSigFraOutDam(
     final min=conSigMin,
     final max=conSigMax,
     final unit="1")=0.5
     "Fraction of control loop signal output below which the outdoor air damper limit gets
-    modulated and above which the return air damper limit gets modulated";
-  parameter Real kPDamLim=1 "Gain of damper limit controller";
-  parameter Modelica.SIunits.Time TiDamLim=30 "Time constant of damper limit controller integrator block";
+    modulated and above which the return air damper limit gets modulated"
+    annotation(Dialog(group="Controller parameters"));
+  parameter Real kPDamLim=1 "Gain of damper limit controller"
+    annotation(Dialog(group="Controller parameters"));
+  parameter Modelica.SIunits.Time TiDamLim=30 "Time constant of damper limit controller integrator block"
+    annotation(Dialog(group="Controller parameters"));
+  parameter Real retDamPhyPosMax(
+    final min=0,
+    final max=1,
+    final unit="1") = 1
+    "Physically fixed maximum position of the return air damper"
+    annotation(Dialog(group="Physical damper position limits"));
+  parameter Real retDamPhyPosMin(
+    final min=0,
+    final max=1,
+    final unit="1") = 0
+    "Physically fixed minimum position of the return air damper"
+    annotation(Dialog(group="Physical damper position limits"));
+  parameter Real outDamPhyPosMax(
+    final min=0,
+    final max=1,
+    final unit="1") = 1
+    "Physically fixed maximum position of the outdoor air damper"
+    annotation(Dialog(group="Physical damper position limits"));
+  parameter Real outDamPhyPosMin(
+    final min=0,
+    final max=1,
+    final unit="1") = 0
+    "Physically fixed minimum position of the outdoor air damper"
+    annotation(Dialog(group="Physical damper position limits"));
 
   CDL.Interfaces.RealInput VOut_flow(
     final unit="m3/s",

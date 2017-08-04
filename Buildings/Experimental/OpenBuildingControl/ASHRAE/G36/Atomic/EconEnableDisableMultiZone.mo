@@ -3,11 +3,14 @@ block EconEnableDisableMultiZone
   "Multiple zone VAV AHU economizer enable/disable switch"
 
   parameter Boolean use_enthalpy = true
-    "Set to true to evaluate outdoor air enthalpy in addition to temperature";
+    "Set to true to evaluate outdoor air enthalpy in addition to temperature"
+    annotation(Dialog(group="Conditional parameters"));
   parameter Modelica.SIunits.Time retDamFulOpeTim = 180
-    "Time period to keep RA damper fully open at disable to avoid pressure fluctuations";
+    "Time period to keep RA damper fully open at disable to avoid pressure fluctuations"
+    annotation(Dialog(group="Delay parameters at disable"));
   parameter Modelica.SIunits.Time smaDisDel = 15
-    "Set to positive number to enable small time delay before closing the OA damper at disable to avoid pressure fluctuations";
+    "Set to positive number to enable small time delay before closing the OA damper at disable to avoid pressure fluctuations"
+    annotation(Dialog(group="Delay parameters at disable"));
 
   CDL.Interfaces.RealInput TOut(
     final unit="K",
