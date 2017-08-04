@@ -5,7 +5,8 @@ model EconomizerMultiZone_Disable
 
   EconomizerMultiZone economizer(use_enthalpy=true) "Multizone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  EconomizerMultiZone economizer1 "Multizone VAV AHU economizer"
+  EconomizerMultiZone economizer1(use_enthalpy=true)
+                                  "Multizone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 
 protected

@@ -110,7 +110,7 @@ equation
   connect(economizer.THeaSet, TSupSetSig.y)
     annotation (Line(points={{19,12},{-52,12},{-52,50},{-59,50}}, color={0,0,127}));
   connect(TSupSetSig.y, economizer1.THeaSet)
-    annotation (Line(points={{-59,50},{-54,50},{-54,-28},{-48,-28},{-48,-28},{99,-28}}, color={0,0,127}));
+    annotation (Line(points={{-59,50},{-54,50},{-54,-28},{-48,-28},{99,-28}}, color={0,0,127}));
   annotation (
     experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Composite/Validation/EconomizerMultiZone_Mod_DamLim.mos"
@@ -163,8 +163,8 @@ This example validates
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone\">
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite.EconomizerMultiZone</a> control loops:
 minimum outdoor air damper position limits control loop (<code>economizer</code> block) and modulation
-control loop (<code>economizer1</code> block) for <code>VOut_flow</code> and <code>TSup</code> control signals. Both control
-loops are enabled during the validation test.
+control loop (<code>economizer1</code> block) for <code>VOut_flow</code> and <code>TSup</code> control signals. 
+Both control loops are enabled during the validation test.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -145,6 +145,7 @@ model EconomizerSingleZone "Single zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}}),
     iconTransformation(extent={{100,-30}, {120,-10}})));
 
+
   Atomic.EconEnableDisableSingleZone ecoEnaDis(
     final retDamPhyPosMax=retDamPhyPosMax,
     final use_enthalpy=use_enthalpy,

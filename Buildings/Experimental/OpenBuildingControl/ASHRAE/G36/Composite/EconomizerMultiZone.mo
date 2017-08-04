@@ -1,14 +1,13 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite;
 model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
 
-  parameter Boolean use_enthalpy = true
+  parameter Boolean use_enthalpy = false
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
-    annotation(Dialog(group="Conditional parameters"));
   parameter Real kPDamLim=1 "Proportional gain of damper limit controller"
     annotation(Dialog(group="Controller parameters"));
   parameter Real kPMod=1 "Proportional gain of modulation controller"
     annotation(Dialog(group="Controller parameters"));
-  parameter Modelica.SIunits.Time TiDamLim=300 "Time constant of damper limit controller integrator block"
+  parameter Modelica.SIunits.Time TiDamLim=30 "Time constant of damper limit controller integrator block"
     annotation(Dialog(group="Controller parameters"));
   parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block"
     annotation(Dialog(group="Controller parameters"));
@@ -111,8 +110,8 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}}),
     iconTransformation(extent={{100,-30}, {120,-10}})));
 
-  Atomic.EconEnableDisableMultiZone ecoEnaDis(final use_enthalpy=true)
-                                     "Multizone VAV AHU economizer enable/disable sequence"
+  Atomic.EconEnableDisableMultiZone ecoEnaDis(
+    use_enthalpy=use_enthalpy) "Multizone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Atomic.EconDamperPositionLimitsMultiZone ecoDamLim(
     final retDamPhyPosMax=retDamPhyPosMax,
