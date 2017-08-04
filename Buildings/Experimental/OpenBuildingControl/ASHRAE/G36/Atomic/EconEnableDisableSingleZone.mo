@@ -345,6 +345,11 @@ The following state machine chart illustrates the transitions between enabling a
 <img alt=\"Image of economizer enable-disable state machine chart\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconEnableDisableStateMachineChartSingleZone.png\"/>
 </p>
+<p>
+Parameter <code>smaDisDel</code> can be used to introduce a small time delay before actuating the outdoor air 
+damper to its minimum outdoor airflow position after the economizer gets disabled. However, the parameter is not 
+explicitly provided in PART5.P and it defaults to <code>0<\code>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

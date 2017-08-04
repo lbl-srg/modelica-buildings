@@ -355,7 +355,7 @@ This sequence allows for all device types listed in
 ASHRAE 90.1-2013 and Title 24-2013.
 </p>
 <p>
-In addition, the economizer is disabled without a delay whenever any of the
+In addition, the economizer gets disabled without a delay whenever any of the
 following is <code>true</code>:
 </p>
 <ul>
@@ -380,6 +380,21 @@ The following state machine chart illustrates the transitions between enabling a
 <img alt=\"Image of economizer enable-disable state machine chart\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconEnableDisableStateMachineChartMultiZone.png\"/>
 </p>
+<p>
+After the disable signal is activated, the following procedure is applied, per PART5.N.7.d, in order to 
+prevent pressure fluctuations in the HVAC system:
+</p>
+<ul>
+<li>
+return damper gets fully opened (<code>yRetDamPosMax = uRetDamPhyPosMax</code> and 
+<code>yRetDamPosMin = uRetDamPhyPosMax</code>) for <code>retDamFulOpeTim</code>
+time period, after which the return damper gets released to its minimum outdoor airflow control position
+(<code>yRetDamPosMax = uRetDamPosMax</code> and <code>yRetDamPosMin = uRetDamPosMax</code>).
+</li>
+<li>
+outdoor air damper is closed to its minimum outoor airflow control limit (<code>yOutDamPosMax = uOutDamPosMin</code>) 
+after a <code>smaDisDel</code> time delay.
+</li>
 </html>", revisions="<html>
 <ul>
 <li>
