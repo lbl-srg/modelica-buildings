@@ -398,6 +398,7 @@ time period, after which the return damper gets released to its minimum outdoor 
 outdoor air damper is closed to its minimum outoor airflow control limit (<code>yOutDamPosMax = uOutDamPosMin</code>) 
 after a <code>smaDisDel</code> time delay.
 </li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
