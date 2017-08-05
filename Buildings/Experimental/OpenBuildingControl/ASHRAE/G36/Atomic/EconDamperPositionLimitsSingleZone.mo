@@ -6,42 +6,42 @@ block EconDamperPositionLimitsSingleZone
     final min=0,
     final max=1,
     final unit="1") = 0.1 "Minimum supply fan operation speed"
-    annotation(Dialog(group="Damper position limit parameters"));
+    annotation(Dialog(group="Damper position limits"));
   parameter Real maxFanSpe(
     final min=0,
     final max=1,
     final unit="1") = 0.9 "Maximum supply fan operation speed"
-    annotation(Dialog(group="Damper position limit parameters"));
+    annotation(Dialog(group="Damper position limits"));
   parameter Real minVOutMinFansSpePos(
     final min=minVOutMaxFanSpePos,
     final max=desVOutMinFanSpePos,
     final unit="1") = 0.4
     "OA damper position to supply minimum outdoor airflow at minimum fan speed"
-    annotation(Dialog(group="Damper position limit parameters"));
+    annotation(Dialog(group="Damper position limits"));
   parameter Real minVOutMaxFanSpePos(
     final min=outDamPhyPosMin,
     final max=minVOutMinFansSpePos,
     final unit="1") = 0.3
     "OA damper position to supply minimum outdoor airflow at maximum fan speed"
-    annotation(Dialog(group="Damper position limit parameters"));
+    annotation(Dialog(group="Damper position limits"));
   parameter Real desVOutMinFanSpePos(
     final min=desVOutMaxFanSpePos,
     final max=outDamPhyPosMax,
     final unit="1") = 0.9
     "OA damper position to supply design outdoor airflow at minimum fan speed"
-    annotation(Dialog(group="Damper position limit parameters"));
+    annotation(Dialog(group="Damper position limits"));
   parameter Real desVOutMaxFanSpePos(
     final min=minVOutMaxFanSpePos,
     final max=desVOutMinFanSpePos,
     final unit="1") = 0.8
     "OA damper position to supply design outdoor airflow at maximum fan speed"
-    annotation(Dialog(group="Damper position limit parameters"));
+    annotation(Dialog(group="Damper position limits"));
   parameter Modelica.SIunits.VolumeFlowRate minVOut_flow
     "Calculated minimum outdoor airflow rate"
-    annotation(Dialog(group="Damper position limit parameters"));
+    annotation(Dialog(group="Damper position limits"));
   parameter Modelica.SIunits.VolumeFlowRate desVOut_flow
     "Calculated design outdoor airflow rate"
-    annotation(Dialog(group="Damper position limit parameters"));
+    annotation(Dialog(group="Damper position limits"));
   parameter Real outDamPhyPosMax(
     final min=0,
     final max=1,

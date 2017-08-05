@@ -4,7 +4,7 @@ block EconEnableDisableMultiZone
 
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air enthalpy in addition to temperature"
-    annotation(Dialog(group="Conditional parameters"));
+    annotation(Dialog(group="Conditional"));
   parameter Modelica.SIunits.Time retDamFulOpeTim = 180
     "Time period to keep RA damper fully open at disable to avoid pressure fluctuations"
     annotation(Dialog(group="Delay parameters at disable"));

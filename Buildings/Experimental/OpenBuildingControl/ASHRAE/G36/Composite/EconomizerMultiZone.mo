@@ -4,13 +4,13 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
   parameter Boolean use_enthalpy = false
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
   parameter Real kPDamLim=1 "Proportional gain of damper limit controller"
-    annotation(Dialog(group="Controller parameters"));
+    annotation(Dialog(group="Controller"));
   parameter Real kPMod=1 "Proportional gain of modulation controller"
-    annotation(Dialog(group="Controller parameters"));
+    annotation(Dialog(group="Controller"));
   parameter Modelica.SIunits.Time TiDamLim=30 "Time constant of damper limit controller integrator block"
-    annotation(Dialog(group="Controller parameters"));
+    annotation(Dialog(group="Controller"));
   parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block"
-    annotation(Dialog(group="Controller parameters"));
+    annotation(Dialog(group="Controller"));
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,

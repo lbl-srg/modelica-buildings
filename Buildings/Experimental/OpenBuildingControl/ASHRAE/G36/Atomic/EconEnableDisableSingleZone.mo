@@ -4,7 +4,7 @@ block EconEnableDisableSingleZone
 
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air (OA) enthalpy in addition to temperature"
-    annotation(Dialog(group="Conditional parameters"));
+    annotation(Dialog(group="Conditional"));
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,

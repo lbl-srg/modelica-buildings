@@ -3,20 +3,20 @@ block EconDamperPositionLimitsMultiZone
   "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
 
   parameter Real conSigMin=0 "Lower limit of control signal output"
-    annotation(Dialog(group="Controller parameters"));
+    annotation(Dialog(group="Controller"));
   parameter Real conSigMax=1 "Upper limit of control signal output"
-    annotation(Dialog(group="Controller parameters"));
+    annotation(Dialog(group="Controller"));
   parameter Real conSigFraOutDam(
     final min=conSigMin,
     final max=conSigMax,
     final unit="1")=0.5
     "Fraction of control loop signal output below which the outdoor air damper limit gets
     modulated and above which the return air damper limit gets modulated"
-    annotation(Dialog(group="Controller parameters"));
+    annotation(Dialog(group="Controller"));
   parameter Real kPDamLim=1 "Gain of damper limit controller"
-    annotation(Dialog(group="Controller parameters"));
+    annotation(Dialog(group="Controller"));
   parameter Modelica.SIunits.Time TiDamLim=30 "Time constant of damper limit controller integrator block"
-    annotation(Dialog(group="Controller parameters"));
+    annotation(Dialog(group="Controller"));
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
