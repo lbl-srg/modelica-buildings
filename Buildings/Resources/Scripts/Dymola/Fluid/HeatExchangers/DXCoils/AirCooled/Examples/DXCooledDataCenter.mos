@@ -1,0 +1,18 @@
+simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.DXCooledDataCenter", stopTime=86400,tolerance= 1e-06, method="dassl", resultFile="DXCooledDataCenter");
+
+removePlots(true);
+createPlot(id=1, 
+ position={27, 2, 592, 427},
+ y={"senTemRetAir.T", "TRooSetPoi.y", "senTemSupAir.T"},
+ range={0.0, 28.0, 15.0, 45.0},
+ grid=true,
+ filename="DXCooledDataCenter.mat",
+ colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1,
+ position={27, 2, 592, 211},
+ y={"conVarSpe.y"},
+ range={0.0, 28.0, -0.5, 1.5},
+ grid=true,
+ subPlot=2,
+ colors={{28,108,200}});
+
