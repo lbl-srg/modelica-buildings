@@ -2,14 +2,6 @@ within Buildings.Examples.ScalableBenchmarks.BuildingVAV;
 package BaseClasses
   extends Modelica.Icons.BasesPackage;
 
-
-
-
-
-
-
-
-
 annotation (Documentation(
 info="<html>
 <p>

@@ -1,14 +1,8 @@
 within Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples;
 model TwoFloor_TwoZone "Building model with 2 zone in 2 floor"
   extends
-<<<<<<< HEAD:Buildings/Examples/ScalableBenchmarks/BuildingVAV/Examples/TwoFloor_TwoZone.mo
     Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone(
       nFlo=2, nZon=2);
-=======
-    Buildings.Experimental.ScalableModels.ScalableBuildingModels.MultiFloorWithVAV(
-     nFlo=2,
-     nZon=2);
->>>>>>> 5b164ea632946bb56b1d0872367ab85832801162:Buildings/Experimental/ScalableModels/ScalableDemos/ScalableDemo_2Floor_2Zone.mo
 
 annotation (
   experiment(StopTime=604800, Tolerance=1e-06,__Dymola_Algorithm="Radau"),

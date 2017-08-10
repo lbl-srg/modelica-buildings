@@ -4,16 +4,9 @@ model OneFloor_OneZone
 
   replaceable package MediumA = Buildings.Media.Air(T_default=293.15);
   package MediumW = Buildings.Media.Water "Medium model for water";
-<<<<<<< HEAD:Buildings/Examples/ScalableBenchmarks/BuildingVAV/Examples/OneFloor_OneZone.mo
   parameter Integer nZon(min=1) = 1  "Number of zones per floor"
     annotation(Evaluate=true);
   parameter Integer nFlo(min=1) = 1  "Number of floors"
-=======
-
-  parameter Integer nZon(min=1) = 6 "Number of zones per floor"
-    annotation(Evaluate=true);
-  parameter Integer nFlo(min=1) = 1 "Number of floors"
->>>>>>> 5b164ea632946bb56b1d0872367ab85832801162:Buildings/Experimental/ScalableModels/ScalableBuildingModels/MultiFloorWithVAV.mo
     annotation(Evaluate=true);
   parameter Modelica.SIunits.PressureDifference dP_pre=850
     "Prescribed pressure difference";
@@ -37,16 +30,9 @@ model OneFloor_OneZone
     dpFixed_nominal={{220 + 20 for j in 1:nFlo} for i in 1:nZon})
     "Supply branch of VAV system"
     annotation (Placement(transformation(extent={{52,12},{82,42}})));
-<<<<<<< HEAD:Buildings/Examples/ScalableBenchmarks/BuildingVAV/Examples/OneFloor_OneZone.mo
 
-  Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.MultiZone
-    multiZoneFluctuatingIHG(nZon=nZon, nFlo=nFlo)
-    "Multizone model with scalable number of zones"
-=======
-  ThermalZones.BaseClasses.MultiZoneFluctuatingIHG roo(
-    nZon = nZon,
-    nFlo = nFlo) "Multizone model with scalable number of zones"
->>>>>>> 5b164ea632946bb56b1d0872367ab85832801162:Buildings/Experimental/ScalableModels/ScalableBuildingModels/MultiFloorWithVAV.mo
+  Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.MultiZone buiZon(nZon=nZon,
+      nFlo=nFlo) "Multizone model with scalable number of zones"
     annotation (Placement(transformation(extent={{48,60},{88,100}})));
   Buildings.Fluid.Movers.FlowControlled_dp fan[nFlo](
     redeclare each package Medium = MediumA,
@@ -403,8 +389,7 @@ equation
         thickness=0.5));
     connect(controlBus.subBus[iFlo], modeSelector[iFlo].cb)
       annotation (Line(
-        points={{-67.95,54.05},{-121.728,54.05},{-121.728,53.4545},{-175.455,
-            53.4545}},
+        points={{-67.95,54.05},{-121.728,54.05},{-121.728,53.4545},{-175.455,53.4545}},
         color={255,204,51},
         thickness=0.5));
     connect(controlBus.subBus[iFlo], fan_dP_On_Off[iFlo].controlBus)
@@ -530,17 +515,17 @@ equation
 
   for iFlo in 1:nFlo loop
     for iZon in 1:nZon loop
-      connect(vAVBranch[iZon, iFlo].port_b, roo.portsIn[iZon, iFlo])
+      connect(vAVBranch[iZon, iFlo].port_b, buiZon.portsIn[iZon, iFlo])
         annotation (Line(
           points={{67,42},{68.2,42},{68.2,65.8}},
           color={0,127,255},
           thickness=0.5));
-      connect(roo.portsOut[iZon, iFlo], senRetFlo[iFlo].port_a)
+      connect(buiZon.portsOut[iZon, iFlo], senRetFlo[iFlo].port_a)
         annotation (Line(
           points={{68.2,93.8},{68.2,126},{28,126}},
           color={0,127,255},
           thickness=0.5));
-      connect(roo.TRooAir[iZon, iFlo], vAVBranch[iZon, iFlo].TRoo)
+      connect(buiZon.TRooAir[iZon, iFlo], vAVBranch[iZon, iFlo].TRoo)
         annotation (Line(
           points={{90,68},{100,68},{100,52},{40,52},{40,32},{50,32}},
           color={0,0,127},
@@ -555,12 +540,12 @@ equation
           points={{-67.95,54.05},{-67.95,54.05},{-40,54.05},{-40,19.2},{52,19.2}},
           color={255,204,51},
           thickness=0.5));
-      connect(roo.TRooAir[iZon, iFlo], ave[iFlo].u[iZon])
-        annotation (Line(
-          points={{90,68},{100,68},{100,74},{106.8,74}},     color={0,0,127},
+      connect(buiZon.TRooAir[iZon, iFlo], ave[iFlo].u[iZon]) annotation (Line(
+          points={{90,68},{100,68},{100,74},{106.8,74}},
+          color={0,0,127},
           pattern=LinePattern.Dash));
-      connect(roo.TRooAir[iZon, iFlo], min1[iFlo].u[iZon])
-        annotation (Line(
+      connect(buiZon.TRooAir[iZon, iFlo], min1[iFlo].u[iZon]) annotation (
+          Line(
           points={{90,68},{100,68},{100,100},{106.8,100}},
           color={0,0,127},
           pattern=LinePattern.Dash));
@@ -580,8 +565,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(weaBus, roo.weaBus)
-    annotation (Line(
+  connect(weaBus, buiZon.weaBus) annotation (Line(
       points={{-324,170},{-324,170},{-44,170},{-44,80},{51.6,80}},
       color={255,204,51},
       thickness=0.5));
@@ -598,14 +582,9 @@ and an HVAC system on each floor.
 <p>
 The HVAC system is a variable air volume (VAV) flow system with economizer
 and a heating and cooling coil in the air handler unit. There is also a
-<<<<<<< HEAD:Buildings/Examples/ScalableBenchmarks/BuildingVAV/Examples/OneFloor_OneZone.mo
 reheat coil and an air damper in each zone inlet branches. Each floor has one VAV
 AHU system.
 The figure below shows the schematic diagram of the HVAC system
-=======
-reheat coil and an air damper in each zone inlet branches.
-The figure below shows the schematic diagram of the HVAC system.
->>>>>>> 5b164ea632946bb56b1d0872367ab85832801162:Buildings/Experimental/ScalableModels/ScalableBuildingModels/MultiFloorWithVAV.mo
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/ScalableBenchmarks/vavSchematics.png\" border=\"1\"/>

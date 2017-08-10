@@ -9,20 +9,13 @@ model CoolSetpoint "Schedule for cooling setpoint"
       18*3600, 273.15+32.0;
       24*3600, 273.15+32.0],
     columns={2});
-<<<<<<< HEAD:Buildings/Examples/ScalableBenchmarks/BuildingVAV/BaseClasses/CoolSetpoint.mo
+
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This block defines room air cooling setpoints.
-</p>
-=======
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
-<p>
-Schedule for cooling setpoint temperature.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -31,6 +24,5 @@ June 16, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
->>>>>>> 5b164ea632946bb56b1d0872367ab85832801162:Buildings/Experimental/ScalableModels/Schedules/CoolSetpoint.mo
 </html>"));
 end CoolSetpoint;
