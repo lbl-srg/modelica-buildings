@@ -3,8 +3,8 @@ compareVars :=
     "weaDat.weaBus.TDryBul",
     "weaDat.weaBus.HDirNor",
     "weaDat.weaBus.HGloHor",
-    "multiZoneFluctuatingIHG.theZon[1, 1].roo.heaPorAir.T",
-    "multiZoneFluctuatingIHG.theZon[2, 1].roo.heaPorAir.T",
-    "multiZoneFluctuatingIHG.theZon[1, 1].heaCooPow",
-    "multiZoneFluctuatingIHG.theZon[2, 1].heaCooPow"
+    "roo.theZon[1, 1].roo.heaPorAir.T",
+    "roo.theZon[2, 1].roo.heaPorAir.T",
+    "roo.theZon[1, 1].heaCooPow",
+    "roo.theZon[2, 1].heaCooPow"
   };
