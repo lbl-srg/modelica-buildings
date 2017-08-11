@@ -1,7 +1,7 @@
 within Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones;
 package Validation
   extends Modelica.Icons.ExamplesPackage;
-  
+
 annotation (Documentation(info="<html>
 <p>
 This package includes models validating

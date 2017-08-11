@@ -389,7 +389,8 @@ equation
         thickness=0.5));
     connect(controlBus.subBus[iFlo], modeSelector[iFlo].cb)
       annotation (Line(
-        points={{-67.95,54.05},{-121.728,54.05},{-121.728,53.4545},{-175.455,53.4545}},
+        points={{-67.95,54.05},{-121.728,54.05},{-121.728,53.4545},{-175.455,
+            53.4545}},
         color={255,204,51},
         thickness=0.5));
     connect(controlBus.subBus[iFlo], fan_dP_On_Off[iFlo].controlBus)
