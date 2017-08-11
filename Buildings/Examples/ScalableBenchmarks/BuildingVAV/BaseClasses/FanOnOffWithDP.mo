@@ -20,48 +20,29 @@ block FanOnOffWithDP
 
 equation
   connect(off.y, extractor.u[Integer(OperationModes.unoccupiedOff)])
-    annotation (Line(
-      points={{-19,-40},{0,-40},{0,0},{18,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+    annotation (Line(points={{-19,-40},{0,-40},{0,0},{18,0}},
+      color={0,0,127},smooth=Smooth.None));
   connect(off.y, extractor.u[Integer(OperationModes.safety)])
-    annotation (Line(
-      points={{-19,-40},{0,-40},{0,0},{18,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+    annotation (Line(points={{-19,-40},{0,-40},{0,0},{18,0}},
+      color={0,0,127},smooth=Smooth.None));
   connect(on.y, extractor.u[Integer(OperationModes.unoccupiedNightSetBack)])
-    annotation (Line(
-      points={{-19,0},{18,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+    annotation (Line(points={{-19,0},{18,0}},
+      color={0,0,127},smooth=Smooth.None));
   connect(on.y, extractor.u[Integer(OperationModes.occupied)])
-    annotation (Line(
-      points={{-19,0},{18,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+    annotation (Line(points={{-19,0},{18,0}},
+      color={0,0,127},smooth=Smooth.None));
   connect(on.y, extractor.u[Integer(OperationModes.unoccupiedWarmUp)])
-    annotation (Line(
-      points={{-19,0},{18,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+    annotation (Line(points={{-19,0},{18,0}},
+      color={0,0,127},smooth=Smooth.None));
   connect(on.y, extractor.u[Integer(OperationModes.unoccupiedPreCool)])
-    annotation (Line(
-      points={{-19,0},{18,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+    annotation (Line(points={{-19,0},{18,0}},
+      color={0,0,127},smooth=Smooth.None));
   connect(controlBus.controlMode, extractor.index)
-    annotation (Line(
-      points={{-60,80},{-60,-20},{30,-20},{30,-12}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
+    annotation (Line(points={{-60,80},{-60,-20},{30,-20},{30,-12}},
+      color={255,204,51},thickness=0.5,smooth=Smooth.None),
+      Text(string="%first",index=-1,extent={{-6,3},{-6,3}}));
   connect(extractor.y, y)
-    annotation (Line(
-      points={{41,0},{41,0},{60,0},{110,0}},
-      color={0,0,127}));
+    annotation (Line(points={{41,0},{41,0},{60,0},{110,0}},color={0,0,127}));
   annotation (
   defaultComponentName="fanOnOffDp",
   Icon(graphics={Rectangle(

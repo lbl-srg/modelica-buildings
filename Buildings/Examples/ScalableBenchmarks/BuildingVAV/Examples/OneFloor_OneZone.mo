@@ -10,16 +10,15 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.PressureDifference dP_pre=850
     "Prescribed pressure difference";
-
   parameter Modelica.SIunits.Volume VRoo[nZon,nFlo] = {{6*8*2.7 for j in 1:nFlo} for i in 1:nZon}
     "Room volume";
-  constant Real conv=1.2/3600
-    "Conversion factor for nominal mass flow rate";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal_each[nZon,nFlo]=
     {{7*conv*VRoo[i,j] for j in 1:nFlo} for i in 1:nZon}
     "Nominal flow rate to each zone";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = nZon*(7*conv)*6*8*2.7
     "Nominal system flow rate";
+  constant Real conv=1.2/3600
+    "Conversion factor for nominal mass flow rate";
 
   Buildings.Examples.ScalableBenchmarks.BuildingVAV.BaseClasses.VAVBranch
     vAVBranch[nZon,nFlo](
@@ -31,8 +30,9 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     "Supply branch of VAV system"
     annotation (Placement(transformation(extent={{52,12},{82,42}})));
 
-  Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.MultiZone buiZon(nZon=nZon,
-      nFlo=nFlo) "Multizone model with scalable number of zones"
+  Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.MultiZone buiZon(
+    nZon=nZon,
+    nFlo=nFlo) "Multizone model with scalable number of zones"
     annotation (Placement(transformation(extent={{48,60},{88,100}})));
   Buildings.Fluid.Movers.FlowControlled_dp fan[nFlo](
     redeclare each package Medium = MediumA,
@@ -253,324 +253,205 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
 equation
   for iFlo in 1:nFlo loop
     connect(eco[iFlo].port_Sup, TMix[iFlo].port_a)
-      annotation (Line(
-        points={{-232,22},{-220,22},{-220,-30},{-208,-30}},
-        color={0,127,255},
-        thickness=0.5));
+      annotation (Line(points={{-232,22},{-220,22},{-220,-30},{-208,-30}},
+        color={0,127,255}, thickness=0.5));
     connect(TMix[iFlo].port_b, fil[iFlo].port_a)
-      annotation (Line(
-        points={{-192,-30},{-184,-30},{-176,-30}}, color={0,127,255},
-        thickness=0.5));
+      annotation (Line(points={{-192,-30},{-184,-30},{-176,-30}},
+        color={0,127,255}, thickness=0.5));
     connect(hex[iFlo].port_b2, sinHea[iFlo].ports[1])
-      annotation (Line(
-        points={{-144,-42},{-148,-42},{-148,-66}},
+      annotation (Line(points={{-144,-42},{-148,-42},{-148,-66}},
         color={0,127,255}));
     connect(TSupSetHea.y, heaCoiCon[iFlo].u_s)
-      annotation (Line(
-        points={{-257.4,-60},{-193.2,-60}},
+      annotation (Line(points={{-257.4,-60},{-193.2,-60}},
         color={0,0,127}));
     connect(TSupSetHea.y, TSetCoo[iFlo].TSetHea)
-      annotation (Line(
-        points={{-257.4,-60},{-248,-60},{-248,-88},{-239.2,-88}},
+      annotation (Line(points={{-257.4,-60},{-248,-60},{-248,-88},{-239.2,-88}},
         color={0,0,127}));
     connect(TSetCoo[iFlo].TSet, cooCoiCon[iFlo].u_s)
-      annotation (Line(
-        points={{-225.4,-88},{-225.4,-88},{-193.2,-88}},
+      annotation (Line(points={{-225.4,-88},{-225.4,-88},{-193.2,-88}},
         color={0,0,127}));
     connect(TCoiHeaOut[iFlo].T, heaCoiCon[iFlo].u_m)
-      annotation (Line(
-        points={{-95,-21.2},{-95,-18},{-106,-18},{-106,-84},{-172,-84},{-172,-74},
-          {-186,-74},{-186,-67.2}},
-        color={0,0,127},
-        pattern=LinePattern.Dash));
+      annotation (Line(points={{-95,-21.2},{-95,-18},{-106,-18},{-106,-84},
+        {-172,-84},{-172,-74},{-186,-74},{-186,-67.2}},
+        color={0,0,127}, pattern=LinePattern.Dash));
     connect(TSup[iFlo].T, cooCoiCon[iFlo].u_m)
-      annotation (Line(points={{12,-21.2},{12,-16},{0,-16},{0,-100},{-186,-100},
-            {-186,-95.2}},
-        color={0,0,127},
-        pattern=LinePattern.Dash));
+      annotation (Line(points={{12,-21.2},{12,-16},{0,-16},{0,-100},{-186,-100},{-186,-95.2}},
+        color={0,0,127}, pattern=LinePattern.Dash));
     connect(heaCoiCon[iFlo].y, valHea[iFlo].y)
-      annotation (Line(
-        points={{-179.4,-60},{-172,-60},{-162,-60},{-162,-55},{-127,-55}},
-        color={0,0,127},
-        pattern=LinePattern.Dash));
+      annotation (Line(points={{-179.4,-60},{-172,-60},{-162,-60},{-162,-55},{-127,-55}},
+        color={0,0,127}, pattern=LinePattern.Dash));
     connect(cooCoiCon[iFlo].y, valCoo[iFlo].y)
-      annotation (Line(
-        points={{-179.4,-88},{-122,-88},{-66,-88},{-66,-55},{-57,-55}},
-        color={0,0,127},
-        pattern=LinePattern.Dash));
+      annotation (Line(points={{-179.4,-88},{-122,-88},{-66,-88},{-66,-55},{-57,-55}},
+        color={0,0,127}, pattern=LinePattern.Dash));
     connect(TRet[iFlo].T, conEco[iFlo].TRet)
-      annotation (Line(
-        points={{-189,134.8},{-189,142},{-294,142},{-294,98.4},{-288.8,98.4}},
-        color={0,0,127},
-        pattern=LinePattern.Dash));
+      annotation (Line(points={{-189,134.8},{-189,142},{-294,142},{-294,98.4},{-288.8,98.4}},
+        color={0,0,127}, pattern=LinePattern.Dash));
     connect(TMix[iFlo].T, conEco[iFlo].TMix)
-      annotation (Line(
-        points={{-200,-21.2},{-200,-21.2},{-200,106},{-200,114},{-298,114},{-298,
-            96},{-288.8,96}},
-        color={0,0,127},
-        pattern=LinePattern.Dash));
+      annotation (Line(points={{-200,-21.2},{-200,-21.2},{-200,106},{-200,114},{-298,114},
+        {-298,96},{-288.8,96}},
+        color={0,0,127}, pattern=LinePattern.Dash));
     connect(VOut1[iFlo].V_flow, conEco[iFlo].VOut_flow)
-      annotation (Line(
-        points={{-284,30.8},{-284,30.8},{-284,54},{-284,64},{-302,64},{-302,93.6},
-            {-288.8,93.6}},
-        color={0,0,127},
-        pattern=LinePattern.Dash));
+      annotation (Line(points={{-284,30.8},{-284,30.8},{-284,54},{-284,64},{-302,64},{-302,93.6},
+        {-288.8,93.6}},
+        color={0,0,127}, pattern=LinePattern.Dash));
     connect(TSupSetHea.y, conEco[iFlo].TSupHeaSet)
-      annotation (Line(
-        points={{-257.4,-60},{-216,-60},{-216,68},{-298,68},{-298,91.2},{-288.8,91.2}},
-        color={0,0,127},
-        pattern=LinePattern.Dash));
+      annotation (Line(points={{-257.4,-60},{-216,-60},{-216,68},{-298,68},{-298,91.2},{-288.8,91.2}},
+        color={0,0,127}, pattern=LinePattern.Dash));
     connect(TSetCoo[iFlo].TSet, conEco[iFlo].TSupCooSet)
-      annotation (Line(
-        points={{-225.4,-88},{-212,-88},{-212,72},{-294,72},{-294,88.8},{-288.8,88.8}},
-        color={0,0,127},
-        pattern=LinePattern.Dash));
+      annotation (Line(points={{-225.4,-88},{-212,-88},{-212,72},{-294,72},{-294,88.8},{-288.8,88.8}},
+        color={0,0,127}, pattern=LinePattern.Dash));
     connect(conEco[iFlo].yOA, eco[iFlo].y)
-      annotation (Line(
-        points={{-275.6,95.2},{-268,95.2},{-268,6},{-247,6},{-247,13}},
-        color={0,0,127},
-        pattern=LinePattern.Dash));
+      annotation (Line(points={{-275.6,95.2},{-268,95.2},{-268,6},{-247,6},{-247,13}},
+        color={0,0,127}, pattern=LinePattern.Dash));
     connect(weaBus, amb[iFlo].weaBus)
-      annotation (Line(
-        points={{-324,170},{-300,170},{-300,120},{-340,120},{-340,39.14},{-320,39.14}},
-        color={255,204,51},
-        thickness=0.5), Text(
-        string="%first",
-        index=-1,
-        extent={{-6,3},{-6,3}}));
+      annotation (Line(points={{-324,170},{-300,170},{-300,120},{-340,120},{-340,39.14},{-320,39.14}},
+        color={255,204,51}, thickness=0.5),
+        Text(string="%first", index=-1, extent={{-6,3},{-6,3}}));
     connect(senRetFlo[iFlo].V_flow, conFanRet[iFlo].u_m)
-      annotation (Line(
-        points={{20,134.8},{20,156.6},{19,156.6}},
-        color={0,0,127},
-        pattern=LinePattern.Dash));
+      annotation (Line(points={{20,134.8},{20,156.6},{19,156.6}},
+        color={0,0,127}, pattern=LinePattern.Dash));
     connect(conFanRet[iFlo].u, senSupFlo[iFlo].V_flow)
-      annotation (Line(
-        points={{10.6,165},{0,165},{0,0},{40,0},{40,-21.2}},
-        color={0,0,127},
-        pattern=LinePattern.Dash));
+      annotation (Line(points={{10.6,165},{0,165},{0,0},{40,0},{40,-21.2}},
+        color={0,0,127}, pattern=LinePattern.Dash));
     connect(conFanRet[iFlo].y, fanRet[iFlo].y)
-      annotation (Line(
-        points={{26.7,165},{36,165},{36,180},{-20,180},{-20,138}},
-        color={0,0,127},
-        pattern=LinePattern.Dash));
+      annotation (Line(points={{26.7,165},{36,165},{36,180},{-20,180},{-20,138}},
+        color={0,0,127}, pattern=LinePattern.Dash));
     connect(TCoiHeaOut[iFlo].port_b, cooCoi[iFlo].port_a2)
-      annotation (Line(
-        points={{-88,-30},{-82,-30},{-76,-30}},
-        color={0,127,255},
-        thickness=0.5));
+      annotation (Line(points={{-88,-30},{-82,-30},{-76,-30}},
+        color={0,127,255}, thickness=0.5));
     connect(cooCoi[iFlo].port_b2, fan[iFlo].port_a)
-      annotation (Line(
-        points={{-56,-30},{-48,-30},{-40,-30}},
-        color={0,127,255},
-        thickness=0.5));
+      annotation (Line(points={{-56,-30},{-48,-30},{-40,-30}},
+        color={0,127,255}, thickness=0.5));
     connect(cooCoi[iFlo].port_b1, sinCoo[iFlo].ports[1])
-      annotation (Line(
-        points={{-76,-42},{-80,-42},{-80,-66}},
+      annotation (Line(points={{-76,-42},{-80,-42},{-80,-66}},
         color={0,127,255}));
     connect(cooCoi[iFlo].port_a1, valCoo[iFlo].port_b)
-      annotation (Line(
-        points={{-56,-42},{-51,-42},{-51,-50}},
+      annotation (Line(points={{-56,-42},{-51,-42},{-51,-50}},
         color={0,127,255}));
     connect(modeSelector[iFlo].cb, TSetCoo[iFlo].controlBus)
-      annotation (Line(
-        points={{-175.455,53.4545},{-206,53.4545},{-206,-92.8},{-233.08,-92.8}},
-        color={255,204,51},
-        thickness=0.5));
+      annotation (Line(points={{-175.455,53.4545},{-206,53.4545},{-206,-92.8},{
+            -233.08,-92.8}},
+        color={255,204,51}, thickness=0.5));
     connect(controlBus.subBus[iFlo], conFanRet[iFlo].controlBus)
-      annotation (Line(
-        points={{-67.95,54.05},{-67.95,54.05},{-40,54.05},{-40,170.6},{14.1,170.6}},
-        color={255,204,51},
-        thickness=0.5));
+      annotation (Line(points={{-67.95,54.05},{-67.95,54.05},{-40,54.05},{-40,170.6},{14.1,170.6}},
+        color={255,204,51}, thickness=0.5));
     connect(controlBus.subBus[iFlo], conEco[iFlo].controlBus)
-      annotation (Line(
-        points={{-67.95,54.05},{-67.95,54.05},{-134,54.05},{-134,104},{-285.6,104},
-            {-285.6,94.4}},
-        color={255,204,51},
-        thickness=0.5));
+      annotation (Line(points={{-67.95,54.05},{-67.95,54.05},{-134,54.05},{-134,104},{-285.6,104},
+        {-285.6,94.4}},
+        color={255,204,51}, thickness=0.5));
     connect(controlBus.subBus[iFlo], modeSelector[iFlo].cb)
-      annotation (Line(
-        points={{-67.95,54.05},{-121.728,54.05},{-121.728,53.4545},{-175.455,
-            53.4545}},
-        color={255,204,51},
-        thickness=0.5));
+      annotation (Line(points={{-67.95,54.05},{-121.728,54.05},{-121.728,
+            53.4545},{-175.455,53.4545}},
+        color={255,204,51}, thickness=0.5));
     connect(controlBus.subBus[iFlo], fan_dP_On_Off[iFlo].controlBus)
-      annotation (
-        Line(
-        points={{-67.95,54.05},{-67.95,54.05},{-67.95,-1.4},{-67.2,-1.4}},
-        color={255,204,51},
-        thickness=0.5),
-        Text(string="%first",
-        index=-1,
-        extent={{-6,3},{-6,3}}));
+      annotation (Line(points={{-67.95,54.05},{-67.95,54.05},{-67.95,-1.4},{-67.2,-1.4}},
+        color={255,204,51}, thickness=0.5),
+        Text(string="%first", index=-1, extent={{-6,3},{-6,3}}));
     connect(min1[iFlo].y, controlBus.subBus[iFlo].TRooMin)
-      annotation (Line(
-        points={{120.6,100},{130,100},{130,6},{-67.95,6},{-67.95,54.05}},
-        color={0,0,127},
-        pattern=LinePattern.Dash));
+      annotation (Line(points={{120.6,100},{130,100},{130,6},{-67.95,6},{-67.95,54.05}},
+        color={0,0,127}, pattern=LinePattern.Dash));
     connect(ave[iFlo].y, controlBus.subBus[iFlo].TRooAve)
-      annotation (Line(
-        points={{120.6,74},{130,74},{130,6},{-67.95,6},{-67.95,54.05}},
-        color={0,0,127},
-        pattern=LinePattern.Dash));
+      annotation (Line(points={{120.6,74},{130,74},{130,6},{-67.95,6},{-67.95,54.05}},
+        color={0,0,127}, pattern=LinePattern.Dash));
     connect(TOut.y, controlBus.subBus[iFlo].TOut)
-      annotation (Line(
-        points={{-315.4,146},{-315.4,148},{-67.95,148},{-67.95,54.05}},
-        color={0,0,127},
-        pattern=LinePattern.Dash));
+      annotation (Line(points={{-315.4,146},{-315.4,148},{-67.95,148},{-67.95,54.05}},
+        color={0,0,127}, pattern=LinePattern.Dash));
     connect(TSetHea.y[1], controlBus.subBus[iFlo].TRooSetHea)
-      annotation (Line(
-        points={{-117.4,36},{-92,36},{-92,54.05},{-67.95,54.05}},
-        color={255,204,51},
-        thickness=0.5), Text(
-        string="%second",
-        index=1,
-        extent={{6,3},{6,3}}));
+      annotation (Line(points={{-117.4,36},{-92,36},{-92,54.05},{-67.95,54.05}},
+        color={255,204,51}, thickness=0.5),
+        Text(string="%second", index=1, extent={{6,3},{6,3}}));
     connect(TSetCoo1.y[1], controlBus.subBus[iFlo].TRooSetCoo)
-      annotation (Line(
-        points={{-117.4,16},{-92,16},{-92,54.05},{-67.95,54.05}},
-        color={255,204,51},
-        thickness=0.5), Text(
-        string="%second",
-        index=1,
-        extent={{6,3},{6,3}}));
+      annotation (Line(points={{-117.4,16},{-92,16},{-92,54.05},{-67.95,54.05}},
+        color={255,204,51}, thickness=0.5),
+        Text(string="%second", index=1, extent={{6,3},{6,3}}));
     connect(occSch.tNexOcc, controlBus.subBus[iFlo].dTNexOcc)
-      annotation (Line(
-        points={{-115.4,79.6},{-92,79.6},{-92,54.05},{-67.95,54.05}},
-        color={255,204,57},
-        thickness=0.5), Text(
-        string="%second",
-        index=1,
-        extent={{6,3},{6,3}}));
+      annotation (Line(points={{-115.4,79.6},{-92,79.6},{-92,54.05},{-67.95,54.05}},
+        color={255,204,57}, thickness=0.5),
+        Text(string="%second", index=1, extent={{6,3},{6,3}}));
     connect(occSch.occupied, controlBus.subBus[iFlo].occupied)
-      annotation (Line(
-        points={{-115.4,72.4},{-92,72.4},{-92,54.05},{-67.95,54.05}},
-        color={255,204,51},
-        thickness=0.5), Text(
-        string="%second",
-        index=1,
-        extent={{6,3},{6,3}}));
+      annotation (Line(points={{-115.4,72.4},{-92,72.4},{-92,54.05},{-67.95,54.05}},
+        color={255,204,51}, thickness=0.5),
+        Text(string="%second", index=1, extent={{6,3},{6,3}}));
     connect(eco[iFlo].port_Exh, amb[iFlo].ports[1])
-      annotation (Line(
-        points={{-262,40},{-278,40},{-278,40.4},{-306,40.4}},
-        color={0,127,255},
-        thickness=0.5));
+      annotation (Line(points={{-262,40},{-278,40},{-278,40.4},{-306,40.4}},
+        color={0,127,255}, thickness=0.5));
     connect(senRetFlo[iFlo].port_b, fanRet[iFlo].port_a)
-      annotation (Line(
-        points={{12,126},{-10,126}},color={0,127,255},
-        thickness=0.5));
+      annotation (Line(points={{12,126},{-10,126}},color={0,127,255}, thickness=0.5));
     connect(fanRet[iFlo].port_b, TRet[iFlo].port_a)
-      annotation (Line(
-        points={{-30,126},{-182,126}},
-        color={0,127,255},
-        thickness=0.5));
+      annotation (Line(points={{-30,126},{-182,126}},
+        color={0,127,255}, thickness=0.5));
     connect(TRet[iFlo].port_b, eco[iFlo].port_Ret)
-      annotation (Line(
-        points={{-196,126},{-220,126},{-220,40},{-232,40}},
-        color={0,127,255},
-        thickness=0.5));
+      annotation (Line(points={{-196,126},{-220,126},{-220,40},{-232,40}},
+        color={0,127,255}, thickness=0.5));
     connect(hex[iFlo].port_a2, valHea[iFlo].port_b)
-      annotation (Line(
-        points={{-124,-42},{-121,-42},{-121,-50}},
+      annotation (Line( points={{-124,-42},{-121,-42},{-121,-50}},
         color={0,127,255}));
     connect(souHea[iFlo].ports[1], valHea[iFlo].port_a)
-      annotation (Line(
-        points={{-120,-66},{-120,-60},{-121,-60}},
+      annotation (Line(points={{-120,-66},{-120,-60},{-121,-60}},
         color={0,127,255}));
     connect(valCoo[iFlo].port_a, souCoo[iFlo].ports[1])
-      annotation (Line(
-        points={{-51,-60},{-50,-60},{-50,-66}},
+      annotation (Line(points={{-51,-60},{-50,-60},{-50,-66}},
         color={0,127,255}));
     connect(amb[iFlo].ports[2], VOut1[iFlo].port_a)
-      annotation (Line(
-        points={{-306,37.6},{-300,37.6},{-300,22},{-292,22}},
-        color={0,127,255},
-        thickness=0.5));
+      annotation (Line(points={{-306,37.6},{-300,37.6},{-300,22},{-292,22}},
+        color={0,127,255}, thickness=0.5));
     connect(VOut1[iFlo].port_b, eco[iFlo].port_Out)
-      annotation (Line(
-        points={{-276,22},{-270,22},{-262,22}},
-        color={0,127,255},
-        thickness=0.5));
+      annotation (Line(points={{-276,22},{-270,22},{-262,22}},
+        color={0,127,255}, thickness=0.5));
     connect(fil[iFlo].port_b, hex[iFlo].port_a1)
-      annotation (Line(
-        points={{-162,-30},{-162,-30},{-144,-30}},
-        color={0,127,255},
-        thickness=0.5));
+      annotation (Line(points={{-162,-30},{-162,-30},{-144,-30}},
+        color={0,127,255}, thickness=0.5));
     connect(hex[iFlo].port_b1, TCoiHeaOut[iFlo].port_a)
-      annotation (Line(
-        points={{-124,-30},{-102,-30}},
-        color={0,127,255},
-        thickness=0.5));
+      annotation (Line(points={{-124,-30},{-102,-30}},
+        color={0,127,255}, thickness=0.5));
     connect(fan[iFlo].port_b, TSup[iFlo].port_a)
-      annotation (Line(
-        points={{-20,-30},{4,-30}},
-        color={0,127,255},
-        thickness=0.5));
+      annotation (Line(points={{-20,-30},{4,-30}},
+        color={0,127,255}, thickness=0.5));
     connect(TSup[iFlo].port_b, senSupFlo[iFlo].port_a)
-      annotation (Line(
-        points={{20,-30},{20,-30},{32,-30}},
-        color={0,127,255},
-        thickness=0.5));
+      annotation (Line(points={{20,-30},{20,-30},{32,-30}},
+        color={0,127,255}, thickness=0.5));
     connect(fan_dP_On_Off[iFlo].y, fan[iFlo].dp_in)
-    annotation (Line(points={{-55.3,-7},{-30,-7},{-30,-18}}, color={0,0,127}));
+      annotation (Line(points={{-55.3,-7},{-30,-7},{-30,-18}}, color={0,0,127}));
   end for;
 
   for iFlo in 1:nFlo loop
     for iZon in 1:nZon loop
       connect(vAVBranch[iZon, iFlo].port_b, buiZon.portsIn[iZon, iFlo])
-        annotation (Line(
-          points={{67,42},{68.2,42},{68.2,65.8}},
-          color={0,127,255},
-          thickness=0.5));
+        annotation (Line(points={{67,42},{68.2,42},{68.2,65.8}},
+          color={0,127,255}, thickness=0.5));
       connect(buiZon.portsOut[iZon, iFlo], senRetFlo[iFlo].port_a)
-        annotation (Line(
-          points={{68.2,93.8},{68.2,126},{28,126}},
-          color={0,127,255},
-          thickness=0.5));
+        annotation (Line(points={{68.2,93.8},{68.2,126},{28,126}},
+          color={0,127,255}, thickness=0.5));
       connect(buiZon.TRooAir[iZon, iFlo], vAVBranch[iZon, iFlo].TRoo)
-        annotation (Line(
-          points={{90,68},{100,68},{100,52},{40,52},{40,32},{50,32}},
-          color={0,0,127},
-          pattern=LinePattern.Dash));
+        annotation (Line(points={{90,68},{100,68},{100,52},{40,52},{40,32},{50,32}},
+          color={0,0,127}, pattern=LinePattern.Dash));
       connect(senSupFlo[iFlo].port_b, vAVBranch[iZon, iFlo].port_a)
-        annotation (Line(
-          points={{48,-30},{48,-30},{68,-30},{68,12},{67,12}},
-          color={0,127,255},
-          thickness=0.5));
+        annotation (Line(points={{48,-30},{48,-30},{68,-30},{68,12},{67,12}},
+          color={0,127,255}, thickness=0.5));
       connect(controlBus.subBus[iFlo], vAVBranch[iZon, iFlo].controlBus)
-        annotation (Line(
-          points={{-67.95,54.05},{-67.95,54.05},{-40,54.05},{-40,19.2},{52,19.2}},
-          color={255,204,51},
-          thickness=0.5));
-      connect(buiZon.TRooAir[iZon, iFlo], ave[iFlo].u[iZon]) annotation (Line(
-          points={{90,68},{100,68},{100,74},{106.8,74}},
-          color={0,0,127},
-          pattern=LinePattern.Dash));
-      connect(buiZon.TRooAir[iZon, iFlo], min1[iFlo].u[iZon]) annotation (
-          Line(
-          points={{90,68},{100,68},{100,100},{106.8,100}},
-          color={0,0,127},
-          pattern=LinePattern.Dash));
+        annotation (Line(points={{-67.95,54.05},{-67.95,54.05},{-40,54.05},{-40,19.2},{52,19.2}},
+          color={255,204,51}, thickness=0.5));
+      connect(buiZon.TRooAir[iZon, iFlo], ave[iFlo].u[iZon])
+        annotation (Line(points={{90,68},{100,68},{100,74},{106.8,74}},
+          color={0,0,127}, pattern=LinePattern.Dash));
+      connect(buiZon.TRooAir[iZon, iFlo], min1[iFlo].u[iZon])
+        annotation (Line(points={{90,68},{100,68},{100,100},{106.8,100}},
+          color={0,0,127}, pattern=LinePattern.Dash));
     end for;
   end for;
 
   connect(weaDat.weaBus, weaBus)
-    annotation (Line(
-      points={{-340,170},{-336,170},{-324,170}},
-      color={255,204,51},
-      thickness=0.5));
+    annotation (Line(points={{-340,170},{-336,170},{-324,170}},
+      color={255,204,51}, thickness=0.5));
   connect(weaBus.TDryBul, TOut.u)
-    annotation (Line(
-      points={{-324,170},{-326,170},{-334,170},{-334,146},{-329.2,146}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(weaBus, buiZon.weaBus) annotation (Line(
-      points={{-324,170},{-324,170},{-44,170},{-44,80},{51.6,80}},
-      color={255,204,51},
-      thickness=0.5));
-  annotation (
+    annotation (Line(points={{-324,170},{-326,170},{-334,170},{-334,146},{-329.2,146}},
+      color={255,204,51}, thickness=0.5),
+      Text(string="%first", index=-1, extent={{-6,3},{-6,3}}));
+  connect(weaBus, buiZon.weaBus)
+    annotation (Line(points={{-324,170},{-324,170},{-44,170},{-44,80},{51.6,80}},
+      color={255,204,51}, thickness=0.5));
+
+annotation (
   experiment(StopTime=604800, Tolerance=1e-06,__Dymola_Algorithm="Radau"),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ScalableBenchmarks/BuildingVAV/Examples/OneFloor_OneZone.mos"
         "Simulate and plot"),

@@ -141,7 +141,8 @@ equation
    connect(con.TRoo, TRoo)
       annotation (Line(points={{-2,8},{-60,8},{-60,100},{-120,100}},
         color={0,0,127}, smooth=Smooth.None, pattern=LinePattern.Dash));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+
+annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{200,200}}), graphics={
         Rectangle(
@@ -244,7 +245,7 @@ box model
 <a href=\"modelica://Buildings.Fluid.Actuators.Dampers.PressureIndependent\">
 Buildings.Fluid.Actuators.Dampers.PressureIndependent</a>.
 </p>
-</html>",     revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 June 6, 2017 by Jianjun Hu:<br/>
