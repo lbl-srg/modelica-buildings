@@ -1,5 +1,5 @@
 within Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples;
-model OneFloor_OneZone
+model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
   extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air(T_default=293.15);

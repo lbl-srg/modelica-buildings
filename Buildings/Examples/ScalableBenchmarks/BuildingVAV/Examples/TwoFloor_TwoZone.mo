@@ -1,5 +1,5 @@
 within Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples;
-model TwoFloor_TwoZone "Building model with 2 zone in 2 floor"
+model TwoFloor_TwoZone "Closed-loop model with 2 zone in 2 floor"
   extends
     Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone(
       nFlo=2, nZon=2);

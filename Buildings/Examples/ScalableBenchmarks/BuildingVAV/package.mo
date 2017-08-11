@@ -1,16 +1,14 @@
 within Buildings.Examples.ScalableBenchmarks;
 package BuildingVAV "Scalable model for building with VAV system"
 
-
-
 annotation (Documentation(
 info="<html>
 <p>
 The models in this package include scalable building envelope model that
 extends from
 <a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">
-Buildings.ThermalZones.Detailed.MixedAir</a>, HVAC system model with variable 
-air volume (VAV) flow system with economizer and heating and cooling coil 
+Buildings.ThermalZones.Detailed.MixedAir</a>, HVAC system model with variable
+air volume (VAV) flow system with economizer and heating and cooling coil
 in the air handler unit.
 </p>
 <p>

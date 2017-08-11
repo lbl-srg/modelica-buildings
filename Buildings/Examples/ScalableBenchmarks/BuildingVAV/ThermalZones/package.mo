@@ -1,8 +1,6 @@
 within Buildings.Examples.ScalableBenchmarks.BuildingVAV;
 package ThermalZones "Scalable building envelope model"
 
-
-
   annotation (Documentation(info="<html>
 <p>
 This package includes building envelope model that extends from
