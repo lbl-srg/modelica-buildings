@@ -16,7 +16,8 @@ equation
   connect(weaDat.weaBus, thermalZone.weaBus)
     annotation (Line(points={{-60,-30},{-38,-30},{-14.8,-30},{-14.8,-16}},
       color={255,204,51},  thickness=0.5));
-  annotation (
+
+annotation (
   experiment(StopTime=604800, Tolerance=1e-06, __Dymola_Algorithm="Radau"),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ScalableBenchmarks/BuildingVAV/ThermalZones/Validation/ThermalZone.mos"
         "Simulate and plot"),

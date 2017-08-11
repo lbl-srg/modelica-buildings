@@ -8,12 +8,14 @@ model MultiZone "Validated the MultiZone model"
   Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.MultiZone
     multiZone(nZon=6, nFlo=2)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
+
 equation
   connect(weaDat.weaBus, multiZone.weaBus) annotation (Line(
       points={{-60,-30},{-40,-30},{-40,0},{-16.4,0}},
       color={255,204,51},
       thickness=0.5));
-  annotation (
+
+annotation (
   experiment(StopTime=604800, Tolerance=1e-06, __Dymola_Algorithm="Radau"),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ScalableBenchmarks/BuildingVAV/ThermalZones/Validation/MultiZone.mos"
         "Simulate and plot"),

@@ -43,33 +43,25 @@ equation
     for iFlo in 1:nFlo-1 loop
       connect(theZon[iZon, iFlo].heaPorFlo, theZon[iZon,
           if iFlo == nFlo then 1 else iFlo+1].heaPorCei)
-        annotation (Line(
-          points={{0,-20.4},{0,-20},{12,-20},{12,20},{0,20}},
+        annotation (Line(points={{0,-20.4},{0,-20},{12,-20},{12,20},{0,20}},
           color={191,0,0}));
       connect(theZon[iZon, iFlo].heaPorWal1, theZon[if iZon == nZon then 1
           else iZon+1, iFlo].heaPorWal2)
-        annotation (Line(
-          points={{-20,0},{-26,0},{-26,24},{14,24},{14,0},{20,0}},
+        annotation (Line(points={{-20,0},{-26,0},{-26,24},{14,24},{14,0},{20,0}},
           color={191,0,0}));
     end for;
   end for;
   for iZon in 1:nZon loop
     for iFlo in 1:nFlo loop
       connect(weaBus, theZon[iZon, iFlo].weaBus)
-        annotation (Line(
-          points={{-82,0},{-40,0},{-40,-16},{-14.8,-16}},
-          color={255,204,51},
-          thickness=0.5));
+        annotation (Line(points={{-82,0},{-40,0},{-40,-16},{-14.8,-16}},
+          color={255,204,51}, thickness=0.5));
       connect(portsIn[iZon, iFlo], theZon[iZon, iFlo].portsInOut[1])
-        annotation (Line(
-          points={{1,-71},{0,-71},{0,-60},{-30,-60},{-30,8},{-16.8,8}},
-          color={0,127,255},
-          thickness=0.25));
+        annotation (Line(points={{1,-71},{0,-71},{0,-60},{-30,-60},{-30,8},{-16.8,8}},
+          color={0,127,255}, thickness=0.25));
       connect(portsOut[iZon, iFlo], theZon[iZon, iFlo].portsInOut[2])
-        annotation (Line(
-          points={{0,61},{0,61},{0,40},{-12.8,40},{-12.8,8}},
-          color={0,127,255},
-          thickness=0.25));
+        annotation (Line(points={{0,61},{0,61},{0,40},{-12.8,40},{-12.8,8}},
+          color={0,127,255}, thickness=0.25));
       connect(theZon[iZon, iFlo].heaCooPow, heaCooPow[iZon, iFlo])
         annotation (Line(points={{20.4,16},{40,16},{40,60},{110,60}},
           color={0,0,127}));
@@ -79,7 +71,7 @@ equation
     end for;
   end for;
 
-  annotation (Icon(graphics={
+annotation (Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

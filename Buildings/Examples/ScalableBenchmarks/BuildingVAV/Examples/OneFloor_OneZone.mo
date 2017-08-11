@@ -329,8 +329,7 @@ equation
       annotation (Line(points={{-56,-42},{-51,-42},{-51,-50}},
         color={0,127,255}));
     connect(modeSelector[iFlo].cb, TSetCoo[iFlo].controlBus)
-      annotation (Line(points={{-175.455,53.4545},{-206,53.4545},{-206,-92.8},{
-            -233.08,-92.8}},
+      annotation (Line(points={{-175.455,53.4545},{-206,53.4545},{-206,-92.8},{-233.08,-92.8}},
         color={255,204,51}, thickness=0.5));
     connect(controlBus.subBus[iFlo], conFanRet[iFlo].controlBus)
       annotation (Line(points={{-67.95,54.05},{-67.95,54.05},{-40,54.05},{-40,170.6},{14.1,170.6}},
@@ -340,8 +339,7 @@ equation
         {-285.6,94.4}},
         color={255,204,51}, thickness=0.5));
     connect(controlBus.subBus[iFlo], modeSelector[iFlo].cb)
-      annotation (Line(points={{-67.95,54.05},{-121.728,54.05},{-121.728,
-            53.4545},{-175.455,53.4545}},
+      annotation (Line(points={{-67.95,54.05},{-121.728,54.05},{-121.728,53.4545},{-175.455,53.4545}},
         color={255,204,51}, thickness=0.5));
     connect(controlBus.subBus[iFlo], fan_dP_On_Off[iFlo].controlBus)
       annotation (Line(points={{-67.95,54.05},{-67.95,54.05},{-67.95,-1.4},{-67.2,-1.4}},
