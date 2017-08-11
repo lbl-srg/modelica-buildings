@@ -65,16 +65,6 @@ block EconModulationSingleZone
     annotation (Placement(transformation(extent={{120,10},{140,30}}),
       iconTransformation(extent={{100,10},{120,30}})));
 
-  CDL.Continuous.Line outDamPos(
-    limitBelow=true,
-    limitAbove=true)
-    "Damper position is linearly proportional to the control signal between signal limits"
-    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  CDL.Continuous.Line retDamPos(
-    limitBelow=true,
-    limitAbove=true)
-    "Damper position is linearly proportional to the control signal between signal limits"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   CDL.Continuous.LimPID damPosCon(
     final controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
     final Td=0.1,
@@ -92,6 +82,17 @@ protected
   CDL.Continuous.Sources.Constant retDamMaxLimSig(final k=damPosCon.yMax)
     "Maximal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+
+  CDL.Continuous.Line outDamPos(
+    limitBelow=true,
+    limitAbove=true)
+    "Damper position is linearly proportional to the control signal between signal limits"
+    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+  CDL.Continuous.Line retDamPos(
+    limitBelow=true,
+    limitAbove=true)
+    "Damper position is linearly proportional to the control signal between signal limits"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
 equation
   connect(TSup,damPosCon. u_m)
