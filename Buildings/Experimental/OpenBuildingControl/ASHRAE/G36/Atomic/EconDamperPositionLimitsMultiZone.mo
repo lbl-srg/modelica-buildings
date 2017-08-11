@@ -3,44 +3,43 @@ block EconDamperPositionLimitsMultiZone
   "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
 
   parameter Real conSigMin=0 "Lower limit of control signal output"
-    annotation(Dialog(group="Controller"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
   parameter Real conSigMax=1 "Upper limit of control signal output"
-    annotation(Dialog(group="Controller"));
-  parameter Real conSigFraOutDam(
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+  parameter Real retDamConSigMin(
     final min=conSigMin,
     final max=conSigMax,
     final unit="1")=0.5
-    "Fraction of control loop signal output below which the outdoor air damper limit gets
-    modulated and above which the return air damper limit gets modulated"
-    annotation(Dialog(group="Controller"));
+    "Minimum control signal for the RA damper position limit - maximum for the OA damper position limit"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
   parameter Real kPDamLim=1 "Gain of damper limit controller"
-    annotation(Dialog(group="Controller"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
   parameter Modelica.SIunits.Time TiDamLim=30 "Time constant of damper limit controller integrator block"
-    annotation(Dialog(group="Controller"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the return air damper"
-    annotation(Dialog(group="Physical damper position limits"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the return air damper"
-    annotation(Dialog(group="Physical damper position limits"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the outdoor air damper"
-    annotation(Dialog(group="Physical damper position limits"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation(Dialog(group="Physical damper position limits"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   CDL.Interfaces.RealInput VOut_flow(
     final unit="m3/s",
@@ -128,7 +127,7 @@ protected
   CDL.Continuous.Sources.Constant maxSigLim(final k=conSigMax)
     "Equals maximum controller output signal"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
-  CDL.Continuous.Sources.Constant sigFraForOutDam(final k=conSigFraOutDam)
+  CDL.Continuous.Sources.Constant sigFraForOutDam(final k=retDamConSigMin)
     "Equals the fraction of the control loop signal below which the outdoor air damper
     limit gets modulated and above which the return air damper limit gets modulated"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
@@ -333,9 +332,9 @@ src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASH
 The controller sets the outdoor and return damper position limits so
 that the outdoor airflow rate <code>VOut_flow</code> stays equal or above the
 minimum outdoor air setpoint <code>VOutMinSet_flow</code>. The fraction of the controller
-output signal between <code>conSigMin</code> and <code>conSigFraOutDam</code> is
+output signal between <code>conSigMin</code> and <code>retDamConSigMin</code> is
 linearly mapped to the outdoor air damper minimal position <code>yOutDamPosMin</code>
-while the fraction of the controller output between <code>conSigFraOutDam</code> and
+while the fraction of the controller output between <code>retDamConSigMin</code> and
 <code>conSigMax</code> is linearly mapped to the return air damper maximum position
 <code>yRetDamPosMax</code>. Thus the dampers are not interlocked.
 </p>

@@ -5,12 +5,19 @@ block EconEnableDisableMultiZone
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air enthalpy in addition to temperature"
     annotation(Dialog(group="Conditional"));
-  parameter Modelica.SIunits.Time retDamFulOpeTim = 180
-    "Time period to keep RA damper fully open at disable to avoid pressure fluctuations"
-    annotation(Dialog(group="Delay parameters at disable"));
-  parameter Modelica.SIunits.Time smaDisDel = 15
-    "Set to positive number to enable small time delay before closing the OA damper at disable to avoid pressure fluctuations"
-    annotation(Dialog(group="Delay parameters at disable"));
+  parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
+    "Delta between the temperature hysteresis high and low limit"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
+  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
+    "Delta between the enthalpy hysteresis high and low limits"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
+  parameter Modelica.SIunits.Time retDamFulOpeTim=180
+    "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control 
+    at disable to avoid pressure fluctuations"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
+  parameter Modelica.SIunits.Time smaDisDel=15
+    "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
 
   CDL.Interfaces.RealInput TOut(
     final unit="K",
@@ -106,11 +113,6 @@ block EconEnableDisableMultiZone
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
 protected
-  final parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
-    "Delta between the temperature hysteresis high and low limit";
-  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
-    "Delta between the enthalpy hysteresis high and low limits, used if use_enthalpy = true"
-    annotation(Dialog(enable = use_enthalpy));
   final parameter Modelica.SIunits.TemperatureDifference TOutHigLimCutHig = 0
     "Hysteresis high limit cutoff";
   final parameter Real TOutHigLimCutLow = TOutHigLimCutHig - delTOutHis
@@ -220,7 +222,7 @@ equation
     annotation (Line(points={{61,40},{72,40},{72,-20},{-20,-20},{-20,-60},{-12,-60}}, color={255,0,255}));
   connect(minRetDamSwitch.y, yRetDamPosMin)
     annotation (Line(points={{61,-250},{124,-250},{190,-250}}, color={0,0,127}));
-  connect(maxRetDamSwitch.y, yRetDamPosMax) annotation (Line(points={{61,-210},{190,-210}},  color={0,0,127}));
+  connect(maxRetDamSwitch.y, yRetDamPosMax) annotation (Line(points={{61,-210},{190,-210}}, color={0,0,127}));
   connect(openRetDam.y, les1.u2)
     annotation (Line(points={{-39,-180},{-30,-180},{-30,-188},{-10,-188}}, color={0,0,127}));
   connect(not2.y, timer.u) annotation (Line(points={{11,-60},{28,-60}},   color={255,0,255}));
@@ -234,10 +236,10 @@ equation
     annotation (Line(points={{-99,-10},{-20,-10},{-20,32},{38,32}}, color={255,0,255}));
   connect(and2.y, maxRetDamSwitch.u2)
     annotation (Line(points={{151,-172},{162,-172},{162,-230},{20,-230},{20,-210},
-          {38,-210}},                                                                         color={255,0,255}));
+          {38,-210}}, color={255,0,255}));
   connect(and2.y, minRetDamSwitch.u2)
     annotation (Line(points={{151,-172},{162,-172},{162,-230},{20,-230},{20,-250},
-          {38,-250}},                                                                         color={255,0,255}));
+          {38,-250}}, color={255,0,255}));
   connect(not2.y, retDamSwitch.u2)
     annotation (Line(points={{11,-60},{20,-60},{20,-72},{-90,-72},{-90,-260},{-62,-260}},color={255,0,255}));
   connect(uRetDamPosMax, retDamSwitch.u1)
@@ -253,7 +255,7 @@ equation
   connect(and1.y, andEnaDis.u1)
     annotation (Line(points={{21,110},{21,110},{30,110},{30,48},{38,48}},color={255,0,255}));
   connect(les1.y, and2.u2)
-    annotation (Line(points={{13,-180},{128,-180}},                    color={255,0,255}));
+    annotation (Line(points={{13,-180},{128,-180}},color={255,0,255}));
   connect(uSupFan, and1.u2)
     annotation (Line(points={{-200,110},{-102,110},{-102,102},{-2,102}},color={255,0,255}));
   connect(intToRea1.u, uZonSta) annotation (Line(points={{-162,-10},{-170,-10},{-200,-10}}, color={255,127,0}));

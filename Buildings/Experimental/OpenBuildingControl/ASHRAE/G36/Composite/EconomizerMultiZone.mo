@@ -1,40 +1,68 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Composite;
 model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
 
-  parameter Boolean use_enthalpy = false
+  parameter Boolean use_enthalpy = true
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
-  parameter Real kPDamLim=1 "Proportional gain of damper limit controller"
-    annotation(Dialog(group="Controller"));
+  parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
+    "Delta between the temperature hysteresis high and low limit"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
+  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
+    "Delta between the enthalpy hysteresis high and low limits"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
+  parameter Modelica.SIunits.Time retDamFulOpeTim = 180
+    "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control 
+    at disable to avoid pressure fluctuations"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
+  parameter Modelica.SIunits.Time smaDisDel = 15
+    "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
   parameter Real kPMod=1 "Proportional gain of modulation controller"
-    annotation(Dialog(group="Controller"));
-  parameter Modelica.SIunits.Time TiDamLim=30 "Time constant of damper limit controller integrator block"
-    annotation(Dialog(group="Controller"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
   parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block"
-    annotation(Dialog(group="Controller"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+  parameter Real retDamConSigMinMod(
+    final min=0,
+    final max=1,
+    final unit="1") = 0.5 "Minimum modulation control loop signal for the RA damper - maximum for the OA damper"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+  parameter Real kPDamLim=1 "Proportional gain of damper limit controller"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+  parameter Modelica.SIunits.Time TiDamLim=30 "Time constant of damper limit controller integrator block"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+  parameter Real conSigMinDamLim=0 "Lower limit of damper position limits control signal output"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+  parameter Real conSigMaxDamLim=1 "Upper limit of damper position limits control signal output"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+  parameter Real retDamConSigMinDamLim(
+    final min=conSigMinDamLim,
+    final max=conSigMaxDamLim,
+    final unit="1")=0.5
+    "Minimum control signal for the RA damper position limit - maximum for the OA damper position limit"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the return air damper"
-    annotation(Dialog(group="Physical damper position limits"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the return air damper"
-    annotation(Dialog(group="Physical damper position limits"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the outdoor air damper"
-    annotation(Dialog(group="Physical damper position limits"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation(Dialog(group="Physical damper position limits"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   CDL.Interfaces.RealInput THeaSet(
     final unit="K",
@@ -111,7 +139,11 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     iconTransformation(extent={{100,-30}, {120,-10}})));
 
   Atomic.EconEnableDisableMultiZone ecoEnaDis(
-    use_enthalpy=use_enthalpy) "Multizone VAV AHU economizer enable/disable sequence"
+    final use_enthalpy=use_enthalpy,
+    final delTOutHis=delTOutHis,
+    final delEntHis=delEntHis,
+    final retDamFulOpeTim=retDamFulOpeTim,
+    final smaDisDel=smaDisDel) "Multizone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Atomic.EconDamperPositionLimitsMultiZone ecoDamLim(
     final retDamPhyPosMax=retDamPhyPosMax,
@@ -119,12 +151,16 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     final outDamPhyPosMax=outDamPhyPosMax,
     final outDamPhyPosMin=outDamPhyPosMin,
     final kPDamLim=kPDamLim,
-    final TiDamLim=TiDamLim)
+    final TiDamLim=TiDamLim,
+    final conSigMin=conSigMinDamLim,
+    final conSigMax=conSigMaxDamLim,
+    final retDamConSigMin=retDamConSigMinDamLim)
     "Multizone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Atomic.EconModulationMultiZone ecoMod(
     final kPMod=kPMod,
-    final TiMod=TiMod)
+    final TiMod=TiMod,
+    final retDamConSigMin=retDamConSigMinMod)
     "Multizone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 

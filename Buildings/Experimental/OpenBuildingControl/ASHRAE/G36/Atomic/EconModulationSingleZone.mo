@@ -2,8 +2,14 @@ within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic;
 block EconModulationSingleZone
   "Outdoor and return air damper position modulation sequence for single zone VAV AHU"
 
-  parameter Real kPMod=1 "Gain of modulation controller";
-  parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block";
+  parameter Real conSigMin=0 "Lower limit of controller output"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+  parameter Real conSigMax=1 "Upper limit of controller output"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+  parameter Real kPMod=1 "Gain of modulation controller"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+  parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
 
   CDL.Interfaces.RealInput TSup(
     final unit="K",
@@ -80,9 +86,6 @@ block EconModulationSingleZone
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
 protected
-  final parameter Real conSigMin=0 "Lower limit of controller output";
-  final parameter Real conSigMax=1 "Upper limit of controller output";
-
   CDL.Continuous.Sources.Constant outDamMinLimSig(final k=damPosCon.yMin)
     "Minimal control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));

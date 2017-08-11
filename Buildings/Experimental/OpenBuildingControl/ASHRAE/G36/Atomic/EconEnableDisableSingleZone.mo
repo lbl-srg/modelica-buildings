@@ -5,18 +5,24 @@ block EconEnableDisableSingleZone
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air (OA) enthalpy in addition to temperature"
     annotation(Dialog(group="Conditional"));
+  parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
+    "Delta between the temperature hysteresis high and low limit"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
+  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
+    "Delta between the enthalpy hysteresis high and low limits"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the return air damper"
-    annotation(Dialog(group="Physical damper position limits"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the return air damper"
-    annotation(Dialog(group="Physical damper position limits"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   CDL.Interfaces.RealInput TOut(
     final unit="K",
@@ -92,11 +98,6 @@ block EconEnableDisableSingleZone
     annotation (Placement(transformation(extent={{0,200},{20,220}})));
 
 protected
-  final parameter Modelica.SIunits.Temperature delTOutHis=1
-    "Delta between the temperature hysteresis high and low limit";
-  final parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
-    "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Dialog(enable = use_enthalpy));
   final parameter Modelica.SIunits.Temperature TOutHigLimCutHig = 0
     "Hysteresis high limit cutoff";
   final parameter Real TOutHigLimCutLow = TOutHigLimCutHig - delTOutHis
