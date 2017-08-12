@@ -14,7 +14,8 @@ model CoolingModeController
         rotation=-90,
         origin={-40,32})));
   Modelica.StateGraph.StepWithSignal parMecCoo(nIn=2, nOut=2)
-    "Partial mechanical cooling mode" annotation (Placement(transformation(
+    "Partial mechanical cooling mode"
+    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={0,8})));
@@ -63,28 +64,32 @@ model CoolingModeController
     y_default=0)
     "Switch boolean signals to real signal"
     annotation (Placement(transformation(extent={{64,-6},{88,6}})));
-  Modelica.Blocks.Interfaces.RealOutput cooMod
+  Modelica.Blocks.Interfaces.RealOutput cooMod(final unit="1")
     "Cooling mode signal (0: free cooling mode, 1: partially mechanical cooling, 2: fully mechanical cooling)"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput OAT(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC") "Dry-bulb temperature of outdoor air"
+    displayUnit="degC")
+    "Dry-bulb temperature of outdoor air"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
   Modelica.Blocks.Interfaces.RealInput RAT(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC") "Return air temperature"
+    displayUnit="degC")
+    "Return air temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealInput OATDewPoi(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC") "Dew point temperature of outdoor air"
+    displayUnit="degC")
+    "Dew point temperature of outdoor air"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
   Modelica.Blocks.Interfaces.RealInput SATSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC") "Supply air temperature setpoint "
+    displayUnit="degC")
+    "Supply air temperature setpoint "
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 equation
   connect(freCoo.outPort[1],con1. inPort) annotation (Line(
@@ -133,8 +138,8 @@ equation
       pattern=LinePattern.Dash));
   connect(swi.y,cooMod)
     annotation (Line(points={{88.6,0},{110,0}},         color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-                  Rectangle(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false),
+              graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,127},
           fillColor={255,255,255},
@@ -142,7 +147,8 @@ equation
         Text(
           extent={{128,114},{-128,166}},
           lineColor={0,0,255},
-          textString="%name")}),                                 Diagram(
+          textString="%name")}),
+       Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

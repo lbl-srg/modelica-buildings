@@ -20,14 +20,15 @@ model DXCooledDataCenter
     -2*QRooInt_flow;
   parameter Modelica.SIunits.MassFlowRate mA_flow_nominal=
     1.3*QRooC_flow_nominal/1006/(TASup_nominal-TRooSet)
-    "Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback";
+    "Nominal air mass flow rate, increased by factor 1.3";
   parameter Modelica.SIunits.TemperatureDifference dTFan = 2
     "Estimated temperature raise across fan that needs to be made up by the cooling coil";
   parameter Modelica.SIunits.HeatFlowRate QCoiC_flow_nominal=
     QRooC_flow_nominal
     "Cooling load of coil";
 
-  Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom datCenRoo(nPorts=2,
+  Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom datCenRoo(
+    nPorts=2,
     redeclare package Medium = Medium,
     rooLen=50,
     rooHei=3,
@@ -45,9 +46,9 @@ model DXCooledDataCenter
     T_start=303.15)
     "Variable speed DX coil"
     annotation (Placement(transformation(extent={{26,-76},{46,-56}})));
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3
-                                            weaDat(
-    pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter, filNam="/home/yangyangfu/Bitbucket/modelica-buildings/Buildings/Resources/weatherdata/USA_MA_Boston-Logan.725090_TMY2.mos")
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
+    filNam="/home/yangyangfu/Bitbucket/modelica-buildings/Buildings/Resources/weatherdata/USA_MA_Boston-Logan.725090_TMY2.mos")
     "Weather data reader"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
@@ -57,7 +58,7 @@ model DXCooledDataCenter
     redeclare package Medium = Medium,
     m_flow_nominal=mA_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    addPowerToMedium=false)                                   "Supply air fan"
+    addPowerToMedium=true) "Supply air fan"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
@@ -72,70 +73,89 @@ model DXCooledDataCenter
     Ti=60,
     k=1)   "Controller for variable speed DX coil"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir(redeclare package
-      Medium = Medium, m_flow_nominal=mA_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir(
+   redeclare package Medium = Medium,
+   m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{60,-60},{72,-72}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemRetAir(redeclare package
-      Medium = Medium, m_flow_nominal=mA_flow_nominal,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemRetAir(
+    redeclare package Medium = Medium,
+    m_flow_nominal=mA_flow_nominal,
     T_start=303.15) "Temperature sensor for return air"
     annotation (Placement(transformation(extent={{-2,6},{-14,18}})));
   Modelica.Blocks.Sources.Constant SATSetPoi(k=SATSet)
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  Data.Generic.DXCoil                                                  datCoi(
-    nSta=4, sta={Data.Generic.BaseClasses.Stage(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
+    nSta=4,
+    sta={
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
         spe=900/60,
-        nomVal=Data.Generic.BaseClasses.NominalValues(
+        nomVal=
+        Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal*(3/8),
           COP_nominal=3,
           SHR_nominal=0.8,
           m_flow_nominal=mA_flow_nominal*(3/8)),
-        perCur=PerformanceCurves.Curve_I()),Data.Generic.BaseClasses.Stage(
+        perCur=
+        Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves.Curve_I()),
+     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
         spe=1200/60,
-        nomVal=Data.Generic.BaseClasses.NominalValues(
+        nomVal=
+        Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal*(1/2),
           COP_nominal=3,
           SHR_nominal=0.8,
           m_flow_nominal=mA_flow_nominal*(1/2)),
-        perCur=PerformanceCurves.Curve_I()),Data.Generic.BaseClasses.Stage(
+        perCur=
+        Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves.Curve_I()),
+     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
-        nomVal=Data.Generic.BaseClasses.NominalValues(
+        nomVal=
+        Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal*(3/4),
           COP_nominal=3,
           SHR_nominal=0.8,
           m_flow_nominal=mA_flow_nominal*(3/4)),
-        perCur=PerformanceCurves.Curve_II()),Data.Generic.BaseClasses.Stage(
+        perCur=
+        Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves.Curve_II()),
+     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
         spe=2400/60,
-        nomVal=Data.Generic.BaseClasses.NominalValues(
+        nomVal=
+        Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal,
           COP_nominal=3,
           SHR_nominal=0.8,
           m_flow_nominal=mA_flow_nominal),
-        perCur=PerformanceCurves.Curve_III())}) "Coil data"
+        perCur=
+        Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves.Curve_III())})
+        "Coil data"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
-  Actuators.Dampers.MixingBox eco(
+  Buildings.Fluid.Actuators.Dampers.MixingBox eco(
     redeclare package Medium = Medium,
     mOut_flow_nominal=mA_flow_nominal,
     dpOut_nominal=20,
     mRec_flow_nominal=mA_flow_nominal,
     dpRec_nominal=20,
     mExh_flow_nominal=mA_flow_nominal,
-    dpExh_nominal=20)
+    dpExh_nominal=20) "Airside economizer"
     annotation (Placement(transformation(extent={{-62,16},{-42,-4}})));
-  Sources.Outside                 out(
+  Buildings.Fluid.Sources.Outside out(
     nPorts=2, redeclare package Medium = Medium)
     "Boundary conditions for outside air"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  BaseClasses.CoolingModeController cooModCon(tWai=1200)
+  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.BaseClasses.CoolingModeController
+   cooModCon(tWai=1200)
     "Cooling mode controller"
     annotation (Placement(transformation(extent={{-90,82},{-70,102}})));
-  Actuators.Dampers.Exponential dam1(redeclare package Medium = Medium,
-      m_flow_nominal=mA_flow_nominal)
+  Buildings.Fluid.Actuators.Dampers.Exponential dam1(
+    redeclare package Medium = Medium,
+    m_flow_nominal=mA_flow_nominal)
     "Open only when free cooling mode is activated"
     annotation (Placement(transformation(extent={{26,-36},{46,-16}})));
-  Actuators.Dampers.Exponential dam2(redeclare package Medium = Medium,
-      m_flow_nominal=mA_flow_nominal)
+  Buildings.Fluid.Actuators.Dampers.Exponential dam2(
+    redeclare package Medium = Medium,
+    m_flow_nominal=mA_flow_nominal)
     "open when mechanical cooling is activated"
     annotation (Placement(transformation(extent={{-8,-76},{12,-56}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemMixAir(
@@ -143,14 +163,16 @@ model DXCooledDataCenter
     m_flow_nominal=mA_flow_nominal,
     T_start=303.15) "Temperature sensor for mixed air"
     annotation (Placement(transformation(extent={{-36,-6},{-24,6}})));
-  BaseClasses.AirsideEconomizerController ecoCon(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.BaseClasses.AirsideEconomizerController
+  ecoCon(
     Ti=60,
     minOAFra=0.15,
     gai=1)
     "Economzier controller"
     annotation (Placement(transformation(extent={{-20,82},{-40,102}})));
-  Modelica.Blocks.Sources.RealExpression freCoo(y=if cooModCon.cooMod < 0.5
-         then 1 else 0) "Set true if free cooling mode is on"
+  Modelica.Blocks.Sources.RealExpression freCoo(
+    y = if cooModCon.cooMod < 0.5 then 1 else 0)
+    "Set true if free cooling mode is on"
     annotation (Placement(transformation(extent={{100,66},{80,86}})));
   Modelica.Blocks.Math.Feedback feedback1
     annotation (Placement(transformation(extent={{60,90},{40,110}})));
@@ -227,8 +249,9 @@ equation
   connect(freCoo.y, feedback1.u2) annotation (Line(points={{79,76},{80,76},{80,
           76},{50,76},{50,92}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}})),                                        Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},{120,120}})),
+            {100,100}})),
+            Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},
+            {120,120}})),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirCooled/Examples/DXCooledDataCenter.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
