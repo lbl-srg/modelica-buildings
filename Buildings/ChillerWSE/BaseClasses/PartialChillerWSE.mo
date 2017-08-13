@@ -303,17 +303,19 @@ equation
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
                                                                  Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    Documentation(revisions="<html>
+    Documentation(info="
+<html>
+<p>
+Partial model that can be extended to different configurations 
+inclduing chillers and integrated/non-integrated water-side economizers.
+</p>
+</html>",
+revisions="<html>
 <ul>
 <li>
 June 30, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
-</html>", info="<html>
-<p>
-Partial model that can be extended to different configurations 
-inclduing chillers and integrated/non-integrated water-side economizers.
-</p>
 </html>"));
 end PartialChillerWSE;
