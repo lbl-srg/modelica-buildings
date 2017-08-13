@@ -2,11 +2,11 @@ within Buildings.ChillerWSE.Examples.BaseClasses.Controls;
 model CoolingModeControl
   "Mode controller for integrated waterside economizer and chiller"
 
-parameter Modelica.SIunits.Time tWai "Waiting time";
-
-parameter Modelica.SIunits.TemperatureDifference deaBan1 "Dead band width 1 for switching waterside economizer off ";
-
-parameter Modelica.SIunits.TemperatureDifference deaBan2 "Dead band width 2 for switching waterside economizer on";
+  parameter Modelica.SIunits.Time tWai "Waiting time";
+  parameter Modelica.SIunits.TemperatureDifference deaBan1
+    "Dead band width 1 for switching waterside economizer off ";
+  parameter Modelica.SIunits.TemperatureDifference deaBan2
+    "Dead band width 2 for switching waterside economizer on";
 
   Modelica.StateGraph.Transition con1(
     enableTimer=true,
@@ -99,52 +99,63 @@ parameter Modelica.SIunits.TemperatureDifference deaBan2 "Dead band width 2 for 
     displayUnit="degC") "Approach temperature in the cooling tower"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 equation
-  connect(freCoo.outPort[1], con1.inPort) annotation (Line(
+  connect(freCoo.outPort[1], con1.inPort)
+    annotation (Line(
       points={{0,47.5},{0,47.5},{0,46},{0,42},{-40,42},{-40,36}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(con1.outPort, parMecCoo.inPort[1]) annotation (Line(
+  connect(con1.outPort, parMecCoo.inPort[1])
+    annotation (Line(
       points={{-40,30.5},{-40,26},{-0.5,26},{-0.5,19}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(con2.inPort, parMecCoo.outPort[1]) annotation (Line(
+  connect(con2.inPort, parMecCoo.outPort[1])
+    annotation (Line(
       points={{-40,-38},{-40,-10},{-0.25,-10},{-0.25,-2.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(con2.outPort, fulMecCoo.inPort[1]) annotation (Line(
+  connect(con2.outPort, fulMecCoo.inPort[1])
+    annotation (Line(
       points={{-40,-43.5},{-40,-43.5},{-40,-60},{0,-60},{0,-67}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(fulMecCoo.outPort[1], con3.inPort) annotation (Line(
+  connect(fulMecCoo.outPort[1], con3.inPort)
+    annotation (Line(
       points={{0,-88.5},{0,-98},{24,-98},{24,-44}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(con4.outPort, freCoo.inPort[1]) annotation (Line(
+  connect(con4.outPort, freCoo.inPort[1])
+    annotation (Line(
       points={{50,21.5},{50,21.5},{50,78},{0,78},{0,69}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(con3.outPort, parMecCoo.inPort[2]) annotation (Line(
+  connect(con3.outPort, parMecCoo.inPort[2])
+    annotation (Line(
       points={{24,-38.5},{24,-38.5},{24,26},{0.5,26},{0.5,19}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(con4.inPort, parMecCoo.outPort[2]) annotation (Line(
+  connect(con4.inPort, parMecCoo.outPort[2])
+    annotation (Line(
       points={{50,16},{50,-10},{0.25,-10},{0.25,-2.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(swi.u[1], freCoo.active) annotation (Line(
+  connect(swi.u[1], freCoo.active)
+    annotation (Line(
       points={{64,1.2},{64,0},{34,0},{34,58},{11,58}},
       color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(parMecCoo.active, swi.u[2]) annotation (Line(
+  connect(parMecCoo.active, swi.u[2])
+    annotation (Line(
       points={{11,8},{11,8},{34,8},{34,0},{64,0}},
       color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(fulMecCoo.active, swi.u[3]) annotation (Line(
+  connect(fulMecCoo.active, swi.u[3])
+    annotation (Line(
       points={{11,-78},{34,-78},{34,-1.2},{64,-1.2}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(swi.y, cooMod)
-    annotation (Line(points={{88.6,0},{110,0}},         color={0,0,127}));
+    annotation (Line(points={{88.6,0},{110,0}},color={0,0,127}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})), Icon(
         graphics={Rectangle(

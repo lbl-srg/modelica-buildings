@@ -58,10 +58,13 @@ partial model DataCenter
     redeclare
       Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes
       perChi,
-    use_inputFilter=false) "Chillers and waterside economizer"
+    use_inputFilter=false)
+    "Chillers and waterside economizer"
     annotation (Placement(transformation(extent={{126,22},{146,42}})));
-  Buildings.Fluid.Storage.ExpansionVessel expVesCW(redeclare replaceable
-      package Medium = MediumW, V_start=1) "Expansion tank"
+  Buildings.Fluid.Storage.ExpansionVessel expVesCW(
+    redeclare replaceable package Medium = MediumW,
+    V_start=1)
+    "Expansion tank"
     annotation (Placement(transformation(extent={{230,125},{250,145}})));
   Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow[nChi](
     redeclare each replaceable package Medium = MediumW,
@@ -71,32 +74,36 @@ partial model DataCenter
     each TApp_nominal=6,
     each PFan_nominal=6000,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
-                                           "Cooling tower" annotation (
-      Placement(transformation(extent={{10,-10},{-10,10}}, origin={141,139})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort CHWST(redeclare replaceable
-      package Medium =                                                                    MediumW,
-      m_flow_nominal=nChi*mChiller2_flow_nominal)
+    "Cooling tower"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+      origin={141,139})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort CHWST(
+    redeclare replaceable package Medium =MediumW,
+    m_flow_nominal=nChi*mChiller2_flow_nominal)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{104,-10},{84,10}})));
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3           weaData(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3  weaData(
+    filNam=
+    "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-220,-78},{-200,-58}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-210,-38},{-190,-18}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort CWST(redeclare replaceable package
-      Medium =                                                                           MediumW,
-      m_flow_nominal=nChi*mChiller1_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort CWST(
+    redeclare replaceable package Medium =MediumW,
+    m_flow_nominal=nChi*mChiller1_flow_nominal)
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{120,130},{100,150}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort CWRT(redeclare replaceable package
-      Medium =                                                                           MediumW,
-      m_flow_nominal=nChi*mChiller1_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort CWRT(
+    redeclare replaceable package  Medium = MediumW,
+    m_flow_nominal=nChi*mChiller1_flow_nominal)
     "Condenser water return temperature"
     annotation (Placement(transformation(extent={{202,50},{222,70}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pumCW[2](
     redeclare each replaceable package Medium = MediumW,
     each m_flow_nominal=mChiller1_flow_nominal,
-    each addPowerToMedium=false)           annotation (Placement(transformation(
+    each addPowerToMedium=false)
+    "Condenser water pump"
+    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={70,100})));
@@ -114,21 +121,26 @@ partial model DataCenter
     addPowerToMedium=false,
     perFan(pressure(V_flow=mAir_flow_nominal*{0,0.5,1}, dp=800*{1.2,1.12,1})),
     dp1_nominal=6000)
+    "Air handling unit"
     annotation (Placement(transformation(extent={{154,-130},{174,-110}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort CHWRT(redeclare replaceable
-      package Medium =                                                                    MediumW,
-      m_flow_nominal=nChi*mChiller2_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort CHWRT(
+    redeclare replaceable package Medium = MediumW,
+    m_flow_nominal=nChi*mChiller2_flow_nominal)
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{240,-10},{220,10}})));
-  Buildings.Fluid.Storage.ExpansionVessel expVesChi(redeclare replaceable
-      package Medium = MediumW, V_start=1) "Expansion tank"
+  Buildings.Fluid.Storage.ExpansionVessel expVesChi(
+    redeclare replaceable package Medium = MediumW,
+    V_start=1)
+    "Expansion tank"
     annotation (Placement(transformation(extent={{260,-59},{280,-39}})));
-  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare replaceable
-      package Medium =                                                                      MediumW)
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(
+    redeclare replaceable package Medium =MediumW)
+    "Differential pressure"
     annotation (Placement(transformation(extent={{150,-86},{170,-106}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort SAT(redeclare replaceable package
-      Medium =                                                                          MediumA,
-      m_flow_nominal=mAir_flow_nominal) "Supply air temperature"
+  Buildings.Fluid.Sensors.TemperatureTwoPort SAT(
+    redeclare replaceable package Medium = MediumA,
+    m_flow_nominal=mAir_flow_nominal)
+    "Supply air temperature"
     annotation (Placement(transformation(extent={{114,-150},{94,-130}})));
   Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom roo(
     redeclare replaceable package Medium = MediumA,
@@ -137,82 +149,95 @@ partial model DataCenter
     rooWid=30,
     rooHei=3,
     m_flow_nominal=mAir_flow_nominal,
-    QRoo_flow=500000) "Room model" annotation (Placement(transformation(
+    QRoo_flow=500000)
+    "Room model"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={166,-168})));
-  Fluid.Actuators.Valves.TwoWayLinear val[nChi](
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val[nChi](
     redeclare each package Medium = MediumW,
     each m_flow_nominal=mChiller1_flow_nominal,
     each dpValve_nominal=6000)
+    "Shutoff valves"
     annotation (Placement(transformation(extent={{190,130},{170,150}})));
 equation
-  connect(chiWSE.port_b2, CHWST.port_a) annotation (Line(
+  connect(chiWSE.port_b2, CHWST.port_a)
+    annotation (Line(
       points={{126,26},{112,26},{112,0},{104,0}},
       color={0,127,255},
       thickness=0.5));
-  connect(weaData.weaBus, weaBus.TWetBul) annotation (Line(
+  connect(weaData.weaBus, weaBus.TWetBul)
+    annotation (Line(
       points={{-200,-68},{-200,-28}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(chiWSE.port_b1, CWRT.port_a) annotation (Line(
+  connect(chiWSE.port_b1, CWRT.port_a)
+    annotation (Line(
       points={{146,38},{160,38},{160,60},{202,60}},
       color={0,127,255},
       thickness=0.5));
-  connect(CWRT.port_b, expVesCW.port_a) annotation (Line(
+  connect(CWRT.port_b, expVesCW.port_a)
+    annotation (Line(
       points={{222,60},{240,60},{240,125}},
       color={0,127,255},
       thickness=0.5));
-
-   for i in 1:nChi loop
-     connect(cooTow[i].TAir, weaBus.TWetBul.TWetBul) annotation (Line(points={{153,143},
+  for i in 1:nChi loop
+    connect(cooTow[i].TAir, weaBus.TWetBul.TWetBul)
+      annotation (Line(points={{153,143},
             {153,143},{160,143},{160,200},{-216,200},{-216,-28},{-200,-28}},
-                                       color={0,0,127}));
-
-    connect(CWST.port_a, cooTow[i].port_b) annotation (Line(points={{120,140},{132,
-            140},{132,139},{131,139}},     color={0,127,255},
+            color={0,0,127}));
+    connect(CWST.port_a, cooTow[i].port_b)
+      annotation (Line(points={{120,140},{132,
+            140},{132,139},{131,139}}, color={0,127,255},
         thickness=0.5));
-    connect(pumCW[i].port_b, chiWSE.port_a1) annotation (Line(
+    connect(pumCW[i].port_b, chiWSE.port_a1)
+      annotation (Line(
         points={{70,90},{70,58},{110,58},{110,38},{126,38}},
         color={0,127,255},
         thickness=0.5));
-
-    connect(pumCW[i].port_a, CWST.port_b) annotation (Line(points={{70,110},{70,
-            140},{100,140}},     color={0,127,255},
+    connect(pumCW[i].port_a, CWST.port_b)
+      annotation (Line(points={{70,110},{70,
+            140},{100,140}},color={0,127,255},
         thickness=0.5));
-    connect(val[i].port_a, expVesCW.port_a) annotation (Line(points={{190,140},
+    connect(val[i].port_a, expVesCW.port_a)
+      annotation (Line(points={{190,140},
             {220,140},{220,120},{240,120},{240,125}}, color={0,127,255}));
-
    end for;
-  connect(expVesChi.port_a, ahu.port_b1) annotation (Line(
+  connect(expVesChi.port_a, ahu.port_b1)
+    annotation (Line(
       points={{270,-59},{270,-59},{270,-114},{174,-114}},
       color={0,127,255},
       thickness=0.5));
-  connect(senRelPre.port_a, ahu.port_a1) annotation (Line(points={{150,-96},{72,
-          -96},{72,-114},{154,-114}},    color={0,127,255},
+  connect(senRelPre.port_a, ahu.port_a1)
+    annotation (Line(points={{150,-96},{72,
+          -96},{72,-114},{154,-114}}, color={0,127,255},
       thickness=0.5));
-  connect(senRelPre.port_b, ahu.port_b1) annotation (Line(points={{170,-96},{242,
+  connect(senRelPre.port_b, ahu.port_b1)
+    annotation (Line(points={{170,-96},{242,
           -96},{242,-114},{174,-114}},   color={0,127,255},
       thickness=0.5));
-  connect(SAT.port_a, ahu.port_b2) annotation (Line(points={{114,-140},{140,-140},
-          {140,-126},{154,-126}},
-                              color={0,127,255},
+  connect(SAT.port_a, ahu.port_b2)
+    annotation (Line(points={{114,-140},{140,-140},
+          {140,-126},{154,-126}},color={0,127,255},
       thickness=0.5));
-  connect(ahu.port_a2, roo.airPorts[1]) annotation (Line(points={{174,-126},{174,
-          -126},{194,-126},{194,-140},{242,-140},{242,-158},{167.85,-158}},
-                                                                  color={0,127,255},
+  connect(ahu.port_a2, roo.airPorts[1])
+    annotation (Line(points={{174,-126},{174,-126},
+      {194,-126},{194,-140},{242,-140},{242,-158},{167.85,-158}},
+      color={0,127,255},
       thickness=0.5));
-
-  connect(SAT.port_b, roo.airPorts[2]) annotation (Line(points={{94,-140},{94,-140},
-          {74,-140},{74,-158},{164.15,-158}},          color={0,127,255},
+  connect(SAT.port_b, roo.airPorts[2])
+    annotation (Line(points={{94,-140},{94,-140},
+          {74,-140},{74,-158},{164.15,-158}}, color={0,127,255},
       thickness=0.5));
-  connect(cooTow.port_a, val.port_b) annotation (Line(points={{151,139},{160.5,
-          139},{160.5,140},{170,140}},
-                                  color={0,127,255},
+  connect(cooTow.port_a, val.port_b)
+    annotation (Line(points={{151,139},{160.5,139},{160.5,140},{170,140}},
+      color={0,127,255},
       thickness=0.5));
-  connect(val[1].port_a, expVesCW.port_a) annotation (Line(
+  connect(val[1].port_a, expVesCW.port_a)
+    annotation (Line(
       points={{190,140},{220,140},{220,120},{240,120},{240,125}},
       color={0,127,255},
       thickness=0.5));

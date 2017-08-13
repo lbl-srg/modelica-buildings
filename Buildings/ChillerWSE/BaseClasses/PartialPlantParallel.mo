@@ -11,7 +11,8 @@ partial model PartialPlantParallel
   extends  Buildings.ChillerWSE.BaseClasses.SignalFilter(
     final nFilter=n);
   // Advanced
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+  parameter Boolean homotopyInitialization = true
+    "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Shutoff valve parameters
@@ -20,7 +21,8 @@ partial model PartialPlantParallel
     annotation(Dialog(group="Shutoff valve"));
   parameter Real kFixed[2](each unit="", each min=0)=
     {m1_flow_nominal,m2_flow_nominal} ./ sqrt({dp1_nominal,  dp2_nominal})
-    "Flow coefficient of fixed resistance that may be in series with valve 1, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
+    "Flow coefficient of fixed resistance that may be in series with valve 1, 
+    k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
    annotation(Dialog(group="Shutoff valve"));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val2[n](
@@ -42,7 +44,8 @@ partial model PartialPlantParallel
     each final linearized=linearizeFlowResistance2,
     each final rhoStd=rhoStd[2],
     each final dpValve_nominal=dpValve_nominal[2])
-    "Valves on medium 2 side for on/off use" annotation (Placement(transformation(
+    "Valves on medium 2 side for on/off use"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-40,-32})));
@@ -65,7 +68,8 @@ partial model PartialPlantParallel
     each final from_dp=from_dp1,
     each final linearized=linearizeFlowResistance1,
     each final rhoStd=rhoStd[1])
-    "Valves on medium 1 side for on/off use" annotation (
+    "Valves on medium 1 side for on/off use"
+    annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
@@ -75,21 +79,24 @@ equation
   for i in 1:n loop
     connect(val1[i].port_b, port_b1)
       annotation (Line(points={{40,42},{40,60},{100,60}}, color={0,127,255}));
-    connect(val2[i].port_b, port_b2) annotation (Line(points={{-40,-42},{-40,-60},
-            {-100,-60}}, color={0,127,255}));
+    connect(val2[i].port_b, port_b2)
+      annotation (Line(points={{-40,-42},{-40,-60},{-100,-60}},
+        color={0,127,255}));
   end for;
   if use_inputFilter then
-    connect(booToRea.y, filter.u) annotation (Line(points={{-67.4,40},{-60,40},
-            {-60,84},{-55.2,84}},
-                           color={0,0,127}));
+    connect(booToRea.y, filter.u)
+      annotation (Line(points={{-67.4,40},{-60,40},{-60,84},{-55.2,84}},
+        color={0,0,127}));
   else
-    connect(booToRea.y, y_actual) annotation (Line(points={{-67.4,40},{-60,40},
-            {-60,74},{-20,74}},
-                         color={0,0,127}));
+    connect(booToRea.y, y_actual)
+      annotation (Line(points={{-67.4,40},{-60,40},{-60,74},{-20,74}},
+        color={0,0,127}));
   end if;
-  connect(on, booToRea.u) annotation (Line(points={{-120,40},{-81.2,40},{-81.2,40}},
-        color={255,0,255}));
-  connect(y_actual, val1.y) annotation (Line(points={{-20,74},{-20,66},{20,66},
+  connect(on, booToRea.u)
+    annotation (Line(points={{-120,40},{-81.2,40},{-81.2,40}},
+      color={255,0,255}));
+  connect(y_actual, val1.y)
+    annotation (Line(points={{-20,74},{-20,66},{20,66},
           {20,32},{28,32}},color={0,0,127}));
   connect(y_actual, val2.y)
     annotation (Line(points={{-20,74},{-20,-32},{-28,-32}}, color={0,0,127}));

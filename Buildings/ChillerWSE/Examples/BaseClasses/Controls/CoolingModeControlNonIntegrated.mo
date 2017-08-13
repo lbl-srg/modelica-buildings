@@ -11,7 +11,7 @@ model CoolingModeControlNonIntegrated
         rotation=-90,
         origin={0,58})));
   Modelica.StateGraph.StepWithSignal fulMecCoo "Fully mechanical cooling mode"
-                                      annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={0,-30})));
@@ -37,45 +37,55 @@ model CoolingModeControlNonIntegrated
     enableTimer=true,
     waitTime=tWai,
     condition=TWetBul <= wseTra and numOnChi < 2)
-    "Fire condition 2: fully mechanical cooling to free cooling" annotation (
+    "Fire condition 2: fully mechanical cooling to free cooling"
+    annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={30,20})));
-  Modelica.Blocks.Interfaces.RealInput numOnChi "Number of running chillers"
+  Modelica.Blocks.Interfaces.RealInput numOnChi
+    "Number of running chillers"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealInput TWetBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC") "Wet bulb temperature of outdoor air"
+    displayUnit="degC")
+    "Wet bulb temperature of outdoor air"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
   Modelica.Blocks.Interfaces.RealInput CHWST(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC") "Temperature of leaving chilled water "
+    displayUnit="degC")
+    "Temperature of leaving chilled water "
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
   Modelica.Blocks.Interfaces.RealInput CHWSTSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC") "Temperature setpoint of leaving chilled water "
+    displayUnit="degC")
+    "Temperature setpoint of leaving chilled water "
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 equation
-  connect(freCoo.outPort[1],con1. inPort) annotation (Line(
+  connect(freCoo.outPort[1],con1. inPort)
+    annotation (Line(
       points={{0,47.5},{0,47.5},{0,40},{-40,40},{-40,24}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(con1.outPort,fulMecCoo. inPort[1]) annotation (Line(
+  connect(con1.outPort,fulMecCoo. inPort[1])
+    annotation (Line(
       points={{-40,18.5},{-40,0},{1.9984e-15,0},{1.9984e-15,-19}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(fulMecCoo.outPort[1], con2.inPort) annotation (Line(points={{0,-40.5},
+  connect(fulMecCoo.outPort[1], con2.inPort)
+    annotation (Line(points={{0,-40.5},
           {0,-60},{30,-60},{30,16}}, color={0,0,0}));
   connect(con2.outPort, freCoo.inPort[1])
     annotation (Line(points={{30,21.5},{30,80},{0,80},{0,69}}, color={0,0,0}));
-  connect(freCoo.active, swi.u[1]) annotation (Line(points={{11,58},{54,58},{54,
+  connect(freCoo.active, swi.u[1])
+    annotation (Line(points={{11,58},{54,58},{54,
           0.9},{64,0.9}}, color={255,0,255}));
-  connect(fulMecCoo.active, swi.u[2]) annotation (Line(points={{11,-30},{34,-30},
+  connect(fulMecCoo.active, swi.u[2])
+    annotation (Line(points={{11,-30},{34,-30},
           {54,-30},{54,-0.9},{64,-0.9}}, color={255,0,255}));
   connect(swi.y, cooMod)
     annotation (Line(points={{88.6,0},{110,0},{110,0}}, color={0,0,127}));

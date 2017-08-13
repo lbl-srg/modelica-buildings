@@ -11,10 +11,10 @@ model ElectricChillerParallel "Model that test electric chiller parallel"
   parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes
     per1 "Chiller performance data"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
-  parameter Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_563kW_10_61COP_Vanes
+  parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_563kW_10_61COP_Vanes
     per2 "Chiller performance data"
     annotation (Placement(transformation(extent={{32,80},{52,100}})));
-  ElectricChilerParallel chiPar(
+  Buildings.ChillerWSE.ElectricChilerParallel chiPar(
     n=2,
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -23,24 +23,29 @@ model ElectricChillerParallel "Model that test electric chiller parallel"
     dp1_nominal=6000,
     dp2_nominal=6000,
     dpValve_nominal={6000,6000},
-    per={per1,per2})                "Identical chillers"
+    per={per1,per2})
+    "Identical chillers"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 equation
-  connect(chiPar.port_b1, res1.port_a) annotation (Line(points={{10,16},{20,16},
+  connect(chiPar.port_b1, res1.port_a)
+    annotation (Line(points={{10,16},{20,16},
           {20,40},{32,40}}, color={0,127,255}));
   connect(chiPar.port_a1, sou1.ports[1])
     annotation (Line(points={{-10,16},{-26,16},{-40,16}}, color={0,127,255}));
-  connect(res2.port_a, chiPar.port_b2) annotation (Line(points={{-20,-20},{-16,-20},
+  connect(res2.port_a, chiPar.port_b2)
+    annotation (Line(points={{-20,-20},{-16,-20},
           {-16,4},{-10,4}}, color={0,127,255}));
   connect(chiPar.port_a2, sou2.ports[1])
     annotation (Line(points={{10,4},{26,4},{40,4}}, color={0,127,255}));
-  connect(greaterThreshold.y, chiPar.on[1]) annotation (Line(points={{-19,90},{-16,
-          90},{-16,13},{-12,13}}, color={255,0,255}));
-  connect(greaterThreshold.y, chiPar.on[2]) annotation (Line(points={{-19,90},{-16,
-          90},{-16,15},{-12,15}}, color={255,0,255}));
-  connect(TSet.y, chiPar.TSet) annotation (Line(points={{-59,60},{-28,60},{-28,
-          10},{-12,10}},
-                    color={0,0,127}));
+  connect(greaterThreshold.y, chiPar.on[1])
+    annotation (Line(points={{-19,90},{-16,90},{-16,13},{-12,13}},
+      color={255,0,255}));
+  connect(greaterThreshold.y, chiPar.on[2])
+    annotation (Line(points={{-19,90},{-16,90},{-16,15},{-12,15}},
+      color={255,0,255}));
+  connect(TSet.y, chiPar.TSet)
+    annotation (Line(points={{-59,60},{-28,60},{-28,10},{-12,10}},
+      color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file=

@@ -12,10 +12,14 @@ model PartialIntegratedPrimary
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Shutoff valve"));
 
-  parameter Real yValve5_start = 0 "Initial value of output:0-closed, 1-fully opened"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Real yValve6_start = 1-yValve5_start "Initial value of output:0-closed, 1-fully opened"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+  parameter Real yValve5_start = 0
+    "Initial value of output:0-closed, 1-fully opened"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",
+      enable=use_inputFilter));
+  parameter Real yValve6_start = 1-yValve5_start
+    "Initial value of output:0-closed, 1-fully opened"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",
+      enable=use_inputFilter));
 
   Modelica.Blocks.Interfaces.RealOutput wseCHWST(
     final quantity="ThermodynamicTemperature",
@@ -23,13 +27,13 @@ model PartialIntegratedPrimary
     displayUnit="degC",
     min=0,
     start=T2_start)
-    "Chilled water supply temperature in the waterside economizer" annotation (
-      Placement(transformation(extent={{100,30},{120,50}}), iconTransformation(
-          extent={{100,30},{120,50}})));
-
+    "Chilled water supply temperature in the waterside economizer"
+    annotation (Placement(transformation(extent={{100,30},{120,50}}),
+      iconTransformation(extent={{100,30},{120,50}})));
 
  Modelica.Blocks.Interfaces.RealInput yVal6(min=0,max=1)
-    "Actuator position for valve 6 (0: closed, 1: open)" annotation (Placement(
+    "Actuator position for valve 6 (0: closed, 1: open)"
+    annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -39,7 +43,8 @@ model PartialIntegratedPrimary
         origin={-116,-2})));
 
   Modelica.Blocks.Interfaces.RealInput yVal5(min=0,max=1)
-    "Actuator position for valve 5(0: closed, 1: open)" annotation (Placement(
+    "Actuator position for valve 5(0: closed, 1: open)"
+    annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -67,7 +72,8 @@ model PartialIntegratedPrimary
     final kFixed=0,
     final rhoStd=rhoStd[5],
     final y_start=yValve5_start)
-    "Shutoff valve: closed when fully mechanic cooling is activated; open when fully mechanic cooling is activated"
+    "Shutoff valve: closed when fully mechanic cooling is activated; 
+    open when fully mechanic cooling is activated"
     annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val6(
     redeclare final package Medium = Medium2,
@@ -88,26 +94,35 @@ model PartialIntegratedPrimary
     final kFixed=0,
     final rhoStd=rhoStd[6],
     final y_start=yValve6_start)
-    "Shutoff valve: closed when free cooling mode is deactivated; open when free cooling is activated"
+    "Shutoff valve: closed when free cooling mode is deactivated; 
+    open when free cooling is activated"
     annotation (Placement(transformation(extent={{-40,-30},{-60,-10}})));
 
 equation
-  connect(port_a2,val5. port_a) annotation (Line(points={{100,-60},{80,-60},{80,
-          -20},{60,-20}}, color={0,127,255}));
-  connect(port_a2, wse.port_a2) annotation (Line(points={{100,-60},{88,-60},{80,
-          -60},{80,24},{60,24}}, color={0,127,255}));
-  connect(val6.port_a, chiPar.port_a2) annotation (Line(points={{-40,-20},{-20,-20},
-          {-20,24},{-40,24}}, color={0,127,255}));
-  connect(chiPar.port_b2, port_b2) annotation (Line(points={{-60,24},{-80,24},{-80,
-          -60},{-100,-60}}, color={0,127,255}));
-  connect(val6.port_b, port_b2) annotation (Line(points={{-60,-20},{-80,-20},{-80,
-          -60},{-100,-60}}, color={0,127,255}));
-  connect(val5.y, yVal5) annotation (Line(points={{50,-8},{50,0},{50,0},{-94,0},
-          {-94,20},{-120,20}}, color={0,0,127}));
-  connect(yVal6, val6.y) annotation (Line(points={{-120,-10},{-94,-10},{-94,0},
-          {-50,0},{-50,-8}}, color={0,0,127}));
-  connect(senTem.port_b, val5.port_b) annotation (Line(points={{8,24},{0,24},{0,
-          -20},{40,-20}}, color={0,127,255}));
+  connect(port_a2,val5. port_a)
+    annotation (Line(points={{100,-60},{80,-60},{80,-20},{60,-20}},
+      color={0,127,255}));
+  connect(port_a2, wse.port_a2)
+    annotation (Line(points={{100,-60},{88,-60},{80,-60},{80,24},{60,24}},
+      color={0,127,255}));
+  connect(val6.port_a, chiPar.port_a2)
+    annotation (Line(points={{-40,-20},{-20,-20},{-20,24},{-40,24}},
+      color={0,127,255}));
+  connect(chiPar.port_b2, port_b2)
+    annotation (Line(points={{-60,24},{-80,24},{-80,-60},{-100,-60}},
+      color={0,127,255}));
+  connect(val6.port_b, port_b2)
+    annotation (Line(points={{-60,-20},{-80,-20},{-80,-60},{-100,-60}},
+      color={0,127,255}));
+  connect(val5.y, yVal5)
+    annotation (Line(points={{50,-8},{50,0},{50,0},{-94,0},{-94,20},{-120,20}},
+      color={0,0,127}));
+  connect(yVal6, val6.y)
+    annotation (Line(points={{-120,-10},{-94,-10},{-94,0},{-50,0},{-50,-8}},
+      color={0,0,127}));
+  connect(senTem.port_b, val5.port_b)
+    annotation (Line(points={{8,24},{0,24},{0,-20},{40,-20}},
+      color={0,127,255}));
   annotation (Documentation(info="<html>
 Partial model that implements integrated waterside economizer in primary-ony chilled water system.
 </html>", revisions="<html>

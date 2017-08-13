@@ -31,7 +31,10 @@ partial model PartialChillerWSEInterface
   parameter Integer n(min=1)=2 "Total number of chillers and waterside economizer";
 
 
-  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
+  Modelica.Blocks.Interfaces.RealInput TSet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")
     "Set point for leaving water temperature"
     annotation (Placement(transformation(extent={{-140,84},{-100,124}}),
         iconTransformation(extent={{-132,92},{-100,124}})));

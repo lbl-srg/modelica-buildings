@@ -6,36 +6,41 @@ partial model PartialControllerInterface
 
  // Controller
   parameter Modelica.Blocks.Types.SimpleController controllerType=
-         Modelica.Blocks.Types.SimpleController.PID if use_Controller "Type of controller"
+    Modelica.Blocks.Types.SimpleController.PID if use_Controller
+    "Type of controller"
     annotation(Dialog(tab="Controller",enable=use_Controller));
-
-  parameter Real k(min=0, unit="1") = 1 if use_Controller "Gain of controller"
+  parameter Real k(min=0, unit="1") = 1 if use_Controller
+    "Gain of controller"
     annotation(Dialog(tab="Controller",enable=use_Controller));
   parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=0.5 if use_Controller
-    "Time constant of Integrator block" annotation (Dialog(enable=
+    "Time constant of Integrator block"
+     annotation (Dialog(enable=
           (use_Controller and
           (controllerType == Modelica.Blocks.Types.SimpleController.PI or
           controllerType == Modelica.Blocks.Types.SimpleController.PID)),tab="Controller"));
   parameter Modelica.SIunits.Time Td(min=0)=0.1 if use_Controller
-    "Time constant of Derivative block" annotation (Dialog(enable=
+    "Time constant of Derivative block"
+     annotation (Dialog(enable=
           use_Controller and
           (controllerType == Modelica.Blocks.Types.SimpleController.PD or
           controllerType == Modelica.Blocks.Types.SimpleController.PID),tab="Controller"));
-  parameter Real yMax(start=1)=1 if use_Controller "Upper limit of output"
+  parameter Real yMax(start=1)=1 if use_Controller
+   "Upper limit of output"
     annotation(Dialog(tab="Controller",enable=use_Controller));
-  parameter Real yMin=0 if  use_Controller "Lower limit of output"
+  parameter Real yMin=0 if  use_Controller
+   "Lower limit of output"
     annotation(Dialog(tab="Controller",enable=use_Controller));
-  parameter Real wp(min=0) = 1 if use_Controller "Set-point weight for Proportional block (0..1)"
+  parameter Real wp(min=0) = 1 if use_Controller
+   "Set-point weight for Proportional block (0..1)"
     annotation(Dialog(tab="Controller",enable=use_Controller));
-  parameter Real wd(min=0) = 0 if use_Controller "Set-point weight for Derivative block (0..1)"
-    annotation(Dialog(enable=
-        use_Controller and
+  parameter Real wd(min=0) = 0 if use_Controller
+   "Set-point weight for Derivative block (0..1)"
+    annotation(Dialog(enable=use_Controller and
         (controllerType==.Modelica.Blocks.Types.SimpleController.PD or
         controllerType==.Modelica.Blocks.Types.SimpleController.PID),tab="Controller"));
   parameter Real Ni(min=100*Modelica.Constants.eps) = 0.9 if use_Controller
     "Ni*Ti is time constant of anti-windup compensation"
-    annotation(Dialog(enable=
-        use_Controller and
+    annotation(Dialog(enable = use_Controller and
         (controllerType==.Modelica.Blocks.Types.SimpleController.PI or
         controllerType==.Modelica.Blocks.Types.SimpleController.PID),tab="Controller"));
   parameter Real Nd(min=100*Modelica.Constants.eps) = 10 if use_Controller
@@ -45,10 +50,9 @@ partial model PartialControllerInterface
         (controllerType==.Modelica.Blocks.Types.SimpleController.PD or
         controllerType==.Modelica.Blocks.Types.SimpleController.PID),tab="Controller"));
   parameter Modelica.Blocks.Types.InitPID initType=
-    Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState if
-       use_Controller
+    Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState if use_Controller
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
-  annotation(Evaluate=true,Dialog(group="Initialization",tab="Controller",enable=use_Controller));
+    annotation(Evaluate=true,Dialog(group="Initialization",tab="Controller",enable=use_Controller));
   parameter Real xi_start=0 if use_Controller
     "Initial or guess value value for integrator output (= integrator state)"
     annotation (Dialog(group="Initialization",tab="Controller",
@@ -58,22 +62,26 @@ partial model PartialControllerInterface
   parameter Real xd_start=0 if use_Controller
     "Initial or guess value for state of derivative block"
     annotation (Dialog(group="Initialization",tab="Controller",
-                enable=
-                use_Controller and
+                enable= use_Controller and
                 (controllerType==.Modelica.Blocks.Types.SimpleController.PD or
                 controllerType==.Modelica.Blocks.Types.SimpleController.PID)));
-  parameter Real yCon_start=0 if use_Controller "Initial value of output from the controller"
-    annotation(Dialog(enable=initType == Modelica.Blocks.Types.InitPID.InitialOutput, group=
-          "Initialization",tab="Controller",enable=use_Controller));
+  parameter Real yCon_start=0 if use_Controller
+    "Initial value of output from the controller"
+    annotation(Dialog(enable=initType == Modelica.Blocks.Types.InitPID.InitialOutput,
+     group="Initialization",tab="Controller",enable=use_Controller));
   parameter Boolean reverseAction = true if use_Controller
     "Set to true for throttling the water flow rate through a cooling coil controller"
     annotation(Dialog(tab="Controller",enable=use_Controller));
   parameter Buildings.Types.Reset reset = Buildings.Types.Reset.Disabled
     "Type of controller output reset"
-    annotation(Evaluate=true, Dialog(group="Integrator reset",tab="Controller",enable=use_Controller));
+    annotation(Evaluate=true, Dialog(group="Integrator reset",tab="Controller",
+              enable=use_Controller));
   parameter Real y_reset=xi_start if use_Controller
-    "Value to which the controller output is reset if the boolean trigger has a rising edge, used if reset == Buildings.Types.Reset.Parameter"
-    annotation(Dialog(enable= use_Controller and reset == Buildings.Types.Reset.Parameter,group="Integrator reset",tab="Controller"));
+    "Value to which the controller output is reset if the boolean trigger 
+    has a rising edge, used if reset == Buildings.Types.Reset.Parameter"
+    annotation(Dialog(enable= use_Controller and
+       reset == Buildings.Types.Reset.Parameter,
+       group="Integrator reset",tab="Controller"));
 
  Modelica.Blocks.Interfaces.BooleanInput trigger if
        reset <> Buildings.Types.Reset.Disabled
@@ -86,16 +94,18 @@ partial model PartialControllerInterface
         origin={-60,-100})));
   Modelica.Blocks.Interfaces.RealInput y_reset_in if
        reset == Buildings.Types.Reset.Input
-    "Input signal for state to which integrator is reset, enabled if reset = Buildings.Types.Reset.Input"
+    "Input signal for state to which integrator is reset, 
+    enabled if reset = Buildings.Types.Reset.Input"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-90,-100}),
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-100,-100})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},
-            {100,80}})),                                         Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},{100,80}})),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
+                  extent={{-100,-80}, {100,80}})),
+             Diagram(coordinateSystem(preserveAspectRatio=false,
+                 extent={{-100,-80},{100,80}})),
     __Dymola_Commands,
     Documentation(info="<html>
 <p>This module implements a PID controller interface.</p>

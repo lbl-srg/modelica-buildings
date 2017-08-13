@@ -29,7 +29,6 @@ record FourPortResistanceChillerWSE
   parameter Boolean computeFlowResistance2 = true
     "=true, compute flow resistance. Set to false to assume no friction"
     annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 2"));
-
   parameter Boolean from_dp2 = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance2,

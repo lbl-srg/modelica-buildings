@@ -13,7 +13,6 @@ model WatersideEconomizer "Waterside economizer"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1,
     redeclare package Medium=Medium2);
-
   extends Buildings.ChillerWSE.BaseClasses.ThreeWayValveParameters;
   extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface;
 
@@ -21,8 +20,8 @@ model WatersideEconomizer "Waterside economizer"
   parameter Real yBypVal_start=1 if use_Controller
    "Initial value of output from the filter in the bypass valve"
     annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_Controller and use_inputFilter));
-
-  parameter Real yValWSE_start=1 "Initial value of output from the filter in the shutoff valve"
+  parameter Real yValWSE_start=1
+    "Initial value of output from the filter in the shutoff valve"
     annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_inputFilter));
 
  // Heat exchanger
@@ -33,7 +32,6 @@ model WatersideEconomizer "Waterside economizer"
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
     annotation(Dialog(tab="Dynamics", group="Nominal condition",
                enable=use_Controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
-
   Buildings.ChillerWSE.HeatExchanger heaExc(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
@@ -91,30 +89,33 @@ model WatersideEconomizer "Waterside economizer"
     final portFlowDirection_2=portFlowDirection_2,
     final portFlowDirection_3=portFlowDirection_3,
     final rhoStd=rhoStd[2],
-    final reverseAction=reverseAction) "Water-to-water heat exchanger"
+    final reverseAction=reverseAction)
+    "Water-to-water heat exchanger"
     annotation (Placement(transformation(extent={{-10,-12},{10,4}})));
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC") if use_Controller
-    "Set point for leaving water temperature" annotation (Placement(
+    "Set point for leaving water temperature"
+    annotation (Placement(
         transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
           extent={{-140,-20},{-100,20}})));
 equation
-  connect(port_a1, heaExc.port_a1) annotation (Line(points={{-100,60},{-40,60},
-            {-40,2},{-10,2}},
-                            color={0,127,255}));
-  connect(heaExc.port_a2, port_a2) annotation (Line(points={{10,-10},{40,-10},
-            {40,-60},{100,-60}},
-                              color={0,127,255}));
-  connect(TSet, heaExc.TSet) annotation (Line(points={{-120,0},{-12,0}},
-                       color={0,0,127}));
-
-  connect(y_reset_in, heaExc.y_reset_in) annotation (Line(points={{-90,-100},{-90,
-          -100},{-90,-80},{-10,-80},{-10,-14}},
-                                   color={0,0,127}));
-  connect(trigger, heaExc.trigger) annotation (Line(points={{-60,-100},{-60,-80},
+  connect(port_a1, heaExc.port_a1)
+    annotation (Line(points={{-100,60},{-40,60},
+            {-40,2},{-10,2}},color={0,127,255}));
+  connect(heaExc.port_a2, port_a2)
+    annotation (Line(points={{10,-10},{40,-10},
+            {40,-60},{100,-60}},color={0,127,255}));
+  connect(TSet, heaExc.TSet)
+    annotation (Line(points={{-120,0},{-12,0}},color={0,0,127}));
+  connect(y_reset_in, heaExc.y_reset_in)
+    annotation (Line(points={{-90,-100},{-90,
+          -100},{-90,-80},{-10,-80},{-10,-14}},color={0,0,127}));
+  connect(trigger, heaExc.trigger)
+    annotation (Line(points={{-60,-100},{-60,-80},
           {-6,-80},{-6,-14}}, color={255,0,255}));
   connect(heaExc.port_b1, val1[1].port_a)
     annotation (Line(points={{10,2},{40,2},{40,22}}, color={0,127,255}));
-  connect(val2[1].port_a, heaExc.port_b2) annotation (Line(points={{-40,-22},{-40,
+  connect(val2[1].port_a, heaExc.port_b2)
+    annotation (Line(points={{-40,-22},{-40,
           -22},{-40,-10},{-10,-10}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>

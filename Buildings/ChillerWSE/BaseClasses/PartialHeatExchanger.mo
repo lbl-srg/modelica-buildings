@@ -3,14 +3,15 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
 
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface;
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
-   final computeFlowResistance1=(dp1_nominal > Modelica.Constants.eps),
-   final computeFlowResistance2=(dp2_nominal > Modelica.Constants.eps));
+    final computeFlowResistance1=(dp1_nominal > Modelica.Constants.eps),
+    final computeFlowResistance2=(dp2_nominal > Modelica.Constants.eps));
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1,
     redeclare package Medium=Medium2);
   extends Buildings.ChillerWSE.BaseClasses.ThreeWayValveParameters;
 
-  parameter Modelica.SIunits.Efficiency eta(min=0,max=1,start=0.8) "constant effectiveness";
+  parameter Modelica.SIunits.Efficiency eta(min=0,max=1,start=0.8)
+    "constant effectiveness";
 
    // Filter opening
   parameter Boolean use_inputFilter=true if use_Controller
@@ -18,34 +19,40 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_Controller));
   parameter Modelica.SIunits.Time riseTime=120 if use_Controller
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=(use_Controller and use_inputFilter)));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",
+      enable=(use_Controller and use_inputFilter)));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput if
        use_Controller
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=(use_Controller and use_inputFilter)));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",
+      enable=(use_Controller and use_inputFilter)));
   parameter Real yBypVal_start=1 if use_Controller
     "Initial value of output from the filter in the bypass valve"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=(use_Controller and use_inputFilter)));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",
+      enable=(use_Controller and use_inputFilter)));
 
  // Time constant
    parameter Modelica.SIunits.Time tau_ThrWayVal=10 if use_Controller
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
     annotation(Dialog(tab="Dynamics", group="Nominal condition",
-               enable=(use_Controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-
+               enable=(use_Controller and not energyDynamics ==
+               Modelica.Fluid.Types.Dynamics.SteadyState)));
   // Advanced
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+  parameter Boolean homotopyInitialization = true
+    "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Modelica.SIunits.Density rhoStd = Medium2.density_pTX(101325, 273.15+4, Medium2.X_default) if
        use_Controller
     "Inlet density for which valve coefficients are defined"
-  annotation(Dialog(group="Nominal condition", tab="Advanced",enable=use_Controller));
+    annotation(Dialog(group="Nominal condition", tab="Advanced",enable=use_Controller));
 
-  Modelica.Blocks.Interfaces.RealInput TSet(unit="K",displayUnit="degC") if use_Controller
-  "Temperature setpoint for port_b2"
+  Modelica.Blocks.Interfaces.RealInput TSet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC") if use_Controller
+    "Temperature setpoint for port_b2"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear   bypVal(
     redeclare package Medium = Medium2,
     final from_dp=from_dp2,
@@ -103,31 +110,33 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
-
-  connect(port_a1, hex.port_a1) annotation (Line(points={{-100,60},{-100,60},{-40,
-          60},{-40,6},{-10,6}}, color={0,127,255}));
-  connect(hex.port_b1, port_b1) annotation (Line(points={{10,6},{40,6},{40,60},{
-          100,60}}, color={0,127,255}));
-  connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{40,-6},{40,-60},
-          {100,-60}}, color={0,127,255}));
-
+  connect(port_a1, hex.port_a1)
+    annotation (Line(points={{-100,60},{-100,60},{-40,60},{-40,6},{-10,6}},
+      color={0,127,255}));
+  connect(hex.port_b1, port_b1)
+    annotation (Line(points={{10,6},{40,6},{40,60},{100,60}},
+      color={0,127,255}));
+  connect(hex.port_a2, port_a2)
+    annotation (Line(points={{10,-6},{40,-6},{40,-60},{100,-60}},
+      color={0,127,255}));
   if use_Controller then
-    connect(hex.port_b2, bypVal.port_1) annotation (Line(points={{-10,-6},{-28,-6},
-            {-28,-30},{-40,-30}},
-                                color={0,127,255}));
-    connect(port_a2, bypVal.port_3) annotation (Line(points={{100,-60},{-50,-60},
-            {-50,-40}},
-                     color={0,127,255}));
-    connect(bypVal.port_2, port_b2) annotation (Line(points={{-60,-30},{-60,-30},
-            {-80,-30},{-80,-60},{-100,-60}},
-                                          color={0,127,255}));
+    connect(hex.port_b2, bypVal.port_1)
+      annotation (Line(points={{-10,-6},{-28,-6},{-28,-30},{-40,-30}},
+        color={0,127,255}));
+    connect(port_a2, bypVal.port_3)
+      annotation (Line(points={{100,-60},{-50,-60},{-50,-40}},
+        color={0,127,255}));
+    connect(bypVal.port_2, port_b2)
+      annotation (Line(points={{-60,-30},{-60,-30},{-80,-30},
+        {-80,-60},{-100,-60}},color={0,127,255}));
   else
-connect(port_b2, hex.port_b2) annotation (Line(points={{-100,-60},{-80,-60},{-80,
-          -60},{-80,-6},{-10,-6}}, color={0,127,255}));
+    connect(port_b2, hex.port_b2)
+      annotation (Line(points={{-100,-60},{-80,-60},{-80,-60},
+        {-80,-6},{-10,-6}}, color={0,127,255}));
   end if;
-
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},
-            {100,80}}), graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
+              extent={{-100,-80},{100,80}}),
+              graphics={
         Ellipse(
           extent={{-80,40},{80,36}},
           lineColor={0,127,255},
@@ -139,7 +148,8 @@ connect(port_b2, hex.port_b2) annotation (Line(points={{-100,-60},{-80,-60},{-80
           lineColor={0,127,255},
           lineThickness=1,
           fillColor={95,95,95},
-          fillPattern=FillPattern.Solid)}),                      Diagram(
+          fillPattern=FillPattern.Solid)}),
+       Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},{100,80}})),
     __Dymola_Commands,
     Documentation(info="<html>

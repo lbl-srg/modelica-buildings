@@ -4,7 +4,6 @@ model VariableSpeedPumpStageControl "Staging control for variable speed pumps"
   parameter Modelica.SIunits.Time tWai "Waiting time";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate of the identical variable-speed pumps";
-
   Modelica.Blocks.Interfaces.RealInput masFloPum
     "Total mass flowrate in the variable speed pumps"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
@@ -20,7 +19,8 @@ model VariableSpeedPumpStageControl "Staging control for variable speed pumps"
         rotation=-90,
         origin={-72,34})));
   Modelica.StateGraph.StepWithSignal oneOn(nIn=2, nOut=2)
-    "One chiller is commanded on" annotation (Placement(transformation(
+    "One chiller is commanded on"
+    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-32,8})));
@@ -74,47 +74,58 @@ model VariableSpeedPumpStageControl "Staging control for variable speed pumps"
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table=[0,0,0; 1,1,0; 2,1,1])
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
-  connect(off.outPort[1], con1.inPort) annotation (Line(
+  connect(off.outPort[1], con1.inPort)
+    annotation (Line(
       points={{-32,47.5},{-32,47.5},{-32,46},{-32,42},{-72,42},{-72,38}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(con1.outPort, oneOn.inPort[1]) annotation (Line(
+  connect(con1.outPort, oneOn.inPort[1])
+    annotation (Line(
       points={{-72,32.5},{-72,26},{-32.5,26},{-32.5,19}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(con2.inPort, oneOn.outPort[1]) annotation (Line(
+  connect(con2.inPort, oneOn.outPort[1])
+    annotation (Line(
       points={{-72,-38},{-72,-10},{-32.25,-10},{-32.25,-2.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(con2.outPort, twoOn.inPort[1]) annotation (Line(
+  connect(con2.outPort, twoOn.inPort[1])
+    annotation (Line(
       points={{-72,-43.5},{-72,-43.5},{-72,-60},{-32,-60},{-32,-67}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(twoOn.outPort[1], con3.inPort) annotation (Line(
+  connect(twoOn.outPort[1], con3.inPort)
+    annotation (Line(
       points={{-32,-88.5},{-32,-98},{-8,-98},{-8,-44}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(con4.outPort, off.inPort[1]) annotation (Line(
+  connect(con4.outPort, off.inPort[1])
+    annotation (Line(
       points={{18,21.5},{18,21.5},{18,78},{-32,78},{-32,69}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(con3.outPort, oneOn.inPort[2]) annotation (Line(
+  connect(con3.outPort, oneOn.inPort[2])
+    annotation (Line(
       points={{-8,-38.5},{-8,-38.5},{-8,26},{-31.5,26},{-31.5,19}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(con4.inPort, oneOn.outPort[2]) annotation (Line(
+  connect(con4.inPort, oneOn.outPort[2])
+    annotation (Line(
       points={{18,16},{18,-10},{-31.75,-10},{-31.75,-2.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(swi.u[1], off.active) annotation (Line(
+  connect(swi.u[1], off.active)
+    annotation (Line(
       points={{24,1.2},{24,0},{2,0},{2,58},{-21,58}},
       color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(oneOn.active, swi.u[2]) annotation (Line(
+  connect(oneOn.active, swi.u[2])
+    annotation (Line(
       points={{-21,8},{-21,8},{2,8},{2,0},{24,0}},
       color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(twoOn.active, swi.u[3]) annotation (Line(
+  connect(twoOn.active, swi.u[3])
+    annotation (Line(
       points={{-21,-78},{2,-78},{2,-1.2},{24,-1.2}},
       color={255,0,255},
       pattern=LinePattern.Dash));

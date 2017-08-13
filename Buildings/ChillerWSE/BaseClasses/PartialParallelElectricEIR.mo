@@ -5,19 +5,22 @@ partial model PartialParallelElectricEIR
     final nVal = 2,
     final m_flow_nominal = {m1_flow_nominal,m2_flow_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
-            Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
+      Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
     val2(each final dpFixed_nominal=dp2_nominal),
     val1(each final dpFixed_nominal=dp1_nominal));
 
-  parameter Modelica.SIunits.Time tau1 = 30 "Time constant at nominal flow in chillers"
+  parameter Modelica.SIunits.Time tau1 = 30
+    "Time constant at nominal flow in chillers"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition",
        enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
-  parameter Modelica.SIunits.Time tau2 = 30 "Time constant at nominal flow in chillers"
+  parameter Modelica.SIunits.Time tau2 = 30
+    "Time constant at nominal flow in chillers"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition",
        enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   // Assumptions
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
@@ -63,10 +66,9 @@ partial model PartialParallelElectricEIR
     "Set to true to enable compressor, or false to disable compressor"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
-    "Set point for leaving water temperature" annotation (Placement(
-        transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
-          extent={{-140,-20},{-100,20}})));
-
+    "Set point for leaving water temperature"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   replaceable Buildings.Fluid.Chillers.BaseClasses.PartialElectric chi[n](
     redeclare each replaceable package Medium1 = Medium1,
     redeclare each replaceable package Medium2 = Medium2,
@@ -102,23 +104,26 @@ partial model PartialParallelElectricEIR
     each final C2_nominal=C2_nominal)
     "Identical chiller with number n"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
-
 equation
   for i in 1:n loop
-  connect(TSet, chi[i].TSet) annotation (Line(points={{-120,0},{-90,0},{-90,-3},
-            {-12,-3}},   color={0,0,127}));
-  connect(chi[i].port_a1, port_a1) annotation (Line(points={{-10,6},{-40,6},{-40,
-          60},{-100,60}}, color={0,127,255}));
-  connect(chi[i].port_a2, port_a2) annotation (Line(points={{10,-6},{40,-6},{40,
-          -60},{100,-60}}, color={0,127,255}));
+  connect(TSet, chi[i].TSet)
+    annotation (Line(points={{-120,0},{-90,0},{-90,-3},{-12,-3}},
+      color={0,0,127}));
+  connect(chi[i].port_a1, port_a1)
+    annotation (Line(points={{-10,6},{-40,6},{-40,60},{-100,60}},
+      color={0,127,255}));
+  connect(chi[i].port_a2, port_a2)
+    annotation (Line(points={{10,-6},{40,-6},{40,-60},{100,-60}},
+      color={0,127,255}));
   end for;
   connect(chi.port_b2, val2.port_a)
-    annotation (Line(points={{-10,-6},{-40,-6},{-40,-22}}, color={0,127,255}));
+    annotation (Line(points={{-10,-6},{-40,-6},{-40,-22}},
+      color={0,127,255}));
   connect(chi.port_b1, val1.port_a)
     annotation (Line(points={{10,6},{40,6},{40,22}}, color={0,127,255}));
-  connect(on, chi.on) annotation (Line(points={{-120,40},{-90,40},{-90,3},{-12,3}},
-        color={255,0,255}));
+  connect(on, chi.on)
+    annotation (Line(points={{-120,40},{-90,40},{-90,3},{-12,3}},
+      color={255,0,255}));
   annotation (Documentation(info="<html>
 Partial model that implements the parallel electric chillers with associated valves.
 The parallel have <code>n</code> identical chillers. 

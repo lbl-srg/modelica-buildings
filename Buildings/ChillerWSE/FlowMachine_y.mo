@@ -1,8 +1,8 @@
 within Buildings.ChillerWSE;
 model FlowMachine_y "Identical speed controlled flow machines"
   extends Buildings.ChillerWSE.BaseClasses.PartialPumpParallel(
-  redeclare Buildings.Fluid.Movers.SpeedControlled_y pum,
-  rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
+    redeclare Buildings.Fluid.Movers.SpeedControlled_y pum,
+    rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
 
 equation
   connect(u, pum.y)

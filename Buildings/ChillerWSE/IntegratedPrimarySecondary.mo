@@ -13,7 +13,7 @@ model IntegratedPrimarySecondary
 
  // Dynamics
  parameter Modelica.SIunits.Time tauPump = 30
-  "Time constant of fluid volume for nominal flow in pumps, used if energy or mass balance is dynamic"
+   "Time constant of fluid volume for nominal flow in pumps, used if energy or mass balance is dynamic"
    annotation (Dialog(tab = "Dynamics", group="Pump",
      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
@@ -21,9 +21,11 @@ model IntegratedPrimarySecondary
   parameter Integer nPum=nChi "Number of pumps"
     annotation(Dialog(group="Pump"));
   parameter Modelica.SIunits.MassFlowRate mPump_flow_nominal(min=0)=mChiller2_flow_nominal
+  "Nominal flow rate of the pump"
    annotation (Dialog(group="Pump"));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum[nPum]
-    "Performance data for primary pumps" annotation (Dialog(group="Pump"),
+    "Performance data for primary pumps"
+    annotation (Dialog(group="Pump"),
       Placement(transformation(extent={{38,78},{58,98}})));
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
@@ -34,25 +36,31 @@ model IntegratedPrimarySecondary
   parameter Modelica.Blocks.Types.Init initPum=initValve
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered flowrate",enable=use_inputFilter));
-  parameter Real[nPum] yPump_start(each min=0)=fill(0,nPum) "Initial value of output from pumps:0-closed, 1-fully opened"
+  parameter Real[nPum] yPump_start(each min=0)=fill(0,nPum)
+    "Initial value of output from pumps:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered flowrate",enable=use_inputFilter));
-  parameter Real[nPum] m_flow_start(each min=0)=fill(0,nPum) "Initial value of output from pumps"
+  parameter Real[nPum] m_flow_start(each min=0)=fill(0,nPum)
+    "Initial value of output from pumps"
     annotation(Dialog(tab="Dynamics", group="Filtered flowrate"));
-  parameter Real[nPum] yValvePump_start = fill(0,nPum) "Initial value of output:0-closed, 1-fully opened"
+  parameter Real[nPum] yValvePump_start = fill(0,nPum)
+    "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Real l_ValvePump=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
+  parameter Real l_ValvePump=0.0001
+    "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Pump"));
   parameter Real kFixed_ValvePump=pum.m_flow_nominal/sqrt(pum.dpValve_nominal)
-    "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
+    "Flow coefficient of fixed resistance that may be in series with valve, 
+    k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Pump"));
-  parameter Modelica.SIunits.PressureDifference dpValvePump_nominal(displayUnit="Pa")=6000
+  parameter Modelica.SIunits.PressureDifference dpValvePump_nominal = 6000
    "Nominal differential pressure of the shutoff valves for primary pumps"
    annotation(Dialog(group="Pump"));
  //Valve
   parameter Real lValve5(min=1e-10,max=1) = 0.0001
     "Valve 5 leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Shutoff valve"));
-   parameter Real yValve5_start = 0 "Initial value of output from valve 5:0-closed, 1-fully opened"
+  parameter Real yValve5_start = 0
+    "Initial value of output from valve 5:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear  val5(
@@ -106,14 +114,16 @@ model IntegratedPrimarySecondary
     final linearizeFlowResistance=linearizeFlowResistance2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final riseTimePump=riseTimePump,
-    final yPump_start=yPump_start) "Constant speed pumps"
+    final yPump_start=yPump_start)
+    "Constant speed pumps"
     annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
   Modelica.Blocks.Interfaces.RealInput m_flow_in[nPum]
     "Prescribed mass flow rate for primary pumps"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-130,-50},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput yVal5
-    "Actuator position for valve 5 (0: closed, 1: open)" annotation (Placement(
+    "Actuator position for valve 5 (0: closed, 1: open)"
+    annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -123,25 +133,32 @@ model IntegratedPrimarySecondary
     "Bypass water mass flowrate"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 equation
-  connect(wse.port_a2, port_a2) annotation (Line(points={{60,24},{80,24},{80,-60},
+  connect(wse.port_a2, port_a2)
+    annotation (Line(points={{60,24},{80,24},{80,-60},
           {100,-60}}, color={0,127,255}));
-  connect(port_a2,val5. port_a) annotation (Line(points={{100,-60},{100,-60},{80,
+  connect(port_a2,val5. port_a)
+    annotation (Line(points={{100,-60},{100,-60},{80,
           -60},{80,-20},{60,-20}}, color={0,127,255}));
-
-    connect(pum.port_b, chiPar.port_a2) annotation (Line(points={{-10,-20},{-20,
+  connect(pum.port_b, chiPar.port_a2)
+    annotation (Line(points={{-10,-20},{-20,
           -20},{-20,24},{-40,24}}, color={0,127,255}));
-  connect(val5.y, yVal5) annotation (Line(points={{50,-8},{50,6},{-94,6},{-94,
+  connect(val5.y, yVal5)
+    annotation (Line(points={{50,-8},{50,6},{-94,6},{-94,
           26},{-120,26}}, color={0,0,127}));
-  connect(chiPar.port_b2, port_b2) annotation (Line(points={{-60,24},{-78,24},{
+  connect(chiPar.port_b2, port_b2)
+    annotation (Line(points={{-60,24},{-78,24},{
           -78,-60},{-100,-60}}, color={0,127,255}));
-  connect(val5.port_b, bypFlo.port_b) annotation (Line(points={{40,-20},{30,-20},
+  connect(val5.port_b, bypFlo.port_b)
+    annotation (Line(points={{40,-20},{30,-20},
           {30,-60},{-20,-60}}, color={0,127,255}));
   connect(bypFlo.port_a, port_b2)
     annotation (Line(points={{-40,-60},{-100,-60}}, color={0,127,255}));
-  connect(senTem.port_b, val5.port_b) annotation (Line(points={{8,24},{2,24},{2,
+  connect(senTem.port_b, val5.port_b)
+    annotation (Line(points={{8,24},{2,24},{2,
           0},{30,0},{30,-20},{40,-20}}, color={0,127,255}));
-  connect(m_flow_in, pum.u) annotation (Line(points={{-120,-40},{-96,-40},{-40,-40},
-          {-40,-6},{16,-6},{16,-15},{11,-15}}, color={0,0,127}));
+  connect(m_flow_in, pum.u)
+    annotation (Line(points={{-120,-40},{-96,-40},{-40,-40},
+          {-40,-6},{16,-6},{16,-16},{12,-16}}, color={0,0,127}));
   connect(pum.port_a, val5.port_b)
     annotation (Line(points={{10,-20},{25,-20},{40,-20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

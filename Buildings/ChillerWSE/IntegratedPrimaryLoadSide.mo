@@ -13,11 +13,10 @@ model IntegratedPrimaryLoadSide
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)});
 
  //Dynamics
- parameter Modelica.SIunits.Time tauPump = 30
+  parameter Modelica.SIunits.Time tauPump = 30
     "Time constant of fluid volume for nominal flow in pumps, used if energy or mass balance is dynamic"
      annotation (Dialog(tab = "Dynamics", group="Pump",
      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
-
   //Pump
   parameter Integer nPum=nChi "Number of pumps"
     annotation(Dialog(group="Pump"));
@@ -34,17 +33,20 @@ model IntegratedPrimaryLoadSide
   parameter Modelica.Blocks.Types.Init initPum=initValve
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
-  parameter Real[nPum] yPump_start=fill(0,nPum) "Initial value of output:0-closed, 1-fully opened"
+  parameter Real[nPum] yPump_start=fill(0,nPum)
+    "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
-  parameter Real[nPum] yValvePump_start = fill(0,nPum) "Initial value of output:0-closed, 1-fully opened"
+  parameter Real[nPum] yValvePump_start = fill(0,nPum)
+    "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Real l_ValvePump=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
+  parameter Real l_ValvePump=0.0001
+    "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Pump"));
   parameter Real kFixed_ValvePump=pum.m_flow_nominal/sqrt(pum.dpValve_nominal)
-    "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
+    "Flow coefficient of fixed resistance that may be in series with valve, 
+    k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Pump"));
-
-   Modelica.Blocks.Interfaces.RealInput yPum[nPum](each min=0, max=1)
+  Modelica.Blocks.Interfaces.RealInput yPum[nPum](each min=0, max=1)
     "Constant normalized rotational speed"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-132,-28},{-100,-60}})));
@@ -79,17 +81,18 @@ model IntegratedPrimaryLoadSide
     final yPump_start=yPump_start,
     final from_dp=from_dp2,
     final homotopyInitialization=homotopyInitialization,
-    final linearizeFlowResistance=linearizeFlowResistance2) "Identical pumps"
+    final linearizeFlowResistance=linearizeFlowResistance2)
+    "Identical pumps"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
-
 equation
-
-  connect(val5.port_b, pum.port_a) annotation (Line(points={{40,-20},{14,-20},{14,
+  connect(val5.port_b, pum.port_a)
+    annotation (Line(points={{40,-20},{14,-20},{14,
           -40},{10,-40}}, color={0,127,255}));
-  connect(pum.port_b,val6.port_a)  annotation (Line(points={{-10,-40},{-16,-40},
+  connect(pum.port_b,val6.port_a)
+    annotation (Line(points={{-10,-40},{-16,-40},
           {-16,-20},{-40,-20}}, color={0,127,255}));
-
-  connect(yPum, pum.u) annotation (Line(points={{-120,-40},{-30,-40},{-30,-28},{
+  connect(yPum, pum.u)
+    annotation (Line(points={{-120,-40},{-30,-40},{-30,-28},{
           18,-28},{18,-36},{12,-36}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
