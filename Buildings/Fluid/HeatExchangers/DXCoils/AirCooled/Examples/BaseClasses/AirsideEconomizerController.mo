@@ -18,12 +18,16 @@ model AirsideEconomizerController "Airside economizer controller"
     Ti=Ti) "PID controller"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Interfaces.RealInput MATSet(
-    final unit="K", displayUnit="degC")
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")
     "Mixed air setpoint temperature"
     annotation (Placement(transformation(rotation=0,
       extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput MAT(
-    final unit="K", displayUnit="degC")
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")
     "Measured mixed air temperature"
     annotation (Placement(transformation(rotation=0, extent={{-140,20},
       {-100,60}})));
