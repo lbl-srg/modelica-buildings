@@ -56,8 +56,8 @@ partial model PartialAirHandlerMassFlow
   Modelica.Blocks.Math.Gain mWat_flow(k=-m1_flow_nominal)
     "Water mass flow rate"
     annotation (Placement(transformation(extent={{-42,100},{-22,120}})));
-  Modelica.Blocks.Sources.TimeTable mWatGai(
-    table=[0,1; 3600*0.1,1; 3600*0.2,0.1; 3600*0.3,0.1])
+  Modelica.Blocks.Sources.TimeTable mWatGai(table=[0,1; 3600*0.1,1; 3600*0.2,
+        0.1; 3600*0.3,0.1])
     "Gain for water mass flow rate"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSenWat1(

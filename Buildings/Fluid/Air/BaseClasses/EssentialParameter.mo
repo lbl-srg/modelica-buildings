@@ -15,7 +15,7 @@ partial model EssentialParameter "Essential parameters for air handling unit"
      enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.SIunits.Time tau_m(min=0) = 20
     "Time constant of metal at nominal UA value"
-   annotation(Dialog(tab="General", group="Cooling coil"));
+  annotation(Dialog(tab="General", group="Cooling coil"));
   parameter Integer nEle(min=1) = 4
     "Number of pipe segments used for discretization in the cooling coil"
     annotation (Dialog(group="Cooling coil"));
