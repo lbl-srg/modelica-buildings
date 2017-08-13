@@ -18,7 +18,8 @@ model AirHandlingUnit
     "Time constant at nominal flow for electric heater (if energyDynamics <> SteadyState)"
      annotation (Dialog(tab = "Dynamics", group="Electric heater",
        enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Efficiency etaHea = 1.0 "Efficiency of electrical heater"
+  parameter Modelica.SIunits.Efficiency etaHea = 1.0
+   "Efficiency of electrical heater"
     annotation (Dialog(group="Electric heater"));
   parameter Modelica.SIunits.HeatFlowRate QHeaMax_flow(min=0)
     "Nominal heating capacity of eletric heater,positive"
@@ -37,36 +38,46 @@ model AirHandlingUnit
 
   // parameters for heater controller
   parameter Real yValLow(min=0, max=1, unit="1")=0.1
-  "if yVal<=yValLow, hysVal.y switches to false"
-  annotation(Dialog(group="Reheat controller"));
+    "if yVal<=yValLow, hysVal.y switches to false"
+    annotation(Dialog(group="Reheat controller"));
   parameter Real yValHig(min=0, max=1, unit="1")=0.15
-  "if yVal>=yValHig, hysVal.y switches to true"
-  annotation(Dialog(group="Reheat controller"));
+    "if yVal>=yValHig, hysVal.y switches to true"
+    annotation(Dialog(group="Reheat controller"));
   parameter Modelica.SIunits.TemperatureDifference dTLow=-0.5
-  "if dT<=dTLow, hysTemDif.y switches to false"
-  annotation(Dialog(group="Reheat controller"));
+    "if dT<=dTLow, hysTemDif.y switches to false"
+    annotation(Dialog(group="Reheat controller"));
   parameter Modelica.SIunits.TemperatureDifference dTHig=0.5
-  "if dT>=dTHig, hysTemDif.y switches to true"
-  annotation(Dialog(group="Reheat controller"));
-  parameter Boolean pre_yVal_start=true "Previous value of hysVal.y used at initialization"
+    "if dT>=dTHig, hysTemDif.y switches to true"
+    annotation(Dialog(group="Reheat controller"));
+  parameter Boolean pre_yVal_start=true
+    "Previous value of hysVal.y used at initialization"
     annotation (Dialog(group="Reheat controller", tab="Initialization"));
-  parameter Boolean pre_dT_start=true "Previous value of hysTemDif.y used at initialization"
+  parameter Boolean pre_dT_start=true
+    "Previous value of hysTemDif.y used at initialization"
     annotation (Dialog(group="Reheat controller", tab="Initialization"));
-
-  Modelica.Blocks.Interfaces.RealOutput PHea(unit="W")
-    "Power consumed by electric heater" annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealOutput PHea(
+    final unit = "W",
+    final quantity = "Power")
+    "Power consumed by electric heater"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={18,-110})));
-  Modelica.Blocks.Interfaces.RealInput TSet(unit="K")
-    "Set point temperature of the fluid that leaves port_b" annotation (
-      Placement(transformation(extent={{-140,-40},{-100,0}}),
+  Modelica.Blocks.Interfaces.RealInput TSet(
+    final unit = "K",
+    final quantity = "ThermodynamicTemperature")
+    "Set point temperature of the fluid that leaves port_b"
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
         iconTransformation(extent={{-120,-20},{-100,0}})));
-  Modelica.Blocks.Interfaces.RealInput XSet_w(unit="kg/kg")
+  Modelica.Blocks.Interfaces.RealInput XSet_w(
+    final unit = "1",
+    final quantity = "MassFraction",
+    min = 0,
+    max = 0.03)
     "Set point for water vapor mass fraction in kg/kg total air of the fluid that leaves port_b"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-120,0},{-100,20}})));
-  Modelica.Blocks.Sources.RealExpression dT(y(unit="K")=T_inflow_hea - TSet)
+  Modelica.Blocks.Sources.RealExpression dT(y(final unit="K")=T_inflow_hea - TSet)
     "Difference between inlet temperature and temperature setpoint of the reheater"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
@@ -85,7 +96,8 @@ model AirHandlingUnit
     final linearizeFlowResistance=linearizeFlowResistance2,
     final deltaM=deltaM2,
     redeclare final package Medium = Medium2)
-    "Humidifier" annotation (Placement(
+    "Humidifier"
+    annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
@@ -106,7 +118,8 @@ model AirHandlingUnit
     final linearizeFlowResistance=linearizeFlowResistance2,
     final deltaM=deltaM2,
     redeclare final package Medium = Medium2)
-    "Electric heater" annotation (
+    "Electric heater"
+     annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -130,35 +143,37 @@ protected
                            noEvent(actualStream(port_b2.Xi_outflow))))
       "Temperature of inflowing fluid at port_a of reheater";
 
-
 equation
-
-
   connect(TSet, eleHea.TSet)
-  annotation (Line(points={{-120,-20},{-88,-20},{-88,-28},{-4,-28},{-4,-52},{
-          -10,-52}},
-  color={0,0,127}));
-  connect(XSet_w, hum.X_w) annotation (Line(points={{-120,0},{-80,0},{-80,-20},{
-          36,-20},{36,-54},{32,-54}},
-                 color={0,0,127}));
-  connect(fan.port_a, eleHea.port_b) annotation (Line(points={{-50,-60},{-41,-60},
-          {-32,-60}}, color={0,127,255}));
+    annotation (Line(points={{-120,-20},{-88,-20},{-88,-28},{-4,-28},
+                {-4,-52},{-10,-52}},color={0,0,127}));
+  connect(XSet_w, hum.X_w)
+    annotation (Line(points={{-120,0},{-80,0},{-80,-20},{36,-20},
+                {36,-54},{32,-54}},color={0,0,127}));
+  connect(fan.port_a, eleHea.port_b)
+    annotation (Line(points={{-50,-60},{-41,-60},{-32,-60}},
+                color={0,127,255}));
   connect(eleHea.port_a, hum.port_b)
-    annotation (Line(points={{-12,-60},{10,-60}},          color={0,127,255}));
+    annotation (Line(points={{-12,-60},{10,-60}},
+                color={0,127,255}));
   connect(hum.port_a, cooCoi.port_b2)
-    annotation (Line(points={{30,-60},{30,-60},{40,-60},{40,32},{10,32},{10,48},
-          {22,48}},                                     color={0,127,255}));
-  connect(eleHea.P, PHea) annotation (Line(points={{-33,-66},{-40,-66},{-40,-76},
-          {18,-76},{18,-110}}, color={0,0,127}));
+    annotation (Line(points={{30,-60},{30,-60},{40,-60},{40,32},
+                {10,32},{10,48},{22,48}},color={0,127,255}));
+  connect(eleHea.P, PHea)
+    annotation (Line(points={{-33,-66},{-40,-66},{-40,-76},
+                {18,-76},{18,-110}}, color={0,0,127}));
   connect(uFan,fan.y)
-    annotation (Line(points={{-120,-50},{-120,-48},{-60,-48}},  color={0,0,127}));
+    annotation (Line(points={{-120,-50},{-120,-48},{-60,-48}},
+                color={0,0,127}));
   connect(dT.y,heaCon.dT)
     annotation (Line(points={{-19,40},{-22,40},{-5,40},{-5,22}},
-                                                       color={0,0,127}));
-  connect(watVal.y_actual, heaCon.yVal) annotation (Line(points={{75,67},{84,67},
-          {84,80},{0,80},{0,40},{5,40},{5,22}}, color={0,0,127}));
+                color={0,0,127}));
+  connect(watVal.y_actual, heaCon.yVal)
+    annotation (Line(points={{75,67},{84,67},{84,80},{0,80},
+                {0,40},{5,40},{5,22}}, color={0,0,127}));
   connect(heaCon.y, eleHea.on)
-    annotation (Line(points={{0,-1},{0,-57},{-10,-57}}, color={255,0,255}));
+    annotation (Line(points={{0,-1},{0,-57},{-10,-57}},
+                color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-92,62},{92,-64}},
