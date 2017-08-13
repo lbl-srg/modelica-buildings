@@ -49,7 +49,7 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Valve"));
   parameter Real kFixed(unit="", min=0) = m1_flow_nominal / sqrt(dp1_nominal)
-    "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
+    "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)"
     annotation(Dialog(group="Valve"));
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -99,15 +99,20 @@ partial model PartialAirHandlingUnit "Partial AHU model "
    "Continuous input signal for the fan"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
       iconTransformation(extent={{-120,-50},{-100,-30}})));
-  Modelica.Blocks.Interfaces.RealOutput PFan(quantity="Power",unit="W")
-    "Electrical power consumed by the fan" annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealOutput PFan(
+    final quantity="Power",
+    final unit="W")
+    "Electrical power consumed by the fan"
+     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,-110})));
-  Modelica.Blocks.Interfaces.RealOutput y_valve(min=0,max=1,unit="1")
-    "Actual valve position"
+  Modelica.Blocks.Interfaces.RealOutput yVal(
+    min=0,
+    max=1,
+    final unit="1") "Actual valve position"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
-      iconTransformation(extent={{100,30},{120,50}})));
+               iconTransformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.IntegerInput stage if
     inputType == Buildings.Fluid.Types.InputType.Stages
     "Stage input signal for the pressure head"
@@ -182,36 +187,39 @@ partial model PartialAirHandlingUnit "Partial AHU model "
       final m_flow_nominal=m_flow_nominal,
       final deltaM=deltaM1,
       final dpFixed_nominal=dp1_nominal)
-    "Two-way valve" annotation (
+    "Two-way valve"
+     annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={70,60})));
 
 equation
-
-  connect(port_a1, cooCoi.port_a1) annotation (Line(points={{-100,60},{22,60}},
-                                    color={0,127,255}));
-  connect(cooCoi.port_a2, port_a2) annotation (Line(points={{42,48},{42,48},{48,
-          48},{48,-60},{100,-60}}, color={0,127,255}));
+  connect(port_a1, cooCoi.port_a1)
+    annotation (Line(points={{-100,60},{22,60}},color={0,127,255}));
+  connect(cooCoi.port_a2, port_a2)
+    annotation (Line(points={{42,48},{42,48},{48,48},{48,-60},{100,-60}},
+               color={0,127,255}));
   connect(cooCoi.port_b1, watVal.port_a)
-    annotation (Line(points={{42,60},{60,60}},       color={0,127,255}));
-  connect(watVal.port_b, port_b1) annotation (Line(points={{80,60},{100,60}},
-                     color={0,127,255}));
-  connect(fan.P, PFan) annotation (Line(points={{-71,-51},{-80,-51},{-80,-80},{
-          -20,-80},{-20,-110}},
-                            color={0,0,127}));
-  connect(watVal.y, uWatVal) annotation (Line(points={{70,72},{70,80},{70,90},{-50,
-          90},{-50,30},{-120,30}},
-                     color={0,0,127}));
-  connect(port_b2, fan.port_b) annotation (Line(points={{-100,-60},{-70,-60}},
+    annotation (Line(points={{42,60},{60,60}},color={0,127,255}));
+  connect(watVal.port_b, port_b1)
+   annotation (Line(points={{80,60},{100,60}},
                  color={0,127,255}));
-  connect(watVal.y_actual, y_valve) annotation (Line(points={{75,67},{75,68},{
-          84,68},{84,40},{110,40}},
-                                 color={0,0,127}));
-  connect(fan.stage, stage) annotation (Line(points={{-60,-48},{-60,-40},{-90,
-          -40},{-90,-50},{-120,-50}},
-        color={255,127,0}));
+  connect(fan.P, PFan)
+   annotation (Line(points={{-71,-51},{-80,-51},{-80,-80},
+               {-20,-80},{-20,-110}},color={0,0,127}));
+  connect(watVal.y, uWatVal)
+   annotation (Line(points={{70,72},{70,80},{70,90},
+               {-50,90},{-50,30},{-120,30}}, color={0,0,127}));
+  connect(port_b2, fan.port_b)
+   annotation (Line(points={{-100,-60},{-70,-60}},
+                 color={0,127,255}));
+  connect(watVal.y_actual, yVal)
+   annotation (Line(points={{75,67},{75,68},{84,68},
+          {84,40},{110,40}}, color={0,0,127}));
+  connect(fan.stage, stage)
+   annotation (Line(points={{-60,-48},{-60,-40},{-90,-40},
+         {-90,-50},{-120,-50}},color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
       Diagram(coordinateSystem(preserveAspectRatio=false),
         graphics={Text(extent={{54,42},{80,36}},lineColor={0,0,255},
