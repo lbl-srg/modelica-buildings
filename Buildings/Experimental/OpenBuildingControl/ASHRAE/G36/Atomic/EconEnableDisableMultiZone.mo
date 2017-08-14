@@ -3,79 +3,117 @@ block EconEnableDisableMultiZone
   "Multiple zone VAV AHU economizer enable/disable switch"
 
   parameter Boolean use_enthalpy = true
-    "Set to true to evaluate outdoor air enthalpy in addition to temperature";
-  parameter Modelica.SIunits.Time retDamFulOpeTim = 180
-    "Time period to keep RA damper fully open at disable to avoid pressure fluctuations";
-  parameter Modelica.SIunits.Time smaDisDel = 15
-    "Small time delay before closing the OA damper at disable to avoid pressure fluctuations";
+    "Set to true to evaluate outdoor air enthalpy in addition to temperature"
+    annotation(Dialog(group="Conditional"));
+  parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
+    "Delta between the temperature hysteresis high and low limit"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
+  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
+    "Delta between the enthalpy hysteresis high and low limits"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
+  parameter Modelica.SIunits.Time retDamFulOpeTim=180
+    "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control 
+    at disable to avoid pressure fluctuations"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
+  parameter Modelica.SIunits.Time smaDisDel=15
+    "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
 
-  CDL.Interfaces.RealInput TOut(final unit="K", final quantity = "ThermodynamicTemperature")
-    "Outdoor air (OA) temperature"
+  CDL.Interfaces.RealInput TOut(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
+    "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-220,250},{-180,290}}),
-        iconTransformation(extent={{-120,90},{-100,110}})));
-  CDL.Interfaces.RealInput hOut(final unit="J/kg", final quantity="SpecificEnergy") if use_enthalpy
-      "Outdoor air enthalpy" annotation (Placement(transformation(extent={{-220,170},{-180,210}}),
-        iconTransformation(extent={{-120,50},{-100,70}})));
-  CDL.Interfaces.RealInput TOutCut(final unit="K", final quantity = "ThermodynamicTemperature")
+      iconTransformation(extent={{-120,90},{-100,110}})));
+  CDL.Interfaces.RealInput hOut(
+    final unit="J/kg",
+    final quantity="SpecificEnergy") if use_enthalpy
+    "Outdoor air enthalpy"
+    annotation (Placement(transformation(extent={{-220,170},{-180,210}}),
+      iconTransformation(extent={{-120,50},{-100,70}})));
+  CDL.Interfaces.RealInput TOutCut(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-220,210},{-180,250}}),
-        iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput hOutCut(final unit="J/kg", final quantity="SpecificEnergy") if use_enthalpy
+      iconTransformation(extent={{-120,70},{-100,90}})));
+  CDL.Interfaces.RealInput hOutCut(
+    final unit="J/kg",
+    final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
-        iconTransformation(extent={{-120,30},{-100,50}})));
-  CDL.Interfaces.RealInput uOutDamPosMin(final min=0, final max=1)
-    "Minimum outdoor air damper position, get from damper position limits sequence"
+      iconTransformation(extent={{-120,30},{-100,50}})));
+  CDL.Interfaces.RealInput uOutDamPosMin(
+    final unit="1",
+    final min=0,
+    final max=1)
+    "Minimum outdoor air damper position, output from damper position limits sequence"
     annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
-        iconTransformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Interfaces.RealInput uOutDamPosMax(final min=0, final max=1)
-    "Maximum outdoor air damper position, get from damper position limits sequence"
+      iconTransformation(extent={{-120,-70},{-100,-50}})));
+  CDL.Interfaces.RealInput uOutDamPosMax(
+    final unit="1",
+    final min=0,
+    final max=1)
+    "Maximum outdoor air damper position, output from damper position limits sequence"
     annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
-        iconTransformation(extent={{-120,-50},{-100,-30}})));
-  CDL.Interfaces.RealInput uRetDamPosMax(final min=0, final max=1)
-    "Maximum return air damper position, get from damper position limits sequence"
+      iconTransformation(extent={{-120,-50},{-100,-30}})));
+  CDL.Interfaces.RealInput uRetDamPosMax(
+    final unit="1",
+    final min=0,
+    final max=1)
+    "Maximum return air damper position, output from damper position limits sequence"
     annotation (Placement(transformation(extent={{-220,-250},{-180,-210}}),
-        iconTransformation(extent={{-120,-110},{-100,-90}})));
-  CDL.Interfaces.RealInput uRetDamPosMin(final min=0, final max=1)
-    "Minimum return air damper position, get from damper position limits sequence"
+      iconTransformation(extent={{-120,-110},{-100,-90}})));
+  CDL.Interfaces.RealInput uRetDamPosMin(
+    final unit="1",
+    final min=0,
+    final max=1)
+    "Minimum return air damper position, output from damper position limits sequence"
     annotation (Placement(transformation(extent={{-220,-280},{-180,-240}}),
-        iconTransformation(extent={{-120,-130},{-100,-110}})));
-  CDL.Interfaces.RealInput uRetDamPhyPosMax(final min=0, final max=1)
-    "Physical maximum return air damper position, get from damper position limits sequence"
+      iconTransformation(extent={{-120,-130},{-100,-110}})));
+  CDL.Interfaces.RealInput uRetDamPhyPosMax(
+    final unit="1",
+    final min=0,
+    final max=1)
+    "Physical maximum return air damper position, output from damper position limits sequence"
     annotation (Placement(transformation(extent={{-220,-220},{-180,-180}}),
-        iconTransformation(extent={{-120,-90},{-100,-70}})));
+      iconTransformation(extent={{-120,-90},{-100,-70}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply fan on/off status signal"
     annotation (Placement(transformation(extent={{-220,90},{-180,130}}),
-        iconTransformation(extent={{-120,-30},{-100,-10}})));
+      iconTransformation(extent={{-120,-30},{-100,-10}})));
   CDL.Interfaces.IntegerInput uFreProSta "Freeze protection stage status signal"
     annotation (Placement(transformation(extent={{-220,30},{-180,70}}),
-        iconTransformation(extent={{-120,10},{-100,30}})));
+      iconTransformation(extent={{-120,10},{-100,30}})));
   CDL.Interfaces.IntegerInput uZonSta "Zone state signal"
     annotation (Placement(transformation(extent={{-220,-30},{-180,10}}),
-        iconTransformation(extent={{-120,-10},{-100,10}})));
+      iconTransformation(extent={{-120,-10},{-100,10}})));
 
-  CDL.Interfaces.RealOutput yOutDamPosMax(final min=0, final max=1) "Maximum outdoor air damper position"
+  CDL.Interfaces.RealOutput yOutDamPosMax(
+    final unit="1",
+    final min=0,
+    final max=1) "Maximum outdoor air damper position"
     annotation (Placement(transformation(extent={{180,-150},{200,-130}}),
-        iconTransformation(extent={{100,28},{140,68}})));
-  CDL.Interfaces.RealOutput yRetDamPosMin(final min=0, final max=1) "Minimum return air damper position"
+      iconTransformation(extent={{100,28},{140,68}})));
+  CDL.Interfaces.RealOutput yRetDamPosMin(
+    final unit="1",
+    final min=0,
+    final max=1) "Minimum return air damper position"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}}),
-        iconTransformation(extent={{100,-100},{140,-60}})));
-  CDL.Interfaces.RealOutput yRetDamPosMax(final min=0, final max=1) "Maximum return air damper position"
+      iconTransformation(extent={{100,-100},{140,-60}})));
+  CDL.Interfaces.RealOutput yRetDamPosMax(
+    final unit="1",
+    final min=0,
+    final max=1) "Maximum return air damper position"
     annotation (Placement(transformation(
-        extent={{180,-220},{200,-200}}), iconTransformation(extent={{100,-40},{140,0}})));
+      extent={{180,-220},{200,-200}}), iconTransformation(extent={{100,-40},{140,0}})));
 
-  CDL.Logical.TrueFalseHold trueFalseHold(final duration=600) "10 min on/off delay"
+  CDL.Logical.TrueFalseHold truFalHol(final duration=600) "10 min on/off delay"
     annotation (Placement(transformation(extent={{0,200},{20,220}})));
   CDL.Logical.And3 andEnaDis "Logical and to check freeze protection stage and zone state"
-   annotation (Placement(transformation(extent={{40,30},{60,50}})));
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
 protected
-  final parameter Modelica.SIunits.Temperature delTOutHis=1
-    "Delta between the temperature hysteresis high and low limit";
-  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
-    "Delta between the enthalpy hysteresis high and low limits, used if use_enthalpy = true"
-    annotation(Dialog(enable = use_enthalpy));
-  final parameter Modelica.SIunits.Temperature TOutHigLimCutHig = 0
+  final parameter Modelica.SIunits.TemperatureDifference TOutHigLimCutHig = 0
     "Hysteresis high limit cutoff";
   final parameter Real TOutHigLimCutLow = TOutHigLimCutHig - delTOutHis
     "Hysteresis low limit cutoff";
@@ -98,10 +136,14 @@ protected
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
   CDL.Continuous.Add add1(final k2=-1) "Add block determines difference between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,240},{-120,260}})));
-  CDL.Logical.Hysteresis hysOutTem(final uLow=TOutHigLimCutLow, final uHigh=TOutHigLimCutHig)
+  CDL.Logical.Hysteresis hysOutTem(
+    final uLow=TOutHigLimCutLow,
+    final uHigh=TOutHigLimCutHig)
     "Outdoor air temperature hysteresis for both fixed and differential dry bulb temperature cutoff conditions"
     annotation (Placement(transformation(extent={{-100,240},{-80,260}})));
-  CDL.Logical.Hysteresis hysOutEnt(final uLow=hOutHigLimCutLow, final uHigh=hOutHigLimCutHig) if use_enthalpy
+  CDL.Logical.Hysteresis hysOutEnt(
+    final uLow=hOutHigLimCutLow,
+    final uHigh=hOutHigLimCutHig) if use_enthalpy
     "Outdoor air enthalpy hysteresis for both fixed and differential enthalpy cutoff conditions"
     annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
   CDL.Logical.Switch outDamSwitch "Set maximum OA damper position to minimum at disable (after a given time delay)"
@@ -132,10 +174,8 @@ protected
     final threshold=Constants.ZoneStates.heating + 0.5)
     "Check if zone state is other than heating"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  CDL.Logical.GreaterThreshold greThr2(final threshold=0) "Check if the timer got started"
-    annotation (Placement(transformation(extent={{88,-182},{108,-162}})));
-  CDL.Logical.And3 and2 "Logical and"
-    annotation (Placement(transformation(extent={{130,-200},{150,-180}})));
+  CDL.Logical.And  and2 "Logical and"
+    annotation (Placement(transformation(extent={{130,-182},{150,-162}})));
   CDL.Logical.And and1 "Logical and checks supply fan status"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   CDL.Conversions.IntegerToReal intToRea "Integer to real converter"
@@ -177,12 +217,12 @@ equation
     annotation (Line(points={{-200,-230},{-78,-230},{-78,-218},{38,-218}}, color={0,0,127}));
   connect(timer.y, les1.u1)
     annotation (Line(points={{51,-60},{72,-60},{72,-154},{-20,-154},{-20,-180},{-10,-180}},color={0,0,127}));
-  connect(nor1.y, trueFalseHold.u) annotation (Line(points={{-19,210},{-1,210}}, color={255,0,255}));
+  connect(nor1.y, truFalHol.u) annotation (Line(points={{-19,210},{-1,210}}, color={255,0,255}));
   connect(andEnaDis.y, not2.u)
     annotation (Line(points={{61,40},{72,40},{72,-20},{-20,-20},{-20,-60},{-12,-60}}, color={255,0,255}));
   connect(minRetDamSwitch.y, yRetDamPosMin)
     annotation (Line(points={{61,-250},{124,-250},{190,-250}}, color={0,0,127}));
-  connect(maxRetDamSwitch.y, yRetDamPosMax) annotation (Line(points={{61,-210},{190,-210}},  color={0,0,127}));
+  connect(maxRetDamSwitch.y, yRetDamPosMax) annotation (Line(points={{61,-210},{190,-210}}, color={0,0,127}));
   connect(openRetDam.y, les1.u2)
     annotation (Line(points={{-39,-180},{-30,-180},{-30,-188},{-10,-188}}, color={0,0,127}));
   connect(not2.y, timer.u) annotation (Line(points={{11,-60},{28,-60}},   color={255,0,255}));
@@ -195,11 +235,11 @@ equation
   connect(greThr.y, andEnaDis.u3)
     annotation (Line(points={{-99,-10},{-20,-10},{-20,32},{38,32}}, color={255,0,255}));
   connect(and2.y, maxRetDamSwitch.u2)
-    annotation (Line(points={{151,-190},{162,-190},{162,-230},{20,-230},{20,-210},{38,-210}}, color={255,0,255}));
+    annotation (Line(points={{151,-172},{162,-172},{162,-230},{20,-230},{20,-210},
+          {38,-210}}, color={255,0,255}));
   connect(and2.y, minRetDamSwitch.u2)
-    annotation (Line(points={{151,-190},{162,-190},{162,-230},{20,-230},{20,-250},{38,-250}}, color={255,0,255}));
-  connect(timer.y, greThr2.u)
-    annotation (Line(points={{51,-60},{82,-60},{82,-172},{86,-172}},   color={0,0,127}));
+    annotation (Line(points={{151,-172},{162,-172},{162,-230},{20,-230},{20,-250},
+          {38,-250}}, color={255,0,255}));
   connect(not2.y, retDamSwitch.u2)
     annotation (Line(points={{11,-60},{20,-60},{20,-72},{-90,-72},{-90,-260},{-62,-260}},color={255,0,255}));
   connect(uRetDamPosMax, retDamSwitch.u1)
@@ -210,19 +250,14 @@ equation
     annotation (Line(points={{-39,-260},{-30,-260},{-30,-258},{38,-258}},color={0,0,127}));
   connect(uRetDamPhyPosMax, minRetDamSwitch.u1)
     annotation (Line(points={{-200,-200},{-120,-200},{-120,-242},{38,-242}},color={0,0,127}));
-  connect(trueFalseHold.y, and1.u1)
+  connect(truFalHol.y, and1.u1)
     annotation (Line(points={{21,210},{30,210},{30,130},{-10,130},{-10,110},{-2,110}},color={255,0,255}));
   connect(and1.y, andEnaDis.u1)
     annotation (Line(points={{21,110},{21,110},{30,110},{30,48},{38,48}},color={255,0,255}));
-  connect(greThr2.y, and2.u1)
-    annotation (Line(points={{109,-172},{120,-172},{120,-182},{128,-182}}, color={255,0,255}));
   connect(les1.y, and2.u2)
-    annotation (Line(points={{13,-180},{20,-180},{20,-188},{112,-188},{112,-190},{128,-190}},
-                                                                       color={255,0,255}));
+    annotation (Line(points={{13,-180},{128,-180}},color={255,0,255}));
   connect(uSupFan, and1.u2)
     annotation (Line(points={{-200,110},{-102,110},{-102,102},{-2,102}},color={255,0,255}));
-  connect(not2.y, and2.u3)
-    annotation (Line(points={{11,-60},{20,-60},{20,-76},{78,-76},{78,-198},{128,-198}}, color={255,0,255}));
   connect(intToRea1.u, uZonSta) annotation (Line(points={{-162,-10},{-170,-10},{-200,-10}}, color={255,127,0}));
   connect(outDamSwitch.u2, and3.y)
     annotation (Line(points={{38,-140},{20,-140},{20,-110},{1,-110}}, color={255,0,255}));
@@ -230,6 +265,8 @@ equation
     annotation (Line(points={{11,-60},{20,-60},{20,-86},{-28,-86},{-28,-110},{-22,-110}}, color={255,0,255}));
   connect(greEqu.y, and3.u2) annotation (Line(points={{-49,-100},{-36,-100},{-36,-118},{-22,-118}}, color={255,0,255}));
 
+  connect(and2.u1, not2.y) annotation (Line(points={{128,-172},{116,-172},{116,-94},
+          {20,-94},{20,-60},{11,-60}}, color={255,0,255}));
   annotation (
     defaultComponentName = "ecoEnaDis",
     Icon(graphics={
@@ -317,29 +354,60 @@ and zone state (cooling, heating, or deadband, as illustrated in the
 modulation control chart, PART5.N.2.c).
 </p>
 <p>
-Economizer shall be disabled whenever the outdoor air conditions
-exceed the economizer high limit setpoint as specified by the local
-code. This sequence allows for all device types listed in
+The economizer is disabled whenever the outdoor air conditions
+exceed the economizer high limit setpoint.
+This sequence allows for all device types listed in
 ASHRAE 90.1-2013 and Title 24-2013.
 </p>
 <p>
-In addition, economizer shall be disabled without a delay whenever any of the
-following is true: supply fan is off (<code>TSupFan = False</code>),
-zone state (<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.ZoneStates\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.ZoneStates</a>) is <code>heating</code>,
-freeze protection stage
-(<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages</a>) is not <code>stage0</code>.
+In addition, the economizer gets disabled without a delay whenever any of the
+following is <code>true</code>:
 </p>
+<ul>
+<li>
+supply fan is off (<code>uSupFan = false</code>),
+</li>
+<li>
+zone state <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.ZoneStates\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.ZoneStates</a> is <code>heating</code>,
+</li>
+<li>
+freeze protection stage
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages\">
+Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.FreezeProtectionStages</a>
+is not <code>stage0</code>.
+</li>
+</ul>
 <p>
-The following state machine chart illustrates the above listed conditions:
+The following state machine chart illustrates the transitions between enabling and disabling:
 </p>
 <p align=\"center\">
 <img alt=\"Image of economizer enable-disable state machine chart\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/EconEnableDisableStateMachineChartMultiZone.png\"/>
 </p>
+<p>
+After the disable signal is activated, the following procedure is applied, per PART5.N.7.d, in order to 
+prevent pressure fluctuations in the HVAC system:
+</p>
+<ul>
+<li>
+return damper gets fully opened (<code>yRetDamPosMax = uRetDamPhyPosMax</code> and 
+<code>yRetDamPosMin = uRetDamPhyPosMax</code>) for <code>retDamFulOpeTim</code>
+time period, after which the return damper gets released to its minimum outdoor airflow control position
+(<code>yRetDamPosMax = uRetDamPosMax</code> and <code>yRetDamPosMin = uRetDamPosMax</code>).
+</li>
+<li>
+outdoor air damper is closed to its minimum outoor airflow control limit (<code>yOutDamPosMax = uOutDamPosMin</code>) 
+after a <code>smaDisDel</code> time delay.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
+<li>
+August 3, 2017, by Michael Wetter:<br/>
+Removed unrequired input into block <code>and2</code> as this input
+was always <code>true</code> if <code>and2.u2 = true</code>.
+</li>
 <li>
 June 27, 2017, by Milica Grahovac:<br/>
 First implementation.

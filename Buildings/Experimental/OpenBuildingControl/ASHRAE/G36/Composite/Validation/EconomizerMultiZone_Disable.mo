@@ -3,27 +3,42 @@ model EconomizerMultiZone_Disable
   "Validation model for disabling the multizone VAV AHU economizer modulation and damper position limit control loops"
   extends Modelica.Icons.Example;
 
-  EconomizerMultiZone economizer(use_enthalpy=true) "Multizone VAV AHU economizer "
+  EconomizerMultiZone economizer(use_enthalpy=true,
+    retDamPhyPosMax=1,
+    retDamPhyPosMin=0,
+    outDamPhyPosMax=1,
+    outDamPhyPosMin=0) "Multizone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  EconomizerMultiZone economizer1 "Multizone VAV AHU economizer"
+  EconomizerMultiZone economizer1(use_enthalpy=true,
+    retDamPhyPosMax=1,
+    retDamPhyPosMin=0,
+    outDamPhyPosMax=1,
+    outDamPhyPosMin=0) "Multizone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 
 protected
   final parameter Modelica.SIunits.Temperature TOutCutoff=297.15
     "Outdoor temperature high limit cutoff";
+  final parameter Modelica.SIunits.Temperature TSupSet=291.15 "Supply air temperature setpoint";
   final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy VOutSet_flow=0.71
+  final parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  final parameter Modelica.SIunits.Temperature TSupSet=291.15 "Supply air temperature setpoint";
+  final parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=0.61
+    "Minimal measured volumetric airflow";
+  final parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=(minVOutSet_flow-minVOut_flow)*2.2
+    "Maximum volumetric airflow increase during the example simulation";
 
-  CDL.Logical.Sources.Constant fanStatus(final k=true) "Fan is on"
+  CDL.Logical.Sources.Constant fanSta(final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0) "Freeze protection status is 0"
+  CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
+    "Freeze protection status is 0"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  CDL.Integers.Sources.Constant zoneState(final k=Constants.ZoneStates.heating) "Zone State is heating"
+  CDL.Integers.Sources.Constant zonSta(final k=Constants.ZoneStates.heating)
+    "Zone State is heating"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  CDL.Integers.Sources.Constant operationMode(final k=Constants.OperationModes.occModInd) "AHU operation mode is Occupied"
+  CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occModInd)
+    "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 40000)
     "Outdoor air enthalpy is below the cufoff"
@@ -35,13 +50,13 @@ protected
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
   CDL.Continuous.Sources.Constant TOutCut1(final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  CDL.Continuous.Sources.Constant VOutMinSet_flow(final k=VOutSet_flow)
+  CDL.Continuous.Sources.Constant VOutMinSet_flow(final k=minVOutSet_flow)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.Ramp VOut_flow(
-    final duration=1800,
-    final height=0.2,
-    final offset=VOutSet_flow - 0.1)
+    final height=incVOutSet_flow,
+    final offset=minVOut_flow,
+    final duration=1800)
     "Measured outdoor air volumetric airflow"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Modelica.Blocks.Sources.Ramp TSup(
@@ -56,7 +71,7 @@ protected
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
 
 equation
-  connect(fanStatus.y, economizer.uSupFan) annotation (Line(points={{-19,-10},{-10,-10},{-10,6},{19,6}},
+  connect(fanSta.y, economizer.uSupFan) annotation (Line(points={{-19,-10},{-10,-10},{-10,6},{19,6}},
     color={255,0,255}));
   connect(freProSta.y, economizer.uFreProSta)
     annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},color={255,127,0}));
@@ -88,17 +103,17 @@ equation
     annotation (Line(points={{-19,90},{78,90},{78,-10},{99,-10}}, color={0,0,127}));
   connect(VOutMinSet_flow.y, economizer1.VOutMinSet_flow)
     annotation (Line(points={{-19,50},{70,50},{70,-12},{99,-12}}, color={0,0,127}));
-  connect(fanStatus.y, economizer1.uSupFan)
+  connect(fanSta.y, economizer1.uSupFan)
     annotation (Line(points={{-19,-10},{20,-10},{20,-14},{99,-14}}, color={255,0,255}));
   connect(freProSta2.y, economizer1.uFreProSta)
     annotation (Line(points={{81,-120},{90,-120},{90,-20},{99,-20}}, color={255,127,0}));
-  connect(zoneState.y, economizer.uZonSta)
+  connect(zonSta.y, economizer.uZonSta)
     annotation (Line(points={{-59,-60},{-2,-60},{-2,2},{19,2}}, color={255,127,0}));
-  connect(operationMode.y, economizer.uOpeMod)
+  connect(opeMod.y, economizer.uOpeMod)
     annotation (Line(points={{-59,-90},{-4,-90},{-4,4},{19,4}}, color={255,127,0}));
-  connect(operationMode.y, economizer1.uOpeMod)
+  connect(opeMod.y, economizer1.uOpeMod)
     annotation (Line(points={{-59,-90},{20,-90},{20,-16},{99,-16}}, color={255,127,0}));
-  connect(zoneState.y, economizer1.uZonSta)
+  connect(zonSta.y, economizer1.uZonSta)
     annotation (Line(points={{-59,-60},{22,-60},{22,-18},{99,-18}}, color={255,127,0}));
   connect(TSupSetSig.y, economizer.THeaSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}}, color={0,0,127}));

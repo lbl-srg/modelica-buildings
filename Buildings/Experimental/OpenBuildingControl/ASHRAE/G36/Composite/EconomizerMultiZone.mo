@@ -3,47 +3,115 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
 
   parameter Boolean use_enthalpy = true
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
-  parameter Real kPDamLim=1 "Gain of damper limit controller";
-  parameter Real kPMod=1 "Gain of modulation controller";
-  parameter Modelica.SIunits.Time TiDamLim=0.9 "Time constant of damper limit controller integrator block";
-  parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block";
-  parameter Real retDamPhyPosMax(final min=0, final max=1, final unit="1") = 1
-    "Physically fixed maximum position of the return air damper";
-  parameter Real retDamPhyPosMin(final min=0, final max=1, final unit="1") = 0
-    "Physically fixed minimum position of the return air damper";
-  parameter Real outDamPhyPosMax(final min=0, final max=1, final unit="1") = 1
-    "Physically fixed maximum position of the outdoor air damper";
-  parameter Real outDamPhyPosMin(final min=0, final max=1, final unit="1") = 0
-    "Physically fixed minimum position of the outdoor air damper";
+  parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
+    "Delta between the temperature hysteresis high and low limit"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
+  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
+    "Delta between the enthalpy hysteresis high and low limits"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
+  parameter Modelica.SIunits.Time retDamFulOpeTim = 180
+    "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control 
+    at disable to avoid pressure fluctuations"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
+  parameter Modelica.SIunits.Time smaDisDel = 15
+    "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
+  parameter Real kPMod=1 "Proportional gain of modulation controller"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+  parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+  parameter Real retDamConSigMinMod(
+    final min=0,
+    final max=1,
+    final unit="1") = 0.5 "Minimum modulation control loop signal for the RA damper - maximum for the OA damper"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+  parameter Real kPDamLim=1 "Proportional gain of damper limit controller"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+  parameter Modelica.SIunits.Time TiDamLim=30 "Time constant of damper limit controller integrator block"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+  parameter Real conSigMinDamLim=0 "Lower limit of damper position limits control signal output"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+  parameter Real conSigMaxDamLim=1 "Upper limit of damper position limits control signal output"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+  parameter Real retDamConSigMinDamLim(
+    final min=conSigMinDamLim,
+    final max=conSigMaxDamLim,
+    final unit="1")=0.5
+    "Minimum control signal for the RA damper position limit - maximum for the OA damper position limit"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+  parameter Real retDamPhyPosMax(
+    final min=0,
+    final max=1,
+    final unit="1") = 1
+    "Physically fixed maximum position of the return air damper"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+  parameter Real retDamPhyPosMin(
+    final min=0,
+    final max=1,
+    final unit="1") = 0
+    "Physically fixed minimum position of the return air damper"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+  parameter Real outDamPhyPosMax(
+    final min=0,
+    final max=1,
+    final unit="1") = 1
+    "Physically fixed maximum position of the outdoor air damper"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+  parameter Real outDamPhyPosMin(
+    final min=0,
+    final max=1,
+    final unit="1") = 0
+    "Physically fixed minimum position of the outdoor air damper"
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
 
-  CDL.Interfaces.RealInput THeaSet(final unit="K", final quantity = "ThermodynamicTemperature")
-    "Supply air temperature heating setpoint" annotation (Placement(transformation(
+  CDL.Interfaces.RealInput THeaSet(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
+    "Supply air temperature heating setpoint"
+    annotation (Placement(transformation(
     extent={{-140,30},{-120,50}}), iconTransformation(extent={{-120,10},{-100,30}})));
-  CDL.Interfaces.RealInput TSup(final unit="K", final quantity = "ThermodynamicTemperature")
-    "Measured supply air temperature" annotation (Placement(transformation(
+  CDL.Interfaces.RealInput TSup(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
+    "Measured supply air temperature"
+    annotation (Placement(transformation(
     extent={{-140,50},{-120,70}}), iconTransformation(extent={{-120,30},{-100,50}})));
-  CDL.Interfaces.RealInput TOut(final unit="K", final quantity = "ThermodynamicTemperature")
-    "Outdoor air (OA) temperature" annotation (Placement(transformation(extent={{-140,130},{-120,150}}),
+  CDL.Interfaces.RealInput TOut(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
+    "Outdoor air (OA) temperature"
+    annotation (Placement(transformation(extent={{-140,130},{-120,150}}),
     iconTransformation(extent={{-120,110},{-100,130}})));
-  CDL.Interfaces.RealInput TOutCut(final unit="K", final quantity = "ThermodynamicTemperature")
+  CDL.Interfaces.RealInput TOutCut(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}}),
-        iconTransformation(extent={{-120,90},{-100,110}})));
-  CDL.Interfaces.RealInput hOut(final unit="J/kg", final quantity="SpecificEnergy") if use_enthalpy
-    "Outdoor air enthalpy" annotation (Placement(transformation(extent={{-140,90},{-120,110}}),
+      iconTransformation(extent={{-120,90},{-100,110}})));
+  CDL.Interfaces.RealInput hOut(
+    final unit="J/kg",
+    final quantity="SpecificEnergy") if use_enthalpy
+    "Outdoor air enthalpy"
+    annotation (Placement(transformation(extent={{-140,90},{-120,110}}),
     iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput hOutCut(final unit="J/kg", final quantity="SpecificEnergy") if use_enthalpy
+  CDL.Interfaces.RealInput hOutCut(
+    final unit="J/kg",
+    final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}}),
-        iconTransformation(extent={{-120,50},{-100,70}})));
-  CDL.Interfaces.RealInput VOut_flow(final unit="m3/s", final quantity="VolumeFlowRate")
+      iconTransformation(extent={{-120,50},{-100,70}})));
+  CDL.Interfaces.RealInput VOut_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
     "Measured outdoor volumetric airflow rate"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}}),
-        iconTransformation(extent={{-120,-10},{-100,10}})));
-  CDL.Interfaces.RealInput VOutMinSet_flow(final unit="m3/s", final quantity="VolumeFlowRate")
+      iconTransformation(extent={{-120,-10},{-100,10}})));
+  CDL.Interfaces.RealInput VOutMinSet_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
     "Minimum outdoor volumetric airflow rate setpoint"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}}),
-        iconTransformation(extent={{-120,-30},{-100,-10}})));
+      iconTransformation(extent={{-120,-30},{-100,-10}})));
   CDL.Interfaces.IntegerInput uFreProSta "Freeze protection status"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}}),
       iconTransformation(extent={{-120,-110},{-100,-90}})));
@@ -52,20 +120,30 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
       iconTransformation(extent={{-120,-70},{-100,-50}})));
   CDL.Interfaces.IntegerInput uZonSta "Zone state signal"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}}),
-        iconTransformation(extent={{-120,-90},{-100,-70}})));
+      iconTransformation(extent={{-120,-90},{-100,-70}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}}),
-        iconTransformation(extent={{-120,-50},{-100,-30}})));
+      iconTransformation(extent={{-120,-50},{-100,-30}})));
 
-  CDL.Interfaces.RealOutput yRetDamPos(final min=0, final max=1, final unit="1") "Return air damper position"
+  CDL.Interfaces.RealOutput yRetDamPos(
+    final min=0,
+    final max=1,
+    final unit="1") "Return air damper position"
     annotation (Placement(transformation(extent={{120,30},{140,50}}),
     iconTransformation(extent={{100,10}, {120,30}})));
-  CDL.Interfaces.RealOutput yOutDamPos(final min=0, final max=1, final unit="1") "Outdoor air damper position"
+  CDL.Interfaces.RealOutput yOutDamPos(
+    final min=0,
+    final max=1,
+    final unit="1") "Outdoor air damper position"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}}),
     iconTransformation(extent={{100,-30}, {120,-10}})));
 
   Atomic.EconEnableDisableMultiZone ecoEnaDis(
-    final use_enthalpy=use_enthalpy) "Multizone VAV AHU economizer enable/disable sequence"
+    final use_enthalpy=use_enthalpy,
+    final delTOutHis=delTOutHis,
+    final delEntHis=delEntHis,
+    final retDamFulOpeTim=retDamFulOpeTim,
+    final smaDisDel=smaDisDel) "Multizone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Atomic.EconDamperPositionLimitsMultiZone ecoDamLim(
     final retDamPhyPosMax=retDamPhyPosMax,
@@ -73,10 +151,16 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     final outDamPhyPosMax=outDamPhyPosMax,
     final outDamPhyPosMin=outDamPhyPosMin,
     final kPDamLim=kPDamLim,
-    final TiDamLim=TiDamLim)
+    final TiDamLim=TiDamLim,
+    final conSigMin=conSigMinDamLim,
+    final conSigMax=conSigMaxDamLim,
+    final retDamConSigMin=retDamConSigMinDamLim)
     "Multizone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Atomic.EconModulationMultiZone ecoMod(final kPMod=kPMod, final TiMod=TiMod)
+  Atomic.EconModulationMultiZone ecoMod(
+    final kPMod=kPMod,
+    final TiMod=TiMod,
+    final retDamConSigMin=retDamConSigMinMod)
     "Multizone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
@@ -130,7 +214,7 @@ equation
   connect(uZonSta, ecoEnaDis.uZonSta)
     annotation (Line(points={{-130,-100},{-58,-100},{-58,-30},{-1,-30}}, color={255,127,0}));
   connect(THeaSet, ecoMod.THeaSet) annotation (Line(points={{-130,40},{40,40},{40,19},{59,19}}, color={0,0,127}));
-  annotation (defaultComponentName = "economizer",
+  annotation (defaultComponentName = "conEco",
         Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
@@ -154,9 +238,11 @@ equation
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
 Documentation(info="<html>
 <p>
-This is multiple zone VAV AHU economizer control sequence. It calculates
+Multiple zone VAV AHU economizer control sequence that calculates
 outdoor and return air damper positions based on ASHRAE
 Guidline 36, PART5 sections: N.2.c, N.5, N.6.c, N.7, A.17, N.12.
+</p>
+<p>
 The sequence comprises the following atomic sequences:
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone\">
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone</a>,
@@ -166,7 +252,7 @@ and <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.A
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationMultiZone</a>.
 </p>
 <p>
-The structure of the economizer control sequence:
+The figure below shows the block diagram of the control sequence.
 </p>
 <p align=\"center\">
 <img alt=\"Image of the multizone AHU modulation sequence control diagram\"

@@ -18,12 +18,16 @@ protected
     final offset=THeaSet - 2) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   CDL.Continuous.Sources.Constant outDamPosMin(final k=0)
+    "Minimum outdoor air damper position"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   CDL.Continuous.Sources.Constant outDamPosMax(final k=1)
+    "Maximum outdoor air damper position"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   CDL.Continuous.Sources.Constant RetDamPosMin(final k=0)
+    "Minimum return air damper position"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   CDL.Continuous.Sources.Constant RetDamPosMax(final k=1)
+    "Maximum return air damper position"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
 equation

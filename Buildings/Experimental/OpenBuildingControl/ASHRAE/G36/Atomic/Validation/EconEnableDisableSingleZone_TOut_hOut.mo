@@ -24,7 +24,8 @@ model EconEnableDisableSingleZone_TOut_hOut
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   EconEnableDisableSingleZone ecoEnaDis1 "Singlezone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  EconEnableDisableSingleZone ecoEnaDis2(use_enthalpy=false) "Singlezone VAV AHU economizer enable disable sequence"
+  EconEnableDisableSingleZone ecoEnaDis2(use_enthalpy=false)
+    "Singlezone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{220,-80},{240,-60}})));
 
 protected
@@ -51,11 +52,15 @@ protected
   CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
     "Freeze Protection Status - Disabled"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
-  CDL.Logical.Sources.Constant supFanSta(k=true) "Supply fan status signal"
+  CDL.Logical.Sources.Constant supFanSta(final k=true) "Supply fan status signal"
       annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
-  CDL.Logical.Sources.Pulse booPul(final startTime=10, period=2000) "Boolean pulse signal"
+  CDL.Logical.Sources.Pulse booPul(
+    final startTime=10,
+    final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
-  CDL.Logical.Sources.Pulse booPul1(final startTime=10, period=2000) "Boolean pulse signal"
+  CDL.Logical.Sources.Pulse booPul1(
+    final startTime=10,
+    final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
 equation

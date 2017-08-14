@@ -3,6 +3,6 @@ compareVars :=
     "ecoMod.THeaSet",
     "ecoMod.TSup",
     "ecoMod.damPosCon.y",
-    "ecoMod.outDamPos.y",
-    "ecoMod.retDamPos.y"
+    "ecoMod.yOutDamPos",
+    "ecoMod.yRetDamPos"
   };

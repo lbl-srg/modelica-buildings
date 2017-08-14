@@ -6,5 +6,7 @@ EconModulationMultiZone
 EconModulationSingleZone
 HeatingCoolingControlLoops
 OperationModeSelector
+OutdoorAirFlowSetpoint_MultiZone
+OutdoorAirFlowSetpoint_SingleZone
 VAVSingleZoneTSupSet
 Validation

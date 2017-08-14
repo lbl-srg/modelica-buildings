@@ -22,14 +22,16 @@ protected
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
   parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=0.61
     "Minimal measured volumetric airflow";
-  parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=0.2
+  parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=(minVOutSet_flow-minVOut_flow)*2
     "Maximum volumetric airflow increase during the example simulation";
 
   CDL.Logical.Sources.Constant fanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  CDL.Integers.Sources.Constant freProSta(k=Constants.FreezeProtectionStages.stage0) "Freeze protection status 0 - disabled"
+  CDL.Integers.Sources.Constant freProSta(k=Constants.FreezeProtectionStages.stage0)
+    "Freeze protection status 0 - disabled"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  CDL.Integers.Sources.Constant operationMode(k=Constants.OperationModes.occModInd) "Operation mode is Occupied"
+  CDL.Integers.Sources.Constant operationMode(k=Constants.OperationModes.occModInd)
+    "Operation mode is Occupied"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
 equation
