@@ -8,7 +8,7 @@ compareVars :=
     "ecoEnaDis.yOutDamPosMax",
     "ecoEnaDis",
     ".",
-    "uOutDamPosMin",
+    "yOutDamPosMin",
     "hOutCut1.y",
     "hOut.y",
     "ecoEnaDis1.truFalHol.y",
@@ -17,7 +17,7 @@ compareVars :=
     "ecoEnaDis1.yOutDamPosMax",
     "ecoEnaDis1",
     ".",
-    "uOutDamPosMin",
+    "yOutDamPosMin",
     "TOutCut.y",
     "TOut.y",
     "ecoEnaDis2.truFalHol.y",
@@ -26,5 +26,5 @@ compareVars :=
     "ecoEnaDis2.yOutDamPosMax",
     "ecoEnaDis2",
     ".",
-    "uOutDamPosMin"
+    "yOutDamPosMin"
   };
