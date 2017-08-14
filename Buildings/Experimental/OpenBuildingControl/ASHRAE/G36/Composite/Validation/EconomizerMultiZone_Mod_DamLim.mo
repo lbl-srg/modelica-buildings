@@ -5,7 +5,7 @@ model EconomizerMultiZone_Mod_DamLim
 
   EconomizerMultiZone economizer "Multizone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  EconomizerMultiZone economizer1(use_enthalpy=false) "Multizone VAV AHU economizer "
+  EconomizerMultiZone economizer1(use_enthalpy=false) "Multizone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
 protected
@@ -19,9 +19,9 @@ protected
     "Measured supply air temperature";
   final parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  final parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=0.705
+  final parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=0.61
     "Minimal measured volumetric airflow";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutIncrease_flow=0.03
+  final parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=(minVOutSet_flow-minVOut_flow)*2.2
     "Maximum volumetric airflow increase during the example simulation";
 
   CDL.Logical.Sources.Constant fanSta(final k=true) "Fan is on"
@@ -48,9 +48,9 @@ protected
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.Ramp VOut_flow(
-    final duration=1800,
     final offset=minVOut_flow,
-    final height=VOutIncrease_flow)
+    final duration=900,
+    final height=incVOutSet_flow)
     "Measured outdoor air volumetric airflow"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   CDL.Continuous.Sources.Constant TSupSetSig(final k=THeaSet) "Heating supply air temperature setpoint"
@@ -59,8 +59,8 @@ protected
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Modelica.Blocks.Sources.Ramp TSupSig1(
     final duration=900,
-    final height=2,
-    final offset=THeaSet - 1) "Measured supply air temperature"
+    final height=3,
+    final offset=THeaSet - 2) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
 
 equation

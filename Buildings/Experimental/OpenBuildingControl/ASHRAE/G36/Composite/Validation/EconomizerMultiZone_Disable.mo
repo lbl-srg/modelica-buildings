@@ -3,20 +3,31 @@ model EconomizerMultiZone_Disable
   "Validation model for disabling the multizone VAV AHU economizer modulation and damper position limit control loops"
   extends Modelica.Icons.Example;
 
-  EconomizerMultiZone economizer(use_enthalpy=true) "Multizone VAV AHU economizer "
+  EconomizerMultiZone economizer(use_enthalpy=true,
+    retDamPhyPosMax=1,
+    retDamPhyPosMin=0,
+    outDamPhyPosMax=1,
+    outDamPhyPosMin=0) "Multizone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  EconomizerMultiZone economizer1(use_enthalpy=true)
-                                  "Multizone VAV AHU economizer"
+  EconomizerMultiZone economizer1(use_enthalpy=true,
+    retDamPhyPosMax=1,
+    retDamPhyPosMin=0,
+    outDamPhyPosMax=1,
+    outDamPhyPosMin=0) "Multizone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 
 protected
   final parameter Modelica.SIunits.Temperature TOutCutoff=297.15
     "Outdoor temperature high limit cutoff";
+  final parameter Modelica.SIunits.Temperature TSupSet=291.15 "Supply air temperature setpoint";
   final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy VOutSet_flow=0.71
+  final parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  final parameter Modelica.SIunits.Temperature TSupSet=291.15 "Supply air temperature setpoint";
+  final parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=0.61
+    "Minimal measured volumetric airflow";
+  final parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=(minVOutSet_flow-minVOut_flow)*2.2
+    "Maximum volumetric airflow increase during the example simulation";
 
   CDL.Logical.Sources.Constant fanSta(final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
@@ -39,13 +50,13 @@ protected
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
   CDL.Continuous.Sources.Constant TOutCut1(final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  CDL.Continuous.Sources.Constant VOutMinSet_flow(final k=VOutSet_flow)
+  CDL.Continuous.Sources.Constant VOutMinSet_flow(final k=minVOutSet_flow)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.Ramp VOut_flow(
-    final duration=1800,
-    final height=0.2,
-    final offset=VOutSet_flow - 0.1)
+    final height=incVOutSet_flow,
+    final offset=minVOut_flow,
+    final duration=1800)
     "Measured outdoor air volumetric airflow"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Modelica.Blocks.Sources.Ramp TSup(
