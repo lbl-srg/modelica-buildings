@@ -73,8 +73,7 @@ protected
   Modelica.Blocks.Sources.Ramp VOutMinSetSig(
     final duration=1800,
     final offset=minVOut_flow,
-    final height=desVOut_flow - minVOut_flow)
-    "Minimum outdoor airflow setpoint"
+    final height=desVOut_flow - minVOut_flow) "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Modelica.Blocks.Sources.Ramp SupFanSpeSig(
     final duration=1800,
