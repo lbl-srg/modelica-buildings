@@ -6,15 +6,14 @@ model HeatingCoolingControlLoops_TRoo
   parameter Modelica.SIunits.Temperature TRooCooSet=25 + 273.15 "Cooling zone temperature setpoint";
   parameter Modelica.SIunits.Temperature TRooHeaSet=20 + 273.15 "Heating zone temperature setpoint";
 
-  CDL.Continuous.Constant TRooCooSetSig(k=TRooCooSet) "Cooling zone temperature setpoint"
+  CDL.Continuous.Sources.Constant TRooCooSetSig(k=TRooCooSet) "Cooling zone temperature setpoint"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  CDL.Continuous.Constant TRooHeaSetSig(k=TRooHeaSet) "Heating zone temperature setpoint"
+  CDL.Continuous.Sources.Constant TRooHeaSetSig(k=TRooHeaSet) "Heating zone temperature setpoint"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Modelica.Blocks.Sources.Ramp TRoo(
     duration=900,
     offset=TRooHeaSet - 5,
-    height=TRooCooSet - TRooHeaSet + 10)
-                           "Measured zone air temperature"
+    height=TRooCooSet - TRooHeaSet + 10) "Measured zone air temperature"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   HeatingCoolingControlLoops conLoo annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 

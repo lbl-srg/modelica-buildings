@@ -3,9 +3,9 @@ block HeatingCoolingControlLoops "Generates heating and cooling control signals 
 
   parameter Real conSigMin=0 "Lower limit of control signal output";
   parameter Real conSigMax=1 "Upper limit of control signal output";
-  parameter Real kPCoo=1 "Gain of damper limit controller";
+  parameter Real kPCoo=30 "Gain of damper limit controller";
   parameter Modelica.SIunits.Time TiCoo=0.9 "Time constant of damper limit controller integrator block";
-  parameter Real kPHea=1 "Gain of damper limit controller";
+  parameter Real kPHea=30 "Gain of damper limit controller";
   parameter Modelica.SIunits.Time TiHea=0.9 "Time constant of damper limit controller integrator block";
 
   Modelica.Blocks.Interfaces.RealInput TRooHeaSet(unit="K")
