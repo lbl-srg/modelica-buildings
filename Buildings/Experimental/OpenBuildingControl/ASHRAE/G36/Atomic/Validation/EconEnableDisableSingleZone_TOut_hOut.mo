@@ -20,12 +20,12 @@ model EconEnableDisableSingleZone_TOut_hOut
     final falling=800) "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
-  EconEnableDisableSingleZone ecoEnaDis "Singlezone VAV AHU economizer enable disable sequence"
+  EconEnableDisableSingleZone ecoEnaDis "Single zone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  EconEnableDisableSingleZone ecoEnaDis1 "Singlezone VAV AHU economizer enable disable sequence"
+  EconEnableDisableSingleZone ecoEnaDis1 "Single zone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   EconEnableDisableSingleZone ecoEnaDis2(use_enthalpy=false)
-    "Singlezone VAV AHU economizer enable disable sequence"
+    "Single zone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{220,-80},{240,-60}})));
 
 protected
@@ -42,7 +42,7 @@ protected
   CDL.Continuous.Sources.Constant TOutCut1(final k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 1000)
-    "Outdoor air enthalpy is slightly below the cufoff"
+    "Outdoor air enthalpy is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-240,40},{-220,60}})));
   CDL.Continuous.Sources.Constant TOutBelowCutoff(final k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"
@@ -50,10 +50,10 @@ protected
   CDL.Integers.Sources.Constant zoneState(final k=Constants.ZoneStates.deadband) "Zone State is deadband"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
   CDL.Continuous.Sources.Constant outDamPosMaxSig(final k=outDamPosMax)
-                                                               "Maximal allowed economizer damper position"
+    "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
   CDL.Continuous.Sources.Constant outDamPosMinSig(final k=outDamPosMin)
-                                                               "Minimal allowed economizer damper position"
+    "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-160},{-220,-140}})));
   CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
     "Freeze Protection Status - Disabled"
@@ -91,7 +91,7 @@ equation
   connect(TOutBelowCutoff.y, ecoEnaDis1.TOut)
     annotation (Line(points={{61,50},{70,50},{70,-60},{80,-60},{79,-60}}, color={0,0,127}));
   connect(booPul.y, TOut.u)
-    annotation (Line(points={{-179,90},{-162,90}},   color={255,0,255}));
+    annotation (Line(points={{-179,90},{-162,90}}, color={255,0,255}));
   connect(TOut.y, ecoEnaDis.TOut) annotation (Line(points={{-139,90},{-110,90},{-110,-60},{-81,-60}}, color={0,0,127}));
   connect(booPul1.y, hOut.u) annotation (Line(points={{-59,50},{-50,50},{-42,50}}, color={255,0,255}));
   connect(hOut.y, ecoEnaDis1.hOut)

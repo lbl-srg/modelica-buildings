@@ -129,10 +129,9 @@ equation
           -100},{28,-100},{28,-26},{58,-26}}, color={0,0,127}));
   connect(outDamMinLimSig.y, outDamPos.x1) annotation (Line(points={{1,-10},{1,-10},
           {28,-10},{28,-22},{58,-22}}, color={0,0,127}));
-  connect(retDamMinLimSig.y,retDamPos. x1) annotation (Line(points={{1,78},{58,78}},
-                                    color={0,0,127}));
-  connect(outDamMaxLimSig.y, outDamPos.x2) annotation (Line(points={{1,-50},{32,
-          -50},{32,-34},{58,-34}}, color={0,0,127}));
+  connect(retDamMinLimSig.y,retDamPos. x1) annotation (Line(points={{1,78},{58,78}}, color={0,0,127}));
+  connect(outDamMaxLimSig.y, outDamPos.x2) annotation (Line(points={{1,-50},{32,-50},{32,-34},{58,-34}},
+    color={0,0,127}));
   connect(THeaSet, damPosCon.u_s)
     annotation (Line(points={{-140,10},{-140,10},{-82,10}}, color={0,0,127}));
   connect(uRetDamPosMin,retDamPos. f2)

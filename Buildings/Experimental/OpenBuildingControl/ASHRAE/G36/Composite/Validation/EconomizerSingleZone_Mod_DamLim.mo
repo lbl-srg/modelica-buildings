@@ -9,7 +9,7 @@ model EconomizerSingleZone_Mod_DamLim
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
     final desVOut_flow=desVOut_flow)
-    "Singlezone VAV AHU economizer"
+    "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   EconomizerSingleZone economizer1(
     final use_enthalpy=false,
@@ -17,7 +17,7 @@ model EconomizerSingleZone_Mod_DamLim
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
     final desVOut_flow=desVOut_flow)
-    "Singlezone VAV AHU economizer"
+    "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
 protected
@@ -52,7 +52,7 @@ protected
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 10000)
-    "Outdoor air enthalpy is slightly below the cufoff"
+    "Outdoor air enthalpy is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   CDL.Continuous.Sources.Constant hOutCut(final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));

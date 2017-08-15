@@ -69,21 +69,21 @@ block EconDamperPositionLimitsMultiZone
     final unit="1")
     "Minimum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{180,70},{200,90}}),
-    iconTransformation(extent={{100,40},{120,60}})));
+        iconTransformation(extent={{100,40},{120,60}})));
   CDL.Interfaces.RealOutput yOutDamPosMax(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1")
     "Maximum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{180,30},{200,50}}),
-    iconTransformation(extent={{100,60},{120,80}})));
+        iconTransformation(extent={{100,60},{120,80}})));
   CDL.Interfaces.RealOutput yRetDamPosMin(
     final min=retDamPhyPosMin,
     final max=retDamPhyPosMax,
     final unit="1")
     "Minimum return air damper position limit"
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
-    iconTransformation(extent={{100,-10},{120,10}})));
+        iconTransformation(extent={{100,-10},{120,10}})));
   CDL.Interfaces.RealOutput yRetDamPosMax(
     final min=retDamPhyPosMin,
     final max=retDamPhyPosMax,

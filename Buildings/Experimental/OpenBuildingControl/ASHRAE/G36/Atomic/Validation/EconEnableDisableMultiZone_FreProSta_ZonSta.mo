@@ -20,7 +20,7 @@ protected
   CDL.Continuous.Sources.Constant TOutCut(final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 1000)
-    "Outdoor air enthalpy is slightly below the cufoff"
+    "Outdoor air enthalpy is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   CDL.Continuous.Sources.Constant hOutCut(final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
