@@ -39,7 +39,7 @@ protected
   CDL.Continuous.Sources.Constant TOutCut1(final k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
   CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 1000)
-    "Outdoor air enthalpy is slightly below the cufoff"
+    "Outdoor air enthalpy is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-240,80},{-220,100}})));
   CDL.Continuous.Sources.Constant TOutBelowCutoff(final k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"
@@ -50,13 +50,14 @@ protected
     annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
   CDL.Continuous.Sources.Constant retDamPosMax(final k=0.8) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
-  CDL.Continuous.Sources.Constant retDamPosMin(final k=0)   "Minimal allowed economizer damper position"
+  CDL.Continuous.Sources.Constant retDamPosMin(final k=0) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
   CDL.Continuous.Sources.Constant retDamPhyPosMax(final k=1) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
   CDL.Integers.Sources.Constant zonSta(final k=Constants.ZoneStates.deadband) "Zone State is deadband"
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
-  CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0) "Freeze Protection Status - Disabled"
+  CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
+    "Freeze Protection Status - Disabled"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
   CDL.Logical.Sources.Constant SupFanSta(final k=true) "Supply fan status signal"
       annotation (Placement(transformation(extent={{-200,-42},{-180,-22}})));

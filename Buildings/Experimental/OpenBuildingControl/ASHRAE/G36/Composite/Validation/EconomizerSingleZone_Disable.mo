@@ -9,7 +9,7 @@ model EconomizerSingleZone_Disable
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
     final desVOut_flow=desVOut_flow)
-    "Singlezone VAV AHU economizer"
+    "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   EconomizerSingleZone economizer1(
     final use_enthalpy=true,
@@ -17,7 +17,7 @@ model EconomizerSingleZone_Disable
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
     final desVOut_flow=desVOut_flow)
-    "Singlezone VAV AHU economizer"
+    "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 
 protected
@@ -47,7 +47,7 @@ protected
   CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occModInd) "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 40000)
-    "Outdoor air enthalpy is below the cufoff"
+    "Outdoor air enthalpy is below the cutoff"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   CDL.Continuous.Sources.Constant TSupSetSig(final k=TSupSet) "Healing supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));

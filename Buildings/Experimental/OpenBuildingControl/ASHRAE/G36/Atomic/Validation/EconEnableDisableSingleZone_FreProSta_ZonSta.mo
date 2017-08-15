@@ -3,9 +3,9 @@ model EconEnableDisableSingleZone_FreProSta_ZonSta
   "Model validates economizer disable for heating zone state and activated freeze protection"
   extends Modelica.Icons.Example;
 
-  EconEnableDisableSingleZone ecoEnaDis "Singlezone VAV AHU enable disable sequence"
+  EconEnableDisableSingleZone ecoEnaDis "Single zone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,40},{102,60}})));
-  EconEnableDisableSingleZone ecoEnaDis1 "Singlezone VAV AHU enable disable sequence"
+  EconEnableDisableSingleZone ecoEnaDis1 "Single zone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,-40},{102,-20}})));
 
 protected
@@ -21,7 +21,7 @@ protected
     "Outdoor temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 1000)
-    "Outdoor air enthalpy is slightly below the cufoff"
+    "Outdoor air enthalpy is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   CDL.Continuous.Sources.Constant hOutCut(final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));

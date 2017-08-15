@@ -20,12 +20,12 @@ model EconEnableDisableSingleZone_TOut_hOut
     final falling=800) "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
-  EconEnableDisableSingleZone ecoEnaDis "Singlezone VAV AHU economizer enable disable sequence"
+  EconEnableDisableSingleZone ecoEnaDis "Single zone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  EconEnableDisableSingleZone ecoEnaDis1 "Singlezone VAV AHU economizer enable disable sequence"
+  EconEnableDisableSingleZone ecoEnaDis1 "Single zone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   EconEnableDisableSingleZone ecoEnaDis2(use_enthalpy=false)
-    "Singlezone VAV AHU economizer enable disable sequence"
+    "Single zone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{220,-80},{240,-60}})));
 
 protected
@@ -33,21 +33,27 @@ protected
     "Outdoor temperature high limit cutoff";
   final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
+  final parameter Real outDamPosMin=0.1
+    "Minimum outdoor air damper position";
+  final parameter Real outDamPosMax=0.9
+    "Minimum return air damper position";
   CDL.Continuous.Sources.Constant hOutCut(final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-240,0},{-220,20}})));
   CDL.Continuous.Sources.Constant TOutCut1(final k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 1000)
-    "Outdoor air enthalpy is slightly below the cufoff"
+    "Outdoor air enthalpy is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-240,40},{-220,60}})));
   CDL.Continuous.Sources.Constant TOutBelowCutoff(final k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   CDL.Integers.Sources.Constant zoneState(final k=Constants.ZoneStates.deadband) "Zone State is deadband"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
-  CDL.Continuous.Sources.Constant outDamPosMax(final k=0.9) "Maximal allowed economizer damper position"
+  CDL.Continuous.Sources.Constant outDamPosMaxSig(final k=outDamPosMax)
+    "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
-  CDL.Continuous.Sources.Constant outDamPosMin(final k=0.1) "Minimal allowed economizer damper position"
+  CDL.Continuous.Sources.Constant outDamPosMinSig(final k=outDamPosMin)
+    "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-160},{-220,-140}})));
   CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
     "Freeze Protection Status - Disabled"
@@ -70,9 +76,9 @@ equation
     annotation (Line(points={{-219,10},{-150,10},{-150,-66},{-81,-66}}, color={0,0,127}));
   connect(freProSta.y, ecoEnaDis.uFreProSta)
     annotation (Line(points={{-179,-10},{-120,-10},{-120,-68},{-81,-68}}, color={255,127,0}));
-  connect(outDamPosMax.y, ecoEnaDis.uOutDamPosMax)
+  connect(outDamPosMaxSig.y, ecoEnaDis.uOutDamPosMax)
     annotation (Line(points={{-219,-110},{-150,-110},{-150,-74},{-81,-74}}, color={0,0,127}));
-  connect(outDamPosMin.y, ecoEnaDis.uOutDamPosMin)
+  connect(outDamPosMinSig.y, ecoEnaDis.uOutDamPosMin)
     annotation (Line(points={{-219,-150},{-210,-150},{-210,-100},{-140,-100},{-140,-76},{-81,-76}}, color={0,0,127}));
   connect(ecoEnaDis.uZonSta, zoneState.y)
     annotation (Line(points={{-81,-70},{-140,-70},{-140,-40},{-179,-40}}, color={255,127,0}));
@@ -85,7 +91,7 @@ equation
   connect(TOutBelowCutoff.y, ecoEnaDis1.TOut)
     annotation (Line(points={{61,50},{70,50},{70,-60},{80,-60},{79,-60}}, color={0,0,127}));
   connect(booPul.y, TOut.u)
-    annotation (Line(points={{-179,90},{-162,90}},   color={255,0,255}));
+    annotation (Line(points={{-179,90},{-162,90}}, color={255,0,255}));
   connect(TOut.y, ecoEnaDis.TOut) annotation (Line(points={{-139,90},{-110,90},{-110,-60},{-81,-60}}, color={0,0,127}));
   connect(booPul1.y, hOut.u) annotation (Line(points={{-59,50},{-50,50},{-42,50}}, color={255,0,255}));
   connect(hOut.y, ecoEnaDis1.hOut)
@@ -94,9 +100,9 @@ equation
     annotation (Line(points={{-179,-10},{-30,-10},{-30,-68},{79,-68}}, color={255,127,0}));
   connect(zoneState.y, ecoEnaDis1.uZonSta)
     annotation (Line(points={{-179,-40},{-160,-40},{-160,-26},{4,-26},{4,-70},{79,-70}}, color={255,127,0}));
-  connect(outDamPosMax.y, ecoEnaDis1.uOutDamPosMax)
+  connect(outDamPosMaxSig.y, ecoEnaDis1.uOutDamPosMax)
     annotation (Line(points={{-219,-110},{8,-110},{8,-74},{79,-74}}, color={0,0,127}));
-  connect(outDamPosMin.y, ecoEnaDis1.uOutDamPosMin)
+  connect(outDamPosMinSig.y, ecoEnaDis1.uOutDamPosMin)
     annotation (Line(points={{-219,-150},{-190,-150},{-190,-104},{12,-104},{12,-76},{79,-76}}, color={0,0,127}));
   connect(TOut.y, ecoEnaDis2.TOut)
     annotation (Line(points={{-139,90},{-82,90},{200,90},{200,-60},{219,-60}}, color={0,0,127}));
@@ -106,9 +112,9 @@ equation
     annotation (Line(points={{-179,-10},{170,-10},{170,-68},{219,-68}}, color={255,127,0}));
   connect(zoneState.y, ecoEnaDis2.uZonSta)
     annotation (Line(points={{-179,-40},{-170,-40},{-170,-20},{150,-20},{150,-70},{219,-70}}, color={255,127,0}));
-  connect(outDamPosMax.y, ecoEnaDis2.uOutDamPosMax)
+  connect(outDamPosMaxSig.y, ecoEnaDis2.uOutDamPosMax)
     annotation (Line(points={{-219,-110},{180,-110},{180,-74},{219,-74}}, color={0,0,127}));
-  connect(outDamPosMin.y, ecoEnaDis2.uOutDamPosMin)
+  connect(outDamPosMinSig.y, ecoEnaDis2.uOutDamPosMin)
     annotation (Line(points={{-219,-150},{-180,-150},{-180,-120},{190,-120},{190,-76},{219,-76}}, color={0,0,127}));
   connect(supFanSta.y, ecoEnaDis.uSupFan)
     annotation (Line(points={{-179,-70},{-150,-70},{-150,-72},{-81,-72}}, color={255,0,255}));
