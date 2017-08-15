@@ -2,20 +2,20 @@ compareVars :=
   {
     "VOutMinSet_flow.y",
     "VOut_flow.y",
-    "fanStatus.y",
+    "fanSta.y",
     "ecoDamLim.yOutDamPosMin",
     "ecoDamLim.yOutDamPosMax",
     "ecoDamLim.yRetDamPosMin",
     "ecoDamLim.yRetDamPosMax",
-    "ecoDamLim.damLimController.y",
+    "ecoDamLim.damLimCon.y",
     "VOutMinSet1_flow.y",
     "VOut1_flow.y",
-    "operationMode1.y",
+    "opeMod1.y",
     "ecoDamLim1.yOutDamPosMin",
     "ecoDamLim1.yOutDamPosMax",
     "ecoDamLim1.yRetDamPosMin",
     "ecoDamLim1.yRetDamPosMax",
-    "ecoDamLim1.damLimController.y",
+    "ecoDamLim1.damLimCon.y",
     "VOutMinSet2_flow.y",
     "VOut2_flow.y",
     "freProSta2.y",
@@ -23,5 +23,5 @@ compareVars :=
     "ecoDamLim2.yOutDamPosMax",
     "ecoDamLim2.yRetDamPosMin",
     "ecoDamLim2.yRetDamPosMax",
-    "ecoDamLim2.damLimController.y"
+    "ecoDamLim2.damLimCon.y"
   };

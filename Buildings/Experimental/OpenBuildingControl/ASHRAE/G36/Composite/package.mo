@@ -2,6 +2,12 @@ within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
 package Composite "Control sequences as defined in G36"
   annotation (Icon(graphics={
         Rectangle(
+          lineColor={200,200,200},
+          fillColor={248,248,248},
+          fillPattern=FillPattern.HorizontalCylinder,
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0),
+        Rectangle(
           extent={{-70,60},{-30,20}},
           lineColor={0,0,127},
           lineThickness=0.5),

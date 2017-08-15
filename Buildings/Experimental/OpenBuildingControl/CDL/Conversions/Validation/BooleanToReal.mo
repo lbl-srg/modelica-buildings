@@ -5,9 +5,8 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Conversions.BooleanToReal booToRea
     "Block that convert Boolean to Real signal"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse booPul(
-    period = 1)
-    "Generate output cyclic on and off"
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.Sources.Pulse booPul(
+      period=1) "Generate output cyclic on and off"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 equation
   connect(booPul.y, booToRea.u)

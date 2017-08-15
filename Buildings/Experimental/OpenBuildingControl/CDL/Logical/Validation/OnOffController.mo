@@ -3,7 +3,7 @@ model OnOffController
   "Validation model for the OnOffController block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp1(
     duration=5,
     offset=0,
     height=31.415926) "Block that generates ramp signal"
@@ -13,7 +13,7 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-32,-16},{-12,4}})));
 
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons2(k=0.7) "Constant as source term"
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Constant cons2(k=0.7) "Constant as source term"
     annotation (Placement(transformation(extent={{-32,18},{-12,38}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.OnOffController onOffController(

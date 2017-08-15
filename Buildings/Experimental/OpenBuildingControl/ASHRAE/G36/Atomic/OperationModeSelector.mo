@@ -2,16 +2,12 @@ within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic;
 block OperationModeSelector "Block that outputs the operation mode"
 
   parameter Integer numOfZon = 10 "Number of zones";
-
   parameter Modelica.SIunits.Time preWarCooTim = 3*3600
     "Maximum cool-down/warm-up time";
-
   parameter Real bouLim = 1.1
     "Value limit to indicate the end of setback/setup mode";
-
   parameter Real freProThrVal = 4.4
     "Threshold zone temperature value to activate freeze protection mode";
-
   parameter Real freProEndVal = 7.2
     "Threshold zone temperature value to finish the freeze protection mode";
 
@@ -71,11 +67,11 @@ block OperationModeSelector "Block that outputs the operation mode"
   CDL.Interfaces.IntegerOutput freProAlaLev "Level 3 alarm: freeze protection"
     annotation (Placement(transformation(extent={{460,-150},{480,-130}}),
         iconTransformation(extent={{100,-60},{120,-40}})));
-  CDL.Continuous.Constant occModInd(
+  CDL.Continuous.Sources.Constant occModInd(
     k=Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Constants.OperationModes.occModInd)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{140,290},{160,310}})));
-  CDL.Continuous.Constant unoPerInd(final k=0)
+  CDL.Continuous.Sources.Constant unoPerInd(final k=0)
     "Index to indicate unoccupied period"
     annotation (Placement(transformation(extent={{-160,220},{-140,240}})));
   CDL.Continuous.MinMax minMax(final nin=numOfZon)
@@ -183,11 +179,15 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Decide if the warm-up time of one zone should be ignored: if window 
     open, then output zero, otherwise, output warUpTim[zone] "
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
-  CDL.Continuous.Add add2(final k1=+1, final k2=-1)
+  CDL.Continuous.Add add2(
+    final k1=+1,
+    final k2=-1)
     "Calculate the difference between minimum zone temperature and 
     unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  CDL.Continuous.Add add1(final k1=+1, final k2=-1)
+  CDL.Continuous.Add add1(
+    final k1=+1,
+    final k2=-1)
     "Calculate the difference between maximum zone temperature and 
     unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{80,-280},{100,-260}})));
@@ -205,7 +205,9 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Whether or not the maximum warm-up time is more than allowed warm-up 
     time, with deadband range of 20 seconds"
     annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
-  CDL.Continuous.Add add5(final k1=-1, final k2=+1)
+  CDL.Continuous.Add add5(
+    final k1=-1,
+    final k2=+1)
     "Calculate differential between time-to-next-occupancy and the 
     cool-down time"
     annotation (Placement(transformation(extent={{60,180},{80,200}})));
@@ -223,10 +225,14 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Whether or not the warm-up model should be activated, with deadband 
     range of 20 s"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
-  CDL.Continuous.Add add6(final k1=-1, final k2=+1)
+  CDL.Continuous.Add add6(
+    final k1=-1,
+    final k2=+1)
     "Calculate differential between time-to-next-occupancy and the warm-up time"
     annotation (Placement(transformation(extent={{60,140},{80,160}})));
-  CDL.Continuous.Add add7(final k1=+1, final k2=-1)
+  CDL.Continuous.Add add7(
+    final k1=+1,
+    final k2=-1)
     "Calculate differential between minimum zone temperature and the 
     heating setpoint"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
@@ -235,7 +241,9 @@ block OperationModeSelector "Block that outputs the operation mode"
     uLow=-0.1,
     uHigh=0.1) "Whether or not the system should run in warm-up mode"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  CDL.Continuous.Add add8(final k1=-1, final k2=+1)
+  CDL.Continuous.Add add8(
+    final k1=-1,
+    final k2=+1)
     "Calculate differential between maximum zone temperature and the cooling 
     setpoint"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
@@ -262,7 +270,9 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Whether or not any zone temperature is lower than freProThrVal, with 
     deadband of 0.2 degC"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  CDL.Continuous.AddParameter addPar(p=freProThrVal, final k=-1)
+  CDL.Continuous.AddParameter addPar(
+    p=freProThrVal,
+    final k=-1)
     "Calculate differential between minimum zone temperature and freeze 
     protection threshold temperature"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
@@ -273,7 +283,9 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Whether or not all zone temperature are higher than freProEndVal, with 
     deadband of 0.2 degC"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
-  CDL.Continuous.AddParameter addPar1(final k=1, p=(-1)*freProEndVal)
+  CDL.Continuous.AddParameter addPar1(
+    final k=1,
+    p=(-1)*freProEndVal)
     "Calculate differential between maximum zone temperature and the freeze 
     protection ending threshold value"
     annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
@@ -288,15 +300,20 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Whether or not the zone temperature is higher than setpoint, with 
     deadband of 0.2 degC"
     annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
-  CDL.Continuous.AddParameter addPar2(p=preWarCooTim, final k=-1)
+  CDL.Continuous.AddParameter addPar2(
+    p=preWarCooTim,
+    final k=-1)
     "Calculate the differential between maximum cool down time and the 
     allowed maximum cool down time"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
-  CDL.Continuous.AddParameter addPar3(p=preWarCooTim, final k=-1)
+  CDL.Continuous.AddParameter addPar3(
+    p=preWarCooTim,
+    final k=-1)
     "Calculate the differential between maximum warm-up time and the 
     allowed maximum warm-up time"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
-  CDL.Continuous.Constant maxWarCooTime(k=preWarCooTim)
+  CDL.Continuous.Sources.Constant maxWarCooTime(
+    k=preWarCooTim)
     "Allowed maximum warm-up/cool-down time"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
 
@@ -395,6 +412,10 @@ protected
     "If the Cool-down/warm-up/Occupied mode is on, then setup mode should 
     not be activated."
     annotation (Placement(transformation(extent={{260,-220},{280,-200}})));
+  CDL.Routing.RealReplicator reaRep(nout=numOfZon) "Replicate real input"
+    annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
+  CDL.Routing.RealReplicator reaRep1(nout=numOfZon) "Replicate real input"
+    annotation (Placement(transformation(extent={{-200,-260},{-180,-240}})));
 
 equation
   connect(swi.y, occMod.u)
@@ -416,79 +437,63 @@ equation
   connect(booToRea.y,warUpInd. u)
     annotation (Line(points={{221,150},{221,150},{238,150}},
       color={0,0,127}));
-
-  for i in 1:numOfZon loop
-    connect(booToRea2[i].y, sum1.u[i])
-      annotation (Line(points={{-19,-10},{-19,-10},{-2,-10}},
-        color={0,0,127}));
-    connect(booToRea5[i].y, sum2.u[i])
-      annotation (Line(points={{-59,-210},{-59,-210},{-2,-210}},
-        color={0,0,127}));
-    connect(uWinSta[i], swi1[i].u2)
-      annotation (Line(points={{-240,30},{-214,30},
-            {-214,-8},{-214,-30},{-202,-30}}, color={255,0,255}));
-    connect(TUnoHeaSet, swi1[i].u1)
-      annotation (Line(points={{-240,-50},{-210,-50},{-210,-38},{-202,-38}},
-        color={0,0,127}));
-    connect(TZon[i], swi1[i].u3)
-      annotation (Line(points={{-240,-10},{-210,-10}, {-210,-22},{-202,-22}},
-        color={0,0,127}));
-    connect(uWinSta[i], swi2[i].u2)
-      annotation (Line(points={{-240,30},{-214,30},{-214,-100},{-214,-210},{-202,-210}},
-        color={255,0,255}));
-    connect(TUnoCooSet, swi2[i].u1)
-      annotation (Line(points={{-240,-270},{-212,-270}, {-212,-218},{-202,-218}},
-        color={0,0,127}));
-    connect(TZon[i], swi2[i].u3)
-      annotation (Line(points={{-240,-10},{-212,-10},{-212,-202},{-202,-202}},
-        color={0,0,127}));
-    connect(cooDowTim[i], pro[i].u1)
-      annotation (Line(points={{-240,196},{-240,196}, {-182,196}},
-        color={0,0,127}));
-    connect(warUpTim[i], pro1[i].u1)
-      annotation (Line(points={{-240,116},{-240,116},{-182,116}},
-        color={0,0,127}));
-    connect(pro[i].y, minMax.u[i])
-      annotation (Line(points={{-159,190},{-150,190},{-150,194},{-142,194}},
-        color={0,0,127}));
-    connect(pro1[i].y, minMax1.u[i])
-      annotation (Line(points={{-159,110},{-150,110},{-150,114},{-142,114}},
-        color={0,0,127}));
-    connect(booToRea9[i].y, pro[i].u2)
-      annotation (Line(points={{-139,30},{-139,30},{-120,30},{-120,80},
-        {-200,80},{-200,184},{-182,184}}, color={0,0,127}));
-    connect(booToRea9[i].y, pro1[i].u2)
-      annotation (Line(points={{-139,30},{-120,
-            30},{-120,80},{-200,80},{-200,104},{-182,104}}, color={0,0,127}));
-    connect(swi1[i].y, add9[i].u1)
-      annotation (Line(points={{-179,-30},{-179,-30}, {-164,-30},{-164,-4},
-        {-142,-4}}, color={0,0,127}));
-    connect(TUnoHeaSet, add9[i].u2)
-      annotation (Line(points={{-240,-50},{-198,-50},{-156,-50},{-156,-16},
-        {-142,-16}}, color={0,0,127}));
-    connect(add9[i].y, hys8[i].u)
-      annotation (Line(points={{-119,-10},{-82,-10}},  color={0,0,127}));
-    connect(hys8[i].y, booToRea2[i].u)
-      annotation (Line(points={{-59,-10},{-50,-10}, {-42,-10}},
-        color={255,0,255}));
-    connect(swi2[i].y, add10[i].u1)
-      annotation (Line(points={{-179,-210},{-179,-210},{-170,-210},{-170,-204},
-        {-162,-204}}, color={0,0,127}));
-    connect(TUnoCooSet, add10[i].u2)
-      annotation (Line(points={{-240,-270},{-240,-270},{-170,-270},{-170,-216},
-        {-162,-216}}, color={0,0,127}));
-    connect(add10[i].y, hys11[i].u)
-      annotation (Line(points={{-139,-210},{-139,-210},{-122,-210}},
-        color={0,0,127}));
-    connect(hys11[i].y, booToRea5[i].u)
-      annotation (Line(points={{-99,-210},{-82,-210}}, color={255,0,255}));
-    connect(uWinSta[i], not1[i].u)
-      annotation (Line(points={{-240,30},{-222,30},{-202,30}},
-        color={255,0,255}));
-    connect(not1[i].y, booToRea9[i].u)
-      annotation (Line(points={{-179,30},{-162,30}},           color={255,0,255}));
-  end for;
-
+  connect(booToRea2.y, sum1.u)
+    annotation (Line(points={{-19,-10},{-19,-10},{-2,-10}},
+      color={0,0,127}));
+  connect(booToRea5.y, sum2.u)
+    annotation (Line(points={{-59,-210},{-59,-210},{-2,-210}},
+      color={0,0,127}));
+  connect(uWinSta, swi1.u2)
+    annotation (Line(points={{-240,30},{-214,30},{-214,-8},{-214,-30},
+      {-202,-30}}, color={255,0,255}));
+  connect(TZon, swi1.u3)
+    annotation (Line(points={{-240,-10},{-210,-10}, {-210,-22},{-202,-22}},
+      color={0,0,127}));
+  connect(uWinSta, swi2.u2)
+    annotation (Line(points={{-240,30},{-214,30},{-214,-100},{-214,-210},{-202,-210}},
+      color={255,0,255}));
+  connect(TZon, swi2.u3)
+    annotation (Line(points={{-240,-10},{-212,-10},{-212,-202},{-202,-202}},
+      color={0,0,127}));
+  connect(cooDowTim, pro.u1)
+    annotation (Line(points={{-240,196},{-240,196}, {-182,196}},
+      color={0,0,127}));
+  connect(warUpTim, pro1.u1)
+    annotation (Line(points={{-240,116},{-240,116},{-182,116}},
+      color={0,0,127}));
+  connect(pro.y, minMax.u)
+    annotation (Line(points={{-159,190},{-150,190},{-150,194},{-142,194}},
+      color={0,0,127}));
+  connect(pro1.y, minMax1.u)
+    annotation (Line(points={{-159,110},{-150,110},{-150,114},{-142,114}},
+      color={0,0,127}));
+  connect(booToRea9.y, pro.u2)
+    annotation (Line(points={{-139,30},{-139,30},{-120,30},{-120,80},
+      {-200,80},{-200,184},{-182,184}}, color={0,0,127}));
+  connect(booToRea9.y, pro1.u2)
+    annotation (Line(points={{-139,30},{-120,30},{-120,80},{-200,80},
+      {-200,104},{-182,104}}, color={0,0,127}));
+  connect(swi1.y, add9.u1)
+    annotation (Line(points={{-179,-30},{-179,-30}, {-164,-30},{-164,-4},
+      {-142,-4}}, color={0,0,127}));
+  connect(add9.y, hys8.u)
+    annotation (Line(points={{-119,-10},{-82,-10}},  color={0,0,127}));
+  connect(hys8.y, booToRea2.u)
+    annotation (Line(points={{-59,-10},{-50,-10}, {-42,-10}},
+      color={255,0,255}));
+  connect(swi2.y, add10.u1)
+    annotation (Line(points={{-179,-210},{-179,-210},{-170,-210},{-170,-204},
+      {-162,-204}}, color={0,0,127}));
+  connect(add10.y, hys11.u)
+    annotation (Line(points={{-139,-210},{-139,-210},{-122,-210}},
+      color={0,0,127}));
+  connect(hys11.y, booToRea5.u)
+    annotation (Line(points={{-99,-210},{-82,-210}}, color={255,0,255}));
+  connect(uWinSta, not1.u)
+    annotation (Line(points={{-240,30},{-222,30},{-202,30}},
+      color={255,0,255}));
+  connect(not1.y, booToRea9.u)
+    annotation (Line(points={{-179,30},{-162,30}}, color={255,0,255}));
   connect(sum1.y, greEquThr.u)
     annotation (Line(points={{21,-10},{38,-10}}, color={0,0,127}));
   connect(sum1.y, greEquThr1.u)
@@ -500,7 +505,7 @@ equation
   connect(greEquThr1.y, or1.u2)
     annotation (Line(points={{61,-40},{68,-40},{68,-18},{78,-18}},
       color={255,0,255}));
-  connect(TZon, minMaxZonTem.u[1:numOfZon])
+  connect(TZon, minMaxZonTem.u)
     annotation (Line(points={{-240,-10}, {-160,-10},{-160,-80},{-142,-80}},
       color={0,0,127}));
   connect(or1.y, lat.u)
@@ -771,6 +776,24 @@ equation
   connect(maxWarCooTime.y, corWarUpTim.u3)
     annotation (Line(points={{-119,160},
           {-66,160},{-12,160},{-12,148},{-2,148}}, color={0,0,127}));
+  connect(TUnoHeaSet, reaRep.u)
+    annotation (Line(points={{-240,-50},{-210,-50},{-210,-70},{-202,-70}},
+      color={0,0,127}));
+  connect(reaRep.y, swi1.u1)
+    annotation (Line(points={{-179,-70},{-170,-70},{-170,-54},{-208,-54},
+      {-208,-38},{-202,-38}}, color={0,0,127}));
+  connect(reaRep.y, add9.u2)
+    annotation (Line(points={{-179,-70},{-170,-70},{-170,-46},{-156,-46},
+      {-156,-16},{-142,-16}}, color={0,0,127}));
+  connect(TUnoCooSet, reaRep1.u)
+    annotation (Line(points={{-240,-270},{-210,-270},{-210,-250},
+      {-202,-250}}, color={0,0,127}));
+  connect(reaRep1.y, add10.u2)
+    annotation (Line(points={{-179,-250},{-170,-250},{-170,-216},
+      {-162,-216}}, color={0,0,127}));
+  connect(reaRep1.y, swi2.u1)
+    annotation (Line(points={{-179,-250},{-170,-250},{-170,-230},
+      {-210,-230},{-210,-218},{-202,-218}}, color={0,0,127}));
   annotation (
   defaultComponentName = "opeModSel",
   Diagram(
@@ -787,12 +810,12 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-220,-192},{460,-280}},
+          extent={{-220,-194},{460,-282}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-220,22},{460,-90}},
+          extent={{-220,20},{460,-92}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),

@@ -2,7 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Conversions.Validation;
 model RealToBoolean "Validation model for the RealToBoolean block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Ramp ramp1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=-3.5,
     height=7.0) "Block that generates a ramp signal"

@@ -3,31 +3,35 @@ model EconModulationSingleZone_TSup
   "Validation model for single zone VAV AHU outdoor and return air damper position modulation sequence"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Temperature TCooSet=291.15
-    "Supply air temperature setpoint";
-
-  CDL.Continuous.Constant TCooSetSig(k=TCooSet) "Supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Modelica.Blocks.Sources.Ramp TSup(
-    duration=900,
-    height=4,
-    offset=TCooSet - 2) "Measured supply air temperature"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-
-  CDL.Continuous.Constant outDamPosMin(k=0)
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  CDL.Continuous.Constant outDamPosMax(k=1)
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  CDL.Continuous.Constant RetDamPosMin(k=0)
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  CDL.Continuous.Constant RetDamPosMax(k=1)
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-
   EconModulationSingleZone ecoMod "Economizer modulation sequence"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
+protected
+  final parameter Modelica.SIunits.Temperature THeaSet=291.15
+    "Supply air temperature setpoint";
+
+  CDL.Continuous.Sources.Constant THeaSetSig(final k=THeaSet) "Supply air temperature setpoint"
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+  Modelica.Blocks.Sources.Ramp TSup(
+    final duration=900,
+    final height=4,
+    final offset=THeaSet - 2) "Measured supply air temperature"
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+  CDL.Continuous.Sources.Constant outDamPosMin(final k=0)
+    "Minimum outdoor air damper position"
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+  CDL.Continuous.Sources.Constant outDamPosMax(final k=1)
+    "Maximum outdoor air damper position"
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+  CDL.Continuous.Sources.Constant RetDamPosMin(final k=0)
+    "Minimum return air damper position"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  CDL.Continuous.Sources.Constant RetDamPosMax(final k=1)
+    "Maximum return air damper position"
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+
 equation
-  connect(TCooSetSig.y, ecoMod.TCooSet) annotation (Line(points={{1,70},{8,70},{
+  connect(THeaSetSig.y, ecoMod.THeaSet) annotation (Line(points={{1,70},{8,70},{
           8,48},{8,39},{39,39}}, color={0,0,127}));
   connect(TSup.y,ecoMod.TSup)  annotation (Line(points={{-39,70},{-30,70},{-30,36},
           {39,36}},color={0,0,127}));
@@ -59,7 +63,7 @@ equation
 This example validates
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationSingleZone\">
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.EconModulationSingleZone</a>
-for supply air temeperature (<code>TSup</code>) and supply air temperature cooling setpoint (<code>TCooSet</code>)
+for supply air temeperature (<code>TSup</code>) and supply air temperature heating setpoint (<code>THeaSet</code>)
 control signals.
 </p>
 </html>", revisions="<html>

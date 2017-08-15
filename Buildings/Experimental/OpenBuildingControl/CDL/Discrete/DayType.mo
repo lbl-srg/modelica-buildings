@@ -58,7 +58,7 @@ equation
         lineThickness=5.0,
         borderPattern=BorderPattern.Raised,
         fillPattern=FillPattern.Solid),
-                                   Text(
+        Text(
           extent={{-68,54},{68,-38}},
           lineColor={0,0,255},
           textString="day"),
@@ -68,11 +68,11 @@ equation
           lineColor={0,0,255})}),
     Documentation(info="<html>
 <p>
-This block outputs a periodic signal that indicates the type of the day.
+This block outputs a signal that indicates the type of the day.
 It can for example be used to generate a signal that indicates whether
 the current time is a work day or a non-working day.
 The output signal is of type
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Buildings.Experimental.OpenBuildingControl.CDL.Types.Day\">
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Types.Day\">
 Buildings.Experimental.OpenBuildingControl.CDL.Types.Day</a>.
 </p>
 <p>
