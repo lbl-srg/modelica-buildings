@@ -71,23 +71,18 @@ model ChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{-46,70},{-26,90}})));
 
 equation
-  connect(hvac.PFan, EFan.u) annotation (Line(points={{1,18},{24,18},{24,-40},{
-          38,-40}},  color={0,0,127}));
-  connect(hvac.QHea_flow, EHea.u) annotation (Line(points={{1,16},{22,16},{22,
-          -70},{38,-70}},
-                     color={0,0,127}));
-  connect(hvac.PCoo, ECoo.u) annotation (Line(points={{1,14},{20,14},{20,-100},
-          {38,-100}},color={0,0,127}));
-  connect(EPum.u, hvac.PPum) annotation (Line(points={{38,-130},{18,-130},{18,
-          12},{1,12}}, color={0,0,127}));
-  connect(hvac.supplyAir, zon.supplyAir) annotation (Line(points={{0,8},{10,8},
-          {10,2},{40,2}},          color={0,127,255}));
-  connect(hvac.returnAir, zon.returnAir) annotation (Line(points={{0,0},{6,0},{
-          6,-2},{10,-2},{40,-2}},  color={0,127,255}));
+  connect(weaDat.weaBus, weaBus) annotation (Line(
+      points={{-60,80},{-36,80}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+
   connect(con.yFan, hvac.uFan) annotation (Line(points={{-79,9},{-60,9},{-60,18},
           {-42,18}},               color={0,0,127}));
-  connect(hvac.uHea, con.yHea) annotation (Line(points={{-42,12},{-40,12},{-56,
-          12},{-56,6},{-79,6}},      color={0,0,127}));
+  connect(con.yHea, hvac.uHea) annotation (Line(points={{-79,6},{-40,6},{-56,6},
+          {-56,12},{-42,12}},        color={0,0,127}));
   connect(con.yCooCoiVal, hvac.uCooVal) annotation (Line(points={{-79,0},{-54,0},
           {-54,5},{-42,5}},             color={0,0,127}));
   connect(con.yOutAirFra, hvac.uEco) annotation (Line(points={{-79,3},{-50,3},{
@@ -98,13 +93,13 @@ equation
           -8},{-70,-15},{-42,-15}},           color={0,0,127}));
   connect(con.TMix, hvac.TMixAir) annotation (Line(points={{-102,2},{-112,2},{
           -112,-40},{10,-40},{10,-4},{1,-4}},             color={0,0,127}));
-  connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-60,80},{-36,80}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
+
+  connect(hvac.supplyAir, zon.supplyAir) annotation (Line(points={{0,8},{10,8},
+          {10,2},{40,2}},          color={0,127,255}));
+  connect(hvac.returnAir, zon.returnAir) annotation (Line(points={{0,0},{6,0},{
+          6,-2},{10,-2},{40,-2}},  color={0,127,255}));
+
+
   connect(con.TOut, weaBus.TDryBul) annotation (Line(points={{-102,-2},{-108,-2},
           {-108,40},{-36,40},{-36,80}}, color={0,0,127}));
   connect(hvac.weaBus, weaBus) annotation (Line(
@@ -121,10 +116,22 @@ equation
   connect(con.TRoo, zon.TRooAir) annotation (Line(points={{-102,-6},{-110,-6},{
           -110,-36},{6,-36},{6,-22},{90,-22},{90,0},{81,0}},      color={0,0,
           127}));
-  connect(con.TSetRooHea, TSetRooHea.y[1])
-    annotation (Line(points={{-102,10},{-119,10}}, color={0,0,127}));
-  connect(TSetRooCoo.y[1], con.TSetRooCoo) annotation (Line(points={{-119,-20},{
-          -116,-20},{-116,6},{-102,6}}, color={0,0,127}));
+
+  connect(TSetRooHea.y[1], con.TSetRooHea)
+    annotation (Line(points={{-119,10},{-102,10}}, color={0,0,127}));
+  connect(TSetRooCoo.y[1], con.TSetRooCoo)
+    annotation (Line(points={{-119,-20},{-116,-20},{-116,6},{-102,6}}, color={0,0,127}));
+
+  connect(hvac.PFan, EFan.u) annotation (Line(points={{1,18},{24,18},{24,-40},{
+          38,-40}},  color={0,0,127}));
+  connect(hvac.QHea_flow, EHea.u) annotation (Line(points={{1,16},{22,16},{22,
+          -70},{38,-70}},
+                     color={0,0,127}));
+  connect(hvac.PCoo, ECoo.u) annotation (Line(points={{1,14},{20,14},{20,-100},
+          {38,-100}},color={0,0,127}));
+  connect(hvac.PPum, EPum.u) annotation (Line(points={{1,12},{18,12},{18,-130},{
+          38,-130}},   color={0,0,127}));
+
   connect(EFan.y, EHVAC.u[1]) annotation (Line(points={{61,-40},{70,-40},{70,
           -64.75},{80,-64.75}}, color={0,0,127}));
   connect(EHea.y, EHVAC.u[2])

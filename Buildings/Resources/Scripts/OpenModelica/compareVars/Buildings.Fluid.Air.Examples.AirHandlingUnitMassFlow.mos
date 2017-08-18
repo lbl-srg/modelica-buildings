@@ -9,6 +9,5 @@ compareVars :=
     "temSou_2.y",
     "temSenWat1.T",
     "temSenWat2.T",
-    "temSenAir2.T",
-    "uEleHea.y"
+    "temSenAir2.T"
   };
