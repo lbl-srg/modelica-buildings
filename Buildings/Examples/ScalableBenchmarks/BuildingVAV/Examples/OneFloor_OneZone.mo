@@ -4,12 +4,10 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
 
   replaceable package MediumA = Buildings.Media.Air(T_default=293.15);
   package MediumW = Buildings.Media.Water "Medium model for water";
-//   parameter Integer nZon(min=1) = 1  "Number of zones per floor"
-//     annotation(Evaluate=true);
-//   parameter Integer nFlo(min=1) = 1  "Number of floors"
-//     annotation(Evaluate=true);
-  constant Integer nZon = 1  "Number of zones per floor";
-  constant Integer nFlo = 1  "Number of floors";
+  parameter Integer nZon(min=1) = 1  "Number of zones per floor"
+     annotation(Evaluate=true);
+  parameter Integer nFlo(min=1) = 1  "Number of floors"
+     annotation(Evaluate=true);
   parameter Modelica.SIunits.PressureDifference dP_pre=850
     "Prescribed pressure difference";
   parameter Modelica.SIunits.Volume VRoo[nZon,nFlo] = {{6*8*2.7 for j in 1:nFlo} for i in 1:nZon}
