@@ -1,5 +1,5 @@
 within Buildings.Fluid.Air.BaseClasses;
-model EssentialParameter "Essential parameters for air handling unit"
+partial model EssentialParameter "Essential parameters for air handling unit"
 
   parameter Modelica.SIunits.ThermalConductance UA_nominal
     "Thermal conductance at nominal flow for sensible heat, used to compute time constant"
@@ -15,7 +15,7 @@ model EssentialParameter "Essential parameters for air handling unit"
      enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.SIunits.Time tau_m(min=0) = 20
     "Time constant of metal at nominal UA value"
-  annotation(Dialog(tab="General", group="Cooling coil"));
+   annotation(Dialog(tab="General", group="Cooling coil"));
   parameter Integer nEle(min=1) = 4
     "Number of pipe segments used for discretization in the cooling coil"
     annotation (Dialog(group="Cooling coil"));
@@ -35,10 +35,6 @@ This  block declares parameters that are required by most classes in the package
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-June 28, 2017, by Michael Wetter:<br/>
-Changed implementation to non-partial.
-</li>
 <li>
 April 08, 2017 by Yangyang Fu:<br/>
 First implementation.
