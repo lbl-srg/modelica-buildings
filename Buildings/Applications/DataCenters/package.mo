@@ -1,5 +1,5 @@
 within Buildings.Applications;
-package DataCenters "Package with models data centers"
+package DataCenters "Package with models for data centers"
   extends Modelica.Icons.VariantsPackage;
 
 annotation (
@@ -13,6 +13,5 @@ Improving Data Center Efficiency via End-to-End Cooling Modeling and Optimizatio
 </a> with funding from the US Department of Energy and cost-share contributions
 from Schneider Electric.
 </p>
-
 </html>"));
 end DataCenters;
