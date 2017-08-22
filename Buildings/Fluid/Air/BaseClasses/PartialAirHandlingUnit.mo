@@ -225,9 +225,9 @@ equation
           40},{73,-5}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
       Diagram(coordinateSystem(preserveAspectRatio=false),
-        graphics={Text(extent={{50,70},{76,64}},lineColor={0,0,255},
+        graphics={Text(extent={{50,74},{76,68}},lineColor={0,0,255},
                      textString="Waterside",textStyle={TextStyle.Bold}),
-                 Text(extent={{58,-64},{84,-70}},lineColor={0,0,255},
+                 Text(extent={{58,-70},{84,-76}},lineColor={0,0,255},
                      textString="Airside",textStyle={TextStyle.Bold})}),
     Documentation(info="<html>
 <p>This model describes a partial air handling unit model, which contains a water-side valve, a cooling coil and a fan model.</p>
