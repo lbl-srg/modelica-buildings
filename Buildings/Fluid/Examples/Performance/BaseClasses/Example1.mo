@@ -109,6 +109,13 @@ and is created to avoid errors in the implementation of the two depending exampl
 </html>", revisions="<html>
 <ul>
 <li>
+May 8, 2017, by Michael Wetter:<br/>
+Updated heater model.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">
+Buildings, #763</a>.
+</li>
+<li>
 February 22, 2016, by Michael Wetter:<br/>
 Removed parameter <code>dynamicBalance</code> for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/411\">issue 411</a>.
