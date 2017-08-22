@@ -1,8 +1,8 @@
-within Buildings.Fluid.Air.Examples;
+within Buildings.Applications.DataCenters.HVAC.AHUs.Examples;
 model AirHandlingUnitControl
   "Model of a air handling unit that tests temperature and humidity control"
   extends Modelica.Icons.Example;
-  extends Buildings.Fluid.Air.Examples.BaseClasses.PartialAirHandlerControl(
+  extends Buildings.Applications.DataCenters.HVAC.AHUs.Examples.BaseClasses.PartialAirHandlerControl(
     relHum(k=0.5),
     sou_1(p=500000),
     sou_2(nPorts=1),
@@ -19,7 +19,7 @@ model AirHandlingUnitControl
         T_b2_nominal)
     "Thermal conductance at nominal flow for sensible heat, used to compute time constant";
 
-  Buildings.Fluid.Air.AirHandlingUnit ahu(
+  Buildings.Applications.DataCenters.HVAC.AHUs.AirHandlingUnit ahu(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     allowFlowReversal1=true,
@@ -84,13 +84,13 @@ equation
             -100},{260,160}})),
 experiment(Tolerance=1E-6, StopTime=1200),
 __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Air/Examples/AirHandlingUnitControl.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/HVAC/AHUs/Examples/AirHandlingUnitControl.mos"
         "Simulate and PLot"),
 Documentation(info="<html>
 <p>
 This model demonstrates the use of
-<a href=\"modelica://Buildings.Fluid.Air.AirHandlingUnit\">
-Buildings.Fluid.Air.AirHandlingUnit</a>. The valve on the water-side and
+<a href=\"modelica://Buildings.Applications.DataCenters.HVAC.AHUs.AirHandlingUnit\">
+Buildings.Applications.DataCenters.HVAC.AHUs.AirHandlingUnit</a>. The valve on the water-side and
 the electric heater on the air-side is regulated to track a setpoint temperature
 for the air outlet. The humidifier on the air-side is manipulated to control the humidity
 of the air outlet.

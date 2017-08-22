@@ -1,4 +1,4 @@
-within Buildings.Fluid.Air.BaseClasses;
+within Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses;
 package Examples "Package with examples of base class components for air handling unit model"
   extends Modelica.Icons.ExamplesPackage;
 

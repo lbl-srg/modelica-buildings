@@ -1,8 +1,8 @@
-within Buildings.Fluid.Air.BaseClasses;
+within Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses;
 partial model PartialAirHandlingUnit "Partial AHU model "
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     final show_T=true);
-  extends Buildings.Fluid.Air.BaseClasses.EssentialParameter;
+  extends Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses.EssentialParameter;
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
     final m_flow_nominal=m1_flow_nominal,
     final rhoStd=Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),

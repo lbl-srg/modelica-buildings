@@ -1,4 +1,4 @@
-within Buildings.Fluid.Air;
+within Buildings.Applications.DataCenters.HVAC.AHUs;
 package Examples "Package with examples of air handlers"
     extends Modelica.Icons.ExamplesPackage;
 

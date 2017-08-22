@@ -1,4 +1,4 @@
-within Buildings.Fluid.Air.BaseClasses;
+within Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses;
 partial model EssentialParameter "Essential parameters for air handling unit"
 
   parameter Modelica.SIunits.ThermalConductance UA_nominal
@@ -31,7 +31,7 @@ partial model EssentialParameter "Essential parameters for air handling unit"
 Documentation(info="<html>
 <p>
 This  block declares parameters that are required by most classes in the package
-<a href=\"modelica://Buildings.Fluid.Air\">Buildings.Fluid.Air</a>.
+<a href=\"modelica://Buildings.Applications.DataCenters.HVAC.AHUs\">Buildings.Applications.DataCenters.HVAC.AHUs</a>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -1,4 +1,4 @@
-within Buildings.Fluid.Air.Examples;
+within Buildings.Applications.DataCenters.HVAC.AHUs.Examples;
 package BaseClasses
   extends Modelica.Icons.BasesPackage;
 

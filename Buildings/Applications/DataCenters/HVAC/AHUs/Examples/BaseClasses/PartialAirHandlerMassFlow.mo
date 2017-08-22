@@ -1,4 +1,4 @@
-within Buildings.Fluid.Air.Examples.BaseClasses;
+within Buildings.Applications.DataCenters.HVAC.AHUs.Examples.BaseClasses;
 partial model PartialAirHandlerMassFlow
   "Partial model for testing air handler at variable mass flowrate"
 
