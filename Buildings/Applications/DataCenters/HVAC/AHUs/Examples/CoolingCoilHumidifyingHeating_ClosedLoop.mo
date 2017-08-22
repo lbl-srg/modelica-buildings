@@ -1,5 +1,5 @@
 within Buildings.Applications.DataCenters.HVAC.AHUs.Examples;
-model AirHandlingUnitControl
+model CoolingCoilHumidifyingHeating_ClosedLoop
   "Model of a air handling unit that tests temperature and humidity control"
   extends Modelica.Icons.Example;
   extends Buildings.Applications.DataCenters.HVAC.AHUs.Examples.BaseClasses.PartialAirHandlerControl(
@@ -19,7 +19,7 @@ model AirHandlingUnitControl
         T_b2_nominal)
     "Thermal conductance at nominal flow for sensible heat, used to compute time constant";
 
-  Buildings.Applications.DataCenters.HVAC.AHUs.AirHandlingUnit ahu(
+  Buildings.Applications.DataCenters.HVAC.AHUs.CoolingCoilHumidifyingHeating ahu(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     allowFlowReversal1=true,
@@ -84,13 +84,13 @@ equation
             -100},{260,160}})),
 experiment(Tolerance=1E-6, StopTime=1200),
 __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/HVAC/AHUs/Examples/AirHandlingUnitControl.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/HVAC/AHUs/Examples/CoolingCoilHumidifyingHeating_ClosedLoop.mos"
         "Simulate and PLot"),
 Documentation(info="<html>
 <p>
 This model demonstrates the use of
-<a href=\"modelica://Buildings.Applications.DataCenters.HVAC.AHUs.AirHandlingUnit\">
-Buildings.Applications.DataCenters.HVAC.AHUs.AirHandlingUnit</a>. The valve on the water-side and
+<a href=\"modelica://Buildings.Applications.DataCenters.HVAC.AHUs.CoolingCoilHumidifyingHeating\">
+Buildings.Applications.DataCenters.HVAC.AHUs.CoolingCoilHumidifyingHeating</a>. The valve on the water-side and
 the electric heater on the air-side is regulated to track a setpoint temperature
 for the air outlet. The humidifier on the air-side is manipulated to control the humidity
 of the air outlet.
@@ -103,4 +103,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AirHandlingUnitControl;
+end CoolingCoilHumidifyingHeating_ClosedLoop;

@@ -1,6 +1,6 @@
 within Buildings.Applications.DataCenters.HVAC.AHUs;
-model AirHandlingUnit
-  extends Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses.PartialAirHandlingUnit(
+model CoolingCoilHumidifyingHeating
+  extends Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses.PartialCoolingCoilHumidifyingHeating(
     redeclare Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage watVal(
       final R=R,
       final delta0=delta0),
@@ -265,4 +265,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AirHandlingUnit;
+end CoolingCoilHumidifyingHeating;

@@ -1,5 +1,5 @@
 within Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses;
-partial model PartialAirHandlingUnit "Partial AHU model "
+partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     final show_T=true);
   extends Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses.EssentialParameter;
@@ -237,4 +237,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PartialAirHandlingUnit;
+end PartialCoolingCoilHumidifyingHeating;

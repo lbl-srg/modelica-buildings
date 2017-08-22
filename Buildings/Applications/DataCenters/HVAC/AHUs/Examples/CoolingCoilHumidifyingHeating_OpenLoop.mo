@@ -1,5 +1,5 @@
 within Buildings.Applications.DataCenters.HVAC.AHUs.Examples;
-model AirHandlingUnitMassFlow
+model CoolingCoilHumidifyingHeating_OpenLoop
   "Model of a air handling unit that tests variable mass flow rates"
   extends Modelica.Icons.Example;
   extends Buildings.Applications.DataCenters.HVAC.AHUs.Examples.BaseClasses.PartialAirHandlerMassFlow(
@@ -12,7 +12,7 @@ model AirHandlingUnitMassFlow
         T_b2_nominal)
     "Thermal conductance at nominal flow for sensible heat, used to compute time constant";
 
-  Buildings.Applications.DataCenters.HVAC.AHUs.AirHandlingUnit ahu(
+  Buildings.Applications.DataCenters.HVAC.AHUs.CoolingCoilHumidifyingHeating ahu(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     allowFlowReversal1=true,
@@ -76,13 +76,13 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})),
 experiment(Tolerance=1E-6, StopTime=1000),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/HVAC/AHUs/Examples/AirHandlingUnitMassFlow.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/HVAC/AHUs/Examples/CoolingCoilHumidifyingHeating_OpenLoop.mos"
         "Simulate and PLot"),
 Documentation(info="<html>
 <p>
 This model demonstrates the use of
-<a href=\"modelica://Buildings.Applications.DataCenters.HVAC.AHUs.AirHandlingUnit\">
-Buildings.Applications.DataCenters.HVAC.AHUs.AirHandlingUnit</a>
+<a href=\"modelica://Buildings.Applications.DataCenters.HVAC.AHUs.CoolingCoilHumidifyingHeating\">
+Buildings.Applications.DataCenters.HVAC.AHUs.CoolingCoilHumidifyingHeating</a>
 for different inlet conditions.
 </p>
 </html>", revisions="<html>
@@ -93,4 +93,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AirHandlingUnitMassFlow;
+end CoolingCoilHumidifyingHeating_OpenLoop;
