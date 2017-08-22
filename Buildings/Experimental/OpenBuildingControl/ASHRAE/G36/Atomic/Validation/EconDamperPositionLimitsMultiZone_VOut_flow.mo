@@ -3,13 +3,6 @@ model EconDamperPositionLimitsMultiZone_VOut_flow
   "Validation model for the multiple zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
-    "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=0.61
-    "Minimal measured volumetric airflow";
-  parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=0.2
-    "Maximum volumetric airflow increase during the example simulation";
-
   CDL.Continuous.Sources.Constant VOutMinSet_flow(k=minVOutSet_flow)
     "Outdoor volumetric airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
@@ -25,11 +18,20 @@ model EconDamperPositionLimitsMultiZone_VOut_flow
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected
+  parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
+    "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
+  parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=0.61
+    "Minimal measured volumetric airflow";
+  parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=(minVOutSet_flow-minVOut_flow)*2
+    "Maximum volumetric airflow increase during the example simulation";
+
   CDL.Logical.Sources.Constant fanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  CDL.Integers.Sources.Constant freProSta(k=Constants.FreezeProtectionStages.stage0) "Freeze protection status 0 - disabled"
+  CDL.Integers.Sources.Constant freProSta(k=Constants.FreezeProtectionStages.stage0)
+    "Freeze protection status 0 - disabled"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  CDL.Integers.Sources.Constant operationMode(k=Constants.OperationModes.occModInd) "Operation mode is Occupied"
+  CDL.Integers.Sources.Constant operationMode(k=Constants.OperationModes.occModInd)
+    "Operation mode is Occupied"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
 equation
@@ -46,8 +48,7 @@ equation
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/EconDamperPositionLimitsMultiZone_VOut_flow.mos"
     "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-80,-100},{80,100}}),
-         graphics={Ellipse(
+    Icon(graphics={Ellipse(
           lineColor={75,138,73},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
