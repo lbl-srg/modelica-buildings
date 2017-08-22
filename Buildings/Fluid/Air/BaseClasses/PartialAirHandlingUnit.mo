@@ -143,7 +143,7 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     final dp1_nominal=0,
     final dp2_nominal=dp2_nominal)
     "Cooling coil"
-    annotation (Placement(transformation(extent={{22,44},{42,64}})));
+    annotation (Placement(transformation(extent={{60,-64},{80,-44}})));
   replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine fan
     constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
       final per=perFan,
@@ -191,38 +191,41 @@ partial model PartialAirHandlingUnit "Partial AHU model "
      annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
-        rotation=180,
-        origin={70,60})));
+        rotation=270,
+        origin={80,-10})));
 
 equation
   connect(port_a1, cooCoi.port_a1)
-    annotation (Line(points={{-100,60},{22,60}},color={0,127,255}));
+    annotation (Line(points={{-100,60},{50,60},{50,-48},{60,-48}},
+                                                color={0,127,255}));
   connect(cooCoi.port_a2, port_a2)
-    annotation (Line(points={{42,48},{42,48},{48,48},{48,-60},{100,-60}},
+    annotation (Line(points={{80,-60},{80,-60},{84,-60},{100,-60}},
                color={0,127,255}));
   connect(cooCoi.port_b1, watVal.port_a)
-    annotation (Line(points={{42,60},{60,60}},color={0,127,255}));
+    annotation (Line(points={{80,-48},{80,-48},{80,-26},{80,-34},{80,-20}},
+                                              color={0,127,255}));
   connect(watVal.port_b, port_b1)
-   annotation (Line(points={{80,60},{100,60}},
+   annotation (Line(points={{80,0},{80,0},{80,60},{100,60}},
                  color={0,127,255}));
   connect(fan.P, PFan)
    annotation (Line(points={{-71,-51},{-80,-51},{-80,-80},
                {-20,-80},{-20,-110}},color={0,0,127}));
   connect(watVal.y, uWatVal)
-   annotation (Line(points={{70,72},{70,80},{70,90},
-               {-50,90},{-50,30},{-120,30}}, color={0,0,127}));
+   annotation (Line(points={{68,-10},{62,-10},{62,30},{-62,30},{-120,30}},
+                                             color={0,0,127}));
   connect(port_b2, fan.port_b)
    annotation (Line(points={{-100,-60},{-70,-60}},
                  color={0,127,255}));
-  connect(watVal.y_actual, yVal)
-   annotation (Line(points={{75,67},{75,68},{84,68},
-          {84,40},{110,40}}, color={0,0,127}));
   connect(fan.stage, stage)
    annotation (Line(points={{-60,-48},{-60,-40},{-90,-40},
          {-90,-50},{-120,-50}},color={255,127,0}));
+  connect(port_b1, port_b1) annotation (Line(points={{100,60},{94,60},{94,60},{
+          100,60}}, color={0,127,255}));
+  connect(yVal, watVal.y_actual) annotation (Line(points={{110,40},{92,40},{73,
+          40},{73,-5}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
       Diagram(coordinateSystem(preserveAspectRatio=false),
-        graphics={Text(extent={{54,42},{80,36}},lineColor={0,0,255},
+        graphics={Text(extent={{50,70},{76,64}},lineColor={0,0,255},
                      textString="Waterside",textStyle={TextStyle.Bold}),
                  Text(extent={{58,-64},{84,-70}},lineColor={0,0,255},
                      textString="Airside",textStyle={TextStyle.Bold})}),

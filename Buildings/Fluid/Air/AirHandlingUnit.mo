@@ -79,7 +79,7 @@ model AirHandlingUnit
         iconTransformation(extent={{-120,0},{-100,20}})));
   Modelica.Blocks.Sources.RealExpression dT(y(final unit="K")=T_inflow_hea - TSet)
     "Difference between inlet temperature and temperature setpoint of the reheater"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{-60,-4},{-40,16}})));
 
   Buildings.Fluid.Humidifiers.SteamHumidifier_X hum(
     final allowFlowReversal=allowFlowReversal2,
@@ -134,8 +134,8 @@ model AirHandlingUnit
     final dTHig=dTHig)
     "Reheater on/off controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={0,10})));
+        rotation=0,
+        origin={-10,10})));
 
 protected
   Medium2.Temperature T_inflow_hea= Medium2.temperature(state=Medium2.setState_phX(port_b2.p,
@@ -157,23 +157,20 @@ equation
     annotation (Line(points={{-12,-60},{10,-60}},
                 color={0,127,255}));
   connect(hum.port_a, cooCoi.port_b2)
-    annotation (Line(points={{30,-60},{30,-60},{40,-60},{40,32},
-                {10,32},{10,48},{22,48}},color={0,127,255}));
+    annotation (Line(points={{30,-60},{30,-60},{48,-60},{48,-60},{42,-60},{42,
+          -60},{60,-60}},                color={0,127,255}));
   connect(eleHea.P, PHea)
     annotation (Line(points={{-33,-66},{-40,-66},{-40,-76},
                 {18,-76},{18,-110}}, color={0,0,127}));
   connect(uFan,fan.y)
     annotation (Line(points={{-120,-50},{-120,-48},{-60,-48}},
                 color={0,0,127}));
-  connect(dT.y,heaCon.dT)
-    annotation (Line(points={{-19,40},{-22,40},{-5,40},{-5,22}},
-                color={0,0,127}));
-  connect(watVal.y_actual, heaCon.yVal)
-    annotation (Line(points={{75,67},{84,67},{84,80},{0,80},
-                {0,40},{5,40},{5,22}}, color={0,0,127}));
-  connect(heaCon.y, eleHea.on)
-    annotation (Line(points={{0,-1},{0,-57},{-10,-57}},
-                color={255,0,255}));
+  connect(heaCon.y, eleHea.on) annotation (Line(points={{1,10},{4,10},{4,-57},{
+          -10,-57}}, color={255,0,255}));
+  connect(dT.y, heaCon.dT)
+    annotation (Line(points={{-39,6},{-22,6},{-22,5}}, color={0,0,127}));
+  connect(heaCon.yVal, watVal.y_actual) annotation (Line(points={{-22,15},{-32,
+          15},{-32,16},{-32,40},{73,40},{73,-5}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-92,62},{92,-64}},

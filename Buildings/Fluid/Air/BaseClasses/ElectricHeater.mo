@@ -67,7 +67,8 @@ protected
   Modelica.Blocks.Logical.Switch swi "Swich for temperature setpoint"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
-  Modelica.Blocks.Sources.Constant zer(final k=0) "Zero signal"
+  Modelica.Blocks.Sources.Constant zer(final k=-273.15)
+                                                  "Zero signal"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
 equation
