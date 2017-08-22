@@ -87,7 +87,7 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
   parameter Real yFan_start(min=0, max=1, unit="1")=0 "Initial value of speed"
     annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
-  replaceable parameter Movers.Data.Generic perFan "Performance data for the fan"
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic perFan "Performance data for the fan"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
   Modelica.Blocks.Interfaces.RealInput uWatVal(min=0,max=1,unit="1")

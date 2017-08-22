@@ -1,5 +1,5 @@
 within Buildings.Applications.DataCenters;
-package HVAC "Package with models for HVAC systems"
+package HVAC "Package with models for HVAC systems for data centers"
   extends Modelica.Icons.VariantsPackage;
 
 annotation (
@@ -9,4 +9,4 @@ Documentation(info="<html>
 This package contains models for HVAC systems for data centers.
 </p>
 </html>"));
-end DataCenters;
+end HVAC;
