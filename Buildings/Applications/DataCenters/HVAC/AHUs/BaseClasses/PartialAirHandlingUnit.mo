@@ -120,14 +120,14 @@ partial model PartialAirHandlingUnit "Partial AHU model "
         iconTransformation(extent={{-120,-50},{-100,-30}})));
 
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
+    redeclare final package Medium1 = Medium1,
+    redeclare final package Medium2 = Medium2,
     final UA_nominal=UA_nominal,
     final r_nominal=r_nominal,
     final nEle=nEle,
     final tau1=tau1,
     final tau2=tau2,
     final tau_m=tau_m,
-    redeclare final package Medium1 = Medium1,
-    redeclare final package Medium2 = Medium2,
     final allowFlowReversal1=allowFlowReversal1,
     final allowFlowReversal2=allowFlowReversal2,
     final show_T=show_T,
@@ -146,8 +146,8 @@ partial model PartialAirHandlingUnit "Partial AHU model "
     annotation (Placement(transformation(extent={{60,-64},{80,-44}})));
   replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine fan
     constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
-      final per=perFan,
       redeclare final package Medium = Medium2,
+      final per=perFan,
       final allowFlowReversal=allowFlowReversal2,
       final show_T=show_T,
       final energyDynamics=energyDynamics,
@@ -161,17 +161,17 @@ partial model PartialAirHandlingUnit "Partial AHU model "
       final y_start=yFan_start,
       final p_start=p_start,
       final T_start=T_start,
-      each final X_start=X_start,
-      each final C_start=C_start,
-      each final C_nominal=C_nominal,
+      final X_start=X_start,
+      final C_start=C_start,
+      final C_nominal=C_nominal,
       final m_flow_small=m2_flow_small)
     "Fan"
     annotation (Placement(transformation(extent={{-50,-70},{-70,-50}})));
   replaceable Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv watVal
     constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv(
+      redeclare final package Medium = Medium1,
       final allowFlowReversal=allowFlowReversal1,
       final show_T=show_T,
-      redeclare final package Medium = Medium1,
       final l=l,
       final kFixed=kFixed,
       final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
