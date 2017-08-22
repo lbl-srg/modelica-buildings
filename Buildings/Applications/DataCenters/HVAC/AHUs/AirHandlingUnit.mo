@@ -82,6 +82,7 @@ model AirHandlingUnit
     annotation (Placement(transformation(extent={{-60,-4},{-40,16}})));
 
   Buildings.Fluid.Humidifiers.SteamHumidifier_X hum(
+    redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal2,
     final m_flow_small=m2_flow_small,
     final show_T=show_T,
@@ -91,11 +92,10 @@ model AirHandlingUnit
     final dp_nominal=0,
     final m_flow_nominal=m2_flow_nominal,
     final mWatMax_flow=mWatMax_flow,
-    each final X_start=X_start,
+    final X_start=X_start,
     final from_dp=from_dp2,
     final linearizeFlowResistance=linearizeFlowResistance2,
-    final deltaM=deltaM2,
-    redeclare final package Medium = Medium2)
+    final deltaM=deltaM2)
     "Humidifier"
     annotation (Placement(
         transformation(
@@ -103,6 +103,7 @@ model AirHandlingUnit
         rotation=180,
         origin={20,-60})));
   Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses.ElectricHeater eleHea(
+    redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal2,
     final show_T=show_T,
     final m_flow_small=m2_flow_small,
@@ -116,8 +117,7 @@ model AirHandlingUnit
     final T_start=T_start,
     final from_dp=from_dp2,
     final linearizeFlowResistance=linearizeFlowResistance2,
-    final deltaM=deltaM2,
-    redeclare final package Medium = Medium2)
+    final deltaM=deltaM2)
     "Electric heater"
      annotation (
       Placement(transformation(
