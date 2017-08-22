@@ -17,7 +17,11 @@ model WaterCooler_T
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     QMin_flow=-Q_flow_nominal) "Cooler"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Controls.SetPoints.Table tab(table=[0,273.15 + 10; 1,273.15 + 30])
+
+  Controls.SetPoints.Table tab(table=[
+    0, 273.15 + 10;
+    1, 273.15 + 30])
+    "Table to compute temperature set points"
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 equation
   connect(coo.port_b, THeaOut.port_a) annotation (Line(
@@ -53,6 +57,13 @@ for a model that takes the heating power as an input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 8, 2017, by Michael Wetter:<br/>
+Updated heater model.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">
+Buildings, #763</a>.
+</li>
 <li>
 May 3, 2017, by Michael Wetter:<br/>
 First implementation.
