@@ -154,13 +154,6 @@ Buildings.Fluid.HeatPumps.Examples.Carnot_TCon</a>.
 revisions="<html>
 <ul>
 <li>
-May 8, 2017, by Michael Wetter:<br/>
-Replaced model that interfaces with fluid stream.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">
-Buildings, #763</a>.
-</li>
-<li>
 January 2, 2017, by Filip Jorissen:<br/>
 Removed parameters
 <code>effInpEva</code> and <code>effInpCon</code>

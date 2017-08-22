@@ -154,13 +154,6 @@ Sizes after manipulation of the nonlinear systems: {1, 9, <b>1</b>}
 </html>", revisions="<html>
 <ul>
 <li>
-May 8, 2017, by Michael Wetter:<br/>
-Updated heater model.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">
-Buildings, #763</a>.
-</li>
-<li>
 April 11, 2016 by Michael Wetter:<br/>
 Corrected wrong hyperlink in documentation for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/450\">issue 450</a>.
