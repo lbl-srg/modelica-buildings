@@ -219,8 +219,6 @@ equation
   connect(fan.stage, stage)
    annotation (Line(points={{-60,-48},{-60,-40},{-90,-40},
          {-90,-50},{-120,-50}},color={255,127,0}));
-  connect(port_b1, port_b1) annotation (Line(points={{100,60},{94,60},{94,60},{
-          100,60}}, color={0,127,255}));
   connect(yVal, watVal.y_actual) annotation (Line(points={{110,40},{92,40},{73,
           40},{73,-5}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
