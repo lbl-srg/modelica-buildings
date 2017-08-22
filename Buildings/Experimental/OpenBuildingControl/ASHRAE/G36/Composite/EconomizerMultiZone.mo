@@ -10,10 +10,10 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     "Delta between the enthalpy hysteresis high and low limits"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
   parameter Modelica.SIunits.Time retDamFulOpeTim = 180
-    "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control 
+    "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control
     at disable to avoid pressure fluctuations"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
-  parameter Modelica.SIunits.Time smaDisDel = 15
+  parameter Modelica.SIunits.Time disDel = 15
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
   parameter Real kPMod=1 "Proportional gain of modulation controller"
@@ -143,7 +143,7 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     final delTOutHis=delTOutHis,
     final delEntHis=delEntHis,
     final retDamFulOpeTim=retDamFulOpeTim,
-    final smaDisDel=smaDisDel) "Multizone VAV AHU economizer enable/disable sequence"
+    final disDel=disDel) "Multizone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Atomic.EconDamperPositionLimitsMultiZone ecoDamLim(
     final retDamPhyPosMax=retDamPhyPosMax,

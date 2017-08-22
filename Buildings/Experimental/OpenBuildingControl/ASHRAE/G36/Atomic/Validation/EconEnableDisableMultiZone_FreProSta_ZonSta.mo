@@ -47,7 +47,7 @@ protected
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   CDL.Continuous.Sources.Constant retDamPosMin(final k=0) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  CDL.Logical.Sources.Constant SupFanSta(final k=true)
+  CDL.Logical.Sources.Constant supFanSta(final k=true)
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
 equation
@@ -91,9 +91,9 @@ equation
     annotation (Line(points={{-79,-50},{0,-50},{0,-40},{81,-40}}, color={0,0,127}));
   connect(retDamPhyPosMax.y, ecoEnaDis1.uRetDamPhyPosMax)
     annotation (Line(points={{-79,-10},{0,-10},{0,-38},{81,-38}}, color={0,0,127}));
-  connect(SupFanSta.y, ecoEnaDis.uSupFan)
+  connect(supFanSta.y, ecoEnaDis.uSupFan)
     annotation (Line(points={{-139,-30},{-34,-30},{-34,48},{81,48}}, color={255,0,255}));
-  connect(SupFanSta.y, ecoEnaDis1.uSupFan)
+  connect(supFanSta.y, ecoEnaDis1.uSupFan)
     annotation (Line(points={{-139,-30},{-34,-30},{-34,-32},{81,-32}}, color={255,0,255}));
   connect(zonSta.y, ecoEnaDis.uZonSta)
     annotation (Line(points={{-139,10},{-100,10},{-100,50},{81,50}}, color={255,127,0}));
