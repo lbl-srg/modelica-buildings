@@ -38,23 +38,30 @@ equation
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-75,-6},{-89,8}},
-          lineColor=DynamicSelect({235,235,235}, if u1 then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if u1 then {0,255,0}
-               else {235,235,235}),
+          extent={{-73,-6},{-87,8}},
+          lineColor=DynamicSelect({235,235,235}, if u2 then {0,255,0} else {235,
+              235,235}),
+          fillColor=DynamicSelect({235,235,235}, if u2 then {0,255,0} else {235,
+              235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-75,-73},{-89,-87}},
-          lineColor=DynamicSelect({235,235,235}, if u2 then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if u2 then {0,255,0}
-               else {235,235,235}),
+          extent={{-73,-73},{-87,-87}},
+          lineColor=DynamicSelect({235,235,235}, if u3 then {0,255,0} else {235,
+              235,235}),
+          fillColor=DynamicSelect({235,235,235}, if u3 then {0,255,0} else {235,
+              235,235}),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Ellipse(
+          extent={{-75,72},{-89,86}},
+          lineColor=DynamicSelect({235,235,235}, if u1 then {0,255,0} else {235,
+              235,235}),
+          fillColor=DynamicSelect({235,235,235}, if u1 then {0,255,0} else {235,
+              235,235}),
+          fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if at least one input

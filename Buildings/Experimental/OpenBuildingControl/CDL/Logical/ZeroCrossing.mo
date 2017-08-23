@@ -70,7 +70,7 @@ Modelica Standard Library.
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-88,0},{70,0}}, color={192,192,192}),
+        Line(points={{-88,0},{62,0}}, color={192,192,192}),
         Line(points={{-78,0},{-73.2,32.3},{-70,50.3},{-66.7,64.5},{-63.5,74.2},
               {-60.3,79.3},{-57.1,79.6},{-53.9,75.3},{-50.7,67.1},{-46.6,52.2},
               {-41,25.8},{-33,-13.9},{-28.2,-33.7},{-24.1,-45.9},{-20.1,-53.2},
@@ -79,14 +79,21 @@ Modelica Standard Library.
               40.2,19.4}},              color={192,192,192}, smooth = Smooth.Bezier),
         Line(points={{-36,-59},{-36,81}}, color={255,0,255}),
         Line(points={{6,-59},{6,81}}, color={255,0,255}),
-        Line(points={{-78,0},{68,0}}, color={255,0,255}),
+        Line(points={{-78,0},{58,0}}, color={255,0,255}),
         Polygon(
-          points={{84,0},{62,8},{62,-8},{84,0}},
+          points={{64,0},{42,8},{42,-8},{64,0}},
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
-          textString="%name")}));
+          textString="%name"),
+        Ellipse(
+          extent={{71,7},{85,-7}},
+          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
+               else {235,235,235}),
+          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
+               else {235,235,235}),
+          fillPattern=FillPattern.Solid)}));
 end ZeroCrossing;

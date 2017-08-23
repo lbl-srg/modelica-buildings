@@ -66,13 +66,6 @@ equation
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{81,7},{95,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
-          fillPattern=FillPattern.Solid),
-        Ellipse(
           extent={{-73,-53},{-87,-67}},
           lineColor=DynamicSelect({235,235,235}, if u0 then {0,255,0}
                else {235,235,235}),
@@ -97,7 +90,15 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
-          textString="%name")}),Documentation(info="<html>
+          textString="%name"),
+        Ellipse(
+          extent={{71,7},{85,-7}},
+          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
+               else {235,235,235}),
+          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
+               else {235,235,235}),
+          fillPattern=FillPattern.Solid)}),
+                                Documentation(info="<html>
 <p>
 The block toggles output value whenever input turns <code>ON</code>. For instance, when the <code>toggle</code> input <code>u</code>
 turns <code>ON</code>, the output <code>y</code> turns <code>ON</code> and remains <code>ON</code> when the input <code>u</code> turns <code>OFF</code> again.
