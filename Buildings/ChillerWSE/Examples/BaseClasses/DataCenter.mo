@@ -108,7 +108,7 @@ partial model DataCenter
         rotation=-90,
         origin={70,100})));
 
-  Buildings.Fluid.Air.AirHandlingUnit ahu(
+  Applications.DataCenters.HVAC.AHUs.CoolingCoilHumidifyingHeating ahu(
     redeclare replaceable package Medium1 = MediumW,
     redeclare replaceable package Medium2 = MediumA,
     m1_flow_nominal=nChi*mChiller2_flow_nominal,

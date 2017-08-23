@@ -1,7 +1,6 @@
 within Buildings.ChillerWSE.Examples.BaseClasses;
 partial model DataCenterControl
   "Example that implements a chilled water cooling system with controls for a data center room"
-
   extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenter;
 
   Modelica.Blocks.Sources.Constant CHWSTSet(k(
