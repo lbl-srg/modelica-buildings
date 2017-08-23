@@ -32,9 +32,9 @@ annotation (
           lineThickness=5.0,
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
-      Line(points={{-90.0,-70.0},{82.0,-70.0}},
+      Line(points={{-66,-70},{82,-70}},
         color={192,192,192}),
-      Line(points={{-80.0,68.0},{-80.0,-80.0}},
+      Line(points={{-58,68},{-58,-80}},
         color={192,192,192}),
       Polygon(lineColor={192,192,192},
         fillColor={192,192,192},
@@ -43,15 +43,22 @@ annotation (
       Polygon(lineColor={192,192,192},
         fillColor={192,192,192},
         fillPattern=FillPattern.Solid,
-        points={{-80.0,90.0},{-88.0,68.0},{-72.0,68.0},{-80.0,90.0}}),
-      Line(points={{-80.0,-70.0},{-60.0,-70.0},{-60.0,-26.0},{38.0,-26.0},{38.0,-70.0},{66.0,-70.0}},
+        points={{-58,90},{-66,68},{-50,68},{-58,90}}),
+      Line(points={{-56,-70},{-38,-70},{-38,-26},{40,-26},{40,-70},{68,-70}},
         color={255,0,255}),
-      Line(points={{-80.0,0.0},{-62.0,0.0},{40.0,90.0},{40.0,0.0},{68.0,0.0}},
+      Line(points={{-58,0},{-40,0},{40,90},{40,0},{68,0}},
         color={0,0,127}),
         Text(
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Ellipse(
+          extent={{-83,7},{-69,-7}},
+          lineColor=DynamicSelect({235,235,235}, if u then {0,255,0} else {235,
+              235,235}),
+          fillColor=DynamicSelect({235,235,235}, if u then {0,255,0} else {235,
+              235,235}),
+          fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
 Block that represents a timer.

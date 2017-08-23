@@ -125,7 +125,21 @@ equation
         Text(
           extent={{-90,-62},{96,-90}},
           lineColor={0,0,255},
-          textString="%duration")}),
+          textString="%duration"),
+        Ellipse(
+          extent={{71,7},{85,-7}},
+          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
+               else {235,235,235}),
+          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
+               else {235,235,235}),
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-83,7},{-69,-7}},
+          lineColor=DynamicSelect({235,235,235}, if u then {0,255,0} else {235,
+              235,235}),
+          fillColor=DynamicSelect({235,235,235}, if u then {0,255,0} else {235,
+              235,235}),
+          fillPattern=FillPattern.Solid)}),
         Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-180,-120},{160,140}})),
 Documentation(info="<html>
