@@ -28,9 +28,9 @@ model IntegratedPrimarySecondary
     k=0.4,
     Ti=80,
     nChi=nChi,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     addPowerToMedium=false,
-    show_T=true)
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Integrated waterside economizer on the load side of a primary-secondary chilled water system"
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 

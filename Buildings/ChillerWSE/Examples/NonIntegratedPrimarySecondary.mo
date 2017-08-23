@@ -5,7 +5,10 @@ model NonIntegratedPrimarySecondary
   extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenterControl( redeclare
       Buildings.ChillerWSE.NonIntegrated chiWSE(
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      Ti=60));
+      Ti=60,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControlNonIntegrated cooModCon(
     tWai=tWai,
@@ -19,7 +22,8 @@ model NonIntegratedPrimarySecondary
     dpValve_nominal=6000,
     per=perPum,
     addPowerToMedium=false,
-    m_flow_nominal=mChiller2_flow_nominal)
+    m_flow_nominal=mChiller2_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Secondary pumps"
     annotation (
       Placement(transformation(
@@ -31,7 +35,8 @@ model NonIntegratedPrimarySecondary
     dpValve_nominal=6000,
     per=perPum,
     m_flow_nominal=mChiller2_flow_nominal,
-    addPowerToMedium=false)
+    addPowerToMedium=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Constant speed pumps"
     annotation (Placement(
         transformation(
@@ -39,7 +44,7 @@ model NonIntegratedPrimarySecondary
         rotation=180,
         origin={180,0})));
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.ConstantSpeedPumpStageControl
-    PriPumCon(tWai=0)
+    priPumCon(tWai=0)
     "Chilled water primary pump controller"
     annotation (Placement(transformation(extent={{-92,22},{-72,42}})));
   Modelica.Blocks.Math.Gain gai2[nChi](
@@ -50,6 +55,8 @@ model NonIntegratedPrimarySecondary
         CHWRT.T - CHWSTSet.y))
     "Cooling load in chillers"
     annotation (Placement(transformation(extent={{-130,134},{-110,154}})));
+  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
+    annotation (Placement(transformation(extent={{-200,-160},{-180,-140}})));
 equation
   connect(chiWSE.port_b2, CHWST.port_a)
     annotation (Line(
@@ -225,13 +232,13 @@ equation
     annotation (Line(points={{12.8,-14},{34,-14},{
           68,-14},{68,-40}},
           color={0,0,127}));
-  connect(chiNumOn.y, PriPumCon.chiNumOn)
+  connect(chiNumOn.y,priPumCon. chiNumOn)
     annotation (Line(points={{-161,74},{-102,
           74},{-102,76},{-102,36},{-94,36}}, color={0,0,127}));
-  connect(cooModCon.cooMod, PriPumCon.cooMod)
+  connect(cooModCon.cooMod,priPumCon. cooMod)
     annotation (Line(points={{-109,110},
           {-102,110},{-102,40},{-94,40}}, color={0,0,127}));
-  connect(PriPumCon.y, gai2.u)
+  connect(priPumCon.y, gai2.u)
     annotation (Line(points={{-71,32},{-62,32},{-52,32}}, color={0,0,127}));
   connect(gai2.y, priPum.u)
     annotation (Line(points={{-29,32},{-2,32},{40,32},{
