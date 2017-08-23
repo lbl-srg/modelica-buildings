@@ -3,5 +3,5 @@ ConstantSpeedPumpStageControl
 CoolingModeControl
 CoolingModeControlNonIntegrated
 CoolingTowerSpeedControl
-VariableSpeedPumpStageControl
 Examples
+VariableSpeedPumpStageControl

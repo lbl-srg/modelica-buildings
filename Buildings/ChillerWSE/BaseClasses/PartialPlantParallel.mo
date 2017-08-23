@@ -106,8 +106,8 @@ equation
     Documentation(info="<html>
 <p>
 Partial model that can be extended to construct parallel chillers such as 
-<a href=\"modelica://Buildings.ChillerWSE.ElectricChilerParallel\">
-Buildings.ChillerWSE.ElectricChilerParallel</a> 
+<a href=\"modelica://Buildings.ChillerWSE.ElectricChillerParallel\">
+Buildings.ChillerWSE.ElectricChillerParallel</a> 
 and water-side economizers <a href=\"modelica://Buildings.ChillerWSE.WatersideEconomizer\">
 Buildings.ChillerWSE.WatersideEconomizer</a>.
 <p>

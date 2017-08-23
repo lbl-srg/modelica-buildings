@@ -3,6 +3,7 @@ Air
 Airflow
 Applications
 BoundaryConditions
+ChillerWSE
 Controls
 Electrical
 Fluid
@@ -14,4 +15,3 @@ Types
 Examples
 Experimental
 BaseClasses
-ChillerWSE

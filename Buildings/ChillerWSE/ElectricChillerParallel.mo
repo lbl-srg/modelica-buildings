@@ -1,5 +1,5 @@
 within Buildings.ChillerWSE;
-model ElectricChilerParallel "Multiple identical electric chillers"
+model ElectricChillerParallel "Multiple identical electric chillers"
   extends Buildings.ChillerWSE.BaseClasses.PartialParallelElectricEIR(
     redeclare each final Buildings.Fluid.Chillers.ElectricEIR chi[n](
       per=per));
@@ -28,4 +28,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ElectricChilerParallel;
+end ElectricChillerParallel;

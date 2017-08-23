@@ -14,7 +14,7 @@ model ElectricChillerParallel "Model that test electric chiller parallel"
   parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_563kW_10_61COP_Vanes
     per2 "Chiller performance data"
     annotation (Placement(transformation(extent={{32,80},{52,100}})));
-  Buildings.ChillerWSE.ElectricChilerParallel chiPar(
+  Buildings.ChillerWSE.ElectricChillerParallel chiPar(
     n=2,
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,

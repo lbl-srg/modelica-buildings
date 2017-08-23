@@ -132,7 +132,7 @@ partial model PartialChillerWSE
     "Type of initialization of the temperature sensor (InitialState and InitialOutput are identical)"
   annotation(Evaluate=true, Dialog(tab="Dynamics", group="Temperature Sensor"));
 
-  Buildings.ChillerWSE.ElectricChilerParallel chiPar(
+  Buildings.ChillerWSE.ElectricChillerParallel chiPar(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
