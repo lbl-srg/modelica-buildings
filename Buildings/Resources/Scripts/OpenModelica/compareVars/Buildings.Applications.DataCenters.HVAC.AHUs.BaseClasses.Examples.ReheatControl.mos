@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "heaCon.hysVal.uLow",
+    "heaCon.hysVal.uHigh",
+    "heaCon.hysVal.u",
+    "heaCon.hysVal.y",
+    "heaCon.hysTemDif.uLow",
+    "heaCon.hysTemDif.uHigh",
+    "heaCon.hysTemDif.u",
+    "heaCon.hysTemDif.y",
+    "heaCon.y",
+    "heaCon.nor.u1",
+    "heaCon.nor.u2"
+  };
