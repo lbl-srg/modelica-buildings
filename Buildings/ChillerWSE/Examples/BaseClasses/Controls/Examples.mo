@@ -7,8 +7,8 @@ package Examples
     "Test the model ChillerWSE.Examples.BaseClasses.ChillerStageControl"
     extends Modelica.Icons.Example;
 
-    Buildings.ChillerWSE.Examples.BaseClasses.Controls.ChillerStageControl
-      chiStaCon(tWai=30)
+    Buildings.ChillerWSE.Examples.BaseClasses.Controls.ChillerStageControl chiStaCon(
+      tWai=30)
       "Staging controller for chillers"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Modelica.Blocks.Sources.Pulse QTot(

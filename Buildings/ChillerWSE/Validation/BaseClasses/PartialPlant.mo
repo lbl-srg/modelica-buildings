@@ -1,7 +1,6 @@
 within Buildings.ChillerWSE.Validation.BaseClasses;
 partial model PartialPlant
   "Partial examples for chillers and WSE configurations"
-  extends Modelica.Icons.Example;
 
   package MediumCHW = Buildings.Media.Water "Medium model";
   package MediumCW = Buildings.Media.Water "Medium model";
