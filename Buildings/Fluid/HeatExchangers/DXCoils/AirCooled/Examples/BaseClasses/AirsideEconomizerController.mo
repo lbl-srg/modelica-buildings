@@ -9,14 +9,7 @@ model AirsideEconomizerController "Airside economizer controller"
     annotation(Dialog(group="Control"));
   parameter Real minOAFra(min=0,max=1, final unit="1")
     "Minimum outdoor air fraction";
-  Buildings.Controls.Continuous.LimPID con(
-    Td=1,
-    reverseAction=true,
-    k=gai,
-    yMin=minOAFra,
-    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Ti=Ti) "PID controller"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+
   Modelica.Blocks.Interfaces.RealInput MATSet(
     final unit="K",
     final quantity="ThermodynamicTemperature",
@@ -36,6 +29,17 @@ model AirsideEconomizerController "Airside economizer controller"
     "Cooling mode of the cooling system"
     annotation (Placement(
         transformation(rotation=0, extent={{-140,-20},{-100,20}})));
+  Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+  Buildings.Controls.Continuous.LimPID con(
+    Td=1,
+    reverseAction=true,
+    k=gai,
+    yMin=minOAFra,
+    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=Ti) "PID controller"
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Math.RealToBoolean ASEOff(final threshold=1.5)
     "Determine if airside economizer is off"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
@@ -46,8 +50,7 @@ model AirsideEconomizerController "Airside economizer controller"
   Modelica.Blocks.Sources.Constant const(final k=0)
     "Constant output signal with value 1"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
 equation
   connect(MATSet, con.u_s)
     annotation (Line(points={{-120,80},{-82,80}}, color={0,0,127}));
@@ -62,7 +65,7 @@ equation
   connect(not1.y, switch1.u2)
     annotation (Line(points={{-19,0},{38,0}}, color={255,0,255}));
   connect(const.y, switch1.u3)
-  annotation (Line(points={{-59,-50},{0,-50},{0,-8},
+    annotation (Line(points={{-59,-50},{0,-50},{0,-8},
           {38,-8}}, color={0,0,127}));
   connect(switch1.y, y)
     annotation (Line(points={{61,0},{68,0},{110,0}}, color={0,0,127}));

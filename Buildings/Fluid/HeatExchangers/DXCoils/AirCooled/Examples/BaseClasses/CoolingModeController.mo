@@ -4,6 +4,35 @@ model CoolingModeController
 
   parameter Modelica.SIunits.Time tWai "Waiting time, set to avoid frequent switching";
 
+  Modelica.Blocks.Interfaces.RealInput OAT(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC")
+    "Dry-bulb temperature of outdoor air"
+    annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
+  Modelica.Blocks.Interfaces.RealInput RAT(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC")
+    "Return air temperature"
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+  Modelica.Blocks.Interfaces.RealInput OATDewPoi(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC")
+    "Dew point temperature of outdoor air"
+    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
+  Modelica.Blocks.Interfaces.RealInput SATSet(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC")
+    "Supply air temperature setpoint "
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+
+  Modelica.Blocks.Interfaces.RealOutput cooMod(final unit="1")
+    "Cooling mode signal (0: free cooling mode, 1: partially mechanical cooling, 2: fully mechanical cooling)"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
   Modelica.StateGraph.Transition con1(
     enableTimer=true,
     waitTime=tWai,
@@ -64,33 +93,6 @@ model CoolingModeController
     y_default=0)
     "Switch boolean signals to real signal"
     annotation (Placement(transformation(extent={{64,-6},{88,6}})));
-  Modelica.Blocks.Interfaces.RealOutput cooMod(final unit="1")
-    "Cooling mode signal (0: free cooling mode, 1: partially mechanical cooling, 2: fully mechanical cooling)"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput OAT(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC")
-    "Dry-bulb temperature of outdoor air"
-    annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
-  Modelica.Blocks.Interfaces.RealInput RAT(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC")
-    "Return air temperature"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealInput OATDewPoi(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC")
-    "Dew point temperature of outdoor air"
-    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
-  Modelica.Blocks.Interfaces.RealInput SATSet(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC")
-    "Supply air temperature setpoint "
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 equation
   connect(freCoo.outPort[1],con1. inPort) annotation (Line(
       points={{0,47.5},{0,47.5},{0,46},{0,42},{-40,42},{-40,36}},
@@ -165,7 +167,7 @@ The airside economizer is enabled when:
 </p>
 <ul>
 <li>
-<i>T<sub>dp,OA</sub>&lt;50<sup>o</sup>F and T<sub>OA</sub>&lt;T<sub>RA</sub></i>
+<i>T<sub>dp,OA</sub>&lt;50&deg;F and T<sub>OA</sub>&lt;T<sub>RA</sub></i>
 </li>
 </ul>
 <p>
@@ -173,7 +175,7 @@ The airside economizer is disabled when:
 </p>
 <ul>
 <li>
-<i>T<sub>dp,OA</sub>&gt;50<sup>o</sup>F + 2<sup>o</sup>F or T<sub>OA</sub>&gt;T<sub>RA</sub> + 2<sup>o</sup>F
+<i>T<sub>dp,OA</sub>&gt;50&deg;F + 2&deg;F or T<sub>OA</sub>&gt;T<sub>RA</sub> + 2&deg;F
 </i>
 </li>
 </ul>
@@ -182,7 +184,7 @@ The DX coil is enabled when:
 </p>
 <ul>
 <li>
-<i>T<sub>dp,OA</sub>&gt;50<sup>o</sup>F and T<sub>OA</sub>&gt;T<sub>SA,set</sub></i>
+<i>T<sub>dp,OA</sub>&gt;50&deg;F and T<sub>OA</sub>&gt;T<sub>SA,set</sub></i>
 </li>
 </ul>
 <p>
@@ -190,7 +192,7 @@ The DX coil is disabled when:
 </p>
 <ul>
 <li>
-<i>T<sub>dp,OA</sub>&lt;50<sup>o</sup>F - 2<sup>o</sup>F or T<sub>OA</sub>&gt;T<sub>SA,set</sub> - 2<sup>o</sup>F</i>
+<i>T<sub>dp,OA</sub>&lt;50&deg;F - 2&deg;F or T<sub>OA</sub>&gt;T<sub>SA,set</sub> - 2&deg;F</i>
 </li>
 </ul>
 <p>
