@@ -15,7 +15,7 @@ block EconEnableDisableMultiZone
     "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control 
     at disable to avoid pressure fluctuations"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
-  parameter Modelica.SIunits.Time smaDisDel=15
+  parameter Modelica.SIunits.Time disDel=15
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
 
@@ -129,7 +129,7 @@ protected
   CDL.Logical.Sources.Constant entSubst(final k=false) if not use_enthalpy
     "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
-  CDL.Continuous.Sources.Constant disableDelay(final k=smaDisDel)
+  CDL.Continuous.Sources.Constant disableDelay(final k=disDel)
     "Small delay before closing the outdoor air damper to avoid pressure fluctuations"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   CDL.Continuous.Add add2(final k2=-1) if use_enthalpy "Add block determines difference between hOut and hOutCut"
@@ -398,7 +398,7 @@ time period, after which the return damper gets released to its minimum outdoor 
 </li>
 <li>
 outdoor air damper is closed to its minimum outoor airflow control limit (<code>yOutDamPosMax = uOutDamPosMin</code>) 
-after a <code>smaDisDel</code> time delay.
+after a <code>disDel</code> time delay.
 </li>
 </ul>
 </html>", revisions="<html>

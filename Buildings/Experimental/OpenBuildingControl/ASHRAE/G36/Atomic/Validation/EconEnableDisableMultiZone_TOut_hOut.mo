@@ -59,7 +59,7 @@ protected
   CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
     "Freeze Protection Status - Disabled"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
-  CDL.Logical.Sources.Constant SupFanSta(final k=true) "Supply fan status signal"
+  CDL.Logical.Sources.Constant supFanSta(final k=true) "Supply fan status signal"
       annotation (Placement(transformation(extent={{-200,-42},{-180,-22}})));
   CDL.Logical.Sources.Pulse booPul(
     final startTime=10,
@@ -130,11 +130,11 @@ equation
     annotation (Line(points={{-139,-150},{196,-150},{196,-40},{219,-40}}, color={0,0,127}));
   connect(retDamPosMin.y, ecoEnaDis2.uRetDamPosMin)
     annotation (Line(points={{-139,-190},{198,-190},{198,-42},{219,-42}}, color={0,0,127}));
-  connect(SupFanSta.y, ecoEnaDis.uSupFan)
+  connect(supFanSta.y, ecoEnaDis.uSupFan)
     annotation (Line(points={{-179,-32},{-134,-32},{-81,-32}}, color={255,0,255}));
-  connect(SupFanSta.y, ecoEnaDis1.uSupFan)
+  connect(supFanSta.y, ecoEnaDis1.uSupFan)
     annotation (Line(points={{-179,-32},{-160,-32},{-160,-12},{-20,-12},{-20,-32},{79,-32}}, color={255,0,255}));
-  connect(SupFanSta.y, ecoEnaDis2.uSupFan)
+  connect(supFanSta.y, ecoEnaDis2.uSupFan)
     annotation (Line(points={{-179,-32},{-170,-32},{-170,-12},{140,-12},{140,-32},{219,-32}}, color={255,0,255}));
   connect(zonSta.y, ecoEnaDis.uZonSta)
     annotation (Line(points={{-179,0},{-132,0},{-132,-30},{-81,-30}}, color={255,127,0}));
