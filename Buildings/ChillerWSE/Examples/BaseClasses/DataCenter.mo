@@ -94,7 +94,7 @@ partial model DataCenter
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{120,130},{100,150}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort CWRT(
-    redeclare replaceable package  Medium = MediumW,
+    redeclare replaceable package Medium =  MediumW,
     m_flow_nominal=nChi*mChiller1_flow_nominal)
     "Condenser water return temperature"
     annotation (Placement(transformation(extent={{202,50},{222,70}})));

@@ -199,4 +199,9 @@ package Examples
             "Resources/Scripts/Dymola/ChillerWSE/Examples/BaseClasses/Controls/Examples/VariableSpeedPumpStageControl.mos"
           "Simulate and Plot"));
   end VariableSpeedPumpStageControl;
+  annotation (Documentation(info="<html>
+<p>
+
+</p>
+</html>"));
 end Examples;

@@ -1,5 +1,5 @@
 within Buildings.ChillerWSE;
-package Validation "Collection of models that validate the integrated/non-integrared WSE models"
+package Validation "Collection of models that validate the Buildings.ChillerWSE package"
   extends Modelica.Icons.ExamplesPackage;
 
 

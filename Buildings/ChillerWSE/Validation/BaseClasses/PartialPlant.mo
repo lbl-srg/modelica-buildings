@@ -1,6 +1,6 @@
 within Buildings.ChillerWSE.Validation.BaseClasses;
 partial model PartialPlant
-  "Partial examples for chillers and WSE configurations"
+  "Partial examples for Buildings.ChillerWSE.Validation"
 
   package MediumCHW = Buildings.Media.Water "Medium model";
   package MediumCW = Buildings.Media.Water "Medium model";
@@ -79,4 +79,11 @@ equation
   connect(sin2.ports[1], TSup.port_b)
     annotation (Line(points={{-80,-70},{-70,-70},{-70,-44},{-60,-44}},
       color={0,127,255}));
+  annotation (Documentation(info="<html>
+<p>
+This is a partial model for the examples in 
+<a href=\"modelica://Buildings.ChillerWSE.Validation\">
+Buildings.ChillerWSE.Validation</a>.
+</p>
+</html>"));
 end PartialPlant;
