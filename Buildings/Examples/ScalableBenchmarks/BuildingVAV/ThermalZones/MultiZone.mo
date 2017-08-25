@@ -123,13 +123,17 @@ annotation (Icon(graphics={
         Line(points={{0,38},{0,22}}, color={85,170,255}),
         Line(points={{2,-40},{2,-26}}, color={85,170,255}),
         Text(
-          extent={{-100,126},{100,100}},
+          extent={{-100,102},{100,76}},
           lineColor={0,0,255},
-          textString="Multizone model with: %nZon zones in %nZon floors")}),
+          textString="Multizone model with: %nZon zones in %nZon floors"),
+        Text(
+          extent={{-94,134},{106,108}},
+          lineColor={0,0,255},
+          textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This model groups multiple zones by linking their neighbor walls and floor/ceiling.
+This model groups multiple zones by linking adjacent walls, floors and ceilings.
 The factor <code>ampFactor</code> controls the fluctuating amplitude 
 of internal heat gain in each zone.  
 </p>

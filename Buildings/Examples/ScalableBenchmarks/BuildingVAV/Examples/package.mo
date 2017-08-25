@@ -5,10 +5,10 @@ extends Modelica.Icons.ExamplesPackage;
   annotation (Documentation(info="<html>
 <p>
 This package demonstrates the scalability of the building envelope model and the
-corresponded VAV AHU system. One zone model is demonstrated by
+corresponded VAV AHU system. A one zone model is implemented in
 <a href=\"modelica://Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone\">
-Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone</a>.
-The multizone model is shown in
+Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone</a>,
+and a multizone model is implemented in
 <a href=\"modelica://Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone\">
 Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone</a>.
 </p>

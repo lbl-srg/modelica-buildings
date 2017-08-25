@@ -1,5 +1,5 @@
 within Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.Validation;
-model MultiZone "Validated the MultiZone model"
+model MultiZone "Validation of the multi-zone model"
   extends Modelica.Icons.Example;
 
   parameter Integer nZon(min=1) = 6 "Number of zones per floor"
@@ -9,10 +9,12 @@ model MultiZone "Validated the MultiZone model"
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    "Weather data"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.MultiZone
-    multiZone(nZon=nZon, nFlo=nFlo)
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
+  Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.MultiZone multiZone(
+    nZon=nZon,
+    nFlo=nFlo) "Multizone model"
+               annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
 
 equation
   connect(weaDat.weaBus, multiZone.weaBus) annotation (Line(

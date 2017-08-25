@@ -96,13 +96,13 @@ model ThermalZone "Thermal zone model"
   Buildings.Fluid.Sensors.TemperatureTwoPort supAirTem(
     redeclare package Medium = MediumA,
     m_flow_nominal=1,
-    tau=30)
+    tau=0)
     "Supply air temperature sensor"
     annotation (Placement(transformation(extent={{-24,9}, {-12,21}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort retAirTem(
     redeclare package Medium = MediumA,
     m_flow_nominal=1,
-    tau=30)
+    tau=0)
     "Return air temperature sensor"
     annotation (Placement(transformation(extent={{-12,26}, {-24,38}})));
   Buildings.Fluid.Sensors.MassFlowRate supplyAirFlow(
@@ -193,9 +193,9 @@ model ThermalZone "Thermal zone model"
     annotation (Placement(transformation(extent={{-56,38},{-46,48}})));
   Modelica.Blocks.Math.Gain gain2(k=gainFactor) "Factorized latent heat gain"
     annotation (Placement(transformation(extent={{-40,38},{-30,48}})));
-  Modelica.Blocks.Sources.RealExpression PowerCalc(
-    y=supplyAirFlow.m_flow*1005*(supAirTem.T - TRooAir))
-    "Cooling negative, heating positive"
+  Modelica.Blocks.Sources.RealExpression powCal(y=supplyAirFlow.m_flow*1005*(
+        supAirTem.T - TRooAir))
+    "Power calculation, with cooling negative and heating positive"
     annotation (Placement(transformation(extent={{54,46},{74,66}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor rooAirTem
     "Air temperature sensor"
@@ -298,7 +298,7 @@ equation
       smooth=Smooth.None));
   connect(rooAirTem.T, TRooAir)
     annotation (Line(points={{78,36},{84,36},{102,36}}, color={0,0,127}));
-  connect(PowerCalc.y, heaCooPow)
+  connect(powCal.y, heaCooPow)
     annotation (Line(points={{75,56},{102,56}}, color={0,0,127}));
   connect(supAirTem.port_b, roo.ports[3])
     annotation (Line(points={{-12,15},{14,15},{14,-7.75},{39.75,-7.75}},

@@ -1,15 +1,16 @@
 within Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.Validation;
-model ThermalZone "Validate model with single thermal zone"
+model ThermalZone "Validation of the single zone model"
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.Air "Medium model";
 
   Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.ThermalZone thermalZone(
     redeclare package MediumA = MediumA,
     lat=41.98*3.14159/180,
-    gainFactor=1)
+    gainFactor=1) "Thermal zone model"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    "Weather data"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
 equation
