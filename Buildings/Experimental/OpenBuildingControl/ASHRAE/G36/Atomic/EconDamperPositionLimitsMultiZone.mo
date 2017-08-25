@@ -101,7 +101,6 @@ block EconDamperPositionLimitsMultiZone
 
   CDL.Continuous.LimPID damLimCon(
     final Ti=TiDamLim,
-    final Td=0.1,
     final yMax=conSigMax,
     final yMin=conSigMin,
     final controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
