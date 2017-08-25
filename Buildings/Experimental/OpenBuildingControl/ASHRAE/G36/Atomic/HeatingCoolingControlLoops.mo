@@ -208,7 +208,16 @@ equation
         Text(
           extent={{-124,144},{128,108}},
           lineColor={0,0,127},
-          textString="%name")}),
+          textString="%name"),
+        Line(
+          points={{-80,28},{-46,28},{-38,28},{-22,-26},{24,-26},{32,-26},{46,-26},{82,-26}},
+          color={0,0,127},
+          thickness=0.5),
+        Line(
+          points={{-80,-26},{-80,-26},{-52,-26},{-30,-26},{16,-26},{24,-26},{38,28},{82,28}},
+          color={0,0,127},
+          pattern=LinePattern.Dot,
+          thickness=0.5)}),
     Documentation(info="<html>
     <p>
 This block models the control loops that operate to maintain zone temperature setpoint, the Cooling Loop and 
