@@ -45,6 +45,21 @@ block HeatingCoolingControlLoops "Generates heating and cooling control signals 
     annotation (Placement(transformation(extent={{140,50},{160,70}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
 
+  CDL.Logical.And3 andDisCoo "Logical and that disables cooling loop"
+    annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
+  CDL.Logical.And3 andDisHea "Logical and that disables heating loop"
+    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
+  CDL.Logical.Greater greHea "Determine whether the room temperature is above the heating setpoint"
+    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+  CDL.Logical.Less greCoo "Determine whether the room temperature is below the cooling setpoint"
+    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
+  CDL.Logical.GreaterEqualThreshold greEquThrHea(threshold=disDel)
+    "Determine whether the provided time delay for heating loop disable has expired"
+    annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
+  CDL.Logical.GreaterEqualThreshold greEquThrCoo(threshold=disDel)
+    "Determine whether the provided time delay for cooling loop disable has expired"
+    annotation (Placement(transformation(extent={{30,-140},{50,-120}})));
+
 protected
   final parameter Real conSigMin=0 "Lower limit of control signal output";
   final parameter Real conSigMax=1 "Upper limit of control signal output";
@@ -91,10 +106,6 @@ protected
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
   CDL.Logical.Switch cooLooDisSwi "Enable-disable switch for the cooling loop signal"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  CDL.Logical.Greater greHea "Determine whether the room temperature is above the heating setpoint"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  CDL.Logical.Less greCoo "Determine whether the room temperature is below the cooling setpoint"
-    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   CDL.Conversions.RealToBoolean reaToBooHea(threshold=conSigMin)
     "Real to boolean converter, false if the output is zero"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
@@ -104,16 +115,6 @@ protected
   CDL.Logical.Not notIntWin
     "Logical not that prevents disable in case integral windup minimization in implemented"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  CDL.Logical.And3 andDisCoo "Logical and that disables cooling loop"
-    annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
-  CDL.Logical.And3 andDisHea "Logical and that disables heating loop"
-    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  CDL.Logical.GreaterEqualThreshold greEquThrHea(threshold=disDel)
-    "Determine whether the provided time delay for heating loop disable has expired"
-    annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
-  CDL.Logical.GreaterEqualThreshold greEquThrCoo(threshold=disDel)
-    "Determine whether the provided time delay for cooling loop disable has expired"
-    annotation (Placement(transformation(extent={{30,-140},{50,-120}})));
 
 equation
   connect(TRooHeaSet, conHeaVal.u_s)
@@ -272,7 +273,7 @@ First implementation.
           textString="Signal 
 assignments"),
         Text(
-          extent={{-110,18},{-74,6}},
+          extent={{-98,18},{-62,6}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=14,
