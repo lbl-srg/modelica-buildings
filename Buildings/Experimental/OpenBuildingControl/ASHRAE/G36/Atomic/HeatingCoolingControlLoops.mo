@@ -78,9 +78,9 @@ block HeatingCoolingControlLoops "Generates heating and cooling control signals 
     final k=kPHea,
     final Ti=TiHea) "Heating coil valve controller"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
-  CDL.Logical.Timer timCoo "Measure time since cooling signal became zero."
+  CDL.Logical.Timer timNoCoo "Measure time since cooling signal became zero."
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
-  CDL.Logical.Timer timHea "Measure time since heating signal became zero."
+  CDL.Logical.Timer timNoHea "Measure time since heating signal became zero."
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   CDL.Continuous.Line conCooInv(
     final limitBelow=true,
@@ -135,10 +135,8 @@ equation
     annotation (Line(points={{1,50},{10,50},{10,66},{18,66}},color={0,0,127}));
   connect(conSigMinSig.y, conCooInv.f2)
     annotation (Line(points={{1,90},{10,90},{10,62},{18,62}},  color={0,0,127}));
-  connect(timHea.y, greEquThrHea.u)
-    annotation (Line(points={{21,-30},{21,-30},{28,-30}}, color={0,0,127}));
-  connect(timCoo.y, greEquThrCoo.u)
-    annotation (Line(points={{21,-130},{21,-130},{28,-130}},color={0,0,127}));
+  connect(timNoHea.y, greEquThrHea.u) annotation (Line(points={{21,-30},{21,-30},{28,-30}}, color={0,0,127}));
+  connect(timNoCoo.y, greEquThrCoo.u) annotation (Line(points={{21,-130},{21,-130},{28,-130}}, color={0,0,127}));
   connect(heaLooDisSwi.y, yHea)
     annotation (Line(points={{121,120},{120,120},{150,120}},color={0,0,127}));
   connect(cooLooDisSwi.y, yCoo)
@@ -147,10 +145,8 @@ equation
     annotation (Line(points={{-160,30},{-120,30},{-120,-50},{-102,-50}},color={0,0,127}));
   connect(TRooHeaSet,disHea. u2)
     annotation (Line(points={{-160,140},{-130,140},{-130,-58},{-102,-58}}, color={0,0,127}));
-  connect(notHea.y, timHea.u)
-    annotation (Line(points={{-9,-30},{-9,-30},{-2,-30}}, color={255,0,255}));
-  connect(notCoo.y, timCoo.u)
-    annotation (Line(points={{-9,-130},{-9,-130},{-2,-130}},color={255,0,255}));
+  connect(notHea.y, timNoHea.u) annotation (Line(points={{-9,-30},{-9,-30},{-2,-30}}, color={255,0,255}));
+  connect(notCoo.y, timNoCoo.u) annotation (Line(points={{-9,-130},{-9,-130},{-2,-130}}, color={255,0,255}));
   connect(TRoo,disCoo. u1)
     annotation (Line(points={{-160,30},{-120,30},{-120,-110},{-102,-110}},color={0,0,127}));
   connect(TRooCooSet,disCoo. u2)
