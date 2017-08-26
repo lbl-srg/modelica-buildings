@@ -171,15 +171,15 @@ protected
     annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
 
 equation
-  connect(minRetDam.y,yRetDamPosMax)  annotation (Line(points={{141,110},{150,110},{150,20},{150,-40},{190,-40}},
+  connect(minRetDam.y, yRetDamPosMax)  annotation (Line(points={{141,110},{150,110},{150,20},{150,-40},{190,-40}},
     color={0,0,127}));
   connect(retDamPosMinSwitch.y, minRetDam.f2)
     annotation (Line(points={{61,-20},{61,-18},{61,-20},{100,-20},{100,102},{118,102}},color={0,0,127}));
-  connect(sigFraForOutDam.y,minRetDam. x1)
+  connect(sigFraForOutDam.y, minRetDam.x1)
     annotation (Line(points={{-39,210},{-30,210},{-30,118},{118,118}},color={0,0,127}));
-  connect(maxSigLim.y,minRetDam. x2)
+  connect(maxSigLim.y, minRetDam.x2)
     annotation (Line(points={{1,210},{8,210},{8,106},{118,106}},color={0,0,127}));
-  connect(VOut_flow,damLimCon. u_m)
+  connect(VOut_flow, damLimCon.u_m)
     annotation (Line(points={{-200,170},{-130,170},{-130,178}},color={0,0,127}));
   connect(VOutMinSet_flow,damLimCon. u_s)
     annotation (Line(points={{-200,220},{-160,220},{-160,190},{-142,190}},color={0,0,127}));
@@ -226,7 +226,6 @@ equation
     annotation (Line(points={{-200,-180},{-182,-180},{-162,-180}}, color={255,127,0}));
   connect(retDamPhyPosMaxSig.y, yRetDamPhyPosMax)
     annotation (Line(points={{-139,-40},{40,-40},{40,-80},{190,-80}},color={0,0,127}));
-  connect(yRetDamPosMin, yRetDamPosMin) annotation (Line(points={{190,0},{190,0}}, color={0,0,127}));
   connect(and1.u[1], uSupFan) annotation (Line(points={{-82,-84.75},{-160,-84.75},
           {-160,-100},{-200,-100}}, color={255,0,255}));
   connect(equ.y, and1.u[2]) annotation (Line(points={{-99,-140},{-96,-140},{-96,
