@@ -177,12 +177,12 @@ equation
     annotation (Line(points={{41,70},{60,70},{60,52},{98,52}}, color={0,0,127}));
   connect(looDisValSig.y, cooLooDisSwi.u1)
     annotation (Line(points={{121,-28},{130,-28},{130,2},{80,2},{80,68},{98,68}}, color={0,0,127}));
-  connect(conHeaVal.y, greThrHea.u)
-    annotation (Line(points={{-79,140},{-70,140},{-70,-30},{-62,-30}}, color={0,0,127}));
   connect(notHea.u, greThrHea.y) annotation (Line(points={{-32,-30},{-39,-30}}, color={255,0,255}));
   connect(notCoo.u, greThrCoo.y) annotation (Line(points={{-32,-130},{-36,-130},{-39,-130}}, color={255,0,255}));
   connect(conCooInv.y, greThrCoo.u)
     annotation (Line(points={{41,70},{50,70},{50,-8},{-66,-8},{-66,-130},{-62,-130}}, color={0,0,127}));
+  connect(conHeaVal.y, greThrHea.u)
+    annotation (Line(points={{-79,140},{-70,140},{-70,-30},{-62,-30}}, color={0,0,127}));
     annotation (Placement(transformation(extent={{-20,110},{0,130}})),
                 Placement(transformation(extent={{-20,20},{0,40}})),
                 Placement(transformation(extent={{60,90},{80,110}})),
