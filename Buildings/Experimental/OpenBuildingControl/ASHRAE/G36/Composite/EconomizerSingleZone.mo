@@ -215,8 +215,6 @@ equation
   connect(THeaSet, ecoMod.THeaSet) annotation (Line(points={{-130,40},{52,40},{52,19},{59,19}},
       color={0,0,127}));
   connect(TSup, ecoMod.TSup) annotation (Line(points={{-130,60},{50,60},{50,16},{59,16}},color={0,0,127}));
-  connect(yOutDamPos, yOutDamPos) annotation (Line(points={{130,-40},{130,-40}}, color={0,0,127}));
-  connect(yRetDamPos, yRetDamPos) annotation (Line(points={{130,40},{130,40}}, color={0,0,127}));
   connect(ecoEnaDis.yRetDamPosMin, ecoMod.uRetDamPosMin)
     annotation (Line(points={{22,-38},{54,-38},{54,0},{54,1},{59,1}}, color={0,0,127}));
   connect(uZonSta, ecoEnaDis.uZonSta)
