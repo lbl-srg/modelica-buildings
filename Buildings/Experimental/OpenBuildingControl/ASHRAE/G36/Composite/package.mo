@@ -1,5 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
 package Composite "Control sequences as defined in G36"
+  extends Modelica.Icons.Package;
+
   annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},

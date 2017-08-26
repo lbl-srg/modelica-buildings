@@ -134,9 +134,7 @@ equation
                 fillPattern = FillPattern.Solid,
                 points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}}),
-        graphics={Text(
-          extent={{52,106},{86,84}},
-          lineColor={28,108,200}),
+        graphics={
         Text(
           extent={{2,156},{86,128}},
           lineColor={0,0,0},

@@ -1,5 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
 package Atomic "Subsequences as defined in guideline G36"
+  extends Modelica.Icons.Package;
+
   annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
@@ -13,7 +15,7 @@ package Atomic "Subsequences as defined in guideline G36"
   Documentation(info="<html>
 <p>
 This package contains atomic control sequences from
-ASHRAE Guideline 36 (G36). The sequences are created using CDL basic blocks:
+ASHRAE Guideline 36. The sequences are created using CDL basic blocks:
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL\">
 Buildings.Experimental.OpenBuildingControl.CDL</a>.
 </p>

@@ -1,5 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
 package IO "Input-output blocks"
+  extends Modelica.Icons.Package;
+
   annotation (
 Documentation(info="<html>
 <p>
