@@ -49,9 +49,9 @@ block HeatingCoolingControlLoops "Generates heating and cooling control signals 
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
   CDL.Logical.And3 andDisHea "Logical and that disables heating loop"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  CDL.Logical.Greater greHea "Determine whether the room temperature is above the heating setpoint"
+  CDL.Logical.Greater disHea "Determine whether the room temperature is above the heating setpoint"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  CDL.Logical.Less greCoo "Determine whether the room temperature is below the cooling setpoint"
+  CDL.Logical.Less disCoo "Determine whether the room temperature is below the cooling setpoint"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   CDL.Logical.GreaterEqualThreshold greEquThrHea(threshold=disDel)
     "Determine whether the provided time delay for heating loop disable has expired"
@@ -60,7 +60,7 @@ block HeatingCoolingControlLoops "Generates heating and cooling control signals 
     "Determine whether the provided time delay for cooling loop disable has expired"
     annotation (Placement(transformation(extent={{30,-140},{50,-120}})));
 
-protected
+//protected
   final parameter Real conSigMin=0 "Lower limit of control signal output";
   final parameter Real conSigMax=1 "Upper limit of control signal output";
 
@@ -106,16 +106,14 @@ protected
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
   CDL.Logical.Switch cooLooDisSwi "Enable-disable switch for the cooling loop signal"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  CDL.Conversions.RealToBoolean reaToBooHea(threshold=conSigMin)
-    "Real to boolean converter, false if the output is zero"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  CDL.Conversions.RealToBoolean reaToBooCoo(threshold=conSigMin)
-    "Real to boolean converter, false if the output is zero"
-    annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
   CDL.Logical.Not notIntWin
     "Logical not that prevents disable in case integral windup minimization in implemented"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
 
+  CDL.Logical.GreaterThreshold greThrHea(threshold=conSigMin) "Determine whether heating signal is active"
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+  CDL.Logical.GreaterThreshold greThrCoo(threshold=conSigMin) "Determine whether cooling signal is active"
+    annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
 equation
   connect(TRooHeaSet, conHeaVal.u_s)
     annotation (Line(points={{-160,140},{-160,140},{-102,140}},color={0,0,127}));
@@ -145,31 +143,23 @@ equation
     annotation (Line(points={{121,120},{120,120},{150,120}},color={0,0,127}));
   connect(cooLooDisSwi.y, yCoo)
     annotation (Line(points={{121,60},{120,60},{150,60}},color={0,0,127}));
-  connect(TRoo, greHea.u1)
+  connect(TRoo,disHea. u1)
     annotation (Line(points={{-160,30},{-120,30},{-120,-50},{-102,-50}},color={0,0,127}));
-  connect(TRooHeaSet, greHea.u2)
+  connect(TRooHeaSet,disHea. u2)
     annotation (Line(points={{-160,140},{-130,140},{-130,-58},{-102,-58}}, color={0,0,127}));
-  connect(conHeaVal.y, reaToBooHea.u)
-    annotation (Line(points={{-79,140},{-70,140},{-70,-30},{-62,-30}}, color={0,0,127}));
-  connect(reaToBooHea.y, notHea.u)
-    annotation (Line(points={{-39,-30},{-39,-30},{-32,-30}}, color={255,0,255}));
-  connect(conCooVal.y, reaToBooCoo.u)
-    annotation (Line(points={{-79,70},{-70,70},{-70,-130},{-62,-130}},color={0,0,127}));
-  connect(reaToBooCoo.y, notCoo.u)
-    annotation (Line(points={{-39,-130},{-32,-130}},color={255,0,255}));
   connect(notHea.y, timHea.u)
     annotation (Line(points={{-9,-30},{-9,-30},{-2,-30}}, color={255,0,255}));
   connect(notCoo.y, timCoo.u)
     annotation (Line(points={{-9,-130},{-9,-130},{-2,-130}},color={255,0,255}));
-  connect(TRoo, greCoo.u1)
+  connect(TRoo,disCoo. u1)
     annotation (Line(points={{-160,30},{-120,30},{-120,-110},{-102,-110}},color={0,0,127}));
-  connect(TRooCooSet, greCoo.u2)
+  connect(TRooCooSet,disCoo. u2)
     annotation (Line(points={{-160,90},{-130,90},{-130,-118},{-102,-118}}, color={0,0,127}));
   connect(intWinSig.y, notIntWin.u)
     annotation (Line(points={{-39,-80},{-30,-80},{-22,-80}}, color={255,0,255}));
   connect(greEquThrHea.y, andDisHea.u1)
     annotation (Line(points={{51,-30},{54,-30},{54,-42},{58,-42}}, color={255,0,255}));
-  connect(greHea.y, andDisHea.u2)
+  connect(disHea.y, andDisHea.u2)
     annotation (Line(points={{-79,-50},{-10,-50},{58,-50}}, color={255,0,255}));
   connect(notIntWin.y, andDisHea.u3)
     annotation (Line(points={{1,-80},{30,-80},{30,-58},{58,-58}}, color={255,0,255}));
@@ -177,7 +167,7 @@ equation
     annotation (Line(points={{98,120},{90,120},{90,-50},{81,-50}}, color={255,0,255}));
   connect(notIntWin.y, andDisCoo.u1)
     annotation (Line(points={{1,-80},{30,-80},{30,-92},{58,-92}}, color={255,0,255}));
-  connect(greCoo.y, andDisCoo.u2)
+  connect(disCoo.y, andDisCoo.u2)
     annotation (Line(points={{-79,-110},{-10,-110},{-10,-100},{58,-100}}, color={255,0,255}));
   connect(greEquThrCoo.y, andDisCoo.u3)
     annotation (Line(points={{51,-130},{54,-130},{54,-108},{58,-108}}, color={255,0,255}));
@@ -191,6 +181,12 @@ equation
     annotation (Line(points={{41,70},{60,70},{60,52},{98,52}}, color={0,0,127}));
   connect(looDisValSig.y, cooLooDisSwi.u1)
     annotation (Line(points={{121,-28},{130,-28},{130,2},{80,2},{80,68},{98,68}}, color={0,0,127}));
+  connect(conHeaVal.y, greThrHea.u)
+    annotation (Line(points={{-79,140},{-70,140},{-70,-30},{-62,-30}}, color={0,0,127}));
+  connect(notHea.u, greThrHea.y) annotation (Line(points={{-32,-30},{-39,-30}}, color={255,0,255}));
+  connect(notCoo.u, greThrCoo.y) annotation (Line(points={{-32,-130},{-36,-130},{-39,-130}}, color={255,0,255}));
+  connect(conCooInv.y, greThrCoo.u)
+    annotation (Line(points={{41,70},{50,70},{50,-8},{-66,-8},{-66,-130},{-62,-130}}, color={0,0,127}));
     annotation (Placement(transformation(extent={{-20,110},{0,130}})),
                 Placement(transformation(extent={{-20,20},{0,40}})),
                 Placement(transformation(extent={{60,90},{80,110}})),
