@@ -22,7 +22,8 @@ block OperationModeSelector "Block that outputs the operation mode"
     annotation (Placement(transformation(extent={{-260,40},{-220,80}}),
         iconTransformation(extent={{-120,-56},{-100,-36}})));
   CDL.Interfaces.RealInput TZon[numOfZon](
-    final unit="K", quantity="ThermodynamicTemperature")
+    each final unit="K",
+    each quantity="ThermodynamicTemperature")
     "Temperature of each zone"
     annotation (Placement(transformation(extent={{-260,-30},{-220,10}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
@@ -37,12 +38,14 @@ block OperationModeSelector "Block that outputs the operation mode"
     annotation (Placement(transformation(extent={{-260,-70},{-220,-30}}),
         iconTransformation(extent={{-120,-78},{-100,-58}})));
   CDL.Interfaces.RealInput warUpTim[numOfZon](
-    final unit="s", quantity="Time")
+    each final unit="s",
+    each quantity="Time")
     "Warm-up time retrieved from optimal warm-up block"
     annotation (Placement(transformation(extent={{-260,96},{-220,136}}),
         iconTransformation(extent={{-120,12},{-100,32}})));
   CDL.Interfaces.RealInput cooDowTim[numOfZon](
-    final unit="s", quantity="Time")
+    each final unit="s",
+    each quantity="Time")
     "Cool-down time retrieved from optimal control-down block"
     annotation (Placement(transformation(extent={{-260,176},{-220,216}}),
         iconTransformation(extent={{-120,34},{-100,54}})));
@@ -105,7 +108,7 @@ block OperationModeSelector "Block that outputs the operation mode"
     uLow=-0.5*bouLim,
     uHigh=0.5*bouLim,
     pre_y_start=false)
-    "Whether or not the unoccupied heating setpoint is higher than minimum 
+    "Whether or not the unoccupied heating setpoint is higher than minimum
     zone temperature by bouLim"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
   CDL.Continuous.MinMax minMaxZonTem(final nin=numOfZon)
@@ -116,15 +119,15 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Set-back mode: 5th rank"
     annotation (Placement(transformation(extent={{220,-20},{240,0}})));
   CDL.Logical.FallingEdge falEdg
-    "Whether or not the unoccupied heating setpoint  becomes lower than 
+    "Whether or not the unoccupied heating setpoint  becomes lower than
     minimum zone temperature: true to false"
     annotation (Placement(transformation(extent={{180,-60},{200,-40}})));
   CDL.Logical.Latch lat
-    "if all zone temperature are higher than unoccupied heating setpoint 
+    "if all zone temperature are higher than unoccupied heating setpoint
     by bouLim, then the setback mode should be off."
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
   CDL.Logical.Latch lat1
-    "if all zone temperature are higher than freProEndVal, then freeze 
+    "if all zone temperature are higher than freProEndVal, then freeze
     protection setback mode should be off."
     annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
   CDL.Continuous.Gain freProSetBacInd(
@@ -144,7 +147,7 @@ block OperationModeSelector "Block that outputs the operation mode"
     pre_y_start=false,
     uLow=-0.5*bouLim,
     uHigh=0.5*bouLim)
-    "Whether or not the unoccupied cooling setpoint is higher than maximum 
+    "Whether or not the unoccupied cooling setpoint is higher than maximum
     zone temperature by bouLim"
     annotation (Placement(transformation(extent={{140,-260},{160,-240}})));
   CDL.Logical.Latch lat2
@@ -154,7 +157,7 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Setup mode: 3th rank"
     annotation (Placement(transformation(extent={{220,-220},{240,-200}})));
   CDL.Logical.FallingEdge falEdg1
-    "Whether or not the unoccupied cooling setpoint  becomes higher than 
+    "Whether or not the unoccupied cooling setpoint  becomes higher than
     maximum zone temperature: true to false"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}})));
   CDL.Continuous.Gain unoInd(
@@ -172,57 +175,57 @@ block OperationModeSelector "Block that outputs the operation mode"
   CDL.Continuous.Gain freProAlaInd(k=3) "Freeze protection alarm: level 3"
     annotation (Placement(transformation(extent={{220,-160},{240,-140}})));
   CDL.Continuous.Product pro[numOfZon]
-    "Decide if the cool down time of one zone should be ignored: if window 
+    "Decide if the cool down time of one zone should be ignored: if window
     open, then output zero, otherwise, output cooDowTim[zone] "
     annotation (Placement(transformation(extent={{-180,180},{-160,200}})));
   CDL.Continuous.Product pro1[numOfZon]
-    "Decide if the warm-up time of one zone should be ignored: if window 
+    "Decide if the warm-up time of one zone should be ignored: if window
     open, then output zero, otherwise, output warUpTim[zone] "
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
   CDL.Continuous.Add add2(
     final k1=+1,
     final k2=-1)
-    "Calculate the difference between minimum zone temperature and 
+    "Calculate the difference between minimum zone temperature and
     unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   CDL.Continuous.Add add1(
     final k1=+1,
     final k2=-1)
-    "Calculate the difference between maximum zone temperature and 
+    "Calculate the difference between maximum zone temperature and
     unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{80,-280},{100,-260}})));
   CDL.Logical.Hysteresis hys2(
     uLow=-10,
     uHigh=10,
     pre_y_start=true)
-    "Whether or not the maximum cool-down time is more than allowed 
+    "Whether or not the maximum cool-down time is more than allowed
     cool-down time, with deadband range of 20 seconds"
     annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
   CDL.Logical.Hysteresis hys3(
     uLow=-10,
     uHigh=10,
     pre_y_start=true)
-    "Whether or not the maximum warm-up time is more than allowed warm-up 
+    "Whether or not the maximum warm-up time is more than allowed warm-up
     time, with deadband range of 20 seconds"
     annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
   CDL.Continuous.Add add5(
     final k1=-1,
     final k2=+1)
-    "Calculate differential between time-to-next-occupancy and the 
+    "Calculate differential between time-to-next-occupancy and the
     cool-down time"
     annotation (Placement(transformation(extent={{60,180},{80,200}})));
   CDL.Logical.Hysteresis hys4(
     pre_y_start=false,
     uLow=-10,
     uHigh=10)
-    "Whether or not the cool-down model should be activated, with deadband 
+    "Whether or not the cool-down model should be activated, with deadband
     range of 20 s"
     annotation (Placement(transformation(extent={{100,180},{120,200}})));
   CDL.Logical.Hysteresis hys5(
     pre_y_start=false,
     uLow=-10,
     uHigh=10)
-    "Whether or not the warm-up model should be activated, with deadband 
+    "Whether or not the warm-up model should be activated, with deadband
     range of 20 s"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
   CDL.Continuous.Add add6(
@@ -233,7 +236,7 @@ block OperationModeSelector "Block that outputs the operation mode"
   CDL.Continuous.Add add7(
     final k1=+1,
     final k2=-1)
-    "Calculate differential between minimum zone temperature and the 
+    "Calculate differential between minimum zone temperature and the
     heating setpoint"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   CDL.Logical.Hysteresis hys6(
@@ -244,7 +247,7 @@ block OperationModeSelector "Block that outputs the operation mode"
   CDL.Continuous.Add add8(
     final k1=-1,
     final k2=+1)
-    "Calculate differential between maximum zone temperature and the cooling 
+    "Calculate differential between maximum zone temperature and the cooling
     setpoint"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   CDL.Logical.Hysteresis hys7(
@@ -260,33 +263,33 @@ block OperationModeSelector "Block that outputs the operation mode"
     each pre_y_start=false,
     each uLow=-0.1,
     each uHigh=0.1)
-    "Whether or not the zone temperature is lower then setpoint, with 
+    "Whether or not the zone temperature is lower then setpoint, with
     deadband of 0.2 degC"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   CDL.Logical.Hysteresis hys9(
     pre_y_start=false,
     uLow=-0.1,
     uHigh=0.1)
-    "Whether or not any zone temperature is lower than freProThrVal, with 
+    "Whether or not any zone temperature is lower than freProThrVal, with
     deadband of 0.2 degC"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
   CDL.Continuous.AddParameter addPar(
     p=freProThrVal,
     final k=-1)
-    "Calculate differential between minimum zone temperature and freeze 
+    "Calculate differential between minimum zone temperature and freeze
     protection threshold temperature"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
   CDL.Logical.Hysteresis hys10(
     pre_y_start=false,
     uLow=-0.1,
     uHigh=0.1)
-    "Whether or not all zone temperature are higher than freProEndVal, with 
+    "Whether or not all zone temperature are higher than freProEndVal, with
     deadband of 0.2 degC"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
   CDL.Continuous.AddParameter addPar1(
     final k=1,
     p=(-1)*freProEndVal)
-    "Calculate differential between maximum zone temperature and the freeze 
+    "Calculate differential between maximum zone temperature and the freeze
     protection ending threshold value"
     annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
   CDL.Continuous.Add add10[numOfZon](
@@ -297,19 +300,19 @@ block OperationModeSelector "Block that outputs the operation mode"
     each pre_y_start=false,
     each uLow=-0.1,
     each uHigh=0.1)
-    "Whether or not the zone temperature is higher than setpoint, with 
+    "Whether or not the zone temperature is higher than setpoint, with
     deadband of 0.2 degC"
     annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
   CDL.Continuous.AddParameter addPar2(
     p=preWarCooTim,
     final k=-1)
-    "Calculate the differential between maximum cool down time and the 
+    "Calculate the differential between maximum cool down time and the
     allowed maximum cool down time"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   CDL.Continuous.AddParameter addPar3(
     p=preWarCooTim,
     final k=-1)
-    "Calculate the differential between maximum warm-up time and the 
+    "Calculate the differential between maximum warm-up time and the
     allowed maximum warm-up time"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
   CDL.Continuous.Sources.Constant maxWarCooTime(
@@ -372,14 +375,14 @@ protected
   CDL.Logical.And and2 "Whether or not the cool-down time should be activated"
     annotation (Placement(transformation(extent={{140,180},{160,200}})));
   CDL.Logical.Or or1
-    "Whether or not the number of \"cold\" zone is more than 5 or all 
+    "Whether or not the number of \"cold\" zone is more than 5 or all
     zones are cold"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
   CDL.Logical.Or3 or3
     "Whether or not it is in \"Occupied\"/\"Cool-down\"/\"Warm-up\" mode"
     annotation (Placement(transformation(extent={{80,22},{100,42}})));
   CDL.Logical.Or or4
-    "Whether or not the number of \"hot\" zone is more than 5 or all 
+    "Whether or not the number of \"hot\" zone is more than 5 or all
     zones are cold"
     annotation (Placement(transformation(extent={{80,-220},{100,-200}})));
   CDL.Logical.Or3 or5
@@ -391,25 +394,25 @@ protected
     "Switch between occupied mode index and unoccupied period index"
     annotation (Placement(transformation(extent={{260,240},{280,260}})));
   CDL.Logical.Switch swi1[numOfZon]
-    "Decide if the temperature difference to setpoint should be ignored: 
-    if the zone window is open, then output setpoint temperature, otherwise, 
+    "Decide if the temperature difference to setpoint should be ignored:
+    if the zone window is open, then output setpoint temperature, otherwise,
     output zone temperature"
     annotation (Placement(transformation(extent={{-200,-20},{-180,-40}})));
   CDL.Logical.Switch swi2[numOfZon]
-    "Decide if the temperature difference to setpoint should be ignored: 
-    if the zone window is open, then output setpoint temperature, otherwise, 
+    "Decide if the temperature difference to setpoint should be ignored:
+    if the zone window is open, then output setpoint temperature, otherwise,
     output zone temperature"
     annotation (Placement(transformation(extent={{-200,-200},{-180,-220}})));
   CDL.Logical.Switch swi3
-    "If the Cool-down/warm-up/Occupied mode is on, then setback mode should 
+    "If the Cool-down/warm-up/Occupied mode is on, then setback mode should
     not be activated."
     annotation (Placement(transformation(extent={{260,-20},{280,0}})));
   CDL.Logical.Switch swi4
-    "If the Cool-down/warm-up/Occupied mode is on, then freeze protection 
+    "If the Cool-down/warm-up/Occupied mode is on, then freeze protection
     setback mode should not be activated."
     annotation (Placement(transformation(extent={{260,-120},{280,-100}})));
   CDL.Logical.Switch swi5
-    "If the Cool-down/warm-up/Occupied mode is on, then setup mode should 
+    "If the Cool-down/warm-up/Occupied mode is on, then setup mode should
     not be activated."
     annotation (Placement(transformation(extent={{260,-220},{280,-200}})));
   CDL.Routing.RealReplicator reaRep(nout=numOfZon) "Replicate real input"
@@ -978,7 +981,7 @@ cool-down time <code>cooDowTim</code> requirement, but no earlier than 3 hours
 before the start of the scheduled occupied period, and shall end at the
 scheduled occupied start time. Zones where the window switch indicates that a
 window is open shall be ignored. Note that the each zone <code>cooDowTim</code>
-shall be obtained from an <i>Optimal Start</i> sequences, computed in a 
+shall be obtained from an <i>Optimal Start</i> sequences, computed in a
 separate block.
 </p>
 <p align=\"center\">
@@ -987,10 +990,10 @@ src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASH
 </p>
 <h4>Setback Mode</h4>
 <p>
-During <i>unoccupied mode</i>, if any 5 zones (or all zones, if fewer than 5) 
+During <i>unoccupied mode</i>, if any 5 zones (or all zones, if fewer than 5)
 in the zone group fall below their unoccupied heating setpoints
 <code>TUnoHeaSet</code>, the zone group shall enter <i>setback mode</i> until
-all spaces in the zone group are <i>1.1</i> &deg;C (<i>2</i> &deg;F) above their 
+all spaces in the zone group are <i>1.1</i> &deg;C (<i>2</i> &deg;F) above their
 unoccupied setpoints.
 </p>
 <p align=\"center\">
@@ -999,17 +1002,17 @@ src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASH
 </p>
 <h4>Freeze Protection Setback Mode</h4>
 <p>
-During <i>unoccupied Mode</i>, if any single zone falls below <i>4.4</i> &deg;C 
-(<i>40</i> &deg;F), the zone group shall enter <i>setback mode</i> until all zones 
-are above <i>7.2</i> &deg;C (<i>45</i> &deg;F), and a Level 3 alarm 
+During <i>unoccupied Mode</i>, if any single zone falls below <i>4.4</i> &deg;C
+(<i>40</i> &deg;F), the zone group shall enter <i>setback mode</i> until all zones
+are above <i>7.2</i> &deg;C (<i>45</i> &deg;F), and a Level 3 alarm
 <code>yFreProAla</code> shall be set.
 </p>
 <h4>Setup Mode</h4>
 <p>
-During <i>unoccupied mode</i>, if any 5 zones (or all zones, if fewer than 5) 
-in the zone rise above their unoccupied cooling setpoints <code>TUnoCooSet</code>, 
-the zone group shall enter <i>setup mode</i> until all spaces in the zone group 
-are <i>1.1</i> &deg;C (<i>2</i> &deg;F) below their unoccupied setpoints. Zones 
+During <i>unoccupied mode</i>, if any 5 zones (or all zones, if fewer than 5)
+in the zone rise above their unoccupied cooling setpoints <code>TUnoCooSet</code>,
+the zone group shall enter <i>setup mode</i> until all spaces in the zone group
+are <i>1.1</i> &deg;C (<i>2</i> &deg;F) below their unoccupied setpoints. Zones
 where the window switch indicates that a window is open shall be ignored.
 </p>
 <p align=\"center\">
@@ -1024,7 +1027,7 @@ src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASH
 <h4>References</h4>
 <p>
 <a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR.
-<i>ASHRAE Guideline 36P, High Performance Sequences of Operation for HVAC 
+<i>ASHRAE Guideline 36P, High Performance Sequences of Operation for HVAC
 systems</i>. First Public Review Draft (June 2016)</a>
 </p>
 </html>",
