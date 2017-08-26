@@ -3,7 +3,7 @@ model Truncation "Validation model for the Truncation block"
 extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Truncation truncation1
-    "Block that discards the fractional portion of input and provides a whol number output"
+    "Block that discards the fractional portion of the input and outputs its integer value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
