@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "thermalZone.weaBus.TDryBul",
+    "thermalZone.weaBus.HDirNor",
+    "thermalZone.roo.heaPorAir.T",
+    "thermalZone.roo.air.QCon_flow",
+    "thermalZone.roo.air.QLat_flow"
+  };
