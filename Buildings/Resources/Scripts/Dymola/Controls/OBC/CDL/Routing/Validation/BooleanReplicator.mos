@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.CDL.Routing.Validation.BooleanReplicator", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="BooleanReplicator1");
+createPlot(id=1, position={15, 10, 500, 420}, y={"booRep.u"}, range={0.0, 1.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={530, 10, 500, 750}, subPlot=1, y={"booRep.y[1]"}, range={0.0, 1.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={530, 10, 500, 750}, subPlot=2, y={"booRep.y[2]"}, range={0.0, 1.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={530, 10, 500, 750}, subPlot=3, y={"booRep.y[3]"}, range={0.0, 1.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
