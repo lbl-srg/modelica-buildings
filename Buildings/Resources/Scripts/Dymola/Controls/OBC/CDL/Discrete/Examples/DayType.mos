@@ -1,0 +1,11 @@
+simulateModel("Buildings.Controls.OBC.CDL.Discrete.Examples.DayType", startTime=-1.8144e+06, stopTime=1.8144e+06, tolerance=1e-6, method="dassl", resultFile="DayType1");
+createPlot(id=1, position={55, 50, 1093, 400},
+y={"dayTypMon.y[1]", "dayTypSat.y[1]", "dayTypTwoWeeks.y[1]"},
+range={-1900000.0, 1900000.0, 0.9500000000000001, 2.0500000000000003}, autoscale=true, autoerase=true, autoreplot=true, description=false, grid=true, color=true, online=false, filename="DayType1.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}});
+createPlot(id=2, position={55, 500, 1093, 500},
+y={"dayTypMonThr.y[1]", "dayTypMonThr.y[2]", "dayTypMonThr.y[3]"},
+<<<<<<< HEAD
+range={-1900000.0, 1900000.0, 0.9500000000000001, 2.0500000000000003}, autoscale=true, autoerase=true, autoreplot=true, description=false, grid=true, color=true, online=false, filename="DayType1.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}});
+=======
+range={-1900000.0, 1900000.0, 0.9500000000000001, 2.0500000000000003}, autoscale=true, autoerase=true, autoreplot=true, description=false, grid=true, color=true, online=false,  filename="DayType1.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}});
+>>>>>>> issue609_cdl

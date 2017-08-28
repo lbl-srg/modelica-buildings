@@ -1,0 +1,2 @@
+simulateModel("Buildings.Controls.OBC.CDL.Discrete.Examples.TriggeredSampler", stopTime=1.0, method="dassl", tolerance=1e-06, resultFile="TriggeredSampler1");
+createPlot(id=1, position={55, 50, 615, 494}, y={"booPul.y", "sin1.y", "triSam.y", "triSam1.y"}, range={0.0, 1.0, -1.2, 1.2000000000000004}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});

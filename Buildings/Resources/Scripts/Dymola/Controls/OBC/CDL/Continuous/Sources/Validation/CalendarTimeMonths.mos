@@ -1,0 +1,7 @@
+simulateModel("Buildings.Controls.OBC.CDL.Continuous.Sources.Validation.CalendarTimeMonths", startTime=172800, tolerance=1e-6, stopTime=345600, method="dassl", resultFile="CalendarTimeMonths1");
+createPlot(id=1, position={35, 30, 1021, 971}, y={"calTim.year"}, range={170000.0, 350000.0, 1800.0, 2400.0}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={35, 30, 1021, 158}, y={"calTim.month"}, range={170000.0, 350000.0, 0.8, 1.2}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={35, 30, 1021, 159}, y={"calTim.day"}, range={170000.0, 350000.0, 2.0, 6.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={35, 30, 1021, 158}, y={"calTim.weekDay"}, range={170000.0, 350000.0, 0.0, 10.0}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=1, position={35, 30, 1021, 159}, y={"calTim.hour"}, range={170000.0, 350000.0, -10.0, 30.0}, grid=true, subPlot=5, colors={{28,108,200}});
+createPlot(id=1, position={35, 30, 1021, 158}, y={"calTim.minute"}, range={170000.0, 350000.0, -50.0, 100.0}, grid=true, subPlot=6, colors={{28,108,200}});

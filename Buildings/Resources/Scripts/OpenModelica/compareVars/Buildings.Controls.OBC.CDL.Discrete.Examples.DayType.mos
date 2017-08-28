@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "dayTypMon.y[1]",
+    "dayTypSat.y[1]",
+    "dayTypTwoWeeks.y[1]",
+    "dayTypMonThr.y[1]",
+    "dayTypMonThr.y[2]",
+    "dayTypMonThr.y[3]"
+  };

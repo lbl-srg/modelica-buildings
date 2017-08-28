@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "truHol.u",
+    "truHol.y",
+    "booPul1.y",
+    "truHol1.y",
+    "truHol2.u",
+    "truHol2.y",
+    "truHol3.u",
+    "truHol3.y"
+  };

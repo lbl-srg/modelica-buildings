@@ -1,0 +1,4 @@
+simulateModel("Buildings.Controls.OBC.CDL.Continuous.Validation.MultiSum", method="dassl", tolerance=1e-06, stopTime=1.0, resultFile="MultiSum_1");
+createPlot(id=1, position={15, 10, 600, 350}, y={"mulSum_1.u[1]", "mulSum_1.y"}, range={0.0, 1.0, -5, 6}, grid=true, colors={{0,140,72}, {28,108,200}});
+createPlot(id=2, position={15, 400, 600, 350}, y={"mulSum_2.u[1]","mulSum_2.u[2]", "mulSum_2.y"}, range={0.0, 1.0, -5, 6}, grid=true, colors={{0,140,72},{238,46,47},{28,108,200}});
+createPlot(id=3, position={630, 10, 600, 750}, y={"mulSum_5.u[1]", "mulSum_5.u[2]", "mulSum_5.u[3]", "mulSum_5.u[4]", "mulSum_5.u[5]","mulSum_5.y"}, range={0.0, 1.0, -5, 6}, grid=true, colors={{0,140,72}, {238,46,47}, {217,67,180}, {238,46,47}, {217,67,180},{28,108,200}});

@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "ecoMod.THeaSet",
+    "ecoMod.TSup",
+    "ecoMod.damPosCon.y",
+    "ecoMod.yOutDamPos",
+    "ecoMod.yRetDamPos"
+  };
