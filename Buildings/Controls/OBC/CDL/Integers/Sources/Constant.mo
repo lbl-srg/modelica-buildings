@@ -42,7 +42,7 @@ where <code>k</code> is an Integer-valued parameter.
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Integer/Constant.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Integers/Sources/Constant.png\"
      alt=\"IntegerConstant.png\" />
 </p>
 </html>"));

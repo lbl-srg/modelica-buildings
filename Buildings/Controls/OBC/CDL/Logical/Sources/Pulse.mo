@@ -70,7 +70,7 @@ The Boolean output y is a pulse signal:
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Sources/BooleanPulse.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/Sources/BooleanPulse.png\"
      alt=\"BooleanPulse.png\" />
 </p>
 

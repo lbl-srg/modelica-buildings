@@ -72,7 +72,7 @@ The Real output y is a pulse signal:
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Sources/Pulse.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Sources/Pulse.png\"
      alt=\"Pulse.png\" />
 </p>
 </html>"));

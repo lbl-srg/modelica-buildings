@@ -61,7 +61,7 @@ at sample times (defined by parameter <code>period</code>) and is otherwise
 <code>false</code>.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Sources/SampleTrigger.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/Sources/SampleTrigger.png\"
      alt=\"SampleTrigger.png\" />
 </p>
 

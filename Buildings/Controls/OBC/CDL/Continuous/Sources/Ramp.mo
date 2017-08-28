@@ -54,7 +54,7 @@ The Real output y is a ramp signal:
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Sources/Ramp.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Sources/Ramp.png\"
      alt=\"Ramp.png\" />
 </p>
 
