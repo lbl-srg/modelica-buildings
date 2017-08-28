@@ -148,6 +148,11 @@ First implementation.
           fillPattern=FillPattern.Solid,
           fillColor={95,95,95}),
         Rectangle(
+          extent={{-94,-52},{100,-66}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
           extent={{-92,66},{92,54}},
           lineColor={0,0,0},
           fillColor={255,255,255},
@@ -209,11 +214,6 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{60,-50},{66,-70}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-94,-52},{100,-66}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
