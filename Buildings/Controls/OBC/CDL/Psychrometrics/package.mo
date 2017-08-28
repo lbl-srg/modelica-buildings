@@ -33,9 +33,6 @@ annotation (Icon(graphics={
           textString="T")}),
 Documentation(info="<html>
 <p>
-<b>fixme: This still needs to be refactored.</b>
-</p>
-<p>
 This package contains blocks for psychrometric calculations.
 </p>
 </html>",
