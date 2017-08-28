@@ -325,7 +325,7 @@ commissioning fixed limits. The state machine chart below illustrates listed con
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits state machine chart\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/EconDamperLimitsStateMachineMultiZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/EconDamperLimitsStateMachineChartMultiZone.png\"/>
 </p>
 <p>
 The controller sets the outdoor and return damper position limits so
