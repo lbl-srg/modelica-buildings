@@ -8,8 +8,7 @@ model ElectricChillerParallel "Multiple identical electric chillers"
     "Performance data"
     annotation (choicesAllMatching = true,
                 Placement(transformation(extent={{42,74},{62,94}})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
          Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

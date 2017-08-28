@@ -300,8 +300,160 @@ equation
   connect(wse.port_b2, senTem.port_a)
     annotation (Line(points={{40,24},{34,24},{28,24}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
-                                                                 Diagram(
+        Rectangle(
+          extent={{24,2},{64,0}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-72,2},{-24,-2}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Backward,
+          radius=45),
+        Rectangle(
+          extent={{-66,14},{-62,2}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-70,14},{-58,14},{-64,20},{-70,14}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-70,26},{-58,26},{-64,20},{-70,26}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-66,38},{-62,26}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-58,40},{-58,40}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-36,26},{-32,22}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.CrossDiag),
+        Rectangle(
+          extent={{-36,38},{-32,2}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-40,14},{-28,14},{-34,26},{-40,14}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.CrossDiag),
+        Rectangle(
+          extent={{-72,42},{-24,38}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Forward,
+          radius=45),
+        Rectangle(
+          extent={{-36,26},{-32,22}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.CrossDiag),
+        Rectangle(
+          extent={{8,20},{14,6}},
+          lineColor={0,0,0},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.VerticalCylinder),
+        Rectangle(
+          extent={{24,40},{64,38}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{30,42},{32,36}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{32,42},{34,36}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{34,44},{38,-4}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{38,44},{42,-4}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{42,44},{46,-4}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{46,44},{50,-4}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{50,44},{54,-4}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{54,42},{56,36}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{56,42},{58,36}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{56,4},{58,-2}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{32,4},{34,-2}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{30,4},{32,-2}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{54,4},{56,-2}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{6,16},{16,8}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textStyle={TextStyle.Bold},
+          textString="T"),
+        Line(points={{-90,60},{-76,60},{-76,40},{-72,40}}, color={28,108,200}),
+
+        Line(points={{-76,60},{20,60},{20,40}}, color={28,108,200}),
+        Line(points={{20,40},{24,40}}, color={28,108,200}),
+        Line(points={{64,40},{76,40},{76,60},{90,60}}, color={28,108,200}),
+        Line(points={{-24,40},{6,40},{6,54},{76,54}}, color={28,108,200}),
+        Line(points={{24,0},{12,0},{12,6}}, color={28,108,200}),
+        Line(points={{12,20}}, color={28,108,200}),
+        Line(points={{12,20},{12,20},{12,48},{86,48},{86,40},{102,40}}, color={
+              0,0,127})}),                                       Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="
 <html>
@@ -318,4 +470,5 @@ First implementation.
 </li>
 </ul>
 </html>"));
+
 end PartialChillerWSE;

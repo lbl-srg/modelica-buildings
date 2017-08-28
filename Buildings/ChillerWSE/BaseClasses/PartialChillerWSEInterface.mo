@@ -86,8 +86,12 @@ protected
     Medium2.setState_phX(port_b2.p, inStream(port_b2.h_outflow), inStream(port_b2.Xi_outflow))
     "state for medium inflowing through port_b2";
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
-                                                                 Diagram(
+          Rectangle(extent={{-100,100},{100,-100}}, pattern=LinePattern.None),
+          Rectangle(
+          extent={{-80,80},{80,-80}},
+          lineColor={255,255,255},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 This model implements an interface for chillers and integrated/nonitegrated water-side economizers. 

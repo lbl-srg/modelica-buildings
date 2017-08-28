@@ -100,8 +100,7 @@ equation
           {20,32},{28,32}},color={0,0,127}));
   connect(y_actual, val2.y)
     annotation (Line(points={{-20,74},{-20,-32},{-28,-32}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
          Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

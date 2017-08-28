@@ -1,6 +1,7 @@
 within Buildings.ChillerWSE.Validation.BaseClasses;
 partial model PartialPlant
   "Partial examples for Buildings.ChillerWSE.Validation"
+  extends Modelica.Icons.Example;
 
   package MediumCHW = Buildings.Media.Water "Medium model";
   package MediumCW = Buildings.Media.Water "Medium model";
@@ -85,5 +86,12 @@ This is a partial model for the examples in
 <a href=\"modelica://Buildings.ChillerWSE.Validation\">
 Buildings.ChillerWSE.Validation</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 25, 2017, by Yangyang Fu:<br>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PartialPlant;

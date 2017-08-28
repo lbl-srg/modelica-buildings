@@ -1,7 +1,6 @@
 within Buildings.ChillerWSE.Examples;
 model IntegratedPrimaryLoadSide
   "Example that show how to use Buildings.ChillerWSE.IntegratedPrimaryLoadSide"
-  extends Modelica.Icons.Example;
   extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenterControl(
     redeclare Buildings.ChillerWSE.IntegratedPrimaryLoadSide chiWSE(
         addPowerToMedium=false, perPum=perPum));

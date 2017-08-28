@@ -21,16 +21,6 @@ model PartialIntegratedPrimary
     annotation(Dialog(tab="Dynamics", group="Filtered opening",
       enable=use_inputFilter));
 
-  Modelica.Blocks.Interfaces.RealOutput wseCHWST(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC",
-    min=0,
-    start=T2_start)
-    "Chilled water supply temperature in the waterside economizer"
-    annotation (Placement(transformation(extent={{100,30},{120,50}}),
-      iconTransformation(extent={{100,30},{120,50}})));
-
  Modelica.Blocks.Interfaces.RealInput yVal6(min=0,max=1)
     "Actuator position for valve 6 (0: closed, 1: open)"
     annotation (Placement(
@@ -132,5 +122,69 @@ July 1, 2017, by Yangyang Fu:<br>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),Icon(graphics={
+        Rectangle(
+          extent={{32,42},{34,36}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{30,42},{32,36}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{30,4},{32,-2}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{54,42},{56,36}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{56,42},{58,36}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-7,-6},{9,-6},{0,3},{-7,-6}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={-42,-45},
+          rotation=90),
+        Polygon(
+          points={{-6,-7},{-6,9},{3,0},{-6,-7}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={-46,-45},
+          rotation=0),
+        Polygon(
+          points={{-7,-6},{9,-6},{0,3},{-7,-6}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={46,-45},
+          rotation=90),
+        Polygon(
+          points={{-6,-7},{-6,9},{3,0},{-6,-7}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={42,-45},
+          rotation=0),
+        Line(points={{90,-60},{78,-60},{78,-44},{52,-44}}, color={0,128,255}),
+        Line(points={{36,-44},{12,-44}},color={0,128,255}),
+        Line(points={{-18,-44},{-36,-44}}, color={0,128,255}),
+        Line(points={{-94,-60},{-78,-60},{-78,-44},{-52,-44}}, color={0,128,255}),
+        Line(points={{78,-44},{78,0},{64,0}}, color={0,128,255}),
+        Line(points={{24,0},{14,0},{12,0},{12,-44}}, color={0,128,255}),
+        Line(points={{12,6},{12,0}}, color={0,128,255}),
+        Line(points={{-70,0}}, color={0,0,0}),
+        Line(points={{-72,0},{-78,0},{-78,-54}}, color={0,128,255}),
+        Line(points={{-24,0},{-18,0},{-18,-44}}, color={0,128,255})}));
+
 end PartialIntegratedPrimary;

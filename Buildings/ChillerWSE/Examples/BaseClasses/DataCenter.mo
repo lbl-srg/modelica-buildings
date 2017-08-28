@@ -1,7 +1,7 @@
 within Buildings.ChillerWSE.Examples.BaseClasses;
 partial model DataCenter
   "Partial model that impliments cooling system for data centers"
-
+  extends Modelica.Icons.Example;
   replaceable package MediumA = Buildings.Media.Air "Medium model";
   replaceable package MediumW = Buildings.Media.Water "Medium model";
 

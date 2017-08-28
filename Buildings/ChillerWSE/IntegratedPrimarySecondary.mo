@@ -161,7 +161,42 @@ equation
           {-40,-6},{16,-6},{16,-16},{12,-16}}, color={0,0,127}));
   connect(pum.port_a, val5.port_b)
     annotation (Line(points={{10,-20},{25,-20},{40,-20}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Ellipse(
+          extent={{-14,-30},{8,-52}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,128,255}),
+        Polygon(
+          points={{-14,-42},{-2,-52},{-2,-30},{-14,-42}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255}),
+        Polygon(
+          points={{-6,-7},{-6,9},{3,0},{-6,-7}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={44,-41},
+          rotation=0),
+        Polygon(
+          points={{-7,-6},{9,-6},{0,3},{-7,-6}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={48,-41},
+          rotation=90),
+        Line(points={{64,0},{74,0},{74,-60},{94,-60}}, color={0,128,255}),
+        Line(points={{-164,74}}, color={0,128,255}),
+        Line(points={{54,-40},{74,-40}}, color={0,128,255}),
+        Line(points={{38,-40},{8,-40}}, color={0,128,255}),
+        Line(points={{-14,-42},{-18,-42},{-18,0},{-24,0}}, color={0,128,255}),
+        Line(points={{-72,0},{-76,0},{-76,-60}}, color={0,128,255}),
+        Line(points={{-92,-60},{-76,-60}}, color={0,128,255}),
+        Line(points={{12,0},{12,-40}}, color={0,128,255}),
+        Line(points={{12,-40},{12,-60},{-76,-60}}, color={0,128,255})}),
+                                                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

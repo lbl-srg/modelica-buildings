@@ -1,7 +1,6 @@
 within Buildings.ChillerWSE.Examples;
 model IntegratedPrimarySecondary
   "Example that show how to use Buildings.ChillerWSE.IntegratedPrimarySecondary"
-  extends Modelica.Icons.Example;
   extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenterControl(
     redeclare Buildings.ChillerWSE.IntegratedPrimarySecondary chiWSE(
         addPowerToMedium=false, perPum=perPum));

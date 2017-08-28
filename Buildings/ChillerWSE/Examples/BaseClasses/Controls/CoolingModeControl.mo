@@ -18,7 +18,8 @@ model CoolingModeControl
         rotation=-90,
         origin={-40,32})));
   Modelica.StateGraph.StepWithSignal parMecCoo(nIn=2, nOut=2)
-    "Partial mechanical cooling mode" annotation (Placement(transformation(
+    "Partial mechanical cooling mode"
+    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={0,8})));
@@ -73,7 +74,8 @@ model CoolingModeControl
   Modelica.Blocks.Interfaces.RealInput TWetBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC") "Wet bulb temperature of outdoor air"
+    displayUnit="degC")
+    "Wet bulb temperature of outdoor air"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput wseCHWRT(
     final quantity="ThermodynamicTemperature",
@@ -96,7 +98,8 @@ model CoolingModeControl
   Modelica.Blocks.Interfaces.RealInput towTApp(
     final quantity="TemperatureDifference",
     final unit="K",
-    displayUnit="degC") "Approach temperature in the cooling tower"
+    displayUnit="degC")
+    "Approach temperature in the cooling tower"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 equation
   connect(freCoo.outPort[1], con1.inPort)

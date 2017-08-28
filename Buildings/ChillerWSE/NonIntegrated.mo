@@ -23,7 +23,13 @@ equation
   connect(senTem.port_b, port_b2)
     annotation (Line(points={{8,24},{0,24},{0,-40},
           {-72,-40},{-72,-60},{-100,-60}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Line(points={{64,0},{74,0},{74,-60},{90,-60}}, color={0,128,255}),
+        Line(points={{-72,0},{-76,0},{-76,-60},{-92,-60}}, color={0,128,255}),
+        Line(points={{90,-60},{90,-60},{-14,-60},{-14,0},{-24,0}}, color={0,128,
+              255}),
+        Line(points={{12,0},{12,-40},{12,-40},{-76,-40}}, color={0,128,255})}),
+                                                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

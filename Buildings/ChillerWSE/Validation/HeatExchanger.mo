@@ -56,8 +56,11 @@ model HeatExchanger
     "Source on medium 1 side"
     annotation (Placement(transformation(extent={{-60,66},{-40,86}})));
   Modelica.Blocks.Sources.TimeTable TCon_in(
-    table=[0,273.15 + 12.78; 7200,273.15 + 12.78; 7200,273.15 + 18.33;
-      14400,273.15 + 18.33; 14400,273.15 + 26.67],
+    table=[0,273.15 + 12.78;
+           7200,273.15 + 12.78;
+           7200,273.15 + 18.33;
+           14400,273.15 + 18.33;
+           14400,273.15 + 26.67],
     offset=0,
     startTime=0)
     "Condenser inlet temperature"

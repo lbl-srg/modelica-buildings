@@ -4,11 +4,17 @@ model VariableSpeedPumpStageControl "Staging control for variable speed pumps"
   parameter Modelica.SIunits.Time tWai "Waiting time";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate of the identical variable-speed pumps";
+
+
   Modelica.Blocks.Interfaces.RealInput masFloPum
     "Total mass flowrate in the variable speed pumps"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput speSig "Speed signal"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+   Modelica.Blocks.Interfaces.RealOutput y[2] "On/off signal - 0: off; 1: on"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+
   Modelica.StateGraph.Transition con1(
     enableTimer=true,
     waitTime=tWai,
@@ -69,9 +75,11 @@ model VariableSpeedPumpStageControl "Staging control for variable speed pumps"
     y_default=0)
     "Switch boolean signals to real signal"
     annotation (Placement(transformation(extent={{24,-6},{48,6}})));
-  Modelica.Blocks.Interfaces.RealOutput y[2] "On/off signal - 0: off; 1: on"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table=[0,0,0; 1,1,0; 2,1,1])
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(
+    table=[0,0,0;
+           1,1,0;
+           2,1,1])
+    "Determine which pump should be on - rotation control is not considered here"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
   connect(off.outPort[1], con1.inPort)

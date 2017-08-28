@@ -134,23 +134,93 @@ equation
       annotation (Line(points={{-100,-60},{-80,-60},{-80,-60},
         {-80,-6},{-10,-6}}, color={0,127,255}));
   end if;
+  connect(port_a1, port_a1) annotation (Line(points={{-100,60},{-95,60},{-95,60},
+          {-100,60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
-              extent={{-100,-80},{100,80}}),
-              graphics={
-        Ellipse(
-          extent={{-80,40},{80,36}},
-          lineColor={0,127,255},
-          lineThickness=1,
-          fillColor={95,95,95},
+              extent={{-100,-100},{100,100}}), graphics={
+        Rectangle(
+          extent={{-92,66},{92,54}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-74,-22},{88,-28}},
-          lineColor={0,127,255},
-          lineThickness=1,
-          fillColor={95,95,95},
+        Rectangle(
+          extent={{60,70},{66,50}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-94,-52},{100,-66}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{66,70},{72,50}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{20,80},{40,-80}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{0,80},{20,-80}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-20,80},{0,-80}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-40,80},{-20,-80}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-60,80},{-40,-80}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-66,70},{-60,50}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-72,70},{-66,50}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-66,-50},{-60,-70}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-72,-50},{-66,-70}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{66,-50},{72,-70}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{60,-50},{66,-70}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{40,80},{60,-80}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
        Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},{100,80}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
     __Dymola_Commands,
     Documentation(info="<html>
 <p>

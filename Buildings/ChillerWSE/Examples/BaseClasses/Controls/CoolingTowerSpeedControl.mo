@@ -1,29 +1,33 @@
 within Buildings.ChillerWSE.Examples.BaseClasses.Controls;
 model CoolingTowerSpeedControl "Controller for the fan speed in cooling towers"
-  extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface(
-    final use_Controller=true);
-  Modelica.Blocks.Interfaces.RealInput cooMod
-    "Cooling mode - 0: free cooling mode; 1: partially mechanical cooling; 2: fully mechanical cooling"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.Continuous.LimPID conPID(
-    controllerType=controllerType,
-    k=k,
-    Ti=Ti,
-    Td=Td,
-    yMax=yMax,
-    yMin=yMin,
-    wp=wp,
-    wd=wd,
-    Ni=Ni,
-    Nd=Nd,
-    initType=initType,
-    xi_start=xi_start,
-    xd_start=xd_start,
-    y_start=yCon_start,
-    reverseAction=reverseAction,
-    y_reset=y_reset,
-    reset=reset) "PID controller"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+
+  parameter Modelica.Blocks.Types.SimpleController controllerType=
+    Modelica.Blocks.Types.SimpleController.PID
+    "Type of controller"
+    annotation(Dialog(tab="Controller"));
+  parameter Real k(min=0, unit="1") = 1
+    "Gain of controller"
+    annotation(Dialog(tab="Controller"));
+  parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=0.5
+    "Time constant of Integrator block"
+     annotation (Dialog(enable=
+          (controllerType == Modelica.Blocks.Types.SimpleController.PI or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID),tab="Controller"));
+  parameter Modelica.SIunits.Time Td(min=0)=0.1
+    "Time constant of Derivative block"
+     annotation (Dialog(enable=
+          (controllerType == Modelica.Blocks.Types.SimpleController.PD or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID),tab="Controller"));
+  parameter Real yMax(start=1)=1
+   "Upper limit of output"
+    annotation(Dialog(tab="Controller"));
+  parameter Real yMin=0
+   "Lower limit of output"
+    annotation(Dialog(tab="Controller"));
+  parameter Boolean reverseAction = true
+    "Set to true for throttling the water flow rate through a cooling coil controller"
+    annotation(Dialog(tab="Controller"));
+
   Modelica.Blocks.Interfaces.RealInput CHWST_set(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -40,23 +44,49 @@ model CoolingTowerSpeedControl "Controller for the fan speed in cooling towers"
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC")
-    "Chilled water supply temperature " annotation (
-      Placement(transformation(
+    "Chilled water supply temperature "
+    annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,-74}), iconTransformation(extent={{-140,-100},{-100,-60}})));
+        origin={-120,-74}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealInput CWST(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC")
-    "Condenser water supply temperature " annotation (
-      Placement(transformation(
+    "Condenser water supply temperature "
+    annotation (Placement(transformation(
         extent={{20,20},{-20,-20}},
         rotation=180,
         origin={-120,-40})));
+  Modelica.Blocks.Interfaces.RealOutput y
+    "Speed signal for cooling tower fans"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+  Modelica.Blocks.Sources.Constant uni(k=1) "Unit"
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+  Modelica.Blocks.Sources.BooleanExpression pmcMod(y=if cooMod < 1.5 and cooMod >
+        0.5 then true else false)
+    "Partially mechanical cooling mode"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+
+  Modelica.Blocks.Interfaces.RealInput cooMod
+    "Cooling mode - 0: free cooling mode; 1: partially mechanical cooling; 2: fully mechanical cooling"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.Continuous.LimPID conPID(
+    controllerType=controllerType,
+    k=k,
+    Ti=Ti,
+    Td=Td,
+    yMax=yMax,
+    yMin=yMin,
+    reverseAction=reverseAction)
+    "PID controller"
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Modelica.Blocks.Math.RealToBoolean fmcMod(threshold=1.5)
     "Fully mechanical cooling mode"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+
 protected
   Modelica.Blocks.Logical.Switch swi1
     annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
@@ -64,22 +94,11 @@ protected
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,-60})));
-public
-  Modelica.Blocks.Sources.Constant uni(k=1) "Unit"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Modelica.Blocks.Sources.BooleanExpression pmcMod(y=if cooMod < 1.5 and cooMod >
-        0.5 then true else false)
-    "Partially mechanical cooling mode"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-protected
   Modelica.Blocks.Logical.Switch swi3
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={74,0})));
-public
-  Modelica.Blocks.Interfaces.RealOutput y
-    "Speed signal for cooling tower fans"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
 equation
   connect(cooMod, fmcMod.u)
     annotation (Line(points={{-120,40},{-120,40},{-82,40}}, color={0,0,127}));
@@ -115,12 +134,6 @@ equation
   connect(fmcMod.y, swi1.u2)
     annotation (Line(points={{-59,40},{-54,40},{-54,50},
           {-32,50}}, color={255,0,255}));
-  connect(trigger, conPID.trigger)
-    annotation (Line(points={{-60,-100},{-60,-80},
-          {22,-80},{22,-52}}, color={255,0,255}));
-  connect(y_reset_in, conPID.y_reset_in)
-    annotation (Line(points={{-90,-100},{
-          -90,-100},{-90,-80},{0,-80},{0,-48},{18,-48}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,80}}),                                   graphics={
                                 Rectangle(

@@ -1,7 +1,6 @@
 within Buildings.ChillerWSE.Validation;
 model WatersideEconomizer
   "Validate model Buildings.ChillerWSE.WatersideEconomizer"
-  extends Modelica.Icons.Example;
 
   extends Buildings.ChillerWSE.Validation.BaseClasses.PartialPlant(
     sou1(nPorts=1),

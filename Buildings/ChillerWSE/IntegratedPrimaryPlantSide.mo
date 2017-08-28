@@ -79,5 +79,5 @@ July 1, 2017, by Yangyang Fu:<br>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={Line(points={{12,-44},{-18,-44}}, color={0,128,255})}));
 end IntegratedPrimaryPlantSide;

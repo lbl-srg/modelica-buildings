@@ -179,5 +179,40 @@ For Fully Mechanical Cooling (FMC) Mode:
  Design and Control Considerations.<i>ASHRAE Transactions</i>, 115(2).
  </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+        Polygon(
+          points={{-58,40},{-58,40}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-7,-6},{9,-6},{0,3},{-7,-6}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={46,-45},
+          rotation=90),
+        Polygon(
+          points={{-6,-7},{-6,9},{3,0},{-6,-7}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={42,-45},
+          rotation=0),
+        Ellipse(
+          extent={{-14,-32},{8,-54}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,128,255}),
+        Polygon(
+          points={{-14,-44},{-2,-54},{-2,-32},{-14,-44}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255}),
+        Line(points={{12,6},{12,0}}, color={0,128,255}),
+        Line(points={{-70,0}}, color={0,0,0}),
+        Line(points={{-18,-44}}, color={0,0,0}),
+        Line(points={{-18,-44},{-14,-44}}, color={0,128,255}),
+        Line(points={{8,-44},{12,-44}}, color={0,128,255})}));
 end IntegratedPrimaryLoadSide;
