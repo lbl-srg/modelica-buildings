@@ -1,0 +1,2 @@
+simulateModel("Buildings.Controls.OBC.CDL.Logical.Validation.Toggle", stopTime=10.0, method="dassl", tolerance=1e-06, resultFile="Toggle1");
+createPlot(id=1, position={15, 10, 900, 420}, y={"toggle1.u0","toggle1.u","toggle1.y"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{238,46,47},{0,140,72},{28,108,200}});

@@ -1,0 +1,4 @@
+compareVars :=
+  {
+    "ram.y"
+  };

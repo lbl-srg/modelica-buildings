@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "calTim.year",
+    "calTim.month",
+    "calTim.day",
+    "calTim.weekDay",
+    "calTim.hour",
+    "calTim.minute"
+  };
