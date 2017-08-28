@@ -82,8 +82,7 @@ model DXCooledDataCenter
     annotation (Placement(transformation(extent={{60,-60},{72,-72}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemRetAir(
     redeclare package Medium = Medium,
-    m_flow_nominal=mA_flow_nominal,
-    T_start=303.15)
+    m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for return air"
     annotation (Placement(transformation(extent={{-2,6},{-14,18}})));
   Modelica.Blocks.Sources.Constant SATSetPoi(k=SATSet)
@@ -164,8 +163,7 @@ model DXCooledDataCenter
     annotation (Placement(transformation(extent={{-8,-76},{12,-56}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemMixAir(
     redeclare package Medium = Medium,
-    m_flow_nominal=mA_flow_nominal,
-    T_start=303.15)
+    m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for mixed air"
     annotation (Placement(transformation(extent={{-36,-6},{-24,6}})));
   Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.BaseClasses.AirsideEconomizerController
@@ -281,7 +279,7 @@ equation
             {100,100}})),
             Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},
             {120,120}})),
-    __Dymola_Commands(file="modelica://Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirCooled/Examples/DXCooledDataCenter.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirCooled/Examples/DXCooledDataCenter.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>
