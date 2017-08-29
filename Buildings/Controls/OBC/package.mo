@@ -1,6 +1,6 @@
 within Buildings.Controls;
 package OBC "Blocks and preconfigured control sequences"
-  extends Modelica.Icons.Package;
+  extends Modelica.Icons.VariantsPackage;
 
 annotation (
 Documentation(info="<html>
