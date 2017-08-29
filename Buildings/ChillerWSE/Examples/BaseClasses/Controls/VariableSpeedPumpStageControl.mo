@@ -5,7 +5,6 @@ model VariableSpeedPumpStageControl "Staging control for variable speed pumps"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate of the identical variable-speed pumps";
 
-
   Modelica.Blocks.Interfaces.RealInput masFloPum
     "Total mass flowrate in the variable speed pumps"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));

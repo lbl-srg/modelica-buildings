@@ -202,15 +202,16 @@ The waterside economizer is enabled when
   T<sub>WSE_CHWST</sub> &le; T<sub>CHWSTSet</sub> 
 </i></li>
 </ol>
-<p>where <i>T<sub>WSE_CHWST</i></sub> is the chilled water supply temperature for the WSE, 
-<i>T<sub>WetBul</i></sub> is the wet bulb temperature, 
-<i>T<sub>TowApp</i></sub> is the cooling tower approach, 
-<i>T<sub>WSE_CHWRT</i></sub> is the chilled water return temperature for the WSE, and 
-<i>T<sub>CHWSTSet</i></sub> is the chilled water supply temperature setpoint for the system. </p>
+<p>where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for the WSE, 
+<i>T<sub>WetBul</sub></i> is the wet bulb temperature, 
+<i>T<sub>TowApp</sub></i> is the cooling tower approach, 
+<i>T<sub>WSE_CHWRT</sub></i> is the chilled water return temperature for the WSE, and 
+<i>T<sub>CHWSTSet</sub></i> is the chilled water supply temperature setpoint for the system. 
+</p>
 <h4>References</h4>
 <ul>
 <li>
-Taylor, S. T. (2014). How to design & control waterside economizers. ASHRAE Journal, 56(6), 30-36.
+Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE Journal, 56(6), 30-36.
 </li>
 </ul>
 </html>", revisions="<html>

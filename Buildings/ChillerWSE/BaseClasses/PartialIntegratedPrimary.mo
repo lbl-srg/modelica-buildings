@@ -12,16 +12,19 @@ model PartialIntegratedPrimary
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Shutoff valve"));
 
-  parameter Real yValve5_start = 0
+  parameter Real yValve5_start(min=0,max=1) = 0
     "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",
       enable=use_inputFilter));
-  parameter Real yValve6_start = 1-yValve5_start
+  parameter Real yValve6_start(min=0,max=1) = 1-yValve5_start
     "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",
       enable=use_inputFilter));
 
- Modelica.Blocks.Interfaces.RealInput yVal6(min=0,max=1)
+ Modelica.Blocks.Interfaces.RealInput yVal6(
+   final unit = "1",
+   min=0,
+   max=1)
     "Actuator position for valve 6 (0: closed, 1: open)"
     annotation (Placement(
         transformation(
@@ -32,7 +35,10 @@ model PartialIntegratedPrimary
         rotation=0,
         origin={-116,-2})));
 
-  Modelica.Blocks.Interfaces.RealInput yVal5(min=0,max=1)
+  Modelica.Blocks.Interfaces.RealInput yVal5(
+    final unit= "1",
+    min=0,
+    max=1)
     "Actuator position for valve 5(0: closed, 1: open)"
     annotation (Placement(
         transformation(
@@ -118,7 +124,7 @@ Partial model that implements integrated waterside economizer in primary-ony chi
 </html>", revisions="<html>
 <ul>
 <li>
-July 1, 2017, by Yangyang Fu:<br>
+July 1, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

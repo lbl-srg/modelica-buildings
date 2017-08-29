@@ -13,8 +13,12 @@ model ChillerStageControl
     offset=0.5*chiStaCon.QEva_nominal)
     "Total cooling load in chillers"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Modelica.Blocks.Sources.CombiTimeTable cooMod(table=[0,0; 360,0; 360,1; 720,1;
-        720,2])
+  Modelica.Blocks.Sources.CombiTimeTable cooMod(
+    table=[0,0;
+           360,0;
+           360,1;
+           720,1;
+           720,2])
     "Cooling mode"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 equation

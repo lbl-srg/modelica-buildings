@@ -219,7 +219,7 @@ on the load side of the primary-secondary chilled water system, as shown in the 
 In the configuration, users can model multiple chillers with only one integrated WSE. 
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/ChillerWSE/IntegratedPrimarySecondary.png\"/> 
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/ChillerWSE/IntegratedPrimarySecondary.png\"/> 
 </p>
 <h4>Implementation</h4>
 <p>The WSE located on the load side can see the warmest return chilled water, 

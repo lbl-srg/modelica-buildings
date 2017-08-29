@@ -22,7 +22,7 @@ on the plant side of the primary-only chilled water system, as shown in the foll
 In the configuration, users can model multiple chillers with only one integrated WSE.
 </p>
 <p align=\"center\">
- <img src=\"modelica://Buildings/Resources/Images/ChillerWSE/IntegratedPrimaryPlantSide.png\"/>
+ <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/ChillerWSE/IntegratedPrimaryPlantSide.png\"/>
 </p>
 <h4>Implementation</h4>
 <p>

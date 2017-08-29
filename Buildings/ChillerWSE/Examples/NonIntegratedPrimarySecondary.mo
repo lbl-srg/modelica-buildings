@@ -1,8 +1,8 @@
 within Buildings.ChillerWSE.Examples;
 model NonIntegratedPrimarySecondary
   "Example that show how to use Buildings.ChillerWSE.IntegratedPrimaryLoadSide"
-  extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenterControl( redeclare
-      Buildings.ChillerWSE.NonIntegrated chiWSE(
+  extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenterControl(
+    redeclare Buildings.ChillerWSE.NonIntegrated chiWSE(
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
       Ti=60,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
@@ -22,7 +22,9 @@ model NonIntegratedPrimarySecondary
     per=perPum,
     addPowerToMedium=false,
     m_flow_nominal=mChiller2_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    tau=1,
+    use_inputFilter=true)
     "Secondary pumps"
     annotation (
       Placement(transformation(
@@ -35,7 +37,9 @@ model NonIntegratedPrimarySecondary
     per=perPum,
     m_flow_nominal=mChiller2_flow_nominal,
     addPowerToMedium=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    tau=1,
+    use_inputFilter=true)
     "Constant speed pumps"
     annotation (Placement(
         transformation(
@@ -50,8 +54,8 @@ model NonIntegratedPrimarySecondary
     each k=mChiller2_flow_nominal)
     "Gain effect"
     annotation (Placement(transformation(extent={{-50,22},{-30,42}})));
-  Modelica.Blocks.Sources.RealExpression cooLoaChi(y=ahu.port_a1.m_flow*4180*(
-        CHWRT.T - CHWSTSet.y))
+  Modelica.Blocks.Sources.RealExpression cooLoaChi(
+    y=ahu.port_a1.m_flow*4180*(CHWRT.T - CHWSTSet.y))
     "Cooling load in chillers"
     annotation (Placement(transformation(extent={{-130,134},{-110,154}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
@@ -293,7 +297,7 @@ equation
 with water-side economizer (WSE) to cool a data center. The system schematics is as shown below. </p>
 <p>The system is a primary-secondary chiller plant with two chillers and a non-integrated WSE.</p>
 <p>
-<img src=\"modelica://Buildings/Resources/Images/ChillerWSE/Examples/NonIntegratedPrimarySecondary.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/ChillerWSE/Examples/NonIntegratedPrimarySecondary.png\"/>
 </p>
 <h4>Control Logic</h4>
 <p>This section describes the detailed control logic used in this chilled water plant system.</p>

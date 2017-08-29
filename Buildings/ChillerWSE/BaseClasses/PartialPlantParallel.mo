@@ -109,7 +109,7 @@ Partial model that can be extended to construct parallel chillers such as
 Buildings.ChillerWSE.ElectricChillerParallel</a> 
 and water-side economizers <a href=\"modelica://Buildings.ChillerWSE.WatersideEconomizer\">
 Buildings.ChillerWSE.WatersideEconomizer</a>.
-<p>
+</p>
 <p>
 The associated valve group <code>val1</code> and <code>val2</code> 
 on <code>medium 1</code> and <code>medium 2</code> side are for on/off use only. 

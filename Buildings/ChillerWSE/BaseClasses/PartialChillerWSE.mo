@@ -141,8 +141,9 @@ partial model PartialChillerWSE
     "Chilled water supply temperature in the waterside economizer"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
                 iconTransformation(extent={{100,30},{120,50}})));
-  Modelica.Blocks.Interfaces.RealOutput powChi[nChi](each final quantity=
-        "Power", each final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput powChi[nChi](
+    each final quantity="Power",
+    each final unit="W")
     "Electric power consumed by chiller compressor"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 

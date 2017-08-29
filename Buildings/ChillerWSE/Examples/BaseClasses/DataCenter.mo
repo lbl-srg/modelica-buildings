@@ -264,7 +264,7 @@ are collected from the reference.
 <h4>Reference </h4>
 <ul>
 <li>
-Taylor, S. T. (2014). How to design & control waterside economizers. ASHRAE Journal, 56(6), 30-36.
+Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE Journal, 56(6), 30-36.
 </li>
 </ul>
 </html>"));

@@ -9,6 +9,9 @@ model ConstantSpeedPumpStageControl "Staging control for constant speed pumps"
   Modelica.Blocks.Interfaces.RealInput chiNumOn
     "The number of running chillers"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+  Modelica.Blocks.Interfaces.RealOutput y[2] "On/off signal - 0: off; 1: on"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
   Modelica.StateGraph.Transition con1(
     enableTimer=true,
     waitTime=tWai,
@@ -68,8 +71,6 @@ model ConstantSpeedPumpStageControl "Staging control for constant speed pumps"
     y_default=0)
     "Switch boolean signals to real signal"
     annotation (Placement(transformation(extent={{24,-6},{48,6}})));
-  Modelica.Blocks.Interfaces.RealOutput y[2] "On/off signal - 0: off; 1: on"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table=[0,0,0; 1,1,0; 2,1,1])
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation

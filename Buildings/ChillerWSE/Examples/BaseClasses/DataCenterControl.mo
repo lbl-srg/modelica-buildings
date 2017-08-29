@@ -5,7 +5,7 @@ partial model DataCenterControl
 
   Modelica.Blocks.Sources.Constant CHWSTSet(k(
     final unit="K",
-    displayUnit="degC") = 273.15 + 6.56)
+    displayUnit="degC") = 279.71)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-190,150},{-170,170}})));
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.ChillerStageControl
@@ -39,13 +39,13 @@ partial model DataCenterControl
     annotation (Placement(transformation(extent={{-50,170},{-30,186}})));
   Modelica.Blocks.Sources.Constant CWSTSet(k(
     final unit="K",
-    displayUnit="degC") = 273.15 + 20)
+    displayUnit="degC") = 293.15)
     "Condenser water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-130,170},{-110,190}})));
 
   Modelica.Blocks.Sources.Constant SATSet(k(
     final unit="K",
-    displayUnit="degC") = 273.15 + 16)
+    displayUnit="degC") = 289.15)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,-98},{-60,-78}})));
   Modelica.Blocks.Sources.Constant SAXSet(k(

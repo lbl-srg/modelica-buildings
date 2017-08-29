@@ -47,12 +47,16 @@ model IntegratedPrimaryLoadSide
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Pump"));
   Modelica.Blocks.Interfaces.RealInput yPum[nPum](
-    each min=0, max=1)
+    final unit = "1",
+    each min=0,
+    each max=1)
     "Constant normalized rotational speed"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-132,-28},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealOutput powPum[nPum](each final quantity=
-        "Power", each final unit="W") "Electrical power consumed by the pumps"
+  Modelica.Blocks.Interfaces.RealOutput powPum[nPum](
+    each final quantity="Power",
+    each final unit="W")
+    "Electrical power consumed by the pumps"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
   Buildings.ChillerWSE.FlowMachine_y pum(
@@ -115,7 +119,7 @@ on the load side of the primary-only chilled water system, as shown in the follo
 In the configuration, users can model multiple chillers with only one integrated WSE. 
 </p>
 <p align=\"center\">
-  <img src=\"modelica://Buildings/Resources/Images/ChillerWSE/IntegraredPrimaryLoadSide.png\" alt=\"image\"/> 
+  <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/ChillerWSE/IntegraredPrimaryLoadSide.png\"/> 
 </p>
 <h4>Implementation</h4>
 <p>

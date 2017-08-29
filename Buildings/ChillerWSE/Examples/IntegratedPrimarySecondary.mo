@@ -3,10 +3,11 @@ model IntegratedPrimarySecondary
   "Example that show how to use Buildings.ChillerWSE.IntegratedPrimarySecondary"
   extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenterControl(
     redeclare Buildings.ChillerWSE.IntegratedPrimarySecondary chiWSE(
-        addPowerToMedium=false, perPum=perPum,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-    pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial, each
-        use_inputFilter=false),
+        addPowerToMedium=false,
+        perPum=perPum,
+        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+          each use_inputFilter=false),
     ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
         use_inputFilterValve=false));
 
@@ -21,12 +22,12 @@ model IntegratedPrimarySecondary
     "Cooling tower approach temperature"
     annotation (Placement(transformation(extent={{-190,100},{-170,120}})));
 
-  Modelica.Blocks.Sources.RealExpression yVal5(y=if cooModCon.cooMod > 1.5
-         then 1 else 0)
+  Modelica.Blocks.Sources.RealExpression yVal5(
+    y=if cooModCon.cooMod > 1.5 then 1 else 0)
     "On/off signal for valve 5"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Modelica.Blocks.Sources.RealExpression cooLoaChi(y=chiWSE.port_a2.m_flow*4180*
-        (chiWSE.wseCHWST - CHWSTSet.y))
+  Modelica.Blocks.Sources.RealExpression cooLoaChi(
+    y=chiWSE.port_a2.m_flow*4180*(chiWSE.wseCHWST - CHWSTSet.y))
     "Cooling load in chillers"
     annotation (Placement(transformation(extent={{-130,134},{-110,154}})));
   Buildings.ChillerWSE.FlowMachine_y secPum(
@@ -188,7 +189,7 @@ equation
 water-side economizer (WSE) to cool a data center. The system schematics is as shown below. </p>
 <p>The system is a primary-secondary chiller plant with two chillers and an integrated WSE.</p>
 <p>
-<img src=\"modelica://Buildings/Resources/Images/ChillerWSE/Examples/IntegratedPrimarySecondarySystem.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/ChillerWSE/Examples/IntegratedPrimarySecondarySystem.png\"/>
 </p>
 <h4>Control Logic</h4>
 <p>This section describes the detailed control logic used in this chilled water plant system.</p>

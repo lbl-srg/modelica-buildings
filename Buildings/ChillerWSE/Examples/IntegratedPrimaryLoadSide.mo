@@ -5,13 +5,16 @@ model IntegratedPrimaryLoadSide
     redeclare Buildings.ChillerWSE.IntegratedPrimaryLoadSide chiWSE(
       addPowerToMedium=false,
       perPum=perPum,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+      tauPump=1,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+      use_inputFilter=true),
       pumCW(each use_inputFilter=false,
             each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-      ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-            use_inputFilterValve=true,
-            tauFan=1,
-            use_inputFilterFan=false));
+      ahu(
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+      use_inputFilterValve=false,
+      tauFan=1,
+      use_inputFilterFan=false));
 
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControl
     cooModCon(
@@ -169,7 +172,7 @@ The system is a primary-only chiller plant with two chillers and
 an integrated WSE located on the load side. 
 The system schematics is as shown below. </p>
 <p>
-<img src=\"modelica://Buildings/Resources/Images/ChillerWSE/Examples/IntegratedPrimaryLoadSideSystem.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/ChillerWSE/Examples/IntegratedPrimaryLoadSideSystem.png\"/>
 </p>
 <h4>Control Logic</h4>
 <p>This section describes the detailed control logic used in this chilled water plant system.</p>

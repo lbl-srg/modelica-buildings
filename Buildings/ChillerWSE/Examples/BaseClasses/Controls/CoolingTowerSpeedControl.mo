@@ -27,7 +27,6 @@ model CoolingTowerSpeedControl "Controller for the fan speed in cooling towers"
   parameter Boolean reverseAction = true
     "Set to true for throttling the water flow rate through a cooling coil controller"
     annotation(Dialog(tab="Controller"));
-
   Modelica.Blocks.Interfaces.RealInput CHWST_set(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -89,12 +88,15 @@ model CoolingTowerSpeedControl "Controller for the fan speed in cooling towers"
 
 protected
   Modelica.Blocks.Logical.Switch swi1
+    "Switch 1"
     annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
   Modelica.Blocks.Logical.Switch swi2
+    "Switch 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,-60})));
   Modelica.Blocks.Logical.Switch swi3
+    "Switch 3"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={74,0})));
@@ -158,7 +160,7 @@ the cooling tower fan speed is controlled to maintain the condener water supply 
 at or around the setpoint.
 </li>
 <li>When the system is in Partially Mechanical Cooling (PMC) mode, 
-the cooling tower fan speed is set as 100&percnt; to make condenser water 
+the cooling tower fan speed is set as 100%; to make condenser water 
 as cold as possible and maximize the waterside economzier output.
 </li>
 <li>When the system is in Free Cooling (FC) mode, 
