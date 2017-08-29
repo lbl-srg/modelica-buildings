@@ -143,9 +143,8 @@ model DXCooledDataCenter
               redeclare package Medium = Medium, nPorts=2)
     "Boundary conditions for outside air"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-  Buildings.Applications.DataCenters.Examples.BaseClasses.CoolingModeController
-   cooModCon(tWai=1200)
-    "Cooling mode controller"
+  Buildings.Applications.DataCenters.Examples.BaseClasses.ASECoolingModeController
+    cooModCon(tWai=1200) "Cooling mode controller"
     annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
   Buildings.Fluid.Actuators.Dampers.Exponential dam1(
     redeclare package Medium = Medium,
@@ -162,12 +161,11 @@ model DXCooledDataCenter
     m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for mixed air"
     annotation (Placement(transformation(extent={{-30,2},{-10,22}})));
-  Buildings.Applications.DataCenters.Examples.BaseClasses.AirsideEconomizerController
-  ecoCon(
+  Buildings.Applications.DataCenters.Examples.BaseClasses.OADamperController
+    ecoCon(
     Ti=60,
     minOAFra=0.15,
-    gai=1)
-    "Economzier controller"
+    gai=1) "Economzier controller"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Modelica.Blocks.Sources.RealExpression freCoo(
     y = if cooModCon.cooMod < 0.5 then 1 else 0)
@@ -278,8 +276,8 @@ equation
           {-60,0},{-50,0},{-50,-132},{148.425,-132},{148.425,-118.7}}, color={0,
           127,255}));
   connect(datCenRoo.TRooAir, cooModCon.RAT) annotation (Line(points={{161,-110},
-          {161,-110},{180,-110},{180,-88},{-100,-88},{-100,62},{-92,62}}, color
-        ={0,0,127}));
+          {161,-110},{180,-110},{180,-88},{-100,-88},{-100,62},{-92,62}}, color=
+         {0,0,127}));
   connect(const.y, feedback1.u1)
     annotation (Line(points={{21,130},{42,130}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -310,8 +308,8 @@ cooling coil are commanded to run together. And in FMC mode, only the DX cooling
 </p>
 <p>
 A demonstration on how to switch among these three cooling modes is shown in 
-<a href=\"modelica://Buildings.Applications.DataCenters.Examples.BaseClasses.CoolingModeController\">
-Buildings.Applications.DataCenters.Examples.BaseClasses.CoolingModeController</a>.
+<a href=\"modelica://Buildings.Applications.DataCenters.Examples.BaseClasses.ASECoolingModeController\">
+Buildings.Applications.DataCenters.Examples.BaseClasses.ASECoolingModeController</a>.
 </p>
 <h5>Supply air temperature control</h5>
 <p>

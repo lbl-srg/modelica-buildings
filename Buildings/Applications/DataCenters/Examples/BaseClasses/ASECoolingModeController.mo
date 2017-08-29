@@ -1,5 +1,5 @@
 within Buildings.Applications.DataCenters.Examples.BaseClasses;
-model CoolingModeController
+model ASECoolingModeController
   "Controller for the DX cooling system with an airside economizer"
 
   parameter Modelica.SIunits.Time tWai "Waiting time, set to avoid frequent switching";
@@ -167,7 +167,7 @@ The airside economizer is enabled when:
 </p>
 <ul>
 <li>
-<i>T<sub>dp,OA</sub>&lt;50&deg;F and T<sub>OA</sub>&lt;T<sub>RA</sub></i>
+<i>T<sub>dp,OA</sub>&lt;10&deg;C and T<sub>OA</sub>&lt;T<sub>RA</sub></i>
 </li>
 </ul>
 <p>
@@ -175,7 +175,7 @@ The airside economizer is disabled when:
 </p>
 <ul>
 <li>
-<i>T<sub>dp,OA</sub>&gt;50&deg;F + 2&deg;F or T<sub>OA</sub>&gt;T<sub>RA</sub> + 2&deg;F
+<i>T<sub>dp,OA</sub>&gt;10&deg;C + 1.1&deg;C or T<sub>OA</sub>&gt;T<sub>RA</sub> + 1.1&deg;C
 </i>
 </li>
 </ul>
@@ -184,7 +184,7 @@ The DX coil is enabled when:
 </p>
 <ul>
 <li>
-<i>T<sub>dp,OA</sub>&gt;50&deg;F and T<sub>OA</sub>&gt;T<sub>SA,set</sub></i>
+<i>T<sub>dp,OA</sub>&gt;10&deg;C and T<sub>OA</sub>&gt;T<sub>SA,set</sub></i>
 </li>
 </ul>
 <p>
@@ -192,11 +192,11 @@ The DX coil is disabled when:
 </p>
 <ul>
 <li>
-<i>T<sub>dp,OA</sub>&lt;50&deg;F - 2&deg;F or T<sub>OA</sub>&gt;T<sub>SA,set</sub> - 2&deg;F</i>
+<i>T<sub>dp,OA</sub>&lt;10&deg;C - 1.1&deg;C or T<sub>OA</sub>&gt;T<sub>SA,set</sub> - 1.1&deg;C</i>
 </li>
 </ul>
 <p>
-where <i>dp</i> means dew point temperature, <i>set</i> means set point, 
+where subscript <i>dp</i> means dew point temperature, <i>set</i> means set point, 
 <i>OA</i> means outdoor air, <i>RA</i> means return air, and <i>SA</i> means supply air.
 </p>
 </html>", revisions="<html>
@@ -207,4 +207,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CoolingModeController;
+end ASECoolingModeController;

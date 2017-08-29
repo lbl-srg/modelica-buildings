@@ -1,10 +1,10 @@
 within Buildings.Applications.DataCenters.Examples.BaseClasses;
-model AirsideEconomizerController "Airside economizer controller"
+model OADamperController "OA damper controller"
 
   parameter Real gai(min=Modelica.Constants.small) = 1
     "Proportional gain of controller"
     annotation(Dialog(group="Control"));
-  parameter Modelica.SIunits.Time Ti
+  parameter Modelica.SIunits.Time Ti = 50
     "Integrator time"
     annotation(Dialog(group="Control"));
   parameter Real minOAFra(min=0,max=1, final unit="1")
@@ -85,6 +85,9 @@ equation
 <p>
 This model implements an airside economizer controller to modulate the outdoor air damper 
 in order to maintain desired mixed air temperature.
+When the airside economizer is open, which means the system is in free cooling or partial mechanical
+cooling, the position of the OA damper is controlled by a PI controller to maintain a desired mixed air temperature;
+otherwise, the position of the OA damper is set as closed.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -94,4 +97,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AirsideEconomizerController;
+end OADamperController;
