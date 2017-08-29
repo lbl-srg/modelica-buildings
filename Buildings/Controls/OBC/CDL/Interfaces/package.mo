@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Interfaces "Library with connectors for input and output signals"
+package Interfaces "Package with connectors for input and output signals"
   extends Modelica.Icons.InterfacesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>

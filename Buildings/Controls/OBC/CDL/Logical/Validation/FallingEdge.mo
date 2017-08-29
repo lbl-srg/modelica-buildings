@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
-model FallingEdge "Fixme: Validation model for the FallingEdge block"
+model FallingEdge "Validation model for the falling edge block"
 extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(

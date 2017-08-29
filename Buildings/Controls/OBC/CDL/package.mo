@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC;
 package CDL "Package with blocks, examples and validation tests for control description language"
-extends Modelica.Icons.Package;
+extends Modelica.Icons.VariantsPackage;
 
 annotation (
 Documentation(info="<html>
