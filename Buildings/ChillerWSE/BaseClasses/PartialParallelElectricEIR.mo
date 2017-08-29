@@ -65,10 +65,19 @@ partial model PartialParallelElectricEIR
   Modelica.Blocks.Interfaces.BooleanInput on[n]
     "Set to true to enable compressor, or false to disable compressor"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
+  Modelica.Blocks.Interfaces.RealInput TSet(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC")
     "Set point for leaving water temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
+  Modelica.Blocks.Interfaces.RealOutput P[n](
+    each final quantity="Power",
+    each final unit="W")
+    "Electric power consumed by chiller compressor"
+    annotation (Placement(transformation(extent={{100,10},{120,30}})));
+
   replaceable Buildings.Fluid.Chillers.BaseClasses.PartialElectric chi[n](
     redeclare each replaceable package Medium1 = Medium1,
     redeclare each replaceable package Medium2 = Medium2,
@@ -104,6 +113,7 @@ partial model PartialParallelElectricEIR
     each final C2_nominal=C2_nominal)
     "Identical chiller with number n"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
 equation
   for i in 1:n loop
   connect(TSet, chi[i].TSet)
@@ -124,6 +134,8 @@ equation
   connect(on, chi.on)
     annotation (Line(points={{-120,40},{-90,40},{-90,3},{-12,3}},
       color={255,0,255}));
+  connect(chi.P, P) annotation (Line(points={{11,9},{96,9},{96,20},{110,20}},
+        color={0,0,127}));
   annotation (Documentation(info="<html>
 Partial model that implements the parallel electric chillers with associated valves.
 The parallel have <code>n</code> identical chillers. 

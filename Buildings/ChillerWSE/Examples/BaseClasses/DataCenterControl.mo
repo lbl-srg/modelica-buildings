@@ -45,7 +45,8 @@ partial model DataCenterControl
 
   Modelica.Blocks.Sources.Constant SATSet(k(
     final unit="K",
-    displayUnit="degC") = 273.15 + 16) "Supply air temperature setpoint"
+    displayUnit="degC") = 273.15 + 16)
+    "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,-98},{-60,-78}})));
   Modelica.Blocks.Sources.Constant SAXSet(k(
     final unit="1") = MediumA.X_default[1])

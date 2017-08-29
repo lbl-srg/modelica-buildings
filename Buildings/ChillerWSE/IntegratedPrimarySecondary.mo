@@ -63,6 +63,30 @@ model IntegratedPrimarySecondary
     "Initial value of output from valve 5:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
 
+  Modelica.Blocks.Interfaces.RealInput m_flow_in[nPum](
+    final quantity="MassFlowRate",
+    final unit="kg/s")
+    "Prescribed mass flow rate for primary pumps"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-130,-50},{-100,-20}})));
+  Modelica.Blocks.Interfaces.RealInput yVal5(
+    final unit = "1",
+    min = 0,
+    max = 1)
+    "Actuator position for valve 5 (0: closed, 1: open)"
+    annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-120,26}), iconTransformation(extent={{-16,-16},{16,16}},
+          origin={-116,30})));
+  Modelica.Blocks.Interfaces.RealOutput powPum[nPum](
+    each final quantity="Power",
+    each final unit = "W")
+    "Electrical power consumed by the pumps"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+
+
   Buildings.Fluid.Actuators.Valves.TwoWayLinear  val5(
     redeclare final package Medium = Medium2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -117,18 +141,6 @@ model IntegratedPrimarySecondary
     final yPump_start=yPump_start)
     "Constant speed pumps"
     annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
-  Modelica.Blocks.Interfaces.RealInput m_flow_in[nPum]
-    "Prescribed mass flow rate for primary pumps"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-        iconTransformation(extent={{-130,-50},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealInput yVal5
-    "Actuator position for valve 5 (0: closed, 1: open)"
-    annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,26}), iconTransformation(extent={{-16,-16},{16,16}},
-          origin={-116,30})));
   Buildings.Fluid.Sensors.MassFlowRate bypFlo(redeclare package Medium = Medium2)
     "Bypass water mass flowrate"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
@@ -161,6 +173,8 @@ equation
           {-40,-6},{16,-6},{16,-16},{12,-16}}, color={0,0,127}));
   connect(pum.port_a, val5.port_b)
     annotation (Line(points={{10,-20},{25,-20},{40,-20}}, color={0,127,255}));
+  connect(pum.P, powPum) annotation (Line(points={{-11,-16},{-6,-16},{-6,52},{90,
+          52},{90,-40},{110,-40}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(
           extent={{-14,-30},{8,-52}},

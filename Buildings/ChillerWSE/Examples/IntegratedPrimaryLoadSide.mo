@@ -3,15 +3,15 @@ model IntegratedPrimaryLoadSide
   "Example that show how to use Buildings.ChillerWSE.IntegratedPrimaryLoadSide"
   extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenterControl(
     redeclare Buildings.ChillerWSE.IntegratedPrimaryLoadSide chiWSE(
-        addPowerToMedium=false, perPum=perPum,
+      addPowerToMedium=false,
+      perPum=perPum,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-    pumCW(each use_inputFilter=false, each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-
-    ahu(
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      use_inputFilterValve=true,
-      tauFan=1,
-      use_inputFilterFan=false));
+      pumCW(each use_inputFilter=false,
+            each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+      ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+            use_inputFilterValve=true,
+            tauFan=1,
+            use_inputFilterFan=false));
 
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControl
     cooModCon(
@@ -23,17 +23,17 @@ model IntegratedPrimaryLoadSide
   Modelica.Blocks.Sources.RealExpression towTApp(y=max(cooTow[1:nChi].TAppAct))
     "Cooling tower approach temperature"
     annotation (Placement(transformation(extent={{-190,100},{-170,120}})));
-  Modelica.Blocks.Sources.RealExpression yVal5(y=if cooModCon.cooMod > 1.5
-         then 1 else 0)
+  Modelica.Blocks.Sources.RealExpression yVal5(
+    y=if cooModCon.cooMod > 1.5 then 1 else 0)
     "On/off signal for valve 5"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Modelica.Blocks.Sources.RealExpression yVal6(y=if cooModCon.cooMod < 0.5
-         then 1 else 0)
+  Modelica.Blocks.Sources.RealExpression yVal6(
+    y=if cooModCon.cooMod < 0.5 then 1 else 0)
     "On/off signal for valve 6"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
-  Modelica.Blocks.Sources.RealExpression cooLoaChi(y=chiWSE.port_a2.m_flow*4180*
-        (chiWSE.wseCHWST - CHWSTSet.y))
+  Modelica.Blocks.Sources.RealExpression cooLoaChi(
+    y=chiWSE.port_a2.m_flow*4180*(chiWSE.wseCHWST - CHWSTSet.y))
     "Cooling load in chillers"
     annotation (Placement(transformation(extent={{-130,134},{-110,154}})));
 equation

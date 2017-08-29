@@ -186,5 +186,4 @@ First implementation.
         Line(points={{-70,0}}, color={0,0,0}),
         Line(points={{-72,0},{-78,0},{-78,-54}}, color={0,128,255}),
         Line(points={{-24,0},{-18,0},{-18,-44}}, color={0,128,255})}));
-
 end PartialIntegratedPrimary;

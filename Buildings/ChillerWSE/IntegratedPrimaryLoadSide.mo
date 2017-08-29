@@ -46,10 +46,14 @@ model IntegratedPrimaryLoadSide
     "Flow coefficient of fixed resistance that may be in series with valve, 
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Pump"));
-  Modelica.Blocks.Interfaces.RealInput yPum[nPum](each min=0, max=1)
+  Modelica.Blocks.Interfaces.RealInput yPum[nPum](
+    each min=0, max=1)
     "Constant normalized rotational speed"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-132,-28},{-100,-60}})));
+  Modelica.Blocks.Interfaces.RealOutput powPum[nPum](each final quantity=
+        "Power", each final unit="W") "Electrical power consumed by the pumps"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
   Buildings.ChillerWSE.FlowMachine_y pum(
     redeclare each final package Medium = Medium2,
@@ -84,6 +88,7 @@ model IntegratedPrimaryLoadSide
     final linearizeFlowResistance=linearizeFlowResistance2)
     "Identical pumps"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
+
 equation
   connect(val5.port_b, pum.port_a)
     annotation (Line(points={{40,-20},{14,-20},{14,
@@ -94,6 +99,8 @@ equation
   connect(yPum, pum.u)
     annotation (Line(points={{-120,-40},{-30,-40},{-30,-28},{
           18,-28},{18,-36},{12,-36}}, color={0,0,127}));
+  connect(pum.P, powPum) annotation (Line(points={{-11,-36},{-6,-36},{-6,52},{
+          90,52},{90,-40},{110,-40}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

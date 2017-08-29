@@ -29,8 +29,8 @@ partial model DataCenter
   parameter Buildings.Fluid.Movers.Data.Generic[nChi] perPum(
     each pressure=
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-          V_flow=mChiller2_flow_nominal/1000*{0.2,0.6,1.0,1.2}, dp=dpChiller2_nominal*{1.2,
-          1.1,1.0,0.6}));
+          V_flow=mChiller2_flow_nominal/1000*{0.2,0.6,1.0,1.2},
+          dp=dpChiller2_nominal*{1.2,1.1,1.0,0.6}));
   parameter Modelica.SIunits.Time tWai=1200 "Waiting time";
 
   // AHU
@@ -108,7 +108,7 @@ partial model DataCenter
         rotation=-90,
         origin={70,100})));
 
-  Applications.DataCenters.HVAC.AHUs.CoolingCoilHumidifyingHeating ahu(
+  Buildings.Applications.DataCenters.HVAC.AHUs.CoolingCoilHumidifyingHeating ahu(
     redeclare replaceable package Medium1 = MediumW,
     redeclare replaceable package Medium2 = MediumA,
     m1_flow_nominal=nChi*mChiller2_flow_nominal,

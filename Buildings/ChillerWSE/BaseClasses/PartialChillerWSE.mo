@@ -132,6 +132,20 @@ partial model PartialChillerWSE
     "Type of initialization of the temperature sensor (InitialState and InitialOutput are identical)"
   annotation(Evaluate=true, Dialog(tab="Dynamics", group="Temperature Sensor"));
 
+  Modelica.Blocks.Interfaces.RealOutput wseCHWST(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC",
+    min=0,
+    start=T2_start)
+    "Chilled water supply temperature in the waterside economizer"
+    annotation (Placement(transformation(extent={{100,30},{120,50}}),
+                iconTransformation(extent={{100,30},{120,50}})));
+  Modelica.Blocks.Interfaces.RealOutput powChi[nChi](each final quantity=
+        "Power", each final unit="W")
+    "Electric power consumed by chiller compressor"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
   Buildings.ChillerWSE.ElectricChillerParallel chiPar(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
@@ -253,15 +267,7 @@ partial model PartialChillerWSE
     final m_flow_small=m2_flow_small)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{28,14},{8,34}})));
-  Modelica.Blocks.Interfaces.RealOutput wseCHWST(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC",
-    min=0,
-    start=T2_start)
-    "Chilled water supply temperature in the waterside economizer"
-    annotation (Placement(transformation(extent={{100,30},{120,50}}),
-                iconTransformation(extent={{100,30},{120,50}})));
+
 equation
   for i in 1:nChi loop
   connect(chiPar.on[i], on[i])
@@ -299,6 +305,8 @@ equation
                 {110,40}}, color={0,0,127}));
   connect(wse.port_b2, senTem.port_a)
     annotation (Line(points={{40,24},{34,24},{28,24}}, color={0,127,255}));
+  connect(chiPar.P, powChi) annotation (Line(points={{-39,32},{-6,32},{-6,52},{
+          90,52},{90,0},{110,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{24,2},{64,0}},
