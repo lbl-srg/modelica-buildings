@@ -16,13 +16,13 @@ model WatersideEconomizer
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.4,
     Ti=80,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     m1_flow_nominal=mCW_flow_nominal,
     m2_flow_nominal=mCHW_flow_nominal,
     eta=0.8,
     dp1_nominal=dpCW_nominal,
     dp2_nominal=dpCHW_nominal,
-    use_Controller=true)
+    use_Controller=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Waterside economizer"
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 

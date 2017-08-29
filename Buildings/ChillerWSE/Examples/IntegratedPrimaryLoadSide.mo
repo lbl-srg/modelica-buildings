@@ -3,7 +3,15 @@ model IntegratedPrimaryLoadSide
   "Example that show how to use Buildings.ChillerWSE.IntegratedPrimaryLoadSide"
   extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenterControl(
     redeclare Buildings.ChillerWSE.IntegratedPrimaryLoadSide chiWSE(
-        addPowerToMedium=false, perPum=perPum));
+        addPowerToMedium=false, perPum=perPum,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    pumCW(each use_inputFilter=false, each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+
+    ahu(
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+      use_inputFilterValve=true,
+      tauFan=1,
+      use_inputFilterFan=false));
 
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControl
     cooModCon(

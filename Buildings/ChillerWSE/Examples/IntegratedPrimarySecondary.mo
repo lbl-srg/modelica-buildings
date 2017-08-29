@@ -3,7 +3,12 @@ model IntegratedPrimarySecondary
   "Example that show how to use Buildings.ChillerWSE.IntegratedPrimarySecondary"
   extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenterControl(
     redeclare Buildings.ChillerWSE.IntegratedPrimarySecondary chiWSE(
-        addPowerToMedium=false, perPum=perPum));
+        addPowerToMedium=false, perPum=perPum,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial, each
+        use_inputFilter=false),
+    ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+        use_inputFilterValve=false));
 
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControl
     cooModCon(
@@ -29,7 +34,10 @@ model IntegratedPrimarySecondary
     dpValve_nominal=6000,
     per=perPum,
     addPowerToMedium=false,
-    m_flow_nominal=mChiller2_flow_nominal)
+    m_flow_nominal=mChiller2_flow_nominal,
+    tau=1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_inputFilter=false)
     "Secondary pumps"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},

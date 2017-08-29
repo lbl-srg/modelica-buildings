@@ -6,13 +6,19 @@ model PumpParallel "Example that tests the model pump parallels"
   parameter Integer nPum=2 "The number of pumps";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=6000/3600*1.2
     "Nominal mass flow rate";
+  parameter Real thr1=1E-4 "Threshold for shutoff valves in parallel 1";
+  parameter Real thr2=thr1*m_flow_nominal "Threshold for shutoff valves in parallel 2";
 
   Buildings.ChillerWSE.FlowMachine_y pumPar1(
     nPum=nPum,
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
     redeclare each Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    threshold=thr1,
+    tau=1,
+    use_inputFilter=false)
     "Pumps with speed controlled"
     annotation (Placement(transformation(extent={{-18,30},{2,50}})));
 
@@ -59,7 +65,10 @@ model PumpParallel "Example that tests the model pump parallels"
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
     redeclare each Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    threshold=thr2,
+    tau=1)
     "Pumps with m_flow controlled"
     annotation (Placement(transformation(extent={{-18,-50},{2,-30}})));
 

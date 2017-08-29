@@ -28,7 +28,7 @@ model IntegratedPrimaryLoadSide
     Ti=80,
     perPum=perPum,
     nChi=nChi,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Integrated waterside economizer on the load side of the primary-only chilled water system"
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 

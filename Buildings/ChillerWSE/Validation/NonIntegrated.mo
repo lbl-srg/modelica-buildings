@@ -28,7 +28,7 @@ model NonIntegrated "Non-integrated WSE  in a chilled water system"
     k=0.4,
     Ti=80,
     nChi=nChi,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Non-integrated waterside economizer "
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 
