@@ -140,7 +140,7 @@ around the setpoint.
 </html>", revisions="<html>
 <ul>
 <li>
-June 30, 2017, by Yangyang Fu:<br>
+June 30, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

@@ -58,7 +58,7 @@ This example demonstrates how the chiller parallel can operate under different p
 </html>", revisions="<html>
 <ul>
 <li>
-July 10, 2017, by Yangyang Fu:<br>
+July 10, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

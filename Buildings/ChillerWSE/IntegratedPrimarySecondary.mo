@@ -269,7 +269,7 @@ Otherwise, V5 is off.
 </html>", revisions="<html>
 <ul>
 <li>
-July 1, 2017, by Yangyang Fu:<br>
+July 1, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

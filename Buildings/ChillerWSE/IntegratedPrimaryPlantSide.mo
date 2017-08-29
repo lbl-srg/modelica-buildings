@@ -75,7 +75,7 @@ The details about how to switch among different cooling modes are shown as:
 </html>", revisions="<html>
 <ul>
 <li>
-July 1, 2017, by Yangyang Fu:<br>
+July 1, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

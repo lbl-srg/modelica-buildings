@@ -87,7 +87,7 @@ Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingTowerSpeedControl</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-August 25, 2017, by Yangyang Fu:<br>
+August 25, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

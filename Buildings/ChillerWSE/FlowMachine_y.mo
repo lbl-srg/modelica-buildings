@@ -12,7 +12,7 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-July 27, 2017, by Yangyang Fu:<br>
+July 27, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

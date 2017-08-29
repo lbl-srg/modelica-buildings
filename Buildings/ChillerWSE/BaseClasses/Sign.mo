@@ -78,7 +78,7 @@ as <b>sign</b> of the input <b>u</b>:
 </html>", revisions="<html>
 <ul>
 <li>
-August 28, 2017, by Yangyang Fu:<br>
+August 28, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

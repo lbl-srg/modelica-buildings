@@ -89,7 +89,7 @@ Buildings.ChillerWSE.Validation</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-June 25, 2017, by Yangyang Fu:<br>
+June 25, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

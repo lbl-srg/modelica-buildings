@@ -264,7 +264,7 @@ Note that for simplicity, the temperature and differential pressure reset contro
 </html>", revisions="<html>
 <ul>
 <li>
-July 30, 2017, by Yangyang Fu:<br>
+July 30, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

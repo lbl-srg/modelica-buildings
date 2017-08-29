@@ -169,7 +169,7 @@ at or around its setpoint.
 </html>", revisions="<html>
 <ul>
 <li>
-July 30, 2017, by Yangyang Fu:<br>
+July 30, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

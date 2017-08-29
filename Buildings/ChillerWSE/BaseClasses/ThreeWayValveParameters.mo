@@ -29,4 +29,12 @@ partial model ThreeWayValveParameters
     "Flow direction for port_3 in the three-way valve"
    annotation(Dialog(tab="Advanced",enable=use_Controller));
 
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+June 30, 2017, by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ThreeWayValveParameters;
