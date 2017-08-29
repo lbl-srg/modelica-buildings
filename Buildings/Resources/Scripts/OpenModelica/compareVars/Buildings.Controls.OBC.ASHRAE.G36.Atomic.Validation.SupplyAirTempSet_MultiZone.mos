@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "supplyAirTempSet_MultiZone.opeMod",
+    "supplyAirTempSet_MultiZone.uSupFan",
+    "supplyAirTempSet_MultiZone.TSup",
+    "supplyAirTempSet_MultiZone.TOut"
+  };
