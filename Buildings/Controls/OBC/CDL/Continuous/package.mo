@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Continuous "Library with elementary mathematical functions for continuous variables"
+package Continuous "Package with elementary mathematical functions for continuous variables"
   extends Modelica.Icons.Package;
 
 annotation (

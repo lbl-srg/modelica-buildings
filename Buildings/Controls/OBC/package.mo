@@ -1,7 +1,7 @@
 within Buildings.Controls;
 package OBC "Blocks and preconfigured control sequences"
   extends Modelica.Icons.Package;
-    
+
 annotation (
 Documentation(info="<html>
 <p>
@@ -10,7 +10,10 @@ and a library that implements control sequences from the ASHRAE Guideline 36.
 </p>
 <p>
 These implementations have been developed
-through the OBC project.
+through the OpenBuildingControl project
+that aims to develop a process and tools for the
+performance evaluation, specification and verification
+of building control sequences.
 See
 <a href=\"http://obc.lbl.gov\">
 http://obc.lbl.gov</a>
