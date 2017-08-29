@@ -8,5 +8,6 @@ OperationModeSelector
 OutdoorAirFlowSetpoint_MultiZone
 OutdoorAirFlowSetpoint_SingleZone
 TrimRespondLogic
+VAVMultiZoneSupFan
 VAVSingleZoneTSupSet
 Validation
