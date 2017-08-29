@@ -60,15 +60,15 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     annotation(Dialog(tab = "Initialization"));
   parameter Medium.MassFraction X_start[Medium.nX] = Medium.X_default
     "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", enable=Medium1.nXi > 0));
+    annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
   parameter Medium.ExtraProperty C_start[Medium.nC](
     final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Start value of trace substances"
-    annotation (Dialog(tab="Initialization", enable=Medium1.nC > 0));
+    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
   parameter Medium.ExtraProperty C_nominal[Medium.nC](
     final quantity=Medium.extraPropertiesNames) = fill(1E-2, Medium.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
-   annotation (Dialog(tab="Initialization", enable=Medium1.nC > 0));
+   annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Flow resistance"));
@@ -139,15 +139,12 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     "Shutoff valves"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Modelica.Blocks.Math.RealToBoolean reaToBoo[nPum](each final threshold=
-    threshold)
-    "Real to boolean valve"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Modelica.Blocks.Math.BooleanToReal booToRea[nPum](
-    each final realTrue=1,
-    each final realFalse=0)
-    "Boolean to real valve"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+  Buildings.ChillerWSE.BaseClasses.Sign uVal[nPum](
+    each final u1=1,
+    each final u2=0,
+    each final threshold=threshold)
+    "Signal for shutoff valves"
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 equation
   connect(pum.port_b, val.port_a)
     annotation (Line(points={{10,0},{25,0},{40,0}}, color={0,127,255}));
@@ -160,13 +157,10 @@ equation
   connect(pum.P, P)
     annotation (Line(points={{11,9},{20,9},{20,40},{110,40}},
       color={0,0,127}));
-  connect(u, reaToBoo.u)
-    annotation (Line(points={{-120,40},{-90,40},{-90,60},{-82,60}},
-      color={0,0,127}));
-  connect(reaToBoo.y, booToRea.u)
-    annotation (Line(points={{-59,60},{-50.5,60},{-42,60}}, color={255,0,255}));
-  connect(booToRea.y, val.y)
-    annotation (Line(points={{-19,60},{50,60},{50,12}}, color={0,0,127}));
+  connect(u, uVal.u) annotation (Line(points={{-120,40},{-80,40},{-80,60},{-62,60}},
+        color={0,0,127}));
+  connect(uVal.y, val.y)
+    annotation (Line(points={{-39,60},{50,60},{50,12}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,16},{100,-14}},

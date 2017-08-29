@@ -51,7 +51,7 @@ partial model PartialChillerWSE
   parameter Real yValveWSE_start=0
     "Initial value of output from on/off valve in WSE"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Real yBypValWSE_start=0 if use_Controller
+  parameter Real yBypValWSE_start=0
     "Initial value of output from three-way bypass valve in WSE"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_Controller and use_inputFilter));
 
@@ -74,7 +74,7 @@ partial model PartialChillerWSE
     "Time constant at nominal flow in chillers"
      annotation (Dialog(tab = "Dynamics", group="Chiller",
                  enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
-  parameter Modelica.SIunits.Time tauWSE=10 if use_Controller
+  parameter Modelica.SIunits.Time tauWSE = 10
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
     annotation(Dialog(tab="Dynamics", group="Waterside economizer",
                enable= use_Controller and not energyDynamics ==
@@ -445,7 +445,6 @@ equation
           textStyle={TextStyle.Bold},
           textString="T"),
         Line(points={{-90,60},{-76,60},{-76,40},{-72,40}}, color={28,108,200}),
-
         Line(points={{-76,60},{20,60},{20,40}}, color={28,108,200}),
         Line(points={{20,40},{24,40}}, color={28,108,200}),
         Line(points={{64,40},{76,40},{76,60},{90,60}}, color={28,108,200}),
@@ -470,5 +469,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end PartialChillerWSE;

@@ -33,7 +33,6 @@ partial model DataCenterControl
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingTowerSpeedControl
     cooTowSpeCon(controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      reset=Buildings.Types.Reset.Disabled,
     Ti=40,
     k=5)
     "Cooling tower speed control"

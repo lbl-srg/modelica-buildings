@@ -17,7 +17,7 @@ model WatersideEconomizer "Waterside economizer"
   extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface;
 
   // Filter opening
-  parameter Real yBypVal_start=1 if use_Controller
+  parameter Real yBypVal_start=1
    "Initial value of output from the filter in the bypass valve"
     annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_Controller and use_inputFilter));
   parameter Real yValWSE_start=1
@@ -28,10 +28,17 @@ model WatersideEconomizer "Waterside economizer"
   parameter Modelica.SIunits.Efficiency eta(start=0.8) "constant effectiveness";
 
  // Bypass valve parameters
-  parameter Modelica.SIunits.Time tau_ThrWayVal=10 if use_Controller
+  parameter Modelica.SIunits.Time tau_ThrWayVal=10
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
     annotation(Dialog(tab="Dynamics", group="Nominal condition",
                enable=use_Controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+
+  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC") if use_Controller
+    "Set point for leaving water temperature"
+    annotation (Placement(
+        transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
+          extent={{-140,-20},{-100,20}})));
+
   Buildings.ChillerWSE.HeatExchanger heaExc(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
@@ -92,11 +99,7 @@ model WatersideEconomizer "Waterside economizer"
     final reverseAction=reverseAction)
     "Water-to-water heat exchanger"
     annotation (Placement(transformation(extent={{-10,-12},{10,4}})));
-  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC") if use_Controller
-    "Set point for leaving water temperature"
-    annotation (Placement(
-        transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
-          extent={{-140,-20},{-100,20}})));
+
 equation
   connect(port_a1, heaExc.port_a1)
     annotation (Line(points={{-100,60},{-40,60},

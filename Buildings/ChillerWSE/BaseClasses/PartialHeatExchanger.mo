@@ -14,25 +14,24 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     "constant effectiveness";
 
    // Filter opening
-  parameter Boolean use_inputFilter=true if use_Controller
+  parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_Controller));
-  parameter Modelica.SIunits.Time riseTime=120 if use_Controller
+  parameter Modelica.SIunits.Time riseTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",
       enable=(use_Controller and use_inputFilter)));
-  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput if
-       use_Controller
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",
       enable=(use_Controller and use_inputFilter)));
-  parameter Real yBypVal_start=1 if use_Controller
+  parameter Real yBypVal_start=1
     "Initial value of output from the filter in the bypass valve"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",
       enable=(use_Controller and use_inputFilter)));
 
  // Time constant
-   parameter Modelica.SIunits.Time tau_ThrWayVal=10 if use_Controller
+   parameter Modelica.SIunits.Time tau_ThrWayVal=10
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
     annotation(Dialog(tab="Dynamics", group="Nominal condition",
                enable=(use_Controller and not energyDynamics ==
@@ -41,8 +40,7 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
   parameter Boolean homotopyInitialization = true
     "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Density rhoStd = Medium2.density_pTX(101325, 273.15+4, Medium2.X_default) if
-       use_Controller
+  parameter Modelica.SIunits.Density rhoStd = Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)
     "Inlet density for which valve coefficients are defined"
     annotation(Dialog(group="Nominal condition", tab="Advanced",enable=use_Controller));
 
@@ -53,7 +51,7 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     "Temperature setpoint for port_b2"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear   bypVal(
+  Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear bypVal(
     redeclare package Medium = Medium2,
     final from_dp=from_dp2,
     final linearized={linearizeFlowResistance2,linearizeFlowResistance2},
@@ -131,11 +129,10 @@ equation
         {-80,-60},{-100,-60}},color={0,127,255}));
   else
     connect(port_b2, hex.port_b2)
-      annotation (Line(points={{-100,-60},{-80,-60},{-80,-60},
-        {-80,-6},{-10,-6}}, color={0,127,255}));
+      annotation (Line(points={{-100,-60},{-80,-60},{-80,-6},{-10,-6}},
+                            color={0,127,255}));
   end if;
-  connect(port_a1, port_a1) annotation (Line(points={{-100,60},{-95,60},{-95,60},
-          {-100,60}}, color={0,127,255}));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
               extent={{-100,-100},{100,100}}), graphics={
         Rectangle(

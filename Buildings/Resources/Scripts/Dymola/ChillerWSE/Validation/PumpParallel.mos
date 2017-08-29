@@ -1,3 +1,8 @@
+// Switch off pedantic mode as this model writes a assertion with level= AssertionLevel.warning
+// because of the selected parameter values
+ibpsa_pedantic_old=Advanced.PedanticModelica;
+Advanced.PedanticModelica=false;
+
 simulateModel("Buildings.ChillerWSE.Validation.PumpParallel", stopTime=360, tolerance= 1e-6, method="dassl", resultFile="PumpParallel");
 
 removePlots(false);
