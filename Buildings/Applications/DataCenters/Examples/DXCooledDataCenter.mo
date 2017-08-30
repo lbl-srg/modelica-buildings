@@ -320,5 +320,9 @@ August 16, 2017 by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    experiment(
+      StartTime=11880000,
+      StopTime=12600000,
+      Tolerance=1e-06));
 end DXCooledDataCenter;

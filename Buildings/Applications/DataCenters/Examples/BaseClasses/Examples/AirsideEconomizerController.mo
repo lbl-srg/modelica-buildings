@@ -51,8 +51,7 @@ model AirsideEconomizerController
     redeclare package Medium = Medium,
     nPorts=1,
     p=100000 + 30,
-    T(displayUnit="degC") = 298.15)
-                   "Boundary conditions for room air"
+    T(displayUnit="degC") = 298.15) "Boundary conditions for room air"
     annotation (Placement(transformation(extent={{72,-72},{52,-52}})));
   Modelica.Blocks.Sources.CombiTimeTable outAir(table=[0,273.15 + 5; 120,273.15
          + 5; 120,273.15 + 20; 240,273.15 + 20; 240,273.15 + 30; 360,273.15 +
@@ -92,8 +91,7 @@ equation
     annotation (Line(points={{8,44},{-19,44}}, color={255,127,0}));
   connect(cooMod.y[1], reaToInt.u)
     annotation (Line(points={{-59,44},{-42,44}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+  annotation (
     __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/Examples/BaseClasses/Examples/AirsideEconomizerController.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
@@ -116,5 +114,6 @@ August 29, 2017 by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    experiment(StopTime=360, Tolerance=1e-06));
 end AirsideEconomizerController;

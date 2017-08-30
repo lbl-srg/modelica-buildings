@@ -45,8 +45,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+  annotation (
     __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/Examples/BaseClasses/Examples/CoolingMode.mos"
         "Simulate and Plot"),
     Documentation(revisions="<html>
@@ -66,5 +65,9 @@ refered in
 <a href=\"modelica://Buildings.Applications.DataCenters.Examples.BaseClasses.CoolingMode\">
 Buildings.Applications.DataCenters.Examples.BaseClasses.CoolingMode</a>.
 </p>
-</html>"));
+</html>"),
+    experiment(
+      StartTime=8928000,
+      StopTime=9000000,
+      Tolerance=1e-06));
 end CoolingMode;
