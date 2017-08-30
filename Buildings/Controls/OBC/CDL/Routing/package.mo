@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Routing "Package of blocks to combine and extract signals"
+package Routing "Package with blocks that combine and extract signals"
 extends Modelica.Icons.Package;
 
   annotation (Documentation(info="<html>

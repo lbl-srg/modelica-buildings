@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36;
 package IO "Input-output blocks"
-  extends Modelica.Icons.Package;
+  extends Modelica.Icons.VariantsPackage;
 
   annotation (
 Documentation(info="<html>

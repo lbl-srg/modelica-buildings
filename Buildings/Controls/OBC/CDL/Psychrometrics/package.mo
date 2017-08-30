@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Psychrometrics "Library with psychrometric blocks"
+package Psychrometrics "Package with psychrometric blocks"
   extends Modelica.Icons.Package;
 
 annotation (Icon(graphics={
