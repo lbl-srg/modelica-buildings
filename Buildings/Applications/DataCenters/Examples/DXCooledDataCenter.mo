@@ -2,8 +2,7 @@ within Buildings.Applications.DataCenters.Examples;
 model DXCooledDataCenter
   "Example that illustrates the use of Buildings.Fluid.HeatExchanger.DXCoil in a data center room"
   extends Modelica.Icons.Example;
-  replaceable package Medium =
-      Buildings.Media.Air;
+  replaceable package Medium = Buildings.Media.Air;
 
   // Air temperatures at design conditions
   parameter Modelica.SIunits.Temperature TASup_nominal = 291.15
@@ -167,9 +166,9 @@ model DXCooledDataCenter
     minOAFra=0.15,
     gai=1) "Economzier controller"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Modelica.Blocks.Sources.RealExpression freCoo(
-    y = if cooModCon.cooMod < 0.5 then 1 else 0)
-    "Set true if free cooling mode is on"
+  Modelica.Blocks.Sources.RealExpression freCoo(y=if cooModCon.y == Integer(
+        Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.FreeCooling)
+         then 1 else 0) "Set true if free cooling mode is on"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
   Modelica.Blocks.Math.Feedback feedback1
     "Feedback signal"
@@ -202,9 +201,8 @@ equation
   connect(dam1.port_b, senTemSupAir.port_a)
     annotation (Line(points={{80,12},{80,12},{120,12},{120,-8},{120,-60},{128,
           -60}},                   color={0,127,255}));
-  connect(SATSetPoi.y, cooModCon.SATSet)
-    annotation (Line(points={{-139,100},{-102,100},{-102,78},{-92,78}},
-                                                    color={0,0,127}));
+  connect(SATSetPoi.y, cooModCon.TSupSet) annotation (Line(points={{-139,100},{
+          -102,100},{-102,78},{-92,78}}, color={0,0,127}));
   connect(eco.port_Sup, senTemMixAir.port_a)
     annotation (Line(points={{-60,12},{-60,12},{-30,12}},
                                                color={0,127,255}));
@@ -214,15 +212,10 @@ equation
   connect(senTemMixAir.port_b, dam2.port_a)
     annotation (Line(points={{-10,12},{-10,12},{-10,-60},{0,-60}},
                                            color={0,127,255}));
-  connect(SATSetPoi.y, ecoCon.MATSet)
-    annotation (Line(points={{-139,100},{-108,100},{-54,100},{-54,88},{-42,88}},
-                                  color={0,0,127}));
-  connect(cooModCon.cooMod, ecoCon.cooMod)
-    annotation (Line(points={{-69,70},{-60,70},{-60,80},{-42,80}},
-                                                  color={0,0,127}));
-  connect(senTemMixAir.T, ecoCon.MAT)
-    annotation (Line(points={{-20,23},{-20,54},{-54,54},{-54,84},{-42,84}},
-                                                 color={0,0,127}));
+  connect(SATSetPoi.y, ecoCon.TMixAirSet) annotation (Line(points={{-139,100},{
+          -108,100},{-54,100},{-54,86},{-42,86}}, color={0,0,127}));
+  connect(senTemMixAir.T, ecoCon.TMixAirMea) annotation (Line(points={{-20,23},
+          {-20,54},{-54,54},{-54,80},{-42,80}}, color={0,0,127}));
   connect(ecoCon.y, eco.y)
     annotation (Line(points={{-19,80},{-12,80},{-12,58},{-12,38},{-70,38},{-70,
           18}},                                           color={0,0,127}));
@@ -255,14 +248,14 @@ equation
     annotation (Line(points={{-120,12},{-80,12}}, color={0,127,255}));
   connect(eco.port_Exh, out.ports[2]) annotation (Line(points={{-80,0},{-92,0},
           {-92,8},{-120,8}}, color={0,127,255}));
-  connect(weaBus.TDryBul, cooModCon.OAT) annotation (Line(
+  connect(weaBus.TDryBul, cooModCon.TOutDryBul) annotation (Line(
       points={{-160,70},{-140,70},{-140,72},{-140,73},{-92,73}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(weaBus.TDewPoi, cooModCon.OATDewPoi) annotation (Line(
+  connect(weaBus.TDewPoi, cooModCon.TOutDewPoi) annotation (Line(
       points={{-160,70},{-160,68},{-140,68},{-140,67},{-92,67}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -275,11 +268,13 @@ equation
   connect(eco.port_Ret, datCenRoo.airPorts[2]) annotation (Line(points={{-60,0},
           {-60,0},{-50,0},{-50,-132},{148.425,-132},{148.425,-118.7}}, color={0,
           127,255}));
-  connect(datCenRoo.TRooAir, cooModCon.RAT) annotation (Line(points={{161,-110},
+  connect(datCenRoo.TRooAir, cooModCon.TRet) annotation (Line(points={{161,-110},
           {161,-110},{180,-110},{180,-88},{-100,-88},{-100,62},{-92,62}}, color=
          {0,0,127}));
   connect(const.y, feedback1.u1)
     annotation (Line(points={{21,130},{42,130}}, color={0,0,127}));
+  connect(cooModCon.y, ecoCon.cooMod) annotation (Line(points={{-69,70},{-62,70},
+          {-62,74},{-42,74}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
             Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,

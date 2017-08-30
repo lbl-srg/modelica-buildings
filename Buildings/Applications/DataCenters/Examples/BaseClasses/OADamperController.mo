@@ -10,25 +10,21 @@ model OADamperController "OA damper controller"
   parameter Real minOAFra(min=0,max=1, final unit="1")
     "Minimum outdoor air fraction";
 
-  Modelica.Blocks.Interfaces.RealInput MATSet(
+  Modelica.Blocks.Interfaces.RealInput TMixAirSet(
     final unit="K",
     final quantity="ThermodynamicTemperature",
-    displayUnit="degC")
-    "Mixed air setpoint temperature"
-    annotation (Placement(transformation(rotation=0,
-      extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput MAT(
+    displayUnit="degC") "Mixed air setpoint temperature"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}, rotation=
+           0)));
+  Modelica.Blocks.Interfaces.RealInput TMixAirMea(
     final unit="K",
     final quantity="ThermodynamicTemperature",
-    displayUnit="degC")
-    "Measured mixed air temperature"
-    annotation (Placement(transformation(rotation=0, extent={{-140,20},
-      {-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput cooMod(
-    final unit="1")
+    displayUnit="degC") "Measured mixed air temperature" annotation (Placement(
+        transformation(rotation=0, extent={{-140,-20},{-100,20}})));
+  Modelica.Blocks.Interfaces.IntegerInput cooMod
     "Cooling mode of the cooling system"
     annotation (Placement(
-        transformation(rotation=0, extent={{-140,-20},{-100,20}})));
+        transformation(rotation=0, extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
@@ -39,36 +35,32 @@ model OADamperController "OA damper controller"
     yMin=minOAFra,
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=Ti) "PID controller"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Modelica.Blocks.Math.RealToBoolean ASEOff(final threshold=1.5)
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+protected
+  Modelica.Blocks.Math.IntegerToBoolean ecoOff(final threshold=Integer(Types.CoolingModes.FullMechanical))
     "Determine if airside economizer is off"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Modelica.Blocks.Logical.Not not1 "Inverse signal"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Modelica.Blocks.Logical.Switch switch1 "Switch to select control output"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Sources.Constant const(final k=0)
     "Constant output signal with value 1"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
 equation
-  connect(MATSet, con.u_s)
-    annotation (Line(points={{-120,80},{-82,80}}, color={0,0,127}));
-  connect(MAT, con.u_m)
-    annotation (Line(points={{-120,40},{-70,40},{-70,68}}, color={0,0,127}));
-  connect(ASEOff.y, not1.u)
-    annotation (Line(points={{-59,0},{-50.5,0},{-42,0}}, color={255,0,255}));
-  connect(cooMod, ASEOff.u)
-    annotation (Line(points={{-120,0},{-82,0}}, color={0,0,127}));
-  connect(con.y, switch1.u1)
-    annotation (Line(points={{-59,80},{0,80},{0,8},{38,8}}, color={0,0,127}));
-  connect(not1.y, switch1.u2)
-    annotation (Line(points={{-19,0},{38,0}}, color={255,0,255}));
-  connect(const.y, switch1.u3)
-    annotation (Line(points={{-59,-50},{0,-50},{0,-8},
-          {38,-8}}, color={0,0,127}));
+  connect(TMixAirSet, con.u_s)
+    annotation (Line(points={{-120,60},{-82,60}}, color={0,0,127}));
+  connect(TMixAirMea, con.u_m)
+    annotation (Line(points={{-120,0},{-70,0},{-70,48}}, color={0,0,127}));
   connect(switch1.y, y)
     annotation (Line(points={{61,0},{68,0},{110,0}}, color={0,0,127}));
+  connect(ecoOff.u, cooMod)
+    annotation (Line(points={{-82,-60},{-120,-60}}, color={255,127,0}));
+  connect(ecoOff.y, switch1.u2) annotation (Line(points={{-59,-60},{-48,-60},{
+          -48,0},{38,0}}, color={255,0,255}));
+  connect(const.y, switch1.u1)
+    annotation (Line(points={{21,30},{28,30},{28,8},{38,8}}, color={0,0,127}));
+  connect(con.y, switch1.u3) annotation (Line(points={{-59,60},{-20,60},{-20,-8},
+          {38,-8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
         graphics={Rectangle(
           extent={{-100,100},{100,-100}},

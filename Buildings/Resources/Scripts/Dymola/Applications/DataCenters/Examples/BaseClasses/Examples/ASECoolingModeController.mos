@@ -2,14 +2,14 @@ simulateModel("Buildings.Applications.DataCenters.Examples.BaseClasses.Examples.
 
 createPlot(id=5,
  position={0, 0, 1549, 756},
- y={"SATSet.y", "RAT.y", "weaBus.TDryBul", "weaBus.TDewPoi"},
+ y={"cooModCon.TSupSet", "cooModCon.TRet", "cooModCon.TOutDryBul", "cooModCon.TOutDewPoi"},
  range={8928000.0, 9000000.0, 280.0, 300.0},
  erase=false, grid=true,
  filename="ASECoolingModeController.mat",
  colors={{238,46,47}, {28,108,200}, {0,140,72}, {217,67,180}});
 createPlot(id=5,
  position={0, 0, 1549, 376},
- y={"cooModCon.cooMod"},
+ y={"cooModCon.y"},
  range={2480.0, 2500.0, -0.2, 2.2},
  erase=false,
  grid=true,

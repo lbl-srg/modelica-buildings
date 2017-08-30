@@ -4,39 +4,35 @@ model ASECoolingModeController
 
   parameter Modelica.SIunits.Time tWai "Waiting time, set to avoid frequent switching";
 
-  Modelica.Blocks.Interfaces.RealInput OAT(
+  Modelica.Blocks.Interfaces.RealInput TOutDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC")
-    "Dry-bulb temperature of outdoor air"
+    displayUnit="degC") "Dry-bulb temperature of outdoor air"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
-  Modelica.Blocks.Interfaces.RealInput RAT(
+  Modelica.Blocks.Interfaces.RealInput TRet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC")
-    "Return air temperature"
+    displayUnit="degC") "Return air temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealInput OATDewPoi(
+  Modelica.Blocks.Interfaces.RealInput TOutDewPoi(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC")
-    "Dew point temperature of outdoor air"
+    displayUnit="degC") "Dew point temperature of outdoor air"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
-  Modelica.Blocks.Interfaces.RealInput SATSet(
+  Modelica.Blocks.Interfaces.RealInput TSupSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC")
-    "Supply air temperature setpoint "
+    displayUnit="degC") "Supply air temperature setpoint "
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
-  Modelica.Blocks.Interfaces.RealOutput cooMod(final unit="1")
-    "Cooling mode signal (0: free cooling mode, 1: partially mechanical cooling, 2: fully mechanical cooling)"
+  Modelica.Blocks.Interfaces.IntegerOutput y
+    "Cooling mode signal, integer value of Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingMode"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Modelica.StateGraph.Transition con1(
     enableTimer=true,
     waitTime=tWai,
-    condition=OATDewPoi > 273.15 + 10 and OAT > SATSet + 1.1)
+    condition=TOutDewPoi > 273.15 + 10 and TOutDryBul > TSupSet + 1.1)
     "Fire condition 1: free cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -61,7 +57,7 @@ model ASECoolingModeController
   Modelica.StateGraph.Transition con2(
     enableTimer=true,
     waitTime=tWai,
-    condition=OATDewPoi > 273.15 + 11.11 or OAT > RAT + 1.1)
+    condition=TOutDewPoi > 273.15 + 11.11 or TOutDryBul > TRet + 1.1)
     "Fire condition 2: partially mechanical cooling to fully mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -70,7 +66,7 @@ model ASECoolingModeController
   Modelica.StateGraph.Transition con3(
     enableTimer=true,
     waitTime=tWai,
-    condition=OATDewPoi < 273.15 + 10 and OAT < RAT)
+    condition=TOutDewPoi < 273.15 + 10 and TOutDryBul < TRet)
     "Fire condition 3: fully mechanical cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -79,18 +75,19 @@ model ASECoolingModeController
   Modelica.StateGraph.Transition con4(
     enableTimer=true,
     waitTime=tWai,
-    condition=OATDewPoi < 273.15 + 8.89 or OAT < SATSet - 1.1)
+    condition=TOutDewPoi < 273.15 + 8.89 or TOutDryBul < TSupSet - 1.1)
     "Fire condition 4: partially mechanical cooling to free cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={50,20})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation (Placement(transformation(extent={{-48,72},{-28,92}})));
-  Modelica.Blocks.Math.MultiSwitch swi(
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  Modelica.Blocks.MathInteger.MultiSwitch swi(
     nu=3,
-    expr={0,1,2},
-    y_default=0)
+    y_default=0,
+    expr={Integer(Types.CoolingModes.FreeCooling),Integer(Types.CoolingModes.PartialMechanical),
+        Integer(Types.CoolingModes.FullMechanical)})
     "Switch boolean signals to real signal"
     annotation (Placement(transformation(extent={{64,-6},{88,6}})));
 equation
@@ -138,8 +135,8 @@ equation
       points={{11,-78},{34,-78},{34,-1.2},{64,-1.2}},
       color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(swi.y,cooMod)
-    annotation (Line(points={{88.6,0},{110,0}},         color={0,0,127}));
+  connect(y, swi.y)
+    annotation (Line(points={{110,0},{88.6,0}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
               graphics={Rectangle(
           extent={{-100,100},{100,-100}},
