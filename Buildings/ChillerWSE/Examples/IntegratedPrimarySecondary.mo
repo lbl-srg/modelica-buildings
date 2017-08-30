@@ -4,12 +4,25 @@ model IntegratedPrimarySecondary
   extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenterControl(
     redeclare Buildings.ChillerWSE.IntegratedPrimarySecondary chiWSE(
         addPowerToMedium=false,
-        perPum=perPum,
+        perPum=perPumPri,
         energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-    pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-          each use_inputFilter=false),
+    pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial, each
+        use_inputFilter=true),
     ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
         use_inputFilterValve=false));
+
+  parameter Buildings.Fluid.Movers.Data.Generic[nChi] perPumSec(
+    each pressure=
+          Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+          V_flow=mChiller1_flow_nominal/1000*{0.2,0.6,1.0,1.2},
+          dp=(dpWSE1_nominal+18000)*{1.5,1.3,1.0,0.6}))
+    "Performance data for secondary chilled water pumps";
+  parameter Buildings.Fluid.Movers.Data.Generic[nChi] perPumPri(
+    each pressure=
+          Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+          V_flow=mChiller1_flow_nominal/1000*{0.2,0.6,1.0,1.2},
+          dp=(dpChiller1_nominal+6000)*{1.5,1.3,1.0,0.6}))
+    "Performance data for secondary chilled water pumps";
 
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControl
     cooModCon(
@@ -33,12 +46,11 @@ model IntegratedPrimarySecondary
   Buildings.ChillerWSE.FlowMachine_y secPum(
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
-    per=perPum,
+    per=perPumSec,
     addPowerToMedium=false,
     m_flow_nominal=mChiller2_flow_nominal,
     tau=1,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=false)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Secondary pumps"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},

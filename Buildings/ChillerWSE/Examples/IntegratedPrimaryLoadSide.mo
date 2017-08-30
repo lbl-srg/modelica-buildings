@@ -4,7 +4,7 @@ model IntegratedPrimaryLoadSide
   extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenterControl(
     redeclare Buildings.ChillerWSE.IntegratedPrimaryLoadSide chiWSE(
       addPowerToMedium=false,
-      perPum=perPum,
+      perPum=perPumPri,
       tauPump=1,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       use_inputFilter=true),
@@ -15,6 +15,13 @@ model IntegratedPrimaryLoadSide
       use_inputFilterValve=false,
       tauFan=1,
       use_inputFilterFan=false));
+
+  parameter Buildings.Fluid.Movers.Data.Generic[nChi] perPumPri(
+    each pressure=
+          Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+          V_flow=mChiller2_flow_nominal/1000*{0.2,0.6,1.0,1.2},
+          dp=(dpChiller2_nominal+dpWSE2_nominal+18000)*{1.5,1.3,1.0,0.6}))
+    "Performance data for primary pumps";
 
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControl
     cooModCon(

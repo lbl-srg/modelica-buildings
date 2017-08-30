@@ -34,11 +34,12 @@ First implementation.
   parameter Modelica.SIunits.PressureDifference dpWSE2_nominal = 34.5*1000
     "Nominal pressure";
 
-  parameter Buildings.Fluid.Movers.Data.Generic[nChi] perPum(
+  parameter Buildings.Fluid.Movers.Data.Generic[nChi] perPumCW(
     each pressure=
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-          V_flow=mChiller2_flow_nominal/1000*{0.2,0.6,1.0,1.2},
-          dp=dpChiller2_nominal*{1.2,1.1,1.0,0.6}));
+          V_flow=mChiller1_flow_nominal/1000*{0.2,0.6,1.0,1.2},
+          dp=(dpChiller1_nominal+60000+6000)*{1.2,1.1,1.0,0.6}))
+    "Performance data for condenser water pumps";
   parameter Modelica.SIunits.Time tWai=1200 "Waiting time";
 
   // AHU
@@ -77,7 +78,7 @@ First implementation.
   Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow[nChi](
     redeclare each replaceable package Medium = MediumW,
     each m_flow_nominal=mChiller1_flow_nominal,
-    each dp_nominal=14930 + 14930 + 74650,
+    each dp_nominal=60000,
     each TAirInWB_nominal(displayUnit="degC") = 283.15,
     each TApp_nominal=6,
     each PFan_nominal=6000,
@@ -106,10 +107,11 @@ First implementation.
     m_flow_nominal=nChi*mChiller1_flow_nominal)
     "Condenser water return temperature"
     annotation (Placement(transformation(extent={{202,50},{222,70}})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow pumCW[2](
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumCW[nChi](
     redeclare each replaceable package Medium = MediumW,
     each m_flow_nominal=mChiller1_flow_nominal,
-    each addPowerToMedium=false)
+    each addPowerToMedium=false,
+    per=perPumCW)
     "Condenser water pump"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -127,8 +129,9 @@ First implementation.
     mWatMax_flow=0.01,
     UA_nominal=UA_nominal,
     addPowerToMedium=false,
-    perFan(pressure(V_flow=mAir_flow_nominal*{0,0.5,1}, dp=800*{1.2,1.12,1})),
-    dp1_nominal=6000)
+    dp1_nominal=6000,
+    perFan(pressure(dp=800*{1.2,1.12,1}, V_flow=mAir_flow_nominal/1.29*{0,0.5,1}),
+        motorCooledByFluid=false))
     "Air handling unit"
     annotation (Placement(transformation(extent={{154,-130},{174,-110}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort CHWRT(

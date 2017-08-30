@@ -9,6 +9,19 @@ model NonIntegratedPrimarySecondary
     ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
+  parameter Buildings.Fluid.Movers.Data.Generic[nChi] perPumSec(
+    each pressure=
+          Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+          V_flow=mChiller1_flow_nominal/1000*{0.2,0.6,1.0,1.2},
+          dp=(dpWSE1_nominal+18000)*{1.5,1.3,1.0,0.6}))
+    "Performance data for secondary chilled water pumps";
+  parameter Buildings.Fluid.Movers.Data.Generic[nChi] perPumPri(
+    each pressure=
+          Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+          V_flow=mChiller1_flow_nominal/1000*{0.2,0.6,1.0,1.2},
+          dp=(dpChiller1_nominal+6000)*{1.5,1.3,1.0,0.6}))
+    "Performance data for secondary chilled water pumps";
+
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControlNonIntegrated cooModCon(
     tWai=tWai,
     deaBan=1,
@@ -19,7 +32,7 @@ model NonIntegratedPrimarySecondary
   Buildings.ChillerWSE.FlowMachine_y secPum(
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
-    per=perPum,
+    per=perPumSec,
     addPowerToMedium=false,
     m_flow_nominal=mChiller2_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -34,7 +47,7 @@ model NonIntegratedPrimarySecondary
   Buildings.ChillerWSE.FlowMachine_m priPum(
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
-    per=perPum,
+    per=perPumPri,
     m_flow_nominal=mChiller2_flow_nominal,
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
