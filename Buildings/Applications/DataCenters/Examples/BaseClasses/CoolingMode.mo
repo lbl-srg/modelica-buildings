@@ -3,6 +3,8 @@ model CoolingMode
   "Controller for the DX cooling system with an airside economizer"
 
   parameter Modelica.SIunits.Time tWai "Waiting time, set to avoid frequent switching";
+  parameter Modelica.SIunits.Temperature TSwi = 283.15 "Switching temperature";
+  parameter Modelica.SIunits.TemperatureDifference dT(min=0.1) = 1.1 "Deadband";
 
   Modelica.Blocks.Interfaces.RealInput TOutDryBul(
     final quantity="ThermodynamicTemperature",
@@ -32,7 +34,7 @@ model CoolingMode
   Modelica.StateGraph.Transition con1(
     enableTimer=true,
     waitTime=tWai,
-    condition=TOutDewPoi > 273.15 + 10 and TOutDryBul > TSupSet + 1.1)
+    condition=TOutDewPoi > TSwi and TOutDryBul > TSupSet + dT)
     "Fire condition 1: free cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -57,7 +59,7 @@ model CoolingMode
   Modelica.StateGraph.Transition con2(
     enableTimer=true,
     waitTime=tWai,
-    condition=TOutDewPoi > 273.15 + 11.11 or TOutDryBul > TRet + 1.1)
+    condition=TOutDewPoi > TSwi + dT or TOutDryBul > TRet + dT)
     "Fire condition 2: partially mechanical cooling to fully mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -66,7 +68,7 @@ model CoolingMode
   Modelica.StateGraph.Transition con3(
     enableTimer=true,
     waitTime=tWai,
-    condition=TOutDewPoi < 273.15 + 10 and TOutDryBul < TRet)
+    condition=TOutDewPoi < TSwi and TOutDryBul < TRet)
     "Fire condition 3: fully mechanical cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -75,7 +77,7 @@ model CoolingMode
   Modelica.StateGraph.Transition con4(
     enableTimer=true,
     waitTime=tWai,
-    condition=TOutDewPoi < 273.15 + 8.89 or TOutDryBul < TSupSet - 1.1)
+    condition=TOutDewPoi < TSwi - dT or TOutDryBul < TSupSet - dT)
     "Fire condition 4: partially mechanical cooling to free cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -151,12 +153,12 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This model implements a cooling mode controller for an air-cooled direct expansion (DX) cooling system 
-with an airside economizer. 
+This model implements a cooling mode controller for an air-cooled direct expansion (DX) cooling system
+with an airside economizer.
 </p>
 <p>
-There are three cooling modes for this system: free cooling (FC) mode, 
-partially mechanical cooling (PMC) mode and fully mechanical cooling (FMC) mode. The detailed switching 
+There are three cooling modes for this system: free cooling (FC) mode,
+partially mechanical cooling (PMC) mode and fully mechanical cooling (FMC) mode. The detailed switching
 logic is shown in the following:
 </p>
 <p>
@@ -164,7 +166,7 @@ The airside economizer is enabled when:
 </p>
 <ul>
 <li>
-<i>T<sub>dp,OA</sub>&lt;10&deg;C and T<sub>OA</sub>&lt;T<sub>RA</sub></i>
+<i>T<sub>dp,out</sub>&lt;T<sub>swi</sub> and T<sub>out</sub>&lt;T<sub>ret</sub></i>
 </li>
 </ul>
 <p>
@@ -172,7 +174,7 @@ The airside economizer is disabled when:
 </p>
 <ul>
 <li>
-<i>T<sub>dp,OA</sub>&gt;10&deg;C + 1.1&deg;C or T<sub>OA</sub>&gt;T<sub>RA</sub> + 1.1&deg;C
+<i>T<sub>dp,out</sub>&gt;T<sub>swi</sub> + &delta;T or T<sub>out</sub>&gt;T<sub>ret</sub> + &delta;T
 </i>
 </li>
 </ul>
@@ -181,7 +183,7 @@ The DX coil is enabled when:
 </p>
 <ul>
 <li>
-<i>T<sub>dp,OA</sub>&gt;10&deg;C and T<sub>OA</sub>&gt;T<sub>SA,set</sub></i>
+<i>T<sub>dp,out</sub>&gt;T<sub>swi</sub> and T<sub>out</sub>&gt;T<sub>sup,set</sub></i>
 </li>
 </ul>
 <p>
@@ -189,12 +191,15 @@ The DX coil is disabled when:
 </p>
 <ul>
 <li>
-<i>T<sub>dp,OA</sub>&lt;10&deg;C - 1.1&deg;C or T<sub>OA</sub>&gt;T<sub>SA,set</sub> - 1.1&deg;C</i>
+<i>T<sub>dp,out</sub>&lt;T<sub>swi</sub> - &delta;T or T<sub>out</sub>&gt;T<sub>sup,set</sub> - &delta;T</i>
 </li>
 </ul>
 <p>
-where subscript <i>dp</i> means dew point temperature, <i>set</i> means set point, 
-<i>OA</i> means outdoor air, <i>RA</i> means return air, and <i>SA</i> means supply air.
+where
+<i>T<sub>swi</sub></i> is the switching temperature,
+<i>&delta;T</i> is the deadband,
+subscript <i>dp</i> means dew point temperature, <i>set</i> means set point,
+<i>out</i> means outdoor air, <i>ret</i> means return air, and <i>sup</i> means supply air.
 </p>
 </html>", revisions="<html>
 <ul>
