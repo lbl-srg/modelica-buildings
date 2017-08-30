@@ -67,14 +67,14 @@ block HeatingCoolingControlLoops "Generates heating and cooling control signals 
   CDL.Continuous.LimPID conCooVal(
     final yMax=conSigMax,
     final yMin=conSigMin,
-    final controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=kPCoo,
     final Ti=TiCoo) "Cooling coil valve controller"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   CDL.Continuous.LimPID conHeaVal(
     final yMax=conSigMax,
     final yMin=conSigMin,
-    final controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=kPHea,
     final Ti=TiHea) "Heating coil valve controller"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
