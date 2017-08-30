@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36;
-package Constants "Library of constants for control sequences"
+package Constants "Package with constants for control sequences"
   extends Modelica.Icons.Package;
 
   annotation (Documentation(info="<html>

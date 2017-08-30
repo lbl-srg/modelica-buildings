@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Discrete "Library of discrete input/output blocks with fixed sample period"
+package Discrete "Package with discrete input/output blocks with fixed sample period"
 
   extends Modelica.Icons.Package;
 
