@@ -1,4 +1,4 @@
-simulateModel("Buildings.Applications.DataCenters.Examples.BaseClasses.Examples.OADamperController", stopTime=360, tolerance=1e-06, method="dassl", resultFile="OADamperController");
+simulateModel("Buildings.Applications.DataCenters.Examples.BaseClasses.Examples.AirsideEconomizerController", stopTime=360, tolerance=1e-06, method="dassl", resultFile="AirsideEconomizerController");
 removePlots(false);
 createPlot(id=5,
  position={15, 10, 592, 630},
@@ -6,7 +6,7 @@ createPlot(id=5,
  range={0.0, 360.0, 275.0, 305.0},
  erase=false,
  grid=true,
- filename="OADamperController.mat",
+ filename="AirsideEconomizerController.mat",
  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
 createPlot(id=5,
  position={15, 10, 592, 208},

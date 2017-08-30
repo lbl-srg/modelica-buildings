@@ -1,13 +1,13 @@
 within Buildings.Applications.DataCenters.Examples.BaseClasses.Examples;
-model OADamperController
+model AirsideEconomizerController
   "Example that demonstrate the use of model
-  Buildings.Applications.DataCenters.Examples.BaseClasses.OADamperController"
+  Buildings.Applications.DataCenters.Examples.BaseClasses.AirsideEconomizerController"
   extends Modelica.Icons.Example;
   replaceable package Medium =
       Buildings.Media.Air;
   parameter Modelica.SIunits.MassFlowRate mA_flow_nominal=0.43
     "Nominal air flowrate";
-  Buildings.Applications.DataCenters.Examples.BaseClasses.OADamperController con(
+  Buildings.Applications.DataCenters.Examples.BaseClasses.AirsideEconomizerController con(
     minOAFra= 0,
     Ti=1) "Outdoor air damper controller"
     annotation (Placement(transformation(extent={{10,40},{30,60}})));
@@ -94,7 +94,7 @@ equation
     annotation (Line(points={{-59,44},{-42,44}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/Examples/BaseClasses/Examples/OADamperController.mos"
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/Examples/BaseClasses/Examples/AirsideEconomizerController.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 <P>
@@ -117,4 +117,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OADamperController;
+end AirsideEconomizerController;

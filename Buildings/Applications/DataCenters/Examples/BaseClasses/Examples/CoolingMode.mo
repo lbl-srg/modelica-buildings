@@ -1,9 +1,9 @@
 within Buildings.Applications.DataCenters.Examples.BaseClasses.Examples;
-model ASECoolingModeController
+model CoolingMode
   "Example that demonstrates the use of cooling mode selection for the airside economizer"
   extends Modelica.Icons.Example;
 
-  Buildings.Applications.DataCenters.Examples.BaseClasses.ASECoolingModeController
+  Buildings.Applications.DataCenters.Examples.BaseClasses.CoolingMode
     cooModCon(tWai=1200)
     "Cooling mode controller for the DX cooling system with an airside economizer"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -47,7 +47,7 @@ equation
       extent={{-6,3},{-6,3}}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/Examples/BaseClasses/Examples/ASECoolingModeController.mos"
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/Examples/BaseClasses/Examples/CoolingMode.mos"
         "Simulate and Plot"),
     Documentation(revisions="<html>
 <ul>
@@ -63,8 +63,8 @@ according to varying outside air dry bulb temperature,
 outside air dewpoint temperature, return air temperature and
 supply air temperature setpoint.The detailed control logic can be
 refered in
-<a href=\"modelica://Buildings.Applications.DataCenters.Examples.BaseClasses.ASECoolingModeController\">
-Buildings.Applications.DataCenters.Examples.BaseClasses.ASECoolingModeController</a>.
+<a href=\"modelica://Buildings.Applications.DataCenters.Examples.BaseClasses.CoolingMode\">
+Buildings.Applications.DataCenters.Examples.BaseClasses.CoolingMode</a>.
 </p>
 </html>"));
-end ASECoolingModeController;
+end CoolingMode;

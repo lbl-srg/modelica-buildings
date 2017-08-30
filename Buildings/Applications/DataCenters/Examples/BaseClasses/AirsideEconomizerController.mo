@@ -1,5 +1,5 @@
 within Buildings.Applications.DataCenters.Examples.BaseClasses;
-model OADamperController "OA damper controller"
+model AirsideEconomizerController "OA damper controller"
 
   parameter Real gai(min=Modelica.Constants.small) = 1
     "Proportional gain of controller"
@@ -89,4 +89,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OADamperController;
+end AirsideEconomizerController;

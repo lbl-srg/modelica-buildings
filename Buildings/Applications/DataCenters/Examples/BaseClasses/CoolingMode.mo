@@ -1,5 +1,5 @@
 within Buildings.Applications.DataCenters.Examples.BaseClasses;
-model ASECoolingModeController
+model CoolingMode
   "Controller for the DX cooling system with an airside economizer"
 
   parameter Modelica.SIunits.Time tWai "Waiting time, set to avoid frequent switching";
@@ -204,4 +204,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ASECoolingModeController;
+end CoolingMode;
