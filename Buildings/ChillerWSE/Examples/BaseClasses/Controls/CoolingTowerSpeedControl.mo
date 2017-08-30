@@ -27,17 +27,15 @@ model CoolingTowerSpeedControl "Controller for the fan speed in cooling towers"
   parameter Boolean reverseAction = true
     "Set to true for throttling the water flow rate through a cooling coil controller"
     annotation(Dialog(tab="Controller"));
-  Modelica.Blocks.Interfaces.RealInput CHWST_set(
+  Modelica.Blocks.Interfaces.RealInput CHWSTSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC")
-    "Chilled water supply temperature setpoint"
+    displayUnit="degC") "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealInput CWST_set(
+  Modelica.Blocks.Interfaces.RealInput CWSTSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC")
-    "Condenser water supply temperature setpoint"
+    displayUnit="degC") "Condenser water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput CHWST(
     final quantity="ThermodynamicTemperature",
@@ -104,11 +102,9 @@ protected
 equation
   connect(cooMod, fmcMod.u)
     annotation (Line(points={{-120,40},{-120,40},{-82,40}}, color={0,0,127}));
-  connect(CWST_set, swi1.u1)
-    annotation (Line(points={{-120,80},{-48,80},{-48,58},
+  connect(CWSTSet, swi1.u1) annotation (Line(points={{-120,80},{-48,80},{-48,58},
           {-32,58}}, color={0,0,127}));
-  connect(CHWST_set, swi1.u3)
-    annotation (Line(points={{-120,0},{-48,0},{-48,42},
+  connect(CHWSTSet, swi1.u3) annotation (Line(points={{-120,0},{-48,0},{-48,42},
           {-32,42}}, color={0,0,127}));
   connect(swi1.y, conPID.u_s)
     annotation (Line(points={{-9,50},{0,50},{0,-40},{18,

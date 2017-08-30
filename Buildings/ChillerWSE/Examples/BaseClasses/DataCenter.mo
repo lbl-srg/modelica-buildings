@@ -91,9 +91,8 @@ First implementation.
     m_flow_nominal=nChi*mChiller2_flow_nominal)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{104,-10},{84,10}})));
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3  weaData(
-    filNam=
-    "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3  weaData(filNam=
+        "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-220,-78},{-200,-58}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-210,-38},{-190,-18}})));

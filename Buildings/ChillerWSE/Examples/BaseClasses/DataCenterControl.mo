@@ -149,13 +149,11 @@ equation
   connect(gai.y, pumCW.m_flow_in)
     annotation (Line(points={{11,70},{40,70},{40,100},
           {58,100}}, color={0,0,127}));
-  connect(CWSTSet.y, cooTowSpeCon.CWST_set)
-    annotation (Line(points={{-109,180},
+  connect(CWSTSet.y, cooTowSpeCon.CWSTSet) annotation (Line(points={{-109,180},
           {-70,180},{-70,186},{-52,186}}, color={0,0,127}));
-  connect(CHWSTSet.y, cooTowSpeCon.CHWST_set)
-    annotation (Line(points={{-169,160},{-150,160},{-150,200},{-70,200},{-70,
-          178.889},{-52,178.889}},
-          color={0,0, 127}));
+  connect(CHWSTSet.y, cooTowSpeCon.CHWSTSet) annotation (Line(points={{-169,160},
+          {-150,160},{-150,200},{-70,200},{-70,178.889},{-52,178.889}}, color={
+          0,0,127}));
   connect(CWST.T, cooTowSpeCon.CWST)
     annotation (Line(points={{110,151},{110,160},{122,160},{122,200},{-70,200},
           {-70,175.333},{-52,175.333}},

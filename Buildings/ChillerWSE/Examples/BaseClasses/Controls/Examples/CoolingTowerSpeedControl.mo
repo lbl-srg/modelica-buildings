@@ -58,15 +58,13 @@ model CoolingTowerSpeedControl
     "Cooling mode"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 equation
-  connect(CWSTSet.y, cooTowSpeCon.CWST_set)
-    annotation (Line(points={{-39,90},{
-          -22,90},{-22,88},{-22,22},{-22,10},{-12,10}}, color={0,0,127}));
+  connect(CWSTSet.y, cooTowSpeCon.CWSTSet) annotation (Line(points={{-39,90},{-22,
+          90},{-22,88},{-22,22},{-22,10},{-12,10}}, color={0,0,127}));
   connect(cooMod.y[1], cooTowSpeCon.cooMod)
     annotation (Line(points={{-39,50},{-26,50},{-26,5.55556},{-12,5.55556}},
       color={0,0,127}));
-  connect(CHWSTSet.y, cooTowSpeCon.CHWST_set)
-    annotation (Line(points={{-39,10},{-32,10},{-32,1.11111},{-12,1.11111}},
-      color={0,0,127}));
+  connect(CHWSTSet.y, cooTowSpeCon.CHWSTSet) annotation (Line(points={{-39,10},
+          {-32,10},{-32,1.11111},{-12,1.11111}}, color={0,0,127}));
   connect(CWST.y, cooTowSpeCon.CWST)
     annotation (Line(points={{-39,-30},{-32, -30},{-32,-3.33333},{-12,-3.33333}},
       color={0,0,127}));
