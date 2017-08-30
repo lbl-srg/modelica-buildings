@@ -12,7 +12,7 @@ block LimPID
     "Time constant of Integrator block" annotation (Dialog(enable=
           controllerType == CDL.Types.SimpleController.PI or
           controllerType == CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(min=0)
+  parameter Modelica.SIunits.Time Td(min=0) = 0.1
     "Time constant of Derivative block" annotation (Dialog(enable=
           controllerType == CDL.Types.SimpleController.PD or
           controllerType == CDL.Types.SimpleController.PID));

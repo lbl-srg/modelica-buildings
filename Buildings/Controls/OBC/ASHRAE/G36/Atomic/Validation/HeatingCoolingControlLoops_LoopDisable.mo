@@ -49,7 +49,7 @@ equation
   connect(TRoo1.y, conLoo1.TRoo) annotation (Line(points={{1,-40},{20,-40},{20,-4},{39,-4}}, color={0,0,127}));
   annotation (
   experiment(StopTime=900.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/Validation/HeatingCoolingControlLoops_LoopDisable.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/Validation/HeatingCoolingControlLoops_LoopDisable.mos"
     "Simulate and plot"),
     Icon(graphics={Ellipse(
           lineColor={75,138,73},
@@ -65,8 +65,8 @@ equation
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.HeatingCoolingControlLoops\">
-Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.HeatingCoolingControlLoops</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Atomic.HeatingCoolingControlLoops\">
+Buildings.Controls.OBC.ASHRAE.G36.Atomic.HeatingCoolingControlLoops</a>
 loop disable conditions.
 </p>
 </html>", revisions="<html>

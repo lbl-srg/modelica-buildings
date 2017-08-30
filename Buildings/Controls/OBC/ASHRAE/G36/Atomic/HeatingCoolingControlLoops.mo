@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.Atomic.Validation;
+within Buildings.Controls.OBC.ASHRAE.G36.Atomic;
 block HeatingCoolingControlLoops "Generates heating and cooling control signals to maintain zone set temperature"
 
   parameter Real kPCoo=1 "Gain of damper limit controller"
@@ -114,6 +114,7 @@ block HeatingCoolingControlLoops "Generates heating and cooling control signals 
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   CDL.Logical.GreaterThreshold greThrCoo(threshold=conSigMin) "Determine whether cooling signal is active"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
+
 equation
   connect(TRooHeaSet, conHeaVal.u_s)
     annotation (Line(points={{-160,140},{-160,140},{-102,140}},color={0,0,127}));
@@ -135,8 +136,10 @@ equation
     annotation (Line(points={{1,50},{10,50},{10,66},{18,66}},color={0,0,127}));
   connect(conSigMinSig.y, conCooInv.f2)
     annotation (Line(points={{1,90},{10,90},{10,62},{18,62}},  color={0,0,127}));
-  connect(timNoHea.y, greEquThrHea.u) annotation (Line(points={{21,-30},{21,-30},{28,-30}}, color={0,0,127}));
-  connect(timNoCoo.y, greEquThrCoo.u) annotation (Line(points={{21,-130},{21,-130},{28,-130}}, color={0,0,127}));
+  connect(timNoHea.y, greEquThrHea.u)
+    annotation (Line(points={{21,-30},{21,-30},{28,-30}}, color={0,0,127}));
+  connect(timNoCoo.y, greEquThrCoo.u)
+    annotation (Line(points={{21,-130},{21,-130},{28,-130}}, color={0,0,127}));
   connect(heaLooDisSwi.y, yHea)
     annotation (Line(points={{121,120},{120,120},{150,120}},color={0,0,127}));
   connect(cooLooDisSwi.y, yCoo)
@@ -145,8 +148,10 @@ equation
     annotation (Line(points={{-160,30},{-120,30},{-120,-50},{-102,-50}},color={0,0,127}));
   connect(TRooHeaSet,disHea. u2)
     annotation (Line(points={{-160,140},{-130,140},{-130,-58},{-102,-58}}, color={0,0,127}));
-  connect(notHea.y, timNoHea.u) annotation (Line(points={{-9,-30},{-9,-30},{-2,-30}}, color={255,0,255}));
-  connect(notCoo.y, timNoCoo.u) annotation (Line(points={{-9,-130},{-9,-130},{-2,-130}}, color={255,0,255}));
+  connect(notHea.y, timNoHea.u)
+    annotation (Line(points={{-9,-30},{-9,-30},{-2,-30}}, color={255,0,255}));
+  connect(notCoo.y, timNoCoo.u)
+    annotation (Line(points={{-9,-130},{-9,-130},{-2,-130}}, color={255,0,255}));
   connect(TRoo,disCoo. u1)
     annotation (Line(points={{-160,30},{-120,30},{-120,-110},{-102,-110}},color={0,0,127}));
   connect(TRooCooSet,disCoo. u2)
@@ -177,8 +182,10 @@ equation
     annotation (Line(points={{41,70},{60,70},{60,52},{98,52}}, color={0,0,127}));
   connect(looDisValSig.y, cooLooDisSwi.u1)
     annotation (Line(points={{121,-28},{130,-28},{130,2},{80,2},{80,68},{98,68}}, color={0,0,127}));
-  connect(notHea.u, greThrHea.y) annotation (Line(points={{-32,-30},{-39,-30}}, color={255,0,255}));
-  connect(notCoo.u, greThrCoo.y) annotation (Line(points={{-32,-130},{-36,-130},{-39,-130}}, color={255,0,255}));
+  connect(notHea.u, greThrHea.y)
+    annotation (Line(points={{-32,-30},{-39,-30}}, color={255,0,255}));
+  connect(notCoo.u, greThrCoo.y)
+    annotation (Line(points={{-32,-130},{-36,-130},{-39,-130}}, color={255,0,255}));
   connect(conCooInv.y, greThrCoo.u)
     annotation (Line(points={{41,70},{50,70},{50,-8},{-66,-8},{-66,-130},{-62,-130}}, color={0,0,127}));
   connect(conHeaVal.y, greThrHea.u)
@@ -222,7 +229,7 @@ fixme add description of disable conditions and state machine chart
 </p>
 <p align=\"center\">
 <img alt=\"Image of control loop state machine chart\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/fixme.png\"/>
+src=\"modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/fixme.png\"/>
 </p>
 <p>
 The Cooling Loop shall maintain the space temperature at the active zone cooling setpoint. The Heating Loop shall
@@ -235,7 +242,7 @@ This chart illustrates the control loops:
 </p>
 <p align=\"center\">
 <img alt=\"Image of heating and cooling loop control chart\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/Atomic/fixmeAddImage.png\"/>
+src=\"modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/fixmeAddImage.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
