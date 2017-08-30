@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Integers "Library with elementary mathematical functions for integer variables"
+package Integers "Package with elementary mathematical functions for integer variables"
   extends Modelica.Icons.Package;
 
 annotation (

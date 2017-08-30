@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Conversions "Library with blocks for type conversion"
+package Conversions "Package with blocks for type conversion"
   extends Modelica.Icons.Package;
 
 annotation (

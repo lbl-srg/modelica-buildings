@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Logical "Library with logical blocks"
+package Logical "Package with logical blocks"
    extends Modelica.Icons.Package;
 
 annotation (

@@ -53,7 +53,7 @@ partial model DataCenter
     rooHei=3,
     m_flow_nominal=mAir_flow_nominal,
     QRoo_flow=500000) "Room model" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-10,10},{10,-10}},
         origin={248,-238})));
   Buildings.Fluid.Movers.FlowControlled_dp pumCHW(
     redeclare package Medium = MediumW,
@@ -279,7 +279,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(expTowTApp.y, wseCon.towTApp) annotation (Line(
-      points={{-201,-20},{-178,-20},{-178,-32.75},{-162,-32.75}},
+      points={{-201,-20},{-178,-20},{-178,-31.9412},{-162,-31.9412}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -341,7 +341,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(mFanFlo.y, fan.m_flow_in) annotation (Line(
-      points={{319,-200},{338.2,-200},{338.2,-213}},
+      points={{319,-200},{338,-200},{338,-213}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -352,17 +352,17 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(wseCon.y2, val1.y) annotation (Line(
-      points={{-139,-34},{134,-34},{134,-40},{206,-40}},
+      points={{-139,-31.9412},{134,-31.9412},{134,-40},{206,-40}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(wseCon.y1, val3.y) annotation (Line(
-      points={{-139,-24},{58,-24},{58,-40},{118,-40},{118,-48}},
+      points={{-139,-27.2353},{58,-27.2353},{58,-40},{118,-40},{118,-48}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(wseCon.y1, val4.y) annotation (Line(
-      points={{-139,-24},{-20,-24},{-20,180},{86,180}},
+      points={{-139,-27.2353},{-20,-27.2353},{-20,180},{86,180}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -372,12 +372,12 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(roo.airPorts[1],TAirSup. port_b) annotation (Line(
-      points={{249.85,-228},{249.85,-225},{278,-225}},
+      points={{250.475,-229.3},{250.475,-225},{278,-225}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(roo.airPorts[2], cooCoi.port_a2) annotation (Line(
-      points={{246.15,-228},{246.15,-225},{218,-225},{218,-181},{278,-181}},
+      points={{246.425,-229.3},{246.425,-225},{218,-225},{218,-181},{278,-181}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -431,14 +431,14 @@ equation
       pattern=LinePattern.Dash));
   connect(wseCon.wseCWST, TCWLeaTow.T)
                                       annotation (Line(
-      points={{-162,-37.625},{-300,-37.625},{-300,290},{380,290},{380,137},{330,
-          137},{330,130}},
+      points={{-162,-36.5294},{-300,-36.5294},{-300,290},{380,290},{380,137},{
+          330,137},{330,130}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(wseCon.wseCHWST, TCHWLeaCoi.T)
                                         annotation (Line(
-      points={{-162,-22.75},{-176,-22.75},{-176,-80},{207,-80}},
+      points={{-162,-22.5294},{-176,-22.5294},{-176,-80},{207,-80}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -451,7 +451,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(wseCon.TWetBul, weaBus.TWetBul) annotation (Line(
-      points={{-162,-29},{-322,-29},{-322,-88}},
+      points={{-162,-28.4118},{-322,-28.4118},{-322,-88}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash), Text(
@@ -528,7 +528,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(gain.y, pumCHW.dp_in) annotation (Line(
-      points={{-39,100},{20,100},{20,-120.2},{206,-120.2}},
+      points={{-39,100},{20,100},{20,-120},{206,-120}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -558,7 +558,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(greaterThreshold.u, wseCon.y1) annotation (Line(
-      points={{-12,200},{-20,200},{-20,-24},{-139,-24}},
+      points={{-12,200},{-20,200},{-20,-27.2353},{-139,-27.2353}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -579,7 +579,7 @@ equation
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(mCWFlo.y, pumCW.m_flow_in) annotation (Line(
-      points={{81,200},{218,200},{218,200.2},{346,200.2}},
+      points={{81,200},{218,200},{218,200},{346,200}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));

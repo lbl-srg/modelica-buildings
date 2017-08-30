@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "outAir.y[1]",
+    "roo.T",
+    "mixAirSetPoi.y",
+    "senTemMixAir.T",
+    "con.y",
+    "eco.damOA.y_actual"
+  };
