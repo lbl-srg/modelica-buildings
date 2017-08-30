@@ -1,5 +1,5 @@
 within Buildings.Applications.DataCenters.Examples;
-model DXCooledDataCenter
+model DXCooledAirsideEconomizer
   "Example that illustrates the use of Buildings.Fluid.HeatExchanger.DXCoil in a data center room"
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.Air;
@@ -26,15 +26,14 @@ model DXCooledDataCenter
     QRooC_flow_nominal
     "Cooling load of coil";
 
-  Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom datCenRoo(
+  Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom roo(
     redeclare package Medium = Medium,
     rooLen=50,
     rooHei=3,
     rooWid=40,
     QRoo_flow=QRooInt_flow,
     m_flow_nominal=mA_flow_nominal,
-    nPorts=2)
-    "Simplified data center room"
+    nPorts=2) "Simplified data center room"
     annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
   Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed varSpeDX(
     redeclare package Medium = Medium,
@@ -262,15 +261,14 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(fan.port_b, datCenRoo.airPorts[1]) annotation (Line(points={{188,-60},
-          {200,-60},{200,-132},{152.475,-132},{152.475,-118.7}}, color={0,127,
+  connect(fan.port_b, roo.airPorts[1]) annotation (Line(points={{188,-60},{200,
+          -60},{200,-132},{152.475,-132},{152.475,-118.7}}, color={0,127,255}));
+  connect(eco.port_Ret, roo.airPorts[2]) annotation (Line(points={{-60,0},{-60,
+          0},{-50,0},{-50,-132},{148.425,-132},{148.425,-118.7}}, color={0,127,
           255}));
-  connect(eco.port_Ret, datCenRoo.airPorts[2]) annotation (Line(points={{-60,0},
-          {-60,0},{-50,0},{-50,-132},{148.425,-132},{148.425,-118.7}}, color={0,
-          127,255}));
-  connect(datCenRoo.TRooAir, cooModCon.TRet) annotation (Line(points={{161,-110},
-          {161,-110},{180,-110},{180,-88},{-100,-88},{-100,62},{-92,62}}, color=
-         {0,0,127}));
+  connect(roo.TRooAir, cooModCon.TRet) annotation (Line(points={{161,-110},{161,
+          -110},{180,-110},{180,-88},{-100,-88},{-100,62},{-92,62}}, color={0,0,
+          127}));
   connect(const.y, feedback1.u1)
     annotation (Line(points={{21,130},{42,130}}, color={0,0,127}));
   connect(cooModCon.y, ecoCon.cooMod) annotation (Line(points={{-69,70},{-62,70},
@@ -279,7 +277,7 @@ equation
             {100,100}})),
             Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
             -160},{220,180}})),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/Examples/DXCooledDataCenter.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/Examples/DXCooledAirsideEconomizer.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>
@@ -325,4 +323,4 @@ First implementation.
       StartTime=11880000,
       StopTime=12600000,
       Tolerance=1e-06));
-end DXCooledDataCenter;
+end DXCooledAirsideEconomizer;

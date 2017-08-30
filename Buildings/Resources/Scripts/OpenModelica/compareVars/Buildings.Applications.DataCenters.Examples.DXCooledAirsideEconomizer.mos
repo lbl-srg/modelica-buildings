@@ -5,7 +5,7 @@ compareVars :=
     "dam1.y_actual",
     "dam2.y",
     "senTemSupAir.T",
-    "datCenRoo.TRooAir",
+    "roo.TRooAir",
     "weaBus.TDryBul",
     "weaBus.TDewPoi",
     "varSpeDX.QSen_flow",

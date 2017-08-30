@@ -1,11 +1,11 @@
-simulateModel("Buildings.Applications.DataCenters.Examples.DXCooledDataCenter", startTime=1.188e+07, stopTime=1.26e+07, tolerance=1e-06, method="dassl", resultFile="DXCooledDataCenter");
+simulateModel("Buildings.Applications.DataCenters.Examples.DXCooledAirsideEconomizer", startTime=1.188e+07, stopTime=1.26e+07, tolerance=1e-06, method="dassl", resultFile="DXCooledAirsideEconomizer");
 removePlots(false);
 createPlot(id=1,
  position={-15, 5, 592, 427},
  y={"ecoCon.y"},
  range={0.0, 9000.0, -1.0, 2.0},
  grid=true,
- filename="DXCooledDataCenter.mat",
+ filename="DXCooledAirsideEconomizer.mat",
  colors={{28,108,200}});
 createPlot(id=1,
  position={-15, 5, 592, 139},
@@ -23,7 +23,7 @@ createPlot(id=1,
  colors={{28,108,200}, {238,46,47}});
 createPlot(id=3,
  position={210, 3, 623, 427},
- y={"senTemSupAir.T", "datCenRoo.TRooAir", "weaBus.TDryBul", "weaBus.TDewPoi"},
+ y={"senTemSupAir.T", "roo.TRooAir", "weaBus.TDryBul", "weaBus.TDewPoi"},
  range={0.0, 9000.0, -30.0, 35.0},
  grid=true,
  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
