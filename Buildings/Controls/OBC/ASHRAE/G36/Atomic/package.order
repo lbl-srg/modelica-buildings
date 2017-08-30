@@ -4,6 +4,7 @@ EconEnableDisableMultiZone
 EconEnableDisableSingleZone
 EconModulationMultiZone
 EconModulationSingleZone
+HeatingCoolingControlLoops
 OperationModeSelector
 OutdoorAirFlowSetpoint_MultiZone
 OutdoorAirFlowSetpoint_SingleZone

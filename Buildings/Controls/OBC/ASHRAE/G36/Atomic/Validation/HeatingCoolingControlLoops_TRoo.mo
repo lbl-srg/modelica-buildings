@@ -1,4 +1,4 @@
-within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.Validation;
+within Buildings.Controls.OBC.ASHRAE.G36.Atomic.Validation;
 model HeatingCoolingControlLoops_TRoo
   "Validation model for heating and cooling coil control signal generator"
   extends Modelica.Icons.Example;
@@ -46,8 +46,8 @@ equation
 This example validates
 <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.HeatingCoolingControlLoops\">
 Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.HeatingCoolingControlLoops</a>
-for zone temperature (<code>TRoo</code>) signal under fixed zone cooling (<code>TRooCooSet</code>) 
-and heating (<code>TRooHeaSet</code>) temperature 
+for zone temperature (<code>TRoo</code>) signal under fixed zone cooling (<code>TRooCooSet</code>)
+and heating (<code>TRooHeaSet</code>) temperature
 setpoints.
 </p>
 </html>", revisions="<html>

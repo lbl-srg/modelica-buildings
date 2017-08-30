@@ -1,4 +1,4 @@
-within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic;
+within Buildings.Controls.OBC.ASHRAE.G36.Atomic.Validation;
 block HeatingCoolingControlLoops "Generates heating and cooling control signals to maintain zone set temperature"
 
   parameter Real kPCoo=1 "Gain of damper limit controller"

@@ -1,4 +1,4 @@
-within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.Atomic.Validation;
+within Buildings.Controls.OBC.ASHRAE.G36.Atomic.Validation;
 model HeatingCoolingControlLoops_LoopDisable
   "Validation model for heating and cooling coil control signal generator"
   extends Modelica.Icons.Example;
