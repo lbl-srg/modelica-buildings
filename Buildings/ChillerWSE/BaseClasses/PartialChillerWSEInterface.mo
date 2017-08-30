@@ -30,7 +30,6 @@ partial model PartialChillerWSEInterface
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
   parameter Integer n(min=1)=2 "Total number of chillers and waterside economizer";
 
-
   Modelica.Blocks.Interfaces.RealInput TSet(
     final unit="K",
     final quantity="ThermodynamicTemperature",
