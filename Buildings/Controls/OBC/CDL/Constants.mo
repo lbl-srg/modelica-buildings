@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Constants "Library of constants"
+package Constants "Package with constants"
   extends Modelica.Icons.Package;
 
   // Machine dependent constants
