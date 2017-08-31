@@ -35,14 +35,16 @@ annotation (
           fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
-                                   Text(
-          extent={{-90,-40},{60,40}},
-          lineColor={0,0,0},
-          textString=">="),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          lineColor={0,0,255}),
+        Line(
+          points={{-54,22},{-8,2},{-54,-18}},
+          thickness=0.5),
+        Line(
+          points={{-52,-36},{-6,-14}},
+          thickness=0.5)}),
   Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if the Real input is greater than or equal to

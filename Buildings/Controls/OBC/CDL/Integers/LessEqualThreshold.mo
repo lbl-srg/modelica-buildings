@@ -34,14 +34,19 @@ annotation (
         Text(
           extent={{-150,-140},{150,-110}},
           lineColor={0,0,0},
-          textString="%threshold"),Text(
-          extent={{-90,-40},{60,40}},
-          lineColor={255,127,0},
-          textString="<="),
+          textString="%threshold"),
         Text(
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Line(
+          points={{-54,-18},{-14,-34}},
+          thickness=0.5,
+          color={255,127,0}),
+        Line(
+          points={{-10,20},{-54,0},{-10,-18}},
+          thickness=0.5,
+          color={255,127,0})}),
  Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if the Integer input is less than or equal to

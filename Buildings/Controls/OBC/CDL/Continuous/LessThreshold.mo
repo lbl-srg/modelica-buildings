@@ -32,14 +32,14 @@ equation
         Text(
           extent={{-150,-140},{150,-110}},
           lineColor={0,0,0},
-          textString="%threshold"),Text(
-          extent={{-90,-40},{60,40}},
-          lineColor={0,0,0},
-          textString="<"),
+          textString="%threshold"),
         Text(
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Line(
+          points={{-10,20},{-54,0},{-10,-18}},
+          thickness=0.5)}),
 Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if the Real input is less than
