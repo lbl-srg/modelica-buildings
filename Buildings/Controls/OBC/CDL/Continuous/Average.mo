@@ -16,9 +16,9 @@ block Average "Output the average of its two inputs"
 equation
   y = 0.5*(u1 + u2);
 
-  annotation (
-    defaultComponentName="ave",
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+annotation (
+  defaultComponentName="ave",
+  Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(
           lineColor={0,0,255},

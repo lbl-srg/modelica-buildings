@@ -82,7 +82,7 @@ block OutdoorAirFlowSetpoint_SingleZone
   CDL.Logical.Switch swi3
     "If supply fan is off, then outdoor airflow rate should be zero."
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
-  CDL.Logical.Hysteresis hys(
+  CDL.Continuous.Hysteresis hys(
     uLow=uLow,
     uHigh=uHig,
     pre_y_start=true)

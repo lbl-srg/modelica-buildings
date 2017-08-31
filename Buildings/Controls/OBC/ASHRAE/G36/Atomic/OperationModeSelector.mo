@@ -98,13 +98,13 @@ block OperationModeSelector "Block that outputs the operation mode"
   CDL.Continuous.Sum sum1(nin=numOfZon)
     "Sum up number of zones that have temperature being lower than setpoint"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  CDL.Logical.GreaterEqualThreshold greEquThr(final threshold=5)
+  CDL.Continuous.GreaterEqualThreshold greEquThr(final threshold=5)
     "Whether or not the number of \"cold\" zone is more than 5"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  CDL.Logical.GreaterEqualThreshold greEquThr1(final threshold=numOfZon)
+  CDL.Continuous.GreaterEqualThreshold greEquThr1(final threshold=numOfZon)
     "Whether or not all the zones are \"cold\" zone"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
-  CDL.Logical.Hysteresis hys(
+  CDL.Continuous.Hysteresis hys(
     uLow=-0.5*bouLim,
     uHigh=0.5*bouLim,
     pre_y_start=false)
@@ -137,13 +137,13 @@ block OperationModeSelector "Block that outputs the operation mode"
   CDL.Continuous.Sum sum2(final nin=numOfZon)
     "Sum up number of zones that have temperature being higher than setpoint"
     annotation (Placement(transformation(extent={{0,-220},{20,-200}})));
-  CDL.Logical.GreaterEqualThreshold greEquThr2(threshold=5)
+  CDL.Continuous.GreaterEqualThreshold greEquThr2(threshold=5)
     "Whether or not the number of \"hot\" zone is more than 5"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
-  CDL.Logical.GreaterEqualThreshold greEquThr3(final threshold=numOfZon)
+  CDL.Continuous.GreaterEqualThreshold greEquThr3(final threshold=numOfZon)
     "Whether or not all the zones are \"hot\" zone"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
-  CDL.Logical.Hysteresis hys1(
+  CDL.Continuous.Hysteresis hys1(
     pre_y_start=false,
     uLow=-0.5*bouLim,
     uHigh=0.5*bouLim)
@@ -194,14 +194,14 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Calculate the difference between maximum zone temperature and
     unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{80,-280},{100,-260}})));
-  CDL.Logical.Hysteresis hys2(
+  CDL.Continuous.Hysteresis hys2(
     uLow=-10,
     uHigh=10,
     pre_y_start=true)
     "Whether or not the maximum cool-down time is more than allowed
     cool-down time, with deadband range of 20 seconds"
     annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
-  CDL.Logical.Hysteresis hys3(
+  CDL.Continuous.Hysteresis hys3(
     uLow=-10,
     uHigh=10,
     pre_y_start=true)
@@ -214,14 +214,14 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Calculate differential between time-to-next-occupancy and the
     cool-down time"
     annotation (Placement(transformation(extent={{60,180},{80,200}})));
-  CDL.Logical.Hysteresis hys4(
+  CDL.Continuous.Hysteresis hys4(
     pre_y_start=false,
     uLow=-10,
     uHigh=10)
     "Whether or not the cool-down model should be activated, with deadband
     range of 20 s"
     annotation (Placement(transformation(extent={{100,180},{120,200}})));
-  CDL.Logical.Hysteresis hys5(
+  CDL.Continuous.Hysteresis hys5(
     pre_y_start=false,
     uLow=-10,
     uHigh=10)
@@ -239,7 +239,7 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Calculate differential between minimum zone temperature and the
     heating setpoint"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  CDL.Logical.Hysteresis hys6(
+  CDL.Continuous.Hysteresis hys6(
     pre_y_start=false,
     uLow=-0.1,
     uHigh=0.1) "Whether or not the system should run in warm-up mode"
@@ -250,7 +250,7 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Calculate differential between maximum zone temperature and the cooling
     setpoint"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  CDL.Logical.Hysteresis hys7(
+  CDL.Continuous.Hysteresis hys7(
     pre_y_start=false,
     uLow=-0.1,
     uHigh=0.1) "Whether or not the system should run in cool-down mode"
@@ -259,14 +259,14 @@ block OperationModeSelector "Block that outputs the operation mode"
     each k1=-1,
     each k2=+1) "Calculate zone temperature difference to setpoint"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  CDL.Logical.Hysteresis hys8[numOfZon](
+  CDL.Continuous.Hysteresis hys8[numOfZon](
     each pre_y_start=false,
     each uLow=-0.1,
     each uHigh=0.1)
     "Whether or not the zone temperature is lower then setpoint, with
     deadband of 0.2 degC"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  CDL.Logical.Hysteresis hys9(
+  CDL.Continuous.Hysteresis hys9(
     pre_y_start=false,
     uLow=-0.1,
     uHigh=0.1)
@@ -279,7 +279,7 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Calculate differential between minimum zone temperature and freeze
     protection threshold temperature"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
-  CDL.Logical.Hysteresis hys10(
+  CDL.Continuous.Hysteresis hys10(
     pre_y_start=false,
     uLow=-0.1,
     uHigh=0.1)
@@ -296,7 +296,7 @@ block OperationModeSelector "Block that outputs the operation mode"
     each k1=+1,
     each k2=-1) "Calculate zone temperature difference to setpoint"
     annotation (Placement(transformation(extent={{-160,-220},{-140,-200}})));
-  CDL.Logical.Hysteresis hys11[numOfZon](
+  CDL.Continuous.Hysteresis hys11[numOfZon](
     each pre_y_start=false,
     each uLow=-0.1,
     each uHigh=0.1)

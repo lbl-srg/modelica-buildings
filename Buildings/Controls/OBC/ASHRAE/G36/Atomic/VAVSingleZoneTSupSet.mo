@@ -77,17 +77,17 @@ protected
   Controls.SetPoints.Table yHea(final table=[0.5,yMin; 1,yHeaMax])
     "Fan speed for heating"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  CDL.Logical.LessEqualThreshold yMinChe1(final threshold=0.25)
+  CDL.Continuous.LessEqualThreshold yMinChe1(final threshold=0.25)
     "Check for cooling signal for fan speed"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   CDL.Logical.Switch switch1
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-  CDL.Logical.LessEqualThreshold yMinChe2(final threshold=0.5)
+  CDL.Continuous.LessEqualThreshold yMinChe2(final threshold=0.5)
     "Check for cooling signal for fan speed"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   CDL.Logical.Switch switch2
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
-  CDL.Logical.LessEqualThreshold yMinChe3(threshold=0.75)
+  CDL.Continuous.LessEqualThreshold yMinChe3(threshold=0.75)
     "Check for cooling signal for fan speed"
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
   CDL.Logical.Switch switch3

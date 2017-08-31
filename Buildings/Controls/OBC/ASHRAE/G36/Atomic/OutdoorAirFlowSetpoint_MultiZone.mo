@@ -195,7 +195,7 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Continuous.Min min1
     "Uncorrected outdoor air rate should not be higher than its design value"
     annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
-  CDL.Logical.Hysteresis hys[numOfZon](
+  CDL.Continuous.Hysteresis hys[numOfZon](
     each uLow=uLow,
     each uHigh=uHig,
     each pre_y_start=true)

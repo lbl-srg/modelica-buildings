@@ -8,7 +8,7 @@ block IsHoliday
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
-  y = u == CDL.Types.Day.Holiday;
+  y = u == Buildings.Controls.OBC.CDL.Types.Day.Holiday;
 
 annotation (
 defaultComponentName="isHol",
