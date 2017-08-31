@@ -116,12 +116,12 @@ protected
   CDL.Continuous.Sources.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
     "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
     annotation (Placement(transformation(extent={{-140,-220},{-120,-200}})));
-  CDL.Logical.Hysteresis hysOutTem(
+  CDL.Continuous.Hysteresis hysOutTem(
     final uHigh=TOutHigLimCutHig,
     final uLow=TOutHigLimCutLow)
     "Outdoor air temperature hysteresis for both fixed and differential dry bulb temperature cutoff conditions"
     annotation (Placement(transformation(extent={{-100,240},{-80,260}})));
-  CDL.Logical.Hysteresis hysOutEnt(
+  CDL.Continuous.Hysteresis hysOutEnt(
     final uLow=hOutHigLimCutLow,
     final uHigh=hOutHigLimCutHig) if use_enthalpy
     "Outdoor air enthalpy hysteresis for both fixed and differential enthalpy cutoff conditions"
@@ -141,10 +141,10 @@ protected
     annotation (Placement(transformation(extent={{-40,200},{-20,220}})));
   CDL.Logical.Not not2 "Logical not that starts the timer at disable signal "
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
-  CDL.Logical.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage0)
+  CDL.Continuous.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage0)
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  CDL.Logical.GreaterThreshold greThr(final threshold=Constants.ZoneStates.heating)
+  CDL.Continuous.GreaterThreshold greThr(final threshold=Constants.ZoneStates.heating)
     "Check if ZoneState is other than heating"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   CDL.Logical.And and1 "Logical and checks supply fan status"

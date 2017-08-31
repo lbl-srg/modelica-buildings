@@ -8,7 +8,7 @@ block Pulse "Generate pulse signal of type Boolean"
   parameter Modelica.SIunits.Time period(
     final min=Constants.small) "Time for one period";
   parameter Modelica.SIunits.Time startTime=0 "Time instant of first pulse";
-  Controls.OBC.CDL.Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected

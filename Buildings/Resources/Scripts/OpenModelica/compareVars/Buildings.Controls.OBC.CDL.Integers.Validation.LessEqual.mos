@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "intLesEqu.u1",
+    "intLesEqu.u2",
+    "intLesEqu.y"
+  };

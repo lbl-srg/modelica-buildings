@@ -697,7 +697,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           Buildings.Controls.Continuous.PIDHysteresis<br/>
                           Buildings.Controls.Continuous.PIDHysteresisTimer<br/>
           </td>
-          <td valign=\"top\">Added option to reset the control output when an optional boolean input signal
+          <td valign=\"top\">Added option to reset the control output when an optional Boolean input signal
                            changes from <code>false</code> to <code>true</code>.<br/>
                            This closes
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/494\">IBPSA, #494</a>.
@@ -1491,7 +1491,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
     </td>
     <td valign=\"top\">Added the parameter <code>inputType</code> which allows
                        to set the input as an continuous input signal,
-                       to set the input as an integer input signal that selects the stage of the mover,
+                       to set the input as an Integer input signal that selects the stage of the mover,
                        or to remove the input connector and use a parameter
                        to assign the control signal.
     </td>

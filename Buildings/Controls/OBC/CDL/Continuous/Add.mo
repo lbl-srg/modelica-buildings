@@ -18,8 +18,8 @@ equation
   y = k1*u1 + k2*u2;
 
 annotation (
-defaultComponentName="add2",
-Documentation(info="<html>
+  defaultComponentName="add2",
+  Documentation(info="<html>
 <p>
 Block that outputs <code>y</code> as the weighted <i>sum</i> of the
 two input signals <code>u1</code> and <code>u2</code>,

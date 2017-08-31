@@ -11,10 +11,10 @@ block TriggeredTrapezoid "Triggered trapezoid generator"
 
   parameter Real offset=0 "Offset of output signal";
 
-  Controls.OBC.CDL.Interfaces.BooleanInput u "Connector of Boolean input signal"
+  Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Controls.OBC.CDL.Interfaces.RealOutput y "Connector of Real output signal"
+  Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected

@@ -46,7 +46,8 @@ equation
   connect(ram2.y, extSig.u[5])
     annotation (Line(points={{-39,-60},{-24,-60},{-24,1.6},{-2,1.6}},
       color={0,0,127}));
-  annotation (
+
+annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Routing/Validation/ExtractSignal.mos"
         "Simulate and plot"),

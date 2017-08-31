@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.CDL.Discrete.Examples;
 model DayType "Example model for the source that outputs the type of the day"
   extends Modelica.Icons.Example;
-  Discrete.DayType dayTypMon
+  Buildings.Controls.OBC.CDL.Discrete.DayType dayTypMon
     "Model that outputs the type of the day, starting with Monday"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Discrete.DayType dayTypSat(iStart=6)
+  Buildings.Controls.OBC.CDL.Discrete.DayType dayTypSat(iStart=6)
     "Model that outputs the type of the day, starting with Saturday"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Discrete.DayType dayTypTwoWeeks(days={
+  Buildings.Controls.OBC.CDL.Discrete.DayType dayTypTwoWeeks(days={
         Types.Day.WorkingDay,Types.Day.WorkingDay,
         Types.Day.WorkingDay,Types.Day.WorkingDay,
         Types.Day.WorkingDay,Types.Day.WorkingDay,
@@ -18,7 +18,7 @@ model DayType "Example model for the source that outputs the type of the day"
       nout=14)
     "Model that outputs the type of the day, starting with 6 workdays, then 8 non-working days"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Discrete.DayType dayTypMonThr(nout=3)
+  Buildings.Controls.OBC.CDL.Discrete.DayType dayTypMonThr(nout=3)
     "Model that outputs the type of the day for 3 days, starting with Monday"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   annotation (
