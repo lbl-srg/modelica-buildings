@@ -98,8 +98,6 @@ block HeatingCoolingControlLoops "Generates heating and cooling control signals 
   CDL.Continuous.Sources.Constant looDisValSig(final k=conSigMin)
     "Output value at loop disable"
     annotation (Placement(transformation(extent={{100,-38},{120,-18}})));
-  CDL.Logical.Not notHea "Logical not block"
-    annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
   CDL.Logical.Not notCoo "Logical not block"
     annotation (Placement(transformation(extent={{-30,-140},{-10,-120}})));
   CDL.Logical.Switch heaLooDisSwi "Enable-disable switch for the heating loop signal"
@@ -110,11 +108,16 @@ block HeatingCoolingControlLoops "Generates heating and cooling control signals 
     "Logical not that prevents disable in case integral windup minimization in implemented"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
 
-  CDL.Logical.GreaterThreshold greThrHea(threshold=conSigMin) "Determine whether heating signal is active"
+  CDL.Logical.GreaterThreshold   greThrHea(threshold=conSigMin + CDL.Constants.eps)
+                                                                   "Determine whether heating signal is active"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  CDL.Logical.GreaterThreshold greThrCoo(threshold=conSigMin) "Determine whether cooling signal is active"
+  CDL.Logical.GreaterThreshold greThrCoo(threshold=conSigMin + CDL.Constants.eps)
+                                                              "Determine whether cooling signal is active"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
 
+  CDL.Logical.Not notCoo1
+                         "Logical not block"
+    annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
 equation
   connect(TRooHeaSet, conHeaVal.u_s)
     annotation (Line(points={{-160,140},{-160,140},{-102,140}},color={0,0,127}));
@@ -148,8 +151,6 @@ equation
     annotation (Line(points={{-160,30},{-120,30},{-120,-50},{-102,-50}},color={0,0,127}));
   connect(TRooHeaSet,disHea. u2)
     annotation (Line(points={{-160,140},{-130,140},{-130,-58},{-102,-58}}, color={0,0,127}));
-  connect(notHea.y, timNoHea.u)
-    annotation (Line(points={{-9,-30},{-9,-30},{-2,-30}}, color={255,0,255}));
   connect(notCoo.y, timNoCoo.u)
     annotation (Line(points={{-9,-130},{-9,-130},{-2,-130}}, color={255,0,255}));
   connect(TRoo,disCoo. u1)
@@ -182,14 +183,14 @@ equation
     annotation (Line(points={{41,70},{60,70},{60,52},{98,52}}, color={0,0,127}));
   connect(looDisValSig.y, cooLooDisSwi.u1)
     annotation (Line(points={{121,-28},{130,-28},{130,2},{80,2},{80,68},{98,68}}, color={0,0,127}));
-  connect(notHea.u, greThrHea.y)
-    annotation (Line(points={{-32,-30},{-39,-30}}, color={255,0,255}));
   connect(notCoo.u, greThrCoo.y)
     annotation (Line(points={{-32,-130},{-36,-130},{-39,-130}}, color={255,0,255}));
   connect(conCooInv.y, greThrCoo.u)
     annotation (Line(points={{41,70},{50,70},{50,-8},{-66,-8},{-66,-130},{-62,-130}}, color={0,0,127}));
   connect(conHeaVal.y, greThrHea.u)
     annotation (Line(points={{-79,140},{-70,140},{-70,-30},{-62,-30}}, color={0,0,127}));
+  connect(greThrHea.y, notCoo1.u) annotation (Line(points={{-39,-30},{-36,-30},{-32,-30}}, color={255,0,255}));
+  connect(timNoHea.u, notCoo1.y) annotation (Line(points={{-2,-30},{-9,-30}}, color={255,0,255}));
     annotation (Placement(transformation(extent={{-20,110},{0,130}})),
                 Placement(transformation(extent={{-20,20},{0,40}})),
                 Placement(transformation(extent={{60,90},{80,110}})),
