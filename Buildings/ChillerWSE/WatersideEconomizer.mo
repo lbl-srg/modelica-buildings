@@ -1,8 +1,8 @@
 within Buildings.ChillerWSE;
 model WatersideEconomizer "Waterside economizer"
   extends Buildings.ChillerWSE.BaseClasses.PartialPlantParallel(
-    final n=1,
-    final nVal=2,
+    final num=1,
+    final numVal=2,
     final m_flow_nominal={m1_flow_nominal,m2_flow_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
@@ -13,11 +13,12 @@ model WatersideEconomizer "Waterside economizer"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1,
     redeclare package Medium=Medium2);
-  extends Buildings.ChillerWSE.BaseClasses.ThreeWayValveParameters;
+  extends Buildings.ChillerWSE.BaseClasses.ThreeWayValveParameters(
+    final activate_ThrWayVal=use_Controller);
   extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface;
 
   // Filter opening
-  parameter Real yBypVal_start=1
+  parameter Real yThrWayVal_start=1
    "Initial value of output from the filter in the bypass valve"
     annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_Controller and use_inputFilter));
   parameter Real yValWSE_start=1
@@ -28,7 +29,7 @@ model WatersideEconomizer "Waterside economizer"
   parameter Modelica.SIunits.Efficiency eta(start=0.8) "constant effectiveness";
 
  // Bypass valve parameters
-  parameter Modelica.SIunits.Time tau_ThrWayVal=10
+  parameter Modelica.SIunits.Time tauThrWayVal=10
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
     annotation(Dialog(tab="Dynamics", group="Nominal condition",
                enable=use_Controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
@@ -85,13 +86,13 @@ model WatersideEconomizer "Waterside economizer"
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTimeValve,
     final init=initValve,
-    final yBypVal_start=yBypVal_start,
+    final yThrWayVal_start=yThrWayVal_start,
     final eta=eta,
     final fraK_ThrWayVal=fraK_ThrWayVal,
     each final l_ThrWayVal=l_ThrWayVal,
     final R=R,
     final delta0=delta0,
-    final tau_ThrWayVal=tau_ThrWayVal,
+    final tauThrWayVal=tauThrWayVal,
     final portFlowDirection_1=portFlowDirection_1,
     final portFlowDirection_2=portFlowDirection_2,
     final portFlowDirection_3=portFlowDirection_3,

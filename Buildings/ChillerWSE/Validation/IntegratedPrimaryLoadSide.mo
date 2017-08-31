@@ -10,16 +10,16 @@ model IntegratedPrimaryLoadSide
     TEva_in(k=273.15 + 15.28));
 
   Buildings.ChillerWSE.IntegratedPrimaryLoadSide intWSEPri(
-    mChiller1_flow_nominal=mCW_flow_nominal,
-    mChiller2_flow_nominal=mCHW_flow_nominal,
-    mWSE1_flow_nominal=mCW_flow_nominal,
-    mWSE2_flow_nominal=mCHW_flow_nominal,
+    m1_flow_chi_nominal=mCW_flow_nominal,
+    m2_flow_chi_nominal=mCHW_flow_nominal,
+    m1_flow_wse_nominal=mCW_flow_nominal,
+    m2_flow_wse_nominal=mCHW_flow_nominal,
     redeclare package Medium1 = MediumCW,
     redeclare package Medium2 = MediumCHW,
-    dpChiller1_nominal=dpCW_nominal,
-    dpWSE1_nominal=dpCW_nominal,
-    dpChiller2_nominal=dpCHW_nominal,
-    dpWSE2_nominal=dpCHW_nominal,
+    dp1_chi_nominal=dpCW_nominal,
+    dp1_wse_nominal=dpCW_nominal,
+    dp2_chi_nominal=dpCHW_nominal,
+    dp2_wse_nominal=dpCHW_nominal,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     redeclare
       Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHF_2567kW_11_77COP_VSD
@@ -27,7 +27,7 @@ model IntegratedPrimaryLoadSide
     k=0.4,
     Ti=80,
     perPum=perPum,
-    nChi=nChi,
+    numChi=numChi,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Integrated waterside economizer on the load side of the primary-only chilled water system"
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));

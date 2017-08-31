@@ -15,7 +15,7 @@ model ElectricChillerParallel "Model that test electric chiller parallel"
     per2 "Chiller performance data"
     annotation (Placement(transformation(extent={{32,80},{52,100}})));
   Buildings.ChillerWSE.ElectricChillerParallel chiPar(
-    n=2,
+    num=2,
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=mEva_flow_nominal,

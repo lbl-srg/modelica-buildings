@@ -16,25 +16,25 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
    // Filter opening
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_Controller));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=activate_ThrWayVal));
   parameter Modelica.SIunits.Time riseTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",
-      enable=(use_Controller and use_inputFilter)));
+      enable=(activate_ThrWayVal and use_inputFilter)));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",
-      enable=(use_Controller and use_inputFilter)));
-  parameter Real yBypVal_start=1
+      enable=(activate_ThrWayVal and use_inputFilter)));
+  parameter Real yThrWayVal_start=1
     "Initial value of output from the filter in the bypass valve"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",
-      enable=(use_Controller and use_inputFilter)));
+      enable=(activate_ThrWayVal and use_inputFilter)));
 
  // Time constant
-   parameter Modelica.SIunits.Time tau_ThrWayVal=10
+   parameter Modelica.SIunits.Time tauThrWayVal=10
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
     annotation(Dialog(tab="Dynamics", group="Nominal condition",
-               enable=(use_Controller and not energyDynamics ==
+               enable=(activate_ThrWayVal and not energyDynamics ==
                Modelica.Fluid.Types.Dynamics.SteadyState)));
   // Advanced
   parameter Boolean homotopyInitialization = true
@@ -42,16 +42,9 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Modelica.SIunits.Density rhoStd = Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)
     "Inlet density for which valve coefficients are defined"
-    annotation(Dialog(group="Nominal condition", tab="Advanced",enable=use_Controller));
+    annotation(Dialog(group="Nominal condition", tab="Advanced",enable=activate_ThrWayVal));
 
-  Modelica.Blocks.Interfaces.RealInput TSet(
-    final unit="K",
-    final quantity="ThermodynamicTemperature",
-    displayUnit="degC") if use_Controller
-    "Temperature setpoint for port_b2"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear bypVal(
+  Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear thrWayVal(
     redeclare package Medium = Medium2,
     final from_dp=from_dp2,
     final linearized={linearizeFlowResistance2,linearizeFlowResistance2},
@@ -71,7 +64,7 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     final C_start=C_start,
     final C_nominal=C_nominal,
     final X_start=X_start,
-    final y_start=yBypVal_start,
+    final y_start=yThrWayVal_start,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final l=l_ThrWayVal,
     final dpValve_nominal=dp2_nominal,
@@ -80,8 +73,8 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     final portFlowDirection_1=portFlowDirection_1,
     final portFlowDirection_2=portFlowDirection_2,
     final portFlowDirection_3=portFlowDirection_3,
-    final tau=tau_ThrWayVal) if use_Controller
-    "Bypass valve used to control the outlet temperature "
+    final tau=tauThrWayVal) if activate_ThrWayVal
+    "Three-way valve used to control the outlet temperature "
     annotation (Placement(transformation(extent={{-40,-40},{-60,-20}})));
 
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
@@ -117,16 +110,13 @@ equation
   connect(hex.port_a2, port_a2)
     annotation (Line(points={{10,-6},{40,-6},{40,-60},{100,-60}},
       color={0,127,255}));
-  if use_Controller then
-    connect(hex.port_b2, bypVal.port_1)
-      annotation (Line(points={{-10,-6},{-28,-6},{-28,-30},{-40,-30}},
-        color={0,127,255}));
-    connect(port_a2, bypVal.port_3)
-      annotation (Line(points={{100,-60},{-50,-60},{-50,-40}},
-        color={0,127,255}));
-    connect(bypVal.port_2, port_b2)
-      annotation (Line(points={{-60,-30},{-60,-30},{-80,-30},
-        {-80,-60},{-100,-60}},color={0,127,255}));
+  if activate_ThrWayVal then
+    connect(hex.port_b2, thrWayVal.port_1) annotation (Line(points={{-10,-6},{-28,
+            -6},{-28,-30},{-40,-30}}, color={0,127,255}));
+    connect(port_a2, thrWayVal.port_3) annotation (Line(points={{100,-60},{-50,-60},
+            {-50,-40}}, color={0,127,255}));
+    connect(thrWayVal.port_2, port_b2) annotation (Line(points={{-60,-30},{-60,-30},
+            {-80,-30},{-80,-60},{-100,-60}}, color={0,127,255}));
   else
     connect(port_b2, hex.port_b2)
       annotation (Line(points={{-100,-60},{-80,-60},{-80,-6},{-10,-6}},

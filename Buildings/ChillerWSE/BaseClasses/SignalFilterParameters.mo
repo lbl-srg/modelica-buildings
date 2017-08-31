@@ -1,7 +1,7 @@
 within Buildings.ChillerWSE.BaseClasses;
 record SignalFilterParameters
   "Record that contains the parameters of the filtered opening for multiple valves and dampers"
-  parameter Integer nFilter(min=1)=4 "Number of filters";
+  parameter Integer numFil(min=1)=4 "Number of filters";
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
@@ -11,7 +11,7 @@ record SignalFilterParameters
   parameter Modelica.Blocks.Types.Init initValve=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Real[nFilter] yValve_start=fill(1,nFilter)
+  parameter Real[numFil] yValve_start=fill(1,numFil)
     "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

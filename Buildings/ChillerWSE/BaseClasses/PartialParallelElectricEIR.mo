@@ -2,7 +2,7 @@ within Buildings.ChillerWSE.BaseClasses;
 partial model PartialParallelElectricEIR
   "Partial model for electric chiller parallel"
   extends Buildings.ChillerWSE.BaseClasses.PartialPlantParallel(
-    final nVal = 2,
+    final numVal = 2,
     final m_flow_nominal = {m1_flow_nominal,m2_flow_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
       Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
@@ -62,7 +62,7 @@ partial model PartialParallelElectricEIR
     final quantity=Medium2.extraPropertiesNames) = fill(1E-2, Medium2.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", group = "Medium 2", enable=Medium2.nC > 0));
-  Modelica.Blocks.Interfaces.BooleanInput on[n]
+  Modelica.Blocks.Interfaces.BooleanInput on[num]
     "Set to true to enable compressor, or false to disable compressor"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput TSet(
@@ -72,13 +72,13 @@ partial model PartialParallelElectricEIR
     "Set point for leaving water temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput P[n](
+  Modelica.Blocks.Interfaces.RealOutput P[num](
     each final quantity="Power",
     each final unit="W")
     "Electric power consumed by chiller compressor"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
 
-  replaceable Buildings.Fluid.Chillers.BaseClasses.PartialElectric chi[n](
+  replaceable Buildings.Fluid.Chillers.BaseClasses.PartialElectric chi[num](
     redeclare each replaceable package Medium1 = Medium1,
     redeclare each replaceable package Medium2 = Medium2,
     each final allowFlowReversal1=allowFlowReversal1,
@@ -111,11 +111,11 @@ partial model PartialParallelElectricEIR
     each final X2_start=X2_start,
     each final C2_start=C2_start,
     each final C2_nominal=C2_nominal)
-    "Identical chiller with number n"
+    "Identical chillers"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
-  for i in 1:n loop
+  for i in 1:num loop
   connect(TSet, chi[i].TSet)
     annotation (Line(points={{-120,0},{-90,0},{-90,-3},{-12,-3}},
       color={0,0,127}));
@@ -138,7 +138,7 @@ equation
         color={0,0,127}));
   annotation (Documentation(info="<html>
 Partial model that implements the parallel electric chillers with associated valves.
-The parallel have <code>n</code> identical chillers. 
+The parallel have <code>num</code> identical chillers. 
 </html>",
         revisions="<html>
 <ul>

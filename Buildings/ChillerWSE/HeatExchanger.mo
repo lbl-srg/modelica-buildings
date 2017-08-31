@@ -1,8 +1,17 @@
 within Buildings.ChillerWSE;
 model HeatExchanger "Heat exchanger"
-  extends Buildings.ChillerWSE.BaseClasses.PartialHeatExchanger;
+  extends Buildings.ChillerWSE.BaseClasses.PartialHeatExchanger(
+    final activate_ThrWayVal=use_Controller);
   extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface;
 
+
+  Modelica.Blocks.Interfaces.RealInput TSet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC") if use_Controller
+    "Temperature setpoint for port_b2"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.Continuous.LimPID con(
     final controllerType=controllerType,
     final k=k,
@@ -39,8 +48,8 @@ equation
             {-70,20},{-70,28}}, color={0,0,127}));
     connect(TSet, con.u_s)
       annotation (Line(points={{-120,40},{-120,40},{-82,40}}, color={0,0,127}));
-    connect(con.y, bypVal.y)
-      annotation (Line(points={{-59,40},{-50,40},{-50,-18}},color={0,0,127}));
+    connect(con.y, thrWayVal.y)
+      annotation (Line(points={{-59,40},{-50,40},{-50,-18}}, color={0,0,127}));
   end if;
   connect(y_reset_in, con.y_reset_in)
     annotation (Line(points={{-90,-100},{-90,

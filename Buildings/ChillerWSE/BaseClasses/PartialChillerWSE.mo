@@ -2,36 +2,37 @@ within Buildings.ChillerWSE.BaseClasses;
 partial model PartialChillerWSE
   "Partial model for chiller and WSE package"
   extends Buildings.ChillerWSE.BaseClasses.PartialChillerWSEInterface(
-     final n=nChi+1);
+     final num=numChi+1);
   extends Buildings.ChillerWSE.BaseClasses.FourPortResistanceChillerWSE(
      final computeFlowResistance1=true,
      final computeFlowResistance2=true);
   extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface(
      final reverseAction=true);
   extends Buildings.ChillerWSE.BaseClasses.ValvesParameters(
-     nVal=4,
+     numVal=4,
      final deltaM=deltaM1);
   extends Buildings.ChillerWSE.BaseClasses.SignalFilterParameters(
-     final nFilter=1,
-     final yValve_start={yValveWSE_start});
-  extends Buildings.ChillerWSE.BaseClasses.ThreeWayValveParameters;
+     final numFil=1,
+     final yValve_start={yValWSE_start});
+  extends Buildings.ChillerWSE.BaseClasses.ThreeWayValveParameters(
+     final activate_ThrWayVal=use_Controller);
 
   //Chiller
-  parameter Integer nChi(min=1) "Number of identical chillers"
+  parameter Integer numChi(min=1) "Number of identical chillers"
     annotation(Dialog(group="Chiller"));
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi[nChi]
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi[numChi]
     "Performance data for chillers"
     annotation (choicesAllMatching=true,Dialog(group="Chiller"),
                 Placement(transformation(extent={{70,78},{90,98}})));
-  parameter Real[2] lValveChiller(each min=1e-10, each max=1) = {0.0001,0.0001}
+  parameter Real[2] lValChi(each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Shutoff valve"));
-  parameter Real[2] kFixedChiller(each unit="",each min=0)=
-    {mChiller1_flow_nominal,mChiller2_flow_nominal} ./ sqrt({dpChiller1_nominal,dpChiller2_nominal})
+  parameter Real[2] kFixedValChi(each unit="",each min=0)=
+    {m1_flow_chi_nominal,m2_flow_chi_nominal} ./ sqrt({dp1_chi_nominal,dp2_chi_nominal})
     "Flow coefficient of fixed resistance that may be in series with valves
     in chillers, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Shutoff valve"));
-  parameter Real[nChi] yValveChiller_start=fill(0,nChi)
+  parameter Real[numChi] yValChi_start=fill(0,numChi)
     "Initial value of output from on/off valves in chillers"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
 
@@ -40,18 +41,18 @@ partial model PartialChillerWSE
     "Heat exchange effectiveness"
     annotation(Dialog(group="Waterside economizer"));
 
-  parameter Real[2] lValveWSE(each min=1e-10, each max=1) = {0.0001,0.0001}
+  parameter Real[2] lValWSE(each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Shutoff valve"));
-  parameter Real[2] kFixedWSE(each unit="", each min=0)=
-    {mWSE1_flow_nominal/ sqrt(dpWSE1_nominal),0}
+  parameter Real[2] kFixedValWSE(each unit="", each min=0)=
+    {m1_flow_wse_nominal/ sqrt(dp1_wse_nominal),0}
     "Flow coefficient of fixed resistance that may be in series with valves 
     in WSE, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Shutoff valve"));
-  parameter Real yValveWSE_start=0
+  parameter Real yValWSE_start=0
     "Initial value of output from on/off valve in WSE"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Real yBypValWSE_start=0
+  parameter Real yThrWayValWSE_start=0
     "Initial value of output from three-way bypass valve in WSE"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_Controller and use_inputFilter));
 
@@ -66,11 +67,11 @@ partial model PartialChillerWSE
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.SIunits.Time tauChiller1 = 30
+  parameter Modelica.SIunits.Time tauChi1 = 30
     "Time constant at nominal flow in chillers"
      annotation (Dialog(tab = "Dynamics", group="Chiller",
                  enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
-  parameter Modelica.SIunits.Time tauChiller2 = 30
+  parameter Modelica.SIunits.Time tauChi2 = 30
     "Time constant at nominal flow in chillers"
      annotation (Dialog(tab = "Dynamics", group="Chiller",
                  enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
@@ -123,7 +124,7 @@ partial model PartialChillerWSE
                enable=Medium2.nC > 0));
 
   // Temperature sensor
-  parameter Modelica.SIunits.Time tau_SenT=1
+  parameter Modelica.SIunits.Time tauSenT=1
     "Time constant at nominal flow rate (use tau=0 for steady-state sensor, 
     but see user guide for potential problems)"
    annotation(Dialog(tab="Dynamics", group="Temperature Sensor",
@@ -132,7 +133,7 @@ partial model PartialChillerWSE
     "Type of initialization of the temperature sensor (InitialState and InitialOutput are identical)"
   annotation(Evaluate=true, Dialog(tab="Dynamics", group="Temperature Sensor"));
 
-  Modelica.Blocks.Interfaces.RealOutput wseCHWST(
+  Modelica.Blocks.Interfaces.RealOutput TCHWSupWSE(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC",
@@ -141,7 +142,7 @@ partial model PartialChillerWSE
     "Chilled water supply temperature in the waterside economizer"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
                 iconTransformation(extent={{100,30},{120,50}})));
-  Modelica.Blocks.Interfaces.RealOutput powChi[nChi](
+  Modelica.Blocks.Interfaces.RealOutput powChi[numChi](
     each final quantity="Power",
     each final unit="W")
     "Electric power consumed by chiller compressor"
@@ -162,17 +163,17 @@ partial model PartialChillerWSE
     final from_dp2=from_dp2,
     final linearizeFlowResistance2=linearizeFlowResistance2,
     final deltaM2=deltaM2,
-    final n=nChi,
+    final num=numChi,
     final per=perChi,
     final homotopyInitialization=homotopyInitialization,
     final use_inputFilter=use_inputFilter,
     final riseTimeValve=riseTimeValve,
     final initValve=initValve,
-    final m1_flow_nominal=mChiller1_flow_nominal,
-    final m2_flow_nominal=mChiller2_flow_nominal,
-    final dp1_nominal=dpChiller1_nominal,
-    final tau1=tauChiller1,
-    final tau2=tauChiller2,
+    final m1_flow_nominal=m1_flow_chi_nominal,
+    final m2_flow_nominal=m2_flow_chi_nominal,
+    final dp1_nominal=dp1_chi_nominal,
+    final tau1=tauChi1,
+    final tau2=tauChi2,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p1_start=p1_start,
@@ -185,12 +186,12 @@ partial model PartialChillerWSE
     final X2_start=X2_start,
     final C2_start=C2_start,
     final C2_nominal=C2_nominal,
-    final l=lValveChiller,
-    final kFixed=kFixedChiller,
-    final dp2_nominal=dpChiller2_nominal,
+    final l=lValChi,
+    final kFixed=kFixedValChi,
+    final dp2_nominal=dp2_chi_nominal,
     each final dpValve_nominal=dpValve_nominal[1:2],
     final rhoStd=rhoStd[1:2],
-    final yValve_start=yValveChiller_start)
+    final yValve_start=yValChi_start)
     "Identical chillers"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.ChillerWSE.WatersideEconomizer wse(
@@ -199,21 +200,21 @@ partial model PartialChillerWSE
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final allowFlowReversal1=allowFlowReversal1,
     final allowFlowReversal2=allowFlowReversal2,
-    final m1_flow_nominal=mWSE1_flow_nominal,
-    final m2_flow_nominal=mWSE2_flow_nominal,
+    final m1_flow_nominal=m1_flow_wse_nominal,
+    final m2_flow_nominal=m2_flow_wse_nominal,
     final m1_flow_small=m1_flow_small,
     final m2_flow_small=m2_flow_small,
     final from_dp1=from_dp1,
-    final dp1_nominal=dpWSE1_nominal,
+    final dp1_nominal=dp1_wse_nominal,
     final linearizeFlowResistance1=linearizeFlowResistance1,
     final deltaM1=deltaM1,
     final from_dp2=from_dp2,
-    final dp2_nominal=dpWSE2_nominal,
+    final dp2_nominal=dp2_wse_nominal,
     final linearizeFlowResistance2=linearizeFlowResistance2,
     final deltaM2=deltaM2,
     final homotopyInitialization=homotopyInitialization,
-    each final l=lValveWSE,
-    each final kFixed=kFixedWSE,
+    each final l=lValWSE,
+    each final kFixed=kFixedValWSE,
     final use_inputFilter=use_inputFilter,
     final riseTimeValve=riseTimeValve,
     final initValve=initValve,
@@ -247,9 +248,9 @@ partial model PartialChillerWSE
     final delta0=delta0,
     final dpValve_nominal=dpValve_nominal[3:4],
     final rhoStd=rhoStd[3:4],
-    final yBypVal_start=yBypValWSE_start,
-    final yValWSE_start=yValveWSE_start,
-    final tau_ThrWayVal=tauWSE,
+    final yThrWayVal_start=yThrWayValWSE_start,
+    final yValWSE_start=yValWSE_start,
+    final tauThrWayVal=tauWSE,
     final use_Controller=use_Controller,
     final reverseAction=reverseAction,
     final show_T=show_T,
@@ -260,8 +261,8 @@ partial model PartialChillerWSE
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final replaceable package Medium = Medium2,
-    final m_flow_nominal=mWSE2_flow_nominal,
-    final tau=tau_SenT,
+    final m_flow_nominal=m2_flow_wse_nominal,
+    final tau=tauSenT,
     final initType=initTSenor,
     final T_start=T2_start,
     final allowFlowReversal=allowFlowReversal2,
@@ -270,12 +271,12 @@ partial model PartialChillerWSE
     annotation (Placement(transformation(extent={{28,14},{8,34}})));
 
 equation
-  for i in 1:nChi loop
+  for i in 1:numChi loop
   connect(chiPar.on[i], on[i])
     annotation (Line(points={{-62,34},{-92,34},{-92,72},{-120,72}},
                 color={255,0,255}));
   end for;
-  connect(on[nChi+1], wse.on[1])
+  connect(on[numChi+1], wse.on[1])
     annotation (Line(points={{-120,72},{-120,72},{30,72},{30,34},{38,34}},
                 color={255,0,255}));
   connect(chiPar.TSet, TSet)
@@ -301,7 +302,7 @@ equation
   connect(trigger, wse.trigger)
     annotation (Line(points={{-60,-100},{-60,-100},{-60,-80},{-90,-80},
               {-90,10},{44,10},{44,20}},color={255,0,255}));
-  connect(senTem.T,wseCHWST)
+  connect(senTem.T,TCHWSupWSE)
     annotation (Line(points={{18,35},{18,35},{18,52},{90,52},{90,40},
                 {110,40}}, color={0,0,127}));
   connect(wse.port_b2, senTem.port_a)

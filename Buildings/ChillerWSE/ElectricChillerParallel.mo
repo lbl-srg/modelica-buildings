@@ -1,10 +1,10 @@
 within Buildings.ChillerWSE;
 model ElectricChillerParallel "Multiple identical electric chillers"
   extends Buildings.ChillerWSE.BaseClasses.PartialParallelElectricEIR(
-    redeclare each final Buildings.Fluid.Chillers.ElectricEIR chi[n](
+    redeclare each final Buildings.Fluid.Chillers.ElectricEIR chi[num](
       per=per));
 
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[n]
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[num]
     "Performance data"
     annotation (choicesAllMatching = true,
                 Placement(transformation(extent={{42,74},{62,94}})));

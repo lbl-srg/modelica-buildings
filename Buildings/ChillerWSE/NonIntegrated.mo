@@ -2,9 +2,9 @@ within Buildings.ChillerWSE;
 model NonIntegrated
   "Non-integrated waterside economizer in chilled water system"
   extends Buildings.ChillerWSE.BaseClasses.PartialChillerWSE(
-    final nVal=4,
-    final m_flow_nominal={mChiller1_flow_nominal,mChiller2_flow_nominal,mWSE1_flow_nominal,
-      mWSE2_flow_nominal},
+    final numVal=4,
+    final m_flow_nominal={m1_flow_chi_nominal,m2_flow_chi_nominal,m1_flow_wse_nominal,
+      m2_flow_wse_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),

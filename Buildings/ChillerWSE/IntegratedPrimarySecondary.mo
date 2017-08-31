@@ -2,9 +2,9 @@ within Buildings.ChillerWSE;
 model IntegratedPrimarySecondary
   "Integrated waterside economizer on the load side in a primary-secondary chilled water system"
   extends Buildings.ChillerWSE.BaseClasses.PartialChillerWSE(
-    final nVal=5,
-    final m_flow_nominal={mChiller1_flow_nominal,mChiller2_flow_nominal,mWSE1_flow_nominal,
-      mWSE2_flow_nominal,nChi*mChiller2_flow_nominal},
+    final numVal=5,
+    final m_flow_nominal={m1_flow_chi_nominal,m2_flow_chi_nominal,m1_flow_chi_nominal,
+      m2_flow_wse_nominal,numChi*m2_flow_chi_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
@@ -18,12 +18,12 @@ model IntegratedPrimarySecondary
      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   //Pump
-  parameter Integer nPum=nChi "Number of pumps"
+  parameter Integer numPum=numChi "Number of pumps"
     annotation(Dialog(group="Pump"));
-  parameter Modelica.SIunits.MassFlowRate mPump_flow_nominal(min=0)=mChiller2_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate m_flow_pum_nominal(min=0)=m2_flow_chi_nominal
   "Nominal flow rate of the pump"
    annotation (Dialog(group="Pump"));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum[nPum]
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum[numPum]
     "Performance data for primary pumps"
     annotation (Dialog(group="Pump"),
       Placement(transformation(extent={{38,78},{58,98}})));
@@ -36,34 +36,34 @@ model IntegratedPrimarySecondary
   parameter Modelica.Blocks.Types.Init initPum=initValve
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered flowrate",enable=use_inputFilter));
-  parameter Real[nPum] yPump_start(each min=0)=fill(0,nPum)
+  parameter Real[numPum] yPum_start(each min=0)=fill(0,numPum)
     "Initial value of output from pumps:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered flowrate",enable=use_inputFilter));
-  parameter Real[nPum] m_flow_start(each min=0)=fill(0,nPum)
+  parameter Real[numPum] m_flow_start(each min=0)=fill(0,numPum)
     "Initial value of output from pumps"
     annotation(Dialog(tab="Dynamics", group="Filtered flowrate"));
-  parameter Real[nPum] yValvePump_start = fill(0,nPum)
+  parameter Real[numPum] yValPum_start = fill(0,numPum)
     "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Real l_ValvePump=0.0001
+  parameter Real lValPum=0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Pump"));
-  parameter Real kFixed_ValvePump=pum.m_flow_nominal/sqrt(pum.dpValve_nominal)
+  parameter Real kFixedValPum=pum.m_flow_nominal/sqrt(pum.dpValve_nominal)
     "Flow coefficient of fixed resistance that may be in series with valve, 
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Pump"));
-  parameter Modelica.SIunits.PressureDifference dpValvePump_nominal = 6000
+  parameter Modelica.SIunits.PressureDifference dpValPum_nominal = 6000
    "Nominal differential pressure of the shutoff valves for primary pumps"
    annotation(Dialog(group="Pump"));
  //Valve
-  parameter Real lValve5(min=1e-10,max=1) = 0.0001
+  parameter Real lVal5(min=1e-10,max=1) = 0.0001
     "Valve 5 leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Shutoff valve"));
-  parameter Real yValve5_start = 0
+  parameter Real yVal5_start = 0
     "Initial value of output from valve 5:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
 
-  Modelica.Blocks.Interfaces.RealInput m_flow_in[nPum](
+  Modelica.Blocks.Interfaces.RealInput m_flow_in[numPum](
     final quantity="MassFlowRate",
     final unit="kg/s")
     "Prescribed mass flow rate for primary pumps"
@@ -80,7 +80,7 @@ model IntegratedPrimarySecondary
         rotation=0,
         origin={-120,26}), iconTransformation(extent={{-16,-16},{16,16}},
           origin={-116,30})));
-  Modelica.Blocks.Interfaces.RealOutput powPum[nPum](
+  Modelica.Blocks.Interfaces.RealOutput powPum[numPum](
     each final quantity="Power",
     each final unit = "W")
     "Electrical power consumed by the pumps"
@@ -91,7 +91,7 @@ model IntegratedPrimarySecondary
     redeclare final package Medium = Medium2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final allowFlowReversal=allowFlowReversal2,
-    final m_flow_nominal=nChi*mChiller2_flow_nominal,
+    final m_flow_nominal=numChi*m2_flow_chi_nominal,
     final show_T=show_T,
     final from_dp=from_dp2,
     final homotopyInitialization=homotopyInitialization,
@@ -104,8 +104,8 @@ model IntegratedPrimarySecondary
     final dpValve_nominal=dpValve_nominal[5],
     final kFixed=0,
     final rhoStd=rhoStd[5],
-    final y_start=yValve5_start,
-    final l=lValve5)
+    final y_start=yVal5_start,
+    final l=lVal5)
     "Shutoff valve: closed when fully mechanic cooling is activated; open when fully mechanic cooling is activated"
     annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
   Buildings.ChillerWSE.FlowMachine_m pum(
@@ -125,20 +125,20 @@ model IntegratedPrimarySecondary
     each final use_inputFilter=use_inputFilter,
     each final init=initPum,
     each final tau=tauPump,
-    each final m_flow_nominal=mPump_flow_nominal,
-    final nPum=nPum,
+    each final m_flow_nominal=m_flow_pum_nominal,
+    final num=numPum,
     final deltaM=deltaM2,
-    final dpValve_nominal=dpValvePump_nominal,
-    final l=l_ValvePump,
-    final kFixed=kFixed_ValvePump,
+    final dpValve_nominal=dpValPum_nominal,
+    final l=lValPum,
+    final kFixed=kFixedValPum,
     final riseTimeValve=riseTimeValve,
-    final yValve_start=yValvePump_start,
+    final yValve_start=yValPum_start,
     final from_dp=from_dp2,
     final homotopyInitialization=homotopyInitialization,
     final linearizeFlowResistance=linearizeFlowResistance2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final riseTimePump=riseTimePump,
-    final yPump_start=yPump_start)
+    final yPump_start=yPum_start)
     "Constant speed pumps"
     annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
   Buildings.Fluid.Sensors.MassFlowRate bypFlo(redeclare package Medium = Medium2)

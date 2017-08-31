@@ -12,7 +12,7 @@ partial model DataCenterControl
     chiStaCon(QEva_nominal=-300*3517, tWai=0)
     "Chiller staging control"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
-  Modelica.Blocks.Math.RealToBoolean chiOn[nChi](each threshold=0.5)
+  Modelica.Blocks.Math.RealToBoolean chiOn[numChi](each threshold=0.5)
     "Real value to boolean value"
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
   Modelica.Blocks.Math.RealToBoolean reaToBoo(threshold=1.5)
@@ -28,7 +28,7 @@ partial model DataCenterControl
   Modelica.Blocks.Sources.RealExpression chiNumOn(y=sum(chiStaCon.y))
     "The number of running chillers"
     annotation (Placement(transformation(extent={{-182,64},{-162,84}})));
-  Modelica.Blocks.Math.Gain gai[nChi](each k=mChiller1_flow_nominal)
+  Modelica.Blocks.Math.Gain gai[numChi](each k=m1_flow_chi_nominal)
     "Gain effect"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingTowerSpeedControl
@@ -56,7 +56,7 @@ partial model DataCenterControl
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-12,-176},{8,-156}})));
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.VariableSpeedPumpStageControl
-    varSpeCon(tWai=tWai, m_flow_nominal=mChiller2_flow_nominal)
+    varSpeCon(tWai=tWai, m_flow_nominal=m2_flow_chi_nominal)
     "Speed controller"
     annotation (Placement(transformation(extent={{-48,-14},{-28,6}})));
   Modelica.Blocks.Sources.RealExpression mPum_flow(y=chiWSE.port_b2.m_flow)
@@ -68,10 +68,10 @@ partial model DataCenterControl
     Ti=40,
     yMin=0.2) "Pump speed controller"
     annotation (Placement(transformation(extent={{-126,-30},{-106,-10}})));
-  Modelica.Blocks.Sources.Constant dpSet(k=0.3*dpChiller2_nominal)
+  Modelica.Blocks.Sources.Constant dpSet(k=0.3*dp2_chi_nominal)
     "Differential pressure setpoint"
     annotation (Placement(transformation(extent={{-176,-30},{-156,-10}})));
-  Modelica.Blocks.Math.Product pumSpeSig[nChi] "Pump speed signal"
+  Modelica.Blocks.Math.Product pumSpeSig[numChi] "Pump speed signal"
     annotation (Placement(transformation(extent={{-4,-22},{12,-6}})));
   Buildings.Controls.Continuous.LimPID ahuValSig(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -84,7 +84,7 @@ partial model DataCenterControl
     redeclare replaceable package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal) "Supply air temperature"
     annotation (Placement(transformation(extent={{114,-150},{94,-130}})));
-  Modelica.Blocks.Math.Product cooTowSpe[nChi]
+  Modelica.Blocks.Math.Product cooTowSpe[numChi]
     "Cooling tower speed"
     annotation (Placement(transformation(extent={{60,166},{76,182}})));
 equation
@@ -111,7 +111,7 @@ equation
       points={{222,60},{240,60},{240,125}},
       color={0,127,255},
       thickness=0.5));
-   for i in 1:nChi loop
+   for i in 1:numChi loop
     connect(CWST.port_a, cooTow[i].port_b)
       annotation (Line(points={{120,140},{132,
             140},{132,139},{131,139}}, color={0,127,255},
@@ -138,7 +138,7 @@ equation
   connect(reaToBoo.y, wseOn.u)
     annotation (Line(points={{-29,110},{-20.5,110},{-12,
           110}},color={255,0,255}));
-  connect(wseOn.y, chiWSE.on[nChi + 1])
+  connect(wseOn.y, chiWSE.on[numChi + 1])
     annotation (Line(points={{11,110},{40,110},
           {40,39.6},{124.4,39.6}}, color={255,0,255}));
   connect(chiNumOn.y, CWPumCon.chiNumOn)

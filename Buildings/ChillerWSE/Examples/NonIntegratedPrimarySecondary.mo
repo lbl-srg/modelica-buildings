@@ -5,21 +5,22 @@ model NonIntegratedPrimarySecondary
     redeclare Buildings.ChillerWSE.NonIntegrated chiWSE(
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
       Ti=60,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+      use_Controller=false),
     ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
-  parameter Buildings.Fluid.Movers.Data.Generic[nChi] perPumSec(
+  parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumSec(
     each pressure=
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-          V_flow=mChiller1_flow_nominal/1000*{0.2,0.6,1.0,1.2},
-          dp=(dpWSE1_nominal+18000)*{1.5,1.3,1.0,0.6}))
+          V_flow=m1_flow_chi_nominal/1000*{0.2,0.6,1.0,1.2},
+          dp=(dp1_wse_nominal+18000)*{1.5,1.3,1.0,0.6}))
     "Performance data for secondary chilled water pumps";
-  parameter Buildings.Fluid.Movers.Data.Generic[nChi] perPumPri(
+  parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumPri(
     each pressure=
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-          V_flow=mChiller1_flow_nominal/1000*{0.2,0.6,1.0,1.2},
-          dp=(dpChiller1_nominal+6000)*{1.5,1.3,1.0,0.6}))
+          V_flow=m1_flow_chi_nominal/1000*{0.2,0.6,1.0,1.2},
+          dp=(dp1_chi_nominal+6000)*{1.5,1.3,1.0,0.6}))
     "Performance data for secondary chilled water pumps";
 
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControlNonIntegrated cooModCon(
@@ -34,7 +35,7 @@ model NonIntegratedPrimarySecondary
     dpValve_nominal=6000,
     per=perPumSec,
     addPowerToMedium=false,
-    m_flow_nominal=mChiller2_flow_nominal,
+    m_flow_nominal=m2_flow_chi_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=1,
     use_inputFilter=true)
@@ -48,7 +49,7 @@ model NonIntegratedPrimarySecondary
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
     per=perPumPri,
-    m_flow_nominal=mChiller2_flow_nominal,
+    m_flow_nominal=m2_flow_chi_nominal,
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=1,
@@ -63,8 +64,8 @@ model NonIntegratedPrimarySecondary
     priPumCon(tWai=0)
     "Chilled water primary pump controller"
     annotation (Placement(transformation(extent={{-92,22},{-72,42}})));
-  Modelica.Blocks.Math.Gain gai2[nChi](
-    each k=mChiller2_flow_nominal)
+  Modelica.Blocks.Math.Gain gai2[numChi](
+    each k=m2_flow_chi_nominal)
     "Gain effect"
     annotation (Placement(transformation(extent={{-50,22},{-30,42}})));
   Modelica.Blocks.Sources.RealExpression cooLoaChi(
@@ -97,7 +98,7 @@ equation
       points={{222,60},{240,60},{240,125}},
       color={0,127,255},
       thickness=0.5));
-  for i in 1:nChi loop
+  for i in 1:numChi loop
     connect(CWST.port_a, cooTow[i].port_b)
       annotation (Line(points={{120,140},{132,140},{132,139},{131,139}},
         color={0,127,255},
@@ -139,7 +140,7 @@ equation
   connect(reaToBoo.y, wseOn.u)
     annotation (Line(points={{-29,110},{-20.5,110},{-12,
           110}},     color={255,0,255}));
-  connect(wseOn.y, chiWSE.on[nChi + 1])
+  connect(wseOn.y, chiWSE.on[numChi + 1])
     annotation (Line(points={{11,110},{40,110},
           {40,39.6},{124.4,39.6}}, color={255,0,255}));
   connect(cooModCon.cooMod, CWPumCon.cooMod)

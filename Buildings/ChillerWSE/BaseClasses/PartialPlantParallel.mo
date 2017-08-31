@@ -3,13 +3,13 @@ partial model PartialPlantParallel
   "Partial source plant model with associated valves"
   extends Buildings.ChillerWSE.BaseClasses.PartialPlantParallelInterface;
   extends Buildings.ChillerWSE.BaseClasses.ValvesParameters(
-    nVal = 2,
+    numVal = 2,
     m_flow_nominal = {m1_flow_nominal,m2_flow_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
     final deltaM=deltaM1);
   extends Buildings.ChillerWSE.BaseClasses.SignalFilter(
-    final nFilter=n);
+    final numFil=num);
   // Advanced
   parameter Boolean homotopyInitialization = true
     "= true, use homotopy method"
@@ -25,7 +25,7 @@ partial model PartialPlantParallel
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
    annotation(Dialog(group="Shutoff valve"));
 
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear val2[n](
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val2[num](
     redeclare each replaceable package Medium = Medium2,
     each final allowFlowReversal=allowFlowReversal2,
     each final m_flow_nominal=m2_flow_nominal,
@@ -49,7 +49,7 @@ partial model PartialPlantParallel
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-40,-32})));
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear val1[n](
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val1[num](
     redeclare each replaceable package Medium = Medium1,
     each final allowFlowReversal=allowFlowReversal1,
     each final m_flow_nominal=m1_flow_nominal,
@@ -76,7 +76,7 @@ partial model PartialPlantParallel
         origin={40,32})));
 
 equation
-  for i in 1:n loop
+  for i in 1:num loop
     connect(val1[i].port_b, port_b1)
       annotation (Line(points={{40,42},{40,60},{100,60}}, color={0,127,255}));
     connect(val2[i].port_b, port_b2)

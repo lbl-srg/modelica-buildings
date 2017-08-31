@@ -2,7 +2,7 @@ within Buildings.ChillerWSE.BaseClasses;
 partial model PartialControllerInterface
   "Partial interface model for waterside economizer temperature controller"
 
-  parameter Boolean use_Controller=false
+  parameter Boolean use_Controller=true
   "Set to ture if the built-in controller is enabled to maintain the outlet
   temperature on the load side of a heat exchanger";
 

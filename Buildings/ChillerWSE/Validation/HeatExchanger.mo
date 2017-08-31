@@ -24,7 +24,8 @@ model HeatExchanger
     redeclare package Medium2 = MediumW,
     Ti=40,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.1)
+    k=0.1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Water-to-water heat exchanger with built-in PID controller to control the temperature at port_b2"
     annotation (Placement(transformation(extent={{-12,48},{8,64}})));
 
@@ -36,7 +37,8 @@ model HeatExchanger
     dp2_nominal=dp2_nominal,
     T_start=273.15 + 10,
     redeclare package Medium1 = MediumW,
-    redeclare package Medium2 = MediumW)
+    redeclare package Medium2 = MediumW,
+    use_Controller=false)
     "Water-to-water heat exchanger without built-in controllers to control the temperature at port_b2"
     annotation (Placement(transformation(extent={{-12,-30},{8,-14}})));
   Buildings.Fluid.Sources.FixedBoundary sin1(

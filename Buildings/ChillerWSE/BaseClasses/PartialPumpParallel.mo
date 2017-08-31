@@ -4,13 +4,13 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters;
 
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic per[nPum]
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic per[num]
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{70,64},{90,84}})));
  // Pump parameters
-  parameter Integer nPum=2 "The number of pumps";
+  parameter Integer num=2 "The number of pumps";
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation(Dialog(group="Pump"));
@@ -26,7 +26,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
-  parameter Real[nPum] yPump_start=fill(0,nPum) "Initial value of pump signals"
+  parameter Real[num] yPump_start=fill(0,num) "Initial value of pump signals"
     annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
 
    // Valve parameters
@@ -39,7 +39,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   parameter Modelica.SIunits.Time riseTimeValve=30
     "Rise time of the filter (time to reach 99.6 % of the speed)"
     annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilter));
-  parameter Real[nPum] yValve_start = fill(0,nPum)
+  parameter Real[num] yValve_start = fill(0,num)
     "Initial value of pump signals"
     annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilter));
 
@@ -80,11 +80,11 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     annotation(Dialog(tab="Flow resistance"));
   parameter Real threshold(min = 1e-6) = 1e-6
     "Output signal y is true, if input u >= threshold";
-  Modelica.Blocks.Interfaces.RealInput u[nPum]
+  Modelica.Blocks.Interfaces.RealInput u[num]
     "Continuous input signal for the flow machine"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealOutput P[nPum](
+  Modelica.Blocks.Interfaces.RealOutput P[num](
     final quantity="Power",
     final unit="W")
     "Electrical power consumed by the pumps"
@@ -94,7 +94,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
         rotation=0,
         origin={110,40})));
 
-  replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine pum[nPum]
+  replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine pum[num]
     constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
     redeclare each final replaceable package Medium = Medium,
     each final inputType=Buildings.Fluid.Types.InputType.Continuous,
@@ -117,7 +117,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final C_nominal=C_nominal)
     "Pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear val[nPum](
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val[num](
     redeclare each final replaceable package Medium = Medium,
     each final dpFixed_nominal=0,
     each final l=l,
@@ -139,7 +139,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     "Shutoff valves"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Buildings.ChillerWSE.BaseClasses.Sign uVal[nPum](
+  Buildings.ChillerWSE.BaseClasses.Sign uVal[num](
     each final u1=1,
     each final u2=0,
     each final threshold=threshold)
@@ -148,7 +148,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
 equation
   connect(pum.port_b, val.port_a)
     annotation (Line(points={{10,0},{25,0},{40,0}}, color={0,127,255}));
-  for i in 1:nPum loop
+  for i in 1:num loop
   connect(val[i].port_b, port_b)
     annotation (Line(points={{60,0},{80,0},{100,0}}, color={0,127,255}));
   connect(port_a, pum[i].port_a)

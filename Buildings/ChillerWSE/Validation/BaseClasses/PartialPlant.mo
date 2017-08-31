@@ -16,8 +16,8 @@ partial model PartialPlant
     "Nominal pressure";
   parameter Modelica.SIunits.PressureDifference dpCW_nominal = 40000
     "Nominal pressure";
-  parameter Integer nChi=1 "Number of chillers";
-  parameter Buildings.Fluid.Movers.Data.Generic[nChi] perPum(
+  parameter Integer numChi=1 "Number of chillers";
+  parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPum(
     each pressure=
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
           V_flow=mCHW_flow_nominal/1000*{0.2,0.6,1.0,1.2},
@@ -38,8 +38,11 @@ partial model PartialPlant
     "Source on medium 1 side"
     annotation (Placement(transformation(extent={{-60,-14},{-40,6}})));
   Modelica.Blocks.Sources.TimeTable TCon_in(
-    table=[0,273.15 + 12.78; 7200,273.15 + 12.78; 7200,273.15 + 18.33;
-      14400,273.15 + 18.33; 14400,273.15 + 26.67],
+    table=[0,273.15 + 12.78;
+          7200,273.15 + 12.78;
+          7200,273.15 + 18.33;
+          14400,273.15 + 18.33;
+          14400,273.15 + 26.67],
     offset=0,
     startTime=0)
     "Condenser inlet temperature"

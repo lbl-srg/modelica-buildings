@@ -27,8 +27,8 @@ model WatersideEconomizer
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 
   Modelica.Blocks.Sources.BooleanStep onWSE(
-    startValue=true,
-    startTime(displayUnit="h") = 7200)
+    startValue = true,
+    startTime = 7200)
     "On and off signal for the WSE"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 equation

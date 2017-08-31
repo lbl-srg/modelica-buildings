@@ -14,36 +14,36 @@ First implementation.
   replaceable package MediumW = Buildings.Media.Water "Medium model";
 
   // chillers parameters
-  parameter Integer nChi=2 "Number of chillers";
-  parameter Modelica.SIunits.MassFlowRate mChiller1_flow_nominal= 34.7
+  parameter Integer numChi=2 "Number of chillers";
+  parameter Modelica.SIunits.MassFlowRate m1_flow_chi_nominal= 34.7
     "Nominal mass flow rate at condenser water in the chillers";
-  parameter Modelica.SIunits.MassFlowRate mChiller2_flow_nominal= 18.3
+  parameter Modelica.SIunits.MassFlowRate m2_flow_chi_nominal= 18.3
     "Nominal mass flow rate at condenser water in the chillers";
-  parameter Modelica.SIunits.PressureDifference dpChiller1_nominal = 46.2*1000
+  parameter Modelica.SIunits.PressureDifference dp1_chi_nominal = 46.2*1000
     "Nominal pressure";
-  parameter Modelica.SIunits.PressureDifference dpChiller2_nominal = 44.8*1000
+  parameter Modelica.SIunits.PressureDifference dp2_chi_nominal = 44.8*1000
     "Nominal pressure";
 
  // WSE parameters
-  parameter Modelica.SIunits.MassFlowRate mWSE1_flow_nominal= 34.7
+  parameter Modelica.SIunits.MassFlowRate m1_flow_wse_nominal= 34.7
     "Nominal mass flow rate at condenser water in the chillers";
-  parameter Modelica.SIunits.MassFlowRate mWSE2_flow_nominal= 35.3
+  parameter Modelica.SIunits.MassFlowRate m2_flow_wse_nominal= 35.3
     "Nominal mass flow rate at condenser water in the chillers";
-  parameter Modelica.SIunits.PressureDifference dpWSE1_nominal = 33.1*1000
+  parameter Modelica.SIunits.PressureDifference dp1_wse_nominal = 33.1*1000
     "Nominal pressure";
-  parameter Modelica.SIunits.PressureDifference dpWSE2_nominal = 34.5*1000
+  parameter Modelica.SIunits.PressureDifference dp2_wse_nominal = 34.5*1000
     "Nominal pressure";
 
-  parameter Buildings.Fluid.Movers.Data.Generic[nChi] perPumCW(
+  parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumCW(
     each pressure=
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-          V_flow=mChiller1_flow_nominal/1000*{0.2,0.6,1.0,1.2},
-          dp=(dpChiller1_nominal+60000+6000)*{1.2,1.1,1.0,0.6}))
+          V_flow=m1_flow_chi_nominal/1000*{0.2,0.6,1.0,1.2},
+          dp=(dp1_chi_nominal+60000+6000)*{1.2,1.1,1.0,0.6}))
     "Performance data for condenser water pumps";
   parameter Modelica.SIunits.Time tWai=1200 "Waiting time";
 
   // AHU
-  parameter Modelica.SIunits.ThermalConductance UA_nominal=nChi*mChiller2_flow_nominal*4200*(6.67-18.56)/
+  parameter Modelica.SIunits.ThermalConductance UA_nominal=numChi*m2_flow_chi_nominal*4200*(6.67-18.56)/
      Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         6.67,
         11.56,
@@ -55,15 +55,15 @@ First implementation.
   replaceable Buildings.ChillerWSE.BaseClasses.PartialChillerWSE chiWSE(
     redeclare replaceable package Medium1 = MediumW,
     redeclare replaceable package Medium2 = MediumW,
-    nChi=nChi,
-    mChiller1_flow_nominal=mChiller1_flow_nominal,
-    mChiller2_flow_nominal=mChiller2_flow_nominal,
-    mWSE1_flow_nominal=mWSE1_flow_nominal,
-    mWSE2_flow_nominal=mWSE2_flow_nominal,
-    dpChiller1_nominal=dpChiller1_nominal,
-    dpWSE1_nominal=dpWSE1_nominal,
-    dpChiller2_nominal=dpChiller2_nominal,
-    dpWSE2_nominal=dpWSE2_nominal,
+    numChi=numChi,
+    m1_flow_chi_nominal=m1_flow_chi_nominal,
+    m2_flow_chi_nominal=m2_flow_chi_nominal,
+    m1_flow_wse_nominal=m1_flow_wse_nominal,
+    m2_flow_wse_nominal=m2_flow_wse_nominal,
+    dp1_chi_nominal=dp1_chi_nominal,
+    dp1_wse_nominal=dp1_wse_nominal,
+    dp2_chi_nominal=dp2_chi_nominal,
+    dp2_wse_nominal=dp2_wse_nominal,
     redeclare
       Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes
       perChi,
@@ -75,9 +75,9 @@ First implementation.
     V_start=1)
     "Expansion tank"
     annotation (Placement(transformation(extent={{230,125},{250,145}})));
-  Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow[nChi](
+  Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow[numChi](
     redeclare each replaceable package Medium = MediumW,
-    each m_flow_nominal=mChiller1_flow_nominal,
+    each m_flow_nominal=m1_flow_chi_nominal,
     each dp_nominal=60000,
     each TAirInWB_nominal(displayUnit="degC") = 283.15,
     each TApp_nominal=6,
@@ -88,7 +88,7 @@ First implementation.
       origin={141,139})));
   Buildings.Fluid.Sensors.TemperatureTwoPort CHWST(
     redeclare replaceable package Medium =MediumW,
-    m_flow_nominal=nChi*mChiller2_flow_nominal)
+    m_flow_nominal=numChi*m2_flow_chi_nominal)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{104,-10},{84,10}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3  weaData(filNam=
@@ -98,17 +98,17 @@ First implementation.
     annotation (Placement(transformation(extent={{-210,-38},{-190,-18}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort CWST(
     redeclare replaceable package Medium =MediumW,
-    m_flow_nominal=nChi*mChiller1_flow_nominal)
+    m_flow_nominal=numChi*m1_flow_chi_nominal)
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{120,130},{100,150}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort CWRT(
     redeclare replaceable package Medium =  MediumW,
-    m_flow_nominal=nChi*mChiller1_flow_nominal)
+    m_flow_nominal=numChi*m1_flow_chi_nominal)
     "Condenser water return temperature"
     annotation (Placement(transformation(extent={{202,50},{222,70}})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow pumCW[nChi](
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumCW[numChi](
     redeclare each replaceable package Medium = MediumW,
-    each m_flow_nominal=mChiller1_flow_nominal,
+    each m_flow_nominal=m1_flow_chi_nominal,
     each addPowerToMedium=false,
     per=perPumCW)
     "Condenser water pump"
@@ -120,7 +120,7 @@ First implementation.
   Buildings.Applications.DataCenters.HVAC.AHUs.CoolingCoilHumidifyingHeating ahu(
     redeclare replaceable package Medium1 = MediumW,
     redeclare replaceable package Medium2 = MediumA,
-    m1_flow_nominal=nChi*mChiller2_flow_nominal,
+    m1_flow_nominal=numChi*m2_flow_chi_nominal,
     m2_flow_nominal=mAir_flow_nominal,
     dpValve_nominal=6000,
     dp2_nominal=600,
@@ -135,7 +135,7 @@ First implementation.
     annotation (Placement(transformation(extent={{154,-130},{174,-110}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort CHWRT(
     redeclare replaceable package Medium = MediumW,
-    m_flow_nominal=nChi*mChiller2_flow_nominal)
+    m_flow_nominal=numChi*m2_flow_chi_nominal)
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{240,-10},{220,10}})));
   Buildings.Fluid.Storage.ExpansionVessel expVesChi(
@@ -164,9 +164,9 @@ First implementation.
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={166,-168})));
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear val[nChi](
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val[numChi](
     redeclare each package Medium = MediumW,
-    each m_flow_nominal=mChiller1_flow_nominal,
+    each m_flow_nominal=m1_flow_chi_nominal,
     each dpValve_nominal=6000)
     "Shutoff valves"
     annotation (Placement(transformation(extent={{190,130},{170,150}})));
@@ -194,7 +194,7 @@ equation
       points={{222,60},{240,60},{240,125}},
       color={0,127,255},
       thickness=0.5));
-  for i in 1:nChi loop
+  for i in 1:numChi loop
     connect(cooTow[i].TAir, weaBus.TWetBul.TWetBul)
       annotation (Line(points={{153,143},
             {153,143},{160,143},{160,200},{-216,200},{-216,-28},{-200,-28}},

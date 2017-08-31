@@ -5,14 +5,14 @@ partial model PartialPlantParallelInterface "Partial model that implements the i
      final computeFlowResistance1=true,
      final computeFlowResistance2=true);
 
-  parameter Integer n(min=1)=2 "Number of equipment";
+  parameter Integer num(min=1)=2 "Number of equipment";
 
-  Modelica.Blocks.Math.BooleanToReal booToRea[n](
+  Modelica.Blocks.Math.BooleanToReal booToRea[num](
     each final realTrue=1,
     each final realFalse=0)
     "Boolean to real (if true then 1 else 0)"
     annotation (Placement(transformation(extent={{-80,34},{-68,46}})));
-  Modelica.Blocks.Interfaces.BooleanInput on[n]
+  Modelica.Blocks.Interfaces.BooleanInput on[num]
     "Set to true to enable equipment, or false to disable equipment"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
@@ -39,7 +39,7 @@ First implementation.
         info="<html>
 This model implements the interface for the parallel plants 
 in the <a href=\"modelica://Buildings.ChillerWSE\">Buildings.ChillerWSE</a> package.
-The parallel plants contain <code>n</code> identical plants 
+The parallel plants contain <code>num</code> identical plants 
 that share the same temperature setpoint at <code>port_b2</code>. 
 These plants can be operated individually by specifying different on/off signals.
 </html>"));
