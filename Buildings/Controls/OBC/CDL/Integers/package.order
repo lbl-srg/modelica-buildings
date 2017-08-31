@@ -1,6 +1,15 @@
 Abs
 Add
 Add3
+Equal
+Greater
+GreaterEqual
+GreaterEqualThreshold
+GreaterThreshold
+Less
+LessEqual
+LessEqualThreshold
+LessThreshold
 Max
 Min
 OnCounter

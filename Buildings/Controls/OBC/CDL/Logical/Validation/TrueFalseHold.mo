@@ -72,29 +72,29 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{70,-60},{90,-40}})));
 equation
   connect(booPul.y, truFalHol.u)
-    annotation (Line(points={{-119,70},{-41.2,70}},   color={255,0,255}));
+    annotation (Line(points={{-119,70},{-41,70}},     color={255,0,255}));
   connect(booPul1.y, truFalHol1.u)
-    annotation (Line(points={{-119,30},{-41.2,30}}, color={255,0,255}));
+    annotation (Line(points={{-119,30},{-41,30}},   color={255,0,255}));
   connect(booPul2.y, not1.u)
     annotation (Line(points={{-119,-10},{-92,-10}}, color={255,0,255}));
   connect(not1.y, truFalHol2.u)
-    annotation (Line(points={{-69,-10},{-41.2,-10}}, color={255,0,255}));
+    annotation (Line(points={{-69,-10},{-41,-10}},   color={255,0,255}));
   connect(booPul3.y, not3.u)
     annotation (Line(points={{-119,-50},{-92,-50}}, color={255,0,255}));
   connect(not3.y, truFalHol3.u)
-    annotation (Line(points={{-69,-50},{-41.2,-50}}, color={255,0,255}));
+    annotation (Line(points={{-69,-50},{-41,-50}},   color={255,0,255}));
   connect(booPul4.y, truFalHol4.u)
-    annotation (Line(points={{41,70},{118.8,70}}, color={255,0,255}));
+    annotation (Line(points={{41,70},{119,70}},   color={255,0,255}));
   connect(booPul5.y, truFalHol5.u)
-    annotation (Line(points={{41,30},{118.8,30}}, color={255,0,255}));
+    annotation (Line(points={{41,30},{119,30}},   color={255,0,255}));
   connect(booPul6.y, not2.u)
     annotation (Line(points={{41,-10},{68,-10}}, color={255,0,255}));
   connect(not2.y, truFalHol6.u)
-    annotation (Line(points={{91,-10},{118.8,-10}}, color={255,0,255}));
+    annotation (Line(points={{91,-10},{119,-10}},   color={255,0,255}));
   connect(booPul7.y, not4.u)
     annotation (Line(points={{41,-50},{68,-50}}, color={255,0,255}));
   connect(not4.y, truFalHol7.u)
-    annotation (Line(points={{91,-50},{118.8,-50}}, color={255,0,255}));
+    annotation (Line(points={{91,-50},{119,-50}},   color={255,0,255}));
   annotation (
   experiment(StopTime=7200.0, Tolerance=1e-06),
   __Dymola_Commands(
