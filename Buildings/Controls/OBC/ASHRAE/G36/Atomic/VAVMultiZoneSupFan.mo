@@ -313,9 +313,9 @@ equation
     annotation (Line(points={{41,40},{50,40},{50,122},{58,122}},
       color={255,0,255}));
 
-  annotation (Dialog(tab="Advanced",group="Fan control PID parameters"),
-defaultComponentName="vAVMulSupFan",
-Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{140,160}}),
+annotation (Dialog(tab="Advanced",group="Fan control PID parameters"),
+  defaultComponentName="vAVMulSupFan",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{140,160}}),
         graphics={
         Rectangle(
           extent={{-154,158},{86,2}},
@@ -350,7 +350,7 @@ setpoint
           fillPattern=FillPattern.Solid,
           textString="Control fan speed 
 ")}),
-Icon(graphics={
+  Icon(graphics={
         Text(
           extent={{-100,124},{98,102}},
           lineColor={0,0,255},
@@ -388,7 +388,7 @@ Icon(graphics={
           extent={{52,78},{94,58}},
           lineColor={0,0,127},
           textString="ySupFan")}),
- Documentation(info="<html>
+  Documentation(info="<html>
 <p>
 This block implements supply fan control of multizone VAV AHU according to 
 ASHRAE guideline G36, PART5.N.1 (Supply fan control).
