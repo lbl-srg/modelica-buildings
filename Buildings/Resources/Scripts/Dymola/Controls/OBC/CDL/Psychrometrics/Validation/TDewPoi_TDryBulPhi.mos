@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.CDL.Psychrometrics.Validation.TDewPoi_TDryBulPhi", stopTime=1.0, method="dassl", tolerance=1e-06, resultFile="TDewPoi_TDryBulPhi1");
+createPlot(id=1, position={15, 10, 590, 700}, subPlot=1, y={"dewBulPhi.TDewPoi","TDewPoi.T"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{0,140,72},{28,108,200}});
+createPlot(id=1, position={15, 10, 590, 700}, subPlot=2, y={"dewBulPhi1.TDewPoi","TDewPoi1.T"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{0,140,72},{28,108,200}});
+createPlot(id=2, position={620, 10, 590, 700}, subPlot=1, y={"add.y"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={620, 10, 590, 700}, subPlot=2, y={"add1.y"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});

@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "and1.u1",
+    "and1.u2",
+    "and1.y"
+  };

@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "line1.u",
+    "line1.y"
+  };

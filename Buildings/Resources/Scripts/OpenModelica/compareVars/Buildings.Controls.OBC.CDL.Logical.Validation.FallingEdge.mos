@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "falEdg.u",
+    "falEdg.y",
+    "triggeredSampler.u",
+    "triggeredSampler.y"
+  };

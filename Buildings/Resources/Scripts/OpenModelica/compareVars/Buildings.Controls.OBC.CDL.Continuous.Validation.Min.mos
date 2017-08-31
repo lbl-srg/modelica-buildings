@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "min1.u1",
+    "min1.u2",
+    "min1.y"
+  };

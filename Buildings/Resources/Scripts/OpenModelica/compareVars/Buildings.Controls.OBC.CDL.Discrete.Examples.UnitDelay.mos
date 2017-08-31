@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "unitDelay1.u",
+    "unitDelay1.y"
+  };

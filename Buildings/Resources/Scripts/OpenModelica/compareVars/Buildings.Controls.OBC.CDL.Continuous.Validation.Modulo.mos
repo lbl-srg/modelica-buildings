@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "mod1.u1",
+    "mod1.u2",
+    "mod1.y"
+  };
