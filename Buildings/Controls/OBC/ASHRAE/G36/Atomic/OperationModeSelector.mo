@@ -415,9 +415,9 @@ protected
     "If the Cool-down/warm-up/Occupied mode is on, then setup mode should
     not be activated."
     annotation (Placement(transformation(extent={{260,-220},{280,-200}})));
-  CDL.Routing.RealReplicator reaRep(nout=numOfZon) "Replicate real input"
+  CDL.Routing.RealReplicator reaRep(nout=numOfZon) "Replicate Real input"
     annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
-  CDL.Routing.RealReplicator reaRep1(nout=numOfZon) "Replicate real input"
+  CDL.Routing.RealReplicator reaRep1(nout=numOfZon) "Replicate Real input"
     annotation (Placement(transformation(extent={{-200,-260},{-180,-240}})));
 
 equation

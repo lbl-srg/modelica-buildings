@@ -10,7 +10,7 @@ model IntegerReplicator "Validation model for the IntegerReplicator block"
     offset=-2) "Block that outputs ramp signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
-    "Convert real input to integer output"
+    "Convert Real input to Integer output"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation

@@ -3,7 +3,7 @@ block LessThreshold "Output y is true, if input u is less than threshold"
 
   parameter Real threshold=0 "Comparison with respect to threshold";
 
-  Interfaces.RealInput u "Connector of real input signal"
+  Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.BooleanOutput y "Connector of Boolean output signal"

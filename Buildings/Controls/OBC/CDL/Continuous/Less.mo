@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block Less "Output y is true, if input u1 is less than input u2"
 
-  Interfaces.RealInput u1 "Connector of first real input signal"
+  Interfaces.RealInput u1 "Connector of first Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.RealInput u2 "Connector of second real input signal"
+  Interfaces.RealInput u2 "Connector of second Real input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
   Interfaces.BooleanOutput y "Connector of Boolean output signal"

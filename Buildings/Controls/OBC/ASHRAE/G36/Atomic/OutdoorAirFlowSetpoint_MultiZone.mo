@@ -252,10 +252,10 @@ protected
     "Near zero primary airflow so to avoid divide-by-zero issue in later process when supply fan is off"
     annotation (Placement(transformation(extent={{-120,-200},{-100,-180}})));
   CDL.Routing.BooleanReplicator booRep(nout=numOfZon)
-    "Replicate boolean input"
+    "Replicate Boolean input"
     annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
   CDL.Routing.RealReplicator reaRep(nout=numOfZon)
-    "Replicate real input signal"
+    "Replicate Real input signal"
     annotation (Placement(transformation(extent={{140,180},{160,200}})));
 
 equation

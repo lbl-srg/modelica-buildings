@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.CDL.Integers;
 block Equal "Output y is true, if input u1 is equal to input u2"
 
-  Interfaces.IntegerInput u1 "Connector of first integer input signal"
+  Interfaces.IntegerInput u1 "Connector of first Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.IntegerInput u2 "Connector of second integer input signal"
+  Interfaces.IntegerInput u2 "Connector of second Integer input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
   Interfaces.BooleanOutput y "Connector of Boolean output signal"
@@ -42,8 +42,8 @@ annotation (
           textString="=")}),
   Documentation(info="<html>
 <p>
-Block that outputs <code>true</code> if the integer input <code>u1</code>
-is equal to the integer input <code>u2</code>.
+Block that outputs <code>true</code> if the Integer input <code>u1</code>
+is equal to the Integer input <code>u2</code>.
 Otherwise the output is <code>false</code>.
 </p>
 </html>", revisions="<html>

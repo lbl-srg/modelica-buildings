@@ -4,7 +4,7 @@ block LessEqualThreshold
 
   parameter Integer threshold=0 "Comparison with respect to threshold";
 
-  Interfaces.IntegerInput u "Connector of integer input signal"
+  Interfaces.IntegerInput u "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.BooleanOutput y "Connector of Boolean output signal"
