@@ -19,7 +19,7 @@ model HeatingCoolingControlLoops_LoopDisable
     final offset=TRooHeaSet - 5,
     final height=TRooCooSet - TRooHeaSet + 10) "Measured zone air temperature"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  HeatingCoolingControlLoops conLoo(final intWin=true)
+  HeatingCoolingControlLoops conLoo(final intWin=false)
     "Heating and cooling control loop signal generator"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   CDL.Continuous.Sources.Constant TRooCooSetSig1(final k=TRooCooSet)
@@ -35,6 +35,22 @@ model HeatingCoolingControlLoops_LoopDisable
     "Measured zone air temperature is in deadband"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 
+  CDL.Continuous.Sources.Constant TRooCooSetSig2(
+                                                final k=TRooCooSet)
+    "Cooling zone temperature setpoint"
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+  CDL.Continuous.Sources.Constant TRooHeaSetSig2(
+                                                final k=TRooHeaSet)
+    "Heating zone temperature setpoint"
+    annotation (Placement(transformation(extent={{80,30},{100,50}})));
+  Modelica.Blocks.Sources.Ramp TRoo2(
+    final duration=900,
+    final offset=TRooHeaSet - 5,
+    final height=TRooCooSet - TRooHeaSet + 10) "Measured zone air temperature"
+    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
+  HeatingCoolingControlLoops conLoo2(final intWin=false)
+    "Heating and cooling control loop signal generator"
+    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
 equation
   connect(TRooCooSetSig.y, conLoo.TRooCooSet)
     annotation (Line(points={{-99,0},{-80,0},{-80,2},{-61,2}},color={0,0,127}));
@@ -47,6 +63,11 @@ equation
   connect(TRooHeaSetSig1.y, conLoo1.TRooHeaSet)
     annotation (Line(points={{1,40},{20,40},{20,6},{39,6}}, color={0,0,127}));
   connect(TRoo1.y, conLoo1.TRoo) annotation (Line(points={{1,-40},{20,-40},{20,-4},{39,-4}}, color={0,0,127}));
+  connect(TRooCooSetSig2.y, conLoo2.TRooCooSet)
+    annotation (Line(points={{101,0},{120,0},{120,2},{139,2}}, color={0,0,127}));
+  connect(TRooHeaSetSig2.y, conLoo2.TRooHeaSet)
+    annotation (Line(points={{101,40},{120,40},{120,6},{139,6}}, color={0,0,127}));
+  connect(TRoo2.y, conLoo2.TRoo) annotation (Line(points={{101,-40},{120,-40},{120,-4},{139,-4}}, color={0,0,127}));
   annotation (
   experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/Validation/HeatingCoolingControlLoops_LoopDisable.mos"
@@ -61,7 +82,30 @@ equation
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{200,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{180,100}}), graphics={
+        Text(
+          extent={{-120,-68},{-84,-80}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=14,
+          textString="Integral windup is implemented, 
+loop disable is off"),
+        Text(
+          extent={{-20,-66},{16,-78}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=14,
+          textString="Both cooling and heating control loop is idle
+since room temperature is in deadband. 
+Loop disable is on after the initial time delay."),
+        Text(
+          extent={{80,-66},{116,-78}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=12,
+          textString="Loop disable is on for both cooling and heating
+after determined inactive for a defined time
+delay. ")}),
     Documentation(info="<html>
 <p>
 This example validates

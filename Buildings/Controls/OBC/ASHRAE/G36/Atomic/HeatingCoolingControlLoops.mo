@@ -53,10 +53,10 @@ block HeatingCoolingControlLoops "Generates heating and cooling control signals 
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   CDL.Logical.Less disCoo "Determine whether the room temperature is below the cooling setpoint"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
-  CDL.Logical.GreaterEqualThreshold greEquThrHea(threshold=disDel)
+  CDL.Logical.GreaterEqualThreshold heaConIdle(threshold=disDel)
     "Determine whether the provided time delay for heating loop disable has expired"
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
-  CDL.Logical.GreaterEqualThreshold greEquThrCoo(threshold=disDel)
+  CDL.Logical.GreaterEqualThreshold cooConIdle(threshold=disDel)
     "Determine whether the provided time delay for cooling loop disable has expired"
     annotation (Placement(transformation(extent={{30,-140},{50,-120}})));
 
@@ -139,9 +139,9 @@ equation
     annotation (Line(points={{1,50},{10,50},{10,66},{18,66}},color={0,0,127}));
   connect(conSigMinSig.y, conCooInv.f2)
     annotation (Line(points={{1,90},{10,90},{10,62},{18,62}},  color={0,0,127}));
-  connect(timNoHea.y, greEquThrHea.u)
+  connect(timNoHea.y, heaConIdle.u)
     annotation (Line(points={{21,-30},{21,-30},{28,-30}}, color={0,0,127}));
-  connect(timNoCoo.y, greEquThrCoo.u)
+  connect(timNoCoo.y, cooConIdle.u)
     annotation (Line(points={{21,-130},{21,-130},{28,-130}}, color={0,0,127}));
   connect(heaLooDisSwi.y, yHea)
     annotation (Line(points={{121,120},{120,120},{150,120}},color={0,0,127}));
@@ -159,7 +159,7 @@ equation
     annotation (Line(points={{-160,90},{-130,90},{-130,-118},{-102,-118}}, color={0,0,127}));
   connect(intWinSig.y, notIntWin.u)
     annotation (Line(points={{-39,-80},{-30,-80},{-22,-80}}, color={255,0,255}));
-  connect(greEquThrHea.y, andDisHea.u1)
+  connect(heaConIdle.y, andDisHea.u1)
     annotation (Line(points={{51,-30},{54,-30},{54,-42},{58,-42}}, color={255,0,255}));
   connect(disHea.y, andDisHea.u2)
     annotation (Line(points={{-79,-50},{-10,-50},{58,-50}}, color={255,0,255}));
@@ -171,7 +171,7 @@ equation
     annotation (Line(points={{1,-80},{30,-80},{30,-92},{58,-92}}, color={255,0,255}));
   connect(disCoo.y, andDisCoo.u2)
     annotation (Line(points={{-79,-110},{-10,-110},{-10,-100},{58,-100}}, color={255,0,255}));
-  connect(greEquThrCoo.y, andDisCoo.u3)
+  connect(cooConIdle.y, andDisCoo.u3)
     annotation (Line(points={{51,-130},{54,-130},{54,-108},{58,-108}}, color={255,0,255}));
   connect(andDisCoo.y, cooLooDisSwi.u2)
     annotation (Line(points={{81,-100},{90,-100},{90,60},{98,60}}, color={255,0,255}));
@@ -256,24 +256,24 @@ First implementation.
     Diagram(coordinateSystem(extent={{-140,-160},{140,160}}),
                                                           graphics={
         Rectangle(
-          extent={{-136,156},{-44,4}},
+          extent={{-136,156},{-44,0}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{56,156},{136,4}},
+          extent={{56,156},{136,0}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                      Text(
-          extent={{100,24},{130,4}},
+          extent={{100,22},{130,2}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=14,
           textString="Signal
 assignments"),
         Text(
-          extent={{-98,18},{-62,6}},
+          extent={{-98,14},{-62,2}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=14,
@@ -284,18 +284,18 @@ assignments"),
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{96,-140},{132,-152}},
+          extent={{102,-140},{138,-152}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=14,
           textString="Loop disable"),
         Rectangle(
-          extent={{-40,156},{52,4}},
+          extent={{-40,156},{52,0}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-32,18},{4,6}},
+          extent={{-10,14},{26,2}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=14,
