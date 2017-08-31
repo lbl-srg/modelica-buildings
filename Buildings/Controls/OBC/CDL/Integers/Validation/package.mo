@@ -2,12 +2,6 @@ within Buildings.Controls.OBC.CDL.Integers;
 package Validation "Collection of models that validate the integer blocks of the CDL"
   extends Modelica.Icons.ExamplesPackage;
 
-
-
-
-
-
-
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains models that validate the blocks in

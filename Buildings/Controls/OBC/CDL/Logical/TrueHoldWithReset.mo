@@ -3,10 +3,10 @@ block TrueHoldWithReset "Block that holds a true signal for at least a requested
 
   parameter Modelica.SIunits.Time duration "Time duration of the true output signal hold";
 
-  Controls.OBC.CDL.Interfaces.BooleanInput u "Boolean input signal"
+  Interfaces.BooleanInput u "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput y "Boolean output signal"
+  Interfaces.BooleanOutput y "Boolean output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
@@ -27,7 +27,7 @@ protected
   Modelica.StateGraph.TransitionWithSignal toInitial
     "Transition that activates the initial state"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
-  GreaterEqualThreshold greEquThr(final threshold=duration)
+  Continuous.GreaterEqualThreshold greEquThr(final threshold=duration)
     "Greater or equal threshold for timer signal"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
