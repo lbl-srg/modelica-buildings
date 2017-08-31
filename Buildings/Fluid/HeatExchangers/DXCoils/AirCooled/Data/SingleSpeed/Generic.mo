@@ -10,8 +10,8 @@ record Generic "Generic data record for SingleSpeed DXCoils"
 <p>
 This record is used as a template for performance data
 for SingleSpeed DXCoils
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>.
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed</a>.
 </p>
 </html>",
         revisions="<html>

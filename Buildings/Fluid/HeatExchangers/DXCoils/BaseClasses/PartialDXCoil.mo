@@ -208,12 +208,12 @@ defaultComponentName="dxCoi",
 Documentation(info="<html>
 <p>
 This partial model is the base class for
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.MultiStage\">
-Buildings.Fluid.HeatExchangers.DXCoils.MultiStage</a> and
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage</a> and
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed</a>.
 </p>
 <p>
 See

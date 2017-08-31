@@ -39,7 +39,10 @@ annotation (defaultComponentName="nomVal",
               preferredView="info",
   Documentation(info="<html>
 <p>This is the base record of nominal values for air-cooled DX cooling coil models. </p>
-<p>See the information section of <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil\">Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil</a> for a description of the data. </p>
+<p>See the information section of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil</a>
+for a description of the data. </p>
 </html>",
 revisions="<html>
 <ul>
