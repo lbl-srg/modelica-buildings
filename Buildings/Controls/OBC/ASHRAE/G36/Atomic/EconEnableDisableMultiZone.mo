@@ -136,12 +136,12 @@ protected
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
   CDL.Continuous.Add add1(final k2=-1) "Add block determines difference between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,240},{-120,260}})));
-  CDL.Logical.Hysteresis hysOutTem(
+  CDL.Continuous.Hysteresis hysOutTem(
     final uLow=TOutHigLimCutLow,
     final uHigh=TOutHigLimCutHig)
     "Outdoor air temperature hysteresis for both fixed and differential dry bulb temperature cutoff conditions"
     annotation (Placement(transformation(extent={{-100,240},{-80,260}})));
-  CDL.Logical.Hysteresis hysOutEnt(
+  CDL.Continuous.Hysteresis hysOutEnt(
     final uLow=hOutHigLimCutLow,
     final uHigh=hOutHigLimCutHig) if use_enthalpy
     "Outdoor air enthalpy hysteresis for both fixed and differential enthalpy cutoff conditions"
@@ -156,7 +156,7 @@ protected
   CDL.Logical.Switch minRetDamSwitch
     "Keep minimum RA damper position at physical maximum for a short time period after disable"
     annotation (Placement(transformation(extent={{40,-260},{60,-240}})));
-  CDL.Logical.GreaterEqual greEqu "Logical greater or equal block"
+  CDL.Continuous.GreaterEqual greEqu "Logical greater or equal block"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
   CDL.Logical.Timer timer "Timer gets started as the economizer gets disabled"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
@@ -164,13 +164,13 @@ protected
     annotation (Placement(transformation(extent={{-40,200},{-20,220}})));
   CDL.Logical.Not not2 "Logical not that starts the timer at disable signal "
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
-  CDL.Logical.Less les1 "Check if the RA damper should be fully open"
+  CDL.Continuous.Less les1 "Check if the RA damper should be fully open"
     annotation (Placement(transformation(extent={{-8,-190},{12,-170}})));
-  CDL.Logical.LessEqualThreshold equ(
+  CDL.Continuous.LessEqualThreshold equ(
     final threshold=Constants.FreezeProtectionStages.stage0 + 0.5)
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  CDL.Logical.GreaterThreshold greThr(
+  CDL.Continuous.GreaterThreshold greThr(
     final threshold=Constants.ZoneStates.heating + 0.5)
     "Check if zone state is other than heating"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));

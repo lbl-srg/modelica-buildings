@@ -19,7 +19,7 @@ equation
           26,-14},{26,-14},{26,-12},{26,-12}},
                               color={255,0,255}));
   connect(booPul.y, onCounter.trigger)
-    annotation (Line(points={{-5,0},{4,0},{14,0}}, color={255,0,255}));
+    annotation (Line(points={{-5,0},{12,0},{12,0}},color={255,0,255}));
   annotation (
   experiment(StopTime=2.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Integers/Validation/OnCounter.mos"

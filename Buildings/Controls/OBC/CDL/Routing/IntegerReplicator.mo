@@ -1,14 +1,15 @@
 within Buildings.Controls.OBC.CDL.Routing;
 block IntegerReplicator "Integer signal replicator"
   parameter Integer nout=1 "Number of outputs";
-  Controls.OBC.CDL.Interfaces.IntegerInput u "Connector of Integer input signal"
+  Interfaces.IntegerInput u "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Controls.OBC.CDL.Interfaces.IntegerOutput y[nout] "Connector of Integer output signals"
+  Interfaces.IntegerOutput y[nout] "Connector of Integer output signals"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
   y = fill(u, nout);
-  annotation (
+
+annotation (
     defaultComponentName="intRep",
     Icon(graphics={Rectangle(
             extent={{-100,-100},{100,100}},

@@ -1,16 +1,16 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block LogicalSwitch "Logical Switch"
 
-  Controls.OBC.CDL.Interfaces.BooleanInput u1 "Connector of first Boolean input signal"
+  Interfaces.BooleanInput u1 "Connector of first Boolean input signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
-  Controls.OBC.CDL.Interfaces.BooleanInput u2 "Connector of second Boolean input signal"
+  Interfaces.BooleanInput u2 "Connector of second Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Controls.OBC.CDL.Interfaces.BooleanInput u3 "Connector of third Boolean input signal"
+  Interfaces.BooleanInput u3 "Connector of third Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  Controls.OBC.CDL.Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation

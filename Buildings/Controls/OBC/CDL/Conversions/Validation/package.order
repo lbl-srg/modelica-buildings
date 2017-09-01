@@ -1,7 +1,5 @@
 BooleanToInteger
 BooleanToReal
 DayTypeCheck
-IntegerToBoolean
 IntegerToReal
-RealToBoolean
 RealToInteger

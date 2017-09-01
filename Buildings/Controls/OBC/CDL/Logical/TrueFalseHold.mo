@@ -4,18 +4,18 @@ block TrueFalseHold "Block that holds an output signal for at least a specified 
   parameter Modelica.SIunits.Time duration
     "Time duration during which the output cannot change";
 
-  Controls.OBC.CDL.Interfaces.BooleanInput u "Boolean input signal"
+  Interfaces.BooleanInput u "Boolean input signal"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
 
-  Controls.OBC.CDL.Interfaces.BooleanOutput y "Boolean output signal"
+  Interfaces.BooleanOutput y "Boolean output signal"
     annotation (Placement(transformation(extent={{160,-10},{180,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 protected
-  Timer timer1 "Timer for false output"
+  Logical.Timer timer1 "Timer for false output"
     annotation (Placement(transformation(extent={{-130,-40},{-110,-20}})));
 
-  Timer timer2 "Timer for true output"
+  Logical.Timer timer2 "Timer for true output"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
@@ -26,22 +26,22 @@ protected
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Modelica.StateGraph.TransitionWithSignal toTrue "Transition to true"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
-  Not notU "Negation of input"
+  Logical.Not notU "Negation of input"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
   Modelica.StateGraph.StepWithSignal outputTrue(nIn=2)
     "State with true output signal"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Modelica.StateGraph.TransitionWithSignal toFalse "Transition to false"
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
-  GreaterEqualThreshold greEquThr2(final threshold=duration)
+  Continuous.GreaterEqualThreshold greEquThr2(final threshold=duration)
     "Output true when timer elapsed the required time"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  And and2 "Check for input and elapsed timer"
+  Logical.And and2 "Check for input and elapsed timer"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  GreaterEqualThreshold greEquThr1(final threshold=duration)
+  Continuous.GreaterEqualThreshold greEquThr1(final threshold=duration)
     "Output true when timer elapsed the required time"
     annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
-  And and1 "Check for input and elapsed timer"
+  Logical.And and1 "Check for input and elapsed timer"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
 
   Modelica.StateGraph.InitialStep initialStep(nIn=0, nOut=2) "Initial state"
