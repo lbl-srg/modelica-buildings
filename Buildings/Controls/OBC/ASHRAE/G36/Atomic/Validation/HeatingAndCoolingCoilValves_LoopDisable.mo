@@ -108,9 +108,9 @@ delay. ")}),
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Atomic.HeatingAndCoolingCoilValves\">
 Buildings.Controls.OBC.ASHRAE.G36.Atomic.HeatingAndCoolingCoilValves</a>
-loop disable feature under all applicable conditions: presence of integral windup (<code>intWin<\code>) and
-absence of cooling (<code>uCoo<\code>) or heating (<code>uHea<\code>) control signals
-longer than a predefined time delay (<code>disDel<\code>).
+loop disable feature under all applicable conditions: presence of integral windup (<code>intWin</code>) and
+absence of cooling (<code>uCoo</code>) or heating (<code>uHea</code>) control signals
+longer than a predefined time delay (<code>disDel</code>).
 </p>
 </html>", revisions="<html>
 <ul>

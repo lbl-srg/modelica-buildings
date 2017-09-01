@@ -224,13 +224,12 @@ equation
     as the cooling loop and the heating loop.
 </p>
 <p>
-Cooling valve controller is enabled whenever the room temperature (<code>TRoo<\code>) exceeds the cooling temperature 
-setpoint (<code>TRooCooSet<\code>). Heating valve controller is enabled whenever the room temperature 
-(<code>TRoo<\code>) is below the heating temperature setpoint (<code>TRooHeaSet<\code>). Both loops can remain 
+Cooling valve controller is enabled whenever the room temperature (<code>TRoo</code>) exceeds the cooling temperature 
+setpoint (<code>TRooCooSet</code>). Heating valve controller is enabled whenever the room temperature 
+(<code>TRoo</code>) is below the heating temperature setpoint (<code>TRooHeaSet</code>). Both loops can remain 
 enabled at all times if provisions are made for the integral windup. Otherwise any of the loops get disabled
-after remaining at the minimum controller output for longer than <code>disDel<\code> time period. State machine chart
+after remaining at the minimum controller output for longer than <code>disDel</code> time period. State machine chart
 illustrates these conditions:
-</p>
 </p>
 <p align=\"center\">
 <img alt=\"Image of control loop state machine chart\"
@@ -239,8 +238,7 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/Heati
 <p>
 The cooling loop shall maintain the space temperature at the active zone cooling setpoint. The heating loop shall
 maintain the space temperature at the active zone heating setpoint. This diagram illustrates the control loops:
-<br>
-</br>
+<br/>
 </p>
 <p align=\"center\">
 <img alt=\"Image of heating and cooling loop control chart\"
