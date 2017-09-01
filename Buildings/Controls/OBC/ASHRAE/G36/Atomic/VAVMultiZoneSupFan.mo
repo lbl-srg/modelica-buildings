@@ -63,42 +63,42 @@ block VAVMultiZoneSupFan  "Block to control multizone VAV AHU supply fan"
 
   CDL.Interfaces.IntegerInput uOpeMod
    "System operation mode"
-    annotation (Placement(transformation(extent={{-200,90},{-160,130}}),
+    annotation (Placement(transformation(extent={{-200,100},{-160,140}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   CDL.Interfaces.RealInput ducStaPre(
     final unit="Pa",
     quantity="PressureDifference")
     "Measured duct static pressure"
-    annotation (Placement(transformation(extent={{-200,-110},{-160,-70}}),
+    annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   CDL.Interfaces.RealInput boxFloRat[numZon](
     final unit="m3/s",
     quantity="VolumeFlowRate") if not (duaDucBox or airFloMeaSta)
     "VAV box airflow rate"
-    annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
+    annotation (Placement(transformation(extent={{-200,-130},{-160,-90}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
   CDL.Interfaces.IntegerInput uZonPreResReq
     "Zone static pressure reset requests"
-    annotation (Placement(transformation(extent={{-200,-50},{-160,-10}}),
+    annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
   CDL.Interfaces.BooleanOutput ySupFan "Supply fan ON/OFF status"
-    annotation (Placement(transformation(extent={{140,70},{160,90}}),
+    annotation (Placement(transformation(extent={{140,60},{160,80}}),
       iconTransformation(extent={{100,60},{120,80}})));
   CDL.Interfaces.RealOutput yFanSpe(
     min=0, max=1, final unit="1")
     "Supply fan speed"
-    annotation (Placement(transformation(extent={{140,-70},{160,-50}}),
+    annotation (Placement(transformation(extent={{140,-60},{160,-40}}),
       iconTransformation(extent={{100,-10},{120,10}})));
   CDL.Interfaces.RealOutput yFloRat(
     final unit="m3/s",
     quantity="VolumeFlowRate") if not (duaDucBox or airFloMeaSta)
     "Totalized current airflow rate from VAV boxes"
-    annotation (Placement(transformation(extent={{140,-130},{160,-110}}),
+    annotation (Placement(transformation(extent={{140,-120},{160,-100}}),
       iconTransformation(extent={{100,-80},{120,-60}})));
 
   CDL.Continuous.Sum sum1(nin=numZon) if not (duaDucBox or airFloMeaSta)
     "Sum of box airflow rate"
-    annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
+    annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
   TrimRespondLogic staPreSetRes(
     iniSet=iniSet,
     minSet=minSet,
@@ -110,7 +110,7 @@ block VAVMultiZoneSupFan  "Block to control multizone VAV AHU supply fan"
     resAmo=resAmo,
     maxRes=maxRes)
     "Static pressure setpoint reset using trim&respond logic"
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   CDL.Continuous.LimPID supFanSpeCon(
     Ti=Ti,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -119,198 +119,137 @@ block VAVMultiZoneSupFan  "Block to control multizone VAV AHU supply fan"
     yMax=yMax,
     yMin=yMin)
     "Supply fan speed control"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   CDL.Continuous.Sources.Constant zerSpe(k=0)
     "Zero fan speed when it becomes OFF"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   CDL.Logical.Switch swi
     "If fan is OFF, fan speed outputs to zero"
-    annotation (Placement(transformation(extent={{60,-60},{80,-80}})));
+    annotation (Placement(transformation(extent={{80,-50},{100,-70}})));
 
 protected
-  CDL.Conversions.IntegerToReal intToRea
-    "Convert integer input to real output"
-    annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
-  CDL.Logical.GreaterThreshold greThr(
-    threshold=Constants.OperationModes.cooDowInd - 0.5)
-    "Tests whether operation mode is cool down mode"
-    annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
-  CDL.Logical.LessThreshold lesThr(
-    threshold=Constants.OperationModes.cooDowInd + 0.5)
-    "Tests whether operation mode is cool down mode"
-    annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
-  CDL.Logical.GreaterThreshold greThr1(
-    threshold=Constants.OperationModes.setUpInd - 0.5)
-    "Tests whether operation mode is setup mode"
-    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  CDL.Logical.LessThreshold lesThr1(
-    threshold=Constants.OperationModes.setUpInd + 0.5)
-    "Tests whether operation mode is setup mode"
-    annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
-  CDL.Logical.GreaterThreshold greThr2(
-    threshold=Constants.OperationModes.occModInd - 0.5)
-    "Tests whether operation mode is occupied mode"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-  CDL.Logical.LessThreshold lesThr2(
-    threshold=Constants.OperationModes.occModInd + 0.5)
-    "Tests whether operation mode is occupied mode"
-    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  CDL.Logical.GreaterThreshold greThr3(
-    threshold=Constants.OperationModes.setBacInd - 0.5)
-    "Tests whether operation mode is setback mode"
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-  CDL.Logical.LessThreshold lesThr3(
-    threshold=Constants.OperationModes.setBacInd + 0.5)
-    "Tests whether operation mode is setback mode"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  CDL.Logical.GreaterThreshold greThr4(
-    threshold=Constants.OperationModes.warUpInd - 0.5)
-    "Tests whether operation mode is warmup mode"
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  CDL.Logical.LessThreshold lesThr4(
-    threshold=Constants.OperationModes.warUpInd + 0.5)
-    "Tests whether operation mode is warmup mode"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  CDL.Logical.And and1
-    "Tests whether operation mode is cool down mode"
-    annotation (Placement(transformation(extent={{-20,130},{0,150}})));
-  CDL.Logical.And and2
-    "Tests whether operation mode is setup mode"
-    annotation (Placement(transformation(extent={{-20,100},{0,120}})));
-  CDL.Logical.And and3
-    "Tests whether operation mode is occupied mode"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  CDL.Logical.And and4
-    "Tests whether operation mode is setback mode"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  CDL.Logical.And and5
-    "Tests whether operation mode is warmup mode"
-    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   CDL.Logical.Or or1
     "Check whether supply fan should be ON"
-    annotation (Placement(transformation(extent={{60,120},{80,140}})));
+    annotation (Placement(transformation(extent={{80,60},{100,80}})));
   CDL.Logical.Or or2 if perZonRehBox
     "Setback or warmup mode"
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
   CDL.Logical.Or3 or3
     "Cool-down or setup or occupied mode"
-    annotation (Placement(transformation(extent={{20,120},{40,140}})));
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
   CDL.Logical.Sources.Constant con(k=false) if not perZonRehBox
     "Constant true"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+    annotation (Placement(transformation(extent={{20,0},{40,20}})));
+  CDL.Integers.Sources.Constant conInt(k=Constants.OperationModes.cooDowInd)
+    "Cool down mode index"
+    annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
+  CDL.Integers.Sources.Constant conInt4(k=Constants.OperationModes.warUpInd)
+    "Warm-up model index"
+    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
+  CDL.Integers.Sources.Constant conInt1(k=Constants.OperationModes.setUpInd)
+    "Set up mode index"
+    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
+  CDL.Integers.Sources.Constant conInt2(k=Constants.OperationModes.occModInd)
+    "Occupied mode index"
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+  CDL.Integers.Sources.Constant conInt3(k=Constants.OperationModes.setBacInd)
+    "Set back mode index"
+    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
+  CDL.Integers.Equal intEqu "Check if current operation mode is cool-down mode"
+    annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
+  CDL.Integers.Equal intEqu1 "Check if current operation mode is setup mode"
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
+  CDL.Integers.Equal intEqu2 "Check if current operation mode is occupied mode"
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+  CDL.Integers.Equal intEqu3 "Check if current operation mode is setback mode"
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+  CDL.Integers.Equal intEqu4 "Check if current operation mode is warmup mode"
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+
 equation
-  connect(intToRea.y, greThr.u)
-    annotation (Line(points={{-119,140},{-110.5,140},{-102,140}}, color={0,0,127}));
-  connect(intToRea.y, lesThr.u)
-    annotation (Line(points={{-119,140},{-110,140},{-110,160},{-68,160},
-      {-68,140},{-62,140}}, color={0,0,127}));
-  connect(intToRea.y, greThr1.u)
-    annotation (Line(points={{-119,140},{-110,140},{-110,110},{-102,110}},
-      color={0,0,127}));
-  connect(intToRea.y, greThr2.u)
-    annotation (Line(points={{-119,140},{-110,140},{-110,80},{-102,80}},
-      color={0,0,127}));
-  connect(intToRea.y, greThr3.u)
-    annotation (Line(points={{-119,140},{-110,140},{-110,50},{-102,50}},
-      color={0,0,127}));
-  connect(intToRea.y, lesThr1.u)
-    annotation (Line(points={{-119,140},{-110,140},{-110,160},{-68,160},
-      {-68,110},{-62,110}}, color={0,0,127}));
-  connect(intToRea.y, lesThr2.u)
-    annotation (Line(points={{-119,140},{-110,140},{-110,160},{-68,160},
-      {-68,80},{-62,80}}, color={0,0,127}));
-  connect(intToRea.y, lesThr3.u)
-    annotation (Line(points={{-119,140},{-110,140},{-110,160},{-68,160},
-      {-68,50},{-62,50}}, color={0,0,127}));
-  connect(intToRea.y, greThr4.u)
-    annotation (Line(points={{-119,140},{-110,140},{-110,20},{-102,20}},
-      color={0,0,127}));
-  connect(intToRea.y, lesThr4.u)
-    annotation (Line(points={{-119,140},{-110,140},{-110,160},{-68,160},
-      {-68,20},{-62,20}}, color={0,0,127}));
-  connect(lesThr.y,and1. u1)
-    annotation (Line(points={{-39,140},{-22,140}}, color={255,0,255}));
-  connect(lesThr1.y, and2.u1)
-    annotation (Line(points={{-39,110},{-22,110}}, color={255,0,255}));
-  connect(lesThr2.y, and3.u1)
-    annotation (Line(points={{-39,80},{-22,80}}, color={255,0,255}));
-  connect(lesThr3.y, and4.u1)
-    annotation (Line(points={{-39,50},{-22,50}}, color={255,0,255}));
-  connect(lesThr4.y, and5.u1)
-    annotation (Line(points={{-39,20},{-22,20}}, color={255,0,255}));
-  connect(greThr.y,and1. u2)
-    annotation (Line(points={{-79,140},{-72,140},{-72,126},{-32,126},
-      {-32,132},{-22,132}}, color={255,0,255}));
-  connect(greThr1.y, and2.u2)
-    annotation (Line(points={{-79,110},{-72,110},{-72,96},{-32,96},{-32,102},
-      {-22,102}}, color={255,0,255}));
-  connect(greThr2.y, and3.u2)
-    annotation (Line(points={{-79,80},{-72,80},{-72,66},{-32,66},{-32,72},
-      {-22,72}}, color={255,0,255}));
-  connect(greThr3.y, and4.u2)
-    annotation (Line(points={{-79,50},{-72,50},{-72,36},{-32,36},{-32,42},
-      {-22,42}}, color={255,0,255}));
-  connect(greThr4.y, and5.u2)
-    annotation (Line(points={{-79,20},{-72,20},{-72,6},{-32,6},{-32,12},
-      {-22,12}}, color={255,0,255}));
-  connect(and1.y, or3.u1)
-    annotation (Line(points={{1,140},{8,140},{8,138},{18,138}},
-      color={255,0,255}));
-  connect(and2.y, or3.u2)
-    annotation (Line(points={{1,110},{8,110},{8,130},{18,130}},
-      color={255,0,255}));
-  connect(and3.y, or3.u3)
-    annotation (Line(points={{1,80},{12,80},{12,122},{18,122}},
-      color={255,0,255}));
-  connect(and4.y, or2.u1)
-    annotation (Line(points={{1,50},{8,50},{8,70},{18,70}},
-      color={255,0,255}));
-  connect(and5.y, or2.u2)
-    annotation (Line(points={{1,20},{12,20},{12,62},{18,62}},
-      color={255,0,255}));
-  connect(or3.y, or1.u1)
-    annotation (Line(points={{41,130},{49.5,130},{58,130}},
-      color={255,0,255}));
   connect(or2.y, or1.u2)
-    annotation (Line(points={{41,70},{50,70},{50,122},{58,122}},
+    annotation (Line(points={{41,40},{60,40},{60,62},{78,62}},
       color={255,0,255}));
   connect(or1.y, ySupFan)
-    annotation (Line(points={{81,130},{100,130},{120,130},{120,80},{150,80}},
+    annotation (Line(points={{101,70},{150,70}},
       color={255,0,255}));
   connect(boxFloRat, sum1.u)
-    annotation (Line(points={{-180,-120},{58,-120}}, color={0,0,127}));
+    annotation (Line(points={{-180,-110},{58,-110}}, color={0,0,127}));
   connect(sum1.y, yFloRat)
-    annotation (Line(points={{81,-120},{150,-120}},
+    annotation (Line(points={{81,-110},{150,-110}},
       color={0,0,127}));
   connect(or1.y, staPreSetRes.uDevSta)
-    annotation (Line(points={{81,130},{100,130},{100,0},{-120,0},{-120,-22},
-      {-102,-22}}, color={255,0,255}));
+    annotation (Line(points={{101,70},{120,70},{120,-8},{-120,-8},{-120,-32},
+      {-102,-32}},  color={255,0,255}));
   connect(staPreSetRes.y, supFanSpeCon.u_s)
-    annotation (Line(points={{-79,-30},{-70,-30},{-60,-30},{-60,-70},
-      {-42,-70}}, color={0,0,127}));
+    annotation (Line(points={{-79,-40},{-60,-40},{-60,-60},{-42,-60}},
+      color={0,0,127}));
   connect(or1.y, swi.u2)
-    annotation (Line(points={{81,130},{100,130},{100,0},{0,0},{0,-70},{58,-70}},
+    annotation (Line(points={{101,70},{120,70},{120,-8},{0,-8},{0,-60},{78,-60}},
       color={255,0,255}));
   connect(supFanSpeCon.y, swi.u1)
-    annotation (Line(points={{-19,-70},{-4,-70},{-4,-78},{58,-78}},
+    annotation (Line(points={{-19,-60},{-4,-60},{-4,-68},{78,-68}},
       color={0,0,127}));
   connect(zerSpe.y, swi.u3)
-    annotation (Line(points={{41,-30},{46,-30},{46,-62},{58,-62}},
+    annotation (Line(points={{41,-40},{60,-40},{60,-52},{78,-52}},
       color={0,0,127}));
   connect(swi.y, yFanSpe)
-    annotation (Line(points={{81,-70},{90,-70},{100,-70},{100,-60},{150,-60}},
+    annotation (Line(points={{101,-60},{120,-60},{120,-50},{150,-50}},
       color={0,0,127}));
   connect(uZonPreResReq, staPreSetRes.numOfReq)
-    annotation (Line(points={{-180,-30},{-160,-30},{-140,-30},{-140,-38},
-      {-102,-38}}, color={255,127,0}));
-  connect(ducStaPre, supFanSpeCon.u_m)
-    annotation (Line(points={{-180,-90},{-106,-90},{-30,-90},{-30,-82}},
-      color={0,0,127}));
-  connect(uOpeMod, intToRea.u)
-    annotation (Line(points={{-180,110},{-150,110},{-150,140},{-142,140}},
+    annotation (Line(points={{-180,-40},{-142,-40},{-142,-48},{-102,-48}},
       color={255,127,0}));
+  connect(ducStaPre, supFanSpeCon.u_m)
+    annotation (Line(points={{-180,-80},{-30,-80},{-30,-72}},
+      color={0,0,127}));
   connect(con.y, or1.u2)
-    annotation (Line(points={{41,40},{50,40},{50,122},{58,122}},
+    annotation (Line(points={{41,10},{60,10},{60,62},{78,62}},
+      color={255,0,255}));
+  connect(intEqu.y, or3.u1)
+    annotation (Line(points={{-39,130},{0,130},{0,108},{18,108}},
+      color={255,0,255}));
+  connect(intEqu2.y, or3.u3)
+    annotation (Line(points={{-39,70},{0,70},{0,92},{18,92}},
+      color={255,0,255}));
+  connect(intEqu1.y, or3.u2)
+    annotation (Line(points={{-39,100},{18,100}}, color={255,0,255}));
+  connect(conInt.y, intEqu.u2)
+    annotation (Line(points={{-99,130},{-90,130},{-90,122},{-62,122}},
+      color={255,127,0}));
+  connect(conInt1.y, intEqu1.u2)
+    annotation (Line(points={{-99,100},{-90,100},{-90,92},{-62,92}},
+      color={255,127,0}));
+  connect(conInt2.y, intEqu2.u2)
+    annotation (Line(points={{-99,70},{-90,70},{-90,62},{-62,62}},
+      color={255,127,0}));
+  connect(conInt3.y, intEqu3.u2)
+    annotation (Line(points={{-99,40},{-90,40},{-90,32},{-62,32}},
+      color={255,127,0}));
+  connect(conInt4.y, intEqu4.u2)
+    annotation (Line(points={{-99,10},{-90,10},{-90,2},{-62,2}},
+      color={255,127,0}));
+  connect(uOpeMod, intEqu.u1)
+    annotation (Line(points={{-180,120},{-140,120},{-140,150},{-80,150},{-80,130},
+      {-62,130}}, color={255,127,0}));
+  connect(uOpeMod, intEqu1.u1)
+    annotation (Line(points={{-180,120},{-140,120},{-140,150},{-80,150},{-80,100},
+      {-62,100}}, color={255,127,0}));
+  connect(uOpeMod, intEqu2.u1)
+    annotation (Line(points={{-180,120},{-140,120},{-140,150},{-80,150},
+      {-80,70},{-62,70}}, color={255,127,0}));
+  connect(uOpeMod, intEqu3.u1)
+    annotation (Line(points={{-180,120},{-140,120},{-140,150},{-80,150},
+      {-80,40},{-62,40}}, color={255,127,0}));
+  connect(uOpeMod, intEqu4.u1)
+    annotation (Line(points={{-180,120},{-140,120},{-140,150},{-80,150},
+      {-80,10},{-62,10}}, color={255,127,0}));
+  connect(or3.y, or1.u1)
+    annotation (Line(points={{41,100},{60,100},{60,70},{78,70}},
+      color={255,0,255}));
+  connect(intEqu3.y, or2.u1)
+    annotation (Line(points={{-39,40},{18,40}}, color={255,0,255}));
+  connect(intEqu4.y, or2.u2)
+    annotation (Line(points={{-39,10},{0,10},{0,32},{18,32}},
       color={255,0,255}));
 
 annotation (Dialog(tab="Advanced",group="Fan control PID parameters"),
@@ -318,38 +257,57 @@ annotation (Dialog(tab="Advanced",group="Fan control PID parameters"),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{140,160}}),
         graphics={
         Rectangle(
-          extent={{-154,158},{86,2}},
+          extent={{-156,-10},{134,-88}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Text(
-          extent={{10,36},{86,-4}},
-          lineColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
-          textString="Check current 
-operation mode"),
         Rectangle(
-          extent={{-154,0},{-4,-98}},
+          extent={{-156,156},{134,-6}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{-88,-2},{-18,-34}},
+          extent={{42,156},{124,134}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
-          textString="Reset pressure 
-setpoint 
-"),     Text(
-          extent={{-98,-68},{-44,-98}},
+          horizontalAlignment=TextAlignment.Left,
+          textString="Check current operation mode"),
+        Text(
+          extent={{-86,-12},{-16,-24}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
-          textString="Control fan speed 
-")}),
+          horizontalAlignment=TextAlignment.Left,
+          textString="Reset pressure setpoint"),
+        Text(
+          extent={{-98,-58},{-44,-88}},
+          lineColor={0,0,255},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          textString="Control fan speed"),
+        Text(
+          extent={{42,142},{96,126}},
+          lineColor={0,0,255},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          horizontalAlignment=TextAlignment.Left,
+          textString="Check fan ON/OFF"),
+        Rectangle(
+          extent={{-156,-92},{134,-138}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Text(
+          extent={{-132,-124},{-62,-136}},
+          lineColor={0,0,255},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          horizontalAlignment=TextAlignment.Left,
+          textString="Sum of VAV box flow rate")}),
   Icon(graphics={
         Text(
           extent={{-100,124},{98,102}},
