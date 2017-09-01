@@ -57,5 +57,9 @@ August 25, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+experiment(
+      StartTime=0,
+      StopTime=1440,
+      Tolerance=1e-06));
 end CoolingModeControl;

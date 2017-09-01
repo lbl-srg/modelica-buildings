@@ -176,7 +176,7 @@ than the critocal poiint of the speed, then activate one more pump;
 </li>
 <li>
 When the mass flowrate in each pump is less than the critical point of mass flowrate, 
-eg., <code>0.3m_flow_nominal</code>,
+eg., <code>0.3*m_flow_nominal</code>,
 or the speed signal is smaller than the critical point of the speed,
 then deactivate one more pump.
 </li>

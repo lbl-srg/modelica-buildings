@@ -71,7 +71,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/ChillerWSE/Examples/BaseClasses/Controls/Examples/CoolingTowerSpeedControl.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/ChillerWSE/Examples/BaseClasses/Controls/Examples/CoolingTowerSpeedControl.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>
@@ -86,5 +86,9 @@ August 25, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+experiment(
+      StartTime=0,
+      StopTime=1080,
+      Tolerance=1e-06));
 end CoolingTowerSpeedControl;

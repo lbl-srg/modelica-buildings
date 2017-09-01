@@ -96,5 +96,9 @@ July 22, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+experiment(
+      StartTime=0,
+      StopTime=21600,
+      Tolerance=1e-06));
 end IntegratedPrimaryLoadSide;
