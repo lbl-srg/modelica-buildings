@@ -222,7 +222,7 @@ equation
     This block models the control loops that modulate the position of heating and cooling coil valves
     in order to maintain the zone temperature setpoint. ASHRAE Guidline 36 (G36), PART5.B.5, refers to them 
     as the cooling loop and the heating loop.
-</p>
+    </p>
 <p>
 Cooling valve controller is enabled whenever the room temperature (<code>TRoo</code>) exceeds the cooling temperature 
 setpoint (<code>TRooCooSet</code>). Heating valve controller is enabled whenever the room temperature 
