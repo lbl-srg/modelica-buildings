@@ -3,6 +3,11 @@ model HeatingCoolingControlLoops_TRoo
   "Validation model for heating and cooling coil control signal generator"
   extends Modelica.Icons.Example;
 
+  HeatingCoolingControlLoops conLoo
+    "Heating and cooling control loop signal generator"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+
+protected
   parameter Modelica.SIunits.Temperature TRooCooSet=25 + 273.15 "Cooling zone temperature setpoint";
   parameter Modelica.SIunits.Temperature TRooHeaSet=20 + 273.15 "Heating zone temperature setpoint";
 
@@ -15,9 +20,6 @@ model HeatingCoolingControlLoops_TRoo
     final offset=TRooHeaSet - 5,
     final height=TRooCooSet - TRooHeaSet + 10) "Measured zone air temperature"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  HeatingCoolingControlLoops conLoo
-    "Heating and cooling control loop signal generator"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 equation
   connect(TRooCooSetSig.y, conLoo.TRooCooSet)
@@ -53,7 +55,7 @@ setpoints.
 </html>", revisions="<html>
 <ul>
 <li>
-July 12, 2017, by Milica Grahovac:<br/>
+September 1, 2017, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

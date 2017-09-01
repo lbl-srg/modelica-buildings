@@ -3,6 +3,17 @@ model HeatingCoolingControlLoops_LoopDisable
   "Validation model for heating and cooling coil control signal generator"
   extends Modelica.Icons.Example;
 
+  HeatingCoolingControlLoops conLoo(final intWin=true)
+    "Heating and cooling control loop signal generator"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  HeatingCoolingControlLoops conLoo1
+    "Heating and cooling control loop signal generator"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  HeatingCoolingControlLoops conLoo2
+    "Heating and cooling control loop signal generator"
+    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
+
+protected
   parameter Modelica.SIunits.Temperature TRooCooSet = 25 + 273.15 "Cooling zone temperature setpoint";
   parameter Modelica.SIunits.Temperature TRooHeaSet = 20 + 273.15 "Heating zone temperature setpoint";
   parameter Modelica.SIunits.Temperature TRooDea = (TRooHeaSet + TRooCooSet)/2
@@ -14,43 +25,32 @@ model HeatingCoolingControlLoops_LoopDisable
   CDL.Continuous.Sources.Constant TRooHeaSetSig(final k=TRooHeaSet)
     "Heating zone temperature setpoint"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
-  Modelica.Blocks.Sources.Ramp TRoo(
-    final duration=900,
-    final offset=TRooHeaSet - 5,
-    final height=TRooCooSet - TRooHeaSet + 10) "Measured zone air temperature"
-    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  HeatingCoolingControlLoops conLoo(final intWin=false)
-    "Heating and cooling control loop signal generator"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   CDL.Continuous.Sources.Constant TRooCooSetSig1(final k=TRooCooSet)
     "Cooling zone temperature setpoint"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   CDL.Continuous.Sources.Constant TRooHeaSetSig1(final k=TRooHeaSet)
     "Heating zone temperature setpoint"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-  HeatingCoolingControlLoops conLoo1
-    "Heating and cooling control loop signal generator"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  CDL.Continuous.Sources.Constant TRooCooSetSig2(final k=TRooCooSet)
+    "Cooling zone temperature setpoint"
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+  CDL.Continuous.Sources.Constant TRooHeaSetSig2(final k=TRooHeaSet)
+    "Heating zone temperature setpoint"
+    annotation (Placement(transformation(extent={{80,30},{100,50}})));
+  Modelica.Blocks.Sources.Ramp TRoo(
+    final duration=900,
+    final offset=TRooHeaSet - 5,
+    final height=TRooCooSet - TRooHeaSet + 10) "Measured zone air temperature"
+    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
   CDL.Continuous.Sources.Constant TRoo1(k=TRooDea)
     "Measured zone air temperature is in deadband"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-
-  CDL.Continuous.Sources.Constant TRooCooSetSig2(
-                                                final k=TRooCooSet)
-    "Cooling zone temperature setpoint"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  CDL.Continuous.Sources.Constant TRooHeaSetSig2(
-                                                final k=TRooHeaSet)
-    "Heating zone temperature setpoint"
-    annotation (Placement(transformation(extent={{80,30},{100,50}})));
   Modelica.Blocks.Sources.Ramp TRoo2(
     final duration=900,
     final offset=TRooHeaSet - 5,
     final height=TRooCooSet - TRooHeaSet + 10) "Measured zone air temperature"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
-  HeatingCoolingControlLoops conLoo2(final intWin=false)
-    "Heating and cooling control loop signal generator"
-    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
+
 equation
   connect(TRooCooSetSig.y, conLoo.TRooCooSet)
     annotation (Line(points={{-99,0},{-80,0},{-80,2},{-61,2}},color={0,0,127}));
@@ -87,14 +87,14 @@ equation
           extent={{-120,-68},{-84,-80}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=14,
+          fontSize=12,
           textString="Integral windup is implemented, 
 loop disable is off"),
         Text(
           extent={{-20,-66},{16,-78}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=14,
+          fontSize=12,
           textString="Both cooling and heating control loop is idle
 since room temperature is in deadband. 
 Loop disable is on after the initial time delay."),
@@ -118,7 +118,7 @@ longer than a predefined time delay (<code>disDel<\code>).
 </html>", revisions="<html>
 <ul>
 <li>
-Aug 25, 2017, by Milica Grahovac:<br/>
+September 1, 2017, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

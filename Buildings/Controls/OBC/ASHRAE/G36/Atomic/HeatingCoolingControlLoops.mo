@@ -45,14 +45,13 @@ block HeatingCoolingControlLoops "Generates heating and cooling control signals 
     annotation (Placement(transformation(extent={{140,50},{160,70}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
 
-  CDL.Logical.And3 andDisCoo "Logical and that disables cooling loop"
-    annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
-  CDL.Logical.And3 andDisHea "Logical and that disables heating loop"
-    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  CDL.Logical.Greater disHea "Determine whether the room temperature is above the heating setpoint"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  CDL.Logical.Less disCoo "Determine whether the room temperature is below the cooling setpoint"
-    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
+  CDL.Logical.Switch heaLooDisSwi "Enable-disable switch for the heating loop signal"
+    annotation (Placement(transformation(extent={{100,110},{120,130}})));
+  CDL.Logical.Switch cooLooDisSwi "Enable-disable switch for the cooling loop signal"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+  CDL.Logical.Not notIntWin
+    "Logical not that prevents disable in case integral windup minimization in implemented"
+    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   CDL.Logical.GreaterEqualThreshold heaConIdle(threshold=disDel)
     "Determine whether the provided time delay for heating loop disable has expired"
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
@@ -60,7 +59,7 @@ block HeatingCoolingControlLoops "Generates heating and cooling control signals 
     "Determine whether the provided time delay for cooling loop disable has expired"
     annotation (Placement(transformation(extent={{30,-140},{50,-120}})));
 
-//protected
+protected
   final parameter Real conSigMin=0 "Lower limit of control signal output";
   final parameter Real conSigMax=1 "Upper limit of control signal output";
 
@@ -90,7 +89,7 @@ block HeatingCoolingControlLoops "Generates heating and cooling control signals 
     "Minimum controller output signal"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   CDL.Continuous.Sources.Constant conSigMaxSig(final k=conSigMax)
-   "MAximum controller output signal"
+   "Maximum controller output signal"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   CDL.Logical.Sources.Constant intWinSig(final k=intWin)
     "Provisions to minimize integral windup implemented"
@@ -98,26 +97,25 @@ block HeatingCoolingControlLoops "Generates heating and cooling control signals 
   CDL.Continuous.Sources.Constant looDisValSig(final k=conSigMin)
     "Output value at loop disable"
     annotation (Placement(transformation(extent={{100,-38},{120,-18}})));
-  CDL.Logical.Not notCoo "Logical not block"
-    annotation (Placement(transformation(extent={{-30,-140},{-10,-120}})));
-  CDL.Logical.Switch heaLooDisSwi "Enable-disable switch for the heating loop signal"
-    annotation (Placement(transformation(extent={{100,110},{120,130}})));
-  CDL.Logical.Switch cooLooDisSwi "Enable-disable switch for the cooling loop signal"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  CDL.Logical.Not notIntWin
-    "Logical not that prevents disable in case integral windup minimization in implemented"
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-
-  CDL.Logical.GreaterThreshold   greThrHea(threshold=conSigMin + CDL.Constants.eps)
-                                                                   "Determine whether heating signal is active"
+  CDL.Logical.And3 andDisHea "Logical and that disables heating loop"
+    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
+  CDL.Logical.And3 andDisCoo "Logical and that disables cooling loop"
+    annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
+  CDL.Logical.Greater disHea "Determine whether the room temperature is above the heating setpoint"
+    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+  CDL.Logical.Less disCoo "Determine whether the room temperature is below the cooling setpoint"
+    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
+  CDL.Logical.GreaterThreshold greThrHea(threshold=conSigMin + CDL.Constants.eps)
+    "Determine whether heating signal is active"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   CDL.Logical.GreaterThreshold greThrCoo(threshold=conSigMin + CDL.Constants.eps)
-                                                              "Determine whether cooling signal is active"
+    "Determine whether cooling signal is active"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
-
-  CDL.Logical.Not notCoo1
-                         "Logical not block"
+  CDL.Logical.Not notHea "Logical not block"
     annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
+  CDL.Logical.Not notCoo "Logical not block"
+    annotation (Placement(transformation(extent={{-30,-140},{-10,-120}})));
+
 equation
   connect(TRooHeaSet, conHeaVal.u_s)
     annotation (Line(points={{-160,140},{-160,140},{-102,140}},color={0,0,127}));
@@ -189,8 +187,8 @@ equation
     annotation (Line(points={{41,70},{50,70},{50,-8},{-66,-8},{-66,-130},{-62,-130}}, color={0,0,127}));
   connect(conHeaVal.y, greThrHea.u)
     annotation (Line(points={{-79,140},{-70,140},{-70,-30},{-62,-30}}, color={0,0,127}));
-  connect(greThrHea.y, notCoo1.u) annotation (Line(points={{-39,-30},{-36,-30},{-32,-30}}, color={255,0,255}));
-  connect(timNoHea.u, notCoo1.y) annotation (Line(points={{-2,-30},{-9,-30}}, color={255,0,255}));
+  connect(greThrHea.y, notHea.u) annotation (Line(points={{-39,-30},{-36,-30},{-32,-30}}, color={255,0,255}));
+  connect(timNoHea.u, notHea.y) annotation (Line(points={{-2,-30},{-9,-30}}, color={255,0,255}));
     annotation (Placement(transformation(extent={{-20,110},{0,130}})),
                 Placement(transformation(extent={{-20,20},{0,40}})),
                 Placement(transformation(extent={{60,90},{80,110}})),
@@ -222,36 +220,36 @@ equation
     Documentation(info="<html>
     <p>
     This block models the control loops that modulate the position of heating and cooling coil valves
-    in order to maintain the zone temperature setpoint. ASHRAE Guidline 36 (G36), PART5.B.5 refers to them 
+    in order to maintain the zone temperature setpoint. ASHRAE Guidline 36 (G36), PART5.B.5, refers to them 
     as the cooling loop and the heating loop.
 </p>
 <p>
 Cooling valve controller is enabled whenever the room temperature (<code>TRoo<\code>) exceeds the cooling temperature 
 setpoint (<code>TRooCooSet<\code>). Heating valve controller is enabled whenever the room temperature 
 (<code>TRoo<\code>) is below the heating temperature setpoint (<code>TRooHeaSet<\code>). Both loops can remain 
-enabled at all times if provisions are made for the integral windup. Otherwise any of the loops gets disabled
+enabled at all times if provisions are made for the integral windup. Otherwise any of the loops get disabled
 after remaining at the minimum controller output for longer than <code>disDel<\code> time period. State machine chart
 illustrates these conditions:
 </p>
 </p>
 <p align=\"center\">
 <img alt=\"Image of control loop state machine chart\"
-src=\"modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/HeatingAndCoolingCoilValvesStateMachine.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/HeatingAndCoolingCoilValvesStateMachine.png\"/>
 </p>
 <p>
-The Cooling Loop shall maintain the space temperature at the active zone cooling setpoint. The Heating Loop shall
+The cooling loop shall maintain the space temperature at the active zone cooling setpoint. The heating loop shall
 maintain the space temperature at the active zone heating setpoint. This diagram illustrates the control loops:
 <br>
 </br>
 </p>
 <p align=\"center\">
 <img alt=\"Image of heating and cooling loop control chart\"
-src=\"modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/HeatingAndCoolingCoilValvesControlDiagram.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/HeatingAndCoolingCoilValvesControlDiagram.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-July 13, 2017, by Milica Grahovac:<br/>
+September 1, 2017, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
@@ -269,14 +267,14 @@ First implementation.
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                      Text(
-          extent={{100,22},{130,2}},
+          extent={{94,22},{124,2}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=14,
           textString="Signal
 assignments"),
         Text(
-          extent={{-98,14},{-62,2}},
+          extent={{-118,14},{-82,2}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=14,
@@ -287,7 +285,7 @@ assignments"),
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{102,-140},{138,-152}},
+          extent={{92,-140},{128,-152}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=14,
@@ -298,9 +296,10 @@ assignments"),
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-10,14},{26,2}},
+          extent={{2,18},{38,6}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=14,
-          textString="Controller signal reverse")}));
+          textString="Controller 
+signal reverse")}));
 end HeatingCoolingControlLoops;
