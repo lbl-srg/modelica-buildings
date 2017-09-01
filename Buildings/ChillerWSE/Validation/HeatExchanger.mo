@@ -149,7 +149,7 @@ equation
       color={0,127,255}));
   connect(TEva_in1.y, sou2_1.T_in)
     annotation (Line(points={{75,28},{56,28}}, color={0,0,127}));
-  annotation(experiment(Tolerance=1e-6, StopTime=360),
+  annotation (
 __Dymola_Commands(file="Resources/Scripts/Dymola/ChillerWSE/Validation/HeatExchanger.mos"
         "Simulate and Plot"),
 Documentation(info="<html>
