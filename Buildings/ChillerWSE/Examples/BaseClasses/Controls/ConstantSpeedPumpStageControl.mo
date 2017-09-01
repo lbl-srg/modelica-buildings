@@ -3,16 +3,19 @@ model ConstantSpeedPumpStageControl "Staging control for constant speed pumps"
 
   parameter Modelica.SIunits.Time tWai "Waiting time";
 
-  Modelica.Blocks.Interfaces.RealInput cooMod
-    "Cooling mode - 0: free cooling mode; 1: partially mechanical cooling; 2: fully mechanical cooling"
+  Modelica.Blocks.Interfaces.IntegerInput cooMod
+    "Cooling mode - 0:off,  1: free cooling mode; 2: partially mechanical cooling; 3: fully mechanical cooling"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput chiNumOn
+  Modelica.Blocks.Interfaces.IntegerInput numOnChi
     "The number of running chillers"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+  Modelica.Blocks.Interfaces.RealOutput y[2] "On/off signal - 0: off; 1: on"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
   Modelica.StateGraph.Transition con1(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod >= 0)
+    condition=cooMod > 0)
     "Fire condition 1: free cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -36,7 +39,7 @@ model ConstantSpeedPumpStageControl "Staging control for constant speed pumps"
   Modelica.StateGraph.Transition con2(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod < 1.5 or (cooMod >= 1.5 and chiNumOn > 1))
+    condition=cooMod == 2 or (cooMod == 3 and numOnChi > 1))
     "Fire condition 2: partially mechanical cooling to fully mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -45,7 +48,7 @@ model ConstantSpeedPumpStageControl "Staging control for constant speed pumps"
   Modelica.StateGraph.Transition con3(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod >= 1.5 and chiNumOn < 2)
+    condition=cooMod == 3 and numOnChi < 2)
     "Fire condition 3: fully mechanical cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -54,7 +57,7 @@ model ConstantSpeedPumpStageControl "Staging control for constant speed pumps"
   Modelica.StateGraph.Transition con4(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod < 0 or cooMod > 2)
+    condition=cooMod == 0)
     "Fire condition 4: partially mechanical cooling to free cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -68,8 +71,6 @@ model ConstantSpeedPumpStageControl "Staging control for constant speed pumps"
     y_default=0)
     "Switch boolean signals to real signal"
     annotation (Placement(transformation(extent={{24,-6},{48,6}})));
-  Modelica.Blocks.Interfaces.RealOutput y[2] "On/off signal - 0: off; 1: on"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table=[0,0,0; 1,1,0; 2,1,1])
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
@@ -159,7 +160,7 @@ equals to the number of running chillers.
 </html>", revisions="<html>
 <ul>
 <li>
-July 30, 2017, by Yangyang Fu:<br>
+July 30, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

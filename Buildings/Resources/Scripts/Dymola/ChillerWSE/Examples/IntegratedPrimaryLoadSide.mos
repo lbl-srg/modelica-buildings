@@ -1,8 +1,8 @@
-simulateModel("Buildings.ChillerWSE.Examples.IntegratedPrimaryLoadSide", startTime=3.8016e+06, stopTime=3.9744e+06, tolerance= 1e-06, method="dassl", resultFile="IntegratedPrimaryLoadSide");
+simulateModel("Buildings.ChillerWSE.Examples.IntegratedPrimaryLoadSide", startTime=0, stopTime=86400, tolerance= 1e-06, method="dassl", resultFile="IntegratedPrimaryLoadSide");
 removePlots(false);
 createPlot(id=1,
  position={55, 50, 592, 427},
- y={"cooModCon.cooMod"},
+ y={"cooModCon.y"},
  range={44.0, 45.1, -0.2, 1.20},
  erase=false,
  grid=true,
@@ -18,13 +18,13 @@ createPlot(id=1,
  colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=2,
  position={75, 70, 592, 427},
- y={"CWST.T", "CWRT.T", "CWSTSet.y"},
+ y={"TCWSup.T", "TCWRet.T", "TCWSupSet.y"},
  range={44.0, 45.1, 10.0, 30.0},
  erase=false, grid=true,
  colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=2,
  position={75, 70, 592, 139},
- y={"CHWST.T", "CHWRT.T", "CHWSTSet.y", "chiWSE.wseCHWST"},
+ y={"TCHWSup.T", "TCHWRet.T", "TCHWSupSet.y", "chiWSE.TCHWSupWSE"},
  range={44.0, 45.1, 0.0, 80.0},
  erase=false,
  grid=true,
@@ -32,7 +32,7 @@ createPlot(id=2,
  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
 createPlot(id=2,
  position={75, 70, 592, 140},
- y={"SAT.T", "SATSet.y"},
+ y={"TAirSup.T", "TAirSupSet.y"},
  range={44.0, 45.1, 10.0, 40.0},
  erase=false,
  grid=true,

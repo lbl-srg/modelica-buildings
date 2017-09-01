@@ -4,13 +4,13 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters;
 
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic per[nPum]
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic per[num]
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{70,64},{90,84}})));
  // Pump parameters
-  parameter Integer nPum=2 "The number of pumps";
+  parameter Integer num=2 "The number of pumps";
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation(Dialog(group="Pump"));
@@ -26,7 +26,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
-  parameter Real[nPum] yPump_start=fill(0,nPum) "Initial value of pump signals"
+  parameter Real[num] yPump_start=fill(0,num) "Initial value of pump signals"
     annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
 
    // Valve parameters
@@ -39,7 +39,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   parameter Modelica.SIunits.Time riseTimeValve=30
     "Rise time of the filter (time to reach 99.6 % of the speed)"
     annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilter));
-  parameter Real[nPum] yValve_start = fill(0,nPum)
+  parameter Real[num] yValve_start = fill(0,num)
     "Initial value of pump signals"
     annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilter));
 
@@ -60,15 +60,15 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     annotation(Dialog(tab = "Initialization"));
   parameter Medium.MassFraction X_start[Medium.nX] = Medium.X_default
     "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", enable=Medium1.nXi > 0));
+    annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
   parameter Medium.ExtraProperty C_start[Medium.nC](
     final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Start value of trace substances"
-    annotation (Dialog(tab="Initialization", enable=Medium1.nC > 0));
+    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
   parameter Medium.ExtraProperty C_nominal[Medium.nC](
     final quantity=Medium.extraPropertiesNames) = fill(1E-2, Medium.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
-   annotation (Dialog(tab="Initialization", enable=Medium1.nC > 0));
+   annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Flow resistance"));
@@ -80,11 +80,11 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     annotation(Dialog(tab="Flow resistance"));
   parameter Real threshold(min = 1e-6) = 1e-6
     "Output signal y is true, if input u >= threshold";
-  Modelica.Blocks.Interfaces.RealInput u[nPum]
+  Modelica.Blocks.Interfaces.RealInput u[num]
     "Continuous input signal for the flow machine"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealOutput P[nPum](
+  Modelica.Blocks.Interfaces.RealOutput P[num](
     final quantity="Power",
     final unit="W")
     "Electrical power consumed by the pumps"
@@ -94,7 +94,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
         rotation=0,
         origin={110,40})));
 
-  replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine pum[nPum]
+  replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine pum[num]
     constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
     redeclare each final replaceable package Medium = Medium,
     each final inputType=Buildings.Fluid.Types.InputType.Continuous,
@@ -117,7 +117,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final C_nominal=C_nominal)
     "Pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear val[nPum](
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val[num](
     redeclare each final replaceable package Medium = Medium,
     each final dpFixed_nominal=0,
     each final l=l,
@@ -139,19 +139,16 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     "Shutoff valves"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Modelica.Blocks.Math.RealToBoolean reaToBoo[nPum](each final threshold=
-    threshold)
-    "Real to boolean valve"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Modelica.Blocks.Math.BooleanToReal booToRea[nPum](
-    each final realTrue=1,
-    each final realFalse=0)
-    "Boolean to real valve"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+  Buildings.ChillerWSE.BaseClasses.Sign uVal[num](
+    each final u1=1,
+    each final u2=0,
+    each final threshold=threshold)
+    "Signal for shutoff valves"
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 equation
   connect(pum.port_b, val.port_a)
     annotation (Line(points={{10,0},{25,0},{40,0}}, color={0,127,255}));
-  for i in 1:nPum loop
+  for i in 1:num loop
   connect(val[i].port_b, port_b)
     annotation (Line(points={{60,0},{80,0},{100,0}}, color={0,127,255}));
   connect(port_a, pum[i].port_a)
@@ -160,13 +157,10 @@ equation
   connect(pum.P, P)
     annotation (Line(points={{11,9},{20,9},{20,40},{110,40}},
       color={0,0,127}));
-  connect(u, reaToBoo.u)
-    annotation (Line(points={{-120,40},{-90,40},{-90,60},{-82,60}},
-      color={0,0,127}));
-  connect(reaToBoo.y, booToRea.u)
-    annotation (Line(points={{-59,60},{-50.5,60},{-42,60}}, color={255,0,255}));
-  connect(booToRea.y, val.y)
-    annotation (Line(points={{-19,60},{50,60},{50,12}}, color={0,0,127}));
+  connect(u, uVal.u) annotation (Line(points={{-120,40},{-80,40},{-80,60},{-62,60}},
+        color={0,0,127}));
+  connect(uVal.y, val.y)
+    annotation (Line(points={{-39,60},{50,60},{50,12}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,16},{100,-14}},
@@ -190,5 +184,13 @@ equation
           fillPattern=FillPattern.Sphere,
           visible=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
           fillColor={0,100,199})}),                              Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+June 30, 2017, by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PartialPumpParallel;

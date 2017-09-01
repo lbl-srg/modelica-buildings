@@ -2,9 +2,9 @@ within Buildings.ChillerWSE;
 model IntegratedPrimarySecondary
   "Integrated waterside economizer on the load side in a primary-secondary chilled water system"
   extends Buildings.ChillerWSE.BaseClasses.PartialChillerWSE(
-    final nVal=5,
-    final m_flow_nominal={mChiller1_flow_nominal,mChiller2_flow_nominal,mWSE1_flow_nominal,
-      mWSE2_flow_nominal,nChi*mChiller2_flow_nominal},
+    final numVal=5,
+    final m_flow_nominal={m1_flow_chi_nominal,m2_flow_chi_nominal,m1_flow_chi_nominal,
+      m2_flow_wse_nominal,numChi*m2_flow_chi_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
@@ -18,12 +18,12 @@ model IntegratedPrimarySecondary
      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   //Pump
-  parameter Integer nPum=nChi "Number of pumps"
+  parameter Integer numPum=numChi "Number of pumps"
     annotation(Dialog(group="Pump"));
-  parameter Modelica.SIunits.MassFlowRate mPump_flow_nominal(min=0)=mChiller2_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate m_flow_pum_nominal(min=0)=m2_flow_chi_nominal
   "Nominal flow rate of the pump"
    annotation (Dialog(group="Pump"));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum[nPum]
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum[numPum]
     "Performance data for primary pumps"
     annotation (Dialog(group="Pump"),
       Placement(transformation(extent={{38,78},{58,98}})));
@@ -36,38 +36,62 @@ model IntegratedPrimarySecondary
   parameter Modelica.Blocks.Types.Init initPum=initValve
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered flowrate",enable=use_inputFilter));
-  parameter Real[nPum] yPump_start(each min=0)=fill(0,nPum)
+  parameter Real[numPum] yPum_start(each min=0)=fill(0,numPum)
     "Initial value of output from pumps:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered flowrate",enable=use_inputFilter));
-  parameter Real[nPum] m_flow_start(each min=0)=fill(0,nPum)
+  parameter Real[numPum] m_flow_start(each min=0)=fill(0,numPum)
     "Initial value of output from pumps"
     annotation(Dialog(tab="Dynamics", group="Filtered flowrate"));
-  parameter Real[nPum] yValvePump_start = fill(0,nPum)
+  parameter Real[numPum] yValPum_start = fill(0,numPum)
     "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Real l_ValvePump=0.0001
+  parameter Real lValPum=0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Pump"));
-  parameter Real kFixed_ValvePump=pum.m_flow_nominal/sqrt(pum.dpValve_nominal)
+  parameter Real kFixedValPum=pum.m_flow_nominal/sqrt(pum.dpValve_nominal)
     "Flow coefficient of fixed resistance that may be in series with valve, 
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Pump"));
-  parameter Modelica.SIunits.PressureDifference dpValvePump_nominal = 6000
+  parameter Modelica.SIunits.PressureDifference dpValPum_nominal = 6000
    "Nominal differential pressure of the shutoff valves for primary pumps"
    annotation(Dialog(group="Pump"));
  //Valve
-  parameter Real lValve5(min=1e-10,max=1) = 0.0001
+  parameter Real lVal5(min=1e-10,max=1) = 0.0001
     "Valve 5 leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Shutoff valve"));
-  parameter Real yValve5_start = 0
+  parameter Real yVal5_start = 0
     "Initial value of output from valve 5:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+
+  Modelica.Blocks.Interfaces.RealInput m_flow_in[numPum](
+    final quantity="MassFlowRate",
+    final unit="kg/s")
+    "Prescribed mass flow rate for primary pumps"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-130,-50},{-100,-20}})));
+  Modelica.Blocks.Interfaces.RealInput yVal5(
+    final unit = "1",
+    min = 0,
+    max = 1)
+    "Actuator position for valve 5 (0: closed, 1: open)"
+    annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-120,26}), iconTransformation(extent={{-16,-16},{16,16}},
+          origin={-116,30})));
+  Modelica.Blocks.Interfaces.RealOutput powPum[numPum](
+    each final quantity="Power",
+    each final unit = "W")
+    "Electrical power consumed by the pumps"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear  val5(
     redeclare final package Medium = Medium2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final allowFlowReversal=allowFlowReversal2,
-    final m_flow_nominal=nChi*mChiller2_flow_nominal,
+    final m_flow_nominal=numChi*m2_flow_chi_nominal,
     final show_T=show_T,
     final from_dp=from_dp2,
     final homotopyInitialization=homotopyInitialization,
@@ -80,8 +104,8 @@ model IntegratedPrimarySecondary
     final dpValve_nominal=dpValve_nominal[5],
     final kFixed=0,
     final rhoStd=rhoStd[5],
-    final y_start=yValve5_start,
-    final l=lValve5)
+    final y_start=yVal5_start,
+    final l=lVal5)
     "Shutoff valve: closed when fully mechanic cooling is activated; open when fully mechanic cooling is activated"
     annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
   Buildings.ChillerWSE.FlowMachine_m pum(
@@ -101,34 +125,22 @@ model IntegratedPrimarySecondary
     each final use_inputFilter=use_inputFilter,
     each final init=initPum,
     each final tau=tauPump,
-    each final m_flow_nominal=mPump_flow_nominal,
-    final nPum=nPum,
+    each final m_flow_nominal=m_flow_pum_nominal,
+    final num=numPum,
     final deltaM=deltaM2,
-    final dpValve_nominal=dpValvePump_nominal,
-    final l=l_ValvePump,
-    final kFixed=kFixed_ValvePump,
+    final dpValve_nominal=dpValPum_nominal,
+    final l=lValPum,
+    final kFixed=kFixedValPum,
     final riseTimeValve=riseTimeValve,
-    final yValve_start=yValvePump_start,
+    final yValve_start=yValPum_start,
     final from_dp=from_dp2,
     final homotopyInitialization=homotopyInitialization,
     final linearizeFlowResistance=linearizeFlowResistance2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final riseTimePump=riseTimePump,
-    final yPump_start=yPump_start)
+    final yPump_start=yPum_start)
     "Constant speed pumps"
     annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
-  Modelica.Blocks.Interfaces.RealInput m_flow_in[nPum]
-    "Prescribed mass flow rate for primary pumps"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-        iconTransformation(extent={{-130,-50},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealInput yVal5
-    "Actuator position for valve 5 (0: closed, 1: open)"
-    annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,26}), iconTransformation(extent={{-16,-16},{16,16}},
-          origin={-116,30})));
   Buildings.Fluid.Sensors.MassFlowRate bypFlo(redeclare package Medium = Medium2)
     "Bypass water mass flowrate"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
@@ -161,7 +173,44 @@ equation
           {-40,-6},{16,-6},{16,-16},{12,-16}}, color={0,0,127}));
   connect(pum.port_a, val5.port_b)
     annotation (Line(points={{10,-20},{25,-20},{40,-20}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  connect(pum.P, powPum) annotation (Line(points={{-11,-16},{-6,-16},{-6,52},{90,
+          52},{90,-40},{110,-40}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Ellipse(
+          extent={{-14,-30},{8,-52}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,128,255}),
+        Polygon(
+          points={{-14,-42},{-2,-52},{-2,-30},{-14,-42}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255}),
+        Polygon(
+          points={{-6,-7},{-6,9},{3,0},{-6,-7}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={44,-41},
+          rotation=0),
+        Polygon(
+          points={{-7,-6},{9,-6},{0,3},{-7,-6}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={48,-41},
+          rotation=90),
+        Line(points={{64,0},{74,0},{74,-60},{94,-60}}, color={0,128,255}),
+        Line(points={{-164,74}}, color={0,128,255}),
+        Line(points={{54,-40},{74,-40}}, color={0,128,255}),
+        Line(points={{38,-40},{8,-40}}, color={0,128,255}),
+        Line(points={{-14,-42},{-18,-42},{-18,0},{-24,0}}, color={0,128,255}),
+        Line(points={{-72,0},{-76,0},{-76,-60}}, color={0,128,255}),
+        Line(points={{-92,-60},{-76,-60}}, color={0,128,255}),
+        Line(points={{12,0},{12,-40}}, color={0,128,255}),
+        Line(points={{12,-40},{12,-60},{-76,-60}}, color={0,128,255})}),
+                                                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
@@ -170,7 +219,7 @@ on the load side of the primary-secondary chilled water system, as shown in the 
 In the configuration, users can model multiple chillers with only one integrated WSE. 
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/ChillerWSE/IntegratedPrimarySecondary.png\"/> 
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/ChillerWSE/IntegratedPrimarySecondary.png\"/> 
 </p>
 <h4>Implementation</h4>
 <p>The WSE located on the load side can see the warmest return chilled water, 
@@ -220,7 +269,7 @@ Otherwise, V5 is off.
 </html>", revisions="<html>
 <ul>
 <li>
-July 1, 2017, by Yangyang Fu:<br>
+July 1, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

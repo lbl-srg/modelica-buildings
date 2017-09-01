@@ -2,9 +2,9 @@ within Buildings.ChillerWSE;
 model NonIntegrated
   "Non-integrated waterside economizer in chilled water system"
   extends Buildings.ChillerWSE.BaseClasses.PartialChillerWSE(
-    final nVal=4,
-    final m_flow_nominal={mChiller1_flow_nominal,mChiller2_flow_nominal,mWSE1_flow_nominal,
-      mWSE2_flow_nominal},
+    final numVal=4,
+    final m_flow_nominal={m1_flow_chi_nominal,m2_flow_chi_nominal,m1_flow_wse_nominal,
+      m2_flow_wse_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
@@ -23,7 +23,13 @@ equation
   connect(senTem.port_b, port_b2)
     annotation (Line(points={{8,24},{0,24},{0,-40},
           {-72,-40},{-72,-60},{-100,-60}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Line(points={{64,0},{74,0},{74,-60},{90,-60}}, color={0,128,255}),
+        Line(points={{-72,0},{-76,0},{-76,-60},{-92,-60}}, color={0,128,255}),
+        Line(points={{90,-60},{90,-60},{-14,-60},{-14,0},{-24,0}}, color={0,128,
+              255}),
+        Line(points={{12,0},{12,-40},{12,-40},{-76,-40}}, color={0,128,255})}),
+                                                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
@@ -76,7 +82,7 @@ For Fully Mechanical Cooling (FMC) Mode:
 </html>", revisions="<html>
 <ul>
 <li>
-July 1, 2017, by Yangyang Fu:<br>
+July 1, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,8 +1,8 @@
 within Buildings.ChillerWSE;
 model WatersideEconomizer "Waterside economizer"
   extends Buildings.ChillerWSE.BaseClasses.PartialPlantParallel(
-    final n=1,
-    final nVal=2,
+    final num=1,
+    final numVal=2,
     final m_flow_nominal={m1_flow_nominal,m2_flow_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
@@ -13,11 +13,12 @@ model WatersideEconomizer "Waterside economizer"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1,
     redeclare package Medium=Medium2);
-  extends Buildings.ChillerWSE.BaseClasses.ThreeWayValveParameters;
+  extends Buildings.ChillerWSE.BaseClasses.ThreeWayValveParameters(
+    final activate_ThrWayVal=use_Controller);
   extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface;
 
   // Filter opening
-  parameter Real yBypVal_start=1 if use_Controller
+  parameter Real yThrWayVal_start=1
    "Initial value of output from the filter in the bypass valve"
     annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_Controller and use_inputFilter));
   parameter Real yValWSE_start=1
@@ -28,10 +29,17 @@ model WatersideEconomizer "Waterside economizer"
   parameter Modelica.SIunits.Efficiency eta(start=0.8) "constant effectiveness";
 
  // Bypass valve parameters
-  parameter Modelica.SIunits.Time tau_ThrWayVal=10 if use_Controller
+  parameter Modelica.SIunits.Time tauThrWayVal=10
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
     annotation(Dialog(tab="Dynamics", group="Nominal condition",
                enable=use_Controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+
+  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC") if use_Controller
+    "Set point for leaving water temperature"
+    annotation (Placement(
+        transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
+          extent={{-140,-20},{-100,20}})));
+
   Buildings.ChillerWSE.HeatExchanger heaExc(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
@@ -78,13 +86,13 @@ model WatersideEconomizer "Waterside economizer"
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTimeValve,
     final init=initValve,
-    final yBypVal_start=yBypVal_start,
+    final yThrWayVal_start=yThrWayVal_start,
     final eta=eta,
     final fraK_ThrWayVal=fraK_ThrWayVal,
     each final l_ThrWayVal=l_ThrWayVal,
     final R=R,
     final delta0=delta0,
-    final tau_ThrWayVal=tau_ThrWayVal,
+    final tauThrWayVal=tauThrWayVal,
     final portFlowDirection_1=portFlowDirection_1,
     final portFlowDirection_2=portFlowDirection_2,
     final portFlowDirection_3=portFlowDirection_3,
@@ -92,11 +100,7 @@ model WatersideEconomizer "Waterside economizer"
     final reverseAction=reverseAction)
     "Water-to-water heat exchanger"
     annotation (Placement(transformation(extent={{-10,-12},{10,4}})));
-  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC") if use_Controller
-    "Set point for leaving water temperature"
-    annotation (Placement(
-        transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
-          extent={{-140,-20},{-100,20}})));
+
 equation
   connect(port_a1, heaExc.port_a1)
     annotation (Line(points={{-100,60},{-40,60},
@@ -137,9 +141,94 @@ around the setpoint.
 </html>", revisions="<html>
 <ul>
 <li>
-June 30, 2017, by Yangyang Fu:<br>
+June 30, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+        Rectangle(
+          extent={{-80,80},{80,-80}},
+          lineColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          fillColor={95,95,95}),
+        Rectangle(
+          extent={{-94,-52},{100,-66}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-92,66},{92,54}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-72,70},{-66,50}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-66,70},{-60,50}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-60,80},{-40,-80}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-40,80},{-20,-80}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-20,80},{0,-80}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{0,80},{20,-80}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{20,80},{40,-80}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{40,80},{60,-80}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{60,70},{66,50}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{66,70},{72,50}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{66,-50},{72,-70}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{60,-50},{66,-70}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-66,-50},{-60,-70}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-72,-50},{-66,-70}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}));
 end WatersideEconomizer;

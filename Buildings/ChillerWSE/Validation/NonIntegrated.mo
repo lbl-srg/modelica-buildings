@@ -8,31 +8,33 @@ model NonIntegrated "Non-integrated WSE  in a chilled water system"
     TSet(k=273.15 + 5.56),
     TEva_in(k=273.15 + 15.28),
     redeclare Buildings.Fluid.Sources.MassFlowSource_T sou2(
-         nPorts=1, m_flow=mCHW_flow_nominal));
+      nPorts=1,
+      m_flow=mCHW_flow_nominal));
 
   Buildings.ChillerWSE.NonIntegrated nonIntWSE(
-    mChiller1_flow_nominal=mCW_flow_nominal,
-    mChiller2_flow_nominal=mCHW_flow_nominal,
-    mWSE1_flow_nominal=mCW_flow_nominal,
-    mWSE2_flow_nominal=mCHW_flow_nominal,
+    m1_flow_chi_nominal=mCW_flow_nominal,
+    m2_flow_chi_nominal=mCHW_flow_nominal,
+    m1_flow_wse_nominal=mCW_flow_nominal,
+    m2_flow_wse_nominal=mCHW_flow_nominal,
     redeclare package Medium1 = MediumCW,
     redeclare package Medium2 = MediumCHW,
-    dpChiller1_nominal=dpCW_nominal,
-    dpWSE1_nominal=dpCW_nominal,
-    dpChiller2_nominal=dpCHW_nominal,
-    dpWSE2_nominal=dpCHW_nominal,
+    dp1_chi_nominal=dpCW_nominal,
+    dp1_wse_nominal=dpCW_nominal,
+    dp2_chi_nominal=dpCHW_nominal,
+    dp2_wse_nominal=dpCHW_nominal,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     redeclare
       Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHF_2567kW_11_77COP_VSD
       perChi,
     k=0.4,
     Ti=80,
-    nChi=nChi,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    numChi=numChi,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Non-integrated waterside economizer "
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 
-  Modelica.Blocks.Sources.BooleanStep onChi(startTime(displayUnit="h") = 7200)
+  Modelica.Blocks.Sources.BooleanStep onChi(
+    startTime = 7200)
     "On and off signal for the chiller"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Sources.BooleanStep onWSE(
@@ -77,5 +79,9 @@ July 22, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+experiment(
+      StartTime=0,
+      StopTime=21600,
+      Tolerance=1e-06));
 end NonIntegrated;

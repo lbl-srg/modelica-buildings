@@ -15,7 +15,7 @@ model ElectricChillerParallel "Model that test electric chiller parallel"
     per2 "Chiller performance data"
     annotation (Placement(transformation(extent={{32,80},{52,100}})));
   Buildings.ChillerWSE.ElectricChillerParallel chiPar(
-    n=2,
+    num=2,
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=mEva_flow_nominal,
@@ -58,9 +58,13 @@ This example demonstrates how the chiller parallel can operate under different p
 </html>", revisions="<html>
 <ul>
 <li>
-July 10, 2017, by Yangyang Fu:<br>
+July 10, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+experiment(
+      StartTime=0,
+      StopTime=230400,
+      Tolerance=1e-06));
 end ElectricChillerParallel;

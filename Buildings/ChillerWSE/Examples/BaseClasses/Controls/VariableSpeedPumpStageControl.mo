@@ -4,15 +4,32 @@ model VariableSpeedPumpStageControl "Staging control for variable speed pumps"
   parameter Modelica.SIunits.Time tWai "Waiting time";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate of the identical variable-speed pumps";
+  parameter Real minSpe(unit="1",min=0,max=1) = 0.05
+    "Minimum speed ratio required by variable speed pumps";
+  parameter Modelica.SIunits.MassFlowRate criPoiFlo = 0.7*m_flow_nominal
+    "Critcal point of flowrate for switch pump on or off";
+  parameter Modelica.SIunits.MassFlowRate deaBanFlo = 0.1*m_flow_nominal
+    "Deadband for critical point of flowrate";
+  parameter Real criPoiSpe = 0.5
+    "Critical point of speed signal for swiching on or off";
+  parameter Real deaBanSpe = 0.3
+    "Deadband for critical point of speed signal";
+
   Modelica.Blocks.Interfaces.RealInput masFloPum
     "Total mass flowrate in the variable speed pumps"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput speSig "Speed signal"
+  Modelica.Blocks.Interfaces.RealInput speSig
+    "Speed signal"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+  Modelica.Blocks.Interfaces.RealOutput y[2]
+    "On/off signal - 0: off; 1: on"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+
   Modelica.StateGraph.Transition con1(
     enableTimer=true,
     waitTime=tWai,
-    condition=speSig > 0.05)
+    condition=speSig > minSpe)
     "Fire condition 1: free cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -24,12 +41,14 @@ model VariableSpeedPumpStageControl "Staging control for variable speed pumps"
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-32,8})));
-  Modelica.StateGraph.InitialStepWithSignal off(nIn=1) "Free cooling mode"
+  Modelica.StateGraph.InitialStepWithSignal off(nIn=1)
+    "Free cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-32,58})));
-  Modelica.StateGraph.StepWithSignal twoOn "Two chillers are commanded on"
+  Modelica.StateGraph.StepWithSignal twoOn
+    "Two chillers are commanded on"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
@@ -37,7 +56,8 @@ model VariableSpeedPumpStageControl "Staging control for variable speed pumps"
   Modelica.StateGraph.Transition con2(
     enableTimer=true,
     waitTime=tWai,
-    condition=speSig > 0.95 and masFloPum > 0.85*m_flow_nominal)
+    condition=speSig > criPoiSpe + deaBanSpe and masFloPum > criPoiFlo +
+        deaBanFlo)
     "Fire condition 2: partially mechanical cooling to fully mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -46,7 +66,8 @@ model VariableSpeedPumpStageControl "Staging control for variable speed pumps"
   Modelica.StateGraph.Transition con3(
     enableTimer=true,
     waitTime=tWai,
-    condition=speSig < 0.3 or masFloPum < 0.6*m_flow_nominal)
+    condition=speSig < criPoiSpe - deaBanSpe or masFloPum < criPoiFlo -
+        deaBanFlo)
     "Fire condition 3: fully mechanical cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -55,7 +76,7 @@ model VariableSpeedPumpStageControl "Staging control for variable speed pumps"
   Modelica.StateGraph.Transition con4(
     enableTimer=true,
     waitTime=tWai,
-    condition=speSig <= 0.05)
+    condition=speSig <= minSpe)
     "Fire condition 4: partially mechanical cooling to free cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -69,9 +90,11 @@ model VariableSpeedPumpStageControl "Staging control for variable speed pumps"
     y_default=0)
     "Switch boolean signals to real signal"
     annotation (Placement(transformation(extent={{24,-6},{48,6}})));
-  Modelica.Blocks.Interfaces.RealOutput y[2] "On/off signal - 0: off; 1: on"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table=[0,0,0; 1,1,0; 2,1,1])
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(
+    table=[0,0,0;
+           1,1,0;
+           2,1,1])
+    "Determine which pump should be on - rotation control is not considered here"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
   connect(off.outPort[1], con1.inPort)
@@ -147,18 +170,21 @@ equation
 </p>
 <ul>
 <li>
-When the mass flowrate in each pump is greater than a critical point, eg., <code>0.85m_flow_nominal</code>, 
-then activate one more pump;
+When the mass flowrate in each pump is greater than the critical point of mass flowrate, 
+eg., <code>0.8*m_flow_nominal</code>, and the speed signal is greater 
+than the critocal poiint of the speed, then activate one more pump;
 </li>
 <li>
-When the mass flowrate in each pump is less than a critical point, eg. <code>0.3m_flow_nominal</code>,
+When the mass flowrate in each pump is less than the critical point of mass flowrate, 
+eg., <code>0.3*m_flow_nominal</code>,
+or the speed signal is smaller than the critical point of the speed,
 then deactivate one more pump.
 </li>
 </ul>
 </html>", revisions="<html>
 <ul>
 <li>
-July 30, 2017, by Yangyang Fu:<br>
+July 30, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

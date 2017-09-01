@@ -11,40 +11,44 @@ model IntegratedPrimarySecondary
          nPorts=1, m_flow=0.8*mCHW_flow_nominal));
 
   Buildings.ChillerWSE.IntegratedPrimarySecondary intWSEPriSec(
-    mChiller1_flow_nominal=mCW_flow_nominal,
-    mChiller2_flow_nominal=mCHW_flow_nominal,
-    mWSE1_flow_nominal=mCW_flow_nominal,
-    mWSE2_flow_nominal=mCHW_flow_nominal,
+    m1_flow_chi_nominal=mCW_flow_nominal,
+    m2_flow_chi_nominal=mCHW_flow_nominal,
+    m1_flow_wse_nominal=mCW_flow_nominal,
+    m2_flow_wse_nominal=mCHW_flow_nominal,
     redeclare package Medium1 = MediumCW,
     redeclare package Medium2 = MediumCHW,
-    dpChiller1_nominal=dpCW_nominal,
-    dpWSE1_nominal=dpCW_nominal,
-    dpChiller2_nominal=dpCHW_nominal,
-    dpWSE2_nominal=dpCHW_nominal,
+    dp1_chi_nominal=dpCW_nominal,
+    dp1_wse_nominal=dpCW_nominal,
+    dp2_chi_nominal=dpCHW_nominal,
+    dp2_wse_nominal=dpCHW_nominal,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     redeclare
       Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHF_2567kW_11_77COP_VSD
       perChi,
     k=0.4,
     Ti=80,
-    nChi=nChi,
+    numChi=numChi,
     addPowerToMedium=false,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Integrated waterside economizer on the load side of a primary-secondary chilled water system"
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 
-  Modelica.Blocks.Sources.RealExpression yVal5(y=if onChi.y and not onWSE.y
-         then 1 else 0) "On/off signal for valve 5"
+  Modelica.Blocks.Sources.RealExpression yVal5(
+    y=if onChi.y and not onWSE.y then 1 else 0)
+    "On/off signal for valve 5"
     annotation (Placement(transformation(extent={{40,86},{20,106}})));
-  Modelica.Blocks.Sources.BooleanStep onChi(startTime(displayUnit="h") = 7200)
+  Modelica.Blocks.Sources.BooleanStep onChi(startTime = 7200)
     "On and off signal for the chiller"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Modelica.Blocks.Sources.BooleanStep onWSE(startTime(displayUnit="h") = 14400,
-      startValue=true) "On and off signal for the WSE"
+  Modelica.Blocks.Sources.BooleanStep onWSE(
+    startTime = 14400,
+    startValue=true)
+    "On and off signal for the WSE"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  Modelica.Blocks.Sources.RealExpression yPum(y=if onChi.y then
-        mCHW_flow_nominal else 0) "Input signal for primary pump"
+  Modelica.Blocks.Sources.RealExpression yPum(
+    y=if onChi.y then mCHW_flow_nominal else 0)
+    "Input signal for primary pump"
     annotation (Placement(transformation(extent={{40,46},{20,66}})));
 equation
   connect(onChi.y, intWSEPriSec.on[1])
@@ -89,5 +93,9 @@ July 22, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+experiment(
+      StartTime=0,
+      StopTime=21600,
+      Tolerance=1e-06));
 end IntegratedPrimarySecondary;
