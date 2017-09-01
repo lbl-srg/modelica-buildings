@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "numOfOcc.y",
+    "outAirSet_SinZon.VOutMinSet_flow"
+  };

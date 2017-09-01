@@ -140,6 +140,30 @@ its class name ends with the string <code>Beta</code>.
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+   <tr><td valign=\"top\">Buildings.Applications.DataCenter
+       </td>
+       <td valign=\"top\">Library with component models and pre-configured
+                          system models for data centers.
+       </td>
+       </tr>      
+   <tr><td valign=\"top\">Buildings.Controls.OBC
+       </td>
+       <td valign=\"top\">Library with basic control blocks and ready-to-use control sequences
+                          from the OpenBuildingControl project
+                          (<a href=\"http://obc.lbl.gov\">http://obc.lbl.gov</a>).<br/>
+                          The subpackage <code>Buildings.Controls.OBC.ASHRAE</code>
+                          contains control sequences
+                          for HVAC systems as described in ASHRAE Guideline 36.<br/>
+                          The subpackage <code>Buildings.Controls.OBC.CDL</code>
+                          contains libraries with basic control blocks.
+                          These are a part of a Control Description Language (CDL)
+                          currently being developed, which is used to compose
+                          the sequences in <code>Buildings.Controls.OBC.ASHRAE</code>.
+                          The intent of this implementation is that
+                          Modelica models that are conformant with the CDL
+                          can be translated to product lines of different control vendors.
+       </td>
+       </tr>   
    <tr><td valign=\"top\">Buildings.Fluid.Humidifiers
        </td>
        <td valign=\"top\">Package with spray air washer, steam humidifier and a humidifer
@@ -673,7 +697,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           Buildings.Controls.Continuous.PIDHysteresis<br/>
                           Buildings.Controls.Continuous.PIDHysteresisTimer<br/>
           </td>
-          <td valign=\"top\">Added option to reset the control output when an optional boolean input signal
+          <td valign=\"top\">Added option to reset the control output when an optional Boolean input signal
                            changes from <code>false</code> to <code>true</code>.<br/>
                            This closes
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/494\">IBPSA, #494</a>.
@@ -1467,7 +1491,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
     </td>
     <td valign=\"top\">Added the parameter <code>inputType</code> which allows
                        to set the input as an continuous input signal,
-                       to set the input as an integer input signal that selects the stage of the mover,
+                       to set the input as an Integer input signal that selects the stage of the mover,
                        or to remove the input connector and use a parameter
                        to assign the control signal.
     </td>

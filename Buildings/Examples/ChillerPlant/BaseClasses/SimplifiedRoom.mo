@@ -1,6 +1,6 @@
 within Buildings.Examples.ChillerPlant.BaseClasses;
 model SimplifiedRoom "Simplified data center room"
-  extends Buildings.BaseClasses.BaseIconLow;
+  extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model";
   parameter Integer nPorts=0 "Number of parts" annotation (Evaluate=true,
@@ -22,16 +22,16 @@ model SimplifiedRoom "Simplified data center room"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final T_start=293.15,
     final prescribedHeatFlowRate=true) "Volume of air in the room" annotation (Placement(
-        transformation(extent={{41,-20},{61,-40}})));
+        transformation(extent={{41,-40},{61,-20}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b airPorts[nPorts](
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(
-        extent={{-37,-14},{37,14}},
-        rotation=90,
-        origin={101,10}), iconTransformation(
-        extent={{-37,-14},{37,14}},
+        extent={{-38,-12},{38,12}},
         rotation=180,
-        origin={0,100})));
+        origin={0,-100}), iconTransformation(
+        extent={{-40.5,-13},{40.5,13}},
+        rotation=180,
+        origin={4.5,-87})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow QSou
     "Heat source of the room"
     annotation (Placement(transformation(extent={{-18,-40},{2,-20}})));
@@ -43,9 +43,15 @@ model SimplifiedRoom "Simplified data center room"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TAir
+    "Room air temperature"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Modelica.Blocks.Interfaces.RealOutput TRooAir(unit="K", displayUnit="degC")
+    "Room air temperature" annotation (Placement(transformation(extent={{100,-10},
+            {120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 equation
   connect(rooVol.ports, airPorts) annotation (Line(
-      points={{51,-20},{52,-20},{52,10},{52,10},{52,10},{101,10}},
+      points={{51,-40},{52,-40},{52,-80},{0,-80},{0,-100}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(QSou.port, rooVol.heatPort) annotation (Line(
@@ -56,6 +62,10 @@ equation
       points={{-39,-30},{-18,-30}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(TAir.port, rooVol.heatPort) annotation (Line(points={{40,0},{30,0},{
+          30,-30},{41,-30}}, color={191,0,0}));
+  connect(TAir.T, TRooAir) annotation (Line(points={{60,0},{76,0},{110,0}},
+               color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Rectangle(
