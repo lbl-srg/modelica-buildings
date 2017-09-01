@@ -4,9 +4,9 @@ block MultiAnd
 
   parameter Integer nu(min=0) = 0 "Number of input connections"
     annotation (Dialog(connectorSizing=true), HideResult=true);
-  Controls.OBC.CDL.Interfaces.BooleanInput u[nu] "Connector of Boolean input signals"
+  Interfaces.BooleanInput u[nu] "Connector of Boolean input signals"
     annotation (Placement(transformation(extent={{-140,70},{-100,-70}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-17},{134,17}})));
 
 protected

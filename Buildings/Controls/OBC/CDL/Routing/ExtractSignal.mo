@@ -3,16 +3,17 @@ block ExtractSignal "Extract signals from an input signal vector"
   parameter Integer nin = 1 "Number of inputs";
   parameter Integer nout = 1 "Number of outputs";
   parameter Integer extract[nout]=1:nout "Extracting vector";
-  Controls.OBC.CDL.Interfaces.RealInput u[nin] "Connector of Real input signal"
+  Interfaces.RealInput u[nin] "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Controls.OBC.CDL.Interfaces.RealOutput y[nout] "Connector of Real output signal"
+  Interfaces.RealOutput y[nout] "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
   for i in 1:nout loop
     y[i] = u[extract[i]];
   end for;
-  annotation (
+
+annotation (
     defaultComponentName="extSig",
     Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},

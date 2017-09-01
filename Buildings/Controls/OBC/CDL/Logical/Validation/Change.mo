@@ -16,7 +16,7 @@ extends Modelica.Icons.Example;
     height=20) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
-  Controls.OBC.CDL.Discrete.TriggeredSampler triggeredSampler "Triggered sampler"
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triggeredSampler "Triggered sampler"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 equation
   connect(booPul.y, change.u)

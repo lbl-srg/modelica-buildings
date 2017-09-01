@@ -1,0 +1,2 @@
+simulateModel("Buildings.Controls.OBC.CDL.Continuous.Validation.Hysteresis", stopTime=1.0, method="dassl", tolerance=1e-06, resultFile="Hysteresis1");
+createPlot(id=1, position={15, 10, 900, 420}, y={"hysteresis1.u", "hysteresis1.y"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{238,46,47},{28,108,200}});

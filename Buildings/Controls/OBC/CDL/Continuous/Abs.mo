@@ -10,7 +10,7 @@ block Abs "Output the absolute value of the input"
 equation
   y = abs(u);
 
-  annotation (
+annotation (
     defaultComponentName="abs",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={

@@ -195,7 +195,7 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Continuous.Min min1
     "Uncorrected outdoor air rate should not be higher than its design value"
     annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
-  CDL.Logical.Hysteresis hys[numOfZon](
+  CDL.Continuous.Hysteresis hys[numOfZon](
     each uLow=uLow,
     each uHigh=uHig,
     each pre_y_start=true)
@@ -252,10 +252,10 @@ protected
     "Near zero primary airflow so to avoid divide-by-zero issue in later process when supply fan is off"
     annotation (Placement(transformation(extent={{-120,-200},{-100,-180}})));
   CDL.Routing.BooleanReplicator booRep(nout=numOfZon)
-    "Replicate boolean input"
+    "Replicate Boolean input"
     annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
   CDL.Routing.RealReplicator reaRep(nout=numOfZon)
-    "Replicate real input signal"
+    "Replicate Real input signal"
     annotation (Placement(transformation(extent={{140,180},{160,200}})));
 
 equation

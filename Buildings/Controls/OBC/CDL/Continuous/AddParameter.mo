@@ -13,9 +13,10 @@ block AddParameter "Output the sum of an input plus a parameter"
 
 equation
   y = k*u + p;
-  annotation (
-defaultComponentName="addPar",
-Documentation(info="<html>
+
+annotation (
+  defaultComponentName="addPar",
+  Documentation(info="<html>
 <p>
 Block that outputs <code>y = k u + p</code>,
 where <code>k</code> and <code>p</code> are

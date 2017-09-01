@@ -13,8 +13,8 @@ equation
   y = k*u;
 
 annotation (
-defaultComponentName="gai",
-Documentation(info="<html>
+  defaultComponentName="gai",
+  Documentation(info="<html>
 <p>
 Block that outputs <code>y = k * u</code>,
 where

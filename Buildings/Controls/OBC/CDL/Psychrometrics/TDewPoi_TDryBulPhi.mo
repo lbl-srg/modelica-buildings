@@ -2,19 +2,22 @@ within Buildings.Controls.OBC.CDL.Psychrometrics;
 block TDewPoi_TDryBulPhi
   "Block to compute the dew point temperature based on relative humidity"
 
-  Controls.OBC.CDL.Interfaces.RealInput TDryBul(
+  Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    final min=100) "Dry bulb temperature"    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+    final min=100) "Dry bulb temperature"
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
-  Controls.OBC.CDL.Interfaces.RealInput phi(final min=0, final max=1, unit="1")
-    "Relative air humidity"    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+  Interfaces.RealInput phi(final min=0, final max=1, unit="1")
+    "Relative air humidity"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
-  Controls.OBC.CDL.Interfaces.RealInput p(final quantity="Pressure",
+  Interfaces.RealInput p(final quantity="Pressure",
                          final unit="Pa",
-                         final min = 0) "Pressure"    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
+                         final min = 0) "Pressure"
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
-  Controls.OBC.CDL.Interfaces.RealOutput TDewPoi(
+  Interfaces.RealOutput TDewPoi(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100) "Dew point temperature"    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -35,7 +38,7 @@ equation
 
   TDewPoi = (C14 + C15*alpha + C16*alpha^2 + C17*alpha^3 + C18*(p_w/1000.0)^0.1984)+273.15;
 
-    annotation (
+annotation (
     defaultComponentName="dewPoi",
     Documentation(info="<html>
 <p>

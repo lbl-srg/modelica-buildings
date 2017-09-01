@@ -22,7 +22,7 @@ defaultComponentName="del",
 Documentation(
 info="<html>
 <p>
-Block that delays the boolean input signal by
+Block that delays the Boolean input signal by
 one sampling interval.
 For example,
 if <i>u</i> denotes the input,

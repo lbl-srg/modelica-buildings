@@ -4,7 +4,7 @@ block SampleTrigger "Generate sample trigger signal"
     final min=Constants.small) "Sample period";
   parameter Modelica.SIunits.Time startTime=0
     "Time instant of first sample trigger";
-  Controls.OBC.CDL.Interfaces.BooleanOutput y  "Connector of Boolean output signal"
+  Interfaces.BooleanOutput y  "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
