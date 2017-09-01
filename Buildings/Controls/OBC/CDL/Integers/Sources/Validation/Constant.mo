@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.CDL.Integers.Sources.Validation;
 model Constant "Validate the Constant block"
   extends Modelica.Icons.Example;
 
-  CDL.Integers.Sources.Constant con(k=5) "Block output integer constant value"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant con(k=5) "Block output integer constant value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),

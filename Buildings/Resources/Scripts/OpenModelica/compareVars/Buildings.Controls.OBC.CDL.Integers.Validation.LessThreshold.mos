@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "intLesThr.threshold",
+    "intLesThr.u",
+    "intLesThr.y"
+  };

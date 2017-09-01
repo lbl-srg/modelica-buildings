@@ -10,16 +10,14 @@ model SlewRateLimiter "Validation model for the SlewRateLimiter block"
     offset=0,
     height=1.5,
     duration=20,
-    startTime=10)
-                "Block that generates ramp signal"
+    startTime=10)  "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
     offset=0,
     height=-1.5,
     startTime=60,
-    duration=20)
-                "Block that generates ramp signal"
+    duration=20) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add
     "Signal adder"
@@ -28,15 +26,13 @@ model SlewRateLimiter "Validation model for the SlewRateLimiter block"
     offset=0,
     height=-1.5,
     duration=30,
-    startTime=120 + 60)
-                "Block that generates ramp signal"
+    startTime=120 + 60) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp4(
     offset=0,
     height=1.5,
     duration=30,
-    startTime=120)
-                "Block that generates ramp signal"
+    startTime=120) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp5(
     offset=0,

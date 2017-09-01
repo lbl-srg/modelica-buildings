@@ -3,17 +3,7 @@ And3
 Change
 Edge
 FallingEdge
-Greater
-GreaterEqual
-GreaterEqualThreshold
-GreaterThreshold
-Hysteresis
-HysteresisWithHold
 Latch
-Less
-LessEqual
-LessEqualThreshold
-LessThreshold
 LogicalSwitch
 MultiAnd
 Nand

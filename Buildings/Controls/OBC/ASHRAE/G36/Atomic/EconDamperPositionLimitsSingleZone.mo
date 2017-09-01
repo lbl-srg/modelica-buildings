@@ -148,17 +148,17 @@ protected
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
   CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
-  CDL.Logical.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage1)
+  CDL.Continuous.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage1)
     "Freeze protection stage above stage1 disables the control"
     annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
   CDL.Logical.Switch enaDis1
     "Logical switch to enable damper position limit calculation or disable it (set max limit to physical minimum)"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  CDL.Logical.GreaterThreshold greThr(
+  CDL.Continuous.GreaterThreshold greThr(
     final threshold=Constants.OperationModes.occModInd - 0.5)
       "Tests whether operation mode is occupied"
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
-  CDL.Logical.LessThreshold lesThr(
+  CDL.Continuous.LessThreshold lesThr(
     final threshold=Constants.OperationModes.occModInd + 0.5)
     "Tests whether operation mode is occupied"
     annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));

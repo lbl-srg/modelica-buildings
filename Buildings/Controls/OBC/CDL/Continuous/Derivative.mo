@@ -31,12 +31,14 @@ initial equation
        y = y_start;
     end if;
   end if;
+
 equation
   der(x) = if zeroGain then 0 else (u - x)/T;
   y = if zeroGain then 0 else (k/T)*(u - x);
-  annotation (
-    defaultComponentName="der",
-    Documentation(info="<html>
+
+annotation (
+  defaultComponentName="der",
+  Documentation(info="<html>
 <p>
 This blocks defines the transfer function between the
 input <code>u</code> and the output <code>y</code>

@@ -1,14 +1,15 @@
 within Buildings.Controls.OBC.CDL.Routing;
 block RealReplicator "Real signal replicator"
   parameter Integer nout=1 "Number of outputs";
-  Controls.OBC.CDL.Interfaces.RealInput u "Connector of Real input signal"
+  Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Controls.OBC.CDL.Interfaces.RealOutput y[nout] "Connector of Real output signal"
+  Interfaces.RealOutput y[nout] "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
   y = fill(u, nout);
-  annotation (
+
+annotation (
     defaultComponentName="reaRep",
     Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
