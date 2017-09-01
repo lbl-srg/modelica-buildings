@@ -31,15 +31,15 @@ equation
 <p>
 This example demonstrates how to export an FMU with a fluid flow component.
 The FMU has an instance of
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FlowMachine_dp\">
-Buildings.Fluid.FixedResistances.FlowMachine_dp</a>.
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+Buildings.Fluid.Movers.FlowControlled_dp</a>.
 </p>
 <p>
 See
 <a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">
 Buildings.Fluid.FMI.UsersGuide</a> for why there is no model that exports
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
-Buildings.Fluid.Movers.FlowMachine_m_flow</a>.
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>.
 </p>
 </html>", revisions="<html>
 <ul>
