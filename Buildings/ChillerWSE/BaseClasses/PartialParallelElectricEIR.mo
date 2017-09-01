@@ -137,8 +137,10 @@ equation
   connect(chi.P, P) annotation (Line(points={{11,9},{96,9},{96,20},{110,20}},
         color={0,0,127}));
   annotation (Documentation(info="<html>
+<p>
 Partial model that implements the parallel electric chillers with associated valves.
 The parallel have <code>num</code> identical chillers. 
+</p>
 </html>",
         revisions="<html>
 <ul>

@@ -1,20 +1,38 @@
 within Buildings.ChillerWSE.Examples.BaseClasses.Controls;
-model ChillerStageControl
+model ChillerStageControl "Chiller staging control logic"
 
   parameter Modelica.SIunits.Time tWai "Waiting time";
-  parameter Modelica.SIunits.Power QEva_nominal=-1000*3.517*1000
+  parameter Modelica.SIunits.Power QEva_nominal
     "Nominal cooling capaciaty(Negative means cooling)";
+  parameter Modelica.SIunits.Power  criPoiLoa = 0.55*QEva_nominal
+    "Critical point of cooling load for switching one chiller on or off";
+  parameter Modelica.SIunits.Power  dQ = 0.25*QEva_nominal
+    "Deadband for critical point of cooling load";
+  parameter Modelica.SIunits.Temperature criPoiTem = 279.15
+    "Critical point of temperature for switching one chiller on or off";
+  parameter Modelica.SIunits.TemperatureDifference dT = 1
+    "Deadband width for critical point of switching temperature";
 
-  Modelica.Blocks.Interfaces.RealInput cooMod
-    "Cooling mode - 0: free cooling mode; 1: partially mechanical cooling; 2: fully mechanical cooling"
+  Modelica.Blocks.Interfaces.IntegerInput cooMod
+    "Cooling mode signal, integer value of 
+    Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingMode"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput QTot
     "Total cooling load in the chillers, negative"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+  Modelica.Blocks.Interfaces.RealOutput y[2]
+    "On/off signal for the chillers - 0: off; 1: on"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealInput TCHWSup(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") "Temperature of leaving chilled water "
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
   Modelica.StateGraph.Transition con1(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod > 0.5)
+    condition=cooMod > 1)
     "Fire condition 1: free cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -39,7 +57,8 @@ model ChillerStageControl
   Modelica.StateGraph.Transition con2(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod > 0.5 and -QTot > -0.8*QEva_nominal)
+    condition=cooMod > 1 and
+    (-QTot > -(criPoiLoa + dQ) or TCHWSup > criPoiTem + dT))
     "Fire condition 2: partially mechanical cooling to fully mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -48,7 +67,8 @@ model ChillerStageControl
   Modelica.StateGraph.Transition con3(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod > 0.5 and -QTot < -0.6*QEva_nominal)
+    condition=cooMod > 1 and
+    (-QTot < -(criPoiLoa - dQ) or TCHWSup < criPoiTem - dT))
     "Fire condition 3: fully mechanical cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -57,7 +77,7 @@ model ChillerStageControl
   Modelica.StateGraph.Transition con4(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod < 0.5)
+    condition=cooMod < 2)
     "Fire condition 4: partially mechanical cooling to free cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -71,11 +91,13 @@ model ChillerStageControl
     y_default=0)
     "Switch boolean signals to real signal"
     annotation (Placement(transformation(extent={{24,-6},{48,6}})));
-  Modelica.Blocks.Interfaces.RealOutput y[2]
-    "On/off signal for the chillers - 0: off; 1: on"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table=[0,0,0; 1,1,0; 2,1,1])
+
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(
+    table=[0,0,0;
+           1,1,0;
+           2,1,1])
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+
 equation
   connect(off.outPort[1], con1.inPort)
     annotation (Line(
@@ -147,17 +169,17 @@ equation
           lineColor={0,0,255},
           textString="%name")}), Documentation(info="<html>
 <p>
-The staging sequence of multiple chillers are descibed as below:
+The staging sequence of two chillers are descibed as below:
 </p>
 <ul>
 <li>
-The chillers are all off when cooling mode is FC.
+The chillers are all off when cooling mode is Free Cooling.
 </li>
 <li>
-One chiller is commanded on when cooling mode is not FC. 
+One chiller is commanded on when cooling mode is not Free Cooling.
 </li>
 <li>
-Two chillers are commanded on when cooling mode is not FC and the cooling load addressed by chillers is larger than
+Two chillers are commanded on when cooling mode is not Free Cooling and the cooling load addressed by each chiller is larger than
 a critical point, for example, <code>0.8QEva_nominal</code>, where <code>QEva_nominal</code> represents the 
 chiller's nominal cooling capaciy. 
 </li>

@@ -5,7 +5,8 @@ model VariableSpeedPumpStageControl
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=100 "Nominal mass flowrate";
 
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.VariableSpeedPumpStageControl
-    varSpePumSta(tWai=30, m_flow_nominal=m_flow_nominal)
+    varSpePumSta(tWai=30, m_flow_nominal=m_flow_nominal,
+    criPoiSpe=0.6)
     "Staging controller for variable speed pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Pulse speSig(
@@ -29,7 +30,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/ChillerWSE/Examples/BaseClasses/Controls/Examples/VariableSpeedPumpStageControl.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/ChillerWSE/Examples/BaseClasses/Controls/Examples/VariableSpeedPumpStageControl.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>

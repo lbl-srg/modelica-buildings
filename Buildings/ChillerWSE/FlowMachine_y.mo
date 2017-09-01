@@ -18,6 +18,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>This model implements a parallel of identical pumps with speed being controlled.
+The number can be specified by setting a value of <code>num</code>.
 The shutoff valves are used to avoid circulating flow among pumps.
 </p>
 </html>"));

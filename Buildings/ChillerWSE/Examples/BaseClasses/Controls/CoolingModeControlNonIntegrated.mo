@@ -1,49 +1,14 @@
 within Buildings.ChillerWSE.Examples.BaseClasses.Controls;
 model CoolingModeControlNonIntegrated
   "Cooling mode controller in the chilled water system with a non-integrated  waterside economizer"
-  parameter Modelica.SIunits.TemperatureDifference deaBan "Dead band width for switching waterside economizer off ";
-  parameter Modelica.SIunits.Temperature wseTra "Temperature transition to free cooling mode";
-  parameter Modelica.SIunits.Time tWai "Waiting time";
+  parameter Modelica.SIunits.TemperatureDifference deaBan
+    "Dead band width for switching waterside economizer off ";
+  parameter Modelica.SIunits.Temperature TSwi
+    "Temperature transition to free cooling mode";
+  parameter Modelica.SIunits.Time tWai
+    "Waiting time";
 
-  Modelica.StateGraph.InitialStepWithSignal freCoo(nIn=1) "Free cooling mode"
-    annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=-90,
-        origin={0,58})));
-  Modelica.StateGraph.StepWithSignal fulMecCoo "Fully mechanical cooling mode"
-    annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=-90,
-        origin={0,-30})));
-  Modelica.StateGraph.Transition con1(
-    enableTimer=true,
-    waitTime=tWai,
-    condition=TWetBul > wseTra or CHWST > CHWSTSet + deaBan)
-    "Fire condition 1: free cooling to fully mechanical cooling"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-40,20})));
-  Modelica.Blocks.Math.MultiSwitch swi(
-    nu=2,
-    y_default=0,
-    expr={0,2})
-    "Switch boolean signals to real signal"
-    annotation (Placement(transformation(extent={{64,-6},{88,6}})));
-  Modelica.Blocks.Interfaces.RealOutput cooMod
-    "Cooling mode signal (0: free cooling mode, 2: fully mechanical cooling)"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.StateGraph.Transition con2(
-    enableTimer=true,
-    waitTime=tWai,
-    condition=TWetBul <= wseTra and numOnChi < 2)
-    "Fire condition 2: fully mechanical cooling to free cooling"
-    annotation (
-      Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={30,20})));
-  Modelica.Blocks.Interfaces.RealInput numOnChi
+  Modelica.Blocks.Interfaces.IntegerInput numOnChi
     "Number of running chillers"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -53,18 +18,58 @@ model CoolingModeControlNonIntegrated
     displayUnit="degC")
     "Wet bulb temperature of outdoor air"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
-  Modelica.Blocks.Interfaces.RealInput CHWST(
+  Modelica.Blocks.Interfaces.RealInput TCHWSup(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC")
-    "Temperature of leaving chilled water "
+    displayUnit="degC") "Temperature of leaving chilled water "
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
-  Modelica.Blocks.Interfaces.RealInput CHWSTSet(
+  Modelica.Blocks.Interfaces.RealInput TCHWSupSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC")
-    "Temperature setpoint of leaving chilled water "
+    displayUnit="degC") "Temperature setpoint of leaving chilled water "
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+  Modelica.Blocks.Interfaces.IntegerOutput y
+    "Cooling mode signal (1: free cooling mode, 3: fully mechanical cooling)"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+  Modelica.StateGraph.InitialStepWithSignal freCoo(nIn=1)
+    "Free cooling mode"
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=-90,
+        origin={0,58})));
+  Modelica.StateGraph.StepWithSignal fulMecCoo
+    "Fully mechanical cooling mode"
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=-90,
+        origin={0,-30})));
+  Modelica.StateGraph.Transition con1(
+    enableTimer=true,
+    waitTime=tWai,
+    condition=TWetBul > TSwi + deaBan or TCHWSup > TCHWSupSet + deaBan)
+    "Fire condition 1: free cooling to fully mechanical cooling"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-40,20})));
+  Modelica.Blocks.MathInteger.MultiSwitch swi(
+    nu=2,
+    y_default=0,
+    expr={Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.FreeCooling),
+        Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.FullMechanical)})
+    "Switch boolean signals to real signal"
+    annotation (Placement(transformation(extent={{64,-6},{88,6}})));
+  Modelica.StateGraph.Transition con2(
+    enableTimer=true,
+    waitTime=tWai,
+    condition=TWetBul <= TSwi - deaBan and numOnChi == 1)
+    "Fire condition 2: fully mechanical cooling to free cooling"
+    annotation (
+      Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={30,20})));
 equation
   connect(freCoo.outPort[1],con1. inPort)
     annotation (Line(
@@ -87,8 +92,8 @@ equation
   connect(fulMecCoo.active, swi.u[2])
     annotation (Line(points={{11,-30},{34,-30},
           {54,-30},{54,-0.9},{64,-0.9}}, color={255,0,255}));
-  connect(swi.y, cooMod)
-    annotation (Line(points={{88.6,0},{110,0},{110,0}}, color={0,0,127}));
+  connect(swi.y, y)
+    annotation (Line(points={{88.6,0},{110,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,127}),
         Text(
@@ -103,7 +108,7 @@ equation
     Documentation(info="<html>
 <p>Chilled water plant with a non-integrated waterside economizer (WSE) have two cooling modes: 
 free cooling (FC) mode and fully mechanical cooling (FMC) mode. This model determines when to 
-activate FC or FMC.
+activate FC or FMC for a chilled water system with 2 chillers and 1 waterside economizer.
 </p>
 <p>
 The FMC mode is activated when
@@ -113,7 +118,7 @@ The FMC mode is activated when
 <i>T<sub>WetBulb</sub>&ge; T<sub>WetBulb,tran</sub></i>
 </li>
 <li>
-<i><b>or</b> T<sub>CHWST</sub>&ge;T<sub>CHWSTSet</sub> + DeaBan </i>
+<i><b>or</b> T<sub>CHWST</sub>&ge;T<sub>CHWSTSet</sub> + deaBan </i>
 </li>
 </ul>
 <p>The FC mode is activated when

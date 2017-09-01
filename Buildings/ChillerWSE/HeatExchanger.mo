@@ -66,7 +66,7 @@ equation
 <p>
 This module impliments a heat exchanger model with a built-in PID controller to 
 control the outlet temperature at <code>port_b2</code> if set parameter 
-<code>use_Controller=true </code>. Otherwise, if <code>use_Controller=false</code>, 
+<code>use_Controller=true </code>. Otherwise, if set <code>use_Controller=false</code>, 
 the PID controller and the three-way valve are removed and the outlet temperature at <code>port_b2</code> will
 not be controlled.  
 </p>

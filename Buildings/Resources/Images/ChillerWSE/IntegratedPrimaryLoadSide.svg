@@ -15,7 +15,7 @@
    viewBox="0 0 210 297"
    version="1.1"
    id="svg6668"
-   inkscape:version="0.92.1 r15371"
+   inkscape:version="0.92.2 (30a58d1, 2017-08-07)"
    sodipodi:docname="IntegratedPrimaryLoadSide.svg">
   <defs
      id="defs6662" />
@@ -27,16 +27,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.1201486"
-     inkscape:cx="341.30278"
+     inkscape:cx="189.5372"
      inkscape:cy="737.51799"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:snap-grids="true"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-width="1855"
+     inkscape:window-height="951"
+     inkscape:window-x="1985"
+     inkscape:window-y="24"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata6665">
@@ -323,71 +323,6 @@
          d="m 566.44471,31.381007 15.98201,-0.120892 -7.91406,13.519427 z"
          style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.65328217px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     </g>
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.4596636;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 120.23141,142.12595 c 0,-16.28061 0,-16.28061 0,-16.28061"
-       id="path4904-7-7-2-4-4-5"
-       inkscape:connector-curvature="0"
-       inkscape:export-xdpi="199.95"
-       inkscape:export-ydpi="199.95" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.45492709;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 120.23141,141.83985 c -78.539565,0 -78.539565,0 -78.539565,0"
-       id="path4949-1-2-34-6-4-5"
-       inkscape:connector-curvature="0"
-       inkscape:export-xdpi="199.95"
-       inkscape:export-ydpi="199.95" />
-    <g
-       style="fill:#040404;fill-opacity:1;stroke:#000000;stroke-width:1.62346661;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       transform="matrix(0.16865464,0,0,0.16472937,46.824685,82.029538)"
-       id="g5304-5-88-5-5-3-50-3-5-72-2"
-       inkscape:export-xdpi="199.95"
-       inkscape:export-ydpi="199.95">
-      <g
-         latexdraw:type="triangle"
-         id="id638-2-6-9-0-5-9-0-9-11-6"
-         latexdraw:points="275.3699551080156 198.63562844369864 322.98916255258536 198.63562844369864 275.3699551080156 239.6464546904965 322.98916255258536 239.6464546904965"
-         transform="matrix(0,0.50932622,-0.53846943,0,364.36085,211.05816)"
-         style="fill:#040404;fill-opacity:1;stroke:#000000;stroke-width:3.10002232;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
-        <polygon
-           points="299.17957,200.62732 321.45676,238.64645 276.90234,238.64645 "
-           latexdraw:borderPos="outer"
-           id="polygon3160-7-2-7-7-6-0-9-0-4-7"
-           style="fill:#040404;fill-opacity:1;stroke:#000000;stroke-width:3.10002232;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      </g>
-      <a
-         style="fill:#040404;fill-opacity:1;stroke:#000000;stroke-width:1.57892263;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="a6729-2-1-0-7-2-0-1-3-9-6"
-         transform="matrix(1.0572191,0,0,1,-50.180544,144.29711)">
-        <g
-           style="fill:#040404;fill-opacity:1;stroke:#000000;stroke-width:3.10002232;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           transform="matrix(0,-0.50932622,0.50932622,0,189.36853,392.01265)"
-           latexdraw:points="315.6027639909265 200.9140076796317 363.2219714354964 200.9140076796317 315.6027639909265 237.36807545456318 363.2219714354964 237.36807545456318"
-           id="id639-1-6-7-3-91-6-4-0-7-5"
-           latexdraw:type="triangle">
-          <polygon
-             style="fill:#040404;fill-opacity:1;stroke:#000000;stroke-width:3.10002232;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             id="polygon3163-9-2-3-9-54-1-2-6-1-2"
-             latexdraw:borderPos="outer"
-             points="339.41235,202.7427 361.57687,236.36807 317.24786,236.36807 " />
-        </g>
-      </a>
-      <circle
-         transform="matrix(0.53846943,0,0,0.50932622,85.261056,251.82388)"
-         cx="320"
-         cy="220"
-         r="9"
-         latexdraw:borderPos="outer"
-         id="circle3184-1-81-5-9-51-3-3-9-6-1"
-         style="fill:#040404;fill-opacity:1;stroke:#000000;stroke-width:3.10002232;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    </g>
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.47038296;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 42.077074,142.03058 c 0,-15.94682 0,-15.94682 0,-15.94682"
-       id="path4904-7-7-2-4-4-5-6"
-       inkscape:connector-curvature="0"
-       inkscape:export-xdpi="199.95"
-       inkscape:export-ydpi="199.95" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.91153359px;line-height:0%;font-family:serif;-inkscape-font-specification:'Serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.24262783;stroke-opacity:1"
@@ -416,20 +351,6 @@
          x="146.08871"
          y="95.904076"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.24598694px;line-height:125%;font-family:serif;-inkscape-font-specification:'Serif, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;stroke:#000000;stroke-width:0.24262783;stroke-opacity:1">WSE</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.91153359px;line-height:0%;font-family:serif;-inkscape-font-specification:'Serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:#273fe8;stroke-width:0.24262783;stroke-opacity:1"
-       x="86.837898"
-       y="138.564"
-       id="text4701-7-9-8-5-3-5-4"
-       inkscape:export-xdpi="199.95"
-       inkscape:export-ydpi="199.95"
-       transform="scale(1.0049048,0.99511915)"><tspan
-         sodipodi:role="line"
-         id="tspan4703-64-5-4-9-0-9-7"
-         x="86.837898"
-         y="138.564"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.24598694px;line-height:125%;font-family:serif;-inkscape-font-specification:'Serif, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;stroke:#273fe8;stroke-width:0.24262783;stroke-opacity:1">V7</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.91153359px;line-height:0%;font-family:serif;-inkscape-font-specification:'Serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:#273fe8;stroke-width:0.24262783;stroke-opacity:1"
@@ -991,4 +912,3 @@
        inkscape:export-ydpi="199.95" />
   </g>
 </svg>
-                                                                                                                                                                                                                                                                                            

@@ -36,5 +36,9 @@ June 30, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Partial model that decribes the parameters of a three-way valve. 
+</p>
 </html>"));
 end ThreeWayValveParameters;

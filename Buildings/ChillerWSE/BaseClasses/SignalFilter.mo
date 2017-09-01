@@ -37,7 +37,9 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
+<p>
 Partial model that implements the filters that are used to approximate the travel time of the actuators.
 The signal <code>y_actual</code> is used to obtain the current position of the actuators.
+</p>
 </html>"));
 end SignalFilter;

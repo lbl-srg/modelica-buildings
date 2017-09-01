@@ -4,34 +4,41 @@ model ChillerStageControl
   extends Modelica.Icons.Example;
 
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.ChillerStageControl chiStaCon(
-    tWai=30)
+    tWai=30,
+    QEva_nominal=-100*3.517*1000,
+    dT=0.5)
     "Staging controller for chillers"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.Pulse QTot(
-    amplitude=0.4*chiStaCon.QEva_nominal,
-    period=180,
-    offset=0.5*chiStaCon.QEva_nominal)
+  Modelica.Blocks.Sources.Constant QTot(
+    k=0.55*chiStaCon.QEva_nominal)
     "Total cooling load in chillers"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Modelica.Blocks.Sources.CombiTimeTable cooMod(
+    annotation (Placement(transformation(extent={{-60,-6},{-40,14}})));
+  Modelica.Blocks.Sources.IntegerTable cooMod(
     table=[0,0;
-           360,0;
            360,1;
-           720,1;
-           720,2])
+           720,2;
+           1080,3])
     "Cooling mode"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+  Modelica.Blocks.Sources.Pulse TCHWSup(
+    amplitude=2,
+    period=360,
+    offset=273.15 + 5) "WSE chilled water supply temperature"
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
   connect(QTot.y, chiStaCon.QTot)
-    annotation (Line(points={{-39,-30},{-26,-30},
-          {-26,4},{-12,4}}, color={0,0,127}));
-  connect(cooMod.y[1], chiStaCon.cooMod)
-    annotation (Line(points={{-39,50},{-26,
-          50},{-26,8},{-12,8}}, color={0,0,127}));
+    annotation (Line(points={{-39,4},{-39,4},{-12,4}},
+                            color={0,0,127}));
+  connect(cooMod.y, chiStaCon.cooMod)
+    annotation (Line(points={{-39,50},{-26,50},
+          {-26,8},{-12,8}}, color={255,127,0}));
+  connect(TCHWSup.y, chiStaCon.TCHWSup)
+    annotation (Line(points={{-39,-30},{-26,
+          -30},{-26,0},{-12,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/ChillerWSE/Examples/BaseClasses/Controls/Examples/ChillerStageControl.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/ChillerWSE/Examples/BaseClasses/Controls/Examples/ChillerStageControl.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>

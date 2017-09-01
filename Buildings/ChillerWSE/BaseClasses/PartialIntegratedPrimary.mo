@@ -120,7 +120,9 @@ equation
     annotation (Line(points={{8,24},{0,24},{0,-20},{40,-20}},
       color={0,127,255}));
   annotation (Documentation(info="<html>
+<p>
 Partial model that implements integrated waterside economizer in primary-ony chilled water system.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -12,7 +12,7 @@ model ElectricChillerParallel "Multiple identical electric chillers"
          Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This model implements a chiller parallel with <code>n</code> identical chillers. For the chiller model please see 
+This model implements a chiller parallel with <code>num</code> identical chillers. For the chiller model please see 
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">Buildings.Fluid.Chillers.ElectricEIR</a>.
 </p>
 <p>

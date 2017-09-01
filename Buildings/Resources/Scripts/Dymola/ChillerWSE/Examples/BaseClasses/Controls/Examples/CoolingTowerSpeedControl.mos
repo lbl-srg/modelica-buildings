@@ -2,8 +2,8 @@ simulateModel("Buildings.ChillerWSE.Examples.BaseClasses.Controls.Examples.Cooli
 removePlots(false);
 createPlot(id=1,
  position={0, 0, 835, 440},
- y={"cooTowSpeCon.CHWST_set", "cooTowSpeCon.CWST_set", "cooTowSpeCon.CHWST", 
-"cooTowSpeCon.CWST"},
+ y={"cooTowSpeCon.TCHWSupSet", "cooTowSpeCon.TCWSupSet", "cooTowSpeCon.TCHWSup", 
+"cooTowSpeCon.TCWSup"},
  range={0.0, 1100.0, 0.0, 30.0},
  grid=true, filename="CoolingTowerSpeedControl.mat",
  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});

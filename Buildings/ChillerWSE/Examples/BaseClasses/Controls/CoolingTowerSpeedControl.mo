@@ -27,32 +27,29 @@ model CoolingTowerSpeedControl "Controller for the fan speed in cooling towers"
   parameter Boolean reverseAction = true
     "Set to true for throttling the water flow rate through a cooling coil controller"
     annotation(Dialog(tab="Controller"));
-  Modelica.Blocks.Interfaces.RealInput CHWSTSet(
+  Modelica.Blocks.Interfaces.RealInput TCHWSupSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealInput CWSTSet(
+  Modelica.Blocks.Interfaces.RealInput TCWSupSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Condenser water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput CHWST(
+  Modelica.Blocks.Interfaces.RealInput TCHWSup(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC")
-    "Chilled water supply temperature "
-    annotation (Placement(transformation(
+    displayUnit="degC") "Chilled water supply temperature " annotation (
+      Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,-74}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealInput CWST(
+        origin={-120,-74}), iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Modelica.Blocks.Interfaces.RealInput TCWSup(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC")
-    "Condenser water supply temperature "
-    annotation (Placement(transformation(
+    displayUnit="degC") "Condenser water supply temperature " annotation (
+      Placement(transformation(
         extent={{20,20},{-20,-20}},
         rotation=180,
         origin={-120,-40})));
@@ -62,13 +59,14 @@ model CoolingTowerSpeedControl "Controller for the fan speed in cooling towers"
 
   Modelica.Blocks.Sources.Constant uni(k=1) "Unit"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Modelica.Blocks.Sources.BooleanExpression pmcMod(y=if cooMod < 1.5 and cooMod >
-        0.5 then true else false)
+  Modelica.Blocks.Sources.BooleanExpression pmcMod(
+    y=if cooMod == 2 then true else false)
     "Partially mechanical cooling mode"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Modelica.Blocks.Interfaces.RealInput cooMod
-    "Cooling mode - 0: free cooling mode; 1: partially mechanical cooling; 2: fully mechanical cooling"
+  Modelica.Blocks.Interfaces.IntegerInput cooMod
+    "Cooling mode signal, integer value of 
+    Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingMode"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.Continuous.LimPID conPID(
     controllerType=controllerType,
@@ -80,7 +78,7 @@ model CoolingTowerSpeedControl "Controller for the fan speed in cooling towers"
     reverseAction=reverseAction)
     "PID controller"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Modelica.Blocks.Math.RealToBoolean fmcMod(threshold=1.5)
+  Modelica.Blocks.Math.IntegerToBoolean fmcMod(threshold=3)
     "Fully mechanical cooling mode"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
@@ -100,22 +98,22 @@ protected
         origin={74,0})));
 
 equation
-  connect(cooMod, fmcMod.u)
-    annotation (Line(points={{-120,40},{-120,40},{-82,40}}, color={0,0,127}));
-  connect(CWSTSet, swi1.u1) annotation (Line(points={{-120,80},{-48,80},{-48,58},
-          {-32,58}}, color={0,0,127}));
-  connect(CHWSTSet, swi1.u3) annotation (Line(points={{-120,0},{-48,0},{-48,42},
-          {-32,42}}, color={0,0,127}));
+  connect(TCWSupSet, swi1.u1)
+    annotation (Line(points={{-120,80},{-48,80},{-48,
+          58},{-32,58}}, color={0,0,127}));
+  connect(TCHWSupSet, swi1.u3)
+    annotation (Line(points={{-120,0},{-48,0},{-48,
+          42},{-32,42}}, color={0,0,127}));
   connect(swi1.y, conPID.u_s)
     annotation (Line(points={{-9,50},{0,50},{0,-40},{18,
           -40}}, color={0,0,127}));
   connect(fmcMod.y, swi2.u2)
     annotation (Line(points={{-59,40},{-54,40},{-54,-60},
           {-42,-60}}, color={255,0,255}));
-  connect(CWST, swi2.u1)
+  connect(TCWSup, swi2.u1)
     annotation (Line(points={{-120,-40},{-50,-40},{-50,-52},
           {-42,-52}}, color={0,0,127}));
-  connect(CHWST, swi2.u3)
+  connect(TCHWSup, swi2.u3)
     annotation (Line(points={{-120,-74},{-120,-68},{-50,
           -68},{-42,-68}}, color={0,0,127}));
   connect(swi2.y, conPID.u_m)
@@ -132,6 +130,9 @@ equation
   connect(fmcMod.y, swi1.u2)
     annotation (Line(points={{-59,40},{-54,40},{-54,50},
           {-32,50}}, color={255,0,255}));
+  connect(cooMod, fmcMod.u)
+    annotation (Line(points={{-120,40},{-102,40},{-82,
+          40}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,80}}),                                   graphics={
                                 Rectangle(
@@ -149,7 +150,7 @@ equation
 <p>This model describes a simple cooling tower speed controller for 
 a chilled water system with integrated waterside economizers.
 </p>
-<p>The control logic are described in the following:</p>
+<p>The control logics are described in the following:</p>
 <ul>
 <li>When the system is in Fully Mechanical Cooling (FMC) mode, 
 the cooling tower fan speed is controlled to maintain the condener water supply temperature (CWST) 
