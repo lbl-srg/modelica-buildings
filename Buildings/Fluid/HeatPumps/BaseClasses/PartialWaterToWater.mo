@@ -302,9 +302,10 @@ equation
     Documentation(info="<html>
 <p>
 Partial model for a water to water heat pump, as detailed in Jin (2002). The
-model for the comrpessor is a partial model and needs to be replaced by one of the
-compressor models in <a href = \"modelica://Buildings.Fluid.Chillers.Compressors\">
-Buildings.Fluid.Chillers.Compressors</a>.
+model for the compressor is a partial model and needs to be replaced by one of the
+compressor models in
+<a href = \"modelica://Buildings.Fluid.HeatPumps.Compressors\">
+Buildings.Fluid.HeatPumps.Compressors</a>.
 </p>
 <h4>References</h4>
 <p>
