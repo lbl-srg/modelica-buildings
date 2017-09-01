@@ -221,29 +221,32 @@ equation
           thickness=0.5)}),
     Documentation(info="<html>
     <p>
-This block models the control loops that operate to maintain zone temperature setpoint, the Cooling Loop and
-the Heating Loop, as described in ASHRAE Guidline 36 (G36), PART5.B.5.
+    This block models the control loops that modulate the position of heating and cooling coil valves
+    in order to maintain the zone temperature setpoint. ASHRAE Guidline 36 (G36), PART5.B.5 refers to them 
+    as the cooling loop and the heating loop.
 </p>
 <p>
-fixme add description of disable conditions and state machine chart
+Cooling valve controller is enabled whenever the room temperature (<code>TRoo<\code>) exceeds the cooling temperature 
+setpoint (<code>TRooCooSet<\code>). Heating valve controller is enabled whenever the room temperature 
+(<code>TRoo<\code>) is below the heating temperature setpoint (<code>TRooHeaSet<\code>). Both loops can remain 
+enabled at all times if provisions are made for the integral windup. Otherwise any of the loops gets disabled
+after remaining at the minimum controller output for longer than <code>disDel<\code> time period. State machine chart
+illustrates these conditions:
 </p>
 </p>
 <p align=\"center\">
 <img alt=\"Image of control loop state machine chart\"
-src=\"modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/fixme.png\"/>
+src=\"modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/HeatingAndCoolingCoilValvesStateMachine.png\"/>
 </p>
 <p>
 The Cooling Loop shall maintain the space temperature at the active zone cooling setpoint. The Heating Loop shall
-maintain the space temperature at the active zone heating setpoint.
-
-<p>
-This chart illustrates the control loops:
+maintain the space temperature at the active zone heating setpoint. This diagram illustrates the control loops:
 <br>
 </br>
 </p>
 <p align=\"center\">
 <img alt=\"Image of heating and cooling loop control chart\"
-src=\"modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/fixmeAddImage.png\"/>
+src=\"modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/HeatingAndCoolingCoilValvesControlDiagram.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
