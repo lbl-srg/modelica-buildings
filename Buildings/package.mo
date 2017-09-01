@@ -193,7 +193,8 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.Fluid.MassExchangers</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Fluid.MassExchangers.Humidifier_X
+   <tr><td valign=\"top\">Buildings.Fluid.Humidifiers.SprayAirWasher_X<br/>
+                          Buildings.Fluid.Humidifiers.SteamHumidifier_X
        </td>
        <td valign=\"top\">Added component which allows setting the outlet water vapor
                         mass fraction using an input signal, and controlling it ideally
