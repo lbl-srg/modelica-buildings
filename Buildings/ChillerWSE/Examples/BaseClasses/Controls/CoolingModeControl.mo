@@ -108,7 +108,6 @@ model CoolingModeControl
     "Switch boolean signals to real signal"
     annotation (Placement(transformation(extent={{64,-6},{88,6}})));
 
-
 equation
   connect(freCoo.outPort[1], con1.inPort)
     annotation (Line(
@@ -178,27 +177,35 @@ Partially Mechanical Cooling (PMC) mode or Fully Mechanical Cooling (FMC) mode.
 <p>The waterside economizer is enabled when </p>
 <ol>
 <li>The waterside economizer has been disabled for at least 20 minutes, and</li>
-<li><i>T<sub>CHWR</sub> &gt; T<sub>WetBul</sub> + T<sub>TowApp</sub> + deaBan1 </i></li>
+<li><i>
+T<sub>CHWR</sub> &gt; T<sub>WetBul</sub> + T<sub>TowApp</sub> + deaBan1 
+</i></li>
 </ol>
 <p>The waterside economizer is disabled when </p>
 <ol>
 <li>The waterside economizer has been enabled for at least 20 minutes, and</li>
-<li><i>T<sub>WSE_CHWST</sub> &gt; T<sub>WSE_CHWRT</sub> - deaBan2</i></li>
+<li><i>
+T<sub>WSE_CHWST</sub> &gt; T<sub>WSE_CHWRT</sub> - deaBan2
+</i></li>
 </ol>
 <p>The chiller is enabled when </p>
 <ol>
 <li>The chiller has been disabled for at leat 20 minutes, and </li>
-<li><i>T<sub>WSE_CHWST</sub> &gt; T<sub>CHWSTSet</sub> + deaBan3 </i></li>
+<li><i>
+T<sub>WSE_CHWST</sub> &gt; T<sub>CHWSTSet</sub> + deaBan3 
+</i></li>
 </ol>
 <p>The chiller is disabled when </p>
 <ol>
 <li>The chiller has been enabled for at leat 20 minutes, and </li>
-<li><i>T<sub>WSE_CHWST</sub> &le; T<sub>CHWSTSet</sub> + deaBan4 </i></li>
+<li><i>
+T<sub>WSE_CHWST</sub> &le; T<sub>CHWSTSet</sub> + deaBan4 
+</i></li>
 </ol>
-<p>where <i>T<sub>WSE_CHWST</i></sub> is the chilled water supply temperature for the WSE, 
-<i>T<sub>WetBul</i></sub> is the wet bulb temperature, 
-<i>T<sub>TowApp</i></sub> is the cooling tower approach, <i>T<sub>WSE_CHWRT</i></sub> 
-is the chilled water return temperature for the WSE, and <i>T<sub>CHWSTSet</i></sub> 
+<p>where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for the WSE, 
+<i>T<sub>WetBul</sub></i> is the wet bulb temperature, 
+<i>T<sub>TowApp</sub></i> is the cooling tower approach, <i>T<sub>WSE_CHWRT</sub></i> 
+is the chilled water return temperature for the WSE, and <i>T<sub>CHWSTSet</sub></i> 
 is the chilled water supply temperature setpoint for the system.
 <i>deaBan 1-4</i> are deadband width for each switching point. </p>
 <h4>References</h4>
