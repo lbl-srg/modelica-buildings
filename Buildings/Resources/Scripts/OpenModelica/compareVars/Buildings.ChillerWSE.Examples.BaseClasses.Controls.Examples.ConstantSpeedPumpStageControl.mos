@@ -1,7 +1,7 @@
 compareVars :=
   {
-    "cooMod.y[1]",
-    "chiNumOn.y[1]",
+    "cooMod.y",
+    "chiNumOn.y",
     "conSpePumSta.y[1]",
     "conSpePumSta.y[2]"
   };
