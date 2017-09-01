@@ -1,16 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Atomic.Validation;
-model HeatingCoolingControlLoops_LoopDisable
+model HeatingAndCoolingCoilValves_LoopDisable
   "Validation model for heating and cooling coil control signal generator"
   extends Modelica.Icons.Example;
 
-  HeatingCoolingControlLoops conLoo(final intWin=true)
-    "Heating and cooling control loop signal generator"
+  HeatingAndCoolingCoilValves conLoo(final intWin=true) "Heating and cooling control loop signal generator"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  HeatingCoolingControlLoops conLoo1
-    "Heating and cooling control loop signal generator"
+  HeatingAndCoolingCoilValves conLoo1 "Heating and cooling control loop signal generator"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  HeatingCoolingControlLoops conLoo2
-    "Heating and cooling control loop signal generator"
+  HeatingAndCoolingCoilValves conLoo2 "Heating and cooling control loop signal generator"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
 
 protected
@@ -70,7 +67,7 @@ equation
   connect(TRoo2.y, conLoo2.TRoo) annotation (Line(points={{101,-40},{120,-40},{120,-4},{139,-4}}, color={0,0,127}));
   annotation (
   experiment(StopTime=900.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/Validation/HeatingCoolingControlLoops_LoopDisable.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/Validation/HeatingAndCoolingCoilValves_LoopDisable.mos"
     "Simulate and plot"),
     Icon(graphics={Ellipse(
           lineColor={75,138,73},
@@ -109,8 +106,8 @@ delay. ")}),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Atomic.HeatingCoolingControlLoops\">
-Buildings.Controls.OBC.ASHRAE.G36.Atomic.HeatingCoolingControlLoops</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Atomic.HeatingAndCoolingCoilValves\">
+Buildings.Controls.OBC.ASHRAE.G36.Atomic.HeatingAndCoolingCoilValves</a>
 loop disable feature under all applicable conditions: presence of integral windup (<code>intWin<\code>) and
 absence of cooling (<code>uCoo<\code>) or heating (<code>uHea<\code>) control signals
 longer than a predefined time delay (<code>disDel<\code>).
@@ -123,4 +120,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HeatingCoolingControlLoops_LoopDisable;
+end HeatingAndCoolingCoilValves_LoopDisable;

@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Atomic;
-block HeatingCoolingControlLoops "Generates heating and cooling control signals to maintain zone set temperature"
+block HeatingAndCoolingCoilValves "Generates heating and cooling control signals to maintain zone set temperature"
 
   parameter Real kPCoo=1 "Gain of damper limit controller"
     annotation(Evaluate=true, Dialog(tab="Controller", group="Cooling Loop"));
@@ -302,4 +302,4 @@ assignments"),
           fontSize=14,
           textString="Controller 
 signal reverse")}));
-end HeatingCoolingControlLoops;
+end HeatingAndCoolingCoilValves;

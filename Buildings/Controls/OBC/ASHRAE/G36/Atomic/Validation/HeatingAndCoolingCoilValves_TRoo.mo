@@ -1,10 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Atomic.Validation;
-model HeatingCoolingControlLoops_TRoo
+model HeatingAndCoolingCoilValves_TRoo
   "Validation model for heating and cooling coil control signal generator"
   extends Modelica.Icons.Example;
 
-  HeatingCoolingControlLoops conLoo
-    "Heating and cooling control loop signal generator"
+  HeatingAndCoolingCoilValves conLoo "Heating and cooling control loop signal generator"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected
@@ -30,7 +29,7 @@ equation
     annotation (Line(points={{-19,-40},{0,-40},{0,-4},{19,-4}}, color={0,0,127}));
   annotation (
   experiment(StopTime=900.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/Validation/HeatingCoolingControlLoops_TRoo.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/Validation/HeatingAndCoolingCoilValves_TRoo.mos"
     "Simulate and plot"),
     Icon(graphics={Ellipse(
           lineColor={75,138,73},
@@ -46,8 +45,8 @@ equation
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Atomic.HeatingCoolingControlLoops\">
-Buildings.Controls.OBC.ASHRAE.G36.Atomic.HeatingCoolingControlLoops</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Atomic.HeatingAndCoolingCoilValves\">
+Buildings.Controls.OBC.ASHRAE.G36.Atomic.HeatingAndCoolingCoilValves</a>
 for zone temperature (<code>TRoo</code>) signal under fixed zone cooling (<code>TRooCooSet</code>)
 and heating (<code>TRooHeaSet</code>) temperature
 setpoints.
@@ -60,4 +59,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HeatingCoolingControlLoops_TRoo;
+end HeatingAndCoolingCoilValves_TRoo;
