@@ -23,10 +23,10 @@ block TrimRespondLogic "Block to inplement trim-respond logic"
   CDL.Logical.Timer tim
     "Count elapsed time from instant when device switches ON"
     annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
-  CDL.Logical.GreaterEqualThreshold delTimCon(threshold=delTim + timSte)
+  CDL.Continuous.GreaterEqualThreshold delTimCon(threshold=delTim + timSte)
     "Reset logic shall be actived in delay time (delTim) after device start"
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
-  CDL.Logical.GreaterThreshold greThr
+  CDL.Continuous.GreaterThreshold greThr
     "Check if the real requests is more than ignored requests setting"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
   CDL.Logical.Switch netRes "Net setpoint reset value"
