@@ -22,29 +22,33 @@ block SupplyAirTempSet_MultiZone
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-10},{-100,30}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   CDL.Interfaces.RealInput TMax(
     min=TSupDes,
     max=TSupMax,
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Maximum cooling supply temperature "
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
   CDL.Interfaces.RealInput TSetZones(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Average of heating and cooling setpoint"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   CDL.Interfaces.IntegerInput opeMod "System operation mode"
-    annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
+    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   CDL.Interfaces.RealOutput TSup(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Supply air temperature"
-    annotation (Placement(transformation(extent={{140,-10},{160,10}}),
+    annotation (Placement(transformation(extent={{140,0},{160,20}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
 
@@ -82,128 +86,120 @@ block SupplyAirTempSet_MultiZone
 
 protected
   CDL.Continuous.Line lin
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
   CDL.Continuous.Sources.Constant minOutTem(k=TOutMin)
     "Lower value of the outdoor air temperature reset range"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   CDL.Continuous.Sources.Constant maxOutTem(k=TOutMax)
     "Higher value of the outdoor air temperature reset range"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   CDL.Continuous.Sources.Constant minSupTem(k=TSupMin)
     "Lowest cooling supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  CDL.Logical.GreaterThreshold greThr(
-    threshold=Constants.OperationModes.occModInd + 0.5)
-    "Operation mode rank higher than occupied mode (1)"
-    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  CDL.Logical.LessThreshold lesThr(
-    threshold=Constants.OperationModes.warUpInd - 0.5)
-    "Operation mode rank less than warm-up mode (4)"
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  CDL.Conversions.IntegerToReal intToRea
-    "Convert integer number to real number"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   CDL.Logical.And and2 "Check if it is in Setup or Cool-down mode"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  CDL.Logical.LessThreshold lesThr1(
-    threshold=Constants.OperationModes.unoModInd - 0.5)
-    "Operation mode rank less than freeze-protection mode (6)"
-    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
-  CDL.Logical.GreaterThreshold greThr1(
-    threshold=Constants.OperationModes.setUpInd + 0.5)
-    "Operation mode rank higher than set-up mode (3)"
-    annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   CDL.Logical.And and1 "Check if it is in Warmup or Setback mode"
-    annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
+    annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   CDL.Continuous.Sources.Constant TSupWarUpSetBac(k=35 + 273.15)
     "Supply temperature setpoint under warm-up and setback mode"
-    annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
+    annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
   CDL.Logical.Switch swi1
-    annotation (Placement(transformation(extent={{100,-80},{120,-100}})));
+    annotation (Placement(transformation(extent={{100,-40},{120,-60}})));
   CDL.Logical.Switch swi2
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   CDL.Continuous.Limiter TDea(
     uMax=24 + 273.15,
     uMin=21 + 273.15)
     "Limiter that outputs the dead band value for the supply air temperature"
-    annotation (Placement(transformation(extent={{40,70},{60,90}})));
+    annotation (Placement(transformation(extent={{40,80},{60,100}})));
   CDL.Logical.Switch swi3 "Check output regarding supply fan status"
-    annotation (Placement(transformation(extent={{100,10},{120,-10}})));
+    annotation (Placement(transformation(extent={{100,20},{120,0}})));
+  CDL.Integers.LessThreshold intLesThr(threshold=Constants.OperationModes.warUpInd)
+    "Check if operation mode index is less than warm-up mode index (4)"
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+  CDL.Integers.GreaterThreshold intGreThr(threshold=Constants.OperationModes.occModInd)
+    "Check if operation mode index is greater than occupied mode index (1)"
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
+  CDL.Integers.LessThreshold intLesThr1(threshold=Constants.OperationModes.unoModInd)
+    "Check if operation mode index is less than unoccupied mode index (7)"
+    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
+  CDL.Integers.GreaterThreshold intGreThr1(threshold=Constants.OperationModes.setUpInd)
+    "Check if operation mode index is greater than set up mode index (3)"
+    annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
 
 equation
   connect(minOutTem.y, lin.x1)
-    annotation (Line(points={{-39,60},{-10,60},{-10,48},{-2,48}},
+    annotation (Line(points={{-39,70},{-10,70},{-10,58},{-2,58}},
       color={0,0,127}));
   connect(TOut, lin.u)
-    annotation (Line(points={{-120,0},{-80,0},{-80,40},{-2,40}},
+    annotation (Line(points={{-120,10},{-80,10},{-80,50},{-2,50}},
         color={0,0,127}));
   connect(maxOutTem.y, lin.x2)
-    annotation (Line(points={{-39,20},{-12,20},{-12,36},{-2,36}},
+    annotation (Line(points={{-39,30},{-12,30},{-12,46},{-2,46}},
       color={0,0,127}));
   connect(minSupTem.y, lin.f2)
-    annotation (Line(points={{-39,-20},{-39,-20},{-10,-20},{-10,32},{-2,32}},
+    annotation (Line(points={{-39,-10},{-10,-10},{-10,42},{-2,42}},
       color={0,0,127}));
   connect(TMax, lin.f1)
-    annotation (Line(points={{-120,40},{-82,40},{-82,44},{-2,44}},
+    annotation (Line(points={{-120,50},{-82,50},{-82,54},{-2,54}},
       color={0,0,127}));
-  connect(intToRea.y, lesThr.u)
-    annotation (Line(points={{-59,-90},{-40,-90},{-40,-40},{-22,-40}},
-      color={0,0,127}));
-  connect(intToRea.y, greThr.u)
-    annotation (Line(points={{-59,-90},{-40,-90},{-40,-70},{-22,-70}},
-      color={0,0,127}));
-  connect(lesThr.y, and2.u1)
-    annotation (Line(points={{1,-40},{10,-40},{18,-40}}, color={255,0,255}));
-  connect(greThr.y, and2.u2)
-    annotation (Line(points={{1,-70},{10,-70},{10,-48},{18,-48}},
-      color={255,0,255}));
-  connect(opeMod, intToRea.u)
-    annotation (Line(points={{-120,-90},{-120,-90},{-82,-90}},
-      color={255,127,0}));
-  connect(intToRea.y, lesThr1.u)
-    annotation (Line(points={{-59,-90},{-59,-90},{0,-90},{18,-90}},
-      color={0,0,127}));
-  connect(intToRea.y, greThr1.u)
-    annotation (Line(points={{-59,-90},{0,-90},{0,-120},{18,-120}},
-      color={0,0,127}));
-  connect(lesThr1.y, and1.u1)
-    annotation (Line(points={{41,-90},{58,-90}}, color={255,0,255}));
-  connect(greThr1.y, and1.u2)
-    annotation (Line(points={{41,-120},{50,-120},{50,-98}, {58,-98}},
-      color={255,0,255}));
   connect(and1.y, swi1.u2)
-    annotation (Line(points={{81,-90},{89.5,-90},{98,-90}},
+    annotation (Line(points={{61,-90},{80,-90},{80,-50},{98,-50}},
       color={255,0,255}));
   connect(TSupWarUpSetBac.y, swi1.u1)
-    annotation (Line(points={{81,-120},{90,-120},{90,-98},{98,-98}},
+    annotation (Line(points={{61,-130},{88,-130},{88,-58},{98,-58}},
       color={0,0,127}));
   connect(and2.y, swi2.u2)
-    annotation (Line(points={{41,-40},{58,-40}}, color={255,0,255}));
+    annotation (Line(points={{21,-50},{38,-50}}, color={255,0,255}));
   connect(minSupTem.y, swi2.u1)
-    annotation (Line(points={{-39,-20},{-39,-20},{50,-20},{50,-32},{58,-32}},
+    annotation (Line(points={{-39,-10},{32,-10},{32,-42},{38,-42}},
       color={0,0,127}));
   connect(swi2.y, swi1.u3)
-    annotation (Line(points={{81,-40},{90,-40},{90,-82},{98,-82}},
+    annotation (Line(points={{61,-50},{70,-50},{70,-42},{98,-42}},
       color={0,0,127}));
   connect(lin.y, swi2.u3)
-    annotation (Line(points={{21,40},{21,40},{48,40},{48,-48},{58,-48}},
+    annotation (Line(points={{21,50},{26,50},{26,-58},{38,-58}},
       color={0,0,127}));
   connect(TSetZones, TDea.u)
-    annotation (Line(points={{-120,80},{38,80}}, color={0,0,127}));
+    annotation (Line(points={{-120,90},{38,90}}, color={0,0,127}));
   connect(uSupFan, swi3.u2)
-    annotation (Line(points={{-120,-40},{-78,-40},{-78,0},{98,0}},
+    annotation (Line(points={{-120,-30},{-78,-30},{-78,10},{98,10}},
       color={255,0,255}));
   connect(swi1.y, swi3.u1)
-    annotation (Line(points={{121,-90},{128,-90},{128,-20},{80,-20},{80,-8},{98,-8}},
+    annotation (Line(points={{121,-50},{128,-50},{128,-10},{80,-10},{80,2},{98,2}},
       color={0,0,127}));
   connect(TDea.y, swi3.u3)
-    annotation (Line(points={{61,80},{80,80},{80,8},{98,8}}, color={0,0,127}));
-  connect(swi3.y, TSup)
-    annotation (Line(points={{121,0},{150,0}},
+    annotation (Line(points={{61,90},{80,90},{80,18},{98,18}},
       color={0,0,127}));
-  annotation (
-    defaultComponentName = "supAirTemSet",
-    Icon(graphics={
+  connect(swi3.y, TSup)
+    annotation (Line(points={{121,10},{150,10}},
+      color={0,0,127}));
+  connect(intLesThr1.y, and1.u1)
+    annotation (Line(points={{1,-100},{14,-100},{14,-90},{38,-90}},
+      color={255,0,255}));
+  connect(intGreThr1.y, and1.u2)
+    annotation (Line(points={{1,-130},{20,-130},{20,-98},{38,-98}},
+      color={255,0,255}));
+  connect(intLesThr.y, and2.u1)
+    annotation (Line(points={{-39,-50},{-2,-50}}, color={255,0,255}));
+  connect(intGreThr.y, and2.u2)
+    annotation (Line(points={{-39,-80},{-20,-80},{-20,-58},{-2,-58}},
+      color={255,0,255}));
+  connect(opeMod, intLesThr.u)
+    annotation (Line(points={{-120,-100},{-80,-100},{-80,-50},{-62,-50}},
+      color={255,127,0}));
+  connect(opeMod, intGreThr.u)
+    annotation (Line(points={{-120,-100},{-80,-100},{-80,-80},{-62,-80}},
+      color={255,127,0}));
+  connect(opeMod, intLesThr1.u)
+    annotation (Line(points={{-120,-100},{-22,-100}}, color={255,127,0}));
+  connect(opeMod, intGreThr1.u)
+    annotation (Line(points={{-120,-100},{-80,-100},{-80,-130},{-22,-130}},
+      color={255,127,0}));
+
+annotation (
+  defaultComponentName = "supAirTemSet",
+  Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
@@ -243,9 +239,9 @@ equation
           extent={{-124,146},{96,108}},
           lineColor={0,0,255},
           textString="%name")}),
-    Diagram(
+  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,100}})),
-Documentation(info="<html>
+  Documentation(info="<html>
 <p>
 This block output supply air temperature for VAV system with multiple zone. It 
 is implemented according to the ASHRAE Guideline G36, PART5.N.2 (Supply air 
