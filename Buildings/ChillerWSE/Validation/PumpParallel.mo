@@ -3,16 +3,22 @@ model PumpParallel "Example that tests the model pump parallels"
   extends Modelica.Icons.Example;
 
   package MediumW = Buildings.Media.Water "Medium model";
-  parameter Integer nPum=2 "The number of pumps";
+  parameter Integer numPum=2 "The number of pumps";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=6000/3600*1.2
     "Nominal mass flow rate";
+  parameter Real thr1=1E-4 "Threshold for shutoff valves in parallel 1";
+  parameter Real thr2=thr1*m_flow_nominal "Threshold for shutoff valves in parallel 2";
 
   Buildings.ChillerWSE.FlowMachine_y pumPar1(
-    nPum=nPum,
+    num=numPum,
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
     redeclare each Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    threshold=thr1,
+    tau=1,
+    use_inputFilter=false)
     "Pumps with speed controlled"
     annotation (Placement(transformation(extent={{-18,30},{2,50}})));
 
@@ -46,7 +52,7 @@ model PumpParallel "Example that tests the model pump parallels"
     T=293.15)
     "Sink"
     annotation (Placement(transformation(extent={{102,30},{82,50}})));
-  Modelica.Blocks.Sources.Pulse y[nPum](
+  Modelica.Blocks.Sources.Pulse y[numPum](
     each amplitude=1,
     each width=50,
     each period=120,
@@ -55,11 +61,14 @@ model PumpParallel "Example that tests the model pump parallels"
     "Input signal"
     annotation (Placement(transformation(extent={{-92,70},{-72,90}})));
   Buildings.ChillerWSE.FlowMachine_m pumPar2(
-    nPum=nPum,
+    num=numPum,
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
     redeclare each Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    threshold=thr2,
+    tau=1)
     "Pumps with m_flow controlled"
     annotation (Placement(transformation(extent={{-18,-50},{2,-30}})));
 
@@ -80,7 +89,7 @@ model PumpParallel "Example that tests the model pump parallels"
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare package Medium = MediumW)
     annotation (Placement(transformation(extent={{54,30},{74,50}})));
-  Modelica.Blocks.Math.Gain gain(k=1/nPum)
+  Modelica.Blocks.Math.Gain gain(k=1/numPum)
     annotation (Placement(transformation(extent={{20,-10},{0,10}})));
 equation
   connect(dp2.port_a, pumPar1.port_b)
@@ -114,7 +123,7 @@ equation
   connect(senMasFlo.m_flow, gain.u)
     annotation (Line(points={{64,51},{64,60},{46,
           60},{46,0},{22,0}}, color={0,0,127}));
- for i in 1:nPum loop
+ for i in 1:numPum loop
   connect(gain.y, pumPar2.u[i])
     annotation (Line(points={{-1,0},{-28,0},{-28,-36},{-20,-36}},color={0,0,127}));
  end for;
@@ -134,5 +143,9 @@ July 22, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+experiment(
+      StartTime=0,
+      StopTime=360,
+      Tolerance=1e-06));
 end PumpParallel;

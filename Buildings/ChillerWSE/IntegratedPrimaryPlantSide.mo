@@ -2,9 +2,9 @@ within Buildings.ChillerWSE;
 model IntegratedPrimaryPlantSide
   "Integrated waterside economizer on the plant side in a primary-only chilled water System"
   extends Buildings.ChillerWSE.BaseClasses.PartialIntegratedPrimary(
-    final nVal=6,
-    final m_flow_nominal={mChiller1_flow_nominal,mChiller2_flow_nominal,mWSE1_flow_nominal,
-      mWSE2_flow_nominal,nChi*mChiller2_flow_nominal,mWSE2_flow_nominal},
+    final numVal=6,
+    final m_flow_nominal={m1_flow_chi_nominal,m2_flow_chi_nominal,m1_flow_chi_nominal,
+      m2_flow_chi_nominal,numChi*m2_flow_chi_nominal,m2_flow_chi_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
@@ -22,7 +22,7 @@ on the plant side of the primary-only chilled water system, as shown in the foll
 In the configuration, users can model multiple chillers with only one integrated WSE.
 </p>
 <p align=\"center\">
- <img src=\"modelica://Buildings/Resources/Images/ChillerWSE/IntegratedPrimaryPlantSide.png\"/>
+ <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/ChillerWSE/IntegratedPrimaryPlantSide.png\"/>
 </p>
 <h4>Implementation</h4>
 <p>
@@ -75,9 +75,9 @@ The details about how to switch among different cooling modes are shown as:
 </html>", revisions="<html>
 <ul>
 <li>
-July 1, 2017, by Yangyang Fu:<br>
+July 1, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={Line(points={{12,-44},{-18,-44}}, color={0,128,255})}));
 end IntegratedPrimaryPlantSide;

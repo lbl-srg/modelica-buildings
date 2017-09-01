@@ -2,9 +2,9 @@ within Buildings.ChillerWSE;
 model IntegratedPrimaryLoadSide
   "Integrated water-side economizer on the load side in a primary-only chilled water system"
   extends Buildings.ChillerWSE.BaseClasses.PartialIntegratedPrimary(
-    final nVal=6,
-    final m_flow_nominal={mChiller1_flow_nominal,mChiller2_flow_nominal,mWSE1_flow_nominal,
-      mWSE2_flow_nominal,nChi*mChiller2_flow_nominal,mWSE2_flow_nominal},
+    final numVal=6,
+    final m_flow_nominal={m1_flow_chi_nominal,m2_flow_chi_nominal,m1_flow_wse_nominal,
+      m2_flow_chi_nominal,numChi*m2_flow_chi_nominal,m2_flow_wse_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default),
             Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
@@ -18,9 +18,9 @@ model IntegratedPrimaryLoadSide
      annotation (Dialog(tab = "Dynamics", group="Pump",
      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   //Pump
-  parameter Integer nPum=nChi "Number of pumps"
+  parameter Integer numPum=numChi "Number of pumps"
     annotation(Dialog(group="Pump"));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum[nPum]
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum[numPum]
    "Performance data for the pumps"
     annotation (Dialog(group="Pump"),
           Placement(transformation(extent={{38,78},{58,98}})));
@@ -33,23 +33,31 @@ model IntegratedPrimaryLoadSide
   parameter Modelica.Blocks.Types.Init initPum=initValve
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
-  parameter Real[nPum] yPump_start=fill(0,nPum)
+  parameter Real[numPum] yPum_start=fill(0,numPum)
     "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
-  parameter Real[nPum] yValvePump_start = fill(0,nPum)
+  parameter Real[numPum] yValPum_start = fill(0,numPum)
     "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Real l_ValvePump=0.0001
+  parameter Real lValPum=0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Pump"));
-  parameter Real kFixed_ValvePump=pum.m_flow_nominal/sqrt(pum.dpValve_nominal)
+  parameter Real kFixedValPum=pum.m_flow_nominal/sqrt(pum.dpValve_nominal)
     "Flow coefficient of fixed resistance that may be in series with valve, 
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Pump"));
-  Modelica.Blocks.Interfaces.RealInput yPum[nPum](each min=0, max=1)
+  Modelica.Blocks.Interfaces.RealInput yPum[numPum](
+    final unit = "1",
+    each min=0,
+    each max=1)
     "Constant normalized rotational speed"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-132,-28},{-100,-60}})));
+  Modelica.Blocks.Interfaces.RealOutput powPum[numPum](
+    each final quantity="Power",
+    each final unit="W")
+    "Electrical power consumed by the pumps"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
   Buildings.ChillerWSE.FlowMachine_y pum(
     redeclare each final package Medium = Medium2,
@@ -68,22 +76,23 @@ model IntegratedPrimaryLoadSide
     each final init=initPum,
     each final tau=tauPump,
     each final allowFlowReversal=allowFlowReversal2,
-    final nPum=nPum,
-    final m_flow_nominal=mChiller2_flow_nominal,
+    final num=numPum,
+    final m_flow_nominal=m2_flow_chi_nominal,
     dpValve_nominal=6000,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final deltaM=deltaM2,
     final riseTimePump=riseTimePump,
     final riseTimeValve=riseTimeValve,
-    final yValve_start=yValvePump_start,
-    final l=l_ValvePump,
-    final kFixed=kFixed_ValvePump,
-    final yPump_start=yPump_start,
+    final yValve_start=yValPum_start,
+    final l=lValPum,
+    final kFixed=kFixedValPum,
+    final yPump_start=yPum_start,
     final from_dp=from_dp2,
     final homotopyInitialization=homotopyInitialization,
     final linearizeFlowResistance=linearizeFlowResistance2)
     "Identical pumps"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
+
 equation
   connect(val5.port_b, pum.port_a)
     annotation (Line(points={{40,-20},{14,-20},{14,
@@ -94,10 +103,12 @@ equation
   connect(yPum, pum.u)
     annotation (Line(points={{-120,-40},{-30,-40},{-30,-28},{
           18,-28},{18,-36},{12,-36}}, color={0,0,127}));
+  connect(pum.P, powPum) annotation (Line(points={{-11,-36},{-6,-36},{-6,52},{
+          90,52},{90,-40},{110,-40}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
-July 1, 2017, by Yangyang Fu:<br>
+July 1, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
@@ -108,7 +119,7 @@ on the load side of the primary-only chilled water system, as shown in the follo
 In the configuration, users can model multiple chillers with only one integrated WSE. 
 </p>
 <p align=\"center\">
-  <img src=\"modelica://Buildings/Resources/Images/ChillerWSE/IntegraredPrimaryLoadSide.png\" alt=\"image\"/> 
+  <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/ChillerWSE/IntegraredPrimaryLoadSide.png\"/> 
 </p>
 <h4>Implementation</h4>
 <p>
@@ -179,5 +190,40 @@ For Fully Mechanical Cooling (FMC) Mode:
  Design and Control Considerations.<i>ASHRAE Transactions</i>, 115(2).
  </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+        Polygon(
+          points={{-58,40},{-58,40}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-7,-6},{9,-6},{0,3},{-7,-6}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={46,-45},
+          rotation=90),
+        Polygon(
+          points={{-6,-7},{-6,9},{3,0},{-6,-7}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={42,-45},
+          rotation=0),
+        Ellipse(
+          extent={{-14,-32},{8,-54}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,128,255}),
+        Polygon(
+          points={{-14,-44},{-2,-54},{-2,-32},{-14,-44}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255}),
+        Line(points={{12,6},{12,0}}, color={0,128,255}),
+        Line(points={{-70,0}}, color={0,0,0}),
+        Line(points={{-18,-44}}, color={0,0,0}),
+        Line(points={{-18,-44},{-14,-44}}, color={0,128,255}),
+        Line(points={{8,-44},{12,-44}}, color={0,128,255})}));
 end IntegratedPrimaryLoadSide;

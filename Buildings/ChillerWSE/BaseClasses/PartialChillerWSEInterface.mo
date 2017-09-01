@@ -4,32 +4,31 @@ partial model PartialChillerWSEInterface
   extends Buildings.Fluid.Interfaces.PartialFourPort;
 
   // Nominal conditions
-  parameter Modelica.SIunits.MassFlowRate mChiller1_flow_nominal(min=0)
+  parameter Modelica.SIunits.MassFlowRate m1_flow_chi_nominal(min=0)
     "Nominal mass flow rate on the medium 1 side in the chiller"
     annotation(Dialog(group = "Chiller"));
-  parameter Modelica.SIunits.MassFlowRate mChiller2_flow_nominal(min=0)
+  parameter Modelica.SIunits.MassFlowRate m2_flow_chi_nominal(min=0)
     "Nominal mass flow rate on the medium 2 side in the chiller"
     annotation(Dialog(group = "Chiller"));
-  parameter Modelica.SIunits.MassFlowRate mWSE1_flow_nominal(min=0)
+  parameter Modelica.SIunits.MassFlowRate m1_flow_wse_nominal(min=0)
     "Nominal mass flow rate on the medium 1 side in the waterside economizer"
     annotation(Dialog(group = "Waterside economizer"));
-  parameter Modelica.SIunits.MassFlowRate mWSE2_flow_nominal(min=0)
+  parameter Modelica.SIunits.MassFlowRate m2_flow_wse_nominal(min=0)
     "Nominal mass flow rate on the medium 2 side in the waterside economizer"
     annotation(Dialog(group = "Waterside economizer"));
 
   // Advanced
-  parameter Medium1.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(mChiller1_flow_nominal)
+  parameter Medium1.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(m1_flow_chi_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
-  parameter Medium2.MassFlowRate m2_flow_small(min=0) = 1E-4*abs(mChiller2_flow_nominal)
+  parameter Medium2.MassFlowRate m2_flow_small(min=0) = 1E-4*abs(m2_flow_chi_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
   // Diagnostics
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
-  parameter Integer n(min=1)=2 "Total number of chillers and waterside economizer";
-
+  parameter Integer num(min=1)=2 "Total number of chillers and waterside economizer";
 
   Modelica.Blocks.Interfaces.RealInput TSet(
     final unit="K",
@@ -38,7 +37,7 @@ partial model PartialChillerWSEInterface
     "Set point for leaving water temperature"
     annotation (Placement(transformation(extent={{-140,84},{-100,124}}),
         iconTransformation(extent={{-132,92},{-100,124}})));
-  Modelica.Blocks.Interfaces.BooleanInput on[n]
+  Modelica.Blocks.Interfaces.BooleanInput on[num]
     "Set to true to enable equipment, or false to disable equipment"
     annotation (Placement(transformation(extent={{-140,52},{-100,92}}),
         iconTransformation(extent={{-132,60},{-100,92}})));
@@ -86,11 +85,17 @@ protected
     Medium2.setState_phX(port_b2.p, inStream(port_b2.h_outflow), inStream(port_b2.Xi_outflow))
     "state for medium inflowing through port_b2";
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
-                                                                 Diagram(
+          Rectangle(extent={{-100,100},{100,-100}}, pattern=LinePattern.None),
+          Rectangle(
+          extent={{-80,80},{80,-80}},
+          lineColor={255,255,255},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
+<p>
 This model implements an interface for chillers and integrated/nonitegrated water-side economizers. 
+</p>
 </html>",
         revisions="<html>
 <ul>

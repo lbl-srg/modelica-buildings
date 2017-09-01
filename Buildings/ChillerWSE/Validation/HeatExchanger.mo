@@ -24,7 +24,8 @@ model HeatExchanger
     redeclare package Medium2 = MediumW,
     Ti=40,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.1)
+    k=0.1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Water-to-water heat exchanger with built-in PID controller to control the temperature at port_b2"
     annotation (Placement(transformation(extent={{-12,48},{8,64}})));
 
@@ -36,7 +37,8 @@ model HeatExchanger
     dp2_nominal=dp2_nominal,
     T_start=273.15 + 10,
     redeclare package Medium1 = MediumW,
-    redeclare package Medium2 = MediumW)
+    redeclare package Medium2 = MediumW,
+    use_Controller=false)
     "Water-to-water heat exchanger without built-in controllers to control the temperature at port_b2"
     annotation (Placement(transformation(extent={{-12,-30},{8,-14}})));
   Buildings.Fluid.Sources.FixedBoundary sin1(
@@ -56,8 +58,11 @@ model HeatExchanger
     "Source on medium 1 side"
     annotation (Placement(transformation(extent={{-60,66},{-40,86}})));
   Modelica.Blocks.Sources.TimeTable TCon_in(
-    table=[0,273.15 + 12.78; 7200,273.15 + 12.78; 7200,273.15 + 18.33;
-      14400,273.15 + 18.33; 14400,273.15 + 26.67],
+    table=[0,273.15 + 12.78;
+           7200,273.15 + 12.78;
+           7200,273.15 + 18.33;
+           14400,273.15 + 18.33;
+           14400,273.15 + 26.67],
     offset=0,
     startTime=0)
     "Condenser inlet temperature"
@@ -160,5 +165,9 @@ July 22, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+experiment(
+      StartTime=0,
+      StopTime=3600,
+      Tolerance=1e-06));
 end HeatExchanger;

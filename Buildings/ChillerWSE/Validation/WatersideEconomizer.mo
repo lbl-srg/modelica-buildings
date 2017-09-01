@@ -1,7 +1,6 @@
 within Buildings.ChillerWSE.Validation;
 model WatersideEconomizer
   "Validate model Buildings.ChillerWSE.WatersideEconomizer"
-  extends Modelica.Icons.Example;
 
   extends Buildings.ChillerWSE.Validation.BaseClasses.PartialPlant(
     sou1(nPorts=1),
@@ -17,19 +16,19 @@ model WatersideEconomizer
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.4,
     Ti=80,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     m1_flow_nominal=mCW_flow_nominal,
     m2_flow_nominal=mCHW_flow_nominal,
     eta=0.8,
     dp1_nominal=dpCW_nominal,
     dp2_nominal=dpCHW_nominal,
-    use_Controller=true)
+    use_Controller=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Waterside economizer"
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 
   Modelica.Blocks.Sources.BooleanStep onWSE(
-    startValue=true,
-    startTime(displayUnit="h") = 7200)
+    startValue = true,
+    startTime = 7200)
     "On and off signal for the WSE"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 equation
@@ -62,5 +61,9 @@ July 10, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+experiment(
+      StartTime=0,
+      StopTime=14400,
+      Tolerance=1e-06));
 end WatersideEconomizer;

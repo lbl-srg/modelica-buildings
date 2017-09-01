@@ -10,11 +10,11 @@ record FourPortResistanceChillerWSE
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance1,
                 tab="Flow resistance", group="Medium 1"));
-  parameter Modelica.SIunits.PressureDifference dpChiller1_nominal(
+  parameter Modelica.SIunits.PressureDifference dp1_chi_nominal(
     min=0,displayUnit="Pa")
     "Pressure difference on medium 1 side in the chillers"
     annotation(Dialog(group = "Chiller"));
-  parameter Modelica.SIunits.PressureDifference dpWSE1_nominal(
+  parameter Modelica.SIunits.PressureDifference dp1_wse_nominal(
     min=0,displayUnit="Pa")
     "Pressure difference on medium 1 side in the watersie economizer"
     annotation(Dialog(group = "Waterside economizer"));
@@ -33,11 +33,11 @@ record FourPortResistanceChillerWSE
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance2,
                 tab="Flow resistance", group="Medium 2"));
-  parameter Modelica.SIunits.PressureDifference dpChiller2_nominal(
+  parameter Modelica.SIunits.PressureDifference dp2_chi_nominal(
     min=0,displayUnit="Pa")
     "Pressure difference on medium 2 side in the chillers"
     annotation(Dialog(group = "Chiller"));
-  parameter Modelica.SIunits.PressureDifference dpWSE2_nominal(
+  parameter Modelica.SIunits.PressureDifference dp2_wse_nominal(
     min=0,displayUnit="Pa")
     "Pressure difference on medium 2 side in the waterside economizer"
     annotation(Dialog(group = "Waterside economizer"));

@@ -12,12 +12,13 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-July 27, 2017, by Yangyang Fu:<br>
+July 27, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
 </html>", info="<html>
 <p>This model implements a parallel of identical pumps with speed being controlled.
+The number can be specified by setting a value of <code>num</code>.
 The shutoff valves are used to avoid circulating flow among pumps.
 </p>
 </html>"));

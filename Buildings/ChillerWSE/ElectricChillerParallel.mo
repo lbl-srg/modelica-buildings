@@ -1,19 +1,18 @@
 within Buildings.ChillerWSE;
 model ElectricChillerParallel "Multiple identical electric chillers"
   extends Buildings.ChillerWSE.BaseClasses.PartialParallelElectricEIR(
-    redeclare each final Buildings.Fluid.Chillers.ElectricEIR chi[n](
+    redeclare each final Buildings.Fluid.Chillers.ElectricEIR chi[num](
       per=per));
 
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[n]
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[num]
     "Performance data"
     annotation (choicesAllMatching = true,
                 Placement(transformation(extent={{42,74},{62,94}})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,255})}),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
          Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This model implements a chiller parallel with <code>n</code> identical chillers. For the chiller model please see 
+This model implements a chiller parallel with <code>num</code> identical chillers. For the chiller model please see 
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">Buildings.Fluid.Chillers.ElectricEIR</a>.
 </p>
 <p>
