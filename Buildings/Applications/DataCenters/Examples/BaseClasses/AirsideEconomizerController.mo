@@ -19,17 +19,18 @@ model AirsideEconomizerController "OA damper controller"
   Modelica.Blocks.Interfaces.RealInput TMixAirMea(
     final unit="K",
     final quantity="ThermodynamicTemperature",
-    displayUnit="degC") "Measured mixed air temperature" annotation (Placement(
+    displayUnit="degC") "Measured mixed air temperature"
+    annotation (Placement(
         transformation(rotation=0, extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.IntegerInput cooMod
     "Cooling mode of the cooling system"
     annotation (Placement(
         transformation(rotation=0, extent={{-140,-80},{-100,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
+  Modelica.Blocks.Interfaces.RealOutput y
+    "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.Continuous.LimPID con(
-    Td=1,
     reverseAction=true,
     k=gai,
     yMin=minOAFra,
@@ -37,19 +38,20 @@ model AirsideEconomizerController "OA damper controller"
     Ti=Ti) "PID controller"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 protected
-  Controls.OBC.CDL.Continuous.Sources.Constant const(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(final k=0)
     "Constant output signal with value 1"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
-  Controls.OBC.CDL.Integers.Sources.Constant conInt(
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=Integer(Types.CoolingModes.FullMechanical))
     "Outputs signal for full mechanical cooling"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
-  Controls.OBC.CDL.Integers.Equal ecoOff
+  Buildings.Controls.OBC.CDL.Integers.Equal ecoOff
     "Determine if airside economizer is off"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Controls.OBC.CDL.Logical.Switch switch1 "Switch to select control output"
+  Buildings.Controls.OBC.CDL.Logical.Switch switch1
+    "Switch to select control output"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation
@@ -63,12 +65,15 @@ equation
           0},{38,0}},     color={255,0,255}));
   connect(const.y, switch1.u1)
     annotation (Line(points={{21,30},{28,30},{28,8},{38,8}}, color={0,0,127}));
-  connect(con.y, switch1.u3) annotation (Line(points={{-59,60},{-20,60},{-20,-8},
+  connect(con.y, switch1.u3)
+    annotation (Line(points={{-59,60},{-20,60},{-20,-8},
           {38,-8}}, color={0,0,127}));
-  connect(ecoOff.u2, conInt.y) annotation (Line(points={{-42,-68},{-50,-68},{-50,
+  connect(ecoOff.u2, conInt.y)
+    annotation (Line(points={{-42,-68},{-50,-68},{-50,
           -80},{-59,-80}}, color={255,127,0}));
-  connect(ecoOff.u1, cooMod) annotation (Line(points={{-42,-60},{-120,-60},{-120,
-          -60}}, color={255,127,0}));
+  connect(ecoOff.u1, cooMod)
+    annotation (Line(points={{-42,-60},{-120,-60}},
+           color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
         graphics={Rectangle(
           extent={{-100,100},{100,-100}},

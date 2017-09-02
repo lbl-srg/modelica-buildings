@@ -2,11 +2,11 @@ simulateModel("Buildings.Applications.DataCenters.Examples.BaseClasses.Examples.
 
 createPlot(id=5,
  position={0, 0, 1549, 756},
- y={"cooModCon.TSupSet", "cooModCon.TRet", "cooModCon.TOutDryBul", "cooModCon.TOutDewPoi"},
+ y={"cooModCon.TSupSet", "cooModCon.TRet", "cooModCon.TOutDryBul"},
  range={8928000.0, 9000000.0, 280.0, 300.0},
  erase=false, grid=true,
  filename="CoolingMode.mat",
- colors={{238,46,47}, {28,108,200}, {0,140,72}, {217,67,180}});
+ colors={{238,46,47}, {28,108,200}, {0,140,72}});
 createPlot(id=5,
  position={0, 0, 1549, 376},
  y={"cooModCon.y"},
