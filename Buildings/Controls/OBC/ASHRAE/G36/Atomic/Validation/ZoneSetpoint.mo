@@ -2,12 +2,11 @@ within Buildings.Controls.OBC.ASHRAE.G36.Atomic.Validation;
 model ZoneSetpoint "Validate block ZoneSetpoint"
   extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.ASHRAE.G36.Atomic.ZoneSetpoint
-    zonSetpoint(
-    cooAdj=true,
-    winStaSen=true,
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.ZoneSetpoint zonSetpoint(
     occSen=true,
-    sinAdj=true) "Block determined thermal zone setpoints"
+    sinAdj=false,
+    cooAdj=true,
+    winStaSen=true) "Block determined thermal zone setpoints"
     annotation (Placement(transformation(extent={{60,40},{100,80}})));
   CDL.Continuous.Sources.Constant occCooSet(k=297.15)
     "Occupied cooling setpoint"
@@ -36,13 +35,13 @@ model ZoneSetpoint "Validate block ZoneSetpoint"
   CDL.Continuous.Sources.Ramp ram(duration=28800)
     "Generate ramp output"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
-  CDL.Logical.GreaterThreshold greThr(threshold=0.75)
+  CDL.Continuous.GreaterThreshold greThr(threshold=0.75)
     "Check if input is greater than 0.75"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   CDL.Conversions.BooleanToInteger booToInt(integerTrue=1, integerFalse=7)
     "Convert boolean input to integer output"
     annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
-  CDL.Logical.Sources.Pulse winSta(period=14400, startTime=5)
+  CDL.Logical.Sources.Pulse winSta(period=14400, startTime=1200)
     "Generate signal indicating window status"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   CDL.Logical.Sources.Pulse occSta(period=14400, width=0.95)
@@ -132,5 +131,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-140,-100},{120,100}})));
+    Diagram(coordinateSystem(extent={{-140,-120},{120,120}})));
 end ZoneSetpoint;
