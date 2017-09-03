@@ -11,6 +11,7 @@ model CoolingCoilHumidifyingHeating_OpenLoop
         T_a2_nominal,
         T_b2_nominal)
     "Thermal conductance at nominal flow for sensible heat, used to compute time constant";
+  parameter Real yValMin = 0.4 "Minimum position of water-side valves";
 
   Buildings.Applications.DataCenters.HVAC.AHUs.CoolingCoilHumidifyingHeating ahu(
     redeclare package Medium1 = Medium1,
@@ -21,7 +22,6 @@ model CoolingCoilHumidifyingHeating_OpenLoop
     yValve_start=0,
     tauEleHea=1,
     tauHum=1,
-    yValLow=0.4,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     UA_nominal=UA_nominal,
@@ -29,9 +29,9 @@ model CoolingCoilHumidifyingHeating_OpenLoop
     QHeaMax_flow=10000,
     mWatMax_flow=0.01,
     perFan(pressure(V_flow=m2_flow_nominal*{0,0.5,1}, dp=300*{1.2,1.12,1})),
-    yValHig=0.41,
     dp1_nominal=3000,
-    dp2_nominal=200)
+    dp2_nominal=200,
+    yValSwi=yValMin+0.05)
     "Air handling unit"
     annotation (Placement(transformation(extent={{54,16},{74,36}})));
 
