@@ -105,8 +105,8 @@ channel <code>crossSection</code> must be specified in <code>m<sub>2</sub></code
 circular flow channel (e.g. a round pipe) of diameter <code>diameter</code>, the
 cross sectional area can be specified as <code>crossSection = diameter *
 diameter / 4 * Modelica.Constants.pi</code>. See
-<a href=\"modelica://Buildings.Fluid.Sensors.Examples.FlowVelocity\">
-Buildings.Fluid.Sensors.Examples.FlowVelocity</a> for an example implementation
+<a href=\"modelica://Buildings.Fluid.Sensors.Examples.Velocity\">
+Buildings.Fluid.Sensors.Examples.Velocity</a> for an example implementation
 with <code>diameter = 0.1</code>.
 </p>
 </html>", revisions="<html>
