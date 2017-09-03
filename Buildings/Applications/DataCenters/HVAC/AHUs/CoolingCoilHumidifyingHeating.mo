@@ -37,24 +37,17 @@ model CoolingCoilHumidifyingHeating
        enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
 
   // parameters for heater controller
-  parameter Real yValLow(min=0, max=1, unit="1")=0.1
-    "if yVal<=yValLow, hysVal.y switches to false"
-    annotation(Dialog(group="Reheat controller"));
-  parameter Real yValHig(min=0, max=1, unit="1")=0.15
-    "if yVal>=yValHig, hysVal.y switches to true"
-    annotation(Dialog(group="Reheat controller"));
-  parameter Modelica.SIunits.TemperatureDifference dTLow=-0.5
-    "if dT<=dTLow, hysTemDif.y switches to false"
-    annotation(Dialog(group="Reheat controller"));
-  parameter Modelica.SIunits.TemperatureDifference dTHig=0.5
-    "if dT>=dTHig, hysTemDif.y switches to true"
-    annotation(Dialog(group="Reheat controller"));
-  parameter Boolean pre_yVal_start=true
-    "Previous value of hysVal.y used at initialization"
-    annotation (Dialog(group="Reheat controller", tab="Initialization"));
-  parameter Boolean pre_dT_start=true
-    "Previous value of hysTemDif.y used at initialization"
-    annotation (Dialog(group="Reheat controller", tab="Initialization"));
+  parameter Real yValSwi(min=0, max=1, unit="1",start=0.3)
+    "Swich point for valve signal";
+  parameter Real yValDeaBan(min=0, max=1, unit="1")=0.1
+    "Deadband for valve signal";
+  parameter Modelica.SIunits.TemperatureDifference dTSwi=0
+    "Swich point for temperature difference";
+  parameter Modelica.SIunits.TemperatureDifference dTDeaBan=0.5
+    "Deadband for temperature difference";
+  parameter Modelica.SIunits.Time tWai=60
+    "Waiting time";
+
   Modelica.Blocks.Interfaces.RealOutput PHea(
     final unit = "W",
     final quantity = "Power")
@@ -81,7 +74,7 @@ model CoolingCoilHumidifyingHeating
     "Difference between inlet temperature and temperature setpoint of the reheater"
     annotation (Placement(transformation(extent={{-60,-4},{-40,16}})));
 
-  Buildings.Fluid.Humidifiers.SteamHumidifier_X hum(
+  Buildings.Fluid.Humidifiers.SprayAirWasher_X hum(
     redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal2,
     final m_flow_small=m2_flow_small,
@@ -125,13 +118,12 @@ model CoolingCoilHumidifyingHeating
         rotation=0,
         origin={-22,-60})));
 
-  Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses.ReheatControl heaCon(
-    final pre_yVal_start=pre_yVal_start,
-    final pre_dT_start=pre_dT_start,
-    final yValLow=yValLow,
-    final yValHig=yValHig,
-    final dTLow=dTLow,
-    final dTHig=dTHig)
+  BaseClasses.ReheatOnOffControl heaCon(
+    yValSwi=yValSwi,
+    yValDeaBan=yValDeaBan,
+    dTSwi=dTSwi,
+    dTDeaBan=dTDeaBan,
+    tWai=tWai)
     "Reheater on/off controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
@@ -157,8 +149,8 @@ equation
     annotation (Line(points={{-12,-60},{10,-60}},
                 color={0,127,255}));
   connect(hum.port_a, cooCoi.port_b2)
-    annotation (Line(points={{30,-60},{30,-60},{48,-60},{48,-60},{42,-60},{42,
-          -60},{60,-60}},                color={0,127,255}));
+    annotation (Line(points={{30,-60},{30,-60},{48,-60},{42,-60},{60,-60}},
+                                         color={0,127,255}));
   connect(eleHea.P, PHea)
     annotation (Line(points={{-33,-66},{-40,-66},{-40,-76},
                 {18,-76},{18,-110}}, color={0,0,127}));
@@ -250,11 +242,12 @@ equation
     To avoid that water-valve and reheater control the outlet 
     temperature at the same time, a buit-in reheater on/off controller is implemented. 
     The detailed control logic about the reheater on/off control is shown in 
-    <a href=\"modelica://Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses.ReheatControl\">Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses.ReheatControl.</a></p>
-    <p>The humidfier is an adiabatic humidifier with a prescribed outlet water vapor mass fraction
-    in kg/kg total air.
-    Details can be found in <a href=\"modelica://Buildings.Fluid.MassExchangers.Humidifier_X\">
-    Buildings.Fluid.MassExchangers.Humidifier_X.</a> The humidifer can be turned off when the prescribed mass fraction 
+    <a href=\"modelica://Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses.ReheatControl\">
+    Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses.ReheatControl.</a></p>
+    <p>The humidfier is an adiabatic spray air washer with a prescribed outlet water vapor mass fraction
+    in kg/kg total air. During the humidification, the enthalpy of the air doesn't change.
+    Details can be found in <a href=\"modelica://Buildings.Fluid.MassExchangers.SprayAirWasher_X\">
+    Buildings.Fluid.MassExchangers.SprayAirWasher_X.</a> The humidifer can be turned off when the prescribed mass fraction 
     is smaller than the current state at the outlet, for example, <code>XSet=0</code>.
     </p>
 </html>", revisions="<html>
