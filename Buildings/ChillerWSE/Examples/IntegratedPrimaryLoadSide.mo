@@ -1,6 +1,7 @@
 within Buildings.ChillerWSE.Examples;
 model IntegratedPrimaryLoadSide
-  "Example that show how to use Buildings.ChillerWSE.IntegratedPrimaryLoadSide"
+  "Example that demonstrates a chiller plant with integrated primary load side economizer"
+  extends Modelica.Icons.Example;
   extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenterControl(
     redeclare Buildings.ChillerWSE.IntegratedPrimaryLoadSide chiWSE(
       addPowerToMedium=false,
@@ -90,11 +91,6 @@ equation
       points={{146,38},{160,38},{160,60},{202,60}},
       color={0,127,255},
       thickness=0.5));
-  connect(TCWRet.port_b, expVesCW.port_a)
-    annotation (Line(
-      points={{222,60},{240,60},{240,125}},
-      color={0,127,255},
-      thickness=0.5));
    for i in 1:numChi loop
     connect(TCWSup.port_a, cooTow[i].port_b)
       annotation (Line(
@@ -130,19 +126,6 @@ equation
     annotation (Line(points={{-132,102},{
           -150,102},{-150,200},{260,200},{260,20},{230,20},{230,11}}, color={0,0,
           127}));
-  connect(expVesChi.port_a, ahu.port_b1)
-    annotation (Line(
-      points={{270,-59},{270,-59},{270,-114},{174,-114}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(senRelPre.port_a, ahu.port_a1)
-    annotation (Line(points={{150,-96},{72,-96},{72,-114},{154,-114}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(senRelPre.port_b, ahu.port_b1)
-    annotation (Line(points={{170,-96},{242, -96},{242,-114},{174,-114}},
-      color={0,127,255},
-      thickness=0.5));
   connect(dpSet.y, pumSpe.u_s)
     annotation (Line(points={{-155,-20},{-128,-20}},
       color={0,0,127}));
@@ -189,15 +172,18 @@ equation
 with water-side economizer (WSE) to cool a data center. 
 The system is a primary-only chiller plant with two chillers and 
 an integrated WSE located on the load side. 
-The system schematics is as shown below. </p>
+The system schematics is as shown below.
+</p>
 <p>
 <img alt=\"image\" 
 src=\"modelica://Buildings/Resources/Images/ChillerWSE/Examples/IntegratedPrimaryLoadSideSystem.png\"/>
 </p>
 <h4>Control Logic</h4>
-<p>This section describes the detailed control logic used in this chilled water plant system.</p>
+<p>This section describes the detailed control logic used in this chilled water plant system.
+</p>
 <h5>Cooling Mode Control</h5>
-<p>The chilled water system with integrated waterside economizer can run among three modes: 
+<p>
+The chilled water system with integrated waterside economizer can run in three modes: 
 free cooling (FC) mode, partially mechanical cooling (PMC) mode and fully mechanical cooling (FMC) mode. 
 The detailed control logics about how to switch among these three cooling modes are described in 
 <a href=\"modelica://Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControl\">
@@ -218,9 +204,9 @@ The chillers are all off when cooling mode is FC.
 One chiller is commanded on when cooling mode is not FC. 
 </li>
 <li>
-Two chillers are commanded on when cooling mode is not FC and the cooling load addressed by chillers is larger than
-a critical point, for example, <code>0.8QEva_nominal</code>, where <code>QEva_nominal</code> represents the 
-chiller's nominal cooling capaciy. 
+Two chillers are commanded on when cooling mode is not FC and the cooling load served
+by the chillers is larger than
+a critical value. 
 </li>
 </ul>
 <p>
@@ -233,10 +219,10 @@ Buildings.ChillerWSE.Examples.BaseClasses.Controls.ChillerStageControl</a>.
 For constant speed pumps, the number of running pumps equals to the number of running chillers.
 </p>
 <p>
-For variable speed pumps, the number of runing pumps is controlled by the speed signal and the mass flowrate. 
+For variable speed pumps, the number of running pumps is controlled by the speed signal and the mass flow rate. 
 Details are shown in 
 <a href=\"modelica://Buildings.ChillerWSE.Examples.BaseClasses.Controls.VariableSpeedPumpStageControl\">
-Buildings.ChillerWSE.Examples.BaseClasses.Controls.VariableSpeedPumpStageControl</a>. And the speed is 
+Buildings.ChillerWSE.Examples.BaseClasses.Controls.VariableSpeedPumpStageControl</a>. The speed is 
 controlled by maintaining a fixed differential pressure between the outlet and inlet on the waterside
 of the Computer Room Air Handler (CRAH).
 </p>
@@ -250,8 +236,8 @@ When in FMC mode, the cooling tower speed is controlled to maintain
 the condenser water supply temperature (CWST) at its setpoint.
 </li>
 <li>
-When in PMC mode, the fan is enabled to run at 100% speed to make the condenser water as cold as possible
- and maximize the WSE output.
+When in PMC mode, the fan is set to run at 100% speed to make the condenser water as cold as possible
+and maximize the WSE output.
 </li>
 <li>
 When in FC mode, the fan speed is modulated to maintain chilled water supply temperature at its setpoint.
@@ -263,7 +249,8 @@ Detailed implementation of cooling tower speed control can be found in
 Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingTowerSpeedControl</a>.
 </p>
 <p>
-Note that for simplicity, the temperature and differential pressure reset control are not implemented in this example.
+Note that for simplicity, the temperature and differential pressure reset control
+are not implemented in this example.
 </p>
 </html>", revisions="<html>
 <ul>

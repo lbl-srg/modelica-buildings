@@ -164,7 +164,7 @@ equation
 <li>
 When the mass flowrate in each pump is greater than the critical point of mass flowrate, 
 eg., <code>0.8*m_flow_nominal</code>, and the speed signal is greater 
-than the critocal poiint of the speed, then activate one more pump;
+than the critocal point of the speed, then activate one more pump;
 </li>
 <li>
 When the mass flowrate in each pump is less than the critical point of mass flowrate, 

@@ -1,7 +1,6 @@
 within Buildings.ChillerWSE.Examples.BaseClasses;
 partial model DataCenter
   "Partial model that impliments cooling system for data centers"
-  extends Modelica.Icons.Example;
   replaceable package MediumA = Buildings.Media.Air "Medium model" annotation (
       Documentation(revisions="<html>
 <ul>
@@ -72,11 +71,13 @@ First implementation.
     use_inputFilter=false)
     "Chillers and waterside economizer"
     annotation (Placement(transformation(extent={{126,22},{146,42}})));
-  Buildings.Fluid.Storage.ExpansionVessel expVesCW(
+  Fluid.Sources.Boundary_pT expVesCW(
     redeclare replaceable package Medium = MediumW,
-    V_start=1)
+    nPorts=1)
     "Expansion tank"
-    annotation (Placement(transformation(extent={{230,125},{250,145}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={240,157})));
   Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow[numChi](
     redeclare each replaceable package Medium = MediumW,
     each m_flow_nominal=m1_flow_chi_nominal,
@@ -139,15 +140,16 @@ First implementation.
     m_flow_nominal=numChi*m2_flow_chi_nominal)
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{240,-10},{220,10}})));
-  Buildings.Fluid.Storage.ExpansionVessel expVesChi(
-    redeclare replaceable package Medium = MediumW,
-    V_start=1)
+  Fluid.Sources.Boundary_pT               expVesChi(
+    redeclare replaceable package Medium = MediumW, nPorts=1)
     "Expansion tank"
-    annotation (Placement(transformation(extent={{260,-59},{280,-39}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={270,-113})));
   Buildings.Fluid.Sensors.RelativePressure senRelPre(
     redeclare replaceable package Medium =MediumW)
     "Differential pressure"
-    annotation (Placement(transformation(extent={{150,-86},{170,-106}})));
+    annotation (Placement(transformation(extent={{152,-84},{172,-104}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(
     redeclare replaceable package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal)
@@ -190,11 +192,6 @@ equation
       points={{146,38},{160,38},{160,60},{202,60}},
       color={0,127,255},
       thickness=0.5));
-  connect(TCWRet.port_b, expVesCW.port_a)
-    annotation (Line(
-      points={{222,60},{240,60},{240,125}},
-      color={0,127,255},
-      thickness=0.5));
   for i in 1:numChi loop
     connect(cooTow[i].TAir, weaBus.TWetBul.TWetBul)
       annotation (Line(points={{153,143},
@@ -215,22 +212,18 @@ equation
         points={{70,110},{70,140},{100,140}},
         color={0,127,255},
         thickness=0.5));
-    connect(val[i].port_a, expVesCW.port_a)
-      annotation (Line(points={{190,140},
-            {220,140},{220,120},{240,120},{240,125}}, color={0,127,255}));
-   end for;
-  connect(expVesChi.port_a, ahu.port_b1)
-    annotation (Line(
-      points={{270,-59},{270,-59},{270,-114},{174,-114}},
-      color={0,127,255},
-      thickness=0.5));
+    connect(TCWRet.port_b, val[i].port_a) annotation (Line(points={{222,60},{240,60},
+            {240,140},{190,140}},
+            color={0,127,255},
+            thickness=0.5));
+  end for;
   connect(senRelPre.port_a, ahu.port_a1)
-    annotation (Line(points={{150,-96},{72,
-          -96},{72,-114},{154,-114}}, color={0,127,255},
+    annotation (Line(points={{152,-94},{72,-94},{72,-114},{154,-114}},
+                                      color={0,127,255},
       thickness=0.5));
   connect(senRelPre.port_b, ahu.port_b1)
-    annotation (Line(points={{170,-96},{242,
-          -96},{242,-114},{174,-114}},   color={0,127,255},
+    annotation (Line(points={{172,-94},{206,-94},{206,-94},{250,-94},{250,-114},
+          {174,-114}},                   color={0,127,255},
       thickness=0.5));
   connect(TAirSup.port_a, ahu.port_b2)
     annotation (Line(
@@ -251,9 +244,13 @@ equation
     annotation (Line(points={{151,139},{160.5,139},{160.5,140},{170,140}},
       color={0,127,255},
       thickness=0.5));
-  connect(val[1].port_a, expVesCW.port_a)
-    annotation (Line(
-      points={{190,140},{220,140},{220,120},{240,120},{240,125}},
+
+  connect(TCWRet.port_b, expVesCW.ports[1])
+    annotation (Line(points={{222,60},{240,60},{240,147}},
+    color={0,127,255},
+    thickness=0.5));
+  connect(ahu.port_b1, expVesChi.ports[1]) annotation (Line(
+      points={{174,-114},{214,-114},{260,-114},{260,-113}},
       color={0,127,255},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -269,6 +266,17 @@ are collected from the reference.
 <ul>
 <li>
 Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE Journal, 56(6), 30-36.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+September 2, 2017, by Michael Wetter:<br/>
+Changed expansion vessel to use the more efficient implementation.
+</li>
+<li>
+July 30, 2017, by Yangyang Fu:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

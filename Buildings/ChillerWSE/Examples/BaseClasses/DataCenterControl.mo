@@ -114,11 +114,6 @@ equation
       points={{146,38},{160,38},{160,60},{202,60}},
       color={0,127,255},
       thickness=0.5));
-  connect(TCWRet.port_b, expVesCW.port_a)
-    annotation (Line(
-      points={{222,60},{240,60},{240,125}},
-      color={0,127,255},
-      thickness=0.5));
    for i in 1:numChi loop
     connect(TCWSup.port_a, cooTow[i].port_b)
       annotation (Line(
@@ -180,22 +175,17 @@ equation
   connect(uFan.y, ahu.uFan)
     annotation (Line(points={{9,-166},{60,-166},{60,-124},
           {153,-124}},color={0,0,127}));
-  connect(expVesChi.port_a, ahu.port_b1)
-    annotation (Line(
-      points={{270,-59},{270,-59},{270,-114},{174,-114}},
-      color={0,127,255},
-      thickness=0.5));
   connect(mPum_flow.y, varSpeCon.masFloPum)
     annotation (Line(points={{-105,4},{-50,4}},color={0,0,127}));
   connect(senRelPre.port_a, ahu.port_a1)
-    annotation (Line(points={{150,-96},{72,-96},{72,-114},{154,-114}},
+    annotation (Line(points={{152,-94},{72,-94},{72,-114},{154,-114}},
       color={0,127,255},
       thickness=0.5));
   connect(pumSpe.y, varSpeCon.speSig)
     annotation (Line(points={{-105,-20},{-76,-20},
           {-76,0},{-50,0}}, color={0,0,127}));
   connect(senRelPre.p_rel, pumSpe.u_m)
-    annotation (Line(points={{160,-87},{162,-87},{162,-66},{-116,-66},{-116,-32}},
+    annotation (Line(points={{162,-85},{162,-85},{162,-66},{-116,-66},{-116,-32}},
       color={0,0,127}));
   connect(dpSet.y, pumSpe.u_s)
     annotation (Line(points={{-155,-20},{-128,-20}},color={0,0,127}));

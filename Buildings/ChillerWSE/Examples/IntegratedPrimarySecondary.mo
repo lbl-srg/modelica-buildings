@@ -1,6 +1,8 @@
 within Buildings.ChillerWSE.Examples;
 model IntegratedPrimarySecondary
-  "Example that show how to use Buildings.ChillerWSE.IntegratedPrimarySecondary"
+  "Example that demonstrates a chiller plant with integrated primary-secondary side economizer"
+  extends Modelica.Icons.Example;
+
   extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenterControl(
     redeclare Buildings.ChillerWSE.IntegratedPrimarySecondary chiWSE(
         addPowerToMedium=false,
@@ -112,11 +114,6 @@ equation
       points={{146,38},{160,38},{160,60},{202,60}},
       color={0,127,255},
       thickness=0.5));
-  connect(TCWRet.port_b, expVesCW.port_a)
-    annotation (Line(
-      points={{222,60},{240,60},{240,125}},
-      color={0,127,255},
-      thickness=0.5));
    for i in 1:numChi loop
     connect(TCWSup.port_a, cooTow[i].port_b)
       annotation (Line(
@@ -163,17 +160,12 @@ equation
     annotation (Line(points={{-132,102},{
           -150,102},{-150,200},{260,200},{260,20},{230,20},{230,11}}, color={0,0,
           127}));
-  connect(expVesChi.port_a, ahu.port_b1)
-    annotation (Line(
-      points={{270,-59},{270,-59},{270,-114},{174,-114}},
-      color={0,127,255},
-      thickness=0.5));
   connect(senRelPre.port_a, ahu.port_a1)
-    annotation (Line(points={{150,-96},{72,-96},{72,-114},{154,-114}},
+    annotation (Line(points={{152,-94},{72,-94},{72,-114},{154,-114}},
       color={0,127,255},
       thickness=0.5));
   connect(senRelPre.port_b, ahu.port_b1)
-    annotation (Line(points={{170,-96},{242, -96},{242,-114},{174,-114}},
+    annotation (Line(points={{172,-94},{242,-94},{242,-114},{174,-114}},
       color={0,127,255},
       thickness=0.5));
   connect(TAirSup.port_a, ahu.port_b2)
@@ -224,7 +216,7 @@ src=\"modelica://Buildings/Resources/Images/ChillerWSE/Examples/IntegratedPrimar
 <h4>Control Logic</h4>
 <p>This section describes the detailed control logic used in this chilled water plant system.</p>
 <h5>Cooling Mode Control</h5>
-<p>The chilled water system with integrated waterside economizer can run among three modes: 
+<p>The chilled water system with integrated waterside economizer can run in three modes: 
 free cooling (FC) mode, partially mechanical cooling (PMC) mode and fully mechanical cooling (FMC) mode. 
 The detailed control logics about how to switch among these three cooling modes are described in 
 <a href=\"modelica://Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControl\">
@@ -248,8 +240,7 @@ One chiller is commanded on when cooling mode is not FC.
 <li>
 Two chillers are commanded on when cooling mode is not FC and the cooling load 
 addressed by chillers is larger than
-a critical point, for example, <code>0.8QEva_nominal</code>, where <code>QEva_nominal</code> represents the 
-chiller's nominal cooling capaciy. 
+a critical value. 
 </li>
 </ul>
 <p>
@@ -262,7 +253,7 @@ Buildings.ChillerWSE.Examples.BaseClasses.Controls.ChillerStageControl</a>.
 For constant speed pumps, the number of running pumps equals to the number of running chillers.
 </p>
 <p>
-For variable speed pumps, the number of runing pumps is controlled by the speed signal and the mass flowrate. 
+For variable speed pumps, the number of running pumps is controlled by the speed signal and the mass flow rate. 
 Details are shown in 
 <a href=\"modelica://Buildings.ChillerWSE.Examples.BaseClasses.Controls.VariableSpeedPumpStageControl\">
 Buildings.ChillerWSE.Examples.BaseClasses.Controls.VariableSpeedPumpStageControl</a>. And the speed is 
