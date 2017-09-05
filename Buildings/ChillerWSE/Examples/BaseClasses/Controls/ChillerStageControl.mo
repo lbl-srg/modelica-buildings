@@ -1,5 +1,6 @@
 within Buildings.ChillerWSE.Examples.BaseClasses.Controls;
 model ChillerStageControl "Chiller staging control logic"
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.Time tWai "Waiting time";
   parameter Modelica.SIunits.Power QEva_nominal
@@ -158,16 +159,7 @@ equation
     annotation (Line(points={{48.6,0},{58,0}}, color={0,0,127}));
   connect(combiTable1Ds.y, y)
     annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
-  annotation (Icon(graphics={
-                  Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{132,116},{-124,168}},
-          lineColor={0,0,255},
-          textString="%name")}), Documentation(info="<html>
+  annotation (                   Documentation(info="<html>
 <p>
 The staging sequence of two chillers are descibed as below:
 </p>

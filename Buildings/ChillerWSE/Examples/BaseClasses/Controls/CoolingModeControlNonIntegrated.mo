@@ -1,6 +1,8 @@
 within Buildings.ChillerWSE.Examples.BaseClasses.Controls;
 model CoolingModeControlNonIntegrated
   "Cooling mode controller in the chilled water system with a non-integrated  waterside economizer"
+  extends Modelica.Blocks.Icons.Block;
+
   parameter Modelica.SIunits.TemperatureDifference deaBan
     "Dead band width for switching waterside economizer off ";
   parameter Modelica.SIunits.Temperature TSwi
@@ -70,6 +72,8 @@ model CoolingModeControlNonIntegrated
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={30,20})));
+  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 equation
   connect(freCoo.outPort[1],con1. inPort)
     annotation (Line(
@@ -94,12 +98,7 @@ equation
           {54,-30},{54,-0.9},{64,-0.9}}, color={255,0,255}));
   connect(swi.y, y)
     annotation (Line(points={{88.6,0},{110,0}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,127}),
-        Text(
-          extent={{128,114},{-128,166}},
-          lineColor={0,0,255},
-          textString="%name")}),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
       Diagram(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{128,114},{-128,166}},

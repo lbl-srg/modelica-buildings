@@ -1,6 +1,7 @@
 within Buildings.ChillerWSE.Examples.BaseClasses.Controls;
 model CoolingModeControl
   "Mode controller for integrated waterside economizer and chiller"
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.Time tWai "Waiting time";
   parameter Modelica.SIunits.TemperatureDifference deaBan1
@@ -160,16 +161,7 @@ equation
     annotation (Line(points={{11,-78},{26,-78},
           {40,-78},{40,-1.2},{64,-1.2}}, color={255,0,255}));
   annotation (Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})), Icon(
-        graphics={Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{128,114},{-128,166}},
-          lineColor={0,0,255},
-          textString="%name")}),
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 This component decides if the chilled water system is in Free Cooling (FC) mode, 

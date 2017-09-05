@@ -1,5 +1,6 @@
 within Buildings.ChillerWSE.Examples.BaseClasses.Controls;
 model CoolingTowerSpeedControl "Controller for the fan speed in cooling towers"
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.Blocks.Types.SimpleController controllerType=
     Modelica.Blocks.Types.SimpleController.PID
@@ -134,16 +135,7 @@ equation
     annotation (Line(points={{-120,40},{-102,40},{-82,
           40}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,80}}),                                   graphics={
-                                Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
-        Text(
-          extent={{132,116},{-124,168}},
-          lineColor={0,0,255},
-          textString="%name")}),                                 Diagram(
+            -100},{100,80}})),                                   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>

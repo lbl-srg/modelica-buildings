@@ -1,5 +1,6 @@
 within Buildings.ChillerWSE.Examples.BaseClasses.Controls;
 model ConstantSpeedPumpStageControl "Staging control for constant speed pumps"
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.Time tWai "Waiting time";
 
@@ -133,16 +134,7 @@ equation
     annotation (Line(points={{48.6,0},{58,0}}, color={0,0,127}));
   connect(combiTable1Ds.y, y)
     annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
-  annotation (Icon(graphics={
-                  Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{132,116},{-124,168}},
-          lineColor={0,0,255},
-          textString="%name")}), Documentation(info="<html>
+  annotation (                   Documentation(info="<html>
 <p>
 This model describes a simple staging control for two constant-speed pumps in 
 a chilled water plant with two chillers and a waterside economizer (WSE). The staging sequence
