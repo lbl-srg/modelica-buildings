@@ -17,7 +17,9 @@ model IntegratedPrimaryLoadSide
       use_inputFilterValve=true,
       use_inputFilterFan=true),
     weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
-    cooTowSpeCon(k=1, Ti=120));
+    cooTowSpeCon(k=1, Ti=120),
+    chiStaCon(tWai=0),
+    CWPumCon(tWai=0));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumPri(
     each pressure=
