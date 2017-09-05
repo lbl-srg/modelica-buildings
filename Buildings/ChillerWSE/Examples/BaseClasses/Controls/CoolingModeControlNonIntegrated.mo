@@ -105,8 +105,8 @@ equation
           lineColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
-<p>Chilled water plant with a non-integrated waterside economizer (WSE) have two cooling modes: 
-free cooling (FC) mode and fully mechanical cooling (FMC) mode. This model determines when to 
+<p>Chilled water plant with a non-integrated waterside economizer (WSE) have two cooling modes:
+free cooling (FC) mode and fully mechanical cooling (FMC) mode. This model determines when to
 activate FC or FMC for a chilled water system with 2 chillers and 1 waterside economizer.
 </p>
 <p>
@@ -114,25 +114,25 @@ The FMC mode is activated when
 </p>
 <ul>
 <li>
-<i>T<sub>WetBulb</sub>&ge; T<sub>WetBulb,tran</sub></i>
+<i>T<sub>WetBulb</sub>&ge; T<sub>WetBulb,tran</sub></i>, or
 </li>
 <li>
-<i><b>or</b> T<sub>CHWST</sub>&ge;T<sub>CHWSTSet</sub> + deaBan </i>
+<i>T<sub>CHWST</sub>&ge;T<sub>CHWSTSet</sub> + deaBan,</i>
 </li>
 </ul>
-<p>The FC mode is activated when
+<p>and the FC mode is activated when
 </p>
 <ul>
 <li>
-<i>T<sub>WetBulb</sub>&lt; T<sub>WetBulb,tran</sub></i>
+<i>T<sub>WetBulb</sub>&lt; T<sub>WetBulb,tran</sub></i>, and
 </li>
 <li>
-<i><b>and</b> numOnChi&lt;2 </i>
+<i>numOnChi&lt;2,</i>
 </li>
 </ul>
 <p>
-Where <i>T<sub>WetBulb</sub></i> is the wet bulb temperature of the outdoor air,
-<i>T<sub>WetBulb,tran</sub></i> is the wet bulb temperature transition point 
+where <i>T<sub>WetBulb</sub></i> is the wet bulb temperature of the outdoor air,
+<i>T<sub>WetBulb,tran</sub></i> is the wet bulb temperature transition point
 for switching between FC and FMC,
 <i>T<sub>CHWST</sub></i> is the chilled water supply temperature, <i>T<sub>CHWSTSet</sub></i> is
 the chilled water supply temperature setpoint,and <i>numOnChi</i> is the number of running chillers.

@@ -61,12 +61,12 @@ model CoolingTowerSpeedControl "Controller for the fan speed in cooling towers"
   Modelica.Blocks.Sources.Constant uni(k=1) "Unit"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Modelica.Blocks.Sources.BooleanExpression pmcMod(
-    y=if cooMod == 2 then true else false)
+    y= cooMod == Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.PartialMechanical))
     "Partially mechanical cooling mode"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Modelica.Blocks.Interfaces.IntegerInput cooMod
-    "Cooling mode signal, integer value of 
+    "Cooling mode signal, integer value of
     Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingMode"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.Continuous.LimPID conPID(
@@ -139,21 +139,21 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>
-<p>This model describes a simple cooling tower speed controller for 
+<p>This model describes a simple cooling tower speed controller for
 a chilled water system with integrated waterside economizers.
 </p>
 <p>The control logics are described in the following:</p>
 <ul>
-<li>When the system is in Fully Mechanical Cooling (FMC) mode, 
-the cooling tower fan speed is controlled to maintain the condener water supply temperature (CWST) 
+<li>When the system is in Fully Mechanical Cooling (FMC) mode,
+the cooling tower fan speed is controlled to maintain the condener water supply temperature (CWST)
 at or around the setpoint.
 </li>
-<li>When the system is in Partially Mechanical Cooling (PMC) mode, 
-the cooling tower fan speed is set as 100%; to make condenser water 
+<li>When the system is in Partially Mechanical Cooling (PMC) mode,
+the cooling tower fan speed is set as 100% to make condenser water
 as cold as possible and maximize the waterside economzier output.
 </li>
-<li>When the system is in Free Cooling (FC) mode, 
-the cooling tower fan speed is controlled to maintain the chilled water supply temperature (CHWST) 
+<li>When the system is in Free Cooling (FC) mode,
+the cooling tower fan speed is controlled to maintain the chilled water supply temperature (CHWST)
 at or around its setpoint.
 </li>
 </ul>

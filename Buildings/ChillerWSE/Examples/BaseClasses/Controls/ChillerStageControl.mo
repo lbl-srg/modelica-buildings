@@ -15,7 +15,7 @@ model ChillerStageControl "Chiller staging control logic"
     "Deadband width for critical point of switching temperature";
 
   Modelica.Blocks.Interfaces.IntegerInput cooMod
-    "Cooling mode signal, integer value of 
+    "Cooling mode signal, integer value of
     Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingMode"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput QTot
@@ -33,7 +33,7 @@ model ChillerStageControl "Chiller staging control logic"
   Modelica.StateGraph.Transition con1(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod > 1)
+    condition=cooMod > Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.FreeCooling))
     "Fire condition 1: free cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -54,31 +54,30 @@ model ChillerStageControl "Chiller staging control logic"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-32,-78})));
+        origin={-30,-80})));
   Modelica.StateGraph.Transition con2(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod > 1 and
+    condition=cooMod == Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.FullMechanical) and
     (-QTot > -(criPoiLoa + dQ) or TCHWSup > criPoiTem + dT))
     "Fire condition 2: partially mechanical cooling to fully mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-72,-42})));
+        origin={-70,-40})));
   Modelica.StateGraph.Transition con3(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod > 1 and
-    (-QTot < -(criPoiLoa - dQ) or TCHWSup < criPoiTem - dT))
+    condition=(-QTot < -(criPoiLoa - dQ) or TCHWSup < criPoiTem - dT))
     "Fire condition 3: fully mechanical cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-8,-40})));
+        origin={-10,-40})));
   Modelica.StateGraph.Transition con4(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod < 2)
+    condition=cooMod == Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.FreeCooling))
     "Fire condition 4: partially mechanical cooling to free cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -112,17 +111,17 @@ equation
       pattern=LinePattern.Dash));
   connect(con2.inPort, oneOn.outPort[1])
     annotation (Line(
-      points={{-72,-38},{-72,-10},{-32.25,-10},{-32.25,-2.5}},
+      points={{-70,-36},{-70,-10},{-32.25,-10},{-32.25,-2.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con2.outPort, twoOn.inPort[1])
     annotation (Line(
-      points={{-72,-43.5},{-72,-43.5},{-72,-60},{-32,-60},{-32,-67}},
+      points={{-70,-41.5},{-70,-41.5},{-70,-60},{-30,-60},{-30,-69}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(twoOn.outPort[1], con3.inPort)
     annotation (Line(
-      points={{-32,-88.5},{-32,-98},{-8,-98},{-8,-44}},
+      points={{-30,-90.5},{-30,-98},{-10,-98},{-10,-44}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con4.outPort, off.inPort[1])
@@ -132,7 +131,7 @@ equation
       pattern=LinePattern.Dash));
   connect(con3.outPort, oneOn.inPort[2])
     annotation (Line(
-      points={{-8,-38.5},{-8,-38.5},{-8,26},{-31.5,26},{-31.5,19}},
+      points={{-10,-38.5},{-8,-38.5},{-8,26},{-31.5,26},{-31.5,19}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con4.inPort, oneOn.outPort[2])
@@ -152,16 +151,16 @@ equation
       pattern=LinePattern.Dash));
   connect(twoOn.active, swi.u[3])
     annotation (Line(
-      points={{-21,-78},{2,-78},{2,-1.2},{24,-1.2}},
+      points={{-19,-80},{2,-80},{2,-1.2},{24,-1.2}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(swi.y, combiTable1Ds.u)
     annotation (Line(points={{48.6,0},{58,0}}, color={0,0,127}));
   connect(combiTable1Ds.y, y)
     annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
-  annotation (                   Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
-The staging sequence of two chillers are descibed as below:
+This is a chiller staging control that works as follows:
 </p>
 <ul>
 <li>
@@ -171,9 +170,9 @@ The chillers are all off when cooling mode is Free Cooling.
 One chiller is commanded on when cooling mode is not Free Cooling.
 </li>
 <li>
-Two chillers are commanded on when cooling mode is not Free Cooling and the cooling load addressed by each chiller is larger than
-a critical point, for example, <code>0.8QEva_nominal</code>, where <code>QEva_nominal</code> represents the 
-chiller's nominal cooling capaciy. 
+Two chillers are commanded on when cooling mode is not Free Cooling
+and the cooling load addressed by each chiller is larger than
+a critical value.
 </li>
 </ul>
 </html>", revisions="<html>

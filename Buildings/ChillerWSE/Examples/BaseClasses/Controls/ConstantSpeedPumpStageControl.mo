@@ -16,54 +16,63 @@ model ConstantSpeedPumpStageControl "Staging control for constant speed pumps"
   Modelica.StateGraph.Transition con1(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod > 0)
+    condition=
+     cooMod == Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.PartialMechanical)
+       or
+     cooMod == Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.FullMechanical))
     "Fire condition 1: free cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-72,34})));
+        origin={-70,34})));
   Modelica.StateGraph.StepWithSignal oneOn(nIn=2, nOut=2)
     "One chiller is commanded on" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-32,8})));
+        origin={-30,10})));
   Modelica.StateGraph.InitialStepWithSignal off(nIn=1) "Free cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-32,58})));
+        origin={-30,60})));
   Modelica.StateGraph.StepWithSignal twoOn "Two chillers are commanded on"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-32,-78})));
+        origin={-30,-80})));
   Modelica.StateGraph.Transition con2(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod == 2 or (cooMod == 3 and numOnChi > 1))
+    condition=
+      cooMod == Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.FreeCooling)
+        or
+      cooMod == Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.PartialMechanical)
+        or
+      (cooMod == Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.FullMechanical) and numOnChi > 1))
     "Fire condition 2: partially mechanical cooling to fully mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-72,-42})));
+        origin={-70,-40})));
   Modelica.StateGraph.Transition con3(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod == 3 and numOnChi < 2)
+    condition=cooMod == Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.FullMechanical)
+    and numOnChi < 2)
     "Fire condition 3: fully mechanical cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-8,-40})));
+        origin={-10,-40})));
   Modelica.StateGraph.Transition con4(
     enableTimer=true,
     waitTime=tWai,
-    condition=cooMod == 0)
+    condition=cooMod == Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.FreeCooling))
     "Fire condition 4: partially mechanical cooling to free cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={18,20})));
+        origin={18,70})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
   Modelica.Blocks.Math.MultiSwitch swi(
@@ -77,57 +86,57 @@ model ConstantSpeedPumpStageControl "Staging control for constant speed pumps"
 equation
   connect(off.outPort[1], con1.inPort)
     annotation (Line(
-      points={{-32,47.5},{-32,47.5},{-32,46},{-32,42},{-72,42},{-72,38}},
+      points={{-30,49.5},{-30,49.5},{-30,46},{-30,42},{-70,42},{-70,38}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con1.outPort, oneOn.inPort[1])
     annotation (Line(
-      points={{-72,32.5},{-72,26},{-32.5,26},{-32.5,19}},
+      points={{-70,32.5},{-70,26},{-30.5,26},{-30.5,21}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con2.inPort, oneOn.outPort[1])
     annotation (Line(
-      points={{-72,-38},{-72,-10},{-32.25,-10},{-32.25,-2.5}},
+      points={{-70,-36},{-70,-10},{-30.25,-10},{-30.25,-0.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con2.outPort, twoOn.inPort[1])
     annotation (Line(
-      points={{-72,-43.5},{-72,-43.5},{-72,-60},{-32,-60},{-32,-67}},
+      points={{-70,-41.5},{-70,-41.5},{-70,-60},{-30,-60},{-30,-69}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(twoOn.outPort[1], con3.inPort)
     annotation (Line(
-      points={{-32,-88.5},{-32,-98},{-8,-98},{-8,-44}},
+      points={{-30,-90.5},{-30,-98},{-10,-98},{-10,-44}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con4.outPort, off.inPort[1])
     annotation (Line(
-      points={{18,21.5},{18,21.5},{18,78},{-32,78},{-32,69}},
+      points={{18,71.5},{18,71.5},{18,78},{-30,78},{-30,71}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con3.outPort, oneOn.inPort[2])
     annotation (Line(
-      points={{-8,-38.5},{-8,-38.5},{-8,26},{-31.5,26},{-31.5,19}},
+      points={{-10,-38.5},{-10,-38.5},{-10,26},{-29.5,26},{-29.5,21}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con4.inPort, oneOn.outPort[2])
     annotation (Line(
-      points={{18,16},{18,-10},{-31.75,-10},{-31.75,-2.5}},
+      points={{18,66},{18,-10},{-29.75,-10},{-29.75,-0.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(swi.u[1], off.active)
     annotation (Line(
-      points={{24,1.2},{24,0},{2,0},{2,58},{-21,58}},
+      points={{24,1.2},{24,0},{20,0},{20,60},{-19,60}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(oneOn.active, swi.u[2])
     annotation (Line(
-      points={{-21,8},{-21,8},{2,8},{2,0},{24,0}},
+      points={{-19,10},{-19,10},{14,10},{14,0},{24,0}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(twoOn.active, swi.u[3])
     annotation (Line(
-      points={{-21,-78},{2,-78},{2,-1.2},{24,-1.2}},
+      points={{-19,-80},{20,-80},{20,-1.2},{24,-1.2}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(swi.y, combiTable1Ds.u)
@@ -136,7 +145,7 @@ equation
     annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
   annotation (                   Documentation(info="<html>
 <p>
-This model describes a simple staging control for two constant-speed pumps in 
+This model describes a simple staging control for two constant-speed pumps in
 a chilled water plant with two chillers and a waterside economizer (WSE). The staging sequence
 is shown as below.
 </p>
@@ -145,12 +154,18 @@ is shown as below.
 When WSE is enabled, all the constant speed pumps are commanded on.
 </li>
 <li>
-When fully mechanical cooling (FMC) mode is enabled, the number of running constant speed pumps 
+When fully mechanical cooling (FMC) mode is enabled, the number of running constant speed pumps
 equals to the number of running chillers.
 </li>
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+September 2, 2017, by Michael Wetter:<br/>
+Changed implementation to use
+<a href=\"modelica://Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes\">
+Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes</a>.
+</li>
 <li>
 July 30, 2017, by Yangyang Fu:<br/>
 First implementation.

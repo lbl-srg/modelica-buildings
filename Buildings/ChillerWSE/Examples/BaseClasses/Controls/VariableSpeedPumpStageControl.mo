@@ -57,8 +57,8 @@ model VariableSpeedPumpStageControl "Staging control for variable speed pumps"
   Modelica.StateGraph.Transition con2(
     enableTimer=true,
     waitTime=tWai,
-    condition=speSig > criPoiSpe + deaBanSpe and masFloPum > criPoiFlo +
-        deaBanFlo)
+    condition=speSig > criPoiSpe + deaBanSpe and
+      masFloPum > criPoiFlo + deaBanFlo)
     "Fire condition 2: partially mechanical cooling to fully mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -67,8 +67,8 @@ model VariableSpeedPumpStageControl "Staging control for variable speed pumps"
   Modelica.StateGraph.Transition con3(
     enableTimer=true,
     waitTime=tWai,
-    condition=speSig < criPoiSpe - deaBanSpe or masFloPum < criPoiFlo -
-        deaBanFlo)
+    condition=speSig < criPoiSpe - deaBanSpe
+      or masFloPum < criPoiFlo - deaBanFlo)
     "Fire condition 3: fully mechanical cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -162,14 +162,13 @@ equation
 </p>
 <ul>
 <li>
-When the mass flowrate in each pump is greater than the critical point of mass flowrate, 
-eg., <code>0.8*m_flow_nominal</code>, and the speed signal is greater 
-than the critocal point of the speed, then activate one more pump;
+When the mass flowrate in each pump is greater than a threshold,
+and the speed signal is greater
+than a threshold, then activate one more pump;
 </li>
 <li>
-When the mass flowrate in each pump is less than the critical point of mass flowrate, 
-eg., <code>0.3*m_flow_nominal</code>,
-or the speed signal is smaller than the critical point of the speed,
+When the mass flowrate in each pump is less than a threshold,
+or the speed signal is smaller than a threshold,
 then deactivate one more pump.
 </li>
 </ul>

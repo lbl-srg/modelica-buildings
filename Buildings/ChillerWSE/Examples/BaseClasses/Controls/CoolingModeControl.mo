@@ -104,8 +104,8 @@ model CoolingModeControl
     y_default=0,
     nu=3,
     expr={Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.FreeCooling),
-        Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.PartialMechanical),
-        Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.FullMechanical)})
+          Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.PartialMechanical),
+          Integer(Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingModes.FullMechanical)})
     "Switch boolean signals to real signal"
     annotation (Placement(transformation(extent={{64,-6},{88,6}})));
 
@@ -164,8 +164,8 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-This component decides if the chilled water system is in Free Cooling (FC) mode, 
-Partially Mechanical Cooling (PMC) mode or Fully Mechanical Cooling (FMC) mode. 
+Controller that outputs if the chilled water system is in Free Cooling (FC) mode,
+Partially Mechanical Cooling (PMC) mode or Fully Mechanical Cooling (FMC) mode.
 </p>
 <p>The waterside economizer is enabled when </p>
 <ol>
@@ -188,7 +188,7 @@ Partially Mechanical Cooling (PMC) mode or Fully Mechanical Cooling (FMC) mode.
 <p>The chiller is enabled when </p>
 <ol>
   <li>
-    The chiller has been disabled for at leat 20 minutes, and 
+    The chiller has been disabled for at leat 20 minutes, and
   </li>
   <li>
     <i>T<sub>WSE_CHWST</sub> &gt; T<sub>CHWSTSet</sub> + deaBan3 </i>
@@ -197,25 +197,25 @@ Partially Mechanical Cooling (PMC) mode or Fully Mechanical Cooling (FMC) mode.
 <p>The chiller is disabled when </p>
 <ol>
   <li>
-    The chiller has been enabled for at leat 20 minutes, and 
+    The chiller has been enabled for at leat 20 minutes, and
   </li>
   <li>
-    <i><sub>WSE_CHWST</sub> &le; T<sub>CHWSTSet</sub> + deaBan4 </i>
+    <i>T<sub>WSE_CHWST</sub> &le; T<sub>CHWSTSet</sub> + deaBan4 </i>
   </li>
 </ol>
 <p>
-where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for the WSE, 
-<i>T<sub>WetBul</sub></i> is the wet bulb temperature, 
-<i>T<sub>TowApp</sub></i> is the cooling tower approach, <i>T<sub>WSE_CHWRT</sub></i> 
-is the chilled water return temperature for the WSE, and <i>T<sub>CHWSTSet</sub></i> 
+where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for the WSE,
+<i>T<sub>WetBul</sub></i> is the wet bulb temperature,
+<i>T<sub>TowApp</sub></i> is the cooling tower approach, <i>T<sub>WSE_CHWRT</sub></i>
+is the chilled water return temperature for the WSE, and <i>T<sub>CHWSTSet</sub></i>
 is the chilled water supply temperature setpoint for the system.
-<i>deaBan 1-4</i> are deadband width for each switching point. 
+<i>deaBan 1-4</i> are deadbands for each switching point.
 </p>
 <h4>References</h4>
 <ul>
   <li>
-    Stein, Jeff. Waterside Economizing in Data Centers: Design and Control Considerations. 
-    ASHRAE Transactions 115.2 (2009). 
+    Stein, Jeff. Waterside Economizing in Data Centers: Design and Control Considerations.
+    ASHRAE Transactions 115.2 (2009).
   </li>
 </ul>
 </html>
