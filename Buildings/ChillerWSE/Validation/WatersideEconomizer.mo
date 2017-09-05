@@ -30,11 +30,11 @@ model WatersideEconomizer
     startValue = true,
     startTime = 7200)
     "On and off signal for the WSE"
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+    annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
 equation
   connect(TSet.y, WSE.TSet)
-    annotation (Line(points={{-79,60},{-48,60},{-20,60},
-          {-20,-38},{-12,-38}}, color={0,0,127}));
+    annotation (Line(points={{-69,40},{-48,40},{-20,40},{-20,-38},{-12,-38}},
+                                color={0,0,127}));
   connect(WSE.port_a1, sou1.ports[1])
     annotation (Line(points={{-10,-32},{-22,-32},
           {-28,-32},{-28,-4},{-40,-4}}, color={0,127,255}));
@@ -42,18 +42,20 @@ equation
     annotation (Line(points={{-10,-44},{-20,-44},
           {-40,-44}}, color={0,127,255}));
   connect(WSE.port_b1, sin1.ports[1])
-    annotation (Line(points={{10,-32},{26,-32},
-          {26,-4},{80,-4}}, color={0,127,255}));
+    annotation (Line(points={{10,-32},{26,-32},{26,-4},{70,-4}},
+                            color={0,127,255}));
   connect(WSE.port_a2, sou2.ports[1])
     annotation (Line(points={{10,-44},{20,-44},
           {26,-44},{26,-74},{38,-74}}, color={0,127,255}));
   connect(WSE.on[1], onWSE.y)
-    annotation (Line(points={{-12,-34},{-28,-34},{-28,
-          20},{-79,20}}, color={255,0,255}));
+    annotation (Line(points={{-12,-34},{-24,-34},{-24,70},{-69,70}},
+                         color={255,0,255}));
   annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/ChillerWSE/Validation/WatersideEconomizer.mos"
         "Simulate and Plot"), Documentation(info="<html>
+<p>
 This example demonstrates that the temperature at port_b2 is controlled by setting 
 <code>use_Controller=true</code>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

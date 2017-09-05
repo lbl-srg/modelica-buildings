@@ -66,7 +66,7 @@ model HeatExchanger
     offset=0,
     startTime=0)
     "Condenser inlet temperature"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   Buildings.Fluid.Sources.FixedBoundary sin2(
      nPorts=2,
      redeclare package Medium = MediumW)
@@ -89,7 +89,7 @@ model HeatExchanger
     m_flow_nominal=m2_flow_nominal,
     redeclare package Medium = MediumW)
     "Temperature sensor"
-    annotation (Placement(transformation(extent={{-40,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-40,10},{-60,30}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TSen2(
     redeclare package Medium = MediumW,
     m_flow_nominal=m2_flow_nominal)
@@ -98,7 +98,7 @@ model HeatExchanger
   Modelica.Blocks.Sources.Constant TSet(
     k(unit="K",displayUnit="degC")=273.15+16.56)
     "Leaving chilled water temperature setpoint"
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
+    annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2_1(
     nPorts=1,
     redeclare package Medium = MediumW,
@@ -111,8 +111,8 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{96,18},{76,38}})));
 equation
   connect(TSet.y, hx1.TSet)
-    annotation (Line(points={{-79,50},{-66,50},{-66,60},
-      {-14,60}}, color={0,0,127}));
+    annotation (Line(points={{-69,50},{-62,50},{-62,60},{-14,60}},
+                 color={0,0,127}));
   connect(sou1.ports[1], hx1.port_a1)
     annotation (Line(points={{-40,78},{-20,78},
       {-20,62},{-12,62}}, color={0,127,255}));
@@ -120,23 +120,23 @@ equation
     annotation (Line(points={{8,62},{60,62},{60,74},{80,74}},
       color={0,127,255}));
   connect(TCon_in.y,sou1. T_in)
-    annotation (Line(points={{-79,80},{-72,80},{-62,80}},
+    annotation (Line(points={{-69,80},{-69,80},{-62,80}},
       color={0,0,127}));
   connect(sou2_2.T_in, TEva_in.y)
     annotation (Line(points={{60,-70},{79,-70}}, color={0,0,127}));
   connect(hx1.port_b2, TSen1.port_a)
-    annotation (Line(points={{-12,50},{-22,50},
-      {-30,50},{-30,40},{-40,40}}, color={0,127,255}));
+    annotation (Line(points={{-12,50},{-22,50},{-30,50},{-30,20},{-40,20}},
+                                   color={0,127,255}));
   connect(TSen1.port_b, sin2.ports[1])
-    annotation (Line(points={{-60,40},{-70,40},{-70,-68},{-80,-68}},
+    annotation (Line(points={{-60,20},{-70,20},{-70,-68},{-80,-68}},
       color={0,127,255}));
   connect(sou1.ports[2], hx2.port_a1)
-    annotation (Line(points={{-40,74},{-34,74},{-20,74},{-20,-16},{-12,-16}},
+    annotation (Line(points={{-40,74},{-22,74},{-22,74},{-22,-16},{-12,-16}},
       color={0,127,255}));
   connect(hx2.port_b2, TSen2.port_a)
     annotation (Line(points={{-12,-28},{-40,-28}}, color={0,127,255}));
   connect(TSen2.port_b, sin2.ports[2])
-    annotation (Line(points={{-60,-28},{-70,-28},{-70,-72},{-80,-72}},
+    annotation (Line(points={{-60,-28},{-68,-28},{-68,-72},{-80,-72}},
       color={0,127,255}));
   connect(hx2.port_b1, sin1.ports[2])
     annotation (Line(points={{8,-16},{30,-16},{60,-16},{60,70},{80,70}},

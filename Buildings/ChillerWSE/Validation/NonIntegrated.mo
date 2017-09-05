@@ -36,22 +36,22 @@ model NonIntegrated "Non-integrated WSE  in a chilled water system"
   Modelica.Blocks.Sources.BooleanStep onChi(
     startTime = 7200)
     "On and off signal for the chiller"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   Modelica.Blocks.Sources.BooleanStep onWSE(
     startValue=true,
     startTime( displayUnit="h") = 7200)
     "On and off signal for the WSE"
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 equation
   connect(onChi.y, nonIntWSE.on[1])
-    annotation (Line(points={{-79,90},{-68,90},
-          {-20,90},{-20,-30.4},{-11.6,-30.4}}, color={255,0,255}));
+    annotation (Line(points={{-69,80},{-69,80},{-24,80},{-24,-30.4},{-11.6,
+          -30.4}},                             color={255,0,255}));
   connect(onWSE.y, nonIntWSE.on[2])
-    annotation (Line(points={{-79,20},{-46,20},
-          {-20,20},{-20,-30.4},{-11.6,-30.4}}, color={255,0,255}));
+    annotation (Line(points={{-39,60},{-24,60},{-24,60},{-24,-30.4},{-11.6,
+          -30.4}},                             color={255,0,255}));
   connect(TSet.y, nonIntWSE.TSet)
-    annotation (Line(points={{-79,60},{-48,60},{-20,
-          60},{-20,-27.2},{-11.6,-27.2}}, color={0,0,127}));
+    annotation (Line(points={{-69,40},{-48,40},{-20,40},{-20,-27.2},{-11.6,
+          -27.2}},                        color={0,0,127}));
   connect(nonIntWSE.port_a1, sou1.ports[1])
     annotation (Line(points={{-10,-32},
           {-22,-32},{-28,-32},{-28,-4},{-40,-4}}, color={0,127,255}));
@@ -59,8 +59,8 @@ equation
     annotation (Line(points={{-10,-44},{-20,
           -44},{-40,-44}}, color={0,127,255}));
   connect(nonIntWSE.port_b1, sin1.ports[1])
-    annotation (Line(points={{10,-32},{
-          26,-32},{26,-4},{80,-4}}, color={0,127,255}));
+    annotation (Line(points={{10,-32},{26,-32},{26,-4},{70,-4}},
+                                    color={0,127,255}));
   connect(nonIntWSE.port_a2, sou2.ports[1])
     annotation (Line(points={{10,-44},{
           20,-44},{26,-44},{26,-74},{38,-74}}, color={0,127,255}));
@@ -70,7 +70,7 @@ equation
 <p>
 This example demonstrates how the model responses 
 according to different cooling mode signals
-(free cooling mode,and fully mechanical cooling).
+(free cooling mode, and fully mechanical cooling).
 </p>
 </html>", revisions="<html>
 <ul>

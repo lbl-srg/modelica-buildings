@@ -291,7 +291,8 @@ equation
   connect(wse.port_b1, port_b1)
     annotation (Line(points={{60,36},{80,36},{80,60},{100,60}},color={0,127,255}));
   connect(port_a1, wse.port_a1)
-    annotation (Line(points={{-100,60},{-80,60},{0,60},{0,36},{40,36}},
+    annotation (Line(points={{-100,60},{-100,60},{-72,60},{-72,56},{34,56},{34,
+          36},{40,36}},
                 color={0,127,255}));
   connect(TSet, wse.TSet)
     annotation (Line(points={{-120,104},{-84,104},{-84,80},
@@ -300,11 +301,11 @@ equation
     annotation (Line(points={{-90,-100},{-90,-100},{-90,10},{40,10},{40,20}},
                 color={0,0,127}));
   connect(trigger, wse.trigger)
-    annotation (Line(points={{-60,-100},{-60,-100},{-60,-80},{-90,-80},
-              {-90,10},{44,10},{44,20}},color={255,0,255}));
+    annotation (Line(points={{-60,-100},{-60,-100},{-60,-80},{-88,-80},{-88,8},
+          {44,8},{44,20}},              color={255,0,255}));
   connect(senTem.T,TCHWSupWSE)
-    annotation (Line(points={{18,35},{18,35},{18,52},{90,52},{90,40},
-                {110,40}}, color={0,0,127}));
+    annotation (Line(points={{18,35},{18,35},{18,48},{86,48},{86,40},{110,40}},
+                           color={0,0,127}));
   connect(wse.port_b2, senTem.port_a)
     annotation (Line(points={{40,24},{34,24},{28,24}}, color={0,127,255}));
   connect(chiPar.P, powChi) annotation (Line(points={{-39,32},{-6,32},{-6,52},{
