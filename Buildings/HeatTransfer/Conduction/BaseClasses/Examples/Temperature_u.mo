@@ -64,7 +64,7 @@ initial equation
   // Calculate derivatives at support points (non-monotone)
   (ud, Td, dT_du) =
     Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u(
-      c=   materialNonMonotone.c,
+      c =  materialNonMonotone.c,
       TSol=materialNonMonotone.TSol,
       TLiq=materialNonMonotone.TLiq,
       LHea=materialNonMonotone.LHea,
@@ -72,7 +72,7 @@ initial equation
   // Calculate derivatives at support points (monotone);
  (udMonotone, TdMonotone, dT_duMonotone) =
     Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u(
-      c=   materialMonotone.c,
+      c =  materialMonotone.c,
       TSol=materialMonotone.TSol,
       TLiq=materialMonotone.TLiq,
       LHea=materialMonotone.LHea,
@@ -110,8 +110,8 @@ equation
   else
     TExa =T;
   end if;
-  errNonMonotone = relativeError(T=T,         TExa=TExa, dTCha=  dTCha);
-  errMonotone    = relativeError(T=TMonotone, TExa=TExa, dTCha=  dTCha);
+  errNonMonotone = relativeError(T=T,         TExa=TExa, dTCha = dTCha);
+  errMonotone    = relativeError(T=TMonotone, TExa=TExa, dTCha = dTCha);
 
   annotation (
 experiment(Tolerance=1e-6, StopTime=1.0),
@@ -129,8 +129,8 @@ The example uses the functions
 <a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u\">
 Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u</a>
 and
-<a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.temeprature_u\">
-Buildings.HeatTransfer.Conduction.BaseClasses.temeprature_u</a>.
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.temperature_u\">
+Buildings.HeatTransfer.Conduction.BaseClasses.temperature_u</a>.
 The first function is used to compute
 the derivatives at the support points,
 and the second function computes the temperature

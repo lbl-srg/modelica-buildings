@@ -246,8 +246,8 @@ as the mass is independent of pressure.
 <li>
 <p>
 The model
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FlowMachine_m_flow\">
-Buildings.Fluid.FixedResistances.FlowMachine_m_flow</a>
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>
 cannot be exported as an FMU.
 This is because it assignes the mass flow rate.
 However, the input connector
@@ -257,11 +257,9 @@ already declares the mass flow rate as an input.
 Therefore, the mass flow rate is overdetermined.
 As a fall back, if a user needs to set the mass flow rate, he/she can
 do so by using
-<a href=\"modelica://Buildings.Fluid.FMI.IdealSource_m_flow\">
-Buildings.Fluid.FMI.IdealSource_m_flow</a>,
-which takes as an input signal the mass flow rate. If this differs
-from the mass flow rate of the inlet connector, the simulation
-will stop with an error.
+<a href=\"modelica://Buildings.Fluid.FMI.Source_T\">
+Buildings.Fluid.FMI.Source_T</a>,
+which takes as an input signal the mass flow rate.
 </p>
 </li>
 </ol>

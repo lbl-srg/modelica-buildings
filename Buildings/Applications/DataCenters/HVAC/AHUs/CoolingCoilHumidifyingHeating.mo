@@ -238,23 +238,27 @@ equation
           fillColor={255,255,255})}),
       Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-    <p>This model can represent a typical air handler with a cooling coil, a variable-speed fan, 
-    a humidifier and an electric reheater. The heating coil is not included in this model. </p>
-    <p>The water-side valve can be manipulated to control the outlet temperature on air side, 
-    as shown in <a href=\"modelica://Buildings.Applications.DataCenters.HVAC.AHUs.Example.AirHandlingUnitControl\">
-    Buildings.Applications.DataCenters.HVAC.AHUs.Example.AirHandlingUnitControl.</a> </p>
-    <p>It's usually undesired to control the outlet air temperature by simultenanously 
+    <p>This model can represent a typical air handler with a cooling coil, a variable-speed fan,
+    a humidifier and an electric reheater. The heating coil is not included in this model.
+    </p>
+    <p>
+    The water-side valve can be manipulated to control the outlet temperature on air side,
+    as shown in <a href=\"modelica://Buildings.Applications.DataCenters.HVAC.AHUs.Examples.CoolingCoilHumidifyingHeating_ClosedLoop\">
+    Buildings.Applications.DataCenters.HVAC.AHUs.Example.AirHandlingUnitControl.</a>
+    </p>
+    <p>It's usually undesired to control the outlet air temperature by simultenanously
     manipulating the water-valve and reheater, because energy waste could happen in this case. For example,
     under the part-load condition, the water valve might be in its maximum position with
     the reheater turning on to maintain the outlet air temperature.
-    To avoid that water-valve and reheater control the outlet 
-    temperature at the same time, a buit-in reheater on/off controller is implemented. 
-    The detailed control logic about the reheater on/off control is shown in 
-    <a href=\"modelica://Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses.ReheatControl\">Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses.ReheatControl.</a></p>
+    To avoid that water-valve and reheater control the outlet
+    temperature at the same time, a buit-in reheater on/off controller is implemented.
+    The detailed control logic about the reheater on/off control is shown in
+    <a href=\"modelica://Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses.ReheatControl\">
+    Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses.ReheatControl.</a></p>
     <p>The humidfier is an adiabatic humidifier with a prescribed outlet water vapor mass fraction
     in kg/kg total air.
-    Details can be found in <a href=\"modelica://Buildings.Fluid.MassExchangers.Humidifier_X\">
-    Buildings.Fluid.MassExchangers.Humidifier_X.</a> The humidifer can be turned off when the prescribed mass fraction 
+    Details can be found in <a href=\"modelica://Buildings.Fluid.Humidifiers.SteamHumidifier_X\">
+    Buildings.Fluid.Humidifiers.SteamHumidifier_X.</a> The humidifer can be turned off when the prescribed mass fraction
     is smaller than the current state at the outlet, for example, <code>XSet=0</code>.
     </p>
 </html>", revisions="<html>
