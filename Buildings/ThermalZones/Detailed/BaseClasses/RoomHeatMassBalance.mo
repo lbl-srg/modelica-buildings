@@ -843,7 +843,7 @@ Partial model for a room heat and mass balance.
 </p>
 <p>
 This is the base class for
-<a href=\"modelica://Buildings.ThermalZones.Detailed.FFD\">Buildings.ThermalZones.Detailed.FFD</a>
+<a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.CFD</a>
 and for
 <a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">Buildings.ThermalZones.Detailed.MixedAir</a>
 </p>

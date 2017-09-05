@@ -97,7 +97,7 @@ algorithm
     "In function Buildings.Electrical.Transmission.Functions.R_AC_Correction,
     does not support material " + String(material) + ".
     The selected cable has the R_AC_Correction of the Copper.",
-    level=  AssertionLevel.warning);
+    level = AssertionLevel.warning);
 
     correction := 1.0;
   end if;

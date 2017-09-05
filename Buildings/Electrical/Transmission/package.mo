@@ -2,7 +2,6 @@ within Buildings.Electrical;
 package Transmission "Package with models for transmission lines"
   extends Modelica.Icons.Package;
 
-
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
           {100,100}}), graphics={
       Ellipse(
@@ -29,13 +28,10 @@ several functions and records to parametrize cables either using
 default values or values from commercial cables.
 </p>
 <p>
-The packages
+The package
 <a href=\"modelica://Buildings.Electrical.Transmission.Grids\">
 Buildings.Electrical.Transmission.Grids</a>
-and
-<a href=\"modelica://Buildings.Electrical.Transmission.Benchmarks\">
-Buildings.Electrical.Transmission.Benchmarks</a>
-contain models of
+contains models of
 electrical networks.
 </p>
 <h4>Commercial cables</h4>

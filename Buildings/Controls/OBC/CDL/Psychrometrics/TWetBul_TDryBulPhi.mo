@@ -121,8 +121,8 @@ with a mean error of less than <i>0.3</i> Kelvin.
 </p>
 <p>
 The model is validated in
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Psychrometrics.Examples.TWetBul_TDryBulPhi\">
-Buildings.Controls.OBC.CDL.Psychrometrics.Examples.TWetBul_TDryBulPhi</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Psychrometrics.Validation.TWetBul_TDryBulPhi\">
+Buildings.Controls.OBC.CDL.Psychrometrics.Validation.TWetBul_TDryBulPhi</a>.
 </p>
 <p>
 For a model that takes the mass fraction instead of the relative humidity as an input, see
