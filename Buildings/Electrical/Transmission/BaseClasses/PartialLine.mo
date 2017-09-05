@@ -29,14 +29,14 @@ Added User's guide.
 </ul>
 </html>", info="<html>
 <p>
-This partial model extends the model <a href=\"modelica://Buildings.Electrical.Transmission.Base.PartialBaseLine\">
-Buildings.Electrical.Transmission.Base.PartialBaseLine</a>.
+This partial model extends the model <a href=\"modelica://Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine\">
+Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine</a>.
 It adds two generalized electric connectors.
 </p>
 <h4>Note:</h4>
 <p>
-See <a href=\"modelica://Buildings.Electrical.Transmission.Base.PartialBaseLine\">
-Buildings.Electrical.Transmission.Base.PartialBaseLine</a> for more information.
+See <a href=\"modelica://Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine\">
+Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine</a> for more information.
 </p>
 </html>"));
 end PartialLine;

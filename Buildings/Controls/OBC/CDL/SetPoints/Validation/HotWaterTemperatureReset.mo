@@ -8,7 +8,7 @@ model HotWaterTemperatureReset "Test model for the heating curve"
     TOut_nominal=263.15)
     "Compute the supply and return set point of heating systems with varying outdoor temperature"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp TOut(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TOut(
     height=40,
     duration=1,
     offset=263.15,
@@ -23,19 +23,19 @@ model HotWaterTemperatureReset "Test model for the heating curve"
     TOut_nominal=263.15)
     "Compute the supply and return set point of heating systems with changing room setpoint temperature"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Controls.OBC.CDL.Continuous.Sources.Pulse TRoo1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse TRoo1(
     offset=273.15 + 20,
     startTime=0.5,
     amplitude=-5,
     period=1,
     y(unit="K"))  "Night set back from 20 degC to 15 degC"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TOut1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut1(
     k=273.15 - 10,
     y(unit="K"))
     "Constant outdoor air temperature"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant  TRoo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant  TRoo(
     k=273.15 + 20,
     y(unit="K"))
     "Room temperature 20 degC"
@@ -55,7 +55,7 @@ equation
     annotation (Line(points={{-39,-60},{0,-60},{0,-46},{18.1,-46}},
       color={0,0,127}));
 
-  annotation (experiment(Tolerance=1e-6, StopTime=1.0),
+annotation (experiment(Tolerance=1e-6, StopTime=1.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/SetPoints/Validation/HotWaterTemperatureReset.mos"
       "Simulate and plot"),
   Documentation(info="<html>

@@ -10,7 +10,7 @@ with fixed sample period.
 Every component of this package is structured in the following way:
 </p>
 <ol>
-<li> A component has continuous real input and output signals.</li>
+<li> A component has continuous Real input and output signals.</li>
 <li> The input signals are sampled by the given sample period
      defined via parameter <code>samplePeriod</code>.
      The first sample instant is defined by the parameter <code>startTime</code>.

@@ -75,7 +75,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{21,-30},{58,-30}},
+      points={{21,-30},{58.4,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TEasWal.port, roo.surf_surBou[1])
@@ -180,7 +180,8 @@ Name these models as <code>qRadGai_flow</code>, <code>qConGai_flow</code> and <c
 This block is used to combine three scalar signals to a vector. Name it as <code>multiple_x3</code>.
 </li>
 <li>
-<a href=\"modelica://Buildings.HeatTransfer.Source.FixedTemperature\">Buildings.HeatTransfer.Source.FixedTemperature</a>.
+<a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">
+Buildings.HeatTransfer.Sources.FixedTemperature</a>.
 Two models are needed to specify the temperatures on the east and west walls.
 Name them as <code>TeasWal</code> and <code>TwesWal</code>, respectively.
 </li>

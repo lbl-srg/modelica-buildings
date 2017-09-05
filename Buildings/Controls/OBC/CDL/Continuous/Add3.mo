@@ -23,8 +23,8 @@ equation
   y = k1*u1 + k2*u2 + k3*u3;
 
 annotation (
-defaultComponentName="add3",
-Documentation(info="<html>
+  defaultComponentName="add3",
+  Documentation(info="<html>
 <p>
 Block that outputs <code>y</code> as the weighted <i>sum</i> of the
 three input signals <code>u1</code>, <code>u2</code> and <code>u3</code>,

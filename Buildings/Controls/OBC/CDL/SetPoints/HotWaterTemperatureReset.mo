@@ -14,24 +14,24 @@ block HotWaterTemperatureReset
   parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal(displayUnit="K") = 8
     "Offset for heating curve";
 
-  Controls.OBC.CDL.Interfaces.RealInput TSetZon(
+  Interfaces.RealInput TSetZon(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC", min=200) "Zone setpoint temperature"
     annotation (Placement(transformation(extent={{-139,-80},{-99,-40}})));
-  Controls.OBC.CDL.Interfaces.RealInput TOut(
+  Interfaces.RealInput TOut(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC",
     min=200) "Outside temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Controls.OBC.CDL.Interfaces.RealOutput TSup(
+  Interfaces.RealOutput TSup(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC",
     min=200) "Setpoint for supply temperature"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Controls.OBC.CDL.Interfaces.RealOutput TRet(
+  Interfaces.RealOutput TRet(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC",
@@ -54,9 +54,9 @@ equation
           + (TSup_nominal-TRet_nominal)/2 * qRel;
   TRet = TSup - qRel * (TSup_nominal-TRet_nominal);
 
-  annotation (
-defaultComponentName="hotWatRes",
-Documentation(info="<html>
+annotation (
+  defaultComponentName="hotWatRes",
+  Documentation(info="<html>
 <p>
 This block computes the set point temperatures for the
 supply and return temperature of a heating system.
@@ -98,7 +98,7 @@ February 5, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Icon(graphics={      Rectangle(
+</html>"), Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},

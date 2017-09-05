@@ -241,8 +241,8 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
 Documentation(info="<html>
 <p>
 This model tests
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.DryffectivenessNTU</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.DryEffectivenessNTU</a>
 for different inlet conditions.
 </p>
 </html>", revisions="<html>

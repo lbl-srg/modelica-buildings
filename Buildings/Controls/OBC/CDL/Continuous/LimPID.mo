@@ -64,20 +64,20 @@ block LimPID
 protected
   constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
 
-  Add addP(k1=wp, k2=-1)
+  Continuous.Add addP(k1=wp, k2=-1)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Add addD(k1=wd, k2=-1) if with_D
+  Continuous.Add addD(k1=wd, k2=-1) if with_D
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Gain P(k=1)
+  Continuous.Gain P(k=1)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  IntegratorWithReset I(
+  Continuous.IntegratorWithReset I(
     k=unitTime/Ti,
     y_start=xi_start,
     initType=
         if initType == CDL.Types.Init.InitialState
          then CDL.Types.Init.InitialState else CDL.Types.Init.NoInit) if with_I
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Derivative D(
+  Continuous.Derivative D(
     k=Td/unitTime,
     T=max([Td/Nd,1.e-14]),
     x_start=xd_start,
@@ -86,20 +86,20 @@ protected
          else if initType == CDL.Types.Init.InitialState then
            CDL.Types.Init.InitialState else CDL.Types.Init.NoInit) if with_D
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Gain gainPID(k=k)
+  Continuous.Gain gainPID(k=k)
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Add3 addPID
+  Continuous.Add3 addPID
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Add3 addI(k2=-1) if with_I
+  Continuous.Add3 addI(k2=-1) if with_I
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Add addSat(k1=+1, k2=-1) if with_I annotation (
+  Continuous.Add addSat(k1=+1, k2=-1) if with_I annotation (
       Placement(transformation(
         origin={80,-50},
         extent={{-10,-10},{10,10}},
         rotation=270)));
-  Gain gainTrack(k=1/(k*Ni)) if with_I
+  Continuous.Gain gainTrack(k=1/(k*Ni)) if with_I
     annotation (Placement(transformation(extent={{40,-80},{20,-60}})));
-  Limiter limiter(
+  Continuous.Limiter limiter(
     uMax=yMax,
     uMin=yMin)
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
