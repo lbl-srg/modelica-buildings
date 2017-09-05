@@ -14,13 +14,13 @@ model WatersideEconomizer "Waterside economizer"
     final mSenFac=1,
     redeclare package Medium=Medium2);
   extends Buildings.ChillerWSE.BaseClasses.ThreeWayValveParameters(
-    final activate_ThrWayVal=use_Controller);
+    final activate_ThrWayVal=use_controller);
   extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface;
 
   // Filter opening
   parameter Real yThrWayVal_start=1
    "Initial value of output from the filter in the bypass valve"
-    annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_Controller and use_inputFilter));
+    annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_controller and use_inputFilter));
   parameter Real yValWSE_start=1
     "Initial value of output from the filter in the shutoff valve"
     annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_inputFilter));
@@ -32,9 +32,9 @@ model WatersideEconomizer "Waterside economizer"
   parameter Modelica.SIunits.Time tauThrWayVal=10
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
     annotation(Dialog(tab="Dynamics", group="Nominal condition",
-               enable=use_Controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+               enable=use_controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
-  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC") if use_Controller
+  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC") if use_controller
     "Set point for leaving water temperature"
     annotation (Placement(
         transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
@@ -43,7 +43,7 @@ model WatersideEconomizer "Waterside economizer"
   Buildings.ChillerWSE.HeatExchanger heaExc(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
-    final use_Controller=use_Controller,
+    final use_controller=use_controller,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
     final dp1_nominal=dp1_nominal,
@@ -123,18 +123,18 @@ equation
           -22},{-40,-10},{-10,-10}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
-This module impliments a waterside economizer model that consists of a 
-<a href=\"Modelica://Buildings.ChillerWSE.HeatExchanger\">heat exchanger</a> and a shutoff valve on each medium side. 
+This module impliments a waterside economizer model that consists of a
+<a href=\"Modelica://Buildings.ChillerWSE.HeatExchanger\">heat exchanger</a> and a shutoff valve on each medium side.
 This waterside economizer model can be used in two different control scenarios:
 </p>
 <ol>
-<li>The temperature at <code>port_b2</code> is controlled by a built-in PID controller and a three-way valve 
-by setting the parameter <code>use_Controller</code> as <code>true</code>.
+<li>The temperature at <code>port_b2</code> is controlled by a built-in PID controller and a three-way valve
+by setting the parameter <code>use_controller</code> as <code>true</code>.
 </li>
-<li>The temperature at <code>port_b2</code> is NOT controlled by a built-in controller 
-by setting the parameter <code>use_Controller</code> as <code>false</code>. 
+<li>The temperature at <code>port_b2</code> is NOT controlled by a built-in controller
+by setting the parameter <code>use_controller</code> as <code>false</code>.
 Hence, an outside controller can be used to control the temperature. For example, in the free-cooling mode,
-the speed of variable-speed cooling tower fans can be adjusted to maintain the supply chilled water temperature 
+the speed of variable-speed cooling tower fans can be adjusted to maintain the supply chilled water temperature
 around the setpoint.
 </li>
 </ol>

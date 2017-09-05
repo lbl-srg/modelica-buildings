@@ -21,7 +21,7 @@ model WatersideEconomizer
     eta=0.8,
     dp1_nominal=dpCW_nominal,
     dp2_nominal=dpCHW_nominal,
-    use_Controller=true,
+    use_controller=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Waterside economizer"
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
@@ -54,7 +54,7 @@ equation
         "Simulate and Plot"), Documentation(info="<html>
 <p>
 This example demonstrates that the temperature at port_b2 is controlled by setting 
-<code>use_Controller=true</code>.
+<code>use_controller=true</code>.
 </p>
 </html>", revisions="<html>
 <ul>

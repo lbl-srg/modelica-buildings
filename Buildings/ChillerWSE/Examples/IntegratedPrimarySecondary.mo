@@ -8,7 +8,7 @@ model IntegratedPrimarySecondary
         addPowerToMedium=false,
         perPum=perPumPri,
         energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-        use_Controller=false),
+        use_controller=false),
     pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
         each use_inputFilter=true),
     ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

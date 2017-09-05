@@ -1,14 +1,14 @@
 within Buildings.ChillerWSE;
 model HeatExchanger "Heat exchanger"
   extends Buildings.ChillerWSE.BaseClasses.PartialHeatExchanger(
-    final activate_ThrWayVal=use_Controller);
+    final activate_ThrWayVal=use_controller);
   extends Buildings.ChillerWSE.BaseClasses.PartialControllerInterface;
 
 
   Modelica.Blocks.Interfaces.RealInput TSet(
     final unit="K",
     final quantity="ThermodynamicTemperature",
-    displayUnit="degC") if use_Controller
+    displayUnit="degC") if use_controller
     "Temperature setpoint for port_b2"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
@@ -29,10 +29,10 @@ model HeatExchanger "Heat exchanger"
     final y_start=yCon_start,
     final reverseAction=reverseAction,
     final reset=reset,
-    final y_reset=y_reset) if use_Controller
+    final y_reset=y_reset) if use_controller
     "Controller for temperature at port_b2"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Modelica.Blocks.Sources.RealExpression T_b2(y=T_outflow) if use_Controller
+  Modelica.Blocks.Sources.RealExpression T_b2(y=T_outflow) if use_controller
     "Temperature at port_b2"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 protected
@@ -42,7 +42,7 @@ equation
   T_outflow=Medium2.temperature(state=Medium2.setState_phX(
       p=port_b2.p, h=actualStream(port_b2.h_outflow), X=actualStream(port_b2.Xi_outflow)));
 
-  if use_Controller then
+  if use_controller then
     connect(T_b2.y, con.u_m)
       annotation (Line(points={{-59,70},{-44,70},{-44,20},
             {-70,20},{-70,28}}, color={0,0,127}));
@@ -66,7 +66,7 @@ equation
 <p>
 This module impliments a heat exchanger model with a built-in PID controller to 
 control the outlet temperature at <code>port_b2</code> if set parameter 
-<code>use_Controller=true </code>. Otherwise, if set <code>use_Controller=false</code>, 
+<code>use_controller=true </code>. Otherwise, if set <code>use_controller=false</code>, 
 the PID controller and the three-way valve are removed and the outlet temperature at <code>port_b2</code> will
 not be controlled.  
 </p>

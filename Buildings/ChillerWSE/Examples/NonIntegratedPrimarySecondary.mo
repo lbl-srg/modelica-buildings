@@ -8,7 +8,7 @@ model NonIntegratedPrimarySecondary
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
       Ti=60,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      use_Controller=false),
+      use_controller=false),
     ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial, dp1_nominal=
           60000),
     pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),

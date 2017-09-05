@@ -15,7 +15,7 @@ partial model PartialChillerWSE
      final numFil=1,
      final yValve_start={yValWSE_start});
   extends Buildings.ChillerWSE.BaseClasses.ThreeWayValveParameters(
-     final activate_ThrWayVal=use_Controller);
+     final activate_ThrWayVal=use_controller);
 
   //Chiller
   parameter Integer numChi(min=1) "Number of identical chillers"
@@ -54,7 +54,7 @@ partial model PartialChillerWSE
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
   parameter Real yThrWayValWSE_start=0
     "Initial value of output from three-way bypass valve in WSE"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_Controller and use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_controller and use_inputFilter));
 
   // Advanced
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -78,7 +78,7 @@ partial model PartialChillerWSE
   parameter Modelica.SIunits.Time tauWSE = 10
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
     annotation(Dialog(tab="Dynamics", group="Waterside economizer",
-               enable= use_Controller and not energyDynamics ==
+               enable= use_controller and not energyDynamics ==
                Modelica.Fluid.Types.Dynamics.SteadyState));
 
   // Initialization
@@ -251,7 +251,7 @@ partial model PartialChillerWSE
     final yThrWayVal_start=yThrWayValWSE_start,
     final yValWSE_start=yValWSE_start,
     final tauThrWayVal=tauWSE,
-    final use_Controller=use_Controller,
+    final use_controller=use_controller,
     final reverseAction=reverseAction,
     final show_T=show_T,
     final portFlowDirection_1=portFlowDirection_1,

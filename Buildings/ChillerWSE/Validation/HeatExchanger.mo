@@ -19,7 +19,7 @@ model HeatExchanger
     dp1_nominal=dp1_nominal,
     dp2_nominal=dp2_nominal,
     T_start=273.15 + 10,
-    use_Controller=true,
+    use_controller=true,
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumW,
     Ti=40,
@@ -38,7 +38,7 @@ model HeatExchanger
     T_start=273.15 + 10,
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumW,
-    use_Controller=false)
+    use_controller=false)
     "Water-to-water heat exchanger without built-in controllers to control the temperature at port_b2"
     annotation (Placement(transformation(extent={{-12,-30},{8,-14}})));
   Buildings.Fluid.Sources.FixedBoundary sin1(
@@ -154,7 +154,7 @@ __Dymola_Commands(file="Resources/Scripts/Dymola/ChillerWSE/Validation/HeatExcha
         "Simulate and Plot"),
 Documentation(info="<html>
 <p>
-This example demonstrates how the parameter <code>use_Controller</code> influences
+This example demonstrates how the parameter <code>use_controller</code> influences
 the temperautre at <code>port_b2</code>. The temperature at <code>port_b2</code> 
 can be controlled in <code>hex1</code> where the controller is activated.
 </p>

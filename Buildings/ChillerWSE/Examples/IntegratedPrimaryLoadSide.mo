@@ -7,7 +7,7 @@ model IntegratedPrimaryLoadSide
       addPowerToMedium=false,
       perPum=perPumPri,
       tauPump=1,
-      use_Controller=false,
+      use_controller=false,
       use_inputFilter=true,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
       pumCW(each use_inputFilter=false,
