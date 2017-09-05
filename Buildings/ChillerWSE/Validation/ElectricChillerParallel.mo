@@ -65,6 +65,6 @@ First implementation.
 </html>"),
 experiment(
       StartTime=0,
-      StopTime=230400,
+      StopTime=14400,
       Tolerance=1e-06));
 end ElectricChillerParallel;

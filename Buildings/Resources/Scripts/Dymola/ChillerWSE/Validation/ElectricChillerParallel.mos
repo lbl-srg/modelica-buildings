@@ -1,6 +1,5 @@
-simulateModel("Buildings.ChillerWSE.Validation.ElectricChillerParallel", tolerance=1e-6, stopTime=4*3600, method="dassl", resultFile="ElectricChillerParallel");
+simulateModel("Buildings.ChillerWSE.Validation.ElectricChillerParallel", tolerance=1e-6, stopTime=14400, method="dassl", resultFile="ElectricChillerParallel");
 
-removePlots();
 createPlot(id = 1,
  position = {46, 7, 645, 517},
  y = {"chiPar.chi[1].TSet", "chiPar.chi[1].TEvaEnt", "chiPar.chi[1].TEvaLvg", "chiPar.chi[1].TConEnt", "chiPar.chi[1].TConLvg"},
@@ -50,4 +49,3 @@ createPlot(id = 3,
  subPlot = 2,
  leftTitleType = 1,
  bottomTitleType = 1);
-
