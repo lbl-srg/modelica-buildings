@@ -171,46 +171,60 @@ equation
           lineColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
-<p>This component decides if the chilled water system is in Free Cooling (FC) mode, 
+<p>
+This component decides if the chilled water system is in Free Cooling (FC) mode, 
 Partially Mechanical Cooling (PMC) mode or Fully Mechanical Cooling (FMC) mode. 
 </p>
 <p>The waterside economizer is enabled when </p>
 <ol>
-<li>The waterside economizer has been disabled for at least 20 minutes, and</li>
-<li><i>
-T<sub>CHWR</sub> &gt; T<sub>WetBul</sub> + T<sub>TowApp</sub> + deaBan1 
-</i></li>
+ <li>
+    The waterside economizer has been disabled for at least 20 minutes, and
+ </li>
+ <li>
+    <i>T<sub>CHWR</sub> &gt; T<sub>WetBul</sub> + T<sub>TowApp</sub> + deaBan1 </i>
+ </li>
 </ol>
 <p>The waterside economizer is disabled when </p>
 <ol>
-<li>The waterside economizer has been enabled for at least 20 minutes, and</li>
-<li><i>
-T<sub>WSE_CHWST</sub> &gt; T<sub>WSE_CHWRT</sub> - deaBan2
-</i></li>
+  <li>
+    The waterside economizer has been enabled for at least 20 minutes, and
+  </li>
+  <li>
+    <i>T<sub>WSE_CHWST</sub> &gt; T<sub>WSE_CHWRT</sub> - deaBan2 </i>
+  </li>
 </ol>
 <p>The chiller is enabled when </p>
 <ol>
-<li>The chiller has been disabled for at leat 20 minutes, and </li>
-<li><i>
-T<sub>WSE_CHWST</sub> &gt; T<sub>CHWSTSet</sub> + deaBan3 
-</i></li>
+  <li>
+    The chiller has been disabled for at leat 20 minutes, and 
+  </li>
+  <li>
+    <i>T<sub>WSE_CHWST</sub> &gt; T<sub>CHWSTSet</sub> + deaBan3 </i>
+  </li>
 </ol>
 <p>The chiller is disabled when </p>
 <ol>
-<li>The chiller has been enabled for at leat 20 minutes, and </li>
-<li><i>
-T<sub>WSE_CHWST</sub> &le; T<sub>CHWSTSet</sub> + deaBan4 
-</i></li>
+  <li>
+    The chiller has been enabled for at leat 20 minutes, and 
+  </li>
+  <li>
+    <i><sub>WSE_CHWST</sub> &le; T<sub>CHWSTSet</sub> + deaBan4 </i>
+  </li>
 </ol>
-<p>where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for the WSE, 
+<p>
+where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for the WSE, 
 <i>T<sub>WetBul</sub></i> is the wet bulb temperature, 
 <i>T<sub>TowApp</sub></i> is the cooling tower approach, <i>T<sub>WSE_CHWRT</sub></i> 
 is the chilled water return temperature for the WSE, and <i>T<sub>CHWSTSet</sub></i> 
 is the chilled water supply temperature setpoint for the system.
-<i>deaBan 1-4</i> are deadband width for each switching point. </p>
+<i>deaBan 1-4</i> are deadband width for each switching point. 
+</p>
 <h4>References</h4>
 <ul>
-<li>Stein, Jeff. Waterside Economizing in Data Centers: Design and Control Considerations. ASHRAE Transactions 115.2 (2009). </li>
+  <li>
+    Stein, Jeff. Waterside Economizing in Data Centers: Design and Control Considerations. 
+    ASHRAE Transactions 115.2 (2009). 
+  </li>
 </ul>
 </html>
 ",        revisions="<html>
@@ -219,6 +233,6 @@ is the chilled water supply temperature setpoint for the system.
 July 24, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
-<ul>
+</ul>
 </html>"));
 end CoolingModeControl;

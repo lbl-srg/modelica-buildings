@@ -304,7 +304,7 @@ First implementation.
 </ul>
 </html>"),
 experiment(
-      startTime=3801600,
+      StartTime=3801600,
       StopTime=3974400,
       Tolerance=1e-06));
 end IntegratedPrimarySecondary;

@@ -1,7 +1,9 @@
 compareVars :=
   {
     "QTot.y",
-    "cooMod.y[1]",
+    "chiStaCon.criPoiLoa",
+    "TCHWSup.y",
+    "cooMod.y",
     "chiStaCon.y[1]",
     "chiStaCon.y[2]"
   };
