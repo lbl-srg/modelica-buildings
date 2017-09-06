@@ -11,7 +11,7 @@ model CoolingMode
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Sources.Constant TRet(k=298.15) "Return air temperature"
-    annotation (Placement(transformation(extent={{-60,-78},{-40,-58}})));
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   BoundaryConditions.WeatherData.ReaderTMY3  weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
@@ -24,7 +24,7 @@ model CoolingMode
 equation
   connect(TSupSet.y, cooModCon.TSupSet) annotation (Line(points={{-39,70},{-20,
           70},{-20,8},{-12,8}}, color={0,0,127}));
-  connect(TRet.y, cooModCon.TRet) annotation (Line(points={{-39,-68},{-20,-68},
+  connect(TRet.y, cooModCon.TRet) annotation (Line(points={{-39,-70},{-20,-70},
           {-20,-8},{-12,-8}}, color={0,0,127}));
   connect(weaDat.weaBus,weaBus)
     annotation (Line(
