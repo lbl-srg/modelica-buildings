@@ -208,8 +208,8 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(TAirSup.T, ahuValSig.u_m)
-    annotation (Line(points={{104,-129},{104,-129},
-          {104,-122},{60,-122},{60,-106},{-2,-106},{-2,-100}}, color={0,0,127}));
+    annotation (Line(points={{104,-129},{104,-129},{104,-126},{60,-126},{60,
+          -106},{-2,-106},{-2,-100}},                          color={0,0,127}));
   connect(ahu.port_a2, roo.airPorts[1])
     annotation (Line(points={{174,-126},{174,-126},{194,-126},{194,-140},{242,-140},
           {242,-176.7},{168.475,-176.7}},
@@ -241,7 +241,8 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(chiNumOn.y, CWPumCon.numOnChi)
-    annotation (Line(points={{-161,74},{-54,74}}, color={255,127,0}));
+    annotation (Line(points={{-161,74},{-108,74},{-108,65},{-54,65}},
+                                                  color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     Documentation(info="<html>

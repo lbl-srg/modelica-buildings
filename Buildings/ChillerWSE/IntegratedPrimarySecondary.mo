@@ -173,8 +173,9 @@ equation
           {-40,-6},{16,-6},{16,-16},{12,-16}}, color={0,0,127}));
   connect(pum.port_a, val5.port_b)
     annotation (Line(points={{10,-20},{25,-20},{40,-20}}, color={0,127,255}));
-  connect(pum.P, powPum) annotation (Line(points={{-11,-16},{-6,-16},{-6,52},{90,
-          52},{90,-40},{110,-40}}, color={0,0,127}));
+  connect(pum.P, powPum) annotation (Line(points={{-11,-16},{-14,-16},{-14,50},
+          {88,50},{88,-40},{110,-40}},
+                                   color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(
           extent={{-14,-30},{8,-52}},
