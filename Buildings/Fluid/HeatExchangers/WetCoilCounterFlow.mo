@@ -33,8 +33,8 @@ The coil consists of two flow paths which are, at the design flow direction,
 in opposite direction to model a counterflow heat exchanger.
 The flow paths are discretized into <code>nEle</code> elements.
 Each element is modeled by an instance of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement\">
-Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent\">
+Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent</a>.
 Each element has a state variable for the metal.
 </p>
 <p>

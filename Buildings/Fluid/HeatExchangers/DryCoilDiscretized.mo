@@ -319,8 +319,8 @@ that are perpendicular to the air flow path. Each register consists of <code>nPi
 parallel pipes, and each pipe can be divided into <code>nPipSeg</code> pipe segments along
 the pipe length. Thus, the smallest element of the coil consists of a pipe
 segment. Each pipe segment is modeled by an instance of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement\">
-Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElementSensible\">
+Buildings.Fluid.HeatExchangers.BaseClasses.HexElementSensible</a>.
 Each element has a state variable for the metal.
 </p>
 <p>
