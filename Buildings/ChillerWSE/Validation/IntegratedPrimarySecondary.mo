@@ -55,10 +55,10 @@ equation
     annotation (Line(points={{-71,80},{-71,80},{-24,80},{-24,-30.4},{-11.6,
           -30.4}},                                 color={255,0,255}));
   connect(onWSE.y, intWSEPriSec.on[2])
-    annotation (Line(points={{-39,60},{-39,60},{-24,60},{-24,-30},{-18,-30},{
+    annotation (Line(points={{-39,60},{-39,60},{-26,60},{-26,-30},{-18,-30},{
           -18,-30.4},{-11.6,-30.4}},               color={255,0,255}));
   connect(TSet.y, intWSEPriSec.TSet)
-    annotation (Line(points={{-69,40},{-48,40},{-20,40},{-20,-27.2},{-11.6,
+    annotation (Line(points={{-71,30},{-48,30},{-20,30},{-20,-27.2},{-11.6,
           -27.2}},                             color={0,0,127}));
   connect(yVal5.y, intWSEPriSec.yVal5)
     annotation (Line(points={{19,80},{-18,80},{-18,80},{-18,-35},{-11.6,-35}},

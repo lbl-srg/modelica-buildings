@@ -1,7 +1,6 @@
 within Buildings.ChillerWSE.Validation.BaseClasses;
 partial model PartialPlant
   "Partial examples for Buildings.ChillerWSE.Validation"
-  extends Modelica.Icons.Example;
 
   package MediumCHW = Buildings.Media.Water "Medium model";
   package MediumCW = Buildings.Media.Water "Medium model";
@@ -21,7 +20,8 @@ partial model PartialPlant
     each pressure=
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
           V_flow=mCHW_flow_nominal/1000*{0.2,0.6,1.0,1.2},
-          dp=dpCHW_nominal*{1.2,1.1,1.0,0.6}));
+          dp=dpCHW_nominal*{1.2,1.1,1.0,0.6})) "Pump performance data"
+    annotation (Placement(transformation(extent={{60,80},{80,100}})));
 
   Buildings.Fluid.Sources.FixedBoundary sin1(
     redeclare package Medium = MediumCW)
@@ -68,7 +68,7 @@ partial model PartialPlant
   Modelica.Blocks.Sources.Constant TSet(
     k(unit="K",displayUnit="degC")=273.15+15.56)
     "Leaving chilled water temperature setpoint"
-    annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
+    annotation (Placement(transformation(extent={{-92,20},{-72,40}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TSup(
     redeclare package Medium = MediumCHW,

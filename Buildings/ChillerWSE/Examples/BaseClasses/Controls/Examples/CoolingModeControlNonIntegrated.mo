@@ -20,20 +20,20 @@ model CoolingModeControlNonIntegrated
     freqHz=1/300,
     offset=273.15 + 8)
     "Wet bulb temperature"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Constant TCHWSupSet(k=273.15 + 10)
     "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Sources.IntegerTable chiNumOn(table=[0,0; 360,1; 540,2; 720,1;
         900,2])
     "The number of running chillers"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 equation
   connect(TCHWSupSet.y, cooModCon.TCHWSupSet)
-    annotation (Line(points={{-39,90},
-          {-20,90},{-20,6},{-12,6}}, color={0,0,127}));
+    annotation (Line(points={{-39,70},{-20,70},{-20,6},{-12,6}},
+                                     color={0,0,127}));
   connect(TWetBub.y, cooModCon.TWetBul)
-    annotation (Line(points={{-39,50},{-26,50},{-26,2},{-12,2}},
+    annotation (Line(points={{-39,30},{-26,30},{-26,2},{-12,2}},
                             color={0,0,127}));
   connect(TCHWSup.y, cooModCon.TCHWSup)
     annotation (Line(points={{-39,-30},{-26,

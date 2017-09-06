@@ -34,41 +34,41 @@ model IntegratedPrimaryLoadSide
 
   Modelica.Blocks.Sources.Constant yPum(k=1)
     "Conrol signal for pumps"
-    annotation (Placement(transformation(extent={{40,40},{20,60}})));
+    annotation (Placement(transformation(extent={{40,24},{20,44}})));
   Modelica.Blocks.Sources.RealExpression yVal5(
     y=if onChi.y and not onWSE.y then 1 else 0)
     "On/off signal for valve 5"
-    annotation (Placement(transformation(extent={{40,86},{20,106}})));
+    annotation (Placement(transformation(extent={{40,70},{20,90}})));
   Modelica.Blocks.Sources.RealExpression yVal6(
     y=if not onChi.y and onWSE.y then 1 else 0)
     "On/off signal for valve 6"
-    annotation (Placement(transformation(extent={{40,66},{20,86}})));
+    annotation (Placement(transformation(extent={{40,50},{20,70}})));
   Modelica.Blocks.Sources.BooleanStep onChi(startTime(displayUnit="h") = 7200)
     "On and off signal for the chiller"
-    annotation (Placement(transformation(extent={{-60,76},{-40,96}})));
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Modelica.Blocks.Sources.BooleanStep onWSE(
     startTime(displayUnit="h") = 14400,
     startValue=true)
     "On and off signal for the WSE"
-    annotation (Placement(transformation(extent={{-88,60},{-68,80}})));
+    annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
 equation
   connect(onChi.y, intWSEPri.on[1])
-    annotation (Line(points={{-39,86},{-39,86},{-20,86},{-20,-30.4},{-11.6,
+    annotation (Line(points={{-39,80},{-39,80},{-20,80},{-20,-30.4},{-11.6,
           -30.4}},                             color={255,0,255}));
   connect(onWSE.y, intWSEPri.on[2])
-    annotation (Line(points={{-67,70},{-67,70},{-20,70},{-20,-30.4},{-11.6,
+    annotation (Line(points={{-69,60},{-69,60},{-20,60},{-20,-30.4},{-11.6,
           -30.4}},                             color={255,0,255}));
   connect(TSet.y, intWSEPri.TSet)
-    annotation (Line(points={{-69,40},{-22,40},{-22,40},{-22,-27.2},{-11.6,
-          -27.2}},        color={0,0,127}));
+    annotation (Line(points={{-71,30},{-22,30},{-22,-27.2},{-11.6,-27.2}},
+                          color={0,0,127}));
   connect(yVal5.y, intWSEPri.yVal5)
-    annotation (Line(points={{19,96},{4,96},{-16,96},{-16,-35},
-      {-11.6,-35}}, color={0,0,127}));
+    annotation (Line(points={{19,80},{4,80},{-16,80},{-16,-35},{-11.6,-35}},
+                    color={0,0,127}));
   connect(yVal6.y, intWSEPri.yVal6)
-    annotation (Line(points={{19,76},{-24,76},{-24,76},{-24,-38.2},{-11.6,-38.2}},
-                                  color={0,0,127}));
+    annotation (Line(points={{19,60},{0,60},{0,50},{-24,50},{-24,-38.2},{-11.6,
+          -38.2}},                color={0,0,127}));
   connect(yPum.y, intWSEPri.yPum[1])
-    annotation (Line(points={{19,50},{-18,50},{-18,50},{-18,-42.4},{-11.6,-42.4}},
+    annotation (Line(points={{19,34},{-18,34},{-18,-42.4},{-11.6,-42.4}},
                       color={0,0,127}));
   connect(intWSEPri.port_a1, sou1.ports[1])
     annotation (Line(points={{-10,-32},

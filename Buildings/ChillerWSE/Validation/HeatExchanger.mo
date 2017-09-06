@@ -12,7 +12,7 @@ model HeatExchanger
     "Nominal pressure difference on medium 1 side";
   parameter Modelica.SIunits.Pressure dp2_nominal=60000
     "Nominal pressure difference on medium 2 side";
-  Buildings.ChillerWSE.HeatExchanger hx1(
+  Buildings.ChillerWSE.HeatExchanger hex1(
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     eta=0.8,
@@ -29,7 +29,7 @@ model HeatExchanger
     "Water-to-water heat exchanger with built-in PID controller to control the temperature at port_b2"
     annotation (Placement(transformation(extent={{-12,48},{8,64}})));
 
-  Buildings.ChillerWSE.HeatExchanger hx2(
+  Buildings.ChillerWSE.HeatExchanger hex2(
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     eta=0.8,
@@ -48,7 +48,7 @@ model HeatExchanger
      annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        origin={90,72})));
+        origin={78,70})));
   Buildings.Fluid.Sources.MassFlowSource_T sou1(
     use_T_in=true,
     nPorts=2,
@@ -74,7 +74,7 @@ model HeatExchanger
      annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        origin={-90,-70})));
+        origin={-82,0})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2_2(
     nPorts=1,
     redeclare package Medium = MediumW,
@@ -84,7 +84,7 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{58,-84},{38,-64}})));
   Modelica.Blocks.Sources.Constant TEva_in(k=273.15 + 25.28)
     "Evaporator inlet temperature"
-    annotation (Placement(transformation(extent={{100,-80},{80,-60}})));
+    annotation (Placement(transformation(extent={{92,-80},{72,-60}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TSen1(
     m_flow_nominal=m2_flow_nominal,
     redeclare package Medium = MediumW)
@@ -108,47 +108,39 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{54,14},{34,34}})));
   Modelica.Blocks.Sources.Constant TEva_in1( k=273.15 + 25.28)
     "Evaporator inlet temperature"
-    annotation (Placement(transformation(extent={{96,18},{76,38}})));
+    annotation (Placement(transformation(extent={{90,18},{70,38}})));
 equation
-  connect(TSet.y, hx1.TSet)
-    annotation (Line(points={{-69,50},{-62,50},{-62,60},{-14,60}},
-                 color={0,0,127}));
-  connect(sou1.ports[1], hx1.port_a1)
-    annotation (Line(points={{-40,78},{-20,78},
-      {-20,62},{-12,62}}, color={0,127,255}));
-  connect(hx1.port_b1, sin1.ports[1])
-    annotation (Line(points={{8,62},{60,62},{60,74},{80,74}},
-      color={0,127,255}));
+  connect(TSet.y, hex1.TSet) annotation (Line(points={{-69,50},{-62,50},{-62,60},
+          {-14,60}}, color={0,0,127}));
+  connect(sou1.ports[1], hex1.port_a1) annotation (Line(points={{-40,78},{-20,
+          78},{-20,62},{-12,62}}, color={0,127,255}));
+  connect(hex1.port_b1, sin1.ports[1]) annotation (Line(points={{8,62},{56,62},
+          {56,72},{68,72}}, color={0,127,255}));
   connect(TCon_in.y,sou1. T_in)
     annotation (Line(points={{-69,80},{-69,80},{-62,80}},
       color={0,0,127}));
   connect(sou2_2.T_in, TEva_in.y)
-    annotation (Line(points={{60,-70},{79,-70}}, color={0,0,127}));
-  connect(hx1.port_b2, TSen1.port_a)
-    annotation (Line(points={{-12,50},{-22,50},{-30,50},{-30,20},{-40,20}},
-                                   color={0,127,255}));
+    annotation (Line(points={{60,-70},{71,-70}}, color={0,0,127}));
+  connect(hex1.port_b2, TSen1.port_a) annotation (Line(points={{-12,50},{-22,50},
+          {-30,50},{-30,20},{-40,20}}, color={0,127,255}));
   connect(TSen1.port_b, sin2.ports[1])
-    annotation (Line(points={{-60,20},{-70,20},{-70,-68},{-80,-68}},
+    annotation (Line(points={{-60,20},{-70,20},{-70,2},{-72,2}},
       color={0,127,255}));
-  connect(sou1.ports[2], hx2.port_a1)
-    annotation (Line(points={{-40,74},{-22,74},{-22,74},{-22,-16},{-12,-16}},
-      color={0,127,255}));
-  connect(hx2.port_b2, TSen2.port_a)
+  connect(sou1.ports[2], hex2.port_a1) annotation (Line(points={{-40,74},{-22,
+          74},{-22,-16},{-12,-16}}, color={0,127,255}));
+  connect(hex2.port_b2, TSen2.port_a)
     annotation (Line(points={{-12,-28},{-40,-28}}, color={0,127,255}));
   connect(TSen2.port_b, sin2.ports[2])
-    annotation (Line(points={{-60,-28},{-68,-28},{-68,-72},{-80,-72}},
+    annotation (Line(points={{-60,-28},{-68,-28},{-68,-2},{-72,-2}},
       color={0,127,255}));
-  connect(hx2.port_b1, sin1.ports[2])
-    annotation (Line(points={{8,-16},{30,-16},{60,-16},{60,70},{80,70}},
-      color={0,127,255}));
-  connect(hx2.port_a2, sou2_2.ports[1])
-    annotation (Line(points={{8,-28},{20,-28},{20,-74},{38,-74}},
-      color={0,127,255}));
-  connect(hx1.port_a2, sou2_1.ports[1])
-    annotation (Line(points={{8,50},{18,50},{28,50},{28,24},{34,24}},
-      color={0,127,255}));
+  connect(hex2.port_b1, sin1.ports[2]) annotation (Line(points={{8,-16},{30,-16},
+          {60,-16},{60,68},{68,68}}, color={0,127,255}));
+  connect(hex2.port_a2, sou2_2.ports[1]) annotation (Line(points={{8,-28},{20,-28},
+          {20,-74},{38,-74}}, color={0,127,255}));
+  connect(hex1.port_a2, sou2_1.ports[1]) annotation (Line(points={{8,50},{18,50},
+          {28,50},{28,24},{34,24}}, color={0,127,255}));
   connect(TEva_in1.y, sou2_1.T_in)
-    annotation (Line(points={{75,28},{56,28}}, color={0,0,127}));
+    annotation (Line(points={{69,28},{56,28}}, color={0,0,127}));
   annotation (
 __Dymola_Commands(file="Resources/Scripts/Dymola/ChillerWSE/Validation/HeatExchanger.mos"
         "Simulate and Plot"),

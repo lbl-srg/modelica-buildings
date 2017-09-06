@@ -57,14 +57,14 @@ equation
     annotation (Line(points={{-31,60},{-31,60},{-20,60},{-20,-30.4},{-11.6,
           -30.4}},                             color={255,0,255}));
   connect(TSet.y, intWSEPri.TSet)
-    annotation (Line(points={{-69,40},{-22,40},{-22,40},{-22,-28},{-14,-28},{
+    annotation (Line(points={{-71,30},{-22,30},{-22,30},{-22,-28},{-14,-28},{
           -14,-27.2},{-11.6,-27.2}},
                       color={0,0,127}));
   connect(yVal5.y, intWSEPri.yVal5)
     annotation (Line(points={{19,80},{19,80},{-16,80},{-16,-35},{-11.6,-35}},
                     color={0,0,127}));
   connect(yVal6.y, intWSEPri.yVal6)
-    annotation (Line(points={{19,60},{-18,60},{-18,76},{-18,-38.2},{-11.6,-38.2}},
+    annotation (Line(points={{19,60},{-18,60},{-18,60},{-18,-38.2},{-11.6,-38.2}},
                       color={0,0,127}));
   connect(intWSEPri.port_a1, sou1.ports[1])
     annotation (Line(points={{-10,-32},

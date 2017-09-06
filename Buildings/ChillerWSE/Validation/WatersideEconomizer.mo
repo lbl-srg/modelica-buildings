@@ -1,6 +1,7 @@
 within Buildings.ChillerWSE.Validation;
 model WatersideEconomizer
   "Validate model Buildings.ChillerWSE.WatersideEconomizer"
+  extends Modelica.Icons.Example;
 
   extends Buildings.ChillerWSE.Validation.BaseClasses.PartialPlant(
     sou1(nPorts=1),
@@ -33,7 +34,7 @@ model WatersideEconomizer
     annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
 equation
   connect(TSet.y, WSE.TSet)
-    annotation (Line(points={{-69,40},{-48,40},{-20,40},{-20,-38},{-12,-38}},
+    annotation (Line(points={{-71,30},{-48,30},{-20,30},{-20,-38},{-12,-38}},
                                 color={0,0,127}));
   connect(WSE.port_a1, sou1.ports[1])
     annotation (Line(points={{-10,-32},{-22,-32},

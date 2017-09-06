@@ -26,17 +26,17 @@ model CoolingModeControl
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Modelica.Blocks.Sources.Constant TCHWLeaSet(k=273.15 + 10)
     "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 equation
-  connect(TCHWLeaSet.y, cooModCon.TCHWSupSet) annotation (Line(points={{-39,90},
-          {-26,90},{-26,8},{-12,8}}, color={0,0,127}));
+  connect(TCHWLeaSet.y, cooModCon.TCHWSupSet) annotation (Line(points={{-39,80},
+          {-22,80},{-22,8},{-12,8}}, color={0,0,127}));
   connect(TWetBub.y, cooModCon.TWetBul)
     annotation (Line(points={{-39,50},{-26,50},
           {-26,4},{-12,4}}, color={0,0,127}));
-  connect(TAppTow.y, cooModCon.TApp) annotation (Line(points={{-39,10},{-26,10},
-          {-26,0},{-12,0}}, color={0,0,127}));
+  connect(TAppTow.y, cooModCon.TApp) annotation (Line(points={{-39,10},{-28,10},
+          {-28,0},{-12,0}}, color={0,0,127}));
   connect(TCHWLeaWSE.y, cooModCon.TCHWSupWSE) annotation (Line(points={{-39,-30},
-          {-26,-30},{-26,-4},{-12,-4}}, color={0,0,127}));
+          {-28,-30},{-28,-4},{-12,-4}}, color={0,0,127}));
   connect(TCHWEntWSE.y, cooModCon.TCHWRetWSE) annotation (Line(points={{-39,-70},
           {-26,-70},{-26,-8},{-12,-8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
@@ -46,7 +46,7 @@ equation
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>
-This model tests the cooling mode controller implemented in 
+This model tests the cooling mode controller implemented in
 <a href=\"modelica://Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControl\">
 Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControl</a>.
 </p>
@@ -60,6 +60,6 @@ First implementation.
 </html>"),
 experiment(
       StartTime=0,
-      StopTime=1440,
+      StopTime=600,
       Tolerance=1e-06));
 end CoolingModeControl;
