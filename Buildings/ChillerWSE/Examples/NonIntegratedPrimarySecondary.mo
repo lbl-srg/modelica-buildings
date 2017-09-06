@@ -51,7 +51,7 @@ model NonIntegratedPrimarySecondary
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={72,-52})));
+        origin={72,-40})));
   Buildings.ChillerWSE.FlowMachine_m priPum(
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
@@ -239,17 +239,16 @@ equation
     annotation (Line(points={{-59,-88},{-40,-88},{
           -40,-66},{60,-66},{60,-121},{153,-121}}, color={0,0,127}));
   connect(secPum.port_b, ahu.port_a1)
-    annotation (Line(points={{72,-62},{72,-62},
-          {72,-114},{154,-114}}, color={0,127,255},
+    annotation (Line(points={{72,-50},{72,-50},{72,-114},{154,-114}},
+                                 color={0,127,255},
       thickness=0.5));
   connect(TCHWSup.port_b, secPum.port_a)
     annotation (Line(
-      points={{84,0},{72,0},{72,-42}},
+      points={{84,0},{72,0},{72,-30}},
       color={0,127,255},
       thickness=0.5));
   connect(pumSpeSig.y, secPum.u)
-    annotation (Line(points={{12.8,-14},{34,-14},{
-          68,-14},{68,-40}},
+    annotation (Line(points={{12.8,-14},{34,-14},{68,-14},{68,-28}},
           color={0,0,127}));
   connect(chiNumOn.y,priPumCon.numOnChi)
     annotation (Line(points={{-161,74},{-102,

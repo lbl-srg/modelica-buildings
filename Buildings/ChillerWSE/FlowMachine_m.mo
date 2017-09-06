@@ -4,8 +4,7 @@ model FlowMachine_m "Identical m_flow controlled pumps"
     redeclare Buildings.Fluid.Movers.FlowControlled_m_flow pum(
       each final m_flow_nominal = m_flow_nominal,
       final m_flow_start=yPump_start),
-    rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default),
-    threshold = 1E-04*m_flow_nominal);
+    rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
 
 equation
   connect(u, pum.m_flow_in)

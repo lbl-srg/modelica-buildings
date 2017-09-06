@@ -95,16 +95,17 @@ model IntegratedPrimaryLoadSide
 
 equation
   connect(val5.port_b, pum.port_a)
-    annotation (Line(points={{40,-20},{14,-20},{14,
-          -40},{10,-40}}, color={0,127,255}));
+    annotation (Line(points={{40,-20},{20,-20},{20,-40},{10,-40}},
+                          color={0,127,255}));
   connect(pum.port_b,val6.port_a)
-    annotation (Line(points={{-10,-40},{-16,-40},
-          {-16,-20},{-40,-20}}, color={0,127,255}));
+    annotation (Line(points={{-10,-40},{-20,-40},{-20,-20},{-40,-20}},
+                                color={0,127,255}));
   connect(yPum, pum.u)
     annotation (Line(points={{-120,-40},{-30,-40},{-30,-28},{
           18,-28},{18,-36},{12,-36}}, color={0,0,127}));
-  connect(pum.P, powPum) annotation (Line(points={{-11,-36},{-6,-36},{-6,52},{
-          90,52},{90,-40},{110,-40}}, color={0,0,127}));
+  connect(pum.P, powPum) annotation (Line(points={{-11,-36},{-14,-36},{-14,-66},
+          {86,-66},{86,-40},{110,-40}},
+                                      color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

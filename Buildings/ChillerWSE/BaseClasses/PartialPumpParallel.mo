@@ -33,7 +33,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   parameter Real l=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Shutoff valve"));
   parameter Real kFixed=m_flow_nominal/sqrt(dpValve_nominal)
-    "Flow coefficient of fixed resistance that may be in series with valve, 
+    "Flow coefficient of fixed resistance that may be in series with valve,
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Shutoff valve"));
   parameter Modelica.SIunits.Time riseTimeValve=30
@@ -78,8 +78,8 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   parameter Boolean linearizeFlowResistance = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Flow resistance"));
-  parameter Real threshold(min = 1e-6) = 1e-6
-    "Output signal y is true, if input u >= threshold";
+  parameter Real threshold(min = 0.01) = 0.05
+    "Hysteresis threshold";
   Modelica.Blocks.Interfaces.RealInput u[num]
     "Continuous input signal for the flow machine"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
@@ -139,12 +139,13 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     "Shutoff valves"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Buildings.ChillerWSE.BaseClasses.Sign uVal[num](
-    each final u1=1,
-    each final u2=0,
-    each final threshold=threshold)
-    "Signal for shutoff valves"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+  Controls.OBC.CDL.Continuous.Hysteresis hys[num](
+    each final uLow=threshold,
+    each final uHigh=2*threshold) "Hysteresis for shut-off valve"
+    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+  Controls.OBC.CDL.Conversions.BooleanToReal booToRea[num]
+    "Boolean to real conversion for shut-off valve"
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
 equation
   connect(pum.port_b, val.port_a)
     annotation (Line(points={{10,0},{25,0},{40,0}}, color={0,127,255}));
@@ -157,36 +158,88 @@ equation
   connect(pum.P, P)
     annotation (Line(points={{11,9},{20,9},{20,40},{110,40}},
       color={0,0,127}));
-  connect(u, uVal.u) annotation (Line(points={{-120,40},{-80,40},{-80,60},{-62,60}},
+  connect(booToRea.y, val.y)
+    annotation (Line(points={{41,60},{50,60},{50,12}}, color={0,0,127}));
+  connect(hys.y, booToRea.u)
+    annotation (Line(points={{1,60},{18,60}}, color={255,0,255}));
+  connect(hys.u, u) annotation (Line(points={{-22,60},{-62,60},{-62,40},{-120,40}},
         color={0,0,127}));
-  connect(uVal.y, val.y)
-    annotation (Line(points={{-39,60},{50,60},{50,12}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
-          extent={{-100,16},{100,-14}},
+          extent={{-60,60},{60,40}},
+          lineColor={0,0,0},
+          fillColor={0,127,255},
+          fillPattern=FillPattern.HorizontalCylinder),
+        Rectangle(
+          extent={{-60,-40},{60,-60}},
+          lineColor={0,0,0},
+          fillColor={0,127,255},
+          fillPattern=FillPattern.HorizontalCylinder),
+        Rectangle(
+          extent={{-100,10},{-64,-10}},
           lineColor={0,0,0},
           fillColor={0,127,255},
           fillPattern=FillPattern.HorizontalCylinder),
         Ellipse(
-          extent={{-58,52},{58,-58}},
+          extent={{-30,80},{32,20}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           fillColor={0,100,199}),
         Polygon(
-          points={{0,50},{0,-58},{58,-2},{0,50}},
+          points={{0,80},{0,20},{32,52},{0,80}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={255,255,255}),
         Ellipse(
-          extent={{0,12},{30,-18}},
+          extent={{4,58},{20,42}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           visible=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
-          fillColor={0,100,199})}),                              Diagram(
+          fillColor={0,100,199}),
+        Ellipse(
+          extent={{-30,-20},{32,-80}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,100,199}),
+        Polygon(
+          points={{0,-20},{0,-80},{32,-48},{0,-20}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255}),
+        Ellipse(
+          extent={{4,-42},{20,-58}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          visible=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
+          fillColor={0,100,199}),
+        Rectangle(
+          extent={{64,10},{100,-10}},
+          lineColor={0,0,0},
+          fillColor={0,127,255},
+          fillPattern=FillPattern.HorizontalCylinder),
+        Rectangle(
+          extent={{-60,10},{60,-10}},
+          lineColor={0,0,0},
+          fillColor={0,127,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          origin={60,0},
+          rotation=90),
+        Rectangle(
+          extent={{-60,10},{60,-10}},
+          lineColor={0,0,0},
+          fillColor={0,127,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          origin={-60,0},
+          rotation=90)}),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 2, 2017, by Michael Wetter:<br/>
+Removed sign with hysteresis to avoid chattering.
+</li>
 <li>
 June 30, 2017, by Yangyang Fu:<br/>
 First implementation.
