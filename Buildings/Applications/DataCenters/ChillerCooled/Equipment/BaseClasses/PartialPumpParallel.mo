@@ -143,11 +143,11 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     "Shutoff valves"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Controls.OBC.CDL.Continuous.Hysteresis hys[num](
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[num](
     each final uLow=threshold,
     each final uHigh=2*threshold) "Hysteresis for shut-off valve"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToRea[num]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[num]
     "Boolean to real conversion for shut-off valve"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 equation
