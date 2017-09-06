@@ -1,11 +1,11 @@
-simulateModel("Buildings.Applications.DataCenters.DXCooled.Controls.Validation.CoolingMode", startTime=8.928e+06, stopTime=9e+06, tolerance=1e-06, method="dassl", resultFile="CoolingMode");
+simulateModel("Buildings.Applications.DataCenters.DXCooled.Controls.Validation.CoolingMode", startTime=8.928e+06, stopTime=9e+06, tolerance=1e-06, method="dassl", resultFile="DXCooledCoolingMode");
 
 createPlot(id=5,
  position={0, 0, 1549, 756},
  y={"cooModCon.TSupSet", "cooModCon.TRet", "cooModCon.TOutDryBul", "cooModCon.TOutDewPoi"},
  range={8928000.0, 9000000.0, 280.0, 300.0},
  erase=false, grid=true,
- filename="CoolingMode.mat",
+ filename="DXCooledCoolingMode.mat",
  colors={{238,46,47}, {28,108,200}, {0,140,72}, {217,67,180}});
 createPlot(id=5,
  position={0, 0, 1549, 376},
@@ -15,4 +15,3 @@ createPlot(id=5,
  grid=true,
  subPlot=2,
  colors={{28,108,200}});
-
