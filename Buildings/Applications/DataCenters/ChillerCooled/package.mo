@@ -1,8 +1,9 @@
 within Buildings.Applications.DataCenters;
-package ChillerCooled "This package contains different configurations of chiller and WSE cooling system"
+package ChillerCooled "Package for data centers that use chilled water plants and air-based equipment cooling"
   extends Modelica.Icons.VariantsPackage;
 
   annotation (Documentation(info="<html>
-This package contains pre-configured component models for chilled water cooling system with waterside economizer.
+This package contains models for chilled water cooling system with waterside economizer
+for data centers.
 </html>"));
 end ChillerCooled;
