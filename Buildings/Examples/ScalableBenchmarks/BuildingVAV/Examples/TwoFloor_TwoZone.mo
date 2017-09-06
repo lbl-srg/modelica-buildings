@@ -11,9 +11,9 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-120},{140,200}})),
   Documentation(info="<html>
 <p>
-The model demonstrates the scalability of model 
-<a href=\"modelica://Buildings.Examples.ScalableBenchmarks.Examples.OneFloor_OneZone\">
-Buildings.Examples.ScalableBenchmarks.Examples.OneFloor_OneZone</a> 
+The model demonstrates the scalability of model
+<a href=\"modelica://Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone\">
+Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone</a>
 by setting it to be a multizone model with 2 zones in 2 floor, i.e.
 <code>nFlo=2, nZon=2</code>.
 </p></html>", revisions="<html>

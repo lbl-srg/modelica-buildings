@@ -298,8 +298,8 @@ Therefore, the governing equation is
 <p>
 The constitutive
 relation between specific internal energy <i>u</i> and temperature <i>T</i> is defined in
-<a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.enthalpyTemperature\">
-Buildings.HeatTransfer.Conduction.BaseClasses.enthalyTemperature</a> by using
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.temperature_u\">
+Buildings.HeatTransfer.Conduction.BaseClasses.temperature_u</a> by using
 cubic hermite spline interpolation with linear extrapolation.
 </p>
 <h5>Steady-state heat conduction</h5>

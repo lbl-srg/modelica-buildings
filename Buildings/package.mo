@@ -193,7 +193,8 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.Fluid.MassExchangers</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Fluid.MassExchangers.Humidifier_X
+   <tr><td valign=\"top\">Buildings.Fluid.Humidifiers.SprayAirWasher_X<br/>
+                          Buildings.Fluid.Humidifiers.SteamHumidifier_X
        </td>
        <td valign=\"top\">Added component which allows setting the outlet water vapor
                         mass fraction using an input signal, and controlling it ideally
@@ -993,17 +994,17 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        </td>
    </tr>
    <tr><td valign=\"top\">
-                          Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed<br/>
-                          Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed<br/>
-                          Buildings.Fluid.HeatExchangers.DXCoils.MultiStage<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage<br/>
                           Buildings.Fluid.HeatExchangers.DXCoils.Data
        </td>
        <td valign=\"top\">Renamed
-                          <code>Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</code> to<br/>
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed</code> to<br/>
                           <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed</code>,<br/>
-                          <code>Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</code> to<br/>
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed</code> to<br/>
                           <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed</code>,<br/>
-                          <code>Buildings.Fluid.HeatExchangers.DXCoils.MultiStage</code> to<br/>
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage</code> to<br/>
                           <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage</code> and<br/>
                           <code>Buildings.Fluid.HeatExchangers.DXCoils.Data</code> to<br/>
                           <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data</code>.<br/>

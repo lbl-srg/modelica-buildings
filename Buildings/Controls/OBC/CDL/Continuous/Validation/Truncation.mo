@@ -20,7 +20,7 @@ experiment(StopTime=1.0, Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Trunction\">
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Truncation\">
 Buildings.Controls.OBC.CDL.Continuous.Truncation</a>.
 </p>
 <p>
