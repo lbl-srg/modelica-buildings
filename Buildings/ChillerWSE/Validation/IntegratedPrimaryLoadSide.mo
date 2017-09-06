@@ -28,7 +28,8 @@ model IntegratedPrimaryLoadSide
     Ti=80,
     perPum=perPum,
     numChi=numChi,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_controller=false)
     "Integrated waterside economizer on the load side of the primary-only chilled water system"
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 
@@ -59,16 +60,16 @@ equation
     annotation (Line(points={{-67,70},{-67,70},{-20,70},{-20,-30.4},{-11.6,
           -30.4}},                             color={255,0,255}));
   connect(TSet.y, intWSEPri.TSet)
-    annotation (Line(points={{-69,40},{-22,40},{-22,40},{-22,-27.2},{-11.6,
-          -27.2}},        color={0,0,127}));
+    annotation (Line(points={{-69,40},{-22,40},{-22,-27.2},{-11.6,-27.2}},
+                          color={0,0,127}));
   connect(yVal5.y, intWSEPri.yVal5)
     annotation (Line(points={{19,96},{4,96},{-16,96},{-16,-35},
       {-11.6,-35}}, color={0,0,127}));
   connect(yVal6.y, intWSEPri.yVal6)
-    annotation (Line(points={{19,76},{-24,76},{-24,76},{-24,-38.2},{-11.6,-38.2}},
+    annotation (Line(points={{19,76},{-24,76},{-24,-38.2},{-11.6,-38.2}},
                                   color={0,0,127}));
   connect(yPum.y, intWSEPri.yPum[1])
-    annotation (Line(points={{19,50},{-18,50},{-18,50},{-18,-42.4},{-11.6,-42.4}},
+    annotation (Line(points={{19,50},{-18,50},{-18,-42.4},{-11.6,-42.4}},
                       color={0,0,127}));
   connect(intWSEPri.port_a1, sou1.ports[1])
     annotation (Line(points={{-10,-32},

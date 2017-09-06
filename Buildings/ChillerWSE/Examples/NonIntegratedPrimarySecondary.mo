@@ -10,12 +10,18 @@ model NonIntegratedPrimarySecondary
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       use_controller=false),
     ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial, dp1_nominal=
-          60000),
+          60000,
+      use_inputFilterValve=false,
+      QHeaMax_flow=200000),
     pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     dpSet(k=80000),
     pumSpe(k=1),
     roo(QRoo_flow=800000),
-    chiStaCon(dT=0.5, criPoiTem=553.86));
+    chiStaCon(dT=0.5,
+      tWai=0,
+      criPoiTem=553.86),
+    CWPumCon(tWai=0),
+    TAirSup(T_start(displayUnit="K") = 289.15));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumSec(
     each pressure=
@@ -45,7 +51,9 @@ model NonIntegratedPrimarySecondary
     m_flow_nominal=m2_flow_chi_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=1,
-    use_inputFilter=true)
+    use_inputFilter=true,
+    uLow=1E-04,
+    uHigh=2E-04)
     "Secondary pumps"
     annotation (
       Placement(transformation(
@@ -60,7 +68,9 @@ model NonIntegratedPrimarySecondary
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=1,
-    use_inputFilter=true)
+    use_inputFilter=true,
+    uLow=1E-04*m2_flow_chi_nominal,
+    uHigh=2E-04*m2_flow_chi_nominal)
     "Constant speed pumps"
     annotation (Placement(
         transformation(

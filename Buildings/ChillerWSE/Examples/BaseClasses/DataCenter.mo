@@ -124,7 +124,6 @@ First implementation.
     m2_flow_nominal=mAir_flow_nominal,
     dpValve_nominal=6000,
     dp2_nominal=600,
-    QHeaMax_flow=2000,
     mWatMax_flow=0.01,
     UA_nominal=UA_nominal,
     addPowerToMedium=false,
@@ -132,7 +131,8 @@ First implementation.
     perFan(
       pressure(dp=800*{1.2,1.12,1},
          V_flow=mAir_flow_nominal/1.29*{0,0.5,1}),
-         motorCooledByFluid=false))
+         motorCooledByFluid=false),
+    QHeaMax_flow=20000)
     "Air handling unit"
     annotation (Placement(transformation(extent={{154,-130},{174,-110}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWRet(
@@ -222,8 +222,8 @@ equation
                                       color={0,127,255},
       thickness=0.5));
   connect(senRelPre.port_b, ahu.port_b1)
-    annotation (Line(points={{172,-94},{206,-94},{206,-94},{250,-94},{250,-114},
-          {174,-114}},                   color={0,127,255},
+    annotation (Line(points={{172,-94},{206,-94},{250,-94},{250,-114},{174,-114}},
+                                         color={0,127,255},
       thickness=0.5));
   connect(TAirSup.port_a, ahu.port_b2)
     annotation (Line(

@@ -62,6 +62,13 @@ model IntegratedPrimarySecondary
   parameter Real yVal5_start = 0
     "Initial value of output from valve 5:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+  parameter Real uLowPum=1E-04 "if y=true and u<=uLow, switch to y=false"
+    annotation(Dialog(group="Pump"));
+  parameter Real uHighPum=2*uLowPum "if y=false and u>=uHigh, switch to y=true"
+    annotation(Dialog(group="Pump"));
+  parameter Boolean pre_y_start[numPum]=fill(false, numPum)
+    "Value of pre(y) at initial time for the shutoff valves in the pumps"
+    annotation (Dialog(group="Pump"));
 
   Modelica.Blocks.Interfaces.RealInput m_flow_in[numPum](
     final quantity="MassFlowRate",
@@ -138,7 +145,10 @@ model IntegratedPrimarySecondary
     final linearizeFlowResistance=linearizeFlowResistance2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final riseTimePump=riseTimePump,
-    final yPump_start=yPum_start)
+    final yPump_start=yPum_start,
+    final uLow=uLowPum,
+    final uHigh=uHighPum,
+    final pre_y_start=pre_y_start)
     "Constant speed pumps"
     annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
   Buildings.Fluid.Sensors.MassFlowRate bypFlo(redeclare package Medium = Medium2)

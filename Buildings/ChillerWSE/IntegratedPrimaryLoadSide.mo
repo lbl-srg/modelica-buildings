@@ -46,6 +46,14 @@ model IntegratedPrimaryLoadSide
     "Flow coefficient of fixed resistance that may be in series with valve, 
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Pump"));
+  parameter Real uLowPum=1E-04 "if y=true and u<=uLow, switch to y=false"
+    annotation(Dialog(group="Pump"));
+  parameter Real uHighPum=2*uLowPum "if y=false and u>=uHigh, switch to y=true"
+    annotation(Dialog(group="Pump"));
+  parameter Boolean pre_y_start[numPum]=fill(false, numPum)
+    "Value of pre(y) at initial time for the shutoff valves in the pumps"
+    annotation (Dialog(group="Pump"));
+
   Modelica.Blocks.Interfaces.RealInput yPum[numPum](
     final unit = "1",
     each min=0,
@@ -89,7 +97,10 @@ model IntegratedPrimaryLoadSide
     final yPump_start=yPum_start,
     final from_dp=from_dp2,
     final homotopyInitialization=homotopyInitialization,
-    final linearizeFlowResistance=linearizeFlowResistance2)
+    final linearizeFlowResistance=linearizeFlowResistance2,
+    final uLow=uLowPum,
+    final uHigh=uHighPum,
+    final pre_y_start=pre_y_start)
     "Identical pumps"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
 

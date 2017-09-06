@@ -1,7 +1,10 @@
 within Buildings.ChillerWSE.Examples.BaseClasses;
 partial model DataCenterControl
   "Example that implements a chilled water cooling system with controls for a data center room"
-  extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenter;
+  extends Buildings.ChillerWSE.Examples.BaseClasses.DataCenter(ahu(yValLow=
+          yValMin_AHU + 0.05, yValHig=yValMin_AHU + 0.1));
+
+ parameter Real yValMin_AHU=0.2 "Minimum waterside valve position in the AHU";
 
   Modelica.Blocks.Sources.Constant TCHWSupSet(k(
     final unit="K",
@@ -38,8 +41,7 @@ partial model DataCenterControl
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingTowerSpeedControl
     cooTowSpeCon(controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=40,
-    k=5,
-    yMin=0.05)
+    k=5)
     "Cooling tower speed control"
     annotation (Placement(transformation(extent={{-50,170},{-30,186}})));
   Modelica.Blocks.Sources.RealExpression TCWSupSet(
@@ -88,8 +90,8 @@ partial model DataCenterControl
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
     Ti=40,
-    yMin=0.2,
-    reverseAction=true)
+    reverseAction=true,
+    yMin=yValMin_AHU)
     "Valve position signal for the AHU"
     annotation (Placement(transformation(extent={{-12,-98},{8,-78}})));
   Modelica.Blocks.Math.Product cooTowSpe[numChi]

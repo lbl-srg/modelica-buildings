@@ -61,7 +61,7 @@ equation
     annotation (Line(points={{-69,40},{-48,40},{-20,40},{-20,-27.2},{-11.6,
           -27.2}},                             color={0,0,127}));
   connect(yVal5.y, intWSEPriSec.yVal5)
-    annotation (Line(points={{19,80},{-18,80},{-18,80},{-18,-35},{-11.6,-35}},
+    annotation (Line(points={{19,80},{-18,80},{-18,-35},{-11.6,-35}},
                                            color={0,0,127}));
   connect(intWSEPriSec.port_a1, sou1.ports[1])
     annotation (Line(points={{-10,-32},
