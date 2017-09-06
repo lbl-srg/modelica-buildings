@@ -52,10 +52,12 @@ block HeatingAndCoolingCoilValves "Generates heating and cooling control signals
   CDL.Logical.Not notIntWin
     "Logical not that prevents disable in case integral windup minimization in implemented"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  CDL.Logical.GreaterEqualThreshold heaConIdle(threshold=disDel)
+  CDL.Continuous.GreaterEqualThreshold
+                                    heaConIdle(threshold=disDel)
     "Determine whether the provided time delay for heating loop disable has expired"
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
-  CDL.Logical.GreaterEqualThreshold cooConIdle(threshold=disDel)
+  CDL.Continuous.GreaterEqualThreshold
+                                    cooConIdle(threshold=disDel)
     "Determine whether the provided time delay for cooling loop disable has expired"
     annotation (Placement(transformation(extent={{30,-140},{50,-120}})));
 
@@ -101,14 +103,18 @@ protected
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   CDL.Logical.And3 andDisCoo "Logical and that disables cooling loop"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
-  CDL.Logical.Greater disHea "Determine whether the room temperature is above the heating setpoint"
+  CDL.Continuous.Greater
+                      disHea "Determine whether the room temperature is above the heating setpoint"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  CDL.Logical.Less disCoo "Determine whether the room temperature is below the cooling setpoint"
+  CDL.Continuous.Less
+                   disCoo "Determine whether the room temperature is below the cooling setpoint"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
-  CDL.Logical.GreaterThreshold greThrHea(threshold=conSigMin + CDL.Constants.eps)
+  CDL.Continuous.GreaterThreshold
+                               greThrHea(threshold=conSigMin + CDL.Constants.eps)
     "Determine whether heating signal is active"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  CDL.Logical.GreaterThreshold greThrCoo(threshold=conSigMin + CDL.Constants.eps)
+  CDL.Continuous.GreaterThreshold
+                               greThrCoo(threshold=conSigMin + CDL.Constants.eps)
     "Determine whether cooling signal is active"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
   CDL.Logical.Not notHea "Logical not block"
