@@ -86,6 +86,7 @@ block SupplyAirTempSet_MultiZone
 
 protected
   CDL.Continuous.Line lin
+  "Supply temperature distributes linearly between TSupMin and TSupMax, according to Tout"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   CDL.Continuous.Sources.Constant minOutTem(k=TOutMin)
     "Lower value of the outdoor air temperature reset range"
@@ -104,8 +105,10 @@ protected
     "Supply temperature setpoint under warm-up and setback mode"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
   CDL.Logical.Switch swi1
+    "If operation mode is setup or cool-down, setpoint shall be 35 degC"
     annotation (Placement(transformation(extent={{100,-40},{120,-60}})));
   CDL.Logical.Switch swi2
+    "If operation mode is setup or cool-down, setpoint shall be TSupMin"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   CDL.Continuous.Limiter TDea(
     uMax=24 + 273.15,

@@ -4,19 +4,20 @@ model SupplyAirTempSet_MultiZone
 
   Buildings.Controls.OBC.ASHRAE.G36.Atomic.SupplyAirTempSet_MultiZone
     supplyAirTempSet_MultiZone
+    "Supply air temperature setpoint for multizone system"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setZonTem(
-    k=22.5 + 273.15)
+    k=22.5 + 273.15) "Average of heating and cooling setpoint"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp maxSupTem(
     height=4,
     duration=86400,
-    offset=14 + 273.15)
+    offset=14 + 273.15) "Maximum cooling supply temperature "
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Sources.Sine outTem(
     amplitude=5,
     freqHz=1/86400,
-    offset=18 + 273.15)
+    offset=18 + 273.15) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse supFanSta(
     period=28800) "Supply fan status"
@@ -27,6 +28,7 @@ model SupplyAirTempSet_MultiZone
     height=1) "Operation mode"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Truncation tru
+    "Discards the fractional portion of input and outputs its integer value"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 equation
   connect(opeMod.y, tru.u)
