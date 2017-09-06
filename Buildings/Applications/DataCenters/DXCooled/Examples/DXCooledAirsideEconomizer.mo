@@ -164,7 +164,7 @@ model DXCooledAirsideEconomizer
     Ti=60,
     minOAFra=0.15,
     gai=1) "Economzier controller"
-    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+    annotation (Placement(transformation(extent={{-40,66},{-20,86}})));
   Modelica.Blocks.Sources.RealExpression freCoo(y=if cooModCon.y == Integer(
         Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
          then 1 else 0) "Set true if free cooling mode is on"
@@ -212,11 +212,11 @@ equation
     annotation (Line(points={{-10,12},{-10,12},{-10,-60},{0,-60}},
                                            color={0,127,255}));
   connect(SATSetPoi.y, ecoCon.TMixAirSet) annotation (Line(points={{-139,100},{
-          -108,100},{-54,100},{-54,86},{-42,86}}, color={0,0,127}));
+          -108,100},{-54,100},{-54,82},{-42,82}}, color={0,0,127}));
   connect(senTemMixAir.T, ecoCon.TMixAirMea) annotation (Line(points={{-20,23},
-          {-20,54},{-54,54},{-54,80},{-42,80}}, color={0,0,127}));
+          {-20,54},{-54,54},{-54,76},{-42,76}}, color={0,0,127}));
   connect(ecoCon.y, eco.y)
-    annotation (Line(points={{-19,80},{-12,80},{-12,58},{-12,38},{-70,38},{-70,
+    annotation (Line(points={{-19,76},{-12,76},{-12,58},{-12,38},{-70,38},{-70,
           18}},                                           color={0,0,127}));
   connect(SATSetPoi.y, dxSpe.u_s)
     annotation (Line(points={{-139,100},{28,100},{28,-20},{38,-20}},
@@ -272,7 +272,7 @@ equation
   connect(const.y, feedback1.u1)
     annotation (Line(points={{21,130},{42,130}}, color={0,0,127}));
   connect(cooModCon.y, ecoCon.cooMod) annotation (Line(points={{-69,70},{-62,70},
-          {-62,74},{-42,74}}, color={255,127,0}));
+          {-42,70}},          color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
             Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,

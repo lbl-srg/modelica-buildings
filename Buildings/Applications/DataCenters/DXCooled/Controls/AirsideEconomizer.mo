@@ -37,19 +37,19 @@ model AirsideEconomizer "OA damper controller"
     Ti=Ti) "PID controller"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 protected
-  Controls.OBC.CDL.Continuous.Sources.Constant const(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(final k=0)
     "Constant output signal with value 1"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
-  Controls.OBC.CDL.Integers.Sources.Constant conInt(
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=Integer(Types.CoolingModes.FullMechanical))
     "Outputs signal for full mechanical cooling"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
-  Controls.OBC.CDL.Integers.Equal ecoOff
+  Buildings.Controls.OBC.CDL.Integers.Equal ecoOff
     "Determine if airside economizer is off"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Controls.OBC.CDL.Logical.Switch switch1 "Switch to select control output"
+  Buildings.Controls.OBC.CDL.Logical.Switch switch1 "Switch to select control output"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation
