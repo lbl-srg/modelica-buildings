@@ -1,6 +1,6 @@
 within Buildings.Applications.DataCenters;
 package DXCooled "Collection of models for DX cooled data centers"
-  extends Modelica.Icons.Package;
+  extends Modelica.Icons.VariantsPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>

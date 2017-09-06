@@ -46,7 +46,7 @@ partial model PartialChillerWSE
     annotation(Dialog(group="Shutoff valve"));
   parameter Real[2] kFixedValWSE(each unit="", each min=0)=
     {m1_flow_wse_nominal/ sqrt(dp1_wse_nominal),0}
-    "Flow coefficient of fixed resistance that may be in series with valves 
+    "Flow coefficient of fixed resistance that may be in series with valves
     in WSE, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Shutoff valve"));
   parameter Real yValWSE_start=0
@@ -125,7 +125,7 @@ partial model PartialChillerWSE
 
   // Temperature sensor
   parameter Modelica.SIunits.Time tauSenT=1
-    "Time constant at nominal flow rate (use tau=0 for steady-state sensor, 
+    "Time constant at nominal flow rate (use tau=0 for steady-state sensor,
     but see user guide for potential problems)"
    annotation(Dialog(tab="Dynamics", group="Temperature Sensor",
      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
@@ -467,7 +467,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-Partial model that can be extended to different configurations 
+Partial model that can be extended to different configurations
 inclduing chillers and integrated/non-integrated water-side economizers.
 </p>
 </html>",

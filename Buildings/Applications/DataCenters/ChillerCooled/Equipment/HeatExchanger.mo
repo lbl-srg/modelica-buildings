@@ -64,13 +64,13 @@ equation
     __Dymola_Commands,
     Documentation(info="<html>
 <p>
-This module impliments a heat exchanger model with a built-in PID controller to 
-control the outlet temperature at <code>port_b2</code> if set parameter 
-<code>use_controller=true </code>. Otherwise, if set <code>use_controller=false</code>, 
+This module impliments a heat exchanger model with a built-in PID controller to
+control the outlet temperature at <code>port_b2</code> if set parameter
+<code>use_controller=true </code>. Otherwise, if set <code>use_controller=false</code>,
 the PID controller and the three-way valve are removed and the outlet temperature at <code>port_b2</code> will
-not be controlled.  
+not be controlled.
 </p>
-<p>  
+<p>
 Note that if the three-way valve is activated, it'll have the same differential pressure as the heat exchanger.
 </p>
 </html>", revisions="<html>

@@ -68,7 +68,7 @@ model PartialIntegratedPrimary
     final kFixed=0,
     final rhoStd=rhoStd[5],
     final y_start=yVal5_start)
-    "Shutoff valve: closed when fully mechanic cooling is activated; 
+    "Shutoff valve: closed when fully mechanic cooling is activated;
     open when fully mechanic cooling is activated"
     annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val6(
@@ -90,7 +90,7 @@ model PartialIntegratedPrimary
     final kFixed=0,
     final rhoStd=rhoStd[6],
     final y_start=yVal6_start)
-    "Shutoff valve: closed when free cooling mode is deactivated; 
+    "Shutoff valve: closed when free cooling mode is deactivated;
     open when free cooling is activated"
     annotation (Placement(transformation(extent={{-40,-30},{-60,-10}})));
 

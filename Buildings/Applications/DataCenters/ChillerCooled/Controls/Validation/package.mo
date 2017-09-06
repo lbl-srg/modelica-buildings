@@ -1,4 +1,3 @@
-
 within Buildings.Applications.DataCenters.ChillerCooled.Controls;
 package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;

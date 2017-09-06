@@ -8,7 +8,8 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1,
     redeclare package Medium=Medium2);
-  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters;
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters;
 
   parameter Modelica.SIunits.Efficiency eta(min=0,max=1,start=0.8)
     "constant effectiveness";

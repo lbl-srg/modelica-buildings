@@ -13,9 +13,11 @@ model WatersideEconomizer "Waterside economizer"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1,
     redeclare package Medium=Medium2);
-  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters(
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters(
     final activate_ThrWayVal=use_controller);
-  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialControllerInterface;
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialControllerInterface;
 
   // Filter opening
   parameter Real yThrWayVal_start=1

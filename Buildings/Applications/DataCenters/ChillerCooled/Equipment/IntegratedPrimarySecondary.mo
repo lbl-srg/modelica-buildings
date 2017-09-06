@@ -49,7 +49,7 @@ model IntegratedPrimarySecondary
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Pump"));
   parameter Real kFixedValPum=pum.m_flow_nominal/sqrt(pum.dpValve_nominal)
-    "Flow coefficient of fixed resistance that may be in series with valve, 
+    "Flow coefficient of fixed resistance that may be in series with valve,
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Pump"));
   parameter Modelica.SIunits.PressureDifference dpValPum_nominal = 6000
@@ -215,34 +215,34 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This model implements an integrated water-side economizer (WSE) 
-on the load side of the primary-secondary chilled water system, as shown in the following figure. 
-In the configuration, users can model multiple chillers with only one integrated WSE. 
+This model implements an integrated water-side economizer (WSE)
+on the load side of the primary-secondary chilled water system, as shown in the following figure.
+In the configuration, users can model multiple chillers with only one integrated WSE.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Equipment/IntegratedPrimarySecondary.png\"/> 
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Equipment/IntegratedPrimarySecondary.png\"/>
 </p>
 <h4>Implementation</h4>
-<p>The WSE located on the load side can see the warmest return chilled water, 
-and hence can maximize the hours when the WSE can operate. 
+<p>The WSE located on the load side can see the warmest return chilled water,
+and hence can maximize the hours when the WSE can operate.
 Also it allows the primary pumps to be shut off when the WSE can handle the entire load.
-This system have three operation modes: 
-free cooling (FC) mode, partial mechanical cooling (PMC) mode and fully mechanical cooling (FMC) mode. 
+This system have three operation modes:
+free cooling (FC) mode, partial mechanical cooling (PMC) mode and fully mechanical cooling (FMC) mode.
 </p>
-<p>There are 5 valves for on/off use only, which can be controlled 
-in order to switch among FC, PMC and FMC mode. 
+<p>There are 5 valves for on/off use only, which can be controlled
+in order to switch among FC, PMC and FMC mode.
 </p>
 <ul>
-<li>V1 and V2 are associated with the chiller. 
-When the chiller is commanded to run, V1 and V2 will be open, and vice versa. 
-Note that when the number of chillers are larger than 1, 
+<li>V1 and V2 are associated with the chiller.
+When the chiller is commanded to run, V1 and V2 will be open, and vice versa.
+Note that when the number of chillers are larger than 1,
 V1 and V2 are vectored models with the same dimension as the chillers.
 </li>
-<li>V2 and V3 are associated with the WSE. 
-When the WSE is commanded to run, V3 and V4 will be open, and vice versa. 
+<li>V2 and V3 are associated with the WSE.
+When the WSE is commanded to run, V3 and V4 will be open, and vice versa.
 </li>
-<li>V5 is for FMC only. When FMC is on, V5 is commanded to on. 
-Otherwise, V5 is off. 
+<li>V5 is for FMC only. When FMC is on, V5 is commanded to on.
+Otherwise, V5 is off.
 </li>
 </ul>
 <p>The details about how to switch among different cooling modes are shown as: </p>
@@ -263,7 +263,7 @@ Otherwise, V5 is off.
 </ul>
 <h4>Reference</h4>
 <ul>
- <li>Stein, Jeff. 2009. Waterside Economizing in Data Centers: 
+ <li>Stein, Jeff. 2009. Waterside Economizing in Data Centers:
  Design and Control Considerations.<i>ASHRAE Transactions</i>, 115(2).
  </li>
 </ul>

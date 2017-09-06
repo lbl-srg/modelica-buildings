@@ -72,7 +72,8 @@ equation
     annotation (Line(points={{147,
           36},{260,36},{260,200},{-150,200},{-150,106},{-132,106}}, color={0,0,127}));
   connect(cooLoaChi.y, chiStaCon.QTot)
-    annotation (Line(points={{-109,144},{-52,144}}, color={0,0,127}));
+    annotation (Line(points={{-109,144},{-80,144},{-80,140},{-52,140}},
+                                                    color={0,0,127}));
   connect(chiWSE.port_b2, TCHWSup.port_a)
     annotation (Line(
       points={{126,26},{112,26},{112,0},{104,0}},
@@ -147,17 +148,17 @@ equation
     annotation (Line(points={{-109,110},{-109,110},{-70,110},{-70,182.444},{-52,
           182.444}},                                         color={255,127,0}));
   connect(cooModCon.y, chiStaCon.cooMod)
-    annotation (Line(points={{-109,110},{-70,
-          110},{-70,148},{-52,148}}, color={255,127,0}));
+    annotation (Line(points={{-109,110},{-70,110},{-70,146},{-52,146}},
+                                     color={255,127,0}));
   connect(cooModCon.y, reaToBoo.u)
     annotation (Line(points={{-109,110},{-80.5,110},
           {-52,110}}, color={255,127,0}));
   connect(cooModCon.y, CWPumCon.cooMod)
-    annotation (Line(points={{-109,110},{-70,
-          110},{-70,78},{-54,78}},color={255,127,0}));
+    annotation (Line(points={{-109,110},{-70,110},{-70,75},{-54,75}},
+                                  color={255,127,0}));
   connect(TCHWSup.T, chiStaCon.TCHWSup)
-    annotation (Line(points={{94,11},{94,11},
-          {94,36},{40,36},{40,200},{-70,200},{-70,140},{-52,140}}, color={0,0,127}));
+    annotation (Line(points={{94,11},{94,11},{94,36},{40,36},{40,200},{-70,200},
+          {-70,134},{-52,134}},                                    color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
             Diagram(
@@ -168,14 +169,14 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <h4>System Configuration</h4>
-<p>This example demonstrates the implementation of a chiller plant 
-with water-side economizer (WSE) to cool a data center. 
-The system is a primary-only chiller plant with two chillers and 
-an integrated WSE located on the load side. 
+<p>This example demonstrates the implementation of a chiller plant
+with water-side economizer (WSE) to cool a data center.
+The system is a primary-only chiller plant with two chillers and
+an integrated WSE located on the load side.
 The system schematics is as shown below.
 </p>
 <p>
-<img alt=\"image\" 
+<img alt=\"image\"
 src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Examples/IntegratedPrimaryLoadSideSystem.png\"/>
 </p>
 <h4>Control Logic</h4>
@@ -183,12 +184,12 @@ src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCool
 </p>
 <h5>Cooling Mode Control</h5>
 <p>
-The chilled water system with integrated waterside economizer can run in three modes: 
-free cooling (FC) mode, partially mechanical cooling (PMC) mode and fully mechanical cooling (FMC) mode. 
-The detailed control logics about how to switch among these three cooling modes are described in 
+The chilled water system with integrated waterside economizer can run in three modes:
+free cooling (FC) mode, partially mechanical cooling (PMC) mode and fully mechanical cooling (FMC) mode.
+The detailed control logics about how to switch among these three cooling modes are described in
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingMode\">
 Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingMode</a>. Details on how the valves are operated
-under different cooling modes are presented in 
+under different cooling modes are presented in
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimaryLoadSide\">
 Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimaryLoadSide</a>.
 </p>
@@ -201,16 +202,16 @@ The staging sequence of multiple chillers are descibed as below:
 The chillers are all off when cooling mode is FC.
 </li>
 <li>
-One chiller is commanded on when cooling mode is not FC. 
+One chiller is commanded on when cooling mode is not FC.
 </li>
 <li>
 Two chillers are commanded on when cooling mode is not FC and the cooling load served
 by the chillers is larger than
-a critical value. 
+a critical value.
 </li>
 </ul>
 <p>
-The detailed implementation is shown in 
+The detailed implementation is shown in
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.ChillerStage\">
 Buildings.Applications.DataCenters.ChillerCooled.Controls.ChillerStage</a>.
 </p>
@@ -219,10 +220,10 @@ Buildings.Applications.DataCenters.ChillerCooled.Controls.ChillerStage</a>.
 For constant speed pumps, the number of running pumps equals to the number of running chillers.
 </p>
 <p>
-For variable speed pumps, the number of running pumps is controlled by the speed signal and the mass flow rate. 
-Details are shown in 
+For variable speed pumps, the number of running pumps is controlled by the speed signal and the mass flow rate.
+Details are shown in
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage\">
-Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage</a>. The speed is 
+Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage</a>. The speed is
 controlled by maintaining a fixed differential pressure between the outlet and inlet on the waterside
 of the Computer Room Air Handler (CRAH).
 </p>
@@ -232,7 +233,7 @@ The control logic for cooling tower fan speed is described as:
 </p>
 <ul>
 <li>
-When in FMC mode, the cooling tower speed is controlled to maintain 
+When in FMC mode, the cooling tower speed is controlled to maintain
 the condenser water supply temperature (CWST) at its setpoint.
 </li>
 <li>
@@ -244,7 +245,7 @@ When in FC mode, the fan speed is modulated to maintain chilled water supply tem
 </li>
 </ul>
 <p>
-Detailed implementation of cooling tower speed control can be found in 
+Detailed implementation of cooling tower speed control can be found in
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed\">
 Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed</a>.
 </p>

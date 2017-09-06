@@ -54,7 +54,7 @@ equation
   annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/WatersideEconomizer.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
-This example demonstrates that the temperature at port_b2 is controlled by setting 
+This example demonstrates that the temperature at port_b2 is controlled by setting
 <code>use_controller=true</code>.
 </p>
 </html>", revisions="<html>

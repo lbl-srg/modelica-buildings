@@ -139,7 +139,7 @@ equation
   annotation (Documentation(info="<html>
 <p>
 Partial model that implements the parallel electric chillers with associated valves.
-The parallel have <code>num</code> identical chillers. 
+The parallel have <code>num</code> identical chillers.
 </p>
 </html>",
         revisions="<html>

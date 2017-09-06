@@ -68,7 +68,7 @@ equation
           "Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/NonIntegrated.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
-This example demonstrates how the model responses 
+This example demonstrates how the model responses
 according to different cooling mode signals
 (free cooling mode, and fully mechanical cooling).
 </p>

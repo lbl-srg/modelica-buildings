@@ -246,7 +246,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     Documentation(info="<html>
-    <p>This is a partial model that implements a chilled water cooling system 
+    <p>This is a partial model that implements a chilled water cooling system
     with controls for a data center room.
 </p>
 </html>", revisions="<html>

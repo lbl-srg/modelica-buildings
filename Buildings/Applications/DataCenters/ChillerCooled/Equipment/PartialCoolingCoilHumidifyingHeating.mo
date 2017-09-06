@@ -233,7 +233,7 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>May 12, 2017 by Yangyang Fu:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

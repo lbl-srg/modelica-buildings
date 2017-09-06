@@ -43,7 +43,7 @@ model IntegratedPrimaryLoadSide
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Pump"));
   parameter Real kFixedValPum=pum.m_flow_nominal/sqrt(pum.dpValve_nominal)
-    "Flow coefficient of fixed resistance that may be in series with valve, 
+    "Flow coefficient of fixed resistance that may be in series with valve,
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Pump"));
   Modelica.Blocks.Interfaces.RealInput yPum[numPum](
@@ -115,48 +115,48 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This model implements an integrated water-side economizer (WSE) 
-on the load side of the primary-only chilled water system, as shown in the following figure. 
-In the configuration, users can model multiple chillers with only one integrated WSE. 
+This model implements an integrated water-side economizer (WSE)
+on the load side of the primary-only chilled water system, as shown in the following figure.
+In the configuration, users can model multiple chillers with only one integrated WSE.
 </p>
 <p align=\"center\">
-  <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/IntegraredPrimaryLoadSide.png\"/> 
+  <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/IntegraredPrimaryLoadSide.png\"/>
 </p>
 <h4>Implementation</h4>
 <p>
-The WSE located on the load side can see the warmest return chilled water, 
-and hence can maximize the use time of the heat exchanger. 
-This system have three operation modes: 
-free cooling (FC) mode, partial mechanical cooling (PMC) mode and fully mechanical cooling (FMC) mode. 
+The WSE located on the load side can see the warmest return chilled water,
+and hence can maximize the use time of the heat exchanger.
+This system have three operation modes:
+free cooling (FC) mode, partial mechanical cooling (PMC) mode and fully mechanical cooling (FMC) mode.
 </p>
 <p>
-There are 7 valves for on/off use only, 
+There are 7 valves for on/off use only,
 which can be controlled in order to switch among FC, PMC and FMC mode.
 </p>
 <ul>
- <li>V1 and V2 are associated with the chiller. 
- When the chiller is commanded to run, V1 and V2 will be open, and vice versa. 
- Note that when the number of chillers are larger than 1, 
+ <li>V1 and V2 are associated with the chiller.
+ When the chiller is commanded to run, V1 and V2 will be open, and vice versa.
+ Note that when the number of chillers are larger than 1,
  V1 and V2 are vectored models with the same dimension as the chillers.
  </li>
- <li>V3 and V4 are associated with the WSE. 
- When the WSE is commanded to run, V3 and V4 will be open, and vice versa. 
+ <li>V3 and V4 are associated with the WSE.
+ When the WSE is commanded to run, V3 and V4 will be open, and vice versa.
  </li>
- <li>V5 is for FMC only. When FMC is on, V5 is commanded to on. 
- Otherwise, V5 is off. 
+ <li>V5 is for FMC only. When FMC is on, V5 is commanded to on.
+ Otherwise, V5 is off.
  </li>
- <li>V6 is for FC only. When FC is on, V6 is commanded to on. 
- Otherwise, V6 is off. 
+ <li>V6 is for FC only. When FC is on, V6 is commanded to on.
+ Otherwise, V6 is off.
  </li>
- <li>V7 is controlled to track a minimum flowrate through the chiller. 
- If the cooling load is very small (e.g. when the data center start to be occupied), 
- and the flowrate through the chiller is smaller than the minimum requirement, 
- then V7 is open, and the valve position is controlled to meet the minimum flowrate through the chiller. 
- If the cooling load grows, V7 will eventually be fully closed. 
+ <li>V7 is controlled to track a minimum flowrate through the chiller.
+ If the cooling load is very small (e.g. when the data center start to be occupied),
+ and the flowrate through the chiller is smaller than the minimum requirement,
+ then V7 is open, and the valve position is controlled to meet the minimum flowrate through the chiller.
+ If the cooling load grows, V7 will eventually be fully closed.
  </li>
 </ul>
 <p>
-The details about how to switch among different cooling modes are shown as: 
+The details about how to switch among different cooling modes are shown as:
 </p>
 <p style=\"margin-left: 30px;\">
 For Free Cooling (FC) Mode:
@@ -187,7 +187,7 @@ For Fully Mechanical Cooling (FMC) Mode:
 </ul>
 <h4>Reference</h4>
 <ul>
- <li>Stein, Jeff. 2009. Waterside Economizing in Data Centers: 
+ <li>Stein, Jeff. 2009. Waterside Economizing in Data Centers:
  Design and Control Considerations.<i>ASHRAE Transactions</i>, 115(2).
  </li>
 </ul>

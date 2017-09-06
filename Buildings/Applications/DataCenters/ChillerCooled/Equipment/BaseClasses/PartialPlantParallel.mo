@@ -21,8 +21,7 @@ partial model PartialPlantParallel
     annotation(Dialog(group="Shutoff valve"));
   parameter Real kFixed[2](each unit="", each min=0)=
     {m1_flow_nominal,m2_flow_nominal} ./ sqrt({dp1_nominal,  dp2_nominal})
-    "Flow coefficient of fixed resistance that may be in series with valve 1, 
-    k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
+    "Flow coefficient of fixed resistance that may be in series with valve 1, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
    annotation(Dialog(group="Shutoff valve"));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val2[num](
@@ -104,16 +103,16 @@ equation
          Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-Partial model that can be extended to construct parallel chillers such as 
+Partial model that can be extended to construct parallel chillers such as
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel\">
-Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel</a> 
+Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel</a>
 and water-side economizers <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.WatersideEconomizer\">
 Buildings.Applications.DataCenters.ChillerCooled.Equipment.WatersideEconomizer</a>.
 </p>
 <p>
-The associated valve group <code>val1</code> and <code>val2</code> 
-on <code>medium 1</code> and <code>medium 2</code> side are for on/off use only. 
-The number of valves in each group is specified by the parameter <code>n</code>. 
+The associated valve group <code>val1</code> and <code>val2</code>
+on <code>medium 1</code> and <code>medium 2</code> side are for on/off use only.
+The number of valves in each group is specified by the parameter <code>n</code>.
 The valve parameters can be specified differently.
 </p>
 <p>

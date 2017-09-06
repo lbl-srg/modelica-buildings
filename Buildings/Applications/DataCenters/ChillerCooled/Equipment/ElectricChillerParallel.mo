@@ -12,12 +12,12 @@ model ElectricChillerParallel "Multiple identical electric chillers"
          Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This model implements a chiller parallel with <code>num</code> identical chillers. For the chiller model please see 
+This model implements a chiller parallel with <code>num</code> identical chillers. For the chiller model please see
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">Buildings.Fluid.Chillers.ElectricEIR</a>.
 </p>
 <p>
-Note that although the chillers have identical nominal conditions, they can have different 
-performance curves specified in performance data <code>per</code>. 
+Note that although the chillers have identical nominal conditions, they can have different
+performance curves specified in performance data <code>per</code>.
 </p>
 </html>", revisions="<html>
 <ul>
