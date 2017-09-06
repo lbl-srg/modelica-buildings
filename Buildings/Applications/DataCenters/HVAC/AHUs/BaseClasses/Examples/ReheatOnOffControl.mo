@@ -14,13 +14,14 @@ model ReheatOnOffControl "Test model for reheater controller"
     amplitude=0.3,
     offset=0.3,
     freqHz=1/1200)
-                "Signal 1"
+    "Signal 1"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.Sine sig2(
     amplitude=3,
     offset=273.15 + 15,
     freqHz=1/1200,
-    phase=1.0471975511966) "Signal 2"
+    phase=1.0471975511966)
+    "Signal 2"
     annotation (Placement(transformation(extent={{-80,-38},{-60,-18}})));
   Modelica.Blocks.Sources.Constant set1(k=0.2) "Set point for signal 1"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));

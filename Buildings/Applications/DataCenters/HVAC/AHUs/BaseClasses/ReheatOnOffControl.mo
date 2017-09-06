@@ -18,7 +18,10 @@ model ReheatOnOffControl
     unit="1") "Valve position"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
                 iconTransformation(extent={{-140,30},{-100,70}})));
-  Modelica.Blocks.Interfaces.RealInput dT
+  Modelica.Blocks.Interfaces.RealInput dT(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="deg")
     "Temperature difference"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
                iconTransformation(extent={{-140,-70},{-100,-30}})));
@@ -60,10 +63,10 @@ equation
           {28,30},{39,30}}, color={0,0,0}));
   connect(on.outPort[1], onToOff.inPort)
     annotation (Line(points={{60.5,30},{80,30},{80,-20},{4,-20}},
-                                                              color={0,0,0}));
+                color={0,0,0}));
   connect(onToOff.outPort, off.inPort[1])
     annotation (Line(points={{-1.5,-20},{-80,-20},{-80,30},{-61,30}},
-                                 color={0,0,0}));
+               color={0,0,0}));
   connect(on.active, y)
     annotation (Line(points={{50,19},{50,19},{50,0},{110,0}},
         color={255,0,255}));
@@ -76,7 +79,15 @@ equation
           borderPattern=BorderPattern.Raised), Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          lineColor={0,0,255}),
+        Line(
+          points={{-78,-64},{-2,-64},{-2,60}},
+          color={0,0,127},
+          thickness=0.5),
+        Line(
+          points={{-2,60},{78,60}},
+          color={0,0,127},
+          thickness=0.5)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>This model can be used to generate on/off signal for the reheater inside the AHU.</p>
