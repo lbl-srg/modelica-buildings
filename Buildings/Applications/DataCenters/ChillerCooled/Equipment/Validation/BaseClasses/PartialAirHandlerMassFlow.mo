@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.AHUs.Examples.BaseClasses;
+within Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.BaseClasses;
 partial model PartialAirHandlerMassFlow
   "Partial model for testing air handler at variable mass flowrate"
 

@@ -1,6 +1,6 @@
-within Buildings.Applications.DataCenters.AHUs;
+within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
 model CoolingCoilHumidifyingHeating
-  extends Buildings.Applications.DataCenters.AHUs.BaseClasses.PartialCoolingCoilHumidifyingHeating(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.PartialCoolingCoilHumidifyingHeating(
     redeclare Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage watVal(
       final R=R,
       final delta0=delta0),
@@ -102,7 +102,7 @@ model CoolingCoilHumidifyingHeating
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={20,-60})));
-  Buildings.Applications.DataCenters.AHUs.BaseClasses.ElectricHeater eleHea(
+  Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricHeater eleHea(
     redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal2,
     final show_T=show_T,
@@ -125,7 +125,7 @@ model CoolingCoilHumidifyingHeating
         rotation=0,
         origin={-22,-60})));
 
-  Buildings.Applications.DataCenters.AHUs.BaseClasses.ReheatControl heaCon(
+  Buildings.Applications.DataCenters.ChillerCooled.Equipment.ReheatControl heaCon(
     final pre_yVal_start=pre_yVal_start,
     final pre_dT_start=pre_dT_start,
     final yValLow=yValLow,
@@ -243,7 +243,7 @@ equation
     </p>
     <p>
     The water-side valve can be manipulated to control the outlet temperature on air side,
-    as shown in <a href=\"modelica://Buildings.Applications.DataCenters.AHUs.Examples.CoolingCoilHumidifyingHeating_ClosedLoop\">
+    as shown in <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.CoolingCoilHumidifyingHeating_ClosedLoop\">
     Buildings.Applications.DataCenters.AHUs.Example.AirHandlingUnitControl.</a>
     </p>
     <p>It's usually undesired to control the outlet air temperature by simultenanously
@@ -253,8 +253,8 @@ equation
     To avoid that water-valve and reheater control the outlet
     temperature at the same time, a buit-in reheater on/off controller is implemented.
     The detailed control logic about the reheater on/off control is shown in
-    <a href=\"modelica://Buildings.Applications.DataCenters.AHUs.BaseClasses.ReheatControl\">
-    Buildings.Applications.DataCenters.AHUs.BaseClasses.ReheatControl.</a></p>
+    <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ReheatControl\">
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.ReheatControl.</a></p>
     <p>The humidfier is an adiabatic humidifier with a prescribed outlet water vapor mass fraction
     in kg/kg total air.
     Details can be found in <a href=\"modelica://Buildings.Fluid.Humidifiers.SteamHumidifier_X\">

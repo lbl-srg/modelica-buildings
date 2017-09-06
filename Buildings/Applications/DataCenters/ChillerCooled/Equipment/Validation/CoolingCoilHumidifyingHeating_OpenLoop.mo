@@ -1,8 +1,8 @@
-within Buildings.Applications.DataCenters.AHUs.Examples;
+within Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation;
 model CoolingCoilHumidifyingHeating_OpenLoop
   "Model of a air handling unit that tests variable mass flow rates"
   extends Modelica.Icons.Example;
-  extends Buildings.Applications.DataCenters.AHUs.Examples.BaseClasses.PartialAirHandlerMassFlow(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.BaseClasses.PartialAirHandlerMassFlow(
       sou_2(nPorts=1), relHum(k=0.5));
   parameter Modelica.SIunits.ThermalConductance UA_nominal=m2_flow_nominal*1006*(12-26)/
      Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
@@ -12,7 +12,7 @@ model CoolingCoilHumidifyingHeating_OpenLoop
         T_b2_nominal)
     "Thermal conductance at nominal flow for sensible heat, used to compute time constant";
 
-  Buildings.Applications.DataCenters.AHUs.CoolingCoilHumidifyingHeating ahu(
+  Buildings.Applications.DataCenters.ChillerCooled.Equipment.CoolingCoilHumidifyingHeating ahu(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     allowFlowReversal1=true,
@@ -76,13 +76,13 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})),
 experiment(Tolerance=1E-6, StopTime=1000),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/AHUs/Examples/CoolingCoilHumidifyingHeating_OpenLoop.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/CoolingCoilHumidifyingHeating_OpenLoop.mos"
         "Simulate and PLot"),
 Documentation(info="<html>
 <p>
 This model demonstrates the use of
-<a href=\"modelica://Buildings.Applications.DataCenters.AHUs.CoolingCoilHumidifyingHeating\">
-Buildings.Applications.DataCenters.AHUs.CoolingCoilHumidifyingHeating</a>
+<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.CoolingCoilHumidifyingHeating\">
+Buildings.Applications.DataCenters.ChillerCooled.Equipment.CoolingCoilHumidifyingHeating</a>
 for different inlet conditions.
 </p>
 </html>", revisions="<html>

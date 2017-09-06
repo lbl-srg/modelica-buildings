@@ -1,5 +1,5 @@
-within Buildings.Applications.DataCenters.AHUs.BaseClasses;
-partial model EssentialParameter "Essential parameters for air handling unit"
+within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
+partial model AHUParameters "Essential parameters for air handling unit"
 
   parameter Modelica.SIunits.ThermalConductance UA_nominal
     "Thermal conductance at nominal flow for sensible heat, used to compute time constant"
@@ -41,4 +41,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EssentialParameter;
+end AHUParameters;

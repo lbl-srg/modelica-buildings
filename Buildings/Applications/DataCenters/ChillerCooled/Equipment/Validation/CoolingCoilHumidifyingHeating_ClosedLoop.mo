@@ -1,8 +1,8 @@
-within Buildings.Applications.DataCenters.AHUs.Examples;
+within Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation;
 model CoolingCoilHumidifyingHeating_ClosedLoop
   "Model of a air handling unit that tests temperature and humidity control"
   extends Modelica.Icons.Example;
-  extends Buildings.Applications.DataCenters.AHUs.Examples.BaseClasses.PartialAirHandlerControl(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.BaseClasses.PartialAirHandlerControl(
     relHum(k=0.5),
     sou_1(p=500000),
     sou_2(nPorts=1),
@@ -19,7 +19,7 @@ model CoolingCoilHumidifyingHeating_ClosedLoop
         T_b2_nominal)
     "Thermal conductance at nominal flow for sensible heat, used to compute time constant";
 
-  Buildings.Applications.DataCenters.AHUs.CoolingCoilHumidifyingHeating ahu(
+  Buildings.Applications.DataCenters.ChillerCooled.Equipment.CoolingCoilHumidifyingHeating ahu(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     allowFlowReversal1=true,
@@ -84,13 +84,13 @@ equation
             -100},{260,160}})),
 experiment(Tolerance=1E-6, StopTime=1200),
 __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/AHUs/Examples/CoolingCoilHumidifyingHeating_ClosedLoop.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/CoolingCoilHumidifyingHeating_ClosedLoop.mos"
         "Simulate and PLot"),
 Documentation(info="<html>
 <p>
 This model demonstrates the use of
-<a href=\"modelica://Buildings.Applications.DataCenters.AHUs.CoolingCoilHumidifyingHeating\">
-Buildings.Applications.DataCenters.AHUs.CoolingCoilHumidifyingHeating</a>. The valve on the water-side and
+<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.CoolingCoilHumidifyingHeating\">
+Buildings.Applications.DataCenters.ChillerCooled.Equipment.CoolingCoilHumidifyingHeating</a>. The valve on the water-side and
 the electric heater on the air-side is regulated to track a setpoint temperature
 for the air outlet. The humidifier on the air-side is manipulated to control the humidity
 of the air outlet.

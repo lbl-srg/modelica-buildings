@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.AHUs.Examples.BaseClasses;
+within Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.BaseClasses;
 partial model PartialAirHandlerControl
   "Partial model for testing air hanlders with temperature and humidity control"
   package Medium1 = Buildings.Media.Water "Medium model for water";

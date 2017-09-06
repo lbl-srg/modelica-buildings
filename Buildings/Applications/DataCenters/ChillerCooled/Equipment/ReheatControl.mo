@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.AHUs.BaseClasses;
+within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
 model ReheatControl "Electric heater on/off controller"
   extends Modelica.Blocks.Icons.PartialBooleanBlock;
 

@@ -1,4 +1,7 @@
+AHUParameters
+CoolingCoilHumidifyingHeating
 ElectricChillerParallel
+ElectricHeater
 FlowMachine_m
 FlowMachine_y
 HeatExchanger
@@ -6,6 +9,8 @@ IntegratedPrimaryLoadSide
 IntegratedPrimaryPlantSide
 IntegratedPrimarySecondary
 NonIntegrated
+PartialCoolingCoilHumidifyingHeating
+ReheatControl
 WatersideEconomizer
 Validation
 BaseClasses

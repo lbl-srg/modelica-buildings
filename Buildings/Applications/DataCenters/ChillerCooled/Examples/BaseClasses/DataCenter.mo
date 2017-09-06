@@ -117,7 +117,7 @@ First implementation.
         rotation=-90,
         origin={70,100})));
 
-  Buildings.Applications.DataCenters.AHUs.CoolingCoilHumidifyingHeating ahu(
+  Buildings.Applications.DataCenters.ChillerCooled.Equipment.CoolingCoilHumidifyingHeating ahu(
     redeclare replaceable package Medium1 = MediumW,
     redeclare replaceable package Medium2 = MediumA,
     m1_flow_nominal=numChi*m2_flow_chi_nominal,

@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.AHUs.BaseClasses;
+within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
 model ElectricHeater "Model for electric heater"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(

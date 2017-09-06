@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.AHUs.BaseClasses.Examples;
+within Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation;
 model ElectricHeater "Test model for ElectricHeater"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.HeatExchangers.Examples.BaseClasses.Heater(
@@ -7,7 +7,7 @@ model ElectricHeater "Test model for ElectricHeater"
     Q_flow_nominal=30*6*6,
     mov(nominalValuesDefineDefaultPressureCurve=true,
     dp_nominal=1200));
-  Buildings.Applications.DataCenters.AHUs.BaseClasses.ElectricHeater eleHea(
+  Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricHeater eleHea(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     QMax_flow=Q_flow_nominal,
@@ -35,11 +35,11 @@ equation
           -37},{-22,-37}}, color={255,0,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=172800),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/AHUs/BaseClasses/Examples/ElectricHeater.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/ElectricHeater.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
-This model test the electric heater model: <a href=\"modelica://Buildings.Applications.DataCenters.AHUs.BaseClasses.ElectricHeater\">
-Buildings.Applications.DataCenters.AHUs.BaseClasses.ElectricHeater</a>.
+This model test the electric heater model: <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricHeater\">
+Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricHeater</a>.
 </html>", revisions="<html>
 <ul>
 <li>

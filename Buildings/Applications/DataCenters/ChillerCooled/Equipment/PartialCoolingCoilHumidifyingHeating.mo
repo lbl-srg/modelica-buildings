@@ -1,8 +1,8 @@
-within Buildings.Applications.DataCenters.AHUs.BaseClasses;
+within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
 partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     final show_T=true);
-  extends Buildings.Applications.DataCenters.AHUs.BaseClasses.EssentialParameter;
+  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.AHUParameters;
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
     final m_flow_nominal=m1_flow_nominal,
     final rhoStd=Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),

@@ -1,9 +1,13 @@
+CoolingCoilHumidifyingHeating_ClosedLoop
+CoolingCoilHumidifyingHeating_OpenLoop
 ElectricChillerParallel
+ElectricHeater
 HeatExchanger
 IntegratedPrimaryLoadSide
 IntegratedPrimaryPlantSide
 IntegratedPrimarySecondary
 NonIntegrated
 PumpParallel
+ReheatControl
 WatersideEconomizer
 BaseClasses
