@@ -205,7 +205,7 @@ equation
     annotation (Line(points={{-220,130},{-182,130}}, color={255,0,255}));
 
 annotation (
-  defaultComponentName = "tri&Res",
+  defaultComponentName = "triRes",
   Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
@@ -241,7 +241,7 @@ annotation (
           lineColor={238,46,47},
           fontSize=11,
           textStyle={TextStyle.Italic},
-          textString="fixme: the start time for both sampler and uniDel should ideally be the time (when uDevSta become true + delTim + timSte).  
+          textString="fixme: the start time for both sampler and uniDel should ideally be the time (when uDevSta become true + delTim + timSte).
 Not the time instant (delTim + timSte)",
           horizontalAlignment=TextAlignment.Left),
         Text(
@@ -263,26 +263,26 @@ Count time"), Text(
           lineColor={0,0,255},
           fontSize=11,
           horizontalAlignment=TextAlignment.Left,
-          textString="Reset setpoint based 
+          textString="Reset setpoint based
 on request number")}),
    Documentation(info="<html>
 <p>
-This block implements trim-response logic according to ASHRAE guideline G36, 
+This block implements trim-response logic according to ASHRAE guideline G36,
 PART5.A.15 (Trim-Reponse setpoint reset logic).
 </p>
 <p>
-Trim-reponse logic shall reset setpoint within the range <code>minSet</code> to 
-<code>maxSet</code>. 
-When the associated device is off (<code>uDevSta=false</code>), the setpoint 
-shall be <code>iniSet</code>. 
-The reset logic shall be active while the associated device is proven 
-on (<code>uDevSta=true</code>), starting <code>delTim</code> after initial 
-device start command. 
-When active, every time step <code>timSte</code>, trim the setpoint by 
-<code>triAmo</code>. 
-If there are more than <code>numIgnReq</code> Requests, respond by changing 
-the setpoint by <code>resAmo*(numOfReq-numIgnReq)</code>, i.e. the number of 
-Requests minus the number of Ignored Requests, but no more than <code>maxRes</code>. 
+Trim-reponse logic shall reset setpoint within the range <code>minSet</code> to
+<code>maxSet</code>.
+When the associated device is off (<code>uDevSta=false</code>), the setpoint
+shall be <code>iniSet</code>.
+The reset logic shall be active while the associated device is proven
+on (<code>uDevSta=true</code>), starting <code>delTim</code> after initial
+device start command.
+When active, every time step <code>timSte</code>, trim the setpoint by
+<code>triAmo</code>.
+If there are more than <code>numIgnReq</code> requests, respond by changing
+the setpoint by <code>resAmo*(numOfReq-numIgnReq)</code>, i.e. the number of
+requests minus the number of ignored requests, but no more than <code>maxRes</code>.
 </p>
 In other words, every time step <code>timSte</code>:
 <ul>
@@ -297,9 +297,9 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/TrimR
 </p>
 <h4>References</h4>
 <p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of 
-Standards Review)/ASHRAE Guideline 36P, 
-<i>High Performance Sequences of Operation for HVAC systems</i>. 
+<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
+Standards Review)/ASHRAE Guideline 36P,
+<i>High Performance Sequences of Operation for HVAC systems</i>.
 First Public Review Draft (June 2016)</a>
 </p>
 </html>", revisions="<html>

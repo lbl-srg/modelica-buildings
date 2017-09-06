@@ -252,7 +252,7 @@ equation
     annotation (Line(points={{-39,10},{0,10},{0,32},{18,32}},
       color={255,0,255}));
 
-annotation (Dialog(tab="Advanced",group="Fan control PID parameters"),
+annotation (
   defaultComponentName="vAVMulSupFan",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{140,160}}),
         graphics={
@@ -294,7 +294,7 @@ annotation (Dialog(tab="Advanced",group="Fan control PID parameters"),
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          textString="Check fan ON/OFF"),
+          textString="Check fan on or off"),
         Rectangle(
           extent={{-156,-92},{134,-138}},
           lineColor={0,0,0},
@@ -348,7 +348,7 @@ annotation (Dialog(tab="Advanced",group="Fan control PID parameters"),
           textString="ySupFan")}),
   Documentation(info="<html>
 <p>
-This block implements supply fan control of multizone VAV AHU according to 
+Supply fan control for a multizone VAV AHU according to 
 ASHRAE guideline G36, PART5.N.1 (Supply fan control).
 </p>
 <p>a. Supply fan start/stop</p>
@@ -361,8 +361,8 @@ does not have airflow measurement station (<code>airFloMeaSta=false</code>),
 totallize current airflow rate from VAV boxes to a software point.</li>
 </ul>
 <p>b. Static pressure setpoint reset</p>
-Static pressure setpoint shall be reset using Trim-respond logic using following
-parameters as a starting place:
+Static pressure setpoint shall be reset using trim-respond logic using following
+parameters as a starting point:
 <table summary=\"summary\" border=\"1\">
 <tr><th> Variable </th> <th> Value </th> <th> Definition </th> </tr>
 <tr><td>Device</td><td>AHU Supply Fan</td> <td>Associated device</td></tr>

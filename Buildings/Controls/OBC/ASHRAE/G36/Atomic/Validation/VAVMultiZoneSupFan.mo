@@ -13,7 +13,7 @@ extends Modelica.Icons.Example;
   CDL.Continuous.Sources.Ramp ram(
     duration=28800,
     height=6) "Ramp signal for generating operation mode"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   CDL.Continuous.Truncation tru "Convert real input to integer"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   CDL.Continuous.Sources.Ramp vavBoxFlo1(
@@ -40,7 +40,7 @@ extends Modelica.Icons.Example;
     freqHz=1/14400,
     offset=3,
     amplitude=2)    "Generate sine signal "
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+    annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
   CDL.Continuous.Truncation tru1 "Convert real input to integer"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Modelica.Blocks.Sources.Sine sine1(
@@ -76,11 +76,13 @@ equation
     annotation (Line(points={{-19,-60},{24,-60},{24,-8},{58,-8}},
       color={0,0,127}));
   connect(sine.y, abs1.u)
-    annotation (Line(points={{-79,-30},{-62,-30}}, color={0,0,127}));
+    annotation (Line(points={{-69,-30},{-66,-30},{-62,-30}},
+                                                   color={0,0,127}));
   connect(abs1.y, tru1.u)
     annotation (Line(points={{-39,-30},{-22,-30}}, color={0,0,127}));
   connect(ram.y, abs.u)
-    annotation (Line(points={{-79,80},{-62,80}}, color={0,0,127}));
+    annotation (Line(points={{-69,80},{-68,80},{-62,80}},
+                                                 color={0,0,127}));
   connect(abs.y, tru.u)
     annotation (Line(points={{-39,80},{-22,80}}, color={0,0,127}));
 
