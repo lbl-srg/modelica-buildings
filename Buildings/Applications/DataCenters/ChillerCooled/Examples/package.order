@@ -1,4 +1,4 @@
-IntegratedPrimaryLoadSide
-IntegratedPrimarySecondary
-NonIntegratedPrimarySecondary
+IntegratedPrimaryLoadSideEconomizer
+IntegratedPrimarySecondaryEconomizer
+NonIntegratedPrimarySecondaryEconomizer
 BaseClasses

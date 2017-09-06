@@ -1,4 +1,4 @@
-simulateModel("Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimarySecondary", startTime=3.8016e+06, stopTime=3.9744e+06, tolerance= 1e-06, method="dassl", resultFile="IntegratedPrimarySecondary");
+simulateModel("Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimarySecondaryEconomizer", startTime=3.8016e+06, stopTime=3.9744e+06, tolerance= 1e-06, method="dassl", resultFile="IntegratedPrimarySecondaryEconomizer");
 removePlots(false);
 createPlot(id=1,
  position={55, 50, 592, 427},
@@ -6,7 +6,7 @@ createPlot(id=1,
  range={44.0, 45.1, -0.2, 1.20},
  erase=false,
  grid=true,
- filename="IntegratedPrimarySecondary.mat",
+ filename="IntegratedPrimarySecondaryEconomizer.mat",
  colors={{28,108,200}});
 createPlot(id=1,
  position={55, 50, 592, 211},

@@ -1,5 +1,5 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Examples;
-model NonIntegratedPrimarySecondary
+model NonIntegratedPrimarySecondaryEconomizer
   "Example that demonstrates a chiller plant with non-integrated primary-secondary side economizer"
   extends Modelica.Icons.Example;
 
@@ -302,7 +302,7 @@ equation
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-200},
             {300,220}})),
     __Dymola_Commands(file=
-      "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Examples/NonIntegratedPrimarySecondary.mos"
+      "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Examples/NonIntegratedPrimarySecondaryEconomizer.mos"
       "Simulate and plot"),
     Documentation(info="<html>
 <h4>System Configuration</h4>
@@ -310,7 +310,7 @@ equation
 with water-side economizer (WSE) to cool a data center. The system schematics is as shown below. </p>
 <p>The system is a primary-secondary chiller plant with two chillers and a non-integrated WSE.</p>
 <p>
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Examples/NonIntegratedPrimarySecondary.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Examples/NonIntegratedPrimarySecondaryEconomizer.png\"/>
 </p>
 <h4>Control Logic</h4>
 <p>This section describes the detailed control logic used in this chilled water plant system.</p>
@@ -391,4 +391,4 @@ experiment(
       StartTime=0,
       StopTime=86400,
       Tolerance=1e-06));
-end NonIntegratedPrimarySecondary;
+end NonIntegratedPrimarySecondaryEconomizer;
