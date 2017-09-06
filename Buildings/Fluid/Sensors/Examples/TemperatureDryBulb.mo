@@ -93,7 +93,7 @@ equation
     annotation (Line(points={{90,-12},{84,-12},{76,-12}}, color={0,127,255}));
   connect(sin.ports[2], senRelTem.port_b) annotation (Line(points={{90,-16},{80,
           -16},{80,-60},{50,-60}}, color={0,127,255}));
-    annotation (experiment(StopTime=60),
+    annotation (experiment(Tolerance=1e-6, StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TemperatureDryBulb.mos"
         "Simulate and plot"),
     Documentation(info="<html>

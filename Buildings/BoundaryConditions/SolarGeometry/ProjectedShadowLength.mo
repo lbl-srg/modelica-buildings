@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.SolarGeometry;
-block ProjectedShadowLength "Lenght of shadow projected onto a direction"
+block ProjectedShadowLength "Length of shadow projected onto a direction"
   extends Modelica.Blocks.Icons.Block;
 
   parameter String filNam=""

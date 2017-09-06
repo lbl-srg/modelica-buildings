@@ -348,7 +348,7 @@ equation
   connect(bayWatHex.TSouCoo, weaBus.TDryBul) annotation (Line(points={{-402,
           49.5},{-410,49.5},{-410,50},{-410,50},{-410,160},{-340,160},{-340,190}},
         color={0,0,127}));
-  annotation(experiment(Tolerance=1E-6, StopTime=31536000),
+  annotation(experiment(Tolerance=1E-06, StopTime=31536000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Examples/HeatingCoolingHotWater3Clusters.mos"
         "Simulate and plot"),
     Documentation(

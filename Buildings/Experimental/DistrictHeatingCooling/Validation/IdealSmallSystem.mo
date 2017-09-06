@@ -68,23 +68,23 @@ model IdealSmallSystem "Validation model for a small system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-70,-50},{-90,-30}})));
   Modelica.Blocks.Sources.CombiTimeTable
-                                    QHea1(table=[0,200E3; 6*3600,200E3; 6*3600,50E3;
-        18*3600,50E3; 18*3600,75E3; 24*3600,75E3], extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+                                    QHea1(table=[0,200E3; 6,200E3; 6,50E3;
+        18,50E3; 18,75E3; 24,75E3], timeScale=3600, extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating demand"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Modelica.Blocks.Sources.CombiTimeTable
-                                    QHea2(table=[0,100E3; 6*3600,100E3; 6*3600,50E3;
-        18*3600,50E3; 18*3600,75E3; 24*3600,75E3], extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+                                    QHea2(table=[0,100E3; 6,100E3; 6,50E3;
+        18,50E3; 18,75E3; 24,75E3], timeScale=3600, extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating demand"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
   Modelica.Blocks.Sources.CombiTimeTable
-                                    QCoo1(table=[0,-100E3; 6*3600,-80E3; 6*3600,
-        -50E3; 12*3600,-20E3; 18*3600,-150E3; 24*3600,-100E3], extrapolation=
+                                    QCoo1(table=[0,-100E3; 6,-80E3; 6,
+        -50E3; 12,-20E3; 18,-150E3; 24,-100E3], timeScale=3600, extrapolation=
         Modelica.Blocks.Types.Extrapolation.Periodic) "Cooling demand"
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
   Modelica.Blocks.Sources.CombiTimeTable
-                                    QCoo2(table=[0,-10E3; 9*3600,-100E3; 9*3600,
-        -50E3; 18*3600,-50E3; 18*3600,-150E3; 24*3600,-100E3], extrapolation=
+                                    QCoo2(table=[0,-10E3; 9,-100E3; 9,
+        -50E3; 18,-50E3; 18,-150E3; 24,-100E3], timeScale=3600, extrapolation=
         Modelica.Blocks.Types.Extrapolation.Periodic) "Cooling demand"
     annotation (Placement(transformation(extent={{220,80},{240,100}})));
   Buildings.Fluid.FixedResistances.Junction spl(
@@ -196,7 +196,7 @@ equation
           {-130,68},{-122,68}}, color={0,0,127}));
   connect(TSetC.y, pla.TSetCoo) annotation (Line(points={{-139,90},{-134,90},{
           -134,64},{-122,64}}, color={0,0,127}));
-  annotation(experiment(Tolerance=1E-6, StopTime=86400),
+  annotation(experiment(Tolerance=1E-06, StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Validation/IdealSmallSystem.mos"
         "Simulate and plot"),
     Documentation(

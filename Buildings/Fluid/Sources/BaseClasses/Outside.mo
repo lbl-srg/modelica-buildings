@@ -21,8 +21,8 @@ partial model Outside
 protected
   final parameter Boolean singleSubstance = (Medium.nX == 1)
     "True if single substance medium";
-  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi
-    if not singleSubstance "Block to compute water vapor concentration";
+  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi if
+       not singleSubstance "Block to compute water vapor concentration";
 
   Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX](
     each final unit="kg/kg",
@@ -58,7 +58,7 @@ equation
 
   connect(X_in_internal, x_pTphi.X);
   if singleSubstance then
-    X_in_internal = zeros(Medium.nX);
+    X_in_internal = ones(Medium.nX);
   end if;
   // Assign medium properties
   medium.p = p_in_internal;
@@ -112,9 +112,15 @@ with exception of boundary pressure, do not have an effect.
 revisions="<html>
 <ul>
 <li>
+May 30, 2017 by Jianjun Hu:<br/>
+Corrected <code>X_in_internal = zeros()</code> to be <code>X_in_internal = ones()</code>.
+This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/787\"> #787</a>.
+</li>
+<li>
 April, 25, 2016 by Marcus Fuchs:<br/>
 Introduced missing <code>each</code> keyword. This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/454\"> #454</a>,
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/454\"> #454</a>,
 to prevent a warning in OpenModelica.
 </li>
 <li>

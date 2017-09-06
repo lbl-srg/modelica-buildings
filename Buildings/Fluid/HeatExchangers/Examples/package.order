@@ -7,9 +7,11 @@ DryCoilDiscretizedPControl
 DryEffectivenessNTU
 DryEffectivenessNTUMassFlow
 DryEffectivenessNTUPControl
+WaterCooler_T
 WaterHeater_T
 WaterHeater_u
 WetCoilCounterFlowMassFlow
 WetCoilCounterFlowPControl
+WetCoilDiscretizedMassFlow
 WetCoilDiscretizedPControl
 BaseClasses

@@ -4,7 +4,7 @@ model FlowControlled_dp
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
     final preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.PressureDifference,
     final computePowerUsingSimilarityLaws=per.havePressureCurve,
-    preSou(dp_start=dp_start),
+    preSou(dp_start=dp_start, control_dp= not prescribeSystemPressure),
     final stageInputs(each final unit="Pa") = heads,
     final constInput(final unit="Pa") = constantHead,
     filter(
@@ -31,7 +31,7 @@ model FlowControlled_dp
   parameter Modelica.SIunits.PressureDifference dp_nominal(
     min=0,
     displayUnit="Pa")=
-      if rho_default < 500 then 500 else 10000 "Nominal pressure raise, used to normalized the filter if filteredSpeed=true,
+      if rho_default < 500 then 500 else 10000 "Nominal pressure raise, used to normalized the filter if use_inputFilter=true,
         to set default values of constantHead and heads, and
         and for default pressure curve if not specified in record per"
     annotation(Dialog(group="Nominal condition"));
@@ -49,6 +49,19 @@ model FlowControlled_dp
     dp_nominal*{(per.speeds[i]/per.speeds[end])^2 for i in 1:size(per.speeds, 1)}
     "Vector of head set points, used when inputType=Stages"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
+  parameter Boolean prescribeSystemPressure = false
+    "=true, to control mover such that pressure difference is obtained across two remote points in system"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  Modelica.Blocks.Interfaces.RealInput dpMea(
+    final quantity="PressureDifference",
+    final displayUnit="Pa",
+    final unit="Pa")=gain.u if prescribeSystemPressure
+    "Measurement of pressure difference between two points where the set point should be obtained"
+    annotation (Placement(transformation(
+        extent={{20,-20},{-20,20}},
+        rotation=90,
+        origin={-80,120})));
 
   Modelica.Blocks.Interfaces.RealInput dp_in(final unit="Pa") if
     inputType == Buildings.Fluid.Types.InputType.Continuous
@@ -59,11 +72,12 @@ model FlowControlled_dp
         origin={0,120}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={-2,120})));
+        origin={0,120})));
 
   Modelica.Blocks.Interfaces.RealOutput dp_actual(final unit="Pa")
-    annotation (Placement(transformation(extent={{100,10},{120,30}}),
-        iconTransformation(extent={{100,10},{120,30}})));
+    "Pressure difference between the mover inlet and outlet"
+    annotation (Placement(transformation(extent={{100,40},{120,60}}),
+        iconTransformation(extent={{100,40},{120,60}})));
 
 protected
   Modelica.Blocks.Math.Gain gain(final k=-1)
@@ -74,7 +88,7 @@ equation
   assert(inputSwitch.u >= -1E-3,
     "Pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
 
-  if filteredSpeed then
+  if use_inputFilter then
     connect(filter.y, gain.u) annotation (Line(
       points={{34.7,88},{36,88},{36,42}},
       color={0,0,127},
@@ -94,8 +108,9 @@ equation
       points={{56,8},{56,14},{36,14},{36,19}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(gain.u, dp_actual) annotation (Line(points={{36,42},{60,42},{60,20},{
-          110,20}}, color={0,0,127}));
+  connect(senRelPre.p_rel, dp_actual) annotation (Line(points={{50.5,-26.35},{
+          50.5,-38},{74,-38},{74,50},{110,50}},
+                                           color={0,0,127}));
   annotation (defaultComponentName="fan",
   Documentation(info="<html>
 <p>
@@ -108,46 +123,76 @@ in record <code>per</code>, which is of type
 <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
 Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>.
 </p>
-<p>
-If <code>filteredSpeed=true</code>, then the parameter <code>dp_nominal</code> is
-used to normalize the filter. This is used to improve the numerics of the transient response.
-The actual pressure raise of the mover at steady-state is independent
-of the value of <code>dp_nominal</code>. It is recommended to set
-<code>dp_nominal</code> to approximately the pressure raise that the fan has during
-full speed.
-</p>
+<h4>Main equations</h4>
 <p>
 See the
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
-User's Guide</a> for more information.
+User's Guide</a>.
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+If <code>use_inputFilter=true</code>, then the parameter <code>dp_nominal</code> is
+used to normalize the filter. This is used to improve the numerics of the transient response.
+The actual pressure raise of the mover at steady-state is independent
+of the value of <code>dp_nominal</code>. It is recommended to set
+<code>dp_nominal</code> to approximately the pressure raise that the mover has during
+full speed.
+</p>
+<h4>Options</h4>
+<p>
+Parameter <code>prescribeSystemPressure</code>
+can be used to control the mover such that the pressure
+difference set point is obtained across two points
+in the system, instead of across the fan. 
+This allows an efficient implementation of 
+static pressure reset controllers.
+A measurement of the pressure difference between the 
+two points in system then needs to be connected
+to <code>RealInput dpMea</code>.
+This functionality is demonstrated in
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem\">
+Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 </p>
 </html>",
       revisions="<html>
 <ul>
 <li>
+May 5, 2017, by Filip Jorissen:<br/>
+Added parameters, documentation and functionality for 
+<code>prescribeSystemPressure</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/770\">#770</a>.
+</li>
+<li>
+March 24, 2017, by Michael Wetter:<br/>
+Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
+</li>
+<li>
 December 2, 2016, by Michael Wetter:<br/>
 Removed <code>min</code> attribute as otherwise numerical noise can cause
 the assertion on the limit to fail.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/606\">#606</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/606\">#606</a>.
 </li>
 <li>
 November 14, 2016, by Michael Wetter:<br/>
 Changed default values for <code>heads</code>.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/583\">#583</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/583\">#583</a>.
 </li>
 <li>
 March 2, 2016, by Filip Jorissen:<br/>
 Refactored model such that it directly extends <code>PartialFlowMachine</code>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/417\">#417</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 November 5, 2015, by Michael Wetter:<br/>
@@ -209,22 +254,37 @@ Revised implementation to allow zero flow rate.
 </ul>
 </html>"),
     Icon(graphics={
+        Line(
+          points={{2,50},{100,50}},
+          color={0,0,0},
+          smooth=Smooth.None),
         Text(
           visible = inputType == Buildings.Fluid.Types.InputType.Continuous,
           extent={{20,142},{104,108}},
           textString="dp_in"),
-        Line(
-          points={{32,50},{100,50}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Text(
-          visible=inputType == Buildings.Fluid.Types.InputType.Constant,
-          extent={{-80,136},{78,102}},
-          lineColor={0,0,255},
-          textString="%dp_nominal"),
-        Text(extent={{64,68},{114,54}},
+        Text(extent={{60,66},{110,52}},
           lineColor={0,0,127},
-          textString="dp")}),
+          textString="dp"),
+        Rectangle(
+          visible=use_inputFilter,
+          extent={{-34,40},{32,100}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          visible=use_inputFilter,
+          extent={{-34,100},{32,40}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Text(
+          visible=use_inputFilter,
+          extent={{-22,92},{20,46}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          textString="M",
+          textStyle={TextStyle.Bold})}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
 end FlowControlled_dp;

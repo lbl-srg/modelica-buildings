@@ -46,7 +46,7 @@ equation
       points={{40,-12},{60,-12}},
       color={0,127,255}));
     annotation (
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-6, StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/SpecificEntropy.mos"
         "Simulate and plot"),    Documentation(info="<html>
 <p>

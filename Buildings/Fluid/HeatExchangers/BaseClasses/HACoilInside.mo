@@ -80,11 +80,23 @@ First implementation.
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
-          extent={{-66,74},{92,-50}},
+          extent={{-66,88},{60,-2}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="hA")}),
+          textString="hA"),
+        Rectangle(
+          extent={{-74,-12},{76,-72}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-74,-24},{76,-56}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-52,-40},{56,-40},{44,-32}}, color={175,175,175}),
+        Line(points={{56,-40},{44,-48}}, color={175,175,175})}),
               Icon(
       Rectangle(extent=[-36,-36; -24,-72],   style(
           color=0,

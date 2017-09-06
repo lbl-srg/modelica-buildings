@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.CDL.Logical.Validation.TrueHoldWithReset", stopTime=15000.0, method="dassl", tolerance=1e-06, resultFile="TrueHoldWithReset");
+createPlot(id=1, position={37, 75, 723, 422}, y={"truHol.u", "truHol.y"}, range={0.0, 260.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=2, position={41, 551, 725, 578}, y={"booPul1.y", "truHol1.y"}, range={0.0, 260.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=3, position={785, 74, 698, 428}, y={"truHol2.u", "truHol2.y"}, range={0.0, 15000.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={797, 558, 685, 559}, y={"truHol3.u", "truHol3.y"}, range={0.0, 15000.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}, {238,46,47}});

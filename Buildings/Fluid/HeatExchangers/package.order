@@ -2,8 +2,11 @@ ConstantEffectiveness
 DryCoilCounterFlow
 DryCoilDiscretized
 DryEffectivenessNTU
-HeaterCooler_T
+EvaporatorCondenser
 HeaterCooler_u
+Heater_T
+PrescribedOutlet
+SensibleCooler_T
 WetCoilCounterFlow
 WetCoilDiscretized
 ActiveBeams

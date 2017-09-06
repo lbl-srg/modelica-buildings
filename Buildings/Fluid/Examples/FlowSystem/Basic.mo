@@ -136,10 +136,11 @@ model Basic "Example implementation of flow system"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={60,-50})));
-  Buildings.Fluid.HeatExchangers.HeaterCooler_T heater(
+  Buildings.Fluid.HeatExchangers.PrescribedOutlet heater(
     m_flow_nominal=10,
     dp_nominal=100,
-    redeclare package Medium = Medium) "Heating device"
+    redeclare package Medium = Medium,
+    use_X_wSet=false)                  "Heating device"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
   Buildings.Fluid.Sources.Boundary_pT bou(nPorts=1,
   redeclare package Medium = Medium) "Boundary for setting absolute temperature"
@@ -167,7 +168,7 @@ model Basic "Example implementation of flow system"
     "Pump for circulating hot water"
     annotation (Placement(transformation(extent={{-50,-140},{-70,-120}})));
   Modelica.Blocks.Sources.Constant Thot(k=273.15 + 50) "Hot water temperature"
-    annotation (Placement(transformation(extent={{-96,-100},{-84,-88}})));
+    annotation (Placement(transformation(extent={{-96,-98},{-84,-86}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valHea(
     each dpFixed_nominal=0,
     each CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -345,7 +346,8 @@ equation
                                                      color={0,127,255}));
   connect(pumpHea.port_b, heater.port_a) annotation (Line(points={{-70,-130},{-74,
           -130},{-74,-104},{-74,-100},{-70,-100}}, color={0,127,255}));
-  connect(Thot.y, heater.TSet) annotation (Line(points={{-83.4,-94},{-72,-94}},
+  connect(Thot.y, heater.TSet) annotation (Line(points={{-83.4,-92},{-83.4,-92},
+          {-72,-92}},
                  color={0,0,127}));
   connect(spl1.port_1, valSouth.port_3) annotation (Line(points={{-20,-130},{-20,
           -130},{0,-130},{0,-52},{-50,-52},{-50,-50}}, color={0,127,255}));
@@ -480,10 +482,10 @@ equation
           fillPattern=FillPattern.Solid,
           textString="Cold")}),
     experiment(
-      StopTime=10000),
+      Tolerance=1e-6, StopTime=1000),
     Documentation(info="<html>
 <p>
-Example model demonstrating the use of the <code>Buildings</code> components in a larger system. 
+Example model demonstrating the use of the <code>Buildings</code> components in a larger system.
 This model is extended in
 <a href=\"modelica://Buildings.Fluid.Examples.FlowSystem.Simplified1\">
 Buildings.Fluid.Examples.FlowSystem.Simplified1</a>,
@@ -494,17 +496,17 @@ Buildings.Fluid.Examples.FlowSystem.Simplified3</a>.
 In these examples, the flow network is simplified in three steps, which reduces the size of algebraic loops.
 </p>
 <p>
-The system model is for a hydronic system with a hot and cold water production device, 
-each having its own circulation pump. 
-The warm and cold supply water temperatures are selected by switching the bottom two-way valves. 
-The building consists of a west and east wing. 
-Each wing has multiple zones that are heated or cooled using the hydronic system. 
-Each wing has a north and south section with a different supply temperature, 
-which is controlled using two main three way valves. 
-In total there are therefore four supply pipes, 
-which are each connected to four or eight emission devices in the zones. 
+The system model is for a hydronic system with a hot and cold water production device,
+each having its own circulation pump.
+The warm and cold supply water temperatures are selected by switching the bottom two-way valves.
+The building consists of a west and east wing.
+Each wing has multiple zones that are heated or cooled using the hydronic system.
+Each wing has a north and south section with a different supply temperature,
+which is controlled using two main three way valves.
+In total there are therefore four supply pipes,
+which are each connected to four or eight emission devices in the zones.
 The flow through the emission devices is controlled using two way valves.
-The emission device itself also generates a pressure drop, 
+The emission device itself also generates a pressure drop,
 represented by components <code>tabsX</code>.
 Note that the emission devices are in the real building
 cooling and heating concrete slabs, but this simplified example
@@ -513,6 +515,13 @@ The control model consists of dummy inputs.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 8, 2017, by Michael Wetter:<br/>
+Updated heater model.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">
+Buildings, #763</a>.
+</li>
 <li>
 October 7, 2016, by Filip Jorissen:<br/>
 First implementation.

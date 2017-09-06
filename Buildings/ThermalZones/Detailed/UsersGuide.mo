@@ -5,7 +5,8 @@ package UsersGuide "User's Guide"
    class MixedAir "Room model with instantaneously mixed air"
     extends Modelica.Icons.Information;
     annotation (preferredView="info", Documentation(info="<html>
-<p>The model <a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">Buildings.ThermalZones.Detailed.MixedAir</a> is
+<p>The model <a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">
+Buildings.ThermalZones.Detailed.MixedAir</a> is
 a model of a room with completely mixed air.
 The room can have any number of constructions and surfaces that participate in the
 heat exchange through convection, conduction, infrared radiation and solar radiation.</p>
@@ -37,10 +38,12 @@ The overall heat transfer is modeled using the model
 Buildings.HeatTransfer.Windows.Window</a>
 for the glass assembly, and the models
 <a href=\"modelica://Buildings.HeatTransfer.Windows.ExteriorHeatTransfer\">
-Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>
+Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>,
+<a href=\"modelica://Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective\">
+Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective</a>
 and
-<a href=\"modelica://Buildings.HeatTransfer.Windows.InteriorHeatTransfer\">
-Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>
+<a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation\">
+Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation</a>
 for the exterior and interior heat transfer.
 A window can have both, an overhang and a side fin.
 Overhangs and side fins are modeled using
@@ -91,8 +94,8 @@ such as CO<sub>2</sub>, can be modeled transiently.
 The latent heat gain of the room, which is a user-input,
 is converted to a moisture source using
 the model
-<a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.MixedAirHeatGain\">
-Buildings.ThermalZones.Detailed.BaseClasses.MixedAirHeatGain</a>.
+<a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.HeatGain\">
+Buildings.ThermalZones.Detailed.BaseClasses.HeatGain</a>.
 </li>
 <li>
 The radiant heat gains in the infrared spectrum are also a user
@@ -338,7 +341,7 @@ With these constructions, we may define a room as follows: </p>
 
 </pre>
 <p>
-The following paragraphs explain the different declarations.
+The following paragraphs explain the " + "different declarations.
 </p>
 <p>
 The statement
@@ -579,8 +582,8 @@ model, as this allows to avoid
 a nonlinear system of equation to compute the radiative heat transfer,
 thereby leading to faster simulation.
 See
-<a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BESTEST.Case960\">
-Buildings.ThermalZones.Detailed.Validation.BESTEST.Case960</a>
+<a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case960\">
+Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case960</a>
 for an example.
 </p>
 <p>
@@ -605,7 +608,8 @@ Proc. of the 12th IBPSA Conference, p. 1096-1103. Sydney, Australia, November 20
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-The model <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.CFD</a> is
+The model <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">
+Buildings.ThermalZones.Detailed.CFD</a> is
 a room model in which the room air heat and mass balance is computed
 using the Computational Fluid Dynamics (CFD).
 </p>
@@ -657,7 +661,9 @@ a constant pressure during the whole simulation and does not use the pressure
 of the Modelica model.
 </li>
 </ul>
-A description of the model assumptions and the implemention and validation of this room model can be found in <a href=\"#ZuoEtAl2014\">Zuo et al. (2014)</a>.
+A description of the model assumptions and the implemention and validation of
+this room model can be found in <a href=\"#ZuoEtAl2016\">Zuo et al. (2016)</a>
+and in <a href=\"#ZuoEtAl2014\">Zuo et al. (2014)</a>.
 <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <h4>Conventions</h4>
 <p>
@@ -725,8 +731,8 @@ The section is only of interest to developers. Users may skip this section.
 <p>
 Interfacing CFD with the Modelica room air heat and mass balance is done
 in the model
-<a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.AirHeatMassBalanceCFD\">
-Buildings.ThermalZones.Detailed.BaseClasses.AirHeatMassBalanceCFD</a>.
+<a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.CFDAirHeatMassBalance\">
+Buildings.ThermalZones.Detailed.BaseClasses.CFDAirHeatMassBalance</a>.
 To interface variables from Modelica and CFD, the following classes and
 conventions are used in this model.
 </p>
@@ -983,9 +989,20 @@ port <i>2</i> etc.
 </ol>
 <h4>References</h4>
 <p>
+<a name=\"ZuoEtAl2016\"/>
+Wangda Zuo, Michael Wetter, Wei Tian, Dan Li, Mingang Jin, Qingyan Chen.<br/>
+<a href=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Zuo2016.pdf\">
+Coupling Indoor Airflow, HVAC, Control and Building Envelope Heat Transfer in the Modelica Buildings Library.
+</a>
+<br/>
+Journal of Building Performance Simulation, 9(4), pp. 366-381, 2016.<br/>
+<a href=\"http://dx.doi.org/10.1080/19401493.2015.1062557\">
+http://dx.doi.org/10.1080/19401493.2015.1062557</a>.
+</p>
+<p>
 <a name=\"ZuoEtAl2014\"/>
 Wangda Zuo, Michael Wetter, Dan Li, Mingang Jin, Wei Tian, Qingyan Chen.<br/>
-<a href=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Zuo2014.pdf\">
+<a href=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/ZuoEtAl2014.pdf\">
 Coupled Simulation of Indoor Environment, HVAC and Control System by Using Fast Fluid Dynamics and the Modelica Buildings Library. </a><br/>
 Proc. of the 2014 ASHRAE/IBPSA-USA Building Simulation Conference, Atlanta, GA, September 10-12, 2014.
 </p>

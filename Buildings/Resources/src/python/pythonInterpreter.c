@@ -22,7 +22,8 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
   Py_ssize_t nRet = 0;
   /*//////////////////////////////////////////////////////////////////////////*/
   /* Initialize Python interpreter*/
-  Py_Initialize();
+  if (!Py_IsInitialized())
+    Py_Initialize();
   /* Set the entries for sys.argv.*/
   /* This is required if a script uses sys.argv, such as bacpypes.*/
   /* See also http://stackoverflow.com/questions/19381441/python-modelica-connection-fails-due-to-import-error*/
@@ -190,12 +191,12 @@ The error message is \"%s\"",
     Py_DECREF(pFunc);
     Py_DECREF(pModule);
     /* Py_Finalize(); // removed, see note at other Py_Finalize() statement*/
-    (*ModelicaFormatError)("Call to Python function failed.\n \
+    (*ModelicaFormatError)("Call to Python function \"%s\" failed.\n \
 This is often due to an error in the Python script,\n \
 or because the list of arguments of the Python function is incorrect.\n \
 Check the module \"%s\".\n \
 The error message is \"%s\"",
-                        moduleName,
+                        functionName, moduleName,
                         PyString_AsString(PyObject_Repr(pValue)));
   }
 
@@ -279,7 +280,7 @@ The returned object is \"%s\".",
       }
     }/* nDblRea > 0*/
     else{
-      /* Modelica has no arrays with zero lenght. Hence, dblValRea has size 1 if nDblRea = 0.*/
+      /* Modelica has no arrays with zero length. Hence, dblValRea has size 1 if nDblRea = 0.*/
       /* Assign a zero value to this element.*/
       dblValRea[0] = 0;
     }
@@ -326,7 +327,7 @@ The returned object is \"%s\".",
       }
     } /* end if nIntRea > 0*/
     else{
-      /* Modelica has no arrays with zero lenght. Hence, intValRea has size 1 if nIntRea = 0.*/
+      /* Modelica has no arrays with zero length. Hence, intValRea has size 1 if nIntRea = 0.*/
       /* Assign a zero value to this element.*/
       intValRea[0] = 0;
     }

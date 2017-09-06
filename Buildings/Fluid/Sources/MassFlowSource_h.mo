@@ -57,14 +57,27 @@ protected
   Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC](
     final quantity=Medium.extraPropertiesNames)
     "Needed to connect to conditional connector";
+initial equation
+  if not use_X_in then
+    Modelica.Fluid.Utilities.checkBoundary(
+      Medium.mediumName,
+      Medium.substanceNames,
+      Medium.singleState,
+      true,
+      X_in_internal,
+      "MassFlowSource_h");
+  end if;
+
 equation
-  Modelica.Fluid.Utilities.checkBoundary(
-    Medium.mediumName,
-    Medium.substanceNames,
-    Medium.singleState,
-    true,
-    X_in_internal,
-    "MassFlowSource_h");
+  if use_X_in then
+    Modelica.Fluid.Utilities.checkBoundary(
+      Medium.mediumName,
+      Medium.substanceNames,
+      Medium.singleState,
+      true,
+      X_in_internal,
+      "MassFlowSource_h");
+  end if;
   connect(m_flow_in, m_flow_in_internal);
   connect(h_in, h_in_internal);
   connect(X_in, X_in_internal);
@@ -170,6 +183,13 @@ with exception of boundary flow rate, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 18, 2017, by Filip Jorissen:<br/>
+Changed <code>checkBoundary</code> implementation
+such that it is run as an initial equation
+when it depends on parameters only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/728\">#728</a>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Added <code>unit</code> and <code>quantity</code> attributes.

@@ -181,7 +181,7 @@ First implementation.
 </html>"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Validation/ExtremeAmbientConditions.mos"
         "Simulate and Plot"),
-    experiment(StopTime=86400.0),
+    experiment(Tolerance=1e-06, StopTime=86400),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
 end ExtremeAmbientConditions;

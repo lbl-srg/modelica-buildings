@@ -32,8 +32,8 @@ The implementation is once continuously differentiable in its input arguments.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.HeatTransfer.Examples.ExteriorConvection\">
-Buildings.HeatTransfer.Examples.ExteriorConvection</a>
+<a href=\"modelica://Buildings.HeatTransfer.Convection.Exterior\">
+Buildings.HeatTransfer.Convection.Exterior</a>
 for an example that uses this function.
 </p>
 </html>", revisions="<html>

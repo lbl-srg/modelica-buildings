@@ -38,8 +38,8 @@ equation
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/WSEControl.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=86400,
-      Tolerance=1e-06),
+      StopTime=3600,
+      Tolerance=1e-6),
     Documentation(revisions="<html>
 <ul>
 <li>

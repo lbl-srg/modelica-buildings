@@ -94,8 +94,8 @@ The model extends from
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.Impedance_N\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.Impedance_N</a>
 and uses the load model from the package
-<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Impedance\">
-Buildings.Electrical.AC.OnePhase.Impedance</a>.
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Impedance\">
+Buildings.Electrical.AC.OnePhase.Loads.Impedance</a>.
 The model computes the voltages, currents and powers on each phase.
 </p>
 </html>"));

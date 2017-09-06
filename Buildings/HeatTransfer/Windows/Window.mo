@@ -390,10 +390,12 @@ The convective heat transfer between the window system and the outside air
 or the room is <em>not</em> computed by this model.
 They can be computed using the models
 <a href=\"modelica://Buildings.HeatTransfer.Windows.ExteriorHeatTransfer\">
-Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>
+Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>,
+<a href=\"modelica://Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective\">
+Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective</a>
 and
-<a href=\"modelica://Buildings.HeatTransfer.Windows.InteriorHeatTransfer\">
-Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>.
+<a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation\">
+Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation</a>.
 </p>
 
 <h4>Limitations</h4>

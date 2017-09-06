@@ -49,7 +49,7 @@ equation
   connect(gain.y, preSou.dp_in)
     annotation (Line(points={{10,-9},{10,14},{56,14},{56,8},{56,8}},
                                                      color={0,0,127}));
-  if filteredSpeed then
+  if use_inputFilter then
     connect(filter.y, eff.y_in) annotation (Line(points={{34.7,88},{38,88},{38,26},
             {-26,26},{-26,-46}},      color={0,0,127}));
   else
@@ -61,17 +61,29 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
             Text(
-              visible = inputType == Buildings.Fluid.Types.InputType.Continuous,
-              extent={{20,126},{118,104}},
-              textString="Nrpm [rpm]"),
-            Text(
-          visible=inputType == Buildings.Fluid.Types.InputType.Constant,
-          extent={{-80,136},{78,102}},
-          lineColor={0,0,255},
-          textString="%speed"),
-        Text(extent={{52,70},{102,56}},
-          lineColor={0,0,127},
-          textString="N_rpm")}),
+              extent={{26,136},{124,114}},
+          textString="Nrpm [rpm]",
+          lineColor={0,0,127}),
+        Rectangle(
+          visible=use_inputFilter,
+          extent={{-34,40},{32,100}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          visible=use_inputFilter,
+          extent={{-34,100},{32,40}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Text(
+          visible=use_inputFilter,
+          extent={{-22,92},{20,46}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          textString="M",
+          textStyle={TextStyle.Bold})}),
     Documentation(info="<html>
 This model describes a fan or pump with prescribed speed in revolutions per minute.
 The head is computed based on the performance curve that take as an argument
@@ -91,21 +103,27 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
+March 24, 2017, by Michael Wetter:<br/>
+Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
+</li>
+<li>
 March 2, 2016, by Filip Jorissen:<br/>
 Refactored model such that it directly extends <code>PartialFlowMachine</code>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/417\">#417</a>.
 </li>
 <li>
 February 17, 2016, by Michael Wetter:<br/>
 Updated parameter names for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/396\">#396</a>.
 </li>
 <li>
 January 19, 2016, by Filip Jorissen:<br/>
 Set default value of parameter: <code>speeds=per.speeds</code>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/396\">#396</a>.
 </li>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>

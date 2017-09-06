@@ -112,14 +112,14 @@ the package
 <a href=\"modelica://Modelica.Fluid.Fittings\">
 Modelica.Fluid.Fittings</a>.
 For mass flow rates other than <code>m_flow_nominal</code>, the model
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
-Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> is used to
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+Buildings.Fluid.FixedResistances.PressureDrop</a> is used to
 compute the pressure drop.
 </p>
 <p>
 For a steady-state model of a flow resistance, use
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
-Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> instead of this model.
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+Buildings.Fluid.FixedResistances.PressureDrop</a> instead of this model.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -127,7 +127,7 @@ Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> instead of this model.
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 October 30, 2015, by Michael Wetter:<br/>

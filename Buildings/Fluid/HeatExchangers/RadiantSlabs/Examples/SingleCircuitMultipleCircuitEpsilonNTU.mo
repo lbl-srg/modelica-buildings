@@ -213,8 +213,8 @@ equation
 Documentation(info="<html>
 <p>
 This model is identical to
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit\">
-Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitFiniteDifference\">
+Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitFiniteDifference</a>
 except that the number of segments in the slab is set to <i>1</i>
 and the heat transfer between the fluid and the slab is computed using
 an epsilon-NTU model.
@@ -236,5 +236,5 @@ First implementation.
 </html>"),
     experiment(
       StopTime=86400,
-      Tolerance=1e-05));
+      Tolerance=1e-6));
 end SingleCircuitMultipleCircuitEpsilonNTU;

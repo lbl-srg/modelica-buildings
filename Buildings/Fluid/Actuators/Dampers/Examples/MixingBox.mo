@@ -7,10 +7,7 @@ model MixingBox
     "Medium in the component"
          annotation (choicesAllMatching = true);
 
-  Dampers.MixingBox mixBox(
-    AOut=0.7,
-    AExh=1,
-    ARec=1,
+  Buildings.Fluid.Actuators.Dampers.MixingBox mixBox(
     mOut_flow_nominal=1,
     dpOut_nominal=20,
     mRec_flow_nominal=1,
@@ -18,8 +15,7 @@ model MixingBox
     mExh_flow_nominal=1,
     dpExh_nominal=20,
     redeclare package Medium = Medium) "mixing box"
-                            annotation (Placement(transformation(extent={{14,
-            -22},{34,-2}})));
+    annotation (Placement(transformation(extent={{14,-22},{34,-2}})));
     Buildings.Fluid.Sources.Boundary_pT bouIn(             redeclare package
       Medium = Medium, T=273.15 + 10,
     use_p_in=true,
@@ -79,7 +75,7 @@ equation
       color={0,127,255}));
   annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/MixingBox.mos"
         "Simulate and plot"),
-    experiment(StopTime=240),
+    experiment(Tolerance=1e-6, StopTime=240),
 Documentation(info="<html>
 <p>
 Test model for the economizer mixing box.

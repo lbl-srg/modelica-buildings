@@ -8,17 +8,17 @@ model TwoWayValvesMotor
     redeclare package Medium = Medium,
     l=0.05,
     m_flow_nominal=2,
-    filteredOpening=false,
+    use_inputFilter=false,
     dpValve_nominal=6000) "Valve model, linear opening characteristics"
-         annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
-      = Medium,
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
+  Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium =
+        Medium,
     nPorts=4,
     use_p_in=true,
     T=293.15) "Boundary condition for flow source"  annotation (Placement(
         transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
-      = Medium,
+  Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium =
+        Medium,
     nPorts=4,
     use_p_in=true,
     T=293.15) "Boundary condition for flow sink"    annotation (Placement(
@@ -31,19 +31,19 @@ model TwoWayValvesMotor
     redeclare package Medium = Medium,
     l=0.05,
     m_flow_nominal=2,
-    filteredOpening=false,
+    use_inputFilter=false,
     dpValve_nominal=6000) "Valve model, quick opening characteristics"
-         annotation (Placement(transformation(extent={{0,10},{20,30}})));
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valEqu(
     redeclare package Medium = Medium,
     l=0.05,
     R=10,
     delta0=0.1,
     m_flow_nominal=2,
-    filteredOpening=false,
+    use_inputFilter=false,
     dpValve_nominal=6000)
     "Valve model, equal percentage opening characteristics"
-         annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
+    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Modelica.Blocks.Sources.TimeTable ySet(table=[0,0; 60,0; 60,1; 120,1; 180,0.5;
         240,0.5; 300,0; 360,0; 360,0.25; 420,0.25; 480,1; 540,1.5; 600,-0.25])
     "Set point for actuator" annotation (Placement(transformation(extent={{-100,
@@ -56,7 +56,7 @@ model TwoWayValvesMotor
     m_flow_nominal=1,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     dpValve_nominal=10000,
-    filteredOpening=false,
+    use_inputFilter=false,
     l=0.05,
     l2=0.01) annotation (Placement(transformation(extent={{0,-64},{20,-44}})));
 equation
@@ -102,7 +102,7 @@ equation
   connect(valInd.y, valEqu.y) annotation (Line(
       points={{10,-42},{10,-36},{-12,-36},{-12,0},{10,0},{10,-8}},
       color={0,0,127}));
-    annotation (experiment(StopTime=600),
+    annotation (experiment(Tolerance=1e-6, StartTime=0, StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValvesMotor.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -117,7 +117,7 @@ To use common values, use the default values.
 All valves are connected to a model of a motor with
 hysteresis. A more efficient implementation that approximates
 a motor but lacks hysteresis would be to
-set the valve parameter <code>filteredOpening=true</code> instead
+set the valve parameter <code>use_inputFilter=true</code> instead
 of using the motor model.
 </p>
 </html>", revisions="<html>

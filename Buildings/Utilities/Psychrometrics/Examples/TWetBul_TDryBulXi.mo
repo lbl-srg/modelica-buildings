@@ -47,7 +47,7 @@ equation
                                      annotation (Line(
       points={{-59,70},{-20,70},{-20,-2},{-1,-2}},
       color={0,0,127}));
-    annotation (experiment(StopTime=1.0),
+    annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TWetBul_TDryBulXi.mos"
         "Simulate and plot"),
     Documentation(info="<html>

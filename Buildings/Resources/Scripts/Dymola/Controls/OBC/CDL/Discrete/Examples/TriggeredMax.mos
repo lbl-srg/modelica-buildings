@@ -1,0 +1,3 @@
+simulateModel("Buildings.Controls.OBC.CDL.Discrete.Examples.TriggeredMax", stopTime=1.0, method="dassl", tolerance=1e-06, resultFile="TriggeredMax1");
+createPlot(id=1, position={15, 10, 750, 230}, y={"triggeredMax.u", "triggeredMax.y"}, range={0.0, 1.0, -15, 15}, grid=true, colors={{238,46,47}, {28,108,200}});
+createPlot(id=2, position={15, 270, 750, 180}, y={"triggeredMax.trigger"}, range={0.0, 1.0, -15, 15}, grid=true, colors={{238,46,47}});

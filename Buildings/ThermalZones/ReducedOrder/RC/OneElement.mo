@@ -80,7 +80,7 @@ model OneElement "Thermal Zone with one element for exterior walls"
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
     redeclare each final package Medium = Medium)
-    "Auxilliary fluid inlets and outlets to indoor air volume"
+    "Auxiliary fluid inlets and outlets to indoor air volume"
     annotation (
     Placement(transformation(
     extent={{-45,-12},{45,12}},
@@ -97,21 +97,21 @@ model OneElement "Thermal Zone with one element for exterior walls"
     annotation (Placement(transformation(extent={{-250,30},{-230,50}}),
     iconTransformation(extent={{-250,30},{-230,50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsConv if
-    ATot > 0 or VAir > 0 "Auxilliary port for internal convective gains"
+    ATot > 0 or VAir > 0 "Auxiliary port for internal convective gains"
     annotation (Placement(
     transformation(extent={{230,30},{250,50}}), iconTransformation(extent={{230,30},
     {250,50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsRad if ATot > 0
-    "Auxilliary port for internal radiative gains"
+    "Auxiliary port for internal radiative gains"
     annotation (Placement(
     transformation(extent={{230,70},{250,90}}),
     iconTransformation(extent={{230,70},{250,90}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a windowIndoorSurface if
-    indoorPortWin "Auxilliary port at indoor surface of windows"
+    indoorPortWin "Auxiliary port at indoor surface of windows"
     annotation (Placement(transformation(extent={{-210,-190},{-190,-170}}),
     iconTransformation(extent={{-210,-190},{-190,-170}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a extWallIndoorSurface if
-    indoorPortExtWalls "Auxilliary port at indoor surface of exterior walls"
+    indoorPortExtWalls "Auxiliary port at indoor surface of exterior walls"
     annotation (Placement(
     transformation(extent={{-170,-190},{-150,-170}}), iconTransformation(
     extent={{-170,-190},{-150,-170}})));
@@ -147,14 +147,14 @@ model OneElement "Thermal Zone with one element for exterior walls"
     final splitFactor=splitFactor,
     final nOut=dimension,
     final nIn=1) if ATot > 0
-    "Splits incoming internal gains into separate gains for each wall element, 
+    "Splits incoming internal gains into separate gains for each wall element,
     weighted by their area"
     annotation (Placement(transformation(extent={{210,76},{190,96}})));
   BaseClasses.ThermSplitter thermSplitterSolRad(
     final splitFactor=splitFactorSolRad,
     final nOut=dimension,
     final nIn=nOrientations) if ATot > 0 and sum(ATransparent) > 0
-    "Splits incoming solar radiation into separate gains for each wall element, 
+    "Splits incoming solar radiation into separate gains for each wall element,
     weighted by their area"
     annotation (Placement(transformation(extent={{-138,138},{-122,154}})));
   BaseClasses.ExteriorWall extWallRC(

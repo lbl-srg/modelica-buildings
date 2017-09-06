@@ -11,7 +11,7 @@ model DryCoilDiscretizedPControl
   parameter Modelica.SIunits.Temperature T_b2_nominal = 40+273.15;
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 5
     "Nominal mass flow rate medium 1";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal =
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
     m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal)
     "Nominal mass flow rate medium 2";
 
@@ -56,10 +56,10 @@ model DryCoilDiscretizedPControl
     redeclare package Medium = Medium1,
     l=0.005,
     m_flow_nominal=m1_flow_nominal,
-    filteredOpening=false,
+    use_inputFilter=false,
     dpFixed_nominal=2000 + 3000,
     dpValve_nominal=6000) "Valve model"
-             annotation (Placement(transformation(extent={{30,50},{50,70}})));
+    annotation (Placement(transformation(extent={{30,50},{50,70}})));
   Modelica.Blocks.Sources.TimeTable TSet(table=[0,298.15; 600,298.15; 600,
         303.15; 1200,303.15; 1800,298.15; 2400,298.15; 2400,304.15])
     "Setpoint temperature"
@@ -140,7 +140,7 @@ equation
       smooth=Smooth.None));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{200,200}})),
-experiment(StopTime=3600),
+experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilDiscretizedPControl.mos"
         "Simulate and plot"),
 Documentation(info="<html>

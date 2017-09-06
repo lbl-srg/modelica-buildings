@@ -8,7 +8,7 @@ model ThreeWayValves "Three way valves with different opening characteristics"
     redeclare package Medium = Medium,
     l={0.05,0.05},
     m_flow_nominal=2,
-    filteredOpening=false,
+    use_inputFilter=false,
     dpValve_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Valve model, linear opening characteristics"
@@ -39,7 +39,7 @@ model ThreeWayValves "Three way valves with different opening characteristics"
     redeclare package Medium = Medium,
     R=10,
     m_flow_nominal=2,
-    filteredOpening=false,
+    use_inputFilter=false,
     dpValve_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
@@ -83,7 +83,7 @@ equation
       points={{-67,8},{-52,8}},
       color={0,0,127}));
   annotation (
-    experiment(StopTime=1.0),
+    experiment(Tolerance=1e-6, StopTime=1.0),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/ThreeWayValves.mos"
         "Simulate and plot"),
     Documentation(info="<html>

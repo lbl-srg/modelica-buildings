@@ -90,7 +90,7 @@ equation
           extent={{-100,50},{100,-48}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={217,236,256}),
+          fillColor={217,236,255}),
         Text(
           extent={{-42,12},{40,-12}},
           lineColor={0,0,0},
@@ -100,8 +100,8 @@ equation
 Model of a pipe with flow resistance and optional heat storage.
 This model can be used for modeling the heat exchange between the pipe and environment.
 The model consists of a flow resistance
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
-Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+Buildings.Fluid.FixedResistances.PressureDrop</a>
 and <code>nSeg</code> mixing volumes
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>.

@@ -9,7 +9,7 @@ algorithm
      "In function Buildings.Electrical.Transmission.Functions.selectVoltageLevel,
       does not support a voltage of " + String(V) + " [V].
       The selected voltage level will be assumed to be low.",
-      level=  AssertionLevel.warning);
+      level = AssertionLevel.warning);
     level := Buildings.Electrical.Types.VoltageLevel.Low;
   elseif V <= 1000 then
     level := Buildings.Electrical.Types.VoltageLevel.Low;

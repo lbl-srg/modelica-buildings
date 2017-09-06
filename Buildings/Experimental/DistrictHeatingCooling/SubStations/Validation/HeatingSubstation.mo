@@ -28,12 +28,13 @@ model HeatingSubstation "Validation model for heating substation"
     offset=273.15 + 12) "Temperature of warm supply"
     annotation (Placement(transformation(extent={{-80,64},{-60,84}})));
   Modelica.Blocks.Sources.TimeTable QHea(table=[
-    0,       100E3;
-    6*3600, 100E3;
-    6*3600,  50E3;
-    18*3600,  50E3;
-    18*3600,  75E3;
-    24*3600,  75E3]) "Heating demand"
+    0,  100E3;
+    6,  100E3;
+    6,   50E3;
+    18,  50E3;
+    18,  75E3;
+    24,  75E3],
+    timeScale=3600) "Heating demand"
     annotation (Placement(transformation(extent={{-80,6},{-60,26}})));
   Modelica.Blocks.Sources.Ramp TCoo(
     duration=86400,
@@ -53,7 +54,7 @@ equation
     annotation (Line(points={{-59,-70},{26,-70},{26,-52}}, color={0,0,127}));
   connect(QHea.y, subSta.Q_flow)
     annotation (Line(points={{-59,16},{-30,16},{-2,16}}, color={0,0,127}));
-  annotation(experiment(StopTime=86400),
+  annotation(experiment(Tolerance=1e-6, StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/SubStations/Validation/HeatingSubstation.mos"
         "Simulate and plot"),
     Documentation(

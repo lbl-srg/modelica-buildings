@@ -137,7 +137,7 @@ equation
       points={{70,71},{70,86},{42,86},{42,4},{-10.2,4},{-10.2,-8}},
       color={0,0,127}));
   connect(relPre.p_rel, fan3.dp_in) annotation (Line(
-      points={{-10,23},{-10,8},{-24,8},{-24,-40},{-10.2,-40},{-10.2,-48}},
+      points={{-10,23},{-10,8},{-24,8},{-24,-40},{-10,-40},{-10,-48}},
       color={0,0,127}));
   connect(dp8.port_b, fan4.port_a) annotation (Line(
       points={{-32,110},{-20,110}},
@@ -152,7 +152,7 @@ equation
       points={{-32,-60},{-20,-60}},
       color={0,127,255}));
   connect(y.y, fan1.y) annotation (Line(
-      points={{-119,80},{-10.2,80},{-10.2,72}},
+      points={{-119,80},{-10,80},{-10,72}},
       color={0,0,127}));
   connect(y.y, gain.u) annotation (Line(
       points={{-119,80},{-80,80},{-80,140},{-62,140}},

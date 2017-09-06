@@ -36,5 +36,5 @@ First implementation.
 </html>"),
     experiment(
       StopTime=86400,
-      Tolerance=1e-05));
+      Tolerance=1e-6));
 end SingleCircuitMultipleCircuitFiniteDifference;

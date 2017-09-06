@@ -59,7 +59,7 @@ equation
   connect(res2.port_a, del.ports[2]) annotation (Line(
       points={{26,6},{10,6}},
       color={0,127,255}));
-    annotation (experiment(StopTime=300),
+    annotation (experiment(Tolerance=1e-6, StopTime=300),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Delays/Examples/Delay.mos"
         "Simulate and plot"));
 end Delay;

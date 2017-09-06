@@ -33,9 +33,9 @@ model Carnot_TEva_2ndLaw
     duration=1,
     offset=25,
     height=-25)
-               "Temperature lift condensor inlet minus evaporator outlet"
+               "Temperature lift condenser inlet minus evaporator outlet"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Modelica.Blocks.Math.Add TConIn "Condensor inlet temperature"
+  Modelica.Blocks.Math.Add TConIn "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{0,6},{20,26}})));
   Chiller chi_b(
     redeclare final package Medium1 = Medium,
@@ -215,7 +215,7 @@ equation
   connect(chi_b.TConIn, TConIn.y) annotation (Line(points={{59.0769,-32},{40,
           -32},{40,16},{21,16}},                color={0,0,127}));
 
-  annotation (experiment(StopTime=1),
+  annotation (experiment(Tolerance=1e-06, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/Carnot_TEva_2ndLaw.mos"
         "Simulate and plot"),
 Documentation(info="<html>

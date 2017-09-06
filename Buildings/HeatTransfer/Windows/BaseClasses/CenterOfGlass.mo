@@ -173,12 +173,6 @@ The properties of the glazing system is defined by the parameter
 The model contains these main component models:
 <ul>
 <li>
-the models <code>extSha</code> and <code>intSha</code>
-for the heat balance of the shade, modeled using
-<a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Shade\">
-Buildings.HeatTransfer.Windows.BaseClasses.Shade</a>.
-</li>
-<li>
 an array of models <code>glass</code> for the heat conduction and the
 infrared radiative heat balance of the glass layers.
 There can be an arbitrary number of glass layers, which are all modeled using
@@ -200,8 +194,8 @@ surface. These models are implemented in
 Buildings.HeatTransfer.Windows.Window</a>,
 <a href=\"modelica://Buildings.HeatTransfer.Windows.ExteriorHeatTransfer\">
 Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>, and
-<a href=\"modelica://Buildings.HeatTransfer.Windows.InteriorHeatTransfer\">
-Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>
+<a href=\"modelica://Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective\">
+Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective</a>.
 </html>", revisions="<html>
 <ul>
 <li>

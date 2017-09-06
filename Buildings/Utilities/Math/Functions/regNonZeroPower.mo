@@ -1,6 +1,7 @@
 within Buildings.Utilities.Math.Functions;
 function regNonZeroPower
   "Power function, regularized near zero, but nonzero value for x=0"
+  extends Modelica.Icons.Function;
 
  input Real x "Abscissa value";
  input Real n "Exponent";

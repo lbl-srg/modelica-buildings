@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.CDL.Continuous.Validation.HysteresisWithHold", stopTime=1800, tolerance=1e-06, resultFile="HysteresisWithHold1");
+createPlot(id=1, position={10, 20, 730, 800}, subPlot=1,y={"noHold.u","noHold.y","noHold.uLow","noHold.uHigh"}, range={0.0, 1800.0, 14.0, 32.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72},{0,140,72}});
+createPlot(id=1, position={10, 20, 730, 800}, subPlot=2,y={"onHold_30s.u","onHold_30s.y","onHold_30s.uLow","onHold_30s.uHigh"}, range={0.0, 1800.0, 14.0, 32.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72},{0,140,72}});
+createPlot(id=2, position={750, 20, 730, 800}, subPlot=1,y={"offHold_300s.u","offHold_300s.y","offHold_300s.uLow","offHold_300s.uHigh"}, range={0.0, 1800.0, 14.0, 32.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72},{0,140,72}});
+createPlot(id=2, position={750, 20, 730, 800}, subPlot=2,y={"onHold_150s.u","onHold_150s.y","onHold_150s.uLow","onHold_150s.uHigh"}, range={0.0, 1800.0, 14.0, 32.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72},{0,140,72}});

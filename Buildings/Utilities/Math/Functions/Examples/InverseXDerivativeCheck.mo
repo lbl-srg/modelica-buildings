@@ -25,7 +25,7 @@ equation
 annotation (
 experiment(
       StartTime=-1,
-      StopTime=1,
+      StopTime=1.0,
       Tolerance=1e-08),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/InverseXDerivativeCheck.mos"
         "Simulate and plot"),
@@ -44,9 +44,9 @@ revisions="<html>
 <ul>
 <li>
 June 22, 2016, by Filip Jorissen:<br/>
-Changed example such that it explicitly uses 
+Changed example such that it explicitly uses
 <a href=\"modelica://Buildings.Utilities.Math.Functions.BaseClasses.der_inverseXRegularized\">
-Buildings.Utilities.Math.Functions.BaseClasses.der_inverseXRegularized</a>. 
+Buildings.Utilities.Math.Functions.BaseClasses.der_inverseXRegularized</a>.
 </li>
 <li>
 August 11, 2015, by Michael Wetter:<br/>

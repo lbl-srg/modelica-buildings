@@ -5,11 +5,9 @@ model RoomVAV "Model for CO2 emitted by people"
   replaceable model MotorModel = Buildings.Fluid.Actuators.Motors.IdealMotor(delta=0.02, tOpe=60);
   Buildings.Fluid.Actuators.Dampers.VAVBoxExponential vav(
     redeclare package Medium = Medium,
-    A=ADam,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1E2,
-    from_dp=false)
-    annotation (extent=[-10,60; 10,80], rotation=270);
+    from_dp=false) annotation (extent=[-10,60; 10,80], rotation=270);
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     V=VRoo,

@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "intGre.u1",
+    "intGre.u2",
+    "intGre.y"
+  };

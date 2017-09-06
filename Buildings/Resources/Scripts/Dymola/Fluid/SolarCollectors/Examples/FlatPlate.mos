@@ -1,6 +1,6 @@
 removePlots();
 
-simulateModel("Buildings.Fluid.SolarCollectors.Examples.FlatPlate", stopTime = 86400, method = "dassl", resultFile = "FlatPlate");
+simulateModel("Buildings.Fluid.SolarCollectors.Examples.FlatPlate", tolerance=1e-6, stopTime = 86400, method = "dassl", resultFile = "FlatPlate");
 
 createPlot(id = 1,
  position = {0, 0, 1000, 500},

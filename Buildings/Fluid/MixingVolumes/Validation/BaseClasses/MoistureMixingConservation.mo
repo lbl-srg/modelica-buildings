@@ -50,11 +50,9 @@ partial model MoistureMixingConservation
               annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Modelica.Blocks.Sources.Constant mWatFlo1(k=0.001) "Water mass flow rate 1"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Modelica.Blocks.Sources.Constant TWat(k=273.15) "Watter supply temperature"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Sources.Constant mWatFlo3(k=-(mWatFlo1.k + mWatFlo2.k))
     "Withdrawn water rate"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Sources.Constant mWatFlo2(k=0.003) "Water mass flow rate 2"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   Modelica.Blocks.Math.Add cheMasFra(k2=-1)
@@ -104,27 +102,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(mWatFlo1.y, vol.mWat_flow) annotation (Line(
-      points={{-79,60},{-62,60},{-62,38}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(vol1.TWat,TWat. y) annotation (Line(
-      points={{-62,-34.8},{-62,-34},{-70,-34},{-70,90},{-79,90}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(vol.TWat,TWat. y) annotation (Line(
-      points={{-62,34.8},{-70,34.8},{-70,36},{-70,36},{-70,90},{-79,90}},
+      points={{-79,60},{-70,60},{-70,38},{-62,38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mWatFlo3.y, vol2.mWat_flow) annotation (Line(
-      points={{-19,70},{-12,70},{-12,38}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(vol2.TWat,TWat. y) annotation (Line(
-      points={{-12,34.8},{-12,90},{-79,90}},
+      points={{-79,90},{-30,90},{-30,38},{-12,38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mWatFlo2.y, vol1.mWat_flow) annotation (Line(
-      points={{-79,-50},{-70,-50},{-70,-38},{-62,-38}},
+      points={{-79,-50},{-74,-50},{-74,-38},{-62,-38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(vol1.ports[2], port_a) annotation (Line(
@@ -177,16 +163,22 @@ of the mixing volume.
 </html>", revisions="<html>
 <ul>
 <li>
+April 12, 2017, by Michael Wetter:<br/>
+Removed temperature connection that is no longer needed.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
+</li>
+<li>
 November 15, 2016, by Michael Wetter:<br/>
 Changed model to be <code>partial</code> and removed the <code>experiment</code> annotation.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/590\">issue 590</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/590\">issue 590</a>.
 </li>
 <li>
 November 2, 2016, by Michael Wetter:<br/>
 Changed assertions to blocks that compute the difference.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/564\">issue 564</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/564\">issue 564</a>.
 </li>
 <li>
 May 22 2015 by Filip Jorissen:<br/>

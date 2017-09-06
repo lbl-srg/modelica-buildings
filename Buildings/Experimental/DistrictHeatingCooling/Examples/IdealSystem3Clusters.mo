@@ -65,20 +65,20 @@ model IdealSystem3Clusters
     length=50,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-210,-50},{-230,-30}})));
-  Modelica.Blocks.Sources.CombiTimeTable QHea1(table=[0,200E3; 6*3600,200E3; 6*3600,50E3;
-        18*3600,50E3; 18*3600,75E3; 24*3600,75E3], extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+  Modelica.Blocks.Sources.CombiTimeTable QHea1(table=[0,200E3; 6,200E3; 6,50E3;
+        18,50E3; 18,75E3; 24,75E3], timeScale=3600, extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating demand"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
-  Modelica.Blocks.Sources.CombiTimeTable QHea2(table=[0,200E3; 6*3600,200E3; 6*3600,
-        50E3; 18*3600,50E3; 18*3600,0E3; 24*3600,0E3], extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+  Modelica.Blocks.Sources.CombiTimeTable QHea2(table=[0,200E3; 6,200E3; 6,
+        50E3; 18,50E3; 18,0E3; 24,0E3], timeScale=3600, extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating demand"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-  Modelica.Blocks.Sources.CombiTimeTable QCoo1(table=[0,-10E3; 6*3600,-10E3; 6*3600,
-        -10E3; 12*3600,-20E3; 18*3600,-250E3; 24*3600,-250E3], extrapolation=
+  Modelica.Blocks.Sources.CombiTimeTable QCoo1(table=[0,-10E3; 6,-10E3; 6,
+        -10E3; 12,-20E3; 18,-250E3; 24,-250E3], timeScale=3600, extrapolation=
         Modelica.Blocks.Types.Extrapolation.Periodic) "Cooling demand"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Modelica.Blocks.Sources.CombiTimeTable QCoo2(table=[0,-10E3; 9*3600,-100E3; 9*3600,
-        -50E3; 18*3600,-150E3; 18*3600,-150E3; 24*3600,-150E3], extrapolation=
+  Modelica.Blocks.Sources.CombiTimeTable QCoo2(table=[0,-10E3; 9,-100E3; 9,
+        -50E3; 18,-150E3; 18,-150E3; 24,-150E3], timeScale=3600, extrapolation=
         Modelica.Blocks.Types.Extrapolation.Periodic) "Cooling demand"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   SubStations.Heating hea3(redeclare package Medium = Medium, Q_flow_nominal=200E3)
@@ -111,27 +111,27 @@ model IdealSystem3Clusters
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=m_flow_nominal/3)
     annotation (Placement(transformation(extent={{100,-50},{80,-30}})));
-  Modelica.Blocks.Sources.CombiTimeTable QHea3(table=[0,200E3; 6*3600,200E3; 6*3600,50E3;
-        18*3600,50E3; 18*3600,75E3; 24*3600,75E3], extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+  Modelica.Blocks.Sources.CombiTimeTable QHea3(table=[0,200E3; 6,200E3; 6,50E3;
+        18,50E3; 18,75E3; 24,75E3], timeScale=3600, extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating demand"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
-  Modelica.Blocks.Sources.CombiTimeTable QHea4(table=[0,100E3; 6*3600,100E3; 6*3600,50E3;
-        18*3600,50E3; 18*3600,75E3; 24*3600,75E3], extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+  Modelica.Blocks.Sources.CombiTimeTable QHea4(table=[0,100E3; 6,100E3; 6,50E3;
+        18,50E3; 18,75E3; 24,75E3], timeScale=3600, extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating demand"
     annotation (Placement(transformation(extent={{180,80},{200,100}})));
-  Modelica.Blocks.Sources.CombiTimeTable QCoo3(table=[0,-100E3; 6*3600,-80E3; 6*3600,
-        -50E3; 12*3600,-100E3; 18*3600,-200E3; 24*3600,-200E3], extrapolation=
+  Modelica.Blocks.Sources.CombiTimeTable QCoo3(table=[0,-100E3; 6,-80E3; 6,
+        -50E3; 12,-100E3; 18,-200E3; 24,-200E3], timeScale=3600, extrapolation=
         Modelica.Blocks.Types.Extrapolation.Periodic) "Cooling demand"
     annotation (Placement(transformation(extent={{240,80},{260,100}})));
-  Modelica.Blocks.Sources.CombiTimeTable QCoo4(table=[0,-10E3; 9*3600,-10E3; 9*3600,
-        -50E3; 18*3600,-50E3; 18*3600,-150E3; 24*3600,-150E3], extrapolation=
+  Modelica.Blocks.Sources.CombiTimeTable QCoo4(table=[0,-10E3; 9,-10E3; 9,
+        -50E3; 18,-50E3; 18,-150E3; 24,-150E3], timeScale=3600, extrapolation=
         Modelica.Blocks.Types.Extrapolation.Periodic) "Cooling demand"
     annotation (Placement(transformation(extent={{300,80},{320,100}})));
   SubStations.Heating hea5(redeclare package Medium = Medium, Q_flow_nominal=100E3)
     "Heating load"
     annotation (Placement(transformation(extent={{400,-10},{420,10}})));
-  Modelica.Blocks.Sources.CombiTimeTable QHea5(table=[0,100E3; 6*3600,100E3; 6*3600,
-        50E3; 18*3600,50E3; 18*3600,0E3; 24*3600,0E3], extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+  Modelica.Blocks.Sources.CombiTimeTable QHea5(table=[0,100E3; 6,100E3; 6,
+        50E3; 18,50E3; 18,0E3; 24,0E3], timeScale=3600, extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating demand"
     annotation (Placement(transformation(extent={{360,80},{380,100}})));
   SubStations.Heating hea6(redeclare package Medium = Medium, Q_flow_nominal=200E3)
@@ -161,16 +161,16 @@ model IdealSystem3Clusters
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=m_flow_nominal/3)
     annotation (Placement(transformation(extent={{100,-250},{80,-230}})));
-  Modelica.Blocks.Sources.CombiTimeTable QHea6(table=[0,0E3; 6*3600,0; 6*3600,200E3;
-        18*3600,200E3; 18*3600,20E3; 24*3600,25E3], extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+  Modelica.Blocks.Sources.CombiTimeTable QHea6(table=[0,0E3; 6,0; 6,200E3;
+        18,200E3; 18,20E3; 24,25E3], timeScale=3600, extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating demand"
     annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
-  Modelica.Blocks.Sources.CombiTimeTable QHea7(table=[0,0E3; 6*3600,0E3; 6*3600,
-        100E3; 18*3600,100E3; 18*3600,200E3; 24*3600,200E3], extrapolation=
+  Modelica.Blocks.Sources.CombiTimeTable QHea7(table=[0,0E3; 6,0E3; 6,
+        100E3; 18,100E3; 18,200E3; 24,200E3], timeScale=3600, extrapolation=
         Modelica.Blocks.Types.Extrapolation.Periodic) "Heating demand"
     annotation (Placement(transformation(extent={{180,-120},{200,-100}})));
-  Modelica.Blocks.Sources.CombiTimeTable QCoo5(table=[0,-50E3; 6*3600,-50E3; 6*3600,
-        -50E3; 12*3600,-20E3; 18*3600,-150E3; 24*3600,-150E3], extrapolation=
+  Modelica.Blocks.Sources.CombiTimeTable QCoo5(table=[0,-50E3; 6,-50E3; 6,
+        -50E3; 12,-20E3; 18,-150E3; 24,-150E3], timeScale=3600, extrapolation=
         Modelica.Blocks.Types.Extrapolation.Periodic) "Cooling demand"
     annotation (Placement(transformation(extent={{240,-120},{260,-100}})));
 protected
@@ -300,7 +300,7 @@ equation
           -270,68},{-262,68}}, color={0,0,127}));
   connect(TSetC.y, pla.TSetCoo) annotation (Line(points={{-299,80},{-290,80},{-290,
           64},{-262,64}}, color={0,0,127}));
-  annotation(experiment(Tolerance=1E-6, StopTime=86400),
+  annotation(experiment(Tolerance=1E-06, StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Examples/IdealSystem3Clusters.mos"
         "Simulate and plot"),
     Documentation(

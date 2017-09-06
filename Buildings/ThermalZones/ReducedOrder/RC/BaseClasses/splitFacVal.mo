@@ -40,13 +40,13 @@ algorithm
 
   annotation (Documentation(info="<html>
   <p>Calculates the ratio of the surface areas of a wall to the total wall area,
-  unless the area is zero. It substracts the wall area <code>AExt</code>
+  unless the area is zero. It subtracts the wall area <code>AExt</code>
   for first entry in <code>AArray</code> and <code>AWin</code> for
   second entry in AArray unless <code>AArray[1]</code> and/or
   <code>AArray[2]</code> are not zero. This is done separately for each
   orientation. Consequently, the function gives an <code>nRow x nCol</code>
   array back as output. Each row stands for one area in
-  <code>AArray</code> and each row for one orientation in
+  <code>AArray</code> and each column for one orientation in
   <code>AExt</code> and <code>AWin</code>. The function is used to
   calculate the split factors for
   <a href=\"Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.ThermSplitter\">

@@ -82,6 +82,12 @@ model HeatExchangerDynamics
     m_flow_nominal=m_flow_nominal,
     tau=0) "Temperature sensor at tank outlet"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
+  Sources.MassFlowSource_T mWatTanDyn_flow(redeclare package Medium = Medium,
+      nPorts=1) "Mass flow rate through the tank"
+    annotation (Placement(transformation(extent={{88,20},{68,40}})));
+  Sources.MassFlowSource_T mWatTanSte_flow(redeclare package Medium = Medium,
+      nPorts=1) "Mass flow rate through the tank"
+    annotation (Placement(transformation(extent={{88,-20},{68,0}})));
 equation
   connect(mHex_flow_in.y, mHex_flow1.m_flow_in) annotation (Line(
       points={{-79,20},{-70,20},{-70,28},{-60,28}},
@@ -91,12 +97,14 @@ equation
           {-70,-2},{-70,20},{-79,20}}, color={0,0,127}));
   connect(mHex_flow2.ports[1], tanSte.portHex_a) annotation (Line(points={{-40,-10},
           {-32,-10},{-30,-10},{-30,-13.8},{32,-13.8}},  color={0,127,255}));
-  connect(watInTan.ports[1], tanSte.port_a) annotation (Line(points={{-40,62},{-40,
-          59},{-22,59},{-22,-10},{32,-10}},  color={0,127,255}));
+  connect(watInTan.ports[1], tanSte.port_a) annotation (Line(points={{-40,62},{
+          -40,59},{-22,59},{-22,-10},{32,-10}},
+                                             color={0,127,255}));
   connect(mHex_flow1.ports[1], tanDyn.portHex_a) annotation (Line(points={{-40,
           20},{-30,20},{-30,26.2},{32,26.2}}, color={0,127,255}));
-  connect(watInTan.ports[2], tanDyn.port_a) annotation (Line(points={{-40,58},{-30,
-          58},{-20,58},{-20,30},{32,30}},  color={0,127,255}));
+  connect(watInTan.ports[2], tanDyn.port_a) annotation (Line(points={{-40,58},{
+          -30,58},{-20,58},{-20,30},{32,30}},
+                                           color={0,127,255}));
   connect(senTanDyn.port_a, tanDyn.portHex_b) annotation (Line(points={{10,10},{
           20,10},{20,22},{32,22}}, color={0,127,255}));
   connect(senTanSte.port_a, tanSte.portHex_b) annotation (Line(points={{10,-40},
@@ -105,6 +113,10 @@ equation
           10},{-20,-36},{-42,-36}}, color={0,127,255}));
   connect(senTanSte.port_b, sin.ports[2]) annotation (Line(points={{-10,-40},{-16,
           -40},{-42,-40}}, color={0,127,255}));
+  connect(mWatTanDyn_flow.ports[1], tanDyn.port_b)
+    annotation (Line(points={{68,30},{52,30}}, color={0,127,255}));
+  connect(mWatTanSte_flow.ports[1], tanSte.port_b)
+    annotation (Line(points={{68,-10},{52,-10}}, color={0,127,255}));
   annotation (
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/HeatExchangerDynamics.mos"
         "Simulate and plot"),
@@ -118,13 +130,19 @@ which no water flows through the heat exchanger.
 </html>", revisions="<html>
 <ul>
 <li>
+July 5, 2017, by Michael Wetter:<br/>
+Added zero mass flow rate boundary conditions to avoid a translation error in Dymola 2018.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/834\">issue 834</a>.
+</li>
+<li>
 January 8, 2016 by Michael Wetter:<br/>
 First implementation to test
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/434\">issue 434</a>.
 </li>
 </ul>
 </html>"),
-    experiment(StopTime=14400),
+    experiment(Tolerance=1e-6, StopTime=14400),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
 end HeatExchangerDynamics;

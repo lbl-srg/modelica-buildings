@@ -1,5 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 function getAbsolutePath "Gets the absolute path of a URI"
+  extends Modelica.Icons.Function;
   input String uri "A URI";
   output String path "The absolute path of the file pointed to by the URI";
 algorithm
@@ -9,7 +10,7 @@ algorithm
 <p>
 The function returns the absolute path of a
 uniform resource identifier (URI) or local file name.
-If the file is not found, then this function 
+If the file is not found, then this function
 terminates with an <code>assert</code>.
 </p>
 <p>

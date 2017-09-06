@@ -59,8 +59,7 @@ model TraceSubstancesFlowSource
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
                           annotation (Placement(transformation(extent={{88,-60},
             {108,-40}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assEqu1(
-                                                     threShold=1E-4)
+  Buildings.Utilities.Diagnostics.AssertEquality assEqu1(threShold=1E-4)
     "Assert that both volumes have the same concentration"
     annotation (Placement(transformation(extent={{210,0},{230,20}})));
   MixingVolumes.MixingVolume vol4(
@@ -239,7 +238,7 @@ equation
       color={0,127,255}));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{240,180}}), graphics),
-            experiment(StopTime=600),
+            experiment(Tolerance=1e-6, StopTime=600),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/TraceSubstancesFlowSource.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -35,7 +35,7 @@ equation
             100,100}})),
     Documentation(info="<html>
 <p>
-This example demonstrates the use of a <code>RealInput</code> 
+This example demonstrates the use of a <code>RealInput</code>
 connector for a mover model.
 </p>
 </html>", revisions="<html>
@@ -46,7 +46,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
+experiment(Tolerance=1e-06, StopTime=1),
+__Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/MoverContinuous.mos"
         "Simulate and plot"));
 end MoverContinuous;

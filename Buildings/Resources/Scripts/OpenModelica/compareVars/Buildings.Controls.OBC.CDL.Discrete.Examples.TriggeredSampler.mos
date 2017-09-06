@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "booPul.y",
+    "sin1.y",
+    "triSam.y",
+    "triSam1.y"
+  };

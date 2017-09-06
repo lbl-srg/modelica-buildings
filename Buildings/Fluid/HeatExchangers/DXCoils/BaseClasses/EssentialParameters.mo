@@ -1,8 +1,10 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial block EssentialParameters "A partial block for essential parameters"
 
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil
-                                                                 datCoi
+  replaceable parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi
+    constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil
     "Performance data"
     annotation (Placement(transformation(extent={{-80,82},{-68,94}})));
 protected
@@ -17,6 +19,10 @@ Buildings.Fluid.HeatExchangers.DXCoils</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 17, 2017 by Yangyang Fu:<br/>
+Added prefix <code>replaceable</code> for the parameter <code>datCoi</code>.
+</li>
 <li>
 January 7, 2013 by Michael Wetter:<br/>
 Removed medium declaration to avoid multiple definitions of the medium.

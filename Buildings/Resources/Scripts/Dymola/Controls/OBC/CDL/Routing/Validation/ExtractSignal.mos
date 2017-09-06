@@ -1,0 +1,9 @@
+simulateModel("Buildings.Controls.OBC.CDL.Routing.Validation.ExtractSignal", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="ExtractSignal1");
+createPlot(id=1, position={15, 10, 500, 750}, subPlot=1, y={"extSig.u[1]"}, range={0.0, 1.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 500, 750}, subPlot=2, y={"extSig.u[2]"}, range={0.0, 1.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 500, 750}, subPlot=3, y={"extSig.u[3]"}, range={0.0, 1.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 500, 750}, subPlot=4, y={"extSig.u[4]"}, range={0.0, 1.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 500, 750}, subPlot=5, y={"extSig.u[5]"}, range={0.0, 1.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={530, 10, 500, 750}, subPlot=1, y={"extSig.y[1]"}, range={0.0, 1.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={530, 10, 500, 750}, subPlot=2, y={"extSig.y[2]"}, range={0.0, 1.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={530, 10, 500, 750}, subPlot=3, y={"extSig.y[3]"}, range={0.0, 1.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});

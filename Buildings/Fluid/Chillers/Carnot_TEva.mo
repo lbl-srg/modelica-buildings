@@ -15,13 +15,12 @@ model Carnot_TEva
     final energyDynamics=energyDynamics,
     final homotopyInitialization=homotopyInitialization,
     final Q_flow_nominal=QCon_flow_nominal),
-   redeclare HeatExchangers.HeaterCooler_T eva(
+   redeclare HeatExchangers.SensibleCooler_T eva(
     final from_dp=from_dp2,
     final dp_nominal=dp2_nominal,
     final linearizeFlowResistance=linearizeFlowResistance2,
     final deltaM=deltaM2,
-    final Q_flow_maxHeat=0,
-    final Q_flow_maxCool=QEva_flow_min,
+    final QMin_flow=QEva_flow_min,
     final tau=tau2,
     final T_start=T2_start,
     final energyDynamics=energyDynamics,
@@ -45,11 +44,10 @@ protected
 initial equation
   assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be negative.");
 
-
 equation
   connect(TSet, eva.TSet) annotation (Line(points={{-120,90},{-66,90},{28,90},{28,
-          -54},{12,-54}}, color={0,0,127}));
-  connect(eva.Q_flow, QEva_flow) annotation (Line(points={{-11,-54},{-40,-54},{-40,
+          -52},{12,-52}}, color={0,0,127}));
+  connect(eva.Q_flow, QEva_flow) annotation (Line(points={{-11,-52},{-40,-52},{-40,
           -90},{110,-90}}, color={0,0,127}));
   connect(QCon_flow_internal.y, yCon.u)
     annotation (Line(points={{-59,40},{-42,40}},          color={0,0,127}));
@@ -58,7 +56,7 @@ equation
   connect(QCon_flow_internal.y, QCon_flow) annotation (Line(points={{-59,40},{-52,
           40},{-52,80},{80,80},{80,90},{110,90}}, color={0,0,127}));
   connect(QCon_flow_internal.u1, eva.Q_flow) annotation (Line(points={{-82,46},{
-          -90,46},{-90,-54},{-11,-54}}, color={0,0,127}));
+          -90,46},{-90,-52},{-11,-52}}, color={0,0,127}));
   connect(QCon_flow_internal.u2, PEle.y) annotation (Line(points={{-82,34},{-88,
           34},{-88,20},{72,20},{72,0},{61,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
@@ -156,12 +154,19 @@ Buildings.Fluid.HeatPumps.Examples.Carnot_TCon</a>.
 revisions="<html>
 <ul>
 <li>
+May 8, 2017, by Michael Wetter:<br/>
+Replaced model that interfaces with fluid stream.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">
+Buildings, #763</a>.
+</li>
+<li>
 January 2, 2017, by Filip Jorissen:<br/>
 Removed parameters
 <code>effInpEva</code> and <code>effInpCon</code>
 and updated documentation.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/497\">
 issue 497</a>.
 </li>
 <li>
@@ -170,7 +175,7 @@ Changed default temperature to compute COP to be the leaving temperature as
 use of the entering temperature can violate the 2nd law if the temperature
 lift is small.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/497\">
 Annex 60, issue 497</a>.
 </li>
 <li>

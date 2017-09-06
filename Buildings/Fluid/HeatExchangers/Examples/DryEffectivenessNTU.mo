@@ -235,14 +235,14 @@ equation
       points={{61,80},{92,80},{92,58},{82,58}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation(experiment(StopTime=360),
+  annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryEffectivenessNTU.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
 This model tests
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.DryffectivenessNTU</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.DryEffectivenessNTU</a>
 for different inlet conditions.
 </p>
 </html>", revisions="<html>

@@ -87,7 +87,7 @@ equation
       points={{-50,-20},{-50,-40},{14,-40},{14,10},{40,10}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (experiment(StopTime=172800, Tolerance=1e-05),
+  annotation (experiment(StopTime=172800, Tolerance=1e-6),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sources/Examples/PVPanels.mos"
         "Simulate and plot"),

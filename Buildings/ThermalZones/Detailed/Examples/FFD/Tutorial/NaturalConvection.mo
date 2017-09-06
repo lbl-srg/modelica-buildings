@@ -75,7 +75,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{21,-30},{58,-30}},
+      points={{21,-30},{58.4,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TEasWal.port, roo.surf_surBou[1])
@@ -97,7 +97,7 @@ equation
           preserveAspectRatio=false)),
           __Dymola_Commands(file =    "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.mos"
         "Simulate and plot"),
-        experiment(StopTime=120),
+        experiment(Tolerance=1e-06, StopTime=7200),
        Documentation(info="<html>
 <p>
 This tutorial gives step by step instructions for building and simulating a natural convection model. The model tests the coupled simulation of
@@ -180,13 +180,14 @@ Name these models as <code>qRadGai_flow</code>, <code>qConGai_flow</code> and <c
 This block is used to combine three scalar signals to a vector. Name it as <code>multiple_x3</code>.
 </li>
 <li>
-<a href=\"modelica://Buildings.HeatTransfer.Source.FixedTemperature\">Buildings.HeatTransfer.Source.FixedTemperature</a>.
+<a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">
+Buildings.HeatTransfer.Sources.FixedTemperature</a>.
 Two models are needed to specify the temperatures on the east and west walls.
 Name them as <code>TeasWal</code> and <code>TwesWal</code>, respectively.
 </li>
 </ul>
 Note that for the other four walls with adiabatic boundary conditions, we do not need to specify
-a zero heat flow boundary condition because the heat flow rate transfered through a heat port
+a zero heat flow boundary condition because the heat flow rate transferred through a heat port
 from the outside is zero if the heat port is not connected from the outside.
 </li>
 <li>

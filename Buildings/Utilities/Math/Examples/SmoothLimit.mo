@@ -13,7 +13,7 @@ equation
   connect(sine.y, smoLim.u)      annotation (Line(
       points={{-19,10},{-2,10}},
       color={0,0,127}));
-  annotation(experiment(StopTime=1.0),
+  annotation(experiment(Tolerance=1e-6, StartTime=0, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/SmoothLimit.mos"
         "Simulate and plot"),
     Documentation(info="<html>

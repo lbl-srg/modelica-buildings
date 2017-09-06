@@ -37,7 +37,7 @@ equation
       points={{-59,30},{-54,30},{-54,20},{-48,20}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  annotation (experiment(StopTime=1.0, Tolerance=1e-6),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Lines/Examples/ACSimpleGrid.mos"
         "Simulate and plot"),

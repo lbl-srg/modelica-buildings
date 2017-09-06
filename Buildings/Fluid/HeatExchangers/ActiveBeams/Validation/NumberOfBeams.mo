@@ -33,9 +33,8 @@ model NumberOfBeams
     m_flow_nominal=0.094,
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false,
-    nominalValuesDefineDefaultPressureCurve=true)
-    "Pump for hot water"
+    use_inputFilter=false,
+    nominalValuesDefineDefaultPressureCurve=true) "Pump for hot water"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Fluid.Sources.FixedBoundary sou_2(
     redeclare package Medium = MediumW,
@@ -50,9 +49,8 @@ model NumberOfBeams
     m_flow_nominal=0.094,
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false,
-    nominalValuesDefineDefaultPressureCurve=true)
-    "Pump for chilled water"
+    use_inputFilter=false,
+    nominalValuesDefineDefaultPressureCurve=true) "Pump for chilled water"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating beaCooHea(
     redeclare package MediumWat = MediumW,
@@ -83,9 +81,8 @@ model NumberOfBeams
     addPowerToMedium=false,
     m_flow_nominal=0.094*nBeams,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false,
-    nominalValuesDefineDefaultPressureCurve=true)
-    "Pump for hot water"
+    use_inputFilter=false,
+    nominalValuesDefineDefaultPressureCurve=true) "Pump for hot water"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pumChiWat10(
@@ -93,9 +90,8 @@ model NumberOfBeams
     addPowerToMedium=false,
     m_flow_nominal=0.094*nBeams,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false,
-    nominalValuesDefineDefaultPressureCurve=true)
-   "Pump for chilled water"
+    use_inputFilter=false,
+    nominalValuesDefineDefaultPressureCurve=true) "Pump for chilled water"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
   Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating beaCooHea10(
@@ -184,7 +180,7 @@ equation
          {{0,28},{0,28},{0,-10},{0,-40},{50,-40},{50,-150},{-40,-150}}, color={191,
           0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -180},{120,120}})),experiment(StopTime=5000),
+            -180},{120,120}})),experiment(Tolerance=1e-6, StopTime=5000),
    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Validation/NumberOfBeams.mos"
         "Simulate and plot"),
      Documentation(info="<html>

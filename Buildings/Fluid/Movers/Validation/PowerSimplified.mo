@@ -14,17 +14,17 @@ model PowerSimplified
   Buildings.Fluid.Movers.SpeedControlled_Nrpm pump_Nrpm(
     redeclare package Medium = Medium,
     per=per,
-    filteredSpeed=false,
+    use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with RPM as control signal"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Fluid.Movers.FlowControlled_dp  pump_dp(
+  Buildings.Fluid.Movers.FlowControlled_dp pump_dp(
     redeclare package Medium = Medium,
     redeclare Data.Pumps.Wilo.Stratos30slash1to8 per(
       pressure(V_flow={0,0}, dp={0,0}),
       use_powerCharacteristic=false,
-    hydraulicEfficiency(V_flow={0}, eta={0.3577})),
-    filteredSpeed=false,
+      hydraulicEfficiency(V_flow={0}, eta={0.3577})),
+    use_inputFilter=false,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with pressure rise as control signal"
@@ -35,8 +35,8 @@ model PowerSimplified
     redeclare Data.Pumps.Wilo.Stratos30slash1to8 per(
       pressure(V_flow={0,0}, dp={0,0}),
       use_powerCharacteristic=false,
-    hydraulicEfficiency(V_flow={0}, eta={0.3577})),
-    filteredSpeed=false,
+      hydraulicEfficiency(V_flow={0}, eta={0.3577})),
+    use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with mass flow rate as control signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
@@ -95,21 +95,21 @@ equation
       points={{-59,80},{-50,80},{-50,72}},
       color={0,0,127}));
   connect(m_flowSet.y, pump_m_flow.m_flow_in) annotation (Line(
-      points={{2.2,0},{-50.2,0},{-50.2,-8}},
+      points={{2.2,0},{-50,0},{-50,-8}},
       color={0,0,127}));
   connect(result.u1[1], pump_Nrpm.P) annotation (Line(
-      points={{18,-43},{-30,-43},{-30,68},{-39,68}},
+      points={{18,-43},{-30,-43},{-30,69},{-39,69}},
       color={0,0,127}));
   connect(result.u2[1], pump_dp.P) annotation (Line(
-      points={{18,-50},{-30,-50},{-30,28},{-39,28}},
+      points={{18,-50},{-30,-50},{-30,29},{-39,29}},
       color={0,0,127}));
   connect(result.u3[1], pump_m_flow.P) annotation (Line(
-      points={{18,-57},{-30,-57},{-30,-12},{-39,-12}},
+      points={{18,-57},{-30,-57},{-30,-11},{-39,-11}},
       color={0,0,127}));
   connect(dpSet.y, pump_dp.dp_in) annotation (Line(
-      points={{2.2,40},{-50.2,40},{-50.2,32}},
+      points={{2.2,40},{-50,40},{-50,32}},
       color={0,0,127}));
-  annotation (    experiment(StopTime=200),
+  annotation (    experiment(Tolerance=1e-6, StopTime=200),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerSimplified.mos"
         "Simulate and plot"),
@@ -157,7 +157,7 @@ in OpenModelica to the error message
 <li>
 March 2, 2016, by Filip Jorissen:<br/>
 Revised implementation for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/417\">#417</a>.
 </li>
 <li>
 November 5, 2015, by Michael Wetter:<br/>
