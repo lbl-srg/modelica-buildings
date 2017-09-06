@@ -141,15 +141,13 @@ equation
     annotation (Line(points={{-59,60},{-40,60},{-40,66},{-22,66}},
       color={0,0,127}));
   connect(netRes.y, add1.u2)
-    annotation (Line(points={{161,-70},{180,-70},{180,-6},{-40,-6},{-40,54},{
-          -22,54}},
+    annotation (Line(points={{161,-70},{180,-70},{180,-6},{-40,-6},{-40,54},{-22,54}},
       color={0,0,127}));
   connect(sampler.y, difReqIgnReq.u2)
     annotation (Line(points={{-119,-90},{-100,-90},{-100,-76},{-82,-76}},
       color={0,0,127}));
   connect(delTimCon.y, swi1.u2)
-    annotation (Line(points={{-119,130},{-110,130},{-110,-10},{0,-10},{0,-30},{
-          78,-30}},
+    annotation (Line(points={{-119,130},{-110,130},{-110,-10},{0,-10},{0,-30},{78,-30}},
       color={255,0,255}));
   connect(triAmoCon.y, swi1.u1)
     annotation (Line(points={{-59,-110},{-20,-110},{-20,-22},{78,-22}},
@@ -164,8 +162,7 @@ equation
     annotation (Line(points={{41,-90},{60,-90},{60,-78},{78,-78}},
       color={255,0,255}));
   connect(delTimCon.y, and2.u1)
-    annotation (Line(points={{-119,130},{-110,130},{-110,-10},{0,-10},{0,-70},{
-          78,-70}},
+    annotation (Line(points={{-119,130},{-110,130},{-110,-10},{0,-10},{0,-70},{78,-70}},
       color={255,0,255}));
   connect(and2.y, netRes.u2)
     annotation (Line(points={{101,-70},{138,-70}},
