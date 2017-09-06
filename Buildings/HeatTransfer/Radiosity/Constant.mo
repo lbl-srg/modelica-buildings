@@ -35,11 +35,6 @@ Documentation(info="<html>
 <p>
 Constant radiosity source. This model requires <i>k &ge; 0</i>.
 </p>
-<p>
-This model is used in
-<a href=\"modelica://Buildings.HeatTransfer.BaseClasses.DummyConstructionExterior\">
-Buildings.HeatTransfer.BaseClasses.DummyConstructionExterior</a>.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

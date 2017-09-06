@@ -11,7 +11,9 @@ Added User's guide.
 </li>
 </ul>
 </html>", info="<html>
+<p>
 This package contains partial models that describe electric
 lines and cables.
+</p>
 </html>"));
 end BaseClasses;

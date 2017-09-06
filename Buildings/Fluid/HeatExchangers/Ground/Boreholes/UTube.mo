@@ -269,8 +269,8 @@ of the model
 Buildings.HeatTransfer.Conduction.SingleLayerCylinder</a> which computes
 the heat transfer in the soil, and
 of the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.TemperatureBoundaryCondition\">
-Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.TemperatureBoundaryCondition</a> which computes
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.SingleUTubeBoundaryCondition\">
+Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.SingleUTubeBoundaryCondition</a> which computes
 the far-field temperature boundary condition.
 The thermal resistor and capacitor network is computed in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.singleUTubeResistances\">
