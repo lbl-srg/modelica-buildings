@@ -80,7 +80,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y,roo. qGai_flow) annotation (Line(
-      points={{41,-10},{78,-10}},
+      points={{41,-10},{78.4,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus,roo. weaBus) annotation (Line(
@@ -179,7 +179,8 @@ This block is used to convert three numbers into a vector.
 Name it as <code>multiple_x3</code>.
 </li>
 <li>
-<a href=\"modelica://Buildings.HeatTransfer.Source.FixedTemperature\">Buildings.HeatTransfer.Source.FixedTemperature</a>.
+<a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">
+Buildings.HeatTransfer.Sources.FixedTemperature</a>.
 Two models are needed to specify the temperature on the floor and other walls.
 Name them as <code>TFlo</code> and <code>TOthWal</code> respectively.
 Please note that it is necessary to declare <code>TOthWal</code> as a vector of <i>5</i> elements.

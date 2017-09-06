@@ -2,25 +2,25 @@ within Buildings.Controls.OBC.CDL.Psychrometrics;
 block TWetBul_TDryBulPhi
   "Block to compute the wet bulb temperature based on relative humidity"
 
-  Controls.OBC.CDL.Interfaces.RealInput TDryBul(
+  Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
-  Controls.OBC.CDL.Interfaces.RealInput phi(
+  Interfaces.RealInput phi(
     final min=0,
     final max=1)
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
-  Controls.OBC.CDL.Interfaces.RealInput p(
+  Interfaces.RealInput p(
     final quantity="Pressure",
     final unit="Pa",
     final min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
-  Controls.OBC.CDL.Interfaces.RealOutput TWetBul(
+  Interfaces.RealOutput TWetBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100) "Wet bulb temperature"
@@ -121,8 +121,8 @@ with a mean error of less than <i>0.3</i> Kelvin.
 </p>
 <p>
 The model is validated in
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Psychrometrics.Examples.TWetBul_TDryBulPhi\">
-Buildings.Controls.OBC.CDL.Psychrometrics.Examples.TWetBul_TDryBulPhi</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Psychrometrics.Validation.TWetBul_TDryBulPhi\">
+Buildings.Controls.OBC.CDL.Psychrometrics.Validation.TWetBul_TDryBulPhi</a>.
 </p>
 <p>
 For a model that takes the mass fraction instead of the relative humidity as an input, see

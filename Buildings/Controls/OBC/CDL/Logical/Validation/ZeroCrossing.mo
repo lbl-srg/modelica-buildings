@@ -12,7 +12,8 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-38,-10},{-18,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
-      width=0.15, period=5) "Block that outputs cyclic on and off"
+    width=0.15,
+    period=5) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-38,-44},{-18,-24}})));
     Buildings.Controls.OBC.CDL.Logical.ZeroCrossing zeroCrossing
       "Zero crossing block"
@@ -27,8 +28,8 @@ extends Modelica.Icons.Example;
   Controls.OBC.CDL.Discrete.TriggeredSampler triggeredSampler "Triggered sampler"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 equation
-  connect(booPul1.y, zeroCrossing.enable) annotation (Line(points={{-17,-34},{
-          10,-34},{10,-12}},color={255,0,255}));
+  connect(booPul1.y, zeroCrossing.enable)
+    annotation (Line(points={{-17,-34},{10,-34},{10,-12}},color={255,0,255}));
   connect(ramp1.y, sin1.u)
     annotation (Line(points={{-61,0},{-50.5,0},{-40,0}},    color={0,0,127}));
   connect(sin1.y, zeroCrossing.u)

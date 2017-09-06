@@ -11,7 +11,8 @@ model BooleanReplicator "Validation model for the BooleanReplicator block"
 equation
   connect(booPul.y, booRep.u)
     annotation (Line(points={{-19,0},{18,0}}, color={255,0,255}));
-  annotation (
+
+annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Routing/Validation/BooleanReplicator.mos"
         "Simulate and plot"),

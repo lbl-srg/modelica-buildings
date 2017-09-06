@@ -155,16 +155,16 @@ protected
     annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
   CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
     annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
-  CDL.Logical.LessEqualThreshold equ(
+  CDL.Continuous.LessEqualThreshold equ(
     final threshold=Constants.FreezeProtectionStages.stage1 + 0.5)
     "Any freeze protection stage above 1 disables the control"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
 
-  CDL.Logical.GreaterThreshold greThr(
+  CDL.Continuous.GreaterThreshold greThr(
     final threshold=Constants.OperationModes.occModInd - 0.5)
       "Tests whether operation mode is occupied"
     annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
-  CDL.Logical.LessThreshold lesThr(
+  CDL.Continuous.LessThreshold lesThr(
     final threshold=Constants.OperationModes.occModInd + 0.5)
     "Tests whether operation mode is occupied"
     annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));

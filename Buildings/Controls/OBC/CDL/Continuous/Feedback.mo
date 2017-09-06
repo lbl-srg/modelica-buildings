@@ -17,9 +17,10 @@ block Feedback "Output difference between commanded and feedback input"
 
 equation
   y = u1 - u2;
-  annotation (
-defaultComponentName="feedback",
-Documentation(info="<html>
+
+annotation (
+  defaultComponentName="feedback",
+  Documentation(info="<html>
 <p>
 Block that outputs <code>y = u1 - u2</code>,
 where

@@ -5,9 +5,10 @@ package Tutorial "Tutorial with step by step instructions for how to do coupled 
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains the tutorials
-<a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.FFD.NaturalConvection\">NaturalConvection</a> and
-<a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.FFD.MixedConvection\">MixedConvection</a> with step by step
+This package contains tutorials
+for CFD simulations of zones with
+natural and mixed convection,
+with step by step
 instructions for how to build such models.
 </p>
 </html>"));

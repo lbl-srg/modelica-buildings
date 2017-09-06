@@ -193,7 +193,8 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.Fluid.MassExchangers</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Fluid.MassExchangers.Humidifier_X
+   <tr><td valign=\"top\">Buildings.Fluid.Humidifiers.SprayAirWasher_X<br/>
+                          Buildings.Fluid.Humidifiers.SteamHumidifier_X
        </td>
        <td valign=\"top\">Added component which allows setting the outlet water vapor
                         mass fraction using an input signal, and controlling it ideally
@@ -697,7 +698,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           Buildings.Controls.Continuous.PIDHysteresis<br/>
                           Buildings.Controls.Continuous.PIDHysteresisTimer<br/>
           </td>
-          <td valign=\"top\">Added option to reset the control output when an optional boolean input signal
+          <td valign=\"top\">Added option to reset the control output when an optional Boolean input signal
                            changes from <code>false</code> to <code>true</code>.<br/>
                            This closes
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/494\">IBPSA, #494</a>.
@@ -993,17 +994,17 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        </td>
    </tr>
    <tr><td valign=\"top\">
-                          Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed<br/>
-                          Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed<br/>
-                          Buildings.Fluid.HeatExchangers.DXCoils.MultiStage<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage<br/>
                           Buildings.Fluid.HeatExchangers.DXCoils.Data
        </td>
        <td valign=\"top\">Renamed
-                          <code>Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</code> to<br/>
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed</code> to<br/>
                           <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed</code>,<br/>
-                          <code>Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</code> to<br/>
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed</code> to<br/>
                           <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed</code>,<br/>
-                          <code>Buildings.Fluid.HeatExchangers.DXCoils.MultiStage</code> to<br/>
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage</code> to<br/>
                           <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage</code> and<br/>
                           <code>Buildings.Fluid.HeatExchangers.DXCoils.Data</code> to<br/>
                           <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data</code>.<br/>
@@ -1491,7 +1492,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
     </td>
     <td valign=\"top\">Added the parameter <code>inputType</code> which allows
                        to set the input as an continuous input signal,
-                       to set the input as an integer input signal that selects the stage of the mover,
+                       to set the input as an Integer input signal that selects the stage of the mover,
                        or to remove the input connector and use a parameter
                        to assign the control signal.
     </td>

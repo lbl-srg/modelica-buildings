@@ -1,15 +1,14 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Toggle "Toggles output value whenever its input turns on"
-
-  Controls.OBC.CDL.Interfaces.BooleanInput u "Connector of Boolean input signal: toggle input"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-   Controls.OBC.CDL.Interfaces.BooleanInput u0 "Connector of Boolean input signal: clr input"
-     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Connector of Real output signal used as actuator signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   parameter Boolean pre_u_start=false "Start value of pre(u) at initial time";
   parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
+  Interfaces.BooleanInput u "Connector of Boolean input signal: toggle input"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+  Interfaces.BooleanInput u0 "Connector of Boolean input signal: clr input"
+     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
+  Interfaces.BooleanOutput y
+    "Connector of Real output signal used as actuator signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
   Integer scenario "scenario index";
