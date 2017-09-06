@@ -18,8 +18,9 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>This model implements a parallel of identical pumps with speed being controlled.
-The number can be specified by setting a value of <code>num</code>.
-The shutoff valves are used to avoid circulating flow among pumps.
+The structure of this model is explained in 
+<a href=\"modelica://Buildings.ChillerWSE.BaseClasses.PartialPumpParallel\">
+Buildings.ChillerWSE.BaseClasses.PartialPumpParallel</a>.
 </p>
 </html>"));
 end FlowMachine_y;

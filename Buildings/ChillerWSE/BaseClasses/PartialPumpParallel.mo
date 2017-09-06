@@ -78,8 +78,14 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   parameter Boolean linearizeFlowResistance = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Flow resistance"));
-  parameter Real threshold(min = 1e-6) = 1e-6
-    "Output signal y is true, if input u >= threshold";
+
+  parameter Real uLow "if y=true and u<=uLow, switch to y=false"
+    annotation(Dialog(group="Hystersis"));
+  parameter Real uHigh "if y=false and u>=uHigh, switch to y=true"
+    annotation(Dialog(group="Hystersis"));
+  parameter Boolean pre_y_start[num]=fill(false,num) "Value of pre(y) at initial time"
+    annotation(Dialog(group="Hystersis"));
+
   Modelica.Blocks.Interfaces.RealInput u[num]
     "Continuous input signal for the flow machine"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
@@ -139,12 +145,16 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     "Shutoff valves"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Buildings.ChillerWSE.BaseClasses.Sign uVal[num](
-    each final u1=1,
-    each final u2=0,
-    each final threshold=threshold)
-    "Signal for shutoff valves"
+  Modelica.Blocks.Logical.Hysteresis    uVal[num](
+    each final uLow=uLow,
+    each final uHigh=uHigh,
+    final pre_y_start=pre_y_start) "Signal for shutoff valves with hystersis"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+  Modelica.Blocks.Math.BooleanToReal booToRea[num](each final realTrue=1, each final
+            realFalse=0)
+    "Boolean value to real value"
+    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+
 equation
   connect(pum.port_b, val.port_a)
     annotation (Line(points={{10,0},{25,0},{40,0}}, color={0,127,255}));
@@ -159,8 +169,10 @@ equation
       color={0,0,127}));
   connect(u, uVal.u) annotation (Line(points={{-120,40},{-80,40},{-80,60},{-62,60}},
         color={0,0,127}));
-  connect(uVal.y, val.y)
-    annotation (Line(points={{-39,60},{50,60},{50,12}}, color={0,0,127}));
+  connect(uVal.y, booToRea.u) annotation (Line(points={{-39,60},{-30.5,60},{-22,
+          60}}, color={255,0,255}));
+  connect(booToRea.y, val.y)
+    annotation (Line(points={{1,60},{50,60},{50,12}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,16},{100,-14}},
@@ -192,5 +204,16 @@ June 30, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This is a partial model implemented for a pump parallel, which contains <code>num</code> 
+identical pumps. Although these pumps have the same nominal conditions, they 
+can have different performance data by specifying different curves in the data 
+record <code>per</code>. 
+</p>
+<p>
+A shutoff valve is assocaited with each pump to prevent circulating flows among pumps. And a 
+hystersis is used to avoid frequently swiching on and off.
+</p>
 </html>"));
 end PartialPumpParallel;

@@ -6,8 +6,6 @@ model PumpParallel "Example that tests the model pump parallels"
   parameter Integer numPum=2 "The number of pumps";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=6000/3600*1.2
     "Nominal mass flow rate";
-  parameter Real thr1=1E-4 "Threshold for shutoff valves in parallel 1";
-  parameter Real thr2=thr1*m_flow_nominal "Threshold for shutoff valves in parallel 2";
 
   Buildings.ChillerWSE.FlowMachine_y pumPar1(
     num=numPum,
@@ -16,24 +14,24 @@ model PumpParallel "Example that tests the model pump parallels"
     redeclare each Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    threshold=thr1,
     tau=1,
-    use_inputFilter=false)
+    uLow=0.01,
+    uHigh=0.02)
     "Pumps with speed controlled"
     annotation (Placement(transformation(extent={{-18,30},{2,50}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop dp2(
     from_dp=true,
-    dp_nominal=50000,
-    m_flow_nominal=0.006,
-    redeclare package Medium = MediumW)
+    redeclare package Medium = MediumW,
+    m_flow_nominal=numPum*m_flow_nominal,
+    dp_nominal=30000)
     "Pressure drop"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Buildings.Fluid.FixedResistances.PressureDrop dp1(
     from_dp=true,
-    m_flow_nominal=6000/3600*1.2,
     dp_nominal=300,
-    redeclare package Medium = MediumW)
+    redeclare package Medium = MediumW,
+    m_flow_nominal=numPum*m_flow_nominal)
     "Pressure drop"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
@@ -67,23 +65,24 @@ model PumpParallel "Example that tests the model pump parallels"
     redeclare each Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    threshold=thr2,
-    tau=1)
+    tau=1,
+    uLow=0.01*m_flow_nominal,
+    uHigh=0.02*m_flow_nominal)
     "Pumps with m_flow controlled"
     annotation (Placement(transformation(extent={{-18,-50},{2,-30}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop dp3(
     from_dp=true,
-    m_flow_nominal=6000/3600*1.2,
     dp_nominal=300,
-    redeclare package Medium = MediumW)
+    redeclare package Medium = MediumW,
+    m_flow_nominal=numPum*m_flow_nominal)
     "Pressure drop"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Fluid.FixedResistances.PressureDrop dp4(
     from_dp=true,
-    dp_nominal=50000,
-    m_flow_nominal=0.006,
-    redeclare package Medium = MediumW)
+    redeclare package Medium = MediumW,
+    m_flow_nominal=numPum*m_flow_nominal,
+    dp_nominal=30000)
     "Pressure drop"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(

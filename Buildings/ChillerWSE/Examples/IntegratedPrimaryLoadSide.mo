@@ -15,11 +15,13 @@ model IntegratedPrimaryLoadSide
       ahu(tauFan=1,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       use_inputFilterValve=true,
-      use_inputFilterFan=true),
-    weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
-    cooTowSpeCon(k=1, Ti=120),
+      use_inputFilterFan=true,
+      QHeaMax_flow=200000),
+    cooTowSpeCon(k=1, Ti=120,
+      yMin=0),
     chiStaCon(tWai=0),
-    CWPumCon(tWai=0));
+    CWPumCon(tWai=0),
+    weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumPri(
     each pressure=
@@ -27,6 +29,7 @@ model IntegratedPrimaryLoadSide
           V_flow=m2_flow_chi_nominal/1000*{0.2,0.6,1.0,1.2},
           dp=(dp2_chi_nominal+dp2_wse_nominal+18000)*{1.5,1.3,1.0,0.6}))
     "Performance data for primary pumps";
+
 
   Buildings.ChillerWSE.Examples.BaseClasses.Controls.CoolingModeControl
     cooModCon(
@@ -179,6 +182,10 @@ The system schematics is as shown below.
 <p>
 <img alt=\"image\" 
 src=\"modelica://Buildings/Resources/Images/ChillerWSE/Examples/IntegratedPrimaryLoadSideSystem.png\"/>
+</p>
+<p>
+Note that in this example, the bypass pipe in condenser water loop is not modeled, 
+which will lead to a very low condenser water supply temperature when the outdoor air temperature is too low.
 </p>
 <h4>Control Logic</h4>
 <p>This section describes the detailed control logic used in this chilled water plant system.
