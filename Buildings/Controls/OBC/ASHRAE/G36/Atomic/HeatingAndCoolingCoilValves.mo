@@ -25,12 +25,12 @@ block HeatingAndCoolingCoilValves "Generates heating and cooling control signals
     final quantity = "ThermodynamicTemperature") "Zone cooling setpoint temperature"
     annotation (Placement(transformation(
       extent={{-20,-20},{20,20}},rotation=0,origin={-160,90}), iconTransformation(
-      extent={{-10,-10},{10,10}},origin={-110,20})));
+      extent={{-10,-10},{10,10}},origin={-110,0})));
   Modelica.Blocks.Interfaces.RealInput TRoo(
     final unit="K",
     final quantity = "ThermodynamicTemperature") "Zone temperature measurement"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-160,30}),
-      iconTransformation(extent={{-10,-10},{10,10}}, origin={-110,-40})));
+      iconTransformation(extent={{-10,-10},{10,10}}, origin={-110,-60})));
 
   CDL.Interfaces.RealOutput yHea(
     final min=conSigMin,
@@ -79,9 +79,9 @@ protected
     final k=kPHea,
     final Ti=TiHea) "Heating coil valve controller"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
-  CDL.Logical.Timer timNoCoo "Measure time since cooling signal became zero."
+  CDL.Logical.Timer timNoCoo "Measure time since cooling signal became zero"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
-  CDL.Logical.Timer timNoHea "Measure time since heating signal became zero."
+  CDL.Logical.Timer timNoHea "Measure time since heating signal became zero"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   CDL.Continuous.Line conCooInv(
     final limitBelow=true,
@@ -109,12 +109,10 @@ protected
   CDL.Continuous.Less
                    disCoo "Determine whether the room temperature is below the cooling setpoint"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
-  CDL.Continuous.GreaterThreshold
-                               greThrHea(threshold=conSigMin + CDL.Constants.eps)
+  CDL.Continuous.GreaterThreshold greThrHea(threshold=conSigMin + CDL.Constants.eps)
     "Determine whether heating signal is active"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  CDL.Continuous.GreaterThreshold
-                               greThrCoo(threshold=conSigMin + CDL.Constants.eps)
+  CDL.Continuous.GreaterThreshold greThrCoo(threshold=conSigMin + CDL.Constants.eps)
     "Determine whether cooling signal is active"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
   CDL.Logical.Not notHea "Logical not block"
@@ -170,7 +168,7 @@ equation
   connect(notIntWin.y, andDisHea.u3)
     annotation (Line(points={{1,-80},{30,-80},{30,-58},{58,-58}}, color={255,0,255}));
   connect(heaLooDisSwi.u2, andDisHea.y)
-    annotation (Line(points={{98,120},{90,120},{90,-50},{81,-50}}, color={255,0,255}));
+    annotation (Line(points={{98,120},{86,120},{86,-50},{81,-50}}, color={255,0,255}));
   connect(notIntWin.y, andDisCoo.u1)
     annotation (Line(points={{1,-80},{30,-80},{30,-92},{58,-92}}, color={255,0,255}));
   connect(disCoo.y, andDisCoo.u2)
@@ -224,17 +222,18 @@ equation
           pattern=LinePattern.Dot,
           thickness=0.5)}),
     Documentation(info="<html>
-    <p>
-    This block models the control loops that modulate the position of heating and cooling coil valves
-    in order to maintain the zone temperature setpoint. ASHRAE Guidline 36 (G36), PART5.B.5, refers to them 
-    as the cooling loop and the heating loop.
-    </p>
 <p>
-Cooling valve controller is enabled whenever the room temperature (<code>TRoo</code>) exceeds the cooling temperature 
-setpoint (<code>TRooCooSet</code>). Heating valve controller is enabled whenever the room temperature 
-(<code>TRoo</code>) is below the heating temperature setpoint (<code>TRooHeaSet</code>). Both loops can remain 
+This block models the control loops that modulate the position of heating and cooling coil valves
+in order to maintain the zone temperature setpoint. ASHRAE Guidline 36 (G36), PART5.B.5, refers to them
+as the cooling loop and the heating loop.
+</p>
+<p>
+Cooling valve controller is enabled whenever the room temperature <code>TRoo</code> exceeds the cooling temperature
+setpoint <code>TRooCooSet</code>. Heating valve controller is enabled whenever the room temperature
+<code>TRoo</code> is below the heating temperature setpoint <code>TRooHeaSet</code>. Both loops can remain
 enabled at all times if provisions are made for the integral windup. Otherwise any of the loops get disabled
-after remaining at the minimum controller output for longer than <code>disDel</code> time period. State machine chart
+after remaining at the minimum controller output for longer than <code>disDel</code> time period.
+The following state machine chart
 illustrates these conditions:
 </p>
 <p align=\"center\">
@@ -243,7 +242,7 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/Heati
 </p>
 <p>
 The cooling loop shall maintain the space temperature at the active zone cooling setpoint. The heating loop shall
-maintain the space temperature at the active zone heating setpoint. This diagram illustrates the control loops:
+maintain the space temperature at the active zone heating setpoint. The diagram below illustrates the control loops.
 <br/>
 </p>
 <p align=\"center\">
@@ -304,6 +303,6 @@ assignments"),
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=14,
-          textString="Controller 
+          textString="Controller
 signal reverse")}));
 end HeatingAndCoolingCoilValves;

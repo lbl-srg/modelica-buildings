@@ -22,11 +22,11 @@ protected
 
 equation
   connect(TRooCooSetSig.y, conLoo.TRooCooSet)
-    annotation (Line(points={{-19,0},{0,0},{0,2},{19,2}}, color={0,0,127}));
+    annotation (Line(points={{-19,0},{0,0},{19,0}},       color={0,0,127}));
   connect(TRooHeaSetSig.y, conLoo.TRooHeaSet)
     annotation (Line(points={{-19,40},{0,40},{0,6},{19,6}}, color={0,0,127}));
   connect(TRoo.y, conLoo.TRoo)
-    annotation (Line(points={{-19,-40},{0,-40},{0,-4},{19,-4}}, color={0,0,127}));
+    annotation (Line(points={{-19,-40},{0,-40},{0,-6},{19,-6}}, color={0,0,127}));
   annotation (
   experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/Validation/HeatingAndCoolingCoilValves_TRoo.mos"
