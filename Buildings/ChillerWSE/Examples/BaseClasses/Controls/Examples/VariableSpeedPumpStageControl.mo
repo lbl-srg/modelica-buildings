@@ -31,7 +31,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ChillerWSE/Examples/BaseClasses/Controls/Examples/VariableSpeedPumpStageControl.mos"
-        "Simulate and Plot"),
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model test the staging controller for variable-speed pumps. The staging controller is located in

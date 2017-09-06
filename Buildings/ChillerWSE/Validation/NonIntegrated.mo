@@ -66,7 +66,7 @@ equation
           20,-44},{26,-44},{26,-74},{38,-74}}, color={0,127,255}));
   annotation (__Dymola_Commands(file=
           "Resources/Scripts/Dymola/ChillerWSE/Validation/NonIntegrated.mos"
-        "Simulate and Plot"), Documentation(info="<html>
+        "Simulate and plot"), Documentation(info="<html>
 <p>
 This example demonstrates how the model responses 
 according to different cooling mode signals

@@ -43,7 +43,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ChillerWSE/Examples/BaseClasses/Controls/Examples/CoolingModeControl.mos"
-        "Simulate and Plot"),
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model tests the cooling mode controller implemented in

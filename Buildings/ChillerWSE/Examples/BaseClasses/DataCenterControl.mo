@@ -244,10 +244,6 @@ equation
     annotation (Line(points={{-161,74},{-54,74}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-      Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-220,-180},{280,
-            200}})),
-    __Dymola_Commands,
     Documentation(info="<html>
     <p>This is a partial model that implements a chilled water cooling system 
     with controls for a data center room.

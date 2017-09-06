@@ -143,7 +143,7 @@ equation
     annotation (Line(points={{69,28},{56,28}}, color={0,0,127}));
   annotation (
 __Dymola_Commands(file="Resources/Scripts/Dymola/ChillerWSE/Validation/HeatExchanger.mos"
-        "Simulate and Plot"),
+        "Simulate and plot"),
 Documentation(info="<html>
 <p>
 This example demonstrates how the parameter <code>use_controller</code> influences

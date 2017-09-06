@@ -52,7 +52,7 @@ equation
     annotation (Line(points={{-12,-34},{-24,-34},{-24,70},{-69,70}},
                          color={255,0,255}));
   annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/ChillerWSE/Validation/WatersideEconomizer.mos"
-        "Simulate and Plot"), Documentation(info="<html>
+        "Simulate and plot"), Documentation(info="<html>
 <p>
 This example demonstrates that the temperature at port_b2 is controlled by setting 
 <code>use_controller=true</code>.

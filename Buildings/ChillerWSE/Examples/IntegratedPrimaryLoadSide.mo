@@ -161,11 +161,11 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
             Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-220,-180},{280,
-            200}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-240,-200},{300,
+            220}})),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/ChillerWSE/Examples/IntegratedPrimaryLoadSide.mos"
-        "Simulate and Plot"),
+        "Simulate and plot"),
     Documentation(info="<html>
 <h4>System Configuration</h4>
 <p>This example demonstrates the implementation of a chiller plant 

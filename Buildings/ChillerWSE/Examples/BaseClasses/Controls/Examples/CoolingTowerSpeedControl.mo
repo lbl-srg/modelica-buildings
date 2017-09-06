@@ -72,7 +72,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file=
         "modelica://Buildings/Resources/Scripts/Dymola/ChillerWSE/Examples/BaseClasses/Controls/Examples/CoolingTowerSpeedControl.mos"
-        "Simulate and Plot"),
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example tests the controller for the cooling tower fan speed. Detailed control logic can be found in 

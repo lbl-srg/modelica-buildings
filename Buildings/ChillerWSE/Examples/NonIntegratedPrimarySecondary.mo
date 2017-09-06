@@ -71,10 +71,6 @@ model NonIntegratedPrimarySecondary
     priPumCon(tWai=0)
     "Chilled water primary pump controller"
     annotation (Placement(transformation(extent={{-92,22},{-72,42}})));
-  Modelica.Blocks.Math.Gain gai2[numChi](
-    each k=m2_flow_chi_nominal)
-    "Gain effect"
-    annotation (Placement(transformation(extent={{-50,22},{-30,42}})));
   Modelica.Blocks.Sources.RealExpression cooLoaChi(
     y=ahu.port_a1.m_flow*4180*(TCHWRet.T - TCHWSupSet.y)) "Cooling load in chillers"
     annotation (Placement(transformation(extent={{-130,134},{-110,154}})));
@@ -256,12 +252,6 @@ equation
   connect(cooModCon.y, priPumCon.cooMod)
     annotation (Line(points={{-109,110},{-102,
           110},{-102,40},{-94,40}}, color={0,0,127}));
-  connect(priPumCon.y, gai2.u)
-    annotation (Line(points={{-71,32},{-62,32},{-52,32}}, color={0,0,127}));
-  connect(gai2.y, priPum.u)
-    annotation (Line(points={{-29,32},{-2,32},{40,32},{
-          40,200},{260,200},{260,32},{200,32},{200,4},{192,4}},
-          color={0,0,127}));
   connect(cooLoaChi.y, chiStaCon.QTot)
     annotation (Line(points={{-109,144},{-80.5,
           144},{-52,144}}, color={0,0,127}));
@@ -306,13 +296,15 @@ equation
     annotation (Line(points={{94,11},{94,11},
           {94,36},{94,36},{40,36},{40,200},{-70,200},{-70,140},{-52,140}},
         color={0,0,127}));
+  connect(priPumCon.y, priPum.u) annotation (Line(points={{-71,32},{40,32},{40,
+          14},{200,14},{200,4},{192,4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-180},{280,
-            200}})),
+        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-200},
+            {300,220}})),
     __Dymola_Commands(file=
       "modelica://Buildings/Resources/Scripts/Dymola/ChillerWSE/Examples/NonIntegratedPrimarySecondary.mos"
-      "Simulate and Plot"),
+      "Simulate and plot"),
     Documentation(info="<html>
 <h4>System Configuration</h4>
 <p>This example demonstrates the implementation of a chiller plant 

@@ -24,9 +24,9 @@ model PumpParallel "Example that tests the model pump parallels"
 
   Buildings.Fluid.FixedResistances.PressureDrop dp2(
     from_dp=true,
-    dp_nominal=50000,
-    m_flow_nominal=0.006,
-    redeclare package Medium = MediumW)
+    redeclare package Medium = MediumW,
+    dp_nominal=3000,
+    m_flow_nominal=6000/3600*1.2)
     "Pressure drop"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Buildings.Fluid.FixedResistances.PressureDrop dp1(
@@ -81,16 +81,11 @@ model PumpParallel "Example that tests the model pump parallels"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Fluid.FixedResistances.PressureDrop dp4(
     from_dp=true,
-    dp_nominal=50000,
-    m_flow_nominal=0.006,
-    redeclare package Medium = MediumW)
+    redeclare package Medium = MediumW,
+    dp_nominal=3000,
+    m_flow_nominal=6000/3600*1.2)
     "Pressure drop"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
-    redeclare package Medium = MediumW)
-    annotation (Placement(transformation(extent={{54,30},{74,50}})));
-  Modelica.Blocks.Math.Gain gain(k=1/numPum)
-    annotation (Placement(transformation(extent={{20,-10},{0,10}})));
 equation
   connect(dp2.port_a, pumPar1.port_b)
     annotation (Line(points={{20,40},{2,40}}, color={0,127,255}));
@@ -111,26 +106,19 @@ equation
   connect(pumPar2.port_b, dp4.port_a)
     annotation (Line(points={{2,-40},{11,-40},{20,-40}}, color={0,127,255}));
   connect(dp4.port_b, sin.ports[1])
-    annotation (Line(points={{40,-40},{76,-40},{
-          76,42},{82,42}}, color={0,127,255}));
-  connect(dp2.port_b, senMasFlo.port_a)
-    annotation (Line(points={{40,40},{54,40}},
-                                             color={0,127,255}));
-  connect(senMasFlo.port_b, sin.ports[2])
-    annotation (Line(points={{74,40},{82,40},{82,38}},
-                                                     color={0,127,255}));
+    annotation (Line(points={{40,-40},{76,-40},{76,42},{82,42}},
+                           color={0,127,255}));
 
-  connect(senMasFlo.m_flow, gain.u)
-    annotation (Line(points={{64,51},{64,60},{46,
-          60},{46,0},{22,0}}, color={0,0,127}));
  for i in 1:numPum loop
-  connect(gain.y, pumPar2.u[i])
-    annotation (Line(points={{-1,0},{-28,0},{-28,-36},{-20,-36}},color={0,0,127}));
  end for;
+  connect(y.y, pumPar2.u) annotation (Line(points={{-71,80},{-28,80},{-28,-36},
+          {-20,-36}}, color={0,0,127}));
+  connect(dp2.port_b, sin.ports[2])
+    annotation (Line(points={{40,40},{82,40},{82,38}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file="Resources/Scripts/Dymola/ChillerWSE/Validation/PumpParallel.mos"
-        "Simulate and Plot"),
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example demonstrates the use of the flow model with two different configurations.

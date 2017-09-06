@@ -255,8 +255,8 @@ equation
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-            Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-180},{280,
-            200}})),
+            Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
+            -200},{300,220}})),
     Documentation(info="<html>
 <p>
 This is a partial model that describes the chilled water cooling system in a data center. The sizing data

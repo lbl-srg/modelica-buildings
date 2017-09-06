@@ -80,7 +80,7 @@ equation
                                                    color={0,0,127}));
   annotation (__Dymola_Commands(file=
           "Resources/Scripts/Dymola/ChillerWSE/Validation/IntegratedPrimarySecondary.mos"
-        "Simulate and Plot"), Documentation(info="<html>
+        "Simulate and plot"), Documentation(info="<html>
 <p>
 This example demonstrates how the model responses 
 according to different cooling mode signals

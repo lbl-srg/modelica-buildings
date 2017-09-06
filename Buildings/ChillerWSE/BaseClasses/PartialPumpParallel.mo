@@ -4,14 +4,15 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters;
 
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic per[num]
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic per[num](
+      motorCooledByFluid=false)
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{70,64},{90,84}})));
  // Pump parameters
   parameter Integer num=2 "The number of pumps";
-  parameter Boolean addPowerToMedium=true
+  parameter Boolean addPowerToMedium=false
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation(Dialog(group="Pump"));
   parameter Modelica.SIunits.Time tau = 30
@@ -80,7 +81,10 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     annotation(Dialog(tab="Flow resistance"));
   parameter Real threshold(min = 0.01) = 0.05
     "Hysteresis threshold";
-  Modelica.Blocks.Interfaces.RealInput u[num]
+  Modelica.Blocks.Interfaces.RealInput u[num](
+    each final unit="1",
+    each max=1,
+    each min=0)
     "Continuous input signal for the flow machine"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));

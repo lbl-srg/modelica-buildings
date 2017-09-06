@@ -3,12 +3,17 @@ model FlowMachine_m "Identical m_flow controlled pumps"
   extends Buildings.ChillerWSE.BaseClasses.PartialPumpParallel(
     redeclare Buildings.Fluid.Movers.FlowControlled_m_flow pum(
       each final m_flow_nominal = m_flow_nominal,
-      final m_flow_start=yPump_start),
+      final m_flow_start=yPump_start*m_flow_nominal),
     rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
 
+  Modelica.Blocks.Math.Gain gaiM_flow[num](each final k=m_flow_nominal)
+    "Gain for mass flow rate"
+    annotation (Placement(transformation(extent={{-48,30},{-28,50}})));
 equation
-  connect(u, pum.m_flow_in)
-    annotation (Line(points={{-120,40},{0,40},{0,12}}, color={0,0,127}));
+  connect(gaiM_flow.y, pum.m_flow_in)
+    annotation (Line(points={{-27,40},{0,40},{0,12}}, color={0,0,127}));
+  connect(gaiM_flow.u, u)
+    annotation (Line(points={{-50,40},{-120,40},{-120,40}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
