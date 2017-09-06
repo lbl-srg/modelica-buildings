@@ -234,7 +234,7 @@ block ZoneSetpoint "Block outputs thermal zone cooling and heating setpoint"
   CDL.Discrete.TriggeredSampler heaSetSam
     "Sample current heating setpoint when zone becomes unpopulated by 5 minutes"
     annotation (Placement(transformation(extent={{40,-320},{60,-300}})));
-  CDL.Continuous.GreaterThreshold greThr(threshold=300)
+  CDL.Continuous.GreaterEqualThreshold greThr(threshold=300)
     "Check whether the zone has been unpopulated for 5 minutes continuously during occupied mode"
     annotation (Placement(transformation(extent={{-160,-280},{-140,-260}})));
   CDL.Continuous.Add add1 "Adjust heating setpoint"
@@ -1166,14 +1166,6 @@ annotation (
           fillPattern=FillPattern.Solid,
           textString="Local setpoints adjustment"),
         Text(
-          extent={{74,192},{326,98}},
-          lineColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
-          horizontalAlignment=TextAlignment.Right,
-          textString="Demand limit setpoints 
-adjustment"),
-        Text(
           extent={{-288,-264},{-36,-358}},
           lineColor={0,0,255},
           fillColor={215,215,215},
@@ -1205,7 +1197,7 @@ adjustment"),
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          textString="Setpoints limited 
+          textString="Setpoints limited
 in the range"),
         Text(
           extent={{-124,-526},{76,-594}},
@@ -1213,7 +1205,7 @@ in the range"),
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          textString="Limit occupied by 
+          textString="Limit occupied by
 unoccupied"),
         Text(
           extent={{34,-478},{298,-564}},
@@ -1221,29 +1213,37 @@ unoccupied"),
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
-          textString="Confine cooling setpoint 
-by heating one")}),
-  Documentation(info="<html>      
+          textString="Confine cooling setpoint
+by heating one"),
+        Text(
+          extent={{74,192},{326,98}},
+          lineColor={0,0,255},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          horizontalAlignment=TextAlignment.Right,
+          textString="Demand limit setpoints
+adjustment")}),
+  Documentation(info="<html>
 <p>
-This atomic sequence sets thermal zone cooling and heating setpoint. The implementation
-is according to the ASHRAE Guideline 36 (G36), PART5.B.3. The calculation is done 
-following steps below.
-</p>  
+This sequence sets the thermal zone cooling and heating setpoints. The implementation
+is according to the ASHRAE Guideline 36 (G36), PART5.B.3. The calculation is done
+following the steps below.
+</p>
 <p>a. Each zone shall have separate occupied and unoccupied heating and cooling
 setpoints.</p>
 <p>b. The active setpoints shall be determined by the Operation Mode of the zone
 group.</p>
 <ul>
-<li>The setpoints shall be the occupied setpoints during Occupied, Warm up, and 
+<li>The setpoints shall be the occupied setpoints during Occupied, Warm up, and
 Cool-down modes.</li>
 <li>The setpoints shall be the unoccupied setpoints during Unoccupied, Setback,
 and Setup modes.</li>
 </ul>
 <p>c. The software shall prevent</p>
 <ul>
-<li>The heating setpoint from exceeding the cooling setpoint minus 0.56 &deg;C 
+<li>The heating setpoint from exceeding the cooling setpoint minus 0.56 &deg;C
 (1 &deg;F).</li>
-<li>The unoccupied heating setpoint from exceeding the occupied heating 
+<li>The unoccupied heating setpoint from exceeding the occupied heating
 setpoint.</li>
 <li>The unoccupied cooling setpoint from being less than occupied cooling
 setpoint.</li>
@@ -1251,14 +1251,14 @@ setpoint.</li>
 <p>d. Where the zone has a local setpoint adjustment knob/button </p>
 <ul>
 <li>The setpoint adjustment offsets established by the occupant shall be software
-points that are persistent (e.g. not reset daily), but the actual offset used 
+points that are persistent (e.g. not reset daily), but the actual offset used
 in control logic shall be adjusted based on limits and modes as described below.</li>
 <li>The adjustment shall be capable of being limited in softare. (a. As a default,
-the active occupied cooling setpoint shall be limited between 22 &deg;C 
-(72 &deg;F) and 27 &deg;C (80 &deg;F); b. As a default, the active occupied 
-heating setpoint shall be limited between 18 &deg;C (65 &deg;F) and 22 &deg;C 
+the active occupied cooling setpoint shall be limited between 22 &deg;C
+(72 &deg;F) and 27 &deg;C (80 &deg;F); b. As a default, the active occupied
+heating setpoint shall be limited between 18 &deg;C (65 &deg;F) and 22 &deg;C
 (72 &deg;F);)</li>
-<li>The active heating and cooling setpoint shall be independently adjustable, 
+<li>The active heating and cooling setpoint shall be independently adjustable,
 respecting the limits and anti-overlap logic described above. If zone thermostat
 provides only a single setpoint adjustment, then the adjustment shall move both
 the same amount, within the limits described above.</li>
@@ -1271,7 +1271,8 @@ for the duration of the demand limit event.</li>
 <p>e. Cooling demand limit setpoint adjustment</p>
 The active cooling setpoints for all zones shall be increased when a demand limit
 is imposed on the associated zone group. The operator shall have the ability
-to exempt individual zones from this adjustment through the normal BAS user
+to exempt individual zones from this adjustment through the normal
+Building Automation System (BAS) user
 interface. Changes due to demand limits are not cumulative.
 <ul>
 <li>At Demand Limit Level 1, increase setpoint by 0.56 &deg;C (1 &deg;F).</li>
@@ -1292,16 +1293,16 @@ interface. Changes due to demand limits are not cumulative.
 For zones that have operable windows with indicator switches, when the window
 switch indicates the window is open, the heating setpoint shall be temporarily
 set to 4.4 &deg;C (40 &deg;F) and the cooling setpoint shall be temporarily
-set to 49 &deg;C (120 &deg;F). When the window switch indicates the window is 
+set to 49 &deg;C (120 &deg;F). When the window switch indicates the window is
 open during other than Occupied Mode, a Level 4 alarm shall be generated.
 <p>h. Occupancy sensor</p>
 <ul>
 <li>When the switch indicates the space has been unpopulated for 5 minutes
-continuously during the Occupied Mode, the active heating setpoint shall be 
+continuously during the Occupied Mode, the active heating setpoint shall be
 decreased by 1.1 &deg;C (2 &deg;F) and the cooling setpoint shall be increased
 by 1.1 &deg;C (2 &deg;F).</li>
 <li>When the switch indicated that the space has been populated for 1 minute
-continuously, the active heating and cooling setpoints shall be restored to 
+continuously, the active heating and cooling setpoints shall be restored to
 their previously values.</li>
 </ul>
 <p>Hierarchy of setpoint adjustments: the following adjustment restrictions
@@ -1316,9 +1317,9 @@ shall prevail in order from highest to lowest priority.</p>
 
 <h4>References</h4>
 <p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of 
-Standards Review)/ASHRAE Guideline 36P, 
-<i>High Performance Sequences of Operation for HVAC systems</i>. 
+<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
+Standards Review)/ASHRAE Guideline 36P,
+<i>High Performance Sequences of Operation for HVAC systems</i>.
 First Public Review Draft (June 2016)</a>
 </p>
 

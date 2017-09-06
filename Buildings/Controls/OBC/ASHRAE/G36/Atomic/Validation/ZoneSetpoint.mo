@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Atomic.Validation;
-model ZoneSetpoint "Validate block ZoneSetpoint"
+model ZoneSetpoint "Validate block for zone set point"
   extends Modelica.Icons.Example;
-
   Buildings.Controls.OBC.ASHRAE.G36.Atomic.ZoneSetpoint zonSetpoint(
     occSen=true,
     sinAdj=false,
     cooAdj=true,
     winStaSen=true) "Block determined thermal zone setpoints"
     annotation (Placement(transformation(extent={{60,40},{100,80}})));
+
   CDL.Continuous.Sources.Constant occCooSet(k=297.15)
     "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
