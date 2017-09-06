@@ -40,11 +40,10 @@ algorithm
 
   annotation (Documentation(info="<html>
 <p>
-This function computes the hemispherical absorptance of each glass pane for interior irradiation without no shading.
-The angular irradiation is not considered since the interior irradiation (from the room) is assumed to be diffusive.
-It is a reverse of the function
-<a href=\"modelica://Buildings.HeatTransfer.Windows.Functions.glassAbsInterirorIrradiationNoShading\">
-Buildings.HeatTransfer.Windows.Functions.glassAbsInterirorIrradiationNoShading</a>.
+This function computes the hemispherical absorptance of each glass pane
+for interior irradiation without no shading.
+The angular irradiation is not considered since the interior irradiation (from the room)
+is assumed to be diffusive.
 </p>
 </html>", revisions="<html>
 <ul>

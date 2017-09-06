@@ -62,8 +62,8 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
 Documentation(info="<html>
 <p>
 This model demonstrates the use of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilDiscretizedMassFlow\">
-Buildings.Fluid.HeatExchangers.WetCoilDiscretizedMassFlow</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilDiscretized\">
+Buildings.Fluid.HeatExchangers.WetCoilDiscretized</a>
 for different inlet conditions.
 </p>
 </html>", revisions="<html>

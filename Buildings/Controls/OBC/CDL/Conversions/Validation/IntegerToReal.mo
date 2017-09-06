@@ -20,6 +20,7 @@ equation
     annotation (Line(points={{-39,0},{-12,0},{-12,0}}, color={0,0,127}));
   connect(truncation.y, intToRea.u)
     annotation (Line(points={{11,0},{19.5,0},{28,0}}, color={255,127,0}));
+
   annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Conversions/Validation/IntegerToReal.mos"
