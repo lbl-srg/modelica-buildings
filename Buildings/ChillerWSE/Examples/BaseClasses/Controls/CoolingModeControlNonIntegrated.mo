@@ -12,24 +12,24 @@ model CoolingModeControlNonIntegrated
 
   Modelica.Blocks.Interfaces.IntegerInput numOnChi
     "Number of running chillers"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealInput TWetBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC")
     "Wet bulb temperature of outdoor air"
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput TCHWSup(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Temperature of leaving chilled water "
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
+    annotation (Placement(transformation(extent={{-140,-58},{-100,-18}})));
   Modelica.Blocks.Interfaces.RealInput TCHWSupSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Temperature setpoint of leaving chilled water "
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.IntegerOutput y
     "Cooling mode signal (1: free cooling mode, 3: fully mechanical cooling)"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -39,13 +39,13 @@ model CoolingModeControlNonIntegrated
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={0,58})));
+        origin={-20,58})));
   Modelica.StateGraph.StepWithSignal fulMecCoo
     "Fully mechanical cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={0,-30})));
+        origin={-20,-30})));
   Modelica.StateGraph.Transition con1(
     enableTimer=true,
     waitTime=tWai,
@@ -54,7 +54,7 @@ model CoolingModeControlNonIntegrated
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-40,20})));
+        origin={-20,20})));
   Modelica.Blocks.MathInteger.MultiSwitch swi(
     nu=2,
     y_default=0,
@@ -77,25 +77,26 @@ model CoolingModeControlNonIntegrated
 equation
   connect(freCoo.outPort[1],con1. inPort)
     annotation (Line(
-      points={{0,47.5},{0,47.5},{0,40},{-40,40},{-40,24}},
+      points={{-20,47.5},{-20,47.5},{-20,38},{-20,38},{-20,24}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con1.outPort,fulMecCoo. inPort[1])
     annotation (Line(
-      points={{-40,18.5},{-40,0},{1.9984e-15,0},{1.9984e-15,-19}},
+      points={{-20,18.5},{-20,18.5},{-20,-19}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(fulMecCoo.outPort[1], con2.inPort)
-    annotation (Line(points={{0,-40.5},
-          {0,-60},{30,-60},{30,16}}, color={0,0,0}));
+    annotation (Line(points={{-20,-40.5},{-20,-60},{30,-60},{30,16}},
+                                     color={0,0,0}));
   connect(con2.outPort, freCoo.inPort[1])
-    annotation (Line(points={{30,21.5},{30,80},{0,80},{0,69}}, color={0,0,0}));
+    annotation (Line(points={{30,21.5},{30,80},{-20,80},{-20,69}},
+                                                               color={0,0,0}));
   connect(freCoo.active, swi.u[1])
-    annotation (Line(points={{11,58},{54,58},{54,
-          0.9},{64,0.9}}, color={255,0,255}));
+    annotation (Line(points={{-9,58},{54,58},{54,0.9},{64,0.9}},
+                          color={255,0,255}));
   connect(fulMecCoo.active, swi.u[2])
-    annotation (Line(points={{11,-30},{34,-30},
-          {54,-30},{54,-0.9},{64,-0.9}}, color={255,0,255}));
+    annotation (Line(points={{-9,-30},{-9,-30},{54,-30},{54,-0.9},{64,-0.9}},
+                                         color={255,0,255}));
   connect(swi.y, y)
     annotation (Line(points={{88.6,0},{110,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),

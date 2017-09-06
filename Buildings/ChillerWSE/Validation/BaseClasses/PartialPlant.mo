@@ -68,7 +68,7 @@ partial model PartialPlant
   Modelica.Blocks.Sources.Constant TSet(
     k(unit="K",displayUnit="degC")=273.15+15.56)
     "Leaving chilled water temperature setpoint"
-    annotation (Placement(transformation(extent={{-92,20},{-72,40}})));
+    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TSup(
     redeclare package Medium = MediumCHW,

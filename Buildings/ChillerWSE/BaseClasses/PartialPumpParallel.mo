@@ -249,5 +249,10 @@ June 30, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Partial model for <code>num</code> parallel pumps, each with a shut-off valve to
+avoid recirculation.
+</p>
 </html>"));
 end PartialPumpParallel;

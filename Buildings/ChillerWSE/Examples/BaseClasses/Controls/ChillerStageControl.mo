@@ -17,10 +17,10 @@ model ChillerStageControl "Chiller staging control logic"
   Modelica.Blocks.Interfaces.IntegerInput cooMod
     "Cooling mode signal, integer value of
     Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingMode"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput QTot
     "Total cooling load in the chillers, negative"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput y[2]
     "On/off signal for the chillers - 0: off; 1: on"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -28,7 +28,7 @@ model ChillerStageControl "Chiller staging control logic"
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Temperature of leaving chilled water "
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 
   Modelica.StateGraph.Transition con1(
     enableTimer=true,

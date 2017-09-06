@@ -6,10 +6,10 @@ model ConstantSpeedPumpStageControl "Staging control for constant speed pumps"
 
   Modelica.Blocks.Interfaces.IntegerInput cooMod
     "Cooling mode - 0:off,  1: free cooling mode; 2: partially mechanical cooling; 3: fully mechanical cooling"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
   Modelica.Blocks.Interfaces.IntegerInput numOnChi
     "The number of running chillers"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}})));
   Modelica.Blocks.Interfaces.RealOutput y[2] "On/off signal - 0: off; 1: on"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 

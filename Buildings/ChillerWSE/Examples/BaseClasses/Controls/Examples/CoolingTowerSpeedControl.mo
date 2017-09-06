@@ -39,7 +39,7 @@ model CoolingTowerSpeedControl
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Modelica.Blocks.Sources.Constant CWSTSet(k=273.15 + 20)
     "Condenser water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Modelica.Blocks.Sources.Sine CWST(
     amplitude=5,
     freqHz=1/360,
@@ -54,8 +54,8 @@ model CoolingTowerSpeedControl
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 equation
   connect(CWSTSet.y, cooTowSpeCon.TCWSupSet)
-    annotation (Line(points={{-39,90},{
-          -22,90},{-22,88},{-22,22},{-22,10},{-12,10}}, color={0,0,127}));
+    annotation (Line(points={{-39,80},{-20,80},{-20,80},{-20,22},{-20,10},{-12,
+          10}},                                         color={0,0,127}));
   connect(CHWSTSet.y, cooTowSpeCon.TCHWSupSet)
     annotation (Line(points={{-39,10},
           {-32,10},{-32,1.11111},{-12,1.11111}}, color={0,0,127}));
