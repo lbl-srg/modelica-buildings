@@ -141,7 +141,7 @@ model DXCooledAirsideEconomizer
               redeclare package Medium = Medium, nPorts=2)
     "Boundary conditions for outside air"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-  Buildings.Applications.DataCenters.DXCooled.Examples.BaseClasses.CoolingMode
+  Buildings.Applications.DataCenters.DXCooled.Controls.CoolingMode
     cooModCon(tWai=1200) "Cooling mode controller"
     annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
   Buildings.Fluid.Actuators.Dampers.Exponential dam1(
@@ -159,7 +159,7 @@ model DXCooledAirsideEconomizer
     m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for mixed air"
     annotation (Placement(transformation(extent={{-30,2},{-10,22}})));
-  Buildings.Applications.DataCenters.DXCooled.Examples.BaseClasses.AirsideEconomizerController
+  Buildings.Applications.DataCenters.DXCooled.Controls.AirsideEconomizer
     ecoCon(
     Ti=60,
     minOAFra=0.15,
@@ -301,8 +301,8 @@ cooling coil are commanded to run together. And in FMC mode, only the DX cooling
 </p>
 <p>
 A demonstration on how to switch among these three cooling modes is shown in 
-<a href=\"modelica://Buildings.Applications.DataCenters.DXCooled.Examples.BaseClasses.CoolingMode\">
-Buildings.Applications.DataCenters.DXCooled.Examples.BaseClasses.CoolingMode</a>.
+<a href=\"modelica://Buildings.Applications.DataCenters.DXCooled.Controls.CoolingMode\">
+Buildings.Applications.DataCenters.DXCooled.Controls.CoolingMode</a>.
 </p>
 <h5>Supply air temperature control</h5>
 <p>

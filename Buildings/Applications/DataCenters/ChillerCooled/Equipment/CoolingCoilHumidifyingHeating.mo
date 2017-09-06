@@ -125,7 +125,7 @@ model CoolingCoilHumidifyingHeating
         rotation=0,
         origin={-22,-60})));
 
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.ReheatControl heaCon(
+  Buildings.Applications.DataCenters.ChillerCooled.Controls.Reheat heaCon(
     final pre_yVal_start=pre_yVal_start,
     final pre_dT_start=pre_dT_start,
     final yValLow=yValLow,
@@ -253,8 +253,8 @@ equation
     To avoid that water-valve and reheater control the outlet
     temperature at the same time, a buit-in reheater on/off controller is implemented.
     The detailed control logic about the reheater on/off control is shown in
-    <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ReheatControl\">
-    Buildings.Applications.DataCenters.ChillerCooled.Equipment.ReheatControl.</a></p>
+    <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.Reheat\">
+    Buildings.Applications.DataCenters.ChillerCooled.Controls.Reheat.</a></p>
     <p>The humidfier is an adiabatic humidifier with a prescribed outlet water vapor mass fraction
     in kg/kg total air.
     Details can be found in <a href=\"modelica://Buildings.Fluid.Humidifiers.SteamHumidifier_X\">

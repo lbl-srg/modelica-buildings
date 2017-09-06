@@ -8,6 +8,5 @@ IntegratedPrimaryPlantSide
 IntegratedPrimarySecondary
 NonIntegrated
 PumpParallel
-ReheatControl
 WatersideEconomizer
 BaseClasses

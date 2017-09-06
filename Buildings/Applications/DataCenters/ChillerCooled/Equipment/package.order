@@ -10,7 +10,6 @@ IntegratedPrimaryPlantSide
 IntegratedPrimarySecondary
 NonIntegrated
 PartialCoolingCoilHumidifyingHeating
-ReheatControl
 WatersideEconomizer
 Validation
 BaseClasses

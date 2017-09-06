@@ -27,7 +27,7 @@ model IntegratedPrimarySecondary
           dp=(dp1_chi_nominal+6000)*{1.5,1.3,1.0,0.6}))
     "Performance data for secondary chilled water pumps";
 
-  Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingModeControl
+  Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingMode
     cooModCon(
     tWai=tWai,
     deaBan1=1.1,
@@ -62,7 +62,7 @@ model IntegratedPrimarySecondary
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={72,-26})));
-  Buildings.Applications.DataCenters.ChillerCooled.Controls.ConstantSpeedPumpStageControl
+  Buildings.Applications.DataCenters.ChillerCooled.Controls.ConstantSpeedPumpStage
   PriPumCon(tWai=tWai)
     "Chilled water primary pump controller"
     annotation (Placement(transformation(extent={{-92,22},{-72,42}})));
@@ -215,8 +215,8 @@ src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCool
 <p>The chilled water system with integrated waterside economizer can run in three modes: 
 free cooling (FC) mode, partially mechanical cooling (PMC) mode and fully mechanical cooling (FMC) mode. 
 The detailed control logics about how to switch among these three cooling modes are described in 
-<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingModeControl\">
-Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingModeControl</a>.
+<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingMode\">
+Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingMode</a>.
 Details on how the valves are operated
 under different cooling modes are presented in 
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimarySecondary\">
@@ -241,8 +241,8 @@ a critical value.
 </ul>
 <p>
 The detailed implementation is shown in 
-<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.ChillerStageControl\">
-Buildings.Applications.DataCenters.ChillerCooled.Controls.ChillerStageControl</a>.
+<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.ChillerStage\">
+Buildings.Applications.DataCenters.ChillerCooled.Controls.ChillerStage</a>.
 </p>
 <h5>Pump Staging Control </h5>
 <p>
@@ -251,8 +251,8 @@ For constant speed pumps, the number of running pumps equals to the number of ru
 <p>
 For variable speed pumps, the number of running pumps is controlled by the speed signal and the mass flow rate. 
 Details are shown in 
-<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStageControl\">
-Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStageControl</a>. And the speed is 
+<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage\">
+Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage</a>. And the speed is 
 controlled by maintaining a fixed differential pressure between the outlet and inlet on the waterside
 of the Computer Room Air Handler (CRAH).
 </p>
@@ -275,8 +275,8 @@ When in FC mode, the fan speed is modulated to maintain chilled water supply tem
 </ul>
 <p>
 Detailed implementation of cooling tower speed control can be found in 
-<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeedControl\">
-Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeedControl</a>.
+<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed\">
+Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed</a>.
 </p>
 <p>
 Note that for simplicity, the chilled water supply temperature and 

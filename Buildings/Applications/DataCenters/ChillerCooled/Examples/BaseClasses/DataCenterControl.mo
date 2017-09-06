@@ -8,7 +8,7 @@ partial model DataCenterControl
     displayUnit="degC") = 279.71)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-190,150},{-170,170}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Controls.ChillerStageControl
+  Buildings.Applications.DataCenters.ChillerCooled.Controls.ChillerStage
   chiStaCon(
     tWai=tWai,
     QEva_nominal=QEva_nominal)
@@ -23,7 +23,7 @@ partial model DataCenterControl
   Modelica.Blocks.Logical.Not wseOn
     "True: WSE is on; False: WSE is off "
     annotation (Placement(transformation(extent={{-10,100},{10,120}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Controls.ConstantSpeedPumpStageControl
+  Buildings.Applications.DataCenters.ChillerCooled.Controls.ConstantSpeedPumpStage
     CWPumCon(tWai=tWai)
     "Condenser water pump controller"
     annotation (Placement(transformation(extent={{-52,60},{-32,80}})));
@@ -35,7 +35,7 @@ partial model DataCenterControl
     each k=m1_flow_chi_nominal)
     "Gain effect"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeedControl
+  Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed
     cooTowSpeCon(controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=40,
     k=5,
@@ -59,7 +59,7 @@ partial model DataCenterControl
   Modelica.Blocks.Sources.Constant uFan(k = 1)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-12,-176},{8,-156}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStageControl
+  Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage
   varSpeCon(
     tWai=tWai,
     m_flow_nominal=m2_flow_chi_nominal,
