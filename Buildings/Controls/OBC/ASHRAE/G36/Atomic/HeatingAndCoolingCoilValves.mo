@@ -69,8 +69,7 @@ protected
 
 equation
   connect(TRoo, conHeaVal.u_m)
-    annotation (Line(points={{-120,-60},{-68,-60},{-68,20},{-50,20},{-50,38}},
-    color={0,0,127}));
+    annotation (Line(points={{-120,-60},{-68,-60},{-68,20},{-50,20},{-50,38}},color={0,0,127}));
   connect(TRoo, conCooVal.u_m)
     annotation (Line(points={{-120,-60},{-50,-60},{-50,-32}},color={0,0,127}));
   connect(conCooVal.u_s,TRooCooSet)

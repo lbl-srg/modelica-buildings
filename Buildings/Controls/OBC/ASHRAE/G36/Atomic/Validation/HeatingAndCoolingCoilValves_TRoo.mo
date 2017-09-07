@@ -22,7 +22,7 @@ protected
 
 equation
   connect(TRooCooSetSig.y, conLoo.TRooCooSet)
-    annotation (Line(points={{-19,0},{0,0},{19,0}},       color={0,0,127}));
+    annotation (Line(points={{-19,0},{0,0},{19,0}}, color={0,0,127}));
   connect(TRooHeaSetSig.y, conLoo.TRooHeaSet)
     annotation (Line(points={{-19,40},{0,40},{0,6},{19,6}}, color={0,0,127}));
   connect(TRoo.y, conLoo.TRoo)
@@ -48,8 +48,7 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Atomic.HeatingAndCoolingCoilValves\">
 Buildings.Controls.OBC.ASHRAE.G36.Atomic.HeatingAndCoolingCoilValves</a>
 for zone temperature (<code>TRoo</code>) signal under fixed zone cooling (<code>TRooCooSet</code>)
-and heating (<code>TRooHeaSet</code>) temperature
-setpoints.
+and heating (<code>TRooHeaSet</code>) temperature setpoints.
 </p>
 </html>", revisions="<html>
 <ul>
