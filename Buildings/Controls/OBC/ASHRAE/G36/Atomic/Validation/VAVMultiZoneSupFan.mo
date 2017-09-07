@@ -77,12 +77,12 @@ equation
       color={0,0,127}));
   connect(sine.y, abs1.u)
     annotation (Line(points={{-69,-30},{-66,-30},{-62,-30}},
-                                                   color={0,0,127}));
+      color={0,0,127}));
   connect(abs1.y, tru1.u)
     annotation (Line(points={{-39,-30},{-22,-30}}, color={0,0,127}));
   connect(ram.y, abs.u)
     annotation (Line(points={{-69,80},{-68,80},{-62,80}},
-                                                 color={0,0,127}));
+      color={0,0,127}));
   connect(abs.y, tru.u)
     annotation (Line(points={{-39,80},{-22,80}}, color={0,0,127}));
 

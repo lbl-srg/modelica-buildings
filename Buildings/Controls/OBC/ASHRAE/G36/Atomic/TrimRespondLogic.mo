@@ -237,22 +237,6 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{-198,200},{-84,172}},
-          lineColor={238,46,47},
-          fontSize=11,
-          textStyle={TextStyle.Italic},
-          textString="fixme: the start time for both sampler and uniDel should ideally be the time (when uDevSta become true + delTim + timSte).
-Not the time instant (delTim + timSte)",
-          horizontalAlignment=TextAlignment.Left),
-        Text(
-          extent={{-28,198},{34,150}},
-          lineColor={238,46,47},
-          fontSize=11,
-          textStyle={TextStyle.Italic},
-          textString="fixme: current initial time setting will couse the
-unaccurate time range for first reset.",
-          horizontalAlignment=TextAlignment.Left),
-        Text(
           extent={{-186,82},{-142,42}},
           lineColor={0,0,255},
           fontSize=11,

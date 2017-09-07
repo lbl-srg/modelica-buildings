@@ -351,7 +351,7 @@ annotation (
 Supply fan control for a multizone VAV AHU according to 
 ASHRAE guideline G36, PART5.N.1 (Supply fan control).
 </p>
-<p>a. Supply fan start/stop</p>
+<h4>a. Supply fan start/stop</h4>
 <ul>
 <li>Supply fan shall run when system is in the Cool-down, Setup, or Occupied mode</li>
 <li>If there are any VAV-reheat boxes on perimeter zones, supply fan shall also 
@@ -360,25 +360,25 @@ run when system is in Setback or Warmup mode;</li>
 does not have airflow measurement station (<code>airFloMeaSta=false</code>),
 totallize current airflow rate from VAV boxes to a software point.</li>
 </ul>
-<p>b. Static pressure setpoint reset</p>
+<h4>b. Static pressure setpoint reset</h4>
 Static pressure setpoint shall be reset using trim-respond logic using following
 parameters as a starting point:
 <table summary=\"summary\" border=\"1\">
 <tr><th> Variable </th> <th> Value </th> <th> Definition </th> </tr>
 <tr><td>Device</td><td>AHU Supply Fan</td> <td>Associated device</td></tr>
-<tr><td><code>SP0</code></td><td><code>120 Pa (0.5 inches)</code></td><td>Initial setpoint</td></tr>
-<tr><td><code>SPmin</code></td><td><code>25 Pa (0.1 inches)</code></td><td>Minimum setpoint</td></tr>
-<tr><td><code>SPmax</code></td><td><code>maxDesPre</code></td><td>Maximum setpoint</td></tr>
-<tr><td><code>Td</code></td><td><code>10 minutes</code></td><td>Delay timer</td></tr>
-<tr><td><code>T</code></td><td><code>2 minutes</code></td><td>Time step</td></tr>
-<tr><td><code>I</code></td><td><code>2</code></td><td>Number of ignored requests</td></tr>
-<tr><td><code>R</code></td><td>Zone static pressure reset requests</td><td>Number of requests</td></tr>
-<tr><td><code>SPtrim</code></td><td><code>-12 Pa (-0.05 inches)</code></td><td>Trim amount</td></tr>
-<tr><td><code>SPres</code></td><td><code>15 Pa (+0.06 inches)</code></td><td>Respond amount</td></tr>
-<tr><td><code>SPres_max</code></td><td><code>32 Pa (+0.13 inches)</code></td><td>Maximum response per time interval</td></tr>
+<tr><td>SP0</td><td>120 Pa (0.5 inches)</td><td>Initial setpoint</td></tr>
+<tr><td>SPmin</td><td>25 Pa (0.1 inches)</td><td>Minimum setpoint</td></tr>
+<tr><td>SPmax</td><td>maxDesPre</td><td>Maximum setpoint</td></tr>
+<tr><td>Td</td><td>10 minutes</td><td>Delay timer</td></tr>
+<tr><td>T</td><td>2 minutes</td><td>Time step</td></tr>
+<tr><td>I</td><td>2</td><td>Number of ignored requests</td></tr>
+<tr><td>R</td><td>Zone static pressure reset requests</td><td>Number of requests</td></tr>
+<tr><td>SPtrim</td><td>-12 Pa (-0.05 inches)</td><td>Trim amount</td></tr>
+<tr><td>SPres</td><td>15 Pa (+0.06 inches)</td><td>Respond amount</td></tr>
+<tr><td>SPres_max</td><td>32 Pa (+0.13 inches)</td><td>Maximum response per time interval</td></tr>
 </table>
 <br/>
-<p>c. Static pressure control</p>
+<h4>c. Static pressure control</h4>
 Supply fan speed is controlled to maintain duct static pressure at setpoint 
 when the fan is proven on. Where the Zone groups served by the system are 
 small, provided multiple sets of gains that are used in the control loop as a 
