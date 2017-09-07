@@ -71,7 +71,6 @@ block EconModulationMultiZone
 
   CDL.Continuous.LimPID damPosCon(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final Td=0.1,
     final yMax=conSigMax,
     final yMin=conSigMin,
     final k=kPMod,

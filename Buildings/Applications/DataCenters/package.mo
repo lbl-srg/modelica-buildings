@@ -13,5 +13,16 @@ Improving Data Center Efficiency via End-to-End Cooling Modeling and Optimizatio
 </a> with funding from the US Department of Energy and cost-share contributions
 from Schneider Electric.
 </p>
+<p>
+The package
+<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled\">
+Buildings.Applications.DataCenters.ChillerCooled</a>
+contains models for data centers that use chilled water plants,
+whereas the package
+<a href=\"modelica://Buildings.Applications.DataCenters.DXCooled\">
+Buildings.Applications.DataCenters.DXCooled</a>
+contains models where cooling is provided with a DX coil.
+In both packages, the computers are air-cooled.
+</p>
 </html>"));
 end DataCenters;

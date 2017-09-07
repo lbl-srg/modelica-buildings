@@ -4,9 +4,11 @@ EconEnableDisableMultiZone
 EconEnableDisableSingleZone
 EconModulationMultiZone
 EconModulationSingleZone
+HeatingAndCoolingCoilValves
 OperationModeSelector
 OutdoorAirFlowSetpoint_MultiZone
 OutdoorAirFlowSetpoint_SingleZone
 VAVMultiZoneSupTempSet
 VAVSingleZoneTSupSet
+ZoneSetpoint
 Validation
