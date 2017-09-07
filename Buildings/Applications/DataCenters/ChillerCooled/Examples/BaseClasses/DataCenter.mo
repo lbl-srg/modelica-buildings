@@ -52,6 +52,7 @@ First implementation.
     "Thermal conductance at nominal flow for sensible heat, used to compute time constant";
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = 161.35
     "Nominal air mass flowrate";
+  parameter Real yValMin_AHU=0.2 "Minimum waterside valve position in the AHU";
 
   replaceable Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE chiWSE(
     redeclare replaceable package Medium1 = MediumW,
@@ -71,7 +72,7 @@ First implementation.
     use_inputFilter=false)
     "Chillers and waterside economizer"
     annotation (Placement(transformation(extent={{126,22},{146,42}})));
-  Fluid.Sources.Boundary_pT expVesCW(
+  Buildings.Fluid.Sources.Boundary_pT expVesCW(
     redeclare replaceable package Medium = MediumW,
     nPorts=1)
     "Expansion tank"
@@ -95,6 +96,7 @@ First implementation.
     annotation (Placement(transformation(extent={{104,-10},{84,10}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3  weaData(filNam=
         "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    "Weather data"
     annotation (Placement(transformation(extent={{-220,-78},{-200,-58}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-210,-38},{-190,-18}})));
@@ -124,7 +126,6 @@ First implementation.
     m2_flow_nominal=mAir_flow_nominal,
     dpValve_nominal=6000,
     dp2_nominal=600,
-    QHeaMax_flow=2000,
     mWatMax_flow=0.01,
     UA_nominal=UA_nominal,
     addPowerToMedium=false,
@@ -132,7 +133,10 @@ First implementation.
     perFan(
       pressure(dp=800*{1.2,1.12,1},
          V_flow=mAir_flow_nominal/1.29*{0,0.5,1}),
-         motorCooledByFluid=false))
+         motorCooledByFluid=false),
+    QHeaMax_flow=20000,
+    yValLow=yValMin_AHU + 0.05,
+    yValHig=yValMin_AHU + 0.1)
     "Air handling unit"
     annotation (Placement(transformation(extent={{154,-130},{174,-110}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWRet(
@@ -222,8 +226,8 @@ equation
                                       color={0,127,255},
       thickness=0.5));
   connect(senRelPre.port_b, ahu.port_b1)
-    annotation (Line(points={{172,-94},{206,-94},{206,-94},{250,-94},{250,-114},
-          {174,-114}},                   color={0,127,255},
+    annotation (Line(points={{172,-94},{206,-94},{250,-94},{250,-114},{174,-114}},
+                                         color={0,127,255},
       thickness=0.5));
   connect(TAirSup.port_a, ahu.port_b2)
     annotation (Line(

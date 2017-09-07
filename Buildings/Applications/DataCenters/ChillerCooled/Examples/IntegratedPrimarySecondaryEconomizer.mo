@@ -12,7 +12,9 @@ model IntegratedPrimarySecondaryEconomizer
     pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
         each use_inputFilter=true),
     ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-        use_inputFilterValve=false));
+        use_inputFilterValve=false),
+    CWPumCon(tWai=0),
+    chiStaCon(tWai=0));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumSec(
     each pressure=
@@ -63,7 +65,7 @@ model IntegratedPrimarySecondaryEconomizer
         rotation=-90,
         origin={72,-26})));
   Buildings.Applications.DataCenters.ChillerCooled.Controls.ConstantSpeedPumpStage
-  PriPumCon(tWai=tWai)
+  PriPumCon(tWai=0)
     "Chilled water primary pump controller"
     annotation (Placement(transformation(extent={{-92,22},{-72,42}})));
   Modelica.Blocks.Math.Gain gai2[numChi](
@@ -292,7 +294,7 @@ First implementation.
 </ul>
 </html>"),
 experiment(
-      StartTime=3801600,
-      StopTime=3974400,
+      StartTime=0,
+      StopTime=86400,
       Tolerance=1e-06));
 end IntegratedPrimarySecondaryEconomizer;

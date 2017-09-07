@@ -59,7 +59,7 @@ equation
     annotation (Line(points={{-69,60},{-69,60},{-20,60},{-20,-30.4},{-11.6,
           -30.4}},                             color={255,0,255}));
   connect(TSet.y, intWSEPri.TSet)
-    annotation (Line(points={{-71,30},{-22,30},{-22,-27.2},{-11.6,-27.2}},
+    annotation (Line(points={{-69,30},{-22,30},{-22,-27.2},{-11.6,-27.2}},
                           color={0,0,127}));
   connect(yVal5.y, intWSEPri.yVal5)
     annotation (Line(points={{19,80},{4,80},{-16,80},{-16,-35},{-11.6,-35}},
