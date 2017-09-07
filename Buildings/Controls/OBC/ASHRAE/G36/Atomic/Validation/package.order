@@ -12,6 +12,7 @@ HeatingAndCoolingCoilValves_TRoo
 OperationMode
 OutdoorAirFlowSetpoint_MultiZone
 OutdoorAirFlowSetpoint_SingleZone
+TrimRespond
 VAVMultiZoneSupTempSet
 VAVSingleZoneTSupSet_T
 VAVSingleZoneTSupSet_u
