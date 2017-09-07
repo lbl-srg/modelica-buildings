@@ -32,11 +32,8 @@
 #include <stdint.h> /* Needed to detect 32 vs. 64 bit using UINTPTR_MAX*/
 #endif
 
-//link the lib to ffd.lib
-#pragma comment(lib, "ffd.lib")
-
 CosimulationData *cosim;
 char msg[1000];
 
-//declare the ffd_dll function in DLL
+/*declare the ffd_dll function in DLL*/
 int ffd_dll(CosimulationData *cosim);

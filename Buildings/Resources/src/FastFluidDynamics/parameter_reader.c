@@ -24,10 +24,12 @@
 		*/
 int assign_parameter(PARA_DATA *para, char *string) {
   char tmp[400];
+  char tmp_par[400];
   /* tmp2 needs to be initialized to avoid crash*/
   /* when the input for tmp2 is empty*/
   char tmp2[100] = "";
   int senId = -1;
+
 
   /****************************************************************************
   sscanf() reads data from string and stores them according to parameter format
@@ -163,12 +165,14 @@ int assign_parameter(PARA_DATA *para, char *string) {
     ffd_log(msg, FFD_NORMAL);
   }
   else if(!strcmp(tmp, "inpu.parameter_file_name")) {
-    sscanf(string, "%s%s", tmp, para->inpu->parameter_file_name);
+    sscanf(string, "%s%s", tmp, tmp_par);
+    sprintf (para->inpu->parameter_file_name, "%s%s", para->cosim->para->filePath, tmp_par);
     sprintf(msg, "assign_parameter(): %s=%s", tmp, para->inpu->parameter_file_name);
     ffd_log(msg, FFD_NORMAL);
   }
   else if(!strcmp(tmp, "inpu.block_file_name")) {
-    sscanf(string, "%s%s", tmp, para->inpu->block_file_name);
+    sscanf(string, "%s%s", tmp, tmp_par);
+    sprintf (para->inpu->block_file_name, "%s%s", para->cosim->para->filePath, tmp_par);
     sprintf(msg, "assign_parameter(): %s=%s", tmp, para->inpu->block_file_name);
     ffd_log(msg, FFD_NORMAL);
   }
@@ -473,8 +477,11 @@ int read_parameter(PARA_DATA *para) {
       return 1;
     }
     else {
-      sprintf(msg, "read_parameter(): Opened file %s for FFD parameters",
-              para->cosim->para->fileName);
+      char *lastSlash = strrchr(para->cosim->para->fileName, '/');
+      strncpy(para->cosim->para->filePath, para->cosim->para->fileName, 
+          strlen(para->cosim->para->fileName) - (strlen(lastSlash) - 1));
+      sprintf(msg, "read_parameter(): Opened file %s for FFD parameters with base directory %s",
+              para->cosim->para->fileName, para->cosim->para->filePath);
       ffd_log(msg, FFD_NORMAL);
     }
   }
