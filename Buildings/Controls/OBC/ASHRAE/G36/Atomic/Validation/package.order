@@ -13,3 +13,4 @@ OutdoorAirFlowSetpoint_MultiZone
 OutdoorAirFlowSetpoint_SingleZone
 VAVSingleZoneTSupSet_T
 VAVSingleZoneTSupSet_u
+ZoneSetpoint
