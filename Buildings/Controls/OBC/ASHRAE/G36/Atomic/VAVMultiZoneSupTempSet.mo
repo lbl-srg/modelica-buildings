@@ -17,82 +17,86 @@ block VAVMultiZoneSupTempSet
   parameter Modelica.SIunits.Temperature TOutMax = 294.15
     "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
     annotation (Dialog(group="Temperatures"));
+  parameter Modelica.SIunits.Temperature iniSet = maxSet
+    "Initial setpoint"
+    annotation (Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
+  parameter Modelica.SIunits.Temperature maxSet = TSupMax
+    "Maximum setpoint"
+    annotation (Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
+  parameter Modelica.SIunits.Temperature minSet = TSupDes
+    "Minimum setpoint"
+    annotation (Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
+  parameter Modelica.SIunits.Time delTim = 600
+    "Delay timer"
+    annotation(Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
+  parameter Modelica.SIunits.Time timSte = 120
+    "Time step"
+    annotation(Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
+  parameter Integer ignReq = 2
+    "Number of ignorable requests for TrimResponse logic"
+    annotation(Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
+  parameter Modelica.SIunits.TemperatureDifference triAmo = 0.1
+    "Trim amount"
+    annotation (Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
+  parameter Modelica.SIunits.TemperatureDifference resAmo = -0.2
+    "Response amount"
+    annotation (Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
+  parameter Modelica.SIunits.TemperatureDifference maxRes = -0.6
+    "Maximum response per time interval"
+    annotation (Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
 
   CDL.Interfaces.RealInput TOut(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{-140,-10},{-100,30}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
-  CDL.Interfaces.RealInput TMax(
-    min=TSupDes,
-    max=TSupMax,
-    final unit="K",
-    quantity="ThermodynamicTemperature")
-    "Maximum cooling supply temperature "
-    annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+      iconTransformation(extent={{-120,30},{-100,50}})));
   CDL.Interfaces.RealInput TSetZones(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Average of heating and cooling setpoint"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{-120,70},{-100,90}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
-  CDL.Interfaces.IntegerInput opeMod "System operation mode"
+      iconTransformation(extent={{-120,-10},{-100,10}})));
+  CDL.Interfaces.IntegerInput uOpeMod "System operation mode"
     annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+      iconTransformation(extent={{-120,-90},{-100,-70}})));
+  CDL.Interfaces.IntegerInput uZonTemResReq
+    "Zone cooling supply air temperature reset request"
+    annotation (Placement( transformation(extent={{-140,0},{-100,40}}),
+      iconTransformation(extent={{-120,-50},{-100,-30}})));
   CDL.Interfaces.RealOutput TSup(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Supply air temperature"
     annotation (Placement(transformation(extent={{140,0},{160,20}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+      iconTransformation(extent={{100,-10},{120,10}})));
 
-//   fixme: Need a Trim&Response logic to find the T_max
-//   parameter Modelica.SIunits.Temperature iniSet = maxSet
-//     "Initial setpoint"
-//     annotation (Dialog(group="Variables of Trim & Response logic to set maximum supply temperature T_max"));
-//   parameter Modelica.SIunits.Temperature maxSet = TSupMax
-//     "Maximum setpoint"
-//     annotation (Dialog(group="Variables of Trim & Response logic to set maximum supply temperature T_max"));
-//   parameter Modelica.SIunits.Temperature minSet = TSupDes
-//     "Minimum setpoint"
-//     annotation (Dialog(group="Variables of Trim & Response logic to set maximum supply temperature T_max"));
-//   parameter Modelica.SIunits.Time delTim = 10*60
-//     "Delay timer"
-//     annotation(Dialog(group="Variables of Trim & Response logic to set maximum supply temperature T_max"));
-//   parameter Modelica.SIunits.Time timSte = 2*60
-//     "Time step"
-//     annotation(Dialog(group="Variables of Trim & Response logic to set maximum supply temperature T_max"));
-//   parameter Integer ignReq = 2
-//     "Number of ignored requests for Trim&Response logic "
-//     annotation(Dialog(group="Variables of Trim & Response logic to set maximum supply temperature T_max"));
-//   parameter Integer numReq = cooReq
-//     "Number of cooling requests"
-//     annotation(Dialog(group="Variables of Trim & Response logic to set maximum supply temperature T_max"));
-//   parameter Modelica.SIunits.Temperature triAmo = 0.1
-//     "Trim amount"
-//     annotation (Dialog(group="Variables of Trim & Response logic to set maximum supply temperature T_max"));
-//   parameter Modelica.SIunits.Temperature resAmo = -0.2
-//     "Response amount"
-//     annotation (Dialog(group="Variables of Trim & Response logic to set maximum supply temperature T_max"));
-//   parameter Modelica.SIunits.Temperature maxRes = -0.6
-//     "Maximum response per time interval"
-//     annotation (Dialog(group="Variables of Trim & Response logic to set maximum supply temperature T_max"));
+  TrimRespondLogic maxSupTemRes(
+    delTim=delTim,
+    iniSet=iniSet,
+    minSet=minSet,
+    maxSet=maxSet,
+    timSte=timSte,
+    numIgnReq=ignReq,
+    triAmo=triAmo,
+    resAmo=resAmo,
+    maxRes=maxRes)
+    "Maximum cooling supply temperature reset"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
 protected
   CDL.Continuous.Line lin
   "Supply temperature distributes linearly between TSupMin and TSupMax, according to Tout"
-    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
   CDL.Continuous.Sources.Constant minOutTem(k=TOutMin)
     "Lower value of the outdoor air temperature reset range"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
   CDL.Continuous.Sources.Constant maxOutTem(k=TOutMax)
     "Higher value of the outdoor air temperature reset range"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
   CDL.Continuous.Sources.Constant minSupTem(k=TSupMin)
     "Lowest cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
@@ -131,19 +135,16 @@ protected
 
 equation
   connect(minOutTem.y, lin.x1)
-    annotation (Line(points={{-39,70},{-10,70},{-10,58},{-2,58}},
+    annotation (Line(points={{21,70},{28,70},{28,58},{38,58}},
       color={0,0,127}));
   connect(TOut, lin.u)
-    annotation (Line(points={{-120,10},{-80,10},{-80,50},{-2,50}},
+    annotation (Line(points={{-120,60},{-14,60},{-14,50},{38,50}},
         color={0,0,127}));
   connect(maxOutTem.y, lin.x2)
-    annotation (Line(points={{-39,30},{-12,30},{-12,46},{-2,46}},
+    annotation (Line(points={{21,30},{28,30},{28,46},{38,46}},
       color={0,0,127}));
   connect(minSupTem.y, lin.f2)
-    annotation (Line(points={{-39,-10},{-10,-10},{-10,42},{-2,42}},
-      color={0,0,127}));
-  connect(TMax, lin.f1)
-    annotation (Line(points={{-120,50},{-82,50},{-82,54},{-2,54}},
+    annotation (Line(points={{-39,-10},{32,-10},{32,42},{38,42}},
       color={0,0,127}));
   connect(and1.y, swi1.u2)
     annotation (Line(points={{61,-90},{80,-90},{80,-50},{98,-50}},
@@ -159,14 +160,11 @@ equation
   connect(swi2.y, swi1.u3)
     annotation (Line(points={{61,-50},{70,-50},{70,-42},{98,-42}},
       color={0,0,127}));
-  connect(lin.y, swi2.u3)
-    annotation (Line(points={{21,50},{26,50},{26,-58},{38,-58}},
-      color={0,0,127}));
   connect(TSetZones, TDea.u)
-    annotation (Line(points={{-120,90},{0,90},{0,80},{38,80}},
-                                                 color={0,0,127}));
+    annotation (Line(points={{-120,90},{30,90},{30,80},{38,80}},
+      color={0,0,127}));
   connect(uSupFan, swi3.u2)
-    annotation (Line(points={{-120,-30},{-78,-30},{-78,10},{98,10}},
+    annotation (Line(points={{-120,-30},{-80,-30},{-80,10},{98,10}},
       color={255,0,255}));
   connect(swi1.y, swi3.u1)
     annotation (Line(points={{121,-50},{128,-50},{128,-10},{80,-10},{80,2},{98,2}},
@@ -188,18 +186,30 @@ equation
   connect(intGreThr.y, and2.u2)
     annotation (Line(points={{-39,-80},{-20,-80},{-20,-58},{-2,-58}},
       color={255,0,255}));
-  connect(opeMod, intLesThr.u)
+  connect(uOpeMod, intLesThr.u)
     annotation (Line(points={{-120,-100},{-80,-100},{-80,-50},{-62,-50}},
       color={255,127,0}));
-  connect(opeMod, intGreThr.u)
+  connect(uOpeMod, intGreThr.u)
     annotation (Line(points={{-120,-100},{-80,-100},{-80,-80},{-62,-80}},
       color={255,127,0}));
-  connect(opeMod, intLesThr1.u)
+  connect(uOpeMod, intLesThr1.u)
     annotation (Line(points={{-120,-100},{-32,-100},{-32,-90},{-22,-90}},
-                                                      color={255,127,0}));
-  connect(opeMod, intGreThr1.u)
+      color={255,127,0}));
+  connect(uOpeMod, intGreThr1.u)
     annotation (Line(points={{-120,-100},{-80,-100},{-80,-120},{-22,-120}},
       color={255,127,0}));
+  connect(lin.y, swi2.u3)
+    annotation (Line(points={{61,50},{76,50},{76,-20},{28,-20},{28,-58},{38,-58}},
+      color={0,0,127}));
+  connect(uZonTemResReq, maxSupTemRes.numOfReq)
+    annotation (Line(points={{-120,20},{-76,20},{-76,22},{-62,22}},
+      color={255,127,0}));
+  connect(uSupFan, maxSupTemRes.uDevSta)
+    annotation (Line(points={{-120,-30},{-80,-30},{-80,38},{-62,38}},
+      color={255,0,255}));
+  connect(maxSupTemRes.y, lin.f1)
+    annotation (Line(points={{-39,30},{-20,30},{-20,54},{38,54}},
+      color={0,0,127}));
 
 annotation (
   defaultComponentName = "supTemSetMulVAV",
@@ -210,32 +220,32 @@ annotation (
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-96,92},{-50,68}},
+          extent={{-94,92},{-42,66}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSetZones"),
         Text(
-          extent={{-96,8},{-64,-8}},
+          extent={{-96,48},{-68,36}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TOut"),
         Text(
-          extent={{-96,50},{-64,34}},
+          extent={{-94,-22},{-14,-58}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TMax"),
+          textString="uZonTemResReq"),
         Text(
-          extent={{-96,-28},{-52,-52}},
+          extent={{-94,12},{-48,-12}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uSupFan"),
         Text(
-          extent={{-96,-70},{-52,-90}},
+          extent={{-94,-70},{-50,-90}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="opeMod"),
+          textString="uOpeMod"),
         Text(
-          extent={{70,6},{98,-10}},
+          extent={{68,8},{96,-8}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSup"),
@@ -289,16 +299,16 @@ during the commissioning and tuning phase.
 <table summary=\"summary\" border=\"1\">
 <tr><th> Variable </th> <th> Value </th> <th> Definition </th> </tr>
 <tr><td>Device</td><td>AHU Supply Fan</td> <td>Associated device</td></tr>
-<tr><td><code>SP0</code></td><td><code>SPmax</code></td><td>Initial setpoint</td></tr>
-<tr><td><code>SPmin</code></td><td><code>TSupDes</code></td><td>Minimum setpoint</td></tr>
-<tr><td><code>SPmax</code></td><td><code>TSupMax</code></td><td>Maximum setpoint</td></tr>
-<tr><td><code>Td</code></td><td><code>10 minutes</code></td><td>Delay timer</td></tr>
-<tr><td><code>T</code></td><td><code>2 minutes</code></td><td>Time step</td></tr>
-<tr><td><code>I</code></td><td><code>2</code></td><td>Number of ignored requests</td></tr>
-<tr><td><code>R</code></td><td>Zone cooling requests</td><td>Number of requests</td></tr>
-<tr><td><code>SPtrim</code></td><td><code>+0.1&deg;C</code></td><td>Trim amount</td></tr>
-<tr><td><code>SPres</code></td><td><code>-0.2&deg;C</code></td><td>Respond amount</td></tr>
-<tr><td><code>SPres_max</code></td><td><code>-0.6&deg;C</code></td><td>Maximum response per time interval</td></tr>
+<tr><td>SP0</td><td>SPmax</td><td>Initial setpoint</td></tr>
+<tr><td>SPmin</td><td>TSupDes</td><td>Minimum setpoint</td></tr>
+<tr><td>SPmax</td><td>TSupMax</td><td>Maximum setpoint</td></tr>
+<tr><td>Td</td><td>10 minutes</td><td>Delay timer</td></tr>
+<tr><td>T</td><td>2 minutes</td><td>Time step</td></tr>
+<tr><td>I</td><td>2</td><td>Number of ignored requests</td></tr>
+<tr><td>R</td><td>Zone cooling requests</td><td>Number of requests</td></tr>
+<tr><td>SPtrim</td><td>+0.1&deg;C</td><td>Trim amount</td></tr>
+<tr><td>SPres</td><td>-0.2&deg;C</td><td>Respond amount</td></tr>
+<tr><td>SPres_max</td><td>-0.6&deg;C</td><td>Maximum response per time interval</td></tr>
 </table>
 <br/>
 

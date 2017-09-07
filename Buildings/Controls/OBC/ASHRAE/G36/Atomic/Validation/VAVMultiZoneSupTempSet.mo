@@ -6,50 +6,61 @@ model VAVMultiZoneSupTempSet
   Buildings.Controls.OBC.ASHRAE.G36.Atomic.VAVMultiZoneSupTempSet
     supplyAirTempSet_MultiZone
     "Supply air temperature setpoint for multizone system"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setZonTem(
     k=22.5 + 273.15) "Average of heating and cooling setpoint"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp maxSupTem(
-    height=4,
-    duration=86400,
-    offset=14 + 273.15) "Maximum cooling supply temperature "
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Sources.Sine outTem(
     amplitude=5,
     freqHz=1/86400,
     offset=18 + 273.15) "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse supFanSta(
-    period=28800) "Supply fan status"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse supFanSta(period=43200)
+    "Supply fan status"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp opeMod(
-    duration=86400,
     offset=1,
-    height=1) "Operation mode"
+    height=1,
+    duration=90000) "Operation mode"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Truncation tru
     "Discards the fractional portion of input and outputs its integer value"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Abs abs
+    "Block generates absolute value of input"
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+  Modelica.Blocks.Sources.Sine sine(
+    amplitude=6, freqHz=1/86400)
+    "Block generates sine signal"
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Truncation tru1
+    "Discards the fractional portion of input and provides a whole number output"
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+
 equation
   connect(opeMod.y, tru.u)
     annotation (Line(points={{-59,-70},{-42,-70}}, color={0,0,127}));
-  connect(tru.y, supplyAirTempSet_MultiZone.opeMod)
-    annotation (Line(points={{-19,-70},{-4,-70},{12,-70},{12,-8},{18,-8}},
+  connect(tru.y, supplyAirTempSet_MultiZone.uOpeMod)
+    annotation (Line(points={{-19,-70},{60,-70},{60,-8},{79,-8}},
       color={255,127,0}));
   connect(supFanSta.y, supplyAirTempSet_MultiZone.uSupFan)
-    annotation (Line(points={{-59,-30},{-28,-30},{6,-30},{6,-4},{18,-4}},
+    annotation (Line(points={{-59,0},{79,0}},
       color={255,0,255}));
   connect(outTem.y, supplyAirTempSet_MultiZone.TOut)
-    annotation (Line(points={{-59,10},{-59,10},{0,10},{0,0},{18,0}},
-      color={0,0,127}));
-  connect(maxSupTem.y, supplyAirTempSet_MultiZone.TMax)
-    annotation (Line(points={{-59,40},{-59,40},{6,40},{6,4},{18,4}},
+    annotation (Line(points={{-59,40},{40,40},{40,4},{79,4}},
       color={0,0,127}));
   connect(setZonTem.y, supplyAirTempSet_MultiZone.TSetZones)
-    annotation (Line(points={{-59,70},{-59,70},{12,70},{12,8},{18,8}},
+    annotation (Line(points={{-59,70},{60,70},{60,8},{79,8}},
       color={0,0,127}));
-  annotation (
+  connect(sine.y, abs.u)
+    annotation (Line(points={{-59,-40},{-42,-40}}, color={0,0,127}));
+  connect(abs.y, tru1.u)
+    annotation (Line(points={{-19,-40},{-2,-40}}, color={0,0,127}));
+  connect(tru1.y, supplyAirTempSet_MultiZone.uZonTemResReq)
+    annotation (Line(points={{21,-40},{40,-40},{40,-4},{79,-4}},
+      color={255,127,0}));
+
+annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/Validation/VAVMultiZoneSupTempSet.mos"
         "Simulate and plot"),
