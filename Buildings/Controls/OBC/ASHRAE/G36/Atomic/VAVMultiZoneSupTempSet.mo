@@ -102,7 +102,7 @@ protected
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   CDL.Continuous.Sources.Constant TSupWarUpSetBac(k=35 + 273.15)
     "Supply temperature setpoint under warm-up and setback mode"
-    annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
+    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
   CDL.Logical.Switch swi1
     "If operation mode is setup or cool-down, setpoint shall be 35 degC"
     annotation (Placement(transformation(extent={{100,-40},{120,-60}})));
@@ -113,7 +113,7 @@ protected
     uMax=24 + 273.15,
     uMin=21 + 273.15)
     "Limiter that outputs the dead band value for the supply air temperature"
-    annotation (Placement(transformation(extent={{40,80},{60,100}})));
+    annotation (Placement(transformation(extent={{40,70},{60,90}})));
   CDL.Logical.Switch swi3 "Check output regarding supply fan status"
     annotation (Placement(transformation(extent={{100,20},{120,0}})));
   CDL.Integers.LessThreshold intLesThr(threshold=Constants.OperationModes.warUpInd)
@@ -124,10 +124,10 @@ protected
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   CDL.Integers.LessThreshold intLesThr1(threshold=Constants.OperationModes.unoModInd)
     "Check if operation mode index is less than unoccupied mode index (7)"
-    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
+    annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
   CDL.Integers.GreaterThreshold intGreThr1(threshold=Constants.OperationModes.setUpInd)
     "Check if operation mode index is greater than set up mode index (3)"
-    annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
+    annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
 
 equation
   connect(minOutTem.y, lin.x1)
@@ -149,7 +149,7 @@ equation
     annotation (Line(points={{61,-90},{80,-90},{80,-50},{98,-50}},
       color={255,0,255}));
   connect(TSupWarUpSetBac.y, swi1.u1)
-    annotation (Line(points={{61,-130},{88,-130},{88,-58},{98,-58}},
+    annotation (Line(points={{61,-120},{88,-120},{88,-58},{98,-58}},
       color={0,0,127}));
   connect(and2.y, swi2.u2)
     annotation (Line(points={{21,-50},{38,-50}}, color={255,0,255}));
@@ -163,7 +163,8 @@ equation
     annotation (Line(points={{21,50},{26,50},{26,-58},{38,-58}},
       color={0,0,127}));
   connect(TSetZones, TDea.u)
-    annotation (Line(points={{-120,90},{38,90}}, color={0,0,127}));
+    annotation (Line(points={{-120,90},{0,90},{0,80},{38,80}},
+                                                 color={0,0,127}));
   connect(uSupFan, swi3.u2)
     annotation (Line(points={{-120,-30},{-78,-30},{-78,10},{98,10}},
       color={255,0,255}));
@@ -171,16 +172,16 @@ equation
     annotation (Line(points={{121,-50},{128,-50},{128,-10},{80,-10},{80,2},{98,2}},
       color={0,0,127}));
   connect(TDea.y, swi3.u3)
-    annotation (Line(points={{61,90},{80,90},{80,18},{98,18}},
+    annotation (Line(points={{61,80},{80,80},{80,18},{98,18}},
       color={0,0,127}));
   connect(swi3.y, TSup)
     annotation (Line(points={{121,10},{150,10}},
       color={0,0,127}));
   connect(intLesThr1.y, and1.u1)
-    annotation (Line(points={{1,-100},{14,-100},{14,-90},{38,-90}},
+    annotation (Line(points={{1,-90},{14,-90},{38,-90}},
       color={255,0,255}));
   connect(intGreThr1.y, and1.u2)
-    annotation (Line(points={{1,-130},{20,-130},{20,-98},{38,-98}},
+    annotation (Line(points={{1,-120},{20,-120},{20,-98},{38,-98}},
       color={255,0,255}));
   connect(intLesThr.y, and2.u1)
     annotation (Line(points={{-39,-50},{-2,-50}}, color={255,0,255}));
@@ -194,9 +195,10 @@ equation
     annotation (Line(points={{-120,-100},{-80,-100},{-80,-80},{-62,-80}},
       color={255,127,0}));
   connect(opeMod, intLesThr1.u)
-    annotation (Line(points={{-120,-100},{-22,-100}}, color={255,127,0}));
+    annotation (Line(points={{-120,-100},{-32,-100},{-32,-90},{-22,-90}},
+                                                      color={255,127,0}));
   connect(opeMod, intGreThr1.u)
-    annotation (Line(points={{-120,-100},{-80,-100},{-80,-130},{-22,-130}},
+    annotation (Line(points={{-120,-100},{-80,-100},{-80,-120},{-22,-120}},
       color={255,127,0}));
 
 annotation (
@@ -245,15 +247,15 @@ annotation (
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,100}})),
   Documentation(info="<html>
 <p>
-This block output supply air temperature for VAV system with multiple zone. It 
-is implemented according to the ASHRAE Guideline G36, PART5.N.2 (Supply air 
+Block that outputs the supply air temperature for VAV system with multiple zones,
+implemented according to the ASHRAE Guideline G36, PART5.N.2 (Supply air 
 temperature control).
 </p>
 <p>
-Control loop is enabled when supply air fan <code>uSupFan</code> is proven on, 
-and disabled and output set to Deadband otherwise. 
+The control loop is enabled when the supply air fan <code>uSupFan</code> is proven on, 
+and disabled and the output set to Deadband otherwise. 
 </p>
-<p> Supply air temperature setpoint should be defined as following.</p>
+<p> The supply air temperature setpoint is computed as follows.</p>
 <h4>Setpoints for <code>TSupMin</code>, <code>TSupMax</code>, 
 <code>TSupDes</code>, <code>TOutMin</code>, <code>TOutMax</code></h4>
 The default range of outdoor air temperature (<code>TOutMin=16&deg;C</code>, 
@@ -281,8 +283,8 @@ air temperature is <code>TOutMax</code> and above, proportionally up to
 <code>TMax</code> when the outdoor air temperature is <code>TOutMin</code> and 
 below. The <code>TMax</code> shall be reset using Trim-Respond logic between
 <code>TSupDes</code> and <code>TSupMax</code>. Parameters suggested for the
-Trim-Respond logic are shown in follow table. They would require adjustment 
-during the commissioning/tuning phase.
+Trim-Respond logic are shown in the table below. They require adjustment 
+during the commissioning and tuning phase.
 
 <table summary=\"summary\" border=\"1\">
 <tr><th> Variable </th> <th> Value </th> <th> Definition </th> </tr>
@@ -306,11 +308,13 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/VAVMu
 </p>
 
 <h4>During Setup and Cool-down modes (<code>opeMod=2</code>, <code>opeMod=3</code>)</h4>
+<p>
 Supply air temperature setpoint <code>TSup</code> shall be <code>TSupMin</code>.
-
+</p>
 <h4>During Setback and Warmup modes (<code>opeMod=4</code>, <code>opeMod=5</code>)</h4>
+<p>
 Supply air temperature setpoint <code>TSup</code> shall be <code>35&deg;C</code>.
-
+</p>
 <h4>References</h4>
 <p>
 <a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR.
