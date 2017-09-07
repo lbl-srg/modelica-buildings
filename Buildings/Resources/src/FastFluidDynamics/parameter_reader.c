@@ -434,7 +434,6 @@ int assign_parameter(PARA_DATA *para, char *string) {
       ffd_log(msg, FFD_NORMAL);
     }
   }
-
   return 0;
 } /* End of assign_parameter()*/
 
@@ -478,15 +477,23 @@ int read_parameter(PARA_DATA *para) {
     }
     else {
       char *lastSlash = strrchr(para->cosim->para->fileName, '/');
-      strncpy(para->cosim->para->filePath, para->cosim->para->fileName, 
-          strlen(para->cosim->para->fileName) - (strlen(lastSlash) - 1));
-      sprintf(msg, "read_parameter(): Opened file %s for FFD parameters with base directory %s",
+      int nPath = strlen(para->cosim->para->fileName) - (strlen(lastSlash) - 1);
+
+      para->cosim->para->filePath = (char*) calloc(nPath+1, sizeof(char));
+      if(para->cosim->para->filePath==NULL) {
+        ffd_log("read_parameter(): Could not allocate memory for the path to the FFD files", FFD_ERROR);
+        return 1;
+      }
+      else {
+        strncpy(para->cosim->para->filePath, para->cosim->para->fileName, nPath);
+        sprintf(msg, "read_parameter(): Opened file %s for FFD parameters with base directory %s",
               para->cosim->para->fileName, para->cosim->para->filePath);
-      ffd_log(msg, FFD_NORMAL);
+        ffd_log(msg, FFD_NORMAL);
+      }
     }
   }
 
-  /*Use fgets(...) as loop condition, it reutrns null when it fail to read more characters.*/
+  /*Use fgets(...) as loop condition, it returns null when it fail to read more characters.*/
   while(fgets(string, 400, file_para) != NULL) {
     if(assign_parameter(para, string)) {
       sprintf(msg, "read_parameter(): Could not read data from file %s",
