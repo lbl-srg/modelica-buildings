@@ -1,14 +1,16 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Atomic;
 block HeatingAndCoolingCoilValves "Generates heating and cooling control signals to maintain zone set temperature"
 
-  parameter Real kPCoo=1 "Gain of damper limit controller"
-    annotation(Evaluate=true, Dialog(tab="Controller", group="Cooling Loop"));
-  parameter Modelica.SIunits.Time TiCoo=30 "Time constant of damper limit controller integrator block"
-    annotation(Evaluate=true, Dialog(tab="Controller", group="Cooling Loop"));
-  parameter Real kPHea=1 "Gain of damper limit controller"
-    annotation(Evaluate=true, Dialog(tab="Controller", group="Heating Loop"));
-  parameter Modelica.SIunits.Time TiHea=30 "Time constant of damper limit controller integrator block"
-    annotation(Evaluate=true, Dialog(tab="Controller", group="Cooling Loop"));
+  parameter Real kPCoo=1 "Proportional gain for cooling coil control loop"
+    annotation(Dialog(group="Cooling coil control"));
+  parameter Modelica.SIunits.Time TiCoo=30 "Time constant of integrator block for cooling coil control loop"
+    annotation(Dialog(group="Cooling coil control"));
+
+  parameter Real kPHea=1 "Proportional gain for heating coil control loop"
+    annotation(Dialog(group="Heating coil control"));
+
+  parameter Modelica.SIunits.Time TiHea=30 "Time constant of integrator block for heating coil control loop"
+    annotation(Dialog(group="Heating coil control"));
 
   Modelica.Blocks.Interfaces.RealInput TRooHeaSet(
     final unit="K",
@@ -80,11 +82,11 @@ equation
   connect(conSigMinSig.y, conCooInv.x1)
     annotation (Line(points={{45,0},{54,0},{54,-12},{62,-12}},color={0,0,127}));
   connect(conSigMaxSig.y, conCooInv.f1)
-    annotation (Line(points={{45,-40},{54,-40},{54,-16},{62,-16}},color={0,0,127}));
+    annotation (Line(points={{45,-40},{52,-40},{52,-16},{62,-16}},color={0,0,127}));
   connect(conSigMaxSig.y, conCooInv.x2)
     annotation (Line(points={{45,-40},{54,-40},{54,-24},{62,-24}},color={0,0,127}));
   connect(conSigMinSig.y, conCooInv.f2)
-    annotation (Line(points={{45,0},{54,0},{54,-28},{62,-28}}, color={0,0,127}));
+    annotation (Line(points={{45,0},{56,0},{56,-28},{62,-28}}, color={0,0,127}));
   connect(conHeaVal.y, yHea) annotation (Line(points={{-39,50},{78,50},{110,50}}, color={0,0,127}));
   connect(conCooInv.y, yCoo) annotation (Line(points={{85,-20},{94,-20},{110,-20}}, color={0,0,127}));
   connect(TRooHeaSet, conHeaVal.u_s)
@@ -96,7 +98,7 @@ equation
                 Placement(transformation(extent={{-140,-30},{-120,-10}})),
                 Placement(transformation(extent={{-140,160},{-120,180}})),
                 Placement(transformation(extent={{-140,0},{-120,20}})),
-    defaultComponentName = "conLoo",
+    defaultComponentName = "coiCon",
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
          graphics={
         Rectangle(
@@ -119,20 +121,18 @@ equation
           thickness=0.5)}),
     Documentation(info="<html>
 <p>
-This block models the control loops that modulate the position of heating and cooling coil valves
+Controller that modulates the position of the heating and cooling coil valves
 in order to maintain the zone temperature setpoint. ASHRAE Guidline 36 (G36), PART5.B.5, refers to them
 as the cooling loop and the heating loop.
 </p>
 <p>
-Cooling valve controller is enabled whenever the room temperature <code>TRoo</code> exceeds the cooling temperature
-setpoint <code>TRooCooSet</code>. Heating valve controller is enabled whenever the room temperature
-<code>TRoo</code> is below the heating temperature setpoint <code>TRooHeaSet</code>. Both loops can remain
+Both controllers remain
 enabled at all times since antiwindup is implemented within each controller, see
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
 Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
 
 The cooling loop shall maintain the space temperature at the active zone cooling setpoint. The heating loop shall
-maintain the space temperature at the active zone heating setpoint. The diagram below illustrates the control loops.
+maintain the space temperature at the active zone heating setpoint. The diagram below illustrates the control configuration.
 <br/>
 </p>
 <p align=\"center\">

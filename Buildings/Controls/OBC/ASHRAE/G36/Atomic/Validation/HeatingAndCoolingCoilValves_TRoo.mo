@@ -47,8 +47,8 @@ equation
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Atomic.HeatingAndCoolingCoilValves\">
 Buildings.Controls.OBC.ASHRAE.G36.Atomic.HeatingAndCoolingCoilValves</a>
-for zone temperature (<code>TRoo</code>) signal under fixed zone cooling (<code>TRooCooSet</code>)
-and heating (<code>TRooHeaSet</code>) temperature setpoints.
+for zone temperature <code>TRoo</code> signal under fixed zone cooling <code>TRooCooSet</code>
+and heating <code>TRooHeaSet</code> temperature setpoints.
 </p>
 </html>", revisions="<html>
 <ul>
