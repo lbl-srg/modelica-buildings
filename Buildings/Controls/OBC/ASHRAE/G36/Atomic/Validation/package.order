@@ -11,6 +11,6 @@ EconModulationSingleZone_TSup
 OperationMode
 OutdoorAirFlowSetpoint_MultiZone
 OutdoorAirFlowSetpoint_SingleZone
-SupplyAirTempSet_MultiZone
+VAVMultiZoneSupTempSet
 VAVSingleZoneTSupSet_T
 VAVSingleZoneTSupSet_u

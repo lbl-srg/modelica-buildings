@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Atomic;
-block SupplyAirTempSet_MultiZone
+block VAVMultiZoneSupTempSet
   "Supply air temperature setpoint for multizone system"
 
   parameter Modelica.SIunits.Temperature TSupMin = 285.15
@@ -50,7 +50,6 @@ block SupplyAirTempSet_MultiZone
     "Supply air temperature"
     annotation (Placement(transformation(extent={{140,0},{160,20}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-
 
 //   fixme: Need a Trim&Response logic to find the T_max
 //   parameter Modelica.SIunits.Temperature iniSet = maxSet
@@ -201,7 +200,7 @@ equation
       color={255,127,0}));
 
 annotation (
-  defaultComponentName = "supAirTemSet",
+  defaultComponentName = "supTemSetMulVAV",
   Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -303,7 +302,7 @@ during the commissioning/tuning phase.
 
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/SupplyAirTemperatureSet.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/VAVMultiZoneSupTempSet.png\"/>
 </p>
 
 <h4>During Setup and Cool-down modes (<code>opeMod=2</code>, <code>opeMod=3</code>)</h4>
@@ -327,4 +326,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SupplyAirTempSet_MultiZone;
+end VAVMultiZoneSupTempSet;
