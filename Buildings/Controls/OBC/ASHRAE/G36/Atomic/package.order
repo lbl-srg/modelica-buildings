@@ -8,4 +8,5 @@ OperationModeSelector
 OutdoorAirFlowSetpoint_MultiZone
 OutdoorAirFlowSetpoint_SingleZone
 VAVSingleZoneTSupSet
+OccupiedMinAirflowReheatBox
 Validation
