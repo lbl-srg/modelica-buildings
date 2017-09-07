@@ -322,8 +322,8 @@ Rename the files as <code>MixedConvection.cfd</code> and <code>MixedConvection.d
 Revise the FFD parameter input file <code>MixedConvection.ffd</code> (an example file is available in <code>Buildings/Resources/Data/Rooms/FFD/Tutorial/</code>):  </p>
 <pre>
   inpu.parameter_file_format SCI
-  inpu.parameter_file_name Resources/Data/Rooms/FFD/Tutorial/MixedlConvection.cfd
-  inpu.block_file_name Resources/Data/Rooms/FFD/Tutorial/MixedConvection.dat
+  inpu.parameter_file_name MixedConvection.cfd
+  inpu.block_file_name MixedConvection.dat
   prob.nu 0.000015 // Kinematic viscosity
   prob.rho 1.205 // Density
   prob.gravx 0 // Gravity in x direction
@@ -358,6 +358,12 @@ Note: Tecplot is needed for this.
 </ol>
 </html>",revisions="<html>
 <ul>
+<li>
+September 07, 2017, by Thierry Nouidui:<br/>
+Refactored the FFD C-code and revised the documentation.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/612\">issue 612</a>.
+</li>
 <li>
 July 25, 2014, by Michael Wetter:<br/>
 Revised documentation.

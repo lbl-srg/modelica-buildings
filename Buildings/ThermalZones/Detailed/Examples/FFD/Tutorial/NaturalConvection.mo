@@ -289,8 +289,8 @@ Rename the files as <code>NaturalConvection.cfd</code> and <code>NaturalConvecti
 Revise the FFD parameter input file <code>NaturalConvection.ffd</code> (an example file is provided in <code>Buildings/Resources/Data/Rooms/FFD/Tutorial/</code>):
 <pre>
   inpu.parameter_file_format SCI
-  inpu.parameter_file_name Resources/Data/Rooms/FFD/Tutorial/NaturalConvection.cfd
-  inpu.block_file_name Resources/Data/Rooms/FFD/Tutorial/NaturalConvection.dat
+  inpu.parameter_file_name NaturalConvection.cfd
+  inpu.block_file_name NaturalConvection.dat
   prob.nu 1.5e-5 // Kinematic viscosity
   prob.rho 1 // Density
   prob.gravx 0 // Gravity in x direction
@@ -328,6 +328,12 @@ Note: Tecplot is needed for this.
 </ol>
 </html>",revisions="<html>
 <ul>
+<li>
+September 07, 2017, by Thierry Nouidui:<br/>
+Refactored the FFD C-code and revised the documentation.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/612\">issue 612</a>.
+</li>
 <li>
 July 7, 2015 by Michael Wetter:<br/>
 Removed model for prescribed heat flow boundary condition
