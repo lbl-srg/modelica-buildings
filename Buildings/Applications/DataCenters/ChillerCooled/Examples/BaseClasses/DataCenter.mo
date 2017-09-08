@@ -132,7 +132,8 @@ First implementation.
     perFan(
       pressure(dp=800*{1.2,1.12,1},
          V_flow=mAir_flow_nominal/1.29*{0,0.5,1}),
-         motorCooledByFluid=false))
+         motorCooledByFluid=false),
+    yValSwi=0.3)
     "Air handling unit"
     annotation (Placement(transformation(extent={{154,-130},{174,-110}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWRet(
@@ -222,8 +223,8 @@ equation
                                       color={0,127,255},
       thickness=0.5));
   connect(senRelPre.port_b, ahu.port_b1)
-    annotation (Line(points={{172,-94},{206,-94},{206,-94},{250,-94},{250,-114},
-          {174,-114}},                   color={0,127,255},
+    annotation (Line(points={{172,-94},{206,-94},{250,-94},{250,-114},{174,-114}},
+                                         color={0,127,255},
       thickness=0.5));
   connect(TAirSup.port_a, ahu.port_b2)
     annotation (Line(

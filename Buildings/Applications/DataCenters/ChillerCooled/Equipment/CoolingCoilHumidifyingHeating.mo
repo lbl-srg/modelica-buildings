@@ -37,7 +37,7 @@ model CoolingCoilHumidifyingHeating
        enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
 
   // parameters for heater controller
-  parameter Real yValSwi(min=0, max=1, unit="1",start=0.3)
+  parameter Real yValSwi(min=0, max=1, unit="1")
     "Switch point for valve signal";
   parameter Real yValDeaBan(min=0, max=1, unit="1")=0.1
     "Deadband for valve signal";
@@ -159,12 +159,12 @@ equation
     annotation (Line(points={{-120,-50},{-120,-50},{-90,-50},{-90,-50},{-90,-50},
           {-90,-40},{-60,-40},{-60,-48},{-60,-48}}, color={0,0,127}));
   connect(heaCon.y, eleHea.on)
-    annotation (Line(points={{1,10},{4,10},{4,-57},{
-          -10,-57}}, color={255,0,255}));
+    annotation (Line(points={{1,10},{4,10},{4,-57},{-10,-57}},
+                     color={255,0,255}));
   connect(dT.y, heaCon.dT)
     annotation (Line(points={{-39,6},{-22,6},{-22,5}}, color={0,0,127}));
-  connect(heaCon.yVal, watVal.y_actual) annotation (Line(points={{-22,15},{-32,
-          15},{-32,16},{-32,40},{73,40},{73,-5}}, color={0,0,127}));
+  connect(heaCon.yVal, watVal.y_actual) annotation (Line(points={{-22,15},{-32,15},
+          {-32,16},{-32,40},{73,40},{73,-5}},     color={0,0,127}));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

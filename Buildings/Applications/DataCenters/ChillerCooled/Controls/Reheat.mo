@@ -54,6 +54,8 @@ model Reheat "Model that implements an on and off controller for a reheater"
     "Conditions that switch on to off"
     annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
 
+  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 equation
   connect(off.outPort[1], offToOn.inPort)
     annotation (Line(points={{-39.5,30},{-20,
