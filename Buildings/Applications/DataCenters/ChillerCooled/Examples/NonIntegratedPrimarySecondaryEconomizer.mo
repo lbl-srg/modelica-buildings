@@ -182,21 +182,6 @@ equation
           {-16,-4},{-16,-9.2},{-5.6,-9.2}},    color={0,0,127}));
   connect(TAirSupSet.y, ahuValSig.u_s)
     annotation (Line(points={{-59,-90},{-48,-90},{-12,-90}}, color={0,0,127}));
-  connect(TAirSup.port_a, ahu.port_b2)
-    annotation (Line(
-      points={{80,-180},{140,-180},{140,-128},{120,-128}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(ahu.port_a2, roo.airPorts[1])
-    annotation (Line(points={{140,-128},{140,-128},{194,-128},{194,-140},{242,
-          -140},{242,-168.7},{132.475,-168.7}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(TAirSup.port_b, roo.airPorts[2])
-    annotation (Line(
-      points={{100,-180},{100,-180},{100,-140},{100,-168.7},{128.425,-168.7}},
-      color={0,127,255},
-      thickness=0.5));
   connect(secPum.port_b, ahu.port_a1)
     annotation (Line(points={{72,-50},{72,-50},{72,-116},{120,-116}},
                                  color={0,127,255},
