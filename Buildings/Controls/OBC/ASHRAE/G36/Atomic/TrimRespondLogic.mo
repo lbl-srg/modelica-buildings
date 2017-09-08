@@ -14,7 +14,7 @@ block TrimRespondLogic "Block to inplement trim-respond logic"
     annotation (Placement(transformation(extent={{-240,-110},{-200,-70}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   CDL.Interfaces.RealOutput y "Setpoint that have been reset"
-    annotation (Placement(transformation(extent={{200,40},{220,60}}),
+    annotation (Placement(transformation(extent={{200,-10},{220,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
   CDL.Interfaces.BooleanInput uDevSta "On/Off status of the associated device"
     annotation (Placement(transformation(extent={{-240,110},{-200,150}}),
@@ -129,7 +129,7 @@ equation
     annotation (Line(points={{-59,150},{108,150},{108,138},{158,138}},
       color={0,0,127}));
   connect(swi.y, y)
-    annotation (Line(points={{181,130},{190,130},{190,50},{210,50}},
+    annotation (Line(points={{181,130},{190,130},{190,0},{210,0}},
       color={0,0,127}));
   connect(maxSetCon.y, min1.u2)
     annotation (Line(points={{1,30},{10,30},{10,54},{18,54}},

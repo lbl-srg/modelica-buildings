@@ -71,19 +71,19 @@ block VAVMultiZoneSupTempSet
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Supply air temperature"
-    annotation (Placement(transformation(extent={{140,0},{160,20}}),
+    annotation (Placement(transformation(extent={{140,-10},{160,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  TrimRespondLogic maxSupTemRes(
-    delTim=delTim,
-    iniSet=iniSet,
-    minSet=minSet,
-    maxSet=maxSet,
-    timSte=timSte,
-    numIgnReq=ignReq,
-    triAmo=triAmo,
-    resAmo=resAmo,
-    maxRes=maxRes)
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.TrimRespondLogic maxSupTemRes(
+    final delTim=delTim,
+    final iniSet=iniSet,
+    final minSet=minSet,
+    final maxSet=maxSet,
+    final timSte=timSte,
+    final numIgnReq=ignReq,
+    final triAmo=triAmo,
+    final resAmo=resAmo,
+    final maxRes=maxRes)
     "Maximum cooling supply temperature reset"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
@@ -119,7 +119,7 @@ protected
     "Limiter that outputs the dead band value for the supply air temperature"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   CDL.Logical.Switch swi3 "Check output regarding supply fan status"
-    annotation (Placement(transformation(extent={{100,20},{120,0}})));
+    annotation (Placement(transformation(extent={{100,10},{120,-10}})));
   CDL.Integers.LessThreshold intLesThr(threshold=Constants.OperationModes.warUpInd)
     "Check if operation mode index is less than warm-up mode index (4)"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
@@ -164,16 +164,17 @@ equation
     annotation (Line(points={{-120,90},{30,90},{30,80},{38,80}},
       color={0,0,127}));
   connect(uSupFan, swi3.u2)
-    annotation (Line(points={{-120,-30},{-80,-30},{-80,10},{98,10}},
+    annotation (Line(points={{-120,-30},{-80,-30},{-80,8},{10,8},{10,0},{98,0}},
       color={255,0,255}));
   connect(swi1.y, swi3.u1)
-    annotation (Line(points={{121,-50},{128,-50},{128,-10},{80,-10},{80,2},{98,2}},
+    annotation (Line(points={{121,-50},{128,-50},{128,-20},{80,-20},{80,-8},{98,
+          -8}},
       color={0,0,127}));
   connect(TDea.y, swi3.u3)
-    annotation (Line(points={{61,80},{80,80},{80,18},{98,18}},
+    annotation (Line(points={{61,80},{80,80},{80,8},{98,8}},
       color={0,0,127}));
   connect(swi3.y, TSup)
-    annotation (Line(points={{121,10},{150,10}},
+    annotation (Line(points={{121,0},{130,0},{138,0},{150,0}},
       color={0,0,127}));
   connect(intLesThr1.y, and1.u1)
     annotation (Line(points={{1,-90},{14,-90},{38,-90}},
