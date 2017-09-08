@@ -971,7 +971,7 @@ sequences, computed in a separate block.
 The figure below shows the sequence.
 </p>
 <p align=\"center\">
-<img alt=\"Image of set point reset\"
+<img alt=\"Image of Warm-up mode definition\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/OperationModeSelector/Warm-upModeDefinition.png\"/>
 </p>
 <h4>Cool-Down Mode</h4>
@@ -985,7 +985,7 @@ shall be obtained from an <i>Optimal Start</i> sequences, computed in a
 separate block.
 </p>
 <p align=\"center\">
-<img alt=\"Image of set point reset\"
+<img alt=\"Image of Cool-down mode definition\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/OperationModeSelector/Cool-downModeDefinition.png\"/>
 </p>
 <h4>Setback Mode</h4>
@@ -997,7 +997,7 @@ all spaces in the zone group are <i>1.1</i> &deg;C (<i>2</i> &deg;F) above their
 unoccupied setpoints.
 </p>
 <p align=\"center\">
-<img alt=\"Image of set point reset\"
+<img alt=\"Image of Setback mode definition\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/OperationModeSelector/SetbackModeDefinition.png\"/>
 </p>
 <h4>Freeze Protection Setback Mode</h4>
@@ -1016,7 +1016,7 @@ are <i>1.1</i> &deg;C (<i>2</i> &deg;F) below their unoccupied setpoints. Zones
 where the window switch indicates that a window is open shall be ignored.
 </p>
 <p align=\"center\">
-<img alt=\"Image of set point reset\"
+<img alt=\"Image of Setup mode definition\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/OperationModeSelector/SetupModeDefinition.png\"/>
 </p>
 <h4>Unoccupied Mode</h4>

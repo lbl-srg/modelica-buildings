@@ -20,7 +20,7 @@ block OccupiedMinAirflowReheatBox
   parameter Modelica.SIunits.VolumeFlowRate VHeaMax
     "Zone maximum heating airflow setpoint"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference MaxdT
+  parameter Modelica.SIunits.TemperatureDifference maxDt
     "Zone maximum discharge air temperature above heating setpoint"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.VolumeFlowRate VMinCon
@@ -34,7 +34,7 @@ block OccupiedMinAirflowReheatBox
   parameter Modelica.SIunits.VolumeFlowRate outAirPerPer=2.5e-3
     "Outdoor air rate per person"
     annotation(Dialog(group="Nominal condition"));
-  parameter real co2Set = 894 "CO2 setpoints"
+  parameter Real co2Set = 894 "CO2 setpoints"
     annotation(Dialog(group="Nominal condition"));
 
   CDL.Interfaces.RealInput nOcc(final unit="1") if occSen
@@ -69,7 +69,7 @@ block OccupiedMinAirflowReheatBox
   CDL.Continuous.Line lin if co2Sen
     "Maintain CO2 concentration at setpoint, reset 0% at (setpoint-200) and 100% at setpoint"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
-  CDL.Continuous.Line lin1 if co2Sen
+  CDL.Continuous.Line lin1 if co2SenMaxdT
     "Reset occupied minimum airflow setpoint from 0% at VMin and 100% at VCooMax"
     annotation (Placement(transformation(extent={{20,160},{40,180}})));
   CDL.Continuous.Greater gre
@@ -265,8 +265,55 @@ equation
   connect(zerCon3.y, swi.u3)
     annotation (Line(points={{21,-50},{40,-50},{40,2},{78,2}},
       color={0,0,127}));
-  annotation (Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-260,-260},{260,260}})), Icon(
+
+annotation (
+  defaultComponentName="occMinAir_RehBox",
+  Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-260,-260},{260,260}}),
+        graphics={Rectangle(
+          extent={{-254,222},{252,46}},
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None), Rectangle(
+          extent={{-254,40},{252,-84}},
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None), Rectangle(
+          extent={{-254,-90},{252,-172}},
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None), Rectangle(
+          extent={{-254,-180},{252,-258}},
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None), Text(
+          extent={{116,222},{246,188}},
+          pattern=LinePattern.None,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,255},
+          textString="Reset based on CO2 control"),
+       Text(extent={{116,42},{246,8}},
+          pattern=LinePattern.None,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,255},
+          textString="Reset based on occupancy"),
+       Text(extent={{-194,-222},{-58,-254}},
+          pattern=LinePattern.None,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,255},
+          textString="Reset based on window status"),
+        Text(extent={{-244,-114},{-88,-162}},
+          pattern=LinePattern.None,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,255},
+          textString="Define based on 
+controllable minimum",
+          horizontalAlignment=TextAlignment.Left)}),
+     Icon(
         graphics={
                Rectangle(
           extent={{-100,100},{100,-100}},
@@ -274,10 +321,74 @@ equation
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-102,130},{96,108}},
+          extent={{-100,140},{100,100}},
           lineColor={0,0,255},
-          textString="%name"),            Text(
+          textString="%name"),
+        Text(
           extent={{-92,82},{84,-68}},
           lineColor={0,0,0},
-          textString="occMinAir")}));
+          textString="occMinAir")}),
+Documentation(info="<html>      
+<p>
+This atomic sequence sets the occupied minimum airflow <code>VOccMinAir</code>
+for VAV reheat terminal unit according to ASHRAE Guideline 36 (G36), PART5.E.3 & 4.
+</p>  
+According to G36 PART 3.1.B.2, following VAV box design information should be
+provided:
+<ul>
+<li>Zone maximum cooling airflow setpoint <code>VCooMax</code></li>
+<li>Zone minimum airflow setpoint <code>VMin</code></li>
+<li>Zone maximum heating airflow setpoint <code>VHeaMax</code></li>
+<li>Zone maximum discharge air temperature above heating setpoint <code>maxDt</code></li>
+</ul>
+The occupied minimum airflow <code>VOccMinAir</code> shall be equal to zone minimum
+airflow setpoint <code>VMin</code> except as follows:
+<ul>
+<li>
+If the zone has an occupancy sensor, <code>VOccMinAir</code> shall be equal to
+minimum breathing zone outdoor airflow (if ventilation is according to ASHRAE
+Standard 62.1-2013) or zone minimum outdoor airflow for building area 
+(if ventilation is according to California Title 24) when the room is unpopulated.
+</li>
+<li>
+If the zone has a window switch, <code>VOccMinAir</code> shall be zero when the
+window is open.
+</li>
+<li>
+If <code>VMin</code> is non-zero and less than the lowest possible airflow setpoint
+allowed by the controls <code>VMinCon</code>, <code>VOccMinAir</code> shall be set
+equal to <code>VMinCon</code>.
+</li>
+<li>
+If the zone has a CO2 sensor, then following steps are applied for calculating 
+<code>VOccMinAir</code>. (1) During occupied mode, a P-only loop shall maintain
+CO2 concentration at setpoint, reset 0% at (CO2 setpoint <code>co2Set</code> - 
+200 ppm) and 100% at <code>co2Set</code>. If ventilation outdoor airflow is controlled
+in accordance with ASHRAE Standard 62.1-2013, the loop output shall reset the
+<code>VOccMinAir</code> from <code>VMin</code> at 0% loop output up to <code>VCooMax</code>
+at 100% loop output; (2) Loop is diabled and output set to zero when the zone is
+not in occupied mode.
+</li>
+</ul>
+<p align=\"center\">
+<img alt=\"Image of occupied minimum airflow reset with CO2 control\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/OccMinAirRehBox.png\"/>
+</p>
+ 
+<h4>References</h4>
+<p>
+<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of 
+Standards Review)/ASHRAE Guideline 36P, 
+<i>High Performance Sequences of Operation for HVAC systems</i>. 
+First Public Review Draft (June 2016)</a>
+</p>
+
+</html>", revisions="<html>
+<ul>
+<li>
+September 7, 2017, by Jianjun Hu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end OccupiedMinAirflowReheatBox;
