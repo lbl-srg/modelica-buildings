@@ -38,11 +38,11 @@ model CoolingCoilHumidifyingHeating
 
   // parameters for heater controller
   parameter Real yValSwi(min=0, max=1, unit="1",start=0.3)
-    "Swich point for valve signal";
+    "Switch point for valve signal";
   parameter Real yValDeaBan(min=0, max=1, unit="1")=0.1
     "Deadband for valve signal";
   parameter Modelica.SIunits.TemperatureDifference dTSwi=0
-    "Swich point for temperature difference";
+    "Switch point for temperature difference";
   parameter Modelica.SIunits.TemperatureDifference dTDeaBan=0.5
     "Deadband for temperature difference";
   parameter Modelica.SIunits.Time tWai=60
@@ -151,14 +151,13 @@ equation
     annotation (Line(points={{-12,-60},{10,-60}},
                 color={0,127,255}));
   connect(hum.port_a, cooCoi.port_b2)
-    annotation (Line(points={{30,-60},{30,-60},{48,-60},{42,-60},{60,-60}},
-                                         color={0,127,255}));
+    annotation (Line(points={{30,-60},{30,-60},{48,-60},{42,-60},{60,-60}}, color={0,127,255}));
   connect(eleHea.P, PHea)
     annotation (Line(points={{-33,-66},{-40,-66},{-40,-76},
                 {18,-76},{18,-110}}, color={0,0,127}));
   connect(uFan,fan.y)
-    annotation (Line(points={{-120,-50},{-120,-48},{-60,-48}},
-                color={0,0,127}));
+    annotation (Line(points={{-120,-50},{-120,-50},{-90,-50},{-90,-50},{-90,-50},
+          {-90,-40},{-60,-40},{-60,-48},{-60,-48}}, color={0,0,127}));
   connect(heaCon.y, eleHea.on)
     annotation (Line(points={{1,10},{4,10},{4,-57},{
           -10,-57}}, color={255,0,255}));
@@ -166,6 +165,7 @@ equation
     annotation (Line(points={{-39,6},{-22,6},{-22,5}}, color={0,0,127}));
   connect(heaCon.yVal, watVal.y_actual) annotation (Line(points={{-22,15},{-32,
           15},{-32,16},{-32,40},{73,40},{73,-5}}, color={0,0,127}));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-92,62},{92,-64}},
@@ -251,9 +251,10 @@ equation
     <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.Reheat\">
     Buildings.Applications.DataCenters.ChillerCooled.Controls.Reheat.</a></p>
     <p>The humidfier is an adiabatic spray air washer with a prescribed outlet water vapor mass fraction
-    in kg/kg total air. During the humidification, the enthalpy of the air doesn't change.
+    in kg/kg total air. During the humidification, the enthalpy remains constant.
     Details can be found in <a href=\"modelica://Buildings.Fluid.MassExchangers.SprayAirWasher_X\">
-    Buildings.Fluid.MassExchangers.SprayAirWasher_X.</a> The humidifer can be turned off when the prescribed mass fraction 
+    Buildings.Fluid.MassExchangers.SprayAirWasher_X.</a> The humidifer can be turned off
+    when the prescribed mass fraction
     is smaller than the current state at the outlet, for example, <code>XSet=0</code>.
     </p>
 </html>", revisions="<html>

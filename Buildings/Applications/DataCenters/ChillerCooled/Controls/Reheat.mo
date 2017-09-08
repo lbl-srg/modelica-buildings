@@ -1,16 +1,17 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Controls;
-model Reheat "Model that implement an on and off controller for reheater"
+model Reheat "Model that implements an on and off controller for a reheater"
 
   parameter Real yValSwi(min=0, max=1, unit="1")
-    "Swich point for valve signal";
+    "Switch point for valve signal";
   parameter Real yValDeaBan(min=0, max=1, unit="1")
     "Deadband for valve signal";
   parameter Modelica.SIunits.TemperatureDifference dTSwi
-    "Swich point for temperature difference";
+    "Switch point for temperature difference";
   parameter Modelica.SIunits.TemperatureDifference dTDeaBan
     "Deadband for temperature difference";
   parameter Modelica.SIunits.Time tWai
     "Waiting time";
+
   Modelica.Blocks.Interfaces.RealInput yVal(
     min=0,
     max=1,
@@ -80,11 +81,15 @@ equation
           textString="%name",
           lineColor={0,0,255}),
         Line(
-          points={{-78,-64},{-2,-64},{-2,60}},
+          points={{-12,-64},{-12,60}},
           color={0,0,127},
           thickness=0.5),
         Line(
-          points={{-2,60},{78,60}},
+          points={{-12,60},{68,60}},
+          color={0,0,127},
+          thickness=0.5),
+        Line(
+          points={{-74,-64},{14,-64},{14,60}},
           color={0,0,127},
           thickness=0.5)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
@@ -94,10 +99,12 @@ equation
 <ul>
 <li>The position of the water-side valve reaches its switch point, <code>yValSwi</code>;</li>
 <li>The difference between the inlet temperature of the reheater and the required outlet temperature setpoint 
-is lower than its critical swich point,<code>dTSwi</code>.
+is lower than its critical switch point,<code>dTSwi</code>.
 </li>
 </ul>
-<p>And in the implementation, a deadband and waiting time is used to avoid frequent switching.</p>
+<p>
+In addition, a deadband and waiting time is used to avoid frequent switching.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

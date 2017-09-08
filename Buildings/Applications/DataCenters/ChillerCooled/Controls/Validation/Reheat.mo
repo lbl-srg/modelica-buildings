@@ -50,7 +50,7 @@ equation
   connect(add2.y,heaCon.dT)
     annotation (Line(points={{1,-50},{20,-50},{20,-5},{
           38,-5}}, color={0,0,127}));
-  annotation (experiment(Tolerance=1e-6, StopTime=100),
+  annotation (experiment(Tolerance=1e-6, StopTime=1200),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Controls/Validation/Reheat.mos"
         "Simulate and Plot"),
