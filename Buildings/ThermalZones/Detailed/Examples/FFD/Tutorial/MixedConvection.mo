@@ -354,7 +354,8 @@ Set the simulation stop time of the Modelica model to <code>180</code> seconds a
 Translate the model and start the simulation.
 </li>
 <li>
-Post-process: click the Tecplot macro script <code>Buildings/Resources/Image/Rooms/Examples/FFD/Tutorial/MixedConvection.mcr</code> 
+Post-process: click the Tecplot macro script 
+<code>Buildings/Resources/Image/Rooms/Examples/FFD/Tutorial/MixedConvection.mcr</code> 
 that will generate the temperature contour and velocity vectors shown in the Figure (b).
 Note: Tecplot is needed for this.
 </li>

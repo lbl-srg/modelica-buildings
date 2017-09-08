@@ -326,7 +326,8 @@ Set simulation the stop time of the Modelica model <code>7200</code> seconds and
 Translate the model and start the simulation.
 </li>
 <li>
-Post-process: click the Tecplot macro script <code>Buildings/Resources/Image/Rooms/Examples/FFD/Tutorial/NaturalConvection.mcr</code> 
+Post-process: click the Tecplot macro script 
+<code>Buildings/Resources/Image/Rooms/Examples/FFD/Tutorial/NaturalConvection.mcr</code> 
 that will generate the temperature contour and velocity vectors shown in the Figure (b).
 Note: Tecplot is needed for this.
 </li>
