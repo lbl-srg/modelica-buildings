@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Atomic.Validation;
-model VAVMultiZoneSupTempSet
+model VAVMultiZoneTSupSet
   "Validate model for calculating supply air temperature of multizone VAV AHU"
   extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.ASHRAE.G36.Atomic.VAVMultiZoneSupTempSet
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.VAVMultiZoneTSupSet
     supplyAirTempSet_MultiZone
     "Supply air temperature setpoint for multizone system"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
@@ -62,13 +62,13 @@ equation
 
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/Validation/VAVMultiZoneSupTempSet.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/Validation/VAVMultiZoneTSupSet.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Atomic.VAVMultiZoneSupTempSet\">
-Buildings.Controls.OBC.ASHRAE.G36.Atomic.VAVMultiZoneSupTempSet</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Atomic.VAVMultiZoneTSupSet\">
+Buildings.Controls.OBC.ASHRAE.G36.Atomic.VAVMultiZoneTSupSet</a>
 for a change of outdoor temperature, operation mode, supply fan status, maximum
 supply temperature, to specify the supply air temperature for systems with multiple
 zones.
@@ -81,4 +81,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end VAVMultiZoneSupTempSet;
+end VAVMultiZoneTSupSet;

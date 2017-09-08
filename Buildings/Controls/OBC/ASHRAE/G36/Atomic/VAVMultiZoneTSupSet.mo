@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Atomic;
-block VAVMultiZoneSupTempSet
+block VAVMultiZoneTSupSet
   "Supply air temperature setpoint for multizone system"
 
   parameter Modelica.SIunits.Temperature TSupMin = 285.15
@@ -167,8 +167,7 @@ equation
     annotation (Line(points={{-120,-30},{-80,-30},{-80,8},{10,8},{10,0},{98,0}},
       color={255,0,255}));
   connect(swi1.y, swi3.u1)
-    annotation (Line(points={{121,-50},{128,-50},{128,-20},{80,-20},{80,-8},{98,
-          -8}},
+    annotation (Line(points={{121,-50},{128,-50},{128,-20},{80,-20},{80,-8},{98,-8}},
       color={0,0,127}));
   connect(TDea.y, swi3.u3)
     annotation (Line(points={{61,80},{80,80},{80,8},{98,8}},
@@ -292,9 +291,9 @@ cooling savings from economizer operation.
 The <code>TSup</code> shall be reset from <code>TSupMin</code> when the outdoor
 air temperature is <code>TOutMax</code> and above, proportionally up to 
 <code>TMax</code> when the outdoor air temperature is <code>TOutMin</code> and 
-below. The <code>TMax</code> shall be reset using Trim-Respond logic between
+below. The <code>TMax</code> shall be reset using TrimRespond logic between
 <code>TSupDes</code> and <code>TSupMax</code>. Parameters suggested for the
-Trim-Respond logic are shown in the table below. They require adjustment 
+TrimRespond logic are shown in the table below. They require adjustment 
 during the commissioning and tuning phase.
 
 <table summary=\"summary\" border=\"1\">
@@ -341,4 +340,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end VAVMultiZoneSupTempSet;
+end VAVMultiZoneTSupSet;

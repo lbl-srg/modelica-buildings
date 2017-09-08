@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Atomic;
-block TrimRespondLogic "Block to inplement trim-respond logic"
+block TrimRespondLogic "Block to inplement TrimRespond logic"
   parameter Real iniSet  "Initial setpoint";
   parameter Real minSet  "Minimum setpoint";
   parameter Real maxSet  "Maximum setpoint";
@@ -81,7 +81,7 @@ protected
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   CDL.Continuous.Add add2 "Net reset value"
     annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
-  CDL.Continuous.Min min
+  CDL.Continuous.Min minInp
     "Total response should not be more than maximum response"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
   CDL.Continuous.Min min1
@@ -95,7 +95,7 @@ protected
   CDL.Continuous.Sources.Constant minSetCon(k=minSet)
     "Minimum setpoint constant"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  CDL.Continuous.Max max
+  CDL.Continuous.Max maxInp
     "Reset setpoint should not be lower than the minimum setpoint"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
@@ -108,13 +108,13 @@ equation
   connect(difReqIgnReq.y, greThr.u)
     annotation (Line(points={{-59,-70},{-40,-70},{-40,-90},{18,-90}},
       color={0,0,127}));
-  connect(pro.y, min.u1)
+  connect(pro.y, minInp.u1)
     annotation (Line(points={{1,-130},{20,-130},{20,-124},{38,-124}},
       color={0,0,127}));
-  connect(maxResCon.y, min.u2)
+  connect(maxResCon.y, minInp.u2)
     annotation (Line(points={{1,-170},{20,-170},{20,-136},{38,-136}},
       color={0,0,127}));
-  connect(min.y, add2.u2)
+  connect(minInp.y, add2.u2)
     annotation (Line(points={{61,-130},{70,-130},{70,-136},{78,-136}},
       color={0,0,127}));
   connect(triAmoCon.y, add2.u1)
@@ -182,13 +182,13 @@ equation
   connect(not1.y, swi2.u2)
     annotation (Line(points={{-59,90},{100,90},{100,60},{118,60}},
       color={255,0,255}));
-  connect(min1.y, max.u1)
+  connect(min1.y, maxInp.u1)
     annotation (Line(points={{41,60},{50,60},{50,66},{58,66}},
       color={0,0,127}));
-  connect(minSetCon.y, max.u2)
+  connect(minSetCon.y, maxInp.u2)
     annotation (Line(points={{41,30},{50,30},{50,54},{58,54}},
       color={0,0,127}));
-  connect(max.y, swi2.u3)
+  connect(maxInp.y, swi2.u3)
     annotation (Line(points={{81,60},{92,60},{92,52},{118,52}},
       color={0,0,127}));
   connect(numOfReq, intToRea.u)
@@ -251,11 +251,11 @@ Count time"), Text(
 on request number")}),
    Documentation(info="<html>
 <p>
-This block implements trim-response logic according to ASHRAE guideline G36,
-PART5.A.15 (Trim-Reponse setpoint reset logic).
+This block implements TrimRespond logic according to ASHRAE guideline G36,
+PART5.A.15 (TrimRespond setpoint reset logic).
 </p>
 <p>
-Trim-reponse logic shall reset setpoint within the range <code>minSet</code> to
+TrimRespond logic shall reset setpoint within the range <code>minSet</code> to
 <code>maxSet</code>.
 When the associated device is off (<code>uDevSta=false</code>), the setpoint
 shall be <code>iniSet</code>.
