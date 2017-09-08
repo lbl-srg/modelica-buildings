@@ -313,26 +313,27 @@ equation
     Documentation(info="<html>
 <p>
 This example illustrates how to use <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed</a> in a cooling system for data center rooms.  
+Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed</a> in a cooling system for data center rooms.
 </p>
 <h4>System description</h4>
 <p>
-A air-cooled direct expansion (DX) cooling system with an airside economizer is used for a data center room. 
-For simplicity, the data center room has a constant cooling load. The DX cooling system includes a variable-speed 
+A air-cooled direct expansion (DX) cooling system with an airside economizer is used for a data center room.
+For simplicity, the data center room has a constant cooling load. The DX cooling system includes a variable-speed
 compressor, a cooling coil and a variable speed fun. The airside economizer is located before DX package to pre-cool
 the mixed air.
 </p>
 <h4>Control logic</h4>
 <h5>Cooling mode control</h5>
 <p>
-This system can run in three cooling modes: free cooling (FC) mode, partially mechanical cooling (PMC) mode and 
+This system can run in three cooling modes: free cooling (FC) mode, partially mechanical cooling (PMC) mode and
 fully mechanical cooling (FMC) mode.In FC mode, only the airside economizer is commanded to run. The supply air
-temperature is maintained by adjusting the outdoor air damper. In PMC mode, the airside economizer and the DX 
-cooling coil are commanded to run together. And in FMC mode, only the DX cooling coil is commanded to run. To avoid switching 
-frequently, a switching deadband 1&deg;C for temperature and a waiting time 120s are used. 
+temperature is maintained by adjusting the outdoor air damper. In PMC mode, the airside economizer and the DX
+cooling coil are commanded to run together. And in FMC mode, only the DX cooling coil is commanded to run.
+To avoid frequent switching,
+a deadband of 1 Kelvin and a waiting time of 120 s are used.
 </p>
 <p>
-A demonstration on how to switch among these three cooling modes is shown in 
+A demonstration on how to switch among these three cooling modes is shown in
 <a href=\"modelica://Buildings.Applications.DataCenters.Examples.BaseClasses.CoolingMode\">
 Buildings.Applications.DataCenters.Examples.BaseClasses.CoolingMode</a>.
 </p>
@@ -340,7 +341,7 @@ Buildings.Applications.DataCenters.Examples.BaseClasses.CoolingMode</a>.
 <p>
 In FC mode, the supply air temperature is controlled by adjusting outdoor air damper. In PMC mode, the outdoor air
 damper is fully open, and the speed of compressor in the DX unit can be adjusted to maintain the supply air temperature.
-In FMC mode, the outdoor air damper is fully closed and the supply air temperature is maintained by manipulating the 
+In FMC mode, the outdoor air damper is fully closed and the supply air temperature is maintained by manipulating the
 compressor speed. In this case, the supply air temperature setpoint is set as 18 &deg;C.
 </p>
 <h5>Room temperature control </h5>
