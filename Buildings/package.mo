@@ -231,6 +231,21 @@ its class name ends with the string <code>Beta</code>.
                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/698\">IBPSA, #698</a>.
        </td>
    </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilCounterFlow<br/>
+                          Buildings.Fluid.HeatExchangers.DryCoilDiscretized<br/>
+                          Buildings.Fluid.HeatExchangers.WetCoilCounterFlow<br/>
+                          Buildings.Fluid.HeatExchangers.WetCoilDiscretized
+       </td>
+       <td valign=\"top\">Improved model so that for certain parameters (dynamic balance,
+                          or steady-state balance and no reverse flow,
+                          or <i>hA</i>-calculation that is independent of temperature),
+                          two fast state variables can be removed.<br/>
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/678\">Buildings, #678</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
        </td>
    </tr>
