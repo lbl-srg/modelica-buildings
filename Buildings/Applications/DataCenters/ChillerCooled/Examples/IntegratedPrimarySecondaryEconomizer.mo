@@ -3,7 +3,8 @@ model IntegratedPrimarySecondaryEconomizer
   "Example that demonstrates a chiller plant with integrated primary-secondary side economizer"
   extends Modelica.Icons.Example;
 
-  extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.DataCenter(
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimarySecondary chiWSE(
         addPowerToMedium=false,
         perPum=perPumPri,
@@ -48,7 +49,7 @@ model IntegratedPrimarySecondaryEconomizer
   Modelica.Blocks.Sources.RealExpression cooLoaChi(
     y=chiWSE.port_a2.m_flow*4180*(chiWSE.TCHWSupWSE - TCHWSupSet.y))
     "Cooling load in chillers"
-    annotation (Placement(transformation(extent={{-130,134},{-110,154}})));
+    annotation (Placement(transformation(extent={{-130,130},{-110,150}})));
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_y secPum(
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
@@ -72,63 +73,52 @@ model IntegratedPrimarySecondaryEconomizer
     annotation (Placement(transformation(extent={{-50,22},{-30,42}})));
 equation
   connect(yVal5.y, chiWSE.yVal5)
-    annotation (Line(points={{11,40},{40,40},{40,35},
-          {124.4,35}}, color={0,0,127}));
+    annotation (Line(points={{11,40},{40,40},{40,33},{118.4,33}},
+                       color={0,0,127}));
   connect(cooLoaChi.y, chiStaCon.QTot)
-    annotation (Line(points={{-109,144},{-80,144},{-80,140},{-52,140}},
+    annotation (Line(points={{-109,140},{-80,140},{-52,140}},
                                                     color={0,0,127}));
   connect(TCHWSup.port_b, secPum.port_a) annotation (Line(
       points={{84,0},{72,0},{72,-16}},
       color={0,127,255},
       thickness=0.5));
   connect(secPum.port_b, ahu.port_a1)
-    annotation (Line(points={{72,-36},{72,-114},{154,-114}},
+    annotation (Line(points={{72,-36},{72,-116},{120,-116}},
                                                            color={0,127,255},
       thickness=0.5));
   connect(pumSpeSig.y, secPum.u)
     annotation (Line(points={{12.8,-14},{40,-14},{
           40,0},{68,0},{68,-14}}, color={0,0,127}));
-  connect(chiNumOn.y,PriPumCon.numOnChi)
-    annotation (Line(points={{-161,74},{-102,74},{-102,27},{-94,27}},
-                                        color={0,0,127}));
   connect(PriPumCon.y, gai2.u)
     annotation (Line(points={{-71,32},{-52,32}}, color={0,0,127}));
   connect(gai2.y, chiWSE.m_flow_in)
-    annotation (Line(points={{-29,32},{30,32},{30,28.5},{124.5,28.5}},
+    annotation (Line(points={{-29,32},{30,32},{30,26.5},{118.5,26.5}},
        color={0,0,127}));
 
   connect(chiWSE.port_b2, TCHWSup.port_a)
     annotation (Line(
-      points={{126,26},{112,26},{112,0},{104,0}},
+      points={{120,24},{112,24},{112,0},{104,0}},
       color={0,127,255},
       thickness=0.5));
-  connect(weaData.weaBus, weaBus.TWetBul)
-    annotation (Line(
-      points={{-200,-68},{-200,-28}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(chiWSE.port_b1, TCWRet.port_a)
     annotation (Line(
-      points={{146,38},{160,38},{160,60},{202,60}},
+      points={{140,36},{160,36},{160,60},{202,60}},
       color={0,127,255},
       thickness=0.5));
    for i in 1:numChi loop
     connect(TCWSup.port_a, cooTow[i].port_b)
       annotation (Line(
-        points={{120,140},{132,140},{132,139},{131,139}},
+        points={{98,140},{132,140},{132,140},{120,140}},
         color={0,127,255},
         thickness=0.5));
     connect(pumCW[i].port_b, chiWSE.port_a1)
-      annotation (Line(points={{70,90},{70,58},{110,58},{110,38},{126,38}},
+      annotation (Line(points={{70,90},{70,58},{110,58},{110,36},{120,36}},
         color={0,127,255},
         thickness=0.5));
 
     connect(pumCW[i].port_a, TCWSup.port_b)
       annotation (Line(
-        points={{70,110},{70,140},{100,140}},
+        points={{70,110},{70,140},{78,140}},
         color={0,127,255},
         thickness=0.5));
    end for;
@@ -140,59 +130,55 @@ equation
       points={{-200,-28},{-216,-28},{-216,200},{-150,200},{-150,114},{-132,114}},
       color={255,204,51},
       thickness=0.5));
-  connect(cooModCon.y, chiStaCon.cooMod)
-    annotation (Line(points={{-109,110},{-70,110},{-70,146},{-52,146}},
-                                            color={0,0,127}));
-  connect(cooModCon.y,reaToBoo. u)
-    annotation (Line(points={{-109,110},{-94,
-          110},{-52,110}}, color={0,0,127}));
-  connect(cooModCon.y, CWPumCon.cooMod)
-    annotation (Line(points={{-109,110},{-70,110},{-70,75},{-54,75}},
-                                        color={0,0,127}));
-  connect(cooModCon.y, cooTowSpeCon.cooMod)
-    annotation (Line(points={{-109,110},{-70,110},{-70,182.444},{-52,182.444}},
-                                                      color={0,0,127}));
   connect(TCHWRet.port_b, chiWSE.port_a2)
     annotation (Line(
-      points={{220,0},{160,0},{160,26},{146,26}},
+      points={{220,0},{160,0},{160,24},{140,24}},
       color={0,127,255},
       thickness=0.5));
   connect(cooModCon.TCHWRetWSE, TCHWRet.T)
     annotation (Line(points={{-132,102},{
           -150,102},{-150,200},{260,200},{260,20},{230,20},{230,11}}, color={0,0,
           127}));
-  connect(senRelPre.port_a, ahu.port_a1)
-    annotation (Line(points={{152,-94},{72,-94},{72,-114},{154,-114}},
-      color={0,127,255},
-      thickness=0.5));
   connect(TAirSup.port_a, ahu.port_b2)
     annotation (Line(
-      points={{114,-140},{140,-140},{140,-126},{154,-126}},
+      points={{80,-180},{140,-180},{140,-128},{120,-128}},
       color={0,127,255},
       thickness=0.5));
   connect(ahu.port_a2, roo.airPorts[1])
-    annotation (Line(points={{174,-126},{174,-126},{194,-126},{194,-140},{242,-140},
-          {242,-176.7},{168.475,-176.7}},  color={0,127,255},
+    annotation (Line(points={{140,-128},{140,-128},{194,-128},{194,-140},{242,
+          -140},{242,-168.7},{132.475,-168.7}},
+                                           color={0,127,255},
       thickness=0.5));
 
   connect(TAirSup.port_b, roo.airPorts[2])
     annotation (Line(
-      points={{94,-140},{94,-140},{74,-140},{74,-176.7},{164.425,-176.7}},
+      points={{100,-180},{100,-180},{100,-140},{100,-168.7},{128.425,-168.7}},
       color={0,127,255},
       thickness=0.5));
 
   connect(chiWSE.TCHWSupWSE, cooModCon.TCHWSupWSE)
-    annotation (Line(points={{147,
-          36},{260,36},{260,200},{-150,200},{-150,106},{-132,106}}, color={0,0,127}));
+    annotation (Line(points={{141,34},{260,34},{260,200},{-150,200},{-150,106},
+          {-132,106}},                                              color={0,0,127}));
   connect(TCHWSupSet.y, cooModCon.TCHWSupSet)
     annotation (Line(points={{-169,160},
           {-150,160},{-150,118},{-132,118}}, color={0,0,127}));
-  connect(cooModCon.y, PriPumCon.cooMod)
-    annotation (Line(points={{-109,110},{-102,110},{-102,37},{-94,37}},
-                                               color={0,0,127}));
   connect(TCHWSup.T, chiStaCon.TCHWSup)
     annotation (Line(points={{94,11},{94,11},{94,36},{40,36},{40,200},{-70,200},
           {-70,134},{-52,134}},                                    color={0,0,127}));
+  connect(PriPumCon.numOnChi, chiNumOn.y) annotation (Line(points={{-94,27},{
+          -108,27},{-108,28},{-108,28},{-108,65},{-156.9,65}}, color={255,127,0}));
+  connect(PriPumCon.cooMod, cooModCon.y) annotation (Line(points={{-94,37},{
+          -100,37},{-100,110},{-109,110}}, color={255,127,0}));
+  connect(cooTowSpeCon.cooMod, cooModCon.y) annotation (Line(points={{-52,
+          182.444},{-62,182.444},{-62,182},{-100,182},{-100,110},{-109,110}},
+        color={255,127,0}));
+  connect(chiStaCon.cooMod, cooModCon.y) annotation (Line(points={{-52,146},{
+          -70,146},{-70,148},{-100,148},{-100,110},{-109,110}}, color={255,127,
+          0}));
+  connect(reaToBoo.u, cooModCon.y)
+    annotation (Line(points={{-52,110},{-109,110}}, color={255,127,0}));
+  connect(CWPumCon.cooMod, cooModCon.y) annotation (Line(points={{-54,75},{-76,
+          75},{-76,76},{-100,76},{-100,110},{-109,110}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
             Diagram(

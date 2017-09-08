@@ -1,5 +1,5 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses;
-partial model DataCenter
+partial model PartialDataCenter
   "Partial model that impliments cooling system for data centers"
   replaceable package MediumA = Buildings.Media.Air "Medium model" annotation (
       Documentation(revisions="<html>
@@ -70,7 +70,7 @@ First implementation.
       perChi,
     use_inputFilter=false)
     "Chillers and waterside economizer"
-    annotation (Placement(transformation(extent={{126,22},{146,42}})));
+    annotation (Placement(transformation(extent={{120,20},{140,40}})));
   Fluid.Sources.Boundary_pT expVesCW(
     redeclare replaceable package Medium = MediumW,
     nPorts=1)
@@ -88,20 +88,20 @@ First implementation.
     each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Cooling tower"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-      origin={141,139})));
+      origin={130,140})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWSup(redeclare replaceable
       package Medium = MediumW, m_flow_nominal=numChi*m2_flow_chi_nominal)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{104,-10},{84,10}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3  weaData(filNam=
         "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
-    annotation (Placement(transformation(extent={{-220,-78},{-200,-58}})));
+    annotation (Placement(transformation(extent={{-230,-80},{-210,-60}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-210,-38},{-190,-18}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCWSup(redeclare replaceable
       package Medium = MediumW, m_flow_nominal=numChi*m1_flow_chi_nominal)
     "Condenser water supply temperature"
-    annotation (Placement(transformation(extent={{120,130},{100,150}})));
+    annotation (Placement(transformation(extent={{98,130},{78,150}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCWRet(redeclare replaceable
       package Medium = MediumW, m_flow_nominal=numChi*m1_flow_chi_nominal)
     "Condenser water return temperature"
@@ -135,7 +135,7 @@ First implementation.
          motorCooledByFluid=false),
     yValSwi=0.3)
     "Air handling unit"
-    annotation (Placement(transformation(extent={{154,-130},{174,-110}})));
+    annotation (Placement(transformation(extent={{120,-132},{140,-112}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWRet(
     redeclare replaceable package Medium = MediumW,
     m_flow_nominal=numChi*m2_flow_chi_nominal)
@@ -146,16 +146,16 @@ First implementation.
     "Expansion tank"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={270,-113})));
+        origin={270,-117})));
   Buildings.Fluid.Sensors.RelativePressure senRelPre(
     redeclare replaceable package Medium =MediumW)
     "Differential pressure"
-    annotation (Placement(transformation(extent={{152,-84},{172,-104}})));
+    annotation (Placement(transformation(extent={{118,-86},{138,-106}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(
     redeclare replaceable package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature"
-    annotation (Placement(transformation(extent={{114,-150},{94,-130}})));
+    annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
   Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom roo(
     redeclare replaceable package Medium = MediumA,
     nPorts=2,
@@ -167,7 +167,7 @@ First implementation.
     "Room model"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        origin={166,-168})));
+        origin={130,-160})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val[numChi](
     redeclare each package Medium = MediumW,
     each m_flow_nominal=m1_flow_chi_nominal,
@@ -202,7 +202,7 @@ First implementation.
   Modelica.Blocks.Sources.IntegerExpression chiNumOn(
     y=integer(sum(chiStaCon.y)))
     "The number of running chillers"
-    annotation (Placement(transformation(extent={{-182,64},{-162,84}})));
+    annotation (Placement(transformation(extent={{-180,54},{-158,76}})));
   Modelica.Blocks.Math.Gain gai[numChi](
     each k=m1_flow_chi_nominal)
     "Gain effect"
@@ -223,14 +223,14 @@ First implementation.
       final unit="K",
       displayUnit="degC") = 289.15)
       "Supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{-80,-98},{-60,-78}})));
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Modelica.Blocks.Sources.Constant XAirSupSet(
     k(final unit="1") = MediumA.X_default[1])
     "Supply air mass fraction setpoint"
-    annotation (Placement(transformation(extent={{-12,-136},{8,-116}})));
+    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   Modelica.Blocks.Sources.Constant uFan(k = 1)
     "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-12,-176},{8,-156}})));
+    annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
   Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage
   varSpeCon(
     tWai=tWai,
@@ -263,7 +263,7 @@ First implementation.
     yMin=0.2,
     reverseAction=true)
     "Valve position signal for the AHU"
-    annotation (Placement(transformation(extent={{-12,-98},{8,-78}})));
+    annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
   Modelica.Blocks.Math.Product cooTowSpe[numChi]
     "Cooling tower speed"
     annotation (Placement(transformation(extent={{60,166},{76,182}})));
@@ -271,40 +271,32 @@ First implementation.
 equation
   connect(chiWSE.port_b2, TCHWSup.port_a)
     annotation (Line(
-      points={{126,26},{112,26},{112,0},{104,0}},
+      points={{120,24},{112,24},{112,0},{104,0}},
       color={0,127,255},
       thickness=0.5));
-  connect(weaData.weaBus, weaBus.TWetBul)
-    annotation (Line(
-      points={{-200,-68},{-200,-28}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(chiWSE.port_b1, TCWRet.port_a)
     annotation (Line(
-      points={{146,38},{160,38},{160,60},{202,60}},
+      points={{140,36},{160,36},{160,60},{202,60}},
       color={0,127,255},
       thickness=0.5));
   for i in 1:numChi loop
     connect(cooTow[i].TAir, weaBus.TWetBul.TWetBul)
-      annotation (Line(points={{153,143},
-            {153,143},{160,143},{160,200},{-216,200},{-216,-28},{-200,-28}},
+      annotation (Line(points={{142,144},{142,144},{160,144},{160,200},{-216,
+            200},{-216,-28},{-200,-28}},
             color={0,0,127}));
     connect(TCWSup.port_a, cooTow[i].port_b)
       annotation (Line(
-        points={{120,140},{132,140},{132,139},{131,139}},
+        points={{98,140},{118,140},{120,140}},
         color={0,127,255},
         thickness=0.5));
     connect(pumCW[i].port_b, chiWSE.port_a1)
       annotation (Line(
-        points={{70,90},{70,58},{110,58},{110,38},{126,38}},
+        points={{70,90},{70,56},{70,36},{120,36}},
         color={0,127,255},
         thickness=0.5));
     connect(pumCW[i].port_a, TCWSup.port_b)
       annotation (Line(
-        points={{70,110},{70,140},{100,140}},
+        points={{70,110},{70,140},{78,140}},
         color={0,127,255},
         thickness=0.5));
     connect(TCWRet.port_b, val[i].port_a) annotation (Line(points={{222,60},{240,60},
@@ -312,31 +304,17 @@ equation
             color={0,127,255},
             thickness=0.5));
   end for;
-  connect(senRelPre.port_a, ahu.port_a1)
-    annotation (Line(points={{152,-94},{72,-94},{72,-114},{154,-114}},
-                                      color={0,127,255},
-      thickness=0.5));
   connect(senRelPre.port_b, ahu.port_b1)
-    annotation (Line(points={{172,-94},{206,-94},{250,-94},{250,-114},{174,-114}},
+    annotation (Line(points={{138,-96},{138,-96},{150,-96},{150,-116},{140,-116}},
                                          color={0,127,255},
       thickness=0.5));
-  connect(TAirSup.port_a, ahu.port_b2)
-    annotation (Line(
-      points={{114,-140},{140,-140},{140,-126},{154,-126}},
-      color={0,127,255},
-      thickness=0.5));
   connect(ahu.port_a2, roo.airPorts[1])
-    annotation (Line(points={{174,-126},{174,-126},{194,-126},{194,-140},{242,-140},
-          {242,-176.7},{168.475,-176.7}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(TAirSup.port_b, roo.airPorts[2])
-    annotation (Line(
-      points={{94,-140},{94,-140},{74,-140},{74,-176.7},{164.425,-176.7}},
+    annotation (Line(points={{140,-128},{140,-128},{160,-128},{160,-128},{160,
+          -128},{160,-180},{132,-180},{132,-168.7},{132.475,-168.7}},
       color={0,127,255},
       thickness=0.5));
   connect(cooTow.port_a, val.port_b)
-    annotation (Line(points={{151,139},{160.5,139},{160.5,140},{170,140}},
+    annotation (Line(points={{140,140},{140,140},{170,140}},
       color={0,127,255},
       thickness=0.5));
 
@@ -345,18 +323,18 @@ equation
     color={0,127,255},
     thickness=0.5));
   connect(ahu.port_b1, expVesChi.ports[1]) annotation (Line(
-      points={{174,-114},{214,-114},{260,-114},{260,-113}},
+      points={{140,-116},{140,-116},{260,-116},{260,-117}},
       color={0,127,255},
       thickness=0.5));
 
   connect(chiWSE.port_b2, TCHWSup.port_a)
     annotation (Line(
-      points={{126,26},{112,26},{112,0},{104,0}},
+      points={{120,24},{112,24},{112,0},{104,0}},
       color={0,127,255},
       thickness=0.5));
   connect(weaData.weaBus, weaBus.TWetBul)
     annotation (Line(
-      points={{-200,-68},{-200,-28}},
+      points={{-210,-70},{-210,-70},{-204,-70},{-204,-70},{-200,-70},{-200,-28}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -364,28 +342,28 @@ equation
       extent={{6,3},{6,3}}));
   connect(chiWSE.port_b1, TCWRet.port_a)
     annotation (Line(
-      points={{146,38},{160,38},{160,60},{202,60}},
+      points={{140,36},{160,36},{160,60},{202,60}},
       color={0,127,255},
       thickness=0.5));
    for i in 1:numChi loop
     connect(TCWSup.port_a, cooTow[i].port_b)
       annotation (Line(
-        points={{120,140},{132,140},{132,139},{131,139}},
+        points={{98,140},{118,140},{120,140}},
         color={0,127,255},
         thickness=0.5));
     connect(pumCW[i].port_b, chiWSE.port_a1)
       annotation (Line(
-        points={{70,90},{70,58},{110,58},{110,38},{126,38}},
+        points={{70,90},{70,56},{70,36},{120,36}},
         color={0,127,255},
         thickness=0.5));
     connect(pumCW[i].port_a, TCWSup.port_b)
       annotation (Line(
-        points={{70,110},{70,140},{100,140}},
+        points={{70,110},{70,140},{78,140}},
         color={0,127,255},
         thickness=0.5));
     connect(chiOn[i].y, chiWSE.on[i])
-      annotation (Line(points={{11,140},{40,140},
-            {40,39.6},{124.4,39.6}}, color={255,0,255}));
+      annotation (Line(points={{11,140},{40,140},{40,37.6},{118.4,37.6}},
+                                     color={255,0,255}));
    connect(cooTowSpeCon.y, cooTowSpe[i].u1)
      annotation (Line(points={{-29,178.889},{36,178.889},{36,178.8},{58.4,178.8}},
                                                   color={0,0,127}));
@@ -397,8 +375,8 @@ equation
     annotation (Line(points={{-29,110},{-20.5,110},{-12,
           110}},color={255,0,255}));
   connect(wseOn.y, chiWSE.on[numChi + 1])
-    annotation (Line(points={{11,110},{40,110},
-          {40,39.6},{124.4,39.6}}, color={255,0,255}));
+    annotation (Line(points={{11,110},{36,110},{36,38},{82,38},{82,37.6},{118.4,
+          37.6}},                  color={255,0,255}));
   connect(CWPumCon.y, gai.u)
     annotation (Line(points={{-31,70},{-12,70}},       color={0,0,127}));
   connect(gai.y, pumCW.m_flow_in)
@@ -412,33 +390,34 @@ equation
           178.889},{-52,178.889}},
         color={0,0,127}));
   connect(TCWSup.T, cooTowSpeCon.TCWSup)
-    annotation (Line(points={{110,151},{110,160},{122,160},{122,200},{-70,200},
-          {-70,175.333},{-52,175.333}},
+    annotation (Line(points={{88,151},{88,160},{122,160},{122,200},{-70,200},{
+          -70,175.333},{-52,175.333}},
         color={0,0,127}));
   connect(TCHWSup.T, cooTowSpeCon.TCHWSup)
-    annotation (Line(points={{94,11},{94,36},{40,36},{40,200},{-70,200},{-70,
+    annotation (Line(points={{94,11},{94,30},{40,30},{40,200},{-70,200},{-70,
           171.778},{-52,171.778}},                                     color={0,
           0,127}));
   connect(chiWSE.TSet, TCHWSupSet.y)
-    annotation (Line(points={{124.4,42.8},{40,42.8},
-          {40,200},{-150,200},{-150,160},{-169,160}}, color={0,0,127}));
+    annotation (Line(points={{118.4,40.8},{40,40.8},{40,200},{-150,200},{-150,160},
+          {-169,160}},                                color={0,0,127}));
   connect(XAirSupSet.y, ahu.XSet_w)
-    annotation (Line(points={{9,-126},{60,-126},
-          {60,-119},{153,-119}}, color={0,0,127}));
+    annotation (Line(points={{-59,-120},{-40,-120},{-40,-120},{-40,-120},{40,
+          -120},{40,-121},{119,-121}},
+                                 color={0,0,127}));
   connect(uFan.y, ahu.uFan)
-    annotation (Line(points={{9,-166},{60,-166},{60,-124},
-          {153,-124}},color={0,0,127}));
+    annotation (Line(points={{-59,-150},{60,-150},{60,-126},{119,-126}},
+                      color={0,0,127}));
   connect(mPum_flow.y, varSpeCon.masFloPum)
     annotation (Line(points={{-105,4},{-50,4}},color={0,0,127}));
   connect(senRelPre.port_a, ahu.port_a1)
-    annotation (Line(points={{152,-94},{72,-94},{72,-114},{154,-114}},
+    annotation (Line(points={{118,-96},{106,-96},{106,-116},{120,-116}},
       color={0,127,255},
       thickness=0.5));
   connect(pumSpe.y, varSpeCon.speSig)
     annotation (Line(points={{-105,-20},{-76,-20},
           {-76,0},{-50,0}}, color={0,0,127}));
   connect(senRelPre.p_rel, pumSpe.u_m)
-    annotation (Line(points={{162,-85},{162,-85},{162,-66},{-116,-66},{-116,-32}},
+    annotation (Line(points={{128,-87},{128,-87},{128,-60},{-116,-60},{-116,-32}},
       color={0,0,127}));
   connect(dpSet.y, pumSpe.u_s)
     annotation (Line(points={{-155,-20},{-128,-20}},color={0,0,127}));
@@ -454,31 +433,27 @@ equation
     annotation (Line(points={{-27,-4},{-27,-4},
           {-16,-4},{-16,-9.2},{-5.6,-9.2}},color={0,0,127}));
   connect(TAirSupSet.y, ahuValSig.u_s)
-    annotation (Line(points={{-59,-88},{-48,-88},{-14,-88}}, color={0,0,127}));
+    annotation (Line(points={{-59,-90},{-36,-90},{-12,-90}}, color={0,0,127}));
   connect(TAirSup.port_a, ahu.port_b2)
     annotation (Line(
-      points={{114,-140},{140,-140},{140,-126},{154,-126}},
+      points={{80,-180},{70,-180},{70,-128},{120,-128}},
       color={0,127,255},
       thickness=0.5));
   connect(TAirSup.T, ahuValSig.u_m)
-    annotation (Line(points={{104,-129},{104,-129},{104,-126},{60,-126},{60,
-          -106},{-2,-106},{-2,-100}},                          color={0,0,127}));
-  connect(ahu.port_a2, roo.airPorts[1])
-    annotation (Line(points={{174,-126},{174,-126},{194,-126},{194,-140},{242,-140},
-          {242,-176.7},{168.475,-176.7}},
-         color={0,127,255},
-      thickness=0.5));
+    annotation (Line(points={{90,-169},{90,-170},{90,-156},{0,-156},{0,-102}},
+                                                               color={0,0,127}));
   connect(TAirSup.port_b, roo.airPorts[2])
     annotation (Line(
-      points={{94,-140},{94,-140},{74,-140},{74,-176.7},{164.425,-176.7}},
+      points={{100,-180},{128,-180},{128,-180},{128.425,-180},{128.425,-174},{
+          128.425,-168.7}},
       color={0,127,255},
       thickness=0.5));
   connect(ahuValSig.y, ahu.uWatVal)
-    annotation (Line(points={{9,-88},{60,-88},{60,-116},{154,-116},{153,-116}},
+    annotation (Line(points={{11,-90},{64,-90},{64,-118},{119,-118}},
                                                           color={0,0,127}));
   connect(TAirSupSet.y, ahu.TSet)
-    annotation (Line(points={{-59,-88},{-40,-88},{
-          -40,-66},{60,-66},{60,-121},{153,-121}}, color={0,0,127}));
+    annotation (Line(points={{-59,-90},{-40,-90},{-40,-112},{60,-112},{60,-123},
+          {119,-123}},                             color={0,0,127}));
   connect(CWPumCon.y, val.y)
     annotation (Line(points={{-31,70},{-22,70},{-22,94},
           {40,94},{40,200},{180,200},{180,152}}, color={0,0,127}));
@@ -486,15 +461,15 @@ equation
     annotation (Line(points={{-31,70},{-22,70},{
           -22,94},{40,94},{40,169.2},{58.4,169.2}}, color={0,0,127}));
   connect(cooTowSpe.y, cooTow.y)
-    annotation (Line(points={{76.8,174},{100,174},{
-          100,200},{160,200},{160,147},{153,147}}, color={0,0,127}));
+    annotation (Line(points={{76.8,174},{100,174},{100,200},{160,200},{160,148},
+          {142,148}},                              color={0,0,127}));
   connect(TCHWRet.port_a, ahu.port_b1)
     annotation (Line(
-      points={{240,0},{250,0},{250,-62},{250,-114},{174,-114}},
+      points={{240,0},{250,0},{250,-64},{250,-116},{140,-116}},
       color={0,127,255},
       thickness=0.5));
   connect(chiNumOn.y, CWPumCon.numOnChi)
-    annotation (Line(points={{-161,74},{-108,74},{-108,65},{-54,65}},
+    annotation (Line(points={{-156.9,65},{-156.9,65},{-54,65}},
                                                   color={255,127,0}));
 
 
@@ -525,4 +500,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DataCenter;
+end PartialDataCenter;
