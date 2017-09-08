@@ -18,6 +18,14 @@ model MixedAirHeatMassBalance
     annotation (Dialog(group="Convective heat transfer",
                        enable=(conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
 
+  parameter Boolean use_C_flow
+    "Set to true to enable input connector for trace substance"
+    annotation (Dialog(group="Ports"));
+
+  Modelica.Blocks.Interfaces.RealInput C_flow[Medium.nC] if use_C_flow
+    "Trace substance mass flow rate added to the room air. Enable if use_C_flow = true"
+    annotation (Placement(transformation(extent={{-280,-240},{-240,-200}})));
+
   // Mixing volume
   Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     redeclare package Medium = Medium,
@@ -33,7 +41,8 @@ model MixedAirHeatMassBalance
     final prescribedHeatFlowRate = true,
     final nPorts=nPorts,
     m_flow_small=1E-4*abs(m_flow_nominal),
-    allowFlowReversal=true) "Room air volume"
+    allowFlowReversal=true,
+    final use_C_flow=use_C_flow)  "Room air volume"
     annotation (Placement(transformation(extent={{10,-210},{-10,-190}})));
 
   // Convection models
@@ -300,6 +309,8 @@ equation
           -80},{-230,-160},{-260,-160}}, color={0,0,127}));
   connect(conQLat_flow.port, vol.heatPort) annotation (Line(points={{-200,-80},{
           -96,-80},{20,-80},{20,-200},{10,-200}}, color={191,0,0}));
+  connect(vol.C_flow, C_flow) annotation (Line(points={{12,-206},{16,-206},{16,-220},
+          {-260,-220}}, color={0,0,127}));
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,
@@ -311,7 +322,14 @@ equation
           pattern=LinePattern.None,
           lineColor={0,0,0},
           fillColor={170,213,255},
-          fillPattern=FillPattern.Sphere)}),
+          fillPattern=FillPattern.Sphere),
+        Text(
+          extent={{-228,-244},{-178,-194}},
+          lineColor={0,0,127},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          textString="C_flow",
+          visible = use_C_flow)}),
     Documentation(info="<html>
 <p>
 This model computes the heat and mass balance of the air.
