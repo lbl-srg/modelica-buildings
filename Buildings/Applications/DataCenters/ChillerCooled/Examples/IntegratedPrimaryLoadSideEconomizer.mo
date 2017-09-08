@@ -17,9 +17,7 @@ model IntegratedPrimaryLoadSideEconomizer
       use_inputFilterValve=true,
       use_inputFilterFan=true),
     weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
-    cooTowSpeCon(k=1, Ti=120),
-    CWPumCon(tWai=0),
-    chiStaCon(tWai=0));
+    cooTowSpeCon(k=1, Ti=120));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumPri(
     each pressure=
@@ -144,7 +142,7 @@ equation
   connect(cooModCon.y, chiStaCon.cooMod)
     annotation (Line(points={{-109,110},{-100,110},{-100,146},{-52,146}},
                                      color={255,127,0}));
-  connect(cooModCon.y, reaToBoo.u)
+  connect(cooModCon.y,intToBoo.u)
     annotation (Line(points={{-109,110},{-80.5,110},
           {-52,110}}, color={255,127,0}));
   connect(TCHWSup.T, chiStaCon.TCHWSup)

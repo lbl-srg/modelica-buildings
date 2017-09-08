@@ -128,7 +128,7 @@ equation
   connect(chiStaCon.y, chiOn.u)
     annotation (Line(points={{-29,140},{-20.5,140},{
           -12,140}},  color={0,0,127}));
-  connect(reaToBoo.y, wseOn.u)
+  connect(intToBoo.y, wseOn.u)
     annotation (Line(points={{-29,110},{-20.5,110},{-12,
           110}},     color={255,0,255}));
   connect(wseOn.y, chiWSE.on[numChi + 1])
@@ -260,7 +260,7 @@ equation
           182.444},{-100,182.444},{-100,110},{-109,110}}, color={255,127,0}));
   connect(cooModCon.y, CWPumCon.cooMod) annotation (Line(points={{-109,110},{
           -100,110},{-100,75},{-54,75}}, color={255,127,0}));
-  connect(reaToBoo.u, cooModCon.y) annotation (Line(points={{-52,110},{-109,110},
+  connect(intToBoo.u, cooModCon.y) annotation (Line(points={{-52,110},{-109,110},
           {-109,110}}, color={255,127,0}));
   connect(chiStaCon.cooMod, cooModCon.y) annotation (Line(points={{-52,146},{
           -100,146},{-100,110},{-109,110}}, color={255,127,0}));

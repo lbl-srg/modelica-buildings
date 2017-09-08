@@ -13,9 +13,7 @@ model IntegratedPrimarySecondaryEconomizer
     pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
         each use_inputFilter=true),
     ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-        use_inputFilterValve=false),
-    CWPumCon(tWai=0),
-    chiStaCon(tWai=0));
+        use_inputFilterValve=false));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumSec(
     each pressure=
@@ -168,7 +166,7 @@ equation
     annotation (Line(points={{94,11},{94,11},{94,36},{40,36},{40,200},{-70,200},
           {-70,134},{-52,134}},                                    color={0,0,127}));
   connect(PriPumCon.numOnChi, chiNumOn.y) annotation (Line(points={{-94,27},{
-          -108,27},{-108,28},{-108,28},{-108,65},{-156.9,65}}, color={255,127,0}));
+          -108,27},{-108,28},{-108,65},{-156.9,65}},           color={255,127,0}));
   connect(PriPumCon.cooMod, cooModCon.y) annotation (Line(points={{-94,37},{
           -100,37},{-100,110},{-109,110}}, color={255,127,0}));
   connect(cooTowSpeCon.cooMod, cooModCon.y) annotation (Line(points={{-52,
@@ -177,10 +175,10 @@ equation
   connect(chiStaCon.cooMod, cooModCon.y) annotation (Line(points={{-52,146},{
           -70,146},{-70,148},{-100,148},{-100,110},{-109,110}}, color={255,127,
           0}));
-  connect(reaToBoo.u, cooModCon.y)
+  connect(intToBoo.u, cooModCon.y)
     annotation (Line(points={{-52,110},{-109,110}}, color={255,127,0}));
-  connect(CWPumCon.cooMod, cooModCon.y) annotation (Line(points={{-54,75},{-76,
-          75},{-76,76},{-100,76},{-100,110},{-109,110}}, color={255,127,0}));
+  connect(CWPumCon.cooMod, cooModCon.y) annotation (Line(points={{-54,75},{-80,
+          75},{-80,80},{-100,80},{-100,110},{-109,110}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
             Diagram(
