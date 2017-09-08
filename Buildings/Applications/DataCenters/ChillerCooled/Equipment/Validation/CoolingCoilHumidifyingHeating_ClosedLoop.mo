@@ -7,9 +7,10 @@ model CoolingCoilHumidifyingHeating_ClosedLoop
     sou_1(p=500000),
     sou_2(nPorts=1),
     masFra(redeclare package Medium = Medium2),
-    TSet(table=[0,288.15 + 1; 600,288.15 + 1; 600,288.15 + 1; 1200,288.15 + 1;
-          1800,288.15 + 1; 2400,288.15 + 1; 2400,288.15 + 1]),
-    TWat(startTime = 600, height=-2));
+    TWat(
+      startTime=1200,
+      offset=273.15 + 13,
+      height=-6));
 
   parameter Modelica.SIunits.ThermalConductance UA_nominal=m2_flow_nominal*1006*(T_b2_nominal-T_a2_nominal)/
      Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
@@ -18,6 +19,7 @@ model CoolingCoilHumidifyingHeating_ClosedLoop
         T_a2_nominal,
         T_b2_nominal)
     "Thermal conductance at nominal flow for sensible heat, used to compute time constant";
+  parameter Real yValMin = 0.4 "Minimum position of water-side valves";
 
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.CoolingCoilHumidifyingHeating ahu(
     redeclare package Medium1 = Medium1,
@@ -31,22 +33,20 @@ model CoolingCoilHumidifyingHeating_ClosedLoop
     m2_flow_nominal=m2_flow_nominal,
     UA_nominal=UA_nominal,
     dpValve_nominal=6000,
-    QHeaMax_flow=10000,
     mWatMax_flow=0.01,
     perFan(pressure(V_flow=m2_flow_nominal*{0,0.5,1}, dp=300*{1.2,1.12,1})),
     yValve_start=1,
     dp1_nominal=3000,
     dp2_nominal=200,
-    yValLow=0.4,
-    yValHig=0.45,
-    dTLow=-0.1,
-    dTHig=0.1)
+    use_inputFilterValve=false,
+    QHeaMax_flow=10000,
+    yValSwi=yValMin + 0.1,
+    yValDeaBan=0.05)
     "Air handling unit"
       annotation (Placement(transformation(extent={{46,20},{66,40}})));
   Modelica.Blocks.Sources.Constant uFan(k=1) "Control input for fan"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Modelica.Blocks.Sources.TimeTable masFraSet(table=[0,0.009; 600,0.009; 600,0.009;
-        1200,0.009; 1800,0.009; 2400,0.009; 2400,0.009])
+  Modelica.Blocks.Sources.Constant  masFraSet(k=0.011)
     "Setpoint mass fraction"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Buildings.Controls.Continuous.LimPID PID(
@@ -54,9 +54,9 @@ model CoolingCoilHumidifyingHeating_ClosedLoop
     reverseAction=true,
     Td=120,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.1,
-    Ti=40,
-    yMin=0.4)
+    yMin=yValMin,
+    k=0.5,
+    Ti=60)
     "PID controller for the water-side valve in air handling units"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
 equation
@@ -82,7 +82,7 @@ equation
           36},{80,50},{96,50}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
             -100},{260,160}})),
-experiment(Tolerance=1E-6, StopTime=1200),
+experiment(Tolerance=1E-6, StopTime=2400),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/CoolingCoilHumidifyingHeating_ClosedLoop.mos"
         "Simulate and PLot"),
@@ -92,9 +92,26 @@ This model demonstrates the use of
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.CoolingCoilHumidifyingHeating\">
 Buildings.Applications.DataCenters.ChillerCooled.Equipment.CoolingCoilHumidifyingHeating</a>. The valve on the water-side and
 the electric heater on the air-side is regulated to track a setpoint temperature
-for the air outlet. The humidifier on the air-side is manipulated to control the humidity
+for the air outlet based on the step changes in the inlet temperature on the waterside. 
+The humidifier on the air-side is manipulated to control the humidity
 of the air outlet.
 </p>
+<P>
+To avoid simultenous cooling (by turning up the valve on the water side) and heating (by turning on the heater), a built-in 
+controller is used to turn the reheater on and off. The detailed control logic can be found in 
+<a href=\"modelica://Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses.ReheatOnOffControl\">
+Buildings.Applications.DataCenters.HVAC.AHUs.BaseClasses.ReheatOnOffControl</a>. A setting for this example is shown as following:
+</P>
+<ul>
+<li>
+The switch point for the valve position, <code>yValSwi</code> is set as <code>yValSwi=yValMin + 0.1</code>, and a deadband 
+<code>0.05</code> is used. 
+</li>
+<li>
+The switch point for the difference between the inlet temperature of the reheater and the required outlet temperature setpoint, 
+<code>dTSwi</code> is set as 0, and deaband temperature difference <code>0.5&deg;C</code> is used.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

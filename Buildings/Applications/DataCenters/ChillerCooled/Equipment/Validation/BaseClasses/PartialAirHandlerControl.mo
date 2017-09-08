@@ -62,11 +62,13 @@ partial model PartialAirHandlerControl
     m_flow_nominal=m1_flow_nominal)
     "Flow resistance"
     annotation (Placement(transformation(extent={{124,40},{144,60}})));
-  Modelica.Blocks.Sources.TimeTable TSet(table=[0,288.15; 600,288.15; 600,288.15;
-        1200,288.15; 1800,288.15; 2400,288.15; 2400,288.15])
-    "Setpoint temperature" annotation (Placement(transformation(extent={{-70,80},
+  Modelica.Blocks.Sources.Constant  TSet(
+    k(unit="K")=289.15)
+    "Setpoint temperature"
+    annotation (Placement(transformation(extent={{-70,80},
             {-50,100}})));
-  Modelica.Blocks.Sources.Constant relHum(k=0.8) "Relative humidity"
+  Modelica.Blocks.Sources.Constant relHum(k=0.8)
+    "Relative humidity"
     annotation (Placement(transformation(extent={{134,-80},{154,-60}})));
   Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
     annotation (Placement(transformation(extent={{184,-52},{204,-32}})));
