@@ -52,7 +52,7 @@ First implementation.
     "Thermal conductance at nominal flow for sensible heat, used to compute time constant";
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = 161.35
     "Nominal air mass flowrate";
-  parameter Real yValMinAHU(min=0,max=1,unit="1")=0.2
+  parameter Real yValMinAHU(min=0,max=1,unit="1")=0.1
     "Minimum valve openning position";
   replaceable Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE chiWSE(
     redeclare replaceable package Medium1 = MediumW,
@@ -125,7 +125,6 @@ First implementation.
     m2_flow_nominal=mAir_flow_nominal,
     dpValve_nominal=6000,
     dp2_nominal=600,
-    QHeaMax_flow=2000,
     mWatMax_flow=0.01,
     UA_nominal=UA_nominal,
     addPowerToMedium=false,
@@ -135,7 +134,8 @@ First implementation.
          V_flow=mAir_flow_nominal/1.29*{0,0.5,1}),
          motorCooledByFluid=false),
     yValSwi=yValMinAHU + 0.1,
-    yValDeaBan=0.05)
+    yValDeaBan=0.05,
+    QHeaMax_flow=30000)
     "Air handling unit"
     annotation (Placement(transformation(extent={{120,-132},{140,-112}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWRet(
