@@ -15,8 +15,10 @@ model NonIntegratedPrimarySecondaryEconomizer
     pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     dpSet(k=80000),
     pumSpe(k=1),
-    roo(QRoo_flow=800000),
-    chiStaCon(dT=0.5, criPoiTem=553.86));
+    chiStaCon(dT=0.5,
+      tWai=0,
+      criPoiTem=553.86),
+    CWPumCon(tWai=0));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumSec(
     each pressure=
