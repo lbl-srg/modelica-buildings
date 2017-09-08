@@ -1,0 +1,29 @@
+simulateModel("Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.CoolingCoilHumidifyingHeating_OpenLoop", stopTime=1000, method="dassl", tolerance=1e-06, resultFile="CoolingCoilHumidifyingHeating_OpenLoop");
+removePlots();
+createPlot(id=1,
+ position={15, 10, 592, 636},
+ y={"ahu.port_a1.m_flow", "ahu.port_a2.m_flow"},
+ range={0.0, 3600.0, -0.05, 0.15},
+ grid=true,
+ filename="CoolingCoilHumidifyingHeating_OpenLoop.mat",
+ colors={{28,108,200}, {238,46,47}});
+createPlot(id=1,
+ position={15, 10, 592, 210},
+ y={"ahu.cooCoi.Q1_flow", "ahu.cooCoi.Q2_flow"},
+ range={0.0, 3600.0, -2000.0, 2000.0},
+ grid=true,
+ subPlot=2,
+ colors={{28,108,200}, {238,46,47}});
+createPlot(id=1,
+ position={15, 10, 592, 209},
+ y={"ahu.cooCoi.QSen2_flow", "ahu.cooCoi.QLat2_flow"},
+ range={0.0, 3600.0, -800.0, 200.0},
+ grid=true,
+ subPlot=3,
+ colors={{28,108,200}, {238,46,47}});
+createPlot(id=2,
+ position={628, 7, 592, 427},
+ y={"temSou_2.y","temSenWat1.T","temSenWat2.T","temSenAir2.T"},
+ range={0.0, 3600.0, 6.0, 32.0},
+ grid=true,
+ colors={{28,108,200}, {238,46,47}, {0,140,72},{217,67,180}});

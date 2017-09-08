@@ -69,13 +69,13 @@ block OccupiedMinAirflowReheatBox
   CDL.Continuous.Line lin if co2Sen
     "Maintain CO2 concentration at setpoint, reset 0% at (setpoint-200) and 100% at setpoint"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
-  CDL.Continuous.Line lin1 if co2SenMaxdT
+  CDL.Continuous.Line lin1 if co2Sen
     "Reset occupied minimum airflow setpoint from 0% at VMin and 100% at VCooMax"
     annotation (Placement(transformation(extent={{20,160},{40,180}})));
   CDL.Continuous.Greater gre
     "Check if zone minimum airflow setpoint Vmin is less than the allowed controllable VMinCon"
     annotation (Placement(transformation(extent={{-20,-170},{0,-150}})));
-  CDL.Continuous.GreaterThreshold greThr(threshold=1) if occSen
+  CDL.Continuous.GreaterThreshold greThr(threshold=0) if occSen
     "Check if the zone becomes unpopulated"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
   CDL.Continuous.GreaterThreshold greThr1

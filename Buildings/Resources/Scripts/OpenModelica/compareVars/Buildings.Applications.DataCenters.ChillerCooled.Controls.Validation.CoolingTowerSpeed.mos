@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "cooTowSpeCon.cooMod",
+    "cooTowSpeCon.y"
+  };

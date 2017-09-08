@@ -181,7 +181,7 @@ Icon(graphics={Rectangle(
           lineColor={0,0,0},
           textString="minOAsp"),
         Text(
-          extent={{-102,130},{96,108}},
+          extent={{-100,140},{100,100}},
           lineColor={0,0,255},
           textString="%name")}),
         Diagram(
