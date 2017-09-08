@@ -380,10 +380,10 @@ parameters as a starting point:
 <br/>
 <h4>c. Static pressure control</h4>
 Supply fan speed is controlled to maintain duct static pressure at setpoint 
-when the fan is proven on. When the zone groups served by the system are small,
-it could provide multiple sets of gains (e.g. supply fan airflow rate, the area
-of the zone groups that are occupied, etc.) as a function of load indicator
-to be used in control loop.
+when the fan is proven on. Where the zone groups served by the system are small,
+provide multiple sets of gains that are used in the control loop as a function
+of a load indicator (such as supply fan airflow rate, the area of the zone groups
+that are occupied, etc.).
 <h4>References</h4>
 <p>
 <a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of 
