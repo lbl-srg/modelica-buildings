@@ -26,7 +26,7 @@ equation
       smooth=Smooth.None));
   annotation ( __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/RayleighNumber.mos"
-        "Simulate and Plot"),
+        "Simulate and plot"),
         experiment(Tolerance=1e-6, StopTime=50),
         Documentation(info="<html>
         <p>
