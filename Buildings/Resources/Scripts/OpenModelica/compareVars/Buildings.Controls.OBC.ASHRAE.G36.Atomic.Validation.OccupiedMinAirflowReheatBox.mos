@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "occMinAir_RehBox.nOcc",
+    "occMinAir_RehBox.ppmCO2",
+    "occMinAir_RehBox.uWin",
+    "occMinAir_RehBox.uOpeMod",
+    "occMinAir_RehBox.co2ConLoo.y",
+    "occMinAir_RehBox.lin1.y",
+    "occMinAir_RehBox.VOccMinAir",
+    "occMinAir_RehBox.VMin",
+    "occMinAir_RehBox.VMinCon",
+    "occMinAir_RehBox.VCooMax"
+  };

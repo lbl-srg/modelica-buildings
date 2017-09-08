@@ -66,7 +66,7 @@ block OccupiedMinAirflowReheatBox
   CDL.Continuous.Add breZon if occSen
   "Breathing zone airflow"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  CDL.Continuous.Line lin if co2Sen
+  CDL.Continuous.Line co2ConLoo if co2Sen
     "Maintain CO2 concentration at setpoint, reset 0% at (setpoint-200) and 100% at setpoint"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
   CDL.Continuous.Line lin1 if co2Sen
@@ -157,18 +157,18 @@ equation
   connect(conVolMin.y, gre.u1)
     annotation (Line(points={{-59,-140},{-40,-140},{-40,-160},{-22,-160}},
       color={0,0,127}));
-  connect(setCO1.y, lin.x1)
+  connect(setCO1.y, co2ConLoo.x1)
     annotation (Line(points={{-219,160},{-160,160},{-160,118},{-142,118}},
       color={0,0,127}));
-  connect(zerCon.y, lin.f1)
+  connect(zerCon.y, co2ConLoo.f1)
     annotation (Line(points={{-219,130},{-180,130},{-180,114},{-142,114}},
       color={0,0,127}));
-  connect(ppmCO2, lin.u)
-    annotation (Line(points={{-280,110},{-142,110}},  color={0,0,127}));
-  connect(setCO2.y, lin.x2)
+  connect(ppmCO2, co2ConLoo.u)
+    annotation (Line(points={{-280,110},{-142,110}}, color={0,0,127}));
+  connect(setCO2.y, co2ConLoo.x2)
     annotation (Line(points={{-219,90},{-180,90},{-180,106},{-142,106}},
       color={0,0,127}));
-  connect(oneCon.y, lin.f2)
+  connect(oneCon.y, co2ConLoo.f2)
     annotation (Line(points={{-219,60},{-160,60},{-160,102},{-142,102}},
       color={0,0,127}));
   connect(zerCon1.y, lin1.x1)
@@ -185,7 +185,7 @@ equation
       color={0,0,127}));
   connect(intEqu.y, swi3.u2)
     annotation (Line(points={{-119,180},{-82,180}}, color={255,0,255}));
-  connect(lin.y, swi3.u1)
+  connect(co2ConLoo.y, swi3.u1)
     annotation (Line(points={{-119,110},{-100,110},{-100,172},{-82,172}},
       color={0,0,127}));
   connect(swi3.y, lin1.u)
@@ -331,7 +331,7 @@ controllable minimum",
 Documentation(info="<html>      
 <p>
 This atomic sequence sets the occupied minimum airflow <code>VOccMinAir</code>
-for VAV reheat terminal unit according to ASHRAE Guideline 36 (G36), PART5.E.3 & 4.
+for VAV reheat terminal unit according to ASHRAE Guideline 36 (G36), PART5.E.3-4.
 </p>  
 According to G36 PART 3.1.B.2, following VAV box design information should be
 provided:
