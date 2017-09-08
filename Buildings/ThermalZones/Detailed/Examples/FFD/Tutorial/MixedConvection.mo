@@ -123,15 +123,16 @@ equation
       smooth=Smooth.None));
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This tutorial gives step by step instructions on building and simulating a mixed convection model. The model tests the coupled simulation of
+This tutorial gives step by step instructions on building and simulating a mixed convection model. 
+The model tests the coupled simulation of
 <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">
 Buildings.ThermalZones.Detailed.CFD</a>
 with the FFD program by simulating ventilation with mixed convection in an empty room.
 </p>
 <h4>Case Description</h4>
 <p>
-The temperature of the floor is fixed at <i>30</i>&circ;C and the temperature of the walls and the ceiling are fixed at <i>10</i>&circ;C.
-The supply air temperature is fixed at <i>10</i>&circ;C.
+The temperature of the floor is fixed at <i>30</i>&circ;C and the temperature of the walls and the ceiling are fixed 
+at <i>10</i>&circ;C. The supply air temperature is fixed at <i>10</i>&circ;C.
 </p>
 <p>
 Figure (a) shows the schematic of the FFD simulation and Figure (b) shows the velocity vectors and temperatures on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
@@ -319,7 +320,8 @@ Rename the files as <code>MixedConvection.cfd</code> and <code>MixedConvection.d
 </li>
 <li>
 <p>
-Revise the FFD parameter input file <code>MixedConvection.ffd</code> (an example file is available in <code>Buildings/Resources/Data/Rooms/FFD/Tutorial/</code>):  </p>
+Revise the FFD parameter input file <code>MixedConvection.ffd</code> 
+(an example file is available in <code>Buildings/Resources/Data/Rooms/FFD/Tutorial/</code>):  </p>
 <pre>
   inpu.parameter_file_format SCI
   inpu.parameter_file_name MixedConvection.cfd
@@ -352,7 +354,8 @@ Set the simulation stop time of the Modelica model to <code>180</code> seconds a
 Translate the model and start the simulation.
 </li>
 <li>
-Post-process: click the Tecplot macro script <code>Buildings/Resources/Image/Rooms/Examples/FFD/Tutorial/MixedConvection.mcr</code> that will generate the temperature contour and velocity vectors shown in the Figure (b).
+Post-process: click the Tecplot macro script <code>Buildings/Resources/Image/Rooms/Examples/FFD/Tutorial/MixedConvection.mcr</code> 
+that will generate the temperature contour and velocity vectors shown in the Figure (b).
 Note: Tecplot is needed for this.
 </li>
 </ol>
