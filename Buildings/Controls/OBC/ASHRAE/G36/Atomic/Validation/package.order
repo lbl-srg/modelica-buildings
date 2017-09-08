@@ -1,3 +1,4 @@
+ActiveAirflowSetpointReheatBox
 EconDamperPositionLimitsMultiZone_LoopDisable
 EconDamperPositionLimitsMultiZone_VOut_flow
 EconDamperPositionLimitsSingleZone_Disable
@@ -9,7 +10,6 @@ EconEnableDisableSingleZone_TOut_hOut
 EconModulationMultiZone_TSup
 EconModulationSingleZone_TSup
 HeatingAndCoolingCoilValves_TRoo
-OccupiedMinAirflowReheatBox
 OperationMode
 OutdoorAirFlowSetpoint_MultiZone
 OutdoorAirFlowSetpoint_SingleZone
