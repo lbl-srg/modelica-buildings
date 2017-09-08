@@ -100,13 +100,6 @@ Type <code>make all</code>
 </ol>
 </li>
 </ul>
-<p>
-please note to make use you have the right of executing the <code>compile.bat</code> 
-when using method 2 on Windows.
-To check the availability right click the file and choose <code>Properties</code>. 
-Go to <code>Security</code> tab and edit if you don't have the
-access to execute the file.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
