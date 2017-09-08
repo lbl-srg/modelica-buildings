@@ -3,7 +3,7 @@ model IntegratedPrimarySecondaryEconomizer
   "Example that demonstrates a chiller plant with integrated primary-secondary side economizer"
   extends Modelica.Icons.Example;
 
-  extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.DataCenterControl(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.DataCenter(
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimarySecondary chiWSE(
         addPowerToMedium=false,
         perPum=perPumPri,

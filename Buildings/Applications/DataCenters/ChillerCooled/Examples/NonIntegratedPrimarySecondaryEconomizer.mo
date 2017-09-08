@@ -3,7 +3,7 @@ model NonIntegratedPrimarySecondaryEconomizer
   "Example that demonstrates a chiller plant with non-integrated primary-secondary side economizer"
   extends Modelica.Icons.Example;
 
-  extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.DataCenterControl(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.DataCenter(
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.NonIntegrated chiWSE(
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
       Ti=60,

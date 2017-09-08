@@ -2,7 +2,7 @@ within Buildings.Applications.DataCenters.ChillerCooled.Examples;
 model IntegratedPrimaryLoadSideEconomizer
   "Example that demonstrates a chiller plant with integrated primary load side economizer"
   extends Modelica.Icons.Example;
-  extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.DataCenterControl(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.DataCenter(
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimaryLoadSide chiWSE(
       addPowerToMedium=false,
       perPum=perPumPri,
