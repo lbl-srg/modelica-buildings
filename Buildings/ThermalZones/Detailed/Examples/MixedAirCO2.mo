@@ -16,22 +16,20 @@ model MixedAirCO2
     "Typical outside air mass flow rate, unless increased by controller";
 
   Modelica.Blocks.Math.Gain gaiCO2(k=8.18E-6) "CO2 emission per person"
-    annotation (extent=[-140,-70; -120,-50], Placement(transformation(extent={{0,-40},
-            {20,-20}})));
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Fluid.Sensors.PPM senCO2(
     redeclare package Medium = MediumA,
     MM=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM)
     "CO2 sensor that measures concentration in the room"
-    annotation (extent=[14,20; 34,40], Placement(transformation(extent={{70,-60},
-            {90,-40}})));
+    annotation (Placement(transformation(extent={{70,-60},{90,-40}})));
   Modelica.Blocks.Sources.Constant CO2Set(k=700)
     "CO2 set point in PPM above the initial value"
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
   Modelica.Blocks.Math.Gain norCO2Set(k=1/700)
-    "Normalization for CO2 set point" annotation (extent=[-140,-70; -120,-50],
+    "Normalization for CO2 set point" annotation (
       Placement(transformation(extent={{-120,-130},{-100,-110}})));
   Modelica.Blocks.Math.Gain norCO2Mea(k=1/700)
-    "Normalization for CO2 measurement" annotation (extent=[-140,-70; -120,-50],
+    "Normalization for CO2 measurement" annotation (
       Placement(transformation(extent={{-120,-160},{-100,-140}})));
   Buildings.Controls.Continuous.LimPID conPI(
     k=5,
