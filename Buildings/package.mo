@@ -310,6 +310,15 @@ its class name ends with the string <code>Beta</code>.
                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">IBPSA, #763</a>.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers
+       </td>
+       <td valign=\"top\">Removed the function
+                        <code>Buildings.Fluid.HeatExchangers.BaseClasses.appartusDewPoint</code>
+                        as it was nowhere used, and it also has no validation test.<br/>
+                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/724\">Buildings, #724</a>.
+       </td>
+   </tr>
+
 
    </table>
    <!-- Errors that have been fixed -->

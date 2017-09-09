@@ -20,7 +20,6 @@ PipeManifoldFixedResistance
 PipeManifoldFlowDistributor
 PipeManifoldNoResistance
 RayleighNumber
-appartusDewPoint
 dynamicViscosityWater
 epsilon_C
 epsilon_ntuZ
