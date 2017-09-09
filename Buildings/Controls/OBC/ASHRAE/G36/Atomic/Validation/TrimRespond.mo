@@ -11,7 +11,11 @@ model TrimRespond "Model validates TrimRespondLogic block"
     triAmo=-10,
     resAmo=15,
     maxRes=37) "Block implementing trim and respond logic"
+<<<<<<< HEAD
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
+=======
+    annotation (Placement(transformation(extent={{70,50},{90,70}})));
+>>>>>>> origin/issue838_TSupAir_multiZone
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     k=true) "Logic true indicating device ON"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
@@ -35,7 +39,11 @@ model TrimRespond "Model validates TrimRespondLogic block"
     triAmo=-10,
     resAmo=15,
     maxRes=37) "Block implementing trim and respond logic"
+<<<<<<< HEAD
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
+=======
+    annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
+>>>>>>> origin/issue838_TSupAir_multiZone
   Modelica.Blocks.Sources.Sine sine1(
     amplitude=6,
     freqHz=1/5400) "Block generates sine signal"
@@ -60,22 +68,37 @@ model TrimRespond "Model validates TrimRespondLogic block"
 
 equation
   connect(con.y, trimRespondLogic.uDevSta)
+<<<<<<< HEAD
     annotation (Line(points={{41,80},{60,80},{60,68},{78,68}},
+=======
+    annotation (Line(points={{41,80},{60,80},{60,68},{68,68}},
+>>>>>>> origin/issue838_TSupAir_multiZone
       color={255,0,255}));
   connect(sine.y, abs.u)
     annotation (Line(points={{-39,40},{-22,40}}, color={0,0,127}));
   connect(abs.y, tru.u)
     annotation (Line(points={{1,40},{18,40}}, color={0,0,127}));
   connect(tru.y, trimRespondLogic.numOfReq)
+<<<<<<< HEAD
     annotation (Line(points={{41,40},{60,40},{60,52},{78,52}},
+=======
+    annotation (Line(points={{41,40},{60,40},{60,52},{68,52}},
+>>>>>>> origin/issue838_TSupAir_multiZone
       color={255,127,0}));
   connect(abs1.y, tru1.u)
     annotation (Line(points={{21,-50},{38,-50}}, color={0,0,127}));
   connect(tru1.y, trimRespondLogic1.numOfReq)
+<<<<<<< HEAD
     annotation (Line(points={{61,-50},{70,-50},{70,-38},{78,-38}},
       color={255,127,0}));
   connect(not1.y, trimRespondLogic1.uDevSta)
     annotation (Line(points={{41,-10},{70,-10},{70,-22},{78,-22}},
+=======
+    annotation (Line(points={{61,-50},{64,-50},{64,-38},{68,-38}},
+      color={255,127,0}));
+  connect(not1.y, trimRespondLogic1.uDevSta)
+    annotation (Line(points={{41,-10},{64,-10},{64,-22},{68,-22}},
+>>>>>>> origin/issue838_TSupAir_multiZone
       color={255,0,255}));
   connect(con1.y, swi.u1)
     annotation (Line(points={{-59,-40},{-54,-40},{-54,-32},{-42,-32}},

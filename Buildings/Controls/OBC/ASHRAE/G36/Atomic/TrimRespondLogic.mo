@@ -1,5 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Atomic;
+<<<<<<< HEAD
 block TrimRespondLogic "Block to inplement trim-respond logic"
+=======
+block TrimRespondLogic "Block to inplement TrimRespond logic"
+>>>>>>> origin/issue838_TSupAir_multiZone
   parameter Real iniSet  "Initial setpoint";
   parameter Real minSet  "Minimum setpoint";
   parameter Real maxSet  "Maximum setpoint";
@@ -14,7 +18,11 @@ block TrimRespondLogic "Block to inplement trim-respond logic"
     annotation (Placement(transformation(extent={{-240,-110},{-200,-70}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   CDL.Interfaces.RealOutput y "Setpoint that have been reset"
+<<<<<<< HEAD
     annotation (Placement(transformation(extent={{200,40},{220,60}}),
+=======
+    annotation (Placement(transformation(extent={{200,-10},{220,10}}),
+>>>>>>> origin/issue838_TSupAir_multiZone
       iconTransformation(extent={{100,-10},{120,10}})));
   CDL.Interfaces.BooleanInput uDevSta "On/Off status of the associated device"
     annotation (Placement(transformation(extent={{-240,110},{-200,150}}),
@@ -81,7 +89,11 @@ protected
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   CDL.Continuous.Add add2 "Net reset value"
     annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
+<<<<<<< HEAD
   CDL.Continuous.Min min
+=======
+  CDL.Continuous.Min minInp
+>>>>>>> origin/issue838_TSupAir_multiZone
     "Total response should not be more than maximum response"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
   CDL.Continuous.Min min1
@@ -95,7 +107,11 @@ protected
   CDL.Continuous.Sources.Constant minSetCon(k=minSet)
     "Minimum setpoint constant"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
+<<<<<<< HEAD
   CDL.Continuous.Max max
+=======
+  CDL.Continuous.Max maxInp
+>>>>>>> origin/issue838_TSupAir_multiZone
     "Reset setpoint should not be lower than the minimum setpoint"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
@@ -108,6 +124,7 @@ equation
   connect(difReqIgnReq.y, greThr.u)
     annotation (Line(points={{-59,-70},{-40,-70},{-40,-90},{18,-90}},
       color={0,0,127}));
+<<<<<<< HEAD
   connect(pro.y, min.u1)
     annotation (Line(points={{1,-130},{20,-130},{20,-124},{38,-124}},
       color={0,0,127}));
@@ -115,6 +132,15 @@ equation
     annotation (Line(points={{1,-170},{20,-170},{20,-136},{38,-136}},
       color={0,0,127}));
   connect(min.y, add2.u2)
+=======
+  connect(pro.y, minInp.u1)
+    annotation (Line(points={{1,-130},{20,-130},{20,-124},{38,-124}},
+      color={0,0,127}));
+  connect(maxResCon.y, minInp.u2)
+    annotation (Line(points={{1,-170},{20,-170},{20,-136},{38,-136}},
+      color={0,0,127}));
+  connect(minInp.y, add2.u2)
+>>>>>>> origin/issue838_TSupAir_multiZone
     annotation (Line(points={{61,-130},{70,-130},{70,-136},{78,-136}},
       color={0,0,127}));
   connect(triAmoCon.y, add2.u1)
@@ -129,7 +155,11 @@ equation
     annotation (Line(points={{-59,150},{108,150},{108,138},{158,138}},
       color={0,0,127}));
   connect(swi.y, y)
+<<<<<<< HEAD
     annotation (Line(points={{181,130},{190,130},{190,50},{210,50}},
+=======
+    annotation (Line(points={{181,130},{190,130},{190,0},{210,0}},
+>>>>>>> origin/issue838_TSupAir_multiZone
       color={0,0,127}));
   connect(maxSetCon.y, min1.u2)
     annotation (Line(points={{1,30},{10,30},{10,54},{18,54}},
@@ -182,6 +212,7 @@ equation
   connect(not1.y, swi2.u2)
     annotation (Line(points={{-59,90},{100,90},{100,60},{118,60}},
       color={255,0,255}));
+<<<<<<< HEAD
   connect(min1.y, max.u1)
     annotation (Line(points={{41,60},{50,60},{50,66},{58,66}},
       color={0,0,127}));
@@ -189,6 +220,15 @@ equation
     annotation (Line(points={{41,30},{50,30},{50,54},{58,54}},
       color={0,0,127}));
   connect(max.y, swi2.u3)
+=======
+  connect(min1.y, maxInp.u1)
+    annotation (Line(points={{41,60},{50,60},{50,66},{58,66}},
+      color={0,0,127}));
+  connect(minSetCon.y, maxInp.u2)
+    annotation (Line(points={{41,30},{50,30},{50,54},{58,54}},
+      color={0,0,127}));
+  connect(maxInp.y, swi2.u3)
+>>>>>>> origin/issue838_TSupAir_multiZone
     annotation (Line(points={{81,60},{92,60},{92,52},{118,52}},
       color={0,0,127}));
   connect(numOfReq, intToRea.u)
@@ -205,7 +245,11 @@ equation
     annotation (Line(points={{-220,130},{-182,130}}, color={255,0,255}));
 
 annotation (
+<<<<<<< HEAD
   defaultComponentName = "tri&Res",
+=======
+  defaultComponentName = "triRes",
+>>>>>>> origin/issue838_TSupAir_multiZone
   Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
@@ -237,6 +281,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
+<<<<<<< HEAD
           extent={{-198,200},{-84,172}},
           lineColor={238,46,47},
           fontSize=11,
@@ -253,6 +298,8 @@ Not the time instant (delTim + timSte)",
 unaccurate time range for first reset.",
           horizontalAlignment=TextAlignment.Left),
         Text(
+=======
+>>>>>>> origin/issue838_TSupAir_multiZone
           extent={{-186,82},{-142,42}},
           lineColor={0,0,255},
           fontSize=11,
@@ -263,6 +310,7 @@ Count time"), Text(
           lineColor={0,0,255},
           fontSize=11,
           horizontalAlignment=TextAlignment.Left,
+<<<<<<< HEAD
           textString="Reset setpoint based 
 on request number")}),
    Documentation(info="<html>
@@ -283,6 +331,28 @@ When active, every time step <code>timSte</code>, trim the setpoint by
 If there are more than <code>numIgnReq</code> Requests, respond by changing 
 the setpoint by <code>resAmo*(numOfReq-numIgnReq)</code>, i.e. the number of 
 Requests minus the number of Ignored Requests, but no more than <code>maxRes</code>. 
+=======
+          textString="Reset setpoint based
+on request number")}),
+   Documentation(info="<html>
+<p>
+This block implements TrimRespond logic according to ASHRAE guideline G36,
+PART5.A.15 (TrimRespond setpoint reset logic).
+</p>
+<p>
+TrimRespond logic shall reset setpoint within the range <code>minSet</code> to
+<code>maxSet</code>.
+When the associated device is off (<code>uDevSta=false</code>), the setpoint
+shall be <code>iniSet</code>.
+The reset logic shall be active while the associated device is proven
+on (<code>uDevSta=true</code>), starting <code>delTim</code> after initial
+device start command.
+When active, every time step <code>timSte</code>, trim the setpoint by
+<code>triAmo</code>.
+If there are more than <code>numIgnReq</code> requests, respond by changing
+the setpoint by <code>resAmo*(numOfReq-numIgnReq)</code>, i.e. the number of
+requests minus the number of ignored requests, but no more than <code>maxRes</code>.
+>>>>>>> origin/issue838_TSupAir_multiZone
 </p>
 In other words, every time step <code>timSte</code>:
 <ul>
@@ -297,9 +367,15 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/TrimR
 </p>
 <h4>References</h4>
 <p>
+<<<<<<< HEAD
 <a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of 
 Standards Review)/ASHRAE Guideline 36P, 
 <i>High Performance Sequences of Operation for HVAC systems</i>. 
+=======
+<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
+Standards Review)/ASHRAE Guideline 36P,
+<i>High Performance Sequences of Operation for HVAC systems</i>.
+>>>>>>> origin/issue838_TSupAir_multiZone
 First Public Review Draft (June 2016)</a>
 </p>
 </html>", revisions="<html>

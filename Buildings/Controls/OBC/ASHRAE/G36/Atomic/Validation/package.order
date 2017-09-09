@@ -13,6 +13,10 @@ OperationMode
 OutdoorAirFlowSetpoint_MultiZone
 OutdoorAirFlowSetpoint_SingleZone
 TrimRespond
+<<<<<<< HEAD
+=======
+VAVMultiZoneTSupSet
+>>>>>>> origin/issue838_TSupAir_multiZone
 VAVSingleZoneTSupSet_T
 VAVSingleZoneTSupSet_u
 ZoneSetpoint

@@ -9,6 +9,10 @@ OperationModeSelector
 OutdoorAirFlowSetpoint_MultiZone
 OutdoorAirFlowSetpoint_SingleZone
 TrimRespondLogic
+<<<<<<< HEAD
+=======
+VAVMultiZoneTSupSet
+>>>>>>> origin/issue838_TSupAir_multiZone
 VAVSingleZoneTSupSet
 ZoneSetpoint
 Validation
