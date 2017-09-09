@@ -109,7 +109,7 @@ r.move_class(path + "AHU.Validation.OutdoorAirFlowSetpoint_MultiZone", # renamed
              path + "AHU.SetPoints.Validation.OutdoorAirFlowSetpointMultiZone")
 r.move_class(path + "AHU.Validation.OutdoorAirFlowSetpoint_SingleZone", # renamed for consistency, fixme: needs a rename to indicate the control variable
              path + "AHU.SetPoints.Validation.OutdoorAirFlowSetpointSingleZone")
-r.move_class(path + "AHU.Validation.TrimRespondLogic", # renamed, fixme: needs a rename to indicate the control variable
+r.move_class(path + "AHU.Validation.TrimRespond", # renamed, fixme: needs a rename to indicate the control variable
              path + "AHU.SetPoints.Validation.TrimAndRespond")
 r.move_class(path + "AHU.Validation.VAVMultiZoneTSupSet", #fixme: needs a rename to indicate the control variable
              path + "AHU.SetPoints.Validation.VAVMultiZoneTSupSet")
