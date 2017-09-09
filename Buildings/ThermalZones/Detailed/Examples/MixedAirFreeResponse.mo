@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.Detailed.Examples;
 model MixedAirFreeResponse "Free response of room model"
   extends Modelica.Icons.Example;
-  package MediumA = Buildings.Media.Air "Medium model";
+  replaceable package MediumA = Buildings.Media.Air "Medium model";
 
   parameter
     Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200
@@ -74,18 +74,9 @@ model MixedAirFreeResponse "Free response of room model"
            each til=Buildings.Types.Tilt.Wall),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15+22,
-    lat=0.73268921998722)
-                       "Room model"
+    lat=0.73268921998722) "Room model"
     annotation (Placement(transformation(extent={{46,20},{86,60}})));
 
-  Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Modelica.Blocks.Routing.Multiplex3 multiplex3_1
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
-    annotation (Placement(transformation(extent={{-62,2},{-42,22}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
       computeWetBulbTemperature=false)
@@ -113,24 +104,14 @@ model MixedAirFreeResponse "Free response of room model"
     "Construction that is modeled outside of room"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 
+  Modelica.Blocks.Math.MatrixGain gai(K=120/(6*4)*[0.4; 0.4; 0.2])
+    "Matrix gain to split up heat gain in radiant, convective and latent gain"
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+  Modelica.Blocks.Sources.Pulse nPer(period(displayUnit="d") = 86400, startTime(
+        displayUnit="h") = 25200,
+    amplitude=2)                  "Number of persons"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
-  connect(qRadGai_flow.y, multiplex3_1.u1[1])  annotation (Line(
-      points={{-39,90},{-32,90},{-32,57},{-22,57}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(qConGai_flow.y, multiplex3_1.u2[1]) annotation (Line(
-      points={{-39,50},{-22,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-
-  connect(qLatGai_flow.y, multiplex3_1.u3[1])  annotation (Line(
-      points={{-41,12},{-32,12},{-32,43},{-22,43}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,50},{22,50},{22,48},{44.4,48}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
   connect(weaDat.weaBus, roo.weaBus) annotation (Line(
       points={{180,150},{190,150},{190,57.9},{83.9,57.9}},
@@ -155,6 +136,10 @@ equation
       smooth=Smooth.None));
   connect(TSoi.port, roo.surf_conBou) annotation (Line(points={{140,-10},{128,-10},
           {72,-10},{72,24}}, color={191,0,0}));
+  connect(gai.y, roo.qGai_flow) annotation (Line(points={{21,50},{32,50},{32,48},
+          {44.4,48}}, color={0,0,127}));
+  connect(gai.u[1], nPer.y)
+    annotation (Line(points={{-2,50},{-10,50},{-19,50}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {200,200}})),        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/MixedAirFreeResponse.mos"
         "Simulate and plot"),
