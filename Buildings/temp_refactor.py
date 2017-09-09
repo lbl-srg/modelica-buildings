@@ -41,7 +41,7 @@ r.move_class(path + "AHU.EconModulationSingleZone",
              path + "AHU.Economizer.Subsequences.EconModulationSingleZone")
 
 # To SetPoints
-r.move_class(path + "AHU.OperationModeSelector", #note the model rename, as decided in the team meeting. both new packages are introduced at this point
+r.move_class(path + "AHU.OperationModeSelector", #note the model rename, as decided in the meeting. both new packages are introduced at this point
              path + "AHU.SetPoints.OperationMode")
 r.move_class(path + "AHU.OutdoorAirFlowSetpoint_MultiZone", #note the model rename, keep consistency
              path + "AHU.SetPoints.OutdoorAirFlowSetpointMultiZone")
@@ -51,7 +51,8 @@ r.move_class(path + "AHU.VAVSingleZoneTSupSet", #note the model rename
              path + "AHU.SetPoints.VAVSingleZoneTSupSet")
 r.move_class(path + "AHU.ZoneSetpoint", #note the model rename, since one needs to look into the model to figure out what kind of setpoint
              path + "AHU.SetPoints.ZoneTSet") #note model rename
-
+r.move_class(path + "AHU.TrimRespondLogic", #note the model rename, as decided in the meeting.
+             path + "AHU.SetPoints.TrimAndRespond") #note model rename
 
 
 
