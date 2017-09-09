@@ -12,7 +12,8 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final m_flow_nominal=m_flow_nominal,
     final homotopyInitialization=homotopyInitialization,
     final conMod=intConMod,
-    final hFixed=hIntFixed),
+    final hFixed=hIntFixed,
+    final use_C_flow = use_C_flow),
     datConExt(
       each T_a_start = T_start,
       each T_b_start = T_start),
@@ -24,8 +25,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
       each T_b_start = T_start),
     datConPar(
       each T_a_start = T_start,
-      each T_b_start = T_start),
-    final use_C_flow = use_C_flow);
+      each T_b_start = T_start));
 
   ////////////////////////////////////////////////////////////////////////////
   // Media declaration. This is identical to
