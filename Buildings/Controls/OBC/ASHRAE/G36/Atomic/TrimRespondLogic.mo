@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Atomic;
-block TrimRespondLogic "Block to inplement TrimRespond logic"
+block TrimRespondLogic "Block to inplement trim and respond logic"
   parameter Real iniSet  "Initial setpoint";
   parameter Real minSet  "Minimum setpoint";
   parameter Real maxSet  "Maximum setpoint";
@@ -251,11 +251,11 @@ Count time"), Text(
 on request number")}),
    Documentation(info="<html>
 <p>
-This block implements TrimRespond logic according to ASHRAE guideline G36,
-PART5.A.15 (TrimRespond setpoint reset logic).
+This block implements the trim and respond logic according to ASHRAE guideline G36,
+PART5.A.15 (trim and respond setpoint reset logic).
 </p>
 <p>
-TrimRespond logic shall reset setpoint within the range <code>minSet</code> to
+The trim and respond logic shall reset setpoint within the range <code>minSet</code> to
 <code>maxSet</code>.
 When the associated device is off (<code>uDevSta=false</code>), the setpoint
 shall be <code>iniSet</code>.

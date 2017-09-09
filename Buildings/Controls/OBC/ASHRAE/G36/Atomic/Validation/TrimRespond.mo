@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Atomic.Validation;
-model TrimRespond "Model validates TrimRespondLogic block"
+model TrimRespond "Model validates the trim and respond block"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.ASHRAE.G36.Atomic.TrimRespondLogic trimRespondLogic(
     iniSet=120,
