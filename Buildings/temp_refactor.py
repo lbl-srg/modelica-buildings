@@ -11,7 +11,6 @@ path = "Buildings.Controls.OBC.ASHRAE.G36."
 
 # Models
 
-
 # Rename packages - change the purpose of packages [fixme: edit info section in AHU and TerminalUnit, used to be Atomic and Composite]
 r.move_class(path + "Composite",
              path + "TerminalUnit")
@@ -19,7 +18,6 @@ r.move_class(path + "Atomic",
              path + "AHU")
 
 # keep in mind that now all models from Atomic think that they are in AHU, etc.
-
 
 # From previous Composite
 
@@ -69,7 +67,6 @@ r.move_class(path + "AHU.TrimRespondLogic", #note the model rename, as decided i
 # Validation Models
 
 # From previous Composite.Validation
-
 r.move_class(path + "TerminalUnit.Validation.EconomizerMultiZone_Disable.mo",
              path + "AHU.Economizer.Validation.EconomizerMultiZone_Disable.mo")
 r.move_class(path + "TerminalUnit.Validation.EconomizerMultiZone_Mod_DamLim.mo",
@@ -122,21 +119,6 @@ r.move_class(path + "AHU.Validation.VAVSingleZoneTSupSet_u",
              path + "AHU.SetPoints.Validation.VAVSingleZoneTSupSet_u")
 r.move_class(path + "AHU.Validation.ZoneSetpoint",
              path + "AHU.SetPoints.Validation.ZoneTSet") #fixme: needs a rename to indicate the control variable
-
-
-             VAVMultiZoneTSupSet
-
-# To Economizer
-
-
-
-
-
-
-
-
-
-
 
 
 
