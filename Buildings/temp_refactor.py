@@ -101,8 +101,6 @@ r.move_class(path + "AHU.Validation.EconModulationSingleZone_TSup",
              path + "AHU.Economizer.Subsequences.Validation.EconModulationSingleZone_TSup")
 
 # To SetPoints.Validation
-r.move_class(path + "AHU.Validation.HeatingAndCoolingCoilValves_TRoo",
-             path + "AHU.SetPoints.Validation.HeatingAndCoolingCoilValves_TRoo")
 r.move_class(path + "AHU.Validation.OperationMode", # fixme: this might need a rename to indicate the control variable
              path + "AHU.SetPoints.Validation.OperationMode")
 r.move_class(path + "AHU.Validation.OutdoorAirFlowSetpoint_MultiZone", # renamed for consistency, fixme: needs a rename to indicate the control variable
@@ -119,3 +117,7 @@ r.move_class(path + "AHU.Validation.VAVSingleZoneTSupSet_u",
              path + "AHU.SetPoints.Validation.VAVSingleZoneTSupSet_u")
 r.move_class(path + "AHU.Validation.ZoneSetpoint",
              path + "AHU.SetPoints.Validation.ZoneTSet") #fixme: needs a rename to indicate the control variable
+
+# To Coils.Validation
+r.move_class(path + "AHU.Validation.HeatingAndCoolingCoilValves_TRoo",
+             path + "AHU.Coils.Validation.HeatingAndCoolingCoilValves_TRoo")
