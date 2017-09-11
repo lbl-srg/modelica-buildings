@@ -4,6 +4,8 @@ block DamperValveReheatBox
 
   parameter Modelica.SIunits.TemperatureDifference maxDTem=11
     "Zone maximum discharge air temperature above heating setpoint";
+  parameter Modelica.SIunits.Temperature minDisTem=283.15
+    "Lowest discharge air temperature";
   parameter Real kWatVal=0.1
     "Gain of controller for valve control when zone state is cooling or deadband"
     annotation(Dialog(group="Controller parameter"));
@@ -106,8 +108,12 @@ block DamperValveReheatBox
     annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
   CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{200,-240},{220,-220}})));
+  CDL.Logical.Not not4 "Logical not"
+    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
+  CDL.Logical.Not not5 "Logical not"
+    annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
   CDL.Logical.And and1
-    "Check if heating control signal is between 0 and 0.51"
+    "Check if heating control signal is between 0 and 0.5"
     annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
   CDL.Logical.And and2
     "Check if current zone state is deadband"
@@ -163,63 +169,71 @@ block DamperValveReheatBox
     annotation (Placement(transformation(extent={{200,200},{220,220}})));
 
 protected
-  CDL.Continuous.Sources.Constant conZer(k=0) "Constant zero"
+  CDL.Continuous.Sources.Constant conZer(final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-280,280},{-260,300}})));
-  CDL.Continuous.Sources.Constant conZer1(k=0) "Constant zero"
+  CDL.Continuous.Sources.Constant conZer1(final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
-  CDL.Continuous.Sources.Constant conZer2(k=0) "Constant zero"
+  CDL.Continuous.Sources.Constant conZer2(final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
-  CDL.Continuous.Sources.Constant conZer3(k=0) "Constant zero"
+  CDL.Continuous.Sources.Constant conZer3(final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-260,-130},{-240,-110}})));
-  CDL.Continuous.Sources.Constant conZer4(k=0) "Constant zero"
+  CDL.Continuous.Sources.Constant conZer4(final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  CDL.Continuous.Sources.Constant conZer5(k=0) "Constant zero"
+  CDL.Continuous.Sources.Constant conZer5(final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  CDL.Continuous.Sources.Constant conZer6(k=0) "Constant zero"
+  CDL.Continuous.Sources.Constant conZer6(final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{80,-330},{100,-310}})));
-  CDL.Continuous.Sources.Constant conOne(k=1) "Constant one"
+  CDL.Continuous.Sources.Constant conOne(final k=1) "Constant one"
     annotation (Placement(transformation(extent={{-220,280},{-200,300}})));
-  CDL.Continuous.Sources.Constant conOne1(k=1) "Constant real value"
+  CDL.Continuous.Sources.Constant conOne1(final k=1) "Constant real value"
     annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
-  CDL.Continuous.Sources.Constant conOne2(k=1) "Constant real value"
+  CDL.Continuous.Sources.Constant conOne2(final k=1) "Constant real value"
     annotation (Placement(transformation(extent={{-180,-360},{-160,-340}})));
-  CDL.Continuous.Sources.Constant conHal(k=0.5) "Constant real value"
+  CDL.Continuous.Sources.Constant conHal(final k=0.5) "Constant real value"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
-  CDL.Continuous.Sources.Constant conHal1(k=0.5) "Constant real value"
+  CDL.Continuous.Sources.Constant conHal1(final k=0.5) "Constant real value"
     annotation (Placement(transformation(extent={{-260,-360},{-240,-340}})));
-  CDL.Continuous.Sources.Constant lowDisAirTem(k=273.15 + 10)
+  CDL.Continuous.Sources.Constant lowDisAirTem(final k=minDisTem)
     "Lowest allowed discharge air temperature"
     annotation (Placement(transformation(extent={{-260,120},{-240,140}})));
-  CDL.Continuous.AddParameter addPar(p=maxDTem, k=1)
+  CDL.Continuous.AddParameter addPar(final p=maxDTem, final k=1)
     "Maximum heating discharge temperature"
     annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
-  CDL.Continuous.AddParameter addPar1(k=1, p=2.8)
+  CDL.Continuous.AddParameter addPar1(final k=1, final p=2.8)
     "Zone temperature pluzonSetpoints 2.8 degC"
     annotation (Placement(transformation(extent={{-260,-280},{-240,-260}})));
-  CDL.Continuous.Greater gre
-    "Check if discharge air temperature is greater than zone temperature plus 2.8 degC"
-    annotation (Placement(transformation(extent={{-60,-280},{-40,-260}})));
-  CDL.Continuous.Greater gre1
-    "Check if supply air temperature is greater than room temperature"
-    annotation (Placement(transformation(extent={{-60,180},{-40,200}})));
-  CDL.Continuous.GreaterThreshold greThr
+  CDL.Continuous.Hysteresis hys(final uLow=0, final uHigh=0.05)
     "Check if cooling control signal is greater than zero"
     annotation (Placement(transformation(extent={{-260,20},{-240,40}})));
-  CDL.Continuous.GreaterThreshold greThr1
+  CDL.Continuous.Hysteresis hys1(final uLow=0, final uHigh=0.05)
     "Check if heating control signal is greater than zero"
     annotation (Placement(transformation(extent={{-260,-20},{-240,0}})));
-  CDL.Continuous.GreaterThreshold greThr2
+  CDL.Continuous.Hysteresis hys2(final uLow=0, final uHigh=0.05)
     "Check if cooling control signal is greater than zero"
     annotation (Placement(transformation(extent={{-160,200},{-140,220}})));
-  CDL.Continuous.GreaterThreshold greThr3
-    "Check it heating control signal is greater than 0"
+  CDL.Continuous.Hysteresis hys3(final uLow=0, final uHigh=0.05)
+    "Check if heating control signal is greater than 0"
     annotation (Placement(transformation(extent={{-260,-240},{-240,-220}})));
-  CDL.Continuous.LessThreshold lesThr(threshold=0.51)
-    "Check if heating control signal is less than 0.51"
+  CDL.Continuous.Hysteresis hys4(
+    final uLow=minDisTem - 0.1,
+    final uHigh=minDisTem + 0.1)
+    "Check if discharge air temperature is greater than 10 degC"
+    annotation (Placement(transformation(extent={{-220,80},{-200,100}})));
+  CDL.Continuous.Hysteresis hys5(final uLow=0.49, final uHigh=0.51)
+    "Check if heating control signal is greater than 0.5"
     annotation (Placement(transformation(extent={{-260,-200},{-240,-180}})));
-  CDL.Continuous.LessThreshold lesThr1(threshold=273.15 + 10)
-    "Discharge air temperature shall not be lower than 10 degC"
-    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
+  CDL.Continuous.Hysteresis hys6(final uLow=-0.1, final uHigh=0.1)
+    "Check if supply air temperature is greater than room temperature"
+    annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
+  CDL.Continuous.Hysteresis hys7(final uLow=-0.1, final uHigh=0.1)
+    "Check if discharge air temperature is greater than room temperature plus 2.8 degC"
+    annotation (Placement(transformation(extent={{-80,-280},{-60,-260}})));
+  CDL.Continuous.Add add1(final k2=-1)
+    "Calculate temperature difference between discharge air and room plus 2.8 degC"
+    annotation (Placement(transformation(extent={{-120,-280},{-100,-260}})));
+  CDL.Continuous.Add add2(final k2=-1)
+    "Calculate temperature difference between AHU supply air and room "
+    annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
 
 equation
   connect(uCoo, lin.u)
@@ -236,29 +250,29 @@ equation
   connect(VActCooMax, lin.f2)
     annotation (Line(points={{-340,180},{-200,180},{-200,252},{-162,252}},
       color={0,0,127}));
-  connect(uCoo, greThr.u)
+  connect(uCoo, hys.u)
     annotation (Line(points={{-340,260},{-280,260},{-280,30},{-262,30}},
       color={0,0,127}));
-  connect(uHea, greThr1.u)
+  connect(uHea, hys1.u)
     annotation (Line(points={{-340,-160},{-280,-160},{-280,-10},{-262,-10}},
       color={0,0,127}));
-  connect(greThr.y, not1.u)
+  connect(hys.y, not1.u)
     annotation (Line(points={{-239,30},{-222,30}}, color={255,0,255}));
-  connect(greThr1.y, not2.u)
+  connect(hys1.y, not2.u)
     annotation (Line(points={{-239,-10},{-222,-10}}, color={255,0,255}));
   connect(not1.y, and2.u1)
     annotation (Line(points={{-199,30},{-162,30}}, color={255,0,255}));
   connect(not2.y, and2.u2)
     annotation (Line(points={{-199,-10},{-180,-10},{-180,22},{-162,22}},
       color={255,0,255}));
-  connect(uCoo, greThr2.u)
+  connect(uCoo, hys2.u)
     annotation (Line(points={{-340,260},{-280,260},{-280,210},{-162,210}},
       color={0,0,127}));
-  connect(greThr2.y, swi.u2)
-    annotation (Line(points={{-139,210},{-118,210},{-118,250},{140,250}},
+  connect(hys2.y, swi.u2)
+    annotation (Line(points={{-139,210},{-124,210},{-124,250},{140,250}},
       color={255,0,255}));
   connect(conZer1.y, swi.u3)
-    annotation (Line(points={{-139,180},{-100,180},{-100,242},{140,242}},
+    annotation (Line(points={{-139,180},{-120,180},{-120,242},{140,242}},
       color={0,0,127}));
   connect(VActMin, swi1.u1)
     annotation (Line(points={{-340,50},{-100,50},{-100,38},{138,38}},
@@ -268,10 +282,10 @@ equation
   connect(conZer2.y, swi1.u3)
     annotation (Line(points={{-139,-10},{-100,-10},{-100,22},{138,22}},
       color={0,0,127}));
-  connect(uHea, lesThr.u)
+  connect(uHea, hys5.u)
     annotation (Line(points={{-340,-160},{-280,-160},{-280,-190},{-262,-190}},
       color={0,0,127}));
-  connect(uHea, greThr3.u)
+  connect(uHea, hys3.u)
     annotation (Line(points={{-340,-160},{-280,-160},{-280,-230},{-262,-230}},
       color={0,0,127}));
   connect(conZer3.y, lin1.x1)
@@ -316,17 +330,8 @@ equation
       color={0,0,127}));
   connect(TRoo, addPar1.u)
     annotation (Line(points={{-340,-270},{-262,-270}}, color={0,0,127}));
-  connect(addPar1.y, gre.u2)
-    annotation (Line(points={{-239,-270},{-180,-270},{-180,-278},{-62,-278}},
-      color={0,0,127}));
-  connect(lin1.y, gre.u1)
-    annotation (Line(points={{-99,-100},{-80,-100},{-80,-270},{-62,-270}},
-      color={0,0,127}));
   connect(and1.y, and3.u1)
     annotation (Line(points={{-139,-190},{-20,-190},{-20,-270},{-2,-270}},
-      color={255,0,255}));
-  connect(gre.y, and3.u2)
-    annotation (Line(points={{-39,-270},{-26,-270},{-26,-278},{-2,-278}},
       color={255,0,255}));
   connect(lin3.y, swi2.u1)
     annotation (Line(points={{-59,-320},{40,-320},{40,-262},{78,-262}},
@@ -341,12 +346,9 @@ equation
   connect(TDisAir, limPID.u_m)
     annotation (Line(points={{-340,110},{-150,110},{-150,118}},
       color={0,0,127}));
-  connect(TDisAir, lesThr1.u)
-    annotation (Line(points={{-340,110},{-260,110},{-260,90},{-162,90}},
+  connect(TDisAir, hys4.u)
+    annotation (Line(points={{-340,110},{-260,110},{-260,90},{-222,90}},
       color={0,0,127}));
-  connect(lesThr1.y, swi3.u2)
-    annotation (Line(points={{-139,90},{-100,90},{-100,120},{78,120}},
-      color={255,0,255}));
   connect(limPID.y, swi3.u1)
     annotation (Line(points={{-139,130},{-20,130},{-20,128},{78,128}},
       color={0,0,127}));
@@ -359,12 +361,10 @@ equation
   connect(conZer6.y, swi4.u3)
     annotation (Line(points={{101,-320},{120,-320},{120,-278},{138,-278}},
       color={0,0,127}));
-  connect(lesThr.y, and1.u1)
-    annotation (Line(points={{-239,-190},{-162,-190}}, color={255,0,255}));
-  connect(greThr3.y, and1.u2)
+  connect(hys3.y, and1.u2)
     annotation (Line(points={{-239,-230},{-180,-230},{-180,-198},{-162,-198}},
       color={255,0,255}));
-  connect(greThr3.y, swi4.u2)
+  connect(hys3.y, swi4.u2)
     annotation (Line(points={{-239,-230},{120,-230},{120,-270},{138,-270}},
       color={255,0,255}));
   connect(swi.y, mulSum.u[1])
@@ -382,7 +382,7 @@ equation
   connect(VDisAir, damPosCon.u_m)
     annotation (Line(points={{-340,320},{270,320},{270,338}},
       color={0,0,127}));
-  connect(greThr3.y, not3.u)
+  connect(hys3.y, not3.u)
     annotation (Line(points={{-239,-230},{198,-230}}, color={255,0,255}));
   connect(not3.y, watValPos.u2)
     annotation (Line(points={{221,-230},{240,-230},{240,-100},{258,-100}},
@@ -405,17 +405,8 @@ equation
   connect(conOne1.y, lin2.f2)
     annotation (Line(points={{21,-120},{40,-120},{40,-108},{78,-108}},
       color={0,0,127}));
-  connect(TSup, gre1.u1)
-    annotation (Line(points={{-340,-50},{-300,-50},{-300,160},{-80,160},{-80,190},
-      {-62,190}}, color={0,0,127}));
-  connect(TRoo, gre1.u2)
-    annotation (Line(points={{-340,-270},{-296,-270},{-296,156},{-76,156},{-76,182},
-      {-62,182}}, color={0,0,127}));
-  connect(greThr2.y, and4.u1)
+  connect(hys2.y, and4.u1)
     annotation (Line(points={{-139,210},{-20,210},{-20,190},{-2,190}},
-      color={255,0,255}));
-  connect(gre1.y, and4.u2)
-    annotation (Line(points={{-39,190},{-28,190},{-28,182},{-2,182}},
       color={255,0,255}));
   connect(VActMin, swi5.u1)
     annotation (Line(points={{-340,50},{40,50},{40,182},{58,182}},
@@ -428,6 +419,38 @@ equation
   connect(swi5.y, swi.u1)
     annotation (Line(points={{81,190},{100,190},{100,258},{140,258}},
       color={0,0,127}));
+  connect(hys4.y, not4.u)
+    annotation (Line(points={{-199,90},{-162,90}}, color={255,0,255}));
+  connect(not4.y, swi3.u2)
+    annotation (Line(points={{-139,90},{-100,90},{-100,120},{78,120}},
+      color={255,0,255}));
+  connect(hys5.y, not5.u)
+    annotation (Line(points={{-239,-190},{-222,-190}}, color={255,0,255}));
+  connect(not5.y, and1.u1)
+    annotation (Line(points={{-199,-190},{-162,-190}}, color={255,0,255}));
+  connect(TSup, add2.u1)
+    annotation (Line(points={{-340,-50},{-300,-50},{-300,160},{-114,160},{-114,186},
+      {-102,186}}, color={0,0,127}));
+  connect(TRoo, add2.u2)
+    annotation (Line(points={{-340,-270},{-296,-270},{-296,156},{-110,156},{-110,174},
+      {-102,174}}, color={0,0,127}));
+  connect(add2.y, hys6.u)
+    annotation (Line(points={{-79,180},{-62,180}}, color={0,0,127}));
+  connect(hys6.y, and4.u2)
+    annotation (Line(points={{-39,180},{-20,180},{-20,182},{-2,182}},
+      color={255,0,255}));
+  connect(lin1.y, add1.u1)
+    annotation (Line(points={{-99,-100},{-80,-100},{-80,-240},{-140,-240},{-140,-264},
+      {-122,-264}}, color={0,0,127}));
+  connect(addPar1.y, add1.u2)
+    annotation (Line(points={{-239,-270},{-140,-270},{-140,-276},{-122,-276}},
+      color={0,0,127}));
+  connect(add1.y, hys7.u)
+    annotation (Line(points={{-99,-270},{-90,-270},{-90,-270},{-82,-270}},
+      color={0,0,127}));
+  connect(hys7.y, and3.u2)
+    annotation (Line(points={{-59,-270},{-40,-270},{-40,-278},{-2,-278}},
+      color={255,0,255}));
 
 annotation (
   defaultComponentName="damVal_RehBox",
