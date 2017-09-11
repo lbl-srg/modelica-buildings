@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.Atomic;
 block DamperValveReheatBox
   "Output signals for controlling VAV reheat box damper and valve position"
 
-  parameter Modelica.SIunits.TemperatureDifference maxDt=11
+  parameter Modelica.SIunits.TemperatureDifference maxDTem=11
     "Zone maximum discharge air temperature above heating setpoint";
   parameter Real kWatVal=0.1
     "Gain of controller for valve control when zone state is cooling or deadband"
@@ -190,7 +190,7 @@ protected
   CDL.Continuous.Sources.Constant lowDisAirTem(k=273.15 + 10)
     "Lowest allowed discharge air temperature"
     annotation (Placement(transformation(extent={{-260,120},{-240,140}})));
-  CDL.Continuous.AddParameter addPar(p=maxDt, k=1)
+  CDL.Continuous.AddParameter addPar(p=maxDTem, k=1)
     "Maximum heating discharge temperature"
     annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
   CDL.Continuous.AddParameter addPar1(k=1, p=2.8)
@@ -215,7 +215,7 @@ protected
     "Check it heating control signal is greater than 0"
     annotation (Placement(transformation(extent={{-260,-240},{-240,-220}})));
   CDL.Continuous.LessThreshold lesThr(threshold=0.51)
-    "Check it heating control signal is less than 0.51"
+    "Check if heating control signal is less than 0.51"
     annotation (Placement(transformation(extent={{-260,-200},{-240,-180}})));
   CDL.Continuous.LessThreshold lesThr1(threshold=273.15 + 10)
     "Discharge air temperature shall not be lower than 10 degC"
@@ -627,43 +627,59 @@ This sequence sets the damper and valve position for VAV reheat terminal unit.
 The implementation is according to ASHRAE Guideline 36 (G36), PART5.E.6. The 
 calculation is done following the steps below.
 </p>
-<h4>a. When the zone state is cooling (<code>uCoo>0</code>)</h4>
-<p>The cooling loop output <code>uCoo</code> shall be mapped to the airflow 
+<ol>
+<li>
+<p>
+When the zone state is cooling (<code>uCoo>0</code>), then the cooling loop output
+<code>uCoo</code> shall be mapped to the airflow 
 setpoint from the cooling minimum <code>VActCooMin</code> to the cooling maximum
-<code>VActCooMax</code> airflow setpoints. Hot water valve is closed (<code>yHeaVal=0</code>) 
+<code>VActCooMax</code> airflow setpoints. The hot water valve is closed (<code>yHeaVal=0</code>) 
 unless the discharge air temperature <code>TDisAir</code> is below the minimum
 setpoint (10 &deg;C).</p>
-<ul>
-<li>If supply air temperature <code>TSup</code> from the AHU is greater than 
+</li>
+<li>
+<p>If supply air temperature <code>TSup</code> from the AHU is greater than 
 room temperature <code>TRoo</code>, cooling supply airflow setpoint shall be
-no higher than the minimum.</li>
-</ul>
-
-<h4>b. When the zone state is Deadband (<code>uCoo=0</code>, <code>uHea=0</code>)</h4>
-<p>The active airflow setpoint shall be the minimum airflow setpoint <code>VActMin</code>.
+no higher than the minimum.
+</p>
+</li>
+<li>
+<p>
+When the zone state is Deadband (<code>uCoo=0</code>, <code>uHea=0</code>, then
+The active airflow setpoint shall be the minimum airflow setpoint <code>VActMin</code>.
 Hot water valve is closed unless the discharge air temperature is below the minimum
-setpoint (10 &deg;C).</p>
-
-<h4>c. When the zone state is Heating (<code>uHea>0</code>)</h4>
-<p>The heating loop shall maintain space temperature at the heating setpoint
+setpoint (10 &deg;C).
+</p>
+</li>
+<li>
+<p>
+When the zone state is Heating (<code>uHea>0</code>), then
+the heating loop shall maintain space temperature at the heating setpoint
 as follows:</p>
 <ul>
 <li>From 0-50%, the heating loop output <code>uHea</code> shall reset the 
 discharge temperature setpoint from current AHU SAT setpoint <code>TSup</code>
-to a maximum of <code>maxDt</code> above space temperature setpoint. The airflow
+to a maximum of <code>maxDTem</code> above space temperature setpoint. The airflow
 setpoint shall be the heating minimum <code>VActHeaMin</code>.</li>
-<li>From 51-100%, if the discharge air temperature <code>TDisAir</code> is 
-greater than room temperature plus 2.8 &deg;C, the heating loop output <code>uHea</code>
+<li>From 50-100%, if the discharge air temperature <code>TDisAir</code> is 
+greater than room temperature plus 2.8 Kelvin, the heating loop output <code>uHea</code>
 shall reset the airflow setpoint from the heating minimum airflow setpoint
 <code>VActHeaMin</code> to the heating maximum airflow setpoint 
 <code>VActHeaMax</code>.</li>
 </ul>
-
-<h4>d. The hot water valve (or modulating electric heating coil) shall be modulated
-to maintain the discharge temperature at setpoint.</h4>
-
-<h4>e. The VAV damper shall be modulated by a control loop to maintain the measured
-airflow at the active setpoint.</h4>
+</li>
+<li>
+<p>The hot water valve (or modulating electric heating coil) shall be modulated
+to maintain the discharge temperature at setpoint.
+</p>
+</li>
+<li>
+<p>
+The VAV damper shall be modulated by a control loop to maintain the measured
+airflow at the active setpoint.
+</p>
+</li>
+</ol>
 
 <p>The sequences of controlling damper and valve position for VAV reheat terminal
 unit are described in the following figure below.</p>
