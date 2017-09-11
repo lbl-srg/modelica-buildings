@@ -231,6 +231,21 @@ its class name ends with the string <code>Beta</code>.
                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/698\">IBPSA, #698</a>.
        </td>
    </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilCounterFlow<br/>
+                          Buildings.Fluid.HeatExchangers.DryCoilDiscretized<br/>
+                          Buildings.Fluid.HeatExchangers.WetCoilCounterFlow<br/>
+                          Buildings.Fluid.HeatExchangers.WetCoilDiscretized
+       </td>
+       <td valign=\"top\">Improved model so that for certain parameters (dynamic balance,
+                          or steady-state balance and no reverse flow,
+                          or <i>hA</i>-calculation that is independent of temperature),
+                          two fast state variables can be removed.<br/>
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/678\">Buildings, #678</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
        </td>
    </tr>
@@ -263,12 +278,14 @@ its class name ends with the string <code>Beta</code>.
                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/785\">#785</a>.
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Added an optional input that allows injecting
+                          trace substances, such as CO2 release from people,
+                          to the room air.
        </td>
    </tr>
    </table>
@@ -310,6 +327,15 @@ its class name ends with the string <code>Beta</code>.
                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">IBPSA, #763</a>.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers
+       </td>
+       <td valign=\"top\">Removed the function
+                        <code>Buildings.Fluid.HeatExchangers.BaseClasses.appartusDewPoint</code>
+                        as it was nowhere used, and it also has no validation test.<br/>
+                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/724\">Buildings, #724</a>.
+       </td>
+   </tr>
+
 
    </table>
    <!-- Errors that have been fixed -->

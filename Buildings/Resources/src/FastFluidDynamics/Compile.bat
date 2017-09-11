@@ -41,8 +41,8 @@ if exist "%DIR%\%MSbuildName%.lib" (
 ::Set Default Compiler Version and Toolset (edited by user)
 ::-------------------------------------------------------------------
 ::Note: Toolset: V100 for VC10.0, v110 for VC11.0
-set VCVersion=12.0
-set Toolset=v120
+set VCVersion=10.0
+set Toolset=v100
 
 ::-------------------------------------------------------------------
 ::Call vcvarsall.bat (Not user editable)
@@ -142,6 +142,7 @@ msbuild %MSbuildName%.vcxproj /t:rebuild /p:PlatformToolset=%Toolset%;Configurat
 ::*******************************************************************
 echo Copy %MSbuildName%.dll and %MSbuildName%.lib to %DIR%
 copy "%BuildConfiguration%\%MSbuildName%.dll" "%DIR%" /Y
+copy "%BuildConfiguration%\%MSbuildName%.lib" "%DIR%" /Y
 ::Note: /y: Suppresses prompting to confirm that you want to overwrite an existing destination file.
 
 ::*******************************************************************

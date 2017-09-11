@@ -8,7 +8,10 @@
  *         University of Miami
  *         W.Zuo@miami.edu
  *
- * \date   8/3/2013
+ *         Tian Wei
+ *         University of Miami
+ *         W.tian@miami.edu
+ * \date   2/14/2017
  *
  */
 #include "cfdCosimulation.h"
@@ -46,16 +49,6 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   /****************************************************************************
   | For call FFD-DLL
   ****************************************************************************/
-  /*Define loaded library handle*/
-#ifdef _MSC_VER /*Windows*/
-  HINSTANCE hinstLib;
-#else /*Linux*/
-  void *hinstLib;
-#endif
-  /*Define function type*/
-  typedef int (*MYPROC)(CosimulationData *);
-  MYPROC ProcAdd;
-
   cosim = (CosimulationData *) malloc(sizeof(CosimulationData));
   cosim->para = (ParameterSharedData *) malloc(sizeof(ParameterSharedData));
   cosim->modelica = (ModelicaSharedData *) malloc(sizeof(ModelicaSharedData));
@@ -142,53 +135,9 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   cosim->ffd->msg = (REAL *) malloc(400*sizeof(char));
 
   /****************************************************************************
-  | Get a handle to the DLL module.
+  | Implicitly launch DLL module.
   ****************************************************************************/
-#ifdef _MSC_VER /*Windows*/
-
-#if _WIN64
-  hinstLib = LoadLibrary(TEXT("Resources/Library/win64/ffd.dll"));
-#elif _WIN32
-  hinstLib = LoadLibrary(TEXT("Resources/Library/win32/ffd.dll"));
-#else
-  ModelicaError("Error: Failed to detect 32 or 64 bit Windows system in cfdStartCosimulation.c.\n");
-#endif
-
-#elif __linux__ /*Linux*/
-#if UINTPTR_MAX == 0xffffffff
-/* 32-bit */
-  hinstLib = dlopen("Resources/Library/linux32/libffd.so", RTLD_LAZY);
-#elif UINTPTR_MAX == 0xffffffffffffffff
-/* 64-bit */
-  hinstLib = dlopen("Resources/Library/linux64/libffd.so", RTLD_LAZY);
-#else
-  ModelicaError("Error: Failed to detect 32 or 64 bit Linux system in cfdStartCosimulation.c.\n");
-#endif
-
-#else /* Neither MSC nor Linux */
-  ModelicaError("Error: Unsupported operating system in cfdStartCosimulation.c.\n");
-#endif
-
-  /* If the handle is valid, try to get the function address.*/
-  if(hinstLib!=NULL) {
-#ifdef _MSC_VER
-    ProcAdd = (MYPROC) GetProcAddress(hinstLib, "ffd_dll");
-#else
-    ProcAdd = (MYPROC) dlsym(hinstLib, "ffd_dll");
-#endif
-  }
-  else {
-    ModelicaError("Error: Could not find dll handle.\n");
-  }
-
-  /* If the function address is valid, call the function.*/
-  if (ProcAdd!=NULL) {
-  /*call function: passing pointer of NAME struct*/
-    ProcAdd(cosim);
-  }
-  else{
-    ModelicaError("Error: Could not find dll function address.\n");
-  }
+  ffd_dll(cosim);
 
   return 0;
 } /* End of cfdStartCosimulation()*/

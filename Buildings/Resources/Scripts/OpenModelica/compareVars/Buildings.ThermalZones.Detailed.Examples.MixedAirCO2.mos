@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "nPer.y",
+    "senCO2.ppm",
+    "CO2Set.y",
+    "conPI.y",
+    "bou.ports[1].m_flow"
+  };
