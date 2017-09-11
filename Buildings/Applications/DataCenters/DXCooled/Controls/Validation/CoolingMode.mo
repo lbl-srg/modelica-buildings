@@ -10,8 +10,8 @@ model CoolingMode
   Modelica.Blocks.Sources.Constant TSupSet(k=291.15)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Modelica.Blocks.Sources.Constant TRet(k=298.15) "Return air temperature"
-    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
+  Modelica.Blocks.Sources.Constant TRet(k=295.15) "Return air temperature"
+    annotation (Placement(transformation(extent={{-60,-78},{-40,-58}})));
   BoundaryConditions.WeatherData.ReaderTMY3  weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
@@ -22,32 +22,29 @@ model CoolingMode
         iconTransformation(extent={{-58,-10},{-38,10}})));
 
 equation
-  connect(TSupSet.y, cooModCon.TSupSet) annotation (Line(points={{-39,70},{-20,
-          70},{-20,8},{-12,8}}, color={0,0,127}));
-  connect(TRet.y, cooModCon.TRet) annotation (Line(points={{-39,-70},{-20,-70},
-          {-20,-8},{-12,-8}}, color={0,0,127}));
+  connect(TSupSet.y, cooModCon.TSupSet)
+    annotation (Line(points={{-39,70},{-20,
+          70},{-20,5},{-12,5}}, color={0,0,127}));
+  connect(TRet.y, cooModCon.TRet)
+    annotation (Line(points={{-39,-68},{-20,-68},
+          {-20,-5},{-12,-5}}, color={0,0,127}));
   connect(weaDat.weaBus,weaBus)
     annotation (Line(
       points={{-60,0},{-60,0},{-48,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(weaBus.TDryBul, cooModCon.TOutDryBul) annotation (Line(
-      points={{-48,0},{-20,0},{-20,3},{-12,3}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(weaBus.TDewPoi, cooModCon.TOutDewPoi) annotation (Line(
-      points={{-48,0},{-48,0},{-20,0},{-20,-3},{-12,-3}},
+  connect(weaBus.TDryBul, cooModCon.TOutDryBul)
+    annotation (Line(
+      points={{-48,0},{-20,0},{-12,0}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Controls/Validation/CoolingMode.mos"
-        "Simulate and plot"),
+    __Dymola_Commands(
+    file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Controls/Validation/CoolingMode.mos"
+        "Simulate and Plot"),
     Documentation(revisions="<html>
 <ul>
 <li>
