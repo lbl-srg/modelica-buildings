@@ -591,11 +591,6 @@ equation
         Line(points={{92,-136},{86,-136},{86,-4}},  color={0,0,127})}),
                                                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-240},{200,160}})),
-    experiment(
-      StopTime=518400,
-      Interval=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"),
       Documentation(info="<html>
 <p>
 This is a conventional single zone VAV HVAC system model. The system contains
@@ -624,6 +619,10 @@ feedback control of damper positions. The cooling coil is a dry coil model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 08, 2017, by Thierry S. Nouidui:<br/>
+Removed experiment annotation.
+</li>
 <li>
 June 21, 2017, by Michael Wetter:<br/>
 Refactored implementation.
