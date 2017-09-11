@@ -278,12 +278,14 @@ its class name ends with the string <code>Beta</code>.
                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/785\">#785</a>.
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Added an optional input that allows injecting
+                          trace substances, such as CO2 release from people,
+                          to the room air.
        </td>
    </tr>
    </table>
