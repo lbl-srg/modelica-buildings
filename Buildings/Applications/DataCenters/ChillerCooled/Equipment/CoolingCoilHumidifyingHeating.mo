@@ -37,24 +37,17 @@ model CoolingCoilHumidifyingHeating
        enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
 
   // parameters for heater controller
-  parameter Real yValLow(min=0, max=1, unit="1")=0.1
-    "if yVal<=yValLow, hysVal.y switches to false"
-    annotation(Dialog(group="Reheat controller"));
-  parameter Real yValHig(min=0, max=1, unit="1")=0.15
-    "if yVal>=yValHig, hysVal.y switches to true"
-    annotation(Dialog(group="Reheat controller"));
-  parameter Modelica.SIunits.TemperatureDifference dTLow=-0.5
-    "if dT<=dTLow, hysTemDif.y switches to false"
-    annotation(Dialog(group="Reheat controller"));
-  parameter Modelica.SIunits.TemperatureDifference dTHig=0.5
-    "if dT>=dTHig, hysTemDif.y switches to true"
-    annotation(Dialog(group="Reheat controller"));
-  parameter Boolean pre_yVal_start=true
-    "Previous value of hysVal.y used at initialization"
-    annotation (Dialog(group="Reheat controller", tab="Initialization"));
-  parameter Boolean pre_dT_start=true
-    "Previous value of hysTemDif.y used at initialization"
-    annotation (Dialog(group="Reheat controller", tab="Initialization"));
+  parameter Real yValSwi(min=0, max=1, unit="1")
+    "Switch point for valve signal";
+  parameter Real yValDeaBan(min=0, max=1, unit="1")=0.1
+    "Deadband for valve signal";
+  parameter Modelica.SIunits.TemperatureDifference dTSwi=0
+    "Switch point for temperature difference";
+  parameter Modelica.SIunits.TemperatureDifference dTDeaBan=0.5
+    "Deadband for temperature difference";
+  parameter Modelica.SIunits.Time tWai=60
+    "Waiting time";
+
   Modelica.Blocks.Interfaces.RealOutput PHea(
     final unit = "W",
     final quantity = "Power")
@@ -81,7 +74,7 @@ model CoolingCoilHumidifyingHeating
     "Difference between inlet temperature and temperature setpoint of the reheater"
     annotation (Placement(transformation(extent={{-60,-4},{-40,16}})));
 
-  Buildings.Fluid.Humidifiers.SteamHumidifier_X hum(
+  Buildings.Fluid.Humidifiers.SprayAirWasher_X hum(
     redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal2,
     final m_flow_small=m2_flow_small,
@@ -126,14 +119,15 @@ model CoolingCoilHumidifyingHeating
         origin={-22,-60})));
 
   Buildings.Applications.DataCenters.ChillerCooled.Controls.Reheat heaCon(
-    final pre_yVal_start=pre_yVal_start,
-    final pre_dT_start=pre_dT_start,
-    final yValLow=yValLow,
-    final yValHig=yValHig,
-    final dTLow=dTLow,
-    final dTHig=dTHig)
+    final yValSwi=yValSwi,
+    final yValDeaBan=yValDeaBan,
+    final dTSwi=dTSwi,
+    final dTDeaBan=dTDeaBan,
+    final tWai=tWai)
     "Reheater on/off controller"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,10})));
 
@@ -157,20 +151,21 @@ equation
     annotation (Line(points={{-12,-60},{10,-60}},
                 color={0,127,255}));
   connect(hum.port_a, cooCoi.port_b2)
-    annotation (Line(points={{30,-60},{30,-60},{48,-60},{48,-60},{42,-60},{42,
-          -60},{60,-60}},                color={0,127,255}));
+    annotation (Line(points={{30,-60},{30,-60},{48,-60},{42,-60},{60,-60}}, color={0,127,255}));
   connect(eleHea.P, PHea)
     annotation (Line(points={{-33,-66},{-40,-66},{-40,-76},
                 {18,-76},{18,-110}}, color={0,0,127}));
   connect(uFan,fan.y)
-    annotation (Line(points={{-120,-50},{-120,-48},{-60,-48}},
-                color={0,0,127}));
-  connect(heaCon.y, eleHea.on) annotation (Line(points={{1,10},{4,10},{4,-57},{
-          -10,-57}}, color={255,0,255}));
+    annotation (Line(points={{-120,-50},{-120,-50},{-90,-50},{-90,-50},{-90,-50},
+          {-90,-40},{-60,-40},{-60,-48},{-60,-48}}, color={0,0,127}));
+  connect(heaCon.y, eleHea.on)
+    annotation (Line(points={{1,10},{4,10},{4,-57},{-10,-57}},
+                     color={255,0,255}));
   connect(dT.y, heaCon.dT)
     annotation (Line(points={{-39,6},{-22,6},{-22,5}}, color={0,0,127}));
-  connect(heaCon.yVal, watVal.y_actual) annotation (Line(points={{-22,15},{-32,
-          15},{-32,16},{-32,40},{73,40},{73,-5}}, color={0,0,127}));
+  connect(heaCon.yVal, watVal.y_actual) annotation (Line(points={{-22,15},{-32,15},
+          {-32,16},{-32,40},{73,40},{73,-5}},     color={0,0,127}));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-92,62},{92,-64}},
@@ -255,10 +250,11 @@ equation
     The detailed control logic about the reheater on/off control is shown in
     <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.Reheat\">
     Buildings.Applications.DataCenters.ChillerCooled.Controls.Reheat.</a></p>
-    <p>The humidfier is an adiabatic humidifier with a prescribed outlet water vapor mass fraction
-    in kg/kg total air.
-    Details can be found in <a href=\"modelica://Buildings.Fluid.Humidifiers.SteamHumidifier_X\">
-    Buildings.Fluid.Humidifiers.SteamHumidifier_X.</a> The humidifer can be turned off when the prescribed mass fraction
+    <p>The humidfier is an adiabatic spray air washer with a prescribed outlet water vapor mass fraction
+    in kg/kg total air. During the humidification, the enthalpy remains constant.
+    Details can be found in <a href=\"modelica://Buildings.Fluid.MassExchangers.SprayAirWasher_X\">
+    Buildings.Fluid.MassExchangers.SprayAirWasher_X.</a> The humidifer can be turned off
+    when the prescribed mass fraction
     is smaller than the current state at the outlet, for example, <code>XSet=0</code>.
     </p>
 </html>", revisions="<html>

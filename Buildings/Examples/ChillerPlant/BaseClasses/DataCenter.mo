@@ -597,7 +597,7 @@ equation
 Documentation(info="<HTML>
 <p>
 This model is the chilled water plant with discrete time control and
-trim and response logic for a data center. The model is described at
+trim and respond logic for a data center. The model is described at
 <a href=\"Buildings.Examples.ChillerPlant\">
 Buildings.Examples.ChillerPlant</a>.
 </p>
@@ -612,7 +612,7 @@ for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 <li>
 January 13, 2015 by Michael Wetter:<br/>
 Moved model to <code>BaseClasses</code> because the continuous and discrete time
-implementation of the trim and response logic do not extend from a common class,
+implementation of the trim and respond logic do not extend from a common class,
 and hence the <code>constrainedby</code> operator is not applicable.
 Moving the model here allows to implement both controllers without using a
 <code>replaceable</code> class.

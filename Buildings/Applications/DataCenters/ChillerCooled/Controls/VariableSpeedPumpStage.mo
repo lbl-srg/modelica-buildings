@@ -12,7 +12,7 @@ model VariableSpeedPumpStage "Staging control for variable speed pumps"
   parameter Modelica.SIunits.MassFlowRate deaBanFlo = 0.1*m_flow_nominal
     "Deadband for critical point of flowrate";
   parameter Real criPoiSpe = 0.5
-    "Critical point of speed signal for swiching on or off";
+    "Critical point of speed signal for switching on or off";
   parameter Real deaBanSpe = 0.3
     "Deadband for critical point of speed signal";
 

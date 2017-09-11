@@ -3,13 +3,13 @@ block ActiveAirflowSetpointReheatBox
   "Output the active airflow setpoint for VAV reheat terminal unit"
 
   parameter Boolean occSen = true
-    "Set to true if the zone has an occupancy sensor"
+    "Set to true if the zone has occupancy sensor"
     annotation(Dialog(group="Zone sensors"));
   parameter Boolean winSen = true
-    "Set to true if the zone has window operation sensor and window is open"
+    "Set to true if the zone has window status sensor"
     annotation(Dialog(group="Zone sensors"));
   parameter Boolean co2Sen = true
-    "Set to true if the zone has a CO2 sensor"
+    "Set to true if the zone has CO2 sensor"
     annotation(Dialog(group="Zone sensors"));
   parameter Modelica.SIunits.VolumeFlowRate VCooMax
     "Zone maximum cooling airflow setpoint"
@@ -17,24 +17,24 @@ block ActiveAirflowSetpointReheatBox
   parameter Modelica.SIunits.VolumeFlowRate VMin
     "Zone minimum airflow setpoint"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VMinCon
-    "VAV box controllable minimum"
-    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.VolumeFlowRate VHeaMax
     "Zone maximum heating airflow setpoint"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference maxDTemDis
+  parameter Modelica.SIunits.TemperatureDifference maxDt
     "Zone maximum discharge air temperature above heating setpoint"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.VolumeFlowRate VMinCon
+    "VAV box controllable minimum"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Area zonAre "Area of the zone"
     annotation(Dialog(group="Nominal condition"));
   parameter Real outAirPerAre(final unit = "m3/(s.m2)")=3e-4
-    "Outdoor air flow rate per unit area"
+    "Outdoor air rate per unit area"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.VolumeFlowRate outAirPerPer=2.5e-3
-    "Outdoor air flow rate per person"
+    "Outdoor air rate per person"
     annotation(Dialog(group="Nominal condition"));
-  parameter Real co2Set = 894 "CO2 setpoint"
+  parameter Real co2Set = 894 "CO2 setpoints, ppm"
     annotation(Dialog(group="Nominal condition"));
 
   CDL.Interfaces.RealInput nOcc(final unit="1") if occSen
@@ -42,7 +42,7 @@ block ActiveAirflowSetpointReheatBox
     annotation (Placement(transformation(extent={{-320,-300},{-280,-260}}),
       iconTransformation(extent={{-120,10},{-100,30}})));
   CDL.Interfaces.RealInput ppmCO2(final unit="1") if co2Sen
-    "Measured CO2 conventration"
+    "Detected CO2 conventration"
     annotation (Placement(transformation(extent={{-320,-200},{-280,-160}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
   CDL.Interfaces.BooleanInput uWin if winSen
@@ -91,10 +91,10 @@ block ActiveAirflowSetpointReheatBox
       iconTransformation(extent={{100,-50},{120,-30}})));
 
   CDL.Continuous.Gain gai(k=outAirPerPer) if occSen
-  "Outdoor airflow rate per person"
+  "Outdoor air per person"
     annotation (Placement(transformation(extent={{-140,-330},{-120,-310}})));
   CDL.Continuous.Add breZon if occSen
-  "Breathing zone airflow rate"
+  "Breathing zone airflow"
     annotation (Placement(transformation(extent={{-80,-350},{-60,-330}})));
   CDL.Continuous.Line co2ConLoo if co2Sen
     "Maintain CO2 concentration at setpoint, reset 0% at (setpoint-200) and 100% at setpoint"
@@ -105,8 +105,7 @@ block ActiveAirflowSetpointReheatBox
   CDL.Continuous.Greater gre
     "Check if zone minimum airflow setpoint Vmin is less than the allowed controllable VMinCon"
     annotation (Placement(transformation(extent={{-20,-460},{0,-440}})));
-  CDL.Continuous.Hysteresis       zonOcc(uLow=0.05, uHigh=0.10) if
-                                                         occSen
+  CDL.Continuous.GreaterThreshold greThr(threshold=0) if occSen
     "Check if the zone becomes unpopulated"
     annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
   CDL.Continuous.GreaterThreshold greThr1
@@ -130,31 +129,18 @@ block ActiveAirflowSetpointReheatBox
     annotation (Placement(transformation(extent={{80,-410},{100,-390}})));
   CDL.Logical.Not not2 if winSen "Logical not"
     annotation (Placement(transformation(extent={{-240,-510},{-220,-490}})));
-  CDL.Continuous.MultiSum actCooMinAir(
-    final nu=5,
-    final k={1, 1, 1, 1, 1})
+  CDL.Continuous.MultiSum actCooMinAir(nu=5)
     "Active cooling minimum airflow"
     annotation (Placement(transformation(extent={{220,170},{240,190}})));
-  CDL.Continuous.MultiSum actMinAir(
-    final nu=5,
-    final k={1, 1, 1, 1, 1})
+  CDL.Continuous.MultiSum actMinAir(nu=5)
     "Active minimum airflow"
     annotation (Placement(transformation(extent={{220,140},{240,160}})));
-  CDL.Continuous.MultiSum actHeaMinAir(
-    final nu=5,
-    final k={1, 1, 1, 1, 1})
+  CDL.Continuous.MultiSum actHeaMinAir(nu=5)
   "Active heating minimum airflow"
     annotation (Placement(transformation(extent={{220,100},{240,120}})));
-  CDL.Continuous.MultiSum actHeaMaxAir(
-    final nu=5,
-    final k={1, 1, 1, 1, 1})
+  CDL.Continuous.MultiSum actHeaMaxAir(nu=5)
   "Active heating maximum airflow"
     annotation (Placement(transformation(extent={{220,60},{240,80}})));
-  CDL.Continuous.MultiSum actCooMaxAir(
-    nu=5,
-    final k={1, 1, 1, 1, 1})
-    "Active cooling maximum airflow"
-    annotation (Placement(transformation(extent={{220,200},{240,220}})));
 
 protected
   CDL.Continuous.Sources.Constant minZonAir1(k=VMin) if not co2Sen
@@ -316,6 +302,9 @@ protected
   CDL.Logical.Switch swi28
     "Select heating maximum based on operation mode"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+  CDL.Continuous.MultiSum actCooMaxAir(nu=5)
+    "Active cooling maximum airflow"
+    annotation (Placement(transformation(extent={{220,200},{240,220}})));
   CDL.Continuous.Max maxInp "Find greater input"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
@@ -368,7 +357,7 @@ equation
   connect(conInt.y, intEqu.u1)
     annotation (Line(points={{-219,-90},{-160,-90},{-160,-110},{-142,-110}},
       color={255,127,0}));
-  connect(nOcc,zonOcc. u)
+  connect(nOcc, greThr.u)
     annotation (Line(points={{-300,-280},{-142,-280}},
       color={0,0,127}));
   connect(nOcc, gai.u)
@@ -383,7 +372,7 @@ equation
   connect(breZon.y, swi.u3)
     annotation (Line(points={{-59,-340},{-20,-340},{-20,-288},{78,-288}},
       color={0,0,127}));
-  connect(zonOcc.y, swi.u2)
+  connect(greThr.y, swi.u2)
     annotation (Line(points={{-119,-280},{78,-280}},
       color={255,0,255}));
   connect(lin1.y, swi.u1)
@@ -774,7 +763,7 @@ equation
       color={0,0,127}));
 
 annotation (
-  defaultComponentName="airSetReh",
+  defaultComponentName="actAirSet_RehBox",
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-280,-560},{280,560}}),
         graphics={                   Rectangle(
@@ -843,7 +832,7 @@ reset based on window status"),      Rectangle(
           fillPattern=FillPattern.Solid,
           lineColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
-          textString="Define active setpoints
+          textString="Define active setpoints 
 according to operation modes")}),
      Icon(
         graphics={Rectangle(
@@ -909,32 +898,31 @@ according to operation modes")}),
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VOccMinAir")}),
-Documentation(info="<html>
+Documentation(info="<html>      
 <p>
-This sequence sets the active minimum and maximum setpoints <code>VActCooMin</code>,
-<code>VActCooMax</code>, <code>VActHeaMin</code>,
-<code>VActHeaMax</code> and <code>VActMin</code> for a VAV reheat terminal unit
-according to ASHRAE Guideline 36 (G36), PART5.E.3-5.
-</p>
-<h4>1. Information to be provided by designer</h4>
+This atomic sequence sets the active maximum and minimum setpoints <code>VActCooMax</code>,
+<code>VActCooMin</code>, <code>VActMin</code>, <code>VActHeaMin</code>, 
+<code>VActHeaMax</code> for VAV reheat terminal unit according to ASHRAE 
+Guideline 36 (G36), PART5.E.3-5.
+</p>  
+<h4>1. Information provided by designer</h4>
 According to G36 PART 3.1.B.2, following VAV box design information should be
 provided:
 <ul>
 <li>Zone maximum cooling airflow setpoint <code>VCooMax</code></li>
 <li>Zone minimum airflow setpoint <code>VMin</code></li>
 <li>Zone maximum heating airflow setpoint <code>VHeaMax</code></li>
-<li>Zone maximum discharge air temperature above heating setpoint <code>maxDTemDis</code></li>
+<li>Zone maximum discharge air temperature above heating setpoint <code>maxDt</code></li>
 </ul>
 
 <h4>2. Occupied minimum airflow <code>VOccMinAir</code></h4>
-The occupied minimum airflow <code>VOccMinAir</code> shall be
-equal to zone minimum airflow setpoint
+The <code>VOccMinAir</code> shall be equal to zone minimum airflow setpoint 
 <code>VMin</code> except as follows:
 <ul>
 <li>
 If the zone has an occupancy sensor, <code>VOccMinAir</code> shall be equal to
-the minimum breathing zone outdoor airflow (if ventilation is according to ASHRAE
-Standard 62.1-2013) or the zone minimum outdoor airflow for building area
+minimum breathing zone outdoor airflow (if ventilation is according to ASHRAE
+Standard 62.1-2013) or zone minimum outdoor airflow for building area 
 (if ventilation is according to California Title 24) when the room is unpopulated.
 </li>
 <li>
@@ -947,51 +935,43 @@ allowed by the controls <code>VMinCon</code>, <code>VOccMinAir</code> shall be s
 equal to <code>VMinCon</code>.
 </li>
 <li>
-If the zone has a CO2 sensor, then following steps are applied for calculating
-<code>VOccMinAir</code>.
-<ul>
-<li>During occupied mode, a P-only loop shall maintain
-the CO2 concentration at setpoint, reset 0% at (CO2 setpoint <code>co2Set</code> -
+If the zone has a CO2 sensor, then following steps are applied for calculating 
+<code>VOccMinAir</code>. (1) During occupied mode, a P-only loop shall maintain
+CO2 concentration at setpoint, reset 0% at (CO2 setpoint <code>co2Set</code> - 
 200 ppm) and 100% at <code>co2Set</code>. If ventilation outdoor airflow is controlled
 in accordance with ASHRAE Standard 62.1-2013, the loop output shall reset the
 <code>VOccMinAir</code> from <code>VMin</code> at 0% loop output up to <code>VCooMax</code>
-at 100% loop output;
-</li>
-<li>
-The loop is diabled and its output set to zero when the zone is
+at 100% loop output; (2) Loop is diabled and output set to zero when the zone is
 not in occupied mode.
 </li>
 </ul>
-</li>
-</ul>
-<p align=\"center\">
-<img alt=\"Image of occupied minimum airflow reset with CO2 control\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/OccMinAirRehBox.png\"/>
-</p>
 
 <h4>3. Active maximum and minimum setpoints</h4>
 The setpoints shall vary depending on the mode of the zone group.
 <table summary=\"summary\" border=\"1\">
-<tr><th>Setpoint</th> <th>Occupied</th><th>Cool-down</th>
+<tr><th>Setpoint</th> <th>Occupied</th><th>Cool-down</th> 
 <th>Setup</th><th>Warmup</th><th>Setback</th><th>Unoccupied</th></tr>
-<tr><td>Cooling maximum (VActCooMax)</td><td>VCooMax</td><td>VCooMax</td>
-<td>VCooMax</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Cooling minimum (VActCooMin)</td><td>VOccMinAir</td><td>0</td>
+<tr><td>Cooling maximum (<code>VActCooMax</code>)</td><td><code>VCooMax</code></td>
+<td><code>VCooMax</code></td><td><code>VCooMax</code></td>
+<td>0</td><td>0</td><td>0</td></tr>
+<tr><td>Cooling minimum (<code>VActCooMin</code>)</td><td><code>VOccMinAir</code></td>
+<td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>Minimum (<code>VActMin</code>)</td><td><code>VOccMinAir</code></td><td>0</td>
 <td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Minimum (VActMin)</td><td>VOccMinAir</td><td>0</td>
-<td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Heating minimum (VActHeaMin)</td><td>VOccMinAir</td><td>0</td>
-<td>0</td><td>VHeaMax</td><td>VHeaMax</td><td>0</td></tr>
-<tr><td>Heating maximum (VActHeaMax)</td><td>max(VHeaMax,VOccMinAir)</td>
-<td>VHeaMax</td><td>0</td><td>VCooMax</td><td>VCooMax</td><td>0</td></tr>
+<tr><td>Heating minimum (<code>VActHeaMin</code>)</td><td><code>VOccMinAir</code></td>
+<td>0</td><td>0</td><td><code>VHeaMax</code></td><td><code>VHeaMax</code></td>
+<td>0</td></tr>
+<tr><td>Heating maximum (<code>VActHeaMax</code>)</td><td>max(<code>VHeaMax,VOccMinAir</code>)</td>
+<td><code>VHeaMax</code></td><td>0</td><td><code>VCooMax</code></td><td><code>VCooMax</code></td>
+<td>0</td></tr>
 </table>
 <br/>
 
 <h4>References</h4>
 <p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
-Standards Review)/ASHRAE Guideline 36P,
-<i>High Performance Sequences of Operation for HVAC systems</i>.
+<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of 
+Standards Review)/ASHRAE Guideline 36P, 
+<i>High Performance Sequences of Operation for HVAC systems</i>. 
 First Public Review Draft (June 2016)</a>
 </p>
 

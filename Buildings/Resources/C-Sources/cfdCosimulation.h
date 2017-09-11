@@ -8,7 +8,11 @@
  *         University of Miami
  *         W.Zuo@miami.edu
  *
- * @date   8/3/2013
+ *         Tian Wei
+ *         University of Miami
+ *         W.tian@miami.edu
+ *
+ * @date   2/14/2017
  *
  */
 
@@ -28,7 +32,8 @@
 #include <stdint.h> /* Needed to detect 32 vs. 64 bit using UINTPTR_MAX*/
 #endif
 
-#pragma comment(lib, "user32.lib")
-
 CosimulationData *cosim;
 char msg[1000];
+
+/*declare the ffd_dll function in DLL*/
+int ffd_dll(CosimulationData *cosim);
