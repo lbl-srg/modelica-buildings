@@ -6,7 +6,7 @@ block ActiveAirflowSetpointReheatBox
     "Set to true if the zone has occupancy sensor"
     annotation(Dialog(group="Zone sensors"));
   parameter Boolean winSen = true
-    "Set to true if the zone has window operation sensor and window is open"
+    "Set to true if the zone has window status sensor"
     annotation(Dialog(group="Zone sensors"));
   parameter Boolean co2Sen = true
     "Set to true if the zone has CO2 sensor"
@@ -34,7 +34,7 @@ block ActiveAirflowSetpointReheatBox
   parameter Modelica.SIunits.VolumeFlowRate outAirPerPer=2.5e-3
     "Outdoor air rate per person"
     annotation(Dialog(group="Nominal condition"));
-  parameter Real co2Set = 894 "CO2 setpoints"
+  parameter Real co2Set = 894 "CO2 setpoints, ppm"
     annotation(Dialog(group="Nominal condition"));
 
   CDL.Interfaces.RealInput nOcc(final unit="1") if occSen
@@ -945,26 +945,25 @@ at 100% loop output; (2) Loop is diabled and output set to zero when the zone is
 not in occupied mode.
 </li>
 </ul>
-<p align=\"center\">
-<img alt=\"Image of occupied minimum airflow reset with CO2 control\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/OccMinAirRehBox.png\"/>
-</p>
 
 <h4>3. Active maximum and minimum setpoints</h4>
 The setpoints shall vary depending on the mode of the zone group.
 <table summary=\"summary\" border=\"1\">
 <tr><th>Setpoint</th> <th>Occupied</th><th>Cool-down</th> 
 <th>Setup</th><th>Warmup</th><th>Setback</th><th>Unoccupied</th></tr>
-<tr><td>Cooling maximum (VActCooMax)</td><td>VCooMax</td><td>VCooMax</td>
-<td>VCooMax</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Cooling minimum (VActCooMin)</td><td>VOccMinAir</td><td>0</td>
+<tr><td>Cooling maximum (<code>VActCooMax</code>)</td><td><code>VCooMax</code></td>
+<td><code>VCooMax</code></td><td><code>VCooMax</code></td>
+<td>0</td><td>0</td><td>0</td></tr>
+<tr><td>Cooling minimum (<code>VActCooMin</code>)</td><td><code>VOccMinAir</code></td>
+<td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>Minimum (<code>VActMin</code>)</td><td><code>VOccMinAir</code></td><td>0</td>
 <td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Minimum (VActMin)</td><td>VOccMinAir</td><td>0</td>
-<td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Heating minimum (VActHeaMin)</td><td>VOccMinAir</td><td>0</td>
-<td>0</td><td>VHeaMax</td><td>VHeaMax</td><td>0</td></tr>
-<tr><td>Heating maximum (VActHeaMax)</td><td>max(VHeaMax,VOccMinAir)</td>
-<td>VHeaMax</td><td>0</td><td>VCooMax</td><td>VCooMax</td><td>0</td></tr>
+<tr><td>Heating minimum (<code>VActHeaMin</code>)</td><td><code>VOccMinAir</code></td>
+<td>0</td><td>0</td><td><code>VHeaMax</code></td><td><code>VHeaMax</code></td>
+<td>0</td></tr>
+<tr><td>Heating maximum (<code>VActHeaMax</code>)</td><td>max(<code>VHeaMax,VOccMinAir</code>)</td>
+<td><code>VHeaMax</code></td><td>0</td><td><code>VCooMax</code></td><td><code>VCooMax</code></td>
+<td>0</td></tr>
 </table>
 <br/>
 
