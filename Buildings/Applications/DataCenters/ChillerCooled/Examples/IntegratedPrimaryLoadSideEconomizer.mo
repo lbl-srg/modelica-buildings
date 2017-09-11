@@ -153,7 +153,7 @@ The system is a primary-only chiller plant with two chillers and
 an integrated WSE located on the load side.
 The system schematics is as shown below.
 </p>
-<p>
+<p align=\"center\">
 <img alt=\"image\"
 src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Examples/IntegratedPrimaryLoadSideEconomizerSystem.png\"/>
 </p>

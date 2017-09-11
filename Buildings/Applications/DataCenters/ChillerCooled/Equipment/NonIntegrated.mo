@@ -39,7 +39,7 @@ In the configuration, users can model multiple chillers with only one integrated
 This model can be used in both primary-only and primary-secondary pumping system.
 </p>
 <p align=\"center\">
-  <img src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Nonintegrated.png\" alt=\"image\"/>
+  <img src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Equipment/Nonintegrated.png\" alt=\"image\"/>
 </p>
 <h4>Implementation</h4>
 <p>

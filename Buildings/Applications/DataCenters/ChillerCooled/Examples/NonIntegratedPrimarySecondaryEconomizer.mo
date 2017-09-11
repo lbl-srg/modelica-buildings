@@ -263,8 +263,9 @@ equation
 <p>This example demonstrates the implementation of a chiller plant
 with water-side economizer (WSE) to cool a data center. The system schematics is as shown below. </p>
 <p>The system is a primary-secondary chiller plant with two chillers and a non-integrated WSE.</p>
-<p>
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Examples/NonIntegratedPrimarySecondaryEconomizer.png\"/>
+<p align=\"center\">
+<img alt=\"image\" 
+src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Examples/NonIntegratedPrimarySecondaryEconomizerSystem.png\"/>
 </p>
 <h4>Control Logic</h4>
 <p>This section describes the detailed control logic used in this chilled water plant system.</p>
