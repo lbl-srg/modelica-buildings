@@ -27,7 +27,7 @@ equation
       smooth=Smooth.None));
   annotation ( __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Controls/Examples/SolarPumpController.mos"
-        "Simulate and Plot"),
+        "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=86400.0),
     Documentation(info="<html>
       <p>

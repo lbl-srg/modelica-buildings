@@ -47,7 +47,7 @@ equation
       extent={{-6,3},{-6,3}}));
   annotation (
     __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Controls/Validation/CoolingMode.mos"
-        "Simulate and Plot"),
+        "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
 <li>

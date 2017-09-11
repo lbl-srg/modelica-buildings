@@ -9,6 +9,8 @@ HeatingAndCoolingCoilValves
 OperationModeSelector
 OutdoorAirFlowSetpoint_MultiZone
 OutdoorAirFlowSetpoint_SingleZone
+TrimRespondLogic
+VAVMultiZoneSupFan
 VAVSingleZoneTSupSet
 ZoneSetpoint
 Validation

@@ -93,7 +93,7 @@ equation
     annotation (Line(points={{-59,44},{-42,44}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Controls/Validation/AirsideEconomizer.mos"
-        "Simulate and Plot"),
+        "Simulate and plot"),
     Documentation(info="<html>
 <P>
 This example demonstrates how the outside air damper position changes under

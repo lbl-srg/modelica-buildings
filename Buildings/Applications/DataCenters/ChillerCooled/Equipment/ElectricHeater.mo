@@ -64,7 +64,7 @@ model ElectricHeater "Model for electric heater"
   Modelica.Blocks.Math.Gain gaiEff(final k=1/eta) "Gain for efficiency"
     annotation (Placement(transformation(extent={{58,-70},{78,-50}})));
 protected
-  Modelica.Blocks.Logical.Switch swi "Swich for temperature setpoint"
+  Modelica.Blocks.Logical.Switch swi "Switch for temperature setpoint"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
   Modelica.Blocks.Sources.Constant zer(final k=-273.15)

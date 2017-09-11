@@ -36,7 +36,7 @@ equation
   annotation (experiment(Tolerance=1e-6, StopTime=172800),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/ElectricHeater.mos"
-        "Simulate and Plot"),
+        "Simulate and plot"),
     Documentation(info="<html>
 This model test the electric heater model: <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricHeater\">
 Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricHeater</a>.
