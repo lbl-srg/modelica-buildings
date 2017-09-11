@@ -7,7 +7,7 @@ model ActiveAirflowSetpointReheatBox
     VCooMax=0.075,
     VMin=0.017,
     VHeaMax=0.05,
-    maxDt=11,
+    maxDTemDis=11,
     VMinCon=0.01,
     zonAre=40)
     "Output the active airflow setpoint for VAV reheat terminal unit"
@@ -17,7 +17,7 @@ model ActiveAirflowSetpointReheatBox
     VCooMax=0.075,
     VMin=0.017,
     VHeaMax=0.05,
-    maxDt=11,
+    maxDTemDis=11,
     VMinCon=0.01,
     zonAre=40)
     "Output the active airflow setpoint for VAV reheat terminal unit"
@@ -79,7 +79,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Atomic.ActiveAirflowSetpointReheatBox\">
 Buildings.Controls.OBC.ASHRAE.G36.Atomic.ActiveAirflowSetpointReheatBox</a>
-for calculating active minimum and maximum airflow setpoint used in VAV reheat 
+for calculating active minimum and maximum airflow setpoint used in a VAV reheat
 terminal unit control.
 </p>
 </html>", revisions="<html>
