@@ -8,7 +8,7 @@ ARCH = $(shell getconf LONG_BIT)
 
 
 # Directory where executable will be copied to
-BINDIR = ../../Library/linux64
+BINDIR = ../../Library/linux$(ARCH)
 
 #######################################################
 ## Compilation flags
@@ -34,8 +34,8 @@ LIBS = -lpthread
 # Note that -fPIC is recommended on Linux according to the Modelica specification
 
 all: clean
-	$(CC) $(CC_FLAGS_64) -fPIC -c $(SRCS)
-	$(CC) -m64 -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) $(LIBS) -lc
+	$(CC) $(CC_FLAGS_$(ARCH)) -fPIC -c $(SRCS)
+	$(CC) -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) $(LIBS) -lc
 	rm -f $(OBJS)
 	mv $(LIB) $(BINDIR)
 	@echo "==== library generated in $(BINDIR)"

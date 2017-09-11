@@ -941,7 +941,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,
             -300},{300,300}})),           __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/FLEXLAB/Rooms/Examples/TestBedX3WithRadiantFloor.mos"
-        "Simulate and Plot"),
+        "Simulate and plot"),
         experiment(Tolerance=1e-6, StopTime=864000),
         Documentation(info="<html>
 <p>

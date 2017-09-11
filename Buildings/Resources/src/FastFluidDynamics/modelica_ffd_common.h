@@ -24,6 +24,7 @@ typedef struct {
   int sha; /* 1: have shade ; 0: no shade*/
   REAL rho_start; /* Density at initial state*/
   char *fileName; /* Name of FFD input file*/
+  char *filePath; /* Path of FFD input file*/
   char **name; /* *name[nSur]: Name of surfaces and flow ports*/
   char **portName; /* *name[nPorts]: Name of fluid ports*/
   REAL *are; /* area of surface in the same order of name*/

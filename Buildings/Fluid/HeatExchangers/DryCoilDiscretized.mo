@@ -86,9 +86,9 @@ model DryCoilDiscretized
     "Guess value for mass flow rate at port_a2"
     annotation(Dialog(tab="General", group="Initialization"));
 
-  Modelica.SIunits.HeatFlowRate Q1_flow
+  Modelica.SIunits.HeatFlowRate Q1_flow = sum(hexReg[i].Q1_flow for i in 1:nReg)
     "Heat transferred from solid into medium 1";
-  Modelica.SIunits.HeatFlowRate Q2_flow
+  Modelica.SIunits.HeatFlowRate Q2_flow = sum(hexReg[i].Q2_flow for i in 1:nReg)
     "Heat transferred from solid into medium 2";
 
   Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister hexReg[nReg](
@@ -131,16 +131,14 @@ model DryCoilDiscretized
     final deltaM=deltaM1,
     final from_dp=from_dp1,
     final allowFlowReversal=allowFlowReversal1) "Pipe manifold at port a"
-                                               annotation (Placement(
-        transformation(extent={{-38,18},{-18,38}})));
+    annotation (Placement(transformation(extent={{-38,18},{-18,38}})));
 
   Buildings.Fluid.HeatExchangers.BaseClasses.PipeManifoldNoResistance pipMan_b(
     redeclare package Medium = Medium1,
     final nPipPar=nPipPar,
     final mStart_flow_a=-mStart_flow_a1,
     final allowFlowReversal=allowFlowReversal1) "Pipe manifold at port b"
-                                         annotation (Placement(transformation(
-          extent={{52,50},{32,70}})));
+    annotation (Placement(transformation(extent={{52,50},{32,70}})));
 
   Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldNoResistance ducMan_b(
     redeclare package Medium = Medium2,
@@ -176,12 +174,49 @@ model DryCoilDiscretized
     final airSideTemperatureDependent=airSideTemperatureDependent,
     final airSideFlowDependent=airSideFlowDependent)
     "Model for convective heat transfer coefficient"
-        annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+        annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
 protected
   constant Boolean allowCondensation = false
     "Set to false to compute sensible heat transfer only"
     annotation(Dialog(tab="Heat transfer"));
+
+  final parameter Boolean use_temSen_1=
+    waterSideTemperatureDependent and allowFlowReversal1 and
+    (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Flag, set to true if the temperature sensor 1 is used"
+    annotation(Evaluate=true);
+
+  final parameter Boolean use_temSen_2=
+    airSideTemperatureDependent and allowFlowReversal2 and
+    (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Flag, set to true if the temperature sensor 2 is used"
+    annotation(Evaluate=true);
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSen_1(
+   redeclare package Medium = Medium1,
+    allowFlowReversal=allowFlowReversal1,
+    m_flow_nominal=m1_flow_nominal,
+    tau=if use_temSen_1 then 1 else 0)
+    "Temperature sensor, used to obtain temperature for convective heat transfer calculation"
+    annotation (Placement(transformation(
+          extent={{-58,54},{-46,66}})));
+  Buildings.Fluid.Sensors.MassFlowRate masFloSen_1(
+    redeclare package Medium = Medium1) "Mass flow rate sensor"
+    annotation (Placement(transformation(
+          extent={{-80,54},{-68,66}})));
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSen_2(
+    redeclare package Medium = Medium2,
+    final allowFlowReversal=allowFlowReversal2,
+    m_flow_nominal=m2_flow_nominal,
+    tau=if use_temSen_2 then 1 else 0)
+    "Temperature sensor, used to obtain temperature for convective heat transfer calculation"
+    annotation (Placement(transformation(extent={{58,-66},{44,-54}})));
+  Buildings.Fluid.Sensors.MassFlowRate masFloSen_2(
+    redeclare package Medium = Medium2)
+    "Mass flow rate sensor"
+    annotation (Placement(transformation(extent={{82,-66},{70,-54}})));
 
   BaseClasses.CoilHeader hea1[div(nReg,2)](
       redeclare each final package Medium = Medium1,
@@ -207,33 +242,39 @@ protected
     "Gain medium-side 2 to take discretization into account"
     annotation (Placement(transformation(extent={{-14,60},{-2,74}})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort temSen_1(
-    redeclare package Medium = Medium1,
-    final allowFlowReversal=allowFlowReversal1,
-    m_flow_nominal=m1_flow_nominal) "Temperature sensor"
-                                      annotation (Placement(transformation(
-          extent={{-58,54},{-48,66}})));
-  Buildings.Fluid.Sensors.MassFlowRate masFloSen_1(
-    redeclare package Medium = Medium1,
-    final allowFlowReversal=allowFlowReversal1) "Mass flow rate sensor"
-                                         annotation (Placement(transformation(
-          extent={{-80,54},{-68,66}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort temSen_2(
-    redeclare package Medium = Medium2,
-    m_flow_nominal=m2_flow_nominal,
-    final allowFlowReversal=allowFlowReversal2) "Temperature sensor"
-                                      annotation (Placement(transformation(
-          extent={{58,-66},{44,-54}})));
-  Buildings.Fluid.Sensors.MassFlowRate masFloSen_2(redeclare package Medium =
-        Medium2, final allowFlowReversal=allowFlowReversal2)
-    "Mass flow rate sensor"              annotation (Placement(transformation(
-          extent={{82,-66},{70,-54}})));
+  Modelica.Blocks.Sources.RealExpression THA1(
+    y=if waterSideTemperatureDependent then
+        if allowFlowReversal1 then
+          if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
+            temSen_1.T
+          else
+            hexReg[1].ele[1,1].vol1.T
+        else
+          Medium1.temperature(
+            state=Medium1.setState_phX(p=port_a1.p, h=inStream(port_a1.h_outflow), X=inStream(port_a1.Xi_outflow)))
+        else
+          Medium1.T_default)
+    "Temperature used for convective heat transfer calculation for medium 1 (water-side)"
+    annotation (Placement(transformation(extent={{-80,78},{-66,88}})));
+
+  Modelica.Blocks.Sources.RealExpression THA2(
+    y=if airSideTemperatureDependent then
+        if allowFlowReversal1 then
+          if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
+            temSen_2.T
+          else
+            hexReg[1].ele[1,1].vol2.T
+        else
+          Medium2.temperature(
+            state=Medium2.setState_phX(p=port_a2.p, h=inStream(port_a2.h_outflow), X=inStream(port_a2.Xi_outflow)))
+        else
+          Medium2.T_default)
+    "Temperature used for convective heat transfer calculation for medium 2 (air-side)"
+    annotation (Placement(transformation(extent={{-80,72},{-66,82}})));
+
 initial equation
   assert(UA_nominal>0, "Parameter UA_nominal is negative. Check heat exchanger parameters.");
 equation
-  Q1_flow = sum(hexReg[i].Q1_flow for i in 1:nReg);
-  Q2_flow = sum(hexReg[i].Q2_flow for i in 1:nReg);
-
   // air stream connections
   for i in 2:nReg loop
     connect(hexReg[i].port_a2, hexReg[i-1].port_b2) annotation (Line(points={{10,4},{
@@ -271,22 +312,21 @@ equation
           color={0,127,255}));
   end for;
   connect(masFloSen_1.m_flow, hA.m1_flow)             annotation (Line(points={{-74,
-          66.6},{-74,72},{-82,72},{-82,97},{-61,97}},       color={0,0,127}));
+          66.6},{-74,70},{-90,70},{-90,92},{-64,92},{-64,87},{-61,87}},
+                                                            color={0,0,127}));
   connect(port_a2, masFloSen_2.port_a) annotation (Line(points={{100,-60},{82,
           -60}}, color={0,127,255}));
   connect(masFloSen_2.port_b, temSen_2.port_a) annotation (Line(points={{70,-60},
           {58,-60}}, color={0,127,255}));
   connect(temSen_2.port_b, ducMan_a.port_a) annotation (Line(points={{44,-60},{
           40,-60},{40,-16}}, color={0,127,255}));
-  connect(temSen_2.T, hA.T_2)             annotation (Line(points={{51,-53.4},{
-          51,-46},{-88,-46},{-88,87},{-61,87}}, color={0,0,127}));
   connect(masFloSen_2.m_flow, hA.m2_flow)             annotation (Line(points={{76,
-          -53.4},{76,-44},{-86,-44},{-86,83},{-61,83}},      color={0,0,127}));
+          -53.4},{76,-44},{-86,-44},{-86,73},{-61,73}},      color={0,0,127}));
   connect(hA.hA_1, gai_1.u)
-    annotation (Line(points={{-39,97},{-28,97},{-28,91},{-15.2,91}}, color={0,0,
+    annotation (Line(points={{-39,87},{-28,87},{-28,91},{-15.2,91}}, color={0,0,
           255}));
-  connect(hA.hA_2, gai_2.u)             annotation (Line(points={{-39,83},{
-          -27.5,83},{-27.5,67},{-15.2,67}}, color={0,0,255}));
+  connect(hA.hA_2, gai_2.u)             annotation (Line(points={{-39,73},{-27.5,
+          73},{-27.5,67},{-15.2,67}},       color={0,0,255}));
   for i in 1:nReg loop
     connect(gai_1.y, hexReg[i].Gc_1) annotation (Line(points={{-1.4,91},{12,91},
             {12,30},{-4,30},{-4,20}}, color={0,0,127}));
@@ -302,13 +342,14 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(temSen_1.port_b, pipMan_a.port_a) annotation (Line(
-      points={{-48,60},{-38,60},{-38,28}},
+      points={{-46,60},{-38,60},{-38,28}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(temSen_1.T, hA.T_1) annotation (Line(
-      points={{-53,66.6},{-53,74},{-78,74},{-78,93},{-61,93}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  connect(THA1.y, hA.T_1) annotation (Line(points={{-65.3,83},{-65.3,83},{-61,83}},
+        color={0,0,127}));
+  connect(THA2.y, hA.T_2) annotation (Line(points={{-65.3,77},{-65.3,77},{-61,77}},
+        color={0,0,127}));
+
  annotation (
 defaultComponentName="heaCoi",
     Documentation(info="<html>
@@ -349,6 +390,13 @@ this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 8, 2017, by Michael Wetter:<br/>
+Changed computation of temperature used for <i>hA</i> calculation
+to avoid a state variable with small time constant for some model parameterizations.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/678\">Buildings, #678</a>.
+</li>
 <li>
 September 17, 2016, by Michael Wetter:<br/>
 Corrected wrong annotation.<br/>
