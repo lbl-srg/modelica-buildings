@@ -3,38 +3,32 @@ model CoolingMode
   "Controller for the DX cooling system with an airside economizer"
 
   parameter Modelica.SIunits.Time tWai "Waiting time, set to avoid frequent switching";
-  parameter Modelica.SIunits.Temperature TSwi = 283.15 "Switching temperature";
   parameter Modelica.SIunits.TemperatureDifference dT(min=0.1) = 1.1 "Deadband";
 
   Modelica.Blocks.Interfaces.RealInput TOutDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Dry-bulb temperature of outdoor air"
-    annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput TRet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Return air temperature"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealInput TOutDewPoi(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC") "Dew point temperature of outdoor air"
-    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}})));
   Modelica.Blocks.Interfaces.RealInput TSupSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Supply air temperature setpoint "
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
 
   Modelica.Blocks.Interfaces.IntegerOutput y
-    "Cooling mode signal, integer value of Buildings.Applications.DataCenters.Types.CoolingMode"
+    "Cooling mode signal, integer value of Buildings.Applications.DataCenters.Examples.BaseClasses.Types.CoolingMode"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Modelica.StateGraph.Transition con1(
     enableTimer=true,
     waitTime=tWai,
-    condition=TOutDewPoi > TSwi and TOutDryBul > TSupSet + dT)
+    condition=TOutDryBul > TSupSet + dT)
     "Fire condition 1: free cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -59,7 +53,7 @@ model CoolingMode
   Modelica.StateGraph.Transition con2(
     enableTimer=true,
     waitTime=tWai,
-    condition=TOutDewPoi > TSwi + dT or TOutDryBul > TRet + dT)
+    condition=TOutDryBul > TRet + dT)
     "Fire condition 2: partially mechanical cooling to fully mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -68,7 +62,7 @@ model CoolingMode
   Modelica.StateGraph.Transition con3(
     enableTimer=true,
     waitTime=tWai,
-    condition=TOutDewPoi < TSwi and TOutDryBul < TRet)
+    condition=TOutDryBul < TRet - dT)
     "Fire condition 3: fully mechanical cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -77,7 +71,7 @@ model CoolingMode
   Modelica.StateGraph.Transition con4(
     enableTimer=true,
     waitTime=tWai,
-    condition=TOutDewPoi < TSwi - dT or TOutDryBul < TSupSet - dT)
+    condition=TOutDryBul < TSupSet - dT)
     "Fire condition 4: partially mechanical cooling to free cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -88,8 +82,9 @@ model CoolingMode
   Modelica.Blocks.MathInteger.MultiSwitch swi(
     nu=3,
     y_default=0,
-    expr={Integer(Types.CoolingModes.FreeCooling),Integer(Types.CoolingModes.PartialMechanical),
-        Integer(Types.CoolingModes.FullMechanical)})
+    expr={Integer(Types.CoolingModes.FreeCooling),
+          Integer(Types.CoolingModes.PartialMechanical),
+          Integer(Types.CoolingModes.FullMechanical)})
     "Switch boolean signals to real signal"
     annotation (Placement(transformation(extent={{64,-6},{88,6}})));
 equation
@@ -154,7 +149,8 @@ equation
     Documentation(info="<html>
 <p>
 This model implements a cooling mode controller for an air-cooled direct expansion (DX) cooling system
-with an airside economizer.
+with an airside economizer. This controller is based on a simplified differential dry-bulb temperature 
+control strategy, as described in ASHRAE G36. 
 </p>
 <p>
 There are three cooling modes for this system: free cooling (FC) mode,
@@ -166,7 +162,7 @@ The airside economizer is enabled when:
 </p>
 <ul>
 <li>
-<i>T<sub>dp,out</sub>&lt;T<sub>swi</sub> and T<sub>out</sub>&lt;T<sub>ret</sub></i>
+<i>T<sub>out</sub>&lt;T<sub>ret</sub></i>
 </li>
 </ul>
 <p>
@@ -174,8 +170,7 @@ The airside economizer is disabled when:
 </p>
 <ul>
 <li>
-<i>T<sub>dp,out</sub>&gt;T<sub>swi</sub> + &delta;T or T<sub>out</sub>&gt;T<sub>ret</sub> + &delta;T
-</i>
+<i>T<sub>out</sub>&gt;T<sub>ret</sub></i>
 </li>
 </ul>
 <p>
@@ -183,7 +178,7 @@ The DX coil is enabled when:
 </p>
 <ul>
 <li>
-<i>T<sub>dp,out</sub>&gt;T<sub>swi</sub> and T<sub>out</sub>&gt;T<sub>sup,set</sub></i>
+<i>T<sub>out</sub>&gt;T<sub>sup,set</sub></i>
 </li>
 </ul>
 <p>
@@ -191,15 +186,16 @@ The DX coil is disabled when:
 </p>
 <ul>
 <li>
-<i>T<sub>dp,out</sub>&lt;T<sub>swi</sub> - &delta;T or T<sub>out</sub>&gt;T<sub>sup,set</sub> - &delta;T</i>
+<i>T<sub>out</sub>&gt;T<sub>sup,set</sub></i>
 </li>
 </ul>
 <p>
 where
 <i>T<sub>swi</sub></i> is the switching temperature,
-<i>&delta;T</i> is the deadband,
-subscript <i>dp</i> means dew point temperature, <i>set</i> means set point,
-<i>out</i> means outdoor air, <i>ret</i> means return air, and <i>sup</i> means supply air.
+subscript <i>set</i> means set point,
+<i>out</i> means outdoor air, <i>ret</i> means return air, 
+and <i>sup</i> means supply air. A deadband <i>&delta;T</i> can be added to the above logics to 
+avoid frequent switching.
 </p>
 </html>", revisions="<html>
 <ul>
