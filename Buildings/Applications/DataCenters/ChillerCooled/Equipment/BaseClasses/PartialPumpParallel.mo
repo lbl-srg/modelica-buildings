@@ -4,8 +4,8 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters;
 
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic per[num](each
-      motorCooledByFluid=false)
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic per[num](
+    each motorCooledByFluid=false)
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data"
     annotation (choicesAllMatching=true,
