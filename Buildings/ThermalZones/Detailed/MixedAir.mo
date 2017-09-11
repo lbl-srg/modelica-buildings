@@ -12,7 +12,8 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final m_flow_nominal=m_flow_nominal,
     final homotopyInitialization=homotopyInitialization,
     final conMod=intConMod,
-    final hFixed=hIntFixed),
+    final hFixed=hIntFixed,
+    final use_C_flow = use_C_flow),
     datConExt(
       each T_a_start = T_start,
       each T_b_start = T_start),
@@ -34,6 +35,11 @@ model MixedAir "Model of a room in which the air is completely mixed"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
+
+  // Ports
+  parameter Boolean use_C_flow=false
+    "Set to true to enable input connector for trace substance that is connected to room air"
+    annotation (Dialog(group="Ports"));
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -74,12 +80,17 @@ model MixedAir "Model of a room in which the air is completely mixed"
    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
   ////////////////////////////////////////////////////////////////////////////
-  // Input connector
+  // Input connectors
   Modelica.Blocks.Interfaces.RealInput uSha[nConExtWin](each min=0, each max=1) if
        haveShade
     "Control signal for the shading device (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
         iconTransformation(extent={{-232,164},{-200,196}})));
+
+  Modelica.Blocks.Interfaces.RealInput C_flow[Medium.nC] if use_C_flow
+    "Trace substance mass flow rate added to the room air. Enable if use_C_flow = true"
+    annotation (Placement(transformation(extent={{-300,-130},{-260,-90}}),
+        iconTransformation(extent={{-232,12},{-200,44}})));
 
 equation
   connect(uSha, conExtWin.uSha) annotation (Line(
@@ -111,6 +122,9 @@ equation
       points={{39.6,-120},{8,-120},{8,180},{-280,180}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(C_flow, air.C_flow) annotation (Line(points={{-280,-110},{-200,-110},{
+          -200,-114},{-200,-114},{-200,-202},{-18,-202},{-18,-141},{39,-141}},
+        color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>
@@ -124,6 +138,12 @@ for detailed explanations.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 8, 2017, by Michael Wetter:<br/>
+Enabled input connector <code>C_flow</code> to allow adding trace substances.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/481\">issue 481</a>.
+</li>
 <li>
 October 29, 2016, by Michael Wetter:<br/>
 Removed inheritance from
@@ -217,5 +237,10 @@ First implementation.
         Text(
           extent={{-198,198},{-122,166}},
           lineColor={0,0,127},
-          textString="uSha")}));
+          textString="uSha"),
+        Text(
+          extent={{-190,44},{-128,14}},
+          lineColor={0,0,127},
+          textString="C_flow",
+          visible=use_C_flow)}));
 end MixedAir;

@@ -570,6 +570,13 @@ Finally, the declaration
 <p>
 sets the latitude of the building which needs to correspond with the latitude of the weather data file.
 </p>
+<h4>Modeling of contaminants</h4>
+<p>
+The model has a parameter <code>use_C_flow</code>. If set to <code>true</code>,
+then an input connector <code>C_flow</code> is enabled, which allows adding trace substances
+to the room air. Note that this requires a medium model that has trace substances enabled.
+See the example fixme. (add example).
+</p>
 <h4>Notes</h4>
 <p>
 To connect two rooms, the model

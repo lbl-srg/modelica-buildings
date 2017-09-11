@@ -307,9 +307,8 @@ equation
             {100,100}})),
             Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
             -160},{220,180}})),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Examples/DXCooledAirsideEconomizer.mos"
-        "Simulate and Plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Examples/DXCooledAirsideEconomizer.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example illustrates how to use <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed\">

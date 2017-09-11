@@ -53,7 +53,7 @@ equation
   annotation (experiment(Tolerance=1e-6, StopTime=1200),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Controls/Validation/Reheat.mos"
-        "Simulate and Plot"),
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>This example tests the reheater controller with two varing input error signals.</p>
 </html>", revisions="<html>

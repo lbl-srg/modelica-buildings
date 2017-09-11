@@ -144,6 +144,6 @@ First implementation.
 </html>"),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateTotalArea.mos"
-        "Simulate and Plot"),
+        "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=86400.0));
 end FlatPlateTotalArea;
