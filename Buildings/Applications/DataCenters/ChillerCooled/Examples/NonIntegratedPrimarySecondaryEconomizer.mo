@@ -3,8 +3,7 @@ model NonIntegratedPrimarySecondaryEconomizer
   "Example that demonstrates a chiller plant with non-integrated primary-secondary side economizer"
   extends Modelica.Icons.Example;
 
-  extends
-    Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.NonIntegrated chiWSE(
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
       Ti=60,
@@ -81,11 +80,6 @@ model NonIntegratedPrimarySecondaryEconomizer
     "Sensor for bypass flowrate"
     annotation (Placement(transformation(extent={{160,-34},{140,-14}})));
 equation
-  connect(chiWSE.port_b2, TCHWSup.port_a)
-    annotation (Line(
-      points={{120,24},{112,24},{112,0},{104,0}},
-      color={0,127,255},
-      thickness=0.5));
   connect(chiWSE.port_b1, TCWRet.port_a)
     annotation (Line(
       points={{140,36},{160,36},{160,60},{202,60}},
@@ -180,21 +174,6 @@ equation
           {-16,-4},{-16,-9.2},{-5.6,-9.2}},    color={0,0,127}));
   connect(TAirSupSet.y, ahuValSig.u_s)
     annotation (Line(points={{-59,-90},{-48,-90},{-12,-90}}, color={0,0,127}));
-  connect(TAirSup.port_a, ahu.port_b2)
-    annotation (Line(
-      points={{80,-180},{140,-180},{140,-128},{120,-128}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(ahu.port_a2, roo.airPorts[1])
-    annotation (Line(points={{140,-128},{140,-128},{194,-128},{194,-140},{242,
-          -140},{242,-168.7},{132.475,-168.7}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(TAirSup.port_b, roo.airPorts[2])
-    annotation (Line(
-      points={{100,-180},{100,-180},{100,-140},{100,-168.7},{128.425,-168.7}},
-      color={0,127,255},
-      thickness=0.5));
   connect(secPum.port_b, ahu.port_a1)
     annotation (Line(points={{72,-50},{72,-50},{72,-116},{120,-116}},
                                  color={0,127,255},
@@ -242,8 +221,8 @@ equation
           -1.33227e-15},{198,-1.33227e-15},{198,-24},{160,-24}}, color={0,127,
           255}));
   connect(bypFlo.port_b, TCHWSup.port_a)
-    annotation (Line(points={{140,-24},{
-          112,-24},{112,0},{104,0}}, color={0,127,255}));
+    annotation (Line(points={{140,-24},{112,-24},{112,0},{104,0}},
+                                     color={0,127,255}));
   connect(TCHWSup.T, chiStaCon.TCHWSup)
     annotation (Line(points={{94,11},{94,11},{94,36},{94,36},{40,36},{40,200},{
           -70,200},{-70,134},{-52,134}},
