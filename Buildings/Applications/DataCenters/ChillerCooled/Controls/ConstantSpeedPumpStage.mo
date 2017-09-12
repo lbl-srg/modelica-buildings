@@ -84,8 +84,7 @@ model ConstantSpeedPumpStage "Staging control for constant speed pumps"
     final integerFalse=0)
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
-    final integerTrue=1,
-    final integerFalse=0)
+    final integerFalse=0, final integerTrue=2)
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
@@ -139,7 +138,7 @@ equation
   connect(oneOn.active, booToInt.u) annotation (Line(points={{-19,10},{-8,10},{
           12,10},{12,-40},{18,-40}}, color={255,0,255}));
   connect(twoOn.active, booToInt1.u)
-    annotation (Line(points={{-19,-80},{18,-80},{18,-80}}, color={255,0,255}));
+    annotation (Line(points={{-19,-80},{18,-80}},          color={255,0,255}));
   connect(booToInt.y, addInt.u1) annotation (Line(points={{41,-40},{48,-40},{48,
           -54},{58,-54}}, color={255,127,0}));
   connect(booToInt1.y, addInt.u2) annotation (Line(points={{41,-80},{48,-80},{

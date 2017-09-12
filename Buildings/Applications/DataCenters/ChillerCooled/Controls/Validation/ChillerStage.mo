@@ -12,7 +12,7 @@ model ChillerStage
   Modelica.Blocks.Sources.Constant QTot(
     k=0.55*chiStaCon.QEva_nominal)
     "Total cooling load in chillers"
-    annotation (Placement(transformation(extent={{-60,-6},{-40,14}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Blocks.Sources.IntegerTable cooMod(
     table=[0,0;
            360,1;
@@ -27,14 +27,14 @@ model ChillerStage
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
   connect(QTot.y, chiStaCon.QTot)
-    annotation (Line(points={{-39,4},{-39,4},{-12,4}},
+    annotation (Line(points={{-39,0},{-39,0},{-12,0}},
                             color={0,0,127}));
   connect(cooMod.y, chiStaCon.cooMod)
-    annotation (Line(points={{-39,50},{-26,50},
-          {-26,8},{-12,8}}, color={255,127,0}));
+    annotation (Line(points={{-39,50},{-26,50},{-26,6},{-12,6}},
+                            color={255,127,0}));
   connect(TCHWSup.y, chiStaCon.TCHWSup)
-    annotation (Line(points={{-39,-30},{-26,
-          -30},{-26,0},{-12,0}}, color={0,0,127}));
+    annotation (Line(points={{-39,-30},{-26,-30},{-26,-6},{-12,-6}},
+                                 color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file=

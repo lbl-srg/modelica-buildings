@@ -96,8 +96,7 @@ model VariableSpeedPumpStage "Staging control for variable speed pumps"
     final integerFalse=0)
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
-    final integerTrue=1,
-    final integerFalse=0)
+    final integerFalse=0, final integerTrue=2)
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
