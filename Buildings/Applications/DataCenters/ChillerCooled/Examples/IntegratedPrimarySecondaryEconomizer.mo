@@ -3,8 +3,7 @@ model IntegratedPrimarySecondaryEconomizer
   "Example that demonstrates a chiller plant with integrated primary-secondary side economizer"
   extends Modelica.Icons.Example;
 
-  extends
-    Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimarySecondary chiWSE(
         addPowerToMedium=false,
         perPum=perPumPri,
@@ -64,7 +63,7 @@ model IntegratedPrimarySecondaryEconomizer
         rotation=-90,
         origin={72,-26})));
   Buildings.Applications.DataCenters.ChillerCooled.Controls.ConstantSpeedPumpStage
-  PriPumCon(tWai=tWai)
+  PriPumCon(tWai=0)
     "Chilled water primary pump controller"
     annotation (Placement(transformation(extent={{-92,22},{-72,42}})));
   Modelica.Blocks.Math.Gain gai2[numChi](
@@ -95,26 +94,12 @@ equation
     annotation (Line(points={{-29,32},{30,32},{30,26.5},{118.5,26.5}},
        color={0,0,127}));
 
-  connect(chiWSE.port_b2, TCHWSup.port_a)
-    annotation (Line(
-      points={{120,24},{112,24},{112,0},{104,0}},
-      color={0,127,255},
-      thickness=0.5));
   connect(chiWSE.port_b1, TCWRet.port_a)
     annotation (Line(
       points={{140,36},{160,36},{160,60},{202,60}},
       color={0,127,255},
       thickness=0.5));
    for i in 1:numChi loop
-    connect(TCWSup.port_a, cooTow[i].port_b)
-      annotation (Line(
-        points={{98,140},{132,140},{132,140},{120,140}},
-        color={0,127,255},
-        thickness=0.5));
-    connect(pumCW[i].port_b, chiWSE.port_a1)
-      annotation (Line(points={{70,90},{70,58},{110,58},{110,36},{120,36}},
-        color={0,127,255},
-        thickness=0.5));
 
     connect(pumCW[i].port_a, TCWSup.port_b)
       annotation (Line(
@@ -139,22 +124,6 @@ equation
     annotation (Line(points={{-132,102},{
           -150,102},{-150,200},{260,200},{260,20},{230,20},{230,11}}, color={0,0,
           127}));
-  connect(TAirSup.port_a, ahu.port_b2)
-    annotation (Line(
-      points={{80,-180},{140,-180},{140,-128},{120,-128}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(ahu.port_a2, roo.airPorts[1])
-    annotation (Line(points={{140,-128},{140,-128},{194,-128},{194,-140},{242,
-          -140},{242,-168.7},{132.475,-168.7}},
-                                           color={0,127,255},
-      thickness=0.5));
-
-  connect(TAirSup.port_b, roo.airPorts[2])
-    annotation (Line(
-      points={{100,-180},{100,-180},{100,-140},{100,-168.7},{128.425,-168.7}},
-      color={0,127,255},
-      thickness=0.5));
 
   connect(chiWSE.TCHWSupWSE, cooModCon.TCHWSupWSE)
     annotation (Line(points={{141,34},{260,34},{260,200},{-150,200},{-150,106},
@@ -166,7 +135,7 @@ equation
     annotation (Line(points={{94,11},{94,11},{94,36},{40,36},{40,200},{-70,200},
           {-70,134},{-52,134}},                                    color={0,0,127}));
   connect(PriPumCon.numOnChi, chiNumOn.y) annotation (Line(points={{-94,27},{
-          -108,27},{-108,28},{-108,28},{-108,65},{-156.9,65}}, color={255,127,0}));
+          -108,27},{-108,28},{-108,65},{-156.9,65}},           color={255,127,0}));
   connect(PriPumCon.cooMod, cooModCon.y) annotation (Line(points={{-94,37},{
           -100,37},{-100,110},{-109,110}}, color={255,127,0}));
   connect(cooTowSpeCon.cooMod, cooModCon.y) annotation (Line(points={{-52,
@@ -175,10 +144,10 @@ equation
   connect(chiStaCon.cooMod, cooModCon.y) annotation (Line(points={{-52,146},{
           -70,146},{-70,148},{-100,148},{-100,110},{-109,110}}, color={255,127,
           0}));
-  connect(reaToBoo.u, cooModCon.y)
+  connect(intToBoo.u, cooModCon.y)
     annotation (Line(points={{-52,110},{-109,110}}, color={255,127,0}));
-  connect(CWPumCon.cooMod, cooModCon.y) annotation (Line(points={{-54,75},{-76,
-          75},{-76,76},{-100,76},{-100,110},{-109,110}}, color={255,127,0}));
+  connect(CWPumCon.cooMod, cooModCon.y) annotation (Line(points={{-54,75},{-80,
+          75},{-80,80},{-100,80},{-100,110},{-109,110}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
             Diagram(
@@ -192,7 +161,7 @@ equation
 <p>This example demonstrates the implementation of a chiller plant with
 water-side economizer (WSE) to cool a data center. The system schematics is as shown below. </p>
 <p>The system is a primary-secondary chiller plant with two chillers and an integrated WSE.</p>
-<p>
+<p align=\"center\">
 <img alt=\"image\"
 src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Examples/IntegratedPrimarySecondaryEconomizerSystem.png\"/>
 </p>
@@ -278,7 +247,7 @@ First implementation.
 </ul>
 </html>"),
 experiment(
-      StartTime=3801600,
-      StopTime=3974400,
+      StartTime=0,
+      StopTime=86400,
       Tolerance=1e-06));
 end IntegratedPrimarySecondaryEconomizer;

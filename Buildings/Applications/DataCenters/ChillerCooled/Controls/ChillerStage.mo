@@ -1,5 +1,6 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Controls;
 model ChillerStage "Chiller staging control logic"
+  import Buildings;
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.Time tWai "Waiting time";
@@ -45,11 +46,11 @@ model ChillerStage "Chiller staging control logic"
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-32,8})));
-  Modelica.StateGraph.InitialStepWithSignal off(nIn=1) "Free cooling mode"
+  Modelica.StateGraph.InitialStep off(nIn=1) "Free cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-32,58})));
+        origin={-30,60})));
   Modelica.StateGraph.StepWithSignal twoOn "Two chillers are commanded on"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -85,23 +86,28 @@ model ChillerStage "Chiller staging control logic"
         origin={18,20})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
-  Modelica.Blocks.Math.MultiSwitch swi(
-    nu=3,
-    expr={0,1,2},
-    y_default=0)
-    "Switch boolean signals to real signal"
-    annotation (Placement(transformation(extent={{24,-6},{48,6}})));
 
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(
     table=[0,0,0;
            1,1,0;
            2,1,1])
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
+    final integerTrue=1,
+    final integerFalse=0)
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
+    final integerFalse=0, final integerTrue=2)
+    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
+  Buildings.Controls.OBC.CDL.Integers.Add addInt
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
   connect(off.outPort[1], con1.inPort)
     annotation (Line(
-      points={{-32,47.5},{-32,47.5},{-32,46},{-32,42},{-72,42},{-72,38}},
+      points={{-30,49.5},{-30,49.5},{-30,46},{-30,42},{-72,42},{-72,38}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con1.outPort, oneOn.inPort[1])
@@ -126,12 +132,12 @@ equation
       pattern=LinePattern.Dash));
   connect(con4.outPort, off.inPort[1])
     annotation (Line(
-      points={{18,21.5},{18,21.5},{18,78},{-32,78},{-32,69}},
+      points={{18,21.5},{18,21.5},{18,78},{-30,78},{-30,71}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con3.outPort, oneOn.inPort[2])
     annotation (Line(
-      points={{-10,-38.5},{-8,-38.5},{-8,26},{-31.5,26},{-31.5,19}},
+      points={{-10,-38.5},{-10,-38.5},{-10,26},{-31.5,26},{-31.5,19}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con4.inPort, oneOn.outPort[2])
@@ -139,25 +145,20 @@ equation
       points={{18,16},{18,-10},{-31.75,-10},{-31.75,-2.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(swi.u[1], off.active)
-    annotation (Line(
-      points={{24,1.2},{24,0},{2,0},{2,58},{-21,58}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(oneOn.active, swi.u[2])
-    annotation (Line(
-      points={{-21,8},{-21,8},{2,8},{2,0},{24,0}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(twoOn.active, swi.u[3])
-    annotation (Line(
-      points={{-19,-80},{2,-80},{2,-1.2},{24,-1.2}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(swi.y, combiTable1Ds.u)
-    annotation (Line(points={{48.6,0},{58,0}}, color={0,0,127}));
   connect(combiTable1Ds.y, y)
-    annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
+  connect(twoOn.active, booToInt1.u)
+    annotation (Line(points={{-19,-80},{0,-80},{18,-80}}, color={255,0,255}));
+  connect(oneOn.active, booToInt.u) annotation (Line(points={{-21,8},{10,8},{10,
+          -40},{18,-40}}, color={255,0,255}));
+  connect(booToInt.y, addInt.u1) annotation (Line(points={{41,-40},{50,-40},{50,
+          -54},{58,-54}}, color={255,127,0}));
+  connect(booToInt1.y, addInt.u2) annotation (Line(points={{41,-80},{50,-80},{50,
+          -66},{58,-66}}, color={255,127,0}));
+  connect(addInt.y, intToRea.u) annotation (Line(points={{81,-60},{88,-60},{88,-20},
+          {30,-20},{30,0},{38,0}}, color={255,127,0}));
+  connect(intToRea.y, combiTable1Ds.u)
+    annotation (Line(points={{61,0},{68,0},{68,0}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This is a chiller staging control that works as follows:
@@ -177,6 +178,11 @@ a critical value.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+September 11, 2017, by Michael Wetter:<br/>
+Revised switch that selects the operation mode for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/921\">issue 921</a>
+</li>
 <li>
 July 30, 2017, by Yangyang Fu:<br/>
 First implementation.

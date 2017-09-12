@@ -1,4 +1,5 @@
 ActiveAirflowSetpointReheatBox
+DamperValveReheatBox
 EconDamperPositionLimitsMultiZone
 EconDamperPositionLimitsSingleZone
 EconEnableDisableMultiZone
@@ -11,6 +12,7 @@ OutdoorAirFlowSetpoint_MultiZone
 OutdoorAirFlowSetpoint_SingleZone
 TrimRespondLogic
 VAVMultiZoneSupFan
+VAVMultiZoneTSupSet
 VAVSingleZoneTSupSet
 ZoneSetpoint
 Validation
