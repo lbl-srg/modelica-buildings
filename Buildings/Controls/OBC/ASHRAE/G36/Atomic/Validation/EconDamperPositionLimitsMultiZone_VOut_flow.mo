@@ -30,7 +30,7 @@ protected
   CDL.Integers.Sources.Constant freProSta(k=Constants.FreezeProtectionStages.stage0)
     "Freeze protection status 0 - disabled"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  CDL.Integers.Sources.Constant operationMode(k=Constants.OperationModes.occModInd)
+  CDL.Integers.Sources.Constant operationMode(k=Constants.OperationModes.occMod)
     "Operation mode is Occupied"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 

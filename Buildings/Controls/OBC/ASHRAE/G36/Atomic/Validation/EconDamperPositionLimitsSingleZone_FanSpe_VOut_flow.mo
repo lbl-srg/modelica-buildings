@@ -32,7 +32,7 @@ protected
   CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
     "Freeze protection status - disabled"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-  CDL.Integers.Sources.Constant operationMode(final k=Constants.OperationModes.occModInd)
+  CDL.Integers.Sources.Constant operationMode(final k=Constants.OperationModes.occMod)
     "Operation mode - occupied"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   CDL.Continuous.Sources.Constant VOutMinSetSig(final k=VOutSet_flow)

@@ -4,6 +4,6 @@ compareVars :=
     "opeModSel.TUnoHeaSet",
     "opeModSel.TUnoCooSet",
     "opeModSel.THeaSet",
-    "opeModSel.THeaSet",
+    "opeModSel.TCooSet",
     "opeModSel.TZon[1]"
   };

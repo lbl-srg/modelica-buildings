@@ -52,7 +52,7 @@ protected
   CDL.Integers.Sources.Constant freProSta1(k=Constants.FreezeProtectionStages.stage1)
     "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-160,-100},{-140,-80}})));
-  CDL.Integers.Sources.Constant operationMode1(final k=Constants.OperationModes.occModInd)
+  CDL.Integers.Sources.Constant operationMode1(final k=Constants.OperationModes.occMod)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
   CDL.Logical.Sources.Constant fanStatus2(final k=true) "Fan is on"
@@ -60,7 +60,7 @@ protected
   CDL.Integers.Sources.Constant freProSta2(final k=Constants.FreezeProtectionStages.stage1)
     "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  CDL.Integers.Sources.Constant operationMode2(final k=Constants.OperationModes.warUpInd)
+  CDL.Integers.Sources.Constant operationMode2(final k=Constants.OperationModes.warUp)
     "AHU operation mode is NOT occupied"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   CDL.Logical.Sources.Constant fanStatus3(final k=true) "Fan is on"
@@ -68,7 +68,7 @@ protected
   CDL.Integers.Sources.Constant freProSta3(final k=Constants.FreezeProtectionStages.stage2)
     "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  CDL.Integers.Sources.Constant operationMode3(final k=Constants.OperationModes.occModInd)
+  CDL.Integers.Sources.Constant operationMode3(final k=Constants.OperationModes.occMod)
     "AHU operation mode is occupied"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 

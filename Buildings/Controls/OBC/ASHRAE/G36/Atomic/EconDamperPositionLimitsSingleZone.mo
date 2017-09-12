@@ -155,11 +155,11 @@ protected
     "Logical switch to enable damper position limit calculation or disable it (set max limit to physical minimum)"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   CDL.Continuous.GreaterThreshold greThr(
-    final threshold=Constants.OperationModes.occModInd - 0.5)
+    final threshold=Constants.OperationModes.occMod - 0.5)
       "Tests whether operation mode is occupied"
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
   CDL.Continuous.LessThreshold lesThr(
-    final threshold=Constants.OperationModes.occModInd + 0.5)
+    final threshold=Constants.OperationModes.occMod + 0.5)
     "Tests whether operation mode is occupied"
     annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
 equation

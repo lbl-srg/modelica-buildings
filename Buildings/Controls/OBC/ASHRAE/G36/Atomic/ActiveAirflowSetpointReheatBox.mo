@@ -56,7 +56,7 @@ block ActiveAirflowSetpointReheatBox
   CDL.Interfaces.RealOutput VOccMinAir(
     min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate") "Occupied minimum airflow "
+    quantity="VolumeFlowRate") "Occupied minimum airflow"
     annotation (Placement(transformation(extent={{280,-310},{320,-270}}),
       iconTransformation(extent={{100,-90},{120,-70}})));
   CDL.Interfaces.RealOutput VActCooMax(
@@ -197,20 +197,20 @@ protected
     "Output zero"
     annotation (Placement(transformation(extent={{-240,210},{-220,230}})));
   CDL.Integers.Sources.Constant conInt(
-    k=Constants.OperationModes.occModInd)
-    "Occupied mode index"
+    k=Constants.OperationModes.occMod)
+    "Occupied mode "
     annotation (Placement(transformation(extent={{-240,-100},{-220,-80}})));
   CDL.Integers.Sources.Constant conInt1(
-    k=Constants.OperationModes.cooDowInd) "Cool down mode index"
+    k=Constants.OperationModes.cooDow) "Cool down mode"
     annotation (Placement(transformation(extent={{-240,510},{-220,530}})));
   CDL.Integers.Sources.Constant conInt2(
-    k=Constants.OperationModes.setUpInd) "Setup mode index"
+    k=Constants.OperationModes.setUp) "Setup mode"
     annotation (Placement(transformation(extent={{-240,350},{-220,370}})));
   CDL.Integers.Sources.Constant conInt3(
-    k=Constants.OperationModes.warUpInd) "Warm up mode index"
+    k=Constants.OperationModes.warUp) "Warm up mode"
     annotation (Placement(transformation(extent={{-20,510},{0,530}})));
   CDL.Integers.Sources.Constant conInt4(
-    k=Constants.OperationModes.setBacInd) "Setback mode index"
+    k=Constants.OperationModes.setBac) "Setback mode"
     annotation (Placement(transformation(extent={{-20,350},{0,370}})));
   CDL.Integers.Equal intEqu
     "Check if current operation mode is occupied mode"
