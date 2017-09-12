@@ -63,31 +63,31 @@ block ActiveAirflowSetpointReheatBox
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Active cooling maximum"
-    annotation (Placement(transformation(extent={{280,190},{320,230}}),
+    annotation (Placement(transformation(extent={{280,150},{320,190}}),
       iconTransformation(extent={{100,70},{120,90}})));
   CDL.Interfaces.RealOutput VActCooMin(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Active cooling minimum"
-    annotation (Placement(transformation(extent={{280,150},{320,190}}),
+    annotation (Placement(transformation(extent={{280,110},{320,150}}),
       iconTransformation(extent={{100,40},{120,60}})));
   CDL.Interfaces.RealOutput VActMin(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Active minimum"
-    annotation (Placement(transformation(extent={{280,110},{320,150}}),
+    annotation (Placement(transformation(extent={{280,70},{320,110}}),
       iconTransformation(extent={{100,10},{120,30}})));
   CDL.Interfaces.RealOutput VActHeaMin(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Active heating minimum"
-    annotation (Placement(transformation(extent={{280,70},{320,110}}),
+    annotation (Placement(transformation(extent={{280,30},{320,70}}),
       iconTransformation(extent={{100,-20},{120,0}})));
   CDL.Interfaces.RealOutput VActHeaMax(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Active heating maximum"
-    annotation (Placement(transformation(extent={{280,30},{320,70}}),
+    annotation (Placement(transformation(extent={{280,-10},{320,30}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
 
   CDL.Continuous.Gain gai(k=outAirPerPer) if occSen
@@ -129,18 +129,18 @@ block ActiveAirflowSetpointReheatBox
     annotation (Placement(transformation(extent={{80,-410},{100,-390}})));
   CDL.Logical.Not not2 if winSen "Logical not"
     annotation (Placement(transformation(extent={{-240,-510},{-220,-490}})));
-  CDL.Continuous.MultiSum actCooMinAir(nu=5)
+  CDL.Continuous.MultiSum actCooMinAir(nu=1)
     "Active cooling minimum airflow"
-    annotation (Placement(transformation(extent={{220,170},{240,190}})));
-  CDL.Continuous.MultiSum actMinAir(nu=5)
+    annotation (Placement(transformation(extent={{220,130},{240,150}})));
+  CDL.Continuous.MultiSum actMinAir(nu=1)
     "Active minimum airflow"
-    annotation (Placement(transformation(extent={{220,140},{240,160}})));
-  CDL.Continuous.MultiSum actHeaMinAir(nu=5)
-  "Active heating minimum airflow"
     annotation (Placement(transformation(extent={{220,100},{240,120}})));
-  CDL.Continuous.MultiSum actHeaMaxAir(nu=5)
-  "Active heating maximum airflow"
+  CDL.Continuous.MultiSum actHeaMinAir(nu=3)
+  "Active heating minimum airflow"
     annotation (Placement(transformation(extent={{220,60},{240,80}})));
+  CDL.Continuous.MultiSum actHeaMaxAir(nu=4)
+  "Active heating maximum airflow"
+    annotation (Placement(transformation(extent={{220,20},{240,40}})));
 
 protected
   CDL.Continuous.Sources.Constant minZonAir1(k=VMin) if not co2Sen
@@ -189,124 +189,85 @@ protected
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
   CDL.Continuous.Sources.Constant cooMaxAir(k=VCooMax)
     "Cooling maximum airflow"
-    annotation (Placement(transformation(extent={{-240,20},{-220,40}})));
+    annotation (Placement(transformation(extent={{-240,-20},{-220,0}})));
   CDL.Continuous.Sources.Constant heaMaxAir(k=VHeaMax)
     "Heat maximum airflow"
-    annotation (Placement(transformation(extent={{-180,20},{-160,40}})));
+    annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
   CDL.Continuous.Sources.Constant zerCon6(k=0)
     "Output zero"
-    annotation (Placement(transformation(extent={{-240,210},{-220,230}})));
+    annotation (Placement(transformation(extent={{-240,170},{-220,190}})));
   CDL.Integers.Sources.Constant conInt(
     k=Constants.OperationModes.occModInd)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-240,-100},{-220,-80}})));
   CDL.Integers.Sources.Constant conInt1(
     k=Constants.OperationModes.cooDowInd) "Cool down mode index"
-    annotation (Placement(transformation(extent={{-240,510},{-220,530}})));
+    annotation (Placement(transformation(extent={{-240,290},{-220,310}})));
   CDL.Integers.Sources.Constant conInt2(
     k=Constants.OperationModes.setUpInd) "Setup mode index"
-    annotation (Placement(transformation(extent={{-240,350},{-220,370}})));
+    annotation (Placement(transformation(extent={{-240,220},{-220,240}})));
   CDL.Integers.Sources.Constant conInt3(
     k=Constants.OperationModes.warUpInd) "Warm up mode index"
-    annotation (Placement(transformation(extent={{-20,510},{0,530}})));
+    annotation (Placement(transformation(extent={{-20,290},{0,310}})));
   CDL.Integers.Sources.Constant conInt4(
     k=Constants.OperationModes.setBacInd) "Setback mode index"
-    annotation (Placement(transformation(extent={{-20,350},{0,370}})));
+    annotation (Placement(transformation(extent={{-20,220},{0,240}})));
   CDL.Integers.Equal intEqu
     "Check if current operation mode is occupied mode"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
   CDL.Integers.Equal intEqu1
     "Check if current operation mode is cool-down mode"
-    annotation (Placement(transformation(extent={{-180,510},{-160,530}})));
+    annotation (Placement(transformation(extent={{-180,290},{-160,310}})));
   CDL.Integers.Equal intEqu2
     "Check if current operation mode is setup mode"
-    annotation (Placement(transformation(extent={{-180,350},{-160,370}})));
+    annotation (Placement(transformation(extent={{-180,220},{-160,240}})));
   CDL.Integers.Equal intEqu3
     "Check if current operation mode is warmup mode"
-    annotation (Placement(transformation(extent={{40,510},{60,530}})));
+    annotation (Placement(transformation(extent={{40,290},{60,310}})));
   CDL.Integers.Equal intEqu4
     "Check if current operation mode is setback mode"
-    annotation (Placement(transformation(extent={{40,350},{60,370}})));
+    annotation (Placement(transformation(extent={{40,220},{60,240}})));
   CDL.Logical.Switch swi4
     "Select cooling maximum based on operation mode"
-    annotation (Placement(transformation(extent={{-100,510},{-80,530}})));
-  CDL.Logical.Switch swi5
-    "Select cooling minimum based on operation mode"
-    annotation (Placement(transformation(extent={{-100,480},{-80,500}})));
-  CDL.Logical.Switch swi6
-   "Select minimum based on operation mode"
-    annotation (Placement(transformation(extent={{-100,450},{-80,470}})));
-  CDL.Logical.Switch swi7
-    "Select heating minimum based on operation mode"
-    annotation (Placement(transformation(extent={{-100,420},{-80,440}})));
+    annotation (Placement(transformation(extent={{-100,290},{-80,310}})));
   CDL.Logical.Switch swi8
     "Select heating maximum based on operation mode"
-    annotation (Placement(transformation(extent={{-100,390},{-80,410}})));
+    annotation (Placement(transformation(extent={{-100,260},{-80,280}})));
   CDL.Logical.Switch swi9
     "Select cooling maximum based on operation mode"
-    annotation (Placement(transformation(extent={{-100,350},{-80,370}})));
-  CDL.Logical.Switch swi10
-    "Select cooling minimum based on operation mode"
-    annotation (Placement(transformation(extent={{-100,320},{-80,340}})));
-  CDL.Logical.Switch swi11
-    "Select minimum based on operation mode"
-    annotation (Placement(transformation(extent={{-100,290},{-80,310}})));
-  CDL.Logical.Switch swi12
-    "Select heating minimum based on operation mode"
-    annotation (Placement(transformation(extent={{-100,260},{-80,280}})));
-  CDL.Logical.Switch swi13
-    "Select heating maximum based on operation mode"
-    annotation (Placement(transformation(extent={{-100,230},{-80,250}})));
-  CDL.Logical.Switch swi14
-    "Select cooling maximum based on operation mode"
-    annotation (Placement(transformation(extent={{120,510},{140,530}})));
-  CDL.Logical.Switch swi15
-    "Select cooling minimum based on operation mode"
-    annotation (Placement(transformation(extent={{120,480},{140,500}})));
-  CDL.Logical.Switch swi16
-    "Select minimum based on operation mode"
-    annotation (Placement(transformation(extent={{120,450},{140,470}})));
+    annotation (Placement(transformation(extent={{-100,220},{-80,240}})));
   CDL.Logical.Switch swi17
     "Select heating minimum based on operation mode"
-    annotation (Placement(transformation(extent={{120,420},{140,440}})));
+    annotation (Placement(transformation(extent={{120,290},{140,310}})));
   CDL.Logical.Switch swi18
     "Select heating maximum based on operation mode"
-    annotation (Placement(transformation(extent={{120,390},{140,410}})));
-  CDL.Logical.Switch swi19
-    "Select cooling maximum based on operation mode"
-    annotation (Placement(transformation(extent={{120,350},{140,370}})));
-  CDL.Logical.Switch swi20
-    "Select cooling minimum based on operation mode"
-    annotation (Placement(transformation(extent={{120,320},{140,340}})));
-  CDL.Logical.Switch swi21
-    "Select minimum based on operation mode"
-    annotation (Placement(transformation(extent={{120,290},{140,310}})));
+    annotation (Placement(transformation(extent={{120,260},{140,280}})));
   CDL.Logical.Switch swi22
     "Select heating minimum based on operation mode"
-    annotation (Placement(transformation(extent={{120,260},{140,280}})));
+    annotation (Placement(transformation(extent={{120,220},{140,240}})));
   CDL.Logical.Switch swi23
     "Select heating maximum based on operation mode"
-    annotation (Placement(transformation(extent={{120,230},{140,250}})));
+    annotation (Placement(transformation(extent={{120,190},{140,210}})));
   CDL.Logical.Switch swi24
     "Select cooling maximum based on operation mode"
-    annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
+    annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
   CDL.Logical.Switch swi25
     "Select cooling minimum based on operation mode"
-    annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
+    annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
   CDL.Logical.Switch swi26
     "Select minimum based on operation mode"
-    annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
+    annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
   CDL.Logical.Switch swi27
     "Select heating minimum based on operation mode"
-    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   CDL.Logical.Switch swi28
     "Select heating maximum based on operation mode"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-  CDL.Continuous.MultiSum actCooMaxAir(nu=5)
+    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
+  CDL.Continuous.MultiSum actCooMaxAir(nu=3)
     "Active cooling maximum airflow"
-    annotation (Placement(transformation(extent={{220,200},{240,220}})));
+    annotation (Placement(transformation(extent={{220,160},{240,180}})));
   CDL.Continuous.Max maxInp "Find greater input"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
 equation
   connect(conVolMin.y, gre.u1)
@@ -425,349 +386,195 @@ equation
     annotation (Line(points={{21,-340},{40,-340},{40,-288},{78,-288}},
       color={0,0,127}));
   connect(intEqu.y, swi24.u2)
-    annotation (Line(points={{-119,-110},{-110,-110},{-110,200},{-102,200}},
+    annotation (Line(points={{-119,-110},{-110,-110},{-110,160},{-102,160}},
       color={255,0,255}));
   connect(intEqu.y, swi25.u2)
-    annotation (Line(points={{-119,-110},{-110,-110},{-110,170},{-102,170}},
+    annotation (Line(points={{-119,-110},{-110,-110},{-110,130},{-102,130}},
       color={255,0,255}));
   connect(intEqu.y, swi26.u2)
-    annotation (Line(points={{-119,-110},{-110,-110},{-110,140},{-102,140}},
+    annotation (Line(points={{-119,-110},{-110,-110},{-110,100},{-102,100}},
       color={255,0,255}));
   connect(intEqu.y, swi27.u2)
-    annotation (Line(points={{-119,-110},{-110,-110},{-110,110},{-102,110}},
+    annotation (Line(points={{-119,-110},{-110,-110},{-110,70},{-102,70}},
       color={255,0,255}));
   connect(intEqu.y, swi28.u2)
-    annotation (Line(points={{-119,-110},{-110,-110},{-110,80},{-102,80}},
+    annotation (Line(points={{-119,-110},{-110,-110},{-110,40},{-102,40}},
       color={255,0,255}));
   connect(cooMaxAir.y, swi24.u1)
-    annotation (Line(points={{-219,30},{-204,30},{-204,56},{-140,56},{-140,208},
-      {-102,208}}, color={0,0,127}));
+    annotation (Line(points={{-219,-10},{-204,-10},{-204,16},{-140,16},{-140,168},
+      {-102,168}}, color={0,0,127}));
   connect(heaMaxAir.y, maxInp.u2)
-    annotation (Line(points={{-159,30},{-120,30},{-120,24},{-102,24}},
+    annotation (Line(points={{-159,-10},{-120,-10},{-120,-16},{-102,-16}},
       color={0,0,127}));
   connect(maxInp.y, swi28.u1)
-    annotation (Line(points={{-79,30},{-60,30},{-60,62},{-124,62},{-124,88},{-102,88}},
-      color={0,0,127}));
+    annotation (Line(points={{-79,-10},{-60,-10},{-60,22},{-124,22},{-124,48},
+      {-102,48}}, color={0,0,127}));
   connect(zerCon6.y, swi24.u3)
-    annotation (Line(points={{-219,220},{-120,220},{-120,192},{-102,192}},
+    annotation (Line(points={{-219,180},{-120,180},{-120,152},{-102,152}},
       color={0,0,127}));
   connect(zerCon6.y, swi25.u3)
-    annotation (Line(points={{-219,220},{-120,220},{-120,162},{-102,162}},
+    annotation (Line(points={{-219,180},{-120,180},{-120,122},{-102,122}},
       color={0,0,127}));
   connect(zerCon6.y, swi26.u3)
-    annotation (Line(points={{-219,220},{-120,220},{-120,132},{-102,132}},
+    annotation (Line(points={{-219,180},{-120,180},{-120,92},{-102,92}},
       color={0,0,127}));
   connect(zerCon6.y, swi27.u3)
-    annotation (Line(points={{-219,220},{-120,220},{-120,102},{-102,102}},
+    annotation (Line(points={{-219,180},{-120,180},{-120,62},{-102,62}},
       color={0,0,127}));
   connect(zerCon6.y, swi28.u3)
-    annotation (Line(points={{-219,220},{-120,220},{-120,72},{-102,72}},
+    annotation (Line(points={{-219,180},{-120,180},{-120,32},{-102,32}},
       color={0,0,127}));
   connect(uOpeMod, intEqu1.u2)
-    annotation (Line(points={{-300,-110},{-180,-110},{-180,-10},{-200,-10},{-200,512},
-      {-182,512}}, color={255,127,0}));
+    annotation (Line(points={{-300,-110},{-180,-110},{-180,-32},{-200,-32},
+      {-200,292},{-182,292}}, color={255,127,0}));
   connect(uOpeMod, intEqu2.u2)
-    annotation (Line(points={{-300,-110},{-180,-110},{-180,-10},{-200,-10},{-200,352},
-      {-182,352}}, color={255,127,0}));
+    annotation (Line(points={{-300,-110},{-180,-110},{-180,-32},{-200,-32},
+      {-200,222},{-182,222}}, color={255,127,0}));
   connect(uOpeMod, intEqu4.u2)
-    annotation (Line(points={{-300,-110},{-180,-110},{-180,-10},{20,-10},{20,352},
-      {38,352}}, color={255,127,0}));
+    annotation (Line(points={{-300,-110},{-180,-110},{-180,-32},{20,-32},
+      {20,222},{38,222}}, color={255,127,0}));
   connect(uOpeMod, intEqu3.u2)
-    annotation (Line(points={{-300,-110},{-180,-110},{-180,-10},{20,-10},{20,512},
-      {38,512}}, color={255,127,0}));
+    annotation (Line(points={{-300,-110},{-180,-110},{-180,-32},{20,-32},
+      {20,292},{38,292}}, color={255,127,0}));
   connect(conInt1.y, intEqu1.u1)
-    annotation (Line(points={{-219,520},{-182,520}}, color={255,127,0}));
+    annotation (Line(points={{-219,300},{-182,300}}, color={255,127,0}));
   connect(conInt2.y, intEqu2.u1)
-    annotation (Line(points={{-219,360},{-182,360}}, color={255,127,0}));
+    annotation (Line(points={{-219,230},{-182,230}}, color={255,127,0}));
   connect(conInt4.y, intEqu4.u1)
-    annotation (Line(points={{1,360},{38,360}}, color={255,127,0}));
+    annotation (Line(points={{1,230},{38,230}}, color={255,127,0}));
   connect(conInt3.y, intEqu3.u1)
-    annotation (Line(points={{1,520},{38,520}}, color={255,127,0}));
+    annotation (Line(points={{1,300},{38,300}}, color={255,127,0}));
   connect(cooMaxAir.y, swi4.u1)
-    annotation (Line(points={{-219,30},{-204,30},{-204,56},{-140,56},{-140,528},
-      {-102,528}}, color={0,0,127}));
+    annotation (Line(points={{-219,-10},{-204,-10},{-204,16},{-140,16},{-140,308},
+      {-102,308}}, color={0,0,127}));
   connect(heaMaxAir.y, swi8.u1)
-    annotation (Line(points={{-159,30},{-134,30},{-134,408},{-102,408}},
+    annotation (Line(points={{-159,-10},{-134,-10},{-134,278},{-102,278}},
       color={0,0,127}));
   connect(intEqu1.y, swi4.u2)
-    annotation (Line(points={{-159,520},{-102,520}}, color={255,0,255}));
-  connect(intEqu1.y, swi5.u2)
-    annotation (Line(points={{-159,520},{-112,520},{-112,490},{-102,490}},
-      color={255,0,255}));
-  connect(intEqu1.y, swi6.u2)
-    annotation (Line(points={{-159,520},{-112,520},{-112,460},{-102,460}},
-      color={255,0,255}));
-  connect(intEqu1.y, swi7.u2)
-    annotation (Line(points={{-159,520},{-112,520},{-112,430},{-102,430}},
-      color={255,0,255}));
+    annotation (Line(points={{-159,300},{-102,300}}, color={255,0,255}));
   connect(intEqu1.y, swi8.u2)
-    annotation (Line(points={{-159,520},{-112,520},{-112,400},{-102,400}},
+    annotation (Line(points={{-159,300},{-112,300},{-112,270},{-102,270}},
       color={255,0,255}));
   connect(zerCon6.y, swi4.u3)
-    annotation (Line(points={{-219,220},{-120,220},{-120,512},{-102,512}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi5.u3)
-    annotation (Line(points={{-219,220},{-120,220},{-120,482},{-102,482}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi6.u3)
-    annotation (Line(points={{-219,220},{-120,220},{-120,452},{-102,452}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi7.u3)
-    annotation (Line(points={{-219,220},{-120,220},{-120,422},{-102,422}},
+    annotation (Line(points={{-219,180},{-120,180},{-120,292},{-102,292}},
       color={0,0,127}));
   connect(zerCon6.y, swi8.u3)
-    annotation (Line(points={{-219,220},{-120,220},{-120,392},{-102,392}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi5.u1)
-    annotation (Line(points={{-219,220},{-120,220},{-120,498},{-102,498}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi6.u1)
-    annotation (Line(points={{-219,220},{-120,220},{-120,468},{-102,468}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi7.u1)
-    annotation (Line(points={{-219,220},{-120,220},{-120,438},{-102,438}},
+    annotation (Line(points={{-219,180},{-120,180},{-120,262},{-102,262}},
       color={0,0,127}));
   connect(cooMaxAir.y, swi9.u1)
-    annotation (Line(points={{-219,30},{-204,30},{-204,56},{-140,56},{-140,368},{-102,368}},
-      color={0,0,127}));
+    annotation (Line(points={{-219,-10},{-204,-10},{-204,16},{-140,16},{-140,238},
+      {-102,238}}, color={0,0,127}));
   connect(intEqu2.y, swi9.u2)
-    annotation (Line(points={{-159,360},{-102,360}}, color={255,0,255}));
-  connect(intEqu2.y, swi10.u2)
-    annotation (Line(points={{-159,360},{-112,360},{-112,330},{-102,330}},
-      color={255,0,255}));
-  connect(intEqu2.y, swi11.u2)
-    annotation (Line(points={{-159,360},{-112,360},{-112,300},{-102,300}},
-      color={255,0,255}));
-  connect(intEqu2.y, swi12.u2)
-    annotation (Line(points={{-159,360},{-112,360},{-112,270},{-102,270}},
-      color={255,0,255}));
-  connect(intEqu2.y, swi13.u2)
-    annotation (Line(points={{-159,360},{-112,360},{-112,240},{-102,240}},
-      color={255,0,255}));
+    annotation (Line(points={{-159,230},{-102,230}}, color={255,0,255}));
   connect(zerCon6.y, swi9.u3)
-    annotation (Line(points={{-219,220},{-120,220},{-120,352},{-102,352}},
+    annotation (Line(points={{-219,180},{-120,180},{-120,222},{-102,222}},
       color={0,0,127}));
-  connect(zerCon6.y, swi10.u1)
-    annotation (Line(points={{-219,220},{-120,220},{-120,338},{-102,338}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi10.u3)
-    annotation (Line(points={{-219,220},{-120,220},{-120,322},{-102,322}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi11.u1)
-    annotation (Line(points={{-219,220},{-120,220},{-120,308},{-102,308}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi11.u3)
-    annotation (Line(points={{-219,220},{-120,220},{-120,292},{-102,292}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi12.u1)
-    annotation (Line(points={{-219,220},{-120,220},{-120,278},{-102,278}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi12.u3)
-    annotation (Line(points={{-219,220},{-120,220},{-120,262},{-102,262}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi13.u1)
-    annotation (Line(points={{-219,220},{-120,220},{-120,248},{-102,248}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi13.u3)
-    annotation (Line(points={{-219,220},{-120,220},{-120,232},{-102,232}},
-      color={0,0,127}));
-  connect(intEqu3.y, swi14.u2)
-    annotation (Line(points={{61,520},{118,520}}, color={255,0,255}));
-  connect(intEqu3.y, swi15.u2)
-    annotation (Line(points={{61,520},{108,520},{108,490},{118,490}},
-      color={255,0,255}));
-  connect(intEqu3.y, swi16.u2)
-    annotation (Line(points={{61,520},{108,520},{108,460},{118,460}},
-      color={255,0,255}));
   connect(intEqu3.y, swi17.u2)
-    annotation (Line(points={{61,520},{108,520},{108,430},{118,430}},
+    annotation (Line(points={{61,300},{118,300}},
       color={255,0,255}));
   connect(intEqu3.y, swi18.u2)
-    annotation (Line(points={{61,520},{108,520},{108,400},{118,400}},
-      color={255,0,255}));
-  connect(intEqu4.y, swi19.u2)
-    annotation (Line(points={{61,360},{118,360}}, color={255,0,255}));
-  connect(intEqu4.y, swi20.u2)
-    annotation (Line(points={{61,360},{108,360},{108,330},{118,330}},
-      color={255,0,255}));
-  connect(intEqu4.y, swi21.u2)
-    annotation (Line(points={{61,360},{108,360},{108,300},{118,300}},
+    annotation (Line(points={{61,300},{108,300},{108,270},{118,270}},
       color={255,0,255}));
   connect(intEqu4.y, swi22.u2)
-    annotation (Line(points={{61,360},{108,360},{108,270},{118,270}},
+    annotation (Line(points={{61,230},{118,230}},
       color={255,0,255}));
   connect(intEqu4.y, swi23.u2)
-    annotation (Line(points={{61,360},{108,360},{108,240},{118,240}},
+    annotation (Line(points={{61,230},{108,230},{108,200},{118,200}},
       color={255,0,255}));
-  connect(zerCon6.y, swi14.u1)
-    annotation (Line(points={{-219,220},{100,220},{100,528},{118,528}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi14.u3)
-    annotation (Line(points={{-219,220},{100,220},{100,512},{118,512}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi15.u1)
-    annotation (Line(points={{-219,220},{100,220},{100,498},{118,498}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi15.u3)
-    annotation (Line(points={{-219,220},{100,220},{100,482},{118,482}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi16.u1)
-    annotation (Line(points={{-219,220},{100,220},{100,468},{118,468}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi16.u3)
-    annotation (Line(points={{-219,220},{100,220},{100,452},{118,452}},
-      color={0,0,127}));
   connect(heaMaxAir.y, swi17.u1)
-    annotation (Line(points={{-159,30},{-134,30},{-134,50},{86,50},{86,438},{118,438}},
-      color={0,0,127}));
+    annotation (Line(points={{-159,-10},{-134,-10},{-134,10},{86,10},{86,308},
+      {118,308}}, color={0,0,127}));
   connect(cooMaxAir.y, swi18.u1)
-    annotation (Line(points={{-219,30},{-204,30},{-204,56},{80,56},{80,408},{118,408}},
-      color={0,0,127}));
+    annotation (Line(points={{-219,-10},{-204,-10},{-204,16},{80,16},{80,278},
+      {118,278}}, color={0,0,127}));
   connect(zerCon6.y, swi17.u3)
-    annotation (Line(points={{-219,220},{100,220},{100,422},{118,422}},
+    annotation (Line(points={{-219,180},{100,180},{100,292},{118,292}},
       color={0,0,127}));
   connect(zerCon6.y, swi18.u3)
-    annotation (Line(points={{-219,220},{100,220},{100,392},{118,392}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi19.u1)
-    annotation (Line(points={{-219,220},{100,220},{100,368},{118,368}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi19.u3)
-    annotation (Line(points={{-219,220},{100,220},{100,352},{118,352}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi20.u1)
-    annotation (Line(points={{-219,220},{100,220},{100,338},{118,338}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi20.u3)
-    annotation (Line(points={{-219,220},{100,220},{100,322},{118,322}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi21.u1)
-    annotation (Line(points={{-219,220},{100,220},{100,308},{118,308}},
-      color={0,0,127}));
-  connect(zerCon6.y, swi21.u3)
-    annotation (Line(points={{-219,220},{100,220},{100,292},{118,292}},
+    annotation (Line(points={{-219,180},{100,180},{100,262},{118,262}},
       color={0,0,127}));
   connect(zerCon6.y, swi22.u3)
-    annotation (Line(points={{-219,220},{100,220},{100,262},{118,262}},
+    annotation (Line(points={{-219,180},{100,180},{100,222},{118,222}},
       color={0,0,127}));
   connect(zerCon6.y, swi23.u3)
-    annotation (Line(points={{-219,220},{100,220},{100,232},{118,232}},
+    annotation (Line(points={{-219,180},{100,180},{100,192},{118,192}},
       color={0,0,127}));
   connect(heaMaxAir.y, swi22.u1)
-    annotation (Line(points={{-159,30},{-134,30},{-134,50},{86,50},{86,278},{118,278}},
-      color={0,0,127}));
+    annotation (Line(points={{-159,-10},{-134,-10},{-134,10},{86,10},{86,238},
+      {118,238}}, color={0,0,127}));
   connect(cooMaxAir.y, swi23.u1)
-    annotation (Line(points={{-219,30},{-204,30},{-204,56},{80,56},{80,248},{118,248}},
-      color={0,0,127}));
+    annotation (Line(points={{-219,-10},{-204,-10},{-204,16},{80,16},{80,208},
+      {118,208}}, color={0,0,127}));
   connect(swi24.y, actCooMaxAir.u[1])
-    annotation (Line(points={{-79,200},{60,200},{60,215.6},{218,215.6}},
+    annotation (Line(points={{-79,160},{60,160},{60,174.667},{218,174.667}},
       color={0,0,127}));
   connect(swi25.y, actCooMinAir.u[1])
-    annotation (Line(points={{-79,170},{60,170},{60,185.6},{218,185.6}},
+    annotation (Line(points={{-79,130},{60,130},{60,140},{218,140}},
       color={0,0,127}));
   connect(swi26.y, actMinAir.u[1])
-    annotation (Line(points={{-79,140},{60,140},{60,155.6},{218,155.6}},
+    annotation (Line(points={{-79,100},{60,100},{60,110},{218,110}},
       color={0,0,127}));
   connect(swi27.y, actHeaMinAir.u[1])
-    annotation (Line(points={{-79,110},{60,110},{60,115.6},{218,115.6}},
+    annotation (Line(points={{-79,70},{60,70},{60,74.6667},{218,74.6667}},
       color={0,0,127}));
   connect(swi28.y, actHeaMaxAir.u[1])
-    annotation (Line(points={{-79,80},{60,80},{60,75.6},{218,75.6}},
+    annotation (Line(points={{-79,40},{60,40},{60,35.25},{218,35.25}},
       color={0,0,127}));
   connect(swi4.y, actCooMaxAir.u[2])
-    annotation (Line(points={{-79,520},{-28,520},{-28,212.8},{218,212.8}},
-      color={0,0,127}));
-  connect(swi5.y, actCooMinAir.u[2])
-    annotation (Line(points={{-79,490},{-32,490},{-32,182.8},{218,182.8}},
-      color={0,0,127}));
-  connect(swi6.y, actMinAir.u[2])
-    annotation (Line(points={{-79,460},{-36,460},{-36,152.8},{218,152.8}},
-      color={0,0,127}));
-  connect(swi7.y, actHeaMinAir.u[2])
-    annotation (Line(points={{-79,430},{-40,430},{-40,112.8},{218,112.8}},
+    annotation (Line(points={{-79,300},{-28,300},{-28,170},{218,170}},
       color={0,0,127}));
   connect(swi8.y, actHeaMaxAir.u[2])
-    annotation (Line(points={{-79,400},{-44,400},{-44,72.8},{218,72.8}},
+    annotation (Line(points={{-79,270},{-44,270},{-44,31.75},{218,31.75}},
       color={0,0,127}));
   connect(swi9.y, actCooMaxAir.u[3])
-    annotation (Line(points={{-79,360},{-48,360},{-48,210},{218,210}},
+    annotation (Line(points={{-79,230},{-48,230},{-48,165.333},{218,165.333}},
       color={0,0,127}));
-  connect(swi10.y, actCooMinAir.u[3])
-    annotation (Line(points={{-79,330},{-52,330},{-52,180},{218,180}},
+  connect(swi17.y, actHeaMinAir.u[2])
+    annotation (Line(points={{141,300},{194,300},{194,70},{218,70}},
       color={0,0,127}));
-  connect(swi11.y, actMinAir.u[3])
-    annotation (Line(points={{-79,300},{-56,300},{-56,150},{218,150}},
+  connect(swi18.y, actHeaMaxAir.u[3])
+    annotation (Line(points={{141,270},{190,270},{190,28.25},{218,28.25}},
       color={0,0,127}));
-  connect(swi12.y, actHeaMinAir.u[3])
-    annotation (Line(points={{-79,270},{-60,270},{-60,110},{218,110}},
+  connect(swi22.y, actHeaMinAir.u[3])
+    annotation (Line(points={{141,230},{172,230},{172,65.3333},{218,65.3333}},
       color={0,0,127}));
-  connect(swi13.y, actHeaMaxAir.u[3])
-    annotation (Line(points={{-79,240},{-64,240},{-64,70},{218,70}},
-      color={0,0,127}));
-  connect(swi14.y, actCooMaxAir.u[4])
-    annotation (Line(points={{141,520},{206,520},{206,207.2},{218,207.2}},
-      color={0,0,127}));
-  connect(swi15.y, actCooMinAir.u[4])
-    annotation (Line(points={{141,490},{202,490},{202,177.2},{218,177.2}},
-      color={0,0,127}));
-  connect(swi16.y, actMinAir.u[4])
-    annotation (Line(points={{141,460},{198,460},{198,147.2},{218,147.2}},
-      color={0,0,127}));
-  connect(swi17.y, actHeaMinAir.u[4])
-    annotation (Line(points={{141,430},{194,430},{194,107.2},{218,107.2}},
-      color={0,0,127}));
-  connect(swi18.y, actHeaMaxAir.u[4])
-    annotation (Line(points={{141,400},{190,400},{190,67.2},{218,67.2}},
-      color={0,0,127}));
-  connect(swi19.y, actCooMaxAir.u[5])
-    annotation (Line(points={{141,360},{184,360},{184,204.4},{218,204.4}},
-      color={0,0,127}));
-  connect(swi20.y, actCooMinAir.u[5])
-    annotation (Line(points={{141,330},{180,330},{180,174.4},{218,174.4}},
-      color={0,0,127}));
-  connect(swi21.y, actMinAir.u[5])
-    annotation (Line(points={{141,300},{176,300},{176,144.4},{218,144.4}},
-      color={0,0,127}));
-  connect(swi22.y, actHeaMinAir.u[5])
-    annotation (Line(points={{141,270},{172,270},{172,104.4},{218,104.4}},
-      color={0,0,127}));
-  connect(swi23.y, actHeaMaxAir.u[5])
-    annotation (Line(points={{141,240},{168,240},{168,64.4},{218,64.4}},
+  connect(swi23.y, actHeaMaxAir.u[4])
+    annotation (Line(points={{141,200},{168,200},{168,24.75},{218,24.75}},
       color={0,0,127}));
   connect(swi1.y, swi25.u1)
-    annotation (Line(points={{221,-500},{240,-500},{240,-16},{-128,-16},{-128,178},
-      {-102,178}}, color={0,0,127}));
+    annotation (Line(points={{221,-500},{240,-500},{240,-28},{-128,-28},{-128,138},
+      {-102,138}}, color={0,0,127}));
   connect(swi1.y, swi26.u1)
-    annotation (Line(points={{221,-500},{240,-500},{240,-16},{-128,-16},{-128,148},
-      {-102,148}}, color={0,0,127}));
+    annotation (Line(points={{221,-500},{240,-500},{240,-28},{-128,-28},{-128,108},
+      {-102,108}}, color={0,0,127}));
   connect(swi1.y, swi27.u1)
-    annotation (Line(points={{221,-500},{240,-500},{240,-16},{-128,-16},{-128,118},
-      {-102,118}}, color={0,0,127}));
+    annotation (Line(points={{221,-500},{240,-500},{240,-28},{-128,-28},{-128,78},
+      {-102,78}}, color={0,0,127}));
   connect(swi1.y, maxInp.u1)
-    annotation (Line(points={{221,-500},{240,-500},{240,-16},{-128,-16},{-128,36},
-      {-102,36}}, color={0,0,127}));
+    annotation (Line(points={{221,-500},{240,-500},{240,-28},{-128,-28},{-128,-4},
+      {-102,-4}}, color={0,0,127}));
   connect(actCooMaxAir.y, VActCooMax)
-    annotation (Line(points={{241.7,210},{300,210}},
+    annotation (Line(points={{241.7,170},{300,170}},
       color={0,0,127}));
   connect(actCooMinAir.y, VActCooMin)
-    annotation (Line(points={{241.7,180},{260,180},{260,170},{300,170}},
+    annotation (Line(points={{241.7,140},{260,140},{260,130},{300,130}},
       color={0,0,127}));
   connect(actMinAir.y, VActMin)
-    annotation (Line(points={{241.7,150},{260,150},{260,130},{300,130}},
-      color={0,0,127}));
-  connect(actHeaMinAir.y, VActHeaMin)
     annotation (Line(points={{241.7,110},{260,110},{260,90},{300,90}},
       color={0,0,127}));
+  connect(actHeaMinAir.y, VActHeaMin)
+    annotation (Line(points={{241.7,70},{260,70},{260,50},{300,50}},
+      color={0,0,127}));
   connect(actHeaMaxAir.y, VActHeaMax)
-    annotation (Line(points={{241.7,70},{256,70},{256,50},{300,50}},
+    annotation (Line(points={{241.7,30},{256,30},{256,10},{300,10}},
       color={0,0,127}));
 
 annotation (
   defaultComponentName="actAirSet_RehBox",
   Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-280,-560},{280,560}}),
+        coordinateSystem(preserveAspectRatio=false, extent={{-280,-560},{280,340}}),
         graphics={                   Rectangle(
-          extent={{-258,-62},{258,-240}},
+          extent={{-258,-62},{258,-238}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None), Rectangle(
@@ -779,7 +586,7 @@ annotation (
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None), Text(
-          extent={{76,-56},{274,-92}},
+          extent={{92,-58},{290,-94}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -810,7 +617,7 @@ reset based on occupancy",
           textString="Occupied min airflow:
 define based on controllable minimum"),
                                      Rectangle(
-          extent={{-258,-470},{258,-552}},
+          extent={{-258,-470},{258,-538}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
@@ -822,11 +629,11 @@ define based on controllable minimum"),
           horizontalAlignment=TextAlignment.Left,
           textString="Occupied min airflow:
 reset based on window status"),      Rectangle(
-          extent={{-258,538},{258,2}},
+          extent={{-258,318},{258,-18}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None), Text(
-          extent={{76,48},{298,4}},
+          extent={{92,20},{314,-24}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -847,7 +654,7 @@ according to operation modes")}),
         Text(
           extent={{-62,66},{58,-56}},
           lineColor={0,0,0},
-          textString="occMinAir"),
+          textString="actAirSet"),
         Text(
           extent={{-98,66},{-70,54}},
           lineColor={0,0,127},
