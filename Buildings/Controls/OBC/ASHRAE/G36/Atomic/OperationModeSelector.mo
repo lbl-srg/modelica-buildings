@@ -94,10 +94,11 @@ block OperationModeSelector "Block that outputs the operation mode"
   CDL.Continuous.Sum sum1(nin=numOfZon)
     "Sum up number of zones that have temperature being lower than setpoint"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr(final threshold=5.5)
+  CDL.Continuous.GreaterEqualThreshold greEquThr(final threshold=4.5)
     "Whether or not the number of \"cold\" zone is more than 5"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr1(final threshold=numOfZon + 0.5)
+  CDL.Continuous.GreaterEqualThreshold greEquThr1(final threshold=numOfZon -
+        0.5)
     "Whether or not all the zones are \"cold\" zone"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   CDL.Continuous.Hysteresis hys(
@@ -125,10 +126,11 @@ block OperationModeSelector "Block that outputs the operation mode"
   CDL.Continuous.Sum sum2(final nin=numOfZon)
     "Sum up number of zones that have temperature being higher than setpoint"
     annotation (Placement(transformation(extent={{0,-220},{20,-200}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr2(threshold=5.5)
+  CDL.Continuous.GreaterEqualThreshold greEquThr2(threshold=4.5)
     "Whether or not the number of \"hot\" zone is more than 5"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr3(final threshold=numOfZon + 0.5)
+  CDL.Continuous.GreaterEqualThreshold greEquThr3(final threshold=numOfZon -
+        0.5)
     "Whether or not all the zones are \"hot\" zone"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
   CDL.Continuous.Hysteresis hys1(
