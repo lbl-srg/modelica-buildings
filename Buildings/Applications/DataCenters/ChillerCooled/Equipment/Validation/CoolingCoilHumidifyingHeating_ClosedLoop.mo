@@ -5,7 +5,7 @@ model CoolingCoilHumidifyingHeating_ClosedLoop
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.BaseClasses.PartialAirHandlerControl(
     relHum(k=0.5),
     sou_1(p=500000),
-    sou_2(nPorts=1),
+    sou_2(nPorts = 1),
     masFra(redeclare package Medium = Medium2),
     TWat(
       startTime=1200,

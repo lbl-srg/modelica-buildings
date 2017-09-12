@@ -7,9 +7,7 @@ model IntegratedPrimaryPlantSide
     sou1(nPorts=1),
     sin1(nPorts=1),
     TSet(k=273.15 + 5.56),
-    TEva_in(k=273.15 + 15.28),
-    redeclare Buildings.Fluid.Sources.MassFlowSource_T sou2(
-         nPorts=1, m_flow=mCHW_flow_nominal));
+    TEva_in(k=273.15 + 15.28));
 
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimaryPlantSide intWSEPri(
     m1_flow_chi_nominal=mCW_flow_nominal,
@@ -49,6 +47,15 @@ model IntegratedPrimaryPlantSide
     startValue=true)
     "On and off signal for the WSE"
     annotation (Placement(transformation(extent={{-52,50},{-32,70}})));
+  Buildings.Fluid.Sources.MassFlowSource_T sou2(
+    redeclare package Medium = MediumCHW,
+    m_flow=mCHW_flow_nominal,
+    nPorts=1,
+    use_T_in=true) "Source on medium 2 side"
+    annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        origin={50,-70})));
 equation
   connect(onChi.y, intWSEPri.on[1])
     annotation (Line(points={{-59,80},{-59,80},{-20,80},{-20,-30.4},{-11.6,
@@ -57,8 +64,8 @@ equation
     annotation (Line(points={{-31,60},{-31,60},{-20,60},{-20,-30.4},{-11.6,
           -30.4}},                             color={255,0,255}));
   connect(TSet.y, intWSEPri.TSet)
-    annotation (Line(points={{-71,30},{-22,30},{-22,30},{-22,-28},{-14,-28},{
-          -14,-27.2},{-11.6,-27.2}},
+    annotation (Line(points={{-69,30},{-22,30},{-22,30},{-22,-28},{-14,-28},{-14,
+          -27.2},{-11.6,-27.2}},
                       color={0,0,127}));
   connect(yVal5.y, intWSEPri.yVal5)
     annotation (Line(points={{19,80},{19,80},{-16,80},{-16,-35},{-11.6,-35}},
@@ -74,8 +81,11 @@ equation
   connect(intWSEPri.port_b1, sin1.ports[1])
     annotation (Line(points={{10,-32},{26,-32},{26,-4},{70,-4}}, color={0,127,255}));
   connect(intWSEPri.port_a2, sou2.ports[1])
-    annotation (Line(points={{10,-44},{20,-44},{26,-44},{26,-74},{38,-74}},
+    annotation (Line(points={{10,-44},{20,-44},{26,-44},{26,-70},{40,-70}},
       color={0,127,255}));
+  connect(TEva_in.y, sou2.T_in)
+    annotation (Line(points={{69,-70},{66,-70},{66,-66},{64,-66},{64,-66},{62,-66},
+          {62,-66}},                                      color={0,0,127}));
   annotation (__Dymola_Commands(file=
           "Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/IntegratedPrimaryPlantSide.mos"
         "Simulate and plot"), Documentation(info="<html>
@@ -86,6 +96,12 @@ according to different cooling mode signals
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 11, 2017, by Michael Wetter:<br/>
+Corrected wrong use of replaceable model in the base class.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/921\">issue 921</a>.
+</li>
 <li>
 July 22, 2017, by Yangyang Fu:<br/>
 First implementation.
