@@ -202,22 +202,22 @@ protected
   CDL.Continuous.AddParameter addPar1(final k=1, final p=2.8)
     "Zone temperature pluzonSetpoints 2.8 degC"
     annotation (Placement(transformation(extent={{-260,-280},{-240,-260}})));
-  CDL.Continuous.Hysteresis hys(final uLow=0, final uHigh=0.05)
+  CDL.Continuous.Hysteresis hys(final uHigh=0.05, final uLow=0.01)
     "Check if cooling control signal is greater than zero"
     annotation (Placement(transformation(extent={{-260,20},{-240,40}})));
-  CDL.Continuous.Hysteresis hys1(final uLow=0, final uHigh=0.05)
+  CDL.Continuous.Hysteresis hys1(final uHigh=0.05, final uLow=0.01)
     "Check if heating control signal is greater than zero"
     annotation (Placement(transformation(extent={{-260,-20},{-240,0}})));
-  CDL.Continuous.Hysteresis hys2(final uLow=0, final uHigh=0.05)
+  CDL.Continuous.Hysteresis hys2(final uHigh=0.05, final uLow=0.01)
     "Check if cooling control signal is greater than zero"
     annotation (Placement(transformation(extent={{-160,200},{-140,220}})));
-  CDL.Continuous.Hysteresis hys3(final uLow=0, final uHigh=0.05)
+  CDL.Continuous.Hysteresis hys3(final uHigh=0.05, final uLow=0.01)
     "Check if heating control signal is greater than 0"
     annotation (Placement(transformation(extent={{-260,-240},{-240,-220}})));
   CDL.Continuous.Hysteresis hys4(
     final uLow=minDisTem - 0.1,
     final uHigh=minDisTem + 0.1)
-    "Check if discharge air temperature is greater than 10 degC"
+    "Check if discharge air temperature is greater than lowest discharge air temperature"
     annotation (Placement(transformation(extent={{-220,80},{-200,100}})));
   CDL.Continuous.Hysteresis hys5(final uLow=0.49, final uHigh=0.51)
     "Check if heating control signal is greater than 0.5"
