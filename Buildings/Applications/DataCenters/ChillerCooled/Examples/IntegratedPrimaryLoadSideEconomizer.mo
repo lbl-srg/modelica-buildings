@@ -65,7 +65,7 @@ equation
                                    color={0,0,127}));
   connect(TCHWSup.port_b, ahu.port_a1)
     annotation (Line(
-      points={{84,0},{72,0},{72,-116},{120,-116}},
+      points={{84,0},{70,0},{70,-4},{70,-116},{120,-116}},
       color={0,127,255},
       thickness=0.5));
   connect(chiWSE.TCHWSupWSE, cooModCon.TCHWSupWSE)
@@ -74,27 +74,7 @@ equation
   connect(cooLoaChi.y, chiStaCon.QTot)
     annotation (Line(points={{-109,144},{-80,144},{-80,140},{-52,140}},
                                                     color={0,0,127}));
-  connect(chiWSE.port_b2, TCHWSup.port_a)
-    annotation (Line(
-      points={{120,24},{112,24},{112,0},{104,0}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(chiWSE.port_b1, TCWRet.port_a)
-    annotation (Line(
-      points={{140,36},{160,36},{160,60},{202,60}},
-      color={0,127,255},
-      thickness=0.5));
    for i in 1:numChi loop
-    connect(TCWSup.port_a, cooTow[i].port_b)
-      annotation (Line(
-        points={{98,140},{132,140},{132,140},{120,140}},
-        color={0,127,255},
-        thickness=0.5));
-    connect(pumCW[i].port_b, chiWSE.port_a1)
-      annotation (Line(
-        points={{70,90},{70,58},{110,58},{110,36},{120,36}},
-        color={0,127,255},
-        thickness=0.5));
     connect(pumCW[i].port_a, TCWSup.port_b)
       annotation (Line(
         points={{70,110},{70,140},{78,140}},
@@ -122,27 +102,14 @@ equation
   connect(dpSet.y, pumSpe.u_s)
     annotation (Line(points={{-155,-20},{-128,-20}},
       color={0,0,127}));
-  connect(TAirSup.port_a, ahu.port_b2)
-    annotation (Line(
-      points={{80,-180},{140,-180},{140,-128},{120,-128}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(ahu.port_a2, roo.airPorts[1])
-    annotation (Line(points={{140,-128},{140,-128},{194,-128},{194,-140},{242,
-          -140},{242,-168.7},{132.475,-168.7}},       color={0,127,255},
-      thickness=0.5));
 
-  connect(TAirSup.port_b, roo.airPorts[2])
-    annotation (Line(points={{100,-180},{100,-180},{100,-140},{100,-168.7},{
-          128.425,-168.7}},         color={0,127,255},
-      thickness=0.5));
   connect(cooModCon.y, cooTowSpeCon.cooMod)
     annotation (Line(points={{-109,110},{-109,110},{-100,110},{-100,182.444},{
           -52,182.444}},                                     color={255,127,0}));
   connect(cooModCon.y, chiStaCon.cooMod)
     annotation (Line(points={{-109,110},{-100,110},{-100,146},{-52,146}},
                                      color={255,127,0}));
-  connect(cooModCon.y, reaToBoo.u)
+  connect(cooModCon.y,intToBoo.u)
     annotation (Line(points={{-109,110},{-80.5,110},
           {-52,110}}, color={255,127,0}));
   connect(TCHWSup.T, chiStaCon.TCHWSup)
@@ -166,7 +133,7 @@ The system is a primary-only chiller plant with two chillers and
 an integrated WSE located on the load side.
 The system schematics is as shown below.
 </p>
-<p>
+<p align=\"center\">
 <img alt=\"image\"
 src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Examples/IntegratedPrimaryLoadSideEconomizerSystem.png\"/>
 </p>

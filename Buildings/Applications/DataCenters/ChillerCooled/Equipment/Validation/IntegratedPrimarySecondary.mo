@@ -6,9 +6,7 @@ model IntegratedPrimarySecondary
     sou1(nPorts=1),
     sin1(nPorts=1),
     TSet(k=273.15 + 5.56),
-    TEva_in(k=273.15 + 10.28),
-    redeclare Buildings.Fluid.Sources.MassFlowSource_T sou2(
-         nPorts=1, m_flow=0.8*mCHW_flow_nominal));
+    TEva_in(k=273.15 + 10.28));
 
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimarySecondary intWSEPriSec(
     m1_flow_chi_nominal=mCW_flow_nominal,
@@ -50,6 +48,15 @@ model IntegratedPrimarySecondary
     y=if onChi.y then mCHW_flow_nominal else 0)
     "Input signal for primary pump"
     annotation (Placement(transformation(extent={{40,50},{20,70}})));
+  Buildings.Fluid.Sources.MassFlowSource_T sou2(
+    redeclare package Medium = MediumCHW,
+    m_flow=0.8*mCHW_flow_nominal,
+    nPorts=1,
+    use_T_in=true) "Source on medium 2 side"
+    annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        origin={50,-70})));
 equation
   connect(onChi.y, intWSEPriSec.on[1])
     annotation (Line(points={{-71,80},{-71,80},{-24,80},{-24,-30.4},{-11.6,
@@ -58,8 +65,8 @@ equation
     annotation (Line(points={{-39,60},{-39,60},{-26,60},{-26,-30},{-18,-30},{
           -18,-30.4},{-11.6,-30.4}},               color={255,0,255}));
   connect(TSet.y, intWSEPriSec.TSet)
-    annotation (Line(points={{-71,30},{-48,30},{-20,30},{-20,-27.2},{-11.6,
-          -27.2}},                             color={0,0,127}));
+    annotation (Line(points={{-69,30},{-69,30},{-20,30},{-20,-27.2},{-11.6,-27.2}},
+                                               color={0,0,127}));
   connect(yVal5.y, intWSEPriSec.yVal5)
     annotation (Line(points={{19,80},{-18,80},{-18,80},{-18,-35},{-11.6,-35}},
                                            color={0,0,127}));
@@ -73,11 +80,14 @@ equation
     annotation (Line(points={{10,-32},{26,-32},{26,-4},{70,-4}},
                                      color={0,127,255}));
   connect(intWSEPriSec.port_a2, sou2.ports[1])
-    annotation (Line(points={{10,-44},
-          {20,-44},{26,-44},{26,-74},{38,-74}}, color={0,127,255}));
+    annotation (Line(points={{10,-44},{20,-44},{26,-44},{26,-70},{40,-70}},
+                                                color={0,127,255}));
   connect(yPum.y, intWSEPriSec.m_flow_in[1])
     annotation (Line(points={{19,60},{19,60},{-16,60},{-16,-41.5},{-11.5,-41.5}},
                                                    color={0,0,127}));
+  connect(TEva_in.y, sou2.T_in)
+    annotation (Line(points={{69,-70},{66,-70},{66,-66},{64,-66},{64,-66},{62,
+          -66},{62,-66}},                                 color={0,0,127}));
   annotation (__Dymola_Commands(file=
           "Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/IntegratedPrimarySecondary.mos"
         "Simulate and plot"), Documentation(info="<html>
@@ -88,6 +98,12 @@ according to different cooling mode signals
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 11, 2017, by Michael Wetter:<br/>
+Corrected wrong use of replaceable model in the base class.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/921\">issue 921</a>.
+</li>
 <li>
 July 22, 2017, by Yangyang Fu:<br/>
 First implementation.

@@ -1,5 +1,6 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Controls;
 model ConstantSpeedPumpStage "Staging control for constant speed pumps"
+  import Buildings;
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.Time tWai "Waiting time";
@@ -30,7 +31,7 @@ model ConstantSpeedPumpStage "Staging control for constant speed pumps"
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-30,10})));
-  Modelica.StateGraph.InitialStepWithSignal off(nIn=1) "Free cooling mode"
+  Modelica.StateGraph.InitialStep off(nIn=1) "Free cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
@@ -75,14 +76,21 @@ model ConstantSpeedPumpStage "Staging control for constant speed pumps"
         origin={18,70})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
-  Modelica.Blocks.Math.MultiSwitch swi(
-    nu=3,
-    expr={0,1,2},
-    y_default=0)
-    "Switch boolean signals to real signal"
-    annotation (Placement(transformation(extent={{24,-6},{48,6}})));
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table=[0,0,0; 1,1,0; 2,1,1])
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
+    final integerTrue=1,
+    final integerFalse=0)
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
+    final integerFalse=0, final integerTrue=2)
+    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
+  Buildings.Controls.OBC.CDL.Integers.Add addInt
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
 equation
   connect(off.outPort[1], con1.inPort)
     annotation (Line(
@@ -124,25 +132,21 @@ equation
       points={{18,66},{18,-10},{-29.75,-10},{-29.75,-0.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(swi.u[1], off.active)
-    annotation (Line(
-      points={{24,1.2},{24,0},{20,0},{20,60},{-19,60}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(oneOn.active, swi.u[2])
-    annotation (Line(
-      points={{-19,10},{-19,10},{14,10},{14,0},{24,0}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(twoOn.active, swi.u[3])
-    annotation (Line(
-      points={{-19,-80},{20,-80},{20,-1.2},{24,-1.2}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(swi.y, combiTable1Ds.u)
-    annotation (Line(points={{48.6,0},{58,0}}, color={0,0,127}));
   connect(combiTable1Ds.y, y)
-    annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{91,0},{91,0},{110,0}},
+                                              color={0,0,127}));
+  connect(oneOn.active, booToInt.u) annotation (Line(points={{-19,10},{-8,10},{
+          12,10},{12,-40},{18,-40}}, color={255,0,255}));
+  connect(twoOn.active, booToInt1.u)
+    annotation (Line(points={{-19,-80},{18,-80}},          color={255,0,255}));
+  connect(booToInt.y, addInt.u1) annotation (Line(points={{41,-40},{48,-40},{48,
+          -54},{58,-54}}, color={255,127,0}));
+  connect(booToInt1.y, addInt.u2) annotation (Line(points={{41,-80},{48,-80},{
+          48,-66},{58,-66}}, color={255,127,0}));
+  connect(intToRea.y, combiTable1Ds.u)
+    annotation (Line(points={{61,0},{68,0}}, color={0,0,127}));
+  connect(addInt.y, intToRea.u) annotation (Line(points={{81,-60},{88,-60},{88,
+          -20},{30,-20},{30,0},{38,0}}, color={255,127,0}));
   annotation (                   Documentation(info="<html>
 <p>
 This model describes a simple staging control for two constant-speed pumps in
@@ -160,6 +164,11 @@ equals to the number of running chillers.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+September 11, 2017, by Michael Wetter:<br/>
+Revised switch that selects the operation mode for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/921\">issue 921</a>
+</li>
 <li>
 September 2, 2017, by Michael Wetter:<br/>
 Changed implementation to use
