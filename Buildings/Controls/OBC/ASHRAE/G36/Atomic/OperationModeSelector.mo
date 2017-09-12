@@ -87,10 +87,6 @@ block OperationModeSelector "Block that outputs the operation mode"
     annotation (Placement(transformation(extent={{0,170},{20,190}})));
   CDL.Logical.Switch corWarUpTim "Corrected warm-up period"
     annotation (Placement(transformation(extent={{0,150},{20,130}})));
-  CDL.Continuous.Gain cooDowInd(
-    final k=Buildings.Controls.OBC.ASHRAE.G36.Constants.OperationModes.cooDowInd)
-    "Cool down mode: 2nd rank"
-    annotation (Placement(transformation(extent={{240,180},{260,200}})));
   CDL.Continuous.Gain warUpInd(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Constants.OperationModes.warUpInd)
     "Warm-up mode: 4th rank"
@@ -98,10 +94,11 @@ block OperationModeSelector "Block that outputs the operation mode"
   CDL.Continuous.Sum sum1(nin=numOfZon)
     "Sum up number of zones that have temperature being lower than setpoint"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr(final threshold=5)
+  CDL.Continuous.GreaterEqualThreshold greEquThr(final threshold=4.5)
     "Whether or not the number of \"cold\" zone is more than 5"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr1(final threshold=numOfZon)
+  CDL.Continuous.GreaterEqualThreshold greEquThr1(final threshold=numOfZon -
+        0.5)
     "Whether or not all the zones are \"cold\" zone"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   CDL.Continuous.Hysteresis hys(
@@ -137,10 +134,11 @@ block OperationModeSelector "Block that outputs the operation mode"
   CDL.Continuous.Sum sum2(final nin=numOfZon)
     "Sum up number of zones that have temperature being higher than setpoint"
     annotation (Placement(transformation(extent={{0,-220},{20,-200}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr2(threshold=5)
+  CDL.Continuous.GreaterEqualThreshold greEquThr2(threshold=4.5)
     "Whether or not the number of \"hot\" zone is more than 5"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr3(final threshold=numOfZon)
+  CDL.Continuous.GreaterEqualThreshold greEquThr3(final threshold=numOfZon -
+        0.5)
     "Whether or not all the zones are \"hot\" zone"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
   CDL.Continuous.Hysteresis hys1(
@@ -324,9 +322,6 @@ protected
   CDL.Conversions.RealToInteger occMod
     "Convert Real number to Integer number"
     annotation (Placement(transformation(extent={{300,240},{320,260}})));
-  CDL.Conversions.RealToInteger cooDowMod
-    "Convert Real number to Integer number"
-    annotation (Placement(transformation(extent={{300,180},{320,200}})));
   CDL.Conversions.RealToInteger warUpMod
     "Convert Real number to Integer number"
     annotation (Placement(transformation(extent={{300,140},{320,160}})));
@@ -341,7 +336,9 @@ protected
     annotation (Placement(transformation(extent={{300,-220},{320,-200}})));
   CDL.Conversions.BooleanToReal booToRea "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{200,140},{220,160}})));
-  CDL.Conversions.BooleanToReal booToRea1 "Convert Boolean to Real number"
+  CDL.Conversions.BooleanToInteger booToRea1(
+    integerTrue=Buildings.Controls.OBC.ASHRAE.G36.Constants.OperationModes.cooDowInd)
+    "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{200,180},{220,200}})));
   CDL.Conversions.RealToInteger unoMod "Convert Real number to Integer number"
     annotation (Placement(transformation(extent={{300,-320},{320,-300}})));
@@ -434,9 +431,6 @@ equation
   connect(minMax.yMax, corCooDowTim.u1)
     annotation (Line(points={{-119,200},{-12,200},{-12,188},{-2,188}},
       color={0,0,127}));
-  connect(booToRea1.y,cooDowInd. u)
-    annotation (Line(points={{221,190},{238,190}},
-      color={0,0,127}));
   connect(booToRea.y,warUpInd. u)
     annotation (Line(points={{221,150},{221,150},{238,150}},
       color={0,0,127}));
@@ -482,7 +476,7 @@ equation
   connect(add9.y, hys8.u)
     annotation (Line(points={{-119,-10},{-82,-10}},  color={0,0,127}));
   connect(hys8.y, booToRea2.u)
-    annotation (Line(points={{-59,-10},{-50,-10}, {-42,-10}},
+    annotation (Line(points={{-59,-10},{-42,-10}},
       color={255,0,255}));
   connect(swi2.y, add10.u1)
     annotation (Line(points={{-179,-210},{-179,-210},{-170,-210},{-170,-204},
@@ -578,8 +572,9 @@ equation
     annotation (Line(points={{101,32},{101,32},{112,32},{112,-180},{250,-180},
       {250,-210},{258,-210}},  color={255,0,255}));
   connect(unoPerInd.y, swi5.u1)
-    annotation (Line(points={{-139,230},{-139,230},{182,230},{182,30},{114,30},
-      {114,-182},{252,-182},{252,-202},{258,-202}},  color={0,0,127},
+    annotation (Line(points={{-139,230},{-139,230},{182,230},{182,30},{116,30},{
+          116,-182},{252,-182},{252,-202},{258,-202}},
+                                                     color={0,0,127},
       pattern=LinePattern.Dash));
   connect(swi3.y, setBacMod.u)
     annotation (Line(points={{281,-10},{289.5,-10},{298,-10}},
@@ -618,9 +613,6 @@ equation
   connect(occMod.y, add3Int.u1)
     annotation (Line(points={{321,250},{340,250},{340,198},{358,198}},
       color={255,127,0}));
-  connect(cooDowMod.y, add3Int.u2)
-    annotation (Line(points={{321,190},{340,190},{358,190}},
-      color={255,127,0}));
   connect(warUpMod.y, add3Int.u3)
     annotation (Line(points={{321,150},{330,150},{340,150},{340,182},{358,182}},
       color={255,127,0}));
@@ -658,8 +650,6 @@ equation
   connect(freProAla.y, freProAlaLev)
     annotation (Line(points={{321,-150},{330,-150},{340,-150},{340,-140},
       {470,-140}}, color={255,127,0}));
-  connect(cooDowInd.y, cooDowMod.u)
-    annotation (Line(points={{261,190},{261,190},{298,190}}, color={0,0,127}));
   connect(warUpInd.y, warUpMod.u)
     annotation (Line(points={{261,150},{280,150},{298,150}}, color={0,0,127}));
   connect(and2.y, booToRea1.u)
@@ -667,8 +657,8 @@ equation
   connect(and1.y, booToRea.u)
     annotation (Line(points={{161,150},{198,150}}, color={255,0,255}));
   connect(and2.y, or3.u2)
-    annotation (Line(points={{161,190},{161,190},{176,190},
-      {176,60},{40,60},{40,32},{78,32}}, color={255,0,255}));
+    annotation (Line(points={{161,190},{161,190},{172,190},{172,64},{34,64},{34,
+          32},{78,32}},                  color={255,0,255}));
   connect(and1.y, or3.u1)
     annotation (Line(points={{161,150},{161,150},{178,150},
           {178,58},{42,58},{42,40},{78,40}}, color={255,0,255}));
@@ -676,8 +666,8 @@ equation
     annotation (Line(points={{-240,300},{-240,300},{38,300},
           {38,250},{258,250}}, color={255,0,255}));
   connect(uOcc, or3.u3)
-    annotation (Line(points={{-240,300},{-240,300},{38,300},
-          {38,24},{78,24}},color={255,0,255}));
+    annotation (Line(points={{-240,300},{-240,300},{28,300},{28,24},{78,24}},
+                           color={255,0,255}));
   connect(minMaxZonTem.yMin, add2.u2)
     annotation (Line(points={{-119,-86},{0,-86},{0,-76},{78,-76}},
       color={0,0,127}));
@@ -797,6 +787,8 @@ equation
   connect(reaRep1.y, swi2.u1)
     annotation (Line(points={{-179,-250},{-170,-250},{-170,-230},
       {-210,-230},{-210,-218},{-202,-218}}, color={0,0,127}));
+  connect(booToRea1.y, add3Int.u2) annotation (Line(points={{221,190},{358,190},
+          {358,190}}, color={255,127,0}));
   annotation (
   defaultComponentName = "opeModSel",
   Diagram(
@@ -971,7 +963,7 @@ sequences, computed in a separate block.
 The figure below shows the sequence.
 </p>
 <p align=\"center\">
-<img alt=\"Image of set point reset\"
+<img alt=\"Image of warm-up mode definition\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/OperationModeSelector/Warm-upModeDefinition.png\"/>
 </p>
 <h4>Cool-Down Mode</h4>
@@ -985,7 +977,7 @@ shall be obtained from an <i>Optimal Start</i> sequences, computed in a
 separate block.
 </p>
 <p align=\"center\">
-<img alt=\"Image of set point reset\"
+<img alt=\"Image of cool-down mode definition\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/OperationModeSelector/Cool-downModeDefinition.png\"/>
 </p>
 <h4>Setback Mode</h4>
@@ -997,7 +989,7 @@ all spaces in the zone group are <i>1.1</i> &deg;C (<i>2</i> &deg;F) above their
 unoccupied setpoints.
 </p>
 <p align=\"center\">
-<img alt=\"Image of set point reset\"
+<img alt=\"Image of setback mode definition\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/OperationModeSelector/SetbackModeDefinition.png\"/>
 </p>
 <h4>Freeze Protection Setback Mode</h4>
@@ -1016,7 +1008,7 @@ are <i>1.1</i> &deg;C (<i>2</i> &deg;F) below their unoccupied setpoints. Zones
 where the window switch indicates that a window is open shall be ignored.
 </p>
 <p align=\"center\">
-<img alt=\"Image of set point reset\"
+<img alt=\"Image of setup mode definition\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Atomic/OperationModeSelector/SetupModeDefinition.png\"/>
 </p>
 <h4>Unoccupied Mode</h4>
