@@ -52,7 +52,8 @@ First implementation.
     "Thermal conductance at nominal flow for sensible heat, used to compute time constant";
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = 161.35
     "Nominal air mass flowrate";
-
+  parameter Real yValMinAHU(min=0,max=1,unit="1")=0.1
+    "Minimum valve openning position";
   replaceable Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE chiWSE(
     redeclare replaceable package Medium1 = MediumW,
     redeclare replaceable package Medium2 = MediumW,
@@ -124,7 +125,6 @@ First implementation.
     m2_flow_nominal=mAir_flow_nominal,
     dpValve_nominal=6000,
     dp2_nominal=600,
-    QHeaMax_flow=2000,
     mWatMax_flow=0.01,
     UA_nominal=UA_nominal,
     addPowerToMedium=false,
@@ -133,7 +133,9 @@ First implementation.
       pressure(dp=800*{1.2,1.12,1},
          V_flow=mAir_flow_nominal/1.29*{0,0.5,1}),
          motorCooledByFluid=false),
-    yValSwi=0.3)
+    yValSwi=yValMinAHU + 0.1,
+    yValDeaBan=0.05,
+    QHeaMax_flow=30000)
     "Air handling unit"
     annotation (Placement(transformation(extent={{120,-132},{140,-112}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWRet(
@@ -182,21 +184,20 @@ First implementation.
     annotation (Placement(transformation(extent={{-190,150},{-170,170}})));
   Buildings.Applications.DataCenters.ChillerCooled.Controls.ChillerStage
   chiStaCon(
-    tWai=tWai,
-    QEva_nominal=QEva_nominal)
+    QEva_nominal=QEva_nominal, tWai=0)
     "Chiller staging control"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
   Modelica.Blocks.Math.RealToBoolean chiOn[numChi]
     "Real value to boolean value"
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
-  Modelica.Blocks.Math.IntegerToBoolean reaToBoo(threshold=3)
+  Modelica.Blocks.Math.IntegerToBoolean intToBoo(threshold=integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical))
     "Inverse on/off signal for the WSE"
     annotation (Placement(transformation(extent={{-50,100},{-30,120}})));
   Modelica.Blocks.Logical.Not wseOn
     "True: WSE is on; False: WSE is off "
     annotation (Placement(transformation(extent={{-10,100},{10,120}})));
   Buildings.Applications.DataCenters.ChillerCooled.Controls.ConstantSpeedPumpStage
-    CWPumCon(tWai=tWai)
+    CWPumCon(tWai=0)
     "Condenser water pump controller"
     annotation (Placement(transformation(extent={{-52,60},{-32,80}})));
   Modelica.Blocks.Sources.IntegerExpression chiNumOn(
@@ -211,7 +212,7 @@ First implementation.
     cooTowSpeCon(controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=40,
     k=5,
-    yMin=0.05)
+    yMin=0)
     "Cooling tower speed control"
     annotation (Placement(transformation(extent={{-50,170},{-30,186}})));
   Modelica.Blocks.Sources.RealExpression TCWSupSet(
@@ -260,8 +261,8 @@ First implementation.
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
     Ti=40,
-    yMin=0.2,
-    reverseAction=true)
+    reverseAction=true,
+    yMin=yValMinAHU)
     "Valve position signal for the AHU"
     annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
   Modelica.Blocks.Math.Product cooTowSpe[numChi]
@@ -309,8 +310,8 @@ equation
                                          color={0,127,255},
       thickness=0.5));
   connect(ahu.port_a2, roo.airPorts[1])
-    annotation (Line(points={{140,-128},{140,-128},{160,-128},{160,-128},{160,
-          -128},{160,-180},{132,-180},{132,-168.7},{132.475,-168.7}},
+    annotation (Line(points={{140,-128},{140,-128},{160,-128},{160,-180},{132,-180},
+          {132,-168.7},{132.475,-168.7}},
       color={0,127,255},
       thickness=0.5));
   connect(cooTow.port_a, val.port_b)
@@ -371,7 +372,7 @@ equation
   connect(chiStaCon.y, chiOn.u)
     annotation (Line(points={{-29,140},{-20.5,140},{
           -12,140}},  color={0,0,127}));
-  connect(reaToBoo.y, wseOn.u)
+  connect(intToBoo.y, wseOn.u)
     annotation (Line(points={{-29,110},{-20.5,110},{-12,
           110}},color={255,0,255}));
   connect(wseOn.y, chiWSE.on[numChi + 1])
@@ -401,8 +402,7 @@ equation
     annotation (Line(points={{118.4,40.8},{40,40.8},{40,200},{-150,200},{-150,160},
           {-169,160}},                                color={0,0,127}));
   connect(XAirSupSet.y, ahu.XSet_w)
-    annotation (Line(points={{-59,-120},{-40,-120},{-40,-120},{-40,-120},{40,
-          -120},{40,-121},{119,-121}},
+    annotation (Line(points={{-59,-120},{60,-120},{60,-121},{119,-121}},
                                  color={0,0,127}));
   connect(uFan.y, ahu.uFan)
     annotation (Line(points={{-59,-150},{60,-150},{60,-126},{119,-126}},
@@ -444,8 +444,7 @@ equation
                                                                color={0,0,127}));
   connect(TAirSup.port_b, roo.airPorts[2])
     annotation (Line(
-      points={{100,-180},{128,-180},{128,-180},{128.425,-180},{128.425,-174},{
-          128.425,-168.7}},
+      points={{100,-180},{128,-180},{128.425,-180},{128.425,-174},{128.425,-168.7}},
       color={0,127,255},
       thickness=0.5));
   connect(ahuValSig.y, ahu.uWatVal)

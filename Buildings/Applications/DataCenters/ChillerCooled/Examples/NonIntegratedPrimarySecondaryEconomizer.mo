@@ -15,8 +15,10 @@ model NonIntegratedPrimarySecondaryEconomizer
     pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     dpSet(k=80000),
     pumSpe(k=1),
-    roo(QRoo_flow=800000),
-    chiStaCon(dT=0.5, criPoiTem=553.86));
+    chiStaCon(dT=0.5,
+      tWai=0,
+      criPoiTem=553.86),
+    CWPumCon(tWai=0));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumSec(
     each pressure=
@@ -126,7 +128,7 @@ equation
   connect(chiStaCon.y, chiOn.u)
     annotation (Line(points={{-29,140},{-20.5,140},{
           -12,140}},  color={0,0,127}));
-  connect(reaToBoo.y, wseOn.u)
+  connect(intToBoo.y, wseOn.u)
     annotation (Line(points={{-29,110},{-20.5,110},{-12,
           110}},     color={255,0,255}));
   connect(wseOn.y, chiWSE.on[numChi + 1])
@@ -180,21 +182,6 @@ equation
           {-16,-4},{-16,-9.2},{-5.6,-9.2}},    color={0,0,127}));
   connect(TAirSupSet.y, ahuValSig.u_s)
     annotation (Line(points={{-59,-90},{-48,-90},{-12,-90}}, color={0,0,127}));
-  connect(TAirSup.port_a, ahu.port_b2)
-    annotation (Line(
-      points={{80,-180},{140,-180},{140,-128},{120,-128}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(ahu.port_a2, roo.airPorts[1])
-    annotation (Line(points={{140,-128},{140,-128},{194,-128},{194,-140},{242,
-          -140},{242,-168.7},{132.475,-168.7}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(TAirSup.port_b, roo.airPorts[2])
-    annotation (Line(
-      points={{100,-180},{100,-180},{100,-140},{100,-168.7},{128.425,-168.7}},
-      color={0,127,255},
-      thickness=0.5));
   connect(secPum.port_b, ahu.port_a1)
     annotation (Line(points={{72,-50},{72,-50},{72,-116},{120,-116}},
                                  color={0,127,255},
@@ -258,7 +245,7 @@ equation
           182.444},{-100,182.444},{-100,110},{-109,110}}, color={255,127,0}));
   connect(cooModCon.y, CWPumCon.cooMod) annotation (Line(points={{-109,110},{
           -100,110},{-100,75},{-54,75}}, color={255,127,0}));
-  connect(reaToBoo.u, cooModCon.y) annotation (Line(points={{-52,110},{-109,110},
+  connect(intToBoo.u, cooModCon.y) annotation (Line(points={{-52,110},{-109,110},
           {-109,110}}, color={255,127,0}));
   connect(chiStaCon.cooMod, cooModCon.y) annotation (Line(points={{-52,146},{
           -100,146},{-100,110},{-109,110}}, color={255,127,0}));
@@ -276,8 +263,9 @@ equation
 <p>This example demonstrates the implementation of a chiller plant
 with water-side economizer (WSE) to cool a data center. The system schematics is as shown below. </p>
 <p>The system is a primary-secondary chiller plant with two chillers and a non-integrated WSE.</p>
-<p>
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Examples/NonIntegratedPrimarySecondaryEconomizer.png\"/>
+<p align=\"center\">
+<img alt=\"image\" 
+src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Examples/NonIntegratedPrimarySecondaryEconomizerSystem.png\"/>
 </p>
 <h4>Control Logic</h4>
 <p>This section describes the detailed control logic used in this chilled water plant system.</p>
