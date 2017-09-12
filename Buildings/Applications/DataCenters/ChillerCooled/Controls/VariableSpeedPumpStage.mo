@@ -41,19 +41,19 @@ model VariableSpeedPumpStage "Staging control for variable speed pumps"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-32,8})));
-  Modelica.StateGraph.InitialStepWithSignal off(nIn=1)
+        origin={-30,10})));
+  Modelica.StateGraph.InitialStep off(nIn=1)
     "Free cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-32,58})));
+        origin={-28,58})));
   Modelica.StateGraph.StepWithSignal twoOn
     "Two chillers are commanded on"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-32,-78})));
+        origin={-30,-80})));
   Modelica.StateGraph.Transition con2(
     enableTimer=true,
     waitTime=tWai,
@@ -63,7 +63,7 @@ model VariableSpeedPumpStage "Staging control for variable speed pumps"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-72,-42})));
+        origin={-70,-40})));
   Modelica.StateGraph.Transition con3(
     enableTimer=true,
     waitTime=tWai,
@@ -73,7 +73,7 @@ model VariableSpeedPumpStage "Staging control for variable speed pumps"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-8,-40})));
+        origin={-10,-40})));
   Modelica.StateGraph.Transition con4(
     enableTimer=true,
     waitTime=tWai,
@@ -85,78 +85,79 @@ model VariableSpeedPumpStage "Staging control for variable speed pumps"
         origin={18,20})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
-  Modelica.Blocks.Math.MultiSwitch swi(
-    nu=3,
-    expr={0,1,2},
-    y_default=0)
-    "Switch boolean signals to real signal"
-    annotation (Placement(transformation(extent={{24,-6},{48,6}})));
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(
     table=[0,0,0;
            1,1,0;
            2,1,1])
     "Determine which pump should be on - rotation control is not considered here"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
+    final integerTrue=1,
+    final integerFalse=0)
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
+    final integerFalse=0, final integerTrue=2)
+    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
+  Buildings.Controls.OBC.CDL.Integers.Add addInt
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
 equation
   connect(off.outPort[1], con1.inPort)
     annotation (Line(
-      points={{-32,47.5},{-32,47.5},{-32,46},{-32,42},{-72,42},{-72,38}},
+      points={{-28,47.5},{-28,47.5},{-28,46},{-28,42},{-72,42},{-72,38}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con1.outPort, oneOn.inPort[1])
     annotation (Line(
-      points={{-72,32.5},{-72,26},{-32.5,26},{-32.5,19}},
+      points={{-72,32.5},{-72,26},{-30.5,26},{-30.5,21}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con2.inPort, oneOn.outPort[1])
     annotation (Line(
-      points={{-72,-38},{-72,-10},{-32.25,-10},{-32.25,-2.5}},
+      points={{-70,-36},{-70,-10},{-30.25,-10},{-30.25,-0.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con2.outPort, twoOn.inPort[1])
     annotation (Line(
-      points={{-72,-43.5},{-72,-43.5},{-72,-60},{-32,-60},{-32,-67}},
+      points={{-70,-41.5},{-70,-41.5},{-70,-60},{-30,-60},{-30,-69}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(twoOn.outPort[1], con3.inPort)
     annotation (Line(
-      points={{-32,-88.5},{-32,-98},{-8,-98},{-8,-44}},
+      points={{-30,-90.5},{-30,-98},{-10,-98},{-10,-44}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con4.outPort, off.inPort[1])
     annotation (Line(
-      points={{18,21.5},{18,21.5},{18,78},{-32,78},{-32,69}},
+      points={{18,21.5},{18,21.5},{18,78},{-28,78},{-28,69}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con3.outPort, oneOn.inPort[2])
     annotation (Line(
-      points={{-8,-38.5},{-8,-38.5},{-8,26},{-31.5,26},{-31.5,19}},
+      points={{-10,-38.5},{-8,-38.5},{-8,26},{-29.5,26},{-29.5,21}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con4.inPort, oneOn.outPort[2])
     annotation (Line(
-      points={{18,16},{18,-10},{-31.75,-10},{-31.75,-2.5}},
+      points={{18,16},{18,-10},{-29.75,-10},{-29.75,-0.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
-  connect(swi.u[1], off.active)
-    annotation (Line(
-      points={{24,1.2},{24,0},{2,0},{2,58},{-21,58}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(oneOn.active, swi.u[2])
-    annotation (Line(
-      points={{-21,8},{-21,8},{2,8},{2,0},{24,0}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(twoOn.active, swi.u[3])
-    annotation (Line(
-      points={{-21,-78},{2,-78},{2,-1.2},{24,-1.2}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(swi.y, combiTable1Ds.u)
-    annotation (Line(points={{48.6,0},{58,0}}, color={0,0,127}));
   connect(combiTable1Ds.y, y)
-    annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
+  connect(booToInt.u, oneOn.active) annotation (Line(points={{18,-40},{10,-40},
+          {10,10},{-19,10}}, color={255,0,255}));
+  connect(twoOn.active, booToInt1.u)
+    annotation (Line(points={{-19,-80},{-2,-80},{18,-80}}, color={255,0,255}));
+  connect(booToInt.y, addInt.u1) annotation (Line(points={{41,-40},{50,-40},{50,
+          -54},{58,-54}}, color={255,127,0}));
+  connect(booToInt1.y, addInt.u2) annotation (Line(points={{41,-80},{48,-80},{
+          48,-66},{58,-66}}, color={255,127,0}));
+  connect(addInt.y, intToRea.u) annotation (Line(points={{81,-60},{90,-60},{90,
+          -20},{30,-20},{30,0},{38,0}}, color={255,127,0}));
+  connect(intToRea.y, combiTable1Ds.u)
+    annotation (Line(points={{61,0},{68,0},{68,0}}, color={0,0,127}));
   annotation (                   Documentation(info="<html>
 <p>This model implements a simple staging control logic for variable speed pumps.
 </p>
@@ -174,6 +175,11 @@ then deactivate one more pump.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+September 11, 2017, by Michael Wetter:<br/>
+Revised switch that selects the operation mode for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/921\">issue 921</a>
+</li>
 <li>
 July 30, 2017, by Yangyang Fu:<br/>
 First implementation.

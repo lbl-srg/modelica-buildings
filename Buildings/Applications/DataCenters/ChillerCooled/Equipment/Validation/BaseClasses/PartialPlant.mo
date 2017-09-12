@@ -4,6 +4,7 @@ partial model PartialPlant
 
   package MediumCHW = Buildings.Media.Water "Medium model";
   package MediumCW = Buildings.Media.Water "Medium model";
+
   parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal=2567.1*1000/(
     4200*10)
     "Nominal mass flow rate at chilled water";
@@ -55,13 +56,7 @@ partial model PartialPlant
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-80,-70})));
-  redeclare replaceable Buildings.Fluid.Sources.Boundary_pT sou2(T=291.15)
-    constrainedby Modelica.Fluid.Sources.BaseClasses.PartialSource(
-    use_T_in=true,
-    redeclare package Medium = MediumCHW,
-    T=291.15)
-    "Source on medium 2 side"
-    annotation (Placement(transformation(extent={{58,-84},{38,-64}})));
+
   Modelica.Blocks.Sources.Constant TEva_in(k=273.15 + 25.28)
     "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{90,-80},{70,-60}})));
@@ -78,8 +73,6 @@ equation
   connect(TCon_in.y,sou1. T_in)
     annotation (Line(points={{-69,0},{-72,0},{-62,0}},
       color={0,0,127}));
-  connect(sou2.T_in, TEva_in.y)
-    annotation (Line(points={{60,-70},{69,-70}}, color={0,0,127}));
   connect(sin2.ports[1], TSup.port_b)
     annotation (Line(points={{-70,-70},{-68,-70},{-68,-70},{-64,-70},{-64,-44},
           {-60,-44}},
@@ -92,6 +85,12 @@ Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 11, 2017, by Michael Wetter:<br/>
+Corrected wrong use of replaceable model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/921\">issue 921</a>.
+</li>
 <li>
 June 25, 2017, by Yangyang Fu:<br/>
 First implementation.

@@ -5,7 +5,6 @@ model IntegratedPrimaryLoadSide
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.BaseClasses.PartialPlant(
     sou1(nPorts=1),
     sin1(nPorts=1),
-    sou2(nPorts=1),
     TSet(k=273.15 + 5.56),
     TEva_in(k=273.15 + 15.28));
 
@@ -51,6 +50,14 @@ model IntegratedPrimaryLoadSide
     startValue=true)
     "On and off signal for the WSE"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
+  Buildings.Fluid.Sources.Boundary_pT sou2(
+    redeclare package Medium = MediumCHW,
+    nPorts=1,
+    use_T_in=true) "Source on medium 2 side"
+    annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        origin={50,-70})));
 equation
   connect(onChi.y, intWSEPri.on[1])
     annotation (Line(points={{-39,80},{-39,80},{-20,80},{-20,-30.4},{-11.6,
@@ -79,8 +86,11 @@ equation
   connect(intWSEPri.port_b1, sin1.ports[1])
     annotation (Line(points={{10,-32},{26,-32},{26,-4},{70,-4}}, color={0,127,255}));
   connect(intWSEPri.port_a2, sou2.ports[1])
-    annotation (Line(points={{10,-44},{20,-44},{26,-44},{26,-74},{38,-74}},
+    annotation (Line(points={{10,-44},{20,-44},{26,-44},{26,-70},{40,-70}},
       color={0,127,255}));
+  connect(TEva_in.y, sou2.T_in)
+    annotation (Line(points={{69,-70},{66,-70},{66,-66},{62,-66}},
+                                                          color={0,0,127}));
   annotation (__Dymola_Commands(file=
           "Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/IntegratedPrimaryLoadSide.mos"
         "Simulate and plot"), Documentation(info="<html>
@@ -91,6 +101,12 @@ according to different cooling mode signals
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 11, 2017, by Michael Wetter:<br/>
+Corrected wrong use of replaceable model in the base class.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/921\">issue 921</a>.
+</li>
 <li>
 July 22, 2017, by Yangyang Fu:<br/>
 First implementation.

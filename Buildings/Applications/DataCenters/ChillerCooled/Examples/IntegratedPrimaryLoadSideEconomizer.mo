@@ -65,7 +65,7 @@ equation
                                    color={0,0,127}));
   connect(TCHWSup.port_b, ahu.port_a1)
     annotation (Line(
-      points={{84,0},{72,0},{72,-116},{120,-116}},
+      points={{84,0},{70,0},{70,-4},{70,-116},{120,-116}},
       color={0,127,255},
       thickness=0.5));
   connect(chiWSE.TCHWSupWSE, cooModCon.TCHWSupWSE)
@@ -74,27 +74,7 @@ equation
   connect(cooLoaChi.y, chiStaCon.QTot)
     annotation (Line(points={{-109,144},{-80,144},{-80,140},{-52,140}},
                                                     color={0,0,127}));
-  connect(chiWSE.port_b2, TCHWSup.port_a)
-    annotation (Line(
-      points={{120,24},{112,24},{112,0},{104,0}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(chiWSE.port_b1, TCWRet.port_a)
-    annotation (Line(
-      points={{140,36},{160,36},{160,60},{202,60}},
-      color={0,127,255},
-      thickness=0.5));
    for i in 1:numChi loop
-    connect(TCWSup.port_a, cooTow[i].port_b)
-      annotation (Line(
-        points={{98,140},{132,140},{132,140},{120,140}},
-        color={0,127,255},
-        thickness=0.5));
-    connect(pumCW[i].port_b, chiWSE.port_a1)
-      annotation (Line(
-        points={{70,90},{70,58},{110,58},{110,36},{120,36}},
-        color={0,127,255},
-        thickness=0.5));
     connect(pumCW[i].port_a, TCWSup.port_b)
       annotation (Line(
         points={{70,110},{70,140},{78,140}},

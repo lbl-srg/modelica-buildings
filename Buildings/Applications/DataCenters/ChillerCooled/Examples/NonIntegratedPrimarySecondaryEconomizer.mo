@@ -3,8 +3,7 @@ model NonIntegratedPrimarySecondaryEconomizer
   "Example that demonstrates a chiller plant with non-integrated primary-secondary side economizer"
   extends Modelica.Icons.Example;
 
-  extends
-    Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.NonIntegrated chiWSE(
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
       Ti=60,
@@ -83,11 +82,6 @@ model NonIntegratedPrimarySecondaryEconomizer
     "Sensor for bypass flowrate"
     annotation (Placement(transformation(extent={{160,-34},{140,-14}})));
 equation
-  connect(chiWSE.port_b2, TCHWSup.port_a)
-    annotation (Line(
-      points={{120,24},{112,24},{112,0},{104,0}},
-      color={0,127,255},
-      thickness=0.5));
   connect(chiWSE.port_b1, TCWRet.port_a)
     annotation (Line(
       points={{140,36},{160,36},{160,60},{202,60}},
@@ -229,8 +223,8 @@ equation
           -1.33227e-15},{198,-1.33227e-15},{198,-24},{160,-24}}, color={0,127,
           255}));
   connect(bypFlo.port_b, TCHWSup.port_a)
-    annotation (Line(points={{140,-24},{
-          112,-24},{112,0},{104,0}}, color={0,127,255}));
+    annotation (Line(points={{140,-24},{112,-24},{112,0},{104,0}},
+                                     color={0,127,255}));
   connect(TCHWSup.T, chiStaCon.TCHWSup)
     annotation (Line(points={{94,11},{94,11},{94,36},{94,36},{40,36},{40,200},{
           -70,200},{-70,134},{-52,134}},

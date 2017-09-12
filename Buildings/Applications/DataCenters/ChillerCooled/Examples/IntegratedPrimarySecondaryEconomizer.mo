@@ -3,8 +3,7 @@ model IntegratedPrimarySecondaryEconomizer
   "Example that demonstrates a chiller plant with integrated primary-secondary side economizer"
   extends Modelica.Icons.Example;
 
-  extends
-    Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimarySecondary chiWSE(
         addPowerToMedium=false,
         perPum=perPumPri,
@@ -95,26 +94,12 @@ equation
     annotation (Line(points={{-29,32},{30,32},{30,26.5},{118.5,26.5}},
        color={0,0,127}));
 
-  connect(chiWSE.port_b2, TCHWSup.port_a)
-    annotation (Line(
-      points={{120,24},{112,24},{112,0},{104,0}},
-      color={0,127,255},
-      thickness=0.5));
   connect(chiWSE.port_b1, TCWRet.port_a)
     annotation (Line(
       points={{140,36},{160,36},{160,60},{202,60}},
       color={0,127,255},
       thickness=0.5));
    for i in 1:numChi loop
-    connect(TCWSup.port_a, cooTow[i].port_b)
-      annotation (Line(
-        points={{98,140},{132,140},{132,140},{120,140}},
-        color={0,127,255},
-        thickness=0.5));
-    connect(pumCW[i].port_b, chiWSE.port_a1)
-      annotation (Line(points={{70,90},{70,58},{110,58},{110,36},{120,36}},
-        color={0,127,255},
-        thickness=0.5));
 
     connect(pumCW[i].port_a, TCWSup.port_b)
       annotation (Line(
