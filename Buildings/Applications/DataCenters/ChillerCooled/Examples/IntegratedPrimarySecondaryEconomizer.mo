@@ -64,7 +64,7 @@ model IntegratedPrimarySecondaryEconomizer
         rotation=-90,
         origin={72,-26})));
   Buildings.Applications.DataCenters.ChillerCooled.Controls.ConstantSpeedPumpStage
-  PriPumCon(tWai=tWai)
+  PriPumCon(tWai=0)
     "Chilled water primary pump controller"
     annotation (Placement(transformation(extent={{-92,22},{-72,42}})));
   Modelica.Blocks.Math.Gain gai2[numChi](
@@ -145,10 +145,10 @@ equation
   connect(chiStaCon.cooMod, cooModCon.y) annotation (Line(points={{-52,146},{
           -70,146},{-70,148},{-100,148},{-100,110},{-109,110}}, color={255,127,
           0}));
-  connect(reaToBoo.u, cooModCon.y)
+  connect(intToBoo.u, cooModCon.y)
     annotation (Line(points={{-52,110},{-109,110}}, color={255,127,0}));
-  connect(CWPumCon.cooMod, cooModCon.y) annotation (Line(points={{-54,75},{-76,
-          75},{-76,76},{-100,76},{-100,110},{-109,110}}, color={255,127,0}));
+  connect(CWPumCon.cooMod, cooModCon.y) annotation (Line(points={{-54,75},{-80,
+          75},{-80,80},{-100,80},{-100,110},{-109,110}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
             Diagram(
@@ -162,7 +162,7 @@ equation
 <p>This example demonstrates the implementation of a chiller plant with
 water-side economizer (WSE) to cool a data center. The system schematics is as shown below. </p>
 <p>The system is a primary-secondary chiller plant with two chillers and an integrated WSE.</p>
-<p>
+<p align=\"center\">
 <img alt=\"image\"
 src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Examples/IntegratedPrimarySecondaryEconomizerSystem.png\"/>
 </p>
@@ -248,7 +248,7 @@ First implementation.
 </ul>
 </html>"),
 experiment(
-      StartTime=3801600,
-      StopTime=3974400,
+      StartTime=0,
+      StopTime=86400,
       Tolerance=1e-06));
 end IntegratedPrimarySecondaryEconomizer;

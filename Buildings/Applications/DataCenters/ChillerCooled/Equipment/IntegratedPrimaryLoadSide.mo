@@ -120,7 +120,8 @@ on the load side of the primary-only chilled water system, as shown in the follo
 In the configuration, users can model multiple chillers with only one integrated WSE.
 </p>
 <p align=\"center\">
-  <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/IntegraredPrimaryLoadSide.png\"/>
+  <img alt=\"image\" 
+  src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Equipment/IntegraredPrimaryLoadSide.png\"/>
 </p>
 <h4>Implementation</h4>
 <p>

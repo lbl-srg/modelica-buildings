@@ -110,7 +110,7 @@ equation
   connect(cooModCon.y, chiStaCon.cooMod)
     annotation (Line(points={{-109,110},{-100,110},{-100,146},{-52,146}},
                                      color={255,127,0}));
-  connect(cooModCon.y, reaToBoo.u)
+  connect(cooModCon.y,intToBoo.u)
     annotation (Line(points={{-109,110},{-80.5,110},
           {-52,110}}, color={255,127,0}));
   connect(TCHWSup.T, chiStaCon.TCHWSup)
@@ -134,7 +134,7 @@ The system is a primary-only chiller plant with two chillers and
 an integrated WSE located on the load side.
 The system schematics is as shown below.
 </p>
-<p>
+<p align=\"center\">
 <img alt=\"image\"
 src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Examples/IntegratedPrimaryLoadSideEconomizerSystem.png\"/>
 </p>

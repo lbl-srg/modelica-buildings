@@ -15,8 +15,10 @@ model NonIntegratedPrimarySecondaryEconomizer
     pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     dpSet(k=80000),
     pumSpe(k=1),
-    roo(QRoo_flow=800000),
-    chiStaCon(dT=0.5, criPoiTem=553.86));
+    chiStaCon(dT=0.5,
+      tWai=0,
+      criPoiTem=553.86),
+    CWPumCon(tWai=0));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumSec(
     each pressure=
@@ -107,7 +109,7 @@ equation
   connect(chiStaCon.y, chiOn.u)
     annotation (Line(points={{-29,140},{-20.5,140},{
           -12,140}},  color={0,0,127}));
-  connect(reaToBoo.y, wseOn.u)
+  connect(intToBoo.y, wseOn.u)
     annotation (Line(points={{-29,110},{-20.5,110},{-12,
           110}},     color={255,0,255}));
   connect(wseOn.y, chiWSE.on[numChi + 1])
@@ -138,7 +140,7 @@ equation
     annotation (Line(points={{-119,134},{-92,134},{-92,138},{-52,138},{-52,140}},
                            color={0,0,127}));
   connect(TCHWSup.T, cooModCon.TCHWSup)
-    annotation (Line(points={{94,11},{94,30},{-62,30},{-62,92},{-150,92},{-150,
+    annotation (Line(points={{94,11},{94,18},{-62,18},{-62,92},{-150,92},{-150,
           106.2},{-140,106.2}},                               color={0,0,127}));
   connect(priPum.port_a, TCHWRet.port_b)
     annotation (Line(
@@ -160,8 +162,8 @@ equation
                                      color={0,127,255},
       thickness=0.5));
   connect(TCHWSup.T, chiStaCon.TCHWSup)
-    annotation (Line(points={{94,11},{94,12},{94,12},{94,14},{94,20},{94,20},{
-          94,30},{-62,30},{-62,134},{-52,134}},
+    annotation (Line(points={{94,11},{94,12},{94,18},{94,18},{94,18},{-62,18},{
+          -62,134},{-52,134}},
         color={0,0,127}));
   connect(priPumCon.y, priPum.u) annotation (Line(points={{-69,32},{-66,32},{
           -66,12},{198,12},{198,4},{192,4}},
@@ -175,13 +177,13 @@ equation
           182.444},{-100,182.444},{-100,110},{-117,110}}, color={255,127,0}));
   connect(cooModCon.y, CWPumCon.cooMod) annotation (Line(points={{-117,110},{
           -100,110},{-100,75},{-54,75}}, color={255,127,0}));
-  connect(reaToBoo.u, cooModCon.y) annotation (Line(points={{-52,110},{-117,110}},
-                       color={255,127,0}));
   connect(chiStaCon.cooMod, cooModCon.y) annotation (Line(points={{-52,146},{
           -100,146},{-100,110},{-117,110}}, color={255,127,0}));
   connect(priPumCon.numOnChi, chiNumOn.y) annotation (Line(points={{-92,27},{
           -100,27},{-100,26},{-108,26},{-108,64},{-108,64},{-108,65},{-116.9,65}},
                                            color={255,127,0}));
+  connect(cooModCon.y, intToBoo.u) annotation (Line(points={{-117,110},{-52,110},
+          {-52,110}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-200},
@@ -194,8 +196,9 @@ equation
 <p>This example demonstrates the implementation of a chiller plant
 with water-side economizer (WSE) to cool a data center. The system schematics is as shown below. </p>
 <p>The system is a primary-secondary chiller plant with two chillers and a non-integrated WSE.</p>
-<p>
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Examples/NonIntegratedPrimarySecondaryEconomizer.png\"/>
+<p align=\"center\">
+<img alt=\"image\"
+src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Examples/NonIntegratedPrimarySecondaryEconomizerSystem.png\"/>
 </p>
 <h4>Control Logic</h4>
 <p>This section describes the detailed control logic used in this chilled water plant system.</p>
