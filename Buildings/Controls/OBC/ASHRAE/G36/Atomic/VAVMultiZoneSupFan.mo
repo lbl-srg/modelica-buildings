@@ -140,20 +140,20 @@ protected
   CDL.Logical.Sources.Constant con(k=false) if not perZonRehBox
     "Constant true"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  CDL.Integers.Sources.Constant conInt(k=Constants.OperationModes.cooDowInd)
-    "Cool down mode index"
+  CDL.Integers.Sources.Constant conInt(k=Constants.OperationModes.cooDow)
+    "Cool down mode"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
-  CDL.Integers.Sources.Constant conInt4(k=Constants.OperationModes.warUpInd)
-    "Warm-up model index"
+  CDL.Integers.Sources.Constant conInt4(k=Constants.OperationModes.warUp)
+    "Warm-up mode"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  CDL.Integers.Sources.Constant conInt1(k=Constants.OperationModes.setUpInd)
-    "Set up mode index"
+  CDL.Integers.Sources.Constant conInt1(k=Constants.OperationModes.setUp)
+    "Set up mode"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  CDL.Integers.Sources.Constant conInt2(k=Constants.OperationModes.occModInd)
-    "Occupied mode index"
+  CDL.Integers.Sources.Constant conInt2(k=Constants.OperationModes.occMod)
+    "Occupied mode"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  CDL.Integers.Sources.Constant conInt3(k=Constants.OperationModes.setBacInd)
-    "Set back mode index"
+  CDL.Integers.Sources.Constant conInt3(k=Constants.OperationModes.setBac)
+    "Set back mode"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   CDL.Integers.Equal intEqu "Check if current operation mode is cool-down mode"
     annotation (Placement(transformation(extent={{-60,120},{-40,140}})));

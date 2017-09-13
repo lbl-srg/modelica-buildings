@@ -34,10 +34,9 @@ model OperationMode "Validate block OperationModeSelector"
       k=1800) "Cooling down time"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uWinSta(k=false)
-    "Window on/off status" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={70,-40})));
+    "Window on/off status"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
+      origin={70,-40})));
   Controls.SetPoints.OccupancySchedule occSch
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
 equation
@@ -47,26 +46,32 @@ equation
     annotation (Line(points={{-31,0},{-2,0}}, color={0,0,127}));
   connect(addPar.y, opeModSel.TZon[1])
     annotation (Line(points={{21,0},{59,0}}, color={0,0,127}));
-  connect(occHeaSet.y, opeModSel.THeaSet) annotation (Line(points={{-39,-30},{-20,
-          -30},{-20,-12},{34,-12},{34,-2.2},{59,-2.2}}, color={0,0,127}));
-  connect(occCooSet.y, opeModSel.TCooSet) annotation (Line(points={{21,-30},{28,
-          -30},{36,-30},{36,-4.6},{59,-4.6}}, color={0,0,127}));
-  connect(unoHeaSet.y, opeModSel.TUnoHeaSet) annotation (Line(points={{-39,-70},
-          {-20,-70},{-20,-48},{38,-48},{38,-6.8},{59,-6.8}}, color={0,0,127}));
-  connect(unoCooSet.y, opeModSel.TUnoCooSet) annotation (Line(points={{21,-70},{
-          30,-70},{40,-70},{40,-9},{59,-9}}, color={0,0,127}));
-  connect(warUpTim.y, opeModSel.warUpTim[1]) annotation (Line(points={{-39,40},{
-          -20,40},{-20,20},{34,20},{34,2},{46,2},{46,2.2},{59,2.2}}, color={0,0,
-          127}));
-  connect(cooDowTim.y, opeModSel.cooDowTim[1]) annotation (Line(points={{21,40},
-          {36,40},{36,4},{48,4},{48,4.4},{59,4.4}}, color={0,0,127}));
+  connect(occHeaSet.y, opeModSel.THeaSet)
+    annotation (Line(points={{-39,-30},{-20,-30},{-20,-12},{34,-12},{34,-2.2},
+      {59,-2.2}}, color={0,0,127}));
+  connect(occCooSet.y, opeModSel.TCooSet)
+    annotation (Line(points={{21,-30},{28,-30},{36,-30},{36,-4.6},{59,-4.6}},
+      color={0,0,127}));
+  connect(unoHeaSet.y, opeModSel.TUnoHeaSet)
+    annotation (Line(points={{-39,-70},{-20,-70},{-20,-48},{38,-48},{38,-6.8},
+      {59,-6.8}}, color={0,0,127}));
+  connect(unoCooSet.y, opeModSel.TUnoCooSet)
+    annotation (Line(points={{21,-70},{30,-70},{40,-70},{40,-9},{59,-9}},
+      color={0,0,127}));
+  connect(warUpTim.y, opeModSel.warUpTim[1])
+    annotation (Line(points={{-39,40},{-20,40},{-20,20},{34,20},{34,2},{46,2},
+      {46,2.2},{59,2.2}}, color={0,0,127}));
+  connect(cooDowTim.y, opeModSel.cooDowTim[1])
+    annotation (Line(points={{21,40},{36,40},{36,4},{48,4},{48,4.4},{59,4.4}},
+      color={0,0,127}));
   connect(uWinSta.y, opeModSel.uWinSta[1])
     annotation (Line(points={{70,-29},{70,-20},{70,-11}}, color={255,0,255}));
-  connect(occSch.tNexOcc, opeModSel.tNexOcc) annotation (Line(points={{21,76},{38,
-          76},{38,6.6},{59,6.6}}, color={0,0,127}));
-  connect(occSch.occupied, opeModSel.uOcc) annotation (Line(points={{21,64},{40,
-          64},{40,9},{59,9}}, color={255,0,255}));
-  annotation (
+  connect(occSch.tNexOcc, opeModSel.tNexOcc)
+    annotation (Line(points={{21,76},{38,76},{38,6.6},{59,6.6}}, color={0,0,127}));
+  connect(occSch.occupied, opeModSel.uOcc)
+    annotation (Line(points={{21,64},{40,64},{40,9},{59,9}}, color={255,0,255}));
+
+annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/Validation/OperationMode.mos"
         "Simulate and plot"),

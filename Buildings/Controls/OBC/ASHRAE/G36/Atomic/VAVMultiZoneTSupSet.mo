@@ -120,16 +120,16 @@ protected
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   CDL.Logical.Switch swi3 "Check output regarding supply fan status"
     annotation (Placement(transformation(extent={{100,10},{120,-10}})));
-  CDL.Integers.LessThreshold intLesThr(threshold=Constants.OperationModes.warUpInd)
+  CDL.Integers.LessThreshold intLesThr(threshold=Constants.OperationModes.warUp)
     "Check if operation mode index is less than warm-up mode index (4)"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  CDL.Integers.GreaterThreshold intGreThr(threshold=Constants.OperationModes.occModInd)
+  CDL.Integers.GreaterThreshold intGreThr(threshold=Constants.OperationModes.occMod)
     "Check if operation mode index is greater than occupied mode index (1)"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  CDL.Integers.LessThreshold intLesThr1(threshold=Constants.OperationModes.unoModInd)
+  CDL.Integers.LessThreshold intLesThr1(threshold=Constants.OperationModes.unoMod)
     "Check if operation mode index is less than unoccupied mode index (7)"
     annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
-  CDL.Integers.GreaterThreshold intGreThr1(threshold=Constants.OperationModes.setUpInd)
+  CDL.Integers.GreaterThreshold intGreThr1(threshold=Constants.OperationModes.setUp)
     "Check if operation mode index is greater than set up mode index (3)"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
 
