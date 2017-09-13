@@ -97,8 +97,7 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Interfaces.RealOutput VOutMinSet_flow(
     min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate")
-    "Effective minimum outdoor airflow setpoint"
+    quantity="VolumeFlowRate") "Effective minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{240,-70},{280,-30}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
@@ -467,9 +466,9 @@ Icon(graphics={Rectangle(
           fillPattern=FillPattern.Solid), Text(
           extent={{-92,82},{84,-68}},
           lineColor={0,0,0},
-          textString="minOATsp"),
+          textString="minOAsp"),
         Text(
-          extent={{-100,124},{98,102}},
+          extent={{-100,140},{100,100}},
           lineColor={0,0,255},
           textString="%name")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{240,280}},

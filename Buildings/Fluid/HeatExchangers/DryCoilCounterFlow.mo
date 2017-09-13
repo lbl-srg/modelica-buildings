@@ -240,8 +240,6 @@ equation
   connect(THA2.y, hA.T_2) annotation (Line(points={{-65.3,77},{-65.3,77},{-61,
           77}},
         color={0,0,127}));
-  connect(port_a1, port_a1) annotation (Line(points={{-100,60},{-95,60},{-95,60},
-          {-100,60}}, color={0,127,255}));
 
   connect(temSen_1.port_b, ele[1].port_a1) annotation (Line(
       points={{-46,60},{-30,60},{-30,16},{0,16}},

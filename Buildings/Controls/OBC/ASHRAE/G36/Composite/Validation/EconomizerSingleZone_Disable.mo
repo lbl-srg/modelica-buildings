@@ -44,7 +44,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   CDL.Integers.Sources.Constant zonSta(final k=Constants.ZoneStates.heating) "Zone State is heating"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occModInd) "AHU operation mode is Occupied"
+  CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occMod) "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 40000)
     "Outdoor air enthalpy is below the cutoff"

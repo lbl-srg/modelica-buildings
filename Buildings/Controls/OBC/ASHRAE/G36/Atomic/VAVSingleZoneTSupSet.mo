@@ -48,7 +48,7 @@ block VAVSingleZoneTSupSet "Supply air set point for single zone VAV system"
   CDL.Interfaces.RealOutput TCoo(unit="K", displayUnit="degC")
     "Cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+      iconTransformation(extent={{100,-10},{120,10}})));
 
   CDL.Interfaces.RealOutput y(min=0, max=1, unit="1") "Fan speed"
   annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
@@ -76,22 +76,28 @@ protected
     annotation (Placement(transformation(extent={{-40,-200},{-20,-180}})));
   Controls.SetPoints.Table yHea(final table=[0.5,yMin; 1,yHeaMax])
     "Fan speed for heating"
-    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  CDL.Continuous.LessEqualThreshold yMinChe1(final threshold=0.25)
+    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
+  CDL.Continuous.Hysteresis yMinChe1(
+    final uLow=0.2,
+    final uHigh=0.3)
     "Check for cooling signal for fan speed"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   CDL.Logical.Switch switch1
-    annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-  CDL.Continuous.LessEqualThreshold yMinChe2(final threshold=0.5)
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
+  CDL.Continuous.Hysteresis yMinChe2(
+    final uLow=0.45,
+    final uHigh=0.55)
     "Check for cooling signal for fan speed"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   CDL.Logical.Switch switch2
-    annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
-  CDL.Continuous.LessEqualThreshold yMinChe3(threshold=0.75)
+    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
+  CDL.Continuous.Hysteresis yMinChe3(
+    final uLow=0.7,
+    final uHigh=0.8)
     "Check for cooling signal for fan speed"
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
   CDL.Logical.Switch switch3
-    annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
+    annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
   CDL.Continuous.Add add(final k1=-1)
     annotation (Placement(transformation(extent={{0,-240},{20,-220}})));
   CDL.Continuous.Add add1
@@ -144,7 +150,6 @@ protected
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   CDL.Continuous.Add TDeaTMin(final k2=-1) "Outputs TDea-TMin"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-
   CDL.Continuous.AddParameter addTDea(
     final p=-1.1,
     final k=-1)
@@ -153,165 +158,217 @@ protected
   CDL.Continuous.Add TMaxTDea(
     final k2=-1) "Outputs TMax-TDea"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
+  CDL.Logical.Not not1 "Logical not"
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+  CDL.Logical.Not not2 "Logical not"
+    annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
+  CDL.Logical.Not not3 "Logical not"
+    annotation (Placement(transformation(extent={{-40,-160},{-20,-140}})));
+
 equation
-  connect(offSetTSetHea.u, uCoo) annotation (Line(points={{-2,150},{-2,150},{
-          -32,150},{-32,52},{-94,52},{-94,40},{-120,40}},
-                                     color={0,0,127}));
-  connect(offSetTSetHea.y, addTHe.u2) annotation (Line(points={{21,150},{21,150},
-          {40,150},{40,164},{58,164}},
-                                color={0,0,127}));
-  connect(addTHe.y, THeaEco) annotation (Line(points={{81,170},{92,170},{92,60},
-          {110,60}}, color={0,0,127}));
-  connect(TSetCooHig.y, addTCoo.u1) annotation (Line(points={{21,110},{40,110},
-          {40,96},{58,96}},
-                          color={0,0,127}));
-  connect(offSetTSetCoo.y, addTCoo.u2) annotation (Line(points={{21,70},{40,70},
-          {40,84},{58,84}},   color={0,0,127}));
-  connect(TSetCooHig.u, uCoo) annotation (Line(points={{-2,110},{-2,110},{-22,110},
-          {-32,110},{-32,52},{-94,52},{-94,40},{-120,40}},
-                                      color={0,0,127}));
-  connect(offSetTSetCoo.u, uHea) annotation (Line(points={{-2,70},{-2,70},{-20,
-          70},{-60,70},{-90,70},{-90,80},{-120,80}},
-                                    color={0,0,127}));
+  connect(offSetTSetHea.u, uCoo)
+    annotation (Line(points={{-2,150},{-2,150},{-32,150},{-32,52},{-94,52},
+      {-94,40},{-120,40}}, color={0,0,127}));
+  connect(offSetTSetHea.y, addTHe.u2)
+    annotation (Line(points={{21,150},{21,150},{40,150},{40,164},{58,164}},
+      color={0,0,127}));
+  connect(addTHe.y, THeaEco)
+    annotation (Line(points={{81,170},{92,170},{92,60},{110,60}},
+      color={0,0,127}));
+  connect(TSetCooHig.y, addTCoo.u1)
+    annotation (Line(points={{21,110},{40,110},{40,96},{58,96}},
+      color={0,0,127}));
+  connect(offSetTSetCoo.y, addTCoo.u2)
+    annotation (Line(points={{21,70},{40,70},{40,84},{58,84}},
+      color={0,0,127}));
+  connect(TSetCooHig.u, uCoo)
+    annotation (Line(points={{-2,110},{-2,110},{-22,110},{-32,110},{-32,52},
+      {-94,52},{-94,40},{-120,40}}, color={0,0,127}));
+  connect(offSetTSetCoo.u, uHea)
+    annotation (Line(points={{-2,70},{-2,70},{-20,70},{-60,70},{-90,70},
+      {-90,80},{-120,80}}, color={0,0,127}));
   connect(addTCoo.y, TCoo)
     annotation (Line(points={{81,90},{81,90},{84,90},{84,0},{110,0}},
-                                                            color={0,0,127}));
-  connect(dT.u1, TZon) annotation (Line(points={{-82,-184},{-86,-184},{-86,-40},
-          {-120,-40}},
-                 color={0,0,127}));
-  connect(dT.u2, TOut) annotation (Line(points={{-82,-196},{-90,-196},{-90,-80},
-          {-120,-80}},
-                 color={0,0,127}));
+      color={0,0,127}));
+  connect(dT.u1, TZon)
+    annotation (Line(points={{-82,-184},{-86,-184},{-86,-40},{-120,-40}},
+      color={0,0,127}));
+  connect(dT.u2, TOut)
+    annotation (Line(points={{-82,-196},{-90,-196},{-90,-80},{-120,-80}},
+      color={0,0,127}));
   connect(dT.y, yMed.u)
     annotation (Line(points={{-59,-190},{-59,-190},{-42,-190}},
-                                                             color={0,0,127}));
-  connect(yMinChe1.u, uCoo) annotation (Line(points={{-82,-90},{-82,-90},{-94,-90},
-          {-94,40},{-120,40}},       color={0,0,127}));
-  connect(switch1.u2, yMinChe1.y) annotation (Line(points={{58,-90},{-40,-90},{-59,
-          -90}},       color={255,0,255}));
-  connect(switch2.y, switch1.u3) annotation (Line(points={{41,-120},{50,-120},{50,
-          -98},{58,-98}},   color={0,0,127}));
-  connect(yMinChe2.u, uCoo) annotation (Line(points={{-82,-120},{-94,-120},{-94,
-          40},{-120,40}}, color={0,0,127}));
-  connect(yMinChe3.u, uCoo) annotation (Line(points={{-82,-150},{-94,-150},{-94,
-          40},{-120,40}}, color={0,0,127}));
-  connect(switch3.y, switch2.u3) annotation (Line(points={{1,-150},{10,-150},{10,
-          -128},{18,-128}}, color={0,0,127}));
-  connect(yMinChe2.y, switch2.u2) annotation (Line(points={{-59,-120},{-59,-120},
-          {18,-120}}, color={255,0,255}));
-  connect(yMinChe3.y, switch3.u2) annotation (Line(points={{-59,-150},{-40,-150},
-          {-22,-150}}, color={255,0,255}));
-  connect(yMedLim.y, add.u1) annotation (Line(points={{11,-190},{20,-190},{20,-208},
-          {-50,-208},{-50,-224},{-2,-224}}, color={0,0,127}));
-  connect(gain.u, uCoo) annotation (Line(points={{-82,-246},{-94,-246},{-94,40},
-          {-120,40}}, color={0,0,127}));
-  connect(gain.y, yMed1.u) annotation (Line(points={{-59,-246},{-58,-246},{-54,-246},
-          {-54,-280},{-22,-280}}, color={0,0,127}));
-  connect(add.y, add1.u1) annotation (Line(points={{21,-230},{32,-230},{32,-254},
-          {38,-254}}, color={0,0,127}));
-  connect(yMed1.y, add1.u2) annotation (Line(points={{1,-280},{10,-280},{10,-266},
-          {38,-266}}, color={0,0,127}));
-  connect(add1.y, switch2.u1) annotation (Line(points={{61,-260},{72,-260},{72,-134},
-          {8,-134},{8,-112},{18,-112}}, color={0,0,127}));
-  connect(gain1.u, uCoo) annotation (Line(points={{-82,-346},{-94,-346},{-94,40},
-          {-120,40}}, color={0,0,127}));
-  connect(product.u1, yMedLim.y) annotation (Line(points={{-42,-234},{-50,-234},
-          {-50,-208},{20,-208},{20,-190},{11,-190}},
-                                                 color={0,0,127}));
-  connect(product.y, add.u2) annotation (Line(points={{-19,-240},{-12,-240},{-12,
-          -236},{-2,-236}}, color={0,0,127}));
+      color={0,0,127}));
+  connect(yMinChe1.u, uCoo)
+    annotation (Line(points={{-82,-90},{-82,-90},{-94,-90},{-94,40},{-120,40}},
+      color={0,0,127}));
+  connect(switch2.y, switch1.u3)
+    annotation (Line(points={{61,-110},{80,-110},{80,-90},{46,-90},{46,-78},{58,-78}},
+      color={0,0,127}));
+  connect(yMinChe2.u, uCoo)
+    annotation (Line(points={{-82,-120},{-94,-120},{-94,40},{-120,40}},
+      color={0,0,127}));
+  connect(yMinChe3.u, uCoo)
+    annotation (Line(points={{-82,-150},{-94,-150},{-94,40},{-120,40}},
+      color={0,0,127}));
+  connect(yMedLim.y, add.u1)
+    annotation (Line(points={{11,-190},{20,-190},{20,-208},{-50,-208},{-50,-224},
+      {-2,-224}}, color={0,0,127}));
+  connect(gain.u, uCoo)
+    annotation (Line(points={{-82,-246},{-94,-246},{-94,40},{-120,40}},
+      color={0,0,127}));
+  connect(gain.y, yMed1.u)
+    annotation (Line(points={{-59,-246},{-58,-246},{-54,-246},{-54,-280},{-22,-280}},
+      color={0,0,127}));
+  connect(add.y, add1.u1)
+    annotation (Line(points={{21,-230},{32,-230},{32,-254},{38,-254}},
+      color={0,0,127}));
+  connect(yMed1.y, add1.u2)
+    annotation (Line(points={{1,-280},{10,-280},{10,-266},{38,-266}},
+      color={0,0,127}));
+  connect(add1.y, switch2.u1)
+    annotation (Line(points={{61,-260},{72,-260},{72,-126},{28,-126},{28,-102},
+      {38,-102}}, color={0,0,127}));
+  connect(gain1.u, uCoo)
+    annotation (Line(points={{-82,-346},{-94,-346},{-94,40},{-120,40}},
+      color={0,0,127}));
+  connect(product.u1, yMedLim.y)
+    annotation (Line(points={{-42,-234},{-50,-234},{-50,-208},{20,-208},{20,-190},
+      {11,-190}}, color={0,0,127}));
+  connect(product.y, add.u2)
+    annotation (Line(points={{-19,-240},{-12,-240},{-12,-236},{-2,-236}},
+      color={0,0,127}));
   connect(product.u2, gain.y)
     annotation (Line(points={{-42,-246},{-59,-246}}, color={0,0,127}));
-  connect(yMedLim.y, add2.u1) annotation (Line(points={{11,-190},{20,-190},{20,-208},
-          {-50,-208},{-50,-324},{-2,-324}}, color={0,0,127}));
-  connect(product1.y, add2.u2) annotation (Line(points={{-19,-340},{-14,-340},{-14,
-          -336},{-2,-336}}, color={0,0,127}));
-  connect(add2.y, add3.u1) annotation (Line(points={{21,-330},{24,-330},{24,-354},
-          {38,-354}}, color={0,0,127}));
-  connect(yMed2.y, add3.u2) annotation (Line(points={{1,-380},{22,-380},{22,-366},
-          {38,-366}}, color={0,0,127}));
-  connect(product1.u2, gain1.y) annotation (Line(points={{-42,-346},{-59,-346}},
-                      color={0,0,127}));
-  connect(product1.u1, yMedLim.y) annotation (Line(points={{-42,-334},{-50,-334},
-          {-50,-218},{-50,-208},{20,-208},{20,-190},{11,-190}},        color={0,
-          0,127}));
-  connect(yMed2.u, uCoo) annotation (Line(points={{-22,-380},{-54,-380},{-94,-380},
-          {-94,40},{-120,40}}, color={0,0,127}));
-  connect(add3.y, switch3.u3) annotation (Line(points={{61,-360},{76,-360},{76,-168},
-          {-34,-168},{-34,-158},{-22,-158}}, color={0,0,127}));
-  connect(yHea.y, switch1.u1) annotation (Line(points={{1,-70},{18,-70},{40,-70},
-          {40,-82},{58,-82}}, color={0,0,127}));
-  connect(switch1.y, y) annotation (Line(points={{81,-90},{90,-90},{90,-60},{110,
-          -60}}, color={0,0,127}));
-  connect(yMedLim.y, switch3.u1) annotation (Line(points={{11,-190},{20,-190},{
-          20,-170},{-40,-170},{-40,-142},{-22,-142}},
-                                                   color={0,0,127}));
+  connect(yMedLim.y, add2.u1)
+    annotation (Line(points={{11,-190},{20,-190},{20,-208},{-50,-208},{-50,-324},
+      {-2,-324}}, color={0,0,127}));
+  connect(product1.y, add2.u2)
+    annotation (Line(points={{-19,-340},{-14,-340},{-14,-336},{-2,-336}},
+      color={0,0,127}));
+  connect(add2.y, add3.u1)
+    annotation (Line(points={{21,-330},{24,-330},{24,-354},{38,-354}},
+      color={0,0,127}));
+  connect(yMed2.y, add3.u2)
+    annotation (Line(points={{1,-380},{22,-380},{22,-366},{38,-366}},
+      color={0,0,127}));
+  connect(product1.u2, gain1.y)
+    annotation (Line(points={{-42,-346},{-59,-346}}, color={0,0,127}));
+  connect(product1.u1, yMedLim.y)
+    annotation (Line(points={{-42,-334},{-50,-334},{-50,-218},{-50,-208},{20,-208},
+      {20,-190},{11,-190}}, color={0,0,127}));
+  connect(yMed2.u, uCoo)
+    annotation (Line(points={{-22,-380},{-54,-380},{-94,-380},{-94,40},{-120,40}},
+      color={0,0,127}));
+  connect(add3.y, switch3.u3)
+    annotation (Line(points={{61,-360},{76,-360},{76,-168},{4,-168},{4,-158},{18,-158}},
+      color={0,0,127}));
+  connect(yHea.y, switch1.u1)
+    annotation (Line(points={{1,-60},{30,-60},{30,-62},{58,-62}},
+      color={0,0,127}));
+  connect(switch1.y, y)
+    annotation (Line(points={{81,-70},{90,-70},{90,-60},{110,-60}},
+      color={0,0,127}));
+  connect(yMedLim.y, switch3.u1)
+    annotation (Line(points={{11,-190},{20,-190},{20,-170},{0,-170},{0,-142},{18,-142}},
+      color={0,0,127}));
   connect(yMedLim.u, yMed.y)
     annotation (Line(points={{-12,-190},{-19,-190}}, color={0,0,127}));
   connect(TDea.u, TSetZon)
     annotation (Line(points={{-82,0},{-82,0},{-120,0}},  color={0,0,127}));
-  connect(con0.y, TSetHeaHig.x1) annotation (Line(points={{-59,190},{-52,190},{
-          -52,198},{0,198}},
-                         color={0,0,127}));
-  connect(TDea.y, TSetHeaHig.f1) annotation (Line(points={{-59,0},{-52,0},{-52,
-          194},{0,194}},
-                    color={0,0,127}));
-  connect(con05.y, TSetHeaHig.x2) annotation (Line(points={{-59,120},{-46,120},
-          {-46,186},{0,186}},color={0,0,127}));
-  connect(conTMax.y, TSetHeaHig.f2) annotation (Line(points={{-59,30},{-40,30},
-          {-40,182},{0,182}},color={0,0,127}));
-  connect(uHea, TSetHeaHig.u) annotation (Line(points={{-120,80},{-90,80},{-90,70},
-          {-36,70},{-36,190},{0,190}}, color={0,0,127}));
-  connect(TSetHeaHig.y, addTHe.u1) annotation (Line(points={{23,190},{40,190},{
-          40,176},{58,176}},
-                        color={0,0,127}));
-  connect(con0.y, offSetTSetHea.x1) annotation (Line(points={{-59,190},{-56,190},
-          {-56,158},{-2,158}}, color={0,0,127}));
-  connect(con25.y, offSetTSetHea.x2) annotation (Line(points={{-59,160},{-54,
-          160},{-54,146},{-2,146}},
-                               color={0,0,127}));
-  connect(con0.y, offSetTSetHea.f1) annotation (Line(points={{-59,190},{-56,190},
-          {-56,154},{-2,154}}, color={0,0,127}));
-  connect(yHea.u, uHea) annotation (Line(points={{-22,-70},{-90,-70},{-90,80},{-120,
-          80}}, color={0,0,127}));
-  connect(TDea.y, TDeaTMin.u1) annotation (Line(points={{-59,0},{-40,0},{-40,-14},
-          {-22,-14}}, color={0,0,127}));
-  connect(conTMin.y, TDeaTMin.u2) annotation (Line(points={{-59,-30},{-50,-30},{
-          -50,-26},{-22,-26}}, color={0,0,127}));
+  connect(con0.y, TSetHeaHig.x1)
+    annotation (Line(points={{-59,190},{-52,190},{-52,198},{0,198}},
+      color={0,0,127}));
+  connect(TDea.y, TSetHeaHig.f1)
+    annotation (Line(points={{-59,0},{-52,0},{-52,194},{0,194}},
+      color={0,0,127}));
+  connect(con05.y, TSetHeaHig.x2)
+    annotation (Line(points={{-59,120},{-46,120},{-46,186},{0,186}},
+      color={0,0,127}));
+  connect(conTMax.y, TSetHeaHig.f2)
+    annotation (Line(points={{-59,30},{-40,30},{-40,182},{0,182}},
+      color={0,0,127}));
+  connect(uHea, TSetHeaHig.u)
+    annotation (Line(points={{-120,80},{-90,80},{-90,70},{-36,70},{-36,190},
+      {0,190}}, color={0,0,127}));
+  connect(TSetHeaHig.y, addTHe.u1)
+    annotation (Line(points={{23,190},{40,190},{40,176},{58,176}},
+      color={0,0,127}));
+  connect(con0.y, offSetTSetHea.x1)
+    annotation (Line(points={{-59,190},{-56,190},{-56,158},{-2,158}},
+      color={0,0,127}));
+  connect(con25.y, offSetTSetHea.x2)
+    annotation (Line(points={{-59,160},{-54,160},{-54,146},{-2,146}},
+      color={0,0,127}));
+  connect(con0.y, offSetTSetHea.f1)
+    annotation (Line(points={{-59,190},{-56,190},{-56,154},{-2,154}},
+      color={0,0,127}));
+  connect(yHea.u, uHea)
+    annotation (Line(points={{-22,-60},{-90,-60},{-90,80},{-120,80}},
+      color={0,0,127}));
+  connect(TDea.y, TDeaTMin.u1)
+    annotation (Line(points={{-59,0},{-40,0},{-40,-14},{-22,-14}},
+      color={0,0,127}));
+  connect(conTMin.y, TDeaTMin.u2)
+    annotation (Line(points={{-59,-30},{-50,-30},{-50,-26},{-22,-26}},
+      color={0,0,127}));
   connect(TDeaTMin.y, addTDea.u)
     annotation (Line(points={{1,-20},{-2,-20},{8,-20}}, color={0,0,127}));
-  connect(addTDea.y, offSetTSetHea.f2) annotation (Line(points={{31,-20},{34,
-          -20},{34,40},{-14,40},{-14,142},{-2,142}},
-                                                color={0,0,127}));
-  connect(TSetCooHig.x1, con05.y) annotation (Line(points={{-2,118},{-24,118},{
-          -46,118},{-46,120},{-59,120}},
-                                     color={0,0,127}));
-  connect(TSetCooHig.f1, TDea.y) annotation (Line(points={{-2,114},{-10,114},{
-          -52,114},{-52,0},{-59,0}},
-                                 color={0,0,127}));
-  connect(TSetCooHig.x2, con75.y) annotation (Line(points={{-2,106},{-8,106},{
-          -44,106},{-44,90},{-59,90}},
-                                   color={0,0,127}));
-  connect(TSetCooHig.f2, conTMin.y) annotation (Line(points={{-2,102},{-2,114},
-          {-50,114},{-50,-30},{-59,-30}},color={0,0,127}));
-  connect(offSetTSetCoo.f1, con0.y) annotation (Line(points={{-2,74},{-56,74},{
-          -56,190},{-59,190}},
-                           color={0,0,127}));
-  connect(offSetTSetCoo.x1, con0.y) annotation (Line(points={{-2,78},{-56,78},{
-          -56,70},{-56,190},{-59,190}},
-                                    color={0,0,127}));
-  connect(offSetTSetCoo.x2, con05.y) annotation (Line(points={{-2,66},{-10,66},
-          {-46,66},{-46,120},{-59,120}},color={0,0,127}));
-  connect(TMaxTDea.u1, conTMax.y) annotation (Line(points={{-22,26},{-40,26},{-40,
-          30},{-59,30}}, color={0,0,127}));
-  connect(TDea.y, TMaxTDea.u2) annotation (Line(points={{-59,0},{-40,0},{-40,14},
-          {-22,14}}, color={0,0,127}));
-  connect(TMaxTDea.y, offSetTSetCoo.f2) annotation (Line(points={{1,20},{10,20},
-          {10,50},{-10,50},{-10,62},{-2,62}}, color={0,0,127}));
-  annotation (
+  connect(addTDea.y, offSetTSetHea.f2)
+    annotation (Line(points={{31,-20},{34,-20},{34,40},{-14,40},{-14,142},{-2,142}},
+      color={0,0,127}));
+  connect(TSetCooHig.x1, con05.y)
+    annotation (Line(points={{-2,118},{-24,118},{-46,118},{-46,120},{-59,120}},
+      color={0,0,127}));
+  connect(TSetCooHig.f1, TDea.y)
+    annotation (Line(points={{-2,114},{-10,114},{-52,114},{-52,0},{-59,0}},
+      color={0,0,127}));
+  connect(TSetCooHig.x2, con75.y)
+    annotation (Line(points={{-2,106},{-8,106},{-44,106},{-44,90},{-59,90}},
+      color={0,0,127}));
+  connect(TSetCooHig.f2, conTMin.y)
+    annotation (Line(points={{-2,102},{-2,114},{-50,114},{-50,-30},{-59,-30}},
+      color={0,0,127}));
+  connect(offSetTSetCoo.f1, con0.y)
+    annotation (Line(points={{-2,74},{-56,74},{-56,190},{-59,190}},
+      color={0,0,127}));
+  connect(offSetTSetCoo.x1, con0.y)
+    annotation (Line(points={{-2,78},{-56,78},{-56,70},{-56,190},{-59,190}},
+      color={0,0,127}));
+  connect(offSetTSetCoo.x2, con05.y)
+    annotation (Line(points={{-2,66},{-10,66},{-46,66},{-46,120},{-59,120}},
+      color={0,0,127}));
+  connect(TMaxTDea.u1, conTMax.y)
+    annotation (Line(points={{-22,26},{-40,26},{-40,30},{-59,30}},
+      color={0,0,127}));
+  connect(TDea.y, TMaxTDea.u2)
+    annotation (Line(points={{-59,0},{-40,0},{-40,14},{-22,14}},
+      color={0,0,127}));
+  connect(TMaxTDea.y, offSetTSetCoo.f2)
+    annotation (Line(points={{1,20},{10,20},{10,50},{-10,50},{-10,62},{-2,62}},
+      color={0,0,127}));
+  connect(yMinChe1.y, not1.u)
+    annotation (Line(points={{-59,-90},{-42,-90}}, color={255,0,255}));
+  connect(not1.y, switch1.u2)
+    annotation (Line(points={{-19,-90},{40,-90},{40,-70},{58,-70}},
+      color={255,0,255}));
+  connect(yMinChe2.y, not2.u)
+    annotation (Line(points={{-59,-120},{-42,-120}}, color={255,0,255}));
+  connect(not2.y, switch2.u2)
+    annotation (Line(points={{-19,-120},{0,-120},{0,-110},{38,-110}},
+      color={255,0,255}));
+  connect(yMinChe3.y, not3.u)
+    annotation (Line(points={{-59,-150},{-42,-150}}, color={255,0,255}));
+  connect(not3.y, switch3.u2)
+    annotation (Line(points={{-19,-150},{18,-150}}, color={255,0,255}));
+  connect(switch3.y, switch2.u3)
+    annotation (Line(points={{41,-150},{60,-150},{60,-130},{20,-130},{20,-118},
+      {38,-118}}, color={0,0,127}));
+
+annotation (
   defaultComponentName = "setPoiVAV",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}),                                        graphics={
+            {100,100}}), graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},

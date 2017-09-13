@@ -18,7 +18,7 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
 
   // Operation Mode
-  CDL.Integers.Sources.Constant opeMod1(final k=Constants.OperationModes.warUpInd)
+  CDL.Integers.Sources.Constant opeMod1(final k=Constants.OperationModes.warUp)
     "AHU operation mode is NOT Occupied"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
@@ -67,7 +67,7 @@ protected
   CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage1)
     "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
-  CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occModInd)
+  CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occMod)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
   CDL.Logical.Sources.Constant fanStatus1(final k=true) "Fan is on"
@@ -77,7 +77,7 @@ protected
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   CDL.Logical.Sources.Constant fanStatus2(final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
-  CDL.Integers.Sources.Constant opeMod2(final k=Constants.OperationModes.occModInd)
+  CDL.Integers.Sources.Constant opeMod2(final k=Constants.OperationModes.occMod)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 

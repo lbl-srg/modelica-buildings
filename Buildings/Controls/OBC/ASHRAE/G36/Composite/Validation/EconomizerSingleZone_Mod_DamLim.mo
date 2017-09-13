@@ -48,7 +48,7 @@ protected
   CDL.Integers.Sources.Constant zonSta(final k=Constants.ZoneStates.deadband)
     "Zone State is deadband"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occModInd)
+  CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occMod)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 10000)

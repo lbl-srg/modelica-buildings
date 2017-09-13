@@ -1,3 +1,5 @@
+ActiveAirflowSetpointReheatBox
+DamperValveReheatBox
 EconDamperPositionLimitsMultiZone_LoopDisable
 EconDamperPositionLimitsMultiZone_VOut_flow
 EconDamperPositionLimitsSingleZone_Disable

@@ -267,16 +267,16 @@ protected
     "Current operation mode is occupied, warm-up, or cool-down mode"
     annotation (Placement(transformation(extent={{-20,600},{0,620}})));
   CDL.Integers.Sources.Constant conInt(
-    k=Constants.OperationModes.warUpInd)
-    "Warm-up mode index"
+    k=Constants.OperationModes.warUp)
+    "Warm-up mode"
     annotation (Placement(transformation(extent={{-340,570},{-320,590}})));
   CDL.Integers.Sources.Constant conInt1(
-    k=Constants.OperationModes.cooDowInd)
-    "Cool-down mode index"
+    k=Constants.OperationModes.cooDow)
+    "Cool-down mode"
     annotation (Placement(transformation(extent={{-240,570},{-220,590}})));
   CDL.Integers.Sources.Constant conInt2(
-    k=Constants.OperationModes.occModInd)
-    "Occupied mode index"
+    k=Constants.OperationModes.occMod)
+    "Occupied mode"
     annotation (Placement(transformation(extent={{-140,570},{-120,590}})));
   CDL.Logical.Sources.Constant cooSetAdjCon(k=(cooAdj or sinAdj))
     "Cooling setpoint adjustable"

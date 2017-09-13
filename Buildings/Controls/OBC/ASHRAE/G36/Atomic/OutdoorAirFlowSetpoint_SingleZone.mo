@@ -32,31 +32,31 @@ block OutdoorAirFlowSetpoint_SingleZone
 
   CDL.Interfaces.RealInput nOcc(final unit="1") "Number of occupants"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
-        iconTransformation(extent={{-240,140},{-200,180}})));
+        iconTransformation(extent={{-120,70},{-100,90}})));
   CDL.Interfaces.RealInput TZon(
     final unit="K",
     quantity="ThermodynamicTemperature")  "Measured zone air temperature"
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
-      iconTransformation(extent={{-240,80},{-200,120}})));
+      iconTransformation(extent={{-120,30},{-100,50}})));
   CDL.Interfaces.RealInput TSup(
     final unit="K",
     quantity="ThermodynamicTemperature")   "Supply air temperature"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
-      iconTransformation(extent={{-240,20},{-200,60}})));
+      iconTransformation(extent={{-120,-10},{-100,10}})));
   CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status, true if on, false if off"
     annotation (Placement(transformation(extent={{-240,-180},{-200,-140}}),
-      iconTransformation(extent={{-240,-180},{-200,-140}})));
+      iconTransformation(extent={{-120,-90},{-100,-70}})));
   CDL.Interfaces.BooleanInput uWin
     "Window status, true if open, false if closed" annotation (Placement(
         transformation(extent={{-240,-10},{-200,30}}), iconTransformation(
-          extent={{-240,-100},{-200,-60}})));
+          extent={{-120,-50},{-100,-30}})));
   CDL.Interfaces.RealOutput VOutMinSet_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")   "Effective minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
-      iconTransformation(extent={{200,-20},{240,20}})));
+      iconTransformation(extent={{100,-10},{120,10}})));
 
   CDL.Continuous.Add breZon "Breathing zone airflow"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
@@ -172,20 +172,16 @@ equation
         color={255,0,255}));
  annotation (
 defaultComponentName="OutAirSetPoi_SinZon",
-Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-200,-200},{200,200}},
-        initialScale=0.05),
-     graphics={Rectangle(
-          extent={{-200,200},{200,-200}},
+Icon(graphics={Rectangle(
+          extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid), Text(
-          extent={{-142,116},{146,-96}},
+          extent={{-92,82},{84,-68}},
           lineColor={0,0,0},
-          textString="minOATsp"),
+          textString="minOAsp"),
         Text(
-          extent={{-198,250},{200,206}},
+          extent={{-100,140},{100,100}},
           lineColor={0,0,255},
           textString="%name")}),
         Diagram(

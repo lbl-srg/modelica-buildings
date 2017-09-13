@@ -161,11 +161,11 @@ protected
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
 
   CDL.Continuous.GreaterThreshold greThr(
-    final threshold=Constants.OperationModes.occModInd - 0.5)
+    final threshold=Constants.OperationModes.occMod - 0.5)
       "Tests whether operation mode is occupied"
     annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
   CDL.Continuous.LessThreshold lesThr(
-    final threshold=Constants.OperationModes.occModInd + 0.5)
+    final threshold=Constants.OperationModes.occMod + 0.5)
     "Tests whether operation mode is occupied"
     annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
 
@@ -209,8 +209,7 @@ equation
   connect(outDamPhyPosMinSig.y,minOutDam. f1)
     annotation (Line(points={{-139,80},{0,80},{0,154},{118,154}},color={0,0,127}));
   connect(and1.y,not1. u)
-    annotation (Line(points={{-58.3,-90},{-42,-90}},
-                                                  color={255,0,255}));
+    annotation (Line(points={{-58.3,-90},{-42,-90}}, color={255,0,255}));
   connect(not1.y, retDamPosMinSwitch.u2)
     annotation (Line(points={{-19,-90},{20,-90},{20,-20},{38,-20}},color={255,0,255}));
   connect(not1.y, outDamPosMaxSwitch.u2)

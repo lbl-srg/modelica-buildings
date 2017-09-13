@@ -2,7 +2,8 @@ within Buildings.Applications.DataCenters.ChillerCooled.Examples;
 model IntegratedPrimaryLoadSideEconomizer
   "Example that demonstrates a chiller plant with integrated primary load side economizer"
   extends Modelica.Icons.Example;
-  extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimaryLoadSide chiWSE(
       addPowerToMedium=false,
       perPum=perPumPri,
@@ -39,41 +40,42 @@ model IntegratedPrimaryLoadSideEconomizer
     y=max(cooTow[1:numChi].TAppAct))
     "Cooling tower approach temperature"
     annotation (Placement(transformation(extent={{-190,100},{-170,120}})));
-  Modelica.Blocks.Sources.RealExpression yVal5(
-    y=if cooModCon.y == 3 then 1  else 0)
+  Modelica.Blocks.Sources.RealExpression yVal5(y=if cooModCon.y == integer(
+        Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
+         then 1 else 0)
     "On/off signal for valve 5"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Modelica.Blocks.Sources.RealExpression yVal6(
-    y=if cooModCon.y == 1 then 1 else 0)
+  Modelica.Blocks.Sources.RealExpression yVal6(y=if cooModCon.y == integer(
+        Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
+         then 1 else 0)
     "On/off signal for valve 6"
-    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
+    annotation (Placement(transformation(extent={{-10,16},{10,36}})));
 
   Modelica.Blocks.Sources.RealExpression cooLoaChi(
     y=chiWSE.port_a2.m_flow*4180*(chiWSE.TCHWSupWSE - TCHWSupSet.y))
     "Cooling load in chillers"
-    annotation (Placement(transformation(extent={{-130,134},{-110,154}})));
+    annotation (Placement(transformation(extent={{-190,130},{-170,150}})));
 equation
 
   connect(yVal5.y, chiWSE.yVal5)
-    annotation (Line(points={{11,40},{40,40},{40,33},{118.4,33}},
+    annotation (Line(points={{11,40},{20,40},{20,33},{118.4,33}},
                        color={0,0,127}));
   connect(yVal6.y, chiWSE.yVal6)
-    annotation (Line(points={{11,20},{11,20},{40,20},{40,29.8},{118.4,29.8}},
-                                   color={0,0,127}));
+    annotation (Line(points={{11,26},{20,26},{20,30},{118,30},{118,29.8},{118.4,
+          29.8}},                  color={0,0,127}));
   connect(pumSpeSig.y, chiWSE.yPum)
-    annotation (Line(points={{12.8,-14},{40,-14},{40,25.6},{118.4,25.6}},
+    annotation (Line(points={{21,-10},{42,-10},{42,25.6},{118.4,25.6}},
                                    color={0,0,127}));
   connect(TCHWSup.port_b, ahu.port_a1)
     annotation (Line(
-      points={{84,0},{70,0},{70,-4},{70,-116},{120,-116}},
+      points={{84,0},{70,0},{70,-4},{70,-114},{120,-114}},
       color={0,127,255},
       thickness=0.5));
   connect(chiWSE.TCHWSupWSE, cooModCon.TCHWSupWSE)
-    annotation (Line(points={{141,34},{260,34},{260,200},{-150,200},{-150,106},
+    annotation (Line(points={{141,34},{276,34},{276,202},{-160,202},{-160,106},
           {-132,106}},                                              color={0,0,127}));
   connect(cooLoaChi.y, chiStaCon.QTot)
-    annotation (Line(points={{-109,144},{-80,144},{-80,140},{-52,140}},
-                                                    color={0,0,127}));
+    annotation (Line(points={{-169,140},{-52,140}}, color={0,0,127}));
    for i in 1:numChi loop
     connect(pumCW[i].port_a, TCWSup.port_b)
       annotation (Line(
@@ -82,25 +84,26 @@ equation
         thickness=0.5));
    end for;
   connect(TCHWSupSet.y, cooModCon.TCHWSupSet)
-    annotation (Line(points={{-169,160},
-          {-150,160},{-150,118},{-132,118}}, color={0,0,127}));
+    annotation (Line(points={{-119,160},{-104,160},{-104,130},{-146,130},{-146,
+          118},{-142,118},{-142,118},{-132,118}},
+                                             color={0,0,127}));
   connect(towTApp.y, cooModCon.TApp)
-    annotation (Line(points={{-169,110},{-170,110},
-          {-168,110},{-132,110}}, color={0,0,127}));
+    annotation (Line(points={{-169,110},{-132,110}},
+                                  color={0,0,127}));
   connect(weaBus.TWetBul.TWetBul, cooModCon.TWetBul)
-    annotation (Line(points={{-200,-28},{-216,-28},{-216,200},{-150,200},
-      {-150,114},{-132,114}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{-200,-28},{-216,-28},{-216,200},{-156,200},{-156,
+          114},{-132,114}},  color={255,204,51},thickness=0.5));
   connect(TCHWRet.port_b, chiWSE.port_a2)
     annotation (Line(
-      points={{220,0},{160,0},{160,24},{140,24}},
+      points={{200,0},{160,0},{160,24},{140,24}},
       color={0,127,255},
       thickness=0.5));
   connect(cooModCon.TCHWRetWSE, TCHWRet.T)
-    annotation (Line(points={{-132,102},{
-          -150,102},{-150,200},{260,200},{260,20},{230,20},{230,11}}, color={0,0,
+    annotation (Line(points={{-132,102},{-162,102},{-162,206},{280,206},{280,20},
+          {210,20},{210,11}},                                         color={0,0,
           127}));
   connect(dpSet.y, pumSpe.u_s)
-    annotation (Line(points={{-155,-20},{-128,-20}},
+    annotation (Line(points={{-139,-20},{-128,-20}},
       color={0,0,127}));
 
   connect(cooModCon.y, cooTowSpeCon.cooMod)
@@ -113,8 +116,8 @@ equation
     annotation (Line(points={{-109,110},{-80.5,110},
           {-52,110}}, color={255,127,0}));
   connect(TCHWSup.T, chiStaCon.TCHWSup)
-    annotation (Line(points={{94,11},{94,11},{94,36},{40,36},{40,200},{-70,200},
-          {-70,134},{-52,134}},                                    color={0,0,127}));
+    annotation (Line(points={{94,11},{94,11},{94,18},{94,18},{94,18},{-62,18},{
+          -62,134},{-52,134}},                                     color={0,0,127}));
   connect(CWPumCon.cooMod, cooModCon.y) annotation (Line(points={{-54,75},{-100,
           75},{-100,110},{-109,110}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
