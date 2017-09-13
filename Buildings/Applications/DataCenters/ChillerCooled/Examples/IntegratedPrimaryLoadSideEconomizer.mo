@@ -39,12 +39,14 @@ model IntegratedPrimaryLoadSideEconomizer
     y=max(cooTow[1:numChi].TAppAct))
     "Cooling tower approach temperature"
     annotation (Placement(transformation(extent={{-190,100},{-170,120}})));
-  Modelica.Blocks.Sources.RealExpression yVal5(
-    y=if cooModCon.y == 3 then 1  else 0)
+  Modelica.Blocks.Sources.RealExpression yVal5(y=if cooModCon.y == integer(
+        Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
+         then 1 else 0)
     "On/off signal for valve 5"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Modelica.Blocks.Sources.RealExpression yVal6(
-    y=if cooModCon.y == 1 then 1 else 0)
+  Modelica.Blocks.Sources.RealExpression yVal6(y=if cooModCon.y == integer(
+        Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
+         then 1 else 0)
     "On/off signal for valve 6"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 

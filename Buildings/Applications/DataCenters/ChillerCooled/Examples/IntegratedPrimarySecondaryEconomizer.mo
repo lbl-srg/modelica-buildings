@@ -41,8 +41,9 @@ model IntegratedPrimarySecondaryEconomizer
     "Cooling tower approach temperature"
     annotation (Placement(transformation(extent={{-190,100},{-170,120}})));
 
-  Modelica.Blocks.Sources.RealExpression yVal5(
-    y=if cooModCon.y > 1.5 then 1 else 0)
+  Modelica.Blocks.Sources.RealExpression yVal5(y=if cooModCon.y == integer(
+        Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
+         then 1 else 0)
     "On/off signal for valve 5"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Modelica.Blocks.Sources.RealExpression cooLoaChi(
