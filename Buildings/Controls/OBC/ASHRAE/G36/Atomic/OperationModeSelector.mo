@@ -791,7 +791,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           textString="Occupied mode"),
         Text(
-          extent={{384,18},{454,-18}},
+          extent={{370,22},{454,-18}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
