@@ -198,19 +198,23 @@ protected
     annotation (Placement(transformation(extent={{-240,170},{-220,190}})));
   CDL.Integers.Sources.Constant conInt(
     k=Constants.OperationModes.occMod)
-    "Occupied mode index"
+    "Occupied mode"
     annotation (Placement(transformation(extent={{-240,-100},{-220,-80}})));
   CDL.Integers.Sources.Constant conInt1(
-    k=Constants.OperationModes.cooDow) "Cool down mode index"
+    k=Constants.OperationModes.cooDow)
+    "Cool down mode"
     annotation (Placement(transformation(extent={{-240,290},{-220,310}})));
   CDL.Integers.Sources.Constant conInt2(
-    k=Constants.OperationModes.setUp) "Setup mode index"
+    k=Constants.OperationModes.setUp)
+    "Setup mode"
     annotation (Placement(transformation(extent={{-240,220},{-220,240}})));
   CDL.Integers.Sources.Constant conInt3(
-    k=Constants.OperationModes.warUp) "Warm up mode index"
+    k=Constants.OperationModes.warUp)
+    "Warm up mode"
     annotation (Placement(transformation(extent={{-20,290},{0,310}})));
   CDL.Integers.Sources.Constant conInt4(
-    k=Constants.OperationModes.setBac) "Setback mode index"
+    k=Constants.OperationModes.setBac)
+    "Setback mode"
     annotation (Placement(transformation(extent={{-20,220},{0,240}})));
   CDL.Integers.Equal intEqu
     "Check if current operation mode is occupied mode"

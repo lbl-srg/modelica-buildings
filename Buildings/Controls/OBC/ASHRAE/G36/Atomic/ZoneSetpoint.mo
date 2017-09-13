@@ -268,15 +268,15 @@ protected
     annotation (Placement(transformation(extent={{-20,600},{0,620}})));
   CDL.Integers.Sources.Constant conInt(
     k=Constants.OperationModes.warUp)
-    "Warm-up mode "
+    "Warm-up mode"
     annotation (Placement(transformation(extent={{-340,570},{-320,590}})));
   CDL.Integers.Sources.Constant conInt1(
     k=Constants.OperationModes.cooDow)
-    "Cool-down mode "
+    "Cool-down mode"
     annotation (Placement(transformation(extent={{-240,570},{-220,590}})));
   CDL.Integers.Sources.Constant conInt2(
     k=Constants.OperationModes.occMod)
-    "Occupied mode "
+    "Occupied mode"
     annotation (Placement(transformation(extent={{-140,570},{-120,590}})));
   CDL.Logical.Sources.Constant cooSetAdjCon(k=(cooAdj or sinAdj))
     "Cooling setpoint adjustable"
