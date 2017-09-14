@@ -132,9 +132,6 @@ equation
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
-                  Text(
-          extent={{52,106},{86,84}},
-          lineColor={28,108,200}),
         Text(
           extent={{-128,-130},{-44,-158}},
           lineColor={0,0,0},
@@ -163,7 +160,7 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Composite.EconomizerMultiZone\">
 Buildings.Controls.OBC.ASHRAE.G36.Composite.EconomizerMultiZone</a> control loops:
 minimum outdoor air damper position limits control loop (<code>economizer</code> block) and modulation
-control loop (<code>economizer1</code> block) for <code>VOut_flow</code> and <code>TSup</code> control signals. 
+control loop (<code>economizer1</code> block) for <code>VOut_flow</code> and <code>TSup</code> control signals.
 Both control loops are enabled during the validation test.
 </p>
 </html>", revisions="<html>
