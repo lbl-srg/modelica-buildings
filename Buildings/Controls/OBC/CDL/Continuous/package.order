@@ -1,6 +1,5 @@
 Abs
 Add
-Add3
 AddParameter
 Atan
 Atan2
@@ -36,9 +35,9 @@ MovingMean
 MultiSum
 NumberOfRequests
 Product
-SignalRanker
 Sin
 SlewRateLimiter
+Sort
 Sqrt
 Sum
 Tan

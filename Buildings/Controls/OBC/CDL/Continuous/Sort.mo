@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous;
-block SignalRanker "Ranks output signals such that y[i] >= y[i+1]"
+block Sort "Ranks output signals such that y[i] >= y[i+1]"
   parameter Integer nin=1 "Number of inputs";
   final parameter Integer nout=nin "Number of outputs";
   Interfaces.RealInput u[nin] "Connector of Real input signals"
@@ -21,7 +21,7 @@ algorithm
    end for;
   end for;
   annotation (
-defaultComponentName="sigRan",
+defaultComponentName="sort",
 Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
           100,100}}), graphics={Rectangle(
         extent={{-100,-100},{100,100}},
@@ -48,6 +48,10 @@ controller to access the position of the dampers that are most open.
 revisions="<html>
 <ul>
 <li>
+September 14, 2017, by Jianjun Hu:<br/>
+Changed model name.
+</li>
+<li>
 January 10, 2017, by Milica Grahovac:<br/>
 Initial CDL implementation.
 </li>
@@ -61,4 +65,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SignalRanker;
+end Sort;

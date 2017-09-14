@@ -129,8 +129,8 @@ block OperationModeSelector "Block that outputs the operation mode"
   CDL.Continuous.GreaterEqualThreshold greEquThr2(threshold=4.5)
     "Whether or not the number of \"hot\" zone is more than 5"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr3(final threshold=numOfZon -
-        0.5)
+  CDL.Continuous.GreaterEqualThreshold greEquThr3(
+    final threshold=numOfZon-0.5)
     "Whether or not all the zones are \"hot\" zone"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
   CDL.Continuous.Hysteresis hys1(
@@ -146,14 +146,8 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Whether or not the unoccupied cooling setpoint  becomes higher than
     maximum zone temperature: true to false"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}})));
-  CDL.Integers.Add3 add3Int "Sum of the three inputs"
-   annotation (Placement(transformation(extent={{360,180},{380,200}})));
-  CDL.Integers.Add addInt1 "Sum of the two inputs"
-   annotation (Placement(transformation(extent={{360,-70},{380,-50}})));
-  CDL.Integers.Add addInt2 "Sum of the two inputs"
-    annotation (Placement(transformation(extent={{360,-270},{380,-250}})));
-  CDL.Integers.Add3 add3Int1 "Sum of the three inputs"
-   annotation (Placement(transformation(extent={{420,-70},{440,-50}})));
+  CDL.Integers.MultiSum sumInt(nu=7) "Sum of inputs"
+    annotation (Placement(transformation(extent={{420,-70},{440,-50}})));
   CDL.Continuous.Product pro[numOfZon]
     "Decide if the cool down time of one zone should be ignored: if window
     open, then output zero, otherwise, output cooDowTim[zone] "
@@ -567,28 +561,8 @@ equation
   connect(not2.y,booToInt3. u)
     annotation (Line(points={{281,-330},{298,-330}},
       color={255,0,255}));
-  connect(occMod.y, add3Int.u1)
-    annotation (Line(points={{321,250},{340,250},{340,198},{358,198}},
-      color={255,127,0}));
-  connect(setBacMod.y, addInt1.u1)
-    annotation (Line(points={{321,-10},{340,-10},{340,-54},{358,-54}},
-      color={255,127,0}));
-  connect(freProSetBacMod.y, addInt1.u2)
-    annotation (Line(points={{321,-110},{330,-110},{340,-110},{340,-66},
-      {358,-66}},  color={255,127,0}));
-  connect(setUpMod.y, addInt2.u1)
-    annotation (Line(points={{321,-210},{340,-210}, {340,-254},{358,-254}},
-      color={255,127,0}));
-  connect(add3Int.y, add3Int1.u1)
-    annotation (Line(points={{381,190},{400,190},{400,-52},{418,-52}},
-      color={255,127,0}));
-  connect(addInt1.y, add3Int1.u2)
-    annotation (Line(points={{381,-60},{394,-60},{418,-60}},color={255,127,0}));
-  connect(addInt2.y, add3Int1.u3)
-    annotation (Line(points={{381,-260},{400,-260},{400,-68},{418,-68}},
-      color={255,127,0}));
-  connect(add3Int1.y, opeMod)
-    annotation (Line(points={{441,-60},{444,-60},{450,-60},{450,-20},{470,-20}},
+  connect(sumInt.y, opeMod)
+    annotation (Line(points={{441.7,-60},{441.7,-60},{450,-60},{450,-20},{470,-20}},
       color={255,127,0}));
   connect(lat1.y,booToInt2. u)
     annotation (Line(points={{161,-110},{180,-110},{180,-150},{258,-150}},
@@ -728,11 +702,6 @@ equation
   connect(reaRep1.y, swi2.u1)
     annotation (Line(points={{-179,-250},{-170,-250},{-170,-230},{-220,-230},
       {-220,-218},{-202,-218}}, color={0,0,127}));
-  connect(booToInt.y, add3Int.u2)
-    annotation (Line(points={{281,190},{358,190}}, color={255,127,0}));
-  connect(booToInt1.y, add3Int.u3)
-    annotation (Line(points={{281,150},{320,150},{320,182},{358,182}},
-      color={255,127,0}));
   connect(booToRea3.y, swi3.u3)
     annotation (Line(points={{221,-10},{240,-10},{240,-18},{258,-18}},
       color={0,0,127}));
@@ -745,8 +714,26 @@ equation
   connect(booToRea6.y, swi5.u3)
     annotation (Line(points={{221,-210},{240,-210},{240,-218},{258,-218}},
       color={0,0,127}));
-  connect(booToInt3.y, addInt2.u2)
-    annotation (Line(points={{321,-330},{340,-330},{340,-266},{358,-266}},
+  connect(occMod.y, sumInt.u[1])
+    annotation (Line(points={{321,250},{408,250},{408,-54},{418,-54}},
+      color={255,127,0}));
+  connect(booToInt.y, sumInt.u[2])
+    annotation (Line(points={{281,190},{402,190},{402,-56},{418,-56}},
+      color={255,127,0}));
+  connect(booToInt1.y, sumInt.u[3])
+    annotation (Line(points={{281,150},{394,150},{394,-58},{418,-58}},
+      color={255,127,0}));
+  connect(setBacMod.y, sumInt.u[4])
+    annotation (Line(points={{321,-10},{386,-10},{386,-60},{418,-60}},
+      color={255,127,0}));
+  connect(freProSetBacMod.y, sumInt.u[5])
+    annotation (Line(points={{321,-110},{386,-110},{386,-62},{418,-62}},
+      color={255,127,0}));
+  connect(setUpMod.y, sumInt.u[6])
+    annotation (Line(points={{321,-210},{394,-210},{394,-64},{418,-64}},
+      color={255,127,0}));
+  connect(booToInt3.y, sumInt.u[7])
+    annotation (Line(points={{321,-330},{404,-330},{404,-66},{418,-66}},
       color={255,127,0}));
 
 annotation (
@@ -785,43 +772,43 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{368,316},{456,276}},
+          extent={{336,282},{424,242}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Occupied mode"),
         Text(
-          extent={{370,22},{454,-18}},
+          extent={{296,-32},{380,-72}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Setback mode"),
         Text(
-          extent={{382,-196},{452,-232}},
+          extent={{324,-206},{394,-242}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Setup mode"),
         Text(
-          extent={{358,-298},{454,-354}},
+          extent={{320,-320},{416,-376}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Unoccupied mode"),
         Text(
-          extent={{328,-94},{462,-148}},
+          extent={{328,-98},{462,-152}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Freeze protection setback mode"),
         Text(
-          extent={{366,100},{454,60}},
+          extent={{302,156},{390,116}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Warm-up mode"),
         Text(
-          extent={{364,148},{452,106}},
+          extent={{306,198},{394,156}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,

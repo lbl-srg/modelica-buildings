@@ -1,6 +1,5 @@
 Abs
 Add
-Add3
 Equal
 Greater
 GreaterEqual
@@ -12,5 +11,6 @@ LessEqualThreshold
 LessThreshold
 Max
 Min
+MultiSum
 OnCounter
 Product
