@@ -4,7 +4,8 @@ model SystemRequestsReheatBox
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36.Atomic.SystemRequestsReheatBox
-    sysReq_RehBox "Block outputs system requests"
+    sysReq_RehBox(have_boiPla=true)
+    "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Sources.Sine sine(freqHz=1/7200, offset=296.15)
     "Generate data for setpoint"
@@ -111,5 +112,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  Diagram(coordinateSystem(preserveAspectRatio=false)));
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            120}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,120}})));
 end SystemRequestsReheatBox;

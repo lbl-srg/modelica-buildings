@@ -1,13 +1,25 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Atomic;
 block SystemRequestsReheatBox
-  "Output systems requests for VAV reheat terminal unit control"
+  "Output system requests for VAV reheat terminal unit control"
 
-  parameter Boolean hotWatCoi=true
-    "Check if there is hot water coil";
-  parameter Boolean boiPla=false
-    "Check if there is boiler plant";
-  parameter Modelica.SIunits.Time samPer=1
+  parameter Boolean have_hotWatCoi=true
+    "Flag, true if there is a  hot water coil";
+  parameter Boolean have_boiPla=false
+    "Flag, true if there is a boiler plant";
+  parameter Modelica.SIunits.Time samPer=180
     "Period of sampling cooling setpoint temperature";
+  parameter Modelica.SIunits.TemperatureDifference cooSetDif_1=2.8
+    "Limit value of difference between zone temperature and cooling setpoint 
+    for generating 3 cooling SAT reset requests";
+  parameter Modelica.SIunits.TemperatureDifference cooSetDif_2=1.7
+    "Limit value of difference between zone temperature and cooling setpoint 
+    for generating 2 cooling SAT reset requests";
+  parameter Modelica.SIunits.TemperatureDifference disAirSetDif_1=17
+    "Limit value of difference between discharge air temperature and its setpoint 
+    for generating 3 hot water reset requests";
+  parameter Modelica.SIunits.TemperatureDifference disAirSetDif_2=8.3
+    "Limit value of difference between discharge air temperature and its setpoint 
+    for generating 2 hot water reset requests";
 
   CDL.Interfaces.RealInput TRoo(
     final unit="K",
@@ -21,7 +33,10 @@ block SystemRequestsReheatBox
     "Zone cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-220,420},{-180,460}}),
       iconTransformation(extent={{-120,80},{-100,100}})));
-  CDL.Interfaces.RealInput uCoo(min=0, max=1, final unit="1")
+  CDL.Interfaces.RealInput uCoo(
+    min=0,
+    max=1,
+    final unit="1")
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{-220,70},{-180,110}}),
       iconTransformation(extent={{-120,40},{-100,60}})));
@@ -40,23 +55,27 @@ block SystemRequestsReheatBox
     annotation (Placement(transformation(extent={{-220,10},{-180,50}}),
       iconTransformation(extent={{-10,-10},{10,10}},rotation=0, origin={-110,20})));
   CDL.Interfaces.RealInput uDam(
-    min=0, max=1, final unit="1") "Damper position"
+    min=0,
+    max=1,
+    final unit="1") "Damper position"
     annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
       iconTransformation(extent={{-10,-10},{10,10}},rotation=0, origin={-110,-20})));
   CDL.Interfaces.RealInput TDisAirSet(
     final unit="K",
-    quantity="ThermodynamicTemperature") if hotWatCoi
+    quantity="ThermodynamicTemperature") if have_hotWatCoi
     "Discharge airflow setpoint temperature for heating"
     annotation (Placement(transformation(extent={{-220,-230},{-180,-190}}),
       iconTransformation(extent={{-120,-60},{-100,-40}})));
   CDL.Interfaces.RealInput TDisAir(
     final unit="K",
-    quantity="ThermodynamicTemperature") if hotWatCoi
+    quantity="ThermodynamicTemperature") if have_hotWatCoi
     "Measured discharge airflow temperature"
     annotation (Placement(transformation(extent={{-220,-310},{-180,-270}}),
       iconTransformation(extent={{-120,-80},{-100,-60}})));
   CDL.Interfaces.RealInput uHotVal(
-    min=0, max=1, final unit="1") if hotWatCoi
+    min=0,
+    max=1,
+    final unit="1") if have_hotWatCoi
     "Hot water valve position"
     annotation (Placement(transformation(extent={{-220,-370},{-180,-330}}),
       iconTransformation(extent={{-10,-10},{10,10}},rotation=0, origin={-110,-90})));
@@ -68,17 +87,16 @@ block SystemRequestsReheatBox
     "Zone cooling supply air temperature reset request"
     annotation (Placement(transformation(extent={{180,190},{200,210}}),
       iconTransformation(extent={{100,60},{120,80}})));
-  CDL.Interfaces.IntegerOutput yHotValResReq if hotWatCoi
+  CDL.Interfaces.IntegerOutput yHotValResReq if have_hotWatCoi
     "Hot water reset requests"
     annotation (Placement(transformation(extent={{180,-250},{200,-230}}),
       iconTransformation(extent={{100,-60},{120,-40}})));
-  CDL.Interfaces.IntegerOutput yBoiPlaReq if (hotWatCoi and boiPla)
+  CDL.Interfaces.IntegerOutput yBoiPlaReq if (have_hotWatCoi and have_boiPla)
     "Boiler plant request"
     annotation (Placement(transformation(extent={{180,-440},{200,-420}}),
       iconTransformation(extent={{100,-100},{120,-80}})));
 
   CDL.Discrete.Sampler samTCooSet(
-    final startTime=0,
     final samplePeriod=samPer)
     "Sample current cooling setpoint"
     annotation (Placement(transformation(extent={{-140,430},{-120,450}})));
@@ -99,21 +117,23 @@ block SystemRequestsReheatBox
   CDL.Logical.Latch lat1 "Maintains an on signal until conditions changes"
     annotation (Placement(transformation(extent={{60,260},{80,280}})));
   CDL.Logical.Timer tim
-    "Calculate duration time of zone temperature exceeds setpoint by 2.8 degC"
+    "Calculate duration time of zone temperature exceeds setpoint by cooSetDif_1"
     annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
   CDL.Logical.Timer tim1 "Calculate time"
     annotation (Placement(transformation(extent={{0,330},{20,350}})));
   CDL.Logical.Timer tim2
-    "Calculate duration time of zone temperature exceeds setpoint by 1.7 degC"
+    "Calculate duration time of zone temperature exceeds setpoint by cooSetDif_2"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
   CDL.Logical.Timer tim3
     "Calculate duration time when airflow setpoint is greater than zero"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  CDL.Logical.Timer tim4 if hotWatCoi
-    "Calculate duration time when discharge air temperature is less than setpoint by 17 degC"
+  CDL.Logical.Timer tim4 if have_hotWatCoi
+    "Calculate duration time when discharge air temperature is less than 
+    setpoint by disAirSetDif_1"
     annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
-  CDL.Logical.Timer tim5 if hotWatCoi
-    "Calculate duration time when discharge air temperature is less than setpoint by 8.3 degC"
+  CDL.Logical.Timer tim5 if have_hotWatCoi
+    "Calculate duration time when discharge air temperature is less than 
+    setpoint by disAirSetDif_2"
     annotation (Placement(transformation(extent={{0,-310},{20,-290}})));
   CDL.Continuous.Greater gre "Check if the suppression time has passed"
     annotation (Placement(transformation(extent={{60,330},{80,350}})));
@@ -126,46 +146,70 @@ block SystemRequestsReheatBox
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
   CDL.Continuous.Greater gre4 "Check if it is more than 1 minutes"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  CDL.Continuous.Greater gre5 if hotWatCoi
+  CDL.Continuous.Greater gre5 if have_hotWatCoi
     "Check if it is more than 5 minutes"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
-  CDL.Continuous.Greater gre6 if hotWatCoi
+  CDL.Continuous.Greater gre6 if have_hotWatCoi
     "Check if it is more than 5 minutes"
     annotation (Placement(transformation(extent={{40,-310},{60,-290}})));
-  CDL.Continuous.Hysteresis hys(final uLow=2.7, final uHigh=2.9)
-    "Check if zone temperature is greater than cooling setpoint by 2.8 degC"
+  CDL.Continuous.Hysteresis hys(
+    final uLow=cooSetDif_1 - 0.1,
+    final uHigh=cooSetDif_1 + 0.1)
+    "Check if zone temperature is greater than cooling setpoint by cooSetDif_1"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
-  CDL.Continuous.Hysteresis hys1(final uLow=-0.01, final uHigh=0.01)
+  CDL.Continuous.Hysteresis hys1(
+    final uLow=-0.01,
+    final uHigh=0.01)
     "Check if discharge airflow is less than 75% of setpoint"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
-  CDL.Continuous.Hysteresis hys2(final uLow=0.05, final uHigh=0.15)
+  CDL.Continuous.Hysteresis hys2(
+    final uLow=0.05,
+    final uHigh=0.15)
     "Check if there is setpoint change"
     annotation (Placement(transformation(extent={{-120,330},{-100,350}})));
-  CDL.Continuous.Hysteresis hys3(final uLow=1.6, final uHigh=1.8)
-    "Check if zone temperature is greater than cooling setpoint by 1.7 degC"
+  CDL.Continuous.Hysteresis hys3(
+    final uLow=cooSetDif_2 - 0.1,
+    final uHigh=cooSetDif_2 + 0.1)
+    "Check if zone temperature is greater than cooling setpoint by cooSetDif_2"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
-  CDL.Continuous.Hysteresis hys4(final uLow=0.85, final uHigh=0.95)
+  CDL.Continuous.Hysteresis hys4(
+    final uLow=0.85,
+    final uHigh=0.95)
     "Check if damper position is greater than 0.95"
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
-  CDL.Continuous.Hysteresis hys5(final uLow=0.85, final uHigh=0.95)
+  CDL.Continuous.Hysteresis hys5(
+    final uLow=0.85,
+    final uHigh=0.95)
     "Check if cooling loop signal is greater than 0.95"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  CDL.Continuous.Hysteresis hys6(final uLow=-0.01, final uHigh=0.01)
+  CDL.Continuous.Hysteresis hys6(
+    final uLow=-0.01,
+    final uHigh=0.01)
     "Check if discharge airflow is less than 50% of setpoint"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  CDL.Continuous.Hysteresis hys7(final uHigh=0.01, final uLow=0.005)
+  CDL.Continuous.Hysteresis hys7(
+    final uHigh=0.01,
+    final uLow=0.005)
     "Check if discharge airflow setpoint is greater than 0"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
-  CDL.Continuous.Hysteresis hys8(final uLow=-0.1, final uHigh=0.1) if hotWatCoi
-    "Check if discharge air temperature is 17 degC less than setpoint"
+  CDL.Continuous.Hysteresis hys8(
+    final uLow=-0.1,
+    final uHigh=0.1) if have_hotWatCoi
+    "Check if discharge air temperature is disAirSetDif_1 less than setpoint"
     annotation (Placement(transformation(extent={{-40,-250},{-20,-230}})));
-  CDL.Continuous.Hysteresis hys9(final uLow=-0.1, final uHigh=0.1) if hotWatCoi
-    "Check if discharge air temperature is 8.3 degC less than setpoint"
+  CDL.Continuous.Hysteresis hys9(
+    final uLow=-0.1,
+    final uHigh=0.1) if have_hotWatCoi
+    "Check if discharge air temperature is disAirSetDif_2 less than setpoint"
     annotation (Placement(transformation(extent={{-40,-310},{-20,-290}})));
-  CDL.Continuous.Hysteresis hys10(final uLow=0.85, final uHigh=0.95)
+  CDL.Continuous.Hysteresis hys10(
+    final uLow=0.85,
+    final uHigh=0.95)
     "Check if valve position is greater than 0.95"
     annotation (Placement(transformation(extent={{-140,-360},{-120,-340}})));
-  CDL.Continuous.Hysteresis hys11(final uHigh=0.95, final uLow=0.1) if (hotWatCoi and boiPla)
+  CDL.Continuous.Hysteresis hys11(
+    final uHigh=0.95,
+    final uLow=0.1) if (have_hotWatCoi and have_boiPla)
     "Check if valve position is greater than 0.95"
     annotation (Placement(transformation(extent={{-140,-440},{-120,-420}})));
   CDL.Continuous.Min supTim "Suppression time"
@@ -196,26 +240,30 @@ protected
   CDL.Continuous.Add add5(final k1=-1)
     "Calculate difference between current discharge airflow rate and 75% of setpoint"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  CDL.Continuous.Add add6(final k2=-1) if hotWatCoi
-    "Calculate difference of discharge temperature (plus 17 degC) and its setpoint"
+  CDL.Continuous.Add add6(final k2=-1) if have_hotWatCoi
+    "Calculate difference of discharge temperature (plus disAirSetDif_1) and its setpoint"
     annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
-  CDL.Continuous.Add add7(final k2=-1) if hotWatCoi
-    "Calculate difference of discharge temperature (plus 8.3 degC) and its setpoint"
+  CDL.Continuous.Add add7(final k2=-1) if have_hotWatCoi
+    "Calculate difference of discharge temperature (plus disAirSetDif_2) and its setpoint"
     annotation (Placement(transformation(extent={{-80,-310},{-60,-290}})));
-  CDL.Continuous.AddParameter addPar(final p=17, final k=1) if hotWatCoi
-    "Discharge temperature plus 17 degC"
+  CDL.Continuous.AddParameter addPar(
+    final k=1,
+    final p=disAirSetDif_1) if have_hotWatCoi
+    "Discharge temperature plus disAirSetDif_1"
     annotation (Placement(transformation(extent={{-140,-272},{-120,-252}})));
-  CDL.Continuous.AddParameter addPar1(final k=1, final p=8.3) if hotWatCoi
-    "Discharge temperature plus 8.3 degC"
+  CDL.Continuous.AddParameter addPar1(
+    final k=1,
+    final p=disAirSetDif_2) if have_hotWatCoi
+    "Discharge temperature plus disAirSetDif_2"
     annotation (Placement(transformation(extent={{-140,-330},{-120,-310}})));
   CDL.Conversions.RealToInteger reaToInt "Convert real to integer value"
     annotation (Placement(transformation(extent={{140,190},{160,210}})));
   CDL.Conversions.RealToInteger reaToInt1 "Convert real to integer value"
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
-  CDL.Conversions.RealToInteger reaToInt2 if hotWatCoi
+  CDL.Conversions.RealToInteger reaToInt2 if have_hotWatCoi
     "Convert real to integer value"
     annotation (Placement(transformation(extent={{140,-250},{160,-230}})));
-  CDL.Conversions.RealToInteger reaToInt3 if (hotWatCoi and boiPla)
+  CDL.Conversions.RealToInteger reaToInt3 if (have_hotWatCoi and have_boiPla)
     "Convert real to integer value"
     annotation (Placement(transformation(extent={{140,-440},{160,-420}})));
   CDL.Logical.And and1 "Logical and"
@@ -252,25 +300,27 @@ protected
     annotation (Placement(transformation(extent={{40,-180},{60,-160}})));
   CDL.Continuous.Sources.Constant onePreResReq(final k=1) "Constant 1"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  CDL.Continuous.Sources.Constant con4(final k=300) if hotWatCoi
+  CDL.Continuous.Sources.Constant con4(final k=300) if have_hotWatCoi
     "Five minutes"
     annotation (Placement(transformation(extent={{0,-280},{20,-260}})));
-  CDL.Continuous.Sources.Constant thrHotResReq(final k=3) if hotWatCoi
+  CDL.Continuous.Sources.Constant thrHotResReq(final k=3) if have_hotWatCoi
     "Constant 3"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
-  CDL.Continuous.Sources.Constant twoHotResReq(final k=2) if hotWatCoi
+  CDL.Continuous.Sources.Constant twoHotResReq(final k=2) if have_hotWatCoi
     "Constant 2"
     annotation (Placement(transformation(extent={{40,-280},{60,-260}})));
-  CDL.Continuous.Sources.Constant oneHotResReq(final k=1) if hotWatCoi
+  CDL.Continuous.Sources.Constant oneHotResReq(final k=1) if have_hotWatCoi
     "Constant 1"
     annotation (Placement(transformation(extent={{40,-340},{60,-320}})));
-  CDL.Continuous.Sources.Constant zerHotResReq(final k=0) if hotWatCoi
+  CDL.Continuous.Sources.Constant zerHotResReq(final k=0) if have_hotWatCoi
     "Constant 0"
     annotation (Placement(transformation(extent={{40,-380},{60,-360}})));
-  CDL.Continuous.Sources.Constant zerBoiPlaReq(final k=0) if (hotWatCoi and boiPla)
+  CDL.Continuous.Sources.Constant zerBoiPlaReq(final k=0) if (have_hotWatCoi
+     and have_boiPla)
     "Constant 0"
     annotation (Placement(transformation(extent={{40,-460},{60,-440}})));
-  CDL.Continuous.Sources.Constant oneBoiPlaReq(final k=1) if (hotWatCoi and boiPla)
+  CDL.Continuous.Sources.Constant oneBoiPlaReq(final k=1) if (have_hotWatCoi
+     and have_boiPla)
     "Constant 1"
     annotation (Placement(transformation(extent={{40,-420},{60,-400}})));
   CDL.Continuous.Sources.Constant maxSupTim(k=1800)
@@ -293,16 +343,16 @@ protected
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
   CDL.Logical.Switch swi6 "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
-  CDL.Logical.Switch swi7 if hotWatCoi
+  CDL.Logical.Switch swi7 if have_hotWatCoi
     "Output 3 or other request "
     annotation (Placement(transformation(extent={{100,-250},{120,-230}})));
-  CDL.Logical.Switch swi8 if hotWatCoi
+  CDL.Logical.Switch swi8 if have_hotWatCoi
     "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-310},{120,-290}})));
-  CDL.Logical.Switch swi9 if hotWatCoi
+  CDL.Logical.Switch swi9 if have_hotWatCoi
     "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-360},{120,-340}})));
-  CDL.Logical.Switch swi10 if (hotWatCoi and boiPla)
+  CDL.Logical.Switch swi10 if (have_hotWatCoi and have_boiPla)
     "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-440},{120,-420}})));
   CDL.Logical.TrueHoldWithReset truHol(duration=1)
@@ -612,9 +662,10 @@ equation
     annotation (Line(points={{21,280},{40,280},{40,332},{58,332}}, color={0,0,127}));
 
 annotation (
-  defaultComponentName="sysReq_RehBox",
+  defaultComponentName="sysReqRehBox",
   Diagram(coordinateSystem(preserveAspectRatio=
-            false, extent={{-180,-460},{180,480}}), graphics={
+            false, extent={{-180,-460},{180,480}}),
+      graphics={
         Rectangle(
           extent={{-158,478},{158,262}},
           lineColor={0,0,0},
@@ -670,7 +721,7 @@ annotation (
           lineColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Boiler plant reset requests")}),
-                                       Icon(graphics={
+     Icon(graphics={
         Text(
           extent={{-100,140},{100,100}},
           lineColor={0,0,255},
@@ -751,29 +802,45 @@ annotation (
           textString="yBoiPlaReq")}),
   Documentation(info="<html>
 <p>
-This sequence sets system reset requests, i.e. cooling supply air temperature 
-reset requests <code>yZonTemResReq</code>, static pressure reset requests 
-<code>yZonPreResReq</code>, hot water reset requests <code>yHotValResReq</code>,
-and boiler plant reset requests <code>yBoiPlaReq</code>. According to ASHRAE 
-Guideline 36 (G36), PART5.E.9,the calculation is done as steps shown below.
+This sequence outputs the system reset requests, i.e.,
+</p>
+<ul>
+<li>
+the cooling supply air temperature
+reset requests <code>yZonTemResReq</code>,
+</li>
+<li>
+the static pressure reset requests
+<code>yZonPreResReq</code>,
+</li>
+<li>
+the hot water reset requests <code>yHotValResReq</code>, and
+</li>
+<li>
+the boiler plant reset requests <code>yBoiPlaReq</code>.
+</li>
+</ul>
+<p>
+The calculations are according to ASHRAE
+Guideline 36 (G36), PART5.E.9, in the steps shown below.
 </p>
 <h4>a. Cooling SAT reset requests <code>yZonTemResReq</code></h4>
 <ol>
 <li>
-If the zone temperature <code>TRoo</code> exceeds the zone cooling setpoint 
+If the zone temperature <code>TRoo</code> exceeds the zone cooling setpoint
 <code>TCooSet</code> by 2.8 &deg;C (5 &deg;F)) for 2 minutes and after suppression
 period due to setpoint change per G36 Part 5.A.20, send 3 requests
-(<code>yZonTemResReq=3</code>). 
+(<code>yZonTemResReq=3</code>).
 </li>
 <li>
 Else if the zone temperature <code>TRoo</code> exceeds the zone cooling setpoint
 <code>TCooSet</code> by 1.7 &deg;C (3 &deg;F) for 2 minutes and after suppression
 period due to setpoint change per G36 Part 5.A.20, send 2 requests
-(<code>yZonTemResReq=3</code>). 
+(<code>yZonTemResReq=3</code>).
 </li>
 <li>
 Else if the cooling loop <code>uCoo</code> is greater than 95%, send 1 request
-(<code>yZonTemResReq=1</code>) unit <code>uCoo</code> is less than 85%.
+(<code>yZonTemResReq=1</code>) until <code>uCoo</code> is less than 85%.
 </li>
 <li>
 Else if <code>uCoo</code> is less than 95%, send 0 request (<code>yZonTemResReq=0</code>).
@@ -782,51 +849,51 @@ Else if <code>uCoo</code> is less than 95%, send 0 request (<code>yZonTemResReq=
 <h4>b. Static pressure reset requests <code>yZonPreResReq</code></h4>
 <ol>
 <li>
-If the measured airflow <code>VDisAir</code> is less than 50% of setpoint 
-<code>VDisAirSet</code> while is greater than zero for 1 minute, send 3 requests
-(<code>yZonPreResReq=3</code>). 
+If the measured airflow <code>VDisAir</code> is less than 50% of setpoint
+<code>VDisAirSet</code> while it is greater than zero for 1 minute, send 3 requests
+(<code>yZonPreResReq=3</code>).
 </li>
 <li>
-Else if the measured airflow <code>VDisAir</code> is less than 70% of setpoint 
-<code>VDisAirSet</code> while is greater than zero for 1 minute, send 2 requests
+Else if the measured airflow <code>VDisAir</code> is less than 70% of setpoint
+<code>VDisAirSet</code> while it is greater than zero for 1 minute, send 2 requests
 (<code>yZonPreResReq=2</code>).
 </li>
 <li>
 Else if the damper position <code>uDam</code> is greater than 95%, send 1 request
-(<code>yZonPreResReq=1</code>) unit <code>uDam</code> is less than 85%.
+(<code>yZonPreResReq=1</code>) until <code>uDam</code> is less than 85%.
 </li>
 <li>
 Else if <code>uDam</code> is less than 95%, send 0 request (<code>yZonPreResReq=0</code>).
 </li>
 </ol>
-<h4>c. If there is a hot water coil (<code>hotWatCoi=true</code>), 
+<h4>c. If there is a hot water coil (<code>have_hotWatCoi=true</code>),
 hot water reset requests <code>yHotValResReq</code></h4>
 <ol>
 <li>
 If the discharge air temperature <code>TDisAir</code> is 17 &deg;C (30 &deg;F)
-less than setpoint <code>TDisAirSet</code> for 5 minutes, send 3 requests
+less than the setpoint <code>TDisAirSet</code> for 5 minutes, send 3 requests
 (<code>yHotValResReq=3</code>).
 </li>
 <li>
 Else if the discharge air temperature <code>TDisAir</code> is 8.3 &deg;C (15 &deg;F)
-less than setpoint <code>TDisAirSet</code> for 5 minutes, send 2 requests
+less than the setpoint <code>TDisAirSet</code> for 5 minutes, send 2 requests
 (<code>yHotValResReq=2</code>).
 </li>
 <li>
-Else if HW valve position <code>uHotVal</code> is greater than 95%, send 1 request
-(<code>yHotValResReq=1</code>) unit <code>uHotVal</code> is less than 85%.
+Else if the hot water valve position <code>uHotVal</code> is greater than 95%, send 1 request
+(<code>yHotValResReq=1</code>) until <code>uHotVal</code> is less than 85%.
 </li>
 <li>
 Else if <code>uHotVal</code> is less than 95%, send 0 request (<code>yHotValResReq=0</code>).
 </li>
 </ol>
-<h4>d. If there is hot water coil (<code>hotWatCoi=true</code>) and a boiler plant 
-(<code>boiPla=true</code>), send the boiler plant that serves the zone a boiler 
+<h4>d. If there is hot water coil (<code>have_hotWatCoi=true</code>) and a boiler plant
+(<code>have_boiPla=true</code>), send the boiler plant that serves the zone a boiler
 plant requests <code>yBoiPlaReq</code> as follows:</h4>
 <ol>
 <li>
-If the HW valve position <code>uHotVal</code> is greater than 95%, send 1 request
-(<code>yBoiPlaReq=1</code>) unit <code>uHotVal</code> is less than 10%.
+If the hot water valve position <code>uHotVal</code> is greater than 95%, send 1 request
+(<code>yBoiPlaReq=1</code>) until <code>uHotVal</code> is less than 10%.
 </li>
 <li>
 Else if <code>uHotVal</code> is less than 95%, send 0 request (<code>yBoiPlaReq=0</code>).
