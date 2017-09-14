@@ -29,9 +29,10 @@ Log
 Log10
 Max
 Min
-MinMax
 Modulo
 MovingMean
+MultiMax
+MultiMin
 MultiSum
 NumberOfRequests
 Product

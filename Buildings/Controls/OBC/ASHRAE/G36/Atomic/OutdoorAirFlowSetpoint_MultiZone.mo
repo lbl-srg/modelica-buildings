@@ -53,14 +53,14 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Interfaces.RealInput nOcc[numOfZon](each final unit="1")
     "Number of occupants"
     annotation (Placement(transformation(extent={{-220,60},{-180,100}}),
-        iconTransformation(extent={{-120,70},{-100,90}})));
+      iconTransformation(extent={{-120,70},{-100,90}})));
   CDL.Interfaces.RealInput priAirflow[numOfZon](
     min=minZonPriFlo,
     each final unit="m3/s",
     each quantity="VolumeFlowRate")
     "Primary airflow rate to the ventilation zone from the air handler, including outdoor air and recirculated air"
     annotation (Placement(transformation(extent={{-220,-186},{-180,-146}}),
-        iconTransformation(extent={{-120,-90},{-100,-70}})));
+      iconTransformation(extent={{-120,-90},{-100,-70}})));
   CDL.Interfaces.RealInput TZon[numOfZon](
     each final unit="K",
     each quantity="ThermodynamicTemperature")
@@ -76,11 +76,11 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status, true if on, false if off"
     annotation (Placement(transformation(extent={{-220,-149},{-180,-110}}),
-        iconTransformation(extent={{-120,-60},{-100,-40}})));
+      iconTransformation(extent={{-120,-60},{-100,-40}})));
   CDL.Interfaces.BooleanInput uWin[numOfZon]
-    "Window status, true if open, false if closed" annotation (Placement(
-        transformation(extent={{-220,-120},{-180,-80}}), iconTransformation(
-          extent={{-120,-30},{-100,-10}})));
+    "Window status, true if open, false if closed"
+    annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
+      iconTransformation(extent={{-120,-30},{-100,-10}})));
   CDL.Interfaces.RealOutput VDesOutMin_flow_nominal(
     min=0,
     final unit="m3/s",
@@ -182,10 +182,10 @@ block OutdoorAirFlowSetpoint_MultiZone
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
   CDL.Continuous.Division desOutAirInt "Design system outdoor air intake"
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
-  CDL.Continuous.MinMax  desSysVenEff(nin=numOfZon)
+  CDL.Continuous.MultiMin desSysVenEff(nin=numOfZon)
     "Design system ventilation efficiency"
     annotation (Placement(transformation(extent={{140,140},{160,160}})));
-  CDL.Continuous.MinMax  maxPriOutAirFra(nin=numOfZon)
+  CDL.Continuous.MultiMax maxPriOutAirFra(nin=numOfZon)
     "Maximum zone outdoor air fraction"
     annotation (Placement(transformation(extent={{60,-170},{80,-150}})));
   CDL.Continuous.Min min
@@ -376,7 +376,7 @@ equation
     annotation (Line(points={{101,-90},{101,-90},{100,-90},{102,-90},{110,-90},
       {110,-84},{118,-84}}, color={0,0,127}));
   connect(maxPriOutAirFra.yMax, sysVenEff.u2)
-    annotation (Line(points={{81,-154},{110,-154},{110,-96},{118,-96}},
+    annotation (Line(points={{81,-160},{110,-160},{110,-96},{118,-96}},
       color={0,0,127}));
   connect(sysVenEff.y, effMinOutAirInt.u2)
     annotation (Line(points={{141,-90},{141,-90},{142,-90},{148,-90},{148,-96},
@@ -410,8 +410,8 @@ equation
     annotation (Line(points={{41,220.5},{180,220.5},{180,128},{120,128},
       {120,116},{138,116}},color={0,0,127}));
   connect(desSysVenEff.yMin, desOutAirInt.u2)
-    annotation (Line(points={{161,144},{168,144},{168,134},{114,134},
-      {114,104},{138,104}}, color={0,0,127}));
+    annotation (Line(points={{161,150},{168,150},{168,134},{114,134},{114,104},
+      {138,104}}, color={0,0,127}));
   connect(min1.y, effMinOutAirInt.u1)
     annotation (Line(points={{161,-30},{180,-30},{180,-60},{146,-60},{146,-84},
       {158,-84}}, color={0,0,127}));
@@ -420,10 +420,10 @@ equation
       color={0,0,127}));
   connect(min1.y, outAirFra.u1)
     annotation (Line(points={{161,-30},{180,-30},{180,-60},{128,-60},{26,-60},
-      {26,-84},{38,-84}},   color={0,0,127}));
+      {26,-84},{38,-84}}, color={0,0,127}));
   connect(unCorOutAirInk.y, min1.u1)
     annotation (Line(points={{41,220.5},{180,220.5},{180,80},{128,80},{128,-24},
-      {138,-24}},       color={0,0,127}));
+      {138,-24}}, color={0,0,127}));
   connect(effMinOutAirInt.y, min.u2)
     annotation (Line(points={{181,-90},{181,-90},{188,-90},{188,-96},{198,-96}},
       color={0,0,127}));
@@ -457,7 +457,8 @@ equation
   connect(reaRep.y, zonVenEff.u1)
     annotation (Line(points={{161,190},{170,190},{170,170},{80,170},{80,156},
       {98,156}}, color={0,0,127}));
- annotation (
+
+annotation (
 defaultComponentName="outAirSetPoi_MulZon",
 Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},

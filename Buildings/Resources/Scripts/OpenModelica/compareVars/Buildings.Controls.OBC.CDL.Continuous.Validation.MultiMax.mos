@@ -5,6 +5,5 @@ compareVars :=
     "con[3].y",
     "con[4].y",
     "con[5].y",
-    "minMax.yMin",
-    "minMax.yMax"
+    "maxVal.yMax"
   };
