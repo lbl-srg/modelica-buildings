@@ -10,10 +10,10 @@ HeatingAndCoolingCoilValves
 OperationModeSelector
 OutdoorAirFlowSetpoint_MultiZone
 OutdoorAirFlowSetpoint_SingleZone
+SystemRequestsReheatBox
 TrimRespondLogic
 VAVMultiZoneSupFan
 VAVMultiZoneTSupSet
 VAVSingleZoneTSupSet
 ZoneSetpoint
 Validation
-SystemRequestsReheatBox
