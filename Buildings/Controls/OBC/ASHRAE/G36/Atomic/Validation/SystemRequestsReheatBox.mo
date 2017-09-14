@@ -111,5 +111,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  Diagram(coordinateSystem(preserveAspectRatio=false)));
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            120}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,120}})));
 end SystemRequestsReheatBox;
