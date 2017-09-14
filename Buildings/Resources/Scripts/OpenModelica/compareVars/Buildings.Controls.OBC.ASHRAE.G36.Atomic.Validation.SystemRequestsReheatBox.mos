@@ -11,5 +11,6 @@ compareVars :=
     "sysReq_RehBox.TDisAirSet",
     "sysReq_RehBox.TDisAir",
     "sysReq_RehBox.uHotVal",
-    "sysReq_RehBox.yHotValResReq"
+    "sysReq_RehBox.yHotValResReq",
+    "sysReq_RehBox.yBoiPlaReq"
   };
