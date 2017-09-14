@@ -4,31 +4,27 @@ block ZeroOrderHold "Output the input signal with a zero order hold"
   parameter Modelica.SIunits.Time samplePeriod(min=100*1E-15)
     "Sample period of component";
 
+  parameter Modelica.SIunits.Time startTime=0 "First sample time instant";
+
   Interfaces.RealInput u "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.RealOutput y "Continuous output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
+  output Real ySample(start=0, fixed=true);
+
 protected
-  parameter Modelica.SIunits.Time t0(fixed=false)
-    "First sample time instant";
-
-  output Real ySample(fixed=true, start=0);
-
   output Boolean sampleTrigger "True, if sample time instant";
 
   output Boolean firstTrigger(start=false, fixed=true)
     "Rising edge signals first sample instant";
 
-initial equation
-  t0 = time;
-
 equation
   // Declarations that are used for all discrete blocks
-  sampleTrigger = sample(t0, samplePeriod);
+  sampleTrigger = sample(startTime, samplePeriod);
   when sampleTrigger then
-    firstTrigger = time <= t0 + samplePeriod/2;
+    firstTrigger = time <= startTime + samplePeriod/2;
   end when;
 
   // Declarations specific to this type of discrete block
@@ -63,17 +59,9 @@ equation
 Block that outputs the sampled input signal at sample
 time instants. The output signal is held at the value of the last
 sample instant during the sample points.
-At initial time, the block feeds the input directly to the output.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-September 14, 2017, by Michael Wetter:<br/>
-Removed parameter <code>startTime</code> to allow model to work
-also for negative start time without having to change the value of this
-parameters.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/938\">issue 938</a>.
-</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
