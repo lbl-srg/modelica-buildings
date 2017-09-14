@@ -2,36 +2,47 @@ within Buildings.Controls.OBC.CDL.Integers.Validation;
 model Greater "Validation model for the Greater block"
 extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.CDL.Continuous.Truncation truncation1
-    "Block that discards the fractional portion of input and provides a whol number output"
-    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=-3.5,
     height=10.0) "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Truncation truncation2
-    "Block that discards the fractional portion of input and provides a whol number output"
-    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
     duration=1,
     offset=-1.5,
     height=5.0) "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Integers.Greater intGre
     "Block output true if input 1 is greater than input 2"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Round round1(n=0)
+    "Round real number to given digits"
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
+    "Convert real to integer"
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Round round2(n=0)
+    "Round real number to given digits"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
+    "Convert real to integer"
+    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 
 equation
-  connect(ramp1.y, truncation1.u)
-    annotation (Line(points={{-39,20},{-22,20}},  color={0,0,127}));
-  connect(ramp2.y, truncation2.u)
-    annotation (Line(points={{-39,-20},{-22,-20}}, color={0,0,127}));
-  connect(truncation1.y, intGre.u1)
-    annotation (Line(points={{1,20},{20,20},{20,0},{38,0}},
+  connect(ramp1.y, round1.u)
+    annotation (Line(points={{-59,20},{-42,20}}, color={0,0,127}));
+  connect(ramp2.y, round2.u)
+    annotation (Line(points={{-59,-20},{-42,-20}}, color={0,0,127}));
+  connect(round1.y, reaToInt.u)
+    annotation (Line(points={{-19,20},{-2,20}}, color={0,0,127}));
+  connect(round2.y, reaToInt1.u)
+    annotation (Line(points={{-19,-20},{-2,-20}}, color={0,0,127}));
+  connect(reaToInt.y, intGre.u1)
+    annotation (Line(points={{21,20},{40,20},{40,0},{58,0}},
       color={255,127,0}));
-  connect(truncation2.y, intGre.u2)
-    annotation (Line(points={{1,-20},{20,-20},{20,-8},{38,-8}},
+  connect(reaToInt1.y, intGre.u2)
+    annotation (Line(points={{21,-20},{40,-20},{40,-8},{58,-8}},
       color={255,127,0}));
 
 annotation (

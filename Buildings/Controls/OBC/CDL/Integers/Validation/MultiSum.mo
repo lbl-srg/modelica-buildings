@@ -5,49 +5,65 @@ extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Integers.MultiSum add1(nu=3)
     "Block that outputs the sum of the inputs"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Truncation truncation1
-    "Block that discards the fractional portion of input and provides a whol number output"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=-3.5,
     height=7.0) "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-64,30},{-44,50}})));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Truncation truncation2
-    "Block that discards the fractional portion of input and provides a whol number output"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
     duration=1,
     offset=-0.5,
     height=7.0) "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-64,-10},{-44,10}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Truncation truncation3
-    "Block that discards the fractional portion of input and provides a whol number output"
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp3(
     duration=1,
     height=7.0,
     offset=-1.5)
     "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Round round1(n=0)
+    "Round real number to given digits"
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
+    "Convert real to integer"
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Round round2(n=0)
+    "Round real number to given digits"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
+    "Convert real to integer"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Round round3(n=0)
+    "Round real number to given digits"
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
+    "Convert real to integer"
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 
 equation
-  connect(ramp1.y, truncation1.u)
-    annotation (Line(points={{-43,40},{-22,40}}, color={0,0,127}));
-  connect(ramp2.y, truncation2.u)
-    annotation (Line(points={{-43,0},{-22,0}}, color={0,0,127}));
-  connect(ramp3.y,truncation3. u)
-    annotation (Line(points={{-39,-40},{-22,-40}}, color={0,0,127}));
-  connect(truncation1.y, add1.u[1])
-    annotation (Line(points={{1,40},{20,40},{20,4.66667},{38,4.66667}},
+  connect(ramp1.y, round1.u)
+    annotation (Line(points={{-59,40},{-42,40}}, color={0,0,127}));
+  connect(ramp2.y, round2.u)
+    annotation (Line(points={{-59,0},{-42,0}}, color={0,0,127}));
+  connect(ramp3.y, round3.u)
+    annotation (Line(points={{-59,-40},{-42,-40}}, color={0,0,127}));
+  connect(round3.y, reaToInt2.u)
+    annotation (Line(points={{-19,-40},{-2,-40}}, color={0,0,127}));
+  connect(round2.y, reaToInt1.u)
+    annotation (Line(points={{-19,0},{-2,0}}, color={0,0,127}));
+  connect(round1.y, reaToInt.u)
+    annotation (Line(points={{-19,40},{-2,40}}, color={0,0,127}));
+  connect(reaToInt.y, add1.u[1])
+    annotation (Line(points={{21,40},{40,40},{40,4.66667},{58,4.66667}},
       color={255,127,0}));
-  connect(truncation2.y, add1.u[2])
-    annotation (Line(points={{1,0},{18,0},{18,0},{38,0}}, color={255,127,0}));
-  connect(truncation3.y, add1.u[3])
-    annotation (Line(points={{1,-40},{20,-40},{20,-4.66667},{38,-4.66667}},
+  connect(reaToInt1.y, add1.u[2])
+    annotation (Line(points={{21,0},{38,0},{38,0},{58,0}}, color={255,127,0}));
+  connect(reaToInt2.y, add1.u[3])
+    annotation (Line(points={{21,-40},{40,-40},{40,-4.66667},{58,-4.66667}},
       color={255,127,0}));
 
 annotation (

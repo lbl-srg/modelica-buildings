@@ -4,22 +4,28 @@ extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Integers.Abs abs1
     "Block that outputs the absolute value of the input"
-    annotation (Placement(transformation(extent={{16,-10},{36,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Truncation truncation1
-    "Block that discards the fractional portion of input and provides a whol number output"
-    annotation (Placement(transformation(extent={{-28,-10},{-8,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=-3.5,
     height=7.0) "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-72,-10},{-52,10}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Round round1(n=0)
+    "Round real number to given digits"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
+    "Convert real to integer"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 equation
-  connect(ramp1.y, truncation1.u)
-    annotation (Line(points={{-51,0},{-30,0},{-30,0}}, color={0,0,127}));
-  connect(truncation1.y, abs1.u)
-    annotation (Line(points={{-7,0},{4,0},{14,0}}, color={255,127,0}));
+  connect(ramp1.y, round1.u)
+    annotation (Line(points={{-59,0},{-42,0}}, color={0,0,127}));
+  connect(round1.y, reaToInt.u)
+    annotation (Line(points={{-19,0},{-2,0}}, color={0,0,127}));
+  connect(reaToInt.y, abs1.u)
+    annotation (Line(points={{21,0},{38,0}}, color={255,127,0}));
   annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Integers/Validation/Abs.mos"

@@ -23,9 +23,6 @@ model VAVMultiZoneTSupSet
     height=1,
     duration=90000) "Operation mode"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Truncation tru
-    "Discards the fractional portion of input and outputs its integer value"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs
     "Block generates absolute value of input"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
@@ -33,16 +30,20 @@ model VAVMultiZoneTSupSet
     amplitude=6, freqHz=1/86400)
     "Block generates sine signal"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Truncation tru1
-    "Discards the fractional portion of input and provides a whole number output"
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
+    "Convert real to integer"
+    annotation (Placement(transformation(extent={{32,-50},{52,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Round round1(n=0)
+    "Round real number to given digits"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
+    "Convert real to integer"
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Round round2(n=0)
+    "Round real number to given digits"
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
 equation
-  connect(opeMod.y, tru.u)
-    annotation (Line(points={{-59,-70},{-42,-70}}, color={0,0,127}));
-  connect(tru.y, supplyAirTempSet_MultiZone.uOpeMod)
-    annotation (Line(points={{-19,-70},{60,-70},{60,-8},{79,-8}},
-      color={255,127,0}));
   connect(supFanSta.y, supplyAirTempSet_MultiZone.uSupFan)
     annotation (Line(points={{-59,0},{79,0}},
       color={255,0,255}));
@@ -54,12 +55,22 @@ equation
       color={0,0,127}));
   connect(sine.y, abs.u)
     annotation (Line(points={{-59,-40},{-42,-40}}, color={0,0,127}));
-  connect(abs.y, tru1.u)
-    annotation (Line(points={{-19,-40},{-2,-40}}, color={0,0,127}));
-  connect(tru1.y, supplyAirTempSet_MultiZone.uZonTemResReq)
-    annotation (Line(points={{21,-40},{40,-40},{40,-4},{79,-4}},
-      color={255,127,0}));
 
+  connect(opeMod.y, round2.u)
+    annotation (Line(points={{-59,-70},{-42,-70}}, color={0,0,127}));
+  connect(round2.y, reaToInt2.u)
+    annotation (Line(points={{-19,-70},{-12,-70},{-12,-70},{-2,-70}},
+      color={0,0,127}));
+  connect(abs.y, round1.u)
+    annotation (Line(points={{-19,-40},{-2,-40}}, color={0,0,127}));
+  connect(round1.y, reaToInt1.u)
+    annotation (Line(points={{21,-40},{30,-40}}, color={0,0,127}));
+  connect(reaToInt1.y, supplyAirTempSet_MultiZone.uZonTemResReq)
+    annotation (Line(points={{53,-40},{60,-40},{60,-4},{79,-4}},
+      color={255,127,0}));
+  connect(reaToInt2.y, supplyAirTempSet_MultiZone.uOpeMod)
+    annotation (Line(points={{21,-70},{66,-70},{66,-8},{79,-8}},
+      color={255,127,0}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/Validation/VAVMultiZoneTSupSet.mos"

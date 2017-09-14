@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "round1.u",
+    "round1.y"
+  };
