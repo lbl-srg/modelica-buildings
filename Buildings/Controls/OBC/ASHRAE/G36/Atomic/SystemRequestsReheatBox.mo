@@ -179,7 +179,7 @@ protected
     annotation (Placement(transformation(extent={{-80,270},{-60,290}})));
   CDL.Continuous.Gain gai1(final k=0.5) "50% of setpoint"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
-  CDL.Continuous.Gain gai2(final k=0.75) "75% of setpoint"
+  CDL.Continuous.Gain gai2(final k=0.7) "70% of setpoint"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
   CDL.Continuous.Add add1(final k1=-1)
     "Calculate difference of previous and current setpoints"
@@ -644,7 +644,33 @@ annotation (
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None)}), Icon(graphics={
+          pattern=LinePattern.None),
+        Text(
+          extent={{18,480},{140,456}},
+          lineColor={0,0,255},
+          horizontalAlignment=TextAlignment.Left,
+          textString="Time-based suppression"),
+        Text(
+          extent={{-150,82},{-28,58}},
+          lineColor={0,0,255},
+          horizontalAlignment=TextAlignment.Left,
+          textString="Cooling SAT reset requests"),
+        Text(
+          extent={{-152,-156},{-8,-184}},
+          lineColor={0,0,255},
+          horizontalAlignment=TextAlignment.Left,
+          textString="Static pressure reset requests"),
+        Text(
+          extent={{-152,-360},{-26,-380}},
+          lineColor={0,0,255},
+          horizontalAlignment=TextAlignment.Left,
+          textString="Hot water reset requests"),
+        Text(
+          extent={{-150,-440},{-12,-462}},
+          lineColor={0,0,255},
+          horizontalAlignment=TextAlignment.Left,
+          textString="Boiler plant reset requests")}),
+                                       Icon(graphics={
         Text(
           extent={{-100,140},{100,100}},
           lineColor={0,0,255},
@@ -726,98 +752,86 @@ annotation (
   Documentation(info="<html>
 <p>
 This sequence sets system reset requests, i.e. cooling supply air temperature 
-reset request,   
-  
-  
-This sequence sets the thermal zone cooling and heating setpoints. The implementation
-is according to the ASHRAE Guideline 36 (G36), PART5.B.3. The calculation is done
-following the steps below.
+reset requests <code>yZonTemResReq</code>, static pressure reset requests 
+<code>yZonPreResReq</code>, hot water reset requests <code>yHotValResReq</code>,
+and boiler plant reset requests <code>yBoiPlaReq</code>. According to ASHRAE 
+Guideline 36 (G36), PART5.E.9,the calculation is done as steps shown below.
 </p>
-<p>a. Each zone shall have separate occupied and unoccupied heating and cooling
-setpoints.</p>
-<p>b. The active setpoints shall be determined by the Operation Mode of the zone
-group.</p>
-<ul>
-<li>The setpoints shall be the occupied setpoints during Occupied, Warm up, and
-Cool-down modes.</li>
-<li>The setpoints shall be the unoccupied setpoints during Unoccupied, Setback,
-and Setup modes.</li>
-</ul>
-<p>c. The software shall prevent</p>
-<ul>
-<li>The heating setpoint from exceeding the cooling setpoint minus 0.56 &deg;C
-(1 &deg;F).</li>
-<li>The unoccupied heating setpoint from exceeding the occupied heating
-setpoint.</li>
-<li>The unoccupied cooling setpoint from being less than occupied cooling
-setpoint.</li>
-</ul>
-<p>d. Where the zone has a local setpoint adjustment knob/button </p>
-<ul>
-<li>The setpoint adjustment offsets established by the occupant shall be software
-points that are persistent (e.g. not reset daily), but the actual offset used
-in control logic shall be adjusted based on limits and modes as described below.</li>
-<li>The adjustment shall be capable of being limited in softare. (a. As a default,
-the active occupied cooling setpoint shall be limited between 22 &deg;C
-(72 &deg;F) and 27 &deg;C (80 &deg;F); b. As a default, the active occupied
-heating setpoint shall be limited between 18 &deg;C (65 &deg;F) and 22 &deg;C
-(72 &deg;F);)</li>
-<li>The active heating and cooling setpoint shall be independently adjustable,
-respecting the limits and anti-overlap logic described above. If zone thermostat
-provides only a single setpoint adjustment, then the adjustment shall move both
-the same amount, within the limits described above.</li>
-<li>The adjustment shall only affect occupied setpoints in Occupied mode, and
-shall have no impact on setpoints in all other modes.</li>
-<li>At the onset of demand limiting, the local setpoint adjustment value shall
-be frozen. Further adjustment of the setpoint by local controls shall be suspended
-for the duration of the demand limit event.</li>
-</ul>
-<p>e. Cooling demand limit setpoint adjustment</p>
-The active cooling setpoints for all zones shall be increased when a demand limit
-is imposed on the associated zone group. The operator shall have the ability
-to exempt individual zones from this adjustment through the normal
-Building Automation System (BAS) user
-interface. Changes due to demand limits are not cumulative.
-<ul>
-<li>At Demand Limit Level 1, increase setpoint by 0.56 &deg;C (1 &deg;F).</li>
-<li>At Demand Limit Level 2, increase setpoint by 1.1 &deg;C (2 &deg;F).</li>
-<li>At Demand Limit Level 1, increase setpoint by 2.2 &deg;C (4 &deg;F).</li>
-</ul>
-<p>f. Heating demand limit setpoint adjustment</p>
-The active heating setpoints for all zones shall be decreased when a demand limit
-is imposed on the associated zone group. The operator shall have the ability
-to exempt individual zones from this adjustment through the normal BAS user
-interface. Changes due to demand limits are not cumulative.
-<ul>
-<li>At Demand Limit Level 1, decrease setpoint by 0.56 &deg;C (1 &deg;F).</li>
-<li>At Demand Limit Level 2, decrease setpoint by 1.1 &deg;C (2 &deg;F).</li>
-<li>At Demand Limit Level 1, decrease setpoint by 2.2 &deg;C (4 &deg;F).</li>
-</ul>
-<p>g. Window switches</p>
-For zones that have operable windows with indicator switches, when the window
-switch indicates the window is open, the heating setpoint shall be temporarily
-set to 4.4 &deg;C (40 &deg;F) and the cooling setpoint shall be temporarily
-set to 49 &deg;C (120 &deg;F). When the window switch indicates the window is
-open during other than Occupied Mode, a Level 4 alarm shall be generated.
-<p>h. Occupancy sensor</p>
-<ul>
-<li>When the switch indicates the space has been unpopulated for 5 minutes
-continuously during the Occupied Mode, the active heating setpoint shall be
-decreased by 1.1 &deg;C (2 &deg;F) and the cooling setpoint shall be increased
-by 1.1 &deg;C (2 &deg;F).</li>
-<li>When the switch indicated that the space has been populated for 1 minute
-continuously, the active heating and cooling setpoints shall be restored to
-their previously values.</li>
-</ul>
-<p>Hierarchy of setpoint adjustments: the following adjustment restrictions
-shall prevail in order from highest to lowest priority.</p>
-<ul>
-<li>Setpoint overlap restriction (Part c)</li>
-<li>Absolute limits on local setpoint adjustment (Part d)</li>
-<li>Window swtiches (Part g)</li>
-<li>Demand limit (a. Occupancy sensors; b. Local setpoint adjustment)</li>
-<li>Scheduled setpoints based on zone group mode</li>
-</ul>
+<h4>a. Cooling SAT reset requests <code>yZonTemResReq</code></h4>
+<ol>
+<li>
+If the zone temperature <code>TRoo</code> exceeds the zone cooling setpoint 
+<code>TCooSet</code> by 2.8 &deg;C (5 &deg;F)) for 2 minutes and after suppression
+period due to setpoint change per G36 Part 5.A.20, send 3 requests
+(<code>yZonTemResReq=3</code>). 
+</li>
+<li>
+Else if the zone temperature <code>TRoo</code> exceeds the zone cooling setpoint
+<code>TCooSet</code> by 1.7 &deg;C (3 &deg;F) for 2 minutes and after suppression
+period due to setpoint change per G36 Part 5.A.20, send 2 requests
+(<code>yZonTemResReq=3</code>). 
+</li>
+<li>
+Else if the cooling loop <code>uCoo</code> is greater than 95%, send 1 request
+(<code>yZonTemResReq=1</code>) unit <code>uCoo</code> is less than 85%.
+</li>
+<li>
+Else if <code>uCoo</code> is less than 95%, send 0 request (<code>yZonTemResReq=0</code>).
+</li>
+</ol>
+<h4>b. Static pressure reset requests <code>yZonPreResReq</code></h4>
+<ol>
+<li>
+If the measured airflow <code>VDisAir</code> is less than 50% of setpoint 
+<code>VDisAirSet</code> while is greater than zero for 1 minute, send 3 requests
+(<code>yZonPreResReq=3</code>). 
+</li>
+<li>
+Else if the measured airflow <code>VDisAir</code> is less than 70% of setpoint 
+<code>VDisAirSet</code> while is greater than zero for 1 minute, send 2 requests
+(<code>yZonPreResReq=2</code>).
+</li>
+<li>
+Else if the damper position <code>uDam</code> is greater than 95%, send 1 request
+(<code>yZonPreResReq=1</code>) unit <code>uDam</code> is less than 85%.
+</li>
+<li>
+Else if <code>uDam</code> is less than 95%, send 0 request (<code>yZonPreResReq=0</code>).
+</li>
+</ol>
+<h4>c. If there is a hot water coil (<code>hotWatCoi=true</code>), 
+hot water reset requests <code>yHotValResReq</code></h4>
+<ol>
+<li>
+If the discharge air temperature <code>TDisAir</code> is 17 &deg;C (30 &deg;F)
+less than setpoint <code>TDisAirSet</code> for 5 minutes, send 3 requests
+(<code>yHotValResReq=3</code>).
+</li>
+<li>
+Else if the discharge air temperature <code>TDisAir</code> is 8.3 &deg;C (15 &deg;F)
+less than setpoint <code>TDisAirSet</code> for 5 minutes, send 2 requests
+(<code>yHotValResReq=2</code>).
+</li>
+<li>
+Else if HW valve position <code>uHotVal</code> is greater than 95%, send 1 request
+(<code>yHotValResReq=1</code>) unit <code>uHotVal</code> is less than 85%.
+</li>
+<li>
+Else if <code>uHotVal</code> is less than 95%, send 0 request (<code>yHotValResReq=0</code>).
+</li>
+</ol>
+<h4>d. If there is hot water coil (<code>hotWatCoi=true</code>) and a boiler plant 
+(<code>boiPla=true</code>), send the boiler plant that serves the zone a boiler 
+plant requests <code>yBoiPlaReq</code> as follows:</h4>
+<ol>
+<li>
+If the HW valve position <code>uHotVal</code> is greater than 95%, send 1 request
+(<code>yBoiPlaReq=1</code>) unit <code>uHotVal</code> is less than 10%.
+</li>
+<li>
+Else if <code>uHotVal</code> is less than 95%, send 0 request (<code>yBoiPlaReq=0</code>).
+</li>
+</ol>
 
 <h4>References</h4>
 <p>
@@ -830,7 +844,7 @@ First Public Review Draft (June 2016)</a>
 </html>", revisions="<html>
 <ul>
 <li>
-August 17, 2017, by Jianjun Hu:<br/>
+September 13, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
