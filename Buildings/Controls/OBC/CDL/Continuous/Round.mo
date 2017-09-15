@@ -9,12 +9,14 @@ block Round "Round real number to given digits"
   Interfaces.RealOutput y
     "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+protected
+  parameter Real fac = 10^n "Factor used for rounding";
 
 equation
-  y = if (u>0) then floor(u*(10^n) + 0.5)/(10^n) else ceil(u*(10^n) - 0.5)/(10^n);
+  y = if (u>0) then floor(u*fac + 0.5)/fac else ceil(u*fac - 0.5)/fac;
 
 annotation (
-defaultComponentName="round",
+defaultComponentName="rou",
 Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),
@@ -26,23 +28,40 @@ Icon(coordinateSystem(
             fillPattern=FillPattern.Solid),
         Text(
           lineColor={0,0,127},
-          extent={{-62,-50},{66,52}},
-          textString="Round( )"),           Text(
+          extent={{-56,4},{72,106}},
+          textString="round( )"),           Text(
             extent={{-150,150},{150,110}},
             textString="%name",
-            lineColor={0,0,255})}),
+            lineColor={0,0,255}),
+        Text(
+          lineColor={0,0,127},
+          extent={{-60,-88},{54,-34}},
+          textString="%n")}),
 Documentation(info="<html>
 <p>
-Block that outputs <code>y</code>
-as the round value of the input <code>u</code> with given number of 
-digits <code>n</code>.
+Block that rounds the input to the <code>n</code> digits
+and sends it to the output <code>y</code>.
 </p>
 <p>
-The block outputs
+For example,
+<ul>
+<li>
+set <code>n = 0</code> to round to the nearest integer,
+</li>
+<li>
+set <code>n = 1</code> to round to the next decimal point, and
+</li>
+<li>
+set <code>n = -1</code> to round to the next multiple of ten.
+</li>
+</ul>
+</p>
+<p>
+Hence, the block outputs
 </p>
 <pre>
     y = floor(u*(10^n) + 0.5)/(10^n)  for  u &gt; 0,
-    y = ceil(u*(10^n) - 0.5)/(10^n)  for  u &lt; 0.
+    y = ceil(u*(10^n) - 0.5)/(10^n)   for  u &lt; 0.
 </pre>
 </html>", revisions="<html>
 <ul>
