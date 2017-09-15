@@ -2,8 +2,7 @@ within Buildings.Controls.OBC.CDL.Discrete.Examples;
 model TriggeredMax "Example model for the TriggeredMax block"
   extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredMax triggeredMax(
-    samplePeriod = 0.2)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredMax triggeredMax
     "Output the maximum, absolute value of a continuous signal at trigger instants"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(

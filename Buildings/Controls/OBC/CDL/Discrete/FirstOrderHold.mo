@@ -4,8 +4,6 @@ block FirstOrderHold "First order hold of a sampled-data system"
   parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
     "Sample period of component";
 
-  parameter Modelica.SIunits.Time startTime=0 "First sample time instant";
-
   Interfaces.RealInput u "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
@@ -13,6 +11,9 @@ block FirstOrderHold "First order hold of a sampled-data system"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
+  parameter Modelica.SIunits.Time t0(fixed=false)
+    "First sample time instant";
+
   output Boolean sampleTrigger "True, if sample time instant";
 
   output Boolean firstTrigger(start=false, fixed=true)
@@ -24,6 +25,7 @@ protected
   Real c "Slope";
 
 initial equation
+  t0 = time;
   pre(tSample) = time;
   pre(uSample) = u;
   pre(pre_uSample) = u;
@@ -31,9 +33,9 @@ initial equation
 
 equation
   // Declarations that are used for all discrete blocks
-  sampleTrigger = sample(startTime, samplePeriod);
+  sampleTrigger = sample(t0, samplePeriod);
   when sampleTrigger then
-    firstTrigger = time <= startTime + samplePeriod/2;
+    firstTrigger = time <= t0 + samplePeriod/2;
   end when;
 
   // Declarations specific to this type of discrete block
@@ -75,6 +77,13 @@ values of the last two sampled input signals.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 14, 2017, by Michael Wetter:<br/>
+Removed parameter <code>startTime</code> to allow model to work
+also for negative start time without having to change the value of this
+parameters.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/938\">issue 938</a>.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
