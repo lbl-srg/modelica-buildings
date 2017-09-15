@@ -100,10 +100,8 @@ block SystemRequestsReheatBox
     final samplePeriod=samPer)
     "Sample current cooling setpoint"
     annotation (Placement(transformation(extent={{-140,430},{-120,450}})));
-  CDL.Discrete.ZeroOrderHold zerOrdHol(
-    final samplePeriod=samPer,
-    final startTime=samPer/2)
-    "Hold value so to record input value"
+  CDL.Discrete.UnitDelay uniDel(final samplePeriod=samPer)
+    "Delay value to record input value"
     annotation (Placement(transformation(extent={{-80,450},{-60,470}})));
   CDL.Continuous.Abs abs "Absolute change of the setpoint temperature"
     annotation (Placement(transformation(extent={{100,430},{120,450}})));
@@ -274,7 +272,7 @@ protected
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   CDL.Logical.And and4 "Logical and"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
-  CDL.Continuous.Sources.Constant con(final k=samPer/2) "Half of the sample period time"
+  CDL.Continuous.Sources.Constant con(final k=samPer) "Sample period time"
     annotation (Placement(transformation(extent={{-140,370},{-120,390}})));
   CDL.Continuous.Sources.Constant conZer(final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-20,370},{0,390}})));
@@ -367,7 +365,7 @@ equation
     annotation (Line(points={{-119,200},{-102,200}}, color={0,0,127}));
   connect(TCooSet, samTCooSet.u)
     annotation (Line(points={{-200,440},{-142,440}}, color={0,0,127}));
-  connect(samTCooSet.y, zerOrdHol.u)
+  connect(samTCooSet.y, uniDel.u)
     annotation (Line(points={{-119,440},{-100,440},{-100,460},{-82,460}},
       color={0,0,127}));
   connect(triSam.y, gai.u)
@@ -392,7 +390,7 @@ equation
   connect(con.y, gre1.u2)
     annotation (Line(points={{-119,380},{-100,380},{-100,402},{-82,402}},
       color={0,0,127}));
-  connect(zerOrdHol.y, add1.u1)
+  connect(uniDel.y, add1.u1)
     annotation (Line(points={{-59,460},{-40,460},{-40,446},{-22,446}},
       color={0,0,127}));
   connect(samTCooSet.y, add1.u2)
