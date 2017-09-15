@@ -129,18 +129,6 @@ block ActiveAirflowSetpointReheatBox
     annotation (Placement(transformation(extent={{80,-410},{100,-390}})));
   CDL.Logical.Not not2 if winSen "Logical not"
     annotation (Placement(transformation(extent={{-240,-510},{-220,-490}})));
-  CDL.Continuous.MultiSum actCooMinAir(nu=1)
-    "Active cooling minimum airflow"
-    annotation (Placement(transformation(extent={{220,130},{240,150}})));
-  CDL.Continuous.MultiSum actMinAir(nu=1)
-    "Active minimum airflow"
-    annotation (Placement(transformation(extent={{220,100},{240,120}})));
-  CDL.Continuous.MultiSum actHeaMinAir(nu=3)
-  "Active heating minimum airflow"
-    annotation (Placement(transformation(extent={{220,60},{240,80}})));
-  CDL.Continuous.MultiSum actHeaMaxAir(nu=4)
-  "Active heating maximum airflow"
-    annotation (Placement(transformation(extent={{220,20},{240,40}})));
 
 protected
   CDL.Continuous.Sources.Constant minZonAir1(k=VMin) if not co2Sen
@@ -267,9 +255,21 @@ protected
   CDL.Logical.Switch swi28
     "Select heating maximum based on operation mode"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  CDL.Continuous.MultiSum actCooMaxAir(nu=3)
+  CDL.Continuous.MultiSum actCooMaxAir(nin=3)
     "Active cooling maximum airflow"
     annotation (Placement(transformation(extent={{220,160},{240,180}})));
+  CDL.Continuous.MultiSum actCooMinAir(nin=1)
+    "Active cooling minimum airflow"
+    annotation (Placement(transformation(extent={{220,130},{240,150}})));
+  CDL.Continuous.MultiSum actMinAir(nin=1)
+    "Active minimum airflow"
+    annotation (Placement(transformation(extent={{220,100},{240,120}})));
+  CDL.Continuous.MultiSum actHeaMinAir(nin=3)
+  "Active heating minimum airflow"
+    annotation (Placement(transformation(extent={{220,60},{240,80}})));
+  CDL.Continuous.MultiSum actHeaMaxAir(nin=4)
+  "Active heating maximum airflow"
+    annotation (Placement(transformation(extent={{220,20},{240,40}})));
   CDL.Continuous.Max maxInp "Find greater input"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 

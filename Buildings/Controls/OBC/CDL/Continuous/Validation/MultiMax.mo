@@ -10,12 +10,11 @@ extends Modelica.Icons.Example;
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
 equation
-  for i in 1:sizOfVec loop
-    connect(con[i].y,maxVal. u[i])
-    annotation (Line(points={{-37,0},{-24.5,0},{-12,0}}, color={0,0,127}));
-  end for;
-  annotation (
-experiment(StopTime=1.0, Tolerance=1e-06),
+  connect(con.y,maxVal. u)
+     annotation (Line(points={{-37,0},{-24.5,0},{-12,0}}, color={0,0,127}));
+
+annotation (
+  experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/MultiMax.mos"
         "Simulate and plot"),
     Documentation(info="<html>

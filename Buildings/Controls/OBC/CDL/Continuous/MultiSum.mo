@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.CDL.Continuous;
 block MultiSum
   "Sum of Reals, y = k[1]*u[1] + k[2]*u[2] + ... + k[n]*u[n]"
 
-  parameter Integer nu(min=0) = 0 "Number of input connections"
+  parameter Integer nin(min=0) = 0 "Number of input connections"
     annotation (Dialog(connectorSizing=true), HideResult=true);
-  parameter Real k[nu]=fill(1, nu) "Input gains";
-  Interfaces.RealInput u[nu] "Connector of Real input signals"
+  parameter Real k[nin]=fill(1, nin) "Input gains";
+  Interfaces.RealInput u[nin] "Connector of Real input signals"
     annotation (Placement(transformation(extent={{-140,70},{-100,-70}})));
   Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,17},{134,-17}})));

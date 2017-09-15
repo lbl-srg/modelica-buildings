@@ -177,7 +177,7 @@ block DamperValveReheatBox
     annotation (Placement(transformation(extent={{60,200},{80,180}})));
   CDL.Logical.Switch watValPos "Output hot water valve position"
     annotation (Placement(transformation(extent={{260,-110},{280,-90}})));
-  CDL.Continuous.MultiSum mulSum(nu=3) "Active airflow setpoint"
+  CDL.Continuous.MultiSum mulSum(nin=3) "Active airflow setpoint"
     annotation (Placement(transformation(extent={{200,200},{220,220}})));
 
 protected

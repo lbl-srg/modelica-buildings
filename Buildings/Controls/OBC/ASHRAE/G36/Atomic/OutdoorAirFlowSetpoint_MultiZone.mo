@@ -129,10 +129,10 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Continuous.Division priOutAirFra[numOfZon]
     "Primary outdoor air fraction"
     annotation (Placement(transformation(extent={{0,-170},{20,-150}})));
-  CDL.Continuous.Sum sysUncOutAir(final nin=numOfZon)
+  CDL.Continuous.MultiSum sysUncOutAir(final nin=numOfZon)
     "Uncorrected outdoor airflow"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
-  CDL.Continuous.Sum sysPriAirRate(final nin=numOfZon)
+  CDL.Continuous.MultiSum sysPriAirRate(final nin=numOfZon)
     "System primary airflow rate"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   CDL.Continuous.Division outAirFra "System outdoor air fraction"
@@ -154,15 +154,15 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Continuous.Division desZonPriOutAirRate[numOfZon]
     "Design zone primary outdoor air fraction"
     annotation (Placement(transformation(extent={{-20,160},{0,180}})));
-  CDL.Continuous.Sum  sumDesZonPop(nin=numOfZon)
+  CDL.Continuous.MultiSum sumDesZonPop(final nin=numOfZon)
     "Sum of the design zone population for all zones"
     annotation (Placement(transformation(extent={{-140,220},{-120,240}})));
   CDL.Continuous.Division occDivFra "Occupant diversity fraction"
     annotation (Placement(transformation(extent={{-98,244},{-78,264}})));
-  CDL.Continuous.Sum  sumDesBreZonPop(nin=numOfZon)
+  CDL.Continuous.MultiSum sumDesBreZonPop(final nin=numOfZon)
     "Sum of the design breathing zone flow rate for population component"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
-  CDL.Continuous.Sum  sumDesBreZonAre(nin=numOfZon)
+  CDL.Continuous.MultiSum sumDesBreZonAre(final nin=numOfZon)
     "Sum of the design breathing zone flow rate for area component"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   CDL.Continuous.Add unCorOutAirInk "Uncorrected outdoor air intake"
@@ -367,7 +367,7 @@ equation
   connect(priOutAirFra.y, maxPriOutAirFra.u)
     annotation (Line(points={{21,-160},{21,-160},{58,-160}}, color={0,0,127}));
   connect(sysPriAirRate.y, outAirFra.u2)
-    annotation (Line(points={{21,-90},{30,-90},{30,-96},{38,-96}},
+    annotation (Line(points={{21.7,-90},{30,-90},{30,-96},{38,-96}},
       color={0,0,127}));
   connect(outAirFra.y, addPar.u)
     annotation (Line(points={{61,-90},{61,-90},{78,-90}},
@@ -382,19 +382,19 @@ equation
     annotation (Line(points={{141,-90},{141,-90},{142,-90},{148,-90},{148,-96},
       {158,-96}}, color={0,0,127}));
   connect(sumDesZonPop.y, occDivFra.u2)
-    annotation (Line(points={{-119,230},{-112,230},{-112,248},{-106,248},
-      {-106,248},{-100,248},{-100,248}},  color={0,0,127}));
+    annotation (Line(points={{-118.3,230},{-112,230},{-112,248},{-106,248},
+      {-106,248},{-100,248},{-100,248}}, color={0,0,127}));
   connect(peaSysPopulation.y, occDivFra.u1)
     annotation (Line(points={{-147,260},{-100,260}},
       color={0,0,127}));
   connect(sumDesBreZonPop.y, pro.u2)
-    annotation (Line(points={{-39,210},{-30,210},{-30,244},{-22,244}},
+    annotation (Line(points={{-38.3,210},{-30,210},{-30,244},{-22,244}},
       color={0,0,127}));
   connect(pro.y, unCorOutAirInk.u1)
     annotation (Line(points={{1,250},{10,250},{10,226.2},{18,226.2}},
       color={0,0,127}));
   connect(sumDesBreZonAre.y, unCorOutAirInk.u2)
-    annotation (Line(points={{1,110},{10,110},{10,214.8},{18,214.8}},
+    annotation (Line(points={{1.7,110},{10,110},{10,214.8},{18,214.8}},
       color={0,0,127}));
   connect(unCorOutAirInk.y, aveOutAirFra.u1)
     annotation (Line(points={{41,220.5},{50,220.5},{50,196},{58,196}},
@@ -416,7 +416,7 @@ equation
     annotation (Line(points={{161,-30},{180,-30},{180,-60},{146,-60},{146,-84},
       {158,-84}}, color={0,0,127}));
   connect(sysUncOutAir.y, min1.u2)
-    annotation (Line(points={{121,-30},{121,-30},{128,-30},{128,-36},{138,-36}},
+    annotation (Line(points={{121.7,-30},{121.7,-30},{128,-30},{128,-36},{138,-36}},
       color={0,0,127}));
   connect(min1.y, outAirFra.u1)
     annotation (Line(points={{161,-30},{180,-30},{180,-60},{128,-60},{26,-60},

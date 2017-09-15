@@ -96,7 +96,8 @@ block VAVMultiZoneSupFan  "Block to control multizone VAV AHU supply fan"
     annotation (Placement(transformation(extent={{140,-120},{160,-100}}),
       iconTransformation(extent={{100,-80},{120,-60}})));
 
-  CDL.Continuous.Sum sum1(nin=numZon) if not (duaDucBox or airFloMeaSta)
+  CDL.Continuous.MultiSum sum1(final nin=numZon) if
+       not (duaDucBox or airFloMeaSta)
     "Sum of box airflow rate"
     annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
   TrimRespondLogic staPreSetRes(
@@ -176,7 +177,7 @@ equation
   connect(boxFloRat, sum1.u)
     annotation (Line(points={{-180,-110},{58,-110}}, color={0,0,127}));
   connect(sum1.y, yFloRat)
-    annotation (Line(points={{81,-110},{150,-110}},
+    annotation (Line(points={{81.7,-110},{150,-110}},
       color={0,0,127}));
   connect(or1.y, staPreSetRes.uDevSta)
     annotation (Line(points={{101,70},{120,70},{120,-8},{-120,-8},{-120,-32},

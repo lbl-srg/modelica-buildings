@@ -91,7 +91,7 @@ block OperationModeSelector "Block that outputs the operation mode"
     annotation (Placement(transformation(extent={{0,170},{20,190}})));
   CDL.Logical.Switch corWarUpTim "Corrected warm-up period"
     annotation (Placement(transformation(extent={{0,150},{20,130}})));
-  CDL.Continuous.Sum sum1(nin=numOfZon)
+  CDL.Continuous.MultiSum sum1(final nin=numOfZon)
     "Sum up number of zones that have temperature being lower than setpoint"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   CDL.Continuous.GreaterEqualThreshold greEquThr(final threshold=4.5)
@@ -120,7 +120,7 @@ block OperationModeSelector "Block that outputs the operation mode"
     "If all zone temperature are higher than freProEndVal, then freeze
     protection setback mode should be off."
     annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
-  CDL.Continuous.Sum sum2(final nin=numOfZon)
+  CDL.Continuous.MultiSum sum2(final nin=numOfZon)
     "Sum up number of zones that have temperature being higher than setpoint"
     annotation (Placement(transformation(extent={{0,-220},{20,-200}})));
   CDL.Continuous.GreaterEqualThreshold greEquThr2(threshold=4.5)
@@ -143,7 +143,7 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Whether or not the unoccupied cooling setpoint  becomes higher than
     maximum zone temperature: true to false"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}})));
-  CDL.Integers.MultiSum sumInt(nu=7) "Sum of inputs"
+  CDL.Integers.MultiSum sumInt(nin=7) "Sum of inputs"
     annotation (Placement(transformation(extent={{420,-70},{440,-50}})));
   CDL.Continuous.Product pro[numOfZon]
     "Decide if the cool down time of one zone should be ignored: if window
@@ -463,9 +463,9 @@ equation
   connect(not1.y, booToRea9.u)
     annotation (Line(points={{-179,30},{-162,30}}, color={255,0,255}));
   connect(sum1.y, greEquThr.u)
-    annotation (Line(points={{21,-10},{38,-10}}, color={0,0,127}));
+    annotation (Line(points={{21.7,-10},{38,-10}}, color={0,0,127}));
   connect(sum1.y, greEquThr1.u)
-    annotation (Line(points={{21,-10},{30,-10},{30,-40},{38,-40}},
+    annotation (Line(points={{21.7,-10},{30,-10},{30,-40},{38,-40}},
       color={0,0,127}));
   connect(greEquThr.y, or1.u1)
     annotation (Line(points={{61,-10},{69.5,-10},{78,-10}},
@@ -498,9 +498,9 @@ equation
       {114,30},{114,-78},{250,-78},{250,-102},{258,-102}},
       color={0,0,127}, pattern=LinePattern.Dash));
   connect(sum2.y, greEquThr2.u)
-    annotation (Line(points={{21,-210},{38,-210}}, color={0,0,127}));
+    annotation (Line(points={{21.7,-210},{38,-210}}, color={0,0,127}));
   connect(sum2.y, greEquThr3.u)
-    annotation (Line(points={{21,-210},{30,-210},{30,-240},{38,-240}},
+    annotation (Line(points={{21.7,-210},{30,-210},{30,-240},{38,-240}},
       color={0,0,127}));
   connect(greEquThr2.y, or4.u1)
     annotation (Line(points={{61,-210},{78,-210}}, color={255,0,255}));
@@ -739,6 +739,7 @@ equation
   connect(pro1.y, maxWarTim.u)
     annotation (Line(points={{-159,110},{-150,110},{-150,110},{-142,110}},
       color={0,0,127}));
+
 annotation (
   defaultComponentName = "opeModSel",
   Diagram(

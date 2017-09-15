@@ -88,7 +88,7 @@ protected
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Continuous.Gain gainPID(k=k)
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Continuous.MultiSum addI(nu=3, k={1,-1,1}) if with_I
+  Continuous.MultiSum addI(nin=3, k={1,-1,1}) if with_I
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Continuous.Add addSat(k1=+1, k2=-1) if with_I annotation (
       Placement(transformation(

@@ -3,7 +3,7 @@ model MultiSum
   "Validation model for the block to find sum of multiple inputs"
 extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.CDL.Integers.MultiSum add1(nu=3)
+  Buildings.Controls.OBC.CDL.Integers.MultiSum add1(nin=3)
     "Block that outputs the sum of the inputs"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
