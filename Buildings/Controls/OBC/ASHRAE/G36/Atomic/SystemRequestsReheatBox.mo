@@ -20,6 +20,16 @@ block SystemRequestsReheatBox
   parameter Modelica.SIunits.TemperatureDifference disAirSetDif_2=8.3
     "Limit value of difference between discharge air temperature and its setpoint 
     for generating 2 hot water reset requests";
+  parameter Modelica.SIunits.Time durTimTem=120
+    "Duration time of zone temperature exceeds setpoint"
+    annotation(Dialog(group="Duration times"));
+  parameter Modelica.SIunits.Time durTimFlo=60
+    "Duration time of airflow rate less than setpoint"
+    annotation(Dialog(group="Duration times"));
+  parameter Modelica.SIunits.Time durTimDisAir=300
+    "Duration time of discharge air temperature is less than setpoint"
+    annotation(Dialog(group="Duration times"));
+
 
   CDL.Interfaces.RealInput TRoo(
     final unit="K",
@@ -114,48 +124,14 @@ block SystemRequestsReheatBox
     annotation (Placement(transformation(extent={{-60,330},{-40,350}})));
   CDL.Logical.Latch lat1 "Maintains an on signal until conditions changes"
     annotation (Placement(transformation(extent={{60,260},{80,280}})));
-  CDL.Logical.Timer tim
-    "Calculate duration time of zone temperature exceeds setpoint by cooSetDif_1"
-    annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
-  CDL.Logical.Timer tim1 "Calculate time"
+  CDL.Logical.Timer tim "Calculate time"
     annotation (Placement(transformation(extent={{0,330},{20,350}})));
-  CDL.Logical.Timer tim2
-    "Calculate duration time of zone temperature exceeds setpoint by cooSetDif_2"
-    annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
-  CDL.Logical.Timer tim3
-    "Calculate duration time when airflow setpoint is greater than zero"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  CDL.Logical.Timer tim4 if have_hotWatCoi
-    "Calculate duration time when discharge air temperature is less than 
-    setpoint by disAirSetDif_1"
-    annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
-  CDL.Logical.OnDelay
-                    tim5(delayTime=300) if
-                            have_hotWatCoi
-    "Calculate duration time when discharge air temperature is less than 
-    setpoint by disAirSetDif_2"
-    annotation (Placement(transformation(extent={{0,-310},{20,-290}})));
-  CDL.Continuous.GreaterEqual
-                         gre "Check if the suppression time has passed"
+  CDL.Continuous.GreaterEqual gre
+    "Check if the suppression time has passed"
     annotation (Placement(transformation(extent={{60,330},{80,350}})));
-  CDL.Continuous.GreaterEqual
-                         gre1
+  CDL.Continuous.GreaterEqual gre1
     "Check if current model time is greater than the sample period"
     annotation (Placement(transformation(extent={{-80,400},{-60,420}})));
-  CDL.Continuous.GreaterEqual
-                         gre2 "Check if it is more than 2 minutes"
-    annotation (Placement(transformation(extent={{-20,190},{0,210}})));
-  CDL.Continuous.GreaterEqual
-                         gre3 "Check if it is more than 2 minutes"
-    annotation (Placement(transformation(extent={{-20,130},{0,150}})));
-  CDL.Continuous.GreaterEqual
-                         gre4 "Check if it is more than 1 minutes"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  CDL.Continuous.GreaterEqualThreshold
-                         gre5(threshold=300) if
-                                 have_hotWatCoi
-    "Check if it is more than 5 minutes"
-    annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
   CDL.Continuous.Hysteresis hys(
     final uLow=cooSetDif_1 - 0.1,
     final uHigh=cooSetDif_1 + 0.1)
@@ -290,12 +266,6 @@ protected
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
   CDL.Continuous.Sources.Constant zerCooReq(final k=0) "Constant 0"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  CDL.Continuous.Sources.Constant con1(final k=120) "Two minutes"
-    annotation (Placement(transformation(extent={{-60,162},{-40,182}})));
-  CDL.Continuous.Sources.Constant con2(final k=120) "Two minutes"
-    annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
-  CDL.Continuous.Sources.Constant con3(final k=60) "One minutes"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   CDL.Continuous.Sources.Constant thrPreResReq(final k=3) "Constant 3"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   CDL.Continuous.Sources.Constant twoPreResReq(final k=2) "Constant 2"
@@ -360,10 +330,23 @@ protected
     annotation (Placement(transformation(extent={{120,330},{140,350}})));
   CDL.Logical.LogicalSwitch logSwi "Logical switch"
     annotation (Placement(transformation(extent={{120,300},{140,280}})));
+  CDL.Logical.OnDelay tim1(delayTime=durTimTem)
+    "Check if it is more than durTimTem"
+    annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
+  CDL.Logical.OnDelay tim2(delayTime=durTimTem)
+    "Check if it is more than durTimTem"
+    annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
+  CDL.Logical.OnDelay tim3(delayTime=durTimFlo)
+    "Check if it is more than durTimFlo"
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+  CDL.Logical.OnDelay tim4(delayTime=durTimDisAir) if have_hotWatCoi
+    "Check if it is more than durTimDisAir"
+    annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
+  CDL.Logical.OnDelay tim5(delayTime=durTimDisAir) if have_hotWatCoi
+    "Check if it is more than durTimDisAir"
+    annotation (Placement(transformation(extent={{0,-310},{20,-290}})));
 
 equation
-  connect(hys.y, tim.u)
-    annotation (Line(points={{-79,200},{-62,200}}, color={255,0,255}));
   connect(add2.y, hys.u)
     annotation (Line(points={{-119,200},{-102,200}}, color={0,0,127}));
   connect(TCooSet, samTCooSet.u)
@@ -375,9 +358,9 @@ equation
     annotation (Line(points={{-99,280},{-82,280}},color={0,0,127}));
   connect(hys2.y, lat.u)
     annotation (Line(points={{-99,340},{-61,340}}, color={255,0,255}));
-  connect(lat.y, tim1.u)
+  connect(lat.y, tim.u)
     annotation (Line(points={{-39,340},{-2,340}}, color={255,0,255}));
-  connect(tim1.y, gre.u1)
+  connect(tim.y, gre.u1)
     annotation (Line(points={{21,340},{58,340}}, color={0,0,127}));
   connect(edg.y, triSam.trigger)
     annotation (Line(points={{-39,300},{-20,300},{-20,264},{-110,264},{-110,268.2}},
@@ -421,8 +404,6 @@ equation
     annotation (Line(points={{61,230},{80,230},{80,208},{98,208}}, color={0,0,127}));
   connect(add3.y, hys3.u)
     annotation (Line(points={{-119,140},{-102,140}}, color={0,0,127}));
-  connect(hys3.y, tim2.u)
-    annotation (Line(points={{-79,140},{-62,140}}, color={255,0,255}));
   connect(TCooSet, add2.u1)
     annotation (Line(points={{-200,440},{-160,440},{-160,206},{-142,206}},
       color={0,0,127}));
@@ -471,34 +452,8 @@ equation
       color={0,0,127}));
   connect(add4.y, hys6.u)
     annotation (Line(points={{-59,-40},{-42,-40}}, color={0,0,127}));
-  connect(hys7.y, tim3.u)
-    annotation (Line(points={{-119,30},{-102,30}}, color={255,0,255}));
   connect(VDisAirSet, hys7.u)
     annotation (Line(points={{-200,30},{-142,30}}, color={0,0,127}));
-  connect(tim.y, gre2.u1)
-    annotation (Line(points={{-39,200},{-22,200}}, color={0,0,127}));
-  connect(con1.y, gre2.u2)
-    annotation (Line(points={{-39,172},{-30,172},{-30,192},{-22,192}},
-      color={0,0,127}));
-  connect(gre2.y, and2.u2)
-    annotation (Line(points={{1,200},{14,200},{14,192},{38,192}},
-      color={255,0,255}));
-  connect(tim2.y, gre3.u1)
-    annotation (Line(points={{-39,140},{-22,140}}, color={0,0,127}));
-  connect(con2.y, gre3.u2)
-    annotation (Line(points={{-39,110},{-30,110},{-30,132},{-22,132}},
-      color={0,0,127}));
-  connect(gre3.y, and1.u2)
-    annotation (Line(points={{1,140},{14,140},{14,132},{38,132}},
-      color={255,0,255}));
-  connect(tim3.y, gre4.u1)
-    annotation (Line(points={{-79,30},{-42,30}}, color={0,0,127}));
-  connect(con3.y, gre4.u2)
-    annotation (Line(points={{-79,0},{-60,0},{-60,22},{-42,22}},
-      color={0,0,127}));
-  connect(gre4.y, and3.u1)
-    annotation (Line(points={{-19,30},{20,30},{20,-40},{38,-40}},
-      color={255,0,255}));
   connect(hys6.y, and3.u2)
     annotation (Line(points={{-19,-40},{0,-40},{0,-48},{38,-48}},
       color={255,0,255}));
@@ -520,9 +475,6 @@ equation
     annotation (Line(points={{-59,-100},{-42,-100}}, color={0,0,127}));
   connect(hys1.y, and4.u2)
     annotation (Line(points={{-19,-100},{0,-100},{0,-108},{38,-108}},
-      color={255,0,255}));
-  connect(gre4.y, and4.u1)
-    annotation (Line(points={{-19,30},{20,30},{20,-100},{38,-100}},
       color={255,0,255}));
   connect(and4.y, swi5.u2)
     annotation (Line(points={{61,-100},{98,-100}}, color={255,0,255}));
@@ -560,8 +512,6 @@ equation
       color={0,0,127}));
   connect(add6.y, hys8.u)
     annotation (Line(points={{-59,-240},{-42,-240}}, color={0,0,127}));
-  connect(hys8.y, tim4.u)
-    annotation (Line(points={{-19,-240},{-2,-240}}, color={255,0,255}));
   connect(addPar1.y, add7.u2)
     annotation (Line(points={{-119,-320},{-108,-320},{-108,-306},{-82,-306}},
       color={0,0,127}));
@@ -569,8 +519,6 @@ equation
     annotation (Line(points={{-59,-300},{-42,-300}}, color={0,0,127}));
   connect(hys9.y, tim5.u)
     annotation (Line(points={{-19,-300},{-2,-300}}, color={255,0,255}));
-  connect(gre5.y, swi7.u2)
-    annotation (Line(points={{61,-240},{98,-240}}, color={255,0,255}));
   connect(thrHotResReq.y, swi7.u1)
     annotation (Line(points={{61,-210},{80,-210},{80,-232},{98,-232}},
       color={0,0,127}));
@@ -649,11 +597,31 @@ equation
       color={0,0,127}));
   connect(supTim.y, gre.u2)
     annotation (Line(points={{21,280},{40,280},{40,332},{58,332}}, color={0,0,127}));
-
-  connect(tim4.y, gre5.u) annotation (Line(points={{21,-240},{29.5,-240},{38,
-          -240}}, color={0,0,127}));
   connect(tim5.y, swi8.u2)
     annotation (Line(points={{21,-300},{98,-300}}, color={255,0,255}));
+  connect(hys8.y, tim4.u)
+    annotation (Line(points={{-19,-240},{-2,-240}}, color={255,0,255}));
+  connect(tim4.y, swi7.u2)
+    annotation (Line(points={{21,-240},{98,-240}}, color={255,0,255}));
+  connect(hys7.y, tim3.u)
+    annotation (Line(points={{-119,30},{-82,30}}, color={255,0,255}));
+  connect(tim3.y, and3.u1)
+    annotation (Line(points={{-59,30},{20,30},{20,-40},{38,-40}},
+      color={255,0,255}));
+  connect(tim3.y, and4.u1)
+    annotation (Line(points={{-59,30},{20,30},{20,-100},{38,-100}},
+      color={255,0,255}));
+  connect(hys3.y, tim2.u)
+    annotation (Line(points={{-79,140},{-62,140}}, color={255,0,255}));
+  connect(tim2.y, and1.u2)
+    annotation (Line(points={{-39,140},{0,140},{0,132},{38,132}},
+      color={255,0,255}));
+  connect(hys.y, tim1.u)
+    annotation (Line(points={{-79,200},{-62,200}}, color={255,0,255}));
+  connect(tim1.y, and2.u2)
+    annotation (Line(points={{-39,200},{0,200},{0,192},{38,192}},
+      color={255,0,255}));
+
 annotation (
   defaultComponentName="sysReqRehBox",
   Diagram(coordinateSystem(preserveAspectRatio=
