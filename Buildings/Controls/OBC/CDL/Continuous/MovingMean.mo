@@ -14,21 +14,35 @@ protected
   parameter Modelica.SIunits.Time tStart(fixed=false) "Start time";
   Real mu "Internal integrator variable";
   Real muDel "Internal integrator variable with delay";
+  Mode mode "Calculation mode";
+  type Mode = enumeration(
+      NORMAL,
+      INITIALIZE,
+      GUARD_DIVISION_BY_ZERO) "Enumeration for calculation mode";
 
 initial equation
   tStart = time;
   mu = u;
+  mode = Mode.GUARD_DIVISION_BY_ZERO;
 equation
   u =der(mu);
   muDel = delay(mu, delta);
-  if (time-tStart) >= delta then
+
+  // Compute the mode so that Dymola generates time and not state events
+  // as it would with an if-then construct
+  when time >= tStart+delta then
+    mode = Mode.NORMAL;
+  elsewhen time >= tStart+Constants.eps then
+    mode = Mode.INITIALIZE;
+  end when;
+
+  if mode == Mode.NORMAL then
     y = (mu-muDel)/delta;
-  elseif (time-tStart) >= Constants.eps then
+  elseif mode == Mode.INITIALIZE then
     y = (mu-muDel)/(time-tStart);
   else
     y = u;
   end if;
-
   annotation (
   defaultComponentName="movMea",
   Icon(graphics={
@@ -105,6 +119,10 @@ for example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 15, 2017, by Thierry S. Nouidui:<br/>
+Reformulated implementation to avoid state events.
+</li>
 <li>
 July 5, 2017, by Michael Wetter:<br/>
 Revised implementation to allow non-zero start time.
