@@ -101,8 +101,7 @@ block SystemRequestsReheatBox
     "Sample current cooling setpoint"
     annotation (Placement(transformation(extent={{-140,430},{-120,450}})));
   CDL.Discrete.ZeroOrderHold zerOrdHol(
-    final samplePeriod=samPer,
-    final startTime=samPer/2)
+    final samplePeriod=samPer)
     "Hold value so to record input value"
     annotation (Placement(transformation(extent={{-80,450},{-60,470}})));
   CDL.Continuous.Abs abs "Absolute change of the setpoint temperature"
