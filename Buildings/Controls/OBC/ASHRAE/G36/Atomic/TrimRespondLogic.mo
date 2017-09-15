@@ -38,8 +38,7 @@ block TrimRespondLogic "Block to inplement trim and respond logic"
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
   CDL.Discrete.UnitDelay uniDel(
     samplePeriod=timSte,
-    y_start=iniSet,
-    startTime=delTim + timSte) "Output the input signal with a unit delay"
+    y_start=iniSet) "Output the input signal with a unit delay"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   CDL.Logical.Switch swi "Switch between initial setpoint and reseted setpoint"
     annotation (Placement(transformation(extent={{160,140},{180,120}})));
@@ -50,8 +49,7 @@ block TrimRespondLogic "Block to inplement trim and respond logic"
     "Reinitialize setpoint to initial setting when device become OFF"
     annotation (Placement(transformation(extent={{120,50},{140,70}})));
   CDL.Discrete.Sampler sampler(
-    samplePeriod=timSte,
-    startTime=delTim + timSte) "Sample number of requests"
+    samplePeriod=timSte) "Sample number of requests"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
 protected

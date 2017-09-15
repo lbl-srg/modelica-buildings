@@ -2,11 +2,6 @@ within Buildings.Controls.OBC.CDL.Discrete;
 block TriggeredMax
   "Output the maximum, absolute value of a continuous signal at trigger instants"
 
-  parameter Modelica.SIunits.Time samplePeriod(min=100*1E-15)
-    "Sample period of component";
-
-  parameter Modelica.SIunits.Time startTime=0 "First sample time instant";
-
   Interfaces.RealInput u "Connector with a Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
@@ -20,23 +15,10 @@ block TriggeredMax
         extent={{-20,-20},{20,20}},
         rotation=90)));
 
-protected
-  output Boolean sampleTrigger "True, if sample time instant";
-
-  output Boolean firstTrigger(start=false, fixed=true)
-    "Rising edge signals first sample instant";
-
 initial equation
-  y = 0;
+  y = u;
 
 equation
-  // Declarations that are used for all discrete blocks
-  sampleTrigger = sample(startTime, samplePeriod);
-  when sampleTrigger then
-    firstTrigger = time <= startTime + samplePeriod/2;
-  end when;
-
-  // Declarations specific to this type of discrete block
   when trigger then
      y = max(pre(y), abs(u));
   end when;
@@ -96,10 +78,17 @@ equation
 Block that outputs the input signal whenever the trigger input
 signal is rising (i.e., trigger changes to
 <code>true</code>). The maximum, absolute value of the input signal
-at the sampling point is provided as output signal.
+at the sampling point is provided as the output signal.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 14, 2017, by Michael Wetter:<br/>
+Removed parameter <code>startTime</code> and <code>sampleTime</code>
+as these are not needed for this block, and introduced parameter
+<code>y_start=0</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/938\">issue 938</a>.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
