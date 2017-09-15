@@ -17,18 +17,18 @@ protected
 initial equation
       pre(u) = false;
       pre(t_next) = time - 1;
-algorithm
-      when initial() then
-         delaySignal := u;
-         t_next := time - 1;
-      elsewhen u then
-         delaySignal := true;
-         t_next := time + delayTime;
-      elsewhen not u then
-         delaySignal := false;
-         t_next := time - 1;
-      end when;
 equation
+      when initial() then
+         delaySignal = u;
+         t_next = time - 1;
+      elsewhen u then
+         delaySignal = true;
+         t_next = time + delayTime;
+      elsewhen not u then
+         delaySignal = false;
+         t_next = time - 1;
+      end when;
+
       if delaySignal then
          y = time >= t_next;
       else
