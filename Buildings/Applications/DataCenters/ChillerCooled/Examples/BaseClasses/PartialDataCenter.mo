@@ -182,7 +182,7 @@ partial model PartialDataCenter
   Modelica.Blocks.Math.RealToBoolean chiOn[numChi]
     "Real value to boolean value"
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
-  Modelica.Blocks.Math.IntegerToBoolean intToBoo(threshold=integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical))
+  Modelica.Blocks.Math.IntegerToBoolean intToBoo(threshold=Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical))
     "Inverse on/off signal for the WSE"
     annotation (Placement(transformation(extent={{-50,100},{-30,120}})));
   Modelica.Blocks.Logical.Not wseOn

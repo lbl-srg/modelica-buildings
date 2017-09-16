@@ -137,7 +137,7 @@ partial model PartialChillerWSE
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC",
-    min=0,
+    min=200,
     start=T2_start)
     "Chilled water supply temperature in the waterside economizer"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
@@ -189,7 +189,7 @@ partial model PartialChillerWSE
     final l=lValChi,
     final kFixed=kFixedValChi,
     final dp2_nominal=dp2_chi_nominal,
-    each final dpValve_nominal=dpValve_nominal[1:2],
+    final dpValve_nominal=dpValve_nominal[1:2],
     final rhoStd=rhoStd[1:2],
     final yValve_start=yValChi_start)
     "Identical chillers"
@@ -213,8 +213,8 @@ partial model PartialChillerWSE
     final linearizeFlowResistance2=linearizeFlowResistance2,
     final deltaM2=deltaM2,
     final homotopyInitialization=homotopyInitialization,
-    each final l=lValWSE,
-    each final kFixed=kFixedValWSE,
+    final l=lValWSE,
+    final kFixed=kFixedValWSE,
     final use_inputFilter=use_inputFilter,
     final riseTimeValve=riseTimeValve,
     final initValve=initValve,
@@ -222,9 +222,9 @@ partial model PartialChillerWSE
     final massDynamics=massDynamics,
     final p_start=p2_start,
     final T_start=T2_start,
-    each final X_start=X2_start,
-    each final C_start=C2_start,
-    each final C_nominal=C2_nominal,
+    final X_start=X2_start,
+    final C_start=C2_start,
+    final C_nominal=C2_nominal,
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,

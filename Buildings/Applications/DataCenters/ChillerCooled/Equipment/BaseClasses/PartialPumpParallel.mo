@@ -89,8 +89,8 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealOutput P[num](
-    final quantity="Power",
-    final unit="W")
+    each final quantity="Power",
+    each final unit="W")
     "Electrical power consumed by the pumps"
     annotation (Placement(
         transformation(
