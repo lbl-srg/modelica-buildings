@@ -170,7 +170,7 @@ protected
     "Delay value to record input value"
     annotation (Placement(transformation(extent={{-80,450},{-60,470}})));
   CDL.Continuous.Abs abs "Absolute change of the setpoint temperature"
-    annotation (Placement(transformation(extent={{100,430},{120,450}})));
+    annotation (Placement(transformation(extent={{100,400},{120,420}})));
   CDL.Discrete.TriggeredSampler triSam
     "Sample the setpoint changed value when there is change"
     annotation (Placement(transformation(extent={{-120,270},{-100,290}})));
@@ -337,7 +337,7 @@ protected
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
   CDL.Logical.OnDelay tim3(delayTime=durTimFlo)
     "Check if it is more than durTimFlo"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   CDL.Logical.OnDelay tim4(delayTime=durTimDisAir) if have_hotWatCoi
     "Check if it is more than durTimDisAir"
     annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
@@ -389,14 +389,16 @@ equation
   connect(conZer.y, swi.u3)
     annotation (Line(points={{1,380},{20,380},{20,402},{38,402}}, color={0,0,127}));
   connect(swi.y, abs.u)
-    annotation (Line(points={{61,410},{80,410},{80,440},{98,440}},
+    annotation (Line(points={{61,410},{98,410}},
       color={0,0,127}));
   connect(abs.y, triSam.u)
-    annotation (Line(points={{121,440},{140,440},{140,360},{-140,360},{-140,280},
-      {-122,280}}, color={0,0,127}));
+    annotation (Line(points={{121,410},{140,410},{140,360},{-140,360},{-140,280},
+          {-122,280}},
+                   color={0,0,127}));
   connect(abs.y, hys2.u)
-    annotation (Line(points={{121,440},{140,440},{140,360},{-140,360},{-140,340},
-      {-122,340}}, color={0,0,127}));
+    annotation (Line(points={{121,410},{140,410},{140,360},{-140,360},{-140,340},
+          {-122,340}},
+                   color={0,0,127}));
   connect(and2.y, swi1.u2)
     annotation (Line(points={{61,200},{98,200}}, color={255,0,255}));
   connect(thrCooResReq.y, swi1.u1)
@@ -603,12 +605,12 @@ equation
   connect(tim4.y, swi7.u2)
     annotation (Line(points={{21,-240},{98,-240}}, color={255,0,255}));
   connect(hys7.y, tim3.u)
-    annotation (Line(points={{-119,30},{-82,30}}, color={255,0,255}));
+    annotation (Line(points={{-119,30},{-62,30}}, color={255,0,255}));
   connect(tim3.y, and3.u1)
-    annotation (Line(points={{-59,30},{20,30},{20,-40},{38,-40}},
+    annotation (Line(points={{-39,30},{20,30},{20,-40},{38,-40}},
       color={255,0,255}));
   connect(tim3.y, and4.u1)
-    annotation (Line(points={{-59,30},{20,30},{20,-100},{38,-100}},
+    annotation (Line(points={{-39,30},{20,30},{20,-100},{38,-100}},
       color={255,0,255}));
   connect(hys3.y, tim2.u)
     annotation (Line(points={{-79,140},{-62,140}}, color={255,0,255}));
