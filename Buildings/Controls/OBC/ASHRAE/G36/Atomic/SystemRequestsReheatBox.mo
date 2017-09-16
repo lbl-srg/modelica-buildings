@@ -105,33 +105,6 @@ block SystemRequestsReheatBox
     "Boiler plant request"
     annotation (Placement(transformation(extent={{180,-440},{200,-420}}),
       iconTransformation(extent={{100,-100},{120,-80}})));
-
-  CDL.Discrete.Sampler samTCooSet(
-    final samplePeriod=samPer)
-    "Sample current cooling setpoint"
-    annotation (Placement(transformation(extent={{-140,430},{-120,450}})));
-  CDL.Discrete.UnitDelay uniDel(final samplePeriod=samPer)
-    "Delay value to record input value"
-    annotation (Placement(transformation(extent={{-80,450},{-60,470}})));
-  CDL.Continuous.Abs abs "Absolute change of the setpoint temperature"
-    annotation (Placement(transformation(extent={{100,430},{120,450}})));
-  CDL.Discrete.TriggeredSampler triSam
-    "Sample the setpoint changed value when there is change"
-    annotation (Placement(transformation(extent={{-120,270},{-100,290}})));
-  CDL.Logical.Edge edg "Instants when input becomes true"
-    annotation (Placement(transformation(extent={{-60,290},{-40,310}})));
-  CDL.Logical.Latch lat "Maintains an on signal until conditions changes"
-    annotation (Placement(transformation(extent={{-60,330},{-40,350}})));
-  CDL.Logical.Latch lat1 "Maintains an on signal until conditions changes"
-    annotation (Placement(transformation(extent={{60,260},{80,280}})));
-  CDL.Logical.Timer tim "Calculate time"
-    annotation (Placement(transformation(extent={{0,330},{20,350}})));
-  CDL.Continuous.GreaterEqual gre
-    "Check if the suppression time has passed"
-    annotation (Placement(transformation(extent={{60,330},{80,350}})));
-  CDL.Continuous.GreaterEqual gre1
-    "Check if current model time is greater than the sample period"
-    annotation (Placement(transformation(extent={{-80,400},{-60,420}})));
   CDL.Continuous.Hysteresis hys(
     final uLow=cooSetDif_1 - 0.1,
     final uHigh=cooSetDif_1 + 0.1)
@@ -142,11 +115,6 @@ block SystemRequestsReheatBox
     final uHigh=0.01)
     "Check if discharge airflow is less than 75% of setpoint"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
-  CDL.Continuous.Hysteresis hys2(
-    final uLow=0.05,
-    final uHigh=0.15)
-    "Check if there is setpoint change"
-    annotation (Placement(transformation(extent={{-120,330},{-100,350}})));
   CDL.Continuous.Hysteresis hys3(
     final uLow=cooSetDif_2 - 0.1,
     final uHigh=cooSetDif_2 + 0.1)
@@ -192,10 +160,41 @@ block SystemRequestsReheatBox
     final uLow=0.1) if (have_hotWatCoi and have_boiPla)
     "Check if valve position is greater than 0.95"
     annotation (Placement(transformation(extent={{-140,-440},{-120,-420}})));
-  CDL.Continuous.Min supTim "Suppression time"
-    annotation (Placement(transformation(extent={{0,270},{20,290}})));
 
 protected
+  CDL.Discrete.Sampler samTCooSet(
+    final samplePeriod=samPer)
+    "Sample current cooling setpoint"
+    annotation (Placement(transformation(extent={{-140,430},{-120,450}})));
+  CDL.Discrete.UnitDelay uniDel(final samplePeriod=samPer)
+    "Delay value to record input value"
+    annotation (Placement(transformation(extent={{-80,450},{-60,470}})));
+  CDL.Continuous.Abs abs "Absolute change of the setpoint temperature"
+    annotation (Placement(transformation(extent={{100,430},{120,450}})));
+  CDL.Discrete.TriggeredSampler triSam
+    "Sample the setpoint changed value when there is change"
+    annotation (Placement(transformation(extent={{-120,270},{-100,290}})));
+  CDL.Logical.Edge edg "Instants when input becomes true"
+    annotation (Placement(transformation(extent={{-60,290},{-40,310}})));
+  CDL.Logical.Latch lat "Maintains an on signal until conditions changes"
+    annotation (Placement(transformation(extent={{-60,330},{-40,350}})));
+  CDL.Logical.Latch lat1 "Maintains an on signal until conditions changes"
+    annotation (Placement(transformation(extent={{60,260},{80,280}})));
+  CDL.Logical.Timer tim "Calculate time"
+    annotation (Placement(transformation(extent={{0,330},{20,350}})));
+  CDL.Continuous.GreaterEqual gre
+    "Check if the suppression time has passed"
+    annotation (Placement(transformation(extent={{60,330},{80,350}})));
+  CDL.Continuous.GreaterEqual gre1
+    "Check if current model time is greater than the sample period"
+    annotation (Placement(transformation(extent={{-80,400},{-60,420}})));
+  CDL.Continuous.Hysteresis hys2(
+    final uLow=0.05,
+    final uHigh=0.15)
+    "Check if there is setpoint change"
+    annotation (Placement(transformation(extent={{-120,330},{-100,350}})));
+  CDL.Continuous.Min supTim "Suppression time"
+    annotation (Placement(transformation(extent={{0,270},{20,290}})));
   CDL.Continuous.Sources.ModelTime modTim "Time of the model"
     annotation (Placement(transformation(extent={{-140,400},{-120,420}})));
   CDL.Continuous.Gain gai(k=(9/5)*(5*60))
