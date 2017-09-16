@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous;
-block Derivative "Approximated derivative block"
-  import Buildings.Controls.OBC.CDL.Types.Init;
+block Derivative "Block that approximates the derivative of the input"
   parameter Real k(unit="1") = 1 "Gains";
   parameter Modelica.SIunits.Time T(min=1E-60)=0.01
     "Time constants (T>0 required; T=0 is ideal derivative block)";
@@ -22,9 +21,9 @@ block Derivative "Approximated derivative block"
 protected
   parameter Boolean zeroGain = abs(k) < 100*1E-15;
 initial equation
-  if initType == Init.InitialState then
+  if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialState then
     x = x_start;
-  elseif initType == Init.InitialOutput then
+  elseif initType == Buildings.Controls.OBC.CDL.Types.Init.InitialOutput then
     if zeroGain then
        x = u;
     else
@@ -64,7 +63,8 @@ Modelica Standard Library.
 </html>"), Icon(
     coordinateSystem(preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),
-      graphics={                Rectangle(
+  graphics={
+    Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
