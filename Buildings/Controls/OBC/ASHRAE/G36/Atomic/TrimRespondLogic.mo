@@ -4,7 +4,7 @@ block TrimRespondLogic "Block to inplement trim and respond logic"
   parameter Real minSet  "Minimum setpoint";
   parameter Real maxSet  "Maximum setpoint";
   parameter Modelica.SIunits.Time delTim(min=100*1E-15)  "Delay time";
-  parameter Modelica.SIunits.Time samplePeriod(min=100*1E-15)
+  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
     "Sample period of component";
   parameter Integer numIgnReq  "Number of ignored requests";
   parameter Real triAmo  "Trim amount";
@@ -40,7 +40,7 @@ block TrimRespondLogic "Block to inplement trim and respond logic"
   CDL.Logical.Switch swi "Switch between initial setpoint and reseted setpoint"
     annotation (Placement(transformation(extent={{160,140},{180,120}})));
   CDL.Logical.Switch swi1
-    "Before instant (device ON + delTim + timSte), the setpoint should not be trimmed"
+    "Before instant (device ON + delTim + samplePeriod), the setpoint should not be trimmed"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   CDL.Logical.Switch swi2
     "Reinitialize setpoint to initial setting when device become OFF"

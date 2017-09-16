@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Discrete;
 block UnitDelay "Output the input signal with a unit delay"
 
-  parameter Modelica.SIunits.Time samplePeriod(min=100*1E-15)
+  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
     "Sample period of component";
 
   parameter Real y_start=0 "Initial value of output signal";

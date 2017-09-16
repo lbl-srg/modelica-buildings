@@ -29,8 +29,8 @@ block VAVMultiZoneTSupSet
   parameter Modelica.SIunits.Time delTim = 600
     "Delay timer"
     annotation(Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
-  parameter Modelica.SIunits.Time timSte = 120
-    "Time step"
+  parameter Modelica.SIunits.Time samplePeriod(min=1E-3) = 120
+    "Sample period of component"
     annotation(Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
   parameter Integer ignReq = 2
     "Number of ignorable requests for TrimResponse logic"
@@ -79,7 +79,7 @@ block VAVMultiZoneTSupSet
     final iniSet=iniSet,
     final minSet=minSet,
     final maxSet=maxSet,
-    final samplePeriod=timSte,
+    final samplePeriod=samplePeriod,
     final numIgnReq=ignReq,
     final triAmo=triAmo,
     final resAmo=resAmo,
@@ -257,25 +257,25 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that outputs the supply air temperature for VAV system with multiple zones,
-implemented according to the ASHRAE Guideline G36, PART5.N.2 (Supply air 
+implemented according to the ASHRAE Guideline G36, PART5.N.2 (Supply air
 temperature control).
 </p>
 <p>
-The control loop is enabled when the supply air fan <code>uSupFan</code> is proven on, 
-and disabled and the output set to Deadband otherwise. 
+The control loop is enabled when the supply air fan <code>uSupFan</code> is proven on,
+and disabled and the output set to Deadband otherwise.
 </p>
 <p> The supply air temperature setpoint is computed as follows.</p>
-<h4>Setpoints for <code>TSupMin</code>, <code>TSupMax</code>, 
+<h4>Setpoints for <code>TSupMin</code>, <code>TSupMax</code>,
 <code>TSupDes</code>, <code>TOutMin</code>, <code>TOutMax</code></h4>
-The default range of outdoor air temperature (<code>TOutMin=16&deg;C</code>, 
+The default range of outdoor air temperature (<code>TOutMin=16&deg;C</code>,
 <code>TOutMax=21&deg;C</code>) used to reset the occupied mode <code>TSup</code>
-was chosen to maximize economizer hours. It may be preferable to use a lower 
-range of outdoor air temperature (e.g. <code>TOutMin=13&deg;C</code>, 
+was chosen to maximize economizer hours. It may be preferable to use a lower
+range of outdoor air temperature (e.g. <code>TOutMin=13&deg;C</code>,
 <code>TOutMax=18&deg;C</code>) to minimize fan energy.
 <p>
 The <code>TSupMin</code> variable is used during warm weather when little reheat
 is expected to minimize fan energy. It should not be set too low or it may cause
-excessive chilled water temperature reset requests which will reduce chiller 
+excessive chilled water temperature reset requests which will reduce chiller
 plant efficiency. It should be set no lower than the design coil leaving air
 temperature.
 </p>
@@ -288,11 +288,11 @@ cooling savings from economizer operation.
 
 <h4>During occupied mode (<code>opeMod=1</code>)</h4>
 The <code>TSup</code> shall be reset from <code>TSupMin</code> when the outdoor
-air temperature is <code>TOutMax</code> and above, proportionally up to 
-<code>TMax</code> when the outdoor air temperature is <code>TOutMin</code> and 
+air temperature is <code>TOutMax</code> and above, proportionally up to
+<code>TMax</code> when the outdoor air temperature is <code>TOutMin</code> and
 below. The <code>TMax</code> shall be reset using TrimRespond logic between
 <code>TSupDes</code> and <code>TSupMax</code>. Parameters suggested for the
-TrimRespond logic are shown in the table below. They require adjustment 
+TrimRespond logic are shown in the table below. They require adjustment
 during the commissioning and tuning phase.
 
 <table summary=\"summary\" border=\"1\">
@@ -327,7 +327,7 @@ Supply air temperature setpoint <code>TSup</code> shall be <code>35&deg;C</code>
 <h4>References</h4>
 <p>
 <a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR.
-<i>ASHRAE Guideline 36P, High Performance Sequences of Operation for HVAC 
+<i>ASHRAE Guideline 36P, High Performance Sequences of Operation for HVAC
 systems</i>. First Public Review Draft (June 2016)</a>
 </p>
 </html>",

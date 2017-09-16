@@ -27,7 +27,7 @@ block VAVMultiZoneSupFan  "Block to control multizone VAV AHU supply fan"
     annotation (Dialog(tab="Advanced",group="Trim&Respond parameter"));
   parameter Modelica.SIunits.Time delTim = 600  "Delay time"
     annotation (Dialog(tab="Advanced",group="Trim&Respond parameter"));
-  parameter Modelica.SIunits.Time timSte = 120  "Time step"
+  parameter Modelica.SIunits.Time samplePeriod = 120  "Sample period of component"
     annotation (Dialog(tab="Advanced",group="Trim&Respond parameter"));
   parameter Integer numIgnReq = 2
     "Number of ignored requests"
@@ -105,7 +105,7 @@ block VAVMultiZoneSupFan  "Block to control multizone VAV AHU supply fan"
     minSet=minSet,
     maxSet=maxSet,
     delTim=delTim,
-    samplePeriod=timSte,
+    samplePeriod=samplePeriod,
     numIgnReq=numIgnReq,
     triAmo=triAmo,
     resAmo=resAmo,
@@ -348,13 +348,13 @@ annotation (
           textString="ySupFan")}),
   Documentation(info="<html>
 <p>
-Supply fan control for a multizone VAV AHU according to 
+Supply fan control for a multizone VAV AHU according to
 ASHRAE guideline G36, PART5.N.1 (Supply fan control).
 </p>
 <h4>a. Supply fan start/stop</h4>
 <ul>
 <li>Supply fan shall run when system is in the Cool-down, Setup, or Occupied mode</li>
-<li>If there are any VAV-reheat boxes on perimeter zones, supply fan shall also 
+<li>If there are any VAV-reheat boxes on perimeter zones, supply fan shall also
 run when system is in Setback or Warmup mode;</li>
 <li>If the AHU does not serve dual duct boxes (<code>duaDucBox=true</code>) or the AHU
 does not have airflow measurement station (<code>airFloMeaSta=false</code>),
@@ -379,16 +379,16 @@ parameters as a starting point:
 </table>
 <br/>
 <h4>c. Static pressure control</h4>
-Supply fan speed is controlled to maintain duct static pressure at setpoint 
+Supply fan speed is controlled to maintain duct static pressure at setpoint
 when the fan is proven on. Where the zone groups served by the system are small,
 provide multiple sets of gains that are used in the control loop as a function
 of a load indicator (such as supply fan airflow rate, the area of the zone groups
 that are occupied, etc.).
 <h4>References</h4>
 <p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of 
-Standards Review)/ASHRAE Guideline 36P, 
-<i>High Performance Sequences of Operation for HVAC systems</i>. 
+<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
+Standards Review)/ASHRAE Guideline 36P,
+<i>High Performance Sequences of Operation for HVAC systems</i>.
 First Public Review Draft (June 2016)</a>
 </p>
 </html>", revisions="<html>
