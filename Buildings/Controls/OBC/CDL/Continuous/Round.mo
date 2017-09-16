@@ -44,6 +44,7 @@ and sends it to the output <code>y</code>.
 </p>
 <p>
 For example,
+</p>
 <ul>
 <li>
 set <code>n = 0</code> to round to the nearest integer,
@@ -55,7 +56,6 @@ set <code>n = 1</code> to round to the next decimal point, and
 set <code>n = -1</code> to round to the next multiple of ten.
 </li>
 </ul>
-</p>
 <p>
 Hence, the block outputs
 </p>
