@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Derivative "Validation model for the Derivative block"
 extends Modelica.Icons.Example;
-//   import Buildings.Controls.OBC.CDL.Types.Init;
   Buildings.Controls.OBC.CDL.Continuous.Cos cos1
     "Block that outputs the cosine of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

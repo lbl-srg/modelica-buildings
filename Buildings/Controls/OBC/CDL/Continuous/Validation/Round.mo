@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Round "Validation model for the Round block"
-  import Buildings;
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Round round1(n=0)
     "Round real number to given digits"
