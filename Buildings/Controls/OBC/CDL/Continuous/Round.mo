@@ -29,7 +29,8 @@ Icon(coordinateSystem(
         Text(
           lineColor={0,0,127},
           extent={{-56,4},{72,106}},
-          textString="round( )"),           Text(
+          textString="round( )"),
+        Text(
             extent={{-150,150},{150,110}},
             textString="%name",
             lineColor={0,0,255}),
@@ -39,8 +40,7 @@ Icon(coordinateSystem(
           textString="%n")}),
 Documentation(info="<html>
 <p>
-Block that rounds the input to the <code>n</code> digits
-and sends it to the output <code>y</code>.
+Block that outputs the input after rounding it to <code>n</code> digits.
 </p>
 <p>
 For example,

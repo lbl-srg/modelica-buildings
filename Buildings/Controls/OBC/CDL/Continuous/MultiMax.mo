@@ -13,12 +13,14 @@ equation
 
 annotation (Icon(coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}}), graphics={
-          Rectangle(
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Rectangle(
             extent={{-100,-100},{100,100}},
             lineColor={0,0,127},
             fillColor={255,255,255},
-            fillPattern=FillPattern.Solid),        Text(
+            fillPattern=FillPattern.Solid),
+        Text(
           extent={{-12,20},{100,-20}},
           lineColor={0,0,0},
           textString="yMax"),
@@ -27,8 +29,7 @@ annotation (Icon(coordinateSystem(
           textString="%name",
           lineColor={0,0,255})}),Documentation(info="<html>
 <p>
-Determines the maximum element of the input vector and
-provide value as output.
+Outputs the maximum element of the input vector.
 </p>
 </html>", revisions="<html>
 <ul>

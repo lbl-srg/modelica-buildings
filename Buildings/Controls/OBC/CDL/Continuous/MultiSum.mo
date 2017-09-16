@@ -18,12 +18,13 @@ equation
 
   annotation (
   defaultComponentName="mulSum",
-  Icon(graphics={   Rectangle(
+  Icon(graphics={
+       Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
-                             Text(
+       Text(
           extent={{-200,-110},{200,-140}},
           lineColor={0,0,0},
           fillColor={255,213,170},

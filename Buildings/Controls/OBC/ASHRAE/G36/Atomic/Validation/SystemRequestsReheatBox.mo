@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Atomic.Validation;
 model SystemRequestsReheatBox
-  "Validate model of generating system requests"
+  "Validation of model that generates system requests"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36.Atomic.SystemRequestsReheatBox

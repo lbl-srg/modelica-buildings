@@ -12,13 +12,14 @@ equation
   yMin = min(u);
   annotation (Icon(coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}}), graphics={
+        extent={{-100,-100},{100,100}}),
+        graphics={
           Rectangle(
             extent={{-100,-100},{100,100}},
             lineColor={0,0,127},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
-                              Text(
+        Text(
           extent={{-10,20},{100,-20}},
           lineColor={0,0,0},
           textString="yMin"),
@@ -27,8 +28,7 @@ equation
           textString="%name",
           lineColor={0,0,255})}),Documentation(info="<html>
 <p>
-Determines the minimum element of the input vector and
-provide value as output.
+Outputs the minimum element of the input vector.
 </p>
 </html>", revisions="<html>
 <ul>
