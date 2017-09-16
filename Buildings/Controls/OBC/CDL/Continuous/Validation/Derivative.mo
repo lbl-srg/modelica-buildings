@@ -12,13 +12,13 @@ extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Derivative der1(
     initType=Buildings.Controls.OBC.CDL.Types.Init.InitialOutput)
-    annotation (Placement(transformation(extent={{34,-10},{54,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation
   connect(ramp1.y, cos1.u)
     annotation (Line(points={{-39,0},{-12,0}},         color={0,0,127}));
   connect(cos1.y, der1.u)
-    annotation (Line(points={{11,0},{32,0}},        color={0,0,127}));
+    annotation (Line(points={{11,0},{38,0}},        color={0,0,127}));
   annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/Derivative.mos"
