@@ -3,8 +3,9 @@ block TrimRespondLogic "Block to inplement trim and respond logic"
   parameter Real iniSet  "Initial setpoint";
   parameter Real minSet  "Minimum setpoint";
   parameter Real maxSet  "Maximum setpoint";
-  parameter Modelica.SIunits.Time delTim  "Delay time";
-  parameter Modelica.SIunits.Time timSte  "Time step";
+  parameter Modelica.SIunits.Time delTim(min=100*1E-15)  "Delay time";
+  parameter Modelica.SIunits.Time samplePeriod(min=100*1E-15)
+    "Sample period of component";
   parameter Integer numIgnReq  "Number of ignored requests";
   parameter Real triAmo  "Trim amount";
   parameter Real resAmo  "Respond amount (must have opposite sign of triAmo)";
@@ -20,8 +21,7 @@ block TrimRespondLogic "Block to inplement trim and respond logic"
     annotation (Placement(transformation(extent={{-240,110},{-200,150}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
 
-  CDL.Logical.OnDelay tim(
-    final delayTime=delTim + timSte)
+  CDL.Logical.OnDelay tim(final delayTime=delTim + samplePeriod)
     "Send an on signal after some delay time"
     annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
   CDL.Continuous.GreaterEqualThreshold greThr
@@ -34,9 +34,8 @@ block TrimRespondLogic "Block to inplement trim and respond logic"
   CDL.Continuous.Product pro
     "Products of net requests and respond amount value"
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
-  CDL.Discrete.UnitDelay uniDel(
-    final samplePeriod=timSte,
-    final y_start=iniSet) "Output the input signal with a unit delay"
+  CDL.Discrete.UnitDelay uniDel(final samplePeriod=samplePeriod, final y_start=
+        iniSet) "Output the input signal with a unit delay"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   CDL.Logical.Switch swi "Switch between initial setpoint and reseted setpoint"
     annotation (Placement(transformation(extent={{160,140},{180,120}})));
@@ -46,8 +45,8 @@ block TrimRespondLogic "Block to inplement trim and respond logic"
   CDL.Logical.Switch swi2
     "Reinitialize setpoint to initial setting when device become OFF"
     annotation (Placement(transformation(extent={{120,50},{140,70}})));
-  CDL.Discrete.Sampler sampler(
-    samplePeriod=timSte) "Sample number of requests"
+  CDL.Discrete.Sampler sampler(samplePeriod=samplePeriod)
+    "Sample number of requests"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
 protected

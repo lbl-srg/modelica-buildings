@@ -105,12 +105,11 @@ block VAVMultiZoneSupFan  "Block to control multizone VAV AHU supply fan"
     minSet=minSet,
     maxSet=maxSet,
     delTim=delTim,
-    timSte=timSte,
+    samplePeriod=timSte,
     numIgnReq=numIgnReq,
     triAmo=triAmo,
     resAmo=resAmo,
-    maxRes=maxRes)
-    "Static pressure setpoint reset using trim&respond logic"
+    maxRes=maxRes) "Static pressure setpoint reset using trim&respond logic"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   CDL.Continuous.LimPID supFanSpeCon(
     Ti=Ti,

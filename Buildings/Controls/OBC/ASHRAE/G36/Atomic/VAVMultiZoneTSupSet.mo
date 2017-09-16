@@ -79,12 +79,11 @@ block VAVMultiZoneTSupSet
     final iniSet=iniSet,
     final minSet=minSet,
     final maxSet=maxSet,
-    final timSte=timSte,
+    final samplePeriod=timSte,
     final numIgnReq=ignReq,
     final triAmo=triAmo,
     final resAmo=resAmo,
-    final maxRes=maxRes)
-    "Maximum cooling supply temperature reset"
+    final maxRes=maxRes) "Maximum cooling supply temperature reset"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
 protected
