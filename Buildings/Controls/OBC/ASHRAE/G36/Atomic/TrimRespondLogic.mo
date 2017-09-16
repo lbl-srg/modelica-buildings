@@ -7,8 +7,8 @@ block TrimRespondLogic "Block to inplement trim and respond logic"
   parameter Modelica.SIunits.Time timSte  "Time step";
   parameter Integer numIgnReq  "Number of ignored requests";
   parameter Real triAmo  "Trim amount";
-  parameter Real resAmo  "Respond amount (must be opposite in to triAmo)";
-  parameter Real maxRes  "Maximum response per time interval (same sign as resAmo)";
+  parameter Real resAmo  "Respond amount (must have opposite sign of triAmo)";
+  parameter Real maxRes  "Maximum response per time interval (must have same sign as resAmo)";
 
   CDL.Interfaces.IntegerInput numOfReq "Number of requests from zones/systems"
     annotation (Placement(transformation(extent={{-240,-110},{-200,-70}}),
@@ -20,10 +20,11 @@ block TrimRespondLogic "Block to inplement trim and respond logic"
     annotation (Placement(transformation(extent={{-240,110},{-200,150}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
 
-  CDL.Logical.OnDelay tim(delayTime=delTim + timSte)
+  CDL.Logical.OnDelay tim(
+    final delayTime=delTim + timSte)
     "Send an on signal after some delay time"
     annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
-  CDL.Continuous.GreaterThreshold greThr
+  CDL.Continuous.GreaterEqualThreshold greThr
     "Check if the real requests is more than ignored requests setting"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
   CDL.Logical.Switch netRes "Net setpoint reset value"
@@ -34,8 +35,8 @@ block TrimRespondLogic "Block to inplement trim and respond logic"
     "Products of net requests and respond amount value"
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
   CDL.Discrete.UnitDelay uniDel(
-    samplePeriod=timSte,
-    y_start=iniSet) "Output the input signal with a unit delay"
+    final samplePeriod=timSte,
+    final y_start=iniSet) "Output the input signal with a unit delay"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   CDL.Logical.Switch swi "Switch between initial setpoint and reseted setpoint"
     annotation (Placement(transformation(extent={{160,140},{180,120}})));
@@ -253,17 +254,18 @@ shall be <code>iniSet</code>.
 The reset logic shall be active while the associated device is proven
 on (<code>uDevSta=true</code>), starting <code>delTim</code> after initial
 device start command.
-When active, every time step <code>timSte</code>, trim the setpoint by
+When active, every time step <code>samplePeriod</code>, trim the setpoint by
 <code>triAmo</code>.
 If there are more than <code>numIgnReq</code> requests, respond by changing
-the setpoint by <code>resAmo*(numOfReq-numIgnReq)</code>, i.e. the number of
+the setpoint by <code>resAmo*(numOfReq-numIgnReq)</code>, i.e., the number of
 requests minus the number of ignored requests, but no more than <code>maxRes</code>.
 </p>
-In other words, every time step <code>timSte</code>:
+In other words, every time step <code>samplePeriod</code>:
 <ul>
 <li>Change setpoint by <code>triAmo</code>; </li>
 <li>If <code>numOfReq > numIgnReq</code>, <i>also</i> change setpoint by <code>resAmo*(numOfReq
--numIgnReq)</code> but no larger than <code>maxRes</code>; </li>
+-numIgnReq)</code> but no more than <code>maxRes</code>.
+</li>
 </ul>
 
 <p align=\"center\">
