@@ -36,7 +36,9 @@ model WatersideEconomizer "Waterside economizer"
     annotation(Dialog(tab="Dynamics", group="Nominal condition",
                enable=use_controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
-  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC") if use_controller
+  Modelica.Blocks.Interfaces.RealInput TSet(
+    unit="K",
+    displayUnit="degC") if use_controller
     "Set point for leaving water temperature"
     annotation (Placement(
         transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
@@ -82,16 +84,16 @@ model WatersideEconomizer "Waterside economizer"
     final massDynamics=massDynamics,
     final p_start=p_start,
     final T_start=T_start,
-    each final X_start=X_start,
-    each final C_start=C_start,
-    each final C_nominal=C_nominal,
+    final X_start=X_start,
+    final C_start=C_start,
+    final C_nominal=C_nominal,
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTimeValve,
     final init=initValve,
     final yThrWayVal_start=yThrWayVal_start,
     final eta=eta,
     final fraK_ThrWayVal=fraK_ThrWayVal,
-    each final l_ThrWayVal=l_ThrWayVal,
+    final l_ThrWayVal=l_ThrWayVal,
     final R=R,
     final delta0=delta0,
     final tauThrWayVal=tauThrWayVal,

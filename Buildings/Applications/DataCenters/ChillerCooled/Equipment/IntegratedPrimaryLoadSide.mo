@@ -61,21 +61,21 @@ model IntegratedPrimaryLoadSide
 
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_y pum(
     redeclare each final package Medium = Medium2,
-    each final p_start=p2_start,
-    each final T_start=T2_start,
-    each final X_start=X2_start,
-    each final C_start=C2_start,
-    each final C_nominal=C2_nominal,
-    each final m_flow_small=m2_flow_small,
-    each final show_T=show_T,
+    final p_start=p2_start,
+    final T_start=T2_start,
+    final X_start=X2_start,
+    final C_start=C2_start,
+    final C_nominal=C2_nominal,
+    final m_flow_small=m2_flow_small,
+    final show_T=show_T,
     final per=perPum,
-    each addPowerToMedium=addPowerToMedium,
-    each final energyDynamics=energyDynamics,
-    each final massDynamics=massDynamics,
-    each final use_inputFilter=use_inputFilter,
-    each final init=initPum,
-    each final tau=tauPump,
-    each final allowFlowReversal=allowFlowReversal2,
+    addPowerToMedium=addPowerToMedium,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final use_inputFilter=use_inputFilter,
+    final init=initPum,
+    final tau=tauPump,
+    final allowFlowReversal=allowFlowReversal2,
     final num=numPum,
     final m_flow_nominal=m2_flow_chi_nominal,
     dpValve_nominal=6000,
@@ -120,7 +120,7 @@ on the load side of the primary-only chilled water system, as shown in the follo
 In the configuration, users can model multiple chillers with only one integrated WSE.
 </p>
 <p align=\"center\">
-  <img alt=\"image\" 
+  <img alt=\"image\"
   src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/ChillerCooled/Equipment/IntegraredPrimaryLoadSide.png\"/>
 </p>
 <h4>Implementation</h4>

@@ -15,7 +15,7 @@ model SimplifiedRoom "Simplified data center room"
     "Heat generation of the computer room";
 
   Buildings.Fluid.MixingVolumes.MixingVolume rooVol(
-    redeclare each package Medium = Medium,
+    redeclare package Medium = Medium,
     nPorts=nPorts,
     V=rooLen*rooWid*rooHei,
     m_flow_nominal=m_flow_nominal,

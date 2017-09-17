@@ -1,7 +1,7 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
 model ElectricChillerParallel "Multiple identical electric chillers"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialParallelElectricEIR(
-    redeclare each final Buildings.Fluid.Chillers.ElectricEIR chi[num](
+    redeclare final Buildings.Fluid.Chillers.ElectricEIR chi[num](
       per=per));
 
   replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[num]
