@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "truncation1.u",
-    "truncation1.y"
-  };

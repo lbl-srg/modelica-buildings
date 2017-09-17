@@ -1,0 +1,2 @@
+simulateModel("Buildings.Controls.OBC.CDL.Integers.Validation.MultiSum", stopTime=1.0, method="dassl", tolerance=1e-06, resultFile="MultiSum2");
+createPlot(id=1, position={15, 10, 590, 420}, y={"add1.u[1]", "add1.u[2]", "add1.u[3]", "add1.y"}, range={0.0, 1.0, -5, 6}, grid=true, colors={{0,140,72}, {238,46,47}, {217,67,180}, {28,108,200}});

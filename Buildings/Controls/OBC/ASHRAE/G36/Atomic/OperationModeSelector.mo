@@ -81,24 +81,24 @@ block OperationModeSelector "Block that outputs the operation mode"
   CDL.Continuous.Sources.Constant unoPerInd(final k=0)
     "Index to indicate unoccupied period"
     annotation (Placement(transformation(extent={{-160,220},{-140,240}})));
-  CDL.Continuous.MinMax minMax(final nin=numOfZon)
+  CDL.Continuous.MultiMax maxCooTim(final nin=numOfZon)
     "Find the maximum cool down time"
     annotation (Placement(transformation(extent={{-140,184},{-120,204}})));
-  CDL.Continuous.MinMax minMax1(final nin=numOfZon)
+  CDL.Continuous.MultiMax maxWarTim(final nin=numOfZon)
     "Find the maximum warm-up time"
-    annotation (Placement(transformation(extent={{-140,104},{-120,124}})));
+    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
   CDL.Logical.Switch corCooDowTim "Corrected cool down period"
     annotation (Placement(transformation(extent={{0,170},{20,190}})));
   CDL.Logical.Switch corWarUpTim "Corrected warm-up period"
     annotation (Placement(transformation(extent={{0,150},{20,130}})));
-  CDL.Continuous.Sum sum1(nin=numOfZon)
+  CDL.Continuous.MultiSum sum1(final nin=numOfZon)
     "Sum up number of zones that have temperature being lower than setpoint"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   CDL.Continuous.GreaterEqualThreshold greEquThr(final threshold=4.5)
     "Whether or not the number of \"cold\" zone is more than 5"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr1(final threshold=numOfZon -
-        0.5)
+  CDL.Continuous.GreaterEqualThreshold greEquThr1(
+    final threshold=numOfZon-0.5)
     "Whether or not all the zones are \"cold\" zone"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   CDL.Continuous.Hysteresis hys(
@@ -108,9 +108,6 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Whether or not the unoccupied heating setpoint is higher than minimum
     zone temperature by bouLim"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
-  CDL.Continuous.MinMax minMaxZonTem(final nin=numOfZon)
-    "Min/Max of zone temperature among all zones"
-    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
   CDL.Logical.FallingEdge falEdg
     "Whether or not the unoccupied heating setpoint  becomes lower than
     minimum zone temperature: true to false"
@@ -123,14 +120,14 @@ block OperationModeSelector "Block that outputs the operation mode"
     "If all zone temperature are higher than freProEndVal, then freeze
     protection setback mode should be off."
     annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
-  CDL.Continuous.Sum sum2(final nin=numOfZon)
+  CDL.Continuous.MultiSum sum2(final nin=numOfZon)
     "Sum up number of zones that have temperature being higher than setpoint"
     annotation (Placement(transformation(extent={{0,-220},{20,-200}})));
   CDL.Continuous.GreaterEqualThreshold greEquThr2(threshold=4.5)
     "Whether or not the number of \"hot\" zone is more than 5"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr3(final threshold=numOfZon -
-        0.5)
+  CDL.Continuous.GreaterEqualThreshold greEquThr3(
+    final threshold=numOfZon-0.5)
     "Whether or not all the zones are \"hot\" zone"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
   CDL.Continuous.Hysteresis hys1(
@@ -146,14 +143,8 @@ block OperationModeSelector "Block that outputs the operation mode"
     "Whether or not the unoccupied cooling setpoint  becomes higher than
     maximum zone temperature: true to false"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}})));
-  CDL.Integers.Add3 add3Int "Sum of the three inputs"
-   annotation (Placement(transformation(extent={{360,180},{380,200}})));
-  CDL.Integers.Add addInt1 "Sum of the two inputs"
-   annotation (Placement(transformation(extent={{360,-70},{380,-50}})));
-  CDL.Integers.Add addInt2 "Sum of the two inputs"
-    annotation (Placement(transformation(extent={{360,-270},{380,-250}})));
-  CDL.Integers.Add3 add3Int1 "Sum of the three inputs"
-   annotation (Placement(transformation(extent={{420,-70},{440,-50}})));
+  CDL.Integers.MultiSum sumInt(nin=7) "Sum of inputs"
+    annotation (Placement(transformation(extent={{420,-70},{440,-50}})));
   CDL.Continuous.Product pro[numOfZon]
     "Decide if the cool down time of one zone should be ignored: if window
     open, then output zero, otherwise, output cooDowTim[zone] "
@@ -402,6 +393,10 @@ protected
     annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
   CDL.Routing.RealReplicator reaRep1(nout=numOfZon) "Replicate Real input"
     annotation (Placement(transformation(extent={{-200,-260},{-180,-240}})));
+  CDL.Continuous.MultiMin minZonTem(nin=numOfZon) "Find the minimum zone temperature"
+    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
+  CDL.Continuous.MultiMax maxZonTem(nin=numOfZon) "Find the maximum zone temperature"
+    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
 equation
   connect(swi.y, occMod.u)
@@ -413,8 +408,8 @@ equation
   connect(unoPerInd.y, swi.u3)
     annotation (Line(points={{-139,230},{182,230},{182,242},{258,242}},
       color={0,0,127}, pattern=LinePattern.Dash));
-  connect(minMax.yMax, corCooDowTim.u1)
-    annotation (Line(points={{-119,200},{-12,200},{-12,188},{-2,188}},
+  connect(maxCooTim.yMax, corCooDowTim.u1)
+    annotation (Line(points={{-119,194},{-12,194},{-12,188},{-2,188}},
       color={0,0,127}));
   connect(booToRea2.y, sum1.u)
     annotation (Line(points={{-19,-10},{-19,-10},{-2,-10}},
@@ -439,12 +434,6 @@ equation
       color={0,0,127}));
   connect(warUpTim, pro1.u1)
     annotation (Line(points={{-280,116},{-182,116}},
-      color={0,0,127}));
-  connect(pro.y, minMax.u)
-    annotation (Line(points={{-159,190},{-150,190},{-150,194},{-142,194}},
-      color={0,0,127}));
-  connect(pro1.y, minMax1.u)
-    annotation (Line(points={{-159,110},{-150,110},{-150,114},{-142,114}},
       color={0,0,127}));
   connect(booToRea9.y, pro.u2)
     annotation (Line(points={{-139,30},{-139,30},{-120,30},{-120,80},
@@ -474,9 +463,9 @@ equation
   connect(not1.y, booToRea9.u)
     annotation (Line(points={{-179,30},{-162,30}}, color={255,0,255}));
   connect(sum1.y, greEquThr.u)
-    annotation (Line(points={{21,-10},{38,-10}}, color={0,0,127}));
+    annotation (Line(points={{21.7,-10},{38,-10}}, color={0,0,127}));
   connect(sum1.y, greEquThr1.u)
-    annotation (Line(points={{21,-10},{30,-10},{30,-40},{38,-40}},
+    annotation (Line(points={{21.7,-10},{30,-10},{30,-40},{38,-40}},
       color={0,0,127}));
   connect(greEquThr.y, or1.u1)
     annotation (Line(points={{61,-10},{69.5,-10},{78,-10}},
@@ -484,9 +473,6 @@ equation
   connect(greEquThr1.y, or1.u2)
     annotation (Line(points={{61,-40},{68,-40},{68,-18},{78,-18}},
       color={255,0,255}));
-  connect(TZon, minMaxZonTem.u)
-    annotation (Line(points={{-280,-10},{-240,-10},{-240,-90},{-142,-90}},
-      color={0,0,127}));
   connect(or1.y, lat.u)
     annotation (Line(points={{101,-10},{110,-10},{120,-10},{139,-10}},
       color={255,0,255}));
@@ -512,9 +498,9 @@ equation
       {114,30},{114,-78},{250,-78},{250,-102},{258,-102}},
       color={0,0,127}, pattern=LinePattern.Dash));
   connect(sum2.y, greEquThr2.u)
-    annotation (Line(points={{21,-210},{38,-210}}, color={0,0,127}));
+    annotation (Line(points={{21.7,-210},{38,-210}}, color={0,0,127}));
   connect(sum2.y, greEquThr3.u)
-    annotation (Line(points={{21,-210},{30,-210},{30,-240},{38,-240}},
+    annotation (Line(points={{21.7,-210},{30,-210},{30,-240},{38,-240}},
       color={0,0,127}));
   connect(greEquThr2.y, or4.u1)
     annotation (Line(points={{61,-210},{78,-210}}, color={255,0,255}));
@@ -567,28 +553,8 @@ equation
   connect(not2.y,booToInt3. u)
     annotation (Line(points={{281,-330},{298,-330}},
       color={255,0,255}));
-  connect(occMod.y, add3Int.u1)
-    annotation (Line(points={{321,250},{340,250},{340,198},{358,198}},
-      color={255,127,0}));
-  connect(setBacMod.y, addInt1.u1)
-    annotation (Line(points={{321,-10},{340,-10},{340,-54},{358,-54}},
-      color={255,127,0}));
-  connect(freProSetBacMod.y, addInt1.u2)
-    annotation (Line(points={{321,-110},{330,-110},{340,-110},{340,-66},
-      {358,-66}},  color={255,127,0}));
-  connect(setUpMod.y, addInt2.u1)
-    annotation (Line(points={{321,-210},{340,-210}, {340,-254},{358,-254}},
-      color={255,127,0}));
-  connect(add3Int.y, add3Int1.u1)
-    annotation (Line(points={{381,190},{400,190},{400,-52},{418,-52}},
-      color={255,127,0}));
-  connect(addInt1.y, add3Int1.u2)
-    annotation (Line(points={{381,-60},{394,-60},{418,-60}},color={255,127,0}));
-  connect(addInt2.y, add3Int1.u3)
-    annotation (Line(points={{381,-260},{400,-260},{400,-68},{418,-68}},
-      color={255,127,0}));
-  connect(add3Int1.y, opeMod)
-    annotation (Line(points={{441,-60},{444,-60},{450,-60},{450,-20},{470,-20}},
+  connect(sumInt.y, opeMod)
+    annotation (Line(points={{441.7,-60},{441.7,-60},{450,-60},{450,-20},{470,-20}},
       color={255,127,0}));
   connect(lat1.y,booToInt2. u)
     annotation (Line(points={{161,-110},{180,-110},{180,-150},{258,-150}},
@@ -609,17 +575,11 @@ equation
   connect(uOcc, or3.u3)
     annotation (Line(points={{-280,300},{28,300},{28,24},{78,24}},
       color={255,0,255}));
-  connect(minMaxZonTem.yMin, add2.u2)
-    annotation (Line(points={{-119,-96},{-34,-96},{-34,-76},{78,-76}},
-      color={0,0,127}));
   connect(add2.y, hys.u)
     annotation (Line(points={{101,-70},{108,-70},{108,-50},{138,-50}},
       color={0,0,127}));
   connect(TUnoHeaSet, add2.u1)
     annotation (Line(points={{-280,-50},{-36,-50},{-36,-64},{78,-64}},
-      color={0,0,127}));
-  connect(minMaxZonTem.yMax, add1.u1)
-    annotation (Line(points={{-119,-84},{-40,-84},{-40,-264},{78,-264}},
       color={0,0,127}));
   connect(TUnoCooSet, add1.u2)
     annotation (Line(points={{-280,-270},{-40,-270},{-40,-276},{78,-276}},
@@ -654,9 +614,6 @@ equation
     annotation (Line(points={{81,150},{89.5,150},{98,150}}, color={0,0,127}));
   connect(hys5.y, and1.u1)
     annotation (Line(points={{121,150},{129.5,150},{138,150}},color={255,0,255}));
-  connect(minMaxZonTem.yMin, add7.u2)
-    annotation (Line(points={{-119,-96},{-100,-96},{-100,84},{-82,84}},
-      color={0,0,127}));
   connect(add7.y, hys6.u)
     annotation (Line(points={{-59,90},{-59,90},{-42,90}}, color={0,0,127}));
   connect(hys6.y, and1.u2)
@@ -664,9 +621,6 @@ equation
       color={255,0,255}));
   connect(THeaSet, add7.u1)
     annotation (Line(points={{-280,90},{-100,90},{-100,96},{-82,96}},
-      color={0,0,127}));
-  connect(minMaxZonTem.yMax, add8.u2)
-    annotation (Line(points={{-119,-84},{-96,-84},{-96,54},{-82,54}},
       color={0,0,127}));
   connect(add8.y, hys7.u)
     annotation (Line(points={{-59,60},{-54,60},{-42,60}}, color={0,0,127}));
@@ -676,36 +630,30 @@ equation
   connect(TCooSet, add8.u1)
     annotation (Line(points={{-280,60},{-96,60},{-96,66},{-82,66}},
       color={0,0,127}));
-  connect(minMaxZonTem.yMax, addPar.u)
-    annotation (Line(points={{-119,-84},{-40,-84},{-40,-110},{-2,-110}},
-      color={0,0,127}));
   connect(addPar.y, hys9.u)
     annotation (Line(points={{21,-110},{21,-110},{38,-110}}, color={0,0,127}));
   connect(hys9.y, lat1.u)
     annotation (Line(points={{61,-110},{139,-110}}, color={255,0,255}));
-  connect(minMaxZonTem.yMin, addPar1.u)
-    annotation (Line(points={{-119,-96},{-34,-96},{-34,-150},{-2,-150}},
-      color={0,0,127}));
   connect(addPar1.y, hys10.u)
     annotation (Line(points={{21,-150},{38,-150}}, color={0,0,127}));
   connect(hys10.y, lat1.u0)
     annotation (Line(points={{61,-150},{80,-150},{80,-116},
       {139,-116}}, color={255,0,255}));
-  connect(minMax1.yMax, addPar3.u)
-    annotation (Line(points={{-119,120},{-119,120},{-100,120},{-100,140},{-82,140}},
+  connect(maxWarTim.yMax, addPar3.u)
+    annotation (Line(points={{-119,110},{-100,110},{-100,140},{-82,140}},
       color={0,0,127}));
   connect(addPar2.y, hys2.u)
     annotation (Line(points={{-59,180},{-42,180}}, color={0,0,127}));
   connect(addPar3.y, hys3.u)
     annotation (Line(points={{-59,140},{-42,140}}, color={0,0,127}));
-  connect(minMax.yMax, addPar2.u)
-    annotation (Line(points={{-119,200},{-110,200},{-100,200},{-100,180},{-82,180}},
+  connect(maxCooTim.yMax, addPar2.u)
+    annotation (Line(points={{-119,194},{-110,194},{-100,194},{-100,180},{-82,180}},
       color={0,0,127}));
   connect(maxWarCooTime.y, corCooDowTim.u3)
     annotation (Line(points={{-119,160},{-66,160},{-12,160},{-12,172},{-2,172}},
       color={0,0,127}));
-  connect(minMax1.yMax, corWarUpTim.u1)
-    annotation (Line(points={{-119,120},{-119,120},{-12,120},{-12,132},{-2,132}},
+  connect(maxWarTim.yMax, corWarUpTim.u1)
+    annotation (Line(points={{-119,110},{-12,110},{-12,132},{-2,132}},
       color={0,0,127}));
   connect(maxWarCooTime.y, corWarUpTim.u3)
     annotation (Line(points={{-119,160},{-66,160},{-12,160},{-12,148},{-2,148}},
@@ -728,11 +676,6 @@ equation
   connect(reaRep1.y, swi2.u1)
     annotation (Line(points={{-179,-250},{-170,-250},{-170,-230},{-220,-230},
       {-220,-218},{-202,-218}}, color={0,0,127}));
-  connect(booToInt.y, add3Int.u2)
-    annotation (Line(points={{281,190},{358,190}}, color={255,127,0}));
-  connect(booToInt1.y, add3Int.u3)
-    annotation (Line(points={{281,150},{320,150},{320,182},{358,182}},
-      color={255,127,0}));
   connect(booToRea3.y, swi3.u3)
     annotation (Line(points={{221,-10},{240,-10},{240,-18},{258,-18}},
       color={0,0,127}));
@@ -745,9 +688,57 @@ equation
   connect(booToRea6.y, swi5.u3)
     annotation (Line(points={{221,-210},{240,-210},{240,-218},{258,-218}},
       color={0,0,127}));
-  connect(booToInt3.y, addInt2.u2)
-    annotation (Line(points={{321,-330},{340,-330},{340,-266},{358,-266}},
+  connect(occMod.y, sumInt.u[1])
+    annotation (Line(points={{321,250},{408,250},{408,-54},{418,-54}},
       color={255,127,0}));
+  connect(booToInt.y, sumInt.u[2])
+    annotation (Line(points={{281,190},{402,190},{402,-56},{418,-56}},
+      color={255,127,0}));
+  connect(booToInt1.y, sumInt.u[3])
+    annotation (Line(points={{281,150},{394,150},{394,-58},{418,-58}},
+      color={255,127,0}));
+  connect(setBacMod.y, sumInt.u[4])
+    annotation (Line(points={{321,-10},{386,-10},{386,-60},{418,-60}},
+      color={255,127,0}));
+  connect(freProSetBacMod.y, sumInt.u[5])
+    annotation (Line(points={{321,-110},{386,-110},{386,-62},{418,-62}},
+      color={255,127,0}));
+  connect(setUpMod.y, sumInt.u[6])
+    annotation (Line(points={{321,-210},{394,-210},{394,-64},{418,-64}},
+      color={255,127,0}));
+  connect(booToInt3.y, sumInt.u[7])
+    annotation (Line(points={{321,-330},{404,-330},{404,-66},{418,-66}},
+      color={255,127,0}));
+  connect(maxZonTem.yMax, add8.u2)
+    annotation (Line(points={{-119,-90},{-96,-90},{-96,54},{-82,54}},
+      color={0,0,127}));
+  connect(maxZonTem.yMax, addPar.u)
+    annotation (Line(points={{-119,-90},{-40,-90},{-40,-110},{-2,-110}},
+      color={0,0,127}));
+  connect(maxZonTem.yMax, add1.u1)
+    annotation (Line(points={{-119,-90},{-40,-90},{-40,-264},{78,-264}},
+      color={0,0,127}));
+  connect(TZon, maxZonTem.u)
+    annotation (Line(points={{-280,-10},{-240,-10},{-240,-90},{-142,-90}},
+      color={0,0,127}));
+  connect(TZon,minZonTem.u)
+    annotation (Line(points={{-280,-10},{-240,-10},{-240,-120},{-142,-120}},
+      color={0,0,127}));
+  connect(minZonTem.yMin, add7.u2)
+    annotation (Line(points={{-119,-120},{-98,-120},{-98,84},{-82,84}},
+      color={0,0,127}));
+  connect(minZonTem.yMin, add2.u2)
+    annotation (Line(points={{-119,-120},{-98,-120},{-98,-76},{78,-76}},
+      color={0,0,127}));
+  connect(minZonTem.yMin, addPar1.u)
+    annotation (Line(points={{-119,-120},{-98,-120},{-98,-150},{-2,-150}},
+      color={0,0,127}));
+  connect(pro.y, maxCooTim.u)
+    annotation (Line(points={{-159,190},{-152,190},{-152,194},{-142,194}},
+      color={0,0,127}));
+  connect(pro1.y, maxWarTim.u)
+    annotation (Line(points={{-159,110},{-150,110},{-150,110},{-142,110}},
+      color={0,0,127}));
 
 annotation (
   defaultComponentName = "opeModSel",
@@ -785,43 +776,43 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{368,316},{456,276}},
+          extent={{336,282},{424,242}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Occupied mode"),
         Text(
-          extent={{370,22},{454,-18}},
+          extent={{296,-32},{380,-72}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Setback mode"),
         Text(
-          extent={{382,-196},{452,-232}},
+          extent={{324,-206},{394,-242}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Setup mode"),
         Text(
-          extent={{358,-298},{454,-354}},
+          extent={{320,-320},{416,-376}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Unoccupied mode"),
         Text(
-          extent={{328,-94},{462,-148}},
+          extent={{328,-98},{462,-152}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Freeze protection setback mode"),
         Text(
-          extent={{366,100},{454,60}},
+          extent={{302,156},{390,116}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Warm-up mode"),
         Text(
-          extent={{364,148},{452,106}},
+          extent={{306,198},{394,156}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,

@@ -101,6 +101,18 @@ block DamperValveReheatBox
     "Reheater valve position"
     annotation (Placement(transformation(extent={{320,-50},{340,-30}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
+  CDL.Interfaces.RealOutput VDisAirSet(
+    min=0,
+    final unit="m3/s",
+    quantity="VolumeFlowRate") "Discharge airflow setpoint"
+    annotation (Placement(transformation(extent={{320,200},{340,220}}),
+      iconTransformation(extent={{100,70},{120,90}})));
+  CDL.Interfaces.RealOutput TDisAirSet(
+    final unit="K",
+    quantity="ThermodynamicTemperature")
+    "Discharge airflow setpoint temperature for heating"
+    annotation (Placement(transformation(extent={{320,-170},{340,-150}}),
+      iconTransformation(extent={{100,-90},{120,-70}})));
 
   CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-220,20},{-200,40}})));
@@ -165,7 +177,7 @@ block DamperValveReheatBox
     annotation (Placement(transformation(extent={{60,200},{80,180}})));
   CDL.Logical.Switch watValPos "Output hot water valve position"
     annotation (Placement(transformation(extent={{260,-110},{280,-90}})));
-  CDL.Continuous.MultiSum mulSum(nu=3) "Active airflow setpoint"
+  CDL.Continuous.MultiSum mulSum(nin=3) "Active airflow setpoint"
     annotation (Placement(transformation(extent={{200,200},{220,220}})));
 
 protected
@@ -451,6 +463,11 @@ equation
   connect(hys7.y, and3.u2)
     annotation (Line(points={{-59,-270},{-40,-270},{-40,-278},{-2,-278}},
       color={255,0,255}));
+  connect(mulSum.y, VDisAirSet)
+    annotation (Line(points={{221.7,210},{330,210}}, color={0,0,127}));
+  connect(lin1.y, TDisAirSet)
+    annotation (Line(points={{-99,-100},{-80,-100},{-80,-160},{330,-160}},
+      color={0,0,127}));
 
 annotation (
   defaultComponentName="damVal_RehBox",
@@ -643,7 +660,19 @@ in heating state")}),
       points={{80,-58},{58,-52},{58,-64},{80,-58}},
       lineColor={95,95,95},
       fillColor={95,95,95},
-      fillPattern=FillPattern.Solid)}),
+      fillPattern=FillPattern.Solid),
+        Text(
+          extent={{60,88},{98,76}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          horizontalAlignment=TextAlignment.Right,
+          textString="VDisAirSet"),
+        Text(
+          extent={{60,-74},{98,-86}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          horizontalAlignment=TextAlignment.Right,
+          textString="TDisAirSet")}),
   Documentation(info="<html>
 <p>
 This sequence sets the damper and valve position for VAV reheat terminal unit. 

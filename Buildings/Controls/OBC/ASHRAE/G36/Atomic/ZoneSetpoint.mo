@@ -173,7 +173,7 @@ block ZoneSetpoint "Block outputs thermal zone cooling and heating setpoint"
   CDL.Continuous.Product pro2
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
-  CDL.Continuous.MultiSum mulSum(nu=4)
+  CDL.Continuous.MultiSum mulSum(nin=4)
     "Sum of inputs"
     annotation (Placement(transformation(extent={{160,80},{180,100}})));
   CDL.Discrete.TriggeredSampler heaSetFre
@@ -210,7 +210,7 @@ block ZoneSetpoint "Block outputs thermal zone cooling and heating setpoint"
   CDL.Continuous.Product pro3
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
-  CDL.Continuous.MultiSum mulSum1(nu=4)
+  CDL.Continuous.MultiSum mulSum1(nin=4)
     "Sum of inputs"
     annotation (Placement(transformation(extent={{160,-140},{180,-120}})));
   CDL.Logical.Timer tim

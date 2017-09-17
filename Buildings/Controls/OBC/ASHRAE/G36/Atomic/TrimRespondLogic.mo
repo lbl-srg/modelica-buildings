@@ -3,12 +3,13 @@ block TrimRespondLogic "Block to inplement trim and respond logic"
   parameter Real iniSet  "Initial setpoint";
   parameter Real minSet  "Minimum setpoint";
   parameter Real maxSet  "Maximum setpoint";
-  parameter Modelica.SIunits.Time delTim  "Delay time";
-  parameter Modelica.SIunits.Time timSte  "Time step";
+  parameter Modelica.SIunits.Time delTim(min=100*1E-15)  "Delay time";
+  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
+    "Sample period of component";
   parameter Integer numIgnReq  "Number of ignored requests";
   parameter Real triAmo  "Trim amount";
-  parameter Real resAmo  "Respond amount (must be opposite in to triAmo)";
-  parameter Real maxRes  "Maximum response per time interval (same sign as resAmo)";
+  parameter Real resAmo  "Respond amount (must have opposite sign of triAmo)";
+  parameter Real maxRes  "Maximum response per time interval (must have same sign as resAmo)";
 
   CDL.Interfaces.IntegerInput numOfReq "Number of requests from zones/systems"
     annotation (Placement(transformation(extent={{-240,-110},{-200,-70}}),
@@ -20,13 +21,10 @@ block TrimRespondLogic "Block to inplement trim and respond logic"
     annotation (Placement(transformation(extent={{-240,110},{-200,150}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
 
-  CDL.Logical.Timer tim
-    "Count elapsed time from instant when device switches ON"
+  CDL.Logical.OnDelay tim(final delayTime=delTim + samplePeriod)
+    "Send an on signal after some delay time"
     annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
-  CDL.Continuous.GreaterEqualThreshold delTimCon(threshold=delTim + timSte)
-    "Reset logic shall be actived in delay time (delTim) after device start"
-    annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
-  CDL.Continuous.GreaterThreshold greThr
+  CDL.Continuous.GreaterEqualThreshold greThr
     "Check if the real requests is more than ignored requests setting"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
   CDL.Logical.Switch netRes "Net setpoint reset value"
@@ -36,20 +34,19 @@ block TrimRespondLogic "Block to inplement trim and respond logic"
   CDL.Continuous.Product pro
     "Products of net requests and respond amount value"
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
-  CDL.Discrete.UnitDelay uniDel(
-    samplePeriod=timSte,
-    y_start=iniSet) "Output the input signal with a unit delay"
+  CDL.Discrete.UnitDelay uniDel(final samplePeriod=samplePeriod, final y_start=
+        iniSet) "Output the input signal with a unit delay"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   CDL.Logical.Switch swi "Switch between initial setpoint and reseted setpoint"
     annotation (Placement(transformation(extent={{160,140},{180,120}})));
   CDL.Logical.Switch swi1
-    "Before instant (device ON + delTim + timSte), the setpoint should not be trimmed"
+    "Before instant (device ON + delTim + samplePeriod), the setpoint should not be trimmed"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   CDL.Logical.Switch swi2
     "Reinitialize setpoint to initial setting when device become OFF"
     annotation (Placement(transformation(extent={{120,50},{140,70}})));
-  CDL.Discrete.Sampler sampler(
-    samplePeriod=timSte) "Sample number of requests"
+  CDL.Discrete.Sampler sampler(samplePeriod=samplePeriod)
+    "Sample number of requests"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
 protected
@@ -78,7 +75,7 @@ protected
     "Increase setpoint by amount of value defined from reset logic"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   CDL.Continuous.Add add2 "Net reset value"
-    annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
+    annotation (Placement(transformation(extent={{80,-126},{100,-106}})));
   CDL.Continuous.Min minInp
     "Total response should not be more than maximum response"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
@@ -98,8 +95,6 @@ protected
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
 equation
-  connect(tim.y, delTimCon.u)
-    annotation (Line(points={{-159,130},{-142,130}}, color={0,0,127}));
   connect(numIgnReqCon.y, difReqIgnReq.u1)
     annotation (Line(points={{-119,-50},{-100,-50},{-100,-64},{-82,-64}},
       color={0,0,127}));
@@ -113,16 +108,14 @@ equation
     annotation (Line(points={{1,-170},{20,-170},{20,-136},{38,-136}},
       color={0,0,127}));
   connect(minInp.y, add2.u2)
-    annotation (Line(points={{61,-130},{70,-130},{70,-136},{78,-136}},
+    annotation (Line(points={{61,-130},{70,-130},{70,-122},{78,-122}},
       color={0,0,127}));
   connect(triAmoCon.y, add2.u1)
-    annotation (Line(points={{-59,-110},{70,-110},{70,-124},{78,-124}},
+    annotation (Line(points={{-59,-110},{78,-110}},
       color={0,0,127}));
   connect(add2.y, netRes.u1)
-    annotation (Line(points={{101,-130},{120,-130},{120,-78},{138,-78}},
+    annotation (Line(points={{101,-116},{120,-116},{120,-78},{138,-78}},
       color={0,0,127}));
-  connect(delTimCon.y, swi.u2)
-    annotation (Line(points={{-119,130},{158,130}}, color={255,0,255}));
   connect(iniSetCon.y, swi.u3)
     annotation (Line(points={{-59,150},{108,150},{108,138},{158,138}},
       color={0,0,127}));
@@ -144,9 +137,6 @@ equation
   connect(sampler.y, difReqIgnReq.u2)
     annotation (Line(points={{-119,-90},{-100,-90},{-100,-76},{-82,-76}},
       color={0,0,127}));
-  connect(delTimCon.y, swi1.u2)
-    annotation (Line(points={{-119,130},{-110,130},{-110,-10},{0,-10},{0,-30},{78,-30}},
-      color={255,0,255}));
   connect(triAmoCon.y, swi1.u1)
     annotation (Line(points={{-59,-110},{-20,-110},{-20,-22},{78,-22}},
       color={0,0,127}));
@@ -158,9 +148,6 @@ equation
       color={0,0,127}));
   connect(greThr.y, and2.u2)
     annotation (Line(points={{41,-90},{60,-90},{60,-78},{78,-78}},
-      color={255,0,255}));
-  connect(delTimCon.y, and2.u1)
-    annotation (Line(points={{-119,130},{-110,130},{-110,-10},{0,-10},{0,-70},{78,-70}},
       color={255,0,255}));
   connect(and2.y, netRes.u2)
     annotation (Line(points={{101,-70},{138,-70}},
@@ -202,6 +189,12 @@ equation
   connect(uDevSta, tim.u)
     annotation (Line(points={{-220,130},{-182,130}}, color={255,0,255}));
 
+  connect(tim.y, swi.u2)
+    annotation (Line(points={{-159,130},{158,130}}, color={255,0,255}));
+  connect(tim.y, swi1.u2) annotation (Line(points={{-159,130},{-120,130},{-120,-30},
+          {78,-30}}, color={255,0,255}));
+  connect(and2.u1, tim.y) annotation (Line(points={{78,-70},{6,-70},{6,-30},{-120,
+          -30},{-120,130},{-159,130}}, color={255,0,255}));
 annotation (
   defaultComponentName = "triRes",
   Icon(graphics={Rectangle(
@@ -260,17 +253,18 @@ shall be <code>iniSet</code>.
 The reset logic shall be active while the associated device is proven
 on (<code>uDevSta=true</code>), starting <code>delTim</code> after initial
 device start command.
-When active, every time step <code>timSte</code>, trim the setpoint by
+When active, every time step <code>samplePeriod</code>, trim the setpoint by
 <code>triAmo</code>.
 If there are more than <code>numIgnReq</code> requests, respond by changing
-the setpoint by <code>resAmo*(numOfReq-numIgnReq)</code>, i.e. the number of
+the setpoint by <code>resAmo*(numOfReq-numIgnReq)</code>, i.e., the number of
 requests minus the number of ignored requests, but no more than <code>maxRes</code>.
 </p>
-In other words, every time step <code>timSte</code>:
+In other words, every time step <code>samplePeriod</code>:
 <ul>
 <li>Change setpoint by <code>triAmo</code>; </li>
 <li>If <code>numOfReq > numIgnReq</code>, <i>also</i> change setpoint by <code>resAmo*(numOfReq
--numIgnReq)</code> but no larger than <code>maxRes</code>; </li>
+-numIgnReq)</code> but no more than <code>maxRes</code>.
+</li>
 </ul>
 
 <p align=\"center\">

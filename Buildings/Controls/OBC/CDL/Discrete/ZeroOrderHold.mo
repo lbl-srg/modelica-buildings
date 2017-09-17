@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Discrete;
 block ZeroOrderHold "Output the input signal with a zero order hold"
 
-  parameter Modelica.SIunits.Time samplePeriod(min=100*1E-15)
+  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
     "Sample period of component";
 
   Interfaces.RealInput u "Continuous input signal"

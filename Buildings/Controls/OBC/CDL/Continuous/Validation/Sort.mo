@@ -1,9 +1,8 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
-model SignalRanker "Validation model for the SignalRanker block"
+model Sort "Validation model for the Sort block"
 extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.CDL.Continuous.SignalRanker sigRan(
-    nin = 5)
+  Buildings.Controls.OBC.CDL.Continuous.Sort sigRan(nin=5)
     "Block that outputs signals such that y[i] >= y[i+1]"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
@@ -47,13 +46,13 @@ equation
           -26,1.6},{-12,1.6}}, color={0,0,127}));
   annotation (
 experiment(StopTime=1.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/SignalRanker.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/Sort.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.SignalRanker\">
-Buildings.Controls.OBC.CDL.Continuous.SignalRanker</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sort\">
+Buildings.Controls.OBC.CDL.Continuous.Sort</a>.
 </p>
 <p>
 The input <code>u1</code> varies from <i>-2</i> to <i>+2</i>, input <code>u2</code> varies from <i>-1</i> to <i>+2</i>,
@@ -63,10 +62,14 @@ input <code>u5</code> varies from <i>0</i> to <i>+4</i>,
 </html>", revisions="<html>
 <ul>
 <li>
+September 14, 2017, by Jianjun Hu:<br/>
+Changed model name.
+</li>
+<li>
 March 22, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
 
 </html>"));
-end SignalRanker;
+end Sort;

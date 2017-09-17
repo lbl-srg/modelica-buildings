@@ -53,14 +53,14 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Interfaces.RealInput nOcc[numOfZon](each final unit="1")
     "Number of occupants"
     annotation (Placement(transformation(extent={{-220,60},{-180,100}}),
-        iconTransformation(extent={{-120,70},{-100,90}})));
+      iconTransformation(extent={{-120,70},{-100,90}})));
   CDL.Interfaces.RealInput priAirflow[numOfZon](
     min=minZonPriFlo,
     each final unit="m3/s",
     each quantity="VolumeFlowRate")
     "Primary airflow rate to the ventilation zone from the air handler, including outdoor air and recirculated air"
     annotation (Placement(transformation(extent={{-220,-186},{-180,-146}}),
-        iconTransformation(extent={{-120,-90},{-100,-70}})));
+      iconTransformation(extent={{-120,-90},{-100,-70}})));
   CDL.Interfaces.RealInput TZon[numOfZon](
     each final unit="K",
     each quantity="ThermodynamicTemperature")
@@ -76,11 +76,11 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status, true if on, false if off"
     annotation (Placement(transformation(extent={{-220,-149},{-180,-110}}),
-        iconTransformation(extent={{-120,-60},{-100,-40}})));
+      iconTransformation(extent={{-120,-60},{-100,-40}})));
   CDL.Interfaces.BooleanInput uWin[numOfZon]
-    "Window status, true if open, false if closed" annotation (Placement(
-        transformation(extent={{-220,-120},{-180,-80}}), iconTransformation(
-          extent={{-120,-30},{-100,-10}})));
+    "Window status, true if open, false if closed"
+    annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
+      iconTransformation(extent={{-120,-30},{-100,-10}})));
   CDL.Interfaces.RealOutput VDesOutMin_flow_nominal(
     min=0,
     final unit="m3/s",
@@ -129,10 +129,10 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Continuous.Division priOutAirFra[numOfZon]
     "Primary outdoor air fraction"
     annotation (Placement(transformation(extent={{0,-170},{20,-150}})));
-  CDL.Continuous.Sum sysUncOutAir(final nin=numOfZon)
+  CDL.Continuous.MultiSum sysUncOutAir(final nin=numOfZon)
     "Uncorrected outdoor airflow"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
-  CDL.Continuous.Sum sysPriAirRate(final nin=numOfZon)
+  CDL.Continuous.MultiSum sysPriAirRate(final nin=numOfZon)
     "System primary airflow rate"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   CDL.Continuous.Division outAirFra "System outdoor air fraction"
@@ -154,15 +154,15 @@ block OutdoorAirFlowSetpoint_MultiZone
   CDL.Continuous.Division desZonPriOutAirRate[numOfZon]
     "Design zone primary outdoor air fraction"
     annotation (Placement(transformation(extent={{-20,160},{0,180}})));
-  CDL.Continuous.Sum  sumDesZonPop(nin=numOfZon)
+  CDL.Continuous.MultiSum sumDesZonPop(final nin=numOfZon)
     "Sum of the design zone population for all zones"
     annotation (Placement(transformation(extent={{-140,220},{-120,240}})));
   CDL.Continuous.Division occDivFra "Occupant diversity fraction"
     annotation (Placement(transformation(extent={{-98,244},{-78,264}})));
-  CDL.Continuous.Sum  sumDesBreZonPop(nin=numOfZon)
+  CDL.Continuous.MultiSum sumDesBreZonPop(final nin=numOfZon)
     "Sum of the design breathing zone flow rate for population component"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
-  CDL.Continuous.Sum  sumDesBreZonAre(nin=numOfZon)
+  CDL.Continuous.MultiSum sumDesBreZonAre(final nin=numOfZon)
     "Sum of the design breathing zone flow rate for area component"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   CDL.Continuous.Add unCorOutAirInk "Uncorrected outdoor air intake"
@@ -182,10 +182,10 @@ block OutdoorAirFlowSetpoint_MultiZone
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
   CDL.Continuous.Division desOutAirInt "Design system outdoor air intake"
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
-  CDL.Continuous.MinMax  desSysVenEff(nin=numOfZon)
+  CDL.Continuous.MultiMin desSysVenEff(nin=numOfZon)
     "Design system ventilation efficiency"
     annotation (Placement(transformation(extent={{140,140},{160,160}})));
-  CDL.Continuous.MinMax  maxPriOutAirFra(nin=numOfZon)
+  CDL.Continuous.MultiMax maxPriOutAirFra(nin=numOfZon)
     "Maximum zone outdoor air fraction"
     annotation (Placement(transformation(extent={{60,-170},{80,-150}})));
   CDL.Continuous.Min min
@@ -367,7 +367,7 @@ equation
   connect(priOutAirFra.y, maxPriOutAirFra.u)
     annotation (Line(points={{21,-160},{21,-160},{58,-160}}, color={0,0,127}));
   connect(sysPriAirRate.y, outAirFra.u2)
-    annotation (Line(points={{21,-90},{30,-90},{30,-96},{38,-96}},
+    annotation (Line(points={{21.7,-90},{30,-90},{30,-96},{38,-96}},
       color={0,0,127}));
   connect(outAirFra.y, addPar.u)
     annotation (Line(points={{61,-90},{61,-90},{78,-90}},
@@ -376,25 +376,25 @@ equation
     annotation (Line(points={{101,-90},{101,-90},{100,-90},{102,-90},{110,-90},
       {110,-84},{118,-84}}, color={0,0,127}));
   connect(maxPriOutAirFra.yMax, sysVenEff.u2)
-    annotation (Line(points={{81,-154},{110,-154},{110,-96},{118,-96}},
+    annotation (Line(points={{81,-160},{110,-160},{110,-96},{118,-96}},
       color={0,0,127}));
   connect(sysVenEff.y, effMinOutAirInt.u2)
     annotation (Line(points={{141,-90},{141,-90},{142,-90},{148,-90},{148,-96},
       {158,-96}}, color={0,0,127}));
   connect(sumDesZonPop.y, occDivFra.u2)
-    annotation (Line(points={{-119,230},{-112,230},{-112,248},{-106,248},
-      {-106,248},{-100,248},{-100,248}},  color={0,0,127}));
+    annotation (Line(points={{-118.3,230},{-112,230},{-112,248},{-106,248},
+      {-106,248},{-100,248},{-100,248}}, color={0,0,127}));
   connect(peaSysPopulation.y, occDivFra.u1)
     annotation (Line(points={{-147,260},{-100,260}},
       color={0,0,127}));
   connect(sumDesBreZonPop.y, pro.u2)
-    annotation (Line(points={{-39,210},{-30,210},{-30,244},{-22,244}},
+    annotation (Line(points={{-38.3,210},{-30,210},{-30,244},{-22,244}},
       color={0,0,127}));
   connect(pro.y, unCorOutAirInk.u1)
     annotation (Line(points={{1,250},{10,250},{10,226.2},{18,226.2}},
       color={0,0,127}));
   connect(sumDesBreZonAre.y, unCorOutAirInk.u2)
-    annotation (Line(points={{1,110},{10,110},{10,214.8},{18,214.8}},
+    annotation (Line(points={{1.7,110},{10,110},{10,214.8},{18,214.8}},
       color={0,0,127}));
   connect(unCorOutAirInk.y, aveOutAirFra.u1)
     annotation (Line(points={{41,220.5},{50,220.5},{50,196},{58,196}},
@@ -410,20 +410,20 @@ equation
     annotation (Line(points={{41,220.5},{180,220.5},{180,128},{120,128},
       {120,116},{138,116}},color={0,0,127}));
   connect(desSysVenEff.yMin, desOutAirInt.u2)
-    annotation (Line(points={{161,144},{168,144},{168,134},{114,134},
-      {114,104},{138,104}}, color={0,0,127}));
+    annotation (Line(points={{161,150},{168,150},{168,134},{114,134},{114,104},
+      {138,104}}, color={0,0,127}));
   connect(min1.y, effMinOutAirInt.u1)
     annotation (Line(points={{161,-30},{180,-30},{180,-60},{146,-60},{146,-84},
       {158,-84}}, color={0,0,127}));
   connect(sysUncOutAir.y, min1.u2)
-    annotation (Line(points={{121,-30},{121,-30},{128,-30},{128,-36},{138,-36}},
+    annotation (Line(points={{121.7,-30},{121.7,-30},{128,-30},{128,-36},{138,-36}},
       color={0,0,127}));
   connect(min1.y, outAirFra.u1)
     annotation (Line(points={{161,-30},{180,-30},{180,-60},{128,-60},{26,-60},
-      {26,-84},{38,-84}},   color={0,0,127}));
+      {26,-84},{38,-84}}, color={0,0,127}));
   connect(unCorOutAirInk.y, min1.u1)
     annotation (Line(points={{41,220.5},{180,220.5},{180,80},{128,80},{128,-24},
-      {138,-24}},       color={0,0,127}));
+      {138,-24}}, color={0,0,127}));
   connect(effMinOutAirInt.y, min.u2)
     annotation (Line(points={{181,-90},{181,-90},{188,-90},{188,-96},{198,-96}},
       color={0,0,127}));
@@ -457,7 +457,8 @@ equation
   connect(reaRep.y, zonVenEff.u1)
     annotation (Line(points={{161,190},{170,190},{170,170},{80,170},{80,156},
       {98,156}}, color={0,0,127}));
- annotation (
+
+annotation (
 defaultComponentName="outAirSetPoi_MulZon",
 Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},

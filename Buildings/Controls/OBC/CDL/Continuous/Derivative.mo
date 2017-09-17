@@ -1,17 +1,16 @@
 within Buildings.Controls.OBC.CDL.Continuous;
-block Derivative "Approximated derivative block"
-  import Buildings.Controls.OBC.CDL.Types.Init;
+block Derivative "Block that approximates the derivative of the input"
   parameter Real k(unit="1") = 1 "Gains";
   parameter Modelica.SIunits.Time T(min=1E-60)=0.01
-    "Time constants (T>0 required; T=0 is ideal derivative block)";
+    "Time constant (T>0 required)";
   parameter Buildings.Controls.OBC.CDL.Types.Init initType=Types.Init.NoInit
     "Type of initialization (1: no init, 2: initial state, 3: initial output)"
     annotation(Evaluate=true, Dialog(group="Initialization"));
   parameter Real x_start=0 "Initial or guess value of state"
     annotation (Dialog(group="Initialization"));
   parameter Real y_start=0 "Initial value of output (= state)"
-    annotation(Dialog(enable=initType == Init.InitialOutput, group=
-          "Initialization"));
+    annotation(Dialog(enable=initType == Types.Init.InitialOutput,
+                      group="Initialization"));
   Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.RealOutput y "Connector of Real output signal"
@@ -22,9 +21,9 @@ block Derivative "Approximated derivative block"
 protected
   parameter Boolean zeroGain = abs(k) < 100*1E-15;
 initial equation
-  if initType == Init.InitialState then
+  if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialState then
     x = x_start;
-  elseif initType == Init.InitialOutput then
+  elseif initType == Buildings.Controls.OBC.CDL.Types.Init.InitialOutput then
     if zeroGain then
        x = u;
     else
@@ -64,7 +63,8 @@ Modelica Standard Library.
 </html>"), Icon(
     coordinateSystem(preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),
-      graphics={                Rectangle(
+  graphics={
+    Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},

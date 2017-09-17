@@ -21,7 +21,7 @@ model DayType "Block that outputs a signal that indicates week-day or week-end"
 
 protected
   parameter Modelica.SIunits.Time samplePeriod=86400
-    "Sample period of the component";
+    "Sample period of component";
   output Integer iDay(min=1, max=size(days, 1))
     "Pointer to days that determines what day type is sent to the output";
   parameter Modelica.SIunits.Time firstSample(fixed=false)
