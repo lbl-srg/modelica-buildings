@@ -159,14 +159,14 @@ protected
   CDL.Logical.And and1 "Logical and checks supply fan status"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   CDL.Logical.And and3 "Logical and which checks supply fan status"
-    annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
+    annotation (Placement(transformation(extent={{-20,-104},{0,-84}})));
 
   CDL.Integers.Equal intEqu
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   CDL.Logical.OnDelay delOutDamOsc(final delayTime=disDel)
     "Small delay before closing the outdoor air damper to avoid pressure fluctuations"
-    annotation (Placement(transformation(extent={{-68,-110},{-48,-90}})));
+    annotation (Placement(transformation(extent={{-68,-112},{-48,-92}})));
   CDL.Logical.OnDelay delRetDam(
     final delayTime=retDamFulOpeTim)
     "Keep return damper open to its physical maximum for a short period of time before closing the outdoor air damper and resuming the maximum return air damper position, per G36 Part N7"
@@ -242,17 +242,17 @@ equation
   connect(uSupFan, and1.u2)
     annotation (Line(points={{-200,110},{-102,110},{-102,102},{-2,102}},color={255,0,255}));
   connect(outDamSwitch.u2, and3.y)
-    annotation (Line(points={{38,-140},{12,-140},{12,-110},{1,-110}}, color={255,0,255}));
+    annotation (Line(points={{38,-140},{12,-140},{12,-94},{1,-94}},   color={255,0,255}));
   connect(not2.y, and3.u1)
-    annotation (Line(points={{11,-60},{20,-60},{20,-72},{-30,-72},{-30,-110},{
-          -22,-110}},                                                                     color={255,0,255}));
+    annotation (Line(points={{11,-60},{20,-60},{20,-72},{-30,-72},{-30,-94},{
+          -22,-94}},                                                                      color={255,0,255}));
 
   connect(and2.u1, not2.y) annotation (Line(points={{128,-164},{116,-164},{116,
           -94},{20,-94},{20,-60},{11,-60}},
                                        color={255,0,255}));
-  connect(and3.u2, delOutDamOsc.y) annotation (Line(points={{-22,-118},{-34,-118},
-          {-34,-100},{-47,-100}}, color={255,0,255}));
-  connect(delOutDamOsc.u, not2.y) annotation (Line(points={{-70,-100},{-90,-100},
+  connect(and3.u2, delOutDamOsc.y) annotation (Line(points={{-22,-102},{-47,
+          -102}},                 color={255,0,255}));
+  connect(delOutDamOsc.u, not2.y) annotation (Line(points={{-70,-102},{-90,-102},
           {-90,-72},{20,-72},{20,-60},{11,-60}}, color={255,0,255}));
   connect(not2.y, delRetDam.u) annotation (Line(points={{11,-60},{20,-60},{20,
           -72},{-90,-72},{-90,-172},{-70,-172}},
