@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "onDelay.u",
-    "onDelay.y"
-  };

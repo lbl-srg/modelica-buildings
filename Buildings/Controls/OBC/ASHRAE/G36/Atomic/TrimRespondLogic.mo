@@ -21,7 +21,7 @@ block TrimRespondLogic "Block to inplement trim and respond logic"
     annotation (Placement(transformation(extent={{-240,110},{-200,150}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
 
-  CDL.Logical.OnDelay tim(final delayTime=delTim + samplePeriod)
+  CDL.Logical.TrueDelay tim(final delayTime=delTim + samplePeriod)
     "Send an on signal after some delay time"
     annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
   CDL.Continuous.GreaterEqualThreshold greThr
