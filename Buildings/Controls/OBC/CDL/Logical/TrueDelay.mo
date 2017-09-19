@@ -35,7 +35,7 @@ equation
          y = false;
       end if;
       annotation (
-          defaultComponentName="onDel",
+          defaultComponentName="truDel",
           Icon(graphics={        Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
