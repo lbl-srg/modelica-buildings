@@ -9,7 +9,6 @@ MultiAnd
 Nand
 Nor
 Not
-OnDelay
 OnOffController
 Or
 Or3
@@ -18,6 +17,7 @@ Switch
 Timer
 Toggle
 TriggeredTrapezoid
+TrueDelay
 TrueFalseHold
 TrueHoldWithReset
 Xor

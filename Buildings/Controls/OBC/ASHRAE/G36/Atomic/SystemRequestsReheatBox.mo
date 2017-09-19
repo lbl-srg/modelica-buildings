@@ -329,19 +329,19 @@ protected
     annotation (Placement(transformation(extent={{120,330},{140,350}})));
   CDL.Logical.LogicalSwitch logSwi "Logical switch"
     annotation (Placement(transformation(extent={{120,300},{140,280}})));
-  CDL.Logical.OnDelay tim1(delayTime=durTimTem)
+  CDL.Logical.TrueDelay tim1(delayTime=durTimTem)
     "Check if it is more than durTimTem"
     annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
-  CDL.Logical.OnDelay tim2(delayTime=durTimTem)
+  CDL.Logical.TrueDelay tim2(delayTime=durTimTem)
     "Check if it is more than durTimTem"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
-  CDL.Logical.OnDelay tim3(delayTime=durTimFlo)
+  CDL.Logical.TrueDelay tim3(delayTime=durTimFlo)
     "Check if it is more than durTimFlo"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  CDL.Logical.OnDelay tim4(delayTime=durTimDisAir) if have_hotWatCoi
+  CDL.Logical.TrueDelay tim4(delayTime=durTimDisAir) if have_hotWatCoi
     "Check if it is more than durTimDisAir"
     annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
-  CDL.Logical.OnDelay tim5(delayTime=durTimDisAir) if have_hotWatCoi
+  CDL.Logical.TrueDelay tim5(delayTime=durTimDisAir) if have_hotWatCoi
     "Check if it is more than durTimDisAir"
     annotation (Placement(transformation(extent={{0,-310},{20,-290}})));
 
