@@ -1,8 +1,11 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block TrueFalseHold "Block that holds an output signal for at least a specified duration"
 
-  parameter Modelica.SIunits.Time duration
-    "Time duration during which the output cannot change";
+  parameter Modelica.SIunits.Time trueHoldDuration
+    "true hold duration";
+
+  parameter Modelica.SIunits.Time falseHoldDuration = trueHoldDuration
+    "false hold duration";
 
   Interfaces.BooleanInput u "Boolean input signal"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
@@ -12,10 +15,12 @@ block TrueFalseHold "Block that holds an output signal for at least a specified 
     annotation (Placement(transformation(extent={{160,-10},{180,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 protected
-  Logical.Timer timer1 "Timer for false output"
-    annotation (Placement(transformation(extent={{-130,-40},{-110,-20}})));
+  CDL.Logical.OnDelay onDel1(delayTime=falseHoldDuration)
+    "Output true when timer elapsed the required time"
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
-  Logical.Timer timer2 "Timer for true output"
+  CDL.Logical.OnDelay onDel2(delayTime=trueHoldDuration)
+    "Output true when timer elapsed the required time"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
@@ -33,14 +38,8 @@ protected
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Modelica.StateGraph.TransitionWithSignal toFalse "Transition to false"
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
-  Continuous.GreaterEqualThreshold greEquThr2(final threshold=duration)
-    "Output true when timer elapsed the required time"
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Logical.And and2 "Check for input and elapsed timer"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Continuous.GreaterEqualThreshold greEquThr1(final threshold=duration)
-    "Output true when timer elapsed the required time"
-    annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Logical.And and1 "Check for input and elapsed timer"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
 
@@ -59,28 +58,20 @@ equation
     annotation (Line(points={{-39.5,20},{-32,20},{-24,20}}, color={0,0,0}));
   connect(toFalse.outPort, outputFalse.inPort[1]) annotation (Line(points={{41.5,20},
           {60,20},{60,40},{-70,40},{-70,20.5},{-61,20.5}},     color={0,0,0}));
-  connect(outputTrue.active, timer2.u)
+  connect(outputTrue.active,onDel2. u)
     annotation (Line(points={{10,9},{10,0},{10,-60},{18,-60}},
                                                          color={255,0,255}));
-  connect(timer2.y, greEquThr2.u)
-    annotation (Line(points={{41,-60},{58,-60}}, color={0,0,127}));
-  connect(greEquThr2.y, and2.u1) annotation (Line(points={{81,-60},{81,-60},{98,
-          -60}},                              color={255,0,255}));
   connect(notU.y, and2.u2)
-    annotation (Line(points={{-119,70},{140,70},{140,-80},{90,-80},{90,-68},{98,
+    annotation (Line(points={{-119,70},{140,70},{140,-80},{48,-80},{48,-68},{58,
           -68}},                                   color={255,0,255}));
-  connect(and2.y, toFalse.condition) annotation (Line(points={{121,-60},{132,-60},
-          {132,-20},{40,-20},{40,8}},color={255,0,255}));
-  connect(timer1.y, greEquThr1.u)
-    annotation (Line(points={{-109,-30},{-92,-30}},color={0,0,127}));
-  connect(outputFalse.active, timer1.u) annotation (Line(points={{-50,9},{-50,0},
-          {-140,0},{-140,-30},{-132,-30}},
+  connect(and2.y, toFalse.condition) annotation (Line(points={{81,-60},{100,-60},
+          {100,-20},{40,-20},{40,8}},color={255,0,255}));
+  connect(outputFalse.active,onDel1. u) annotation (Line(points={{-50,9},{-50,0},
+          {-140,0},{-140,-30},{-102,-30}},
                                          color={255,0,255}));
   connect(u, and1.u2) annotation (Line(points={{-200,0},{-160,0},{-160,-50},{
           -60,-50},{-60,-38},{-52,-38},{-52,-38}},
         color={255,0,255}));
-  connect(greEquThr1.y, and1.u1) annotation (Line(points={{-69,-30},{-52,-30}},
-                                                         color={255,0,255}));
   connect(and1.y, toTrue.condition) annotation (Line(points={{-29,-30},{-20,-30},
           {-20,8}},                   color={255,0,255}));
   connect(u, toTrue1.condition) annotation (Line(points={{-200,0},{-160,0},{-160,
@@ -105,6 +96,10 @@ equation
         color={255,0,255}));
   connect(notU.y, toFalse1.condition)
     annotation (Line(points={{-119,70},{-80,70},{-80,78}},color={255,0,255}));
+  connect(onDel1.y, and1.u1)
+    annotation (Line(points={{-79,-30},{-52,-30}}, color={255,0,255}));
+  connect(onDel2.y, and2.u1)
+    annotation (Line(points={{41,-60},{41,-60},{58,-60}}, color={255,0,255}));
   annotation (defaultComponentName="truFalHol",
           Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},
@@ -123,9 +118,9 @@ equation
           textString="%name",
           lineColor={0,0,255}),
         Text(
-          extent={{-90,-62},{96,-90}},
+          extent={{-88,-62},{92,-90}},
           lineColor={0,0,255},
-          textString="%duration"),
+          textString="%falseHoldDuration"),
         Ellipse(
           extent={{71,7},{85,-7}},
           lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
@@ -139,7 +134,11 @@ equation
               235,235}),
           fillColor=DynamicSelect({235,235,235}, if u then {0,255,0} else {235,
               235,235}),
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-90,96},{96,68}},
+          lineColor={0,0,255},
+          textString="%trueHoldDuration")}),
         Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-180,-120},{160,140}})),
 Documentation(info="<html>
@@ -183,6 +182,10 @@ alt=\"Input and output of the block\"/>
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 18, 2017, by Michael Wetter:<br/>
+Improved event handling.
+</li>
 <li>
 July 14, 2017, by Michael Wetter:<br/>
 Corrected model to set output equal to input during initialization.

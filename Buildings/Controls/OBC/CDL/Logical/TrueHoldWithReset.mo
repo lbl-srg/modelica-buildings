@@ -11,11 +11,12 @@ block TrueHoldWithReset "Block that holds a true signal for at least a requested
         iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
-  Logical.Timer timer "Timer to measure time after state became active"
-    annotation (Placement(transformation(extent={{20,10},{40,30}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     "Root of state graph"
     annotation (Placement(transformation(extent={{70,68},{90,88}})));
+
+  CDL.Logical.OnDelay onDelay(final delayTime=duration) "Delay for the on signal"
+    annotation (Placement(transformation(extent={{10,10},{30,30}})));
   Modelica.StateGraph.InitialStep initialStep "Initial step"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Modelica.StateGraph.StepWithSignal outputTrue
@@ -27,9 +28,6 @@ protected
   Modelica.StateGraph.TransitionWithSignal toInitial
     "Transition that activates the initial state"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
-  Continuous.GreaterEqualThreshold greEquThr(final threshold=duration)
-    "Greater or equal threshold for timer signal"
-    annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
 equation
   connect(initialStep.outPort[1], toOutputTrue.inPort)
@@ -40,17 +38,15 @@ equation
     annotation (Line(points={{-40,48},{-40,0},{-120,0}}, color={255,0,255}));
   connect(toInitial.outPort, initialStep.inPort[1]) annotation (Line(points={{41.5,60},
           {52,60},{52,86},{-90,86},{-90,60},{-81,60}},   color={0,0,0}));
-  connect(outputTrue.active, timer.u) annotation (Line(points={{0,49},{0,20},{18,
-          20}},                           color={255,0,255}));
-  connect(timer.y, greEquThr.u)
-    annotation (Line(points={{41,20},{58,20}},     color={0,0,127}));
-  connect(greEquThr.y, toInitial.condition) annotation (Line(points={{81,20},{88,
-          20},{88,40},{40,40},{40,48}},     color={255,0,255}));
+  connect(outputTrue.active, onDelay.u)
+    annotation (Line(points={{0,49},{0,20},{8,20}}, color={255,0,255}));
   connect(toOutputTrue.outPort, outputTrue.inPort[1])
     annotation (Line(points={{-38.5,60},{-11,60}}, color={0,0,0}));
   connect(outputTrue.outPort[1], toInitial.inPort)
     annotation (Line(points={{10.5,60},{36,60}}, color={0,0,0}));
 
+  connect(onDelay.y, toInitial.condition)
+    annotation (Line(points={{31,20},{40,20},{40,48}}, color={255,0,255}));
   annotation (
   defaultComponentName = "truHol",
   Icon(graphics={    Rectangle(
@@ -148,6 +144,10 @@ alt=\"Input and output of the block\"/>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 18, 2017, by Michael Wetter:<br/>
+Improved event handling.
+</li>
 <li>
 June 13, 2017, by Michael Wetter:<br/>
 Reimplemented model using a state graph to avoid having to test for equality within tolerance.

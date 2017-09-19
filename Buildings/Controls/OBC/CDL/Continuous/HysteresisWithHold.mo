@@ -15,127 +15,31 @@ block HysteresisWithHold
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.BooleanOutput y "Boolean output signal"
-    annotation (Placement(transformation(extent={{220,-10},{240,10}}),
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
-  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    "Root of state graph"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Modelica.StateGraph.InitialStep initialStep(
-    nOut=2,
-    nIn=0)
-    "Initial state"
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Modelica.StateGraph.TransitionWithSignal toTrue1 "Transition to true"
-    annotation (Placement(transformation(extent={{10,80},{30,100}})));
-  Modelica.StateGraph.TransitionWithSignal toFalse1 "Transition to false"
-    annotation (Placement(transformation(extent={{-10,60},{10,80}})));
-  Logical.Not not1 "Negation of input"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Continuous.Hysteresis hysteresis(
     final uLow=uLow,
     final uHigh=uHigh)
     "Transform Real to Boolean signal with Hysteresis"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Modelica.StateGraph.StepWithSignal outputTrue(nIn=2)
-    "State with true output signal"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Modelica.StateGraph.StepWithSignal outputFalse(nIn=2)
-    "State for which the block outputs false"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Modelica.StateGraph.TransitionWithSignal toTrue "Transition to true"
-    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  Modelica.StateGraph.TransitionWithSignal toFalse "Transition to false"
-    annotation (Placement(transformation(extent={{110,-10},{130,10}})));
-  Logical.Timer timer "Timer for false output"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Continuous.GreaterEqualThreshold greEquThr(final threshold=falseHoldDuration)
-    "Output true when timer elapsed the required time"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Logical.And and1 "Check for input and elapsed timer"
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Logical.Timer timer1  "Timer for true output"
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  Continuous.GreaterEqualThreshold greEquThr1(final threshold=trueHoldDuration)
-    "Output true when timer elapsed the required time"
-    annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
-  Logical.And and2 "Check for input and elapsed timer"
-    annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-initial equation
-  assert(uLow < uHigh, "Require uLow < uHigh. Check parameter values.");
+  Logical.TrueFalseHold truFalHol(
+    final trueHoldDuration=trueHoldDuration,
+    final falseHoldDuration=falseHoldDuration) "True/false hold"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation
-  connect(initialStep.outPort[1], toTrue1.inPort)
-    annotation (Line(points={{-19.5,90.25},{-2,90},{16,90}},
-      color={0,0,0}));
-  connect(initialStep.outPort[2], toFalse1.inPort)
-    annotation (Line(points={{-19.5,89.75},{-12,89.75},{-12,70},{-4,70}},
-      color={0,0,0}));
   connect(u, hysteresis.u)
-    annotation (Line(points={{-120,0},{-82,0}}, color={0,0,127}));
-  connect(hysteresis.y, not1.u)
-    annotation (Line(points={{-59,0},{-50,0},{-50,50},{-42,50}},
-      color={255,0,255}));
-  connect(not1.y, toFalse1.condition)
-    annotation (Line(points={{-19,50},{0,50},{0,58}},
-      color={255,0,255}));
-  connect(hysteresis.y, toTrue1.condition)
-    annotation (Line(points={{-59,0},{-50,0},{-50,32},{20,32},{20,78}},
-      color={255,0,255}));
-  connect(toFalse1.outPort, outputFalse.inPort[1])
-    annotation (Line(points={{1.5,70},{10,70},{10,0.5},{19,0.5}},
-      color={0,0,0}));
-  connect(outputFalse.outPort[1], toTrue.inPort)
-    annotation (Line(points={{40.5,0},{48.25,0},{56,0}},
-      color={0,0,0}));
-  connect(toTrue.outPort, outputTrue.inPort[1])
-    annotation (Line(points={{61.5,0},{70,0},{70,0.5},{79,0.5}},
-      color={0,0,0}));
-  connect(outputTrue.outPort[1], toFalse.inPort)
-    annotation (Line(points={{100.5,0},{116,0}},
-      color={0,0,0}));
-  connect(toTrue1.outPort, outputTrue.inPort[2])
-    annotation (Line(points={{21.5,90},{46,90},{70,90},{70,-0.5},{79,-0.5}},
-      color={0,0,0}));
-  connect(toFalse.outPort, outputFalse.inPort[2])
-    annotation (Line(points={{121.5,0},{140,0},{140,20},{12,20},{12,-0.5},{19,-0.5}},
-      color={0,0,0}));
-  connect(timer.y, greEquThr.u)
-    annotation (Line(points={{-39,-50},{-22,-50}}, color={0,0,127}));
-  connect(greEquThr.y, and1.u1)
-    annotation (Line(points={{1,-50},{18,-50}}, color={255,0,255}));
-  connect(hysteresis.y, and1.u2)
-    annotation (Line(points={{-59,0},{-50,0},{-50,-16},{-80,-16},{-80,-80},{10,-80},
-      {10,-58},{18,-58}}, color={255,0,255}));
-  connect(outputFalse.active, timer.u)
-    annotation (Line(points={{30,-11},{30,-20},{-76,-20},{-76,-50},{-62,-50}},
-      color={255,0,255}));
-  connect(and1.y, toTrue.condition)
-    annotation (Line(points={{41,-50},{50,-50},{60,-50},{60,-12}},
-      color={255,0,255}));
-  connect(outputTrue.active, timer1.u)
-    annotation (Line(points={{90,-11},{90,-11},{90,-20},{64,-20},{64,-50},
-      {78,-50}}, color={255,0,255}));
-  connect(timer1.y, greEquThr1.u)
-    annotation (Line(points={{101,-50},{118,-50}}, color={0,0,127}));
-  connect(greEquThr1.y, and2.u1)
-    annotation (Line(points={{141,-50},{158,-50}}, color={255,0,255}));
-  connect(not1.y, and2.u2)
-    annotation (Line(points={{-19,50},{-19,50},{200,50},{200,-80},{150,-80},{150,-58},
-      {158,-58}}, color={255,0,255}));
-  connect(and2.y, toFalse.condition)
-    annotation (Line(points={{181,-50},{190,-50},{190,-24},{120,-24},{120,-12}},
-      color={255,0,255}));
-  connect(outputTrue.active, y)
-    annotation (Line(points={{90,-11},{90,-20},{180,-20},{180,0},{230,0}},
-      color={255,0,255}));
+    annotation (Line(points={{-120,0},{-100,0},{-42,0}}, color={0,0,127}));
 
+  connect(hysteresis.y, truFalHol.u)
+    annotation (Line(points={{-19,0},{39,0}}, color={255,0,255}));
+  connect(truFalHol.y, y)
+    annotation (Line(points={{61,0},{110,0}}, color={255,0,255}));
 annotation (
   defaultComponentName="hysWitHol",
-  Diagram(coordinateSystem(preserveAspectRatio=false,
-  extent={{-100,-100},{220,120}})),
   Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -202,6 +106,11 @@ distraction from the input noise.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 18, 2017, by Michael Wetter:<br/>
+Refactored model to use <a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.TrueFalseHold\">
+Buildings.Controls.OBC.CDL.Logical.TrueFalseHold</a>.
+</li>
 <li>
 June 26, 2017, by Jianjun Hu:<br/>
 First implementation.
