@@ -150,14 +150,12 @@ protected
   CDL.Logical.Switch minRetDamSwitch
     "Keep minimum RA damper position at physical maximum for a short time period after disable"
     annotation (Placement(transformation(extent={{40,-260},{60,-240}})));
-  CDL.Logical.Timer timer "Timer gets started as the economizer gets disabled"
-    annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
   CDL.Logical.Nor nor1 "Logical nor"
     annotation (Placement(transformation(extent={{-40,200},{-20,220}})));
   CDL.Logical.Not not2 "Logical not that starts the timer at disable signal "
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   CDL.Logical.And  and2 "Logical and"
-    annotation (Placement(transformation(extent={{130,-182},{150,-162}})));
+    annotation (Placement(transformation(extent={{130,-174},{150,-154}})));
   CDL.Logical.And and1 "Logical and checks supply fan status"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   CDL.Logical.And and3 "Logical and which checks supply fan status"
@@ -166,16 +164,15 @@ protected
   CDL.Integers.Equal intEqu
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  CDL.Logical.OnDelay damDelOsc(
-    final delayTime=disDel)
+  CDL.Logical.OnDelay delOutDamOsc(final delayTime=disDel)
     "Small delay before closing the outdoor air damper to avoid pressure fluctuations"
     annotation (Placement(transformation(extent={{-68,-110},{-48,-90}})));
   CDL.Logical.OnDelay delRetDam(
     final delayTime=retDamFulOpeTim)
     "Keep return damper open to its physical maximum for a short period of time before closing the outdoor air damper and resuming the maximum return air damper position, per G36 Part N7"
-    annotation (Placement(transformation(extent={{42,-182},{62,-162}})));
+    annotation (Placement(transformation(extent={{-68,-182},{-48,-162}})));
   CDL.Logical.Not not1
-    annotation (Placement(transformation(extent={{80,-182},{100,-162}})));
+    annotation (Placement(transformation(extent={{-20,-182},{0,-162}})));
   CDL.Integers.Sources.Constant conInt(
     final k=Constants.FreezeProtectionStages.stage0)
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
@@ -208,7 +205,8 @@ equation
   connect(uOutDamPosMin, outDamSwitch.u1)
     annotation (Line(points={{-200,-160},{-120,-160},{-120,-134},{-120,-132},{38,-132}}, color={0,0,127}));
   connect(uOutDamPosMax, outDamSwitch.u3)
-    annotation (Line(points={{-200,-130},{-80,-130},{-80,-148},{38,-148}}, color={0,0,127}));
+    annotation (Line(points={{-200,-130},{-144,-130},{-144,-148},{38,-148}},
+                                                                           color={0,0,127}));
   connect(uRetDamPhyPosMax, maxRetDamSwitch.u1)
     annotation (Line(points={{-200,-200},{-78,-200},{-78,-202},{38,-202}}, color={0,0,127}));
   connect(uRetDamPosMax, maxRetDamSwitch.u3)
@@ -219,13 +217,14 @@ equation
   connect(minRetDamSwitch.y, yRetDamPosMin)
     annotation (Line(points={{61,-250},{124,-250},{190,-250}}, color={0,0,127}));
   connect(maxRetDamSwitch.y, yRetDamPosMax) annotation (Line(points={{61,-210},{190,-210}}, color={0,0,127}));
-  connect(not2.y, timer.u) annotation (Line(points={{11,-60},{28,-60}},   color={255,0,255}));
   connect(and2.y, maxRetDamSwitch.u2)
-    annotation (Line(points={{151,-172},{162,-172},{162,-230},{20,-230},{20,-210},
-          {38,-210}}, color={255,0,255}));
+    annotation (Line(points={{151,-164},{162,-164},{162,-230},{20,-230},{20,
+          -210},{38,-210}},
+                      color={255,0,255}));
   connect(and2.y, minRetDamSwitch.u2)
-    annotation (Line(points={{151,-172},{162,-172},{162,-230},{20,-230},{20,-250},
-          {38,-250}}, color={255,0,255}));
+    annotation (Line(points={{151,-164},{162,-164},{162,-230},{20,-230},{20,
+          -250},{38,-250}},
+                      color={255,0,255}));
   connect(not2.y, retDamSwitch.u2)
     annotation (Line(points={{11,-60},{20,-60},{20,-72},{-90,-72},{-90,-260},{-62,-260}},color={255,0,255}));
   connect(uRetDamPosMax, retDamSwitch.u1)
@@ -245,20 +244,24 @@ equation
   connect(outDamSwitch.u2, and3.y)
     annotation (Line(points={{38,-140},{12,-140},{12,-110},{1,-110}}, color={255,0,255}));
   connect(not2.y, and3.u1)
-    annotation (Line(points={{11,-60},{20,-60},{20,-86},{-28,-86},{-28,-110},{-22,-110}}, color={255,0,255}));
+    annotation (Line(points={{11,-60},{20,-60},{20,-72},{-30,-72},{-30,-110},{
+          -22,-110}},                                                                     color={255,0,255}));
 
-  connect(and2.u1, not2.y) annotation (Line(points={{128,-172},{116,-172},{116,-94},
-          {20,-94},{20,-60},{11,-60}}, color={255,0,255}));
-  connect(and3.u2, damDelOsc.y) annotation (Line(points={{-22,-118},{-34,-118},{
-          -34,-100},{-47,-100}}, color={255,0,255}));
-  connect(damDelOsc.u, not2.y) annotation (Line(points={{-70,-100},{-90,-100},{-90,
-          -72},{20,-72},{20,-60},{11,-60}}, color={255,0,255}));
-  connect(not2.y, delRetDam.u) annotation (Line(points={{11,-60},{20,-60},{20,-172},
-          {40,-172}}, color={255,0,255}));
+  connect(and2.u1, not2.y) annotation (Line(points={{128,-164},{116,-164},{116,
+          -94},{20,-94},{20,-60},{11,-60}},
+                                       color={255,0,255}));
+  connect(and3.u2, delOutDamOsc.y) annotation (Line(points={{-22,-118},{-34,-118},
+          {-34,-100},{-47,-100}}, color={255,0,255}));
+  connect(delOutDamOsc.u, not2.y) annotation (Line(points={{-70,-100},{-90,-100},
+          {-90,-72},{20,-72},{20,-60},{11,-60}}, color={255,0,255}));
+  connect(not2.y, delRetDam.u) annotation (Line(points={{11,-60},{20,-60},{20,
+          -72},{-90,-72},{-90,-172},{-70,-172}},
+                      color={255,0,255}));
   connect(delRetDam.y, not1.u)
-    annotation (Line(points={{63,-172},{78,-172}}, color={255,0,255}));
-  connect(not1.y, and2.u2) annotation (Line(points={{101,-172},{112,-172},{112,-180},
-          {128,-180}}, color={255,0,255}));
+    annotation (Line(points={{-47,-172},{-22,-172}},
+                                                   color={255,0,255}));
+  connect(not1.y, and2.u2) annotation (Line(points={{1,-172},{128,-172}},
+                       color={255,0,255}));
   connect(uFreProSta, intEqu.u1) annotation (Line(points={{-200,50},{-140,50},{-140,
           60},{-82,60}}, color={255,127,0}));
   connect(conInt.y, intEqu.u2) annotation (Line(points={{-99,40},{-92,40},{-92,52},
