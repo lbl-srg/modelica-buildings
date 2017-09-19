@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Logical;
-block OnDelay
+block TrueDelay
   "Delay a rising edge of the input, but do not delay a falling edge."
 
   parameter Modelica.SIunits.Time delayTime "Delay time";
@@ -81,10 +81,10 @@ is shown in the next figure.
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/OnDelay1.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueDelay1.png\"
      alt=\"OnDelay1.png\" />
 <br/>
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/OnDelay2.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueDelay2.png\"
      alt=\"OnDelay2.png\" />
 </p>
 
@@ -97,4 +97,4 @@ Modelica Standard Library.
 </li>
 </ul>
 </html>"));
-end OnDelay;
+end TrueDelay;
