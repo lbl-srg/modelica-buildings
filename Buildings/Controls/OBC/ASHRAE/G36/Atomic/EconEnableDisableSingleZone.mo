@@ -94,7 +94,8 @@ block EconEnableDisableSingleZone
 
   CDL.Logical.And3 andEnaDis "Logical and that checks freeze protection stage and zone state"
    annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  CDL.Logical.TrueFalseHold truFalHol(duration=600) "10 min on/off delay"
+  CDL.Logical.TrueFalseHold truFalHol(
+    trueHoldDuration=600) "10 min on/off delay"
     annotation (Placement(transformation(extent={{0,200},{20,220}})));
 
 protected
@@ -141,19 +142,23 @@ protected
     annotation (Placement(transformation(extent={{-40,200},{-20,220}})));
   CDL.Logical.Not not2 "Logical not that starts the timer at disable signal "
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
-  CDL.Continuous.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage0)
-    "Logical block to check if the freeze protection is deactivated"
-    annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  CDL.Continuous.GreaterThreshold greThr(final threshold=Constants.ZoneStates.heating)
-    "Check if ZoneState is other than heating"
-    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   CDL.Logical.And and1 "Logical and checks supply fan status"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
-  CDL.Conversions.IntegerToReal intToRea "Integer to real converter"
-    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
-    annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
 
+  CDL.Integers.Sources.Constant conInt(
+    final k=Constants.FreezeProtectionStages.stage0)
+    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
+  CDL.Integers.Equal intEqu
+    "Logical block to check if the freeze protection is deactivated"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+  CDL.Integers.Sources.Constant conInt1(
+    final k=Constants.ZoneStates.heating)
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+  CDL.Integers.Equal intEqu1
+    "Logical block to check if the freeze protection is deactivated"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  CDL.Logical.Not not3 "Negation for check of freeze protection status"
+    annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
 equation
   connect(outDamSwitch.y, yOutDamPosMax)
     annotation (Line(points={{61,-140},{61,-140},{190,-140}}, color={0,0,127}));
@@ -183,15 +188,6 @@ equation
     annotation (Line(points={{61,40},{72,40},{72,-20},{-20,-20},{-20,-60},{-12,-60}}, color={255,0,255}));
   connect(minRetDamSwitch.y, yRetDamPosMin)
     annotation (Line(points={{61,-240},{100,-240},{146,-240},{190,-240}}, color={0,0,127}));
-  connect(uFreProSta, intToRea.u) annotation (Line(points={{-200,50},{-200,50},{-162,50}}, color={255,127,0}));
-  connect(intToRea.y, equ.u) annotation (Line(points={{-139,50},{-134,50},{-122,50}}, color={0,0,127}));
-  connect(equ.y, andEnaDis.u2)
-    annotation (Line(points={{-99,50},{-62,50},{-20,50},{-20,40},{38,40}},color={255,0,255}));
-  connect(uZonSta, intToRea1.u) annotation (Line(points={{-200,-10},{-182,-10},{-162,-10}}, color={255,127,0}));
-  connect(intToRea1.y, greThr.u) annotation (Line(points={{-139,-10},{-134,-10},{-130,-10},{-122,-10}},
-    color={0,0,127}));
-  connect(greThr.y, andEnaDis.u3)
-    annotation (Line(points={{-99,-10},{-20,-10},{-20,32},{38,32}}, color={255,0,255}));
   connect(truFalHol.y, and1.u1)
     annotation (Line(points={{21,210},{30,210},{30,130},{-10,130},{-10,110},{-2,110}},color={255,0,255}));
   connect(and1.y, andEnaDis.u1)
@@ -207,6 +203,20 @@ equation
   connect(not2.y, minRetDamSwitch.u2) annotation (Line(points={{11,-60},{16,-60},
           {16,-240},{38,-240}}, color={255,0,255}));
   connect(not2.y, outDamSwitch.u2) annotation (Line(points={{11,-60},{28,-60},{28,-140},{38,-140}}, color={255,0,255}));
+  connect(conInt.y,intEqu. u2) annotation (Line(points={{-99,40},{-92,40},{-92,52},
+          {-82,52}}, color={255,127,0}));
+  connect(conInt1.y,intEqu1. u2) annotation (Line(points={{-99,-20},{-90,-20},{-90,
+          -8},{-82,-8}}, color={255,127,0}));
+  connect(intEqu1.y,not3. u)
+    annotation (Line(points={{-59,0},{-46,0}}, color={255,0,255}));
+  connect(uZonSta, intEqu1.u1) annotation (Line(points={{-200,-10},{-140,-10},{
+          -140,0},{-82,0}}, color={255,127,0}));
+  connect(uFreProSta, intEqu.u1) annotation (Line(points={{-200,50},{-140,50},{
+          -140,60},{-82,60}}, color={255,127,0}));
+  connect(intEqu.y, andEnaDis.u2) annotation (Line(points={{-59,60},{-10,60},{
+          -10,40},{38,40}}, color={255,0,255}));
+  connect(not3.y, andEnaDis.u3) annotation (Line(points={{-23,0},{8,0},{8,32},{
+          38,32}}, color={255,0,255}));
     annotation (
     Icon(graphics={
         Rectangle(
@@ -236,12 +246,12 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-170,16},{170,-36}},
+          extent={{-168,16},{172,-36}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-170,76},{170,24}},
+          extent={{-168,76},{172,24}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
