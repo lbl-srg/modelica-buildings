@@ -140,28 +140,24 @@ protected
   CDL.Logical.Switch enaDis
     "Logical switch to enable damper position limit calculation or disable it (set min limit to physical minimum)"
     annotation (Placement(transformation(extent={{82,-120},{102,-100}})));
-  CDL.Logical.MultiAnd and1(final nu=4) "Logical and block"
+  CDL.Logical.MultiAnd and1(final nu=3) "Logical and block"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   CDL.Logical.Not not1 "Logical not block"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  CDL.Conversions.IntegerToReal intToRea "Integer to real converter"
-    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
-  CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
-    annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
-  CDL.Continuous.LessEqualThreshold equ(final threshold=Constants.FreezeProtectionStages.stage1)
-    "Freeze protection stage above stage1 disables the control"
-    annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
   CDL.Logical.Switch enaDis1
     "Logical switch to enable damper position limit calculation or disable it (set max limit to physical minimum)"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  CDL.Continuous.GreaterThreshold greThr(
-    final threshold=Constants.OperationModes.occMod - 0.5)
-      "Tests whether operation mode is occupied"
-    annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
-  CDL.Continuous.LessThreshold lesThr(
-    final threshold=Constants.OperationModes.occMod + 0.5)
-    "Tests whether operation mode is occupied"
-    annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
+  CDL.Integers.Sources.Constant conInt(k=Constants.FreezeProtectionStages.stage0)
+    "Freeze protection stage 0 index"
+    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
+  CDL.Integers.Equal intEqu "Check if freeze protection stage is stage 0"
+    annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
+  CDL.Integers.Sources.Constant conInt1(k=Constants.OperationModes.occMod)
+    "Occupied mode index"
+    annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
+  CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
+    annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
+
 equation
   connect(minVOutSig.y, minVOutSetCurFanSpePos.x1)
     annotation (Line(points={{37,180},{76,180},{76,128},{98,128}},color={0,0,127}));
@@ -198,12 +194,6 @@ equation
     annotation (Line(points={{-180,110},{-24,110},{-24,50},{14,50}}, color={0,0,127}));
   connect(and1.y,not1. u)
     annotation (Line(points={{-38.3,-70},{-22,-70}}, color={255,0,255}));
-  connect(intToRea.u,uFreProSta)
-    annotation (Line(points={{-142,-120},{-142,-120},{-180,-120}}, color={255,127,0}));
-  connect(intToRea.y,equ. u)
-    annotation (Line(points={{-119,-120},{-110,-120},{-102,-120}}, color={0,0,127}));
-  connect(uOpeMod,intToRea1. u)
-    annotation (Line(points={{-180,-160},{-162,-160},{-142,-160}}, color={255,127,0}));
   connect(not1.y, enaDis.u2)
     annotation (Line(points={{1,-70},{2,-70},{2,-70},{0,-70},{40,-70},{40,-110},{80,-110}},color={255,0,255}));
   connect(outDamPhyPosMinSig.y, enaDis.u1)
@@ -219,18 +209,28 @@ equation
   connect(not1.y, enaDis1.u2)
     annotation (Line(points={{1,-70},{48,-70},{78,-70}}, color={255,0,255}));
   connect(uSupFan, and1.u[1])
-    annotation (Line(points={{-180,-80},{-122,-80},{-122,-64.75},{-62,-64.75}}, color={255,0,255}));
-  connect(equ.y, and1.u[2])
-    annotation (Line(points={{-79,-120},{-74,-120},{-74,-68},{-68,-68},{-68,-68.25},{-62,-68.25}}, color={255,0,255}));
-  connect(intToRea1.y, greThr.u)
-    annotation (Line(points={{-119,-160},{-110,-160},{-110,-150},{-102,-150}}, color={0,0,127}));
-  connect(greThr.y, and1.u[3])
-    annotation (Line(points={{-79,-150},{-72,-150},{-72,-71.75},{-62,-71.75}}, color={255,0,255}));
-  connect(lesThr.y, and1.u[4])
-    annotation (Line(points={{-79,-190},{-70,-190},{-70,-75.25},{-62,-75.25}}, color={255,0,255}));
-  connect(intToRea1.y, lesThr.u)
-    annotation (Line(points={{-119,-160},{-110,-160},{-110,-190},{-102,-190}}, color={0,0,127}));
-    annotation (Placement(transformation(extent={{-20,110},{0,130}})),
+    annotation (Line(points={{-180,-80},{-122,-80},{-122,-65.3333},{-62,
+          -65.3333}},
+      color={255,0,255}));
+  connect(conInt.y, intEqu.u1)
+    annotation (Line(points={{-119,-100},{-112,-100},{-112,-120},{-102,-120}},
+      color={255,127,0}));
+  connect(uFreProSta, intEqu.u2)
+    annotation (Line(points={{-180,-120},{-120,-120},{-120,-128},{-102,-128}},
+      color={255,127,0}));
+  connect(uOpeMod, intEqu1.u1)
+    annotation (Line(points={{-180,-160},{-102,-160}}, color={255,127,0}));
+  connect(conInt1.y, intEqu1.u2)
+    annotation (Line(points={{-119,-180},{-112,-180},{-112,-168},{-102,-168}},
+      color={255,127,0}));
+  connect(intEqu.y, and1.u[2])
+    annotation (Line(points={{-79,-120},{-74,-120},{-74,-70},{-62,-70}},
+      color={255,0,255}));
+  connect(intEqu1.y, and1.u[3])
+    annotation (Line(points={{-79,-160},{-68,-160},{-68,-74.6667},{-62,-74.6667}},
+      color={255,0,255}));
+
+annotation (Placement(transformation(extent={{-20,110},{0,130}})),
                 Placement(transformation(extent={{-20,20},{0,40}})),
                 Placement(transformation(extent={{60,90},{80,110}})),
                 Placement(transformation(extent={{-140,130},{-120,150}})),
@@ -303,7 +303,7 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                    Text(
-          extent={{76,-152},{220,-234}},
+          extent={{62,-152},{206,-234}},
           lineColor={0,0,0},
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,
@@ -316,7 +316,7 @@ control loop"),
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                    Text(
-          extent={{-140,212},{-54,194}},
+          extent={{-140,212},{-32,194}},
           lineColor={0,0,0},
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,
@@ -327,7 +327,7 @@ control loop"),
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                    Text(
-          extent={{60,212},{174,188}},
+          extent={{54,212},{168,188}},
           lineColor={0,0,0},
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,
