@@ -68,7 +68,7 @@ equation
           lineColor={0,0,255},
           textString="%name")}), Documentation(info="<html>
 <p>
-Block that delays an on-signal.
+Block that delays a signal when it becomes <code>true</code>.
 </p>
 <p>
 A rising edge of the Boolean input <code>u</code> gives a delayed output.
