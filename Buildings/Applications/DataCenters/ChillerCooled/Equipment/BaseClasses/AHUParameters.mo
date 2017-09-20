@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
+within Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses;
 partial model AHUParameters "Essential parameters for air handling unit"
 
   parameter Modelica.SIunits.ThermalConductance UA_nominal

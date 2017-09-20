@@ -1,6 +1,6 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
 model CoolingCoilHumidifyingHeating
-  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.PartialCoolingCoilHumidifyingHeating(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialCoolingCoilHumidifyingHeating(
     redeclare Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage watVal(
       final R=R,
       final delta0=delta0),

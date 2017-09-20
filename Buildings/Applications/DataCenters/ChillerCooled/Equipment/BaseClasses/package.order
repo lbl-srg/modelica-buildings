@@ -1,6 +1,8 @@
+AHUParameters
 PartialChillerWSE
 PartialChillerWSEInterface
 PartialControllerInterface
+PartialCoolingCoilHumidifyingHeating
 PartialHeatExchanger
 PartialIntegratedPrimary
 PartialOperationSequenceInterface
