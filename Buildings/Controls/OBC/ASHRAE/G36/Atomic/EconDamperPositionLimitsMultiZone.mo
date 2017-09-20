@@ -147,31 +147,25 @@ protected
   CDL.Logical.Switch outDamPosMaxSwitch
     "A switch to deactivate the outdoor air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  CDL.Logical.MultiAnd and1(final nu=4) "Locigal and block"
+  CDL.Logical.MultiAnd and1(final nu=3) "Locigal and block"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   CDL.Logical.Not not1 "Logical not block"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  CDL.Conversions.IntegerToReal intToRea "Integer to real converter"
-    annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
-  CDL.Conversions.IntegerToReal intToRea1 "Integer to real converter"
-    annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
-  CDL.Continuous.LessEqualThreshold equ(
-    final threshold=Constants.FreezeProtectionStages.stage1 + 0.5)
-    "Any freeze protection stage above 1 disables the control"
+  CDL.Integers.Sources.Constant conInt(k=Constants.FreezeProtectionStages.stage0)
+    "Freeze protection stage 0 index"
+    annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
+  CDL.Integers.Sources.Constant conInt1(k=Constants.OperationModes.occMod)
+    "Occupied mode index"
+    annotation (Placement(transformation(extent={{-160,-210},{-140,-190}})));
+  CDL.Integers.Equal intEqu "Check if freeze protection stage is stage 0"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
-
-  CDL.Continuous.GreaterThreshold greThr(
-    final threshold=Constants.OperationModes.occMod - 0.5)
-      "Tests whether operation mode is occupied"
-    annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
-  CDL.Continuous.LessThreshold lesThr(
-    final threshold=Constants.OperationModes.occMod + 0.5)
-    "Tests whether operation mode is occupied"
-    annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
+  CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
+    annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
 
 equation
-  connect(minRetDam.y, yRetDamPosMax)  annotation (Line(points={{141,110},{150,110},{150,20},{150,-40},{190,-40}},
-    color={0,0,127}));
+  connect(minRetDam.y, yRetDamPosMax)
+    annotation (Line(points={{141,110},{150,110},{150,20},{150,-40},{190,-40}},
+      color={0,0,127}));
   connect(retDamPosMinSwitch.y, minRetDam.f2)
     annotation (Line(points={{61,-20},{61,-18},{61,-20},{100,-20},{100,102},{118,102}},color={0,0,127}));
   connect(sigFraForOutDam.y, minRetDam.x1)
@@ -216,27 +210,30 @@ equation
     annotation (Line(points={{-19,-90},{-19,-90},{20,-90},{20,20},{38,20}},color={255,0,255}));
   connect(retDamPosMinSwitch.y, yRetDamPosMin)
     annotation (Line(points={{61,-20},{126,-20},{126,0},{190,0}},color={0,0,127}));
-  connect(intToRea.u, uFreProSta)
-    annotation (Line(points={{-162,-140},{-162,-140},{-200,-140}}, color={255,127,0}));
-  connect(intToRea.y, equ.u)
-    annotation (Line(points={{-139,-140},{-130,-140},{-122,-140}}, color={0,0,127}));
-  connect(uOpeMod, intToRea1.u)
-    annotation (Line(points={{-200,-180},{-182,-180},{-162,-180}}, color={255,127,0}));
   connect(retDamPhyPosMaxSig.y, yRetDamPhyPosMax)
     annotation (Line(points={{-139,-40},{40,-40},{40,-80},{190,-80}},color={0,0,127}));
-  connect(and1.u[1], uSupFan) annotation (Line(points={{-82,-84.75},{-160,-84.75},
-          {-160,-100},{-200,-100}}, color={255,0,255}));
-  connect(equ.y, and1.u[2]) annotation (Line(points={{-99,-140},{-96,-140},{-96,
-          -88.25},{-82,-88.25}}, color={255,0,255}));
-  connect(intToRea1.y, greThr.u) annotation (Line(points={{-139,-180},{-130,-180},
-          {-130,-170},{-122,-170}}, color={0,0,127}));
-  connect(intToRea1.y, lesThr.u) annotation (Line(points={{-139,-180},{-130,-180},
-          {-130,-200},{-122,-200}}, color={0,0,127}));
-  connect(greThr.y, and1.u[3]) annotation (Line(points={{-99,-170},{-92,-170},{-92,
-          -91.75},{-82,-91.75}}, color={255,0,255}));
-  connect(lesThr.y, and1.u[4]) annotation (Line(points={{-99,-200},{-90,-200},{-90,
-          -95.25},{-82,-95.25}}, color={255,0,255}));
-  annotation (
+  connect(and1.u[1], uSupFan)
+    annotation (Line(points={{-82,-85.3333},{-160,-85.3333},{-160,-100},{-200,
+          -100}},
+      color={255,0,255}));
+  connect(uFreProSta, intEqu.u2)
+    annotation (Line(points={{-200,-140},{-140,-140},{-140,-148},{-122,-148}},
+      color={255,127,0}));
+  connect(conInt.y, intEqu.u1)
+    annotation (Line(points={{-139,-120},{-130,-120},{-130,-140},{-122,-140}},
+      color={255,127,0}));
+  connect(uOpeMod, intEqu1.u1)
+    annotation (Line(points={{-200,-180},{-122,-180}}, color={255,127,0}));
+  connect(conInt1.y, intEqu1.u2)
+    annotation (Line(points={{-139,-200},{-130,-200},{-130,-188},{-122,-188}},
+      color={255,127,0}));
+  connect(intEqu.y, and1.u[2])
+    annotation (Line(points={{-99,-140},{-94,-140},{-94,-90},{-82,-90}}, color={255,0,255}));
+  connect(intEqu1.y, and1.u[3])
+    annotation (Line(points={{-99,-180},{-90,-180},{-90,-94.6667},{-82,-94.6667}},
+      color={255,0,255}));
+
+annotation (
     defaultComponentName = "ecoDamLim",
     Icon(graphics={
         Rectangle(
@@ -281,7 +278,7 @@ equation
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position limit
 calculation and assignments"),     Text(
-          extent={{-160,152},{-16,70}},
+          extent={{-168,152},{-24,70}},
           lineColor={0,0,0},
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,
@@ -292,14 +289,14 @@ limits set at commissioning"),
           horizontalAlignment=TextAlignment.Left,
           textString="Switches to deactivate
 limit modulation"),                Text(
-          extent={{-78,-170},{66,-252}},
+          extent={{-86,-170},{58,-252}},
           lineColor={0,0,0},
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,
           textString="Enable/disable conditions
 for damper position limits
 control loop"),                    Text(
-          extent={{-160,170},{-16,122}},
+          extent={{-168,170},{-24,122}},
           lineColor={0,0,0},
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,

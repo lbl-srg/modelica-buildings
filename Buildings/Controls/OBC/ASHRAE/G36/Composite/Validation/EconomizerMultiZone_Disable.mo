@@ -3,13 +3,15 @@ model EconomizerMultiZone_Disable
   "Validation model for disabling the multizone VAV AHU economizer modulation and damper position limit control loops"
   extends Modelica.Icons.Example;
 
-  EconomizerMultiZone economizer(use_enthalpy=true,
+  Buildings.Controls.OBC.ASHRAE.G36.Composite.EconomizerMultiZone economizer(
+    use_enthalpy=true,
     retDamPhyPosMax=1,
     retDamPhyPosMin=0,
     outDamPhyPosMax=1,
     outDamPhyPosMin=0) "Multizone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  EconomizerMultiZone economizer1(use_enthalpy=true,
+  Buildings.Controls.OBC.ASHRAE.G36.Composite.EconomizerMultiZone economizer1(
+    use_enthalpy=true,
     retDamPhyPosMax=1,
     retDamPhyPosMin=0,
     outDamPhyPosMax=1,

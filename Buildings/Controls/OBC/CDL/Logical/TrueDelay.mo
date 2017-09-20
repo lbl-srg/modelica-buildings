@@ -11,29 +11,29 @@ block TrueDelay
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-   Boolean delaySignal(start=false,fixed=true);
-   discrete Modelica.SIunits.Time t_next;
+  parameter Modelica.SIunits.Time t_past(fixed=false)
+     "Time before simulation started";
+   Modelica.SIunits.Time t_next;
 
 initial equation
-      pre(u) = false;
-      pre(t_next) = time - 1;
+  t_past = time - 1000;
+  pre(u) = false;
+  pre(t_next) = time - 1000;
 equation
-      when initial() then
-         delaySignal = u;
-         t_next = time - 1;
-      elsewhen u then
-         delaySignal = true;
-         t_next = time + delayTime;
-      elsewhen not u then
-         delaySignal = false;
-         t_next = time - 1;
-      end when;
+  when initial() then
+    t_next = t_past;
+    y = u;
+  elsewhen u then
+    t_next = time + delayTime;
+    y = if delayTime > 0 then false else true;
+  elsewhen not u then
+    t_next = t_past;
+    y = false;
+  elsewhen time >= pre(t_next) then
+    t_next = t_past;
+    y = true;
+  end when;
 
-      if delaySignal then
-         y = time >= t_next;
-      else
-         y = false;
-      end if;
       annotation (
           defaultComponentName="truDel",
           Icon(graphics={        Rectangle(
@@ -45,7 +45,7 @@ equation
           Text(
             extent={{-250,-120},{250,-150}},
             lineColor={0,0,0},
-            textString="%delayTime s"),
+          textString="%delayTime"),
           Line(points={{-80,-66},{-60,-66},{-60,-22},{38,-22},{38,-66},{66,-66}}),
           Line(points={{-80,32},{-4,32},{-4,76},{38,76},{38,32},{66,32}},
               color={255,0,255}),
@@ -68,7 +68,7 @@ equation
           lineColor={0,0,255},
           textString="%name")}), Documentation(info="<html>
 <p>
-Block that delays an on-signal.
+Block that delays a signal when it becomes <code>true</code>.
 </p>
 <p>
 A rising edge of the Boolean input <code>u</code> gives a delayed output.

@@ -26,13 +26,7 @@ protected
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
     "Freeze protection status is stage0"
-    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Integers.Sources.Constant zonSta(final k=Constants.ZoneStates.heating)
-    "Zone state is heating"
-    annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  CDL.Integers.Sources.Constant freProSta1(final k=Constants.FreezeProtectionStages.stage1)
-    "Freeze protection status is stage1"
-    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
+    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
   CDL.Integers.Sources.Constant zonSta1(final k=Constants.ZoneStates.deadband)
     "Zone state is deadband"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
@@ -47,9 +41,23 @@ protected
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   CDL.Continuous.Sources.Constant retDamPosMin(final k=0) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  CDL.Logical.Sources.Constant supFanSta(final k=true)
-    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
+  CDL.Logical.Sources.Constant supFanSta(k=true)
+    annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
 
+  CDL.Conversions.BooleanToInteger zonSta(
+    integerTrue=Constants.ZoneStates.cooling,
+    integerFalse=Constants.ZoneStates.heating)
+    "Zone state changes from cooling to heating"
+    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
+  CDL.Logical.Sources.Pulse booPul(period=1800)
+    annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
+  CDL.Logical.Sources.Pulse booPul1(period=1800)
+    annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
+  CDL.Conversions.BooleanToInteger freProSta1(
+    integerTrue=Constants.FreezeProtectionStages.stage0,
+    integerFalse=Constants.FreezeProtectionStages.stage1)
+    "Freese protection stage changes from stage 0 to stage 1"
+    annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
 equation
   connect(TOutBelowCutoff.y, ecoEnaDis.TOut)
     annotation (Line(points={{-19,150},{32,150},{32,60},{81,60}}, color={0,0,127}));
@@ -61,16 +69,15 @@ equation
     annotation (Line(points={{-19,150},{32,150},{32,-20},{81,-20}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, ecoEnaDis.hOut)
     annotation (Line(points={{-79,110},{-60,110},{-60,56},{81,56}}, color={0,0,127}));
-  connect(hOutCut.y, ecoEnaDis.hOutCut) annotation (Line(points={{-79,70},{-70,70},{-70,54},{81,54}},
+  connect(hOutCut.y, ecoEnaDis.hOutCut)
+    annotation (Line(points={{-79,70},{-70,70},{-70,54},{81,54}},
     color={0,0,127}));
   connect(hOutBelowCutoff.y, ecoEnaDis1.hOut)
     annotation (Line(points={{-79,110},{-60,110},{-60,56},{10,56},{10,-24},{81,-24}}, color={0,0,127}));
   connect(hOutCut.y, ecoEnaDis1.hOutCut)
     annotation (Line(points={{-79,70},{-70,70},{-70,54},{6,54},{6,-26},{81,-26}}, color={0,0,127}));
   connect(freProSta.y, ecoEnaDis.uFreProSta)
-    annotation (Line(points={{-139,50},{-130,50},{-130,52},{81,52}}, color={255,127,0}));
-  connect(freProSta1.y, ecoEnaDis1.uFreProSta)
-    annotation (Line(points={{61,-110},{68,-110},{68,-28},{81,-28}}, color={255,127,0}));
+    annotation (Line(points={{-119,50},{-110,50},{-110,52},{81,52}}, color={255,127,0}));
   connect(retDamPosMax.y, ecoEnaDis.uRetDamPosMax)
     annotation (Line(points={{-79,-50},{-68,-50},{-68,40},{81,40}}, color={0,0,127}));
   connect(retDamPhyPosMax.y, ecoEnaDis.uRetDamPhyPosMax)
@@ -92,13 +99,20 @@ equation
   connect(retDamPhyPosMax.y, ecoEnaDis1.uRetDamPhyPosMax)
     annotation (Line(points={{-79,-10},{0,-10},{0,-38},{81,-38}}, color={0,0,127}));
   connect(supFanSta.y, ecoEnaDis.uSupFan)
-    annotation (Line(points={{-139,-30},{-34,-30},{-34,48},{81,48}}, color={255,0,255}));
+    annotation (Line(points={{-119,-30},{-34,-30},{-34,48},{81,48}}, color={255,0,255}));
   connect(supFanSta.y, ecoEnaDis1.uSupFan)
-    annotation (Line(points={{-139,-30},{-34,-30},{-34,-32},{81,-32}}, color={255,0,255}));
-  connect(zonSta.y, ecoEnaDis.uZonSta)
-    annotation (Line(points={{-139,10},{-100,10},{-100,50},{81,50}}, color={255,127,0}));
+    annotation (Line(points={{-119,-30},{-34,-30},{-34,-32},{81,-32}}, color={255,0,255}));
   connect(zonSta1.y, ecoEnaDis1.uZonSta)
     annotation (Line(points={{61,-70},{70,-70},{70,-30},{81,-30}}, color={255,127,0}));
+  connect(booPul.y, zonSta.u)
+    annotation (Line(points={{-159,10},{-142,10}}, color={255,0,255}));
+  connect(booPul1.y, freProSta1.u)
+    annotation (Line(points={{61,-150},{78,-150}}, color={255,0,255}));
+  connect(zonSta.y, ecoEnaDis.uZonSta)
+    annotation (Line(points={{-119,10},{-100,10},{-100,50},{81,50}}, color={255,127,0}));
+  connect(freProSta1.y, ecoEnaDis1.uFreProSta)
+    annotation (Line(points={{101,-150},{120,-150},{120,-120},{68,-120},{68,-28},{81,-28}},
+      color={255,127,0}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/Validation/EconEnableDisableMultiZone_FreProSta_ZonSta.mos"

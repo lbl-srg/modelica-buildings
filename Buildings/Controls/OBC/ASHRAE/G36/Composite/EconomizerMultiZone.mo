@@ -138,14 +138,14 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}}),
     iconTransformation(extent={{100,-30}, {120,-10}})));
 
-  Controls.OBC.ASHRAE.G36.Atomic.EconEnableDisableMultiZone ecoEnaDis(
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconEnableDisableMultiZone ecoEnaDis(
     final use_enthalpy=use_enthalpy,
     final delTOutHis=delTOutHis,
     final delEntHis=delEntHis,
     final retDamFulOpeTim=retDamFulOpeTim,
     final disDel=disDel) "Multizone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Controls.OBC.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone ecoDamLim(
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone ecoDamLim(
     final retDamPhyPosMax=retDamPhyPosMax,
     final retDamPhyPosMin=retDamPhyPosMin,
     final outDamPhyPosMax=outDamPhyPosMax,
@@ -157,7 +157,7 @@ model EconomizerMultiZone "Multiple zone VAV AHU economizer control sequence"
     final retDamConSigMin=retDamConSigMinDamLim)
     "Multizone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Controls.OBC.ASHRAE.G36.Atomic.EconModulationMultiZone ecoMod(
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconModulationMultiZone ecoMod(
     final kPMod=kPMod,
     final TiMod=TiMod,
     final retDamConSigMin=retDamConSigMinMod)
