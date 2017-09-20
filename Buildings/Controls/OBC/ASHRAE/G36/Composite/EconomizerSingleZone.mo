@@ -151,7 +151,7 @@ model EconomizerSingleZone "Single zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}}),
     iconTransformation(extent={{100,-30}, {120,-10}})));
 
-  Controls.OBC.ASHRAE.G36.Atomic.EconEnableDisableSingleZone ecoEnaDis(
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconEnableDisableSingleZone ecoEnaDis(
     final retDamPhyPosMax=retDamPhyPosMax,
     final use_enthalpy=use_enthalpy,
     final delTOutHis=delTOutHis,
@@ -159,7 +159,7 @@ model EconomizerSingleZone "Single zone VAV AHU economizer control sequence"
     final retDamPhyPosMin=retDamPhyPosMin)
     "Single zone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Controls.OBC.ASHRAE.G36.Atomic.EconDamperPositionLimitsSingleZone ecoDamLim(
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconDamperPositionLimitsSingleZone ecoDamLim(
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
     final outDamPhyPosMax=outDamPhyPosMax,
@@ -172,7 +172,7 @@ model EconomizerSingleZone "Single zone VAV AHU economizer control sequence"
     final desVOutMaxFanSpePos=desVOutMaxFanSpePos)
     "Single zone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Controls.OBC.ASHRAE.G36.Atomic.EconModulationSingleZone ecoMod(
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconModulationSingleZone ecoMod(
     final kPMod=kPMod,
     final TiMod=TiMod)
     "Single zone VAV AHU economizer damper modulation sequence"

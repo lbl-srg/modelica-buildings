@@ -3,7 +3,7 @@ model EconomizerSingleZone_Disable
   "Validation model for disabling the single zone VAV AHU economizer modulation and damper position limit control loops"
   extends Modelica.Icons.Example;
 
-  EconomizerSingleZone economizer(
+  Buildings.Controls.OBC.ASHRAE.G36.Composite.EconomizerSingleZone economizer(
     final use_enthalpy=true,
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
@@ -11,7 +11,7 @@ model EconomizerSingleZone_Disable
     final desVOut_flow=desVOut_flow)
     "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  EconomizerSingleZone economizer1(
+  Buildings.Controls.OBC.ASHRAE.G36.Composite.EconomizerSingleZone economizer1(
     final use_enthalpy=true,
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,

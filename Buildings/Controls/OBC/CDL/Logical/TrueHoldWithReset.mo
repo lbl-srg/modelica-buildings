@@ -15,7 +15,8 @@ protected
     "Root of state graph"
     annotation (Placement(transformation(extent={{70,68},{90,88}})));
 
-  CDL.Logical.OnDelay onDelay(final delayTime=duration) "Delay for the on signal"
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay(
+    final delayTime=duration) "Delay for the on signal"
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
   Modelica.StateGraph.InitialStep initialStep "Initial step"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));

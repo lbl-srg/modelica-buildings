@@ -164,10 +164,11 @@ protected
   CDL.Integers.Equal intEqu
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  CDL.Logical.OnDelay delOutDamOsc(final delayTime=disDel)
+  CDL.Logical.TrueDelay delOutDamOsc(
+    final delayTime=disDel)
     "Small delay before closing the outdoor air damper to avoid pressure fluctuations"
     annotation (Placement(transformation(extent={{-68,-112},{-48,-92}})));
-  CDL.Logical.OnDelay delRetDam(
+  CDL.Logical.TrueDelay delRetDam(
     final delayTime=retDamFulOpeTim)
     "Keep return damper open to its physical maximum for a short period of time before closing the outdoor air damper and resuming the maximum return air damper position, per G36 Part N7"
     annotation (Placement(transformation(extent={{-68,-182},{-48,-162}})));

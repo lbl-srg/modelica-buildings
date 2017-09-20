@@ -15,11 +15,13 @@ block TrueFalseHold "Block that holds an output signal for at least a specified 
     annotation (Placement(transformation(extent={{160,-10},{180,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 protected
-  CDL.Logical.OnDelay onDel1(delayTime=falseHoldDuration)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDel1(
+    delayTime=falseHoldDuration)
     "Output true when timer elapsed the required time"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
-  CDL.Logical.OnDelay onDel2(delayTime=trueHoldDuration)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDel2(
+    delayTime=trueHoldDuration)
     "Output true when timer elapsed the required time"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
@@ -31,16 +33,16 @@ protected
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Modelica.StateGraph.TransitionWithSignal toTrue "Transition to true"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
-  Logical.Not notU "Negation of input"
+  CDL.Logical.Not notU "Negation of input"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
   Modelica.StateGraph.StepWithSignal outputTrue(nIn=2)
     "State with true output signal"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Modelica.StateGraph.TransitionWithSignal toFalse "Transition to false"
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
-  Logical.And and2 "Check for input and elapsed timer"
+  CDL.Logical.And and2 "Check for input and elapsed timer"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  Logical.And and1 "Check for input and elapsed timer"
+  CDL.Logical.And and1 "Check for input and elapsed timer"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
 
   Modelica.StateGraph.InitialStep initialStep(nIn=0, nOut=2) "Initial state"
