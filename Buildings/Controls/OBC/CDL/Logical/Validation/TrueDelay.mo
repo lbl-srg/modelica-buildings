@@ -4,47 +4,61 @@ extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     width=0.5, period=1.5) "Block that outputs cyclic on and off"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay(delayTime=0)
     "Delay a rising edge of the input, but do not delay a falling edge."
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay1(delayTime=0.5)
     "Delay a rising edge of the input, but do not delay a falling edge."
-    annotation (Placement(transformation(extent={{40,30},{60,50}})));
+    annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay2(delayTime=0.8)
     "Delay a rising edge of the input, but do not delay a falling edge."
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay3(delayTime=0)
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay4(delayTime=0)
     "Delay a rising edge of the input, but do not delay a falling edge."
-    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay4(delayTime=0.5)
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay5(delayTime=0.5)
     "Delay a rising edge of the input, but do not delay a falling edge."
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay5(delayTime=0.8)
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay6(delayTime=0.8)
     "Delay a rising edge of the input, but do not delay a falling edge."
-    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Negation of input signal"
-    annotation (Placement(transformation(extent={{-32,-30},{-12,-10}})));
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay3(delayTime=1.8)
+    "Delay a rising edge of the input, but do not delay a falling edge."
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay7(delayTime=1.8)
+    "Delay a rising edge of the input, but do not delay a falling edge."
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
 equation
+  connect(booPul.y, not1.u)
+    annotation (Line(points={{-79,0},{-70,0},{-70,-20},{-62,-20}},
+      color={255,0,255}));
   connect(booPul.y, onDelay.u)
-    annotation (Line(points={{-59,70},{38,70}}, color={255,0,255}));
-  connect(booPul.y, onDelay1.u)
-    annotation (Line(points={{-59,70},{-20,70},{-20,40},{38,40}},
+    annotation (Line(points={{-79,0},{-20,0},{-20,50},{-2,50}},
       color={255,0,255}));
   connect(booPul.y, onDelay2.u)
-    annotation (Line(points={{-59,70},{-20,70},{-20,10},{38,10}},
+    annotation (Line(points={{-79,0},{-20,0},{-20,20},{-2,20}},
       color={255,0,255}));
-  connect(booPul.y, not1.u)
-    annotation (Line(points={{-59,70},{-46,70},{-46,-20},{-34,-20}},
+  connect(booPul.y, onDelay1.u)
+    annotation (Line(points={{-79,0},{40,0},{40,50},{58,50}},
       color={255,0,255}));
-  connect(not1.y, onDelay3.u)
-    annotation (Line(points={{-11,-20},{14,-20},{38,-20}}, color={255,0,255}));
+  connect(booPul.y, onDelay3.u)
+    annotation (Line(points={{-79,0},{40,0},{40,20},{58,20}},
+      color={255,0,255}));
   connect(not1.y, onDelay4.u)
-    annotation (Line(points={{-11,-20},{10,-20},{10,-50},{38,-50}},
+    annotation (Line(points={{-39,-20},{-20,-20},{-20,-40},{-2,-40}},
+      color={255,0,255}));
+  connect(not1.y, onDelay6.u)
+    annotation (Line(points={{-39,-20},{-20,-20},{-20,-70},{-2,-70}},
       color={255,0,255}));
   connect(not1.y, onDelay5.u)
-    annotation (Line(points={{-11,-20},{10,-20},{10,-80},{38,-80}},
+    annotation (Line(points={{-39,-20},{40,-20},{40,-40},{58,-40}},
+      color={255,0,255}));
+  connect(not1.y, onDelay7.u)
+    annotation (Line(points={{-39,-20},{40,-20},{40,-70}, {58,-70}},
       color={255,0,255}));
 
 annotation (
