@@ -7,7 +7,7 @@ model WSEControl "Control unit for WSE"
   Modelica.Blocks.Interfaces.RealInput wseCHWST(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="deg")
+    displayUnit="degC")
     "WSE chilled water supply temperature (water entering WSE)" annotation (
       Placement(transformation(extent={{-60,100},{-20,140}}),
         iconTransformation(extent={{-60,100},{-20,140}})));
@@ -19,18 +19,18 @@ model WSEControl "Control unit for WSE"
   Modelica.Blocks.Interfaces.RealInput TWetBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="deg") "Wet bulb temperature" annotation (Placement(
+    displayUnit="degC") "Wet bulb temperature" annotation (Placement(
         transformation(extent={{-60,0},{-20,40}}),    iconTransformation(extent={{-60,0},
             {-20,40}})));
   Modelica.Blocks.Interfaces.RealInput towTApp(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="deg") "Cooling tower approach"
+    displayUnit="degC") "Cooling tower approach"
     annotation (Placement(transformation(extent={{-60,-60},{-20,-20}})));
   Modelica.Blocks.Interfaces.RealInput wseCWST(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="deg")
+    displayUnit="degC")
     "WSE condenser water supply temperature (water entering WSE)" annotation (
      Placement(transformation(extent={{-60,-138},{-20,-98}}),
         iconTransformation(extent={{-60,-138},{-20,-98}})));
@@ -43,13 +43,15 @@ model WSEControl "Control unit for WSE"
   Modelica.StateGraph.InitialStepWithSignal off(
     nOut=1,
     nIn=1) annotation (Placement(transformation(extent={{-2,78},{22,102}})));
-  Modelica.StateGraph.Transition T1(                        waitTime=1200,
+  Modelica.StateGraph.Transition T1(
+    waitTime=1200,
     condition=wseCHWST > 0.9*TWetBul + towTApp + dTW,
     enableTimer=true)
     annotation (Placement(transformation(extent={{32,72},{68,108}})));
   Modelica.StateGraph.Step  on(nIn=1, nOut=1)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Modelica.StateGraph.Transition  T2(                        waitTime=1200,
+  Modelica.StateGraph.Transition  T2(
+     waitTime=1200,
     condition=wseCHWST < wseCWST + dTOff,
     enableTimer=true)
     annotation (Placement(transformation(extent={{122,72},{158,108}})));
