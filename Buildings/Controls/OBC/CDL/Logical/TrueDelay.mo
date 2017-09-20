@@ -14,7 +14,6 @@ protected
   parameter Modelica.SIunits.Time t_past(fixed=false)
      "Time before simulation started";
    Modelica.SIunits.Time t_next;
-
 initial equation
   t_past = time - 1000;
   pre(u) = false;
@@ -31,7 +30,7 @@ equation
     y = false;
   elsewhen time >= pre(t_next) then
     t_next = t_past;
-    y = true;
+    y = u;
   end when;
 
       annotation (
