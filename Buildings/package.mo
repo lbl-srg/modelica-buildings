@@ -145,7 +145,7 @@ its class name ends with the string <code>Beta</code>.
        <td valign=\"top\">Library with component models and pre-configured
                           system models for data centers.
        </td>
-       </tr>      
+       </tr>
    <tr><td valign=\"top\">Buildings.Controls.OBC
        </td>
        <td valign=\"top\">Library with basic control blocks and ready-to-use control sequences
@@ -163,7 +163,7 @@ its class name ends with the string <code>Beta</code>.
                           Modelica models that are conformant with the CDL
                           can be translated to product lines of different control vendors.
        </td>
-       </tr>   
+       </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Humidifiers
        </td>
        <td valign=\"top\">Package with spray air washer, steam humidifier and a humidifer
@@ -6484,17 +6484,23 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Marco Bonvini, Lawrence Berkeley National Laboratory, USA
 </li>
+<li>Felix B&uuml;nning, RWTH Aachen, Germany
+</li>
 <li>Massimo Cimmino, Polytechnique Montr&eacute;al, Canada
 </li>
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
 </li>
-<li>Yangyang Fu, University of Miami, Florida, USA
+<li>Yangyang Fu, University of Colorado at Boulder, Colorado, USA
 </li>
 <li>Sebastian Giglmayr, University of Applied Sciences Technikum Wien, Austria
+</li>
+<li>Milica Grahovac, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Peter Grant, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Brandon M. Hencey, Cornell University, USA
+</li>
+<li>Jianjun Hu, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Roman Ilk, University of Applied Sciences Technikum Wien, Austria
 </li>
@@ -6534,7 +6540,7 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Rebecca Zarin Pass, Lawrence Berkeley National Laboratory, USA
 </li>
-<li>Wangda Zuo, University of Miami, Florida, USA
+<li>Wangda Zuo, University of Colorado at Boulder, Colorado, USA
 </li>
 </ul>
 </html>"));
