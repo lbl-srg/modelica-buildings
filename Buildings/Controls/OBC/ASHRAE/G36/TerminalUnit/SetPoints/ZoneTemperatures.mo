@@ -430,7 +430,7 @@ protected
     "Check if the heating demand limit level is level 2"
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt8(
-    k=Constants.DemandLimitLevel.heaDemLimLev3)
+    k=Constants.DemandLimitLevel.heating3)
     "Heat demand limit level 3"
     annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu8
@@ -442,14 +442,14 @@ protected
     "Check if the zone becomes unpopulated during occupied mode"
     annotation (Placement(transformation(extent={{-280,-280},{-260,-260}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt6(
-    k=Constants.DemandLimitLevel.heaDemLimLev1)
+    k=Constants.DemandLimitLevel.heating1)
     "Heat demand limit level 1"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu6
     "Check if the heating demand limit level is level 1"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt7(
-    k=Constants.DemandLimitLevel.heaDemLimLev2)
+    k=Constants.DemandLimitLevel.heating2)
     "Heat demand limit level 2"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr
@@ -459,21 +459,21 @@ protected
     "Check if heating demand limit level is higher than level zero"
     annotation (Placement(transformation(extent={{-340,-60},{-320,-40}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
-    k=Constants.DemandLimitLevel.cooDemLimLev1)
+    k=Constants.DemandLimitLevel.cooling1)
     "Cool demand limit level 1"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu3
     "Check if the cooling demand limit level is level 1"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
-    k=Constants.DemandLimitLevel.cooDemLimLev2)
+    k=Constants.DemandLimitLevel.cooling2)
     "Cool demand limit level 2"
     annotation (Placement(transformation(extent={{-160,62},{-140,82}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
     "Check if the cooling demand limit level is level 2"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5(
-    k=Constants.DemandLimitLevel.cooDemLimLev3)
+    k=Constants.DemandLimitLevel.cooling3)
     "Cool demand limit level 3"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu5

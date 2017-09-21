@@ -1,14 +1,14 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Constants;
 package DemandLimitLevel
   extends Modelica.Icons.Package;
-  constant Integer cooDemLimLev0 = 0 "Cooling demand limit level 0";
-  constant Integer cooDemLimLev1 = 1 "Cooling demand limit level 1";
-  constant Integer cooDemLimLev2 = 2 "Cooling demand limit level 2";
-  constant Integer cooDemLimLev3 = 3 "Cooling demand limit level 3";
-  constant Integer heaDemLimLev0 = 0 "Heating demand limit level 0";
-  constant Integer heaDemLimLev1 = 1 "Heating demand limit level 1";
-  constant Integer heaDemLimLev2 = 2 "Heating demand limit level 2";
-  constant Integer heaDemLimLev3 = 3 "Heating demand limit level 3";
+  constant Integer cooling0 = 0 "Cooling demand limit level 0";
+  constant Integer cooling1 = 1 "Cooling demand limit level 1";
+  constant Integer cooling2 = 2 "Cooling demand limit level 2";
+  constant Integer cooling3 = 3 "Cooling demand limit level 3";
+  constant Integer heating0 = 0 "Heating demand limit level 0";
+  constant Integer heating1 = 1 "Heating demand limit level 1";
+  constant Integer heating2 = 2 "Heating demand limit level 2";
+  constant Integer heating3 = 3 "Heating demand limit level 3";
 
   annotation (
   Documentation(info="<html>
