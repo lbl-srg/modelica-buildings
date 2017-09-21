@@ -148,7 +148,8 @@ partial model DataCenter
     dpValve_nominal=20902,
     dpFixed_nominal=14930 + 89580,
     y_start=1,
-    use_inputFilter=false)
+    use_inputFilter=false,
+    from_dp=true)
     "Control valve for chilled water leaving from chiller" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -215,7 +216,8 @@ partial model DataCenter
     dpValve_nominal=20902,
     dpFixed_nominal=14930,
     y_start=0,
-    use_inputFilter=false) "Bypass valve for chiller." annotation (Placement(
+    use_inputFilter=false,
+    from_dp=true)          "Bypass valve for chiller." annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, origin={288,20})));
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU KMinusU(k=1)
     annotation (Placement(transformation(extent={{-60,28},{-40,48}})));
@@ -603,6 +605,14 @@ Buildings.Examples.ChillerPlant</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 21, 2017, by Michael Wetter:<br/>
+Set <code>from_dp = true</code> in <code>val6</code> and in <code>valByp</code>
+which is needed for Dymola 2018FD01 beta 2 for
+<a href=\"modelica://Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl\">
+Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl</a>
+to converge.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
