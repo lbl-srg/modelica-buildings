@@ -14,11 +14,8 @@ package AHUs "AHU Sequences as defined in guideline G36"
             lineThickness=0.5)}),
   Documentation(info="<html>
 <p>
-This package contains control sequences from ASHRAE Guideline 36 for VAV air 
-handling unit control. The sequences are created using blocks from the
-<a href=\"modelica://Buildings.Controls.OBC.CDL\">
-Buildings.Controls.OBC.CDL</a>
-library.
+This package contains control sequences from ASHRAE Guideline 36 for air
+handler unit control.
 </p>
 </html>", revisions="<html>
 <ul>

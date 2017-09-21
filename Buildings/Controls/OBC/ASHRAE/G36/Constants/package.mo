@@ -4,7 +4,7 @@ package Constants "Package with constants for control sequences"
 
   annotation (Documentation(info="<html>
 <p>
-This package provides constants used in different G36 control sequences. 
+This package provides constants used in different Guideline 36 control sequences.
 </p>
 </html>", revisions="<html>
 <ul>

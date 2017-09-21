@@ -4,7 +4,7 @@ package SetPoints "Output setpoints for AHU control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains sequences generating setpoints for VAV AHU control.
+This package contains sequences generating setpoints for AHU control.
 </p>
 </html>"));
 end SetPoints;

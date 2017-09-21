@@ -31,7 +31,7 @@ package TerminalUnits "Control sequences for terminal units"
           thickness=0.5)}),
 Documentation(info="<html>
 <p>
-This package contains sequences from ASHRAE Guideline 36 for terminal units control.
+This package contains control sequences from ASHRAE Guideline 36 for terminal units.
 </p>
 </html>", revisions="<html>
 <ul>

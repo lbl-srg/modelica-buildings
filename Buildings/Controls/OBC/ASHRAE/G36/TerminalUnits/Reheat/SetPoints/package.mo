@@ -4,7 +4,7 @@ package SetPoints "Output setpoints for terminal unit control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains sequences generating setpoints for terminal unit control.
+This package contains sequences generating setpoints for terminal units.
 </p>
 </html>"));
 end SetPoints;
