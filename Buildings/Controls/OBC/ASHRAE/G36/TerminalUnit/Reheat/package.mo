@@ -1,10 +1,11 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnit;
-package Reheat "fixme: add brief description"
+package Reheat "Sequences for VAV reheat terminal unit"
   extends Modelica.Icons.Package;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-fixme: add a package description.
+This package contains sequences for VAV reheat terminal unit. They are created 
+according to ASHRAE Guideline 36, Part 5.E.
 </p>
 </html>"));
 end Reheat;

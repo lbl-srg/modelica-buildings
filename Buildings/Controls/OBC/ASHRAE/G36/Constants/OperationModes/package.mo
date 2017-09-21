@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Constants;
-package OperationModes
+package OperationModes "Zone group operating modes"
   extends Modelica.Icons.Package;
   constant Integer coolDown = 2 "Cool-down";
   constant Integer freezeProtection = 6 "Freeze protection";

@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36;
-package TerminalUnit "Control sequences as defined in G36"
+package TerminalUnit "Control sequences for terminal units"
   extends Modelica.Icons.Package;
 
   annotation (Icon(graphics={
@@ -31,10 +31,7 @@ package TerminalUnit "Control sequences as defined in G36"
           thickness=0.5)}),
 Documentation(info="<html>
 <p>
-This package contains composite control sequences from
-ASHRAE Guideline 36. TerminalUnit sequences consist of atomic
-control sequences from <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHU\">
-Buildings.Controls.OBC.ASHRAE.G36.AHU</a> package.
+This package contains sequences from ASHRAE Guideline 36 for terminal units control.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -1,10 +1,11 @@
-
 within Buildings.Controls.OBC.ASHRAE.G36;
-package Generic "fixme: add brief description"
+package Generic "Generic control sequences"
   extends Modelica.Icons.Package;
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-fixme: add a package description.
+This package contains generic sequences that would be needed for both AHU and 
+terminal units control.
 </p>
 </html>"));
 end Generic;

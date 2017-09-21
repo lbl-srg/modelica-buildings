@@ -1,4 +1,3 @@
-
 within Buildings.Controls.OBC.ASHRAE.G36.Generic.SetPoints;
 package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;

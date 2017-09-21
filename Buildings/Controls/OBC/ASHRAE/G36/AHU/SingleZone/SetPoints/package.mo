@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHU.SingleZone;
-package SetPoints "fixme: add brief description"
+package SetPoints "Output setpoints for AHU control"
   extends Modelica.Icons.Package;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-fixme: add a package description.
+This package contains sequences generating setpoints for VAV AHU control.
 </p>
 </html>"));
 end SetPoints;
