@@ -55,7 +55,6 @@ equation
       color={0,0,127}));
   connect(sine.y, abs.u)
     annotation (Line(points={{-59,-40},{-42,-40}}, color={0,0,127}));
-
   connect(opeMod.y, round2.u)
     annotation (Line(points={{-59,-70},{-42,-70}}, color={0,0,127}));
   connect(round2.y, reaToInt2.u)
@@ -71,6 +70,7 @@ equation
   connect(reaToInt2.y, supplyAirTempSet_MultiZone.uOpeMod)
     annotation (Line(points={{21,-70},{66,-70},{66,-8},{79,-8}},
       color={255,127,0}));
+
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Atomic/Validation/VAVMultiZoneTSupSet.mos"

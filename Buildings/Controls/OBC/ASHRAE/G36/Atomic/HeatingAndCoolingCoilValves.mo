@@ -12,31 +12,31 @@ block HeatingAndCoolingCoilValves "Generates heating and cooling control signals
   parameter Modelica.SIunits.Time TiHea=30 "Time constant of integrator block for heating coil control loop"
     annotation(Dialog(group="Heating coil control"));
 
-  Modelica.Blocks.Interfaces.RealInput TRooHeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooHeaSet(
     final unit="K",
     final quantity = "ThermodynamicTemperature") "Zone heating setpoint temperature"
     annotation (Placement(transformation(
       extent={{-20,-20},{20,20}},rotation=0, origin={-120,60}), iconTransformation(
       extent={{-10,-10},{10,10}},origin={-110,60})));
-  Modelica.Blocks.Interfaces.RealInput TRooCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooCooSet(
     final unit="K",
     final quantity = "ThermodynamicTemperature") "Zone cooling setpoint temperature"
     annotation (Placement(transformation(
       extent={{-20,-20},{20,20}},rotation=0,origin={-120,0}), iconTransformation(
       extent={{-10,-10},{10,10}},origin={-110,0})));
-  Modelica.Blocks.Interfaces.RealInput TRoo(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(
     final unit="K",
     final quantity = "ThermodynamicTemperature") "Zone temperature measurement"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-120,-60}),
       iconTransformation(extent={{-10,-10},{10,10}}, origin={-110,-60})));
 
-  CDL.Interfaces.RealOutput yHea(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea(
     final min=0,
     final max=1,
     final unit="1") "Heating control signal"
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
       iconTransformation(extent={{100,30},{120,50}})));
-  CDL.Interfaces.RealOutput yCoo(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo(
     final min=0,
     final max=1,
     final unit="1") "Cooling control signal"
@@ -44,28 +44,28 @@ block HeatingAndCoolingCoilValves "Generates heating and cooling control signals
       iconTransformation(extent={{100,-50},{120,-30}})));
 
 protected
-  CDL.Continuous.LimPID conCooVal(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conCooVal(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=kPCoo,
     final Ti=TiCoo,
     final yMax=1,
     final yMin=0) "Cooling coil valve controller"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  CDL.Continuous.LimPID conHeaVal(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conHeaVal(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=kPHea,
     final Ti=TiHea,
     final yMax=1,
     final yMin=0) "Heating coil valve controller"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  CDL.Continuous.Line conCooInv(
+  Buildings.Controls.OBC.CDL.Continuous.Line conCooInv(
     final limitBelow=false,
     final limitAbove=false) "Inverter of the cooling control signal"
     annotation (Placement(transformation(extent={{64,-30},{84,-10}})));
-  CDL.Continuous.Sources.Constant conSigMinSig(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conSigMinSig(final k=0)
     "Minimum controller output signal"
     annotation (Placement(transformation(extent={{24,-10},{44,10}})));
-  CDL.Continuous.Sources.Constant conSigMaxSig(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conSigMaxSig(final k=1)
    "Maximum controller output signal"
     annotation (Placement(transformation(extent={{24,-50},{44,-30}})));
 
@@ -128,8 +128,8 @@ as the cooling loop and the heating loop.
 <p>
 Both controllers remain
 enabled at all times since antiwindup is implemented within each controller, see
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
-Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Buildings.Controls.OBC.CDL.Continuous.LimPID\">
+Buildings.Controls.OBC.Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
 
 The cooling loop shall maintain the space temperature at the active zone cooling setpoint. The heating loop shall
 maintain the space temperature at the active zone heating setpoint. The diagram below illustrates the control configuration.

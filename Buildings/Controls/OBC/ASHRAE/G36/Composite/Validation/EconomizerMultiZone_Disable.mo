@@ -31,28 +31,37 @@ protected
   final parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=(minVOutSet_flow-minVOut_flow)*2.2
     "Maximum volumetric airflow increase during the example simulation";
 
-  CDL.Logical.Sources.Constant fanSta(final k=true) "Fan is on"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanSta(
+    final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
+    final k=Constants.FreezeProtectionStages.stage0)
     "Freeze protection status is 0"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  CDL.Integers.Sources.Constant zonSta(final k=Constants.ZoneStates.heating)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant zonSta(
+    final k=Constants.ZoneStates.heating)
     "Zone State is heating"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occMod)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
+    final k=Constants.OperationModes.occMod)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-  CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 40000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(
+    final k=hOutCutoff - 40000)
     "Outdoor air enthalpy is below the cutoff"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  CDL.Continuous.Sources.Constant hOutCut(final k=hOutCutoff) "Outdoor air enthalpy cutoff"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut(
+    final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Continuous.Sources.Constant TOutBelowCutoff(final k=TOutCutoff - 30)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
+    final k=TOutCutoff - 30)
     "Outdoor air temperature is below the cutoff"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  CDL.Continuous.Sources.Constant TOutCut1(final k=TOutCutoff)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
+    final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  CDL.Continuous.Sources.Constant VOutMinSet_flow(final k=minVOutSet_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow(
+    final k=minVOutSet_flow)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.Ramp VOut_flow(
@@ -67,14 +76,17 @@ protected
     final duration=1800)
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  CDL.Continuous.Sources.Constant TSupSetSig(final k=TSupSet) "Heating supply air temperature setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSetSig(
+    final k=TSupSet) "Heating supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  CDL.Integers.Sources.Constant freProSta2(final k=Constants.FreezeProtectionStages.stage2) "Freeze protection stage is 2"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta2(
+    final k=Constants.FreezeProtectionStages.stage2) "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
 
 equation
-  connect(fanSta.y, economizer.uSupFan) annotation (Line(points={{-19,-10},{-10,-10},{-10,6},{19,6}},
-    color={255,0,255}));
+  connect(fanSta.y, economizer.uSupFan)
+    annotation (Line(points={{-19,-10},{-10,-10},{-10,6},{19,6}},
+      color={255,0,255}));
   connect(freProSta.y, economizer.uFreProSta)
     annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},color={255,127,0}));
   connect(TOutBelowCutoff.y, economizer.TOut)

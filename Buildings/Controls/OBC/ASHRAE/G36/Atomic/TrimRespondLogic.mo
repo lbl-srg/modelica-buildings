@@ -11,86 +11,97 @@ block TrimRespondLogic "Block to inplement trim and respond logic"
   parameter Real resAmo  "Respond amount (must have opposite sign of triAmo)";
   parameter Real maxRes  "Maximum response per time interval (must have same sign as resAmo)";
 
-  CDL.Interfaces.IntegerInput numOfReq "Number of requests from zones/systems"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput numOfReq
+    "Number of requests from zones/systems"
     annotation (Placement(transformation(extent={{-240,-110},{-200,-70}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  CDL.Interfaces.RealOutput y "Setpoint that have been reset"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
+    "Setpoint that have been reset"
     annotation (Placement(transformation(extent={{200,-10},{220,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
-  CDL.Interfaces.BooleanInput uDevSta "On/Off status of the associated device"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta
+    "On/Off status of the associated device"
     annotation (Placement(transformation(extent={{-240,110},{-200,150}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
 
-  CDL.Logical.TrueDelay tim(final delayTime=delTim + samplePeriod)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay tim(
+    final delayTime=delTim + samplePeriod)
     "Send an on signal after some delay time"
     annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
-  CDL.Continuous.GreaterEqualThreshold greThr
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greThr
     "Check if the real requests is more than ignored requests setting"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
-  CDL.Logical.Switch netRes "Net setpoint reset value"
+  Buildings.Controls.OBC.CDL.Logical.Switch netRes "Net setpoint reset value"
     annotation (Placement(transformation(extent={{140,-60},{160,-80}})));
-  CDL.Continuous.Sources.Constant resAmoCon(k=resAmo) "Respond amount constant"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant resAmoCon(k=resAmo)
+    "Respond amount constant"
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
-  CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Product pro
     "Products of net requests and respond amount value"
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
-  CDL.Discrete.UnitDelay uniDel(final samplePeriod=samplePeriod, final y_start=
-        iniSet) "Output the input signal with a unit delay"
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
+    final samplePeriod=samplePeriod,
+    final y_start=iniSet)
+    "Output the input signal with a unit delay"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  CDL.Logical.Switch swi "Switch between initial setpoint and reseted setpoint"
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
+    "Switch between initial setpoint and reseted setpoint"
     annotation (Placement(transformation(extent={{160,140},{180,120}})));
-  CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1
     "Before instant (device ON + delTim + samplePeriod), the setpoint should not be trimmed"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Logical.Switch swi2
     "Reinitialize setpoint to initial setting when device become OFF"
     annotation (Placement(transformation(extent={{120,50},{140,70}})));
-  CDL.Discrete.Sampler sampler(samplePeriod=samplePeriod)
+  Buildings.Controls.OBC.CDL.Discrete.Sampler sampler(samplePeriod=samplePeriod)
     "Sample number of requests"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
 protected
-  CDL.Continuous.Sources.Constant iniSetCon(k=iniSet) "Initial setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant iniSetCon(k=iniSet)
+    "Initial setpoint"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
-  CDL.Continuous.Sources.Constant numIgnReqCon(k=numIgnReq)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant numIgnReqCon(k=numIgnReq)
     "Number of ignored requests"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
-  CDL.Continuous.Sources.Constant triAmoCon(k=triAmo) "Trim amount constant"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant triAmoCon(k=triAmo)
+    "Trim amount constant"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
-  CDL.Continuous.Sources.Constant maxResCon(k=maxRes)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxResCon(k=maxRes)
     "Maximum response per time interval"
     annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
-  CDL.Continuous.Sources.Constant maxSetCon(k=maxSet)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxSetCon(k=maxSet)
     "Maximum setpoint constant"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  CDL.Continuous.Sources.Constant zerTri(k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerTri(k=0)
     "Zero reset amount during time range from (device ON) to (device ON + delTim + timSet)"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  CDL.Conversions.IntegerToReal intToRea "Convert integer input to real output"
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
+    "Convert integer input to real output"
     annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
-  CDL.Continuous.Add difReqIgnReq(k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add difReqIgnReq(k1=-1)
     "Difference between ignored request number and the real request number"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  CDL.Continuous.Add add1
+  Buildings.Controls.OBC.CDL.Continuous.Add add1
     "Increase setpoint by amount of value defined from reset logic"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  CDL.Continuous.Add add2 "Net reset value"
+  Buildings.Controls.OBC.CDL.Continuous.Add add2 "Net reset value"
     annotation (Placement(transformation(extent={{80,-126},{100,-106}})));
-  CDL.Continuous.Min minInp
+  Buildings.Controls.OBC.CDL.Continuous.Min minInp
     "Total response should not be more than maximum response"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  CDL.Continuous.Min min1
+  Buildings.Controls.OBC.CDL.Continuous.Min min1
     "Reset setpoint should not be higher than the maximum setpoint"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  CDL.Logical.And and2
+  Buildings.Controls.OBC.CDL.Logical.And and2
     "After (device ON + delTim + timSta), when request number becomes more than ignored requests number"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  CDL.Logical.Not not1 "Logical Not"
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical Not"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  CDL.Continuous.Sources.Constant minSetCon(k=minSet)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSetCon(k=minSet)
     "Minimum setpoint constant"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  CDL.Continuous.Max maxInp
+  Buildings.Controls.OBC.CDL.Continuous.Max maxInp
     "Reset setpoint should not be lower than the minimum setpoint"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 

@@ -56,427 +56,427 @@ block ZoneSetpoint "Block outputs thermal zone cooling and heating setpoint"
     "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
     annotation(Dialog(group="Setpoint adjustment", tab="Demand Settings"));
 
-  CDL.Interfaces.RealInput occCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput occCooSet(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Occupied zone cooling setpoint"
     annotation (Placement(transformation(extent={{-460,510},{-420,550}}),
       iconTransformation(extent={{-240,160},{-200,200}})));
-  CDL.Interfaces.RealInput occHeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput occHeaSet(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Occupied zone heating setpoint"
     annotation (Placement(transformation(extent={{-460,430},{-420,470}}),
       iconTransformation(extent={{-240,120},{-200,160}})));
-  CDL.Interfaces.RealInput unoCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput unoCooSet(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Unoccupied zone cooling setpoint"
     annotation (Placement(transformation(extent={{-460,470},{-420,510}}),
       iconTransformation(extent={{-240,80},{-200,120}})));
-  CDL.Interfaces.RealInput unoHeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput unoHeaSet(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Unoccupied zone heating setpoint"
     annotation (Placement(transformation(extent={{-460,390},{-420,430}}),
       iconTransformation(extent={{-240,40},{-200,80}})));
-  CDL.Interfaces.RealInput setAdj(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj(
     final unit="K",
     quantity="ThermodynamicTemperature") if (cooAdj or sinAdj)
     "Setpoint adjustment value"
     annotation (Placement(transformation(extent={{-460,330},{-420,370}}),
       iconTransformation(extent={{-240,0},{-200,40}})));
-  CDL.Interfaces.RealInput heaSetAdj(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj(
     final unit="K",
     quantity="ThermodynamicTemperature") if heaAdj
     "Heating setpoint adjustment value"
     annotation (Placement(transformation(extent={{-460,250},{-420,290}}),
       iconTransformation(extent={{-240,-40},{-200,0}})));
-  CDL.Interfaces.IntegerInput uOpeMod
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-460,610},{-420,650}}),
       iconTransformation(extent={{-240,-120},{-200,-80}})));
-  CDL.Interfaces.IntegerInput uCooDemLimLev
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCooDemLimLev
     "Cooling demand limit level"
     annotation (Placement(transformation(extent={{-460,110},{-420,150}}),
       iconTransformation(extent={{-240,-160},{-200,-120}})));
-  CDL.Interfaces.IntegerInput uHeaDemLimLev
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uHeaDemLimLev
     "Heating demand limit level"
     annotation (Placement(transformation(extent={{-460,-110},{-420,-70}}),
       iconTransformation(extent={{-240,-200},{-200,-160}})));
-  CDL.Interfaces.BooleanInput uOccSen if occSen
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccSen if occSen
     "Occupancy sensor (occupied=true, unoccupied=false)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
       rotation=0, origin={-440,-270}),iconTransformation(
       extent={{-20,-20},{20,20}},origin={-60,-220},rotation=90)));
-  CDL.Interfaces.BooleanInput uWinSta if winStaSen
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta if winStaSen
     "Window status (open=true, close=false)"
     annotation (Placement(transformation(extent={{-460,-430},{-420,-390}}),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=90,
       origin={60,-220})));
-  CDL.Interfaces.RealOutput TCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TCooSet(
     final unit="K",
     quantity="ThermodynamicTemperature")  "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{340,-10},{360,10}}),
       iconTransformation(extent={{200,-20},{240,20}})));
-  CDL.Interfaces.RealOutput THeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaSet(
     final unit="K",
     quantity="ThermodynamicTemperature")  "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{340,-110},{360,-90}}),
       iconTransformation(extent={{200,-100},{240,-60}})));
-  CDL.Interfaces.IntegerOutput yAla if winStaSen "Alarm level"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla if winStaSen "Alarm level"
     annotation (Placement(transformation(extent={{340,-400},{360,-380}}),
       iconTransformation(extent={{200,80},{240,120}})));
 
-  CDL.Logical.Or or2
+  Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if there is cooling/heating demand limit being imposed"
     annotation (Placement(transformation(extent={{-280,-40},{-260,-20}})));
-  CDL.Logical.Edge edg "If demand limit is imposed"
+  Buildings.Controls.OBC.CDL.Logical.Edge edg "If demand limit is imposed"
     annotation (Placement(transformation(extent={{-220,-10},{-200,10}})));
-  CDL.Discrete.TriggeredSampler cooSetFre
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler cooSetFre
     "Freeze current cooling setpoint when demand limit is imposed"
     annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
-  CDL.Logical.Not not3 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  CDL.Logical.Or or5
+  Buildings.Controls.OBC.CDL.Logical.Or or5
     "Check if demand limit should be ignored or if there is no demand limit"
     annotation (Placement(transformation(extent={{160,-20},{180,0}})));
-  CDL.Logical.Or3 or1
+  Buildings.Controls.OBC.CDL.Logical.Or3 or1
     "Check if cooling demand limit level is imposed"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
-  CDL.Logical.Not not1 "Logic not"
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logic not"
     annotation (Placement(transformation(extent={{0,140},{20,160}})));
-  CDL.Continuous.AddParameter addPar3(
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar3(
     p=incSetDem_3,
     k=1)
     "Increase setpoint by 2.2 degC"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  CDL.Continuous.AddParameter addPar1(
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
     p=incSetDem_2,
     k=1)
     "Increase setpoint by 1.1 degC"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  CDL.Continuous.AddParameter addPar2(
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
     p=incSetDem_1,
     k=1)
     "Increase setpoint by 0.56 degC"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
-  CDL.Continuous.Product pro6
+  Buildings.Controls.OBC.CDL.Continuous.Product pro6
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
-  CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Product pro
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
-  CDL.Continuous.Product pro1
+  Buildings.Controls.OBC.CDL.Continuous.Product pro1
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
-  CDL.Continuous.Product pro2
+  Buildings.Controls.OBC.CDL.Continuous.Product pro2
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
-  CDL.Continuous.MultiSum mulSum(nin=4)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=4)
     "Sum of inputs"
     annotation (Placement(transformation(extent={{160,80},{180,100}})));
-  CDL.Discrete.TriggeredSampler heaSetFre
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler heaSetFre
     "Freeze current heating setpoint when demand limit is imposed"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
-  CDL.Logical.Or3 or4 "Check if heating demand limit level is imposed"
+  Buildings.Controls.OBC.CDL.Logical.Or3 or4 "Check if heating demand limit level is imposed"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  CDL.Logical.Not not2 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  CDL.Continuous.Product pro7
+  Buildings.Controls.OBC.CDL.Continuous.Product pro7
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
-  CDL.Continuous.AddParameter addPar6(
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar6(
     k=1,
     p=(-1.0)*decSetDem_1)
     "Decrease setpoint by 0.56 degC"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  CDL.Continuous.AddParameter addPar5(
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar5(
     k=1,
     p=(-1.0)*decSetDem_2)
     "Decrease setpoint by 1.1 degC"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
-  CDL.Continuous.AddParameter addPar4(
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar4(
     k=1,
     p=(-1.0)*decSetDem_3)
     "Decrease setpoint by 2.2 degC"
     annotation (Placement(transformation(extent={{40,-200},{60,-180}})));
-  CDL.Continuous.Product pro5
+  Buildings.Controls.OBC.CDL.Continuous.Product pro5
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{100,-200},{120,-180}})));
-  CDL.Continuous.Product pro4
+  Buildings.Controls.OBC.CDL.Continuous.Product pro4
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
-  CDL.Continuous.Product pro3
+  Buildings.Controls.OBC.CDL.Continuous.Product pro3
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
-  CDL.Continuous.MultiSum mulSum1(nin=4)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(nin=4)
     "Sum of inputs"
     annotation (Placement(transformation(extent={{160,-140},{180,-120}})));
-  CDL.Logical.Timer tim
+  Buildings.Controls.OBC.CDL.Logical.Timer tim
     "Measure unpopulated time when the zone is in occupied mode"
     annotation (Placement(transformation(extent={{-220,-280},{-200,-260}})));
-  CDL.Logical.TrueHoldWithReset truHol(duration=60)
+  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(duration=60)
     "When the zone is unpopulated by more than 5 minute and then becomes populated, hold the change by 1 minute"
     annotation (Placement(transformation(extent={{-100,-280},{-80,-260}})));
-  CDL.Logical.Edge edg1
+  Buildings.Controls.OBC.CDL.Logical.Edge edg1
     "Instant when the zone becomes more than 5 minutes"
     annotation (Placement(transformation(extent={{-40,-280},{-20,-260}})));
-  CDL.Continuous.AddParameter heaSetDec(p=-1.1, k=1)
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter heaSetDec(p=-1.1, k=1)
     "Heating setpoint decrease due to the 5 minutes unpopulation under occupied mode"
     annotation (Placement(transformation(extent={{100,-320},{120,-300}})));
-  CDL.Continuous.AddParameter cooSetInc(p=1.1, k=1)
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter cooSetInc(p=1.1, k=1)
     "Heating setpoint increase due to the 5 minutes unpopulation under occupied mode"
     annotation (Placement(transformation(extent={{100,-280},{120,-260}})));
-  CDL.Discrete.TriggeredSampler cooSetSam
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler cooSetSam
     "Sample current cooling setpoint when zone becomes unpopulated by 5 minutes"
     annotation (Placement(transformation(extent={{40,-280},{60,-260}})));
-  CDL.Discrete.TriggeredSampler heaSetSam
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler heaSetSam
     "Sample current heating setpoint when zone becomes unpopulated by 5 minutes"
     annotation (Placement(transformation(extent={{40,-320},{60,-300}})));
-  CDL.Continuous.GreaterEqualThreshold greThr(threshold=300)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greThr(threshold=300)
     "Check whether the zone has been unpopulated for 5 minutes continuously during occupied mode"
     annotation (Placement(transformation(extent={{-160,-280},{-140,-260}})));
-  CDL.Continuous.Add add1 "Adjust heating setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Add add1 "Adjust heating setpoint"
     annotation (Placement(transformation(extent={{140,240},{160,260}})));
-  CDL.Continuous.Add add2 "Adjust cooling setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Add add2 "Adjust cooling setpoint"
     annotation (Placement(transformation(extent={{-200,340},{-180,360}})));
-  CDL.Continuous.Limiter cooSetLim(
+  Buildings.Controls.OBC.CDL.Continuous.Limiter cooSetLim(
     final uMax=TCooOnMax,
     final uMin=TCooOnMin)
     "Limit occupied zone cooling setpoint"
     annotation (Placement(transformation(extent={{-240,-530},{-220,-510}})));
-  CDL.Continuous.Limiter heaSetLim(
+  Buildings.Controls.OBC.CDL.Continuous.Limiter heaSetLim(
     final uMax=THeaOnMax,
     final uMin=THeaOnMin)
     "Limit occupied zone heating setpoint"
     annotation (Placement(transformation(extent={{-240,-590},{-220,-570}})));
-  CDL.Continuous.AddParameter addPar(p=-0.56, k=1)
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p=-0.56, k=1)
     "Cooling setpoint minus 0.56 degC"
     annotation (Placement(transformation(extent={{160,-590},{180,-570}})));
 
 protected
-  CDL.Integers.Equal intEqu "Check if current operation mode is warm-up mode"
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu "Check if current operation mode is warm-up mode"
     annotation (Placement(transformation(extent={{-300,600},{-280,620}})));
-  CDL.Integers.Equal intEqu1
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     "Check if current operation mode is cool-down mode"
     annotation (Placement(transformation(extent={{-200,600},{-180,620}})));
-  CDL.Integers.Equal intEqu2 "Check if current operation mode is occupied mode"
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2 "Check if current operation mode is occupied mode"
     annotation (Placement(transformation(extent={{-98,600},{-78,620}})));
-  CDL.Logical.Or3 or3
+  Buildings.Controls.OBC.CDL.Logical.Or3 or3
     "Current operation mode is occupied, warm-up, or cool-down mode"
     annotation (Placement(transformation(extent={{-20,600},{0,620}})));
-  CDL.Integers.Sources.Constant conInt(
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     k=Constants.OperationModes.warUp)
     "Warm-up mode"
     annotation (Placement(transformation(extent={{-340,570},{-320,590}})));
-  CDL.Integers.Sources.Constant conInt1(
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
     k=Constants.OperationModes.cooDow)
     "Cool-down mode"
     annotation (Placement(transformation(extent={{-240,570},{-220,590}})));
-  CDL.Integers.Sources.Constant conInt2(
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
     k=Constants.OperationModes.occMod)
     "Occupied mode"
     annotation (Placement(transformation(extent={{-140,570},{-120,590}})));
-  CDL.Logical.Sources.Constant cooSetAdjCon(k=(cooAdj or sinAdj))
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant cooSetAdjCon(k=(cooAdj or sinAdj))
     "Cooling setpoint adjustable"
     annotation (Placement(transformation(extent={{-340,320},{-320,340}})));
-  CDL.Continuous.Sources.Constant con(k=0) "Zero adjustment"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0) "Zero adjustment"
     annotation (Placement(transformation(extent={{-340,280},{-320,300}})));
-  CDL.Continuous.Sources.Constant con3(k=0) if not (cooAdj or sinAdj)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(k=0) if not (cooAdj or sinAdj)
     "Zero adjustment"
     annotation (Placement(transformation(extent={{-340,360},{-320,380}})));
-  CDL.Continuous.Sources.Constant con4(k=0) if not heaAdj
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(k=0) if not heaAdj
     "Zero adjustment"
     annotation (Placement(transformation(extent={{-340,240},{-320,260}})));
-  CDL.Logical.Sources.Constant heaSetAdjCon(k=heaAdj)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant heaSetAdjCon(k=heaAdj)
     "Heating setpoint adjustable"
     annotation (Placement(transformation(extent={{-60,240},{-40,260}})));
-  CDL.Continuous.Sources.Constant con1(k=0) "Zero adjustment"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=0) "Zero adjustment"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
-  CDL.Logical.Sources.Constant sinSetAdjCon(k=sinAdj)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant sinSetAdjCon(k=sinAdj)
     "Single common setpoint adjustable"
     annotation (Placement(transformation(extent={{20,200},{40,220}})));
-  CDL.Logical.Sources.Constant con2(k=ignDemLim)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(k=ignDemLim)
     "Check whether the zone should exempt from setpoint adjustment due to the demand limit"
     annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
-  CDL.Logical.Sources.Constant conTru(k=true) if not occSen
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conTru(k=true) if not occSen
     "Constant true"
     annotation (Placement(transformation(extent={{-380,-360},{-360,-340}})));
-  CDL.Logical.Sources.Constant conFal(k=false) if not winStaSen
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conFal(k=false) if not winStaSen
     "Constant false"
     annotation (Placement(transformation(extent={{-380,-480},{-360,-460}})));
-  CDL.Logical.Sources.Constant winSenCon(k=winStaSen)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSenCon(k=winStaSen)
     "Check if there is window status sensor"
     annotation (Placement(transformation(extent={{40,-480},{60,-460}})));
-  CDL.Logical.Sources.Constant occSenCon(k=occSen)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSenCon(k=occSen)
     "Check if there is occupancy sensor"
     annotation (Placement(transformation(extent={{160,-360},{180,-340}})));
-  CDL.Continuous.Sources.Constant cooSetWinOpe(k=TCooWinOpe)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetWinOpe(k=TCooWinOpe)
     "Cooling setpoint when window is open"
     annotation (Placement(transformation(extent={{-240,-480},{-220,-460}})));
-  CDL.Continuous.Sources.Constant heaSetWinOpe(k=THeaWinOpe)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetWinOpe(k=THeaWinOpe)
     "Heating setpoint when window is open"
     annotation (Placement(transformation(extent={{-120,-480},{-100,-460}})));
-  CDL.Continuous.Sources.Constant alaZer(k=-0.2)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant alaZer(k=-0.2)
     "Alarm level 0"
     annotation (Placement(transformation(extent={{-180,-400},{-160,-380}})));
-  CDL.Continuous.Sources.Constant alaFou(k=3.8)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant alaFou(k=3.8)
     "Alarm level 4"
     annotation (Placement(transformation(extent={{-140,-400},{-120,-380}})));
-  CDL.Conversions.RealToInteger reaToInt
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{160,-400},{180,-380}})));
-  CDL.Conversions.BooleanToReal booToRea "Convert boolean to real value"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea "Convert boolean to real value"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
-  CDL.Conversions.BooleanToReal booToRea1 "Convert boolean to real value"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1 "Convert boolean to real value"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  CDL.Conversions.BooleanToReal booToRea6 "Convert boolean to real value"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea6 "Convert boolean to real value"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
-  CDL.Conversions.BooleanToReal booToRea2 "Convert boolean to real value"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2 "Convert boolean to real value"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  CDL.Conversions.BooleanToReal booToRea3 "Convert boolean to real value"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea3 "Convert boolean to real value"
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
-  CDL.Conversions.BooleanToReal booToRea4 "Convert boolean to real value"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea4 "Convert boolean to real value"
     annotation (Placement(transformation(extent={{-40,-160},{-20,-140}})));
-  CDL.Conversions.BooleanToReal booToRea5 "Convert boolean to real value"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea5 "Convert boolean to real value"
     annotation (Placement(transformation(extent={{-40,-200},{-20,-180}})));
-  CDL.Conversions.BooleanToReal booToRea7 "Convert boolean to real value"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea7 "Convert boolean to real value"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  CDL.Logical.And and11
+  Buildings.Controls.OBC.CDL.Logical.And and11
     "Check if window is open during operation modes other than occupied"
     annotation (Placement(transformation(extent={{-220,-420},{-200,-400}})));
-  CDL.Logical.Not not5  "Other than occupied mode"
+  Buildings.Controls.OBC.CDL.Logical.Not not5  "Other than occupied mode"
     annotation (Placement(transformation(extent={{-280,-400},{-260,-380}})));
-  CDL.Continuous.LessEqual lesEqu
+  Buildings.Controls.OBC.CDL.Continuous.LessEqual lesEqu
     "Check if occupied cooling setpoint is less than unoccupied one"
     annotation (Placement(transformation(extent={{20,-550},{40,-530}})));
-  CDL.Continuous.GreaterEqual greEqu1
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu1
     "Check if occupied heating setpoint is greater than unoccupied one"
     annotation (Placement(transformation(extent={{20,-610},{40,-590}})));
-  CDL.Continuous.GreaterEqual greEqu2
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu2
     "Check whether heating setpoint exceeds cooling setpoint minus 0.56 degC"
     annotation (Placement(transformation(extent={{220,-590},{240,-570}})));
-  CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Switch between occupied and unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-300,520},{-280,540}})));
-  CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1
     "Switch between occupied and unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-300,440},{-280,460}})));
-  CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Logical.Switch swi2
     "Setpoint can only be adjusted in occupied mode"
     annotation (Placement(transformation(extent={{-120,360},{-100,340}})));
-  CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Logical.Switch swi3
     "Setpoint can only be adjusted in occupied mode"
     annotation (Placement(transformation(extent={{220,260},{240,240}})));
-  CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Logical.Switch swi4
     "If there is no cooling adjustment, zero adjust"
     annotation (Placement(transformation(extent={{-280,320},{-260,340}})));
-  CDL.Logical.Switch swi5
+  Buildings.Controls.OBC.CDL.Logical.Switch swi5
     "If there is no heating adjustment, zero adjust"
     annotation (Placement(transformation(extent={{0,240},{20,260}})));
-  CDL.Logical.Switch swi6
+  Buildings.Controls.OBC.CDL.Logical.Switch swi6
     "If there is only one common adjust for both heating and cooling, use the adjust value from cooling one"
     annotation (Placement(transformation(extent={{80,240},{100,260}})));
-  CDL.Logical.Switch swi7
+  Buildings.Controls.OBC.CDL.Logical.Switch swi7
     "Ensure heating setpoint being not higher than cooling setpoint minus 0.56 degC"
     annotation (Placement(transformation(extent={{280,-590},{300,-570}})));
-  CDL.Logical.Switch swi8
+  Buildings.Controls.OBC.CDL.Logical.Switch swi8
     "Ensure unoccupied heating setppint being lower than occupied one"
     annotation (Placement(transformation(extent={{100,-610},{120,-590}})));
-  CDL.Logical.Switch swi9
+  Buildings.Controls.OBC.CDL.Logical.Switch swi9
     "Ensure unoccupied cooling setppint being higher than occupied one"
     annotation (Placement(transformation(extent={{100,-550},{120,-530}})));
-  CDL.Logical.Switch swi10
+  Buildings.Controls.OBC.CDL.Logical.Switch swi10
     "Switch between occupied and unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{220,80},{240,100}})));
-  CDL.Logical.Switch swi11
+  Buildings.Controls.OBC.CDL.Logical.Switch swi11
     "Switch between occupied and unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{220,-140},{240,-120}})));
-  CDL.Logical.Switch swi12
+  Buildings.Controls.OBC.CDL.Logical.Switch swi12
     "Increase cooling setpoint when the zone is unpopulated by more than 5 minutes"
     annotation (Placement(transformation(extent={{160,-280},{180,-260}})));
-  CDL.Logical.Switch swi13
+  Buildings.Controls.OBC.CDL.Logical.Switch swi13
     "Decrease heating setpoint when the zone is unpopulated by more than 5 minutes"
     annotation (Placement(transformation(extent={{160,-320},{180,-300}})));
-  CDL.Logical.Switch swi14
+  Buildings.Controls.OBC.CDL.Logical.Switch swi14
     "Switch to TCooSetWinOpe when window is open"
     annotation (Placement(transformation(extent={{-180,-460},{-160,-440}})));
-  CDL.Logical.Switch swi15
+  Buildings.Controls.OBC.CDL.Logical.Switch swi15
     "Switch to THeaSetWinOpe when window is open"
     annotation (Placement(transformation(extent={{-60,-460},{-40,-440}})));
-  CDL.Logical.Switch swi16
+  Buildings.Controls.OBC.CDL.Logical.Switch swi16
     "Generate level 4 alarm when window is open during modes other than occupied"
     annotation (Placement(transformation(extent={{-100,-420},{-80,-400}})));
-  CDL.Logical.Switch swi17
+  Buildings.Controls.OBC.CDL.Logical.Switch swi17
     "If it is occupied mode, cooling setpoint should be limited"
     annotation (Placement(transformation(extent={{-180,-550},{-160,-530}})));
-  CDL.Logical.Switch swi18
+  Buildings.Controls.OBC.CDL.Logical.Switch swi18
     "If it is occupied mode, heating setpoint should be limited"
     annotation (Placement(transformation(extent={{-180,-610},{-160,-590}})));
-  CDL.Logical.Switch swi19
+  Buildings.Controls.OBC.CDL.Logical.Switch swi19
     "If there is occupancy sensor, update heating setpoint according to the occupancy"
     annotation (Placement(transformation(extent={{220,-320},{240,-300}})));
-  CDL.Logical.Switch swi20
+  Buildings.Controls.OBC.CDL.Logical.Switch swi20
     "If there is occupancy sensor, update cooling setpoint according to the occupancy"
     annotation (Placement(transformation(extent={{220,-280},{240,-260}})));
-  CDL.Logical.Switch swi21
+  Buildings.Controls.OBC.CDL.Logical.Switch swi21
     "If there is window status sensor, update heating setpoint according to the window status"
     annotation (Placement(transformation(extent={{160,-480},{180,-460}})));
-  CDL.Logical.Switch swi22
+  Buildings.Controls.OBC.CDL.Logical.Switch swi22
     "If there is window status sensor, update cooling setpoint according to the window status"
     annotation (Placement(transformation(extent={{100,-460},{120,-440}})));
-  CDL.Integers.Equal intEqu7
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu7
     "Check if the heating demand limit level is level 2"
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
-  CDL.Integers.Sources.Constant conInt8(
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt8(
     k=Constants.DemandLimitLevel.heaDemLimLev3)
     "Heat demand limit level 3"
     annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
-  CDL.Integers.Equal intEqu8
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu8
     "Check if the heating demand limit level is level 3"
     annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
-  CDL.Logical.Not not4 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not4 "Logical not"
     annotation (Placement(transformation(extent={{-340,-280},{-320,-260}})));
-  CDL.Logical.And and10
+  Buildings.Controls.OBC.CDL.Logical.And and10
     "Check if the zone becomes unpopulated during occupied mode"
     annotation (Placement(transformation(extent={{-280,-280},{-260,-260}})));
-  CDL.Integers.Sources.Constant conInt6(
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt6(
     k=Constants.DemandLimitLevel.heaDemLimLev1)
     "Heat demand limit level 1"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
-  CDL.Integers.Equal intEqu6
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu6
     "Check if the heating demand limit level is level 1"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
-  CDL.Integers.Sources.Constant conInt7(
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt7(
     k=Constants.DemandLimitLevel.heaDemLimLev2)
     "Heat demand limit level 2"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
-  CDL.Integers.GreaterThreshold intGreThr
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr
     "Check if cooling demand limit level is higher than level zero"
     annotation (Placement(transformation(extent={{-340,-20},{-320,0}})));
-  CDL.Integers.GreaterThreshold intGreThr1
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1
     "Check if heating demand limit level is higher than level zero"
     annotation (Placement(transformation(extent={{-340,-60},{-320,-40}})));
-  CDL.Integers.Sources.Constant conInt3(
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
     k=Constants.DemandLimitLevel.cooDemLimLev1)
     "Cool demand limit level 1"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
-  CDL.Integers.Equal intEqu3
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu3
     "Check if the cooling demand limit level is level 1"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  CDL.Integers.Sources.Constant conInt4(
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
     k=Constants.DemandLimitLevel.cooDemLimLev2)
     "Cool demand limit level 2"
     annotation (Placement(transformation(extent={{-160,62},{-140,82}})));
-  CDL.Integers.Equal intEqu4
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
     "Check if the cooling demand limit level is level 2"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  CDL.Integers.Sources.Constant conInt5(
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5(
     k=Constants.DemandLimitLevel.cooDemLimLev3)
     "Cool demand limit level 3"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
-  CDL.Integers.Equal intEqu5
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu5
     "Check if the cooling demand limit level is level 3"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 

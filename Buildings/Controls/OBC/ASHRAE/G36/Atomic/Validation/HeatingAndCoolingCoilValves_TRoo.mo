@@ -3,16 +3,19 @@ model HeatingAndCoolingCoilValves_TRoo
   "Validation model for heating and cooling coil control signal generator"
   extends Modelica.Icons.Example;
 
-  HeatingAndCoolingCoilValves conLoo "Heating and cooling control loop signal generator"
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.HeatingAndCoolingCoilValves conLoo
+    "Heating and cooling control loop signal generator"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected
   parameter Modelica.SIunits.Temperature TRooCooSet=25 + 273.15 "Cooling zone temperature setpoint";
   parameter Modelica.SIunits.Temperature TRooHeaSet=20 + 273.15 "Heating zone temperature setpoint";
 
-  CDL.Continuous.Sources.Constant TRooCooSetSig(k=TRooCooSet) "Cooling zone temperature setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooCooSetSig(
+    k=TRooCooSet) "Cooling zone temperature setpoint"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  CDL.Continuous.Sources.Constant TRooHeaSetSig(k=TRooHeaSet) "Heating zone temperature setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooHeaSetSig(
+    k=TRooHeaSet) "Heating zone temperature setpoint"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Modelica.Blocks.Sources.Ramp TRoo(
     final duration=900,

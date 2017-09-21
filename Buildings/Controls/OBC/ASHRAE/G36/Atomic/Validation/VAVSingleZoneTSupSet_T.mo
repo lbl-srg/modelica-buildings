@@ -3,7 +3,7 @@ model VAVSingleZoneTSupSet_T
   "Validation model for outdoor minus room air temperature"
   extends Modelica.Icons.Example;
 
-  VAVSingleZoneTSupSet setPoiVAV(
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.VAVSingleZoneTSupSet setPoiVAV(
     yHeaMax=0.7,
     yMin=0.3,
     TMax=303.15,
@@ -12,23 +12,27 @@ model VAVSingleZoneTSupSet_T
     "Block that computes the setpoints for temperature and fan speed"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  CDL.Continuous.Sources.Constant uHea(k=0) "Heating control signal"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uHea(k=0)
+    "Heating control signal"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  CDL.Continuous.Sources.Constant uCoo(k=0.6) "Cooling control signal"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uCoo(k=0.6)
+    "Cooling control signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
-  CDL.Continuous.Sources.Ramp TOut(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TOut(
     duration=1,
     height=18,
     offset=273.15 + 10) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
-  CDL.Continuous.Sources.Constant TZon(k=273.15 + 22) "Zone temperature"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(
+    k=273.15 + 22) "Zone temperature"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  CDL.Continuous.Add dT(k2=-1) "Difference zone minus outdoor temperature"
+  Buildings.Controls.OBC.CDL.Continuous.Add dT(k2=-1) "Difference zone minus outdoor temperature"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  CDL.Continuous.Sources.Constant TSetZon(k=273.15 + 22) "Average zone set point"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetZon(
+    k=273.15 + 22) "Average zone set point"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 equation
   connect(uCoo.y, setPoiVAV.uCoo) annotation (Line(points={{-59,50},{-31.5,50},

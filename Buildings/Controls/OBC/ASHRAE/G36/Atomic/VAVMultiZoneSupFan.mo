@@ -42,7 +42,7 @@ block VAVMultiZoneSupFan  "Block to control multizone VAV AHU supply fan"
     "Maximum response per time interval (same sign as resAmo)"
     annotation (Dialog(tab="Advanced",group="Trim&Respond parameter"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController
-    controllerType=CDL.Types.SimpleController.PID "Type of controller"
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID "Type of controller"
     annotation (Dialog(tab="Advanced",group="Fan control PID parameters"));
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(tab="Advanced",group="Fan control PID parameters"));
@@ -61,46 +61,46 @@ block VAVMultiZoneSupFan  "Block to control multizone VAV AHU supply fan"
   parameter Real yMin=0 "Lower limit of output"
     annotation (Dialog(tab="Advanced",group="Fan control PID parameters"));
 
-  CDL.Interfaces.IntegerInput uOpeMod
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
    "System operation mode"
     annotation (Placement(transformation(extent={{-200,100},{-160,140}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  CDL.Interfaces.RealInput ducStaPre(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput ducStaPre(
     final unit="Pa",
     quantity="PressureDifference")
     "Measured duct static pressure"
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  CDL.Interfaces.RealInput boxFloRat[numZon](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput boxFloRat[numZon](
     final unit="m3/s",
     quantity="VolumeFlowRate") if not (duaDucBox or airFloMeaSta)
     "VAV box airflow rate"
     annotation (Placement(transformation(extent={{-200,-130},{-160,-90}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
-  CDL.Interfaces.IntegerInput uZonPreResReq
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonPreResReq
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
-  CDL.Interfaces.BooleanOutput ySupFan "Supply fan ON/OFF status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan "Supply fan ON/OFF status"
     annotation (Placement(transformation(extent={{140,60},{160,80}}),
       iconTransformation(extent={{100,60},{120,80}})));
-  CDL.Interfaces.RealOutput yFanSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
     min=0, max=1, final unit="1")
     "Supply fan speed"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}}),
       iconTransformation(extent={{100,-10},{120,10}})));
-  CDL.Interfaces.RealOutput yFloRat(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFloRat(
     final unit="m3/s",
     quantity="VolumeFlowRate") if not (duaDucBox or airFloMeaSta)
     "Totalized current airflow rate from VAV boxes"
     annotation (Placement(transformation(extent={{140,-120},{160,-100}}),
       iconTransformation(extent={{100,-80},{120,-60}})));
 
-  CDL.Continuous.MultiSum sum1(final nin=numZon) if
-       not (duaDucBox or airFloMeaSta)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum sum1(
+    final nin=numZon) if not (duaDucBox or airFloMeaSta)
     "Sum of box airflow rate"
     annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
-  TrimRespondLogic staPreSetRes(
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.TrimRespondLogic staPreSetRes(
     iniSet=iniSet,
     minSet=minSet,
     maxSet=maxSet,
@@ -111,7 +111,7 @@ block VAVMultiZoneSupFan  "Block to control multizone VAV AHU supply fan"
     resAmo=resAmo,
     maxRes=maxRes) "Static pressure setpoint reset using trim&respond logic"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  CDL.Continuous.LimPID supFanSpeCon(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID supFanSpeCon(
     Ti=Ti,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=k,
@@ -120,50 +120,61 @@ block VAVMultiZoneSupFan  "Block to control multizone VAV AHU supply fan"
     yMin=yMin)
     "Supply fan speed control"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  CDL.Continuous.Sources.Constant zerSpe(k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerSpe(k=0)
     "Zero fan speed when it becomes OFF"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
     "If fan is OFF, fan speed outputs to zero"
     annotation (Placement(transformation(extent={{80,-50},{100,-70}})));
 
 protected
-  CDL.Logical.Or or1
+  Buildings.Controls.OBC.CDL.Logical.Or or1
     "Check whether supply fan should be ON"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  CDL.Logical.Or or2 if perZonRehBox
+  Buildings.Controls.OBC.CDL.Logical.Or or2 if perZonRehBox
     "Setback or warmup mode"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  CDL.Logical.Or3 or3
+  Buildings.Controls.OBC.CDL.Logical.Or3 or3
     "Cool-down or setup or occupied mode"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
-  CDL.Logical.Sources.Constant con(k=false) if not perZonRehBox
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    k=false) if not perZonRehBox
     "Constant true"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  CDL.Integers.Sources.Constant conInt(k=Constants.OperationModes.cooDow)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    k=Constants.OperationModes.cooDow)
     "Cool down mode"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
-  CDL.Integers.Sources.Constant conInt4(k=Constants.OperationModes.warUp)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
+    k=Constants.OperationModes.warUp)
     "Warm-up mode"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  CDL.Integers.Sources.Constant conInt1(k=Constants.OperationModes.setUp)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
+    k=Constants.OperationModes.setUp)
     "Set up mode"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  CDL.Integers.Sources.Constant conInt2(k=Constants.OperationModes.occMod)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
+    k=Constants.OperationModes.occMod)
     "Occupied mode"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  CDL.Integers.Sources.Constant conInt3(k=Constants.OperationModes.setBac)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
+    k=Constants.OperationModes.setBac)
     "Set back mode"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
-  CDL.Integers.Equal intEqu "Check if current operation mode is cool-down mode"
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu
+    "Check if current operation mode is cool-down mode"
     annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
-  CDL.Integers.Equal intEqu1 "Check if current operation mode is setup mode"
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
+    "Check if current operation mode is setup mode"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  CDL.Integers.Equal intEqu2 "Check if current operation mode is occupied mode"
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2
+    "Check if current operation mode is occupied mode"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  CDL.Integers.Equal intEqu3 "Check if current operation mode is setback mode"
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu3
+    "Check if current operation mode is setback mode"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  CDL.Integers.Equal intEqu4 "Check if current operation mode is warmup mode"
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
+    "Check if current operation mode is warmup mode"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
 equation

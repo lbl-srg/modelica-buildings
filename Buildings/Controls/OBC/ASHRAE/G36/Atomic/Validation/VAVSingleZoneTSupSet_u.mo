@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.Atomic.Validation;
 model VAVSingleZoneTSupSet_u "Validation model for control input"
   extends Modelica.Icons.Example;
 
-  VAVSingleZoneTSupSet setPoiVAV(
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.VAVSingleZoneTSupSet setPoiVAV(
     yHeaMax=0.7,
     yMin=0.3,
     TMax=303.15,
@@ -10,23 +10,28 @@ model VAVSingleZoneTSupSet_u "Validation model for control input"
     "Block that computes the setpoints for temperature and fan speed"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  CDL.Continuous.Sources.Constant TZon(k=273.15 + 23) "Zone air temperature"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(
+    k=273.15 + 23) "Zone air temperature"
     annotation (Placement(transformation(extent={{-80,-22},{-60,0}})));
 
-  CDL.Continuous.Sources.Constant TOut(k=273.15 + 21) "Outdoor temperature"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut(
+    k=273.15 + 21) "Outdoor temperature"
     annotation (Placement(transformation(extent={{-80,-62},{-60,-40}})));
 
-  CDL.Continuous.Sources.Ramp uHea(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uHea(
     duration=0.25,
     height=-1,
     offset=1) "Heating control signal"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  CDL.Continuous.Sources.Ramp uCoo(duration=0.25, startTime=0.75)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uCoo(
+    duration=0.25,
+    startTime=0.75)
     "Cooling control signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
-  CDL.Continuous.Sources.Constant TSetZon(k=273.15 + 22) "Average zone set point"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetZon(
+    k=273.15 + 22) "Average zone set point"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 equation
   connect(TZon.y, setPoiVAV.TZon) annotation (Line(points={{-59,-11},{-31.5,-11},

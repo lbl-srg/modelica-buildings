@@ -30,59 +30,59 @@ block OutdoorAirFlowSetpoint_SingleZone
      then it should use cooling supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
 
-  CDL.Interfaces.RealInput nOcc(final unit="1") "Number of occupants"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") "Number of occupants"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
-        iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput TZon(
+      iconTransformation(extent={{-120,70},{-100,90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     quantity="ThermodynamicTemperature")  "Measured zone air temperature"
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
       iconTransformation(extent={{-120,30},{-100,50}})));
-  CDL.Interfaces.RealInput TSup(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     quantity="ThermodynamicTemperature")   "Supply air temperature"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
-  CDL.Interfaces.BooleanInput uSupFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status, true if on, false if off"
     annotation (Placement(transformation(extent={{-240,-180},{-200,-140}}),
       iconTransformation(extent={{-120,-90},{-100,-70}})));
-  CDL.Interfaces.BooleanInput uWin
-    "Window status, true if open, false if closed" annotation (Placement(
-        transformation(extent={{-240,-10},{-200,30}}), iconTransformation(
-          extent={{-120,-50},{-100,-30}})));
-  CDL.Interfaces.RealOutput VOutMinSet_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin
+    "Window status, true if open, false if closed"
+    annotation (Placement(transformation(extent={{-240,-10},{-200,30}}),
+      iconTransformation(extent={{-120,-50},{-100,-30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOutMinSet_flow(
     min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate")   "Effective minimum outdoor airflow setpoint"
+    quantity="VolumeFlowRate") "Effective minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  CDL.Continuous.Add breZon "Breathing zone airflow"
+  Buildings.Controls.OBC.CDL.Continuous.Add breZon "Breathing zone airflow"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  CDL.Continuous.Add add2(final k1=+1, final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(final k1=+1, final k2=-1)
     "Zone space temperature minus supply air temperature"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
-  CDL.Continuous.Gain gai(final k=outAirPerPer)
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=outAirPerPer)
     "Outdoor airflow rate per person"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
-  CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Switch for enabling occupancy sensor input"
     annotation (Placement(transformation(extent={{-60,38},{-40,58}})));
-  CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1
     "Switch between cooling or heating distribution effectiveness"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  CDL.Continuous.Division zonOutAirRate
+  Buildings.Controls.OBC.CDL.Continuous.Division zonOutAirRate
     "Required zone outdoor airflow rate"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Logical.Switch swi2
     "If window is open or it is not in occupied mode, the required outdoor 
     airflow rate should be zero"
     annotation (Placement(transformation(extent={{80,20},{100,0}})));
-  CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Logical.Switch swi3
     "If supply fan is off, then outdoor airflow rate should be zero."
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
-  CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     uLow=uLow,
     uHigh=uHig,
     pre_y_start=true)
@@ -90,22 +90,28 @@ block OutdoorAirFlowSetpoint_SingleZone
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 
 protected
-  CDL.Logical.Sources.Constant occSenor(final k=occSen)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSenor(
+    final k=occSen)
     "Boolean constant to indicate if there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Continuous.Sources.Constant zerOutAir(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOutAir(
+    final k=0)
     "Zero required outdoor airflow rate when window open or zone is not in occupied mode"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  CDL.Continuous.Sources.Constant disEffHea(final k=zonDisEffHea)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant disEffHea(
+    final k=zonDisEffHea)
     "Zone distribution effectiveness during heating"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  CDL.Continuous.Sources.Constant disEffCoo(final k=zonDisEffCoo)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant disEffCoo(
+    final k=zonDisEffCoo)
     "Zone distribution effectiveness for cooling"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  CDL.Continuous.Sources.Constant breZonAre(final k=outAirPerAre*zonAre)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonAre(
+    final k=outAirPerAre*zonAre)
     "Area component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  CDL.Continuous.Sources.Constant breZonPop(final k=outAirPerPer*zonAre*occDen)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonPop(
+    final k=outAirPerPer*zonAre*occDen)
     "Population component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 

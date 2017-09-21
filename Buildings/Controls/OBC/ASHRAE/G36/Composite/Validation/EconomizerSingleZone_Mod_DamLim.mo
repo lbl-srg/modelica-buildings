@@ -40,30 +40,40 @@ protected
   parameter Modelica.SIunits.VolumeFlowRate minVOut_flow = 1.0 "Calculated minimum outdoor airflow rate";
   parameter Modelica.SIunits.VolumeFlowRate desVOut_flow = 2.0 "Calculated design outdoor airflow rate";
 
-  CDL.Logical.Sources.Constant fanSta(k=true) "Fan is on"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanSta(
+    k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
+    final k=Constants.FreezeProtectionStages.stage0)
     "Freeze protection status is 0"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  CDL.Integers.Sources.Constant zonSta(final k=Constants.ZoneStates.deadband)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant zonSta(
+    final k=Constants.ZoneStates.deadband)
     "Zone State is deadband"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occMod)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
+    final k=Constants.OperationModes.occMod)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 10000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(
+    final k=hOutCutoff - 10000)
     "Outdoor air enthalpy is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  CDL.Continuous.Sources.Constant hOutCut(final k=hOutCutoff) "Outdoor air enthalpy cutoff"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut(
+    final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Continuous.Sources.Constant TOutBelowCutoff(final k=TOutCutoff - 5)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
+    final k=TOutCutoff - 5)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  CDL.Continuous.Sources.Constant TOutCut1(final k=TOutCutoff)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
+    final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  CDL.Continuous.Sources.Constant TSupSetSig(final k=THeaSet) "Healing supply air temperature setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSetSig(
+    final k=THeaSet) "Healing supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  CDL.Continuous.Sources.Constant TSupSig(final k=TSup) "Measured supply air temperature"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSig(
+    final k=TSup) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Modelica.Blocks.Sources.Ramp TSupSig1(
     final duration=900,

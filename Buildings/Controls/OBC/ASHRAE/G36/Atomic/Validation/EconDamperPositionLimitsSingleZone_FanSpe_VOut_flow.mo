@@ -3,14 +3,14 @@ model EconDamperPositionLimitsSingleZone_FanSpe_VOut_flow
   "Validation model for the Single zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
-  EconDamperPositionLimitsSingleZone ecoDamLim(
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconDamperPositionLimitsSingleZone ecoDamLim(
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
     final desVOut_flow=desVOut_flow)
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  EconDamperPositionLimitsSingleZone ecoDamLim1(
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconDamperPositionLimitsSingleZone ecoDamLim1(
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
@@ -27,15 +27,19 @@ protected
   final parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=(desVOut_flow + minVOut_flow)/2
     "Constant minimum outdoor airflow setpoint";
 
-  CDL.Logical.Sources.Constant fanStatus(final k=true) "Fan is on"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus(
+    final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
+    final k=Constants.FreezeProtectionStages.stage0)
     "Freeze protection status - disabled"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-  CDL.Integers.Sources.Constant operationMode(final k=Constants.OperationModes.occMod)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant operationMode(
+    final k=Constants.OperationModes.occMod)
     "Operation mode - occupied"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
-  CDL.Continuous.Sources.Constant VOutMinSetSig(final k=VOutSet_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSetSig(
+    final k=VOutSet_flow)
     "Constant minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Modelica.Blocks.Sources.Ramp SupFanSpeSig(
@@ -48,7 +52,8 @@ protected
     final offset=minVOut_flow,
     final height=desVOut_flow - minVOut_flow) "Constant minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  CDL.Continuous.Sources.Constant SupFanSpeSig1(final k=fanSpe) "Supply fan speed signal"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant SupFanSpeSig1(
+    final k=fanSpe) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
 equation

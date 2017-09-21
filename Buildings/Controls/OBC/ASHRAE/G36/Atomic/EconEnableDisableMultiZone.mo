@@ -19,98 +19,98 @@ block EconEnableDisableMultiZone
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
 
-  CDL.Interfaces.RealInput TOut(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-220,250},{-180,290}}),
       iconTransformation(extent={{-120,90},{-100,110}})));
-  CDL.Interfaces.RealInput hOut(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-220,170},{-180,210}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
-  CDL.Interfaces.RealInput TOutCut(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-220,210},{-180,250}}),
       iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput hOutCut(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput hOutCut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
       iconTransformation(extent={{-120,30},{-100,50}})));
-  CDL.Interfaces.RealInput uOutDamPosMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
     final unit="1",
     final min=0,
     final max=1)
     "Minimum outdoor air damper position, output from damper position limits sequence"
     annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
       iconTransformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Interfaces.RealInput uOutDamPosMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMax(
     final unit="1",
     final min=0,
     final max=1)
     "Maximum outdoor air damper position, output from damper position limits sequence"
     annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
       iconTransformation(extent={{-120,-50},{-100,-30}})));
-  CDL.Interfaces.RealInput uRetDamPosMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMax(
     final unit="1",
     final min=0,
     final max=1)
     "Maximum return air damper position, output from damper position limits sequence"
     annotation (Placement(transformation(extent={{-220,-250},{-180,-210}}),
       iconTransformation(extent={{-120,-110},{-100,-90}})));
-  CDL.Interfaces.RealInput uRetDamPosMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMin(
     final unit="1",
     final min=0,
     final max=1)
     "Minimum return air damper position, output from damper position limits sequence"
     annotation (Placement(transformation(extent={{-220,-280},{-180,-240}}),
       iconTransformation(extent={{-120,-130},{-100,-110}})));
-  CDL.Interfaces.RealInput uRetDamPhyPosMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPhyPosMax(
     final unit="1",
     final min=0,
     final max=1)
     "Physical maximum return air damper position, output from damper position limits sequence"
     annotation (Placement(transformation(extent={{-220,-220},{-180,-180}}),
       iconTransformation(extent={{-120,-90},{-100,-70}})));
-  CDL.Interfaces.BooleanInput uSupFan "Supply fan on/off status signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan on/off status signal"
     annotation (Placement(transformation(extent={{-220,90},{-180,130}}),
       iconTransformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Interfaces.IntegerInput uFreProSta "Freeze protection stage status signal"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta "Freeze protection stage status signal"
     annotation (Placement(transformation(extent={{-220,30},{-180,70}}),
       iconTransformation(extent={{-120,10},{-100,30}})));
-  CDL.Interfaces.IntegerInput uZonSta "Zone state signal"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta "Zone state signal"
     annotation (Placement(transformation(extent={{-220,-30},{-180,10}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
 
-  CDL.Interfaces.RealOutput yOutDamPosMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMax(
     final unit="1",
     final min=0,
     final max=1) "Maximum outdoor air damper position"
     annotation (Placement(transformation(extent={{180,-150},{200,-130}}),
       iconTransformation(extent={{100,28},{140,68}})));
-  CDL.Interfaces.RealOutput yRetDamPosMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMin(
     final unit="1",
     final min=0,
     final max=1) "Minimum return air damper position"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
-  CDL.Interfaces.RealOutput yRetDamPosMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMax(
     final unit="1",
     final min=0,
     final max=1) "Maximum return air damper position"
     annotation (Placement(transformation(
       extent={{180,-220},{200,-200}}), iconTransformation(extent={{100,-40},{140,0}})));
 
-  CDL.Logical.TrueFalseHold truFalHol(
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     trueHoldDuration=600) "10 min on/off delay"
     annotation (Placement(transformation(extent={{0,200},{20,220}})));
-  CDL.Logical.And3 andEnaDis "Logical and to check freeze protection stage and zone state"
+  Buildings.Controls.OBC.CDL.Logical.And3 andEnaDis "Logical and to check freeze protection stage and zone state"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
 protected
@@ -123,67 +123,70 @@ protected
   final parameter Real hOutHigLimCutLow = hOutHigLimCutHig - delEntHis
     "Hysteresis block low limit cutoff";
 
-  CDL.Logical.Sources.Constant entSubst(final k=false) if not use_enthalpy
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant entSubst(
+    final k=false) if not use_enthalpy
     "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
-  CDL.Continuous.Add add2(final k2=-1) if use_enthalpy "Add block determines difference between hOut and hOutCut"
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(
+    final k2=-1) if use_enthalpy "Add block determines difference between hOut and hOutCut"
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
-  CDL.Continuous.Add add1(final k2=-1) "Add block determines difference between TOut and TOutCut"
+  Buildings.Controls.OBC.CDL.Continuous.Add add1(
+    final k2=-1) "Add block determines difference between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,240},{-120,260}})));
-  CDL.Continuous.Hysteresis hysOutTem(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOutTem(
     final uLow=TOutHigLimCutLow,
     final uHigh=TOutHigLimCutHig)
     "Outdoor air temperature hysteresis for both fixed and differential dry bulb temperature cutoff conditions"
     annotation (Placement(transformation(extent={{-100,240},{-80,260}})));
-  CDL.Continuous.Hysteresis hysOutEnt(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOutEnt(
     final uLow=hOutHigLimCutLow,
     final uHigh=hOutHigLimCutHig) if use_enthalpy
     "Outdoor air enthalpy hysteresis for both fixed and differential enthalpy cutoff conditions"
     annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
-  CDL.Logical.Switch outDamSwitch "Set maximum OA damper position to minimum at disable (after a given time delay)"
+  Buildings.Controls.OBC.CDL.Logical.Switch outDamSwitch "Set maximum OA damper position to minimum at disable (after a given time delay)"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
-  CDL.Logical.Switch retDamSwitch "Set minimum RA damper position to maximum at disable"
+  Buildings.Controls.OBC.CDL.Logical.Switch retDamSwitch "Set minimum RA damper position to maximum at disable"
     annotation (Placement(transformation(extent={{-60,-270},{-40,-250}})));
-  CDL.Logical.Switch maxRetDamSwitch
+  Buildings.Controls.OBC.CDL.Logical.Switch maxRetDamSwitch
     "Keep maximum RA damper position at physical maximum for a short time period after disable signal"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
-  CDL.Logical.Switch minRetDamSwitch
+  Buildings.Controls.OBC.CDL.Logical.Switch minRetDamSwitch
     "Keep minimum RA damper position at physical maximum for a short time period after disable"
     annotation (Placement(transformation(extent={{40,-260},{60,-240}})));
-  CDL.Logical.Nor nor1 "Logical nor"
+  Buildings.Controls.OBC.CDL.Logical.Nor nor1 "Logical nor"
     annotation (Placement(transformation(extent={{-40,200},{-20,220}})));
-  CDL.Logical.Not not2 "Logical not that starts the timer at disable signal "
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not that starts the timer at disable signal "
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
-  CDL.Logical.And  and2 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And  and2 "Logical and"
     annotation (Placement(transformation(extent={{130,-174},{150,-154}})));
-  CDL.Logical.And and1 "Logical and checks supply fan status"
+  Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and checks supply fan status"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
-  CDL.Logical.And and3 "Logical and which checks supply fan status"
+  Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and which checks supply fan status"
     annotation (Placement(transformation(extent={{-20,-104},{0,-84}})));
 
-  CDL.Integers.Equal intEqu
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  CDL.Logical.TrueDelay delOutDamOsc(
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay delOutDamOsc(
     final delayTime=disDel)
     "Small delay before closing the outdoor air damper to avoid pressure fluctuations"
     annotation (Placement(transformation(extent={{-68,-112},{-48,-92}})));
-  CDL.Logical.TrueDelay delRetDam(
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay delRetDam(
     final delayTime=retDamFulOpeTim)
     "Keep return damper open to its physical maximum for a short period of time before closing the outdoor air damper and resuming the maximum return air damper position, per G36 Part N7"
     annotation (Placement(transformation(extent={{-68,-182},{-48,-162}})));
-  CDL.Logical.Not not1
+  Buildings.Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{-20,-182},{0,-162}})));
-  CDL.Integers.Sources.Constant conInt(
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=Constants.FreezeProtectionStages.stage0)
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
-  CDL.Integers.Equal intEqu1
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  CDL.Integers.Sources.Constant conInt1(
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
     final k=Constants.ZoneStates.heating)
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Logical.Not not3 "Negation for check of freeze protection status"
+  Buildings.Controls.OBC.CDL.Logical.Not not3 "Negation for check of freeze protection status"
     annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
 equation
   connect(outDamSwitch.y, yOutDamPosMax) annotation (Line(points={{61,-140},{61,-140},{190,-140}}, color={0,0,127}));

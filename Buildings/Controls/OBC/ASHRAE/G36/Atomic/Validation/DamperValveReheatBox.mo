@@ -7,36 +7,36 @@ model DamperValveReheatBox
     kDam=0.8)
     "Output signals for controlling VAV reheat box damper and valve position"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
-  CDL.Continuous.Sources.Ramp uHea(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uHea(
     duration=86400,
     height=0.6,
     offset=0.2) "Heating control signal"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  CDL.Continuous.Sources.Constant uCoo(k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uCoo(k=0)
     "Cooling control signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  CDL.Continuous.Sources.Constant THeaSet(k=273.15 + 20)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSet(k=273.15 + 20)
     "Zone heating setpoint temperature"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  CDL.Continuous.Sources.Constant TZon(k=273.15 + 22)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(k=273.15 + 22)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  CDL.Continuous.Sources.Constant TSup(k=273.15 + 13)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSup(k=273.15 + 13)
     "AHU supply air temperature"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  CDL.Continuous.Sources.Constant VActMin(k=0.01)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActMin(k=0.01)
     "Active minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  CDL.Continuous.Sources.Constant VActHeaMin(k=0.015)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActHeaMin(k=0.015)
     "Active heating minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  CDL.Continuous.Sources.Constant VActHeaMax(k=0.05)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActHeaMax(k=0.05)
     "Active heating maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  CDL.Continuous.Sources.Constant VActCooMin(k=0.015)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActCooMin(k=0.015)
     "Active cooling minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  CDL.Continuous.Sources.Constant VActCooMax(k=0.075)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActCooMax(k=0.075)
     "Active cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Modelica.Blocks.Sources.Sine VDisAir(
@@ -44,7 +44,7 @@ model DamperValveReheatBox
     amplitude=0.002,
     freqHz=1/86400) "Discharge airflow rate"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-  CDL.Continuous.Sources.Constant TDisAir(k=273.15 + 25)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDisAir(k=273.15 + 25)
     "Discharge air temperature"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 

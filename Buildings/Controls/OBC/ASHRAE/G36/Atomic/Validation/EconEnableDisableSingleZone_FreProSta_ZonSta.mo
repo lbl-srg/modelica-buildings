@@ -3,9 +3,11 @@ model EconEnableDisableSingleZone_FreProSta_ZonSta
   "Model validates economizer disable for heating zone state and activated freeze protection"
   extends Modelica.Icons.Example;
 
-  EconEnableDisableSingleZone ecoEnaDis "Single zone VAV AHU enable disable sequence"
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconEnableDisableSingleZone ecoEnaDis
+    "Single zone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,40},{102,60}})));
-  EconEnableDisableSingleZone ecoEnaDis1 "Single zone VAV AHU enable disable sequence"
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconEnableDisableSingleZone ecoEnaDis1
+    "Single zone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,-40},{102,-20}})));
 
 protected
@@ -14,36 +16,47 @@ protected
   final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
 
-  CDL.Continuous.Sources.Constant TOutBelowCutoff(final k=TOutCutoff - 2)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
+    final k=TOutCutoff - 2)
     "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
-  CDL.Continuous.Sources.Constant TOutCut(final k=TOutCutoff)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(
+    final k=TOutCutoff)
     "Outdoor temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
-  CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 1000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(
+    final k=hOutCutoff - 1000)
     "Outdoor air enthalpy is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  CDL.Continuous.Sources.Constant hOutCut(final k=hOutCutoff) "Outdoor air enthalpy cutoff"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut(
+    final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
+    final k=Constants.FreezeProtectionStages.stage0)
     "Freeze protection status is stage0"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Integers.Sources.Constant zonSta(final k=Constants.ZoneStates.heating)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant zonSta(
+    final k=Constants.ZoneStates.heating)
     "Zone state is heating"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  CDL.Integers.Sources.Constant freProSta1(final k=Constants.FreezeProtectionStages.stage1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta1(
+    final k=Constants.FreezeProtectionStages.stage1)
     "Freeze protection status is stage1"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  CDL.Integers.Sources.Constant zonSta1(final k=Constants.ZoneStates.deadband)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant zonSta1(
+    final k=Constants.ZoneStates.deadband)
     "Zone state is deadband"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  CDL.Continuous.Sources.Constant outDamPosMax(final k=0.9)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMax(
+    final k=0.9)
     "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
-  CDL.Continuous.Sources.Constant outDamPosMin(final k=0.1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMin(
+    final k=0.1)
     "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
-  CDL.Logical.Sources.Constant supFanSta(final k=true)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFanSta(
+    final k=true)
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
 equation

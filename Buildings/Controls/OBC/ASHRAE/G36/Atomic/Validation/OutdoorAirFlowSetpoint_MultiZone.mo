@@ -11,46 +11,48 @@ model OutdoorAirFlowSetpoint_MultiZone
     peaSysPop=20)
     "Block to output minimum outdoor airflow rate for system with multiple zones "
     annotation (Placement(transformation(extent={{20,-20},{60,20}})));
-  CDL.Logical.Sources.Constant winSta[numOfZon](k=fill(false,numOfZon))
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta[numOfZon](
+    k=fill(false,numOfZon))
     "Status of windows in each zone"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  CDL.Logical.Sources.Constant supFan(k=true) "Status of supply fan"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFan(
+    k=true) "Status of supply fan"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  CDL.Continuous.Sources.Constant zonPriFloRat[numOfZon](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonPriFloRat[numOfZon](
     k={0.1,0.12,0.2,0.09,0.1})
     "Measured primary flow rate in each zone at VAV box"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  CDL.Continuous.Sources.Ramp TZon[numOfZon](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon[numOfZon](
     each height=6,
     each offset=273.15 + 17,
     each duration=3600) "Measured zone temperature"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  CDL.Continuous.Sources.Ramp TSup[numOfZon](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup[numOfZon](
     each height=4,
     each duration=3600,
     each offset=273.15 + 18) "Supply air temperature"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  CDL.Continuous.Sources.Ramp numOfOcc1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc1(
     height=2,
     duration=3600)
     "Occupant number in zone 1"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  CDL.Continuous.Sources.Ramp numOfOcc2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc2(
     duration=3600,
     height=3)
     "Occupant number in zone 2"
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
-  CDL.Continuous.Sources.Ramp numOfOcc3(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc3(
     duration=3600,
     height=3,
     startTime=900) "Occupant number in zone 3"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  CDL.Continuous.Sources.Ramp numOfOcc4(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc4(
     duration=3600,
     startTime=900,
     height=2) "Occupant number in zone 4"
     annotation (Placement(transformation(extent={{30,70},{50,90}})));
-  CDL.Continuous.Sources.Ramp numOfOcc5(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc5(
     duration=3600,
     startTime=0,
     height=-3,

@@ -76,39 +76,39 @@ model EconomizerSingleZone "Single zone VAV AHU economizer control sequence"
     "Physically fixed minimum position of the return air damper"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
 
-  CDL.Interfaces.RealInput THeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Supply air temperature Healing setpoint" annotation (Placement(transformation(
     extent={{-140,30},{-120,50}}), iconTransformation(extent={{-120,10},{-100,30}})));
-  CDL.Interfaces.RealInput TSup(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature" annotation (Placement(transformation(
     extent={{-140,50},{-120,70}}), iconTransformation(extent={{-120,30},{-100,50}})));
-  CDL.Interfaces.RealInput TOut(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Outdoor air (OA) temperature" annotation (Placement(transformation(extent={{-140,130},{-120,150}}),
     iconTransformation(extent={{-120,110},{-100,130}})));
-  CDL.Interfaces.RealInput TOutCut(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}}),
         iconTransformation(extent={{-120,90},{-100,110}})));
-  CDL.Interfaces.RealInput hOut(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "Outdoor air enthalpy" annotation (Placement(transformation(extent={{-140,90},{-120,110}}),
     iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput hOutCut(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput hOutCut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
-  CDL.Interfaces.RealInput uVOutMinSet_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVOutMinSet_flow(
     final min=minVOut_flow,
     final max=desVOut_flow,
     final unit="m3/s",
@@ -116,34 +116,34 @@ model EconomizerSingleZone "Single zone VAV AHU economizer control sequence"
     "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
-  CDL.Interfaces.RealInput uSupFanSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe(
     final min=minFanSpe,
     final max=maxFanSpe,
     final unit="1")
     "Supply fan speed"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}}),
       iconTransformation(extent={{-120,-30},{-100,-10}})));
-  CDL.Interfaces.IntegerInput uZonSta "Zone state signal"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta "Zone state signal"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}}),
         iconTransformation(extent={{-120,-90},{-100,-70}})));
-  CDL.Interfaces.IntegerInput uFreProSta "Freeze protection status"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta "Freeze protection status"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}}),
       iconTransformation(extent={{-120,-110},{-100,-90}})));
-  CDL.Interfaces.IntegerInput uOpeMod "AHU operation mode status signal"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}}),
       iconTransformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));
 
-  CDL.Interfaces.RealOutput yRetDamPos(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
     final max=1,
     final unit="1")
     "Return air damper position"
     annotation (Placement(transformation(extent={{120,30},{140,50}}),
     iconTransformation(extent={{100,10}, {120,30}})));
-  CDL.Interfaces.RealOutput yOutDamPos(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
     final unit="1")

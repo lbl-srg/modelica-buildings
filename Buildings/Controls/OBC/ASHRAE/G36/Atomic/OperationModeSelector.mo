@@ -11,391 +11,391 @@ block OperationModeSelector "Block that outputs the operation mode"
   parameter Real freProEndVal = 7.2
     "Threshold zone temperature value to finish the freeze protection mode";
 
-  CDL.Interfaces.RealInput THeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Occupied heating setpoint temperature"
     annotation (Placement(transformation(extent={{-300,70},{-260,110}}),
       iconTransformation(extent={{-120,-32},{-100,-12}})));
-  CDL.Interfaces.RealInput TCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Occupied cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-300,40},{-260,80}}),
       iconTransformation(extent={{-120,-56},{-100,-36}})));
-  CDL.Interfaces.RealInput TZon[numOfZon](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[numOfZon](
     each final unit="K",
     each quantity="ThermodynamicTemperature")
     "Temperature of each zone"
     annotation (Placement(transformation(extent={{-300,-30},{-260,10}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
-  CDL.Interfaces.RealInput TUnoCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TUnoCooSet(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-300,-290},{-260,-250}}),
       iconTransformation(extent={{-120,-100},{-100,-80}})));
-  CDL.Interfaces.RealInput TUnoHeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TUnoHeaSet(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Unoccupied heating setpoint temperature"
     annotation (Placement(transformation(extent={{-300,-70},{-260,-30}}),
       iconTransformation(extent={{-120,-78},{-100,-58}})));
-  CDL.Interfaces.RealInput warUpTim[numOfZon](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput warUpTim[numOfZon](
     each final unit="s",
     each quantity="Time")
     "Warm-up time retrieved from optimal warm-up block"
     annotation (Placement(transformation(extent={{-300,96},{-260,136}}),
       iconTransformation(extent={{-120,12},{-100,32}})));
-  CDL.Interfaces.RealInput cooDowTim[numOfZon](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput cooDowTim[numOfZon](
     each final unit="s",
     each quantity="Time")
     "Cool-down time retrieved from optimal control-down block"
     annotation (Placement(transformation(extent={{-300,176},{-260,216}}),
       iconTransformation(extent={{-120,34},{-100,54}})));
-  CDL.Interfaces.RealInput tNexOcc(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
     final unit="s", quantity="Time")
     "Time to next occupied period"
     annotation (Placement(transformation(extent={{-300,240},{-260,280}}),
       iconTransformation(extent={{-120,56},{-100,76}})));
-  CDL.Interfaces.BooleanInput uOcc
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
     "True/False if the zones are occupied"
     annotation (Placement(transformation(extent={{-300,280},{-260,320}}),
       iconTransformation(extent={{-120,80},{-100,100}})));
-  CDL.Interfaces.BooleanInput uWinSta[numOfZon]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta[numOfZon]
     "Window open/close status"
     annotation (Placement(transformation(extent={{-300,10},{-260,50}}),
       iconTransformation(extent={{-10,-10},{10,10}},rotation=90,origin={0,-110})));
-  CDL.Interfaces.IntegerOutput opeMod
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput opeMod
     "Operation mode"
     annotation (Placement(transformation(extent={{460,-30},{480,-10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
-  CDL.Interfaces.IntegerOutput freProAlaLev
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput freProAlaLev
     "Level 3 alarm: freeze protection"
     annotation (Placement(transformation(extent={{460,-150},{480,-130}}),
       iconTransformation(extent={{100,-60},{120,-40}})));
-  CDL.Continuous.Sources.Constant occModInd(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant occModInd(
     k=Buildings.Controls.OBC.ASHRAE.G36.Constants.OperationModes.occMod)
     "Occupied mode "
     annotation (Placement(transformation(extent={{140,290},{160,310}})));
-  CDL.Continuous.Sources.Constant unoPerInd(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant unoPerInd(final k=0)
     "Index to indicate unoccupied period"
     annotation (Placement(transformation(extent={{-160,220},{-140,240}})));
-  CDL.Continuous.MultiMax maxCooTim(final nin=numOfZon)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxCooTim(final nin=numOfZon)
     "Find the maximum cool down time"
     annotation (Placement(transformation(extent={{-140,184},{-120,204}})));
-  CDL.Continuous.MultiMax maxWarTim(final nin=numOfZon)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxWarTim(final nin=numOfZon)
     "Find the maximum warm-up time"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
-  CDL.Logical.Switch corCooDowTim "Corrected cool down period"
+  Buildings.Controls.OBC.CDL.Logical.Switch corCooDowTim "Corrected cool down period"
     annotation (Placement(transformation(extent={{0,170},{20,190}})));
-  CDL.Logical.Switch corWarUpTim "Corrected warm-up period"
+  Buildings.Controls.OBC.CDL.Logical.Switch corWarUpTim "Corrected warm-up period"
     annotation (Placement(transformation(extent={{0,150},{20,130}})));
-  CDL.Continuous.MultiSum sum1(final nin=numOfZon)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum sum1(final nin=numOfZon)
     "Sum up number of zones that have temperature being lower than setpoint"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr(final threshold=4.5)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(final threshold=4.5)
     "Whether or not the number of \"cold\" zone is more than 5"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr1(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1(
     final threshold=numOfZon-0.5)
     "Whether or not all the zones are \"cold\" zone"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
-  CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     uLow=-0.5*bouLim,
     uHigh=0.5*bouLim,
     pre_y_start=false)
     "Whether or not the unoccupied heating setpoint is higher than minimum
     zone temperature by bouLim"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
-  CDL.Logical.FallingEdge falEdg
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Whether or not the unoccupied heating setpoint  becomes lower than
     minimum zone temperature: true to false"
     annotation (Placement(transformation(extent={{180,-60},{200,-40}})));
-  CDL.Logical.Latch lat
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
     "If all zone temperature are higher than unoccupied heating setpoint
     by bouLim, then the setback mode should be off."
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
-  CDL.Logical.Latch lat1
+  Buildings.Controls.OBC.CDL.Logical.Latch lat1
     "If all zone temperature are higher than freProEndVal, then freeze
     protection setback mode should be off."
     annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
-  CDL.Continuous.MultiSum sum2(final nin=numOfZon)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum sum2(final nin=numOfZon)
     "Sum up number of zones that have temperature being higher than setpoint"
     annotation (Placement(transformation(extent={{0,-220},{20,-200}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr2(threshold=4.5)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr2(threshold=4.5)
     "Whether or not the number of \"hot\" zone is more than 5"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr3(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr3(
     final threshold=numOfZon-0.5)
     "Whether or not all the zones are \"hot\" zone"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
-  CDL.Continuous.Hysteresis hys1(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
     pre_y_start=false,
     uLow=-0.5*bouLim,
     uHigh=0.5*bouLim)
     "Whether or not the unoccupied cooling setpoint is higher than maximum
     zone temperature by bouLim"
     annotation (Placement(transformation(extent={{140,-260},{160,-240}})));
-  CDL.Logical.Latch lat2
+  Buildings.Controls.OBC.CDL.Logical.Latch lat2
     annotation (Placement(transformation(extent={{140,-220},{160,-200}})));
-  CDL.Logical.FallingEdge falEdg1
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1
     "Whether or not the unoccupied cooling setpoint  becomes higher than
     maximum zone temperature: true to false"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}})));
-  CDL.Integers.MultiSum sumInt(nin=7) "Sum of inputs"
+  Buildings.Controls.OBC.CDL.Integers.MultiSum sumInt(nin=7) "Sum of inputs"
     annotation (Placement(transformation(extent={{420,-70},{440,-50}})));
-  CDL.Continuous.Product pro[numOfZon]
+  Buildings.Controls.OBC.CDL.Continuous.Product pro[numOfZon]
     "Decide if the cool down time of one zone should be ignored: if window
     open, then output zero, otherwise, output cooDowTim[zone] "
     annotation (Placement(transformation(extent={{-180,180},{-160,200}})));
-  CDL.Continuous.Product pro1[numOfZon]
+  Buildings.Controls.OBC.CDL.Continuous.Product pro1[numOfZon]
     "Decide if the warm-up time of one zone should be ignored: if window
     open, then output zero, otherwise, output warUpTim[zone] "
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
-  CDL.Continuous.Add add2(
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(
     final k1=+1,
     final k2=-1)
     "Calculate the difference between minimum zone temperature and
     unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  CDL.Continuous.Add add1(
+  Buildings.Controls.OBC.CDL.Continuous.Add add1(
     final k1=+1,
     final k2=-1)
     "Calculate the difference between maximum zone temperature and
     unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{80,-280},{100,-260}})));
-  CDL.Continuous.Hysteresis hys2(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
     uLow=-10,
     uHigh=10,
     pre_y_start=true)
     "Whether or not the maximum cool-down time is more than allowed
     cool-down time, with deadband range of 20 seconds"
     annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
-  CDL.Continuous.Hysteresis hys3(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
     uLow=-10,
     uHigh=10,
     pre_y_start=true)
     "Whether or not the maximum warm-up time is more than allowed warm-up
     time, with deadband range of 20 seconds"
     annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
-  CDL.Continuous.Add add5(
+  Buildings.Controls.OBC.CDL.Continuous.Add add5(
     final k1=-1,
     final k2=+1)
     "Calculate differential between time-to-next-occupancy and the
     cool-down time"
     annotation (Placement(transformation(extent={{60,180},{80,200}})));
-  CDL.Continuous.Hysteresis hys4(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
     pre_y_start=false,
     uLow=-10,
     uHigh=10)
     "Whether or not the cool-down model should be activated, with deadband
     range of 20 s"
     annotation (Placement(transformation(extent={{100,180},{120,200}})));
-  CDL.Continuous.Hysteresis hys5(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys5(
     pre_y_start=false,
     uLow=-10,
     uHigh=10)
     "Whether or not the warm-up model should be activated, with deadband
     range of 20 s"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
-  CDL.Continuous.Add add6(
+  Buildings.Controls.OBC.CDL.Continuous.Add add6(
     final k1=-1,
     final k2=+1)
     "Calculate differential between time-to-next-occupancy and the warm-up time"
     annotation (Placement(transformation(extent={{60,140},{80,160}})));
-  CDL.Continuous.Add add7(
+  Buildings.Controls.OBC.CDL.Continuous.Add add7(
     final k1=+1,
     final k2=-1)
     "Calculate differential between minimum zone temperature and the
     heating setpoint"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  CDL.Continuous.Hysteresis hys6(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys6(
     pre_y_start=false,
     uLow=-0.1,
     uHigh=0.1) "Whether or not the system should run in warm-up mode"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  CDL.Continuous.Add add8(
+  Buildings.Controls.OBC.CDL.Continuous.Add add8(
     final k1=-1,
     final k2=+1)
     "Calculate differential between maximum zone temperature and the cooling
     setpoint"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  CDL.Continuous.Hysteresis hys7(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys7(
     pre_y_start=false,
     uLow=-0.1,
     uHigh=0.1) "Whether or not the system should run in cool-down mode"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  CDL.Continuous.Add add9[numOfZon](
+  Buildings.Controls.OBC.CDL.Continuous.Add add9[numOfZon](
     each k1=-1,
     each k2=+1) "Calculate zone temperature difference to setpoint"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  CDL.Continuous.Hysteresis hys8[numOfZon](
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys8[numOfZon](
     each pre_y_start=false,
     each uLow=-0.1,
     each uHigh=0.1)
     "Whether or not the zone temperature is lower then setpoint, with
     deadband of 0.2 degC"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  CDL.Continuous.Hysteresis hys9(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys9(
     pre_y_start=false,
     uLow=-0.1,
     uHigh=0.1)
     "Whether or not any zone temperature is lower than freProThrVal, with
     deadband of 0.2 degC"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
     p=freProThrVal,
     final k=-1)
     "Calculate differential between minimum zone temperature and freeze
     protection threshold temperature"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
-  CDL.Continuous.Hysteresis hys10(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys10(
     pre_y_start=false,
     uLow=-0.1,
     uHigh=0.1)
     "Whether or not all zone temperature are higher than freProEndVal, with
     deadband of 0.2 degC"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
-  CDL.Continuous.AddParameter addPar1(
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
     final k=1,
     p=(-1)*freProEndVal)
     "Calculate differential between maximum zone temperature and the freeze
     protection ending threshold value"
     annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
-  CDL.Continuous.Add add10[numOfZon](
+  Buildings.Controls.OBC.CDL.Continuous.Add add10[numOfZon](
     each k1=+1,
     each k2=-1) "Calculate zone temperature difference to setpoint"
     annotation (Placement(transformation(extent={{-160,-220},{-140,-200}})));
-  CDL.Continuous.Hysteresis hys11[numOfZon](
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys11[numOfZon](
     each pre_y_start=false,
     each uLow=-0.1,
     each uHigh=0.1)
     "Whether or not the zone temperature is higher than setpoint, with
     deadband of 0.2 degC"
     annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
-  CDL.Continuous.AddParameter addPar2(
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
     p=preWarCooTim,
     final k=-1)
     "Calculate the differential between maximum cool down time and the
     allowed maximum cool down time"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
-  CDL.Continuous.AddParameter addPar3(
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar3(
     p=preWarCooTim,
     final k=-1)
     "Calculate the differential between maximum warm-up time and the
     allowed maximum warm-up time"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
-  CDL.Continuous.Sources.Constant maxWarCooTime(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxWarCooTime(
     k=preWarCooTim)
     "Allowed maximum warm-up/cool-down time"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
 
 protected
-  CDL.Conversions.RealToInteger occMod
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger occMod
     "Convert Real number to Integer number"
     annotation (Placement(transformation(extent={{300,240},{320,260}})));
-  CDL.Conversions.RealToInteger setBacMod
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger setBacMod
     "Convert Real number to Integer number"
     annotation (Placement(transformation(extent={{300,-20},{320,0}})));
-  CDL.Conversions.RealToInteger freProSetBacMod
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger freProSetBacMod
     "Convert Real number to Integer number"
     annotation (Placement(transformation(extent={{300,-120},{320,-100}})));
-  CDL.Conversions.RealToInteger setUpMod
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger setUpMod
     "Convert Real number to Integer number"
     annotation (Placement(transformation(extent={{300,-220},{320,-200}})));
-  CDL.Conversions.BooleanToInteger booToInt1(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
     integerTrue=Buildings.Controls.OBC.ASHRAE.G36.Constants.OperationModes.warUp)
     "Convert Boolean to Integer number"
     annotation (Placement(transformation(extent={{260,140},{280,160}})));
-  CDL.Conversions.BooleanToInteger booToInt(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
     integerTrue=Buildings.Controls.OBC.ASHRAE.G36.Constants.OperationModes.cooDow)
     "Convert Boolean to Integer number"
     annotation (Placement(transformation(extent={{260,180},{280,200}})));
-  CDL.Conversions.BooleanToInteger booToInt3(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt3(
     integerTrue=Buildings.Controls.OBC.ASHRAE.G36.Constants.OperationModes.unoMod)
     "Convert Boolean to Integer "
     annotation (Placement(transformation(extent={{300,-340},{320,-320}})));
-  CDL.Conversions.BooleanToReal booToRea6(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea6(
     realTrue=Buildings.Controls.OBC.ASHRAE.G36.Constants.OperationModes.setUp)
     "Convert Boolean to Real "
     annotation (Placement(transformation(extent={{200,-220},{220,-200}})));
-  CDL.Conversions.BooleanToReal booToRea5[numOfZon]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea5[numOfZon]
     "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{-80,-220},{-60,-200}})));
-  CDL.Conversions.BooleanToReal booToRea4(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea4(
     realTrue=Buildings.Controls.OBC.ASHRAE.G36.Constants.OperationModes.frePro)
     "Convert Boolean to Real "
     annotation (Placement(transformation(extent={{200,-120},{220,-100}})));
-  CDL.Conversions.BooleanToReal booToRea3(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea3(
     realTrue=Buildings.Controls.OBC.ASHRAE.G36.Constants.OperationModes.setBac)
     "Convert Boolean to Real "
     annotation (Placement(transformation(extent={{200,-20},{220,0}})));
-  CDL.Conversions.BooleanToReal booToRea2[numOfZon]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[numOfZon]
     "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  CDL.Conversions.BooleanToInteger booToInt2(integerTrue=3)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2(integerTrue=3)
     "Convert Boolean to Integer"
     annotation (Placement(transformation(extent={{260,-160},{280,-140}})));
-  CDL.Conversions.BooleanToReal booToRea9[numOfZon]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea9[numOfZon]
     "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
-  CDL.Logical.Not not1[numOfZon] "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not1[numOfZon] "Logical not"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
-  CDL.Logical.Not not2 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
    annotation (Placement(transformation(extent={{260,-340},{280,-320}})));
-  CDL.Logical.And and1 "Whether or not the warm-up time should be activated"
+  Buildings.Controls.OBC.CDL.Logical.And and1 "Whether or not the warm-up time should be activated"
     annotation (Placement(transformation(extent={{140,140},{160,160}})));
-  CDL.Logical.And and2 "Whether or not the cool-down time should be activated"
+  Buildings.Controls.OBC.CDL.Logical.And and2 "Whether or not the cool-down time should be activated"
     annotation (Placement(transformation(extent={{140,180},{160,200}})));
-  CDL.Logical.Or or1
+  Buildings.Controls.OBC.CDL.Logical.Or or1
     "Whether or not the number of \"cold\" zone is more than 5 or all
     zones are cold"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
-  CDL.Logical.Or3 or3
+  Buildings.Controls.OBC.CDL.Logical.Or3 or3
     "Whether or not it is in \"Occupied\"/\"Cool-down\"/\"Warm-up\" mode"
     annotation (Placement(transformation(extent={{80,22},{100,42}})));
-  CDL.Logical.Or or4
+  Buildings.Controls.OBC.CDL.Logical.Or or4
     "Whether or not the number of \"hot\" zone is more than 5 or all
     zones are cold"
     annotation (Placement(transformation(extent={{80,-220},{100,-200}})));
-  CDL.Logical.Or3 or5
+  Buildings.Controls.OBC.CDL.Logical.Or3 or5
     "If it is in \"Setback\"/\"Setback_freezeProtection\"/\"Setup\" mode"
     annotation (Placement(transformation(extent={{140,-320},{160,-300}})));
-  CDL.Logical.Or or6 "If it is in any of the 6 modes except unoccupied mode"
+  Buildings.Controls.OBC.CDL.Logical.Or or6 "If it is in any of the 6 modes except unoccupied mode"
     annotation (Placement(transformation(extent={{200,-340},{220,-320}})));
-  CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Switch between occupied mode index and unoccupied period index"
     annotation (Placement(transformation(extent={{260,240},{280,260}})));
-  CDL.Logical.Switch swi1[numOfZon]
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1[numOfZon]
     "Decide if the temperature difference to setpoint should be ignored:
     if the zone window is open, then output setpoint temperature, otherwise,
     output zone temperature"
     annotation (Placement(transformation(extent={{-200,2},{-180,-18}})));
-  CDL.Logical.Switch swi2[numOfZon]
+  Buildings.Controls.OBC.CDL.Logical.Switch swi2[numOfZon]
     "Decide if the temperature difference to setpoint should be ignored:
     if the zone window is open, then output setpoint temperature, otherwise,
     output zone temperature"
     annotation (Placement(transformation(extent={{-200,-200},{-180,-220}})));
-  CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Logical.Switch swi3
     "If the Cool-down/warm-up/Occupied mode is on, then setback mode should
     not be activated."
     annotation (Placement(transformation(extent={{260,-20},{280,0}})));
-  CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Logical.Switch swi4
     "If the Cool-down/warm-up/Occupied mode is on, then freeze protection
     setback mode should not be activated."
     annotation (Placement(transformation(extent={{260,-120},{280,-100}})));
-  CDL.Logical.Switch swi5
+  Buildings.Controls.OBC.CDL.Logical.Switch swi5
     "If the Cool-down/warm-up/Occupied mode is on, then setup mode should
     not be activated."
     annotation (Placement(transformation(extent={{260,-220},{280,-200}})));
-  CDL.Routing.RealReplicator reaRep(nout=numOfZon) "Replicate Real input"
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=numOfZon) "Replicate Real input"
     annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
-  CDL.Routing.RealReplicator reaRep1(nout=numOfZon) "Replicate Real input"
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(nout=numOfZon) "Replicate Real input"
     annotation (Placement(transformation(extent={{-200,-260},{-180,-240}})));
-  CDL.Continuous.MultiMin minZonTem(nin=numOfZon) "Find the minimum zone temperature"
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin minZonTem(nin=numOfZon) "Find the minimum zone temperature"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
-  CDL.Continuous.MultiMax maxZonTem(nin=numOfZon) "Find the maximum zone temperature"
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxZonTem(nin=numOfZon) "Find the maximum zone temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
 equation

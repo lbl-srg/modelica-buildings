@@ -41,57 +41,59 @@ block EconDamperPositionLimitsMultiZone
     "Physically fixed minimum position of the outdoor air damper"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
 
-  CDL.Interfaces.RealInput VOut_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Measured outdoor volumetric airflow rate"
     annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput VOutMinSet_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Minimum outdoor volumetric airflow rate setpoint"
     annotation (Placement(transformation(extent={{-220,200},{-180,240}}),
         iconTransformation(extent={{-120,40},{-100,60}})));
-  CDL.Interfaces.IntegerInput uOpeMod "AHU operation mode status signal"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
+    "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-220,-200},{-180,-160}}),
     iconTransformation(extent={{-120,-60},{-100,-40}})));
-  CDL.Interfaces.IntegerInput uFreProSta "Freeze protection status signal"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
+    "Freeze protection status signal"
     annotation (Placement(transformation(extent={{-220,-160},{-180,-120}}),
     iconTransformation(extent={{-120,-90},{-100,-70}})));
-  CDL.Interfaces.BooleanInput uSupFan "Supply fan status signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status signal"
     annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
 
-  CDL.Interfaces.RealOutput yOutDamPosMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMin(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1")
     "Minimum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{180,70},{200,90}}),
         iconTransformation(extent={{100,40},{120,60}})));
-  CDL.Interfaces.RealOutput yOutDamPosMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMax(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1")
     "Maximum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{180,30},{200,50}}),
         iconTransformation(extent={{100,60},{120,80}})));
-  CDL.Interfaces.RealOutput yRetDamPosMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMin(
     final min=retDamPhyPosMin,
     final max=retDamPhyPosMax,
     final unit="1")
     "Minimum return air damper position limit"
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  CDL.Interfaces.RealOutput yRetDamPosMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMax(
     final min=retDamPhyPosMin,
     final max=retDamPhyPosMax,
     final unit="1")
     "Maximum return air damper position limit"
     annotation (Placement(transformation(extent={{180,-50},{200,-30}}),
         iconTransformation(extent={{100,-30},{120,-10}})));
-  CDL.Interfaces.RealOutput yRetDamPhyPosMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1")
@@ -99,7 +101,7 @@ block EconDamperPositionLimitsMultiZone
     annotation (Placement(transformation(extent={{180,-90},{200,-70}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
 
-  CDL.Continuous.LimPID damLimCon(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID damLimCon(
     final Ti=TiDamLim,
     final yMax=conSigMax,
     final yMin=conSigMin,
@@ -108,58 +110,67 @@ block EconDamperPositionLimitsMultiZone
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
 
 protected
-  CDL.Continuous.Sources.Constant outDamPhyPosMinSig(final k=outDamPhyPosMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMinSig(
+    final k=outDamPhyPosMin)
     "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
-  CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(final k=outDamPhyPosMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(
+    final k=outDamPhyPosMax)
     "Physically fixed maximum position of the outdoor air damper."
     annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
-  CDL.Continuous.Sources.Constant retDamPhyPosMinSig(final k=retDamPhyPosMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyPosMinSig(
+    final k=retDamPhyPosMin)
     "Physically fixed minimum position of the return air damper"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  CDL.Continuous.Sources.Constant retDamPhyPosMaxSig(final k=retDamPhyPosMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyPosMaxSig(
+    final k=retDamPhyPosMax)
     "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
-  CDL.Continuous.Sources.Constant minSigLim(final k=conSigMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSigLim(
+    final k=conSigMin)
     "Equals minimum controller output signal"
     annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
-  CDL.Continuous.Sources.Constant maxSigLim(final k=conSigMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxSigLim(
+    final k=conSigMax)
     "Equals maximum controller output signal"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
-  CDL.Continuous.Sources.Constant sigFraForOutDam(final k=retDamConSigMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigFraForOutDam(
+    final k=retDamConSigMin)
     "Equals the fraction of the control loop signal below which the outdoor air damper
     limit gets modulated and above which the return air damper limit gets modulated"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
 
-  CDL.Continuous.Line minOutDam(
+  Buildings.Controls.OBC.CDL.Continuous.Line minOutDam(
     final limitBelow=true,
     final limitAbove=true)
     "Linear mapping of the outdoor air damper position to the control signal"
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
-  CDL.Continuous.Line minRetDam(
+  Buildings.Controls.OBC.CDL.Continuous.Line minRetDam(
     final limitBelow=true,
     final limitAbove=true)
     "Linear mapping of the return air damper position to the control signal"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
-  CDL.Logical.Switch retDamPosMinSwitch
+  Buildings.Controls.OBC.CDL.Logical.Switch retDamPosMinSwitch
     "A switch to deactivate the return air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  CDL.Logical.Switch outDamPosMaxSwitch
+  Buildings.Controls.OBC.CDL.Logical.Switch outDamPosMaxSwitch
     "A switch to deactivate the outdoor air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  CDL.Logical.MultiAnd and1(final nu=3) "Locigal and block"
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd and1(final nu=3) "Locigal and block"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-  CDL.Logical.Not not1 "Logical not block"
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not block"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  CDL.Integers.Sources.Constant conInt(k=Constants.FreezeProtectionStages.stage0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    k=Constants.FreezeProtectionStages.stage0)
     "Freeze protection stage 0 index"
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
-  CDL.Integers.Sources.Constant conInt1(k=Constants.OperationModes.occMod)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
+    k=Constants.OperationModes.occMod)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-160,-210},{-140,-190}})));
-  CDL.Integers.Equal intEqu "Check if freeze protection stage is stage 0"
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu "Check if freeze protection stage is stage 0"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
-  CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
 
 equation

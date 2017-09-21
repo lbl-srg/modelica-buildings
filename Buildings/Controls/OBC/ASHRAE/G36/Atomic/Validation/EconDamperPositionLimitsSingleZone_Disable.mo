@@ -3,21 +3,21 @@ model EconDamperPositionLimitsSingleZone_Disable
   "Validation model for the Single zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
-  EconDamperPositionLimitsSingleZone ecoDamLim1(
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconDamperPositionLimitsSingleZone ecoDamLim1(
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
     final desVOut_flow=desVOut_flow)
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  EconDamperPositionLimitsSingleZone ecoDamLim2(
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconDamperPositionLimitsSingleZone ecoDamLim2(
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
     final desVOut_flow=desVOut_flow)
     "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  EconDamperPositionLimitsSingleZone ecoDamLim3(
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconDamperPositionLimitsSingleZone ecoDamLim3(
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
@@ -47,28 +47,37 @@ protected
     final offset=minVOut_flow,
     final height=desVOut_flow - minVOut_flow) "Constant minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
-  CDL.Logical.Sources.Constant fanStatus1(final k=false) "Fan is off"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus1(
+    final k=false) "Fan is off"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
-  CDL.Integers.Sources.Constant freProSta1(k=Constants.FreezeProtectionStages.stage1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta1(
+    k=Constants.FreezeProtectionStages.stage1)
     "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-160,-100},{-140,-80}})));
-  CDL.Integers.Sources.Constant operationMode1(final k=Constants.OperationModes.occMod)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant operationMode1(
+    final k=Constants.OperationModes.occMod)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
-  CDL.Logical.Sources.Constant fanStatus2(final k=true) "Fan is on"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus2(
+    final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  CDL.Integers.Sources.Constant freProSta2(final k=Constants.FreezeProtectionStages.stage1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta2(
+    final k=Constants.FreezeProtectionStages.stage1)
     "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  CDL.Integers.Sources.Constant operationMode2(final k=Constants.OperationModes.warUp)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant operationMode2(
+    final k=Constants.OperationModes.warUp)
     "AHU operation mode is NOT occupied"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  CDL.Logical.Sources.Constant fanStatus3(final k=true) "Fan is on"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus3(
+    final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  CDL.Integers.Sources.Constant freProSta3(final k=Constants.FreezeProtectionStages.stage2)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta3(
+    final k=Constants.FreezeProtectionStages.stage2)
     "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  CDL.Integers.Sources.Constant operationMode3(final k=Constants.OperationModes.occMod)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant operationMode3(
+    final k=Constants.OperationModes.occMod)
     "AHU operation mode is occupied"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 
@@ -91,7 +100,7 @@ equation
     annotation (Line(points={{-19,-90},{10,-90},{10,-18},{19,-18}}, color={255,127,0}));
   connect(operationMode2.y,ecoDamLim2. uOpeMod)
     annotation (Line(points={{-19,-60},{0,-60},{0,-58},{0,-15},{10,-15},{19,-15}},
-                color={255,127,0}));
+      color={255,127,0}));
   connect(fanStatus3.y,ecoDamLim3. uSupFan)
     annotation (Line(points={{101,-30},{102,-30},{110,-30},{110,-12},{139,-12}},
     color={255,0,255}));

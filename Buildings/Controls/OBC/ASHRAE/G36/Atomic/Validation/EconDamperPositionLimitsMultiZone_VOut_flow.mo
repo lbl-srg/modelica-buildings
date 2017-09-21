@@ -3,7 +3,8 @@ model EconDamperPositionLimitsMultiZone_VOut_flow
   "Validation model for the multiple zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
-  CDL.Continuous.Sources.Constant VOutMinSet_flow(k=minVOutSet_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow(
+    k=minVOutSet_flow)
     "Outdoor volumetric airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Modelica.Blocks.Sources.Ramp VOut_flow(
@@ -13,7 +14,7 @@ model EconDamperPositionLimitsMultiZone_VOut_flow
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
-  EconDamperPositionLimitsMultiZone ecoDamLim
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone ecoDamLim
     "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -25,17 +26,20 @@ protected
   parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=(minVOutSet_flow-minVOut_flow)*2
     "Maximum volumetric airflow increase during the example simulation";
 
-  CDL.Logical.Sources.Constant fanStatus(k=true) "Fan is on"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  CDL.Integers.Sources.Constant freProSta(k=Constants.FreezeProtectionStages.stage0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
+    k=Constants.FreezeProtectionStages.stage0)
     "Freeze protection status 0 - disabled"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  CDL.Integers.Sources.Constant operationMode(k=Constants.OperationModes.occMod)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant operationMode(
+    k=Constants.OperationModes.occMod)
     "Operation mode is Occupied"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
 equation
-  connect(VOut_flow.y, ecoDamLim.VOut_flow) annotation (Line(points={{-39,80},{0,80},{0,8},{19,8}},color={0,0,127}));
+  connect(VOut_flow.y, ecoDamLim.VOut_flow)
+    annotation (Line(points={{-39,80},{0,80},{0,8},{19,8}},color={0,0,127}));
   connect(VOutMinSet_flow.y, ecoDamLim.VOutMinSet_flow)
     annotation (Line(points={{-39,40},{-10,40},{-10,5},{19,5}},color={0,0,127}));
   connect(fanStatus.y, ecoDamLim.uSupFan)

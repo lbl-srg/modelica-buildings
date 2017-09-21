@@ -19,231 +19,262 @@ block DamperValveReheatBox
     "Time constant of Integrator block for damper control"
     annotation(Dialog(group="Controller parameter"));
 
-  CDL.Interfaces.RealInput uHea(min=0, max=1, unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea(min=0, max=1, unit="1")
     "Heating control signal"
     annotation (Placement(transformation(extent={{-360,-180},{-320,-140}}),
       iconTransformation(extent={{-120,-40},{-100,-20}})));
-  CDL.Interfaces.RealInput uCoo(min=0, max=1, unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(min=0, max=1, unit="1")
     "Cooling control signal"
     annotation (Placement(transformation(extent={{-360,240},{-320,280}}),
       iconTransformation(extent={{-120,-20},{-100,0}})));
-  CDL.Interfaces.RealInput VActCooMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActCooMax(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Active cooling maximum"
     annotation (Placement(transformation(extent={{-360,160},{-320,200}}),
       iconTransformation(extent={{-120,80},{-100,100}})));
-  CDL.Interfaces.RealInput VActCooMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActCooMin(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Active cooling minimum"
     annotation (Placement(transformation(extent={{-360,200},{-320,240}}),
       iconTransformation(extent={{-120,60},{-100,80}})));
-  CDL.Interfaces.RealInput VActMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActMin(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Active minimum"
     annotation (Placement(transformation(extent={{-360,30},{-320,70}}),
       iconTransformation(extent={{-120,0},{-100,20}})));
-  CDL.Interfaces.RealInput VActHeaMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActHeaMin(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Active heating minimum"
     annotation (Placement(transformation(extent={{-360,-320},{-320,-280}}),
       iconTransformation(extent={{-120,20},{-100,40}})));
-  CDL.Interfaces.RealInput VActHeaMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActHeaMax(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Active heating maximum"
     annotation (Placement(transformation(extent={{-360,-350},{-320,-310}}),
       iconTransformation(extent={{-120,40},{-100,60}})));
-  CDL.Interfaces.RealInput VDisAir(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDisAir(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Measured discharge airflow rate"
     annotation (Placement(transformation(extent={{-360,300},{-320,340}}),
       iconTransformation(extent={{-10,-10},{10,10}},rotation=90,origin={40,-110})));
-  CDL.Interfaces.RealInput TSup(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "AHU supply air temperature"
     annotation (Placement(transformation(extent={{-360,-70},{-320,-30}}),
       iconTransformation(extent={{-120,-80},{-100,-60}})));
-  CDL.Interfaces.RealInput THeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Zone heating setpoint temperature"
     annotation (Placement(transformation(extent={{-360,-100},{-320,-60}}),
       iconTransformation(extent={{-120,-60},{-100,-40}})));
-  CDL.Interfaces.RealInput TRoo(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-360,-290},{-320,-250}}),
       iconTransformation(extent={{-10,-10},{10,10}},rotation=0, origin={-110,-90})));
-  CDL.Interfaces.RealInput TDisAir(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisAir(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Current discharge air temperature"
     annotation (Placement(transformation(extent={{-360,90},{-320,130}}),
       iconTransformation(extent={{-10,-10},{10,10}},rotation=90,origin={-40,-110})));
-  CDL.Interfaces.RealOutput yDam(min=0, max=1, final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(min=0, max=1, final unit="1")
     "Damper position"
     annotation (Placement(transformation(extent={{320,10},{340,30}}),
       iconTransformation(extent={{100,30},{120,50}})));
-  CDL.Interfaces.RealOutput yHeaVal(min=0, max=1, final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaVal(min=0, max=1, final unit="1")
     "Reheater valve position"
     annotation (Placement(transformation(extent={{320,-50},{340,-30}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
-  CDL.Interfaces.RealOutput VDisAirSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDisAirSet(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Discharge airflow setpoint"
     annotation (Placement(transformation(extent={{320,200},{340,220}}),
       iconTransformation(extent={{100,70},{120,90}})));
-  CDL.Interfaces.RealOutput TDisAirSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDisAirSet(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Discharge airflow setpoint temperature for heating"
     annotation (Placement(transformation(extent={{320,-170},{340,-150}}),
       iconTransformation(extent={{100,-90},{120,-70}})));
 
-  CDL.Logical.Not not1 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-220,20},{-200,40}})));
-  CDL.Logical.Not not2 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
-  CDL.Logical.Not not3 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{200,-240},{220,-220}})));
-  CDL.Logical.Not not4 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not4 "Logical not"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
-  CDL.Logical.Not not5 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not5 "Logical not"
     annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
-  CDL.Logical.And and1
+  Buildings.Controls.OBC.CDL.Logical.And and1
     "Check if heating control signal is between 0 and 0.5"
     annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
-  CDL.Logical.And and2
+  Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if current zone state is deadband"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
-  CDL.Logical.And and3 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and"
     annotation (Placement(transformation(extent={{0,-280},{20,-260}})));
-  CDL.Logical.And and4 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
     annotation (Placement(transformation(extent={{0,180},{20,200}})));
-  CDL.Continuous.Line lin
+  Buildings.Controls.OBC.CDL.Continuous.Line lin
     "Active airflow setpoint for cooling"
     annotation (Placement(transformation(extent={{-160,250},{-140,270}})));
-  CDL.Continuous.Line lin1
+  Buildings.Controls.OBC.CDL.Continuous.Line lin1
     "Discharge air temperature for heating"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  CDL.Continuous.Line lin2
+  Buildings.Controls.OBC.CDL.Continuous.Line lin2
     "Hot water valve position"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
-  CDL.Continuous.Line lin3
+  Buildings.Controls.OBC.CDL.Continuous.Line lin3
     "Active airflow setpoint for heating"
     annotation (Placement(transformation(extent={{-80,-330},{-60,-310}})));
-  CDL.Continuous.LimPID limPID(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID limPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     yMax=1,
     yMin=0,
     k=kWatVal,
     Ti=TiWatVal) "Hot water valve position"
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
-  CDL.Continuous.LimPID damPosCon(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID damPosCon(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     yMax=1,
     yMin=0,
     k=kDam,
     Ti=TiDam) "Damper position controller"
     annotation (Placement(transformation(extent={{260,340},{280,360}})));
-  CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Output active cooling airflow according to cooling control signal"
     annotation (Placement(transformation(extent={{142,240},{162,260}})));
-  CDL.Logical.Switch swi1 "Output active airflow when it is in deadband state"
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Output active airflow when it is in deadband state"
     annotation (Placement(transformation(extent={{140,20},{160,40}})));
-  CDL.Logical.Switch swi2 "Acitive heating airflow rate"
+  Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Acitive heating airflow rate"
     annotation (Placement(transformation(extent={{80,-280},{100,-260}})));
-  CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Logical.Switch swi3
     "Output hot water valve position in case of low discharge air temperature"
     annotation (Placement(transformation(extent={{80,110},{100,130}})));
-  CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Logical.Switch swi4
     "Output active heating airflow according to heating control signal"
     annotation (Placement(transformation(extent={{140,-280},{160,-260}})));
-  CDL.Logical.Switch swi5 "Output active cooling airflow "
+  Buildings.Controls.OBC.CDL.Logical.Switch swi5 "Output active cooling airflow "
     annotation (Placement(transformation(extent={{60,200},{80,180}})));
-  CDL.Logical.Switch watValPos "Output hot water valve position"
+  Buildings.Controls.OBC.CDL.Logical.Switch watValPos "Output hot water valve position"
     annotation (Placement(transformation(extent={{260,-110},{280,-90}})));
-  CDL.Continuous.MultiSum mulSum(nin=3) "Active airflow setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=3) "Active airflow setpoint"
     annotation (Placement(transformation(extent={{200,200},{220,220}})));
 
 protected
-  CDL.Continuous.Sources.Constant conZer(final k=0) "Constant zero"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer(
+    final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-280,280},{-260,300}})));
-  CDL.Continuous.Sources.Constant conZer1(final k=0) "Constant zero"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer1(
+    final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
-  CDL.Continuous.Sources.Constant conZer2(final k=0) "Constant zero"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer2(
+    final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
-  CDL.Continuous.Sources.Constant conZer3(final k=0) "Constant zero"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer3(
+    final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-260,-130},{-240,-110}})));
-  CDL.Continuous.Sources.Constant conZer4(final k=0) "Constant zero"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer4(
+    final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  CDL.Continuous.Sources.Constant conZer5(final k=0) "Constant zero"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer5(
+    final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  CDL.Continuous.Sources.Constant conZer6(final k=0) "Constant zero"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer6(
+    final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{80,-330},{100,-310}})));
-  CDL.Continuous.Sources.Constant conOne(final k=1) "Constant one"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(
+    final k=1) "Constant one"
     annotation (Placement(transformation(extent={{-220,280},{-200,300}})));
-  CDL.Continuous.Sources.Constant conOne1(final k=1) "Constant real value"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne1(
+    final k=1) "Constant real value"
     annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
-  CDL.Continuous.Sources.Constant conOne2(final k=1) "Constant real value"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne2(
+    final k=1) "Constant real value"
     annotation (Placement(transformation(extent={{-180,-360},{-160,-340}})));
-  CDL.Continuous.Sources.Constant conHal(final k=0.5) "Constant real value"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHal(
+    final k=0.5) "Constant real value"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
-  CDL.Continuous.Sources.Constant conHal1(final k=0.5) "Constant real value"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHal1(
+    final k=0.5) "Constant real value"
     annotation (Placement(transformation(extent={{-260,-360},{-240,-340}})));
-  CDL.Continuous.Sources.Constant lowDisAirTem(final k=minDisTem)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant lowDisAirTem(
+    final k=minDisTem)
     "Lowest allowed discharge air temperature"
     annotation (Placement(transformation(extent={{-260,120},{-240,140}})));
-  CDL.Continuous.AddParameter addPar(final p=maxDTem, final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+    final p=maxDTem,
+    final k=1)
     "Maximum heating discharge temperature"
     annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
-  CDL.Continuous.AddParameter addPar1(final k=1, final p=2.8)
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
+    final k=1,
+    final p=2.8)
     "Zone temperature pluzonSetpoints 2.8 degC"
     annotation (Placement(transformation(extent={{-260,-280},{-240,-260}})));
-  CDL.Continuous.Hysteresis hys(final uHigh=0.05, final uLow=0.01)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+    final uHigh=0.05,
+    final uLow=0.01)
     "Check if cooling control signal is greater than zero"
     annotation (Placement(transformation(extent={{-260,20},{-240,40}})));
-  CDL.Continuous.Hysteresis hys1(final uHigh=0.05, final uLow=0.01)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+    final uHigh=0.05,
+    final uLow=0.01)
     "Check if heating control signal is greater than zero"
     annotation (Placement(transformation(extent={{-260,-20},{-240,0}})));
-  CDL.Continuous.Hysteresis hys2(final uHigh=0.05, final uLow=0.01)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
+    final uHigh=0.05,
+    final uLow=0.01)
     "Check if cooling control signal is greater than zero"
     annotation (Placement(transformation(extent={{-160,200},{-140,220}})));
-  CDL.Continuous.Hysteresis hys3(final uHigh=0.05, final uLow=0.01)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
+    final uHigh=0.05,
+    final uLow=0.01)
     "Check if heating control signal is greater than 0"
     annotation (Placement(transformation(extent={{-260,-240},{-240,-220}})));
-  CDL.Continuous.Hysteresis hys4(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
     final uLow=minDisTem - 0.1,
     final uHigh=minDisTem + 0.1)
     "Check if discharge air temperature is greater than lowest discharge air temperature"
     annotation (Placement(transformation(extent={{-220,80},{-200,100}})));
-  CDL.Continuous.Hysteresis hys5(final uLow=0.49, final uHigh=0.51)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys5(
+    final uLow=0.49,
+    final uHigh=0.51)
     "Check if heating control signal is greater than 0.5"
     annotation (Placement(transformation(extent={{-260,-200},{-240,-180}})));
-  CDL.Continuous.Hysteresis hys6(final uLow=-0.1, final uHigh=0.1)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys6(
+    final uLow=-0.1,
+    final uHigh=0.1)
     "Check if supply air temperature is greater than room temperature"
     annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
-  CDL.Continuous.Hysteresis hys7(final uLow=-0.1, final uHigh=0.1)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys7(
+    final uLow=-0.1,
+    final uHigh=0.1)
     "Check if discharge air temperature is greater than room temperature plus 2.8 degC"
     annotation (Placement(transformation(extent={{-80,-280},{-60,-260}})));
-  CDL.Continuous.Add add1(final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1)
     "Calculate temperature difference between discharge air and room plus 2.8 degC"
     annotation (Placement(transformation(extent={{-120,-280},{-100,-260}})));
-  CDL.Continuous.Add add2(final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(final k2=-1)
     "Calculate temperature difference between AHU supply air and room "
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
 

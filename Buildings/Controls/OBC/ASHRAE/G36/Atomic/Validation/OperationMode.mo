@@ -37,7 +37,7 @@ model OperationMode "Validate block OperationModeSelector"
     "Window on/off status"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
       origin={70,-40})));
-  Controls.SetPoints.OccupancySchedule occSch
+  Buildings.Controls.SetPoints.OccupancySchedule occSch
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
 equation
   connect(ramp1.y, sin1.u)

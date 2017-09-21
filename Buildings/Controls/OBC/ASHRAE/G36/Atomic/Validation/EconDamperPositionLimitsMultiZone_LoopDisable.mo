@@ -3,27 +3,27 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
   "Validation model for the multiple zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
-  CDL.Continuous.Sources.Constant VOutMinSet_flow(final k=VOutSet_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow(final k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
-  CDL.Continuous.Sources.Constant VOutMinSet1_flow(final k=VOutSet_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet1_flow(final k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  CDL.Continuous.Sources.Constant VOutMinSet2_flow(final k=VOutSet_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet2_flow(final k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
   // Fan Status
-  CDL.Logical.Sources.Constant fanSta(final k=false) "Fan is off"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanSta(final k=false) "Fan is off"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
 
   // Operation Mode
-  CDL.Integers.Sources.Constant opeMod1(final k=Constants.OperationModes.warUp)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod1(final k=Constants.OperationModes.warUp)
     "AHU operation mode is NOT Occupied"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
   // Freeze Protection Stage
-  CDL.Integers.Sources.Constant freProSta2(final k=Constants.FreezeProtectionStages.stage2)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta2(final k=Constants.FreezeProtectionStages.stage2)
     "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
@@ -46,13 +46,13 @@ model EconDamperPositionLimitsMultiZone_LoopDisable
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
 
-  EconDamperPositionLimitsMultiZone ecoDamLim
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone ecoDamLim
     "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
       annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  EconDamperPositionLimitsMultiZone ecoDamLim1
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone ecoDamLim1
     "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
       annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  EconDamperPositionLimitsMultiZone ecoDamLim2
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconDamperPositionLimitsMultiZone ecoDamLim2
     "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
       annotation (Placement(transformation(extent={{160,-20},{180,0}})));
 
@@ -64,20 +64,20 @@ protected
   final parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=0.2
     "Maximum increase in airflow volume during the example simulation";
 
-  CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage1)
     "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
-  CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occMod)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occMod)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
-  CDL.Logical.Sources.Constant fanStatus1(final k=true) "Fan is on"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus1(final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  CDL.Integers.Sources.Constant freProSta1(final k=Constants.FreezeProtectionStages.stage1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta1(final k=Constants.FreezeProtectionStages.stage1)
     "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  CDL.Logical.Sources.Constant fanStatus2(final k=true) "Fan is on"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus2(final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
-  CDL.Integers.Sources.Constant opeMod2(final k=Constants.OperationModes.occMod)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod2(final k=Constants.OperationModes.occMod)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 

@@ -3,27 +3,29 @@ model EconModulationMultiZone_TSup
   "Validation model for multiple zone VAV AHU outdoor and return air damper position modulation sequence"
   extends Modelica.Icons.Example;
 
-  EconModulationMultiZone ecoMod "Economizer modulation sequence"
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconModulationMultiZone ecoMod
+    "Economizer modulation sequence"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
 protected
   final parameter Modelica.SIunits.Temperature THeaSet=291.15
     "Supply air temperature setpoint";
 
-  CDL.Continuous.Sources.Constant THeaSetSig(final k=THeaSet) "Supply air temperature setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSetSig(
+    final k=THeaSet) "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Modelica.Blocks.Sources.Ramp TSup(
     final duration=900,
     final height=4,
     final offset=THeaSet - 2) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  CDL.Continuous.Sources.Constant outDamPosMin(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMin(final k=0)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  CDL.Continuous.Sources.Constant outDamPosMax(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMax(final k=1)
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  CDL.Continuous.Sources.Constant RetDamPosMin(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RetDamPosMin(final k=0)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  CDL.Continuous.Sources.Constant RetDamPosMax(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RetDamPosMax(final k=1)
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
 equation

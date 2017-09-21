@@ -8,16 +8,16 @@ model ZoneSetpoint "Validate block for zone set point"
     winStaSen=true) "Block determined thermal zone setpoints"
     annotation (Placement(transformation(extent={{60,40},{100,80}})));
 
-  CDL.Continuous.Sources.Constant occCooSet(k=297.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant occCooSet(k=297.15)
     "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  CDL.Continuous.Sources.Constant occHeaSet(k=293.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant occHeaSet(k=293.15)
     "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  CDL.Continuous.Sources.Constant unoCooSet(k=303.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant unoCooSet(k=303.15)
     "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-  CDL.Continuous.Sources.Constant unoHeaSet(k=287.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant unoHeaSet(k=287.15)
     "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Sources.Sine cooSetAdj(freqHz=1/28800)
@@ -26,34 +26,40 @@ model ZoneSetpoint "Validate block for zone set point"
   Modelica.Blocks.Sources.Sine heaSetAdj(freqHz=1/28800, amplitude=0.5)
     "Heating setpoint adjustment"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  CDL.Integers.Sources.Constant cooDemLimLev(k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooDemLimLev(k=0)
     "Cooling demand limit level"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
-  CDL.Integers.Sources.Constant heaDemLimLev(k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant heaDemLimLev(k=0)
     "Heating demand limit level"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  CDL.Continuous.Sources.Ramp ram(duration=28800)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(duration=28800)
     "Generate ramp output"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
-  CDL.Continuous.GreaterThreshold greThr(threshold=0.75)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=0.75)
     "Check if input is greater than 0.75"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  CDL.Conversions.BooleanToInteger booToInt(integerTrue=1, integerFalse=7)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
+    integerTrue=1,
+    integerFalse=7)
     "Convert boolean input to integer output"
     annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
-  CDL.Logical.Sources.Pulse winSta(period=14400, startTime=1200)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
+    period=14400,
+    startTime=1200)
     "Generate signal indicating window status"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  CDL.Logical.Sources.Pulse occSta(period=14400, width=0.95)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse occSta(
+    period=14400,
+    width=0.95)
     "Generate signal indicating occupancy status"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  CDL.Logical.Not not1 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  CDL.Continuous.Sources.Constant zerAdj(k=0) "Zero adjustment"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerAdj(k=0) "Zero adjustment"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
-  CDL.Logical.Switch swi1 "Switch to zero adjustment when window is open"
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Switch to zero adjustment when window is open"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  CDL.Logical.Switch swi2 "Switch to zero adjustment when window is open"
+  Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Switch to zero adjustment when window is open"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
 equation

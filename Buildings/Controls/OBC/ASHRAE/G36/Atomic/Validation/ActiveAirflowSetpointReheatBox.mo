@@ -22,7 +22,7 @@ model ActiveAirflowSetpointReheatBox
     maxDt=11)
     "Output the active airflow setpoint for VAV reheat terminal unit"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  CDL.Continuous.Sources.Ramp coCon(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp coCon(
     height=400,
     duration=86400,
     offset=500) "CO2 concentration"
@@ -32,15 +32,15 @@ model ActiveAirflowSetpointReheatBox
     freqHz=1/86400,
     offset=2) "occNum"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  CDL.Logical.Sources.Pulse winSta(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
     startTime=0,
     width=0.2,
     period=90000)
     "Generate signal indicating window status"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  CDL.Integers.Sources.Constant conInt(k=1) "Occupied mode index"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=1) "Occupied mode index"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  CDL.Integers.Sources.Constant conInt1(k=2) "Cool-down mode index"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(k=2) "Cool-down mode index"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
 equation

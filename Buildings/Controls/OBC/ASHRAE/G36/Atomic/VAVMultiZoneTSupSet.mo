@@ -45,29 +45,29 @@ block VAVMultiZoneTSupSet
     "Maximum response per time interval"
     annotation (Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
 
-  CDL.Interfaces.RealInput TOut(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-120,30},{-100,50}})));
-  CDL.Interfaces.RealInput TSetZones(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetZones(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Average of heating and cooling setpoint"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
       iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
-  CDL.Interfaces.IntegerInput uOpeMod "System operation mode"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod "System operation mode"
     annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
       iconTransformation(extent={{-120,-90},{-100,-70}})));
-  CDL.Interfaces.IntegerInput uZonTemResReq
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonTemResReq
     "Zone cooling supply air temperature reset request"
     annotation (Placement( transformation(extent={{-140,0},{-100,40}}),
       iconTransformation(extent={{-120,-50},{-100,-30}})));
-  CDL.Interfaces.RealOutput TSup(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSup(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Supply air temperature"
@@ -87,48 +87,48 @@ block VAVMultiZoneTSupSet
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
 protected
-  CDL.Continuous.Line lin
+  Buildings.Controls.OBC.CDL.Continuous.Line lin
   "Supply temperature distributes linearly between TSupMin and TSupMax, according to Tout"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  CDL.Continuous.Sources.Constant minOutTem(k=TOutMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOutTem(k=TOutMin)
     "Lower value of the outdoor air temperature reset range"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  CDL.Continuous.Sources.Constant maxOutTem(k=TOutMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxOutTem(k=TOutMax)
     "Higher value of the outdoor air temperature reset range"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  CDL.Continuous.Sources.Constant minSupTem(k=TSupMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSupTem(k=TSupMin)
     "Lowest cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  CDL.Logical.And and2 "Check if it is in Setup or Cool-down mode"
+  Buildings.Controls.OBC.CDL.Logical.And and2 "Check if it is in Setup or Cool-down mode"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  CDL.Logical.And and1 "Check if it is in Warmup or Setback mode"
+  Buildings.Controls.OBC.CDL.Logical.And and1 "Check if it is in Warmup or Setback mode"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  CDL.Continuous.Sources.Constant TSupWarUpSetBac(k=35 + 273.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupWarUpSetBac(k=35 + 273.15)
     "Supply temperature setpoint under warm-up and setback mode"
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
-  CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1
     "If operation mode is setup or cool-down, setpoint shall be 35 degC"
     annotation (Placement(transformation(extent={{100,-40},{120,-60}})));
-  CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Logical.Switch swi2
     "If operation mode is setup or cool-down, setpoint shall be TSupMin"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  CDL.Continuous.Limiter TDea(
+  Buildings.Controls.OBC.CDL.Continuous.Limiter TDea(
     uMax=24 + 273.15,
     uMin=21 + 273.15)
     "Limiter that outputs the dead band value for the supply air temperature"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  CDL.Logical.Switch swi3 "Check output regarding supply fan status"
+  Buildings.Controls.OBC.CDL.Logical.Switch swi3 "Check output regarding supply fan status"
     annotation (Placement(transformation(extent={{100,10},{120,-10}})));
-  CDL.Integers.LessThreshold intLesThr(threshold=Constants.OperationModes.warUp)
+  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(threshold=Constants.OperationModes.warUp)
     "Check if operation mode index is less than warm-up mode index (4)"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  CDL.Integers.GreaterThreshold intGreThr(threshold=Constants.OperationModes.occMod)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(threshold=Constants.OperationModes.occMod)
     "Check if operation mode index is greater than occupied mode index (1)"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  CDL.Integers.LessThreshold intLesThr1(threshold=Constants.OperationModes.unoMod)
+  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr1(threshold=Constants.OperationModes.unoMod)
     "Check if operation mode index is less than unoccupied mode index (7)"
     annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
-  CDL.Integers.GreaterThreshold intGreThr1(threshold=Constants.OperationModes.setUp)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(threshold=Constants.OperationModes.setUp)
     "Check if operation mode index is greater than set up mode index (3)"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
 

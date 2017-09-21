@@ -3,28 +3,33 @@ model EconEnableDisableMultiZone_TOut_hOut
   "Model validates economizer disable in case outdoor air conditions are above cutoff"
   extends Modelica.Icons.Example;
 
-  CDL.Continuous.Sources.Constant TOutCut(final k=TOutCutoff) "Outdoor air temperature cutoff"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(
+    final k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
-  CDL.Continuous.Sources.Constant hOutCut1(final k=hOutCutoff) "Outdoor air enthalpy cutoff"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut1(
+    final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  CDL.Logical.TriggeredTrapezoid TOut(
+  Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid TOut(
     final rising=1000,
     final falling=800,
     final amplitude=4,
     final offset=TOutCutoff - 2) "Outoor air temperature"
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
-  CDL.Logical.TriggeredTrapezoid hOut(
+  Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid hOut(
     final amplitude=4000,
     final offset=hOutCutoff - 2200,
     final rising=1000,
     final falling=800) "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
-  EconEnableDisableMultiZone ecoEnaDis "Multizone VAV AHU economizer enable disable sequence"
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconEnableDisableMultiZone ecoEnaDis
+    "Multizone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  EconEnableDisableMultiZone ecoEnaDis1 "Multizone VAV AHU economizer enable disable sequence"
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconEnableDisableMultiZone ecoEnaDis1
+    "Multizone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  EconEnableDisableMultiZone ecoEnaDis2(final use_enthalpy=false)
+  Buildings.Controls.OBC.ASHRAE.G36.Atomic.EconEnableDisableMultiZone ecoEnaDis2(
+    final use_enthalpy=false)
     "Multizone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{220,-40},{240,-20}})));
 
@@ -34,38 +39,50 @@ protected
   final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
 
-  CDL.Continuous.Sources.Constant hOutCut(final k=hOutCutoff) "Outdoor air enthalpy cutoff"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut(
+    final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-240,40},{-220,60}})));
-  CDL.Continuous.Sources.Constant TOutCut1(final k=TOutCutoff) "Outdoor air temperature cutoff"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
+    final k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  CDL.Continuous.Sources.Constant hOutBelowCutoff(final k=hOutCutoff - 1000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(
+    final k=hOutCutoff - 1000)
     "Outdoor air enthalpy is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-240,80},{-220,100}})));
-  CDL.Continuous.Sources.Constant TOutBelowCutoff(final k=TOutCutoff - 2)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
+    final k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  CDL.Continuous.Sources.Constant outDamPosMax(final k=0.9) "Maximal allowed economizer damper position"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMax(
+    final k=0.9) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-80},{-220,-60}})));
-  CDL.Continuous.Sources.Constant outDamPosMin(final k=0.1) "Minimal allowed economizer damper position"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMin(
+    final k=0.1) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
-  CDL.Continuous.Sources.Constant retDamPosMax(final k=0.8) "Maximal allowed economizer damper position"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPosMax(
+    final k=0.8) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
-  CDL.Continuous.Sources.Constant retDamPosMin(final k=0) "Minimal allowed economizer damper position"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPosMin(
+    final k=0) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
-  CDL.Continuous.Sources.Constant retDamPhyPosMax(final k=1) "Maximal allowed economizer damper position"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyPosMax(
+    final k=1) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
-  CDL.Integers.Sources.Constant zonSta(final k=Constants.ZoneStates.deadband) "Zone State is deadband"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant zonSta(
+    final k=Constants.ZoneStates.deadband) "Zone State is deadband"
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
-  CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
+    final k=Constants.FreezeProtectionStages.stage0)
     "Freeze Protection Status - Disabled"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
-  CDL.Logical.Sources.Constant supFanSta(final k=true) "Supply fan status signal"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFanSta(
+    final k=true) "Supply fan status signal"
       annotation (Placement(transformation(extent={{-200,-42},{-180,-22}})));
-  CDL.Logical.Sources.Pulse booPul(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final startTime=10,
     final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-200,120},{-180,140}})));
-  CDL.Logical.Sources.Pulse booPul1(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
     final startTime=10,
     final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
