@@ -58,10 +58,10 @@ equation
   connect(unoCooSet.y, opeModSel.TUnoCooSet)
     annotation (Line(points={{21,-70},{30,-70},{40,-70},{40,-9},{59,-9}},
       color={0,0,127}));
-  connect(warUpTim.y, opeModSel.warUpTim[1])
+  connect(warUpTim.y, opeModSel.warmUpTim[1])
     annotation (Line(points={{-39,40},{-20,40},{-20,20},{34,20},{34,2},{46,2},
       {46,2.2},{59,2.2}}, color={0,0,127}));
-  connect(cooDowTim.y, opeModSel.cooDowTim[1])
+  connect(cooDowTim.y, opeModSel.coolDownTim[1])
     annotation (Line(points={{21,40},{36,40},{36,4},{48,4},{48,4.4},{59,4.4}},
       color={0,0,127}));
   connect(uWinSta.y, opeModSel.uWinSta[1])

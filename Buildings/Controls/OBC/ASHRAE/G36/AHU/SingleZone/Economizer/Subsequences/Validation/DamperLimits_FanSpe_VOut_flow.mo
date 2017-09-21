@@ -35,7 +35,7 @@ protected
     "Freeze protection status - disabled"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant operationMode(
-    final k=Constants.OperationModes.occMod)
+    final k=Constants.OperationModes.occupied)
     "Operation mode - occupied"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSetSig(

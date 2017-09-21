@@ -119,13 +119,13 @@ protected
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi3 "Check output regarding supply fan status"
     annotation (Placement(transformation(extent={{100,10},{120,-10}})));
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(threshold=Constants.OperationModes.warUp)
+  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(threshold=Constants.OperationModes.warmUp)
     "Check if operation mode index is less than warm-up mode index (4)"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(threshold=Constants.OperationModes.occMod)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(threshold=Constants.OperationModes.occupied)
     "Check if operation mode index is greater than occupied mode index (1)"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr1(threshold=Constants.OperationModes.unoMod)
+  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr1(threshold=Constants.OperationModes.unoccupied)
     "Check if operation mode index is less than unoccupied mode index (7)"
     annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(threshold=Constants.OperationModes.setUp)

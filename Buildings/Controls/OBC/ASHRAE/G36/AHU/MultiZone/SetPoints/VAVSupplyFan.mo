@@ -142,11 +142,11 @@ protected
     "Constant true"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    k=Constants.OperationModes.cooDow)
+    k=Constants.OperationModes.coolDown)
     "Cool down mode"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
-    k=Constants.OperationModes.warUp)
+    k=Constants.OperationModes.warmUp)
     "Warm-up mode"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
@@ -154,11 +154,11 @@ protected
     "Set up mode"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    k=Constants.OperationModes.occMod)
+    k=Constants.OperationModes.occupied)
     "Occupied mode"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
-    k=Constants.OperationModes.setBac)
+    k=Constants.OperationModes.setBack)
     "Set back mode"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu

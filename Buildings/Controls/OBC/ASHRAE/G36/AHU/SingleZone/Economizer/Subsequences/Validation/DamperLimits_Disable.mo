@@ -55,7 +55,7 @@ protected
     "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-160,-100},{-140,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant operationMode1(
-    final k=Constants.OperationModes.occMod)
+    final k=Constants.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus2(
@@ -66,7 +66,7 @@ protected
     "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant operationMode2(
-    final k=Constants.OperationModes.warUp)
+    final k=Constants.OperationModes.warmUp)
     "AHU operation mode is NOT occupied"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus3(
@@ -77,7 +77,7 @@ protected
     "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant operationMode3(
-    final k=Constants.OperationModes.occMod)
+    final k=Constants.OperationModes.occupied)
     "AHU operation mode is occupied"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 

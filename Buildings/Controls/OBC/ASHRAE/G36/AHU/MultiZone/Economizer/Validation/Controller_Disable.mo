@@ -43,7 +43,7 @@ protected
     "Zone State is heating"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
-    final k=Constants.OperationModes.occMod)
+    final k=Constants.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(

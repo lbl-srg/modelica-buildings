@@ -267,15 +267,15 @@ protected
     "Current operation mode is occupied, warm-up, or cool-down mode"
     annotation (Placement(transformation(extent={{-20,600},{0,620}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    k=Constants.OperationModes.warUp)
+    k=Constants.OperationModes.warmUp)
     "Warm-up mode"
     annotation (Placement(transformation(extent={{-340,570},{-320,590}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
-    k=Constants.OperationModes.cooDow)
+    k=Constants.OperationModes.coolDown)
     "Cool-down mode"
     annotation (Placement(transformation(extent={{-240,570},{-220,590}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    k=Constants.OperationModes.occMod)
+    k=Constants.OperationModes.occupied)
     "Occupied mode"
     annotation (Placement(transformation(extent={{-140,570},{-120,590}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cooSetAdjCon(k=(cooAdj or sinAdj))

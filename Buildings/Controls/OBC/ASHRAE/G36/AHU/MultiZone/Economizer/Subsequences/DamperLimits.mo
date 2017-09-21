@@ -165,7 +165,7 @@ protected
     "Freeze protection stage 0 index"
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
-    k=Constants.OperationModes.occMod)
+    k=Constants.OperationModes.occupied)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-160,-210},{-140,-190}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu "Check if freeze protection stage is stage 0"
@@ -323,7 +323,7 @@ measurement, designed in line with ASHRAE Guidline 36 (G36), PART5.N.6.c.
 <p>
 The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
 the AHU operation mode <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Constants.OperationModes\">
-Buildings.Controls.OBC.ASHRAE.G36.Constants.OperationModes</a> equals <code>occModInt</code>,
+Buildings.Controls.OBC.ASHRAE.G36.Constants.OperationModes</a> equals <code>occupied</code>,
 and the freeze protection stage <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Constants.FreezeProtectionStages\">
 Buildings.Controls.OBC.ASHRAE.G36.Constants.FreezeProtectionStages</a> is <code>stage1</code> or lower.
 Otherwise the damper position limits are set to their corresponding maximum and minimum physical or at
