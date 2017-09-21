@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Constants;
-package OperationModes
+package OperationModes "Zone group operating modes"
   extends Modelica.Icons.Package;
-  constant Integer cooDow = 2 "Cool-down mode index";
-  constant Integer frePro = 6 "Freeze protection mode index";
-  constant Integer occMod = 1 "Occupied mode index";
-  constant Integer setBac = 5 "Set-back mode index";
-  constant Integer setUp =  3 "Set-up mode index";
-  constant Integer unoMod = 7 "Unoccupied mode index";
-  constant Integer warUp =  4 "Warm-up mode index";
+  constant Integer coolDown = 2 "Cool-down";
+  constant Integer freezeProtection = 6 "Freeze protection";
+  constant Integer occupied = 1 "Occupied";
+  constant Integer setBack = 5 "Set-back";
+  constant Integer setUp =  3 "Set-up";
+  constant Integer unoccupied = 7 "Unoccupied";
+  constant Integer warmUp =  4 "Warm-up";
 
   annotation (
   Documentation(info="<html>

@@ -1,4 +1,3 @@
-AHUParameters
 CoolingCoilHumidifyingHeating
 ElectricChillerParallel
 ElectricHeater
@@ -9,7 +8,6 @@ IntegratedPrimaryLoadSide
 IntegratedPrimaryPlantSide
 IntegratedPrimarySecondary
 NonIntegrated
-PartialCoolingCoilHumidifyingHeating
 WatersideEconomizer
 Validation
 BaseClasses
