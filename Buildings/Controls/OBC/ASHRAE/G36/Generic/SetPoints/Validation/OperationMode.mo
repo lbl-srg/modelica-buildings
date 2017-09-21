@@ -3,7 +3,7 @@ model OperationMode "Validate block OperationModeSelector"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.ASHRAE.G36.Generic.SetPoints.OperationMode
     opeModSel(numOfZon=1) "Block that outputs the operation mode"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{72,-10},{92,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     offset=0,
     height=6.2831852,
@@ -35,9 +35,9 @@ model OperationMode "Validate block OperationModeSelector"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uWinSta(k=false)
     "Window on/off status"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
-      origin={70,-40})));
-  Buildings.Controls.SetPoints.OccupancySchedule occSch
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
+      origin={60,-30})));
+  Buildings.Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
 equation
   connect(ramp1.y, sin1.u)
@@ -45,31 +45,32 @@ equation
   connect(sin1.y, addPar.u)
     annotation (Line(points={{-31,0},{-2,0}}, color={0,0,127}));
   connect(addPar.y, opeModSel.TZon[1])
-    annotation (Line(points={{21,0},{59,0}}, color={0,0,127}));
+    annotation (Line(points={{21,0},{71,0}}, color={0,0,127}));
   connect(occHeaSet.y, opeModSel.THeaSet)
-    annotation (Line(points={{-39,-30},{-20,-30},{-20,-12},{34,-12},{34,-2.2},
-      {59,-2.2}}, color={0,0,127}));
+    annotation (Line(points={{-39,-30},{-20,-30},{-20,-12},{34,-12},{34,-2.2},{71,
+          -2.2}}, color={0,0,127}));
   connect(occCooSet.y, opeModSel.TCooSet)
-    annotation (Line(points={{21,-30},{28,-30},{36,-30},{36,-4.6},{59,-4.6}},
+    annotation (Line(points={{21,-30},{36,-30},{36,-4.6},{71,-4.6}},
       color={0,0,127}));
   connect(unoHeaSet.y, opeModSel.TUnoHeaSet)
-    annotation (Line(points={{-39,-70},{-20,-70},{-20,-48},{38,-48},{38,-6.8},
-      {59,-6.8}}, color={0,0,127}));
+    annotation (Line(points={{-39,-70},{-20,-70},{-20,-48},{38,-48},{38,-6.8},{71,
+          -6.8}}, color={0,0,127}));
   connect(unoCooSet.y, opeModSel.TUnoCooSet)
-    annotation (Line(points={{21,-70},{30,-70},{40,-70},{40,-9},{59,-9}},
+    annotation (Line(points={{21,-70},{40,-70},{40,-9},{71,-9}},
       color={0,0,127}));
-  connect(warUpTim.y, opeModSel.warmUpTim[1])
-    annotation (Line(points={{-39,40},{-20,40},{-20,20},{34,20},{34,2},{46,2},
-      {46,2.2},{59,2.2}}, color={0,0,127}));
-  connect(cooDowTim.y, opeModSel.coolDownTim[1])
-    annotation (Line(points={{21,40},{36,40},{36,4},{48,4},{48,4.4},{59,4.4}},
+  connect(warUpTim.y, opeModSel.warUpTim[1])
+    annotation (Line(points={{-39,40},{-20,40},{-20,20},{34,20},{34,2},{46,2},{46,
+          2.2},{71,2.2}}, color={0,0,127}));
+  connect(cooDowTim.y, opeModSel.cooDowTim[1])
+    annotation (Line(points={{21,40},{36,40},{36,4},{48,4},{48,4.4},{71,4.4}},
       color={0,0,127}));
   connect(uWinSta.y, opeModSel.uWinSta[1])
-    annotation (Line(points={{70,-29},{70,-20},{70,-11}}, color={255,0,255}));
+    annotation (Line(points={{71,-30},{72,-30},{72,-30},{82,-30},{82,-12},{82,-12},
+          {82,-11}},                                      color={255,0,255}));
   connect(occSch.tNexOcc, opeModSel.tNexOcc)
-    annotation (Line(points={{21,76},{38,76},{38,6.6},{59,6.6}}, color={0,0,127}));
+    annotation (Line(points={{21,76},{38,76},{38,6.6},{71,6.6}}, color={0,0,127}));
   connect(occSch.occupied, opeModSel.uOcc)
-    annotation (Line(points={{21,64},{40,64},{40,9},{59,9}}, color={255,0,255}));
+    annotation (Line(points={{21,64},{40,64},{40,9},{71,9}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
