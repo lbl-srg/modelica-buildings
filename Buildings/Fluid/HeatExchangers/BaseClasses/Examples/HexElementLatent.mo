@@ -15,7 +15,7 @@ model HexElementLatent
     height=20,
     duration=300,
     startTime=300,
-    offset=101325)
+    offset=101324.95)
                  annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium_A,
@@ -65,9 +65,10 @@ model HexElementLatent
     UA_nominal=9999,
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp1_nominal=10,
-    dp2_nominal=10) annotation (Placement(transformation(extent={{12,-10},{32,
+    dp2_nominal=10,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+                    annotation (Placement(transformation(extent={{12,-10},{32,
             10}})));
   Modelica.Blocks.Sources.Constant TDb1(k=303.15) "Drybulb temperature"
     annotation (Placement(transformation(extent={{-100,-76},{-80,-56}})));
@@ -167,6 +168,12 @@ This energy is measured by the quantity <code>netEne.y</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 21, 2017, by Michael Wetter:<br/>
+Changed pressure so that there is a small flow during the initialization.
+Otherwise, the outlet conditions are not defined for this steady state model,
+and in Dymola 2018FD01, a check on the mass fraction would be violated.
+</li>
 <li>
 April 12, 2017, by Michael Wetter:<br/>
 First implementation.
