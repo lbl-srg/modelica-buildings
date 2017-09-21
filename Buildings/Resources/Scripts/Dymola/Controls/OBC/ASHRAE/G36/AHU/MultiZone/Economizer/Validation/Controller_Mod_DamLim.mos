@@ -1,0 +1,12 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.AHU.MultiZone.Economizer.Validation.Controller_Mod_DamLim", method="dassl", stopTime=900, tolerance=1e-06, resultFile="Controller_Mod_DamLim_MultiZone");
+
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"economizer.ecoEnaDis.andEnaDis.y"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"economizer.VOut_flow","economizer.VOutMinSet_flow"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"economizer.yOutDamPos","economizer.ecoDamLim.yOutDamPosMin","economizer.ecoDamLim.yOutDamPosMax"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=4, y={"economizer.yRetDamPos","economizer.ecoDamLim.yRetDamPosMin","economizer.ecoDamLim.yRetDamPosMax","economizer.ecoDamLim.yRetDamPhyPosMax"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47},{217,67,180}});
+
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=1, y={"economizer1.ecoEnaDis.andEnaDis.y"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=2, y={"economizer1.VOut_flow","economizer1.VOutMinSet_flow"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=3, y={"economizer1.TSup","economizer1.THeaSet"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=4, y={"economizer1.yOutDamPos","economizer1.ecoDamLim.yOutDamPosMin","economizer1.ecoDamLim.yOutDamPosMax"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=5, y={"economizer1.yRetDamPos","economizer1.ecoDamLim.yRetDamPosMin","economizer1.ecoDamLim.yRetDamPosMax","economizer1.ecoDamLim.yRetDamPhyPosMax"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47},{217,67,180}});
