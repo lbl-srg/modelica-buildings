@@ -5,34 +5,34 @@ block DamperLimits
   parameter Real minFanSpe(
     final min=0,
     final max=1,
-    final unit="1") = 0.1 "Minimum supply fan operation speed"
+    final unit="1") = 0 "Minimum supply fan operation speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real maxFanSpe(
     final min=0,
     final max=1,
-    final unit="1") = 0.9 "Maximum supply fan operation speed"
+    final unit="1") = 1 "Maximum supply fan operation speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real minVOutMinFansSpePos(
-    final min=minVOutMaxFanSpePos,
-    final max=desVOutMinFanSpePos,
+    final min=outDamPhyPosMin,
+    final max=outDamPhyPosMax,
     final unit="1") = 0.4
     "OA damper position to supply minimum outdoor airflow at minimum fan speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real minVOutMaxFanSpePos(
     final min=outDamPhyPosMin,
-    final max=minVOutMinFansSpePos,
+    final max=outDamPhyPosMax,
     final unit="1") = 0.3
     "OA damper position to supply minimum outdoor airflow at maximum fan speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real desVOutMinFanSpePos(
-    final min=desVOutMaxFanSpePos,
+    final min=minVOutMinFansSpePos,
     final max=outDamPhyPosMax,
     final unit="1") = 0.9
     "OA damper position to supply design outdoor airflow at minimum fan speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real desVOutMaxFanSpePos(
     final min=minVOutMaxFanSpePos,
-    final max=desVOutMinFanSpePos,
+    final max=outDamPhyPosMax,
     final unit="1") = 0.8
     "OA damper position to supply design outdoor airflow at maximum fan speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
@@ -222,8 +222,7 @@ equation
   connect(not1.y, enaDis1.u2)
     annotation (Line(points={{1,-70},{48,-70},{78,-70}}, color={255,0,255}));
   connect(uSupFan, and1.u[1])
-    annotation (Line(points={{-180,-80},{-122,-80},{-122,-65.3333},{-62,
-          -65.3333}},
+    annotation (Line(points={{-180,-80},{-122,-80},{-122,-65.3333},{-62,-65.3333}},
       color={255,0,255}));
   connect(conInt.y, intEqu.u1)
     annotation (Line(points={{-119,-100},{-112,-100},{-112,-120},{-102,-120}},
