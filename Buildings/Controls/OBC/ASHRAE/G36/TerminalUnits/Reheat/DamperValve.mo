@@ -540,7 +540,7 @@ annotation (
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
-          textString="Active airflow setpoint 
+          textString="Active airflow setpoint
 in cooling state"),
         Text(
           extent={{38,106},{150,82}},
@@ -555,7 +555,7 @@ in cooling state"),
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
-          textString="Active airflow setpoint 
+          textString="Active airflow setpoint
 in deadband state"),
         Text(
           extent={{-46,-44},{152,-80}},
@@ -706,22 +706,22 @@ in heating state")}),
           textString="TDisAirSet")}),
   Documentation(info="<html>
 <p>
-This sequence sets the damper and valve position for VAV reheat terminal unit. 
-The implementation is according to ASHRAE Guideline 36 (G36), PART5.E.6. The 
+This sequence sets the damper and valve position for VAV reheat terminal unit.
+The implementation is according to ASHRAE Guideline 36 (G36), PART5.E.6. The
 calculation is done following the steps below.
 </p>
 <ol>
 <li>
 <p>
 When the zone state is cooling (<code>uCoo>0</code>), then the cooling loop output
-<code>uCoo</code> shall be mapped to the airflow 
+<code>uCoo</code> shall be mapped to the airflow
 setpoint from the cooling minimum <code>VActCooMin</code> to the cooling maximum
-<code>VActCooMax</code> airflow setpoints. The hot water valve is closed (<code>yHeaVal=0</code>) 
+<code>VActCooMax</code> airflow setpoints. The hot water valve is closed (<code>yHeaVal=0</code>)
 unless the discharge air temperature <code>TDisAir</code> is below the minimum
 setpoint (10 &deg;C).</p>
 </li>
 <li>
-<p>If supply air temperature <code>TSup</code> from the AHU is greater than 
+<p>If supply air temperature <code>TSup</code> from the AHU is greater than
 room temperature <code>TRoo</code>, cooling supply airflow setpoint shall be
 no higher than the minimum.
 </p>
@@ -740,14 +740,14 @@ When the zone state is Heating (<code>uHea>0</code>), then
 the heating loop shall maintain space temperature at the heating setpoint
 as follows:</p>
 <ul>
-<li>From 0-50%, the heating loop output <code>uHea</code> shall reset the 
+<li>From 0-50%, the heating loop output <code>uHea</code> shall reset the
 discharge temperature setpoint from current AHU SAT setpoint <code>TSup</code>
 to a maximum of <code>maxDTem</code> above space temperature setpoint. The airflow
 setpoint shall be the heating minimum <code>VActHeaMin</code>.</li>
-<li>From 50-100%, if the discharge air temperature <code>TDisAir</code> is 
+<li>From 50-100%, if the discharge air temperature <code>TDisAir</code> is
 greater than room temperature plus 2.8 Kelvin, the heating loop output <code>uHea</code>
 shall reset the airflow setpoint from the heating minimum airflow setpoint
-<code>VActHeaMin</code> to the heating maximum airflow setpoint 
+<code>VActHeaMin</code> to the heating maximum airflow setpoint
 <code>VActHeaMax</code>.</li>
 </ul>
 </li>

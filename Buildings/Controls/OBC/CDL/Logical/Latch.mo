@@ -102,7 +102,7 @@ When the <code>clr</code> input <code>u0</code> turns <code>ON</code>, the outpu
 </p>
 
 <table summary=\"summary\" border=\"1\">
-<tr><th> Scenario 
+<tr><th> Scenario
 <th> <code>clr</code> input <code>u0</code> </th><th> <code>latch</code> input <code>u</code> </th>
 <th> output <code>y</code> </th><th> Description </th>
 </tr>

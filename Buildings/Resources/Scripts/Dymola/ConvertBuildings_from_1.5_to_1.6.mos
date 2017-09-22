@@ -46,4 +46,3 @@ convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex",
                 "port_a1", "portHex_a");
 convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex",
                 "port_b1", "portHex_b");
-

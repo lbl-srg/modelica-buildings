@@ -59,4 +59,3 @@ createPlot(id = 4,
  subPlot = 2,
  leftTitleType = 1,
  bottomTitleType = 1);
-

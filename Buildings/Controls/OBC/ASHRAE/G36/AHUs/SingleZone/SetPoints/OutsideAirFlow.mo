@@ -21,12 +21,12 @@ block OutsideAirFlow
     "Zone air distribution effectiveness during cooling";
   parameter Real uLow(final unit="K",
     quantity="ThermodynamicTemperature") = -0.5
-    "If zone space temperature minus supply air temperature is less than uLow, 
+    "If zone space temperature minus supply air temperature is less than uLow,
      then it should use heating supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
   parameter Real uHig(final unit="K",
     quantity="ThermodynamicTemperature") = 0.5
-    "If zone space temperature minus supply air temperature is more than uHig, 
+    "If zone space temperature minus supply air temperature is more than uHig,
      then it should use cooling supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
 
@@ -76,7 +76,7 @@ block OutsideAirFlow
     "Required zone outdoor airflow rate"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi2
-    "If window is open or it is not in occupied mode, the required outdoor 
+    "If window is open or it is not in occupied mode, the required outdoor
     airflow rate should be zero"
     annotation (Placement(transformation(extent={{80,20},{100,0}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi3
@@ -194,27 +194,27 @@ Icon(graphics={Rectangle(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-200,-200},{200,200}},
         initialScale=0.05)),
- Documentation(info="<html>      
+ Documentation(info="<html>
 <p>
-This atomic sequence sets the minimum outdoor airflow setpoint for compliance 
-with the ventilation rate procedure of ASHRAE 62.1-2013. The implementation 
+This atomic sequence sets the minimum outdoor airflow setpoint for compliance
+with the ventilation rate procedure of ASHRAE 62.1-2013. The implementation
 is according to ASHRAE Guidline 36 (G36), PART5.P.4.b, PART5.B.2.b, PART3.1-D.2.a.
-</p>   
+</p>
 
 <h4>Step 1: Minimum breathing zone outdoor airflow required <code>breZon</code></h4>
 <ul>
-<li>The area component of the breathing zone outdoor airflow: 
+<li>The area component of the breathing zone outdoor airflow:
 <code>breZonAre = zonAre*outAirPerAre</code>.
 </li>
-<li>The population component of the breathing zone outdoor airflow: 
+<li>The population component of the breathing zone outdoor airflow:
 <code>breZonPop = occCou*outAirPerPer</code>.
 </li>
 </ul>
 <p>
-The number of occupant <code>occCou</code> could be retrieved 
-directly from occupancy sensor <code>nOcc</code> if the sensor exists 
-(<code>occSen=true</code>), or using the default occupant density 
-<code>occDen</code> to find it <code>zonAre*occDen</code>. The occupant 
+The number of occupant <code>occCou</code> could be retrieved
+directly from occupancy sensor <code>nOcc</code> if the sensor exists
+(<code>occSen=true</code>), or using the default occupant density
+<code>occDen</code> to find it <code>zonAre*occDen</code>. The occupant
 density can be found from Table 6.2.2.1 in ASHRAE Standard 62.1-2013.
 For design purpose, use design zone population <code>desZonPop</code> to find
 out the minimum requirement at the ventilation-design condition.
@@ -222,48 +222,48 @@ out the minimum requirement at the ventilation-design condition.
 
 <h4>Step 2: Zone air-distribution effectiveness <code>zonDisEff</code></h4>
 <p>
-Table 6.2.2.2 in ASHRAE 62.1-2013 lists some typical values for setting the 
-effectiveness. Depending on difference between zone space temperature 
-<code>TZon</code> and supply air temperature <code>TSup</code>, Warm-air 
-effectiveness <code>zonDisEffHea</code> or Cool-air effectiveness 
+Table 6.2.2.2 in ASHRAE 62.1-2013 lists some typical values for setting the
+effectiveness. Depending on difference between zone space temperature
+<code>TZon</code> and supply air temperature <code>TSup</code>, Warm-air
+effectiveness <code>zonDisEffHea</code> or Cool-air effectiveness
 <code>zonDisEffCoo</code> should be applied.
 </p>
 
 <h4>Step 3: Minimum required zone outdoor airflow <code>zonOutAirRate</code></h4>
 <p>
-For each zone in any mode other than occupied mode and for zones that have 
-window switches and the window is open, <code>zonOutAirRate</code> shall be 
+For each zone in any mode other than occupied mode and for zones that have
+window switches and the window is open, <code>zonOutAirRate</code> shall be
 zero.
-Otherwise, the required zone outdoor airflow <code>zonOutAirRate</code> 
+Otherwise, the required zone outdoor airflow <code>zonOutAirRate</code>
 shall be calculated as follows:
 </p>
 <i>If the zone is populated, or if there is no occupancy sensor:</i>
 <ul>
-<li>If discharge air temperature at the terminal unit is less than or equal to 
+<li>If discharge air temperature at the terminal unit is less than or equal to
 zone space temperature: <code>zonOutAirRate = (breZonAre+breZonPop)/disEffCoo</code>.
 </li>
 <li>
-If discharge air temperature at the terminal unit is greater than zone space 
+If discharge air temperature at the terminal unit is greater than zone space
 temperature: <code>zonOutAirRate = (breZonAre+breZonPop)/disEffHea</code>
 </li>
 </ul>
 <i>If the zone has an occupancy sensor and is unpopulated:</i>
 <ul>
-<li>If discharge air temperature at the terminal unit is less than or equal to 
+<li>If discharge air temperature at the terminal unit is less than or equal to
 zone space temperature: <code>zonOutAirRate = breZonAre/disEffCoo</code></li>
-<li>If discharge air temperature at the terminal unit is greater than zone 
+<li>If discharge air temperature at the terminal unit is greater than zone
 space temperature: <code>zonOutAirRate = breZonAre/disEffHea</code></li>
 </ul>
 
 <p>
-For the single zone system, the required minimum outdoor airflow setpoint 
+For the single zone system, the required minimum outdoor airflow setpoint
 <code>VOutMinSet_flow</code> equals to the <code>zonOutAirRate</code>.
 
 <h4>References</h4>
 <p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of 
-Standards Review)/ASHRAE Guideline 36P, 
-<i>High Performance Sequences of Operation for HVAC systems</i>. 
+<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
+Standards Review)/ASHRAE Guideline 36P,
+<i>High Performance Sequences of Operation for HVAC systems</i>.
 First Public Review Draft (June 2016)</a>
 </p>
 </html>", revisions="<html>

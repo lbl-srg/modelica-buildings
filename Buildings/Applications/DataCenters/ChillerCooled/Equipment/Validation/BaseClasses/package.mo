@@ -4,7 +4,7 @@ package BaseClasses "Package with base classes for Buildings.Applications.DataCe
 
 annotation (Documentation(info="<html>
 <p>
-This package contains base classes for models in 
+This package contains base classes for models in
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation\">
 Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation</a>.
 </p>

@@ -7,4 +7,3 @@ convertClear();
 
 convertClass("Buildings.HeatTransfer.Data.BoreholeFilling",
              "Buildings.HeatTransfer.Data.BoreholeFillings");
-

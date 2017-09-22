@@ -48,7 +48,7 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests the cooling mode controller implemented in 
+This model tests the cooling mode controller implemented in
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingModeNonIntegrated\">
 Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingModeNonIntegrated</a>.
 </p>

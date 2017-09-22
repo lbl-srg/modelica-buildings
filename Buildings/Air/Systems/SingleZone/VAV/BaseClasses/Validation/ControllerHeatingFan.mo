@@ -33,23 +33,23 @@ equation
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
-Validation test for the block 
+Validation test for the block
 <a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerHeatingFan\">
 Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerHeatingFan</a>.
 </p>
 The sine inputs include:
 <ul>
 <li>
-Zone heating setpoint <code>zonHeaSet</code>, varying from <i>19.0</i> &deg;C 
-to <i>21.0</i> &deg;C 
+Zone heating setpoint <code>zonHeaSet</code>, varying from <i>19.0</i> &deg;C
+to <i>21.0</i> &deg;C
 </li>
 <li>
-Zone cooling setpoint <code>zonCooSet</code>, varying from <i>23.0</i> &deg;C 
-to <i>27.0</i> &deg;C 
+Zone cooling setpoint <code>zonCooSet</code>, varying from <i>23.0</i> &deg;C
+to <i>27.0</i> &deg;C
 </li>
 <li>
-Zone temperature <code>zonTem</code>, varying from <i>17.0 </i> &deg;C to 
-<i>25.0</i> &deg;C 
+Zone temperature <code>zonTem</code>, varying from <i>17.0 </i> &deg;C to
+<i>25.0</i> &deg;C
 </li>
 </ul>
 </html>", revisions="<html>

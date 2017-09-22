@@ -4,7 +4,7 @@ package SingleZone "Sequences for single zone AHU control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains control sequences from ASHRAE Guideline 36, Part 5.P for 
+This package contains control sequences from ASHRAE Guideline 36, Part 5.P for
 single zone VAV air handling unit control.
 </p>
 </html>"));

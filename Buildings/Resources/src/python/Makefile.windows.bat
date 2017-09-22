@@ -6,8 +6,8 @@ REM # Batch to compile Python interface
 REM # Thierry S. Nouidui (TSNouidui@lbl.gov) March 16, 2016
 
 REM ############## NOTES ###########################################
-REM # To compile the libraries, we need to have visual studio 
-REM # compilers installed. The script will try to detect whether 
+REM # To compile the libraries, we need to have visual studio
+REM # compilers installed. The script will try to detect whether
 REM # the target operating system and set the environment variables.
 REM ################################################################
 
@@ -34,7 +34,7 @@ IF %ERRORLEVEL% == 0 (
       GOTO done
     )
   ECHO Windows 32 bit compilation activated.
-  SET BINDIR=..\..\Library\win32 
+  SET BINDIR=..\..\Library\win32
 )ELSE (
     SET PYTHONInc=C:/Python27_x64/include
     SET PYTHONLibs=C:/Python27_x64/libs/python27.lib
@@ -49,8 +49,8 @@ IF %ERRORLEVEL% == 0 (
 
 :: Compiling the dummy Python dlls.
 CL /LD %DUMMY_SRC% /link /out:%DUMMY_DLL%
- 
-:: Compiling the Python interpreter libraries 
+
+:: Compiling the Python interpreter libraries
 CL /LD /MT /I%PYTHONInc% %SRCS% %PYTHONLibs% /link /out:%MOD_DLL%
 
 :: Creating the import library

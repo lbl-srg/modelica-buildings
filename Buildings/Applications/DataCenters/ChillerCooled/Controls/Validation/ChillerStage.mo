@@ -42,14 +42,14 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example test the chiller staging controller implemented in 
+This example test the chiller staging controller implemented in
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.ChillerStage\">
 Buildings.Applications.DataCenters.ChillerCooled.Controls.ChillerStage</a>.
 </p>
 <p>
 The number of running chillers is determined by cooling mode signal and total cooling load. In Free Cooling
 (FC) mode, no chillers are required; in Partial Mechanic Cooling (PMC) mode and Fully Mechanic Cooling (FMC) mode,
-chillers are required to run and the running number is based on cooling load. Details can be found in 
+chillers are required to run and the running number is based on cooling load. Details can be found in
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.ChillerStage\">
 Buildings.Applications.DataCenters.ChillerCooled.Controls.ChillerStage</a>.
 </p>

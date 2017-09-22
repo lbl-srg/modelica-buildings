@@ -82,7 +82,7 @@ This is a simplified room model for a data center. There is no heat exchange bet
 <li>
 July 17, 2015, by Michael Wetter:<br/>
 Added <code>prescribedHeatFlowRate=false</code> for both volumes.
-This is for 
+This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/282\">
 issue 282</a> of the Annex 60 library.
 </li>

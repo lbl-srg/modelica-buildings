@@ -79,7 +79,7 @@ partial model PartialControllerInterface
     annotation(Evaluate=true, Dialog(group="Integrator reset",tab="Controller",
               enable=use_controller));
   parameter Real y_reset=xi_start
-    "Value to which the controller output is reset if the boolean trigger 
+    "Value to which the controller output is reset if the boolean trigger
     has a rising edge, used if reset == Buildings.Types.Reset.Parameter"
     annotation(Dialog(enable= use_controller and
        reset == Buildings.Types.Reset.Parameter,
@@ -96,7 +96,7 @@ partial model PartialControllerInterface
         origin={-60,-100})));
   Modelica.Blocks.Interfaces.RealInput y_reset_in if
        reset == Buildings.Types.Reset.Input
-    "Input signal for state to which integrator is reset, 
+    "Input signal for state to which integrator is reset,
     enabled if reset = Buildings.Types.Reset.Input"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90,

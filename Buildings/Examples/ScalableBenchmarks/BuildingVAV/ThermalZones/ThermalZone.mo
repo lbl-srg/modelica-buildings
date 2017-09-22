@@ -344,14 +344,14 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{280,180}})),
       Documentation(info="<html>
 <p>
-This model consist a building envelope model which is extented from 
+This model consist a building envelope model which is extented from
 <a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">
 Buildings.ThermalZones.Detailed.MixedAir</a>.
 </p>
 <p>
 Internal heat gain which includes radiative heat gain <code>qRadGai_flow</code>,
-convective heat gain <code>qConGai_flow</code>, and latent heat gain 
-<code>qLatGai_flow</code> are referenced from ASHRAE Handbook fundamental. 
+convective heat gain <code>qConGai_flow</code>, and latent heat gain
+<code>qLatGai_flow</code> are referenced from ASHRAE Handbook fundamental.
 The factor <code>gainFactor</code> is used to scale up/down the heat gain.
 The gain schdule is specified by <code>intLoad</code>.
 A constant air infiltration from outside is assumed.

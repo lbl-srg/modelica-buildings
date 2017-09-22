@@ -9,16 +9,16 @@ block SystemRequests
   parameter Modelica.SIunits.Time samPer=180
     "Period of sampling cooling setpoint temperature";
   parameter Modelica.SIunits.TemperatureDifference cooSetDif_1=2.8
-    "Limit value of difference between zone temperature and cooling setpoint 
+    "Limit value of difference between zone temperature and cooling setpoint
     for generating 3 cooling SAT reset requests";
   parameter Modelica.SIunits.TemperatureDifference cooSetDif_2=1.7
-    "Limit value of difference between zone temperature and cooling setpoint 
+    "Limit value of difference between zone temperature and cooling setpoint
     for generating 2 cooling SAT reset requests";
   parameter Modelica.SIunits.TemperatureDifference disAirSetDif_1=17
-    "Limit value of difference between discharge air temperature and its setpoint 
+    "Limit value of difference between discharge air temperature and its setpoint
     for generating 3 hot water reset requests";
   parameter Modelica.SIunits.TemperatureDifference disAirSetDif_2=8.3
-    "Limit value of difference between discharge air temperature and its setpoint 
+    "Limit value of difference between discharge air temperature and its setpoint
     for generating 2 hot water reset requests";
   parameter Modelica.SIunits.Time durTimTem=120
     "Duration time of zone temperature exceeds setpoint"

@@ -4,7 +4,7 @@ package Examples "Collection of models that illustrate model use and test models
 
 annotation (Documentation(info="<html>
 <p>
-This package contains examples for the use of models that can be found in 
+This package contains examples for the use of models that can be found in
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled\">
 Buildings.Applications.DataCenters.ChillerCooled</a>.
 </p>

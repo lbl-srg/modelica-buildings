@@ -25,8 +25,8 @@ annotation (
   Documentation(info="<html>
 <p>
 This model validates <a href=\"modelica://Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.ThermalZone\">
-Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.ThermalZone</a>. 
-The number of floor and zones are default value (<code>nFlo=1, nZon=1</code>) and the 
+Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.ThermalZone</a>.
+The number of floor and zones are default value (<code>nFlo=1, nZon=1</code>) and the
 internal heat gain fluctuating amplitude factor is set to be <code>gainFactor=1</code>.
 </p>
 

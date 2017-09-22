@@ -269,7 +269,7 @@ the transmitted direct radiation on shaded part: <code>AWin*uSha*HDir*tauSha(Inc
 </li>
 </ol>
 <p>
-The outputs are <code>QTraDif_flow = Part1 + Part3</code> and 
+The outputs are <code>QTraDif_flow = Part1 + Part3</code> and
 <code>QTraDir_flow = Part2 + Part4</code>.
 </p>
 

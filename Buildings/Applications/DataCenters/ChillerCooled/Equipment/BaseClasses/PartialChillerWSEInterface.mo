@@ -94,7 +94,7 @@ protected
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This model implements an interface for chillers and integrated/nonitegrated water-side economizers. 
+This model implements an interface for chillers and integrated/nonitegrated water-side economizers.
 </p>
 </html>",
         revisions="<html>

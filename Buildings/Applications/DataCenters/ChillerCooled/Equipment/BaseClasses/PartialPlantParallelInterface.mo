@@ -37,10 +37,10 @@ First implementation.
 </ul>
 </html>",
         info="<html>
-This model implements the interface for the parallel plants 
+This model implements the interface for the parallel plants
 in the <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled\">Buildings.Applications.DataCenters.ChillerCooled</a> package.
-The parallel plants contain <code>num</code> identical plants 
-that share the same temperature setpoint at <code>port_b2</code>. 
+The parallel plants contain <code>num</code> identical plants
+that share the same temperature setpoint at <code>port_b2</code>.
 These plants can be operated individually by specifying different on/off signals.
 </html>"));
 end PartialPlantParallelInterface;

@@ -88,7 +88,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This model implements an airside economizer controller to modulate the outdoor air damper 
+This model implements an airside economizer controller to modulate the outdoor air damper
 in order to maintain desired mixed air temperature.
 When the airside economizer is open, which means the system is in free cooling or partial mechanical
 cooling, the position of the OA damper is controlled by a PI controller to maintain a desired mixed air temperature;

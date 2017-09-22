@@ -218,8 +218,7 @@ is the chilled water supply temperature setpoint for the system.
     ASHRAE Transactions 115.2 (2009).
   </li>
 </ul>
-</html>
-",        revisions="<html>
+</html>",        revisions="<html>
 <ul>
 <li>
 July 24, 2017, by Yangyang Fu:<br/>

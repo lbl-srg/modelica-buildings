@@ -74,5 +74,3 @@ createPlot(id = 2,
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}, {255,0,0}});
-
-

@@ -134,8 +134,8 @@ annotation (Icon(graphics={
     Documentation(info="<html>
 <p>
 This model groups multiple zones by linking adjacent walls, floors and ceilings.
-The factor <code>ampFactor</code> controls the fluctuating amplitude 
-of internal heat gain in each zone.  
+The factor <code>ampFactor</code> controls the fluctuating amplitude
+of internal heat gain in each zone.
 </p>
 
 </html>", revisions="<html>

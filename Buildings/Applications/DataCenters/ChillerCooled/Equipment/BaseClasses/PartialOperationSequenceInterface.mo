@@ -25,7 +25,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-Partial model that transforms the valve signal. 
+Partial model that transforms the valve signal.
 </p>
 </html>",
         revisions="<html>

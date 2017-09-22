@@ -59,7 +59,7 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
-This class contains parameters that are used to compute the pressure drop in the 
+This class contains parameters that are used to compute the pressure drop in the
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled\">Buildings.Applications.DataCenters.ChillerCooled</a> package.
 </html>"));
 end FourPortResistanceChillerWSE;

@@ -32,9 +32,9 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example test how the number of required constant-speed pumps varies 
-based on cooling mode signals and the number of running chillers. Detailed 
-control logic can be found in 
+This example test how the number of required constant-speed pumps varies
+based on cooling mode signals and the number of running chillers. Detailed
+control logic can be found in
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.ConstantSpeedPumpStage\">
 Buildings.Applications.DataCenters.ChillerCooled.Controls.ConstantSpeedPumpStage</a>.
 </p>

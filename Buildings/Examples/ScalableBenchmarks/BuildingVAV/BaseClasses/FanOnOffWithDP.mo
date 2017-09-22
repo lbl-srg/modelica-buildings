@@ -59,12 +59,12 @@ equation
         textString="%name",
         lineColor={0,0,255})}),
 Documentation(info="<html>
-<p>This model outputs <code>ON/OFF</code> signal to control fan operation. 
+<p>This model outputs <code>ON/OFF</code> signal to control fan operation.
 When the system is in mode like <code>unoccupiedOff, safety</code>, it outputs
-<code>false</code> so that fan should be <code>OFF</code> and provide 0 pressure rise; 
+<code>false</code> so that fan should be <code>OFF</code> and provide 0 pressure rise;
 When the system is in mode like <code>unoccupiedNightSetBack,occupied,unoccupiedWarmUp,
-unoccupiedPreCool</code>, it outputs <code>true</code> so that fan should be 
-<code>ON</code> and provide <code>preRis</code> pressure rise.  
+unoccupiedPreCool</code>, it outputs <code>true</code> so that fan should be
+<code>ON</code> and provide <code>preRis</code> pressure rise.
 </p></html>", revisions="<html>
 <ul>
 <li>

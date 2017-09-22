@@ -354,6 +354,3 @@ int TDMA_1D(REAL *ap, REAL *ae, REAL *aw, REAL *b, REAL *psi,
   free(Q);
   return 0;
 } /* end of TDMA_1D() */
-
-
-

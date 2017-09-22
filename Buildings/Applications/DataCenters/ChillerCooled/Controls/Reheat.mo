@@ -99,7 +99,7 @@ equation
 <p>This reheater will be on only if the following two conditions are satisfied at the same time:</p>
 <ul>
 <li>The position of the water-side valve reaches its switch point, <code>yValSwi</code>;</li>
-<li>The difference between the inlet temperature of the reheater and the required outlet temperature setpoint 
+<li>The difference between the inlet temperature of the reheater and the required outlet temperature setpoint
 is lower than its critical switch point,<code>dTSwi</code>.
 </li>
 </ul>

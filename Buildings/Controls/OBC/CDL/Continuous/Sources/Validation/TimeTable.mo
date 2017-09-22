@@ -34,7 +34,7 @@ model TimeTable "Validation model for TimeTable block"
        "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This model validates the TimeTable block. It takes as a parameter a time table of 
+This model validates the TimeTable block. It takes as a parameter a time table of
 the format
 </p>
 <pre>
@@ -44,28 +44,28 @@ table = [ 0*3600, 0;
          24*3600, 0];
 </pre>
 <p>
-The block <code>timTabLin</code> applies smoothness method of linear segments 
+The block <code>timTabLin</code> applies smoothness method of linear segments
 between table points, periodically repeat the table scope.
 </p>
 <p>
-The block <code>timTabLinHol</code> applies smoothness method of linear segments 
-between table points, hold the last table points when it becomes outside of 
+The block <code>timTabLinHol</code> applies smoothness method of linear segments
+between table points, hold the last table points when it becomes outside of
 table scope.
 </p>
 <p>
-The block <code>timTabLinDer</code> applies smoothness method of linear segments 
-between table points, extrapolate by using the derivative at the last table 
+The block <code>timTabLinDer</code> applies smoothness method of linear segments
+between table points, extrapolate by using the derivative at the last table
 points to find points outside the table scope.
 </p>
 <p>
-The block <code>timTabCon</code> applies smoothness method of constant segments 
+The block <code>timTabCon</code> applies smoothness method of constant segments
 between table points, periodically repeat the table scope.
 </p>
 <p>
-The block <code>timTabLinCon</code> applies smoothness method of linear segments 
-between table points, periodically repeat the table scope. Table points is 
-different so to ensure constant zero during time range of 
-<code>(0*3600, 6*36000)</code>. 
+The block <code>timTabLinCon</code> applies smoothness method of linear segments
+between table points, periodically repeat the table scope. Table points is
+different so to ensure constant zero during time range of
+<code>(0*3600, 6*36000)</code>.
 </p>
 <pre>
 table = [ 0*3600, 0;

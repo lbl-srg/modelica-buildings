@@ -25,7 +25,7 @@ First implementation.
 </ul>
 </html>",
         info="<html>
-Record that contains essential parameters for the vectored signal filters. 
+Record that contains essential parameters for the vectored signal filters.
 The number of filters is specified by <code>nFilter</code>.
 <p>
 Note that all the signal filters have the same on/off control signal, rising time, and initialization type,

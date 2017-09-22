@@ -75,7 +75,7 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example tests the controller for the cooling tower fan speed. Detailed control logic can be found in 
+This example tests the controller for the cooling tower fan speed. Detailed control logic can be found in
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed\">
 Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed</a>.
 </p>
