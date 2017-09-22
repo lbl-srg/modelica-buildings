@@ -5,7 +5,7 @@ block DamperLimits
   parameter Real minFanSpe(
     final min=0,
     final max=1,
-    final unit="1") = 0 "Minimum supply fan operation speed"
+    final unit="1") = 0.1 "Minimum supply fan operation speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real maxFanSpe(
     final min=0,
@@ -56,8 +56,8 @@ block DamperLimits
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe(
-    final min=minFanSpe,
-    final max=maxFanSpe,
+    final min=0,
+    final max=1,
     final unit="1")
     "Supply fan speed"
     annotation (Placement(transformation(extent={{-200,90},{-160,130}}),
