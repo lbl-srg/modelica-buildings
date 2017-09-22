@@ -30,7 +30,6 @@ model MoistureMixingConservationDynamicBalance
                                              annotation (Placement(
         transformation(
         extent={{-32,-10},{32,10}},
-        rotation=0,
         origin={-32,-50})));
   Modelica.Blocks.Math.Add3 add3Vap(k3=-1)
     "Sum of vapour mass should be conserved"
@@ -39,14 +38,12 @@ model MoistureMixingConservationDynamicBalance
     "Mass stored in mixing volumes"                    annotation (Placement(
         transformation(
         extent={{-40,-10},{40,10}},
-        rotation=0,
         origin={-40,-130})));
   Modelica.Blocks.Continuous.Integrator intMasFloOut(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=0) "Integral of leaving mass" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
-        rotation=0,
         origin={60,-100})));
   Modelica.Blocks.Math.Add3 add3Mass(k3=-1) "Adding 3 mass streams"
     annotation (Placement(transformation(extent={{86,-140},{106,-120}})));
@@ -64,7 +61,6 @@ model MoistureMixingConservationDynamicBalance
     y_start=0) "Integral of leaving enthalpy"
                                           annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
-        rotation=0,
         origin={50,-180})));
   Modelica.Blocks.Continuous.Integrator intEntIn(
     k=1,
@@ -75,7 +71,6 @@ model MoistureMixingConservationDynamicBalance
     "Energy stored in mixing volumes"                    annotation (Placement(
         transformation(
         extent={{-40,-10},{40,10}},
-        rotation=0,
         origin={-40,-212})));
   Modelica.Blocks.Math.Add3 add3Ent(k3=-1) "Adding 3 enthalpy streams"
     annotation (Placement(transformation(extent={{80,-214},{100,-194}})));
@@ -242,6 +237,5 @@ First implementation.
 experiment(Tolerance=1e-6, StopTime=1),
 __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MoistureMixingConservationDynamicBalance.mos"
-        "Simulate and plot"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
+        "Simulate and plot"));
 end MoistureMixingConservationDynamicBalance;

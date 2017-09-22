@@ -5,4 +5,3 @@ range={0.0, 1.0, -0.8, 0.8}, grid=true, filename="InvertingBasicFlowFunction_m_f
 createPlot(id=1, position={55, 50, 592, 305},
 y={"dp"},
  range={0.0, 1.0, -3.0, 3.0}, grid=true, subPlot=2, colors={{28,108,200}});
-

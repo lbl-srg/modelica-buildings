@@ -6,6 +6,3 @@ createPlot(id=1, position={15, 10, 592, 121}, y={"conAir.C[1]"}, range={0.0, 1.0
 createPlot(id=2, position={21, 578, 588, 413}, y={"souRev.outlet.backward.T"}, range={0.0, 1.0, 8.0, 12.0}, grid=true, colors={{28,108,200}});
 createPlot(id=2, position={21, 578, 588, 133}, y={"souRev.outlet.backward.X_w"}, range={0.0, 1.0, 0.01, 0.014}, grid=true, subPlot=2, colors={{28,108,200}});
 createPlot(id=2, position={21, 578, 588, 134}, y={"souRev.outlet.backward.C[1]"}, range={0.0, 1.0, 0.7000000000000001, 0.9000000000000001}, grid=true, subPlot=3, colors={{28,108,200}});
-
-
-

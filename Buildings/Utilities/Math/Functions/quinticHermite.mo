@@ -39,12 +39,12 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Returns the result y of a quintic Hermite spline, 
-which is a C<sup>2</sup> continuous interpolation between two functions. 
-The abscissa value <code>x</code> has to be between <code>x1</code> and <code>x2</code>. 
-Variables <code>y1</code>, <code>y1d</code>, <code>y1dd</code> are the ordinate, 
-ordinate derivative and ordinate second derivative of the function at <code>x1</code>. 
-Variables <code>y2</code>, <code>y2d</code>, <code>y2dd</code> are respectively the ordinate, 
+Returns the result y of a quintic Hermite spline,
+which is a C<sup>2</sup> continuous interpolation between two functions.
+The abscissa value <code>x</code> has to be between <code>x1</code> and <code>x2</code>.
+Variables <code>y1</code>, <code>y1d</code>, <code>y1dd</code> are the ordinate,
+ordinate derivative and ordinate second derivative of the function at <code>x1</code>.
+Variables <code>y2</code>, <code>y2d</code>, <code>y2dd</code> are respectively the ordinate,
 ordinate derivative and ordinate second derivative of the function at <code>x2</code>.
 </p>
 </html>"));

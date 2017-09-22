@@ -6,8 +6,6 @@ model PowerExact
     pump_m_flow(per=per));
   annotation (
     experiment(Tolerance=1e-6, StopTime=200),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerExact.mos"
         "Simulate and plot"),

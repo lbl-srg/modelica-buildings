@@ -185,7 +185,5 @@ May 22 2015 by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
-            false)));
+</html>"));
 end MoistureMixingConservation;

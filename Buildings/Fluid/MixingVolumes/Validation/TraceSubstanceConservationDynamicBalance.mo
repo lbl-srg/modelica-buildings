@@ -11,14 +11,12 @@ model TraceSubstanceConservationDynamicBalance
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=0) "Integrator for trace substance inlet"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-30,-60})));
   Modelica.Blocks.Continuous.Integrator intTraSubOut(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=0) "Integrator for trace substance outlet"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,-40})));
   Modelica.Blocks.Sources.RealExpression reaExp(y=vol.m*vol.C[1])
     "Mixing volume total species mass"
@@ -62,9 +60,7 @@ equation
           -2,-40}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (                   Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics),
-    experiment(Tolerance=1e-08, StopTime=1),
+  annotation (    experiment(Tolerance=1e-08, StopTime=1),
     Documentation(info="<html>
 <p>
 This test checks if the trace substance flow rate is
@@ -106,7 +102,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/TraceSubstanceConservationDynamicBalance.mos"
         "Simulate and plot"));

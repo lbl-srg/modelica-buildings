@@ -198,7 +198,6 @@ equation
           50,-80},{50,-88}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true,
-        initialScale=0.1,
         extent={{-120,-120},{120,120}})),
 experiment(StopTime=1, Tolerance=1e-06),
 __Dymola_Commands(file=
@@ -206,10 +205,10 @@ __Dymola_Commands(file=
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example demonstrates and tests the use of 
+This example demonstrates and tests the use of
 <a href=\"modelica://Buildings.Fluid.Movers.Validation.FlowControlled_dp\">
 Buildings.Fluid.Movers.Validation.FlowControlled_dp</a>
-movers that use parameter 
+movers that use parameter
 <code>prescribeSystemPressure</code>.
 </p>
 <p>
@@ -225,5 +224,5 @@ This is for
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(extent={{-120,-120},{120,120}}, initialScale=0.1)));
+    Icon(coordinateSystem(extent={{-120,-120},{120,120}})));
 end FlowControlled_dpSystem;
