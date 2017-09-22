@@ -20,8 +20,7 @@ model Reheat "Model that implements an on and off controller for a reheater"
                 iconTransformation(extent={{-140,30},{-100,70}})));
   Modelica.Blocks.Interfaces.RealInput dT(
     final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="deg")
+    final unit="K")
     "Temperature difference"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
                iconTransformation(extent={{-140,-70},{-100,-30}})));
