@@ -1834,4 +1834,3 @@ Output:Variable,
     *,                       !- Key Value
     Zone Infiltration Mass Flow Rate ,  !- Variable Name
     Timestep;                !- Reporting Frequency
-
