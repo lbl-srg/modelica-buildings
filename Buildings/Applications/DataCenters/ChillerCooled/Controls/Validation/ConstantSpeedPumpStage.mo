@@ -25,9 +25,7 @@ equation
   connect(chiNumOn.y,conSpePumSta.numOnChi)
     annotation (Line(points={{-39,-30},{-20,-30},{-20,-5},{-12,-5}},
                         color={255,127,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file=
+  annotation (    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Controls/Validation/ConstantSpeedPumpStage.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -3,8 +3,6 @@ expandable connector ControlBus
   "Control bus that is adapted to the signals connected to it"
   extends Modelica.Icons.SignalBus;
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This connector defines the <code>expandable connector</code> ControlBus that

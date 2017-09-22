@@ -221,8 +221,7 @@ equation
          {-90,-50},{-120,-50}},color={255,127,0}));
   connect(yVal, watVal.y_actual) annotation (Line(points={{110,40},{92,40},{73,
           40},{73,-5}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
-      Diagram(coordinateSystem(preserveAspectRatio=false),
+  annotation (      Diagram(coordinateSystem(preserveAspectRatio=false),
         graphics={Text(extent={{50,74},{76,68}},lineColor={0,0,255},
                      textString="Waterside",textStyle={TextStyle.Bold}),
                  Text(extent={{58,-70},{84,-76}},lineColor={0,0,255},

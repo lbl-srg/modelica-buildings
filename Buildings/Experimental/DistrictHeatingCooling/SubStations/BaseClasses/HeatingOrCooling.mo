@@ -75,8 +75,7 @@ equation
   connect(pum.P, PPum) annotation (Line(points={{-19,8},{-10,8},{-10,40},{60,40},
           {60,60},{110,60}}, color={0,0,127}));
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})), Icon(coordinateSystem(preserveAspectRatio=false,
+  annotation ( Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
                                      graphics={
                                 Rectangle(

@@ -302,8 +302,7 @@ equation
           textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-180,-280},{180,280}},
-        initialScale=0.1), graphics={
+        extent={{-180,-280},{180,280}}), graphics={
         Rectangle(
           extent={{-168,-44},{172,-272}},
           lineColor={0,0,0},

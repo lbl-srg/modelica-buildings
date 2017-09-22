@@ -144,8 +144,6 @@ equation
           extent={{128,114},{-128,166}},
           lineColor={0,0,255},
           textString="%name")}),
-       Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This model implements a cooling mode controller for an air-cooled direct expansion (DX) cooling system

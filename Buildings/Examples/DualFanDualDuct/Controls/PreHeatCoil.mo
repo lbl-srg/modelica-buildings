@@ -26,19 +26,17 @@ model PreHeatCoil "Controller for preheat coil"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Interfaces.RealInput TAirSup(unit="K")
     "Supply air temperature after the coil" annotation (Placement(
-        transformation(rotation=0, extent={{-120,-70},{-100,-50}})));
+        transformation(extent={{-120,-70},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealInput TSupSetHea(unit="K")
     "Heating set point temperature for supply air" annotation (Placement(
-        transformation(rotation=0, extent={{-120,-10},{-100,10}})));
+        transformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealOutput yVal(unit="1")
-    "Control signal for valve" annotation (Placement(transformation(rotation=0,
-          extent={{100,-60},{120,-40}})));
+    "Control signal for valve" annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
   Modelica.Blocks.Interfaces.RealInput TMix(unit="K")
     "Mixed air temperature upstream of coil" annotation (Placement(
-        transformation(rotation=0, extent={{-120,50},{-100,70}})));
+        transformation(extent={{-120,50},{-100,70}})));
   Modelica.Blocks.Interfaces.RealOutput yPum(unit="1")
-    "Control signal for pump" annotation (Placement(transformation(rotation=0,
-          extent={{100,40},{120,60}})));
+    "Control signal for pump" annotation (Placement(transformation(extent={{100,40},{120,60}})));
   Modelica.Blocks.Logical.Switch swiValOp
     "Switch to close valve if pump is not running"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
@@ -103,10 +101,7 @@ equation
           48,52},{48,-60},{58,-60}}, color={255,0,255}));
   connect(preHeaCoiCon.y, swiValOp.u1) annotation (Line(points={{1,-60},{20,-60},
           {20,-52},{58,-52}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
-          preserveAspectRatio=false)), Icon(coordinateSystem(extent={{-100,-100},
-            {100,100}})),
-    Documentation(info="<html>
+  annotation (    Documentation(info="<html>
 <p>
 Controller for the preheat coil. If the air inlet temperature is below
 a minimum temperature, such as <i>10</i>&deg;C, the preheat coil is activated.

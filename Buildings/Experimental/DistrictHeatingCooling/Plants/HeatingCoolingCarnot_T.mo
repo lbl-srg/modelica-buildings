@@ -197,8 +197,7 @@ equation
           {-28,-40},{110,-40}}, color={0,0,127}));
   connect(coo.QCon_flow, QAmbChi_flow) annotation (Line(points={{59,15},{66,15},
           {66,-60},{110,-60}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})), Icon(coordinateSystem(preserveAspectRatio=false,
+  annotation ( Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},

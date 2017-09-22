@@ -14,9 +14,7 @@ record SignalFilterParameters
   parameter Real[numFil] yValve_start=fill(1,numFil)
     "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(revisions="<html>
+  annotation (    Documentation(revisions="<html>
 <ul>
 <li>
 June 30, 2017, by Yangyang Fu:<br/>

@@ -25,7 +25,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Diagram(coordinateSystem(preserveAspectRatio=false)),
   Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},

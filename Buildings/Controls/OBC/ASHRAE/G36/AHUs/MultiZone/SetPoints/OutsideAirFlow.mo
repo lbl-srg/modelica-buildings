@@ -472,8 +472,7 @@ Icon(graphics={Rectangle(
           extent={{-100,140},{100,100}},
           lineColor={0,0,255},
           textString="%name")}),
-Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{240,280}},
-        initialScale=0.1), graphics={Rectangle(
+Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{240,280}}), graphics={Rectangle(
           extent={{-180,280},{240,100}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,

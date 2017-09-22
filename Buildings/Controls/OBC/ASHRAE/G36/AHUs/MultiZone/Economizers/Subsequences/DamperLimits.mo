@@ -260,8 +260,7 @@ annotation (
           points={{-60,-60},{2,62},{2,62},{64,-60},{-60,-60}},
           color={0,0,127},
           thickness=0.5)}),
-    Diagram(coordinateSystem(extent={{-180,-240},{180,240}},
-        initialScale=0.1), graphics={
+    Diagram(coordinateSystem(extent={{-180,-240},{180,240}}), graphics={
         Rectangle(
           extent={{-172,-72},{16,-232}},
           lineColor={0,0,0},

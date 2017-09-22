@@ -308,8 +308,7 @@ annotation (Placement(transformation(extent={{-20,110},{0,130}})),
           lineColor={28,108,200},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(extent={{-160,-220},{160,220}},
-        initialScale=0.1), graphics={
+    Diagram(coordinateSystem(extent={{-160,-220},{160,220}}), graphics={
         Rectangle(
           extent={{-152,-52},{152,-214}},
           lineColor={0,0,0},

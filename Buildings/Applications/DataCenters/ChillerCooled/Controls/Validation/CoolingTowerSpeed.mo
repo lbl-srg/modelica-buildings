@@ -68,9 +68,7 @@ equation
   connect(cooMod.y, cooTowSpeCon.cooMod)
     annotation (Line(points={{-39,50},{-26,
           50},{-26,5.55556},{-12,5.55556}}, color={255,127,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file=
+  annotation (    __Dymola_Commands(file=
         "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Controls/Validation/CoolingTowerSpeed.mos"
         "Simulate and plot"),
     Documentation(info="<html>

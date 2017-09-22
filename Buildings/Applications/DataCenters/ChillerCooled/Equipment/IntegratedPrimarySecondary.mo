@@ -77,7 +77,6 @@ model IntegratedPrimarySecondary
     annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
-        rotation=0,
         origin={-120,26}), iconTransformation(extent={{-16,-16},{16,16}},
           origin={-116,30})));
   Modelica.Blocks.Interfaces.RealOutput powPum[numPum](
@@ -193,8 +192,7 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          origin={44,-41},
-          rotation=0),
+          origin={44,-41}),
         Polygon(
           points={{-7,-6},{9,-6},{0,3},{-7,-6}},
           lineColor={0,0,0},
@@ -211,8 +209,6 @@ equation
         Line(points={{-92,-60},{-76,-60}}, color={0,128,255}),
         Line(points={{12,0},{12,-40}}, color={0,128,255}),
         Line(points={{12,-40},{12,-60},{-76,-60}}, color={0,128,255})}),
-                                                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This model implements an integrated water-side economizer (WSE)

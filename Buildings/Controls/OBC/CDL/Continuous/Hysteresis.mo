@@ -21,8 +21,6 @@ equation
 
 annotation (
   defaultComponentName="hys",
-  Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}})),
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Rectangle(

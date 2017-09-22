@@ -130,7 +130,6 @@ annotation (Icon(graphics={
           extent={{-94,134},{106,108}},
           lineColor={0,0,255},
           textString="%name")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This model groups multiple zones by linking adjacent walls, floors and ceilings.

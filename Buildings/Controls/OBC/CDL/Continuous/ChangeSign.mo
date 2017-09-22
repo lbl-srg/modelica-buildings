@@ -44,9 +44,6 @@ annotation (
           color={0,0,127},
           thickness=1),
         Line(points={{-100,60},{2,60}}, color={0,0,0})}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = -u</code>,

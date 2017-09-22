@@ -364,7 +364,5 @@ First implementation.
         Text(
           extent={{44,-80},{108,-94}},
           lineColor={0,0,127},
-          textString="QTraDir")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+          textString="QTraDir")}));
 end WindowRadiation;

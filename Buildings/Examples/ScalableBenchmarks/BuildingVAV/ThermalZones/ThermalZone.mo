@@ -316,7 +316,6 @@ equation
           lineColor={95,95,95},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid,
-          origin={0,0},
           rotation=90),
         Text(
           extent={{-84,8},{-64,-6}},

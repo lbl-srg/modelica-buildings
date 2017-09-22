@@ -44,7 +44,6 @@ model CoolingTowerSpeed "Controller for the fan speed in cooling towers"
     displayUnit="degC") "Chilled water supply temperature " annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
-        rotation=0,
         origin={-120,-74}), iconTransformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealInput TCWSup(
     final quantity="ThermodynamicTemperature",
@@ -90,12 +89,10 @@ protected
   Modelica.Blocks.Logical.Switch swi2
     "Switch 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-30,-60})));
   Modelica.Blocks.Logical.Switch swi3
     "Switch 3"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={74,0})));
 
 equation
@@ -135,10 +132,7 @@ equation
     annotation (Line(points={{-120,40},{-102,40},{-82,
           40}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,80}})),                                   Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
-    Documentation(info="<html>
+            -100},{100,80}})),    Documentation(info="<html>
 <p>This model describes a simple cooling tower speed controller for
 a chilled water system with integrated waterside economizers.
 </p>

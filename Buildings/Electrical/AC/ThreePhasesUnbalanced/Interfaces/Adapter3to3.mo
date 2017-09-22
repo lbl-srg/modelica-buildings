@@ -23,9 +23,7 @@ equation
   annotation (
   defaultComponentName="ada",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Line(points={{-64,0},{66,0}}, color={28,108,200})}),     Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
+        Line(points={{-64,0},{66,0}}, color={28,108,200})}),    Documentation(info="<html>
 <p>
 Adapter that connect 3 single phase connectors with a connector that has 3 phases.
 </p>

@@ -56,20 +56,20 @@ block SystemRequests
     quantity="VolumeFlowRate")
     "Measured discharge airflow rate"
     annotation (Placement(transformation(extent={{-220,-90},{-180,-50}}),
-      iconTransformation(extent={{-10,-10},{10,10}},rotation=0, origin={-110,0})));
+      iconTransformation(extent={{-10,-10},{10,10}},origin={-110,0})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDisAirSet(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Discharge airflow rate setpoint"
     annotation (Placement(transformation(extent={{-220,10},{-180,50}}),
-      iconTransformation(extent={{-10,-10},{10,10}},rotation=0, origin={-110,20})));
+      iconTransformation(extent={{-10,-10},{10,10}},origin={-110,20})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
     min=0,
     max=1,
     final unit="1") "Damper position"
     annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
-      iconTransformation(extent={{-10,-10},{10,10}},rotation=0, origin={-110,-20})));
+      iconTransformation(extent={{-10,-10},{10,10}},origin={-110,-20})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisAirSet(
     final unit="K",
     quantity="ThermodynamicTemperature") if have_hotWatCoi
@@ -88,7 +88,7 @@ block SystemRequests
     final unit="1") if have_hotWatCoi
     "Hot water valve position"
     annotation (Placement(transformation(extent={{-220,-370},{-180,-330}}),
-      iconTransformation(extent={{-10,-10},{10,10}},rotation=0, origin={-110,-90})));
+      iconTransformation(extent={{-10,-10},{10,10}},origin={-110,-90})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonPreResReq
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{180,-50},{200,-30}}),

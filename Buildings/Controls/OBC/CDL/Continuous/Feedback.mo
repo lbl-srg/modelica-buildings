@@ -54,7 +54,5 @@ Modelica Standard Library.
           textString="%name"),
         Text(extent={{-100,-4},{-40,56}},
           textString="+",
-          lineColor={0,0,0})}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}})));
+          lineColor={0,0,0})}));
 end Feedback;

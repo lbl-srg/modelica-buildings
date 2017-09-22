@@ -45,9 +45,6 @@ equation
           lineColor={0,0,0},
           textString="duration=%duration"),
         Line(points={{31,38},{86,38}})}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 The Real output y is a ramp signal:

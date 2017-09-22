@@ -78,8 +78,6 @@ annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat/Validation/DamperValve.mos"
         "Simulate and plot"),
-  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
 This example validates

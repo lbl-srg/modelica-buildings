@@ -26,9 +26,7 @@ equation
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={95,95,95},
-          fillPattern=FillPattern.Solid)}),                      Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(revisions="<html>
+          fillPattern=FillPattern.Solid)}),    Documentation(revisions="<html>
 <ul>
 <li>
 June 30, 2017, by Yangyang Fu:<br/>

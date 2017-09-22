@@ -138,8 +138,6 @@ equation
           pattern=LinePattern.None,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid)}),
-        Diagram(
-          coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 Model for an ideal heater that controls its outlet temperature to

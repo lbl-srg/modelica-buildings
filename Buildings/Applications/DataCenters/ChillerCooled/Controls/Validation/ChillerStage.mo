@@ -35,9 +35,7 @@ equation
   connect(TCHWSup.y, chiStaCon.TCHWSup)
     annotation (Line(points={{-39,-30},{-26,-30},{-26,-6},{-12,-6}},
                                  color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file=
+  annotation (    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Controls/Validation/ChillerStage.mos"
         "Simulate and plot"),
     Documentation(info="<html>

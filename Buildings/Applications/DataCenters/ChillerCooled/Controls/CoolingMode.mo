@@ -160,9 +160,7 @@ equation
   connect(fulMecCoo.active, swi.u[3])
     annotation (Line(points={{11,-78},{26,-78},
           {40,-78},{40,-1.2},{64,-1.2}}, color={255,0,255}));
-  annotation (Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
-    Documentation(info="<html>
+  annotation (    Documentation(info="<html>
 <p>
 Controller that outputs if the chilled water system is in Free Cooling (FC) mode,
 Partially Mechanical Cooling (PMC) mode or Fully Mechanical Cooling (FMC) mode.

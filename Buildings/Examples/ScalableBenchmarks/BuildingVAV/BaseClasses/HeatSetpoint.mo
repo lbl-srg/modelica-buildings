@@ -11,8 +11,6 @@ model HeatSetpoint "Schedule for heating setpoint"
     columns={2});
 
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This block defines room air heating setpoints.

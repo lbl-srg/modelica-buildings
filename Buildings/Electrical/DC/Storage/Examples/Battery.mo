@@ -48,12 +48,10 @@ model Battery "Test model for battery"
   Modelica.StateGraph.InitialStep off "Off state" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-130,80})));
   Modelica.StateGraph.TransitionWithSignal toOn "Transition to on" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-100,80})));
   Modelica.StateGraph.StepWithSignal charge "State to charge battery"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));

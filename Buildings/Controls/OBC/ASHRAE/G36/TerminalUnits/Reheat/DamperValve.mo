@@ -86,7 +86,7 @@ block DamperValve
     quantity="ThermodynamicTemperature")
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-360,-290},{-320,-250}}),
-      iconTransformation(extent={{-10,-10},{10,10}},rotation=0, origin={-110,-90})));
+      iconTransformation(extent={{-10,-10},{10,10}},origin={-110,-90})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisAir(
     final unit="K",
     quantity="ThermodynamicTemperature")

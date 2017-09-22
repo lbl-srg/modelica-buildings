@@ -21,9 +21,7 @@ equation
   connect(booToRea.y, inv.u2)
     annotation (Line(points={{-47.4,74},{-30,74},{-8,74},{-8,89.2}},
       color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
+  annotation (    Documentation(info="<html>
 <p>
 Partial model that transforms the valve signal.
 </p>
