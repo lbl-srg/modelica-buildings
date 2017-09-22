@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.SetPoints.Validation;
 model ReliefDamper
- "Validate the model of control actuated relief damper without fan"
+ "Validate the controller of an actuated relief damper without fan"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.SetPoints.ReliefDamper
