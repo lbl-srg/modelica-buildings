@@ -391,8 +391,9 @@ protected
     connect(preMasFlo.port_b, senMasFlo.port_a) annotation (Line(points={{40,
             1.33227e-15},{4.44089e-16,1.33227e-15},{4.44089e-16,-30}},
                                     color={0,127,255}));
-    annotation (           Icon(
-          coordinateSystem(), graphics={
+    annotation (
+      Icon(
+        graphics={
           Polygon(
             points={{60,0},{68,14},{52,14},{60,0}},
             lineColor={0,0,0},
