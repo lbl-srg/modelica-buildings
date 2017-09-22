@@ -9,7 +9,7 @@ model ReliefDamper
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFan(k=true)
     "Supply fan status"
-    annotation (Placement(transformation(extent={{-40,-52},{-20,-32}})));
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp meaBuiPre(
     height=8,
     duration=1200,
@@ -23,7 +23,7 @@ equation
     annotation (Line(points={{-19,40},{0,40},{0,6},{39,6}},
       color={0,0,127}));
   connect(supFan.y, relDamPos.uSupFan)
-    annotation (Line(points={{-19,-42},{0,-42},{0,-6},{39,-6}},
+    annotation (Line(points={{-19,-40},{0,-40},{0,-6},{39,-6}},
       color={255,0,255}));
 
 annotation (

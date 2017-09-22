@@ -1,15 +1,27 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.SetPoints;
 block ReliefDamper "Control of actuated relief  dampers without fans"
-  parameter Real minRelDamPos(min=0, max=1, unit="1") = 0.1
+  parameter Real minRelDamPos(
+    min=0,
+    max=1,
+    final unit="1") = 0.1
     "Relief damper position maintaining building static pressure at setpoint when the system is at minPosMin"
     annotation(Evaluate=true, Dialog(group="Nominal parameters"));
-  parameter Real maxRelDamPos(min=0, max=1, unit="1") = 0.9
+  parameter Real maxRelDamPos(
+    min=0,
+    max=1,
+    final unit="1") = 0.9
     "Relief damper position maintaining building static pressure at setpoint when outdoor air damper is fully open and fan speed is at cooling maximum"
     annotation(Evaluate=true, Dialog(group="Nominal parameters"));
-  parameter Real minPosMin(min=0, max=1, unit="1")=0.4
+  parameter Real minPosMin(
+    min=0,
+    max=1,
+    final unit="1")=0.4
     "Outdoor air damper position when fan operating at minimum speed to supply minimum outdoor air flow"
     annotation(Evaluate=true, Dialog(group="Nominal parameters"));
-  parameter Real outDamPhyPosMax(min=0, max=1, unit="1")=1
+  parameter Real outDamPhyPosMax(
+    min=0,
+    max=1,
+    final unit="1")=1
     "Physical or at the comissioning fixed maximum position of the outdoor air damper"
     annotation(Evaluate=true, Dialog(group="Nominal parameters"));
 
@@ -18,18 +30,23 @@ block ReliefDamper "Control of actuated relief  dampers without fans"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPos(
-    min=0, max=1, unit="1")
+    min=0,
+    max=1,
+    final unit="1")
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDamPos(
-    min=0, max=1, unit="1")
+    min=0,
+    max=1,
+    final unit="1")
     "Relief damper position"
     annotation (Placement(transformation(extent={{120,-10},{140,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Line relDamPos(
-    limitBelow=true, limitAbove=true)
+    limitBelow=true,
+    limitAbove=true)
     "Linearly map relief damper position to the outdoor air damper position"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
@@ -43,7 +60,6 @@ block ReliefDamper "Control of actuated relief  dampers without fans"
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if relief damper should be activated"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerDam(
     final k=0)
@@ -130,18 +146,18 @@ annotation (
           fillPattern=FillPattern.Solid,
           textString="yRelDamPos"),
         Polygon(
-          points={{-80,92},{-88,70},{-72,70},{-80,92}},
+          points={{-46,92},{-54,70},{-38,70},{-46,92}},
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-80,80},{-80,-88}}, color={192,192,192}),
-        Line(points={{-90,-78},{82,-78}}, color={192,192,192}),
+        Line(points={{-46,82},{-46,-86}}, color={192,192,192}),
+        Line(points={{-56,-78},{68,-78}}, color={192,192,192}),
         Polygon(
-          points={{90,-78},{68,-70},{68,-86},{90,-78}},
+          points={{72,-78},{50,-70},{50,-86},{72,-78}},
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-80,-78},{-80,-78},{14,62},{80,62}}, color={0,0,127}),
+        Line(points={{-46,-78},{14,62},{80,62}},           color={0,0,127}),
         Text(
           extent={{-100,140},{100,100}},
           lineColor={0,0,255},
@@ -150,7 +166,7 @@ annotation (
             100}})),
  Documentation(info="<html>      
 <p>
-This sequence controls actuated relief dampers <code>yRelDamPos</code> 
+Control sequence for relief dampers 
 without fans. It is implemented according to ASHRAE Guidline 35 (G36), PART5.N.8. 
 (for multiple zone VAV AHU), PART5.P.6 and PART3.2B.3 (for single zone VAV AHU).
 </p>   
@@ -160,20 +176,20 @@ without fans. It is implemented according to ASHRAE Guidline 35 (G36), PART5.N.8
 <li>Relief damper position setpoints (PART3.2B.3)
 <ul>
 <li><code>minRelDamPos</code>: The relief damper position that maintains a building 
-pressure of 0.05 inchWC (12 Pa) while the system is at <code>MinPosMin</code> 
-(i.e., the economizer damper is positioned to provide <code>MinOA</code> while 
+pressure of <i>0.05</i> inchWC (<i>12</i> while the system is at <code>minPosMin</code> 
+(i.e., the economizer damper is positioned to provide <code>minOA</code> while 
 the supply fan is at minimum speed).</li>
 <li><code>maxRelDamPos</code>: The relief damper position that maintains a building 
-pressure of 0.05 inchWC (12 Pa) while the economizer damper is fully open and the fan 
+pressure of <i>0.05</i> inchWC (<i>12</i> Pa) while the economizer damper is fully open and the fan 
 speed is at cooling maximum.</li>
 </ul>
 </li>
 <li>Relief dampers shall be enabled when the associated supply fan is proven on and 
 any outdoor air damper is open <code>uOutDamPos &gt; 0</code> and disabled and closed 
 otherwise.</li>
-<li>Relief damper position shall be reset linearly from <code>MinRelief</code> to 
-<code>MaxRelief</code> as the commanded economizer damper position is goes from 
-<code>MinPos*</code> to 100% open.</li>
+<li>Relief damper position shall be reset linearly from <code>minRelDamPos</code> to 
+<code>maxRelDamPos</code> as the commanded economizer damper position goes from 
+<code>minPos*</code> to fully open.</li>
 </ol>
 <p align=\"center\">
 <img alt=\"Image of the relief damper control diagram for single zone AHU\"
