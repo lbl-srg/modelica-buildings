@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.SetPoints;
+within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.SetPoints;
 block ReliefDamper "Control of actuated relief  dampers without fans"
   parameter Modelica.SIunits.Pressure buiPreSet=0.05*248.84
     "Building static pressure setpoint"
@@ -10,11 +10,11 @@ block ReliefDamper "Control of actuated relief  dampers without fans"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBuiPre(
     final unit="Pa",
     quantity="PressureDifference")
-    "Measured building static pressure"
+    "Measured building static pressure difference"
     annotation (Placement(transformation(extent={{-120,0},{-80,40}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
-    "Supply Fan Status, on or off"
+    "Supply fan status"
     annotation (Placement(transformation(extent={{-120,-40},{-80,0}}),
       iconTransformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDamPos(
@@ -39,7 +39,7 @@ block ReliefDamper "Control of actuated relief  dampers without fans"
     Ti=300,
     final k=kp,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P)
-    "Contoller that outputs a signal based on the error between the measured "
+    "Contoller that outputs a signal based on the error between the measured building static pressure and its setpoint"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Check if relief damper should be activated"
@@ -64,7 +64,7 @@ equation
     annotation (Line(points={{61,0},{90,0}},  color={0,0,127}));
 
 annotation (
-  defaultComponentName = "reliefDamper_multiZone",
+  defaultComponentName = "relDam",
   Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -106,20 +106,19 @@ annotation (
           extent={{-100,140},{100,100}},
           lineColor={0,0,255},
           textString="%name")}),
-    Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-80,-80},{80,80}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-80},{80,80}})),
  Documentation(info="<html>      
 <p>
-This sequence controls actuated relief dampers (<code>yRelDamPos</code>) 
+This sequence controls actuated relief dampers <code>yRelDamPos</code>
 without fans. It is implemented according to ASHRAE Guidline 35 (G36), PART5.N.8. 
 (for multiple zone VAV AHU), PART5.P.6 and PART3.2B.3 (for single zone VAV AHU).
 </p>   
-<h4>Multiple zone VAV AHU: Control of actuated relief dampers without fans(PART5.N.8)</h4>
+<h4>Multiple zone VAV AHU: Control of actuated relief dampers without fans (PART5.N.8)</h4>
 <ol>
 <li>Relief dampers shall be enabled when the associated supply fan is proven on 
-(<code>uSupFan = true</code>), and disabled otherwise.</li>
+<code>uSupFan = true</code>, and disabled otherwise.</li>
 <li>When enabled, use a P-only control loop to modulate relief dampers to maintain 
-0.05” (12 Pa) building static pressure (<code>uBuiPre</code>). 
+0.05 inchWC (12 Pa) building static pressure <code>uBuiPre</code>. 
 Close damper when disabled.</li>
 </ol>
 <p align=\"center\">

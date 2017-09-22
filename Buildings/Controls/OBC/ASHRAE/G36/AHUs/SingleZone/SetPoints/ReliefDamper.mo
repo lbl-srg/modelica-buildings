@@ -1,25 +1,20 @@
-﻿within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.SetPoints;
+within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.SetPoints;
 block ReliefDamper "Control of actuated relief  dampers without fans"
   parameter Real minRelDamPos(min=0, max=1, unit="1") = 0.1
-    "Relief damper position that maintains a building pressure of 0.05 inchWC (12.44 Pa) while the system is at MinPosMin 
-    (i.e., the economizer damper is positioned to provide MinOA while the supply fan is at minimum speed)."
+    "Relief damper position maintaining building static pressure at setpoint while the system is at MinPosMin"
     annotation(Evaluate=true, Dialog(group="Nominal parameters"));
   parameter Real maxRelDamPos(min=0, max=1, unit="1") = 0.9
-    "Relief damper position that maintains a building pressure of 
-    0.05 inchWC (12.44 Pa) while the economizer damper is fully open 
-    and the fan speed is at cooling maximum."
+    "Relief damper position maintaining building static pressure at setpoint while the system is at MaxPosMax"
     annotation(Evaluate=true, Dialog(group="Nominal parameters"));
   parameter Real minPosMin(min=0, max=1, unit="1")=0.4
-    "Outdoor air damper position, when fan operating at minimum speed 
-    to supply minimum outdoor air flow"
+    "Outdoor air damper position when fan operating at minimum speed to supply minimum outdoor air flow"
     annotation(Evaluate=true, Dialog(group="Nominal parameters"));
   parameter Real outDamPhyPosMax(min=0, max=1, unit="1")=1
-    "Physical or at the comissioning fixed maximum position of 
-    the economizer damper"
+    "Physical or at the comissioning fixed maximum position of the economizer damper"
     annotation(Evaluate=true, Dialog(group="Nominal parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
-    "Supply Fan Status, on or off"
+    "Supply fan status"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPos(
@@ -35,8 +30,7 @@ block ReliefDamper "Control of actuated relief  dampers without fans"
 
   Buildings.Controls.OBC.CDL.Continuous.Line relDamPos(
     limitBelow=true, limitAbove=true)
-    "Relief damper position shall be reest linearly from minRelDamPos to maxRelDamPos as the commanded economizer damper 
-    position is goes from minPosMin to its physical maximum"
+    "Linerize relief damper position from minRelDamPos to maxRelDamPos"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
     "Check if relief damper should be open"
@@ -57,13 +51,11 @@ protected
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minRelDam(
     final k=minRelDamPos)
-    "The relief damper position that maintains a building pressure of 0.05 inchWC (12.44 Pa) while the system is at MinPosMin 
-    (i.e., the economizer damper is positioned to provide MinOA while the supply fan is at minimum speed)."
+    "Relief damper position maintaining building static pressure at setpoint while the system is at MinPosMin"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxRelDam(
     final k=maxRelDamPos)
-    "The relief damper position that maintains a building pressure of 0.05 inchWC (12.44 Pa) while the economizer damper is 
-    fully open (physical maximum) and the fan speed is at cooling maximum."
+    "Relief damper position maintaining building static pressure at setpoint while while the system is at MaxPosMax"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPosAtMinSpd(
     final k=minPosMin)
@@ -71,7 +63,7 @@ protected
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(
     final k=outDamPhyPosMax)
-    "Physical or at the comissioning fixed maximum position of the economizer damper - economizer damper fully open. "
+    "Physical or at the comissioning fixed maximum position of the economizer damper"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
 equation
@@ -113,7 +105,7 @@ equation
       color={0,0,127}));
 
 annotation (
-  defaultComponentName = "reliefDamper_singleZone",
+  defaultComponentName = "relDam",
   Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
@@ -158,28 +150,30 @@ annotation (
             100}})),
  Documentation(info="<html>      
 <p>
-This sequence controls actuated relief dampers (<code>yRelDamPos</code>) 
+This sequence controls actuated relief dampers <code>yRelDamPos</code> 
 without fans. It is implemented according to ASHRAE Guidline 35 (G36), PART5.N.8. 
 (for multiple zone VAV AHU), PART5.P.6 and PART3.2B.3 (for single zone VAV AHU).
 </p>   
 
-<h4>Single zone VAV AHU: Control of actuated relief dampers without fans(PART5.P.6)</h4>
+<h4>Single zone VAV AHU: Control of actuated relief dampers without fans (PART5.P.6)</h4>
 <ol>
 <li>Relief damper position setpoints (PART3.2B.3)
 <ul>
 <li><code>minRelDamPos</code>: The relief damper position that maintains a building 
-pressure of 12 Pa (0.05”) while the system is at MinPosMin (i.e., the economizer 
-damper is positioned to provide MinOA while the supply fan is at minimum speed).</li>
+pressure of 0.05 inchWC (12 Pa) while the system is at <code>MinPosMin</code> 
+(i.e., the economizer damper is positioned to provide <code>MinOA</code> while 
+the supply fan is at minimum speed).</li>
 <li><code>maxRelDamPos</code>: The relief damper position that maintains a building 
-pressure of 12 Pa (0.05”) while the economizer damper is fully open and the fan 
+pressure of 0.05 inchWC (12 Pa) while the economizer damper is fully open and the fan 
 speed is at cooling maximum.</li>
 </ul>
 </li>
 <li>Relief dampers shall be enabled when the associated supply fan is proven on and 
-any outdoor air damper is open (<code>uOutDamPos > 0</code>) and disabled and closed 
+any outdoor air damper is open <code>uOutDamPos &gt; 0</code> and disabled and closed 
 otherwise.</li>
-<li>Relief damper position shall be reset linearly from MinRelief to MaxRelief as 
-the commanded economizer damper position is goes from MinPos* to 100% open.</li>
+<li>Relief damper position shall be reset linearly from <code>MinRelief</code> to 
+<code>MaxRelief</code> as the commanded economizer damper position is goes from 
+<code>MinPos*</code> to 100% open.</li>
 </ol>
 <p align=\"center\">
 <img alt=\"Image of the relief damper control diagram for single zone AHU\"

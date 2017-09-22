@@ -14,9 +14,9 @@
    viewBox="0 0 630.65243 438.13203"
    id="svg8256"
    version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="ActuatedReliefDamperWithoutFanControlChart_SingleZone.svg"
-   inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/ActuatedReliefDamperWithoutFanControlChart_SingleZone.png"
+   inkscape:version="0.92.2 (unknown)"
+   sodipodi:docname="ReliefDamperControlChart_SingleZone.svg"
+   inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/ReliefDamperControlChart_SingleZone.png"
    inkscape:export-xdpi="108.33118"
    inkscape:export-ydpi="108.33118">
   <defs
@@ -123,8 +123,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.7729263"
-     inkscape:cx="219.97046"
-     inkscape:cy="120.70734"
+     inkscape:cx="355.33988"
+     inkscape:cy="210.95362"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -152,7 +152,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -191,16 +191,16 @@
        r="2.5" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:15.57757854px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="118.24471"
        y="719.20355"
        id="text8994"
-       sodipodi:linespacing="125%"
        transform="scale(1.0050378,0.99498745)"><tspan
          sodipodi:role="line"
          id="tspan7518"
          x="118.24471"
-         y="719.20355">Economizer Damper Position</tspan></text>
+         y="719.20355"
+         style="font-size:15.57757854px;line-height:1.25">Economizer Damper Position</tspan></text>
     <path
        style="opacity:0.5;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker9006)"
        d="m 345,712.3622 125,0"
@@ -208,16 +208,16 @@
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:16.10165024px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="-662.56018"
        y="63.200314"
        id="text9292"
-       sodipodi:linespacing="125%"
        transform="matrix(0,-0.96370847,1.0376582,0,0,0)"><tspan
          sodipodi:role="line"
          id="tspan7339"
          x="-662.56018"
-         y="63.200314">Relief Damper Position</tspan></text>
+         y="63.200314"
+         style="font-size:16.10165024px;line-height:1.25">Relief Damper Position</tspan></text>
     <path
        style="opacity:0.5;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker9304)"
        d="m 64,449.3622 0,-125"
@@ -225,143 +225,144 @@
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12.39959621px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-font-specification:'sans-serif, Normal';font-stretch:normal;font-variant:normal;font-size:12.39962436px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
        x="118.09946"
        y="697.24323"
-       id="text8994-5"
-       sodipodi:linespacing="125%"><tspan
+       id="text8994-5"><tspan
          sodipodi:role="line"
-         id="tspan7520"
-         x="118.09946"
-         y="697.24323">minPosMin</tspan></text>
+         id="tspan200">MinPosMin</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12.39959621px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="500.37677"
        y="695.83832"
-       id="text8994-5-3"
-       sodipodi:linespacing="125%"><tspan
+       id="text8994-5-3"><tspan
          sodipodi:role="line"
          id="tspan7536"
          x="500.37677"
-         y="695.83832">outDamPhyPosMax</tspan></text>
+         y="695.83832"
+         style="font-size:12.39959621px;line-height:1.25">outDamPhyPosMax</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12.39959621px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="361.72684"
        y="695.72156"
-       id="text8994-5-3-2"
-       sodipodi:linespacing="125%"><tspan
+       id="text8994-5-3-2"><tspan
          sodipodi:role="line"
          id="tspan7522"
          x="361.72684"
-         y="695.72156">uOutDamPos</tspan></text>
+         y="695.72156"
+         style="font-size:12.39959621px;line-height:1.25">uOutDamPos</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12.39959621px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-font-specification:'sans-serif, Normal';font-stretch:normal;font-variant:normal;font-size:12.39962436px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
        x="123.68836"
        y="567.73969"
-       id="text8994-5-33"
-       sodipodi:linespacing="125%"><tspan
+       id="text8994-5-33"><tspan
          sodipodi:role="line"
-         id="tspan7484"
-         x="123.68836"
-         y="567.73969">minRelDamPos</tspan></text>
+         id="tspan202">MinRelDamPos</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12.39959621px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="383.42487"
        y="445.31659"
-       id="text8994-5-33-2"
-       sodipodi:linespacing="125%"><tspan
+       id="text8994-5-33-2"><tspan
          sodipodi:role="line"
          id="tspan7559"
          x="383.42487"
-         y="445.31659">yRelDamPos</tspan></text>
+         y="445.31659"
+         style="font-size:12.39959621px;line-height:1.25">yRelDamPos</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12.39959621px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-font-specification:'sans-serif, Normal';font-stretch:normal;font-variant:normal;font-size:12.39962436px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
        x="536.95917"
        y="342.05191"
-       id="text8994-5-33-2-4-9"
-       sodipodi:linespacing="125%"><tspan
+       id="text8994-5-33-2-4-9"><tspan
          sodipodi:role="line"
-         id="tspan7496"
-         x="536.95917"
-         y="342.05191">maxRelDamPos</tspan></text>
+         id="tspan204">MaxRelDamPos</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.51590443px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="123.91954"
        y="581.37054"
-       id="text8994-5-33-2-4-9-3-3-9-4"
-       sodipodi:linespacing="125%"><tspan
+       id="text8994-5-33-2-4-9-3-3-9-4"><tspan
          sodipodi:role="line"
          id="tspan7488"
          x="123.91954"
-         y="581.37054">Relief damper position that maintains a building pressure of 0.05</tspan><tspan
+         y="581.37054"
+         style="font-size:9.51590443px;line-height:1.25">Relief damper position that maintains a building pressure of 0.05</tspan><tspan
          sodipodi:role="line"
          id="tspan7490"
          x="123.91954"
-         y="593.26544"> inchWC (12.44 Pa) while the system is at MinPosMin (i.e., the</tspan><tspan
+         y="593.26544"
+         style="font-size:9.51590443px;line-height:1.25"> inchWC (12.44 Pa) while the system is at MinPosMin (i.e., the</tspan><tspan
          sodipodi:role="line"
          id="tspan7492"
          x="123.91954"
-         y="605.16028"> economizer damper is positioned to provide MinOA while the</tspan><tspan
+         y="605.16028"
+         style="font-size:9.51590443px;line-height:1.25"> economizer damper is positioned to provide MinOA while the</tspan><tspan
          sodipodi:role="line"
          id="tspan7494"
          x="123.91954"
-         y="617.05518"> supply fan is at minimum speed)</tspan></text>
+         y="617.05518"
+         style="font-size:9.51590443px;line-height:1.25"> supply fan is at minimum speed)</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.51590443px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="382.39871"
        y="459.50549"
-       id="text8994-5-33-2-4-9-3-3-9-4-5"
-       sodipodi:linespacing="125%"><tspan
+       id="text8994-5-33-2-4-9-3-3-9-4-5"><tspan
          sodipodi:role="line"
          id="tspan7553"
          x="382.39871"
-         y="459.50549">Relief damper position when </tspan><tspan
+         y="459.50549"
+         style="font-size:9.51590443px;line-height:1.25">Relief damper position when </tspan><tspan
          sodipodi:role="line"
          id="tspan7555"
          x="382.39871"
-         y="471.40036">economizer damper in </tspan><tspan
+         y="471.40036"
+         style="font-size:9.51590443px;line-height:1.25">economizer damper in </tspan><tspan
          sodipodi:role="line"
          id="tspan7557"
          x="382.39871"
-         y="483.29526">current position.</tspan></text>
+         y="483.29526"
+         style="font-size:9.51590443px;line-height:1.25">current position.</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.51590443px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="536.19073"
        y="360.11813"
-       id="text8994-5-33-2-4-9-3-3-9-4-5-0-2"
-       sodipodi:linespacing="125%"><tspan
+       id="text8994-5-33-2-4-9-3-3-9-4-5-0-2"><tspan
          sodipodi:role="line"
          id="tspan7506"
          x="536.19073"
-         y="360.11813">Relief damper position that </tspan><tspan
+         y="360.11813"
+         style="font-size:9.51590443px;line-height:1.25">Relief damper position that </tspan><tspan
          sodipodi:role="line"
          id="tspan7508"
          x="536.19073"
-         y="372.013">maintains a building pressure </tspan><tspan
+         y="372.013"
+         style="font-size:9.51590443px;line-height:1.25">maintains a building pressure </tspan><tspan
          sodipodi:role="line"
          id="tspan7510"
          x="536.19073"
-         y="383.9079">of 0.05 inchWC (12.44 Pa) </tspan><tspan
+         y="383.9079"
+         style="font-size:9.51590443px;line-height:1.25">of 0.05 inchWC (12.44 Pa) </tspan><tspan
          sodipodi:role="line"
          id="tspan7512"
          x="536.19073"
-         y="395.80276">while the economizer damper </tspan><tspan
+         y="395.80276"
+         style="font-size:9.51590443px;line-height:1.25">while the economizer damper </tspan><tspan
          sodipodi:role="line"
          id="tspan7514"
          x="536.19073"
-         y="407.69766">is fully open and the fan speed </tspan><tspan
+         y="407.69766"
+         style="font-size:9.51590443px;line-height:1.25">is fully open and the fan speed </tspan><tspan
          sodipodi:role="line"
          id="tspan7516"
          x="536.19073"
-         y="419.59253">is at cooling maximum.</tspan></text>
+         y="419.59253"
+         style="font-size:9.51590443px;line-height:1.25">is at cooling maximum.</tspan></text>
     <path
        style="opacity:0.5;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.31197557;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 152.57071,682.33222 0,-130.16726"
