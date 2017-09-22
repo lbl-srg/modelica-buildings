@@ -1,16 +1,16 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.SetPoints;
 block ReliefDamper "Control of actuated relief  dampers without fans"
   parameter Real minRelDamPos(min=0, max=1, unit="1") = 0.1
-    "Relief damper position maintaining building static pressure at setpoint while the system is at MinPosMin"
+    "Relief damper position maintaining building static pressure at setpoint when the system is at minPosMin"
     annotation(Evaluate=true, Dialog(group="Nominal parameters"));
   parameter Real maxRelDamPos(min=0, max=1, unit="1") = 0.9
-    "Relief damper position maintaining building static pressure at setpoint while the system is at MaxPosMax"
+    "Relief damper position maintaining building static pressure at setpoint when outdoor air damper is fully open and fan speed is at cooling maximum"
     annotation(Evaluate=true, Dialog(group="Nominal parameters"));
   parameter Real minPosMin(min=0, max=1, unit="1")=0.4
     "Outdoor air damper position when fan operating at minimum speed to supply minimum outdoor air flow"
     annotation(Evaluate=true, Dialog(group="Nominal parameters"));
   parameter Real outDamPhyPosMax(min=0, max=1, unit="1")=1
-    "Physical or at the comissioning fixed maximum position of the economizer damper"
+    "Physical or at the comissioning fixed maximum position of the outdoor air damper"
     annotation(Evaluate=true, Dialog(group="Nominal parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
@@ -19,7 +19,7 @@ block ReliefDamper "Control of actuated relief  dampers without fans"
       iconTransformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPos(
     min=0, max=1, unit="1")
-    "Outdoor damper position"
+    "Outdoor air damper position"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDamPos(
@@ -30,7 +30,7 @@ block ReliefDamper "Control of actuated relief  dampers without fans"
 
   Buildings.Controls.OBC.CDL.Continuous.Line relDamPos(
     limitBelow=true, limitAbove=true)
-    "Linerize relief damper position from minRelDamPos to maxRelDamPos"
+    "Linearly map relief damper position to the outdoor air damper position"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
     "Check if relief damper should be open"
@@ -51,19 +51,19 @@ protected
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minRelDam(
     final k=minRelDamPos)
-    "Relief damper position maintaining building static pressure at setpoint while the system is at MinPosMin"
+    "Relief damper position maintaining building static pressure at setpoint while the system is at minPosMin"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxRelDam(
     final k=maxRelDamPos)
-    "Relief damper position maintaining building static pressure at setpoint while while the system is at MaxPosMax"
+    "Relief damper position maintaining building static pressure at setpoint when outdoor air damper is fully open and fan speed is at cooling maximum"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPosAtMinSpd(
     final k=minPosMin)
-    "Outdoor air damper position, when fan operating at minimum speed to supply minimum outdoor air flow"
+    "Outdoor air damper position when fan operating at minimum speed to supply minimum outdoor air flow"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(
     final k=outDamPhyPosMax)
-    "Physical or at the comissioning fixed maximum position of the economizer damper"
+    "Physical or at the comissioning fixed maximum position of the outdoor air damper"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
 equation

@@ -4,7 +4,8 @@ model ReliefDamper
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.SetPoints.ReliefDamper
-    relDamPos "Block of controlling actuated relief damper without fan"
+    relDamPos
+    "Block of controlling actuated relief damper without fan"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFan(k=true)
     "Supply fan status"
@@ -13,7 +14,8 @@ model ReliefDamper
     duration=1200,
     startTime=0,
     height=0.6,
-    offset=0.4) "Outdoor air damper position"
+    offset=0.4)
+    "Outdoor air damper position"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
 equation
