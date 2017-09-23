@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Sort "Validation model for the Sort block"
 extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.CDL.Continuous.Sort sigRan(nin=5)
+  Buildings.Controls.OBC.CDL.Continuous.Sort sor(nin=5)
     "Block that outputs signals such that y[i] >= y[i+1]"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
@@ -34,15 +34,15 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-60,-74},{-40,-54}})));
 
 equation
-  connect(ramp1.y, sigRan.u[1]) annotation (Line(points={{-39,66},{-26,66},{-26,
+  connect(ramp1.y, sor.u[1]) annotation (Line(points={{-39,66},{-26,66},{-26,
           -1.6},{-12,-1.6}}, color={0,0,127}));
-  connect(ramp2.y, sigRan.u[2]) annotation (Line(points={{-39,32},{-26,32},{-26,
+  connect(ramp2.y, sor.u[2]) annotation (Line(points={{-39,32},{-26,32},{-26,
           -0.8},{-12,-0.8}}, color={0,0,127}));
-  connect(ramp3.y, sigRan.u[3])
+  connect(ramp3.y, sor.u[3])
     annotation (Line(points={{-39,0},{-12,0},{-12,0}}, color={0,0,127}));
-  connect(ramp4.y, sigRan.u[4]) annotation (Line(points={{-39,-32},{-26,-32},{
+  connect(ramp4.y, sor.u[4]) annotation (Line(points={{-39,-32},{-26,-32},{
           -26,0.8},{-12,0.8}}, color={0,0,127}));
-  connect(ramp5.y, sigRan.u[5]) annotation (Line(points={{-39,-64},{-26,-64},{
+  connect(ramp5.y, sor.u[5]) annotation (Line(points={{-39,-64},{-26,-64},{
           -26,1.6},{-12,1.6}}, color={0,0,127}));
   annotation (
 experiment(StopTime=1.0, Tolerance=1e-06),
