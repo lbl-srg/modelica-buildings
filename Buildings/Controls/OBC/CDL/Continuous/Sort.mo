@@ -6,20 +6,8 @@ block Sort "Ranks output signals such that y[i] >= y[i+1]"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.RealOutput y[nout] "Connector of Real output signals"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-
-protected
-  Real t "Temporary variable";
-algorithm
-  y[:] := u[:];
-  for i in 1:nin loop
-    for j in 1:nin-1 loop
-    if y[j] < y[j+1] then
-      t      := y[j+1];
-      y[j+1] := y[j];
-      y[j]   := t;
-    end if;
-   end for;
-  end for;
+equation
+  y = Modelica.Math.Vectors.sort(u);
   annotation (
 defaultComponentName="sort",
 Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
@@ -47,6 +35,10 @@ controller to access the position of the dampers that are most open.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 22, 2017, by Michael Wetter:<br/>
+Reimplemented function to make it work with OpenModelica.
+</li>
 <li>
 September 14, 2017, by Jianjun Hu:<br/>
 Changed model name.
