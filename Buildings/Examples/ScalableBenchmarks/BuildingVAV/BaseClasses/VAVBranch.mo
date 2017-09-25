@@ -120,7 +120,7 @@ equation
    connect(ACH.u, senMasFlo.m_flow)
       annotation (Line(points={{98,104},{80,104},{80,134},{61,134}},
         color={0,0,127}, smooth=Smooth.None, pattern=LinePattern.Dash));
-   connect(con.yHea, valHea.y)
+   connect(con.yVal, valHea.y)
       annotation (Line(points={{21,8},{92,8},{92,12}},
         color={0,0,127}, smooth=Smooth.None, pattern=LinePattern.Dash));
    connect(souTer.ports[1], terHea.port_a2)
