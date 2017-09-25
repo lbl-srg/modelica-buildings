@@ -275,8 +275,8 @@ equation
         {-172,-84},{-172,-74},{-186,-74},{-186,-67.2}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(TSup[iFlo].T, cooCoiCon[iFlo].u_m)
-      annotation (Line(points={{12,-21.2},{12,-16},{0,-16},{0,-100},{-186,-100},{-186,-95.2}},
-        color={0,0,127}, pattern=LinePattern.Dash));
+      annotation (Line(points={{12,-21.2},{12,-16},{0,-16},{0,-100},{-186,-100},
+        {-186,-95.2}}, color={0,0,127}, pattern=LinePattern.Dash));
     connect(heaCoiCon[iFlo].y, valHea[iFlo].y)
       annotation (Line(points={{-179.4,-60},{-172,-60},{-162,-60},{-162,-55},{-127,-55}},
         color={0,0,127}, pattern=LinePattern.Dash));
@@ -284,28 +284,26 @@ equation
       annotation (Line(points={{-179.4,-88},{-122,-88},{-66,-88},{-66,-55},{-57,-55}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(TRet[iFlo].T, conEco[iFlo].TRet)
-      annotation (Line(points={{-189,134.8},{-189,142},{-294,142},{-294,98.4},{-288.8,98.4}},
-        color={0,0,127}, pattern=LinePattern.Dash));
+      annotation (Line(points={{-189,134.8},{-189,142},{-294,142},{-294,98.4},
+        {-288.8,98.4}}, color={0,0,127}, pattern=LinePattern.Dash));
     connect(TMix[iFlo].T, conEco[iFlo].TMix)
-      annotation (Line(points={{-200,-21.2},{-200,-21.2},{-200,106},{-200,114},{-298,114},
-        {-298,96},{-288.8,96}},
-        color={0,0,127}, pattern=LinePattern.Dash));
+      annotation (Line(points={{-200,-21.2},{-200,-21.2},{-200,106},{-200,114},
+        {-298,114},{-298,96},{-288.8,96}}, color={0,0,127}, pattern=LinePattern.Dash));
     connect(VOut1[iFlo].V_flow, conEco[iFlo].VOut_flow)
-      annotation (Line(points={{-284,30.8},{-284,30.8},{-284,54},{-284,64},{-302,64},{-302,93.6},
-        {-288.8,93.6}},
-        color={0,0,127}, pattern=LinePattern.Dash));
+      annotation (Line(points={{-284,30.8},{-284,30.8},{-284,54},{-284,64},{-302,64},
+        {-302,93.6}, {-288.8,93.6}}, color={0,0,127}, pattern=LinePattern.Dash));
     connect(TSupSetHea.y, conEco[iFlo].TSupHeaSet)
-      annotation (Line(points={{-257.4,-60},{-216,-60},{-216,68},{-298,68},{-298,91.2},{-288.8,91.2}},
-        color={0,0,127}, pattern=LinePattern.Dash));
+      annotation (Line(points={{-257.4,-60},{-216,-60},{-216,68},{-298,68},{-298,91.2},
+        {-288.8,91.2}}, color={0,0,127}, pattern=LinePattern.Dash));
     connect(TSetCoo[iFlo].TSet, conEco[iFlo].TSupCooSet)
-      annotation (Line(points={{-225.4,-88},{-212,-88},{-212,72},{-294,72},{-294,88.8},{-288.8,88.8}},
-        color={0,0,127}, pattern=LinePattern.Dash));
+      annotation (Line(points={{-225.4,-88},{-212,-88},{-212,72},{-294,72},{-294,88.8},
+        {-288.8,88.8}}, color={0,0,127}, pattern=LinePattern.Dash));
     connect(conEco[iFlo].yOA, eco[iFlo].y)
       annotation (Line(points={{-275.6,95.2},{-268,95.2},{-268,6},{-247,6},{-247,13}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(weaBus, amb[iFlo].weaBus)
-      annotation (Line(points={{-324,170},{-300,170},{-300,120},{-340,120},{-340,39.14},{-320,39.14}},
-        color={255,204,51}, thickness=0.5),
+      annotation (Line(points={{-324,170},{-300,170},{-300,120},{-340,120},{-340,39.14},
+        {-320,39.14}}, color={255,204,51}, thickness=0.5),
         Text(string="%first", index=-1, extent={{-6,3},{-6,3}}));
     connect(senRetFlo[iFlo].V_flow, conFanRet[iFlo].u_m)
       annotation (Line(points={{20,134.8},{20,156.6},{19,156.6}},
@@ -331,17 +329,17 @@ equation
     connect(modeSelector[iFlo].cb, TSetCoo[iFlo].controlBus)
       annotation (Line(points={{-175.455,53.4545},{-206,53.4545},{-206,-92.8},{
             -233.08,-92.8}},
-                          color={255,204,51}, thickness=0.5));
+        color={255,204,51}, thickness=0.5));
     connect(controlBus[iFlo], conFanRet[iFlo].controlBus)
       annotation (Line(points={{-68,54},{-68,54},{-40,54},{-40,170.6},{14.1,170.6}},
         color={255,204,51}, thickness=0.5));
     connect(controlBus[iFlo], conEco[iFlo].controlBus)
       annotation (Line(points={{-68,54},{-68,54},{-134,54},{-134,104},{-285.6,104},
-            {-285.6,94.4}}, color={255,204,51}, thickness=0.5));
+        {-285.6,94.4}}, color={255,204,51}, thickness=0.5));
     connect(controlBus[iFlo], modeSelector[iFlo].cb)
       annotation (Line(points={{-68,54},{-121.728,54},{-121.728,53.4545},{
             -175.455,53.4545}},
-                             color={255,204,51}, thickness=0.5));
+        color={255,204,51}, thickness=0.5));
     connect(controlBus[iFlo], fan_dP_On_Off[iFlo].controlBus)
       annotation (Line(points={{-68,54},{-68,54},{-68,-1.4},{-67.2,-1.4}},
         color={255,204,51}, thickness=0.5),
