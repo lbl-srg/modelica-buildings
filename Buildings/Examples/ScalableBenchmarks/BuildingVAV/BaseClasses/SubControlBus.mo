@@ -2,6 +2,7 @@ within Buildings.Examples.ScalableBenchmarks.BuildingVAV.BaseClasses;
 expandable connector SubControlBus
   "Sub-control bus that is adapted to the signals connected to it"
   extends Modelica.Icons.SignalSubBus;
+
   Modelica.SIunits.Temperature TRooMin "Minimum temperature of multiple zones";
   Modelica.SIunits.Temperature TRooAve "Average temperature of multiple zones";
   Modelica.SIunits.Temperature TRooSetHea "Room heating setpoint temperature";
