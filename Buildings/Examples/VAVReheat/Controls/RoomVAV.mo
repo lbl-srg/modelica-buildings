@@ -3,15 +3,44 @@ block RoomVAV "Controller for room VAV box"
   extends Modelica.Blocks.Icons.Block;
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooHeaSet(
-    unit = "K")
+    final quantity="ThermodynamicTemperature",
+    final unit = "K",
+    displayUnit = "degC",
+    min=0)
     "Setpoint temperature for room for heating"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooCooSet(
-    unit = "K")
+    final quantity="ThermodynamicTemperature",
+    final unit = "K",
+    displayUnit = "degC",
+    min=0)
     "Setpoint temperature for room for cooling"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
+
+  Modelica.Blocks.Interfaces.RealInput TRoo(
+    final quantity="ThermodynamicTemperature",
+    final unit = "K",
+    displayUnit = "degC",
+    min=0)
+    "Measured room temperature"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
+
+  Modelica.Blocks.Interfaces.RealInput TSup(
+    final quantity="ThermodynamicTemperature",
+    final unit = "K",
+    displayUnit = "degC",
+    min=0)
+    "Measured supply air temperature after heating coil"
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
+
+  Modelica.Blocks.Interfaces.RealOutput yVal "Signal for heating coil valve"
+    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
+  Modelica.Blocks.Interfaces.RealOutput yDam "Signal for VAV damper"
+    annotation (Placement(transformation(extent={{100,38},{120,58}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID conHea(
     yMax=1,
@@ -31,22 +60,6 @@ block RoomVAV "Controller for room VAV box"
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
             "Controller for cooling (acts on damper)"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Modelica.Blocks.Interfaces.RealInput TRoo(
-    final quantity="ThermodynamicTemperature",
-    final unit = "K",
-    displayUnit = "degC",
-    min=0)
-    "Measured room temperature"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealOutput yVal "Signal for heating coil valve"
-    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput yDam "Signal for VAV damper"
-    annotation (Placement(transformation(extent={{100,38},{120,58}})));
-  Modelica.Blocks.Interfaces.RealInput TSup(displayUnit="degC")
-    "Measured supply air temperature after heating coil"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
 protected
   parameter Real kPDamHea = 0.5
     "Proportional gain for VAV damper in heating mode";

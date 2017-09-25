@@ -20,12 +20,10 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
   constant Real conv=1.2/3600
     "Conversion factor for nominal mass flow rate";
 
-  Buildings.Examples.ScalableBenchmarks.BuildingVAV.BaseClasses.VAVBranch vavTer[nZon,nFlo]
-    (
+  Buildings.Examples.ScalableBenchmarks.BuildingVAV.BaseClasses.VAVBranch vavTer[nZon,nFlo](
     redeclare each package MediumA = MediumA,
     redeclare each package MediumW = MediumW,
     m_flow_nominal={{m_flow_nominal_each[i, j] for j in 1:nFlo} for i in 1:nZon},
-
     VRoo={{VRoo[i, j] for j in 1:nFlo} for i in 1:nZon},
     dpFixed_nominal={{220 + 20 for j in 1:nFlo} for i in 1:nZon})
     "Supply branch of VAV system"
@@ -428,7 +426,7 @@ equation
           color={0,127,255}, thickness=0.5));
       connect(buiZon.TRooAir[iZon, iFlo], vavTer[iZon, iFlo].TRoo) annotation (
           Line(
-          points={{90,68},{100,68},{100,52},{40,52},{40,32},{50,32}},
+          points={{90,68},{100,68},{100,52},{40,52},{40,18},{50,18}},
           color={0,0,127},
           pattern=LinePattern.Dash));
       connect(senSupFlo[iFlo].port_b, vavTer[iZon, iFlo].port_a) annotation (
@@ -436,12 +434,7 @@ equation
           points={{48,-30},{48,-30},{68,-30},{68,12},{67,12}},
           color={0,127,255},
           thickness=0.5));
-      connect(controlBus.subBus[iFlo], vavTer[iZon, iFlo].controlBus)
-        annotation (Line(
-          points={{-67.95,54.05},{-67.95,54.05},{-40,54.05},{-40,19.2},{52,19.2}},
 
-          color={255,204,51},
-          thickness=0.5));
       connect(buiZon.TRooAir[iZon, iFlo], ave[iFlo].u[iZon])
         annotation (Line(points={{90,68},{100,68},{100,74},{106.8,74}},
           color={0,0,127}, pattern=LinePattern.Dash));
