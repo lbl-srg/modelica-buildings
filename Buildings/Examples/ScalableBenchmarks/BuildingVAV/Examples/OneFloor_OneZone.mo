@@ -42,7 +42,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each nominalValuesDefineDefaultPressureCurve=true)
       "Supply air fan"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Fluid.HeatExchangers.DryEffectivenessNTU hex[nFlo](
+  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hex[nFlo](
     redeclare each package Medium1 = MediumA,
     redeclare each package Medium2 = MediumW,
     each m1_flow_nominal=m_flow_nominal,
@@ -55,7 +55,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each T_a1_nominal=281.65,
     each T_a2_nominal=323.15) "Heating coil"
     annotation (Placement(transformation(extent={{-144,-46},{-124,-26}})));
-  Fluid.HeatExchangers.WetCoilCounterFlow cooCoi[nFlo](
+  Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi[nFlo](
     redeclare each package Medium1 = MediumW,
     redeclare each package Medium2 = MediumA,
     each UA_nominal=m_flow_nominal*1000*15/
@@ -72,46 +72,46 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
       "Cooling coil"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=180, origin={-66,-36})));
-  Fluid.FixedResistances.PressureDrop fil[nFlo](
+  Buildings.Fluid.FixedResistances.PressureDrop fil[nFlo](
     redeclare each package Medium = MediumA,
     each m_flow_nominal=m_flow_nominal,
     each dp_nominal=200 + 200 + 100,
     each from_dp=false,
     each linearized=false) "Filter"
     annotation (Placement(transformation(extent={{-176,-36},{-162,-24}})));
-  Fluid.Sources.FixedBoundary sinHea[nFlo](
+  Buildings.Fluid.Sources.FixedBoundary sinHea[nFlo](
     redeclare each package Medium = MediumW,
     each p=300000,
     each T=318.15,
     each nPorts=1) "Sink for heating coil"
     annotation (Placement(transformation(extent={{-8,-8},{8,8}},
       rotation=90, origin={-148,-74})));
-  Fluid.Sources.FixedBoundary souHea[nFlo](
+  Buildings.Fluid.Sources.FixedBoundary souHea[nFlo](
     redeclare each package Medium = MediumW,
     each p(displayUnit="Pa") = 300000 + 12000,
     each T=318.15,
     each nPorts=1) "Source for heating coil"
     annotation (Placement(transformation(extent={{-8,-8},{8,8}},
       rotation=90, origin={-120,-74})));
-  Fluid.Sources.FixedBoundary sinCoo[nFlo](
+  Buildings.Fluid.Sources.FixedBoundary sinCoo[nFlo](
     redeclare each package Medium = MediumW,
     each p=300000,
     each T=285.15,
     each nPorts=1) "Sink for cooling coil"
     annotation (Placement(transformation(extent={{-8,-8},{8,8}},
       rotation=90, origin={-80,-74})));
-  Fluid.Sources.FixedBoundary souCoo[nFlo](
+  Buildings.Fluid.Sources.FixedBoundary souCoo[nFlo](
     redeclare each package Medium = MediumW,
     each p=3E5 + 12000,
     each T=279.15,
     each nPorts=1) "Source for cooling coil"
     annotation (Placement(transformation(extent={{-8,-8},{8,8}},
       rotation=90, origin={-50,-74})));
-  Fluid.Sources.Outside amb[nFlo](
+  Buildings.Fluid.Sources.Outside amb[nFlo](
     redeclare each package Medium = MediumA,
     each nPorts=2) "Ambient conditions"
     annotation (Placement(transformation(extent={{-320,32},{-306,46}})));
-  Fluid.Actuators.Dampers.MixingBox  eco[nFlo](
+  Buildings.Fluid.Actuators.Dampers.MixingBox  eco[nFlo](
     redeclare each package Medium = MediumA,
     each mOut_flow_nominal=m_flow_nominal,
     each mRec_flow_nominal=m_flow_nominal,
@@ -120,30 +120,30 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each dpRec_nominal=10,
     each dpExh_nominal=10) "Economizer"
     annotation (Placement(transformation(extent={{-262,46},{-232,16}})));
-  Fluid.Sensors.TemperatureTwoPort TMix[nFlo](
+  Buildings.Fluid.Sensors.TemperatureTwoPort TMix[nFlo](
     redeclare each package Medium = MediumA,
     each m_flow_nominal=m_flow_nominal) "Mixed air temperature sensor"
     annotation (Placement(transformation(extent={{-208,-38},{-192,-22}})));
-  Fluid.Sensors.VolumeFlowRate senSupFlo[nFlo](
+  Buildings.Fluid.Sensors.VolumeFlowRate senSupFlo[nFlo](
     redeclare each package Medium = MediumA,
     each m_flow_nominal=m_flow_nominal)  "Sensor for supply fan flow rate"
     annotation (Placement(transformation(extent={{32,-38},{48,-22}})));
-  Fluid.Sensors.TemperatureTwoPort TRet[nFlo](
+  Buildings.Fluid.Sensors.TemperatureTwoPort TRet[nFlo](
     redeclare each package Medium = MediumA,
     each m_flow_nominal=m_flow_nominal) "Return air temperature sensor"
     annotation (Placement(transformation(extent={{-182,118},{-196,134}})));
-  Fluid.Sensors.VolumeFlowRate senRetFlo[nFlo](
+  Buildings.Fluid.Sensors.VolumeFlowRate senRetFlo[nFlo](
     redeclare each package Medium = MediumA,
     each m_flow_nominal=m_flow_nominal)  "Sensor for return fan flow rate"
     annotation (Placement(transformation(extent={{28,118},{12,134}})));
-  Fluid.Movers.SpeedControlled_y fanRet[nFlo](
+  Buildings.Fluid.Movers.SpeedControlled_y fanRet[nFlo](
     redeclare each package Medium = MediumA,
     each tau=60,
     each per(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=1.5*110*{2,0})),
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
       "Return air fan"
     annotation (Placement(transformation(extent={{-10,116},{-30,136}})));
-  Fluid.Actuators.Valves.TwoWayLinear valHea[nFlo](
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear valHea[nFlo](
     redeclare each package Medium = MediumW,
     each CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each dpValve_nominal=6000,
@@ -152,7 +152,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each dpFixed_nominal=6000) "Heating coil valve"
     annotation (Placement(transformation(extent={{-5,-5},{5,5}},
         rotation=90, origin={-121,-55})));
-  Fluid.Actuators.Valves.TwoWayLinear  valCoo[nFlo](
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear  valCoo[nFlo](
     redeclare each package Medium = MediumW,
     each CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each m_flow_nominal=m_flow_nominal*1000*15/4200/10,
@@ -161,15 +161,15 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each dpFixed_nominal=6000) "Cooling coil valve"
     annotation (Placement(transformation(extent={{-5,-5},{5,5}},
         rotation=90, origin={-51,-55})));
-  Fluid.Sensors.VolumeFlowRate VOut1[nFlo](
+  Buildings.Fluid.Sensors.VolumeFlowRate VOut1[nFlo](
     redeclare each package Medium = MediumA,
     each m_flow_nominal=m_flow_nominal) "Outside air volume flow rate"
     annotation (Placement(transformation(extent={{-292,14},{-276,30}})));
-  Fluid.Sensors.TemperatureTwoPort TCoiHeaOut[nFlo](
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCoiHeaOut[nFlo](
     redeclare each package Medium = MediumA,
     each m_flow_nominal=m_flow_nominal) "Heating coil outlet temperature"
     annotation (Placement(transformation(extent={{-102,-38},{-88,-22}})));
-  Fluid.Sensors.TemperatureTwoPort TSup[nFlo](
+  Buildings.Fluid.Sensors.TemperatureTwoPort TSup[nFlo](
     redeclare each package Medium = MediumA,
     each m_flow_nominal=m_flow_nominal) "Supply air temperature sensor"
     annotation (Placement(transformation(extent={{4,-38},{20,-22}})));
@@ -180,7 +180,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
       min=0),
     k=273.15 + 10) "Supply air temperature setpoint for heating"
     annotation (Placement(transformation(extent={{-270,-66},{-258,-54}})));
-  VAVReheat.Controls.CoolingCoilTemperatureSetpoint TSetCoo[nFlo]
+  Buildings.Examples.VAVReheat.Controls.CoolingCoilTemperatureSetpoint TSetCoo[nFlo]
     "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-238,-94},{-226,-82}})));
   Buildings.Controls.Continuous.LimPID cooCoiCon[nFlo](
@@ -202,10 +202,10 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each Ti=600,
     each k=0.1)   "Controller for heating coil"
     annotation (Placement(transformation(extent={{-192,-66},{-180,-54}})));
-  VAVReheat.Controls.ModeSelector modeSelector[nFlo]
+  Buildings.Examples.VAVReheat.Controls.ModeSelector modeSelector[nFlo]
     "Finite State Machine for the operational modes"
     annotation (Placement(transformation(extent={{-178,40},{-162,56}})));
-  VAVReheat.Controls.Economizer conEco[nFlo](
+  Buildings.Examples.VAVReheat.Controls.Economizer conEco[nFlo](
     each dT=1,
     each VOut_flow_min=0.3*m_flow_nominal/1.2,
     each Ti=600,
@@ -228,11 +228,12 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
   Buildings.Utilities.Math.Min min1[nFlo](each nin=nZon)
     "Computes lowest room temperature"
     annotation (Placement(transformation(extent={{108,94},{120,106}})));
-  VAVReheat.Controls.FanVFD conFanRet[nFlo](
+  Buildings.Examples.VAVReheat.Controls.FanVFD conFanRet[nFlo](
     each xSet_nominal(displayUnit="m3/s") = m_flow_nominal/1.2,
     each r_N_min=0.2) "Controller for fan"
     annotation (Placement(transformation(extent={{12,158},{26,172}})));
-  BaseClasses.ControlBus controlBus[nFlo] "Control bus for each floor"
+  Buildings.Examples.ScalableBenchmarks.BuildingVAV.BaseClasses.ControlBus controlBus[nFlo]
+    "Control bus for each floor"
     annotation (Placement(transformation(extent={{-78,44},{-58,64}}),
       iconTransformation(extent={{-128,136},{-108,156}})));
   Buildings.Examples.ScalableBenchmarks.BuildingVAV.BaseClasses.HeatSetpoint
@@ -327,41 +328,32 @@ equation
     connect(cooCoi[iFlo].port_a1, valCoo[iFlo].port_b)
       annotation (Line(points={{-56,-42},{-51,-42},{-51,-50}},
         color={0,127,255}));
-
-
-
-
-
     connect(modeSelector[iFlo].cb, TSetCoo[iFlo].controlBus)
       annotation (Line(points={{-175.455,53.4545},{-206,53.4545},{-206,-92.8},{
             -233.08,-92.8}},
-        color={255,204,51}, thickness=0.5));
+                          color={255,204,51}, thickness=0.5));
     connect(controlBus[iFlo], conFanRet[iFlo].controlBus)
       annotation (Line(points={{-68,54},{-68,54},{-40,54},{-40,170.6},{14.1,170.6}},
         color={255,204,51}, thickness=0.5));
     connect(controlBus[iFlo], conEco[iFlo].controlBus)
       annotation (Line(points={{-68,54},{-68,54},{-134,54},{-134,104},{-285.6,104},
-            {-285.6,94.4}},
-        color={255,204,51}, thickness=0.5));
+            {-285.6,94.4}}, color={255,204,51}, thickness=0.5));
     connect(controlBus[iFlo], modeSelector[iFlo].cb)
       annotation (Line(points={{-68,54},{-121.728,54},{-121.728,53.4545},{
             -175.455,53.4545}},
-        color={255,204,51}, thickness=0.5));
+                             color={255,204,51}, thickness=0.5));
     connect(controlBus[iFlo], fan_dP_On_Off[iFlo].controlBus)
       annotation (Line(points={{-68,54},{-68,54},{-68,-1.4},{-67.2,-1.4}},
         color={255,204,51}, thickness=0.5),
         Text(string="%first", index=-1, extent={{-6,3},{-6,3}}));
     connect(min1[iFlo].y, controlBus[iFlo].TRooMin)
-      annotation (Line(points={{120.6,100},{130,100},{130,6},{-67.95,6},{-67.95,
-            54.05}},
+      annotation (Line(points={{120.6,100},{130,100},{130,6},{-67.95,6},{-67.95,54.05}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(ave[iFlo].y, controlBus[iFlo].TRooAve)
-      annotation (Line(points={{120.6,74},{130,74},{130,6},{-67.95,6},{-67.95,
-            54.05}},
+      annotation (Line(points={{120.6,74},{130,74},{130,6},{-67.95,6},{-67.95,54.05}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(TOut.y, controlBus[iFlo].TOut)
-      annotation (Line(points={{-315.4,146},{-315.4,148},{-67.95,148},{-67.95,
-            54.05}},
+      annotation (Line(points={{-315.4,146},{-315.4,148},{-67.95,148},{-67.95,54.05}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(TSetHea.y[1], controlBus[iFlo].TRooSetHea)
       annotation (Line(points={{-117.4,36},{-92,36},{-92,54.05},{-67.95,54.05}},
@@ -372,20 +364,13 @@ equation
         color={255,204,51}, thickness=0.5),
         Text(string="%second", index=1, extent={{6,3},{6,3}}));
     connect(occSch.tNexOcc, controlBus[iFlo].dTNexOcc)
-      annotation (Line(points={{-115.4,79.6},{-92,79.6},{-92,54.05},{-67.95,
-            54.05}},
+      annotation (Line(points={{-115.4,79.6},{-92,79.6},{-92,54.05},{-67.95,54.05}},
         color={255,204,57}, thickness=0.5),
         Text(string="%second", index=1, extent={{6,3},{6,3}}));
     connect(occSch.occupied, controlBus[iFlo].occupied)
-      annotation (Line(points={{-115.4,72.4},{-92,72.4},{-92,54.05},{-67.95,
-            54.05}},
+      annotation (Line(points={{-115.4,72.4},{-92,72.4},{-92,54.05},{-67.95,54.05}},
         color={255,204,51}, thickness=0.5),
         Text(string="%second", index=1, extent={{6,3},{6,3}}));
-
-
-
-
-
     connect(eco[iFlo].port_Exh, amb[iFlo].ports[1])
       annotation (Line(points={{-262,40},{-278,40},{-278,40.4},{-306,40.4}},
         color={0,127,255}, thickness=0.5));
@@ -431,36 +416,20 @@ equation
   for iFlo in 1:nFlo loop
     for iZon in 1:nZon loop
       connect(vavTer[iZon, iFlo].port_b, buiZon.portsIn[iZon, iFlo])
-        annotation (Line(
-          points={{67,42},{68.2,42},{68.2,65.8}},
-          color={0,127,255},
-          thickness=0.5));
+        annotation (Line(points={{67,42},{68.2,42},{68.2,65.8}},
+          color={0,127,255}, thickness=0.5));
       connect(buiZon.portsOut[iZon, iFlo], senRetFlo[iFlo].port_a)
         annotation (Line(points={{68.2,93.8},{68.2,126},{28,126}},
           color={0,127,255}, thickness=0.5));
-      connect(buiZon.TRooAir[iZon, iFlo], vavTer[iZon, iFlo].TRoo) annotation (
-          Line(
-          points={{90,68},{100,68},{100,52},{40,52},{40,32},{50,32}},
-          color={0,0,127},
-          pattern=LinePattern.Dash));
-      connect(senSupFlo[iFlo].port_b, vavTer[iZon, iFlo].port_a) annotation (
-          Line(
-          points={{48,-30},{48,-30},{68,-30},{68,12},{67,12}},
-          color={0,127,255},
-          thickness=0.5));
-
-
-
+      connect(buiZon.TRooAir[iZon, iFlo], vavTer[iZon, iFlo].TRoo)
+        annotation (Line(points={{90,68},{100,68},{100,52},{40,52},{40,32},{50,32}},
+          color={0,0,127}, pattern=LinePattern.Dash));
+      connect(senSupFlo[iFlo].port_b, vavTer[iZon, iFlo].port_a)
+        annotation (Line(points={{48,-30},{48,-30},{68,-30},{68,12},{67,12}},
+          color={0,127,255}, thickness=0.5));
       connect(controlBus[iFlo], vavTer[iZon, iFlo].controlBus)
-        annotation (Line(
-          points={{-68,54},{-68,54},{-40,54},{-40,19.2},{52,19.2}},
-          color={255,204,51},
-          thickness=0.5));
-
-
-
-
-
+        annotation (Line(points={{-68,54},{-68,54},{-40,54},{-40,19.2},{52,19.2}},
+          color={255,204,51},thickness=0.5));
       connect(buiZon.TRooAir[iZon, iFlo], ave[iFlo].u[iZon])
         annotation (Line(points={{90,68},{100,68},{100,74},{106.8,74}},
           color={0,0,127}, pattern=LinePattern.Dash));
