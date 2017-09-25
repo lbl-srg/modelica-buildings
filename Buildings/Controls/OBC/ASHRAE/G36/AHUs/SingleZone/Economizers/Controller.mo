@@ -28,26 +28,26 @@ model Controller "Single zone VAV AHU economizer control sequence"
   parameter Modelica.SIunits.VolumeFlowRate desVOut_flow=2.0 "Calculated design outdoor airflow rate"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real minVOutMinFansSpePos(
-    final min=minVOutMaxFanSpePos,
-    final max=desVOutMinFanSpePos,
+    final min=outDamPhyPosMin,
+    final max=outDamPhyPosMax,
     final unit="1") = 0.4
     "OA damper position to supply minimum outdoor airflow at minimum fan speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real minVOutMaxFanSpePos(
     final min=outDamPhyPosMin,
-    final max=minVOutMinFansSpePos,
+    final max=outDamPhyPosMax,
     final unit="1") = 0.3
     "OA damper position to supply minimum outdoor airflow at maximum fan speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real desVOutMinFanSpePos(
-    final min=desVOutMaxFanSpePos,
+    final min=minVOutMinFansSpePos,
     final max=outDamPhyPosMax,
     final unit="1") = 0.9
     "OA damper position to supply design outdoor airflow at minimum fan speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real desVOutMaxFanSpePos(
     final min=minVOutMaxFanSpePos,
-    final max=desVOutMinFanSpePos,
+    final max=outDamPhyPosMax,
     final unit="1") = 0.8
     "OA damper position to supply design outdoor airflow at maximum fan speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
