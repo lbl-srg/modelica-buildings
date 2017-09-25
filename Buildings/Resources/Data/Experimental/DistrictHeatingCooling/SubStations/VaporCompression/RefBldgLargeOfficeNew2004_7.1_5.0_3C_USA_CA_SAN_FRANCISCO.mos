@@ -2,7 +2,7 @@
 #Heating and Cooling Model loads for a SF large office
 #Model output from http://en.openei.org/datasets/files/961/pub/COMMERCIAL_LOAD_DATA_E_PLUS_OUTPUT/USA_CA_San.Francisco.Intl.AP.724940_TMY3/
 #First column: Seconds in the year (loads are hourly)
-#Second column: cooling loads in Watts (as negative numbers). 
+#Second column: cooling loads in Watts (as negative numbers).
 #Third column: space heating loads in Watts. Heating is a combination of electric space heating, gas space heating
 #Gas heaters in the model were 80% efficient where electric heaters were 100% efficient. Here the total watts = electric watts + .80*(gas watts)
 #Fourth column: water heating = 0.8 * gas water watts

@@ -206,9 +206,6 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
-       Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
     __Dymola_Commands,
     Documentation(info="<html>
 <p>

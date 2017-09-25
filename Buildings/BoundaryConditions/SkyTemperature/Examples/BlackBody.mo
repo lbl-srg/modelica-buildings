@@ -94,7 +94,5 @@ First implementation.
 </html>"),
 experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SkyTemperature/Examples/BlackBody.mos"
-        "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+        "Simulate and plot"));
 end BlackBody;

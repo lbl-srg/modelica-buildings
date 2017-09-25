@@ -220,6 +220,5 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{
-            300,140}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+            300,140}})));
 end IdealSmallSystem;

@@ -46,7 +46,6 @@ model HeatingCoolingHotWater3Clusters
       nPorts=1) "Model to set the reference pressure"
                                           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-562,110})));
   Buildings.Fluid.FixedResistances.Pipe pip(
     redeclare package Medium = Medium,
@@ -368,6 +367,5 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-580,-260},{780,
-            400}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+            400}})));
 end HeatingCoolingHotWater3Clusters;

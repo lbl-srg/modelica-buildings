@@ -27,9 +27,7 @@ equation
      annotation (Line(points={{-41.4,84},{-32,84},{-32,74},{-20,74}},
        color={0,0,127}));
  end if;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(revisions="<html>
+  annotation (    Documentation(revisions="<html>
 <ul>
 <li>
 June 30, 2017, by Yangyang Fu:<br/>

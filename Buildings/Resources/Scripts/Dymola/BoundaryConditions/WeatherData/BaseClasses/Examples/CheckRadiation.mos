@@ -13,4 +13,3 @@ createPlot(id = 1,
  filename = "CheckRadiation.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
-

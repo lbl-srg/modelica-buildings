@@ -26,8 +26,7 @@ equation
 
   annotation (
   defaultComponentName="subStaCoo",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})), Icon(graphics={
+ Icon(graphics={
       Rectangle(
           extent={{-64,38},{64,-70}},
           lineColor={150,150,150},

@@ -159,7 +159,7 @@ that leaves the model from <code>port_b</code>.
 This model forces the outlet temperature at <code>port_b</code> to be equal to the temperature
 of the input signal <code>TSet</code>, subject to optional limits on the
 heating or cooling capacity <code>QMax_flow &ge; 0</code> and <code>QMin_flow &le; 0</code>.
-Similarly than for the temperature, 
+Similarly than for the temperature,
 this model also forces the outlet water mass fraction at <code>port_b</code> to be
 no lower than the
 input signal <code>X_wSet</code>, subject to optional limits on the

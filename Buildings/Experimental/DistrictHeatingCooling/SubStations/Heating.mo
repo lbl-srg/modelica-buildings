@@ -26,8 +26,7 @@ equation
           6}}, color={0,0,127}));
   annotation (
 defaultComponentName="subStaHea",
-Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})), Documentation(info="<html>
+ Documentation(info="<html>
 <p>
 Substation that removes a prescribed heat flow rate
 from the water that flows through it.

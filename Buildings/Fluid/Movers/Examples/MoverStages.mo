@@ -28,8 +28,6 @@ equation
     annotation (Line(points={{-39,80},{-30,80},{-30,-60},{0,-60},{0,-68}},
                                                        color={255,127,0}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
-            100}})),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/MoverStages.mos"
         "Simulate and plot"),

@@ -107,9 +107,7 @@ equation
     annotation (Line(points={{40,-116},{60,-116},{60,-108}}, color={191,0,0}));
   connect(heaCapGlaNoSha.portUns, theConUns3.port_a)
     annotation (Line(points={{10,-116},{16,-116},{20,-116}}, color={191,0,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}})),
-            Diagram(
+  annotation (            Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,140}})),
     experiment(Tolerance=1e-6, StopTime=600),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Validation/HeatCapacityConstantShade.mos"

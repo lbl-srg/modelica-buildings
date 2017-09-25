@@ -11,6 +11,3 @@ createPlot(id = 1,
  filename = "OnlyExteriorWallWithWindow.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
-
-
-

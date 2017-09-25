@@ -19,21 +19,21 @@ model ControllerHeatingFan "Controller for heating and cooling"
   Modelica.Blocks.Interfaces.RealInput TSetRooCoo(
     final unit="K",
     displayUnit="degC") "Zone cooling setpoint"
-    annotation (Placement(transformation(rotation=0, extent={{-120,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealInput TRoo(
     final unit="K",
     displayUnit="degC")
     "Zone temperature measurement"
-    annotation (Placement(transformation(rotation=0, extent={{-120,-70},{-100,-50}})));
+    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealInput TSetRooHea(
     final unit="K",
     displayUnit="degC") "Zone heating setpoint"
-    annotation (Placement(transformation(rotation=0, extent={{-120,50},{-100,70}})));
+    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   Modelica.Blocks.Interfaces.RealOutput yFan(final unit="1") "Control signal for fan"
-    annotation (Placement(transformation(rotation=0, extent={{100,30},{120,50}})));
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.RealOutput yHea(final unit="1")
     "Control signal for heating coil"
-    annotation (Placement(transformation(rotation=0, extent={{100,-50},{120,-30}})));
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Controls.Continuous.LimPID conHeaCoi(
     final k=kPHea,
     controllerType=Modelica.Blocks.Types.SimpleController.P)

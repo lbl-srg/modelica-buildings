@@ -515,5 +515,3 @@ int read_parameter(PARA_DATA *para) {
   fclose(file_para);
   return 0;
 } /* End of read_parameter()*/
-
-

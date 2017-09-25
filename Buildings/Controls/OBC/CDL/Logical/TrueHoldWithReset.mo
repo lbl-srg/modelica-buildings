@@ -81,8 +81,6 @@ equation
           fillColor=DynamicSelect({235,235,235}, if u then {0,255,0} else {235,
               235,235}),
           fillPattern=FillPattern.Solid)}),
-                                     Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
               Documentation(info="<html>
 <p>
 Block that holds a <code>true</code> input signal for at least a defined time period.

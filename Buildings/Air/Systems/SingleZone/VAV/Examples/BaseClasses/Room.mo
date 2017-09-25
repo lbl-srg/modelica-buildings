@@ -343,8 +343,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-200,-200},{200,200}}, initialScale=0.1)),
-    Icon(coordinateSystem(extent={{-200,-200},{200,200}}, initialScale=0.1),
+    Diagram(coordinateSystem(extent={{-200,-200},{200,200}})),
+    Icon(coordinateSystem(extent={{-200,-200},{200,200}}),
         graphics={
         Rectangle(
           extent={{-158,-160},{162,160}},

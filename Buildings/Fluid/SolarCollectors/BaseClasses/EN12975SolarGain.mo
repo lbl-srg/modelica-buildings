@@ -166,7 +166,7 @@ to make it more efficient.
 <li>
 June 29, 2015, by Filip Jorissen:<br/>
 Fixed sign mistake causing model to fail under high
-solar irradiation because temperature goes above 
+solar irradiation because temperature goes above
 medium temperature bound.
 </li>
 <li>

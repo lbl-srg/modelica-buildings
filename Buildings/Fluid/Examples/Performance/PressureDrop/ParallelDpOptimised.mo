@@ -13,7 +13,7 @@ First implementation.
 <p>
 Example model that demonstrates how translation statistics
 depend on the type of boundary conditions,
-the parallel or series configuration of the components 
+the parallel or series configuration of the components
 and the value of parameter <code>from_dp</code>.
 </p>
 </html>"), experiment(Tolerance=1e-6, StopTime=1), __Dymola_Commands(file=

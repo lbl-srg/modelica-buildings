@@ -16,4 +16,3 @@ createPlot(id=3,
  grid=true,
  subPlot=2,
  colors={{28,108,200}, {238,46,47}, {0,140,72}});
-

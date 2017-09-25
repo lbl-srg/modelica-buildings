@@ -316,7 +316,7 @@ Set <code>prescribedHeatFlowRate=false</code> in control volume.
 <li>
 July 1, 2015, by Filip Jorissen:<br/>
 Added parameter <code>energyDynamicsSolid</code>.
-This is for 
+This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/434\">
 #434</a>.
 </li>

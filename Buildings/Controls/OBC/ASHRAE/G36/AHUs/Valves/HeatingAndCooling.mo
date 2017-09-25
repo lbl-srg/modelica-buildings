@@ -16,18 +16,18 @@ block HeatingAndCooling "Generates heating and cooling control signals to mainta
     final unit="K",
     final quantity = "ThermodynamicTemperature") "Zone heating setpoint temperature"
     annotation (Placement(transformation(
-      extent={{-20,-20},{20,20}},rotation=0, origin={-120,60}), iconTransformation(
+      extent={{-20,-20},{20,20}},origin={-120,60}), iconTransformation(
       extent={{-10,-10},{10,10}},origin={-110,60})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooCooSet(
     final unit="K",
     final quantity = "ThermodynamicTemperature") "Zone cooling setpoint temperature"
     annotation (Placement(transformation(
-      extent={{-20,-20},{20,20}},rotation=0,origin={-120,0}), iconTransformation(
+      extent={{-20,-20},{20,20}},origin={-120,0}), iconTransformation(
       extent={{-10,-10},{10,10}},origin={-110,0})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(
     final unit="K",
     final quantity = "ThermodynamicTemperature") "Zone temperature measurement"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-120,-60}),
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},origin={-120,-60}),
       iconTransformation(extent={{-10,-10},{10,10}}, origin={-110,-60})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea(

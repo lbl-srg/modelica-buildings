@@ -218,7 +218,5 @@ Mar 27, 2013 by Peter Grant:<br/>
 First implementation
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+</html>"));
 end StratifiedEnhancedInternalHex;

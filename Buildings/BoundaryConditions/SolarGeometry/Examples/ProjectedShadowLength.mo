@@ -49,7 +49,5 @@ First implementation.
 </html>"),
 experiment(StartTime=0, Tolerance=1e-6, StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/Examples/ProjectedShadowLength.mos"
-        "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+        "Simulate and plot"));
 end ProjectedShadowLength;

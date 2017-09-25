@@ -107,7 +107,7 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccSen if occSen
     "Occupancy sensor (occupied=true, unoccupied=false)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-      rotation=0, origin={-440,-270}),iconTransformation(
+      origin={-440,-270}),iconTransformation(
       extent={{-20,-20},{20,20}},origin={-60,-220},rotation=90)));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta if winStaSen
     "Window status (open=true, close=false)"
@@ -1016,7 +1016,7 @@ equation
 
 annotation (
   defaultComponentName="zonSetpoint",
-  Icon(coordinateSystem(extent={{-200,-200},{200,200}}, initialScale=0.1),
+  Icon(coordinateSystem(extent={{-200,-200},{200,200}}),
        graphics={
         Rectangle(
         extent={{-200,-200},{200,200}},
@@ -1103,8 +1103,7 @@ annotation (
           textString="%name")}),
   Diagram(coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-420,-620},{340,640}},
-        initialScale=0.1), graphics={
+        extent={{-420,-620},{340,640}}), graphics={
         Rectangle(
           extent={{-412,636},{330,558}},
           lineColor={0,0,0},

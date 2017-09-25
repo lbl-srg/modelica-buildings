@@ -434,9 +434,6 @@ protected
           extent={{-81,32},{84,-24}},
           lineColor={0,0,0},
             textString="Latitude")}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 Block to output the latitude of the location.
@@ -481,9 +478,6 @@ First implementation.
           extent={{-81,32},{84,-24}},
           lineColor={0,0,0},
             textString="Longitude")}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 Block to output the longitude of the location.

@@ -102,7 +102,7 @@ Site:Location,
 !Site:GroundReflectance,
 !0.05, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2;
 ! End MWetter
-! SAN_FRANCISCO_CA_USA Annual Heating 99.6%, MaxDB=3.2°C
+! SAN_FRANCISCO_CA_USA Annual Heating 99.6%, MaxDB=3.2degC
 !SizingPeriod:DesignDay,
 !    SAN_FRANCISCO Ann Htg 99.6% Condns DB,  !- Name
 !    3.2,                     !- Maximum Dry-Bulb Temperature {C}
@@ -121,7 +121,7 @@ Site:Location,
 !    WetBulb;                 !- Humidity Indicating Type
 ! SAN_FRANCISCO Annual Cooling Design Conditions Wind Speed=5.8m/s Wind Dir=310
 ! Hottest Month=SEP
-! SAN_FRANCISCO_CA_USA Annual Cooling (DB=>MWB) .4%, MaxDB=28.3°C MWB=17.2°C
+! SAN_FRANCISCO_CA_USA Annual Cooling (DB=>MWB) .4%, MaxDB=28.3degC MWB=17.2degC
 !SizingPeriod:DesignDay,
 !    SAN_FRANCISCO Ann Clg .4% Condns DB=>MWB,  !- Name
 !    28.3,                    !- Maximum Dry-Bulb Temperature {C}
@@ -1834,4 +1834,3 @@ Output:Variable,
     *,                       !- Key Value
     Zone Infiltration Mass Flow Rate ,  !- Variable Name
     Timestep;                !- Reporting Frequency
-

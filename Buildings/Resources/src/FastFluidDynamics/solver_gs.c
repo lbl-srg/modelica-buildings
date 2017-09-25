@@ -213,4 +213,3 @@ REAL Gauss_Seidel(PARA_DATA *para, REAL **var, REAL *flag, REAL *x) {
   return residual;
 
 } /* End of Gauss-Seidel( )*/
-

@@ -29,8 +29,6 @@ equation
         Line(points={{90,-60},{90,-60},{-14,-60},{-14,0},{-24,0}}, color={0,128,
               255}),
         Line(points={{12,0},{12,-40},{12,-40},{-76,-40}}, color={0,128,255})}),
-                                                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This model implements a non-integrated water-side economizer (WSE)

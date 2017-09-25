@@ -46,7 +46,7 @@ model Carnot_TEva_2ndLaw
     final m2_flow_nominal=m2_flow_nominal,
     final m1_flow_nominal=m1_flow_nominal)
     "Chiller model that uses port_b to compute Carnot efficiency" annotation (
-      Placement(transformation(rotation=0, extent={{60,-40},{80,-20}})));
+      Placement(transformation(extent={{60,-40},{80,-20}})));
 
 protected
   model Chiller "Subsystem model with the chiller"
@@ -136,12 +136,12 @@ protected
 
     Modelica.Blocks.Interfaces.RealInput TSetEvaLea(unit="K")
       "Set point for evaporator leaving temperature" annotation (Placement(
-          transformation(rotation=0, extent={{-144,10},{-120,30}})));
+          transformation(extent={{-144,10},{-120,30}})));
     Modelica.Blocks.Interfaces.RealOutput SGen_flow "Entropy generated"
-      annotation (Placement(transformation(rotation=0, extent={{140,30},{164,50}})));
+      annotation (Placement(transformation(extent={{140,30},{164,50}})));
     Modelica.Blocks.Interfaces.RealInput TConIn(final unit="K", displayUnit=
           "degC") "Condenser inlet temperature" annotation (Placement(
-          transformation(rotation=0, extent={{-144,-30},{-120,-10}})));
+          transformation(extent={{-144,-30},{-120,-10}})));
     Modelica.Blocks.Interfaces.RealInput TEvaIn(final unit="K", displayUnit=
           "degC") "Evaporator inlet temperature" annotation (Placement(
           transformation(

@@ -6,7 +6,7 @@ partial model ResistiveLoad "Partial model of a resistive load"
 <ul>
 <li>
 May 14, 2015, by Marco Bonvini:<br/>
-Created model to solve problems related to OpenModelica as described 
+Created model to solve problems related to OpenModelica as described
 in issue <a href=https://github.com/lbl-srg/modelica-buildings/issues/415>#415</a>.<br/>
 OpenModelica cannot determine the value
 <code>PhaseSystem.n</code> when models like

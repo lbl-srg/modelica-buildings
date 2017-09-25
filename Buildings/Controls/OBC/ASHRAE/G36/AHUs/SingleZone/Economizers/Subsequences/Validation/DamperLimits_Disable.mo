@@ -164,7 +164,7 @@ Documentation(info="<html>
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.Economizers.Subsequences.DamperLimits\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.Economizers.Subsequences.DamperLimits</a>
-for the following control signals: <code>VOut_flow</code>, <code>VOutMinSet_flow</code>. 
+for the following control signals: <code>VOut_flow</code>, <code>VOutMinSet_flow</code>.
 The control loop is always enabled in this example.
 </p>
 </html>", revisions="<html>

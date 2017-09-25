@@ -41,4 +41,3 @@ clean: cleandoc
 	rm -f $(PROG)
 	rm -f $(BINDIR)/$(PROG)
 	@echo "==== Clean of directory finished"
-

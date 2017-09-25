@@ -198,4 +198,3 @@ convertClass("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Character
 
 convertClass("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiencyParameters",
              "Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.fan");
-

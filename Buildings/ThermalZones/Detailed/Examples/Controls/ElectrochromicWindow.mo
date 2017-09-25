@@ -86,8 +86,7 @@ equation
     annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
   annotation (
   defaultComponentName="conWin",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),            Documentation(info="<html>
+            Documentation(info="<html>
 <p>
 Controller for electrochromic windows.
 If the temperature <em>or</em> the irradiation is below <code>TClear</code> or <code>HClear</code>, then

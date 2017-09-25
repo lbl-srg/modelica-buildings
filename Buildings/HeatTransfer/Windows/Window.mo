@@ -124,7 +124,7 @@ model Window "Model for a window"
     der_TSha(fixed=glaSys.haveExteriorShade or glaSys.haveInteriorShade)) if
          not steadyState
     "Heat capacity of glass on room-side, used to reduce nonlinear system of equations"
-    annotation (Placement(transformation(rotation=0, extent={{130,38},{150,58}})));
+    annotation (Placement(transformation(extent={{130,38},{150,58}})));
   // We assume the frame is made of wood. Data are used for Plywood, as
   // this is an order of magnitude estimate for the heat capacity of the frame,
   // which is only used to avoid algebraic loops in the room model.

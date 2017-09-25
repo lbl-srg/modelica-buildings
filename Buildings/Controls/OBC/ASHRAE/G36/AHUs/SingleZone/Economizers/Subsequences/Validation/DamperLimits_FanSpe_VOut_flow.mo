@@ -101,7 +101,7 @@ equation
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           fontSize=16,
-          textString="Variable supply fan speed, 
+          textString="Variable supply fan speed,
 constant minimum outdoor airflow setpoint"),
         Text(
           extent={{0,112},{34,100}},
@@ -111,15 +111,15 @@ constant minimum outdoor airflow setpoint"),
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           fontSize=16,
-          textString="Variable minimum outdoor airflow setpoint, 
-constant supply fan speed 
+          textString="Variable minimum outdoor airflow setpoint,
+constant supply fan speed
 ")}),
 Documentation(info="<html>
 <p>
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.Economizers.Subsequences.DamperLimits\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.Economizers.Subsequences.DamperLimits</a>
-for the following control signals: <code>VOut_flow</code>, <code>VOutMinSet_flow</code>. 
+for the following control signals: <code>VOut_flow</code>, <code>VOutMinSet_flow</code>.
 The control loop is always enabled in this example.
 </p>
 </html>", revisions="<html>

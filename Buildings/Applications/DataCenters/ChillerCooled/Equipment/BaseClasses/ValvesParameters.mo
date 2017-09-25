@@ -31,7 +31,7 @@ partial model ValvesParameters "Model with parameters for multiple valves"
      each min=0,
      each fixed= if CvData==Buildings.Fluid.Types.CvTypes.OpPoint then true else false)=
        fill(6000,numVal)
-    "Nominal pressure drop of fully open valve, used if 
+    "Nominal pressure drop of fully open valve, used if
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint"
     annotation(Dialog(group="Shutoff valve",
       enable = (CvData==Buildings.Fluid.Types.CvTypes.OpPoint)));
@@ -73,12 +73,12 @@ Obtained CvData = " + String(CvData) + ".");
   end if;
   annotation (Documentation(info="<html>
 <p>
-Model that computes the flow coefficients of vectored valves. The number of vectored valves is 
+Model that computes the flow coefficients of vectored valves. The number of vectored valves is
 defined by the parameter <code>numVal</code>.
 </p>
 <p>
 Note that the <code>numVal</code> valves have the same modelling option that can specify the valve
-flow coefficient in fully open conditions. Details can be found in 
+flow coefficient in fully open conditions. Details can be found in
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.ValveParameters\">
 Buildings.Fluid.Actuators.BaseClasses.ValveParameters</a>.
 </p>

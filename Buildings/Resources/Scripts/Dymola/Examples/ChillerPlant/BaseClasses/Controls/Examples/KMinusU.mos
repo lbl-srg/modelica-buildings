@@ -11,5 +11,3 @@ createPlot(id = 1,
  filename = "KMinusU.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
-
-

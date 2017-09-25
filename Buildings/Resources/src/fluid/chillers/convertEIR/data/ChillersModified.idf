@@ -25989,4 +25989,3 @@ Curve:Bicubic,
     35.00,                   !- Maximum Value of x
     0.25,                    !- Minimum Value of y
     1.01;                    !- Maximum Value of y
-

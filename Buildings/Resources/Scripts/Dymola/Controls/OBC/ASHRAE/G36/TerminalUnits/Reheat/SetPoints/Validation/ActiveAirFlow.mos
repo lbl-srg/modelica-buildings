@@ -9,5 +9,3 @@ createPlot(id=2, position={420, 10, 400, 700}, subPlot=3, y={"actAirSet_RehBox.V
 
 createPlot(id=3, position={830, 10, 550, 700}, subPlot=1, y={"actAirSet_RehBox.VActCooMax","actAirSet_RehBox.VActCooMin","actAirSet_RehBox.VActMin","actAirSet_RehBox.VActHeaMin","actAirSet_RehBox.VActHeaMax"}, grid=true, colors={{238,46,47},{28,108,200},{0,140,72},{28,108,200},{0,140,72}});
 createPlot(id=3, position={830, 10, 550, 700}, subPlot=2, y={"actAirSet_RehBox1.VActCooMax","actAirSet_RehBox1.VActCooMin","actAirSet_RehBox1.VActMin","actAirSet_RehBox1.VActHeaMin","actAirSet_RehBox1.VActHeaMax"}, grid=true, colors={{238,46,47},{28,108,200},{0,140,72},{28,108,200},{0,140,72}});
-
-

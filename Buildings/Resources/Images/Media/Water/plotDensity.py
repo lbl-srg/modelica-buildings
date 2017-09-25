@@ -30,4 +30,3 @@ plt.savefig('plotRho.pdf')
 plt.savefig('plotRho.png')
 
 plt.show()
-

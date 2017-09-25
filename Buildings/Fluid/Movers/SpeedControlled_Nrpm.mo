@@ -165,7 +165,5 @@ Revised implementation to allow zero flow rate.
     by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Casella</a>:<br/>
        Model added to the Fluid library</li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+</html>"));
 end SpeedControlled_Nrpm;

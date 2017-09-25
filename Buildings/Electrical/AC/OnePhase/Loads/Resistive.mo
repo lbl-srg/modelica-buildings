@@ -161,7 +161,7 @@ The choices are between a null current or the linearized model.
 <li>May 14, 2015, by Marco Bonvini:<br/>
 Changed parent class to <a href=\"modelica://Buildings.Electrical.Interfaces.ResistiveLoad\">
 Buildings.Electrical.Interfaces.ResistiveLoad</a> in order
-to help openmodelica parsing the model. This fixes issue 
+to help openmodelica parsing the model. This fixes issue
 <a href=https://github.com/lbl-srg/modelica-buildings/issues/415>#415</a>.
 </li>
 <li>September 4, 2014, by Michael Wetter:<br/>

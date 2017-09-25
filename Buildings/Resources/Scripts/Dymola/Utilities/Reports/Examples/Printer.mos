@@ -2,4 +2,3 @@ simulateModel("Buildings.Utilities.Reports.Examples.Printer", tolerance=1e-6, st
 createPlot(id = 1,
  y = {"pri1.x[1]", "pri1.x[2]"},
  grid = true);
-

@@ -99,9 +99,7 @@ equation
           -44,14},{-32,14}}, color={0,0,127}));
   connect(TSouCoo.y, hex.TSouCoo) annotation (Line(points={{-59,20},{-48,20},{
           -48,10},{-32,10}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
-    experiment(Tolerance=1e-6, StopTime=3600),
+  annotation (    experiment(Tolerance=1e-6, StopTime=3600),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Plants/Validation/LakeWaterHeatExchanger_T_Heating.mos"
         "Simulate and plot"),
     Documentation(info="<html>

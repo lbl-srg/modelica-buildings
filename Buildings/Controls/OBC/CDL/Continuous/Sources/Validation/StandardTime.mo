@@ -10,7 +10,7 @@ model StandardTime "Test model for the StandardTime block"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This model tests the implementation of the block that outputs the 
+This model tests the implementation of the block that outputs the
 model time.
 </p>
 </html>", revisions="<html>

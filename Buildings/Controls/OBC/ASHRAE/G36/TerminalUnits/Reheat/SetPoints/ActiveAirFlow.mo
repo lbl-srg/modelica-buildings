@@ -643,7 +643,7 @@ reset based on window status"),      Rectangle(
           fillPattern=FillPattern.Solid,
           lineColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
-          textString="Define active setpoints 
+          textString="Define active setpoints
 according to operation modes")}),
      Icon(
         graphics={Rectangle(
@@ -709,13 +709,13 @@ according to operation modes")}),
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VOccMinAir")}),
-Documentation(info="<html>      
+Documentation(info="<html>
 <p>
 This atomic sequence sets the active maximum and minimum setpoints <code>VActCooMax</code>,
-<code>VActCooMin</code>, <code>VActMin</code>, <code>VActHeaMin</code>, 
-<code>VActHeaMax</code> for VAV reheat terminal unit according to ASHRAE 
+<code>VActCooMin</code>, <code>VActMin</code>, <code>VActHeaMin</code>,
+<code>VActHeaMax</code> for VAV reheat terminal unit according to ASHRAE
 Guideline 36 (G36), PART5.E.3-5.
-</p>  
+</p>
 <h4>1. Information provided by designer</h4>
 According to G36 PART 3.1.B.2, following VAV box design information should be
 provided:
@@ -727,13 +727,13 @@ provided:
 </ul>
 
 <h4>2. Occupied minimum airflow <code>VOccMinAir</code></h4>
-The <code>VOccMinAir</code> shall be equal to zone minimum airflow setpoint 
+The <code>VOccMinAir</code> shall be equal to zone minimum airflow setpoint
 <code>VMin</code> except as follows:
 <ul>
 <li>
 If the zone has an occupancy sensor, <code>VOccMinAir</code> shall be equal to
 minimum breathing zone outdoor airflow (if ventilation is according to ASHRAE
-Standard 62.1-2013) or zone minimum outdoor airflow for building area 
+Standard 62.1-2013) or zone minimum outdoor airflow for building area
 (if ventilation is according to California Title 24) when the room is unpopulated.
 </li>
 <li>
@@ -746,9 +746,9 @@ allowed by the controls <code>VMinCon</code>, <code>VOccMinAir</code> shall be s
 equal to <code>VMinCon</code>.
 </li>
 <li>
-If the zone has a CO2 sensor, then following steps are applied for calculating 
+If the zone has a CO2 sensor, then following steps are applied for calculating
 <code>VOccMinAir</code>. (1) During occupied mode, a P-only loop shall maintain
-CO2 concentration at setpoint, reset 0% at (CO2 setpoint <code>co2Set</code> - 
+CO2 concentration at setpoint, reset 0% at (CO2 setpoint <code>co2Set</code> -
 200 ppm) and 100% at <code>co2Set</code>. If ventilation outdoor airflow is controlled
 in accordance with ASHRAE Standard 62.1-2013, the loop output shall reset the
 <code>VOccMinAir</code> from <code>VMin</code> at 0% loop output up to <code>VCooMax</code>
@@ -760,7 +760,7 @@ not in occupied mode.
 <h4>3. Active maximum and minimum setpoints</h4>
 The setpoints shall vary depending on the mode of the zone group.
 <table summary=\"summary\" border=\"1\">
-<tr><th>Setpoint</th> <th>Occupied</th><th>Cool-down</th> 
+<tr><th>Setpoint</th> <th>Occupied</th><th>Cool-down</th>
 <th>Setup</th><th>Warmup</th><th>Setback</th><th>Unoccupied</th></tr>
 <tr><td>Cooling maximum (<code>VActCooMax</code>)</td><td><code>VCooMax</code></td>
 <td><code>VCooMax</code></td><td><code>VCooMax</code></td>
@@ -780,9 +780,9 @@ The setpoints shall vary depending on the mode of the zone group.
 
 <h4>References</h4>
 <p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of 
-Standards Review)/ASHRAE Guideline 36P, 
-<i>High Performance Sequences of Operation for HVAC systems</i>. 
+<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
+Standards Review)/ASHRAE Guideline 36P,
+<i>High Performance Sequences of Operation for HVAC systems</i>.
 First Public Review Draft (June 2016)</a>
 </p>
 

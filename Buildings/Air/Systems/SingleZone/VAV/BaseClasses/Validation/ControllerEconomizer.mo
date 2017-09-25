@@ -53,34 +53,34 @@ equation
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
-Validation test for the block 
+Validation test for the block
 <a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerEconomizer\">
 Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerEconomizer</a>.
 </p>
 The sine inputs include:
 <ul>
 <li>
-Mixed air temperature <code>mixAirTem</code>, varying from <i>12.5</i> &deg;C 
-to <i>27.5</i> &deg;C 
+Mixed air temperature <code>mixAirTem</code>, varying from <i>12.5</i> &deg;C
+to <i>27.5</i> &deg;C
 </li>
 <li>
-Return air temperature <code>retAirTem</code>, varying from <i>17.0</i> &deg;C 
-to <i>25.0</i> &deg;C 
+Return air temperature <code>retAirTem</code>, varying from <i>17.0</i> &deg;C
+to <i>25.0</i> &deg;C
 </li>
 <li>
 Mixed air temperature setpoint <code>mixAirTemSet</code>, varying from <i>15.0
-</i> &deg;C to <i>25.0</i> &deg;C 
+</i> &deg;C to <i>25.0</i> &deg;C
 </li>
 <li>
-Outdoor air temperature <code>outAirTem</code>, varying from <i>12.0</i> 
-&deg;C to <i>24.0</i> &deg;C 
+Outdoor air temperature <code>outAirTem</code>, varying from <i>12.0</i>
+&deg;C to <i>24.0</i> &deg;C
 </li>
 <li>
 Minimum outdoor air fraction <code>minOutAirFra</code>, varying from <i>0.05
 </i> to <i>0.35</i>
 </li>
 <li>
-Heating control signal <code>heaConSig</code>, varying from <i>0.1</i> to 
+Heating control signal <code>heaConSig</code>, varying from <i>0.1</i> to
 <i>0.3</i>
 </li>
 </ul>

@@ -115,9 +115,7 @@ equation
           {-20,-36}}, color={0,0,127}));
   connect(dp2.port_b, sin.ports[2])
     annotation (Line(points={{40,40},{82,40},{82,38}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/PumpParallel.mos"
+  annotation (    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/PumpParallel.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

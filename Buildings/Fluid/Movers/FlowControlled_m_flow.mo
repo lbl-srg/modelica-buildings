@@ -177,7 +177,5 @@ Revised implementation to allow zero flow rate.
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           textString="M",
-          textStyle={TextStyle.Bold})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+          textStyle={TextStyle.Bold})}));
 end FlowControlled_m_flow;

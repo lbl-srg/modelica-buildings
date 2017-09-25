@@ -38,4 +38,3 @@ createPlot(id = 2,
  color = true,
  leftTitleType = 1,
  bottomTitleType = 1);
-

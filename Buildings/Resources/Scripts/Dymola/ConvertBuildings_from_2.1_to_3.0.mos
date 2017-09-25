@@ -43,9 +43,9 @@ convertElement("Buildings.BoundaryConditions.WeatherData.Bus",
 
 // Refactor of conservation equation for
 // https://github.com/iea-annex60/modelica-annex60/issues/372
-convertModifiers("Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation", 
+convertModifiers("Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation",
   {"sensibleOnly = true"}, fill("", 0), true);
-convertModifiers("Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation", 
+convertModifiers("Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation",
   {"sensibleOnly = false"}, {"use_mWat_flow = true"}, true);
 
 
@@ -160,4 +160,3 @@ convertClass("Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm",
              "Buildings.Fluid.Movers.Data.Generic");
 convertClass("Buildings.Fluid.Movers.Data.SpeedControlled_y",
              "Buildings.Fluid.Movers.Data.Generic");
-

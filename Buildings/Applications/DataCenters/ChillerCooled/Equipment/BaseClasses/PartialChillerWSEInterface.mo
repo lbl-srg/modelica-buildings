@@ -90,11 +90,9 @@ protected
           extent={{-80,80},{80,-80}},
           lineColor={255,255,255},
           fillColor={95,95,95},
-          fillPattern=FillPattern.Solid)}),                      Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
+          fillPattern=FillPattern.Solid)}),    Documentation(info="<html>
 <p>
-This model implements an interface for chillers and integrated/nonitegrated water-side economizers. 
+This model implements an interface for chillers and integrated/nonitegrated water-side economizers.
 </p>
 </html>",
         revisions="<html>

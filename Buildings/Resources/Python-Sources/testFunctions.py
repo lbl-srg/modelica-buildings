@@ -34,6 +34,3 @@ def s2_r1(xS):
     os.remove(filNam)
     y = float(l)
     return y
-
-
-

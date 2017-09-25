@@ -55,22 +55,18 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   Modelica.Blocks.Interfaces.RealOutput UOut(unit="J")
     "Internal energy of the component" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={110,20})));
   Modelica.Blocks.Interfaces.RealOutput mXiOut[Medium.nXi](each min=0, each unit=
        "kg") "Species mass of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={110,-20})));
   Modelica.Blocks.Interfaces.RealOutput mOut(min=0, unit="kg")
     "Mass of the component" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={110,60})));
   Modelica.Blocks.Interfaces.RealOutput mCOut[Medium.nC](each min=0, each unit="kg")
     "Trace substance mass of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={110,-60})));
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
@@ -690,7 +686,5 @@ Implemented first version in <code>Buildings</code> library, based on model from
         Text(
           extent={{-155,-120},{145,-160}},
           lineColor={0,0,255},
-          textString="%name")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+          textString="%name")}));
 end ConservationEquation;

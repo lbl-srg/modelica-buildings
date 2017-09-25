@@ -18,4 +18,3 @@ convertElement({"Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage",
                 "Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening",
                 "Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear",
                 "Buildings.Fluid.Actuators.Valves.ThreeWayLinear"}, "dp_nominal", "dpValve_nominal");
-

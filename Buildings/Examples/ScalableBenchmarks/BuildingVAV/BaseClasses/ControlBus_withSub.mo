@@ -6,8 +6,6 @@ expandable connector ControlBus_withSub "Vector of SubControlBus"
   Buildings.Examples.ScalableBenchmarks.BuildingVAV.BaseClasses.SubControlBus subBus[nSubBus]
     "Combined signal" annotation (HideResult=false);
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This connector defines a vector of the <code>expandable connector</code> SubControlBus that
