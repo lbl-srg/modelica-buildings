@@ -62,6 +62,5 @@ First implementation.
 </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MoistureMixingConservationSteadyState.mos"
-        "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+        "Simulate and plot"));
 end MoistureMixingConservationSteadyState;

@@ -36,5 +36,3 @@ prg: clean
 
 clean:
 	rm -f $(OBJS) $(LIB) main.o main
-
-

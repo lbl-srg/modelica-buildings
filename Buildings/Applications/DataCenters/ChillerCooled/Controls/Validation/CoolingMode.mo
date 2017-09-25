@@ -39,9 +39,7 @@ equation
           {-28,-30},{-28,-4},{-12,-4}}, color={0,0,127}));
   connect(TCHWEntWSE.y, cooModCon.TCHWRetWSE) annotation (Line(points={{-39,-70},
           {-26,-70},{-26,-8},{-12,-8}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file=
+  annotation (    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Controls/Validation/CoolingMode.mos"
         "Simulate and plot"),
     Documentation(info="<html>

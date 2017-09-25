@@ -35,8 +35,7 @@ model OperationMode "Validate block OperationModeSelector"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uWinSta(k=false)
     "Window on/off status"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-      origin={60,-30})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},origin={60,-30})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
 equation

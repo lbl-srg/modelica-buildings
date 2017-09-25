@@ -79,7 +79,7 @@ void set_default_parameter(PARA_DATA *para) {
   para->prob->rho = (REAL) 1.0; /**/
   para->prob->tur_model = LAM; /* No turbulence model*/
 
-  para->solv->check_residual = 0; 
+  para->solv->check_residual = 0;
   para->solv->solver = GS; /* Gauss-Seidel Solver*/
   para->solv->interpolation = BILINEAR; /* Bilinear interpolation*/
 
@@ -424,4 +424,3 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
 
   return flag;
 } /* set_initial_data()*/
-

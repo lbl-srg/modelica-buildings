@@ -5,4 +5,3 @@ createPlot(id=1, position={55, 50, 1848, 1168}, y={"spl.port_1.m_flow", "spl.por
 createPlot(id=1, position={55, 50, 1848, 289}, y={"spl.port_1.p", "spl.port_2.p", "spl.port_3.p"}, range={0.0, 100.0, 1.0131800000000002, 1.0133200000000002}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=1, position={55, 50, 1848, 289}, y={"spl.res1.dp", "spl.res2.dp", "spl.res3.dp"}, range={0.0, 100.0, -6.0, 6.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=1, position={55, 50, 1848, 289}, y={"senTem1.T", "senTem2.T", "senTem3.T"}, range={0.0, 100.0, 5.0, 35.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-

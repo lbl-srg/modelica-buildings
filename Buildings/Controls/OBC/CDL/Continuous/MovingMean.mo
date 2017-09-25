@@ -90,10 +90,10 @@ y =   -  &int;   u(s) ds
       &delta;  t-&delta;
 </pre>
 <p>
-where <i>&delta;</i> is a parameter that determines the time window over 
+where <i>&delta;</i> is a parameter that determines the time window over
 which the input is averaged.
 During the start of the simulation, the block outputs <code>y = u</code> for
-the first <i>1E-15</i> seconds (to avoid a division by zero), and for 
+the first <i>1E-15</i> seconds (to avoid a division by zero), and for
 <i> 1E-15 &le; t &le; &delta;</i> seconds, it outputs
 </P>
 <pre>
@@ -112,7 +112,7 @@ average of a noisy measurement signal.
 See
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Validation.MovingMean\">
 Buildings.Controls.OBC.CDL.Continuous.Validation.MovingMean</a>
-and 
+and
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Validation.MovingMean_nonZeroStart\">
 Buildings.Controls.OBC.CDL.Continuous.Validation.MovingMean_nonZeroStart</a>
 for example.

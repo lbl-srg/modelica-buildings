@@ -104,9 +104,7 @@ equation
       points={{2,0},{20,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (                   Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics),
-    Documentation(info="<html>
+  annotation (    Documentation(info="<html>
 <p>
 This model is reconfigured to a steady state or
 dynamic check for conservation of trace substances.

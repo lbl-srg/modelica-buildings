@@ -14,9 +14,7 @@ record SignalFilterParameters
   parameter Real[numFil] yValve_start=fill(1,numFil)
     "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(revisions="<html>
+  annotation (    Documentation(revisions="<html>
 <ul>
 <li>
 June 30, 2017, by Yangyang Fu:<br/>
@@ -25,7 +23,7 @@ First implementation.
 </ul>
 </html>",
         info="<html>
-Record that contains essential parameters for the vectored signal filters. 
+Record that contains essential parameters for the vectored signal filters.
 The number of filters is specified by <code>nFilter</code>.
 <p>
 Note that all the signal filters have the same on/off control signal, rising time, and initialization type,

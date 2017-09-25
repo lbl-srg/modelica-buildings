@@ -46,9 +46,7 @@ equation
   connect(TSet.y, chiPar.TSet)
     annotation (Line(points={{-59,60},{-28,60},{-28,10},{-12,10}},
       color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file=
+  annotation (    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/ElectricChillerParallel.mos"
         "Simulate and plot"),
     Documentation(info="<html>

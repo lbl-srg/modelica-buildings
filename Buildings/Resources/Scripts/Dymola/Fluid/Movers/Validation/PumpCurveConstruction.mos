@@ -6,4 +6,3 @@ range={0.0, 1.0, -2000.0, 12000.0},
 grid=true, filename="PumpCurveConstruction.mat",
 leftTitleType=1, bottomTitleType=1,
 colors={{0,0,255}, {255,0,0}, {0,128,0},  {0,125,0}});
-

@@ -184,9 +184,7 @@ equation
                                            color={255,127,0}));
   connect(cooModCon.y, intToBoo.u) annotation (Line(points={{-117,110},{-52,110},
           {-52,110}}, color={255,127,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-200},
+  annotation (        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-200},
             {300,220}})),
     __Dymola_Commands(file=
       "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Examples/NonIntegratedPrimarySecondaryEconomizer.mos"

@@ -10,35 +10,35 @@ model ControllerEconomizer "Controller for economizer"
     final unit="K",
     displayUnit="degC")
     "Mixed air setpoint temperature"
-    annotation (Placement(transformation(rotation=0, extent={{-120,70},{-100,90}})));
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Interfaces.RealInput TMix(
     final unit="K",
     displayUnit="degC")
     "Measured mixed air temperature"
-    annotation (Placement(transformation(rotation=0, extent={{-120,40},{-100,60}})));
+    annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
 
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC")
     "Measured outside air temperature"
     annotation (Placement(
-        transformation(rotation=0, extent={{-120,-60},{-100,-40}})));
+        transformation(extent={{-120,-60},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealInput yHea(final unit="1")
     "Control signal for heating coil" annotation (Placement(transformation(
-          rotation=0, extent={{-120,-90},{-100,-70}})));
+          extent={{-120,-90},{-100,-70}})));
 
   Modelica.Blocks.Interfaces.RealInput TRet(
     final unit="K",
     displayUnit="degC")
     "Return air temperature"
-    annotation (Placement(transformation(rotation=0, extent={{-120,10},{-100,30}})));
+    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
 
   Modelica.Blocks.Interfaces.RealInput minOAFra(
     min = 0,
     max = 1,
     final unit="1")
     "Minimum outside air fraction"
-    annotation (Placement(transformation(rotation=0, extent={{-120,-30},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
 
   Modelica.Blocks.Interfaces.RealOutput yOutAirFra(final unit="1")
     "Control signal for outside air fraction"
@@ -70,13 +70,13 @@ model ControllerEconomizer "Controller for economizer"
     trueHoldDuration=60*15,
     uLow=0.05,
     uHigh=0.15) "Hysteresis with delay for heating signal"
-    annotation (Placement(transformation(rotation=0, extent={{-80,-90},{-60,-70}})));
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold hysTMix(
     uLow=-0.5,
     uHigh=0.5,
     trueHoldDuration=60*15)
     "Hysteresis with delay for mixed air temperature"
-    annotation (Placement(transformation(rotation=0, extent={{-20,-60},{0,-40}})));
+    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Blocks.Logical.Not not1
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
@@ -87,7 +87,7 @@ model ControllerEconomizer "Controller for economizer"
     uLow=0,
     trueHoldDuration=60*15)
     "Hysteresis with delay to check for cooling potential of outside air"
-    annotation (Placement(transformation(rotation=0, extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 equation
   connect(Limiter.limit2, minOAFra) annotation (Line(points={{58,-8},{-20,-8},{
           -20,-8},{-94,-8},{-94,-20},{-110,-20},{-110,-20}},
@@ -133,9 +133,7 @@ equation
           -80},{6,-54.6667},{20,-54.6667}}, color={255,0,255}));
   connect(hysYHea.y, not1.u) annotation (Line(points={{-59,-80},{-42,-80},{-42,
           -80}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
+  annotation (    Documentation(info="<html>
 <p>
 Economizer controller.
 </p>

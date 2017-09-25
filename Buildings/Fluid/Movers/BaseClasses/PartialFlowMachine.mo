@@ -164,7 +164,6 @@ protected
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-10,50})));
 
   Buildings.Fluid.Delays.DelayFirstOrder vol(
@@ -607,7 +606,5 @@ Redesigned model to fix bug in medium balance.
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+</html>"));
 end PartialFlowMachine;

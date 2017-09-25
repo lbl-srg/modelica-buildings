@@ -2,4 +2,3 @@ simulateModel("Buildings.Controls.Continuous.Examples.LimPIDWithReset", stopTime
 createPlot(id=2, position={45, 48, 611, 783}, y={"TSet.y", "plaWitRes.temSen.T", "plaNoRes.temSen.T"}, range={0.0, 3600.0, 270.0, 390.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=2, position={45, 48, 611, 389}, y={"conWitRes.conPID.trigger"}, range={0.0, 3600.0, -0.1, 1.1}, grid=true, subPlot=2, colors={{28,108,200}});
 createPlot(id=3, position={693, 51, 1049, 782}, y={"conWitRes.conPID.controlError", "conNoRes.conPID.controlError"}, range={0.0, 3600.0, -80.0, 40.0}, grid=true, colors={{28,108,200}, {238,46,47}});
-

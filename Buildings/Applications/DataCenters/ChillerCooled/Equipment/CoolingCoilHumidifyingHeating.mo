@@ -115,7 +115,6 @@ model CoolingCoilHumidifyingHeating
      annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={-22,-60})));
 
   Buildings.Applications.DataCenters.ChillerCooled.Controls.Reheat heaCon(
@@ -128,7 +127,6 @@ model CoolingCoilHumidifyingHeating
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-10,10})));
 
 protected
@@ -231,7 +229,6 @@ equation
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={255,255,255})}),
-      Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
     <p>This model can represent a typical air handler with a cooling coil, a variable-speed fan,
     a humidifier and an electric reheater. The heating coil is not included in this model.

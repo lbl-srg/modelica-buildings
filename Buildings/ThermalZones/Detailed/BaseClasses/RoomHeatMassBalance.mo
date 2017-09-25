@@ -119,11 +119,9 @@ partial model RoomHeatMassBalance "Base model for a room"
     each min=0, each max=1, each unit="1") if haveControllableWindow
     "Control signal for window state (used for electrochromic windows, removed otherwise)"
      annotation (Placement(
-        transformation(extent={{-20,-20},{20,20}},   rotation=0,
-        origin={-280,140}),
+        transformation(extent={{-20,-20},{20,20}},   origin={-280,140}),
         iconTransformation(
         extent={{-16,-16},{16,16}},
-        rotation=0,
         origin={-216,130})));
 
   ////////////////////////////////////////////////////////////////////////

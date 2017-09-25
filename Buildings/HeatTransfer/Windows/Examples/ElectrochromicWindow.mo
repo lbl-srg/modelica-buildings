@@ -2,10 +2,10 @@ within Buildings.HeatTransfer.Windows.Examples;
 model ElectrochromicWindow "Electrochromic window"
   extends Window(
     redeclare Data.GlazingSystems.DoubleElectrochromicAir13Clear glaSys,
-    uSha(
-      height=0,
-      duration=0,
-      startTime=0));
+      uSha(
+        height=0,
+        duration=0,
+        startTime=0));
   Modelica.Blocks.Sources.Ramp uWin(duration=0.5, startTime=0.25)
     "Window control signal"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));

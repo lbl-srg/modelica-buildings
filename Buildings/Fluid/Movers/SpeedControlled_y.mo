@@ -168,7 +168,5 @@ October 31, 2005 by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Cas
 Model added to the Fluid library
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+</html>"));
 end SpeedControlled_y;

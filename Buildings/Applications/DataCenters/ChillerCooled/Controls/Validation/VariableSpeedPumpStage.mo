@@ -27,9 +27,7 @@ equation
   connect(masFlo.y, varSpePumSta.masFloPum)
     annotation (Line(points={{-39,40},{-30,
           40},{-30,8},{-12,8}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file=
+  annotation (    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Controls/Validation/VariableSpeedPumpStage.mos"
         "Simulate and plot"),
     Documentation(info="<html>

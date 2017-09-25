@@ -120,9 +120,7 @@ equation
           -62,134},{-52,134}},                                     color={0,0,127}));
   connect(CWPumCon.cooMod, cooModCon.y) annotation (Line(points={{-54,75},{-100,
           75},{-100,110},{-109,110}}, color={255,127,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
-            Diagram(
+  annotation (            Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-240,-200},{300,
             220}})),
   __Dymola_Commands(file=

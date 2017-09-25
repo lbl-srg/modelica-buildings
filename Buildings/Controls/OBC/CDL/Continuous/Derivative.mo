@@ -93,8 +93,5 @@ Modelica Standard Library.
         Text(
         extent={{-150,150},{150,110}},
         textString="%name",
-        lineColor={0,0,255})}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}})));
+        lineColor={0,0,255})}));
 end Derivative;

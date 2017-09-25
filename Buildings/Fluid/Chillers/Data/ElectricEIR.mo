@@ -7240,7 +7240,7 @@ Chiller:Electric:EIR,
     1.0,                     !- Compressor Motor Efficiency
     2.0,                     !- Leaving Chilled Water Lower Temperature Limit {C}
     ConstantFlow;            !- Chiller Flow Mode
-    
+
 </pre>
 </html>"));
 
@@ -7349,7 +7349,7 @@ Chiller:Electric:EIR,
     1.0,                     !- Compressor Motor Efficiency
     2.0,                     !- Leaving Chilled Water Lower Temperature Limit {C}
     ConstantFlow;            !- Chiller Flow Mode
-    
+
 </pre>
 </html>"));
 

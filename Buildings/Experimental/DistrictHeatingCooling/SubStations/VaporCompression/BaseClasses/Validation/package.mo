@@ -1,5 +1,5 @@
 within Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses;
-package Validation 
+package Validation
   extends Modelica.Icons.ExamplesPackage;
 
 

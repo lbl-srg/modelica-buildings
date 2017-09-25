@@ -12,7 +12,7 @@ block Enable
     "Delta between the enthalpy hysteresis high and low limits"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
   parameter Modelica.SIunits.Time retDamFulOpeTim=180
-    "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control 
+    "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control
     at disable to avoid pressure fluctuations"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
   parameter Modelica.SIunits.Time disDel=15
@@ -302,8 +302,7 @@ equation
           textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-180,-280},{180,280}},
-        initialScale=0.1), graphics={
+        extent={{-180,-280},{180,280}}), graphics={
         Rectangle(
           extent={{-168,-44},{172,-272}},
           lineColor={0,0,0},
@@ -399,18 +398,18 @@ The following state machine chart illustrates the transitions between enabling a
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/EconEnableDisableStateMachineChartMultiZone.png\"/>
 </p>
 <p>
-After the disable signal is activated, the following procedure is applied, per PART5.N.7.d, in order to 
+After the disable signal is activated, the following procedure is applied, per PART5.N.7.d, in order to
 prevent pressure fluctuations in the HVAC system:
 </p>
 <ul>
 <li>
-return damper gets fully opened (<code>yRetDamPosMax = uRetDamPhyPosMax</code> and 
+return damper gets fully opened (<code>yRetDamPosMax = uRetDamPhyPosMax</code> and
 <code>yRetDamPosMin = uRetDamPhyPosMax</code>) for <code>retDamFulOpeTim</code>
 time period, after which the return damper gets released to its minimum outdoor airflow control position
 (<code>yRetDamPosMax = uRetDamPosMax</code> and <code>yRetDamPosMin = uRetDamPosMax</code>).
 </li>
 <li>
-outdoor air damper is closed to its minimum outoor airflow control limit (<code>yOutDamPosMax = uOutDamPosMin</code>) 
+outdoor air damper is closed to its minimum outoor airflow control limit (<code>yOutDamPosMax = uOutDamPosMin</code>)
 after a <code>disDel</code> time delay.
 </li>
 </ul>

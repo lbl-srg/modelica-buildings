@@ -529,7 +529,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{140,220},{160,240}})));
 
   Controls.PreHeatCoil conPreHeatCoi "Controller for preheat coil"
-               annotation (Placement(transformation(rotation=0, extent={{-4,-112},
+               annotation (Placement(transformation(extent={{-4,-112},
             {16,-92}})));
   Modelica.Blocks.Math.Gain gaiPumPreCoi(k=mWatPre_flow_nominal)
     "Gain for preheat coil pump"

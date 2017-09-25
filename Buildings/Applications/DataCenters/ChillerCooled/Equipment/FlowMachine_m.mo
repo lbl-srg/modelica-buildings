@@ -14,9 +14,7 @@ equation
     annotation (Line(points={{-27,40},{0,40},{0,12}}, color={0,0,127}));
   connect(gaiM_flow.u, u)
     annotation (Line(points={{-50,40},{-120,40},{-120,40}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
+  annotation (    Documentation(info="<html>
 <p>This model implements a parallel of identical pumps with <code>m_flow</code> being controlled.
 The number can be specified by setting a value of <code>num</code>.
 The shutoff valves are used to avoid circulating flow among pumps.

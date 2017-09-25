@@ -150,9 +150,7 @@ equation
     annotation (Line(points={{-52,110},{-109,110}}, color={255,127,0}));
   connect(CWPumCon.cooMod, cooModCon.y) annotation (Line(points={{-54,75},{-80,
           75},{-80,80},{-100,80},{-100,110},{-109,110}}, color={255,127,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
-            Diagram(
+  annotation (            Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-240,-200},{300,
             220}})),
   __Dymola_Commands(file=

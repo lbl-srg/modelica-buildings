@@ -170,7 +170,5 @@ First implementation.
 </ul>
 </html>"),
     Icon(graphics={Bitmap(extent={{-88,90},{96,-94}},
-            fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BeamDepthInRoomIcon.png")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+            fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BeamDepthInRoomIcon.png")}));
 end BeamDepthInRoom;

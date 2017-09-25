@@ -44,9 +44,7 @@ equation
   connect(resSeries[1].port_a, sou.ports[1])
     annotation (Line(points={{-10,0},{-20,0},{-40,0}}, color={0,127,255}));
 
-   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(revisions="<html>
+   annotation (    Documentation(revisions="<html>
 <ul>
 <li>
 May 26, 2017, by Filip Jorissen:<br/>

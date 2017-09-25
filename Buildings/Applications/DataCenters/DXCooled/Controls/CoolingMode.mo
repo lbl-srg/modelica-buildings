@@ -144,13 +144,11 @@ equation
           extent={{128,114},{-128,166}},
           lineColor={0,0,255},
           textString="%name")}),
-       Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This model implements a cooling mode controller for an air-cooled direct expansion (DX) cooling system
-with an airside economizer. This controller is based on a simplified differential dry-bulb temperature 
-control strategy, as described in ASHRAE G36. 
+with an airside economizer. This controller is based on a simplified differential dry-bulb temperature
+control strategy, as described in ASHRAE G36.
 </p>
 <p>
 There are three cooling modes for this system: free cooling (FC) mode,
@@ -193,8 +191,8 @@ The DX coil is disabled when:
 where
 <i>T<sub>swi</sub></i> is the switching temperature,
 subscript <i>set</i> means set point,
-<i>out</i> means outdoor air, <i>ret</i> means return air, 
-and <i>sup</i> means supply air. A deadband <i>&delta;T</i> can be added to the above logics to 
+<i>out</i> means outdoor air, <i>ret</i> means return air,
+and <i>sup</i> means supply air. A deadband <i>&delta;T</i> can be added to the above logics to
 avoid frequent switching.
 </p>
 </html>", revisions="<html>

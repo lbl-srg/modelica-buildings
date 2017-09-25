@@ -30,9 +30,9 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/O
      experiment(StartTime=0, StopTime=1814400, Tolerance=1E-6),
     Documentation(info="<html>
 <p>
-This example validates the bocks <code>IsWorkingDay</code>, 
-<code>IsNonWorkingDay</code>, <code>IsHoliday</code>. The instance 
-<code>dayTypSat</code> generates DayType signals for three consecutive weeks, 
+This example validates the bocks <code>IsWorkingDay</code>,
+<code>IsNonWorkingDay</code>, <code>IsHoliday</code>. The instance
+<code>dayTypSat</code> generates DayType signals for three consecutive weeks,
 with five working and two non-working days. The first day is Saturady, which
 is a non-working day.
 </p>

@@ -8,4 +8,3 @@ range={0.0, 1.0, -0.5, 1.5}, grid=true, subPlot=2, leftTitleType=1, bottomTitleT
 createPlot(id=1, position={75, 12, 482, 162},
 y={"heaFloSen.Q_flow"},
 range={0.0, 1.0, -4.0, 2.0}, grid=true, subPlot=3, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
-

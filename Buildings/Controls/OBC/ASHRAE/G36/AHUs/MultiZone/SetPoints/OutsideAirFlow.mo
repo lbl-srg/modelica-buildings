@@ -33,12 +33,12 @@ block OutsideAirFlow
     annotation(Dialog(group="Nominal condition"));
   parameter Real uLow(final unit="K",
     quantity="ThermodynamicTemperature") = -0.5
-    "If zone space temperature minus supply air temperature is less than uLow, 
+    "If zone space temperature minus supply air temperature is less than uLow,
      then it should use heating supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
   parameter Real uHig(final unit="K",
     quantity="ThermodynamicTemperature") = 0.5
-    "If zone space temperature minus supply air temperature is more than uHig, 
+    "If zone space temperature minus supply air temperature is more than uHig,
      then it should use cooling supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
   parameter Modelica.SIunits.VolumeFlowRate maxSysPriFlo
@@ -472,8 +472,7 @@ Icon(graphics={Rectangle(
           extent={{-100,140},{100,100}},
           lineColor={0,0,255},
           textString="%name")}),
-Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{240,280}},
-        initialScale=0.1), graphics={Rectangle(
+Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{240,280}}), graphics={Rectangle(
           extent={{-180,280},{240,100}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -484,29 +483,29 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{240,280
           fillPattern=FillPattern.Solid,
           textString="Design condition",
           lineColor={0,0,255})}),
- Documentation(info="<html>      
+ Documentation(info="<html>
  <p>
-This atomic sequence sets the minimum outdoor airflow setpoint for compliance 
-with the ventilation rate procedure of ASHRAE 62.1-2013. The implementation 
-is according to ASHRAE Guidline 36 (G36), PART5.N.3.a, PART5.B.2.b, 
+This atomic sequence sets the minimum outdoor airflow setpoint for compliance
+with the ventilation rate procedure of ASHRAE 62.1-2013. The implementation
+is according to ASHRAE Guidline 36 (G36), PART5.N.3.a, PART5.B.2.b,
 PART3.1-D.2.a.
 The calculation is done using the steps below.
-</p>  
- 
+</p>
+
 <h4>Step 1: Minimum breathing zone outdoor airflow required <code>breZon</code></h4>
 <ul>
-<li>The area component of the breathing zone outdoor airflow: 
+<li>The area component of the breathing zone outdoor airflow:
 <code>breZonAre = zonAre*outAirPerAre</code>.
 </li>
-<li>The population component of the breathing zone outdoor airflow: 
+<li>The population component of the breathing zone outdoor airflow:
 <code>breZonPop = occCou*outAirPerPer</code>.
 </li>
 </ul>
 <p>
-The number of occupant <code>occCou</code> in each zone can be retrieved 
-directly from occupancy sensor <code>nOcc</code> if the sensor exists 
-(<code>occSen=true</code>), or using the default occupant density 
-<code>occDen</code> to find it <code>zonAre*occDen</code>. The occupant 
+The number of occupant <code>occCou</code> in each zone can be retrieved
+directly from occupancy sensor <code>nOcc</code> if the sensor exists
+(<code>occSen=true</code>), or using the default occupant density
+<code>occDen</code> to find it <code>zonAre*occDen</code>. The occupant
 density can be found from Table 6.2.2.1 in ASHRAE Standard 62.1-2013.
 For design purpose, use design zone population <code>desZonPop</code> to find
 out the minimum requirement at the ventilation-design condition.
@@ -514,69 +513,69 @@ out the minimum requirement at the ventilation-design condition.
 
 <h4>Step 2: Zone air-distribution effectiveness <code>zonDisEff</code></h4>
 <p>
-Table 6.2.2.2 in ASHRAE 62.1-2013 lists some typical values for setting the 
-effectiveness. Depending on difference between zone space temperature 
-<code>TZon</code> and supply air temperature <code>TSup</code>, Warm-air 
-effectiveness <code>zonDisEffHea</code> or Cool-air effectiveness 
+Table 6.2.2.2 in ASHRAE 62.1-2013 lists some typical values for setting the
+effectiveness. Depending on difference between zone space temperature
+<code>TZon</code> and supply air temperature <code>TSup</code>, Warm-air
+effectiveness <code>zonDisEffHea</code> or Cool-air effectiveness
 <code>zonDisEffCoo</code> should be applied.
 </p>
 
 <h4>Step 3: Minimum required zone outdoor airflow <code>zonOutAirRate</code></h4>
-<p>For each zone in any mode other than occupied mode and for zones that have 
-window switches and the window is open, <code>zonOutAirRate</code> shall be 
+<p>For each zone in any mode other than occupied mode and for zones that have
+window switches and the window is open, <code>zonOutAirRate</code> shall be
 zero.
-Otherwise, the required zone outdoor airflow <code>zonOutAirRate</code> 
+Otherwise, the required zone outdoor airflow <code>zonOutAirRate</code>
 shall be calculated as follows:
 </p>
 <i>If the zone is populated, or if there is no occupancy sensor:</i>
 <ul>
 <li>
-If discharge air temperature at the terminal unit is less than or equal to 
+If discharge air temperature at the terminal unit is less than or equal to
 zone space temperature: <code>zonOutAirRate = (breZonAre+breZonPop)/disEffCoo</code>.
 </li>
 <li>
-If discharge air temperature at the terminal unit is greater than zone space 
+If discharge air temperature at the terminal unit is greater than zone space
 temperature: <code>zonOutAirRate = (breZonAre+breZonPop)/disEffHea</code>
 </li>
 </ul>
 <i>If the zone has an occupancy sensor and is unpopulated:</i>
 <ul>
 <li>
-If discharge air temperature at the terminal unit is less than or equal to 
+If discharge air temperature at the terminal unit is less than or equal to
 zone space temperature: <code>zonOutAirRate = breZonAre/disEffCoo</code>
 </li>
 <li>
-If discharge air temperature at the terminal unit is greater than zone 
+If discharge air temperature at the terminal unit is greater than zone
 space temperature: <code>zonOutAirRate = breZonAre/disEffHea</code>
 </li>
 </ul>
 
 <h4>Step 4: Outdoor air fraction for each zone <code>priOutAirFra</code> </h4>
-The zone outdoor air fraction: 
+The zone outdoor air fraction:
 <pre>
     priOutAirFra = zonOutAirRate/priAirflow
 </pre>
 where, <code>priAirflow</code> is measured from zone VAV box.
 For design purpose, the design zone outdoor air fraction <code>desZonPriOutAirRate</code>
-is found by 
+is found by
 <pre>
-    desZonPriOutAirRate = desZonOutAirRate/minZonFlo 
+    desZonPriOutAirRate = desZonOutAirRate/minZonFlo
 </pre>
-where <code>minZonFlo</code> is the minimum expected zone primary flow rate and 
+where <code>minZonFlo</code> is the minimum expected zone primary flow rate and
 <code>desZonOutAirRate</code> is required design zone outdoor airflow rate.
 
 <h4>Step 5: Occupancy diversity fraction<code>occDivFra</code></h4>
 For actual system operation, the system population equals the sum of zone population,
-so <code>occDivFra=1</code>. It has no impact on the calculation of uncorrected 
+so <code>occDivFra=1</code>. It has no impact on the calculation of uncorrected
 outdoor airflow <code>sysUncOutAir</code>.
 For design purpose, find <code>occDivFra</code> based on the peak system population
-<code>peaSysPopulation</code> and the sum of design population <code>desZonPopulation</code> 
+<code>peaSysPopulation</code> and the sum of design population <code>desZonPopulation</code>
 for all zones:
-<pre>           
-    occDivFra = peaSysPopulation/sum(desZonPopulation)   
+<pre>
+    occDivFra = peaSysPopulation/sum(desZonPopulation)
 </pre>
 
-<h4>Step 6: Uncorrected outdoor airflow <code>unCorOutAirInk</code>, 
+<h4>Step 6: Uncorrected outdoor airflow <code>unCorOutAirInk</code>,
 <code>sysUncOutAir</code></h4>
 <pre>
     unCorOutAirInk = occDivFra*sum(breZonPop)+sum(breZonAre)
@@ -584,7 +583,7 @@ for all zones:
 
 <h4>Step 7: System primary airflow <code>sysPriAirRate</code></h4>
 The system primary airflow equals to the sum of discharge airflow rate measured
-from each VAV box <code>priAirflow</code>. 
+from each VAV box <code>priAirflow</code>.
 For design purpose, a highest expected system primary airflow <code>maxSysPriFlow</code>
 should be applied. It usually is usually estimated with load-diversity factor,
 e.g. 0.7. (Stanke, 2010)
@@ -616,9 +615,9 @@ Design system ventilation efficiency <code>desSysVenEff</code>:
 </pre>
 
 <h4>Step 11: Minimum required system outdoor air intake flow </h4>
-The minimum required system outdoor air intake flow should be the uncorrected 
-outdoor air intake <code>sysUncOutAir</code> divided by the system ventilation 
-efficiency <code>sysVenEff</code>, but should not be larger than the design 
+The minimum required system outdoor air intake flow should be the uncorrected
+outdoor air intake <code>sysUncOutAir</code> divided by the system ventilation
+efficiency <code>sysVenEff</code>, but should not be larger than the design
 outdoor air rate <code>desOutAirInt</code>.
 <pre>
     effMinOutAirInt = MIN(sysUncOutAir/sysVenEff, desOutAirInt)
@@ -630,13 +629,13 @@ where the design outdoor air rate <code>desOutAirInt</code> should be:
 
 <h4>References</h4>
 <p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of 
-Standards Review)/ASHRAE Guideline 36P, 
-<i>High Performance Sequences of Operation for HVAC systems</i>. 
+<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
+Standards Review)/ASHRAE Guideline 36P,
+<i>High Performance Sequences of Operation for HVAC systems</i>.
 First Public Review Draft (June 2016)</a>
 </p>
 <p>
-ANSI/ASHRAE Standard 62.1-2013, 
+ANSI/ASHRAE Standard 62.1-2013,
 <i>Ventilation for Acceptable Indoor Air Quality.</i>
 </p>
 <p>

@@ -147,7 +147,7 @@ __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/Chille
 Documentation(info="<html>
 <p>
 This example demonstrates how the parameter <code>use_controller</code> influences
-the temperautre at <code>port_b2</code>. The temperature at <code>port_b2</code> 
+the temperautre at <code>port_b2</code>. The temperature at <code>port_b2</code>
 can be controlled in <code>hex1</code> where the controller is activated.
 </p>
 </html>", revisions="<html>

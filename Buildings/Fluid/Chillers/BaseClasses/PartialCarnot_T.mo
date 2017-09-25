@@ -26,7 +26,5 @@ January 26, 2016, by Michael Wetter:<br/>
 First implementation of this base class.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+</html>"));
 end PartialCarnot_T;

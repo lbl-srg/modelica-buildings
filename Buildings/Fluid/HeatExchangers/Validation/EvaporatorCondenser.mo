@@ -65,9 +65,7 @@ equation
     annotation (Line(points={{10,0},{18,0},{24,0}}, color={0,127,255}));
   connect(senTem.port_b, sin.ports[1])
     annotation (Line(points={{44,0},{52,0},{58,0}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/EvaporatorCondenser.mos"
+  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/EvaporatorCondenser.mos"
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6, StopTime=100),

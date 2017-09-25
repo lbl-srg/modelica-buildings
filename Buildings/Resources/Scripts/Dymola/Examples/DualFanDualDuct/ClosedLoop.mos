@@ -96,4 +96,3 @@ createPlot(id = 3,
  subPlot = 2,
  leftTitleType = 1,
  bottomTitleType = 1);
-

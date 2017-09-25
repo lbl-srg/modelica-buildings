@@ -55,12 +55,10 @@ model SimpleHouse
     use_T_in=true) "Air boundary with constant temperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-112,140})));
   Sources.Boundary_pT bouWat(redeclare package Medium = MediumWater, nPorts=1)
     "Pressure bound for water circuit" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-8,-170})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
@@ -103,7 +101,6 @@ model SimpleHouse
     m_flow_nominal=mAir_flow_nominal) "Damper" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
-        rotation=0,
         origin={72,120})));
 
   Movers.FlowControlled_dp fan(
@@ -115,7 +112,6 @@ model SimpleHouse
     m_flow_nominal=mAir_flow_nominal,
     show_T=true) "Constant head fan" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-22,120})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow window
     "Very simple window model"

@@ -3,4 +3,3 @@ createPlot(id=1, position={15, 10, 592, 1045}, y={"pla.m_flow", "pla.m_flow_nomi
 createPlot(id=1, position={15, 10, 592, 257}, y={"pla.sta_a.T", "pla.sta_b.T"}, range={0.0, 90000.0, 0.0, 20.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={15, 10, 592, 256}, y={"Q_flow_nominal", "pla.QHea_flow", "pla.QCoo_flow"}, range={0.0, 90000.0, -1000000.0, 1500000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=1, position={15, 10, 592, 257}, y={"pla.dp", "pla.dp_nominal"}, range={0.0, 90000.0, -40000.0, 40000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
-

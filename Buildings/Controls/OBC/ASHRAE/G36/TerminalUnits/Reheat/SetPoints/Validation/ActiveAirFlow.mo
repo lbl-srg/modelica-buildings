@@ -73,7 +73,6 @@ annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat/SetPoints/Validation/ActiveAirFlow.mos"
         "Simulate and plot"),
-  Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
 This example validates

@@ -57,4 +57,3 @@ REAL GS_P(PARA_DATA *para, REAL **var, int Type, REAL *x);
 	* @return Residual
 	*/
 REAL Gauss_Seidel(PARA_DATA *para, REAL **var, REAL *flagp, REAL *x);
-

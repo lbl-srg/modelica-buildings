@@ -236,6 +236,5 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-580,-260},{780,
-            400}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+            400}})));
 end HeatingCoolingHotWater3ClustersBaseCase;

@@ -11,8 +11,6 @@ model CoolSetpoint "Schedule for cooling setpoint"
     columns={2});
 
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This block defines room air cooling setpoints.

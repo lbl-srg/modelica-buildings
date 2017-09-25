@@ -21,5 +21,3 @@ createPlot(id=1,
  range={0.0, 600.0, -1.0, 3.0},
  grid=true, subPlot=3,
  colors={{28,108,200}});
-
-
