@@ -1,8 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.Validation;
 model ZoneTemperatures "Validate block for zone set point"
   extends Modelica.Icons.Example;
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures TSetZon(
-    occSen=true,
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures
+    TSetZon(
+    have_occSen=true,
     sinAdj=false,
     cooAdj=true,
     have_winStaSen=true) "Block determined thermal zone setpoints"

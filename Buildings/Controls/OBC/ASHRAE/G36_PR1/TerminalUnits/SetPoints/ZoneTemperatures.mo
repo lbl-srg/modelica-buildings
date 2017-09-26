@@ -31,8 +31,7 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
   parameter Boolean ignDemLim = true
     "Exempt individual zone from demand limit setpoint adjustment, exempt=true"
     annotation(Dialog(group="Setpoint adjustable setting"));
-  parameter Boolean occSen = false
-    "Check if the zone has occupancy sensor"
+  parameter Boolean have_occSen=false "Check if the zone has occupancy sensor"
     annotation(Dialog(group="Sensors"));
   parameter Boolean have_winStaSen = false
     "Check if the zone has window status sensor"
@@ -104,7 +103,7 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
     "Heating demand limit level"
     annotation (Placement(transformation(extent={{-460,-110},{-420,-70}}),
       iconTransformation(extent={{-240,-200},{-200,-160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccSen if occSen
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccSen if have_occSen
     "Occupancy sensor (occupied=true, unoccupied=false)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
       origin={-440,-270}),iconTransformation(
@@ -300,7 +299,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(k=ignDemLim)
     "Check whether the zone should exempt from setpoint adjustment due to the demand limit"
     annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conTru(k=true) if not occSen
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conTru(k=true) if not
+    have_occSen
     "Constant true"
     annotation (Placement(transformation(extent={{-380,-360},{-360,-340}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant conFal(k=false) if not have_winStaSen
@@ -309,7 +309,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSenCon(k=have_winStaSen)
     "Check if there is window status sensor"
     annotation (Placement(transformation(extent={{40,-480},{60,-460}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSenCon(k=occSen)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSenCon(k=have_occSen)
     "Check if there is occupancy sensor"
     annotation (Placement(transformation(extent={{160,-360},{180,-340}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetWinOpe(k=TCooWinOpe)
@@ -1073,7 +1073,7 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uOccSen",
-          visible = occSen,
+          visible = have_occSen,
           origin={-60.5,-164.5},
           rotation=90),
         Text(
