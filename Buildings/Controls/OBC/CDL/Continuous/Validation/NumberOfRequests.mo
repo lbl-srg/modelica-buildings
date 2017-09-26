@@ -22,8 +22,8 @@ extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp3(
     duration=1,
-    offset=2,
-    height=-4)  "Block that generates ramp signal"
+    height=3.5,
+    offset=0.5) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp4(
     duration=1,
@@ -65,6 +65,12 @@ input <code>u5</code> varies from <i>0</i> to <i>+4</i>,
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 26, 2017, by Thierry S. Nouidui:<br/>
+Revised implementation for JModelica verification.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/939\">issue 939</a>.
+</li>
 <li>
 March 22, 2017, by Jianjun Hu:<br/>
 First implementation.
