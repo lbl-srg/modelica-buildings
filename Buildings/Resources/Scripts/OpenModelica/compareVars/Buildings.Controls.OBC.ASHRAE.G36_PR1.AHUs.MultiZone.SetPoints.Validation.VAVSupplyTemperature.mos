@@ -1,9 +1,9 @@
 compareVars :=
   {
-    "supplyAirTempSet_MultiZone.uZonTemResReq",
-    "supplyAirTempSet_MultiZone.uSupFan",
-    "supplyAirTempSet_MultiZone.uOpeMod",
-    "supplyAirTempSet_MultiZone.maxSupTemRes.y",
-    "supplyAirTempSet_MultiZone.TOut",
-    "supplyAirTempSet_MultiZone.TSup"
+    "conTSetSup.uZonTemResReq",
+    "conTSetSup.uSupFan",
+    "conTSetSup.uOpeMod",
+    "conTSetSup.maxSupTemRes.y",
+    "conTSetSup.TOut",
+    "conTSetSup.TSetSup"
   };
