@@ -8,8 +8,8 @@ compareVars :=
     "sysReq_RehBox.VDisAir",
     "sysReq_RehBox.uDam",
     "sysReq_RehBox.yZonPreResReq",
-    "sysReq_RehBox.TDisAirSet",
-    "sysReq_RehBox.TDisAir",
+    "sysReq_RehBox.TDisSet",
+    "sysReq_RehBox.TDis",
     "sysReq_RehBox.uHeaVal",
     "sysReq_RehBox.yHeaValResReq",
     "sysReq_RehBox.yHeaPlaReq"

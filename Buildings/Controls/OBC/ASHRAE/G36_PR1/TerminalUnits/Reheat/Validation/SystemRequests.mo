@@ -43,11 +43,11 @@ model SystemRequests
     offset=305.15)
     "Generate data for setpoint"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay TDisAirSet(
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay TDisSet(
     samplePeriod=1800)
     "Discharge air setpoint temperature"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Modelica.Blocks.Sources.Sine TDisAir(
+  Modelica.Blocks.Sources.Sine TDis(
     freqHz=1/7200,
     amplitude=2,
     offset=293.15)
@@ -81,12 +81,12 @@ equation
   connect(damPos.y, sysReq_RehBox.uDam)
     annotation (Line(points={{-39,-20},{24,-20},{24,68},{59,68}},
       color={0,0,127}));
-  connect(sine1.y, TDisAirSet.u)
+  connect(sine1.y, TDisSet.u)
     annotation (Line(points={{-69,-40},{-22,-40}}, color={0,0,127}));
-  connect(TDisAirSet.y, sysReq_RehBox.TDisAirSet)
+  connect(TDisSet.y, sysReq_RehBox.TDisSet)
     annotation (Line(points={{1,-40},{26,-40},{26,65},{59,65}},
       color={0,0,127}));
-  connect(TDisAir.y, sysReq_RehBox.TDisAir)
+  connect(TDis.y, sysReq_RehBox.TDis)
     annotation (Line(points={{-39,-60},{28,-60},{28,63},{59,63}},
       color={0,0,127}));
   connect(valPos.y,sysReq_RehBox.uHeaVal)
