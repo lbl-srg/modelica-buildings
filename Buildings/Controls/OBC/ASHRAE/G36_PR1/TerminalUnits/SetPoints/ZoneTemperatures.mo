@@ -1073,14 +1073,16 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uOccSen",
-          origin={-30.5,-212.5},
+          visible = occSen,
+          origin={-60.5,-164.5},
           rotation=90),
         Text(
           extent={{-26.5,9.5},{26.5,-9.5}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uWinSta",
-          origin={90.5,-212.5},
+          visible = winStaSen,
+          origin={60.5,-164.5},
           rotation=90),
         Text(
           extent={{152,110},{194,92}},

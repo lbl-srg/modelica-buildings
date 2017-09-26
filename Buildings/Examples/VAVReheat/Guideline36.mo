@@ -436,35 +436,13 @@ model Guideline36
   Buildings.Examples.VAVReheat.Controls.RoomVAVGuideline36
                    conVAVWes "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures TSetZon
-    "Zone set point temperature"
-    annotation (Placement(transformation(extent={{180,260},{220,300}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooDemLimLev(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.cooling0)
-    "Cooling demand limit level"
-    annotation (Placement(transformation(extent={{60,240},{80,260}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant heaDemLimLev(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.heating0)
-    "Heating demand limit level"
-    annotation (Placement(transformation(extent={{60,200},{80,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHeaOn(k=THeaOn)
-    "Heating on setpoint"
-    annotation (Placement(transformation(extent={{60,360},{80,380}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHeaOff(k=
-        THeaOff) "Heating off set point"
-    annotation (Placement(transformation(extent={{60,330},{80,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCooOn(k=297.15)
-    "Cooling on setpoint"
-    annotation (Placement(transformation(extent={{60,390},{80,410}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCooOff(k=
-        TCooOff) "Cooling off set point"
-    annotation (Placement(transformation(extent={{60,300},{80,320}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode opeModSel(
-      numOfZon=5)
-    annotation (Placement(transformation(extent={{110,270},{130,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tCooDowHeaUp[5](
-    each final k = 1800) "Cool down and heat up time (assumed as constant)"
-    annotation (Placement(transformation(extent={{-40,300},{-20,320}})));
   Buildings.Examples.VAVReheat.Controls.AHUGuideline36 conAHU
-    annotation (Placement(transformation(extent={{296,272},{336,380}})));
+    annotation (Placement(transformation(extent={{300,290},{340,398}})));
+  Buildings.Examples.VAVReheat.Controls.ZoneSetPointsGuideline36 TSetZon1(
+    THeaOn=THeaOn,
+    THeaOff=THeaOff,
+    TCooOff=TCooOff) annotation (Placement(transformation(rotation=0, extent={{
+            68,296},{88,316}})));
 equation
   connect(fil.port_b, heaCoi.port_a1) annotation (Line(
       points={{80,-40},{98,-40}},
@@ -1042,41 +1020,14 @@ equation
   connect(wes.yVAV, conVAVWes.yDam) annotation (Line(points={{1286,48},{1274,48},
           {1274,43.8667},{1261,43.8667}},
                                     color={0,0,127}));
-  connect(TSetZon.uCooDemLimLev, cooDemLimLev.y) annotation (Line(points={{178,
-          266},{150,266},{150,250},{81,250}}, color={255,127,0}));
-  connect(heaDemLimLev.y, TSetZon.uHeaDemLimLev) annotation (Line(points={{81,
-          210},{154,210},{154,262},{178,262}}, color={255,127,0}));
-  connect(TSetZon.occCooSet, TSetRooCooOn.y) annotation (Line(points={{178,298},
-          {170,298},{170,400},{81,400}}, color={0,0,127}));
-  connect(TSetZon.occHeaSet, TSetRooHeaOn.y) annotation (Line(points={{178,294},
-          {166,294},{166,370},{81,370}}, color={0,0,127}));
-  connect(TSetZon.unoCooSet, TSetRooCooOff.y) annotation (Line(points={{178,290},
-          {154,290},{154,310},{81,310}}, color={0,0,127}));
-  connect(TSetZon.unoHeaSet, TSetRooHeaOff.y) annotation (Line(points={{178,286},
-          {162,286},{162,340},{81,340}}, color={0,0,127}));
-  connect(opeModSel.opeMod, TSetZon.uOpeMod) annotation (Line(points={{131,280},
-          {144,280},{144,270},{178,270}}, color={255,127,0}));
-  connect(opeModSel.uOcc, occSch.occupied) annotation (Line(points={{109,289},{
-          -120,289},{-120,290},{-258,290},{-258,-216},{-297,-216}},
-                                               color={255,0,255}));
-  connect(occSch.tNexOcc, opeModSel.tNexOcc) annotation (Line(points={{-297,
-          -204},{-254,-204},{-254,286},{-118,286},{-118,286.6},{109,286.6}},
-                                                        color={0,0,127}));
-  connect(tCooDowHeaUp.y, opeModSel.cooDowTim) annotation (Line(points={{-19,310},
-          {0,310},{0,284.4},{109,284.4}},        color={0,0,127}));
-  connect(tCooDowHeaUp.y, opeModSel.warUpTim) annotation (Line(points={{-19,310},
-          {0,310},{0,282.2},{109,282.2}},        color={0,0,127}));
-  connect(TSetRooCooOn.y, opeModSel.TCooSet) annotation (Line(points={{81,400},
-          {100,400},{100,275.4},{109,275.4}}, color={0,0,127}));
-  connect(opeModSel.THeaSet, TSetRooHeaOn.y) annotation (Line(points={{109,
-          277.8},{102,277.8},{102,370},{81,370}}, color={0,0,127}));
-  connect(opeModSel.TUnoHeaSet, TSetRooHeaOff.y) annotation (Line(points={{109,
-          273.2},{98,273.2},{98,340},{81,340}}, color={0,0,127}));
-  connect(opeModSel.TUnoCooSet, TSetRooCooOff.y) annotation (Line(points={{109,
-          271},{96,271},{96,310},{81,310}}, color={0,0,127}));
-  connect(opeModSel.TZon, flo.TRooAir) annotation (Line(points={{109,280},{104,
-          280},{104,500},{1164,500},{1164,450.733},{1093.44,450.733}}, color={0,
-          0,127}));
+  connect(TSetZon1.uOcc, occSch.occupied) annotation (Line(points={{76,296},{
+          -120,296},{-120,290},{-258,290},{-258,-216},{-297,-216}}, color={255,
+          0,255}));
+  connect(occSch.tNexOcc, TSetZon1.tNexOcc) annotation (Line(points={{-297,-204},
+          {-254,-204},{-254,286},{-118,286},{-118,296},{72,296}}, color={0,0,
+          127}));
+  connect(TSetZon1.TZon, flo.TRooAir) annotation (Line(points={{80,296},{80,500},
+          {1164,500},{1164,450.733},{1093.44,450.733}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{1660,
             600}})),
