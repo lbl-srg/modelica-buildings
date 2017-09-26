@@ -84,22 +84,19 @@ block VAVSupplyFan  "Block to control multizone VAV AHU supply fan"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan "Supply fan ON/OFF status"
     annotation (Placement(transformation(extent={{140,60},{160,80}}),
       iconTransformation(extent={{100,60},{120,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
-    min=0, max=1, final unit="1")
-    "Supply fan speed"
-    annotation (Placement(transformation(extent={{140,-60},{160,-40}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFanSpe(
+    min=0,
+    max=1,
+    final unit="1") "Supply fan speed" annotation (Placement(transformation(
+          extent={{140,-60},{160,-40}}), iconTransformation(extent={{100,-10},{
+            120,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFloRat(
     final unit="m3/s",
     quantity="VolumeFlowRate") if not (duaDucBox or airFloMeaSta)
-    "Totalized current airflow rate from VAV boxes"
+    "Sum of current airflow rates from VAV boxes"
     annotation (Placement(transformation(extent={{140,-120},{160,-100}}),
       iconTransformation(extent={{100,-80},{120,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sum1(
-    final nin=numZon) if not (duaDucBox or airFloMeaSta)
-    "Sum of box airflow rate"
-    annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond staPreSetRes(
     iniSet=iniSet,
     minSet=minSet,
@@ -120,6 +117,7 @@ block VAVSupplyFan  "Block to control multizone VAV AHU supply fan"
     yMin=yMin)
     "Supply fan speed control"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerSpe(k=0)
     "Zero fan speed when it becomes OFF"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
@@ -127,7 +125,10 @@ block VAVSupplyFan  "Block to control multizone VAV AHU supply fan"
     "If fan is OFF, fan speed outputs to zero"
     annotation (Placement(transformation(extent={{80,-50},{100,-70}})));
 
-protected
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum sum1(
+    final nin=numZon) if not (duaDucBox or airFloMeaSta)
+    "Sum of box airflow rate"
+    annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Check whether supply fan should be ON"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
@@ -204,9 +205,8 @@ equation
   connect(zerSpe.y, swi.u3)
     annotation (Line(points={{41,-40},{60,-40},{60,-52},{78,-52}},
       color={0,0,127}));
-  connect(swi.y, yFanSpe)
-    annotation (Line(points={{101,-60},{120,-60},{120,-50},{150,-50}},
-      color={0,0,127}));
+  connect(swi.y, ySupFanSpe) annotation (Line(points={{101,-60},{120,-60},{120,
+          -50},{150,-50}}, color={0,0,127}));
   connect(uZonPreResReq, staPreSetRes.numOfReq)
     annotation (Line(points={{-180,-40},{-142,-40},{-142,-48},{-102,-48}},
       color={255,127,0}));

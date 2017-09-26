@@ -459,7 +459,7 @@ equation
       {98,156}}, color={0,0,127}));
 
 annotation (
-defaultComponentName="outAirSetPoi_MulZon",
+defaultComponentName="outAirSetPoi",
 Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers;
 model Controller "Multiple zone VAV AHU economizer control sequence"
 
-  parameter Boolean use_enthalpy = true
+  parameter Boolean use_enthalpy = false
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
   parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
     "Delta between the temperature hysteresis high and low limit"
@@ -17,28 +17,28 @@ model Controller "Multiple zone VAV AHU economizer control sequence"
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
   parameter Real kPMod=1 "Proportional gain of modulation controller"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
   parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
   parameter Real retDamConSigMinMod(
     final min=0,
     final max=1,
     final unit="1") = 0.5 "Minimum modulation control loop signal for the RA damper - maximum for the OA damper"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
   parameter Real kPDamLim=1 "Proportional gain of damper limit controller"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
   parameter Modelica.SIunits.Time TiDamLim=30 "Time constant of damper limit controller integrator block"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
   parameter Real conSigMinDamLim=0 "Lower limit of damper position limits control signal output"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
   parameter Real conSigMaxDamLim=1 "Upper limit of damper position limits control signal output"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
   parameter Real retDamConSigMinDamLim(
     final min=conSigMinDamLim,
     final max=conSigMaxDamLim,
     final unit="1")=0.5
     "Minimum control signal for the RA damper position limit - maximum for the OA damper position limit"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
