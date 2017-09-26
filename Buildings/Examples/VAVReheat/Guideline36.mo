@@ -463,8 +463,8 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tCooDowHeaUp[5](
     each final k = 1800) "Cool down and heat up time (assumed as constant)"
     annotation (Placement(transformation(extent={{-40,300},{-20,320}})));
-  Buildings.Examples.VAVReheat.Controls.AHUGuideline36 conAHU annotation (
-      Placement(transformation(rotation=0, extent={{334,322},{354,342}})));
+  Buildings.Examples.VAVReheat.Controls.AHUGuideline36 conAHU
+    annotation (Placement(transformation(extent={{296,272},{336,380}})));
 equation
   connect(fil.port_b, heaCoi.port_a1) annotation (Line(
       points={{80,-40},{98,-40}},

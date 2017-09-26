@@ -15,7 +15,7 @@ block OutsideAirFlow
   parameter Modelica.SIunits.Area zonAre[numZon]
     "Area of each zone"
     annotation(Dialog(group="Nominal condition"));
-  parameter Boolean use_occSen[numZon]=fill(true, numZon)
+  parameter Boolean have_occSen[numZon]=fill(true, numZon)
     "Set to true if zones have occupancy sensor";
   parameter Real occDen[numZon](each final unit="1/m2") = fill(0.05, numZon)
     "Default number of person in unit area";
@@ -55,8 +55,8 @@ block OutsideAirFlow
     "Number of occupants"
     annotation (Placement(transformation(extent={{-220,60},{-180,100}}),
       iconTransformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput priAirflow[numZon](
-    min=minZonPriFlo,
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VBox_flow[numZon](
+    min=0,
     each final unit="m3/s",
     each quantity="VolumeFlowRate")
     "Primary airflow rate to the ventilation zone from the air handler, including outdoor air and recirculated air"
@@ -103,7 +103,7 @@ block OutsideAirFlow
   Buildings.Controls.OBC.CDL.Continuous.Add breZon[numZon] "Breathing zone airflow"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai[numZon](
-    k = outAirPerPer) "Outdoor air per person"
+    final k = outAirPerPer) "Outdoor air per person"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi[numZon]
     "If there is occupancy sensor, then using the real time occupancy; otherwise, using the default occupancy"
@@ -202,7 +202,7 @@ block OutsideAirFlow
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSenor[numZon](k=
-        use_occSen) "Boolean constant to indicate if there is occupancy sensor"
+        have_occSen) "Boolean constant to indicate if there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desDisEff[numZon](
     k = desZonDisEff)
@@ -356,7 +356,7 @@ equation
   connect(zerPriAir.y, swi4.u1)
     annotation (Line(points={{-99,-190},{-80,-190},{-80,-174},{-62,-174}},
       color={0,0,127}));
-  connect(priAirflow, swi4.u3)
+  connect(VBox_flow, swi4.u3)
     annotation (Line(points={{-200,-166},{-150,-166},{-100,-166},
       {-100,-158},{-62,-158}}, color={0,0,127}));
   connect(uSupFan, not1.u)
@@ -551,9 +551,9 @@ space temperature: <code>zonOutAirRate = breZonAre/disEffHea</code>
 <h4>Step 4: Outdoor air fraction for each zone <code>priOutAirFra</code> </h4>
 The zone outdoor air fraction:
 <pre>
-    priOutAirFra = zonOutAirRate/priAirflow
+    priOutAirFra = zonOutAirRate/VBox_flow
 </pre>
-where, <code>priAirflow</code> is measured from zone VAV box.
+where, <code>VBox_flow</code> is measured from zone VAV box.
 For design purpose, the design zone outdoor air fraction <code>desZonPriOutAirRate</code>
 is found by
 <pre>
@@ -581,7 +581,7 @@ for all zones:
 
 <h4>Step 7: System primary airflow <code>sysPriAirRate</code></h4>
 The system primary airflow equals to the sum of discharge airflow rate measured
-from each VAV box <code>priAirflow</code>.
+from each VAV box <code>VBox_flow</code>.
 For design purpose, a highest expected system primary airflow <code>maxSysPriFlow</code>
 should be applied. It usually is usually estimated with load-diversity factor,
 e.g. 0.7. (Stanke, 2010)

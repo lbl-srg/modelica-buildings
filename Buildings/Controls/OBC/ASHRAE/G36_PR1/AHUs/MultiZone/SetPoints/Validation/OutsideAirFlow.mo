@@ -66,7 +66,7 @@ equation
   connect(supFan.y, outAirSet_MulZon.uSupFan)
     annotation (Line(points={{-39,-50}, {-10,-50},{-10,-10},{18,-10}},
       color={255,0,255}));
-  connect(zonPriFloRat.y, outAirSet_MulZon.priAirflow)
+  connect(zonPriFloRat.y, outAirSet_MulZon.VBox_flow)
     annotation (Line(points={{-39,-80},{0,-80},{0,-16},{18,-16}},
       color={0,0, 127}));
   connect(TZon.y, outAirSet_MulZon.TZon)

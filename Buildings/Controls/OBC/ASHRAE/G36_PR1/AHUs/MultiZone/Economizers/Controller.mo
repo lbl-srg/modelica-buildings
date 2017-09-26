@@ -24,7 +24,7 @@ model Controller "Multiple zone VAV AHU economizer control sequence"
     final min=0,
     final max=1,
     final unit="1") = 0.5 "Minimum modulation control loop signal for the RA damper - maximum for the OA damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
+    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
   parameter Real kPDamLim=1 "Proportional gain of damper limit controller"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
   parameter Modelica.SIunits.Time TiDamLim=30 "Time constant of damper limit controller integrator block"
