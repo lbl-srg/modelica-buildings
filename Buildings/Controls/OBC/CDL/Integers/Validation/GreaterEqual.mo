@@ -16,12 +16,12 @@ extends Modelica.Icons.Example;
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin(smoothness=
         Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments, table=[0,
         -1; 0.3,0.5; 0.5,0; 0.7,1; 1,0])
-    "Time table with smoothness method of linear segments"
+    "Time table with smoothness method of constant segments"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin1(smoothness
       =Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments, table=[0,0;
         0.35,1; 0.55,0; 0.7,1; 1,0])
-    "Time table with smoothness method of linear segments"
+    "Time table with smoothness method of constant segments"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 equation
   connect(reaToInt.y, intGreEqu.u1)
