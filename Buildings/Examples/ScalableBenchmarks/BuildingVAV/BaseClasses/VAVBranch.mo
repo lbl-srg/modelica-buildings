@@ -11,10 +11,32 @@ model VAVBranch "Supply branch of a VAV system"
     "Mass flow rate of this thermal zone";
   parameter Modelica.SIunits.Volume VRoo "Room volume";
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooHeaSet(
+    final quantity="ThermodynamicTemperature",
+    final unit = "K",
+    displayUnit = "degC",
+    min=0)
+    "Setpoint temperature for room for heating"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooCooSet(
+    final quantity="ThermodynamicTemperature",
+    final unit = "K",
+    displayUnit = "degC",
+    min=0)
+    "Setpoint temperature for room for cooling"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
+
   Modelica.Blocks.Interfaces.RealInput TRoo(
-    unit="K",
-    displayUnit="degC") "Measured room temperature"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}})));
+    final quantity="ThermodynamicTemperature",
+    final unit = "K",
+    displayUnit = "degC",
+    min=0)
+    "Measured room temperature"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
+
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = MediumA)
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
@@ -56,10 +78,7 @@ model VAVBranch "Supply branch of a VAV system"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=180,
       origin={132,24})));
   Buildings.Examples.VAVReheat.Controls.RoomVAV con "Room temperature controller"
-    annotation (Placement(transformation(extent={{0,-6},{20,14}})));
-  Buildings.Examples.ScalableBenchmarks.BuildingVAV.BaseClasses.ControlBus controlBus
-    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}}),
-        iconTransformation(extent={{-110,-38},{-90,-18}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare package Medium =  MediumA) "Sensor for mass flow rate"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
@@ -92,18 +111,14 @@ model VAVBranch "Supply branch of a VAV system"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=180,  origin={132,64})));
 equation
-   connect(con.controlBus, controlBus)
-      annotation (Line(points={{3,11.4},{3,-40},{-100,-40}},
-        color={255,204,51}, thickness=0.5, smooth=Smooth.None),
-        Text(string="%second",  index=1,  extent={{6,3},{6,3}}));
    connect(fraMasFlo.u, senMasFlo.m_flow)
       annotation (Line(points={{100,144},{80,144},{80,134},{61,134}},
         color={0,0,127}, smooth=Smooth.None, pattern=LinePattern.Dash));
    connect(TSup.T, con.TSup)
-      annotation (Line(points={{39,74},{-20,74},{-20,6.66134e-16},{-2,6.66134e-16}},
-        color={0,0,127}, smooth=Smooth.None, pattern=LinePattern.Dash));
+      annotation (Line(points={{39,74},{-20,74},{-20,-8},{-2,-8}},
+        color={0,0,127}));
    connect(con.yDam, vav.y)
-      annotation (Line(points={{21,-1},{32,-1},{32,104},{38,104}},
+      annotation (Line(points={{21,4.8},{32,4.8},{32,104},{38,104}},
         color={0,0,127}, smooth=Smooth.None,  pattern=LinePattern.Dash));
    connect(terHea.port_b1, TSup.port_a)
       annotation (Line(points={{50,54},{50,64}},
@@ -115,13 +130,13 @@ equation
       annotation (Line(points={{50,114},{50,124}},
         color={0,127,255}, smooth=Smooth.None, thickness=0.5));
    connect(con.yDam, yDam)
-      annotation (Line(points={{21,-1},{188,-1},{188,5.55112e-16},{210,5.55112e-16}},
+      annotation (Line(points={{21,4.8},{188,4.8},{188,5.55112e-16},{210,5.55112e-16}},
         color={0,0,127}, smooth=Smooth.None, pattern=LinePattern.Dash));
    connect(ACH.u, senMasFlo.m_flow)
       annotation (Line(points={{98,104},{80,104},{80,134},{61,134}},
         color={0,0,127}, smooth=Smooth.None, pattern=LinePattern.Dash));
-   connect(con.yHea, valHea.y)
-      annotation (Line(points={{21,8},{92,8},{92,12}},
+   connect(con.yVal, valHea.y)
+      annotation (Line(points={{21,-5},{92,-5},{92,12}},
         color={0,0,127}, smooth=Smooth.None, pattern=LinePattern.Dash));
    connect(souTer.ports[1], terHea.port_a2)
       annotation (Line(points={{122,64},{62,64},{62,54}},
@@ -139,9 +154,13 @@ equation
       annotation (Line(points={{50,144},{50,200}},
         color={0,127,255}, smooth=Smooth.None, thickness=0.5));
    connect(con.TRoo, TRoo)
-      annotation (Line(points={{-2,8},{-60,8},{-60,100},{-120,100}},
-        color={0,0,127}, smooth=Smooth.None, pattern=LinePattern.Dash));
+      annotation (Line(points={{-2,-4},{-60,-4},{-60,-40},{-120,-40}},
+        color={0,0,127}));
 
+  connect(con.TRooHeaSet, TRooHeaSet) annotation (Line(points={{-2,8},{-40,8},{
+          -40,80},{-120,80}}, color={0,0,127}));
+  connect(TRooCooSet, con.TRooCooSet) annotation (Line(points={{-120,40},{-44,
+          40},{-44,4},{-2,4}}, color={0,0,127}));
 annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{200,200}}), graphics={
