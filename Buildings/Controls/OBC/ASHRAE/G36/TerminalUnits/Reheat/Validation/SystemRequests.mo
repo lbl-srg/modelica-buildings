@@ -4,7 +4,7 @@ model SystemRequests
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.SystemRequests
-    sysReq_RehBox(have_boiPla=true)
+    sysReq_RehBox(have_heaPla=true)
     "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Sources.Sine sine(freqHz=1/7200, offset=296.15)
@@ -89,7 +89,7 @@ equation
   connect(TDisAir.y, sysReq_RehBox.TDisAir)
     annotation (Line(points={{-39,-60},{28,-60},{28,63},{59,63}},
       color={0,0,127}));
-  connect(valPos.y, sysReq_RehBox.uHotVal)
+  connect(valPos.y,sysReq_RehBox.uHeaVal)
     annotation (Line(points={{1,-80},{30,-80},{30,61},{59,61}},
       color={0,0,127}));
 

@@ -1,3 +1,4 @@
+AHUGuideline36
 ControlBus
 CoolingCoilTemperatureSetpoint
 DuctStaticPressureSetpoint
@@ -10,5 +11,6 @@ OperationModes
 PreCoolingStarter
 RoomTemperatureSetpoint
 RoomVAV
+RoomVAVGuideline36
 State
 Examples

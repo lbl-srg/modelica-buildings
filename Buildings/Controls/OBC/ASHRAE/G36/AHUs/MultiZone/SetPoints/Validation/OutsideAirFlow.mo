@@ -2,32 +2,32 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.SetPoints.Validation;
 model OutsideAirFlow
   "Validate the model of calculating minimum outdoor airflow setpoint"
   extends Modelica.Icons.Example;
-  parameter Integer numOfZon = 5 "Total number of zones that the system serves";
+  parameter Integer numZon = 5 "Total number of zones that the system serves";
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.SetPoints.OutsideAirFlow
-    outAirSet_MulZon(numOfZon=numOfZon,
-    zonAre=fill(40, numOfZon),
+    outAirSet_MulZon(numZon=numZon,
+    zonAre=fill(40, numZon),
     maxSysPriFlo=1,
-    minZonPriFlo=fill(0.08, numOfZon),
+    minZonPriFlo=fill(0.08, numZon),
     peaSysPop=20)
     "Block to output minimum outdoor airflow rate for system with multiple zones "
     annotation (Placement(transformation(extent={{20,-20},{60,20}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta[numOfZon](
-    k=fill(false,numOfZon))
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta[numZon](
+    k=fill(false,numZon))
     "Status of windows in each zone"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFan(
     k=true) "Status of supply fan"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonPriFloRat[numOfZon](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonPriFloRat[numZon](
     k={0.1,0.12,0.2,0.09,0.1})
     "Measured primary flow rate in each zone at VAV box"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon[numOfZon](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon[numZon](
     each height=6,
     each offset=273.15 + 17,
     each duration=3600) "Measured zone temperature"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup[numOfZon](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup[numZon](
     each height=4,
     each duration=3600,
     each offset=273.15 + 18) "Supply air temperature"
@@ -72,7 +72,7 @@ equation
   connect(TZon.y, outAirSet_MulZon.TZon)
     annotation (Line(points={{-39,40},{-10,40},{-10,10},{18,10}},
       color={0,0,127}));
-  connect(TSup.y, outAirSet_MulZon.TSup)
+  connect(TSup.y,outAirSet_MulZon.TDis)
     annotation (Line(points={{-39,10},{-20,10},{-20,4},{18,4}},
       color={0,0,127}));
   connect(numOfOcc1.y, outAirSet_MulZon.nOcc[1])
