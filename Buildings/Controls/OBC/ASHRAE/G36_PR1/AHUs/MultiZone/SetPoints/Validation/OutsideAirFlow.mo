@@ -28,10 +28,10 @@ model OutsideAirFlow
     each offset=273.15 + 17,
     each duration=3600) "Measured zone temperature"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup[numZon](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TDis[numZon](
     each height=4,
     each duration=3600,
-    each offset=273.15 + 18) "Supply air temperature"
+    each offset=273.15 + 18) "Terminal unit discharge air temperature"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc1(
     height=2,
@@ -77,7 +77,7 @@ equation
   connect(TZon.y, outAirSet_MulZon.TZon)
     annotation (Line(points={{-39,40},{-10,40},{-10,10},{18,10}},
       color={0,0,127}));
-  connect(TSup.y,outAirSet_MulZon.TDis)
+  connect(TDis.y,outAirSet_MulZon.TDis)
     annotation (Line(points={{-39,10},{-20,10},{-20,4},{18,4}},
       color={0,0,127}));
   connect(numOfOcc1.y, outAirSet_MulZon.nOcc[1])

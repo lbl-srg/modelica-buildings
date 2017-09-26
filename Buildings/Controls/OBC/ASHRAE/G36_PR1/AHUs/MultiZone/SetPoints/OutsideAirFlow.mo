@@ -73,7 +73,7 @@ block OutsideAirFlow
       iconTransformation(extent={{-120,40},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis[numZon](
     each final unit="K",
-    each quantity="ThermodynamicTemperature") "Discharge air temperature"
+    each quantity="ThermodynamicTemperature") "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),
       iconTransformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
@@ -468,8 +468,8 @@ equation
     annotation (Line(points={{-149,-180},{-140,-180},{-140,-168},{-132,-168}}, color={255,127,0}));
   connect(not1.u, and2.y) annotation (Line(points={{-122,-130},{-130,-130},{-139,-130}}, color={255,0,255}));
   connect(uSupFan, and2.u1) annotation (Line(points={{-200,-130},{-181,-130},{-162,-130}}, color={255,0,255}));
-  connect(intEqu1.y, and2.u2) annotation (Line(points={{-109,-160},{-100,-160},{-100,-144},{-170,-144},{-170,-138},{
-          -162,-138}}, color={255,0,255}));
+  connect(intEqu1.y, and2.u2) annotation (Line(points={{-109,-160},{-100,-160},{-100,-144},{-170,-144},{-170,-138},{-162,
+          -138}}, color={255,0,255}));
 annotation (
 defaultComponentName="outAirSetPoi",
 Icon(graphics={Rectangle(
