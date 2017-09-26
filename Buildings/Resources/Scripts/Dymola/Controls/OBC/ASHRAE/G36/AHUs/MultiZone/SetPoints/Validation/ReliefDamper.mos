@@ -1,3 +1,0 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.SetPoints.Validation.ReliefDamper", method="dassl", stopTime=1200, tolerance=1e-06, resultFile="ReliefDamper_MultiZone");
-createPlot(id=1, position={20, 10, 700, 700}, subPlot=1, y={"meaBuiPre.y"}, range={0.0, 1200.0, 7.0, 17}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={20, 10, 700, 700}, subPlot=2, y={"relDamPos.yRelDamPos"}, range={0.0, 1200.0, 0.0, 1.0}, grid=true, colors={{28,108,200}});

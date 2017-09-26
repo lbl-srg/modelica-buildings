@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.Validation.VAVSupply_u", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="VAVSupply_u_SingleZone");
+createPlot(id=1, position={35, 30, 808, 1122}, y={"setPoiVAV.uHea", "setPoiVAV.uCoo"}, range={0.0, 1.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={35, 30, 808, 277}, y={"setPoiVAV.THeaEco", "setPoiVAV.TCoo"}, range={0.0, 1.0, 290.0, 304.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={35, 30, 808, 276}, y={"setPoiVAV.y"}, range={0.0, 1.0, -0.2, 1.2000000000000002}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={35, 30, 808, 277}, y={"setPoiVAV.TZon", "setPoiVAV.TOut"}, range={0.0, 1.0, 258.0, 260.5}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
