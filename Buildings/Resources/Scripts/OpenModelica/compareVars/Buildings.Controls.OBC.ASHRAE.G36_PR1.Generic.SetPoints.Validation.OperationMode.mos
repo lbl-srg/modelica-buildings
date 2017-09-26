@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "opeModSel.opeMod",
+    "opeModSel.yOpeMod",
     "opeModSel.TUnoHeaSet",
     "opeModSel.TUnoCooSet",
     "opeModSel.THeaSet",

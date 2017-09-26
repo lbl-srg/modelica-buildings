@@ -11,7 +11,7 @@ block OutsideAirFlow
   parameter Modelica.SIunits.Area zonAre
     "Area of each zone"
     annotation(Dialog(group="Nominal condition"));
-  parameter Boolean occSen = true
+  parameter Boolean have_occSen=false
     "Set to true if zones have occupancy sensor";
   parameter Real occDen(final unit="1/m2") = 0.05
     "Default number of person in unit area";
@@ -90,8 +90,8 @@ block OutsideAirFlow
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSenor(
-    final k=occSen)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSenor(final k=
+        have_occSen)
     "Boolean constant to indicate if there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOutAir(
@@ -213,7 +213,7 @@ is according to ASHRAE Guidline 36 (G36), PART5.P.4.b, PART5.B.2.b, PART3.1-D.2.
 <p>
 The number of occupant <code>occCou</code> could be retrieved
 directly from occupancy sensor <code>nOcc</code> if the sensor exists
-(<code>occSen=true</code>), or using the default occupant density
+(<code>have_occSen=true</code>), or using the default occupant density
 <code>occDen</code> to find it <code>zonAre*occDen</code>. The occupant
 density can be found from Table 6.2.2.1 in ASHRAE Standard 62.1-2013.
 For design purpose, use design zone population <code>desZonPop</code> to find
