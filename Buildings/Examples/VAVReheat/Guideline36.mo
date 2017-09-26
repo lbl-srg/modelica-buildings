@@ -436,13 +436,13 @@ model Guideline36
   Buildings.Examples.VAVReheat.Controls.RoomVAVGuideline36
                    conVAVWes "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SetPoints.ZoneTemperatures TSetZon
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures TSetZon
     "Zone set point temperature"
     annotation (Placement(transformation(extent={{180,260},{220,300}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooDemLimLev(k=Buildings.Controls.OBC.ASHRAE.G36.Constants.DemandLimitLevels.cooling0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooDemLimLev(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.cooling0)
     "Cooling demand limit level"
     annotation (Placement(transformation(extent={{60,240},{80,260}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant heaDemLimLev(k=Buildings.Controls.OBC.ASHRAE.G36.Constants.DemandLimitLevels.heating0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant heaDemLimLev(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.heating0)
     "Heating demand limit level"
     annotation (Placement(transformation(extent={{60,200},{80,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHeaOn(k=THeaOn)
@@ -457,7 +457,7 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCooOff(k=
         TCooOff) "Cooling off set point"
     annotation (Placement(transformation(extent={{60,300},{80,320}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Generic.SetPoints.OperationMode opeModSel(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode opeModSel(
       numOfZon=5)
     annotation (Placement(transformation(extent={{110,270},{130,290}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tCooDowHeaUp[5](

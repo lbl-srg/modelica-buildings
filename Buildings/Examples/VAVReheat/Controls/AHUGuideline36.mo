@@ -2,22 +2,22 @@ within Buildings.Examples.VAVReheat.Controls;
 model AHUGuideline36
   import Buildings;
   extends Modelica.Blocks.Icons.Block;
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.SetPoints.VAVSupplyFan
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyFan
     conSupFan(numZon=numZon)
               annotation (Placement(transformation(extent={{-51,40},{-31,60}})));
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.SetPoints.VAVSupplyTemperature
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature
     supTemSetMulVAV
     annotation (Placement(transformation(extent={{35,-54},{55,-34}})));
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.SetPoints.OutsideAirFlow
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.OutsideAirFlow
     outAirSetPoi_MulZon(
     zonAre=zonAre,
     occSen=fill(false, numOfZon),
     maxSysPriFlo=maxSysPriFlo,
     minZonPriFlo=minZonPriFlo)
     annotation (Placement(transformation(extent={{-51,10},{-31,30}})));
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.SetPoints.ReliefDamper
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ReliefDamper
     relDam annotation (Placement(transformation(extent={{-1,-32},{19,-12}})));
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.Economizers.Controller
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller
     conEco1 annotation (Placement(transformation(extent={{35,10},{55,30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod

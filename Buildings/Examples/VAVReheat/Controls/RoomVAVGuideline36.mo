@@ -50,10 +50,10 @@ block RoomVAVGuideline36
     annotation (Placement(transformation(extent={{100,88},{120,108}})));
 
 
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.SystemRequests
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests
     sysReqRehBox(have_heaPla=false)
     annotation (Placement(transformation(extent={{50,0},{70,20}})));
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.DamperValve
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValve
     damVal_RehBox
     annotation (Placement(transformation(extent={{10,60},{30,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDisAir
@@ -63,9 +63,9 @@ block RoomVAVGuideline36
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupAHU
     "AHU supply air temperature"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.Valves.HeatingAndCooling coiCon
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.Valves.HeatingAndCooling coiCon
     annotation (Placement(transformation(extent={{-70,120},{-50,140}})));
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
     actAirSet(
     occSen=false,
     winSen=false,
