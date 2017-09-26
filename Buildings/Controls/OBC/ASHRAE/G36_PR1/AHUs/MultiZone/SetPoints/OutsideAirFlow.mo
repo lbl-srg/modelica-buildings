@@ -15,7 +15,7 @@ block OutsideAirFlow
   parameter Modelica.SIunits.Area zonAre[numZon]
     "Area of each zone"
     annotation(Dialog(group="Nominal condition"));
-  parameter Boolean occSen[numZon] = fill(true, numZon)
+  parameter Boolean use_occSen[numZon]=fill(true, numZon)
     "Set to true if zones have occupancy sensor";
   parameter Real occDen[numZon](each final unit="1/m2") = fill(0.05, numZon)
     "Default number of person in unit area";
@@ -64,8 +64,7 @@ block OutsideAirFlow
       iconTransformation(extent={{-120,-90},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[numZon](
     each final unit="K",
-    each quantity="ThermodynamicTemperature")
-    "Measured zone air temperature"
+    each quantity="ThermodynamicTemperature") "Measured zone air temperature"
     annotation (Placement(transformation(extent={{-220,-40},{-180,0}}),
       iconTransformation(extent={{-120,40},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis[numZon](
@@ -86,14 +85,14 @@ block OutsideAirFlow
     final unit="m3/s",
     quantity="VolumeFlowRate") "Design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{240,90},{280,130}}),
-      iconTransformation(extent={{100,38},{120,58}})));
+      iconTransformation(extent={{100,40},{120,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDesUncOutMin_flow_nominal(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Design uncorrected minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{240,160},{280,200}}),
-      iconTransformation(extent={{100,68},{120,88}})));
+      iconTransformation(extent={{100,70},{120,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOutMinSet_flow(
     min=0,
     final unit="m3/s",
@@ -202,9 +201,8 @@ block OutsideAirFlow
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSenor[numZon](
-    k = occSen)
-    "Boolean constant to indicate if there is occupancy sensor"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSenor[numZon](k=
+        use_occSen) "Boolean constant to indicate if there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desDisEff[numZon](
     k = desZonDisEff)

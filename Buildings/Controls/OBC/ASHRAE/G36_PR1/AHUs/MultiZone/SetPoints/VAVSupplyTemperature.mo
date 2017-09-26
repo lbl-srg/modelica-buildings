@@ -67,12 +67,11 @@ block VAVSupplyTemperature
     "Zone cooling supply air temperature reset request"
     annotation (Placement( transformation(extent={{-140,0},{-100,40}}),
       iconTransformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSup(
-    final unit="K",
-    quantity="ThermodynamicTemperature")
-    "Supply air temperature"
-    annotation (Placement(transformation(extent={{140,-10},{160,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetSup(final unit="K",
+      quantity="ThermodynamicTemperature")
+    "Setpoint for supply air temperature" annotation (Placement(transformation(
+          extent={{140,-10},{160,10}}), iconTransformation(extent={{100,-10},{120,
+            10}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond maxSupTemRes(
     final delTim=delTim,
@@ -171,9 +170,8 @@ equation
   connect(TDea.y, swi3.u3)
     annotation (Line(points={{61,80},{80,80},{80,8},{98,8}},
       color={0,0,127}));
-  connect(swi3.y, TSup)
-    annotation (Line(points={{121,0},{130,0},{138,0},{150,0}},
-      color={0,0,127}));
+  connect(swi3.y, TSetSup) annotation (Line(points={{121,0},{130,0},{138,0},{150,
+          0}}, color={0,0,127}));
   connect(intLesThr1.y, and1.u1)
     annotation (Line(points={{1,-90},{14,-90},{38,-90}},
       color={255,0,255}));
@@ -211,7 +209,7 @@ equation
       color={0,0,127}));
 
 annotation (
-  defaultComponentName = "supTemSetMulVAV",
+  defaultComponentName = "conTSetSup",
   Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -247,7 +245,7 @@ annotation (
           extent={{68,8},{96,-8}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TSup"),
+          textString="TSetSup"),
         Text(
           extent={{-124,146},{96,108}},
           lineColor={0,0,255},
@@ -268,7 +266,7 @@ and disabled and the output set to Deadband otherwise.
 <h4>Setpoints for <code>TSupMin</code>, <code>TSupMax</code>,
 <code>TSupDes</code>, <code>TOutMin</code>, <code>TOutMax</code></h4>
 The default range of outdoor air temperature (<code>TOutMin=16&deg;C</code>,
-<code>TOutMax=21&deg;C</code>) used to reset the occupied mode <code>TSup</code>
+<code>TOutMax=21&deg;C</code>) used to reset the occupied mode <code>TSetSup</code>
 was chosen to maximize economizer hours. It may be preferable to use a lower
 range of outdoor air temperature (e.g. <code>TOutMin=13&deg;C</code>,
 <code>TOutMax=18&deg;C</code>) to minimize fan energy.
@@ -287,7 +285,7 @@ cooling savings from economizer operation.
 </p>
 
 <h4>During occupied mode (<code>opeMod=1</code>)</h4>
-The <code>TSup</code> shall be reset from <code>TSupMin</code> when the outdoor
+The <code>TSetSup</code> shall be reset from <code>TSupMin</code> when the outdoor
 air temperature is <code>TOutMax</code> and above, proportionally up to
 <code>TMax</code> when the outdoor air temperature is <code>TOutMin</code> and
 below. The <code>TMax</code> shall be reset using TrimRespond logic between
@@ -318,11 +316,11 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/VAV
 
 <h4>During Setup and Cool-down modes (<code>opeMod=2</code>, <code>opeMod=3</code>)</h4>
 <p>
-Supply air temperature setpoint <code>TSup</code> shall be <code>TSupMin</code>.
+Supply air temperature setpoint <code>TSetSup</code> shall be <code>TSupMin</code>.
 </p>
 <h4>During Setback and Warmup modes (<code>opeMod=4</code>, <code>opeMod=5</code>)</h4>
 <p>
-Supply air temperature setpoint <code>TSup</code> shall be <code>35&deg;C</code>.
+Supply air temperature setpoint <code>TSetSup</code> shall be <code>35&deg;C</code>.
 </p>
 <h4>References</h4>
 <p>
