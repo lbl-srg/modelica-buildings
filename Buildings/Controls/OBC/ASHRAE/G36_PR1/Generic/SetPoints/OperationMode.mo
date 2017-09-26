@@ -66,10 +66,9 @@ block OperationMode "Block that outputs the operation mode"
     "Window open/close status"
     annotation (Placement(transformation(extent={{-300,10},{-260,50}}),
       iconTransformation(extent={{-10,-10},{10,10}},rotation=90,origin={0,-110})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput opeMod
-    "Operation mode"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yOpeMod "Operation mode"
     annotation (Placement(transformation(extent={{460,-30},{480,-10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+        iconTransformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yFreProSta
     "Freeze protection stage" annotation (Placement(transformation(extent={{460,
             -150},{480,-130}}), iconTransformation(extent={{100,-60},{120,-40}})));
@@ -554,9 +553,8 @@ equation
   connect(not2.y,booToInt3. u)
     annotation (Line(points={{281,-330},{298,-330}},
       color={255,0,255}));
-  connect(sumInt.y, opeMod)
-    annotation (Line(points={{441.7,-60},{441.7,-60},{450,-60},{450,-20},{470,-20}},
-      color={255,127,0}));
+  connect(sumInt.y, yOpeMod) annotation (Line(points={{441.7,-60},{441.7,-60},{450,
+          -60},{450,-20},{470,-20}}, color={255,127,0}));
   connect(lat1.y,booToInt2. u)
     annotation (Line(points={{161,-110},{180,-110},{180,-150},{258,-150}},
       color={255,0,255}));
@@ -852,7 +850,7 @@ annotation (
           extent={{56,12},{94,-10}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="opeMode"),
+          textString="yOpeMod"),
         Text(
           extent={{56,-38},{94,-60}},
           lineColor={255,127,0},

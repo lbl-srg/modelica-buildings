@@ -48,7 +48,7 @@ block RoomVAVGuideline36
   Modelica.Blocks.Interfaces.RealOutput yVal "Signal for heating coil valve"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealOutput yDam "Signal for VAV damper"
-    annotation (Placement(transformation(extent={{100,88},{120,108}})));
+    annotation (Placement(transformation(extent={{100,90},{120,110}})));
 
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests
@@ -105,7 +105,7 @@ equation
   connect(sysReqRehBox.TDisAirSet, damVal_RehBox.TDisAirSet)
     annotation (Line(points={{49,5},{42,5},{42,62},{31,62}}, color={0,0,127}));
   connect(damVal_RehBox.yDam, yDam) annotation (Line(points={{31,74},{80,74},{
-          80,98},{110,98}},
+          80,100},{110,100}},
                          color={0,0,127}));
   connect(damVal_RehBox.yHeaVal, yVal) annotation (Line(points={{31,66},{80,66},
           {80,0},{110,0}},                     color={0,0,127}));

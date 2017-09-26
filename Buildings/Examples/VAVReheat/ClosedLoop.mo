@@ -54,9 +54,6 @@ model ClosedLoop
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     pMin=50) "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{160,0},{180,20}})));
-  Controls.FanVFD conFanRet(xSet_nominal(displayUnit="m3/s") = m_flow_nominal/
-      1.2, r_N_min=0.2) "Controller for fan"
-    annotation (Placement(transformation(extent={{240,140},{260,160}})));
   Controls.CoolingCoilTemperatureSetpoint TSetCoo "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-50,-210},{-30,-190}})));
   Controls.RoomVAV conVAVCor "Controller for terminal unit corridor"
@@ -171,29 +168,6 @@ equation
       pattern=LinePattern.Dash));
   connect(pSetDuc.y, conFanSup.u) annotation (Line(
       points={{181,10},{238,10}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(controlBus, conFanRet.controlBus) annotation (Line(
-      points={{-240,-260},{280,-260},{280,168},{243,168},{243,158}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(senSupFlo.V_flow, conFanRet.u) annotation (Line(
-      points={{370,-29},{370,90},{200,90},{200,150},{238,150}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(senRetFlo.V_flow, conFanRet.u_m) annotation (Line(
-      points={{380,151},{380,134},{250,134},{250,138}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(conFanRet.y, fanRet.y) annotation (Line(
-      points={{261,150},{310,150},{310,152}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -339,6 +313,11 @@ equation
   connect(conEco.controlBus, controlBus) annotation (Line(
       points={{-76,150.667},{-76,150.667},{-76,120},{-240,120},{-240,-260},{
           -240,-260}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(conFanRet.controlBus, modeSelector.cb) annotation (Line(
+      points={{253,178},{254,178},{254,96},{280,96},{280,-260},{-72,-260},{-72,
+          -207.182},{-108.818,-207.182}},
       color={255,204,51},
       thickness=0.5));
   annotation (

@@ -2,9 +2,8 @@ within Buildings.Examples.VAVReheat.Controls;
 model AHUGuideline36
 
   parameter Integer numZon(min=2) "Total number of served zones/VAV boxes";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput ducStaPre(unit="Pa")
-    "Measured duct static pressure"
-    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+  parameter Boolean have_occSen[numZon]=fill(true, numZon)
+    "Set to true if zones have occupancy sensor";
   parameter Modelica.SIunits.VolumeFlowRate maxSysPriFlo
     "Maximum expected system primary airflow at design stage";
   parameter Modelica.SIunits.VolumeFlowRate minZonPriFlo[numZon]
@@ -74,12 +73,16 @@ model AHUGuideline36
     "Physically fixed minimum position of the outdoor air damper"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Ecnomizer physical damper position limits"));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput ducStaPre(unit="Pa")
+    "Measured duct static pressure"
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.OutsideAirFlow outAirSetPoi(
     final zonAre=zonAre,
-    final have_occSen=fill(false, numZon),
     final maxSysPriFlo=maxSysPriFlo,
     final minZonPriFlo=minZonPriFlo,
-    final numZon=numZon)             "Controller for minimum outdoor airflow rate"
+    final numZon=numZon,
+    final have_occSen=have_occSen)   "Controller for minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-20,8},{0,28}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFanSpe(
@@ -186,8 +189,8 @@ model AHUGuideline36
         iconTransformation(extent={{-120,-210},{-100,-190}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonPreResReq
     "Zone static pressure reset requests"
-    annotation (Placement(transformation(extent={{-120,-230},{-100,-210}}),
-        iconTransformation(extent={{-120,-230},{-100,-210}})));
+    annotation (Placement(transformation(extent={{-120,-250},{-100,-230}}),
+        iconTransformation(extent={{-120,-250},{-100,-230}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc[numZon]
     "Number of occupants"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
@@ -207,16 +210,18 @@ model AHUGuideline36
     "Supply air temperature cooling setpoint" annotation (Placement(
         transformation(extent={{-120,200},{-100,220}}), iconTransformation(
           extent={{-120,200},{-100,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum aveTHea(nin=1, k=fill(1.0/
-        numZon, 1))      "Average of all heating setpoints"
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum aveTHea(
+    nin=1,
+    k=fill(1.0/numZon, 1))      "Average of all heating setpoints"
     annotation (Placement(transformation(extent={{-40,218},{-20,238}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum aveTCoo(nin=1, k=fill(1.0/
-        numZon, 1))      "Average of all cooling setpoints"
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum aveTCoo(
+    nin=1,
+    k=fill(1.0/numZon, 1))      "Average of all cooling setpoints"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Average TZonSetAve
     "Average of all zone set points"
     annotation (Placement(transformation(extent={{0,190},{20,210}})));
-  parameter Modelica.SIunits.PressureDifference maxDesPre=410
+  parameter Modelica.SIunits.PressureDifference maxDesPre(min=0, displayUnit="Pa")=410
     "Duct design maximum static pressure";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VBox_flow[numZon](
     each final unit="m3/s",
@@ -272,7 +277,7 @@ equation
           {-80,-100},{-110,-100}},
                                  color={255,127,0}));
   connect(conSupFan.uZonPreResReq, uZonPreResReq) annotation (Line(points={{-2,47},
-          {-84,47},{-84,-220},{-110,-220}}, color={255,127,0}));
+          {-84,47},{-84,-240},{-110,-240}}, color={255,127,0}));
   connect(conSupFan.ducStaPre, ducStaPre) annotation (Line(points={{-2,42},{-92,
           42},{-92,-20},{-110,-20}}, color={0,0,127}));
   connect(conEco.VOutMinSet_flow, outAirSetPoi.VOutMinSet_flow) annotation (

@@ -58,10 +58,9 @@ model ZoneSetPointsGuideline36
             k=1800) "Cool down and heat up time (assumed as constant)"
     annotation (Placement(transformation(extent={{-80,-11},{-60,9}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput opeMod
-    "Operation mode"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yOpeMod "Operation mode"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+        iconTransformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yFreProSta
     "Freeze protection stage" annotation (Placement(transformation(extent={{100,-50},
             {120,-30}}),        iconTransformation(extent={{100,-60},{120,-40}})));
@@ -81,8 +80,8 @@ equation
                                          color={0,0,127}));
   connect(TSetZon.unoHeaSet,TSetRooHeaOff. y) annotation (Line(points={{16,-20},
           {-6,-20},{-6,61},{-59,61}},    color={0,0,127}));
-  connect(opeModSel.opeMod,TSetZon. uOpeMod) annotation (Line(points={{-9,-31},
-          {10,-31},{10,-36},{16,-36}},    color={255,127,0}));
+  connect(opeModSel.yOpeMod, TSetZon.uOpeMod) annotation (Line(points={{-9,-31},
+          {10,-31},{10,-36},{16,-36}}, color={255,127,0}));
   connect(tCooDowHeaUp.y,opeModSel. cooDowTim) annotation (Line(points={{-59,-1},
           {-52,-1},{-52,-26.6},{-31,-26.6}},     color={0,0,127}));
   connect(tCooDowHeaUp.y,opeModSel. warUpTim) annotation (Line(points={{-59,-1},
@@ -110,7 +109,7 @@ equation
                              color={0,0,127}));
   connect(TSetZon.THeaSet, THeaSet) annotation (Line(points={{60,-34},{74,-34},
           {74,60},{110,60}},   color={0,0,127}));
-  connect(opeModSel.opeMod, opeMod) annotation (Line(points={{-9,-31},{10,-31},
+  connect(opeModSel.yOpeMod, yOpeMod) annotation (Line(points={{-9,-31},{10,-31},
           {10,-32},{10,-32},{10,-32},{10,-32},{10,-32},{10,-60},{88,-60},{88,0},
           {110,0}}, color={255,127,0}));
   connect(opeModSel.yFreProSta, yFreProSta) annotation (Line(points={{-9,-36},{
