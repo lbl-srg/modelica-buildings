@@ -62,7 +62,7 @@ block DamperValve
     "Active heating maximum"
     annotation (Placement(transformation(extent={{-360,-350},{-320,-310}}),
       iconTransformation(extent={{-120,40},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDisAir(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
@@ -101,7 +101,7 @@ block DamperValve
     "Reheater valve position"
     annotation (Placement(transformation(extent={{320,-50},{340,-30}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDisAirSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDisSet(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Discharge airflow setpoint"
@@ -422,7 +422,7 @@ equation
   connect(mulSum.y, damPosCon.u_s)
     annotation (Line(points={{221.7,210},{240,210},{240,350},{258,350}},
       color={0,0,127}));
-  connect(VDisAir, damPosCon.u_m)
+  connect(VDis, damPosCon.u_m)
     annotation (Line(points={{-340,320},{270,320},{270,338}},
       color={0,0,127}));
   connect(hys3.y, not3.u)
@@ -494,7 +494,7 @@ equation
   connect(hys7.y, and3.u2)
     annotation (Line(points={{-59,-270},{-40,-270},{-40,-278},{-2,-278}},
       color={255,0,255}));
-  connect(mulSum.y, VDisAirSet)
+  connect(mulSum.y, VDisSet)
     annotation (Line(points={{221.7,210},{330,210}}, color={0,0,127}));
   connect(lin1.y, TDisSet)
     annotation (Line(points={{-99,-100},{-80,-100},{-80,-160},{330,-160}},
@@ -646,7 +646,7 @@ in heating state")}),
           pattern=LinePattern.Dash,
           origin={39.5,-85.5},
           rotation=90,
-          textString="VDisAir"),
+          textString="VDis"),
         Text(
           extent={{72,44},{98,34}},
           lineColor={0,0,127},
@@ -697,7 +697,7 @@ in heating state")}),
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="VDisAirSet"),
+          textString="VDisSet"),
         Text(
           extent={{60,-74},{98,-86}},
           lineColor={0,0,127},

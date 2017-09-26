@@ -49,13 +49,13 @@ block SystemRequests
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{-220,70},{-180,110}}),
       iconTransformation(extent={{-120,40},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDisAir(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Measured discharge airflow rate"
     annotation (Placement(transformation(extent={{-220,-90},{-180,-50}}),
       iconTransformation(extent={{-10,-10},{10,10}},origin={-110,0})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDisAirSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDisSet(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
@@ -94,10 +94,12 @@ block SystemRequests
     "Zone cooling supply air temperature reset request"
     annotation (Placement(transformation(extent={{180,190},{200,210}}),
       iconTransformation(extent={{100,60},{120,80}})));
-  CDL.Interfaces.IntegerOutput yHeaValResReq "Hot water reset requests"
+  CDL.Interfaces.IntegerOutput yHeaValResReq if have_heaWatCoi
+    "Hot water reset requests"
     annotation (Placement(transformation(extent={{180,-250},{200,-230}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
-  CDL.Interfaces.IntegerOutput yHeaPlaReq "Heating plant request"
+  CDL.Interfaces.IntegerOutput yHeaPlaReq if (have_heaWatCoi and have_heaPla)
+    "Heating plant request"
     annotation (Placement(transformation(extent={{180,-440},{200,-420}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
@@ -147,7 +149,8 @@ block SystemRequests
     annotation (Placement(transformation(extent={{-40,-310},{-20,-290}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys10(
     final uLow=0.85,
-    final uHigh=0.95)
+    final uHigh=0.95) if
+       have_heaWatCoi
     "Check if valve position is greater than 0.95"
     annotation (Placement(transformation(extent={{-140,-360},{-120,-340}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys11(
@@ -457,15 +460,15 @@ equation
   connect(gai1.y, add4.u1)
     annotation (Line(points={{-119,-40},{-100,-40},{-100,-34},{-82,-34}},
       color={0,0,127}));
-  connect(VDisAir, add4.u2)
+  connect(VDis, add4.u2)
     annotation (Line(points={{-200,-70},{-100,-70},{-100,-46},{-82,-46}},
       color={0,0,127}));
-  connect(VDisAirSet, gai1.u)
+  connect(VDisSet, gai1.u)
     annotation (Line(points={{-200,30},{-160,30},{-160,-40},{-142,-40}},
       color={0,0,127}));
   connect(add4.y, hys6.u)
     annotation (Line(points={{-59,-40},{-42,-40}}, color={0,0,127}));
-  connect(VDisAirSet, hys7.u)
+  connect(VDisSet, hys7.u)
     annotation (Line(points={{-200,30},{-142,30}}, color={0,0,127}));
   connect(hys6.y, and3.u2)
     annotation (Line(points={{-19,-40},{0,-40},{0,-48},{38,-48}},
@@ -475,10 +478,10 @@ equation
   connect(thrPreResReq.y, swi4.u1)
     annotation (Line(points={{61,-10},{80,-10},{80,-32},{98,-32}},
       color={0,0,127}));
-  connect(VDisAirSet, gai2.u)
+  connect(VDisSet, gai2.u)
     annotation (Line(points={{-200,30},{-160,30},{-160,-100},{-142,-100}},
       color={0,0,127}));
-  connect(VDisAir, add5.u1)
+  connect(VDis, add5.u1)
     annotation (Line(points={{-200,-70},{-100,-70},{-100,-94},{-82,-94}},
       color={0,0,127}));
   connect(gai2.y, add5.u2)
@@ -724,12 +727,12 @@ annotation (
           extent={{-98,28},{-52,12}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VDisAirSet"),
+          textString="VDisSet"),
         Text(
           extent={{-98,4},{-64,-6}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VDisAir"),
+          textString="VDis"),
         Text(
           extent={{-98,-16},{-70,-26}},
           lineColor={0,0,127},
@@ -739,16 +742,19 @@ annotation (
           extent={{-98,-42},{-52,-58}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
+          visible = (have_heaWatCoi or have_heaPla),
           textString="TDisSet"),
         Text(
           extent={{-98,-66},{-64,-76}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
+          visible = (have_heaWatCoi or have_heaPla),
           textString="TDis"),
         Text(
           extent={{-98,-86},{-64,-96}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
+          visible = (have_heaWatCoi or have_heaPla),
           textString="uHeaVal"),
         Text(
           extent={{42,82},{98,62}},
@@ -767,12 +773,14 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
+          visible = have_heaWatCoi,
           textString="yHeaValResReq"),
         Text(
           extent={{58,-84},{98,-100}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
+          visible = (have_heaWatCoi or have_heaPla),
           textString="yHeaPlaReq")}),
   Documentation(info="<html>
 <p>
@@ -823,13 +831,13 @@ Else if <code>uCoo</code> is less than 95%, send 0 request (<code>yZonTemResReq=
 <h4>b. Static pressure reset requests <code>yZonPreResReq</code></h4>
 <ol>
 <li>
-If the measured airflow <code>VDisAir</code> is less than 50% of setpoint
-<code>VDisAirSet</code> while it is greater than zero for 1 minute, send 3 requests
+If the measured airflow <code>VDis</code> is less than 50% of setpoint
+<code>VDisSet</code> while it is greater than zero for 1 minute, send 3 requests
 (<code>yZonPreResReq=3</code>).
 </li>
 <li>
-Else if the measured airflow <code>VDisAir</code> is less than 70% of setpoint
-<code>VDisAirSet</code> while it is greater than zero for 1 minute, send 2 requests
+Else if the measured airflow <code>VDis</code> is less than 70% of setpoint
+<code>VDisSet</code> while it is greater than zero for 1 minute, send 2 requests
 (<code>yZonPreResReq=2</code>).
 </li>
 <li>

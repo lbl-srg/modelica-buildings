@@ -372,52 +372,52 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(replicator.y, nor.uSha) annotation (Line(
-      points={{-19,180},{130,180},{130,152},{142,152}},
+      points={{-19,180},{130,180},{130,154},{142.4,154}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(replicator.y, wes.uSha) annotation (Line(
-      points={{-19,180},{-6,180},{-6,72},{10,72}},
+      points={{-19,180},{-6,180},{-6,74},{10.4,74}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(replicator.y, eas.uSha) annotation (Line(
-      points={{-19,180},{232,180},{232,92},{302,92}},
+      points={{-19,180},{232,180},{232,94},{302.4,94}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(replicator.y, sou.uSha) annotation (Line(
-      points={{-19,180},{130,180},{130,-8},{142,-8}},
+      points={{-19,180},{130,180},{130,-6},{142.4,-6}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(replicator.y, cor.uSha) annotation (Line(
-      points={{-19,180},{130,180},{130,72},{142,72}},
+      points={{-19,180},{130,180},{130,74},{142.4,74}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, nor.qGai_flow)          annotation (Line(
-      points={{-19,110},{120,110},{120,144},{142,144}},
+      points={{-19,110},{120,110},{120,144},{142.4,144}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, cor.qGai_flow)          annotation (Line(
-      points={{-19,110},{120,110},{120,64},{142,64}},
+      points={{-19,110},{120,110},{120,64},{142.4,64}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, sou.qGai_flow)          annotation (Line(
-      points={{-19,110},{120,110},{120,-16},{142,-16}},
+      points={{-19,110},{120,110},{120,-16},{142.4,-16}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, eas.qGai_flow)          annotation (Line(
-      points={{-19,110},{226,110},{226,84},{302,84}},
+      points={{-19,110},{226,110},{226,84},{302.4,84}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, wes.qGai_flow)          annotation (Line(
-      points={{-19,110},{-14,110},{-14,64},{10,64}},
+      points={{-19,110},{-14,110},{-14,64},{10.4,64}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
@@ -689,8 +689,8 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{400,500}})), Icon(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{400,500}}), graphics={
+            -100},{400,260}})), Icon(coordinateSystem(
+          preserveAspectRatio=true, extent={{-100,-100},{400,260}}), graphics={
         Rectangle(
           extent={{-80,-80},{380,180}},
           lineColor={95,95,95},

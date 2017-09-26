@@ -107,14 +107,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(controlBus, conFanSup.controlBus) annotation (Line(
-      points={{-240,-260},{280,-260},{280,28},{243,28},{243,18}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
   connect(TRet.T, conEco.TRet) annotation (Line(
       points={{100,151},{100,172},{-92,172},{-92,157.333},{-81.3333,157.333}},
       color={0,0,127},
@@ -303,10 +295,10 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(pSetDuc.TOut, TOut.y) annotation (Line(points={{158,18},{32,18},{32,
-          130},{-160,130},{-160,148},{-279,148}}, color={0,0,127}));
-  connect(TOut.y, controlBus.TOut) annotation (Line(points={{-279,148},{-250,
-          148},{-250,148},{-240,148},{-240,-260}}, color={0,0,127}), Text(
+  connect(pSetDuc.TOut, TOut.y) annotation (Line(points={{158,18},{32,18},{32,130},
+          {-160,130},{-160,180},{-279,180}},      color={0,0,127}));
+  connect(TOut.y, controlBus.TOut) annotation (Line(points={{-279,180},{-250,180},
+          {-250,148},{-240,148},{-240,-260}},      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
@@ -315,14 +307,15 @@ equation
           -240,-260}},
       color={255,204,51},
       thickness=0.5));
-  connect(conFanRet.controlBus, modeSelector.cb) annotation (Line(
-      points={{253,178},{254,178},{254,96},{280,96},{280,-260},{-72,-260},{-72,
-          -207.182},{-108.818,-207.182}},
-      color={255,204,51},
-      thickness=0.5));
+  connect(modeSelector.yFan, conFanSup.uFan) annotation (Line(points={{-91.5455,
+          -214},{-80,-214},{-80,-232},{252,-232},{252,-20},{230,-20},{230,16},{
+          238,16}}, color={255,0,255}));
+  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-91.5455,
+          -214},{-80,-214},{-80,-232},{252,-232},{252,-20},{230,-20},{230,176},
+          {248,176}}, color={255,0,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{1660,
-            600}})),
+            640}})),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model

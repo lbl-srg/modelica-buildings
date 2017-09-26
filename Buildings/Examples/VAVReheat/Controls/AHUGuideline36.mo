@@ -2,7 +2,7 @@ within Buildings.Examples.VAVReheat.Controls;
 model AHUGuideline36
 
   parameter Integer numZon(min=2) "Total number of served zones/VAV boxes";
-  parameter Boolean have_occSen[numZon]=fill(true, numZon)
+  parameter Boolean have_occSen[numZon]=fill(false, numZon)
     "Set to true if zones have occupancy sensor";
   parameter Modelica.SIunits.VolumeFlowRate maxSysPriFlo
     "Maximum expected system primary airflow at design stage";
@@ -230,6 +230,9 @@ model AHUGuideline36
     "Primary airflow rate to the ventilation zone from the air handler, including outdoor air and recirculated air"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}}),
       iconTransformation(extent={{-120,-60},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan
+    "Supply fan ON/OFF status"
+    annotation (Placement(transformation(extent={{100,-190},{120,-170}})));
 equation
   connect(conEco.yRetDamPos, yRetDamPos) annotation (Line(points={{81,-8},{92,-8},
           {92,0},{110,0}}, color={0,0,127}));
@@ -308,6 +311,8 @@ equation
   connect(conSupFan.VBox_flow, VBox_flow) annotation (Line(points={{-2,53},{-28,
           53},{-52,53},{-52,54},{-52,54},{-52,54},{-52,54},{-52,54},{-52,-40},{-110,
           -40}}, color={0,0,127}));
+  connect(conSupFan.ySupFan, ySupFan) annotation (Line(points={{21,57},{30,57},{
+          30,-180},{110,-180}}, color={255,0,255}));
   annotation (
     defaultComponentName="conAHU",
     Diagram(coordinateSystem(extent={{-100,-260},{100,280}},

@@ -51,13 +51,13 @@ block RoomVAVGuideline36
     annotation (Placement(transformation(extent={{100,90},{120,110}})));
 
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests
-    sysReqRehBox(have_heaPla=false)
-    annotation (Placement(transformation(extent={{50,0},{70,20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValve
-    damVal_RehBox
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests sysReq(
+      have_heaPla=false) "Number of system requests"
+    annotation (Placement(transformation(extent={{52,0},{72,20}})));
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValve conDamVal
+    "Damper and valve controller"
     annotation (Placement(transformation(extent={{10,60},{30,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDisAir
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis
     "Measured discharge airflow rate"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
 
@@ -90,55 +90,50 @@ block RoomVAVGuideline36
     annotation (Placement(transformation(extent={{100,-110},{120,-90}}),
       iconTransformation(extent={{100,-110},{120,-90}})));
 equation
-  connect(sysReqRehBox.TCooSet, TRooCooSet) annotation (Line(points={{49,19},{
-          -78,19},{-78,22},{-78,22},{-78,90},{-120,90}},
-                                  color={0,0,127}));
-  connect(sysReqRehBox.TRoo, TRoo) annotation (Line(points={{49,17},{-40,17},{
-          -40,10},{-120,10}},
-                            color={0,0,127}));
-  connect(sysReqRehBox.VDisAirSet, damVal_RehBox.VDisAirSet)
-    annotation (Line(points={{49,12},{44,12},{44,78},{31,78}},
-                                                             color={0,0,127}));
-  connect(sysReqRehBox.VDisAir, VDisAir)
-    annotation (Line(points={{49,10},{-20,10},{-20,50},{-120,50}},
-                                               color={0,0,127}));
-  connect(sysReqRehBox.TDisAirSet, damVal_RehBox.TDisAirSet)
-    annotation (Line(points={{49,5},{42,5},{42,62},{31,62}}, color={0,0,127}));
-  connect(damVal_RehBox.yDam, yDam) annotation (Line(points={{31,74},{80,74},{
-          80,100},{110,100}},
-                         color={0,0,127}));
-  connect(damVal_RehBox.yHeaVal, yVal) annotation (Line(points={{31,66},{80,66},
-          {80,0},{110,0}},                     color={0,0,127}));
-  connect(damVal_RehBox.VDisAir, VDisAir)
+  connect(sysReq.TCooSet, TRooCooSet) annotation (Line(points={{51,19},{-78,19},
+          {-78,90},{-120,90}}, color={0,0,127}));
+  connect(sysReq.TRoo, TRoo) annotation (Line(points={{51,17},{-40,17},{-40,10},
+          {-120,10}}, color={0,0,127}));
+  connect(sysReq.VDisSet, conDamVal.VDisSet) annotation (Line(points={{51,12},{
+          44,12},{44,78},{31,78}}, color={0,0,127}));
+  connect(sysReq.VDis, VDis) annotation (Line(points={{51,10},{-20,10},{-20,
+          50},{-120,50}}, color={0,0,127}));
+  connect(sysReq.TDisSet, conDamVal.TDisSet)
+    annotation (Line(points={{51,5},{42,5},{42,62},{31,62}}, color={0,0,127}));
+  connect(conDamVal.yDam, yDam) annotation (Line(points={{31,74},{80,74},{80,
+          100},{110,100}}, color={0,0,127}));
+  connect(conDamVal.yHeaVal, yVal) annotation (Line(points={{31,66},{80,66},{80,
+          0},{110,0}}, color={0,0,127}));
+  connect(conDamVal.VDis, VDis)
     annotation (Line(points={{24,59},{24,50},{-120,50}}, color={0,0,127}));
-  connect(damVal_RehBox.TDisAir, TDis)
+  connect(conDamVal.TDis, TDis)
     annotation (Line(points={{16,59},{16,-30},{-120,-30}}, color={0,0,127}));
-  connect(sysReqRehBox.TDisAir, TDis) annotation (Line(points={{49,3},{-24,3},{
-          -24,-30},{-120,-30}},  color={0,0,127}));
-  connect(sysReqRehBox.uDam, damVal_RehBox.yDam) annotation (Line(points={{49,8},{
-          46,8},{46,74},{31,74}},       color={0,0,127}));
-  connect(damVal_RehBox.yHeaVal, sysReqRehBox.uHeaVal) annotation (Line(points={{31,66},
-          {40,66},{40,1},{49,1}},            color={0,0,127}));
-  connect(TRoo, damVal_RehBox.TRoo) annotation (Line(points={{-120,10},{-40,10},
-          {-40,61},{9,61}}, color={0,0,127}));
-  connect(damVal_RehBox.TSup, TSupAHU) annotation (Line(points={{9,63},{-80,63},
-          {-80,-70},{-120,-70}}, color={0,0,127}));
-  connect(damVal_RehBox.THeaSet, TRooHeaSet) annotation (Line(points={{9,65},{
-          -80,65},{-80,130},{-120,130}}, color={0,0,127}));
-  connect(damVal_RehBox.uHea, coiCon.yHea) annotation (Line(points={{9,67},{-40,
-          67},{-40,134},{-49,134}}, color={0,0,127}));
-  connect(damVal_RehBox.uCoo, coiCon.yCoo) annotation (Line(points={{9,69},{-42,
-          69},{-42,126},{-49,126}}, color={0,0,127}));
-  connect(actAirSet.VActCooMax, damVal_RehBox.VActCooMax) annotation (Line(
-        points={{-11,108},{0,108},{0,79},{9,79}}, color={0,0,127}));
-  connect(actAirSet.VActCooMin, damVal_RehBox.VActCooMin) annotation (Line(
-        points={{-11,105},{-2,105},{-2,77},{9,77}}, color={0,0,127}));
-  connect(actAirSet.VActMin, damVal_RehBox.VActMin) annotation (Line(points={{-11,
+  connect(sysReq.TDis, TDis) annotation (Line(points={{51,3},{-24,3},{-24,-30},
+          {-120,-30}}, color={0,0,127}));
+  connect(sysReq.uDam, conDamVal.yDam)
+    annotation (Line(points={{51,8},{46,8},{46,74},{31,74}}, color={0,0,127}));
+  connect(conDamVal.yHeaVal, sysReq.uHeaVal)
+    annotation (Line(points={{31,66},{40,66},{40,1},{51,1}}, color={0,0,127}));
+  connect(TRoo, conDamVal.TRoo) annotation (Line(points={{-120,10},{-40,10},{-40,
+          61},{9,61}}, color={0,0,127}));
+  connect(conDamVal.TSup, TSupAHU) annotation (Line(points={{9,63},{-80,63},{-80,
+          -70},{-120,-70}}, color={0,0,127}));
+  connect(conDamVal.THeaSet, TRooHeaSet) annotation (Line(points={{9,65},{-80,
+          65},{-80,130},{-120,130}}, color={0,0,127}));
+  connect(conDamVal.uHea, coiCon.yHea) annotation (Line(points={{9,67},{-40,67},
+          {-40,134},{-49,134}}, color={0,0,127}));
+  connect(conDamVal.uCoo, coiCon.yCoo) annotation (Line(points={{9,69},{-42,69},
+          {-42,126},{-49,126}}, color={0,0,127}));
+  connect(actAirSet.VActCooMax, conDamVal.VActCooMax) annotation (Line(points={
+          {-11,108},{0,108},{0,79},{9,79}}, color={0,0,127}));
+  connect(actAirSet.VActCooMin, conDamVal.VActCooMin) annotation (Line(points={
+          {-11,105},{-2,105},{-2,77},{9,77}}, color={0,0,127}));
+  connect(actAirSet.VActMin, conDamVal.VActMin) annotation (Line(points={{-11,
           102},{-4,102},{-4,71},{9,71}}, color={0,0,127}));
-  connect(actAirSet.VActHeaMin, damVal_RehBox.VActHeaMin) annotation (Line(
-        points={{-11,99},{-6,99},{-6,73},{9,73}}, color={0,0,127}));
-  connect(actAirSet.VActHeaMax, damVal_RehBox.VActHeaMax) annotation (Line(
-        points={{-11,96},{-8,96},{-8,75},{9,75}}, color={0,0,127}));
+  connect(actAirSet.VActHeaMin, conDamVal.VActHeaMin) annotation (Line(points={
+          {-11,99},{-6,99},{-6,73},{9,73}}, color={0,0,127}));
+  connect(actAirSet.VActHeaMax, conDamVal.VActHeaMax) annotation (Line(points={
+          {-11,96},{-8,96},{-8,75},{9,75}}, color={0,0,127}));
   connect(coiCon.TRooHeaSet, TRooHeaSet) annotation (Line(points={{-71,136},{
           -80,136},{-80,130},{-120,130}}, color={0,0,127}));
   connect(coiCon.TRooCooSet, TRooCooSet) annotation (Line(points={{-71,130},{
@@ -147,10 +142,12 @@ equation
           10},{-120,10}}, color={0,0,127}));
   connect(actAirSet.uOpeMod, uOpeMod) annotation (Line(points={{-33,97},{-54,97},
           {-54,-110},{-120,-110}}, color={255,127,0}));
-  connect(sysReqRehBox.yZonTemResReq, yZonTemResReq) annotation (Line(points={{
-          71,17},{78,17},{78,-60},{110,-60}}, color={255,127,0}));
-  connect(sysReqRehBox.yZonPreResReq, yZonPreResReq) annotation (Line(points={{
-          71,12},{76,12},{76,-100},{110,-100}}, color={255,127,0}));
+  connect(sysReq.yZonTemResReq, yZonTemResReq) annotation (Line(points={{73,17},
+          {78,17},{78,-60},{110,-60}}, color={255,127,0}));
+  connect(sysReq.yZonPreResReq, yZonPreResReq) annotation (Line(points={{73,12},
+          {76,12},{76,-100},{110,-100}}, color={255,127,0}));
+  connect(coiCon.yCoo, sysReq.uCoo) annotation (Line(points={{-49,126},{-42,126},
+          {-42,16},{-42,16},{-42,16},{-42,15},{51,15}}, color={0,0,127}));
   annotation ( Icon(coordinateSystem(extent={{-100,-140},{100,160}}),
                     graphics={  Rectangle(
         extent={{-100,-140},{100,160}},
@@ -180,7 +177,7 @@ equation
         Text(
           extent={{-90,64},{-42,40}},
           lineColor={0,0,127},
-          textString="VDisAir"),        Text(
+          textString="VDis"),        Text(
         extent={{-154,204},{146,164}},
         textString="%name",
         lineColor={0,0,255}),

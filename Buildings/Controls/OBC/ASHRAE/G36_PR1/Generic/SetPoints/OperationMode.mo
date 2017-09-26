@@ -6,9 +6,9 @@ block OperationMode "Block that outputs the operation mode"
     "Maximum cool-down/warm-up time";
   parameter Modelica.SIunits.TemperatureDifference bouLim(min=0.5) = 1.1
     "Value limit to indicate the end of setback/setup mode";
-  parameter Modelica.SIunits.Temperature freProThrVal = 4.4
+  parameter Modelica.SIunits.Temperature freProThrVal = 277.55
     "Threshold zone temperature value to activate freeze protection mode";
-  parameter Modelica.SIunits.Temperature freProEndVal = 7.2
+  parameter Modelica.SIunits.Temperature freProEndVal = 280.35
     "Threshold zone temperature value to finish the freeze protection mode";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(

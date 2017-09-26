@@ -332,7 +332,7 @@ model PartialOpenLoop
     redeclare package Medium = MediumA,
     lat=lat)
     "Model of a floor of the building that is served by this VAV system"
-    annotation (Placement(transformation(extent={{772,280},{1100,674}})));
+    annotation (Placement(transformation(extent={{772,396},{1100,616}})));
   Modelica.Blocks.Routing.DeMultiplex5 TRooAir
     "Demultiplex for room air temperature"
     annotation (Placement(transformation(extent={{490,160},{510,180}})));
@@ -628,44 +628,44 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{640,10},{640,240},{874,240},{874,356},{898,356},{898,375.873},{
-          903.2,375.873}},
+      points={{640,10},{640,364},{874,364},{874,472},{898,472},{898,485.222},{
+          903.2,485.222}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
-      points={{822,10},{822,224},{900,224},{900,323.34},{903.2,323.34}},
+      points={{822,10},{822,350},{900,350},{900,436.333},{903.2,436.333}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetEas.port_3, flo.portsEas[2]) annotation (Line(
-      points={{1002,10},{1002,214},{1063.26,214},{1063.26,369.307}},
+      points={{1002,10},{1002,368},{1063.26,368},{1063.26,479.111}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetNor.port_3, flo.portsNor[2]) annotation (Line(
-      points={{1152,10},{1152,418},{903.2,418},{903.2,428.407}},
+      points={{1152,10},{1152,446},{903.2,446},{903.2,534.111}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1162,0},{1340,0},{1340,256},{824.48,256},{824.48,375.873}},
+      points={{1162,0},{1342,0},{1342,394},{824.48,394},{824.48,485.222}},
       color={0,127,255},
       thickness=0.5));
   connect(weaBus, flo.weaBus) annotation (Line(
-      points={{-350,180},{-348,180},{-348,477},{975.36,477}},
+      points={{-350,180},{-348,180},{-348,579.333},{975.36,579.333}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(flo.TRooAir, min.u) annotation (Line(
-      points={{1093.44,450.733},{1164.7,450.733},{1164.7,450},{1198,450}},
+      points={{1093.44,554.889},{1164.7,554.889},{1164.7,450},{1198,450}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(flo.TRooAir, ave.u) annotation (Line(
-      points={{1093.44,450.733},{1166,450.733},{1166,420},{1198,420}},
+      points={{1093.44,554.889},{1166,554.889},{1166,420},{1198,420}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TRooAir.u, flo.TRooAir) annotation (Line(
-      points={{488,170},{480,170},{480,500},{1164,500},{1164,450.733},{1093.44,
-          450.733}},
+      points={{488,170},{480,170},{480,618},{1164,618},{1164,554.889},{1093.44,
+          554.889}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -717,24 +717,24 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(VSupCor_flow.port_b, flo.portsCor[1]) annotation (Line(
-      points={{580,140},{580,236},{866,236},{866,364},{890.08,364},{890.08,
-          375.873}},
+      points={{580,140},{580,372},{866,372},{866,480},{890.08,480},{890.08,
+          485.222}},
       color={0,127,255},
       thickness=0.5));
   connect(VSupSou_flow.port_b, flo.portsSou[1]) annotation (Line(
-      points={{760,140},{760,230},{890.08,230},{890.08,323.34}},
+      points={{760,140},{760,356},{890.08,356},{890.08,436.333}},
       color={0,127,255},
       thickness=0.5));
   connect(VSupEas_flow.port_b, flo.portsEas[1]) annotation (Line(
-      points={{940,138},{940,222},{1050.14,222},{1050.14,369.307}},
+      points={{940,138},{940,376},{1050.14,376},{1050.14,479.111}},
       color={0,127,255},
       thickness=0.5));
   connect(VSupNor_flow.port_b, flo.portsNor[1]) annotation (Line(
-      points={{1100,142},{1100,410},{890.08,410},{890.08,428.407}},
+      points={{1100,142},{1100,498},{890.08,498},{890.08,534.111}},
       color={0,127,255},
       thickness=0.5));
   connect(VSupWes_flow.port_b, flo.portsWes[1]) annotation (Line(
-      points={{1300,138},{1300,248},{811.36,248},{811.36,375.873}},
+      points={{1300,138},{1300,384},{811.36,384},{811.36,485.222}},
       color={0,127,255},
       thickness=0.5));
   annotation (

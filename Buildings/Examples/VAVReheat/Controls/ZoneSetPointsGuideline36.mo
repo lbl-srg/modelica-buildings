@@ -3,6 +3,7 @@ model ZoneSetPointsGuideline36
   import Buildings;
   extends Modelica.Blocks.Icons.Block;
 
+  parameter Integer numZon(min=2) "Total number of served zones/VAV boxes";
   parameter Modelica.SIunits.Temperature THeaOn=293.15
     "Heating setpoint during on";
   parameter Modelica.SIunits.Temperature THeaOff=285.15
@@ -10,10 +11,11 @@ model ZoneSetPointsGuideline36
   parameter Modelica.SIunits.Temperature TCooOff=303.15
     "Cooling setpoint during off";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(each final unit="K",
-      each quantity="ThermodynamicTemperature") annotation (Placement(
-        transformation(rotation=0, extent={{-140,-20},{-100,20.5}}),
-        iconTransformation(extent={{-140,-20},{-100,20.5}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[numZon](each final unit=
+        "K", each quantity="ThermodynamicTemperature")
+    "Measured zone temperatures" annotation (Placement(transformation(rotation=
+            0, extent={{-140,-20},{-100,20.5}}), iconTransformation(extent={{
+            -140,-20},{-100,20.5}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(final unit="s",
       quantity="Time") annotation (Placement(transformation(rotation=0, extent={{-140,40},
             {-100,80}}), iconTransformation(extent={{-140,40},{-100,80}})));
@@ -52,9 +54,9 @@ model ZoneSetPointsGuideline36
         TCooOff) "Cooling off set point"
     annotation (Placement(transformation(extent={{-80,21},{-60,41}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
-    opeModSel(numOfZon=5)
+    opeModSel(numZon=numZon) "Operation mode selector"
     annotation (Placement(transformation(extent={{-30,-41},{-10,-21}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tCooDowHeaUp[5](each final
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tCooDowHeaUp[numZon](each final
             k=1800) "Cool down and heat up time (assumed as constant)"
     annotation (Placement(transformation(extent={{-80,-11},{-60,9}})));
 
@@ -64,6 +66,10 @@ model ZoneSetPointsGuideline36
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yFreProSta
     "Freeze protection stage" annotation (Placement(transformation(extent={{100,-50},
             {120,-30}}),        iconTransformation(extent={{100,-60},{120,-40}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta[numZon](
+    each k=false)
+    "Window status"
+    annotation (Placement(transformation(extent={{-32,-90},{-12,-70}})));
 equation
   connect(TSetZon.uCooDemLimLev,cooDemLimLev. y) annotation (Line(points={{16,-40},
           {0,-40},{0,-60},{-30,-60},{-30,-61},{-59,-61}},
@@ -94,9 +100,6 @@ equation
           -37.8},{-42,-37.8},{-42,61},{-59,61}},color={0,0,127}));
   connect(opeModSel.TUnoCooSet,TSetRooCooOff. y) annotation (Line(points={{-31,-40},
           {-44,-40},{-44,31},{-59,31}},     color={0,0,127}));
-  connect(TZon, opeModSel.TZon) annotation (Line(points={{-120,0.25},{-120,0},{
-          -96,0},{-96,0},{-96,0},{-96,-22},{-54,-22},{-54,-30},{-42,-30},{-42,
-          -31},{-31,-31}},               color={0,0,127}));
   connect(tNexOcc, opeModSel.tNexOcc) annotation (Line(points={{-120,60},{-92,
           60},{-92,-18},{-52,-18},{-52,-12},{-52,-24.4},{-31,-24.4}},
                                               color={0,0,127}));
@@ -114,6 +117,10 @@ equation
           {110,0}}, color={255,127,0}));
   connect(opeModSel.yFreProSta, yFreProSta) annotation (Line(points={{-9,-36},{
           -4,-36},{-4,-64},{92,-64},{92,-40},{110,-40}}, color={255,127,0}));
+  connect(winSta.y, opeModSel.uWinSta) annotation (Line(points={{-11,-80},{-8,-80},
+          {-8,-52},{-20,-52},{-20,-42}}, color={255,0,255}));
+  connect(opeModSel.TZon, TZon) annotation (Line(points={{-31,-31},{-94,-31},{
+          -94,0.25},{-120,0.25}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,140}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,140}})));
 end ZoneSetPointsGuideline36;
