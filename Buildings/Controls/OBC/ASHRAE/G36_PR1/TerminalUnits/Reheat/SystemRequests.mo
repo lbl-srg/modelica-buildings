@@ -68,13 +68,13 @@ block SystemRequests
     final unit="1") "Damper position"
     annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
       iconTransformation(extent={{-10,-10},{10,10}},origin={-110,-20})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisAirSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisSet(
     final unit="K",
     quantity="ThermodynamicTemperature") if have_heaWatCoi
     "Discharge airflow setpoint temperature for heating"
     annotation (Placement(transformation(extent={{-220,-230},{-180,-190}}),
       iconTransformation(extent={{-120,-60},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisAir(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
     quantity="ThermodynamicTemperature") if have_heaWatCoi
     "Measured discharge airflow temperature"
@@ -514,13 +514,13 @@ equation
     annotation (Line(points={{121,-40},{138,-40}}, color={0,0,127}));
   connect(reaToInt1.y, yZonPreResReq)
     annotation (Line(points={{161,-40},{190,-40}}, color={255,127,0}));
-  connect(TDisAir, addPar.u)
+  connect(TDis, addPar.u)
     annotation (Line(points={{-200,-290},{-160,-290},{-160,-262},{-142,-262}},
       color={0,0,127}));
   connect(addPar.y, add6.u2)
     annotation (Line(points={{-119,-262},{-108,-262},{-108,-246},{-82,-246}},
       color={0,0,127}));
-  connect(TDisAirSet, add6.u1)
+  connect(TDisSet, add6.u1)
     annotation (Line(points={{-200,-210},{-100,-210},{-100,-234},{-82,-234}},
       color={0,0,127}));
   connect(add6.y, hys8.u)
@@ -541,10 +541,10 @@ equation
   connect(swi8.y, swi7.u3)
     annotation (Line(points={{121,-300},{140,-300},{140,-260},{80,-260},{80,-248},
       {98,-248}}, color={0,0,127}));
-  connect(TDisAir, addPar1.u)
+  connect(TDis, addPar1.u)
     annotation (Line(points={{-200,-290},{-160,-290},{-160,-320},{-142,-320}},
       color={0,0,127}));
-  connect(TDisAirSet, add7.u1)
+  connect(TDisSet, add7.u1)
     annotation (Line(points={{-200,-210},{-100,-210},{-100,-294},{-82,-294}},
       color={0,0,127}));
   connect(uHeaVal, hys10.u)
@@ -740,12 +740,12 @@ annotation (
           extent={{-98,-42},{-52,-58}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TDisAirSet"),
+          textString="TDisSet"),
         Text(
           extent={{-98,-66},{-64,-76}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TDisAir"),
+          textString="TDis"),
         Text(
           extent={{-98,-86},{-64,-96}},
           lineColor={0,0,127},
@@ -845,13 +845,13 @@ Else if <code>uDam</code> is less than 95%, send 0 request (<code>yZonPreResReq=
 hot water reset requests <code>yHeaValResReq</code></h4>
 <ol>
 <li>
-If the discharge air temperature <code>TDisAir</code> is 17 &deg;C (30 &deg;F)
-less than the setpoint <code>TDisAirSet</code> for 5 minutes, send 3 requests
+If the discharge air temperature <code>TDis</code> is 17 &deg;C (30 &deg;F)
+less than the setpoint <code>TDisSet</code> for 5 minutes, send 3 requests
 (<code>yHeaValResReq=3</code>).
 </li>
 <li>
-Else if the discharge air temperature <code>TDisAir</code> is 8.3 &deg;C (15 &deg;F)
-less than the setpoint <code>TDisAirSet</code> for 5 minutes, send 2 requests
+Else if the discharge air temperature <code>TDis</code> is 8.3 &deg;C (15 &deg;F)
+less than the setpoint <code>TDisSet</code> for 5 minutes, send 2 requests
 (<code>yHeaValResReq=2</code>).
 </li>
 <li>

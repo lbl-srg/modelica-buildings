@@ -19,31 +19,31 @@ block VAVSupplyTemperature
     annotation (Dialog(group="Temperatures"));
   parameter Modelica.SIunits.Temperature iniSet = maxSet
     "Initial setpoint"
-    annotation (Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
+    annotation (Dialog(group="Trim and respond logic"));
   parameter Modelica.SIunits.Temperature maxSet = TSupMax
     "Maximum setpoint"
-    annotation (Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
+    annotation (Dialog(group="Trim and respond logic"));
   parameter Modelica.SIunits.Temperature minSet = TSupDes
     "Minimum setpoint"
-    annotation (Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
+    annotation (Dialog(group="Trim and respond logic"));
   parameter Modelica.SIunits.Time delTim = 600
     "Delay timer"
-    annotation(Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
+    annotation(Dialog(group="Trim and respond logic"));
   parameter Modelica.SIunits.Time samplePeriod(min=1E-3) = 120
     "Sample period of component"
-    annotation(Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
+    annotation(Dialog(group="Trim and respond logic"));
   parameter Integer ignReq = 2
     "Number of ignorable requests for TrimResponse logic"
-    annotation(Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
+    annotation(Dialog(group="Trim and respond logic"));
   parameter Modelica.SIunits.TemperatureDifference triAmo = 0.1
     "Trim amount"
-    annotation (Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
+    annotation (Dialog(group="Trim and respond logic"));
   parameter Modelica.SIunits.TemperatureDifference resAmo = -0.2
     "Response amount"
-    annotation (Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
+    annotation (Dialog(group="Trim and respond logic"));
   parameter Modelica.SIunits.TemperatureDifference maxRes = -0.6
     "Maximum response per time interval"
-    annotation (Dialog(group="Variables of TrimResponse logic to set maximum supply temperature T_max"));
+    annotation (Dialog(group="Trim and respond logic"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
@@ -67,12 +67,11 @@ block VAVSupplyTemperature
     "Zone cooling supply air temperature reset request"
     annotation (Placement( transformation(extent={{-140,0},{-100,40}}),
       iconTransformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSup(
-    final unit="K",
-    quantity="ThermodynamicTemperature")
-    "Supply air temperature"
-    annotation (Placement(transformation(extent={{140,-10},{160,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetSup(final unit="K",
+      quantity="ThermodynamicTemperature")
+    "Setpoint for supply air temperature" annotation (Placement(transformation(
+          extent={{140,-10},{160,10}}), iconTransformation(extent={{100,-10},{120,
+            10}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond maxSupTemRes(
     final delTim=delTim,
@@ -108,7 +107,7 @@ protected
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
     "If operation mode is setup or cool-down, setpoint shall be 35 degC"
-    annotation (Placement(transformation(extent={{100,-40},{120,-60}})));
+    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi2
     "If operation mode is setup or cool-down, setpoint shall be TSupMin"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
@@ -118,7 +117,7 @@ protected
     "Limiter that outputs the dead band value for the supply air temperature"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi3 "Check output regarding supply fan status"
-    annotation (Placement(transformation(extent={{100,10},{120,-10}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(threshold=Constants.OperationModes.warmUp)
     "Check if operation mode index is less than warm-up mode index (4)"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
@@ -149,7 +148,7 @@ equation
     annotation (Line(points={{61,-90},{80,-90},{80,-50},{98,-50}},
       color={255,0,255}));
   connect(TSupWarUpSetBac.y, swi1.u1)
-    annotation (Line(points={{61,-120},{88,-120},{88,-58},{98,-58}},
+    annotation (Line(points={{61,-120},{88,-120},{88,-42},{98,-42}},
       color={0,0,127}));
   connect(and2.y, swi2.u2)
     annotation (Line(points={{21,-50},{38,-50}}, color={255,0,255}));
@@ -157,7 +156,7 @@ equation
     annotation (Line(points={{-39,-10},{32,-10},{32,-42},{38,-42}},
       color={0,0,127}));
   connect(swi2.y, swi1.u3)
-    annotation (Line(points={{61,-50},{70,-50},{70,-42},{98,-42}},
+    annotation (Line(points={{61,-50},{70,-50},{70,-58},{98,-58}},
       color={0,0,127}));
   connect(TSetZones, TDea.u)
     annotation (Line(points={{-120,90},{30,90},{30,80},{38,80}},
@@ -166,14 +165,15 @@ equation
     annotation (Line(points={{-120,-30},{-80,-30},{-80,8},{10,8},{10,0},{98,0}},
       color={255,0,255}));
   connect(swi1.y, swi3.u1)
-    annotation (Line(points={{121,-50},{128,-50},{128,-20},{80,-20},{80,-8},{98,-8}},
+    annotation (Line(points={{121,-50},{128,-50},{128,-20},{80,-20},{80,8},{98,
+          8}},
       color={0,0,127}));
   connect(TDea.y, swi3.u3)
-    annotation (Line(points={{61,80},{80,80},{80,8},{98,8}},
+    annotation (Line(points={{61,80},{86,80},{86,-8},{98,-8}},
       color={0,0,127}));
-  connect(swi3.y, TSup)
-    annotation (Line(points={{121,0},{130,0},{138,0},{150,0}},
-      color={0,0,127}));
+  connect(swi3.y, TSetSup) annotation (Line(points={{121,0},{121,0},{138,0},{
+          150,0}},
+               color={0,0,127}));
   connect(intLesThr1.y, and1.u1)
     annotation (Line(points={{1,-90},{14,-90},{38,-90}},
       color={255,0,255}));
@@ -211,7 +211,7 @@ equation
       color={0,0,127}));
 
 annotation (
-  defaultComponentName = "supTemSetMulVAV",
+  defaultComponentName = "conTSetSup",
   Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -247,7 +247,7 @@ annotation (
           extent={{68,8},{96,-8}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TSup"),
+          textString="TSetSup"),
         Text(
           extent={{-124,146},{96,108}},
           lineColor={0,0,255},
@@ -267,11 +267,13 @@ and disabled and the output set to Deadband otherwise.
 <p> The supply air temperature setpoint is computed as follows.</p>
 <h4>Setpoints for <code>TSupMin</code>, <code>TSupMax</code>,
 <code>TSupDes</code>, <code>TOutMin</code>, <code>TOutMax</code></h4>
+<p>
 The default range of outdoor air temperature (<code>TOutMin=16&deg;C</code>,
-<code>TOutMax=21&deg;C</code>) used to reset the occupied mode <code>TSup</code>
+<code>TOutMax=21&deg;C</code>) used to reset the occupied mode <code>TSetSup</code>
 was chosen to maximize economizer hours. It may be preferable to use a lower
 range of outdoor air temperature (e.g. <code>TOutMin=13&deg;C</code>,
 <code>TOutMax=18&deg;C</code>) to minimize fan energy.
+</p>
 <p>
 The <code>TSupMin</code> variable is used during warm weather when little reheat
 is expected to minimize fan energy. It should not be set too low or it may cause
@@ -287,13 +289,15 @@ cooling savings from economizer operation.
 </p>
 
 <h4>During occupied mode (<code>opeMod=1</code>)</h4>
-The <code>TSup</code> shall be reset from <code>TSupMin</code> when the outdoor
+<p>
+The <code>TSetSup</code> shall be reset from <code>TSupMin</code> when the outdoor
 air temperature is <code>TOutMax</code> and above, proportionally up to
 <code>TMax</code> when the outdoor air temperature is <code>TOutMin</code> and
-below. The <code>TMax</code> shall be reset using TrimRespond logic between
+below. The <code>TMax</code> shall be reset using trim and respond logic between
 <code>TSupDes</code> and <code>TSupMax</code>. Parameters suggested for the
-TrimRespond logic are shown in the table below. They require adjustment
+trim and respond logic are shown in the table below. They require adjustment
 during the commissioning and tuning phase.
+</p>
 
 <table summary=\"summary\" border=\"1\">
 <tr><th> Variable </th> <th> Value </th> <th> Definition </th> </tr>
@@ -318,11 +322,11 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/VAV
 
 <h4>During Setup and Cool-down modes (<code>opeMod=2</code>, <code>opeMod=3</code>)</h4>
 <p>
-Supply air temperature setpoint <code>TSup</code> shall be <code>TSupMin</code>.
+Supply air temperature setpoint <code>TSetSup</code> shall be <code>TSupMin</code>.
 </p>
 <h4>During Setback and Warmup modes (<code>opeMod=4</code>, <code>opeMod=5</code>)</h4>
 <p>
-Supply air temperature setpoint <code>TSup</code> shall be <code>35&deg;C</code>.
+Supply air temperature setpoint <code>TSetSup</code> shall be <code>35&deg;C</code>.
 </p>
 <h4>References</h4>
 <p>
