@@ -1,0 +1,2 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.Validation.VAVSupply_T", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="VAVSupply_T_SingleZone");
+createPlot(id=1, position={95, 90, 1061, 1008}, x="dT.y", y={"setPoiVAV.y", "setPoiVAV.yMin", "setPoiVAV.yCooMax"}, range={-6.0, 13.0, 0.28, 0.92}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});

@@ -1,0 +1,7 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Validation.VAVSupplyTemperature", method="dassl", stopTime=86400, tolerance=1e-06, resultFile="SupplyAirTempSet_MultiZone");
+createPlot(id=1, position={20, 10, 550, 700}, subPlot=1, y={"supplyAirTempSet_MultiZone.uZonTemResReq"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={20, 10, 550, 700}, subPlot=2, y={"supplyAirTempSet_MultiZone.uSupFan"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={20, 10, 550, 700}, subPlot=3, y={"supplyAirTempSet_MultiZone.uOpeMod"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={580, 10, 550, 700}, subPlot=1, y={"supplyAirTempSet_MultiZone.maxSupTemRes.y"}, range={0.0, 1200.0, 0.0, 0.8}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={580, 10, 550, 700}, subPlot=2, y={"supplyAirTempSet_MultiZone.TOut"}, range={0.0, 1200.0, 0.0, 0.8}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={580, 10, 550, 700}, subPlot=3, y={"supplyAirTempSet_MultiZone.TSup"}, range={0.0, 1200.0, 0.0, 0.8}, grid=true, colors={{238,46,47}});
