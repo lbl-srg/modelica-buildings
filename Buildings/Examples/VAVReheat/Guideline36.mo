@@ -114,7 +114,7 @@ equation
           42},{520,162},{511,162}}, color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conVAVSou.TRoo, TRooAir.y1[1]) annotation (Line(points={{698,40},{690,
-          40},{690,36},{680,36},{680,178},{511,178}}, color={0,0,127},
+          40},{690,40},{680,40},{680,178},{511,178}}, color={0,0,127},
       pattern=LinePattern.Dash));
   connect(TRooAir.y2[1], conVAVEas.TRoo) annotation (Line(points={{511,174},{868,
           174},{868,40},{878,40}}, color={0,0,127},
@@ -324,6 +324,26 @@ equation
                   color={0,0,127}));
   connect(conFanRet.uFan, conAHU.ySupFan) annotation (Line(points={{248,176},{230,
           176},{230,190},{444,190},{444,350},{434,350}}, color={255,0,255}));
+  connect(conVAVCor.VDis, VSupCor_flow.V_flow) annotation (Line(points={{528,
+          44.6667},{522,44.6667},{522,130},{569,130}}, color={0,0,127}));
+  connect(VSupSou_flow.V_flow, conVAVSou.VDis) annotation (Line(points={{749,
+          130},{690,130},{690,42.6667},{698,42.6667}}, color={0,0,127}));
+  connect(VSupEas_flow.V_flow, conVAVEas.VDis) annotation (Line(points={{929,
+          128},{874,128},{874,42.6667},{878,42.6667}}, color={0,0,127}));
+  connect(VSupNor_flow.V_flow, conVAVNor.VDis) annotation (Line(points={{1089,
+          132},{1034,132},{1034,42.6667},{1038,42.6667}}, color={0,0,127}));
+  connect(VSupWes_flow.V_flow, conVAVWes.VDis) annotation (Line(points={{1289,
+          128},{1230,128},{1230,40.6667},{1238,40.6667}}, color={0,0,127}));
+  connect(TSup.T, conVAVCor.TSupAHU) annotation (Line(points={{340,-29},{340,
+          -20},{514,-20},{514,36.6667},{528,36.6667}}, color={0,0,127}));
+  connect(TSup.T, conVAVSou.TSupAHU) annotation (Line(points={{340,-29},{340,
+          -20},{686,-20},{686,34.6667},{698,34.6667}}, color={0,0,127}));
+  connect(TSup.T, conVAVEas.TSupAHU) annotation (Line(points={{340,-29},{340,
+          -20},{864,-20},{864,34.6667},{878,34.6667}}, color={0,0,127}));
+  connect(TSup.T, conVAVNor.TSupAHU) annotation (Line(points={{340,-29},{340,
+          -20},{1028,-20},{1028,34.6667},{1038,34.6667}}, color={0,0,127}));
+  connect(TSup.T, conVAVWes.TSupAHU) annotation (Line(points={{340,-29},{340,
+          -20},{1224,-20},{1224,32.6667},{1238,32.6667}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{1660,
             640}})),
