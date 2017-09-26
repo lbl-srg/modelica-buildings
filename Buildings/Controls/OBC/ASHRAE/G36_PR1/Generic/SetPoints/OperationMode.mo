@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints;
 block OperationMode "Block that outputs the operation mode"
 
-  parameter Integer numZon = 10 "Number of zones";
+  parameter Integer numZon(min=1) "Number of zones";
   parameter Modelica.SIunits.Time preWarCooTim = 10800
     "Maximum cool-down/warm-up time";
   parameter Modelica.SIunits.TemperatureDifference bouLim(min=0.5) = 1.1

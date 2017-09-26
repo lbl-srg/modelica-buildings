@@ -1,16 +1,16 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints;
 block VAVSupplyFan  "Block to control multizone VAV AHU supply fan"
 
-  parameter Integer numZon
+  parameter Integer numZon(min=2)
     "Total number of served zones/VAV boxes"
     annotation(Dialog(group="System configuration"));
-  parameter Boolean perZonRehBox = false
+  parameter Boolean have_perZonRehBox = false
     "Check if there is any VAV-reheat boxes on perimeter zones"
     annotation(Dialog(group="System configuration"));
-  parameter Boolean duaDucBox = false
+  parameter Boolean have_duaDucBox = false
     "Check if the AHU serves dual duct boxes"
     annotation(Dialog(group="System configuration"));
-  parameter Boolean airFloMeaSta = false
+  parameter Boolean have_airFloMeaSta = false
     "Check if the AHU has AFMS (Airflow measurement station)"
     annotation(Dialog(group="System configuration"));
   parameter Modelica.SIunits.PressureDifference maxDesPre(displayUnit="Pa")
@@ -18,48 +18,48 @@ block VAVSupplyFan  "Block to control multizone VAV AHU supply fan"
     annotation(Dialog(group="System configuration"));
   parameter Modelica.SIunits.PressureDifference iniSet(displayUnit="Pa") = 120
     "Initial setpoint"
-    annotation (Dialog(tab="Advanced",group="Trim&Respond parameter"));
+    annotation (Dialog(tab="Advanced",group="Trim and respond for pressure setpoint"));
   parameter Modelica.SIunits.PressureDifference minSet(displayUnit="Pa") = 25
     "Minimum setpoint"
-    annotation (Dialog(tab="Advanced",group="Trim&Respond parameter"));
+    annotation (Dialog(tab="Advanced",group="Trim and respond for pressure setpoint"));
   parameter Modelica.SIunits.PressureDifference maxSet(displayUnit="Pa") = maxDesPre
     "Maximum setpoint"
-    annotation (Dialog(tab="Advanced",group="Trim&Respond parameter"));
+    annotation (Dialog(tab="Advanced",group="Trim and respond for pressure setpoint"));
   parameter Modelica.SIunits.Time delTim = 600  "Delay time"
-    annotation (Dialog(tab="Advanced",group="Trim&Respond parameter"));
+    annotation (Dialog(tab="Advanced",group="Trim and respond for pressure setpoint"));
   parameter Modelica.SIunits.Time samplePeriod = 120  "Sample period of component"
-    annotation (Dialog(tab="Advanced",group="Trim&Respond parameter"));
+    annotation (Dialog(tab="Advanced",group="Trim and respond for pressure setpoint"));
   parameter Integer numIgnReq = 2
     "Number of ignored requests"
-    annotation (Dialog(tab="Advanced",group="Trim&Respond parameter"));
+    annotation (Dialog(tab="Advanced",group="Trim and respond for pressure setpoint"));
   parameter Modelica.SIunits.PressureDifference triAmo(displayUnit="Pa") = -12.0
     "Trim amount"
-    annotation (Dialog(tab="Advanced",group="Trim&Respond parameter"));
+    annotation (Dialog(tab="Advanced",group="Trim and respond for pressure setpoint"));
   parameter Modelica.SIunits.PressureDifference resAmo(displayUnit="Pa") = 15
     "Respond amount (must be opposite in to triAmo)"
-    annotation (Dialog(tab="Advanced",group="Trim&Respond parameter"));
+    annotation (Dialog(tab="Advanced",group="Trim and respond for pressure setpoint"));
   parameter Modelica.SIunits.PressureDifference maxRes(displayUnit="Pa") = 32
     "Maximum response per time interval (same sign as resAmo)"
-    annotation (Dialog(tab="Advanced",group="Trim&Respond parameter"));
+    annotation (Dialog(tab="Advanced",group="Trim and respond for pressure setpoint"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID "Type of controller"
-    annotation (Dialog(tab="Advanced",group="Fan control PID parameters"));
+    annotation (Dialog(tab="Advanced",group="Fan PID controller"));
   parameter Real k=1 "Gain of controller"
-    annotation (Dialog(tab="Advanced",group="Fan control PID parameters"));
+    annotation (Dialog(tab="Advanced",group="Fan PID controller"));
   parameter Modelica.SIunits.Time Ti(min=0)=30 "Time constant of Integrator block"
-    annotation (Dialog(tab="Advanced",group="Fan control PID parameters",
+    annotation (Dialog(tab="Advanced",group="Fan PID controller",
       enable=
         controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
         controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(min=0) "Time constant of Derivative block"
-    annotation (Dialog(tab="Advanced",group="Fan control PID parameters",
+  parameter Modelica.SIunits.Time Td(min=0) = 0.1 "Time constant of Derivative block"
+    annotation (Dialog(tab="Advanced",group="Fan PID controller",
       enable=
         controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
         controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real yMax=1 "Upper limit of output"
-    annotation (Dialog(tab="Advanced",group="Fan control PID parameters"));
+    annotation (Dialog(tab="Advanced",group="Fan PID controller"));
   parameter Real yMin=0 "Lower limit of output"
-    annotation (Dialog(tab="Advanced",group="Fan control PID parameters"));
+    annotation (Dialog(tab="Advanced",group="Fan PID controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
    "System operation mode"
@@ -71,9 +71,9 @@ block VAVSupplyFan  "Block to control multizone VAV AHU supply fan"
     "Measured duct static pressure"
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput boxFloRat[numZon](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VBox_flow[numZon](
     final unit="m3/s",
-    quantity="VolumeFlowRate") if not (duaDucBox or airFloMeaSta)
+    quantity="VolumeFlowRate") if not (have_duaDucBox or have_airFloMeaSta)
     "VAV box airflow rate"
     annotation (Placement(transformation(extent={{-200,-130},{-160,-90}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
@@ -84,22 +84,19 @@ block VAVSupplyFan  "Block to control multizone VAV AHU supply fan"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan "Supply fan ON/OFF status"
     annotation (Placement(transformation(extent={{140,60},{160,80}}),
       iconTransformation(extent={{100,60},{120,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
-    min=0, max=1, final unit="1")
-    "Supply fan speed"
-    annotation (Placement(transformation(extent={{140,-60},{160,-40}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFloRat(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFanSpe(
+    min=0,
+    max=1,
+    final unit="1") "Supply fan speed" annotation (Placement(transformation(
+          extent={{140,-60},{160,-40}}), iconTransformation(extent={{100,-10},{
+            120,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput sumVBox_flow(
     final unit="m3/s",
-    quantity="VolumeFlowRate") if not (duaDucBox or airFloMeaSta)
-    "Totalized current airflow rate from VAV boxes"
+    quantity="VolumeFlowRate") if not (have_duaDucBox or have_airFloMeaSta)
+    "Sum of current airflow rates from VAV boxes"
     annotation (Placement(transformation(extent={{140,-120},{160,-100}}),
       iconTransformation(extent={{100,-80},{120,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sum1(
-    final nin=numZon) if not (duaDucBox or airFloMeaSta)
-    "Sum of box airflow rate"
-    annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond staPreSetRes(
     iniSet=iniSet,
     minSet=minSet,
@@ -109,7 +106,7 @@ block VAVSupplyFan  "Block to control multizone VAV AHU supply fan"
     numIgnReq=numIgnReq,
     triAmo=triAmo,
     resAmo=resAmo,
-    maxRes=maxRes) "Static pressure setpoint reset using trim&respond logic"
+    maxRes=maxRes) "Static pressure setpoint reset using trim and respond logic"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID supFanSpeCon(
     Ti=Ti,
@@ -120,6 +117,7 @@ block VAVSupplyFan  "Block to control multizone VAV AHU supply fan"
     yMin=yMin)
     "Supply fan speed control"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerSpe(k=0)
     "Zero fan speed when it becomes OFF"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
@@ -127,18 +125,21 @@ block VAVSupplyFan  "Block to control multizone VAV AHU supply fan"
     "If fan is OFF, fan speed outputs to zero"
     annotation (Placement(transformation(extent={{80,-50},{100,-70}})));
 
-protected
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum sum1(
+    final nin=numZon) if not (have_duaDucBox or have_airFloMeaSta)
+    "Sum of box airflow rate"
+    annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Check whether supply fan should be ON"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2 if perZonRehBox
+  Buildings.Controls.OBC.CDL.Logical.Or or2 if have_perZonRehBox
     "Setback or warmup mode"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or3
     "Cool-down or setup or occupied mode"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
-    k=false) if not perZonRehBox
+    k=false) if not have_perZonRehBox
     "Constant true"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
@@ -184,9 +185,9 @@ equation
   connect(or1.y, ySupFan)
     annotation (Line(points={{101,70},{150,70}},
       color={255,0,255}));
-  connect(boxFloRat, sum1.u)
+  connect(VBox_flow, sum1.u)
     annotation (Line(points={{-180,-110},{58,-110}}, color={0,0,127}));
-  connect(sum1.y, yFloRat)
+  connect(sum1.y, sumVBox_flow)
     annotation (Line(points={{81.7,-110},{150,-110}},
       color={0,0,127}));
   connect(or1.y, staPreSetRes.uDevSta)
@@ -204,9 +205,8 @@ equation
   connect(zerSpe.y, swi.u3)
     annotation (Line(points={{41,-40},{60,-40},{60,-52},{78,-52}},
       color={0,0,127}));
-  connect(swi.y, yFanSpe)
-    annotation (Line(points={{101,-60},{120,-60},{120,-50},{150,-50}},
-      color={0,0,127}));
+  connect(swi.y, ySupFanSpe) annotation (Line(points={{101,-60},{120,-60},{120,
+          -50},{150,-50}}, color={0,0,127}));
   connect(uZonPreResReq, staPreSetRes.numOfReq)
     annotation (Line(points={{-180,-40},{-142,-40},{-142,-48},{-102,-48}},
       color={255,127,0}));
@@ -336,7 +336,7 @@ annotation (
         Text(
           extent={{-96,42},{-54,22}},
           lineColor={0,0,127},
-          textString="boxFloRat"),
+          textString="VBox_flow"),
         Text(
           extent={{-96,-16},{-44,-44}},
           lineColor={0,0,127},
@@ -348,7 +348,7 @@ annotation (
         Text(
           extent={{54,-60},{96,-80}},
           lineColor={0,0,127},
-          textString="yFloRat"),
+          textString="sumVBox_flow"),
         Text(
           extent={{52,10},{94,-10}},
           lineColor={0,0,127},
@@ -367,9 +367,9 @@ ASHRAE guideline G36, PART5.N.1 (Supply fan control).
 <li>Supply fan shall run when system is in the Cool-down, Setup, or Occupied mode</li>
 <li>If there are any VAV-reheat boxes on perimeter zones, supply fan shall also
 run when system is in Setback or Warmup mode;</li>
-<li>If the AHU does not serve dual duct boxes (<code>duaDucBox=true</code>) or the AHU
-does not have airflow measurement station (<code>airFloMeaSta=false</code>),
-totallize current airflow rate from VAV boxes to a software point.</li>
+<li>If the AHU does not serve dual duct boxes (<code>have_duaDucBox=true</code>) or the AHU
+does not have airflow measurement station (<code>have_airFloMeaSta=false</code>),
+sum the current airflow rate from the VAV boxes and output to a software point.</li>
 </ul>
 <h4>b. Static pressure setpoint reset</h4>
 Static pressure setpoint shall be reset using trim-respond logic using following

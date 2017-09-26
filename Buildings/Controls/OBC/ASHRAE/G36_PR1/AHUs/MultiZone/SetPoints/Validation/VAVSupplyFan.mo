@@ -64,16 +64,16 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
 
 equation
-  connect(vavBoxFlo1.y, vAVMulSupFan.boxFloRat[1])
+  connect(vavBoxFlo1.y, vAVMulSupFan.VBox_flow[1])
     annotation (Line(points={{-59,40},{-50,40},{-50,60},{34,60},{34,1.5},
       {58,1.5}}, color={0,0,127}));
-  connect(vavBoxFlo2.y, vAVMulSupFan.boxFloRat[2])
+  connect(vavBoxFlo2.y, vAVMulSupFan.VBox_flow[2])
     annotation (Line(points={{-19,40},{30,40},{30,2.5},{58,2.5}},
       color={0,0,127}));
-  connect(vavBoxFlo3.y, vAVMulSupFan.boxFloRat[3])
+  connect(vavBoxFlo3.y, vAVMulSupFan.VBox_flow[3])
     annotation (Line(points={{-59,10},{-48,10},{-48,58},{32,58},{32,3.5},
       {58,3.5}}, color={0,0,127}));
-  connect(vavBoxFlo4.y, vAVMulSupFan.boxFloRat[4])
+  connect(vavBoxFlo4.y, vAVMulSupFan.VBox_flow[4])
     annotation (Line(points={{-19,10},{28,10},{28,4.5},{58,4.5}},
       color={0,0,127}));
   connect(sine1.y, vAVMulSupFan.ducStaPre)
