@@ -792,7 +792,7 @@ the static pressure reset requests
 the hot water reset requests <code>yHeaValResReq</code>, and
 </li>
 <li>
-the boiler plant reset requests <code>yBoiPlaReq</code>.
+the boiler plant reset requests <code>yHeaPlaReq</code>.
 </li>
 </ul>
 <p>
@@ -864,14 +864,14 @@ Else if <code>uHeaVal</code> is less than 95%, send 0 request (<code>yHeaValResR
 </ol>
 <h4>d. If there is hot water coil (<code>have_heaWatCoi=true</code>) and a boiler plant
 (<code>have_boiPla=true</code>), send the boiler plant that serves the zone a boiler
-plant requests <code>yBoiPlaReq</code> as follows:</h4>
+plant requests <code>yHeaPlaReq</code> as follows:</h4>
 <ol>
 <li>
 If the hot water valve position <code>uHeaVal</code> is greater than 95%, send 1 request
-(<code>yBoiPlaReq=1</code>) until <code>uHeaVal</code> is less than 10%.
+(<code>yHeaPlaReq=1</code>) until <code>uHeaVal</code> is less than 10%.
 </li>
 <li>
-Else if <code>uHeaVal</code> is less than 95%, send 0 request (<code>yBoiPlaReq=0</code>).
+Else if <code>uHeaVal</code> is less than 95%, send 0 request (<code>yHeaPlaReq=0</code>).
 </li>
 </ol>
 
