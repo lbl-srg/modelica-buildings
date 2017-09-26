@@ -420,20 +420,29 @@ equation
         annotation (Line(points={{68.2,93.8},{68.2,126},{28,126}},
           color={0,127,255}, thickness=0.5));
       connect(buiZon.TRooAir[iZon, iFlo], vavTer[iZon, iFlo].TRoo)
-        annotation (Line(points={{90,68},{100,68},{100,52},{40,52},{40,32},{50,32}},
+        annotation (Line(points={{90,68},{100,68},{100,52},{40,52},{40,18},{50,18}},
           color={0,0,127}, pattern=LinePattern.Dash));
       connect(senSupFlo[iFlo].port_b, vavTer[iZon, iFlo].port_a)
         annotation (Line(points={{48,-30},{48,-30},{68,-30},{68,12},{67,12}},
           color={0,127,255}, thickness=0.5));
-      connect(controlBus[iFlo], vavTer[iZon, iFlo].controlBus)
-        annotation (Line(points={{-68,54},{-68,54},{-40,54},{-40,19.2},{52,19.2}},
-          color={255,204,51},thickness=0.5));
       connect(buiZon.TRooAir[iZon, iFlo], ave[iFlo].u[iZon])
         annotation (Line(points={{90,68},{100,68},{100,74},{106.8,74}},
           color={0,0,127}, pattern=LinePattern.Dash));
       connect(buiZon.TRooAir[iZon, iFlo], min1[iFlo].u[iZon])
         annotation (Line(points={{90,68},{100,68},{100,100},{106.8,100}},
           color={0,0,127}, pattern=LinePattern.Dash));
+      connect(vavTer[iZon, iFlo].TRooHeaSet, controlBus[iFlo].TRooSetHea) annotation (Line(
+        points={{50,30},{-68,30},{-68,30},{-67.95,30},{-67.95,54.05}}, color={0,
+          0,127}), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+      connect(vavTer[iZon, iFlo].TRooCooSet, controlBus[iFlo].TRooSetCoo) annotation (Line(
+        points={{50,26},{-68,26},{-68,28},{-67.95,28},{-67.95,54.05}}, color={0,
+          0,127}), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
     end for;
   end for;
 
@@ -447,6 +456,7 @@ equation
   connect(weaBus, buiZon.weaBus)
     annotation (Line(points={{-324,170},{-324,170},{-44,170},{-44,80},{51.6,80}},
       color={255,204,51}, thickness=0.5));
+
 
 annotation (
   experiment(StopTime=604800, Tolerance=1e-06,__Dymola_Algorithm="Radau"),
