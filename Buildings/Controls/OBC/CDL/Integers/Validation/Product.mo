@@ -5,7 +5,6 @@ extends Modelica.Icons.Example;
   Buildings.Controls.OBC.CDL.Integers.Product product
     "Block that outputs the sum of the two inputs"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));

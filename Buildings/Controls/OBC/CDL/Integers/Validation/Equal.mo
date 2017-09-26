@@ -5,7 +5,6 @@ extends Modelica.Icons.Example;
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Block output true if input 1 is equal to input 2"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
