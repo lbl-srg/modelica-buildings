@@ -327,7 +327,7 @@ annotation (
                Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
-          fillColor={210,210,210},
+          fillColor={223,211,169},
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,90},{-54,70}},

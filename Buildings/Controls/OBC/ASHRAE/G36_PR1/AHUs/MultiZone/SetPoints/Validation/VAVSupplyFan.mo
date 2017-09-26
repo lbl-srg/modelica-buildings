@@ -3,7 +3,7 @@ model VAVSupplyFan "Validate VAVSupplyFan"
 extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyFan
-    vAVMulSupFan(numZon=4,
+    conSupFan(numZon=4,
     Td=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     maxDesPre=400,
@@ -64,19 +64,19 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
 
 equation
-  connect(vavBoxFlo1.y, vAVMulSupFan.VBox_flow[1])
+  connect(vavBoxFlo1.y, conSupFan.VBox_flow[1])
     annotation (Line(points={{-59,40},{-50,40},{-50,60},{34,60},{34,1.5},
       {58,1.5}}, color={0,0,127}));
-  connect(vavBoxFlo2.y, vAVMulSupFan.VBox_flow[2])
+  connect(vavBoxFlo2.y, conSupFan.VBox_flow[2])
     annotation (Line(points={{-19,40},{30,40},{30,2.5},{58,2.5}},
       color={0,0,127}));
-  connect(vavBoxFlo3.y, vAVMulSupFan.VBox_flow[3])
+  connect(vavBoxFlo3.y, conSupFan.VBox_flow[3])
     annotation (Line(points={{-59,10},{-48,10},{-48,58},{32,58},{32,3.5},
       {58,3.5}}, color={0,0,127}));
-  connect(vavBoxFlo4.y, vAVMulSupFan.VBox_flow[4])
+  connect(vavBoxFlo4.y, conSupFan.VBox_flow[4])
     annotation (Line(points={{-19,10},{28,10},{28,4.5},{58,4.5}},
       color={0,0,127}));
-  connect(sine1.y, vAVMulSupFan.ducStaPre)
+  connect(sine1.y, conSupFan.ducStaPre)
     annotation (Line(points={{-19,-70},{40,-70},{40,-8},{58,-8}},
       color={0,0,127}));
   connect(sine.y, abs1.u)
@@ -89,14 +89,14 @@ equation
     annotation (Line(points={{-43,-30},{-32,-30}}, color={0,0,127}));
   connect(round2.y, reaToInt1.u)
     annotation (Line(points={{-9,-30},{0,-30}}, color={0,0,127}));
-  connect(reaToInt1.y, vAVMulSupFan.uZonPreResReq)
+  connect(reaToInt1.y, conSupFan.uZonPreResReq)
     annotation (Line(points={{23,-30},{34,-30},{34,-3},{58,-3}},
       color={255,127,0}));
   connect(abs.y, round1.u)
     annotation (Line(points={{-45,80},{-32,80}}, color={0,0,127}));
   connect(round1.y, reaToInt2.u)
     annotation (Line(points={{-9,80},{0,80}}, color={0,0,127}));
-  connect(reaToInt2.y, vAVMulSupFan.uOpeMod)
+  connect(reaToInt2.y, conSupFan.uOpeMod)
     annotation (Line(points={{23,80},{38,80},{38,8},{58,8}},
       color={255,127,0}));
 

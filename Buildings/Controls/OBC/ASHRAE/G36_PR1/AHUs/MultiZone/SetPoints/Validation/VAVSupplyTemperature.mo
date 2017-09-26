@@ -4,9 +4,9 @@ model VAVSupplyTemperature
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature
-    supplyAirTempSet_MultiZone
+    conTSetSup
     "Supply air temperature setpoint for multizone system"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setZonTem(
     k=22.5 + 273.15) "Average of heating and cooling setpoint"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -44,14 +44,14 @@ model VAVSupplyTemperature
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
 equation
-  connect(supFanSta.y, supplyAirTempSet_MultiZone.uSupFan)
-    annotation (Line(points={{-59,0},{79,0}},
+  connect(supFanSta.y, conTSetSup.uSupFan)
+    annotation (Line(points={{-59,0},{69,0}},
       color={255,0,255}));
-  connect(outTem.y, supplyAirTempSet_MultiZone.TOut)
-    annotation (Line(points={{-59,40},{40,40},{40,4},{79,4}},
+  connect(outTem.y, conTSetSup.TOut)
+    annotation (Line(points={{-59,40},{40,40},{40,4},{69,4}},
       color={0,0,127}));
-  connect(setZonTem.y, supplyAirTempSet_MultiZone.TSetZones)
-    annotation (Line(points={{-59,70},{60,70},{60,8},{79,8}},
+  connect(setZonTem.y, conTSetSup.TSetZones)
+    annotation (Line(points={{-59,70},{60,70},{60,8},{69,8}},
       color={0,0,127}));
   connect(sine.y, abs.u)
     annotation (Line(points={{-59,-40},{-42,-40}}, color={0,0,127}));
@@ -64,11 +64,11 @@ equation
     annotation (Line(points={{-19,-40},{-2,-40}}, color={0,0,127}));
   connect(round1.y, reaToInt1.u)
     annotation (Line(points={{21,-40},{30,-40}}, color={0,0,127}));
-  connect(reaToInt1.y, supplyAirTempSet_MultiZone.uZonTemResReq)
-    annotation (Line(points={{53,-40},{60,-40},{60,-4},{79,-4}},
+  connect(reaToInt1.y, conTSetSup.uZonTemResReq)
+    annotation (Line(points={{53,-40},{60,-40},{60,-4},{69,-4}},
       color={255,127,0}));
-  connect(reaToInt2.y, supplyAirTempSet_MultiZone.uOpeMod)
-    annotation (Line(points={{21,-70},{66,-70},{66,-8},{79,-8}},
+  connect(reaToInt2.y, conTSetSup.uOpeMod)
+    annotation (Line(points={{21,-70},{66,-70},{66,-8},{69,-8}},
       color={255,127,0}));
 
 annotation (
