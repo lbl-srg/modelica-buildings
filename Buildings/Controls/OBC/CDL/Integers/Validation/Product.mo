@@ -28,7 +28,6 @@ equation
   connect(reaToInt2.y, product.u2)
     annotation (Line(points={{1,-20},{40,-20},{40,-6},{58,-6}},
       color={255,127,0}));
-
   connect(timTabLin.y[1], reaToInt1.u)
     annotation (Line(points={{-59,20},{-22,20}}, color={0,0,127}));
   connect(timTabLin1.y[1], reaToInt2.u)
