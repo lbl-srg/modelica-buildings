@@ -151,7 +151,7 @@ model AHUGuideline36
       final quantity="ThermodynamicTemperature")
     "Supply air temperature heating setpoint"
     annotation (Placement(transformation(
-    extent={{-120,210},{-100,230}}),
+    extent={{-120,218},{-100,238}}),
                                    iconTransformation(extent={{-120,230},{-100,250}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(final unit="m3/s",
       final quantity="VolumeFlowRate")
@@ -205,11 +205,11 @@ model AHUGuideline36
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(final unit="K",
       final quantity="ThermodynamicTemperature")
     "Supply air temperature cooling setpoint" annotation (Placement(
-        transformation(extent={{-120,190},{-100,210}}), iconTransformation(
-          extent={{-120,190},{-100,210}})));
+        transformation(extent={{-120,200},{-100,220}}), iconTransformation(
+          extent={{-120,200},{-100,220}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum aveTHea(nin=1, k=fill(1.0/
         numZon, 1))      "Average of all heating setpoints"
-    annotation (Placement(transformation(extent={{-40,210},{-20,230}})));
+    annotation (Placement(transformation(extent={{-40,218},{-20,238}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum aveTCoo(nin=1, k=fill(1.0/
         numZon, 1))      "Average of all cooling setpoints"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
@@ -244,8 +244,8 @@ equation
           80},{-110,80}}, color={0,0,127}));
   connect(conEco.TSup, TSup) annotation (Line(points={{59,-6},{-68,-6},{-68,60},
           {-110,60}}, color={0,0,127}));
-  connect(conEco.THeaSet, THeaSet) annotation (Line(points={{59,-8},{-70,-8},{-70,
-          220},{-110,220}},
+  connect(conEco.THeaSet, THeaSet) annotation (Line(points={{59,-8},{-70,-8},{
+          -70,228},{-110,228}},
                           color={0,0,127}));
   connect(conEco.VOut_flow, VOut_flow) annotation (Line(points={{59,-10},{-72,-10},
           {-72,20},{-110,20}}, color={0,0,127}));
@@ -288,11 +288,12 @@ equation
   connect(winOpe.y, outAirSetPoi.uWin) annotation (Line(points={{-31,80},{-26,80},
           {-26,16},{-21,16},{-21,16}}, color={255,0,255}));
   connect(aveTHea.u[1], THeaSet)
-    annotation (Line(points={{-42,220},{-110,220}}, color={0,0,127}));
-  connect(aveTCoo.u[1], TCooSet) annotation (Line(points={{-42,190},{-72,190},{-72,
-          200},{-110,200}}, color={0,0,127}));
+    annotation (Line(points={{-42,228},{-110,228}}, color={0,0,127}));
+  connect(aveTCoo.u[1], TCooSet) annotation (Line(points={{-42,190},{-66,190},{
+          -66,210},{-110,210}},
+                            color={0,0,127}));
   connect(TZonSetAve.u1, aveTHea.y) annotation (Line(points={{-2,206},{-10,206},
-          {-10,220},{-18.3,220}}, color={0,0,127}));
+          {-10,228},{-18.3,228}}, color={0,0,127}));
   connect(aveTCoo.y, TZonSetAve.u2) annotation (Line(points={{-18.3,190},{-12,190},
           {-12,194},{-2,194}}, color={0,0,127}));
   connect(conTSetSup.TSetZones, TZonSetAve.y) annotation (Line(points={{39,-42},

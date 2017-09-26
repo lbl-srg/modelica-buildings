@@ -1,5 +1,6 @@
 within Buildings.Examples.VAVReheat.Controls;
 model ZoneSetPointsGuideline36
+  import Buildings;
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.Temperature THeaOn=293.15
@@ -22,14 +23,14 @@ model ZoneSetPointsGuideline36
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TCooSet(final unit="K",
       quantity="ThermodynamicTemperature")
                                           "Cooling setpoint temperature"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+    annotation (Placement(transformation(extent={{100,90},{120,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaSet(final unit="K",
       quantity="ThermodynamicTemperature") "Heating setpoint temperature"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures TSetZon
   "Zone set point temperature"
-    annotation (Placement(transformation(extent={{40,-60},{80,-20}})));
+    annotation (Placement(transformation(extent={{18,-46},{58,-6}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooDemLimLev(
     k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.cooling0)
     "Cooling demand limit level"
@@ -57,22 +58,31 @@ model ZoneSetPointsGuideline36
             k=1800) "Cool down and heat up time (assumed as constant)"
     annotation (Placement(transformation(extent={{-80,-11},{-60,9}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput opeMod
+    "Operation mode"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+      iconTransformation(extent={{100,-10},{120,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yFreProSta
+    "Freeze protection stage" annotation (Placement(transformation(extent={{100,-50},
+            {120,-30}}),        iconTransformation(extent={{100,-60},{120,-40}})));
 equation
-  connect(TSetZon.uCooDemLimLev,cooDemLimLev. y) annotation (Line(points={{38,-54},
-          {10,-54},{10,-61},{-59,-61}},       color={255,127,0}));
+  connect(TSetZon.uCooDemLimLev,cooDemLimLev. y) annotation (Line(points={{16,-40},
+          {0,-40},{0,-60},{-30,-60},{-30,-61},{-59,-61}},
+                                              color={255,127,0}));
   connect(heaDemLimLev.y,TSetZon. uHeaDemLimLev) annotation (Line(points={{-59,-91},
-          {14,-91},{14,-58},{38,-58}},         color={255,127,0}));
-  connect(TSetZon.occCooSet,TSetRooCooOn. y) annotation (Line(points={{38,-22},
-          {2,-22},{2,119},{-59,119}},    color={0,0,127}));
-  connect(TSetZon.occHeaSet,TSetRooHeaOn. y) annotation (Line(points={{38,-26},
-          {-2,-26},{-2,91},{-59,91}},    color={0,0,127}));
-  connect(TSetZon.unoCooSet,TSetRooCooOff. y) annotation (Line(points={{38,-30},
-          {18,-30},{18,0},{-10,0},{-10,31},{-59,31}},
+          {6,-91},{6,-90},{6,-90},{6,-44},{16,-44}},
+                                               color={255,127,0}));
+  connect(TSetZon.occCooSet,TSetRooCooOn. y) annotation (Line(points={{16,-8},{
+          2,-8},{2,119},{-59,119}},      color={0,0,127}));
+  connect(TSetZon.occHeaSet,TSetRooHeaOn. y) annotation (Line(points={{16,-12},
+          {-2,-12},{-2,91},{-59,91}},    color={0,0,127}));
+  connect(TSetZon.unoCooSet,TSetRooCooOff. y) annotation (Line(points={{16,-16},
+          {-10,-16},{-10,0},{-10,0},{-10,31},{-59,31}},
                                          color={0,0,127}));
-  connect(TSetZon.unoHeaSet,TSetRooHeaOff. y) annotation (Line(points={{38,-34},
-          {-6,-34},{-6,61},{-59,61}},    color={0,0,127}));
+  connect(TSetZon.unoHeaSet,TSetRooHeaOff. y) annotation (Line(points={{16,-20},
+          {-6,-20},{-6,61},{-59,61}},    color={0,0,127}));
   connect(opeModSel.opeMod,TSetZon. uOpeMod) annotation (Line(points={{-9,-31},
-          {10,-31},{10,-50},{38,-50}},    color={255,127,0}));
+          {10,-31},{10,-36},{16,-36}},    color={255,127,0}));
   connect(tCooDowHeaUp.y,opeModSel. cooDowTim) annotation (Line(points={{-59,-1},
           {-52,-1},{-52,-26.6},{-31,-26.6}},     color={0,0,127}));
   connect(tCooDowHeaUp.y,opeModSel. warUpTim) annotation (Line(points={{-59,-1},
@@ -95,10 +105,16 @@ equation
           -79.75},{-78,-80},{-36,-80},{-36,-78},{-36,-78},{-36,-22},{-31,-22}},
                                color={255,0,255}));
 
-  connect(TSetZon.TCooSet, TCooSet) annotation (Line(points={{82,-40},{90,-40},
-          {90,60},{110,60}}, color={0,0,127}));
-  connect(TSetZon.THeaSet, THeaSet) annotation (Line(points={{82,-48},{94,-48},
-          {94,-60},{110,-60}}, color={0,0,127}));
+  connect(TSetZon.TCooSet, TCooSet) annotation (Line(points={{60,-26},{70,-26},
+          {70,100},{110,100}},
+                             color={0,0,127}));
+  connect(TSetZon.THeaSet, THeaSet) annotation (Line(points={{60,-34},{74,-34},
+          {74,60},{110,60}},   color={0,0,127}));
+  connect(opeModSel.opeMod, opeMod) annotation (Line(points={{-9,-31},{10,-31},
+          {10,-32},{10,-32},{10,-32},{10,-32},{10,-32},{10,-60},{88,-60},{88,0},
+          {110,0}}, color={255,127,0}));
+  connect(opeModSel.yFreProSta, yFreProSta) annotation (Line(points={{-9,-36},{
+          -4,-36},{-4,-64},{92,-64},{92,-40},{110,-40}}, color={255,127,0}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,140}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,140}})));
 end ZoneSetPointsGuideline36;

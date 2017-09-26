@@ -1,6 +1,7 @@
 within Buildings.Examples.VAVReheat.Controls;
 block RoomVAVGuideline36
   "Controller for room VAV box according to ASHRAE Guideline 36"
+  import Buildings;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Mass flow rate of this thermal zone";
@@ -80,6 +81,14 @@ block RoomVAVGuideline36
     "Zone operation mode"
     annotation (Placement(transformation(extent={{-140,-130},{-100,-90}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonTemResReq
+    "Zone cooling supply air temperature reset request"
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
+      iconTransformation(extent={{100,-70},{120,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonPreResReq
+    "Zone static pressure reset requests"
+    annotation (Placement(transformation(extent={{100,-110},{120,-90}}),
+      iconTransformation(extent={{100,-110},{120,-90}})));
 equation
   connect(sysReqRehBox.TCooSet, TRooCooSet) annotation (Line(points={{49,19},{
           -78,19},{-78,22},{-78,22},{-78,90},{-120,90}},
@@ -138,6 +147,10 @@ equation
           10},{-120,10}}, color={0,0,127}));
   connect(actAirSet.uOpeMod, uOpeMod) annotation (Line(points={{-33,97},{-54,97},
           {-54,-110},{-120,-110}}, color={255,127,0}));
+  connect(sysReqRehBox.yZonTemResReq, yZonTemResReq) annotation (Line(points={{
+          71,17},{78,17},{78,-60},{110,-60}}, color={255,127,0}));
+  connect(sysReqRehBox.yZonPreResReq, yZonPreResReq) annotation (Line(points={{
+          71,12},{76,12},{76,-100},{110,-100}}, color={255,127,0}));
   annotation ( Icon(coordinateSystem(extent={{-100,-140},{100,160}}),
                     graphics={  Rectangle(
         extent={{-100,-140},{100,160}},

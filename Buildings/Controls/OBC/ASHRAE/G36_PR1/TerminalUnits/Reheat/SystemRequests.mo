@@ -89,14 +89,14 @@ block SystemRequests
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonPreResReq
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{180,-50},{200,-30}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+      iconTransformation(extent={{100,10},{120,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonTemResReq
     "Zone cooling supply air temperature reset request"
     annotation (Placement(transformation(extent={{180,190},{200,210}}),
       iconTransformation(extent={{100,60},{120,80}})));
   CDL.Interfaces.IntegerOutput yHeaValResReq "Hot water reset requests"
     annotation (Placement(transformation(extent={{180,-250},{200,-230}}),
-        iconTransformation(extent={{100,-60},{120,-40}})));
+        iconTransformation(extent={{100,-50},{120,-30}})));
   CDL.Interfaces.IntegerOutput yHeaPlaReq "Heating plant request"
     annotation (Placement(transformation(extent={{180,-440},{200,-420}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
@@ -563,8 +563,7 @@ equation
   connect(swi7.y, reaToInt2.u)
     annotation (Line(points={{121,-240},{138,-240}}, color={0,0,127}));
   connect(reaToInt2.y, yHeaValResReq)
-    annotation (Line(points={{161,-240},{136,-240},{136,-240},{190,-240}},
-                                                     color={255,127,0}));
+    annotation (Line(points={{161,-240},{190,-240}}, color={255,127,0}));
   connect(uHeaVal, hys11.u)
     annotation (Line(points={{-200,-350},{-160,-350},{-160,-430},{-142,-430}},
       color={0,0,127}));
@@ -758,13 +757,13 @@ annotation (
           horizontalAlignment=TextAlignment.Right,
           textString="yZonTemResReq"),
         Text(
-          extent={{42,12},{98,-8}},
+          extent={{42,32},{98,12}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonPreResReq"),
         Text(
-          extent={{42,-38},{98,-58}},
+          extent={{42,-28},{98,-48}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
