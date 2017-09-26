@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.Validation;
 model ZoneTemperatures "Validate block for zone set point"
   extends Modelica.Icons.Example;
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures zonSetpoint(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures TSetZon(
     occSen=true,
     sinAdj=false,
     cooAdj=true,
-    winStaSen=true) "Block determined thermal zone setpoints"
+    have_winStaSen=true) "Block determined thermal zone setpoints"
     annotation (Placement(transformation(extent={{60,40},{100,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant occCooSet(k=297.15)
@@ -69,30 +69,30 @@ equation
     annotation (Line(points={{-79,-90},{-62,-90}}, color={255,0,255}));
   connect(not1.y, booToInt.u)
     annotation (Line(points={{-39,-90},{-22,-90}}, color={255,0,255}));
-  connect(occCooSet.y, zonSetpoint.occCooSet)
+  connect(occCooSet.y, TSetZon.occCooSet)
     annotation (Line(points={{-79,90},{-72,90},{-72,108},{30,108},{30,78},{58,78}},
       color={0,0,127}));
-  connect(occHeaSet.y, zonSetpoint.occHeaSet)
+  connect(occHeaSet.y, TSetZon.occHeaSet)
     annotation (Line(points={{-39,90},{26,90},{26,74},{58,74}},
       color={0,0,127}));
-  connect(unoCooSet.y, zonSetpoint.unoCooSet)
+  connect(unoCooSet.y, TSetZon.unoCooSet)
     annotation (Line(points={{-79,50},{-72,50},{-72,70},{58,70}}, color={0,0,127}));
-  connect(unoHeaSet.y, zonSetpoint.unoHeaSet)
+  connect(unoHeaSet.y, TSetZon.unoHeaSet)
     annotation (Line(points={{-39,50},{-32,50},{-32,66},{58,66}},
       color={0,0,127}));
-  connect(cooDemLimLev.y, zonSetpoint.uCooDemLimLev)
+  connect(cooDemLimLev.y, TSetZon.uCooDemLimLev)
     annotation (Line(points={{-119,-60},{-100,-60},{-100,-40},{22,-40},
       {22,46},{58,46}}, color={255,127,0}));
-  connect(heaDemLimLev.y, zonSetpoint.uHeaDemLimLev)
+  connect(heaDemLimLev.y, TSetZon.uHeaDemLimLev)
     annotation (Line(points={{-39,-60},{26,-60},{26,42},{58,42}},
       color={255,127,0}));
-  connect(booToInt.y, zonSetpoint.uOpeMod)
+  connect(booToInt.y, TSetZon.uOpeMod)
     annotation (Line(points={{1,-90},{18,-90},{18,50},{58,50}},
       color={255,127,0}));
-  connect(occSta.y, zonSetpoint.uOccSen)
+  connect(occSta.y, TSetZon.uOccSen)
     annotation (Line(points={{61,20},{74,20},{74,38}},
       color={255,0,255}));
-  connect(winSta.y, zonSetpoint.uWinSta)
+  connect(winSta.y, TSetZon.uWinSta)
     annotation (Line(points={{61,-20},{86,-20},{86,38}}, color={255,0,255}));
   connect(winSta.y, swi2.u2)
     annotation (Line(points={{61,-20},{86,-20},{86,0},{-60,0},{-60,20},
@@ -112,10 +112,10 @@ equation
   connect(heaSetAdj.y, swi1.u3)
     annotation (Line(points={{-79,-20},{-68,-20},{-68,-28},{-42,-28}},
       color={0,0,127}));
-  connect(swi2.y, zonSetpoint.setAdj)
+  connect(swi2.y, TSetZon.setAdj)
     annotation (Line(points={{-19,20},{-2,20},{-2,62},{58,62}},
       color={0,0,127}));
-  connect(swi1.y, zonSetpoint.heaSetAdj)
+  connect(swi1.y, TSetZon.heaSetAdj)
     annotation (Line(points={{-19,-20},{2,-20},{2,58},{58,58}},
       color={0,0,127}));
   annotation (

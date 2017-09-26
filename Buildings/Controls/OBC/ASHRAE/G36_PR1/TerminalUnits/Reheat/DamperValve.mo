@@ -229,7 +229,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
     final k=1,
     final p=2.8)
-    "Zone temperature pluzonSetpoints 2.8 degC"
+    "Zone temperature pluTSetZons 2.8 degC"
     annotation (Placement(transformation(extent={{-260,-280},{-240,-260}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uHigh=0.05,

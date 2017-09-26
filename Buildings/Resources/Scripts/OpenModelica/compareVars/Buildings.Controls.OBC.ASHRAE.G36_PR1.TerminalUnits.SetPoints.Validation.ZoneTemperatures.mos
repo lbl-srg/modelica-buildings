@@ -1,12 +1,12 @@
 compareVars :=
   {
-    "zonSetpoint.THeaSet",
-    "zonSetpoint.TCooSet",
-    "zonSetpoint.occCooSet",
-    "zonSetpoint.occHeaSet",
-    "zonSetpoint.uWinSta",
-    "zonSetpoint.uOccSen",
-    "zonSetpoint.uOpeMod",
-    "zonSetpoint.setAdj",
-    "zonSetpoint.heaSetAdj"
+    "TSetZon.THeaSet",
+    "TSetZon.TCooSet",
+    "TSetZon.occCooSet",
+    "TSetZon.occHeaSet",
+    "TSetZon.uWinSta",
+    "TSetZon.uOccSen",
+    "TSetZon.uOpeMod",
+    "TSetZon.setAdj",
+    "TSetZon.heaSetAdj"
   };

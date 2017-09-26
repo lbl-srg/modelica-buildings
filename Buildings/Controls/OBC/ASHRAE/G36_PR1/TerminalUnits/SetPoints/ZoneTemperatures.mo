@@ -15,10 +15,10 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
     annotation(Dialog(group="Setpoints limits setting"));
   parameter Modelica.SIunits.Temperature TCooWinOpe=322.15
     "Cooling setpoint when window is open"
-    annotation(Dialog(group="Setpoints limits setting", enable=winStaSen));
+    annotation(Dialog(group="Setpoints limits setting", enable=have_winStaSen));
   parameter Modelica.SIunits.Temperature THeaWinOpe=277.15
     "Heating setpoint when window is open"
-    annotation(Dialog(group="Setpoints limits setting", enable=winStaSen));
+    annotation(Dialog(group="Setpoints limits setting", enable=have_winStaSen));
   parameter Boolean cooAdj = false
     "Check if both cooling and heating setpoint are adjustable separately"
     annotation(Dialog(group="Setpoint adjustable setting"));
@@ -34,7 +34,7 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
   parameter Boolean occSen = false
     "Check if the zone has occupancy sensor"
     annotation(Dialog(group="Sensors"));
-  parameter Boolean winStaSen = false
+  parameter Boolean have_winStaSen = false
     "Check if the zone has window status sensor"
     annotation(Dialog(group="Sensors"));
   parameter Real incSetDem_1=0.56
@@ -109,7 +109,7 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
       origin={-440,-270}),iconTransformation(
       extent={{-20,-20},{20,20}},origin={-60,-220},rotation=90)));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta if winStaSen
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta if have_winStaSen
     "Window status (open=true, close=false)"
     annotation (Placement(transformation(extent={{-460,-430},{-420,-390}}),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=90,
@@ -124,7 +124,7 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
     quantity="ThermodynamicTemperature")  "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{340,-110},{360,-90}}),
       iconTransformation(extent={{200,-100},{240,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla if winStaSen "Alarm level"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla if have_winStaSen "Alarm level"
     annotation (Placement(transformation(extent={{340,-400},{360,-380}}),
       iconTransformation(extent={{200,80},{240,120}})));
 
@@ -303,10 +303,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant conTru(k=true) if not occSen
     "Constant true"
     annotation (Placement(transformation(extent={{-380,-360},{-360,-340}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conFal(k=false) if not winStaSen
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conFal(k=false) if not have_winStaSen
     "Constant false"
     annotation (Placement(transformation(extent={{-380,-480},{-360,-460}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSenCon(k=winStaSen)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSenCon(k=have_winStaSen)
     "Check if there is window status sensor"
     annotation (Placement(transformation(extent={{40,-480},{60,-460}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSenCon(k=occSen)
@@ -1081,7 +1081,7 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uWinSta",
-          visible = winStaSen,
+          visible = have_winStaSen,
           origin={60.5,-164.5},
           rotation=90),
         Text(
