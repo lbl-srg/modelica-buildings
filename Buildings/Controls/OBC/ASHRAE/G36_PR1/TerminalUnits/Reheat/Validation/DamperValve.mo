@@ -44,14 +44,14 @@ model DamperValve
     amplitude=0.002,
     freqHz=1/86400) "Discharge airflow rate"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDisAir(k=273.15 + 25)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDis(k=273.15 + 25)
     "Discharge air temperature"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
 equation
   connect(VDisAir.y, damVal_RehBox.VDisAir)
     annotation (Line(points={{41,-60},{74,-60},{74,39}}, color={0,0,127}));
-  connect(TDisAir.y, damVal_RehBox.TDisAir)
+  connect(TDis.y, damVal_RehBox.TDis)
     annotation (Line(points={{41,-20},{66,-20},{66,39}}, color={0,0,127}));
   connect(VActCooMax.y, damVal_RehBox.VActCooMax)
     annotation (Line(points={{41,80},{50,80},{50,59},{59,59}}, color={0,0,127}));

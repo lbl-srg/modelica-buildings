@@ -5,7 +5,7 @@ compareVars :=
     "damVal_RehBox.TRoo",
     "damVal_RehBox.THeaSet",
     "damVal_RehBox.TSup",
-    "damVal_RehBox.TDisAirSet",
+    "damVal_RehBox.TDisSet",
     "damVal_RehBox.yDam",
     "damVal_RehBox.yHeaVal",
     "damVal_RehBox.VDisAir",

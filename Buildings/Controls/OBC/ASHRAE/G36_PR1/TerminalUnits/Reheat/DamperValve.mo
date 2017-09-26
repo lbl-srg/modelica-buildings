@@ -87,7 +87,7 @@ block DamperValve
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-360,-290},{-320,-250}}),
       iconTransformation(extent={{-10,-10},{10,10}},origin={-110,-90})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisAir(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Current discharge air temperature"
@@ -107,7 +107,7 @@ block DamperValve
     quantity="VolumeFlowRate") "Discharge airflow setpoint"
     annotation (Placement(transformation(extent={{320,200},{340,220}}),
       iconTransformation(extent={{100,70},{120,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDisAirSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDisSet(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Discharge airflow setpoint temperature for heating"
@@ -386,10 +386,10 @@ equation
       color={0,0,127}));
   connect(lowDisAirTem.y, limPID.u_s)
     annotation (Line(points={{-239,130},{-162,130}}, color={0,0,127}));
-  connect(TDisAir, limPID.u_m)
+  connect(TDis, limPID.u_m)
     annotation (Line(points={{-340,110},{-150,110},{-150,118}},
       color={0,0,127}));
-  connect(TDisAir, hys4.u)
+  connect(TDis, hys4.u)
     annotation (Line(points={{-340,110},{-260,110},{-260,90},{-222,90}},
       color={0,0,127}));
   connect(limPID.y, swi3.u1)
@@ -496,7 +496,7 @@ equation
       color={255,0,255}));
   connect(mulSum.y, VDisAirSet)
     annotation (Line(points={{221.7,210},{330,210}}, color={0,0,127}));
-  connect(lin1.y, TDisAirSet)
+  connect(lin1.y, TDisSet)
     annotation (Line(points={{-99,-100},{-80,-100},{-80,-160},{330,-160}},
       color={0,0,127}));
 
@@ -632,7 +632,7 @@ in heating state")}),
           extent={{-11.5,3.5},{11.5,-3.5}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TDisAir",
+          textString="TDis",
           origin={-39.5,-85.5},
           rotation=90),
         Text(
@@ -703,7 +703,7 @@ in heating state")}),
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="TDisAirSet")}),
+          textString="TDisSet")}),
   Documentation(info="<html>
 <p>
 This sequence sets the damper and valve position for VAV reheat terminal unit.
@@ -717,7 +717,7 @@ When the zone state is cooling (<code>uCoo>0</code>), then the cooling loop outp
 <code>uCoo</code> shall be mapped to the airflow
 setpoint from the cooling minimum <code>VActCooMin</code> to the cooling maximum
 <code>VActCooMax</code> airflow setpoints. The hot water valve is closed (<code>yHeaVal=0</code>)
-unless the discharge air temperature <code>TDisAir</code> is below the minimum
+unless the discharge air temperature <code>TDis</code> is below the minimum
 setpoint (10 &deg;C).</p>
 </li>
 <li>
@@ -744,7 +744,7 @@ as follows:</p>
 discharge temperature setpoint from current AHU SAT setpoint <code>TSup</code>
 to a maximum of <code>maxDTem</code> above space temperature setpoint. The airflow
 setpoint shall be the heating minimum <code>VActHeaMin</code>.</li>
-<li>From 50-100%, if the discharge air temperature <code>TDisAir</code> is
+<li>From 50-100%, if the discharge air temperature <code>TDis</code> is
 greater than room temperature plus 2.8 Kelvin, the heating loop output <code>uHea</code>
 shall reset the airflow setpoint from the heating minimum airflow setpoint
 <code>VActHeaMin</code> to the heating maximum airflow setpoint
