@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.Generic.SetPoints.Validation;
 model OperationMode "Validate block OperationModeSelector"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.ASHRAE.G36.Generic.SetPoints.OperationMode
-    opeModSel(numOfZon=1) "Block that outputs the operation mode"
+    opeModSel(numZon=1) "Block that outputs the operation mode"
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     offset=0,

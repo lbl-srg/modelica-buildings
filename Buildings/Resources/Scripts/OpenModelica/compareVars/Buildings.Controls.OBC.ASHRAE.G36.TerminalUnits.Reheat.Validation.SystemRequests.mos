@@ -10,7 +10,7 @@ compareVars :=
     "sysReq_RehBox.yZonPreResReq",
     "sysReq_RehBox.TDisAirSet",
     "sysReq_RehBox.TDisAir",
-    "sysReq_RehBox.uHotVal",
-    "sysReq_RehBox.yHotValResReq",
-    "sysReq_RehBox.yBoiPlaReq"
+    "sysReq_RehBox.uHeaVal",
+    "sysReq_RehBox.yHeaValResReq",
+    "sysReq_RehBox.yHeaPlaReq"
   };

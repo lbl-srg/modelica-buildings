@@ -20,9 +20,6 @@ block ActiveAirFlow
   parameter Modelica.SIunits.VolumeFlowRate VHeaMax
     "Zone maximum heating airflow setpoint"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference maxDt
-    "Zone maximum discharge air temperature above heating setpoint"
-    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.VolumeFlowRate VMinCon
     "VAV box controllable minimum"
     annotation(Dialog(group="Nominal condition"));
@@ -723,7 +720,6 @@ provided:
 <li>Zone maximum cooling airflow setpoint <code>VCooMax</code></li>
 <li>Zone minimum airflow setpoint <code>VMin</code></li>
 <li>Zone maximum heating airflow setpoint <code>VHeaMax</code></li>
-<li>Zone maximum discharge air temperature above heating setpoint <code>maxDt</code></li>
 </ul>
 
 <h4>2. Occupied minimum airflow <code>VOccMinAir</code></h4>

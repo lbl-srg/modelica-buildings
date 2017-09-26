@@ -11,7 +11,7 @@ block VAVSupplyFan  "Block to control multizone VAV AHU supply fan"
     "Check if the AHU serves dual duct boxes"
     annotation(Dialog(group="System configuration"));
   parameter Boolean airFloMeaSta = false
-    "Check if the AHU has AFMS (Airflow measurement statation)"
+    "Check if the AHU has AFMS (Airflow measurement station)"
     annotation(Dialog(group="System configuration"));
   parameter Modelica.SIunits.PressureDifference maxDesPre(displayUnit="Pa")
     "Duct design maximum static pressure"
@@ -264,7 +264,7 @@ equation
       color={255,0,255}));
 
 annotation (
-  defaultComponentName="vAVMulSupFan",
+  defaultComponentName="conSupFan",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{140,160}}),
         graphics={
         Rectangle(

@@ -2,10 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat;
 block SystemRequests
   "Output system requests for VAV reheat terminal unit control"
 
-  parameter Boolean have_hotWatCoi=true
-    "Flag, true if there is a  hot water coil";
-  parameter Boolean have_boiPla=false
-    "Flag, true if there is a boiler plant";
+  parameter Boolean have_heaWatCoi=true
+    "Flag, true if there is a hot water coil";
+  parameter Boolean have_heaPla=false "Flag, true if there is a boiler plant";
   parameter Modelica.SIunits.Time samPer=180
     "Period of sampling cooling setpoint temperature";
   parameter Modelica.SIunits.TemperatureDifference cooSetDif_1=2.8
@@ -53,8 +52,7 @@ block SystemRequests
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDisAir(
     min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate")
-    "Measured discharge airflow rate"
+    quantity="VolumeFlowRate") "Measured discharge airflow rate"
     annotation (Placement(transformation(extent={{-220,-90},{-180,-50}}),
       iconTransformation(extent={{-10,-10},{10,10}},origin={-110,0})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDisAirSet(
@@ -72,21 +70,20 @@ block SystemRequests
       iconTransformation(extent={{-10,-10},{10,10}},origin={-110,-20})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisAirSet(
     final unit="K",
-    quantity="ThermodynamicTemperature") if have_hotWatCoi
+    quantity="ThermodynamicTemperature") if have_heaWatCoi
     "Discharge airflow setpoint temperature for heating"
     annotation (Placement(transformation(extent={{-220,-230},{-180,-190}}),
       iconTransformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisAir(
     final unit="K",
-    quantity="ThermodynamicTemperature") if have_hotWatCoi
+    quantity="ThermodynamicTemperature") if have_heaWatCoi
     "Measured discharge airflow temperature"
     annotation (Placement(transformation(extent={{-220,-310},{-180,-270}}),
       iconTransformation(extent={{-120,-80},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotVal(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaVal(
     min=0,
     max=1,
-    final unit="1") if have_hotWatCoi
-    "Hot water valve position"
+    final unit="1") if have_heaWatCoi "Heating valve position"
     annotation (Placement(transformation(extent={{-220,-370},{-180,-330}}),
       iconTransformation(extent={{-10,-10},{10,10}},origin={-110,-90})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonPreResReq
@@ -97,14 +94,12 @@ block SystemRequests
     "Zone cooling supply air temperature reset request"
     annotation (Placement(transformation(extent={{180,190},{200,210}}),
       iconTransformation(extent={{100,60},{120,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotValResReq if have_hotWatCoi
-    "Hot water reset requests"
+  CDL.Interfaces.IntegerOutput yHeaValResReq "Hot water reset requests"
     annotation (Placement(transformation(extent={{180,-250},{200,-230}}),
-      iconTransformation(extent={{100,-60},{120,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yBoiPlaReq if (have_hotWatCoi and have_boiPla)
-    "Boiler plant request"
+        iconTransformation(extent={{100,-60},{120,-40}})));
+  CDL.Interfaces.IntegerOutput yHeaPlaReq "Heating plant request"
     annotation (Placement(transformation(extent={{180,-440},{200,-420}}),
-      iconTransformation(extent={{100,-100},{120,-80}})));
+        iconTransformation(extent={{100,-100},{120,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow=cooSetDif_1 - 0.1,
     final uHigh=cooSetDif_1 + 0.1)
@@ -142,12 +137,12 @@ block SystemRequests
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys8(
     final uLow=-0.1,
-    final uHigh=0.1) if have_hotWatCoi
+    final uHigh=0.1) if have_heaWatCoi
     "Check if discharge air temperature is disAirSetDif_1 less than setpoint"
     annotation (Placement(transformation(extent={{-40,-250},{-20,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys9(
     final uLow=-0.1,
-    final uHigh=0.1) if have_hotWatCoi
+    final uHigh=0.1) if have_heaWatCoi
     "Check if discharge air temperature is disAirSetDif_2 less than setpoint"
     annotation (Placement(transformation(extent={{-40,-310},{-20,-290}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys10(
@@ -157,7 +152,7 @@ block SystemRequests
     annotation (Placement(transformation(extent={{-140,-360},{-120,-340}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys11(
     final uHigh=0.95,
-    final uLow=0.1) if (have_hotWatCoi and have_boiPla)
+    final uLow=0.1) if (have_heaWatCoi and have_heaPla)
     "Check if valve position is greater than 0.95"
     annotation (Placement(transformation(extent={{-140,-440},{-120,-420}})));
 
@@ -219,30 +214,31 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add5(final k1=-1)
     "Calculate difference between current discharge airflow rate and 75% of setpoint"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add6(final k2=-1) if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Add add6(final k2=-1) if have_heaWatCoi
     "Calculate difference of discharge temperature (plus disAirSetDif_1) and its setpoint"
     annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add7(final k2=-1) if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Add add7(final k2=-1) if have_heaWatCoi
     "Calculate difference of discharge temperature (plus disAirSetDif_2) and its setpoint"
     annotation (Placement(transformation(extent={{-80,-310},{-60,-290}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
     final k=1,
-    final p=disAirSetDif_1) if have_hotWatCoi
+    final p=disAirSetDif_1) if have_heaWatCoi
     "Discharge temperature plus disAirSetDif_1"
     annotation (Placement(transformation(extent={{-140,-272},{-120,-252}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
     final k=1,
-    final p=disAirSetDif_2) if have_hotWatCoi
+    final p=disAirSetDif_2) if have_heaWatCoi
     "Discharge temperature plus disAirSetDif_2"
     annotation (Placement(transformation(extent={{-140,-330},{-120,-310}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt "Convert real to integer value"
     annotation (Placement(transformation(extent={{140,190},{160,210}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1 "Convert real to integer value"
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2 if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2 if have_heaWatCoi
     "Convert real to integer value"
     annotation (Placement(transformation(extent={{140,-250},{160,-230}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3 if (have_hotWatCoi and have_boiPla)
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3 if (have_heaWatCoi and
+    have_heaPla)
     "Convert real to integer value"
     annotation (Placement(transformation(extent={{140,-440},{160,-420}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
@@ -283,29 +279,29 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant onePreResReq(
     final k=1) "Constant 1"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant thrHotResReq(
-    final k=3) if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant thrHeaResReq(
+    final k=3) if have_heaWatCoi
     "Constant 3"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant twoHotResReq(
-    final k=2) if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant twoHeaResReq(
+    final k=2) if have_heaWatCoi
     "Constant 2"
     annotation (Placement(transformation(extent={{40,-280},{60,-260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneHotResReq(
-    final k=1) if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneHeaResReq(
+    final k=1) if have_heaWatCoi
     "Constant 1"
     annotation (Placement(transformation(extent={{40,-340},{60,-320}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerHotResReq(
-    final k=0) if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerHeaResReq(
+    final k=0) if have_heaWatCoi
     "Constant 0"
     annotation (Placement(transformation(extent={{40,-380},{60,-360}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerBoiPlaReq(
-    final k=0) if (have_hotWatCoi
-     and have_boiPla)
+    final k=0) if (have_heaWatCoi
+     and have_heaPla)
     "Constant 0"
     annotation (Placement(transformation(extent={{40,-460},{60,-440}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneBoiPlaReq(
-    final k=1) if (have_hotWatCoi and have_boiPla)
+    final k=1) if (have_heaWatCoi and have_heaPla)
     "Constant 1"
     annotation (Placement(transformation(extent={{40,-420},{60,-400}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxSupTim(k=1800)
@@ -328,16 +324,17 @@ protected
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi6 "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi7 if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Logical.Switch swi7 if have_heaWatCoi
     "Output 3 or other request "
     annotation (Placement(transformation(extent={{100,-250},{120,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi8 if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Logical.Switch swi8 if have_heaWatCoi
     "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-310},{120,-290}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi9 if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Logical.Switch swi9 if have_heaWatCoi
     "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-360},{120,-340}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi10 if (have_hotWatCoi and have_boiPla)
+  Buildings.Controls.OBC.CDL.Logical.Switch swi10 if (have_heaWatCoi and
+    have_heaPla)
     "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-440},{120,-420}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(duration=samPer)
@@ -353,10 +350,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim3(delayTime=durTimFlo)
     "Check if it is more than durTimFlo"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay tim4(delayTime=durTimDisAir) if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay tim4(delayTime=durTimDisAir) if have_heaWatCoi
     "Check if it is more than durTimDisAir"
     annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay tim5(delayTime=durTimDisAir) if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay tim5(delayTime=durTimDisAir) if have_heaWatCoi
     "Check if it is more than durTimDisAir"
     annotation (Placement(transformation(extent={{0,-310},{20,-290}})));
 
@@ -535,10 +532,10 @@ equation
     annotation (Line(points={{-59,-300},{-42,-300}}, color={0,0,127}));
   connect(hys9.y, tim5.u)
     annotation (Line(points={{-19,-300},{-2,-300}}, color={255,0,255}));
-  connect(thrHotResReq.y, swi7.u1)
+  connect(thrHeaResReq.y, swi7.u1)
     annotation (Line(points={{61,-210},{80,-210},{80,-232},{98,-232}},
       color={0,0,127}));
-  connect(twoHotResReq.y, swi8.u1)
+  connect(twoHeaResReq.y, swi8.u1)
     annotation (Line(points={{61,-270},{80,-270},{80,-292},{98,-292}},
       color={0,0,127}));
   connect(swi8.y, swi7.u3)
@@ -550,14 +547,14 @@ equation
   connect(TDisAirSet, add7.u1)
     annotation (Line(points={{-200,-210},{-100,-210},{-100,-294},{-82,-294}},
       color={0,0,127}));
-  connect(uHotVal, hys10.u)
+  connect(uHeaVal, hys10.u)
     annotation (Line(points={{-200,-350},{-142,-350}}, color={0,0,127}));
   connect(hys10.y, swi9.u2)
     annotation (Line(points={{-119,-350},{98,-350}}, color={255,0,255}));
-  connect(oneHotResReq.y, swi9.u1)
+  connect(oneHeaResReq.y, swi9.u1)
     annotation (Line(points={{61,-330},{80,-330},{80,-342},{98,-342}},
       color={0,0,127}));
-  connect(zerHotResReq.y, swi9.u3)
+  connect(zerHeaResReq.y, swi9.u3)
     annotation (Line(points={{61,-370},{80,-370},{80,-358},{98,-358}},
       color={0,0,127}));
   connect(swi9.y, swi8.u3)
@@ -565,9 +562,10 @@ equation
       {98,-308}}, color={0,0,127}));
   connect(swi7.y, reaToInt2.u)
     annotation (Line(points={{121,-240},{138,-240}}, color={0,0,127}));
-  connect(reaToInt2.y, yHotValResReq)
-    annotation (Line(points={{161,-240},{190,-240}}, color={255,127,0}));
-  connect(uHotVal, hys11.u)
+  connect(reaToInt2.y, yHeaValResReq)
+    annotation (Line(points={{161,-240},{136,-240},{136,-240},{190,-240}},
+                                                     color={255,127,0}));
+  connect(uHeaVal, hys11.u)
     annotation (Line(points={{-200,-350},{-160,-350},{-160,-430},{-142,-430}},
       color={0,0,127}));
   connect(hys11.y, swi10.u2)
@@ -580,7 +578,7 @@ equation
       color={0,0,127}));
   connect(swi10.y, reaToInt3.u)
     annotation (Line(points={{121,-430},{138,-430}}, color={0,0,127}));
-  connect(reaToInt3.y, yBoiPlaReq)
+  connect(reaToInt3.y,yHeaPlaReq)
     annotation (Line(points={{161,-430},{190,-430}}, color={255,127,0}));
   connect(gre.y, truHol.u)
     annotation (Line(points={{81,340},{119,340}}, color={255,0,255}));
@@ -752,7 +750,7 @@ annotation (
           extent={{-98,-86},{-64,-96}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uHotVal"),
+          textString="uHeaVal"),
         Text(
           extent={{42,82},{98,62}},
           lineColor={0,0,127},
@@ -770,13 +768,13 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="yHotValResReq"),
+          textString="yHeaValResReq"),
         Text(
           extent={{58,-84},{98,-100}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="yBoiPlaReq")}),
+          textString="yHeaPlaReq")}),
   Documentation(info="<html>
 <p>
 This sequence outputs the system reset requests, i.e.,
@@ -791,10 +789,10 @@ the static pressure reset requests
 <code>yZonPreResReq</code>,
 </li>
 <li>
-the hot water reset requests <code>yHotValResReq</code>, and
+the hot water reset requests <code>yHeaValResReq</code>, and
 </li>
 <li>
-the boiler plant reset requests <code>yBoiPlaReq</code>.
+the boiler plant reset requests <code>yHeaPlaReq</code>.
 </li>
 </ul>
 <p>
@@ -843,37 +841,37 @@ Else if the damper position <code>uDam</code> is greater than 95%, send 1 reques
 Else if <code>uDam</code> is less than 95%, send 0 request (<code>yZonPreResReq=0</code>).
 </li>
 </ol>
-<h4>c. If there is a hot water coil (<code>have_hotWatCoi=true</code>),
-hot water reset requests <code>yHotValResReq</code></h4>
+<h4>c. If there is a hot water coil (<code>have_heaWatCoi=true</code>),
+hot water reset requests <code>yHeaValResReq</code></h4>
 <ol>
 <li>
 If the discharge air temperature <code>TDisAir</code> is 17 &deg;C (30 &deg;F)
 less than the setpoint <code>TDisAirSet</code> for 5 minutes, send 3 requests
-(<code>yHotValResReq=3</code>).
+(<code>yHeaValResReq=3</code>).
 </li>
 <li>
 Else if the discharge air temperature <code>TDisAir</code> is 8.3 &deg;C (15 &deg;F)
 less than the setpoint <code>TDisAirSet</code> for 5 minutes, send 2 requests
-(<code>yHotValResReq=2</code>).
+(<code>yHeaValResReq=2</code>).
 </li>
 <li>
-Else if the hot water valve position <code>uHotVal</code> is greater than 95%, send 1 request
-(<code>yHotValResReq=1</code>) until <code>uHotVal</code> is less than 85%.
+Else if the hot water valve position <code>uHeaVal</code> is greater than 95%, send 1 request
+(<code>yHeaValResReq=1</code>) until <code>uHeaVal</code> is less than 85%.
 </li>
 <li>
-Else if <code>uHotVal</code> is less than 95%, send 0 request (<code>yHotValResReq=0</code>).
+Else if <code>uHeaVal</code> is less than 95%, send 0 request (<code>yHeaValResReq=0</code>).
 </li>
 </ol>
-<h4>d. If there is hot water coil (<code>have_hotWatCoi=true</code>) and a boiler plant
+<h4>d. If there is hot water coil (<code>have_heaWatCoi=true</code>) and a boiler plant
 (<code>have_boiPla=true</code>), send the boiler plant that serves the zone a boiler
-plant requests <code>yBoiPlaReq</code> as follows:</h4>
+plant requests <code>yHeaPlaReq</code> as follows:</h4>
 <ol>
 <li>
-If the hot water valve position <code>uHotVal</code> is greater than 95%, send 1 request
-(<code>yBoiPlaReq=1</code>) until <code>uHotVal</code> is less than 10%.
+If the hot water valve position <code>uHeaVal</code> is greater than 95%, send 1 request
+(<code>yHeaPlaReq=1</code>) until <code>uHeaVal</code> is less than 10%.
 </li>
 <li>
-Else if <code>uHotVal</code> is less than 95%, send 0 request (<code>yBoiPlaReq=0</code>).
+Else if <code>uHeaVal</code> is less than 95%, send 0 request (<code>yHeaPlaReq=0</code>).
 </li>
 </ol>
 
