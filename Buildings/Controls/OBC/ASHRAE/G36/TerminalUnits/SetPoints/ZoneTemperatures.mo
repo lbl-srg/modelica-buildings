@@ -1015,7 +1015,7 @@ equation
     annotation (Line(points={{181,-390},{350,-390}}, color={255,127,0}));
 
 annotation (
-  defaultComponentName="zonSetpoint",
+  defaultComponentName="TZonSet",
   Icon(coordinateSystem(extent={{-200,-200},{200,200}}),
        graphics={
         Rectangle(
