@@ -42,7 +42,7 @@ block VAVSupplyFan  "Block to control multizone VAV AHU supply fan"
     "Maximum response per time interval (same sign as resAmo)"
     annotation (Dialog(tab="Advanced",group="Trim and respond for pressure setpoint"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID "Type of controller"
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(tab="Advanced",group="Fan PID controller"));
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(tab="Advanced",group="Fan PID controller"));
@@ -98,23 +98,23 @@ block VAVSupplyFan  "Block to control multizone VAV AHU supply fan"
       iconTransformation(extent={{100,-80},{120,-60}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond staPreSetRes(
-    iniSet=iniSet,
-    minSet=minSet,
-    maxSet=maxSet,
-    delTim=delTim,
-    samplePeriod=samplePeriod,
-    numIgnReq=numIgnReq,
-    triAmo=triAmo,
-    resAmo=resAmo,
-    maxRes=maxRes) "Static pressure setpoint reset using trim and respond logic"
+    final iniSet=iniSet,
+    final minSet=minSet,
+    final maxSet=maxSet,
+    final delTim=delTim,
+    final samplePeriod=samplePeriod,
+    final numIgnReq=numIgnReq,
+    final triAmo=triAmo,
+    final resAmo=resAmo,
+    final maxRes=maxRes) "Static pressure setpoint reset using trim and respond logic"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID supFanSpeCon(
-    Ti=Ti,
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=k,
-    Td=Td,
-    yMax=yMax,
-    yMin=yMin)
+    final Ti=Ti,
+    final controllerType=controllerType,
+    final k=k,
+    final Td=Td,
+    final yMax=yMax,
+    final yMin=yMin)
     "Supply fan speed control"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 protected
@@ -372,8 +372,10 @@ does not have airflow measurement station (<code>have_airFloMeaSta=false</code>)
 sum the current airflow rate from the VAV boxes and output to a software point.</li>
 </ul>
 <h4>b. Static pressure setpoint reset</h4>
+<p>
 Static pressure setpoint shall be reset using trim-respond logic using following
 parameters as a starting point:
+</p>
 <table summary=\"summary\" border=\"1\">
 <tr><th> Variable </th> <th> Value </th> <th> Definition </th> </tr>
 <tr><td>Device</td><td>AHU Supply Fan</td> <td>Associated device</td></tr>
@@ -390,11 +392,13 @@ parameters as a starting point:
 </table>
 <br/>
 <h4>c. Static pressure control</h4>
+<p>
 Supply fan speed is controlled to maintain duct static pressure at setpoint
 when the fan is proven on. Where the zone groups served by the system are small,
 provide multiple sets of gains that are used in the control loop as a function
 of a load indicator (such as supply fan airflow rate, the area of the zone groups
 that are occupied, etc.).
+</p>
 <h4>References</h4>
 <p>
 <a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
