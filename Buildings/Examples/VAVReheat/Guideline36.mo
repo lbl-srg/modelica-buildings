@@ -94,6 +94,9 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant zonSta(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.ZoneStates.deadband)
     "Zone state signal"
     annotation (Placement(transformation(extent={{300,330},{320,350}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiMSup(k=m_flow_nominal)
+    "Gain for assigning supply air mass flow rate"
+    annotation (Placement(transformation(extent={{300,10},{280,30}})));
 equation
   connect(fanRet.port_a, dpRetFan.port_b) annotation (Line(
       points={{320,140},{320,140},{320,60}},
@@ -101,7 +104,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dot));
   connect(fanSup.port_b, dpRetFan.port_a) annotation (Line(
-      points={{320,-40},{320,40}},
+      points={{280,-40},{280,0},{320,0},{320,40}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dot));
@@ -161,9 +164,9 @@ equation
   connect(TSupWes.T,conVAVWes.TDis)  annotation (Line(points={{1289,90},{1228,
           90},{1228,35.3333},{1238,35.3333}},
                                 color={0,0,127}));
-  connect(cor.yVAV, conVAVCor.yDam) annotation (Line(points={{566,48},{556,48},{
-          556,48},{551,48}},     color={0,0,127}));
-  connect(cor.yVal, conVAVCor.yVal) annotation (Line(points={{566,32},{560,32},
+  connect(cor.yVAV, conVAVCor.yDam) annotation (Line(points={{566,50},{556,50},
+          {556,48},{551,48}},    color={0,0,127}));
+  connect(cor.yVal, conVAVCor.yVal) annotation (Line(points={{566,34},{560,34},
           {560,41.3333},{551,41.3333}},
                              color={0,0,127}));
   connect(conVAVSou.yDam, sou.yVAV) annotation (Line(points={{721,46},{730,46},{
@@ -334,8 +337,6 @@ equation
           1032,210},{176,210},{176,285},{218,285}}, color={0,0,127}));
   connect(TSupWes.T, TDis.u5[1]) annotation (Line(points={{1289,90},{1228,90},{
           1228,210},{176,210},{176,280},{218,280}}, color={0,0,127}));
-  connect(conAHU.ySupFanSpe, fanSup.y) annotation (Line(points={{434,386},{462,386},
-          {462,-10},{310,-10},{310,-28}},      color={0,0,127}));
   connect(conAHU.yOutDamPos, eco.y) annotation (Line(points={{434,374},{450,374},
           {450,-6},{-13,-6},{-13,6.6}}, color={0,0,127}));
   connect(conAHU.TSetSup, heaCoiCon.u_s) annotation (Line(points={{434,362},{456,
@@ -343,8 +344,6 @@ equation
   connect(conAHU.TSetSup, cooCoiCon.u_s) annotation (Line(points={{434,362},{
           454,362},{456,362},{456,-240},{-20,-240},{-20,-200},{-2,-200}},
                   color={0,0,127}));
-  connect(conFanRet.uFan, conAHU.ySupFan) annotation (Line(points={{248,176},{230,
-          176},{230,190},{444,190},{444,350},{434,350}}, color={255,0,255}));
   connect(conVAVCor.VDis, VSupCor_flow.V_flow) annotation (Line(points={{528,
           44.6667},{522,44.6667},{522,130},{569,130}}, color={0,0,127}));
   connect(VSupSou_flow.V_flow, conVAVSou.VDis) annotation (Line(points={{749,130},
@@ -369,6 +368,10 @@ equation
           386},{390,386}}, color={0,0,127}));
   connect(conAHU.uZonSta, zonSta.y) annotation (Line(points={{390,362},{330,362},
           {330,340},{321,340}}, color={255,127,0}));
+  connect(fanSup.m_flow_in, gaiMSup.y)
+    annotation (Line(points={{270,-28},{270,20},{279,20}}, color={0,0,127}));
+  connect(gaiMSup.u, conAHU.ySupFanSpe) annotation (Line(points={{302,20},{462,
+          20},{462,386},{434,386}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{1660,
             640}})),

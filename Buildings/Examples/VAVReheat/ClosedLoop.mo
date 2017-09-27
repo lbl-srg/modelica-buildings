@@ -1,6 +1,7 @@
 within Buildings.Examples.VAVReheat;
 model ClosedLoop
   "Variable air volume flow system with terminal reheat and five thermal zones"
+  import Buildings;
   extends Modelica.Icons.Example;
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop;
 
@@ -66,6 +67,9 @@ model ClosedLoop
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
   Controls.RoomVAV conVAVWes "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiMSup(k=m_flow_nominal)
+    "Gain for assigning supply air mass flow rate"
+    annotation (Placement(transformation(extent={{274,0},{294,20}})));
 equation
   connect(TSupSetHea.y, heaCoiCon.u_s) annotation (Line(
       points={{-79,-160},{-2,-160}},
@@ -77,7 +81,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dot));
   connect(fanSup.port_b, dpRetFan.port_a) annotation (Line(
-      points={{320,-40},{320,40}},
+      points={{280,-40},{280,0},{320,0},{320,40}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dot));
@@ -133,11 +137,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(conFanSup.y, fanSup.y) annotation (Line(
-      points={{261,10},{310,10},{310,-28}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
   connect(TCoiHeaOut.T, heaCoiCon.u_m) annotation (Line(
       points={{144,-29},{144,-20},{160,-20},{160,-180},{10,-180},{10,-172}},
       color={0,0,127},
@@ -154,7 +153,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(dpRetFan.p_rel, conFanSup.u_m) annotation (Line(
-      points={{311,50},{290,50},{290,-10},{250,-10},{250,-2}},
+      points={{311,50},{306,50},{306,-10},{250,-10},{250,-2}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -240,10 +239,10 @@ equation
   connect(conVAVWes.yDam, pSetDuc.u[5]) annotation (Line(points={{1261,42.8},{
           1270,42.8},{1270,72},{120,72},{120,10},{134,10},{134,11.6},{158,11.6}},
                                                            color={0,0,127}));
-  connect(cor.yVAV, conVAVCor.yDam) annotation (Line(points={{566,48},{556,48},{
-          556,46.8},{551,46.8}}, color={0,0,127}));
-  connect(cor.yVal, conVAVCor.yVal) annotation (Line(points={{566,32},{560,32},{
-          560,37},{551,37}}, color={0,0,127}));
+  connect(cor.yVAV, conVAVCor.yDam) annotation (Line(points={{566,50},{556,50},
+          {556,46.8},{551,46.8}},color={0,0,127}));
+  connect(cor.yVal, conVAVCor.yVal) annotation (Line(points={{566,34},{560,34},
+          {560,37},{551,37}},color={0,0,127}));
   connect(conVAVSou.yDam, sou.yVAV) annotation (Line(points={{721,44.8},{730,44.8},
           {730,48},{746,48}}, color={0,0,127}));
   connect(conVAVSou.yVal, sou.yVal) annotation (Line(points={{721,35},{732.5,35},
@@ -310,9 +309,10 @@ equation
   connect(modeSelector.yFan, conFanSup.uFan) annotation (Line(points={{-91.5455,
           -214},{-80,-214},{-80,-232},{252,-232},{252,-20},{230,-20},{230,16},{
           238,16}}, color={255,0,255}));
-  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-91.5455,
-          -214},{-80,-214},{-80,-232},{252,-232},{252,-20},{230,-20},{230,176},
-          {248,176}}, color={255,0,255}));
+  connect(conFanSup.y, gaiMSup.u)
+    annotation (Line(points={{261,10},{272,10}}, color={0,0,127}));
+  connect(gaiMSup.y, fanSup.m_flow_in) annotation (Line(points={{295,10},{300,
+          10},{300,-20},{270,-20},{270,-28}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{1660,
             640}})),

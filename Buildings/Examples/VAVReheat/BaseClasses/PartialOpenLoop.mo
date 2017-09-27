@@ -1,8 +1,7 @@
 within Buildings.Examples.VAVReheat.BaseClasses;
-model PartialOpenLoop
+partial model PartialOpenLoop
   "Partial model of variable air volume flow system with terminal reheat and five thermal zones"
-  replaceable package MediumA =
-      Buildings.Media.Air(T_default=293.15);
+  replaceable package MediumA = Buildings.Media.Air(T_default=293.15);
   package MediumW = Buildings.Media.Water "Medium model for water";
 
   constant Integer numZon = 5 "Total number of served zones/VAV boxes";
@@ -51,8 +50,8 @@ model PartialOpenLoop
     m2_flow_nominal=m_flow_nominal*1000*(10 - (-20))/4200/10,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     Q_flow_nominal=m_flow_nominal*1006*(16.7 - 8.5),
-    dp1_nominal=0,
     dp2_nominal=0,
+    dp1_nominal=200 + 200 + 100 + 20,
     T_a1_nominal=281.65,
     T_a2_nominal=323.15) "Heating coil"
     annotation (Placement(transformation(extent={{98,-56},{118,-36}})));
@@ -71,33 +70,31 @@ model PartialOpenLoop
     dp1_nominal=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Cooling coil"
     annotation (Placement(transformation(extent={{210,-36},{190,-56}})));
-  Buildings.Fluid.FixedResistances.PressureDrop dpSupDuc(
-    m_flow_nominal=m_flow_nominal,
-    redeclare package Medium = MediumA,
-    dp_nominal=200 + 200 + 100 + 20)
-                   "Pressure drop for supply duct"
-    annotation (Placement(transformation(extent={{400,-50},{420,-30}})));
   Buildings.Fluid.FixedResistances.PressureDrop dpRetDuc(
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = MediumA,
     dp_nominal=20) "Pressure drop for return duct"
-    annotation (Placement(transformation(extent={{388,130},{368,150}})));
-  Buildings.Fluid.Movers.SpeedControlled_y fanSup(
+    annotation (Placement(transformation(extent={{400,130},{380,150}})));
+  Fluid.Movers.FlowControlled_m_flow       fanSup(
     redeclare package Medium = MediumA,
     tau=60,
     per(
       pressure(V_flow={0,m_flow_nominal/1.2*2},
       dp={850,0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=m_flow_nominal,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Supply air fan"
-    annotation (Placement(transformation(extent={{300,-50},{320,-30}})));
-  Buildings.Fluid.Movers.SpeedControlled_y fanRet(
+    annotation (Placement(transformation(extent={{260,-50},{280,-30}})));
+  Fluid.Movers.FlowControlled_m_flow       fanRet(
     redeclare package Medium = MediumA,
     tau=60,
     per(
       pressure(V_flow=m_flow_nominal/1.2*{0,2},
       dp=1.5*110*{2,0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=m_flow_nominal,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Return air fan"
     annotation (Placement(transformation(extent={{320,130},{300,150}})));
   Buildings.Fluid.Sources.FixedBoundary sinHea(
@@ -132,15 +129,16 @@ model PartialOpenLoop
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={320,50})));
-  Buildings.Fluid.Sensors.VolumeFlowRate senSupFlo(redeclare package Medium =
-        MediumA, m_flow_nominal=m_flow_nominal)
+  Fluid.Sensors.MassFlowRate senSupFlo(
+    redeclare package Medium = MediumA)
     "Sensor for supply fan flow rate"
     annotation (Placement(transformation(extent={{360,-50},{380,-30}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-318,-220},{-298,-200}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCoiHeaOut(redeclare package
-      Medium = MediumA, m_flow_nominal=m_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCoiHeaOut(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=m_flow_nominal)
     "Heating coil outlet temperature"
     annotation (Placement(transformation(extent={{134,-50},{154,-30}})));
   Buildings.Utilities.Math.Min min(nin=5) "Computes lowest room temperature"
@@ -234,21 +232,14 @@ model PartialOpenLoop
     m_flow_nominal=mWes_flow_nominal,
     VRoo=VRooWes) "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1290,20},{1330,60}})));
-  Controls.FanVFD conFanRet(xSet_nominal(displayUnit="m3/s") = m_flow_nominal/
-      1.2, r_N_min=0.2) "Controller for fan"
-    annotation (Placement(transformation(extent={{250,160},{270,180}})));
-  Buildings.Fluid.Sensors.VolumeFlowRate senRetFlo(redeclare package Medium =
-        MediumA, m_flow_nominal=m_flow_nominal)
-    "Sensor for return fan flow rate"
-    annotation (Placement(transformation(extent={{358,130},{338,150}})));
   Buildings.Fluid.FixedResistances.Junction splRetRoo1(
     redeclare package Medium = MediumA,
     m_flow_nominal={m_flow_nominal,m_flow_nominal - mCor_flow_nominal,
         mCor_flow_nominal},
-    dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
     linearized=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal(displayUnit="Pa") = {0,0,0})
     "Splitter for room return"
     annotation (Placement(transformation(extent={{630,10},{650,-10}})));
   Buildings.Fluid.FixedResistances.Junction splRetSou(
@@ -256,40 +247,40 @@ model PartialOpenLoop
     m_flow_nominal={mSou_flow_nominal + mEas_flow_nominal + mNor_flow_nominal
          + mWes_flow_nominal,mEas_flow_nominal + mNor_flow_nominal +
         mWes_flow_nominal,mSou_flow_nominal},
-    dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
     linearized=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal(displayUnit="Pa") = {0,0,0})
     "Splitter for room return"
     annotation (Placement(transformation(extent={{812,10},{832,-10}})));
   Buildings.Fluid.FixedResistances.Junction splRetEas(
     redeclare package Medium = MediumA,
     m_flow_nominal={mEas_flow_nominal + mNor_flow_nominal + mWes_flow_nominal,
         mNor_flow_nominal + mWes_flow_nominal,mEas_flow_nominal},
-    dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
     linearized=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal(displayUnit="Pa") = {0,0,0})
     "Splitter for room return"
     annotation (Placement(transformation(extent={{992,10},{1012,-10}})));
   Buildings.Fluid.FixedResistances.Junction splRetNor(
     redeclare package Medium = MediumA,
     m_flow_nominal={mNor_flow_nominal + mWes_flow_nominal,mWes_flow_nominal,
         mNor_flow_nominal},
-    dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
     linearized=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal(displayUnit="Pa") = {0,0,0})
     "Splitter for room return"
     annotation (Placement(transformation(extent={{1142,10},{1162,-10}})));
   Buildings.Fluid.FixedResistances.Junction splSupRoo1(
     redeclare package Medium = MediumA,
     m_flow_nominal={m_flow_nominal,m_flow_nominal - mCor_flow_nominal,
         mCor_flow_nominal},
-    dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=true,
     linearized=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal(displayUnit="Pa") = {0,0,0})
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{570,-30},{590,-50}})));
   Buildings.Fluid.FixedResistances.Junction splSupSou(
@@ -297,30 +288,30 @@ model PartialOpenLoop
     m_flow_nominal={mSou_flow_nominal + mEas_flow_nominal + mNor_flow_nominal
          + mWes_flow_nominal,mEas_flow_nominal + mNor_flow_nominal +
         mWes_flow_nominal,mSou_flow_nominal},
-    dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=true,
     linearized=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal(displayUnit="Pa") = {0,0,0})
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{750,-30},{770,-50}})));
   Buildings.Fluid.FixedResistances.Junction splSupEas(
     redeclare package Medium = MediumA,
     m_flow_nominal={mEas_flow_nominal + mNor_flow_nominal + mWes_flow_nominal,
         mNor_flow_nominal + mWes_flow_nominal,mEas_flow_nominal},
-    dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=true,
     linearized=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal(displayUnit="Pa") = {0,0,0})
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{930,-30},{950,-50}})));
   Buildings.Fluid.FixedResistances.Junction splSupNor(
     redeclare package Medium = MediumA,
     m_flow_nominal={mNor_flow_nominal + mWes_flow_nominal,mWes_flow_nominal,
         mNor_flow_nominal},
-    dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=true,
     linearized=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal(displayUnit="Pa") = {0,0,0})
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{1090,-30},{1110,-50}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -429,22 +420,17 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dot));
   connect(fanSup.port_b, dpRetFan.port_a) annotation (Line(
-      points={{320,-40},{320,40}},
+      points={{280,-40},{280,0},{320,0},{320,40}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dot));
-  connect(senSupFlo.port_b, dpSupDuc.port_a) annotation (Line(
-      points={{380,-40},{400,-40}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
   connect(valCoo.port_a, souCoo.ports[1]) annotation (Line(
       points={{230,-90},{230,-110}},
       color={0,127,0},
       smooth=Smooth.None,
       thickness=0.5));
   connect(TSup.port_a, fanSup.port_b) annotation (Line(
-      points={{330,-40},{320,-40}},
+      points={{330,-40},{280,-40}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -493,31 +479,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(senSupFlo.V_flow, conFanRet.u) annotation (Line(
-      points={{370,-29},{370,110},{210,110},{210,170},{248,170}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(senRetFlo.port_b, fanRet.port_a) annotation (Line(
-      points={{338,140},{320,140}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(senRetFlo.V_flow, conFanRet.u_m) annotation (Line(
-      points={{348,151},{348,154},{260,154},{260,158}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(conFanRet.y, fanRet.y) annotation (Line(
-      points={{271,170},{310,170},{310,152}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(dpRetDuc.port_b, senRetFlo.port_a) annotation (Line(
-      points={{368,140},{358,140}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
   connect(TRet.port_b, eco.port_Ret) annotation (Line(
       points={{90,140},{34,140},{34,55.2},{14,55.2}},
       color={0,127,255},
@@ -529,7 +490,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(splRetRoo1.port_1, dpRetDuc.port_a) annotation (Line(
-      points={{630,0},{440,0},{440,140},{388,140}},
+      points={{630,0},{440,0},{440,140},{400,140}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -545,11 +506,6 @@ equation
       thickness=0.5));
   connect(splRetSou.port_1, splRetRoo1.port_2) annotation (Line(
       points={{812,0},{650,0}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(dpSupDuc.port_b, splSupRoo1.port_1) annotation (Line(
-      points={{420,-40},{570,-40}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -665,7 +621,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(cooCoi.port_b2, fanSup.port_a) annotation (Line(
-      points={{210,-40},{300,-40}},
+      points={{210,-40},{260,-40}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -736,6 +692,12 @@ equation
       points={{50,-40},{98,-40}},
       color={0,127,255},
       thickness=0.5));
+  connect(fanRet.port_a, dpRetDuc.port_b)
+    annotation (Line(points={{320,140},{380,140}}, color={0,127,255}));
+  connect(senSupFlo.port_b, splSupRoo1.port_1)
+    annotation (Line(points={{380,-40},{570,-40}}, color={0,127,255}));
+  connect(senSupFlo.m_flow, fanRet.m_flow_in) annotation (Line(points={{370,-29},
+          {370,160},{310,160},{310,152}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{1660,
             600}})),
