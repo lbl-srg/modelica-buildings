@@ -1,4 +1,4 @@
-simulateModel("Buildings.Examples.VAVReheat.ClosedLoop", stopTime=172800, method="radau", tolerance=1e-08, resultFile="ClosedLoop");
+simulateModel("Buildings.Examples.VAVReheat.ASHRAE2006", stopTime=172800, method="radau", tolerance=1e-08, resultFile="ASHRAE2006");
 
 createPlot(id = 3,
  position = {26, 33, 808, 649},
@@ -9,7 +9,7 @@ createPlot(id = 3,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "ClosedLoop.mat",
+ filename = "ASHRAE2006.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
 createPlot(id = 3,

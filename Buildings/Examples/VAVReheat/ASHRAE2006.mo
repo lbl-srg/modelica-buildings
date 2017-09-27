@@ -1,5 +1,5 @@
 within Buildings.Examples.VAVReheat;
-model ClosedLoop
+model ASHRAE2006
   "Variable air volume flow system with terminal reheat and five thermal zones"
   import Buildings;
   extends Modelica.Icons.Example;
@@ -427,9 +427,9 @@ This is for
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ClosedLoop.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
         "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-08));
-end ClosedLoop;
+end ASHRAE2006;
