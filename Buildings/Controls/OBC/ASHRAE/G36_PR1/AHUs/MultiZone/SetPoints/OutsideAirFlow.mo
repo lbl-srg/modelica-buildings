@@ -292,11 +292,10 @@ equation
     annotation (Line(points={{-59,50},{-50,50},{-50,56},{-42,56}},
       color={0,0,127}));
   connect(swi1.y, zonOutAirRate.u2)
-    annotation (Line(points={{-59,-40},{-50,-40},{-50,44},{-42,44}},
-      color={0,0,127}));
+    annotation (Line(points={{-59,-40},{-50,-40},{-50,44},{-42,44}}, color={0,0,127}));
   connect(uWin, swi2.u2)
     annotation (Line(points={{-200,-100},{-44,-100},{-44,-34},{-8,-34},{-8,10},{18,10}},
-                                           color={255,0,255}));
+      color={255,0,255}));
   connect(zerOutAir.y, swi2.u1)
     annotation (Line(points={{-19,2},{0,2},{18,2}},
       color={0,0,127}));
