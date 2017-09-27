@@ -262,9 +262,10 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=numZon)
     "Replicate Real input signal"
     annotation (Placement(transformation(extent={{140,180},{160,200}})));
-  CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
+    "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-130,-170},{-110,-150}})));
-  CDL.Logical.And and1 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
 
 equation
