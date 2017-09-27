@@ -129,7 +129,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi3[numZon]
     "If supply fan is off, then outdoor airflow rate should be zero"
     annotation (Placement(transformation(extent={{60,-20},{80,-40}})));
-  CDL.Continuous.Max                        max [numZon]
+  Buildings.Controls.OBC.CDL.Continuous.Max max [numZon]
     "If supply fan is off, giving a small primary airflow rate to avoid divide-by-zero issue"
     annotation (Placement(transformation(extent={{-40,-170},{-20,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Division priOutAirFra[numZon]
