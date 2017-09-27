@@ -1,16 +1,24 @@
 within Buildings.Examples.VAVReheat.ThermalZones;
 model VAVBranch "Supply branch of a VAV system"
-  import Buildings;
   extends Modelica.Blocks.Icons.Block;
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
   replaceable package MediumW = Modelica.Media.Interfaces.PartialMedium
     "Medium model for water" annotation (choicesAllMatching=true);
-  Buildings.Fluid.Actuators.Dampers.PressureIndependent
-                                                      vav(
+
+  parameter Boolean allowFlowReversal=true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal";
+
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Mass flow rate of this thermal zone";
+  parameter Modelica.SIunits.Volume VRoo "Room volume";
+
+  Buildings.Fluid.Actuators.Dampers.PressureIndependent vav(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal(displayUnit="Pa") = 220 + 20) "VAV box for room" annotation (
+    dp_nominal(displayUnit="Pa") = 220 + 20,
+    allowFlowReversal=allowFlowReversal,
+    from_dp=false)                           "VAV box for room" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -25,6 +33,8 @@ model VAVBranch "Supply branch of a VAV system"
     dp1_nominal=0,
     from_dp2=true,
     dp2_nominal=0,
+    allowFlowReversal1=allowFlowReversal,
+    allowFlowReversal2=false,
     T_a1_nominal=289.85,
     T_a2_nominal=355.35) "Heat exchanger of terminal box" annotation (Placement(
         transformation(
@@ -38,21 +48,20 @@ model VAVBranch "Supply branch of a VAV system"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={40,-20})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
-        MediumA)
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+    redeclare package Medium = MediumA)
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}}),
         iconTransformation(extent={{-60,-110},{-40,-90}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_b(redeclare package Medium =
-        MediumA)
+  Modelica.Fluid.Interfaces.FluidPort_a port_b(
+    redeclare package Medium = MediumA)
     "Fluid connector b (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}}),
         iconTransformation(extent={{-60,90},{-40,110}})));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Mass flow rate of this thermal zone";
-  parameter Modelica.SIunits.Volume VRoo "Room volume";
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
-        MediumA) "Sensor for mass flow rate" annotation (Placement(
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
+    redeclare package Medium = MediumA,
+    allowFlowReversal=allowFlowReversal)
+    "Sensor for mass flow rate" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -62,7 +71,7 @@ model VAVBranch "Supply branch of a VAV system"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Modelica.Blocks.Math.Gain ACH(k=1/VRoo/1.2*3600) "Air change per hour"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Fluid.Sources.MassFlowSource_T        souTer(
+  Fluid.Sources.MassFlowSource_T souTer(
     redeclare package Medium = MediumW,
     nPorts=1,
     use_m_flow_in=true,
@@ -78,8 +87,8 @@ model VAVBranch "Supply branch of a VAV system"
     "Actuator position for reheat valve (0: closed, 1: open)" annotation (
       Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiM_flow(k=m_flow_nominal*1000*15
-        /4200/10) "Gain for mass flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiM_flow(
+    final k=m_flow_nominal*1000*15/4200/10) "Gain for mass flow rate"
     annotation (Placement(transformation(extent={{80,2},{60,22}})));
 equation
   connect(fraMasFlo.u, senMasFlo.m_flow) annotation (Line(
