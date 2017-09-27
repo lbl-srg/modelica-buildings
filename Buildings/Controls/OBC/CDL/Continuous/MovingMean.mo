@@ -14,34 +14,26 @@ protected
   parameter Modelica.SIunits.Time tStart(fixed=false) "Start time";
   Real mu "Internal integrator variable";
   Real muDel "Internal integrator variable with delay";
-  Mode mode "Calculation mode";
-  type Mode = enumeration(
-      NORMAL,
-      INITIALIZE,
-      GUARD_DIVISION_BY_ZERO) "Enumeration for calculation mode";
+  Boolean mode(start=false, fixed=true) "Calculation mode";
 
 initial equation
   tStart = time;
   mu = u;
-  mode = Mode.GUARD_DIVISION_BY_ZERO;
 equation
   u =der(mu);
   muDel = delay(mu, delta);
 
-  // Compute the mode so that Dymola generates time and not state events
-  // as it would with an if-then construct
+  // Compute the mode so that Dymola generates
+  // time and not state events as it would with
+  // an if-then construct
   when time >= tStart+delta then
-    mode = Mode.NORMAL;
-  elsewhen time >= tStart+Constants.eps then
-    mode = Mode.INITIALIZE;
+    mode = true;
   end when;
 
-  if mode == Mode.NORMAL then
+  if mode then
     y = (mu-muDel)/delta;
-  elseif mode == Mode.INITIALIZE then
-    y = (mu-muDel)/(time-tStart);
   else
-    y = u;
+    (time-tStart)*y = mu-muDel;
   end if;
   annotation (
   defaultComponentName="movMea",
@@ -119,6 +111,12 @@ for example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 27, 2017, by Thierry S. Nouidui:<br/>
+Reformulated implementation to handle division by zero.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/978\">issue 978</a>.
+</li>
 <li>
 September 15, 2017, by Thierry S. Nouidui:<br/>
 Reformulated implementation to avoid state events.
