@@ -312,7 +312,7 @@ conditions included in the sequence are:
 Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages</a> (PART5.9),
 </li>
 <li>
-supply fan status <code>TSupFan</code> (PART5.4.d),
+Supply fan status <code>TSupFan</code> (PART5.4.d),
 </li>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.ZoneStates\">

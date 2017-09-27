@@ -241,15 +241,6 @@ outdoor and return air damper positions based on ASHRAE
 Guidline 36, PART5 sections: N.2.c, N.5, N.6.c, N.7, A.17, N.12.
 </p>
 <p>
-The sequence comprises the following atomic sequences:
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits</a>,
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable</a>,
-and <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation</a>.
-</p>
-<p>
 The figure below shows the block diagram of the control sequence.
 </p>
 <p align=\"center\">
