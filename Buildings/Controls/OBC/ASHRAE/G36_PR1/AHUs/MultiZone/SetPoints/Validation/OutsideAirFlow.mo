@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Validation;
 model OutsideAirFlow
   "Validate the model of calculating minimum outdoor airflow setpoint"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   parameter Integer numZon = 5 "Total number of zones that the system serves";
