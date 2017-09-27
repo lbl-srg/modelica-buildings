@@ -770,15 +770,6 @@ unit are described in the following figure below.</p>
 <img alt=\"Image of damper and valve control for VAV reheat terminal unit\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/DamperValveRehBox.png\"/>
 </p>
-
-<h4>References</h4>
-<p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
-Standards Review)/ASHRAE Guideline 36P,
-<i>High Performance Sequences of Operation for HVAC systems</i>.
-First Public Review Draft (June 2016)</a>
-</p>
-
 </html>", revisions="<html>
 <ul>
 <li>

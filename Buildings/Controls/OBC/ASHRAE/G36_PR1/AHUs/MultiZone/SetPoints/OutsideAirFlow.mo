@@ -646,12 +646,6 @@ where the design outdoor air rate <code>desOutAirInt</code> should be:
 
 <h4>References</h4>
 <p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
-Standards Review)/ASHRAE Guideline 36P,
-<i>High Performance Sequences of Operation for HVAC systems</i>.
-First Public Review Draft (June 2016)</a>
-</p>
-<p>
 ANSI/ASHRAE Standard 62.1-2013,
 <i>Ventilation for Acceptable Indoor Air Quality.</i>
 </p>

@@ -874,15 +874,6 @@ If the hot water valve position <code>uHeaVal</code> is greater than 95%, send 1
 Else if <code>uHeaVal</code> is less than 95%, send 0 request (<code>yHeaPlaReq=0</code>).
 </li>
 </ol>
-
-<h4>References</h4>
-<p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
-Standards Review)/ASHRAE Guideline 36P,
-<i>High Performance Sequences of Operation for HVAC systems</i>.
-First Public Review Draft (June 2016)</a>
-</p>
-
 </html>", revisions="<html>
 <ul>
 <li>

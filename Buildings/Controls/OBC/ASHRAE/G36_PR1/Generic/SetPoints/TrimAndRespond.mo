@@ -282,13 +282,6 @@ In other words, every time step <code>samplePeriod</code>:
 <img alt=\"Image of set point reset\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/TrimRespond.png\"/>
 </p>
-<h4>References</h4>
-<p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
-Standards Review)/ASHRAE Guideline 36P,
-<i>High Performance Sequences of Operation for HVAC systems</i>.
-First Public Review Draft (June 2016)</a>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -279,13 +279,6 @@ space temperature: <code>zonOutAirRate = breZonAre/disEffHea</code></li>
 <p>
 For the single zone system, the required minimum outdoor airflow setpoint
 <code>VOutMinSet_flow</code> equals to the <code>zonOutAirRate</code>.
-
-<h4>References</h4>
-<p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
-Standards Review)/ASHRAE Guideline 36P,
-<i>High Performance Sequences of Operation for HVAC systems</i>.
-First Public Review Draft (June 2016)</a>
 </p>
 </html>", revisions="<html>
 <ul>
