@@ -293,10 +293,10 @@ equation
           -58,159},{-111,159}}, color={0,0,127}));
   connect(outAirSetPoi.TDis, TDis) annotation (Line(points={{-21,20},{-54,20},{
           -54,179},{-111,179}}, color={0,0,127}));
-  connect(conSupFan.ySupFan, outAirSetPoi.uSupFan) annotation (Line(points={{21,
-          57},{30,57},{30,36},{-30,36},{-30,13},{-21,13}}, color={255,0,255}));
+  connect(conSupFan.ySupFan, outAirSetPoi.uSupFan) annotation (Line(points={{21,57},
+          {30,57},{30,36},{-30,36},{-30,14},{-21,14}},     color={255,0,255}));
   connect(winOpe.y, outAirSetPoi.uWin) annotation (Line(points={{-31,80},{-26,80},
-          {-26,16},{-21,16},{-21,16}}, color={255,0,255}));
+          {-26,16},{-21,16}},          color={255,0,255}));
   connect(aveTHea.u[1], THeaSet)
     annotation (Line(points={{-42,228},{-110,228}}, color={0,0,127}));
   connect(aveTCoo.u[1], TCooSet) annotation (Line(points={{-42,190},{-66,190},{
@@ -308,13 +308,15 @@ equation
           {-12,194},{-2,194}}, color={0,0,127}));
   connect(conTSetSup.TSetZones, TZonSetAve.y) annotation (Line(points={{39,-42},
           {36,-42},{36,200.2},{21,200.2}}, color={0,0,127}));
-  connect(outAirSetPoi.VBox_flow, VBox_flow) annotation (Line(points={{-21,10},{
-          -56,10},{-56,-40},{-110,-40}}, color={0,0,127}));
+  connect(outAirSetPoi.VBox_flow, VBox_flow) annotation (Line(points={{-21,9},{-56,
+          9},{-56,-40},{-110,-40}},      color={0,0,127}));
   connect(conSupFan.VBox_flow, VBox_flow) annotation (Line(points={{-2,53},{-28,
-          53},{-52,53},{-52,54},{-52,54},{-52,54},{-52,54},{-52,54},{-52,-40},{-110,
-          -40}}, color={0,0,127}));
+          53},{-52,53},{-52,54},{-52,-40},{-110,-40}},
+                 color={0,0,127}));
   connect(conSupFan.ySupFan, ySupFan) annotation (Line(points={{21,57},{30,57},{
           30,-180},{110,-180}}, color={255,0,255}));
+  connect(outAirSetPoi.uOpeMod, uOpeMod) annotation (Line(points={{-21,12},{-80,
+          12},{-80,-100},{-110,-100}}, color={255,127,0}));
   annotation (
     defaultComponentName="conAHU",
     Diagram(coordinateSystem(extent={{-100,-260},{100,280}},

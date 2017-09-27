@@ -340,8 +340,8 @@ equation
           {450,-6},{-13,-6},{-13,6.6}}, color={0,0,127}));
   connect(conAHU.TSetSup, heaCoiCon.u_s) annotation (Line(points={{434,362},{456,
           362},{456,-240},{-20,-240},{-20,-160},{-2,-160}},     color={0,0,127}));
-  connect(conAHU.TSetSup, cooCoiCon.u_s) annotation (Line(points={{434,362},{454,
-          362},{454,362},{456,362},{456,-240},{-20,-240},{-20,-200},{-2,-200}},
+  connect(conAHU.TSetSup, cooCoiCon.u_s) annotation (Line(points={{434,362},{
+          454,362},{456,362},{456,-240},{-20,-240},{-20,-200},{-2,-200}},
                   color={0,0,127}));
   connect(conFanRet.uFan, conAHU.ySupFan) annotation (Line(points={{248,176},{230,
           176},{230,190},{444,190},{444,350},{434,350}}, color={255,0,255}));
