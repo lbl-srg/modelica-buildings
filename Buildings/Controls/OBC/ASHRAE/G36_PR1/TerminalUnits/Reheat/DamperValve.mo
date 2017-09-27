@@ -728,8 +728,8 @@ no higher than the minimum.
 </li>
 <li>
 <p>
-When the zone state is Deadband (<code>uCoo=0</code>, <code>uHea=0</code>, then
-The active airflow setpoint shall be the minimum airflow setpoint <code>VActMin</code>.
+When the zone state is Deadband (<code>uCoo=0</code> and <code>uHea=0</code>), then
+the active airflow setpoint shall be the minimum airflow setpoint <code>VActMin</code>.
 Hot water valve is closed unless the discharge air temperature is below the minimum
 setpoint (10 &deg;C).
 </p>
