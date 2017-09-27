@@ -52,12 +52,13 @@ block RoomVAV "Controller for room VAV box"
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
             "Controller for heating"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conCoo(
+  Buildings.Controls.Continuous.LimPID conCoo(
     yMax=1,
     Td=60,
     k=0.1,
     Ti=120,
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    reverseAction=true)
             "Controller for cooling (acts on damper)"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 protected
