@@ -95,7 +95,7 @@ protected
     pre_y_start=true)
     "Check if cooling or heating air distribution effectiveness should be applied, with 1 degC deadband"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSenor(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSen(
     final k=have_occSen)
     "Boolean constant to indicate if there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
@@ -163,7 +163,7 @@ equation
   connect(zonOutAirRate.y, swi2.u3)
     annotation (Line(points={{41,30},{60,30},{60,18},{78,18}},
       color={0,0,127}));
-  connect(swi.u2, occSenor.y)
+  connect(swi.u2, occSen.y)
     annotation (Line(points={{-62,48},{-76,48},{-76,50},{-139,50}},
       color={255,0,255}));
   connect(nOcc, gai.u)
