@@ -43,13 +43,6 @@ model PartialOpenLoop
     nPorts=2)
     "Ambient conditions"
     annotation (Placement(transformation(extent={{-130,14},{-108,36}})));
-  Buildings.Fluid.FixedResistances.PressureDrop fil(
-    m_flow_nominal=m_flow_nominal,
-    redeclare package Medium = MediumA,
-    dp_nominal=200 + 200 + 100,
-    from_dp=false,
-    linearized=false) "Filter"
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU heaCoi(
     redeclare package Medium1 = MediumA,
     redeclare package Medium2 = MediumW,
@@ -81,7 +74,8 @@ model PartialOpenLoop
   Buildings.Fluid.FixedResistances.PressureDrop dpSupDuc(
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = MediumA,
-    dp_nominal=20) "Pressure drop for supply duct"
+    dp_nominal=200 + 200 + 100 + 20)
+                   "Pressure drop for supply duct"
     annotation (Placement(transformation(extent={{400,-50},{420,-30}})));
   Buildings.Fluid.FixedResistances.PressureDrop dpRetDuc(
     m_flow_nominal=m_flow_nominal,
@@ -215,7 +209,7 @@ model PartialOpenLoop
     redeclare package MediumW = MediumW,
     m_flow_nominal=mCor_flow_nominal,
     VRoo=VRooCor) "Zone for core of buildings (azimuth will be neglected)"
-    annotation (Placement(transformation(extent={{570,20},{610,60}})));
+    annotation (Placement(transformation(extent={{570,22},{610,62}})));
   Buildings.Examples.VAVReheat.ThermalZones.VAVBranch sou(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
@@ -429,11 +423,6 @@ model PartialOpenLoop
         rotation=90,
         origin={1300,128})));
 equation
-  connect(fil.port_b, heaCoi.port_a1) annotation (Line(
-      points={{80,-40},{98,-40}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
   connect(fanRet.port_a, dpRetFan.port_b) annotation (Line(
       points={{320,140},{320,60}},
       color={0,0,0},
@@ -461,11 +450,6 @@ equation
       thickness=0.5));
   connect(TSup.port_b, senSupFlo.port_a) annotation (Line(
       points={{350,-40},{360,-40}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(fil.port_a, TMix.port_b) annotation (Line(
-      points={{60,-40},{50,-40}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -570,7 +554,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(splSupRoo1.port_3, cor.port_a) annotation (Line(
-      points={{580,-30},{580,20}},
+      points={{580,-30},{580,22}},
       color={0,127,255},
       thickness=0.5));
   connect(splSupRoo1.port_2, splSupSou.port_1) annotation (Line(
@@ -686,7 +670,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(cor.port_b, TSupCor.port_a) annotation (Line(
-      points={{580,60},{580,82}},
+      points={{580,62},{580,82}},
       color={0,127,255},
       thickness=0.5));
 
@@ -746,6 +730,10 @@ equation
       thickness=0.5));
   connect(VSupWes_flow.port_b, flo.portsWes[1]) annotation (Line(
       points={{1300,138},{1300,384},{811.36,384},{811.36,485.222}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(TMix.port_b, heaCoi.port_a1) annotation (Line(
+      points={{50,-40},{98,-40}},
       color={0,127,255},
       thickness=0.5));
   annotation (
