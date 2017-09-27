@@ -4,7 +4,7 @@ block VAVSupplyFan  "Block to control multizone VAV AHU supply fan"
   parameter Integer numZon(min=2)
     "Total number of served zones/VAV boxes"
     annotation(Dialog(group="System configuration"));
-  parameter Boolean have_perZonRehBox = false
+  parameter Boolean have_perZonRehBox = true
     "Check if there is any VAV-reheat boxes on perimeter zones"
     annotation(Dialog(group="System configuration"));
   parameter Boolean have_duaDucBox = false
@@ -372,8 +372,10 @@ does not have airflow measurement station (<code>have_airFloMeaSta=false</code>)
 sum the current airflow rate from the VAV boxes and output to a software point.</li>
 </ul>
 <h4>b. Static pressure setpoint reset</h4>
+<p>
 Static pressure setpoint shall be reset using trim-respond logic using following
 parameters as a starting point:
+</p>
 <table summary=\"summary\" border=\"1\">
 <tr><th> Variable </th> <th> Value </th> <th> Definition </th> </tr>
 <tr><td>Device</td><td>AHU Supply Fan</td> <td>Associated device</td></tr>
@@ -390,11 +392,13 @@ parameters as a starting point:
 </table>
 <br/>
 <h4>c. Static pressure control</h4>
+<p>
 Supply fan speed is controlled to maintain duct static pressure at setpoint
 when the fan is proven on. Where the zone groups served by the system are small,
 provide multiple sets of gains that are used in the control loop as a function
 of a load indicator (such as supply fan airflow rate, the area of the zone groups
 that are occupied, etc.).
+</p>
 <h4>References</h4>
 <p>
 <a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
