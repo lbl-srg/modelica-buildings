@@ -3,7 +3,9 @@ model OutsideAirFlow
   "Validate the model of calculating minimum outdoor airflow setpoint"
   import Buildings;
   extends Modelica.Icons.Example;
+
   parameter Integer numZon = 5 "Total number of zones that the system serves";
+
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.OutsideAirFlow
     outAirSet_MulZon(numZon=numZon,
     zonAre=fill(40, numZon),
@@ -12,27 +14,10 @@ model OutsideAirFlow
     peaSysPop=20)
     "Block to output minimum outdoor airflow rate for system with multiple zones "
     annotation (Placement(transformation(extent={{20,-20},{60,20}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta[numZon](
-    k=fill(false,numZon))
-    "Status of windows in each zone"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFan(
-    k=true) "Status of supply fan"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonPriFloRat[numZon](
     k={0.1,0.12,0.2,0.09,0.1})
     "Measured primary flow rate in each zone at VAV box"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon[numZon](
-    each height=6,
-    each offset=273.15 + 17,
-    each duration=3600) "Measured zone temperature"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TDis[numZon](
-    each height=4,
-    each duration=3600,
-    each offset=273.15 + 18) "Terminal unit discharge air temperature"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc1(
     height=2,
     duration=3600)
@@ -61,9 +46,28 @@ model OutsideAirFlow
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta[numZon](
+    k=fill(false,numZon))
+    "Status of windows in each zone"
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFan(
+    k=true) "Status of supply fan"
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon[numZon](
+    each height=6,
+    each offset=273.15 + 17,
+    each duration=3600) "Measured zone temperature"
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TDis[numZon](
+    each height=4,
+    each duration=3600,
+    each offset=273.15 + 18) "Terminal unit discharge air temperature"
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
+    final k=Constants.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
+
 equation
   connect(winSta.y, outAirSet_MulZon.uWin)
     annotation (Line(points={{-39,-20},{-30,-20},{-30,-4},{18,-4}},

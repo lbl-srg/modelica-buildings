@@ -30,7 +30,8 @@ block OutsideAirFlow
      then it should use cooling supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") "Number of occupants"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1")
+    "Number of occupants"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
       iconTransformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
@@ -43,6 +44,10 @@ block OutsideAirFlow
     quantity="ThermodynamicTemperature") "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
+    "AHU operation mode status signal"
+    annotation (Placement(transformation(extent={{-240,-170},{-200,-130}}),
+    iconTransformation(extent={{-120,-90},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status, true if on, false if off"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
@@ -51,6 +56,7 @@ block OutsideAirFlow
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-240,-10},{-200,30}}),
       iconTransformation(extent={{-120,-50},{-100,-30}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOutMinSet_flow(
     min=0,
     final unit="m3/s",
@@ -58,6 +64,7 @@ block OutsideAirFlow
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.Add breZon "Breathing zone airflow"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2(final k1=+1, final k2=-1)
@@ -88,8 +95,6 @@ block OutsideAirFlow
     pre_y_start=true)
     "Check if cooling or heating air distribution effectiveness should be applied, with 1 degC deadband"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
-
-protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSenor(
     final k=occSen)
     "Boolean constant to indicate if there is occupancy sensor"
@@ -114,22 +119,16 @@ protected
     final k=outAirPerPer*zonAre*occDen)
     "Population component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-
-public
-  CDL.Interfaces.IntegerInput uOpeMod
-    "AHU operation mode status signal"
-    annotation (Placement(transformation(extent={{-240,-170},{-200,-130}}),
-    iconTransformation(extent={{-120,-90},{-100,-70}})));
-protected
-  CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
-  CDL.Integers.Sources.Constant occMod(k=Constants.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(k=Constants.OperationModes.occupied)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-180,-180},{-160,-160}})));
-public
-  CDL.Logical.And and2 annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  CDL.Logical.Not                        not1 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
+    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
+
 equation
   connect(breZonAre.y, breZon.u1)
     annotation (Line(points={{-39,100},{-30,100},{-30,86},{-22,86}},
@@ -169,8 +168,7 @@ equation
   connect(nOcc, gai.u)
     annotation (Line(points={{-220,160},{-162,160}}, color={0,0,127}));
   connect(swi3.y, VOutMinSet_flow)
-    annotation (Line(points={{161,10},{180,10},{180,0},{220,0}},
-                                                 color={0,0,127}));
+    annotation (Line(points={{161,10},{180,10},{180,0},{220,0}}, color={0,0,127}));
   connect(TZon, add2.u1)
     annotation (Line(points={{-220,-40},{-200,-40},{-180,-40},{-180,-54},
       {-162,-54}}, color={0,0,127}));
@@ -183,15 +181,20 @@ equation
   connect(hys.y, swi1.u2)
     annotation (Line(points={{-79,-60},{-42,-60},{-42,-60}},
         color={255,0,255}));
-  connect(swi2.y, swi3.u3) annotation (Line(points={{101,10},{120,10},{120,2},{138,2}}, color={0,0,127}));
-  connect(zerOutAir.y, swi3.u1) annotation (Line(points={{41,-30},{110,-30},{110,18},{138,18}}, color={0,0,127}));
-  connect(and2.y, not1.u) annotation (Line(points={{-39,-120},{-30.5,-120},{-22,-120}}, color={255,0,255}));
-  connect(not1.y, swi3.u2) annotation (Line(points={{1,-120},{130,-120},{130,10},{138,10}}, color={255,0,255}));
-  connect(uSupFan, and2.u1)
+  connect(swi2.y, swi3.u3)
+    annotation (Line(points={{101,10},{120,10},{120,2},{138,2}}, color={0,0,127}));
+  connect(zerOutAir.y, swi3.u1)
+    annotation (Line(points={{41,-30},{110,-30},{110,18},{138,18}}, color={0,0,127}));
+  connect(and1.y, not1.u)
+    annotation (Line(points={{-39,-120},{-30.5,-120},{-22,-120}}, color={255,0,255}));
+  connect(not1.y, swi3.u2)
+    annotation (Line(points={{1,-120},{130,-120},{130,10},{138,10}}, color={255,0,255}));
+  connect(uSupFan, and1.u1)
     annotation (Line(points={{-220,-120},{-142,-120},{-142,-120},{-62,-120}}, color={255,0,255}));
-  connect(intEqu1.y, and2.u2)
+  connect(intEqu1.y, and1.u2)
     annotation (Line(points={{-119,-150},{-90,-150},{-90,-128},{-62,-128}}, color={255,0,255}));
-  connect(uOpeMod, intEqu1.u1) annotation (Line(points={{-220,-150},{-142,-150},{-142,-150}}, color={255,127,0}));
+  connect(uOpeMod, intEqu1.u1)
+    annotation (Line(points={{-220,-150},{-142,-150},{-142,-150}}, color={255,127,0}));
   connect(occMod.y, intEqu1.u2)
     annotation (Line(points={{-159,-170},{-150,-170},{-150,-158},{-142,-158}}, color={255,127,0}));
  annotation (

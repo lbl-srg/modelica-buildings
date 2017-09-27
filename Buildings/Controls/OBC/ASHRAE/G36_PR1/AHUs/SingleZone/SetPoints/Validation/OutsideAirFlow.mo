@@ -13,6 +13,8 @@ model OutsideAirFlow
     duration=3600)
     "Number of occupant detected in zone"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+
+protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta(
     k=false) "Window status"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
@@ -29,21 +31,18 @@ model OutsideAirFlow
     duration=3600,
     offset=273.15 + 18) "Terminal unit discharge air temperature"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-protected
-  CDL.Integers.Sources.Constant                        opeMod(final k=Constants.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
+    final k=Constants.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+
 equation
   connect(numOfOcc.y, outAirSet_SinZon.nOcc)
-    annotation (Line(points={{-39,50},{0,50},{0,16},{18,16}},
-      color={0,0,127}));
+    annotation (Line(points={{-39,50},{0,50},{0,16},{18,16}}, color={0,0,127}));
   connect(winSta.y, outAirSet_SinZon.uWin)
-    annotation (Line(points={{-39,-40},{-9.75,-40},{-9.75,-8},{18,-8}},
-      color={255,0,255}));
+    annotation (Line(points={{-39,-40},{-9.75,-40},{-9.75,-8},{18,-8}}, color={255,0,255}));
   connect(TZon.y, outAirSet_SinZon.TZon)
-    annotation (Line(points={{-39,20},{-39,20},{-10,20},{-10,8},{18,8}},
-      color={0,0,127}));
-
+    annotation (Line(points={{-39,20},{-39,20},{-10,20},{-10,8},{18,8}}, color={0,0,127}));
   connect(outAirSet_SinZon.uOpeMod, opeMod.y)
     annotation (Line(points={{18,-16},{10,-16},{10,-70},{1,-70}}, color={255,127,0}));
   connect(supFan.y, outAirSet_SinZon.uSupFan)

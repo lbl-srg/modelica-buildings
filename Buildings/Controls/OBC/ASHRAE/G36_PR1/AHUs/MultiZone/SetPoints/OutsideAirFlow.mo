@@ -55,10 +55,7 @@ block OutsideAirFlow
     "Number of occupants"
     annotation (Placement(transformation(extent={{-220,60},{-180,100}}),
       iconTransformation(extent={{-120,70},{-100,90}})));
-  CDL.Interfaces.IntegerInput uOpeMod
-    "AHU operation mode status signal"
-    annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
-    iconTransformation(extent={{-120,-70},{-100,-50}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VBox_flow[numZon](
     min=0,
     each final unit="m3/s",
@@ -76,14 +73,19 @@ block OutsideAirFlow
     each quantity="ThermodynamicTemperature") "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),
       iconTransformation(extent={{-120,10},{-100,30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
+    "AHU operation mode status signal"
+    annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
+    iconTransformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status, true if on, false if off"
-    annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}), iconTransformation(extent={{-120,-50},{-100,
-            -30}})));
+    annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
+    iconTransformation(extent={{-120,-50},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin[numZon]
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
       iconTransformation(extent={{-120,-30},{-100,-10}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDesOutMin_flow_nominal(
     min=0,
     final unit="m3/s",
@@ -104,6 +106,7 @@ block OutsideAirFlow
     annotation (Placement(transformation(extent={{240,-70},{280,-30}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.Add breZon[numZon] "Breathing zone airflow"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai[numZon](
@@ -203,12 +206,10 @@ block OutsideAirFlow
     each pre_y_start=true)
     "Check if cooling or heating air distribution effectiveness should be applied, with 1 degC deadband"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-
-protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSenor[numZon](k=
         have_occSen) "Boolean constant to indicate if there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Integers.Sources.Constant occMod(k=Constants.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(k=Constants.OperationModes.occupied)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-170,-190},{-150,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desDisEff[numZon](
@@ -263,8 +264,9 @@ protected
     annotation (Placement(transformation(extent={{140,180},{160,200}})));
   CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-130,-170},{-110,-150}})));
-public
-  CDL.Logical.And and2 annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
+  CDL.Logical.And and1 "Logical and"
+    annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
+
 equation
   connect(breZonAre.y, breZon.u1)
     annotation (Line(points={{-149,120},{-140,120},{-140,110},{-90,110},
@@ -368,7 +370,7 @@ equation
       color={0,0,127}));
   connect(VBox_flow, swi4.u3)
     annotation (Line(points={{-200,-200},{-200,-200},{-100,-200},{-100,-192},{-42,-192}},
-                               color={0,0,127}));
+      color={0,0,127}));
   connect(priOutAirFra.y, maxPriOutAirFra.u)
     annotation (Line(points={{61,-200},{61,-200},{78,-200}}, color={0,0,127}));
   connect(sysPriAirRate.y, outAirFra.u2)
@@ -452,24 +454,27 @@ equation
       color={255,0,255}));
   connect(booRep.y, swi4.u2)
     annotation (Line(points={{-59,-130},{-59,-130},{-50,-130},{-50,-200},{-42,-200}},
-                   color={255,0,255}));
+      color={255,0,255}));
   connect(booRep.y, swi3.u2)
     annotation (Line(points={{-59,-130},{-40,-130},{-40,-130},{-40,-30},{58,-30}},
-                           color={255,0,255}));
+      color={255,0,255}));
   connect(addPar1.y, reaRep.u)
     annotation (Line(points={{121,190},{130,190},{138,190}},
       color={0,0,127}));
   connect(reaRep.y, zonVenEff.u1)
-    annotation (Line(points={{161,190},{170,190},{170,170},{80,170},{80,156},
-      {98,156}}, color={0,0,127}));
-
-  connect(uOpeMod, intEqu1.u1) annotation (Line(points={{-200,-160},{-132,-160}},             color={255,127,0}));
+    annotation (Line(points={{161,190},{170,190},{170,170},{80,170},{80,156},{98,156}},
+      color={0,0,127}));
+  connect(uOpeMod, intEqu1.u1)
+    annotation (Line(points={{-200,-160},{-132,-160}}, color={255,127,0}));
   connect(occMod.y, intEqu1.u2)
     annotation (Line(points={{-149,-180},{-140,-180},{-140,-168},{-132,-168}}, color={255,127,0}));
-  connect(not1.u, and2.y) annotation (Line(points={{-122,-130},{-130,-130},{-139,-130}}, color={255,0,255}));
-  connect(uSupFan, and2.u1) annotation (Line(points={{-200,-130},{-181,-130},{-162,-130}}, color={255,0,255}));
-  connect(intEqu1.y, and2.u2) annotation (Line(points={{-109,-160},{-100,-160},{-100,-144},{-170,-144},{-170,-138},{-162,
-          -138}}, color={255,0,255}));
+  connect(not1.u, and1.y)
+    annotation (Line(points={{-122,-130},{-130,-130},{-139,-130}}, color={255,0,255}));
+  connect(uSupFan, and1.u1)
+    annotation (Line(points={{-200,-130},{-181,-130},{-162,-130}}, color={255,0,255}));
+  connect(intEqu1.y, and1.u2)
+    annotation (Line(points={{-109,-160},{-100,-160},{-100,-144},{-170,-144},{-170,-138},
+    {-162,-138}}, color={255,0,255}));
 annotation (
 defaultComponentName="outAirSetPoi",
 Icon(graphics={Rectangle(
