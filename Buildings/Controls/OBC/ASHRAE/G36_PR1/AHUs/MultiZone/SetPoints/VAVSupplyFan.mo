@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints;
-block VAVSupplyFan  "Block to control multizone VAV AHU supply fan"
+block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
 
   parameter Integer numZon(min=2)
     "Total number of served zones/VAV boxes"
@@ -359,7 +359,7 @@ annotation (
           textString="ySupFan")}),
   Documentation(info="<html>
 <p>
-Supply fan control for a multizone VAV AHU according to
+Supply fan control for a multi zone VAV AHU according to
 ASHRAE guideline G36, PART5.N.1 (Supply fan control).
 </p>
 <h4>a. Supply fan start/stop</h4>

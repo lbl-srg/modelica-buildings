@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers;
-model Controller "Multiple zone VAV AHU economizer control sequence"
+model Controller "Multi zone VAV AHU economizer control sequence"
 
   parameter Boolean use_enthalpy = false
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
@@ -143,7 +143,7 @@ model Controller "Multiple zone VAV AHU economizer control sequence"
     final delTOutHis=delTOutHis,
     final delEntHis=delEntHis,
     final retDamFulOpeTim=retDamFulOpeTim,
-    final disDel=disDel) "Multizone VAV AHU economizer enable/disable sequence"
+    final disDel=disDel) "Multi zone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits ecoDamLim(
     final retDamPhyPosMax=retDamPhyPosMax,
@@ -155,13 +155,13 @@ model Controller "Multiple zone VAV AHU economizer control sequence"
     final conSigMin=conSigMinDamLim,
     final conSigMax=conSigMaxDamLim,
     final retDamConSigMin=retDamConSigMinDamLim)
-    "Multizone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
+    "Multi zone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation ecoMod(
     final kPMod=kPMod,
     final TiMod=TiMod,
     final retDamConSigMin=retDamConSigMinMod)
-    "Multizone VAV AHU economizer damper modulation sequence"
+    "Multi zone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
 equation
@@ -236,7 +236,7 @@ equation
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
 Documentation(info="<html>
 <p>
-Multiple zone VAV AHU economizer control sequence that calculates
+Multi zone VAV AHU economizer control sequence that calculates
 outdoor and return air damper positions based on ASHRAE
 Guidline 36, PART5 sections: N.2.c, N.5, N.6.c, N.7, A.17, N.12.
 </p>
@@ -244,7 +244,7 @@ Guidline 36, PART5 sections: N.2.c, N.5, N.6.c, N.7, A.17, N.12.
 The figure below shows the block diagram of the control sequence.
 </p>
 <p align=\"center\">
-<img alt=\"Image of the multizone AHU modulation sequence control diagram\"
+<img alt=\"Image of the multi zone AHU modulation sequence control diagram\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconCompositeMultiZone.png\"/>
 </p>
 </html>", revisions="<html>

@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Validation;
 model VAVSupplyTemperature
-  "Validate model for calculating supply air temperature of multizone VAV AHU"
+  "Validate model for calculating supply air temperature of multi zone VAV AHU"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature
     conTSetSup
-    "Supply air temperature setpoint for multizone system"
+    "Supply air temperature setpoint for multi zone system"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setZonTem(
     k=22.5 + 273.15) "Average of heating and cooling setpoint"

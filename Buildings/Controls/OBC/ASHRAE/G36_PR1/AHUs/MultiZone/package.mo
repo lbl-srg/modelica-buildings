@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs;
-package MultiZone "Sequences for multizone AHU control"
+package MultiZone "Sequences for multi zone AHU control"
   extends Modelica.Icons.Package;
 
 

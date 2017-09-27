@@ -255,7 +255,7 @@ Guidline 36, PART5 sections: P.4.d, P.5, P.9, P.3.b, A.17.
 The figure below shows the block diagram of the control sequence.
 </p>
 <p align=\"center\">
-<img alt=\"Image of the multizone AHU modulation sequence control diagram\"
+<img alt=\"Image of the multi zone AHU modulation sequence control diagram\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconCompositeSingleZone.png\"/>
 </p>
 </html>", revisions="<html>

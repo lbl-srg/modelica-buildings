@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints;
 block VAVSupplyTemperature
-  "Supply air temperature setpoint for multizone system"
+  "Supply air temperature setpoint for multi zone system"
 
   parameter Modelica.SIunits.Temperature TSupMin = 285.15
     "Lowest cooling supply air temperature setpoint"

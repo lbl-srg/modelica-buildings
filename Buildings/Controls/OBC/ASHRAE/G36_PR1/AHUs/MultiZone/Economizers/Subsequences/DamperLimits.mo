@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences;
 block DamperLimits
-  "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
+  "Multi zone VAV AHU minimum outdoor air control - damper position limits"
 
   parameter Real conSigMin=0 "Lower limit of control signal output"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
@@ -224,8 +224,7 @@ equation
   connect(retDamPhyPosMaxSig.y, yRetDamPhyPosMax)
     annotation (Line(points={{-139,-40},{40,-40},{40,-80},{190,-80}},color={0,0,127}));
   connect(and1.u[1], uSupFan)
-    annotation (Line(points={{-82,-85.3333},{-160,-85.3333},{-160,-100},{-200,
-          -100}},
+    annotation (Line(points={{-82,-85.3333},{-160,-85.3333},{-160,-100},{-200,-100}},
       color={255,0,255}));
   connect(uFreProSta, intEqu.u2)
     annotation (Line(points={{-200,-140},{-140,-140},{-140,-148},{-122,-148}},
@@ -315,7 +314,7 @@ outdoor air volume flow
 control loop")}),
 Documentation(info="<html>
 <p>
-This block models the multiple zone VAV AHU minimum outdoor air control with a single
+This block models the multi zone VAV AHU minimum outdoor air control with a single
 common damper for minimum outdoor air and economizer functions based on outdoor airflow
 measurement, designed in line with ASHRAE Guidline 36 (G36), PART5.N.6.c.
 </p>

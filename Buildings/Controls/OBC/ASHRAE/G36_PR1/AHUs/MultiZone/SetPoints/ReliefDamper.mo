@@ -114,9 +114,9 @@ annotation (
 <p>
 Control sequence for actuated relief dampers <code>yRelDamPos</code>
 without fans. It is implemented according to ASHRAE Guidline 35 (G36), PART5.N.8. 
-(for multiple zone VAV AHU), PART5.P.6 and PART3.2B.3 (for single zone VAV AHU).
+(for multi zone VAV AHU), PART5.P.6 and PART3.2B.3 (for single zone VAV AHU).
 </p>   
-<h4>Multiple zone VAV AHU: Control of actuated relief dampers without fans (PART5.N.8)</h4>
+<h4>Multi zone VAV AHU: Control of actuated relief dampers without fans (PART5.N.8)</h4>
 <ol>
 <li>Relief dampers shall be enabled when the associated supply fan is proven on 
 <code>uSupFan = true</code>, and disabled otherwise.</li>
@@ -125,7 +125,7 @@ a building static pressure of <code>uBuiPre</code>, which is by default <i>0.05<
 Close damper when disabled.</li>
 </ol>
 <p align=\"center\">
-<img alt=\"Image of relief damper control diagram for multiple zone AHU\"
+<img alt=\"Image of relief damper control diagram for multi zone AHU\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/ReliefDamperControlDiagram_MultiZone.png\"/>
 </p>
 <h4>References</h4>

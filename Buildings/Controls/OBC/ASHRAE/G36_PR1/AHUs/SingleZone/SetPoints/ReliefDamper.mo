@@ -168,7 +168,7 @@ annotation (
 <p>
 Control sequence for relief dampers 
 without fans. It is implemented according to ASHRAE Guidline 35 (G36), PART5.N.8. 
-(for multiple zone VAV AHU), PART5.P.6 and PART3.2B.3 (for single zone VAV AHU).
+(for multi zone VAV AHU), PART5.P.6 and PART3.2B.3 (for single zone VAV AHU).
 </p>   
 
 <h4>Single zone VAV AHU: Control of actuated relief dampers without fans (PART5.P.6)</h4>

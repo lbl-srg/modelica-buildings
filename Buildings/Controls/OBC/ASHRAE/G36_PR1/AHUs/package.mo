@@ -4,6 +4,8 @@ package AHUs "AHU Sequences as defined in guideline G36"
 
 
 
+
+
   annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
@@ -16,13 +18,7 @@ package AHUs "AHU Sequences as defined in guideline G36"
             lineThickness=0.5)}),
   Documentation(info="<html>
 <p>
-This package contains control sequences from ASHRAE Guideline 36 for air
-handler unit control.
-
-
-
-
-
+This package contains AHU control sequences from ASHRAE Guideline 36.
 </p>
 </html>"));
 end AHUs;

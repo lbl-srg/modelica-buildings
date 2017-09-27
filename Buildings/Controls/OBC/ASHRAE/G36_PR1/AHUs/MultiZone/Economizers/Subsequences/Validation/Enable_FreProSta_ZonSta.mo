@@ -4,10 +4,10 @@ model Enable_FreProSta_ZonSta
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable ecoEnaDis
-    "Multizone VAV AHU enable disable sequence"
+    "Multi zone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,40},{102,60}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable ecoEnaDis1
-    "Multizone VAV AHU enable disable sequence"
+    "Multi zone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,-40},{102,-20}})));
 
 protected

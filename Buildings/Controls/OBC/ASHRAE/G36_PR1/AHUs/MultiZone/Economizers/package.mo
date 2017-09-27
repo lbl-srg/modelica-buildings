@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone;
-package Economizers "Economizer control of multizone VAV AHU"
+package Economizers "Economizer control of multi zone VAV AHU"
   extends Modelica.Icons.Package;
 
 
