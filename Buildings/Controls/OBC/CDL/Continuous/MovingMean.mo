@@ -84,9 +84,8 @@ y =   -  &int;   u(s) ds
 <p>
 where <i>&delta;</i> is a parameter that determines the time window over
 which the input is averaged.
-During the start of the simulation, the block outputs <code>y = u</code> for
-the first <i>1E-15</i> seconds (to avoid a division by zero), and for
-<i> 1E-15 &le; t &le; &delta;</i> seconds, it outputs
+For
+<i> t &lt; &delta;</i> seconds, it outputs
 </P>
 <pre>
        1    t
