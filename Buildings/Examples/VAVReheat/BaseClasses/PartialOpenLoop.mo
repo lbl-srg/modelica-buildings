@@ -340,7 +340,8 @@ model PartialOpenLoop
   Fluid.Sensors.TemperatureTwoPort TSupCor(
     redeclare package Medium = MediumA,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    m_flow_nominal=mCor_flow_nominal) "Discharge air temperature" annotation (
+    m_flow_nominal=mCor_flow_nominal,
+    transferHeat=true)                "Discharge air temperature" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -348,7 +349,8 @@ model PartialOpenLoop
   Fluid.Sensors.TemperatureTwoPort TSupSou(
     redeclare package Medium = MediumA,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    m_flow_nominal=mSou_flow_nominal) "Discharge air temperature" annotation (
+    m_flow_nominal=mSou_flow_nominal,
+    transferHeat=true)                "Discharge air temperature" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -356,7 +358,8 @@ model PartialOpenLoop
   Fluid.Sensors.TemperatureTwoPort TSupEas(
     redeclare package Medium = MediumA,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    m_flow_nominal=mEas_flow_nominal) "Discharge air temperature" annotation (
+    m_flow_nominal=mEas_flow_nominal,
+    transferHeat=true)                "Discharge air temperature" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -364,7 +367,8 @@ model PartialOpenLoop
   Fluid.Sensors.TemperatureTwoPort TSupNor(
     redeclare package Medium = MediumA,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    m_flow_nominal=mNor_flow_nominal) "Discharge air temperature" annotation (
+    m_flow_nominal=mNor_flow_nominal,
+    transferHeat=true)                "Discharge air temperature" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -372,7 +376,8 @@ model PartialOpenLoop
   Fluid.Sensors.TemperatureTwoPort TSupWes(
     redeclare package Medium = MediumA,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    m_flow_nominal=mWes_flow_nominal) "Discharge air temperature" annotation (
+    m_flow_nominal=mWes_flow_nominal,
+    transferHeat=true)                "Discharge air temperature" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
