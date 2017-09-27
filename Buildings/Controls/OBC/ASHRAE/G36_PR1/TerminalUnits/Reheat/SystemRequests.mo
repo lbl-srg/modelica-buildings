@@ -5,7 +5,7 @@ block SystemRequests
   parameter Boolean have_heaWatCoi=true
     "Flag, true if there is a hot water coil";
   parameter Boolean have_heaPla=false "Flag, true if there is a boiler plant";
-  parameter Modelica.SIunits.Time samPer=180
+  parameter Modelica.SIunits.Time samplePeriod=180
     "Period of sampling cooling setpoint temperature";
   parameter Modelica.SIunits.TemperatureDifference cooSetDif_1=2.8
     "Limit value of difference between zone temperature and cooling setpoint
@@ -161,10 +161,10 @@ block SystemRequests
 
 protected
   Buildings.Controls.OBC.CDL.Discrete.Sampler samTCooSet(
-    final samplePeriod=samPer)
+    final samplePeriod=samplePeriod)
     "Sample current cooling setpoint"
     annotation (Placement(transformation(extent={{-140,430},{-120,450}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(final samplePeriod=samPer)
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(final samplePeriod=samplePeriod)
     "Delay value to record input value"
     annotation (Placement(transformation(extent={{-80,450},{-60,470}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs "Absolute change of the setpoint temperature"
@@ -253,7 +253,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=samPer) "Sample period time"
+    final k=samplePeriod) "Sample period time"
     annotation (Placement(transformation(extent={{-140,370},{-120,390}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer(
     final k=0) "Constant zero"
@@ -340,7 +340,7 @@ protected
     have_heaPla)
     "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-440},{120,-420}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(duration=samPer)
+  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(duration=samplePeriod)
     annotation (Placement(transformation(extent={{120,330},{140,350}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi "Logical switch"
     annotation (Placement(transformation(extent={{120,300},{140,280}})));

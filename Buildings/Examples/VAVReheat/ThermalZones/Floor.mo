@@ -291,7 +291,9 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{294,218},{314,238}})));
   Modelica.Blocks.Routing.Multiplex5 multiplex5_1
     annotation (Placement(transformation(extent={{340,280},{360,300}})));
-  Modelica.Blocks.Interfaces.RealOutput TRooAir[5] "Room air temperatures"
+  Modelica.Blocks.Interfaces.RealOutput TRooAir[5](
+    each unit="K",
+    each displayUnit="degC") "Room air temperatures"
     annotation (Placement(transformation(extent={{380,150},{400,170}}),
         iconTransformation(extent={{380,150},{400,170}})));
   Airflow.Multizone.DoorDiscretizedOpen opeSouCor(redeclare package Medium =
