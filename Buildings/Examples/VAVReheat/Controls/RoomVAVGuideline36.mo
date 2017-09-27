@@ -64,7 +64,8 @@ block RoomVAVGuideline36
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupAHU
     "AHU supply air temperature"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.Valves.HeatingAndCooling coiCon
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.Valves.HeatingAndCooling heaCoo(kPCoo=
+        0.25, kPHea=0.25) "Heating and cooling controller"
     annotation (Placement(transformation(extent={{-70,120},{-50,140}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
     actAirSet(
@@ -120,9 +121,9 @@ equation
           -70},{-120,-70}}, color={0,0,127}));
   connect(conDamVal.THeaSet, TRooHeaSet) annotation (Line(points={{9,65},{-80,
           65},{-80,130},{-120,130}}, color={0,0,127}));
-  connect(conDamVal.uHea, coiCon.yHea) annotation (Line(points={{9,67},{-40,67},
+  connect(conDamVal.uHea,heaCoo. yHea) annotation (Line(points={{9,67},{-40,67},
           {-40,134},{-49,134}}, color={0,0,127}));
-  connect(conDamVal.uCoo, coiCon.yCoo) annotation (Line(points={{9,69},{-42,69},
+  connect(conDamVal.uCoo,heaCoo. yCoo) annotation (Line(points={{9,69},{-42,69},
           {-42,126},{-49,126}}, color={0,0,127}));
   connect(actAirSet.VActCooMax, conDamVal.VActCooMax) annotation (Line(points={
           {-11,108},{0,108},{0,79},{9,79}}, color={0,0,127}));
@@ -134,11 +135,11 @@ equation
           {-11,99},{-6,99},{-6,73},{9,73}}, color={0,0,127}));
   connect(actAirSet.VActHeaMax, conDamVal.VActHeaMax) annotation (Line(points={
           {-11,96},{-8,96},{-8,75},{9,75}}, color={0,0,127}));
-  connect(coiCon.TRooHeaSet, TRooHeaSet) annotation (Line(points={{-71,136},{
+  connect(heaCoo.TRooHeaSet, TRooHeaSet) annotation (Line(points={{-71,136},{
           -80,136},{-80,130},{-120,130}}, color={0,0,127}));
-  connect(coiCon.TRooCooSet, TRooCooSet) annotation (Line(points={{-71,130},{
+  connect(heaCoo.TRooCooSet, TRooCooSet) annotation (Line(points={{-71,130},{
           -78,130},{-78,90},{-120,90}}, color={0,0,127}));
-  connect(coiCon.TRoo, TRoo) annotation (Line(points={{-71,124},{-76,124},{-76,
+  connect(heaCoo.TRoo, TRoo) annotation (Line(points={{-71,124},{-76,124},{-76,
           10},{-120,10}}, color={0,0,127}));
   connect(actAirSet.uOpeMod, uOpeMod) annotation (Line(points={{-33,97},{-54,97},
           {-54,-110},{-120,-110}}, color={255,127,0}));
@@ -146,7 +147,7 @@ equation
           {78,17},{78,-60},{110,-60}}, color={255,127,0}));
   connect(sysReq.yZonPreResReq, yZonPreResReq) annotation (Line(points={{73,12},
           {76,12},{76,-100},{110,-100}}, color={255,127,0}));
-  connect(coiCon.yCoo, sysReq.uCoo) annotation (Line(points={{-49,126},{-42,126},
+  connect(heaCoo.yCoo, sysReq.uCoo) annotation (Line(points={{-49,126},{-42,126},
           {-42,16},{-42,16},{-42,16},{-42,15},{51,15}}, color={0,0,127}));
   annotation ( Icon(coordinateSystem(extent={{-100,-140},{100,160}}),
                     graphics={  Rectangle(

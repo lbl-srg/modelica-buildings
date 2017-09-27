@@ -10,6 +10,13 @@ model Guideline36
   parameter Modelica.SIunits.VolumeFlowRate minZonPriFlo[numZon]=
     {mCor_flow_nominal, mSou_flow_nominal, mEas_flow_nominal, mNor_flow_nominal, mWes_flow_nominal}/1.2
       "Minimum expected zone primary flow rate";
+
+  parameter Modelica.SIunits.Area AFloCor=flo.cor.AFlo "Floor area corridor";
+  parameter Modelica.SIunits.Area AFloSou=flo.sou.AFlo "Floor area south";
+  parameter Modelica.SIunits.Area AFloNor=flo.nor.AFlo "Floor area north";
+  parameter Modelica.SIunits.Area AFloEas=flo.eas.AFlo "Floor area east";
+  parameter Modelica.SIunits.Area AFloWes=flo.wes.AFlo "Floor area west";
+
   parameter Modelica.SIunits.Area zonAre[numZon]=
      {flo.cor.AFlo,
       flo.sou.AFlo,
@@ -37,15 +44,26 @@ model Guideline36
     k=0.01) "Controller for cooling coil"
     annotation (Placement(transformation(extent={{0,-210},{20,-190}})));
 
-  Buildings.Examples.VAVReheat.Controls.RoomVAVGuideline36 conVAVCor "Controller for terminal unit corridor"
+  Buildings.Examples.VAVReheat.Controls.RoomVAVGuideline36 conVAVCor(
+      m_flow_nominal=mCor_flow_nominal,
+      zonAre=AFloCor)
+      "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{530,32},{550,52}})));
-  Buildings.Examples.VAVReheat.Controls.RoomVAVGuideline36 conVAVSou "Controller for terminal unit south"
+  Buildings.Examples.VAVReheat.Controls.RoomVAVGuideline36 conVAVSou(
+      m_flow_nominal=mSou_flow_nominal,
+      zonAre=AFloSou) "Controller for terminal unit south"
     annotation (Placement(transformation(extent={{700,30},{720,50}})));
-  Buildings.Examples.VAVReheat.Controls.RoomVAVGuideline36 conVAVEas "Controller for terminal unit east"
+  Buildings.Examples.VAVReheat.Controls.RoomVAVGuideline36 conVAVEas(
+      m_flow_nominal=mEas_flow_nominal,
+      zonAre=AFloEas) "Controller for terminal unit east"
     annotation (Placement(transformation(extent={{880,30},{900,50}})));
-  Buildings.Examples.VAVReheat.Controls.RoomVAVGuideline36 conVAVNor "Controller for terminal unit north"
+  Buildings.Examples.VAVReheat.Controls.RoomVAVGuideline36 conVAVNor(
+      m_flow_nominal=mNor_flow_nominal,
+      zonAre=AFloNor) "Controller for terminal unit north"
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
-  Buildings.Examples.VAVReheat.Controls.RoomVAVGuideline36 conVAVWes "Controller for terminal unit west"
+  Buildings.Examples.VAVReheat.Controls.RoomVAVGuideline36 conVAVWes(
+      m_flow_nominal=mWes_flow_nominal,
+      zonAre=AFloWes) "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
   Buildings.Examples.VAVReheat.Controls.AHUGuideline36 conAHU(
     numZon=numZon,
@@ -73,6 +91,9 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Integers.MultiSum PZonResReq(nin=5)
     "Number of zone pressure requests"
     annotation (Placement(transformation(extent={{340,240},{360,260}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant zonSta(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.ZoneStates.deadband)
+    "Zone state signal"
+    annotation (Placement(transformation(extent={{300,330},{320,350}})));
 equation
   connect(fanRet.port_a, dpRetFan.port_b) annotation (Line(
       points={{320,140},{320,140},{320,60}},
@@ -226,7 +247,7 @@ equation
           {134,358},{134,303.417},{81.1,303.417}}, color={255,127,0}));
   connect(conAHU.TDis, TDis.y) annotation (Line(points={{390,422},{254,422},{254,
           290},{241,290}}, color={0,0,127}));
-  connect(conAHU.nOcc, nOcc.y) annotation (Line(points={{390,386},{360,386},{360,
+  connect(conAHU.nOcc, nOcc.y) annotation (Line(points={{390,390},{360,390},{360,
           470},{341,470}},                     color={0,0,127}));
   connect(conAHU.VBox_flow, VBox_flow.y) annotation (Line(points={{390,376},{260,
           376},{260,250},{241,250}}, color={0,0,127}));
@@ -326,10 +347,10 @@ equation
           176},{230,190},{444,190},{444,350},{434,350}}, color={255,0,255}));
   connect(conVAVCor.VDis, VSupCor_flow.V_flow) annotation (Line(points={{528,
           44.6667},{522,44.6667},{522,130},{569,130}}, color={0,0,127}));
-  connect(VSupSou_flow.V_flow, conVAVSou.VDis) annotation (Line(points={{749,
-          130},{690,130},{690,42.6667},{698,42.6667}}, color={0,0,127}));
-  connect(VSupEas_flow.V_flow, conVAVEas.VDis) annotation (Line(points={{929,
-          128},{874,128},{874,42.6667},{878,42.6667}}, color={0,0,127}));
+  connect(VSupSou_flow.V_flow, conVAVSou.VDis) annotation (Line(points={{749,130},
+          {690,130},{690,42.6667},{698,42.6667}},      color={0,0,127}));
+  connect(VSupEas_flow.V_flow, conVAVEas.VDis) annotation (Line(points={{929,128},
+          {874,128},{874,42.6667},{878,42.6667}},      color={0,0,127}));
   connect(VSupNor_flow.V_flow, conVAVNor.VDis) annotation (Line(points={{1089,
           132},{1034,132},{1034,42.6667},{1038,42.6667}}, color={0,0,127}));
   connect(VSupWes_flow.V_flow, conVAVWes.VDis) annotation (Line(points={{1289,
@@ -344,6 +365,10 @@ equation
           -20},{1028,-20},{1028,34.6667},{1038,34.6667}}, color={0,0,127}));
   connect(TSup.T, conVAVWes.TSupAHU) annotation (Line(points={{340,-29},{340,
           -20},{1224,-20},{1224,32.6667},{1238,32.6667}}, color={0,0,127}));
+  connect(VOut1.V_flow, conAHU.VOut_flow) annotation (Line(points={{-69,35.1},{-69,
+          386},{390,386}}, color={0,0,127}));
+  connect(conAHU.uZonSta, zonSta.y) annotation (Line(points={{390,362},{330,362},
+          {330,340},{321,340}}, color={255,127,0}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{1660,
             640}})),

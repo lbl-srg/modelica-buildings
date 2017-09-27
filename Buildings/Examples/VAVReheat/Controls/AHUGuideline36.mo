@@ -193,7 +193,8 @@ model AHUGuideline36
         iconTransformation(extent={{-120,-250},{-100,-230}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc[numZon]
     "Number of occupants"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-120,30},{-100,50}}),
+        iconTransformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[numZon]
     "Measured zone air temperature" annotation (Placement(transformation(extent=
            {{-122,148},{-100,170}}), iconTransformation(extent={{-120,150},{
@@ -286,7 +287,8 @@ equation
   connect(conEco.VOutMinSet_flow, outAirSetPoi.VOutMinSet_flow) annotation (
       Line(points={{59,-12},{42,-12},{42,18},{1,18}}, color={0,0,127}));
   connect(outAirSetPoi.nOcc, nOcc) annotation (Line(points={{-21,26},{-88,26},{
-          -88,0},{-110,0}}, color={0,0,127}));
+          -88,40},{-110,40}},
+                            color={0,0,127}));
   connect(outAirSetPoi.TZon, TZon) annotation (Line(points={{-21,23},{-58,23},{
           -58,159},{-111,159}}, color={0,0,127}));
   connect(outAirSetPoi.TDis, TDis) annotation (Line(points={{-21,20},{-54,20},{
