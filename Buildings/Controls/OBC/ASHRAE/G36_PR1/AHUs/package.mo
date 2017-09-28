@@ -2,10 +2,6 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1;
 package AHUs "AHU Sequences as defined in guideline G36"
   extends Modelica.Icons.Package;
 
-
-
-
-
   annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},

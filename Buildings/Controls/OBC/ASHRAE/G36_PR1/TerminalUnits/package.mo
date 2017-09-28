@@ -2,7 +2,6 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1;
 package TerminalUnits "Control sequences for terminal units"
   extends Modelica.Icons.Package;
 
-
   annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
