@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Validation;
 model Controller_Disable
-  "Validation model for disabling the multizone VAV AHU economizer modulation and damper position limit control loops"
+  "Validation model for disabling the multi zone VAV AHU economizer modulation and damper position limit control loops"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller economizer(
@@ -8,14 +8,14 @@ model Controller_Disable
     retDamPhyPosMax=1,
     retDamPhyPosMin=0,
     outDamPhyPosMax=1,
-    outDamPhyPosMin=0) "Multizone VAV AHU economizer "
+    outDamPhyPosMin=0) "Multi zone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller economizer1(
     use_enthalpy=true,
     retDamPhyPosMax=1,
     retDamPhyPosMin=0,
     outDamPhyPosMax=1,
-    outDamPhyPosMin=0) "Multizone VAV AHU economizer"
+    outDamPhyPosMin=0) "Multi zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 
 protected

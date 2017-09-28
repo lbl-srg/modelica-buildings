@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Validation;
 model DamperLimits_VOut_flow
-  "Validation model for the multiple zone VAV AHU minimum outdoor air control - damper position limits"
+  "Validation model for the multi zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow(
@@ -15,7 +15,7 @@ model DamperLimits_VOut_flow
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits ecoDamLim
-    "Multiple zone VAV AHU minimum outdoor air control - damper position limits"
+    "Multi zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected

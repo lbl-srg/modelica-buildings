@@ -23,14 +23,14 @@ model Enable_TOut_hOut
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable ecoEnaDis
-    "Multizone VAV AHU economizer enable disable sequence"
+    "Multi zone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable ecoEnaDis1
-    "Multizone VAV AHU economizer enable disable sequence"
+    "Multi zone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable ecoEnaDis2(
     final use_enthalpy=false)
-    "Multizone VAV AHU economizer enable disable sequence"
+    "Multi zone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{220,-40},{240,-20}})));
 
 protected

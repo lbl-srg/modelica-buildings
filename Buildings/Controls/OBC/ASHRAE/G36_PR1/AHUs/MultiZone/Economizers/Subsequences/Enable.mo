@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences;
 block Enable
-  "Multiple zone VAV AHU economizer enable/disable switch"
+  "Multi zone VAV AHU economizer enable/disable switch"
 
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air enthalpy in addition to temperature"
@@ -358,7 +358,7 @@ Heating"),                       Text(
           textString="Supply fan status")}),
 Documentation(info="<html>
 <p>
-This is a multiple zone VAV AHU economizer enable/disable sequence
+This is a multi zone VAV AHU economizer enable/disable sequence
 based on ASHRAE G36 PART5.N.7 and PART5.A.17. Additional
 conditions included in the sequence are: freeze protection (freeze protection
 stage 0-3, see PART5.N.12), supply fan status (on or off, see PART5.N.5),

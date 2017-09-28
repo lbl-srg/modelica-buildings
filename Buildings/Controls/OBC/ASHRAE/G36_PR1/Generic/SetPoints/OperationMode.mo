@@ -964,15 +964,7 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/
 <p>
 <i>Unoccupied mode</i> shall be active if the zone group is not in any other mode.
 </p>
-
-<h4>References</h4>
-<p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR.
-<i>ASHRAE Guideline 36P, High Performance Sequences of Operation for HVAC
-systems</i>. First Public Review Draft (June 2016)</a>
-</p>
-</html>",
-revisions="<html>
+</html>",revisions="<html>
 <ul>
 <li>
 June 19, 2017, by Jianjun Hu:<br/>

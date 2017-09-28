@@ -33,16 +33,5 @@ Documentation(info="<html>
 <p>
 This package contains control sequences from ASHRAE Guideline 36 for terminal units.
 </p>
-</html>", revisions="<html>
-<ul>
-<li>
-July 10, 2017, by Milica Grahovac:<br/>
-First revision.
-</li>
-<li>
-July 1, 2017, by Jianjun Hu:<br/>
-First implementation.
-</li>
-</ul>
 </html>"));
 end TerminalUnits;
