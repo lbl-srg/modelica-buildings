@@ -17,25 +17,24 @@ The G36 library is structured as follows:
 <ul>
 <li><a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs</a> contains control sequences
-for generating controller setpoints, e.g. supply air temperature <code>TSup</code>,
-and actuation signals for mechanical elements of an AHU, e.g. outdoor air damper
-position <code>yOutDamPos</code>.
+for generating controller setpoints such as for the supply air temperature,
+and actuation signals for mechanical elements of an AHU such as for the outdoor air damper
+position.
 </li>
 <li><a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants</a> is a library of status
-signals used in the sequences for communicating system operation modes, freeze
-protections status, zone state, etc.
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants</a> is a library of constants
+that are used to indicate the operation mode, such as freeze
+protections status and demand response status.
 </li>
 <li><a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic</a> stores any sequences with
-outputs utilized accross the HVAC system, both for the AHU and the
-terminal unit control.
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic</a> contains sequences that
+are utilized across various parts of an HVAC system,
+such as for AHU and for terminal unit control.
 </li>
 <li><a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits</a> contains terminal unit
-control sequences for generating controller setpoints,
-e.g. minimal zone airflow rate <code>VOccMinAir</code>, and actuation signals
-for mechanical elements, e.g. terminal unit damper, <code>yDam</code>.
+Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits</a> contains control
+sequences for terminal units, such as setpoints for the minimal zone airflow rates and 
+actuator signals for the terminal unit dampers.
 </li>
 </ul>
 <h4>References</h4>
