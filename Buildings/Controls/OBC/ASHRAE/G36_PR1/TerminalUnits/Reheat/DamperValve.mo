@@ -231,21 +231,11 @@ protected
     final p=2.8)
     "Zone temperature pluTSetZons 2.8 degC"
     annotation (Placement(transformation(extent={{-260,-280},{-240,-260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uHigh=0.05,
-    final uLow=0.01)
-    "Check if cooling control signal is greater than zero"
-    annotation (Placement(transformation(extent={{-260,20},{-240,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    final uHigh=0.05,
-    final uLow=0.01)
-    "Check if heating control signal is greater than zero"
-    annotation (Placement(transformation(extent={{-260,-20},{-240,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
     final uHigh=0.05,
     final uLow=0.01)
     "Check if cooling control signal is greater than zero"
-    annotation (Placement(transformation(extent={{-220,200},{-200,220}})));
+    annotation (Placement(transformation(extent={{-280,200},{-260,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
     final uHigh=0.05,
     final uLow=0.01)
@@ -280,18 +270,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(delayTime=600)
     "Check if the true input holds for certain time"
     annotation (Placement(transformation(extent={{-220,-240},{-200,-220}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(delayTime=600)
-    "Check if the true input holds for certain time"
-    annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(delayTime=600)
-    "Check if the true input holds for certain time"
-    annotation (Placement(transformation(extent={{-180,20},{-160,40}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3(delayTime=600)
     "Check if the true input holds for certain time"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel4(delayTime=600)
     "Check if the true input holds for certain time"
-    annotation (Placement(transformation(extent={{-160,200},{-140,220}})));
+    annotation (Placement(transformation(extent={{-240,200},{-220,220}})));
 
 equation
   connect(uCoo, lin.u)
@@ -300,7 +284,7 @@ equation
     annotation (Line(points={{-259,290},{-240,290},{-240,268},{-162,268}},
       color={0,0,127}));
   connect(VActCooMin, lin.f1)
-    annotation (Line(points={{-340,220},{-240,220},{-240,264},{-162,264}},
+    annotation (Line(points={{-340,220},{-300,220},{-300,264},{-162,264}},
       color={0,0,127}));
   connect(conOne.y, lin.x2)
     annotation (Line(points={{-199,290},{-180,290},{-180,256},{-162,256}},
@@ -308,18 +292,8 @@ equation
   connect(VActCooMax, lin.f2)
     annotation (Line(points={{-340,180},{-180,180},{-180,252},{-162,252}},
       color={0,0,127}));
-  connect(uCoo, hys.u)
-    annotation (Line(points={{-340,260},{-280,260},{-280,30},{-262,30}},
-      color={0,0,127}));
-  connect(uHea, hys1.u)
-    annotation (Line(points={{-340,-160},{-280,-160},{-280,-10},{-262,-10}},
-      color={0,0,127}));
-  connect(hys.y, not1.u)
-    annotation (Line(points={{-239,30},{-222,30}}, color={255,0,255}));
-  connect(hys1.y, not2.u)
-    annotation (Line(points={{-239,-10},{-222,-10}}, color={255,0,255}));
   connect(uCoo, hys2.u)
-    annotation (Line(points={{-340,260},{-280,260},{-280,210},{-222,210}},
+    annotation (Line(points={{-340,260},{-290,260},{-290,210},{-282,210}},
       color={0,0,127}));
   connect(conZer1.y, swi.u3)
     annotation (Line(points={{-139,180},{-120,180},{-120,242},{140,242}},
@@ -502,27 +476,29 @@ equation
   connect(truDel.y, swi4.u2)
     annotation (Line(points={{-199,-230},{120,-230},{120,-270},{138,-270}},
       color={255,0,255}));
-  connect(not2.y, truDel1.u)
-    annotation (Line(points={{-199,-10},{-182,-10}}, color={255,0,255}));
-  connect(not1.y, truDel2.u)
-    annotation (Line(points={{-199,30},{-182,30}}, color={255,0,255}));
-  connect(truDel1.y, and2.u2)
-    annotation (Line(points={{-159,-10},{-140,-10},{-140,22},{-82,22}},
-      color={255,0,255}));
-  connect(truDel2.y, and2.u1)
-    annotation (Line(points={{-159,30},{-82,30}}, color={255,0,255}));
   connect(not4.y, truDel3.u)
     annotation (Line(points={{-161,90},{-142,90}}, color={255,0,255}));
   connect(truDel3.y, swi3.u2)
     annotation (Line(points={{-119,90},{-100,90},{-100,120},{78,120}},
       color={255,0,255}));
   connect(hys2.y, truDel4.u)
-    annotation (Line(points={{-199,210},{-162,210}}, color={255,0,255}));
+    annotation (Line(points={{-259,210},{-242,210}}, color={255,0,255}));
   connect(truDel4.y, and4.u1)
-    annotation (Line(points={{-139,210},{-20,210},{-20,190},{-2,190}},
+    annotation (Line(points={{-219,210},{-20,210},{-20,190},{-2,190}},
       color={255,0,255}));
   connect(truDel4.y, swi.u2)
-    annotation (Line(points={{-139,210},{-20,210},{-20,250},{140,250}},
+    annotation (Line(points={{-219,210},{-20,210},{-20,250},{140,250}},
+      color={255,0,255}));
+  connect(truDel.y, not2.u)
+    annotation (Line(points={{-199,-230},{-180,-230},{-180,-148},{-280,-148},
+      {-280,-10},{-222,-10}}, color={255,0,255}));
+  connect(truDel4.y, not1.u)
+    annotation (Line(points={{-219,210},{-200,210},{-200,164},{-304,164},
+      {-304,30},{-222,30}}, color={255,0,255}));
+  connect(not1.y, and2.u1)
+    annotation (Line(points={{-199,30},{-82,30}}, color={255,0,255}));
+  connect(not2.y, and2.u2)
+    annotation (Line(points={{-199,-10},{-180,-10},{-180,22},{-82,22}},
       color={255,0,255}));
 
 annotation (

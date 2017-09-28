@@ -52,7 +52,7 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi2
     "Reinitialize setpoint to initial setting when device become OFF"
-    annotation (Placement(transformation(extent={{120,80},{140,100}})));
+    annotation (Placement(transformation(extent={{120,90},{140,110}})));
   Buildings.Controls.OBC.CDL.Discrete.Sampler sampler(samplePeriod=samplePeriod)
     "Sample number of requests"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
@@ -168,19 +168,20 @@ equation
     annotation (Line(points={{101,-70},{138,-70}},
       color={255,0,255}));
   connect(iniSetCon.y, swi2.u1)
-    annotation (Line(points={{-59,150},{108,150},{108,98},{118,98}},
+    annotation (Line(points={{-59,150},{108,150},{108,108},{118,108}},
       color={0,0,127}));
   connect(swi2.y, swi.u1)
-    annotation (Line(points={{141,90},{150,90},{150,122},{158,122}},
+    annotation (Line(points={{141,100},{150,100},{150,122},{158,122}},
       color={0,0,127}));
   connect(swi2.y, uniDel.u)
-    annotation (Line(points={{141,90},{150,90},{150,110},{-100,110},{-100,60},
-      {-82,60}}, color={0,0,127}));
+    annotation (Line(points={{141,100},{150,100},{150,120},{-100,120},{-100,60},
+          {-82,60}},
+                 color={0,0,127}));
   connect(uDevSta, not1.u)
     annotation (Line(points={{-220,130},{-190,130},{-190,90},{-82,90}},
       color={255,0,255}));
   connect(not1.y, swi2.u2)
-    annotation (Line(points={{-59,90},{118,90}},
+    annotation (Line(points={{-59,90},{30,90},{30,100},{118,100}},
       color={255,0,255}));
   connect(min1.y, maxInp.u1)
     annotation (Line(points={{41,60},{50,60},{50,66},{58,66}},
@@ -211,8 +212,8 @@ equation
   connect(maxInp.y, firOrdHol.u)
     annotation (Line(points={{81,60},{98,60}}, color={0,0,127}));
   connect(firOrdHol.y, swi2.u3)
-    annotation (Line(points={{121,60},{140,60},{140,76},{100,76},{100,82},
-      {118,82}}, color={0,0,127}));
+    annotation (Line(points={{121,60},{140,60},{140,80},{100,80},{100,92},{118,
+          92}},  color={0,0,127}));
 
 annotation (
   defaultComponentName = "triRes",

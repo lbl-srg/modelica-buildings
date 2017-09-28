@@ -175,8 +175,7 @@ model AHUGuideline36
     have_perZonRehBox=true,
     iniSet=60,
     triAmo=-6,
-    resAmo=10,
-    maxRes=20)               "Supply fan controller"
+    resAmo=10)               "Supply fan controller"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature
     conTSetSup "Setpoint for supply temperature"
