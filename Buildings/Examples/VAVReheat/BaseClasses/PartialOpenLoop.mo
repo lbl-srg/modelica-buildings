@@ -77,13 +77,13 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(extent={{400,130},{380,150}})));
   Fluid.Movers.FlowControlled_m_flow       fanSup(
     redeclare package Medium = MediumA,
-    tau=60,
     per(
       pressure(V_flow={0,m_flow_nominal/1.2*2},
       dp={850,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=m_flow_nominal,
-    nominalValuesDefineDefaultPressureCurve=true)
+    nominalValuesDefineDefaultPressureCurve=true,
+    tau=60)
     "Supply air fan"
     annotation (Placement(transformation(extent={{260,-50},{280,-30}})));
   Fluid.Movers.FlowControlled_m_flow       fanRet(
@@ -94,7 +94,8 @@ partial model PartialOpenLoop
       dp=1.5*110*{2,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=m_flow_nominal,
-    nominalValuesDefineDefaultPressureCurve=true)
+    nominalValuesDefineDefaultPressureCurve=true,
+    use_inputFilter=false)
     "Return air fan"
     annotation (Placement(transformation(extent={{320,130},{300,150}})));
   Buildings.Fluid.Sources.FixedBoundary sinHea(
@@ -129,10 +130,6 @@ partial model PartialOpenLoop
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={320,50})));
-  Fluid.Sensors.MassFlowRate senSupFlo(
-    redeclare package Medium = MediumA)
-    "Sensor for supply fan flow rate"
-    annotation (Placement(transformation(extent={{360,-50},{380,-30}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-318,-220},{-298,-200}})));
@@ -434,11 +431,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(TSup.port_b, senSupFlo.port_a) annotation (Line(
-      points={{350,-40},{360,-40}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
   connect(souHea.ports[1], valHea.port_a) annotation (Line(
       points={{130,-110},{130,-90}},
       color={0,127,0},
@@ -694,10 +686,12 @@ equation
       thickness=0.5));
   connect(fanRet.port_a, dpRetDuc.port_b)
     annotation (Line(points={{320,140},{380,140}}, color={0,127,255}));
-  connect(senSupFlo.port_b, splSupRoo1.port_1)
-    annotation (Line(points={{380,-40},{570,-40}}, color={0,127,255}));
-  connect(senSupFlo.m_flow, fanRet.m_flow_in) annotation (Line(points={{370,-29},
-          {370,160},{310,160},{310,152}}, color={0,0,127}));
+  connect(TSup.port_b, splSupRoo1.port_1) annotation (Line(
+      points={{350,-40},{570,-40}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(fanSup.m_flow_actual, fanRet.m_flow_in) annotation (Line(points={{281,
+          -35},{288,-35},{288,160},{310,160},{310,152}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{1660,
             600}})),

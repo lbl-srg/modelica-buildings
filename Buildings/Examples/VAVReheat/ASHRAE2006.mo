@@ -1,7 +1,6 @@
 within Buildings.Examples.VAVReheat;
 model ASHRAE2006
   "Variable air volume flow system with terminal reheat and five thermal zones"
-  import Buildings;
   extends Modelica.Icons.Example;
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop;
 
@@ -132,11 +131,6 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(TSup.port_b, senSupFlo.port_a) annotation (Line(
-      points={{350,-40},{360,-40}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
   connect(TCoiHeaOut.T, heaCoiCon.u_m) annotation (Line(
       points={{144,-29},{144,-20},{160,-20},{160,-180},{10,-180},{10,-172}},
       color={0,0,127},
