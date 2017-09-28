@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints;
-block VAVSupplyFan  "Block to control multizone VAV AHU supply fan"
+block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
 
   parameter Integer numZon(min=2)
     "Total number of served zones/VAV boxes"
@@ -359,7 +359,7 @@ annotation (
           textString="ySupFan")}),
   Documentation(info="<html>
 <p>
-Supply fan control for a multizone VAV AHU according to
+Supply fan control for a multi zone VAV AHU according to
 ASHRAE guideline G36, PART5.N.1 (Supply fan control).
 </p>
 <h4>a. Supply fan start/stop</h4>
@@ -398,14 +398,6 @@ when the fan is proven on. Where the zone groups served by the system are small,
 provide multiple sets of gains that are used in the control loop as a function
 of a load indicator (such as supply fan airflow rate, the area of the zone groups
 that are occupied, etc.).
-</p>
-<h4>References</h4>
-<p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
-Standards Review)/ASHRAE Guideline 36P,
-<i>High Performance Sequences of Operation for HVAC systems</i>.
-First Public Review Draft (June 2016)</a>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -164,31 +164,31 @@ annotation (
           textString="%name")}),
    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{120,
             100}})),
- Documentation(info="<html>      
+ Documentation(info="<html>
 <p>
-Control sequence for relief dampers 
-without fans. It is implemented according to ASHRAE Guidline 35 (G36), PART5.N.8. 
-(for multiple zone VAV AHU), PART5.P.6 and PART3.2B.3 (for single zone VAV AHU).
-</p>   
+Control sequence for relief dampers
+without fans. It is implemented according to ASHRAE Guidline 35 (G36), PART5.N.8.
+(for multi zone VAV AHU), PART5.P.6 and PART3.2B.3 (for single zone VAV AHU).
+</p>
 
 <h4>Single zone VAV AHU: Control of actuated relief dampers without fans (PART5.P.6)</h4>
 <ol>
 <li>Relief damper position setpoints (PART3.2B.3)
 <ul>
-<li><code>minRelDamPos</code>: The relief damper position that maintains a building 
-pressure of <i>0.05</i> inchWC (<i>12</i> while the system is at <code>minPosMin</code> 
-(i.e., the economizer damper is positioned to provide <code>minOA</code> while 
+<li><code>minRelDamPos</code>: The relief damper position that maintains a building
+pressure of <i>0.05</i> inchWC (<i>12</i> while the system is at <code>minPosMin</code>
+(i.e., the economizer damper is positioned to provide <code>minOA</code> while
 the supply fan is at minimum speed).</li>
-<li><code>maxRelDamPos</code>: The relief damper position that maintains a building 
-pressure of <i>0.05</i> inchWC (<i>12</i> Pa) while the economizer damper is fully open and the fan 
+<li><code>maxRelDamPos</code>: The relief damper position that maintains a building
+pressure of <i>0.05</i> inchWC (<i>12</i> Pa) while the economizer damper is fully open and the fan
 speed is at cooling maximum.</li>
 </ul>
 </li>
-<li>Relief dampers shall be enabled when the associated supply fan is proven on and 
-any outdoor air damper is open <code>uOutDamPos &gt; 0</code> and disabled and closed 
+<li>Relief dampers shall be enabled when the associated supply fan is proven on and
+any outdoor air damper is open <code>uOutDamPos &gt; 0</code> and disabled and closed
 otherwise.</li>
-<li>Relief damper position shall be reset linearly from <code>minRelDamPos</code> to 
-<code>maxRelDamPos</code> as the commanded economizer damper position goes from 
+<li>Relief damper position shall be reset linearly from <code>minRelDamPos</code> to
+<code>maxRelDamPos</code> as the commanded economizer damper position goes from
 <code>minPos*</code> to fully open.</li>
 </ol>
 <p align=\"center\">
@@ -200,13 +200,6 @@ Expected control performance:
 <img alt=\"Image of the relief damper control chart for single zone AHU\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/ReliefDamperControlChart_SingleZone.png\"/>
 </p>
-<h4>References</h4>
-<p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR.
-<i>ASHRAE Guideline 36P, High Performance Sequences of Operation for HVAC
-systems</i>. First Public Review Draft (June 2016)</a>
-</p>
-
 </html>", revisions="<html>
 <ul>
 <li>

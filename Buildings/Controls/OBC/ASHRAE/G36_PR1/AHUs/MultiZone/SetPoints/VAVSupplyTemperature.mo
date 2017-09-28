@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints;
 block VAVSupplyTemperature
-  "Supply air temperature setpoint for multizone system"
+  "Supply air temperature setpoint for multi zone system"
 
   parameter Modelica.SIunits.Temperature TSupMin = 285.15
     "Lowest cooling supply air temperature setpoint"
@@ -327,12 +327,6 @@ Supply air temperature setpoint <code>TSetSup</code> shall be <code>TSupMin</cod
 <h4>During Setback and Warmup modes (<code>opeMod=4</code>, <code>opeMod=5</code>)</h4>
 <p>
 Supply air temperature setpoint <code>TSetSup</code> shall be <code>35&deg;C</code>.
-</p>
-<h4>References</h4>
-<p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR.
-<i>ASHRAE Guideline 36P, High Performance Sequences of Operation for HVAC
-systems</i>. First Public Review Draft (June 2016)</a>
 </p>
 </html>",
 revisions="<html>

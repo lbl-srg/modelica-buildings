@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Validation;
 model Modulation_TSup
-  "Validation model for multiple zone VAV AHU outdoor and return air damper position modulation sequence"
+  "Validation model for multi zone VAV AHU outdoor and return air damper position modulation sequence"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation ecoMod
