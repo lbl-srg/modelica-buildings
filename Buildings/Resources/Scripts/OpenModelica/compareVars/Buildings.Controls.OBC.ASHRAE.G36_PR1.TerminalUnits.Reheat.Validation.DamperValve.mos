@@ -8,7 +8,7 @@ compareVars :=
     "damVal_RehBox.TDisSet",
     "damVal_RehBox.yDam",
     "damVal_RehBox.yHeaVal",
-    "damVal_RehBox.VDisAir",
-    "damVal_RehBox.VDisAirSet",
+    "damVal_RehBox.VDis",
+    "damVal_RehBox.VDisSet",
     "VActHeaMin.y"
   };
