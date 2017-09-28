@@ -6,9 +6,9 @@ block OperationMode "Block that outputs the operation mode"
     "Maximum cool-down/warm-up time";
   parameter Modelica.SIunits.TemperatureDifference bouLim(min=0.5) = 1.1
     "Value limit to indicate the end of setback/setup mode";
-  parameter Modelica.SIunits.Temperature freProThrVal = 4.4
+  parameter Modelica.SIunits.Temperature freProThrVal = 277.55
     "Threshold zone temperature value to activate freeze protection mode";
-  parameter Modelica.SIunits.Temperature freProEndVal = 7.2
+  parameter Modelica.SIunits.Temperature freProEndVal = 280.35
     "Threshold zone temperature value to finish the freeze protection mode";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
@@ -66,14 +66,12 @@ block OperationMode "Block that outputs the operation mode"
     "Window open/close status"
     annotation (Placement(transformation(extent={{-300,10},{-260,50}}),
       iconTransformation(extent={{-10,-10},{10,10}},rotation=90,origin={0,-110})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput opeMod
-    "Operation mode"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yOpeMod "Operation mode"
     annotation (Placement(transformation(extent={{460,-30},{480,-10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput freProAlaLev
-    "Level 3 alarm: freeze protection"
-    annotation (Placement(transformation(extent={{460,-150},{480,-130}}),
-      iconTransformation(extent={{100,-60},{120,-40}})));
+        iconTransformation(extent={{100,-10},{120,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yFreProSta
+    "Freeze protection stage" annotation (Placement(transformation(extent={{460,
+            -150},{480,-130}}), iconTransformation(extent={{100,-60},{120,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant occModInd(
     k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.occupied)
     "Occupied mode "
@@ -334,7 +332,9 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[numZon]
     "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2(integerTrue=3)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2(integerTrue=
+       Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages.stage3,
+      integerFalse=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages.stage0)
     "Convert Boolean to Integer"
     annotation (Placement(transformation(extent={{260,-160},{280,-140}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea9[numZon]
@@ -553,9 +553,8 @@ equation
   connect(not2.y,booToInt3. u)
     annotation (Line(points={{281,-330},{298,-330}},
       color={255,0,255}));
-  connect(sumInt.y, opeMod)
-    annotation (Line(points={{441.7,-60},{441.7,-60},{450,-60},{450,-20},{470,-20}},
-      color={255,127,0}));
+  connect(sumInt.y, yOpeMod) annotation (Line(points={{441.7,-60},{441.7,-60},{450,
+          -60},{450,-20},{470,-20}}, color={255,127,0}));
   connect(lat1.y,booToInt2. u)
     annotation (Line(points={{161,-110},{180,-110},{180,-150},{258,-150}},
       color={255,0,255}));
@@ -682,9 +681,8 @@ equation
   connect(booToRea4.y, swi4.u3)
     annotation (Line(points={{221,-110},{240,-110},{240,-118},{258,-118}},
       color={0,0,127}));
-  connect(booToInt2.y, freProAlaLev)
-    annotation (Line(points={{281,-150},{340,-150},{340,-140},{470,-140}},
-      color={255,127,0}));
+  connect(booToInt2.y, yFreProSta) annotation (Line(points={{281,-150},{340,-150},
+          {340,-140},{470,-140}}, color={255,127,0}));
   connect(booToRea6.y, swi5.u3)
     annotation (Line(points={{221,-210},{240,-210},{240,-218},{258,-218}},
       color={0,0,127}));
@@ -852,7 +850,7 @@ annotation (
           extent={{56,12},{94,-10}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="opeMode"),
+          textString="yOpeMod"),
         Text(
           extent={{56,-38},{94,-60}},
           lineColor={255,127,0},
@@ -948,7 +946,7 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/
 During <i>unoccupied Mode</i>, if any single zone falls below <i>4.4</i> &deg;C
 (<i>40</i> &deg;F), the zone group shall enter <i>setback mode</i> until all zones
 are above <i>7.2</i> &deg;C (<i>45</i> &deg;F), and a Level 3 alarm
-<code>yFreProAla</code> shall be set.
+<code>yFreProSta</code> shall be set.
 </p>
 <h4>Setup Mode</h4>
 <p>
