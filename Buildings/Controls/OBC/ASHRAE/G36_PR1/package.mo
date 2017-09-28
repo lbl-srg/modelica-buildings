@@ -5,6 +5,9 @@ package G36_PR1 "Package with control sequences from ASHRAE Guideline 36"
 
 
 
+
+
+
 annotation (Documentation(info="<html>
 <p>
 This package contains control sequences from
@@ -35,10 +38,10 @@ outputs utilized accross the HVAC system, both for the AHU and the
 terminal unit control.
 </li>
 <li><a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits</a> contains control
-sequences for generating controller setpoints, e.g. minimal zone airflow rate 
-<code>VOccMinAir</code>, and actuation signals for mechanical elements, 
-e.g. terminal unit damper, <code>yDam</code>.
+Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits</a> contains terminal unit 
+control sequences for generating controller setpoints, 
+e.g. minimal zone airflow rate <code>VOccMinAir</code>, and actuation signals 
+for mechanical elements, e.g. terminal unit damper, <code>yDam</code>.
 </li>
 </ul>
 <h4>References</h4>
