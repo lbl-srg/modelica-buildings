@@ -288,6 +288,12 @@ block OperationMode "Block that outputs the operation mode"
     k=preWarCooTim)
     "Allowed maximum warm-up/cool-down time"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch lat3
+    "Hold true when it should be in warm-up mode"
+    annotation (Placement(transformation(extent={{0,80},{20,100}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch lat4
+    "Hold true when it should be in cool-down mode"
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
 protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger occMod
@@ -345,9 +351,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
    annotation (Placement(transformation(extent={{260,-340},{280,-320}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Whether or not the warm-up time should be activated"
-    annotation (Placement(transformation(extent={{140,140},{160,160}})));
+    annotation (Placement(transformation(extent={{200,140},{220,160}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Whether or not the cool-down time should be activated"
-    annotation (Placement(transformation(extent={{140,180},{160,200}})));
+    annotation (Placement(transformation(extent={{200,180},{220,200}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Whether or not the number of \"cold\" zone is more than 5 or all
     zones are cold"
@@ -397,6 +403,10 @@ protected
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax maxZonTem(nin=numZon) "Find the maximum zone temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
+    annotation (Placement(transformation(extent={{140,160},{160,180}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not4 "Logical not"
+    annotation (Placement(transformation(extent={{140,120},{160,140}})));
 
 equation
   connect(swi.y, occMod.u)
@@ -553,21 +563,22 @@ equation
   connect(not2.y,booToInt3. u)
     annotation (Line(points={{281,-330},{298,-330}},
       color={255,0,255}));
-  connect(sumInt.y, yOpeMod) annotation (Line(points={{441.7,-60},{441.7,-60},{450,
-          -60},{450,-20},{470,-20}}, color={255,127,0}));
+  connect(sumInt.y, yOpeMod)
+    annotation (Line(points={{441.7,-60},{441.7,-60},{450,-60},{450,-20},{470,-20}},
+      color={255,127,0}));
   connect(lat1.y,booToInt2. u)
     annotation (Line(points={{161,-110},{180,-110},{180,-150},{258,-150}},
       color={255,0,255}));
   connect(and2.y, booToInt.u)
-    annotation (Line(points={{161,190},{258,190}}, color={255,0,255}));
+    annotation (Line(points={{221,190},{258,190}}, color={255,0,255}));
   connect(and1.y, booToInt1.u)
-    annotation (Line(points={{161,150},{258,150}}, color={255,0,255}));
+    annotation (Line(points={{221,150},{258,150}}, color={255,0,255}));
   connect(and2.y, or3.u2)
-    annotation (Line(points={{161,190},{161,190},{172,190},{172,64},{34,64},
-      {34,32},{78,32}}, color={255,0,255}));
+    annotation (Line(points={{221,190},{236,190},{236,64},{64,64},{64,32},{78,32}},
+      color={255,0,255}));
   connect(and1.y, or3.u1)
-    annotation (Line(points={{161,150},{161,150},{178,150},{178,58},{42,58},{42,40},
-      {78,40}}, color={255,0,255}));
+    annotation (Line(points={{221,150},{240,150},{240,60},{70,60},{70,40},{78,40}},
+      color={255,0,255}));
   connect(uOcc, swi.u2)
     annotation (Line(points={{-280,300},{28,300},{28,250},{258,250}},
       color={255,0,255}));
@@ -595,7 +606,7 @@ equation
   connect(add5.y, hys4.u)
     annotation (Line(points={{81,190},{89.5,190},{98,190}}, color={0,0,127}));
   connect(hys4.y, and2.u1)
-    annotation (Line(points={{121,190},{129.5,190},{138,190}},
+    annotation (Line(points={{121,190},{198,190}},
       color={255,0,255}));
   connect(tNexOcc, add5.u1)
     annotation (Line(points={{-280,260},{36,260},{36,196},{58,196}},
@@ -612,20 +623,14 @@ equation
   connect(add6.y, hys5.u)
     annotation (Line(points={{81,150},{89.5,150},{98,150}}, color={0,0,127}));
   connect(hys5.y, and1.u1)
-    annotation (Line(points={{121,150},{129.5,150},{138,150}},color={255,0,255}));
+    annotation (Line(points={{121,150},{198,150}}, color={255,0,255}));
   connect(add7.y, hys6.u)
     annotation (Line(points={{-59,90},{-59,90},{-42,90}}, color={0,0,127}));
-  connect(hys6.y, and1.u2)
-    annotation (Line(points={{-19,90},{-19,90},{130,90},{130,142},{138,142}},
-      color={255,0,255}));
   connect(THeaSet, add7.u1)
     annotation (Line(points={{-280,90},{-100,90},{-100,96},{-82,96}},
       color={0,0,127}));
   connect(add8.y, hys7.u)
     annotation (Line(points={{-59,60},{-54,60},{-42,60}}, color={0,0,127}));
-  connect(hys7.y, and2.u2)
-    annotation (Line(points={{-19,60},{-2,60},{-2,92},{128,92},{128,182},
-      {138,182}}, color={255,0,255}));
   connect(TCooSet, add8.u1)
     annotation (Line(points={{-280,60},{-94,60},{-94,66},{-82,66}},
       color={0,0,127}));
@@ -636,8 +641,8 @@ equation
   connect(addPar1.y, hys10.u)
     annotation (Line(points={{21,-150},{38,-150}}, color={0,0,127}));
   connect(hys10.y, lat1.u0)
-    annotation (Line(points={{61,-150},{80,-150},{80,-116},
-      {139,-116}}, color={255,0,255}));
+    annotation (Line(points={{61,-150},{80,-150},{80,-116},{139,-116}},
+      color={255,0,255}));
   connect(maxWarTim.yMax, addPar3.u)
     annotation (Line(points={{-119,110},{-100,110},{-100,140},{-82,140}},
       color={0,0,127}));
@@ -681,8 +686,9 @@ equation
   connect(booToRea4.y, swi4.u3)
     annotation (Line(points={{221,-110},{240,-110},{240,-118},{258,-118}},
       color={0,0,127}));
-  connect(booToInt2.y, yFreProSta) annotation (Line(points={{281,-150},{340,-150},
-          {340,-140},{470,-140}}, color={255,127,0}));
+  connect(booToInt2.y, yFreProSta)
+    annotation (Line(points={{281,-150},{340,-150},{340,-140},{470,-140}},
+      color={255,127,0}));
   connect(booToRea6.y, swi5.u3)
     annotation (Line(points={{221,-210},{240,-210},{240,-218},{258,-218}},
       color={0,0,127}));
@@ -737,6 +743,28 @@ equation
   connect(pro1.y, maxWarTim.u)
     annotation (Line(points={{-159,110},{-150,110},{-150,110},{-142,110}},
       color={0,0,127}));
+  connect(hys6.y, lat3.u)
+    annotation (Line(points={{-19,90},{-1,90}}, color={255,0,255}));
+  connect(lat3.y, and1.u2)
+    annotation (Line(points={{21,90},{188,90},{188,142},{198,142}},
+      color={255,0,255}));
+  connect(hys7.y, lat4.u)
+    annotation (Line(points={{-19,60},{-1,60}}, color={255,0,255}));
+  connect(lat4.y, and2.u2)
+    annotation (Line(points={{21,60},{60,60},{60,100},{180,100},{180,182},{198,182}},
+      color={255,0,255}));
+  connect(hys4.y, not3.u)
+    annotation (Line(points={{121,190},{130,190},{130,170},{138,170}},
+      color={255,0,255}));
+  connect(hys5.y, not4.u)
+    annotation (Line(points={{121,150},{128,150},{128,130},{138,130}},
+      color={255,0,255}));
+  connect(not4.y, lat3.u0)
+    annotation (Line(points={{161,130},{170,130},{170,110},{-8,110},{-8,84},{-1,84}},
+      color={255,0,255}));
+  connect(not3.y, lat4.u0)
+    annotation (Line(points={{161,170},{174,170},{174,106},{-12,106},{-12,54},{-1,54}},
+      color={255,0,255}));
 
 annotation (
   defaultComponentName = "opeModSel",
