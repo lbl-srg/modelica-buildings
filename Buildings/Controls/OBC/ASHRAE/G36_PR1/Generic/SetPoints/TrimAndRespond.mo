@@ -15,14 +15,15 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     "Number of requests from zones/systems"
     annotation (Placement(transformation(extent={{-240,-110},{-200,-70}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Setpoint that have been reset"
-    annotation (Placement(transformation(extent={{200,-10},{220,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta
     "On/Off status of the associated device"
     annotation (Placement(transformation(extent={{-240,110},{-200,150}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
+    "Setpoint that have been reset"
+    annotation (Placement(transformation(extent={{200,-10},{220,10}}),
+      iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim(
     final delayTime=delTim + samplePeriod)
