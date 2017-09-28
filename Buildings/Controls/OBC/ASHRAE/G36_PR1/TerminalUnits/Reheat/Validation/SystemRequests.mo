@@ -72,10 +72,10 @@ equation
   connect(uCoo.y, sysReq_RehBox.uCoo)
     annotation (Line(points={{1,40},{18,40},{18,75},{59,75}},
       color={0,0,127}));
-  connect(disAirSet.y, sysReq_RehBox.VDisAirSet)
+  connect(disAirSet.y, sysReq_RehBox.VDisSet)
     annotation (Line(points={{-39,20},{20,20},{20,72},{59,72}},
       color={0,0,127}));
-  connect(disAirRate.y, sysReq_RehBox.VDisAir)
+  connect(disAirRate.y, sysReq_RehBox.VDis)
     annotation (Line(points={{1,0},{22,0},{22,70},{59,70}},
       color={0,0,127}));
   connect(damPos.y, sysReq_RehBox.uDam)

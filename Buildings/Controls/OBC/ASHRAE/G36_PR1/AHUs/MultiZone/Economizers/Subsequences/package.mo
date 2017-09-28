@@ -4,7 +4,7 @@ package Subsequences "Subsequences for economizer control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains subsequences for economizer control.
+This package contains subsequences for multi zone VAV AHU economizer control.
 </p>
 </html>"));
 end Subsequences;

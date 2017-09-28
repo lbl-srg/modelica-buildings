@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences;
 block Modulation
-  "Outdoor and return air damper position modulation sequence for multiple zone VAV AHU"
+  "Outdoor and return air damper position modulation sequence for multi zone VAV AHU"
 
   parameter Real conSigMin=0 "Lower limit of controller output"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
@@ -193,12 +193,12 @@ control loop"),                    Text(
 assignments")}),
 Documentation(info="<html>
 <p>
-This is a multiple zone VAV AHU economizer modulation block. It calculates
+This is a multi zone VAV AHU economizer modulation block. It calculates
 the outdoor and return air damper positions based on the supply air temperature
 control loop signal. The implementation is in line with ASHRAE
 Guidline 36 (G36), PART5.N.2.c. Damper positions are linearly mapped to
 the supply air control loop signal. This is a final sequence in the
-composite multizone VAV AHU economizer control sequence. Damper position
+composite multi zone VAV AHU economizer control sequence. Damper position
 limits, which are the inputs to the sequence, are the outputs of
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits</a> and
@@ -216,15 +216,15 @@ The control charts below show the input-output structure and an economizer dampe
 modulation sequence assuming a well configured controller. Control diagram:
 </p>
 <p align=\"center\">
-<img alt=\"Image of the multizone AHU modulation sequence control diagram\"
+<img alt=\"Image of the multi zone AHU modulation sequence control diagram\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconModulationControlDiagramMultiZone.png\"/>
 </p>
 <p>
-Multizone AHU economizer modulation control chart:
+Multi zone AHU economizer modulation control chart:
 <br/>
 </p>
 <p align=\"center\">
-<img alt=\"Image of the multizone AHU modulation sequence expected performance\"
+<img alt=\"Image of the multi zone AHU modulation sequence expected performance\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconModulationControlChartMultiZone.png\"/>
 </p>
 

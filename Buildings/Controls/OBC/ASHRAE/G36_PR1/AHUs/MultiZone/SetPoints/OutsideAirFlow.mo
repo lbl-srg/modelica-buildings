@@ -129,12 +129,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi3[numZon]
     "If supply fan is off, then outdoor airflow rate should be zero"
     annotation (Placement(transformation(extent={{60,-20},{80,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4[numZon]
+  Buildings.Controls.OBC.CDL.Continuous.Max max [numZon]
     "If supply fan is off, giving a small primary airflow rate to avoid divide-by-zero issue"
-    annotation (Placement(transformation(extent={{-40,-190},{-20,-210}})));
+    annotation (Placement(transformation(extent={{-40,-170},{-20,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Division priOutAirFra[numZon]
     "Primary outdoor air fraction"
-    annotation (Placement(transformation(extent={{40,-210},{60,-190}})));
+    annotation (Placement(transformation(extent={{40,-184},{60,-164}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sysUncOutAir(final nin=numZon)
     "Uncorrected outdoor airflow"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
@@ -151,7 +151,7 @@ protected
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Division effMinOutAirInt
     "Effective minimum outdoor air setpoint"
-    annotation (Placement(transformation(extent={{160,-100},{180,-80}})));
+    annotation (Placement(transformation(extent={{154,-100},{174,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Add desBreZon[numZon] "Breathing zone design airflow"
     annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Division desZonOutAirRate[numZon]
@@ -193,7 +193,7 @@ protected
     annotation (Placement(transformation(extent={{140,140},{160,160}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax maxPriOutAirFra(nin=numZon)
     "Maximum zone outdoor air fraction"
-    annotation (Placement(transformation(extent={{80,-210},{100,-190}})));
+    annotation (Placement(transformation(extent={{80,-184},{100,-164}})));
   Buildings.Controls.OBC.CDL.Continuous.Min min
     "Minimum outdoor airflow rate should not be more than designed outdoor airflow rate"
     annotation (Placement(transformation(extent={{200,-100},{220,-80}})));
@@ -206,7 +206,7 @@ protected
     each pre_y_start=true)
     "Check if cooling or heating air distribution effectiveness should be applied, with 1 degC deadband"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSenor[numZon](k=
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSen[numZon](k=
         have_occSen) "Boolean constant to indicate if there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(k=Constants.OperationModes.occupied)
@@ -253,9 +253,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxSysPriFlow(k=maxSysPriFlo)
     "Highest expected system primary airflow"
     annotation (Placement(transformation(extent={{20,140},{40,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPriAir[numZon](k=fill(0.1, numZon))
-    "Near zero primary airflow so to avoid divide-by-zero issue in later process when supply fan is off"
-    annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(nout=numZon)
     "Replicate Boolean input"
     annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
@@ -268,6 +265,13 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
 
+  CDL.Continuous.Gain gaiDivZer(final k=1E-10)
+    "Gain, used to avoid division by zero if the flow rate is zero"
+    annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
+
+  CDL.Routing.RealReplicator reaRepDivZer(final nout=numZon)
+    "Signal replicator to avoid division by zero"
+    annotation (Placement(transformation(extent={{-80,-220},{-60,-200}})));
 equation
   connect(breZonAre.y, breZon.u1)
     annotation (Line(points={{-149,120},{-140,120},{-140,110},{-90,110},
@@ -310,7 +314,7 @@ equation
     annotation (Line(points={{-19,2},{-19,2},{0,2},{0,-38},{58,-38}},
       color={0,0,127}));
   connect(swi3.y, priOutAirFra.u1)
-    annotation (Line(points={{81,-30},{90,-30},{90,-56},{-10,-56},{-10,-194},{38,-194}},
+    annotation (Line(points={{81,-30},{90,-30},{90,-56},{-8,-56},{-8,-168},{38,-168}},
                   color={0,0,127}));
   connect(swi3.y,sysUncOutAir.u)
     annotation (Line(points={{81,-30},{81,-30},{98,-30}},color={0,0,127}));
@@ -344,7 +348,7 @@ equation
   connect(desZonPriOutAirRate.y, zonVenEff.u2)
     annotation (Line(points={{1,170}, {60,170},{60,144},{98,144}},
       color={0,0,127}));
-  connect(swi.u2, occSenor.y)
+  connect(swi.u2, occSen.y)
     annotation (Line(points={{-122,40},{-134,40},{-134,50},{-139,50}},
       color={255,0,255}));
   connect(TDis, add2.u2)
@@ -359,20 +363,12 @@ equation
   connect(hys.y, swi1.u2)
     annotation (Line(points={{-99,-40},{-90,-40},{-82,-40}},
       color={255,0,255}));
-  connect(swi4.y, priOutAirFra.u2)
-    annotation (Line(points={{-19,-200},{-10,-200},{-10,-206},{38,-206}},
-      color={0,0,127}));
-  connect(swi4.y, sysPriAirRate.u)
-    annotation (Line(points={{-19,-200},{-12,-200},{-12,-90},{-2,-90}},
-      color={0,0,127}));
-  connect(zerPriAir.y, swi4.u1)
-    annotation (Line(points={{-99,-220},{-80,-220},{-80,-208},{-42,-208}},
-      color={0,0,127}));
-  connect(VBox_flow, swi4.u3)
-    annotation (Line(points={{-200,-200},{-200,-200},{-100,-200},{-100,-192},{-42,-192}},
-      color={0,0,127}));
+  connect(max.y, priOutAirFra.u2) annotation (Line(points={{-19,-180},{38,-180}},
+                                 color={0,0,127}));
+  connect(max.y, sysPriAirRate.u) annotation (Line(points={{-19,-180},{-12,-180},
+          {-12,-90},{-2,-90}}, color={0,0,127}));
   connect(priOutAirFra.y, maxPriOutAirFra.u)
-    annotation (Line(points={{61,-200},{61,-200},{78,-200}}, color={0,0,127}));
+    annotation (Line(points={{61,-174},{78,-174}},           color={0,0,127}));
   connect(sysPriAirRate.y, outAirFra.u2)
     annotation (Line(points={{21.7,-90},{30,-90},{30,-96},{38,-96}},
       color={0,0,127}));
@@ -383,11 +379,11 @@ equation
     annotation (Line(points={{101,-90},{101,-90},{100,-90},{102,-90},{110,-90},
       {110,-84},{118,-84}}, color={0,0,127}));
   connect(maxPriOutAirFra.yMax, sysVenEff.u2)
-    annotation (Line(points={{101,-200},{110,-200},{110,-96},{118,-96}},
+    annotation (Line(points={{101,-174},{110,-174},{110,-96},{118,-96}},
       color={0,0,127}));
   connect(sysVenEff.y, effMinOutAirInt.u2)
-    annotation (Line(points={{141,-90},{141,-90},{142,-90},{148,-90},{148,-96},
-      {158,-96}}, color={0,0,127}));
+    annotation (Line(points={{141,-90},{148,-90},{148,-96},{152,-96}},
+                  color={0,0,127}));
   connect(sumDesZonPop.y, occDivFra.u2)
     annotation (Line(points={{-118.3,230},{-112,230},{-112,248},{-106,248},
       {-106,248},{-100,248},{-100,248}}, color={0,0,127}));
@@ -420,19 +416,20 @@ equation
     annotation (Line(points={{161,150},{168,150},{168,134},{114,134},{114,104},
       {138,104}}, color={0,0,127}));
   connect(min1.y, effMinOutAirInt.u1)
-    annotation (Line(points={{161,-30},{180,-30},{180,-60},{146,-60},{146,-84},
-      {158,-84}}, color={0,0,127}));
+    annotation (Line(points={{161,-30},{174,-30},{174,-60},{146,-60},{146,-84},{
+          152,-84}},
+                  color={0,0,127}));
   connect(sysUncOutAir.y, min1.u2)
     annotation (Line(points={{121.7,-30},{121.7,-30},{128,-30},{128,-36},{138,-36}},
       color={0,0,127}));
   connect(min1.y, outAirFra.u1)
-    annotation (Line(points={{161,-30},{180,-30},{180,-60},{128,-60},{26,-60},
-      {26,-84},{38,-84}}, color={0,0,127}));
+    annotation (Line(points={{161,-30},{174,-30},{174,-60},{174,-60},{26,-60},{26,
+          -84},{38,-84}}, color={0,0,127}));
   connect(unCorOutAirInk.y, min1.u1)
     annotation (Line(points={{41,220.5},{180,220.5},{180,80},{128,80},{128,-24},
       {138,-24}}, color={0,0,127}));
   connect(effMinOutAirInt.y, min.u2)
-    annotation (Line(points={{181,-90},{181,-90},{188,-90},{188,-96},{198,-96}},
+    annotation (Line(points={{175,-90},{188,-90},{188,-96},{198,-96}},
       color={0,0,127}));
   connect(desOutAirInt.y, min.u1)
     annotation (Line(points={{161,110},{188,110},{188,76},{188,-84},{198,-84}},
@@ -451,9 +448,6 @@ equation
       color={0,0,127}));
   connect(not1.y, booRep.u)
     annotation (Line(points={{-99,-130},{-82,-130}},
-      color={255,0,255}));
-  connect(booRep.y, swi4.u2)
-    annotation (Line(points={{-59,-130},{-59,-130},{-50,-130},{-50,-200},{-42,-200}},
       color={255,0,255}));
   connect(booRep.y, swi3.u2)
     annotation (Line(points={{-59,-130},{-40,-130},{-40,-130},{-40,-30},{58,-30}},
@@ -475,6 +469,15 @@ equation
   connect(intEqu1.y, and1.u2)
     annotation (Line(points={{-109,-160},{-100,-160},{-100,-144},{-170,-144},{-170,-138},
     {-162,-138}}, color={255,0,255}));
+  connect(max.u2, VBox_flow) annotation (Line(points={{-42,-174},{-130,-174},{-130,
+          -200},{-200,-200}}, color={0,0,127}));
+  connect(reaRepDivZer.y, max.u1) annotation (Line(points={{-59,-210},{-50,-210},
+          {-50,-186},{-42,-186}}, color={0,0,127}));
+  connect(gaiDivZer.y, reaRepDivZer.u)
+    annotation (Line(points={{-99,-210},{-82,-210}}, color={0,0,127}));
+  connect(gaiDivZer.u, unCorOutAirInk.y) annotation (Line(points={{-122,-210},{-140,
+          -210},{-140,-228},{180,-228},{180,222},{110,222},{110,220.5},{41,220.5}},
+        color={0,0,127}));
 annotation (
 defaultComponentName="outAirSetPoi",
 Icon(graphics={Rectangle(
@@ -646,12 +649,6 @@ where the design outdoor air rate <code>desOutAirInt</code> should be:
 
 <h4>References</h4>
 <p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
-Standards Review)/ASHRAE Guideline 36P,
-<i>High Performance Sequences of Operation for HVAC systems</i>.
-First Public Review Draft (June 2016)</a>
-</p>
-<p>
 ANSI/ASHRAE Standard 62.1-2013,
 <i>Ventilation for Acceptable Indoor Air Quality.</i>
 </p>
@@ -662,6 +659,11 @@ Stanke, D., 2010. <i>Dynamic Reset for Multiple-Zone Systems.</i> ASHRAE Journal
 
 </html>", revisions="<html>
 <ul>
+<li>
+September 27, 2017, by Michael Wetter:<br/>
+Changed handling of guard against zero division, as the flow rate
+can be zero at the instant when the fan switches on.
+</li>
 <li>
 July 6, 2017, by Jianjun Hu:<br/>
 Replaced <code>cooCtrlSig</code> input with <code>TZon</code> and <code>TDis</code>

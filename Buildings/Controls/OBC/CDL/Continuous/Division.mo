@@ -11,7 +11,7 @@ block Division "Output first input divided by second input"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
-  y = u1 / u2;
+  y * u2 = u1;
 
 annotation (
   defaultComponentName="div",

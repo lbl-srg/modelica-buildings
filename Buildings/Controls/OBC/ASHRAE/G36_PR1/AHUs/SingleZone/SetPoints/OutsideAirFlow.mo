@@ -11,7 +11,7 @@ block OutsideAirFlow
   parameter Modelica.SIunits.Area zonAre
     "Area of each zone"
     annotation(Dialog(group="Nominal condition"));
-  parameter Boolean occSen = true
+  parameter Boolean have_occSen=false
     "Set to true if zones have occupancy sensor";
   parameter Real occDen(final unit="1/m2") = 0.05
     "Default number of person in unit area";
@@ -95,8 +95,8 @@ protected
     pre_y_start=true)
     "Check if cooling or heating air distribution effectiveness should be applied, with 1 degC deadband"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSenor(
-    final k=occSen)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSen(
+    final k=have_occSen)
     "Boolean constant to indicate if there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOutAir(
@@ -121,7 +121,8 @@ protected
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(k=Constants.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(
+    final k=Constants.OperationModes.occupied)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-180,-180},{-160,-160}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
@@ -162,7 +163,7 @@ equation
   connect(zonOutAirRate.y, swi2.u3)
     annotation (Line(points={{41,30},{60,30},{60,18},{78,18}},
       color={0,0,127}));
-  connect(swi.u2, occSenor.y)
+  connect(swi.u2, occSen.y)
     annotation (Line(points={{-62,48},{-76,48},{-76,50},{-139,50}},
       color={255,0,255}));
   connect(nOcc, gai.u)
@@ -198,7 +199,7 @@ equation
   connect(occMod.y, intEqu1.u2)
     annotation (Line(points={{-159,-170},{-150,-170},{-150,-158},{-142,-158}}, color={255,127,0}));
  annotation (
-defaultComponentName="OutAirSetPoi_SinZon",
+defaultComponentName="outAirSetPoi",
 Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -234,7 +235,7 @@ is according to ASHRAE Guidline 36 (G36), PART5.P.4.b, PART5.B.2.b, PART3.1-D.2.
 <p>
 The number of occupant <code>occCou</code> could be retrieved
 directly from occupancy sensor <code>nOcc</code> if the sensor exists
-(<code>occSen=true</code>), or using the default occupant density
+(<code>have_occSen=true</code>), or using the default occupant density
 <code>occDen</code> to find it <code>zonAre*occDen</code>. The occupant
 density can be found from Table 6.2.2.1 in ASHRAE Standard 62.1-2013.
 For design purpose, use design zone population <code>desZonPop</code> to find
@@ -279,13 +280,6 @@ space temperature: <code>zonOutAirRate = breZonAre/disEffHea</code></li>
 <p>
 For the single zone system, the required minimum outdoor airflow setpoint
 <code>VOutMinSet_flow</code> equals to the <code>zonOutAirRate</code>.
-
-<h4>References</h4>
-<p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
-Standards Review)/ASHRAE Guideline 36P,
-<i>High Performance Sequences of Operation for HVAC systems</i>.
-First Public Review Draft (June 2016)</a>
 </p>
 </html>", revisions="<html>
 <ul>

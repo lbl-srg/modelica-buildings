@@ -62,7 +62,7 @@ block DamperValve
     "Active heating maximum"
     annotation (Placement(transformation(extent={{-360,-350},{-320,-310}}),
       iconTransformation(extent={{-120,40},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDisAir(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
@@ -101,7 +101,7 @@ block DamperValve
     "Reheater valve position"
     annotation (Placement(transformation(extent={{320,-50},{340,-30}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDisAirSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDisSet(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Discharge airflow setpoint"
@@ -229,7 +229,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
     final k=1,
     final p=2.8)
-    "Zone temperature pluzonSetpoints 2.8 degC"
+    "Zone temperature pluTSetZons 2.8 degC"
     annotation (Placement(transformation(extent={{-260,-280},{-240,-260}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uHigh=0.05,
@@ -422,7 +422,7 @@ equation
   connect(mulSum.y, damPosCon.u_s)
     annotation (Line(points={{221.7,210},{240,210},{240,350},{258,350}},
       color={0,0,127}));
-  connect(VDisAir, damPosCon.u_m)
+  connect(VDis, damPosCon.u_m)
     annotation (Line(points={{-340,320},{270,320},{270,338}},
       color={0,0,127}));
   connect(hys3.y, not3.u)
@@ -494,7 +494,7 @@ equation
   connect(hys7.y, and3.u2)
     annotation (Line(points={{-59,-270},{-40,-270},{-40,-278},{-2,-278}},
       color={255,0,255}));
-  connect(mulSum.y, VDisAirSet)
+  connect(mulSum.y, VDisSet)
     annotation (Line(points={{221.7,210},{330,210}}, color={0,0,127}));
   connect(lin1.y, TDisSet)
     annotation (Line(points={{-99,-100},{-80,-100},{-80,-160},{330,-160}},
@@ -536,7 +536,7 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{-40,298},{154,260}},
-          lineColor={0,0,255},
+          lineColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
@@ -544,14 +544,14 @@ annotation (
 in cooling state"),
         Text(
           extent={{38,106},{150,82}},
-          lineColor={0,0,255},
+          lineColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Hot water valve control"),
         Text(
           extent={{-52,22},{154,-20}},
-          lineColor={0,0,255},
+          lineColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
@@ -559,7 +559,7 @@ in cooling state"),
 in deadband state"),
         Text(
           extent={{-46,-44},{152,-80}},
-          lineColor={0,0,255},
+          lineColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
@@ -567,7 +567,7 @@ in deadband state"),
 in heating state"),
         Text(
           extent={{-44,-184},{154,-220}},
-          lineColor={0,0,255},
+          lineColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
@@ -646,7 +646,7 @@ in heating state")}),
           pattern=LinePattern.Dash,
           origin={39.5,-85.5},
           rotation=90,
-          textString="VDisAir"),
+          textString="VDis"),
         Text(
           extent={{72,44},{98,34}},
           lineColor={0,0,127},
@@ -697,7 +697,7 @@ in heating state")}),
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="VDisAirSet"),
+          textString="VDisSet"),
         Text(
           extent={{60,-74},{98,-86}},
           lineColor={0,0,127},
@@ -728,8 +728,8 @@ no higher than the minimum.
 </li>
 <li>
 <p>
-When the zone state is Deadband (<code>uCoo=0</code>, <code>uHea=0</code>, then
-The active airflow setpoint shall be the minimum airflow setpoint <code>VActMin</code>.
+When the zone state is Deadband (<code>uCoo=0</code> and <code>uHea=0</code>), then
+the active airflow setpoint shall be the minimum airflow setpoint <code>VActMin</code>.
 Hot water valve is closed unless the discharge air temperature is below the minimum
 setpoint (10 &deg;C).
 </p>
@@ -770,15 +770,6 @@ unit are described in the following figure below.</p>
 <img alt=\"Image of damper and valve control for VAV reheat terminal unit\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/DamperValveRehBox.png\"/>
 </p>
-
-<h4>References</h4>
-<p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
-Standards Review)/ASHRAE Guideline 36P,
-<i>High Performance Sequences of Operation for HVAC systems</i>.
-First Public Review Draft (June 2016)</a>
-</p>
-
 </html>", revisions="<html>
 <ul>
 <li>
