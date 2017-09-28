@@ -172,7 +172,11 @@ model AHUGuideline36
       iconTransformation(extent={{-120,-110},{-100,-90}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyFan
     conSupFan(numZon=numZon, maxDesPre=maxDesPre,
-    have_perZonRehBox=true)  "Supply fan controller"
+    have_perZonRehBox=true,
+    iniSet=60,
+    triAmo=-6,
+    resAmo=10,
+    maxRes=20)               "Supply fan controller"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature
     conTSetSup "Setpoint for supply temperature"
