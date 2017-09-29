@@ -181,8 +181,34 @@ equation
   // Incoming radiosity at each surface
   // is equal to the negative of the outgoing radiosity of
   // all other surfaces times the view factor
+  if false then // fixme: remove for release
   G = -transpose(F)*J;
-  // Outgoing radiosity
+  // Net heat exchange
+  Q_flow = -J - G;  // Outgoing radiosity
+  // Sum of energy balance
+  // Remove sumEBal and assert statement for final release
+  sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
+    sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
+    conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(JOutConExtWin));
+  assert(abs(sumEBal) < 1E-1,
+    "Program error: Energy is not conserved in InfraredRadiationExchange.
+               Sum of all energy is " + String(sumEBal));
+  else
+
+  when sample(0, 10*60) then
+  G = -transpose(F)*pre(J);
+  // Net heat exchange
+  Q_flow = -pre(J) - G;  // Outgoing radiosity
+  // Sum of energy balance
+  // Remove sumEBal and assert statement for final release
+  sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
+    sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
+    conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(JOutConExtWin));
+//  assert(abs(sumEBal) < 1E-1,
+//    "Program error: Energy is not conserved in InfraredRadiationExchange.
+//               Sum of all energy is " + String(sumEBal));
+end when;
+  end if;
   // Opaque surfaces.
   // If kOpa[j]=absIR[j]*A[j] < 1E-28, then A < 1E-20 and the surface is
   // from a dummy construction. In this situation, we set T40=293.15^4 to
@@ -216,8 +242,7 @@ equation
     J[j + nOpa] = -JInConExtWin_internal[j];
     G[j + nOpa] = +JOutConExtWin[j];
   end for;
-  // Net heat exchange
-  Q_flow = -J - G;
+
   // Assign heat exchange to connectors
   for i in 1:nConExt loop
     Q_flow[i] = conExt[i].Q_flow;
@@ -255,14 +280,7 @@ equation
     conExtWinFra[1].T = T0;
     JOutConExtWin[1] = 0;
   end if;
-  // Sum of energy balance
-  // Remove sumEBal and assert statement for final release
-  sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
-    sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
-    conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(JOutConExtWin));
-  assert(abs(sumEBal) < 1E-1,
-    "Program error: Energy is not conserved in InfraredRadiationExchange.
-               Sum of all energy is " + String(sumEBal));
+
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},{240,
