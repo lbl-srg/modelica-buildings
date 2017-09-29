@@ -121,7 +121,7 @@ block DamperValve
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{200,-240},{220,-220}})));
   Buildings.Controls.OBC.CDL.Logical.Not not4 "Logical not"
-    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
+    annotation (Placement(transformation(extent={{-182,80},{-162,100}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 "Logical not"
     annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
@@ -129,7 +129,7 @@ block DamperValve
     annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if current zone state is deadband"
-    annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and"
     annotation (Placement(transformation(extent={{0,-280},{20,-260}})));
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
@@ -189,7 +189,7 @@ protected
     annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer2(
     final k=0) "Constant zero"
-    annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
+    annotation (Placement(transformation(extent={{-80,-22},{-60,-2}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer3(
     final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-260,-130},{-240,-110}})));
@@ -231,21 +231,11 @@ protected
     final p=2.8)
     "Zone temperature pluTSetZons 2.8 degC"
     annotation (Placement(transformation(extent={{-260,-280},{-240,-260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uHigh=0.05,
-    final uLow=0.01)
-    "Check if cooling control signal is greater than zero"
-    annotation (Placement(transformation(extent={{-260,20},{-240,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    final uHigh=0.05,
-    final uLow=0.01)
-    "Check if heating control signal is greater than zero"
-    annotation (Placement(transformation(extent={{-260,-20},{-240,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
     final uHigh=0.05,
     final uLow=0.01)
     "Check if cooling control signal is greater than zero"
-    annotation (Placement(transformation(extent={{-160,200},{-140,220}})));
+    annotation (Placement(transformation(extent={{-280,200},{-260,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
     final uHigh=0.05,
     final uLow=0.01)
@@ -277,6 +267,15 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add2(final k2=-1)
     "Calculate temperature difference between AHU supply air and room "
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(delayTime=600)
+    "Check if the true input holds for certain time"
+    annotation (Placement(transformation(extent={{-220,-240},{-200,-220}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3(delayTime=600)
+    "Check if the true input holds for certain time"
+    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel4(delayTime=600)
+    "Check if the true input holds for certain time"
+    annotation (Placement(transformation(extent={{-240,200},{-220,220}})));
 
 equation
   connect(uCoo, lin.u)
@@ -285,45 +284,27 @@ equation
     annotation (Line(points={{-259,290},{-240,290},{-240,268},{-162,268}},
       color={0,0,127}));
   connect(VActCooMin, lin.f1)
-    annotation (Line(points={{-340,220},{-240,220},{-240,264},{-162,264}},
+    annotation (Line(points={{-340,220},{-300,220},{-300,264},{-162,264}},
       color={0,0,127}));
   connect(conOne.y, lin.x2)
     annotation (Line(points={{-199,290},{-180,290},{-180,256},{-162,256}},
       color={0,0,127}));
   connect(VActCooMax, lin.f2)
-    annotation (Line(points={{-340,180},{-200,180},{-200,252},{-162,252}},
+    annotation (Line(points={{-340,180},{-180,180},{-180,252},{-162,252}},
       color={0,0,127}));
-  connect(uCoo, hys.u)
-    annotation (Line(points={{-340,260},{-280,260},{-280,30},{-262,30}},
-      color={0,0,127}));
-  connect(uHea, hys1.u)
-    annotation (Line(points={{-340,-160},{-280,-160},{-280,-10},{-262,-10}},
-      color={0,0,127}));
-  connect(hys.y, not1.u)
-    annotation (Line(points={{-239,30},{-222,30}}, color={255,0,255}));
-  connect(hys1.y, not2.u)
-    annotation (Line(points={{-239,-10},{-222,-10}}, color={255,0,255}));
-  connect(not1.y, and2.u1)
-    annotation (Line(points={{-199,30},{-162,30}}, color={255,0,255}));
-  connect(not2.y, and2.u2)
-    annotation (Line(points={{-199,-10},{-180,-10},{-180,22},{-162,22}},
-      color={255,0,255}));
   connect(uCoo, hys2.u)
-    annotation (Line(points={{-340,260},{-280,260},{-280,210},{-162,210}},
+    annotation (Line(points={{-340,260},{-290,260},{-290,210},{-282,210}},
       color={0,0,127}));
-  connect(hys2.y, swi.u2)
-    annotation (Line(points={{-139,210},{-124,210},{-124,250},{140,250}},
-      color={255,0,255}));
   connect(conZer1.y, swi.u3)
     annotation (Line(points={{-139,180},{-120,180},{-120,242},{140,242}},
       color={0,0,127}));
   connect(VActMin, swi1.u1)
-    annotation (Line(points={{-340,50},{-100,50},{-100,38},{138,38}},
+    annotation (Line(points={{-340,50},{-20,50},{-20,38},{138,38}},
       color={0,0,127}));
   connect(and2.y, swi1.u2)
-    annotation (Line(points={{-139,30},{138,30}},color={255,0,255}));
+    annotation (Line(points={{-59,30},{138,30}}, color={255,0,255}));
   connect(conZer2.y, swi1.u3)
-    annotation (Line(points={{-139,-10},{-100,-10},{-100,22},{138,22}},
+    annotation (Line(points={{-59,-12},{-20,-12},{-20,22},{138,22}},
       color={0,0,127}));
   connect(uHea, hys5.u)
     annotation (Line(points={{-340,-160},{-280,-160},{-280,-190},{-262,-190}},
@@ -404,12 +385,6 @@ equation
   connect(conZer6.y, swi4.u3)
     annotation (Line(points={{101,-320},{120,-320},{120,-278},{138,-278}},
       color={0,0,127}));
-  connect(hys3.y, and1.u2)
-    annotation (Line(points={{-239,-230},{-180,-230},{-180,-198},{-162,-198}},
-      color={255,0,255}));
-  connect(hys3.y, swi4.u2)
-    annotation (Line(points={{-239,-230},{120,-230},{120,-270},{138,-270}},
-      color={255,0,255}));
   connect(swi.y, mulSum.u[1])
     annotation (Line(points={{163,250},{174,250},{174,214.667},{198,214.667}},
       color={0,0,127}));
@@ -425,8 +400,6 @@ equation
   connect(VDis, damPosCon.u_m)
     annotation (Line(points={{-340,320},{270,320},{270,338}},
       color={0,0,127}));
-  connect(hys3.y, not3.u)
-    annotation (Line(points={{-239,-230},{198,-230}}, color={255,0,255}));
   connect(not3.y, watValPos.u2)
     annotation (Line(points={{221,-230},{240,-230},{240,-100},{258,-100}},
       color={255,0,255}));
@@ -448,9 +421,6 @@ equation
   connect(conOne1.y, lin2.f2)
     annotation (Line(points={{21,-120},{40,-120},{40,-108},{78,-108}},
       color={0,0,127}));
-  connect(hys2.y, and4.u1)
-    annotation (Line(points={{-139,210},{-20,210},{-20,190},{-2,190}},
-      color={255,0,255}));
   connect(VActMin, swi5.u1)
     annotation (Line(points={{-340,50},{40,50},{40,182},{58,182}},
       color={0,0,127}));
@@ -463,10 +433,7 @@ equation
     annotation (Line(points={{81,190},{100,190},{100,258},{140,258}},
       color={0,0,127}));
   connect(hys4.y, not4.u)
-    annotation (Line(points={{-199,90},{-162,90}}, color={255,0,255}));
-  connect(not4.y, swi3.u2)
-    annotation (Line(points={{-139,90},{-100,90},{-100,120},{78,120}},
-      color={255,0,255}));
+    annotation (Line(points={{-199,90},{-184,90}}, color={255,0,255}));
   connect(hys5.y, not5.u)
     annotation (Line(points={{-239,-190},{-222,-190}}, color={255,0,255}));
   connect(not5.y, and1.u1)
@@ -499,6 +466,40 @@ equation
   connect(lin1.y, TDisSet)
     annotation (Line(points={{-99,-100},{-80,-100},{-80,-160},{330,-160}},
       color={0,0,127}));
+  connect(hys3.y, truDel.u)
+    annotation (Line(points={{-239,-230},{-222,-230}}, color={255,0,255}));
+  connect(truDel.y, and1.u2)
+    annotation (Line(points={{-199,-230},{-180,-230},{-180,-198},{-162,-198}},
+      color={255,0,255}));
+  connect(truDel.y, not3.u)
+    annotation (Line(points={{-199,-230},{198,-230}}, color={255,0,255}));
+  connect(truDel.y, swi4.u2)
+    annotation (Line(points={{-199,-230},{120,-230},{120,-270},{138,-270}},
+      color={255,0,255}));
+  connect(not4.y, truDel3.u)
+    annotation (Line(points={{-161,90},{-142,90}}, color={255,0,255}));
+  connect(truDel3.y, swi3.u2)
+    annotation (Line(points={{-119,90},{-100,90},{-100,120},{78,120}},
+      color={255,0,255}));
+  connect(hys2.y, truDel4.u)
+    annotation (Line(points={{-259,210},{-242,210}}, color={255,0,255}));
+  connect(truDel4.y, and4.u1)
+    annotation (Line(points={{-219,210},{-20,210},{-20,190},{-2,190}},
+      color={255,0,255}));
+  connect(truDel4.y, swi.u2)
+    annotation (Line(points={{-219,210},{-20,210},{-20,250},{140,250}},
+      color={255,0,255}));
+  connect(truDel.y, not2.u)
+    annotation (Line(points={{-199,-230},{-180,-230},{-180,-148},{-280,-148},
+      {-280,-10},{-222,-10}}, color={255,0,255}));
+  connect(truDel4.y, not1.u)
+    annotation (Line(points={{-219,210},{-200,210},{-200,164},{-304,164},
+      {-304,30},{-222,30}}, color={255,0,255}));
+  connect(not1.y, and2.u1)
+    annotation (Line(points={{-199,30},{-82,30}}, color={255,0,255}));
+  connect(not2.y, and2.u2)
+    annotation (Line(points={{-199,-10},{-180,-10},{-180,22},{-82,22}},
+      color={255,0,255}));
 
 annotation (
   defaultComponentName="damVal_RehBox",

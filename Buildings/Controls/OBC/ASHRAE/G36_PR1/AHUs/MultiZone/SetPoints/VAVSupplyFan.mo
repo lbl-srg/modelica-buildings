@@ -44,9 +44,9 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(tab="Advanced",group="Fan PID controller"));
-  parameter Real k=1 "Gain of controller"
+  parameter Real k=0.5 "Gain of controller"
     annotation (Dialog(tab="Advanced",group="Fan PID controller"));
-  parameter Modelica.SIunits.Time Ti(min=0)=30 "Time constant of Integrator block"
+  parameter Modelica.SIunits.Time Ti(min=0)=15 "Time constant of Integrator block"
     annotation (Dialog(tab="Advanced",group="Fan PID controller",
       enable=
         controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
@@ -56,9 +56,9 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
       enable=
         controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
         controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real yMax=1 "Upper limit of output"
+  parameter Real yFanMax(min=0.1, max=1, unit="1") = 1 "Maximum allowed fan speed"
     annotation (Dialog(tab="Advanced",group="Fan PID controller"));
-  parameter Real yMin=0 "Lower limit of output"
+  parameter Real yFanMin(min=0.1, max=1, unit="1") = 0.1 "Lowest allowed fan speed if fan is on"
     annotation (Dialog(tab="Advanced",group="Fan PID controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
@@ -113,10 +113,10 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
     final controllerType=controllerType,
     final k=k,
     final Td=Td,
-    final yMax=yMax,
-    final yMin=yMin)
+    final yMax=yFanMax,
+    final yMin=yFanMin)
     "Supply fan speed control"
-    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+    annotation (Placement(transformation(extent={{-40,-68},{-20,-48}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerSpe(k=0)
     "Zero fan speed when it becomes OFF"
@@ -194,24 +194,25 @@ equation
     annotation (Line(points={{101,70},{120,70},{120,-8},{-120,-8},{-120,-32},
       {-102,-32}},  color={255,0,255}));
   connect(staPreSetRes.y, supFanSpeCon.u_s)
-    annotation (Line(points={{-79,-40},{-60,-40},{-60,-60},{-42,-60}},
+    annotation (Line(points={{-79,-40},{-60,-40},{-60,-58},{-42,-58}},
       color={0,0,127}));
   connect(or1.y, swi.u2)
     annotation (Line(points={{101,70},{120,70},{120,-8},{0,-8},{0,-60},{78,-60}},
       color={255,0,255}));
   connect(supFanSpeCon.y, swi.u1)
-    annotation (Line(points={{-19,-60},{-4,-60},{-4,-68},{78,-68}},
+    annotation (Line(points={{-19,-58},{-4,-58},{-4,-68},{78,-68}},
       color={0,0,127}));
   connect(zerSpe.y, swi.u3)
     annotation (Line(points={{41,-40},{60,-40},{60,-52},{78,-52}},
       color={0,0,127}));
-  connect(swi.y, ySupFanSpe) annotation (Line(points={{101,-60},{120,-60},{120,
-          -50},{150,-50}}, color={0,0,127}));
+  connect(swi.y, ySupFanSpe)
+    annotation (Line(points={{101,-60},{120,-60},{120,-50},{150,-50}},
+      color={0,0,127}));
   connect(uZonPreResReq, staPreSetRes.numOfReq)
     annotation (Line(points={{-180,-40},{-142,-40},{-142,-48},{-102,-48}},
       color={255,127,0}));
   connect(ducStaPre, supFanSpeCon.u_m)
-    annotation (Line(points={{-180,-80},{-30,-80},{-30,-72}},
+    annotation (Line(points={{-180,-80},{-30,-80},{-30,-70}},
       color={0,0,127}));
   connect(con.y, or1.u2)
     annotation (Line(points={{41,10},{60,10},{60,62},{78,62}},

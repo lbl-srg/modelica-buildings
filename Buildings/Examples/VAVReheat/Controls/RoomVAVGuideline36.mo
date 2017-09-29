@@ -75,8 +75,9 @@ block RoomVAVGuideline36
     VCooMax=V_flow_nominal,
     VMin=0.1*V_flow_nominal,
     VHeaMax=V_flow_nominal,
-    VMinCon=V_flow_nominal,
-    zonAre=zonAre) "Active airflow rate setpoint"
+    zonAre=zonAre,
+    VMinCon=0.1*V_flow_nominal)
+                   "Active airflow rate setpoint"
     annotation (Placement(transformation(extent={{-32,90},{-12,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "Zone operation mode"
