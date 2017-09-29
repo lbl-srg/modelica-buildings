@@ -54,7 +54,7 @@ block RoomVAVGuideline36
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests sysReq(
       have_heaPla=false) "Number of system requests"
     annotation (Placement(transformation(extent={{52,0},{72,20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValve conDamVal
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValve conDamVal(kDam=0.05)
     "Damper and valve controller"
     annotation (Placement(transformation(extent={{10,60},{30,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis
