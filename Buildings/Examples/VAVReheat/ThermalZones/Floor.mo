@@ -297,16 +297,24 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{380,150},{400,170}}),
         iconTransformation(extent={{380,150},{400,170}})));
   Airflow.Multizone.DoorDiscretizedOpen opeSouCor(redeclare package Medium =
-        Medium, wOpe=10) "Opening between perimeter1 and core"
+        Medium, wOpe=10,
+    forceErrorControlOnFlow=false)
+                         "Opening between perimeter1 and core"
     annotation (Placement(transformation(extent={{84,0},{104,20}})));
   Airflow.Multizone.DoorDiscretizedOpen opeEasCor(redeclare package Medium =
-        Medium, wOpe=10) "Opening between perimeter2 and core"
+        Medium, wOpe=10,
+    forceErrorControlOnFlow=false)
+                         "Opening between perimeter2 and core"
     annotation (Placement(transformation(extent={{250,38},{270,58}})));
   Airflow.Multizone.DoorDiscretizedOpen opeNorCor(redeclare package Medium =
-        Medium, wOpe=10) "Opening between perimeter3 and core"
+        Medium, wOpe=10,
+    forceErrorControlOnFlow=false)
+                         "Opening between perimeter3 and core"
     annotation (Placement(transformation(extent={{80,74},{100,94}})));
   Airflow.Multizone.DoorDiscretizedOpen opeWesCor(redeclare package Medium =
-        Medium, wOpe=10) "Opening between perimeter3 and core"
+        Medium, wOpe=10,
+    forceErrorControlOnFlow=false)
+                         "Opening between perimeter3 and core"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiFra(
     table=[0,0.05;
