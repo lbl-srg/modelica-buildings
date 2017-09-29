@@ -224,7 +224,8 @@ equation
   connect(retDamPhyPosMaxSig.y, yRetDamPhyPosMax)
     annotation (Line(points={{-139,-40},{40,-40},{40,-80},{190,-80}},color={0,0,127}));
   connect(and1.u[1], uSupFan)
-    annotation (Line(points={{-82,-85.3333},{-160,-85.3333},{-160,-100},{-200,-100}},
+    annotation (Line(points={{-82,-85.3333},{-160,-85.3333},{-160,-100},{-200,
+          -100}},
       color={255,0,255}));
   connect(uFreProSta, intEqu.u2)
     annotation (Line(points={{-200,-140},{-140,-140},{-140,-148},{-122,-148}},
