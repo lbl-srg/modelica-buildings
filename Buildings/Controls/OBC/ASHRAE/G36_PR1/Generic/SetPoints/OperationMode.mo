@@ -164,16 +164,16 @@ block OperationMode "Block that outputs the operation mode"
     unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{80,-280},{100,-260}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
-    uLow=-10,
-    uHigh=10,
-    pre_y_start=true)
+    pre_y_start=true,
+    uHigh=0,
+    uLow=-60)
     "Whether or not the maximum cool-down time is more than allowed
     cool-down time, with deadband range of 20 seconds"
     annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
-    uLow=-10,
-    uHigh=10,
-    pre_y_start=true)
+    pre_y_start=true,
+    uHigh=0,
+    uLow=-60)
     "Whether or not the maximum warm-up time is more than allowed warm-up
     time, with deadband range of 20 seconds"
     annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
@@ -185,15 +185,15 @@ block OperationMode "Block that outputs the operation mode"
     annotation (Placement(transformation(extent={{60,180},{80,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
     pre_y_start=false,
-    uLow=-10,
-    uHigh=10)
+    uHigh=0,
+    uLow=-60)
     "Whether or not the cool-down model should be activated, with deadband
     range of 20 s"
     annotation (Placement(transformation(extent={{100,180},{120,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys5(
     pre_y_start=false,
-    uLow=-10,
-    uHigh=10)
+    uHigh=0,
+    uLow=-60)
     "Whether or not the warm-up model should be activated, with deadband
     range of 20 s"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
@@ -546,8 +546,9 @@ equation
     annotation (Line(points={{161,-10},{168,-10},{168,20},{112,20},{112,-302},
       {138,-302}}, color={255,0,255}));
   connect(lat1.y, or5.u2)
-    annotation (Line(points={{161,-110},{180,-110},{180,-90},{112,-90},{112,-310},
-      {138,-310}}, color={255,0,255}));
+    annotation (Line(points={{161,-110},{180,-110},{180,-150},{120,-150},{120,
+          -310},{138,-310}},
+                   color={255,0,255}));
   connect(lat2.y, or5.u3)
     annotation (Line(points={{161,-210},{180,-210},{180,-190},{112,-190},{112,-318},
       {138,-318}}, color={255,0,255}));
