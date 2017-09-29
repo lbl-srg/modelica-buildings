@@ -95,7 +95,7 @@ model Guideline36
     annotation (Placement(transformation(extent={{300,330},{320,350}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiMSup(k=m_flow_nominal)
     "Gain for assigning supply air mass flow rate"
-    annotation (Placement(transformation(extent={{300,10},{280,30}})));
+    annotation (Placement(transformation(extent={{360,10},{340,30}})));
 equation
   connect(fanRet.port_a, dpRetFan.port_b) annotation (Line(
       points={{320,140},{320,140},{320,60}},
@@ -332,7 +332,7 @@ equation
   connect(TSupWes.T, TDis.u5[1]) annotation (Line(points={{1289,90},{1228,90},{
           1228,210},{176,210},{176,280},{218,280}}, color={0,0,127}));
   connect(conAHU.yOutDamPos, eco.y) annotation (Line(points={{434,374},{450,374},
-          {450,-6},{-13,-6},{-13,6.6}}, color={0,0,127}));
+          {450,-6},{-10,-6},{-10,-35}}, color={0,0,127}));
   connect(conAHU.TSetSup, heaCoiCon.u_s) annotation (Line(points={{434,362},{456,
           362},{456,-240},{-20,-240},{-20,-160},{-2,-160}},     color={0,0,127}));
   connect(conAHU.TSetSup, cooCoiCon.u_s) annotation (Line(points={{434,362},{
@@ -363,8 +363,8 @@ equation
   connect(conAHU.uZonSta, zonSta.y) annotation (Line(points={{390,362},{330,362},
           {330,340},{321,340}}, color={255,127,0}));
   connect(fanSup.m_flow_in, gaiMSup.y)
-    annotation (Line(points={{270,-28},{270,20},{279,20}}, color={0,0,127}));
-  connect(gaiMSup.u, conAHU.ySupFanSpe) annotation (Line(points={{302,20},{462,
+    annotation (Line(points={{270,-28},{270,20},{339,20}}, color={0,0,127}));
+  connect(gaiMSup.u, conAHU.ySupFanSpe) annotation (Line(points={{362,20},{462,
           20},{462,386},{434,386}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{1660,
