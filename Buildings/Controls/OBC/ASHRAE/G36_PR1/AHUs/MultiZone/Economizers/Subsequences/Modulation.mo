@@ -23,9 +23,10 @@ block Modulation
     final quantity = "ThermodynamicTemperature") "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
-    final quantity = "ThermodynamicTemperature") "Supply air temperature heating setpoint"
+    final quantity = "ThermodynamicTemperature")
+    "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-160,-10},{-120,30}}),
       iconTransformation(extent={{-120,80},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
@@ -73,12 +74,12 @@ block Modulation
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID damPosCon(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final yMax=conSigMax,
-    final yMin=conSigMin,
     final k=kPMod,
-    final Ti=TiMod)
+    final Ti=TiMod,
+    final yMax=1,
+    final yMin=0)
     "Controller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-102,0},{-82,20}})));
 
 protected
   final parameter Real outDamConSigMax(
@@ -115,19 +116,21 @@ protected
     "Damper position is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
+  CDL.Continuous.AddParameter invConAct(p=1, k=-1)
+    "Output the inverse control action"
+    annotation (Placement(transformation(extent={{-72,0},{-52,20}})));
+  CDL.Continuous.Limiter conSigLim(uMax=conSigMax, uMin=conSigMin)
+    "Limiter for control signal"
+    annotation (Placement(transformation(extent={{-42,0},{-22,20}})));
 equation
   connect(TSup, damPosCon.u_m)
-    annotation (Line(points={{-140,-20},{-70,-20},{-70,-2}}, color={0,0,127}));
+    annotation (Line(points={{-140,-20},{-92,-20},{-92,-2}}, color={0,0,127}));
   connect(outDamPos.y, yOutDamPos)
     annotation (Line(points={{81,-30},{100,-30},{100,-20},{120,-20},{130,-20}},color={0,0,127}));
   connect(retDamPos.y, yRetDamPos)
     annotation (Line(points={{81,70},{100,70},{100, 20},{130,20}}, color={0,0,127}));
   connect(retDamMaxLimSig.y,retDamPos. x2)
     annotation (Line(points={{1,40},{2,40}, {0,40},{40,40},{40,66},{58,66},{58,66}},color={0,0,127}));
-  connect(damPosCon.y, retDamPos.u) annotation (Line(points={{-59,10},{30,10},{
-          30,70},{58,70}}, color={0,0,127}));
-  connect(damPosCon.y, outDamPos.u) annotation (Line(points={{-59,10},{40,10},{
-          40,-30},{58,-30}}, color={0,0,127}));
   connect(uRetDamPosMax,retDamPos. f1) annotation (Line(points={{-140,100},{50,100},
           {50,74},{58,74}}, color={0,0,127}));
   connect(uOutDamPosMin, outDamPos.f1) annotation (Line(points={{-140,-100},{-140,
@@ -137,12 +140,20 @@ equation
   connect(retDamMinLimSig.y,retDamPos. x1) annotation (Line(points={{1,78},{58,78}}, color={0,0,127}));
   connect(outDamMaxLimSig.y, outDamPos.x2) annotation (Line(points={{1,-50},{32,-50},{32,-34},{58,-34}},
     color={0,0,127}));
-  connect(THeaSet, damPosCon.u_s)
-    annotation (Line(points={{-140,10},{-140,10},{-82,10}}, color={0,0,127}));
+  connect(TSupSet, damPosCon.u_s)
+    annotation (Line(points={{-140,10},{-104,10}},          color={0,0,127}));
   connect(uRetDamPosMin,retDamPos. f2)
     annotation (Line(points={{-140,60},{-40,60},{-40,62},{58,62}}, color={0,0,127}));
   connect(uOutDamPosMax, outDamPos.f2) annotation (Line(points={{-140,-70},{40,-70},
           {40,-38},{50,-38},{58,-38}}, color={0,0,127}));
+  connect(damPosCon.y, invConAct.u)
+    annotation (Line(points={{-81,10},{-74,10}}, color={0,0,127}));
+  connect(invConAct.y, conSigLim.u)
+    annotation (Line(points={{-51,10},{-44,10}}, color={0,0,127}));
+  connect(conSigLim.y, retDamPos.u) annotation (Line(points={{-21,10},{32,10},{
+          32,70},{58,70}}, color={0,0,127}));
+  connect(conSigLim.y, outDamPos.u) annotation (Line(points={{-21,10},{32,10},{
+          32,-30},{58,-30}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ecoMod",
     Icon(graphics={
@@ -230,6 +241,10 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/Eco
 
 </html>", revisions="<html>
 <ul>
+<li>
+September 29, 2017, by Michael Wetter:<br/>
+Corrected implementation by adding reverse action.
+</li>
 <li>
 June 28, 2017, by Milica Grahovac:<br/>
 First implementation.
