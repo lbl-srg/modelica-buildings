@@ -4,8 +4,8 @@ package SetPoints "Output control setpoints"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains sequences generating setpoints that could be needed for
-both AHU and terminal units control.
+This package contains generic setpoint sequences for
+either AHU or terminal units control.
 </p>
 </html>"));
 end SetPoints;

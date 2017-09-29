@@ -537,7 +537,7 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{-40,298},{154,260}},
-          lineColor={0,0,255},
+          lineColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
@@ -545,14 +545,14 @@ annotation (
 in cooling state"),
         Text(
           extent={{38,106},{150,82}},
-          lineColor={0,0,255},
+          lineColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Hot water valve control"),
         Text(
           extent={{-52,22},{154,-20}},
-          lineColor={0,0,255},
+          lineColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
@@ -560,7 +560,7 @@ in cooling state"),
 in deadband state"),
         Text(
           extent={{-46,-44},{152,-80}},
-          lineColor={0,0,255},
+          lineColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
@@ -568,7 +568,7 @@ in deadband state"),
 in heating state"),
         Text(
           extent={{-44,-184},{154,-220}},
-          lineColor={0,0,255},
+          lineColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
@@ -729,8 +729,8 @@ no higher than the minimum.
 </li>
 <li>
 <p>
-When the zone state is Deadband (<code>uCoo=0</code>, <code>uHea=0</code>, then
-The active airflow setpoint shall be the minimum airflow setpoint <code>VActMin</code>.
+When the zone state is Deadband (<code>uCoo=0</code> and <code>uHea=0</code>), then
+the active airflow setpoint shall be the minimum airflow setpoint <code>VActMin</code>.
 Hot water valve is closed unless the discharge air temperature is below the minimum
 setpoint (10 &deg;C).
 </p>
@@ -771,15 +771,6 @@ unit are described in the following figure below.</p>
 <img alt=\"Image of damper and valve control for VAV reheat terminal unit\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/DamperValveRehBox.png\"/>
 </p>
-
-<h4>References</h4>
-<p>
-<a href=\"http://gpc36.savemyenergy.com/public-files/\">BSR (ANSI Board of
-Standards Review)/ASHRAE Guideline 36P,
-<i>High Performance Sequences of Operation for HVAC systems</i>.
-First Public Review Draft (June 2016)</a>
-</p>
-
 </html>", revisions="<html>
 <ul>
 <li>

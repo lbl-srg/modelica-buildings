@@ -4,12 +4,8 @@ package Economizers "Economizer control of single zone VAV AHU"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-The package contains an economizer control sequence
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Controller</a>, that
-is composed using subsequences from
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences</a>.
+The package contains a single zone VAV AHU economizer
+control sequence and the related economizer subsequences.
 </p>
 </html>"));
 end Economizers;

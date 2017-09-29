@@ -14,19 +14,7 @@ package AHUs "AHU Sequences as defined in guideline G36"
             lineThickness=0.5)}),
   Documentation(info="<html>
 <p>
-This package contains control sequences from ASHRAE Guideline 36 for air
-handler unit control.
+This package contains AHU control sequences from ASHRAE Guideline 36.
 </p>
-</html>", revisions="<html>
-<ul>
-<li>
-July 10, 2017, by Milica Grahovac:<br/>
-First revision.
-</li>
-<li>
-July 1, 2017, by Jianjun Hu:<br/>
-First implementation.
-</li>
-</ul>
 </html>"));
 end AHUs;
