@@ -17,7 +17,7 @@ block DamperModulation
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
     final quantity = "ThermodynamicTemperature") "Supply air temperature heating setpoint"
     annotation (Placement(transformation(extent={{-160,-10},{-120,30}}),
@@ -114,7 +114,7 @@ equation
     annotation (Line(points={{-140,-100},{-140,-100},{28,-100},{28,-26},{58,-26}}, color={0,0,127}));
   connect(outDamMinLimSig.y, outDamPos.x1)
     annotation (Line(points={{1,-10},{1,-10}, {28,-10},{28,-22},{58,-22}}, color={0,0,127}));
-  connect(THeaSet, damPosCon.u_s) annotation (Line(points={{-140,10},{-140,
+  connect(TSupSet, damPosCon.u_s) annotation (Line(points={{-140,10},{-140,
           10},{-82,10}}, color={0,0,127}));
   connect(uRetDamPosMin,retDamPos. f2)
     annotation (Line(points={{-140,60},{-40,60},{-40,62},{58,62}}, color={0,0,127}));
