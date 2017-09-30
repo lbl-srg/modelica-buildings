@@ -49,7 +49,7 @@ model IdealEconomizer
     m_flow_small=m_flow_nominal*1E-5,
     show_V_flow=false) "Prescribed mass flow rate for the bypass" annotation (
       Placement(transformation(
-        extent={{-10,10},{10,-10}},
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,0})));
   Modelica.Blocks.Math.Product pro "Product for mass flow rate computation"
@@ -65,7 +65,8 @@ equation
   connect(y, feedback.u2)
     annotation (Line(points={{-110,0},{-50,0},{-50,14}},color={0,0,127}));
   connect(pro.y, preMasFlo.m_flow_in)
-    annotation (Line(points={{1,28},{28,28},{28,-6}},    color={0,0,127}));
+    annotation (Line(points={{1,28},{8,28},{8,-6},{12,-6},{12,-6}},
+                                                         color={0,0,127}));
   connect(port_Ret, port_Exh)
     annotation (Line(points={{100,-60},{-100,-60}}, color={0,127,255}));
   connect(preMasFlo.port_a, port_Ret)
@@ -138,5 +139,23 @@ equation
           extent={{-48,-48},{50,-96}},
           lineColor={0,0,255},
           textString=
-               "%name")}));
+               "%name")}), Documentation(info="<html>
+<p>
+Model of an idealized economizer in which the recirculated air mass flow rate
+is proportional to the control signal times the mass flow rate at the port
+<code>portSup</code>.
+</p>
+<h4>Limitations</h4>
+<p>
+This model does not compute any pressure drops.
+It will force the pressure at all of its ports to be equal.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 29, 2017, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end IdealEconomizer;

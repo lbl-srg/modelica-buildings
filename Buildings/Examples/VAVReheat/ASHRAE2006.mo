@@ -188,7 +188,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(conEco.yOA, eco.y) annotation (Line(
-      points={{-59.3333,152},{-50,152},{-50,-20},{-13,-20},{-13,6.6}},
+      points={{-59.3333,152},{-10,152},{-10,-18},{-10,-18},{-10,-35}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
