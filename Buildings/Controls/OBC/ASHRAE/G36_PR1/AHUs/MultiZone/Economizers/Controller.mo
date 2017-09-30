@@ -64,7 +64,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     "Physically fixed minimum position of the outdoor air damper"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Supply air temperature heating setpoint"
@@ -211,7 +211,7 @@ equation
     annotation (Line(points={{22,-38},{54,-38},{54,0},{54,1},{59,1}}, color={0,0,127}));
   connect(uZonSta, ecoEnaDis.uZonSta)
     annotation (Line(points={{-130,-100},{-58,-100},{-58,-30},{-1,-30}}, color={255,127,0}));
-  connect(THeaSet,ecoMod.TSupSet)  annotation (Line(points={{-130,40},{40,40},{40,19},{59,19}}, color={0,0,127}));
+  connect(TSupSet,ecoMod.TSupSet)  annotation (Line(points={{-130,40},{40,40},{40,19},{59,19}}, color={0,0,127}));
   annotation (defaultComponentName = "conEco",
         Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},

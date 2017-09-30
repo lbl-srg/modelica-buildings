@@ -129,9 +129,9 @@ equation
     annotation (Line(points={{-59,-90},{20,-90},{20,-16},{99,-16}}, color={255,127,0}));
   connect(zonSta.y, economizer1.uZonSta)
     annotation (Line(points={{-59,-60},{22,-60},{22,-18},{99,-18}}, color={255,127,0}));
-  connect(TSupSetSig.y, economizer.THeaSet)
+  connect(TSupSetSig.y,economizer.TSupSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}}, color={0,0,127}));
-  connect(TSupSetSig.y, economizer1.THeaSet)
+  connect(TSupSetSig.y, economizer1.TSupSet)
     annotation (Line(points={{-59,50},{-46,50},{-46,30},{72,30},{72,-8},{99,-8}}, color={0,0,127}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),

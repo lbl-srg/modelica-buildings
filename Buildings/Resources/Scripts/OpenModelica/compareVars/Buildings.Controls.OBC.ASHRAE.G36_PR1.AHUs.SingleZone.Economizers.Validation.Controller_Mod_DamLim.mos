@@ -13,7 +13,7 @@ compareVars :=
     "economizer1.uSupFanSpe",
     "economizer1.uVOutMinSet_flow",
     "economizer1.TSup",
-    "economizer1.THeaSet",
+    "economizer1.TSupSet",
     "economizer1.yOutDamPos",
     "economizer1.ecoDamLim.yOutDamPosMin",
     "economizer1.ecoDamLim.yOutDamPosMax",
