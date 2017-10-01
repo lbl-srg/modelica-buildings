@@ -76,10 +76,10 @@ model Controller "Single zone VAV AHU economizer control sequence"
     "Physically fixed minimum position of the return air damper"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
-    "Supply air temperature Healing setpoint" annotation (Placement(transformation(
+    "Supply air temperature heating setpoint" annotation (Placement(transformation(
     extent={{-140,30},{-120,50}}), iconTransformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
@@ -212,7 +212,7 @@ equation
   connect(ecoDamLim.yOutDamPosMin, ecoMod.uOutDamPosMin)
     annotation (Line(points={{-59,14},{-20,14},{20,14},{20,12},{20,8},{59,8}},
       color={0,0,127}));
-  connect(THeaSet, ecoMod.THeaSet) annotation (Line(points={{-130,40},{52,40},{52,19},{59,19}},
+  connect(TSupSet, ecoMod.TSupSet) annotation (Line(points={{-130,40},{52,40},{52,19},{59,19}},
       color={0,0,127}));
   connect(TSup, ecoMod.TSup) annotation (Line(points={{-130,60},{50,60},{50,16},{59,16}},color={0,0,127}));
   connect(ecoEnaDis.yRetDamPosMin, ecoMod.uRetDamPosMin)

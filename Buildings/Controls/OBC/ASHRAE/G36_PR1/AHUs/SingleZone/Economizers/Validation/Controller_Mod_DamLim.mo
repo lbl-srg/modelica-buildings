@@ -25,8 +25,8 @@ protected
     "Outdoor temperature high limit cutoff";
   parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
-  parameter Modelica.SIunits.Temperature THeaSet=291.15
-    "Supply air temperature Healing setpoint";
+  parameter Modelica.SIunits.Temperature TSupSet=291.15
+    "Supply air temperature Heating setpoint";
   parameter Modelica.SIunits.Temperature TSup=290.15
     "Measured supply air temperature";
   parameter Real minFanSpe(
@@ -70,7 +70,7 @@ protected
     final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSetSig(
-    final k=THeaSet) "Healing supply air temperature setpoint"
+    final k=TSupSet) "Heating supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSig(
     final k=TSup) "Measured supply air temperature"
@@ -78,7 +78,7 @@ protected
   Modelica.Blocks.Sources.Ramp TSupSig1(
     final duration=900,
     final height=2,
-    final offset=THeaSet - 1) "Measured supply air temperature"
+    final offset=TSupSet - 1) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   Modelica.Blocks.Sources.Ramp VOutMinSetSig(
     final duration=1800,
@@ -108,7 +108,7 @@ equation
     annotation (Line(points={{-99,20},{-60,20},{-60,18},{-4,18},{19,18}},color={0,0,127}));
   connect(hOutCut.y, economizer.hOutCut)
     annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,16},{19,16}},color={0,0,127}));
-  connect(TSupSetSig.y, economizer.THeaSet)
+  connect(TSupSetSig.y, economizer.TSupSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}},color={0,0,127}));
   connect(TSupSig.y, economizer.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}}, color={0,0,127}));
@@ -118,7 +118,7 @@ equation
     annotation (Line(points={{-99,70},{88,70},{88,-20},{99,-20}}, color={0,0,127}));
   connect(TSupSig1.y, economizer1.TSup)
     annotation (Line(points={{61,90},{80,90},{80,-26},{99,-26}}, color={0,0,127}));
-  connect(TSupSetSig.y, economizer1.THeaSet)
+  connect(TSupSetSig.y, economizer1.TSupSet)
     annotation (Line(points={{-59,50},{-54,50},{-54,-20},{20,-20},{20,-28},{99,-28}}, color={0,0,127}));
   connect(fanSta.y, economizer1.uSupFan)
     annotation (Line(points={{-59,-80},{20,-80},{20,-34},{99,-34}}, color={255,0,255}));

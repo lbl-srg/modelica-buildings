@@ -53,7 +53,7 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi2
     "Reinitialize setpoint to initial setting when device become OFF"
-    annotation (Placement(transformation(extent={{120,50},{140,70}})));
+    annotation (Placement(transformation(extent={{120,90},{140,110}})));
   Buildings.Controls.OBC.CDL.Discrete.Sampler sampler(samplePeriod=samplePeriod)
     "Sample number of requests"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
@@ -105,6 +105,10 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Max maxInp
     "Reset setpoint should not be lower than the minimum setpoint"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
+  Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHol(
+    samplePeriod=samplePeriod)
+    "Extrapolation through the values of the last two sampled input signals"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
 equation
   connect(numIgnReqCon.y, difReqIgnReq.u1)
@@ -165,28 +169,26 @@ equation
     annotation (Line(points={{101,-70},{138,-70}},
       color={255,0,255}));
   connect(iniSetCon.y, swi2.u1)
-    annotation (Line(points={{-59,150},{108,150},{108,68},{118,68}},
+    annotation (Line(points={{-59,150},{108,150},{108,108},{118,108}},
       color={0,0,127}));
   connect(swi2.y, swi.u1)
-    annotation (Line(points={{141,60},{150,60},{150,122},{158,122}},
+    annotation (Line(points={{141,100},{150,100},{150,122},{158,122}},
       color={0,0,127}));
   connect(swi2.y, uniDel.u)
-    annotation (Line(points={{141,60},{150,60},{150,110},{-100,110},{-100,60},{-82,60}},
-      color={0,0,127}));
+    annotation (Line(points={{141,100},{150,100},{150,120},{-100,120},{-100,60},
+          {-82,60}},
+                 color={0,0,127}));
   connect(uDevSta, not1.u)
     annotation (Line(points={{-220,130},{-190,130},{-190,90},{-82,90}},
       color={255,0,255}));
   connect(not1.y, swi2.u2)
-    annotation (Line(points={{-59,90},{100,90},{100,60},{118,60}},
+    annotation (Line(points={{-59,90},{30,90},{30,100},{118,100}},
       color={255,0,255}));
   connect(min1.y, maxInp.u1)
     annotation (Line(points={{41,60},{50,60},{50,66},{58,66}},
       color={0,0,127}));
   connect(minSetCon.y, maxInp.u2)
     annotation (Line(points={{41,30},{50,30},{50,54},{58,54}},
-      color={0,0,127}));
-  connect(maxInp.y, swi2.u3)
-    annotation (Line(points={{81,60},{92,60},{92,52},{118,52}},
       color={0,0,127}));
   connect(numOfReq, intToRea.u)
     annotation (Line(points={{-220,-90},{-182,-90}}, color={255,127,0}));
@@ -200,13 +202,20 @@ equation
       color={0,0,127}));
   connect(uDevSta, tim.u)
     annotation (Line(points={{-220,130},{-182,130}}, color={255,0,255}));
-
   connect(tim.y, swi.u2)
     annotation (Line(points={{-159,130},{158,130}}, color={255,0,255}));
-  connect(tim.y, swi1.u2) annotation (Line(points={{-159,130},{-120,130},{-120,-30},
-          {78,-30}}, color={255,0,255}));
-  connect(and2.u1, tim.y) annotation (Line(points={{78,-70},{6,-70},{6,-30},{-120,
-          -30},{-120,130},{-159,130}}, color={255,0,255}));
+  connect(tim.y, swi1.u2)
+    annotation (Line(points={{-159,130},{-120,130},{-120,-30},{78,-30}},
+      color={255,0,255}));
+  connect(and2.u1, tim.y)
+    annotation (Line(points={{78,-70},{6,-70},{6,-30},{-120,-30},{-120,130},
+      {-159,130}}, color={255,0,255}));
+  connect(maxInp.y, firOrdHol.u)
+    annotation (Line(points={{81,60},{98,60}}, color={0,0,127}));
+  connect(firOrdHol.y, swi2.u3)
+    annotation (Line(points={{121,60},{140,60},{140,80},{100,80},{100,92},{118,
+          92}},  color={0,0,127}));
+
 annotation (
   defaultComponentName = "triRes",
   Icon(graphics={Rectangle(
@@ -234,7 +243,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-192,176},{194,-4}},
+          extent={{-192,172},{194,-8}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,

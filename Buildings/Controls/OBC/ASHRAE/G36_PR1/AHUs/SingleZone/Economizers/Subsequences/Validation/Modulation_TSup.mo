@@ -3,21 +3,20 @@ model Modulation_TSup
   "Validation model for single zone VAV AHU outdoor and return air damper position modulation sequence"
   extends Modelica.Icons.Example;
 
+  final parameter Modelica.SIunits.Temperature TSupSet=291.15
+    "Supply air temperature setpoint";
+
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.DamperModulation ecoMod
     "Economizer modulation sequence"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
-protected
-  final parameter Modelica.SIunits.Temperature THeaSet=291.15
-    "Supply air temperature setpoint";
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSetSig(
-    final k=THeaSet) "Supply air temperature setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSetSig(
+    final k=TSupSet) "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Modelica.Blocks.Sources.Ramp TSup(
     final duration=900,
     final height=4,
-    final offset=THeaSet - 2) "Measured supply air temperature"
+    final offset=TSupSet - 2) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMin(final k=0)
     "Minimum outdoor air damper position"
@@ -33,8 +32,9 @@ protected
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
 equation
-  connect(THeaSetSig.y, ecoMod.THeaSet) annotation (Line(points={{1,70},{8,70},{
-          8,48},{8,39},{39,39}}, color={0,0,127}));
+  connect(TSupSetSig.y, ecoMod.TSupSet) annotation (Line(points={{1,70},{10,70},
+          {10,48},{10,39},{39,39}},
+                                 color={0,0,127}));
   connect(TSup.y,ecoMod.TSup)  annotation (Line(points={{-39,70},{-30,70},{-30,36},
           {39,36}},color={0,0,127}));
   connect(RetDamPosMax.y, ecoMod.uRetDamPosMax) annotation (Line(points={{-59,-40},
@@ -64,7 +64,7 @@ equation
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.DamperModulation\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.DamperModulation</a>
-for supply air temeperature (<code>TSup</code>) and supply air temperature heating setpoint (<code>THeaSet</code>)
+for supply air temeperature <code>TSup</code> and supply air temperature heating setpoint <code>TSupSet</code>
 control signals.
 </p>
 </html>", revisions="<html>

@@ -55,7 +55,7 @@ protected
     "Outdoor air enthalpy is below the cutoff"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSetSig(
-    final k=TSupSet) "Healing supply air temperature setpoint"
+    final k=TSupSet) "Heating supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta2(
     final k=Constants.FreezeProtectionStages.stage2)
@@ -104,7 +104,7 @@ equation
     annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,16},{19,16}},color={0,0,127}));
   connect(TSup.y, economizer.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}},color={0,0,127}));
-  connect(TSupSetSig.y, economizer.THeaSet)
+  connect(TSupSetSig.y, economizer.TSupSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}},color={0,0,127}));
   connect(TOutCut1.y, economizer1.TOutCut)
     annotation (Line(points={{-99,70},{74,70},{74,0},{99,0}}, color={0,0,127}));
@@ -116,7 +116,7 @@ equation
     annotation (Line(points={{-99,20},{-88,20},{-88,-26},{74,-26},{74,-2},{99,-2}},color={0,0,127}));
   connect(TSup.y, economizer1.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,118},{82,118},{82,-6},{99,-6}}, color={0,0,127}));
-  connect(TSupSetSig.y, economizer1.THeaSet)
+  connect(TSupSetSig.y, economizer1.TSupSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,68},{72,68},{72,-8},{99,-8}}, color={0,0,127}));
   connect(fanSta.y, economizer1.uSupFan)
     annotation (Line(points={{-19,-10},{20,-10},{20,-14},{99,-14}}, color={255,0,255}));
