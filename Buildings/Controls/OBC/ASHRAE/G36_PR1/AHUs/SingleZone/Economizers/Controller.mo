@@ -190,13 +190,13 @@ equation
   connect(TOut, ecoEnaDis.TOut)
     annotation (Line(points={{-130,140},{-40,140},{-40,-20},{-1,-20}}, color={0,0,127}));
   connect(uSupFan, ecoDamLim.uSupFan)
-    annotation (Line(points={{-130,-40},{-104,-40},{-104,8},{-81,8}},  color={255,0,255}));
+    annotation (Line(points={{-130,-40},{-104,-40},{-104,8},{-81,8}}, color={255,0,255}));
   connect(uOpeMod, ecoDamLim.uOpeMod)
     annotation (Line(points={{-130,-80},{-102,-80},{-102,4},{-102,5},{-81,5}}, color={255,127,0}));
   connect(uFreProSta, ecoDamLim.uFreProSta)
     annotation (Line(points={{-130,-120},{-100,-120},{-100,2},{-81,2}},color={255,127,0}));
   connect(ecoDamLim.yOutDamPosMax, ecoEnaDis.uOutDamPosMax)
-    annotation (Line(points={{-59,6},{-24,6},{-24,-34},{-1,-34}},            color={0,0,127}));
+    annotation (Line(points={{-59,6},{-24,6},{-24,-34},{-1,-34}}, color={0,0,127}));
   connect(ecoDamLim.yOutDamPosMin, ecoEnaDis.uOutDamPosMin)
     annotation (Line(points={{-59,14},{-26,14},{-26,12},{-26,-36},{-1,-36}}, color={0,0,127}));
   connect(ecoMod.yRetDamPos, yRetDamPos)
@@ -210,9 +210,10 @@ equation
   connect(ecoDamLim.yOutDamPosMin, ecoMod.uOutDamPosMin)
     annotation (Line(points={{-59,14},{-20,14},{20,14},{20,12},{20,8},{59,8}},
       color={0,0,127}));
-  connect(THeaSupSet, ecoMod.THeaSupSet) annotation (Line(points={{-130,40},{52,40},{52,19},{59,19}},
-      color={0,0,127}));
-  connect(TSup, ecoMod.TSup) annotation (Line(points={{-130,60},{50,60},{50,16},{59,16}},color={0,0,127}));
+  connect(THeaSupSet, ecoMod.THeaSupSet)
+    annotation (Line(points={{-130,40},{52,40},{52,19},{59,19}},color={0,0,127}));
+  connect(TSup, ecoMod.TSup)
+    annotation (Line(points={{-130,60},{50,60},{50,16},{59,16}},color={0,0,127}));
   connect(ecoEnaDis.yRetDamPosMin, ecoMod.uRetDamPosMin)
     annotation (Line(points={{22,-38},{54,-38},{54,0},{54,1},{59,1}}, color={0,0,127}));
   connect(uZonSta, ecoEnaDis.uZonSta)

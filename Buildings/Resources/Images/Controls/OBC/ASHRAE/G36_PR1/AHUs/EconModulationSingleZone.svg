@@ -271,7 +271,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="462.95487"
+     inkscape:cx="346.5263"
      inkscape:cy="57.372133"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -293,7 +293,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -688,14 +688,14 @@
        inkscape:export-xdpi="96"
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-393.24268"
+       x="-399.49188"
        y="207.92035"
        id="text4487-0"><tspan
-         id="tspan5317"
          sodipodi:role="line"
-         x="-393.24268"
+         x="-399.49188"
          y="207.92035"
-         style="font-size:4.23333311px;fill:#000000;stroke-width:0.26458332">THeaSet</tspan></text>
+         style="font-size:4.23333311px;fill:#000000;stroke-width:0.26458332"
+         id="tspan3465">THeaSupSet</tspan></text>
     <path
        inkscape:export-ydpi="96"
        inkscape:export-xdpi="96"
