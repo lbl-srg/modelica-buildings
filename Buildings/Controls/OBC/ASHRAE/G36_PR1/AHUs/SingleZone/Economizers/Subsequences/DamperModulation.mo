@@ -175,8 +175,10 @@ assignments")}),
     Documentation(info="<html>
 <p>
 This is a single zone VAV AHU economizer modulation block. It calculates
-the outdoor and return air damper positions based on the supply air temperature
-control loop signal. The implementation is in line with ASHRAE
+the outdoor and return air damper positions based on the single zone VAV AHU
+supply air temperature control loop signal. Economizer dampers are modulated
+based on the calculated heating supply air temperature setpoint.
+The implementation is in line with ASHRAE
 Guidline 36 (G36), PART5.P.3.b. Damper positions are linearly mapped to
 the supply air control loop signal. This is a final sequence in the
 composite single zone VAV AHU economizer control sequence. Damper position
