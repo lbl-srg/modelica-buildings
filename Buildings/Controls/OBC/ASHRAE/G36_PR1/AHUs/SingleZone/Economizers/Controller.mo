@@ -172,8 +172,10 @@ model Controller "Single zone VAV AHU economizer control sequence"
     final desVOutMaxFanSpePos=desVOutMaxFanSpePos)
     "Single zone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Modulation ecoMod(final kPMod=kPMod,
-      final TiMod=TiMod) "Single zone VAV AHU economizer damper modulation sequence"
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Modulation ecoMod(
+    final kPMod=kPMod,
+    final TiMod=TiMod)
+    "Single zone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
 equation

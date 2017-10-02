@@ -7,19 +7,22 @@ model Limits_Disable
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
-    final desVOut_flow=desVOut_flow) "Single zone VAV AHU minimum outdoor air control - damper position limits"
+    final desVOut_flow=desVOut_flow)
+    "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Limits ecoDamLim2(
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
-    final desVOut_flow=desVOut_flow) "Single zone VAV AHU minimum outdoor air control - damper position limits"
+    final desVOut_flow=desVOut_flow)
+    "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Limits ecoDamLim3(
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
-    final desVOut_flow=desVOut_flow) "Single zone VAV AHU minimum outdoor air control - damper position limits"
+    final desVOut_flow=desVOut_flow)
+    "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
 
 protected
