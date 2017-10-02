@@ -7,8 +7,6 @@ function nusseltHorizontalCavityReduced
   input Real Ra(min=0) "Rayleigh number";
   input Modelica.SIunits.Temperature T_m
     "Temperature used for thermophysical properties";
-  input Modelica.SIunits.TemperatureDifference dT
-    "Temperature difference used to compute q_flow = h*dT";
   input Modelica.SIunits.Area h(min=0) = 1.5 "Height of window";
   input Real sinTil "Sine of window tilt";
   input Real deltaNu(min=0.01) = 0.1
@@ -23,7 +21,6 @@ algorithm
     gas=gas,
     Ra=Ra,
     T_m=T_m,
-    dT=dT,
     h=h,
     deltaNu=deltaNu,
     deltaRa=deltaRa);

@@ -6,8 +6,6 @@ function convectionVerticalCavity "Free convection in vertical cavity"
   input Real Ra(min=0) "Rayleigh number";
   input Modelica.SIunits.Temperature T_m
     "Temperature used for thermophysical properties";
-  input Modelica.SIunits.TemperatureDifference dT
-    "Temperature difference used to compute q_flow = h*dT";
   input Modelica.SIunits.Area h(min=0) = 1.5 "Height of window";
   input Real deltaNu(min=0.01) = 0.1
     "Small value for Nusselt number, used for smoothing";
@@ -16,12 +14,10 @@ function convectionVerticalCavity "Free convection in vertical cavity"
   output Real Nu(min=0) "Nusselt number";
   output Modelica.SIunits.CoefficientOfHeatTransfer hCon(min=0)
     "Convective heat transfer coefficient";
-  output Modelica.SIunits.HeatFlux q_flow "Convective heat flux";
 protected
   Real Nu_1(min=0) "Nusselt number";
   Real Nu_2(min=0) "Nusselt number";
 algorithm
-
   Nu_1 :=Buildings.Utilities.Math.Functions.spliceFunction(
     pos=0.0673838*Ra^(1/3),
     neg=Buildings.Utilities.Math.Functions.spliceFunction(
@@ -46,7 +42,6 @@ algorithm
     x2=Nu_2,
     deltaX=deltaNu);
   hCon :=Nu*Buildings.HeatTransfer.Data.Gases.thermalConductivity(gas=gas, T=T_m)/gas.x;
-  q_flow :=hCon*dT;
     annotation (smoothOrder=1, Inline=true,
 Documentation(info="<html>
 <p>

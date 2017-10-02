@@ -19,7 +19,6 @@ function convectionHorizontalCavity "Free convection in horizontal cavity"
   output Real Nu(min=0) "Nusselt number";
   output Modelica.SIunits.CoefficientOfHeatTransfer hCon(min=0)
     "Convective heat transfer coefficient";
-  output Modelica.SIunits.HeatFlux q_flow "Convective heat flux";
 protected
   Real Nu_1(min=0) "Nusselt number";
   Real Nu_2(min=0) "Nusselt number";
@@ -32,7 +31,6 @@ algorithm
       gas=gas,
       Ra=Ra,
       T_m=T_m,
-      dT=dT,
       h=h,
       sinTil=sinTil,
       deltaNu=deltaNu,
@@ -42,7 +40,6 @@ algorithm
       gas=gas,
       Ra=Ra,
       T_m=T_m,
-      dT=dT,
       til=til,
       cosTil=abs(cosTil)),
     x=dT+dx,
@@ -54,7 +51,6 @@ algorithm
       gas=gas,
       Ra=Ra,
       T_m=T_m,
-      dT=dT,
       til=til,
       cosTil=abs(cosTil)),
     neg=
@@ -62,7 +58,6 @@ algorithm
       gas=gas,
       Ra=Ra,
       T_m=T_m,
-      dT=dT,
       h=h,
       sinTil=sinTil,
       deltaNu=deltaNu,
@@ -71,7 +66,6 @@ algorithm
     deltax=dx);
   end if;
   hCon :=Nu*Buildings.HeatTransfer.Data.Gases.thermalConductivity(gas, T_m)/gas.x;
-  q_flow :=hCon*dT;
     annotation (smoothOrder=1, Inline=true,
 Documentation(info="<html>
 <p>

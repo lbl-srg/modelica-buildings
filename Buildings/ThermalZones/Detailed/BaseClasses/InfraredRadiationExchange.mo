@@ -6,6 +6,10 @@ model InfraredRadiationExchange
     "Set to true to linearize emissive power";
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.Time experimental_tSample = 600
+    "Set to zero to avoid sampling, or the a positive value to compute radiation at every tSample instant"
+    annotation(Evaluate=true);
+
   HeatTransfer.Interfaces.RadiosityInflow JInConExtWin[NConExtWin] if
       haveConExtWin
     "Incoming radiosity that connects to non-frame part of the window"
@@ -42,6 +46,9 @@ protected
     each max=1,
     each fixed=false) "View factor from surface i to j";
 
+  parameter Modelica.SIunits.Time t0(fixed=false)
+    "First sample time instant";
+
    Buildings.HeatTransfer.Interfaces.RadiosityInflow JInConExtWin_internal[NConExtWin]
     "Incoming radiosity that connects to non-frame part of the window";
 
@@ -73,6 +80,7 @@ protected
     unit="K3") = T0^3 "3rd power of temperature T0";
   Modelica.SIunits.HeatFlowRate sumEBal "Sum of energy balance, should be zero";
 initial equation
+  t0 = time;
   // The next loops build the array epsOpa, AOpa and kOpa that simplify
   // the model equations.
   // These arrays store the values of the constructios in the following order
@@ -181,32 +189,31 @@ equation
   // Incoming radiosity at each surface
   // is equal to the negative of the outgoing radiosity of
   // all other surfaces times the view factor
-  if false then // fixme: remove for release
-  G = -transpose(F)*J;
-  // Net heat exchange
-  Q_flow = -J - G;  // Outgoing radiosity
-  // Sum of energy balance
-  // Remove sumEBal and assert statement for final release
-  sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
-    sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
-    conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(JOutConExtWin));
-  assert(abs(sumEBal) < 1E-1,
-    "Program error: Energy is not conserved in InfraredRadiationExchange.
-               Sum of all energy is " + String(sumEBal));
+  if experimental_tSample <= 0 then
+    G = -transpose(F)*J;
+    // Net heat exchange
+    Q_flow = -J - G;  // Outgoing radiosity
+    // Sum of energy balance
+    // Remove sumEBal and assert statement for final release
+    sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
+      sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
+      conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(JOutConExtWin));
+    assert(abs(sumEBal) < 1E-1,
+      "Program error: Energy is not conserved in InfraredRadiationExchange.
+                Sum of all energy is " + String(sumEBal));
   else
-
-  when sample(0, 10*60) then
-  G = -transpose(F)*pre(J);
-  // Net heat exchange
-  Q_flow = -pre(J) - G;  // Outgoing radiosity
-  // Sum of energy balance
-  // Remove sumEBal and assert statement for final release
-  sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
-    sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
-    conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(JOutConExtWin));
-//  assert(abs(sumEBal) < 1E-1,
-//    "Program error: Energy is not conserved in InfraredRadiationExchange.
-//               Sum of all energy is " + String(sumEBal));
+    when sample(t0, experimental_tSample) then
+    G = -transpose(F)*pre(J);
+    // Net heat exchange
+    Q_flow = -pre(J) - G;  // Outgoing radiosity
+    // Sum of energy balance
+    // Remove sumEBal and assert statement for final release
+    sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
+      sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
+      conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(JOutConExtWin));
+ // assert(abs(sumEBal) < 1E-1,
+ //    "Program error: Energy is not conserved in InfraredRadiationExchange.
+ //              Sum of all energy is " + String(sumEBal));
 end when;
   end if;
   // Opaque surfaces.

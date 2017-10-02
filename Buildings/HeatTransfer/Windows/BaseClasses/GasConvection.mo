@@ -20,6 +20,9 @@ model GasConvection
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.Time experimental_tSample = 3600
+    "Set to zero to avoid sampling of the convective heat transfer coeffficient"
+    annotation(Evaluate=true);
 
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
@@ -56,6 +59,8 @@ protected
   parameter Real Nu0(fixed=false, min=0) "Nusselt number";
   parameter Real Ra0(fixed=false, min=0) "Rayleigh number";
 
+  Clock clo = Clock(experimental_tSample) "Clock to sample model";
+
 initial equation
   // This assertion is required to ensure that the default value of
   // in Buildings.HeatTransfer.Data.Gases.Generic is overwritten.
@@ -75,17 +80,17 @@ initial equation
     T_b=T0+5,
     Ra_min=100);
   (Nu0, hCon0) = Buildings.HeatTransfer.Windows.BaseClasses.convectionVerticalCavity(
-            gas=gas, Ra=Ra0, T_m=T0, dT=10, h=h, deltaNu=deltaNu, deltaRa=deltaRa);
+            gas=gas, Ra=Ra0, T_m=T0, h=h, deltaNu=deltaNu, deltaRa=deltaRa);
 
 equation
-  T_a = port_a.T;
-  T_b = port_b.T;
-  T_m = (port_a.T+port_b.T)/2;
+  T_a = sample(port_a.T, clo);
+  T_b = sample(port_b.T, clo);
+  T_m = (T_a + T_b)/2;
+
   if linearize then
     Ra=Ra0;
-    Nu=Nu0;
-    hCon=hCon0;
-    q_flow = hCon0 * dT;
+    Nu=sample(Nu0, clo);
+    hCon=sample(hCon0, clo);
   else
     Ra = Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh(
       x=gas.x,
@@ -96,20 +101,22 @@ equation
       T_a=T_a,
       T_b=T_b,
       Ra_min=100);
-    if isVertical then
-       (Nu, hCon, q_flow) = Buildings.HeatTransfer.Windows.BaseClasses.convectionVerticalCavity(
-              gas=gas, Ra=Ra, T_m=T_m, dT=dT, h=h, deltaNu=deltaNu, deltaRa=deltaRa);
-    elseif isHorizontal then
-       (Nu, hCon, q_flow) = Buildings.HeatTransfer.Windows.BaseClasses.convectionHorizontalCavity(
-              gas=gas, Ra=Ra, T_m=T_m, dT=dT, til=til, sinTil=sinTil, cosTil=cosTil,
+   if isVertical then
+       (Nu, hCon) = Buildings.HeatTransfer.Windows.BaseClasses.convectionVerticalCavity(
+              gas=gas, Ra=Ra, T_m=T_m, h=h, deltaNu=deltaNu, deltaRa=deltaRa);
+  elseif isHorizontal then
+       (Nu, hCon) = Buildings.HeatTransfer.Windows.BaseClasses.convectionHorizontalCavity(
+              gas=gas, Ra=Ra, T_m=T_m, dT=sample(dT, clo), til=til, sinTil=sinTil, cosTil=cosTil,
               h=h, deltaNu=deltaNu, deltaRa=deltaRa);
-
     else
-       Nu = 0;
-       hCon=0;
-       q_flow=0;
-    end if; // isVertical or isHorizontal
+       Nu = sample(0, clo);
+       hCon=sample(0, clo);
+   end if; // isVertical or isHorizontal
   end if; // linearize
+
+  q_flow = hold(hCon) * dT;
+
+
   if homotopyInitialization then
     Q_flow = u*A*homotopy(actual=q_flow,
                           simplified=hCon0*dT);
