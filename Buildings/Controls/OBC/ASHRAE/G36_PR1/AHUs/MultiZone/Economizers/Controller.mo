@@ -86,20 +86,18 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
-    annotation (Placement(transformation(extent={{-140,110},{-120,130}}),
-      iconTransformation(extent={{-120,90},{-100,110}})));
+    annotation (Placement(transformation(extent={{-140,110},{-120,130}}), iconTransformation(extent={{-120,90},{-100,
+            110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "Outdoor air enthalpy"
-    annotation (Placement(transformation(extent={{-140,90},{-120,110}}),
-    iconTransformation(extent={{-120,70},{-100,90}})));
+    annotation (Placement(transformation(extent={{-140,90},{-120,110}}), iconTransformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOutCut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
-    annotation (Placement(transformation(extent={{-140,70},{-120,90}}),
-      iconTransformation(extent={{-120,50},{-100,70}})));
+    annotation (Placement(transformation(extent={{-140,70},{-120,90}}), iconTransformation(extent={{-120,50},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")
@@ -145,7 +143,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final retDamFulOpeTim=retDamFulOpeTim,
     final disDel=disDel) "Multi zone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits ecoDamLim(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits ecoDamLim(
     final retDamPhyPosMax=retDamPhyPosMax,
     final retDamPhyPosMin=retDamPhyPosMin,
     final outDamPhyPosMax=outDamPhyPosMax,
@@ -233,7 +231,7 @@ equation
           extent={{-170,150},{158,112}},
           lineColor={0,0,127},
           textString="%name")}),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
+        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,160}})),
 Documentation(info="<html>
 <p>
 Multi zone VAV AHU economizer control sequence that calculates

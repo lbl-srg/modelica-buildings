@@ -6,7 +6,7 @@ model Modulation_TSup
   final parameter Modelica.SIunits.Temperature TSupSet=291.15
     "Supply air temperature setpoint";
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.DamperModulation ecoMod
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Modulation ecoMod
     "Economizer modulation sequence"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
@@ -32,19 +32,19 @@ model Modulation_TSup
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
 equation
-  connect(TSupSetSig.y, ecoMod.TSupSet) annotation (Line(points={{1,70},{10,70},
-          {10,48},{10,39},{39,39}},
-                                 color={0,0,127}));
-  connect(TSup.y,ecoMod.TSup)  annotation (Line(points={{-39,70},{-30,70},{-30,36},
-          {39,36}},color={0,0,127}));
-  connect(RetDamPosMax.y, ecoMod.uRetDamPosMax) annotation (Line(points={{-59,-40},
-          {-20,-40},{-20,24},{-6,24},{39,24}}, color={0,0,127}));
-  connect(RetDamPosMin.y, ecoMod.uRetDamPosMin) annotation (Line(points={{-59,-70},
-          {8,-70},{8,16},{8,21},{39,21}},color={0,0,127}));
-  connect(outDamPosMax.y, ecoMod.uOutDamPosMax) annotation (Line(points={{-59,20},
-          {-48,20},{-30,20},{-30,31},{39,31}}, color={0,0,127}));
-  connect(outDamPosMin.y, ecoMod.uOutDamPosMin) annotation (Line(points={{-59,-10},
-          {-34,-10},{-24,-10},{-24,28},{39,28}}, color={0,0,127}));
+  connect(TSupSetSig.y, ecoMod.THeaSupSet)
+    annotation (Line(points={{1,70},{10,70},{10,48},{10,39},{39,39}},
+    color={0,0,127}));
+  connect(TSup.y,ecoMod.TSup)
+    annotation (Line(points={{-39,70},{-30,70},{-30,36},{39,36}},color={0,0,127}));
+  connect(RetDamPosMax.y, ecoMod.uRetDamPosMax)
+    annotation (Line(points={{-59,-40}, {-20,-40},{-20,24},{-6,24},{39,24}}, color={0,0,127}));
+  connect(RetDamPosMin.y, ecoMod.uRetDamPosMin)
+    annotation (Line(points={{-59,-70},{8,-70},{8,16},{8,21},{39,21}},color={0,0,127}));
+  connect(outDamPosMax.y, ecoMod.uOutDamPosMax)
+    annotation (Line(points={{-59,20},{-48,20},{-30,20},{-30,31},{39,31}}, color={0,0,127}));
+  connect(outDamPosMin.y, ecoMod.uOutDamPosMin)
+    annotation (Line(points={{-59,-10},{-34,-10},{-24,-10},{-24,28},{39,28}}, color={0,0,127}));
   annotation (
   experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/Economizers/Subsequences/Validation/Modulation_TSup.mos"

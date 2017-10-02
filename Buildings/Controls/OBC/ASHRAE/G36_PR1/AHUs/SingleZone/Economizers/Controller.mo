@@ -76,7 +76,7 @@ model Controller "Single zone VAV AHU economizer control sequence"
     "Physically fixed minimum position of the return air damper"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSupSet(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Supply air temperature heating setpoint" annotation (Placement(transformation(
@@ -159,7 +159,7 @@ model Controller "Single zone VAV AHU economizer control sequence"
     final retDamPhyPosMin=retDamPhyPosMin)
     "Single zone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.DamperLimits ecoDamLim(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Limits ecoDamLim(
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
     final outDamPhyPosMax=outDamPhyPosMax,
@@ -172,10 +172,8 @@ model Controller "Single zone VAV AHU economizer control sequence"
     final desVOutMaxFanSpePos=desVOutMaxFanSpePos)
     "Single zone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.DamperModulation ecoMod(
-    final kPMod=kPMod,
-    final TiMod=TiMod)
-    "Single zone VAV AHU economizer damper modulation sequence"
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Modulation ecoMod(final kPMod=kPMod,
+      final TiMod=TiMod) "Single zone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
 equation
@@ -212,7 +210,7 @@ equation
   connect(ecoDamLim.yOutDamPosMin, ecoMod.uOutDamPosMin)
     annotation (Line(points={{-59,14},{-20,14},{20,14},{20,12},{20,8},{59,8}},
       color={0,0,127}));
-  connect(TSupSet, ecoMod.TSupSet) annotation (Line(points={{-130,40},{52,40},{52,19},{59,19}},
+  connect(THeaSupSet, ecoMod.THeaSupSet) annotation (Line(points={{-130,40},{52,40},{52,19},{59,19}},
       color={0,0,127}));
   connect(TSup, ecoMod.TSup) annotation (Line(points={{-130,60},{50,60},{50,16},{59,16}},color={0,0,127}));
   connect(ecoEnaDis.yRetDamPosMin, ecoMod.uRetDamPosMin)
@@ -244,7 +242,7 @@ equation
           extent={{-170,150},{158,112}},
           lineColor={0,0,127},
           textString="%name")}),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
+        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,160}})),
 Documentation(info="<html>
 <p>
 Single zone VAV AHU economizer control sequence that calculates
