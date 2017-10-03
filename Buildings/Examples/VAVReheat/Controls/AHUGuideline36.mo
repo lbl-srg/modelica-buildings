@@ -2,6 +2,9 @@ within Buildings.Examples.VAVReheat.Controls;
 model AHUGuideline36
 
   parameter Integer numZon(min=2) "Total number of served zones/VAV boxes";
+  parameter Modelica.SIunits.Time samplePeriod = 120
+    "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
+
   parameter Boolean have_occSen[numZon]=fill(false, numZon)
     "Set to true if zones have occupancy sensor";
   parameter Modelica.SIunits.VolumeFlowRate maxSysPriFlo
@@ -176,10 +179,13 @@ model AHUGuideline36
     iniSet=60,
     triAmo=-10,
     resAmo=15,
-    maxRes=30)               "Supply fan controller"
+    maxRes=30,
+    final samplePeriod=samplePeriod)
+    "Supply fan controller"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature
-    conTSetSup "Setpoint for supply temperature"
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature conTSetSup(
+     final samplePeriod=samplePeriod)
+     "Setpoint for supply temperature"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetSup(final unit="K",
       quantity="ThermodynamicTemperature")

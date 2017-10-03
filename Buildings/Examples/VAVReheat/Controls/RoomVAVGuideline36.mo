@@ -2,6 +2,9 @@ within Buildings.Examples.VAVReheat.Controls;
 block RoomVAVGuideline36
   "Controller for room VAV box according to ASHRAE Guideline 36"
 
+  parameter Modelica.SIunits.Time samplePeriod
+    "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Mass flow rate of this thermal zone";
   parameter Modelica.SIunits.Area zonAre "Area of the zone";
@@ -51,7 +54,9 @@ block RoomVAVGuideline36
 
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests sysReq(
-      have_heaPla=false) "Number of system requests"
+      final have_heaPla=false,
+      final samplePeriod=samplePeriod)
+      "Number of system requests"
     annotation (Placement(transformation(extent={{52,0},{72,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValve conDamVal(kDam=0.05)
     "Damper and valve controller"

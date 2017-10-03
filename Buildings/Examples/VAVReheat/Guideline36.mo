@@ -23,6 +23,9 @@ model Guideline36
       flo.nor.AFlo,
       flo.wes.AFlo} "Area of each zone";
 
+  parameter Modelica.SIunits.Time samplePeriod = 120
+    "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
+
   Buildings.Controls.Continuous.LimPID heaCoiCon(
     yMax=1,
     yMin=0,
@@ -45,24 +48,33 @@ model Guideline36
 
   Buildings.Examples.VAVReheat.Controls.RoomVAVGuideline36 conVAVCor(
       m_flow_nominal=mCor_flow_nominal,
-      zonAre=AFloCor)
+      zonAre=AFloCor,
+    final samplePeriod=samplePeriod)
       "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{530,32},{550,52}})));
   Buildings.Examples.VAVReheat.Controls.RoomVAVGuideline36 conVAVSou(
       m_flow_nominal=mSou_flow_nominal,
-      zonAre=AFloSou) "Controller for terminal unit south"
+      zonAre=AFloSou,
+    final samplePeriod=samplePeriod)
+                      "Controller for terminal unit south"
     annotation (Placement(transformation(extent={{700,30},{720,50}})));
   Buildings.Examples.VAVReheat.Controls.RoomVAVGuideline36 conVAVEas(
       m_flow_nominal=mEas_flow_nominal,
-      zonAre=AFloEas) "Controller for terminal unit east"
+      zonAre=AFloEas,
+    final samplePeriod=samplePeriod)
+                      "Controller for terminal unit east"
     annotation (Placement(transformation(extent={{880,30},{900,50}})));
   Buildings.Examples.VAVReheat.Controls.RoomVAVGuideline36 conVAVNor(
       m_flow_nominal=mNor_flow_nominal,
-      zonAre=AFloNor) "Controller for terminal unit north"
+      zonAre=AFloNor,
+    final samplePeriod=samplePeriod)
+                      "Controller for terminal unit north"
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
   Buildings.Examples.VAVReheat.Controls.RoomVAVGuideline36 conVAVWes(
       m_flow_nominal=mWes_flow_nominal,
-      zonAre=AFloWes) "Controller for terminal unit west"
+      zonAre=AFloWes,
+    final samplePeriod=samplePeriod)
+                      "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
   Buildings.Examples.VAVReheat.Controls.AHUGuideline36 conAHU(
     numZon=numZon,
