@@ -172,7 +172,7 @@ block DamperValve
     "Output active heating airflow according to heating control signal"
     annotation (Placement(transformation(extent={{140,-280},{160,-260}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi5 "Output active cooling airflow "
-    annotation (Placement(transformation(extent={{60,200},{80,180}})));
+    annotation (Placement(transformation(extent={{60,180},{80,200}})));
   Buildings.Controls.OBC.CDL.Logical.Switch watValPos "Output hot water valve position"
     annotation (Placement(transformation(extent={{260,-110},{280,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=3) "Active airflow setpoint"
@@ -184,7 +184,7 @@ protected
     annotation (Placement(transformation(extent={{-280,280},{-260,300}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer1(
     final k=0) "Constant zero"
-    annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
+    annotation (Placement(transformation(extent={{100,220},{120,240}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer2(
     final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-80,-22},{-60,-2}})));
@@ -296,10 +296,11 @@ equation
     annotation (Line(points={{-340,260},{-290,260},{-290,210},{-282,210}},
       color={0,0,127}));
   connect(conZer1.y, swi.u3)
-    annotation (Line(points={{-139,180},{-120,180},{-120,242},{140,242}},
+    annotation (Line(points={{121,230},{130,230},{130,242},{140,242}},
       color={0,0,127}));
   connect(VActMin, swi1.u1)
-    annotation (Line(points={{-340,50},{-20,50},{-20,38},{138,38}},
+    annotation (Line(points={{-340,50},{30,50},{30,40},{30,40},{30,40},{30,40},
+          {30,38},{138,38}},
       color={0,0,127}));
   connect(and2.y, swi1.u2)
     annotation (Line(points={{-59,30},{138,30}}, color={255,0,255}));
@@ -398,15 +399,15 @@ equation
     annotation (Line(points={{281,350},{300,350},{300,20},{330,20}},
       color={0,0,127}));
   connect(VActMin, swi5.u1)
-    annotation (Line(points={{-340,50},{30,50},{30,182},{58,182}},
+    annotation (Line(points={{-340,50},{30,50},{30,198},{58,198}},
       color={0,0,127}));
   connect(and4.y, swi5.u2)
     annotation (Line(points={{21,190},{58,190}}, color={255,0,255}));
   connect(lin.y, swi5.u3)
-    annotation (Line(points={{-139,260},{40,260},{40,198},{58,198}},
+    annotation (Line(points={{-139,260},{40,260},{40,182},{58,182}},
       color={0,0,127}));
   connect(swi5.y, swi.u1)
-    annotation (Line(points={{81,190},{100,190},{100,258},{140,258}},
+    annotation (Line(points={{81,190},{94,190},{94,258},{140,258}},
       color={0,0,127}));
   connect(hys4.y, not4.u)
     annotation (Line(points={{-199,90},{-184,90}}, color={255,0,255}));
@@ -483,13 +484,13 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-380},{320,380}}),
         graphics={
         Rectangle(
-          extent={{-296,-36},{160,-132}},
+          extent={{-298,304},{158,168}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-298,298},{158,162}},
+          extent={{-296,-36},{160,-132}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
