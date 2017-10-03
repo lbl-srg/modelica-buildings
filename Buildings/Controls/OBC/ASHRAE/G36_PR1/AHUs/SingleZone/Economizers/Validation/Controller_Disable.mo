@@ -130,11 +130,11 @@ equation
     annotation (Line(points={{-59,-90},{20,-90},{20,-16},{99,-16}}, color={255,127,0}));
   connect(zonSta.y, economizer1.uZonSta)
     annotation (Line(points={{-59,-60},{22,-60},{22,-18},{99,-18}}, color={255,127,0}));
-  connect(VOutMinSetSig.y, economizer.uVOutMinSet_flow)
+  connect(VOutMinSetSig.y, economizer.VOutMinSet_flow)
     annotation (Line(points={{-19,90},{0,90},{0,10},{19,10}}, color={0,0,127}));
   connect(SupFanSpeSig.y, economizer.uSupFanSpe)
     annotation (Line(points={{-19,50},{0,50},{0,8},{19,8}}, color={0,0,127}));
-  connect(VOutMinSetSig.y, economizer1.uVOutMinSet_flow)
+  connect(VOutMinSetSig.y, economizer1.VOutMinSet_flow)
     annotation (Line(points={{-19,90},{78,90},{78,-10},{99,-10}}, color={0,0,127}));
   connect(SupFanSpeSig.y, economizer1.uSupFanSpe)
     annotation (Line(points={{-19,50},{68,50},{68,-12},{99,-12}}, color={0,0,127}));

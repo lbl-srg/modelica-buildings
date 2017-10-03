@@ -108,7 +108,7 @@ model Controller "Single zone VAV AHU economizer control sequence"
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVOutMinSet_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow(
     final min=minVOut_flow,
     final max=desVOut_flow,
     final unit="m3/s",
@@ -222,7 +222,7 @@ equation
     annotation (Line(points={{-130,-100},{-58,-100},{-58,-30},{-1,-30}}, color={255,127,0}));
   connect(uSupFanSpe, damLim.uSupFanSpe)
     annotation (Line(points={{-130,0},{-106,0},{-106,13.8},{-81,13.8}}, color={0,0,127}));
-  connect(uVOutMinSet_flow, damLim.uVOutMinSet_flow)
+  connect(VOutMinSet_flow, damLim.VOutMinSet_flow)
     annotation (Line(points={{-130,20},{-106,20},{-106,17},{-81,17}}, color={0,0,127}));
   annotation (defaultComponentName = "conEco",
         Icon(graphics={Rectangle(

@@ -68,13 +68,13 @@ equation
     annotation (Line(points={{-99,-50},{70,-50},{70,-16},{70,-15},{80,-15},{99,-15}}, color={255,127,0}));
   connect(freProSta.y, damLim1.uFreProSta)
     annotation (Line(points={{-99,-90},{80,-90},{80,-18},{99,-18}}, color={255,127,0}));
-  connect(VOutMinSetSig.y, damLim.uVOutMinSet_flow)
+  connect(VOutMinSetSig.y, damLim.VOutMinSet_flow)
     annotation (Line(points={{-99,70},{-60,70},{-60,-3},{-41,-3}}, color={0,0,127}));
   connect(SupFanSpeSig.y, damLim.uSupFanSpe)
     annotation (Line(points={{-99,30},{-70,30},{-70,-6.2},{-41,-6.2}}, color={0,0,127}));
   connect(SupFanSpeSig1.y, damLim1.uSupFanSpe)
     annotation (Line(points={{41,30},{70,30},{70,-6.2},{99,-6.2}}, color={0,0,127}));
-  connect(VOutMinSetSig1.y, damLim1.uVOutMinSet_flow)
+  connect(VOutMinSetSig1.y, damLim1.VOutMinSet_flow)
     annotation (Line(points={{41,70},{80,70},{80,-3},{99,-3}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),

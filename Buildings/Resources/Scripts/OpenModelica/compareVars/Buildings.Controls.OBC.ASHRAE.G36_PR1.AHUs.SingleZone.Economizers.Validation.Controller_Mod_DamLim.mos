@@ -2,7 +2,7 @@ compareVars :=
   {
     "economizer.enaDis.andEnaDis.y",
     "economizer.uSupFanSpe",
-    "economizer.uVOutMinSet_flow",
+    "economizer.VOutMinSet_flow",
     "economizer.yOutDamPos",
     "economizer.damLim.yOutDamPosMin",
     "economizer.damLim.yOutDamPosMax",
@@ -11,7 +11,7 @@ compareVars :=
     "economizer.enaDis.yRetDamPosMax",
     "economizer1.enaDis.andEnaDis.y",
     "economizer1.uSupFanSpe",
-    "economizer1.uVOutMinSet_flow",
+    "economizer1.VOutMinSet_flow",
     "economizer1.TSup",
     "economizer1.THeaSupSet",
     "economizer1.yOutDamPos",

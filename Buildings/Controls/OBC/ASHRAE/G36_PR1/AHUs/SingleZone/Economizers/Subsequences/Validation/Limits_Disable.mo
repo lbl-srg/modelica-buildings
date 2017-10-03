@@ -85,7 +85,7 @@ equation
   connect(SupFanSpeSig.y, damLim1.uSupFanSpe)
     annotation (Line(points={{-139,30},{-120,30},{-120,-6},{-120,-6.2},{-110,-6.2},{-101,-6.2}},
     color={0,0,127}));
-  connect(VOutMinSetSig.y, damLim2.uVOutMinSet_flow)
+  connect(VOutMinSetSig.y, damLim2.VOutMinSet_flow)
     annotation (Line(points={{-139,70},{-10,70},{-10,-3},{6,-3},{19,-3}}, color={0,0,127}));
   connect(fanStatus1.y, damLim1.uSupFan)
     annotation (Line(points={{-139,-30},{-130,-30},{-130,-12},{-130,-12},{-102,-12},{-101,-12}},
@@ -109,9 +109,9 @@ equation
   connect(operationMode3.y,damLim3. uOpeMod)
     annotation (Line(points={{101,-60},{120,-60},{120,-16},{120,-15},{130,-15},{139,-15}},
     color={255,127,0}));
-  connect(VOutMinSetSig.y, damLim3.uVOutMinSet_flow)
+  connect(VOutMinSetSig.y, damLim3.VOutMinSet_flow)
     annotation (Line(points={{-139,70},{130,70},{130,40},{130,-3},{134,-3},{139,-3}}, color={0,0,127}));
-  connect(VOutMinSetSig.y, damLim1.uVOutMinSet_flow)
+  connect(VOutMinSetSig.y, damLim1.VOutMinSet_flow)
     annotation (Line(points={{-139,70},{-110,70},{-110,14},{-110,-3},{-104,-3},{-101,-3}}, color={0,0,127}));
   connect(SupFanSpeSig.y, damLim2.uSupFanSpe)
     annotation (Line(points={{-139,30},{-20,30},{-20,-6},{0,-6},{0,-6.2},{19,-6.2}}, color={0,0,127}));
