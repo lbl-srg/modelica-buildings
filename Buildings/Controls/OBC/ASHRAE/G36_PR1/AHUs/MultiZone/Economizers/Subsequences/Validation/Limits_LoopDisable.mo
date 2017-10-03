@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Validation;
-model DamperLimits_LoopDisable
+model Limits_LoopDisable
   "Validation model for the multi zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
@@ -46,15 +46,15 @@ model DamperLimits_LoopDisable
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits ecoDamLim
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits ecoDamLim
     "Multi zone VAV AHU minimum outdoor air control - damper position limits"
-      annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits ecoDamLim1
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits ecoDamLim1
     "Multi zone VAV AHU minimum outdoor air control - damper position limits"
-      annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits ecoDamLim2
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits ecoDamLim2
     "Multi zone VAV AHU minimum outdoor air control - damper position limits"
-      annotation (Placement(transformation(extent={{160,-20},{180,0}})));
+    annotation (Placement(transformation(extent={{160,-20},{180,0}})));
 
 protected
   final parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=0.71
@@ -114,7 +114,7 @@ equation
     annotation (Line(points={{101,-50},{130,-50},{130,-15},{159,-15}}, color={255,127,0}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/Economizers/Subsequences/Validation/DamperLimits_LoopDisable.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/Economizers/Subsequences/Validation/Limits_LoopDisable.mos"
     "Simulate and plot"),
     Icon(graphics={Ellipse(
           lineColor={75,138,73},
@@ -158,8 +158,8 @@ equation
 Documentation(info="<html>
 <p>
 This example validates enable/disable conditions for
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits</a>
 for the following input signals: <code>uSupFan</code>, <code>uFreProSta</code>, <code>uOpeMod</code>.
 </p>
 </html>", revisions="<html>
@@ -170,4 +170,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DamperLimits_LoopDisable;
+end Limits_LoopDisable;

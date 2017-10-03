@@ -211,8 +211,8 @@ Guidline 36 (G36), PART5.N.2.c. Damper positions are linearly mapped to
 the supply air control loop signal. This is a final sequence in the
 composite multi zone VAV AHU economizer control sequence. Damper position
 limits, which are the inputs to the sequence, are the outputs of
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits</a> and
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits</a> and
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable</a>
 sequences.

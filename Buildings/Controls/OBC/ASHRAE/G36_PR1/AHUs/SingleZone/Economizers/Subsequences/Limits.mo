@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences;
-block DamperLimits
-  "Single zone VAV AHU minimum outdoor air control - damper position limits"
+block Limits "Single zone VAV AHU minimum outdoor air control - damper position limits"
 
   parameter Real minFanSpe(
     final min=0,
@@ -425,4 +424,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DamperLimits;
+end Limits;

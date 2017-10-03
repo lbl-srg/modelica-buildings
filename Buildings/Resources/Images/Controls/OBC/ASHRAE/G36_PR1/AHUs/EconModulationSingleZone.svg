@@ -14,7 +14,7 @@
    viewBox="0 0 170.7289 177.27028"
    version="1.1"
    id="svg5233"
-   inkscape:version="0.92.1 r15371"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="EconModulationSingleZone.svg">
   <defs
      id="defs5227">
@@ -270,9 +270,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="573.31095"
-     inkscape:cy="318.32054"
+     inkscape:zoom="1.4"
+     inkscape:cx="346.5263"
+     inkscape:cy="57.372133"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -280,10 +280,10 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1920"
-     inkscape:window-height="1027"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-width="2511"
+     inkscape:window-height="1416"
+     inkscape:window-x="49"
+     inkscape:window-y="24"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata5230">
@@ -293,7 +293,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -688,14 +688,14 @@
        inkscape:export-xdpi="96"
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-393.24268"
+       x="-399.49188"
        y="207.92035"
        id="text4487-0"><tspan
-         id="tspan5317"
          sodipodi:role="line"
-         x="-393.24268"
+         x="-399.49188"
          y="207.92035"
-         style="font-size:4.23333311px;fill:#000000;stroke-width:0.26458332">THeaSet</tspan></text>
+         style="font-size:4.23333311px;fill:#000000;stroke-width:0.26458332"
+         id="tspan3465">THeaSupSet</tspan></text>
     <path
        inkscape:export-ydpi="96"
        inkscape:export-xdpi="96"
@@ -718,7 +718,7 @@
        inkscape:export-ydpi="96"
        inkscape:export-xdpi="96"
        style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m -297.24696,230.04277 v 0"
+       d="m -297.24696,230.04277 0,0"
        id="path6094-6"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0" />
@@ -811,38 +811,38 @@
        id="text4487-4-1-7-5"><tspan
          sodipodi:role="line"
          x="-308.77206"
-         y="175.13477"
+         y="172.0134"
          style="font-size:3.17499995px;line-height:0.89999998;fill:#000000;stroke-width:0.26458332"
          id="tspan6479-8" /><tspan
          sodipodi:role="line"
          x="-308.77206"
-         y="178.94476"
+         y="174.61772"
          style="font-size:2.82222223px;line-height:0.89999998;fill:#000000;stroke-width:0.26458332"
-         id="tspan6471-4">From EconDamperPositionLimitsSingleZone sequence:</tspan><tspan
+         id="tspan6471-4">From damper position limits sequence:</tspan><tspan
          sodipodi:role="line"
          x="-308.77206"
-         y="182.75476"
+         y="177.4109"
          style="font-size:3.17499995px;line-height:0.89999998;fill:#000000;stroke-width:0.26458332"
          id="tspan6465-6">uOutDamPosMin</tspan><tspan
          sodipodi:role="line"
          x="-308.77206"
-         y="186.56476"
+         y="180.2684"
          style="font-size:3.17499995px;line-height:0.89999998;fill:#000000;stroke-width:0.26458332"
          id="tspan6469-6" /><tspan
          sodipodi:role="line"
          x="-308.77206"
-         y="190.37476"
+         y="182.87273"
          style="font-size:2.82222223px;line-height:0.89999998;fill:#000000;stroke-width:0.26458332"
-         id="tspan6473-8">From EconEnableDisableSingleZone sequence:</tspan><tspan
+         id="tspan6473-8">From enable/disable sequence:</tspan><tspan
          sodipodi:role="line"
          x="-308.77206"
-         y="194.18475"
+         y="185.66589"
          style="font-size:3.17499995px;line-height:0.89999998;fill:#000000;stroke-width:0.26458332"
          id="tspan6475-0">uOutDamPosMax</tspan><tspan
          id="tspan13837-4"
          sodipodi:role="line"
          x="-308.77206"
-         y="197.99477"
+         y="188.52339"
          style="font-size:3.17499995px;line-height:0.89999998;fill:#000000;stroke-width:0.26458332">uRetDamPosMin, uRetDamPosMax</tspan></text>
     <path
        inkscape:export-ydpi="96"

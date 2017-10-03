@@ -93,7 +93,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final quantity="SpecificEnergy") if use_enthalpy
     "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}}),
-    iconTransformation(extent={{-120,70},{-100,90}})));
+      iconTransformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOutCut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
@@ -145,7 +145,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final retDamFulOpeTim=retDamFulOpeTim,
     final disDel=disDel) "Multi zone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits ecoDamLim(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits ecoDamLim(
     final retDamPhyPosMax=retDamPhyPosMax,
     final retDamPhyPosMin=retDamPhyPosMin,
     final outDamPhyPosMax=outDamPhyPosMax,
@@ -171,10 +171,12 @@ equation
     annotation (Line(points={{-130,-120},{-60,-120},{-60,-28},{-1,-28}}, color={255,127,0}));
   connect(hOutCut, ecoEnaDis.hOutCut)
     annotation (Line(points={{-130,80},{-46,80},{-46,-26},{-1,-26}}, color={0,0,127}));
-  connect(hOut, ecoEnaDis.hOut) annotation (Line(points={{-130,100},{-44,100},{-44,-24},{-1,-24}}, color={0,0,127}));
+  connect(hOut, ecoEnaDis.hOut)
+    annotation (Line(points={{-130,100},{-44,100},{-44,-24},{-1,-24}}, color={0,0,127}));
   connect(TOutCut, ecoEnaDis.TOutCut)
     annotation (Line(points={{-130,120},{-42,120},{-42,-22},{-1,-22}}, color={0,0,127}));
-  connect(TOut, ecoEnaDis.TOut) annotation (Line(points={{-130,140},{-40,140},{-40,-20},{-1,-20}}, color={0,0,127}));
+  connect(TOut, ecoEnaDis.TOut)
+    annotation (Line(points={{-130,140},{-40,140},{-40,-20},{-1,-20}}, color={0,0,127}));
   connect(VOutMinSet_flow, ecoDamLim.VOutMinSet_flow)
     annotation (Line(points={{-130,0},{-110,0},{-110,14},{-110,15},{-81,15}},color={0,0,127}));
   connect(VOut_flow, ecoDamLim.VOut_flow)
@@ -206,12 +208,14 @@ equation
   connect(ecoDamLim.yOutDamPosMin, ecoMod.uOutDamPosMin)
     annotation (Line(points={{-59,15},{-20,15},{20,15},{20,12},{20,8},{59,8}},
       color={0,0,127}));
-  connect(TSup, ecoMod.TSup) annotation (Line(points={{-130,60},{50,60},{50,16},{59,16}},color={0,0,127}));
+  connect(TSup, ecoMod.TSup)
+    annotation (Line(points={{-130,60},{50,60},{50,16},{59,16}},color={0,0,127}));
   connect(ecoEnaDis.yRetDamPosMin, ecoMod.uRetDamPosMin)
     annotation (Line(points={{22,-38},{54,-38},{54,0},{54,1},{59,1}}, color={0,0,127}));
   connect(uZonSta, ecoEnaDis.uZonSta)
     annotation (Line(points={{-130,-100},{-58,-100},{-58,-30},{-1,-30}}, color={255,127,0}));
-  connect(TSupSet,ecoMod.TSupSet)  annotation (Line(points={{-130,40},{40,40},{40,19},{59,19}}, color={0,0,127}));
+  connect(TSupSet,ecoMod.TSupSet)
+    annotation (Line(points={{-130,40},{40,40},{40,19},{59,19}}, color={0,0,127}));
   annotation (defaultComponentName = "conEco",
         Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
@@ -233,7 +237,7 @@ equation
           extent={{-170,150},{158,112}},
           lineColor={0,0,127},
           textString="%name")}),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
+        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,160}})),
 Documentation(info="<html>
 <p>
 Multi zone VAV AHU economizer control sequence that calculates

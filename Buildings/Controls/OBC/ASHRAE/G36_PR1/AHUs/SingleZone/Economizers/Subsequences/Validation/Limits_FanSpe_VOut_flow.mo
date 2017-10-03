@@ -1,21 +1,19 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Validation;
-model DamperLimits_FanSpe_VOut_flow
+model Limits_FanSpe_VOut_flow
   "Validation model for the Single zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.DamperLimits ecoDamLim(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Limits ecoDamLim(
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
-    final desVOut_flow=desVOut_flow)
-    "Single zone VAV AHU minimum outdoor air control - damper position limits"
+    final desVOut_flow=desVOut_flow) "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.DamperLimits ecoDamLim1(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Limits ecoDamLim1(
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
-    final desVOut_flow=desVOut_flow)
-    "Single zone VAV AHU minimum outdoor air control - damper position limits"
+    final desVOut_flow=desVOut_flow) "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 
 protected
@@ -80,7 +78,7 @@ equation
     annotation (Line(points={{41,70},{80,70},{80,-3},{99,-3}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/Economizers/Subsequences/Validation/DamperLimits_FanSpe_VOut_flow.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/Economizers/Subsequences/Validation/Limits_FanSpe_VOut_flow.mos"
     "Simulate and plot"),
     Icon(graphics={Ellipse(
           lineColor={75,138,73},
@@ -117,8 +115,8 @@ constant supply fan speed
 Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.DamperLimits\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.DamperLimits</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Limits\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Limits</a>
 for the following control signals: <code>VOut_flow</code>, <code>VOutMinSet_flow</code>.
 The control loop is always enabled in this example.
 </p>
@@ -130,4 +128,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DamperLimits_FanSpe_VOut_flow;
+end Limits_FanSpe_VOut_flow;

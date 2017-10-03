@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Validation;
-model DamperLimits_VOut_flow
+model Limits_VOut_flow
   "Validation model for the multi zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
@@ -14,7 +14,7 @@ model DamperLimits_VOut_flow
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits ecoDamLim
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits ecoDamLim
     "Multi zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -50,7 +50,7 @@ equation
     annotation (Line(points={{-39,-40},{-10,-40},{-10,-5},{19,-5}}, color={255,127,0}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/Economizers/Subsequences/Validation/DamperLimits_VOut_flow.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/Economizers/Subsequences/Validation/Limits_VOut_flow.mos"
     "Simulate and plot"),
     Icon(graphics={Ellipse(
           lineColor={75,138,73},
@@ -66,8 +66,8 @@ equation
 Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits</a>
 for the following control signals: <code>VOut_flow</code>, <code>VOutMinSet_flow</code>. The control loop is always enabled in this
 example.
 </p>
@@ -79,4 +79,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DamperLimits_VOut_flow;
+end Limits_VOut_flow;
