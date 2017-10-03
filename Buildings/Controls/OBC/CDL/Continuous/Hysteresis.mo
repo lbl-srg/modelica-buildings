@@ -1,22 +1,22 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block Hysteresis "Transform Real to Boolean signal with Hysteresis"
 
-  parameter Real uLow(start=0) "if y=true and u<=uLow, switch to y=false";
+  parameter Real uLow "if y=true and u<=uLow, switch to y=false";
 
-  parameter Real uHigh(start=1) "if y=false and u>=uHigh, switch to y=true";
+  parameter Real uHigh "if y=false and u>=uHigh, switch to y=true";
 
   parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
 
-  Interfaces.RealInput u "Connector of Real input signal"
+  Interfaces.RealInput u "Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Interfaces.BooleanOutput y "Boolean output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 initial equation
+  assert(uHigh > uLow, "Hysteresis limits wrong. uHigh must be larger than uLow");
   pre(y) = pre_y_start;
 equation
-  assert(uHigh > uLow,"Hysteresis limits wrong (uHigh <= uLow)");
   y = not pre(y) and u > uHigh or pre(y) and u >= uLow;
 
 annotation (
@@ -99,6 +99,10 @@ The default value of this parameter is <code>false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 3, 2017, by Michael Wetter:<br/>
+Removed start value for parameters, and moved assertion to <code>initial equation</code>.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
