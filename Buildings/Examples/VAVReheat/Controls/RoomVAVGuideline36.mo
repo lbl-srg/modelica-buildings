@@ -1,7 +1,6 @@
 within Buildings.Examples.VAVReheat.Controls;
 block RoomVAVGuideline36
   "Controller for room VAV box according to ASHRAE Guideline 36"
-  import Buildings;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Mass flow rate of this thermal zone";

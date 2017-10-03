@@ -1,12 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.Valves;
 block HeatingAndCooling "Generates heating and cooling control signals to maintain zone set temperature"
 
-  parameter Real kPCoo=0.1 "Proportional gain for cooling coil control loop"
+  parameter Real kPCoo=1 "Proportional gain for cooling coil control loop"
     annotation(Dialog(group="Cooling coil control"));
   parameter Modelica.SIunits.Time TiCoo=120 "Time constant of integrator block for cooling coil control loop"
     annotation(Dialog(group="Cooling coil control"));
 
-  parameter Real kPHea=0.1 "Proportional gain for heating coil control loop"
+  parameter Real kPHea=1 "Proportional gain for heating coil control loop"
     annotation(Dialog(group="Heating coil control"));
 
   parameter Modelica.SIunits.Time TiHea=120 "Time constant of integrator block for heating coil control loop"
