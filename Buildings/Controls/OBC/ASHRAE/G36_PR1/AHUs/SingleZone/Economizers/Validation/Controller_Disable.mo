@@ -5,18 +5,18 @@ model Controller_Disable
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Controller economizer(
     final use_enthalpy=true,
-    final minFanSpe=minFanSpe,
-    final maxFanSpe=maxFanSpe,
-    final minVOut_flow=minVOut_flow,
-    final desVOut_flow=desVOut_flow)
+    final yFanMin=yFanMin,
+    final yFanMax=yFanMax,
+    final VOutMin_flow=VOutMin_flow,
+    final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Controller economizer1(
     final use_enthalpy=true,
-    final minFanSpe=minFanSpe,
-    final maxFanSpe=maxFanSpe,
-    final minVOut_flow=minVOut_flow,
-    final desVOut_flow=desVOut_flow)
+    final yFanMin=yFanMin,
+    final yFanMax=yFanMax,
+    final VOutMin_flow=VOutMin_flow,
+    final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 
@@ -26,16 +26,16 @@ protected
   final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
   final parameter Modelica.SIunits.Temperature TSupSet=291.15 "Supply air temperature setpoint";
-  final parameter Real minFanSpe(
+  final parameter Real yFanMin(
     final min=0,
     final max=1,
     final unit="1")=0.1 "Minimum supply fan operation speed";
-  final parameter Real maxFanSpe(
+  final parameter Real yFanMax(
     final min=0,
     final max=1,
     final unit="1")=0.9 "Maximum supply fan operation speed";
-  final parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=1.0 "Calculated minimum outdoor airflow rate";
-  final parameter Modelica.SIunits.VolumeFlowRate desVOut_flow=2.0 "Calculated design outdoor airflow rate";
+  final parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0 "Calculated minimum outdoor airflow rate";
+  final parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0 "Calculated design outdoor airflow rate";
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanSta(
     final k=true) "Fan is on"
@@ -78,14 +78,14 @@ protected
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Modelica.Blocks.Sources.Ramp VOutMinSetSig(
     final duration=1800,
-    final offset=minVOut_flow,
-    final height=desVOut_flow - minVOut_flow)
+    final offset=VOutMin_flow,
+    final height=VOutDes_flow - VOutMin_flow)
     "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Modelica.Blocks.Sources.Ramp SupFanSpeSig(
     final duration=1800,
-    final offset=minFanSpe,
-    final height=maxFanSpe - minFanSpe) "Supply fan speed signal"
+    final offset=yFanMin,
+    final height=yFanMax - yFanMin) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
 equation

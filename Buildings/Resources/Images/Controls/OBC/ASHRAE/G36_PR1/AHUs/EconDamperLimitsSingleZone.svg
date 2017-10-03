@@ -260,7 +260,7 @@
            y="697.24323"
            x="-601.90051"
            id="tspan9556"
-           sodipodi:role="line">minFanSpe</tspan></text>
+           sodipodi:role="line">yFanMin</tspan></text>
       <text
          id="text8994-5-3"
          y="695.83832"
@@ -271,7 +271,7 @@
            y="695.83832"
            x="-201.62321"
            id="tspan9600"
-           sodipodi:role="line">maxFanSpe</tspan></text>
+           sodipodi:role="line">yFanMax</tspan></text>
       <text
          id="text8994-5-3-2"
          y="695.72156"
@@ -282,7 +282,7 @@
            y="695.72156"
            x="-358.27313"
            id="tspan9622"
-           sodipodi:role="line">curFanSpe</tspan></text>
+           sodipodi:role="line">uSupFan</tspan></text>
       <text
          id="text8994-5-33"
          y="577.64679"
@@ -293,7 +293,7 @@
            y="577.64679"
            x="-611.52368"
            id="tspan9642"
-           sodipodi:role="line">minVOutMinFanSpePos</tspan></text>
+           sodipodi:role="line">yDam_VOutMin_minSpe</tspan></text>
       <text
          id="text8994-5-33-2"
          y="584.5899"
@@ -304,7 +304,7 @@
            y="584.5899"
            x="-404.44977"
            id="tspan9770"
-           sodipodi:role="line">minVOutCurFanSpePos</tspan></text>
+           sodipodi:role="line">yDam_VOutMin_curSpe</tspan></text>
       <text
          id="text8994-5-33-2-4"
          y="591.38745"
@@ -315,7 +315,7 @@
            y="591.38745"
            x="-186.88622"
            id="tspan9774"
-           sodipodi:role="line">minVOutMaxFanSpePos</tspan></text>
+           sodipodi:role="line">yDam_VOutMin_maxSpe</tspan></text>
       <text
          id="text8994-5-33-2-4-9"
          y="338.75751"
@@ -326,7 +326,7 @@
            y="338.75751"
            x="-183.04082"
            id="tspan9776"
-           sodipodi:role="line">desVOutMaxFanSpePos</tspan></text>
+           sodipodi:role="line">yDam_VOutDes_maxSpe</tspan></text>
       <text
          id="text8994-5-33-2-4-9-3"
          y="318.10675"
@@ -337,7 +337,7 @@
            y="318.10675"
            x="-390.52661"
            id="tspan9772"
-           sodipodi:role="line">desVOutCurFanSpePos</tspan></text>
+           sodipodi:role="line">yDam_VOutDes_curSpe</tspan></text>
       <text
          id="text8994-5-33-2-4-9-3-3"
          y="299.41058"
@@ -348,7 +348,7 @@
            y="299.41058"
            x="-610.12305"
            id="tspan9778"
-           sodipodi:role="line">desVOutMinFanSpePos</tspan></text>
+           sodipodi:role="line">yDam_VOutDes_minSpe</tspan></text>
       <text
          id="text8994-5-33-2-4-9-3-3-9"
          y="476.2189"

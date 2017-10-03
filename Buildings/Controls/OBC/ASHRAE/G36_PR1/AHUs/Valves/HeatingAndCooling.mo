@@ -62,10 +62,10 @@ protected
     final limitBelow=false,
     final limitAbove=false) "Inverter of the cooling control signal"
     annotation (Placement(transformation(extent={{64,-30},{84,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conSigMinSig(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yMinSig(final k=0)
     "Minimum controller output signal"
     annotation (Placement(transformation(extent={{24,-10},{44,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conSigMaxSig(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yMaxSig(final k=1)
    "Maximum controller output signal"
     annotation (Placement(transformation(extent={{24,-50},{44,-30}})));
 
@@ -79,13 +79,13 @@ equation
     color={0,0,127}));
   connect(conCooVal.y, conCooInv.u)
     annotation (Line(points={{-39,-20},{-39,-20},{62,-20}},color={0,0,127}));
-  connect(conSigMinSig.y, conCooInv.x1)
+  connect(yMinSig.y, conCooInv.x1)
     annotation (Line(points={{45,0},{54,0},{54,-12},{62,-12}},color={0,0,127}));
-  connect(conSigMaxSig.y, conCooInv.f1)
+  connect(yMaxSig.y, conCooInv.f1)
     annotation (Line(points={{45,-40},{52,-40},{52,-16},{62,-16}},color={0,0,127}));
-  connect(conSigMaxSig.y, conCooInv.x2)
+  connect(yMaxSig.y, conCooInv.x2)
     annotation (Line(points={{45,-40},{54,-40},{54,-24},{62,-24}},color={0,0,127}));
-  connect(conSigMinSig.y, conCooInv.f2)
+  connect(yMinSig.y, conCooInv.f2)
     annotation (Line(points={{45,0},{56,0},{56,-28},{62,-28}}, color={0,0,127}));
   connect(conHeaVal.y, yHea) annotation (Line(points={{-39,50},{78,50},{110,50}}, color={0,0,127}));
   connect(conCooInv.y, yCoo) annotation (Line(points={{85,-20},{94,-20},{110,-20}}, color={0,0,127}));

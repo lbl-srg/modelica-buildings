@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences;
 block Modulation "Outdoor and return air damper position modulation sequence for single zone VAV AHU"
 
-  parameter Real conSigMin=0 "Lower limit of controller output"
+  parameter Real yMin=0 "Lower limit of controller output"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Real conSigMax=1 "Upper limit of controller output"
+  parameter Real yMax=1 "Upper limit of controller output"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
   parameter Real kPMod=1 "Gain of modulation controller"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
@@ -66,8 +66,8 @@ block Modulation "Outdoor and return air damper position modulation sequence for
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID damPosCon(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final yMax=conSigMax,
-    final yMin=conSigMin,
+    final yMax=yMax,
+    final yMin=yMin,
     final k=kPMod,
     final Ti=TiMod)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"

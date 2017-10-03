@@ -29,13 +29,13 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
   parameter Modelica.SIunits.Time TiDamLim=30 "Time constant of damper limit controller integrator block"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
-  parameter Real conSigMinDamLim=0 "Lower limit of damper position limits control signal output"
+  parameter Real yMinDamLim=0 "Lower limit of damper position limits control signal output"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
-  parameter Real conSigMaxDamLim=1 "Upper limit of damper position limits control signal output"
+  parameter Real yMaxDamLim=1 "Upper limit of damper position limits control signal output"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
   parameter Real retDamConSigMinDamLim(
-    final min=conSigMinDamLim,
-    final max=conSigMaxDamLim,
+    final min=yMinDamLim,
+    final max=yMaxDamLim,
     final unit="1")=0.5
     "Minimum control signal for the RA damper position limit - maximum for the OA damper position limit"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
@@ -152,8 +152,8 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final outDamPhyPosMin=outDamPhyPosMin,
     final kPDamLim=kPDamLim,
     final TiDamLim=TiDamLim,
-    final conSigMin=conSigMinDamLim,
-    final conSigMax=conSigMaxDamLim,
+    final yMin=yMinDamLim,
+    final yMax=yMaxDamLim,
     final retDamConSigMin=retDamConSigMinDamLim)
     "Multi zone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));

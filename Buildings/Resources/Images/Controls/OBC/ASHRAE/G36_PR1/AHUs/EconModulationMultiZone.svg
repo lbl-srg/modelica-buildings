@@ -558,7 +558,7 @@
            y="105.70981"
            x="69.002342"
            sodipodi:role="line"
-           id="tspan17096">conSigMin</tspan></text>
+           id="tspan17096">yMin</tspan></text>
       <text
          id="text4487-8-0"
          y="111.97289"
@@ -589,7 +589,7 @@
            y="105.49158"
            x="109.81479"
            id="tspan4485-5-97"
-           sodipodi:role="line">conSigMax</tspan></text>
+           sodipodi:role="line">yMax</tspan></text>
       <text
          transform="matrix(0.4305111,0.90258528,-0.90258528,0.4305111,0,0)"
          id="text4487-4-1-8"
