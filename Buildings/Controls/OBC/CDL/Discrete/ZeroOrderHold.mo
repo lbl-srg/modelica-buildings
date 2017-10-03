@@ -14,7 +14,8 @@ protected
   parameter Modelica.SIunits.Time t0(fixed=false)
     "First sample time instant";
 
-  output Real ySample(fixed=true, start=0);
+  output Real ySample(fixed=true, start=0)
+    "Sampled value of input";
 
   output Boolean sampleTrigger "True, if sample time instant";
 
