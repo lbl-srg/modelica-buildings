@@ -1,11 +1,11 @@
 compareVars :=
   {
-    "ecoDamLim.uSupFanSpe",
-    "ecoDamLim.uVOutMinSet_flow",
-    "ecoDamLim.yOutDamPosMin",
-    "ecoDamLim.yOutDamPosMax",
-    "ecoDamLim1.uSupFanSpe",
-    "ecoDamLim1.uVOutMinSet_flow",
-    "ecoDamLim1.yOutDamPosMin",
-    "ecoDamLim1.yOutDamPosMax"
+    "damLim.uSupFanSpe",
+    "damLim.uVOutMinSet_flow",
+    "damLim.yOutDamPosMin",
+    "damLim.yOutDamPosMax",
+    "damLim1.uSupFanSpe",
+    "damLim1.uVOutMinSet_flow",
+    "damLim1.yOutDamPosMin",
+    "damLim1.yOutDamPosMax"
   };

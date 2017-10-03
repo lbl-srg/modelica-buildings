@@ -248,7 +248,7 @@ annotation (Placement(transformation(extent={{-20,110},{0,130}})),
                 Placement(transformation(extent={{-140,-30},{-120,-10}})),
                 Placement(transformation(extent={{-140,160},{-120,180}})),
                 Placement(transformation(extent={{-140,0},{-120,20}})),
-    defaultComponentName = "ecoDamLim",
+    defaultComponentName = "damLim",
     Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},

@@ -281,7 +281,7 @@ equation
   connect(not3.y, andEnaDis.u3) annotation (Line(points={{-23,0},{19.5,0},{19.5,
           32},{38,32}}, color={255,0,255}));
   annotation (
-    defaultComponentName = "ecoEnaDis",
+    defaultComponentName = "enaDis",
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
