@@ -245,6 +245,36 @@ outdoor and return air damper positions based on ASHRAE
 Guidline 36, PART5 sections: N.2.c, N.5, N.6.c, N.7, A.17, N.12.
 </p>
 <p>
+The sequence consists of three subsequences.
+<ul>
+<li>
+First, the block <code>ecoDamLim</code> computes the damper position limits to satisfy
+outdoor air requirements. See
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits</a>
+for a description.
+</li>
+<li>
+Second, the block <code>ecoEnaDis</code> enables or disables the economizer based on
+outdoor temperature and optionally enthalpy, and based on the supply fan status,
+freeze protection stage and zone state.
+See
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable</a>
+for a description.
+</li>
+<li>
+Third, the block <code>ecoMod</code> modulates the outdoor and return damper position
+to track the supply air temperature setpoint, subject to the limits of the damper positions
+that were computed in the above two blocks.
+See
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation</a>
+for a description.
+</li>
+</ul>
+</p>
+<p>
 The figure below shows the block diagram of the control sequence.
 </p>
 <p align=\"center\">
