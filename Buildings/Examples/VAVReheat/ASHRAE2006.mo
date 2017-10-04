@@ -66,9 +66,6 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
   Controls.RoomVAV conVAVWes "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiMSup(k=m_flow_nominal)
-    "Gain for assigning supply air mass flow rate"
-    annotation (Placement(transformation(extent={{274,0},{294,20}})));
 equation
   connect(TSupSetHea.y, heaCoiCon.u_s) annotation (Line(
       points={{-79,-160},{-2,-160}},
@@ -80,7 +77,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dot));
   connect(fanSup.port_b, dpRetFan.port_a) annotation (Line(
-      points={{280,-40},{280,0},{320,0},{320,40}},
+      points={{320,-40},{320,0},{320,0},{320,40}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dot));
@@ -303,10 +300,8 @@ equation
   connect(modeSelector.yFan, conFanSup.uFan) annotation (Line(points={{-91.5455,
           -214},{-80,-214},{-80,-232},{252,-232},{252,-20},{230,-20},{230,16},{
           238,16}}, color={255,0,255}));
-  connect(conFanSup.y, gaiMSup.u)
-    annotation (Line(points={{261,10},{272,10}}, color={0,0,127}));
-  connect(gaiMSup.y, fanSup.m_flow_in) annotation (Line(points={{295,10},{300,
-          10},{300,-20},{270,-20},{270,-28}}, color={0,0,127}));
+  connect(conFanSup.y, fanSup.y)
+    annotation (Line(points={{261,10},{310,10},{310,-28}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{1660,
             640}})),

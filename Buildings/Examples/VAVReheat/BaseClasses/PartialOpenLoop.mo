@@ -82,26 +82,41 @@ partial model PartialOpenLoop
     dp_nominal=20,
     allowFlowReversal=allowFlowReversal) "Pressure drop for return duct"
     annotation (Placement(transformation(extent={{400,130},{380,150}})));
-  Fluid.Movers.FlowControlled_m_flow fanSup(
-    redeclare package Medium = MediumA,
-    per(pressure(V_flow={0,m_flow_nominal/1.2*2}, dp={850,0})),
-    m_flow_nominal=m_flow_nominal,
-    nominalValuesDefineDefaultPressureCurve=true,
-    tau=60,
-    allowFlowReversal=allowFlowReversal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false)                                    "Supply air fan"
-    annotation (Placement(transformation(extent={{260,-50},{280,-30}})));
-  Fluid.Movers.FlowControlled_m_flow fanRet(
+  Buildings.Fluid.Movers.SpeedControlled_y fanSup(
     redeclare package Medium = MediumA,
     tau=60,
-    per(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=1.5*110*{2,0})),
-    m_flow_nominal=m_flow_nominal,
-    nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false,
-    allowFlowReversal=allowFlowReversal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Return air fan"
+    per(
+      pressure(V_flow={0,m_flow_nominal/1.2*2},
+      dp={850,0})),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Supply air fan"
+    annotation (Placement(transformation(extent={{300,-50},{320,-30}})));
+  Buildings.Fluid.Movers.SpeedControlled_y fanRet(
+    redeclare package Medium = MediumA,
+    tau=60,
+    per(
+      pressure(V_flow=m_flow_nominal/1.2*{0,2},
+      dp=1.5*110*{2,0})),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Return air fan"
     annotation (Placement(transformation(extent={{320,130},{300,150}})));
+
+  Controls.FanVFD conFanRet(xSet_nominal(displayUnit="m3/s") = m_flow_nominal/
+      1.2, r_N_min=0.1) "Controller for fan"
+    annotation (Placement(transformation(extent={{240,160},{260,180}})));
+
+  Buildings.Fluid.Sensors.VolumeFlowRate senSupFlo(
+  redeclare package Medium = MediumA,
+  m_flow_nominal=m_flow_nominal)
+    "Sensor for supply fan flow rate"
+    annotation (Placement(transformation(extent={{400,-50},{420,-30}})));
+
+  Buildings.Fluid.Sensors.VolumeFlowRate senRetFlo(
+  redeclare package Medium = MediumA,
+  m_flow_nominal=m_flow_nominal)
+    "Sensor for return fan flow rate"
+    annotation (Placement(transformation(extent={{360,130},{340,150}})));
+
   Buildings.Fluid.Sources.FixedBoundary sinHea(
     redeclare package Medium = MediumW,
     p=300000,
@@ -479,7 +494,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dot));
   connect(fanSup.port_b, dpRetFan.port_a) annotation (Line(
-      points={{280,-40},{280,0},{320,0},{320,40}},
+      points={{320,-40},{320,0},{320,0},{320,40}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dot));
@@ -489,7 +504,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(TSup.port_a, fanSup.port_b) annotation (Line(
-      points={{330,-40},{280,-40}},
+      points={{330,-40},{320,-40}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -655,7 +670,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(cooCoi.port_b2, fanSup.port_a) annotation (Line(
-      points={{210,-40},{260,-40}},
+      points={{210,-40},{300,-40}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -726,14 +741,6 @@ equation
       points={{50,-40},{98,-40}},
       color={0,127,255},
       thickness=0.5));
-  connect(fanRet.port_a, dpRetDuc.port_b)
-    annotation (Line(points={{320,140},{380,140}}, color={0,127,255}));
-  connect(TSup.port_b, splSupRoo1.port_1) annotation (Line(
-      points={{350,-40},{570,-40}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(fanSup.m_flow_actual, fanRet.m_flow_in) annotation (Line(points={{281,
-          -35},{288,-35},{288,160},{310,160},{310,152}}, color={0,0,127}));
   connect(VOut1.port_b, eco.port_Out) annotation (Line(points={{-58,23},{-40,23},
           {-40,-40},{-20,-40}}, color={0,127,255}));
   connect(eco.port_Sup, TMix.port_a)
@@ -742,6 +749,20 @@ equation
           -52},{-46,4},{-98,4},{-98,22.8},{-108,22.8}}, color={0,127,255}));
   connect(eco.port_Ret, TRet.port_b) annotation (Line(points={{0,-52},{10,-52},
           {10,140},{90,140}}, color={0,127,255}));
+  connect(fanRet.port_a, senRetFlo.port_b)
+    annotation (Line(points={{320,140},{340,140}}, color={0,127,255}));
+  connect(senRetFlo.port_a, dpRetDuc.port_b)
+    annotation (Line(points={{360,140},{380,140}}, color={0,127,255}));
+  connect(TSup.port_b, senSupFlo.port_a)
+    annotation (Line(points={{350,-40},{400,-40}}, color={0,127,255}));
+  connect(senSupFlo.port_b, splSupRoo1.port_1)
+    annotation (Line(points={{420,-40},{570,-40}}, color={0,127,255}));
+  connect(conFanRet.u_m, senRetFlo.V_flow) annotation (Line(points={{250,158},{
+          250,148},{270,148},{270,160},{350,160},{350,151}}, color={0,0,127}));
+  connect(senSupFlo.V_flow, conFanRet.u) annotation (Line(points={{410,-29},{
+          410,70},{220,70},{220,170},{238,170}}, color={0,0,127}));
+  connect(conFanRet.y, fanRet.y)
+    annotation (Line(points={{261,170},{310,170},{310,152}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,
             -400},{1660,600}})), Documentation(info="<html>
 <p>
