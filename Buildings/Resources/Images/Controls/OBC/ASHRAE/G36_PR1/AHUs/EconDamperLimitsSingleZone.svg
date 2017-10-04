@@ -9,18 +9,48 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="354.02802mm"
-   height="133.88509mm"
-   viewBox="0 0 354.02802 133.88509"
+   width="255.94859mm"
+   height="156.63011mm"
+   viewBox="0 0 255.9486 156.63012"
    version="1.1"
    id="svg8"
-   inkscape:export-filename="C:\Users\mgrahovac\Google Drive\Simulation Research Group_\OBC\Drawings\EconDamperLimitsControlChartSingleZone.png"
+   inkscape:export-filename="/home/milica/repos/modelica-buildings/Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconDamperLimitsControlChartSingleZone.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
-   inkscape:version="0.92.1 r15371"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="EconDamperLimitsSingleZone.svg">
   <defs
      id="defs2">
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4447"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4449"
+         style="fill:#1a1a1a;fill-opacity:0.64313725;fill-rule:evenodd;stroke:#333333;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:0.64313725"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(1.1,0,0,1.1,1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4371"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4373"
+         style="fill:#1a1a1a;fill-opacity:0.64313725;fill-rule:evenodd;stroke:#333333;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:0.64313725"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
     <marker
        inkscape:stockid="Arrow2Lend"
        orient="auto"
@@ -32,19 +62,19 @@
       <path
          inkscape:connector-curvature="0"
          id="path10014"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         style="fill:#333333;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
          d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
          transform="matrix(-1.1,0,0,-1.1,-1.1,0)" />
     </marker>
     <marker
-       inkscape:collect="always"
        inkscape:isstock="true"
        style="overflow:visible"
        id="Arrow2Lend"
        refX="0"
        refY="0"
        orient="auto"
-       inkscape:stockid="Arrow2Lend">
+       inkscape:stockid="Arrow2Lend"
+       inkscape:collect="always">
       <path
          inkscape:connector-curvature="0"
          transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
@@ -59,7 +89,8 @@
        refX="0"
        refY="0"
        orient="auto"
-       inkscape:stockid="Arrow2Lstart">
+       inkscape:stockid="Arrow2Lstart"
+       inkscape:collect="always">
       <path
          inkscape:connector-curvature="0"
          transform="matrix(1.1,0,0,1.1,1.1,0)"
@@ -89,7 +120,7 @@
        id="marker5553-0-3-8">
       <path
          inkscape:connector-curvature="0"
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
          id="path4485-1-8"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
          transform="matrix(-0.8,0,0,-0.8,-10,0)" />
@@ -101,10 +132,55 @@
        id="marker5381-6-6-6">
       <path
          inkscape:connector-curvature="0"
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
          id="path4488-0-3"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
          transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4371-2"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4373-7"
+         style="fill:#1a1a1a;fill-opacity:0.64313725;fill-rule:evenodd;stroke:#333333;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:0.64313725"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4447-9"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4449-3"
+         style="fill:#1a1a1a;fill-opacity:0.64313725;fill-rule:evenodd;stroke:#333333;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:0.64313725"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(1.1,0,0,1.1,1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4371-6"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4373-1"
+         style="fill:#1a1a1a;fill-opacity:0.64313725;fill-rule:evenodd;stroke:#333333;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:0.64313725"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         inkscape:connector-curvature="0" />
     </marker>
   </defs>
   <sodipodi:namedview
@@ -115,20 +191,21 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="785.62399"
-     inkscape:cy="327.48305"
+     inkscape:cx="579.81034"
+     inkscape:cy="409.73962"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1-9"
      showgrid="false"
-     inkscape:window-width="2560"
-     inkscape:window-height="1387"
-     inkscape:window-x="1912"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
+     inkscape:window-width="1960"
+     inkscape:window-height="1290"
+     inkscape:window-x="527"
+     inkscape:window-y="87"
+     inkscape:window-maximized="0"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
-     fit-margin-bottom="0" />
+     fit-margin-bottom="0"
+     inkscape:snap-nodes="true" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -145,7 +222,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(188.98755,-69.039599)">
+     transform="translate(267.72747,-48.282797)">
     <g
        transform="matrix(0.28222223,0,0,0.28222223,0.60048714,-1.5817167)"
        id="layer1-9"
@@ -153,406 +230,451 @@
       <path
          inkscape:connector-curvature="0"
          id="path8806"
-         d="m -639.99998,282.3622 v 400 h 520"
-         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow2Lstart);marker-end:url(#Arrow2Lend)" />
+         d="m -841.58609,186.2229 0,501.52847 795.407058,0"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.38487589px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow2Lstart);marker-end:url(#Arrow2Lend)" />
       <path
          inkscape:connector-curvature="0"
          id="path8808"
-         d="M -567.99998,682.3622 V 309.58315"
-         style="opacity:0.5;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+         d="m -771.64673,689.43327 0,-372.77905"
+         style="opacity:0.5;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.49999999, 0.99999998;stroke-dashoffset:0;stroke-opacity:1" />
       <path
          inkscape:connector-curvature="0"
          id="path8810"
-         d="M -163.99998,682.3622 V 348.01273"
-         style="opacity:0.5;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+         d="m -367.64673,689.43327 0,-334.34947"
+         style="opacity:0.5;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.49999999, 0.99999998;stroke-dashoffset:0;stroke-opacity:1" />
       <circle
          r="2.5"
-         cy="309.86221"
-         cx="-567.5"
+         cy="316.93329"
+         cx="-771.14673"
          id="path8812"
          style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
       <circle
          r="2.5"
-         cy="550.13892"
-         cx="-567.44482"
+         cy="557.20996"
+         cx="-771.09155"
          id="path8812-3"
          style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
       <circle
          r="2.5"
-         cy="348.42032"
-         cx="-163.0695"
+         cy="355.49139"
+         cx="-366.71625"
          id="path8812-6"
          style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
       <circle
          r="2.5"
-         cy="570.37805"
-         cx="-163.0695"
+         cy="577.4491"
+         cx="-366.71625"
          id="path8812-4"
          style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
       <path
          inkscape:connector-curvature="0"
          id="path8841"
-         d="m -567.88289,309.92406 405.11183,38.96333"
+         d="m -771.52964,316.99513 405.11183,38.96333"
          style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1" />
       <path
          inkscape:connector-curvature="0"
          id="path8843"
-         d="m -567.34915,550.10894 404.57809,20.81602"
+         d="m -770.9959,557.18001 404.57809,20.81602"
          style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1" />
       <path
          inkscape:connector-curvature="0"
          id="path8808-7"
-         d="M -325.56304,681.65906 V 335.02079"
+         d="m -529.20979,688.73013 0,-346.63827"
          style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.61921638;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.61921636, 0.61921636;stroke-dashoffset:0;stroke-opacity:1" />
       <circle
          r="2.5"
-         cy="333.10754"
-         cx="-325.25409"
+         cy="340.17862"
+         cx="-528.90082"
          id="path8860"
          style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
       <circle
          r="2.5"
-         cy="484.3035"
-         cx="-325.36642"
+         cy="491.37457"
+         cx="-529.01318"
          id="path8860-9"
          style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
       <circle
          r="2.5"
-         cy="562.85663"
-         cx="-325.74469"
+         cy="569.92767"
+         cx="-529.39142"
          id="path8860-7"
          style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
       <path
          inkscape:connector-curvature="0"
          id="path8883"
-         d="M -327.99998,484.3622 H -638.95384"
+         d="m -531.64673,491.43327 -310.95386,0"
          style="opacity:0.5;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.45530492;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
       <text
          id="text8994"
-         y="721.10846"
-         x="-276.00864"
+         y="706.15869"
+         x="-161.85788"
          style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:17.5px;line-height:1.25"
-           y="721.10846"
-           x="-276.00864"
+           y="706.15869"
+           x="-161.85788"
            id="tspan8996"
-           sodipodi:role="line">Supply Fan Speed</tspan></text>
+           sodipodi:role="line">Supply Fan </tspan><tspan
+           style="font-size:17.5px;line-height:1.25"
+           y="728.03369"
+           x="-161.85788"
+           sodipodi:role="line"
+           id="tspan7656">Speed</tspan></text>
       <text
          transform="matrix(0,-0.96370847,1.0376582,0,0,0)"
          id="text9292"
-         y="-634.40082"
-         x="-468.11551"
+         y="-842.24152"
+         x="-284.6817"
          style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:17.5px;line-height:1.25"
-           y="-634.40082"
-           x="-468.11551"
+           y="-842.24152"
+           x="-284.6817"
            id="tspan9294"
-           sodipodi:role="line">OA Damper Position</tspan></text>
+           sodipodi:role="line">OA Damper </tspan><tspan
+           style="font-size:17.5px;line-height:1.25"
+           y="-820.36652"
+           x="-284.6817"
+           sodipodi:role="line"
+           id="tspan7740">Position</tspan></text>
       <text
          id="text8994-5"
-         y="697.24323"
-         x="-601.90051"
+         y="704.31427"
+         x="-799.18329"
          style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:12.39959621px;line-height:1.25"
-           y="697.24323"
-           x="-601.90051"
+           y="704.31427"
+           x="-799.18329"
            id="tspan9556"
-           sodipodi:role="line">minFanSpe</tspan></text>
+           sodipodi:role="line">yFanMin</tspan></text>
       <text
          id="text8994-5-3"
-         y="695.83832"
-         x="-201.62321"
+         y="702.90936"
+         x="-395.37045"
          style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:12.39959621px;line-height:1.25"
-           y="695.83832"
-           x="-201.62321"
+           y="702.90936"
+           x="-395.37045"
            id="tspan9600"
-           sodipodi:role="line">maxFanSpe</tspan></text>
+           sodipodi:role="line">yFanMax</tspan></text>
       <text
          id="text8994-5-3-2"
-         y="695.72156"
-         x="-358.27313"
+         y="702.7926"
+         x="-554.84882"
          style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:12.39959621px;line-height:1.25"
-           y="695.72156"
-           x="-358.27313"
+           y="702.7926"
+           x="-554.84882"
            id="tspan9622"
-           sodipodi:role="line">curFanSpe</tspan></text>
+           sodipodi:role="line">uSupFan</tspan></text>
       <text
          id="text8994-5-33"
-         y="577.64679"
-         x="-611.52368"
+         y="584.71783"
+         x="-815.17041"
          style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:12.39959621px;line-height:1.25"
-           y="577.64679"
-           x="-611.52368"
+           y="584.71783"
+           x="-815.17041"
            id="tspan9642"
-           sodipodi:role="line">minVOutMinFanSpePos</tspan></text>
+           sodipodi:role="line">yDam_VOutMin_minSpe</tspan></text>
       <text
          id="text8994-5-33-2"
-         y="584.5899"
-         x="-404.44977"
+         y="591.66095"
+         x="-608.0965"
          style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:12.39959621px;line-height:1.25"
-           y="584.5899"
-           x="-404.44977"
+           y="591.66095"
+           x="-608.0965"
            id="tspan9770"
-           sodipodi:role="line">minVOutCurFanSpePos</tspan></text>
+           sodipodi:role="line">yDam_VOutMin_curSpe</tspan></text>
       <text
          id="text8994-5-33-2-4"
-         y="591.38745"
-         x="-186.88622"
+         y="598.4585"
+         x="-390.53296"
          style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:12.39959621px;line-height:1.25"
-           y="591.38745"
-           x="-186.88622"
+           y="598.4585"
+           x="-390.53296"
            id="tspan9774"
-           sodipodi:role="line">minVOutMaxFanSpePos</tspan></text>
+           sodipodi:role="line">yDam_VOutMin_maxSpe</tspan></text>
       <text
          id="text8994-5-33-2-4-9"
-         y="338.75751"
-         x="-183.04082"
+         y="345.82858"
+         x="-386.68756"
          style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:12.39959621px;line-height:1.25"
-           y="338.75751"
-           x="-183.04082"
+           y="345.82858"
+           x="-386.68756"
            id="tspan9776"
-           sodipodi:role="line">desVOutMaxFanSpePos</tspan></text>
+           sodipodi:role="line">yDam_VOutDes_maxSpe</tspan></text>
       <text
          id="text8994-5-33-2-4-9-3"
-         y="318.10675"
-         x="-390.52661"
+         y="325.17783"
+         x="-594.17334"
          style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:12.39959621px;line-height:1.25"
-           y="318.10675"
-           x="-390.52661"
+           y="325.17783"
+           x="-594.17334"
            id="tspan9772"
-           sodipodi:role="line">desVOutCurFanSpePos</tspan></text>
+           sodipodi:role="line">yDam_VOutDes_curSpe</tspan></text>
       <text
          id="text8994-5-33-2-4-9-3-3"
-         y="299.41058"
-         x="-610.12305"
+         y="306.48166"
+         x="-813.76978"
          style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:12.39959621px;line-height:1.25"
-           y="299.41058"
-           x="-610.12305"
+           y="306.48166"
+           x="-813.76978"
            id="tspan9778"
-           sodipodi:role="line">desVOutMinFanSpePos</tspan></text>
+           sodipodi:role="line">yDam_VOutDes_minSpe</tspan></text>
       <text
          id="text8994-5-33-2-4-9-3-3-9"
-         y="476.2189"
-         x="-634.31934"
+         y="495.15826"
+         x="-951.13763"
          style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:12.39959621px;line-height:1.25"
-           y="476.2189"
-           x="-634.31934"
+           y="495.15826"
+           x="-951.13763"
            id="tspan9780"
            sodipodi:role="line">yOutDamPosMin</tspan></text>
       <text
          id="text8994-5-33-2-4-9-3-3-9-4"
-         y="593.40063"
-         x="-611.10284"
-         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         y="603.47168"
+         x="-814.74957"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.7;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:9.51590443px;line-height:1.25"
-           y="593.40063"
-           x="-611.10284"
+           y="603.47168"
+           x="-814.74957"
            id="tspan9978"
            sodipodi:role="line">Outdoor air damper position that</tspan><tspan
            id="tspan12443"
            style="font-size:9.51590443px;line-height:1.25"
-           y="605.29553"
-           x="-611.10284"
+           y="615.36658"
+           x="-814.74957"
            sodipodi:role="line">supplies minimum outdoor airflow </tspan><tspan
            id="tspan12445"
            style="font-size:9.51590443px;line-height:1.25"
-           y="617.19037"
-           x="-611.10284"
-           sodipodi:role="line">at minimum fan speed</tspan></text>
+           y="627.26141"
+           x="-814.74957"
+           sodipodi:role="line">at minimum fan speed,</tspan><tspan
+           style="font-size:9.51590443px;line-height:1.25"
+           y="639.15631"
+           x="-814.74957"
+           sodipodi:role="line"
+           id="tspan7772">set at commissioning</tspan></text>
       <text
          id="text8994-5-33-2-4-9-3-3-9-4-9"
-         y="433.88983"
-         x="-634.93744"
-         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         y="458.96091"
+         x="-837.58417"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.7;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:9.51590443px;line-height:1.25"
-           y="433.88983"
-           x="-634.93744"
+           y="458.96091"
+           x="-837.58417"
            id="tspan9792-5"
            sodipodi:role="line">Minimal outdoor air damper position limit </tspan><tspan
            id="tspan12601"
            style="font-size:9.51590443px;line-height:1.25"
-           y="445.7847"
-           x="-634.93744"
+           y="470.85577"
+           x="-837.58417"
            sodipodi:role="line">that satisfies minimal outdoor airflow setpoint </tspan><tspan
            id="tspan12613"
            style="font-size:9.51590443px;line-height:1.25"
-           y="457.6796"
-           x="-634.93744"
+           y="482.75067"
+           x="-837.58417"
            sodipodi:role="line">under current supply fan speed</tspan></text>
       <text
          id="text8994-5-33-2-4-9-3-3-9-4-5"
-         y="599.23474"
-         x="-403.92188"
-         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         y="610.30579"
+         x="-607.5686"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.7;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:9.51590443px;line-height:1.25"
-           y="599.23474"
-           x="-403.92188"
+           y="610.30579"
+           x="-607.5686"
            id="tspan9962"
            sodipodi:role="line">Outdoor air damper position that</tspan><tspan
            id="tspan12482"
            style="font-size:9.51590443px;line-height:1.25"
-           y="611.12964"
-           x="-403.92188"
+           y="622.20068"
+           x="-607.5686"
            sodipodi:role="line">supplies minimum outdoor airflow </tspan><tspan
-           id="tspan12484"
            style="font-size:9.51590443px;line-height:1.25"
-           y="623.02448"
-           x="-403.92188"
-           sodipodi:role="line">at current fan speed</tspan></text>
+           y="634.09552"
+           x="-607.5686"
+           sodipodi:role="line"
+           id="tspan7774">at current fan speed</tspan></text>
       <text
          id="text8994-5-33-2-4-9-3-3-9-4-5-0"
-         y="606.06293"
-         x="-184.81151"
-         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         y="616.13397"
+         x="-388.45825"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.7;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:9.51590443px;line-height:1.25"
-           y="606.06293"
-           x="-184.81151"
+           y="616.13397"
+           x="-388.45825"
            id="tspan9970"
            sodipodi:role="line">Outdoor air damper position that</tspan><tspan
            id="tspan12469"
            style="font-size:9.51590443px;line-height:1.25"
-           y="617.95782"
-           x="-184.81151"
+           y="628.02887"
+           x="-388.45825"
            sodipodi:role="line">supplies minimum outdoor airflow </tspan><tspan
            id="tspan12471"
            style="font-size:9.51590443px;line-height:1.25"
-           y="629.85266"
-           x="-184.81151"
-           sodipodi:role="line">at maximum fan speed</tspan></text>
+           y="639.92371"
+           x="-388.45825"
+           sodipodi:role="line">at maximum fan speed,</tspan><tspan
+           style="font-size:9.51590443px;line-height:1.25"
+           y="651.8186"
+           x="-388.45825"
+           sodipodi:role="line"
+           id="tspan7776">set at commissioning</tspan></text>
       <text
          id="text8994-5-33-2-4-9-3-3-9-4-5-0-2"
-         y="296.73404"
-         x="-182.25523"
-         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         y="289.80511"
+         x="-385.90198"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.7;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:9.51590443px;line-height:1.25"
-           y="296.73404"
-           x="-182.25523"
+           y="289.80511"
+           x="-385.90198"
            id="tspan10002"
            sodipodi:role="line">Outdoor air damper position that</tspan><tspan
            id="tspan12456"
            style="font-size:9.51590443px;line-height:1.25"
-           y="308.62891"
-           x="-182.25523"
+           y="301.69998"
+           x="-385.90198"
            sodipodi:role="line">supplies design outdoor airflow </tspan><tspan
            id="tspan12458"
            style="font-size:9.51590443px;line-height:1.25"
-           y="320.5238"
-           x="-182.25523"
-           sodipodi:role="line">at maximum fan speed</tspan></text>
+           y="313.59488"
+           x="-385.90198"
+           sodipodi:role="line">at maximum fan speed,</tspan><tspan
+           style="font-size:9.51590443px;line-height:1.25"
+           y="325.48975"
+           x="-385.90198"
+           sodipodi:role="line"
+           id="tspan7770">set at commissioning</tspan></text>
       <text
          id="text8994-5-33-2-4-9-3-3-9-4-5-0-2-0"
-         y="277.55115"
-         x="-390.76038"
-         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         y="276.62222"
+         x="-594.4071"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.7;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:9.51590443px;line-height:1.25"
-           y="277.55115"
-           x="-390.76038"
+           y="276.62222"
+           x="-594.4071"
            id="tspan9994"
            sodipodi:role="line">Outdoor air damper position that</tspan><tspan
            id="tspan12495"
            style="font-size:9.51590443px;line-height:1.25"
-           y="289.44601"
-           x="-390.76038"
+           y="288.51709"
+           x="-594.4071"
            sodipodi:role="line">supplies design outdoor airflow </tspan><tspan
-           id="tspan12499"
            style="font-size:9.51590443px;line-height:1.25"
-           y="301.34091"
-           x="-390.76038"
-           sodipodi:role="line">at current fan speed</tspan></text>
+           y="300.41199"
+           x="-594.4071"
+           sodipodi:role="line"
+           id="tspan7768">at current fan speed</tspan></text>
       <text
          id="text8994-5-33-2-4-9-3-3-9-4-5-0-2-0-9"
-         y="257.46286"
-         x="-609.52264"
-         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         y="246.53394"
+         x="-816.16937"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.7;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            style="font-size:9.51590443px;line-height:1.25"
-           y="257.46286"
-           x="-609.52264"
+           y="246.53394"
+           x="-816.16937"
            id="tspan9984"
            sodipodi:role="line">Outdoor air damper position that</tspan><tspan
            style="font-size:9.51590443px;line-height:1.25"
-           y="269.35773"
-           x="-609.52264"
+           y="258.4288"
+           x="-816.16937"
            id="tspan9986"
            sodipodi:role="line">supplies design outdoor airflow </tspan><tspan
            id="tspan12432"
            style="font-size:9.51590443px;line-height:1.25"
-           y="281.25262"
-           x="-609.52264"
-           sodipodi:role="line">at minimum fan speed</tspan></text>
+           y="270.3237"
+           x="-816.16937"
+           sodipodi:role="line">at minimum fan speed, </tspan><tspan
+           style="font-size:9.51590443px;line-height:1.25"
+           y="282.21857"
+           x="-816.16937"
+           sodipodi:role="line"
+           id="tspan7766">set at commissioning</tspan></text>
       <text
          id="text8994-5-33-2-4-9-3-3-9-4-9-0"
-         y="487.62183"
-         x="-318.6012"
-         style="font-style:normal;font-weight:normal;font-size:12px;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
+         y="449.43808"
+         x="-525.78345"
+         style="font-style:normal;font-weight:normal;font-size:12px;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.8;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
            id="tspan12544"
-           style="font-size:9.51590443px;line-height:1.25;stroke-width:1px"
-           y="487.62183"
-           x="-318.6012"
-           sodipodi:role="line">Point reflects ratios </tspan><tspan
-           id="tspan12548"
-           style="font-size:9.51590443px;line-height:1.25;stroke-width:1px"
-           y="499.51669"
-           x="-318.6012"
-           sodipodi:role="line">between current minimum </tspan><tspan
+           style="font-size:9.51590443px;line-height:1.25;fill:#000000;stroke-width:1px"
+           y="449.43808"
+           x="-525.78345"
+           sodipodi:role="line">Point placement reflects the ratio </tspan><tspan
            id="tspan12550"
-           style="font-size:9.51590443px;line-height:1.25;stroke-width:1px"
-           y="511.41159"
-           x="-318.6012"
-           sodipodi:role="line">outdoor airflow setpoint </tspan><tspan
+           style="font-size:9.51590443px;line-height:1.25;fill:#000000;stroke-width:1px"
+           y="461.33295"
+           x="-525.78345"
+           sodipodi:role="line">between current minimum </tspan><tspan
            id="tspan12566"
-           style="font-size:9.51590443px;line-height:1.25;stroke-width:1px"
-           y="523.30646"
-           x="-318.6012"
-           sodipodi:role="line">and its design and minimum </tspan><tspan
+           style="font-size:9.51590443px;line-height:1.25;fill:#000000;stroke-width:1px"
+           y="473.22784"
+           x="-525.78345"
+           sodipodi:role="line">outdoor airflow setpoint and its </tspan><tspan
            id="tspan12552"
-           style="font-size:9.51590443px;line-height:1.25;stroke-width:1px"
-           y="535.20135"
-           x="-318.6012"
-           sodipodi:role="line">values</tspan></text>
+           style="font-size:9.51590443px;line-height:1.25;fill:#000000;stroke-width:1px"
+           y="485.12271"
+           x="-525.78345"
+           sodipodi:role="line">design and minimum values</tspan></text>
       <circle
          r="2.5"
-         cy="484.3916"
-         cx="-640.34839"
+         cy="491.46268"
+         cx="-841.43445"
          id="path8860-9-6"
          style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
       <path
          style="fill:#333333;fill-rule:evenodd;stroke:#000000;stroke-width:0.93749994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         d="m 183.41413,366.60583 v 0"
+         d="m 183.41413,366.60583 0,0"
          id="path6094-1"
          inkscape:connector-type="polyline"
          inkscape:connector-curvature="0" />
       <path
          style="opacity:0;fill:#333333;fill-rule:evenodd;stroke:none;stroke-width:0.93749994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         d="m 225.71775,440.61825 v 0"
+         d="m 225.71775,440.61825 0,0"
          id="path7626-8"
          inkscape:connector-type="polyline"
          inkscape:connector-curvature="0" />
@@ -560,7 +682,7 @@
          inkscape:connector-curvature="0"
          style="fill:none;stroke:#000000;stroke-width:0.984312;marker-end:url(#marker5381-6-6-6)"
          id="path4499-2-3"
-         d="M 375.61611,395.63104 V 560.5818" />
+         d="m 375.61611,395.63104 0,164.95076" />
       <path
          d="M 337.69705,564.10725 C 288.71537,483.52416 349.79122,397.07547 349.79122,397.07547"
          id="path4503-4-3"
@@ -617,7 +739,7 @@
            style="font-size:14.99999905px;line-height:1.39999998;fill:#000000;stroke-width:0.93749994">yOutDamPosMin</tspan><tspan
            sodipodi:role="line"
            x="313.01099"
-           y="396.50031"
+           y="397.62531"
            style="font-size:14.99999905px;line-height:1.39999998;fill:#000000;stroke-width:0.93749994"
            id="tspan6753-2-7-0" /></text>
       <text
@@ -692,6 +814,197 @@
          style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.29302341;stroke-opacity:0.66666667"
          id="path4497-0-4-6-1"
          d="m 350.16922,640.23772 c -41.9776,-2.87472 -76.16028,-11.16896 -93.98138,-22.80409 -8.4601,-5.52352 -10.9919,-9.16682 -10.9919,-15.81828 0,-6.58389 2.46486,-10.19906 10.66599,-15.64374 16.95298,-11.25393 47.88734,-19.07971 89.07205,-22.53383 18.17294,-1.52409 47.37043,-1.62918 65.39442,-0.23528 35.61286,2.75375 63.42541,8.60779 82.43982,17.35274 24.70868,11.36218 27.98419,25.25071 8.85196,37.53355 -16.79325,10.78263 -50.61068,18.9664 -90.49552,21.90026 -16.30109,1.19891 -45.34693,1.31704 -60.95942,0.24662 z" />
+      <path
+         style="fill:#333333;fill-rule:evenodd;stroke:#000000;stroke-width:1.27253938;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:5.09015726, 1.27253932;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker10012)"
+         d="m -189.52179,723.21476 c 0,-535.49452 0,-535.49452 0,-535.49452"
+         id="path3449"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:#1a1a1a;fill-opacity:0.64313725;fill-rule:evenodd;stroke:#333333;stroke-width:0.70866138;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.64313725;marker-end:url(#marker4371)"
+         d="m -692.00956,491.46052 c -4.50016,0 -4.50016,0 -4.50016,0"
+         id="path4649"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path8883-7"
+         d="m -189.69047,577.55075 -174.40015,0"
+         style="opacity:0.5;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.34097913;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path8883-7-5"
+         d="m -190.10836,355.56213 -174.77515,0"
+         style="opacity:0.5;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.34134552;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <circle
+         r="2.5"
+         cy="355.16568"
+         cx="-189.16826"
+         id="path8860-9-3"
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <circle
+         r="2.5"
+         cy="577.58392"
+         cx="-189.50117"
+         id="path8860-9-3-5"
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text8994-5-33-2-4-9-6"
+         y="495.85083"
+         x="-181.76942"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
+           style="font-size:12.39959621px;line-height:1.25"
+           y="495.85083"
+           x="-181.76942"
+           id="tspan9776-2"
+           sodipodi:role="line">VOutMinSet_flow</tspan></text>
+      <text
+         id="text8994-5-33-2-4-9-6-9"
+         y="582.55939"
+         x="-179.92628"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
+           style="font-size:12.39959621px;line-height:1.25"
+           y="582.55939"
+           x="-179.92628"
+           id="tspan9776-2-1"
+           sodipodi:role="line">VOutMin_flow</tspan></text>
+      <path
+         style="fill:#1a1a1a;fill-opacity:0.64313725;fill-rule:evenodd;stroke:#333333;stroke-width:0.70866138;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.64313725;marker-start:url(#marker4447)"
+         d="m -277.04657,355.62636 c -4.50016,0 -4.50016,0 -4.50016,0"
+         id="path4649-0"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:#1a1a1a;fill-opacity:0.64313725;fill-rule:evenodd;stroke:#333333;stroke-width:0.70866138;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.64313725;marker-start:url(#marker4447-9)"
+         d="m -276.32614,577.68285 c -4.50016,0 -4.50016,0 -4.50016,0"
+         id="path4649-0-6"
+         inkscape:connector-curvature="0" />
+      <text
+         transform="matrix(0,-0.96370848,1.0376582,0,0,0)"
+         id="text9292-0"
+         y="-161.45129"
+         x="-353.14191"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
+           style="font-size:17.5px;line-height:1.25"
+           y="-161.45129"
+           x="-353.14191"
+           sodipodi:role="line"
+           id="tspan6801">OA Volume Flow</tspan></text>
+      <path
+         inkscape:connector-curvature="0"
+         id="path8883-2"
+         d="m -189.01804,491.75898 -339.20386,0"
+         style="opacity:0.5;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.47553751;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         style="fill:#1a1a1a;fill-opacity:0.64313725;fill-rule:evenodd;stroke:#333333;stroke-width:0.70866138;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.64313725;marker-end:url(#marker4371-6)"
+         d="m -355.8018,491.68216 c -4.50016,0 -4.50016,0 -4.50016,0"
+         id="path4649-8"
+         inkscape:connector-curvature="0" />
+      <circle
+         r="2.5"
+         cy="491.8197"
+         cx="-189.36693"
+         id="path8860-9-3-5-7"
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text8994-5-33-2-4-9-6-92"
+         y="359.75113"
+         x="-181.75887"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
+           style="font-size:12.39959621px;line-height:1.25"
+           y="359.75113"
+           x="-181.75887"
+           id="tspan9776-2-0"
+           sodipodi:role="line">VOutDes_flow</tspan></text>
+      <text
+         id="text8994-5-33-2-4-9-3-3-9-2"
+         y="689.98566"
+         x="-867.07727"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
+           style="font-size:12.39959621px;line-height:1.25"
+           y="689.98566"
+           x="-867.07727"
+           sodipodi:role="line"
+           id="tspan7688">0%</tspan></text>
+      <circle
+         r="2.5"
+         cy="687.27197"
+         cx="-841.97028"
+         id="path8860-9-6-7"
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <circle
+         r="2.5"
+         cy="292.35281"
+         cx="-841.79346"
+         id="path8860-9-6-7-5"
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text8994-5-33-2-4-9-3-3-9-2-9"
+         y="296.49969"
+         x="-884.04352"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
+           style="font-size:12.39959621px;line-height:1.25"
+           y="296.49969"
+           x="-884.04352"
+           sodipodi:role="line"
+           id="tspan7688-2">100%</tspan></text>
+      <text
+         id="text8994-5-33-2-4-9-3-3-9-4-5-0-28"
+         y="373.45673"
+         x="-182.17651"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.7;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
+           style="font-size:9.51590443px;line-height:1.25"
+           y="373.45673"
+           x="-182.17651"
+           sodipodi:role="line"
+           id="tspan7776-6">Set at design</tspan></text>
+      <text
+         id="text8994-5-33-2-4-9-3-3-9-4-5-0-28-9"
+         y="595.29901"
+         x="-180.92064"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.7;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
+           style="font-size:9.51590443px;line-height:1.25"
+           y="595.29901"
+           x="-180.92064"
+           sodipodi:role="line"
+           id="tspan7776-6-4">Set at design</tspan></text>
+      <text
+         id="text8994-5-33-2-4-9-3-3-9-4-5-0-28-9-7"
+         y="509.29904"
+         x="-182.92064"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.7;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
+           style="font-size:9.51590443px;line-height:1.25"
+           y="509.29904"
+           x="-182.92064"
+           sodipodi:role="line"
+           id="tspan7776-6-4-8">Input value</tspan></text>
+      <text
+         id="text8994-5-33-2-4-9-3-3-9-4-5-0-28-9-7-4"
+         y="715.29901"
+         x="-554.65753"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.7;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         sodipodi:linespacing="0%"><tspan
+           style="font-size:9.51590443px;line-height:1.25"
+           y="715.29901"
+           x="-554.65753"
+           sodipodi:role="line"
+           id="tspan7776-6-4-8-5">Input value</tspan></text>
     </g>
   </g>
 </svg>

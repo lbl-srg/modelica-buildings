@@ -26,9 +26,9 @@ protected
     "Outdoor air enthalpy high limit cutoff";
   final parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  final parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=0.61
+  final parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=0.61
     "Minimal measured volumetric airflow";
-  final parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=(minVOutSet_flow-minVOut_flow)*2.2
+  final parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=(minVOutSet_flow-VOutMin_flow)*2.2
     "Maximum volumetric airflow increase during the example simulation";
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanSta(
@@ -66,7 +66,7 @@ protected
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.Ramp VOut_flow(
     final height=incVOutSet_flow,
-    final offset=minVOut_flow,
+    final offset=VOutMin_flow,
     final duration=1800)
     "Measured outdoor air volumetric airflow"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));

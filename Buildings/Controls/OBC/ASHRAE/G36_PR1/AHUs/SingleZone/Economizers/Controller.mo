@@ -13,19 +13,19 @@ model Controller "Single zone VAV AHU economizer control sequence"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
   parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Real minFanSpe(
+  parameter Real yFanMin(
     final min=0,
     final max=1,
     final unit="1") = 0.1 "Minimum supply fan operation speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Real maxFanSpe(
+  parameter Real yFanMax(
     final min=0,
     final max=1,
     final unit="1") = 0.9 "Maximum supply fan operation speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=1.0 "Calculated minimum outdoor airflow rate"
+  parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0 "Calculated minimum outdoor airflow rate"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Modelica.SIunits.VolumeFlowRate desVOut_flow=2.0 "Calculated design outdoor airflow rate"
+  parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0 "Calculated design outdoor airflow rate"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real minVOutMinFansSpePos(
     final min=outDamPhyPosMin,
@@ -33,20 +33,20 @@ model Controller "Single zone VAV AHU economizer control sequence"
     final unit="1") = 0.4
     "OA damper position to supply minimum outdoor airflow at minimum fan speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Real minVOutMaxFanSpePos(
+  parameter Real yDam_VOutMin_maxSpe(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1") = 0.3
     "OA damper position to supply minimum outdoor airflow at maximum fan speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Real desVOutMinFanSpePos(
+  parameter Real yDam_VOutDes_minSpe(
     final min=minVOutMinFansSpePos,
     final max=outDamPhyPosMax,
     final unit="1") = 0.9
     "OA damper position to supply design outdoor airflow at minimum fan speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Real desVOutMaxFanSpePos(
-    final min=minVOutMaxFanSpePos,
+  parameter Real yDam_VOutDes_maxSpe(
+    final min=yDam_VOutMin_maxSpe,
     final max=outDamPhyPosMax,
     final unit="1") = 0.8
     "OA damper position to supply design outdoor airflow at maximum fan speed"
@@ -109,16 +109,16 @@ model Controller "Single zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow(
-    final min=minVOut_flow,
-    final max=desVOut_flow,
+    final min=VOutMin_flow,
+    final max=VOutDes_flow,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFanSpe(
-    final min=minFanSpe,
-    final max=maxFanSpe,
+    final min=yFanMin,
+    final max=yFanMax,
     final unit="1")
     "Supply fan speed"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}}),
@@ -160,16 +160,16 @@ model Controller "Single zone VAV AHU economizer control sequence"
     "Single zone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Limits damLim(
-    final minFanSpe=minFanSpe,
-    final maxFanSpe=maxFanSpe,
+    final yFanMin=yFanMin,
+    final yFanMax=yFanMax,
     final outDamPhyPosMax=outDamPhyPosMax,
     final outDamPhyPosMin=outDamPhyPosMin,
-    final minVOut_flow=minVOut_flow,
-    final desVOut_flow=desVOut_flow,
+    final VOutMin_flow=VOutMin_flow,
+    final VOutDes_flow=VOutDes_flow,
     final minVOutMinFansSpePos=minVOutMinFansSpePos,
-    final minVOutMaxFanSpePos=minVOutMaxFanSpePos,
-    final desVOutMinFanSpePos=desVOutMinFanSpePos,
-    final desVOutMaxFanSpePos=desVOutMaxFanSpePos)
+    final yDam_VOutMin_maxSpe=yDam_VOutMin_maxSpe,
+    final yDam_VOutDes_minSpe=yDam_VOutDes_minSpe,
+    final yDam_VOutDes_maxSpe=yDam_VOutDes_maxSpe)
     "Single zone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Modulation mod(

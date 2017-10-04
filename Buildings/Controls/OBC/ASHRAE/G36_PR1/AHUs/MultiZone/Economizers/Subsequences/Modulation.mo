@@ -2,9 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subseque
 block Modulation
   "Outdoor and return air damper position modulation sequence for multi zone VAV AHU"
 
-  parameter Real conSigMin=0 "Lower limit of controller output"
+  parameter Real yMin=0 "Lower limit of controller output"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Real conSigMax=1 "Upper limit of controller output"
+  parameter Real yMax=1 "Upper limit of controller output"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
   parameter Real retDamConSigMin(
     final min=0,
@@ -119,7 +119,7 @@ protected
   CDL.Continuous.AddParameter invConAct(p=1, k=-1)
     "Output the inverse control action"
     annotation (Placement(transformation(extent={{-72,0},{-52,20}})));
-  CDL.Continuous.Limiter conSigLim(uMax=conSigMax, uMin=conSigMin)
+  CDL.Continuous.Limiter conSigLim(uMax=yMax, uMin=yMin)
     "Limiter for control signal"
     annotation (Placement(transformation(extent={{-42,0},{-22,20}})));
 equation

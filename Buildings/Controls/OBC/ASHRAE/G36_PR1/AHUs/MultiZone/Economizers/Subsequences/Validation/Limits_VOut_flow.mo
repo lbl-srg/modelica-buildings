@@ -9,7 +9,7 @@ model Limits_VOut_flow
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Modelica.Blocks.Sources.Ramp VOut_flow(
     duration=1800,
-    offset=minVOut_flow,
+    offset=VOutMin_flow,
     height=incVOutSet_flow)
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
@@ -21,9 +21,9 @@ model Limits_VOut_flow
 protected
   parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=0.61
+  parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=0.61
     "Minimal measured volumetric airflow";
-  parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=(minVOutSet_flow-minVOut_flow)*2
+  parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=(minVOutSet_flow-VOutMin_flow)*2
     "Maximum volumetric airflow increase during the example simulation";
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus(k=true) "Fan is on"

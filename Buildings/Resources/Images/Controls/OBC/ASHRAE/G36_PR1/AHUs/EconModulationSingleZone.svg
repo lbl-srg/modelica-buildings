@@ -469,7 +469,7 @@
          sodipodi:role="line"
          x="-336.19547"
          y="157.82974"
-         style="font-size:4.23333311px;fill:#000000;stroke-width:0.26458332"> conSigMin</tspan></text>
+         style="font-size:4.23333311px;fill:#000000;stroke-width:0.26458332"> yMin</tspan></text>
     <text
        inkscape:export-ydpi="96"
        inkscape:export-xdpi="96"
@@ -482,7 +482,7 @@
          id="tspan4485-5-97-6"
          x="-296.61975"
          y="157.83569"
-         style="font-size:4.23333311px;fill:#000000;stroke-width:0.26458332">conSigMax</tspan></text>
+         style="font-size:4.23333311px;fill:#000000;stroke-width:0.26458332">yMax</tspan></text>
     <text
        inkscape:export-ydpi="96"
        inkscape:export-xdpi="96"

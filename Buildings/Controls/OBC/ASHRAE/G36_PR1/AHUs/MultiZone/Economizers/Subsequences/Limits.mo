@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences;
 block Limits "Multi zone VAV AHU minimum outdoor air control - damper position limits"
 
-  parameter Real conSigMin=0 "Lower limit of control signal output"
+  parameter Real yMin=0 "Lower limit of control signal output"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Real conSigMax=1 "Upper limit of control signal output"
+  parameter Real yMax=1 "Upper limit of control signal output"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
   parameter Real retDamConSigMin(
-    final min=conSigMin,
-    final max=conSigMax,
+    final min=yMin,
+    final max=yMax,
     final unit="1")=0.5
     "Minimum control signal for the RA damper position limit - maximum for the OA damper position limit"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
@@ -102,8 +102,8 @@ block Limits "Multi zone VAV AHU minimum outdoor air control - damper position l
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID damLimCon(
     final Ti=TiDamLim,
-    final yMax=conSigMax,
-    final yMin=conSigMin,
+    final yMax=yMax,
+    final yMin=yMin,
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=kPDamLim) "Damper position limit controller"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
@@ -126,11 +126,11 @@ protected
     "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSigLim(
-    final k=conSigMin)
+    final k=yMin)
     "Equals minimum controller output signal"
     annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxSigLim(
-    final k=conSigMax)
+    final k=yMax)
     "Equals maximum controller output signal"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigFraForOutDam(
@@ -334,10 +334,10 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/Eco
 The controller sets the outdoor and return damper position limits so
 that the outdoor airflow rate <code>VOut_flow</code> stays equal or above the
 minimum outdoor air setpoint <code>VOutMinSet_flow</code>. The fraction of the controller
-output signal between <code>conSigMin</code> and <code>retDamConSigMin</code> is
+output signal between <code>yMin</code> and <code>retDamConSigMin</code> is
 linearly mapped to the outdoor air damper minimal position <code>yOutDamPosMin</code>
 while the fraction of the controller output between <code>retDamConSigMin</code> and
-<code>conSigMax</code> is linearly mapped to the return air damper maximum position
+<code>yMax</code> is linearly mapped to the return air damper maximum position
 <code>yRetDamPosMax</code>. Thus the dampers are not interlocked.
 </p>
 <p>
