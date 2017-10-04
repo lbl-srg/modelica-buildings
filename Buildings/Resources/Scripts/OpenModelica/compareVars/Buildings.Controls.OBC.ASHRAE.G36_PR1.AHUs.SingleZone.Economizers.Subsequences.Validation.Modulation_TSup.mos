@@ -1,8 +1,8 @@
 compareVars :=
   {
-    "ecoMod.THeaSet",
-    "ecoMod.TSup",
-    "ecoMod.damPosCon.y",
-    "ecoMod.yOutDamPos",
-    "ecoMod.yRetDamPos"
+    "mod.THeaSupSet",
+    "mod.TSup",
+    "mod.damPosCon.y",
+    "mod.yOutDamPos",
+    "mod.yRetDamPos"
   };

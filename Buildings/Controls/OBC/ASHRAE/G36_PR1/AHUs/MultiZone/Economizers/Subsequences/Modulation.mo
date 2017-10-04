@@ -2,9 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subseque
 block Modulation
   "Outdoor and return air damper position modulation sequence for multi zone VAV AHU"
 
-  parameter Real conSigMin=0 "Lower limit of controller output"
+  parameter Real yMin=0 "Lower limit of controller output"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Real conSigMax=1 "Upper limit of controller output"
+  parameter Real yMax=1 "Upper limit of controller output"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
   parameter Real retDamConSigMin(
     final min=0,
@@ -119,7 +119,7 @@ protected
   CDL.Continuous.AddParameter invConAct(p=1, k=-1)
     "Output the inverse control action"
     annotation (Placement(transformation(extent={{-72,0},{-52,20}})));
-  CDL.Continuous.Limiter conSigLim(uMax=conSigMax, uMin=conSigMin)
+  CDL.Continuous.Limiter conSigLim(uMax=yMax, uMin=yMin)
     "Limiter for control signal"
     annotation (Placement(transformation(extent={{-42,0},{-22,20}})));
 equation
@@ -155,7 +155,7 @@ equation
   connect(conSigLim.y, outDamPos.u) annotation (Line(points={{-21,10},{32,10},{
           32,-30},{58,-30}}, color={0,0,127}));
   annotation (
-    defaultComponentName = "ecoMod",
+    defaultComponentName = "mod",
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -211,8 +211,8 @@ Guidline 36 (G36), PART5.N.2.c. Damper positions are linearly mapped to
 the supply air control loop signal. This is a final sequence in the
 composite multi zone VAV AHU economizer control sequence. Damper position
 limits, which are the inputs to the sequence, are the outputs of
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.DamperLimits</a> and
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits</a> and
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable</a>
 sequences.

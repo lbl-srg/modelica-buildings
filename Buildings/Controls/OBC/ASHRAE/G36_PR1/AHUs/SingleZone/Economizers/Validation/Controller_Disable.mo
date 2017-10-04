@@ -5,18 +5,18 @@ model Controller_Disable
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Controller economizer(
     final use_enthalpy=true,
-    final minFanSpe=minFanSpe,
-    final maxFanSpe=maxFanSpe,
-    final minVOut_flow=minVOut_flow,
-    final desVOut_flow=desVOut_flow)
+    final yFanMin=yFanMin,
+    final yFanMax=yFanMax,
+    final VOutMin_flow=VOutMin_flow,
+    final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Controller economizer1(
     final use_enthalpy=true,
-    final minFanSpe=minFanSpe,
-    final maxFanSpe=maxFanSpe,
-    final minVOut_flow=minVOut_flow,
-    final desVOut_flow=desVOut_flow)
+    final yFanMin=yFanMin,
+    final yFanMax=yFanMax,
+    final VOutMin_flow=VOutMin_flow,
+    final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 
@@ -26,16 +26,16 @@ protected
   final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
   final parameter Modelica.SIunits.Temperature TSupSet=291.15 "Supply air temperature setpoint";
-  final parameter Real minFanSpe(
+  final parameter Real yFanMin(
     final min=0,
     final max=1,
     final unit="1")=0.1 "Minimum supply fan operation speed";
-  final parameter Real maxFanSpe(
+  final parameter Real yFanMax(
     final min=0,
     final max=1,
     final unit="1")=0.9 "Maximum supply fan operation speed";
-  final parameter Modelica.SIunits.VolumeFlowRate minVOut_flow=1.0 "Calculated minimum outdoor airflow rate";
-  final parameter Modelica.SIunits.VolumeFlowRate desVOut_flow=2.0 "Calculated design outdoor airflow rate";
+  final parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0 "Calculated minimum outdoor airflow rate";
+  final parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0 "Calculated design outdoor airflow rate";
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanSta(
     final k=true) "Fan is on"
@@ -55,7 +55,7 @@ protected
     "Outdoor air enthalpy is below the cutoff"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSetSig(
-    final k=TSupSet) "Healing supply air temperature setpoint"
+    final k=TSupSet) "Heating supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta2(
     final k=Constants.FreezeProtectionStages.stage2)
@@ -78,14 +78,14 @@ protected
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Modelica.Blocks.Sources.Ramp VOutMinSetSig(
     final duration=1800,
-    final offset=minVOut_flow,
-    final height=desVOut_flow - minVOut_flow)
+    final offset=VOutMin_flow,
+    final height=VOutDes_flow - VOutMin_flow)
     "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Modelica.Blocks.Sources.Ramp SupFanSpeSig(
     final duration=1800,
-    final offset=minFanSpe,
-    final height=maxFanSpe - minFanSpe) "Supply fan speed signal"
+    final offset=yFanMin,
+    final height=yFanMax - yFanMin) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
 equation
@@ -104,7 +104,7 @@ equation
     annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,16},{19,16}},color={0,0,127}));
   connect(TSup.y, economizer.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}},color={0,0,127}));
-  connect(TSupSetSig.y, economizer.THeaSet)
+  connect(TSupSetSig.y, economizer.THeaSupSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}},color={0,0,127}));
   connect(TOutCut1.y, economizer1.TOutCut)
     annotation (Line(points={{-99,70},{74,70},{74,0},{99,0}}, color={0,0,127}));
@@ -116,7 +116,7 @@ equation
     annotation (Line(points={{-99,20},{-88,20},{-88,-26},{74,-26},{74,-2},{99,-2}},color={0,0,127}));
   connect(TSup.y, economizer1.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,118},{82,118},{82,-6},{99,-6}}, color={0,0,127}));
-  connect(TSupSetSig.y, economizer1.THeaSet)
+  connect(TSupSetSig.y, economizer1.THeaSupSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,68},{72,68},{72,-8},{99,-8}}, color={0,0,127}));
   connect(fanSta.y, economizer1.uSupFan)
     annotation (Line(points={{-19,-10},{20,-10},{20,-14},{99,-14}}, color={255,0,255}));
@@ -130,11 +130,11 @@ equation
     annotation (Line(points={{-59,-90},{20,-90},{20,-16},{99,-16}}, color={255,127,0}));
   connect(zonSta.y, economizer1.uZonSta)
     annotation (Line(points={{-59,-60},{22,-60},{22,-18},{99,-18}}, color={255,127,0}));
-  connect(VOutMinSetSig.y, economizer.uVOutMinSet_flow)
+  connect(VOutMinSetSig.y, economizer.VOutMinSet_flow)
     annotation (Line(points={{-19,90},{0,90},{0,10},{19,10}}, color={0,0,127}));
   connect(SupFanSpeSig.y, economizer.uSupFanSpe)
     annotation (Line(points={{-19,50},{0,50},{0,8},{19,8}}, color={0,0,127}));
-  connect(VOutMinSetSig.y, economizer1.uVOutMinSet_flow)
+  connect(VOutMinSetSig.y, economizer1.VOutMinSet_flow)
     annotation (Line(points={{-19,90},{78,90},{78,-10},{99,-10}}, color={0,0,127}));
   connect(SupFanSpeSig.y, economizer1.uSupFanSpe)
     annotation (Line(points={{-19,50},{68,50},{68,-12},{99,-12}}, color={0,0,127}));

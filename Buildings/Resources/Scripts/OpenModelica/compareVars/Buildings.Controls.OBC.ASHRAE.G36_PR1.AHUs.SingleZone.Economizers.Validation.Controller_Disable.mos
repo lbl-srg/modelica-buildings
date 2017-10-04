@@ -1,16 +1,16 @@
 compareVars :=
   {
-    "economizer.ecoEnaDis.andEnaDis.y",
+    "economizer.enaDis.andEnaDis.y",
     "economizer.uZonSta",
-    "economizer.ecoDamLim.yOutDamPosMin",
-    "economizer.ecoDamLim.yOutDamPosMax",
+    "economizer.damLim.yOutDamPosMin",
+    "economizer.damLim.yOutDamPosMax",
     "economizer.yOutDamPos",
     "economizer.yRetDamPos",
-    "economizer1.ecoEnaDis.andEnaDis.y",
+    "economizer1.enaDis.andEnaDis.y",
     "economizer1.uZonSta",
     "economizer1.uFreProSta",
-    "economizer1.ecoDamLim.yOutDamPosMin",
-    "economizer1.ecoDamLim.yOutDamPosMax",
+    "economizer1.damLim.yOutDamPosMin",
+    "economizer1.damLim.yOutDamPosMax",
     "economizer1.yOutDamPos",
     "economizer1.yRetDamPos"
   };

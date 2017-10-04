@@ -1,10 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences;
-block DamperModulation
-  "Outdoor and return air damper position modulation sequence for single zone VAV AHU"
+block Modulation "Outdoor and return air damper position modulation sequence for single zone VAV AHU"
 
-  parameter Real conSigMin=0 "Lower limit of controller output"
+  parameter Real yMin=0 "Lower limit of controller output"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Real conSigMax=1 "Upper limit of controller output"
+  parameter Real yMax=1 "Upper limit of controller output"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
   parameter Real kPMod=1 "Gain of modulation controller"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
@@ -17,7 +16,7 @@ block DamperModulation
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSupSet(
     final unit="K",
     final quantity = "ThermodynamicTemperature") "Supply air temperature heating setpoint"
     annotation (Placement(transformation(extent={{-160,-10},{-120,30}}),
@@ -67,8 +66,8 @@ block DamperModulation
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID damPosCon(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final yMax=conSigMax,
-    final yMin=conSigMin,
+    final yMax=yMax,
+    final yMin=yMin,
     final k=kPMod,
     final Ti=TiMod)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
@@ -114,7 +113,7 @@ equation
     annotation (Line(points={{-140,-100},{-140,-100},{28,-100},{28,-26},{58,-26}}, color={0,0,127}));
   connect(outDamMinLimSig.y, outDamPos.x1)
     annotation (Line(points={{1,-10},{1,-10}, {28,-10},{28,-22},{58,-22}}, color={0,0,127}));
-  connect(THeaSet, damPosCon.u_s) annotation (Line(points={{-140,10},{-140,
+  connect(THeaSupSet, damPosCon.u_s) annotation (Line(points={{-140,10},{-140,
           10},{-82,10}}, color={0,0,127}));
   connect(uRetDamPosMin,retDamPos. f2)
     annotation (Line(points={{-140,60},{-40,60},{-40,62},{58,62}}, color={0,0,127}));
@@ -125,7 +124,7 @@ equation
   connect(outDamMinLimSig.y, retDamPos.x1)
     annotation (Line(points={{1,-10},{24,-10},{24,78},{58,78}}, color={0,0,127}));
   annotation (
-    defaultComponentName = "ecoMod",
+    defaultComponentName = "mod",
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -175,14 +174,16 @@ assignments")}),
     Documentation(info="<html>
 <p>
 This is a single zone VAV AHU economizer modulation block. It calculates
-the outdoor and return air damper positions based on the supply air temperature
-control loop signal. The implementation is in line with ASHRAE
+the outdoor and return air damper positions based on the single zone VAV AHU
+supply air temperature control loop signal. Economizer dampers are modulated
+based on the calculated heating supply air temperature setpoint.
+The implementation is in line with ASHRAE
 Guidline 36 (G36), PART5.P.3.b. Damper positions are linearly mapped to
 the supply air control loop signal. This is a final sequence in the
 composite single zone VAV AHU economizer control sequence. Damper position
 limits, which are the inputs to the sequence, are the outputs of
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.DamperLimits\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.DamperLimits</a> and
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Limits\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Limits</a> and
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Enable\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Enable</a>
 sequences.
@@ -217,4 +218,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DamperModulation;
+end Modulation;

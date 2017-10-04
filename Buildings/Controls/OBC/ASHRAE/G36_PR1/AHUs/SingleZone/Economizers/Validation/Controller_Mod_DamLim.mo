@@ -5,18 +5,18 @@ model Controller_Mod_DamLim
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Controller economizer(
     final use_enthalpy=true,
-    final minFanSpe=minFanSpe,
-    final maxFanSpe=maxFanSpe,
-    final minVOut_flow=minVOut_flow,
-    final desVOut_flow=desVOut_flow)
+    final yFanMin=yFanMin,
+    final yFanMax=yFanMax,
+    final VOutMin_flow=VOutMin_flow,
+    final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Controller economizer1(
     final use_enthalpy=false,
-    final minFanSpe=minFanSpe,
-    final maxFanSpe=maxFanSpe,
-    final minVOut_flow=minVOut_flow,
-    final desVOut_flow=desVOut_flow)
+    final yFanMin=yFanMin,
+    final yFanMax=yFanMax,
+    final VOutMin_flow=VOutMin_flow,
+    final VOutDes_flow=VOutDes_flow)
     "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
@@ -25,20 +25,20 @@ protected
     "Outdoor temperature high limit cutoff";
   parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
-  parameter Modelica.SIunits.Temperature THeaSet=291.15
-    "Supply air temperature Healing setpoint";
+  parameter Modelica.SIunits.Temperature TSupSet=291.15
+    "Supply air temperature Heating setpoint";
   parameter Modelica.SIunits.Temperature TSup=290.15
     "Measured supply air temperature";
-  parameter Real minFanSpe(
+  parameter Real yFanMin(
     final min=0,
     final max=1,
     final unit="1") = 0.1 "Minimum supply fan operation speed";
-  parameter Real maxFanSpe(
+  parameter Real yFanMax(
     final min=0,
     final max=1,
     final unit="1") = 0.9 "Maximum supply fan operation speed";
-  parameter Modelica.SIunits.VolumeFlowRate minVOut_flow = 1.0 "Calculated minimum outdoor airflow rate";
-  parameter Modelica.SIunits.VolumeFlowRate desVOut_flow = 2.0 "Calculated design outdoor airflow rate";
+  parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow = 1.0 "Calculated minimum outdoor airflow rate";
+  parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow = 2.0 "Calculated design outdoor airflow rate";
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanSta(
     k=true) "Fan is on"
@@ -70,7 +70,7 @@ protected
     final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSetSig(
-    final k=THeaSet) "Healing supply air temperature setpoint"
+    final k=TSupSet) "Heating supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSig(
     final k=TSup) "Measured supply air temperature"
@@ -78,17 +78,17 @@ protected
   Modelica.Blocks.Sources.Ramp TSupSig1(
     final duration=900,
     final height=2,
-    final offset=THeaSet - 1) "Measured supply air temperature"
+    final offset=TSupSet - 1) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   Modelica.Blocks.Sources.Ramp VOutMinSetSig(
     final duration=1800,
-    final offset=minVOut_flow,
-    final height=desVOut_flow - minVOut_flow) "Minimum outdoor airflow setpoint"
+    final offset=VOutMin_flow,
+    final height=VOutDes_flow - VOutMin_flow) "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Modelica.Blocks.Sources.Ramp SupFanSpeSig(
     final duration=1800,
-    final offset=minFanSpe,
-    final height=maxFanSpe - minFanSpe) "Supply fan speed signal"
+    final offset=yFanMin,
+    final height=yFanMax - yFanMin) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
 equation
@@ -108,7 +108,7 @@ equation
     annotation (Line(points={{-99,20},{-60,20},{-60,18},{-4,18},{19,18}},color={0,0,127}));
   connect(hOutCut.y, economizer.hOutCut)
     annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,16},{19,16}},color={0,0,127}));
-  connect(TSupSetSig.y, economizer.THeaSet)
+  connect(TSupSetSig.y, economizer.THeaSupSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}},color={0,0,127}));
   connect(TSupSig.y, economizer.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}}, color={0,0,127}));
@@ -118,7 +118,7 @@ equation
     annotation (Line(points={{-99,70},{88,70},{88,-20},{99,-20}}, color={0,0,127}));
   connect(TSupSig1.y, economizer1.TSup)
     annotation (Line(points={{61,90},{80,90},{80,-26},{99,-26}}, color={0,0,127}));
-  connect(TSupSetSig.y, economizer1.THeaSet)
+  connect(TSupSetSig.y, economizer1.THeaSupSet)
     annotation (Line(points={{-59,50},{-54,50},{-54,-20},{20,-20},{20,-28},{99,-28}}, color={0,0,127}));
   connect(fanSta.y, economizer1.uSupFan)
     annotation (Line(points={{-59,-80},{20,-80},{20,-34},{99,-34}}, color={255,0,255}));
@@ -132,12 +132,12 @@ equation
     annotation (Line(points={{-99,-100},{22,-100},{22,-36},{99,-36}}, color={255,127,0}));
   connect(zonSta.y, economizer1.uZonSta)
     annotation (Line(points={{-99,-60},{24,-60},{24,-38},{99,-38}}, color={255,127,0}));
-  connect(VOutMinSetSig.y, economizer.uVOutMinSet_flow)
+  connect(VOutMinSetSig.y, economizer.VOutMinSet_flow)
     annotation (Line(points={{-19,90},{0,90},{0,10},{19,10}}, color={0,0,127}));
-  connect(VOutMinSetSig.y, economizer1.uVOutMinSet_flow)
-    annotation (Line(points={{-19,90},{14,90},{14,-30},{48,-30},{99,-30}},          color={0,0,127}));
+  connect(VOutMinSetSig.y, economizer1.VOutMinSet_flow)
+    annotation (Line(points={{-19,90},{14,90},{14,-30},{48,-30},{99,-30}}, color={0,0,127}));
   connect(SupFanSpeSig.y, economizer.uSupFanSpe)
-    annotation (Line(points={{-19,50},{-20,50},{10,50},{-2,50},{-2,8},{19,8}},                 color={0,0,127}));
+    annotation (Line(points={{-19,50},{-20,50},{10,50},{-2,50},{-2,8},{19,8}}, color={0,0,127}));
   connect(SupFanSpeSig.y, economizer1.uSupFanSpe)
     annotation (Line(points={{-19,50},{78,50},{78,-32},{99,-32}}, color={0,0,127}));
   annotation (

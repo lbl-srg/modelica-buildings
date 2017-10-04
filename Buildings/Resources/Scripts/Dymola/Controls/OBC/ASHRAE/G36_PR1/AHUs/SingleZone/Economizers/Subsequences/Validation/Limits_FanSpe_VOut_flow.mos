@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Validation.Limits_FanSpe_VOut_flow", method="dassl", stopTime=1800, tolerance=1e-06, resultFile="Limits_FanSpe_VOut_flow_SingleZone");
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"damLim.uSupFanSpe","damLim.VOutMinSet_flow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"damLim.yOutDamPosMin","damLim.yOutDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"damLim1.uSupFanSpe","damLim1.VOutMinSet_flow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=4, y={"damLim1.yOutDamPosMin","damLim1.yOutDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
