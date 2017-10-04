@@ -246,6 +246,7 @@ Guidline 36, PART5 sections: N.2.c, N.5, N.6.c, N.7, A.17, N.12.
 </p>
 <p>
 The sequence consists of three subsequences.
+</p>
 <ul>
 <li>
 First, the block <code>damLim</code> computes the damper position limits to satisfy
@@ -273,7 +274,6 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Mo
 for a description.
 </li>
 </ul>
-</p>
 <p>
 The figure below shows the block diagram of the control sequence.
 </p>
