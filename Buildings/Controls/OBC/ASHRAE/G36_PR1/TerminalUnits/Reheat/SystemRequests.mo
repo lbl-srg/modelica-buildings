@@ -5,7 +5,7 @@ block SystemRequests
   parameter Boolean have_heaWatCoi=true
     "Flag, true if there is a hot water coil";
   parameter Boolean have_heaPla=false "Flag, true if there is a boiler plant";
-  parameter Modelica.SIunits.Time samplePeriod
+  parameter Modelica.SIunits.Time samplePeriod=120
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
   parameter Modelica.SIunits.TemperatureDifference cooSetDif_1=2.8
     "Limit value of difference between zone temperature and cooling setpoint
