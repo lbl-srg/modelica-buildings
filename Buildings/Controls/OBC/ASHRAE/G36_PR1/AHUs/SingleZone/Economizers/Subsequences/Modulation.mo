@@ -124,7 +124,7 @@ equation
   connect(outDamMinLimSig.y, retDamPos.x1)
     annotation (Line(points={{1,-10},{24,-10},{24,78},{58,78}}, color={0,0,127}));
   annotation (
-    defaultComponentName = "ecoMod",
+    defaultComponentName = "mod",
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

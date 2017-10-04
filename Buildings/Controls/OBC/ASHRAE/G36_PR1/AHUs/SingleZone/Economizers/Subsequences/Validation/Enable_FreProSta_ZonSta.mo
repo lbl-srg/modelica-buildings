@@ -3,10 +3,10 @@ model Enable_FreProSta_ZonSta
   "Model validates economizer disable for heating zone state and activated freeze protection"
   extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Enable ecoEnaDis
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Enable enaDis
     "Single zone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,40},{102,60}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Enable ecoEnaDis1
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Enable enaDis1
     "Single zone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,-40},{102,-20}})));
 
@@ -60,41 +60,41 @@ protected
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
 equation
-  connect(TOutBelowCutoff.y, ecoEnaDis.TOut)
+  connect(TOutBelowCutoff.y, enaDis.TOut)
     annotation (Line(points={{-19,150},{32,150},{32,60},{81,60}}, color={0,0,127}));
-  connect(TOutCut.y, ecoEnaDis.TOutCut)
+  connect(TOutCut.y, enaDis.TOutCut)
     annotation (Line(points={{-19,110},{31.5,110},{31.5,58},{81,58}}, color={0,0,127}));
-  connect(TOutCut.y, ecoEnaDis1.TOutCut)
+  connect(TOutCut.y, enaDis1.TOutCut)
     annotation (Line(points={{-19,110},{32,110},{32,-22},{81,-22}}, color={0,0,127}));
-  connect(TOutBelowCutoff.y, ecoEnaDis1.TOut)
+  connect(TOutBelowCutoff.y, enaDis1.TOut)
     annotation (Line(points={{-19,150},{32,150},{32,-20},{81,-20}}, color={0,0,127}));
-  connect(hOutBelowCutoff.y, ecoEnaDis.hOut)
+  connect(hOutBelowCutoff.y, enaDis.hOut)
     annotation (Line(points={{-79,110},{-60,110},{-60,56},{81,56}}, color={0,0,127}));
-  connect(hOutCut.y, ecoEnaDis.hOutCut)
+  connect(hOutCut.y, enaDis.hOutCut)
     annotation (Line(points={{-79,70},{-70,70},{-70,54},{81,54}}, color={0,0,127}));
-  connect(hOutBelowCutoff.y, ecoEnaDis1.hOut)
+  connect(hOutBelowCutoff.y, enaDis1.hOut)
     annotation (Line(points={{-79,110},{-60,110},{-60,56},{10,56},{10,-24},{81,-24}}, color={0,0,127}));
-  connect(hOutCut.y, ecoEnaDis1.hOutCut)
+  connect(hOutCut.y, enaDis1.hOutCut)
     annotation (Line(points={{-79,70},{-70,70},{-70,54},{6,54},{6,-26},{81,-26}}, color={0,0,127}));
-  connect(zonSta.y, ecoEnaDis.uZonSta)
+  connect(zonSta.y, enaDis.uZonSta)
     annotation (Line(points={{-139,10},{-120,10},{-120,50},{81,50}}, color={255,127,0}));
-  connect(freProSta.y, ecoEnaDis.uFreProSta)
+  connect(freProSta.y, enaDis.uFreProSta)
     annotation (Line(points={{-139,50},{-130,50},{-130,52},{81,52}}, color={255,127,0}));
-  connect(freProSta1.y, ecoEnaDis1.uFreProSta)
+  connect(freProSta1.y, enaDis1.uFreProSta)
     annotation (Line(points={{61,-110},{70,-110},{70,-28},{81,-28}}, color={255,127,0}));
-  connect(zonSta1.y, ecoEnaDis1.uZonSta)
+  connect(zonSta1.y, enaDis1.uZonSta)
     annotation (Line(points={{61,-70},{72,-70},{72,-30},{81,-30}}, color={255,127,0}));
-  connect(outDamPosMax.y, ecoEnaDis.uOutDamPosMax)
+  connect(outDamPosMax.y, enaDis.uOutDamPosMax)
     annotation (Line(points={{-39,-110},{-30,-110},{-30,46},{81,46}}, color={0,0,127}));
-  connect(outDamPosMin.y, ecoEnaDis.uOutDamPosMin)
+  connect(outDamPosMin.y, enaDis.uOutDamPosMin)
     annotation (Line(points={{-39,-150},{-28,-150},{-28,44},{81,44}}, color={0,0,127}));
-  connect(outDamPosMin.y, ecoEnaDis1.uOutDamPosMin)
+  connect(outDamPosMin.y, enaDis1.uOutDamPosMin)
     annotation (Line(points={{-39,-150},{22,-150},{22,-36},{81,-36}}, color={0,0,127}));
-  connect(outDamPosMax.y, ecoEnaDis1.uOutDamPosMax)
+  connect(outDamPosMax.y, enaDis1.uOutDamPosMax)
     annotation (Line(points={{-39,-110},{20,-110},{20,-34},{81,-34}}, color={0,0,127}));
-  connect(supFanSta.y, ecoEnaDis.uSupFan)
+  connect(supFanSta.y, enaDis.uSupFan)
     annotation (Line(points={{-139,-30},{-34,-30},{-34,48},{81,48}}, color={255,0,255}));
-  connect(supFanSta.y, ecoEnaDis1.uSupFan)
+  connect(supFanSta.y, enaDis1.uSupFan)
     annotation (Line(points={{-139,-30},{-34,-30},{-34,-32},{81,-32}}, color={255,0,255}));
     annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),

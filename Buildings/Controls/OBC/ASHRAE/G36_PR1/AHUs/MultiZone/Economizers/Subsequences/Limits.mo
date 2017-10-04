@@ -243,7 +243,7 @@ equation
       color={255,0,255}));
 
 annotation (
-    defaultComponentName = "ecoDamLim",
+    defaultComponentName = "damLim",
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

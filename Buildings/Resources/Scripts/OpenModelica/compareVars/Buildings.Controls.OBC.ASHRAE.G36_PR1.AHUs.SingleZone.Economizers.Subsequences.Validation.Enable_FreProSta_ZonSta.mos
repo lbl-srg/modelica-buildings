@@ -1,13 +1,13 @@
 compareVars :=
   {
-    "ecoEnaDis.yOutDamPosMax",
-    "ecoEnaDis.yRetDamPosMin",
-    "ecoEnaDis.yRetDamPosMax",
-    "ecoEnaDis.andEnaDis.y",
-    "ecoEnaDis.truFalHol.y",
-    "ecoEnaDis1.yOutDamPosMax",
-    "ecoEnaDis1.yRetDamPosMin",
-    "ecoEnaDis1.yRetDamPosMax",
-    "ecoEnaDis1.andEnaDis.y",
-    "ecoEnaDis1.truFalHol.y"
+    "enaDis.yOutDamPosMax",
+    "enaDis.yRetDamPosMin",
+    "enaDis.yRetDamPosMax",
+    "enaDis.andEnaDis.y",
+    "enaDis.truFalHol.y",
+    "enaDis1.yOutDamPosMax",
+    "enaDis1.yRetDamPosMin",
+    "enaDis1.yRetDamPosMax",
+    "enaDis1.andEnaDis.y",
+    "enaDis1.truFalHol.y"
   };

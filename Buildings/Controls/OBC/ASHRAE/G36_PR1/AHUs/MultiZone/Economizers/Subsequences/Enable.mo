@@ -281,7 +281,7 @@ equation
   connect(not3.y, andEnaDis.u3) annotation (Line(points={{-23,0},{19.5,0},{19.5,
           32},{38,32}}, color={255,0,255}));
   annotation (
-    defaultComponentName = "ecoEnaDis",
+    defaultComponentName = "enaDis",
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -377,14 +377,14 @@ following is <code>true</code>:
 </p>
 <ul>
 <li>
-supply fan is off (<code>uSupFan = false</code>),
+The supply fan is off (<code>uSupFan = false</code>),
 </li>
 <li>
-zone state <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.ZoneStates\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.ZoneStates</a> is <code>heating</code>,
+the zone state <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.ZoneStates\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.ZoneStates</a> is <code>heating</code>, or
 </li>
 <li>
-freeze protection stage
+the freeze protection stage
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages</a>
 is not <code>stage0</code>.
@@ -403,13 +403,13 @@ prevent pressure fluctuations in the HVAC system:
 </p>
 <ul>
 <li>
-return damper gets fully opened (<code>yRetDamPosMax = uRetDamPhyPosMax</code> and
+The return damper gets fully opened (<code>yRetDamPosMax = uRetDamPhyPosMax</code> and
 <code>yRetDamPosMin = uRetDamPhyPosMax</code>) for <code>retDamFulOpeTim</code>
 time period, after which the return damper gets released to its minimum outdoor airflow control position
 (<code>yRetDamPosMax = uRetDamPosMax</code> and <code>yRetDamPosMin = uRetDamPosMax</code>).
 </li>
 <li>
-outdoor air damper is closed to its minimum outoor airflow control limit (<code>yOutDamPosMax = uOutDamPosMin</code>)
+The outdoor air damper is closed to its minimum outoor airflow control limit (<code>yOutDamPosMax = uOutDamPosMin</code>)
 after a <code>disDel</code> time delay.
 </li>
 </ul>

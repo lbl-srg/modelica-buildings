@@ -61,7 +61,7 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
     "Supply fan speed"
     annotation (Placement(transformation(extent={{-200,90},{-160,130}}),
       iconTransformation(extent={{-120,28},{-100,48}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVOutMinSet_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate",
     final min=minVOut_flow,
@@ -200,7 +200,7 @@ equation
     annotation (Line(points={{-119,60},{-8,60},{-8,58},{14,58}}, color={0,0,127}));
   connect(maxFanSpeSig.y, desVOutCurFanSpePos.x2)
     annotation (Line(points={{-119,90},{-14,90},{-14,46},{14,46}}, color={0,0,127}));
-  connect(uVOutMinSet_flow, minVOutSetCurFanSpePos.u)
+  connect(VOutMinSet_flow, minVOutSetCurFanSpePos.u)
     annotation (Line(points={{-180,180},{-20,180},{-20,160},{60,160},{60,120},{98,120}}, color={0,0,127}));
   connect(uSupFanSpe, desVOutCurFanSpePos.u)
     annotation (Line(points={{-180,110},{-24,110},{-24,50},{14,50}}, color={0,0,127}));
@@ -248,7 +248,7 @@ annotation (Placement(transformation(extent={{-20,110},{0,130}})),
                 Placement(transformation(extent={{-140,-30},{-120,-10}})),
                 Placement(transformation(extent={{-140,160},{-120,180}})),
                 Placement(transformation(extent={{-140,0},{-120,20}})),
-    defaultComponentName = "ecoDamLim",
+    defaultComponentName = "damLim",
     Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -347,7 +347,7 @@ calculation and assignments")}),
 <p>
 This block implements the single zone VAV AHU minimum outdoor air control with a single
 common damper for minimum outdoor air and economizer functions based on outdoor airflow
-setpoint (<code>uVOutMinSet_flow</code>) and supply fan speed (<code>uSupFanSpe</code>),
+setpoint (<code>VOutMinSet_flow</code>) and supply fan speed (<code>uSupFanSpe</code>),
 designed in line with ASHRAE Guidline 36, PART5.P.4.d.
 </p>
 <p>
@@ -398,10 +398,10 @@ minimum damper position at maximum fan speed for design outdoor airflow
 </li>
 <li>
 Calculate outdoor air damper position <code>yOutDamPosMin</code>
-which ensures outdoor airflow setpoint <code>uVOutMinSet_flow</code>
+which ensures outdoor airflow setpoint <code>VOutMinSet_flow</code>
 at current supply fan speed <code>uSupFanSpe</code> as a linear interpolation
 between <code>minVOutCurFanSpePos</code> and <code>desVOutCurFanSpePos</code>, proportional to ratios of
-<code>uVOutMinSet_flow</code> to <code>desVOut_flow</code> and <code>minVOut_flow</code>.
+<code>VOutMinSet_flow</code> to <code>desVOut_flow</code> and <code>minVOut_flow</code>.
 </li>
 </ol>
 <p>

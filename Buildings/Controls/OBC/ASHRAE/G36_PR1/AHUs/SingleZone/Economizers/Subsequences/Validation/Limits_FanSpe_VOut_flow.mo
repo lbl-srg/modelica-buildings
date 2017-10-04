@@ -3,13 +3,13 @@ model Limits_FanSpe_VOut_flow
   "Validation model for the Single zone VAV AHU minimum outdoor air control - damper position limits"
   extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Limits ecoDamLim(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Limits damLim(
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
     final desVOut_flow=desVOut_flow) "Single zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Limits ecoDamLim1(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Limits damLim1(
     final minFanSpe=minFanSpe,
     final maxFanSpe=maxFanSpe,
     final minVOut_flow=minVOut_flow,
@@ -55,26 +55,26 @@ protected
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
 equation
-  connect(freProSta.y, ecoDamLim.uFreProSta)
+  connect(freProSta.y, damLim.uFreProSta)
     annotation (Line(points={{-99,-90},{-60,-90},{-60,-18},{-41,-18}}, color={255,127,0}));
-  connect(ecoDamLim.uSupFan, fanStatus.y)
+  connect(damLim.uSupFan, fanStatus.y)
     annotation (Line(points={{-41,-12},{-70,-12},{-70,-10},{-99,-10}}, color={255,0,255}));
-  connect(operationMode.y, ecoDamLim.uOpeMod)
+  connect(operationMode.y, damLim.uOpeMod)
     annotation (Line(points={{-99,-50},{-70,-50},{-70,-16},{-70,-15},{-56,-15},{-41,-15}},
     color={255,127,0}));
-  connect(fanStatus.y, ecoDamLim1.uSupFan)
+  connect(fanStatus.y, damLim1.uSupFan)
     annotation (Line(points={{-99,-10},{-80,-10},{-80,-30},{60,-30},{60,-12},{99,-12}}, color={255,0,255}));
-  connect(operationMode.y, ecoDamLim1.uOpeMod)
+  connect(operationMode.y, damLim1.uOpeMod)
     annotation (Line(points={{-99,-50},{70,-50},{70,-16},{70,-15},{80,-15},{99,-15}}, color={255,127,0}));
-  connect(freProSta.y, ecoDamLim1.uFreProSta)
+  connect(freProSta.y, damLim1.uFreProSta)
     annotation (Line(points={{-99,-90},{80,-90},{80,-18},{99,-18}}, color={255,127,0}));
-  connect(VOutMinSetSig.y, ecoDamLim.uVOutMinSet_flow)
+  connect(VOutMinSetSig.y, damLim.VOutMinSet_flow)
     annotation (Line(points={{-99,70},{-60,70},{-60,-3},{-41,-3}}, color={0,0,127}));
-  connect(SupFanSpeSig.y, ecoDamLim.uSupFanSpe)
+  connect(SupFanSpeSig.y, damLim.uSupFanSpe)
     annotation (Line(points={{-99,30},{-70,30},{-70,-6.2},{-41,-6.2}}, color={0,0,127}));
-  connect(SupFanSpeSig1.y, ecoDamLim1.uSupFanSpe)
+  connect(SupFanSpeSig1.y, damLim1.uSupFanSpe)
     annotation (Line(points={{41,30},{70,30},{70,-6.2},{99,-6.2}}, color={0,0,127}));
-  connect(VOutMinSetSig1.y, ecoDamLim1.uVOutMinSet_flow)
+  connect(VOutMinSetSig1.y, damLim1.VOutMinSet_flow)
     annotation (Line(points={{41,70},{80,70},{80,-3},{99,-3}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
