@@ -171,7 +171,7 @@ model AHUGuideline36
         iconTransformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(final unit="K",
       final quantity="ThermodynamicTemperature")
-    "Supply air temperature heating setpoint" annotation (Placement(
+    "Zone air temperature heating setpoint"   annotation (Placement(
         transformation(extent={{-120,218},{-100,238}}), iconTransformation(
           extent={{-120,230},{-100,250}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(final unit="m3/s",
@@ -232,7 +232,7 @@ model AHUGuideline36
     annotation (Placement(transformation(extent={{-52,70},{-32,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(final unit="K",
       final quantity="ThermodynamicTemperature")
-    "Supply air temperature cooling setpoint" annotation (Placement(
+    "Zone air temperature cooling setpoint"   annotation (Placement(
         transformation(extent={{-120,200},{-100,220}}), iconTransformation(
           extent={{-120,200},{-100,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Average TZonSetAve
@@ -316,12 +316,12 @@ equation
           {30,-180},{110,-180}},color={255,0,255}));
   connect(outAirSetPoi.uOpeMod, uOpeMod) annotation (Line(points={{-21,12},{-80,
           12},{-80,-100},{-110,-100}}, color={255,127,0}));
-  connect(conEco.TSupSet, THeaSet) annotation (Line(points={{59,-8},{-6,-8},{-70,
-          -8},{-70,228},{-110,228}}, color={0,0,127}));
   connect(TZonSetAve.u2, TCooSet)
     annotation (Line(points={{-2,210},{-52,210},{-110,210}}, color={0,0,127}));
   connect(TZonSetAve.u1, THeaSet) annotation (Line(points={{-2,222},{-54,222},{
           -54,228},{-110,228}}, color={0,0,127}));
+  connect(conTSetSup.TSetSup, conEco.TSupSet) annotation (Line(points={{61,-50},
+          {80,-50},{80,-28},{44,-28},{44,-8},{59,-8}}, color={0,0,127}));
   annotation (
     defaultComponentName="conAHU",
     Diagram(coordinateSystem(extent={{-100,-260},{100,280}}, initialScale=0.2)),
