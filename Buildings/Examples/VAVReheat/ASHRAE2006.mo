@@ -93,8 +93,7 @@ equation
       points={{1221,450},{1400,450},{1400,-260},{-240,-260}},
       color={0,0,127},
       smooth=Smooth.None,
-      pattern=LinePattern.Dash),
-                           Text(
+      pattern=LinePattern.Dash), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
@@ -102,8 +101,7 @@ equation
       points={{1221,420},{1400,420},{1400,-260},{-240,-260}},
       color={0,0,127},
       smooth=Smooth.None,
-      pattern=LinePattern.Dash),
-                           Text(
+      pattern=LinePattern.Dash), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
@@ -190,82 +188,85 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
 
-  connect(conVAVCor.TRoo, TRooAir.y5[1]) annotation (Line(points={{528,38},{520,
-          38},{520,162},{511,162}}, color={0,0,127},
+  connect(conVAVCor.TRoo, TRooAir.y5[1]) annotation (Line(
+      points={{528,38},{520,38},{520,162},{511,162}},
+      color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(conVAVSou.TRoo, TRooAir.y1[1]) annotation (Line(points={{698,36},{690,
-          36},{690,36},{680,36},{680,178},{511,178}}, color={0,0,127},
+  connect(conVAVSou.TRoo, TRooAir.y1[1]) annotation (Line(
+      points={{698,36},{690,36},{690,36},{680,36},{680,178},{511,178}},
+      color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(TRooAir.y2[1], conVAVEas.TRoo) annotation (Line(points={{511,174},{868,
-          174},{868,36},{878,36}}, color={0,0,127},
+  connect(TRooAir.y2[1], conVAVEas.TRoo) annotation (Line(
+      points={{511,174},{868,174},{868,36},{878,36}},
+      color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(TRooAir.y3[1], conVAVNor.TRoo) annotation (Line(points={{511,170},{1028,
-          170},{1028,36},{1038,36}}, color={0,0,127},
+  connect(TRooAir.y3[1], conVAVNor.TRoo) annotation (Line(
+      points={{511,170},{1028,170},{1028,36},{1038,36}},
+      color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(TRooAir.y4[1], conVAVWes.TRoo) annotation (Line(points={{511,166},{1220,
-          166},{1220,34},{1238,34}}, color={0,0,127},
+  connect(TRooAir.y4[1], conVAVWes.TRoo) annotation (Line(
+      points={{511,166},{1220,166},{1220,34},{1238,34}},
+      color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(conVAVCor.yDam, pSetDuc.u[1]) annotation (Line(points={{551,46.8},{556,
-          46.8},{556,72},{120,72},{120,8.4},{158,8.4}}, color={0,0,127}));
-  connect(conVAVSou.yDam, pSetDuc.u[2]) annotation (Line(points={{721,44.8},{730,
-          44.8},{730,72},{120,72},{120,9.2},{158,9.2}}, color={0,0,127}));
-  connect(pSetDuc.u[3], conVAVEas.yDam) annotation (Line(points={{158,10},{130,10},
-          {130,10},{120,10},{120,72},{910,72},{910,44.8},{901,44.8}}, color={0,0,
-          127}));
+  connect(conVAVCor.yDam, pSetDuc.u[1]) annotation (Line(points={{551,46.8},{
+          556,46.8},{556,72},{120,72},{120,8.4},{158,8.4}}, color={0,0,127}));
+  connect(conVAVSou.yDam, pSetDuc.u[2]) annotation (Line(points={{721,44.8},{
+          730,44.8},{730,72},{120,72},{120,9.2},{158,9.2}}, color={0,0,127}));
+  connect(pSetDuc.u[3], conVAVEas.yDam) annotation (Line(points={{158,10},{130,
+          10},{130,10},{120,10},{120,72},{910,72},{910,44.8},{901,44.8}}, color
+        ={0,0,127}));
   connect(conVAVNor.yDam, pSetDuc.u[4]) annotation (Line(points={{1061,44.8},{
           1072,44.8},{1072,72},{120,72},{120,10},{160,10},{160,10.8},{158,10.8}},
-                       color={0,0,127}));
+        color={0,0,127}));
   connect(conVAVCor.TDis, TSupCor.T) annotation (Line(points={{528,34},{522,34},
           {522,34},{514,34},{514,92},{569,92}}, color={0,0,127}));
-  connect(TSupSou.T,conVAVSou.TDis)  annotation (Line(points={{749,92},{688,92},
+  connect(TSupSou.T, conVAVSou.TDis) annotation (Line(points={{749,92},{688,92},
           {688,32},{698,32}}, color={0,0,127}));
-  connect(TSupEas.T,conVAVEas.TDis)  annotation (Line(points={{929,90},{872,90},
+  connect(TSupEas.T, conVAVEas.TDis) annotation (Line(points={{929,90},{872,90},
           {872,32},{878,32}}, color={0,0,127}));
-  connect(TSupNor.T,conVAVNor.TDis)  annotation (Line(points={{1089,94},{1032,
-          94},{1032,32},{1038,32}},
-                                color={0,0,127}));
-  connect(TSupWes.T,conVAVWes.TDis)  annotation (Line(points={{1289,90},{1228,
-          90},{1228,30},{1238,30}},
-                                color={0,0,127}));
+  connect(TSupNor.T, conVAVNor.TDis) annotation (Line(points={{1089,94},{1032,
+          94},{1032,32},{1038,32}}, color={0,0,127}));
+  connect(TSupWes.T, conVAVWes.TDis) annotation (Line(points={{1289,90},{1228,
+          90},{1228,30},{1238,30}}, color={0,0,127}));
   connect(conVAVWes.yDam, pSetDuc.u[5]) annotation (Line(points={{1261,42.8},{
           1270,42.8},{1270,72},{120,72},{120,10},{134,10},{134,11.6},{158,11.6}},
-                                                           color={0,0,127}));
+        color={0,0,127}));
   connect(cor.yVAV, conVAVCor.yDam) annotation (Line(points={{566,50},{556,50},
           {556,46.8},{551,46.8}},color={0,0,127}));
   connect(cor.yVal, conVAVCor.yVal) annotation (Line(points={{566,34},{560,34},
           {560,37},{551,37}},color={0,0,127}));
-  connect(conVAVSou.yDam, sou.yVAV) annotation (Line(points={{721,44.8},{730,44.8},
-          {730,48},{746,48}}, color={0,0,127}));
+  connect(conVAVSou.yDam, sou.yVAV) annotation (Line(points={{721,44.8},{730,
+          44.8},{730,48},{746,48}}, color={0,0,127}));
   connect(conVAVSou.yVal, sou.yVal) annotation (Line(points={{721,35},{732.5,35},
           {732.5,32},{746,32}}, color={0,0,127}));
   connect(conVAVEas.yVal, eas.yVal) annotation (Line(points={{901,35},{912.5,35},
           {912.5,32},{926,32}}, color={0,0,127}));
-  connect(conVAVEas.yDam, eas.yVAV) annotation (Line(points={{901,44.8},{910,44.8},
-          {910,48},{926,48}}, color={0,0,127}));
-  connect(conVAVNor.yDam, nor.yVAV) annotation (Line(points={{1061,44.8},{1072.5,
-          44.8},{1072.5,48},{1086,48}}, color={0,0,127}));
-  connect(conVAVNor.yVal, nor.yVal) annotation (Line(points={{1061,35},{1072.5,35},
-          {1072.5,32},{1086,32}}, color={0,0,127}));
-  connect(conVAVCor.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points={
-          {528,50},{480,50},{480,-260},{-240,-260}}, color={0,0,127}));
-  connect(conVAVCor.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={
-          {528,46},{480,46},{480,-260},{-240,-260}}, color={0,0,127}));
-  connect(conVAVSou.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points={{698,48},
-          {660,48},{660,-260},{-240,-260}},          color={0,0,127}));
-  connect(conVAVSou.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={{698,44},
-          {660,44},{660,-260},{-240,-260}},          color={0,0,127}));
-  connect(conVAVEas.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points={{878,48},
-          {850,48},{850,-260},{-240,-260}},          color={0,0,127}));
-  connect(conVAVEas.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={{878,44},
-          {850,44},{850,-260},{-240,-260}},          color={0,0,127}));
-  connect(conVAVNor.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points={{1038,48},
-          {1020,48},{1020,-260},{-240,-260}},        color={0,0,127}));
-  connect(conVAVNor.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={{1038,44},
-          {1020,44},{1020,-260},{-240,-260}},        color={0,0,127}));
-  connect(conVAVWes.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points={{1238,46},
-          {1202,46},{1202,-260},{-240,-260}},        color={0,0,127}));
-  connect(conVAVWes.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={{1238,42},
-          {1202,42},{1202,-260},{-240,-260}},        color={0,0,127}));
+  connect(conVAVEas.yDam, eas.yVAV) annotation (Line(points={{901,44.8},{910,
+          44.8},{910,48},{926,48}}, color={0,0,127}));
+  connect(conVAVNor.yDam, nor.yVAV) annotation (Line(points={{1061,44.8},{
+          1072.5,44.8},{1072.5,48},{1086,48}}, color={0,0,127}));
+  connect(conVAVNor.yVal, nor.yVal) annotation (Line(points={{1061,35},{1072.5,
+          35},{1072.5,32},{1086,32}}, color={0,0,127}));
+  connect(conVAVCor.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points=
+          {{528,50},{480,50},{480,-260},{-240,-260}},color={0,0,127}));
+  connect(conVAVCor.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points=
+          {{528,46},{480,46},{480,-260},{-240,-260}},color={0,0,127}));
+  connect(conVAVSou.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points=
+          {{698,48},{660,48},{660,-260},{-240,-260}},color={0,0,127}));
+  connect(conVAVSou.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points=
+          {{698,44},{660,44},{660,-260},{-240,-260}},color={0,0,127}));
+  connect(conVAVEas.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points=
+          {{878,48},{850,48},{850,-260},{-240,-260}},color={0,0,127}));
+  connect(conVAVEas.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points=
+          {{878,44},{850,44},{850,-260},{-240,-260}},color={0,0,127}));
+  connect(conVAVNor.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points=
+          {{1038,48},{1020,48},{1020,-260},{-240,-260}}, color={0,0,127}));
+  connect(conVAVNor.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points=
+          {{1038,44},{1020,44},{1020,-260},{-240,-260}}, color={0,0,127}));
+  connect(conVAVWes.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points=
+          {{1238,46},{1202,46},{1202,-260},{-240,-260}}, color={0,0,127}));
+  connect(conVAVWes.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points=
+          {{1238,42},{1202,42},{1202,-260},{-240,-260}}, color={0,0,127}));
 
   connect(conVAVWes.yVal, wes.yVal) annotation (Line(points={{1261,33},{1272.5,
           33},{1272.5,32},{1286,32}}, color={0,0,127}));
@@ -285,10 +286,10 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(pSetDuc.TOut, TOut.y) annotation (Line(points={{158,18},{32,18},{32,130},
-          {-160,130},{-160,180},{-279,180}},      color={0,0,127}));
-  connect(TOut.y, controlBus.TOut) annotation (Line(points={{-279,180},{-250,180},
-          {-250,148},{-240,148},{-240,-260}},      color={0,0,127}), Text(
+  connect(pSetDuc.TOut, TOut.y) annotation (Line(points={{158,18},{32,18},{32,
+          130},{-160,130},{-160,180},{-279,180}}, color={0,0,127}));
+  connect(TOut.y, controlBus.TOut) annotation (Line(points={{-279,180},{-250,
+          180},{-250,148},{-240,148},{-240,-260}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
@@ -302,9 +303,12 @@ equation
           238,16}}, color={255,0,255}));
   connect(conFanSup.y, fanSup.y)
     annotation (Line(points={{261,10},{310,10},{310,-28}}, color={0,0,127}));
+  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-91.5455,
+          -214},{-80,-214},{-80,-232},{252,-232},{252,-20},{216,-20},{216,176},
+          {238,176}}, color={255,0,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{1660,
-            640}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
+            1660,640}})),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
@@ -416,9 +420,8 @@ This is for
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
         "Simulate and plot"),
-    experiment(
-      StopTime=172800,
-      Tolerance=1e-08));
+    experiment(StopTime=172800, Tolerance=1e-08));
 end ASHRAE2006;
