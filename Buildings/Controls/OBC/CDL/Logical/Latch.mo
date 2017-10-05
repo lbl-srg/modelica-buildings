@@ -20,22 +20,21 @@ initial equation
   pre(u0) = pre_u_start;
   pre(scenario) = 0;
 
-algorithm
+equation
   when (not u0) and (pre(u) <> u) and (pre(u) == false) then
-    scenario :=1;
+    scenario = 1;
   elsewhen (pre(u0)==u0) and (not u0) and (pre(u) <> u) and (pre(u) == true) then
-    scenario :=2;
+    scenario = 2;
   elsewhen (pre(u0)<>u0) and (not u0) and (pre(u) <> u) and (pre(u) == true) then
-    scenario :=3;
+    scenario = 3;
   elsewhen (not u0) and u then
-    scenario :=4;
+    scenario = 4;
   elsewhen (not u0) and (not u) then
-    scenario :=5;
+    scenario = 5;
   elsewhen u0 then
-    scenario :=6;
+    scenario = 6;
   end when;
 
-equation
   if (scenario == 1 or scenario == 2) then y = true;
   elseif (scenario == 3) then y = false;
   elseif (scenario == 4) then y = true;
