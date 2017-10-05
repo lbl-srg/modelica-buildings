@@ -125,8 +125,8 @@ model AHUGuideline36
     final min=0,
     final max=1,
     final unit="1") "Outdoor air damper position" annotation (Placement(
-        transformation(extent={{100,-70},{120,-50}}), iconTransformation(extent
-          ={{100,-70},{120,-50}})));
+        transformation(extent={{100,-70},{120,-50}}), iconTransformation(extent=
+           {{100,-70},{120,-50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller
     conEco(
     final use_enthalpy=use_enthalpy,
@@ -177,8 +177,8 @@ model AHUGuideline36
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(final unit="m3/s",
       final quantity="VolumeFlowRate")
     "Measured outdoor volumetric airflow rate" annotation (Placement(
-        transformation(extent={{-120,10},{-100,30}}), iconTransformation(extent
-          ={{-120,-10},{-100,10}})));
+        transformation(extent={{-120,10},{-100,30}}), iconTransformation(extent=
+           {{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta
     "Zone state signal" annotation (Placement(transformation(extent={{-120,-130},
             {-100,-110}}), iconTransformation(extent={{-120,-130},{-100,-110}})));
@@ -221,14 +221,14 @@ model AHUGuideline36
     "Number of occupants" annotation (Placement(transformation(extent={{-120,30},
             {-100,50}}), iconTransformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[numZon]
-    "Measured zone air temperature" annotation (Placement(transformation(extent
-          ={{-122,148},{-100,170}}), iconTransformation(extent={{-120,150},{-100,
+    "Measured zone air temperature" annotation (Placement(transformation(extent=
+           {{-122,148},{-100,170}}), iconTransformation(extent={{-120,150},{-100,
             170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis[numZon]
     "Discharge air temperature" annotation (Placement(transformation(extent={{-122,
             168},{-100,190}}), iconTransformation(extent={{-120,170},{-100,190}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winOpe[numZon](each
-      final k=false) "Window opening signal"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winOpe[numZon](each final
+            k=false) "Window opening signal"
     annotation (Placement(transformation(extent={{-52,70},{-32,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(final unit="K",
       final quantity="ThermodynamicTemperature")
@@ -325,7 +325,6 @@ equation
   annotation (
     defaultComponentName="conAHU",
     Diagram(coordinateSystem(extent={{-100,-260},{100,280}}, initialScale=0.2)),
-
     Icon(coordinateSystem(extent={{-100,-260},{100,280}}, initialScale=0.2),
         graphics={Rectangle(
           extent={{100,280},{-100,-260}},

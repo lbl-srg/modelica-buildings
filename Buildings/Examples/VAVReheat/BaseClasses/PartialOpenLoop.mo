@@ -1,6 +1,7 @@
 within Buildings.Examples.VAVReheat.BaseClasses;
 partial model PartialOpenLoop
   "Partial model of variable air volume flow system with terminal reheat and five thermal zones"
+  import Buildings;
   replaceable package MediumA = Buildings.Media.Air (T_default=293.15);
   package MediumW = Buildings.Media.Water "Medium model for water";
 
@@ -163,22 +164,13 @@ partial model PartialOpenLoop
   Buildings.Utilities.Math.Average ave(nin=5)
     "Compute average of room temperatures"
     annotation (Placement(transformation(extent={{1200,410},{1220,430}})));
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear valCoo(
+  Buildings.Fluid.Sources.MassFlowSource_T
+                                        souCoo(
     redeclare package Medium = MediumW,
-    CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    m_flow_nominal=m_flow_nominal*1000*15/4200/10,
-    dpValve_nominal=6000,
-    from_dp=true,
-    dpFixed_nominal=6000) "Cooling coil valve" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={230,-80})));
-  Buildings.Fluid.Sources.FixedBoundary souCoo(
+    T=279.15,
     nPorts=1,
-    redeclare package Medium = MediumW,
-    p=3E5 + 12000,
-    T=279.15) "Source for cooling coil" annotation (Placement(transformation(
+    use_m_flow_in=true)
+              "Source for cooling coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={230,-120})));
@@ -192,28 +184,40 @@ partial model PartialOpenLoop
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal) "Mixed air temperature sensor"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear valHea(
+  Buildings.Fluid.Sources.MassFlowSource_T
+                                        souHea(
     redeclare package Medium = MediumW,
-    CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    dpValve_nominal=6000,
-    m_flow_nominal=m_flow_nominal*1000*40/4200/10,
-    from_dp=true,
-    dpFixed_nominal=6000) "Heating coil valve" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={130,-80})));
-  Buildings.Fluid.Sources.FixedBoundary souHea(
+    T=318.15,
     nPorts=1,
-    redeclare package Medium = MediumW,
-    p(displayUnit="Pa") = 300000 + 12000,
-    T=318.15) "Source for heating coil" annotation (Placement(transformation(
+    use_m_flow_in=true)
+              "Source for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={130,-120})));
+        origin={132,-120})));
   Buildings.Fluid.Sensors.VolumeFlowRate VOut1(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Outside air volume flow rate"
     annotation (Placement(transformation(extent={{-80,12},{-58,34}})));
+
+  Buildings.Controls.Continuous.LimPID heaCoiCon(
+    yMax=1,
+    yMin=0,
+    Td=60,
+    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=600,
+    k=0.01) "Controller for heating coil"
+    annotation (Placement(transformation(extent={{0,-210},{20,-190}})));
+  Buildings.Controls.Continuous.LimPID cooCoiCon(
+    reverseAction=true,
+    Td=60,
+    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    yMax=1,
+    yMin=0,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=600,
+    k=0.01) "Controller for cooling coil"
+    annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
+
   Buildings.Examples.VAVReheat.ThermalZones.VAVBranch cor(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
@@ -487,6 +491,21 @@ partial model PartialOpenLoop
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,-46})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swiHeaCoi
+    "Switch to switch off heating coil"
+    annotation (Placement(transformation(extent={{60,-220},{80,-200}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swiCooCoi
+    "Switch to switch off cooling coil"
+    annotation (Placement(transformation(extent={{60,-258},{80,-238}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant coiOff(k=0)
+    "Signal to switch water flow through coils off"
+    annotation (Placement(transformation(extent={{20,-170},{40,-150}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaCoi(k=m_flow_nominal*1000*40
+        /4200/10) "Gain for heating coil mass flow rate"
+    annotation (Placement(transformation(extent={{100,-220},{120,-200}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiCooCoi(k=m_flow_nominal*1000*15
+        /4200/10) "Gain for cooling coil mass flow rate"
+    annotation (Placement(transformation(extent={{100,-258},{120,-238}})));
 equation
   connect(fanRet.port_a, dpRetFan.port_b) annotation (Line(
       points={{320,140},{320,60}},
@@ -498,24 +517,9 @@ equation
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dot));
-  connect(valCoo.port_a, souCoo.ports[1]) annotation (Line(
-      points={{230,-90},{230,-110}},
-      color={0,127,0},
-      smooth=Smooth.None,
-      thickness=0.5));
   connect(TSup.port_a, fanSup.port_b) annotation (Line(
       points={{330,-40},{320,-40}},
       color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(souHea.ports[1], valHea.port_a) annotation (Line(
-      points={{130,-110},{130,-90}},
-      color={0,127,0},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(valHea.port_b, heaCoi.port_a2) annotation (Line(
-      points={{130,-70},{130,-52},{118,-52}},
-      color={0,127,0},
       smooth=Smooth.None,
       thickness=0.5));
   connect(heaCoi.port_b2, sinHea.ports[1]) annotation (Line(
@@ -539,7 +543,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(splRetRoo1.port_1, dpRetDuc.port_a) annotation (Line(
-      points={{630,0},{440,0},{440,140},{400,140}},
+      points={{630,0},{430,0},{430,140},{400,140}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -600,11 +604,6 @@ equation
   connect(TCoiHeaOut.port_b, cooCoi.port_a2) annotation (Line(
       points={{154,-40},{190,-40}},
       color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(valCoo.port_b, cooCoi.port_a1) annotation (Line(
-      points={{230,-70},{230,-52},{210,-52}},
-      color={0,127,0},
       smooth=Smooth.None,
       thickness=0.5));
   connect(cooCoi.port_b1, sinCoo.ports[1]) annotation (Line(
@@ -763,6 +762,34 @@ equation
           410,70},{220,70},{220,170},{238,170}}, color={0,0,127}));
   connect(conFanRet.y, fanRet.y)
     annotation (Line(points={{261,170},{310,170},{310,152}}, color={0,0,127}));
+  connect(swiCooCoi.u1, cooCoiCon.y)
+    annotation (Line(points={{58,-240},{21,-240}}, color={0,0,127}));
+  connect(swiHeaCoi.u1, heaCoiCon.y) annotation (Line(points={{58,-202},{40,
+          -202},{40,-200},{21,-200}}, color={0,0,127}));
+  connect(coiOff.y, swiCooCoi.u3) annotation (Line(points={{41,-160},{48,-160},
+          {48,-256},{58,-256}}, color={0,0,127}));
+  connect(coiOff.y, swiHeaCoi.u3) annotation (Line(points={{41,-160},{48,-160},
+          {48,-218},{58,-218}}, color={0,0,127}));
+  connect(swiCooCoi.y, gaiCooCoi.u)
+    annotation (Line(points={{81,-248},{98,-248}}, color={0,0,127}));
+  connect(swiHeaCoi.y, gaiHeaCoi.u)
+    annotation (Line(points={{81,-210},{98,-210}}, color={0,0,127}));
+  connect(heaCoi.port_a2, souHea.ports[1]) annotation (Line(
+      points={{118,-52},{132,-52},{132,-110}},
+      color={0,140,72},
+      thickness=0.5));
+  connect(cooCoi.port_a1, souCoo.ports[1]) annotation (Line(
+      points={{210,-52},{230,-52},{230,-110}},
+      color={0,140,72},
+      thickness=0.5));
+  connect(gaiHeaCoi.y, souHea.m_flow_in) annotation (Line(points={{121,-210},{
+          124,-210},{124,-130}}, color={0,0,127}));
+  connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{121,-248},{
+          222,-248},{222,-130}}, color={0,0,127}));
+  connect(TCoiHeaOut.T, heaCoiCon.u_m) annotation (Line(points={{144,-29},{144,
+          -20},{160,-20},{160,-224},{10,-224},{10,-212}}, color={0,0,127}));
+  connect(TSup.T, cooCoiCon.u_m) annotation (Line(points={{340,-29},{340,-20},{
+          360,-20},{360,-264},{10,-264},{10,-252}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,
             -400},{1660,600}})), Documentation(info="<html>
 <p>
