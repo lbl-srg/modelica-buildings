@@ -4,6 +4,9 @@ model RoomLeakage "Room leakage model"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
   parameter Modelica.SIunits.Volume VRoo "Room volume";
+  parameter Boolean use_windPressure=false
+    "Set to true to enable wind pressure"
+    annotation(Evaluate=true);
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     dp_nominal=50,
@@ -14,7 +17,8 @@ model RoomLeakage "Room leakage model"
   Buildings.Fluid.Sources.Outside_CpLowRise
                         amb(redeclare package Medium = Medium, nPorts=1,
     s=s,
-    azi=azi)
+    azi=azi,
+    Cp0=if use_windPressure then 0.6 else 0)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -29,6 +33,7 @@ model RoomLeakage "Room leakage model"
     annotation (Placement(transformation(extent={{12,30},{32,50}})));
   parameter Real s "Side ratio, s=length of this wall/length of adjacent wall";
   parameter Modelica.SIunits.Angle azi "Surface azimuth (South:0, West:pi/2)";
+
 equation
   connect(res.port_b, port_b) annotation (Line(points={{40,6.10623e-16},{55,
           6.10623e-16},{55,1.16573e-15},{70,1.16573e-15},{70,5.55112e-16},{100,
