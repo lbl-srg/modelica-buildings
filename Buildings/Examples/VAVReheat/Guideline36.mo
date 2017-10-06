@@ -317,8 +317,7 @@ equation
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
-for air flow through building leakage and through open doors based
-on wind pressure and flow imbalance of the HVAC system.
+for air flow through building leakage and through open doors.
 </p>
 <p>
 The HVAC system is a variable air volume (VAV) flow system with economizer
@@ -330,69 +329,29 @@ The figure below shows the schematic diagram of the HVAC system
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/vavSchematics.png\" border=\"1\"/>
 </p>
 <p>
-The control is an implementation of the control sequence
-<i>VAV 2A2-21232</i> of the Sequences of Operation for
-Common HVAC Systems (ASHRAE, 2006). In this control sequence, the
-supply fan speed is regulated based on the duct static pressure.
-The return fan controller tracks the supply fan air flow rate
-reduced by a fixed offset. The duct static pressure is adjusted
-so that at least one VAV damper is 90% open. The economizer dampers
-are modulated to track the setpoint for the mixed air dry bulb temperature.
-Priority is given to maintain a minimum outside air volume flow rate.
-In each zone, the VAV damper is adjusted to meet the room temperature
-setpoint for cooling, or fully opened during heating.
-The room temperature setpoint for heating is tracked by varying
-the water flow rate through the reheat coil. There is also a
-finite state machine that transitions the mode of operation of
-the HVAC system between the modes
-<i>occupied</i>, <i>unoccupied off</i>, <i>unoccupied night set back</i>,
-<i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>.
-In the VAV model, all air flows are computed based on the
-duct static pressure distribution and the performance curves of the fans.
-Local loop control is implemented using proportional and proportional-integral
-controllers, while the supervisory control is implemented
-using a finite state machine.
+See the model
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop\">
+Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</a>
+for a description of the HVAC system and the building envelope.
 </p>
 <p>
-To model the heat transfer through the building envelope,
-a model of five interconnected rooms is used.
-The five room model is representative of one floor of the
-new construction medium office building for Chicago, IL,
-as described in the set of DOE Commercial Building Benchmarks
-(Deru et al, 2009). There are four perimeter zones and one core zone.
-The envelope thermal properties meet ASHRAE Standard 90.1-2004.
-The thermal room model computes transient heat conduction through
-walls, floors and ceilings and long-wave radiative heat exchange between
-surfaces. The convective heat transfer coefficient is computed based
-on the temperature difference between the surface and the room air.
-There is also a layer-by-layer short-wave radiation,
-long-wave radiation, convection and conduction heat transfer model for the
-windows. The model is similar to the
-Window 5 model and described in TARCOG 2006.
+The control is based on ASHRAE Guideline 36, and implemented
+using the sequences from the library
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1</a> for
+multi-zone VAV systems with economizer.
 </p>
 <p>
-Each thermal zone can have air flow from the HVAC system, through leakages of the building envelope (except for the core zone) and through bi-directional air exchange through open doors that connect adjacent zones. The bi-directional air exchange is modeled based on the differences in static pressure between adjacent rooms at a reference height plus the difference in static pressure across the door height as a function of the difference in air density.
-There is also wind pressure acting on each facade. The wind pressure is a function
-of the wind speed and wind direction. Therefore, infiltration is a function of the
-flow imbalance of the HVAC system and of the wind conditions.
-</p>
-<h4>References</h4>
-<p>
-ASHRAE.
-<i>Sequences of Operation for Common HVAC Systems</i>.
-ASHRAE, Atlanta, GA, 2006.
-</p>
-<p>
-Deru M., K. Field, D. Studer, K. Benne, B. Griffith, P. Torcellini,
- M. Halverson, D. Winiarski, B. Liu, M. Rosenberg, J. Huang, M. Yazdanian, and D. Crawley.
-<i>DOE commercial building research benchmarks for commercial buildings</i>.
-Technical report, U.S. Department of Energy, Energy Efficiency and
-Renewable Energy, Office of Building Technologies, Washington, DC, 2009.
-</p>
-<p>
-TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
-of thermal performance of glazing systems with our without
-shading devices, Technical Report, Oct. 17, 2006.
+A similar model but with a different control sequence can be found in
+<a href=\"modelica://Buildings.Examples.VAVReheat.ASHRAE2006\">
+Buildings.Examples.VAVReheat.ASHRAE2006</a>.
+Note that this model, because of the frequent time sampling,
+has longer computing time than
+<a href=\"modelica://Buildings.Examples.VAVReheat.ASHRAE2006\">
+Buildings.Examples.VAVReheat.ASHRAE2006</a>.
+The reason is that the time integrator cannot make large steps
+because it needs to set a time step each time the control samples
+its input.
 </p>
 </html>", revisions="<html>
 <ul>
