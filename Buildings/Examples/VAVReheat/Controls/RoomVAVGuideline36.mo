@@ -58,7 +58,7 @@ block RoomVAVGuideline36
       final samplePeriod=samplePeriod)
       "Number of system requests"
     annotation (Placement(transformation(extent={{52,0},{72,20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValve conDamVal(kDam=0.05)
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValve conDamVal
     "Damper and valve controller"
     annotation (Placement(transformation(extent={{10,60},{30,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis
@@ -77,10 +77,10 @@ block RoomVAVGuideline36
     winSen=false,
     co2Sen=false,
     VCooMax=V_flow_nominal,
-    VMin=0.1*V_flow_nominal,
     VHeaMax=V_flow_nominal,
     zonAre=zonAre,
-    VMinCon=0.1*V_flow_nominal)
+    VMinCon=0.1*V_flow_nominal,
+    VMin=0.15*V_flow_nominal)
                    "Active airflow rate setpoint"
     annotation (Placement(transformation(extent={{-32,90},{-12,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
