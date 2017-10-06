@@ -68,8 +68,8 @@ block RoomVAVGuideline36
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupAHU
     "AHU supply air temperature"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.Valves.HeatingAndCooling heaCoo
-                          "Heating and cooling controller"
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.Valves.HeatingAndCooling heaCoo(kPCoo=
+        0.05, kPHea=0.05) "Heating and cooling controller"
     annotation (Placement(transformation(extent={{-70,120},{-50,140}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
     actAirSet(
