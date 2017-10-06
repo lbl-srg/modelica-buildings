@@ -130,7 +130,7 @@ protected
     "If supply fan is off, then outdoor airflow rate should be zero"
     annotation (Placement(transformation(extent={{60,-20},{80,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max [numZon]
-    "If supply fan is off, giving a small primary airflow rate to avoid divide-by-zero issue"
+    "If supply fan is off, giving a small primary airflow rate to avoid division by zero"
     annotation (Placement(transformation(extent={{-40,-170},{-20,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Division priOutAirFra[numZon]
     "Primary outdoor air fraction"
@@ -265,8 +265,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
 
-  CDL.Continuous.Gain gaiDivZer(final k=1E-10)
-    "Gain, used to avoid division by zero if the flow rate is zero"
+  CDL.Continuous.Gain gaiDivZer(final k=1E-3)
+    "Gain, used to avoid division by zero if the flow rate is smaller than 0.1%"
     annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
 
   CDL.Routing.RealReplicator reaRepDivZer(final nout=numZon)
