@@ -85,20 +85,20 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(extent={{400,130},{380,150}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanSup(
     redeclare package Medium = MediumA,
-    tau=60,
     per(
       pressure(V_flow={0,m_flow_nominal/1.2*2},
       dp={850,0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_inputFilter=false)
     "Supply air fan"
     annotation (Placement(transformation(extent={{300,-50},{320,-30}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanRet(
     redeclare package Medium = MediumA,
-    tau=60,
     per(
       pressure(V_flow=m_flow_nominal/1.2*{0,2},
       dp=1.5*110*{2,0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_inputFilter=false)
     "Return air fan"
     annotation (Placement(transformation(extent={{320,130},{300,150}})));
 
@@ -392,7 +392,9 @@ partial model PartialOpenLoop
   ThermalZones.Floor flo(redeclare package Medium = MediumA, lat=lat)
     "Model of a floor of the building that is served by this VAV system"
     annotation (Placement(transformation(extent={{772,396},{1100,616}})));
-  Modelica.Blocks.Routing.DeMultiplex5 TRooAir
+  Modelica.Blocks.Routing.DeMultiplex5 TRooAir(
+    u(each unit="K",
+      each displayUnit="degC"))
     "Demultiplex for room air temperature"
     annotation (Placement(transformation(extent={{490,160},{510,180}})));
 
@@ -789,8 +791,8 @@ equation
   connect(TSup.T, cooCoiCon.u_m) annotation (Line(points={{340,-29},{340,-20},{
           360,-20},{360,-264},{10,-264},{10,-252}}, color={0,0,127}));
   connect(TSup.T, heaCoiCon.u_m) annotation (Line(points={{340,-29},{340,-20},{
-          360,-20},{360,-264},{140,-264},{140,-224},{10,-224},{10,-212}}, color
-        ={0,0,127}));
+          360,-20},{360,-264},{140,-264},{140,-224},{10,-224},{10,-212}}, color=
+         {0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,
             -400},{1660,600}})), Documentation(info="<html>
 <p>
