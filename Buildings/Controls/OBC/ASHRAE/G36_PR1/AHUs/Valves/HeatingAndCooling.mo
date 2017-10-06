@@ -1,12 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.Valves;
 block HeatingAndCooling "Generates heating and cooling control signals to maintain zone set temperature"
 
-  parameter Real kPCoo=0.1 "Proportional gain for cooling coil control loop"
+  parameter Real kPCoo=0.5 "Proportional gain for cooling coil control loop"
     annotation(Dialog(group="Cooling coil control"));
   parameter Modelica.SIunits.Time TiCoo=120 "Time constant of integrator block for cooling coil control loop"
     annotation(Dialog(group="Cooling coil control"));
 
-  parameter Real kPHea=0.1 "Proportional gain for heating coil control loop"
+  parameter Real kPHea=0.5 "Proportional gain for heating coil control loop"
     annotation(Dialog(group="Heating coil control"));
 
   parameter Modelica.SIunits.Time TiHea=120 "Time constant of integrator block for heating coil control loop"
@@ -68,7 +68,10 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yMaxSig(final k=1)
    "Maximum controller output signal"
     annotation (Placement(transformation(extent={{24,-50},{44,-30}})));
-
+  CDL.Continuous.AddParameter addPar(
+    final p=1,
+    final k=-1) "Invert the control signal"
+    annotation (Placement(transformation(extent={{22,-30},{42,-10}})));
 equation
   connect(TRoo, conHeaVal.u_m)
     annotation (Line(points={{-120,-60},{-68,-60},{-68,20},{-50,20},{-50,38}},color={0,0,127}));
@@ -88,9 +91,12 @@ equation
   connect(yMinSig.y, conCooInv.f2)
     annotation (Line(points={{45,0},{56,0},{56,-28},{62,-28}}, color={0,0,127}));
   connect(conHeaVal.y, yHea) annotation (Line(points={{-39,50},{78,50},{110,50}}, color={0,0,127}));
-  connect(conCooInv.y, yCoo) annotation (Line(points={{85,-20},{94,-20},{110,-20}}, color={0,0,127}));
   connect(TRooHeaSet, conHeaVal.u_s)
     annotation (Line(points={{-120,60},{-80,60},{-80,50},{-62,50}}, color={0,0,127}));
+  connect(addPar.u, conCooVal.y)
+    annotation (Line(points={{20,-20},{-39,-20}}, color={0,0,127}));
+  connect(addPar.y, yCoo)
+    annotation (Line(points={{43,-20},{110,-20}}, color={0,0,127}));
     annotation (Placement(transformation(extent={{-20,110},{0,130}})),
                 Placement(transformation(extent={{-20,20},{0,40}})),
                 Placement(transformation(extent={{60,90},{80,110}})),

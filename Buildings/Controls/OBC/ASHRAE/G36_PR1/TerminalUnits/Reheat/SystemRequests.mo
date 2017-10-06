@@ -5,8 +5,8 @@ block SystemRequests
   parameter Boolean have_heaWatCoi=true
     "Flag, true if there is a hot water coil";
   parameter Boolean have_heaPla=false "Flag, true if there is a boiler plant";
-  parameter Modelica.SIunits.Time samplePeriod=180
-    "Period of sampling cooling setpoint temperature";
+  parameter Modelica.SIunits.Time samplePeriod=120
+    "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
   parameter Modelica.SIunits.TemperatureDifference cooSetDif_1=2.8
     "Limit value of difference between zone temperature and cooling setpoint
     for generating 3 cooling SAT reset requests";
@@ -19,6 +19,7 @@ block SystemRequests
   parameter Modelica.SIunits.TemperatureDifference disAirSetDif_2=8.3
     "Limit value of difference between discharge air temperature and its setpoint
     for generating 2 hot water reset requests";
+
   parameter Modelica.SIunits.Time durTimTem=120
     "Duration time of zone temperature exceeds setpoint"
     annotation(Dialog(group="Duration times"));
@@ -106,37 +107,27 @@ block SystemRequests
     final uLow=cooSetDif_1 - 0.1,
     final uHigh=cooSetDif_1 + 0.1)
     "Check if zone temperature is greater than cooling setpoint by cooSetDif_1"
-    annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    final uLow=-0.01,
-    final uHigh=0.01)
-    "Check if discharge airflow is less than 75% of setpoint"
-    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
+    annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
     final uLow=cooSetDif_2 - 0.1,
     final uHigh=cooSetDif_2 + 0.1)
     "Check if zone temperature is greater than cooling setpoint by cooSetDif_2"
-    annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
+    annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
     final uLow=0.85,
     final uHigh=0.95)
     "Check if damper position is greater than 0.95"
-    annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
+    annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys5(
     final uLow=0.85,
     final uHigh=0.95)
     "Check if cooling loop signal is greater than 0.95"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys6(
-    final uLow=-0.01,
-    final uHigh=0.01)
-    "Check if discharge airflow is less than 50% of setpoint"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys7(
     final uHigh=0.01,
     final uLow=0.005)
     "Check if discharge airflow setpoint is greater than 0"
-    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys8(
     final uLow=-0.1,
     final uHigh=0.1) if have_heaWatCoi
@@ -163,7 +154,7 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.Sampler samTCooSet(
     final samplePeriod=samplePeriod)
     "Sample current cooling setpoint"
-    annotation (Placement(transformation(extent={{-140,430},{-120,450}})));
+    annotation (Placement(transformation(extent={{-160,430},{-140,450}})));
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(final samplePeriod=samplePeriod)
     "Delay value to record input value"
     annotation (Placement(transformation(extent={{-80,450},{-60,470}})));
@@ -199,24 +190,18 @@ protected
     "Convert change of degC to change of degF and find out suppression time (5 min/degF))"
     annotation (Placement(transformation(extent={{-80,270},{-60,290}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai1(final k=0.5) "50% of setpoint"
-    annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
+    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai2(final k=0.7) "70% of setpoint"
-    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
+    annotation (Placement(transformation(extent={{-100,-98},{-80,-78}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1(final k1=-1)
     "Calculate difference of previous and current setpoints"
     annotation (Placement(transformation(extent={{-20,430},{0,450}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2(final k1=-1)
     "Calculate difference between zone temperature and cooling setpoint"
-    annotation (Placement(transformation(extent={{-140,190},{-120,210}})));
+    annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add3(final k1=-1)
     "Calculate difference between zone temperature and cooling setpoint"
-    annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add4(final k2=-1)
-    "Calculate difference between current discharge airflow rate and 50% of setpoint"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add5(final k1=-1)
-    "Calculate difference between current discharge airflow rate and 75% of setpoint"
-    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
+    annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add6(final k2=-1) if have_heaWatCoi
     "Calculate difference of discharge temperature (plus disAirSetDif_1) and its setpoint"
     annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
@@ -346,13 +331,13 @@ protected
     annotation (Placement(transformation(extent={{120,300},{140,280}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim1(delayTime=durTimTem)
     "Check if it is more than durTimTem"
-    annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
+    annotation (Placement(transformation(extent={{-20,190},{0,210}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim2(delayTime=durTimTem)
     "Check if it is more than durTimTem"
-    annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
+    annotation (Placement(transformation(extent={{-20,130},{0,150}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim3(delayTime=durTimFlo)
     "Check if it is more than durTimFlo"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim4(delayTime=durTimDisAir) if have_heaWatCoi
     "Check if it is more than durTimDisAir"
     annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
@@ -360,13 +345,36 @@ protected
     "Check if it is more than durTimDisAir"
     annotation (Placement(transformation(extent={{0,-310},{20,-290}})));
 
+  Buildings.Controls.OBC.CDL.Discrete.Sampler sampler(
+    final samplePeriod=samplePeriod)
+    "Sample input signal, as the output signal will go to the trim and respond which also samples at samplePeriod"
+    annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
+  Buildings.Controls.OBC.CDL.Discrete.Sampler sampler1(
+    final samplePeriod=samplePeriod)
+    "Sample input signal, as the output signal will go to the trim and respond which also samples at samplePeriod"
+    annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
+  Buildings.Controls.OBC.CDL.Discrete.Sampler sampler2(
+    final samplePeriod=samplePeriod)
+    "Sample input signal, as the output signal will go to the trim and respond which also samples at samplePeriod"
+    annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
+  Buildings.Controls.OBC.CDL.Discrete.Sampler sampler4(
+    final samplePeriod=samplePeriod)
+    "Sample input signal, as the output signal will go to the trim and respond which also samples at samplePeriod"
+    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
+    "Check if discharge airflow is less than 50% of setpoint"
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu1
+    "Check if discharge airflow is less than 70% of setpoint"
+    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
 equation
   connect(add2.y, hys.u)
-    annotation (Line(points={{-119,200},{-102,200}}, color={0,0,127}));
+    annotation (Line(points={{-79,200},{-62,200}},   color={0,0,127}));
   connect(TCooSet, samTCooSet.u)
-    annotation (Line(points={{-200,440},{-142,440}}, color={0,0,127}));
+    annotation (Line(points={{-200,440},{-162,440}}, color={0,0,127}));
   connect(samTCooSet.y, uniDel.u)
-    annotation (Line(points={{-119,440},{-100,440},{-100,460},{-82,460}},
+    annotation (Line(points={{-139,440},{-100,440},{-100,460},{-82,460}},
       color={0,0,127}));
   connect(triSam.y, gai.u)
     annotation (Line(points={{-99,280},{-82,280}},color={0,0,127}));
@@ -394,7 +402,7 @@ equation
     annotation (Line(points={{-59,460},{-40,460},{-40,446},{-22,446}},
       color={0,0,127}));
   connect(samTCooSet.y, add1.u2)
-    annotation (Line(points={{-119,440},{-40,440},{-40,434},{-22,434}},
+    annotation (Line(points={{-139,440},{-40,440},{-40,434},{-22,434}},
       color={0,0,127}));
   connect(gre1.y, swi.u2)
     annotation (Line(points={{-59,410},{38,410}}, color={255,0,255}));
@@ -419,19 +427,7 @@ equation
   connect(thrCooResReq.y, swi1.u1)
     annotation (Line(points={{61,230},{80,230},{80,208},{98,208}}, color={0,0,127}));
   connect(add3.y, hys3.u)
-    annotation (Line(points={{-119,140},{-102,140}}, color={0,0,127}));
-  connect(TCooSet, add2.u1)
-    annotation (Line(points={{-200,440},{-160,440},{-160,206},{-142,206}},
-      color={0,0,127}));
-  connect(TCooSet, add3.u1)
-    annotation (Line(points={{-200,440},{-160,440},{-160,146},{-142,146}},
-      color={0,0,127}));
-  connect(TRoo, add2.u2)
-    annotation (Line(points={{-200,170},{-166,170},{-166,194},{-142,194}},
-      color={0,0,127}));
-  connect(TRoo, add3.u2)
-    annotation (Line(points={{-200,170},{-166,170},{-166,134},{-142,134}},
-      color={0,0,127}));
+    annotation (Line(points={{-79,140},{-62,140}},   color={0,0,127}));
   connect(twoCooResReq.y, swi2.u1)
     annotation (Line(points={{61,170},{80,170},{80,148},{98,148}},
       color={0,0,127}));
@@ -440,10 +436,8 @@ equation
       {98,192}}, color={0,0,127}));
   connect(and1.y, swi2.u2)
     annotation (Line(points={{61,140},{98,140}}, color={255,0,255}));
-  connect(uCoo, hys5.u)
-    annotation (Line(points={{-200,90},{-102,90}}, color={0,0,127}));
   connect(hys5.y, swi3.u2)
-    annotation (Line(points={{-79,90},{98,90}}, color={255,0,255}));
+    annotation (Line(points={{-39,90},{98,90}}, color={255,0,255}));
   connect(oneCooResReq.y, swi3.u1)
     annotation (Line(points={{61,110},{80,110},{80,98},{98,98}},
       color={0,0,127}));
@@ -457,41 +451,11 @@ equation
     annotation (Line(points={{121,200},{138,200}}, color={0,0,127}));
   connect(reaToInt.y, yZonTemResReq)
     annotation (Line(points={{161,200},{190,200}}, color={255,127,0}));
-  connect(gai1.y, add4.u1)
-    annotation (Line(points={{-119,-40},{-100,-40},{-100,-34},{-82,-34}},
-      color={0,0,127}));
-  connect(VDis, add4.u2)
-    annotation (Line(points={{-200,-70},{-100,-70},{-100,-46},{-82,-46}},
-      color={0,0,127}));
-  connect(VDisSet, gai1.u)
-    annotation (Line(points={{-200,30},{-160,30},{-160,-40},{-142,-40}},
-      color={0,0,127}));
-  connect(add4.y, hys6.u)
-    annotation (Line(points={{-59,-40},{-42,-40}}, color={0,0,127}));
-  connect(VDisSet, hys7.u)
-    annotation (Line(points={{-200,30},{-142,30}}, color={0,0,127}));
-  connect(hys6.y, and3.u2)
-    annotation (Line(points={{-19,-40},{0,-40},{0,-48},{38,-48}},
-      color={255,0,255}));
   connect(and3.y, swi4.u2)
     annotation (Line(points={{61,-40},{98,-40}}, color={255,0,255}));
   connect(thrPreResReq.y, swi4.u1)
     annotation (Line(points={{61,-10},{80,-10},{80,-32},{98,-32}},
       color={0,0,127}));
-  connect(VDisSet, gai2.u)
-    annotation (Line(points={{-200,30},{-160,30},{-160,-100},{-142,-100}},
-      color={0,0,127}));
-  connect(VDis, add5.u1)
-    annotation (Line(points={{-200,-70},{-100,-70},{-100,-94},{-82,-94}},
-      color={0,0,127}));
-  connect(gai2.y, add5.u2)
-    annotation (Line(points={{-119,-100},{-100,-100},{-100,-106},{-82,-106}},
-      color={0,0,127}));
-  connect(add5.y, hys1.u)
-    annotation (Line(points={{-59,-100},{-42,-100}}, color={0,0,127}));
-  connect(hys1.y, and4.u2)
-    annotation (Line(points={{-19,-100},{0,-100},{0,-108},{38,-108}},
-      color={255,0,255}));
   connect(and4.y, swi5.u2)
     annotation (Line(points={{61,-100},{98,-100}}, color={255,0,255}));
   connect(twoPreResReq.y, swi5.u1)
@@ -500,10 +464,8 @@ equation
   connect(swi5.y, swi4.u3)
     annotation (Line(points={{121,-100},{140,-100},{140,-60},{80,-60},{80,-48},
       {98,-48}}, color={0,0,127}));
-  connect(uDam, hys4.u)
-    annotation (Line(points={{-200,-150},{-142,-150}}, color={0,0,127}));
   connect(hys4.y, swi6.u2)
-    annotation (Line(points={{-119,-150},{98,-150}}, color={255,0,255}));
+    annotation (Line(points={{-39,-150},{98,-150}},  color={255,0,255}));
   connect(onePreResReq.y, swi6.u1)
     annotation (Line(points={{61,-130},{80,-130},{80,-142},{98,-142}},
       color={0,0,127}));
@@ -620,24 +582,64 @@ equation
   connect(tim4.y, swi7.u2)
     annotation (Line(points={{21,-240},{98,-240}}, color={255,0,255}));
   connect(hys7.y, tim3.u)
-    annotation (Line(points={{-119,30},{-62,30}}, color={255,0,255}));
+    annotation (Line(points={{-39,30},{-22,30}},  color={255,0,255}));
   connect(tim3.y, and3.u1)
-    annotation (Line(points={{-39,30},{20,30},{20,-40},{38,-40}},
+    annotation (Line(points={{1,30},{20,30},{20,-40},{38,-40}},
       color={255,0,255}));
   connect(tim3.y, and4.u1)
-    annotation (Line(points={{-39,30},{20,30},{20,-100},{38,-100}},
+    annotation (Line(points={{1,30},{20,30},{20,-100},{38,-100}},
       color={255,0,255}));
   connect(hys3.y, tim2.u)
-    annotation (Line(points={{-79,140},{-62,140}}, color={255,0,255}));
+    annotation (Line(points={{-39,140},{-22,140}}, color={255,0,255}));
   connect(tim2.y, and1.u2)
-    annotation (Line(points={{-39,140},{0,140},{0,132},{38,132}},
+    annotation (Line(points={{1,140},{12,140},{12,132},{38,132}},
       color={255,0,255}));
   connect(hys.y, tim1.u)
-    annotation (Line(points={{-79,200},{-62,200}}, color={255,0,255}));
+    annotation (Line(points={{-39,200},{-22,200}}, color={255,0,255}));
   connect(tim1.y, and2.u2)
-    annotation (Line(points={{-39,200},{0,200},{0,192},{38,192}},
+    annotation (Line(points={{1,200},{10,200},{10,192},{38,192}},
       color={255,0,255}));
 
+  connect(sampler.u, VDisSet)
+    annotation (Line(points={{-162,-40},{-170,-40},{-170,30},{-200,30}},
+                                                   color={0,0,127}));
+  connect(sampler.y, gai1.u) annotation (Line(points={{-139,-40},{-102,-40}},
+                            color={0,0,127}));
+  connect(sampler.y, gai2.u) annotation (Line(points={{-139,-40},{-128,-40},{-128,
+          -88},{-102,-88}},   color={0,0,127}));
+  connect(sampler1.u, VDis)
+    annotation (Line(points={{-162,-70},{-200,-70}}, color={0,0,127}));
+  connect(uDam, sampler2.u)
+    annotation (Line(points={{-200,-150},{-162,-150}}, color={0,0,127}));
+  connect(sampler2.y, hys4.u)
+    annotation (Line(points={{-139,-150},{-62,-150}},  color={0,0,127}));
+  connect(uCoo, sampler4.u)
+    annotation (Line(points={{-200,90},{-162,90}}, color={0,0,127}));
+  connect(sampler4.y, hys5.u)
+    annotation (Line(points={{-139,90},{-62,90}}, color={0,0,127}));
+  connect(samTCooSet.y, add2.u1) annotation (Line(points={{-139,440},{-128,440},
+          {-128,426},{-150,426},{-150,206},{-102,206}}, color={0,0,127}));
+  connect(samTCooSet.y, add3.u1) annotation (Line(points={{-139,440},{-128,440},
+          {-128,426},{-150,426},{-150,206},{-112,206},{-112,146},{-102,146}},
+        color={0,0,127}));
+  connect(hys7.u, VDisSet)
+    annotation (Line(points={{-62,30},{-200,30}}, color={0,0,127}));
+  connect(add2.u2, TRoo) annotation (Line(points={{-102,194},{-150,194},{-150,170},
+          {-200,170}}, color={0,0,127}));
+  connect(add3.u2, TRoo) annotation (Line(points={{-102,134},{-150,134},{-150,170},
+          {-200,170}}, color={0,0,127}));
+  connect(greEqu.u1, gai1.y)
+    annotation (Line(points={{-62,-40},{-79,-40}}, color={0,0,127}));
+  connect(greEqu.u2, sampler1.y) annotation (Line(points={{-62,-48},{-72,-48},{-72,
+          -70},{-139,-70}}, color={0,0,127}));
+  connect(greEqu.y, and3.u2) annotation (Line(points={{-39,-40},{0,-40},{0,-48},
+          {38,-48}}, color={255,0,255}));
+  connect(gai2.y, greEqu1.u1) annotation (Line(points={{-79,-88},{-76,-88},{-76,
+          -100},{-62,-100}}, color={0,0,127}));
+  connect(sampler1.y, greEqu1.u2) annotation (Line(points={{-139,-70},{-132,-70},
+          {-132,-108},{-62,-108}}, color={0,0,127}));
+  connect(greEqu1.y, and4.u2) annotation (Line(points={{-39,-100},{0,-100},{0,-108},
+          {38,-108}}, color={255,0,255}));
 annotation (
   defaultComponentName="sysReqRehBox",
   Diagram(coordinateSystem(preserveAspectRatio=
@@ -881,6 +883,13 @@ If the hot water valve position <code>uHeaVal</code> is greater than 95%, send 1
 Else if <code>uHeaVal</code> is less than 95%, send 0 request (<code>yHeaPlaReq=0</code>).
 </li>
 </ol>
+<h4>Implementation</h4>
+<p>
+Some input signals are time sampled, because the output that is generated
+from these inputs are used in the trim and respond logic, which
+is also time sampled. However, signals that use a delay are not
+sampled, as sampling were to change the dynamic response.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

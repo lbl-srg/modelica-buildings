@@ -165,15 +165,12 @@ equation
     annotation (Line(points={{-120,-30},{-80,-30},{-80,8},{10,8},{10,0},{98,0}},
       color={255,0,255}));
   connect(swi1.y, swi3.u1)
-    annotation (Line(points={{121,-50},{128,-50},{128,-20},{80,-20},{80,8},{98,
+    annotation (Line(points={{121,-50},{130,-50},{130,-20},{74,-20},{74,8},{98,
           8}},
       color={0,0,127}));
   connect(TDea.y, swi3.u3)
-    annotation (Line(points={{61,80},{86,80},{86,-8},{98,-8}},
+    annotation (Line(points={{61,80},{80,80},{80,-8},{98,-8}},
       color={0,0,127}));
-  connect(swi3.y, TSetSup) annotation (Line(points={{121,0},{121,0},{138,0},{
-          150,0}},
-               color={0,0,127}));
   connect(intLesThr1.y, and1.u1)
     annotation (Line(points={{1,-90},{14,-90},{38,-90}},
       color={255,0,255}));
@@ -198,7 +195,7 @@ equation
     annotation (Line(points={{-120,-100},{-80,-100},{-80,-120},{-22,-120}},
       color={255,127,0}));
   connect(lin.y, swi2.u3)
-    annotation (Line(points={{61,50},{76,50},{76,-20},{28,-20},{28,-58},{38,-58}},
+    annotation (Line(points={{61,50},{70,50},{70,-20},{28,-20},{28,-58},{38,-58}},
       color={0,0,127}));
   connect(uZonTemResReq, maxSupTemRes.numOfReq)
     annotation (Line(points={{-120,20},{-76,20},{-76,22},{-62,22}},
@@ -210,6 +207,8 @@ equation
     annotation (Line(points={{-39,30},{-20,30},{-20,54},{38,54}},
       color={0,0,127}));
 
+  connect(swi3.y, TSetSup)
+    annotation (Line(points={{121,0},{150,0}}, color={0,0,127}));
 annotation (
   defaultComponentName = "conTSetSup",
   Icon(graphics={
