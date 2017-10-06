@@ -133,7 +133,7 @@ block DamperValve
   Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and"
     annotation (Placement(transformation(extent={{0,-280},{20,-260}})));
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
-    annotation (Placement(transformation(extent={{0,180},{20,200}})));
+    annotation (Placement(transformation(extent={{-60,180},{-40,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Line lin
     "Active airflow setpoint for cooling"
     annotation (Placement(transformation(extent={{-160,250},{-140,270}})));
@@ -160,7 +160,7 @@ block DamperValve
     annotation (Placement(transformation(extent={{260,340},{280,360}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Output active cooling airflow according to cooling control signal"
-    annotation (Placement(transformation(extent={{142,240},{162,260}})));
+    annotation (Placement(transformation(extent={{140,240},{160,260}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Output active airflow when it is in deadband state"
     annotation (Placement(transformation(extent={{140,20},{160,40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Acitive heating airflow rate"
@@ -247,7 +247,7 @@ protected
     final uLow=-0.1,
     final uHigh=0.1)
     "Check if supply air temperature is greater than room temperature"
-    annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
+    annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys7(
     final uLow=-0.1,
     final uHigh=0.1)
@@ -258,7 +258,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-280},{-100,-260}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2(final k2=-1)
     "Calculate temperature difference between AHU supply air and room "
-    annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
+    annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
   CDL.Logical.TrueHoldWithReset truHol2(duration=600)
     "Check if the true input holds for certain time"
     annotation (Placement(transformation(extent={{-220,-240},{-200,-220}})));
@@ -296,7 +296,7 @@ equation
     annotation (Line(points={{-340,260},{-290,260},{-290,210},{-282,210}},
       color={0,0,127}));
   connect(conZer1.y, swi.u3)
-    annotation (Line(points={{121,230},{130,230},{130,242},{140,242}},
+    annotation (Line(points={{121,230},{130,230},{130,242},{138,242}},
       color={0,0,127}));
   connect(VActMin, swi1.u1)
     annotation (Line(points={{-340,50},{30,50},{30,40},{30,40},{30,40},{30,40},
@@ -372,7 +372,7 @@ equation
     annotation (Line(points={{101,-320},{120,-320},{120,-278},{138,-278}},
       color={0,0,127}));
   connect(swi.y, mulSum.u[1])
-    annotation (Line(points={{163,250},{174,250},{174,214.667},{198,214.667}},
+    annotation (Line(points={{161,250},{174,250},{174,214.667},{198,214.667}},
       color={0,0,127}));
   connect(swi1.y, mulSum.u[2])
     annotation (Line(points={{161,30},{180,30},{180,210},{198,210}},
@@ -402,12 +402,12 @@ equation
     annotation (Line(points={{-340,50},{30,50},{30,198},{58,198}},
       color={0,0,127}));
   connect(and4.y, swi5.u2)
-    annotation (Line(points={{21,190},{58,190}}, color={255,0,255}));
+    annotation (Line(points={{-39,190},{58,190}},color={255,0,255}));
   connect(lin.y, swi5.u3)
     annotation (Line(points={{-139,260},{40,260},{40,182},{58,182}},
       color={0,0,127}));
   connect(swi5.y, swi.u1)
-    annotation (Line(points={{81,190},{94,190},{94,258},{140,258}},
+    annotation (Line(points={{81,190},{94,190},{94,258},{138,258}},
       color={0,0,127}));
   connect(hys4.y, not4.u)
     annotation (Line(points={{-199,90},{-184,90}}, color={255,0,255}));
@@ -416,15 +416,18 @@ equation
   connect(not5.y, and1.u1)
     annotation (Line(points={{-199,-190},{-162,-190}}, color={255,0,255}));
   connect(TSup, add2.u1)
-    annotation (Line(points={{-340,-50},{-300,-50},{-300,160},{-114,160},{-114,186},
-      {-102,186}}, color={0,0,127}));
+    annotation (Line(points={{-340,-50},{-300,-50},{-300,160},{-176,160},{-176,
+          186},{-162,186}},
+                   color={0,0,127}));
   connect(TRoo, add2.u2)
-    annotation (Line(points={{-340,-270},{-296,-270},{-296,156},{-110,156},{-110,174},
-      {-102,174}}, color={0,0,127}));
+    annotation (Line(points={{-340,-270},{-296,-270},{-296,156},{-172,156},{
+          -172,174},{-162,174}},
+                   color={0,0,127}));
   connect(add2.y, hys6.u)
-    annotation (Line(points={{-79,180},{-62,180}}, color={0,0,127}));
+    annotation (Line(points={{-139,180},{-122,180}},
+                                                   color={0,0,127}));
   connect(hys6.y, and4.u2)
-    annotation (Line(points={{-39,180},{-20,180},{-20,182},{-2,182}},
+    annotation (Line(points={{-99,180},{-80,180},{-80,182},{-62,182}},
       color={255,0,255}));
   connect(conTDisSet.y, add1.u1) annotation (Line(points={{-99,-100},{-80,-100},
           {-80,-240},{-140,-240},{-140,-264},{-122,-264}}, color={0,0,127}));
@@ -457,10 +460,10 @@ equation
   connect(hys2.y, truDel4.u)
     annotation (Line(points={{-259,210},{-242,210}}, color={255,0,255}));
   connect(truDel4.y, and4.u1)
-    annotation (Line(points={{-219,210},{-20,210},{-20,190},{-2,190}},
+    annotation (Line(points={{-219,210},{-80,210},{-80,190},{-62,190}},
       color={255,0,255}));
   connect(truDel4.y, swi.u2)
-    annotation (Line(points={{-219,210},{-20,210},{-20,250},{140,250}},
+    annotation (Line(points={{-219,210},{-20,210},{-20,250},{138,250}},
       color={255,0,255}));
   connect(truHol2.y, not2.u) annotation (Line(points={{-199,-230},{-180,-230},{-180,
           -148},{-280,-148},{-280,-10},{-222,-10}}, color={255,0,255}));
@@ -484,13 +487,13 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-380},{320,380}}),
         graphics={
         Rectangle(
-          extent={{-298,304},{158,168}},
+          extent={{-298,298},{158,162}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-296,-36},{160,-132}},
+          extent={{-298,-42},{158,-138}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -508,7 +511,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-304,-190},{152,-366}},
+          extent={{-298,-182},{158,-358}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,

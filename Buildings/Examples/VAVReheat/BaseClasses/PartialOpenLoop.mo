@@ -786,10 +786,11 @@ equation
           124,-210},{124,-130}}, color={0,0,127}));
   connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{121,-248},{
           222,-248},{222,-130}}, color={0,0,127}));
-  connect(TCoiHeaOut.T, heaCoiCon.u_m) annotation (Line(points={{144,-29},{144,
-          -20},{160,-20},{160,-224},{10,-224},{10,-212}}, color={0,0,127}));
   connect(TSup.T, cooCoiCon.u_m) annotation (Line(points={{340,-29},{340,-20},{
           360,-20},{360,-264},{10,-264},{10,-252}}, color={0,0,127}));
+  connect(TSup.T, heaCoiCon.u_m) annotation (Line(points={{340,-29},{340,-20},{
+          360,-20},{360,-264},{140,-264},{140,-224},{10,-224},{10,-212}}, color
+        ={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,
             -400},{1660,600}})), Documentation(info="<html>
 <p>
