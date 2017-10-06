@@ -11,15 +11,6 @@ model Guideline36
       mCor_flow_nominal,mSou_flow_nominal,mEas_flow_nominal,mNor_flow_nominal,
       mWes_flow_nominal}/1.2 "Minimum expected zone primary flow rate";
 
-  parameter Modelica.SIunits.Area AFloCor=flo.cor.AFlo "Floor area corridor";
-  parameter Modelica.SIunits.Area AFloSou=flo.sou.AFlo "Floor area south";
-  parameter Modelica.SIunits.Area AFloNor=flo.nor.AFlo "Floor area north";
-  parameter Modelica.SIunits.Area AFloEas=flo.eas.AFlo "Floor area east";
-  parameter Modelica.SIunits.Area AFloWes=flo.wes.AFlo "Floor area west";
-
-  parameter Modelica.SIunits.Area zonAre[numZon]={flo.cor.AFlo,flo.sou.AFlo,flo.eas.AFlo,
-      flo.nor.AFlo,flo.wes.AFlo} "Area of each zone";
-
   parameter Modelica.SIunits.Time samplePeriod=120
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
 

@@ -13,6 +13,17 @@ partial model PartialOpenLoop
   parameter Modelica.SIunits.Volume VRooEas=360.08 "Room volume east";
   parameter Modelica.SIunits.Volume VRooWes=360.08 "Room volume west";
 
+
+  parameter Modelica.SIunits.Area AFloCor=flo.cor.AFlo "Floor area corridor";
+  parameter Modelica.SIunits.Area AFloSou=flo.sou.AFlo "Floor area south";
+  parameter Modelica.SIunits.Area AFloNor=flo.nor.AFlo "Floor area north";
+  parameter Modelica.SIunits.Area AFloEas=flo.eas.AFlo "Floor area east";
+  parameter Modelica.SIunits.Area AFloWes=flo.wes.AFlo "Floor area west";
+
+  parameter Modelica.SIunits.Area zonAre[numZon]={flo.cor.AFlo,flo.sou.AFlo,flo.eas.AFlo,
+      flo.nor.AFlo,flo.wes.AFlo} "Area of each zone";
+  final parameter Modelica.SIunits.Area ATot = sum(zonAre) "Total floor area";
+
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
   parameter Modelica.SIunits.MassFlowRate mCor_flow_nominal=6*VRooCor*conv
     "Design mass flow rate core";
@@ -508,6 +519,44 @@ partial model PartialOpenLoop
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiCooCoi(k=m_flow_nominal*1000*15
         /4200/10) "Gain for cooling coil mass flow rate"
     annotation (Placement(transformation(extent={{100,-258},{120,-238}})));
+
+  Results res(
+     final A=ATot,
+     PFan = fanSup.P + fanRet.P,
+     PHea = heaCoi.Q1_flow
+      + cor.terHea.Q1_flow
+      + nor.terHea.Q1_flow
+      + wes.terHea.Q1_flow
+      + eas.terHea.Q1_flow
+      + sou.terHea.Q1_flow,
+     PCooSen = cooCoi.QSen2_flow,
+     PCooLat = cooCoi.QLat2_flow)
+     "Results of the simulation";
+
+protected
+  model Results "Model to store the results of the simulation"
+    parameter Modelica.SIunits.Area A "Floor area";
+    input Modelica.SIunits.Power PFan
+                                     "Fan energy";
+    input Modelica.SIunits.Power PHea "Heating energy";
+    input Modelica.SIunits.Power PCooSen "Sensible cooling energy";
+    input Modelica.SIunits.Power PCooLat "Latent cooling energy";
+
+    Real EFan(unit="J/m2", start=0) "Fan energy";
+    Real EHea(unit="J/m2", start=0) "Heating energy";
+    Real ECooSen(unit="J/m2", start=0) "Sensible cooling energy";
+    Real ECooLat(unit="J/m2", start=0) "Latent cooling energy";
+    Real ECoo(unit="J/m2") "Total cooling energy";
+  equation
+
+    A * der(EFan) = PFan;
+    A * der(EHea) = PHea;
+    A * der(ECooSen) = PCooSen;
+    A * der(ECooLat) = PCooLat;
+    ECoo = ECooSen + ECooLat;
+
+
+  end Results;
 equation
   connect(fanRet.port_a, dpRetFan.port_b) annotation (Line(
       points={{320,140},{320,60}},
