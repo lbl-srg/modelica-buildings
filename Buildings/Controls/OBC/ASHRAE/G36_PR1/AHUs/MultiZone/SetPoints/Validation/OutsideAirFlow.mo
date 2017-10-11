@@ -10,7 +10,8 @@ model OutsideAirFlow
     zonAre=fill(40, numZon),
     maxSysPriFlo=1,
     minZonPriFlo=fill(0.08, numZon),
-    peaSysPop=20)
+    peaSysPop=20,
+    have_occSen=fill(true, numZon))
     "Block to output minimum outdoor airflow rate for system with multiple zones "
     annotation (Placement(transformation(extent={{20,-20},{60,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonPriFloRat[numZon](
