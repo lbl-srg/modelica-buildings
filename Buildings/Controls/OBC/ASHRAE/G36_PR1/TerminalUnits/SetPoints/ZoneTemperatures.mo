@@ -6,7 +6,20 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
   parameter Boolean have_winSen
     "Check if the zone has window status sensor"
     annotation(Dialog(group="Sensors"));
-  
+
+  parameter Boolean cooAdj = false
+    "Flag, set to true if both cooling and heating setpoint are adjustable separately"
+    annotation(Dialog(group="Setpoint adjustable setting"));
+  parameter Boolean heaAdj = false
+    "Flag, set to true if heating setpoint is adjustable"
+    annotation(Dialog(group="Setpoint adjustable setting",enable=false));
+  parameter Boolean sinAdj = false
+    "Flag, set to true if both cooling and heating setpoint are adjustable through a single common knob"
+    annotation(Dialog(group="Setpoint adjustable setting",enable=not (cooAdj or heaAdj)));
+  parameter Boolean ignDemLim = true
+    "Flag, set to true to exempt individual zone from demand limit setpoint adjustment"
+    annotation(Dialog(group="Setpoint adjustable setting"));
+
   parameter Modelica.SIunits.Temperature TCooOnMax=300.15
     "Maximum cooling setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
@@ -25,18 +38,7 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
   parameter Modelica.SIunits.Temperature THeaWinOpe=277.15
     "Heating setpoint when window is open"
     annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
-  parameter Boolean cooAdj = false
-    "Check if both cooling and heating setpoint are adjustable separately"
-    annotation(Dialog(group="Setpoint adjustable setting"));
-  parameter Boolean heaAdj = cooAdj
-    "Heating setpoint adjustable"
-    annotation(Dialog(group="Setpoint adjustable setting",enable=false));
-  parameter Boolean sinAdj = false
-    "Check if both cooling and heating setpoint are adjustable through a single common knob"
-    annotation(Dialog(group="Setpoint adjustable setting",enable=not (cooAdj or heaAdj)));
-  parameter Boolean ignDemLim = true
-    "Exempt individual zone from demand limit setpoint adjustment, exempt=true"
-    annotation(Dialog(group="Setpoint adjustable setting"));
+
   parameter Real incSetDem_1=0.56
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
     annotation(Dialog(group="Setpoint adjustment", tab="Demand Settings"));
@@ -147,18 +149,18 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logic not"
     annotation (Placement(transformation(extent={{0,140},{20,160}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar3(
-    p=incSetDem_3,
-    k=1)
+    final p=incSetDem_3,
+    final k=1)
     "Increase setpoint by 2.2 degC"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    p=incSetDem_2,
-    k=1)
+    final p=incSetDem_2,
+    final k=1)
     "Increase setpoint by 1.1 degC"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
-    p=incSetDem_1,
-    k=1)
+    final p=incSetDem_1,
+    final k=1)
     "Increase setpoint by 0.56 degC"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro6
@@ -187,18 +189,18 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar6(
-    k=1,
-    p=(-1.0)*decSetDem_1)
+    final k=1,
+    final p=-decSetDem_1)
     "Decrease setpoint by 0.56 degC"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar5(
-    k=1,
-    p=(-1.0)*decSetDem_2)
+    final k=1,
+    final p=-decSetDem_2)
     "Decrease setpoint by 1.1 degC"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar4(
-    k=1,
-    p=(-1.0)*decSetDem_3)
+    final k=1,
+    final p=-decSetDem_3)
     "Decrease setpoint by 2.2 degC"
     annotation (Placement(transformation(extent={{40,-200},{60,-180}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro5
@@ -222,10 +224,14 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
     "Instant when the zone becomes more than 5 minutes"
     annotation (Placement(transformation(extent={{-40,-280},{-20,-260}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter heaSetDec(p=-1.1, k=1)
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter heaSetDec(
+    p=-1.1,
+    final k=1)
     "Heating setpoint decrease due to the 5 minutes unpopulation under occupied mode"
     annotation (Placement(transformation(extent={{100,-320},{120,-300}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter cooSetInc(p=1.1, k=1)
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter cooSetInc(
+    p=1.1,
+    final k=1)
     "Heating setpoint increase due to the 5 minutes unpopulation under occupied mode"
     annotation (Placement(transformation(extent={{100,-280},{120,-260}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler cooSetSam
@@ -251,7 +257,9 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
     final uMin=THeaOnMin)
     "Limit occupied zone heating setpoint"
     annotation (Placement(transformation(extent={{-240,-590},{-220,-570}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p=-0.56, k=1)
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+    p=-0.56,
+    final k=1)
     "Cooling setpoint minus 0.56 degC"
     annotation (Placement(transformation(extent={{160,-590},{180,-570}})));
 
@@ -267,56 +275,57 @@ protected
     "Current operation mode is occupied, warm-up, or cool-down mode"
     annotation (Placement(transformation(extent={{-20,600},{0,620}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.warmUp)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.warmUp)
     "Warm-up mode"
     annotation (Placement(transformation(extent={{-340,570},{-320,590}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
-    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.coolDown)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.coolDown)
     "Cool-down mode"
     annotation (Placement(transformation(extent={{-240,570},{-220,590}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.occupied)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.occupied)
     "Occupied mode"
     annotation (Placement(transformation(extent={{-140,570},{-120,590}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cooSetAdjCon(k=(cooAdj or sinAdj))
     "Cooling setpoint adjustable"
     annotation (Placement(transformation(extent={{-340,320},{-320,340}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0) "Zero adjustment"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0) "Zero adjustment"
     annotation (Placement(transformation(extent={{-340,280},{-320,300}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(k=0) if not (cooAdj or sinAdj)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(final k=0) if not (cooAdj or sinAdj)
     "Zero adjustment"
     annotation (Placement(transformation(extent={{-340,360},{-320,380}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(k=0) if not heaAdj
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(final k=0) if not heaAdj
     "Zero adjustment"
     annotation (Placement(transformation(extent={{-340,240},{-320,260}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant heaSetAdjCon(k=heaAdj)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant heaSetAdjCon(final k=heaAdj)
     "Heating setpoint adjustable"
     annotation (Placement(transformation(extent={{-60,240},{-40,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=0) "Zero adjustment"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0) "Zero adjustment"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant sinSetAdjCon(k=sinAdj)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant sinSetAdjCon(final k=sinAdj)
     "Single common setpoint adjustable"
     annotation (Placement(transformation(extent={{20,200},{40,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(k=ignDemLim)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(final k=ignDemLim)
     "Check whether the zone should exempt from setpoint adjustment due to the demand limit"
     annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conTru(k=true) if not
-    have_occSen
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conTru(
+    final k=true) if not have_occSen
     "Constant true"
     annotation (Placement(transformation(extent={{-380,-360},{-360,-340}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conFal(k=false) if not have_winSen
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conFal(
+    final k=false) if not have_winSen
     "Constant false"
     annotation (Placement(transformation(extent={{-380,-480},{-360,-460}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSenCon(k=have_winSen)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSenCon(final k=have_winSen)
     "Check if there is window status sensor"
     annotation (Placement(transformation(extent={{40,-480},{60,-460}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant have_occSenCon(k=have_occSen)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant have_occSenCon(final k=have_occSen)
     "Check if there is occupancy sensor"
     annotation (Placement(transformation(extent={{160,-360},{180,-340}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetWinOpe(k=TCooWinOpe)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetWinOpe(final k=TCooWinOpe)
     "Cooling setpoint when window is open"
     annotation (Placement(transformation(extent={{-240,-480},{-220,-460}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetWinOpe(k=THeaWinOpe)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetWinOpe(final k=THeaWinOpe)
     "Heating setpoint when window is open"
     annotation (Placement(transformation(extent={{-120,-480},{-100,-460}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant alaZer(k=-0.2)
