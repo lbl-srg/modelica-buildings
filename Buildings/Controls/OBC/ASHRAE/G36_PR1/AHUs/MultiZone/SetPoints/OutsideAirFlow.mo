@@ -130,11 +130,11 @@ protected
     "If supply fan is off, then outdoor airflow rate should be zero"
     annotation (Placement(transformation(extent={{60,-20},{80,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max [numZon]
-    "If supply fan is off, giving a small primary airflow rate to avoid divide-by-zero issue"
+    "If supply fan is off, giving a small primary airflow rate to avoid division by zero"
     annotation (Placement(transformation(extent={{-40,-170},{-20,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Division priOutAirFra[numZon]
     "Primary outdoor air fraction"
-    annotation (Placement(transformation(extent={{40,-184},{60,-164}})));
+    annotation (Placement(transformation(extent={{0,-180},{20,-160}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sysUncOutAir(final nin=numZon)
     "Uncorrected outdoor airflow"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
@@ -145,10 +145,10 @@ protected
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(final p=1, final k=1)
     "System outdoor air flow fraction plus 1"
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+    annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
   Buildings.Controls.OBC.CDL.Continuous.Add sysVenEff(final k2=-1)
     "Current system ventilation efficiency"
-    annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
+    annotation (Placement(transformation(extent={{80,-138},{100,-118}})));
   Buildings.Controls.OBC.CDL.Continuous.Division effMinOutAirInt
     "Effective minimum outdoor air setpoint"
     annotation (Placement(transformation(extent={{154,-100},{174,-80}})));
@@ -193,7 +193,7 @@ protected
     annotation (Placement(transformation(extent={{140,140},{160,160}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax maxPriOutAirFra(nin=numZon)
     "Maximum zone outdoor air fraction"
-    annotation (Placement(transformation(extent={{80,-184},{100,-164}})));
+    annotation (Placement(transformation(extent={{40,-180},{60,-160}})));
   Buildings.Controls.OBC.CDL.Continuous.Min min
     "Minimum outdoor airflow rate should not be more than designed outdoor airflow rate"
     annotation (Placement(transformation(extent={{200,-100},{220,-80}})));
@@ -265,13 +265,22 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
 
-  CDL.Continuous.Gain gaiDivZer(final k=1E-10)
-    "Gain, used to avoid division by zero if the flow rate is zero"
+  CDL.Continuous.Gain gaiDivZer(final k=1E-3)
+    "Gain, used to avoid division by zero if the flow rate is smaller than 0.1%"
     annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
 
   CDL.Routing.RealReplicator reaRepDivZer(final nout=numZon)
     "Signal replicator to avoid division by zero"
     annotation (Placement(transformation(extent={{-80,-220},{-60,-200}})));
+  CDL.Logical.Switch swi4 "Ensuring the system efficiency will not be negative"
+    annotation (Placement(transformation(extent={{140,-140},{160,-120}})));
+  CDL.Continuous.Sources.Constant conOne(k=1)
+    "Set system ventilation efficiency to 1"
+    annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
+public
+  CDL.Continuous.GreaterEqualThreshold greEquThr
+    "Check if system ventilation efficiency is greater than 0"
+    annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
 equation
   connect(breZonAre.y, breZon.u1)
     annotation (Line(points={{-149,120},{-140,120},{-140,110},{-90,110},
@@ -314,8 +323,8 @@ equation
     annotation (Line(points={{-19,2},{-19,2},{0,2},{0,-38},{58,-38}},
       color={0,0,127}));
   connect(swi3.y, priOutAirFra.u1)
-    annotation (Line(points={{81,-30},{90,-30},{90,-56},{-8,-56},{-8,-168},{38,-168}},
-                  color={0,0,127}));
+    annotation (Line(points={{81,-30},{90,-30},{90,-56},{-8,-56},{-8,-164},{-2,
+          -164}}, color={0,0,127}));
   connect(swi3.y,sysUncOutAir.u)
     annotation (Line(points={{81,-30},{81,-30},{98,-30}},color={0,0,127}));
   connect(breZonAre.y, desBreZon.u2)
@@ -363,27 +372,19 @@ equation
   connect(hys.y, swi1.u2)
     annotation (Line(points={{-99,-40},{-90,-40},{-82,-40}},
       color={255,0,255}));
-  connect(max.y, priOutAirFra.u2) annotation (Line(points={{-19,-180},{38,-180}},
-                                 color={0,0,127}));
+  connect(max.y, priOutAirFra.u2) annotation (Line(points={{-19,-180},{-8,-180},
+          {-8,-176},{-2,-176}},  color={0,0,127}));
   connect(max.y, sysPriAirRate.u) annotation (Line(points={{-19,-180},{-12,-180},
           {-12,-90},{-2,-90}}, color={0,0,127}));
   connect(priOutAirFra.y, maxPriOutAirFra.u)
-    annotation (Line(points={{61,-174},{78,-174}},           color={0,0,127}));
+    annotation (Line(points={{21,-170},{38,-170}},           color={0,0,127}));
   connect(sysPriAirRate.y, outAirFra.u2)
     annotation (Line(points={{21.7,-90},{30,-90},{30,-96},{38,-96}},
       color={0,0,127}));
-  connect(outAirFra.y, addPar.u)
-    annotation (Line(points={{61,-90},{61,-90},{78,-90}},
-      color={0,0,127}));
-  connect(addPar.y, sysVenEff.u1)
-    annotation (Line(points={{101,-90},{101,-90},{100,-90},{102,-90},{110,-90},
-      {110,-84},{118,-84}}, color={0,0,127}));
   connect(maxPriOutAirFra.yMax, sysVenEff.u2)
-    annotation (Line(points={{101,-174},{110,-174},{110,-96},{118,-96}},
+    annotation (Line(points={{61,-170},{80,-170},{80,-150},{60,-150},{60,-134},
+          {78,-134}},
       color={0,0,127}));
-  connect(sysVenEff.y, effMinOutAirInt.u2)
-    annotation (Line(points={{141,-90},{148,-90},{148,-96},{152,-96}},
-                  color={0,0,127}));
   connect(sumDesZonPop.y, occDivFra.u2)
     annotation (Line(points={{-118.3,230},{-112,230},{-112,248},{-106,248},
       {-106,248},{-100,248},{-100,248}}, color={0,0,127}));
@@ -475,9 +476,24 @@ equation
           {-50,-186},{-42,-186}}, color={0,0,127}));
   connect(gaiDivZer.y, reaRepDivZer.u)
     annotation (Line(points={{-99,-210},{-82,-210}}, color={0,0,127}));
-  connect(gaiDivZer.u, unCorOutAirInk.y) annotation (Line(points={{-122,-210},{-140,
-          -210},{-140,-228},{180,-228},{180,222},{110,222},{110,220.5},{41,220.5}},
+  connect(gaiDivZer.u, unCorOutAirInk.y) annotation (Line(points={{-122,-210},{
+          -140,-210},{-140,-228},{180,-228},{180,220},{110,220},{110,220.5},{41,
+          220.5}},
         color={0,0,127}));
+  connect(sysVenEff.y, swi4.u1) annotation (Line(points={{101,-128},{120,-128},
+          {120,-122},{138,-122}}, color={0,0,127}));
+  connect(swi4.y, effMinOutAirInt.u2) annotation (Line(points={{161,-130},{172,
+          -130},{172,-110},{140,-110},{140,-96},{152,-96}}, color={0,0,127}));
+  connect(outAirFra.y, addPar.u) annotation (Line(points={{61,-90},{80,-90},{80,
+          -108},{0,-108},{0,-130},{18,-130}}, color={0,0,127}));
+  connect(addPar.y, sysVenEff.u1) annotation (Line(points={{41,-130},{60,-130},
+          {60,-122},{78,-122}}, color={0,0,127}));
+  connect(greEquThr.y, swi4.u2) annotation (Line(points={{121,-90},{128,-90},{
+          128,-130},{138,-130}}, color={255,0,255}));
+  connect(conOne.y, swi4.u3) annotation (Line(points={{121,-170},{130,-170},{
+          130,-138},{138,-138}}, color={0,0,127}));
+  connect(sysVenEff.y, greEquThr.u) annotation (Line(points={{101,-128},{120,
+          -128},{120,-108},{86,-108},{86,-90},{98,-90}}, color={0,0,127}));
 annotation (
 defaultComponentName="outAirSetPoi",
 Icon(graphics={Rectangle(
