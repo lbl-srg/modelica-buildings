@@ -29,22 +29,22 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     "Lower limit of damper position limits control signal output" annotation (
       Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
 
-  parameter Real uMin=0.33
+  parameter Real uMin=-0.25
     "Lower limit of controller input when outdoor damper opens for modulation control"
     annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
-  parameter Real uMax=0.66
+  parameter Real uMax=+0.25
     "Upper limit of controller input when return damper is closed for modulation control"
     annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
 
   parameter Real outDamConSigMax(
-    final min=0,
-    final max=retDamConSigMin,
+    final min=-1,
+    final max=1,
     final unit="1") = (uMin+uMax)/2
     "Maximum loop signal for the OA damper to be fully open"
     annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
 
   parameter Real retDamConSigMin(
-    final min=outDamConSigMax,
+    final min=-1,
     final max=1,
     final unit="1") = (uMin+uMax)/2
     "Minimum loop signal for the RA damper to be fully open"
@@ -287,13 +287,6 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Mo
 for a description.
 </li>
 </ul>
-<p>
-The figure below shows the block diagram of the control sequence.
-</p>
-<p align=\"center\">
-<img alt=\"Image of the multi zone AHU modulation sequence control diagram\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconCompositeMultiZone.png\"/>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

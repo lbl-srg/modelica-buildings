@@ -12,8 +12,9 @@ model Modulation_TSup
 
   Modelica.Blocks.Sources.Ramp uTSup(
     final duration=900,
-    final height=1,
-    final offset=0) "Control signal for supply air temperature loop"
+    final height=2,
+    final offset=-1)
+                    "Control signal for supply air temperature loop"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMin(final k=
         0.1)

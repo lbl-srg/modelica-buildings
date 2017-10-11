@@ -1,6 +1,7 @@
 within Buildings.Examples.VAVReheat;
 model ASHRAE2006
   "Variable air volume flow system with terminal reheat and five thermal zones"
+  import Buildings;
   extends Modelica.Icons.Example;
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop;
 
@@ -47,11 +48,39 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
   Controls.RoomVAV conVAVWes "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
+  Buildings.Controls.Continuous.LimPID heaCoiCon(
+    yMax=1,
+    yMin=0,
+    Td=60,
+    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=600,
+    k=0.01) "Controller for heating coil"
+    annotation (Placement(transformation(extent={{0,-210},{20,-190}})));
+  Buildings.Controls.Continuous.LimPID cooCoiCon(
+    reverseAction=true,
+    Td=60,
+    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    yMax=1,
+    yMin=0,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=600,
+    k=0.01) "Controller for cooling coil"
+    annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swiHeaCoi
+    "Switch to switch off heating coil"
+    annotation (Placement(transformation(extent={{60,-220},{80,-200}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swiCooCoi
+    "Switch to switch off cooling coil"
+    annotation (Placement(transformation(extent={{60,-258},{80,-238}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant coiOff(k=0)
+    "Signal to switch water flow through coils off"
+    annotation (Placement(transformation(extent={{20,-170},{40,-150}})));
 equation
   connect(TSupSetHea.y, heaCoiCon.u_s) annotation (Line(
-      points={{-79,-160},{-40,-160},{-40,-200},{-2,-200}},
+      points={{-79,-160},{-16,-160},{-16,-200},{-2,-200}},
       color={0,0,127},
-      smooth=Smooth.None));
+      pattern=LinePattern.Dash));
   connect(fanRet.port_a, dpRetFan.port_b) annotation (Line(
       points={{320,140},{320,140},{320,60}},
       color={0,0,0},
@@ -270,6 +299,23 @@ equation
           -308},{52,-308},{52,-210},{58,-210}}, color={255,0,255}));
   connect(modeSelector.yFan, swiCooCoi.u2) annotation (Line(points={{-99.5455,
           -308},{52,-308},{52,-248},{58,-248}}, color={255,0,255}));
+  connect(swiCooCoi.u1,cooCoiCon. y)
+    annotation (Line(points={{58,-240},{21,-240}}, color={0,0,127}));
+  connect(swiHeaCoi.u1,heaCoiCon. y) annotation (Line(points={{58,-202},{40,
+          -202},{40,-200},{21,-200}}, color={0,0,127}));
+  connect(coiOff.y,swiCooCoi. u3) annotation (Line(points={{41,-160},{48,-160},
+          {48,-256},{58,-256}}, color={0,0,127}));
+  connect(coiOff.y,swiHeaCoi. u3) annotation (Line(points={{41,-160},{48,-160},
+          {48,-218},{58,-218}}, color={0,0,127}));
+  connect(TSup.T,cooCoiCon. u_m) annotation (Line(points={{340,-29},{340,-20},{
+          360,-20},{360,-264},{10,-264},{10,-252}}, color={0,0,127}));
+  connect(TSup.T,heaCoiCon. u_m) annotation (Line(points={{340,-29},{340,-20},{
+          360,-20},{360,-264},{-8,-264},{-8,-220},{10,-220},{10,-212}},   color=
+         {0,0,127}));
+  connect(gaiHeaCoi.u, swiHeaCoi.y)
+    annotation (Line(points={{98,-210},{81,-210},{81,-210}}, color={0,0,127}));
+  connect(gaiCooCoi.u, swiCooCoi.y) annotation (Line(points={{98,-248},{88,-248},
+          {88,-248},{81,-248}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
             1660,640}})),

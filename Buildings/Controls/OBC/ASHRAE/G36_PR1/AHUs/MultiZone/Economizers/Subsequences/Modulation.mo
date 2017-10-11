@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subseque
 block Modulation
   "Outdoor and return air damper position modulation sequence for multi zone VAV AHU"
 
-  parameter Real uMin=0.33
+  parameter Real uMin=-0.25
     "Lower limit of controller input when outdoor damper opens (see diagram)"
     annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
-  parameter Real uMax=0.66
+  parameter Real uMax=+0.25
     "Upper limit of controller input when return damper is closed (see diagram)"
     annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
   parameter Real outDamConSigMax(
