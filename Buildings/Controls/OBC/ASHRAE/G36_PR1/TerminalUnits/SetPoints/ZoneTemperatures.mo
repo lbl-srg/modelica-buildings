@@ -126,7 +126,7 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
     quantity="ThermodynamicTemperature")  "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{340,-110},{360,-90}}),
       iconTransformation(extent={{200,-100},{240,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla if have_winSen "Alarm level"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla "Alarm level"
     annotation (Placement(transformation(extent={{340,-400},{360,-380}}),
       iconTransformation(extent={{200,80},{240,120}})));
 
@@ -1328,6 +1328,10 @@ shall prevail in order from highest to lowest priority.</p>
 
 </html>", revisions="<html>
 <ul>
+<li>
+October 11, 2017, by Michael Wetter:<br/>
+Removed wrong conditional on <code>yAla</code>.
+</li>
 <li>
 August 17, 2017, by Jianjun Hu:<br/>
 First implementation.
