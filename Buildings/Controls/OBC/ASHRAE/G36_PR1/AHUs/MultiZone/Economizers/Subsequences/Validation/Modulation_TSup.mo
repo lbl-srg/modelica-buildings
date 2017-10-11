@@ -10,35 +10,35 @@ model Modulation_TSup
     "Economizer modulation sequence"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSetSig(
-    final k=TSupSet) "Supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Modelica.Blocks.Sources.Ramp TSup(
+  Modelica.Blocks.Sources.Ramp uTSup(
     final duration=900,
-    final height=4,
-    final offset=TSupSet - 2) "Measured supply air temperature"
+    final height=1,
+    final offset=0) "Control signal for supply air temperature loop"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMin(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMin(final k=
+        0.1)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMax(final k=1)
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RetDamPosMin(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMax(final k=
+        0.9)
+    annotation (Placement(transformation(extent={{-80,16},{-60,36}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RetDamPosMin(final k=
+        0.15)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RetDamPosMax(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RetDamPosMax(final k=
+        0.85)
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
 equation
-  connect(TSup.y,mod.TSup)  annotation (Line(points={{-39,70},{-30,70},{-30,36},
-          {39,36}},color={0,0,127}));
   connect(RetDamPosMax.y, mod.uRetDamPosMax) annotation (Line(points={{-59,-40},
-          {-20,-40},{-20,24},{-6,24},{39,24}}, color={0,0,127}));
+          {-20,-40},{-20,38},{39,38}},         color={0,0,127}));
   connect(RetDamPosMin.y, mod.uRetDamPosMin) annotation (Line(points={{-59,-70},
-          {8,-70},{8,16},{8,21},{39,21}},color={0,0,127}));
-  connect(outDamPosMax.y, mod.uOutDamPosMax) annotation (Line(points={{-59,20},
-          {-48,20},{-30,20},{-30,31},{39,31}}, color={0,0,127}));
+          {8,-70},{8,16},{8,34},{39,34}},color={0,0,127}));
+  connect(outDamPosMax.y, mod.uOutDamPosMax) annotation (Line(points={{-59,26},
+          {39,26}},                            color={0,0,127}));
   connect(outDamPosMin.y, mod.uOutDamPosMin) annotation (Line(points={{-59,-10},
-          {-34,-10},{-24,-10},{-24,28},{39,28}}, color={0,0,127}));
-  connect(TSupSetSig.y,mod.TSupSet)  annotation (Line(points={{1,70},{20,70},{20,39},{39,39}}, color={0,0,127}));
+          {-34,-10},{-24,-10},{-24,22},{39,22}}, color={0,0,127}));
+  connect(uTSup.y, mod.uTSup) annotation (Line(points={{-39,70},{0,70},{0,30},{
+          39,30}}, color={0,0,127}));
   annotation (
   experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/Economizers/Subsequences/Validation/Modulation_TSup.mos"

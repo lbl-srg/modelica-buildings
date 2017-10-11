@@ -16,10 +16,8 @@ protected
     "Outdoor temperature high limit cutoff";
   final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
-  final parameter Modelica.SIunits.Temperature TSupSet=291
-    "Supply air temperature heating setpoint";
-  final parameter Modelica.SIunits.Temperature TSup=290.15
-    "Measured supply air temperature";
+
+
   final parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
   final parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=0.61
@@ -65,18 +63,12 @@ protected
     final height=incVOutSet_flow)
     "Measured outdoor air volumetric airflow"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSetSig(
-    final k=TSupSet) "Heating supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSig(
-    final k=TSup) "Measured supply air temperature"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Modelica.Blocks.Sources.Ramp TSupSig1(
-    final duration=900,
-    final height=3,
-    final offset=TSupSet - 2) "Measured supply air temperature"
-    annotation (Placement(transformation(extent={{40,80},{60,100}})));
 
+  Modelica.Blocks.Sources.Ramp uTSup(
+    final duration=1800,
+    final height=1,
+    final offset=0) "Supply air temperature control signal"
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 equation
   connect(fanSta.y, economizer.uSupFan)
     annotation (Line(points={{-59,-80},{-14,-80},{-14,6},{19,6}}, color={255,0,255}));
@@ -94,14 +86,10 @@ equation
     annotation (Line(points={{-19,90},{-8,90},{-8,10},{19,10}},color={0,0,127}));
   connect(VOutMinSet_flow.y, economizer.VOutMinSet_flow)
     annotation (Line(points={{-19,50},{-12,50},{-12,8},{19,8}},color={0,0,127}));
-  connect(TSupSig.y, economizer.TSup)
-    annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}}, color={0,0,127}));
   connect(TOutBelowCutoff.y, economizer1.TOut)
     annotation (Line(points={{-99,110},{90,110},{90,-18},{99,-18}}, color={0,0,127}));
   connect(TOutCut1.y, economizer1.TOutCut)
     annotation (Line(points={{-99,70},{88,70},{88,-20},{99,-20}}, color={0,0,127}));
-  connect(TSupSig1.y, economizer1.TSup) annotation (Line(points={{61,90},{80,90},
-          {80,-26},{99,-26}},                                                                        color={0,0,127}));
   connect(VOut_flow.y, economizer1.VOut_flow)
     annotation (Line(points={{-19,90},{-10,90},{-10,-22},{18,-22},{18,-30},{99,-30}}, color={0,0,127}));
   connect(VOutMinSet_flow.y, economizer1.VOutMinSet_flow)
@@ -114,10 +102,10 @@ equation
     annotation (Line(points={{-99,-100},{22,-100},{22,-36},{99,-36}}, color={255,127,0}));
   connect(zonSta.y, economizer1.uZonSta)
     annotation (Line(points={{-99,-60},{24,-60},{24,-38},{99,-38}}, color={255,127,0}));
-  connect(economizer.TSupSet, TSupSetSig.y)
-    annotation (Line(points={{19,12},{-52,12},{-52,50},{-59,50}}, color={0,0,127}));
-  connect(economizer1.TSupSet, TSupSetSig.y) annotation (Line(points={{99,-28},{
-          34,-28},{-52,-28},{-52,50},{-59,50}}, color={0,0,127}));
+  connect(uTSup.y, economizer.uTSup) annotation (Line(points={{-59,90},{-50,90},
+          {-50,13},{19,13}}, color={0,0,127}));
+  connect(uTSup.y, economizer1.uTSup) annotation (Line(points={{-59,90},{-50,90},
+          {-50,-27},{99,-27}}, color={0,0,127}));
   annotation (
     experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/Economizers/Validation/Controller_Mod_DamLim.mos"
