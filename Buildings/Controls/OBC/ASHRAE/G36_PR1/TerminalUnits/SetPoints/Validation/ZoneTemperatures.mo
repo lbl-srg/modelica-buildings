@@ -6,7 +6,8 @@ model ZoneTemperatures "Validate block for zone set point"
     have_occSen=true,
     sinAdj=false,
     cooAdj=true,
-    have_winStaSen=true) "Block determined thermal zone setpoints"
+    have_winSen=true,
+    heaAdj=true)      "Block determined thermal zone setpoints"
     annotation (Placement(transformation(extent={{60,40},{100,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant occCooSet(k=297.15)

@@ -58,16 +58,6 @@ protected
     final yMax=1,
     final yMin=0) "Heating coil valve controller"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line conCooInv(
-    final limitBelow=false,
-    final limitAbove=false) "Inverter of the cooling control signal"
-    annotation (Placement(transformation(extent={{64,-30},{84,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yMinSig(final k=0)
-    "Minimum controller output signal"
-    annotation (Placement(transformation(extent={{24,-10},{44,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yMaxSig(final k=1)
-   "Maximum controller output signal"
-    annotation (Placement(transformation(extent={{24,-50},{44,-30}})));
   CDL.Continuous.AddParameter addPar(
     final p=1,
     final k=-1) "Invert the control signal"
@@ -80,16 +70,6 @@ equation
   connect(conCooVal.u_s,TRooCooSet)
     annotation (Line(points={{-62,-20},{-62,-20},{-70,-20},{-70,0},{-120,0}},
     color={0,0,127}));
-  connect(conCooVal.y, conCooInv.u)
-    annotation (Line(points={{-39,-20},{-39,-20},{62,-20}},color={0,0,127}));
-  connect(yMinSig.y, conCooInv.x1)
-    annotation (Line(points={{45,0},{54,0},{54,-12},{62,-12}},color={0,0,127}));
-  connect(yMaxSig.y, conCooInv.f1)
-    annotation (Line(points={{45,-40},{52,-40},{52,-16},{62,-16}},color={0,0,127}));
-  connect(yMaxSig.y, conCooInv.x2)
-    annotation (Line(points={{45,-40},{54,-40},{54,-24},{62,-24}},color={0,0,127}));
-  connect(yMinSig.y, conCooInv.f2)
-    annotation (Line(points={{45,0},{56,0},{56,-28},{62,-28}}, color={0,0,127}));
   connect(conHeaVal.y, yHea) annotation (Line(points={{-39,50},{78,50},{110,50}}, color={0,0,127}));
   connect(TRooHeaSet, conHeaVal.u_s)
     annotation (Line(points={{-120,60},{-80,60},{-80,50},{-62,50}}, color={0,0,127}));

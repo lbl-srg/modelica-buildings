@@ -2,13 +2,13 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints;
 block ActiveAirFlow
   "Output the active airflow setpoint for VAV reheat terminal unit"
 
-  parameter Boolean occSen = true
+  parameter Boolean have_occSen
     "Set to true if the zone has occupancy sensor"
     annotation(Dialog(group="Zone sensors"));
-  parameter Boolean winSen = true
+  parameter Boolean have_winSen
     "Set to true if the zone has window status sensor"
     annotation(Dialog(group="Zone sensors"));
-  parameter Boolean co2Sen = true
+  parameter Boolean have_CO2Sen
     "Set to true if the zone has CO2 sensor"
     annotation(Dialog(group="Zone sensors"));
   parameter Modelica.SIunits.VolumeFlowRate VCooMax
@@ -31,18 +31,18 @@ block ActiveAirFlow
   parameter Modelica.SIunits.VolumeFlowRate outAirPerPer=2.5e-3
     "Outdoor air rate per person"
     annotation(Dialog(group="Nominal condition"));
-  parameter Real co2Set = 894 "CO2 setpoints, ppm"
+  parameter Real CO2Set = 894 "CO2 setpoint in ppm"
     annotation(Dialog(group="Nominal condition"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if occSen
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if have_occSen
     "Number of occupants"
     annotation (Placement(transformation(extent={{-320,-300},{-280,-260}}),
       iconTransformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2(final unit="1") if co2Sen
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2(final unit="1") if have_CO2Sen
     "Detected CO2 conventration"
     annotation (Placement(transformation(extent={{-320,-200},{-280,-160}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if winSen
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-320,-520},{-280,-480}}),
       iconTransformation(extent={{-120,-80},{-100,-60}})));
@@ -87,22 +87,22 @@ block ActiveAirFlow
     annotation (Placement(transformation(extent={{280,-10},{320,30}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=outAirPerPer) if occSen
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=outAirPerPer) if have_occSen
   "Outdoor air per person"
     annotation (Placement(transformation(extent={{-140,-330},{-120,-310}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add breZon if occSen
+  Buildings.Controls.OBC.CDL.Continuous.Add breZon if have_occSen
   "Breathing zone airflow"
     annotation (Placement(transformation(extent={{-80,-350},{-60,-330}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line co2ConLoo if co2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Line co2ConLoo if have_CO2Sen
     "Maintain CO2 concentration at setpoint, reset 0% at (setpoint-200) and 100% at setpoint"
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line lin1 if co2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Line lin1 if have_CO2Sen
     "Reset occupied minimum airflow setpoint from 0% at VMin and 100% at VCooMax"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gre
     "Check if zone minimum airflow setpoint Vmin is less than the allowed controllable VMinCon"
     annotation (Placement(transformation(extent={{-20,-460},{0,-440}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=0) if occSen
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=0) if have_occSen
     "Check if the zone becomes unpopulated"
     annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1
@@ -117,24 +117,24 @@ block ActiveAirFlow
   Buildings.Controls.OBC.CDL.Logical.Switch swi2
     "Reset occupied minimum airflow setpoint according to minimum controllable airflow"
     annotation (Placement(transformation(extent={{140,-410},{160,-390}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3 if co2Sen
+  Buildings.Controls.OBC.CDL.Logical.Switch swi3 if have_CO2Sen
     "Switch between zero signal and CO2 control loop signal depending on the operation mode"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-120}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{40,-410},{60,-390}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{80,-410},{100,-390}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2 if winSen "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not2 if have_winSen "Logical not"
     annotation (Placement(transformation(extent={{-240,-510},{-220,-490}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir1(k=VMin) if not co2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir1(k=VMin) if not have_CO2Sen
     "Zone minimum airflow setpoint"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxZonCooAir(k=VCooMax) if co2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxZonCooAir(k=VCooMax) if have_CO2Sen
     "Zone maximum cooling airflow setpoint"
     annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonAre(k=outAirPerAre*zonAre) if occSen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonAre(k=outAirPerAre*zonAre) if have_occSen
     "Area component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-140,-370},{-120,-350}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conVolMin(k=VMinCon)
@@ -143,34 +143,34 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir(k=VMin)
     "Zone minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-240,-60},{-220,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setCO1(k=co2Set - 200) if co2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setCO1(k=CO2Set - 200) if have_CO2Sen
     "CO2 setpoints minus 200"
     annotation (Placement(transformation(extent={{-240,-140},{-220,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setCO2(k=co2Set) if co2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setCO2(k=CO2Set) if have_CO2Sen
     "CO2 setpoints"
     annotation (Placement(transformation(extent={{-240,-210},{-220,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerFlo(k=0)
     "Zero airflow when window is open"
     annotation (Placement(transformation(extent={{140,-540},{160,-520}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=true) if not occSen "Constant true"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=true) if not have_occSen "Constant true"
     annotation (Placement(transformation(extent={{-80,-270},{-60,-250}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=true) if not winSen "Constant true"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=true) if not have_winSen "Constant true"
     annotation (Placement(transformation(extent={{40,-490},{60,-470}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon(k=0) "Output zero"
     annotation (Placement(transformation(extent={{-240,-170},{-220,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon1(k=0) if co2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon1(k=0) if have_CO2Sen
     "Output zero"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon2(k=0) if co2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon2(k=0) if have_CO2Sen
     "Output zero"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon3(k=0) if not occSen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon3(k=0) if not have_occSen
     "Output zero"
     annotation (Placement(transformation(extent={{0,-350},{20,-330}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCon(k=1) if co2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCon(k=1) if have_CO2Sen
     "Output one"
     annotation (Placement(transformation(extent={{-240,-240},{-220,-220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCon1(k=1) if co2Sen "Output one"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCon1(k=1) if have_CO2Sen "Output one"
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxAir(k=VCooMax)
     "Cooling maximum airflow"
@@ -744,8 +744,8 @@ equal to <code>VMinCon</code>.
 <li>
 If the zone has a CO2 sensor, then following steps are applied for calculating
 <code>VOccMinAir</code>. (1) During occupied mode, a P-only loop shall maintain
-CO2 concentration at setpoint, reset 0% at (CO2 setpoint <code>co2Set</code> -
-200 ppm) and 100% at <code>co2Set</code>. If ventilation outdoor airflow is controlled
+CO2 concentration at setpoint, reset 0% at (CO2 setpoint <code>CO2Set</code> -
+200 ppm) and 100% at <code>CO2Set</code>. If ventilation outdoor airflow is controlled
 in accordance with ASHRAE Standard 62.1-2013, the loop output shall reset the
 <code>VOccMinAir</code> from <code>VMin</code> at 0% loop output up to <code>VCooMax</code>
 at 100% loop output; (2) Loop is diabled and output set to zero when the zone is

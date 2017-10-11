@@ -4,7 +4,7 @@ model SystemRequests
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests
-    sysReq_RehBox(have_heaPla=true)
+    sysReq_RehBox(have_heaPla=true, have_heaWatCoi=true)
     "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Sources.Sine sine(freqHz=1/7200, offset=296.15)
