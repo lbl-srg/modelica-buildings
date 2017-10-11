@@ -195,7 +195,7 @@ equation
                Sum of all energy is " + String(sumEBal));
   else
 
-  when sample(0, 10*60) then
+  when sample(0, 2*60) then
   G = -transpose(F)*pre(J);
   // Net heat exchange
   Q_flow = -pre(J) - G;  // Outgoing radiosity
