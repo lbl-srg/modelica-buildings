@@ -5,7 +5,7 @@ model AHUGuideline36
   parameter Modelica.SIunits.Time samplePeriod=120
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
 
-  parameter Boolean have_occSen[numZon]=fill(false, numZon)
+  parameter Boolean have_occSen[numZon]
     "Set to true if zones have occupancy sensor";
   parameter Modelica.SIunits.VolumeFlowRate maxSysPriFlo
     "Maximum expected system primary airflow at design stage";

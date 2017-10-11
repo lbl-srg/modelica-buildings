@@ -55,7 +55,8 @@ block RoomVAVGuideline36
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests sysReq(
       final have_heaPla=false,
-      final samplePeriod=samplePeriod)
+      final samplePeriod=samplePeriod,
+    have_heaWatCoi=true)
       "Number of system requests"
     annotation (Placement(transformation(extent={{52,0},{72,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValve conDamVal
@@ -73,9 +74,9 @@ block RoomVAVGuideline36
     annotation (Placement(transformation(extent={{-70,120},{-50,140}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
     actAirSet(
-    occSen=false,
-    winSen=false,
-    co2Sen=false,
+    have_occSen=false,
+    have_winSen=false,
+    have_CO2Sen=false,
     VCooMax=V_flow_nominal,
     VHeaMax=V_flow_nominal,
     zonAre=zonAre,
@@ -153,7 +154,7 @@ equation
   connect(sysReq.yZonPreResReq, yZonPreResReq) annotation (Line(points={{73,12},
           {76,12},{76,-100},{110,-100}}, color={255,127,0}));
   connect(heaCoo.yCoo, sysReq.uCoo) annotation (Line(points={{-49,126},{-42,126},
-          {-42,16},{-42,16},{-42,16},{-42,15},{51,15}}, color={0,0,127}));
+          {-42,16},{-42,15},{51,15}},                   color={0,0,127}));
   annotation ( Icon(coordinateSystem(extent={{-100,-140},{100,160}}),
                     graphics={  Rectangle(
         extent={{-100,-140},{100,160}},

@@ -43,7 +43,9 @@ model Guideline36
     numZon=numZon,
     maxSysPriFlo=maxSysPriFlo,
     minZonPriFlo=minZonPriFlo,
-    zonAre=zonAre) "AHU controller"
+    zonAre=zonAre,
+    have_occSen=fill(false, numZon))
+                   "AHU controller"
     annotation (Placement(transformation(extent={{392,334},{432,442}})));
   Buildings.Examples.VAVReheat.Controls.ZoneSetPointsGuideline36 TSetZon(
     THeaOn=THeaOn,

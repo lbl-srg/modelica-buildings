@@ -30,7 +30,8 @@ model ZoneSetPointsGuideline36
       quantity="ThermodynamicTemperature") "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures TSetZon
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures TSetZon(
+      have_occSen=false, have_winSen=false)
   "Zone set point temperature"
     annotation (Placement(transformation(extent={{18,-46},{58,-6}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooDemLimLev(
@@ -75,14 +76,13 @@ equation
           {0,-40},{0,-60},{-30,-60},{-30,-61},{-59,-61}},
                                               color={255,127,0}));
   connect(heaDemLimLev.y,TSetZon. uHeaDemLimLev) annotation (Line(points={{-59,-91},
-          {6,-91},{6,-90},{6,-90},{6,-44},{16,-44}},
-                                               color={255,127,0}));
+          {6,-91},{6,-90},{6,-44},{16,-44}},   color={255,127,0}));
   connect(TSetZon.occCooSet,TSetRooCooOn. y) annotation (Line(points={{16,-8},{
           2,-8},{2,119},{-59,119}},      color={0,0,127}));
   connect(TSetZon.occHeaSet,TSetRooHeaOn. y) annotation (Line(points={{16,-12},
           {-2,-12},{-2,91},{-59,91}},    color={0,0,127}));
   connect(TSetZon.unoCooSet,TSetRooCooOff. y) annotation (Line(points={{16,-16},
-          {-10,-16},{-10,0},{-10,0},{-10,31},{-59,31}},
+          {-10,-16},{-10,0},{-10,31},{-59,31}},
                                          color={0,0,127}));
   connect(TSetZon.unoHeaSet,TSetRooHeaOff. y) annotation (Line(points={{16,-20},
           {-6,-20},{-6,61},{-59,61}},    color={0,0,127}));
