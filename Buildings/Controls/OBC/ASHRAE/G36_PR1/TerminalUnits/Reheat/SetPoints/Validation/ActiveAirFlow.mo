@@ -8,7 +8,10 @@ model ActiveAirFlow
     VMin=0.017,
     VHeaMax=0.05,
     VMinCon=0.01,
-    zonAre=40)
+    zonAre=40,
+    have_occSen=true,
+    have_winSen=true,
+    have_CO2Sen=true)
     "Output the active airflow setpoint for VAV reheat terminal unit"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
@@ -17,7 +20,10 @@ model ActiveAirFlow
     VMin=0.017,
     VHeaMax=0.05,
     VMinCon=0.01,
-    zonAre=40)
+    zonAre=40,
+    have_occSen=true,
+    have_winSen=true,
+    have_CO2Sen=true)
     "Output the active airflow setpoint for VAV reheat terminal unit"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp coCon(

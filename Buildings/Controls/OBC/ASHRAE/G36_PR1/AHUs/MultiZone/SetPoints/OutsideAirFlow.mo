@@ -4,8 +4,8 @@ block OutsideAirFlow
 
   parameter Integer numZon(min=2)
     "Total number of zones that the system serves";
-  parameter Real outAirPerAre[numZon](each final unit = "m3/(s.m2)")=
-      fill(3e-4, numZon)
+  parameter Real outAirPerAre[numZon](
+    each final unit = "m3/(s.m2)")=fill(3e-4, numZon)
     "Outdoor air rate per unit area"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.VolumeFlowRate outAirPerPer[numZon]=
@@ -15,7 +15,7 @@ block OutsideAirFlow
   parameter Modelica.SIunits.Area zonAre[numZon]
     "Area of each zone"
     annotation(Dialog(group="Nominal condition"));
-  parameter Boolean have_occSen[numZon]=fill(true, numZon)
+  parameter Boolean have_occSen[numZon]
     "Set to true if zones have occupancy sensor";
   parameter Real occDen[numZon](each final unit="1/m2") = fill(0.05, numZon)
     "Default number of person in unit area";
@@ -206,8 +206,8 @@ protected
     each pre_y_start=true)
     "Check if cooling or heating air distribution effectiveness should be applied, with 1 degC deadband"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSen[numZon](k=
-        have_occSen) "Boolean constant to indicate if there is occupancy sensor"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSen[numZon]
+    (final k=have_occSen) "Boolean constant to indicate if there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(k=Constants.OperationModes.occupied)
     "Occupied mode index"
@@ -524,7 +524,7 @@ The calculation is done using the steps below.
 <p>
 The number of occupant <code>occCou</code> in each zone can be retrieved
 directly from occupancy sensor <code>nOcc</code> if the sensor exists
-(<code>occSen=true</code>), or using the default occupant density
+(<code>have_occSen=true</code>), or using the default occupant density
 <code>occDen</code> to find it <code>zonAre*occDen</code>. The occupant
 density can be found from Table 6.2.2.1 in ASHRAE Standard 62.1-2013.
 For design purpose, use design zone population <code>desZonPop</code> to find

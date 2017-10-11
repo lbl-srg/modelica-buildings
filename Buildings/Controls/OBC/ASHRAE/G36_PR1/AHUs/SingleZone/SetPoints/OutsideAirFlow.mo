@@ -11,7 +11,7 @@ block OutsideAirFlow
   parameter Modelica.SIunits.Area zonAre
     "Area of each zone"
     annotation(Dialog(group="Nominal condition"));
-  parameter Boolean have_occSen=false
+  parameter Boolean have_occSen
     "Set to true if zones have occupancy sensor";
   parameter Real occDen(final unit="1/m2") = 0.05
     "Default number of person in unit area";

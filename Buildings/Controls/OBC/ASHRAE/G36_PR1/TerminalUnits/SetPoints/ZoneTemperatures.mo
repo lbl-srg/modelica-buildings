@@ -1,6 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints;
 block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
 
+  parameter Boolean have_occSen "Check if the zone has occupancy sensor"
+    annotation(Dialog(group="Sensors"));
+  parameter Boolean have_winSen
+    "Check if the zone has window status sensor"
+    annotation(Dialog(group="Sensors"));
+  
   parameter Modelica.SIunits.Temperature TCooOnMax=300.15
     "Maximum cooling setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
@@ -15,10 +21,10 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
     annotation(Dialog(group="Setpoints limits setting"));
   parameter Modelica.SIunits.Temperature TCooWinOpe=322.15
     "Cooling setpoint when window is open"
-    annotation(Dialog(group="Setpoints limits setting", enable=have_winStaSen));
+    annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
   parameter Modelica.SIunits.Temperature THeaWinOpe=277.15
     "Heating setpoint when window is open"
-    annotation(Dialog(group="Setpoints limits setting", enable=have_winStaSen));
+    annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
   parameter Boolean cooAdj = false
     "Check if both cooling and heating setpoint are adjustable separately"
     annotation(Dialog(group="Setpoint adjustable setting"));
@@ -31,11 +37,6 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
   parameter Boolean ignDemLim = true
     "Exempt individual zone from demand limit setpoint adjustment, exempt=true"
     annotation(Dialog(group="Setpoint adjustable setting"));
-  parameter Boolean have_occSen=false "Check if the zone has occupancy sensor"
-    annotation(Dialog(group="Sensors"));
-  parameter Boolean have_winStaSen = false
-    "Check if the zone has window status sensor"
-    annotation(Dialog(group="Sensors"));
   parameter Real incSetDem_1=0.56
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
     annotation(Dialog(group="Setpoint adjustment", tab="Demand Settings"));
@@ -108,7 +109,7 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
       origin={-440,-270}),iconTransformation(
       extent={{-20,-20},{20,20}},origin={-60,-220},rotation=90)));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta if have_winStaSen
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta if have_winSen
     "Window status (open=true, close=false)"
     annotation (Placement(transformation(extent={{-460,-430},{-420,-390}}),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=90,
@@ -123,7 +124,7 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
     quantity="ThermodynamicTemperature")  "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{340,-110},{360,-90}}),
       iconTransformation(extent={{200,-100},{240,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla if have_winStaSen "Alarm level"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla if have_winSen "Alarm level"
     annotation (Placement(transformation(extent={{340,-400},{360,-380}}),
       iconTransformation(extent={{200,80},{240,120}})));
 
@@ -303,13 +304,13 @@ protected
     have_occSen
     "Constant true"
     annotation (Placement(transformation(extent={{-380,-360},{-360,-340}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conFal(k=false) if not have_winStaSen
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conFal(k=false) if not have_winSen
     "Constant false"
     annotation (Placement(transformation(extent={{-380,-480},{-360,-460}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSenCon(k=have_winStaSen)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSenCon(k=have_winSen)
     "Check if there is window status sensor"
     annotation (Placement(transformation(extent={{40,-480},{60,-460}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSenCon(k=have_occSen)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant have_occSenCon(k=have_occSen)
     "Check if there is occupancy sensor"
     annotation (Placement(transformation(extent={{160,-360},{180,-340}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetWinOpe(k=TCooWinOpe)
@@ -856,10 +857,10 @@ equation
   connect(swi10.y, cooSetSam.u)
     annotation (Line(points={{241,90},{264,90},{264,-244},{24,-244},{24,-270},
       {38,-270}}, color={0,0,127}));
-  connect(occSenCon.y, swi20.u2)
+  connect(have_occSenCon.y, swi20.u2)
     annotation (Line(points={{181,-350},{200,-350},{200,-270},{218,-270}},
       color={255,0,255}));
-  connect(occSenCon.y, swi19.u2)
+  connect(have_occSenCon.y, swi19.u2)
     annotation (Line(points={{181,-350},{200,-350},{200,-310},{218,-310}},
       color={255,0,255}));
   connect(swi12.y, swi20.u1)
@@ -1081,7 +1082,7 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uWinSta",
-          visible = have_winStaSen,
+          visible = have_winSen,
           origin={60.5,-164.5},
           rotation=90),
         Text(
