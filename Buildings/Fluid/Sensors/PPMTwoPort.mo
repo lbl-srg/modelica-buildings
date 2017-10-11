@@ -2,14 +2,14 @@ within Buildings.Fluid.Sensors;
 model PPMTwoPort
   "Ideal two port trace substances sensor outputting in parts per million"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
-     port_a(C_outflow(final quantity="MassFraction",
-                   final unit="1",
-                   min=0,
-                   max=1)),
-     port_b(C_outflow(final quantity="MassFraction",
-                   final unit="1",
-                   min=0,
-                   max=1)));
+     port_a(C_outflow(each final quantity="MassFraction",
+                   each final unit="1",
+                   each min=0,
+                   each max=1)),
+     port_b(C_outflow(each final quantity="MassFraction",
+                   each final unit="1",
+                   each min=0,
+                   each max=1)));
   extends Modelica.Icons.RotationalSensor;
 
   parameter String substanceName = "CO2" "Name of trace substance";
