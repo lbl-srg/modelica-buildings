@@ -12,7 +12,7 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
     annotation(Dialog(group="Setpoint adjustable setting"));
   parameter Boolean heaAdj = false
     "Flag, set to true if heating setpoint is adjustable"
-    annotation(Dialog(group="Setpoint adjustable setting",enable=false));
+    annotation(Dialog(group="Setpoint adjustable setting"));
   parameter Boolean sinAdj = false
     "Flag, set to true if both cooling and heating setpoint are adjustable through a single common knob"
     annotation(Dialog(group="Setpoint adjustable setting",enable=not (cooAdj or heaAdj)));
