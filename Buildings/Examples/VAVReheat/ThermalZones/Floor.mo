@@ -2,6 +2,10 @@ within Buildings.Examples.VAVReheat.ThermalZones;
 model Floor "Model of a floor of the building"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
+
+  parameter Boolean use_windPressure=false
+    "Set to true to enable wind pressure";
+
   parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for room-facing surfaces of opaque constructions";
   parameter Modelica.SIunits.Angle lat "Latitude";
@@ -256,22 +260,26 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{200,190},{220,210}})));
   RoomLeakage leaSou(redeclare package Medium = Medium, VRoo=568.77,
     s=49.91/33.27,
-    azi=Buildings.Types.Azimuth.S)
+    azi=Buildings.Types.Azimuth.S,
+    final use_windPressure=use_windPressure)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-58,380},{-22,420}})));
   RoomLeakage leaEas(redeclare package Medium = Medium, VRoo=360.0785,
     s=33.27/49.91,
-    azi=Buildings.Types.Azimuth.E)
+    azi=Buildings.Types.Azimuth.E,
+    final use_windPressure=use_windPressure)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-58,340},{-22,380}})));
   RoomLeakage leaNor(redeclare package Medium = Medium, VRoo=568.77,
     s=49.91/33.27,
-    azi=Buildings.Types.Azimuth.N)
+    azi=Buildings.Types.Azimuth.N,
+    final use_windPressure=use_windPressure)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-56,300},{-20,340}})));
   RoomLeakage leaWes(redeclare package Medium = Medium, VRoo=360.0785,
     s=33.27/49.91,
-    azi=Buildings.Types.Azimuth.W)
+    azi=Buildings.Types.Azimuth.W,
+    final use_windPressure=use_windPressure)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-56,260},{-20,300}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirSou
@@ -699,7 +707,8 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{400,260}})), Icon(coordinateSystem(
+            -100},{400,500}},
+        initialScale=0.1)),     Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{400,260}}), graphics={
         Rectangle(
           extent={{-80,-80},{380,180}},
