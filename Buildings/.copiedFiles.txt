@@ -670,6 +670,7 @@ Buildings/Fluid/Movers/Data/Pumps/Wilo/TopS30slash10.mo
 Buildings/Fluid/Movers/Data/Pumps/Wilo/TopS30slash5.mo
 Buildings/Fluid/Movers/Data/Pumps/Wilo/TopS40slash10.mo
 Buildings/Fluid/Movers/Data/Pumps/Wilo/TopS40slash7.mo
+Buildings/Fluid/Movers/Data/Pumps/Wilo/VeroLine50slash150dash4slash2.mo
 Buildings/Fluid/Movers/Data/Pumps/Wilo/VeroLine80slash115dash2comma2slash2.mo
 Buildings/Fluid/Movers/Data/Pumps/Wilo/package.mo
 Buildings/Fluid/Movers/Data/Pumps/Wilo/package.order

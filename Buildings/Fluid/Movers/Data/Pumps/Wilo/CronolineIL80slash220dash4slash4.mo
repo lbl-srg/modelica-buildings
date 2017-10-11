@@ -10,10 +10,15 @@ record CronolineIL80slash220dash4slash4
 defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
-<p>Data from: <a href=\"http://productfinder.wilo.com/nl/BE/product/000000100002c2550002003a/fc_product_datasheet\">http://productfinder.wilo.com/nl/BE/product/000000100002c2550002003a/fc_product_datasheet</a></p>
+<p>Data from: <a href=\"http://productfinder.wilo.com/com/en/c000000220003ab4800010023/_000000100002c2550002003a/product.html\">http://productfinder.wilo.com/com/en/c000000220003ab4800010023/_000000100002c2550002003a/product.html</a></p>
 <p>See <a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 </a>for more information about how the data is derived. </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+June 01, 2017, by Iago Cupeiro:
+<br/>
+Changed data link to English version
+</li>
 <li>
 February 17, 2016, by Michael Wetter:<br/>
 Updated parameter names for
