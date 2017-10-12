@@ -25,15 +25,15 @@ partial model PartialOpenLoop
   final parameter Modelica.SIunits.Area ATot = sum(zonAre) "Total floor area";
 
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mCor_flow_nominal=6*VRooCor*conv
+  parameter Modelica.SIunits.MassFlowRate mCor_flow_nominal=4*VRooCor*conv
     "Design mass flow rate core";
-  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=7*VRooSou*conv
+  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=5*VRooSou*conv
     "Design mass flow rate perimeter 1";
-  parameter Modelica.SIunits.MassFlowRate mEas_flow_nominal=10*VRooEas*conv
+  parameter Modelica.SIunits.MassFlowRate mEas_flow_nominal=7*VRooEas*conv
     "Design mass flow rate perimeter 2";
-  parameter Modelica.SIunits.MassFlowRate mNor_flow_nominal=7*VRooNor*conv
+  parameter Modelica.SIunits.MassFlowRate mNor_flow_nominal=4*VRooNor*conv
     "Design mass flow rate perimeter 3";
-  parameter Modelica.SIunits.MassFlowRate mWes_flow_nominal=10*VRooWes*conv
+  parameter Modelica.SIunits.MassFlowRate mWes_flow_nominal=6*VRooWes*conv
     "Design mass flow rate perimeter 4";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=mCor_flow_nominal +
       mSou_flow_nominal + mEas_flow_nominal + mNor_flow_nominal +
