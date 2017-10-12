@@ -6,16 +6,16 @@ block DamperValve
     "Zone maximum discharge air temperature above heating setpoint";
   parameter Modelica.SIunits.Temperature minDisTem=283.15
     "Lowest discharge air temperature";
-  parameter Real kWatVal=0.05
+  parameter Real kWatVal=0.5
     "Gain of controller for valve control"
     annotation(Dialog(group="Controller parameter"));
-  parameter Modelica.SIunits.Time TiWatVal=120
+  parameter Modelica.SIunits.Time TiWatVal=300
     "Time constant of Integrator block for valve control"
     annotation(Dialog(group="Controller parameter"));
-  parameter Real kDam=0.05
+  parameter Real kDam=0.5
     "Gain of controller for damper control"
     annotation(Dialog(group="Controller parameter"));
-  parameter Modelica.SIunits.Time TiDam=120
+  parameter Modelica.SIunits.Time TiDam=300
     "Time constant of Integrator block for damper control"
     annotation(Dialog(group="Controller parameter"));
 
