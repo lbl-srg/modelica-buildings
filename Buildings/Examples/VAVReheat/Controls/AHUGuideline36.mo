@@ -1,6 +1,5 @@
 within Buildings.Examples.VAVReheat.Controls;
 model AHUGuideline36
-  import Buildings;
 
   parameter Integer numZon(min=2) "Total number of served zones/VAV boxes";
   parameter Modelica.SIunits.Time samplePeriod=120
@@ -8,18 +7,28 @@ model AHUGuideline36
 
   parameter Boolean have_occSen[numZon]
     "Set to true if zones have occupancy sensor";
+  parameter Boolean use_enthalpy=false
+    "Set to true if enthalpy measurement is used in addition to temperature measurement";
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
       Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for supply air temperature signal";
-  parameter Real kPTSup=1
-    "Gain of controller for supply air temperature signal";
+  parameter Real kPTSup=0.05
+    "Gain of controller for supply air temperature signal"
+        annotation (Dialog(group="Supply air temperature loop control gains"));
   parameter Modelica.SIunits.Time TiTSup=300
-    "Time constant of integrator block for supply temperature control signal";
-  parameter Real uHeaMax=-0.25
-    "Upper limit of controller signal when heating coil is off";
-  parameter Real uCooMin=0.25
-    "Lower limit of controller signal when cooling coil is off";
+    "Time constant of integrator block for supply temperature control signal"
+    annotation (Dialog(group="Supply air temperature loop control gains"));
+  parameter Real kPMinOut=0.05 "Proportional gain of controller for minimum outdoor air intake"
+    annotation (Dialog(group="Economizer control gains"));
+  parameter Modelica.SIunits.Time TiMinOut=120
+    "Time constant of controller for minimum outdoor air intake"
+    annotation (Dialog(group="Economizer control gains"));
+
+  parameter Real uHeaMax(min=-0.9)=-0.25
+    "Upper limit of controller signal when heating coil is off. Require -1 < uHeaMax < uCooMin < 1.";
+  parameter Real uCooMin(max=0.9)=0.25
+    "Lower limit of controller signal when cooling coil is off. Require -1 < uHeaMax < uCooMin < 1.";
 
   parameter Modelica.SIunits.VolumeFlowRate maxSysPriFlo
     "Maximum expected system primary airflow at design stage";
@@ -27,8 +36,6 @@ model AHUGuideline36
     "Minimum expected zone primary flow rate";
   parameter Modelica.SIunits.Area zonAre[numZon] "Area of each zone";
 
-  parameter Boolean use_enthalpy=false
-    "Set to true if enthalpy measurement is used in addition to temperature measurement";
   parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
     "Delta between the temperature hysteresis high and low limit" annotation (
       Evaluate=true, Dialog(tab="Advanced", group="Economizer hysteresis"));
@@ -38,6 +45,7 @@ model AHUGuideline36
       tab="Advanced",
       group="Economizer hysteresis",
       enable=use_enthalpy));
+
   parameter Modelica.SIunits.Time retDamFulOpeTim=180 "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control
     at disable to avoid pressure fluctuations" annotation (Evaluate=true,
       Dialog(tab="Advanced", group="Economizer delays at disable"));
@@ -45,12 +53,6 @@ model AHUGuideline36
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
     annotation (Evaluate=true,Dialog(tab="Advanced", group=
           "Economizer delays at disable"));
-  parameter Real kPMinOut=1 "Proportional gain of controller for minimum outdoor air intake"
-    annotation (Evaluate=true,Dialog(tab="Commissioning", group=
-          "Economizer control gains"));
-  parameter Modelica.SIunits.Time TiMinOut=300
-    "Time constant of controller for minimum outdoor air intake" annotation (
-      Evaluate=true, Dialog(tab="Commissioning", group="Controllers"));
 
   parameter Modelica.SIunits.PressureDifference maxDesPre(
     min=0,
@@ -95,13 +97,6 @@ model AHUGuideline36
   parameter Real yMaxDamLim=1
     "Upper limit of damper position limits control signal output" annotation (
       Evaluate=true, Dialog(tab="Commissioning", group=
-          "Economizer control gains"));
-  parameter Real retDamConSigMinDamLim(
-    final min=yMinDamLim,
-    final max=yMaxDamLim,
-    final unit="1") = 0.5
-    "Minimum control signal for the RA damper position limit - maximum for the OA damper position limit"
-    annotation (Evaluate=true,Dialog(tab="Commissioning", group=
           "Economizer control gains"));
   parameter Real retDamPhyPosMax(
     final min=0,
@@ -166,7 +161,8 @@ model AHUGuideline36
     "Controller for minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller conEco(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller
+    conEco(
     final use_enthalpy=use_enthalpy,
     final delTOutHis=delTOutHis,
     final delEntHis=delEntHis,
@@ -174,17 +170,14 @@ model AHUGuideline36
     final disDel=disDel,
     final kPMinOut=kPMinOut,
     final TiMinOut=TiMinOut,
-    final yMinDamLim=yMinDamLim,
-    final yMaxDamLim=yMaxDamLim,
     final retDamPhyPosMax=retDamPhyPosMax,
     final retDamPhyPosMin=retDamPhyPosMin,
     final outDamPhyPosMax=outDamPhyPosMax,
     final outDamPhyPosMin=outDamPhyPosMin,
-    uMin=uHeaMax,
-    uMax=uCooMin,
-    final outDamConSigMax=(uHeaMax + uCooMin)/2,
-    final retDamConSigMin=(uHeaMax + uCooMin)/2)
-                                           "Economizer controller"
+    final uHeaMax=uHeaMax,
+    final uCooMin=uCooMin,
+    final uOutDamMax=(uHeaMax + uCooMin)/2,
+    final uRetDamMin=(uHeaMax + uCooMin)/2) "Economizer controller"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(final unit="K", final
       quantity="ThermodynamicTemperature") "Outdoor air (OA) temperature"
@@ -304,7 +297,7 @@ model AHUGuideline36
     annotation (Placement(transformation(extent={{70,-170},{90,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uHeaMaxCon(final k=
         uHeaMax) "Constant signal to map control action"
-    annotation (Placement(transformation(extent={{48,-150},{68,-130}})));
+    annotation (Placement(transformation(extent={{40,-144},{60,-124}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uCooMinCon(final k=
         uCooMin) "Constant signal to map control action"
     annotation (Placement(transformation(extent={{40,-192},{60,-172}})));
@@ -379,10 +372,12 @@ equation
                                                              color={0,0,127}));
   connect(TZonSetAve.u1, THeaSet) annotation (Line(points={{-2,226},{-54,226},{-54,
           228},{-210,228}},     color={0,0,127}));
-  connect(conTSetSup.TSetSup, conTSup.u_s) annotation (Line(points={{71,-50},{84,
-          -50},{84,-68},{-46,-68},{-46,-90},{-42,-90}}, color={0,0,127}));
-  connect(conTSup.u_m, TSup) annotation (Line(points={{-30,-102},{-30,-112},{-160,
-          -112},{-160,60},{-210,60}},color={0,0,127}));
+  connect(conTSetSup.TSetSup, conTSup.u_s) annotation (Line(points={{71,-50},{
+          84,-50},{84,-68},{-46,-68},{-46,-90},{-42,-90}},
+                                                        color={0,0,127}));
+  connect(conTSup.u_m, TSup) annotation (Line(points={{-30,-102},{-30,-112},{
+          -160,-112},{-160,60},{-210,60}},
+                                     color={0,0,127}));
   connect(conSupFan.ySupFan, swi.u2) annotation (Line(points={{21,117},{30,117},
           {30,-90},{60,-90}},                   color={255,0,255}));
   connect(conEco.uTSup, swi.y) annotation (Line(points={{59,13},{50,13},{50,-20},
@@ -404,8 +399,8 @@ equation
           120,-230},{101,-230}}, color={0,0,127}));
   connect(swi.y, conSigHea.u) annotation (Line(points={{83,-90},{100,-90},{100,
           -130},{138,-130}}, color={0,0,127}));
-  connect(conSigHea.x2, uHeaMaxCon.y) annotation (Line(points={{138,-134},{104,
-          -134},{104,-140},{69,-140}}, color={0,0,127}));
+  connect(conSigHea.x2, uHeaMaxCon.y) annotation (Line(points={{138,-134},{61,-134}},
+                                       color={0,0,127}));
   connect(conSigHea.f2, zer.y) annotation (Line(points={{138,-138},{116,-138},{
           116,-210},{-19,-210}}, color={0,0,127}));
   connect(conSigCoo.x1, uCooMinCon.y)

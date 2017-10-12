@@ -8,19 +8,19 @@ block Modulation
   parameter Real uMax=+0.25
     "Upper limit of controller input when return damper is closed (see diagram)"
     annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
-  parameter Real outDamConSigMax(
-    final min=0,
-    final max=retDamConSigMin,
-    final unit="1") = (uMin+uMax)/2
-    "Maximum loop signal for the OA damper to be fully open"
-    annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
-
-  parameter Real retDamConSigMin(
-    final min=outDamConSigMax,
+  parameter Real uOutDamMax(
+    final min=-1,
     final max=1,
-    final unit="1") = (uMin+uMax)/2
+    final unit="1") = (uMin + uMax)/2
+    "Maximum loop signal for the OA damper to be fully open"
+    annotation (Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+
+  parameter Real uRetDamMin(
+    final min=-1,
+    final max=1,
+    final unit="1") = (uMin + uMax)/2
     "Minimum loop signal for the RA damper to be fully open"
-    annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
+    annotation (Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")
     "Signal for supply air temperature control (T Sup Control Loop Signal in diagram)"
@@ -72,12 +72,12 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(final
       k=uMin) "Minimal control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-20,-28},{0,-8}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMaxLimSig(final k=
-        outDamConSigMax)
-    "Maximum control loop signal for the outdoor air damper"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMaxLimSig(final
+      k=uOutDamMax) "Maximum control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamConMinLimSig(
-    final k=retDamConSigMin) "Minimal control loop signal for the return air damper"
+      final k=uRetDamMin)
+    "Minimal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-20,68},{0,88}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamMaxLimSig(final
       k=uMax) "Maximal control loop signal for the return air damper"

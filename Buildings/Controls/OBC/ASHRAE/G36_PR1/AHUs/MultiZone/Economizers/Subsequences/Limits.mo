@@ -1,15 +1,15 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences;
 block Limits "Multi zone VAV AHU minimum outdoor air control - damper position limits"
 
-  parameter Real yMin=0 "Lower limit of control signal output"
+  constant Real yMin=-1 "Lower limit of control loop signal"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Real yMax=1 "Upper limit of control signal output"
+  constant Real yMax=1 "Upper limit of control loop signal"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Real retDamConSigMin(
+  parameter Real uRetDamMin(
     final min=yMin,
     final max=yMax,
-    final unit="1")=0.5
-    "Minimum control signal for the RA damper position limit - maximum for the OA damper position limit"
+    final unit="1") = 0.5
+    "Minimum control signal for the RA damper position limit"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
   parameter Real kPDamLim=1 "Gain of damper limit controller"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
@@ -133,9 +133,8 @@ protected
     final k=yMax)
     "Equals maximum controller output signal"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigFraForOutDam(
-    final k=retDamConSigMin)
-    "Equals the fraction of the control loop signal below which the outdoor air damper
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigFraForOutDam(final
+      k=uRetDamMin) "Equals the fraction of the control loop signal below which the outdoor air damper
     limit gets modulated and above which the return air damper limit gets modulated"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
 
@@ -191,7 +190,8 @@ equation
   connect(outDamPosMaxSwitch.y, minOutDam.f2)
     annotation (Line(points={{61,20},{110,20},{110,142},{118,142}}, color={0,0,127}));
   connect(minSigLim.y,minOutDam. x1)
-    annotation (Line(points={{-79,210},{-70,210},{-70,158},{118,158}},color={0,0,127}));
+    annotation (Line(points={{-79,210},{-70,210},{-70,182},{104,182},{104,158},{
+          118,158}},                                                  color={0,0,127}));
   connect(sigFraForOutDam.y,minOutDam. x2)
     annotation (Line(points={{-39,210},{-39,210},{-30,210},{-30,146},{118,146}},color={0,0,127}));
   connect(damLimCon.y,minOutDam. u)
@@ -223,7 +223,8 @@ equation
   connect(retDamPhyPosMaxSig.y, yRetDamPhyPosMax)
     annotation (Line(points={{-139,-40},{40,-40},{40,-80},{190,-80}},color={0,0,127}));
   connect(and1.u[1], uSupFan)
-    annotation (Line(points={{-82,-85.3333},{-160,-85.3333},{-160,-100},{-200,-100}},
+    annotation (Line(points={{-82,-85.3333},{-160,-85.3333},{-160,-100},{-200,
+          -100}},
       color={255,0,255}));
   connect(uFreProSta, intEqu.u2)
     annotation (Line(points={{-200,-140},{-140,-140},{-140,-148},{-122,-148}},

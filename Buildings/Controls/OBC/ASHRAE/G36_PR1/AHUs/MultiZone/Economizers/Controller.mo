@@ -25,34 +25,35 @@ model Controller "Multi zone VAV AHU economizer control sequence"
   parameter Modelica.SIunits.Time TiMinOut=30
     "Time constant of controller for minimum outdoor air" annotation (
       Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
-  parameter Real yMinDamLim=0
-    "Lower limit of damper position limits control signal output" annotation (
-      Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
 
-  parameter Real uMin=-0.25
-    "Lower limit of controller input when outdoor damper opens for modulation control"
+//  parameter Real yMinDamLim=0
+//    "Lower limit of damper position limits control signal output" annotation (
+//      Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
+
+  parameter Real uHeaMax=-0.25
+    "Lower limit of controller input when outdoor damper opens for modulation control. Require -1 < uHeaMax < uCooMin < 1."
     annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
-  parameter Real uMax=+0.25
-    "Upper limit of controller input when return damper is closed for modulation control"
+  parameter Real uCooMin=+0.25
+    "Upper limit of controller input when return damper is closed for modulation control. Require -1 < uHeaMax < uCooMin < 1."
     annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
 
-  parameter Real outDamConSigMax(
+  parameter Real uOutDamMax(
     final min=-1,
     final max=1,
-    final unit="1") = (uMin+uMax)/2
-    "Maximum loop signal for the OA damper to be fully open"
-    annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
+    final unit="1") = (uHeaMax + uCooMin)/2
+    "Maximum loop signal for the OA damper to be fully open. Require -1 < uHeaMax < uOutDamMax <= uRetDamMin < uCooMin < 1."
+    annotation (Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
 
-  parameter Real retDamConSigMin(
+  parameter Real uRetDamMin(
     final min=-1,
     final max=1,
-    final unit="1") = (uMin+uMax)/2
-    "Minimum loop signal for the RA damper to be fully open"
-    annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
+    final unit="1") = (uHeaMax + uCooMin)/2
+    "Minimum loop signal for the RA damper to be fully open. Require -1 < uHeaMax < uOutDamMax <= uRetDamMin < uCooMin < 1."
+    annotation (Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
 
-  parameter Real yMaxDamLim=1
-    "Upper limit of damper position limits control signal output" annotation (
-      Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
+//  parameter Real yMaxDamLim=1
+//    "Upper limit of damper position limits control signal output" annotation (
+//      Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
 
 
   parameter Real retDamPhyPosMax(
@@ -144,8 +145,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
         transformation(extent={{120,-50},{140,-30}}), iconTransformation(extent=
            {{100,-30},{120,-10}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable
-    enaDis(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable enaDis(
     final use_enthalpy=use_enthalpy,
     final delTOutHis=delTOutHis,
     final delEntHis=delEntHis,
@@ -161,17 +161,15 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final outDamPhyPosMin=outDamPhyPosMin,
     final kPDamLim=kPMinOut,
     final TiDamLim=TiMinOut,
-    final yMin=yMinDamLim,
-    final yMax=yMaxDamLim,
-    final retDamConSigMin=retDamConSigMin)
+    final uRetDamMin=uRetDamMin)
     "Multi zone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation
     mod(
-    final retDamConSigMin=retDamConSigMin,
-    final uMin=uMin,
-    final uMax=uMax,
-    final outDamConSigMax=outDamConSigMax)
+    final uRetDamMin=uRetDamMin,
+    final uMin=uHeaMax,
+    final uMax=uCooMin,
+    final uOutDamMax=uOutDamMax)
     "Multi zone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
@@ -210,16 +208,16 @@ equation
           {-59,8},{-30,8},{-30,-40},{-1,-40}}, color={0,0,127}));
   connect(mod.yRetDamPos, yRetDamPos) annotation (Line(points={{81,12},{100,12},
           {100,40},{130,40}}, color={0,0,127}));
-  connect(mod.yOutDamPos, yOutDamPos) annotation (Line(points={{81,8},{100,8},{
-          100,-40},{130,-40}}, color={0,0,127}));
+  connect(mod.yOutDamPos, yOutDamPos) annotation (Line(points={{81,8},{100,8},{100,
+          -40},{130,-40}},     color={0,0,127}));
   connect(enaDis.yOutDamPosMax, mod.uOutDamPosMax) annotation (Line(points={{22,
-          -25.2},{50,-25.2},{50,-10},{50,6},{59,6}},   color={0,0,127}));
+          -25.2},{50,-25.2},{50,6},{59,6}},            color={0,0,127}));
   connect(enaDis.yRetDamPosMax, mod.uRetDamPosMax) annotation (Line(points={{22,-32},
           {52,-32},{52,18},{59,18}},    color={0,0,127}));
   connect(damLim.yOutDamPosMin, mod.uOutDamPosMin) annotation (Line(points={{-59,15},
-          {-20,15},{20,15},{20,12},{20,2},{59,2}},     color={0,0,127}));
+          {20,15},{20,2},{59,2}},                      color={0,0,127}));
   connect(enaDis.yRetDamPosMin, mod.uRetDamPosMin) annotation (Line(points={{22,-38},
-          {54,-38},{54,0},{54,14},{59,14}},    color={0,0,127}));
+          {54,-38},{54,14},{59,14}},           color={0,0,127}));
   connect(uZonSta, enaDis.uZonSta) annotation (Line(points={{-130,-100},{-58,-100},
           {-58,-30},{-1,-30}}, color={255,127,0}));
   connect(uTSup, mod.uTSup) annotation (Line(points={{-132,50},{40,50},{40,10},{

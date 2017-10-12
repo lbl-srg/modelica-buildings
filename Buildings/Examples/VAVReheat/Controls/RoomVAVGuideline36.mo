@@ -54,8 +54,8 @@ block RoomVAVGuideline36
 
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests sysReq(
-      final have_heaPla=false,
-      final samplePeriod=samplePeriod,
+    final have_heaPla=false,
+    final samplePeriod=samplePeriod,
     have_heaWatCoi=true)
       "Number of system requests"
     annotation (Placement(transformation(extent={{52,0},{72,20}})));
@@ -82,7 +82,7 @@ block RoomVAVGuideline36
     zonAre=zonAre,
     VMinCon=0.1*V_flow_nominal,
     VMin=0.15*V_flow_nominal)
-                   "Active airflow rate setpoint"
+    "Active airflow rate setpoint"
     annotation (Placement(transformation(extent={{-32,90},{-12,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "Zone operation mode"
