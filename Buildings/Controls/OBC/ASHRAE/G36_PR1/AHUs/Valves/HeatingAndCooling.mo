@@ -3,13 +3,13 @@ block HeatingAndCooling "Generates heating and cooling control signals to mainta
 
   parameter Real kPCoo=0.5 "Proportional gain for cooling coil control loop"
     annotation(Dialog(group="Cooling coil control"));
-  parameter Modelica.SIunits.Time TiCoo=120 "Time constant of integrator block for cooling coil control loop"
+  parameter Modelica.SIunits.Time TiCoo=1800 "Time constant of integrator block for cooling coil control loop"
     annotation(Dialog(group="Cooling coil control"));
 
   parameter Real kPHea=0.5 "Proportional gain for heating coil control loop"
     annotation(Dialog(group="Heating coil control"));
 
-  parameter Modelica.SIunits.Time TiHea=120 "Time constant of integrator block for heating coil control loop"
+  parameter Modelica.SIunits.Time TiHea=1800 "Time constant of integrator block for heating coil control loop"
     annotation(Dialog(group="Heating coil control"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooHeaSet(
