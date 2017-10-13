@@ -1,7 +1,6 @@
 within Buildings.Examples.VAVReheat;
 model ASHRAE2006
   "Variable air volume flow system with terminal reheat and five thermal zones"
-  import Buildings;
   extends Modelica.Icons.Example;
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop;
 
@@ -55,7 +54,7 @@ model ASHRAE2006
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=600,
-    k=0.01) "Controller for heating coil"
+    k=0.1)  "Controller for heating coil"
     annotation (Placement(transformation(extent={{0,-210},{20,-190}})));
   Buildings.Controls.Continuous.LimPID cooCoiCon(
     reverseAction=true,
@@ -65,7 +64,7 @@ model ASHRAE2006
     yMin=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=600,
-    k=0.01) "Controller for cooling coil"
+    k=0.1)  "Controller for cooling coil"
     annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiHeaCoi
     "Switch to switch off heating coil"

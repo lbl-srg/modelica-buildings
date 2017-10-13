@@ -25,19 +25,19 @@ partial model PartialOpenLoop
   final parameter Modelica.SIunits.Area ATot = sum(zonAre) "Total floor area";
 
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mCor_flow_nominal=4*VRooCor*conv
+  parameter Modelica.SIunits.MassFlowRate mCor_flow_nominal=6*VRooCor*conv
     "Design mass flow rate core";
-  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=5*VRooSou*conv
+  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=6*VRooSou*conv
     "Design mass flow rate perimeter 1";
   parameter Modelica.SIunits.MassFlowRate mEas_flow_nominal=7*VRooEas*conv
     "Design mass flow rate perimeter 2";
-  parameter Modelica.SIunits.MassFlowRate mNor_flow_nominal=4*VRooNor*conv
+  parameter Modelica.SIunits.MassFlowRate mNor_flow_nominal=6*VRooNor*conv
     "Design mass flow rate perimeter 3";
-  parameter Modelica.SIunits.MassFlowRate mWes_flow_nominal=6*VRooWes*conv
+  parameter Modelica.SIunits.MassFlowRate mWes_flow_nominal=7*VRooWes*conv
     "Design mass flow rate perimeter 4";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=mCor_flow_nominal +
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.7*(mCor_flow_nominal +
       mSou_flow_nominal + mEas_flow_nominal + mNor_flow_nominal +
-      mWes_flow_nominal "Nominal mass flow rate";
+      mWes_flow_nominal) "Nominal mass flow rate";
   parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
 
   parameter Modelica.SIunits.Temperature THeaOn=293.15
@@ -72,7 +72,7 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(extent={{98,-56},{118,-36}})));
 
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
-    UA_nominal=m_flow_nominal*1000*15/
+    UA_nominal=3*m_flow_nominal*1000*15/
         Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1=26.2,
         T_b1=12.8,
