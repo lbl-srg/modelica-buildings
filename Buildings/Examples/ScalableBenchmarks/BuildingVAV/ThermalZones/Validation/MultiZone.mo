@@ -30,7 +30,7 @@ annotation (
 <p>
 This model validates <a href=\"modelica://Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.MultiZone\">
 Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.MultiZone</a> by setting
-number of floors and zones to <code>nFlo=2, nZon=6</code> respectively.  
+number of floors and zones to <code>nFlo=2, nZon=6</code> respectively.
 </p>
 
 </html>", revisions="<html>

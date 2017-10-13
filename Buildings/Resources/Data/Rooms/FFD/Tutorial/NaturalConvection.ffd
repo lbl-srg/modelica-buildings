@@ -67,4 +67,3 @@ init.T 0.0 // Initial condition for Temperature
 init.u 0.0 // Initial condition for velocity u
 init.v 0.0 // Initial condition for velocity v
 init.w 0.0 // Initial condition for velocity w
-

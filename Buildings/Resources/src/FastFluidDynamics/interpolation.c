@@ -86,4 +86,3 @@ REAL interpolation_bilinear(REAL x_1, REAL y_1, REAL z_1,
   return z_0*tmp0+z_1*tmp1;
 
 } /* End of interpolation_bilinear()*/
-

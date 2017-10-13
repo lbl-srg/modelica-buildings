@@ -95,7 +95,6 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={110,40})));
 
   replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine pum[num]
@@ -236,9 +235,7 @@ equation
           fillColor={0,127,255},
           fillPattern=FillPattern.HorizontalCylinder,
           origin={-60,0},
-          rotation=90)}),                                        Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(revisions="<html>
+          rotation=90)}),    Documentation(revisions="<html>
 <ul>
 <li>
 September 2, 2017, by Michael Wetter:<br/>

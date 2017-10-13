@@ -87,8 +87,7 @@ equation
           {-120,80}}, color={0,0,127}));
   connect(TSetCoo, coo.TSet) annotation (Line(points={{-120,40},{-102,40},{-80,
           40},{-80,20},{52,20},{52,8},{42,8}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})), Icon(coordinateSystem(preserveAspectRatio=false,
+  annotation ( Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},

@@ -130,12 +130,11 @@ annotation (Icon(graphics={
           extent={{-94,134},{106,108}},
           lineColor={0,0,255},
           textString="%name")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This model groups multiple zones by linking adjacent walls, floors and ceilings.
-The factor <code>ampFactor</code> controls the fluctuating amplitude 
-of internal heat gain in each zone.  
+The factor <code>ampFactor</code> controls the fluctuating amplitude
+of internal heat gain in each zone.
 </p>
 
 </html>", revisions="<html>

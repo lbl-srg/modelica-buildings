@@ -7,9 +7,7 @@ model FlowMachine_y "Identical speed controlled flow machines"
 equation
   connect(u, pum.y)
     annotation (Line(points={{-120,40},{0,40},{0,12}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(revisions="<html>
+  annotation (    Documentation(revisions="<html>
 <ul>
 <li>
 July 27, 2017, by Yangyang Fu:<br/>

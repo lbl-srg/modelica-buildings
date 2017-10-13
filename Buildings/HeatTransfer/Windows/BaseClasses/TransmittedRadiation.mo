@@ -102,7 +102,7 @@ equation
 The model calculates the solar radiation through the window.
 The calculations follow the description in Wetter (2004), Appendix A.4.3.
 </p>
-<p>    
+<p>
 The transmitted exterior radiation for window system includes:
 </p>
 <ol>
@@ -120,7 +120,7 @@ the transmitted direct radiation on shaded part: <code>AWin*uSha*HDir*tauSha(Inc
 </li>
 </ol>
 <p>
-The outputs are <code>QTraDif_flow = Part1 + Part3</code> and 
+The outputs are <code>QTraDif_flow = Part1 + Part3</code> and
 <code>QTraDir_flow = Part2 + Part4</code>.
 </p>
 <h4>References</h4>

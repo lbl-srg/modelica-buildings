@@ -51,9 +51,6 @@ equation
           lineColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name")}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}})),
       Documentation(info="<html>
 <p>
 The Boolean output y is a trigger signal where the output y is only <code>true</code>

@@ -124,7 +124,5 @@ First implementation.
         Text(
           extent={{-88,-24},{-64,-36}},
           lineColor={0,0,127},
-          textString="nOpa")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+          textString="nOpa")}));
 end BlackBody;

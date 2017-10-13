@@ -6,8 +6,8 @@ package Refrigerants "Package with functions for refrigerant properties"
 
 annotation (preferredView="info",Documentation(info="<HTML>
 <p>
-This library contains function definitions for refrigerant properties used in 
-compressor models contained in package 
+This library contains function definitions for refrigerant properties used in
+compressor models contained in package
 <a href=\"modelica://Buildings.Fluid.HeatPumps.Compressors\">
 Buildings.Fluid.HeatPumps.Compressors</a>.
 </p>

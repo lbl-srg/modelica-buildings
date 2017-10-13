@@ -306,12 +306,12 @@ Buildings.Fluid.Movers.FlowControlled_dp</a>
 has an option to control the mover such
 that the pressure difference set point is obtained
 across two remote points in the system.
-To use this functionality 
+To use this functionality
 parameter <code>prescribeSystemPressure</code> has
-to be enabled and a differential pressure measurement 
+to be enabled and a differential pressure measurement
 must be connected to
 the pump input <code>dpMea</code>.
-This functionality is demonstrated in 
+This functionality is demonstrated in
 <a href=\"Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem\">
 Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 </p>

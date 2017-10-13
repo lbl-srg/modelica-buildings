@@ -463,9 +463,7 @@ equation
         Line(points={{24,0},{12,0},{12,6}}, color={28,108,200}),
         Line(points={{12,20}}, color={28,108,200}),
         Line(points={{12,20},{12,20},{12,48},{86,48},{86,40},{102,40}}, color={
-              0,0,127})}),                                       Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
+              0,0,127})}),    Documentation(info="<html>
 <p>
 Partial model that can be extended to different configurations
 inclduing chillers and integrated/non-integrated water-side economizers.

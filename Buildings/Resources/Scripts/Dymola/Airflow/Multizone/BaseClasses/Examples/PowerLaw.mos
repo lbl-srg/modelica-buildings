@@ -12,4 +12,3 @@ createPlot(id = 1,
  filename = "PowerLaw.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
-

@@ -19,8 +19,3 @@ convertClass("Buildings.HeatTransfer.ConductorSingleLayer",
              "Buildings.HeatTransfer.Conduction.SingleLayer");
 convertClass("Buildings.HeatTransfer.ConductorMultiLayer",
              "Buildings.HeatTransfer.Conduction.MultiLayer");
-
-
-
-
-

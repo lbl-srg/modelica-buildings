@@ -269,7 +269,7 @@ the transmitted direct radiation on shaded part: <code>AWin*uSha*HDir*tauSha(Inc
 </li>
 </ol>
 <p>
-The outputs are <code>QTraDif_flow = Part1 + Part3</code> and 
+The outputs are <code>QTraDif_flow = Part1 + Part3</code> and
 <code>QTraDir_flow = Part2 + Part4</code>.
 </p>
 
@@ -364,7 +364,5 @@ First implementation.
         Text(
           extent={{44,-80},{108,-94}},
           lineColor={0,0,127},
-          textString="QTraDir")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+          textString="QTraDir")}));
 end WindowRadiation;

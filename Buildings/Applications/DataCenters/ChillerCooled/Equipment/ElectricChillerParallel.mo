@@ -8,9 +8,7 @@ model ElectricChillerParallel "Multiple identical electric chillers"
     "Performance data"
     annotation (choicesAllMatching = true,
                 Placement(transformation(extent={{42,74},{62,94}})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
-         Diagram(coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
+  annotation (    Documentation(info="<html>
 <p>
 This model implements a chiller parallel with <code>num</code> identical chillers. For the chiller model please see
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">Buildings.Fluid.Chillers.ElectricEIR</a>.

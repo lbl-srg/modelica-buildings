@@ -49,9 +49,7 @@ record FourPortResistanceChillerWSE
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation(Dialog(enable = computeFlowResistance2,
                       tab="Flow resistance", group="Medium 2"));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(revisions="<html>
+  annotation (    Documentation(revisions="<html>
 <ul>
 <li>
 June 30, 2017, by Yangyang Fu:<br/>
@@ -59,7 +57,7 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
-This class contains parameters that are used to compute the pressure drop in the 
+This class contains parameters that are used to compute the pressure drop in the
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled\">Buildings.Applications.DataCenters.ChillerCooled</a> package.
 </html>"));
 end FourPortResistanceChillerWSE;

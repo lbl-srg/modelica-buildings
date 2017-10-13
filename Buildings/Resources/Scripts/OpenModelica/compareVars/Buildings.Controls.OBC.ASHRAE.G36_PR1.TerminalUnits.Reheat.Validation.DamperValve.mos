@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "damVal_RehBox.uHea",
+    "damVal_RehBox.uHea",
+    "damVal_RehBox.TRoo",
+    "damVal_RehBox.THeaSet",
+    "damVal_RehBox.TSup",
+    "damVal_RehBox.TDisSet",
+    "damVal_RehBox.yDam",
+    "damVal_RehBox.yHeaVal",
+    "damVal_RehBox.VDis",
+    "damVal_RehBox.VDisSet",
+    "VActHeaMin.y"
+  };

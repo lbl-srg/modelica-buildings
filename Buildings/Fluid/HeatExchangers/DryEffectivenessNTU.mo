@@ -85,7 +85,7 @@ initial equation
   assert(m2_flow_nominal > 0,
     "m2_flow_nominal must be positive, m2_flow_nominal = " + String(
     m2_flow_nominal));
-  
+
   cp1_nominal = Medium1.specificHeatCapacityCp(sta1_default);
   cp2_nominal = Medium2.specificHeatCapacityCp(sta2_default);
 

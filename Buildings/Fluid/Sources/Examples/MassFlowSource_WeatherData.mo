@@ -10,7 +10,7 @@ model MassFlowSource_WeatherData
   Buildings.Fluid.Sources.MassFlowSource_WeatherData sin_with_h(
     redeclare package Medium = Medium,
     m_flow=-1,
-    nPorts=1) "Mass flow source model receiving h and X from weather data through 
+    nPorts=1) "Mass flow source model receiving h and X from weather data through
      weather bus"
     annotation (Placement(transformation(extent={{96,-10},{76,10}})));
   Buildings.Fluid.Sources.Outside bou(redeclare package Medium = Medium, nPorts=1)

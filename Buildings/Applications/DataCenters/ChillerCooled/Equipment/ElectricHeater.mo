@@ -17,7 +17,7 @@ model ElectricHeater "Model for electric heater"
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.SIunits.Time tau(min=0) = 10
-    "Time constant at nominal flow rate (used 
+    "Time constant at nominal flow rate (used
     if energyDynamics or massDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
     annotation(Dialog(tab = "Dynamics"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -138,20 +138,18 @@ equation
           pattern=LinePattern.None,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid)}),
-        Diagram(
-          coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 Model for an ideal heater that controls its outlet temperature to
 a prescribed outlet temperature with constant efficiency.
 </p>
 <p>
-The switch model <code>swi</code> is used to turn on/off the heater. 
+The switch model <code>swi</code> is used to turn on/off the heater.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>May 11, 2017 by Yangyang Fu:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

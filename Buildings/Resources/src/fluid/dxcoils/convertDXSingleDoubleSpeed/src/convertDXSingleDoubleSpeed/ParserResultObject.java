@@ -171,8 +171,8 @@ public class ParserResultObject {
                 + " by "
                 + System.getProperty("user.name")
                 + "\n</p>\n</html>\"));"
-                + "\n";	
-    	
+                + "\n";
+
         // define the header of the output file
         // Date date = new Date();
         String fileHeader = "within Buildings.Fluid.HeatExchangers.DXCoils.Data;"
@@ -294,8 +294,8 @@ public class ParserResultObject {
                 + " by "
                 + System.getProperty("user.name")
                 + "\n</p>\n</html>\"));"
-                + "\n";	
-    	
+                + "\n";
+
         // define the header of the output file
         // Date date = new Date();
         String fileHeader = "within Buildings.Fluid.HeatExchangers.DXCoils.Data;"

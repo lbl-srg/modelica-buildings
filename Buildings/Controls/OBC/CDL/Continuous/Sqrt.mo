@@ -45,8 +45,6 @@ equation
           extent={{-150,150},{150,110}},
           textString="%name",
           lineColor={0,0,255})}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}})),
     Documentation(info="<html>
 <p>
 Block that outputs square root of the input <code>y = sqrt(u)</code>,

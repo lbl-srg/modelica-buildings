@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Validation.VAVSupplyFan", method="dassl", stopTime=28800, tolerance=1e-06, resultFile="VAVSupplyFan_MultiZone");
+createPlot(id=1, position={20, 10, 900, 750}, subPlot=1, y={"conSupFan.ySupFanSpe"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={20, 10, 900, 750}, subPlot=2, y={"conSupFan.ducStaPre", "conSupFan.staPreSetRes.y"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{28,108,200}});
+createPlot(id=1, position={20, 10, 900, 750}, subPlot=3, y={"conSupFan.staPreSetRes.numOfReq"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={20, 10, 900, 750}, subPlot=4, y={"conSupFan.uOpeMod"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});

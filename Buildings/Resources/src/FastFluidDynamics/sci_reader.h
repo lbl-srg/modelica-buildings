@@ -81,5 +81,3 @@ int read_sci_zeroone(PARA_DATA *para, REAL **var, int **BINDEX);
 	* @return 0 if no error occurred
 	*/
 void mark_cell(PARA_DATA *para, REAL **var);
-
-

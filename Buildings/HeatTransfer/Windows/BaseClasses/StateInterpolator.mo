@@ -9,13 +9,12 @@ block StateInterpolator "Block to interpolate between different window states"
   Modelica.Blocks.Interfaces.RealInput uSta(min=0, max=1, unit="1") if
        NSta > 1 "Control signal for window state"
                                        annotation (Placement(
-        transformation(extent={{-140,40},{-100,80}}, rotation=0)));
+        transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput HSta[NSta]
     "Radiation for each window state"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealOutput H "Interpolated radiation" annotation (
-      Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
+      Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
   parameter Real uSup[NSta] = {(i-1.0)/max(1.0, (NSta-1)) for i in 1:NSta}

@@ -99,8 +99,7 @@ equation
                                          color={255,0,255}));
   connect(swi.y, y)
     annotation (Line(points={{88.6,0},{110,0}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
-      Diagram(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (      Diagram(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{128,114},{-128,166}},
           lineColor={0,0,255},

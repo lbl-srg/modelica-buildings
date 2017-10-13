@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Sort "Validation model for the Sort block"
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.CDL.Continuous.Sort sigRan(nin=5)
-    "Block that outputs signals such that y[i] >= y[i+1]"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sort sorAsc(nin=5)
+    "Block that sorts signals in ascending order"
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=-2,
@@ -33,17 +33,30 @@ extends Modelica.Icons.Example;
     height=4)  "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-74},{-40,-54}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Sort sorDes(nin=5, ascending=false)
+    "Block that sorts signals in ascending order"
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 equation
-  connect(ramp1.y, sigRan.u[1]) annotation (Line(points={{-39,66},{-26,66},{-26,
-          -1.6},{-12,-1.6}}, color={0,0,127}));
-  connect(ramp2.y, sigRan.u[2]) annotation (Line(points={{-39,32},{-26,32},{-26,
-          -0.8},{-12,-0.8}}, color={0,0,127}));
-  connect(ramp3.y, sigRan.u[3])
-    annotation (Line(points={{-39,0},{-12,0},{-12,0}}, color={0,0,127}));
-  connect(ramp4.y, sigRan.u[4]) annotation (Line(points={{-39,-32},{-26,-32},{
-          -26,0.8},{-12,0.8}}, color={0,0,127}));
-  connect(ramp5.y, sigRan.u[5]) annotation (Line(points={{-39,-64},{-26,-64},{
-          -26,1.6},{-12,1.6}}, color={0,0,127}));
+  connect(ramp1.y, sorAsc.u[1]) annotation (Line(points={{-39,66},{-22,66},{-22,
+          28.4},{-2,28.4}}, color={0,0,127}));
+  connect(ramp2.y, sorAsc.u[2]) annotation (Line(points={{-39,32},{-20,32},{-20,
+          29.2},{-2,29.2}}, color={0,0,127}));
+  connect(ramp3.y, sorAsc.u[3]) annotation (Line(points={{-39,0},{-22,0},{-22,
+          30},{-2,30}}, color={0,0,127}));
+  connect(ramp4.y, sorAsc.u[4]) annotation (Line(points={{-39,-32},{-22,-32},{
+          -22,30.8},{-2,30.8}}, color={0,0,127}));
+  connect(ramp5.y, sorAsc.u[5]) annotation (Line(points={{-39,-64},{-20,-64},{
+          -20,31.6},{-2,31.6}}, color={0,0,127}));
+  connect(ramp1.y, sorDes.u[1]) annotation (Line(points={{-39,66},{-22,66},{-22,
+          -31.6},{-2,-31.6}}, color={0,0,127}));
+  connect(ramp2.y, sorDes.u[2]) annotation (Line(points={{-39,32},{-20,32},{-20,
+          -30.8},{-2,-30.8}}, color={0,0,127}));
+  connect(ramp3.y, sorDes.u[3]) annotation (Line(points={{-39,0},{-22,0},{-22,
+          -30},{-2,-30}}, color={0,0,127}));
+  connect(ramp4.y, sorDes.u[4]) annotation (Line(points={{-39,-32},{-22,-32},{
+          -22,-29.2},{-2,-29.2}}, color={0,0,127}));
+  connect(ramp5.y, sorDes.u[5]) annotation (Line(points={{-39,-64},{-20,-64},{
+          -20,-28.4},{-2,-28.4}}, color={0,0,127}));
   annotation (
 experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/Sort.mos"

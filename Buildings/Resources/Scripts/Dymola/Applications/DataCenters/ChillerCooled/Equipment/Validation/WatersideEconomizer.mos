@@ -1,7 +1,7 @@
 simulateModel("Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.WatersideEconomizer", startTime=0, stopTime=14400, method="dassl",tolerance=1e-6, resultFile="WatersideEconomizer");
 
-createPlot(id=1, 
- position={15, 10, 592, 427}, 
+createPlot(id=1,
+ position={15, 10, 592, 427},
  y={"onWSE.y"},
  range={0.0, 22000.0, -0.5, 1.5},
  autoscale = true,
@@ -9,7 +9,7 @@ createPlot(id=1,
  autoreplot = true,
  grid=true,
  color=true,
- filename="WatersideEconomizer.mat", 
+ filename="WatersideEconomizer.mat",
  colors={{28,108,200}});
 createPlot(id=1,
  position={15, 10, 592, 139},
@@ -25,4 +25,3 @@ createPlot(id=1,
  grid=true,
  subPlot=3,
  colors={{28,108,200}, {238,46,47}});
-

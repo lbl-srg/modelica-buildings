@@ -53,4 +53,3 @@ int read_ffd_data(PARA_DATA *para, REAL **var) {
   ffd_log(msg, FFD_NORMAL);
   return 0;
 } /* End of read_ffd_data()*/
-

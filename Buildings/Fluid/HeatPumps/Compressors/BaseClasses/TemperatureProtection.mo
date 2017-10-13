@@ -21,7 +21,6 @@ model TemperatureProtection
     "Evaporator temperature"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
-        rotation=0,
         origin={-120,-80})));
   Modelica.Blocks.Interfaces.RealInput TCon(
     unit="K",
@@ -29,7 +28,6 @@ model TemperatureProtection
     "Condenser temperature" annotation (
      Placement(transformation(
         extent={{-20,-20},{20,20}},
-        rotation=0,
         origin={-120,80})));
 
   Modelica.Blocks.Interfaces.RealOutput y "Modified compressor control signal"
@@ -137,9 +135,7 @@ equation
     annotation (Line(points={{77.2,50},{110,50},{110,50}}, color={255,0,255}));
   connect(notCon.u, hysHig.y) annotation (Line(points={{61.6,50},{14,50},{14,-30},
           {1,-30}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(revisions="<html>
+  annotation (    Documentation(revisions="<html>
 <ul>
 <li>
 May 30, 2017, by Filip Jorissen:<br/>

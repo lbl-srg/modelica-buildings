@@ -60,7 +60,7 @@ annotation (
 <p>
 This block computes the set point temperatures for the
 supply and return temperature of a heating system.
-The set point for the zone air temperature can be an input to the model. 
+The set point for the zone air temperature can be an input to the model.
 It allows to use this model with systems that have night set back.
 </p>
 <p>

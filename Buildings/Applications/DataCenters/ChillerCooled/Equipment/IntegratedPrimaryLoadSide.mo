@@ -210,8 +210,7 @@ For Fully Mechanical Cooling (FMC) Mode:
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          origin={42,-45},
-          rotation=0),
+          origin={42,-45}),
         Ellipse(
           extent={{-14,-32},{8,-54}},
           lineColor={0,0,0},

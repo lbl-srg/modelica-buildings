@@ -11,7 +11,7 @@ block Toggle "Toggles output value whenever its input turns on"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  Integer scenario "scenario index";
+  Integer scenario "Scenario index";
 
 initial equation
   pre(y) = pre_y_start;
@@ -19,24 +19,23 @@ initial equation
   pre(u0) = pre_u_start;
   pre(scenario) = 0;
 
-algorithm
+equation
   when (not u0) and ((pre(u)<>u) and (pre(u) == false)) and (pre(y) == false) then
-    scenario := 1;
+    scenario =  1;
   elsewhen (not u0) and ((pre(u)<>u) and (pre(u) == false)) and (pre(y) == true) then
-    scenario := 2;
+    scenario =  2;
   elsewhen (not u0) and ((pre(u)<>u) and (pre(u) == true)) and (pre(y) == false) then
-    scenario := 3;
+    scenario =  3;
   elsewhen (not u0) and ((pre(u)<>u) and (pre(u) == true)) and (pre(y) == true) then
-    scenario := 4;
+    scenario =  4;
   elsewhen (not u0) and (not u) then
-    scenario := 5;
+    scenario =  5;
   elsewhen (not u0) and u then
-    scenario := 6;
+    scenario =  6;
   elsewhen u0 then
-    scenario := 7;
+    scenario =  7;
   end when;
 
-equation
   if scenario == 1 then y = true;
   elseif scenario == 2 then y = false;
   elseif scenario == 3 then y = false;

@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "mod.TSupSet",
+    "mod.TSup",
+    "mod.damPosCon.y",
+    "mod.yOutDamPos",
+    "mod.yRetDamPos"
+  };

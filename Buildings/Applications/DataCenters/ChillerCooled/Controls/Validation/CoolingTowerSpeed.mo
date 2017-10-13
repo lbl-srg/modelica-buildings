@@ -68,14 +68,12 @@ equation
   connect(cooMod.y, cooTowSpeCon.cooMod)
     annotation (Line(points={{-39,50},{-26,
           50},{-26,5.55556},{-12,5.55556}}, color={255,127,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file=
+  annotation (    __Dymola_Commands(file=
         "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Controls/Validation/CoolingTowerSpeed.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example tests the controller for the cooling tower fan speed. Detailed control logic can be found in 
+This example tests the controller for the cooling tower fan speed. Detailed control logic can be found in
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed\">
 Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed</a>.
 </p>

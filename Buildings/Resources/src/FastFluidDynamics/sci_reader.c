@@ -916,7 +916,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   /* Free the filePath allocated in parameter_reader.c*/
   if (para->cosim->para->filePath != NULL){
     free(para->cosim->para->filePath);
-  } 
+  }
   return 0;
 } /* End of read_sci_input()*/
 

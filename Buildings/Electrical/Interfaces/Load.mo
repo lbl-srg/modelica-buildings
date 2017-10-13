@@ -129,7 +129,7 @@ Corrected wrong annotation to avoid an error in the pedantic model check
 in Dymola 2017 FD01 beta2.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">issue 557</a>.
-</li> 
+</li>
 <li>
 February 26, 2016, by Michael Wetter:<br/>
 Set default value for <code>P_nominal</code>

@@ -454,9 +454,7 @@ equation
       points={{122.425,-168.7},{122.425,-180},{100,-180}},
       color={0,127,255},
       thickness=0.5));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
-            Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
+  annotation (            Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -200},{300,220}})),
     Documentation(info="<html>
 <p>

@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "damLim.uSupFanSpe",
+    "damLim.VOutMinSet_flow",
+    "damLim.yOutDamPosMin",
+    "damLim.yOutDamPosMax",
+    "damLim1.uSupFanSpe",
+    "damLim1.VOutMinSet_flow",
+    "damLim1.yOutDamPosMin",
+    "damLim1.yOutDamPosMax"
+  };

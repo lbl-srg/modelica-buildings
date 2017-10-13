@@ -79,7 +79,7 @@ equation
       color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
-This is a partial model for the examples in 
+This is a partial model for the examples in
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation\">
 Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation</a>.
 </p>

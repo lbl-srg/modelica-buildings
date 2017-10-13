@@ -40,7 +40,6 @@ model ChillerDXHeatingEconomizerController
   annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
-        rotation=0,
         origin={-120,-60})));
 
   Modelica.Blocks.Interfaces.RealInput TSetRooCoo(

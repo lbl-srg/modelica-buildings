@@ -303,9 +303,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}})),
-            Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
+  annotation (            Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
             -160},{220,180}})),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Examples/DXCooledAirsideEconomizer.mos"
         "Simulate and plot"),

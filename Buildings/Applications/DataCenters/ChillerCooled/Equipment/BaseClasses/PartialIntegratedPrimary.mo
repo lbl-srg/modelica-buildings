@@ -29,10 +29,8 @@ model PartialIntegratedPrimary
     annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
-        rotation=0,
         origin={-120,-10}), iconTransformation(
         extent={{-16,-16},{16,16}},
-        rotation=0,
         origin={-116,-2})));
 
   Modelica.Blocks.Interfaces.RealInput yVal5(
@@ -43,7 +41,6 @@ model PartialIntegratedPrimary
     annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
-        rotation=0,
         origin={-120,20}), iconTransformation(
         extent={{16,16},{-16,-16}},
         rotation=180,
@@ -168,8 +165,7 @@ First implementation.
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          origin={-46,-45},
-          rotation=0),
+          origin={-46,-45}),
         Polygon(
           points={{-7,-6},{9,-6},{0,3},{-7,-6}},
           lineColor={0,0,0},
@@ -182,8 +178,7 @@ First implementation.
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          origin={42,-45},
-          rotation=0),
+          origin={42,-45}),
         Line(points={{90,-60},{78,-60},{78,-44},{52,-44}}, color={0,128,255}),
         Line(points={{36,-44},{12,-44}},color={0,128,255}),
         Line(points={{-18,-44},{-36,-44}}, color={0,128,255}),

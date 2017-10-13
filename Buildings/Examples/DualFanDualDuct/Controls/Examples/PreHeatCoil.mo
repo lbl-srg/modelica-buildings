@@ -30,8 +30,6 @@ equation
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6, StopTime=10800),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
     Documentation(info="<html>
 <p>
 Test model for the preheat coil controller.

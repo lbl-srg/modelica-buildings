@@ -93,13 +93,12 @@ equation
           points={{-74,-64},{14,-64},{14,60}},
           color={0,0,127},
           thickness=0.5)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>This model can be used to generate on/off signal for the reheater inside the AHU.</p>
 <p>This reheater will be on only if the following two conditions are satisfied at the same time:</p>
 <ul>
 <li>The position of the water-side valve reaches its switch point, <code>yValSwi</code>;</li>
-<li>The difference between the inlet temperature of the reheater and the required outlet temperature setpoint 
+<li>The difference between the inlet temperature of the reheater and the required outlet temperature setpoint
 is lower than its critical switch point,<code>dTSwi</code>.
 </li>
 </ul>

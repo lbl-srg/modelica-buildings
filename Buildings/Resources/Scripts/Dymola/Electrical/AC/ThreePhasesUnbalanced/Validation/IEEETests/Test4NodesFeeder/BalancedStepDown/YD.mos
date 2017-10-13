@@ -39,4 +39,3 @@ leftTitleType=1,
 bottomTitleType=1,
 colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}},
 markers={MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.Cross, MarkerStyle.Cross, MarkerStyle.Cross, MarkerStyle.Cross});
-

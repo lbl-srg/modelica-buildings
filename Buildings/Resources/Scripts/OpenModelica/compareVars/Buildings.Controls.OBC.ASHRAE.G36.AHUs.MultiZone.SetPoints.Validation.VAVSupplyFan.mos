@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "vAVMulSupFan.yFanSpe",
-    "vAVMulSupFan.ducStaPre",
-    "vAVMulSupFan.staPreSetRes.y",
-    "vAVMulSupFan.staPreSetRes.numOfReq",
-    "vAVMulSupFan.uOpeMod"
-  };
