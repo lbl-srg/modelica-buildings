@@ -114,14 +114,14 @@ block Enable
 
   CDL.Continuous.Min outDamMaxFre
     "Maximum control signal for outdoor air damper due to freeze protection"
-    annotation (Placement(transformation(extent={{140,-140},{160,-120}})));
+    annotation (Placement(transformation(extent={{140,-116},{160,-96}})));
   CDL.Continuous.Max retDamMinFre
     "Minimum position for return air damper due to freeze protection"
     annotation (Placement(transformation(extent={{140,-260},{160,-240}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter yFreRet(final p=1, final k
-      =-1) "Control signal for return damper due to freeze protection"
-    annotation (Placement(transformation(extent={{-172,-110},{-152,-90}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter yFreOut(final p=1, final k=
+       -1) "Control signal for outdoor damper due to freeze protection"
+    annotation (Placement(transformation(extent={{-138,-110},{-118,-90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID conFreTMix(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
@@ -129,7 +129,7 @@ block Enable
     final yMax=1,
     final yMin=0)
     "Controller for mixed air to track freeze protection set point"
-    annotation (Placement(transformation(extent={{-220,-80},{-200,-60}})));
+    annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
 
 protected
   final parameter Modelica.SIunits.TemperatureDifference TOutHigLimCutHig = 0
@@ -174,7 +174,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Nor nor1 "Logical nor"
     annotation (Placement(transformation(extent={{-40,200},{-20,220}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not that starts the timer at disable signal "
-    annotation (Placement(transformation(extent={{-78,-68},{-58,-48}})));
+    annotation (Placement(transformation(extent={{-78,-134},{-58,-114}})));
   Buildings.Controls.OBC.CDL.Logical.And  and2 "Logical and"
     annotation (Placement(transformation(extent={{130,-174},{150,-154}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and checks supply fan status"
@@ -207,8 +207,14 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Negation for check of freeze protection status"
     annotation (Placement(transformation(extent={{-62,-10},{-42,10}})));
 
-  CDL.Continuous.Sources.Constant setPoiFre(final k=TFreSet)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setPoiFre(
+    final k=TFreSet)
     "Set point for freeze protection"
+    annotation (Placement(transformation(extent={{-240,-80},{-220,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter offSig(
+    final k=1,
+    final p=-1/kPFre)
+    "Offset of TMix to account for P-band. This ensures that the damper is fully closed at TFreSet"
     annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
 equation
   connect(TOut, add1.u1) annotation (Line(points={{-300,270},{-270,270},{-270,256},
@@ -243,7 +249,8 @@ equation
                                                                            color={0,0,127}));
   connect(nor1.y, truFalHol.u) annotation (Line(points={{-19,210},{-1,210}}, color={255,0,255}));
   connect(andEnaDis.y, not2.u)
-    annotation (Line(points={{61,40},{72,40},{72,-20},{-86,-20},{-86,-58},{-80,-58}}, color={255,0,255}));
+    annotation (Line(points={{61,40},{72,40},{72,-20},{-86,-20},{-86,-124},{-80,
+          -124}},                                                                     color={255,0,255}));
   connect(maxRetDamSwitch.y, yRetDamPosMax) annotation (Line(points={{61,-210},{
           248,-210},{248,0},{290,0}},                                                       color={0,0,127}));
   connect(and2.y, maxRetDamSwitch.u2)
@@ -255,7 +262,7 @@ equation
           -250},{38,-250}},
                       color={255,0,255}));
   connect(not2.y, retDamSwitch.u2)
-    annotation (Line(points={{-57,-58},{-50,-58},{-50,-258},{-42,-258}},                 color={255,0,255}));
+    annotation (Line(points={{-57,-124},{-50,-124},{-50,-258},{-42,-258}},               color={255,0,255}));
   connect(uRetDamPosMax, retDamSwitch.u1)
     annotation (Line(points={{-300,-240},{-240,-240},{-240,-250},{-42,-250}},color={0,0,127}));
   connect(uRetDamPosMin, retDamSwitch.u3)
@@ -273,17 +280,17 @@ equation
   connect(outDamSwitch.u2, and3.y)
     annotation (Line(points={{60,-150},{50,-150},{50,-126},{41,-126}},color={255,0,255}));
   connect(not2.y, and3.u1)
-    annotation (Line(points={{-57,-58},{-50,-58},{-50,-104},{8,-104},{8,-126},{18,
-          -126}},                                                                         color={255,0,255}));
+    annotation (Line(points={{-57,-124},{-50,-124},{-50,-104},{8,-104},{8,-126},
+          {18,-126}},                                                                     color={255,0,255}));
 
   connect(and2.u1, not2.y) annotation (Line(points={{128,-164},{106,-164},{106,-104},
-          {-50,-104},{-50,-58},{-57,-58}},
+          {-50,-104},{-50,-124},{-57,-124}},
                                        color={255,0,255}));
   connect(and3.u2, delOutDamOsc.y) annotation (Line(points={{18,-134},{0,-134},{
           0,-124},{-19,-124}},    color={255,0,255}));
-  connect(delOutDamOsc.u, not2.y) annotation (Line(points={{-42,-124},{-50,-124},
-          {-50,-58},{-57,-58}},                  color={255,0,255}));
-  connect(not2.y, delRetDam.u) annotation (Line(points={{-57,-58},{-50,-58},{-50,
+  connect(delOutDamOsc.u, not2.y) annotation (Line(points={{-42,-124},{-57,-124}},
+                                                 color={255,0,255}));
+  connect(not2.y, delRetDam.u) annotation (Line(points={{-57,-124},{-50,-124},{-50,
           -180},{-42,-180}},
                       color={255,0,255}));
   connect(delRetDam.y, not1.u)
@@ -307,25 +314,27 @@ equation
           0},{-100,0}},color={255,127,0}));
   connect(not3.y, andEnaDis.u3) annotation (Line(points={{-41,0},{19.5,0},{19.5,
           32},{38,32}}, color={255,0,255}));
-  connect(outDamMaxFre.y, yOutDamPosMax) annotation (Line(points={{161,-130},{230,
-          -130},{230,80},{290,80}},         color={0,0,127}));
-  connect(outDamMaxFre.u2, outDamSwitch.y) annotation (Line(points={{138,-136},{
-          100,-136},{100,-150},{83,-150}},  color={0,0,127}));
+  connect(outDamMaxFre.y, yOutDamPosMax) annotation (Line(points={{161,-106},{230,
+          -106},{230,80},{290,80}},         color={0,0,127}));
+  connect(outDamMaxFre.u2, outDamSwitch.y) annotation (Line(points={{138,-112},{
+          100,-112},{100,-150},{83,-150}},  color={0,0,127}));
   connect(retDamMinFre.y, yRetDamPosMin)
     annotation (Line(points={{161,-250},{264,-250},{264,-100},{290,-100}},
                                                      color={0,0,127}));
   connect(retDamMinFre.u2, minRetDamSwitch.y) annotation (Line(points={{138,
           -256},{96,-256},{96,-250},{61,-250}}, color={0,0,127}));
-  connect(yFreRet.y, retDamMinFre.u1) annotation (Line(points={{-151,-100},{96,
-          -100},{96,-244},{138,-244}}, color={0,0,127}));
-  connect(conFreTMix.u_s, TMix) annotation (Line(points={{-222,-70},{-252,-70},
-          {-252,-60},{-300,-60}}, color={0,0,127}));
-  connect(setPoiFre.y, conFreTMix.u_m) annotation (Line(points={{-219,-110},{-210,
-          -110},{-210,-82}}, color={0,0,127}));
-  connect(conFreTMix.y, outDamMaxFre.u1) annotation (Line(points={{-199,-70},{-142,
-          -70},{-142,-88},{114,-88},{114,-124},{138,-124}}, color={0,0,127}));
-  connect(conFreTMix.y, yFreRet.u) annotation (Line(points={{-199,-70},{-188,-70},
-          {-188,-100},{-174,-100}}, color={0,0,127}));
+  connect(conFreTMix.y,yFreOut. u) annotation (Line(points={{-179,-70},{-160,-70},
+          {-160,-100},{-140,-100}}, color={0,0,127}));
+  connect(conFreTMix.u_s, setPoiFre.y)
+    annotation (Line(points={{-202,-70},{-219,-70}}, color={0,0,127}));
+  connect(yFreOut.y, outDamMaxFre.u1)
+    annotation (Line(points={{-117,-100},{138,-100}}, color={0,0,127}));
+  connect(conFreTMix.y, retDamMinFre.u1) annotation (Line(points={{-179,-70},{92,
+          -70},{92,-244},{138,-244}}, color={0,0,127}));
+  connect(TMix, offSig.u) annotation (Line(points={{-300,-60},{-270,-60},{-270,-110},
+          {-242,-110}}, color={0,0,127}));
+  connect(offSig.y, conFreTMix.u_m) annotation (Line(points={{-219,-110},{-190,-110},
+          {-190,-82}}, color={0,0,127}));
   annotation (
     defaultComponentName = "enaDis",
     Icon(coordinateSystem(
@@ -352,11 +361,6 @@ equation
         preserveAspectRatio=false,
         extent={{-280,-280},{280,280}},
         initialScale=0.05),              graphics={
-        Rectangle(
-          extent={{-260,-46},{200,-272}},
-          lineColor={0,0,0},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-260,12},{200,-36}},
           lineColor={0,0,0},
@@ -404,7 +408,12 @@ Heating"),                       Text(
           extent={{100,102},{194,92}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          textString="Supply fan status")}),
+          textString="Supply fan status"),
+        Rectangle(
+          extent={{-260,-44},{200,-274}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid)}),
 Documentation(info="<html>
 <p>
 This is a multi zone VAV AHU economizer enable/disable sequence

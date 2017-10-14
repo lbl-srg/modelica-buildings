@@ -9,12 +9,13 @@ model EnableFreezeProtection
     "Outdoor air enthalpy high limit cutoff";
 
   CDL.Continuous.Sources.Ramp TMixMea(
-    height=2,
+    height=4,
     duration=1,
-    offset=273.15+3) "Measured mixed air temperature"
+    offset=273.15 + 2,
+    startTime=0)     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable enaDis
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable enaDis(kPFre=2)
     "Multi zone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,40},{102,60}})));
 
