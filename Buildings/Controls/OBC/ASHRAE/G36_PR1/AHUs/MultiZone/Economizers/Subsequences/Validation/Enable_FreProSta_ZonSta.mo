@@ -3,6 +3,11 @@ model Enable_FreProSta_ZonSta
   "Model validates economizer disable for heating zone state and activated freeze protection"
   extends Modelica.Icons.Example;
 
+  parameter Modelica.SIunits.Temperature TOutCutoff=297.15
+    "Outdoor temperature high limit cutoff";
+  parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
+    "Outdoor air enthalpy high limit cutoff";
+
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable enaDis
     "Multi zone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,40},{102,60}})));
@@ -10,11 +15,6 @@ model Enable_FreProSta_ZonSta
     "Multi zone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{82,-40},{102,-20}})));
 
-protected
-  final parameter Modelica.SIunits.Temperature TOutCutoff=297.15
-    "Outdoor temperature high limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
-    "Outdoor air enthalpy high limit cutoff";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
     final k=TOutCutoff - 2)
@@ -71,61 +71,92 @@ protected
     integerFalse=Constants.FreezeProtectionStages.stage1)
     "Freese protection stage changes from stage 0 to stage 1"
     annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
+  CDL.Continuous.Sources.Constant TMixMea(final k=303.15)
+    "Measured mixed air temperature"
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 equation
   connect(TOutBelowCutoff.y, enaDis.TOut)
-    annotation (Line(points={{-19,150},{32,150},{32,60},{81,60}}, color={0,0,127}));
+    annotation (Line(points={{-19,150},{32,150},{32,59.6429},{81.2857,59.6429}},
+                                                                  color={0,0,127}));
   connect(TOutCut.y, enaDis.TOutCut)
-    annotation (Line(points={{-19,110},{31.5,110},{31.5,58},{81,58}}, color={0,0,127}));
+    annotation (Line(points={{-19,110},{31.5,110},{31.5,58.2143},{81.2857,
+          58.2143}},                                                  color={0,0,127}));
   connect(TOutCut.y, enaDis1.TOutCut)
-    annotation (Line(points={{-19,110},{32,110},{32,-22},{81,-22}}, color={0,0,127}));
+    annotation (Line(points={{-19,110},{32,110},{32,-21.7857},{81.2857,-21.7857}},
+                                                                    color={0,0,127}));
   connect(TOutBelowCutoff.y, enaDis1.TOut)
-    annotation (Line(points={{-19,150},{32,150},{32,-20},{81,-20}}, color={0,0,127}));
+    annotation (Line(points={{-19,150},{32,150},{32,-20.3571},{81.2857,-20.3571}},
+                                                                    color={0,0,127}));
   connect(hOutBelowCutoff.y, enaDis.hOut)
-    annotation (Line(points={{-79,110},{-60,110},{-60,56},{81,56}}, color={0,0,127}));
+    annotation (Line(points={{-79,110},{-60,110},{-60,56.7857},{81.2857,56.7857}},
+                                                                    color={0,0,127}));
   connect(hOutCut.y, enaDis.hOutCut)
-    annotation (Line(points={{-79,70},{-70,70},{-70,54},{81,54}},
+    annotation (Line(points={{-79,70},{-70,70},{-70,55.3571},{81.2857,55.3571}},
     color={0,0,127}));
   connect(hOutBelowCutoff.y, enaDis1.hOut)
-    annotation (Line(points={{-79,110},{-60,110},{-60,56},{10,56},{10,-24},{81,-24}}, color={0,0,127}));
+    annotation (Line(points={{-79,110},{-60,110},{-60,56},{10,56},{10,-23.2143},
+          {81.2857,-23.2143}},                                                        color={0,0,127}));
   connect(hOutCut.y, enaDis1.hOutCut)
-    annotation (Line(points={{-79,70},{-70,70},{-70,54},{6,54},{6,-26},{81,-26}}, color={0,0,127}));
+    annotation (Line(points={{-79,70},{-70,70},{-70,54},{6,54},{6,-24.6429},{
+          81.2857,-24.6429}},                                                     color={0,0,127}));
   connect(freProSta.y, enaDis.uFreProSta)
-    annotation (Line(points={{-119,50},{-110,50},{-110,52},{81,52}}, color={255,127,0}));
+    annotation (Line(points={{-119,50},{-110,50},{-110,51.7857},{81.2857,
+          51.7857}},                                                 color={255,127,0}));
   connect(retDamPosMax.y, enaDis.uRetDamPosMax)
-    annotation (Line(points={{-79,-50},{-68,-50},{-68,40},{81,40}}, color={0,0,127}));
+    annotation (Line(points={{-79,-50},{-68,-50},{-68,41.4286},{81.2857,41.4286}},
+                                                                    color={0,0,127}));
   connect(retDamPhyPosMax.y, enaDis.uRetDamPhyPosMax)
-    annotation (Line(points={{-79,-10},{-70,-10},{-70,42},{81,42}}, color={0,0,127}));
+    annotation (Line(points={{-79,-10},{-70,-10},{-70,42.8571},{81.2857,42.8571}},
+                                                                    color={0,0,127}));
   connect(retDamPosMin.y, enaDis.uRetDamPosMin)
-    annotation (Line(points={{-79,-90},{-66,-90},{-66,38},{8,38},{81,38}}, color={0,0,127}));
+    annotation (Line(points={{-79,-90},{-66,-90},{-66,40},{81.2857,40}},   color={0,0,127}));
   connect(outDamPosMax.y, enaDis.uOutDamPosMax)
-    annotation (Line(points={{-39,-110},{-30,-110},{-30,46},{81,46}}, color={0,0,127}));
+    annotation (Line(points={{-39,-110},{-30,-110},{-30,45.7143},{81.2857,
+          45.7143}},                                                  color={0,0,127}));
   connect(outDamPosMin.y, enaDis.uOutDamPosMin)
-    annotation (Line(points={{-39,-150},{-28,-150},{-28,44},{81,44}}, color={0,0,127}));
+    annotation (Line(points={{-39,-150},{-28,-150},{-28,44.2857},{81.2857,
+          44.2857}},                                                  color={0,0,127}));
   connect(outDamPosMin.y, enaDis1.uOutDamPosMin)
-    annotation (Line(points={{-39,-150},{22,-150},{22,-36},{81,-36}}, color={0,0,127}));
+    annotation (Line(points={{-39,-150},{22,-150},{22,-35.7143},{81.2857,
+          -35.7143}},                                                 color={0,0,127}));
   connect(outDamPosMax.y, enaDis1.uOutDamPosMax)
-    annotation (Line(points={{-39,-110},{20,-110},{20,-34},{81,-34}}, color={0,0,127}));
+    annotation (Line(points={{-39,-110},{20,-110},{20,-34.2857},{81.2857,
+          -34.2857}},                                                 color={0,0,127}));
   connect(retDamPosMin.y, enaDis1.uRetDamPosMin)
-    annotation (Line(points={{-79,-90},{30,-90},{30,-42},{81,-42}}, color={0,0,127}));
+    annotation (Line(points={{-79,-90},{30,-90},{30,-40},{81.2857,-40}},
+                                                                    color={0,0,127}));
   connect(retDamPosMax.y, enaDis1.uRetDamPosMax)
-    annotation (Line(points={{-79,-50},{0,-50},{0,-40},{81,-40}}, color={0,0,127}));
+    annotation (Line(points={{-79,-50},{0,-50},{0,-38.5714},{81.2857,-38.5714}},
+                                                                  color={0,0,127}));
   connect(retDamPhyPosMax.y, enaDis1.uRetDamPhyPosMax)
-    annotation (Line(points={{-79,-10},{0,-10},{0,-38},{81,-38}}, color={0,0,127}));
+    annotation (Line(points={{-79,-10},{0,-10},{0,-37.1429},{81.2857,-37.1429}},
+                                                                  color={0,0,127}));
   connect(supFanSta.y, enaDis.uSupFan)
-    annotation (Line(points={{-119,-30},{-34,-30},{-34,48},{81,48}}, color={255,0,255}));
+    annotation (Line(points={{-119,-30},{-34,-30},{-34,53.5714},{81.2857,
+          53.5714}},                                                 color={255,0,255}));
   connect(supFanSta.y, enaDis1.uSupFan)
-    annotation (Line(points={{-119,-30},{-34,-30},{-34,-32},{81,-32}}, color={255,0,255}));
+    annotation (Line(points={{-119,-30},{-34,-30},{-34,-26.4286},{81.2857,
+          -26.4286}},                                                  color={255,0,255}));
   connect(zonSta1.y, enaDis1.uZonSta)
-    annotation (Line(points={{61,-70},{70,-70},{70,-30},{81,-30}}, color={255,127,0}));
+    annotation (Line(points={{61,-70},{70,-70},{70,-30.3571},{81.2857,-30.3571}},
+                                                                   color={255,127,0}));
   connect(booPul.y, zonSta.u)
     annotation (Line(points={{-159,10},{-142,10}}, color={255,0,255}));
   connect(booPul1.y, freProSta1.u)
     annotation (Line(points={{61,-150},{78,-150}}, color={255,0,255}));
   connect(zonSta.y, enaDis.uZonSta)
-    annotation (Line(points={{-119,10},{-100,10},{-100,50},{81,50}}, color={255,127,0}));
+    annotation (Line(points={{-119,10},{-100,10},{-100,49.6429},{81.2857,
+          49.6429}},                                                 color={255,127,0}));
   connect(freProSta1.y, enaDis1.uFreProSta)
-    annotation (Line(points={{101,-150},{120,-150},{120,-120},{68,-120},{68,-28},{81,-28}},
+    annotation (Line(points={{101,-150},{120,-150},{120,-120},{68,-120},{68,
+          -28.2143},{81.2857,-28.2143}},
       color={255,127,0}));
+  connect(enaDis.TMix, TMixMea.y) annotation (Line(points={{81.2857,47.8571},{
+          20,47.8571},{20,80},{-19,80}},
+                                      color={0,0,127}));
+  connect(TMixMea.y, enaDis1.TMix) annotation (Line(points={{-19,80},{20,80},{
+          20,-32.1429},{81.2857,-32.1429}},
+                                         color={0,0,127}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/Economizers/Subsequences/Validation/Enable_FreProSta_ZonSta.mos"

@@ -65,6 +65,13 @@ model AHUGuideline36
     "Primary airflow rate to the ventilation zone from the air handler, including outdoor air and recirculated air"
     annotation (Placement(transformation(extent={{-220,-50},{-200,-30}}),
         iconTransformation(extent={{-220,-60},{-200,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
+    "Measured mixed air temperature, used for freeze protection"
+    annotation (Placement(transformation(extent={{-220,-80},{-200,-60}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan
     "Supply fan status, true if fan should be on"
     annotation (Placement(transformation(extent={{200,170},{220,190}})));
@@ -127,6 +134,14 @@ model AHUGuideline36
       Evaluate=true, Dialog(tab="Commissioning", group=
           "Ecnomizer physical damper position limits"));
 
+
+  parameter Modelica.SIunits.Temperature TFreSet = 277.15
+    "Lower limit for mixed air temperature for freeze protection"
+     annotation(Evaluate=true, Dialog(tab="Advanced", group="Freeze protection"));
+  parameter Real kPFre = 1
+    "Proportional gain for mixed air temperature tracking for freeze protection"
+     annotation(Evaluate=true, Dialog(tab="Advanced", group="Freeze protection"));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ducStaPre(unit="Pa")
     "Measured duct static pressure"
     annotation (Placement(transformation(extent={{-220,-30},{-200,-10}})));
@@ -177,7 +192,9 @@ model AHUGuideline36
     final uHeaMax=uHeaMax,
     final uCooMin=uCooMin,
     final uOutDamMax=(uHeaMax + uCooMin)/2,
-    final uRetDamMin=(uHeaMax + uCooMin)/2) "Economizer controller"
+    final uRetDamMin=(uHeaMax + uCooMin)/2,
+    final TFreSet=TFreSet,
+    final kPFre=kPFre) "Economizer controller"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(final unit="K", final
       quantity="ThermodynamicTemperature") "Outdoor air (OA) temperature"
@@ -302,31 +319,40 @@ model AHUGuideline36
         uCooMin) "Constant signal to map control action"
     annotation (Placement(transformation(extent={{40,-192},{60,-172}})));
 equation
-  connect(conEco.yRetDamPos, yRetDamPos) annotation (Line(points={{81,12},{180,12},
-          {180,0},{210,0}},color={0,0,127}));
-  connect(conEco.yOutDamPos, yOutDamPos) annotation (Line(points={{81,8},{160,8},
-          {160,60},{210,60}},       color={0,0,127}));
-  connect(conEco.uSupFan, conSupFan.ySupFan) annotation (Line(points={{59,6},{40,
-          6},{40,117},{21,117}},     color={255,0,255}));
+  connect(conEco.yRetDamPos, yRetDamPos) annotation (Line(points={{80.625,15},{
+          180,15},{180,0},{210,0}},
+                           color={0,0,127}));
+  connect(conEco.yOutDamPos, yOutDamPos) annotation (Line(points={{80.625,5},{
+          160,5},{160,60},{210,60}},color={0,0,127}));
+  connect(conEco.uSupFan, conSupFan.ySupFan) annotation (Line(points={{59.375,
+          6.25},{40,6.25},{40,117},{21,117}},
+                                     color={255,0,255}));
   connect(conSupFan.ySupFanSpe, ySupFanSpe) annotation (Line(points={{21,110},{210,
           110}},                    color={0,0,127}));
   connect(TOut, conEco.TOut) annotation (Line(points={{-210,140},{-60,140},{-60,
-          22},{59,22}},
+          18.75},{59.375,18.75}},
                       color={0,0,127}));
-  connect(conEco.TOutCut, TOutCut) annotation (Line(points={{59,20},{-64,20},{-64,
-          120},{-210,120}}, color={0,0,127}));
-  connect(conEco.hOut, hOut) annotation (Line(points={{59,18},{-66,18},{-66,100},
-          {-210,100}}, color={0,0,127}));
-  connect(conEco.hOutCut, hOutCut) annotation (Line(points={{59,16},{-66,16},{-66,
-          80},{-210,80}}, color={0,0,127}));
-  connect(conEco.VOut_flow, VOut_flow) annotation (Line(points={{59,10},{-72,10},
-          {-72,20},{-210,20}}, color={0,0,127}));
-  connect(conEco.uOpeMod, uOpeMod) annotation (Line(points={{59,4},{-80,4},{-80,
-          -100},{-210,-100}},      color={255,127,0}));
-  connect(conEco.uZonSta, uZonSta) annotation (Line(points={{59,2},{-76,2},{-76,
-          -120},{-210,-120}},     color={255,127,0}));
-  connect(conEco.uFreProSta, uFreProSta) annotation (Line(points={{59,0},{-72,0},
-          {-72,-138},{-92,-138},{-92,-140},{-210,-140}},      color={255,127,0}));
+  connect(conEco.TOutCut, TOutCut) annotation (Line(points={{59.375,17.5},{-64,
+          17.5},{-64,120},{-210,120}},
+                            color={0,0,127}));
+  connect(conEco.hOut, hOut) annotation (Line(points={{59.375,16.25},{-66,16.25},
+          {-66,100},{-210,100}},
+                       color={0,0,127}));
+  connect(conEco.hOutCut, hOutCut) annotation (Line(points={{59.375,15},{-66,15},
+          {-66,80},{-210,80}},
+                          color={0,0,127}));
+  connect(conEco.VOut_flow, VOut_flow) annotation (Line(points={{59.375,11.25},
+          {-72,11.25},{-72,20},{-210,20}},
+                               color={0,0,127}));
+  connect(conEco.uOpeMod, uOpeMod) annotation (Line(points={{59.375,3.75},{-80,
+          3.75},{-80,-100},{-210,-100}},
+                                   color={255,127,0}));
+  connect(conEco.uZonSta, uZonSta) annotation (Line(points={{59.375,2.5},{-76,
+          2.5},{-76,-120},{-210,-120}},
+                                  color={255,127,0}));
+  connect(conEco.uFreProSta, uFreProSta) annotation (Line(points={{59.375,1.25},
+          {-72,1.25},{-72,-138},{-92,-138},{-92,-140},{-210,-140}},
+                                                              color={255,127,0}));
   connect(conTSetSup.TSetSup, TSetSup) annotation (Line(points={{71,-50},{180,-50},
           {180,-70},{210,-70}},  color={0,0,127}));
   connect(conTSetSup.TOut, TOut) annotation (Line(points={{49,-46},{-60,-46},{-60,
@@ -346,7 +372,8 @@ equation
           102},{-180,-20},{-210,-20}},
                                      color={0,0,127}));
   connect(conEco.VOutMinSet_flow, outAirSetPoi.VOutMinSet_flow) annotation (
-      Line(points={{59,8},{20,8},{20,50},{1,50}},     color={0,0,127}));
+      Line(points={{59.375,10},{20,10},{20,50},{1,50}},
+                                                      color={0,0,127}));
   connect(outAirSetPoi.nOcc, nOcc) annotation (Line(points={{-21,58},{-88,58},{-88,
           40},{-210,40}},     color={0,0,127}));
   connect(outAirSetPoi.TZon, TZon) annotation (Line(points={{-21,55},{-58,55},{-58,
@@ -380,8 +407,8 @@ equation
                                      color={0,0,127}));
   connect(conSupFan.ySupFan, swi.u2) annotation (Line(points={{21,117},{30,117},
           {30,-90},{60,-90}},                   color={255,0,255}));
-  connect(conEco.uTSup, swi.y) annotation (Line(points={{59,13},{50,13},{50,-20},
-          {100,-20},{100,-90},{83,-90}},
+  connect(conEco.uTSup, swi.y) annotation (Line(points={{59.375,13.125},{50,
+          13.125},{50,-20},{100,-20},{100,-90},{83,-90}},
                      color={0,0,127}));
   connect(zer.y, swi.u3) annotation (Line(points={{-19,-210},{20,-210},{20,-98},
           {60,-98}}, color={0,0,127}));
@@ -413,6 +440,8 @@ equation
           120,-230},{101,-230}}, color={0,0,127}));
   connect(conSigCoo.f2, one.y) annotation (Line(points={{138,-198},{120,-198},{
           120,-230},{101,-230}}, color={0,0,127}));
+  connect(conEco.TMix, TMix) annotation (Line(points={{59.375,8.125},{-190,8.125},
+          {-190,-70},{-210,-70}}, color={0,0,127}));
   annotation (
     defaultComponentName="conAHU",
     Diagram(coordinateSystem(extent={{-200,-260},{200,280}}, initialScale=0.2)),

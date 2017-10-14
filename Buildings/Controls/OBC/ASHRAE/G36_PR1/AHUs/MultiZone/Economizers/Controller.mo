@@ -85,72 +85,78 @@ model Controller "Multi zone VAV AHU economizer control sequence"
       Evaluate=true, Dialog(tab="Commissioning", group=
           "Physical damper position limits"));
 
+  parameter Modelica.SIunits.Temperature TFreSet = 277.15
+    "Lower limit for mixed air temperature for freeze protection"
+     annotation(Evaluate=true, Dialog(tab="Advanced", group="Freeze protection"));
+  parameter Real kPFre = 1
+    "Proportional gain for mixed air temperature tracking for freeze protection"
+     annotation(Evaluate=true, Dialog(tab="Advanced", group="Freeze protection"));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")
     "Signal for supply air temperature control (T Sup Control Loop Signal in diagram)"
-    annotation (Placement(transformation(extent={{-144,38},{-120,62}}),
-        iconTransformation(extent={{-120,20},{-100,40}})));
+    annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(final unit="K", final
       quantity="ThermodynamicTemperature") "Outdoor air (OA) temperature"
-    annotation (Placement(transformation(extent={{-140,130},{-120,150}}),
-        iconTransformation(extent={{-120,110},{-100,130}})));
+    annotation (Placement(transformation(extent={{-180,130},{-160,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(final unit="K",
       final quantity="ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
-    annotation (Placement(transformation(extent={{-140,110},{-120,130}}),
-        iconTransformation(extent={{-120,90},{-100,110}})));
+    annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(final unit="J/kg",
       final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
-    annotation (Placement(transformation(extent={{-140,90},{-120,110}}),
-        iconTransformation(extent={{-120,70},{-100,90}})));
+    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOutCut(final unit="J/kg",
       final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
-    annotation (Placement(transformation(extent={{-140,70},{-120,90}}),
-        iconTransformation(extent={{-120,50},{-100,70}})));
+    annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(final unit="m3/s",
       final quantity="VolumeFlowRate")
     "Measured outdoor volumetric airflow rate" annotation (Placement(
-        transformation(extent={{-140,10},{-120,30}}), iconTransformation(extent=
-           {{-120,-10},{-100,10}})));
+        transformation(extent={{-180,10},{-160,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow(final unit=
         "m3/s", final quantity="VolumeFlowRate")
     "Minimum outdoor volumetric airflow rate setpoint" annotation (Placement(
-        transformation(extent={{-140,-10},{-120,10}}), iconTransformation(
-          extent={{-120,-30},{-100,-10}})));
+        transformation(extent={{-180,-10},{-160,10}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
+    "Measured mixed air temperature, used for freeze protection"
+    annotation (Placement(transformation(extent={{-180,-40},{-160,-20}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
-    "Freeze protection status" annotation (Placement(transformation(extent={{-140,
-            -130},{-120,-110}}), iconTransformation(extent={{-120,-110},{-100,-90}})));
+    "Freeze protection status" annotation (Placement(transformation(extent={{-180,
+            -150},{-160,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal" annotation (Placement(transformation(
-          extent={{-140,-90},{-120,-70}}), iconTransformation(extent={{-120,-70},
-            {-100,-50}})));
+          extent={{-180,-110},{-160,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta
-    "Zone state signal" annotation (Placement(transformation(extent={{-140,-110},
-            {-120,-90}}), iconTransformation(extent={{-120,-90},{-100,-70}})));
+    "Zone state signal" annotation (Placement(transformation(extent={{-180,-130},
+            {-160,-110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
-    "Supply fan status" annotation (Placement(transformation(extent={{-140,-50},
-            {-120,-30}}), iconTransformation(extent={{-120,-50},{-100,-30}})));
+    "Supply fan status" annotation (Placement(transformation(extent={{-180,-70},
+            {-160,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
     final max=1,
     final unit="1") "Return air damper position" annotation (Placement(
-        transformation(extent={{120,30},{140,50}}), iconTransformation(extent={
-            {100,10},{120,30}})));
+        transformation(extent={{160,70},{180,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
     final unit="1") "Outdoor air damper position" annotation (Placement(
-        transformation(extent={{120,-50},{140,-30}}), iconTransformation(extent=
-           {{100,-30},{120,-10}})));
+        transformation(extent={{160,-90},{180,-70}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable enaDis(
     final use_enthalpy=use_enthalpy,
     final delTOutHis=delTOutHis,
     final delEntHis=delEntHis,
     final retDamFulOpeTim=retDamFulOpeTim,
-    final disDel=disDel)
+    final disDel=disDel,
+    final TFreSet=TFreSet,
+    final kPFre=kPFre)
     "Multi zone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits
@@ -174,81 +180,99 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
 equation
-  connect(uSupFan, enaDis.uSupFan) annotation (Line(points={{-130,-40},{-80,-40},
-          {-80,-32},{-1,-32}}, color={255,0,255}));
-  connect(uFreProSta, enaDis.uFreProSta) annotation (Line(points={{-130,-120},{
-          -60,-120},{-60,-28},{-1,-28}}, color={255,127,0}));
-  connect(hOutCut, enaDis.hOutCut) annotation (Line(points={{-130,80},{-46,80},
-          {-46,-26},{-1,-26}}, color={0,0,127}));
-  connect(hOut, enaDis.hOut) annotation (Line(points={{-130,100},{-44,100},{-44,
-          -24},{-1,-24}}, color={0,0,127}));
-  connect(TOutCut, enaDis.TOutCut) annotation (Line(points={{-130,120},{-42,120},
-          {-42,-22},{-1,-22}}, color={0,0,127}));
-  connect(TOut, enaDis.TOut) annotation (Line(points={{-130,140},{-40,140},{-40,
-          -20},{-1,-20}}, color={0,0,127}));
-  connect(VOutMinSet_flow, damLim.VOutMinSet_flow) annotation (Line(points={{-130,
-          0},{-110,0},{-110,14},{-110,15},{-81,15}}, color={0,0,127}));
-  connect(VOut_flow, damLim.VOut_flow) annotation (Line(points={{-130,20},{-110,
+  connect(uSupFan, enaDis.uSupFan) annotation (Line(points={{-170,-60},{-80,-60},
+          {-80,-26.4286},{-0.714286,-26.4286}},
+                               color={255,0,255}));
+  connect(uFreProSta, enaDis.uFreProSta) annotation (Line(points={{-170,-140},{
+          -60,-140},{-60,-28.2143},{-0.714286,-28.2143}},
+                                         color={255,127,0}));
+  connect(hOutCut, enaDis.hOutCut) annotation (Line(points={{-170,80},{-46,80},
+          {-46,-24.6429},{-0.714286,-24.6429}},
+                               color={0,0,127}));
+  connect(hOut, enaDis.hOut) annotation (Line(points={{-170,100},{-44,100},{-44,
+          -23.2143},{-0.714286,-23.2143}},
+                          color={0,0,127}));
+  connect(TOutCut, enaDis.TOutCut) annotation (Line(points={{-170,120},{-42,120},
+          {-42,-21.7857},{-0.714286,-21.7857}},
+                               color={0,0,127}));
+  connect(TOut, enaDis.TOut) annotation (Line(points={{-170,140},{-40,140},{-40,
+          -20.3571},{-0.714286,-20.3571}},
+                          color={0,0,127}));
+  connect(VOutMinSet_flow, damLim.VOutMinSet_flow) annotation (Line(points={{-170,0},
+          {-110,0},{-110,15},{-81,15}},              color={0,0,127}));
+  connect(VOut_flow, damLim.VOut_flow) annotation (Line(points={{-170,20},{-110,
           20},{-110,18},{-81,18}}, color={0,0,127}));
-  connect(uSupFan, damLim.uSupFan) annotation (Line(points={{-130,-40},{-104,-40},
-          {-104,10},{-81,10}}, color={255,0,255}));
-  connect(uOpeMod, damLim.uOpeMod) annotation (Line(points={{-130,-80},{-102,-80},
-          {-102,4},{-102,5},{-81,5}}, color={255,127,0}));
-  connect(uFreProSta, damLim.uFreProSta) annotation (Line(points={{-130,-120},{
-          -100,-120},{-100,2},{-81,2}}, color={255,127,0}));
-  connect(damLim.yOutDamPosMax, enaDis.uOutDamPosMax) annotation (Line(points={
-          {-59,17},{-24,17},{-24,16},{-24,-34},{-1,-34}}, color={0,0,127}));
-  connect(damLim.yOutDamPosMin, enaDis.uOutDamPosMin) annotation (Line(points={
-          {-59,15},{-26,15},{-26,12},{-26,-36},{-1,-36}}, color={0,0,127}));
-  connect(damLim.yRetDamPosMin, enaDis.uRetDamPosMin) annotation (Line(points={
-          {-59,10},{-28,10},{-28,8},{-28,-42},{-1,-42}}, color={0,0,127}));
+  connect(uSupFan, damLim.uSupFan) annotation (Line(points={{-170,-60},{-104,
+          -60},{-104,10},{-81,10}},
+                               color={255,0,255}));
+  connect(uOpeMod, damLim.uOpeMod) annotation (Line(points={{-170,-100},{-102,
+          -100},{-102,5},{-81,5}},    color={255,127,0}));
+  connect(uFreProSta, damLim.uFreProSta) annotation (Line(points={{-170,-140},{
+          -100,-140},{-100,2},{-81,2}}, color={255,127,0}));
+  connect(damLim.yOutDamPosMax, enaDis.uOutDamPosMax) annotation (Line(points={{-59,17},
+          {-24,17},{-24,16},{-24,-34.2857},{-0.714286,-34.2857}},
+                                                          color={0,0,127}));
+  connect(damLim.yOutDamPosMin, enaDis.uOutDamPosMin) annotation (Line(points={{-59,15},
+          {-26,15},{-26,12},{-26,-35.7143},{-0.714286,-35.7143}},
+                                                          color={0,0,127}));
+  connect(damLim.yRetDamPosMin, enaDis.uRetDamPosMin) annotation (Line(points={{-59,10},
+          {-28,10},{-28,8},{-28,-40},{-0.714286,-40}},   color={0,0,127}));
   connect(damLim.yRetDamPhyPosMax, enaDis.uRetDamPhyPosMax) annotation (Line(
-        points={{-59,6},{-32,6},{-32,2},{-32,-38},{-1,-38}}, color={0,0,127}));
-  connect(damLim.yRetDamPosMax, enaDis.uRetDamPosMax) annotation (Line(points={
-          {-59,8},{-30,8},{-30,-40},{-1,-40}}, color={0,0,127}));
-  connect(mod.yRetDamPos, yRetDamPos) annotation (Line(points={{81,12},{100,12},
-          {100,40},{130,40}}, color={0,0,127}));
-  connect(mod.yOutDamPos, yOutDamPos) annotation (Line(points={{81,8},{100,8},{100,
-          -40},{130,-40}},     color={0,0,127}));
-  connect(enaDis.yOutDamPosMax, mod.uOutDamPosMax) annotation (Line(points={{22,
-          -25.2},{50,-25.2},{50,6},{59,6}},            color={0,0,127}));
-  connect(enaDis.yRetDamPosMax, mod.uRetDamPosMax) annotation (Line(points={{22,-32},
-          {52,-32},{52,18},{59,18}},    color={0,0,127}));
+        points={{-59,6},{-32,6},{-32,2},{-32,-37.1429},{-0.714286,-37.1429}},
+                                                             color={0,0,127}));
+  connect(damLim.yRetDamPosMax, enaDis.uRetDamPosMax) annotation (Line(points={{-59,8},
+          {-30,8},{-30,-38.5714},{-0.714286,-38.5714}},
+                                               color={0,0,127}));
+  connect(mod.yRetDamPos, yRetDamPos) annotation (Line(points={{81,12},{140,12},
+          {140,80},{170,80}}, color={0,0,127}));
+  connect(mod.yOutDamPos, yOutDamPos) annotation (Line(points={{81,8},{140,8},{
+          140,-80},{170,-80}}, color={0,0,127}));
+  connect(enaDis.yOutDamPosMax, mod.uOutDamPosMax) annotation (Line(points={{20.3571,
+          -27.1429},{50,-27.1429},{50,6},{59,6}},      color={0,0,127}));
+  connect(enaDis.yRetDamPosMax, mod.uRetDamPosMax) annotation (Line(points={{20.3571,
+          -30},{52,-30},{52,18},{59,18}},
+                                        color={0,0,127}));
   connect(damLim.yOutDamPosMin, mod.uOutDamPosMin) annotation (Line(points={{-59,15},
           {20,15},{20,2},{59,2}},                      color={0,0,127}));
-  connect(enaDis.yRetDamPosMin, mod.uRetDamPosMin) annotation (Line(points={{22,-38},
-          {54,-38},{54,14},{59,14}},           color={0,0,127}));
-  connect(uZonSta, enaDis.uZonSta) annotation (Line(points={{-130,-100},{-58,-100},
-          {-58,-30},{-1,-30}}, color={255,127,0}));
-  connect(uTSup, mod.uTSup) annotation (Line(points={{-132,50},{40,50},{40,10},{
-          59,10}}, color={0,0,127}));
+  connect(enaDis.yRetDamPosMin, mod.uRetDamPosMin) annotation (Line(points={{20.3571,
+          -33.5714},{54,-33.5714},{54,14},{59,14}},
+                                               color={0,0,127}));
+  connect(uZonSta, enaDis.uZonSta) annotation (Line(points={{-170,-120},{-58,
+          -120},{-58,-30.3571},{-0.714286,-30.3571}},
+                               color={255,127,0}));
+  connect(uTSup, mod.uTSup) annotation (Line(points={{-170,50},{40,50},{40,10},
+          {59,10}},color={0,0,127}));
+  connect(enaDis.TMix, TMix) annotation (Line(points={{-0.714286,-32.1429},{
+          -0.714286,-32},{-110,-32},{-110,-30},{-170,-30}},
+                                                  color={0,0,127}));
   annotation (
     defaultComponentName="conEco",
-    Icon(graphics={
+    Icon(coordinateSystem(extent={{-160,-160},{160,160}}),
+         graphics={
         Rectangle(
-          extent={{-100,-100},{100,100}},
+          extent={{-160,-160},{160,162}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-66,-36},{-42,-36},{-4,40},{34,40}},
+          points={{-96,-40},{-18,-40},{20,62},{58,62}},
           color={0,0,127},
           thickness=0.5),
         Line(
-          points={{-64,40},{-38,40},{2,-40},{66,-40}},
+          points={{-92,62},{-14,62},{24,-36},{88,-36}},
           color={0,0,127},
           pattern=LinePattern.Dash,
           thickness=0.5),
         Line(
-          points={{34,40},{34,-36},{34,-36},{66,-36}},
+          points={{58,62},{58,-14},{58,-26},{90,-26}},
           color={0,0,127},
           thickness=0.5),
         Text(
-          extent={{-170,150},{158,112}},
+          extent={{-176,200},{152,162}},
           lineColor={0,0,127},
           textString="%name")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{
-            120,160}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{
+            160,160}})),
     Documentation(info="<html>
 <p>
 Multi zone VAV AHU economizer control sequence that calculates

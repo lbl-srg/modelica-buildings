@@ -163,7 +163,7 @@ equation
           {-254,-204},{-254,300},{-254,300},{-254,315.333},{55.8,315.333}},
         color={0,0,127}));
   connect(TSetZon.TZon, flo.TRooAir) annotation (Line(points={{55.8,308.86},{
-          55.8,310},{42,310},{42,622},{1164,622},{1164,554.889},{1093.44,
+          55.8,310},{46,310},{46,622},{1164,622},{1164,554.889},{1093.44,
           554.889}}, color={0,0,127}));
   connect(conAHU.THeaSet, TSetZon.THeaSet) annotation (Line(points={{391,434},{
           120,434},{120,315.333},{81.1,315.333}}, color={0,0,127}));
@@ -301,6 +301,8 @@ equation
           {456,-280},{80,-280},{80,-210},{98,-210}}, color={0,0,127}));
   connect(conAHU.yCoo, gaiCooCoi.u) annotation (Line(points={{433,348},{446,348},
           {446,-274},{88,-274},{88,-248},{98,-248}}, color={0,0,127}));
+  connect(conAHU.TMix, TMix.T)
+    annotation (Line(points={{391,372},{40,372},{40,-29}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
             1660,640}})),
