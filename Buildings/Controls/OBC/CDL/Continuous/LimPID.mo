@@ -8,7 +8,7 @@ block LimPID
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
          CDL.Types.SimpleController.PID "Type of controller";
   parameter Real k(min=0, unit="1") = 1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(min=Constants.small)
+  parameter Modelica.SIunits.Time Ti(min=Constants.small) = 0.5
     "Time constant of Integrator block" annotation (Dialog(enable=
           controllerType == CDL.Types.SimpleController.PI or
           controllerType == CDL.Types.SimpleController.PID));
