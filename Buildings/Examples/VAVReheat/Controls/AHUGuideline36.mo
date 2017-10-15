@@ -277,11 +277,8 @@ model AHUGuideline36
     numZon=numZon,
     maxDesPre=maxDesPre,
     have_perZonRehBox=true,
-    iniSet=60,
-    triAmo=-10,
-    resAmo=15,
-    maxRes=30,
-    final samplePeriod=samplePeriod) "Supply fan controller"
+    final samplePeriod=samplePeriod,
+    iniSet=60)                       "Supply fan controller"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature
     conTSetSup(final samplePeriod=samplePeriod)
