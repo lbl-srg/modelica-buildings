@@ -64,9 +64,9 @@ partial model PartialOpenLoop
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     Q_flow_nominal=m_flow_nominal*1006*(16.7 - 8.5),
     dp2_nominal=0,
-    dp1_nominal=200 + 200 + 100 + 20,
     allowFlowReversal1=allowFlowReversal,
     allowFlowReversal2=false,
+    dp1_nominal=200 + 200 + 100 + 40,
     T_a1_nominal=281.65,
     T_a2_nominal=323.15) "Heating coil"
     annotation (Placement(transformation(extent={{98,-56},{118,-36}})));
@@ -91,14 +91,14 @@ partial model PartialOpenLoop
   Buildings.Fluid.FixedResistances.PressureDrop dpRetDuc(
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = MediumA,
-    dp_nominal=20,
-    allowFlowReversal=allowFlowReversal) "Pressure drop for return duct"
+    allowFlowReversal=allowFlowReversal,
+    dp_nominal=40)                       "Pressure drop for return duct"
     annotation (Placement(transformation(extent={{400,130},{380,150}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanSup(
     redeclare package Medium = MediumA,
     per(
       pressure(V_flow={0,m_flow_nominal/1.2*2},
-      dp={850,0})),
+      dp=2*{780,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_inputFilter=false)
     "Supply air fan"
@@ -107,7 +107,7 @@ partial model PartialOpenLoop
     redeclare package Medium = MediumA,
     per(
       pressure(V_flow=m_flow_nominal/1.2*{0,2},
-      dp=1.5*110*{2,0})),
+      dp=2*{40,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_inputFilter=false)
     "Return air fan"
