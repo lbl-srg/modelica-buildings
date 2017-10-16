@@ -48,6 +48,8 @@ partial model PartialOpenLoop
     "Cooling setpoint during on";
   parameter Modelica.SIunits.Temperature TCooOff=303.15
     "Cooling setpoint during off";
+  parameter Modelica.SIunits.PressureDifference dpBuiStaSet(min=0) = 12
+    "Building static pressure";
 
   parameter Boolean allowFlowReversal=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
@@ -98,7 +100,7 @@ partial model PartialOpenLoop
     redeclare package Medium = MediumA,
     per(
       pressure(V_flow={0,m_flow_nominal/1.2*2},
-      dp=2*{780,0})),
+      dp=2*{780+dpBuiStaSet,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_inputFilter=false)
     "Supply air fan"
@@ -107,15 +109,11 @@ partial model PartialOpenLoop
     redeclare package Medium = MediumA,
     per(
       pressure(V_flow=m_flow_nominal/1.2*{0,2},
-      dp=2*{40,0})),
+      dp=2*{40-dpBuiStaSet,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_inputFilter=false)
     "Return air fan"
     annotation (Placement(transformation(extent={{320,130},{300,150}})));
-
-  Controls.FanVFD conFanRet(xSet_nominal(displayUnit="m3/s") = m_flow_nominal/
-      1.2, r_N_min=0.1) "Controller for fan"
-    annotation (Placement(transformation(extent={{240,160},{260,180}})));
 
   Buildings.Fluid.Sensors.VolumeFlowRate senSupFlo(
   redeclare package Medium = MediumA,
@@ -479,8 +477,15 @@ partial model PartialOpenLoop
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={1300,128})));
-  IdealEconomizer eco(redeclare package Medium = MediumA, m_flow_nominal=
-        m_flow_nominal) "Economizer" annotation (Placement(transformation(
+  Buildings.Examples.VAVReheat.BaseClasses.MixingBox eco(
+    redeclare package Medium = MediumA,
+    mOut_flow_nominal=m_flow_nominal,
+    use_inputFilter=false,
+    dpOut_nominal=10,
+    mRec_flow_nominal=m_flow_nominal,
+    dpRec_nominal=10,
+    mExh_flow_nominal=m_flow_nominal,
+    dpExh_nominal=10)   "Economizer" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,-46})));
@@ -779,12 +784,6 @@ equation
     annotation (Line(points={{350,-40},{400,-40}}, color={0,127,255}));
   connect(senSupFlo.port_b, splSupRoo1.port_1)
     annotation (Line(points={{420,-40},{570,-40}}, color={0,127,255}));
-  connect(conFanRet.u_m, senRetFlo.V_flow) annotation (Line(points={{250,158},{
-          250,148},{270,148},{270,160},{350,160},{350,151}}, color={0,0,127}));
-  connect(senSupFlo.V_flow, conFanRet.u) annotation (Line(points={{410,-29},{
-          410,70},{220,70},{220,170},{238,170}}, color={0,0,127}));
-  connect(conFanRet.y, fanRet.y)
-    annotation (Line(points={{261,170},{310,170},{310,152}}, color={0,0,127}));
   connect(heaCoi.port_a2, souHea.ports[1]) annotation (Line(
       points={{118,-52},{132,-52},{132,-110}},
       color={0,140,72},

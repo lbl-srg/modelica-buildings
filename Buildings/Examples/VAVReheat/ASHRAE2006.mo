@@ -75,6 +75,9 @@ model ASHRAE2006
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant coiOff(k=0)
     "Signal to switch water flow through coils off"
     annotation (Placement(transformation(extent={{20,-170},{40,-150}})));
+  Controls.FanVFD conFanRet(r_N_min=0.1, xSet_nominal=m_flow_nominal/1.2)
+    "Controller for return fan"
+    annotation (Placement(transformation(extent={{240,160},{260,180}})));
 equation
   connect(TSupSetHea.y, heaCoiCon.u_s) annotation (Line(
       points={{-79,-160},{-16,-160},{-16,-200},{-2,-200}},
@@ -171,8 +174,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(conEco.yOA, eco.y) annotation (Line(
-      points={{-59.3333,152},{-10,152},{-10,-18},{-10,-18},{-10,-35}},
+  connect(conEco.yOA, eco.yOut) annotation (Line(
+      points={{-59.3333,152},{-10,152},{-10,-18},{-10,-34},{-10,-34}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -315,6 +318,12 @@ equation
     annotation (Line(points={{98,-210},{81,-210},{81,-210}}, color={0,0,127}));
   connect(gaiCooCoi.u, swiCooCoi.y) annotation (Line(points={{98,-248},{88,-248},
           {88,-248},{81,-248}}, color={0,0,127}));
+  connect(conFanRet.y, fanRet.y)
+    annotation (Line(points={{261,170},{310,170},{310,152}}, color={0,0,127}));
+  connect(senRetFlo.V_flow, conFanRet.u_m) annotation (Line(points={{350,151},{
+          350,166},{280,166},{280,150},{250,150},{250,158}}, color={0,0,127}));
+  connect(senSupFlo.V_flow, conFanRet.u) annotation (Line(points={{410,-29},{
+          410,80},{228,80},{228,170},{238,170}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
             1660,640}})),

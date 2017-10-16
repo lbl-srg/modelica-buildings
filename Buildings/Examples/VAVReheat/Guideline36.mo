@@ -2,8 +2,7 @@ within Buildings.Examples.VAVReheat;
 model Guideline36
   "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
-  extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(conFanRet(
-        controllerType=.Modelica.Blocks.Types.SimpleController.P));
+  extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop;
 
   parameter Modelica.SIunits.VolumeFlowRate maxSysPriFlo=m_flow_nominal/1.2
     "Maximum expected system primary airflow at design stage";
@@ -266,8 +265,8 @@ equation
           1032,210},{176,210},{176,285},{218,285}}, color={0,0,127}));
   connect(TSupWes.T, TDis.u5[1]) annotation (Line(points={{1289,90},{1228,90},{
           1228,210},{176,210},{176,280},{218,280}}, color={0,0,127}));
-  connect(conAHU.yOutDamPos, eco.y) annotation (Line(points={{433,398},{450,398},
-          {450,-6},{-10,-6},{-10,-35}}, color={0,0,127}));
+  connect(conAHU.yOutDamPos, eco.yOut) annotation (Line(points={{433,398},{450,398},
+          {450,-6},{-10,-6},{-10,-34}}, color={0,0,127}));
   connect(conVAVCor.VDis, VSupCor_flow.V_flow) annotation (Line(points={{528,
           44.6667},{522,44.6667},{522,130},{569,130}}, color={0,0,127}));
   connect(VSupSou_flow.V_flow, conVAVSou.VDis) annotation (Line(points={{749,130},
@@ -303,6 +302,8 @@ equation
           {446,-274},{88,-274},{88,-248},{98,-248}}, color={0,0,127}));
   connect(conAHU.TMix, TMix.T)
     annotation (Line(points={{391,372},{40,372},{40,-29}}, color={0,0,127}));
+  connect(conAHU.yRetDamPos, eco.yRet) annotation (Line(points={{433,386},{436,386},
+          {436,6},{-16.8,6},{-16.8,-34}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
             1660,640}})),
