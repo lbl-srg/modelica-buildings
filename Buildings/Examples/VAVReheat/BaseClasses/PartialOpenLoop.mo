@@ -29,7 +29,7 @@ partial model PartialOpenLoop
     "Design mass flow rate core";
   parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=6*VRooSou*conv
     "Design mass flow rate perimeter 1";
-  parameter Modelica.SIunits.MassFlowRate mEas_flow_nominal=7*VRooEas*conv
+  parameter Modelica.SIunits.MassFlowRate mEas_flow_nominal=9*VRooEas*conv
     "Design mass flow rate perimeter 2";
   parameter Modelica.SIunits.MassFlowRate mNor_flow_nominal=6*VRooNor*conv
     "Design mass flow rate perimeter 3";
