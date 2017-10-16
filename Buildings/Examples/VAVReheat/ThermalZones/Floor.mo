@@ -341,7 +341,7 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
     "Building pressure measurement"
-    annotation (Placement(transformation(extent={{40,240},{60,260}})));
+    annotation (Placement(transformation(extent={{60,240},{40,260}})));
   Buildings.Fluid.Sources.Outside out(nPorts=1, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-58,240},{-38,260}})));
   Modelica.Blocks.Interfaces.RealOutput p_rel
@@ -683,7 +683,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(cor.ports[11], senRelPre.port_b) annotation (Line(
+  connect(cor.ports[11], senRelPre.port_a) annotation (Line(
       points={{149,49.6364},{110,49.6364},{110,250},{60,250}},
       color={0,127,255},
       smooth=Smooth.None,
@@ -696,7 +696,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(out.ports[1], senRelPre.port_a) annotation (Line(
+  connect(out.ports[1], senRelPre.port_b) annotation (Line(
       points={{-38,250},{40,250}},
       color={0,127,255},
       smooth=Smooth.None,
