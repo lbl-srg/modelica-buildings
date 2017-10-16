@@ -1,8 +1,13 @@
 compareVars :=
   {
-    "mod.TSupSet",
-    "mod.TSup",
-    "mod.damPosCon.y",
+    "mod.uMin",
+    "mod.uMax",
+    "mod.uTSup",
     "mod.yOutDamPos",
-    "mod.yRetDamPos"
+    "mod.yRetDamPos",
+    "modFre.uMin",
+    "modFre.uMax",
+    "modFre.uTSup",
+    "modFre.yOutDamPos",
+    "modFre.yRetDamPos"
   };

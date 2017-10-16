@@ -16,10 +16,8 @@ protected
     "Outdoor temperature high limit cutoff";
   final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
     "Outdoor air enthalpy high limit cutoff";
-  final parameter Modelica.SIunits.Temperature TSupSet=291
-    "Supply air temperature heating setpoint";
-  final parameter Modelica.SIunits.Temperature TSup=290.15
-    "Measured supply air temperature";
+
+
   final parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
   final parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=0.61
@@ -65,59 +63,75 @@ protected
     final height=incVOutSet_flow)
     "Measured outdoor air volumetric airflow"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSetSig(
-    final k=TSupSet) "Heating supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSig(
-    final k=TSup) "Measured supply air temperature"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Modelica.Blocks.Sources.Ramp TSupSig1(
-    final duration=900,
-    final height=3,
-    final offset=TSupSet - 2) "Measured supply air temperature"
-    annotation (Placement(transformation(extent={{40,80},{60,100}})));
 
+  Modelica.Blocks.Sources.Ramp uTSup(
+    final duration=1800,
+    final height=1,
+    final offset=0) "Supply air temperature control signal"
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+public
+  CDL.Continuous.Sources.Constant TMixMea(final k=303.15)
+    "Measured mixed air temperature"
+    annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
 equation
   connect(fanSta.y, economizer.uSupFan)
-    annotation (Line(points={{-59,-80},{-14,-80},{-14,6},{19,6}}, color={255,0,255}));
+    annotation (Line(points={{-59,-80},{-14,-80},{-14,6.25},{19.375,6.25}},
+                                                                  color={255,0,255}));
   connect(freProSta.y, economizer.uFreProSta)
-    annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},color={255,127,0}));
+    annotation (Line(points={{-59,-120},{0,-120},{0,1.25},{19.375,1.25}},
+                                                               color={255,127,0}));
   connect(opeMod.y, economizer.uOpeMod)
-    annotation (Line(points={{-99,-100},{-50,-100},{-50,-30},{-4,-30},{-4,4},{19,4}},color={255,127,0}));
+    annotation (Line(points={{-99,-100},{-50,-100},{-50,-30},{-4,-30},{-4,3.75},
+          {19.375,3.75}},                                                            color={255,127,0}));
   connect(zonSta.y, economizer.uZonSta)
-    annotation (Line(points={{-99,-60},{-48,-60},{-48,-32},{-2,-32},{-2,2},{19,2}}, color={255,127,0}));
+    annotation (Line(points={{-99,-60},{-48,-60},{-48,-32},{-2,-32},{-2,2.5},{
+          19.375,2.5}},                                                             color={255,127,0}));
   connect(TOutBelowCutoff.y, economizer.TOut)
-    annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},color={0,0,127}));
+    annotation (Line(points={{-99,110},{-6,110},{-6,18.75},{19.375,18.75}},
+                                                                 color={0,0,127}));
   connect(TOutCut1.y, economizer.TOutCut)
-    annotation (Line(points={{-99,70},{-10,70},{-10,20},{19,20}}, color={0,0,127}));
+    annotation (Line(points={{-99,70},{-10,70},{-10,17.5},{19.375,17.5}},
+                                                                  color={0,0,127}));
   connect(VOut_flow.y, economizer.VOut_flow)
-    annotation (Line(points={{-19,90},{-8,90},{-8,10},{19,10}},color={0,0,127}));
+    annotation (Line(points={{-19,90},{-8,90},{-8,11.25},{19.375,11.25}},
+                                                               color={0,0,127}));
   connect(VOutMinSet_flow.y, economizer.VOutMinSet_flow)
-    annotation (Line(points={{-19,50},{-12,50},{-12,8},{19,8}},color={0,0,127}));
-  connect(TSupSig.y, economizer.TSup)
-    annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}}, color={0,0,127}));
+    annotation (Line(points={{-19,50},{-12,50},{-12,10},{19.375,10}},
+                                                               color={0,0,127}));
   connect(TOutBelowCutoff.y, economizer1.TOut)
-    annotation (Line(points={{-99,110},{90,110},{90,-18},{99,-18}}, color={0,0,127}));
+    annotation (Line(points={{-99,110},{90,110},{90,-21.25},{99.375,-21.25}},
+                                                                    color={0,0,127}));
   connect(TOutCut1.y, economizer1.TOutCut)
-    annotation (Line(points={{-99,70},{88,70},{88,-20},{99,-20}}, color={0,0,127}));
-  connect(TSupSig1.y, economizer1.TSup) annotation (Line(points={{61,90},{80,90},
-          {80,-26},{99,-26}},                                                                        color={0,0,127}));
+    annotation (Line(points={{-99,70},{88,70},{88,-22.5},{99.375,-22.5}},
+                                                                  color={0,0,127}));
   connect(VOut_flow.y, economizer1.VOut_flow)
-    annotation (Line(points={{-19,90},{-10,90},{-10,-22},{18,-22},{18,-30},{99,-30}}, color={0,0,127}));
+    annotation (Line(points={{-19,90},{-10,90},{-10,-22},{18,-22},{18,-28.75},{
+          99.375,-28.75}},                                                            color={0,0,127}));
   connect(VOutMinSet_flow.y, economizer1.VOutMinSet_flow)
-    annotation (Line(points={{-19,50},{-12,50},{-12,-24},{16,-24},{16,-32},{99,-32}}, color={0,0,127}));
+    annotation (Line(points={{-19,50},{-12,50},{-12,-24},{16,-24},{16,-30},{
+          99.375,-30}},                                                               color={0,0,127}));
   connect(fanSta.y, economizer1.uSupFan)
-    annotation (Line(points={{-59,-80},{20,-80},{20,-34},{99,-34}}, color={255,0,255}));
+    annotation (Line(points={{-59,-80},{20,-80},{20,-33.75},{99.375,-33.75}},
+                                                                    color={255,0,255}));
   connect(freProSta.y, economizer1.uFreProSta)
-    annotation (Line(points={{-59,-120},{26,-120},{26,-40},{99,-40}}, color={255,127,0}));
+    annotation (Line(points={{-59,-120},{26,-120},{26,-38.75},{99.375,-38.75}},
+                                                                      color={255,127,0}));
   connect(opeMod.y, economizer1.uOpeMod)
-    annotation (Line(points={{-99,-100},{22,-100},{22,-36},{99,-36}}, color={255,127,0}));
+    annotation (Line(points={{-99,-100},{22,-100},{22,-36.25},{99.375,-36.25}},
+                                                                      color={255,127,0}));
   connect(zonSta.y, economizer1.uZonSta)
-    annotation (Line(points={{-99,-60},{24,-60},{24,-38},{99,-38}}, color={255,127,0}));
-  connect(economizer.TSupSet, TSupSetSig.y)
-    annotation (Line(points={{19,12},{-52,12},{-52,50},{-59,50}}, color={0,0,127}));
-  connect(economizer1.TSupSet, TSupSetSig.y) annotation (Line(points={{99,-28},{
-          34,-28},{-52,-28},{-52,50},{-59,50}}, color={0,0,127}));
+    annotation (Line(points={{-99,-60},{24,-60},{24,-37.5},{99.375,-37.5}},
+                                                                    color={255,127,0}));
+  connect(uTSup.y, economizer.uTSup) annotation (Line(points={{-59,90},{-50,90},
+          {-50,13.125},{19.375,13.125}},
+                             color={0,0,127}));
+  connect(uTSup.y, economizer1.uTSup) annotation (Line(points={{-59,90},{-50,90},
+          {-50,-26.875},{99.375,-26.875}},
+                               color={0,0,127}));
+  connect(economizer.TMix, TMixMea.y) annotation (Line(points={{19.375,8.125},{
+          -59,8.125},{-59,8}}, color={0,0,127}));
+  connect(economizer1.TMix, TMixMea.y) annotation (Line(points={{99.375,-31.875},
+          {40,-31.875},{40,-10},{-40,-10},{-40,8},{-59,8}}, color={0,0,127}));
   annotation (
     experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/Economizers/Validation/Controller_Mod_DamLim.mos"
