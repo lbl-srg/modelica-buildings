@@ -107,7 +107,7 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
     final triAmo=triAmo,
     final resAmo=resAmo,
     final maxRes=maxRes) "Static pressure setpoint reset using trim and respond logic"
-    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
+    annotation (Placement(transformation(extent={{-130,-50},{-110,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID supFanSpeCon(
     final Ti=Ti,
     final controllerType=controllerType,
@@ -116,7 +116,7 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
     final yMax=yFanMax,
     final yMin=yFanMin)
     "Supply fan speed control"
-    annotation (Placement(transformation(extent={{-40,-68},{-20,-48}})));
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerSpe(k=0)
     "Zero fan speed when it becomes OFF"
@@ -177,7 +177,12 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
     "Check if current operation mode is warmup mode"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-
+  CDL.Continuous.Gain norPSet(final k=1/maxDesPre)
+    "Normalization for pressure set point"
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  CDL.Continuous.Gain norPMea(final k=1/maxDesPre)
+    "Normalization of pressure measurement"
+    annotation (Placement(transformation(extent={{-80,-82},{-60,-62}})));
 equation
   connect(or2.y, or1.u2)
     annotation (Line(points={{41,40},{60,40},{60,62},{78,62}},
@@ -191,16 +196,13 @@ equation
     annotation (Line(points={{81.7,-110},{150,-110}},
       color={0,0,127}));
   connect(or1.y, staPreSetRes.uDevSta)
-    annotation (Line(points={{101,70},{120,70},{120,-8},{-120,-8},{-120,-32},
-      {-102,-32}},  color={255,0,255}));
-  connect(staPreSetRes.y, supFanSpeCon.u_s)
-    annotation (Line(points={{-79,-40},{-60,-40},{-60,-58},{-42,-58}},
-      color={0,0,127}));
+    annotation (Line(points={{101,70},{120,70},{120,-8},{-150,-8},{-150,-32},{-132,
+          -32}},    color={255,0,255}));
   connect(or1.y, swi.u2)
     annotation (Line(points={{101,70},{120,70},{120,-8},{0,-8},{0,-60},{78,-60}},
       color={255,0,255}));
   connect(supFanSpeCon.y, swi.u1)
-    annotation (Line(points={{-19,-58},{-4,-58},{-4,-68},{78,-68}},
+    annotation (Line(points={{-19,-40},{-4,-40},{-4,-68},{78,-68}},
       color={0,0,127}));
   connect(zerSpe.y, swi.u3)
     annotation (Line(points={{41,-40},{60,-40},{60,-52},{78,-52}},
@@ -209,11 +211,8 @@ equation
     annotation (Line(points={{101,-60},{120,-60},{120,-50},{150,-50}},
       color={0,0,127}));
   connect(uZonPreResReq, staPreSetRes.numOfReq)
-    annotation (Line(points={{-180,-40},{-142,-40},{-142,-48},{-102,-48}},
+    annotation (Line(points={{-180,-40},{-142,-40},{-142,-48},{-132,-48}},
       color={255,127,0}));
-  connect(ducStaPre, supFanSpeCon.u_m)
-    annotation (Line(points={{-180,-80},{-30,-80},{-30,-70}},
-      color={0,0,127}));
   connect(con.y, or1.u2)
     annotation (Line(points={{41,10},{60,10},{60,62},{78,62}},
       color={255,0,255}));
@@ -264,6 +263,14 @@ equation
     annotation (Line(points={{-39,10},{0,10},{0,32},{18,32}},
       color={255,0,255}));
 
+  connect(staPreSetRes.y, norPSet.u)
+    annotation (Line(points={{-109,-40},{-82,-40}}, color={0,0,127}));
+  connect(norPSet.y, supFanSpeCon.u_s)
+    annotation (Line(points={{-59,-40},{-42,-40}}, color={0,0,127}));
+  connect(ducStaPre, norPMea.u) annotation (Line(points={{-180,-80},{-132,-80},{
+          -132,-72},{-82,-72}}, color={0,0,127}));
+  connect(norPMea.y, supFanSpeCon.u_m)
+    annotation (Line(points={{-59,-72},{-30,-72},{-30,-52}}, color={0,0,127}));
 annotation (
   defaultComponentName="conSupFan",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{140,160}}),
@@ -288,14 +295,14 @@ annotation (
           horizontalAlignment=TextAlignment.Left,
           textString="Check current operation mode"),
         Text(
-          extent={{-86,-12},{-16,-24}},
+          extent={{-134,-12},{-64,-24}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Reset pressure setpoint"),
         Text(
-          extent={{-98,-58},{-44,-88}},
+          extent={{-34,-66},{20,-96}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -394,13 +401,23 @@ parameters as a starting point:
 <br/>
 <h4>c. Static pressure control</h4>
 <p>
-Supply fan speed is controlled to maintain duct static pressure at setpoint
-when the fan is proven on. Where the zone groups served by the system are small,
+Supply fan speed is controlled with a PI controller to maintain duct static pressure at setpoint
+when the fan is proven on. The setpoint for the PI controller and the measured
+duct static pressure are normalized with the design static presssure
+<code>maxDesPre</code>.
+Where the zone groups served by the system are small,
 provide multiple sets of gains that are used in the control loop as a function
 of a load indicator (such as supply fan airflow rate, the area of the zone groups
 that are occupied, etc.).
+<!-- fixme: Clarify the sentence above. -->
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 14, 2017, by Michael Wetter:<br/>
+Added normalization of pressure set point and measurement as the measured
+quantity is a few hundred Pascal.
+</li>
 <li>
 August 15, 2017, by Jianjun Hu:<br/>
 First implementation.
