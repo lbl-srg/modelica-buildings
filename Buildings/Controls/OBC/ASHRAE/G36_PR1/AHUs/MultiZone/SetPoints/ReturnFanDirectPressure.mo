@@ -24,27 +24,27 @@ block ReturnFanDirectPressure
     displayUnit="Pa")
     "Building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
     "Fan on/off signal, true if fan is on"
     annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
-  CDL.Interfaces.RealOutput dpDisSet(
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpDisSet(
      final unit="Pa",
      displayUnit="Pa",
      min=0)
     "Return fan discharge static pressure setpoint"
     annotation (Placement(transformation(extent={{120,-90},{140,-70}}),
-        iconTransformation(extent={{100,-70},{120,-50}})));
+      iconTransformation(extent={{100,-70},{120,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDam(
      final unit="1",
      min=0,
      max=1)
     "Exhaust damper control signal (0: closed, 1: open)"
     annotation (Placement(transformation(extent={{120,70},{140,90}}),
-        iconTransformation(extent={{100,50},{120,70}})));
+      iconTransformation(extent={{100,50},{120,70}})));
 
-  CDL.Continuous.Feedback conErr(
+  Buildings.Controls.OBC.CDL.Continuous.Feedback conErr(
      u1(final unit="Pa", displayUnit="Pa"),
      u2(final unit="Pa", displayUnit="Pa"),
      y( final unit="Pa", displayUnit="Pa"))
@@ -97,11 +97,11 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{0,26},{20,46}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiNor(
     final k=1/dpBuiSet)
     "Gain to normalize the control error"
     annotation (Placement(transformation(extent={{-66,80},{-46,100}})));
+
 equation
   connect(movMea.u, dpBui)
     annotation (Line(points={{-132,90},{-160,90}}, color={0,0,127}));
@@ -144,12 +144,11 @@ equation
       color={0,0,127}));
   connect(swi.y, dpDisSet)
     annotation (Line(points={{101,-90},{106,-90},{106,-80},{130,-80}},
-                                                   color={0,0,127}));
+      color={0,0,127}));
   connect(conP.y, linExhAirDam.u)
     annotation (Line(points={{-15,90},{58,90}}, color={0,0,127}));
-  connect(conP.y, linRetFanStaPre.u) annotation (Line(points={{-15,90},{-10,90},
-          {-10,-40},{58,-40}}, color={0,0,127}));
-
+  connect(conP.y, linRetFanStaPre.u)
+    annotation (Line(points={{-15,90},{-10,90},{-10,-40},{58,-40}}, color={0,0,127}));
   connect(movMea.y, conErr.u1)
     annotation (Line(points={{-109,90},{-100,90}}, color={0,0,127}));
   connect(dpBuiSetPoi.y, conErr.u2)
@@ -160,6 +159,7 @@ equation
     annotation (Line(points={{-45,90},{-38,90}}, color={0,0,127}));
   connect(conP.u_m, zer1.y)
     annotation (Line(points={{-26,78},{-26,52},{-47,52}}, color={0,0,127}));
+
 annotation (
   defaultComponentName="buiPreCon",
   Icon(graphics={
