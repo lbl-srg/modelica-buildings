@@ -92,6 +92,9 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     "Proportional gain for mixed air temperature tracking for freeze protection"
      annotation(Evaluate=true, Dialog(tab="Advanced", group="Freeze protection"));
 
+  parameter Modelica.SIunits.Time delta=120
+    "Time horizon over which the outdoor air flow measurment is averaged";
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")
     "Signal for supply air temperature control (T Sup Control Loop Signal in diagram)"
     annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
@@ -179,6 +182,10 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     "Multi zone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
+  CDL.Continuous.MovingMean VOutMea_flow(final delta=delta)
+    "Moving average of outdoor air flow measurement"
+    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+
 equation
   connect(uSupFan, enaDis.uSupFan) annotation (Line(points={{-170,-60},{-80,-60},
           {-80,-26.4286},{-0.714286,-26.4286}},
@@ -200,8 +207,6 @@ equation
                           color={0,0,127}));
   connect(VOutMinSet_flow, damLim.VOutMinSet_flow) annotation (Line(points={{-170,0},
           {-110,0},{-110,15},{-81,15}},              color={0,0,127}));
-  connect(VOut_flow, damLim.VOut_flow) annotation (Line(points={{-170,20},{-110,
-          20},{-110,18},{-81,18}}, color={0,0,127}));
   connect(uSupFan, damLim.uSupFan) annotation (Line(points={{-170,-60},{-104,
           -60},{-104,10},{-81,10}},
                                color={255,0,255}));
@@ -245,6 +250,10 @@ equation
   connect(enaDis.TMix, TMix) annotation (Line(points={{-0.714286,-32.1429},{
           -0.714286,-32},{-110,-32},{-110,-30},{-170,-30}},
                                                   color={0,0,127}));
+  connect(VOut_flow,VOutMea_flow. u) annotation (Line(points={{-170,20},{-158,20},
+          {-158,30},{-142,30}}, color={0,0,127}));
+  connect(VOutMea_flow.y, damLim.VOut_flow) annotation (Line(points={{-119,30},{
+          -100,30},{-100,18},{-81,18}}, color={0,0,127}));
   annotation (
     defaultComponentName="conEco",
     Icon(coordinateSystem(extent={{-160,-160},{160,160}}),
