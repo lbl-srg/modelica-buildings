@@ -56,7 +56,7 @@ partial model PartialOpenLoop
     annotation (Evaluate=true);
 
   Buildings.Fluid.Sources.Outside amb(redeclare package Medium = MediumA,
-      nPorts=4) "Ambient conditions"
+      nPorts=3) "Ambient conditions"
     annotation (Placement(transformation(extent={{-136,-56},{-114,-34}})));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU heaCoi(
     redeclare package Medium1 = MediumA,
@@ -105,15 +105,6 @@ partial model PartialOpenLoop
     use_inputFilter=false)
     "Supply air fan"
     annotation (Placement(transformation(extent={{300,-50},{320,-30}})));
-  Buildings.Fluid.Movers.SpeedControlled_y fanRet(
-    redeclare package Medium = MediumA,
-    per(
-      pressure(V_flow=m_flow_nominal/1.2*{0,2},
-      dp=2*{40+10-dpBuiStaSet,0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=false)
-    "Return air fan"
-    annotation (Placement(transformation(extent={{320,130},{300,150}})));
 
   Buildings.Fluid.Sensors.VolumeFlowRate senSupFlo(
   redeclare package Medium = MediumA,
@@ -491,7 +482,7 @@ partial model PartialOpenLoop
 
   Results res(
      final A=ATot,
-     PFan = fanSup.P + fanRet.P,
+     PFan = fanSup.P + 0,
      PHea = heaCoi.Q1_flow
       + cor.terHea.Q1_flow
       + nor.terHea.Q1_flow
@@ -501,6 +492,7 @@ partial model PartialOpenLoop
      PCooSen = cooCoi.QSen2_flow,
      PCooLat = cooCoi.QLat2_flow)
      "Results of the simulation";
+                         /*fanRet*/
 
 protected
   model Results "Model to store the results of the simulation"
@@ -533,16 +525,6 @@ public
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiCooCoi(k=m_flow_nominal*1000*15
         /4200/10) "Gain for cooling coil mass flow rate"
     annotation (Placement(transformation(extent={{100,-258},{120,-238}})));
-  Buildings.Examples.VAVReheat.Controls.FanVFD conFanRet(
-    r_N_min=0.1)
-    "Controller for return fan"
-    annotation (Placement(transformation(extent={{240,160},{260,180}})));
-  Buildings.Fluid.Sensors.RelativePressure dpDisRetFan(redeclare package Medium =
-        MediumA) "Return fan static discharge pressure" annotation (Placement(
-        transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={300,110})));
 equation
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
       points={{320,-40},{320,-10}},
@@ -560,17 +542,12 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(amb.ports[1], VOut1.port_a) annotation (Line(
-      points={{-114,-41.7},{-94,-41.7},{-94,-33},{-72,-33}},
+      points={{-114,-42.0667},{-94,-42.0667},{-94,-33},{-72,-33}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(heaCoi.port_b1, TCoiHeaOut.port_a) annotation (Line(
       points={{118,-40},{134,-40}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(TRet.port_a, fanRet.port_b) annotation (Line(
-      points={{110,140},{300,140}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -779,14 +756,12 @@ equation
   connect(eco.port_Sup, TMix.port_a)
     annotation (Line(points={{0,-40},{30,-40}}, color={0,127,255},
       thickness=0.5));
-  connect(eco.port_Exh, amb.ports[2]) annotation (Line(points={{-20,-52},{-96,
-          -52},{-96,-43.9},{-114,-43.9}},               color={0,127,255},
+  connect(eco.port_Exh, amb.ports[2]) annotation (Line(points={{-20,-52},{-96,-52},
+          {-96,-45},{-114,-45}},                        color={0,127,255},
       thickness=0.5));
   connect(eco.port_Ret, TRet.port_b) annotation (Line(points={{0,-52},{10,-52},
           {10,140},{90,140}}, color={0,127,255},
       thickness=0.5));
-  connect(fanRet.port_a, senRetFlo.port_b)
-    annotation (Line(points={{320,140},{340,140}}, color={0,127,255}));
   connect(senRetFlo.port_a, dpRetDuc.port_b)
     annotation (Line(points={{360,140},{380,140}}, color={0,127,255}));
   connect(TSup.port_b, senSupFlo.port_a)
@@ -805,18 +780,12 @@ equation
           124,-210},{124,-130}}, color={0,0,127}));
   connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{121,-248},{
           222,-248},{222,-130}}, color={0,0,127}));
-  connect(conFanRet.y, fanRet.y)
-    annotation (Line(points={{261,170},{310,170},{310,152}}, color={0,0,127}));
   connect(dpDisSupFan.port_b, amb.ports[3]) annotation (Line(
-      points={{320,10},{320,14},{-88,14},{-88,-46.1},{-114,-46.1}},
+      points={{320,10},{320,14},{-88,14},{-88,-47.9333},{-114,-47.9333}},
       color={0,0,0},
       pattern=LinePattern.Dot));
-  connect(dpDisRetFan.port_a, fanRet.port_b)
-    annotation (Line(points={{300,120},{300,140}}, color={0,127,255}));
-  connect(dpDisRetFan.port_b, amb.ports[4]) annotation (Line(
-      points={{300,100},{300,14},{-88,14},{-88,-48.3},{-114,-48.3}},
-      color={0,0,0},
-      pattern=LinePattern.Dot));
+  connect(senRetFlo.port_b, TRet.port_a) annotation (Line(points={{340,140},{226,
+          140},{110,140}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,
             -400},{1660,600}})), Documentation(info="<html>
 <p>

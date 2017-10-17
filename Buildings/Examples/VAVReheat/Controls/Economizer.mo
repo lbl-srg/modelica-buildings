@@ -2,6 +2,8 @@ within Buildings.Examples.VAVReheat.Controls;
 block Economizer "Controller for economizer"
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
   import Buildings;
+  parameter Modelica.SIunits.Temperature TFreSet = 277.15
+    "Lower limit for mixed air temperature for freeze protection";
   parameter Modelica.SIunits.TemperatureDifference dT(min=0.1)= 1
     "Temperture offset to activate economizer";
   parameter Modelica.SIunits.VolumeFlowRate VOut_flow_min(min=0)
@@ -64,7 +66,7 @@ block Economizer "Controller for economizer"
   Modelica.Blocks.Math.Min min
     "Takes bigger signal (OA damper opens for temp. control or for minimum outside air)"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Modelica.Blocks.Sources.Constant TFre(k=273.15 + 3)
+  Modelica.Blocks.Sources.Constant TFre(k=TFreSet)
     "Setpoint for freeze protection"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Modelica.Blocks.Interfaces.RealOutput yRet

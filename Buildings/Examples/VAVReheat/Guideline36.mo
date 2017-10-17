@@ -3,8 +3,7 @@ model Guideline36
   "Variable air volume flow system with terminal reheat and five thermal zones"
   import Buildings;
   extends Modelica.Icons.Example;
-  extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
-    conFanRet(xSet_nominal=dpDisRetMax));
+  extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop;
 
   parameter Modelica.SIunits.VolumeFlowRate maxSysPriFlo=m_flow_nominal/1.2
     "Maximum expected system primary airflow at design stage";
@@ -72,11 +71,11 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant zonSta(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.ZoneStates.deadband)
     "Zone state signal"
     annotation (Placement(transformation(extent={{300,330},{320,350}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ReturnFanDirectPressure
-    buiPreCon(dpDisMax=dpDisRetMax)
-    annotation (Placement(transformation(extent={{188,160},{208,180}})));
   parameter Modelica.SIunits.PressureDifference dpDisRetMax=40
     "Maximum return fan discharge static pressure setpoint";
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yOutDam(k=1)
+    "Outdoor air damper control signal"
+    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 equation
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
       points={{320,-40},{320,0},{320,-10},{320,-10}},
@@ -305,18 +304,8 @@ equation
   connect(conAHU.yRetDamPos, eco.yRet) annotation (Line(points={{433,386},{436,386},
           {436,40},{-16.8,40},{-16.8,-34}},
                                           color={0,0,127}));
-  connect(conAHU.ySupFan, buiPreCon.uFan) annotation (Line(points={{433,422},{442,
-          422},{442,192},{180,192},{180,164},{186,164}}, color={255,0,255}));
-  connect(flo.p_rel, buiPreCon.dpBui) annotation (Line(points={{765.44,591.556},
-          {168,591.556},{168,176},{186,176}}, color={0,0,127}));
-  connect(conAHU.ySupFan, conFanRet.uFan) annotation (Line(points={{433,422},{442,
-          422},{442,192},{228,192},{228,176},{238,176}}, color={255,0,255}));
-  connect(buiPreCon.dpDisSet, conFanRet.u) annotation (Line(points={{209,164},{226,
-          164},{226,170},{238,170}}, color={0,0,127}));
-  connect(dpDisRetFan.p_rel, conFanRet.u_m)
-    annotation (Line(points={{291,110},{250,110},{250,158}}, color={0,0,127}));
-  connect(buiPreCon.yExhDam, eco.yExh) annotation (Line(points={{209,176},{220,176},
-          {220,32},{-3,32},{-3,-34}}, color={0,0,127}));
+  connect(yOutDam.y, eco.yExh)
+    annotation (Line(points={{-19,-10},{-3,-10},{-3,-34}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
             1660,640}})),

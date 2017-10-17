@@ -2,8 +2,7 @@ within Buildings.Examples.VAVReheat;
 model ASHRAE2006
   "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
-  extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
-    conFanRet(xSet_nominal=m_flow_nominal/1.2));
+  extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop;
 
   Modelica.Blocks.Sources.Constant TSupSetHea(y(
       final quantity="ThermodynamicTemperature",
@@ -134,10 +133,10 @@ equation
       smooth=Smooth.None));
   connect(dpDisSupFan.p_rel, conFanSup.u_m) annotation (Line(
       points={{311,4.44089e-16},{304,4.44089e-16},{304,-16},{250,-16},{250,-12}},
-
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
+
   connect(pSetDuc.y, conFanSup.u) annotation (Line(
       points={{181,-6},{210,-6},{210,0},{238,0}},
       color={0,0,127},
@@ -165,7 +164,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(conEco.VOut_flow, VOut1.V_flow) annotation (Line(
-      points={{-81.3333,149.333},{-90,149.333},{-90,80},{-69,80},{-69,35.1}},
+      points={{-81.3333,149.333},{-90,149.333},{-90,80},{-61,80},{-61,-20.9}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -292,9 +291,6 @@ equation
   connect(conFanSup.y, fanSup.y)
     annotation (Line(points={{261,0},{280,0},{280,-20},{310,-20},{310,-28}},
                                                            color={0,0,127}));
-  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-99.5455,
-          -308},{252,-308},{252,-20},{216,-20},{216,176},{238,176}},
-                      color={255,0,255}));
   connect(modeSelector.yFan, swiHeaCoi.u2) annotation (Line(points={{-99.5455,
           -308},{52,-308},{52,-210},{58,-210}}, color={255,0,255}));
   connect(modeSelector.yFan, swiCooCoi.u2) annotation (Line(points={{-99.5455,
@@ -316,10 +312,6 @@ equation
     annotation (Line(points={{98,-210},{81,-210},{81,-210}}, color={0,0,127}));
   connect(gaiCooCoi.u, swiCooCoi.y) annotation (Line(points={{98,-248},{88,-248},
           {88,-248},{81,-248}}, color={0,0,127}));
-  connect(senRetFlo.V_flow, conFanRet.u_m) annotation (Line(points={{350,151},{
-          350,166},{280,166},{280,150},{250,150},{250,158}}, color={0,0,127}));
-  connect(senSupFlo.V_flow, conFanRet.u) annotation (Line(points={{410,-29},{
-          410,80},{228,80},{228,170},{238,170}}, color={0,0,127}));
   connect(eco.yExh, conEco.yOA) annotation (Line(
       points={{-3,-34},{-2,-34},{-2,152},{-59.3333,152}},
       color={0,0,127},
