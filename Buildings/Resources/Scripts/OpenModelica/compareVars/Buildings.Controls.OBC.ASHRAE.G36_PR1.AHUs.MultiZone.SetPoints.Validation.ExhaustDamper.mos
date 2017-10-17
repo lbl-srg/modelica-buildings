@@ -1,5 +1,12 @@
 compareVars :=
   {
-    "meaBuiPre.y",
-    "exhDamPos.yExhDamPos"
+    "exhDamPos.yExhDam",
+    "exhDamPos.conP.y",
+    "exhDamPos1.yExhDam",
+    "exhDamPos1.conP.y",
+    "exhDamPos2.yExhDam",
+    "exhDamPos2.conP.y",
+    "exhDamPos.dpBui",
+    "retFanPre.dpBuiSet",
+    "exhDamPos.uFan"
   };

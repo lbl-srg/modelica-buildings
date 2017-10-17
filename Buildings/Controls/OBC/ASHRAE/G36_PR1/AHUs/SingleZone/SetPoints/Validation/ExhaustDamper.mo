@@ -18,9 +18,8 @@ model ExhaustDamper
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
 equation
-  connect(supFan.y, exhDamPos.uSupFan)
-    annotation (Line(points={{-19,-42},{0,-42},{0,-6},{39,-6}},
-      color={255,0,255}));
+  connect(supFan.y, exhDamPos.uFan) annotation (Line(points={{-19,-42},{0,-42},
+          {0,-6},{39,-6}}, color={255,0,255}));
   connect(outDamPos.y, exhDamPos.uOutDamPos)
     annotation (Line(points={{-19,40},{0,40},{0,6},{39,6}},
       color={0,0,127}));

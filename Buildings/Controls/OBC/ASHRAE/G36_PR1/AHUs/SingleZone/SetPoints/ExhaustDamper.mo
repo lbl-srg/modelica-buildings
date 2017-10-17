@@ -26,10 +26,9 @@ block ExhaustDamper
     "Physical or at the comissioning fixed maximum position of the outdoor air damper"
     annotation(Evaluate=true, Dialog(group="Nominal parameters"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
-    "Supply fan status"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-      iconTransformation(extent={{-120,-70},{-100,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan "Supply fan status"
+    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
+        iconTransformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPos(
     min=0,
     max=1,
@@ -37,89 +36,86 @@ block ExhaustDamper
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDamPos(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDam(
     min=0,
     max=1,
-    final unit="1")
-    "Exhaust damper position"
-    annotation (Placement(transformation(extent={{120,-10},{140,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    final unit="1") "Exhaust damper position" annotation (Placement(
+        transformation(extent={{120,-10},{140,10}}), iconTransformation(extent=
+            {{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Line exhDamPos(
-    limitBelow=true,
-    limitAbove=true)
+  Buildings.Controls.OBC.CDL.Continuous.Line exhDamPos
     "Linearly map exhaust damper position to the outdoor air damper position"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
     "Check if exhaust damper should be open"
-    annotation (Placement(transformation(extent={{60,60},{80,40}})));
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis greThr(
     final uLow=0.02,
     final uHigh=0.05)
     "Check if outdoor air damper is open"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if exhaust damper should be activated"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerDam(
     final k=0)
     "Close damper when disabled"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minExhDam(
     final k=minExhDamPos)
     "Exhaust damper position maintaining building static pressure at setpoint while the system is at minPosMin"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxExhDam(
     final k=maxExhDamPos)
     "Exhaust damper position maintaining building static pressure at setpoint when outdoor air damper is fully open and fan speed is at cooling maximum"
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPosAtMinSpd(
     final k=minPosMin)
     "Outdoor air damper position when fan operating at minimum speed to supply minimum outdoor air flow"
-    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(
     final k=outDamPhyPosMax)
     "Physical or at the comissioning fixed maximum position of the outdoor air damper"
-    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
 equation
   connect(outDamPhyPosMaxSig.y, exhDamPos.x2)
-    annotation (Line(points={{-19,-60},{4,-60},{4,-4},{18,-4}},
+    annotation (Line(points={{-19,40},{-4,40},{-4,-4},{18,-4}},
       color={0,0,127}));
   connect(maxExhDam.y, exhDamPos.f2)
-    annotation (Line(points={{-59,-80},{12,-80},{12,-8},{18,-8}},
+    annotation (Line(points={{-59,20},{-12,20},{-12,-8},{18,-8}},
       color={0,0,127}));
   connect(uOutDamPos, exhDamPos.u)
     annotation (Line(points={{-120,0},{18,0}},
       color={0,0,127}));
   connect(zerDam.y, swi1.u3)
-    annotation (Line(points={{1,80},{20,80},{20,58},{58,58}},
+    annotation (Line(points={{41,-80},{60,-80},{60,-58},{78,-58}},
       color={0,0,127}));
-  connect(greThr.y, and2.u2)
-    annotation (Line(points={{-39,20},{-32,20},{-32,42},{-22,42}},
-      color={255,0,255}));
-  connect(uSupFan, and2.u1)
-    annotation (Line(points={{-120,60},{-80,60},{-80,50},{-22,50}},
-      color={255,0,255}));
   connect(and2.y, swi1.u2)
-    annotation (Line(points={{1,50},{58,50}},
+    annotation (Line(points={{1,-50},{78,-50}},
       color={255,0,255}));
-  connect(exhDamPos.y, swi1.u1)
-    annotation (Line(points={{41,0},{48,0},{48,42},{58,42}},
-      color={0,0,127}));
-  connect(uOutDamPos, greThr.u)
-    annotation (Line(points={{-120,0},{-80,0},{-80,20},{-62,20}},
-      color={0,0,127}));
   connect(minPosAtMinSpd.y, exhDamPos.x1)
-    annotation (Line(points={{-19,-20},{-12,-20},{-12,8},{18,8}},
+    annotation (Line(points={{-19,80},{12,80},{12,8},{18,8}},
       color={0,0,127}));
   connect(minExhDam.y, exhDamPos.f1)
-    annotation (Line(points={{-59,-40},{-4,-40},{-4,4},{18,4}},
+    annotation (Line(points={{-59,60},{4,60},{4,4},{18,4}},
       color={0,0,127}));
-  connect(swi1.y, yExhDamPos)
-    annotation (Line(points={{81,50},{100,50},{100,0},{130,0}},
+  connect(uOutDamPos, greThr.u)
+    annotation (Line(points={{-120,0},{-80,0},{-80,-30},{-62,-30}},
       color={0,0,127}));
+  connect(uFan, and2.u2)
+    annotation (Line(points={{-120,-50},{-60,-50},{-60,-58},{-22,-58}},
+      color={255,0,255}));
+  connect(greThr.y, and2.u1)
+    annotation (Line(points={{-39,-30},{-32,-30},{-32,-50},{-22,-50}},
+      color={255,0,255}));
+  connect(exhDamPos.y, swi1.u1)
+    annotation (Line(points={{41,0},{60,0},{60,-42},{78,-42}},
+      color={0,0,127}));
+  connect(swi1.y, yExhDam) annotation (Line(points={{101,-50},{110,-50},{110,0},
+          {130,0}}, color={0,0,127}));
 
 annotation (
   defaultComponentName = "exhDam",
@@ -129,23 +125,23 @@ annotation (
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-96,78},{-56,42}},
+          extent={{-96,78},{-42,40}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uBuiPre"),
+          textString="uOutDamPos"),
         Text(
-          extent={{-96,-42},{-52,-78}},
+          extent={{-94,-48},{-62,-72}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uSupFan"),
+          textString="uFan"),
         Text(
-          extent={{34,22},{96,-18}},
+          extent={{46,18},{96,-18}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yExhDamPos"),
+          textString="yExhDam"),
         Polygon(
           points={{-46,92},{-54,70},{-38,70},{-46,92}},
           lineColor={192,192,192},

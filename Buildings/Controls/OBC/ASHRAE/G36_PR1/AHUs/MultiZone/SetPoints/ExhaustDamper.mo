@@ -1,71 +1,94 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints;
 block ExhaustDamper
   "Control of actuated exhaust air dampers without fans"
-  parameter Modelica.SIunits.Pressure buiPreSet(displayUnit="Pa")=12
-    "Building static pressure setpoint"
-    annotation(Evaluate=true);
-  parameter Real kp(min=0, unit="1") = 0.5
+
+  parameter Modelica.SIunits.PressureDifference dpBuiSet(
+    displayUnit="Pa",
+    max=30) = 12
+    "Building static pressure difference relative to ambient (positive to pressurize the building)";
+  parameter Real kP(min=0, unit="1") = 0.5
     "Gain factor"
     annotation(Dialog(group="Relief damper P-control parameter"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uBuiPre(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
     final unit="Pa",
-    quantity="PressureDifference")
-    "Measured building static pressure difference"
-    annotation (Placement(transformation(extent={{-120,0},{-80,40}}),
+    displayUnit="Pa")
+    "Building static pressure difference, relative to ambient (positive if pressurized)"
+    annotation (Placement(transformation(extent={{-120,40},{-80,80}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
-    "Supply fan status"
-    annotation (Placement(transformation(extent={{-120,-40},{-80,0}}),
-      iconTransformation(extent={{-120,-70},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDamPos(
-    min=0, max=1, unit="1")
-    "Relief damper position"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan "Supply fan status"
+    annotation (Placement(transformation(extent={{-120,-50},{-80,-10}}),
+     iconTransformation(extent={{-120,-70},{-100,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDam(
+     final unit="1",
+     min=0,
+     max=1)
+    "Exhaust damper control signal (0: closed, 1: open)"
     annotation (Placement(transformation(extent={{80,-10},{100,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID damPosController(
-    final yMax=1,
-    final yMin=0,
-    Td=0.1,
-    Nd=1,
-    Ti=300,
-    final k=kp,
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P)
-    "Contoller that outputs a signal based on the error between the measured building static pressure and its setpoint"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(delta=300)
+    "Average building static pressure measurement"
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Feedback conErr(
+    u1(final unit="Pa", displayUnit="Pa"),
+    u2(final unit="Pa", displayUnit="Pa"),
+    y(final unit="Pa", displayUnit="Pa"))
+     "Control error"
+    annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conP(
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    final k=kP,
+    yMax=1,
+    yMin=0) "Building static pressure controller"
+    annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Check if relief damper should be activated"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerDam(
     final k=0)
     "Close damper when disabled"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant buiPreSetpoint(
-    final k=buiPreSet)
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpBuiSetPoi1(
+    final k=dpBuiSet)
     "Building pressure setpoint"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiNor(
+    final k=1/dpBuiSet)
+    "Gain to normalize the control error"
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(
+    final k=0)
+    "Zero constant"
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
 equation
-  connect(buiPreSetpoint.y, damPosController.u_s)
-    annotation (Line(points={{-39,40},{-22,40}}, color={0,0,127}));
-  connect(uBuiPre, damPosController.u_m)
-    annotation (Line(points={{-100,20},{-10,20},{-10,28}},
-      color={0,0,127}));
-  connect(uSupFan, swi.u2)
-    annotation (Line(points={{-100,-20},{-32,-20},{-32,0},{38,0}},
+  connect(uFan, swi.u2)
+    annotation (Line(points={{-100,-30},{38,-30}},
       color={255,0,255}));
-  connect(damPosController.y, swi.u1)
-    annotation (Line(points={{1,40},{20,40},{20,8},{38,8}},
-      color={0,0,127}));
   connect(zerDam.y, swi.u3)
-    annotation (Line(points={{-39,-40},{20,-40},{20,-8},{38,-8}},
+    annotation (Line(points={{-39,-60},{20,-60},{20,-38},{38,-38}},
       color={0,0,127}));
-  connect(swi.y, yExhDamPos)
-    annotation (Line(points={{61,0},{90,0}},  color={0,0,127}));
+  connect(swi.y, yExhDam)
+    annotation (Line(points={{61,-30},{72,-30},{72,0},{90,0}},
+      color={0,0,127}));
+  connect(dpBui, movMea.u)
+    annotation (Line(points={{-100,60},{-62,60}}, color={0,0,127}));
+  connect(movMea.y, conErr.u1)
+    annotation (Line(points={{-39,60},{-32,60}}, color={0,0,127}));
+  connect(conErr.y, gaiNor.u)
+    annotation (Line(points={{-9,60},{-2,60}},color={0,0,127}));
+  connect(gaiNor.y, conP.u_s)
+    annotation (Line(points={{21,60},{38,60}}, color={0,0,127}));
+  connect(dpBuiSetPoi1.y, conErr.u2)
+    annotation (Line(points={{-39,20},{-20,20},{-20,48}}, color={0,0,127}));
+  connect(zer1.y, conP.u_m)
+    annotation (Line(points={{21,20},{50,20},{50,48}}, color={0,0,127}));
+  connect(conP.y, swi.u1)
+    annotation (Line(points={{61,60},{66,60},{66,0},{20,0},{20,-22},{38,-22}},
+      color={0,0,127}));
 
 annotation (
   defaultComponentName = "exhDam",
@@ -76,23 +99,23 @@ annotation (
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-96,78},{-56,42}},
+          extent={{-94,74},{-64,46}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uBuiPre"),
+          textString="dpBui"),
         Text(
-          extent={{-96,-42},{-52,-78}},
+          extent={{-94,-46},{-62,-72}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uSupFan"),
+          textString="uFan"),
         Text(
-          extent={{34,22},{96,-18}},
+          extent={{52,16},{96,-18}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yExhDamPos"),
+          textString="yExhDam"),
         Polygon(
           points={{-80,92},{-88,70},{-72,70},{-80,92}},
           lineColor={192,192,192},
