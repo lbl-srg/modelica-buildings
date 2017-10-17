@@ -56,7 +56,7 @@ partial model PartialOpenLoop
     annotation (Evaluate=true);
 
   Buildings.Fluid.Sources.Outside amb(redeclare package Medium = MediumA,
-      nPorts=2) "Ambient conditions"
+      nPorts=4) "Ambient conditions"
     annotation (Placement(transformation(extent={{-130,14},{-108,36}})));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU heaCoi(
     redeclare package Medium1 = MediumA,
@@ -100,7 +100,7 @@ partial model PartialOpenLoop
     redeclare package Medium = MediumA,
     per(
       pressure(V_flow={0,m_flow_nominal/1.2*2},
-      dp=2*{780+dpBuiStaSet,0})),
+      dp=2*{780+10+dpBuiStaSet,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_inputFilter=false)
     "Supply air fan"
@@ -109,7 +109,7 @@ partial model PartialOpenLoop
     redeclare package Medium = MediumA,
     per(
       pressure(V_flow=m_flow_nominal/1.2*{0,2},
-      dp=2*{40-dpBuiStaSet,0})),
+      dp=2*{40+10-dpBuiStaSet,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_inputFilter=false)
     "Return air fan"
@@ -154,12 +154,12 @@ partial model PartialOpenLoop
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{330,-50},{350,-30}})));
-  Buildings.Fluid.Sensors.RelativePressure dpRetFan(redeclare package Medium =
-        MediumA) "Pressure difference over return fan" annotation (Placement(
+  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium =
+        MediumA) "Supply fan static discharge pressure" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={320,50})));
+        origin={320,0})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-318,-220},{-298,-200}})));
@@ -173,8 +173,7 @@ partial model PartialOpenLoop
   Buildings.Utilities.Math.Average ave(nin=5)
     "Compute average of room temperatures"
     annotation (Placement(transformation(extent={{1200,410},{1220,430}})));
-  Buildings.Fluid.Sources.MassFlowSource_T
-                                        souCoo(
+  Buildings.Fluid.Sources.MassFlowSource_T souCoo(
     redeclare package Medium = MediumW,
     T=279.15,
     nPorts=1,
@@ -193,8 +192,7 @@ partial model PartialOpenLoop
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal) "Mixed air temperature sensor"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
-  Buildings.Fluid.Sources.MassFlowSource_T
-                                        souHea(
+  Buildings.Fluid.Sources.MassFlowSource_T souHea(
     redeclare package Medium = MediumW,
     T=318.15,
     nPorts=1,
@@ -378,7 +376,9 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(extent={{-390,170},{-370,190}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
-  ThermalZones.Floor flo(redeclare package Medium = MediumA, lat=lat)
+  ThermalZones.Floor flo(
+    redeclare final package Medium = MediumA,
+    final lat=lat)
     "Model of a floor of the building that is served by this VAV system"
     annotation (Placement(transformation(extent={{772,396},{1100,616}})));
   Modelica.Blocks.Routing.DeMultiplex5 TRooAir(
@@ -480,7 +480,6 @@ partial model PartialOpenLoop
   Buildings.Examples.VAVReheat.BaseClasses.MixingBox eco(
     redeclare package Medium = MediumA,
     mOut_flow_nominal=m_flow_nominal,
-    use_inputFilter=false,
     dpOut_nominal=10,
     mRec_flow_nominal=m_flow_nominal,
     dpRec_nominal=10,
@@ -534,14 +533,19 @@ public
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiCooCoi(k=m_flow_nominal*1000*15
         /4200/10) "Gain for cooling coil mass flow rate"
     annotation (Placement(transformation(extent={{100,-258},{120,-238}})));
+  Buildings.Examples.VAVReheat.Controls.FanVFD conFanRet(
+    r_N_min=0.1)
+    "Controller for return fan"
+    annotation (Placement(transformation(extent={{240,160},{260,180}})));
+  Buildings.Fluid.Sensors.RelativePressure dpDisRetFan(redeclare package Medium =
+        MediumA) "Return fan static discharge pressure" annotation (Placement(
+        transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=90,
+        origin={300,110})));
 equation
-  connect(fanRet.port_a, dpRetFan.port_b) annotation (Line(
-      points={{320,140},{320,60}},
-      color={0,0,0},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dot));
-  connect(fanSup.port_b, dpRetFan.port_a) annotation (Line(
-      points={{320,-40},{320,0},{320,0},{320,40}},
+  connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
+      points={{320,-40},{320,-10}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dot));
@@ -556,7 +560,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(amb.ports[1], VOut1.port_a) annotation (Line(
-      points={{-108,27.2},{-94,27.2},{-94,23},{-80,23}},
+      points={{-108,28.3},{-94,28.3},{-94,23},{-80,23}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -772,8 +776,8 @@ equation
           {-40,-40},{-20,-40}}, color={0,127,255}));
   connect(eco.port_Sup, TMix.port_a)
     annotation (Line(points={{0,-40},{30,-40}}, color={0,127,255}));
-  connect(eco.port_Exh, amb.ports[2]) annotation (Line(points={{-20,-52},{-46,
-          -52},{-46,4},{-98,4},{-98,22.8},{-108,22.8}}, color={0,127,255}));
+  connect(eco.port_Exh, amb.ports[2]) annotation (Line(points={{-20,-52},{-46,-52},
+          {-46,4},{-98,4},{-98,26.1},{-108,26.1}},      color={0,127,255}));
   connect(eco.port_Ret, TRet.port_b) annotation (Line(points={{0,-52},{10,-52},
           {10,140},{90,140}}, color={0,127,255}));
   connect(fanRet.port_a, senRetFlo.port_b)
@@ -796,6 +800,18 @@ equation
           124,-210},{124,-130}}, color={0,0,127}));
   connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{121,-248},{
           222,-248},{222,-130}}, color={0,0,127}));
+  connect(conFanRet.y, fanRet.y)
+    annotation (Line(points={{261,170},{310,170},{310,152}}, color={0,0,127}));
+  connect(dpDisSupFan.port_b, amb.ports[3]) annotation (Line(
+      points={{320,10},{320,14},{-88,14},{-88,23.9},{-108,23.9}},
+      color={0,0,0},
+      pattern=LinePattern.Dot));
+  connect(dpDisRetFan.port_a, fanRet.port_b)
+    annotation (Line(points={{300,120},{300,140}}, color={0,127,255}));
+  connect(dpDisRetFan.port_b, amb.ports[4]) annotation (Line(
+      points={{300,100},{300,14},{-88,14},{-88,21.7},{-108,21.7}},
+      color={0,0,0},
+      pattern=LinePattern.Dot));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,
             -400},{1660,600}})), Documentation(info="<html>
 <p>

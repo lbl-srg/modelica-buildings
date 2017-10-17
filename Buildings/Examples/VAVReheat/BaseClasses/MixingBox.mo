@@ -169,7 +169,7 @@ model MixingBox
         origin={60,120}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
-        origin={0,120})));
+        origin={70,120})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(redeclare package Medium =
         Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else
@@ -263,12 +263,6 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{22,132},{48,110}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="y"),
         Rectangle(
           extent={{28,8},{48,4}},
           lineColor={0,0,0},
@@ -295,12 +289,18 @@ equation
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{0,40},{0,10},{0,12}},
+          points={{0,100},{0,60},{-54,60},{-54,24}},
           color={0,0,255}),  Text(
           extent={{-50,-84},{48,-132}},
           lineColor={0,0,255},
           textString=
-               "%name")}),
+               "%name"),
+        Line(
+          points={{-68,100},{-68,80},{-20,80},{-20,-22}},
+          color={0,0,255}),
+        Line(
+          points={{70,100},{70,-84},{-60,-84}},
+          color={0,0,255})}),
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
