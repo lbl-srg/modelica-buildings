@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints;
-block ReliefDamper "Control of actuated relief  dampers without fans"
+block ExhaustDamper
+  "Control of actuated exhaust air dampers without fans"
   parameter Modelica.SIunits.Pressure buiPreSet(displayUnit="Pa")=12
     "Building static pressure setpoint"
     annotation(Evaluate=true);
@@ -17,7 +18,7 @@ block ReliefDamper "Control of actuated relief  dampers without fans"
     "Supply fan status"
     annotation (Placement(transformation(extent={{-120,-40},{-80,0}}),
       iconTransformation(extent={{-120,-70},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDamPos(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDamPos(
     min=0, max=1, unit="1")
     "Relief damper position"
     annotation (Placement(transformation(extent={{80,-10},{100,10}}),
@@ -63,11 +64,11 @@ equation
   connect(zerDam.y, swi.u3)
     annotation (Line(points={{-39,-40},{20,-40},{20,-8},{38,-8}},
       color={0,0,127}));
-  connect(swi.y, yRelDamPos)
+  connect(swi.y, yExhDamPos)
     annotation (Line(points={{61,0},{90,0}},  color={0,0,127}));
 
 annotation (
-  defaultComponentName = "relDam",
+  defaultComponentName = "exhDam",
   Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -91,7 +92,7 @@ annotation (
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yRelDamPos"),
+          textString="yExhDamPos"),
         Polygon(
           points={{-80,92},{-88,70},{-72,70},{-80,92}},
           lineColor={192,192,192},
@@ -112,28 +113,32 @@ annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-80},{80,80}})),
  Documentation(info="<html>
 <p>
-Control sequence for actuated relief dampers <code>yRelDamPos</code>
+Control sequence for actuated exhaust dampers <code>yExhDamPos</code>
 without fans. It is implemented according to ASHRAE Guidline 35 (G36), PART5.N.8.
 (for multi zone VAV AHU), PART5.P.6 and PART3.2B.3 (for single zone VAV AHU).
 </p>
-<h4>Multi zone VAV AHU: Control of actuated relief dampers without fans (PART5.N.8)</h4>
+<h4>Multi zone VAV AHU: Control of actuated exhaust dampers without fans (PART5.N.8)</h4>
 <ol>
-<li>Relief dampers shall be enabled when the associated supply fan is proven on
+<li>Exhaust dampers shall be enabled when the associated supply fan is proven on
 <code>uSupFan = true</code>, and disabled otherwise.</li>
-<li>When enabled, use a P-only control loop to modulate relief dampers to maintain
+<li>When enabled, use a P-only control loop to modulate exhaust dampers to maintain
 a building static pressure of <code>uBuiPre</code>, which is by default <i>0.05</i> inchWC (<i>12</i> Pa).
 Close damper when disabled.</li>
 </ol>
 <p align=\"center\">
-<img alt=\"Image of relief damper control diagram for multi zone AHU\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/ReliefDamperControlDiagram_MultiZone.png\"/>
+<img alt=\"Image of exhaust damper control diagram for multi zone AHU\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/ExhaustDamperControlDiagram_MultiZone.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 17, 2017, by Jianjun Hu:<br/>
+Changed models name from ReliefDamper to ExhaustDamper.
+</li>
 <li>
 May 12, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end ReliefDamper;
+end ExhaustDamper;

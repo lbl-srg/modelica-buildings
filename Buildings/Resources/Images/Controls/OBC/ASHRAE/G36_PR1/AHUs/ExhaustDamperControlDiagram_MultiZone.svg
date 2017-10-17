@@ -15,9 +15,9 @@
    viewBox="0 0 674.26859 198.79723"
    id="svg2"
    version="1.1"
-   inkscape:version="0.92.1 unknown"
-   sodipodi:docname="ActuatedReliefDamperWithoutFanControlDiagram_MultiZone.svg"
-   inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/OBC/ASHRAE/G36_PR1/ActuatedReliefDamperWithoutFanControlDiagram_MultiZone.png"
+   inkscape:version="0.92.2 (unknown)"
+   sodipodi:docname="ExhaustDamperControlDiagram_MultiZone.svg"
+   inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/ExhaustDamperControlDiagram_MultiZone.png"
    inkscape:export-xdpi="85.692848"
    inkscape:export-ydpi="85.692848">
   <defs
@@ -147,9 +147,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.2471794"
-     inkscape:cx="187.51986"
-     inkscape:cy="-43.554642"
+     inkscape:zoom="1.6604317"
+     inkscape:cx="241.69757"
+     inkscape:cy="45.033219"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -288,26 +288,26 @@
          style="font-size:20.67381668px;line-height:1.25">Sensor</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="442.72296"
-       y="437.56024"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.75023079px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.64585316px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="442.49158"
+       y="429.17297"
        id="text4764-3-5-8"><tspan
          sodipodi:role="line"
-         id="tspan4870"
-         x="442.72296"
-         y="437.56024"
-         style="font-size:20.67381668px;line-height:1.25">yRelDamPos</tspan></text>
+         id="tspan1233"
+         x="442.49158"
+         y="429.17297"
+         style="stroke-width:1.64585316px">yExhDamPos</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="441.63623"
-       y="405.49606"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8693037px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.82244194px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="441.84564"
+       y="405.93909"
        id="text4764-3-5-8-4"><tspan
          sodipodi:role="line"
-         id="tspan4872"
-         x="441.63623"
-         y="405.49606"
-         style="font-size:11.36629677px;line-height:1.25">Relief damper position</tspan></text>
+         id="tspan1235"
+         x="441.84564"
+         y="405.93909"
+         style="stroke-width:0.82244194px">Exhaust damper position</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.78219342px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker5104)"
        d="m 510,344.06499 0,48.94612"

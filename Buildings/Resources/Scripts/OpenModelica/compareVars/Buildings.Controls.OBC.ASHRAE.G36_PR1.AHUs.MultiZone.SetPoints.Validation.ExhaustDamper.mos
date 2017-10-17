@@ -1,5 +1,5 @@
 compareVars :=
   {
     "meaBuiPre.y",
-    "relDamPos.yRelDamPos"
+    "exhDamPos.yExhDamPos"
   };

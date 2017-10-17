@@ -1,5 +1,5 @@
 OutsideAirFlow
-ReliefDamper
+ExhaustDamper
 ReturnFanDirectPressure
 VAVSupplyFan
 VAVSupplyTemperature
