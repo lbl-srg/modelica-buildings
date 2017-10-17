@@ -32,7 +32,7 @@ equation
   if mode then
     y = (mu-muDel)/delta;
   else
-    y = (mu-muDel)/(time-tStart+1E-10);
+    y = (mu-muDel)/(time-tStart+1E-3);
   end if;
   annotation (
   defaultComponentName="movMea",
