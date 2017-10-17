@@ -50,7 +50,7 @@ model MixingBox
     "Pressure drop exhaust air leg"
      annotation (Dialog(group="Nominal condition"));
 
-  parameter Boolean from_dp=false
+  parameter Boolean from_dp=true
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Advanced"));
   parameter Boolean linearized=true
@@ -152,7 +152,7 @@ model MixingBox
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mOut_flow_nominal,
-    final use_inputFilter=false) "Outdoor air damper"
+    use_inputFilter=false) "Outdoor air damper"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
   Fluid.Actuators.Dampers.VAVBoxExponential damExh(
@@ -174,7 +174,7 @@ model MixingBox
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=false) "Exhaust air damper"
+    use_inputFilter=false) "Exhaust air damper"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
 
   Fluid.Actuators.Dampers.VAVBoxExponential damRet(
@@ -196,7 +196,7 @@ model MixingBox
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=false) "Return air damper"        annotation (
+    use_inputFilter=false) "Return air damper"        annotation (
       Placement(transformation(
         origin={80,0},
         extent={{-10,-10},{10,10}},
