@@ -11,27 +11,6 @@ model MixingBox
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  Fluid.Actuators.Dampers.VAVBoxExponential damOA(
-    redeclare package Medium = Medium,
-    dp_nominal=dpOut_nominal,
-    dp_nominalIncludesDamper=dp_nominalIncludesDamper,
-    from_dp=from_dp,
-    linearized=linearized,
-    use_deltaM=use_deltaM,
-    deltaM=deltaM,
-    roundDuct=roundDuct,
-    ReC=ReC,
-    a=a,
-    b=b,
-    yL=yL,
-    yU=yU,
-    k0=k0,
-    k1=k1,
-    use_constant_density=use_constant_density,
-    allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=mOut_flow_nominal,
-    final use_inputFilter=false)
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
   parameter Real deltaM = 0.3
@@ -45,53 +24,6 @@ model MixingBox
   parameter Real ReC=4000
     "Reynolds number where transition to turbulent starts"
     annotation(Dialog(enable=not use_deltaM));
-
-  Fluid.Actuators.Dampers.VAVBoxExponential damExh(
-    redeclare package Medium = Medium,
-    m_flow_nominal=mExh_flow_nominal,
-    dp_nominal=dpExh_nominal,
-    dp_nominalIncludesDamper=dp_nominalIncludesDamper,
-    from_dp=from_dp,
-    linearized=linearized,
-    use_deltaM=use_deltaM,
-    deltaM=deltaM,
-    roundDuct=roundDuct,
-    ReC=ReC,
-    a=a,
-    b=b,
-    yL=yL,
-    yU=yU,
-    k0=k0,
-    k1=k1,
-    use_constant_density=use_constant_density,
-    allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=false) "Exhaust air damper"
-    annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
-
-  Fluid.Actuators.Dampers.VAVBoxExponential damRec(
-    redeclare package Medium = Medium,
-    m_flow_nominal=mRec_flow_nominal,
-    dp_nominal=dpRec_nominal,
-    dp_nominalIncludesDamper=dp_nominalIncludesDamper,
-    from_dp=from_dp,
-    linearized=linearized,
-    use_deltaM=use_deltaM,
-    deltaM=deltaM,
-    roundDuct=roundDuct,
-    ReC=ReC,
-    a=a,
-    b=b,
-    yL=yL,
-    yU=yU,
-    k0=k0,
-    k1=k1,
-    use_constant_density=use_constant_density,
-    allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=false) "Recirculation air damper" annotation (
-      Placement(transformation(
-        origin={80,0},
-        extent={{-10,-10},{10,10}},
-        rotation=90)));
 
   parameter Boolean dp_nominalIncludesDamper=false
     "set to true if dp_nominal includes the pressure loss of the open damper"
@@ -118,10 +50,10 @@ model MixingBox
     "Pressure drop exhaust air leg"
      annotation (Dialog(group="Nominal condition"));
 
-  parameter Boolean from_dp=true
+  parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Advanced"));
-  parameter Boolean linearized=false
+  parameter Boolean linearized=true
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation (Dialog(tab="Advanced"));
   parameter Boolean use_constant_density=true
@@ -143,7 +75,10 @@ model MixingBox
     annotation (Dialog(tab="Damper coefficients"));
 
 
-  Modelica.Blocks.Interfaces.RealInput yRet(min=0, max=1)
+  Modelica.Blocks.Interfaces.RealInput yRet(
+    min=0,
+    max=1,
+    final unit="1")
     "Return damper position (0: closed, 1: open)" annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
@@ -152,7 +87,10 @@ model MixingBox
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={-68,120})));
-  Modelica.Blocks.Interfaces.RealInput yOut(min=0, max=1)
+  Modelica.Blocks.Interfaces.RealInput yOut(
+    min=0,
+    max=1,
+    final unit="1")
     "Outdoor air damper signal (0: closed, 1: open)" annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
@@ -161,7 +99,10 @@ model MixingBox
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120})));
-  Modelica.Blocks.Interfaces.RealInput yExh(min=0, max=1)
+  Modelica.Blocks.Interfaces.RealInput yExh(
+    min=0,
+    max=1,
+    final unit="1")
     "Exhaust air damper signal (0: closed, 1: open)" annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
@@ -192,6 +133,76 @@ model MixingBox
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,50},{90,70}})));
 
+  Fluid.Actuators.Dampers.VAVBoxExponential damOut(
+    redeclare package Medium = Medium,
+    dp_nominal=dpOut_nominal,
+    dp_nominalIncludesDamper=dp_nominalIncludesDamper,
+    from_dp=from_dp,
+    linearized=linearized,
+    use_deltaM=use_deltaM,
+    deltaM=deltaM,
+    roundDuct=roundDuct,
+    ReC=ReC,
+    a=a,
+    b=b,
+    yL=yL,
+    yU=yU,
+    k0=k0,
+    k1=k1,
+    use_constant_density=use_constant_density,
+    allowFlowReversal=allowFlowReversal,
+    m_flow_nominal=mOut_flow_nominal,
+    final use_inputFilter=false) "Outdoor air damper"
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+
+  Fluid.Actuators.Dampers.VAVBoxExponential damExh(
+    redeclare package Medium = Medium,
+    m_flow_nominal=mExh_flow_nominal,
+    dp_nominal=dpExh_nominal,
+    dp_nominalIncludesDamper=dp_nominalIncludesDamper,
+    from_dp=from_dp,
+    linearized=linearized,
+    use_deltaM=use_deltaM,
+    deltaM=deltaM,
+    roundDuct=roundDuct,
+    ReC=ReC,
+    a=a,
+    b=b,
+    yL=yL,
+    yU=yU,
+    k0=k0,
+    k1=k1,
+    use_constant_density=use_constant_density,
+    allowFlowReversal=allowFlowReversal,
+    final use_inputFilter=false) "Exhaust air damper"
+    annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
+
+  Fluid.Actuators.Dampers.VAVBoxExponential damRet(
+    redeclare package Medium = Medium,
+    m_flow_nominal=mRec_flow_nominal,
+    dp_nominal=dpRec_nominal,
+    dp_nominalIncludesDamper=dp_nominalIncludesDamper,
+    from_dp=from_dp,
+    linearized=linearized,
+    use_deltaM=use_deltaM,
+    deltaM=deltaM,
+    roundDuct=roundDuct,
+    ReC=ReC,
+    a=a,
+    b=b,
+    yL=yL,
+    yU=yU,
+    k0=k0,
+    k1=k1,
+    use_constant_density=use_constant_density,
+    allowFlowReversal=allowFlowReversal,
+    final use_inputFilter=false) "Return air damper"        annotation (
+      Placement(transformation(
+        origin={80,0},
+        extent={{-10,-10},{10,10}},
+        rotation=90)));
+
+
 protected
   parameter Medium.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
@@ -200,29 +211,27 @@ protected
     "Default medium state";
 
 equation
-  connect(damOA.port_a, port_Out) annotation (Line(
-      points={{-10,60},{-100,60}},
-      color={0,127,255}));
+  connect(damOut.port_a, port_Out)
+    annotation (Line(points={{-10,60},{-100,60}}, color={0,127,255}));
   connect(damExh.port_b, port_Exh) annotation (Line(
       points={{-40,-60},{-100,-60}},
       color={0,127,255}));
-  connect(port_Sup, damOA.port_b) annotation (Line(
-      points={{100,60},{10,60}},
-      color={0,127,255}));
-  connect(damRec.port_b, port_Sup) annotation (Line(
+  connect(port_Sup, damOut.port_b)
+    annotation (Line(points={{100,60},{10,60}}, color={0,127,255}));
+  connect(damRet.port_b, port_Sup) annotation (Line(
       points={{80,10},{80,60},{100,60}},
       color={0,127,255}));
   connect(port_Ret, damExh.port_a) annotation (Line(
       points={{100,-60},{-20,-60}},
       color={0,127,255}));
-  connect(port_Ret, damRec.port_a) annotation (Line(
+  connect(port_Ret,damRet. port_a) annotation (Line(
       points={{100,-60},{80,-60},{80,-10}},
       color={0,127,255}));
 
-  connect(damRec.y, yRet)
+  connect(damRet.y, yRet)
     annotation (Line(points={{68,8.88178e-16},{-68,8.88178e-16},{-68,120}},
                                                         color={0,0,127}));
-  connect(yOut, damOA.y)
+  connect(yOut, damOut.y)
     annotation (Line(points={{0,120},{0,72}}, color={0,0,127}));
   connect(yExh, damExh.y) annotation (Line(points={{60,120},{60,20},{-30,20},{-30,
           -48}}, color={0,0,127}));
