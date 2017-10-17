@@ -1,6 +1,7 @@
 within Buildings.Examples.VAVReheat.Controls;
 block Economizer "Controller for economizer"
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
+  import Buildings;
   parameter Modelica.SIunits.TemperatureDifference dT(min=0.1)= 1
     "Temperture offset to activate economizer";
   parameter Modelica.SIunits.VolumeFlowRate VOut_flow_min(min=0)
@@ -66,6 +67,13 @@ block Economizer "Controller for economizer"
   Modelica.Blocks.Sources.Constant TFre(k=273.15 + 3)
     "Setpoint for freeze protection"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
+  Modelica.Blocks.Interfaces.RealOutput yRet
+    "Control signal for return air damper"
+    annotation (Placement(transformation(extent={{200,-10},{220,10}}),iconTransformation(extent={{200,-10},
+            {220,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter invSig(p=1, k=-1)
+    "Invert control signal for interlocked damper"
+    annotation (Placement(transformation(extent={{160,-10},{180,10}})));
 equation
   connect(VOut_flow, gain.u) annotation (Line(
       points={{-120,40},{-92,40},{-92,-50},{-62,-50}},
@@ -160,7 +168,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(extractor.y, yOA) annotation (Line(
-      points={{141,-10},{170,-10},{170,80},{210,80}},
+      points={{141,-10},{150,-10},{150,80},{210,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(yOATFre.u_s, TMix) annotation (Line(points={{18,130},{-32,130},{-80,
@@ -169,6 +177,10 @@ equation
           110},{30,118}}, color={0,0,127}));
   connect(yOATFre.y, min.u1) annotation (Line(points={{41,130},{48,130},{48,30},
           {10,30},{10,-4},{18,-4}}, color={0,0,127}));
+  connect(yRet, invSig.y)
+    annotation (Line(points={{210,0},{181,0}}, color={0,0,127}));
+  connect(extractor.y, invSig.u) annotation (Line(points={{141,-10},{150,-10},{
+          150,0},{158,0}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{200,200}}), graphics={
@@ -200,7 +212,11 @@ equation
         Text(
           extent={{138,96},{184,62}},
           lineColor={0,0,255},
-          textString="yOA")}),
+          textString="yOA"),
+        Text(
+          extent={{140,20},{186,-14}},
+          lineColor={0,0,255},
+          textString="yRet")}),
     Documentation(info="<html>
 <p>
 This is a controller for an economizer with
