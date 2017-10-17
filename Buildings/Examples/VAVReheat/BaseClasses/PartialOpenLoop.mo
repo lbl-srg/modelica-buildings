@@ -57,7 +57,7 @@ partial model PartialOpenLoop
 
   Buildings.Fluid.Sources.Outside amb(redeclare package Medium = MediumA,
       nPorts=4) "Ambient conditions"
-    annotation (Placement(transformation(extent={{-130,14},{-108,36}})));
+    annotation (Placement(transformation(extent={{-136,-56},{-114,-34}})));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU heaCoi(
     redeclare package Medium1 = MediumA,
     redeclare package Medium2 = MediumW,
@@ -203,7 +203,7 @@ partial model PartialOpenLoop
         origin={132,-120})));
   Buildings.Fluid.Sensors.VolumeFlowRate VOut1(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Outside air volume flow rate"
-    annotation (Placement(transformation(extent={{-80,12},{-58,34}})));
+    annotation (Placement(transformation(extent={{-72,-44},{-50,-22}})));
 
   Buildings.Examples.VAVReheat.ThermalZones.VAVBranch cor(
     redeclare package MediumA = MediumA,
@@ -560,7 +560,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(amb.ports[1], VOut1.port_a) annotation (Line(
-      points={{-108,28.3},{-94,28.3},{-94,23},{-80,23}},
+      points={{-114,-41.7},{-94,-41.7},{-94,-33},{-72,-33}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -654,7 +654,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(amb.weaBus, weaBus) annotation (Line(
-      points={{-130,25.22},{-350,25.22},{-350,180}},
+      points={{-136,-44.78},{-350,-44.78},{-350,180}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -772,14 +772,19 @@ equation
       points={{50,-40},{98,-40}},
       color={0,127,255},
       thickness=0.5));
-  connect(VOut1.port_b, eco.port_Out) annotation (Line(points={{-58,23},{-40,23},
-          {-40,-40},{-20,-40}}, color={0,127,255}));
+  connect(VOut1.port_b, eco.port_Out) annotation (Line(points={{-50,-33},{-42,
+          -33},{-42,-40},{-20,-40}},
+                                color={0,127,255},
+      thickness=0.5));
   connect(eco.port_Sup, TMix.port_a)
-    annotation (Line(points={{0,-40},{30,-40}}, color={0,127,255}));
-  connect(eco.port_Exh, amb.ports[2]) annotation (Line(points={{-20,-52},{-46,-52},
-          {-46,4},{-98,4},{-98,26.1},{-108,26.1}},      color={0,127,255}));
+    annotation (Line(points={{0,-40},{30,-40}}, color={0,127,255},
+      thickness=0.5));
+  connect(eco.port_Exh, amb.ports[2]) annotation (Line(points={{-20,-52},{-96,
+          -52},{-96,-43.9},{-114,-43.9}},               color={0,127,255},
+      thickness=0.5));
   connect(eco.port_Ret, TRet.port_b) annotation (Line(points={{0,-52},{10,-52},
-          {10,140},{90,140}}, color={0,127,255}));
+          {10,140},{90,140}}, color={0,127,255},
+      thickness=0.5));
   connect(fanRet.port_a, senRetFlo.port_b)
     annotation (Line(points={{320,140},{340,140}}, color={0,127,255}));
   connect(senRetFlo.port_a, dpRetDuc.port_b)
@@ -803,13 +808,13 @@ equation
   connect(conFanRet.y, fanRet.y)
     annotation (Line(points={{261,170},{310,170},{310,152}}, color={0,0,127}));
   connect(dpDisSupFan.port_b, amb.ports[3]) annotation (Line(
-      points={{320,10},{320,14},{-88,14},{-88,23.9},{-108,23.9}},
+      points={{320,10},{320,14},{-88,14},{-88,-46.1},{-114,-46.1}},
       color={0,0,0},
       pattern=LinePattern.Dot));
   connect(dpDisRetFan.port_a, fanRet.port_b)
     annotation (Line(points={{300,120},{300,140}}, color={0,127,255}));
   connect(dpDisRetFan.port_b, amb.ports[4]) annotation (Line(
-      points={{300,100},{300,14},{-88,14},{-88,21.7},{-108,21.7}},
+      points={{300,100},{300,14},{-88,14},{-88,-48.3},{-114,-48.3}},
       color={0,0,0},
       pattern=LinePattern.Dot));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,
