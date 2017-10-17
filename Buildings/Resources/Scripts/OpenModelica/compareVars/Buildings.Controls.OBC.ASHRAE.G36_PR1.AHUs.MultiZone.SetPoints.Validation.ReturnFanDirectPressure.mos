@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "retFanPre.uBuiPre",
+    "retFanPre.dP_RetFan",
+    "retFanPre.yExhDam",
+    "retFanPre1.uBuiPre",
+    "retFanPre1.dP_RetFan",
+    "retFanPre1.yExhDam",
+    "retFanPre2.uBuiPre",
+    "retFanPre2.dP_RetFan",
+    "retFanPre2.yExhDam"
+  };

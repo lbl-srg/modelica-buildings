@@ -1,0 +1,13 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Validation.ReturnFanDirectPressure", method="dassl", stopTime=3600, tolerance=1e-06, resultFile="retFanDirPre");
+createPlot(id=1, position={20, 10, 450, 700}, subPlot=1, y={"retFanPre.uBuiPre"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={20, 10, 450, 700}, subPlot=2, y={"retFanPre.dP_RetFan"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={20, 10, 450, 700}, subPlot=3, y={"retFanPre.yExhDam"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47}});
+
+createPlot(id=2, position={480, 10, 450, 700}, subPlot=1, y={"retFanPre1.uBuiPre"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={480, 10, 450, 700}, subPlot=2, y={"retFanPre1.dP_RetFan"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={480, 10, 450, 700}, subPlot=3, y={"retFanPre1.yExhDam"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47}});
+
+createPlot(id=3, position={940, 10, 450, 700}, subPlot=1, y={"retFanPre2.uBuiPre"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47}});
+createPlot(id=3, position={940, 10, 450, 700}, subPlot=2, y={"retFanPre2.dP_RetFan"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47}});
+createPlot(id=3, position={940, 10, 450, 700}, subPlot=3, y={"retFanPre2.yExhDam"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47}});
+
