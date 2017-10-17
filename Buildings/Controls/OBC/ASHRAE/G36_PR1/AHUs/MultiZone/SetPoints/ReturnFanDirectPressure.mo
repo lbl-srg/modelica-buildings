@@ -246,8 +246,12 @@ in sequence with the return fan static pressure setpoint as shown in the figure
 below to maintain the building pressure equal to <code>dpBuiSet</code>,
 which is by default <i>12</i> Pa (<i>0.05</i> inches).
 </p>
-<ul>
+</li>
+</ol>
+<p>
 The output signal of the building pressure control is as follows:
+</p>
+<ol>
 <li>
 From <i>0</i> to <i>0.5</i>, the building pressure control loop modulates the exhaust
 dampers from <code>yExhDam = 0</code> (closed) to <code>yExhDam = 1</code> (open).
@@ -258,7 +262,6 @@ discharge static pressure setpoint from <code>dpDisMin</code>
 to <code>dpDisMax</code>. The <code>dpDisMin</code> and
 <code>dpDisMax</code> are specified in Section G36 PART 3.2A.3.b.
 </li>
-</ul>
 </ol>
 <p align=\"center\">
 <img alt=\"Image of return fan control for multi zone AHU\"
