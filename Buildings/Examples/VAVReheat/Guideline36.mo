@@ -78,11 +78,6 @@ model Guideline36
   parameter Modelica.SIunits.PressureDifference dpDisRetMax=40
     "Maximum return fan discharge static pressure setpoint";
 equation
-  connect(fanRet.port_a, dpDisSupFan.port_b) annotation (Line(
-      points={{320,140},{320,10}},
-      color={0,0,0},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dot));
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
       points={{320,-40},{320,0},{320,-10},{320,-10}},
       color={0,0,0},
@@ -294,8 +289,8 @@ equation
           -20},{1028,-20},{1028,34.6667},{1038,34.6667}}, color={0,0,127}));
   connect(TSup.T, conVAVWes.TSupAHU) annotation (Line(points={{340,-29},{340,
           -20},{1224,-20},{1224,32.6667},{1238,32.6667}}, color={0,0,127}));
-  connect(VOut1.V_flow, conAHU.VOut_flow) annotation (Line(points={{-69,35.1},{
-          -69,386},{391,386}}, color={0,0,127}));
+  connect(VOut1.V_flow, conAHU.VOut_flow) annotation (Line(points={{-61,-20.9},
+          {-61,386},{391,386}},color={0,0,127}));
   connect(conAHU.uZonSta, zonSta.y) annotation (Line(points={{391,362},{330,362},
           {330,340},{321,340}}, color={255,127,0}));
   connect(fanSup.y, conAHU.ySupFanSpe) annotation (Line(points={{310,-28},{310,-14},
