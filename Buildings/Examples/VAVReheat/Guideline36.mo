@@ -334,7 +334,11 @@ The control is based on ASHRAE Guideline 36, and implemented
 using the sequences from the library
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1</a> for
-multi-zone VAV systems with economizer.
+multi-zone VAV systems with economizer. The schematic control diagram is shown
+in the figure below.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/vavControlSchematics.png\" border=\"1\"/>
 </p>
 <p>
 A similar model but with a different control sequence can be found in
