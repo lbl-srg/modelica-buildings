@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "meaBuiPre.y",
-    "relDamPos.yRelDamPos"
-  };
