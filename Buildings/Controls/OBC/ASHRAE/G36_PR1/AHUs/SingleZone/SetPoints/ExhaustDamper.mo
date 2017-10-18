@@ -13,10 +13,10 @@ block ExhaustDamper
     final unit="1") = 0.9
     "Exhaust damper position maintaining building static pressure at setpoint when outdoor air damper is fully open and fan speed is at cooling maximum"
     annotation(Evaluate=true, Dialog(group="Nominal parameters"));
-  parameter Real minPosMin(
+  parameter Real minOutPosMin(
     min=0,
     max=1,
-    final unit="1")=0.4
+    final unit="1") = 0.4
     "Outdoor air damper position when fan operating at minimum speed to supply minimum outdoor air flow"
     annotation(Evaluate=true, Dialog(group="Nominal parameters"));
   parameter Real outDamPhyPosMax(
@@ -71,8 +71,8 @@ protected
     final k=maxExhDamPos)
     "Exhaust damper position maintaining building static pressure at setpoint when outdoor air damper is fully open and fan speed is at cooling maximum"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPosAtMinSpd(
-    final k=minPosMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPosAtMinSpd(final k=
+       minOutPosMin)
     "Outdoor air damper position when fan operating at minimum speed to supply minimum outdoor air flow"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(
@@ -172,33 +172,42 @@ and PART3.2B.3 (for single zone VAV AHU).
 <ol>
 <li>Exhaust damper position setpoints (PART3.2B.3)
 <ul>
-<li><code>minExhDamPos</code>: The exhaust damper position that maintains a building
-pressure of <i>0.05</i> inchWC (<i>12</i> while the system is at <code>minPosMin</code>
-(i.e., the economizer damper is positioned to provide <code>minOA</code> while
-the supply fan is at minimum speed).</li>
-<li><code>maxExhDamPos</code>: The exhaust damper position that maintains a building
-pressure of <i>0.05</i> inchWC (<i>12</i> Pa) while the economizer damper is fully 
-open and the fan speed is at cooling maximum.</li>
+<li><code>minExhDamPos</code> is the exhaust damper position that maintains a building
+pressure of <i>12</i> Pa (<i>0.05</i> inchWC) while the system is at <code>minOutPosMin</code>
+(i.e., the economizer damper is positioned to provide minimum outdoor air while
+the supply fan is at minimum speed).
+</li>
+<li>
+<code>maxExhDamPos</code> is the exhaust damper position that maintains a building
+pressure of <i>12</i> Pa (<i>0.05</i> inchWC) while the economizer damper is fully 
+open and the fan speed is at cooling maximum.
+</li>
 </ul>
 </li>
-<li>Exhaust dampers shall be enabled when the associated supply fan is proven on and
+<li>
+The exhaust damper is enabled when the associated supply fan is proven on and
 any outdoor air damper is open <code>uOutDamPos &gt; 0</code> and disabled and closed
-otherwise.</li>
-<li>Exhaust damper position shall be reset linearly from <code>minExhDamPos</code> to
+otherwise.
+</li>
+<li>
+The exhaust damper position is reset linearly from <code>minExhDamPos</code> to
 <code>maxExhDamPos</code> as the commanded economizer damper position goes from
-<code>minPos*</code> to fully open.</li>
+<code>minOutPosMin</code> to <code>outDamPhyPosMax</code>.
+</li>
 </ol>
-<p align=\"center\">
-<img alt=\"Image of the exhaust damper control diagram for single zone AHU\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/ExhaustDamperControlDiagram_SingleZone.png\"/>
+<p>
+The control sequence is as follows:
 </p>
-Expected control performance:
 <p align=\"center\">
 <img alt=\"Image of the exhaust damper control chart for single zone AHU\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/ExhaustDamperControlChart_SingleZone.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 18, 2017, by Michael Wetter:<br/>
+Revised documentation.
+</li>
 <li>
 May 12, 2017, by Jianjun Hu:<br/>
 First implementation.

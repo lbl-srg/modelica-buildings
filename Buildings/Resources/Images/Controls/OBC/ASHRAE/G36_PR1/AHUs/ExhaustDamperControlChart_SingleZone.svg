@@ -14,9 +14,9 @@
    viewBox="0 0 630.65243 438.13203"
    id="svg8256"
    version="1.1"
-   inkscape:version="0.92.2 (unknown)"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="ExhaustDamperControlChart_SingleZone.svg"
-   inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/ExhaustDamperControlChart_SingleZone.png"
+   inkscape:export-filename="ExhaustDamperControlChart_SingleZone.png"
    inkscape:export-xdpi="108.33118"
    inkscape:export-ydpi="108.33118">
   <defs
@@ -34,38 +34,6 @@
          d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
          id="path10014"
-         inkscape:connector-curvature="0" />
-    </marker>
-    <marker
-       inkscape:stockid="Arrow2Lend"
-       orient="auto"
-       refY="0"
-       refX="0"
-       id="marker9304"
-       style="overflow:visible"
-       inkscape:isstock="true"
-       inkscape:collect="always">
-      <path
-         id="path9306"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
-         inkscape:connector-curvature="0" />
-    </marker>
-    <marker
-       inkscape:isstock="true"
-       style="overflow:visible"
-       id="marker9006"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="Arrow2Lend"
-       inkscape:collect="always">
-      <path
-         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
-         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-         id="path9008"
          inkscape:connector-curvature="0" />
     </marker>
     <marker
@@ -123,16 +91,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.7729263"
-     inkscape:cx="310.81711"
-     inkscape:cy="215.46593"
+     inkscape:cx="170.65336"
+     inkscape:cy="214.33785"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:snap-global="false"
-     inkscape:window-width="1855"
-     inkscape:window-height="1098"
-     inkscape:window-x="65"
-     inkscape:window-y="24"
+     inkscape:window-width="3840"
+     inkscape:window-height="2082"
+     inkscape:window-x="0"
+     inkscape:window-y="41"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -192,42 +160,40 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="118.24471"
-       y="719.20355"
+       x="254.05801"
+       y="717.50293"
        id="text8994"
-       transform="scale(1.0050378,0.99498745)"><tspan
+       transform="scale(1.0050378,0.99498745)"
+       sodipodi:linespacing="100%"><tspan
          sodipodi:role="line"
          id="tspan7518"
-         x="118.24471"
-         y="719.20355"
-         style="font-size:15.57757854px;line-height:1.25">Economizer Damper Position</tspan></text>
-    <path
-       style="opacity:0.5;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker9006)"
-       d="m 345,712.3622 125,0"
-       id="path8998"
-       inkscape:connector-curvature="0" />
+         x="254.05801"
+         y="717.50293"
+         style="font-size:15.57757854px;line-height:100%;text-anchor:start;text-align:start;writing-mode:lr">outdoor damper position</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-font-specification:'sans-serif, Normal';font-stretch:normal;font-variant:normal;font-size:12.00000028px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
-       x="-662.56018"
-       y="63.200314"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-568.33014"
+       y="65.918159"
        id="text9292"
-       transform="matrix(0,-0.96370847,1.0376582,0,0,0)"><tspan
+       transform="matrix(0,-0.96370847,1.0376582,0,0,0)"
+       sodipodi:linespacing="100%"><tspan
          sodipodi:role="line"
-         id="tspan1100">Exhaust Damper Position</tspan></text>
-    <path
-       style="opacity:0.5;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker9304)"
-       d="m 64,449.3622 0,-125"
-       id="path9296"
-       inkscape:connector-curvature="0" />
+         id="tspan1100"
+         x="-568.33014"
+         y="65.918159"
+         style="text-anchor:start;text-align:start;writing-mode:lr;line-height:100%">exhaust damper position</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-font-specification:'sans-serif, Normal';font-stretch:normal;font-variant:normal;font-size:12.39962436px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.39962482px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="118.09946"
        y="697.24323"
-       id="text8994-5"><tspan
+       id="text8994-5"
+       sodipodi:linespacing="0%"><tspan
          sodipodi:role="line"
-         id="tspan200">MinPosMin</tspan></text>
+         id="tspan200"
+         x="118.09946"
+         y="697.24323">minOutPosMin</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -244,38 +210,46 @@
        style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="361.72684"
        y="695.72156"
-       id="text8994-5-3-2"><tspan
+       id="text8994-5-3-2"
+       sodipodi:linespacing="0%"><tspan
          sodipodi:role="line"
          id="tspan7522"
          x="361.72684"
          y="695.72156"
-         style="font-size:12.39959621px;line-height:1.25">uOutDamPos</tspan></text>
+         style="font-size:12.39959621px;line-height:1.25">uOutDam</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-font-specification:'sans-serif, Normal';font-stretch:normal;font-variant:normal;font-size:12.39962436px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.39962482px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="123.68836"
        y="567.73969"
-       id="text8994-5-33"><tspan
+       id="text8994-5-33"
+       sodipodi:linespacing="0%"><tspan
          sodipodi:role="line"
-         id="tspan1098">MinExhDamPos</tspan></text>
+         id="tspan1098"
+         x="123.68836"
+         y="567.73969">minExhDamPos</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-font-specification:'sans-serif, Normal';font-stretch:normal;font-variant:normal;font-size:12.00000026px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="383.42487"
        y="445.31659"
-       id="text8994-5-33-2"><tspan
+       id="text8994-5-33-2"
+       sodipodi:linespacing="0%"><tspan
          sodipodi:role="line"
-         id="tspan1050">yExhDamPos</tspan></text>
+         id="tspan1050"
+         x="383.42487"
+         y="445.31659">yExhDam</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.39962482px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.39962482px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="562.34094"
        y="344.16705"
-       id="text8994-5-33-2-4-9"><tspan
+       id="text8994-5-33-2-4-9"
+       sodipodi:linespacing="0%"><tspan
          sodipodi:role="line"
          id="tspan1064"
          x="562.34094"
-         y="344.16705">MaxExhDamPos</tspan></text>
+         y="344.16705">maxExhDamPos</tspan></text>
     <path
        style="opacity:0.5;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.31197557;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 152.57071,682.33222 0,-130.16726"
