@@ -4,16 +4,16 @@ model DamperValve
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValve damVal_RehBox(kDam=1)
-    "Output signals for controlling VAV reheat box damper and valve position"
+    "Output signal for controlling VAV reheat box damper and valve position"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uHea(
     duration=36000,
     height=-1,
     offset=1,
     startTime=0)
-                "Heating control signal"
+    "Heating control signal"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  CDL.Continuous.Sources.Ramp                            uCoo(
+  CDL.Continuous.Sources.Ramp uCoo(
     height=1,
     duration=36000,
     offset=0,
