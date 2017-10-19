@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Conduction;
 model MultiLayer
   "Model for heat conductance through a solid with multiple material layers"
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor(
-   final R=sum(layers.material[i].R for i in 1:size(layers.material, 1)));
+   final R=sum(lay[i].R for i in 1:nLay));
   Modelica.SIunits.Temperature T[sum(layers.nSta)](
     each nominal = 300) "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[sum(layers.nSta)+nLay]
@@ -172,6 +172,12 @@ Buildings.HeatTransfer.Examples</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 16, 2017, by Michael Wetter:<br/>
+Corrected wrong result variable <code>R</code> and <code>UA</code>.
+These variables are only used for reporting.
+All other calculations were not affected by this error.
+</li>
 <li>
 January 05, 2017, by Thierry S. Nouidui:<br/>
 Removed parameter <code>nSta2</code>.
