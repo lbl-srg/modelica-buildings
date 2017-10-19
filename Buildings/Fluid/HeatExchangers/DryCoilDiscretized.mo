@@ -8,12 +8,12 @@ model DryCoilDiscretized
     from_dp1 = false,
     from_dp2 = false);
 
-  constant Boolean initialize_p1 = not Medium1.singleState
+  parameter Boolean initialize_p1 = not Medium1.singleState
     "Set to true to initialize the pressure of volume 1"
-    annotation(HideResult=true);
+    annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
   constant Boolean initialize_p2 = not Medium2.singleState
     "Set to true to initialize the pressure of volume 2"
-    annotation(HideResult=true);
+    annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
 
   constant Boolean airSideTemperatureDependent = false
     "Set to false to make air-side hA independent of temperature"
@@ -390,6 +390,12 @@ this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2017, by Michael Wetter:<br/>
+Changed initialization of pressure from a <code>constant</code> to a <code>parameter</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1013\">Buildings, issue 1013</a>.
+</li>
 <li>
 September 8, 2017, by Michael Wetter:<br/>
 Changed computation of temperature used for <i>hA</i> calculation

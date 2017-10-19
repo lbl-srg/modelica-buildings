@@ -3,9 +3,9 @@ partial model PartialMixingVolume
   "Partial mixing volume with inlet and outlet ports (flow reversal is allowed)"
 
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
-  constant Boolean initialize_p = not Medium.singleState
+  parameter Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure"
-    annotation(HideResult=true);
+    annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
 
   // We set prescribedHeatFlowRate=false so that the
   // volume works without the user having to set this advanced parameter,
@@ -310,6 +310,12 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2017, by Michael Wetter:<br/>
+Changed initialization of pressure from a <code>constant</code> to a <code>parameter</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1013\">Buildings, issue 1013</a>.
+</li>
 <li>
 April 11, 2017, by Michael Wetter:<br/>
 Moved heat port to the extending classes to provide better comment.
