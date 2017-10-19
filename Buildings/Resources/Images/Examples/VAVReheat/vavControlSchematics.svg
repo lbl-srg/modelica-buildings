@@ -18,8 +18,8 @@
    viewBox="0 0 1170 781.31"
    sodipodi:docname="vavControlSchematics.svg"
    inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/VAVReheat/vavControlSchematics.png"
-   inkscape:export-xdpi="86.638367"
-   inkscape:export-ydpi="86.638367">
+   inkscape:export-xdpi="150"
+   inkscape:export-ydpi="150">
   <metadata
      id="metadata4196">
     <rdf:RDF>
@@ -28,7 +28,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -699,8 +699,8 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:zoom="0.79710283"
-     inkscape:cx="599.848"
+     inkscape:zoom="3.0015903"
+     inkscape:cx="543.37794"
      inkscape:cy="282.45669"
      inkscape:window-x="65"
      inkscape:window-y="24"
