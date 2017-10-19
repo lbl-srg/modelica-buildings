@@ -318,10 +318,6 @@ for air flow through building leakage and through open doors.
 The HVAC system is a variable air volume (VAV) flow system with economizer
 and a heating and cooling coil in the air handler unit. There is also a
 reheat coil and an air damper in each of the five zone inlet branches.
-The figure below shows the schematic diagram of the HVAC system
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/vavSchematics.png\" border=\"1\"/>
 </p>
 <p>
 See the model
@@ -334,8 +330,8 @@ The control is based on ASHRAE Guideline 36, and implemented
 using the sequences from the library
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1</a> for
-multi-zone VAV systems with economizer. The schematic control diagram is shown
-in the figure below.
+multi-zone VAV systems with economizer. The schematic diagram of the HVAC and control
+sequence is shown in the figure below.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/vavControlSchematics.png\" border=\"1\"/>
