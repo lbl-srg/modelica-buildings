@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences;
 block Modulation "Outdoor and return air damper position modulation sequence for single zone VAV AHU"
 
-  parameter Real yMin=0 "Lower limit of controller output"
+  parameter Real uMin=0 "Lower limit of controller output"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Real yMax=1 "Upper limit of controller output"
+  parameter Real uMax=1 "Upper limit of controller output"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
   parameter Real kPMod=1 "Gain of modulation controller"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
@@ -66,8 +66,8 @@ block Modulation "Outdoor and return air damper position modulation sequence for
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID damPosCon(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final yMax=yMax,
-    final yMin=yMin,
+    final yMax=uMax,
+    final yMin=uMin,
     final k=kPMod,
     final Ti=TiMod)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
@@ -212,6 +212,10 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/Eco
 
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2017, by Jianjun Hu:<br/>
+Changed name of controller output limit from yMin/yMax to uMin/uMax.
+</li>
 <li>
 July 07, 2017, by Milica Grahovac:<br/>
 First implementation.
