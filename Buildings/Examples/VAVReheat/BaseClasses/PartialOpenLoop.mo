@@ -7,11 +7,11 @@ partial model PartialOpenLoop
 
   constant Integer numZon=5 "Total number of served zones/VAV boxes";
 
-  parameter Modelica.SIunits.Volume VRooCor=2698 "Room volume corridor";
-  parameter Modelica.SIunits.Volume VRooSou=568.77 "Room volume south";
-  parameter Modelica.SIunits.Volume VRooNor=568.77 "Room volume north";
-  parameter Modelica.SIunits.Volume VRooEas=360.08 "Room volume east";
-  parameter Modelica.SIunits.Volume VRooWes=360.08 "Room volume west";
+  parameter Modelica.SIunits.Volume VRooCor=AFloCor*flo.hRoo "Room volume corridor";
+  parameter Modelica.SIunits.Volume VRooSou=AFloSou*flo.hRoo "Room volume south";
+  parameter Modelica.SIunits.Volume VRooNor=AFloNor*flo.hRoo "Room volume north";
+  parameter Modelica.SIunits.Volume VRooEas=AFloEas*flo.hRoo "Room volume east";
+  parameter Modelica.SIunits.Volume VRooWes=AFloWes*flo.hRoo "Room volume west";
 
 
   parameter Modelica.SIunits.Area AFloCor=flo.cor.AFlo "Floor area corridor";
