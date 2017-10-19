@@ -105,10 +105,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Max maxInp
     "Reset setpoint should not be lower than the minimum setpoint"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHol(
-    samplePeriod=samplePeriod)
-    "Extrapolation through the values of the last two sampled input signals"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
 equation
   connect(numIgnReqCon.y, difReqIgnReq.u1)
@@ -210,12 +206,9 @@ equation
   connect(and2.u1, tim.y)
     annotation (Line(points={{78,-70},{6,-70},{6,-30},{-120,-30},{-120,130},
       {-159,130}}, color={255,0,255}));
-  connect(maxInp.y, firOrdHol.u)
-    annotation (Line(points={{81,60},{98,60}}, color={0,0,127}));
-  connect(firOrdHol.y, swi2.u3)
-    annotation (Line(points={{121,60},{140,60},{140,80},{100,80},{100,92},{118,
-          92}},  color={0,0,127}));
 
+  connect(maxInp.y, swi2.u3) annotation (Line(points={{81,60},{108,60},{108,92},
+          {118,92}}, color={0,0,127}));
 annotation (
   defaultComponentName = "triRes",
   Icon(graphics={Rectangle(
