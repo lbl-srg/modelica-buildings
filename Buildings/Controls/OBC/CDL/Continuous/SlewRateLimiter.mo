@@ -9,7 +9,7 @@ block SlewRateLimiter "Limit the increase or decrease rate of input"
     max = -Constants.small,
     final unit = "1/s") = -raisingSlewRate "Speed with which to decrease the output";
 
-  parameter Modelica.SIunits.Time Td(min=Constants.eps) = 0.001
+  parameter Modelica.SIunits.Time Td(min=Constants.eps) = raisingSlewRate*10
     "Derivative time constant";
 
   parameter Boolean enable = true
