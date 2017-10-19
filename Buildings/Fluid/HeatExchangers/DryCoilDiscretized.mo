@@ -8,7 +8,7 @@ model DryCoilDiscretized
     from_dp1 = false,
     from_dp2 = false);
 
-  parameter Boolean initialize_p1 = not Medium1.singleState
+  constant Boolean initialize_p1 = not Medium1.singleState
     "Set to true to initialize the pressure of volume 1"
     annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
   constant Boolean initialize_p2 = not Medium2.singleState
