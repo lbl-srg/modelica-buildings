@@ -418,9 +418,11 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>xxx</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.MultiLayer
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Corrected wrong result variable <code>R</code> and <code>UA</code>.
+                          These variables are only used for reporting.
+                          All other calculations are not affected by this error.
        </td>
    </tr>
    </table>
