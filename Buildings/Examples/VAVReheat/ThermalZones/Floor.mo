@@ -75,6 +75,8 @@ model Floor "Model of a floor of the building"
     haveInteriorShade=false,
     haveExteriorShade=false) "Data record for the glazing system"
     annotation (Placement(transformation(extent={{240,460},{260,480}})));
+  parameter Real kIntNor = 1
+    "Gain factor to scale down internal heat gain in north zone";
   constant Modelica.SIunits.Height hRoo=2.74 "Room height";
   Buildings.ThermalZones.Detailed.MixedAir sou(
     redeclare package Medium = Medium,
@@ -351,6 +353,8 @@ model Floor "Model of a floor of the building"
         rotation=180,
         origin={-110,220})));
 
+  Modelica.Blocks.Math.Gain gain[3](each k=kIntNor)
+    annotation (Placement(transformation(extent={{60,140},{80,160}})));
 equation
   connect(sou.surf_conBou[1], wes.surf_surBou[2]) annotation (Line(
       points={{170,-40.6667},{170,-54},{62,-54},{62,20},{28.2,20},{28.2,42.5}},
@@ -411,11 +415,6 @@ equation
       smooth=Smooth.None));
   connect(replicator.y, cor.uSha) annotation (Line(
       points={{-19,180},{130,180},{130,74},{142.4,74}},
-      color={0,0,127},
-      pattern=LinePattern.Dash,
-      smooth=Smooth.None));
-  connect(gai.y, nor.qGai_flow)          annotation (Line(
-      points={{-19,110},{120,110},{120,144},{142.4,144}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
@@ -705,6 +704,14 @@ equation
       points={{50,241},{50,220},{-110,220}},
       color={0,0,127},
       smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(gai.y, gain.u) annotation (Line(
+      points={{-19,110},{20,110},{20,150},{58,150}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(gain.y, nor.qGai_flow) annotation (Line(
+      points={{81,150},{100,150},{100,144},{142.4,144}},
+      color={0,0,127},
       pattern=LinePattern.Dash));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{400,500}},
