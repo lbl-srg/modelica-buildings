@@ -8,12 +8,12 @@ block WallSolarAzimuth
                                               displayUnit="rad")
     "Solar incidence angle"
     annotation (Placement(transformation(extent={{-140,-68},{-100,-28}})));
-Modelica.Blocks.Interfaces.RealInput alt(quantity="Angle",
+  Modelica.Blocks.Interfaces.RealInput alt(quantity="Angle",
                                          unit="rad",
                                          displayUnit="rad")
     "Solar altitude angle (angle between sun ray and horizontal surface)"
     annotation (Placement(transformation(extent={{-140,28},{-100,68}})));
-Modelica.Blocks.Interfaces.RealOutput verAzi(
+  Modelica.Blocks.Interfaces.RealOutput verAzi(
     final quantity="Angle",
     final unit="rad",
     displayUnit="deg")
