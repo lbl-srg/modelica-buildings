@@ -714,8 +714,8 @@ This atomic sequence sets the active maximum and minimum setpoints <code>VActCoo
 Guideline 36 (G36), PART5.E.3-5.
 </p>
 <h4>1. Information provided by designer</h4>
-According to G36 PART 3.1.B.2, following VAV box design information should be
-provided:
+<p>According to G36 PART 3.1.B.2, following VAV box design information should be
+provided:</p>
 <ul>
 <li>Zone maximum cooling airflow setpoint <code>VCooMax</code></li>
 <li>Zone minimum airflow setpoint <code>VMin</code></li>
@@ -723,8 +723,8 @@ provided:
 </ul>
 
 <h4>2. Occupied minimum airflow <code>VOccMinAir</code></h4>
-The <code>VOccMinAir</code> shall be equal to zone minimum airflow setpoint
-<code>VMin</code> except as follows:
+<p>The <code>VOccMinAir</code> shall be equal to zone minimum airflow setpoint
+<code>VMin</code> except as follows:</p>
 <ul>
 <li>
 If the zone has an occupancy sensor, <code>VOccMinAir</code> shall be equal to
@@ -754,7 +754,7 @@ not in occupied mode.
 </ul>
 
 <h4>3. Active maximum and minimum setpoints</h4>
-The setpoints shall vary depending on the mode of the zone group.
+<p>The setpoints shall vary depending on the mode of the zone group.</p>
 <table summary=\"summary\" border=\"1\">
 <tr><th>Setpoint</th> <th>Occupied</th><th>Cool-down</th>
 <th>Setup</th><th>Warmup</th><th>Setback</th><th>Unoccupied</th></tr>
