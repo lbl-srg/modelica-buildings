@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.BaseClasses;
 model HexElementSensible
   "Element of a heat exchanger with no humidity condensation"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement(
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
+    redeclare final Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol2(
         final energyDynamics=energyDynamics,
         final massDynamics=energyDynamics,
         final initialize_p=initialize_p2));

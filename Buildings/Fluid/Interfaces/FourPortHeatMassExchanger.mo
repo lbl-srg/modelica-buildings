@@ -68,7 +68,7 @@ model FourPortHeatMassExchanger
   Modelica.SIunits.HeatFlowRate Q2_flow = vol2.heatPort.Q_flow
     "Heat flow rate into medium 2";
 
-  Buildings.Fluid.MixingVolumes.MixingVolume vol1(
+  Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol1(
     redeclare final package Medium = Medium1,
     nPorts = 2,
     V=m1_flow_nominal*tau1/rho1_nominal,
@@ -89,7 +89,8 @@ model FourPortHeatMassExchanger
     annotation (Placement(transformation(extent={{-10,70}, {10,50}})));
 
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol2
-    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
+    constrainedby
+    Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
     redeclare final package Medium = Medium2,
     nPorts = 2,
     V=m2_flow_nominal*tau2/rho2_nominal,
@@ -155,7 +156,7 @@ protected
   parameter Modelica.SIunits.SpecificEnthalpy h2_outflow_start = Medium2.specificEnthalpy(sta2_start)
     "Start value for outflowing enthalpy";
 
-initial algorithm
+initial equation
   // Check for tau1
   assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau1 > Modelica.Constants.eps,
@@ -179,6 +180,7 @@ initial algorithm
 "The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau2 = " + String(tau2) + "\n");
+
 
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
