@@ -75,8 +75,8 @@ model Floor "Model of a floor of the building"
     haveInteriorShade=false,
     haveExteriorShade=false) "Data record for the glazing system"
     annotation (Placement(transformation(extent={{240,460},{260,480}})));
-  parameter Real kIntNor = 1
-    "Gain factor to scale down internal heat gain in north zone";
+  parameter Real kIntNor(min=0, max=1) = 1
+    "Gain factor to scale internal heat gain in north zone";
   constant Modelica.SIunits.Height hRoo=2.74 "Room height";
   Buildings.ThermalZones.Detailed.MixedAir sou(
     redeclare package Medium = Medium,
@@ -252,7 +252,7 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{70,38},{110,54}})));
   Modelica.Blocks.Math.MatrixGain gai(K=20*[0.4; 0.4; 0.2])
     "Matrix gain to split up heat gain in radiant, convective and latent gain"
-    annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
+    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
@@ -340,7 +340,7 @@ model Floor "Model of a floor of the building"
     timeScale=3600,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Fraction of internal heat gain"
-    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
+    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
   Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
     "Building pressure measurement"
     annotation (Placement(transformation(extent={{60,240},{40,260}})));
@@ -351,10 +351,14 @@ model Floor "Model of a floor of the building"
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={-110,220})));
+        origin={-170,220})));
 
-  Modelica.Blocks.Math.Gain gain[3](each k=kIntNor)
-    annotation (Placement(transformation(extent={{60,140},{80,160}})));
+  Modelica.Blocks.Math.Gain gaiIntNor[3](each k=kIntNor)
+    "Gain for internal heat gain amplification for north zone"
+    annotation (Placement(transformation(extent={{-60,134},{-40,154}})));
+  Modelica.Blocks.Math.Gain gaiIntSou[3](each k=2 - kIntNor)
+    "Gain to change the internal heat gain for south"
+    annotation (Placement(transformation(extent={{-60,-38},{-40,-18}})));
 equation
   connect(sou.surf_conBou[1], wes.surf_surBou[2]) annotation (Line(
       points={{170,-40.6667},{170,-54},{62,-54},{62,20},{28.2,20},{28.2,42.5}},
@@ -419,22 +423,17 @@ equation
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, cor.qGai_flow)          annotation (Line(
-      points={{-19,110},{120,110},{120,64},{142.4,64}},
-      color={0,0,127},
-      pattern=LinePattern.Dash,
-      smooth=Smooth.None));
-  connect(gai.y, sou.qGai_flow)          annotation (Line(
-      points={{-19,110},{120,110},{120,-16},{142.4,-16}},
+      points={{-79,110},{120,110},{120,64},{142.4,64}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, eas.qGai_flow)          annotation (Line(
-      points={{-19,110},{226,110},{226,84},{302.4,84}},
+      points={{-79,110},{226,110},{226,84},{302.4,84}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, wes.qGai_flow)          annotation (Line(
-      points={{-19,110},{-14,110},{-14,64},{10.4,64}},
+      points={{-79,110},{-14,110},{-14,64},{10.4,64}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
@@ -678,7 +677,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(intGaiFra.y, gai.u) annotation (Line(
-      points={{-59,110},{-42,110}},
+      points={{-119,110},{-102,110}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -701,22 +700,30 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(senRelPre.p_rel, p_rel) annotation (Line(
-      points={{50,241},{50,220},{-110,220}},
+      points={{50,241},{50,220},{-170,220}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(gai.y, gain.u) annotation (Line(
-      points={{-19,110},{20,110},{20,150},{58,150}},
+  connect(gai.y, gaiIntNor.u) annotation (Line(
+      points={{-79,110},{-68,110},{-68,144},{-62,144}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(gain.y, nor.qGai_flow) annotation (Line(
-      points={{81,150},{100,150},{100,144},{142.4,144}},
+  connect(gaiIntNor.y, nor.qGai_flow) annotation (Line(
+      points={{-39,144},{142.4,144}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{400,500}},
+  connect(gai.y, gaiIntSou.u) annotation (Line(
+      points={{-79,110},{-68,110},{-68,-28},{-62,-28}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(gaiIntSou.y, sou.qGai_flow) annotation (Line(
+      points={{-39,-28},{68,-28},{68,-16},{142.4,-16}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},
+            {400,500}},
         initialScale=0.1)),     Icon(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{400,260}}), graphics={
+          preserveAspectRatio=true, extent={{-160,-100},{400,500}}), graphics={
         Rectangle(
           extent={{-80,-80},{380,180}},
           lineColor={95,95,95},
