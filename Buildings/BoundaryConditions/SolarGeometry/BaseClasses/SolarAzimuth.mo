@@ -20,30 +20,36 @@ block SolarAzimuth "Solar azimuth"
 protected
   Real arg "cos(solAzi) after data validity check";
   Real tmp "cos(solAzi) before data validity check";
+  Real solAziTem "Temporary variable for solar azimuth";
+
   constant Modelica.SIunits.Time day=86400 "Number of seconds in a day";
   constant Modelica.SIunits.Angle polarCircle = 1.1617
     "Latitude of polar circle (66 degree 33 min 44 sec)";
   final parameter Boolean outsidePolarCircle = lat < polarCircle and lat > -polarCircle
     "Flag, true if latitude is outside polar region";
-algorithm
-  tmp :=(Modelica.Math.sin(lat)*Modelica.Math.cos(zen) - Modelica.Math.sin(
+equation
+  tmp = (Modelica.Math.sin(lat)*Modelica.Math.cos(zen) - Modelica.Math.sin(
     decAng))/(Modelica.Math.cos(lat)*Modelica.Math.sin(zen));
 
-  arg :=min(1.0, max(-1.0, tmp));
+  arg = min(1.0, max(-1.0, tmp));
 
-  solAzi := Modelica.Math.acos(arg); // Solar azimuth (A4.9a and b) as a positive number
+  solAziTem =  Modelica.Math.acos(arg); // Solar azimuth (A4.9a and b) as a positive number
 
   if outsidePolarCircle then
     // Outside the polar circle, the only non-differentiability is at night when the sun is set.
     // Hence, we use noEvent.
     if noEvent(solTim - integer(solTim/day)*day < 43200) then
-      solAzi :=-solAzi;
+      solAzi =-solAziTem;
+    else
+      solAzi = solAziTem;
     end if;
   else
     // Inside the polar circle, there is a jump at (solar-)midnight when the sun can
     // be above the horizon. Hence, we do not use noEvent(...)
     if solTim - integer(solTim/day)*day < 43200 then
-      solAzi :=-solAzi;
+      solAzi =-solAziTem;
+    else
+      solAzi = solAziTem;
     end if;
   end if;
 
@@ -55,6 +61,12 @@ This component computes the solar azimuth angle.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 13, 2017, by Michael Wetter:<br/>
+Reformulated to use equation rather than algorithm section.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/834\">issue 834</a>.
+</li>
 <li>
 July 5, 2012, by Michael Wetter:<br/>
 Changed model to avoid an event at solar noon.

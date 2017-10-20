@@ -2,7 +2,7 @@ within Buildings.Fluid.FMI.Conversion.Validation;
 model InletToAirDryAirCO2
   "Validation model for inlet to air with dry air medium and CO2"
   extends Buildings.Fluid.FMI.Conversion.Validation.InletToAirMoistAirCO2(
-    redeclare package Medium = Modelica.Media.Air.SimpleAir(extraPropertiesNames={"CO2"}));
+    redeclare replaceable package Medium = Modelica.Media.Air.SimpleAir(extraPropertiesNames={"CO2"}));
   annotation (Documentation(info="<html>
 <p>
 This validation test is identical to
