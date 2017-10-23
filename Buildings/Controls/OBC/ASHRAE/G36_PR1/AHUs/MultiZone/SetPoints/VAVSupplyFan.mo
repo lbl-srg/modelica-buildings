@@ -114,7 +114,9 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
     final k=k,
     final Td=Td,
     final yMax=yFanMax,
-    final yMin=yFanMin)
+    final yMin=yFanMin,
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
+    y_reset=yFanMin)
     "Supply fan speed control"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 protected
@@ -277,6 +279,8 @@ equation
     annotation (Line(points={{-72,-40},{-76,-40},{-79,-40}}, color={0,0,127}));
   connect(staPreSetRes.y, firOrdHol.u) annotation (Line(points={{-109,-40},{
           -106,-40},{-102,-40}}, color={0,0,127}));
+  connect(supFanSpeCon.trigger, or1.y) annotation (Line(points={{-38,-52},{-38,
+          -60},{0,-60},{0,-8},{120,-8},{120,70},{101,70}}, color={255,0,255}));
 annotation (
   defaultComponentName="conSupFan",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{140,160}}),
