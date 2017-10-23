@@ -80,7 +80,9 @@ model AHUGuideline36
     k=kPTSup,
     Ti=TiTSup,
     yMax=1,
-    yMin=-1)
+    yMin=-1,
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
+    y_reset=0)
     "Controller for supply air temperature control signal (to be used by heating coil, cooling coil and economizer)"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 
@@ -439,6 +441,8 @@ equation
           120,-230},{101,-230}}, color={0,0,127}));
   connect(conEco.TMix, TMix) annotation (Line(points={{59.375,8.125},{-190,8.125},
           {-190,-70},{-210,-70}}, color={0,0,127}));
+  connect(conSupFan.ySupFan, conTSup.trigger) annotation (Line(points={{21,117},
+          {30,117},{30,-108},{-38,-108},{-38,-102}}, color={255,0,255}));
   annotation (
     defaultComponentName="conAHU",
     Diagram(coordinateSystem(extent={{-200,-260},{200,280}}, initialScale=0.2)),
