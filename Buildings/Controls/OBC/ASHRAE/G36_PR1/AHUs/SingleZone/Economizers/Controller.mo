@@ -13,6 +13,12 @@ model Controller "Single zone VAV AHU economizer control sequence"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
   parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+
+  parameter Real uMin=0
+    "Lower limit of controller output uTSup at which the dampers are at their limits";
+  parameter Real uMax=1
+    "Upper limit of controller output uTSup at which the dampers are at their limits";
+
   parameter Real yFanMin(
     final min=0,
     final max=1,
@@ -174,7 +180,9 @@ model Controller "Single zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Modulation mod(
     final kPMod=kPMod,
-    final TiMod=TiMod)
+    final TiMod=TiMod,
+    final uMin=uMin,
+    final uMax=uMax)
     "Single zone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 

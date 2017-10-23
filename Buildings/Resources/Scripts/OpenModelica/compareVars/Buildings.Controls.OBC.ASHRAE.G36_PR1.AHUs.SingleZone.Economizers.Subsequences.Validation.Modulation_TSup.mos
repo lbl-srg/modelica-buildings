@@ -2,7 +2,7 @@ compareVars :=
   {
     "mod.THeaSupSet",
     "mod.TSup",
-    "mod.damPosCon.y",
+    "mod.uTSup.y",
     "mod.yOutDamPos",
     "mod.yRetDamPos"
   };

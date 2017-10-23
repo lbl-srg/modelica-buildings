@@ -1240,17 +1240,17 @@ This sequence sets the thermal zone cooling and heating setpoints. The implement
 is according to the ASHRAE Guideline 36 (G36), PART5.B.3. The calculation is done
 following the steps below.
 </p>
-<p>a. Each zone shall have separate occupied and unoccupied heating and cooling
-setpoints.</p>
-<p>b. The active setpoints shall be determined by the Operation Mode of the zone
-group.</p>
+<h4>a. Each zone shall have separate occupied and unoccupied heating and cooling
+setpoints.</h4>
+<h4>b. The active setpoints shall be determined by the Operation Mode of the zone
+group.</h4>
 <ul>
 <li>The setpoints shall be the occupied setpoints during Occupied, Warm up, and
 Cool-down modes.</li>
 <li>The setpoints shall be the unoccupied setpoints during Unoccupied, Setback,
 and Setup modes.</li>
 </ul>
-<p>c. The software shall prevent</p>
+<h4>c. The software shall prevent</h4>
 <ul>
 <li>The heating setpoint from exceeding the cooling setpoint minus 0.56 &deg;C
 (1 &deg;F).</li>
@@ -1259,7 +1259,7 @@ setpoint.</li>
 <li>The unoccupied cooling setpoint from being less than occupied cooling
 setpoint.</li>
 </ul>
-<p>d. Where the zone has a local setpoint adjustment knob/button </p>
+<h4>d. Where the zone has a local setpoint adjustment knob/button </h4>
 <ul>
 <li>The setpoint adjustment offsets established by the occupant shall be software
 points that are persistent (e.g. not reset daily), but the actual offset used
@@ -1279,34 +1279,34 @@ shall have no impact on setpoints in all other modes.</li>
 be frozen. Further adjustment of the setpoint by local controls shall be suspended
 for the duration of the demand limit event.</li>
 </ul>
-<p>e. Cooling demand limit setpoint adjustment</p>
-The active cooling setpoints for all zones shall be increased when a demand limit
+<h4>e. Cooling demand limit setpoint adjustment</h4>
+<p>The active cooling setpoints for all zones shall be increased when a demand limit
 is imposed on the associated zone group. The operator shall have the ability
 to exempt individual zones from this adjustment through the normal
-Building Automation System (BAS) user
-interface. Changes due to demand limits are not cumulative.
+Building Automation System (BAS) user interface. Changes due to demand limits 
+are not cumulative.</p>
 <ul>
 <li>At Demand Limit Level 1, increase setpoint by 0.56 &deg;C (1 &deg;F).</li>
 <li>At Demand Limit Level 2, increase setpoint by 1.1 &deg;C (2 &deg;F).</li>
 <li>At Demand Limit Level 1, increase setpoint by 2.2 &deg;C (4 &deg;F).</li>
 </ul>
-<p>f. Heating demand limit setpoint adjustment</p>
-The active heating setpoints for all zones shall be decreased when a demand limit
+<h4>f. Heating demand limit setpoint adjustment</h4>
+<p>The active heating setpoints for all zones shall be decreased when a demand limit
 is imposed on the associated zone group. The operator shall have the ability
 to exempt individual zones from this adjustment through the normal BAS user
-interface. Changes due to demand limits are not cumulative.
+interface. Changes due to demand limits are not cumulative.</p>
 <ul>
 <li>At Demand Limit Level 1, decrease setpoint by 0.56 &deg;C (1 &deg;F).</li>
 <li>At Demand Limit Level 2, decrease setpoint by 1.1 &deg;C (2 &deg;F).</li>
 <li>At Demand Limit Level 1, decrease setpoint by 2.2 &deg;C (4 &deg;F).</li>
 </ul>
-<p>g. Window switches</p>
-For zones that have operable windows with indicator switches, when the window
+<h4>g. Window switches</h4>
+<p>For zones that have operable windows with indicator switches, when the window
 switch indicates the window is open, the heating setpoint shall be temporarily
 set to 4.4 &deg;C (40 &deg;F) and the cooling setpoint shall be temporarily
 set to 49 &deg;C (120 &deg;F). When the window switch indicates the window is
-open during other than Occupied Mode, a Level 4 alarm shall be generated.
-<p>h. Occupancy sensor</p>
+open during other than Occupied Mode, a Level 4 alarm shall be generated.</p>
+<h4>h. Occupancy sensor</h4>
 <ul>
 <li>When the switch indicates the space has been unpopulated for 5 minutes
 continuously during the Occupied Mode, the active heating setpoint shall be

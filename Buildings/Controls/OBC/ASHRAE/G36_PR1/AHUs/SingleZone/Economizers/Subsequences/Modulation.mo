@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences;
 block Modulation "Outdoor and return air damper position modulation sequence for single zone VAV AHU"
 
-  parameter Real yMin=0 "Lower limit of controller output"
+  parameter Real uMin=0 "Lower limit of controller output uTSup at which the dampers are at their limits"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Real yMax=1 "Upper limit of controller output"
+  parameter Real uMax=1 "Upper limit of controller output uTSup at which the dampers are at their limits"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
   parameter Real kPMod=1 "Gain of modulation controller"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
@@ -64,23 +64,21 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     annotation (Placement(transformation(extent={{120,10},{140,30}}),
       iconTransformation(extent={{100,10},{120,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID damPosCon(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID uTSup(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final yMax=yMax,
-    final yMin=yMin,
+    final yMax=uMax,
+    final yMin=uMin,
     final k=kPMod,
     final Ti=TiMod)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(
-    final k=damPosCon.yMin)
-    "Minimal control loop signal for the outdoor air damper"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(final
+      k=uTSup.yMin) "Minimal control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamMaxLimSig(
-    final k=damPosCon.yMax)
-    "Maximal control loop signal for the return air damper"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamMaxLimSig(final
+      k=uTSup.yMax) "Maximal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Line outDamPos(
@@ -95,26 +93,26 @@ protected
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
 equation
-  connect(TSup,damPosCon. u_m)
-    annotation (Line(points={{-140,-20},{-70,-20},{-70,-2}},color={0,0,127}));
+  connect(TSup, uTSup.u_m)
+    annotation (Line(points={{-140,-20},{-70,-20},{-70,-2}}, color={0,0,127}));
   connect(outDamPos.y, yOutDamPos)
     annotation (Line(points={{81,-30},{100,-30},{100,-20},{120,-20},{130,-20}},color={0,0,127}));
   connect(retDamPos.y, yRetDamPos)
     annotation (Line(points={{81,70},{100,70},{100, 20},{130,20}}, color={0,0,127}));
   connect(retDamMaxLimSig.y,retDamPos. x2)
     annotation (Line(points={{1,40},{2,40}, {0,40},{40,40},{40,66},{58,66},{58,66}},color={0,0,127}));
-  connect(damPosCon.y,retDamPos. u)
-    annotation (Line(points={{-59,10},{30,10},{30,70},{58,70}}, color={0,0,127}));
-  connect(damPosCon.y, outDamPos.u)
-    annotation (Line(points={{-59,10},{40,10},{40,-30},{58,-30}},color={0,0,127}));
+  connect(uTSup.y, retDamPos.u) annotation (Line(points={{-59,10},{30,10},{30,
+          70},{58,70}}, color={0,0,127}));
+  connect(uTSup.y, outDamPos.u) annotation (Line(points={{-59,10},{40,10},{40,-30},
+          {58,-30}}, color={0,0,127}));
   connect(uRetDamPosMax,retDamPos. f1)
     annotation (Line(points={{-140,100},{50,100},{50,74},{58,74}}, color={0,0,127}));
   connect(uOutDamPosMin, outDamPos.f1)
     annotation (Line(points={{-140,-100},{-140,-100},{28,-100},{28,-26},{58,-26}}, color={0,0,127}));
   connect(outDamMinLimSig.y, outDamPos.x1)
     annotation (Line(points={{1,-10},{1,-10}, {28,-10},{28,-22},{58,-22}}, color={0,0,127}));
-  connect(THeaSupSet, damPosCon.u_s) annotation (Line(points={{-140,10},{-140,
-          10},{-82,10}}, color={0,0,127}));
+  connect(THeaSupSet, uTSup.u_s)
+    annotation (Line(points={{-140,10},{-140,10},{-82,10}}, color={0,0,127}));
   connect(uRetDamPosMin,retDamPos. f2)
     annotation (Line(points={{-140,60},{-40,60},{-40,62},{58,62}}, color={0,0,127}));
   connect(uOutDamPosMax, outDamPos.f2) annotation (Line(points={{-140,-70},{40,-70},
@@ -212,6 +210,10 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/Eco
 
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2017, by Jianjun Hu:<br/>
+Changed name of controller output limit from yMin/yMax to uMin/uMax.
+</li>
 <li>
 July 07, 2017, by Milica Grahovac:<br/>
 First implementation.
