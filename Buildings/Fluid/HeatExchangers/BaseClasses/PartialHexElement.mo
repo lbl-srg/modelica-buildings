@@ -1,11 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model PartialHexElement "Element of a heat exchanger 2"
-  extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
-   vol1(final energyDynamics=energyDynamics,
-        final massDynamics=energyDynamics,
-        final initialize_p=initialize_p1,
-        prescribedHeatFlowRate=false),
-  vol2(prescribedHeatFlowRate=false));
+  extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger;
 
   parameter Boolean initialize_p1 = not Medium1.singleState
     "Set to true to initialize the pressure of volume 1"
