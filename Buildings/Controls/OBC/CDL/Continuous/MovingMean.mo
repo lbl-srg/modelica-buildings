@@ -12,12 +12,13 @@ block MovingMean
 
 protected
   parameter Modelica.SIunits.Time tStart(fixed=false) "Start time";
-  Real mu(start=0) "Internal integrator variable";
+  Real mu "Internal integrator variable";
   Real muDel "Internal integrator variable with delay";
   Boolean mode(start=false, fixed=true) "Calculation mode";
 
 initial equation
   tStart = time;
+  mu = 0;
 equation
   u =der(mu);
   muDel = delay(mu, delta);
@@ -109,6 +110,10 @@ for example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 24, 2017, by Michael Wetter:<br/>
+Set initial condition for <code>mu</code>.
+</li>
 <li>
 October 17, 2017, by Michael Wetter:<br/>
 Reformulated implementation to avoid direct feedthrough.
