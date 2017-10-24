@@ -267,6 +267,15 @@ its class name ends with the string <code>Beta</code>.
                           which will then be tracked by the model.
        </td>
    </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Sensors.TemperatureTwoPort
+       </td>
+       <td valign=\"top\">Improved optional heat loss model.<br/>
+                          This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/840\">IBPSA, #840</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
        </td>
    </tr>
