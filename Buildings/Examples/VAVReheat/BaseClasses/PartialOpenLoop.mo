@@ -55,8 +55,18 @@ partial model PartialOpenLoop
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Evaluate=true);
 
-  Buildings.Fluid.Sources.Outside amb(redeclare package Medium = MediumA,
-      nPorts=3) "Ambient conditions"
+  parameter Boolean use_windPressure = false
+    "Set to true to enable wind pressure";
+
+  parameter Boolean sampleModel = true
+    "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
+    annotation (
+      Evaluate=true,
+      Dialog(tab="Experimental (may be changed in future releases)"));
+
+  Buildings.Fluid.Sources.Outside amb(
+    redeclare package Medium = MediumA,
+    nPorts=3) "Ambient conditions"
     annotation (Placement(transformation(extent={{-136,-56},{-114,-34}})));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU heaCoi(
     redeclare package Medium1 = MediumA,
@@ -369,7 +379,9 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
   ThermalZones.Floor flo(
     redeclare final package Medium = MediumA,
-    final lat=lat)
+    final lat=lat,
+    final use_windPressure=use_windPressure,
+    final sampleModel=sampleModel)
     "Model of a floor of the building that is served by this VAV system"
     annotation (Placement(transformation(extent={{772,396},{1100,616}})));
   Modelica.Blocks.Routing.DeMultiplex5 TRooAir(

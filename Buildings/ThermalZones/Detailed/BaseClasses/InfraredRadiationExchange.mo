@@ -6,6 +6,12 @@ model InfraredRadiationExchange
     "Set to true to linearize emissive power";
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
+  parameter Boolean sampleModel = false
+    "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
+    annotation (
+      Evaluate=true,
+      Dialog(tab="Experimental (may be changed in future releases)"));
+
   HeatTransfer.Interfaces.RadiosityInflow JInConExtWin[NConExtWin] if
       haveConExtWin
     "Incoming radiosity that connects to non-frame part of the window"
@@ -181,34 +187,33 @@ equation
   // Incoming radiosity at each surface
   // is equal to the negative of the outgoing radiosity of
   // all other surfaces times the view factor
-  if false then // fixme: remove for release
-  G = -transpose(F)*J;
-  // Net heat exchange
-  Q_flow = -J - G;  // Outgoing radiosity
-  // Sum of energy balance
-  // Remove sumEBal and assert statement for final release
-  sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
-    sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
-    conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(JOutConExtWin));
+  if sampleModel then
+    // experimental mode to sample the model which can give shorter
+    // simulation time if there is already a sampling in the system model
+    when sample(0, 2*60) then
+      G = -transpose(F)*pre(J);
+      // Net heat exchange
+      Q_flow = -pre(J) - G;  // Outgoing radiosity
+      // Sum of energy balance
+      // Remove sumEBal and assert statement for final release
+      sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
+        sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
+        conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(JOutConExtWin));
+    end when;
+  else
+    G = -transpose(F)*J;
+    // Net heat exchange
+    Q_flow = -J - G;  // Outgoing radiosity
+    // Sum of energy balance
+    // Remove sumEBal and assert statement for final release
+    sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
+      sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
+      conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(JOutConExtWin));
+  end if;
   assert(abs(sumEBal) < 1E-1,
     "Program error: Energy is not conserved in InfraredRadiationExchange.
-               Sum of all energy is " + String(sumEBal));
-  else
+  Sum of all energy is " + String(sumEBal));
 
-  when sample(0, 2*60) then
-  G = -transpose(F)*pre(J);
-  // Net heat exchange
-  Q_flow = -pre(J) - G;  // Outgoing radiosity
-  // Sum of energy balance
-  // Remove sumEBal and assert statement for final release
-  sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
-    sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
-    conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(JOutConExtWin));
-//  assert(abs(sumEBal) < 1E-1,
-//    "Program error: Energy is not conserved in InfraredRadiationExchange.
-//               Sum of all energy is " + String(sumEBal));
-end when;
-  end if;
   // Opaque surfaces.
   // If kOpa[j]=absIR[j]*A[j] < 1E-28, then A < 1E-20 and the surface is
   // from a dummy construction. In this situation, we set T40=293.15^4 to

@@ -1070,5 +1070,13 @@ The model
 Buildings.ThermalZones.Detailed.Examples.ElectroChromicWindow</a>
 shows how to configure electrochromic windows.
 </p>
+<h4>Experimental settings</h4>
+<p>
+Both models have the option to time sample the heat transfer calculation.
+Setting the parameter <code>sampleModel</code> samples the radiative heat transfer
+with a sampling time of <i>2</i> minutes. This can give shorter simulation time
+if there is already a time sampling in the system model.
+This option is experimental and may be changed or removed in future versions.
+</p>
 </html>"));
 end UsersGuide;
