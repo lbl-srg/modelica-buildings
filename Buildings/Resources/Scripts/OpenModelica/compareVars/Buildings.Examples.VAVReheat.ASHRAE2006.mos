@@ -6,8 +6,8 @@ compareVars :=
     "TSupWes.T",
     "TSupCor.T",
     "conEco.yOA",
-    "fanRet.m_flow",
-    "fanRet.m_flow_nominal",
+    "dpRetDuc.m_flow",
+    "dpRetDuc.m_flow_nominal",
     "fanSup.m_flow",
     "fanSup.m_flow_nominal"
   };
