@@ -48,12 +48,16 @@ protected
     each max=1,
     each fixed=false) "View factor from surface i to j";
 
+  parameter Modelica.SIunits.Time t0(fixed=false)
+    "First sample time instant";
+
    Buildings.HeatTransfer.Interfaces.RadiosityInflow JInConExtWin_internal[NConExtWin]
     "Incoming radiosity that connects to non-frame part of the window";
 
   Modelica.SIunits.HeatFlowRate J[nTot](
     each max=0,
     start=-A .* 0.8*Modelica.Constants.sigma*293.15^4,
+    fixed = {sampleModel and (i <= nOpa or i > nOpa+nWin) for i in 1:nTot},
     each nominal=10*0.8*Modelica.Constants.sigma*293.15^4)
     "Radiosity leaving the surface";
   Modelica.SIunits.HeatFlowRate G[nTot](
@@ -158,6 +162,8 @@ initial equation
       "Program error: Sum 1 of view factors is " + String(sum(F[i, j] for j in
       1:nTot)));
   end for;
+
+  t0 = time;
   ////////////////////////////////////////////////////////////////////
 equation
   // Conditional connector
@@ -190,13 +196,14 @@ equation
   if sampleModel then
     // experimental mode to sample the model which can give shorter
     // simulation time if there is already a sampling in the system model
-    when sample(0, 2*60) then
+    when sample(t0, 2*60) then
       G = -transpose(F)*pre(J);
       // Net heat exchange
       Q_flow = -pre(J) - G;  // Outgoing radiosity
       // Sum of energy balance
       // Remove sumEBal and assert statement for final release
-      sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
+      sumEBal =
+        sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
         sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
         conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(JOutConExtWin));
     end when;
@@ -209,10 +216,10 @@ equation
     sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
       sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
       conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(JOutConExtWin));
+    assert(abs(sumEBal) < 1E-1,
+      "Program error: Energy is not conserved in InfraredRadiationExchange.
+    Sum of all energy is " + String(sumEBal));
   end if;
-  assert(abs(sumEBal) < 1E-1,
-    "Program error: Energy is not conserved in InfraredRadiationExchange.
-  Sum of all energy is " + String(sumEBal));
 
   // Opaque surfaces.
   // If kOpa[j]=absIR[j]*A[j] < 1E-28, then A < 1E-20 and the surface is
