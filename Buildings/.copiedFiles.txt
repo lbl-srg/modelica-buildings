@@ -596,7 +596,14 @@ Buildings/Fluid/MassExchangers/Examples/package.mo
 Buildings/Fluid/MassExchangers/Examples/package.order
 Buildings/Fluid/MassExchangers/package.mo
 Buildings/Fluid/MassExchangers/package.order
+Buildings/Fluid/MixingVolumes/BaseClasses/MixingVolumeHeatMoisturePort.mo
+Buildings/Fluid/MixingVolumes/BaseClasses/MixingVolumeHeatPort.mo
 Buildings/Fluid/MixingVolumes/BaseClasses/PartialMixingVolume.mo
+Buildings/Fluid/MixingVolumes/BaseClasses/Validation/MixingVolumeHeatMoisturePort.mo
+Buildings/Fluid/MixingVolumes/BaseClasses/Validation/MixingVolumeHeatPortAir.mo
+Buildings/Fluid/MixingVolumes/BaseClasses/Validation/MixingVolumeHeatPortWater.mo
+Buildings/Fluid/MixingVolumes/BaseClasses/Validation/package.mo
+Buildings/Fluid/MixingVolumes/BaseClasses/Validation/package.order
 Buildings/Fluid/MixingVolumes/BaseClasses/package.mo
 Buildings/Fluid/MixingVolumes/BaseClasses/package.order
 Buildings/Fluid/MixingVolumes/Examples/MixingVolumeHeatConduction.mo
@@ -1153,6 +1160,9 @@ Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowHumidifi
 Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowMassExchanger.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/StaticTwoPortConservationEquation.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MassExchangers/Examples/ConstantEffectiveness.mos
+Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/BaseClasses/Validation/MixingVolumeHeatMoisturePort.mos
+Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/BaseClasses/Validation/MixingVolumeHeatPortAir.mos
+Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/BaseClasses/Validation/MixingVolumeHeatPortWater.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeHeatConduction.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMoistAir.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumePrescribedHeatFlowRate.mos

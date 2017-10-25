@@ -9,7 +9,9 @@ equation
     connect(heaFloSen.port_a, heatPort)
       annotation (Line(points={{-90,0},{-100,0},{-100,0}}, color={191,0,0}));
 
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComonentName="vol",
+  Documentation(info="<html>
 <p>
 Mixing volume with a heat port.
 </p>
@@ -18,7 +20,11 @@ This model is identical to
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume\">
 Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume</a>,
 except that it has a heat port.
-Note that in contrast to
+</p>
+<p>
+Note that this model is typically only used to implement new component models that
+have staggered volumes.
+In contrast to
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>, it does
 not set <code>initialize_p</code> to <code>final</code> in order
