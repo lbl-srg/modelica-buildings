@@ -1,4 +1,4 @@
-simulateModel("Buildings.ThermalZones.Detailed.Validation.TestConditionalConstructions.SampleModel.OnlyConstructionBoundary", stopTime=86400, method="radau", tolerance=1e-06, resultFile="SampledModelOnlyConstructionBoundary");
+simulateModel("Buildings.ThermalZones.Detailed.Validation.TestConditionalConstructions.SampledModel.OnlyConstructionBoundary", stopTime=86400, method="radau", tolerance=1e-06, resultFile="SampledModelOnlyConstructionBoundary");
 removePlots();
 createPlot(id = 1,
  position = {15, 10, 400, 280},
