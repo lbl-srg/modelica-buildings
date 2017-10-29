@@ -3,7 +3,7 @@ model Floor "Model of a floor of the building"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
 
-  parameter Boolean use_windPressure=false
+  parameter Boolean use_windPressure=true
     "Set to true to enable wind pressure";
 
   parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
@@ -78,6 +78,13 @@ model Floor "Model of a floor of the building"
   parameter Real kIntNor(min=0, max=1) = 1
     "Gain factor to scale internal heat gain in north zone";
   constant Modelica.SIunits.Height hRoo=2.74 "Room height";
+
+  parameter Boolean sampleModel = false
+    "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
+    annotation (
+      Evaluate=true,
+      Dialog(tab="Experimental (may be changed in future releases)"));
+
   Buildings.ThermalZones.Detailed.MixedAir sou(
     redeclare package Medium = Medium,
     lat=lat,
@@ -107,7 +114,8 @@ model Floor "Model of a floor of the building"
     nSurBou=0,
     nPorts=5,
     intConMod=intConMod,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "South zone"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final sampleModel=sampleModel) "South zone"
     annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
   Buildings.ThermalZones.Detailed.MixedAir eas(
     redeclare package Medium = Medium,
@@ -143,7 +151,8 @@ model Floor "Model of a floor of the building"
       til={Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall}),
     nPorts=5,
     intConMod=intConMod,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "East zone"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final sampleModel=sampleModel) "East zone"
     annotation (Placement(transformation(extent={{304,56},{344,96}})));
   Buildings.ThermalZones.Detailed.MixedAir nor(
     redeclare package Medium = Medium,
@@ -174,7 +183,8 @@ model Floor "Model of a floor of the building"
     nSurBou=0,
     nPorts=5,
     intConMod=intConMod,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "North zone"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final sampleModel=sampleModel) "North zone"
     annotation (Placement(transformation(extent={{144,116},{184,156}})));
   Buildings.ThermalZones.Detailed.MixedAir wes(
     redeclare package Medium = Medium,
@@ -210,7 +220,8 @@ model Floor "Model of a floor of the building"
       til={Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall}),
     nPorts=5,
     intConMod=intConMod,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "West zone"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final sampleModel=sampleModel) "West zone"
     annotation (Placement(transformation(extent={{12,36},{52,76}})));
   Buildings.ThermalZones.Detailed.MixedAir cor(
     redeclare package Medium = Medium,
@@ -233,7 +244,8 @@ model Floor "Model of a floor of the building"
       til={Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall}),
     nPorts=11,
     intConMod=intConMod,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Core zone"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final sampleModel=sampleModel) "Core zone"
     annotation (Placement(transformation(extent={{144,36},{184,76}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsSou[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"

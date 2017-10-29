@@ -1,0 +1,7 @@
+OnlyConstructionBoundary
+OnlyExteriorWallNoWindow
+OnlyExteriorWallWithWindow
+OnlyExteriorWallWithWindowExteriorShade
+OnlyExteriorWallWithWindowInteriorShade
+OnlyPartition
+OnlySurfaceBoundary
