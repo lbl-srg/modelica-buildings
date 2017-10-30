@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits;
-block ReheatController
-  "Controller for room VAV box according to ASHRAE Guideline 36"
-
+block ReheatController "Controller for room VAV box"
   parameter Modelica.SIunits.Time samplePeriod
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
@@ -29,98 +27,106 @@ block ReheatController
   parameter Boolean have_occSen=false
     "Set to true if the zone has occupancy sensor"
     annotation (Evaluate=true,
-      Dialog(tab="AirflowSet", group="Zone sensors"));
+      Dialog(tab="Airflow setpoint", group="Zone sensors"));
   parameter Boolean have_winSen=false
     "Set to true if the zone has window status sensor"
     annotation (Evaluate=true,
-      Dialog(tab="AirflowSet", group="Zone sensors"));
+      Dialog(tab="Airflow setpoint", group="Zone sensors"));
   parameter Boolean have_CO2Sen=false
     "Set to true if the zone has CO2 sensor"
     annotation (Evaluate=true,
-      Dialog(tab="AirflowSet", group="Zone sensors"));
+      Dialog(tab="Airflow setpoint", group="Zone sensors"));
   parameter Modelica.SIunits.VolumeFlowRate VCooMax=V_flow_nominal
     "Zone maximum cooling airflow setpoint"
     annotation (Evaluate=true,
-      Dialog(tab="AirflowSet", group="Nominal conditions"));
+      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Modelica.SIunits.VolumeFlowRate VMin=0.15*V_flow_nominal
     "Zone minimum airflow setpoint"
     annotation (Evaluate=true,
-      Dialog(tab="AirflowSet", group="Nominal conditions"));
+      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Modelica.SIunits.VolumeFlowRate VHeaMax=V_flow_nominal
     "Zone maximum heating airflow setpoint"
     annotation (Evaluate=true,
-      Dialog(tab="AirflowSet", group="Nominal conditions"));
+      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Modelica.SIunits.VolumeFlowRate VMinCon=0.1*V_flow_nominal
     "VAV box controllable minimum"
     annotation (Evaluate=true,
-      Dialog(tab="AirflowSet", group="Nominal conditions"));
+      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real outAirPerAre=3e-4
     "Outdoor air rate per unit area"
     annotation (Evaluate=true,
-      Dialog(tab="AirflowSet", group="Nominal conditions"));
+      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Modelica.SIunits.VolumeFlowRate outAirPerPer=2.5e-3
     "Outdoor air rate per person"
     annotation (Evaluate=true,
-      Dialog(tab="AirflowSet", group="Nominal conditions"));
+      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real CO2Set=894 "CO2 setpoint in ppm"
     annotation (Evaluate=true,
-      Dialog(tab="AirflowSet", group="Nominal conditions"));
+      Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Modelica.SIunits.TemperatureDifference maxDTem=11
     "Zone maximum discharge air temperature above heating setpoint"
-    annotation (Evaluate=true, Dialog(tab="DamperValveControl"));
+    annotation (Evaluate=true,
+      Dialog(tab="Damper and valve", group="Parameters"));
   parameter Modelica.SIunits.Temperature minDisTem=283.15
     "Lowest discharge air temperature"
-    annotation (Evaluate=true, Dialog(tab="DamperValveControl"));
+    annotation (Evaluate=true,
+      Dialog(tab="Damper and valve", group="Parameters"));
   parameter Real kWatVal=0.5
     "Gain of controller for valve control"
     annotation (Evaluate=true,
-      Dialog(tab="DamperValveControl", group="Controller parameters"));
+      Dialog(tab="Damper and valve", group="PID Controller"));
   parameter Modelica.SIunits.Time TiWatVal=300
     "Time constant of Integrator block for valve control"
     annotation (Evaluate=true,
-      Dialog(tab="DamperValveControl", group="Controller parameters"));
+      Dialog(tab="Damper and valve", group="PID Controller"));
   parameter Real kDam=0.5
     "Gain of controller for damper control"
     annotation (Evaluate=true,
-      Dialog(tab="DamperValveControl", group="Controller parameters"));
+      Dialog(tab="Damper and valve", group="PID Controller"));
   parameter Modelica.SIunits.Time TiDam=300
     "Time constant of Integrator block for damper control"
     annotation (Evaluate=true,
-      Dialog(tab="DamperValveControl", group="Controller parameters"));
+      Dialog(tab="Damper and valve", group="PID Controller"));
   parameter Boolean have_heaWatCoi=true
     "Flag, true if there is a hot water coil"
-    annotation (Evaluate=true, Dialog(tab="SystemRequests"));
+    annotation (Evaluate=true,
+      Dialog(tab="System requests", group="Parameters"));
   parameter Boolean have_heaPla=false
     "Flag, true if there is a boiler plant"
-    annotation (Evaluate=true, Dialog(tab="SystemRequests"));
+    annotation (Evaluate=true,
+      Dialog(tab="System requests", group="Parameters"));
   parameter Modelica.SIunits.TemperatureDifference cooSetDif_1=2.8
     "Limit value of difference between zone temperature and cooling setpoint
     for generating 3 cooling SAT reset requests"
-    annotation (Evaluate=true, Dialog(tab="SystemRequests"));
+    annotation (Evaluate=true,
+      Dialog(tab="System requests", group="Parameters"));
   parameter Modelica.SIunits.TemperatureDifference cooSetDif_2=1.7
     "Limit value of difference between zone temperature and cooling setpoint
     for generating 2 cooling SAT reset requests"
-    annotation (Evaluate=true, Dialog(tab="SystemRequests"));
+    annotation (Evaluate=true,
+      Dialog(tab="System requests", group="Parameters"));
   parameter Modelica.SIunits.TemperatureDifference disAirSetDif_1=17
     "Limit value of difference between discharge air temperature and its setpoint
     for generating 3 hot water reset requests"
-    annotation (Evaluate=true, Dialog(tab="SystemRequests"));
+    annotation (Evaluate=true,
+      Dialog(tab="System requests", group="Parameters"));
   parameter Modelica.SIunits.TemperatureDifference disAirSetDif_2=8.3
     "Limit value of difference between discharge air temperature and its setpoint
     for generating 2 hot water reset requests"
-    annotation (Evaluate=true, Dialog(tab="SystemRequests"));
+    annotation (Evaluate=true,
+      Dialog(tab="System requests", group="Parameters"));
   parameter Modelica.SIunits.Time durTimTem=120
     "Duration time of zone temperature exceeds setpoint"
     annotation (Evaluate=true,
-      Dialog(tab="SystemRequests", group="Duration times"));
+      Dialog(tab="System requests", group="Duration times"));
   parameter Modelica.SIunits.Time durTimFlo=60
     "Duration time of airflow rate less than setpoint"
     annotation (Evaluate=true,
-      Dialog(tab="SystemRequests", group="Duration times"));
+      Dialog(tab="System requests", group="Duration times"));
   parameter Modelica.SIunits.Time durTimDisAir=300
     "Duration time of discharge air temperature is less than setpoint"
     annotation (Evaluate=true,
-      Dialog(tab="SystemRequests", group="Duration times"));
+      Dialog(tab="System requests", group="Duration times"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooHeaSet(
     final quantity="ThermodynamicTemperature",
