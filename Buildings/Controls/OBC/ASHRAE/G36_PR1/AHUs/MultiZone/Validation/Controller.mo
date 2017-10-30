@@ -5,14 +5,17 @@ model Controller "Validation controller model"
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller conAHU(
     numZon=2,
     have_occSen={false,false},
-    minZonPriFlo={(50*3*1.2/3600)*6,(50*3*1.2/3600)*6},
-    maxSysPriFlo=0.7*(50*3*1.2/3600)*6*2,
-    zonAre={50,50}) "Multiple zone AHU controller"
+    zonAre={50,50},
+    minZonPriFlo={(50*3/3600)*6,(50*3/3600)*6},
+    maxSysPriFlo=0.7*(50*3/3600)*6*2)
+                    "Multiple zone AHU controller"
     annotation (Placement(transformation(extent={{14,40},{94,144}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCooOn(final k=24)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCooOn(final k=273.15
+         + 24)
     "Cooling on setpoint"
     annotation (Placement(transformation(extent={{-100,133},{-80,154}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHeaOn(final k=20)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHeaOn(final k=273.15
+         + 20)
     "Heating on setpoint"
     annotation (Placement(transformation(extent={{-170,133},{-150,153}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(final k=297.15)
@@ -190,8 +193,7 @@ equation
     annotation (Line(points={{-39,-140},{-12,-140},{-12,42},{12,42}},
       color={255,127,0}));
 
-annotation (
-  experiment(StopTime=3600.0, Tolerance=1e-06),
+annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/Validation/Controller.mos"
     "Simulate and plot"),
     Documentation(info="<html>

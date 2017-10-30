@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "reheatController.TRooHeaSet",
+    "reheatController.TRooCooSet",
+    "reheatController.TRoo",
+    "reheatController.heaCoo.yHea",
+    "reheatController.heaCoo.yCoo",
+    "reheatController.conDamVal.VDisSet",
+    "reheatController.conDamVal.VDis",
+    "reheatController.conDamVal.yDam",
+    "reheatController.conDamVal.TDisSet",
+    "reheatController.conDamVal.TDis",
+    "reheatController.conDamVal.yHeaVal",
+    "reheatController.yZonTemResReq",
+    "reheatController.yZonPreResReq"
+  };

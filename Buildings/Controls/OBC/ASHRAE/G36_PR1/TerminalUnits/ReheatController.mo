@@ -411,7 +411,7 @@ According to Part 5.E.9, this sequence outputs the system reset requests, i.e.
 cooling supply air temperature reset requests <code>yZonTemResReq</code>,
 static pressure reset requests <code>yZonPreResReq</code>, hot water reset 
 requests <code>yHeaValResReq</code>, and the boiler plant reset requests 
-<code>yHeaPlaReq<code>. See
+<code>yHeaPlaReq</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests</a>.
 </p>

@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits;
-block ZoneSetPoints
-  "Output zone setpoint with operation mode selection"
+block ZoneModeAndSetPoints "Output zone setpoint with operation mode selection"
 
   parameter Integer numZon(min=2)
     "Total number of served zones/VAV boxes";
@@ -96,7 +95,7 @@ block ZoneSetPoints
     each quantity="ThermodynamicTemperature")
     "Measured zone temperatures"
     annotation (Placement(transformation(rotation=0, extent={{-140,-20},{-100,20.5}}),
-      iconTransformation(extent={{-140,-20},{-100,20.5}})));
+      iconTransformation(extent={{-140,20},{-100,60.5}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
     final unit="s",
     quantity="Time")
@@ -178,7 +177,7 @@ block ZoneSetPoints
     final freProThrVal=freProThrVal,
     final freProEndVal=freProEndVal)
     "Operation mode selector"
-    annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
+    annotation (Placement(transformation(extent={{-34,-40},{-14,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tCooDowHeaUp[numZon](
     each final k=warCooTim)
     "Cool down and heat up time (assumed as constant)"
@@ -188,6 +187,22 @@ block ZoneSetPoints
     "Window status"
     annotation (Placement(transformation(extent={{-32,-90},{-12,-70}})));
 
+  CDL.Interfaces.RealInput                        setAdj(final unit="K",
+      quantity="ThermodynamicTemperature") if
+                                            (cooAdj or sinAdj)
+    "Setpoint adjustment value"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={-14,160}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
+  CDL.Interfaces.RealInput                        heaSetAdj(final unit="K",
+      quantity="ThermodynamicTemperature") if
+                                            heaAdj
+    "Heating setpoint adjustment value"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={20,160}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
 equation
   connect(TSetZon.uCooDemLimLev,cooDemLimLev. y)
     annotation (Line(points={{18,-34},{0,-34},{0,-60},{-30,-60},{-30,-61},{-59,-61}},
@@ -208,31 +223,33 @@ equation
     annotation (Line(points={{18,-14},{-6,-14},{-6,61},{-59,61}},
       color={0,0,127}));
   connect(opeModSel.yOpeMod, TSetZon.uOpeMod)
-    annotation (Line(points={{-9,-30},{18,-30}}, color={255,127,0}));
+    annotation (Line(points={{-13,-30},{18,-30}},color={255,127,0}));
   connect(tCooDowHeaUp.y,opeModSel. cooDowTim)
-    annotation (Line(points={{-59,1},{-52,1},{-52,-25.6},{-31,-25.6}},
+    annotation (Line(points={{-59,1},{-52,1},{-52,-25.6},{-35,-25.6}},
       color={0,0,127}));
   connect(tCooDowHeaUp.y,opeModSel. warUpTim)
-    annotation (Line(points={{-59,1},{-52,1},{-52,-27.8},{-31,-27.8}},
+    annotation (Line(points={{-59,1},{-52,1},{-52,-27.8},{-35,-27.8}},
       color={0,0,127}));
   connect(TSetRooCooOn.y,opeModSel. TCooSet)
-    annotation (Line(points={{-59,121.5},{-40,121.5},{-40,-34.6},{-31,-34.6}},
+    annotation (Line(points={{-59,121.5},{-44,121.5},{-44,-34.6},{-35,-34.6}},
       color={0,0,127}));
   connect(opeModSel.THeaSet,TSetRooHeaOn. y)
-    annotation (Line(points={{-31,-32.2},{-38,-32.2},{-38,91},{-59,91}},
+    annotation (Line(points={{-35,-32.2},{-42,-32.2},{-42,91},{-59,91}},
       color={0,0,127}));
   connect(opeModSel.TUnoHeaSet,TSetRooHeaOff. y)
-    annotation (Line(points={{-31,-36.8},{-42,-36.8},{-42,61},{-59,61}},
+    annotation (Line(points={{-35,-36.8},{-46,-36.8},{-46,61},{-59,61}},
       color={0,0,127}));
   connect(opeModSel.TUnoCooSet,TSetRooCooOff. y)
-    annotation (Line(points={{-31,-39},{-44,-39},{-44,31},{-59,31}},
+    annotation (Line(points={{-35,-39},{-48,-39},{-48,31},{-59,31}},
       color={0,0,127}));
   connect(tNexOcc, opeModSel.tNexOcc)
-    annotation (Line(points={{-120,60},{-92,60},{-92,-18},{-52,-18},{-52,-23.4},{-31,-23.4}},
+    annotation (Line(points={{-120,60},{-92,60},{-92,-18},{-52,-18},{-52,-23.4},
+          {-35,-23.4}},
       color={0,0,127}));
   connect(uOcc, opeModSel.uOcc)
-    annotation (Line(points={{-120,-79.75},{-78,-79.75},{-78,-80},{-36,-80},{-36,-21},
-      {-31,-21}}, color={255,0,255}));
+    annotation (Line(points={{-120,-79.75},{-82,-79.75},{-82,-80},{-40,-80},{
+          -40,-21},{-35,-21}},
+                  color={255,0,255}));
   connect(TSetZon.TCooSet, TCooSet)
     annotation (Line(points={{62,-20},{70,-20},{70,100},{110,100}},
       color={0,0,127}));
@@ -240,18 +257,23 @@ equation
     annotation (Line(points={{62,-28},{74,-28},{74,60},{110,60}},
       color={0,0,127}));
   connect(opeModSel.yOpeMod, yOpeMod)
-    annotation (Line(points={{-9,-30},{10,-30},{10,-60},{88,-60},{88,0},{110,0}},
+    annotation (Line(points={{-13,-30},{10,-30},{10,-60},{88,-60},{88,0},{110,0}},
       color={255,127,0}));
   connect(opeModSel.yFreProSta, yFreProSta)
-    annotation (Line(points={{-9,-35},{-4,-35},{-4,-64},{92,-64},{92,-40},{110,-40}},
+    annotation (Line(points={{-13,-35},{-4,-35},{-4,-64},{92,-64},{92,-40},{110,
+          -40}},
       color={255,127,0}));
   connect(winSta.y, opeModSel.uWinSta)
-    annotation (Line(points={{-11,-80},{-8,-80},{-8,-52},{-20,-52},{-20,-41}},
+    annotation (Line(points={{-11,-80},{-8,-80},{-8,-52},{-24,-52},{-24,-41}},
       color={255,0,255}));
   connect(opeModSel.TZon, TZon)
-    annotation (Line(points={{-31,-30},{-94,-30},{-94,0.25},{-120,0.25}},
+    annotation (Line(points={{-35,-30},{-94,-30},{-94,0.25},{-120,0.25}},
       color={0,0,127}));
 
+  connect(setAdj, TSetZon.setAdj)
+    annotation (Line(points={{-14,160},{-14,-18},{18,-18}}, color={0,0,127}));
+  connect(heaSetAdj, TSetZon.heaSetAdj) annotation (Line(points={{20,160},{20,
+          20},{6,20},{6,-22},{18,-22}}, color={0,0,127}));
 annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,140}})),
   Icon(graphics={Text(
         extent={{-100,140},{98,102}},
@@ -300,4 +322,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ZoneSetPoints;
+end ZoneModeAndSetPoints;

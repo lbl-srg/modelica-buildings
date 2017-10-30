@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "zoneSetPoints.setAdj",
+    "zoneSetPoints.heaSetAdj",
+    "TZon1.y",
+    "TZon2.y",
+    "zoneSetPoints.THeaOn",
+    "zoneSetPoints.TCooOn",
+    "zoneSetPoints.TCooSet",
+    "zoneSetPoints.THeaSet",
+    "zoneSetPoints.yOpeMod"
+  };
