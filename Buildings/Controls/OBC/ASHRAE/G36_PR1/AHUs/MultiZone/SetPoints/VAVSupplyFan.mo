@@ -114,7 +114,9 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
     final k=k,
     final Td=Td,
     final yMax=yFanMax,
-    final yMin=yFanMin)
+    final yMin=yFanMin,
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
+    y_reset=yFanMin)
     "Supply fan speed control"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 protected
@@ -179,10 +181,14 @@ protected
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   CDL.Continuous.Gain norPSet(final k=1/maxDesPre)
     "Normalization for pressure set point"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
   CDL.Continuous.Gain norPMea(final k=1/maxDesPre)
     "Normalization of pressure measurement"
-    annotation (Placement(transformation(extent={{-80,-82},{-60,-62}})));
+    annotation (Placement(transformation(extent={{-70,-82},{-50,-62}})));
+  CDL.Discrete.FirstOrderHold                        firOrdHol(
+    samplePeriod=samplePeriod)
+    "Extrapolation through the values of the last two sampled input signals"
+    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
 equation
   connect(or2.y, or1.u2)
     annotation (Line(points={{41,40},{60,40},{60,62},{78,62}},
@@ -263,14 +269,18 @@ equation
     annotation (Line(points={{-39,10},{0,10},{0,32},{18,32}},
       color={255,0,255}));
 
-  connect(staPreSetRes.y, norPSet.u)
-    annotation (Line(points={{-109,-40},{-82,-40}}, color={0,0,127}));
   connect(norPSet.y, supFanSpeCon.u_s)
-    annotation (Line(points={{-59,-40},{-42,-40}}, color={0,0,127}));
-  connect(ducStaPre, norPMea.u) annotation (Line(points={{-180,-80},{-132,-80},{
-          -132,-72},{-82,-72}}, color={0,0,127}));
+    annotation (Line(points={{-49,-40},{-42,-40}}, color={0,0,127}));
+  connect(ducStaPre, norPMea.u) annotation (Line(points={{-180,-80},{-132,-80},
+          {-132,-72},{-72,-72}},color={0,0,127}));
   connect(norPMea.y, supFanSpeCon.u_m)
-    annotation (Line(points={{-59,-72},{-30,-72},{-30,-52}}, color={0,0,127}));
+    annotation (Line(points={{-49,-72},{-30,-72},{-30,-52}}, color={0,0,127}));
+  connect(norPSet.u, firOrdHol.y)
+    annotation (Line(points={{-72,-40},{-76,-40},{-79,-40}}, color={0,0,127}));
+  connect(staPreSetRes.y, firOrdHol.u) annotation (Line(points={{-109,-40},{
+          -106,-40},{-102,-40}}, color={0,0,127}));
+  connect(supFanSpeCon.trigger, or1.y) annotation (Line(points={{-38,-52},{-38,
+          -60},{0,-60},{0,-8},{120,-8},{120,70},{101,70}}, color={255,0,255}));
 annotation (
   defaultComponentName="conSupFan",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{140,160}}),

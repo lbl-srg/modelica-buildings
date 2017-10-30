@@ -2,6 +2,7 @@ within Buildings.Controls.OBC.CDL.Continuous;
 block LimPID
   "P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting"
 
+  extends Modelica.Blocks.Interfaces.SVcontrol;
   output Real controlError = u_s - u_m
     "Control error (set point - measurement)";
 
@@ -18,25 +19,25 @@ block LimPID
           controllerType == CDL.Types.SimpleController.PID));
   parameter Real yMax "Upper limit of output";
   parameter Real yMin=-yMax "Lower limit of output";
-  parameter Real wp(min=0) = 1
-    "Set-point weight for Proportional block (0..1)";
+  parameter Real wp(min=0) = 1 "Set-point weight for Proportional block (0..1)";
   parameter Real wd(min=0) = 0 "Set-point weight for Derivative block (0..1)"
        annotation(Dialog(enable=controllerType==CDL.Types.SimpleController.PD or
                                 controllerType==CDL.Types.SimpleController.PID));
-  parameter Real Ni(min=100*Constants.eps) = 0.9
+  parameter Real Ni(min=100*Modelica.Constants.eps) = 0.9
     "Ni*Ti is time constant of anti-windup compensation"
      annotation(Dialog(enable=controllerType==CDL.Types.SimpleController.PI or
                               controllerType==CDL.Types.SimpleController.PID));
-  parameter Real Nd(min=100*Constants.eps) = 10
+  parameter Real Nd(min=100*Modelica.Constants.eps) = 10
     "The higher Nd, the more ideal the derivative block"
        annotation(Dialog(enable=controllerType==CDL.Types.SimpleController.PD or
                                 controllerType==CDL.Types.SimpleController.PID));
-  parameter Buildings.Controls.OBC.CDL.Types.Init initType=
-    CDL.Types.Init.InitialState  "Type of initialization"
-    annotation(Evaluate=true,Dialog(group="Initialization"));
-  parameter Boolean limitsAtInit = true
-    "= false, if limits are ignored during initialization"
-    annotation(Evaluate=true, Dialog(group="Initialization"));
+  parameter CDL.Types.Init initType= CDL.Types.Init.InitialState
+    "Type of initialization"         annotation(Evaluate=true,
+      Dialog(group="Initialization"));
+      // Removed as the Limiter block no longer uses this parameter.
+      // parameter Boolean limitsAtInit = true
+      //  "= false, if limits are ignored during initialization"
+      // annotation(Evaluate=true, Dialog(group="Initialization"));
   parameter Real xi_start=0
     "Initial or guess value value for integrator output (= integrator state)"
     annotation (Dialog(group="Initialization",
@@ -48,94 +49,180 @@ block LimPID
                          enable=controllerType==CDL.Types.SimpleController.PD or
                                 controllerType==CDL.Types.SimpleController.PID));
   parameter Real y_start=0 "Initial value of output"
-    annotation(Dialog(enable=initType == CDL.Types.Init.InitialOutput,
-                      group="Initialization"));
+    annotation(Dialog(enable=initType == CDL.Types.Init.InitialOutput, group=
+          "Initialization"));
+  parameter Boolean strict=true "= true, if strict limits with noEvent(..)"
+    annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
 
-  Interfaces.RealInput u_s "Connector of setpoint input signal" annotation (Placement(
-        transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealInput u_m "Connector of measurement input signal" annotation (Placement(
-        transformation(
-        origin={0,-120},
-        extent={{20,-20},{-20,20}},
-        rotation=270)));
-  Interfaces.RealOutput y "Connector of actuator output signal" annotation (Placement(
-        transformation(extent={{100,-10},{120,10}})));
+  parameter Boolean reverseAction = false
+    "Set to true for throttling the water flow rate through a cooling coil controller";
+
+  parameter CDL.Types.Reset reset = CDL.Types.Reset.Disabled
+    "Type of controller output reset"
+    annotation(Evaluate=true, Dialog(group="Integrator reset"));
+
+  parameter Real y_reset=xi_start
+    "Value to which the controller output is reset if the boolean trigger has a rising edge, used if reset == CDL.Types.Reset.Parameter"
+    annotation(Dialog(enable=reset == CDL.Types.Reset.Parameter,
+                      group="Integrator reset"));
+
+  Modelica.Blocks.Interfaces.BooleanInput trigger if
+       reset <> CDL.Types.Reset.Disabled
+    "Resets the controller output when trigger becomes true"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-80,-120})));
+
+  Modelica.Blocks.Interfaces.RealInput y_reset_in if
+       reset == CDL.Types.Reset.Input
+    "Input signal for state to which integrator is reset, enabled if reset = CDL.Types.Reset.Input"
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+
+  Modelica.Blocks.Math.Add addP(k1=revAct*wp, k2=-revAct) "Adder for P gain"
+   annotation (Placement(
+        transformation(extent={{-80,40},{-60,60}})));
+  Modelica.Blocks.Math.Add addD(k1=revAct*wd, k2=-revAct) if with_D
+    "Adder for D gain"
+    annotation (Placement(
+        transformation(extent={{-80,-10},{-60,10}})));
+  Modelica.Blocks.Math.Gain P(k=1) "Proportional term"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Utilities.Math.IntegratorWithReset I(
+    final reset=if reset == CDL.Types.Reset.Disabled then reset else CDL.Types.Reset.Input,
+    final y_reset=y_reset,
+    final k=unitTime/Ti,
+    final y_start=xi_start,
+    final initType=if initType == CDL.Types.Init.InitialState
+             then Modelica.Blocks.Types.Init.InitialState
+             else Modelica.Blocks.Types.Init.NoInit) if
+       with_I "Integral term"
+       annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+
+  Modelica.Blocks.Continuous.Derivative D(
+    final k=Td/unitTime,
+    final T=max([Td/Nd,1.e-14]),
+    final x_start=xd_start,
+    final initType=
+               if initType == CDL.Types.Init.InitialState then
+                 Modelica.Blocks.Types.Init.InitialState
+               else
+                 Modelica.Blocks.Types.Init.NoInit) if with_D "Derivative term"
+                                                     annotation (Placement(
+        transformation(extent={{-40,-10},{-20,10}})));
+
+  Modelica.Blocks.Math.Add3 addPID(
+    final k1=1,
+    final k2=1,
+    final k3=1) "Adder for the gains"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 protected
   constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
 
-  Continuous.Add addP(k1=wp, k2=-1)
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Continuous.Add addD(k1=wd, k2=-1) if with_D
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Continuous.Gain P(k=1)
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Continuous.IntegratorWithReset I(
-    k=unitTime/Ti,
-    y_start=xi_start,
-    initType=
-        if initType == CDL.Types.Init.InitialState
-         then CDL.Types.Init.InitialState else CDL.Types.Init.NoInit) if with_I
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Continuous.Derivative D(
-    k=Td/unitTime,
-    T=max([Td/Nd,1.e-14]),
-    x_start=xd_start,
-    initType=if initType == CDL.Types.Init.InitialOutput
-         then CDL.Types.Init.InitialOutput
-         else if initType == CDL.Types.Init.InitialState then
-           CDL.Types.Init.InitialState else CDL.Types.Init.NoInit) if with_D
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Continuous.Gain gainPID(k=k)
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Continuous.MultiSum addI(nin=3, k={1,-1,1}) if with_I
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Continuous.Add addSat(k1=+1, k2=-1) if with_I annotation (
-      Placement(transformation(
-        origin={80,-50},
-        extent={{-10,-10},{10,10}},
-        rotation=270)));
-  Continuous.Gain gainTrack(k=1/(k*Ni)) if with_I
-    annotation (Placement(transformation(extent={{40,-80},{20,-60}})));
-  Continuous.Limiter limiter(
-    uMax=yMax,
-    uMin=yMin)
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+  final parameter Real revAct = if reverseAction then -1 else 1
+    "Switch for sign for reverse action";
 
   parameter Boolean with_I = controllerType==CDL.Types.SimpleController.PI or
                              controllerType==CDL.Types.SimpleController.PID
-                             annotation(Evaluate=true, HideResult=true);
+    "Boolean flag to enable integral action"
+    annotation(Evaluate=true, HideResult=true);
   parameter Boolean with_D = controllerType==CDL.Types.SimpleController.PD or
                              controllerType==CDL.Types.SimpleController.PID
-                             annotation(Evaluate=true, HideResult=true);
+    "Boolean flag to enable derivative action"
+    annotation(Evaluate=true, HideResult=true);
 
-  Sources.Constant Dzero(k=0) if not with_D
-    annotation (Placement(transformation(extent={{-30,20},{-20,30}})));
-  Sources.Constant Izero(k=0) if not with_I
-    annotation (Placement(transformation(extent={{10,-55},{0,-45}})));
-  Continuous.Add addPD annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Continuous.Add addPID annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
+  Modelica.Blocks.Sources.Constant Dzero(final k=0) if not with_D
+    "Zero input signal"
+    annotation(Evaluate=true, HideResult=true,
+               Placement(transformation(extent={{-30,20},{-20,30}})));
+
+  Modelica.Blocks.Sources.Constant Izero(final k=0) if not with_I
+    "Zero input signal"
+    annotation(Evaluate=true, HideResult=true,
+               Placement(transformation(extent={{10,-55},{0,-45}})));
+
+  Modelica.Blocks.Interfaces.RealInput y_reset_internal
+   "Internal connector for controller output reset"
+   annotation(Evaluate=true);
+
+  Modelica.Blocks.Math.Add3 addI(
+    final k1=revAct,
+    final k2=-revAct) if with_I
+    "Adder for I gain"
+       annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+
+  Modelica.Blocks.Math.Add addSat(
+    final k1=+1,
+    final k2=-1) if with_I
+    "Adder for integrator feedback"
+    annotation (Placement(
+        transformation(
+        origin={80,-50},
+        extent={{-10,-10},{10,10}},
+        rotation=270)));
+
+  Modelica.Blocks.Math.Gain gainPID(final k=k) "Multiplier for control gain"
+   annotation (Placement(transformation(
+          extent={{30,-10},{50,10}})));
+
+  Modelica.Blocks.Math.Gain gainTrack(k=1/(k*Ni)) if with_I
+    "Gain for anti-windup compensation"
+    annotation (
+      Placement(transformation(extent={{60,-80},{40,-60}})));
+
+  Modelica.Blocks.Nonlinear.Limiter limiter(
+    final uMax=yMax,
+    final uMin=yMin,
+    final strict=strict) "Output limiter"
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+
+
+  Modelica.Blocks.Sources.RealExpression intRes(
+    final y=y_reset_internal/k - addPID.u1 - addPID.u2) if
+       reset <> CDL.Types.Reset.Disabled
+    "Signal source for integrator reset"
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+
 initial equation
   if initType==CDL.Types.Init.InitialOutput then
      gainPID.y = y_start;
   end if;
+
 equation
+  assert(yMax >= yMin, "LimPID: Limits must be consistent. However, yMax (=" + String(yMax) +
+                       ") < yMin (=" + String(yMin) + ")");
   if initType == CDL.Types.Init.InitialOutput and (y_start < yMin or y_start > yMax) then
       Modelica.Utilities.Streams.error("LimPID: Start value y_start (=" + String(y_start) +
          ") is outside of the limits of yMin (=" + String(yMin) +") and yMax (=" + String(yMax) + ")");
+  end if;
+
+  // Equations for conditional connectors
+  connect(y_reset_in, y_reset_internal);
+
+  if reset <> CDL.Types.Reset.Input then
+    y_reset_internal = y_reset;
   end if;
 
   connect(u_s, addP.u1) annotation (Line(points={{-120,0},{-96,0},{-96,56},{
           -82,56}}, color={0,0,127}));
   connect(u_s, addD.u1) annotation (Line(points={{-120,0},{-96,0},{-96,6},{
           -82,6}}, color={0,0,127}));
+  connect(u_s, addI.u1) annotation (Line(points={{-120,0},{-96,0},{-96,-42},{
+          -82,-42}}, color={0,0,127}));
   connect(addP.y, P.u) annotation (Line(points={{-59,50},{-42,50}}, color={0,
           0,127}));
   connect(addD.y, D.u)
     annotation (Line(points={{-59,0},{-42,0}}, color={0,0,127}));
-  connect(addI.y, I.u) annotation (Line(points={{-58.3,-50},{-42,-50}},
-                                                                      color={
+  connect(addI.y, I.u) annotation (Line(points={{-59,-50},{-42,-50}}, color={
           0,0,127}));
+  connect(P.y, addPID.u1) annotation (Line(points={{-19,50},{-10,50},{-10,8},
+          {-2,8}}, color={0,0,127}));
+  connect(D.y, addPID.u2)
+    annotation (Line(points={{-19,0},{-2,0}}, color={0,0,127}));
+  connect(I.y, addPID.u3) annotation (Line(points={{-19,-50},{-10,-50},{-10,
+          -8},{-2,-8}}, color={0,0,127}));
+  connect(addPID.y, gainPID.u)
+    annotation (Line(points={{21,0},{28,0}}, color={0,0,127}));
   connect(gainPID.y, addSat.u2) annotation (Line(points={{51,0},{60,0},{60,
           -20},{74,-20},{74,-38}}, color={0,0,127}));
   connect(gainPID.y, limiter.u)
@@ -144,8 +231,10 @@ equation
           -20},{86,-20},{86,-38}}, color={0,0,127}));
   connect(limiter.y, y)
     annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
-  connect(addSat.y, gainTrack.u) annotation (Line(points={{80,-61},{80,-70},{
-          42,-70}}, color={0,0,127}));
+  connect(addSat.y, gainTrack.u) annotation (Line(points={{80,-61},{80,-70},{62,
+          -70}},    color={0,0,127}));
+  connect(gainTrack.y, addI.u3) annotation (Line(points={{39,-70},{-88,-70},{-88,
+          -58},{-82,-58}},     color={0,0,127}));
   connect(u_m, addP.u2) annotation (Line(
       points={{0,-120},{0,-92},{-92,-92},{-92,44},{-82,44}},
       color={0,0,127},
@@ -154,180 +243,170 @@ equation
       points={{0,-120},{0,-92},{-92,-92},{-92,-6},{-82,-6}},
       color={0,0,127},
       thickness=0.5));
-  connect(u_s, addI.u[1]) annotation (Line(points={{-120,0},{-96,0},{-96,
-          -45.3333},{-82,-45.3333}},
-                           color={0,0,127}));
-  connect(u_m, addI.u[2]) annotation (Line(
+  connect(u_m, addI.u2) annotation (Line(
       points={{0,-120},{0,-92},{-92,-92},{-92,-50},{-82,-50}},
       color={0,0,127},
       thickness=0.5));
-  connect(gainTrack.y, addI.u[3]) annotation (Line(points={{19,-70},{-96,-70},{
-          -96,-54.6667},{-82,-54.6667}},
-                                     color={0,0,127}));
-  connect(P.y, addPD.u1) annotation (Line(points={{-19,50},{-12,50},{-12,36},{-2,
-          36}}, color={0,0,127}));
-  connect(Dzero.y, addPD.u2) annotation (Line(points={{-19.5,25},{-12,25},{-12,24},
-          {-2,24}}, color={0,0,127}));
-  connect(D.y, addPD.u2) annotation (Line(points={{-19,0},{-12,0},{-12,24},{-2,24}},
-        color={0,0,127}));
-  connect(addPD.y, addPID.u1) annotation (Line(points={{21,30},{24,30},{24,10},{
-          -10,10},{-10,-14},{-2,-14}}, color={0,0,127}));
-  connect(I.y, addPID.u2) annotation (Line(points={{-19,-50},{-10,-50},{-10,-26},
-          {-2,-26}}, color={0,0,127}));
-  connect(Izero.y, addPID.u2) annotation (Line(points={{-0.5,-50},{-10,-50},{-10,
-          -26},{-2,-26}}, color={0,0,127}));
-  connect(addPID.y, gainPID.u) annotation (Line(points={{21,-20},{24,-20},{24,0},
-          {28,0}}, color={0,0,127}));
-  annotation (defaultComponentName="limPID",
-    Icon(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}}), graphics={
-                                        Text(
-        extent={{-150,150},{150,110}},
-        textString="%name",
-        lineColor={0,0,255}),   Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
-        Line(points={{-80,78},{-80,-90}}, color={192,192,192}),
+  connect(Dzero.y, addPID.u2) annotation (Line(points={{-19.5,25},{-14,25},{
+          -14,0},{-2,0}}, color={0,0,127}));
+  connect(Izero.y, addPID.u3) annotation (Line(points={{-0.5,-50},{-10,-50},{
+          -10,-8},{-2,-8}}, color={0,0,127}));
+  connect(trigger, I.trigger) annotation (Line(points={{-80,-120},{-80,-88},{-30,
+          -88},{-30,-62}}, color={255,0,255}));
+  connect(intRes.y, I.y_reset_in) annotation (Line(points={{-59,-80},{-50,-80},{
+          -50,-58},{-42,-58}}, color={0,0,127}));
+   annotation (
+defaultComponentName="conPID",
+Documentation(info="<html>
+<p>
+This model is similar to
+<a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">Modelica.Blocks.Continuous.LimPID</a>,
+except for the following changes:
+</p>
+
+<ol>
+<li>
+<p>
+It can be configured to have a reverse action.
+</p>
+<p>If the parameter <code>reverseAction=false</code> (the default), then
+<code>u_m &lt; u_s</code> increases the controller output,
+otherwise the controller output is decreased. Thus,
+</p>
+<ul>
+  <li>for a heating coil with a two-way valve, set <code>reverseAction = false</code>, </li>
+  <li>for a cooling coils with a two-way valve, set <code>reverseAction = true</code>. </li>
+</ul>
+</li>
+
+<li>
+<p>
+It can be configured to enable an input port that allows resetting the controller
+output. The controller output can be reset as follows:
+</p>
+<ul>
+  <li>
+  If <code>reset = CDL.Types.Reset.Disabled</code>, which is the default,
+  then the controller output is never reset.
+  </li>
+  <li>
+  If <code>reset = CDL.Types.Reset.Parameter</code>, then a boolean
+  input signal <code>trigger</code> is enabled. Whenever the value of
+  this input changes from <code>false</code> to <code>true</code>,
+  the controller output is reset by setting <code>y</code>
+  to the value of the parameter <code>y_reset</code>.
+  </li>
+  <li>
+  If <code>reset = CDL.Types.Reset.Input</code>, then a boolean
+  input signal <code>trigger</code> is enabled. Whenever the value of
+  this input changes from <code>false</code> to <code>true</code>,
+  the controller output is reset by setting <code>y</code>
+  to the value of the input signal <code>y_reset_in</code>.
+  </li>
+</ul>
+<p>
+Note that this controller implements an integrator anti-windup. Therefore,
+for most applications, keeping the default setting of
+<code>reset = CDL.Types.Reset.Disabled</code> is sufficient.
+Examples where it may be beneficial to reset the controller output are situations
+where the equipment control input should continuously increase as the equipment is
+switched on, such as as a light dimmer that may slowly increase the luminance, or
+a variable speed drive of a motor that should continuously increase the speed.
+</p>
+</li>
+
+<li>
+The parameter <code>limitsAtInit</code> has been removed.
+</li>
+
+<li>
+Some parameters assignments in the instances have been made final.
+</li>
+
+</ol>
+</html>",
+revisions="<html>
+<ul>
+<li>
+October 22, 2017, by Michael Wetter:<br/>
+Added to CDL to have a PI controller with integrator reset.
+</li>
+<li>
+September 29, 2016, by Michael Wetter:<br/>
+Refactored model.
+</li>
+<li>
+August 25, 2016, by Michael Wetter:<br/>
+Removed parameter <code>limitsAtInit</code> because it was only propagated to
+the instance <code>limiter</code>, but this block no longer makes use of this parameter.
+This is a non-backward compatible change.<br/>
+Revised implemenentation, added comments, made some parameter in the instances final.
+</li>
+<li>July 18, 2016, by Philipp Mehrfeld:<br/>
+Added integrator reset.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/494\">issue 494</a>.
+</li>
+<li>
+March 15, 2016, by Michael Wetter:<br/>
+Changed the default value to <code>strict=true</code> in order to avoid events
+when the controller saturates.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/433\">issue 433</a>.
+</li>
+<li>
+February 24, 2010, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"), Icon(graphics={
+        Rectangle(
+          extent={{-6,-20},{66,-66}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          visible=(controllerType == CDL.Types.SimpleController.P),
+          extent={{-32,-22},{68,-62}},
+          lineColor={0,0,0},
+          textString="P",
+          fillPattern=FillPattern.Solid,
+          fillColor={175,175,175}),
+        Text(
+          visible=(controllerType == CDL.Types.SimpleController.PI),
+          extent={{-28,-22},{72,-62}},
+          lineColor={0,0,0},
+          textString="PI",
+          fillPattern=FillPattern.Solid,
+          fillColor={175,175,175}),
+        Text(
+          visible=(controllerType == CDL.Types.SimpleController.PD),
+          extent={{-16,-22},{88,-62}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={175,175,175},
+          textString="P D"),
+        Text(
+          visible=(controllerType == CDL.Types.SimpleController.PID),
+          extent={{-14,-22},{86,-62}},
+          lineColor={0,0,0},
+          textString="PID",
+          fillPattern=FillPattern.Solid,
+          fillColor={175,175,175}),
         Polygon(
           points={{-80,90},{-88,68},{-72,68},{-80,90}},
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
+        Line(points={{-80,78},{-80,-90}}, color={192,192,192}),
+        Line(points={{-80,-80},{-80,-20},{30,60},{80,60}}, color={0,0,127}),
         Line(points={{-90,-80},{82,-80}}, color={192,192,192}),
         Polygon(
           points={{90,-80},{68,-72},{68,-88},{90,-80}},
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-80,-80},{-80,-20},{30,60},{80,60}}, color={0,0,127}),
-        Text(
-          extent={{-20,-20},{80,-60}},
-          lineColor={192,192,192},
-          textString="%controllerType"),
         Line(
+          visible=strict,
           points={{30,60},{81,60}},
-          color={255,0,0})}),
-    Documentation(info="<html>
-    <p>
-Via parameter <code>controllerType</code> either <code>P</code>, <code>PI</code>, <code>PD</code>,
-or <code>PID</code> can be selected. If, e.g., PI is selected, all components belonging to the
-D-part are removed from the block (via conditional declarations).
-The example model
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
-Buildings.Controls.OBC.CDL.Continuous.Validation.LimPID</a>
-demonstrates the usage of this controller.
-Several practical aspects of PID controller design are incorporated
-according to chapter 3 of the book:
-</p>
-
-<dl>
-<dt>&Aring;str&ouml;m K.J., and H&auml;gglund T.:</dt>
-<dd> <code>PID Controllers: Theory, Design, and Tuning</code>.
-     Instrument Society of America, 2nd edition, 1995.
-</dd>
-</dl>
-
-<p>
-Besides the additive <code>proportional, integral</code> and <code>derivative</code>
-part of this controller, the following features are present:
-</p>
-<ul>
-<li> The output of this controller is limited. If the controller is
-     in its limits, anti-windup compensation is activated to drive
-     the integrator state to zero. </li>
-<li> The high-frequency gain of the derivative part is limited
-     to avoid excessive amplification of measurement noise.</li>
-<li> Setpoint weighting is present, which allows to weight
-     the setpoint in the proportional and the derivative part
-     independently from the measurement. The controller will respond
-     to load disturbances and measurement noise independently of this setting
-     (parameters wp, wd). However, setpoint changes will depend on this
-     setting. For example, it is useful to set the setpoint weight wd
-     for the derivative part to zero, if steps may occur in the
-     setpoint signal.</li>
-</ul>
-
-<p>
-The parameters of the controller can be manually adjusted by performing
-simulations of the closed loop system (= controller + plant connected
-together) and using the following strategy:
-</p>
-
-<ol>
-<li> Set very large limits, e.g., yMax = Constants.inf</li>
-<li> Select a <code>P</code>-controller and manually enlarge parameter <code>k</code>
-     (the total gain of the controller) until the closed-loop response
-     cannot be improved any more.</li>
-<li> Select a <code>PI</code>-controller and manually adjust parameters
-     <code>k</code> and <code>Ti</code> (the time constant of the integrator).
-     The first value of Ti can be selected, such that it is in the
-     order of the time constant of the oscillations occurring with
-     the P-controller. If, e.g., vibrations in the order of T=10 ms
-     occur in the previous step, start with Ti=0.01 s.</li>
-<li> If you want to make the reaction of the control loop faster
-     (but probably less robust against disturbances and measurement noise)
-     select a <code>PID</code>-Controller and manually adjust parameters
-     <code>k</code>, <code>Ti</code>, <code>Td</code> (time constant of derivative block).</li>
-<li> Set the limits yMax and yMin according to your specification.</li>
-<li> Perform simulations such that the output of the PID controller
-     goes in its limits. Tune <code>Ni</code> (Ni*Ti is the time constant of
-     the anti-windup compensation) such that the input to the limiter
-     block (= limiter.u) goes quickly enough back to its limits.
-     If Ni is decreased, this happens faster. If Ni=infinity, the
-     anti-windup compensation is switched off and the controller works bad.</li>
-</ol>
-
-<p>
-<code>Initialization</code>
-</p>
-
-<p>
-This block can be initialized in different
-ways controlled by parameter <code>initType</code>. The possible
-values of initType are defined in
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Types.Init\">
-Buildings.Controls.OBC.CDL.Types.Init</a>.
-</p>
-
-<p>
-Based on the setting of initType, the integrator (I) and derivative (D)
-blocks inside the PID controller are initialized according to the following table:
-</p>
-
-<table border=1 cellspacing=0 cellpadding=2 summary=\"Initialization options\">
-  <tr><td valign=\"top\"><code>initType</code></td>
-      <td valign=\"top\"><code>I.initType</code></td>
-      <td valign=\"top\"><code>D.initType</code></td></tr>
-
-  <tr><td valign=\"top\"><code>NoInit</code></td>
-      <td valign=\"top\">NoInit</td>
-      <td valign=\"top\">NoInit</td></tr>
-
-  <tr><td valign=\"top\"><code>InitialState</code></td>
-      <td valign=\"top\">InitialState</td>
-      <td valign=\"top\">InitialState</td></tr>
-
-  <tr><td valign=\"top\"><code>InitialOutput</code><br/>
-          and initial equation: y = y_start</td>
-      <td valign=\"top\">NoInit</td>
-      <td valign=\"top\">InitialOutput</td></tr>
-
-</table>
-
-</html>", revisions="<html>
-<ul>
-<li>
-March 24, 2017, by Jianjun Hu:<br/>
-Updated the block, for CDL implementation.
-</li>
-<li>
-January 3, 2017, by Michael Wetter:<br/>
-First implementation, based on the implementation of the
-Modelica Standard Library.
-</li>
-</ul>
-</html>"));
+          color={255,0,0},
+          smooth=Smooth.None)}));
 end LimPID;

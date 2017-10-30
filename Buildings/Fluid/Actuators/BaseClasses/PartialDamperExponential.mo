@@ -38,11 +38,11 @@ partial model PartialDamperExponential
     "Set to true to use constant density for flow friction"
    annotation (Evaluate=true, Dialog(tab="Advanced"));
  Medium.Density rho "Medium density";
- parameter Real kFixed(unit="")
+ parameter Real kFixed
     "Flow coefficient of fixed resistance that may be in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
- Real kDam(unit="")
+ Real kDam
     "Flow coefficient of damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
- Real k(unit="")
+ Real k
     "Flow coefficient of damper plus fixed resistance, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 protected
  parameter Medium.Density rho_default=Medium.density(sta_default)
@@ -57,6 +57,14 @@ protected
     (Modelica.Math.log(k1)*yU^2 + b*yU^2 + (-2*b - 2*a)*yU + b + a)/(yU^2 - 2*yU + 1)}
     "Polynomial coefficients for curve fit for y > yu";
  parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
+protected
+ parameter Real k0Tot = if (kFixed>Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/k0^2)) else k0
+    "Flow coefficient of damper for y=0 plus fixed resistance, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+ parameter Real k1Tot = if (kFixed>Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/k1^2)) else k1
+    "Flow coefficient of damper for y=1 plus fixed resistance, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+ parameter Real k0Tot2_m_flow_nominal = k0Tot^2/m_flow_nominal_pos "Intermediate variable for linearized pressure drop calculation";
+ parameter Real dkTot2_m_flow_nominal = (k1Tot^2-k0Tot^2)^2 /m_flow_nominal_pos "Intermediate variable for linearized pressure drop calculation";
+
 initial equation
   assert(k0 > k1, "k0 must be between k1 and 1e6.");
   assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
@@ -64,24 +72,28 @@ initial equation
   assert(k1 <= 0.5, "k1 must be between 0.2 and 0.5.");
   assert(k0 <= 1e6, "k0 must be between k1 and 1e6.");
 equation
-  rho = if use_constant_density then
-          rho_default
-        else
-          Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
-  // flow coefficient, k=m_flow/sqrt(dp)
-  kDam=sqrt(2*rho)*A/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-    y=y_actual,
-    a=a,
-    b=b,
-    cL=cL,
-    cU=cU,
-    yL=yL,
-    yU=yU);
-  k = if (kFixed>Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam;
   // Pressure drop calculation
   if linearized then
-    m_flow*m_flow_nominal_pos = k^2*dp;
+    rho = rho_default;
+    kDam = 0;
+    k = 0;
+    //m_flow*m_flow_nominal_pos = k^2*dp;
+    m_flow = (k0Tot2_m_flow_nominal+(y*dkTot2_m_flow_nominal))*dp;
   else
+    rho = if use_constant_density then
+            rho_default
+          else
+            Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
+    // flow coefficient, k=m_flow/sqrt(dp)
+    kDam=sqrt(2*rho)*A/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+      y=y_actual,
+      a=a,
+      b=b,
+      cL=cL,
+      cU=cU,
+      yL=yL,
+      yU=yU);
+    k = if (kFixed>Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam;
     if homotopyInitialization then
       if from_dp then
         m_flow=homotopy(

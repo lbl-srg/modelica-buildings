@@ -5,10 +5,19 @@ model VAVBranch "Supply branch of a VAV system"
     "Medium model for air" annotation (choicesAllMatching=true);
   replaceable package MediumW = Modelica.Media.Interfaces.PartialMedium
     "Medium model for water" annotation (choicesAllMatching=true);
-  Buildings.Fluid.Actuators.Dampers.VAVBoxExponential vav(
+
+  parameter Boolean allowFlowReversal=true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal";
+
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Mass flow rate of this thermal zone";
+  parameter Modelica.SIunits.Volume VRoo "Room volume";
+
+  Buildings.Fluid.Actuators.Dampers.PressureIndependent vav(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal(displayUnit="Pa") = 220 + 20) "VAV box for room" annotation (
+    dp_nominal = 220 + 20,
+    allowFlowReversal=allowFlowReversal) "VAV box for room" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -23,6 +32,8 @@ model VAVBranch "Supply branch of a VAV system"
     dp1_nominal=0,
     from_dp2=true,
     dp2_nominal=0,
+    allowFlowReversal1=allowFlowReversal,
+    allowFlowReversal2=false,
     T_a1_nominal=289.85,
     T_a2_nominal=355.35) "Heat exchanger of terminal box" annotation (Placement(
         transformation(
@@ -35,22 +46,21 @@ model VAVBranch "Supply branch of a VAV system"
     nPorts=1) "Sink for terminal box " annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={80,-20})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
-        MediumA)
+        origin={40,-20})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+    redeclare package Medium = MediumA)
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}}),
         iconTransformation(extent={{-60,-110},{-40,-90}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_b(redeclare package Medium =
-        MediumA)
+  Modelica.Fluid.Interfaces.FluidPort_a port_b(
+    redeclare package Medium = MediumA)
     "Fluid connector b (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}}),
         iconTransformation(extent={{-60,90},{-40,110}})));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Mass flow rate of this thermal zone";
-  parameter Modelica.SIunits.Volume VRoo "Room volume";
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
-        MediumA) "Sensor for mass flow rate" annotation (Placement(
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
+    redeclare package Medium = MediumA,
+    allowFlowReversal=allowFlowReversal)
+    "Sensor for mass flow rate" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -60,22 +70,14 @@ model VAVBranch "Supply branch of a VAV system"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Modelica.Blocks.Math.Gain ACH(k=1/VRoo/1.2*3600) "Air change per hour"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear valHea(
+  Fluid.Sources.MassFlowSource_T souTer(
     redeclare package Medium = MediumW,
-    m_flow_nominal=m_flow_nominal*1000*15/4200/10,
-    CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    from_dp=true,
-    dpFixed_nominal=6000,
-    dpValve_nominal=6000) "Valve at reaheat coil"
-    annotation (Placement(transformation(extent={{-10,-10},{10,-30}})));
-  Buildings.Fluid.Sources.FixedBoundary souTer(
-    redeclare package Medium = MediumW,
-    p(displayUnit="Pa") = 3E5 + 12000,
     nPorts=1,
+    use_m_flow_in=true,
     T=323.15) "Source for terminal box " annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={82,20})));
+        origin={40,20})));
   Modelica.Blocks.Interfaces.RealInput yVAV
     "Actuator position for VAV damper (0: closed, 1: open)" annotation (
       Placement(transformation(extent={{-140,20},{-100,60}}),
@@ -84,6 +86,9 @@ model VAVBranch "Supply branch of a VAV system"
     "Actuator position for reheat valve (0: closed, 1: open)" annotation (
       Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiM_flow(
+    final k=m_flow_nominal*1000*15/4200/10) "Gain for mass flow rate"
+    annotation (Placement(transformation(extent={{80,2},{60,22}})));
 equation
   connect(fraMasFlo.u, senMasFlo.m_flow) annotation (Line(
       points={{-2,80},{-24,80},{-24,70},{-39,70}},
@@ -101,17 +106,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(souTer.ports[1], terHea.port_a2) annotation (Line(
-      points={{72,20},{-38,20},{-38,10}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(terHea.port_b2, valHea.port_a) annotation (Line(
-      points={{-38,-10},{-38,-20},{-10,-20}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(valHea.port_b, sinTer.ports[1]) annotation (Line(
-      points={{10,-20},{70,-20}},
+      points={{30,20},{-38,20},{-38,10}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -131,8 +126,12 @@ equation
       thickness=0.5));
   connect(vav.y, yVAV) annotation (Line(points={{-62,40},{-120,40}},
                 color={0,0,127}));
-  connect(valHea.y, yVal) annotation (Line(points={{0,-32},{0,-40},{-120,-40}},
-                 color={0,0,127}));
+  connect(souTer.m_flow_in, gaiM_flow.y)
+    annotation (Line(points={{50,12},{59,12}}, color={0,0,127}));
+  connect(sinTer.ports[1], terHea.port_b2) annotation (Line(points={{30,-20},{
+          -38,-20},{-38,-10}}, color={0,127,255}));
+  connect(gaiM_flow.u, yVal) annotation (Line(points={{82,12},{90,12},{90,-40},
+          {-120,-40}}, color={0,0,127}));
   annotation (Icon(
     graphics={
         Rectangle(

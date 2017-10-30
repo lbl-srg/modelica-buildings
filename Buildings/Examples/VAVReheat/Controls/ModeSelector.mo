@@ -96,6 +96,11 @@ model ModeSelector "Finite State Machine for the operational modes"
     annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
   Modelica.Blocks.MathInteger.Sum sum(nu=5)
     annotation (Placement(transformation(extent={{-186,134},{-174,146}})));
+  Modelica.Blocks.Interfaces.BooleanOutput yFan
+    "True if the fans are to be switched on"
+    annotation (Placement(transformation(extent={{220,-10},{240,10}})));
+  Modelica.Blocks.MathBoolean.Or or1(nu=4)
+    annotation (Placement(transformation(extent={{184,-6},{196,6}})));
 equation
   connect(start.outPort, unOccOff.inPort[1]) annotation (Line(
       points={{-38.5,30},{-29.75,30},{-29.75,30.6667},{-21,30.6667}},
@@ -177,7 +182,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(occ.outPort[1], t4.inPort) annotation (Line(
-      points={{80.5,-90},{172,-90},{172,130},{112,130}},
+      points={{80.5,-90},{150,-90},{150,130},{112,130}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(t4.outPort, unOccOff.inPort[3]) annotation (Line(
@@ -245,7 +250,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(not1.y, and2.u2) annotation (Line(
-      points={{-27,-170},{200,-170},{200,90},{66,90},{66,102},{78,102}},
+      points={{-27,-170},{144,-170},{144,84},{66,84},{66,102},{78,102}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(and2.y, t4.condition) annotation (Line(
@@ -308,6 +313,16 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  connect(yFan, or1.y)
+    annotation (Line(points={{230,0},{196.9,0}}, color={255,0,255}));
+  connect(unOccNigSetBac.active, or1.u[1]) annotation (Line(points={{90,19},{90,
+          3.15},{184,3.15}}, color={255,0,255}));
+  connect(occ.active, or1.u[2]) annotation (Line(points={{70,-101},{70,-104},{
+          168,-104},{168,1.05},{184,1.05}}, color={255,0,255}));
+  connect(morWarUp.active, or1.u[3]) annotation (Line(points={{-30,-101},{-30,
+          -112},{170,-112},{170,-1.05},{184,-1.05}}, color={255,0,255}));
+  connect(morPreCoo.active, or1.u[4]) annotation (Line(points={{-30,-141},{-30,
+          -150},{174,-150},{174,-3.15},{184,-3.15}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-220,
             -220},{220,220}})), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-220,-220},{220,220}}), graphics={

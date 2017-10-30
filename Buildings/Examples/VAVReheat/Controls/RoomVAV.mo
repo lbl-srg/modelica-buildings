@@ -28,7 +28,7 @@ block RoomVAV "Controller for room VAV box"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
 
-  Modelica.Blocks.Interfaces.RealInput TSup(
+  Modelica.Blocks.Interfaces.RealInput TDis(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC",
@@ -113,7 +113,7 @@ equation
           48},{110,48}},                                    color={0,0,127}));
   connect(one.y, mulSum.u[1]) annotation (Line(points={{-53,-66},{-30,-66},{-30,
           -5.33333},{-22,-5.33333}}, color={0,0,127}));
-  connect(TSup, mulSum.u[2]) annotation (Line(points={{-120,-80},{-40,-80},{-40,
+  connect(TDis, mulSum.u[2]) annotation (Line(points={{-120,-80},{-40,-80},{-40,
           -10},{-22,-10}}, color={0,0,127}));
   connect(TRoo, mulSum.u[3]) annotation (Line(points={{-120,-40},{-80,-40},{-80,
           -14.6667},{-22,-14.6667}},                color={0,0,127}));

@@ -278,8 +278,8 @@ protected
     "Set system ventilation efficiency to 1"
     annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
 public
-  CDL.Continuous.GreaterEqualThreshold greEquThr
-    "Check if system ventilation efficiency is greater than 0"
+  CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=1E-4)
+    "Check if system ventilation efficiency is greater than 0 (using 1E-4 tolerance)"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
 equation
   connect(breZonAre.y, breZon.u1)
@@ -675,6 +675,10 @@ Stanke, D., 2010. <i>Dynamic Reset for Multiple-Zone Systems.</i> ASHRAE Journal
 
 </html>", revisions="<html>
 <ul>
+<li>
+October 28, 2017, by Michael Wetter:<br/>
+Corrected bug in guarding against division by zero.
+</li>
 <li>
 September 27, 2017, by Michael Wetter:<br/>
 Changed handling of guard against zero division, as the flow rate

@@ -9,7 +9,7 @@ block ReturnFanDirectPressure
   parameter Modelica.SIunits.PressureDifference dpDisMin(
     displayUnit="Pa",
     final min=0,
-    final max=1000) = 10
+    final max=1000) = 2.4
     "Minimum return fan discharge static pressure difference setpoint";
   parameter Modelica.SIunits.PressureDifference dpDisMax(
     displayUnit="Pa",
