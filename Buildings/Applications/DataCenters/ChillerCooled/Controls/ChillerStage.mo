@@ -1,6 +1,5 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Controls;
 model ChillerStage "Chiller staging control logic"
-  import Buildings;
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.Time tWai "Waiting time";

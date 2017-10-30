@@ -1,7 +1,6 @@
 within Buildings.Examples.VAVReheat.Controls;
 block Economizer "Controller for economizer"
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
-  import Buildings;
   parameter Modelica.SIunits.Temperature TFreSet = 277.15
     "Lower limit for mixed air temperature for freeze protection";
   parameter Modelica.SIunits.TemperatureDifference dT(min=0.1)= 1

@@ -1,6 +1,5 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Controls;
 model ConstantSpeedPumpStage "Staging control for constant speed pumps"
-  import Buildings;
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.Time tWai "Waiting time";
