@@ -40,4 +40,3 @@ int main(int nArgs, char ** args){
 
   return 0;
 }
-

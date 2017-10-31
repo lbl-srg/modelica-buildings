@@ -80,7 +80,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y,roo. qGai_flow) annotation (Line(
-      points={{41,-10},{78,-10}},
+      points={{41,-10},{78.4,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus,roo. weaBus) annotation (Line(
@@ -123,15 +123,16 @@ equation
       smooth=Smooth.None));
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This tutorial gives step by step instructions on building and simulating a mixed convection model. The model tests the coupled simulation of
+This tutorial gives step by step instructions on building and simulating a mixed convection model.
+The model tests the coupled simulation of
 <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">
 Buildings.ThermalZones.Detailed.CFD</a>
 with the FFD program by simulating ventilation with mixed convection in an empty room.
 </p>
 <h4>Case Description</h4>
 <p>
-The temperature of the floor is fixed at <i>30</i>&circ;C and the temperature of the walls and the ceiling are fixed at <i>10</i>&circ;C.
-The supply air temperature is fixed at <i>10</i>&circ;C.
+The temperature of the floor is fixed at <i>30</i>&circ;C and the temperature of the walls and the ceiling are fixed
+at <i>10</i>&circ;C. The supply air temperature is fixed at <i>10</i>&circ;C.
 </p>
 <p>
 Figure (a) shows the schematic of the FFD simulation and Figure (b) shows the velocity vectors and temperatures on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
@@ -179,7 +180,8 @@ This block is used to convert three numbers into a vector.
 Name it as <code>multiple_x3</code>.
 </li>
 <li>
-<a href=\"modelica://Buildings.HeatTransfer.Source.FixedTemperature\">Buildings.HeatTransfer.Source.FixedTemperature</a>.
+<a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">
+Buildings.HeatTransfer.Sources.FixedTemperature</a>.
 Two models are needed to specify the temperature on the floor and other walls.
 Name them as <code>TFlo</code> and <code>TOthWal</code> respectively.
 Please note that it is necessary to declare <code>TOthWal</code> as a vector of <i>5</i> elements.
@@ -318,11 +320,12 @@ Rename the files as <code>MixedConvection.cfd</code> and <code>MixedConvection.d
 </li>
 <li>
 <p>
-Revise the FFD parameter input file <code>MixedConvection.ffd</code> (an example file is available in <code>Buildings/Resources/Data/Rooms/FFD/Tutorial/</code>):  </p>
+Revise the FFD parameter input file <code>MixedConvection.ffd</code>
+(an example file is available in <code>Buildings/Resources/Data/Rooms/FFD/Tutorial/</code>):  </p>
 <pre>
   inpu.parameter_file_format SCI
-  inpu.parameter_file_name Resources/Data/Rooms/FFD/Tutorial/MixedlConvection.cfd
-  inpu.block_file_name Resources/Data/Rooms/FFD/Tutorial/MixedConvection.dat
+  inpu.parameter_file_name MixedConvection.cfd
+  inpu.block_file_name MixedConvection.dat
   prob.nu 0.000015 // Kinematic viscosity
   prob.rho 1.205 // Density
   prob.gravx 0 // Gravity in x direction
@@ -351,12 +354,20 @@ Set the simulation stop time of the Modelica model to <code>180</code> seconds a
 Translate the model and start the simulation.
 </li>
 <li>
-Post-process: click the Tecplot macro script <code>Buildings/Resources/Image/Rooms/Examples/FFD/Tutorial/MixedConvection.mcr</code> that will generate the temperature contour and velocity vectors shown in the Figure (b).
+Post-process: click the Tecplot macro script
+<code>Buildings/Resources/Image/Rooms/Examples/FFD/Tutorial/MixedConvection.mcr</code>
+that will generate the temperature contour and velocity vectors shown in the Figure (b).
 Note: Tecplot is needed for this.
 </li>
 </ol>
 </html>",revisions="<html>
 <ul>
+<li>
+September 07, 2017, by Thierry Nouidui:<br/>
+Refactored the FFD C-code and revised the documentation.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/612\">issue 612</a>.
+</li>
 <li>
 July 25, 2014, by Michael Wetter:<br/>
 Revised documentation.

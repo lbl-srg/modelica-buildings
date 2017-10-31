@@ -12,4 +12,3 @@ createPlot(id = 1,
  filename = "PowerLawFixedM.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
-

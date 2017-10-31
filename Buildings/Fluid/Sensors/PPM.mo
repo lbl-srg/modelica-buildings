@@ -2,10 +2,10 @@ within Buildings.Fluid.Sensors;
 model PPM
   "Ideal one port trace substances sensor outputting in parts per million"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor(
-    port(C_outflow(final quantity="MassFraction",
-                   final unit="1",
-                   min=0,
-                   max=1)));
+    port(C_outflow(each final quantity="MassFraction",
+                   each final unit="1",
+                   each min=0,
+                   each max=1)));
   extends Modelica.Icons.RotationalSensor;
 
   parameter String substanceName = "CO2" "Name of trace substance";
@@ -104,7 +104,5 @@ December 2, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+</html>"));
 end PPM;

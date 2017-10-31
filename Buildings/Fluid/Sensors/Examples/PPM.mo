@@ -56,7 +56,6 @@ model PPM "Test model for the extra property sensor outputting PPM"
     m_flow_nominal=m_flow_nominal) "PPM sensor with flow in reverse direction"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={50,-50})));
   Buildings.Fluid.Sensors.PPMTwoPort senPPMSta(
     redeclare package Medium = Medium,
@@ -65,7 +64,6 @@ model PPM "Test model for the extra property sensor outputting PPM"
     m_flow_nominal=m_flow_nominal) "Static PPM sensor" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={10,-50})));
 protected
      final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(

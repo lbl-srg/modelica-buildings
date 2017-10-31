@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "con[1].y",
+    "con[2].y",
+    "con[3].y",
+    "con[4].y",
+    "con[5].y",
+    "maxVal.yMax"
+  };

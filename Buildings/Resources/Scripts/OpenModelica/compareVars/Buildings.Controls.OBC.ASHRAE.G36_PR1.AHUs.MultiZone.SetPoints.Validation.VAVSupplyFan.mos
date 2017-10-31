@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "conSupFan.ySupFanSpe",
+    "conSupFan.ducStaPre",
+    "conSupFan.staPreSetRes.y",
+    "conSupFan.staPreSetRes.numOfReq",
+    "conSupFan.uOpeMod"
+  };

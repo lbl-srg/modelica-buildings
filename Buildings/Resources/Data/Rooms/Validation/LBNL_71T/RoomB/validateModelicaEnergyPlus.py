@@ -1,5 +1,5 @@
 # This script writes the heating and cooling Energy calculated by the 71T EnergyPlus model in a file.
-# This file is used to parametrize the Modelica model. A copy of this file is in 
+# This file is used to parametrize the Modelica model. A copy of this file is in
 # Buildings/Resources/Data/Rooms/Validation/LBNL_71T/RoomB
 # The heating and cooling power can be compared with roo.heaPorAir.Q_flow.
 # The script also extracts roo.heaPorAir.Q_flow from the Modelica .mat file
@@ -34,7 +34,7 @@ ep_tot_heaCoo=ep_tot_hea-ep_tot_coo
 ep_tim=np.array(range(0, len(ep_tot_hea)/ (3600/dt_ep) /24*86400, dt_ep), dtype=float)
 ep_tim=ep_tim+dt_ep
 
-# Write reference results in a new file 
+# Write reference results in a new file
 with open("EnergyPlusHeatingCoolingPower.txt", "w") as f:
     f.write("#1\n");
     f.write("double	EnergyPlus(672, 2)\n");
@@ -65,7 +65,7 @@ mof=Reader(mo_fil_name, "dymola")
 
 ###############################################################
 # Absorbed solar radiation
-ep_AGla=8.71 # fixme # Glass area, from 71T_singleRoom_Geometry.txt
+ep_AGla=8.71 # Glass area, from 71T_singleRoom_Geometry.txt
 ep_qAbs_sol1=df['GLASS:Surface Window Total Absorbed Shortwave Radiation Rate Layer 1 [W](TimeStep)']/ep_AGla
 ep_qAbs_sol2=df['GLASS:Surface Window Total Absorbed Shortwave Radiation Rate Layer 2 [W](TimeStep)']/ep_AGla
 
@@ -160,4 +160,3 @@ plt.savefig('plotBoundaryCondition.pdf')
 plt.savefig('plotBoundaryCondition.png')
 
 #plt.show()
-

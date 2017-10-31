@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "TMixMea.y",
+    "enaDis.TFreSet",
+    "enaDis.yOutDamPosMax",
+    "enaDis.yRetDamPosMin",
+    "enaDis.yOutDamPosMax",
+    "enaDis.yRetDamPosMin"
+  };

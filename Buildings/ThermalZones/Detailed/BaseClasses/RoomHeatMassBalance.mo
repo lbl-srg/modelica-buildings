@@ -112,18 +112,18 @@ partial model RoomHeatMassBalance "Base model for a room"
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
-
+  parameter Boolean sampleModel = false
+    "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
+    annotation (Evaluate=true, Dialog(tab="Experimental (may be changed in future releases)"));
   ////////////////////////////////////////////////////////////////////////
   // Control signals
   Modelica.Blocks.Interfaces.RealInput uWin[nConExtWin](
     each min=0, each max=1, each unit="1") if haveControllableWindow
     "Control signal for window state (used for electrochromic windows, removed otherwise)"
      annotation (Placement(
-        transformation(extent={{-20,-20},{20,20}},   rotation=0,
-        origin={-280,140}),
+        transformation(extent={{-20,-20},{20,20}},   origin={-280,140}),
         iconTransformation(
         extent={{-16,-16},{16,16}},
-        rotation=0,
         origin={-216,130})));
 
   ////////////////////////////////////////////////////////////////////////
@@ -250,7 +250,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     final datConBou = datConBou,
     final surBou = surBou,
     final linearizeRadiation = linearizeRadiation,
-    final homotopyInitialization = homotopyInitialization)
+    final homotopyInitialization = homotopyInitialization,
+    final sampleModel = sampleModel)
     "Infrared radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
@@ -843,7 +844,7 @@ Partial model for a room heat and mass balance.
 </p>
 <p>
 This is the base class for
-<a href=\"modelica://Buildings.ThermalZones.Detailed.FFD\">Buildings.ThermalZones.Detailed.FFD</a>
+<a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.CFD</a>
 and for
 <a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">Buildings.ThermalZones.Detailed.MixedAir</a>
 </p>

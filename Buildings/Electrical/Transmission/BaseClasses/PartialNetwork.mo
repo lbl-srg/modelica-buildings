@@ -117,8 +117,8 @@ how they are connected, and the length of each connection.
 The parameter <code>terminal[...]</code> declares
 an array of generalized electric connectors that are associated to each node of the grid.
 The parameter <code>lines[...]</code> is an array of type
-<a href=\"modelica://Buildings.Electrical.Transmission.Base.PartialBaseLine\">
-Buildings.Electrical.Transmission.Base.PartialBaseLine</a> that represent the cables
+<a href=\"modelica://Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine\">
+Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine</a> that represent the cables
 in the grid.
 </p>
 <h4>Note:</h4>

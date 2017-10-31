@@ -1,0 +1,22 @@
+simulateModel("Buildings.Applications.DataCenters.ChillerCooled.Controls.Validation.CoolingTowerSpeed", stopTime=1080, tolerance=1e-06, method="dassl", resultFile="CoolingTowerSpeed")
+removePlots(false);
+createPlot(id=1,
+ position={0, 0, 835, 440},
+ y={"cooTowSpeCon.TCHWSupSet", "cooTowSpeCon.TCWSupSet", "cooTowSpeCon.TCHWSup",
+"cooTowSpeCon.TCWSup"},
+ range={0.0, 1100.0, 0.0, 30.0},
+ grid=true, filename="CoolingTowerSpeed.mat",
+ colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=1,
+ position={0, 0, 835, 144},
+ y={"cooTowSpeCon.cooMod"},
+ range={0.0, 1100.0, -2.0, 4.0},
+ grid=true,
+ subPlot=2,
+ colors={{28,108,200}});
+createPlot(id=1,
+ position={0, 0, 835, 144},
+ y={"cooTowSpeCon.y"},
+ range={0.0, 1100.0, -1.0, 2.0},
+ grid=true, subPlot=3,
+ colors={{28,108,200}});

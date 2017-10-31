@@ -1,0 +1,3 @@
+simulateModel("Buildings.Controls.OBC.CDL.SetPoints.Validation.HotWaterTemperatureReset", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="HotWaterTemperatureReset1");
+createPlot(id = 1, position = {35, 20, 789, 637}, x = "heaCur.TOut", y = {"heaCur.TSup", "heaCur.TRet", "heaCur.TOut"}, range = {262.0, 304.0, 70.0, (-20.0)}, autoscale = true, autoerase = true, autoreplot = true, grid = true, color = true, leftTitleType = 1, bottomTitleType = 1);
+createPlot(id = 1, position = {35, 20, 789, 316}, x = "heaCur.TOut", y = {"heaCur1.TSetZon", "heaCur1.TSup", "heaCur1.TRet"}, range = {262.0, 304.0, 70.0, 10.0}, autoscale = true, autoerase = true, autoreplot = true, grid = true, color = true, subPlot = 2, leftTitleType = 1, bottomTitleType = 1);

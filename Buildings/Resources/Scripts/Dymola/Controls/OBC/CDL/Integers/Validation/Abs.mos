@@ -1,0 +1,2 @@
+simulateModel("Buildings.Controls.OBC.CDL.Integers.Validation.Abs", stopTime=1.0, method="dassl", tolerance=1e-06, resultFile="Abs2");
+createPlot(id=1, position={15, 10, 590, 420}, y={"abs1.u", "abs1.y"}, range={0.0, 1.0, -1.2, 1.4}, grid=true, colors={{28,108,200}, {238,46,47}});

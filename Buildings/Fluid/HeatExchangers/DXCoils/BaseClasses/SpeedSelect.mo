@@ -32,7 +32,7 @@ revisions="<html>
 <ul>
 <li>
 September 5, 2012 by Michael Wetter:<br/>
-Reimplemented model to use integer input as a control signal.
+Reimplemented model to use Integer input as a control signal.
 </li>
 <li>
 August 29, 2012 by Kaustubh Phalak:<br/>

@@ -10,8 +10,7 @@ model SingleSpeed "Single speed water-cooled DX coils"
         iconTransformation(extent={{-120,70},{-100,90}})));
 equation
   connect(eva.on, on) annotation (Line(points={{-11,8},{-11,68},{-88,68},{-88,
-          80},{-112,80},{-112,78}},
-                                color={255,0,255}));
+          78},{-112,78}},       color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Line(
             points={{-100,80},{-68,80},{-68,20}}, color={255,85,170})}),
     Documentation(info="<html>

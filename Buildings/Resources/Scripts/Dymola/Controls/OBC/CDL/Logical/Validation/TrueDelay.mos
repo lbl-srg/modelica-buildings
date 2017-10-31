@@ -1,0 +1,2 @@
+simulateModel("Buildings.Controls.OBC.CDL.Logical.Validation.TrueDelay", stopTime=5.0, method="dassl", tolerance=1e-06, resultFile="TrueDelay1");
+createPlot(id=1, position={15, 10, 1087, 700}, y={"onDelay.u", "onDelay.y", "onDelay1.y", "onDelay2.y", "onDelay3.y", "onDelay4.y", "onDelay5.y","onDelay6.y","onDelay7.y"}, range={0.0, 5.0, -0.1, 1.1}, grid=true, colors={{238,46,47}, {28,108,200}, {28,108,200}, {28,108,200}, {0,140,72}, {217,67,180},  {0,0,0}, {217,67,180},  {0,0,0}});

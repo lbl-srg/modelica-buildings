@@ -1,19 +1,28 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
 model InfraredRadiationExchange
   "Infrared radiation heat exchange between the room facing surfaces"
-  extends Buildings.ThermalZones.Detailed.BaseClasses.PartialSurfaceInterfaceRadiative;
+  extends
+    Buildings.ThermalZones.Detailed.BaseClasses.PartialSurfaceInterfaceRadiative;
   parameter Boolean linearizeRadiation
     "Set to true to linearize emissive power";
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
+  parameter Boolean sampleModel=false
+    "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
+    annotation (Evaluate=true, Dialog(tab=
+          "Experimental (may be changed in future releases)"));
+
   HeatTransfer.Interfaces.RadiosityInflow JInConExtWin[NConExtWin] if
-      haveConExtWin
+    haveConExtWin
     "Incoming radiosity that connects to non-frame part of the window"
     annotation (Placement(transformation(extent={{260,70},{240,90}})));
   HeatTransfer.Interfaces.RadiosityOutflow JOutConExtWin[NConExtWin]
     "Outgoing radiosity that connects to non-frame part of the window"
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
 protected
+  constant Real T30(unit="K3") = 293.15^3 "Nominal temperature";
+  constant Real T40(unit="K4") = 293.15^4 "Nominal temperature";
+
   final parameter Integer NOpa=NConExt + 2*NConExtWin + 2*NConPar + NConBou +
       NSurBou "Number of opaque surfaces, including the window frame";
   final parameter Integer nOpa=nConExt + 2*nConExtWin + 2*nConPar + nConBou +
@@ -32,7 +41,8 @@ protected
     each fixed=false) "Reflectivity of opaque surfaces";
   final parameter Modelica.SIunits.Area AOpa[nOpa](each fixed=false)
     "Surface area of opaque surfaces";
-  final parameter Modelica.SIunits.Area A[nTot](each fixed=false) "Surface areas";
+  final parameter Modelica.SIunits.Area A[nTot](each fixed=false)
+    "Surface areas";
   final parameter Real kOpa[nOpa](each unit="W/K4", each fixed=false)
     "Product sigma*epsilon*A for opaque surfaces";
   final parameter Real kOpaInv[nOpa](each unit="K4/W", each fixed=false)
@@ -42,36 +52,41 @@ protected
     each max=1,
     each fixed=false) "View factor from surface i to j";
 
-   Buildings.HeatTransfer.Interfaces.RadiosityInflow JInConExtWin_internal[NConExtWin]
+  parameter Modelica.SIunits.Time t0(fixed=false) "First sample time instant";
+
+  Buildings.HeatTransfer.Interfaces.RadiosityInflow JInConExtWin_internal[
+    NConExtWin](start=AConExtWinGla*0.8*Modelica.Constants.sigma*293.15^4,
+      each fixed=sampleModel and nConExtWin > 0)
     "Incoming radiosity that connects to non-frame part of the window";
 
   Modelica.SIunits.HeatFlowRate J[nTot](
     each max=0,
     start=-A .* 0.8*Modelica.Constants.sigma*293.15^4,
+    fixed={sampleModel and (i <= nOpa or i > nOpa + nWin) for i in 1:nTot},
     each nominal=10*0.8*Modelica.Constants.sigma*293.15^4)
     "Radiosity leaving the surface";
+
   Modelica.SIunits.HeatFlowRate G[nTot](
     each min=0,
     start=A .* 0.8*Modelica.Constants.sigma*293.15^4,
     each nominal=10*0.8*Modelica.Constants.sigma*293.15^4)
     "Radiosity entering the surface";
-  constant Real T30(unit="K3") = 293.15^3 "Nominal temperature";
-  constant Real T40(unit="K4") = 293.15^4 "Nominal temperature";
-  Modelica.SIunits.Temperature TOpa[nOpa](
-    each start=293.15,
-    each nominal=293.15)
-    "Temperature of opaque surfaces";
+
+  Modelica.SIunits.Temperature TOpa[nOpa](each start=293.15, each nominal=
+        293.15) "Temperature of opaque surfaces";
   Real T4Opa[nOpa](
     each unit="K4",
     each start=T40,
     each nominal=293.15^4) "Forth power of temperature of opaque surfaces";
-  Modelica.SIunits.HeatFlowRate Q_flow[nTot] "Heat flow rate at surfaces";
+  Modelica.SIunits.HeatFlowRate Q_flow[nTot](each start=0, each fixed=
+        sampleModel) "Heat flow rate at surfaces";
   parameter Modelica.SIunits.Temperature T0=293.15
     "Temperature used to linearize radiative heat transfer";
   final parameter Real T03(
     min=0,
     unit="K3") = T0^3 "3rd power of temperature T0";
-  Modelica.SIunits.HeatFlowRate sumEBal "Sum of energy balance, should be zero";
+  Modelica.SIunits.HeatFlowRate sumEBal(start=0, fixed=sampleModel)
+    "Sum of energy balance, should be zero";
 initial equation
   // The next loops build the array epsOpa, AOpa and kOpa that simplify
   // the model equations.
@@ -152,6 +167,8 @@ initial equation
       "Program error: Sum 1 of view factors is " + String(sum(F[i, j] for j in
       1:nTot)));
   end for;
+
+  t0 = time;
   ////////////////////////////////////////////////////////////////////
 equation
   // Conditional connector
@@ -181,8 +198,36 @@ equation
   // Incoming radiosity at each surface
   // is equal to the negative of the outgoing radiosity of
   // all other surfaces times the view factor
-  G = -transpose(F)*J;
-  // Outgoing radiosity
+  if sampleModel then
+    // experimental mode to sample the model which can give shorter
+    // simulation time if there is already a sampling in the system model
+    when sample(t0, 2*60) then
+      G = -transpose(F)*pre(J);
+      // Net heat exchange
+      Q_flow = -pre(J) - G;
+      // Outgoing radiosity
+      // Sum of energy balance
+      // Remove sumEBal and assert statement for final release
+      sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow)
+         + sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow)
+         + sum(conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(
+        JOutConExtWin));
+    end when;
+  else
+    G = -transpose(F)*J;
+    // Net heat exchange
+    Q_flow = -J - G;
+    // Outgoing radiosity
+    // Sum of energy balance
+    // Remove sumEBal and assert statement for final release
+    sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow)
+       + sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) +
+      sum(conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(
+      JOutConExtWin));
+    assert(abs(sumEBal) < 1E-1, "Program error: Energy is not conserved in InfraredRadiationExchange.
+    Sum of all energy is " + String(sumEBal));
+  end if;
+
   // Opaque surfaces.
   // If kOpa[j]=absIR[j]*A[j] < 1E-28, then A < 1E-20 and the surface is
   // from a dummy construction. In this situation, we set T40=293.15^4 to
@@ -216,8 +261,7 @@ equation
     J[j + nOpa] = -JInConExtWin_internal[j];
     G[j + nOpa] = +JOutConExtWin[j];
   end for;
-  // Net heat exchange
-  Q_flow = -J - G;
+
   // Assign heat exchange to connectors
   for i in 1:nConExt loop
     Q_flow[i] = conExt[i].Q_flow;
@@ -255,14 +299,7 @@ equation
     conExtWinFra[1].T = T0;
     JOutConExtWin[1] = 0;
   end if;
-  // Sum of energy balance
-  // Remove sumEBal and assert statement for final release
-  sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
-    sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
-    conExtWinFra.Q_flow) + (sum(JInConExtWin_internal) - sum(JOutConExtWin));
-  assert(abs(sumEBal) < 1E-1,
-    "Program error: Energy is not conserved in InfraredRadiationExchange.
-               Sum of all energy is " + String(sumEBal));
+
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},{240,

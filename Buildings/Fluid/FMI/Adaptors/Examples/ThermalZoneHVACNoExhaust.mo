@@ -94,7 +94,6 @@ model ThermalZoneHVACNoExhaust
     "Outdoor temperature used for the HVAC model" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-190,-24})));
 equation
   connect(mov.port_b,hea. port_a) annotation (Line(points={{-70,10},{-70,10},{-40,

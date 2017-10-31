@@ -63,11 +63,7 @@ equation
           {30,-40},{30,-50}}, color={0,0,127}));
   connect(yCom.y, hAUns.u) annotation (Line(points={{-59,-44},{-44,-44},{-20,-44},
           {-20,20},{-10,20}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}})),
-            Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
-    experiment(Tolerance=1e-6, StopTime=600),
+  annotation (    experiment(Tolerance=1e-6, StopTime=600),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Validation/HeatCapacityVariableShade.mos"
         "Simulate and plot"),
     Documentation(info="<html>

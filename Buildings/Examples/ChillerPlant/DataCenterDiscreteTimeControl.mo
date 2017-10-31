@@ -1,6 +1,6 @@
 within Buildings.Examples.ChillerPlant;
 model DataCenterDiscreteTimeControl
-  "Model of data center with trim and response control"
+  "Model of data center with trim and respond control"
   extends Buildings.Examples.ChillerPlant.BaseClasses.DataCenter;
   extends Modelica.Icons.Example;
 
@@ -9,7 +9,7 @@ model DataCenterDiscreteTimeControl
     samplePeriod=120,
     uTri=0,
     yDec=-0.03,
-    yInc=0.03) "Trim and response controller"
+    yInc=0.03) "Trim and respond controller"
     annotation (Placement(transformation(extent={{-160,190},{-140,210}})));
 equation
   connect(feedback.y, triAndRes.u) annotation (Line(
@@ -27,11 +27,11 @@ equation
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/DataCenterDiscreteTimeControl.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
-This model is the chilled water plant with trim and response control,
+This model is the chilled water plant with trim and respond control,
 which is a discrete time control logic.
 </p>
 <p>
-The trim and response logic is approximated by a PI controller which
+The trim and respond logic is approximated by a PI controller which
 significantly reduces computing time. The model is described at
 <a href=\"Buildings.Examples.ChillerPlant\">
 Buildings.Examples.ChillerPlant</a>.
@@ -40,7 +40,7 @@ Buildings.Examples.ChillerPlant</a>.
 See
 <a href=\"Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl\">
 Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl</a>
-for an implementation that approximates the trim and response
+for an implementation that approximates the trim and respond
 logic by a continuous time controller.
 </p>
 </html>", revisions="<html>

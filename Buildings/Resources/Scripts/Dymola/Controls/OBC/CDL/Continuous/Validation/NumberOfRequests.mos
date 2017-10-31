@@ -1,0 +1,2 @@
+simulateModel("Buildings.Controls.OBC.CDL.Continuous.Validation.NumberOfRequests", method="dassl", tolerance=1e-06, stopTime=1.0, resultFile="NumberOfRequests1");
+createPlot(id=1, position={15, 10, 590, 420}, y={"numReq1.u[1]","numReq1.u[2]","numReq1.u[3]","numReq1.u[4]","numReq1.u[5]", "numReq1.y"}, range={0.0, 1.0, -2.0, 5.0}, grid=true, colors={{238,46,47},{0,140,72},{217,67,180},{0,0,0},{162,29,33},{28,108,200}});

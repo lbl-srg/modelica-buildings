@@ -140,6 +140,30 @@ its class name ends with the string <code>Beta</code>.
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+   <tr><td valign=\"top\">Buildings.Applications.DataCenter
+       </td>
+       <td valign=\"top\">Library with component models and pre-configured
+                          system models for data centers.
+       </td>
+       </tr>
+   <tr><td valign=\"top\">Buildings.Controls.OBC
+       </td>
+       <td valign=\"top\">Library with basic control blocks and ready-to-use control sequences
+                          from the OpenBuildingControl project
+                          (<a href=\"http://obc.lbl.gov\">http://obc.lbl.gov</a>).<br/>
+                          The subpackage <code>Buildings.Controls.OBC.ASHRAE</code>
+                          contains control sequences
+                          for HVAC systems as described in ASHRAE Guideline 36.<br/>
+                          The subpackage <code>Buildings.Controls.OBC.CDL</code>
+                          contains libraries with basic control blocks.
+                          These are a part of a Control Description Language (CDL)
+                          currently being developed, which is used to compose
+                          the sequences in <code>Buildings.Controls.OBC.ASHRAE</code>.
+                          The intent of this implementation is that
+                          Modelica models that are conformant with the CDL
+                          can be translated to product lines of different control vendors.
+       </td>
+       </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Humidifiers
        </td>
        <td valign=\"top\">Package with spray air washer, steam humidifier and a humidifer
@@ -169,7 +193,8 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.Fluid.MassExchangers</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Fluid.MassExchangers.Humidifier_X
+   <tr><td valign=\"top\">Buildings.Fluid.Humidifiers.SprayAirWasher_X<br/>
+                          Buildings.Fluid.Humidifiers.SteamHumidifier_X
        </td>
        <td valign=\"top\">Added component which allows setting the outlet water vapor
                         mass fraction using an input signal, and controlling it ideally
@@ -206,6 +231,21 @@ its class name ends with the string <code>Beta</code>.
                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/698\">IBPSA, #698</a>.
        </td>
    </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilCounterFlow<br/>
+                          Buildings.Fluid.HeatExchangers.DryCoilDiscretized<br/>
+                          Buildings.Fluid.HeatExchangers.WetCoilCounterFlow<br/>
+                          Buildings.Fluid.HeatExchangers.WetCoilDiscretized
+       </td>
+       <td valign=\"top\">Improved model so that for certain parameters (dynamic balance,
+                          or steady-state balance and no reverse flow,
+                          or <i>hA</i>-calculation that is independent of temperature),
+                          two fast state variables can be removed.<br/>
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/678\">Buildings, #678</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
        </td>
    </tr>
@@ -227,6 +267,15 @@ its class name ends with the string <code>Beta</code>.
                           which will then be tracked by the model.
        </td>
    </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Sensors.TemperatureTwoPort
+       </td>
+       <td valign=\"top\">Improved optional heat loss model.<br/>
+                          This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/840\">IBPSA, #840</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
        </td>
    </tr>
@@ -238,12 +287,14 @@ its class name ends with the string <code>Beta</code>.
                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/785\">#785</a>.
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Added an optional input that allows injecting
+                          trace substances, such as CO2 release from people,
+                          to the room air.
        </td>
    </tr>
    </table>
@@ -285,6 +336,15 @@ its class name ends with the string <code>Beta</code>.
                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">IBPSA, #763</a>.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers
+       </td>
+       <td valign=\"top\">Removed the function
+                        <code>Buildings.Fluid.HeatExchangers.BaseClasses.appartusDewPoint</code>
+                        as it was nowhere used, and it also has no validation test.<br/>
+                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/724\">Buildings, #724</a>.
+       </td>
+   </tr>
+
 
    </table>
    <!-- Errors that have been fixed -->
@@ -367,9 +427,11 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>xxx</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.MultiLayer
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Corrected wrong result variable <code>R</code> and <code>UA</code>.
+                          These variables are only used for reporting.
+                          All other calculations are not affected by this error.
        </td>
    </tr>
    </table>
@@ -673,7 +735,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           Buildings.Controls.Continuous.PIDHysteresis<br/>
                           Buildings.Controls.Continuous.PIDHysteresisTimer<br/>
           </td>
-          <td valign=\"top\">Added option to reset the control output when an optional boolean input signal
+          <td valign=\"top\">Added option to reset the control output when an optional Boolean input signal
                            changes from <code>false</code> to <code>true</code>.<br/>
                            This closes
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/494\">IBPSA, #494</a>.
@@ -969,17 +1031,17 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        </td>
    </tr>
    <tr><td valign=\"top\">
-                          Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed<br/>
-                          Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed<br/>
-                          Buildings.Fluid.HeatExchangers.DXCoils.MultiStage<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage<br/>
                           Buildings.Fluid.HeatExchangers.DXCoils.Data
        </td>
        <td valign=\"top\">Renamed
-                          <code>Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</code> to<br/>
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed</code> to<br/>
                           <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed</code>,<br/>
-                          <code>Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</code> to<br/>
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed</code> to<br/>
                           <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed</code>,<br/>
-                          <code>Buildings.Fluid.HeatExchangers.DXCoils.MultiStage</code> to<br/>
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage</code> to<br/>
                           <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage</code> and<br/>
                           <code>Buildings.Fluid.HeatExchangers.DXCoils.Data</code> to<br/>
                           <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data</code>.<br/>
@@ -1467,7 +1529,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
     </td>
     <td valign=\"top\">Added the parameter <code>inputType</code> which allows
                        to set the input as an continuous input signal,
-                       to set the input as an integer input signal that selects the stage of the mover,
+                       to set the input as an Integer input signal that selects the stage of the mover,
                        or to remove the input connector and use a parameter
                        to assign the control signal.
     </td>
@@ -6433,17 +6495,23 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Marco Bonvini, Lawrence Berkeley National Laboratory, USA
 </li>
+<li>Felix B&uuml;nning, RWTH Aachen, Germany
+</li>
 <li>Massimo Cimmino, Polytechnique Montr&eacute;al, Canada
 </li>
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
 </li>
-<li>Yangyang Fu, University of Miami, Florida, USA
+<li>Yangyang Fu, University of Colorado at Boulder, Colorado, USA
 </li>
 <li>Sebastian Giglmayr, University of Applied Sciences Technikum Wien, Austria
+</li>
+<li>Milica Grahovac, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Peter Grant, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Brandon M. Hencey, Cornell University, USA
+</li>
+<li>Jianjun Hu, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Roman Ilk, University of Applied Sciences Technikum Wien, Austria
 </li>
@@ -6483,7 +6551,7 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Rebecca Zarin Pass, Lawrence Berkeley National Laboratory, USA
 </li>
-<li>Wangda Zuo, University of Miami, Florida, USA
+<li>Wangda Zuo, University of Colorado at Boulder, Colorado, USA
 </li>
 </ul>
 </html>"));

@@ -41,7 +41,5 @@ First implementation.
 </html>"),
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeHeatReverseFlow.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-08, StopTime=10),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    experiment(Tolerance=1e-08, StopTime=10));
 end MixingVolumeHeatReverseFlow;

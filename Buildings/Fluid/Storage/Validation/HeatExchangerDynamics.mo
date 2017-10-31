@@ -142,7 +142,5 @@ First implementation to test
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-6, StopTime=14400),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+    experiment(Tolerance=1e-6, StopTime=14400));
 end HeatExchangerDynamics;

@@ -1,0 +1,7 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.Validation.TrimAndRespond", method="dassl", stopTime=7200, tolerance=1e-06, resultFile="TrimAndRespond1");
+createPlot(id=1, position={20, 10, 650, 750}, subPlot=1, y={"trimRespondLogic.uDevSta"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={20, 10, 650, 750}, subPlot=2, y={"trimRespondLogic.numOfReq"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={20, 10, 650, 750}, subPlot=3, y={"trimRespondLogic.y"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={680, 10, 650, 750}, subPlot=1, y={"trimRespondLogic1.uDevSta"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={680, 10, 650, 750}, subPlot=2, y={"trimRespondLogic1.numOfReq"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={680, 10, 650, 750}, subPlot=3, y={"trimRespondLogic1.y"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});

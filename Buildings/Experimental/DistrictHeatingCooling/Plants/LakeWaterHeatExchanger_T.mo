@@ -86,7 +86,6 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
     final dpFixed_nominal={if disableHeatExchanger then 0 else dpHex_nominal,0})
     "Switching valve for cooling" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={50,60})));
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear valHea(
     redeclare final package Medium = Medium,
@@ -97,7 +96,6 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
     final dpFixed_nominal={if disableHeatExchanger then 0 else dpHex_nominal,0})
     "Switching valve for heating" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={50,-60})));
 
 protected
@@ -168,7 +166,7 @@ protected
 
   Controller conCoo(final m_flow_nominal=m_flow_nominal)
     "Controller for hex for cooling" annotation (Placement(transformation(
-          rotation=0, extent={{-40,20},{-20,40}})));
+          extent={{-40,20},{-20,40}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFloCoo(redeclare package Medium = Medium)
     "Mass flow sensor used for cooling control"
     annotation (Placement(transformation(extent={{-52,50},{-72,70}})));
@@ -177,7 +175,7 @@ protected
     annotation (Placement(transformation(extent={{-42,-50},{-62,-30}})));
   Controller conHea(final m_flow_nominal=m_flow_nominal)
     "Controller for hex for heating" annotation (Placement(transformation(
-          rotation=0, extent={{-60,-90},{-40,-70}})));
+          extent={{-60,-90},{-40,-70}})));
 equation
   connect(TColIn.y, maxHeaLea.u2) annotation (Line(points={{-19,108},{-19,108},{
           6,108}},             color={0,0,127}));
@@ -239,7 +237,7 @@ protected
     Modelica.Blocks.Math.Feedback feeBac "Control error"
       annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
     Modelica.Blocks.Interfaces.RealInput u1 annotation (Placement(transformation(
-            rotation=0, extent={{-120,60},{-100,80}})));
+            extent={{-120,60},{-100,80}})));
     Modelica.Blocks.Interfaces.RealInput u2 annotation (Placement(transformation(
           rotation=90,
           extent={{-10,-10},{10,10}},
@@ -247,9 +245,9 @@ protected
     Modelica.Blocks.Interfaces.RealOutput y
       "Control signal (0: bypass hex, 1: use hex)"
       annotation (Placement(transformation(
-            rotation=0, extent={{100,90},{120,110}})));
+            extent={{100,90},{120,110}})));
     Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow rate" annotation (
-        Placement(transformation(rotation=0, extent={{-120,120},{-100,140}})));
+        Placement(transformation(extent={{-120,120},{-100,140}})));
     Modelica.Blocks.Math.Gain norFlo(final k=1/m_flow_nominal)
       "Normalized flow rate"
       annotation (Placement(transformation(extent={{-80,120},{-60,140}})));

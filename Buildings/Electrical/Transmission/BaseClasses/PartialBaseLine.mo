@@ -136,8 +136,8 @@ The parameter is replaceable so it can be redeclared using a different type, for
 <a href=\"modelica://Buildings.Electrical.Transmission.MediumVoltageCables.Generic\">
 Buildings.Electrical.Transmission.MediumVoltageCables.Generic</a>.<br/>
 The example models
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples.AClineMedium\">
-Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples.AClineMedium</a> and
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples.ACLineMedium\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples.ACLineMedium</a> and
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples.ACSimpleGridMedium\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples.ACSimpleGridMedium</a>
 show how this can be done.

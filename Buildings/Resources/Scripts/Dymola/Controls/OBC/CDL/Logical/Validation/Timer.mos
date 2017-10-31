@@ -1,0 +1,3 @@
+simulateModel("Buildings.Controls.OBC.CDL.Logical.Validation.Timer", stopTime=5.0, method="dassl", tolerance=1e-06, resultFile="Timer1");
+createPlot(id=1, position={15, 10, 1000, 600}, subPlot=1, y={"timer1.u"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={15, 10, 1000, 600}, subPlot=2, y={"timer1.y"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});

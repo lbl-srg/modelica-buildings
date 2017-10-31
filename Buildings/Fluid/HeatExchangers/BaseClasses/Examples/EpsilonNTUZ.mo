@@ -37,10 +37,10 @@ September 28, 2016, by Massimo Cimmino:<br/>
 Modified the test model for the addition of <code>ConstantTemperaturePhaseChange</code> flow regime.
 </li>
 <li>
-April 25, 2016, by Michael Wetter:<br/> 
-Added work-around for JModelica in processing the enumeration. 
-This is for 
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/510\">Buildings, issue 510</a>. 
+April 25, 2016, by Michael Wetter:<br/>
+Added work-around for JModelica in processing the enumeration.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/510\">Buildings, issue 510</a>.
 </li>
 <li>
 October 19, 2014, by Michael Wetter:<br/>

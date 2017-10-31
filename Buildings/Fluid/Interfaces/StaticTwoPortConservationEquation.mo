@@ -598,7 +598,5 @@ First implementation.
         Line(points={{-56,-73},{81,-73}}, color={255,255,255}),
         Line(points={{6,14},{6,-37}},     color={255,255,255}),
         Line(points={{54,14},{6,14}},     color={255,255,255}),
-        Line(points={{6,-37},{-42,-37}},  color={255,255,255})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+        Line(points={{6,-37},{-42,-37}},  color={255,255,255})}));
 end StaticTwoPortConservationEquation;

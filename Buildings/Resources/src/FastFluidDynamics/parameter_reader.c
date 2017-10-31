@@ -24,10 +24,12 @@
 		*/
 int assign_parameter(PARA_DATA *para, char *string) {
   char tmp[400];
+  char tmp_par[400];
   /* tmp2 needs to be initialized to avoid crash*/
   /* when the input for tmp2 is empty*/
   char tmp2[100] = "";
   int senId = -1;
+
 
   /****************************************************************************
   sscanf() reads data from string and stores them according to parameter format
@@ -163,12 +165,14 @@ int assign_parameter(PARA_DATA *para, char *string) {
     ffd_log(msg, FFD_NORMAL);
   }
   else if(!strcmp(tmp, "inpu.parameter_file_name")) {
-    sscanf(string, "%s%s", tmp, para->inpu->parameter_file_name);
+    sscanf(string, "%s%s", tmp, tmp_par);
+    sprintf (para->inpu->parameter_file_name, "%s%s", para->cosim->para->filePath, tmp_par);
     sprintf(msg, "assign_parameter(): %s=%s", tmp, para->inpu->parameter_file_name);
     ffd_log(msg, FFD_NORMAL);
   }
   else if(!strcmp(tmp, "inpu.block_file_name")) {
-    sscanf(string, "%s%s", tmp, para->inpu->block_file_name);
+    sscanf(string, "%s%s", tmp, tmp_par);
+    sprintf (para->inpu->block_file_name, "%s%s", para->cosim->para->filePath, tmp_par);
     sprintf(msg, "assign_parameter(): %s=%s", tmp, para->inpu->block_file_name);
     ffd_log(msg, FFD_NORMAL);
   }
@@ -430,7 +434,6 @@ int assign_parameter(PARA_DATA *para, char *string) {
       ffd_log(msg, FFD_NORMAL);
     }
   }
-
   return 0;
 } /* End of assign_parameter()*/
 
@@ -473,13 +476,24 @@ int read_parameter(PARA_DATA *para) {
       return 1;
     }
     else {
-      sprintf(msg, "read_parameter(): Opened file %s for FFD parameters",
-              para->cosim->para->fileName);
-      ffd_log(msg, FFD_NORMAL);
+      char *lastSlash = strrchr(para->cosim->para->fileName, '/');
+      int nPath = strlen(para->cosim->para->fileName) - (strlen(lastSlash) - 1);
+
+      para->cosim->para->filePath = (char*) calloc(nPath+1, sizeof(char));
+      if(para->cosim->para->filePath==NULL) {
+        ffd_log("read_parameter(): Could not allocate memory for the path to the FFD files", FFD_ERROR);
+        return 1;
+      }
+      else {
+        strncpy(para->cosim->para->filePath, para->cosim->para->fileName, nPath);
+        sprintf(msg, "read_parameter(): Opened file %s for FFD parameters with base directory %s",
+              para->cosim->para->fileName, para->cosim->para->filePath);
+        ffd_log(msg, FFD_NORMAL);
+      }
     }
   }
 
-  /*Use fgets(...) as loop condition, it reutrns null when it fail to read more characters.*/
+  /*Use fgets(...) as loop condition, it returns null when it fail to read more characters.*/
   while(fgets(string, 400, file_para) != NULL) {
     if(assign_parameter(para, string)) {
       sprintf(msg, "read_parameter(): Could not read data from file %s",
@@ -501,5 +515,3 @@ int read_parameter(PARA_DATA *para) {
   fclose(file_para);
   return 0;
 } /* End of read_parameter()*/
-
-

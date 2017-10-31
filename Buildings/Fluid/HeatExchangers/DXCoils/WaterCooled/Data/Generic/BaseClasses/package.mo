@@ -2,7 +2,6 @@ within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic;
 package BaseClasses "Package with base classes for performance data"
   extends Modelica.Icons.BasesPackage;
 
-
   annotation (Documentation(info="<html>
 <p>
 This package contains performance curves for the cooling capacity and the EIR
@@ -16,8 +15,8 @@ Buildings.Fluid.HeatExchangers.DXCoils.Data.DoubleSpeed</a>.
 </p>
 <p>
 The data are described in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.DXCoil\">
-Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.DXCoil</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil</a>.
 </p>
 </html>",
 revisions="<html>

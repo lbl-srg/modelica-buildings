@@ -1,0 +1,3 @@
+simulateModel("Buildings.Controls.OBC.CDL.Conversions.Validation.IntegerToReal", stopTime = 1.0, method="dassl", tolerance=1e-06, resultFile="IntegerToReal1");
+createPlot(id=1, position={15, 10, 730, 220}, y={"intToRea.u"}, range={0.0, 1.0, -2.0, 5.0}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={15, 220, 730, 220}, y={"intToRea.y"}, range={0.0, 1.0, -2.0, 5.0}, grid=true, colors={{0,140,72}});

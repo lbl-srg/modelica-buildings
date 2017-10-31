@@ -124,7 +124,7 @@ model Window "Model for a window"
     der_TSha(fixed=glaSys.haveExteriorShade or glaSys.haveInteriorShade)) if
          not steadyState
     "Heat capacity of glass on room-side, used to reduce nonlinear system of equations"
-    annotation (Placement(transformation(rotation=0, extent={{130,38},{150,58}})));
+    annotation (Placement(transformation(extent={{130,38},{150,58}})));
   // We assume the frame is made of wood. Data are used for Plywood, as
   // this is an order of magnitude estimate for the heat capacity of the frame,
   // which is only used to avoid algebraic loops in the room model.
@@ -390,10 +390,12 @@ The convective heat transfer between the window system and the outside air
 or the room is <em>not</em> computed by this model.
 They can be computed using the models
 <a href=\"modelica://Buildings.HeatTransfer.Windows.ExteriorHeatTransfer\">
-Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>
+Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>,
+<a href=\"modelica://Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective\">
+Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective</a>
 and
-<a href=\"modelica://Buildings.HeatTransfer.Windows.InteriorHeatTransfer\">
-Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>.
+<a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation\">
+Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation</a>.
 </p>
 
 <h4>Limitations</h4>

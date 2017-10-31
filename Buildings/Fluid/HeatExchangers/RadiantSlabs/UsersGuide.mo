@@ -26,9 +26,9 @@ Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResista
 There is also a resistance for the pipe wall <code>RPip</code>
 and a convective heat transfer coefficient between the fluid and the pipe inside wall.
 The convective heat transfer coefficient is a function of the mass flow rate and is computed
-by
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.InternalFlowConvection\">
-Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.InternalFlowConvection</a>.
+in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.PipeToSlabConductance\">
+Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.PipeToSlabConductance</a>.
 </p>
 
 <h4>Material layers</h4>
@@ -109,7 +109,7 @@ the response looks like a first order response (because <code>nSeg=1</code>),
 while with <code>heatTransfer=FiniteDifference</code> and <code>nSeg=5</code>,
 the response is higher order. This figure was generated using
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseFiniteDifference\">
-Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponse</a> and
+Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseFiniteDifference</a> and
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseEpsilonNTU\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseEpsilonNTU\\</a>.
 </p>

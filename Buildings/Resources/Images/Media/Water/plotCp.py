@@ -32,4 +32,3 @@ plt.savefig('plotCp.pdf')
 plt.savefig('plotCp.png')
 
 plt.show()
-

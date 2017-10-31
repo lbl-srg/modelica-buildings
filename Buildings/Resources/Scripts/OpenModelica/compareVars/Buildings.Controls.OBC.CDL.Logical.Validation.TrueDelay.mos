@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "onDelay.u",
+    "onDelay.y",
+    "onDelay1.y",
+    "onDelay2.y",
+    "onDelay3.y",
+    "onDelay4.y",
+    "onDelay5.y",
+    "onDelay6.y",
+    "onDelay7.y"
+  };

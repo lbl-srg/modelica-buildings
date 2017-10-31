@@ -114,7 +114,7 @@ revisions="<html>
 <li>
 May 30, 2017 by Jianjun Hu:<br/>
 Corrected <code>X_in_internal = zeros()</code> to be <code>X_in_internal = ones()</code>.
-This is for 
+This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/787\"> #787</a>.
 </li>
 <li>

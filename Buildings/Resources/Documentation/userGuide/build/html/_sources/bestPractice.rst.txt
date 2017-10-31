@@ -563,7 +563,7 @@ because the ``if-then-else`` construct triggers an event iteration whenever
 
    Never use an inequality comparison without a
    hysteresis or a time delay if the variable that is used in the
-   inequality test 
+   inequality test
 
    * is computed using an :term:`iterative solver`, or
    * is obtained from a measurement and hence can contain measurement
@@ -590,7 +590,7 @@ We run
 .. code-block:: modelica
 
    simulateModel("Buildings.Examples.DualFanDualDuct.ClosedLoop",
-                  stopTime=31536000, method="radau", 
+                  stopTime=31536000, method="radau",
                   tolerance=1e-06, resultFile="DualFanDualDuctClosedLoop");
 
 and plotted the computing time and the number of events. Around :math:`t=0.95e7` seconds,
@@ -649,7 +649,7 @@ shown in the figure below.
 
 The events are triggered by the inequality block which changes the control, which then in turn
 seems to cause a slight change in the return air temperature, possibly due
-to :term:`numerical noise` or maybe because the return fan may change its operating point 
+to :term:`numerical noise` or maybe because the return fan may change its operating point
 as the dampers are adjusted, and hence change the heat
 added to the medium. Regardless, this is a bad implementation that also
 would cause oscillatory behavior in a real system if the sensor signal had
@@ -695,34 +695,34 @@ Running the simulation again gave the following output:
 
    Integration terminated successfully at T = 1.66e+07
      Limit stepsize, Dominate error, Exceeds 10% of error Component (#number)
-         0     1     6 cooCoi.temSen_1.T (#  1) 
-        36     0   140 cooCoi.temSen_2.T (#  2) 
-        37     0     0 cooCoi.ele[1].mas.T (#  3) 
-        45     0     0 cooCoi.ele[2].mas.T (#  4) 
-        51     0     0 cooCoi.ele[3].mas.T (#  5) 
-        53     0     0 cooCoi.ele[4].mas.T (#  6) 
-     13555 13201 19064 fanSupHot.filter.x[1] (#  7) 
-     11905  2170 12394 fanSupHot.filter.x[2] (#  8) 
-       400    47   419 fanSupCol.filter.x[1] (#  9) 
-       420    71   521 fanSupCol.filter.x[2] (# 10) 
-      5082  2736  6732 fanRet.filter.x[1] (# 11) 
-      1979    25  4974 fanRet.filter.x[2] (# 12) 
-        38     0     3 TPreHeaCoi.T (# 13) 
-        30     0     1 TRet.T (# 14) 
-        38     0     3 TMix.T (# 15) 
-        80     0     0 TCoiCoo.T (# 16) 
-       305    22   275 cor.vavHot.filter.x[1] (# 18) 
+         0     1     6 cooCoi.temSen_1.T (#  1)
+        36     0   140 cooCoi.temSen_2.T (#  2)
+        37     0     0 cooCoi.ele[1].mas.T (#  3)
+        45     0     0 cooCoi.ele[2].mas.T (#  4)
+        51     0     0 cooCoi.ele[3].mas.T (#  5)
+        53     0     0 cooCoi.ele[4].mas.T (#  6)
+     13555 13201 19064 fanSupHot.filter.x[1] (#  7)
+     11905  2170 12394 fanSupHot.filter.x[2] (#  8)
+       400    47   419 fanSupCol.filter.x[1] (#  9)
+       420    71   521 fanSupCol.filter.x[2] (# 10)
+      5082  2736  6732 fanRet.filter.x[1] (# 11)
+      1979    25  4974 fanRet.filter.x[2] (# 12)
+        38     0     3 TPreHeaCoi.T (# 13)
+        30     0     1 TRet.T (# 14)
+        38     0     3 TMix.T (# 15)
+        80     0     0 TCoiCoo.T (# 16)
+       305    22   275 cor.vavHot.filter.x[1] (# 18)
 
 Hence, the state variables
 
 .. code-block:: none
 
-     13555 13201 19064 fanSupHot.filter.x[1] (#  7) 
-     11905  2170 12394 fanSupHot.filter.x[2] (#  8) 
-       400    47   419 fanSupCol.filter.x[1] (#  9) 
-       420    71   521 fanSupCol.filter.x[2] (# 10) 
-      5082  2736  6732 fanRet.filter.x[1] (# 11) 
-      1979    25  4974 fanRet.filter.x[2] (# 12) 
+     13555 13201 19064 fanSupHot.filter.x[1] (#  7)
+     11905  2170 12394 fanSupHot.filter.x[2] (#  8)
+       400    47   419 fanSupCol.filter.x[1] (#  9)
+       420    71   521 fanSupCol.filter.x[2] (# 10)
+      5082  2736  6732 fanRet.filter.x[1] (# 11)
+      1979    25  4974 fanRet.filter.x[2] (# 12)
 
 limit the step size significantly more often than other variables.
 Therefore, we removed these state variables

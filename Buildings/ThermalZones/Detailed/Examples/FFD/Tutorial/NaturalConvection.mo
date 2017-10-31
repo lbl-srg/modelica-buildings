@@ -75,7 +75,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{21,-30},{58,-30}},
+      points={{21,-30},{58.4,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TEasWal.port, roo.surf_surBou[1])
@@ -100,7 +100,8 @@ equation
         experiment(Tolerance=1e-06, StopTime=7200),
        Documentation(info="<html>
 <p>
-This tutorial gives step by step instructions for building and simulating a natural convection model. The model tests the coupled simulation of
+This tutorial gives step by step instructions for building and simulating a natural convection model.
+The model tests the coupled simulation of
 <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">
 Buildings.ThermalZones.Detailed.CFD</a>
 with the FFD program by simulating the natural convection in an empty room with only surface boundary conditions.
@@ -172,7 +173,8 @@ This model is used to implement the data exchange between Modelica and FFD. Name
 Use weather data from OHare Intl. Airport, Chicago, Illinoi, U.S.A. Name it as <code>weaDat</code>.
 </li>
 <li>
-<a href=\"modelica://Modelica.Blocks.Sources.Constant\">Modelica.Blocks.Sources.Constant</a>. Three models are needed to specify that internal radiation, internal convective heat gain and internal latent heat gain  zero.
+<a href=\"modelica://Modelica.Blocks.Sources.Constant\">Modelica.Blocks.Sources.Constant</a>.
+Three models are needed to specify that internal radiation, internal convective heat gain and internal latent heat gain  zero.
 Name these models as <code>qRadGai_flow</code>, <code>qConGai_flow</code> and <code>qLatGai_flow</code>, respectively.
 </li>
 <li>
@@ -180,7 +182,8 @@ Name these models as <code>qRadGai_flow</code>, <code>qConGai_flow</code> and <c
 This block is used to combine three scalar signals to a vector. Name it as <code>multiple_x3</code>.
 </li>
 <li>
-<a href=\"modelica://Buildings.HeatTransfer.Source.FixedTemperature\">Buildings.HeatTransfer.Source.FixedTemperature</a>.
+<a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">
+Buildings.HeatTransfer.Sources.FixedTemperature</a>.
 Two models are needed to specify the temperatures on the east and west walls.
 Name them as <code>TeasWal</code> and <code>TwesWal</code>, respectively.
 </li>
@@ -285,11 +288,12 @@ Rename the files as <code>NaturalConvection.cfd</code> and <code>NaturalConvecti
 </ul>
 </li>
 <li>
-Revise the FFD parameter input file <code>NaturalConvection.ffd</code> (an example file is provided in <code>Buildings/Resources/Data/Rooms/FFD/Tutorial/</code>):
+Revise the FFD parameter input file <code>NaturalConvection.ffd</code>
+(an example file is provided in <code>Buildings/Resources/Data/Rooms/FFD/Tutorial/</code>):
 <pre>
   inpu.parameter_file_format SCI
-  inpu.parameter_file_name Resources/Data/Rooms/FFD/Tutorial/NaturalConvection.cfd
-  inpu.block_file_name Resources/Data/Rooms/FFD/Tutorial/NaturalConvection.dat
+  inpu.parameter_file_name NaturalConvection.cfd
+  inpu.block_file_name NaturalConvection.dat
   prob.nu 1.5e-5 // Kinematic viscosity
   prob.rho 1 // Density
   prob.gravx 0 // Gravity in x direction
@@ -312,7 +316,8 @@ Please note that some of the physical properties were manipulated to obtain the 
 </p>
 </li>
 <li>
-Store <code>NaturalConvection.ffd</code>, <code>NaturalConvection.dat</code>, and <code>NaturalConvection.cfd</code> at <code>Buildings/Resources/Data/Rooms/FFD/Tutorial</code>.
+Store <code>NaturalConvection.ffd</code>, <code>NaturalConvection.dat</code>, and <code>NaturalConvection.cfd</code>
+at <code>Buildings/Resources/Data/Rooms/FFD/Tutorial</code>.
 </li>
 <li>
 Set simulation the stop time of the Modelica model <code>7200</code> seconds and choose for example the Radau solver.
@@ -321,12 +326,20 @@ Set simulation the stop time of the Modelica model <code>7200</code> seconds and
 Translate the model and start the simulation.
 </li>
 <li>
-Post-process: click the Tecplot macro script <code>Buildings/Resources/Image/Rooms/Examples/FFD/Tutorial/NaturalConvection.mcr</code> that will generate the temperature contour and velocity vectors shown in the Figure (b).
+Post-process: click the Tecplot macro script
+<code>Buildings/Resources/Image/Rooms/Examples/FFD/Tutorial/NaturalConvection.mcr</code>
+that will generate the temperature contour and velocity vectors shown in the Figure (b).
 Note: Tecplot is needed for this.
 </li>
 </ol>
 </html>",revisions="<html>
 <ul>
+<li>
+September 07, 2017, by Thierry Nouidui:<br/>
+Refactored the FFD C-code and revised the documentation.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/612\">issue 612</a>.
+</li>
 <li>
 July 7, 2015 by Michael Wetter:<br/>
 Removed model for prescribed heat flow boundary condition

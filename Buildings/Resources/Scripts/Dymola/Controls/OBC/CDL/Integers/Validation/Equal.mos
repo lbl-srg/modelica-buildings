@@ -1,0 +1,3 @@
+simulateModel("Buildings.Controls.OBC.CDL.Integers.Validation.Equal", stopTime=1.0, method="dassl", tolerance=1e-06, resultFile="Equal2");
+createPlot(id=1, position={15, 10, 590, 450}, subPlot=1, y={"intEqu.u1", "intEqu.u2"}, range={0.0, 1.0, -3.5, 3.5}, grid=true, colors={{0,140,72}, {238,46,47}});
+createPlot(id=1, position={15, 10, 590, 450}, subPlot=2, y={"intEqu.y"}, range={0.0, 1.0, -3.5, 3.5}, grid=true, colors={{0,140,72}});

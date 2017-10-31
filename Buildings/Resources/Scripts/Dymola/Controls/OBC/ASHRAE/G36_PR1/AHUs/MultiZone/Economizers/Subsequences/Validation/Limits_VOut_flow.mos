@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Validation.Limits_VOut_flow", method="dassl", stopTime=1800, tolerance=1e-06, resultFile="Limits_VOut_flow_MultiZone");
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"VOutMinSet_flow.y","VOut_flow.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"damLim.yOutDamPosMin","damLim.yOutDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"damLim.yRetDamPosMin","damLim.yRetDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=4, y={"damLim.damLimCon.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});

@@ -1,11 +1,11 @@
 within Buildings.Examples.ChillerPlant;
 model DataCenterContinuousTimeControl
-  "Model of data center that approximates the trim and response logic"
+  "Model of data center that approximates the trim and respond logic"
   extends Buildings.Examples.ChillerPlant.BaseClasses.DataCenter;
   extends Modelica.Icons.Example;
 
   BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation triAndRes
-    "Continuous time approximation for trim and response controller"
+    "Continuous time approximation for trim and respond controller"
     annotation (Placement(transformation(extent={{-194,216},{-174,236}})));
 equation
   connect(feedback.y, triAndRes.u) annotation (Line(
@@ -25,7 +25,7 @@ equation
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is the chilled water plant with continuous time control.
-The trim and response logic is approximated by a PI controller which
+The trim and respond logic is approximated by a PI controller which
 significantly reduces computing time. The model is described at
 <a href=\"Buildings.Examples.ChillerPlant\">
 Buildings.Examples.ChillerPlant</a>.
@@ -34,7 +34,7 @@ Buildings.Examples.ChillerPlant</a>.
 See
 <a href=\"Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl\">
 Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl</a>
-for an implementation with the discrete time trim and response logic.
+for an implementation with the discrete time trim and respond logic.
 </p>
 </html>", revisions="<html>
 <ul>

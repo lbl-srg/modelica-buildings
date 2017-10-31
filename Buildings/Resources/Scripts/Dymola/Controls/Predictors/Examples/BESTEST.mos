@@ -5,5 +5,3 @@ range={0.0, 32.0, -2000.0, 7000.0}, grid=true, filename="BESTEST.mat", leftTitle
 createPlot(id=1, position={15, 10, 1252, 343},
  y={"preErr.y"},
 range={0.0, 2700000.0, -1.0, 1.0}, grid=true, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
-
-

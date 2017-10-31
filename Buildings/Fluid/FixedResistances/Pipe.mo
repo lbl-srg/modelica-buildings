@@ -112,14 +112,14 @@ the package
 <a href=\"modelica://Modelica.Fluid.Fittings\">
 Modelica.Fluid.Fittings</a>.
 For mass flow rates other than <code>m_flow_nominal</code>, the model
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
-Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> is used to
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+Buildings.Fluid.FixedResistances.PressureDrop</a> is used to
 compute the pressure drop.
 </p>
 <p>
 For a steady-state model of a flow resistance, use
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
-Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> instead of this model.
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+Buildings.Fluid.FixedResistances.PressureDrop</a> instead of this model.
 </p>
 </html>", revisions="<html>
 <ul>

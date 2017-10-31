@@ -105,7 +105,7 @@ revisions="<html>
 <ul>
 <li>
 May 4, 2017, by Filip Jorissen:<br/>
-Implemented option to set <code>control_dp</code> 
+Implemented option to set <code>control_dp</code>
 independently from <code>control_m_flow</code>.
 This is
 for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/770\">#770</a>.

@@ -13,4 +13,3 @@ createPlot(id = 1,
  filename = "ConvertRelativeHumidity.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
-

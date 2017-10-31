@@ -180,7 +180,6 @@ model ChillerDXHeatingEconomizer
     "Mass flow source for chiller"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={138,-174})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pumChiWat(
@@ -247,7 +246,7 @@ model ChillerDXHeatingEconomizer
   IdealValve ideVal(
     redeclare package Medium = MediumW,
     final m_flow_nominal = mChiEva_flow_nominal) "Ideal valve"
-    annotation (Placement(transformation(rotation=0, extent={{70,0},{90,20}})));
+    annotation (Placement(transformation(extent={{70,0},{90,20}})));
 
   Modelica.Blocks.Math.BooleanToReal booleanToInteger(
     final realTrue=mChiEva_flow_nominal)
@@ -332,16 +331,16 @@ protected
     parameter Modelica.SIunits.MassFlowRate m_flow_nominal
       "Design chilled water supply flow";
     Modelica.Fluid.Interfaces.FluidPort_a port_1(redeclare package Medium =
-          Medium) annotation (Placement(transformation(rotation=0, extent={{50,88},
+          Medium) annotation (Placement(transformation(extent={{50,88},
               {70,108}}), iconTransformation(extent={{50,88},{70,108}})));
     Modelica.Fluid.Interfaces.FluidPort_b port_2(redeclare package Medium =
-          Medium) annotation (Placement(transformation(rotation=0, extent={{50,-108},
+          Medium) annotation (Placement(transformation(extent={{50,-108},
               {70,-88}}), iconTransformation(extent={{50,-108},{70,-88}})));
     Modelica.Fluid.Interfaces.FluidPort_a port_3(redeclare package Medium =
-          Medium) annotation (Placement(transformation(rotation=0, extent={{90,-10},
+          Medium) annotation (Placement(transformation(extent={{90,-10},
               {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
     Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) annotation (Placement(
-          transformation(rotation=0, extent={{-120,-10},{-100,10}}),
+          transformation(extent={{-120,-10},{-100,10}}),
           iconTransformation(extent={{-120,-10},{-100,10}})));
     Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium,
         allowFlowReversal=false)
@@ -392,8 +391,9 @@ protected
     connect(preMasFlo.port_b, senMasFlo.port_a) annotation (Line(points={{40,
             1.33227e-15},{4.44089e-16,1.33227e-15},{4.44089e-16,-30}},
                                     color={0,127,255}));
-    annotation (Diagram(coordinateSystem(initialScale=0.1)),           Icon(
-          coordinateSystem(initialScale=0.1), graphics={
+    annotation (
+      Icon(
+        graphics={
           Polygon(
             points={{60,0},{68,14},{52,14},{60,0}},
             lineColor={0,0,0},
@@ -548,8 +548,7 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          origin={115,-28},
-          rotation=0),
+          origin={115,-28}),
         Line(points={{116,-26},{122,-26}}, color={0,0,0}),
         Line(points={{122,-24},{122,-30}}, color={0,0,0}),
         Ellipse(
@@ -591,11 +590,6 @@ equation
         Line(points={{92,-136},{86,-136},{86,-4}},  color={0,0,127})}),
                                                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-240},{200,160}})),
-    experiment(
-      StopTime=518400,
-      Interval=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"),
       Documentation(info="<html>
 <p>
 This is a conventional single zone VAV HVAC system model. The system contains
@@ -624,6 +618,10 @@ feedback control of damper positions. The cooling coil is a dry coil model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 08, 2017, by Thierry S. Nouidui:<br/>
+Removed experiment annotation.
+</li>
 <li>
 June 21, 2017, by Michael Wetter:<br/>
 Refactored implementation.

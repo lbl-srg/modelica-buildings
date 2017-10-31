@@ -913,6 +913,10 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   sprintf(msg, "read_sci_input(): Read sci input file %s",
           para->inpu->parameter_file_name);
   ffd_log(msg, FFD_NORMAL);
+  /* Free the filePath allocated in parameter_reader.c*/
+  if (para->cosim->para->filePath != NULL){
+    free(para->cosim->para->filePath);
+  }
   return 0;
 } /* End of read_sci_input()*/
 

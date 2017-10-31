@@ -1,0 +1,18 @@
+simulateModel("Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.HeatExchanger", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="HeatExchanger");
+removePlots();
+createPlot(id=3,
+ position={0, 0, 863, 450},
+ y={"TCon_in.y", "TEva_in.y"},
+ range={0.0, 0.25, 285.0, 305.0},
+ erase=false,
+ grid=true,
+ filename="HeatExchanger.mat",
+ colors={{28,108,200}, {238,46,47}});
+createPlot(id=3,
+ position={0, 0, 863, 223},
+ y={"TSen1.T", "TSen2.T", "TSet.y"},
+ range={0.0, 0.25, 10.0, 30.0},
+ erase=false,
+ grid=true,
+ subPlot=2,
+ colors={{28,108,200}, {238,46,47}, {0,140,72}});

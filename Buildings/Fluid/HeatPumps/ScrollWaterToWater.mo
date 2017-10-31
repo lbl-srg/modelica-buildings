@@ -64,10 +64,10 @@ Buildings.Fluid.HeatPumps.Calibration.ScrollWaterToWater</a>.
 <h4>Options</h4>
 <p>
 Parameters <code>TConMax</code> and <code>TEvaMin</code>
-may be used to set an upper or lower bound for the 
-condenser and evaporator. 
+may be used to set an upper or lower bound for the
+condenser and evaporator.
 The compressor is disabled when these conditions
-are not satisfied, or when the 
+are not satisfied, or when the
 evaporator temperature is larger
 than the condenser temperature.
 This mimics the temperature protection

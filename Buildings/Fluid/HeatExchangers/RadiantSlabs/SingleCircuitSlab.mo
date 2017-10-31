@@ -48,7 +48,8 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
     each T_a_start=T_a_start,
     each T_b_start=T_c_start,
     each stateAtSurface_a=stateAtSurface_a,
-    each stateAtSurface_b=true)    "Construction near the surface port surf_a"
+    each stateAtSurface_b=true)
+    "Construction near the surface port surf_a"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={40,50})));
@@ -67,8 +68,9 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
         final roughness_a=layers.roughness_a),
       each T_a_start=T_c_start,
       each T_b_start=T_b_start,
-    each stateAtSurface_a=true,
-    each stateAtSurface_b=stateAtSurface_b)      "Construction near the surface port surf_b"
+    each stateAtSurface_a=false,
+    each stateAtSurface_b=stateAtSurface_b)
+    "Construction near the surface port surf_b"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={40,-58})));
@@ -225,6 +227,15 @@ user's guide</a> for more information.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 18, 2017, by Michael Wetter:<br/>
+Removed state at surface b of <code>con_b</code>.
+As this surface is connected to surface a of <code>con_a</code>, which
+already has a state, the state can be removed, rather than relying
+on the symbolic processor to remove one of these two states that are
+directly coupled.
+This is indeed required to avoid a warning about overdetermined initial equations.
+</li>
 <li>
 January 06, 2016, by Thierry S. Nouidui:<br/>
 Renamed parameter <code>nSta2</code> to <code>nSta</code>.

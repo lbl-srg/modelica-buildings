@@ -9,4 +9,3 @@ range={-1.0, 1.0, -10.0, 15.0}, grid=true, subPlot=2, colors={{28,108,200}, {238
 createPlot(id=6, position={638, 30, 426, 424},
 y={"der_err", "err"},
 range={-1.0, 1.0, -1.2000000000000004E-06, 1.2000000000000004E-06}, grid=true, filename="InverseXDerivative_2_Check.mat", colors={{28,108,200}, {238,46,47}});
-

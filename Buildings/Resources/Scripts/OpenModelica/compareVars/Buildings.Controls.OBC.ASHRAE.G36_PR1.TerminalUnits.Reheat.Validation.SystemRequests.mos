@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "sysReq_RehBox.TCooSet",
+    "sysReq_RehBox.TRoo",
+    "sysReq_RehBox.uCoo",
+    "sysReq_RehBox.yZonTemResReq",
+    "sysReq_RehBox.VDisSet",
+    "sysReq_RehBox.VDis",
+    "sysReq_RehBox.uDam",
+    "sysReq_RehBox.yZonPreResReq",
+    "sysReq_RehBox.TDisSet",
+    "sysReq_RehBox.TDis",
+    "sysReq_RehBox.uHeaVal",
+    "sysReq_RehBox.yHeaValResReq",
+    "sysReq_RehBox.yHeaPlaReq"
+  };

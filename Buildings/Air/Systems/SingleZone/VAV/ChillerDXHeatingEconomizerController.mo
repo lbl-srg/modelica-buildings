@@ -40,7 +40,6 @@ model ChillerDXHeatingEconomizerController
   annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
-        rotation=0,
         origin={-120,-60})));
 
   Modelica.Blocks.Interfaces.RealInput TSetRooCoo(
@@ -109,10 +108,9 @@ model ChillerDXHeatingEconomizerController
     "Economizer control"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
-  BaseClasses.HysteresisWithHold  hysChiPla(
+  Controls.OBC.CDL.Continuous.Hysteresis                   hysChiPla(
     uLow=-1,
-    uHigh=0,
-    onHolDur=60*15)
+    uHigh=0)
     "Hysteresis with delay to switch on cooling"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 
@@ -157,9 +155,6 @@ equation
           -120,-60}}, color={0,0,127}));
   connect(TSetSupAirConst.y,conCooVal. u_s)
     annotation (Line(points={{-39,-20},{-2,-20}},        color={0,0,127}));
-  connect(hysChiPla.on, chiOn)
-    annotation (Line(points={{61,-40},{74,-40},{110,-40}},
-                                                  color={255,0,255}));
   connect(conSup.TSetRooHea, TSetRooHea) annotation (Line(points={{-41,86},{-88,
           86},{-88,100},{-120,100}},
                                    color={0,0,127}));
@@ -191,6 +186,8 @@ equation
     annotation (Line(points={{61,-80},{110,-80}}, color={0,0,127}));
   connect(conCooVal.u_m, TSup)
     annotation (Line(points={{10,-32},{10,-90},{-120,-90}}, color={0,0,127}));
+  connect(hysChiPla.y, chiOn) annotation (Line(points={{61,-40},{80,-40},{110,
+          -40}},           color={255,0,255}));
   annotation (Icon(graphics={Line(points={{-100,-100},{0,2},{-100,100}}, color=
               {0,0,0})}), Documentation(info="<html>
 <p>

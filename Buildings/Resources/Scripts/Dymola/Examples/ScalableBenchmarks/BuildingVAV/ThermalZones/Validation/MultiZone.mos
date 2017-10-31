@@ -1,0 +1,5 @@
+simulateModel("Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.Validation.MultiZone", stopTime=604800, method="Radau", tolerance=1e-06, resultFile="MultiZone1");
+createPlot(id=1, position={15, 10, 590, 700}, subPlot=1, y={"multiZone.theZon[1, 1].weaBus.TDryBul"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 590, 700}, subPlot=2, y={"multiZone.theZon[1, 1].weaBus.HDirNor"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={620, 10, 590, 700}, subPlot=1, y={"multiZone.theZon[1, 1].roo.heaPorAir.T","multiZone.theZon[2, 1].roo.heaPorAir.T"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{0,140,72},{28,108,200}});
+createPlot(id=2, position={620, 10, 590, 700}, subPlot=2, y={"multiZone.theZon[1, 1].roo.air.QCon_flow","multiZone.theZon[1, 1].roo.air.QLat_flow","multiZone.theZon[2, 1].roo.air.QCon_flow","multiZone.theZon[2, 1].roo.air.QLat_flow"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{0,140,72},{28,108,200},{0,140,72},{28,108,200}});

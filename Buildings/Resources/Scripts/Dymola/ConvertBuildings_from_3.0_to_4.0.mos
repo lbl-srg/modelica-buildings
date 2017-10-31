@@ -90,15 +90,15 @@ convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling",
              "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.SpaceCooling");
 convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Examples.VariableSpeed",
              "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.VariableSpeed");
-convertClass("Buildings.Fluid.HeatExchangers.DXCoils.MultiStage",
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage",
              "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage");
-convertClass("Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed",
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed",
              "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed");
 convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Validation.SingleSpeedEnergyPlus",
              "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Validation.SingleSpeedEnergyPlus");
 convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Validation.SingleSpeedPLREnergyPlus",
              "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Validation.SingleSpeedPLREnergyPlus");
-convertClass("Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed",
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed",
              "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed");
 
 
@@ -198,4 +198,3 @@ convertClass("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Character
 
 convertClass("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiencyParameters",
              "Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.fan");
-

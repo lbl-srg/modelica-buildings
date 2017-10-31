@@ -26,8 +26,6 @@ equation
   connect(y.y, eff.y_in)
     annotation (Line(points={{-39,30},{-4,30},{-4,12}},   color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
     Documentation(info="<html>
 <p>
 Simple validation model for the flow machine interface model.

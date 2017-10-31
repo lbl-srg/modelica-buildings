@@ -29,8 +29,6 @@ equation
   connect(HMea.y, conWin.H) annotation (Line(points={{-39,-28},{-24,-28},{-24,
           -4},{-9.5,-4}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
     experiment(Tolerance=1e-6, StopTime=172800),
     __Dymola_Commands(
       file="Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/Controls/Validation/ElectrochromicWindow.mos"

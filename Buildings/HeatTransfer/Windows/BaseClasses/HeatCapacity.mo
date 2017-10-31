@@ -24,7 +24,7 @@ model HeatCapacity
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portUns
     "Heat port to unshaded part of the window"
      annotation (
-      Placement(transformation(rotation=0, extent={{95,-45},{105,-35}}),
+      Placement(transformation(extent={{95,-45},{105,-35}}),
         iconTransformation(extent={{95,-45},{105,-35}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portSha(
@@ -32,7 +32,7 @@ model HeatCapacity
     Q_flow = QSha_flow) if
        haveShade
     "Heat port to shaded part of the window"
-   annotation (Placement(transformation(rotation=0, extent={{95,35},{105,45}}),
+   annotation (Placement(transformation(extent={{95,35},{105,45}}),
         iconTransformation(extent={{95,35},{105,45}})));
 
   Modelica.SIunits.Temperature TUns(

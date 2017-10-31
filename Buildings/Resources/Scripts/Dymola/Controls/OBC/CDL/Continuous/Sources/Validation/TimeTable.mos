@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.CDL.Continuous.Sources.Validation.TimeTable", startTime=0, tolerance=1e-6, stopTime=172800, method="dassl", resultFile="TimeTable1");
+createPlot(id=1, position={15, 10, 900, 750}, subPlot=1, y={"timTabLin.y[1]"}, range={-1.0, 1.0, -1.5, 1.5}, grid=true, colors={{0,0,255}});
+createPlot(id=1, position={15, 10, 900, 750}, subPlot=2, y={"timTabLinHol.y[1]"}, range={-1.0, 1.0, -1.5, 1.5}, grid=true, colors={{0,0,255}});
+createPlot(id=1, position={15, 10, 900, 750}, subPlot=3, y={"timTabLinDer.y[1]"}, range={-1.0, 1.0, -1.5, 1.5}, grid=true, colors={{0,0,255}});
+createPlot(id=1, position={15, 10, 900, 750}, subPlot=4, y={"timTabCon.y[1]"}, range={-1.0, 1.0, -1.5, 1.5}, grid=true, colors={{0,0,255}});

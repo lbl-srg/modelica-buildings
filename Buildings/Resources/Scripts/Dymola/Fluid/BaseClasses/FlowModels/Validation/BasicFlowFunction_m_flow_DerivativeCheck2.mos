@@ -11,5 +11,3 @@ range={-2.0, 2.0, -2.0000000000000004E-07, 5E-08}, grid=true, filename="BasicFlo
 createPlot(id=2, position={649, 34, 592, 207},
 y={"err_der_dp"},
 range={-2.0, 2.0, -1.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
-
-

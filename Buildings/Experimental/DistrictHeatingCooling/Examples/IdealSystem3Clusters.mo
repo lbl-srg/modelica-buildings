@@ -324,6 +324,5 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{460,
-            140}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+            140}})));
 end IdealSystem3Clusters;

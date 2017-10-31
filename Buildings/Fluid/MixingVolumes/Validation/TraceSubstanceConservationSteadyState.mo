@@ -30,9 +30,7 @@ equation
       points={{78,-44},{46,-44},{46,-41}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics),
-    experiment(Tolerance=1e-6, StopTime=2),
+  annotation (    experiment(Tolerance=1e-6, StopTime=2),
     Documentation(info="<html>
 <p>
 This test checks if the trace substance flow rate is conserved

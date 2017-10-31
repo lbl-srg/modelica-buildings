@@ -1,0 +1,18 @@
+simulateModel("Buildings.Applications.DataCenters.DXCooled.Controls.Validation.AirsideEconomizer", stopTime=360, tolerance=1e-06, method="dassl", resultFile="AirsideEconomizer");
+removePlots(false);
+createPlot(id=5,
+ position={15, 10, 592, 630},
+ y={"outAir.y[1]", "roo.T", "mixAirSetPoi.y", "senTemMixAir.T"},
+ range={0.0, 360.0, 275.0, 305.0},
+ erase=false,
+ grid=true,
+ filename="AirsideEconomizer.mat",
+ colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=5,
+ position={15, 10, 592, 208},
+ y={"con.y", "eco.damOA.y_actual"},
+ range={0.0, 360.0, -0.5, 1.5},
+ erase=false,
+ grid=true,
+ subPlot=2,
+ colors={{28,108,200}, {238,46,47}});

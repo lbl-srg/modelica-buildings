@@ -1,0 +1,7 @@
+simulateModel("Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.ElectricHeater", stopTime=172800, method="Cvode", tolerance=1e-06, resultFile="ElectricHeater");
+createPlot(id=1, position={10, 14, 946, 629},
+ y={"TSet.y", "TOut.y", "TVol.T", "THeaOut.T"}, range={0.0, 180000.0, 10.0, 26.0},
+grid=true, filename="ElectricHeater.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}});
+createPlot(id=1, position={10, 14, 946, 311},
+ y={"eleHea.Q_flow","eleHea.P"},
+range={0.0, 180000.0, -200.0, 1200.0}, grid=true, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255},{255,0,0}});

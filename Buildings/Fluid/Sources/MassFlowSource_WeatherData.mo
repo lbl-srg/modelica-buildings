@@ -1,6 +1,6 @@
 within Buildings.Fluid.Sources;
 model MassFlowSource_WeatherData
-  "Ideal flow source that produces a prescribed mass flow with prescribed 
+  "Ideal flow source that produces a prescribed mass flow with prescribed
   trace substances, outside specific enthalpy and mass fraction "
   extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
   parameter Boolean use_m_flow_in = false
@@ -148,7 +148,7 @@ equation
           textString="C")}),
     Documentation(info="<html>
 <p>
-Models an ideal flow source, with prescribed values of flow rate and trace 
+Models an ideal flow source, with prescribed values of flow rate and trace
 substances, with temperature and specific enthalpy from outside:
 </p>
 <ul>
@@ -158,14 +158,14 @@ substances, with temperature and specific enthalpy from outside:
 <li> Multi-substance composition (e.g. water vapor) from outside.</li>
 </ul>
 <p>If <code>use_m_flow_in</code> is false (default option), the <code>m_flow
-</code> parameter is used as boundary flow rate, and the <code>m_flow_in</code> 
-input connector is disabled; 
-if <code>use_m_flow_in</code> is true, then the <code>m_flow</code> parameter 
+</code> parameter is used as boundary flow rate, and the <code>m_flow_in</code>
+input connector is disabled;
+if <code>use_m_flow_in</code> is true, then the <code>m_flow</code> parameter
 is ignored, and the value provided by the input connector is used instead.</p>
 <p>The same applies to the trace substances.</p>
 <p>The <a href=\"modelica://Buildings.Utilities.Psychrometrics.X_pTphi\">
-Buildings.Utilities.Psychrometrics.X_pTphi</a> block is used with the input data 
-including <code>pAtm</code>, <code>TDryBul</code>, <code>relHum</code> from 
+Buildings.Utilities.Psychrometrics.X_pTphi</a> block is used with the input data
+including <code>pAtm</code>, <code>TDryBul</code>, <code>relHum</code> from
 weather bus <code>weaBus</code>, to calculate <code>X</code>.</p>
 <p>The same applies to the specific enthalpy.</p>
 <p>
@@ -181,7 +181,7 @@ revisions="<html>
 <li>
 May 21, 2017, by Jianjun Hu:<br/>
 First implementation. Created flow source with prescribed mass flow and trace
-substances, outside enthalpy and composition. Weather bus is used. 
+substances, outside enthalpy and composition. Weather bus is used.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/777\">#777</a>.
 </li>
 </ul>

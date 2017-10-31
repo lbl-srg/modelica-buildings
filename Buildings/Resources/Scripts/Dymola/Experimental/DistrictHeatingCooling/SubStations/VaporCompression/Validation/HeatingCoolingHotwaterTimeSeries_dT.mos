@@ -4,4 +4,3 @@ createPlot(id=3, position={67, 0, 1639, 239}, y={"subSta.weaBus.TDryBul"}, range
 createPlot(id=3, position={67, 0, 1639, 239}, y={"subSta.pumChi.port_a.m_flow"}, range={0.0, 880000.0, -5.0, 15.0}, grid=true, subPlot=3, colors={{28,108,200}});
 createPlot(id=3, position={67, 0, 1639, 239}, y={"subSta.pumHotWat.port_a.m_flow"}, range={0.0, 880000.0, -0.2, 0.8}, grid=true, subPlot=4, colors={{28,108,200}});
 createPlot(id=3, position={67, 0, 1639, 239}, y={"subSta.pumHea.m_flow"}, range={0.0, 880000.0, -10.0, 50.0}, grid=true, subPlot=5, colors={{28,108,200}});
-

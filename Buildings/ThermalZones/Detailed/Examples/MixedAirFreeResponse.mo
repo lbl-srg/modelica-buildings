@@ -3,8 +3,7 @@ model MixedAirFreeResponse "Free response of room model"
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.Air "Medium model";
 
-  parameter
-    Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200
     matLayExt "Construction material for exterior walls"
     annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
 
@@ -34,7 +33,8 @@ model MixedAirFreeResponse "Free response of room model"
     haveExteriorShade=false) "Data record for the glazing system"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
 
-  parameter Integer nConExtWin = 1 "Number of constructions with a window";
+  parameter Integer nConExtWin = 1
+    "Number of constructions with a window";
   parameter Integer nConBou = 1
     "Number of surface that are connected to constructions that are modeled inside the room";
   parameter Integer nSurBou = 1
@@ -74,8 +74,7 @@ model MixedAirFreeResponse "Free response of room model"
            each til=Buildings.Types.Tilt.Wall),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15+22,
-    lat=0.73268921998722)
-                       "Room model"
+    lat=0.73268921998722) "Room model"
     annotation (Placement(transformation(extent={{46,20},{86,60}})));
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
