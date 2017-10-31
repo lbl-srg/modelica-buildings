@@ -1,12 +1,16 @@
 compareVars :=
   {
-    "zoneSetPoints.setAdj",
-    "zoneSetPoints.heaSetAdj",
+    "zoneSetPoints.setAdj[1]",
+    "zoneSetPoints.heaSetAdj[1]",
     "TZon1.y",
     "TZon2.y",
     "zoneSetPoints.THeaOn",
     "zoneSetPoints.TCooOn",
-    "zoneSetPoints.TCooSet",
-    "zoneSetPoints.THeaSet",
-    "zoneSetPoints.yOpeMod"
+    "zoneSetPoints.TCooSet[1]",
+    "zoneSetPoints.THeaSet[1]",
+    "zoneSetPoints.yOpeMod",
+    "zoneSetPoints1.uOccSen[1]",
+    "zoneSetPoints1.uWinSta[1]",
+    "zoneSetPoints1.TCooSet[1]",
+    "zoneSetPoints1.THeaSet[1]"
   };

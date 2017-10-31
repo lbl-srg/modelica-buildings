@@ -8,7 +8,17 @@ model ReheatController "Validate model for controlling VAV terminal box with reh
     samplePeriod=120,
     m_flow_nominal=(50*3*1.2/3600)*6)
     "Controller for VAV terminal unit with reheat"
-    annotation (Placement(transformation(extent={{60,52},{80,82}})));
+    annotation (Placement(transformation(extent={{60,54},{80,84}})));
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ReheatController
+    reheatController1(
+    zonAre=50,
+    samplePeriod=120,
+    m_flow_nominal=(50*3*1.2/3600)*6,
+    have_occSen=true,
+    have_winSen=true,
+    have_CO2Sen=true)
+    "Controller for VAV terminal unit with reheat"
+    annotation (Placement(transformation(extent={{60,-6},{80,24}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCoo(k=273.15 + 24)
     "Room cooling setpoint "
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
@@ -21,41 +31,91 @@ model ReheatController "Validate model for controlling VAV terminal box with reh
     height=6,
     offset=273.15 + 17,
     duration=3600) "Measured room temperature"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TDis(
     height=4,
     duration=3600,
     offset=273.15 + 18) "Terminal unit discharge air temperature"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
     height=4,
     duration=3600,
     offset=273.15 + 14) "AHU supply air temperature"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.occupied)
     "AHU operation mode is Occupied"
-    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(k=273.15 + 20)
     "Room heating setpoint"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ppmCO2(
+    duration=3600,
+    height=800,
+    offset=200) "CO2 concentration"
+    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(period=3600)
+    "WIndow status"
+    annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp nOcc(
+    height=5,
+    duration=4800,
+    offset=0) "Number of occupants"
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Round rou(n=0)
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
 equation
   connect(TSetRooHea.y, reheatController.TRooHeaSet)
-    annotation (Line(points={{-59,80},{-48,80},{-48,60},{44,60},{44,79},{58,79}},
+    annotation (Line(points={{-59,80},{-50,80},{-50,60},{6,60},{6,80},{58,80}},
       color={0,0,127}));
   connect(TSetRooCoo.y, reheatController.TRooCooSet)
-    annotation (Line(points={{-19,80},{48,80},{48,75},{58,75}}, color={0,0,127}));
+    annotation (Line(points={{-19,80},{-8,80},{-8,76},{58,76}}, color={0,0,127}));
   connect(disAirFlo.y, reheatController.VDis)
-    annotation (Line(points={{-59,40},{48,40},{48,71},{58,71}}, color={0,0,127}));
+    annotation (Line(points={{-59,40},{-50,40},{-50,56},{12,56},{12,72},{58,72}},
+      color={0,0,127}));
   connect(TZon.y, reheatController.TRoo)
-    annotation (Line(points={{-19,20},{40,20},{40,67},{58,67}}, color={0,0,127}));
+    annotation (Line(points={{-19,40},{18,40},{18,68},{58,68}}, color={0,0,127}));
   connect(TDis.y, reheatController.TDis)
-    annotation (Line(points={{-59,-10},{36,-10},{36,63},{58,63}}, color={0,0,127}));
+    annotation (Line(points={{-59,0},{-50,0},{-50,20},{0,20},{0,64},{58,64}},
+      color={0,0,127}));
   connect(TSup.y, reheatController.TSupAHU)
-    annotation (Line(points={{-19,-40},{32,-40},{32,59},{58,59}}, color={0,0,127}));
+    annotation (Line(points={{-19,0},{24,0},{24,60},{58,60}},
+      color={0,0,127}));
   connect(opeMod.y, reheatController.uOpeMod)
-    annotation (Line(points={{-19,-80},{26,-80},{26,55},{58,55}}, color={255,127,0}));
+    annotation (Line(points={{-19,-30},{30,-30},{30,56},{58,56}},
+      color={255,127,0}));
+  connect(nOcc.y, rou.u)
+    annotation (Line(points={{-59,-60},{-42,-60}}, color={0,0,127}));
+  connect(rou.y, reheatController1.nOcc)
+    annotation (Line(points={{-19,-60},{36,-60},{36,28},{58,28}},
+      color={0,0,127}));
+  connect(ppmCO2.y, reheatController1.ppmCO2)
+    annotation (Line(points={{21,-80},{40,-80},{40,24},{58,24}},
+      color={0,0,127}));
+  connect(winSta.y, reheatController1.uWin)
+    annotation (Line(points={{71,-80},{80,-80},{80,-60},{44,-60},{44,-8},
+      {58,-8}}, color={255,0,255}));
+  connect(TSetRooHea.y, reheatController1.TRooHeaSet)
+    annotation (Line(points={{-59,80},{-50,80},{-50,60},{6,60},{6,20},
+      {58,20}}, color={0,0,127}));
+  connect(TSetRooCoo.y, reheatController1.TRooCooSet)
+    annotation (Line(points={{-19,80},{-8,80},{-8,16},{58,16}},
+      color={0,0,127}));
+  connect(disAirFlo.y, reheatController1.VDis)
+    annotation (Line(points={{-59,40},{-50,40},{-50,56},{12,56},{12,12},
+      {58,12}}, color={0,0,127}));
+  connect(TZon.y, reheatController1.TRoo)
+    annotation (Line(points={{-19,40},{18,40},{18,8},{58,8}},
+      color={0,0,127}));
+  connect(TDis.y, reheatController1.TDis)
+    annotation (Line(points={{-59,0},{-50,0},{-50,20},{0,20},{0,4},{58,4}},
+      color={0,0,127}));
+  connect(TSup.y, reheatController1.TSupAHU)
+    annotation (Line(points={{-19,0},{58,0}}, color={0,0,127}));
+  connect(opeMod.y, reheatController1.uOpeMod)
+    annotation (Line(points={{-19,-30},{30,-30},{30,-4},{58,-4}},
+      color={255,127,0}));
 
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Validation/ReheatController.mos"

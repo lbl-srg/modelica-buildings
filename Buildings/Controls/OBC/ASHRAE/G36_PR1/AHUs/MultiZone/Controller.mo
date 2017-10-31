@@ -653,8 +653,8 @@ equation
     annotation (Line(points={{21,117},{36,117},{36,-90},{58,-90}},
       color={255,0,255}));
   connect(conEco.uTSup, swi.y)
-    annotation (Line(points={{59.375,13.125},{44,13.125},{44,-20},{100,-20},{100,
-          -90},{81,-90}},  color={0,0,127}));
+    annotation (Line(points={{59.375,13.125},{44,13.125},{44,-20},{100,-20},
+      {100,-90},{81,-90}},  color={0,0,127}));
   connect(zer.y, swi.u3)
     annotation (Line(points={{-19,-210},{20,-210},{20,-98},{58,-98}},
       color={0,0,127}));

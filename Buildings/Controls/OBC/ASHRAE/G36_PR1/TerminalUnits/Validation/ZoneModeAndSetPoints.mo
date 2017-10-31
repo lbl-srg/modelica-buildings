@@ -7,47 +7,88 @@ model ZoneModeAndSetPoints
     zoneSetPoints(
     numZon=2,
     cooAdj=true,
-    heaAdj=true,
-    sinAdj=false) "Output resetted zone setpoint remperature"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
+    heaAdj=true)
+    "Output resetted zone setpoint remperature"
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ZoneModeAndSetPoints
+    zoneSetPoints1(
+    numZon=2,
+    have_occSen=true,
+    have_winSen=true)    "Output resetted zone setpoint remperature"
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+
   Buildings.Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
-    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  Modelica.Blocks.Sources.Sine heaSetAdj(freqHz=1/28800, amplitude=0.5)
+    annotation (Placement(transformation(extent={{-90,72},{-70,92}})));
+  Modelica.Blocks.Sources.Sine heaSetAdj[2](
+    each freqHz=1/28800,
+    each amplitude=0.5)
     "Heating setpoint adjustment"
-    annotation (Placement(transformation(extent={{-46,-10},{-26,10}})));
-  Modelica.Blocks.Sources.Sine cooSetAdj(freqHz=1/28800)
+    annotation (Placement(transformation(extent={{-46,0},{-26,20}})));
+  Modelica.Blocks.Sources.Sine cooSetAdj[2](each freqHz=1/28800)
     "Cooling setpoint adjustment"
-    annotation (Placement(transformation(extent={{-46,30},{-26,50}})));
+    annotation (Placement(transformation(extent={{-46,40},{-26,60}})));
   Modelica.Blocks.Sources.Sine TZon1(
     amplitude=5,
     offset=18 + 273.15,
     freqHz=1/86400) "Zone 1 temperature"
-    annotation (Placement(transformation(extent={{-88,30},{-68,50}})));
+    annotation (Placement(transformation(extent={{-88,40},{-68,60}})));
   Modelica.Blocks.Sources.Sine TZon2(
     offset=18 + 273.15,
     freqHz=1/86400,
     amplitude=7.5) "Zone 2 temperature"
-    annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
+    annotation (Placement(transformation(extent={{-88,0},{-68,20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta1(k=false) "Window status"
+    annotation (Placement(transformation(extent={{-88,-80},{-68,-60}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta2(k=true) "Window status"
+    annotation (Placement(transformation(extent={{-46,-80},{-26,-60}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSen1(k=false) "Occupancy sensor"
+    annotation (Placement(transformation(extent={{-88,-40},{-68,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSen2(k=true) "Occupancy sensor"
+    annotation (Placement(transformation(extent={{-46,-40},{-26,-20}})));
 
 equation
   connect(occSch.tNexOcc, zoneSetPoints.tNexOcc)
-    annotation (Line(points={{-69,86},{-48,86},{-48,88},{-2,88}},
+    annotation (Line(points={{-69,88},{19,88}},
       color={0,0,127}));
   connect(occSch.occupied, zoneSetPoints.uOcc)
-    annotation (Line(points={{-69,74},{-48,74},{-48,72.025},{-2,72.025}},
+    annotation (Line(points={{-69,76},{-48,76},{-48,76.025},{19,76.025}},
       color={255,0,255}));
   connect(TZon1.y, zoneSetPoints.TZon[1])
-    annotation (Line(points={{-67,40},{-56,40},{-56,83.0125},{-2,83.0125}},
+    annotation (Line(points={{-67,50},{-56,50},{-56,84.5},{19,84.5}},
       color={0,0,127}));
   connect(TZon2.y, zoneSetPoints.TZon[2])
-    annotation (Line(points={{-67,0},{-56,0},{-56,85.0375},{-2,85.0375}},
+    annotation (Line(points={{-67,10},{-56,10},{-56,85.5},{19,85.5}},
       color={0,0,127}));
   connect(cooSetAdj.y, zoneSetPoints.setAdj)
-    annotation (Line(points={{-25,40},{-20,40},{-20,80},{-2,80}},
+    annotation (Line(points={{-25,50},{-20,50},{-20,82},{19,82}},
       color={0,0,127}));
   connect(heaSetAdj.y, zoneSetPoints.heaSetAdj)
-    annotation (Line(points={{-25,0},{-16,0},{-16,76},{-2,76}},
+    annotation (Line(points={{-25,10},{-16,10},{-16,79},{19,79}},
       color={0,0,127}));
+  connect(occSch.tNexOcc, zoneSetPoints1.tNexOcc)
+    annotation (Line(points={{-69,88},{0,88},{0,48},{19,48}},
+      color={0,0,127}));
+  connect(occSch.occupied, zoneSetPoints1.uOcc)
+    annotation (Line(points={{-69,76},{-4,76},{-4,36.025},{19,36.025}},
+      color={255,0,255}));
+  connect(TZon1.y, zoneSetPoints1.TZon[1])
+    annotation (Line(points={{-67,50},{-56,50},{-56,32},{-12,32},{-12,44.5},
+      {19,44.5}}, color={0,0,127}));
+  connect(TZon2.y, zoneSetPoints1.TZon[2])
+    annotation (Line(points={{-67,10},{-56,10},{-56,32},{-12,32},{-12,45.5},
+      {19,45.5}}, color={0,0,127}));
+  connect(occSen1.y, zoneSetPoints1.uOccSen[1])
+    annotation (Line(points={{-67,-30},{-60,-30},{-60,-12},{-4,-12},{-4,32.5},
+      {19,32.5}}, color={255,0,255}));
+  connect(occSen2.y, zoneSetPoints1.uOccSen[2])
+    annotation (Line(points={{-25,-30},{-4,-30},{-4,33.5},{19,33.5}},
+      color={255,0,255}));
+  connect(winSta1.y, zoneSetPoints1.uWinSta[1])
+    annotation (Line(points={{-67,-70},{-60,-70},{-60,-48},{0,-48},{0,30.5},
+      {19,30.5}}, color={255,0,255}));
+  connect(winSta2.y, zoneSetPoints1.uWinSta[2])
+    annotation (Line(points={{-25,-70},{-20,-70},{-20,-48},{0,-48},{0,31.5},
+      {19,31.5}}, color={255,0,255}));
 
 annotation (experiment(StopTime=86400.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Validation/ZoneModeAndSetPoints.mos"
@@ -67,5 +108,14 @@ First implementation.
 </ul>
 </html>"),
 Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false), graphics={Text(
+          extent={{50,86},{126,76}},
+          lineColor={85,0,255},
+          horizontalAlignment=TextAlignment.Left,
+          textString="No window status sensor
+No occupancy sensor"), Text(
+          extent={{48,44},{102,36}},
+          lineColor={85,0,255},
+          horizontalAlignment=TextAlignment.Left,
+          textString="No local setpoint adjustment")}));
 end ZoneModeAndSetPoints;

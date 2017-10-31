@@ -1,7 +1,9 @@
 simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Validation.ZoneModeAndSetPoints", method="dassl", stopTime=86400, tolerance=1e-06, resultFile="ZoneModSetPoints");
-createPlot(id=1, position={10, 15, 490, 750}, subPlot=1, y={"zoneSetPoints.setAdj","zoneSetPoints.heaSetAdj"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
-createPlot(id=1, position={10, 15, 490, 750}, subPlot=2, y={"TZon1.y","TZon2.y","zoneSetPoints.THeaOn","zoneSetPoints.TCooOn"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47},{238,46,47}});
-createPlot(id=2, position={510, 15, 490, 750}, subPlot=1, y={"zoneSetPoints.TCooSet","zoneSetPoints.THeaSet"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
-createPlot(id=2, position={510, 15, 490, 750}, subPlot=2, y={"zoneSetPoints.yOpeMod"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={10, 15, 390, 750}, subPlot=1, y={"zoneSetPoints.setAdj[1]","zoneSetPoints.heaSetAdj[1]"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={10, 15, 390, 750}, subPlot=2, y={"TZon1.y","TZon2.y","zoneSetPoints.THeaOn","zoneSetPoints.TCooOn"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47},{238,46,47}});
+createPlot(id=2, position={410, 15, 390, 750}, subPlot=1, y={"zoneSetPoints.TCooSet[1]","zoneSetPoints.THeaSet[1]"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={410, 15, 390, 750}, subPlot=2, y={"zoneSetPoints.yOpeMod"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={810, 15, 390, 750}, subPlot=1, y={"zoneSetPoints1.uOccSen[1]","zoneSetPoints1.uWinSta[1]"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, position={810, 15, 390, 750}, subPlot=2, y={"zoneSetPoints1.TCooSet[1]","zoneSetPoints1.THeaSet[1]"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
 
 
