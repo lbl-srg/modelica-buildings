@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "occSchDay.occupied",
+    "occSchDay1.occupied",
+    "occSchDay2.occupied",
+    "occSchDay.tNexNonOcc",
+    "occSchDay.tNexOcc",
+    "occSchDay1.tNexNonOcc",
+    "occSchDay1.tNexOcc",
+    "occSchDay2.tNexNonOcc",
+    "occSchDay2.tNexOcc"
+  };
