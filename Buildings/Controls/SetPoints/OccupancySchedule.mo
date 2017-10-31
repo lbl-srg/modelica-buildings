@@ -76,8 +76,6 @@ initial algorithm
   end for;
 
  // Initialize variables
-//tStart = floor(time/period)*period;
-
  iPerSta   := integer(time/period);
  iPerSto   := iPerSta;
 
