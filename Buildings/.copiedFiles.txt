@@ -199,6 +199,10 @@ Buildings/Controls/SetPoints/Examples/package.order
 Buildings/Controls/SetPoints/HotWaterTemperatureReset.mo
 Buildings/Controls/SetPoints/OccupancySchedule.mo
 Buildings/Controls/SetPoints/Table.mo
+Buildings/Controls/SetPoints/Validation/OccupancyScheduleNegativeStartTime.mo
+Buildings/Controls/SetPoints/Validation/OccupancySchedulePositiveStartTime.mo
+Buildings/Controls/SetPoints/Validation/package.mo
+Buildings/Controls/SetPoints/Validation/package.order
 Buildings/Controls/SetPoints/package.mo
 Buildings/Controls/SetPoints/package.order
 Buildings/Controls/package.mo
@@ -935,6 +939,8 @@ Buildings/Resources/Images/Utilities/Math/Functions/Examples/cubicHermite.png
 Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/Utilities/Math/int.pdf
 Buildings/Resources/Images/Utilities/Math/int.png
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Controls_SetPoints_Validation_OccupancyScheduleNegativeStartTime.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Controls_SetPoints_Validation_OccupancySchedulePositiveStartTime.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -1001,6 +1007,8 @@ Buildings/Resources/Scripts/Dymola/Controls/Discrete/Examples/BooleanDelay.mos
 Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/HotWaterTemperatureReset.mos
 Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/OccupancySchedule.mos
 Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/Table.mos
+Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Validation/OccupancyScheduleNegativeStartTime.mos
+Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Validation/OccupancySchedulePositiveStartTime.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/BaseClasses/Examples/EqualPercentageDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/MixingBox.mos
