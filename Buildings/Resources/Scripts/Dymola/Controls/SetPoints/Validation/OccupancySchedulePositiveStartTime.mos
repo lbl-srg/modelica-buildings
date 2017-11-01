@@ -1,0 +1,7 @@
+simulateModel("Buildings.Controls.SetPoints.Validation.OccupancySchedulePositiveStartTime", startTime=86400, stopTime=207360, method="dassl", tolerance=1e-06, resultFile="OccupancySchedulePositiveStartTime");
+createPlot(id=1, position={35, 30, 677, 917}, y={"occSchDay.occupied"}, range={-40.0, 60.0, -0.5, 1.5}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={35, 30, 677, 303}, y={"occSchDay1.occupied"}, range={-40.0, 60.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={35, 30, 677, 303}, y={"occSchDay2.occupied"}, range={-40.0, 60.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={732, 32, 697, 893}, y={"occSchDay.tNexNonOcc", "occSchDay.tNexOcc"}, range={-1.5, 2.5, 86400.0, 100000.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={732, 32, 697, 295}, y={"occSchDay1.tNexNonOcc", "occSchDay1.tNexOcc"}, range={-1.5, 2.5,  86400.0, 100000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={732, 32, 697, 295}, y={"occSchDay2.tNexNonOcc", "occSchDay2.tNexOcc"}, range={-1.5, 2.5,  86400.0, 100000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
