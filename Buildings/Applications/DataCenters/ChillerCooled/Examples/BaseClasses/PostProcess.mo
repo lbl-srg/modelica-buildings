@@ -4,11 +4,10 @@ partial model PostProcess "Post-processing"
   Buildings.Utilities.Math.IntegratorWithReset FCHou(k=1/3600)
     "Free cooling hours"
     annotation (Placement(transformation(extent={{-300,80},{-320,100}})));
-  Modelica.Blocks.Sources.RealExpression freCoo
-                        "Free cooling signal"
+  Modelica.Blocks.Sources.RealExpression freCooSig "Free cooling signal"
     annotation (Placement(transformation(extent={{-260,80},{-280,100}})));
-  Modelica.Blocks.Sources.RealExpression parMecCoo
-                        "Partial mechanic cooling signal"
+  Modelica.Blocks.Sources.RealExpression parMecCooSig
+    "Partial mechanic cooling signal"
     annotation (Placement(transformation(extent={{-260,40},{-280,60}})));
   Buildings.Utilities.Math.IntegratorWithReset PMCHou(k=1/3600)
     "Partial mechanic cooling hours"
@@ -16,8 +15,8 @@ partial model PostProcess "Post-processing"
   Buildings.Utilities.Math.IntegratorWithReset FMCHou(k=1/3600)
     "Full mechanic cooling hours"
     annotation (Placement(transformation(extent={{-300,0},{-320,20}})));
-  Modelica.Blocks.Sources.RealExpression fulMecCoo
-                        "Full mechanic cooling signal"
+  Modelica.Blocks.Sources.RealExpression fulMecCooSig
+    "Full mechanic cooling signal"
     annotation (Placement(transformation(extent={{-260,0},{-280,20}})));
   Modelica.Blocks.Sources.RealExpression PHVAC
    "Power consumed by HVAC system"
@@ -49,12 +48,12 @@ partial model PostProcess "Post-processing"
     "Unit signal"
     annotation (Placement(transformation(extent={{-260,186},{-280,206}})));
 equation
-  connect(freCoo.y,FCHou. u)
-    annotation (Line(points={{-281,90},{-298,90}},   color={0,0,127}));
-  connect(parMecCoo.y,PMCHou. u)
-    annotation (Line(points={{-281,50},{-298,50}},   color={0,0,127}));
-  connect(fulMecCoo.y,FMCHou. u)
-    annotation (Line(points={{-281,10},{-298,10}},   color={0,0,127}));
+  connect(freCooSig.y, FCHou.u)
+    annotation (Line(points={{-281,90},{-298,90}}, color={0,0,127}));
+  connect(parMecCooSig.y, PMCHou.u)
+    annotation (Line(points={{-281,50},{-298,50}}, color={0,0,127}));
+  connect(fulMecCooSig.y, FMCHou.u)
+    annotation (Line(points={{-281,10},{-298,10}}, color={0,0,127}));
   connect(PHVAC.y,EHVAC. u) annotation (Line(
       points={{-281,-50},{-298,-50}},
       color={0,0,127},
