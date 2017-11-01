@@ -2,6 +2,16 @@ within Buildings.Applications.DataCenters.DXCooled.Examples;
 model DXCooledAirsideEconomizer
   "Example that illustrates the use of Buildings.Fluid.HeatExchanger.DXCoil in a data center room"
   extends Modelica.Icons.Example;
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PostProcess(
+    fulMecCooSig(y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
+           then 1 else 0),
+    parMecCooSig(y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.PartialMechanical)
+           then 1 else 0),
+    PHVAC(y=varSpeDX.P + fan.P),
+    PIT(y=roo.QRoo_flow),
+    freCooSig(y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
+           then 1 else 0));
   replaceable package Medium = Buildings.Media.Air;
 
   // Air temperatures at design conditions
@@ -251,12 +261,6 @@ equation
   connect(feedback1.y, dam2.y)
     annotation (Line(points={{39,130},{58,130},{60,130},{60,40},{-20,40},{-20,-48}},
                             color={0,0,127}));
-  connect(freCoo.y, dam1.y)
-    annotation (Line(points={{21,110},{21,110},{50,110},{50,24}},
-                        color={0,0,127}));
-  connect(freCoo.y, feedback1.u2)
-    annotation (Line(points={{21,110},{30,110},{30,122}},
-                                color={0,0,127}));
   connect(out.ports[1], eco.port_Out)
     annotation (Line(points={{-140,12},{-100,12}},color={0,127,255}));
   connect(eco.port_Exh, out.ports[2])
@@ -303,8 +307,14 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (            Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
-            -160},{220,180}})),
+  connect(cooModCon.y, sigCha.u) annotation (Line(points={{-89,70},{-82,70},{-82,
+          160},{-256,160}}, color={255,127,0}));
+  connect(freCoo.y, dam1.y)
+    annotation (Line(points={{21,110},{50,110},{50,24}}, color={0,0,127}));
+  connect(freCoo.y, feedback1.u2)
+    annotation (Line(points={{21,110},{30,110},{30,122}}, color={0,0,127}));
+  annotation (            Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-420,
+            -200},{220,220}})),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Examples/DXCooledAirsideEconomizer.mos"
         "Simulate and plot"),
     Documentation(info="<html>
