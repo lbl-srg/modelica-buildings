@@ -1,6 +1,5 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Controls;
 model ConstantSpeedPumpStage "Staging control for constant speed pumps"
-  import Buildings;
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.Time tWai "Waiting time";
@@ -18,6 +17,8 @@ model ConstantSpeedPumpStage "Staging control for constant speed pumps"
     enableTimer=true,
     waitTime=tWai,
     condition=
+     cooMod == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
+       or
      cooMod == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.PartialMechanical)
        or
      cooMod == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical))
