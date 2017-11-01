@@ -19,7 +19,9 @@ model IntegratedPrimaryLoadSideEconomizer
       use_inputFilterValve=true,
       use_inputFilterFan=true),
     weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
-    cooTowSpeCon(k=1, Ti=120));
+    cooTowSpeCon(k=1, Ti=120),
+    CWPumCon(tWai=60),
+    chiStaCon(tWai=60));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumPri(
     each pressure=
@@ -33,12 +35,11 @@ model IntegratedPrimaryLoadSideEconomizer
     tWai=tWai,
     deaBan1=1.1,
     deaBan2=0.5,
-    deaBan3=1.1,
-    deaBan4=0.5)
+    deaBan4=0.5,
+    deaBan3=1.1)
     "Cooling mode controller"
     annotation (Placement(transformation(extent={{-130,100},{-110,120}})));
-  Modelica.Blocks.Sources.RealExpression towTApp(
-    y=max(cooTow[1:numChi].TAppAct))
+  Modelica.Blocks.Sources.RealExpression towTApp(y=cooTow[1].TApp_nominal)
     "Cooling tower approach temperature"
     annotation (Placement(transformation(extent={{-190,100},{-170,120}})));
   Modelica.Blocks.Sources.RealExpression yVal5(y=if cooModCon.y == Integer(
