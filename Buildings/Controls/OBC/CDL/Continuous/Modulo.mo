@@ -21,31 +21,22 @@ equation
     defaultComponentName="mod",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
-        Text(
-          lineColor={0,0,255},
-          extent={{-150,110},{150,150}},
-          textString="%name"),
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
+        Ellipse(lineColor={0,0,127}, extent={{-50,-48},{50,52}},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          lineColor={0,0,255},
+          extent={{-150,110},{150,150}},
+          textString="%name"),
         Text(
           extent={{-32,-52},{40,-100}},
           lineColor={192,192,192},
           textString="mod"),
-        Ellipse(lineColor={0,0,127}, extent={{-50,-48},{50,52}}),
-        Ellipse(fillPattern=FillPattern.Solid, extent={{13,14},{23,24}}),
-        Line(points={{-2,2},{40,2}}),
-        Ellipse(fillPattern=FillPattern.Solid, extent={{13,-18},{23,-8}}),
-        Ellipse(lineColor={0,0,127}, extent={{-34,14},{-16,32}},
-          lineThickness=1),
-        Ellipse(lineColor={0,0,127}, extent={{-26,-24},{-8,-6}},
-          lineThickness=1),
-        Line(
-          points={{0,26},{-42,-20}},
-          color={0,0,127},
-          thickness=1),
         Line(points={{-8,16}}, color={0,0,0}),
         Line(
           points={{-100,60}},
@@ -53,7 +44,10 @@ equation
           thickness=1),
         Line(points={{-100,60},{-28,60},{-12,50}}, color={0,0,127}),
         Line(points={{-100,-60},{-26,-60},{-2,-48}}, color={0,0,127}),
-        Line(points={{50,2},{102,2},{100,2}}, color={0,0,127})}),
+        Line(points={{50,2},{102,2},{100,2}}, color={0,0,127}),
+        Ellipse(fillPattern=FillPattern.Solid, extent={{11,-18},{21,-8}}),
+        Line(points={{-24,-20},{26,24}}),
+        Ellipse(fillPattern=FillPattern.Solid, extent={{-21,12},{-11,22}})}),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = mod(u1/u2)</code>,
