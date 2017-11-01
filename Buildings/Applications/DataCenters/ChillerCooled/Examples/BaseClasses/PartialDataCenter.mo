@@ -49,7 +49,7 @@ partial model PartialDataCenter
   // Set point
   parameter Modelica.SIunits.Temperature TCHWSet = 273.15 + 6
     "Chilled water temperature setpoint";
-  parameter Modelica.SIunits.Temperature TSupAirSet = TCHWSet + 9
+  parameter Modelica.SIunits.Temperature TSupAirSet = TCHWSet + 10
     "Supply air temperature setpoint";
 
   replaceable Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE chiWSE(
@@ -70,7 +70,7 @@ partial model PartialDataCenter
     use_inputFilter=false)
     "Chillers and waterside economizer"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
-  Fluid.Sources.Boundary_pT expVesCW(
+  Buildings.Fluid.Sources.Boundary_pT expVesCW(
     redeclare replaceable package Medium = MediumW,
     nPorts=1)
     "Expansion tank"
@@ -79,12 +79,12 @@ partial model PartialDataCenter
         origin={251,140.5})));
   Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow[numChi](
     redeclare each replaceable package Medium = MediumW,
-    each m_flow_nominal=m1_flow_chi_nominal,
-    each dp_nominal=60000,
     each TAirInWB_nominal(displayUnit="degC") = 283.15,
     each TApp_nominal=6,
     each PFan_nominal=6000,
-    each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    each dp_nominal=30000,
+    each m_flow_nominal=0.785*m1_flow_chi_nominal)
     "Cooling tower"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       origin={130,140})));
@@ -141,7 +141,7 @@ partial model PartialDataCenter
     m_flow_nominal=numChi*m2_flow_chi_nominal)
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{220,-10},{200,10}})));
-  Fluid.Sources.Boundary_pT               expVesChi(
+  Buildings.Fluid.Sources.Boundary_pT               expVesChi(
     redeclare replaceable package Medium = MediumW, nPorts=1)
     "Expansion tank"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -205,8 +205,8 @@ partial model PartialDataCenter
     each k=m1_flow_chi_nominal)
     "Gain effect"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
-  Controls.CoolingTowerSpeed
-    cooTowSpeCon(controllerType=Modelica.Blocks.Types.SimpleController.PI,
+  Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed cooTowSpeCon(
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=40,
     k=5,
     yMin=0)
