@@ -1,6 +1,7 @@
 within Buildings.Examples.VAVReheat.Controls;
 block RoomVAVGuideline36
   "Controller for room VAV box according to ASHRAE Guideline 36"
+  import Buildings;
 
   parameter Modelica.SIunits.Time samplePeriod
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
@@ -71,7 +72,7 @@ block RoomVAVGuideline36
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.Valves.HeatingAndCooling heaCoo
                           "Heating and cooling controller"
-    annotation (Placement(transformation(extent={{-70,120},{-50,140}})));
+    annotation (Placement(transformation(extent={{-68,120},{-48,140}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
     actAirSet(
     have_occSen=false,
@@ -96,6 +97,45 @@ block RoomVAVGuideline36
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}}),
       iconTransformation(extent={{100,-110},{120,-90}})));
+  inner Modelica_Requirements.Interfaces.ObservationID observationID(name=
+        "VAV terminal box") "Observation ID for terminal box"
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+  Modelica_Requirements.Verify.Requirement reqTRooHea(text=
+        "Room air temperature maintains heating setpoint")
+    "Requirement on mixed air temperature"
+    annotation (Placement(transformation(extent={{0,-130},{60,-110}})));
+  Modelica_Requirements.ChecksInSlidingWindow.MinDuration cheTHea(
+    check=TRoo >= TRooHeaSet - 0.5,
+    window=3600,
+    lowerLimit=900) "Check for heating setpoint tracking"
+    annotation (Placement(transformation(extent={{-60,-130},{-20,-110}})));
+  Modelica_Requirements.Verify.Requirement reqTRooCoo(text=
+        "Room air temperature maintains cooling setpoint")
+    "Requirement on mixed air temperature"
+    annotation (Placement(transformation(extent={{0,-100},{60,-80}})));
+  Modelica_Requirements.ChecksInSlidingWindow.MinDuration cheTCoo(
+    check=TRoo <= TRooCooSet + 0.5,
+    window=3600,
+    lowerLimit=900) "Check for cooling setpoint tracking"
+    annotation (Placement(transformation(extent={{-60,-100},{-20,-80}})));
+  Modelica_Requirements.ChecksInSlidingWindow.MaxRising cheFreYDam(
+    window=3600,
+    nRisingMax=4,
+    check=swiDet.y) "Checks the maximum frequency"
+    annotation (Placement(transformation(extent={{-60,-68},{-20,-48}})));
+  Modelica_Requirements.Verify.BooleanRequirement reqYDam(text=
+        "VAV damper signal stable") "Check if damper oscillates"
+    annotation (Placement(transformation(extent={{0,-68},{60,-48}})));
+  Buildings.Controls.OBC.CDL.Discrete.Sampler samYDam(samplePeriod=samplePeriod)
+    "Sampler for damper signal"
+    annotation (Placement(transformation(extent={{8,130},{28,150}})));
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay zerOrdYDam(samplePeriod=
+        samplePeriod) "Zero order hold for damper signal"
+    annotation (Placement(transformation(extent={{40,110},{60,130}})));
+  Buildings.Controls.OBC.CDL.Logical.OnOffController swiDet(bandwidth=3/
+        samplePeriod)
+    "Detection of changes in control action that could be due to oscillations"
+    annotation (Placement(transformation(extent={{72,124},{92,144}})));
 equation
   connect(sysReq.TCooSet, TRooCooSet) annotation (Line(points={{51,19},{-78,19},
           {-78,90},{-120,90}}, color={0,0,127}));
@@ -107,16 +147,18 @@ equation
           50},{-120,50}}, color={0,0,127}));
   connect(sysReq.TDisSet, conDamVal.TDisSet)
     annotation (Line(points={{51,5},{42,5},{42,62},{31,62}}, color={0,0,127}));
-  connect(conDamVal.yDam, yDam) annotation (Line(points={{31,74},{80,74},{80,
+  connect(conDamVal.yDam, yDam) annotation (Line(points={{31,74},{94,74},{94,
           100},{110,100}}, color={0,0,127}));
   connect(conDamVal.yHeaVal, yVal) annotation (Line(points={{31,66},{80,66},{80,
           0},{110,0}}, color={0,0,127}));
   connect(conDamVal.VDis, VDis)
     annotation (Line(points={{24,59},{24,50},{-120,50}}, color={0,0,127}));
   connect(conDamVal.TDis, TDis)
-    annotation (Line(points={{16,59},{16,-30},{-120,-30}}, color={0,0,127}));
-  connect(sysReq.TDis, TDis) annotation (Line(points={{51,3},{-24,3},{-24,-30},
-          {-120,-30}}, color={0,0,127}));
+    annotation (Line(points={{16,59},{16,54},{-74,54},{-74,-30},{-120,-30}},
+                                                           color={0,0,127}));
+  connect(sysReq.TDis, TDis) annotation (Line(points={{51,3},{-10,3},{-74,3},{
+          -74,4},{-74,-30},{-120,-30}},
+                       color={0,0,127}));
   connect(sysReq.uDam, conDamVal.yDam)
     annotation (Line(points={{51,8},{46,8},{46,74},{31,74}}, color={0,0,127}));
   connect(conDamVal.yHeaVal, sysReq.uHeaVal)
@@ -128,9 +170,9 @@ equation
   connect(conDamVal.THeaSet, TRooHeaSet) annotation (Line(points={{9,65},{-80,
           65},{-80,130},{-120,130}}, color={0,0,127}));
   connect(conDamVal.uHea,heaCoo. yHea) annotation (Line(points={{9,67},{-40,67},
-          {-40,134},{-49,134}}, color={0,0,127}));
+          {-40,134},{-47,134}}, color={0,0,127}));
   connect(conDamVal.uCoo,heaCoo. yCoo) annotation (Line(points={{9,69},{-42,69},
-          {-42,126},{-49,126}}, color={0,0,127}));
+          {-42,126},{-47,126}}, color={0,0,127}));
   connect(actAirSet.VActCooMax, conDamVal.VActCooMax) annotation (Line(points={
           {-11,108},{0,108},{0,79},{9,79}}, color={0,0,127}));
   connect(actAirSet.VActCooMin, conDamVal.VActCooMin) annotation (Line(points={
@@ -141,20 +183,35 @@ equation
           {-11,99},{-6,99},{-6,73},{9,73}}, color={0,0,127}));
   connect(actAirSet.VActHeaMax, conDamVal.VActHeaMax) annotation (Line(points={
           {-11,96},{-8,96},{-8,75},{9,75}}, color={0,0,127}));
-  connect(heaCoo.TRooHeaSet, TRooHeaSet) annotation (Line(points={{-71,136},{
+  connect(heaCoo.TRooHeaSet, TRooHeaSet) annotation (Line(points={{-69,136},{
           -80,136},{-80,130},{-120,130}}, color={0,0,127}));
-  connect(heaCoo.TRooCooSet, TRooCooSet) annotation (Line(points={{-71,130},{
+  connect(heaCoo.TRooCooSet, TRooCooSet) annotation (Line(points={{-69,130},{
           -78,130},{-78,90},{-120,90}}, color={0,0,127}));
-  connect(heaCoo.TRoo, TRoo) annotation (Line(points={{-71,124},{-76,124},{-76,
+  connect(heaCoo.TRoo, TRoo) annotation (Line(points={{-69,124},{-76,124},{-76,
           10},{-120,10}}, color={0,0,127}));
-  connect(actAirSet.uOpeMod, uOpeMod) annotation (Line(points={{-33,97},{-54,97},
-          {-54,-110},{-120,-110}}, color={255,127,0}));
+  connect(actAirSet.uOpeMod, uOpeMod) annotation (Line(points={{-33,97},{-90,97},
+          {-90,98},{-90,98},{-90,-110},{-120,-110}},
+                                   color={255,127,0}));
   connect(sysReq.yZonTemResReq, yZonTemResReq) annotation (Line(points={{73,17},
           {78,17},{78,-60},{110,-60}}, color={255,127,0}));
   connect(sysReq.yZonPreResReq, yZonPreResReq) annotation (Line(points={{73,12},
           {76,12},{76,-100},{110,-100}}, color={255,127,0}));
-  connect(heaCoo.yCoo, sysReq.uCoo) annotation (Line(points={{-49,126},{-42,126},
-          {-42,16},{-42,15},{51,15}},                   color={0,0,127}));
+  connect(heaCoo.yCoo, sysReq.uCoo) annotation (Line(points={{-47,126},{-42,126},
+          {-42,15},{51,15}},                            color={0,0,127}));
+  connect(reqTRooHea.property, cheTHea.y) annotation (Line(points={{-2,-120},{
+          -2,-120},{-19,-120}}, color={255,0,128}));
+  connect(reqTRooCoo.property, cheTCoo.y)
+    annotation (Line(points={{-2,-90},{-19,-90}}, color={255,0,128}));
+  connect(cheFreYDam.y, reqYDam.u) annotation (Line(points={{-19,-58},{-19,-58},
+          {-2,-58}}, color={255,0,255}));
+  connect(conDamVal.yDam, samYDam.u) annotation (Line(points={{31,74},{94,74},{
+          94,100},{2,100},{2,140},{6,140}}, color={0,0,127}));
+  connect(zerOrdYDam.u, samYDam.y) annotation (Line(points={{38,120},{34,120},{
+          34,140},{29,140}}, color={0,0,127}));
+  connect(swiDet.reference, samYDam.y)
+    annotation (Line(points={{70,140},{59,140},{29,140}}, color={0,0,127}));
+  connect(zerOrdYDam.y, swiDet.u) annotation (Line(points={{61,120},{64,120},{
+          64,128},{70,128}}, color={0,0,127}));
   annotation ( Icon(coordinateSystem(extent={{-100,-140},{100,160}}),
                     graphics={  Rectangle(
         extent={{-100,-140},{100,160}},

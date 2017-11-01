@@ -44,7 +44,8 @@ model Guideline36
     maxSysPriFlo=maxSysPriFlo,
     minZonPriFlo=minZonPriFlo,
     zonAre=zonAre,
-    have_occSen=fill(false, numZon))
+    have_occSen=fill(false, numZon),
+    TFreSet=TFreSet)
     "AHU controller"
     annotation (Placement(transformation(extent={{392,334},{432,442}})));
   Buildings.Examples.VAVReheat.Controls.ZoneSetPointsGuideline36 TSetZon(
@@ -76,6 +77,20 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yOutDam(k=1)
     "Outdoor air damper control signal"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+  inner Modelica_Requirements.Verify.PrintViolations printViolations
+    annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
+  inner Modelica_Requirements.Interfaces.ObservationID observationID(name="AHU")
+    "Observation ID for AHU"
+    annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
+  Modelica_Requirements.Verify.BooleanRequirement reqTFre(text=
+        "Mixed air temperature above freezing")
+    "Requirement on mixed air temperature"
+    annotation (Placement(transformation(extent={{-20,-180},{40,-160}})));
+  Modelica_Requirements.LogicalBlocks.GreaterEqualThreshold ge1(threshold=
+        276.15) "Test for freezing condition"
+    annotation (Placement(transformation(extent={{-84,-180},{-44,-160}})));
+  parameter Modelica.SIunits.Temperature TFreSet=277.15
+    "Lower limit for mixed air temperature for freeze protection";
 equation
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
       points={{320,-40},{320,0},{320,-10},{320,-10}},
@@ -157,20 +172,20 @@ equation
   connect(wes.yVAV, conVAVWes.yDam) annotation (Line(points={{1286,48},{1274,48},
           {1274,44},{1261,44}}, color={0,0,127}));
   connect(TSetZon.uOcc, occSch.occupied) annotation (Line(points={{55.8,300.194},
-          {-92,300.194},{-92,300},{-240,300},{-240,300},{-240,300},{-240,-216},
-          {-297,-216}}, color={255,0,255}));
+          {-92,300.194},{-92,300},{-240,300},{-240,-216},{-297,-216}},
+                        color={255,0,255}));
   connect(occSch.tNexOcc, TSetZon.tNexOcc) annotation (Line(points={{-297,-204},
           {-254,-204},{-254,300},{-254,300},{-254,315.333},{55.8,315.333}},
         color={0,0,127}));
   connect(TSetZon.TZon, flo.TRooAir) annotation (Line(points={{55.8,308.86},{
-          55.8,310},{46,310},{46,622},{1164,622},{1164,554.889},{1093.44,
-          554.889}}, color={0,0,127}));
+          55.8,310},{46,310},{46,622},{1164,622},{1164,491.333},{1094.14,
+          491.333}}, color={0,0,127}));
   connect(conAHU.THeaSet, TSetZon.THeaSet) annotation (Line(points={{391,434},{
           120,434},{120,315.333},{81.1,315.333}}, color={0,0,127}));
   connect(conAHU.TCooSet, TSetZon.TCooSet) annotation (Line(points={{391,428},{
           128,428},{128,319.667},{81.1,319.667}}, color={0,0,127}));
   connect(conAHU.TZon, flo.TRooAir) annotation (Line(points={{391,418},{280,418},
-          {280,622},{1164,622},{1164,554.889},{1093.44,554.889}}, color={0,0,
+          {280,622},{1164,622},{1164,491.333},{1094.14,491.333}}, color={0,0,
           127}));
   connect(conAHU.TOut, TOut.y) annotation (Line(points={{391,410},{-266,410},{
           -266,180},{-279,180}},
@@ -306,6 +321,10 @@ equation
                                           color={0,0,127}));
   connect(yOutDam.y, eco.yExh)
     annotation (Line(points={{-19,-10},{-3,-10},{-3,-34}}, color={0,0,127}));
+  connect(reqTFre.u, ge1.y)
+    annotation (Line(points={{-22,-170},{-43,-170}}, color={255,0,255}));
+  connect(ge1.u, TMix.T) annotation (Line(points={{-86,-170},{-100,-170},{-100,
+          -80},{22,-80},{22,-12},{40,-12},{40,-29}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
             1660,640}})),

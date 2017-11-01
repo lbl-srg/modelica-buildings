@@ -284,7 +284,7 @@ model System6
         "Pump does not short-cycle")
     annotation (Placement(transformation(extent={{176,-50},{236,-30}})));
   inner Modelica_Requirements.Verify.PrintViolations printViolations
-    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
+    annotation (Placement(transformation(extent={{120,-8},{140,12}})));
   inner Modelica_Requirements.Interfaces.ObservationID observationID(name=
         "Space cooling")
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
