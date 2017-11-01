@@ -276,142 +276,144 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     each quantity="VolumeFlowRate",
     min=0)
     "Primary airflow rate to the ventilation zone from the air handler, including outdoor air and recirculated air"
-    annotation (Placement(transformation(extent={{-220,-50},{-200,-30}}),
+    annotation (Placement(transformation(extent={{-180,130},{-160,150}}),
       iconTransformation(extent={{-220,-60},{-200,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Measured mixed air temperature, used for freeze protection"
-    annotation (Placement(transformation(extent={{-220,-80},{-200,-60}}),
+    annotation (Placement(transformation(extent={{-180,-80},{-160,-60}}),
       iconTransformation(extent={{-220,-100},{-200,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ducStaPre(
     final unit="Pa",
     displayUnit="Pa")
     "Measured duct static pressure"
-    annotation (Placement(transformation(extent={{-220,-30},{-200,-10}})));
+    annotation (Placement(transformation(extent={{-180,112},{-160,132}}),
+      iconTransformation(extent={{-220,-30},{-200,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Outdoor air (OA) temperature"
-    annotation (Placement(transformation(extent={{-220,130},{-200,150}}),
+    annotation (Placement(transformation(extent={{-180,156},{-160,176}}),
       iconTransformation(extent={{-220,200},{-200,220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
-    annotation (Placement(transformation(extent={{-220,110},{-200,130}}),
+    annotation (Placement(transformation(extent={{-180,30},{-160,50}}),
       iconTransformation(extent={{-220,100},{-200,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
-    annotation (Placement(transformation(extent={{-220,90},{-200,110}}),
+    annotation (Placement(transformation(extent={{-180,10},{-160,30}}),
       iconTransformation(extent={{-220,80},{-200,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOutCut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
-    annotation (Placement(transformation(extent={{-220,70},{-200,90}}),
+    annotation (Placement(transformation(extent={{-180,-10},{-160,10}}),
       iconTransformation(extent={{-220,60},{-200,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
-    annotation (Placement(transformation(extent={{-220,50},{-200,70}}),
+    annotation (Placement(transformation(extent={{-180,-58},{-160,-38}}),
       iconTransformation(extent={{-220,30},{-200,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Zone air temperature heating setpoint"
-    annotation (Placement(transformation(extent={{-220,218},{-200,238}}),
+    annotation (Placement(transformation(extent={{-180,218},{-160,238}}),
       iconTransformation(extent={{-220,260},{-200,280}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Measured outdoor volumetric airflow rate"
-    annotation (Placement(transformation(extent={{-220,10},{-200,30}}),
+    annotation (Placement(transformation(extent={{-180,-26},{-160,-6}}),
       iconTransformation(extent={{-220,-10},{-200,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc[numZon]
     "Number of occupants"
-    annotation (Placement(transformation(extent={{-220,30},{-200,50}}),
+    annotation (Placement(transformation(extent={{-180,90},{-160,110}}),
       iconTransformation(extent={{-220,10},{-200,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[numZon](
     each final unit="K",
     each final quantity="ThermodynamicTemperature")
     "Measured zone air temperature"
-    annotation (Placement(transformation(extent={{-222,148},{-200,170}}),
+    annotation (Placement(transformation(extent={{-180,70},{-160,90}}),
       iconTransformation(extent={{-220,180},{-200,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis[numZon](
     each final unit="K",
     each final quantity="ThermodynamicTemperature")
     "Discharge air temperature"
-    annotation (Placement(transformation(extent={{-222,168},{-200,190}}),
+    annotation (Placement(transformation(extent={{-180,50},{-160,70}}),
       iconTransformation(extent={{-220,140},{-200,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Zone air temperature cooling setpoint"
-    annotation (Placement(transformation(extent={{-220,200},{-200,220}}),
+    annotation (Placement(transformation(extent={{-180,200},{-160,220}}),
       iconTransformation(extent={{-220,240},{-200,260}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonTemResReq
     "Zone cooling supply air temperature reset request"
-    annotation (Placement(transformation(extent={{-220,-210},{-200,-190}}),
+    annotation (Placement(transformation(extent={{-180,-170},{-160,-150}}),
       iconTransformation(extent={{-220,-240},{-200,-220}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonPreResReq
     "Zone static pressure reset requests"
-    annotation (Placement(transformation(extent={{-220,-250},{-200,-230}}),
+    annotation (Placement(transformation(extent={{-180,-190},{-160,-170}}),
       iconTransformation(extent={{-220,-260},{-200,-240}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta
     "Zone state signal"
-    annotation (Placement(transformation(extent={{-220,-130},{-200,-110}}),
+    annotation (Placement(transformation(extent={{-180,-130},{-160,-110}}),
       iconTransformation(extent={{-220,-170},{-200,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
     "Freeze protection status"
-    annotation (Placement(transformation(extent={{-220,-150},{-200,-130}}),
+    annotation (Placement(transformation(extent={{-180,-150},{-160,-130}}),
       iconTransformation(extent={{-220,-200},{-200,-180}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
-    annotation (Placement(transformation(extent={{-220,-110},{-200,-90}}),
+    annotation (Placement(transformation(extent={{-180,-110},{-160,-90}}),
       iconTransformation(extent={{-220,-140},{-200,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetSup(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Setpoint for supply air temperature"
-    annotation (Placement(transformation(extent={{200,-80},{220,-60}}),
+    annotation (Placement(transformation(extent={{180,-54},{200,-34}}),
       iconTransformation(extent={{200,-80},{220,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea(
     final min=0,
     final max=1,
     final unit="1")
     "Control signal for heating"
-    annotation (Placement(transformation(extent={{200,-140},{220,-120}}),
+    annotation (Placement(transformation(extent={{180,-130},{200,-110}}),
       iconTransformation(extent={{200,-140},{220,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo(
     final min=0,
     final max=1,
     final unit="1") "Control signal for cooling"
-    annotation (Placement(transformation(extent={{200,-200},{220,-180}}),
+    annotation (Placement(transformation(extent={{180,-170},{200,-150}}),
       iconTransformation(extent={{200,-200},{220,-180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFanSpe(
     final min=0,
     final max=1,
     final unit="1") "Supply fan speed"
-    annotation (Placement(transformation(extent={{200,100},{220,120}}),
+    annotation (Placement(transformation(extent={{180,100},{200,120}}),
       iconTransformation(extent={{200,112},{220,132}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
     final max=1,
     final unit="1") "Return air damper position"
-    annotation (Placement(transformation(extent={{200,-10},{220,10}}),
+    annotation (Placement(transformation(extent={{180,-10},{200,10}}),
       iconTransformation(extent={{200,-10},{220,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
     final unit="1") "Outdoor air damper position"
-    annotation (Placement(transformation(extent={{200,50},{220,70}}),
+    annotation (Placement(transformation(extent={{180,50},{200,70}}),
       iconTransformation(extent={{200,50},{220,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan
     "Supply fan status, true if fan should be on"
-    annotation (Placement(transformation(extent={{200,170},{220,190}})));
+    annotation (Placement(transformation(extent={{180,170},{200,190}}),
+        iconTransformation(extent={{200,170},{220,190}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.OutsideAirFlow
     outAirSetPoi(
@@ -431,7 +433,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final uHig=uHig,
     final peaSysPop=peaSysPop)
     "Controller for minimum outdoor airflow rate"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller
     conEco(
     final use_enthalpy=use_enthalpy,
@@ -452,7 +454,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final TFreSet=TFreSet,
     final kPFre=kPFre,
     final delta=delta)       "Economizer controller"
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+    annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyFan
     conSupFan(
     final numZon=numZon,
@@ -474,7 +476,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final yFanMax=yFanMax,
     final yFanMin=yFanMin)
     "Supply fan controller"
-    annotation (Placement(transformation(extent={{0,100},{20,120}})));
+    annotation (Placement(transformation(extent={{0,120},{20,140}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature
     conTSetSup(
     final samplePeriod=samplePeriod,
@@ -492,220 +494,137 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final resAmo=resAmoSupTem,
     final maxRes=maxResSupTem)
     "Setpoint for supply temperature"
-    annotation (Placement(transformation(extent={{50,-60},{70,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conTSup(
-    final controllerType=controllerType,
-    final k=kPTSup,
-    final Ti=TiTSup,
-    final yMax=1,
-    final yMin=-1,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    final y_reset=0)
-    "Controller for supply air temperature control signal (to be used by heating coil, cooling coil and economizer)"
-    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Average TZonSetAve
     "Average of all zone set points"
     annotation (Placement(transformation(extent={{0,210},{20,230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
-    annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain conSigTSupInv(final k=-1)
-    "Inverts control signal"
-    annotation (Placement(transformation(extent={{-8,-100},{12,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line conSigHea(
-    final limitBelow=false,
-    final limitAbove=true) "Heating control signal"
-    annotation (Placement(transformation(extent={{140,-140},{160,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line conSigCoo(
-    final limitBelow=true,
-    final limitAbove=false) "Cooling control signal"
-    annotation (Placement(transformation(extent={{140,-200},{160,-180}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
-    "Zero control signal"
-    annotation (Placement(transformation(extent={{-40,-220},{-20,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
-    "Unity signal"
-    annotation (Placement(transformation(extent={{80,-240},{100,-220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant negOne(final k=-1)
-    "Negative unity signal"
-    annotation (Placement(transformation(extent={{70,-170},{90,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uHeaMaxCon(
-    final k=uHeaMax)
-    "Constant signal to map control action"
-    annotation (Placement(transformation(extent={{40,-144},{60,-124}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uCooMinCon(
-    final k=uCooMin)
-    "Constant signal to map control action"
-    annotation (Placement(transformation(extent={{40,-192},{60,-172}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant winOpe[numZon](
     each final k=false)
     "Window opening signal"
-    annotation (Placement(transformation(extent={{-52,130},{-32,150}})));
+    annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
 
 equation
   connect(conEco.yRetDamPos, yRetDamPos)
-    annotation (Line(points={{80.625,15},{180,15},{180,0},{210,0}},
+    annotation (Line(points={{100.625,15},{160,15},{160,0},{190,0}},
       color={0,0,127}));
   connect(conEco.yOutDamPos, yOutDamPos)
-    annotation (Line(points={{80.625,5},{160,5},{160,60},{210,60}},
+    annotation (Line(points={{100.625,5},{140,5},{140,60},{190,60}},
       color={0,0,127}));
   connect(conEco.uSupFan, conSupFan.ySupFan)
-    annotation (Line(points={{59.375,6.25},{36,6.25},{36,117},{21,117}},
+    annotation (Line(points={{79.375,6.25},{50,6.25},{50,137},{21,137}},
       color={255,0,255}));
   connect(conSupFan.ySupFanSpe, ySupFanSpe)
-    annotation (Line(points={{21,110},{210,110}},
+    annotation (Line(points={{21,130},{120,130},{120,110},{190,110}},
       color={0,0,127}));
   connect(TOut, conEco.TOut)
-    annotation (Line(points={{-210,140},{-60,140},{-60,18.75},{59.375,18.75}},
+    annotation (Line(points={{-170,166},{-42,166},{-42,18.75},{79.375,18.75}},
       color={0,0,127}));
   connect(conEco.TOutCut, TOutCut)
-    annotation (Line(points={{59.375,17.5},{-64,17.5},{-64,120},{-210,120}},
+    annotation (Line(points={{79.375,17.5},{-46,17.5},{-46,40},{-170,40}},
       color={0,0,127}));
   connect(conEco.hOut, hOut)
-    annotation (Line(points={{59.375,16.25},{-66,16.25},{-66,100},{-210,100}},
+    annotation (Line(points={{79.375,16.25},{-50,16.25},{-50,20},{-170,20}},
       color={0,0,127}));
   connect(conEco.hOutCut, hOutCut)
-    annotation (Line(points={{59.375,15},{-66,15},{-66,80},{-210,80}},
+    annotation (Line(points={{79.375,15},{-54,15},{-54,0},{-170,0}},
       color={0,0,127}));
   connect(conEco.VOut_flow, VOut_flow)
-    annotation (Line(points={{59.375,11.25},{-72,11.25},{-72,20},{-210,20}},
+    annotation (Line(points={{79.375,11.25},{-50,11.25},{-50,-16},{-170,-16}},
       color={0,0,127}));
   connect(conEco.uOpeMod, uOpeMod)
-    annotation (Line(points={{59.375,3.75},{-80,3.75},{-80,-100},{-210,-100}},
+    annotation (Line(points={{79.375,3.75},{-44,3.75},{-44,-100},{-170,-100}},
       color={255,127,0}));
   connect(conEco.uZonSta, uZonSta)
-    annotation (Line(points={{59.375,2.5},{-76,2.5},{-76,-120},{-210,-120}},
+    annotation (Line(points={{79.375,2.5},{-42,2.5},{-42,-120},{-170,-120}},
       color={255,127,0}));
   connect(conEco.uFreProSta, uFreProSta)
-    annotation (Line(points={{59.375,1.25},{-72,1.25},{-72,-138},{-92,-138},{-92,-140},
-      {-210,-140}}, color={255,127,0}));
+    annotation (Line(points={{79.375,1.25},{-40,1.25},{-40,-140},{-170,-140}},
+      color={255,127,0}));
   connect(conTSetSup.TSetSup, TSetSup)
-    annotation (Line(points={{71,-50},{180,-50},{180,-70},{210,-70}},
+    annotation (Line(points={{101,-44},{190,-44}},
       color={0,0,127}));
   connect(conTSetSup.TOut, TOut)
-    annotation (Line(points={{49,-46},{-60,-46},{-60,140},{-210,140}},
+    annotation (Line(points={{79,-45},{-20,-45},{-20,166},{-170,166}},
       color={0,0,127}));
   connect(conTSetSup.uSupFan, conSupFan.ySupFan)
-    annotation (Line(points={{49,-50},{36,-50},{36,117},{21,117}},
+    annotation (Line(points={{79,-52},{50,-52},{50,137},{21,137}},
       color={255,0,255}));
   connect(conTSetSup.uZonTemResReq, uZonTemResReq)
-    annotation (Line(points={{49,-54},{-60,-54},{-60,-200},{-210,-200}},
+    annotation (Line(points={{79,-55},{50,-55},{50,-160},{-170,-160}},
       color={255,127,0}));
   connect(conTSetSup.uOpeMod, uOpeMod)
-    annotation (Line(points={{49,-58},{-68,-58},{-68,-100},{-210,-100}},
+    annotation (Line(points={{79,-58},{54,-58},{54,-100},{-170,-100}},
       color={255,127,0}));
   connect(conSupFan.uOpeMod, uOpeMod)
-    annotation (Line(points={{-2,118},{-80,118},{-80,-100},{-210,-100}},
+    annotation (Line(points={{-2,138},{-140,138},{-140,-100},{-170,-100}},
       color={255,127,0}));
   connect(conSupFan.uZonPreResReq, uZonPreResReq)
-    annotation (Line(points={{-2,107},{-84,107},{-84,-240},{-210,-240}},
+    annotation (Line(points={{-2,127},{-136,127},{-136,-180},{-170,-180}},
       color={255,127,0}));
   connect(conSupFan.ducStaPre, ducStaPre)
-    annotation (Line(points={{-2,102},{-180,102},{-180,-20},{-210,-20}},
+    annotation (Line(points={{-2,122},{-170,122}},
       color={0,0,127}));
   connect(conEco.VOutMinSet_flow, outAirSetPoi.VOutMinSet_flow)
-    annotation (Line(points={{59.375,10},{20,10},{20,50},{1,50}},
+    annotation (Line(points={{79.375,10},{40,10},{40,70},{21,70}},
       color={0,0,127}));
   connect(outAirSetPoi.nOcc, nOcc)
-    annotation (Line(points={{-21,58},{-88,58},{-88,40},{-210,40}},
+    annotation (Line(points={{-1,78},{-92,78},{-92,100},{-170,100}},
       color={0,0,127}));
   connect(outAirSetPoi.TZon, TZon)
-    annotation (Line(points={{-21,55},{-58,55},{-58,159},{-211,159}},
+    annotation (Line(points={{-1,75},{-94,75},{-94,80},{-170,80}},
       color={0,0,127}));
   connect(outAirSetPoi.TDis, TDis)
-    annotation (Line(points={{-21,52},{-54,52},{-54,179},{-211,179}},
+    annotation (Line(points={{-1,72},{-94,72},{-94,60},{-170,60}},
       color={0,0,127}));
   connect(conSupFan.ySupFan, outAirSetPoi.uSupFan)
-    annotation (Line(points={{21,117},{36,117},{36,80},{-40,80},{-40,46},{-21,46}},
+    annotation (Line(points={{21,137},{50,137},{50,100},{-88,100},{-88,66},{-1,66}},
       color={255,0,255}));
   connect(winOpe.y, outAirSetPoi.uWin)
-    annotation (Line(points={{-31,140},{-26,140},{-26,48},{-21,48}},
+    annotation (Line(points={{-99,190},{-84,190},{-84,68},{-1,68}},
       color={255,0,255}));
   connect(conTSetSup.TSetZones, TZonSetAve.y)
-    annotation (Line(points={{49,-42},{40,-42},{40,220.2},{21,220.2}},
+    annotation (Line(points={{79,-42},{54,-42},{54,220.2},{21,220.2}},
       color={0,0,127}));
   connect(outAirSetPoi.VBox_flow, VBox_flow)
-    annotation (Line(points={{-21,41},{-50,41},{-50,-40},{-210,-40}},
+    annotation (Line(points={{-1,61},{-144,61},{-144,140},{-170,140}},
       color={0,0,127}));
   connect(conSupFan.VBox_flow, VBox_flow)
-    annotation (Line(points={{-2,113},{-50,113},{-50,-40},{-210,-40}},
+    annotation (Line(points={{-2,133},{-144,133},{-144,140},{-170,140}},
       color={0,0,127}));
   connect(conSupFan.ySupFan, ySupFan)
-    annotation (Line(points={{21,117},{36,117},{36,180},{210,180}},
+    annotation (Line(points={{21,137},{50,137},{50,180},{190,180}},
       color={255,0,255}));
   connect(outAirSetPoi.uOpeMod, uOpeMod)
-    annotation (Line(points={{-21,44},{-80,44},{-80,-100},{-210,-100}},
+    annotation (Line(points={{-1,64},{-88,64},{-88,-100},{-170,-100}},
       color={255,127,0}));
   connect(TZonSetAve.u2, TCooSet)
-    annotation (Line(points={{-2,214},{-106,214},{-106,210},{-210,210}},
+    annotation (Line(points={{-2,214},{-66,214},{-66,210},{-170,210}},
       color={0,0,127}));
   connect(TZonSetAve.u1, THeaSet)
-    annotation (Line(points={{-2,226},{-54,226},{-54,228},{-210,228}},
-      color={0,0,127}));
-  connect(conTSetSup.TSetSup, conTSup.u_s)
-    annotation (Line(points={{71,-50},{80,-50},{80,-68},{-46,-68},{-46,-90},
-      {-42,-90}}, color={0,0,127}));
-  connect(conTSup.u_m, TSup)
-    annotation (Line(points={{-30,-102},{-30,-112},{-160,-112},{-160,60},{-210,60}},
-      color={0,0,127}));
-  connect(conSupFan.ySupFan, swi.u2)
-    annotation (Line(points={{21,117},{36,117},{36,-90},{58,-90}},
-      color={255,0,255}));
-  connect(conEco.uTSup, swi.y)
-    annotation (Line(points={{59.375,13.125},{44,13.125},{44,-20},{100,-20},
-      {100,-90},{81,-90}},  color={0,0,127}));
-  connect(zer.y, swi.u3)
-    annotation (Line(points={{-19,-210},{20,-210},{20,-98},{58,-98}},
-      color={0,0,127}));
-  connect(conSigTSupInv.u, conTSup.y)
-    annotation (Line(points={{-10,-90},{-19,-90}}, color={0,0,127}));
-  connect(conSigTSupInv.y, swi.u1)
-    annotation (Line(points={{13,-90},{20,-90},{20,-82},{58,-82}},
-      color={0,0,127}));
-  connect(yHea, conSigHea.y)
-    annotation (Line(points={{210,-130},{161,-130}}, color={0,0,127}));
-  connect(yCoo, conSigCoo.y)
-    annotation (Line(points={{210,-190},{161,-190}}, color={0,0,127}));
-  connect(conSigHea.x1, negOne.y)
-    annotation (Line(points={{138,-122},{110,-122},{110,-160},{91,-160}},
-      color={0,0,127}));
-  connect(conSigHea.f1, one.y)
-    annotation (Line(points={{138,-126},{120,-126},{120,-230},{101,-230}},
-      color={0,0,127}));
-  connect(swi.y, conSigHea.u)
-    annotation (Line(points={{81,-90},{100,-90},{100,-130},{138,-130}},
-      color={0,0,127}));
-  connect(conSigHea.x2, uHeaMaxCon.y)
-    annotation (Line(points={{138,-134},{61,-134}}, color={0,0,127}));
-  connect(conSigHea.f2, zer.y)
-    annotation (Line(points={{138,-138},{116,-138},{116,-210},{-19,-210}},
-      color={0,0,127}));
-  connect(conSigCoo.x1, uCooMinCon.y)
-    annotation (Line(points={{138,-182},{61,-182}}, color={0,0,127}));
-  connect(zer.y, conSigCoo.f1)
-    annotation (Line(points={{-19,-210},{116,-210},{116,-186},{138,-186}},
-      color={0,0,127}));
-  connect(conSigCoo.u, swi.y)
-    annotation (Line(points={{138,-190},{100,-190},{100,-90},{81,-90}},
-      color={0,0,127}));
-  connect(conSigCoo.x2, one.y)
-    annotation (Line(points={{138,-194},{120,-194},{120,-230},{101,-230}},
-      color={0,0,127}));
-  connect(conSigCoo.f2, one.y)
-    annotation (Line(points={{138,-198},{120,-198},{120,-230},{101,-230}},
+    annotation (Line(points={{-2,226},{-14,226},{-14,228},{-170,228}},
       color={0,0,127}));
   connect(conEco.TMix, TMix)
-    annotation (Line(points={{59.375,8.125},{-190,8.125},{-190,-70},{-210,-70}},
+    annotation (Line(points={{79.375,8.125},{-46,8.125},{-46,-70},{-170,-70}},
       color={0,0,127}));
-  connect(conSupFan.ySupFan, conTSup.trigger)
-    annotation (Line(points={{21,117},{36,117},{36,-108},{-38,-108},{-38,-102}},
-      color={255,0,255}));
+  connect(TSup, conTSetSup.TSup)
+    annotation (Line(points={{-170,-48},{79,-48}}, color={0,0,127}));
+  connect(conTSetSup.uTSup, conEco.uTSup)
+    annotation (Line(points={{101,-48},{120,-48},{120,-20},{58,-20},{58,13.125},
+          {79.375,13.125}},
+                        color={0,0,127}));
+  connect(conTSetSup.yHea, yHea)
+    annotation (Line(points={{101,-52},{160,-52},{160,-120},{190,-120}},
+      color={0,0,127}));
+  connect(conTSetSup.yCoo, yCoo)
+    annotation (Line(points={{101,-56},{140,-56},{140,-160},{190,-160}},
+      color={0,0,127}));
 
 annotation (
     defaultComponentName="conAHU",
-    Diagram(coordinateSystem(extent={{-200,-260},{200,260}}, initialScale=0.2)),
-    Icon(coordinateSystem(extent={{-200,-260},{200,260}}, initialScale=0.2),
+    Diagram(coordinateSystem(extent={{-160,-200},{180,240}}, initialScale=0.2)),
+    Icon(coordinateSystem(extent={{-160,-200},{180,240}}, initialScale=0.2),
         graphics={Rectangle(
           extent={{200,280},{-200,-260}},
           lineColor={0,0,0},

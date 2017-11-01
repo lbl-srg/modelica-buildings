@@ -6,15 +6,15 @@ model VAVSupplyTemperature
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature
     conTSetSup
     "Supply air temperature setpoint for multi zone system"
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+    annotation (Placement(transformation(extent={{70,-8},{90,12}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setZonTem(
     k=22.5 + 273.15) "Average of heating and cooling setpoint"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Sources.Sine outTem(
     amplitude=5,
     freqHz=1/86400,
     offset=18 + 273.15) "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse supFanSta(period=43200)
     "Supply fan status"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
@@ -43,15 +43,20 @@ model VAVSupplyTemperature
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
+  Modelica.Blocks.Sources.Sine TSup(
+    freqHz=1/86400,
+    amplitude=2,
+    offset=16 + 273.15) "Supply air temperature"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
   connect(supFanSta.y, conTSetSup.uSupFan)
     annotation (Line(points={{-59,0},{69,0}},
       color={255,0,255}));
   connect(outTem.y, conTSetSup.TOut)
-    annotation (Line(points={{-59,40},{40,40},{40,4},{69,4}},
+    annotation (Line(points={{-19,60},{40,60},{40,7},{69,7}},
       color={0,0,127}));
   connect(setZonTem.y, conTSetSup.TSetZones)
-    annotation (Line(points={{-59,70},{60,70},{60,8},{69,8}},
+    annotation (Line(points={{-59,80},{60,80},{60,10},{69,10}},
       color={0,0,127}));
   connect(sine.y, abs.u)
     annotation (Line(points={{-59,-40},{-42,-40}}, color={0,0,127}));
@@ -65,12 +70,14 @@ equation
   connect(round1.y, reaToInt1.u)
     annotation (Line(points={{21,-40},{30,-40}}, color={0,0,127}));
   connect(reaToInt1.y, conTSetSup.uZonTemResReq)
-    annotation (Line(points={{53,-40},{60,-40},{60,-4},{69,-4}},
+    annotation (Line(points={{53,-40},{60,-40},{60,-3},{69,-3}},
       color={255,127,0}));
   connect(reaToInt2.y, conTSetSup.uOpeMod)
-    annotation (Line(points={{21,-70},{66,-70},{66,-8},{69,-8}},
+    annotation (Line(points={{21,-70},{66,-70},{66,-6},{69,-6}},
       color={255,127,0}));
 
+  connect(TSup.y, conTSetSup.TSup) annotation (Line(points={{-59,40},{20,40},{
+          20,4},{69,4}}, color={0,0,127}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/SetPoints/Validation/VAVSupplyTemperature.mos"
