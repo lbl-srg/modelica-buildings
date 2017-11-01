@@ -2,6 +2,16 @@ within Buildings.Applications.DataCenters.ChillerCooled.Examples;
 model IntegratedPrimaryLoadSideEconomizer
   "Example that demonstrates a chiller plant with integrated primary load side economizer"
   extends Modelica.Icons.Example;
+  extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PostProcess(
+    freCoo(y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
+           then 1 else 0),
+    parMecCoo(y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.PartialMechanical)
+           then 1 else 0),
+    fulMecCoo(y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
+           then 1 else 0),
+    PHVAC(y=cooTow[1].PFan + cooTow[2].PFan + pumCW[1].P + pumCW[2].P + sum(
+          chiWSE.powChi + chiWSE.powPum) + ahu.PFan + ahu.PHea),
+    PIT(y=roo.QSou.Q_flow));
   extends
     Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimaryLoadSide chiWSE(
@@ -19,9 +29,7 @@ model IntegratedPrimaryLoadSideEconomizer
       use_inputFilterValve=true,
       use_inputFilterFan=true),
     weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
-    cooTowSpeCon(k=1, Ti=120),
-    CWPumCon(tWai=60),
-    chiStaCon(tWai=60));
+    cooTowSpeCon(k=1, Ti=120));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumPri(
     each pressure=
@@ -122,9 +130,10 @@ equation
           -62,134},{-52,134}},                                     color={0,0,127}));
   connect(CWPumCon.cooMod, cooModCon.y) annotation (Line(points={{-54,75},{-100,
           75},{-100,110},{-109,110}}, color={255,127,0}));
+  connect(cooModCon.y, sigCha.u) annotation (Line(points={{-109,110},{-100,110},
+          {-100,216},{-240,216},{-240,160},{-256,160}}, color={255,127,0}));
   annotation (            Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-240,-200},{300,
-            220}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-420,-200},{300,220}})),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Examples/IntegratedPrimaryLoadSideEconomizer.mos"
         "Simulate and plot"),
