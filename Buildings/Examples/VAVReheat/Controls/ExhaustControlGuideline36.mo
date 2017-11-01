@@ -1,7 +1,6 @@
 within Buildings.Examples.VAVReheat.Controls;
 block ExhaustControlGuideline36
   "Controller for return air fan and exhaust air damper"
-  import Buildings;
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.PressureDifference pBuiSet = 12

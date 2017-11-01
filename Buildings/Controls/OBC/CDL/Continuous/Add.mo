@@ -42,20 +42,22 @@ Modelica Standard Library.
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
-      Text(
-        extent={{-150,150},{150,110}},
-        textString="%name",
-        lineColor={0,0,255}),
       Rectangle(
             extent={{-100,-100},{100,100}},
             lineColor={0,0,127},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
+        Ellipse(lineColor={0,0,127}, extent={{-50,-50},{50,50}},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+      Text(
+        extent={{-150,150},{150,110}},
+        textString="%name",
+        lineColor={0,0,255}),
         Line(points={{-100,60},{-74,24},{-44,24}}, color={0,0,127}),
         Line(points={{-100,-60},{-74,-28},{-42,-28}}, color={0,0,127}),
-        Ellipse(lineColor={0,0,127}, extent={{-50,-50},{50,50}}),
         Line(points={{50,0},{100,0}}, color={0,0,127}),
-        Text(extent={{-38,-34},{38,34}}, textString="+"),
+        Text(extent={{-38,-26},{38,42}}, textString="+"),
         Text(extent={{-100,52},{5,92}}, textString="%k1"),
         Text(extent={{-100,-92},{5,-52}}, textString="%k2")}));
 end Add;

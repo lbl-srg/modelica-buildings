@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Validation;
 model ExhaustDamper
   "Validate the controller of an actuated exhaust damper without fan"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ExhaustDamper

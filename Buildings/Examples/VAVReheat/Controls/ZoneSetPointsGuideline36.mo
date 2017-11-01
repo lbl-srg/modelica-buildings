@@ -1,6 +1,5 @@
 within Buildings.Examples.VAVReheat.Controls;
 model ZoneSetPointsGuideline36
-  import Buildings;
   extends Modelica.Blocks.Icons.Block;
 
   parameter Integer numZon(min=2) "Total number of served zones/VAV boxes";
