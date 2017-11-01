@@ -46,6 +46,12 @@ partial model PartialDataCenter
     "Nominal air mass flowrate";
   parameter Real yValMinAHU(min=0,max=1,unit="1")=0.1
     "Minimum valve openning position";
+  // Set point
+  parameter Modelica.SIunits.Temperature TCHWSet = 273.15 + 6
+    "Chilled water temperature setpoint";
+  parameter Modelica.SIunits.Temperature TSupAirSet = TCHWSet + 9
+    "Supply air temperature setpoint";
+
   replaceable Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE chiWSE(
     redeclare replaceable package Medium1 = MediumW,
     redeclare replaceable package Medium2 = MediumW,
@@ -169,14 +175,13 @@ partial model PartialDataCenter
     "Shutoff valves"
     annotation (Placement(transformation(extent={{190,130},{170,150}})));
 
-  Modelica.Blocks.Sources.Constant TCHWSupSet(k(
-    final unit="K",
-    displayUnit="degC") = 279.71)
+  Modelica.Blocks.Sources.Constant TCHWSupSet(k=TCHWSet)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
   Buildings.Applications.DataCenters.ChillerCooled.Controls.ChillerStage
   chiStaCon(
-    QEva_nominal=QEva_nominal, tWai=0)
+    QEva_nominal=QEva_nominal, tWai=0,
+    criPoiTem=TCHWSet + 1.5)
     "Chiller staging control"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
   Modelica.Blocks.Math.RealToBoolean chiOn[numChi]
@@ -200,7 +205,7 @@ partial model PartialDataCenter
     each k=m1_flow_chi_nominal)
     "Gain effect"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed
+  Controls.CoolingTowerSpeed
     cooTowSpeCon(controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=40,
     k=5,
@@ -212,9 +217,7 @@ partial model PartialDataCenter
     "Condenser water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,176},{-120,196}})));
 
-  Modelica.Blocks.Sources.Constant TAirSupSet(k(
-      final unit="K",
-      displayUnit="degC") = 289.15)
+  Modelica.Blocks.Sources.Constant TAirSupSet(k=TSupAirSet)
       "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Modelica.Blocks.Sources.Constant XAirSupSet(
@@ -447,9 +450,9 @@ equation
 
   connect(ahu.port_a2, roo.airPorts[1]) annotation (Line(
       points={{140,-126},{152,-126},{152,-180},{126.475,-180},{126.475,-168.7}},
-
       color={0,127,255},
       thickness=0.5));
+
   connect(roo.airPorts[2], TAirSup.port_b) annotation (Line(
       points={{122.425,-168.7},{122.425,-180},{100,-180}},
       color={0,127,255},

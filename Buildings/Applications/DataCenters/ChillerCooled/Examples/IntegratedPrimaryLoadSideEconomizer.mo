@@ -10,7 +10,8 @@ model IntegratedPrimaryLoadSideEconomizer
       tauPump=1,
       use_controller=false,
       use_inputFilter=true,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+      riseTimePump=30),
       pumCW(each use_inputFilter=false,
             each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
       ahu(tauFan=1,
@@ -51,8 +52,8 @@ model IntegratedPrimaryLoadSideEconomizer
     "On/off signal for valve 6"
     annotation (Placement(transformation(extent={{-10,16},{10,36}})));
 
-  Modelica.Blocks.Sources.RealExpression cooLoaChi(
-    y=chiWSE.port_a2.m_flow*4180*(chiWSE.TCHWSupWSE - TCHWSupSet.y))
+  Modelica.Blocks.Sources.RealExpression cooLoaChi(y=-chiWSE.port_a2.m_flow*
+        4180*(chiWSE.TCHWSupWSE - TCHWSupSet.y))
     "Cooling load in chillers"
     annotation (Placement(transformation(extent={{-190,130},{-170,150}})));
 equation
