@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone;
 block Controller "Multizone AHU controller that composes subsequences for controlling fan speed, dampers, and supply air temperature"
 
   parameter Modelica.SIunits.Time samplePeriod=120
-    "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
+    "Sample period of component, set to the same value to the trim and respond sequence";
   parameter Real uHeaMax(min=-0.9)=-0.25
     "Upper limit of controller signal when heating coil is off. Require -1 < uHeaMax < uCooMin < 1.";
   parameter Real uCooMin(max=0.9)=0.25
@@ -149,19 +149,23 @@ block Controller "Multizone AHU controller that composes subsequences for contro
       Dialog(tab="Fan speed", group="PID controller"));
 
   // ----------- parameters for minimum outdoor airflow setting  -----------
-  parameter Real zonDisEffHea[numZon]=fill(0.8, outAirSetPoi.numZon)
+  parameter Real zonDisEffHea[numZon]=
+     fill(0.8, outAirSetPoi.numZon)
     "Zone air distribution effectiveness during heating"
     annotation (Evaluate=true,
       Dialog(tab="MinOutAirSetting"));
-  parameter Real zonDisEffCoo[numZon]=fill(1.0, outAirSetPoi.numZon)
+  parameter Real zonDisEffCoo[numZon]=
+     fill(1.0, outAirSetPoi.numZon)
     "Zone air distribution effectiveness during cooling"
     annotation (Evaluate=true,
       Dialog(tab="MinOutAirSetting"));
-  parameter Real occDen[numZon]=fill(0.05, outAirSetPoi.numZon)
+  parameter Real occDen[numZon](each final unit="1/m2")=
+     fill(0.05, outAirSetPoi.numZon)
     "Default number of person in unit area"
     annotation (Evaluate=true,
       Dialog(tab="MinOutAirSetting", group="Nominal conditions"));
-  parameter Real outAirPerAre[numZon]=fill(3e-4, outAirSetPoi.numZon)
+  parameter Real outAirPerAre[numZon](each final unit = "m3/(s.m2)")=
+     fill(3e-4, outAirSetPoi.numZon)
     "Outdoor air rate per unit area"
     annotation (Evaluate=true,
       Dialog(tab="MinOutAirSetting", group="Nominal conditions"));
@@ -415,6 +419,9 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     annotation (Placement(transformation(extent={{180,170},{200,190}}),
         iconTransformation(extent={{200,170},{220,190}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Average TZonSetAve
+    "Average of all zone set points"
+    annotation (Placement(transformation(extent={{0,210},{20,230}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.OutsideAirFlow
     outAirSetPoi(
     final zonAre=zonAre,
@@ -434,27 +441,6 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final peaSysPop=peaSysPop)
     "Controller for minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller
-    conEco(
-    final use_enthalpy=use_enthalpy,
-    final delTOutHis=delTOutHis,
-    final delEntHis=delEntHis,
-    final retDamFulOpeTim=retDamFulOpeTim,
-    final disDel=disDel,
-    final kPMinOut=kPMinOut,
-    final TiMinOut=TiMinOut,
-    final retDamPhyPosMax=retDamPhyPosMax,
-    final retDamPhyPosMin=retDamPhyPosMin,
-    final outDamPhyPosMax=outDamPhyPosMax,
-    final outDamPhyPosMin=outDamPhyPosMin,
-    final uHeaMax=uHeaMax,
-    final uCooMin=uCooMin,
-    final uOutDamMax=(uHeaMax + uCooMin)/2,
-    final uRetDamMin=(uHeaMax + uCooMin)/2,
-    final TFreSet=TFreSet,
-    final kPFre=kPFre,
-    final delta=delta)       "Economizer controller"
-    annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyFan
     conSupFan(
     final numZon=numZon,
@@ -495,9 +481,27 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final maxRes=maxResSupTem)
     "Setpoint for supply temperature"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Average TZonSetAve
-    "Average of all zone set points"
-    annotation (Placement(transformation(extent={{0,210},{20,230}})));
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller
+    conEco(
+    final use_enthalpy=use_enthalpy,
+    final delTOutHis=delTOutHis,
+    final delEntHis=delEntHis,
+    final retDamFulOpeTim=retDamFulOpeTim,
+    final disDel=disDel,
+    final kPMinOut=kPMinOut,
+    final TiMinOut=TiMinOut,
+    final retDamPhyPosMax=retDamPhyPosMax,
+    final retDamPhyPosMin=retDamPhyPosMin,
+    final outDamPhyPosMax=outDamPhyPosMax,
+    final outDamPhyPosMin=outDamPhyPosMin,
+    final uHeaMax=uHeaMax,
+    final uCooMin=uCooMin,
+    final uOutDamMax=(uHeaMax + uCooMin)/2,
+    final uRetDamMin=(uHeaMax + uCooMin)/2,
+    final TFreSet=TFreSet,
+    final kPFre=kPFre,
+    final delta=delta)       "Economizer controller"
+    annotation (Placement(transformation(extent={{80,0},{100,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant winOpe[numZon](
@@ -635,7 +639,7 @@ annotation (
           lineColor={0,0,255})}),
 Documentation(info="<html>
 <p>
-Block that is applied for multizone AHU control. It outputs the supply fan status
+Block that is applied for multizone VAV AHU control. It outputs the supply fan status
 and the operation speed, outdoor and return air damper position, supply air 
 temperature setpoint and the valve position of the cooling and heating coils.
 It is implemented according to the ASHRAE Guideline 36, PART5.N.
@@ -670,7 +674,7 @@ The block outputs outdoor and return air damper position, <code>yOutDamPos</code
 <code>yRetDamPos</code>. It firstly computes the position limits to satisfy minimum 
 outdoor airflow requirement, then control the availability of the economizer based 
 on outdoor condition. The dampers are modulated to track the supply air temperature 
-setpoint, which is calculated from the sequence below. See
+loop signal, which is calculated from the sequence below. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller</a>
 for more detailed description.

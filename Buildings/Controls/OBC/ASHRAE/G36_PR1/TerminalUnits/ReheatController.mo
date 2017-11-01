@@ -1,29 +1,30 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits;
 block ReheatController "Controller for room VAV box"
+
   parameter Modelica.SIunits.Time samplePeriod
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Mass flow rate of this thermal zone";
   final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
-    m_flow_nominal / 1.2
+     m_flow_nominal / 1.2
     "Volume flow rate of this thermal zone";
   parameter Modelica.SIunits.Area zonAre "Area of the zone";
   parameter Real kPCoo=0.5
     "Proportional gain for cooling control loop"
     annotation (Evaluate=true,
-      Dialog(tab="CoolingHeaingLoop", group="Cooling loop"));
+      Dialog(tab="CoolingHeatingLoop", group="Cooling loop"));
   parameter Modelica.SIunits.Time TiCoo=1800
     "Time constant of integrator block for cooling control loop"
     annotation (Evaluate=true,
-      Dialog(tab="CoolingHeaingLoop", group="Cooling loop"));
+      Dialog(tab="CoolingHeatingLoop", group="Cooling loop"));
   parameter Real kPHea=0.5
     "Proportional gain for heating control loop"
     annotation (Evaluate=true,
-      Dialog(tab="CoolingHeaingLoop", group="Heating loop"));
+      Dialog(tab="CoolingHeatingLoop", group="Heating loop"));
   parameter Modelica.SIunits.Time TiHea=1800
     "Time constant of integrator block for heating control loop"
     annotation (Evaluate=true,
-      Dialog(tab="CoolingHeaingLoop", group="Heating loop"));
+      Dialog(tab="CoolingHeatingLoop", group="Heating loop"));
   parameter Boolean have_occSen=false
     "Set to true if the zone has occupancy sensor"
     annotation (Evaluate=true,
@@ -175,7 +176,7 @@ block ReheatController "Controller for room VAV box"
     annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
       iconTransformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2 if have_CO2Sen
-    "Detected CO2 conventration"
+    "Detected CO2 concentration"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
       iconTransformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc if have_occSen

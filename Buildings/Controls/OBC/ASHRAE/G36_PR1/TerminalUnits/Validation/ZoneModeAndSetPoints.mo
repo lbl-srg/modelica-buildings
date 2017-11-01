@@ -14,7 +14,8 @@ model ZoneModeAndSetPoints
     zoneSetPoints1(
     numZon=2,
     have_occSen=true,
-    have_winSen=true)    "Output resetted zone setpoint remperature"
+    have_winSen=true)
+    "Output resetted zone setpoint remperature"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
   Buildings.Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
@@ -37,13 +38,17 @@ model ZoneModeAndSetPoints
     freqHz=1/86400,
     amplitude=7.5) "Zone 2 temperature"
     annotation (Placement(transformation(extent={{-88,0},{-68,20}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta1(k=false) "Window status"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta1(k=false)
+    "Window status"
     annotation (Placement(transformation(extent={{-88,-80},{-68,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta2(k=true) "Window status"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta2(k=true)
+    "Window status"
     annotation (Placement(transformation(extent={{-46,-80},{-26,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSen1(k=false) "Occupancy sensor"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSen1(k=false)
+    "Occupancy sensor"
     annotation (Placement(transformation(extent={{-88,-40},{-68,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSen2(k=true) "Occupancy sensor"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSen2(k=true)
+    "Occupancy sensor"
     annotation (Placement(transformation(extent={{-46,-40},{-26,-20}})));
 
 equation
