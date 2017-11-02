@@ -207,9 +207,8 @@ partial model PartialDataCenter
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed cooTowSpeCon(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Ti=40,
-    k=5,
-    yMin=0)
+    yMin=0,
+    Ti=60)
     "Cooling tower speed control"
     annotation (Placement(transformation(extent={{-50,170},{-30,186}})));
   Modelica.Blocks.Sources.RealExpression TCWSupSet(

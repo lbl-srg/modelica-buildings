@@ -3,11 +3,11 @@ model IntegratedPrimaryLoadSideEconomizer
   "Example that demonstrates a chiller plant with integrated primary load side economizer"
   extends Modelica.Icons.Example;
   extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PostProcess(
-    freCoo(y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
+    freCooSig(y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
            then 1 else 0),
-    parMecCoo(y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.PartialMechanical)
+    parMecCooSig(y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.PartialMechanical)
            then 1 else 0),
-    fulMecCoo(y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
+    fulMecCooSig(y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
            then 1 else 0),
     PHVAC(y=cooTow[1].PFan + cooTow[2].PFan + pumCW[1].P + pumCW[2].P + sum(
           chiWSE.powChi + chiWSE.powPum) + ahu.PFan + ahu.PHea),
@@ -19,7 +19,6 @@ model IntegratedPrimaryLoadSideEconomizer
       perPum=perPumPri,
       tauPump=1,
       use_controller=false,
-      use_inputFilter=true,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       riseTimePump=30),
       pumCW(each use_inputFilter=false,
@@ -29,7 +28,7 @@ model IntegratedPrimaryLoadSideEconomizer
       use_inputFilterValve=true,
       use_inputFilterFan=true),
     weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
-    cooTowSpeCon(k=1, Ti=120));
+    cooTowSpeCon(k=1, Ti=60));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumPri(
     each pressure=
