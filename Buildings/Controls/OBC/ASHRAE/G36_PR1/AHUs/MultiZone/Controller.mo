@@ -7,13 +7,15 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Upper limit of controller signal when heating coil is off. Require -1 < uHeaMax < uCooMin < 1.";
   parameter Real uCooMin(max=0.9)=0.25
     "Lower limit of controller signal when cooling coil is off. Require -1 < uHeaMax < uCooMin < 1.";
-
   parameter Integer numZon(min=2) "Total number of served zones/VAV boxes"
     annotation (Dialog(group="System and building parameters"));
   parameter Modelica.SIunits.Area zonAre[numZon] "Area of each zone"
     annotation (Dialog(group="System and building parameters"));
-  parameter Boolean have_occSen[numZon]
+  parameter Boolean have_occSen=false
     "Set to true if zones have occupancy sensor"
+    annotation (Dialog(group="System and building parameters"));
+  parameter Boolean have_winSen=false
+    "Set to true if zones have window status sensor"
     annotation (Dialog(group="System and building parameters"));
   parameter Boolean have_perZonRehBox=true
     "Check if there is any VAV-reheat boxes on perimeter zones"
@@ -100,7 +102,6 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     displayUnit="Pa") = 410
     "Duct design maximum static pressure"
     annotation (Evaluate=true,Dialog(tab="Fan speed"));
-
   parameter Modelica.SIunits.PressureDifference iniSetFanSpe(displayUnit="Pa")=60
     "Initial pressure setpoint for fan speed control"
     annotation (Evaluate=true,
@@ -281,7 +282,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     min=0)
     "Primary airflow rate to the ventilation zone from the air handler, including outdoor air and recirculated air"
     annotation (Placement(transformation(extent={{-180,130},{-160,150}}),
-      iconTransformation(extent={{-220,-60},{-200,-40}})));
+      iconTransformation(extent={{-220,-80},{-200,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
@@ -293,7 +294,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     displayUnit="Pa")
     "Measured duct static pressure"
     annotation (Placement(transformation(extent={{-180,112},{-160,132}}),
-      iconTransformation(extent={{-220,-30},{-200,-10}})));
+      iconTransformation(extent={{-220,-50},{-200,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     final quantity="ThermodynamicTemperature")
@@ -334,11 +335,11 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final quantity="VolumeFlowRate")
     "Measured outdoor volumetric airflow rate"
     annotation (Placement(transformation(extent={{-180,-26},{-160,-6}}),
-      iconTransformation(extent={{-220,-10},{-200,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc[numZon]
+      iconTransformation(extent={{-220,-30},{-200,-10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc[numZon] if have_occSen
     "Number of occupants"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}}),
-      iconTransformation(extent={{-220,10},{-200,30}})));
+      iconTransformation(extent={{-220,-10},{-200,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[numZon](
     each final unit="K",
     each final quantity="ThermodynamicTemperature")
@@ -377,6 +378,10 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}}),
       iconTransformation(extent={{-220,-140},{-200,-120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin[numZon] if have_winSen
+    "Window status, true if open, false if closed"
+    annotation (Placement(transformation(extent={{-182,178},{-160,200}}),
+      iconTransformation(extent={{-220,10},{-200,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetSup(
     final unit="K",
     final quantity="ThermodynamicTemperature")
@@ -438,7 +443,8 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final desZonPop=desZonPop,
     final uLow=uLow,
     final uHig=uHig,
-    final peaSysPop=peaSysPop)
+    final peaSysPop=peaSysPop,
+    have_winSen=have_winSen)
     "Controller for minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyFan
@@ -512,11 +518,6 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "AHU coil valve control"
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
 
-protected
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant winOpe[numZon](
-    each final k=false)
-    "Window opening signal"
-    annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
 
 equation
   connect(conEco.yRetDamPos, yRetDamPos)
@@ -594,9 +595,6 @@ equation
   connect(conSupFan.ySupFan, outAirSetPoi.uSupFan)
     annotation (Line(points={{21,137},{50,137},{50,100},{-88,100},{-88,66},{-1,66}},
       color={255,0,255}));
-  connect(winOpe.y, outAirSetPoi.uWin)
-    annotation (Line(points={{-99,190},{-84,190},{-84,68},{-1,68}},
-      color={255,0,255}));
   connect(conTSetSup.TSetZones, TZonSetAve.y)
     annotation (Line(points={{79,-42},{54,-42},{54,220.2},{21,220.2}},
       color={0,0,127}));
@@ -638,6 +636,9 @@ equation
   connect(AHUValve.yCoo, yCoo)
     annotation (Line(points={{101,-114},{140,-114},{140,-160},{190,-160}},
       color={0,0,127}));
+  connect(outAirSetPoi.uWin, uWin)
+    annotation (Line(points={{-1,68},{-84,68},{-84,189},{-171,189}},
+      color={255,0,255}));
 
 annotation (
     defaultComponentName="conAHU",
