@@ -388,7 +388,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final max=1,
     final unit="1")
     "Control signal for heating"
-    annotation (Placement(transformation(extent={{180,-130},{200,-110}}),
+    annotation (Placement(transformation(extent={{180,-120},{200,-100}}),
       iconTransformation(extent={{200,-140},{220,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo(
     final min=0,
@@ -417,7 +417,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan
     "Supply fan status, true if fan should be on"
     annotation (Placement(transformation(extent={{180,170},{200,190}}),
-        iconTransformation(extent={{200,170},{220,190}})));
+      iconTransformation(extent={{200,170},{220,190}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Average TZonSetAve
     "Average of all zone set points"
@@ -500,8 +500,17 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final uRetDamMin=(uHeaMax + uCooMin)/2,
     final TFreSet=TFreSet,
     final kPFre=kPFre,
-    final delta=delta)       "Economizer controller"
+    final delta=delta)
+    "Economizer controller"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Valve AHUValve(
+    final uHeaMax=uHeaMax,
+    final uCooMin=uCooMin,
+    final controllerType=controllerType,
+    final kPTSup=kPTSup,
+    final TiTSup=TiTSup)
+    "AHU coil valve control"
+    annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant winOpe[numZon](
@@ -547,19 +556,19 @@ equation
     annotation (Line(points={{79.375,1.25},{-40,1.25},{-40,-140},{-170,-140}},
       color={255,127,0}));
   connect(conTSetSup.TSetSup, TSetSup)
-    annotation (Line(points={{101,-44},{190,-44}},
+    annotation (Line(points={{101,-50},{160,-50},{160,-44},{190,-44}},
       color={0,0,127}));
   connect(conTSetSup.TOut, TOut)
-    annotation (Line(points={{79,-45},{-20,-45},{-20,166},{-170,166}},
+    annotation (Line(points={{79,-46},{-20,-46},{-20,166},{-170,166}},
       color={0,0,127}));
   connect(conTSetSup.uSupFan, conSupFan.ySupFan)
-    annotation (Line(points={{79,-52},{50,-52},{50,137},{21,137}},
+    annotation (Line(points={{79,-50},{50,-50},{50,137},{21,137}},
       color={255,0,255}));
   connect(conTSetSup.uZonTemResReq, uZonTemResReq)
-    annotation (Line(points={{79,-55},{50,-55},{50,-160},{-170,-160}},
+    annotation (Line(points={{79,-54},{0,-54},{0,-160},{-170,-160}},
       color={255,127,0}));
   connect(conTSetSup.uOpeMod, uOpeMod)
-    annotation (Line(points={{79,-58},{54,-58},{54,-100},{-170,-100}},
+    annotation (Line(points={{79,-58},{4,-58},{4,-100},{-170,-100}},
       color={255,127,0}));
   connect(conSupFan.uOpeMod, uOpeMod)
     annotation (Line(points={{-2,138},{-140,138},{-140,-100},{-170,-100}},
@@ -612,17 +621,22 @@ equation
   connect(conEco.TMix, TMix)
     annotation (Line(points={{79.375,8.125},{-46,8.125},{-46,-70},{-170,-70}},
       color={0,0,127}));
-  connect(TSup, conTSetSup.TSup)
-    annotation (Line(points={{-170,-48},{79,-48}}, color={0,0,127}));
-  connect(conTSetSup.uTSup, conEco.uTSup)
-    annotation (Line(points={{101,-48},{120,-48},{120,-20},{58,-20},{58,13.125},
-          {79.375,13.125}},
-                        color={0,0,127}));
-  connect(conTSetSup.yHea, yHea)
-    annotation (Line(points={{101,-52},{160,-52},{160,-120},{190,-120}},
+  connect(conTSetSup.TSetSup, AHUValve.TSetSup)
+    annotation (Line(points={{101,-50},{120,-50},{120,-80},{52,-80},{52,-105},
+      {79,-105}}, color={0,0,127}));
+  connect(TSup, AHUValve.TSup)
+    annotation (Line(points={{-170,-48},{-120,-48},{-120,-110},{79,-110}},
       color={0,0,127}));
-  connect(conTSetSup.yCoo, yCoo)
-    annotation (Line(points={{101,-56},{140,-56},{140,-160},{190,-160}},
+  connect(conSupFan.ySupFan, AHUValve.uSupFan)
+    annotation (Line(points={{21,137},{50,137},{50,-115},{79,-115}},
+      color={255,0,255}));
+  connect(AHUValve.uTSup, conEco.uTSup)
+    annotation (Line(points={{101,-106},{140,-106},{140,-20},{60,-20},{60,13.125},
+      {79.375,13.125}}, color={0,0,127}));
+  connect(AHUValve.yHea, yHea)
+    annotation (Line(points={{101,-110},{190,-110}}, color={0,0,127}));
+  connect(AHUValve.yCoo, yCoo)
+    annotation (Line(points={{101,-114},{140,-114},{140,-160},{190,-160}},
       color={0,0,127}));
 
 annotation (
@@ -645,7 +659,7 @@ temperature setpoint and the valve position of the cooling and heating coils.
 It is implemented according to the ASHRAE Guideline 36, PART5.N.
 </p>
 <p>
-The sequence consists of four subsequences.
+The sequence consists of five subsequences.
 </p>
 <h4>a. Supply fan speed control</h4>
 <p>
@@ -679,17 +693,24 @@ loop signal, which is calculated from the sequence below. See
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller</a>
 for more detailed description.
 </p>
-<h4>d. Supply air temperature control</h4>
+<h4>d. Supply air temperature setpoint</h4>
 <p>
 Based on PART5.N.2, the sequence firstly set the maximum supply air temperature 
 based on reset requests collected from each zone <code>uZonTemResReq</code>. The 
 outdoor temperature <code>TOut</code>, operation mode <code>uOpeMod</code> are used
 along with the maximum supply air temperature, for setting supply air temperature 
-setpoint. It then outputs cooling and heating coil valve position <code>yCoo</code>,
-<code>yHea</code>. See
+setpoint. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature</a>
 for more detailed description.
+</p>
+<h4>e. Coil valve control</h4>
+<p>
+The subsequence retrieves supply air temperature setpoint from previous sequence. 
+Along with the measured supply air temperature and the supply fan status, it
+generates coil valve positions. See
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Valve\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Valve</a> 
 </p>
 </html>",
 revisions="<html>

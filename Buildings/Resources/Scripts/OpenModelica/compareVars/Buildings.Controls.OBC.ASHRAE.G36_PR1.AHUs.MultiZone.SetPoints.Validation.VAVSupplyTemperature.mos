@@ -5,10 +5,5 @@ compareVars :=
     "conTSetSup.uOpeMod",
     "conTSetSup.maxSupTemRes.y",
     "conTSetSup.TOut",
-    "conTSetSup.TSetSup",
-    "conTSetSup.TSup",
-    "conTSetSup.TSetSup",
-    "conTSetSup.uTSup",
-    "conTSetSup.yHea",
-    "conTSetSup.yCoo"
+    "conTSetSup.TSetSup"
   };

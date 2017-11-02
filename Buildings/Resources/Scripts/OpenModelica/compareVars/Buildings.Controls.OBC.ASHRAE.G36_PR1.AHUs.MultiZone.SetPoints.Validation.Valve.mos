@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "AHUValve.TSup",
+    "AHUValve.TSetSup",
+    "AHUValve.uTSup",
+    "AHUValve.yHea",
+    "AHUValve.yCoo",
+    "AHUValve1.TSup",
+    "AHUValve.TSetSup",
+    "AHUValve1.uTSup",
+    "AHUValve1.yHea",
+    "AHUValve.yCoo"
+  };
