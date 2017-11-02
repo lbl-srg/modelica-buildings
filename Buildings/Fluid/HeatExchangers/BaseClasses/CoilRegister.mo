@@ -10,12 +10,12 @@ model CoilRegister "Register for a heat exchanger"
       Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
       annotation (choicesAllMatching = true);
 
-  constant Boolean initialize_p1 = not Medium1.singleState
+  parameter Boolean initialize_p1 = not Medium1.singleState
     "Set to true to initialize the pressure of volume 1"
-    annotation(HideResult=true);
-  constant Boolean initialize_p2 = not Medium2.singleState
+    annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
+  parameter Boolean initialize_p2 = not Medium2.singleState
     "Set to true to initialize the pressure of volume 2"
-    annotation(HideResult=true);
+    annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
 
   parameter Integer nPipPar(min=1)=2
     "Number of parallel pipes in each register";
@@ -182,6 +182,12 @@ between the fluid volumes and the solid in each heat exchanger element.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 19, 2017, by Michael Wetter:<br/>
+Changed initialization of pressure from a <code>constant</code> to a <code>parameter</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1013\">Buildings, issue 1013</a>.
+</li>
 <li>
 February 5, 2015, by Michael Wetter:<br/>
 Changed <code>initalize_p</code> from a <code>parameter</code> to a
