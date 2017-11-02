@@ -1,8 +1,10 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers;
 model Controller "Single zone VAV AHU economizer control sequence"
 
-  parameter Boolean use_enthalpy = true
+  parameter Boolean use_enthalpy = false
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
+  parameter Boolean use_TMix=false
+    "Set to true if mixed air temperature measurement is enabled";
   parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
     "Delta between the temperature hysteresis high and low limit"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
@@ -114,6 +116,13 @@ model Controller "Single zone VAV AHU economizer control sequence"
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature") if use_TMix
+    "Measured mixed air temperature, used for freeze protection"
+    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}}), iconTransformation(extent
+          ={{-180,-40},{-160,-20}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow(
     final min=VOutMin_flow,
     final max=VOutDes_flow,
@@ -289,6 +298,13 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.M
 for a description.
 </li>
 </ul>
+<p>
+The figure below shows the block diagram of the control sequence.
+</p>
+<p align=\"center\">
+<img alt=\"Image of the multi zone AHU modulation sequence control diagram\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconCompositeSingleZone.png\"/>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

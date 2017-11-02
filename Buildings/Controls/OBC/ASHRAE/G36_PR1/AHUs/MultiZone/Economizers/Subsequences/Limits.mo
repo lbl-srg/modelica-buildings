@@ -155,20 +155,19 @@ protected
     "A switch to deactivate the outdoor air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd and1(final nu=3) "Locigal and block"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not block"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    k=Constants.FreezeProtectionStages.stage0)
-    "Freeze protection stage 0 index"
-    annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not block"
+    annotation (Placement(transformation(extent={{-8,-100},{12,-80}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=Constants.FreezeProtectionStages.stage1)
+    "Freeze protection stage 1"
+    annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
     k=Constants.OperationModes.occupied)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-160,-210},{-140,-190}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu "Check if freeze protection stage is stage 0"
+  CDL.Integers.LessEqual intLesEqu "Check if freeze protection stage is stage 0"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
 
 equation
@@ -213,36 +212,34 @@ equation
   connect(outDamPhyPosMinSig.y,minOutDam. f1)
     annotation (Line(points={{-139,80},{0,80},{0,154},{118,154}},color={0,0,127}));
   connect(and1.y,not1. u)
-    annotation (Line(points={{-58.3,-90},{-42,-90}}, color={255,0,255}));
+    annotation (Line(points={{-18.3,-90},{-10,-90}}, color={255,0,255}));
   connect(not1.y, retDamPosMinSwitch.u2)
-    annotation (Line(points={{-19,-90},{20,-90},{20,-20},{38,-20}},color={255,0,255}));
+    annotation (Line(points={{13,-90},{20,-90},{20,-20},{38,-20}}, color={255,0,255}));
   connect(not1.y, outDamPosMaxSwitch.u2)
-    annotation (Line(points={{-19,-90},{-19,-90},{20,-90},{20,20},{38,20}},color={255,0,255}));
+    annotation (Line(points={{13,-90},{20,-90},{20,20},{38,20}},           color={255,0,255}));
   connect(retDamPosMinSwitch.y, yRetDamPosMin)
     annotation (Line(points={{61,-20},{126,-20},{126,0},{190,0}},color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, yRetDamPhyPosMax)
     annotation (Line(points={{-139,-40},{40,-40},{40,-80},{190,-80}},color={0,0,127}));
   connect(and1.u[1], uSupFan)
-    annotation (Line(points={{-82,-85.3333},{-160,-85.3333},{-160,-100},{-200,
-          -100}},
+    annotation (Line(points={{-42,-85.3333},{-160,-85.3333},{-160,-100},{-200,-100}},
       color={255,0,255}));
-  connect(uFreProSta, intEqu.u2)
-    annotation (Line(points={{-200,-140},{-140,-140},{-140,-148},{-122,-148}},
-      color={255,127,0}));
-  connect(conInt.y, intEqu.u1)
-    annotation (Line(points={{-139,-120},{-130,-120},{-130,-140},{-122,-140}},
-      color={255,127,0}));
-  connect(uOpeMod, intEqu1.u1)
+  connect(uOpeMod, intEqu.u1)
     annotation (Line(points={{-200,-180},{-122,-180}}, color={255,127,0}));
-  connect(conInt1.y, intEqu1.u2)
+  connect(conInt1.y, intEqu.u2)
     annotation (Line(points={{-139,-200},{-130,-200},{-130,-188},{-122,-188}},
       color={255,127,0}));
-  connect(intEqu.y, and1.u[2])
-    annotation (Line(points={{-99,-140},{-94,-140},{-94,-90},{-82,-90}}, color={255,0,255}));
-  connect(intEqu1.y, and1.u[3])
-    annotation (Line(points={{-99,-180},{-90,-180},{-90,-94.6667},{-82,-94.6667}},
+  connect(intLesEqu.y, and1.u[2])
+    annotation (Line(points={{-99,-140},{-94,-140},{-94,-90},{-42,-90}}, color={255,0,255}));
+  connect(intEqu.y, and1.u[3])
+    annotation (Line(points={{-99,-180},{-48,-180},{-48,-178},{-48,-94.6667},{-42,-94.6667},{-42,
+          -94.6667}},
       color={255,0,255}));
 
+  connect(conInt.y, intLesEqu.u2)
+    annotation (Line(points={{-139,-160},{-130,-160},{-130,-148},{-122,-148}}, color={255,127,0}));
+  connect(uFreProSta, intLesEqu.u1)
+    annotation (Line(points={{-200,-140},{-122,-140}}, color={255,127,0}));
 annotation (
     defaultComponentName = "damLim",
     Icon(graphics={

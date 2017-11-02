@@ -28,8 +28,8 @@ block Enable
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{-220,250},{-180,290}}),
-      iconTransformation(extent={{-120,90},{-100,110}})));
+    annotation (Placement(transformation(extent={{-220,250},{-180,290}}), iconTransformation(extent
+          ={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
@@ -234,11 +234,11 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-2,60},{78,60}},
+          points={{0,60},{80,60}},
           color={0,0,127},
           thickness=0.5),
         Line(
-          points={{-78,-64},{-2,-64},{-2,60}},
+          points={{-76,-60},{0,-60},{0,60}},
           color={0,0,127},
           thickness=0.5),
         Text(

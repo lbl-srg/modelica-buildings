@@ -72,8 +72,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus3(
     final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta3(
-    final k=Constants.FreezeProtectionStages.stage2)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta3(final k=Constants.FreezeProtectionStages.stage2)
     "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant operationMode3(
