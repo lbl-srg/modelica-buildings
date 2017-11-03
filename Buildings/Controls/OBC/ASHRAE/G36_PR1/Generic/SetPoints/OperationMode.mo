@@ -356,7 +356,7 @@ protected
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or3
     "Whether or not it is in \"Occupied\"/\"Cool-down\"/\"Warm-up\" mode"
-    annotation (Placement(transformation(extent={{80,22},{100,42}})));
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Buildings.Controls.OBC.CDL.Logical.Or or4
     "Whether or not the number of \"hot\" zone is more than 5 or all
     zones are cold"
@@ -493,13 +493,13 @@ equation
     annotation (Line(points={{221,230},{252,230},{252,-2},{258,-2}},
       color={0,0,127}, pattern=LinePattern.Dash));
   connect(or3.y, swi3.u2)
-    annotation (Line(points={{101,32},{240,32},{240,-10},{258,-10}},
+    annotation (Line(points={{101,30},{240,30},{240,-10},{258,-10}},
       color={255,0,255}));
   connect(lat1.y, booToRea4.u)
     annotation (Line(points={{161,-110},{198,-110}}, color={255,0,255}));
   connect(or3.y, swi4.u2)
-    annotation (Line(points={{101,32},{112,32},{112,-80},{240,-80},{240,-110},
-      {258,-110}},  color={255,0,255}));
+    annotation (Line(points={{101,30},{112,30},{112,-80},{240,-80},{240,-110},{258,-110}},
+                    color={255,0,255}));
   connect(unoPerInd.y, swi4.u1)
     annotation (Line(points={{221,230},{252,230},{252,-102},{258,-102}},
       color={0,0,127}, pattern=LinePattern.Dash));
@@ -524,8 +524,8 @@ equation
     annotation (Line(points={{161,-210},{198,-210}},
       color={255,0,255}));
   connect(or3.y, swi5.u2)
-    annotation (Line(points={{101,32},{112,32},{112,-190},{244,-190},{244,-210},
-      {258,-210}},  color={255,0,255}));
+    annotation (Line(points={{101,30},{112,30},{112,-190},{244,-190},{244,-210},{258,-210}},
+                    color={255,0,255}));
   connect(unoPerInd.y, swi5.u1)
     annotation (Line(points={{221,230},{252,230},{252,-202},{258,-202}},
       color={0,0,127},  pattern=LinePattern.Dash));
@@ -550,7 +550,7 @@ equation
     annotation (Line(points={{161,-310},{180,-310},{180,-330},{198,-330}},
       color={255,0,255}));
   connect(or3.y, or6.u2)
-    annotation (Line(points={{101,32},{112,32},{112,-338},{198,-338}},
+    annotation (Line(points={{101,30},{112,30},{112,-338},{198,-338}},
       color={255,0,255}));
   connect(or6.y, not2.u)
     annotation (Line(points={{221,-330},{258,-330}},
@@ -569,16 +569,16 @@ equation
   connect(and1.y, booToInt1.u)
     annotation (Line(points={{221,150},{258,150}}, color={255,0,255}));
   connect(and2.y, or3.u2)
-    annotation (Line(points={{221,190},{236,190},{236,64},{64,64},{64,32},{78,32}},
+    annotation (Line(points={{221,190},{236,190},{236,64},{64,64},{64,30},{78,30}},
       color={255,0,255}));
   connect(and1.y, or3.u1)
-    annotation (Line(points={{221,150},{240,150},{240,60},{70,60},{70,40},{78,40}},
+    annotation (Line(points={{221,150},{240,150},{240,60},{70,60},{70,38},{78,38}},
       color={255,0,255}));
   connect(uOcc, swi.u2)
     annotation (Line(points={{-280,300},{28,300},{28,250},{258,250}},
       color={255,0,255}));
   connect(uOcc, or3.u3)
-    annotation (Line(points={{-280,300},{28,300},{28,24},{78,24}},
+    annotation (Line(points={{-280,300},{28,300},{28,22},{78,22}},
       color={255,0,255}));
   connect(add2.y, hys.u)
     annotation (Line(points={{101,-70},{108,-70},{108,-50},{138,-50}},
