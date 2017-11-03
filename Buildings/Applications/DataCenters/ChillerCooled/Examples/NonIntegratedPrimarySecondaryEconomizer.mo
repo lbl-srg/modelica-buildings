@@ -2,7 +2,17 @@ within Buildings.Applications.DataCenters.ChillerCooled.Examples;
 model NonIntegratedPrimarySecondaryEconomizer
   "Example that demonstrates a chiller plant with non-integrated primary-secondary side economizer"
   extends Modelica.Icons.Example;
-
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PostProcess(
+    freCooSig(y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
+           then 1 else 0),
+    parMecCooSig(y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.PartialMechanical)
+           then 1 else 0),
+    fulMecCooSig(y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
+           then 1 else 0),
+    PHVAC(y=cooTow[1].PFan + cooTow[2].PFan + pumCW[1].P + pumCW[2].P + sum(
+          chiWSE.powChi) + sum(priPum.P) + sum(secPum.P) + ahu.PFan + ahu.PHea),
+    PIT(y=roo.QSou.Q_flow));
   extends
     Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.NonIntegrated chiWSE(
@@ -12,9 +22,9 @@ model NonIntegratedPrimarySecondaryEconomizer
       use_controller=false),
     ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial, dp1_nominal=
           60000),
-    pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+        use_inputFilter=false),
     dpSet(k=80000),
-    pumSpe(k=1),
     chiStaCon(dT=0.5,
       tWai=0,
       criPoiTem=553.86),
@@ -184,8 +194,10 @@ equation
                                            color={255,127,0}));
   connect(cooModCon.y, intToBoo.u) annotation (Line(points={{-117,110},{-52,110},
           {-52,110}}, color={255,127,0}));
-  annotation (        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-200},
-            {300,220}})),
+  connect(cooModCon.y, sigCha.u) annotation (Line(points={{-117,110},{-100,110},
+          {-100,204},{-240,204},{-240,160},{-256,160}}, color={255,127,0}));
+  annotation (        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-420,
+            -200},{300,220}})),
     __Dymola_Commands(file=
       "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Examples/NonIntegratedPrimarySecondaryEconomizer.mos"
       "Simulate and plot"),
