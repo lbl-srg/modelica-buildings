@@ -7,7 +7,7 @@ model MixingVolumeHeatPortAir
   annotation (Documentation(info="<html>
 <p>
 Model that validates that the initial conditions are uniquely set
-and not overdetermined.
+and not overdetermined for water.
 </p>
 </html>", revisions="<html>
 <ul>
