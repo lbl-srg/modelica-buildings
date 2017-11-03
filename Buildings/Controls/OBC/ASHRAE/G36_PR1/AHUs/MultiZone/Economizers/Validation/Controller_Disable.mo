@@ -4,27 +4,38 @@ model Controller_Disable
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller economizer(
-    use_enthalpy=true,
-    retDamPhyPosMax=1,
-    retDamPhyPosMin=0,
-    outDamPhyPosMax=1,
-    outDamPhyPosMin=0,
-    use_TMix=true,
-    TiMinOut=30,
-    use_G36FrePro=true)
-                       "Multi zone VAV AHU economizer "
+    final use_enthalpy=true,
+    final retDamPhyPosMax=1,
+    final retDamPhyPosMin=0,
+    final outDamPhyPosMax=1,
+    final outDamPhyPosMin=0,
+    final use_TMix=false,
+    final TiMinOut=30,
+    final use_G36FrePro=true)
+    "Multi zone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller economizer1(
-    use_enthalpy=true,
-    retDamPhyPosMax=1,
-    retDamPhyPosMin=0,
-    outDamPhyPosMax=1,
-    outDamPhyPosMin=0,
-    use_TMix=true,
-    TiMinOut=30,
-    use_G36FrePro=true)
-                       "Multi zone VAV AHU economizer"
+    final use_enthalpy=true,
+    final retDamPhyPosMax=1,
+    final retDamPhyPosMin=0,
+    final outDamPhyPosMax=1,
+    final outDamPhyPosMin=0,
+    final use_TMix=false,
+    final TiMinOut=30,
+    final use_G36FrePro=true)
+    "Multi zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller economizer2(
+    final use_enthalpy=true,
+    final retDamPhyPosMax=1,
+    final retDamPhyPosMin=0,
+    final outDamPhyPosMax=1,
+    final outDamPhyPosMin=0,
+    final use_TMix=true,
+    final TiMinOut=30,
+    final use_G36FrePro=false)
+    "Multi zone VAV AHU economizer with TMix freeze protection"
+    annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
 
 protected
   final parameter Modelica.SIunits.Temperature TOutCutoff=297.15
@@ -61,6 +72,7 @@ protected
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
     final k=TOutCutoff)
+    "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   CDL.Continuous.Sources.Constant TMixMea(final k=303.15)
     "Measured mixed air temperature above cutoff"
@@ -164,10 +176,10 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}}),
+        coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{220,160}}),
         graphics={
         Text(
-          extent={{0,146},{84,118}},
+          extent={{20,146},{104,118}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
@@ -175,7 +187,15 @@ equation
 enable minimal
 outdoor air control"),
         Text(
-          extent={{80,146},{164,118}},
+          extent={{100,32},{184,4}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=9,
+          textString="Disable modulation
+and minimal outdoor air control
+(freeze protection is at stage2)"),
+        Text(
+          extent={{160,-10},{218,-38}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,

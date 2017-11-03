@@ -147,7 +147,8 @@ model Controller "Single zone VAV AHU economizer control sequence"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta "Zone state signal"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}}),
         iconTransformation(extent={{-120,-110},{-100,-90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta "Freeze protection status"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if use_G36FrePro
+    "Freeze protection status"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}}),
       iconTransformation(extent={{-120,-130},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod "AHU operation mode status signal"
@@ -186,8 +187,8 @@ model Controller "Single zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   CDL.Integers.Sources.Constant freProSta(
     final k=Constants.FreezeProtectionStages.stage0) if not use_G36FrePro
-    "Freeze protection status is 0. Use if G36 freeze protection is not implemented"
-    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
+    "Freeze protection status is 0. Used if G36 freeze protection is not implemented"
+    annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.FreProTMix
     freProTMix if use_TMix
     "Block that tracks TMix against a freeze protection setpoint"
@@ -240,7 +241,7 @@ equation
   connect(uOpeMod, damLim.uOpeMod)
     annotation (Line(points={{-130,-80},{-102,-80},{-102,4},{-102,5},{-81,5}}, color={255,127,0}));
   connect(uFreProSta, damLim.uFreProSta)
-    annotation (Line(points={{-130,-120},{-100,-120},{-100,2},{-81,2}},color={255,127,0}));
+    annotation (Line(points={{-130,-120},{-90,-120},{-90,2},{-81,2}},  color={255,127,0}));
   connect(damLim.yOutDamPosMax, enaDis.uOutDamPosMax)
     annotation (Line(points={{-59,6},{-28,6},{-28,-34},{-1,-34}}, color={0,0,127}));
   connect(damLim.yOutDamPosMin, enaDis.uOutDamPosMin)
@@ -282,6 +283,10 @@ equation
   connect(TMix, freProTMix.TMix)
     annotation (Line(points={{-130,-20},{-90,-20},{-90,-60},{60,-60},{60,-10},{79,-10}},
     color={0,0,127}));
+  connect(freProSta.y, enaDis.uFreProSta)
+    annotation (Line(points={{-99,-150},{-40,-150},{-40,-28},{-1,-28}}, color={255,127,0}));
+  connect(freProSta.y, damLim.uFreProSta)
+    annotation (Line(points={{-99,-150},{-94,-150},{-94,2},{-81,2}}, color={255,127,0}));
   annotation (defaultComponentName = "conEco",
         Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
@@ -303,7 +308,7 @@ equation
           extent={{-170,142},{158,104}},
           lineColor={0,0,127},
           textString="%name")}),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{160,160}}),
+        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-180},{160,160}}),
         graphics={Rectangle(
           extent={{70,100},{150,-100}},
           lineColor={0,0,127},
