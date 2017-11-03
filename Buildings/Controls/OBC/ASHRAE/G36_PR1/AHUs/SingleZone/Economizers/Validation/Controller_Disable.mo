@@ -90,18 +90,19 @@ protected
 
 equation
   connect(fanSta.y, economizer.uSupFan)
-    annotation (Line(points={{-19,-10},{-10,-10},{-10,6},{19,6}},
+    annotation (Line(points={{-19,-10},{-10,-10},{-10,4},{19,4}},
       color={255,0,255}));
   connect(freProSta.y, economizer.uFreProSta)
-    annotation (Line(points={{-59,-120},{0,-120},{0,0},{19,0}},color={255,127,0}));
+    annotation (Line(points={{-59,-120},{0,-120},{0,-2},{19,-2}},
+                                                               color={255,127,0}));
   connect(TOutBelowCutoff.y, economizer.TOut)
     annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},color={0,0,127}));
   connect(TOutCut1.y, economizer.TOutCut)
-    annotation (Line(points={{-99,70},{-90,70},{-8,70},{-8,20},{19,20}},color={0,0,127}));
+    annotation (Line(points={{-99,70},{-8,70},{-8,20},{19,20}},         color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer.hOut)
-    annotation (Line(points={{-99,20},{-60,20},{-60,18},{-4,18},{19,18}},color={0,0,127}));
+    annotation (Line(points={{-99,20},{-60,20},{-60,18},{19,18}},        color={0,0,127}));
   connect(hOutCut.y, economizer.hOutCut)
-    annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,16},{19,16}},color={0,0,127}));
+    annotation (Line(points={{-99,-20},{-60,-20},{-60,16},{19,16}},        color={0,0,127}));
   connect(TSup.y, economizer.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}},color={0,0,127}));
   connect(TSupSetSig.y, economizer.THeaSupSet)
@@ -119,17 +120,17 @@ equation
   connect(TSupSetSig.y, economizer1.THeaSupSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,68},{72,68},{72,-8},{99,-8}}, color={0,0,127}));
   connect(fanSta.y, economizer1.uSupFan)
-    annotation (Line(points={{-19,-10},{20,-10},{20,-14},{99,-14}}, color={255,0,255}));
+    annotation (Line(points={{-19,-10},{20,-10},{20,-16},{99,-16}}, color={255,0,255}));
   connect(freProSta2.y, economizer1.uFreProSta)
-    annotation (Line(points={{81,-120},{90,-120},{90,-20},{99,-20}}, color={255,127,0}));
+    annotation (Line(points={{81,-120},{90,-120},{90,-22},{99,-22}}, color={255,127,0}));
   connect(zonSta.y, economizer.uZonSta)
-    annotation (Line(points={{-59,-60},{-2,-60},{-2,2},{19,2}}, color={255,127,0}));
+    annotation (Line(points={{-59,-60},{-2,-60},{-2,0},{19,0}}, color={255,127,0}));
   connect(opeMod.y, economizer.uOpeMod)
-    annotation (Line(points={{-59,-90},{-4,-90},{-4,4},{19,4}}, color={255,127,0}));
+    annotation (Line(points={{-59,-90},{-4,-90},{-4,2},{19,2}}, color={255,127,0}));
   connect(opeMod.y, economizer1.uOpeMod)
-    annotation (Line(points={{-59,-90},{20,-90},{20,-16},{99,-16}}, color={255,127,0}));
+    annotation (Line(points={{-59,-90},{20,-90},{20,-18},{99,-18}}, color={255,127,0}));
   connect(zonSta.y, economizer1.uZonSta)
-    annotation (Line(points={{-59,-60},{22,-60},{22,-18},{99,-18}}, color={255,127,0}));
+    annotation (Line(points={{-59,-60},{22,-60},{22,-20},{99,-20}}, color={255,127,0}));
   connect(VOutMinSetSig.y, economizer.VOutMinSet_flow)
     annotation (Line(points={{-19,90},{0,90},{0,10},{19,10}}, color={0,0,127}));
   connect(SupFanSpeSig.y, economizer.uSupFanSpe)

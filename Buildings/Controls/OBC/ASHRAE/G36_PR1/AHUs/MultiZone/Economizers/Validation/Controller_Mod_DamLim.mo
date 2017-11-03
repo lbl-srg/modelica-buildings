@@ -4,11 +4,14 @@ model Controller_Mod_DamLim
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller
-    economizer(use_TMix=true)
+    economizer(use_TMix=true,
+    TiMinOut=1,
+    use_enthalpy=true)
     "Multi zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller
-    economizer1(use_enthalpy=false, use_TMix=true)
+    economizer1(use_enthalpy=false, use_TMix=true,
+    TiMinOut=1)
     "Multi zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
@@ -53,7 +56,7 @@ protected
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   CDL.Continuous.Sources.Constant TMixMea(final k=303.15)
     "Measured mixed air temperature"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant
     VOutMinSet_flow(final k=minVOutSet_flow)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
@@ -116,11 +119,15 @@ equation
     annotation (Line(points={{-59,90},{-50,90},{-50,13.125},{19.375,13.125}}, color={0,0,127}));
   connect(uTSup.y, economizer1.uTSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,-26.875},{99.375,-26.875}},color={0,0,127}));
-  connect(economizer.TMix, TMixMea.y)
-    annotation (Line(points={{19.375,8.125},{-59,8.125},{-59,10}},color={0,0,127}));
   connect(economizer1.TMix, TMixMea.y)
-    annotation (Line(points={{99.375,-31.875},{40,-31.875},{40,-10},{-40,-10},{-40,10},{-59,10}},
+    annotation (Line(points={{99.375,-31.875},{40,-31.875},{40,-10},{-40,-10},{-40,0},{-59,0}},
     color={0,0,127}));
+  connect(hOutCut.y, economizer.hOutCut)
+    annotation (Line(points={{-99,-20},{-40,-20},{-40,15.625},{19.375,15.625}}, color={0,0,127}));
+  connect(hOutBelowCutoff.y, economizer.hOut)
+    annotation (Line(points={{-99,20},{-40,20},{-40,16.875},{19.375,16.875}}, color={0,0,127}));
+  connect(TMixMea.y, economizer.TMix)
+    annotation (Line(points={{-59,0},{-20,0},{-20,8.125},{19.375,8.125}}, color={0,0,127}));
   annotation (
     experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/Economizers/Validation/Controller_Mod_DamLim.mos"
