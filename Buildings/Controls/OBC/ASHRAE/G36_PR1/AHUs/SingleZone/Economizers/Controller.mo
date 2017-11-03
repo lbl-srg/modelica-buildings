@@ -289,13 +289,6 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.M
 for a description.
 </li>
 </ul>
-<p>
-The figure below shows the block diagram of the control sequence.
-</p>
-<p align=\"center\">
-<img alt=\"Image of the multi zone AHU modulation sequence control diagram\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconCompositeSingleZone.png\"/>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

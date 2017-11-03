@@ -1,6 +1,5 @@
 within Buildings.Examples.VAVReheat.Controls;
 block FanVFD "Controller for fan revolution"
-  import Buildings;
   extends Modelica.Blocks.Interfaces.SISO;
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
   Buildings.Controls.Continuous.LimPID con(

@@ -4,9 +4,9 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
 
   // Constants
-  constant Boolean initialize_p = not Medium.singleState
+  parameter Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure"
-    annotation(HideResult=true);
+    annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
 
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
@@ -412,6 +412,12 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2017, by Michael Wetter:<br/>
+Changed initialization of pressure from a <code>constant</code> to a <code>parameter</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1013\">Buildings, issue 1013</a>.
+</li>
 <li>
 January 27, 2017, by Michael Wetter:<br/>
 Added <code>stateSelect</code> for mass <code>m</code>.<br/>
