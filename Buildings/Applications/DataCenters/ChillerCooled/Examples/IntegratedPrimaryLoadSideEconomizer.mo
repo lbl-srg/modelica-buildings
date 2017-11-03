@@ -12,8 +12,7 @@ model IntegratedPrimaryLoadSideEconomizer
     PHVAC(y=cooTow[1].PFan + cooTow[2].PFan + pumCW[1].P + pumCW[2].P + sum(
           chiWSE.powChi + chiWSE.powPum) + ahu.PFan + ahu.PHea),
     PIT(y=roo.QSou.Q_flow));
-  extends
-    Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimaryLoadSide chiWSE(
       addPowerToMedium=false,
       perPum=perPumPri,
@@ -28,7 +27,8 @@ model IntegratedPrimaryLoadSideEconomizer
       use_inputFilterValve=true,
       use_inputFilterFan=true),
     weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
-    cooTowSpeCon(k=1, Ti=60));
+    cooTowSpeCon(k=0.5, Ti=80),
+    pumSpe(k=0.01));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumPri(
     each pressure=
