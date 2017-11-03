@@ -24,11 +24,12 @@ model NonIntegratedPrimarySecondaryEconomizer
           60000),
     pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
         use_inputFilter=false),
-    dpSet(k=80000),
-    chiStaCon(dT=0.5,
-      tWai=0,
-      criPoiTem=553.86),
-    CWPumCon(tWai=0));
+    CWPumCon(tWai=60),
+    pumSpe(k=0.001),
+    cooTowSpeCon(k=0.6, Ti=60),
+    chiStaCon(tWai=60),
+    ahuValSig(k=0.01),
+    weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumSec(
     each pressure=
@@ -46,7 +47,7 @@ model NonIntegratedPrimarySecondaryEconomizer
   Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingModeNonIntegrated cooModCon(
     tWai=tWai,
     deaBan=1,
-    TSwi=273.15 + 6.3)
+    TSwi=TCHWSet - 5)
     "Cooling mode controller"
     annotation (Placement(transformation(extent={{-138,100},{-118,120}})));
 
@@ -84,8 +85,8 @@ model NonIntegratedPrimarySecondaryEconomizer
     priPumCon(tWai=0)
     "Chilled water primary pump controller"
     annotation (Placement(transformation(extent={{-90,22},{-70,42}})));
-  Modelica.Blocks.Sources.RealExpression cooLoaChi(
-    y=ahu.port_a1.m_flow*4180*(TCHWRet.T - TCHWSupSet.y)) "Cooling load in chillers"
+  Modelica.Blocks.Sources.RealExpression cooLoaChi(y=-ahu.port_a1.m_flow*4180*(
+        TCHWRet.T - TCHWSupSet.y))                        "Cooling load in chillers"
     annotation (Placement(transformation(extent={{-140,124},{-120,144}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-200,-160},{-180,-140}})));
@@ -132,8 +133,6 @@ equation
           {58,100}}, color={0,0,127}));
   connect(dpSet.y, pumSpe.u_s)
     annotation (Line(points={{-139,-20},{-128,-20}}, color={0,0,127}));
-  connect(TAirSupSet.y, ahuValSig.u_s)
-    annotation (Line(points={{-59,-90},{-48,-90},{-12,-90}}, color={0,0,127}));
   connect(secPum.port_b, ahu.port_a1)
     annotation (Line(points={{72,-50},{72,-50},{72,-114},{120,-114}},
                                  color={0,127,255},
@@ -147,7 +146,7 @@ equation
     annotation (Line(points={{21,-10},{21,-10},{68,-10},{68,-28}},
           color={0,0,127}));
   connect(cooLoaChi.y, chiStaCon.QTot)
-    annotation (Line(points={{-119,134},{-92,134},{-92,138},{-52,138},{-52,140}},
+    annotation (Line(points={{-119,134},{-92,134},{-92,140},{-52,140}},
                            color={0,0,127}));
   connect(TCHWSup.T, cooModCon.TCHWSup)
     annotation (Line(points={{94,11},{94,18},{-62,18},{-62,92},{-150,92},{-150,

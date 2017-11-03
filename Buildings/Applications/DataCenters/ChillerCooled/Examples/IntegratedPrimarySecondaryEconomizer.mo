@@ -26,7 +26,9 @@ model IntegratedPrimarySecondaryEconomizer
     ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
     pumSpe(k=0.001),
-    cooTowSpeCon(k=0.5, Ti=80));
+    cooTowSpeCon(k=0.1, Ti=80),
+    ahuFanSpeCon(Ti=240, k=0.05),
+    ahuValSig(k=0.01));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumSec(
     each pressure=
@@ -69,7 +71,8 @@ model IntegratedPrimarySecondaryEconomizer
     per=perPumSec,
     addPowerToMedium=false,
     m_flow_nominal=m2_flow_chi_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    riseTimeValve=120)
     "Secondary pumps"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
