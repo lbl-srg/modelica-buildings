@@ -167,7 +167,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and checks supply fan status"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and which checks supply fan status"
-    annotation (Placement(transformation(extent={{20,-42},{40,-22}})));
+    annotation (Placement(transformation(extent={{20,-36},{40,-16}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Logical block to check if the freeze protection is deactivated"
@@ -245,13 +245,13 @@ equation
   connect(uSupFan, and1.u2)
     annotation (Line(points={{-300,100},{-152,100},{-152,102},{-2,102}},color={255,0,255}));
   connect(outDamSwitch.u2, and3.y)
-    annotation (Line(points={{60,-50},{50,-50},{50,-32},{41,-32}},    color={255,0,255}));
+    annotation (Line(points={{60,-50},{50,-50},{50,-26},{41,-26}},    color={255,0,255}));
   connect(not2.y, and3.u1)
-    annotation (Line(points={{-59,-30},{-50,-30},{-50,-4},{8,-4},{8,-32},{18,-32}},       color={255,0,255}));
+    annotation (Line(points={{-59,-30},{-50,-30},{-50,-4},{8,-4},{8,-26},{18,-26}},       color={255,0,255}));
 
   connect(and2.u1, not2.y) annotation (Line(points={{138,-70},{106,-70},{106,-4},{-50,-4},{-50,-30},
           {-59,-30}},                  color={255,0,255}));
-  connect(and3.u2, delOutDamOsc.y) annotation (Line(points={{18,-40},{0,-40},{0,-30},{-19,-30}},
+  connect(and3.u2, delOutDamOsc.y) annotation (Line(points={{18,-34},{0,-34},{0,-30},{-19,-30}},
                                   color={255,0,255}));
   connect(delOutDamOsc.u, not2.y) annotation (Line(points={{-42,-30},{-46,-30},{-46,-30},{-50,-30},
           {-50,-30},{-59,-30}},                  color={255,0,255}));
