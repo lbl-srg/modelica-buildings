@@ -94,7 +94,7 @@ equation
           pattern=LinePattern.Dot,
           fillColor={229,229,229},
           fillPattern=FillPattern.Solid,
-          fontSize=14,
+          fontSize=10,
           textString="Economizing Hours",
           textStyle={TextStyle.Bold,TextStyle.Italic}),
         Text(
@@ -103,7 +103,7 @@ equation
           pattern=LinePattern.Dot,
           fillColor={229,229,229},
           fillPattern=FillPattern.Solid,
-          fontSize=14,
+          fontSize=10,
           textString="Energy Consumption",
           textStyle={TextStyle.Bold,TextStyle.Italic}),
         Text(
@@ -112,7 +112,7 @@ equation
           pattern=LinePattern.Dot,
           fillColor={229,229,229},
           fillPattern=FillPattern.Solid,
-          fontSize=14,
+          fontSize=10,
           textString="Switch Times",
           textStyle={TextStyle.Bold,TextStyle.Italic})}));
 end PostProcess;
