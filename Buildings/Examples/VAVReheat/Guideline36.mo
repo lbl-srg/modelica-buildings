@@ -84,6 +84,10 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yOutDam(k=1)
     "Outdoor air damper control signal"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages.stage0)
+    "Constant freeze protection stage"
+    annotation (Placement(transformation(extent={{200,340},{220,360}})));
 
 equation
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
@@ -91,7 +95,6 @@ equation
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dot));
-
   connect(conVAVCor.TRoo, TRooAir.y5[1]) annotation (Line(
       points={{529,41},{520,41},{520,162},{511,162}},
       color={0,0,127},
@@ -199,8 +202,6 @@ equation
   connect(conAHU.uOpeMod, TSetZon.yOpeMod) annotation (Line(points={{378.118,
           379.182},{130,379.182},{130,307},{81,307}},
                                                   color={255,127,0}));
-  connect(conAHU.uFreProSta, TSetZon.yFreProSta) annotation (Line(points={{378.118,
-          364.455},{140,364.455},{140,303},{81,303}},   color={255,127,0}));
   connect(conAHU.TDis, TDis.y) annotation (Line(points={{378.118,447.909},{252,
           447.909},{252,290},{241,290}},
                                color={0,0,127}));
@@ -330,6 +331,9 @@ equation
                                           color={0,0,127}));
   connect(yOutDam.y, eco.yExh)
     annotation (Line(points={{-19,-10},{-3,-10},{-3,-34}}, color={0,0,127}));
+  connect(conInt.y, conAHU.uFreProSta) annotation (Line(points={{221,350},{280,
+          350},{280,364.455},{378.118,364.455}},
+                                            color={255,127,0}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
             1660,640}})),
