@@ -1,6 +1,6 @@
 removePlots();
 
-simulateModel("Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.TestBedX3WithRadiantFloor", tolerance=1e-6, stopTime=864000, method="dassl", resultFile="TestBedX3WithRadiantFloor");
+simulateModel("Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.X3WithRadiantFloor", tolerance=1e-6, stopTime=864000, method="dassl", resultFile="X3WithRadiantFloor");
 
 createPlot(id = 1,
  position = {0, 0, 1049, 700},
@@ -13,7 +13,7 @@ createPlot(id = 1,
  grid = true,
  color = true,
  online = false,
- filename = "TestBedX3WithRadiantFloor.mat",
+ filename = "X3WithRadiantFloor.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}, {255,0,0}, {0,128,0}});
