@@ -366,14 +366,6 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{-180,-170},{-160,-150}}),
       iconTransformation(extent={{-220,-260},{-200,-240}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta
-    "Zone state signal"
-    annotation (Placement(transformation(extent={{-180,-130},{-160,-110}}),
-      iconTransformation(extent={{-220,-170},{-200,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
-    "Freeze protection status"
-    annotation (Placement(transformation(extent={{-180,-150},{-160,-130}}),
-      iconTransformation(extent={{-220,-200},{-200,-180}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}}),
@@ -526,34 +518,28 @@ equation
     annotation (Line(points={{140.625,-55},{160,-55},{160,-150},{190,-150}},
       color={0,0,127}));
   connect(conEco.uSupFan, conSupFan.ySupFan)
-    annotation (Line(points={{119.375,-53.75},{-84,-53.75},{-84,137},{-99,137}},
+    annotation (Line(points={{119.375,-54.375},{-84,-54.375},{-84,137},{-99,137}},
       color={255,0,255}));
   connect(conSupFan.ySupFanSpe, ySupFanSpe)
     annotation (Line(points={{-99,130},{190,130}},
       color={0,0,127}));
   connect(TOut, conEco.TOut)
-    annotation (Line(points={{-170,166},{-20,166},{-20,-41.25},{119.375,-41.25}},
+    annotation (Line(points={{-170,166},{-20,166},{-20,-40.625},{119.375,-40.625}},
       color={0,0,127}));
   connect(conEco.TOutCut, TOutCut)
-    annotation (Line(points={{119.375,-42.5},{-34,-42.5},{-34,-12},{-170,-12}},
+    annotation (Line(points={{119.375,-41.875},{-34,-41.875},{-34,-12},{-170,-12}},
       color={0,0,127}));
   connect(conEco.hOut, hOut)
-    annotation (Line(points={{119.375,-43.75},{-38,-43.75},{-38,-32},{-170,-32}},
+    annotation (Line(points={{119.375,-43.125},{-38,-43.125},{-38,-32},{-170,-32}},
       color={0,0,127}));
   connect(conEco.hOutCut, hOutCut)
-    annotation (Line(points={{119.375,-45},{-54,-45},{-54,-44},{-170,-44}},
+    annotation (Line(points={{119.375,-44.375},{-54,-44.375},{-54,-44},{-170,-44}},
       color={0,0,127}));
   connect(conEco.VOut_flow, VOut_flow)
     annotation (Line(points={{119.375,-48.75},{-50,-48.75},{-50,-60},{-170,-60}},
       color={0,0,127}));
   connect(conEco.uOpeMod, uOpeMod)
-    annotation (Line(points={{119.375,-56.25},{-44,-56.25},{-44,-100},{-170,-100}},
-      color={255,127,0}));
-  connect(conEco.uZonSta, uZonSta)
-    annotation (Line(points={{119.375,-57.5},{-42,-57.5},{-42,-120},{-170,-120}},
-      color={255,127,0}));
-  connect(conEco.uFreProSta, uFreProSta)
-    annotation (Line(points={{119.375,-58.75},{-40,-58.75},{-40,-140},{-170,-140}},
+    annotation (Line(points={{119.375,-56.875},{-44,-56.875},{-44,-100},{-170,-100}},
       color={255,127,0}));
   connect(conTSetSup.TSetSup, TSetSup)
     annotation (Line(points={{21,30},{120,30},{120,80},{190,80}},
