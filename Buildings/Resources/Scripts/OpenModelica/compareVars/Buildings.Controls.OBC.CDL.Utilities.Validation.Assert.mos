@@ -1,5 +1,4 @@
 compareVars :=
   {
-    "assert.u",
-    "assert.not_u"
+    "assert.u"
   };
