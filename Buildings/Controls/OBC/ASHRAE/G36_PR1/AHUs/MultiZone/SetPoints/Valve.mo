@@ -44,9 +44,9 @@ block Valve "Multizone VAV AHU coil valve positions"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput uTSup(
-    final min=0,
     final max=1,
-    final unit="1")
+    final unit="1",
+    final min=-1)
     "Supply temperature control signal"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
       iconTransformation(extent={{100,30},{120,50}})));
