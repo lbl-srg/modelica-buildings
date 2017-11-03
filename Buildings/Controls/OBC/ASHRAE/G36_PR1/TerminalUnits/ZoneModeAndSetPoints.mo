@@ -94,56 +94,53 @@ block ZoneModeAndSetPoints "Output zone setpoint with operation mode selection"
     each final unit="K",
     each quantity="ThermodynamicTemperature")
     "Measured zone temperatures"
-    annotation (Placement(transformation(rotation=0, extent={{-140,50},{-100,90.5}}),
+    annotation (Placement(transformation(rotation=0, extent={{-180,60},{-140,100.5}}),
       iconTransformation(extent={{-120,40},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
     final unit="s",
     quantity="Time")
     "Time to next occupied period"
-    annotation (Placement(transformation(rotation=0, extent={{-140,80},{-100,120}}),
+    annotation (Placement(transformation(rotation=0, extent={{-180,120},{-140,160}}),
       iconTransformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj[numZon](
     each final unit="K",
     each quantity="ThermodynamicTemperature") if (cooAdj or sinAdj)
     "Setpoint adjustment value"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,
-      origin={-120,0}), iconTransformation(extent={{-120,10},{-100,30}})));
+      origin={-160,-40}),
+                        iconTransformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj[numZon](
     each final unit="K",
     each quantity="ThermodynamicTemperature") if heaAdj
     "Heating setpoint adjustment value"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,
-      origin={-120,-30}), iconTransformation(extent={{-120,-20},{-100,0}})));
+      origin={-160,-70}), iconTransformation(extent={{-120,-20},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
     "Current occupancy period, true if it is in occupant period"
-    annotation (Placement(transformation(rotation=0, extent={{-140,20},{-100,60.5}}),
+    annotation (Placement(transformation(rotation=0, extent={{-180,0},{-140,40.5}}),
       iconTransformation(extent={{-120,-50},{-100,-29.5}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccSen[numZon] if have_occSen
     "Occupancy sensor (occupied=true, unoccupied=false)"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+    annotation (Placement(transformation(extent={{-180,-130},{-140,-90}}),
       iconTransformation(extent={{-120,-80},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta[numZon] if have_winSen
     "Window status (open=true, close=false)"
-    annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
+    annotation (Placement(transformation(extent={{-180,-170},{-140,-130}}),
       iconTransformation(extent={{-120,-100},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TCooSet[numZon](
     each final unit="K",
     each quantity="ThermodynamicTemperature") "Cooling setpoint temperature"
-    annotation (Placement(transformation(extent={{100,90},{120,110}}),
+    annotation (Placement(transformation(extent={{140,90},{160,110}}),
       iconTransformation(extent={{100,60},{120,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaSet[numZon](
     each final unit="K",
     each quantity="ThermodynamicTemperature") "Heating setpoint temperature"
-    annotation (Placement(transformation(extent={{100,50},{120,70}}),
+    annotation (Placement(transformation(extent={{140,50},{160,70}}),
       iconTransformation(extent={{100,20},{120,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yOpeMod
     "Operation mode"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+    annotation (Placement(transformation(extent={{140,-10},{160,10}}),
       iconTransformation(extent={{100,-40},{120,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yFreProSta
-    "Freeze protection stage"
-    annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
-      iconTransformation(extent={{100,-80},{120,-60}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures TSetZon[numZon](
     each final have_occSen=have_occSen,
@@ -165,30 +162,30 @@ block ZoneModeAndSetPoints "Output zone setpoint with operation mode selection"
     each final decSetDem_2=decSetDem_2,
     each final decSetDem_3=decSetDem_3)
     "Zone set point temperature"
-    annotation (Placement(transformation(extent={{30,-40},{70,0}})));
+    annotation (Placement(transformation(extent={{60,-62},{100,-22}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooDemLimLev[numZon](
     each k=cooDemLimLevCon)
     "Cooling demand limit level"
-    annotation (Placement(transformation(extent={{-48,-60},{-28,-40}})));
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant heaDemLimLev[numZon](
     each k=heaDemLimLevCon) "Heating demand limit level"
-    annotation (Placement(transformation(extent={{-48,-101},{-28,-80}})));
+    annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHeaOn(
     final k=THeaOn)
     "Heating on setpoint"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHeaOff(
     final k=THeaOff)
     "Heating off set point"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCooOn(
     final k=TCooOn)
     "Cooling on setpoint"
-    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
+    annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCooOff(
     final k=TCooOff)
     "Cooling off set point"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode opeModSel(
     final numZon=numZon,
     final preWarCooTim=preWarCooTim,
@@ -196,126 +193,124 @@ block ZoneModeAndSetPoints "Output zone setpoint with operation mode selection"
     final freProThrVal=freProThrVal,
     final freProEndVal=freProEndVal)
     "Operation mode selector"
-    annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
+    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tCooDowHeaUp[numZon](
     each final k=warCooTim)
     "Cool down and heat up time (assumed as constant)"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cloWin[numZon](
     each k=false) if not have_winSen
     "Closed window status"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
 
 protected
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=numZon)
     "Duplicate input to multiple outputs"
-    annotation (Placement(transformation(extent={{-30,110},{-10,130}})));
+    annotation (Placement(transformation(extent={{-30,150},{-10,170}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(nout=numZon)
     "Duplicate input to multiple outputs"
-    annotation (Placement(transformation(extent={{-30,82},{-10,102}})));
+    annotation (Placement(transformation(extent={{-32,110},{-12,130}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep2(nout=numZon)
     "Duplicate input to multiple outputs"
-    annotation (Placement(transformation(extent={{-30,54},{-10,74}})));
+    annotation (Placement(transformation(extent={{-32,70},{-12,90}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep3(nout=numZon)
     "Duplicate input to multiple outputs"
-    annotation (Placement(transformation(extent={{-30,26},{-10,46}})));
+    annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(nout=numZon)
-    annotation (Placement(transformation(extent={{28,30},{48,50}})));
+    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
 equation
   connect(TSetZon.uCooDemLimLev,cooDemLimLev. y)
-    annotation (Line(points={{28,-34},{0,-34},{0,-50},{-27,-50}},
+    annotation (Line(points={{58,-56},{36,-56},{36,-90},{-39,-90}},
       color={255,127,0}));
   connect(heaDemLimLev.y,TSetZon. uHeaDemLimLev)
-    annotation (Line(points={{-27,-90.5},{6,-90.5},{6,-38},{28,-38}},
+    annotation (Line(points={{-39,-150},{40,-150},{40,-60},{58,-60}},
       color={255,127,0}));
   connect(tCooDowHeaUp.y,opeModSel. cooDowTim)
-    annotation (Line(points={{-59,-10},{-52,-10},{-52,14.4},{-31,14.4}},
+    annotation (Line(points={{-79,-20},{-60,-20},{-60,4.4},{-31,4.4}},
       color={0,0,127}));
   connect(tCooDowHeaUp.y,opeModSel. warUpTim)
-    annotation (Line(points={{-59,-10},{-52,-10},{-52,12.2},{-31,12.2}},
+    annotation (Line(points={{-79,-20},{-60,-20},{-60,2.2},{-31,2.2}},
       color={0,0,127}));
   connect(TSetRooCooOn.y,opeModSel. TCooSet)
-    annotation (Line(points={{-59,120},{-44,120},{-44,5.4},{-31,5.4}},
+    annotation (Line(points={{-79,160},{-52,160},{-52,-4.6},{-31,-4.6}},
       color={0,0,127}));
   connect(opeModSel.THeaSet,TSetRooHeaOn. y)
-    annotation (Line(points={{-31,7.8},{-42,7.8},{-42,90},{-59,90}},
+    annotation (Line(points={{-31,-2.2},{-50,-2.2},{-50,120},{-79,120}},
       color={0,0,127}));
   connect(opeModSel.TUnoHeaSet,TSetRooHeaOff. y)
-    annotation (Line(points={{-31,3.2},{-46,3.2},{-46,60},{-59,60}},
+    annotation (Line(points={{-31,-6.8},{-54,-6.8},{-54,80},{-79,80}},
       color={0,0,127}));
   connect(opeModSel.TUnoCooSet,TSetRooCooOff. y)
-    annotation (Line(points={{-31,1},{-48,1},{-48,30},{-59,30}},
+    annotation (Line(points={{-31,-9},{-56,-9},{-56,40},{-79,40}},
       color={0,0,127}));
   connect(TSetZon.TCooSet, TCooSet)
-    annotation (Line(points={{72,-20},{80,-20},{80,100},{110,100}},
+    annotation (Line(points={{102,-42},{112,-42},{112,100},{150,100}},
       color={0,0,127}));
   connect(TSetZon.THeaSet, THeaSet)
-    annotation (Line(points={{72,-28},{84,-28},{84,60},{110,60}},
+    annotation (Line(points={{102,-50},{120,-50},{120,60},{150,60}},
       color={0,0,127}));
   connect(opeModSel.yOpeMod, yOpeMod)
-    annotation (Line(points={{-9,10},{10,10},{10,-60},{88,-60},{88,0},{110,0}},
-      color={255,127,0}));
-  connect(opeModSel.yFreProSta, yFreProSta)
-    annotation (Line(points={{-9,5},{-4,5},{-4,-64},{92,-64},{92,-40},{110,-40}},
+    annotation (Line(points={{-9,0},{0,0},{0,-72},{128,-72},{128,0},{150,0}},
       color={255,127,0}));
   connect(opeModSel.TZon, TZon)
-    annotation (Line(points={{-31,10},{-90,10},{-90,70.25},{-120,70.25}},
+    annotation (Line(points={{-31,0},{-128,0},{-128,80.25},{-160,80.25}},
       color={0,0,127}));
   connect(setAdj, TSetZon.setAdj)
-    annotation (Line(points={{-120,0},{-90,0},{-90,-28},{-12,-28},{-12,-18},{28,-18}},
+    annotation (Line(points={{-160,-40},{58,-40}},
       color={0,0,127}));
   connect(heaSetAdj, TSetZon.heaSetAdj)
-    annotation (Line(points={{-120,-30},{-8,-30},{-8,-22},{28,-22}},
+    annotation (Line(points={{-160,-70},{-52,-70},{-52,-44},{58,-44}},
       color={0,0,127}));
-  connect(tNexOcc, opeModSel.tNexOcc)
-    annotation (Line(points={{-120,100},{-86,100},{-86,12},{-54,12},{-54,16.6},
-      {-31,16.6}}, color={0,0,127}));
-  connect(uOcc, opeModSel.uOcc)
-    annotation (Line(points={{-120,40.25},{-94,40.25},{-94,8},{-56,8},{-56,19},
-      {-31,19}}, color={255,0,255}));
   connect(TSetZon.uOccSen, uOccSen)
-    annotation (Line(points={{44,-42},{44,-70},{-92,-70},{-92,-60},{-120,-60}},
+    annotation (Line(points={{74,-64},{74,-110},{-160,-110}},
       color={255,0,255}));
   connect(TSetZon.uWinSta, uWinSta)
-    annotation (Line(points={{56,-42},{56,-74},{-92,-74},{-92,-90},{-120,-90}},
+    annotation (Line(points={{86,-64},{86,-120},{-92,-120},{-92,-150},{-160,-150}},
       color={255,0,255}));
   connect(uWinSta, opeModSel.uWinSta)
-    annotation (Line(points={{-120,-90},{-92,-90},{-92,-74},{-20,-74},{-20,-1}},
+    annotation (Line(points={{-160,-150},{-92,-150},{-92,-120},{-20,-120},{-20,-11}},
       color={255,0,255}));
   connect(cloWin.y, opeModSel.uWinSta)
-    annotation (Line(points={{-59,-50},{-54,-50},{-54,-32},{-20,-32},{-20,-1}},
+    annotation (Line(points={{-99,-90},{-70,-90},{-70,-32},{-20,-32},{-20,-11}},
       color={255,0,255}));
   connect(TSetRooCooOn.y, reaRep.u)
-    annotation (Line(points={{-59,120},{-32,120}}, color={0,0,127}));
+    annotation (Line(points={{-79,160},{-32,160}}, color={0,0,127}));
   connect(reaRep.y, TSetZon.occCooSet)
-    annotation (Line(points={{-9,120},{16,120},{16,-2},{28,-2}}, color={0,0,127}));
+    annotation (Line(points={{-9,160},{52,160},{52,-24},{58,-24}},
+      color={0,0,127}));
   connect(TSetRooHeaOn.y, reaRep1.u)
-    annotation (Line(points={{-59,90},{-42,90},{-42,92},{-32,92}},
+    annotation (Line(points={{-79,120},{-34,120}},
       color={0,0,127}));
   connect(reaRep1.y, TSetZon.occHeaSet)
-    annotation (Line(points={{-9,92},{12,92},{12,-6},{28,-6}},
+    annotation (Line(points={{-11,120},{48,120},{48,-28},{58,-28}},
       color={0,0,127}));
   connect(TSetRooHeaOff.y, reaRep2.u)
-    annotation (Line(points={{-59,60},{-46,60},{-46,64},{-32,64}},
+    annotation (Line(points={{-79,80},{-34,80}},
       color={0,0,127}));
   connect(reaRep2.y, TSetZon.unoHeaSet)
-    annotation (Line(points={{-9,64},{8,64},{8,-14},{28,-14}},
+    annotation (Line(points={{-11,80},{44,80},{44,-36},{58,-36}},
       color={0,0,127}));
   connect(TSetRooCooOff.y, reaRep3.u)
-    annotation (Line(points={{-59,30},{-48,30},{-48,36},{-32,36}},
+    annotation (Line(points={{-79,40},{-32,40}},
       color={0,0,127}));
   connect(reaRep3.y, TSetZon.unoCooSet)
-    annotation (Line(points={{-9,36},{4,36},{4,-10},{28,-10}},
+    annotation (Line(points={{-9,40},{40,40},{40,-32},{58,-32}},
       color={0,0,127}));
   connect(opeModSel.yOpeMod, intRep.u)
-    annotation (Line(points={{-9,10},{10,10},{10,40},{26,40}},
+    annotation (Line(points={{-9,0},{8,0}},
       color={255,127,0}));
   connect(intRep.y, TSetZon.uOpeMod)
-    annotation (Line(points={{49,40},{60,40},{60,14},{20,14},{20,-30},{28,-30}},
+    annotation (Line(points={{31,0},{36,0},{36,-52},{58,-52}},
       color={255,127,0}));
+  connect(uOcc, opeModSel.uOcc)
+    annotation (Line(points={{-160,20.25},{-120,20.25},{-120,9},{-31,9}},
+      color={255,0,255}));
+  connect(tNexOcc, opeModSel.tNexOcc)
+    annotation (Line(points={{-160,140},{-124,140},{-124,6.6},{-31,6.6}},
+      color={0,0,127}));
 
-annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,140}})),
+annotation (Diagram(coordinateSystem(extent={{-140,-180},{140,180}})),
   Icon(graphics={Text(
         extent={{-100,140},{98,102}},
         textString="%name",

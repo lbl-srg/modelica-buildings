@@ -69,9 +69,6 @@ block OperationMode "Block that outputs the operation mode"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yOpeMod "Operation mode"
     annotation (Placement(transformation(extent={{460,-30},{480,-10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yFreProSta
-    "Freeze protection stage" annotation (Placement(transformation(extent={{460,
-            -150},{480,-130}}), iconTransformation(extent={{100,-60},{120,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant occModInd(
     k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.occupied)
     "Occupied mode "
@@ -338,9 +335,8 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[numZon]
     "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2(integerTrue=
-       Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages.stage3,
-      integerFalse=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages.stage0)
+  CDL.Utilities.Assert                                    assMes(warOnInf="Level 3 alarm ON, in freeze protection setback mode",
+      warOffInf="Level 3 alarm OFF, out of freeze protection setback mode")
     "Convert Boolean to Integer"
     annotation (Placement(transformation(extent={{260,-160},{280,-140}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea9[numZon]
@@ -495,15 +491,15 @@ equation
       color={255,0,255}));
   connect(unoPerInd.y, swi3.u1)
     annotation (Line(points={{221,230},{252,230},{252,-2},{258,-2}},
-                           color={0,0,127}, pattern=LinePattern.Dash));
+      color={0,0,127}, pattern=LinePattern.Dash));
   connect(or3.y, swi3.u2)
     annotation (Line(points={{101,32},{240,32},{240,-10},{258,-10}},
       color={255,0,255}));
   connect(lat1.y, booToRea4.u)
     annotation (Line(points={{161,-110},{198,-110}}, color={255,0,255}));
   connect(or3.y, swi4.u2)
-    annotation (Line(points={{101,32},{112,32},{112,-80},{240,-80},{240,-110},{
-          258,-110}},         color={255,0,255}));
+    annotation (Line(points={{101,32},{112,32},{112,-80},{240,-80},{240,-110},
+      {258,-110}},  color={255,0,255}));
   connect(unoPerInd.y, swi4.u1)
     annotation (Line(points={{221,230},{252,230},{252,-102},{258,-102}},
       color={0,0,127}, pattern=LinePattern.Dash));
@@ -529,11 +525,10 @@ equation
       color={255,0,255}));
   connect(or3.y, swi5.u2)
     annotation (Line(points={{101,32},{112,32},{112,-190},{244,-190},{244,-210},
-          {258,-210}},         color={255,0,255}));
+      {258,-210}},  color={255,0,255}));
   connect(unoPerInd.y, swi5.u1)
     annotation (Line(points={{221,230},{252,230},{252,-202},{258,-202}},
-                                                    color={0,0,127},
-      pattern=LinePattern.Dash));
+      color={0,0,127},  pattern=LinePattern.Dash));
   connect(swi3.y, setBacMod.u)
     annotation (Line(points={{281,-10},{289.5,-10},{298,-10}},
       color={0,0,127}));
@@ -546,9 +541,8 @@ equation
     annotation (Line(points={{161,-10},{168,-10},{168,20},{112,20},{112,-302},
       {138,-302}}, color={255,0,255}));
   connect(lat1.y, or5.u2)
-    annotation (Line(points={{161,-110},{180,-110},{180,-150},{120,-150},{120,
-          -310},{138,-310}},
-                   color={255,0,255}));
+    annotation (Line(points={{161,-110},{180,-110},{180,-150},{120,-150},
+      {120,-310},{138,-310}}, color={255,0,255}));
   connect(lat2.y, or5.u3)
     annotation (Line(points={{161,-210},{180,-210},{180,-190},{112,-190},{112,-318},
       {138,-318}}, color={255,0,255}));
@@ -567,7 +561,7 @@ equation
   connect(sumInt.y, yOpeMod)
     annotation (Line(points={{441.7,-60},{441.7,-60},{450,-60},{450,-20},{470,-20}},
       color={255,127,0}));
-  connect(lat1.y,booToInt2. u)
+  connect(lat1.y, assMes.u)
     annotation (Line(points={{161,-110},{180,-110},{180,-150},{258,-150}},
       color={255,0,255}));
   connect(and2.y, booToInt.u)
@@ -687,9 +681,6 @@ equation
   connect(booToRea4.y, swi4.u3)
     annotation (Line(points={{221,-110},{232,-110},{232,-118},{258,-118}},
       color={0,0,127}));
-  connect(booToInt2.y, yFreProSta)
-    annotation (Line(points={{281,-150},{340,-150},{340,-140},{470,-140}},
-      color={255,127,0}));
   connect(booToRea6.y, swi5.u3)
     annotation (Line(points={{221,-210},{240,-210},{240,-218},{258,-218}},
       color={0,0,127}));
@@ -880,11 +871,6 @@ annotation (
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yOpeMod"),
-        Text(
-          extent={{56,-38},{94,-60}},
-          lineColor={255,127,0},
-          pattern=LinePattern.Dash,
-          textString="freProAla"),
         Text(
           extent={{-96,-2},{-28,-38}},
           lineColor={0,0,127},

@@ -91,16 +91,16 @@ block LimPID
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain P(k=1) "Proportional term"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Utilities.Math.IntegratorWithReset I(
+  .Buildings.Utilities.Math.IntegratorWithReset I(
     final reset=if reset == CDL.Types.Reset.Disabled then reset else CDL.Types.Reset.Input,
     final y_reset=y_reset,
     final k=unitTime/Ti,
     final y_start=xi_start,
     final initType=if initType == CDL.Types.Init.InitialState
-             then Modelica.Blocks.Types.Init.InitialState
-             else Modelica.Blocks.Types.Init.NoInit) if
-       with_I "Integral term"
+          then Modelica.Blocks.Types.Init.InitialState
+          else Modelica.Blocks.Types.Init.NoInit) if with_I "Integral term"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+
   Modelica.Blocks.Continuous.Derivative D(
     final k=Td/unitTime,
     final T=max([Td/Nd,1.e-14]),
