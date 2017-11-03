@@ -304,10 +304,11 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                   Text(
-          extent={{74,-88},{152,-98}},
+          extent={{76,-86},{154,-96}},
           lineColor={95,95,95},
           textString="Freeze protection based on TMix, 
-not a part of G36")}),
+not a part of G36",
+          horizontalAlignment=TextAlignment.Left)}),
 Documentation(info="<html>
 <p>
 Single zone VAV AHU economizer control sequence that calculates

@@ -8,14 +8,16 @@ model Controller_Disable
     retDamPhyPosMax=1,
     retDamPhyPosMin=0,
     outDamPhyPosMax=1,
-    outDamPhyPosMin=0) "Multi zone VAV AHU economizer "
+    outDamPhyPosMin=0,
+    use_TMix=true)     "Multi zone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller economizer1(
     use_enthalpy=true,
     retDamPhyPosMax=1,
     retDamPhyPosMin=0,
     outDamPhyPosMax=1,
-    outDamPhyPosMin=0) "Multi zone VAV AHU economizer"
+    outDamPhyPosMin=0,
+    use_TMix=true)     "Multi zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 
 protected
@@ -36,15 +38,11 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
     final k=Constants.FreezeProtectionStages.stage0)
     "Freeze protection status is 0"
-    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant zonSta(
-    final k=Constants.ZoneStates.heating)
-    "Zone State is heating"
-    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
     final k=Constants.OperationModes.occupied)
     "AHU operation mode is Occupied"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(
     final k=hOutCutoff - 40000)
     "Outdoor air enthalpy is below the cutoff"
@@ -59,6 +57,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
     final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+  CDL.Continuous.Sources.Constant TMixMea(final k=303.15)
+    "Measured mixed air temperature"
+    annotation (Placement(transformation(extent={{-92,30},{-72,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow(
     final k=minVOutSet_flow)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
@@ -76,18 +77,15 @@ protected
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta2(
     final k=Constants.FreezeProtectionStages.stage2) "Freeze protection stage is 2"
-    annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
+    annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 
-public
-  CDL.Continuous.Sources.Constant TMixMea(final k=303.15)
-    "Measured mixed air temperature"
-    annotation (Placement(transformation(extent={{-92,30},{-72,50}})));
+
 equation
   connect(fanSta.y, economizer.uSupFan)
     annotation (Line(points={{-19,-10},{-10,-10},{-10,6.25},{19.375,6.25}},
       color={255,0,255}));
   connect(freProSta.y, economizer.uFreProSta)
-    annotation (Line(points={{-59,-120},{0,-120},{0,1.25},{19.375,1.25}},
+    annotation (Line(points={{-59,-100},{0,-100},{0,1.25},{19.375,1.25}},
                                                                color={255,127,0}));
   connect(TOutBelowCutoff.y, economizer.TOut)
     annotation (Line(points={{-99,110},{-6,110},{-6,18.75},{19.375,18.75}},
@@ -96,8 +94,8 @@ equation
     annotation (Line(points={{-99,70},{-90,70},{-8,70},{-8,17.5},{19.375,17.5}},
                                                                         color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer.hOut)
-    annotation (Line(points={{-99,20},{-60,20},{-60,18},{19.375,18},{19.375,
-          16.25}},                                                       color={0,0,127}));
+    annotation (Line(points={{-99,20},{-60,20},{-60,16},{19.375,16},{19.375,16.25}},
+                                                                         color={0,0,127}));
   connect(hOutCut.y, economizer.hOutCut)
     annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,15},{19.375,15}},
                                                                            color={0,0,127}));
@@ -129,19 +127,13 @@ equation
     annotation (Line(points={{-19,-10},{20,-10},{20,-13.75},{99.375,-13.75}},
                                                                     color={255,0,255}));
   connect(freProSta2.y, economizer1.uFreProSta)
-    annotation (Line(points={{81,-120},{90,-120},{90,-18.75},{99.375,-18.75}},
+    annotation (Line(points={{61,-90},{90,-90},{90,-18.75},{99.375,-18.75}},
                                                                      color={255,127,0}));
-  connect(zonSta.y, economizer.uZonSta)
-    annotation (Line(points={{-59,-60},{-2,-60},{-2,2.5},{19.375,2.5}},
-                                                                color={255,127,0}));
   connect(opeMod.y, economizer.uOpeMod)
-    annotation (Line(points={{-59,-90},{-4,-90},{-4,3.75},{19.375,3.75}},
+    annotation (Line(points={{-59,-70},{-4,-70},{-4,3.75},{19.375,3.75}},
                                                                 color={255,127,0}));
   connect(opeMod.y, economizer1.uOpeMod)
-    annotation (Line(points={{-59,-90},{20,-90},{20,-16.25},{99.375,-16.25}},
-                                                                    color={255,127,0}));
-  connect(zonSta.y, economizer1.uZonSta)
-    annotation (Line(points={{-59,-60},{22,-60},{22,-17.5},{99.375,-17.5}},
+    annotation (Line(points={{-59,-70},{20,-70},{20,-16.25},{99.375,-16.25}},
                                                                     color={255,127,0}));
   connect(uTSup.y, economizer.uTSup) annotation (Line(points={{-59,90},{-50,90},
           {-50,13.125},{19.375,13.125}},
@@ -170,7 +162,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}}),
         graphics={
         Text(
-          extent={{2,156},{86,128}},
+          extent={{0,154},{84,126}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
@@ -179,7 +171,7 @@ equation
 enable minimal
 outdoor air control"),
         Text(
-          extent={{82,152},{166,124}},
+          extent={{80,152},{164,124}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,

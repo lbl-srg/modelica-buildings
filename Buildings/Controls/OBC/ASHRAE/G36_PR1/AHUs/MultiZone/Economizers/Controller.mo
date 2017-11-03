@@ -287,19 +287,22 @@ equation
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{
             160,160}}), graphics={Text(
-          extent={{-144,18},{-118,16}},
+          extent={{-140,22},{-110,6}},
           lineColor={95,95,95},
-          textString="not G36"),
+          textString="Not included 
+in G36",
+          horizontalAlignment=TextAlignment.Left),
         Rectangle(
           extent={{72,100},{152,-100}},
           lineColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                   Text(
-          extent={{74,-86},{152,-96}},
+          extent={{76,-86},{154,-96}},
           lineColor={95,95,95},
           textString="Freeze protection based on TMix, 
-not a part of G36")}),
+not a part of G36",
+          horizontalAlignment=TextAlignment.Left)}),
     Documentation(info="<html>
 <p>
 Multi zone VAV AHU economizer control sequence that calculates
