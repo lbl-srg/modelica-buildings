@@ -6,12 +6,14 @@ model Controller_Mod_DamLim
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller
     economizer(use_TMix=true,
     TiMinOut=1,
-    use_enthalpy=true)
+    use_enthalpy=true,
+    use_G36FrePro=true)
     "Multi zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller
     economizer1(use_enthalpy=false, use_TMix=true,
-    TiMinOut=1)
+    TiMinOut=1,
+    use_G36FrePro=true)
     "Multi zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
@@ -55,7 +57,7 @@ protected
     final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   CDL.Continuous.Sources.Constant TMixMea(final k=303.15)
-    "Measured mixed air temperature"
+    "Measured mixed air temperature above cutoff"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant
     VOutMinSet_flow(final k=minVOutSet_flow)

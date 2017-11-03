@@ -56,47 +56,30 @@ model EnableFreezeProtection
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFanSta(k=true)
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
 
-  CDL.Integers.Sources.Constant zonSta(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.ZoneStates.heating)
-    "Zone state"
-    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-
 equation
   connect(TOutBelowCutoff.y, enaDis.TOut)
-    annotation (Line(points={{-19,150},{32,150},{32,59.6429},{81.2857,59.6429}},
-                                                                  color={0,0,127}));
+    annotation (Line(points={{-19,150},{32,150},{32,60},{81,60}}, color={0,0,127}));
   connect(TOutCut.y, enaDis.TOutCut)
-    annotation (Line(points={{-19,110},{31.5,110},{31.5,58.2143},{81.2857,
-          58.2143}},                                                  color={0,0,127}));
+    annotation (Line(points={{-19,110},{31.5,110},{31.5,58},{81,58}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, enaDis.hOut)
-    annotation (Line(points={{-79,110},{-60,110},{-60,56.7857},{81.2857,56.7857}},
-                                                                    color={0,0,127}));
+    annotation (Line(points={{-79,110},{-60,110},{-60,56},{81,56}}, color={0,0,127}));
   connect(hOutCut.y, enaDis.hOutCut)
-    annotation (Line(points={{-79,70},{-70,70},{-70,55.3571},{81.2857,55.3571}},
+    annotation (Line(points={{-79,70},{-70,70},{-70,54},{81,54}},
     color={0,0,127}));
   connect(freProSta.y, enaDis.uFreProSta)
-    annotation (Line(points={{-119,50},{-110,50},{-110,51.7857},{81.2857,
-          51.7857}},                                                 color={255,127,0}));
+    annotation (Line(points={{-119,50},{-110,50},{-110,50},{81,50}}, color={255,127,0}));
   connect(retDamPosMax.y, enaDis.uRetDamPosMax)
-    annotation (Line(points={{-79,-50},{-68,-50},{-68,41.4286},{81.2857,41.4286}},
-                                                                    color={0,0,127}));
+    annotation (Line(points={{-79,-50},{-68,-50},{-68,42},{81,42}}, color={0,0,127}));
   connect(retDamPhyPosMax.y, enaDis.uRetDamPhyPosMax)
-    annotation (Line(points={{-79,-10},{-70,-10},{-70,42.8571},{81.2857,42.8571}},
-                                                                    color={0,0,127}));
+    annotation (Line(points={{-79,-10},{-70,-10},{-70,44},{81,44}}, color={0,0,127}));
   connect(retDamPosMin.y, enaDis.uRetDamPosMin)
-    annotation (Line(points={{-79,-90},{-66,-90},{-66,40},{81.2857,40},{81.2857,
-          40}},                                                            color={0,0,127}));
+    annotation (Line(points={{-79,-90},{-66,-90},{-66,40},{81,40},{81,40}},color={0,0,127}));
   connect(outDamPosMax.y, enaDis.uOutDamPosMax)
-    annotation (Line(points={{-39,-110},{-30,-110},{-30,45.7143},{81.2857,
-          45.7143}},                                                  color={0,0,127}));
+    annotation (Line(points={{-39,-110},{-30,-110},{-30,48},{81,48}}, color={0,0,127}));
   connect(outDamPosMin.y, enaDis.uOutDamPosMin)
-    annotation (Line(points={{-39,-150},{-28,-150},{-28,44.2857},{81.2857,
-          44.2857}},                                                  color={0,0,127}));
+    annotation (Line(points={{-39,-150},{-28,-150},{-28,46},{81,46}}, color={0,0,127}));
   connect(supFanSta.y, enaDis.uSupFan)
-    annotation (Line(points={{-119,-30},{-34,-30},{-34,53.5714},{81.2857,
-          53.5714}},                                                 color={255,0,255}));
-  connect(enaDis.uZonSta, zonSta.y) annotation (Line(points={{81.2857,49.6429},
-          {-108,49.6429},{-108,10},{-119,10}},
-                               color={255,127,0}));
+    annotation (Line(points={{-119,-30},{-34,-30},{-34,52},{81,52}}, color={255,0,255}));
   connect(enaDis.TMix, TMixMea.y) annotation (Line(points={{81.2857,47.8571},{
           28,47.8571},{28,90},{21,90}},
                     color={0,0,127}));

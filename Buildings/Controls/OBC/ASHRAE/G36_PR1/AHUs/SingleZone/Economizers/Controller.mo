@@ -3,8 +3,10 @@ model Controller "Single zone VAV AHU economizer control sequence"
 
   parameter Boolean use_enthalpy = false
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
-  parameter Boolean use_TMix=false
+  parameter Boolean use_TMix=true
     "Set to true if mixed air temperature measurement is enabled";
+  parameter Boolean use_G36FrePro=false
+    "Set to true if G36 freeze protection is implemented";
   parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
     "Delta between the temperature hysteresis high and low limit"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
@@ -182,6 +184,10 @@ model Controller "Single zone VAV AHU economizer control sequence"
   CDL.Continuous.Sources.Constant noTMix(k=0) if not use_TMix
     "Ignore max evaluation if there is no TMix sensor"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
+  CDL.Integers.Sources.Constant freProSta(
+    final k=Constants.FreezeProtectionStages.stage0) if not use_G36FrePro
+    "Freeze protection status is 0. Use if G36 freeze protection is not implemented"
+    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.FreProTMix
     freProTMix if use_TMix
     "Block that tracks TMix against a freeze protection setpoint"

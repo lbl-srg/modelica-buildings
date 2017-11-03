@@ -10,7 +10,9 @@ model Controller_Disable
     outDamPhyPosMax=1,
     outDamPhyPosMin=0,
     use_TMix=true,
-    TiMinOut=30)       "Multi zone VAV AHU economizer "
+    TiMinOut=30,
+    use_G36FrePro=true)
+                       "Multi zone VAV AHU economizer "
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller economizer1(
     use_enthalpy=true,
@@ -19,7 +21,9 @@ model Controller_Disable
     outDamPhyPosMax=1,
     outDamPhyPosMin=0,
     use_TMix=true,
-    TiMinOut=30)       "Multi zone VAV AHU economizer"
+    TiMinOut=30,
+    use_G36FrePro=true)
+                       "Multi zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 
 protected
@@ -37,8 +41,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanSta(
     final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
-    final k=Constants.FreezeProtectionStages.stage0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage1)
     "Freeze protection status is 0"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
@@ -60,7 +63,7 @@ protected
     final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   CDL.Continuous.Sources.Constant TMixMea(final k=303.15)
-    "Measured mixed air temperature"
+    "Measured mixed air temperature above cutoff"
     annotation (Placement(transformation(extent={{-92,30},{-72,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow(
     final k=minVOutSet_flow)
@@ -164,23 +167,20 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}}),
         graphics={
         Text(
-          extent={{0,154},{84,126}},
+          extent={{0,146},{84,118}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
           textString="Disable modulation
-(zone state is heating),
 enable minimal
 outdoor air control"),
         Text(
-          extent={{80,152},{164,124}},
+          extent={{80,146},{164,118}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
           textString="Disable modulation
-(zone state is heating)
-disable minimal
-outdoor air control
+and minimal outdoor air control
 (freeze protection is at stage2)")}),
 Documentation(info="<html>
 <p>

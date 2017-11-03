@@ -3,8 +3,10 @@ model Controller "Multi zone VAV AHU economizer control sequence"
 
   parameter Boolean use_enthalpy=false
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
-  parameter Boolean use_TMix=false
+  parameter Boolean use_TMix=true
     "Set to true if mixed air temperature measurement is enabled";
+  parameter Boolean use_G36FrePro=false
+    "Set to true if G36 freeze protection is implemented";
   parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
     "Delta between the temperature hysteresis high and low limit"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
@@ -125,18 +127,18 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     "Minimum outdoor volumetric airflow rate setpoint"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if use_G36FrePro
     "Freeze protection status"
-    annotation (Placement(transformation(extent={{-180,-150},{-160,-130}}), iconTransformation(
-          extent={{-180,-160},{-160,-140}})));
+    annotation (Placement(transformation(extent={{-180,-150},{-160,-130}}),
+    iconTransformation(extent={{-180,-160},{-160,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
-    annotation (Placement(transformation(extent={{-180,-110},{-160,-90}}), iconTransformation(extent=
-           {{-180,-120},{-160,-100}})));
+    annotation (Placement(transformation(extent={{-180,-110},{-160,-90}}),
+    iconTransformation(extent={{-180,-120},{-160,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status"
-    annotation (Placement(transformation(extent={{-180,-70},{-160,-50}}), iconTransformation(extent={
-            {-180,-80},{-160,-60}})));
+    annotation (Placement(transformation(extent={{-180,-70},{-160,-50}}),
+    iconTransformation(extent={{-180,-80},{-160,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
@@ -166,6 +168,10 @@ model Controller "Multi zone VAV AHU economizer control sequence"
   CDL.Continuous.Sources.Constant noTMix1(k=1) if not use_TMix
     "Ignore min evaluation if there is no TMix sensor"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+  CDL.Integers.Sources.Constant freProSta(
+    final k=Constants.FreezeProtectionStages.stage0) if not use_G36FrePro
+    "Freeze protection status is 0. Use if G36 freeze protection is not implemented"
+    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.FreProTMix
     freProTMix if use_TMix
     "Block that tracks TMix against a freeze protection setpoint"
@@ -200,6 +206,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final uOutDamMax=uOutDamMax)
     "Multi zone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
+
 
 equation
   connect(uSupFan, enaDis.uSupFan)
@@ -266,6 +273,10 @@ equation
   connect(freProTMix.yOutDamPos, outDamMaxFre.u2)
     annotation (Line(points={{101,-16},{101,-16},{104,-16},{104,-36},{118,-36},{118,-36}},
     color={0,0,127}));
+  connect(freProSta.y, damLim.uFreProSta)
+    annotation (Line(points={{-119,-120},{-90,-120},{-90,2},{-81,2}}, color={255,127,0}));
+  connect(freProSta.y, enaDis.uFreProSta)
+    annotation (Line(points={{-119,-120},{-60,-120},{-60,-30},{-1,-30}}, color={255,127,0}));
   annotation (
     defaultComponentName="conEco",
     Icon(coordinateSystem(extent={{-160,-160},{160,160}}),
@@ -299,7 +310,7 @@ equation
           textString="Not included 
 in G36",  horizontalAlignment=TextAlignment.Left),
         Rectangle(
-          extent={{72,100},{152,-100}},
+          extent={{70,100},{150,-100}},
           lineColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),

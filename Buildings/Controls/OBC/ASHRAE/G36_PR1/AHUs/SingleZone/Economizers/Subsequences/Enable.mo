@@ -242,7 +242,7 @@ equation
           color={0,0,127},
           thickness=0.5),
         Text(
-          extent={{-170,150},{158,112}},
+          extent={{-170,142},{158,104}},
           lineColor={0,0,127},
           textString="%name")}),
     Diagram(coordinateSystem(
