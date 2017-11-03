@@ -59,12 +59,10 @@ protected
     final yMax=1,
     final yMin=-1,
     final y_reset=0,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Disabled)
+    final reverseAction=true,
+    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Controller for supply air temperature control signal (to be used by heating coil, cooling coil and economizer)"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain conSigTSupInv(final k=-1)
-    "Inverts control signal"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uHeaMaxCon(
@@ -96,16 +94,11 @@ protected
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
 equation
-  connect(conTSup.y,conSigTSupInv. u)
-    annotation (Line(points={{-59,60},{-42,60}},   color={0,0,127}));
-  connect(conSigTSupInv.y,swi. u1)
-    annotation (Line(points={{-19,60},{-8,60},{-8,68},{8,68}},
-      color={0,0,127}));
   connect(zer.y,swi. u3)
     annotation (Line(points={{-59,-80},{-20,-80},{-20,52},{8,52}},
       color={0,0,127}));
   connect(TSup,conTSup. u_m)
-    annotation (Line(points={{-120,-20},{-70,-20},{-70,48}}, color={0,0,127}));
+    annotation (Line(points={{-120,-20},{-50,-20},{-50,48}}, color={0,0,127}));
   connect(negOne.y,conSigHea. x1)
     annotation (Line(points={{-59,-40},{-40,-40},{-40,40},{30,40},{30,28},{58,28}},
       color={0,0,127}));
@@ -143,10 +136,16 @@ equation
   connect(swi.y,uTSup)
     annotation (Line(points={{31,60},{110,60}},  color={0,0,127}));
   connect(TSetSup, conTSup.u_s)
-    annotation (Line(points={{-120,30},{-90,30},{-90,60},{-82,60}},
+    annotation (Line(points={{-120,30},{-90,30},{-90,60},{-62,60}},
       color={0,0,127}));
   connect(uSupFan, swi.u2)
     annotation (Line(points={{-120,80},{0,80},{0,60},{8,60}},
+      color={255,0,255}));
+  connect(conTSup.y, swi.u1)
+    annotation (Line(points={{-39,60},{-20,60},{-20,68},{8,68}},
+      color={0,0,127}));
+  connect(uSupFan, conTSup.trigger)
+    annotation (Line(points={{-120,80},{-80,80},{-80,40},{-58,40},{-58,48}},
       color={255,0,255}));
 
 annotation (
