@@ -66,9 +66,10 @@ protected
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
   Modelica.Blocks.Sources.Ramp uTSup(
-    final duration=1800,
-    final height=1,
-    final offset=0) "Supply air temperature control signal"
+    final duration=900,
+    final height=0.5,
+    final offset=-0.25)
+                    "Supply air temperature control signal"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
 equation
@@ -140,11 +141,13 @@ equation
           textString="Enable both damper limit
 and modulation control loops"),
         Text(
-          extent={{100,4},{136,-16}},
+          extent={{100,8},{136,-12}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=8,
-          textString="Validate damper modulation
+          textString="Economizer fully enabled -
+validate damper position
+and damper position limits
 (example without
 enthalpy measurement)"),
         Text(
@@ -153,7 +156,8 @@ enthalpy measurement)"),
           horizontalAlignment=TextAlignment.Left,
           fontSize=8,
           textString="Economizer fully enabled -
-validate damper position limits")}),
+validate damper position
+and damper position limits")}),
 Documentation(info="<html>
 <p>
 This example validates

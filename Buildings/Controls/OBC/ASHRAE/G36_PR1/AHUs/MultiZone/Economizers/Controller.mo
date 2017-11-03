@@ -20,8 +20,8 @@ model Controller "Multi zone VAV AHU economizer control sequence"
 
   parameter Real kPMinOut=1
     "Proportional gain of controller for minimum outdoor air"
-    annotation (Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
-  parameter Modelica.SIunits.Time TiMinOut=30
+    annotation (Evaluate=true,Dialog(tab="Commissioning", group="Control gains"));
+  parameter Modelica.SIunits.Time TiMinOut=1
     "Time constant of controller for minimum outdoor air"
     annotation (Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
 
@@ -90,21 +90,25 @@ model Controller "Multi zone VAV AHU economizer control sequence"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     final quantity="ThermodynamicTemperature") "Outdoor air (OA) temperature"
-    annotation (Placement(transformation(extent={{-180,130},{-160,150}})));
+    annotation (Placement(transformation(extent={{-180,130},{-160,150}}), iconTransformation(extent={
+            {-180,140},{-160,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
-    annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
+    annotation (Placement(transformation(extent={{-180,110},{-160,130}}), iconTransformation(extent={
+            {-180,120},{-160,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
-    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
+    annotation (Placement(transformation(extent={{-180,90},{-160,110}}), iconTransformation(extent={{
+            -180,100},{-160,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOutCut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
-    annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
+    annotation (Placement(transformation(extent={{-180,70},{-160,90}}), iconTransformation(extent={{-180,
+            80},{-160,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
     final quantity = "ThermodynamicTemperature") if use_TMix
@@ -123,13 +127,16 @@ model Controller "Multi zone VAV AHU economizer control sequence"
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
     "Freeze protection status"
-    annotation (Placement(transformation(extent={{-180,-150},{-160,-130}})));
+    annotation (Placement(transformation(extent={{-180,-150},{-160,-130}}), iconTransformation(
+          extent={{-180,-160},{-160,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
-    annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
+    annotation (Placement(transformation(extent={{-180,-110},{-160,-90}}), iconTransformation(extent=
+           {{-180,-120},{-160,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status"
-    annotation (Placement(transformation(extent={{-180,-70},{-160,-50}})));
+    annotation (Placement(transformation(extent={{-180,-70},{-160,-50}}), iconTransformation(extent={
+            {-180,-80},{-160,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
@@ -174,7 +181,8 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final kPFre=kPFre)
     "Multi zone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits damLim(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits
+    damLim(
     final retDamPhyPosMax=retDamPhyPosMax,
     final retDamPhyPosMin=retDamPhyPosMin,
     final outDamPhyPosMax=outDamPhyPosMax,
@@ -184,7 +192,8 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final uRetDamMin=uRetDamMin)
     "Multi zone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation mod(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation
+    mod(
     final uRetDamMin=uRetDamMin,
     final uMin=uHeaMax,
     final uMax=uCooMin,
@@ -214,15 +223,15 @@ equation
   connect(uFreProSta, damLim.uFreProSta)
     annotation (Line(points={{-170,-140},{-100,-140},{-100,2},{-81,2}}, color={255,127,0}));
   connect(damLim.yOutDamPosMax, enaDis.uOutDamPosMax)
-    annotation (Line(points={{-59,17},{-24,17},{-24,16},{-24,-34},{-1,-34}}, color={0,0,127}));
+    annotation (Line(points={{-59,17},{-24,17},{-24,16},{-24,-32},{-1,-32}}, color={0,0,127}));
   connect(damLim.yOutDamPosMin, enaDis.uOutDamPosMin)
-    annotation (Line(points={{-59,15},{-26,15},{-26,12},{-26,-36},{-1,-36}}, color={0,0,127}));
+    annotation (Line(points={{-59,15},{-26,15},{-26,12},{-26,-34},{-1,-34}}, color={0,0,127}));
   connect(damLim.yRetDamPosMin, enaDis.uRetDamPosMin)
-    annotation (Line(points={{-59,10},{-28,10},{-28,8},{-28,-42},{-1,-42}}, color={0,0,127}));
+    annotation (Line(points={{-59,10},{-28,10},{-28,8},{-28,-40},{-1,-40}}, color={0,0,127}));
   connect(damLim.yRetDamPhyPosMax, enaDis.uRetDamPhyPosMax)
-    annotation (Line(points={{-59,6},{-32,6},{-32,2},{-32,-38},{-1,-38}}, color={0,0,127}));
+    annotation (Line(points={{-59,6},{-32,6},{-32,2},{-32,-36},{-1,-36}}, color={0,0,127}));
   connect(damLim.yRetDamPosMax, enaDis.uRetDamPosMax)
-    annotation (Line(points={{-59,8},{-30,8},{-30,-40},{-1,-40}}, color={0,0,127}));
+    annotation (Line(points={{-59,8},{-30,8},{-30,-38},{-1,-38}}, color={0,0,127}));
   connect(enaDis.yOutDamPosMax, mod.uOutDamPosMax)
     annotation (Line(points={{21,-24},{26,-24},{26,6},{39,6}}, color={0,0,127}));
   connect(enaDis.yRetDamPosMax, mod.uRetDamPosMax)
@@ -287,9 +296,8 @@ equation
             160,160}}), graphics={Text(
           extent={{-140,22},{-110,6}},
           lineColor={95,95,95},
-          textString="Not included
-in G36",
-          horizontalAlignment=TextAlignment.Left),
+          textString="Not included 
+in G36",  horizontalAlignment=TextAlignment.Left),
         Rectangle(
           extent={{72,100},{152,-100}},
           lineColor={0,0,127},
@@ -298,7 +306,7 @@ in G36",
                                   Text(
           extent={{76,-86},{154,-96}},
           lineColor={95,95,95},
-          textString="Freeze protection based on TMix,
+          textString="Freeze protection based on TMix, 
 not a part of G36",
           horizontalAlignment=TextAlignment.Left)}),
     Documentation(info="<html>

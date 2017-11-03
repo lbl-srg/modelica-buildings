@@ -13,7 +13,8 @@ block Limits "Multi zone VAV AHU minimum outdoor air control - damper position l
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
   parameter Real kPDamLim=1 "Gain of damper limit controller"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Modelica.SIunits.Time TiDamLim=30 "Time constant of damper limit controller integrator block"
+  parameter Modelica.SIunits.Time TiDamLim=1
+    "Time constant of damper limit controller integrator block"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
   parameter Real retDamPhyPosMax(
     final min=0,
