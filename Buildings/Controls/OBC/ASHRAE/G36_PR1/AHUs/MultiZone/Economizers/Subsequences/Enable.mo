@@ -57,35 +57,35 @@ block Enable
     final max=1)
     "Minimum outdoor air damper position, output from damper position limits sequence"
     annotation (Placement(transformation(extent={{-320,-80},{-280,-40}}),  iconTransformation(
-          extent={{-120,-70},{-100,-50}})));
+          extent={{-120,-50},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMax(
     final unit="1",
     final min=0,
     final max=1)
     "Maximum outdoor air damper position, output from damper position limits sequence"
     annotation (Placement(transformation(extent={{-320,-40},{-280,0}}),   iconTransformation(extent={{-120,
-            -50},{-100,-30}})));
+            -30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMax(
     final unit="1",
     final min=0,
     final max=1)
     "Maximum return air damper position, output from damper position limits sequence"
     annotation (Placement(transformation(extent={{-320,-160},{-280,-120}}), iconTransformation(
-          extent={{-120,-110},{-100,-90}})));
+          extent={{-120,-90},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMin(
     final unit="1",
     final min=0,
     final max=1)
     "Minimum return air damper position, output from damper position limits sequence"
     annotation (Placement(transformation(extent={{-320,-200},{-280,-160}}), iconTransformation(
-          extent={{-120,-130},{-100,-110}})));
+          extent={{-120,-110},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPhyPosMax(
     final unit="1",
     final min=0,
     final max=1)
     "Physical maximum return air damper position, output from damper position limits sequence"
     annotation (Placement(transformation(extent={{-320,-120},{-280,-80}}),  iconTransformation(
-          extent={{-120,-90},{-100,-70}})));
+          extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan on/off status signal"
     annotation (Placement(transformation(extent={{-320,80},{-280,120}}), iconTransformation(extent=
             {{-120,10},{-100,30}})));
@@ -313,7 +313,7 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-260,272},{202,144}},
+          extent={{-260,272},{200,144}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
