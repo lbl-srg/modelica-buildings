@@ -72,7 +72,7 @@ block Modulation
         transformation(extent={{120,50},{140,70}}), iconTransformation(extent={
             {100,10},{120,30}})));
 
-protected
+//protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(final
       k=uMin) "Minimal control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));

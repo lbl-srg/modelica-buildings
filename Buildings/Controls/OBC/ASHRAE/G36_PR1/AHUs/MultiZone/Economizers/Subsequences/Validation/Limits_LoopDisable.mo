@@ -47,7 +47,7 @@ model Limits_LoopDisable
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits damLim(kPDamLim=
-        1, TiDamLim=1)
+        1, TiDamLim=30)
     "Multi zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits damLim1(kPDamLim=
