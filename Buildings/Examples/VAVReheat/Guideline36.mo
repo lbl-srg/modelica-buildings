@@ -185,8 +185,7 @@ equation
                                                   color={0,0,127}));
   connect(conAHU.TZon, flo.TRooAir) annotation (Line(points={{378.118,457.727},
           {280,457.727},{280,622},{1164,622},{1164,491.333},{1094.14,491.333}},
-                                                                  color={0,0,
-          127}));
+                                                                  color={0,0,127}));
   connect(conAHU.TOut, TOut.y) annotation (Line(points={{378.118,462.636},{-266,
           462.636},{-266,180},{-279,180}},
                             color={0,0,127}));
