@@ -47,11 +47,12 @@ partial model PartialDataCenter
   parameter Real yValMinAHU(min=0,max=1,unit="1")=0.1
     "Minimum valve openning position";
   // Set point
-  parameter Modelica.SIunits.Temperature TCHWSet = 273.15 + 6
+  parameter Modelica.SIunits.Temperature TCHWSet = 273.15 + 8
     "Chilled water temperature setpoint";
   parameter Modelica.SIunits.Temperature TSupAirSet = TCHWSet + 10
     "Supply air temperature setpoint";
-
+  parameter Modelica.SIunits.Temperature TRetAirSet = 273.15 + 25
+    "Supply air temperature setpoint";
   replaceable Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE chiWSE(
     redeclare replaceable package Medium1 = MediumW,
     redeclare replaceable package Medium2 = MediumW,
@@ -155,7 +156,9 @@ partial model PartialDataCenter
     redeclare replaceable package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature"
-    annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={70,-150})));
   Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom roo(
     redeclare replaceable package Medium = MediumA,
     rooLen=50,
@@ -166,8 +169,8 @@ partial model PartialDataCenter
     nPorts=2)
     "Room model"
     annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={124,-160})));
+        extent={{10,-10},{-10,10}},
+        origin={124,-180})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val[numChi](
     redeclare each package Medium = MediumW,
     each m_flow_nominal=m1_flow_chi_nominal,
@@ -217,15 +220,8 @@ partial model PartialDataCenter
     annotation (Placement(transformation(extent={{-140,176},{-120,196}})));
 
   Modelica.Blocks.Sources.Constant TAirSupSet(k=TSupAirSet)
-      "Supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-  Modelica.Blocks.Sources.Constant XAirSupSet(
-    k(final unit="1") = MediumA.X_default[1])
-    "Supply air mass fraction setpoint"
-    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  Modelica.Blocks.Sources.Constant uFan(k = 1)
-    "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
+    "Supply air temperature setpoint"
+    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage
   varSpeCon(
     tWai=tWai,
@@ -256,13 +252,31 @@ partial model PartialDataCenter
     k=0.1,
     Ti=40,
     reverseAction=true,
-    yMin=yValMinAHU)
-    "Valve position signal for the AHU"
-    annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
+    yMin=yValMinAHU) "Valve position signal for the AHU"
+    annotation (Placement(transformation(extent={{38,-90},{58,-70}})));
   Modelica.Blocks.Math.Product cooTowSpe[numChi]
     "Cooling tower speed"
     annotation (Placement(transformation(extent={{60,166},{76,182}})));
 
+  Buildings.Controls.Continuous.LimPID ahuFanSpeCon(
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=0.1,
+    reverseAction=true,
+    yMin=0.2,
+    Ti=240)   "Fan speed controller "
+    annotation (Placement(transformation(extent={{0,-170},{20,-150}})));
+  Modelica.Blocks.Sources.Constant TAirRetSet(k=TRetAirSet)
+    "Return air temperature setpoint"
+    annotation (Placement(transformation(extent={{-60,-170},{-40,-150}})));
+  Utilities.Psychrometrics.X_pTphi XAirSupSet(use_p_in=false)
+    "Mass fraction setpoint of supply air "
+    annotation (Placement(transformation(extent={{-20,-100},{0,-120}})));
+  Modelica.Blocks.Sources.Constant phiAirRetSet(k=0.5)
+    "Return air relative humidity setpoint"
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+  Modelica.Blocks.Sources.Constant phiAirRetSet1(k=0.3)
+    "Return air relative humidity setpoint"
+    annotation (Placement(transformation(extent={{80,-52},{100,-32}})));
 equation
   connect(chiWSE.port_b2, TCHWSup.port_a)
     annotation (Line(
@@ -381,12 +395,6 @@ equation
   connect(chiWSE.TSet, TCHWSupSet.y)
     annotation (Line(points={{118.4,40.8},{116,40.8},{116,48},{-104,48},{-104,
           160},{-119,160}},                           color={0,0,127}));
-  connect(XAirSupSet.y, ahu.XSet_w)
-    annotation (Line(points={{-59,-120},{40,-120},{40,-119},{119,-119}},
-                                 color={0,0,127}));
-  connect(uFan.y, ahu.uFan)
-    annotation (Line(points={{-59,-150},{66,-150},{66,-124},{119,-124}},
-                      color={0,0,127}));
   connect(mPum_flow.y, varSpeCon.masFloPum)
     annotation (Line(points={{-79,4},{-50,4}}, color={0,0,127}));
   connect(senRelPre.port_a, ahu.port_a1)
@@ -413,21 +421,21 @@ equation
     annotation (Line(points={{-27,-4},{-2,-4}},
                                            color={0,0,127}));
   connect(TAirSupSet.y, ahuValSig.u_s)
-    annotation (Line(points={{-59,-90},{-36,-90},{-12,-90}}, color={0,0,127}));
+    annotation (Line(points={{1,-80},{36,-80}},              color={0,0,127}));
   connect(TAirSup.port_a, ahu.port_b2)
     annotation (Line(
-      points={{80,-180},{72,-180},{72,-126},{120,-126}},
+      points={{70,-140},{70,-140},{70,-142},{70,-142},{70,-126},{120,-126}},
       color={0,127,255},
       thickness=0.5));
   connect(TAirSup.T, ahuValSig.u_m)
-    annotation (Line(points={{90,-169},{90,-170},{90,-156},{0,-156},{0,-102}},
+    annotation (Line(points={{59,-150},{59,-150},{48,-150},{48,-92}},
                                                                color={0,0,127}));
   connect(ahuValSig.y, ahu.uWatVal)
-    annotation (Line(points={{11,-90},{68,-90},{68,-116},{119,-116}},
+    annotation (Line(points={{59,-80},{68,-80},{68,-116},{119,-116}},
                                                           color={0,0,127}));
   connect(TAirSupSet.y, ahu.TSet)
-    annotation (Line(points={{-59,-90},{-40,-90},{-40,-112},{64,-112},{64,-121},
-          {119,-121}},                             color={0,0,127}));
+    annotation (Line(points={{1,-80},{20,-80},{20,-121},{119,-121}},
+                                                   color={0,0,127}));
   connect(CWPumCon.y, val.y)
     annotation (Line(points={{-31,70},{-22,70},{-22,94},{48,94},{48,194},{180,
           194},{180,152}},                       color={0,0,127}));
@@ -448,14 +456,27 @@ equation
 
 
   connect(ahu.port_a2, roo.airPorts[1]) annotation (Line(
-      points={{140,-126},{152,-126},{152,-180},{126.475,-180},{126.475,-168.7}},
+      points={{140,-126},{152,-126},{152,-196},{121.525,-196},{121.525,-188.7}},
       color={0,127,255},
       thickness=0.5));
 
   connect(roo.airPorts[2], TAirSup.port_b) annotation (Line(
-      points={{122.425,-168.7},{122.425,-180},{100,-180}},
+      points={{125.575,-188.7},{125.575,-196},{70,-196},{70,-160}},
       color={0,127,255},
       thickness=0.5));
+  connect(roo.TRooAir, ahuFanSpeCon.u_m)
+    annotation (Line(points={{113,-180},{10,-180},{10,-172}},
+                                                            color={0,0,127}));
+  connect(TAirRetSet.y, ahuFanSpeCon.u_s)
+    annotation (Line(points={{-39,-160},{-2,-160}},  color={0,0,127}));
+  connect(phiAirRetSet.y, XAirSupSet.phi) annotation (Line(points={{-39,-90},{-30,
+          -90},{-30,-104},{-22,-104}}, color={0,0,127}));
+  connect(XAirSupSet.X[1], ahu.XSet_w) annotation (Line(points={{1,-110},{60,-110},
+          {60,-119},{119,-119}}, color={0,0,127}));
+  connect(TAirRetSet.y, XAirSupSet.T) annotation (Line(points={{-39,-160},{-30,-160},
+          {-30,-110},{-22,-110}}, color={0,0,127}));
+  connect(ahuFanSpeCon.y, ahu.uFan) annotation (Line(points={{21,-160},{40,-160},
+          {40,-124},{119,-124}}, color={0,0,127}));
   annotation (            Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -200},{300,220}})),
     Documentation(info="<html>
