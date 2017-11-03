@@ -20,7 +20,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
 
   parameter Real kPMinOut=1
     "Proportional gain of controller for minimum outdoor air"
-    annotation (Evaluate=true,Dialog(tab="Commissioning", group="Control gains"));
+    annotation (Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
   parameter Modelica.SIunits.Time TiMinOut=30
     "Time constant of controller for minimum outdoor air"
     annotation (Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
@@ -174,8 +174,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final kPFre=kPFre)
     "Multi zone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits
-    damLim(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits damLim(
     final retDamPhyPosMax=retDamPhyPosMax,
     final retDamPhyPosMin=retDamPhyPosMin,
     final outDamPhyPosMax=outDamPhyPosMax,
@@ -185,8 +184,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final uRetDamMin=uRetDamMin)
     "Multi zone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation
-    mod(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation mod(
     final uRetDamMin=uRetDamMin,
     final uMin=uHeaMax,
     final uMax=uCooMin,
@@ -289,7 +287,7 @@ equation
             160,160}}), graphics={Text(
           extent={{-140,22},{-110,6}},
           lineColor={95,95,95},
-          textString="Not included 
+          textString="Not included
 in G36",
           horizontalAlignment=TextAlignment.Left),
         Rectangle(
@@ -300,7 +298,7 @@ in G36",
                                   Text(
           extent={{76,-86},{154,-96}},
           lineColor={95,95,95},
-          textString="Freeze protection based on TMix, 
+          textString="Freeze protection based on TMix,
 not a part of G36",
           horizontalAlignment=TextAlignment.Left)}),
     Documentation(info="<html>

@@ -115,8 +115,7 @@ equation
     experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/Economizers/Validation/Controller_Mod_DamLim.mos"
     "Simulate and plot"),
-  Icon(coordinateSystem(extent={{-140,-160},{140,140}}),
-       graphics={
+  Icon(graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,

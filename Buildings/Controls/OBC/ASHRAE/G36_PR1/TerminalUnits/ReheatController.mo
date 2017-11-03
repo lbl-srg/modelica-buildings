@@ -64,11 +64,11 @@ block ReheatController "Controller for room VAV box"
   parameter Real CO2Set=894 "CO2 setpoint in ppm"
     annotation (Evaluate=true,
       Dialog(tab="Airflow setpoint", group="Nominal conditions"));
-  parameter Modelica.SIunits.TemperatureDifference maxDTem=11
+  parameter Modelica.SIunits.TemperatureDifference dTDisMax=11
     "Zone maximum discharge air temperature above heating setpoint"
     annotation (Evaluate=true,
       Dialog(tab="Damper and valve", group="Parameters"));
-  parameter Modelica.SIunits.Temperature minDisTem=283.15
+  parameter Modelica.SIunits.Temperature TDisMin=283.15
     "Lowest discharge air temperature"
     annotation (Evaluate=true,
       Dialog(tab="Damper and valve", group="Parameters"));
@@ -237,12 +237,12 @@ block ReheatController "Controller for room VAV box"
     "Active airflow rate setpoint"
     annotation (Placement(transformation(extent={{-32,90},{-12,110}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValve conDamVal(
-    final maxDTem=maxDTem,
-    final minDisTem=minDisTem,
     final kWatVal=kWatVal,
     final TiWatVal=TiWatVal,
     final kDam=kDam,
-    final TiDam=TiDam)
+    final TiDam=TiDam,
+    final dTDisMax=dTDisMax,
+    final TDisMin=TDisMin)
     "Damper and valve controller"
     annotation (Placement(transformation(extent={{10,60},{30,80}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests sysReq(
