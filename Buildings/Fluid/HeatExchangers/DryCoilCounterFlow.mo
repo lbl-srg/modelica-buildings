@@ -132,7 +132,8 @@ protected
     each from_dp1=from_dp1,
     each from_dp2=from_dp2,
     dp1_nominal={if i == 1 then dp1_nominal else 0 for i in 1:nEle},
-    dp2_nominal={if i == nEle then dp2_nominal else 0 for i in 1:nEle})
+    dp2_nominal={if i == nEle then dp2_nominal else 0 for i in 1:nEle},
+    use_freezeProtection = {i == nEle for i in 1:nEle})
     "Heat exchanger element"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Routing.Replicator rep1(nout=nEle) "Signal replicator"
@@ -173,7 +174,6 @@ protected
 initial equation
   assert(UA_nominal > 0,
     "Parameter UA_nominal is negative. Check heat exchanger parameters.");
-
 
 equation
   connect(masFloSen_1.m_flow, hA.m1_flow) annotation (Line(points={{-74,66.6},{

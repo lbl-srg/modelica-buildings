@@ -2,8 +2,8 @@ within Buildings.Examples.VAVReheat.BaseClasses;
 partial model PartialOpenLoop
   "Partial model of variable air volume flow system with terminal reheat and five thermal zones"
 
-  replaceable package MediumA = Buildings.Media.Air (T_default=293.15);
-  package MediumW = Buildings.Media.Water(T_min=-233.15) "Medium model for water";
+  package MediumA = Buildings.Media.Air "Medium model for air";
+  package MediumW = Buildings.Media.Water "Medium model for water";
 
   constant Integer numZon=5 "Total number of served zones/VAV boxes";
 
