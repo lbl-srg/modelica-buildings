@@ -126,7 +126,6 @@ equation
     nexStoInd = pre(nexStoInd);
     iPerSto   = pre(iPerSto);
     tNonOcc   = pre(tNonOcc);
-    Modelica.Utilities.Streams.print("time = " + String(time) + "  tNonOcc = " + String(tNonOcc));
   elsewhen time >= pre(tNonOcc) then
     // Changed the index that computes the time until the next non-occupancy
     nexStoInd = if pre(nexStoInd) + 2 <= nRow then (pre(nexStoInd) + 2)
