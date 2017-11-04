@@ -3,14 +3,17 @@ model DXCooledAirsideEconomizer
   "Example that illustrates the use of Buildings.Fluid.HeatExchanger.DXCoil in a data center room"
   extends Modelica.Icons.Example;
   extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PostProcess(
-    fulMecCooSig(y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
-           then 1 else 0),
-    parMecCooSig(y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.PartialMechanical)
-           then 1 else 0),
+    fulMecCooSig(
+      y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
+      then 1 else 0),
+    parMecCooSig(
+      y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.PartialMechanical)
+      then 1 else 0),
     PHVAC(y=varSpeDX.P + fan.P),
     PIT(y=roo.QRoo_flow),
-    freCooSig(y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
-           then 1 else 0));
+    freCooSig(
+      y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
+      then 1 else 0));
 
   replaceable package Medium = Buildings.Media.Air;
 
@@ -152,8 +155,9 @@ model DXCooledAirsideEconomizer
     nPorts=2)
     "Boundary conditions for outside air"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  Controls.CoolingMode
-    cooModCon(dT=1, tWai=120)
+  Buildings.Applications.DataCenters.DXCooled.Controls.CoolingMode cooModCon(
+    dT=1,
+    tWai=120)
     "Cooling mode controller"
     annotation (Placement(transformation(extent={{-110,60},{-90,80}})));
   Buildings.Fluid.Actuators.Dampers.Exponential dam1(
@@ -172,17 +176,16 @@ model DXCooledAirsideEconomizer
     m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for mixed air"
     annotation (Placement(transformation(extent={{-70,2},{-50,22}})));
-  Controls.AirsideEconomizer
-    ecoCon(
+  Buildings.Applications.DataCenters.DXCooled.Controls.AirsideEconomizer ecoCon(
     minOAFra=0.05,
     Ti=240,
     gai=0.5)
     "Economzier controller"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Modelica.Blocks.Sources.RealExpression freCoo(y=if cooModCon.y == Integer(
-        Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
-         then 1 else 0)
-      "Set true if free cooling mode is on"
+  Modelica.Blocks.Sources.RealExpression freCoo(
+    y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
+    then 1 else 0)
+    "Set true if free cooling mode is on"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Modelica.Blocks.Math.Feedback feedback1
     "Feedback signal"
@@ -199,7 +202,10 @@ model DXCooledAirsideEconomizer
     reverseAction=true)
     "Fan speed controller"
     annotation (Placement(transformation(extent={{140,-42},{160,-22}})));
-  Controls.SpeedControl speCon(k=1, Ti=120) "Speed controller for DX units"
+  Buildings.Applications.DataCenters.DXCooled.Controls.DXSpeedControl speCon(
+     k=1,
+     Ti=120)
+    "Speed controller for DX units"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 equation
   connect(weaDat.weaBus, weaBus)
@@ -294,23 +300,38 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(cooModCon.y, sigCha.u) annotation (Line(points={{-89,70},{-82,70},{-82,
-          160},{-256,160}}, color={255,127,0}));
+  connect(cooModCon.y, sigCha.u)
+    annotation (Line(
+      points={{-89,70},{-82,70},{-82,160},{-256,160}},
+      color={255,127,0}));
   connect(freCoo.y, dam1.y)
-    annotation (Line(points={{21,110},{50,110},{50,24}}, color={0,0,127}));
+    annotation (Line(
+      points={{21,110},{50,110},{50,24}},
+      color={0,0,127}));
   connect(freCoo.y, feedback1.u2)
-    annotation (Line(points={{21,110},{30,110},{30,122}}, color={0,0,127}));
-  connect(SATSetPoi.y, speCon.TMixAirSet) annotation (Line(points={{-159,100},{
-          -12,100},{-12,-4},{-2,-4}}, color={0,0,127}));
-  connect(senTemSupAir.T, speCon.TMixAirMea) annotation (Line(points={{100,-49},
-          {100,-28},{-12,-28},{-12,-10},{-2,-10}}, color={0,0,127}));
-  connect(cooModCon.y, speCon.cooMod) annotation (Line(points={{-89,70},{-82,70},
-          {-82,60},{-16,60},{-16,-17},{-2,-17}}, color={255,127,0}));
-  connect(speCon.y, varSpeDX.speRat) annotation (Line(points={{21,-10},{32,-10},
-          {32,-52},{39,-52}}, color={0,0,127}));
-  annotation (            Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-420,
-            -200},{220,220}})),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Examples/DXCooledAirsideEconomizer.mos"
+    annotation (Line(
+      points={{21,110},{30,110},{30,122}},
+      color={0,0,127}));
+  connect(SATSetPoi.y, speCon.TMixAirSet)
+    annotation (Line(
+      points={{-159,100},{-12,100},{-12,-4},{-2,-4}},
+      color={0,0,127}));
+  connect(senTemSupAir.T, speCon.TMixAirMea)
+    annotation (Line(
+      points={{100,-49},{100,-28},{-12,-28},{-12,-10},{-2,-10}},
+      color={0,0,127}));
+  connect(cooModCon.y, speCon.cooMod)
+    annotation (Line(
+      points={{-89,70},{-82,70},{-82,60},{-16,60},{-16,-17},{-2,-17}},
+      color={255,127,0}));
+  connect(speCon.y, varSpeDX.speRat)
+    annotation (Line(
+      points={{21,-10},{32,-10},{32,-52},{39,-52}},
+      color={0,0,127}));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
+    extent={{-420,-200},{220,220}})),
+    __Dymola_Commands(file=
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Examples/DXCooledAirsideEconomizer.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
