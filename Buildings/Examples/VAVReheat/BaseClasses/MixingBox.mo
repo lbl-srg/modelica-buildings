@@ -53,7 +53,7 @@ model MixingBox
   parameter Boolean from_dp=true
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Advanced"));
-  parameter Boolean linearized=true
+  parameter Boolean linearized=false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation (Dialog(tab="Advanced"));
   parameter Boolean use_constant_density=true
