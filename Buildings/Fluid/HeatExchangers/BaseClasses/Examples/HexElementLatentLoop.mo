@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model HexElementLatentLoop
   "Model that tests the basic element that is used to built heat exchanger models"
-  import Buildings;
   extends Modelica.Icons.Example;
  package Medium_W = Buildings.Media.Water;
  package Medium_A = Buildings.Media.Air;

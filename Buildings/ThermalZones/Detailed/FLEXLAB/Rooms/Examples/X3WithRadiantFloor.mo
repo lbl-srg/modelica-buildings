@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples;
-model TestBedX3WithRadiantFloor
+model X3WithRadiantFloor
   "Example model of test cells X3A and X3B connected to form test bed X3"
   extends Modelica.Icons.Example;
 
@@ -940,7 +940,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,
             -300},{300,300}})),           __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/FLEXLAB/Rooms/Examples/TestBedX3WithRadiantFloor.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/FLEXLAB/Rooms/Examples/X3WithRadiantFloor.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-6, StopTime=864000),
         Documentation(info="<html>
@@ -1004,4 +1004,4 @@ is not needed because that test cell is now included in the model.</li>
         First implementation.</li>
         </ul>
         </html>"));
-end TestBedX3WithRadiantFloor;
+end X3WithRadiantFloor;

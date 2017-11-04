@@ -1,11 +1,11 @@
 within Buildings.Fluid.MixingVolumes.BaseClasses;
-partial model PartialMixingVolume
+model PartialMixingVolume
   "Partial mixing volume with inlet and outlet ports (flow reversal is allowed)"
 
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
-  constant Boolean initialize_p = not Medium.singleState
+  parameter Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure"
-    annotation(HideResult=true);
+    annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
 
   // We set prescribedHeatFlowRate=false so that the
   // volume works without the user having to set this advanced parameter,
@@ -16,9 +16,7 @@ partial model PartialMixingVolume
 
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
-  parameter Boolean use_C_flow = false
-    "Set to true to enable input connector for trace substance"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
@@ -53,23 +51,18 @@ partial model PartialMixingVolume
   Modelica.Blocks.Interfaces.RealOutput mC[Medium.nC](each unit="kg")
     "Trace substance mass of the component";
 
-  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if use_C_flow
-    "Trace substance mass flow rate added to the medium"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 protected
   Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation steBal(
     final simplify_mWat_flow = simplify_mWat_flow,
-    final use_C_flow = use_C_flow,
     redeclare final package Medium=Medium,
     final m_flow_nominal = m_flow_nominal,
     final allowFlowReversal = allowFlowReversal,
     final m_flow_small = m_flow_small,
     final prescribedHeatFlowRate=prescribedHeatFlowRate) if
-        useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
+         useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
         annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Fluid.Interfaces.ConservationEquation dynBal(
     final simplify_mWat_flow = simplify_mWat_flow,
-    final use_C_flow = use_C_flow,
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
@@ -83,7 +76,7 @@ protected
     m(start=V*rho_start),
     nPorts=nPorts,
     final mSenFac=mSenFac) if
-        not useSteadyStateTwoPort "Model for dynamic energy balance"
+         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
   // Density at start values, used to compute initial values and start guesses
@@ -171,12 +164,6 @@ equation
     connect(XiOut_internal, dynBal.XiOut);
     connect(COut_internal,  dynBal.COut);
   end if;
-
-  connect(steBal.C_flow, C_flow) annotation (Line(points={{18,6},{12,6},{12,-60},
-          {-120,-60}},      color={0,0,127}));
-  connect(dynBal.C_flow, C_flow) annotation (Line(points={{58,6},{50,6},{50,
-          -60},{-120,-60}},
-                      color={0,0,127}));
 
   connect(portT.y, preTem.T)
     annotation (Line(points={{-31,0},{-38,0}},   color={0,0,127}));
@@ -310,6 +297,14 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2017, by Michael Wetter:<br/>
+Changed initialization of pressure from a <code>constant</code> to a <code>parameter</code>.<br/>
+Removed <code>partial</code> keyword as this model is not partial.<br/>
+Moved <code>C_flow</code> and <code>use_C_flow</code> to child classes.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1013\">Buildings, issue 1013</a>.
+</li>
 <li>
 April 11, 2017, by Michael Wetter:<br/>
 Moved heat port to the extending classes to provide better comment.

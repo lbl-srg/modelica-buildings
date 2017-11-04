@@ -1,0 +1,3 @@
+simulateModel("Buildings.Fluid.MixingVolumes.BaseClasses.Validation.MixingVolumeHeatPortWater", method="dassl", tolerance=1E-6, resultFile="MixingVolumeHeatPortWater");
+createPlot(id=1, position={15, 10, 784, 694}, y={"vol[1].p", "vol[2].p", "vol[3].p"}, range={0.0, 1.0, 0.9, 1.15}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={15, 10, 784, 345}, y={"vol[1].T", "vol[2].T", "vol[3].T"}, range={0.0, 1.0, 17.0, 23.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});

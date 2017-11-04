@@ -1,10 +1,16 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model HexElementLatent "Element of a heat exchanger with humidity condensation of fluid 2"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement(
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2(
-      final energyDynamics=energyDynamics,
-      final massDynamics=energyDynamics,
-        final initialize_p=initialize_p2));
+   redeclare final Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol1(
+     final energyDynamics=energyDynamics,
+     final massDynamics=energyDynamics,
+     final initialize_p=initialize_p1,
+     prescribedHeatFlowRate=false),
+   redeclare final Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatMoisturePort vol2(
+     final energyDynamics=energyDynamics,
+     final massDynamics=energyDynamics,
+     final initialize_p=initialize_p2,
+     prescribedHeatFlowRate=false));
 
   MassExchange masExc(
      redeclare final package Medium=Medium2) "Model for mass exchange"

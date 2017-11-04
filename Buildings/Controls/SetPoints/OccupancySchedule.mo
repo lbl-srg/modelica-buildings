@@ -62,11 +62,11 @@ initial algorithm
   // Check parameters for correctness
  assert(mod(nRow, 2) < 0.1,
    "The parameter \"occupancy\" must have an even number of elements.\n");
- assert(0 < occupancy[1],
-   "The first element of \"occupancy\" must be bigger than zero."
+ assert(0 <= occupancy[1],
+   "The first element of \"occupancy\" must be bigger than or equal to zero."
    + "\n   Received occupancy[1] = " + String(occupancy[1]));
- assert(period > occupancy[nRow],
-   "The parameter \"period\" must be greater than the last element of \"occupancy\"."
+ assert(period >= occupancy[nRow],
+   "The parameter \"period\" must be greater than or equal to the last element of \"occupancy\"."
    + "\n   Received period      = " + String(period)
    + "\n            occupancy[" + String(nRow) +
      "] = " + String(occupancy[nRow]));
@@ -113,36 +113,35 @@ initial algorithm
    occupied := not occupied;
  end if;
 
-algorithm
+equation
   when time >= pre(tOcc) then
-    nexStaInd :=nexStaInd + 2;
-    occupied := not occupied;
-    // Wrap index around
-    if nexStaInd > nRow then
-       nexStaInd := if firstEntryOccupied then 1 else 2;
-       iPerSta :=iPerSta + 1;
-    end if;
-    tOcc := occupancy[nexStaInd] + iPerSta*period;
+    // Changed the index that computes the time until the next occupancy
+    nexStaInd = if pre(nexStaInd) + 2 <= nRow then (pre(nexStaInd) + 2)
+                else (if firstEntryOccupied then 1 else 2);
+    iPerSta = if pre(nexStaInd) + 2 <= nRow then pre(iPerSta)
+                else (pre(iPerSta) + 1);
+    tOcc = occupancy[nexStaInd] + iPerSta*period;
+    occupied = not pre(occupied);
+
+    nexStoInd = pre(nexStoInd);
+    iPerSto   = pre(iPerSto);
+    tNonOcc   = pre(tNonOcc);
+  elsewhen time >= pre(tNonOcc) then
+    // Changed the index that computes the time until the next non-occupancy
+    nexStoInd = if pre(nexStoInd) + 2 <= nRow then (pre(nexStoInd) + 2)
+                else (if firstEntryOccupied then 2 else 1);
+    iPerSto = if pre(nexStoInd) + 2 <= nRow then pre(iPerSto)
+               else (pre(iPerSto) + 1);
+    tNonOcc =  occupancy[nexStoInd] + iPerSto*period;
+    occupied =  not pre(occupied);
+
+    nexStaInd = pre(nexStaInd);
+    iPerSta   = pre(iPerSta);
+    tOcc      = pre(tOcc);
   end when;
 
-  // Changed the index that computes the time until the next non-occupancy
-  when time >= pre(tNonOcc) then
-    nexStoInd :=nexStoInd + 2;
-    occupied := not occupied;
-    // Wrap index around
-    if nexStoInd > nRow then
-       nexStoInd := if firstEntryOccupied then 2 else 1;
-       iPerSto :=iPerSto + 1;
-    end if;
-    tNonOcc := occupancy[nexStoInd] + iPerSto*period;
-  end when;
-
- tNexOcc    := tOcc-time;
- tNexNonOcc := tNonOcc-time;
- assert(tNexOcc > -1e-3 and tNexOcc < period+1E-3, "tNexOcc must be non-zero and smaller than period.
-   Received tNexOcc = " + String(tNexOcc));
- assert(tNexNonOcc > -1e-3 and tNexOcc < period+1E-3, "tNexNonOcc must be non-zero and smaller than period.
-   Received tNexNonOcc = " + String(tNexNonOcc));
+ tNexOcc    =  tOcc-time;
+ tNexNonOcc =  tNonOcc-time;
 
   annotation (
     Icon(graphics={
@@ -194,6 +193,13 @@ The period always starts at <i>t=0</i> seconds.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 30, 2017, by Michael Wetter:<br/>
+Rewrote using <code>equation</code> rather than <code>algorithm</code>
+and removed assertion.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/844\">issue 844</a>.
+</li>
 <li>
 September 11, 2012, by Michael Wetter:<br/>
 Added <code>pre</code> operator in <code>when</code> clause and relaxed

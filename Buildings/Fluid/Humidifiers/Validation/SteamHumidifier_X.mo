@@ -1,7 +1,6 @@
 within Buildings.Fluid.Humidifiers.Validation;
 model SteamHumidifier_X
   "Model that demonstrates the steam humidifier model, configured as steady-state model"
-  import Buildings;
   extends Buildings.Fluid.Humidifiers.Validation.SprayAirWasher_X(
     redeclare Buildings.Fluid.Humidifiers.SteamHumidifier_X hum(
       mWatMax_flow=mWat_flow_nominal,
@@ -18,6 +17,11 @@ that is added to the air stream.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2017, by Michael Wetter:<br/>
+Removed <code>import</code> statement.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/852\">#852</a>.
+</li>
 <li>
 May 3, 2017, by Michael Wetter:<br/>
 First implementation.

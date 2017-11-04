@@ -1,9 +1,9 @@
 within Buildings.BoundaryConditions.SkyTemperature;
 block BlackBody "Calculate black body sky temperature"
   extends Modelica.Blocks.Icons.Block;
-  import Buildings.BoundaryConditions.Types.SkyTemperatureCalculation;
+
   parameter Buildings.BoundaryConditions.Types.SkyTemperatureCalculation calTSky=
-    SkyTemperatureCalculation.TemperaturesAndSkyCover
+    Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover
     "Computation of black-body sky temperature"
     annotation(choicesAllMatching=true,
                Evaluate=true);
@@ -59,6 +59,11 @@ Otherwise, it uses dry buld temperature, dew point temperature and opaque sky co
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2017, by Michael Wetter:<br/>
+Removed <code>import</code> statement.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/852\">#852</a>.
+</li>
 <li>
 January 6, 2016, by Moritz Lauster:<br/>
 Changed unit and comment of input <code>nOpa</code> for correct display of units
