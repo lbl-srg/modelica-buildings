@@ -156,7 +156,7 @@ model Controller "Single zone VAV AHU economizer control sequence"
       iconTransformation(extent={{-120,-90},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}}),
-        iconTransformation(extent={{-120,-70},{-100,-50}})));
+      iconTransformation(extent={{-120,-70},{-100,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
@@ -276,9 +276,9 @@ equation
     annotation (Line(points={{61,12},{110,12},{110,44},{118,44}}, color={0,0,127}));
   connect(mod.yOutDamPos, outDamMaxFre.u1)
     annotation (Line(points={{61,8},{110,8},{110,-44},{118,-44}},color={0,0,127}));
-  connect(freProTMix.yRetDamPos, retDamMinFre.u1)
+  connect(freProTMix.yFrePro, retDamMinFre.u1)
     annotation (Line(points={{101,-4},{106,-4},{106,56},{118,56}}, color={0,0,127}));
-  connect(freProTMix.yOutDamPos, outDamMaxFre.u2)
+  connect(freProTMix.yFreProInv, outDamMaxFre.u2)
     annotation (Line(points={{101,-16},{106,-16},{106,-56},{118,-56}}, color={0,0,127}));
   connect(TMix, freProTMix.TMix)
     annotation (Line(points={{-130,-20},{-90,-20},{-90,-60},{60,-60},{60,-10},{79,-10}},
