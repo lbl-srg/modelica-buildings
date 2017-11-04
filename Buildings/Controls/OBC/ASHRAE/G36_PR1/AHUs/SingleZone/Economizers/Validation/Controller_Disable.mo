@@ -116,7 +116,6 @@ protected
     annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
 
 
-
 equation
   connect(fanSta.y, economizer.uSupFan)
     annotation (Line(points={{-19,-10},{-10,-10},{-10,4},{19,4}},color={255,0,255}));
