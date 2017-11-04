@@ -40,7 +40,8 @@ partial model PostProcess "Post-processing"
   Buildings.Controls.OBC.CDL.Continuous.Gain IT_kWh(k=1/3600000)
     "Energy consumed by IT in kWh"
     annotation (Placement(transformation(extent={{-340,-100},{-360,-80}})));
-  Modelica.Blocks.Math.IntegerChange sigCha "Signal changes"
+  Modelica.Blocks.Math.IntegerChange sigCha(u(start=0, fixed=true))
+                                            "Signal changes"
     annotation (Placement(transformation(extent={{-258,150},{-278,170}})));
   Modelica.Blocks.MathInteger.TriggeredAdd swiTim "Triggered addition"
     annotation (Placement(transformation(extent={{-300,186},{-320,206}})));
