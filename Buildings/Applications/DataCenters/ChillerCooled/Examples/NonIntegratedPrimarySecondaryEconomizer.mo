@@ -23,8 +23,8 @@ model NonIntegratedPrimarySecondaryEconomizer
       use_controller=false),
     ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       dp1_nominal = 60000),
-    pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      use_inputFilter=false),
+    pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial, each
+        use_inputFilter=false),
     CWPumCon(tWai=60),
     pumSpe(k=0.001),
     cooTowSpeCon(k=0.6, Ti=60),

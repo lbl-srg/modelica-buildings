@@ -22,7 +22,7 @@ model IntegratedPrimarySecondaryEconomizer
         energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
         use_controller=false,
       riseTimePump=30),
-    pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial, each
         use_inputFilter=false),
     ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
