@@ -31,6 +31,10 @@ model CoilRegister "Register for a heat exchanger"
     "= true to allow flow reversal in medium 2, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
+  parameter Modelica.SIunits.ThermalConductance GDif = 1E-2*UA_nominal/(nPipPar - 1)/(nPipSeg - 1)
+    "Thermal conductance to approximate diffusion (which improves model at near-zero flow rates"
+    annotation(Dialog(tab="Experimental"));
+
   replaceable Buildings.Fluid.HeatExchangers.BaseClasses.HexElementSensible ele[nPipPar, nPipSeg]
     constrainedby Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement(
     redeclare each package Medium1 = Medium1,
@@ -54,7 +58,7 @@ model CoilRegister "Register for a heat exchanger"
     each deltaM2=deltaM2,
     each dp1_nominal=dp1_nominal,
     each dp2_nominal=dp2_nominal) "Element of a heat exchanger"
-    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a[nPipPar] port_a1(
         redeclare each package Medium = Medium1,
@@ -123,10 +127,20 @@ model CoilRegister "Register for a heat exchanger"
 protected
   Modelica.Blocks.Math.Gain gai_1(k=1/nEle)
     "Gain medium-side 1 to take discretization into account"
-    annotation (Placement(transformation(extent={{-34,48},{-22,62}})));
+    annotation (Placement(transformation(extent={{-34,18},{-22,32}})));
   Modelica.Blocks.Math.Gain gai_2(k=1/nEle)
     "Gain medium-side 2 to take discretization into account"
-    annotation (Placement(transformation(extent={{24,-76},{12,-62}})));
+    annotation (Placement(transformation(extent={{36,-76},{24,-62}})));
+
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon1[nPipPar-1, nPipSeg-1](
+    each final G=GDif)
+    "Thermal connector to approximate diffusion in medium 1"
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
+
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon2[nPipPar-1, nPipSeg-1](
+    each final G=GDif)
+    "Thermal connector to approximate diffusion in medium 2"
+    annotation (Placement(transformation(extent={{10,-60},{-10,-40}})));
 equation
   // As OpenModelica does not support multiple iterators as of August 2014, we
   // use here two sum(.) functions
@@ -134,41 +148,55 @@ equation
   Q2_flow = sum(sum(ele[i,j].Q2_flow for i in 1:nPipPar) for j in 1:nPipSeg);
   for i in 1:nPipPar loop
     connect(ele[i,1].port_a1,       port_a1[i])
-       annotation (Line(points={{-10,36},{-68,36},{-68,60},{-100,60}}, color={0,
+       annotation (Line(points={{-10,6},{-68,6},{-68,60},{-100,60}},   color={0,
             127,255}));
     connect(ele[i,nPipSeg].port_b1, port_b1[i])
-       annotation (Line(points={{10,36},{44,36},{44,60},{100,60}}, color={0,127,
+       annotation (Line(points={{10,6},{44,6},{44,60},{100,60}},   color={0,127,
             255}));
     for j in 1:nPipSeg-1 loop
       connect(ele[i,j].port_b1, ele[i,j+1].port_a1)
-       annotation (Line(points={{10,36},{10,46},{-10,46},{-10,36}}, color={0,
+       annotation (Line(points={{10,6},{10,16},{-10,16},{-10,6}},   color={0,
               127,255}));
     end for;
 
     for j in 1:nPipSeg loop
       connect(ele[i,j].port_a2, port_a2[i,j])
-       annotation (Line(points={{10,24},{40,24},{40,-60},{100,-60}}, color={0,
+       annotation (Line(points={{10,-6},{40,-6},{40,-60},{100,-60}}, color={0,
               127,255}));
       connect(ele[i,j].port_b2, port_b2[i,j])
-       annotation (Line(points={{-10,24},{-68,24},{-68,-62},{-100,-62}}, color=
+       annotation (Line(points={{-10,-6},{-68,-6},{-68,-62},{-100,-62}}, color=
               {0,127,255}));
     end for;
   end for;
 
-  connect(Gc_1, gai_1.u)  annotation (Line(points={{-40,100},{-40,55},{-35.2,55}},
+  connect(Gc_1, gai_1.u)  annotation (Line(points={{-40,100},{-40,25},{-35.2,25}},
         color={0,0,127}));
-  connect(Gc_2, gai_2.u)  annotation (Line(points={{40,-100},{40,-69},{25.2,-69}},
+  connect(Gc_2, gai_2.u)  annotation (Line(points={{40,-100},{40,-69},{37.2,-69}},
         color={0,0,127}));
   for i in 1:nPipPar loop
 
      for j in 1:nPipSeg loop
-      connect(gai_1.y, ele[i,j].Gc_1)  annotation (Line(points={{-21.4,55},{-4,
-              55},{-4,40}}, color={0,0,127}));
-      connect(gai_2.y, ele[i,j].Gc_2)  annotation (Line(points={{11.4,-69},{4,
-              -69},{4,20}}, color={0,0,127}));
+      connect(gai_1.y, ele[i,j].Gc_1)  annotation (Line(points={{-21.4,25},{-4,25},
+              {-4,10}},     color={0,0,127}));
+      connect(gai_2.y, ele[i,j].Gc_2)  annotation (Line(points={{23.4,-69},{20,-69},
+              {20,-68},{20,-18},{4,-18},{4,-10}},
+                            color={0,0,127}));
      end for;
   end for;
 
+  // The connection below are approximate. See info section.
+  for i in 1:nPipPar-1 loop
+    for j in 1:nPipSeg-1 loop
+     connect(ele[i, j].heaPor1, theCon1[i, j].port_a) annotation (Line(points={{0,10},{0,32},{-20,
+          32},{-20,50},{-10,50}}, color={191,0,0}));
+     connect(theCon1[i, j].port_b, ele[i+1, j+1].heaPor1) annotation (Line(points={{10,50},{20,50},
+          {20,32},{0,32},{0,10}}, color={191,0,0}));
+     connect(ele[i, j].heaPor2, theCon2[i, j].port_a) annotation (Line(points={{0,-10},{0,-28},
+          {14,-28},{14,-50},{10,-50}}, color={191,0,0}));
+     connect(theCon2[i, j].port_b, ele[i+1, j+1].heaPor2) annotation (Line(points={{-10,-50},{-14,-50},
+          {-14,-28},{0,-28},{0,-10}}, color={191,0,0}));
+    end for;
+  end for;
   annotation (
     Documentation(info="<html>
 <p>
@@ -179,9 +207,28 @@ The <i>hA</i> value for both fluids is an input.
 The driving force for the heat transfer is the temperature difference
 between the fluid volumes and the solid in each heat exchanger element.
 </p>
+<h4>Implementation</h4>
+<p>
+At very small flow rates, which may be caused when the fan is off but there is wind pressure
+on the building that entrains outside air through the HVAC system, large temperature differences
+could occur if diffusion were neglected.
+This model therefore approximates a small diffusion between the elements to have more uniform
+medium temperatures if the flow is near zero.
+The approximation is done using the heat conductors <code>heaCon1</code> and <code>heaCon2</code>.
+As this is a rough approximation, neighboring elements are connected through these heat conduction
+elements, ignoring the actual geometrical configuration.
+Also, radiation between the coil surfaces on the air side is not modelled explicitly, but
+rather may be considered as approximated by these heat conductors.
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 4, 2017, by Michael wetter:<br/>
+Added approximation of diffusion.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1038\">Buildings, #1038</a>.
+</li>
 <li>
 October 19, 2017, by Michael Wetter:<br/>
 Changed initialization of pressure from a <code>constant</code> to a <code>parameter</code>.<br/>

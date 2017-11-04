@@ -19,9 +19,6 @@ model PartialHexElement "Element of a heat exchanger 2"
   parameter Modelica.SIunits.HeatCapacity C=2*UA_nominal*tau_m
     "Heat capacity of metal (= cp*m)";
 
-  parameter Boolean use_freezeProtection = false
-    "Flag, set to true to enable freeze protection"
-    annotation(Dialog(tab="Experimental"));
   Modelica.Blocks.Interfaces.RealInput Gc_1
     "Signal representing the convective thermal conductance medium 1 in [W/K]"
     annotation (Placement(transformation(
@@ -53,10 +50,12 @@ model PartialHexElement "Element of a heat exchanger 2"
   Modelica.Thermal.HeatTransfer.Components.Convection con2(dT(min=-200))
     "Convection (and conduction) on fluid side 2"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-50}})));
-protected
-  FreezeProtection frePro(QMax_flow=1E-2*UA_nominal) if use_freezeProtection
-    "Model to avoid freezing the water, which may happen if wind pressure induces air when the fans are off"
-    annotation (Placement(transformation(rotation=0, extent={{30,70},{50,90}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPor1
+    "Heat port for heat exchange with the control volume 1"
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPor2
+    "Heat port for heat exchange with the control volume 2"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 equation
   connect(Gc_1, con1.Gc) annotation (Line(points={{-40,100},{-40,76},{-40,70}},
                     color={0,0,127}));
@@ -77,54 +76,10 @@ equation
       points={{-50,-40},{-66,-40},{-66,60},{-50,60}},
       color={191,0,0},
       smooth=Smooth.None));
-protected
-  model FreezeProtection
-    "Model to avoid freezing the coil at very low flow rates"
-    extends Modelica.Blocks.Icons.Block;
-
-    parameter Modelica.SIunits.HeatFlowRate QMax_flow(min=0)
-      "Maximum heat flow rate that is added";
-
-    Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
-      "Prescribed heat flow rate"
-      annotation (Placement(transformation(extent={{50,40},{70,60}})));
-    Modelica.Blocks.Math.Gain gai(final k=QMax_flow)
-      "Gain for injected heat if temperature gets close to freezing"
-      annotation (Placement(transformation(extent={{20,40},{40,60}})));
-    Modelica.Blocks.Math.Feedback feedback "Temperature error below set point"
-      annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
-    Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
-      "Temperature sensor"
-      annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-    Modelica.Blocks.Sources.Constant const(k=273.15 + 3) "Set point temperature"
-      annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-    Modelica.Blocks.Nonlinear.Limiter lim(final uMax=1, final uMin=0)
-      "Limiter to ensure that heat is only added"
-      annotation (Placement(transformation(extent={{-18,40},{2,60}})));
-
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port annotation (
-        Placement(transformation(rotation=0, extent={{-112,-10},{-92,10}}),
-          iconTransformation(extent={{-110,-10},{-90,10}})));
-
-  equation
-    connect(preHeaFlo.Q_flow, gai.y)
-      annotation (Line(points={{50,50},{41,50}}, color={0,0,127}));
-    connect(gai.u, lim.y)
-      annotation (Line(points={{18,50},{3,50}}, color={0,0,127}));
-    connect(feedback.y, lim.u)
-      annotation (Line(points={{-31,50},{-31,50},{-20,50}}, color={0,0,127}));
-    connect(feedback.u1,const. y)
-      annotation (Line(points={{-48,50},{-54,50},{-59,50}},    color={0,0,127}));
-    connect(temSen.T, feedback.u2)
-      annotation (Line(points={{-60,20},{-40,20},{-40,42}}, color={0,0,127}));
-    connect(port, preHeaFlo.port) annotation (Line(points={{-102,0},{80,0},{80,50},
-            {70,50}}, color={191,0,0}));
-    connect(port, temSen.port) annotation (Line(points={{-102,0},{-88,0},{-88,20},
-            {-80,20}}, color={191,0,0}));
-  end FreezeProtection;
-equation
-  connect(frePro.port, vol1.heatPort) annotation (Line(points={{30,80},{26,80},
-          {26,40},{-20,40},{-20,60},{-10,60}}, color={191,0,0}));
+  connect(vol1.heatPort, heaPor1) annotation (Line(points={{-10,60},{-20,60},{-20,
+          88},{0,88},{0,100}}, color={191,0,0}));
+  connect(vol2.heatPort, heaPor2) annotation (Line(points={{12,-60},{18,-60},{20,
+          -60},{20,-90},{0,-90},{0,-100}}, color={191,0,0}));
   annotation (
     Documentation(info="<html>
 <p>
