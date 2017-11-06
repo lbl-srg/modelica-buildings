@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic;
 block FreProTMix "Optional freeze protection block based on mixed air temperature."
 
   parameter Modelica.SIunits.Temperature TFreSet = 277.15
@@ -87,8 +87,8 @@ equation
         initialScale=0.05)),
 Documentation(info="<html>
 <p>
-Block that tracks the mixed air temeprature <code>TMix</code> and outputs 
-a freeze protection control signal <code>yFrePro</code> and 
+Block that tracks the mixed air temeprature <code>TMix</code> and outputs
+a freeze protection control signal <code>yFrePro</code> and
 its inverse <code>yFreProInv</code>.
 </p>
 </html>", revisions="<html>
