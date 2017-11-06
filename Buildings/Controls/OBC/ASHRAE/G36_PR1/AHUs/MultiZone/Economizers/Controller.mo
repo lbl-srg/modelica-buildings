@@ -172,7 +172,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final k=Constants.FreezeProtectionStages.stage0) if not use_G36FrePro
     "Freeze protection status is 0. Use if G36 freeze protection is not implemented"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.FreProTMix
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreProTMix
     freProTMix if use_TMix
     "Block that tracks TMix against a freeze protection setpoint"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));

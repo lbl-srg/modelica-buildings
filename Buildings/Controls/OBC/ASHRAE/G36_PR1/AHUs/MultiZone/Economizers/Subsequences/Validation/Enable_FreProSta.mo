@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Validation;
-model Enable_FreProSta_ZonSta
+model Enable_FreProSta
   "Model validates economizer disable for heating zone state and activated freeze protection"
   extends Modelica.Icons.Example;
 
@@ -121,4 +121,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Enable_FreProSta_ZonSta;
+end Enable_FreProSta;
