@@ -195,8 +195,8 @@ partial model PartialChillerWSE
     "Identical chillers"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.WatersideEconomizer wse(
-    final replaceable package Medium1 = Medium1,
-    final replaceable package Medium2 = Medium2,
+    redeclare final replaceable package Medium1 = Medium1,
+    redeclare final replaceable package Medium2 = Medium2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final allowFlowReversal1=allowFlowReversal1,
     final allowFlowReversal2=allowFlowReversal2,

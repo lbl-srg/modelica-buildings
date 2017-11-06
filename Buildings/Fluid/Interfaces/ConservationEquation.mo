@@ -92,13 +92,17 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     nominal = 1E5) "Internal energy of fluid";
 
   Modelica.SIunits.Mass m(
+    start=fluidVolume*rho_start,
     stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
     then StateSelect.default else StateSelect.prefer)
     "Mass of fluid";
 
-  Modelica.SIunits.Mass[Medium.nXi] mXi
+  Modelica.SIunits.Mass[Medium.nXi] mXi(
+    start=fluidVolume*rho_start*X_start[1:Medium.nXi])
     "Masses of independent components in the fluid";
-  Modelica.SIunits.Mass[Medium.nC] mC "Masses of trace substances in the fluid";
+  Modelica.SIunits.Mass[Medium.nC] mC(
+    start=fluidVolume*rho_start*C_start)
+    "Masses of trace substances in the fluid";
   // C need to be added here because unlike for Xi, which has medium.Xi,
   // there is no variable medium.C
   Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)
@@ -412,6 +416,11 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2017, by Michael Wetter:<br/>
+Set <code>start</code> attributes.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/727\">727</a>.
+</li>
 <li>
 October 19, 2017, by Michael Wetter:<br/>
 Changed initialization of pressure from a <code>constant</code> to a <code>parameter</code>.<br/>

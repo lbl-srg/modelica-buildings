@@ -3,7 +3,8 @@ model MixingVolumeHeatPortWater
   "Validation model for setting the initialization of the pressure for water"
   extends Modelica.Icons.Example;
 
-  replaceable package Medium = Buildings.Media.Air "Medium model";
+  replaceable package Medium = Buildings.Media.Water constrainedby
+    Modelica.Media.Interfaces.PartialMedium "Medium model";
 
   parameter Integer nEle(min=2)= 3 "Number of volumes"
     annotation(Evaluate=true);
@@ -70,6 +71,10 @@ and not overdetermined.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2017 by Michael Wetter:<br/>
+Corrected medium for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/850\">issue 850</a>.
 <li>
 October 23, 2017 by Michael Wetter:<br/>
 First implementation for

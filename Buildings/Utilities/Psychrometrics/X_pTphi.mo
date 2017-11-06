@@ -17,35 +17,36 @@ block X_pTphi
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
   Modelica.SIunits.AbsolutePressure pSat "Saturation pressure";
- parameter Integer i_w(min=1, fixed=false) "Index for water substance";
- parameter Integer i_nw(min=1, fixed=false) "Index for non-water substance";
- parameter Boolean found(fixed=false) "Flag, used for error checking";
-initial algorithm
+  parameter Integer i_w =
+   sum({(
+     if Modelica.Utilities.Strings.isEqual(
+       string1=Medium.substanceNames[i],
+       string2="Water",
+       caseSensitive=false)
+     then i else 0)
+     for i in 1:Medium.nX});
+  parameter Integer i_nw = if i_w == 1 then 2 else 1 "Index for non-water substance";
+  parameter Boolean found = i_w > 0 "Flag, used for error checking";
+
+initial equation
   assert(Medium.nX==2, "The implementation is only valid if Medium.nX=2.");
-  found:=false;
-  i_w :=1;
-    for i in 1:Medium.nXi loop
-      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
-                                            string2="water",
-                                            caseSensitive=false) then
-        i_w :=i;
-        found:=true;
-      end if;
-    end for;
-  i_nw := if i_w == 1 then 2 else 1;
   assert(found, "Did not find medium species 'water' in the medium model. Change medium model.");
-algorithm
-  pSat := Buildings.Media.Air.saturationPressure(T);
-  X[i_w] := Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-     pSat=pSat, p=p_in_internal, phi=phi);
+
+equation
+  pSat =  Buildings.Media.Air.saturationPressure(T);
+  X[i_w] =  Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+     pSat=pSat,
+     p=p_in_internal,
+     phi=phi);
   //sum(X[:]) = 1; // The formulation with a sum in an equation section leads to a nonlinear equation system
-  X[i_nw] := 1 - X[i_w];
+  X[i_nw] =  1 - X[i_w];
   annotation (Documentation(info="<html>
 <p>
 Block to compute the water vapor concentration based on
 pressure, temperature and relative humidity.
 </p>
-<p>If <code>use_p_in</code> is false (default option), the <code>p</code> parameter
+<p>
+If <code>use_p_in</code> is false (default option), the <code>p</code> parameter
 is used as atmospheric pressure,
 and the <code>p_in</code> input connector is disabled;
 if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored,
@@ -53,6 +54,10 @@ and the value provided by the input connector is used instead.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>November 3, 2017 by Filip Jorissen:<br/>
+Converted (initial) algorithm section into (initial) equation section.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/847\">#847</a>.
+</li>
 <li>July 24, 2014 by Michael Wetter:<br/>
 Added <code>assert</code> to verify that <code>Medium.nX==2</code>
 as the implementation is only valid for such media.
