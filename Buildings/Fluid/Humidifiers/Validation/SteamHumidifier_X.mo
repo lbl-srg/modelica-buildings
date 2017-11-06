@@ -18,6 +18,11 @@ that is added to the air stream.
 </html>", revisions="<html>
 <ul>
 <li>
+November 3, 2017, by Michael Wetter:<br/>
+Removed <code>import</code> statement.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/852\">#852</a>.
+</li>
+<li>
 May 3, 2017, by Michael Wetter:<br/>
 First implementation.
 </li>
