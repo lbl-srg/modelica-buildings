@@ -1,5 +1,5 @@
 within Buildings.Applications.DataCenters.DXCooled.Controls;
-model DXSpeedControl "Speed controller of DX coil"
+model DXSpeedControl "Controller for DX coil"
 
   parameter Real k=0.5 "Gain of controller";
   parameter Modelica.SIunits.Time Ti=240 "Time constant of Integrator block";
@@ -11,18 +11,22 @@ model DXSpeedControl "Speed controller of DX coil"
   Buildings.Controls.Continuous.LimPID dxSpe(
     Td=1,
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=k,
-    Ti=Ti,
-    yMax=yMax,
-    yMin=yMin,
-    reverseAction=reverseAction)
+    final k=k,
+    final Ti=Ti,
+    final yMax=yMax,
+    final yMin=yMin,
+    reverseAction=reverseAction,
+    reset=Buildings.Types.Reset.Parameter,
+    y_reset=yMin)
     "Controller for variable speed DX coil"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Modelica.Blocks.Interfaces.IntegerInput cooMod
     "Cooling mode of the cooling system"
     annotation (Placement(
         transformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
+    min = 0,
+    max = 1)
     "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput TMixAirSet(
@@ -38,37 +42,47 @@ model DXSpeedControl "Speed controller of DX coil"
         transformation(extent={{-140,-20},{-100,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=Integer(
-        Types.CoolingModes.FreeCooling))
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling))
     "Outputs signal for full mechanical cooling"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Equal freCoo
     "Determine if free cooling is on"
-    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch switch1
     "Switch to select control output"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(final k=0)
     "Constant output signal with value 1"
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
+public
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Negation of signal to trigger the integrator reset"
+    annotation (Placement(transformation(extent={{-68,20},{-48,40}})));
 equation
   connect(cooMod, freCoo.u1)
-    annotation (Line(points={{-120,-70},{-22,-70}}, color={255,127,0}));
-  connect(conInt.y, freCoo.u2) annotation (Line(points={{-59,-90},{-40,-90},{-40,
-          -78},{-22,-78}}, color={255,127,0}));
-  connect(freCoo.y, switch1.u2) annotation (Line(points={{1,-70},{20,-70},{20,0},
-          {38,0}}, color={255,0,255}));
+    annotation (Line(points={{-120,-70},{-92,-70},{-92,-50},{-42,-50}},
+                                                    color={255,127,0}));
+  connect(conInt.y, freCoo.u2) annotation (Line(points={{-59,-70},{-52,-70},{-52,
+          -58},{-42,-58}}, color={255,127,0}));
+  connect(freCoo.y, switch1.u2) annotation (Line(points={{-19,-50},{40,-50},{40,
+          0},{58,0}},
+                   color={255,0,255}));
   connect(const.y, switch1.u1)
-    annotation (Line(points={{21,40},{28,40},{28,8},{38,8}}, color={0,0,127}));
-  connect(dxSpe.y, switch1.u3) annotation (Line(points={{-39,20},{0,20},{0,-8},{
-          38,-8}}, color={0,0,127}));
+    annotation (Line(points={{41,40},{48,40},{48,8},{58,8}}, color={0,0,127}));
+  connect(dxSpe.y, switch1.u3) annotation (Line(points={{-19,60},{10,60},{10,-8},
+          {58,-8}},color={0,0,127}));
   connect(switch1.y, y)
-    annotation (Line(points={{61,0},{110,0}}, color={0,0,127}));
-  connect(TMixAirSet, dxSpe.u_s) annotation (Line(points={{-120,60},{-80,60},{-80,
-          20},{-62,20}}, color={0,0,127}));
+    annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
+  connect(TMixAirSet, dxSpe.u_s) annotation (Line(points={{-120,60},{-42,60}},
+                         color={0,0,127}));
   connect(TMixAirMea, dxSpe.u_m)
-    annotation (Line(points={{-120,0},{-50,0},{-50,8}}, color={0,0,127}));
+    annotation (Line(points={{-120,0},{-30,0},{-30,48}},color={0,0,127}));
+  connect(not1.y, dxSpe.trigger)
+    annotation (Line(points={{-47,30},{-38,30},{-38,48}}, color={255,0,255}));
+  connect(freCoo.y, not1.u) annotation (Line(points={{-19,-50},{0,-50},{0,-20},{
+          -80,-20},{-80,30},{-70,30}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                   Rectangle(
           extent={{-100,100},{100,-100}},
@@ -87,6 +101,10 @@ Full Mechanical cooling, the PI controller works to adjust the compressor's spee
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 6, 2017, by Michael Wetter:<br/>
+Added reset for integrator when compressor switches on.
+</li>
 <li>
 November 2, 2017 by Yangyang Fu:<br/>
 First implementation.
