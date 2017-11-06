@@ -37,12 +37,12 @@ protected
   final parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=0.2
     "Maximum increase in airflow volume during the example simulation";
 
-  Modelica.Blocks.Sources.Ramp SupFanSpeSig(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp SupFanSpeSig(
     final duration=1800,
     final offset=yFanMin,
     final height=yFanMax - yFanMin) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
-  Modelica.Blocks.Sources.Ramp VOutMinSetSig(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOutMinSetSig(
     final duration=1800,
     final offset=VOutMin_flow,
     final height=VOutDes_flow - VOutMin_flow) "Constant minimum outdoor airflow setpoint"
