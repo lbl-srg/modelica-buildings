@@ -63,13 +63,13 @@ protected
     final k=minVOutSet_flow)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Blocks.Sources.Ramp VOut_flow(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut_flow(
     final height=incVOutSet_flow,
     final offset=VOutMin_flow,
     final duration=1800)
     "Measured outdoor air volumetric airflow"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Modelica.Blocks.Sources.Ramp uTSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uTSup(
     final duration=1800,
     final height=1,
     final offset=0) "Supply air temperature control signal"

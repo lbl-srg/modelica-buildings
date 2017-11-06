@@ -17,7 +17,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooHeaSetSig(
     k=TRooHeaSet) "Heating zone temperature setpoint"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Modelica.Blocks.Sources.Ramp TRoo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TRoo(
     final duration=900,
     final offset=TRooHeaSet - 5,
     final height=TRooCooSet - TRooHeaSet + 10) "Measured zone air temperature"
