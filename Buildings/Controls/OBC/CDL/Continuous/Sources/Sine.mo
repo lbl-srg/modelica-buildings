@@ -17,7 +17,11 @@ equation
     defaultComponentName="ram",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}}), graphics={
+        extent={{-100,-80},{100,100}}),graphics={
+        Text(
+          lineColor={0,0,255},
+          extent={{-148,104},{152,144}},
+          textString="%name"),
         Rectangle(extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
@@ -37,14 +41,10 @@ equation
               -64.2},{29.3,-73.1},{35,-78.4},{40.6,-80},{46.2,-77.6},{51.9,-71.5},
               {57.5,-61.9},{63.9,-47.2},{72,-24.8},{80,0}}, smooth = Smooth.Bezier),
         Text(extent={{-147,-152},{153,-112}},lineColor={0,0,0},
-        textString="freqHz=%freqHz")}),
+          textString="freqHz=%freqHz")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
-          Text(
-          lineColor={0,0,255},
-          extent={{-150,110},{150,150}},
-          textString="%name"),
         Line(points={{-80,-90},{-80,84}}, color={95,95,95}),
         Polygon(
           points={{-80,97},{-84,81},{-76,81},{-80,97}},
@@ -110,7 +110,7 @@ The Real output y is a sine signal:
 </p>
 
 <p>
-<img src=\"modelica://Modelica/Resources/Images/Blocks/Sources/Sine.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Sources/Sine.png\"
      alt=\"Sine.png\">
      </p>
 </html>", revisions="<html>
