@@ -62,7 +62,7 @@ model ReheatController "Validate model for controlling VAV terminal box with reh
     duration=4800,
     offset=0) "Number of occupants"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round rou(n=0)
+  Buildings.Controls.OBC.CDL.Continuous.Round rou(n=0) "Round the input"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
 equation

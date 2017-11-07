@@ -62,23 +62,23 @@ block ZoneModeAndSetPoints "Output zone setpoint with operation mode selection"
   parameter Modelica.SIunits.Temperature THeaWinOpe=277.15
     "Heating setpoint when window is open"
     annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits settings"));
-  parameter Real incSetDem_1=0.56
-    "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
+  parameter Modelica.SIunits.TemperatureDifference incSetDem_1=0.56
+    "Cooling setpoint increase value when cooling demand limit level 1 is imposed"
     annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Demands settings"));
-  parameter Real incSetDem_2=1.1
-    "Cooling setpoint increase value (degC) when cooling demand limit level 2 is imposed"
+  parameter Modelica.SIunits.TemperatureDifference incSetDem_2=1.1
+    "Cooling setpoint increase value when cooling demand limit level 2 is imposed"
     annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Demands settings"));
-  parameter Real incSetDem_3=2.2
-    "Cooling setpoint increase value (degC) when cooling demand limit level 3 is imposed"
+  parameter Modelica.SIunits.TemperatureDifference incSetDem_3=2.2
+    "Cooling setpoint increase value when cooling demand limit level 3 is imposed"
     annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Demands settings"));
-  parameter Real decSetDem_1=0.56
-    "Heating setpoint decrease value (degC) when heating demand limit level 1 is imposed"
+  parameter Modelica.SIunits.TemperatureDifference decSetDem_1=0.56
+    "Heating setpoint decrease value when heating demand limit level 1 is imposed"
     annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Demands settings"));
-  parameter Real decSetDem_2=1.1
-    "Heating setpoint decrease value (degC) when heating demand limit level 2 is imposed"
+  parameter Modelica.SIunits.TemperatureDifference decSetDem_2=1.1
+    "Heating setpoint decrease value when heating demand limit level 2 is imposed"
     annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Demands settings"));
-  parameter Real decSetDem_3=2.2
-    "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
+  parameter Modelica.SIunits.TemperatureDifference decSetDem_3=2.2
+    "Heating setpoint decrease value when heating demand limit level 3 is imposed"
     annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Demands settings"));
   parameter Integer cooDemLimLevCon=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.cooling0
     "Cooling demand limit level"

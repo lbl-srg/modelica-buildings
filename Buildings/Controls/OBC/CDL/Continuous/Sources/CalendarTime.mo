@@ -37,7 +37,7 @@ protected
   final constant Integer lastYear = firstYear + 11
     "Last year that is supported (actual building automation system need to support a larger range)";
 
-  .Buildings.Utilities.Time.CalendarTime calTim(
+  Buildings.Utilities.Time.CalendarTime calTim(
     final zerTim=zerTim,
     final yearRef=yearRef,
     final offset=offset) "Calendar time"

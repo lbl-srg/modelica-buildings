@@ -1,16 +1,18 @@
 within Buildings.Controls.OBC.CDL.Utilities.Validation;
 model Assert "Validate the Assert block"
+  import Buildings;
   extends Modelica.Icons.Example;
-  Buildings.Controls.OBC.CDL.Utilities.Assert assert
+  Buildings.Controls.OBC.CDL.Utilities.Assert assert(message=
+        "input became false")
     "Trigger warning and print warning message"
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=0.5)
     "Output boolean pulse"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 equation
   connect(booPul.y, assert.u)
-    annotation (Line(points={{-59,50},{38,50}}, color={255,0,255}));
+    annotation (Line(points={{-19,0},{18,0}},   color={255,0,255}));
 
 annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),

@@ -19,11 +19,17 @@ block DamperValve
     "Time constant of Integrator block for damper control"
     annotation(Dialog(group="Controller parameter"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea(min=0, max=1, unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea(
+    min=0,
+    max=1,
+    final unit="1")
     "Heating control signal"
     annotation (Placement(transformation(extent={{-360,-180},{-320,-140}}),
       iconTransformation(extent={{-120,-40},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(min=0, max=1, unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
+    min=0,
+    max=1,
+    final unit="1")
     "Cooling control signal"
     annotation (Placement(transformation(extent={{-360,240},{-320,280}}),
       iconTransformation(extent={{-120,-20},{-100,0}})));
@@ -138,26 +144,26 @@ block DamperValve
     annotation (Placement(transformation(extent={{-80,-330},{-60,-310}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conYHeaValMin(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    yMax=1,
-    yMin=0,
-    k=kWatVal,
-    Ti=TiWatVal)
+    final yMax=1,
+    final yMin=0,
+    final k=kWatVal,
+    final Ti=TiWatVal)
     "Hot water valve position if discharge air is below a minimum value"
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conYHeaVal(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    yMax=1,
-    yMin=0,
-    k=kWatVal,
-    Ti=TiWatVal)
+    final yMax=1,
+    final yMin=0,
+    final k=kWatVal,
+    final Ti=TiWatVal)
     "Hot water valve position if uHea is between 0 and 50%"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID damPosCon(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    yMax=1,
-    yMin=0,
-    k=kDam,
-    Ti=TiDam) "Damper position controller"
+    final yMax=1,
+    final yMin=0,
+    final k=kDam,
+    final Ti=TiDam) "Damper position controller"
     annotation (Placement(transformation(extent={{260,340},{280,360}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Output active cooling airflow according to cooling control signal"

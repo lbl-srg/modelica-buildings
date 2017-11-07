@@ -176,7 +176,7 @@ block ReheatController "Controller for room VAV box"
     annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
       iconTransformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2 if have_CO2Sen
-    "Detected CO2 concentration"
+    "Measured CO2 concentration"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
       iconTransformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc if have_occSen
@@ -256,22 +256,23 @@ block ReheatController "Controller for room VAV box"
     final durTimFlo=durTimFlo,
     final durTimDisAir=durTimDisAir)
     "Number of system requests"
-    annotation (Placement(transformation(extent={{52,0},{72,20}})));
+    annotation (Placement(transformation(extent={{52,-62},{72,-42}})));
 
 equation
   connect(sysReq.TCooSet, TRooCooSet)
-    annotation (Line(points={{51,19},{-78,19},{-78,120},{-120,120}},
+    annotation (Line(points={{51,-43},{-78,-43},{-78,120},{-120,120}},
       color={0,0,127}));
   connect(sysReq.TRoo, TRoo)
-    annotation (Line(points={{51,17},{-40,17},{-40,0},{-120,0}},
+    annotation (Line(points={{51,-45},{-40,-45},{-40,0},{-120,0}},
       color={0,0,127}));
-  connect(sysReq.VDisSet, damVal.VDisSet) annotation (Line(points={{51,12},{44,
-          12},{44,78},{31,78}}, color={0,0,127}));
+  connect(sysReq.VDisSet, damVal.VDisSet) annotation (Line(points={{51,-50},{44,
+          -50},{44,78},{31,78}},color={0,0,127}));
   connect(sysReq.VDis, VDis)
-    annotation (Line(points={{51,10},{24,10},{24,-30},{-120,-30}},
+    annotation (Line(points={{51,-52},{24,-52},{24,-30},{-120,-30}},
       color={0,0,127}));
   connect(sysReq.TDisSet, damVal.TDisSet)
-    annotation (Line(points={{51,5},{42,5},{42,62},{31,62}}, color={0,0,127}));
+    annotation (Line(points={{51,-57},{42,-57},{42,62},{31,62}},
+                                                             color={0,0,127}));
   connect(damVal.yDam, yDam) annotation (Line(points={{31,74},{80,74},{80,100},
           {110,100}}, color={0,0,127}));
   connect(damVal.yHeaVal, yVal) annotation (Line(points={{31,66},{80,66},{80,0},
@@ -281,12 +282,14 @@ equation
   connect(damVal.TDis, TDis)
     annotation (Line(points={{16,59},{16,-60},{-120,-60}}, color={0,0,127}));
   connect(sysReq.TDis, TDis)
-    annotation (Line(points={{51,3},{16,3},{16,-60},{-120,-60}},
+    annotation (Line(points={{51,-59},{16,-59},{16,-60},{-120,-60}},
       color={0,0,127}));
   connect(sysReq.uDam, damVal.yDam)
-    annotation (Line(points={{51,8},{46,8},{46,74},{31,74}}, color={0,0,127}));
+    annotation (Line(points={{51,-54},{46,-54},{46,74},{31,74}},
+                                                             color={0,0,127}));
   connect(damVal.yHeaVal, sysReq.uHeaVal)
-    annotation (Line(points={{31,66},{40,66},{40,1},{51,1}}, color={0,0,127}));
+    annotation (Line(points={{31,66},{40,66},{40,-61},{51,-61}},
+                                                             color={0,0,127}));
   connect(TRoo, damVal.TRoo) annotation (Line(points={{-120,0},{-40,0},{-40,61},
           {9,61}}, color={0,0,127}));
   connect(damVal.TSup, TSupAHU) annotation (Line(points={{9,63},{-80,63},{-80,-90},
@@ -320,13 +323,13 @@ equation
     annotation (Line(points={{-33,97},{-60,97},{-60,-120},{-120,-120}},
       color={255,127,0}));
   connect(sysReq.yZonTemResReq, yZonTemResReq)
-    annotation (Line(points={{73,17},{78,17},{78,-60},{110,-60}},
+    annotation (Line(points={{73,-45},{78,-45},{78,-60},{110,-60}},
       color={255,127,0}));
   connect(sysReq.yZonPreResReq, yZonPreResReq)
-    annotation (Line(points={{73,12},{76,12},{76,-100},{110,-100}},
+    annotation (Line(points={{73,-50},{76,-50},{76,-100},{110,-100}},
       color={255,127,0}));
   connect(heaCoo.yCoo, sysReq.uCoo)
-    annotation (Line(points={{-49,126},{-42,126},{-42,16},{-42,15},{51,15}},
+    annotation (Line(points={{-49,126},{-42,126},{-42,-47},{51,-47}},
       color={0,0,127}));
   connect(actAirSet.ppmCO2, ppmCO2)
     annotation (Line(points={{-33,106},{-64,106},{-64,90},{-120,90}},
@@ -415,7 +418,7 @@ reset request <code>yZonPreResReq</code>.
 <h4>a. Heating and cooling control loop</h4>
 <p>
 The subsequence is implementd according to Part 5.B.5. The measured zone
-temperature <code>TRoo</code>, zone setpoints temperature <code>TRooHeaSet</code>,
+temperature <code>TRoo</code>, zone setpoints temperatures <code>TRooHeaSet</code> and
 <code>TRooCooSet</code> are inputs to the block to generate the control loop signal 
 <code>yHea</code> and <code>yCoo</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.Valves.HeatingAndCooling\">
