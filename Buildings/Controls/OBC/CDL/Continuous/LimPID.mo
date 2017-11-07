@@ -30,7 +30,7 @@ block LimPID
     "The higher Nd, the more ideal the derivative block"
        annotation(Dialog(enable=controllerType==CDL.Types.SimpleController.PD or
                                 controllerType==CDL.Types.SimpleController.PID));
-  parameter CDL.Types.Init initType= CDL.Types.Init.InitialState
+  parameter Buildings.Controls.OBC.CDL.Types.Init initType= Buildings.Controls.OBC.CDL.Types.Init.InitialState
     "Type of initialization"
     annotation(Evaluate=true,  Dialog(group="Initialization"));
       // Removed as the Limiter block no longer uses this parameter.
@@ -54,18 +54,18 @@ block LimPID
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
   parameter Boolean reverseAction = false
     "Set to true for throttling the water flow rate through a cooling coil controller";
-  parameter CDL.Types.Reset reset = CDL.Types.Reset.Disabled
+  parameter Buildings.Controls.OBC.CDL.Types.Reset reset = CDL.Types.Reset.Disabled
     "Type of controller output reset"
     annotation(Evaluate=true, Dialog(group="Integrator reset"));
   parameter Real y_reset=xi_start
     "Value to which the controller output is reset if the boolean trigger has a rising edge, used if reset == CDL.Types.Reset.Parameter"
     annotation(Dialog(enable=reset == CDL.Types.Reset.Parameter, group="Integrator reset"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger if reset <> CDL.Types.Reset.Disabled
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger if reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled
     "Resets the controller output when trigger becomes true"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90, origin={-80,-120})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput y_reset_in if reset == CDL.Types.Reset.Input
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput y_reset_in if reset == Buildings.Controls.OBC.CDL.Types.Reset.Input
     "Input signal for state to which integrator is reset, enabled if reset = CDL.Types.Reset.Input"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
@@ -91,25 +91,26 @@ block LimPID
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain P(k=1) "Proportional term"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  .Buildings.Utilities.Math.IntegratorWithReset I(
-    final reset=if reset == CDL.Types.Reset.Disabled then reset else CDL.Types.Reset.Input,
+  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset I(
+    final reset=if reset == Buildings.Controls.OBC.CDL.Types.Reset.Disabled
+      then reset else Buildings.Controls.OBC.CDL.Types.Reset.Input,
     final y_reset=y_reset,
     final k=unitTime/Ti,
     final y_start=xi_start,
-    final initType=if initType == CDL.Types.Init.InitialState
-          then Modelica.Blocks.Types.Init.InitialState
-          else Modelica.Blocks.Types.Init.NoInit) if with_I "Integral term"
+    final initType=if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialState
+          then Buildings.Controls.OBC.CDL.Types.Init.InitialState
+          else Buildings.Controls.OBC.CDL.Types.Init.NoInit) if with_I "Integral term"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
-  Modelica.Blocks.Continuous.Derivative D(
+  Buildings.Controls.OBC.CDL.Continuous.Derivative D(
     final k=Td/unitTime,
     final T=max([Td/Nd,1.e-14]),
     final x_start=xd_start,
     final initType=
-               if initType == CDL.Types.Init.InitialState then
-                 Modelica.Blocks.Types.Init.InitialState
+               if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialState then
+                 Buildings.Controls.OBC.CDL.Types.Init.InitialState
                else
-                 Modelica.Blocks.Types.Init.NoInit) if with_D "Derivative term"
+                 Buildings.Controls.OBC.CDL.Types.Init.NoInit) if with_D "Derivative term"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Blocks.Math.Add3 addPID(
     final k1=1,
@@ -121,12 +122,12 @@ protected
   constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
   final parameter Real revAct = if reverseAction then -1 else 1
     "Switch for sign for reverse action";
-  parameter Boolean with_I = controllerType==CDL.Types.SimpleController.PI or
-                             controllerType==CDL.Types.SimpleController.PID
+  parameter Boolean with_I = controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+                             controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Boolean flag to enable integral action"
     annotation(Evaluate=true, HideResult=true);
-  parameter Boolean with_D = controllerType==CDL.Types.SimpleController.PD or
-                             controllerType==CDL.Types.SimpleController.PID
+  parameter Boolean with_D = controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+                             controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Boolean flag to enable derivative action"
     annotation(Evaluate=true, HideResult=true);
 
@@ -168,20 +169,20 @@ protected
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.Blocks.Sources.RealExpression intRes(
     final y=y_reset_internal/k - addPID.u1 - addPID.u2) if
-       reset <> CDL.Types.Reset.Disabled
+       reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled
     "Signal source for integrator reset"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
 
 initial equation
-  if initType==CDL.Types.Init.InitialOutput then
+  if initType==Buildings.Controls.OBC.CDL.Types.Init.InitialOutput then
      gainPID.y = y_start;
   end if;
 
 equation
   assert(yMax >= yMin, "LimPID: Limits must be consistent. However, yMax (=" + String(yMax) +
                        ") < yMin (=" + String(yMin) + ")");
-  if initType == CDL.Types.Init.InitialOutput and (y_start < yMin or y_start > yMax) then
+  if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialOutput and (y_start < yMin or y_start > yMax) then
       Modelica.Utilities.Streams.error("LimPID: Start value y_start (=" + String(y_start) +
          ") is outside of the limits of yMin (=" + String(yMin) +") and yMax (=" + String(yMax) + ")");
   end if;
@@ -189,7 +190,7 @@ equation
   // Equations for conditional connectors
   connect(y_reset_in, y_reset_internal);
 
-  if reset <> CDL.Types.Reset.Input then
+  if reset <> Buildings.Controls.OBC.CDL.Types.Reset.Input then
     y_reset_internal = y_reset;
   end if;
 
@@ -328,6 +329,10 @@ Some parameters assignments in the instances have been made final.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 6, 2017, by Michael Wetter:<br/>
+Explicitly declared types and used integrator with reset from CDL.
+</li>
 <li>
 October 22, 2017, by Michael Wetter:<br/>
 Added to CDL to have a PI controller with integrator reset.
