@@ -202,7 +202,7 @@ model DXCooledAirsideEconomizer
     reverseAction=true)
     "Fan speed controller"
     annotation (Placement(transformation(extent={{80,-42},{100,-22}})));
-  Buildings.Applications.DataCenters.DXCooled.Controls.DXSpeedControl speCon(
+  Buildings.Applications.DataCenters.DXCooled.Controls.Compressor speCon(
      k=1,
      Ti=120)
     "Speed controller for DX units"

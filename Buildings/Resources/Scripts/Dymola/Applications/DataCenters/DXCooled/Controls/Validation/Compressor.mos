@@ -1,11 +1,11 @@
-simulateModel("Buildings.Applications.DataCenters.DXCooled.Controls.Validation.DXSpeedControl", stopTime=360, method="dassl", tolerance=1e-06, resultFile="DXSpeedControl");
+simulateModel("Buildings.Applications.DataCenters.DXCooled.Controls.Validation.Compressor", stopTime=360, method="dassl", tolerance=1e-06, resultFile="Compressor");
 createPlot(id=1,
  position={0, 0, 1549, 651},
  y={"dxSpeCon.TMixAirSet", "dxSpeCon.TMixAirMea"},
  range={0.0, 400.0, 15.0, 21.0},
  erase=false,
  grid=true,
- filename="DXSpeedControl.mat",
+ filename="Compressor.mat",
  colors={{28,108,200}, {238,46,47}});
 createPlot(id=1,
  position={0, 0, 1549, 215},

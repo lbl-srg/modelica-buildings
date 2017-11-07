@@ -1,9 +1,9 @@
 within Buildings.Applications.DataCenters.DXCooled.Controls.Validation;
-model DXSpeedControl
+model Compressor
   "Example that demonstrates the use of a speed controller for DX coil"
   extends Modelica.Icons.Example;
 
-  Buildings.Applications.DataCenters.DXCooled.Controls.DXSpeedControl dxSpeCon
+  Buildings.Applications.DataCenters.DXCooled.Controls.Compressor dxSpeCon
     "Speed controller for a variable DX coil"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Sources.Constant TSupSet(k=291.15)
@@ -36,7 +36,7 @@ equation
   connect(reaToInt.y, dxSpeCon.cooMod) annotation (Line(points={{1,-40},{10,-40},
           {10,-7},{18,-7}}, color={255,127,0}));
   annotation (__Dymola_Commands(file=
-   "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Controls/Validation/DXSpeedControl.mos"
+   "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Controls/Validation/Compressor.mos"
         "Simulate and Plot"),
     Documentation(revisions="<html>
 <ul>
@@ -50,12 +50,12 @@ First implementation.
 This example demonstrates how the speed signal of a variable-speed DX unit can be controlled.
 The detailed control logic can be
 refered in
-<a href=\"modelica://Buildings.Applications.DataCenters.DXCooled.Controls.DXSpeedControl\">
-Buildings.Applications.DataCenters.DXCooled.Controls.DXSpeedControl</a>.
+<a href=\"modelica://Buildings.Applications.DataCenters.DXCooled.Controls.Compressor\">
+Buildings.Applications.DataCenters.DXCooled.Controls.Compressor</a>.
 </p>
 </html>"),
     experiment(
       StartTime=0,
       StopTime=360,
       Tolerance=1e-06));
-end DXSpeedControl;
+end Compressor;

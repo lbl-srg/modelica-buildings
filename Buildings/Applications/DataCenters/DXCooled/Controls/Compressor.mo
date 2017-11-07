@@ -1,5 +1,5 @@
 within Buildings.Applications.DataCenters.DXCooled.Controls;
-model DXSpeedControl "Controller for compressor speed"
+model Compressor "Controller for compressor speed"
 
   parameter Real k=0.5 "Gain of controller";
   parameter Modelica.SIunits.Time Ti=240 "Time constant of Integrator block";
@@ -106,4 +106,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DXSpeedControl;
+end Compressor;
