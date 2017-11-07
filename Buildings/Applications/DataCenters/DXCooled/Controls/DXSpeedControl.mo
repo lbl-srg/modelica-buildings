@@ -40,6 +40,9 @@ model DXSpeedControl "Controller for DX coil"
     displayUnit="degC") "Measured mixed air temperature"
     annotation (Placement(
         transformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Negation of signal to trigger the integrator reset"
+    annotation (Placement(transformation(extent={{-68,20},{-48,40}})));
 
 protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
@@ -56,10 +59,7 @@ protected
     "Constant output signal with value 1"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
-public
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Negation of signal to trigger the integrator reset"
-    annotation (Placement(transformation(extent={{-68,20},{-48,40}})));
+
 equation
   connect(cooMod, freCoo.u1)
     annotation (Line(points={{-120,-70},{-92,-70},{-92,-50},{-42,-50}},
