@@ -7,7 +7,7 @@ model FreProTMix_TMix
   "Freeze protection set point temperature";
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreProTMix freProTMix(final TFreSet = TFreSet)
-   annotation (Placement(transformation(extent={{0,0},{20,20}})));
+  annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
   CDL.Continuous.Sources.Sine sin1(
     amplitude=20,
@@ -21,8 +21,8 @@ equation
   connect(sin1.y, freProTMix.TMix)
   annotation (Line(points={{-19,10},{-1,10}}, color={0,0,127}));
   annotation (
-  experiment(StopTime=900.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/Valves/Validation/HeatingAndCooling_TRoo.mos"
+  experiment(StopTime=1800.0, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/Generic/Validation/FreProTMix_TMix.mos"
     "Simulate and plot"),
     Icon(graphics={Ellipse(
           lineColor={75,138,73},

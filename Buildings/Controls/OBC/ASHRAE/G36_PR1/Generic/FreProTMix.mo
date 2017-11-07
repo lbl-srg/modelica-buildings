@@ -9,27 +9,26 @@ block FreProTMix "Optional freeze protection block based on mixed air temperatur
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
-    "Measured mixed air temperature, used for freeze protection"
+    "Mixed air temperature measurement"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
     iconTransformation(extent={{-120,-10},{-100,10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFreProInv(
-    final unit="1",
-    final min=0,
-    final max=1) "Inverse TMix based freeze protection control signal"
-    annotation (
-      Placement(transformation(extent={{100,20},{120,40}}),
-      iconTransformation(extent={{100,-70},{120,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFrePro(
     final unit="1",
     final min=0,
-    final max=1) "TMix based freeze protection control signal"
+    final max=1) "Freeze protection control signal based on mixed air temperature"
     annotation (Placement(transformation(
     extent={{100,-40},{120,-20}}), iconTransformation(extent={{100,50},{120,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFreProInv(
+    final unit="1",
+    final min=0,
+    final max=1) "Inverse freeze protection control signal based on mixed air temperature"
+    annotation (Placement(transformation(extent={{100,20},{120,40}}),
+      iconTransformation(extent={{100,-70},{120,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter yFreOut(
     final p=1,
-    final k=-1) "Control signal for outdoor damper due to freeze protection"
+    final k=-1) "Freeze protection control signal inverter"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter offSig(
     final k=1,
