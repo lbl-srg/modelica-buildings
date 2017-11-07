@@ -18,21 +18,8 @@ model IntegratedPrimaryLoadSideEconomizer
   extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimaryLoadSide chiWSE(
       addPowerToMedium=false,
-      perPum=perPumPri,
-      tauPump=1,
-      use_controller=false,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      riseTimePump=30),
-      pumCW(each use_inputFilter=false,
-            each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-      ahu(tauFan=1,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      use_inputFilterValve=true,
-      use_inputFilterFan=true),
-    weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
-    cooTowSpeCon(k=0.1, Ti=60),
-    pumSpe(k=0.01),
-    ahuFanSpeCon(k=0.1, Ti=240));
+      perPum=perPumPri),
+    weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumPri(
     each pressure=Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
@@ -153,10 +140,11 @@ equation
       color={255,127,0}));
   connect(cooModCon.y, sigCha.u)
     annotation (Line(
-      points={{-109,110},{-100,110},{-100,216},{-240,216},{-240,160},{-256,160}},
+      points={{-109,110},{-100,110},{-100,216},{-100,216},{-100,216},{286,216},
+          {286,160},{318,160}},
       color={255,127,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
-    extent={{-420,-200},{300,220}})),
+    extent={{-240,-200},{300,220}})),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Examples/IntegratedPrimaryLoadSideEconomizer.mos"
   "Simulate and plot"),

@@ -18,18 +18,8 @@ model IntegratedPrimarySecondaryEconomizer
   extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimarySecondary chiWSE(
         addPowerToMedium=false,
-        perPum=perPumPri,
-        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-        use_controller=false,
-      riseTimePump=30),
-    pumCW(each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial, each
-        use_inputFilter=false),
-    ahu(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-    weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
-    pumSpe(k=0.001),
-    cooTowSpeCon(k=0.1, Ti=80),
-    ahuFanSpeCon(Ti=240, k=0.05),
-    ahuValSig(k=0.01));
+        perPum=perPumPri),
+    weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumSec(
     each pressure=
@@ -72,8 +62,7 @@ model IntegratedPrimarySecondaryEconomizer
     per=perPumSec,
     addPowerToMedium=false,
     m_flow_nominal=m2_flow_chi_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    riseTimeValve=120)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Secondary pumps"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -189,10 +178,10 @@ equation
       color={255,127,0}));
   connect(cooModCon.y, sigCha.u)
     annotation (Line(
-      points={{-109,110},{-100,110},{-100,210},{-240,210},{-240,160},{-256,160}},
+      points={{-109,110},{-100,110},{-100,206},{286,206},{286,160},{318,160}},
       color={255,127,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
-    extent={{-420,-200},{300,220}})),
+    extent={{-240,-200},{300,220}})),
   __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Examples/IntegratedPrimarySecondaryEconomizer.mos"
     "Simulate and plot"),
