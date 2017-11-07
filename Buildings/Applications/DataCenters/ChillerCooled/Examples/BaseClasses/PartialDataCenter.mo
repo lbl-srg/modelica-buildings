@@ -68,7 +68,9 @@ partial model PartialDataCenter
     redeclare
       Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes
       perChi,
-    use_inputFilter=false)
+    use_inputFilter=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_controller=false)
     "Chillers and waterside economizer"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
   Buildings.Fluid.Sources.Boundary_pT expVesCW(
@@ -113,7 +115,9 @@ partial model PartialDataCenter
     redeclare each replaceable package Medium = MediumW,
     each m_flow_nominal=m1_flow_chi_nominal,
     each addPowerToMedium=false,
-    per=perPumCW)
+    per=perPumCW,
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    each use_inputFilter=false)
     "Condenser water pump"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -130,14 +134,15 @@ partial model PartialDataCenter
     mWatMax_flow=0.01,
     UA_nominal=UA_nominal,
     addPowerToMedium=false,
-    dp1_nominal=6000,
     perFan(
       pressure(dp=800*{1.2,1.12,1},
          V_flow=mAir_flow_nominal/1.29*{0,0.5,1}),
          motorCooledByFluid=false),
     yValSwi=yValMinAHU + 0.1,
     yValDeaBan=0.05,
-    QHeaMax_flow=30000)
+    QHeaMax_flow=30000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp1_nominal=30000)
     "Air handling unit"
     annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWRet(
@@ -215,7 +220,8 @@ partial model PartialDataCenter
   Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed cooTowSpeCon(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMin=0,
-    Ti=60)
+    Ti=60,
+    k=0.1)
     "Cooling tower speed control"
     annotation (Placement(transformation(extent={{-50,170},{-30,186}})));
   Modelica.Blocks.Sources.RealExpression TCWSupSet(
@@ -238,9 +244,9 @@ partial model PartialDataCenter
     annotation (Placement(transformation(extent={{-100,-6},{-80,14}})));
   Buildings.Controls.Continuous.LimPID pumSpe(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.1,
     Ti=40,
-    yMin=0.2)
+    yMin=0.2,
+    k=0.001)
     "Pump speed controller"
     annotation (Placement(transformation(extent={{-126,-30},{-106,-10}})));
   Modelica.Blocks.Sources.Constant dpSet(
@@ -252,10 +258,10 @@ partial model PartialDataCenter
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Controls.Continuous.LimPID ahuValSig(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.1,
     Ti=40,
     reverseAction=true,
-    yMin=yValMinAHU) "Valve position signal for the AHU"
+    yMin=yValMinAHU,
+    k=0.01)          "Valve position signal for the AHU"
     annotation (Placement(transformation(extent={{38,-90},{58,-70}})));
   Modelica.Blocks.Math.Product cooTowSpe[numChi]
     "Cooling tower speed"
