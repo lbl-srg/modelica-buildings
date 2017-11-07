@@ -7,7 +7,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Upper limit of controller signal when heating coil is off. Require -1 < uHeaMax < uCooMin < 1.";
   parameter Real uCooMin(max=0.9)=0.25
     "Lower limit of controller signal when cooling coil is off. Require -1 < uHeaMax < uCooMin < 1.";
-  parameter Integer numZon(min=2) "Total number of served zones/VAV boxes"
+  parameter Integer numZon(min=2) "Total number of served VAV boxes"
     annotation (Dialog(group="System and building parameters"));
   parameter Modelica.SIunits.Area zonAre[numZon] "Area of each zone"
     annotation (Dialog(group="System and building parameters"));

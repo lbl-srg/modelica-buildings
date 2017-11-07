@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits;
 block ZoneModeAndSetPoints "Output zone setpoint with operation mode selection"
 
   parameter Integer numZon(min=2)
-    "Total number of served zones/VAV boxes";
+    "Total number of served VAV boxes";
   parameter Modelica.SIunits.Temperature THeaOn=293.15
     "Heating setpoint during on";
   parameter Modelica.SIunits.Temperature THeaOff=285.15
@@ -46,22 +46,22 @@ block ZoneModeAndSetPoints "Output zone setpoint with operation mode selection"
     annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Adjustable settings"));
   parameter Modelica.SIunits.Temperature TCooOnMax=300.15
     "Maximum cooling setpoint during on"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits settings"));
+    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits"));
   parameter Modelica.SIunits.Temperature TCooOnMin=295.15
     "Minimum cooling setpoint during on"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits settings"));
+    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits"));
   parameter Modelica.SIunits.Temperature THeaOnMax=295.15
     "Maximum heating setpoint during on"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits settings"));
+    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits"));
   parameter Modelica.SIunits.Temperature THeaOnMin=291.15
     "Minimum heating setpoint during on"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits settings"));
+    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits"));
   parameter Modelica.SIunits.Temperature TCooWinOpe=322.15
     "Cooling setpoint when window is open"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits settings"));
+    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits"));
   parameter Modelica.SIunits.Temperature THeaWinOpe=277.15
     "Heating setpoint when window is open"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits settings"));
+    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Limits"));
   parameter Modelica.SIunits.TemperatureDifference incSetDem_1=0.56
     "Cooling setpoint increase value when cooling demand limit level 1 is imposed"
     annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Demands settings"));
@@ -82,13 +82,13 @@ block ZoneModeAndSetPoints "Output zone setpoint with operation mode selection"
     annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Demands settings"));
   parameter Integer cooDemLimLevCon=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.cooling0
     "Cooling demand limit level"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Test settings"));
+    annotation (Evaluate=true, Dialog(tab="Setpoint adjust"));
   parameter Integer heaDemLimLevCon=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.heating0
     "Heating demand limit level"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Test settings"));
+    annotation (Evaluate=true, Dialog(tab="Setpoint adjust"));
   parameter Boolean winStaCon=false
     "Window status, set to true if window is open"
-    annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Test settings"));
+    annotation (Evaluate=true, Dialog(tab="Setpoint adjust"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[numZon](
     each final unit="K",
@@ -322,9 +322,9 @@ annotation (Diagram(coordinateSystem(extent={{-140,-180},{140,180}})),
         fillPattern=FillPattern.Solid)}),
 Documentation(info="<html>
 <p>
-Block outputs zone setpoint temperature (<code>TCooSet</code>, <code>THeaSet</code>) 
+Block outputs zone setpoint temperature (<code>TCooSet</code>, <code>THeaSet</code>)
 and system operation mode (<code>yOpeMod</code>). When operation mode is in freeze
-protection setback mode, it also outputs a level 3 freeze protection alarm 
+protection setback mode, it also outputs a level 3 freeze protection alarm
 <code>yFreProSta</code>. The sequences are implemented according to ASHRAE
 Guideline 36, Part 5.B.3 and 5.C.6.
 </p>
@@ -332,16 +332,16 @@ Guideline 36, Part 5.B.3 and 5.C.6.
 <h4>a. Operation mode selector</h4>
 <p>
 The subsequence outputs 7 types system operation mode (occupied, warmup,
-cool-down, setback, freeze protection setback, setup, unoccupied) according 
-to current time, the time to next occupied hours <code>tNexOcc</code>, 
+cool-down, setback, freeze protection setback, setup, unoccupied) according
+to current time, the time to next occupied hours <code>tNexOcc</code>,
 current zone temperature <code>TZon</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode</a>.
 </p>
 <h4>b. Zone setpoint temperature reset</h4>
 <p>
-This sequence is implemented according to Part 5.B.3. It sets zone setpoint 
-according to the global giving setpoint, local setpoint adjustments, demand 
+This sequence is implemented according to Part 5.B.3. It sets zone setpoint
+according to the global giving setpoint, local setpoint adjustments, demand
 limits adjustment, window status and occupancy stataus. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures</a>.
