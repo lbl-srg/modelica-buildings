@@ -6,7 +6,7 @@ compareVars :=
     "conAHU.TSup",
     "conAHU.TSetSup",
     "conAHU.TOut",
-    "conAHU.conEco.uTSup",
+    "conAHU.eco.uTSup",
     "conAHU.yHea",
     "conAHU.yCoo",
     "conAHU.yOutDamPos",
