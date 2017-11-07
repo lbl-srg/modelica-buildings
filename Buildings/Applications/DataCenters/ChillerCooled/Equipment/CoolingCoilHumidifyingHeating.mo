@@ -14,7 +14,7 @@ model CoolingCoilHumidifyingHeating
     annotation(Dialog(group="Valve"));
 
   // Parameters for electric heater
-  parameter Modelica.SIunits.Time tauEleHea = 30
+  parameter Modelica.SIunits.Time tauEleHea = 10
     "Time constant at nominal flow for electric heater (if energyDynamics <> SteadyState)"
      annotation (Dialog(tab = "Dynamics", group="Electric heater",
        enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
@@ -31,7 +31,7 @@ model CoolingCoilHumidifyingHeating
   parameter Modelica.SIunits.Temperature THum = 293.15
     "Temperature of water that is added to the fluid stream by the humidifier"
     annotation (Dialog(group="Humidifier"));
-  parameter Modelica.SIunits.Time tauHum = 30
+  parameter Modelica.SIunits.Time tauHum = 10
     "Time constant at nominal flow for humidifier(if energyDynamics <> SteadyState)"
      annotation (Dialog(tab = "Dynamics", group="Humidifier",
        enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));

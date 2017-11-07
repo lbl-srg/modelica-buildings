@@ -68,16 +68,18 @@ partial model PartialDataCenter
     redeclare
       Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes
       perChi,
-    use_inputFilter=false)
+    use_inputFilter=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_controller=false)
     "Chillers and waterside economizer"
-    annotation (Placement(transformation(extent={{120,20},{140,40}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Fluid.Sources.Boundary_pT expVesCW(
     redeclare replaceable package Medium = MediumW,
     nPorts=1)
     "Expansion tank"
     annotation (Placement(transformation(extent={{-9,-9.5},{9,9.5}},
         rotation=180,
-        origin={251,140.5})));
+        origin={131,140.5})));
   Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow[numChi](
     redeclare each replaceable package Medium = MediumW,
     each TAirInWB_nominal(displayUnit="degC") = 283.15,
@@ -88,37 +90,39 @@ partial model PartialDataCenter
     each m_flow_nominal=0.785*m1_flow_chi_nominal)
     "Cooling tower"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-      origin={130,140})));
+      origin={10,140})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWSup(
     redeclare replaceable package Medium = MediumW,
     m_flow_nominal=numChi*m2_flow_chi_nominal)
     "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{104,-10},{84,10}})));
+    annotation (Placement(transformation(extent={{-16,-10},{-36,10}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3  weaData(filNam=
     "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
-    annotation (Placement(transformation(extent={{-230,-80},{-210,-60}})));
+    annotation (Placement(transformation(extent={{-360,-80},{-340,-60}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
-    annotation (Placement(transformation(extent={{-210,-38},{-190,-18}})));
+    annotation (Placement(transformation(extent={{-338,-30},{-318,-10}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCWSup(
     redeclare replaceable package Medium = MediumW,
     m_flow_nominal=numChi*m1_flow_chi_nominal)
     "Condenser water supply temperature"
-    annotation (Placement(transformation(extent={{98,130},{78,150}})));
+    annotation (Placement(transformation(extent={{-22,130},{-42,150}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCWRet(
     redeclare replaceable package Medium = MediumW,
     m_flow_nominal=numChi*m1_flow_chi_nominal)
     "Condenser water return temperature"
-    annotation (Placement(transformation(extent={{202,50},{222,70}})));
+    annotation (Placement(transformation(extent={{82,50},{102,70}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pumCW[numChi](
     redeclare each replaceable package Medium = MediumW,
     each m_flow_nominal=m1_flow_chi_nominal,
     each addPowerToMedium=false,
-    per=perPumCW)
+    per=perPumCW,
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    each use_inputFilter=false)
     "Condenser water pump"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={70,100})));
+        origin={-50,100})));
 
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.CoolingCoilHumidifyingHeating ahu(
     redeclare replaceable package Medium1 = MediumW,
@@ -130,39 +134,40 @@ partial model PartialDataCenter
     mWatMax_flow=0.01,
     UA_nominal=UA_nominal,
     addPowerToMedium=false,
-    dp1_nominal=6000,
     perFan(
       pressure(dp=800*{1.2,1.12,1},
          V_flow=mAir_flow_nominal/1.29*{0,0.5,1}),
          motorCooledByFluid=false),
     yValSwi=yValMinAHU + 0.1,
     yValDeaBan=0.05,
-    QHeaMax_flow=30000)
+    QHeaMax_flow=30000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp1_nominal=30000)
     "Air handling unit"
-    annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
+    annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWRet(
     redeclare replaceable package Medium = MediumW,
     m_flow_nominal=numChi*m2_flow_chi_nominal)
     "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{220,-10},{200,10}})));
+    annotation (Placement(transformation(extent={{100,-10},{80,10}})));
   Buildings.Fluid.Sources.Boundary_pT expVesChi(
     redeclare replaceable package Medium = MediumW,
     nPorts=1)
     "Expansion tank"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={272,-115})));
+        origin={132,-113})));
   Buildings.Fluid.Sensors.RelativePressure senRelPre(
     redeclare replaceable package Medium =MediumW)
     "Differential pressure"
-    annotation (Placement(transformation(extent={{118,-86},{138,-106}})));
+    annotation (Placement(transformation(extent={{-2,-86},{18,-106}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(
     redeclare replaceable package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={70,-150})));
+        origin={-50,-150})));
   Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom roo(
     redeclare replaceable package Medium = MediumA,
     rooLen=50,
@@ -174,92 +179,93 @@ partial model PartialDataCenter
     "Room model"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        origin={124,-180})));
+        origin={4,-180})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val[numChi](
     redeclare each package Medium = MediumW,
     each m_flow_nominal=m1_flow_chi_nominal,
     each dpValve_nominal=6000)
     "Shutoff valves"
-    annotation (Placement(transformation(extent={{190,130},{170,150}})));
+    annotation (Placement(transformation(extent={{70,130},{50,150}})));
 
   Modelica.Blocks.Sources.Constant TCHWSupSet(k=TCHWSet)
     "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
+    annotation (Placement(transformation(extent={{-260,150},{-240,170}})));
   Buildings.Applications.DataCenters.ChillerCooled.Controls.ChillerStage chiStaCon(
     QEva_nominal=QEva_nominal, tWai=0,
     criPoiTem=TCHWSet + 1.5)
     "Chiller staging control"
-    annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
+    annotation (Placement(transformation(extent={{-170,130},{-150,150}})));
   Modelica.Blocks.Math.RealToBoolean chiOn[numChi]
     "Real value to boolean value"
-    annotation (Placement(transformation(extent={{-10,130},{10,150}})));
+    annotation (Placement(transformation(extent={{-130,130},{-110,150}})));
   Modelica.Blocks.Math.IntegerToBoolean intToBoo(
     threshold=Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical))
     "Inverse on/off signal for the WSE"
-    annotation (Placement(transformation(extent={{-50,100},{-30,120}})));
+    annotation (Placement(transformation(extent={{-170,100},{-150,120}})));
   Modelica.Blocks.Logical.Not wseOn
     "True: WSE is on; False: WSE is off "
-    annotation (Placement(transformation(extent={{-10,100},{10,120}})));
+    annotation (Placement(transformation(extent={{-130,100},{-110,120}})));
   Buildings.Applications.DataCenters.ChillerCooled.Controls.ConstantSpeedPumpStage CWPumCon(
     tWai=0)
     "Condenser water pump controller"
-    annotation (Placement(transformation(extent={{-52,60},{-32,80}})));
+    annotation (Placement(transformation(extent={{-172,60},{-152,80}})));
   Modelica.Blocks.Sources.IntegerExpression chiNumOn(
     y=integer(sum(chiStaCon.y)))
     "The number of running chillers"
-    annotation (Placement(transformation(extent={{-140,54},{-118,76}})));
+    annotation (Placement(transformation(extent={{-260,54},{-238,76}})));
   Modelica.Blocks.Math.Gain gai[numChi](
     each k=m1_flow_chi_nominal)
     "Gain effect"
-    annotation (Placement(transformation(extent={{-10,60},{10,80}})));
+    annotation (Placement(transformation(extent={{-130,60},{-110,80}})));
   Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed cooTowSpeCon(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMin=0,
-    Ti=60)
+    Ti=60,
+    k=0.1)
     "Cooling tower speed control"
-    annotation (Placement(transformation(extent={{-50,170},{-30,186}})));
+    annotation (Placement(transformation(extent={{-170,170},{-150,186}})));
   Modelica.Blocks.Sources.RealExpression TCWSupSet(
     y=min(29.44 + 273.15, max(273.15 + 15.56, cooTow[1].TAir + 3)))
     "Condenser water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-140,176},{-120,196}})));
+    annotation (Placement(transformation(extent={{-260,176},{-240,196}})));
 
   Modelica.Blocks.Sources.Constant TAirSupSet(k=TSupAirSet)
     "Supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
+    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
   Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage varSpeCon(
     tWai=tWai,
     m_flow_nominal=m2_flow_chi_nominal,
     deaBanSpe=0.45)
     "Speed controller"
-    annotation (Placement(transformation(extent={{-48,-14},{-28,6}})));
+    annotation (Placement(transformation(extent={{-168,-14},{-148,6}})));
   Modelica.Blocks.Sources.RealExpression mPum_flow(
     y=chiWSE.port_b2.m_flow)
     "Mass flowrate of variable speed pumps"
-    annotation (Placement(transformation(extent={{-100,-6},{-80,14}})));
+    annotation (Placement(transformation(extent={{-220,-6},{-200,14}})));
   Buildings.Controls.Continuous.LimPID pumSpe(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.1,
     Ti=40,
-    yMin=0.2)
+    yMin=0.2,
+    k=0.001)
     "Pump speed controller"
-    annotation (Placement(transformation(extent={{-126,-30},{-106,-10}})));
+    annotation (Placement(transformation(extent={{-246,-30},{-226,-10}})));
   Modelica.Blocks.Sources.Constant dpSet(
     k=0.3*dp2_chi_nominal)
     "Differential pressure setpoint"
-    annotation (Placement(transformation(extent={{-160,-30},{-140,-10}})));
+    annotation (Placement(transformation(extent={{-280,-30},{-260,-10}})));
   Modelica.Blocks.Math.Product pumSpeSig[numChi]
     "Pump speed signal"
-    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   Buildings.Controls.Continuous.LimPID ahuValSig(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.1,
     Ti=40,
     reverseAction=true,
-    yMin=yValMinAHU) "Valve position signal for the AHU"
-    annotation (Placement(transformation(extent={{38,-90},{58,-70}})));
+    yMin=yValMinAHU,
+    k=0.01)          "Valve position signal for the AHU"
+    annotation (Placement(transformation(extent={{-82,-90},{-62,-70}})));
   Modelica.Blocks.Math.Product cooTowSpe[numChi]
     "Cooling tower speed"
-    annotation (Placement(transformation(extent={{60,166},{76,182}})));
+    annotation (Placement(transformation(extent={{-60,166},{-44,182}})));
 
   Buildings.Controls.Continuous.LimPID ahuFanSpeCon(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -267,74 +273,74 @@ partial model PartialDataCenter
     reverseAction=true,
     yMin=0.2,
     Ti=240)   "Fan speed controller "
-    annotation (Placement(transformation(extent={{0,-170},{20,-150}})));
+    annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
   Modelica.Blocks.Sources.Constant TAirRetSet(k=TRetAirSet)
     "Return air temperature setpoint"
-    annotation (Placement(transformation(extent={{-60,-170},{-40,-150}})));
+    annotation (Placement(transformation(extent={{-180,-170},{-160,-150}})));
   Utilities.Psychrometrics.X_pTphi XAirSupSet(use_p_in=false)
     "Mass fraction setpoint of supply air "
-    annotation (Placement(transformation(extent={{-20,-100},{0,-120}})));
+    annotation (Placement(transformation(extent={{-140,-100},{-120,-120}})));
   Modelica.Blocks.Sources.Constant phiAirRetSet(k=0.5)
     "Return air relative humidity setpoint"
-    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+    annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
 equation
   connect(chiWSE.port_b2, TCHWSup.port_a)
     annotation (Line(
-      points={{120,24},{112,24},{112,0},{104,0}},
+      points={{0,24},{-8,24},{-8,0},{-16,0}},
       color={0,127,255},
       thickness=0.5));
   connect(chiWSE.port_b1, TCWRet.port_a)
     annotation (Line(
-      points={{140,36},{160,36},{160,60},{202,60}},
+      points={{20,36},{40,36},{40,60},{82,60}},
       color={0,127,255},
       thickness=0.5));
   for i in 1:numChi loop
     connect(cooTow[i].TAir, weaBus.TWetBul.TWetBul)
-      annotation (Line(points={{142,144},{142,144},{164,144},{164,200},{-216,
-            200},{-216,-28},{-200,-28}},
+      annotation (Line(points={{22,144},{44,144},{44,200},{-340,200},{-340,-20},
+            {-328,-20}},
             color={255,204,51},
         thickness=0.5));
     connect(TCWSup.port_a, cooTow[i].port_b)
       annotation (Line(
-        points={{98,140},{118,140},{120,140}},
+        points={{-22,140},{0,140}},
         color={0,127,255},
         thickness=0.5));
     connect(pumCW[i].port_a, TCWSup.port_b)
       annotation (Line(
-        points={{70,110},{70,140},{78,140}},
+        points={{-50,110},{-50,140},{-42,140}},
         color={0,127,255},
         thickness=0.5));
-    connect(TCWRet.port_b, val[i].port_a) annotation (Line(points={{222,60},{
-            230,60},{230,140},{190,140}},
+    connect(TCWRet.port_b, val[i].port_a) annotation (Line(points={{102,60},{
+            110,60},{110,140},{70,140}},
             color={0,127,255},
             thickness=0.5));
   end for;
   connect(senRelPre.port_b, ahu.port_b1)
-    annotation (Line(points={{138,-96},{150,-96},{150,-114},{140,-114}},
+    annotation (Line(points={{18,-96},{30,-96},{30,-114},{20,-114}},
                 color={0,127,255},thickness=0.5));
   connect(cooTow.port_a, val.port_b)
-    annotation (Line(points={{140,140},{170,140}},
+    annotation (Line(points={{20,140},{50,140}},
       color={0,127,255},
       thickness=0.5));
 
   connect(TCWRet.port_b, expVesCW.ports[1])
-    annotation (Line(points={{222,60},{230,60},{230,140.5},{242,140.5}},
+    annotation (Line(points={{102,60},{110,60},{110,140.5},{122,140.5}},
     color={0,127,255},
     thickness=0.5));
   connect(ahu.port_b1, expVesChi.ports[1])
     annotation (Line(
-      points={{140,-114},{262,-114},{262,-115}},
+      points={{20,-114},{122,-114},{122,-113}},
       color={0,127,255},
       thickness=0.5));
 
   connect(chiWSE.port_b2, TCHWSup.port_a)
     annotation (Line(
-      points={{120,24},{112,24},{112,0},{104,0}},
+      points={{0,24},{-8,24},{-8,0},{-16,0}},
       color={0,127,255},
       thickness=0.5));
   connect(weaData.weaBus, weaBus.TWetBul)
     annotation (Line(
-      points={{-210,-70},{-210,-70},{-204,-70},{-204,-70},{-200,-70},{-200,-28}},
+      points={{-340,-70},{-328,-70},{-328,-20}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -342,184 +348,181 @@ equation
       extent={{6,3},{6,3}}));
   connect(chiWSE.port_b1, TCWRet.port_a)
     annotation (Line(
-      points={{140,36},{160,36},{160,60},{202,60}},
+      points={{20,36},{40,36},{40,60},{82,60}},
       color={0,127,255},
       thickness=0.5));
    for i in 1:numChi loop
     connect(TCWSup.port_a, cooTow[i].port_b)
       annotation (Line(
-        points={{98,140},{120,140}},
+        points={{-22,140},{0,140}},
         color={0,127,255},
         thickness=0.5));
     connect(pumCW[i].port_b, chiWSE.port_a1)
       annotation (Line(
-        points={{70,90},{70,64},{108,64},{108,36},{120,36}},
+        points={{-50,90},{-50,64},{-12,64},{-12,36},{0,36}},
         color={0,127,255},
         thickness=0.5));
     connect(chiOn[i].y, chiWSE.on[i])
       annotation (Line(
-        points={{11,140},{40,140},{40,37.6},{118.4,37.6}},
+        points={{-109,140},{-80,140},{-80,37.6},{-1.6,37.6}},
         color={255,0,255}));
    connect(cooTowSpeCon.y, cooTowSpe[i].u1)
      annotation (Line(
-       points={{-29,178.889},{36,178.889},{36,178.8},{58.4,178.8}},
+       points={{-149,178.889},{-84,178.889},{-84,178.8},{-61.6,178.8}},
        color={0,0,127}));
    end for;
   connect(chiStaCon.y, chiOn.u)
     annotation (Line(
-      points={{-29,140},{-20.5,140},{-12,140}},
+      points={{-149,140},{-132,140}},
       color={0,0,127}));
   connect(intToBoo.y, wseOn.u)
     annotation (Line(
-      points={{-29,110},{-20.5,110},{-12,110}},
+      points={{-149,110},{-132,110}},
       color={255,0,255}));
   connect(wseOn.y, chiWSE.on[numChi + 1])
     annotation (Line(
-      points={{11,110},{40,110},{40,38},{40,38},{40,38},{40,38},{40,38},
-             {40,37.6},{80,37.6},{118.4,37.6}},
+      points={{-109,110},{-80,110},{-80,37.6},{-1.6,37.6}},
       color={255,0,255}));
   connect(CWPumCon.y, gai.u)
     annotation (Line(
-      points={{-31,70},{-12,70}},
+      points={{-151,70},{-132,70}},
       color={0,0,127}));
   connect(gai.y, pumCW.m_flow_in)
     annotation (Line(
-      points={{11,70},{52,70},{52,100},{58,100}},
+      points={{-109,70},{-68,70},{-68,100},{-62,100}},
       color={0,0,127}));
   connect(TCWSupSet.y, cooTowSpeCon.TCWSupSet)
     annotation (Line(
-      points={{-119,186},{-52,186}},
+      points={{-239,186},{-172,186}},
       color={0,0,127}));
   connect(TCHWSupSet.y, cooTowSpeCon.TCHWSupSet)
     annotation (Line(
-      points={{-119,160},{-64,160},{-64,178.889},{-52,178.889}},
+      points={{-239,160},{-184,160},{-184,178.889},{-172,178.889}},
       color={0,0,127}));
   connect(TCWSup.T, cooTowSpeCon.TCWSup)
     annotation (Line(
-      points={{88,151},{88,160},{88,160},{88,160},{-60,160},{-60,175.333},{-52,
-          175.333}},
+      points={{-32,151},{-32,160},{-182,160},{-182,175.333},{-172,175.333}},
       color={0,0,127}));
   connect(TCHWSup.T, cooTowSpeCon.TCHWSup)
     annotation (Line(
-      points={{94,11},{94,18},{-62,18},{-62,30},{-62,30},{-62,171.778},{-52,
-          171.778}},
+      points={{-26,11},{-26,18},{-180,18},{-180,171.778},{-172,171.778}},
       color={0,0,127}));
   connect(chiWSE.TSet, TCHWSupSet.y)
     annotation (Line(
-      points={{118.4,40.8},{116,40.8},{116,48},{-104,48},{-104,160},{-119,160}},
+      points={{-1.6,40.8},{-20,40.8},{-20,52},{-230,52},{-230,160},{-239,160}},
       color={0,0,127}));
   connect(mPum_flow.y, varSpeCon.masFloPum)
     annotation (Line(
-      points={{-79,4},{-50,4}},
+      points={{-199,4},{-170,4}},
       color={0,0,127}));
   connect(senRelPre.port_a, ahu.port_a1)
     annotation (Line(
-      points={{118,-96},{106,-96},{106,-114},{120,-114}},
+      points={{-2,-96},{-14,-96},{-14,-114},{0,-114}},
       color={0,127,255},
       thickness=0.5));
   connect(pumSpe.y, varSpeCon.speSig)
     annotation (Line(
-      points={{-105,-20},{-76,-20},{-76,0},{-50,0}},
+      points={{-225,-20},{-196,-20},{-196,0},{-170,0}},
       color={0,0,127}));
   connect(senRelPre.p_rel, pumSpe.u_m)
     annotation (Line(
-      points={{128,-87},{128,-87},{128,-60},{-116,-60},{-116,-32}},
+      points={{8,-87},{8,-60},{-236,-60},{-236,-32}},
       color={0,0,127}));
   connect(dpSet.y, pumSpe.u_s)
     annotation (Line(
-      points={{-139,-20},{-128,-20}},
+      points={{-259,-20},{-248,-20}},
       color={0,0,127}));
   connect(pumSpe.y, pumSpeSig[1].u2)
     annotation (Line(
-      points={{-105,-20},{-76,-20},{-76,-36},{-16,-36},{-16,-16},{-2,-16}},
+      points={{-225,-20},{-196,-20},{-196,-36},{-136,-36},{-136,-16},{-122,-16}},
       color={0,0,127}));
   connect(pumSpe.y, pumSpeSig[2].u2)
     annotation (Line(
-      points={{-105,-20},{-76,-20},{-76,-36},{-16,-36},{-16,-16},{-2,-16}},
+      points={{-225,-20},{-196,-20},{-196,-36},{-136,-36},{-136,-16},{-122,-16}},
       color={0,0,127}));
   connect(varSpeCon.y, pumSpeSig.u1)
     annotation (Line(
-      points={{-27,-4},{-2,-4}},
+      points={{-147,-4},{-122,-4}},
       color={0,0,127}));
   connect(TAirSupSet.y, ahuValSig.u_s)
     annotation (Line(
-      points={{1,-80},{36,-80}},
+      points={{-119,-80},{-84,-80}},
       color={0,0,127}));
   connect(TAirSup.port_a, ahu.port_b2)
     annotation (Line(
-      points={{70,-140},{70,-140},{70,-142},{70,-142},{70,-126},{120,-126}},
+      points={{-50,-140},{-50,-126},{0,-126}},
       color={0,127,255},
       thickness=0.5));
   connect(TAirSup.T, ahuValSig.u_m)
     annotation (Line(
-      points={{59,-150},{59,-150},{48,-150},{48,-92}},
+      points={{-61,-150},{-72,-150},{-72,-92}},
       color={0,0,127}));
   connect(ahuValSig.y, ahu.uWatVal)
     annotation (Line(
-      points={{59,-80},{68,-80},{68,-116},{119,-116}},
+      points={{-61,-80},{-52,-80},{-52,-116},{-1,-116}},
       color={0,0,127}));
   connect(TAirSupSet.y, ahu.TSet)
     annotation (Line(
-      points={{1,-80},{20,-80},{20,-121},{119,-121}},
+      points={{-119,-80},{-100,-80},{-100,-121},{-1,-121}},
       color={0,0,127}));
   connect(CWPumCon.y, val.y)
     annotation (Line(
-      points={{-31,70},{-22,70},{-22,94},{48,94},{48,194},{180,194},{180,152}},
+      points={{-151,70},{-142,70},{-142,94},{-72,94},{-72,194},{60,194},{60,152}},
       color={0,0,127}));
   connect(CWPumCon.y, cooTowSpe.u2)
     annotation (Line(
-      points={{-31,70},{-22,70},{-22,94},{48,94},{48,169.2},{58.4,169.2}},
+      points={{-151,70},{-142,70},{-142,94},{-72,94},{-72,169.2},{-61.6,169.2}},
       color={0,0,127}));
   connect(cooTowSpe.y, cooTow.y)
     annotation (Line(
-      points={{76.8,174},{102,174},{102,174},{160,174},{160,148},{142,148}},
+      points={{-43.2,174},{40,174},{40,148},{22,148}},
       color={0,0,127}));
   connect(TCHWRet.port_a, ahu.port_b1)
     annotation (Line(
-      points={{220,0},{230,0},{230,-114},{140,-114}},
+      points={{100,0},{110,0},{110,-114},{20,-114}},
       color={0,127,255},
       thickness=0.5));
   connect(chiNumOn.y, CWPumCon.numOnChi)
     annotation (Line(
-      points={{-116.9,65},{-54,65}},
+      points={{-236.9,65},{-174,65}},
       color={255,127,0}));
   connect(ahu.port_a2, roo.airPorts[1])
     annotation (Line(
-      points={{140,-126},{152,-126},{152,-196},{121.525,-196},{121.525,-188.7}},
+      points={{20,-126},{32,-126},{32,-196},{1.525,-196},{1.525,-188.7}},
       color={0,127,255},
       thickness=0.5));
 
   connect(roo.airPorts[2], TAirSup.port_b)
     annotation (Line(
-      points={{125.575,-188.7},{125.575,-196},{70,-196},{70,-160}},
+      points={{5.575,-188.7},{5.575,-196},{-50,-196},{-50,-160}},
       color={0,127,255},
       thickness=0.5));
   connect(roo.TRooAir, ahuFanSpeCon.u_m)
     annotation (Line(
-      points={{113,-180},{10,-180},{10,-172}},
+      points={{-7,-180},{-110,-180},{-110,-172}},
       color={0,0,127}));
   connect(TAirRetSet.y, ahuFanSpeCon.u_s)
     annotation (Line(
-      points={{-39,-160},{-2,-160}},
+      points={{-159,-160},{-122,-160}},
       color={0,0,127}));
   connect(phiAirRetSet.y, XAirSupSet.phi)
     annotation (Line(
-      points={{-39,-90},{-30,-90},{-30,-104},{-22,-104}},
+      points={{-159,-90},{-150,-90},{-150,-104},{-142,-104}},
       color={0,0,127}));
   connect(XAirSupSet.X[1], ahu.XSet_w)
     annotation (Line(
-      points={{1,-110},{60,-110},{60,-119},{119,-119}},
+      points={{-119,-110},{-60,-110},{-60,-119},{-1,-119}},
       color={0,0,127}));
   connect(TAirRetSet.y, XAirSupSet.T)
     annotation (Line(
-      points={{-39,-160},{-30,-160},{-30,-110},{-22,-110}},
+      points={{-159,-160},{-150,-160},{-150,-110},{-142,-110}},
       color={0,0,127}));
   connect(ahuFanSpeCon.y, ahu.uFan)
     annotation (Line(
-      points={{21,-160},{40,-160},{40,-124},{119,-124}},
+      points={{-99,-160},{-80,-160},{-80,-124},{-1,-124}},
       color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
-    extent={{-240,-200},{300,220}})),
+    extent={{-360,-200},{160,220}})),
     Documentation(info="<html>
 <p>
 This is a partial model that describes the chilled water cooling system in a data center. The sizing data
