@@ -184,10 +184,10 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final uMax=uCooMin,
     final uOutDamMax=uOutDamMax)
     "Multi zone VAV AHU economizer damper modulation sequence"
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+    annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean VOutMea_flow(final delta=delta)
     "Moving average of outdoor air flow measurement"
-    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
 equation
   connect(uSupFan, enaDis.uSupFan)
@@ -244,39 +244,39 @@ equation
     annotation (Line(points={{-59,8},{-30,8},{-30,-38.5714},{-0.714286,-38.5714}},
       color={0,0,127}));
   connect(mod.yRetDamPos, yRetDamPos)
-    annotation (Line(points={{81,12},{140,12},{140,80},{170,80}},
+    annotation (Line(points={{81,52},{140,52},{140,80},{170,80}},
       color={0,0,127}));
   connect(mod.yOutDamPos, yOutDamPos)
-    annotation (Line(points={{81,8},{140,8},{140,-80},{170,-80}},
+    annotation (Line(points={{81,48},{140,48},{140,-80},{170,-80}},
       color={0,0,127}));
   connect(enaDis.yOutDamPosMax, mod.uOutDamPosMax)
-    annotation (Line(points={{20.3571,-27.1429},{50,-27.1429},{50,6},{59,6}},
+    annotation (Line(points={{20.3571,-27.1429},{50,-27.1429},{50,46},{59,46}},
       color={0,0,127}));
   connect(enaDis.yRetDamPosMax, mod.uRetDamPosMax)
-    annotation (Line(points={{20.3571,-30},{52,-30},{52,18},{59,18}},
+    annotation (Line(points={{20.3571,-30},{52,-30},{52,58},{59,58}},
       color={0,0,127}));
   connect(damLim.yOutDamPosMin, mod.uOutDamPosMin)
-    annotation (Line(points={{-59,15},{20,15},{20,2},{59,2}},
+    annotation (Line(points={{-59,15},{20,15},{20,42},{59,42}},
       color={0,0,127}));
   connect(enaDis.yRetDamPosMin, mod.uRetDamPosMin)
-    annotation (Line(points={{20.3571,-33.5714},{54,-33.5714},{54,14},{59,14}},
+    annotation (Line(points={{20.3571,-33.5714},{54,-33.5714},{54,54},{59,54}},
       color={0,0,127}));
   connect(uZonSta, enaDis.uZonSta)
     annotation (Line(points={{-170,-120},{-58,-120},{-58,-30.3571},{-0.714286,
           -30.3571}},
       color={255,127,0}));
   connect(uTSup, mod.uTSup)
-    annotation (Line(points={{-170,50},{40,50},{40,10},{59,10}},
+    annotation (Line(points={{-170,50},{59,50}},
       color={0,0,127}));
   connect(enaDis.TMix, TMix)
     annotation (Line(points={{-0.714286,-32.1429},{-0.714286,-32},{-110,-32},{
           -110,-30},{-170,-30}},
                    color={0,0,127}));
   connect(VOut_flow,VOutMea_flow. u)
-    annotation (Line(points={{-170,20},{-158,20},{-158,30},{-142,30}},
+    annotation (Line(points={{-170,20},{-142,20}},
       color={0,0,127}));
   connect(VOutMea_flow.y, damLim.VOut_flow)
-    annotation (Line(points={{-119,30},{-100,30},{-100,18},{-81,18}},
+    annotation (Line(points={{-119,20},{-100,20},{-100,18},{-81,18}},
       color={0,0,127}));
 
 annotation (
@@ -302,7 +302,7 @@ annotation (
           color={0,0,127},
           thickness=0.5),
         Text(
-          extent={{-176,200},{152,162}},
+          extent={{-176,216},{152,178}},
           lineColor={0,0,127},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{

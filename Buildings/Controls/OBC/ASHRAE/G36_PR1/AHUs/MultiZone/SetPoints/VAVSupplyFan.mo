@@ -339,7 +339,7 @@ annotation (
           textString="Sum of VAV box flow rate")}),
   Icon(graphics={
         Text(
-          extent={{-100,124},{98,102}},
+          extent={{-102,140},{96,118}},
           lineColor={0,0,255},
           textString="%name"),
                Rectangle(

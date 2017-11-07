@@ -10,13 +10,19 @@ model Controller "Single zone VAV AHU economizer control sequence"
     "Delta between the enthalpy hysteresis high and low limits"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
   parameter Real kPMod=1 "Gain of modulation controller"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+    annotation(Evaluate=true, Dialog(group="Control gains"));
   parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+    annotation(Evaluate=true, Dialog(group="Control gains"));
 
-  parameter Real uMin=0
+  parameter Real uMin(
+    final min=0,
+    final max=1,
+    final unit="1") = 0
     "Lower limit of controller output uTSup at which the dampers are at their limits";
-  parameter Real uMax=1
+  parameter Real uMax(
+    final min=0,
+    final max=1,
+    final unit="1") = 1
     "Upper limit of controller output uTSup at which the dampers are at their limits";
 
   parameter Real yFanMin(

@@ -331,7 +331,7 @@ Supply air temperature setpoint <code>TSetSup</code> shall be <code>35&deg;C</co
 <p>
 Supply air temperature shall be controlled to setpoint using a control loop whose
 output is mapped to sequence the hot water valve or modulating electric heating
-coil (if applicable), chilled water valves.
+coil (if applicable) or chilled water valves.
 </p>
 </html>",
 revisions="<html>

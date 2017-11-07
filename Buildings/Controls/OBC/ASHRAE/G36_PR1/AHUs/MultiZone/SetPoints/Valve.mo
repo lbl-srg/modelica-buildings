@@ -68,14 +68,14 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uHeaMaxCon(
     final k=uHeaMax)
     "Constant signal to map control action"
-    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant negOne(final k=-1)
     "Negative unity signal"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{0,18},{20,38}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uCooMinCon(
     final k=uCooMin)
     "Constant signal to map control action"
-    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
     "Zero control signal"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
@@ -100,7 +100,7 @@ equation
   connect(TSup,conTSup. u_m)
     annotation (Line(points={{-120,-20},{-50,-20},{-50,48}}, color={0,0,127}));
   connect(negOne.y,conSigHea. x1)
-    annotation (Line(points={{-59,-40},{-40,-40},{-40,40},{30,40},{30,28},{58,28}},
+    annotation (Line(points={{21,28},{58,28}},
       color={0,0,127}));
   connect(one.y,conSigHea. f1)
     annotation (Line(points={{21,-80},{50,-80},{50,24},{58,24}},
@@ -112,16 +112,17 @@ equation
     annotation (Line(points={{31,60},{46,60},{46,-20},{58,-20}},
       color={0,0,127}));
   connect(uHeaMaxCon.y,conSigHea. x2)
-    annotation (Line(points={{21,20},{30,20},{30,16},{58,16}},
+    annotation (Line(points={{21,-10},{30,-10},{30,16},{58,16}},
       color={0,0,127}));
   connect(zer.y,conSigHea. f2)
-    annotation (Line(points={{-59,-80},{-20,-80},{-20,-16},{30,-16},{30,12},
-      {58,12}}, color={0,0,127}));
+    annotation (Line(points={{-59,-80},{-20,-80},{-20,-26},{36,-26},{36,12},{58,
+          12}}, color={0,0,127}));
   connect(uCooMinCon.y,conSigCoo. x1)
-    annotation (Line(points={{21,-40},{40,-40},{40,-12},{58,-12}},
+    annotation (Line(points={{21,-50},{40,-50},{40,-12},{58,-12}},
       color={0,0,127}));
   connect(zer.y,conSigCoo. f1)
-    annotation (Line(points={{-59,-80},{-20,-80},{-20,-16},{58,-16}},
+    annotation (Line(points={{-59,-80},{-20,-80},{-20,-26},{36,-26},{36,-16},{
+          58,-16}},
       color={0,0,127}));
   connect(one.y,conSigCoo. x2)
     annotation (Line(points={{21,-80},{50,-80},{50,-24},{58,-24}},

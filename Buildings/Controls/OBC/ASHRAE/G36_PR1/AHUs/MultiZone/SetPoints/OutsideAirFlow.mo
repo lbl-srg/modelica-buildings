@@ -448,8 +448,8 @@ equation
     annotation (Line(points={{161,110},{188,110},{188,-136},{198,-136}},
       color={0,0,127}));
   connect(unCorOutAirInk.y, VDesUncOutMin_flow_nominal)
-    annotation (Line(points={{41,220.5},{104,220.5},{104,220},{180,220},
-      {180,180},{260,180}},  color={0,0,127}));
+    annotation (Line(points={{41,220.5},{180,220.5},{180,180},{260,180}},
+                             color={0,0,127}));
   connect(min.y, VOutMinSet_flow)
     annotation (Line(points={{221,-142},{232,-142},{232,-102},{260,-102}},
       color={0,0,127}));
@@ -533,11 +533,11 @@ Icon(graphics={Rectangle(
           lineColor={0,0,0},
           textString="minOAsp"),
         Text(
-          extent={{-100,140},{100,100}},
+          extent={{-100,158},{100,118}},
           lineColor={0,0,255},
           textString="%name")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-280},{240,280}}), graphics={Rectangle(
-          extent={{-180,280},{240,100}},
+          extent={{-182,280},{238,100}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None), Text(
