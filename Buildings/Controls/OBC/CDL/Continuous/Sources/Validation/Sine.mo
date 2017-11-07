@@ -10,7 +10,7 @@ model Sine "Validation model for Sine"
     startTime=10) "Sine source block"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
   annotation (
-  experiment(StopTime=125.0, Tolerance=1e-06),
+  experiment(StopTime=130.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Sources/Validation/Sine.mos"
         "Simulate and plot"),
     Documentation(info="<html>
