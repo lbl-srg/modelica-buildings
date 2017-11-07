@@ -14,5 +14,3 @@ createPlot(id=6, position={420, 35, 390, 650}, subPlot=2, y={"con1.damVal.yDam"}
 createPlot(id=7, position={820, 35, 390, 650}, subPlot=1, y={"con1.damVal.TDisSet","con1.damVal.TDis"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
 createPlot(id=7, position={820, 35, 390, 650}, subPlot=2, y={"con1.damVal.yHeaVal"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
 createPlot(id=8, position={1220, 35, 390, 650}, subPlot=1, y={"con1.yZonTemResReq","con1.yZonPreResReq"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
-
-

@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Utilities.Validation;
 model Assert "Validate the Assert block"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.CDL.Utilities.Assert assert(message=
         "input became false")
