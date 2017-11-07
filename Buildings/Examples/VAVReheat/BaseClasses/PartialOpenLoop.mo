@@ -5,7 +5,7 @@ partial model PartialOpenLoop
   package MediumA = Buildings.Media.Air "Medium model for air";
   package MediumW = Buildings.Media.Water "Medium model for water";
 
-  constant Integer numZon=5 "Total number of served zones/VAV boxes";
+  constant Integer numZon=5 "Total number of served VAV boxes";
 
   parameter Modelica.SIunits.Volume VRooCor=AFloCor*flo.hRoo
     "Room volume corridor";

@@ -23,7 +23,7 @@ extends Modelica.Icons.Example;
     duration=28800,
     offset=1,
     height=0.5) "Ramp signal for generating VAV box flow rate"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp vavBoxFlo3(
     duration=28800,
     height=1,
@@ -33,7 +33,7 @@ extends Modelica.Icons.Example;
     duration=28800,
     height=1,
     offset=0) "Ramp signal for generating VAV box flow rate"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Modelica.Blocks.Sources.Sine sine(
     freqHz=1/14400,
     offset=3,
@@ -65,16 +65,16 @@ extends Modelica.Icons.Example;
 
 equation
   connect(vavBoxFlo1.y, conSupFan.VBox_flow[1])
-    annotation (Line(points={{-59,40},{-50,40},{-50,60},{34,60},{34,1.5},
-      {58,1.5}}, color={0,0,127}));
+    annotation (Line(points={{-59,40},{-46,40},{-46,0},{34,0},{34,1.5},{58,1.5}},
+                 color={0,0,127}));
   connect(vavBoxFlo2.y, conSupFan.VBox_flow[2])
-    annotation (Line(points={{-19,40},{30,40},{30,2.5},{58,2.5}},
+    annotation (Line(points={{-19,50},{30,50},{30,2.5},{58,2.5}},
       color={0,0,127}));
   connect(vavBoxFlo3.y, conSupFan.VBox_flow[3])
-    annotation (Line(points={{-59,10},{-48,10},{-48,58},{32,58},{32,3.5},
-      {58,3.5}}, color={0,0,127}));
+    annotation (Line(points={{-59,10},{-50,10},{-50,-2},{28,-2},{28,3.5},{58,
+          3.5}}, color={0,0,127}));
   connect(vavBoxFlo4.y, conSupFan.VBox_flow[4])
-    annotation (Line(points={{-19,10},{28,10},{28,4.5},{58,4.5}},
+    annotation (Line(points={{-19,20},{28,20},{28,4.5},{58,4.5}},
       color={0,0,127}));
   connect(sine1.y, conSupFan.ducStaPre)
     annotation (Line(points={{-19,-70},{40,-70},{40,-8},{58,-8}},

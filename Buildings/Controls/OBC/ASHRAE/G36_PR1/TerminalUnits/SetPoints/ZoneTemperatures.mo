@@ -41,22 +41,22 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
 
   parameter Real incSetDem_1=0.56
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand Settings"));
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
   parameter Real incSetDem_2=1.1
     "Cooling setpoint increase value (degC) when cooling demand limit level 2 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand Settings"));
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
   parameter Real incSetDem_3=2.2
     "Cooling setpoint increase value (degC) when cooling demand limit level 3 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand Settings"));
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
   parameter Real decSetDem_1=0.56
     "Heating setpoint decrease value (degC) when heating demand limit level 1 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand Settings"));
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
   parameter Real decSetDem_2=1.1
     "Heating setpoint decrease value (degC) when heating demand limit level 2 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand Settings"));
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
   parameter Real decSetDem_3=2.2
     "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand Settings"));
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput occCooSet(
     final unit="K",
@@ -1283,7 +1283,7 @@ for the duration of the demand limit event.</li>
 <p>The active cooling setpoints for all zones shall be increased when a demand limit
 is imposed on the associated zone group. The operator shall have the ability
 to exempt individual zones from this adjustment through the normal
-Building Automation System (BAS) user interface. Changes due to demand limits 
+Building Automation System (BAS) user interface. Changes due to demand limits
 are not cumulative.</p>
 <ul>
 <li>At Demand Limit Level 1, increase setpoint by 0.56 &deg;C (1 &deg;F).</li>

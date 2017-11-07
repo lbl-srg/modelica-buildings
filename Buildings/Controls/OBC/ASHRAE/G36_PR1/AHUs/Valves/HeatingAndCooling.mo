@@ -114,8 +114,8 @@ as the cooling loop and the heating loop.
 <p>
 Both controllers remain
 enabled at all times since antiwindup is implemented within each controller, see
-<a href=\"modelica://Buildings.Controls.OBC.Buildings.Controls.OBC.CDL.Continuous.LimPID\">
-Buildings.Controls.OBC.Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
+Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
 
 The cooling loop shall maintain the space temperature at the active zone cooling setpoint. The heating loop shall
 maintain the space temperature at the active zone heating setpoint. The diagram below illustrates the control configuration.
