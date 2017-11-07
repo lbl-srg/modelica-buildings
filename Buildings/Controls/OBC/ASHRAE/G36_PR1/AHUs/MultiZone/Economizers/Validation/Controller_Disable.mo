@@ -94,35 +94,29 @@ protected
     final height=1,
     final offset=0) "Supply air temperature control signal"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  CDL.Continuous.AddParameter addPar(p=272.15, k=20)
-    "Generates mixed air temperature signal"
-    annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
-
-
-public
-  CDL.Continuous.Sources.Sine ram
-    annotation (Placement(transformation(extent={{-116,-44},{-96,-26}})));
   CDL.Continuous.Sources.Sine sin1(
     amplitude=20,
     freqHz=1/1800,
-    offset=272.15)
+    offset=272.15,
+    startTime=0)
     annotation (Placement(transformation(extent={{90,-98},{110,-80}})));
+
 equation
   connect(fanSta.y, economizer.uSupFan)
     annotation (Line(points={{-19,-10},{-10,-10},{-10,5.625},{19.375,5.625}},
       color={255,0,255}));
   connect(freProSta.y, economizer.uFreProSta)
     annotation (Line(points={{-59,-100},{-32,-100},{-32,-72},{-6,-72},{-6,0.625},{19.375,0.625}},
-                                                               color={255,127,0}));
+      color={255,127,0}));
   connect(TOutBelowCutoff.y, economizer.TOut)
     annotation (Line(points={{-99,110},{-6,110},{-6,19.375},{19.375,19.375}},
-                                                                 color={0,0,127}));
+      color={0,0,127}));
   connect(TOutCut1.y, economizer.TOutCut)
     annotation (Line(points={{-99,70},{-90,70},{-8,70},{-8,18.125},{19.375,18.125}},
-                                                                        color={0,0,127}));
+      color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer.hOut)
     annotation (Line(points={{-99,20},{-60,20},{-60,16},{19.375,16},{19.375,16.875}},
-                                                                         color={0,0,127}));
+      color={0,0,127}));
   connect(hOutCut.y, economizer.hOutCut)
     annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,15.625},{19.375,15.625}},
       color={0,0,127}));
@@ -186,10 +180,8 @@ equation
   connect(opeMod.y, economizer2.uOpeMod)
     annotation (Line(points={{-59,-70},{50,-70},{50,-56.875},{159.375,
           -56.875}}, color={255,127,0}));
-  connect(addPar.y, economizer2.TMix)
-    annotation (Line(points={{141,-90},{148,-90},{148,-51.875},{159.375,
+  connect(sin1.y, economizer2.TMix) annotation (Line(points={{111,-90},{136,-90},{136,-51.875},{159.375,
           -51.875}}, color={0,0,127}));
-  connect(addPar.u, sin1.y) annotation (Line(points={{118,-90},{111,-90}}, color={0,0,127}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/Economizers/Validation/Controller_Disable.mos"

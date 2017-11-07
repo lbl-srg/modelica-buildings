@@ -172,10 +172,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final k=Constants.FreezeProtectionStages.stage0) if not use_G36FrePro
     "Freeze protection status is 0. Use if G36 freeze protection is not implemented"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreProTMix
-    freProTMix if use_TMix
-    "Block that tracks TMix against a freeze protection setpoint"
-    annotation (Placement(transformation(extent={{80,-20},{100,0}})));
+
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable enaDis(
     final use_enthalpy=use_enthalpy,
@@ -206,7 +203,10 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final uOutDamMax=uOutDamMax)
     "Multi zone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreProTMix
+    freProTMix(final TFreSet = TFreSet) if use_TMix
+    "Block that tracks TMix against a freeze protection setpoint"
+    annotation (Placement(transformation(extent={{80,-20},{100,0}})));
 
 equation
   connect(uSupFan, enaDis.uSupFan)
@@ -268,9 +268,9 @@ equation
   connect(TMix, freProTMix.TMix)
     annotation (Line(points={{-170,-30},{-120,-30},{-120,-80},{60,-80},{60,-10},{79,-10}},
     color={0,0,127}));
-  connect(freProTMix.yRetDamPos, retDamMinFre.u1)
+  connect(freProTMix.yFrePro, retDamMinFre.u1)
     annotation (Line(points={{101,-4},{104,-4},{104,56},{118,56}}, color={0,0,127}));
-  connect(freProTMix.yOutDamPos, outDamMaxFre.u2)
+  connect(freProTMix.yFreProInv, outDamMaxFre.u2)
     annotation (Line(points={{101,-16},{101,-16},{104,-16},{104,-36},{118,-36},{118,-36}},
     color={0,0,127}));
   connect(freProSta.y, damLim.uFreProSta)

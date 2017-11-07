@@ -2,11 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic;
 block FreProTMix "Optional freeze protection block based on mixed air temperature."
 
   parameter Modelica.SIunits.Temperature TFreSet = 277.15
-    "Lower limit for mixed air temperature for freeze protection"
-     annotation(Evaluate=true, Dialog(tab="Advanced", group="Freeze protection"));
+    "Lower limit for mixed air temperature for freeze protection";
   parameter Real kPFre = 1
-    "Proportional gain for mixed air temperature tracking for freeze protection"
-     annotation(Evaluate=true, Dialog(tab="Advanced", group="Freeze protection"));
+    "Proportional gain for mixed air temperature tracking for freeze protection";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
