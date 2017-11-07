@@ -4,14 +4,14 @@ model ModeAndSetPoints
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints
-    zoneSetPoints(
+    setPoi(
     numZon=2,
     cooAdj=true,
     heaAdj=true)
     "Output resetted zone setpoint remperature"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints
-    zoneSetPoints1(
+    setPoi1(
     numZon=2,
     have_occSen=true,
     have_winSen=true)
@@ -52,46 +52,46 @@ model ModeAndSetPoints
     annotation (Placement(transformation(extent={{-46,-40},{-26,-20}})));
 
 equation
-  connect(occSch.tNexOcc, zoneSetPoints.tNexOcc)
+  connect(occSch.tNexOcc, setPoi.tNexOcc)
     annotation (Line(points={{-69,88},{19,88}},
       color={0,0,127}));
-  connect(occSch.occupied, zoneSetPoints.uOcc)
+  connect(occSch.occupied, setPoi.uOcc)
     annotation (Line(points={{-69,76},{-48,76},{-48,76.025},{19,76.025}},
       color={255,0,255}));
-  connect(TZon1.y, zoneSetPoints.TZon[1])
+  connect(TZon1.y, setPoi.TZon[1])
     annotation (Line(points={{-67,50},{-56,50},{-56,84.5},{19,84.5}},
       color={0,0,127}));
-  connect(TZon2.y, zoneSetPoints.TZon[2])
+  connect(TZon2.y, setPoi.TZon[2])
     annotation (Line(points={{-67,10},{-56,10},{-56,85.5},{19,85.5}},
       color={0,0,127}));
-  connect(cooSetAdj.y, zoneSetPoints.setAdj)
+  connect(cooSetAdj.y, setPoi.setAdj)
     annotation (Line(points={{-25,50},{-20,50},{-20,82},{19,82}},
       color={0,0,127}));
-  connect(heaSetAdj.y, zoneSetPoints.heaSetAdj)
+  connect(heaSetAdj.y, setPoi.heaSetAdj)
     annotation (Line(points={{-25,10},{-16,10},{-16,79},{19,79}},
       color={0,0,127}));
-  connect(occSch.tNexOcc, zoneSetPoints1.tNexOcc)
+  connect(occSch.tNexOcc, setPoi1.tNexOcc)
     annotation (Line(points={{-69,88},{0,88},{0,48},{19,48}},
       color={0,0,127}));
-  connect(occSch.occupied, zoneSetPoints1.uOcc)
+  connect(occSch.occupied, setPoi1.uOcc)
     annotation (Line(points={{-69,76},{-4,76},{-4,36.025},{19,36.025}},
       color={255,0,255}));
-  connect(TZon1.y, zoneSetPoints1.TZon[1])
+  connect(TZon1.y, setPoi1.TZon[1])
     annotation (Line(points={{-67,50},{-56,50},{-56,32},{-12,32},{-12,44.5},
       {19,44.5}}, color={0,0,127}));
-  connect(TZon2.y, zoneSetPoints1.TZon[2])
+  connect(TZon2.y, setPoi1.TZon[2])
     annotation (Line(points={{-67,10},{-56,10},{-56,32},{-12,32},{-12,45.5},
       {19,45.5}}, color={0,0,127}));
-  connect(occSen1.y, zoneSetPoints1.uOccSen[1])
+  connect(occSen1.y, setPoi1.uOccSen[1])
     annotation (Line(points={{-67,-30},{-60,-30},{-60,-12},{-4,-12},{-4,32.5},
       {19,32.5}}, color={255,0,255}));
-  connect(occSen2.y, zoneSetPoints1.uOccSen[2])
+  connect(occSen2.y, setPoi1.uOccSen[2])
     annotation (Line(points={{-25,-30},{-4,-30},{-4,33.5},{19,33.5}},
       color={255,0,255}));
-  connect(winSta1.y, zoneSetPoints1.uWinSta[1])
+  connect(winSta1.y, setPoi1.uWinSta[1])
     annotation (Line(points={{-67,-70},{-60,-70},{-60,-48},{0,-48},{0,30.5},
       {19,30.5}}, color={255,0,255}));
-  connect(winSta2.y, zoneSetPoints1.uWinSta[2])
+  connect(winSta2.y, setPoi1.uWinSta[2])
     annotation (Line(points={{-25,-70},{-20,-70},{-20,-48},{0,-48},{0,31.5},
       {19,31.5}}, color={255,0,255}));
 

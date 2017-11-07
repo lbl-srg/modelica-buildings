@@ -472,7 +472,7 @@ equation
     annotation (Line(points={{-59,-270},{78,-270}}, color={255,0,255}));
 
 annotation (
-  defaultComponentName="damVal_RehBox",
+  defaultComponentName="damVal",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-380},{320,380}}),
         graphics={
         Rectangle(

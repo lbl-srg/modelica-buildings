@@ -3,7 +3,7 @@ model DamperValves
   "Validate model for controlling damper and valve position of VAV reheat terminal unit"
   extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves damVal_RehBox(kDam=1)
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves damVal(kDam=1)
     "Output signal for controlling VAV reheat box damper and valve position"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uHea(
@@ -54,29 +54,29 @@ model DamperValves
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
 equation
-  connect(VDis.y, damVal_RehBox.VDis)
+  connect(VDis.y, damVal.VDis)
     annotation (Line(points={{41,-60},{74,-60},{74,39}}, color={0,0,127}));
-  connect(TDis.y, damVal_RehBox.TDis)
+  connect(TDis.y, damVal.TDis)
     annotation (Line(points={{41,-20},{66,-20},{66,39}}, color={0,0,127}));
-  connect(VActCooMax.y, damVal_RehBox.VActCooMax)
+  connect(VActCooMax.y, damVal.VActCooMax)
     annotation (Line(points={{41,80},{50,80},{50,59},{59,59}}, color={0,0,127}));
-  connect(VActCooMin.y, damVal_RehBox.VActCooMin)
+  connect(VActCooMin.y, damVal.VActCooMin)
     annotation (Line(points={{-59,80},{-2,80},{-2,57},{59,57}}, color={0,0,127}));
-  connect(VActHeaMax.y, damVal_RehBox.VActHeaMax)
+  connect(VActHeaMax.y, damVal.VActHeaMax)
     annotation (Line(points={{-19,60},{-4,60},{-4,55},{59,55}}, color={0,0,127}));
-  connect(VActHeaMin.y, damVal_RehBox.VActHeaMin)
+  connect(VActHeaMin.y, damVal.VActHeaMin)
     annotation (Line(points={{-59,40},{-4,40},{-4,53},{59,53}}, color={0,0,127}));
-  connect(VActMin.y, damVal_RehBox.VActMin)
+  connect(VActMin.y, damVal.VActMin)
     annotation (Line(points={{-19,20},{-2,20},{-2,51},{59,51}}, color={0,0,127}));
-  connect(uCoo.y, damVal_RehBox.uCoo)
+  connect(uCoo.y, damVal.uCoo)
     annotation (Line(points={{-59,0},{0,0},{0,49},{59,49}}, color={0,0,127}));
-  connect(uHea.y, damVal_RehBox.uHea)
+  connect(uHea.y, damVal.uHea)
     annotation (Line(points={{-19,-20},{2,-20},{2,47},{59,47}}, color={0,0,127}));
-  connect(THeaSet.y, damVal_RehBox.THeaSet)
+  connect(THeaSet.y, damVal.THeaSet)
     annotation (Line(points={{-59,-40},{4,-40},{4,45},{59,45}}, color={0,0,127}));
-  connect(TSup.y, damVal_RehBox.TSup)
+  connect(TSup.y, damVal.TSup)
     annotation (Line(points={{-19,-60},{6,-60},{6,43},{59,43}}, color={0,0,127}));
-  connect(TZon.y, damVal_RehBox.TRoo)
+  connect(TZon.y, damVal.TRoo)
     annotation (Line(points={{-59,-80},{8,-80},{8,41},{59,41}}, color={0,0,127}));
 
 annotation (
