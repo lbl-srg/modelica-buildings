@@ -14,35 +14,35 @@ model Guideline36
   parameter Modelica.SIunits.PressureDifference dpDisRetMax=40
     "Maximum return fan discharge static pressure setpoint";
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ReheatController
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
                                                            conVAVCor(
     m_flow_nominal=mCor_flow_nominal,
     zonAre=AFloCor,
     final samplePeriod=samplePeriod)
     "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{530,32},{550,52}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ReheatController
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
                                                            conVAVSou(
     m_flow_nominal=mSou_flow_nominal,
     zonAre=AFloSou,
     final samplePeriod=samplePeriod)
     "Controller for terminal unit south"
     annotation (Placement(transformation(extent={{700,30},{720,50}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ReheatController
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
                                                            conVAVEas(
     m_flow_nominal=mEas_flow_nominal,
     zonAre=AFloEas,
     final samplePeriod=samplePeriod)
     "Controller for terminal unit east"
     annotation (Placement(transformation(extent={{880,30},{900,50}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ReheatController
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
                                                            conVAVNor(
     m_flow_nominal=mNor_flow_nominal,
     zonAre=AFloNor,
     final samplePeriod=samplePeriod)
     "Controller for terminal unit north"
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ReheatController
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
                                                            conVAVWes(
     m_flow_nominal=mWes_flow_nominal,
     zonAre=AFloWes,
@@ -57,7 +57,7 @@ model Guideline36
     zonAre=zonAre)
     "AHU controller"
     annotation (Placement(transformation(extent={{384,362},{424,470}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ZoneModeAndSetPoints
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints
                                                                  TSetZon(
     THeaOn=THeaOn,
     THeaOff=THeaOff,

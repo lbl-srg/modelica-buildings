@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits;
-block ZoneModeAndSetPoints "Output zone setpoint with operation mode selection"
+block ModeAndSetPoints "Output zone setpoint with operation mode selection"
 
   parameter Integer numZon(min=2)
     "Total number of served VAV boxes";
@@ -358,4 +358,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ZoneModeAndSetPoints;
+end ModeAndSetPoints;

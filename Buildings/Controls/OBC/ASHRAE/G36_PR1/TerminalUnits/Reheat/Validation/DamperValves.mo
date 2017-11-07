@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.Validation;
-model DamperValve
+model DamperValves
   "Validate model for controlling damper and valve position of VAV reheat terminal unit"
   extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValve damVal_RehBox(kDam=1)
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves damVal_RehBox(kDam=1)
     "Output signal for controlling VAV reheat box damper and valve position"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uHea(
@@ -81,13 +81,13 @@ equation
 
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/Validation/DamperValve.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/Validation/DamperValves.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValve\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValve</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves</a>
 for damper and valve control of VAV reheat terminal unit.
 </p>
 </html>", revisions="<html>
@@ -98,4 +98,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DamperValve;
+end DamperValves;

@@ -1,15 +1,15 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Validation;
-model ReheatController "Validate model for controlling VAV terminal box with reheat"
+model Controller "Validate model for controlling VAV terminal box with reheat"
   extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ReheatController
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
     reheatController(
     zonAre=50,
     samplePeriod=120,
     m_flow_nominal=(50*3*1.2/3600)*6)
     "Controller for VAV terminal unit with reheat"
     annotation (Placement(transformation(extent={{60,54},{80,84}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ReheatController
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
     reheatController1(
     zonAre=50,
     samplePeriod=120,
@@ -126,13 +126,13 @@ equation
       color={255,127,0}));
 
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Validation/ReheatController.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Validation/Controller.mos"
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ReheatController\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ReheatController</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -144,4 +144,4 @@ First implementation.
 </html>"),
 Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end ReheatController;
+end Controller;

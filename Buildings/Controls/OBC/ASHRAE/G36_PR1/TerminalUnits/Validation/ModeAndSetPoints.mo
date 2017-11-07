@@ -1,16 +1,16 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Validation;
-model ZoneModeAndSetPoints
+model ModeAndSetPoints
   "Validation models of reseting zone setpoint temperature"
   extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ZoneModeAndSetPoints
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints
     zoneSetPoints(
     numZon=2,
     cooAdj=true,
     heaAdj=true)
     "Output resetted zone setpoint remperature"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ZoneModeAndSetPoints
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints
     zoneSetPoints1(
     numZon=2,
     have_occSen=true,
@@ -96,13 +96,13 @@ equation
       {19,31.5}}, color={255,0,255}));
 
 annotation (experiment(StopTime=86400.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Validation/ZoneModeAndSetPoints.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Validation/ModeAndSetPoints.mos"
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ZoneModeAndSetPoints\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ZoneModeAndSetPoints</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -123,4 +123,4 @@ No occupancy sensor"), Text(
           lineColor={85,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="No local setpoint adjustment")}));
-end ZoneModeAndSetPoints;
+end ModeAndSetPoints;

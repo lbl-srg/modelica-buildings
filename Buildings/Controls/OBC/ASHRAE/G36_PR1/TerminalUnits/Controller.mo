@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits;
-block ReheatController "Controller for room VAV box"
+block Controller "Controller for room VAV box"
 
   parameter Modelica.SIunits.Time samplePeriod
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
@@ -236,7 +236,7 @@ block ReheatController "Controller for room VAV box"
     final CO2Set=CO2Set)
     "Active airflow rate setpoint"
     annotation (Placement(transformation(extent={{-32,90},{-12,110}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValve damVal(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves damVal(
     final kWatVal=kWatVal,
     final TiWatVal=TiWatVal,
     final kDam=kDam,
@@ -440,8 +440,8 @@ control loop signal, it calculates the discharge air temperature setpoint
 <code>TDisSet</code>. Along with the defined maximum and minimum airflow, measured 
 zone temperature, the sequence outputs <code>yDam</code>, <code>yVal</code>,
 <code>TDisSet</code> and discharge airflow rate setpoint <code>VDisSet</code>.   
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValve\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValve</a>.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves</a>.
 </p>
 <h4>d. System reset requests generation</h4>
 <p>
@@ -465,4 +465,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ReheatController;
+end Controller;

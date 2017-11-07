@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat;
-block DamperValve
+block DamperValves
   "Output signals for controlling VAV reheat box damper and valve position"
 
   parameter Modelica.SIunits.TemperatureDifference dTDisMax=11
@@ -739,7 +739,7 @@ airflow at the active setpoint.
 unit are described in the following figure below.</p>
 <p align=\"center\">
 <img alt=\"Image of damper and valve control for VAV reheat terminal unit\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/DamperValve.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/DamperValves.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
@@ -749,4 +749,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DamperValve;
+end DamperValves;
