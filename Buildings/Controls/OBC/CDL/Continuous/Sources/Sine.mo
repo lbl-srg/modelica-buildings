@@ -14,7 +14,7 @@ equation
   y = offset + (if time < startTime then 0 else amplitude*Modelica.Math.sin(2
     *pi*freqHz*(time - startTime) + phase));
   annotation (
-    defaultComponentName="ram",
+    defaultComponentName="sin",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-80},{100,100}}),graphics={
