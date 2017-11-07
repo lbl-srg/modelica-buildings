@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Sources;
 block Sine "Generate sine signal"
-  import Buildings.Controls.OBC.CDL.Constants.pi;
   parameter Real amplitude=1 "Amplitude of sine wave";
   parameter Modelica.SIunits.Frequency freqHz(start=1) "Frequency of sine wave";
   parameter Modelica.SIunits.Angle phase=0 "Phase of sine wave";
@@ -11,8 +10,10 @@ block Sine "Generate sine signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
-  y = offset + (if time < startTime then 0 else amplitude*Modelica.Math.sin(2
-    *pi*freqHz*(time - startTime) + phase));
+  y = offset + (
+    if time < startTime
+    then 0 else
+    amplitude*Modelica.Math.sin(2*Buildings.Controls.OBC.CDL.Constants.pi*freqHz*(time - startTime) + phase));
   annotation (
     defaultComponentName="sin",
     Icon(coordinateSystem(
@@ -52,8 +53,8 @@ Block that outputs a <code>sine</code>.
 
 <p>
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Sources/Sine.png\"
-     alt=\"Sine.png\">
-     </p>
+     alt=\"Sine.png\"/>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
