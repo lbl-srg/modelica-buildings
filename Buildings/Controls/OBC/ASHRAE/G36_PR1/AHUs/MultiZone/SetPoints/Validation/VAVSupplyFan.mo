@@ -34,12 +34,12 @@ extends Modelica.Icons.Example;
     height=1,
     offset=0) "Ramp signal for generating VAV box flow rate"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Modelica.Blocks.Sources.Sine sine(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
     freqHz=1/14400,
     offset=3,
     amplitude=2)    "Generate sine signal "
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Modelica.Blocks.Sources.Sine sine1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine1(
     freqHz=1/14400,
     offset=200,
     amplitude=150) "Generate sine signal"
