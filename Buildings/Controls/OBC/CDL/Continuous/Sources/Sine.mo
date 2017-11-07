@@ -50,7 +50,6 @@ equation
 <p>
 Block that outputs a <code>sine</code>.
 </p>
-
 <p>
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Sources/Sine.png\"
      alt=\"Sine.png\"/>
