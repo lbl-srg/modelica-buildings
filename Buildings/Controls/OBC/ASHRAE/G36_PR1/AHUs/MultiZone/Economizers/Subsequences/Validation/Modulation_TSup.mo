@@ -7,7 +7,7 @@ model Modulation_TSup
     "Economizer modulation sequence"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
-  Modelica.Blocks.Sources.Ramp uTSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uTSup(
     final duration=900,
     final height=2,
     final offset=-1)

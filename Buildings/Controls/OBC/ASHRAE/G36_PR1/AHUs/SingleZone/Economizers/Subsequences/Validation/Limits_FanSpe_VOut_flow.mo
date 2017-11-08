@@ -40,12 +40,12 @@ protected
     final k=VOutSet_flow)
     "Constant minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  Modelica.Blocks.Sources.Ramp SupFanSpeSig(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp SupFanSpeSig(
     final duration=1800,
     final offset=yFanMin,
     final height=yFanMax - yFanMin) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
-  Modelica.Blocks.Sources.Ramp VOutMinSetSig1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOutMinSetSig1(
     final duration=1800,
     final offset=VOutMin_flow,
     final height=VOutDes_flow - VOutMin_flow) "Constant minimum outdoor airflow setpoint"
