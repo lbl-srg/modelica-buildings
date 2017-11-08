@@ -3,17 +3,18 @@ model Controller_Mod_DamLim
   "Validation model for multi zone VAV AHU economizer operation: damper modulation and minimum ooutdoor air requirement damper position limits"
   extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller
-    economizer(use_TMix=true,
-    TiMinOut=1,
-    use_enthalpy=true,
-    use_G36FrePro=true)
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller economizer(
+    final use_TMix=true,
+    final TiMinOut=1,
+    final use_enthalpy=true,
+    final use_G36FrePro=true)
     "Multi zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller
-    economizer1(use_enthalpy=false, use_TMix=true,
-    TiMinOut=1,
-    use_G36FrePro=true)
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller economizer1(
+    final use_enthalpy=false,
+    final use_TMix=true,
+    final TiMinOut=1,
+    final use_G36FrePro=true)
     "Multi zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 

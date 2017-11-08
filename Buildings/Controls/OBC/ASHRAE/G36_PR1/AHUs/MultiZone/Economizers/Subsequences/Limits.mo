@@ -166,7 +166,7 @@ protected
     k=Constants.OperationModes.occupied)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-160,-210},{-140,-190}})));
-  CDL.Integers.LessEqual intLesEqu "Check if freeze protection stage is stage 0"
+  Buildings.Controls.OBC.CDL.Integers.LessEqual intLesEqu "Check if freeze protection stage is stage 0"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
