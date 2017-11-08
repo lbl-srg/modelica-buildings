@@ -17,6 +17,8 @@ model ConstantSpeedPumpStage "Staging control for constant speed pumps"
     enableTimer=true,
     waitTime=tWai,
     condition=
+     cooMod == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
+       or
      cooMod == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.PartialMechanical)
        or
      cooMod == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical))
