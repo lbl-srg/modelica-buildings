@@ -498,7 +498,8 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final uRetDamMin=(uHeaMax + uCooMin)/2,
     final TFreSet=TFreSet,
     final kPFre=kPFre,
-    final delta=delta)
+    final delta=delta,
+    use_TMix=true)
     "Economizer controller"
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Valve AHUValve(

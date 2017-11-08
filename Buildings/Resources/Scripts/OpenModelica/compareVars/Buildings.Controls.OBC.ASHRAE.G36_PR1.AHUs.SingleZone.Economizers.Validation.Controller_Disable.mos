@@ -2,6 +2,7 @@ compareVars :=
   {
     "economizer.enaDis.andEnaDis.y",
     "economizer.uZonSta",
+    "economizer1.uFreProSta",
     "economizer.damLim.yOutDamPosMin",
     "economizer.damLim.yOutDamPosMax",
     "economizer.yOutDamPos",
