@@ -69,9 +69,6 @@ block OperationMode "Block that outputs the operation mode"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yOpeMod "Operation mode"
     annotation (Placement(transformation(extent={{460,-30},{480,-10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yFreProSta
-    "Freeze protection stage" annotation (Placement(transformation(extent={{460,
-            -150},{480,-130}}), iconTransformation(extent={{100,-60},{120,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant occModInd(
     k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.occupied)
     "Occupied mode "
@@ -92,7 +89,8 @@ block OperationMode "Block that outputs the operation mode"
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sum1(final nin=numZon)
     "Sum up number of zones that have temperature being lower than setpoint"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(final threshold=4.5)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
+    final threshold=4.5)
     "Whether or not the number of \"cold\" zone is more than 5"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1(
@@ -141,7 +139,7 @@ block OperationMode "Block that outputs the operation mode"
     "Whether or not the unoccupied cooling setpoint  becomes higher than
     maximum zone temperature: true to false"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}})));
-  Buildings.Controls.OBC.CDL.Integers.MultiSum sumInt(nin=7) "Sum of inputs"
+  Buildings.Controls.OBC.CDL.Integers.MultiSum sumInt(final nin=7) "Sum of inputs"
     annotation (Placement(transformation(extent={{420,-70},{440,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro[numZon]
     "Decide if the cool down time of one zone should be ignored: if window
@@ -338,10 +336,9 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[numZon]
     "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2(integerTrue=
-       Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages.stage3,
-      integerFalse=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages.stage0)
-    "Convert Boolean to Integer"
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
+    message="Level 3 alarm: freeze protection setback")
+    "Generate alarm message"
     annotation (Placement(transformation(extent={{260,-160},{280,-140}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea9[numZon]
     "Convert Boolean to Real number"
@@ -360,7 +357,7 @@ protected
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or3
     "Whether or not it is in \"Occupied\"/\"Cool-down\"/\"Warm-up\" mode"
-    annotation (Placement(transformation(extent={{80,22},{100,42}})));
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Buildings.Controls.OBC.CDL.Logical.Or or4
     "Whether or not the number of \"hot\" zone is more than 5 or all
     zones are cold"
@@ -395,18 +392,24 @@ protected
     "If the Cool-down/warm-up/Occupied mode is on, then setup mode should
     not be activated."
     annotation (Placement(transformation(extent={{260,-220},{280,-200}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=numZon) "Replicate Real input"
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=numZon)
+    "Replicate Real input"
     annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(nout=numZon) "Replicate Real input"
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(nout=numZon)
+    "Replicate Real input"
     annotation (Placement(transformation(extent={{-200,-260},{-180,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin minZonTem(nin=numZon) "Find the minimum zone temperature"
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin minZonTem(nin=numZon)
+    "Find the minimum zone temperature"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxZonTem(nin=numZon) "Find the maximum zone temperature"
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxZonTem(nin=numZon)
+    "Find the maximum zone temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{140,160},{160,180}})));
   Buildings.Controls.OBC.CDL.Logical.Not not4 "Logical not"
     annotation (Placement(transformation(extent={{140,120},{160,140}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not5 "Logical not"
+    annotation (Placement(transformation(extent={{200,-160},{220,-140}})));
 
 equation
   connect(swi.y, occMod.u)
@@ -495,15 +498,15 @@ equation
       color={255,0,255}));
   connect(unoPerInd.y, swi3.u1)
     annotation (Line(points={{221,230},{252,230},{252,-2},{258,-2}},
-                           color={0,0,127}, pattern=LinePattern.Dash));
+      color={0,0,127}, pattern=LinePattern.Dash));
   connect(or3.y, swi3.u2)
-    annotation (Line(points={{101,32},{240,32},{240,-10},{258,-10}},
+    annotation (Line(points={{101,30},{240,30},{240,-10},{258,-10}},
       color={255,0,255}));
   connect(lat1.y, booToRea4.u)
     annotation (Line(points={{161,-110},{198,-110}}, color={255,0,255}));
   connect(or3.y, swi4.u2)
-    annotation (Line(points={{101,32},{112,32},{112,-80},{240,-80},{240,-110},{
-          258,-110}},         color={255,0,255}));
+    annotation (Line(points={{101,30},{112,30},{112,-80},{240,-80},{240,-110},
+      {258,-110}},   color={255,0,255}));
   connect(unoPerInd.y, swi4.u1)
     annotation (Line(points={{221,230},{252,230},{252,-102},{258,-102}},
       color={0,0,127}, pattern=LinePattern.Dash));
@@ -528,12 +531,11 @@ equation
     annotation (Line(points={{161,-210},{198,-210}},
       color={255,0,255}));
   connect(or3.y, swi5.u2)
-    annotation (Line(points={{101,32},{112,32},{112,-190},{244,-190},{244,-210},
-          {258,-210}},         color={255,0,255}));
+    annotation (Line(points={{101,30},{112,30},{112,-190},{244,-190},{244,-210},
+      {258,-210}}, color={255,0,255}));
   connect(unoPerInd.y, swi5.u1)
     annotation (Line(points={{221,230},{252,230},{252,-202},{258,-202}},
-                                                    color={0,0,127},
-      pattern=LinePattern.Dash));
+      color={0,0,127},  pattern=LinePattern.Dash));
   connect(swi3.y, setBacMod.u)
     annotation (Line(points={{281,-10},{289.5,-10},{298,-10}},
       color={0,0,127}));
@@ -546,9 +548,8 @@ equation
     annotation (Line(points={{161,-10},{168,-10},{168,20},{112,20},{112,-302},
       {138,-302}}, color={255,0,255}));
   connect(lat1.y, or5.u2)
-    annotation (Line(points={{161,-110},{180,-110},{180,-150},{120,-150},{120,
-          -310},{138,-310}},
-                   color={255,0,255}));
+    annotation (Line(points={{161,-110},{180,-110},{180,-150},{120,-150},
+      {120,-310},{138,-310}}, color={255,0,255}));
   connect(lat2.y, or5.u3)
     annotation (Line(points={{161,-210},{180,-210},{180,-190},{112,-190},{112,-318},
       {138,-318}}, color={255,0,255}));
@@ -556,7 +557,7 @@ equation
     annotation (Line(points={{161,-310},{180,-310},{180,-330},{198,-330}},
       color={255,0,255}));
   connect(or3.y, or6.u2)
-    annotation (Line(points={{101,32},{112,32},{112,-338},{198,-338}},
+    annotation (Line(points={{101,30},{112,30},{112,-338},{198,-338}},
       color={255,0,255}));
   connect(or6.y, not2.u)
     annotation (Line(points={{221,-330},{258,-330}},
@@ -567,24 +568,21 @@ equation
   connect(sumInt.y, yOpeMod)
     annotation (Line(points={{441.7,-60},{441.7,-60},{450,-60},{450,-20},{470,-20}},
       color={255,127,0}));
-  connect(lat1.y,booToInt2. u)
-    annotation (Line(points={{161,-110},{180,-110},{180,-150},{258,-150}},
-      color={255,0,255}));
   connect(and2.y, booToInt.u)
     annotation (Line(points={{221,190},{258,190}}, color={255,0,255}));
   connect(and1.y, booToInt1.u)
     annotation (Line(points={{221,150},{258,150}}, color={255,0,255}));
   connect(and2.y, or3.u2)
-    annotation (Line(points={{221,190},{236,190},{236,64},{64,64},{64,32},{78,32}},
+    annotation (Line(points={{221,190},{236,190},{236,64},{64,64},{64,30},{78,30}},
       color={255,0,255}));
   connect(and1.y, or3.u1)
-    annotation (Line(points={{221,150},{240,150},{240,60},{70,60},{70,40},{78,40}},
+    annotation (Line(points={{221,150},{240,150},{240,60},{70,60},{70,38},{78,38}},
       color={255,0,255}));
   connect(uOcc, swi.u2)
     annotation (Line(points={{-280,300},{28,300},{28,250},{258,250}},
       color={255,0,255}));
   connect(uOcc, or3.u3)
-    annotation (Line(points={{-280,300},{28,300},{28,24},{78,24}},
+    annotation (Line(points={{-280,300},{28,300},{28,22},{78,22}},
       color={255,0,255}));
   connect(add2.y, hys.u)
     annotation (Line(points={{101,-70},{108,-70},{108,-50},{138,-50}},
@@ -687,9 +685,6 @@ equation
   connect(booToRea4.y, swi4.u3)
     annotation (Line(points={{221,-110},{232,-110},{232,-118},{258,-118}},
       color={0,0,127}));
-  connect(booToInt2.y, yFreProSta)
-    annotation (Line(points={{281,-150},{340,-150},{340,-140},{470,-140}},
-      color={255,127,0}));
   connect(booToRea6.y, swi5.u3)
     annotation (Line(points={{221,-210},{240,-210},{240,-218},{258,-218}},
       color={0,0,127}));
@@ -766,6 +761,11 @@ equation
   connect(not3.y, lat4.u0)
     annotation (Line(points={{161,170},{174,170},{174,106},{-12,106},{-12,54},{-1,54}},
       color={255,0,255}));
+  connect(lat1.y, not5.u)
+    annotation (Line(points={{161,-110},{180,-110},{180,-150},{198,-150}},
+      color={255,0,255}));
+  connect(not5.y, assMes.u)
+    annotation (Line(points={{221,-150},{258,-150}}, color={255,0,255}));
 
 annotation (
   defaultComponentName = "opeModSel",
@@ -880,11 +880,6 @@ annotation (
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yOpeMod"),
-        Text(
-          extent={{56,-38},{94,-60}},
-          lineColor={255,127,0},
-          pattern=LinePattern.Dash,
-          textString="freProAla"),
         Text(
           extent={{-96,-2},{-28,-38}},
           lineColor={0,0,127},

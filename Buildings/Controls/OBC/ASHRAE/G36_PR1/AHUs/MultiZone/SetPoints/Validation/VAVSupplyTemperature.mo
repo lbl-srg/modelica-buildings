@@ -51,7 +51,7 @@ equation
     annotation (Line(points={{-59,40},{40,40},{40,4},{69,4}},
       color={0,0,127}));
   connect(setZonTem.y, conTSetSup.TSetZones)
-    annotation (Line(points={{-59,70},{60,70},{60,8},{69,8}},
+    annotation (Line(points={{-59,80},{60,80},{60,8},{69,8}},
       color={0,0,127}));
   connect(sine.y, abs.u)
     annotation (Line(points={{-59,-40},{-42,-40}}, color={0,0,127}));
