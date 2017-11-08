@@ -278,9 +278,9 @@ equation
   connect(damVal.yHeaVal, yVal) annotation (Line(points={{31,66},{80,66},{80,0},
           {110,0}}, color={0,0,127}));
   connect(damVal.VDis, VDis)
-    annotation (Line(points={{24,59},{24,-30},{-120,-30}}, color={0,0,127}));
+    annotation (Line(points={{24,57},{24,-30},{-120,-30}}, color={0,0,127}));
   connect(damVal.TDis, TDis)
-    annotation (Line(points={{16,59},{16,-60},{-120,-60}}, color={0,0,127}));
+    annotation (Line(points={{16,57},{16,-60},{-120,-60}}, color={0,0,127}));
   connect(sysReq.TDis, TDis)
     annotation (Line(points={{51,-59},{16,-59},{16,-60},{-120,-60}},
       color={0,0,127}));
@@ -292,24 +292,27 @@ equation
                                                              color={0,0,127}));
   connect(TRoo, damVal.TRoo) annotation (Line(points={{-120,0},{-40,0},{-40,61},
           {9,61}}, color={0,0,127}));
-  connect(damVal.TSup, TSupAHU) annotation (Line(points={{9,63},{-80,63},{-80,-90},
-          {-120,-90}}, color={0,0,127}));
+  connect(damVal.TSup, TSupAHU) annotation (Line(points={{9,63},{-80,63},{-80,
+          -90},{-120,-90}},
+                       color={0,0,127}));
   connect(damVal.THeaSet, TRooHeaSet) annotation (Line(points={{9,65},{-80,65},
           {-80,150},{-120,150}}, color={0,0,127}));
-  connect(damVal.uHea, heaCoo.yHea) annotation (Line(points={{9,67},{-40,67},{-40,
-          134},{-49,134}}, color={0,0,127}));
-  connect(damVal.uCoo, heaCoo.yCoo) annotation (Line(points={{9,69},{-42,69},{-42,
-          126},{-49,126}}, color={0,0,127}));
-  connect(actAirSet.VActCooMax, damVal.VActCooMax) annotation (Line(points={{-11,
-          108},{0,108},{0,79},{9,79}}, color={0,0,127}));
-  connect(actAirSet.VActCooMin, damVal.VActCooMin) annotation (Line(points={{-11,
-          105},{-2,105},{-2,77},{9,77}}, color={0,0,127}));
+  connect(damVal.uHea, heaCoo.yHea) annotation (Line(points={{9,67},{-40,67},{
+          -40,134},{-49,134}},
+                           color={0,0,127}));
+  connect(damVal.uCoo, heaCoo.yCoo) annotation (Line(points={{9,69},{-42,69},{
+          -42,126},{-49,126}},
+                           color={0,0,127}));
+  connect(actAirSet.VActCooMax, damVal.VActCooMax) annotation (Line(points={{-11,108},
+          {0,108},{0,79},{9,79}},      color={0,0,127}));
+  connect(actAirSet.VActCooMin, damVal.VActCooMin) annotation (Line(points={{-11,105},
+          {-2,105},{-2,77},{9,77}},      color={0,0,127}));
   connect(actAirSet.VActMin, damVal.VActMin) annotation (Line(points={{-11,102},
           {-4,102},{-4,71},{9,71}}, color={0,0,127}));
-  connect(actAirSet.VActHeaMin, damVal.VActHeaMin) annotation (Line(points={{-11,
-          99},{-6,99},{-6,73},{9,73}}, color={0,0,127}));
-  connect(actAirSet.VActHeaMax, damVal.VActHeaMax) annotation (Line(points={{-11,
-          96},{-8,96},{-8,75},{9,75}}, color={0,0,127}));
+  connect(actAirSet.VActHeaMin, damVal.VActHeaMin) annotation (Line(points={{-11,99},
+          {-6,99},{-6,73},{9,73}},     color={0,0,127}));
+  connect(actAirSet.VActHeaMax, damVal.VActHeaMax) annotation (Line(points={{-11,96},
+          {-8,96},{-8,75},{9,75}},     color={0,0,127}));
   connect(heaCoo.TRooHeaSet, TRooHeaSet)
     annotation (Line(points={{-71,136},{-80,136},{-80,150},{-120,150}},
       color={0,0,127}));
@@ -341,6 +344,8 @@ equation
     annotation (Line(points={{-33,93},{-52,93},{-52,30},{-120,30}},
       color={255,0,255}));
 
+  connect(damVal.uOpeMod, uOpeMod) annotation (Line(points={{9,59},{-60,59},{
+          -60,-120},{-120,-120}}, color={255,127,0}));
 annotation (Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
