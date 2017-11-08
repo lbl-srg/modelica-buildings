@@ -40,7 +40,6 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final unit="1") = (uHeaMax + uCooMin)/2
     "Maximum loop signal for the OA damper to be fully open. Require -1 < uHeaMax < uOutDamMax <= uRetDamMin < uCooMin < 1."
     annotation (Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-
   parameter Real uRetDamMin(
     final min=-1,
     final max=1,
@@ -88,18 +87,17 @@ model Controller "Multi zone VAV AHU economizer control sequence"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")
     "Signal for supply air temperature control (T Sup Control Loop Signal in diagram)"
     annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     final quantity="ThermodynamicTemperature") "Outdoor air (OA) temperature"
-    annotation (Placement(transformation(extent={{-180,130},{-160,150}}), iconTransformation(extent={
-            {-180,140},{-160,160}})));
+    annotation (Placement(transformation(extent={{-180,130},{-160,150}}),
+      iconTransformation(extent={{-180,140},{-160,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
-    annotation (Placement(transformation(extent={{-180,110},{-160,130}}), iconTransformation(extent={
-            {-180,120},{-160,140}})));
+    annotation (Placement(transformation(extent={{-180,110},{-160,130}}),
+      iconTransformation(extent={{-180,120},{-160,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
@@ -153,27 +151,6 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{160,-30},{180,-10}}),
       iconTransformation(extent={{160,-90},{180,-70}})));
 
-  CDL.Continuous.MovingMean VOutMea_flow(final delta=delta)
-    "Moving average of outdoor air flow measurement"
-    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
-  CDL.Continuous.Min outDamMaxFre
-    "Maximum control signal for outdoor air damper due to freeze protection"
-    annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
-  CDL.Continuous.Max retDamMinFre
-    "Minimum position for return air damper due to freeze protection"
-    annotation (Placement(transformation(extent={{120,40},{140,60}})));
-  CDL.Continuous.Sources.Constant noTMix(k=0) if not use_TMix
-    "Ignore max evaluation if there is no TMix sensor"
-    annotation (Placement(transformation(extent={{80,70},{100,90}})));
-  CDL.Continuous.Sources.Constant noTMix1(k=1) if not use_TMix
-    "Ignore min evaluation if there is no TMix sensor"
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  CDL.Integers.Sources.Constant freProSta(
-    final k=Constants.FreezeProtectionStages.stage0) if not use_G36FrePro
-    "Freeze protection status is 0. Use if G36 freeze protection is not implemented"
-    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
-
-
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable enaDis(
     final use_enthalpy=use_enthalpy,
     final delTOutHis=delTOutHis,
@@ -207,6 +184,27 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     freProTMix(final TFreSet = TFreSet) if use_TMix
     "Block that tracks TMix against a freeze protection setpoint"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
+
+protected
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean VOutMea_flow(final delta=delta)
+    "Moving average of outdoor air flow measurement"
+    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+  Buildings.Controls.OBC.CDL.Continuous.Min outDamMaxFre
+    "Maximum control signal for outdoor air damper due to freeze protection"
+    annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Max retDamMinFre
+    "Minimum position for return air damper due to freeze protection"
+    annotation (Placement(transformation(extent={{120,40},{140,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noTMix(k=0) if not use_TMix
+    "Ignore max evaluation if there is no TMix sensor"
+    annotation (Placement(transformation(extent={{80,70},{100,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noTMix1(k=1) if not use_TMix
+    "Ignore min evaluation if there is no TMix sensor"
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
+    final k=Constants.FreezeProtectionStages.stage0) if not use_G36FrePro
+    "Freeze protection status is 0. Use if G36 freeze protection is not implemented"
+    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
 
 equation
   connect(uSupFan, enaDis.uSupFan)

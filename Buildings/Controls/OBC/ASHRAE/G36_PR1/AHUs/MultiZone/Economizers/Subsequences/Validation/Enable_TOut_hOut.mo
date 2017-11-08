@@ -89,7 +89,7 @@ equation
     annotation (Line(points={{-139,90},{-112,90},{-112,-22},{-81,-22}}, color={0,0,127}));
   connect(hOutCut.y, enaDis.hOutCut)
     annotation (Line(points={{-219,90},{-186,90},{-186,58},{-138,58},{-138,-26},{-81,-26}},
-                                                                        color={0,0,127}));
+      color={0,0,127}));
   connect(freProSta.y, enaDis.uFreProSta)
     annotation (Line(points={{-179,30},{-120,30},{-120,-30},{-81,-30}}, color={255,127,0}));
   connect(outDamPosMax.y, enaDis.uOutDamPosMax)
@@ -108,14 +108,15 @@ equation
     annotation (Line(points={{-19,50},{10,50},{10,-26},{79,-26}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, enaDis.hOut)
     annotation (Line(points={{-219,128},{-180,128},{-180,66},{-130,66},{-130,-24},{-81,-24}},
-                                                                                            color={0,0,127}));
+    color={0,0,127}));
   connect(TOutBelowCutoff.y, enaDis1.TOut)
     annotation (Line(points={{61,90},{70,90},{70,-20},{79,-20},{79,-20}}, color={0,0,127}));
   connect(booPul.y, TOut.u)
     annotation (Line(points={{-179,160},{-162,160}}, color={255,0,255}));
   connect(TOut.y, enaDis.TOut)
     annotation (Line(points={{-139,160},{-110,160},{-110,-20},{-81,-20}}, color={0,0,127}));
-  connect(booPul1.y, hOut.u) annotation (Line(points={{-59,90},{-50,90},{-42,90}}, color={255,0,255}));
+  connect(booPul1.y, hOut.u)
+    annotation (Line(points={{-59,90},{-50,90},{-42,90}}, color={255,0,255}));
   connect(hOut.y, enaDis1.hOut)
     annotation (Line(points={{-19,90},{-10,90},{-10,60},{20,60},{20,-24},{79,-24}}, color={0,0,127}));
   connect(freProSta.y, enaDis1.uFreProSta)
@@ -123,24 +124,26 @@ equation
   connect(outDamPosMax.y, enaDis1.uOutDamPosMax)
     annotation (Line(points={{-219,-70},{8,-70},{8,-32},{79,-32}}, color={0,0,127}));
   connect(outDamPosMin.y, enaDis1.uOutDamPosMin)
-    annotation (Line(points={{-219,-110},{-190,-110},{-190,-64},{12,-64},{12,-34},{79,-34}}, color={0,0,127}));
+    annotation (Line(points={{-219,-110},{-190,-110},{-190,-64},{12,-64},{12,-34},{79,-34}},
+      color={0,0,127}));
   connect(retDamPhyPosMax.y, enaDis1.uRetDamPhyPosMax)
-    annotation (Line(points={{-139,-110},{16,-110},{16,-36},{79,-36}}, color={0,0,127}));
+    annotation (Line(points={{-139,-110},{16,-110},{16,-36},{79,-36}},color={0,0,127}));
   connect(retDamPosMax.y, enaDis1.uRetDamPosMax)
-    annotation (Line(points={{-139,-150},{20,-150},{20,-38},{79,-38}}, color={0,0,127}));
+    annotation (Line(points={{-139,-150},{20,-150},{20,-38},{79,-38}},color={0,0,127}));
   connect(retDamPosMin.y, enaDis1.uRetDamPosMin)
-    annotation (Line(points={{-139,-190},{30,-190},{30,-40},{79,-40}}, color={0,0,127}));
+    annotation (Line(points={{-139,-190},{30,-190},{30,-40},{79,-40}},color={0,0,127}));
   connect(TOut.y, enaDis2.TOut)
-    annotation (Line(points={{-139,160},{200,160},{200,-20},{219,-20}},           color={0,0,127}));
+    annotation (Line(points={{-139,160},{200,160},{200,-20},{219,-20}},color={0,0,127}));
   connect(TOutCut.y, enaDis2.TOutCut)
-    annotation (Line(points={{-139,90},{-120,90},{-120,120},{188,120},{188,-22},{219,-22}}, color={0,0,127}));
+    annotation (Line(points={{-139,90},{-120,90},{-120,120},{188,120},{188,-22},{219,-22}},
+      color={0,0,127}));
   connect(freProSta.y, enaDis2.uFreProSta)
     annotation (Line(points={{-179,30},{170,30},{170,-30},{219,-30}}, color={255,127,0}));
   connect(outDamPosMax.y, enaDis2.uOutDamPosMax)
     annotation (Line(points={{-219,-70},{178,-70},{178,-32},{219,-32}}, color={0,0,127}));
-  connect(outDamPosMin.y, enaDis2.uOutDamPosMin) annotation (Line(points={{-219,-110},{-180,-110},{
-          -180,-70},{188,-70},{188,-38},{188,-34},{219,-34}},
-                                          color={0,0,127}));
+  connect(outDamPosMin.y, enaDis2.uOutDamPosMin)
+    annotation (Line(points={{-219,-110},{-180,-110},{-180,-70},{188,-70},{188,-38},{188,-34},{219,-34}},
+      color={0,0,127}));
   connect(retDamPhyPosMax.y, enaDis2.uRetDamPhyPosMax)
     annotation (Line(points={{-139,-110},{192,-110},{192,-36},{219,-36}}, color={0,0,127}));
   connect(retDamPosMax.y, enaDis2.uRetDamPosMax)
@@ -149,11 +152,13 @@ equation
     annotation (Line(points={{-139,-190},{198,-190},{198,-40},{219,-40}}, color={0,0,127}));
   connect(supFanSta.y, enaDis.uSupFan)
     annotation (Line(points={{-179,-32},{-160,-32},{-160,-28},{-80,-28},{-80,-28},{-81,-28}},
-                                                               color={255,0,255}));
+    color={255,0,255}));
   connect(supFanSta.y, enaDis1.uSupFan)
-    annotation (Line(points={{-179,-32},{-160,-32},{-160,-12},{-20,-12},{-20,-28},{79,-28}}, color={255,0,255}));
+    annotation (Line(points={{-179,-32},{-160,-32},{-160,-12},{-20,-12},{-20,-28},{79,-28}},
+    color={255,0,255}));
   connect(supFanSta.y, enaDis2.uSupFan)
-    annotation (Line(points={{-179,-32},{-160,-32},{-160,-12},{140,-12},{140,-28},{219,-28}}, color={255,0,255}));
+    annotation (Line(points={{-179,-32},{-160,-32},{-160,-12},{140,-12},{140,-28},{219,-28}},
+    color={255,0,255}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/Economizers/Subsequences/Validation/Enable_TOut_hOut.mos"

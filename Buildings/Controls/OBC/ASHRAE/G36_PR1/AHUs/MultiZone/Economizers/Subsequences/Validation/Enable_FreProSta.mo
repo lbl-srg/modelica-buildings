@@ -12,7 +12,6 @@ model Enable_FreProSta
     "Multi zone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
     final k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"
