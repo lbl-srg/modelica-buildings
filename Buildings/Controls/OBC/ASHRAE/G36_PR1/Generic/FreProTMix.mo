@@ -26,6 +26,11 @@ block FreProTMix "Optional freeze protection block based on mixed air temperatur
     annotation (Placement(transformation(extent={{100,20},{120,40}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
 
+protected
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setPoiFre(
+    final k=TFreSet)
+    "Set point for freeze protection"
+    annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter yFreOut(
     final p=1,
     final k=-1) "Freeze protection control signal inverter"
@@ -43,11 +48,6 @@ block FreProTMix "Optional freeze protection block based on mixed air temperatur
     final yMin=0)
     "Controller for mixed air to track freeze protection set point"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setPoiFre(
-    final k=TFreSet)
-    "Set point for freeze protection"
-    annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
 
 equation
   connect(conFreTMix.y,yFreOut. u)
