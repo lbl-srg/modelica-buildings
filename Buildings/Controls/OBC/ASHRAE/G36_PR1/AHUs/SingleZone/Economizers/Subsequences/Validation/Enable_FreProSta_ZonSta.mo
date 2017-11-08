@@ -73,9 +73,11 @@ equation
   connect(hOutCut.y, enaDis.hOutCut)
     annotation (Line(points={{-79,70},{-70,70},{-70,54},{81,54}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, enaDis1.hOut)
-    annotation (Line(points={{-79,110},{-60,110},{-60,56},{10,56},{10,-24},{81,-24}}, color={0,0,127}));
+    annotation (Line(points={{-79,110},{-60,110},{-60,56},{10,56},{10,-24},{81,-24}},
+    color={0,0,127}));
   connect(hOutCut.y, enaDis1.hOutCut)
-    annotation (Line(points={{-79,70},{-70,70},{-70,54},{6,54},{6,-26},{81,-26}}, color={0,0,127}));
+    annotation (Line(points={{-79,70},{-70,70},{-70,54},{6,54},{6,-26},{81,-26}},
+    color={0,0,127}));
   connect(zonSta.y, enaDis.uZonSta)
     annotation (Line(points={{-139,10},{-120,10},{-120,50},{81,50}}, color={255,127,0}));
   connect(freProSta.y, enaDis.uFreProSta)

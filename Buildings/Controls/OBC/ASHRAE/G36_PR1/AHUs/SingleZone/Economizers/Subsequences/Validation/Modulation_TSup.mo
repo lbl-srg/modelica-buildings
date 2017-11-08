@@ -33,8 +33,7 @@ model Modulation_TSup
 
 equation
   connect(TSupSetSig.y, mod.THeaSupSet)
-    annotation (Line(points={{1,70},{10,70},{10,48},{10,39},{39,39}},
-    color={0,0,127}));
+    annotation (Line(points={{1,70},{10,70},{10,48},{10,39},{39,39}},color={0,0,127}));
   connect(TSup.y,mod.TSup)
     annotation (Line(points={{-39,70},{-30,70},{-30,36},{39,36}},color={0,0,127}));
   connect(RetDamPosMax.y, mod.uRetDamPosMax)

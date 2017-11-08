@@ -80,7 +80,7 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status signal"
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
-        iconTransformation(extent={{-120,-30},{-100,-10}})));
+      iconTransformation(extent={{-120,-30},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMin(
     final min=outDamPhyPosMin,
@@ -159,13 +159,15 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch enaDis1
     "Logical switch to enable damper position limit calculation or disable it (set max limit to physical minimum)"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=Constants.FreezeProtectionStages.stage1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=Constants.FreezeProtectionStages.stage1)
     "Freeze protection stage 1"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
-  CDL.Integers.LessEqual                    intLesEqu
-                                                   "Check if freeze protection stage is stage 0"
+  CDL.Integers.LessEqual intLesEqu
+    "Check if freeze protection stage is stage 0"
     annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(k=Constants.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
+    final k=Constants.OperationModes.occupied)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
@@ -234,7 +236,6 @@ equation
   connect(intEqu1.y, and1.u[3])
     annotation (Line(points={{-79,-160},{-68,-160},{-68,-74.6667},{-62,-74.6667}},
       color={255,0,255}));
-
   connect(intLesEqu.u2, conInt.y)
     annotation (Line(points={{-102,-128},{-110,-128},{-110,-140},{-119,-140}}, color={255,127,0}));
   connect(uFreProSta, intLesEqu.u1)

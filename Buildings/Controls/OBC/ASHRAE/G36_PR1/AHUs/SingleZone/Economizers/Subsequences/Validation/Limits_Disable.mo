@@ -28,8 +28,10 @@ model Limits_Disable
 protected
   final parameter Real yFanMin=0.1 "Minimum supply fan operation speed";
   final parameter Real yFanMax=0.9 "Maximum supply fan operation speed";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0 "Calculated design outdoor airflow rate";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0 "Calculated minimum outdoor airflow rate";
+  final parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0
+    "Calculated design outdoor airflow rate";
+  final parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0
+    "Calculated minimum outdoor airflow rate";
   final parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
   final parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.61
@@ -72,7 +74,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus3(
     final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta3(final k=Constants.FreezeProtectionStages.stage2)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta3(
+    final k=Constants.FreezeProtectionStages.stage2)
     "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant operationMode3(
@@ -109,13 +112,17 @@ equation
     annotation (Line(points={{101,-60},{120,-60},{120,-16},{120,-15},{130,-15},{139,-15}},
     color={255,127,0}));
   connect(VOutMinSetSig.y, damLim3.VOutMinSet_flow)
-    annotation (Line(points={{-139,70},{130,70},{130,40},{130,-3},{134,-3},{139,-3}}, color={0,0,127}));
+    annotation (Line(points={{-139,70},{130,70},{130,40},{130,-3},{134,-3},{139,-3}},
+    color={0,0,127}));
   connect(VOutMinSetSig.y, damLim1.VOutMinSet_flow)
-    annotation (Line(points={{-139,70},{-110,70},{-110,14},{-110,-3},{-104,-3},{-101,-3}}, color={0,0,127}));
+    annotation (Line(points={{-139,70},{-110,70},{-110,14},{-110,-3},{-104,-3},{-101,-3}},
+    color={0,0,127}));
   connect(SupFanSpeSig.y, damLim2.uSupFanSpe)
-    annotation (Line(points={{-139,30},{-20,30},{-20,-6},{0,-6},{0,-6.2},{19,-6.2}}, color={0,0,127}));
+    annotation (Line(points={{-139,30},{-20,30},{-20,-6},{0,-6},{0,-6.2},{19,-6.2}},
+    color={0,0,127}));
   connect(SupFanSpeSig.y, damLim3.uSupFanSpe)
-    annotation (Line(points={{-139,30},{120,30},{120,-6},{130,-6},{130,-6.2},{139,-6.2}}, color={0,0,127}));
+    annotation (Line(points={{-139,30},{120,30},{120,-6},{130,-6},{130,-6.2},{139,-6.2}},
+    color={0,0,127}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/Economizers/Subsequences/Validation/Limits_Disable.mos"

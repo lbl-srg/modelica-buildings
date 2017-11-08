@@ -23,6 +23,16 @@ model Controller_Disable
     use_G36FrePro=true)
     "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Controller economizer2(
+    final yFanMin=yFanMin,
+    final yFanMax=yFanMax,
+    final VOutMin_flow=VOutMin_flow,
+    final VOutDes_flow=VOutDes_flow,
+    use_TMix=true,
+    use_G36FrePro=false,
+    final use_enthalpy=false)
+    "Single zone VAV AHU economizer"
+    annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
 
 protected
   final parameter Modelica.SIunits.Temperature TOutCutoff=297.15
@@ -38,8 +48,10 @@ protected
     final min=0,
     final max=1,
     final unit="1")=0.9 "Maximum supply fan operation speed";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0 "Calculated minimum outdoor airflow rate";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0 "Calculated design outdoor airflow rate";
+  final parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0
+    "Calculated minimum outdoor airflow rate";
+  final parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0
+    "Calculated design outdoor airflow rate";
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanSta(
     final k=true) "Fan is on"
@@ -75,48 +87,34 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
     final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  Modelica.Blocks.Sources.Ramp TSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
     final height=4,
     final offset=TSupSet - 2,
     final duration=1800) "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Modelica.Blocks.Sources.Ramp VOutMinSetSig(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOutMinSetSig(
     final duration=1800,
     final offset=VOutMin_flow,
     final height=VOutDes_flow - VOutMin_flow)
     "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Modelica.Blocks.Sources.Ramp SupFanSpeSig(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp SupFanSpeSig(
     final duration=1800,
     final offset=yFanMin,
     final height=yFanMax - yFanMin) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-
-public
-  Controller                                                                   economizer2(
-    final yFanMin=yFanMin,
-    final yFanMax=yFanMax,
-    final VOutMin_flow=VOutMin_flow,
-    final VOutDes_flow=VOutDes_flow,
-    use_TMix=true,
-    use_G36FrePro=false,
-    final use_enthalpy=false)
-    "Single zone VAV AHU economizer"
-    annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
-protected
-  CDL.Continuous.Sources.Sine sin1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin1(
     amplitude=20,
     freqHz=1/1800,
     offset=272.15,
     startTime=0)
     annotation (Placement(transformation(extent={{140,-78},{160,-60}})));
+
 equation
   connect(fanSta.y, economizer.uSupFan)
-    annotation (Line(points={{-19,-10},{-10,-10},{-10,4},{19,4}},
-      color={255,0,255}));
+    annotation (Line(points={{-19,-10},{-10,-10},{-10,4},{19,4}},color={255,0,255}));
   connect(freProSta.y, economizer.uFreProSta)
-    annotation (Line(points={{-59,-120},{0,-120},{0,-2},{19,-2}},
-                                                               color={255,127,0}));
+    annotation (Line(points={{-59,-120},{0,-120},{0,-2},{19,-2}},color={255,127,0}));
   connect(TOutBelowCutoff.y, economizer.TOut)
     annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},color={0,0,127}));
   connect(TOutCut1.y, economizer.TOutCut)
@@ -134,13 +132,17 @@ equation
   connect(TOutBelowCutoff.y, economizer1.TOut)
     annotation (Line(points={{-99,110},{80,110},{80,2},{99,2}}, color={0,0,127}));
   connect(hOutCut.y, economizer1.hOutCut)
-    annotation (Line(points={{-99,-20},{-90,-20},{-90,-28},{76,-28},{76,-4},{99,-4}},color={0,0,127}));
+    annotation (Line(points={{-99,-20},{-90,-20},{-90,-28},{76,-28},{76,-4},{99,-4}},
+    color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer1.hOut)
-    annotation (Line(points={{-99,20},{-88,20},{-88,-26},{74,-26},{74,-2},{99,-2}},color={0,0,127}));
+    annotation (Line(points={{-99,20},{-88,20},{-88,-26},{74,-26},{74,-2},{99,-2}},
+    color={0,0,127}));
   connect(TSup.y, economizer1.TSup)
-    annotation (Line(points={{-59,90},{-50,90},{-50,118},{82,118},{82,-6},{99,-6}}, color={0,0,127}));
+    annotation (Line(points={{-59,90},{-50,90},{-50,118},{82,118},{82,-6},{99,-6}},
+    color={0,0,127}));
   connect(TSupSetSig.y, economizer1.THeaSupSet)
-    annotation (Line(points={{-59,50},{-52,50},{-52,68},{72,68},{72,-8},{99,-8}}, color={0,0,127}));
+    annotation (Line(points={{-59,50},{-52,50},{-52,68},{72,68},{72,-8},{99,-8}},
+    color={0,0,127}));
   connect(fanSta.y, economizer1.uSupFan)
     annotation (Line(points={{-19,-10},{20,-10},{20,-16},{99,-16}}, color={255,0,255}));
   connect(freProSta2.y, economizer1.uFreProSta)
@@ -164,12 +166,12 @@ equation
   connect(fanSta.y, economizer2.uSupFan)
     annotation (Line(points={{-19,-10},{-10,-10},{-10,-36},{179,-36}}, color={255,0,255}));
   connect(TOutBelowCutoff.y, economizer2.TOut)
-    annotation (Line(points={{-99,110},{164,110},{164,-18},{179,-18}},
-                                                                     color={0,0,127}));
+    annotation (Line(points={{-99,110},{164,110},{164,-18},{179,-18}}, color={0,0,127}));
   connect(TOutCut1.y, economizer2.TOutCut)
     annotation (Line(points={{-99,70},{162,70},{162,-20},{179,-20}}, color={0,0,127}));
-  connect(TSup.y, economizer2.TSup) annotation (Line(points={{-59,90},{-52,90},{-52,-26},{-44,-26},
-          {-44,-26},{179,-26}}, color={0,0,127}));
+  connect(TSup.y, economizer2.TSup)
+    annotation (Line(points={{-59,90},{-52,90},{-52,-26},{-44,-26},{-44,-26},{179,-26}},
+    color={0,0,127}));
   connect(TSupSetSig.y, economizer2.THeaSupSet)
     annotation (Line(points={{-59,50},{-54,50},{-54,-28},{179,-28}}, color={0,0,127}));
   connect(VOutMinSetSig.y, economizer2.VOutMinSet_flow)

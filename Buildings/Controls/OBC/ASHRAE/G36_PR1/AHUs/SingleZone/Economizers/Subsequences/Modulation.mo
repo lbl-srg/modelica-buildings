@@ -1,13 +1,16 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences;
 block Modulation "Outdoor and return air damper position modulation sequence for single zone VAV AHU"
 
-  parameter Real uMin=0 "Lower limit of controller output uTSup at which the dampers are at their limits"
+  parameter Real uMin=0
+    "Lower limit of controller output uTSup at which the dampers are at their limits"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Real uMax=1 "Upper limit of controller output uTSup at which the dampers are at their limits"
+  parameter Real uMax=1
+    "Upper limit of controller output uTSup at which the dampers are at their limits"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
   parameter Real kPMod=1 "Gain of modulation controller"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Modelica.SIunits.Time TiMod=300 "Time constant of modulation controller integrator block"
+  parameter Modelica.SIunits.Time TiMod=300
+    "Time constant of modulation controller integrator block"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
@@ -74,11 +77,11 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(final
-      k=uTSup.yMin) "Minimal control loop signal for the outdoor air damper"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(
+      final k=uTSup.yMin) "Minimal control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamMaxLimSig(final
-      k=uTSup.yMax) "Maximal control loop signal for the return air damper"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamMaxLimSig(
+      final k=uTSup.yMax) "Maximal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Line outDamPos(

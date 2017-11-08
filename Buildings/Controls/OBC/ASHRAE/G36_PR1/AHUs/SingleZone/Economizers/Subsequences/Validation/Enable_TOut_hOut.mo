@@ -106,8 +106,10 @@ equation
     annotation (Line(points={{61,50},{70,50},{70,-60},{80,-60},{79,-60}}, color={0,0,127}));
   connect(booPul.y, TOut.u)
     annotation (Line(points={{-179,90},{-162,90}}, color={255,0,255}));
-  connect(TOut.y, enaDis.TOut) annotation (Line(points={{-139,90},{-110,90},{-110,-60},{-81,-60}}, color={0,0,127}));
-  connect(booPul1.y, hOut.u) annotation (Line(points={{-59,50},{-50,50},{-42,50}}, color={255,0,255}));
+  connect(TOut.y, enaDis.TOut)
+    annotation (Line(points={{-139,90},{-110,90},{-110,-60},{-81,-60}}, color={0,0,127}));
+  connect(booPul1.y, hOut.u)
+    annotation (Line(points={{-59,50},{-50,50},{-42,50}}, color={255,0,255}));
   connect(hOut.y, enaDis1.hOut)
     annotation (Line(points={{-19,50},{-10,50},{-10,20},{20,20},{20,-64},{79,-64}}, color={0,0,127}));
   connect(freProSta.y, enaDis1.uFreProSta)

@@ -99,12 +99,13 @@ equation
   connect(fanSta.y, economizer.uSupFan)
     annotation (Line(points={{-59,-80},{-14,-80},{-14,4},{19,4}}, color={255,0,255}));
   connect(freProSta.y, economizer.uFreProSta)
-    annotation (Line(points={{-59,-120},{0,-120},{0,-2},{19,-2}},
-                                                               color={255,127,0}));
+    annotation (Line(points={{-59,-120},{0,-120},{0,-2},{19,-2}}, color={255,127,0}));
   connect(opeMod.y, economizer.uOpeMod)
-    annotation (Line(points={{-99,-100},{-50,-100},{-50,-30},{-4,-30},{-4,2},{19,2}},color={255,127,0}));
+    annotation (Line(points={{-99,-100},{-50,-100},{-50,-30},{-4,-30},{-4,2},{19,2}},
+    color={255,127,0}));
   connect(zonSta.y, economizer.uZonSta)
-    annotation (Line(points={{-99,-60},{-48,-60},{-48,-32},{-2,-32},{-2,0},{19,0}}, color={255,127,0}));
+    annotation (Line(points={{-99,-60},{-48,-60},{-48,-32},{-2,-32},{-2,0},{19,0}},
+    color={255,127,0}));
   connect(TOutBelowCutoff.y, economizer.TOut)
     annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},color={0,0,127}));
   connect(TOutCut1.y, economizer.TOutCut)
@@ -124,13 +125,15 @@ equation
   connect(TSupSig1.y, economizer1.TSup)
     annotation (Line(points={{61,90},{80,90},{80,-26},{99,-26}}, color={0,0,127}));
   connect(TSupSetSig.y, economizer1.THeaSupSet)
-    annotation (Line(points={{-59,50},{-54,50},{-54,-20},{20,-20},{20,-28},{99,-28}}, color={0,0,127}));
+    annotation (Line(points={{-59,50},{-54,50},{-54,-20},{20,-20},{20,-28},{99,-28}},
+    color={0,0,127}));
   connect(fanSta.y, economizer1.uSupFan)
     annotation (Line(points={{-59,-80},{20,-80},{20,-36},{99,-36}}, color={255,0,255}));
   connect(freProSta.y, economizer1.uFreProSta)
     annotation (Line(points={{-59,-120},{26,-120},{26,-42},{99,-42}}, color={255,127,0}));
   connect(hOutBelowCutoff.y, economizer1.hOut)
-    annotation (Line(points={{-99,20},{-64,20},{-64,-12},{24,-12},{24,-22},{99,-22}},color={0,0,127}));
+    annotation (Line(points={{-99,20},{-64,20},{-64,-12},{24,-12},{24,-22},{99,-22}},
+    color={0,0,127}));
   connect(hOutCut.y, economizer1.hOutCut)
     annotation (Line(points={{-99,-20},{-20,-20},{-20,-24},{99,-24}}, color={0,0,127}));
   connect(opeMod.y, economizer1.uOpeMod)
