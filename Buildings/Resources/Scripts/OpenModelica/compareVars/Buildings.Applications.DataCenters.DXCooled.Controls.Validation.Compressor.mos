@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "dxSpeCon.TMixAirSet",
+    "dxSpeCon.TMixAirMea",
+    "dxSpeCon.cooMod",
+    "dxSpeCon.y"
+  };

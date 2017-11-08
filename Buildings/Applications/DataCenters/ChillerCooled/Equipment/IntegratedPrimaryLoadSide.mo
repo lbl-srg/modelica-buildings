@@ -13,36 +13,36 @@ model IntegratedPrimaryLoadSide
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)});
 
  //Dynamics
-  parameter Modelica.SIunits.Time tauPump = 30
+  parameter Modelica.SIunits.Time tauPump = 1
     "Time constant of fluid volume for nominal flow in pumps, used if energy or mass balance is dynamic"
      annotation (Dialog(tab = "Dynamics", group="Pump",
      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   //Pump
-  parameter Integer numPum=numChi "Number of pumps"
+  parameter Integer numPum = numChi "Number of pumps"
     annotation(Dialog(group="Pump"));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum[numPum]
    "Performance data for the pumps"
     annotation (Dialog(group="Pump"),
           Placement(transformation(extent={{38,78},{58,98}})));
-  parameter Boolean addPowerToMedium=true
+  parameter Boolean addPowerToMedium = true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation (Dialog(group="Pump"));
-  parameter Modelica.SIunits.Time riseTimePump=120
+  parameter Modelica.SIunits.Time riseTimePump = 30
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
-  parameter Modelica.Blocks.Types.Init initPum=initValve
+  parameter Modelica.Blocks.Types.Init initPum = initValve
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
-  parameter Real[numPum] yPum_start=fill(0,numPum)
+  parameter Real[numPum] yPum_start = fill(0,numPum)
     "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
   parameter Real[numPum] yValPum_start = fill(0,numPum)
     "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Real lValPum=0.0001
+  parameter Real lValPum = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Pump"));
-  parameter Real kFixedValPum=pum.m_flow_nominal/sqrt(pum.dpValve_nominal)
+  parameter Real kFixedValPum = pum.m_flow_nominal/sqrt(pum.dpValve_nominal)
     "Flow coefficient of fixed resistance that may be in series with valve,
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Pump"));
