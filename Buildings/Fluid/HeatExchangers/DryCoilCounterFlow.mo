@@ -26,7 +26,7 @@ model DryCoilCounterFlow
     "Time constant at nominal flow for medium 1"
     annotation (Dialog(group="Nominal condition",
                 enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Time tau2=1
+  parameter Modelica.SIunits.Time tau2=10
     "Time constant at nominal flow for medium 2"
     annotation (Dialog(group="Nominal condition",
                 enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
