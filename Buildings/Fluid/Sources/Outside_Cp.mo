@@ -29,7 +29,8 @@ equation
   if not use_Cp_in then
     Cp_in_internal = Cp;
   end if;
-  pWin = 0.5*Cp_in_internal*medium.d*vWin*vWin;
+  pWin = 0.5*Cp_in_internal*medium.d*
+    Buildings.Utilities.Math.Functions.smoothMax(vWin, 0.1, 0.05)^2;
   pTot = pWea + pWin;
 
   connect(weaBus.winSpe, vWin);
@@ -67,6 +68,10 @@ wind pressure coefficient is obtained from the input connector
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 8, 2017, by Michael Wetter:<br/>
+Added regularization of wind speed near zero.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
