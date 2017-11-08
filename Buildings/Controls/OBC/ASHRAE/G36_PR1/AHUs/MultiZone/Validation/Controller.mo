@@ -78,22 +78,24 @@ model Controller "Validation controller model"
     startTime=0)
     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Modelica.Blocks.Sources.Sine TOut(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOut(
     amplitude=5,
     offset=18 + 273.15,
     freqHz=1/3600) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-170,100},{-150,120}})));
-  Modelica.Blocks.Sources.Sine ducStaPre(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine ducStaPre(
     offset=200,
     amplitude=150,
     freqHz=1/3600) "Duct static pressure"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Modelica.Blocks.Sources.Sine sine(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
     offset=3,
     amplitude=2,
     freqHz=1/9600) "Duct static pressure setpoint reset requests"
     annotation (Placement(transformation(extent={{-170,-150},{-150,-130}})));
-  Modelica.Blocks.Sources.Sine sine1(amplitude=6, freqHz=1/9600)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine1(
+    amplitude=6,
+    freqHz=1/9600)
     "Maximum supply temperature setpoint reset"
     annotation (Placement(transformation(extent={{-170,-110},{-150,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs
@@ -188,7 +190,7 @@ equation
   connect(opeMod.y, conAHU.uOpeMod)
     annotation (Line(points={{69,10},{80,10},{80,30},{0,30},{0,64.5455},{
           10.2353,64.5455}},
-                          color={255,127,0}));
+                           color={255,127,0}));
   connect(zonSta.y, conAHU.uZonSta)
     annotation (Line(points={{71,-30},{80,-30},{80,-10},{-4,-10},{-4,57.4545},{
           10.2353,57.4545}},
@@ -196,7 +198,7 @@ equation
   connect(freProSta.y, conAHU.uFreProSta)
     annotation (Line(points={{73,-70},{80,-70},{80,-46},{-8,-46},{-8,50.3636},{
           10.2353,50.3636}},
-                           color={255,127,0}));
+                          color={255,127,0}));
   connect(maxSupResReq.y, conAHU.uZonTemResReq)
     annotation (Line(points={{-39,-100},{-16,-100},{-16,40.9091},{10.2353,40.9091}},
       color={255,127,0}));
