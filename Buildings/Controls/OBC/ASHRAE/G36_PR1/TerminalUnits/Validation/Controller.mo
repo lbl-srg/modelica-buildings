@@ -67,19 +67,17 @@ model Controller "Validate model for controlling VAV terminal box with reheat"
 
 equation
   connect(TSetRooHea.y, con.TRooHeaSet)
-    annotation (Line(points={{-59,80},{-50,80},{-50,60},{6,60},{6,76.5},{59,
-          76.5}},
-      color={0,0,127}));
+    annotation (Line(points={{-59,80},{-50,80},{-50,60},{6,60},{6,76.5},
+      {59,76.5}}, color={0,0,127}));
   connect(TSetRooCoo.y, con.TRooCooSet)
     annotation (Line(points={{-19,80},{-8,80},{-8,73.5},{59,73.5}},
-                                                                color={0,0,127}));
-  connect(disAirFlo.y, con.VDis)
-    annotation (Line(points={{-59,40},{-50,40},{-50,56},{12,56},{12,70.5},{59,
-          70.5}},
       color={0,0,127}));
+  connect(disAirFlo.y, con.VDis)
+    annotation (Line(points={{-59,40},{-50,40},{-50,56},{12,56},{12,70.5},
+      {59,70.5}}, color={0,0,127}));
   connect(TZon.y, con.TRoo)
     annotation (Line(points={{-19,40},{18,40},{18,67.5},{59,67.5}},
-                                                                color={0,0,127}));
+      color={0,0,127}));
   connect(TDis.y, con.TDis)
     annotation (Line(points={{-59,0},{-50,0},{-50,20},{0,20},{0,64.5},{59,64.5}},
       color={0,0,127}));
@@ -98,20 +96,17 @@ equation
     annotation (Line(points={{21,-80},{40,-80},{40,19.5},{59,19.5}},
       color={0,0,127}));
   connect(winSta.y, con1.uWin)
-    annotation (Line(points={{71,-80},{80,-80},{80,-60},{44,-60},{44,-4.5},{59,
-          -4.5}},
-                color={255,0,255}));
+    annotation (Line(points={{71,-80},{80,-80},{80,-60},{44,-60},{44,-4.5},
+      {59,-4.5}}, color={255,0,255}));
   connect(TSetRooHea.y, con1.TRooHeaSet)
-    annotation (Line(points={{-59,80},{-50,80},{-50,60},{6,60},{6,16.5},{59,
-          16.5}},
-                color={0,0,127}));
+    annotation (Line(points={{-59,80},{-50,80},{-50,60},{6,60},{6,16.5},
+      {59,16.5}}, color={0,0,127}));
   connect(TSetRooCoo.y, con1.TRooCooSet)
     annotation (Line(points={{-19,80},{-8,80},{-8,13.5},{59,13.5}},
       color={0,0,127}));
   connect(disAirFlo.y, con1.VDis)
-    annotation (Line(points={{-59,40},{-50,40},{-50,56},{12,56},{12,10.5},{59,
-          10.5}},
-                color={0,0,127}));
+    annotation (Line(points={{-59,40},{-50,40},{-50,56},{12,56},{12,10.5},
+      {59,10.5}}, color={0,0,127}));
   connect(TZon.y, con1.TRoo)
     annotation (Line(points={{-19,40},{18,40},{18,7.5},{59,7.5}},
       color={0,0,127}));
@@ -120,7 +115,7 @@ equation
       color={0,0,127}));
   connect(TSup.y, con1.TSupAHU)
     annotation (Line(points={{-19,0},{20,0},{20,1.5},{59,1.5}},
-                                              color={0,0,127}));
+      color={0,0,127}));
   connect(opeMod.y, con1.uOpeMod)
     annotation (Line(points={{-19,-30},{30,-30},{30,-1.5},{59,-1.5}},
       color={255,127,0}));

@@ -630,8 +630,7 @@ equation
     annotation (Line(points={{-170,230},{-140,230},{-140,226},{-122,226}},
       color={0,0,127}));
 
-annotation (
-    defaultComponentName="conAHU",
+annotation (defaultComponentName="conAHU",
     Diagram(coordinateSystem(extent={{-160,-200},{180,240}}, initialScale=0.2)),
     Icon(coordinateSystem(extent={{-160,-200},{180,240}}, initialScale=0.2),
         graphics={Rectangle(

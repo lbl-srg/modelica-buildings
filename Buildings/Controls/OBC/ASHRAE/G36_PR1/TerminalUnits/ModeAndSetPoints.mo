@@ -310,7 +310,8 @@ equation
     annotation (Line(points={{-160,140},{-124,140},{-124,6.6},{-31,6.6}},
       color={0,0,127}));
 
-annotation (Diagram(coordinateSystem(extent={{-140,-180},{140,180}})),
+annotation (defaultComponentName="modSetPoi",
+  Diagram(coordinateSystem(extent={{-140,-180},{140,180}})),
   Icon(graphics={Text(
         extent={{-100,140},{98,102}},
         textString="%name",

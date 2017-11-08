@@ -7,7 +7,8 @@ model Controller "Validation controller model"
     zonAre={50,50},
     minZonPriFlo={(50*3/3600)*6,(50*3/3600)*6},
     maxSysPriFlo=0.7*(50*3/3600)*6*2,
-    have_occSen=true)                  "Multiple zone AHU controller"
+    have_occSen=true)
+    "Multiple zone AHU controller"
     annotation (Placement(transformation(extent={{22,48},{102,152}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCooOn(
     final k=273.15 + 24)
@@ -17,7 +18,8 @@ model Controller "Validation controller model"
     final k=273.15 + 20)
     "Heating on setpoint"
     annotation (Placement(transformation(extent={{-170,133},{-150,153}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(final k=297.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(
+    final k=297.15)
     "Outdoor temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
@@ -190,7 +192,7 @@ equation
   connect(opeMod.y, conAHU.uOpeMod)
     annotation (Line(points={{69,10},{80,10},{80,30},{0,30},{0,64.5455},{
           10.2353,64.5455}},
-                           color={255,127,0}));
+                          color={255,127,0}));
   connect(zonSta.y, conAHU.uZonSta)
     annotation (Line(points={{71,-30},{80,-30},{80,-10},{-4,-10},{-4,57.4545},{
           10.2353,57.4545}},
