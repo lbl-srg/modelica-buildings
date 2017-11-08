@@ -219,9 +219,9 @@ and minimal outdoor air control
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
-          textString="Overwrite modulation
-and damper limits based 
-on the TMix tracking freeze protection ")}),
+          textString="Overide damper positions
+based on the TMix tracking 
+freeze protection ")}),
 Documentation(info="<html>
 <p>
 This example validates

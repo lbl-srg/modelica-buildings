@@ -9,8 +9,8 @@ model Controller_Disable
     final yFanMax=yFanMax,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow,
-    final use_TMix=false,
-    final use_G36FrePro=true)
+    use_TMix=false,
+    use_G36FrePro=true)
     "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Controller economizer1(
@@ -19,21 +19,10 @@ model Controller_Disable
     final yFanMax=yFanMax,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow,
-    final use_TMix=false,
-    final use_G36FrePro=true)
+    use_TMix=false,
+    use_G36FrePro=true)
     "Single zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
-
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Controller economizer2(
-    final yFanMin=yFanMin,
-    final yFanMax=yFanMax,
-    final VOutMin_flow=VOutMin_flow,
-    final VOutDes_flow=VOutDes_flow,
-    final use_TMix=true,
-    final use_G36FrePro=false,
-    final use_enthalpy=false)
-    "Single zone VAV AHU economizer"
-    annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
 
 protected
   final parameter Modelica.SIunits.Temperature TOutCutoff=297.15
@@ -62,9 +51,6 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant zonSta(
     final k=Constants.ZoneStates.heating) "Zone State is heating"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  CDL.Integers.Sources.Constant zonSta1(final k=Constants.ZoneStates.deadband)
-    "Zone State is deadband"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
     final k=Constants.OperationModes.occupied) "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
@@ -78,7 +64,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta2(
     final k=Constants.FreezeProtectionStages.stage2)
     "Freeze protection stage is 2"
-    annotation (Placement(transformation(extent={{10,-120},{30,-100}})));
+    annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut(
     final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
@@ -89,51 +75,56 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
     final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
+  Modelica.Blocks.Sources.Ramp TSup(
     final height=4,
     final offset=TSupSet - 2,
     final duration=1800) "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOutMinSetSig(
+  Modelica.Blocks.Sources.Ramp VOutMinSetSig(
     final duration=1800,
     final offset=VOutMin_flow,
     final height=VOutDes_flow - VOutMin_flow)
     "Minimum outdoor airflow setpoint"
-<<<<<<< HEAD
-    annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
-  Modelica.Blocks.Sources.Ramp SupFanSpeSig(
-=======
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp SupFanSpeSig(
->>>>>>> issue1036_cdl_sine
+  Modelica.Blocks.Sources.Ramp SupFanSpeSig(
     final duration=1800,
     final offset=yFanMin,
     final height=yFanMax - yFanMin) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  CDL.Continuous.Sources.Ramp ram1(duration=1800, height=2*3.14)
-    "Ramp that generates values from zero to two pi"
-    annotation (Placement(transformation(extent={{78,-120},{98,-100}})));
-  CDL.Continuous.Sin sin
-    "Calculates a sine of the input signal"
-    annotation (Placement(transformation(extent={{110,-120},{130,-100}})));
-  CDL.Continuous.AddParameter addPar(p=272.15, k=20)
-    "Generates mixed air temperature signal"
-    annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
 
-
+public
+  Controller                                                                   economizer2(
+    final yFanMin=yFanMin,
+    final yFanMax=yFanMax,
+    final VOutMin_flow=VOutMin_flow,
+    final VOutDes_flow=VOutDes_flow,
+    use_TMix=true,
+    use_G36FrePro=false,
+    final use_enthalpy=false)
+    "Single zone VAV AHU economizer"
+    annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
+protected
+  CDL.Continuous.Sources.Sine sin1(
+    amplitude=20,
+    freqHz=1/1800,
+    offset=272.15,
+    startTime=0)
+    annotation (Placement(transformation(extent={{140,-78},{160,-60}})));
 equation
   connect(fanSta.y, economizer.uSupFan)
-    annotation (Line(points={{-19,-10},{-10,-10},{-10,4},{19,4}},color={255,0,255}));
+    annotation (Line(points={{-19,-10},{-10,-10},{-10,4},{19,4}},
+      color={255,0,255}));
   connect(freProSta.y, economizer.uFreProSta)
-    annotation (Line(points={{-59,-120},{0,-120},{0,-2},{19,-2}},color={255,127,0}));
+    annotation (Line(points={{-59,-120},{0,-120},{0,-2},{19,-2}},
+                                                               color={255,127,0}));
   connect(TOutBelowCutoff.y, economizer.TOut)
     annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},color={0,0,127}));
   connect(TOutCut1.y, economizer.TOutCut)
-    annotation (Line(points={{-99,70},{-8,70},{-8,20},{19,20}},color={0,0,127}));
+    annotation (Line(points={{-99,70},{-90,70},{-8,70},{-8,20},{19,20}},color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer.hOut)
-    annotation (Line(points={{-99,20},{-60,20},{-60,18},{19,18}},color={0,0,127}));
+    annotation (Line(points={{-99,20},{-60,20},{-60,18},{-4,18},{19,18}},color={0,0,127}));
   connect(hOutCut.y, economizer.hOutCut)
-    annotation (Line(points={{-99,-20},{-60,-20},{-60,16},{19,16}},color={0,0,127}));
+    annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,16},{19,16}},color={0,0,127}));
   connect(TSup.y, economizer.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}},color={0,0,127}));
   connect(TSupSetSig.y, economizer.THeaSupSet)
@@ -153,7 +144,7 @@ equation
   connect(fanSta.y, economizer1.uSupFan)
     annotation (Line(points={{-19,-10},{20,-10},{20,-16},{99,-16}}, color={255,0,255}));
   connect(freProSta2.y, economizer1.uFreProSta)
-    annotation (Line(points={{31,-110},{40,-110},{40,-22},{99,-22}}, color={255,127,0}));
+    annotation (Line(points={{81,-120},{90,-120},{90,-22},{99,-22}}, color={255,127,0}));
   connect(zonSta.y, economizer.uZonSta)
     annotation (Line(points={{-59,-60},{-2,-60},{-2,0},{19,0}}, color={255,127,0}));
   connect(opeMod.y, economizer.uOpeMod)
@@ -163,36 +154,34 @@ equation
   connect(zonSta.y, economizer1.uZonSta)
     annotation (Line(points={{-59,-60},{22,-60},{22,-20},{99,-20}}, color={255,127,0}));
   connect(VOutMinSetSig.y, economizer.VOutMinSet_flow)
-    annotation (Line(points={{-19,100},{0,100},{0,10},{19,10}},color={0,0,127}));
+    annotation (Line(points={{-19,90},{0,90},{0,10},{19,10}}, color={0,0,127}));
   connect(SupFanSpeSig.y, economizer.uSupFanSpe)
     annotation (Line(points={{-19,50},{0,50},{0,8},{19,8}}, color={0,0,127}));
   connect(VOutMinSetSig.y, economizer1.VOutMinSet_flow)
-    annotation (Line(points={{-19,100},{78,100},{78,-10},{99,-10}},
-                                                                  color={0,0,127}));
+    annotation (Line(points={{-19,90},{78,90},{78,-10},{99,-10}}, color={0,0,127}));
   connect(SupFanSpeSig.y, economizer1.uSupFanSpe)
     annotation (Line(points={{-19,50},{68,50},{68,-12},{99,-12}}, color={0,0,127}));
-  connect(TOutBelowCutoff.y, economizer2.TOut) annotation (Line(points={{-99,110},{162,110},{162,110},
-          {170,110},{170,-18},{179,-18}}, color={0,0,127}));
-  connect(TOutCut1.y, economizer2.TOutCut) annotation (Line(points={{-99,70},{140,70},{140,70},{160,
-          70},{160,-20},{179,-20}}, color={0,0,127}));
-  connect(TSup.y, economizer2.TSup)
-    annotation (Line(points={{-59,90},{164,90},{164,-26},{179,-26}}, color={0,0,127}));
-  connect(VOutMinSetSig.y, economizer2.VOutMinSet_flow)
-    annotation (Line(points={{-19,100},{150,100},{150,-30},{179,-30}}, color={0,0,127}));
-  connect(ram1.y, sin.u) annotation (Line(points={{99,-110},{108,-110}}, color={0,0,127}));
-  connect(sin.y, addPar.u) annotation (Line(points={{131,-110},{138,-110}}, color={0,0,127}));
-  connect(addPar.y, economizer2.TMix)
-    annotation (Line(points={{161,-110},{170,-110},{170,-34},{179,-34}}, color={0,0,127}));
-  connect(SupFanSpeSig.y, economizer2.uSupFanSpe)
-    annotation (Line(points={{-19,50},{146,50},{146,-32},{179,-32}}, color={0,0,127}));
   connect(fanSta.y, economizer2.uSupFan)
-    annotation (Line(points={{-19,-10},{10,-10},{10,-36},{179,-36}}, color={255,0,255}));
+    annotation (Line(points={{-19,-10},{-10,-10},{-10,-36},{179,-36}}, color={255,0,255}));
+  connect(TOutBelowCutoff.y, economizer2.TOut)
+    annotation (Line(points={{-99,110},{164,110},{164,-18},{179,-18}},
+                                                                     color={0,0,127}));
+  connect(TOutCut1.y, economizer2.TOutCut)
+    annotation (Line(points={{-99,70},{162,70},{162,-20},{179,-20}}, color={0,0,127}));
+  connect(TSup.y, economizer2.TSup) annotation (Line(points={{-59,90},{-52,90},{-52,-26},{-44,-26},
+          {-44,-26},{179,-26}}, color={0,0,127}));
+  connect(TSupSetSig.y, economizer2.THeaSupSet)
+    annotation (Line(points={{-59,50},{-54,50},{-54,-28},{179,-28}}, color={0,0,127}));
+  connect(VOutMinSetSig.y, economizer2.VOutMinSet_flow)
+    annotation (Line(points={{-19,90},{150,90},{150,-30},{179,-30}}, color={0,0,127}));
+  connect(SupFanSpeSig.y, economizer2.uSupFanSpe)
+    annotation (Line(points={{-19,50},{148,50},{148,-32},{179,-32}}, color={0,0,127}));
+  connect(sin1.y, economizer2.TMix)
+    annotation (Line(points={{161,-70},{170,-70},{170,-34},{179,-34}}, color={0,0,127}));
   connect(opeMod.y, economizer2.uOpeMod)
     annotation (Line(points={{-59,-90},{60,-90},{60,-38},{179,-38}}, color={255,127,0}));
-  connect(zonSta1.y, economizer2.uZonSta)
-    annotation (Line(points={{121,-60},{146,-60},{146,-40},{179,-40}}, color={255,127,0}));
-  connect(TSupSetSig.y, economizer2.THeaSupSet)
-    annotation (Line(points={{-59,50},{154,50},{154,-28},{179,-28}}, color={0,0,127}));
+  connect(zonSta.y, economizer2.uZonSta)
+    annotation (Line(points={{-59,-60},{62,-60},{62,-40},{179,-40}}, color={255,127,0}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/Economizers/Validation/Controller_Disable.mos"
@@ -207,10 +196,10 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{240,160}}),
+        coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{220,160}}),
         graphics={
         Text(
-          extent={{2,156},{86,128}},
+          extent={{20,146},{104,118}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
@@ -219,7 +208,7 @@ equation
 enable minimal
 outdoor air control"),
         Text(
-          extent={{82,152},{166,124}},
+          extent={{100,144},{184,116}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
@@ -227,7 +216,15 @@ outdoor air control"),
 (zone state is heating)
 disable minimal
 outdoor air control
-(freeze protection is at stage2)")}),
+(freeze protection is at stage2)"),
+        Text(
+          extent={{180,10},{238,-18}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=8,
+          textString="Overide damper positions
+based on the TMix tracking 
+freeze protection ")}),
 Documentation(info="<html>
 <p>
 This example validates
