@@ -112,7 +112,7 @@ Added documentation.
 </li>
 <li>
 June 17, 2014, by Marco Bonvini:<br/>
-Moved to Examples IEEE package.Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.YY
+Moved to Examples IEEE package Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.YY
 </li>
 <li>
 June 6, 2014, by Marco Bonvini:<br/>

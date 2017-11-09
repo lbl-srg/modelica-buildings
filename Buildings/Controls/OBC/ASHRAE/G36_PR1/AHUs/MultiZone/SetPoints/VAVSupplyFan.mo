@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints;
 block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
 
   parameter Integer numZon(min=2)
-    "Total number of served zones/VAV boxes"
+    "Total number of served VAV boxes"
     annotation(Dialog(group="System configuration"));
   parameter Boolean have_perZonRehBox = false
     "Check if there is any VAV-reheat boxes on perimeter zones"
@@ -339,7 +339,7 @@ annotation (
           textString="Sum of VAV box flow rate")}),
   Icon(graphics={
         Text(
-          extent={{-100,124},{98,102}},
+          extent={{-102,140},{96,118}},
           lineColor={0,0,255},
           textString="%name"),
                Rectangle(

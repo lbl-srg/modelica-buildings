@@ -22,10 +22,10 @@ model ZoneTemperatures "Validate block for zone set point"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant unoHeaSet(k=287.15)
     "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Modelica.Blocks.Sources.Sine cooSetAdj(freqHz=1/28800)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine cooSetAdj(freqHz=1/28800)
     "Cooling setpoint adjustment"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  Modelica.Blocks.Sources.Sine heaSetAdj(freqHz=1/28800, amplitude=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine heaSetAdj(freqHz=1/28800, amplitude=0.5)
     "Heating setpoint adjustment"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooDemLimLev(k=0)

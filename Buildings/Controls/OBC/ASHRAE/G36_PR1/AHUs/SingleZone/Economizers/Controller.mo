@@ -19,9 +19,15 @@ model Controller "Single zone VAV AHU economizer control sequence"
     "Time constant of modulation controller integrator block"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
 
-  parameter Real uMin=0
+  parameter Real uMin(
+    final min=0,
+    final max=1,
+    final unit="1") = 0
     "Lower limit of controller output uTSup at which the dampers are at their limits";
-  parameter Real uMax=1
+  parameter Real uMax(
+    final min=0,
+    final max=1,
+    final unit="1") = 1
     "Upper limit of controller output uTSup at which the dampers are at their limits";
 
   parameter Modelica.SIunits.Temperature TFreSet = 277.15
@@ -328,7 +334,7 @@ equation
                                   Text(
           extent={{76,-86},{154,-96}},
           lineColor={95,95,95},
-          textString="Freeze protection based on TMix, 
+          textString="Freeze protection based on TMix,
 not a part of G36",
           horizontalAlignment=TextAlignment.Left)}),
 Documentation(info="<html>

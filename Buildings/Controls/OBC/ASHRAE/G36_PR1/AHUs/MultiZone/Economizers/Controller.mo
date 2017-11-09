@@ -298,14 +298,14 @@ equation
           color={0,0,127},
           thickness=0.5),
         Text(
-          extent={{-176,200},{152,162}},
+          extent={{-176,216},{152,178}},
           lineColor={0,0,127},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{
             160,160}}), graphics={Text(
           extent={{-140,22},{-110,6}},
           lineColor={95,95,95},
-          textString="Not included 
+          textString="Not included
 in G36",  horizontalAlignment=TextAlignment.Left),
         Rectangle(
           extent={{70,100},{150,-100}},
@@ -315,7 +315,7 @@ in G36",  horizontalAlignment=TextAlignment.Left),
                                   Text(
           extent={{76,-86},{154,-96}},
           lineColor={95,95,95},
-          textString="Freeze protection based on TMix, 
+          textString="Freeze protection based on TMix,
 not a part of G36",
           horizontalAlignment=TextAlignment.Left)}),
     Documentation(info="<html>

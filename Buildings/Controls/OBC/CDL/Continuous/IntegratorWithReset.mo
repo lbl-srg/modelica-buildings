@@ -11,7 +11,7 @@ block IntegratorWithReset "Output the integral of the input signal"
   /* InitialState is the default, because it was the default in Modelica 2.2
      and therefore this setting is backward compatible
   */
-  parameter Types.Init initType=Types.Init.InitialState
+  parameter Buildings.Controls.OBC.CDL.Types.Init initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState
     "Type of initialization (1: no init, 2: initial state, 3: initial output)"
     annotation(Evaluate=true,
       Dialog(group="Initialization"));
@@ -19,7 +19,7 @@ block IntegratorWithReset "Output the integral of the input signal"
   parameter Real y_start=0 "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
 
-  parameter Types.Reset reset = Types.Reset.Disabled
+  parameter Buildings.Controls.OBC.CDL.Types.Reset reset = Buildings.Controls.OBC.CDL.Types.Reset.Disabled
     "Type of integrator reset";
 
   parameter Real y_reset = 0
@@ -29,13 +29,13 @@ block IntegratorWithReset "Output the integral of the input signal"
                  enable=reset == Types.Reset.Parameter,
                  group="Integrator reset"));
 
-  Interfaces.RealInput y_reset_in if
-       reset == Types.Reset.Input
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput y_reset_in if
+       reset == Buildings.Controls.OBC.CDL.Types.Reset.Input
     "Input signal for state to which integrator is reset, enabled if reset = Types.Reset.Input"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  Interfaces.BooleanInput trigger if
-       reset <> Types.Reset.Disabled
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger if
+       reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled
     "Resets the integrator output when trigger becomes true"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}}, rotation=90,
         origin={0,-120}), iconTransformation(
@@ -43,16 +43,16 @@ block IntegratorWithReset "Output the integral of the input signal"
         rotation=90,
         origin={0,-120})));
 protected
-  Interfaces.RealInput y_reset_internal
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput y_reset_internal
    "Internal connector for integrator reset"
    annotation(Evaluate=true);
 
-  Interfaces.BooleanInput trigger_internal
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger_internal
     "Needed to use conditional connector trigger";
 
 initial equation
-  if initType == Types.Init.InitialState or
-         initType == Types.Init.InitialOutput then
+  if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialState or
+         initType == Buildings.Controls.OBC.CDL.Types.Init.InitialOutput then
     y = y_start;
   end if;
 
@@ -63,11 +63,11 @@ equation
   connect(trigger, trigger_internal);
   connect(y_reset_in, y_reset_internal);
 
-  if reset <> Types.Reset.Input then
+  if reset <> Buildings.Controls.OBC.CDL.Types.Reset.Input then
     y_reset_internal = y_reset;
   end if;
 
-  if reset == Types.Reset.Disabled then
+  if reset == Buildings.Controls.OBC.CDL.Types.Reset.Disabled then
     trigger_internal = false;
   else
     when trigger_internal then
@@ -153,6 +153,10 @@ has been copied into this model rather than extended.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 6, 2017, by Michael Wetter:<br/>
+Explicitly declared types from CDL.
+</li>
 <li>
 March 23, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of

@@ -1,32 +1,16 @@
 within Buildings.Controls.OBC.CDL.Utilities;
 block Assert
-  "Trigger warning and print warning message if assertion condition is not fulfilled"
+  "Print a warning message when input becomes false"
 
-  parameter Modelica.SIunits.Time startTime = 0
-    "Start time for activating the assert";
-  parameter String warOnInf = "Warning ON message";
-  parameter String warOffInf= "Warning OFF message";
+  parameter String message "Message written when u becomes false";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
-    "Boolean input to trigger assert"
+    "Boolean input that triggers assert when it becomes false"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-protected
-  parameter Modelica.SIunits.Time t0( fixed=false)
-    "Simulation start time";
-  Boolean not_u=not u;
-
-initial equation
-  t0 = time + startTime;
-  pre(not_u) = not u;
 
 equation
-  if noEvent(time > t0) then
-    assert(not_u, warOnInf + "\n"
-      + "at  time  = " + String(time), AssertionLevel.warning);
-    assert(u, warOffInf + "\n"
-      + "at  time  = " + String(time), AssertionLevel.warning);
-  end if;
+  assert(u, message, AssertionLevel.warning);
 
 annotation (
   defaultComponentName="assMes",
@@ -35,20 +19,48 @@ annotation (
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{0,80},{-80,-60},{80,-60},{0,80}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
         Text(
           extent={{-100,160},{100,106}},
           lineColor={0,0,255},
-          textString="%name")}), Diagram(
+          textString="%name"),
+        Polygon(
+          points={{0,72},{-72,-56},{72,-56},{0,72}},
+          lineColor={0,0,0},
+          fillColor={255,255,170},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-4,38},{2,-24}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Ellipse(
+          extent={{-6,-32},{4,-42}},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid)}),
+                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
-Model that triggers an assert if the boolean input <code>u</code> has falling or 
-increasing edge. If input <code>u</code> increase, a message <code>warOnInf</code> 
-indicating warning-on will be print.
+Block that writes a warning if the input becomes <code>false</code>.
+</p>
+<p>
+Tools or control systems are expected to write <code>message</code> together
+with a time stamp to an output device and/or a log file.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 6, 2017, by Michael Wetter:<br/>
+Simplified implementation.
+</li>
 <li>
 November 3, 2017, by Jianjun Hu:<br/>
 First implementation.
