@@ -14,7 +14,7 @@ model HexElementLatent "Element of a heat exchanger with humidity condensation o
 
   MassExchange masExc(
      redeclare final package Medium=Medium2) "Model for mass exchange"
-    annotation (Placement(transformation(extent={{48,-50},{68,-30}})));
+    annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
 protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen(
     T(final quantity="ThermodynamicTemperature",
@@ -36,15 +36,16 @@ protected
   Modelica.Blocks.Math.Gain gain(final k=-1)
     annotation (Placement(transformation(extent={{30,10},{10,30}})));
 equation
-  connect(temSen.T, masExc.TSur) annotation (Line(points={{-40,0},{-28,0},{-28,-32},
-          {46,-32}},                    color={0,0,127}));
-  connect(masExc.mWat_flow, vol2.mWat_flow) annotation (Line(points={{69,-40},{80,
-          -40},{80,-52},{14,-52}},     color={0,0,127}));
-  connect(vol2.X_w, masExc.XInf) annotation (Line(points={{-10,-64},{-20,-64},{-20,
-          -44},{40,-44},{40,-40},{46,-40}},
+  connect(temSen.T, masExc.TSur) annotation (Line(points={{-40,0},{20,0},{20,
+          -22},{48,-22}},               color={0,0,127}));
+  connect(masExc.mWat_flow, vol2.mWat_flow) annotation (Line(points={{71,-30},{
+          80,-30},{80,-44},{44,-44},{44,-52},{14,-52}},
+                                       color={0,0,127}));
+  connect(vol2.X_w, masExc.XInf) annotation (Line(points={{-10,-64},{-20,-64},{
+          -20,-44},{30,-44},{30,-30},{48,-30}},
                                color={0,0,127}));
   connect(Gc_2, masExc.Gc) annotation (Line(
-      points={{40,-100},{40,-48},{46,-48}},
+      points={{40,-100},{40,-38},{48,-38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSen.port, con1.solid) annotation (Line(
@@ -53,8 +54,8 @@ equation
       smooth=Smooth.None));
   connect(heaConVapAir.Q_flow, pro.y) annotation (Line(points={{0,-20},{0,-20},{
           36,-20},{36,0},{39,0}}, color={0,0,127}));
-  connect(masExc.mWat_flow, pro.u2) annotation (Line(points={{69,-40},{80,-40},{
-          80,-6},{62,-6}}, color={0,0,127}));
+  connect(masExc.mWat_flow, pro.u2) annotation (Line(points={{71,-30},{80,-30},
+          {80,-6},{62,-6}},color={0,0,127}));
   connect(pro.u1, h_fg.y)
     annotation (Line(points={{62,6},{66,6},{69,6}},
                                                color={0,0,127}));

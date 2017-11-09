@@ -50,6 +50,12 @@ model PartialHexElement "Element of a heat exchanger 2"
   Modelica.Thermal.HeatTransfer.Components.Convection con2(dT(min=-200))
     "Convection (and conduction) on fluid side 2"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-50}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPor1
+    "Heat port for heat exchange with the control volume 1"
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPor2
+    "Heat port for heat exchange with the control volume 2"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 equation
   connect(Gc_1, con1.Gc) annotation (Line(points={{-40,100},{-40,76},{-40,70}},
                     color={0,0,127}));
@@ -70,6 +76,10 @@ equation
       points={{-50,-40},{-66,-40},{-66,60},{-50,60}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(vol1.heatPort, heaPor1) annotation (Line(points={{-10,60},{-20,60},{-20,
+          88},{0,88},{0,100}}, color={191,0,0}));
+  connect(vol2.heatPort, heaPor2) annotation (Line(points={{12,-60},{18,-60},{20,
+          -60},{20,-90},{0,-90},{0,-100}}, color={191,0,0}));
   annotation (
     Documentation(info="<html>
 <p>

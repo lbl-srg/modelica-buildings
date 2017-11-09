@@ -1,4 +1,4 @@
-simulateModel("Buildings.Examples.VAVReheat.ASHRAE2006", stopTime=172800, method="radau", tolerance=1e-08, resultFile="ASHRAE2006");
+simulateModel("Buildings.Examples.VAVReheat.ASHRAE2006", stopTime=172800, method="cvode", tolerance=1e-06, resultFile="ASHRAE2006");
 createPlot(id=1, position={689, 16, 808, 886}, y={"flo.sou.air.vol.T", "flo.eas.air.vol.T", "flo.nor.air.vol.T", "flo.wes.air.vol.T",
  "flo.cor.air.vol.T"}, range={0.0, 52.0, 17.5, 21.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
 createPlot(id=1, position={689, 16, 808, 292}, y={"TSupSou.T", "TSupEas.T", "TSupNor.T", "TSupWes.T", "TSupCor.T"}, range={0.0, 52.0, 5.0, 35.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});

@@ -74,7 +74,7 @@ block DamperValves
     quantity="VolumeFlowRate")
     "Measured discharge airflow rate airflow rate"
     annotation (Placement(transformation(extent={{-360,300},{-320,340}}),
-      iconTransformation(extent={{-10,-10},{10,10}},rotation=90,origin={40,-110})));
+      iconTransformation(extent={{-10,-10},{10,10}},rotation=90,origin={40,-130})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     quantity="ThermodynamicTemperature")
@@ -98,7 +98,11 @@ block DamperValves
     quantity="ThermodynamicTemperature")
     "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-360,90},{-320,130}}),
-      iconTransformation(extent={{-10,-10},{10,10}},rotation=90,origin={-40,-110})));
+      iconTransformation(extent={{-10,-10},{10,10}},rotation=90,origin={-40,-130})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
+    "Zone operation mode"
+    annotation (Placement(transformation(extent={{-360,-390},{-320,-350}}),
+      iconTransformation(extent={{-120,-120},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(min=0, max=1, final unit="1")
     "Damper position"
     annotation (Placement(transformation(extent={{320,10},{340,30}}),
@@ -163,8 +167,10 @@ block DamperValves
     final yMax=1,
     final yMin=0,
     final k=kDam,
-    final Ti=TiDam) "Damper position controller"
-    annotation (Placement(transformation(extent={{260,340},{280,360}})));
+    final Ti=TiDam,
+    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
+    final y_reset=0)      "Damper position controller"
+    annotation (Placement(transformation(extent={{250,142},{270,162}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Output active cooling airflow according to cooling control signal"
     annotation (Placement(transformation(extent={{140,240},{160,260}})));
@@ -180,8 +186,9 @@ block DamperValves
     annotation (Placement(transformation(extent={{140,-280},{160,-260}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi5 "Output active cooling airflow "
     annotation (Placement(transformation(extent={{60,180},{80,200}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch watValPos "Output hot water valve position"
-    annotation (Placement(transformation(extent={{260,-110},{280,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch watValPos
+    "Output hot water valve position"
+    annotation (Placement(transformation(extent={{240,-58},{260,-38}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=3) "Active airflow setpoint"
     annotation (Placement(transformation(extent={{200,200},{220,220}})));
 
@@ -271,6 +278,17 @@ protected
     "Check if the true input holds for certain time"
     annotation (Placement(transformation(extent={{-240,200},{-220,220}})));
 
+  CDL.Integers.Equal isUno "Output true if the operation mode is unoccupied"
+    annotation (Placement(transformation(extent={{220,-342},{240,-322}})));
+  CDL.Integers.Sources.Constant unOcc(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.unoccupied)
+    "Constant signal for unoccupied mode"
+    annotation (Placement(transformation(extent={{170,-342},{190,-322}})));
+  CDL.Logical.Switch watValPosUno "Output hot water valve position"
+    annotation (Placement(transformation(extent={{280,-50},{300,-30}})));
+  CDL.Logical.Switch damPosUno "Output damper position"
+    annotation (Placement(transformation(extent={{280,40},{300,60}})));
+  CDL.Logical.Not not5 "Negation of input signal"
+    annotation (Placement(transformation(extent={{220,80},{240,100}})));
 equation
   connect(uCoo, lin.u)
     annotation (Line(points={{-340,260},{-162,260}}, color={0,0,127}));
@@ -374,22 +392,16 @@ equation
     annotation (Line(points={{161,-270},{186,-270},{186,205.333},{198,205.333}},
       color={0,0,127}));
   connect(mulSum.y, damPosCon.u_s)
-    annotation (Line(points={{221.7,210},{240,210},{240,350},{258,350}},
+    annotation (Line(points={{221.7,210},{230,210},{230,152},{248,152}},
       color={0,0,127}));
   connect(VDis, damPosCon.u_m)
-    annotation (Line(points={{-340,320},{270,320},{270,338}},
+    annotation (Line(points={{-340,320},{224,320},{224,128},{260,128},{260,140}},
       color={0,0,127}));
   connect(not3.y, watValPos.u2)
-    annotation (Line(points={{221,-230},{240,-230},{240,-100},{258,-100}},
+    annotation (Line(points={{221,-230},{232,-230},{232,-48},{238,-48}},
       color={255,0,255}));
   connect(swi3.y, watValPos.u1)
-    annotation (Line(points={{101,120},{200,120},{200,-92},{258,-92}},
-      color={0,0,127}));
-  connect(watValPos.y, yHeaVal)
-    annotation (Line(points={{281,-100},{300,-100},{300,-40},{330,-40}},
-      color={0,0,127}));
-  connect(damPosCon.y, yDam)
-    annotation (Line(points={{281,350},{300,350},{300,20},{330,20}},
+    annotation (Line(points={{101,120},{200,120},{200,-40},{238,-40}},
       color={0,0,127}));
   connect(VActMin, swi5.u1)
     annotation (Line(points={{-340,50},{30,50},{30,198},{58,198}},
@@ -463,7 +475,7 @@ equation
   connect(conYHeaVal.u_s, conTDisSet.y)
     annotation (Line(points={{78,-100},{-99,-100}}, color={0,0,127}));
   connect(conYHeaVal.y, watValPos.u3)
-    annotation (Line(points={{101,-100},{180,-100},{180,-108},{258,-108}},
+    annotation (Line(points={{101,-100},{180,-100},{180,-56},{238,-56}},
       color={0,0,127}));
   connect(conYHeaVal.u_m, TDis)
     annotation (Line(points={{90,-112},{90,-122},{-20,-122},{-20,-40},{-308,-40},
@@ -471,6 +483,30 @@ equation
   connect(hys7.y, swi2.u2)
     annotation (Line(points={{-59,-270},{78,-270}}, color={255,0,255}));
 
+  connect(unOcc.y, isUno.u1)
+    annotation (Line(points={{191,-332},{218,-332}}, color={255,127,0}));
+  connect(isUno.u2, uOpeMod) annotation (Line(points={{218,-340},{200,-340},{200,
+          -370},{-340,-370}}, color={255,127,0}));
+  connect(watValPos.y, watValPosUno.u3)
+    annotation (Line(points={{261,-48},{278,-48}}, color={0,0,127}));
+  connect(isUno.y, watValPosUno.u2) annotation (Line(points={{241,-332},{266,-332},
+          {266,-40},{278,-40}}, color={255,0,255}));
+  connect(conZer2.y, watValPosUno.u1) annotation (Line(points={{-59,-12},{0,-12},
+          {0,-32},{278,-32}}, color={0,0,127}));
+  connect(watValPosUno.y, yHeaVal)
+    annotation (Line(points={{301,-40},{330,-40}}, color={0,0,127}));
+  connect(conZer2.y, damPosUno.u1) annotation (Line(points={{-59,-12},{0,-12},{0,
+          -32},{250,-32},{250,58},{278,58}}, color={0,0,127}));
+  connect(damPosCon.y, damPosUno.u3) annotation (Line(points={{271,152},{274,152},
+          {274,42},{278,42}}, color={0,0,127}));
+  connect(damPosUno.y, yDam) annotation (Line(points={{301,50},{308,50},{308,20},
+          {330,20}}, color={0,0,127}));
+  connect(isUno.y, damPosUno.u2) annotation (Line(points={{241,-332},{266,-332},
+          {266,50},{278,50}}, color={255,0,255}));
+  connect(isUno.y, not5.u) annotation (Line(points={{241,-332},{266,-332},{266,70},
+          {210,70},{210,90},{218,90}}, color={255,0,255}));
+  connect(not5.y, damPosCon.trigger)
+    annotation (Line(points={{241,90},{252,90},{252,140}}, color={255,0,255}));
 annotation (
   defaultComponentName="damVal",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-380},{320,380}}),
@@ -546,7 +582,7 @@ in heating state"),
 in heating state")}),
   Icon(graphics={
         Rectangle(
-        extent={{-100,-100},{100,100}},
+        extent={{-100,-120},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
@@ -604,7 +640,7 @@ in heating state")}),
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TDis",
-          origin={-39.5,-85.5},
+          origin={-39.5,-99.5},
           rotation=90),
         Text(
           extent={{-100,-88},{-80,-94}},
@@ -615,7 +651,7 @@ in heating state")}),
           extent={{-11.5,4.5},{11.5,-4.5}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          origin={39.5,-85.5},
+          origin={39.5,-99.5},
           rotation=90,
           textString="VDis"),
         Text(
@@ -674,7 +710,12 @@ in heating state")}),
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="TDisSet")}),
+          textString="TDisSet"),
+        Text(
+          extent={{-98,-106},{-78,-112}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uOpeMod")}),
   Documentation(info="<html>
 <p>
 This sequence sets the damper and valve position for VAV reheat terminal unit.
