@@ -7,7 +7,7 @@ model Controller "Validation controller model"
     zonAre={50,50},
     minZonPriFlo={(50*3/3600)*6,(50*3/3600)*6},
     maxSysPriFlo=0.7*(50*3/3600)*6*2,
-    have_occSen=true)                  "Multiple zone AHU controller"
+    have_occSen=true) "Multiple zone AHU controller"
     annotation (Placement(transformation(extent={{22,48},{102,152}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCooOn(
     final k=273.15 + 24)
