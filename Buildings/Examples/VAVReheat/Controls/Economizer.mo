@@ -1,27 +1,41 @@
 within Buildings.Examples.VAVReheat.Controls;
 block Economizer "Controller for economizer"
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
-  parameter Modelica.SIunits.Temperature TFreSet = 277.15
+  parameter Modelica.SIunits.Temperature TFreSet=277.15
     "Lower limit for mixed air temperature for freeze protection";
-  parameter Modelica.SIunits.TemperatureDifference dT(min=0.1)= 1
+  parameter Modelica.SIunits.TemperatureDifference dT(min=0.1) = 1
     "Temperture offset to activate economizer";
   parameter Modelica.SIunits.VolumeFlowRate VOut_flow_min(min=0)
     "Minimum outside air volume flow rate";
+
+  parameter Modelica.SIunits.Time riseTime=120
+    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+    annotation (Dialog(tab="Dynamics", group="Filtered opening"));
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
+    "Type of initialization (no init/steady state/initial state/initial output)"
+    annotation (Dialog(tab="Dynamics", group="Filtered opening"));
+  parameter Real y_start=1 "Initial value of output"
+    annotation (Dialog(tab="Dynamics", group="Filtered opening"));
+
   Modelica.Blocks.Interfaces.RealInput TSupHeaSet
-    "Supply temperature setpoint for heating"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}), iconTransformation(extent={{-140,-40},{-100,0}})));
+    "Supply temperature setpoint for heating" annotation (Placement(
+        transformation(extent={{-140,-40},{-100,0}}), iconTransformation(extent
+          ={{-140,-40},{-100,0}})));
   Modelica.Blocks.Interfaces.RealInput TSupCooSet
     "Supply temperature setpoint for cooling"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealInput TMix "Measured mixed air temperature"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}}), iconTransformation(extent={{-140,80},{-100,120}})));
+    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
+        iconTransformation(extent={{-140,80},{-100,120}})));
   ControlBus controlBus
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
   Modelica.Blocks.Interfaces.RealInput VOut_flow
-    "Measured outside air flow rate"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,60}})));
+    "Measured outside air flow rate" annotation (Placement(transformation(
+          extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{
+            -100,60}})));
   Modelica.Blocks.Interfaces.RealInput TRet "Return air temperature"
-    annotation (Placement(transformation(extent={{-140,140},{-100,180}}), iconTransformation(extent={{-140,140},{-100,180}})));
+    annotation (Placement(transformation(extent={{-140,140},{-100,180}}),
+        iconTransformation(extent={{-140,140},{-100,180}})));
   Modelica.Blocks.Math.Gain gain(k=1/VOut_flow_min) "Normalize mass flow rate"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Buildings.Controls.Continuous.LimPID conV_flow(
@@ -37,11 +51,11 @@ block Economizer "Controller for economizer"
   parameter Real k=1 "Gain of controller";
   parameter Modelica.SIunits.Time Ti "Time constant of Integrator block";
   Modelica.Blocks.Interfaces.RealOutput yOA
-    "Control signal for outside air damper"
-    annotation (Placement(transformation(extent={{200,70},{220,90}}), iconTransformation(extent={{200,70},{220,90}})));
-  Modelica.Blocks.Routing.Extractor extractor(
-    nin=6,
-    index(start=1, fixed=true)) "Extractor for control signal"
+    "Control signal for outside air damper" annotation (Placement(
+        transformation(extent={{200,70},{220,90}}), iconTransformation(extent={
+            {200,70},{220,90}})));
+  Modelica.Blocks.Routing.Extractor extractor(nin=6, index(start=1, fixed=true))
+    "Extractor for control signal"
     annotation (Placement(transformation(extent={{120,-20},{140,0}})));
   Modelica.Blocks.Sources.Constant closed(k=0) "Signal to close OA damper"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
@@ -69,12 +83,22 @@ block Economizer "Controller for economizer"
     "Setpoint for freeze protection"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Modelica.Blocks.Interfaces.RealOutput yRet
-    "Control signal for return air damper"
-    annotation (Placement(transformation(extent={{200,-10},{220,10}}),iconTransformation(extent={{200,-10},
-            {220,10}})));
+    "Control signal for return air damper" annotation (Placement(transformation(
+          extent={{200,-10},{220,10}}), iconTransformation(extent={{200,-10},{
+            220,10}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter invSig(p=1, k=-1)
     "Invert control signal for interlocked damper"
-    annotation (Placement(transformation(extent={{160,-10},{180,10}})));
+    annotation (Placement(transformation(extent={{170,-10},{190,10}})));
+  Modelica.Blocks.Continuous.Filter filter(
+    order=2,
+    f_cut=5/(2*Modelica.Constants.pi*riseTime),
+    final init=init,
+    final y_start=y_start,
+    final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
+    final filterType=Modelica.Blocks.Types.FilterType.LowPass,
+    x(each stateSelect=StateSelect.always))
+    "Second order filter to approximate valve opening time, and to improve numerics"
+    annotation (Placement(transformation(extent={{120,70},{140,89}})));
 equation
   connect(VOut_flow, gain.u) annotation (Line(
       points={{-120,40},{-92,40},{-92,-50},{-62,-50}},
@@ -96,27 +120,33 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(max.y, extractor.u[Integer(OperationModes.occupied)]) annotation (Line(
+  connect(max.y, extractor.u[Integer(OperationModes.occupied)]) annotation (
+      Line(
       points={{101,-10},{118,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(closed.y, extractor.u[Integer(OperationModes.unoccupiedOff)]) annotation (Line(
+  connect(closed.y, extractor.u[Integer(OperationModes.unoccupiedOff)])
+    annotation (Line(
       points={{81,-80},{110,-80},{110,-10},{118,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(closed.y, extractor.u[Integer(OperationModes.unoccupiedNightSetBack)]) annotation (Line(
+  connect(closed.y, extractor.u[Integer(OperationModes.unoccupiedNightSetBack)])
+    annotation (Line(
       points={{81,-80},{110,-80},{110,-10},{118,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(max.y, extractor.u[Integer(OperationModes.unoccupiedWarmUp)]) annotation (Line(
+  connect(max.y, extractor.u[Integer(OperationModes.unoccupiedWarmUp)])
+    annotation (Line(
       points={{101,-10},{118,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(max.y, extractor.u[Integer(OperationModes.unoccupiedPreCool)]) annotation (Line(
+  connect(max.y, extractor.u[Integer(OperationModes.unoccupiedPreCool)])
+    annotation (Line(
       points={{101,-10},{118,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(closed.y, extractor.u[Integer(OperationModes.safety)]) annotation (Line(
+  connect(closed.y, extractor.u[Integer(OperationModes.safety)]) annotation (
+      Line(
       points={{81,-80},{110,-80},{110,-10},{118,-10}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -168,10 +198,6 @@ equation
       points={{41,-10},{60,-10},{60,-16},{78,-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(extractor.y, yOA) annotation (Line(
-      points={{141,-10},{150,-10},{150,80},{210,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(yOATFre.u_s, TMix) annotation (Line(points={{18,130},{-32,130},{-80,
           130},{-80,100},{-120,100}}, color={0,0,127}));
   connect(TFre.y, yOATFre.u_m) annotation (Line(points={{1,110},{14,110},{30,
@@ -179,12 +205,18 @@ equation
   connect(yOATFre.y, min.u1) annotation (Line(points={{41,130},{48,130},{48,30},
           {10,30},{10,-4},{18,-4}}, color={0,0,127}));
   connect(yRet, invSig.y)
-    annotation (Line(points={{210,0},{181,0}}, color={0,0,127}));
-  connect(extractor.y, invSig.u) annotation (Line(points={{141,-10},{150,-10},{
-          150,0},{158,0}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{200,200}})), Icon(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{200,200}}), graphics={
+    annotation (Line(points={{210,0},{191,0}}, color={0,0,127}));
+  connect(filter.y, yOA) annotation (Line(points={{141,79.5},{171.5,79.5},{
+          171.5,80},{210,80}}, color={0,0,127}));
+  connect(extractor.y, filter.u) annotation (Line(points={{141,-10},{150,-10},{
+          150,50},{108,50},{108,79.5},{118,79.5}}, color={0,0,127}));
+  connect(filter.y, invSig.u) annotation (Line(points={{141,79.5},{160,79.5},{
+          160,0},{168,0}}, color={0,0,127}));
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
+            200}})),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
+            200}}), graphics={
         Rectangle(
           extent={{-100,200},{200,-100}},
           lineColor={0,0,0},
