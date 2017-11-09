@@ -27,19 +27,19 @@ model Limits_LoopDisable
     "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
-  Modelica.Blocks.Sources.Ramp VOut_flow(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut_flow(
     final duration=1800,
     final offset=minVOutSet_flow,
     final height=incVOutSet_flow)
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
-  Modelica.Blocks.Sources.Ramp VOut1_flow(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut1_flow(
     final duration=1800,
     final offset=minVOutSet_flow,
     final height=incVOutSet_flow)
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Modelica.Blocks.Sources.Ramp VOut2_flow(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut2_flow(
     final duration=1800,
     final offset=minVOutSet_flow,
     final height=incVOutSet_flow)

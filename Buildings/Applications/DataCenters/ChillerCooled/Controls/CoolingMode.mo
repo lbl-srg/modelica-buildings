@@ -5,13 +5,13 @@ model CoolingMode
 
   parameter Modelica.SIunits.Time tWai "Waiting time";
   parameter Modelica.SIunits.TemperatureDifference deaBan1
-    "Dead band width 1 for switching waterside economizer off ";
+    "Dead band width 1 for switching chiller on ";
   parameter Modelica.SIunits.TemperatureDifference deaBan2
-    "Dead band width 2 for switching waterside economizer on";
+    "Dead band width 2 for switching waterside economizer off";
   parameter Modelica.SIunits.TemperatureDifference deaBan3
-    "Dead band width 1 for switching waterside economizer off ";
+    "Dead band width 3 for switching waterside economizer on ";
   parameter Modelica.SIunits.TemperatureDifference deaBan4
-    "Dead band width 2 for switching waterside economizer on";
+    "Dead band width 4 for switching chiller off";
 
   Modelica.Blocks.Interfaces.RealInput TCHWRetWSE(
     final quantity="ThermodynamicTemperature",
@@ -42,7 +42,7 @@ model CoolingMode
   Modelica.StateGraph.Transition con1(
     enableTimer=true,
     waitTime=tWai,
-    condition=TCHWSupWSE > TCHWSupSet + deaBan3)
+    condition=TCHWSupWSE > TCHWSupSet + deaBan1)
     "Fire condition 1: free cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -67,7 +67,7 @@ model CoolingMode
   Modelica.StateGraph.Transition con2(
     enableTimer=true,
     waitTime=tWai,
-    condition=TCHWSupWSE > TCHWRetWSE - deaBan2)
+    condition=TCHWRetWSE < TCHWSupWSE + deaBan2)
     "Fire condition 2: partially mechanical cooling to fully mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -76,7 +76,7 @@ model CoolingMode
   Modelica.StateGraph.Transition con3(
     enableTimer=true,
     waitTime=tWai,
-    condition=TCHWRetWSE > TWetBul + TApp + deaBan1)
+    condition=TCHWRetWSE > TWetBul + TApp + deaBan3)
     "Fire condition 3: fully mechanical cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},

@@ -73,7 +73,7 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation(Dialog(group="Fan"));
-  parameter Modelica.SIunits.Time tauFan = 30
+  parameter Modelica.SIunits.Time tauFan = 1
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
      annotation (Dialog(tab = "Dynamics", group="Fan"));
   parameter Boolean use_inputFilterFan=true

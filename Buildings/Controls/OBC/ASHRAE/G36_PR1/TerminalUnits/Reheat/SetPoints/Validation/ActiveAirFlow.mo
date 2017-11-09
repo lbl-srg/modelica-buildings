@@ -31,7 +31,7 @@ model ActiveAirFlow
     duration=86400,
     offset=500) "CO2 concentration"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Modelica.Blocks.Sources.Sine sine(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
     amplitude=2,
     freqHz=1/86400,
     offset=2) "occNum"

@@ -13,7 +13,7 @@ model Modulation_TSup
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSetSig(
     final k=TSupSet) "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Modelica.Blocks.Sources.Ramp TSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
     final duration=900,
     final height=4,
     final offset=TSupSet - 2) "Measured supply air temperature"

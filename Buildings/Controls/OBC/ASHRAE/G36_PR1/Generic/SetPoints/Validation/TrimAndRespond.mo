@@ -15,7 +15,7 @@ model TrimAndRespond "Model validates the trim and respond block"
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     k=true) "Logic true indicating device ON"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Modelica.Blocks.Sources.Sine sine(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
     amplitude=6,
     freqHz=1/5400) "Block generates sine signal"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
@@ -33,7 +33,7 @@ model TrimAndRespond "Model validates the trim and respond block"
     resAmo=15,
     maxRes=37) "Block implementing trim and respond logic"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
-  Modelica.Blocks.Sources.Sine sine1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine1(
     amplitude=6,
     freqHz=1/5400) "Block generates sine signal"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));

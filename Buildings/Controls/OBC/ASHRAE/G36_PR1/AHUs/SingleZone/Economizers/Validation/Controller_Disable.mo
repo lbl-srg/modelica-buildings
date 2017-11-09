@@ -71,18 +71,18 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
     final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  Modelica.Blocks.Sources.Ramp TSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
     final height=4,
     final offset=TSupSet - 2,
     final duration=1800) "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Modelica.Blocks.Sources.Ramp VOutMinSetSig(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOutMinSetSig(
     final duration=1800,
     final offset=VOutMin_flow,
     final height=VOutDes_flow - VOutMin_flow)
     "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Modelica.Blocks.Sources.Ramp SupFanSpeSig(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp SupFanSpeSig(
     final duration=1800,
     final offset=yFanMin,
     final height=yFanMax - yFanMin) "Supply fan speed signal"

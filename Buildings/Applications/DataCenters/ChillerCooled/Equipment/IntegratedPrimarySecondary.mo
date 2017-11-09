@@ -12,7 +12,7 @@ model IntegratedPrimarySecondary
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)});
 
  // Dynamics
- parameter Modelica.SIunits.Time tauPump = 30
+ parameter Modelica.SIunits.Time tauPump = 1
    "Time constant of fluid volume for nominal flow in pumps, used if energy or mass balance is dynamic"
    annotation (Dialog(tab = "Dynamics", group="Pump",
      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
@@ -30,7 +30,7 @@ model IntegratedPrimarySecondary
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation (Dialog(group="Pump"));
-  parameter Modelica.SIunits.Time riseTimePump=120
+  parameter Modelica.SIunits.Time riseTimePump = 30
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation(Dialog(tab="Dynamics", group="Filtered flowrate",enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init initPum=initValve
