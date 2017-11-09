@@ -66,7 +66,7 @@ model ASHRAE2006
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=600,
     k=0.1) "Controller for cooling coil"
-    annotation (Placement(transformation(extent={{-80,-252},{-60,-232}})));
+    annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiHeaCoi
     "Switch to switch off heating coil"
     annotation (Placement(transformation(extent={{60,-220},{80,-200}})));
@@ -78,7 +78,7 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{-60,-172},{-40,-152}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    annotation (Placement(transformation(extent={{30,-180},{50,-160}})));
+    annotation (Placement(transformation(extent={{0,-180},{20,-160}})));
 equation
   connect(TSupSetHea.y, heaCoiCon.u_s) annotation (Line(
       points={{-159,-162},{-96,-162},{-96,-202},{-82,-202}},
@@ -136,7 +136,6 @@ equation
       smooth=Smooth.None));
   connect(dpDisSupFan.p_rel, conFanSup.u_m) annotation (Line(
       points={{311,4.44089e-16},{304,4.44089e-16},{304,-16},{250,-16},{250,-12}},
-
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -147,7 +146,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TSetCoo.TSet, cooCoiCon.u_s) annotation (Line(
-      points={{-109,-202},{-96,-202},{-96,-242},{-82,-242}},
+      points={{-109,-202},{-96,-202},{-96,-240},{-82,-240}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -287,24 +286,27 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(modeSelector.yFan, conFanSup.uFan) annotation (Line(points={{-179.545,
-          -310},{262,-310},{262,-30},{226,-30},{226,6},{238,6}}, color={255,0,
+          -310},{260,-310},{260,-30},{226,-30},{226,6},{238,6}}, color={255,0,
           255}));
   connect(conFanSup.y, fanSup.y) annotation (Line(points={{261,0},{280,0},{280,
           -20},{310,-20},{310,-28}}, color={0,0,127}));
   connect(modeSelector.yFan, swiCooCoi.u2) annotation (Line(points={{-179.545,
-          -310},{4,-310},{4,-248},{58,-248}}, color={255,0,255}));
-  connect(swiCooCoi.u1, cooCoiCon.y) annotation (Line(points={{58,-240},{-20,-240},
-          {-20,-242},{-59,-242}}, color={0,0,127}));
+          -310},{-20,-310},{-20,-248},{58,-248}},
+                                              color={255,0,255}));
+  connect(swiCooCoi.u1, cooCoiCon.y) annotation (Line(points={{58,-240},{-20,
+          -240},{-59,-240}},      color={0,0,127}));
   connect(swiHeaCoi.u1, heaCoiCon.y)
     annotation (Line(points={{58,-202},{-59,-202}}, color={0,0,127}));
-  connect(coiOff.y, swiCooCoi.u3) annotation (Line(points={{-39,-162},{0,-162},
-          {0,-256},{58,-256}},color={0,0,127}));
-  connect(coiOff.y, swiHeaCoi.u3) annotation (Line(points={{-39,-162},{0,-162},
-          {0,-218},{58,-218}},color={0,0,127}));
+  connect(coiOff.y, swiCooCoi.u3) annotation (Line(points={{-39,-162},{-28,-162},
+          {-28,-256},{58,-256}},
+                              color={0,0,127}));
+  connect(coiOff.y, swiHeaCoi.u3) annotation (Line(points={{-39,-162},{-28,-162},
+          {-28,-218},{58,-218}},
+                              color={0,0,127}));
   connect(TSup.T, cooCoiCon.u_m) annotation (Line(points={{340,-29},{340,-12},{
-          372,-12},{372,-268},{-70,-268},{-70,-254}}, color={0,0,127}));
-  connect(TSup.T, heaCoiCon.u_m) annotation (Line(points={{340,-29},{340,-10},{
-          372,-10},{372,-268},{-88,-268},{-88,-222},{-70,-222},{-70,-214}},
+          372,-12},{372,-268},{-70,-268},{-70,-252}}, color={0,0,127}));
+  connect(TSup.T, heaCoiCon.u_m) annotation (Line(points={{340,-29},{340,-12},{
+          372,-12},{372,-268},{-88,-268},{-88,-222},{-70,-222},{-70,-214}},
         color={0,0,127}));
   connect(gaiHeaCoi.u, swiHeaCoi.y)
     annotation (Line(points={{98,-210},{81,-210},{81,-210}}, color={0,0,127}));
@@ -318,11 +320,12 @@ equation
       points={{-16.8,-34},{-16.8,146.667},{-59.3333,146.667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(freSta.y, or2.u1) annotation (Line(points={{21,-92},{28,-92},{28,-94},
-          {42,-94},{42,-150},{20,-150},{20,-170},{28,-170}}, color={255,0,255}));
-  connect(or2.u2, modeSelector.yFan) annotation (Line(points={{28,-178},{4,-178},
-          {4,-310},{-179.545,-310}}, color={255,0,255}));
-  connect(or2.y, swiHeaCoi.u2) annotation (Line(points={{51,-170},{60,-170},{60,
+  connect(freSta.y, or2.u1) annotation (Line(points={{21,-92},{21,-92},{40,-92},
+          {40,-150},{-20,-150},{-20,-170},{-2,-170}},        color={255,0,255}));
+  connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-2,-178},{-20,
+          -178},{-20,-310},{-179.545,-310}},
+                                     color={255,0,255}));
+  connect(or2.y, swiHeaCoi.u2) annotation (Line(points={{21,-170},{40,-170},{40,
           -190},{40,-190},{40,-210},{58,-210}}, color={255,0,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
