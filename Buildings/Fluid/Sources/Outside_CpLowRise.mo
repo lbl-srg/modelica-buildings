@@ -33,8 +33,7 @@ equation
   alpha = winDir-surOut;
   CpAct = Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise(
             Cp0=Cp0, incAng=alpha, G=G);
-  pWin = 0.5*CpAct*medium.d*
-    Buildings.Utilities.Math.Functions.smoothMax(vWin, 0.1, 0.05)^2;
+  pWin = 0.5*CpAct*medium.d*vWin*vWin;
   pTot = pWea + pWin;
 
   connect(weaBus.winDir, winDir);
@@ -135,10 +134,6 @@ Gaithersburg, MD.
 </html>",
 revisions="<html>
 <ul>
-<li>
-November 8, 2017, by Michael Wetter:<br/>
-Added regularization of wind speed near zero.
-</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Added <code>unit</code> and <code>quantity</code> attributes.

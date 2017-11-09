@@ -58,8 +58,7 @@ partial model PartialOpenLoop
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Evaluate=true);
 
-  parameter Boolean use_windPressure=true
-    "Set to true to enable wind pressure";
+  parameter Boolean use_windPressure=true "Set to true to enable wind pressure";
 
   parameter Boolean sampleModel=true
     "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
@@ -75,6 +74,7 @@ partial model PartialOpenLoop
     m1_flow_nominal=m_flow_nominal,
     m2_flow_nominal=m_flow_nominal*1000*(10 - (-20))/4200/10,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
+
     Q_flow_nominal=m_flow_nominal*1006*(16.7 - 8.5),
     dp2_nominal=0,
     allowFlowReversal1=allowFlowReversal,
@@ -151,8 +151,8 @@ partial model PartialOpenLoop
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{330,-50},{350,-30}})));
-  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium =
-        MediumA) "Supply fan static discharge pressure" annotation (Placement(
+  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium
+      = MediumA) "Supply fan static discharge pressure" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -160,11 +160,6 @@ partial model PartialOpenLoop
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-318,-220},{-298,-200}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCoiHeaOut(
-    redeclare package Medium = MediumA,
-    m_flow_nominal=m_flow_nominal,
-    allowFlowReversal=allowFlowReversal) "Heating coil outlet temperature"
-    annotation (Placement(transformation(extent={{134,-50},{154,-30}})));
   Buildings.Utilities.Math.Min min(nin=5) "Computes lowest room temperature"
     annotation (Placement(transformation(extent={{1200,440},{1220,460}})));
   Buildings.Utilities.Math.Average ave(nin=5)
@@ -481,7 +476,8 @@ partial model PartialOpenLoop
     mRec_flow_nominal=m_flow_nominal,
     dpRec_nominal=10,
     mExh_flow_nominal=m_flow_nominal,
-    dpExh_nominal=10) "Economizer" annotation (Placement(transformation(
+    dpExh_nominal=10,
+    from_dp=false) "Economizer" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,-46})));
@@ -506,18 +502,22 @@ protected
     Real EFan(
       unit="J/m2",
       start=0,
+      nominal=1E5,
       fixed=true) "Fan energy";
     Real EHea(
       unit="J/m2",
       start=0,
+      nominal=1E5,
       fixed=true) "Heating energy";
     Real ECooSen(
       unit="J/m2",
       start=0,
+      nominal=1E5,
       fixed=true) "Sensible cooling energy";
     Real ECooLat(
       unit="J/m2",
       start=0,
+      nominal=1E5,
       fixed=true) "Latent cooling energy";
     Real ECoo(unit="J/m2") "Total cooling energy";
   equation
@@ -537,6 +537,12 @@ public
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiCooCoi(k=m_flow_nominal*1000*15
         /4200/10) "Gain for cooling coil mass flow rate"
     annotation (Placement(transformation(extent={{100,-258},{120,-238}})));
+  Buildings.Controls.OBC.CDL.Logical.OnOffController freSta(bandwidth=1)
+    "Freeze stat for heating coil"
+    annotation (Placement(transformation(extent={{0,-102},{20,-82}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant freStaTSetPoi(k=273.15
+         + 3) "Freeze stat set point for heating coil"
+    annotation (Placement(transformation(extent={{-40,-96},{-20,-76}})));
 equation
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
       points={{320,-40},{320,-10}},
@@ -555,11 +561,6 @@ equation
       thickness=0.5));
   connect(amb.ports[1], VOut1.port_a) annotation (Line(
       points={{-114,-42.0667},{-94,-42.0667},{-94,-33},{-72,-33}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(heaCoi.port_b1, TCoiHeaOut.port_a) annotation (Line(
-      points={{118,-40},{134,-40}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -619,11 +620,6 @@ equation
       thickness=0.5));
   connect(splSupNor.port_2, wes.port_a) annotation (Line(
       points={{1110,-40},{1300,-40},{1300,20}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(TCoiHeaOut.port_b, cooCoi.port_a2) annotation (Line(
-      points={{154,-40},{190,-40}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -803,6 +799,14 @@ equation
       pattern=LinePattern.Dot));
   connect(senRetFlo.port_b, TRet.port_a) annotation (Line(points={{340,140},{
           226,140},{110,140}}, color={0,127,255}));
+  connect(freStaTSetPoi.y, freSta.reference)
+    annotation (Line(points={{-19,-86},{-2,-86}}, color={0,0,127}));
+  connect(freSta.u, TMix.T) annotation (Line(points={{-2,-98},{-10,-98},{-10,-70},
+          {20,-70},{20,-20},{40,-20},{40,-29}}, color={0,0,127}));
+  connect(heaCoi.port_b1, cooCoi.port_a2) annotation (Line(
+      points={{118,-40},{190,-40}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,
             -400},{1660,600}})), Documentation(info="<html>
 <p>
