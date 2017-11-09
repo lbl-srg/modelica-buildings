@@ -491,8 +491,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final kPFre=kPFre,
     final delta=delta,
     use_TMix=true,
-    use_G36FrePro=false)
-                       "Economizer controller"
+    use_G36FrePro=false) "Economizer controller"
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Valve val(
     final uHeaMax=uHeaMax,
