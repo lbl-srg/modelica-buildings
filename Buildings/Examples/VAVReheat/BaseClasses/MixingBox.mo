@@ -74,6 +74,14 @@ model MixingBox
     "Flow coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
     annotation (Dialog(tab="Damper coefficients"));
 
+  parameter Modelica.SIunits.Time riseTime=120
+    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+    annotation (Dialog(tab="Dynamics", group="Filtered opening"));
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
+    "Type of initialization (no init/steady state/initial state/initial output)"
+    annotation (Dialog(tab="Dynamics", group="Filtered opening"));
+  parameter Real y_start=1 "Initial value of output"
+    annotation (Dialog(tab="Dynamics", group="Filtered opening"));
 
   Modelica.Blocks.Interfaces.RealInput yRet(
     min=0,
@@ -152,7 +160,10 @@ model MixingBox
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mOut_flow_nominal,
-    use_inputFilter=false) "Outdoor air damper"
+    use_inputFilter=true,
+    final riseTime=riseTime,
+    final init=init,
+    y_start=y_start) "Outdoor air damper"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
   Fluid.Actuators.Dampers.VAVBoxExponential damExh(
@@ -174,7 +185,10 @@ model MixingBox
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
-    use_inputFilter=false) "Exhaust air damper"
+    use_inputFilter=true,
+    final riseTime=riseTime,
+    final init=init,
+    y_start=y_start) "Exhaust air damper"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
 
   Fluid.Actuators.Dampers.VAVBoxExponential damRet(
@@ -196,7 +210,10 @@ model MixingBox
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
-    use_inputFilter=false) "Return air damper"        annotation (
+    use_inputFilter=true,
+    final riseTime=riseTime,
+    final init=init,
+    y_start=y_start) "Return air damper"        annotation (
       Placement(transformation(
         origin={80,0},
         extent={{-10,-10},{10,10}},
