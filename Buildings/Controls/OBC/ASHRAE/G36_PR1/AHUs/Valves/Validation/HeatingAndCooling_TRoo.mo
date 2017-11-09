@@ -53,8 +53,7 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.Valves.HeatingAndCooling</a>
 for zone temperature <code>TRoo</code> signal under fixed zone cooling <code>TRooCooSet</code>
 and heating <code>TRooHeaSet</code> temperature setpoints.
 </p>
-</html>",
-        revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 September 1, 2017, by Milica Grahovac:<br/>
