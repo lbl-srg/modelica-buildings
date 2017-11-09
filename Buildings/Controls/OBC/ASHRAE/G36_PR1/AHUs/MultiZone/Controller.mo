@@ -506,22 +506,22 @@ equation
   connect(eco.yOutDamPos, yOutDamPos) annotation (Line(points={{140.625,-55},{160,
           -55},{160,-150},{190,-150}}, color={0,0,127}));
   connect(eco.uSupFan, conSupFan.ySupFan) annotation (Line(points={{119.375,-54.375},{-84,-54.375},
-          {-84,137},{-99,137}},              color={255,0,255}));
+          {-84,137},{-99,137}}, color={255,0,255}));
   connect(conSupFan.ySupFanSpe, ySupFanSpe)
     annotation (Line(points={{-99,130},{190,130}},
       color={0,0,127}));
   connect(TOut, eco.TOut) annotation (Line(points={{-170,166},{-20,166},{-20,-40.625},{119.375,
-          -40.625}},         color={0,0,127}));
+          -40.625}}, color={0,0,127}));
   connect(eco.TOutCut, TOutCut) annotation (Line(points={{119.375,-41.875},{-34,-41.875},{-34,-12},
-          {-170,-12}},           color={0,0,127}));
+          {-170,-12}}, color={0,0,127}));
   connect(eco.hOut, hOut) annotation (Line(points={{119.375,-43.125},{-38,-43.125},{-38,-32},{-170,
-          -32}},                 color={0,0,127}));
+          -32}}, color={0,0,127}));
   connect(eco.hOutCut, hOutCut) annotation (Line(points={{119.375,-44.375},{-54,-44.375},{-54,-44},
-          {-170,-44}},           color={0,0,127}));
+          {-170,-44}}, color={0,0,127}));
   connect(eco.VOut_flow, VOut_flow) annotation (Line(points={{119.375,-48.75},{-50,
           -48.75},{-50,-60},{-170,-60}}, color={0,0,127}));
   connect(eco.uOpeMod, uOpeMod) annotation (Line(points={{119.375,-56.875},{100,-56.875},{100,-100},
-          {-170,-100}},            color={255,127,0}));
+          {-170,-100}}, color={255,127,0}));
   connect(supTemSetPoi.TSetSup, TSetSup)
     annotation (Line(points={{21,80},{190,80}}, color={0,0,127}));
   connect(supTemSetPoi.TOut, TOut) annotation (Line(points={{-1,84},{-20,84},{-20,
@@ -531,8 +531,7 @@ equation
   connect(supTemSetPoi.uZonTemResReq, uZonTemResReq) annotation (Line(points={{-1,
           76},{-12,76},{-12,-180},{-172,-180}}, color={255,127,0}));
   connect(supTemSetPoi.uOpeMod, uOpeMod) annotation (Line(points={{-1,72},{-24,
-          72},{-24,-100},{-170,-100}},
-                                   color={255,127,0}));
+          72},{-24,-100},{-170,-100}}, color={255,127,0}));
   connect(conSupFan.uOpeMod, uOpeMod)
     annotation (Line(points={{-122,138},{-140,138},{-140,-100},{-170,-100}},
       color={255,127,0}));
