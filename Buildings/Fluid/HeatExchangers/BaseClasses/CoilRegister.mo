@@ -24,16 +24,30 @@ model CoilRegister "Register for a heat exchanger"
   final parameter Integer nEle = nPipPar * nPipSeg
     "Number of heat exchanger elements";
 
+  parameter Modelica.SIunits.ThermalConductance UA_nominal
+    "Thermal conductance at nominal flow, used to compute time constant"
+     annotation(Dialog(group = "Nominal condition"));
+
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
+    "Mass flow rate medim 1"
+  annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
+    "Mass flow rate medium 2"
+  annotation(Dialog(group = "Nominal condition"));
+
+  parameter Modelica.SIunits.Time tau1=20
+    "Time constant at nominal flow for medium 1"
+  annotation(Dialog(group = "Nominal condition", enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
+  parameter Modelica.SIunits.Time tau2=1
+    "Time constant at nominal flow for medium 2"
+  annotation(Dialog(group = "Nominal condition", enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
+
   parameter Boolean allowFlowReversal1 = true
     "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Boolean allowFlowReversal2 = true
     "= true to allow flow reversal in medium 2, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
-  parameter Modelica.SIunits.ThermalConductance GDif = 1E-2*UA_nominal/(nPipPar - 1)/(nPipSeg - 1)
-    "Thermal conductance to approximate diffusion (which improves model at near-zero flow rates"
-    annotation(Dialog(tab="Experimental"));
 
   replaceable Buildings.Fluid.HeatExchangers.BaseClasses.HexElementSensible ele[nPipPar, nPipSeg]
     constrainedby Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement(
@@ -81,23 +95,12 @@ model CoilRegister "Register for a heat exchanger"
     "Fluid connector b for medium 2 (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-72},{-110,-52}})));
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal
-    "Thermal conductance at nominal flow, used to compute time constant"
-     annotation(Dialog(group = "Nominal condition"));
-
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
-    "Mass flow rate medim 1"
-  annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
-    "Mass flow rate medium 2"
-  annotation(Dialog(group = "Nominal condition"));
-
-  parameter Modelica.SIunits.Time tau1=20
-    "Time constant at nominal flow for medium 1"
-  annotation(Dialog(group = "Nominal condition", enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Time tau2=1
-    "Time constant at nominal flow for medium 2"
-  annotation(Dialog(group = "Nominal condition", enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPor1[nPipPar, nPipSeg]
+    "Heat port for heat exchange with the control volume 1"
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPor2[nPipPar, nPipSeg]
+    "Heat port for heat exchange with the control volume 2"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
   Modelica.SIunits.HeatFlowRate Q1_flow
     "Heat transferred from solid into medium 1";
@@ -132,15 +135,6 @@ protected
     "Gain medium-side 2 to take discretization into account"
     annotation (Placement(transformation(extent={{36,-76},{24,-62}})));
 
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon1[nPipPar-1, nPipSeg-1](
-    each final G=GDif)
-    "Thermal connector to approximate diffusion in medium 1"
-    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon2[nPipPar-1, nPipSeg-1](
-    each final G=GDif)
-    "Thermal connector to approximate diffusion in medium 2"
-    annotation (Placement(transformation(extent={{10,-60},{-10,-40}})));
 equation
   // As OpenModelica does not support multiple iterators as of August 2014, we
   // use here two sum(.) functions
@@ -184,19 +178,10 @@ equation
      end for;
   end for;
 
-  // The connection below are approximate. See info section.
-  for i in 1:nPipPar-1 loop
-    for j in 1:nPipSeg-1 loop
-     connect(ele[i, j].heaPor1, theCon1[i, j].port_a) annotation (Line(points={{0,10},{0,32},{-20,
-          32},{-20,50},{-10,50}}, color={191,0,0}));
-     connect(theCon1[i, j].port_b, ele[i+1, j+1].heaPor1) annotation (Line(points={{10,50},{20,50},
-          {20,32},{0,32},{0,10}}, color={191,0,0}));
-     connect(ele[i, j].heaPor2, theCon2[i, j].port_a) annotation (Line(points={{0,-10},{0,-28},
-          {14,-28},{14,-50},{10,-50}}, color={191,0,0}));
-     connect(theCon2[i, j].port_b, ele[i+1, j+1].heaPor2) annotation (Line(points={{-10,-50},{-14,-50},
-          {-14,-28},{0,-28},{0,-10}}, color={191,0,0}));
-    end for;
-  end for;
+  connect(ele.heaPor1, heaPor1)
+    annotation (Line(points={{0,10},{0,100}}, color={191,0,0}));
+  connect(ele.heaPor2, heaPor2)
+    annotation (Line(points={{0,-10},{0,-100}}, color={191,0,0}));
   annotation (
     Documentation(info="<html>
 <p>
@@ -207,28 +192,9 @@ The <i>hA</i> value for both fluids is an input.
 The driving force for the heat transfer is the temperature difference
 between the fluid volumes and the solid in each heat exchanger element.
 </p>
-<h4>Implementation</h4>
-<p>
-At very small flow rates, which may be caused when the fan is off but there is wind pressure
-on the building that entrains outside air through the HVAC system, large temperature differences
-could occur if diffusion were neglected.
-This model therefore approximates a small diffusion between the elements to have more uniform
-medium temperatures if the flow is near zero.
-The approximation is done using the heat conductors <code>heaCon1</code> and <code>heaCon2</code>.
-As this is a rough approximation, neighboring elements are connected through these heat conduction
-elements, ignoring the actual geometrical configuration.
-Also, radiation between the coil surfaces on the air side is not modelled explicitly, but
-rather may be considered as approximated by these heat conductors.
-</p>
 </html>",
 revisions="<html>
 <ul>
-<li>
-November 4, 2017, by Michael wetter:<br/>
-Added approximation of diffusion.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1038\">Buildings, #1038</a>.
-</li>
 <li>
 October 19, 2017, by Michael Wetter:<br/>
 Changed initialization of pressure from a <code>constant</code> to a <code>parameter</code>.<br/>
