@@ -3,8 +3,7 @@ block FreProTMix "Optional freeze protection block based on mixed air temperatur
 
   parameter Modelica.SIunits.Temperature TFreSet = 277.15
     "Lower limit for mixed air temperature for freeze protection";
-  parameter Real kPFre = 1
-    "Proportional gain for mixed air temperature tracking for freeze protection";
+  parameter Real k=1 "Proportional gain";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
@@ -16,13 +15,13 @@ block FreProTMix "Optional freeze protection block based on mixed air temperatur
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFrePro(
     final unit="1",
     final min=0,
-    final max=1) "Freeze protection control signal based on mixed air temperature"
+    final max=1) "Freeze protection control signal, 0 if no frost, 1 if TMix below TFreSet"
     annotation (Placement(transformation(
     extent={{100,-40},{120,-20}}), iconTransformation(extent={{100,50},{120,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFreProInv(
     final unit="1",
     final min=0,
-    final max=1) "Inverse freeze protection control signal based on mixed air temperature"
+    final max=1) "Inverse freeze protection control signal, 1 if no frost, 0 if TMix below TFreSet"
     annotation (Placement(transformation(extent={{100,20},{120,40}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
 
@@ -37,13 +36,13 @@ protected
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter offSig(
     final k=1,
-    final p=-1/kPFre)
+    final p=-1/k)
     "Offset of TMix to account for P-band. This ensures that the damper is fully closed at TFreSet"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID conFreTMix(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final k=kPFre,
+    final k=k,
     final yMax=1,
     final yMin=0)
     "Controller for mixed air to track freeze protection set point"
@@ -84,9 +83,16 @@ equation
         initialScale=0.05)),
 Documentation(info="<html>
 <p>
-Block that tracks the mixed air temeprature <code>TMix</code> and outputs
+Block that tracks the mixed air temperature <code>TMix</code>
+using a proportional controller and outputs
 a freeze protection control signal <code>yFrePro</code> and
 its inverse <code>yFreProInv</code>.
+The input to the proportional controller is <code>TMix-1/k</code>,
+where <code>TMix</code> is the measured mixed air temperature
+and <code>k</code> is the proportional gain.
+This reduction ensures that the controller closes the outdoor air
+damper fully whenever <code>TMix</code> is below <code>TFreSet</code>,
+regardless of the control gain <code>k</code>.
 </p>
 </html>", revisions="<html>
 <ul>

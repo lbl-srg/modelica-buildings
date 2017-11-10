@@ -19,13 +19,6 @@ block Enable
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
 
-  parameter Modelica.SIunits.Temperature TFreSet = 277.15
-    "Lower limit for mixed air temperature for freeze protection"
-     annotation(Evaluate=true, Dialog(tab="Advanced", group="Freeze protection"));
-  parameter Real kPFre = 1
-    "Proportional gain for mixed air temperature tracking for freeze protection"
-     annotation(Evaluate=true, Dialog(tab="Advanced", group="Freeze protection"));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     final quantity = "ThermodynamicTemperature")

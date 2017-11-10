@@ -169,8 +169,8 @@ equation
     annotation (Line(points={{-19,90},{140,90},{140,88},{140,
           -48.75},{150,-48.75},{159.375,-48.75}}, color={0,0,127}));
   connect(VOutMinSet_flow.y, economizer2.VOutMinSet_flow)
-    annotation (Line(points={{-19,50},{114,50},
-          {114,50},{136,50},{136,-50},{159.375,-50}}, color={0,0,127}));
+    annotation (Line(points={{-19,50},{114,50},{136,50},{136,-50},{159.375,-50}},
+                                                      color={0,0,127}));
   connect(uTSup.y, economizer2.uTSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,106},{142,106},
           {142,-46.875},{159.375,-46.875}}, color={0,0,127}));
@@ -180,8 +180,9 @@ equation
   connect(opeMod.y, economizer2.uOpeMod)
     annotation (Line(points={{-59,-70},{50,-70},{50,-56.875},{159.375,
           -56.875}}, color={255,127,0}));
-  connect(sin1.y, economizer2.TMix) annotation (Line(points={{111,-90},{136,-90},{136,-51.875},{159.375,
-          -51.875}}, color={0,0,127}));
+  connect(sin1.y, economizer2.TMix) annotation (Line(points={{111,-89},{136,-89},
+          {136,-51.875},{159.375,-51.875}},
+                     color={0,0,127}));
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/Economizers/Validation/Controller_Disable.mos"

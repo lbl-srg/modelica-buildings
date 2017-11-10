@@ -9,6 +9,14 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Lower limit of controller signal when cooling coil is off. Require -1 < uHeaMax < uCooMin < 1.";
   parameter Integer numZon(min=2) "Total number of served VAV boxes"
     annotation (Dialog(group="System and building parameters"));
+
+  parameter Boolean use_TMix=true
+    "Set to true if mixed air temperature measurement is enabled"
+     annotation(Dialog(group="Economizer freeze protection"));
+  parameter Boolean use_G36FrePro=false
+    "Set to true to use G36 freeze protection"
+    annotation(Dialog(group="Economizer freeze protection"));
+
   parameter Modelica.SIunits.Area zonAre[numZon] "Area of each zone"
     annotation (Dialog(group="System and building parameters"));
   parameter Boolean have_occSen=false
@@ -83,11 +91,11 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     annotation (Evaluate=true,
       Dialog(tab="Economizer", group="Damper limits"));
   parameter Modelica.SIunits.Temperature TFreSet = 277.15
-    "Lower limit for mixed air temperature for freeze protection"
-     annotation(Evaluate=true, Dialog(tab="Economizer", group="Freeze protection"));
+    "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
+     annotation(Dialog(tab="Economizer", group="Economizer freeze protection", enable=use_TMix));
   parameter Real kPFre = 1
-    "Proportional gain for mixed air temperature tracking for freeze protection"
-     annotation(Evaluate=true, Dialog(tab="Economizer", group="Freeze protection"));
+    "Proportional gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
+     annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
   parameter Modelica.SIunits.Time retDamFulOpeTim=180
     "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control
     at disable to avoid pressure fluctuations"
@@ -278,8 +286,8 @@ block Controller "Multizone AHU controller that composes subsequences for contro
       iconTransformation(extent={{-220,-80},{-200,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
-    final quantity = "ThermodynamicTemperature")
-    "Measured mixed air temperature, used for freeze protection"
+    final quantity = "ThermodynamicTemperature") if use_TMix
+    "Measured mixed air temperature, used for freeze protection if use_TMix=true"
     annotation (Placement(transformation(extent={{-180,-90},{-160,-70}}),
       iconTransformation(extent={{-220,-100},{-200,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ducStaPre(
@@ -290,8 +298,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
       iconTransformation(extent={{-220,-50},{-200,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
-    final quantity="ThermodynamicTemperature")
-    "Outdoor air (OA) temperature"
+    final quantity="ThermodynamicTemperature") "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-180,156},{-160,176}}),
       iconTransformation(extent={{-220,200},{-200,220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(
@@ -354,11 +361,11 @@ block Controller "Multizone AHU controller that composes subsequences for contro
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonTemResReq
     "Zone cooling supply air temperature reset request"
     annotation (Placement(transformation(extent={{-180,-150},{-160,-130}}),
-      iconTransformation(extent={{-220,-240},{-200,-220}})));
+      iconTransformation(extent={{-220,-190},{-200,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonPreResReq
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{-180,-170},{-160,-150}}),
-      iconTransformation(extent={{-220,-260},{-200,-240}})));
+      iconTransformation(extent={{-220,-220},{-200,-200}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}}),
@@ -367,6 +374,13 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-182,178},{-160,200}}),
       iconTransformation(extent={{-220,10},{-200,30}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if
+      use_G36FrePro
+   "Freeze protection status, used if use_G36FrePro=true" annotation (
+     Placement(transformation(extent={{-180,-190},{-160,-170}}),
+        iconTransformation(extent={{-220,-260},{-200,-240}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetSup(
     final unit="K",
     final quantity="ThermodynamicTemperature")
@@ -490,8 +504,8 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final TFreSet=TFreSet,
     final kPFre=kPFre,
     final delta=delta,
-    use_TMix=true,
-    use_G36FrePro=false) "Economizer controller"
+    final use_TMix=use_TMix,
+    final use_G36FrePro=use_G36FrePro) "Economizer controller"
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Valve val(
     final uHeaMax=uHeaMax,
@@ -512,8 +526,9 @@ equation
       color={0,0,127}));
   connect(TOut, eco.TOut) annotation (Line(points={{-170,166},{-20,166},{-20,-40.625},{119.375,
           -40.625}}, color={0,0,127}));
-  connect(eco.TOutCut, TOutCut) annotation (Line(points={{119.375,-41.875},{-34,-41.875},{-34,-12},
-          {-170,-12}}, color={0,0,127}));
+  connect(eco.TOutCut, TOutCut) annotation (Line(points={{119.375,-41.875},{-34,
+          -41.875},{-34,0},{-170,0}},
+                       color={0,0,127}));
   connect(eco.hOut, hOut) annotation (Line(points={{119.375,-43.125},{-38,-43.125},{-38,-32},{-170,
           -32}}, color={0,0,127}));
   connect(eco.hOutCut, hOutCut) annotation (Line(points={{119.375,-44.375},{-54,-44.375},{-54,-44},
@@ -523,15 +538,16 @@ equation
   connect(eco.uOpeMod, uOpeMod) annotation (Line(points={{119.375,-56.875},{100,-56.875},{100,-100},
           {-170,-100}}, color={255,127,0}));
   connect(supTemSetPoi.TSetSup, TSetSup)
-    annotation (Line(points={{21,80},{190,80}}, color={0,0,127}));
-  connect(supTemSetPoi.TOut, TOut) annotation (Line(points={{-1,84},{-20,84},{-20,
+    annotation (Line(points={{21,90},{106,90},{106,80},{190,80}},
+                                                color={0,0,127}));
+  connect(supTemSetPoi.TOut, TOut) annotation (Line(points={{-1,94},{-20,94},{-20,
           166},{-170,166}}, color={0,0,127}));
-  connect(supTemSetPoi.uSupFan, conSupFan.ySupFan) annotation (Line(points={{-1,
-          80},{-84,80},{-84,137},{-99,137}}, color={255,0,255}));
-  connect(supTemSetPoi.uZonTemResReq, uZonTemResReq) annotation (Line(points={{-1,
-          76},{-12,76},{-12,-180},{-172,-180}}, color={255,127,0}));
-  connect(supTemSetPoi.uOpeMod, uOpeMod) annotation (Line(points={{-1,72},{-24,
-          72},{-24,-100},{-170,-100}}, color={255,127,0}));
+  connect(supTemSetPoi.uSupFan, conSupFan.ySupFan) annotation (Line(points={{-1,90},
+          {-84,90},{-84,137},{-99,137}},     color={255,0,255}));
+  connect(supTemSetPoi.uZonTemResReq, uZonTemResReq) annotation (Line(points={{-1,86},
+          {-12,86},{-12,-140},{-170,-140}},     color={255,127,0}));
+  connect(supTemSetPoi.uOpeMod, uOpeMod) annotation (Line(points={{-1,82},{-8,82},
+          {-8,-100},{-170,-100}},      color={255,127,0}));
   connect(conSupFan.uOpeMod, uOpeMod)
     annotation (Line(points={{-122,138},{-140,138},{-140,-100},{-170,-100}},
       color={255,127,0}));
@@ -542,7 +558,7 @@ equation
     annotation (Line(points={{-122,122},{-170,122}},
       color={0,0,127}));
   connect(eco.VOutMinSet_flow, outAirSetPoi.VOutMinSet_flow)
-    annotation (Line(points={{119.375,-30},{-24,-30},{-24,60},{-39,60}},
+    annotation (Line(points={{119.375,-50},{-24,-50},{-24,60},{-39,60}},
       color={0,0,127}));
   connect(outAirSetPoi.nOcc, nOcc)
     annotation (Line(points={{-61,68},{-88,68},{-88,100},{-170,100}},
@@ -575,7 +591,7 @@ equation
     annotation (Line(points={{-122,214},{-140,214},{-140,210},{-170,210}},
       color={0,0,127}));
   connect(eco.TMix, TMix)
-    annotation (Line(points={{119.375,-31.875},{28,-31.875},{28,-80},{-170,-80}},
+    annotation (Line(points={{119.375,-51.875},{28,-51.875},{28,-80},{-170,-80}},
       color={0,0,127}));
   connect(TSup, val.TSup)
     annotation (Line(points={{-170,30},{59,30}},
@@ -584,7 +600,7 @@ equation
     annotation (Line(points={{-99,137},{-84,137},{-84,25},{59,25}},
       color={255,0,255}));
   connect(val.uTSup, eco.uTSup)
-    annotation (Line(points={{81,34},{100,34},{100,-26.875},{119.375,-26.875}},
+    annotation (Line(points={{81,34},{100,34},{100,-46.875},{119.375,-46.875}},
       color={0,0,127}));
   connect(val.yHea, yHea)
     annotation (Line(points={{81,30},{160,30},{160,40},{190,40}},
@@ -604,6 +620,8 @@ equation
     annotation (Line(points={{-170,230},{-140,230},{-140,226},{-122,226}},
       color={0,0,127}));
 
+  connect(eco.uFreProSta, uFreProSta) annotation (Line(points={{119.375,-59.375},
+          {106,-59.375},{106,-180},{-170,-180}}, color={255,127,0}));
 annotation (defaultComponentName="conAHU",
     Diagram(coordinateSystem(extent={{-160,-200},{180,240}}, initialScale=0.2)),
     Icon(coordinateSystem(extent={{-160,-200},{180,240}}, initialScale=0.2),

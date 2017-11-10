@@ -6,7 +6,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
   parameter Boolean use_TMix=true
     "Set to true if mixed air temperature measurement is enabled";
   parameter Boolean use_G36FrePro=false
-    "Set to true if G36 freeze protection is implemented";
+    "Set to true to use G36 freeze protection";
   parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
     "Delta between the temperature hysteresis high and low limit"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
@@ -75,11 +75,11 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   parameter Modelica.SIunits.Temperature TFreSet = 277.15
-    "Lower limit for mixed air temperature for freeze protection"
-     annotation(Evaluate=true, Dialog(tab="Advanced", group="Freeze protection"));
+    "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
+     annotation(Evaluate=true, Dialog(group="Freeze protection", enable=use_TMix));
   parameter Real kPFre = 1
-    "Proportional gain for mixed air temperature tracking for freeze protection"
-     annotation(Evaluate=true, Dialog(tab="Advanced", group="Freeze protection"));
+    "Proportional gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
+     annotation(Evaluate=true, Dialog(group="Freeze protection", enable=use_TMix));
 
   parameter Modelica.SIunits.Time delta=120
     "Time horizon over which the outdoor air flow measurment is averaged";
@@ -148,7 +148,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final min=0,
     final max=1,
     final unit="1") "Outdoor air damper position"
-    annotation (Placement(transformation(extent={{160,-30},{180,-10}}),
+    annotation (Placement(transformation(extent={{160,-50},{180,-30}}),
       iconTransformation(extent={{160,-90},{180,-70}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable enaDis(
@@ -156,9 +156,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final delTOutHis=delTOutHis,
     final delEntHis=delEntHis,
     final retDamFulOpeTim=retDamFulOpeTim,
-    final disDel=disDel,
-    final TFreSet=TFreSet,
-    final kPFre=kPFre)
+    final disDel=disDel)
     "Multi zone VAV AHU economizer enable/disable sequence"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits
@@ -181,7 +179,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     "Multi zone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreProTMix
-    freProTMix(final TFreSet = TFreSet) if use_TMix
+    freProTMix(final TFreSet = TFreSet, final k=kPFre) if use_TMix
     "Block that tracks TMix against a freeze protection setpoint"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
 
@@ -191,16 +189,16 @@ protected
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Min outDamMaxFre
     "Maximum control signal for outdoor air damper due to freeze protection"
-    annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
+    annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Max retDamMinFre
     "Minimum position for return air damper due to freeze protection"
-    annotation (Placement(transformation(extent={{120,40},{140,60}})));
+    annotation (Placement(transformation(extent={{120,30},{140,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noTMix(k=0) if not use_TMix
-    "Ignore max evaluation if there is no TMix sensor"
-    annotation (Placement(transformation(extent={{80,70},{100,90}})));
+    "Ignore max evaluation if there is no mixed air temperature sensor"
+    annotation (Placement(transformation(extent={{76,36},{96,56}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noTMix1(k=1) if not use_TMix
-    "Ignore min evaluation if there is no TMix sensor"
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+    "Ignore min evaluation if there is no mixed air temperature sensor"
+    annotation (Placement(transformation(extent={{80,-56},{100,-36}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
     final k=Constants.FreezeProtectionStages.stage0) if not use_G36FrePro
     "Freeze protection status is 0. Use if G36 freeze protection is not implemented"
@@ -242,7 +240,7 @@ equation
   connect(enaDis.yRetDamPosMax, mod.uRetDamPosMax)
     annotation (Line(points={{21,-30},{28,-30},{28,18},{39,18}}, color={0,0,127}));
   connect(damLim.yOutDamPosMin, mod.uOutDamPosMin)
-    annotation (Line(points={{-59,15},{-30,15},{-30,16},{0,16},{0,2},{39,2}}, color={0,0,127}));
+    annotation (Line(points={{-59,15},{0,15},{0,14},{0,2},{39,2}},            color={0,0,127}));
   connect(enaDis.yRetDamPosMin, mod.uRetDamPosMin)
     annotation (Line(points={{21,-36},{30,-36},{30,14},{39,14}}, color={0,0,127}));
   connect(uTSup, mod.uTSup)
@@ -252,24 +250,25 @@ equation
   connect(VOutMea_flow.y, damLim.VOut_flow)
     annotation (Line(points={{-119,30},{-100,30},{-100,18},{-81,18}}, color={0,0,127}));
   connect(retDamMinFre.y, yRetDamPos)
-    annotation (Line(points={{141,50},{150,50},{150,40},{170,40}}, color={0,0,127}));
+    annotation (Line(points={{141,40},{150,40},{170,40}},          color={0,0,127}));
   connect(mod.yOutDamPos, outDamMaxFre.u1)
-    annotation (Line(points={{61,8},{110,8},{110,-24},{118,-24}}, color={0,0,127}));
+    annotation (Line(points={{61,8},{110,8},{110,-34},{118,-34}}, color={0,0,127}));
   connect(outDamMaxFre.y, yOutDamPos)
-    annotation (Line(points={{141,-30},{150,-30},{150,-20},{170,-20}}, color={0,0,127}));
+    annotation (Line(points={{141,-40},{170,-40}},                     color={0,0,127}));
   connect(outDamMaxFre.u2, noTMix1.y)
-    annotation (Line(points={{118,-36},{110,-36},{110,-50},{101,-50}},color={0,0,127}));
+    annotation (Line(points={{118,-46},{110,-46},{101,-46}},          color={0,0,127}));
   connect(mod.yRetDamPos, retDamMinFre.u2)
-    annotation (Line(points={{61,12},{110,12},{110,44},{118,44}}, color={0,0,127}));
+    annotation (Line(points={{61,12},{110,12},{110,34},{118,34}}, color={0,0,127}));
   connect(retDamMinFre.u1, noTMix.y)
-    annotation (Line(points={{118,56},{110,56},{110,80},{101,80}}, color={0,0,127}));
+    annotation (Line(points={{118,46},{118,46},{97,46}},           color={0,0,127}));
   connect(TMix, freProTMix.TMix)
     annotation (Line(points={{-170,-30},{-120,-30},{-120,-80},{60,-80},{60,-10},{79,-10}},
     color={0,0,127}));
   connect(freProTMix.yFrePro, retDamMinFre.u1)
-    annotation (Line(points={{101,-4},{104,-4},{104,56},{118,56}}, color={0,0,127}));
+    annotation (Line(points={{101,-4},{104,-4},{104,46},{118,46}}, color={0,0,127}));
   connect(freProTMix.yFreProInv, outDamMaxFre.u2)
-    annotation (Line(points={{101,-16},{101,-16},{104,-16},{104,-36},{118,-36},{118,-36}},
+    annotation (Line(points={{101,-16},{101,-16},{104,-16},{104,-46},{108,-46},{
+          118,-46}},
     color={0,0,127}));
   connect(freProSta.y, damLim.uFreProSta)
     annotation (Line(points={{-119,-120},{-90,-120},{-90,2},{-81,2}}, color={255,127,0}));
@@ -354,6 +353,11 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Mo
 for a description.
 </li>
 </ul>
+<p>
+To enable freeze protection control logic that closes the outdoor air damper based
+on the mixed air temperature <code>TMix</code>, set <code>use_TMix=true</code>.
+This part of the control logic is not in Guideline 36, public review draft 1.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
