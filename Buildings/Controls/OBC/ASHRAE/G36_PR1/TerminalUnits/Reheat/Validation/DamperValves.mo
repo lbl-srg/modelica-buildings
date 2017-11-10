@@ -53,11 +53,14 @@ model DamperValves
     "Discharge air temperature"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
+  CDL.Integers.Sources.Constant occSig(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.occupied)
+    "Occupied signal"
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
 equation
   connect(VDis.y, damVal.VDis)
-    annotation (Line(points={{41,-60},{74,-60},{74,39}}, color={0,0,127}));
+    annotation (Line(points={{41,-60},{74,-60},{74,37}}, color={0,0,127}));
   connect(TDis.y, damVal.TDis)
-    annotation (Line(points={{41,-20},{66,-20},{66,39}}, color={0,0,127}));
+    annotation (Line(points={{41,-20},{66,-20},{66,37}}, color={0,0,127}));
   connect(VActCooMax.y, damVal.VActCooMax)
     annotation (Line(points={{41,80},{50,80},{50,59},{59,59}}, color={0,0,127}));
   connect(VActCooMin.y, damVal.VActCooMin)
@@ -79,6 +82,8 @@ equation
   connect(TZon.y, damVal.TRoo)
     annotation (Line(points={{-59,-80},{8,-80},{8,41},{59,41}}, color={0,0,127}));
 
+  connect(occSig.y, damVal.uOpeMod) annotation (Line(points={{41,20},{50,20},{
+          50,39},{59,39}}, color={255,127,0}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/Validation/DamperValves.mos"

@@ -289,11 +289,10 @@ equation
     annotation (Line(points={{41,-14},{120,-14},{120,-20},{150,-20}},
       color={0,0,127}));
   connect(damVal.VDis, VDis)
-    annotation (Line(points={{34,-21},{34,-60},{-160,-60}},
-      color={0,0,127}));
+    annotation (Line(points={{34,-23},{34,-60},{-160,-60}},color={0,0,127}));
   connect(damVal.TDis, TDis)
-    annotation (Line(points={{26,-21},{26,-100},{-160,-100}},
-      color={0,0,127}));
+    annotation (Line(points={{26,-23},{26,-100},{-160,-100}},
+                                                           color={0,0,127}));
   connect(sysReq.TDis, TDis)
     annotation (Line(points={{79,-97},{26,-97},{26,-100},{-160,-100}},
       color={0,0,127}));
@@ -301,14 +300,24 @@ equation
     annotation (Line(points={{79,-92},{62,-92},{62,-6},{41,-6}},
       color={0,0,127}));
   connect(damVal.yHeaVal, sysReq.uHeaVal)
-    annotation (Line(points={{41,-14},{60,-14},{60,-99},{79,-99}},
-      color={0,0,127}));
-  connect(TRoo, damVal.TRoo)
-    annotation (Line(points={{-160,-20},{0,-20},{0,-19},{19,-19}},
-      color={0,0,127}));
-  connect(damVal.TSup, TSupAHU)
-    annotation (Line(points={{19,-17},{-100,-17},{-100,-130},{-160,-130}},
-      color={0,0,127}));
+    annotation (Line(points={{41,-14},{40,-14},{40,-99},{79,-99}},
+                                                             color={0,0,127}));
+  connect(TRoo, damVal.TRoo) annotation (Line(points={{-160,-20},{-40,-20},{-40,
+          -19},{19,-19}},
+                   color={0,0,127}));
+  connect(damVal.TSup, TSupAHU) annotation (Line(points={{19,-17},{-80,-17},{
+          -80,-130},{-160,-130}},
+                       color={0,0,127}));
+  connect(actAirSet.VActCooMax, damVal.VActCooMax) annotation (Line(points={{-19,78},
+          {0,78},{0,-1},{19,-1}},      color={0,0,127}));
+  connect(actAirSet.VActCooMin, damVal.VActCooMin) annotation (Line(points={{-19,75},
+          {-2,75},{-2,-3},{19,-3}},      color={0,0,127}));
+  connect(actAirSet.VActMin, damVal.VActMin) annotation (Line(points={{-19,72},
+          {-4,72},{-4,-9},{19,-9}}, color={0,0,127}));
+  connect(actAirSet.VActHeaMin, damVal.VActHeaMin) annotation (Line(points={{-19,69},
+          {-6,69},{-6,-7},{19,-7}},    color={0,0,127}));
+  connect(actAirSet.VActHeaMax, damVal.VActHeaMax) annotation (Line(points={{-19,66},
+          {-8,66},{-8,-5},{19,-5}},    color={0,0,127}));
   connect(damVal.THeaSet, TRooHeaSet)
     annotation (Line(points={{19,-15},{-124,-15},{-124,160},{-160,160}},
       color={0,0,127}));
@@ -365,8 +374,9 @@ equation
     annotation (Line(points={{-89,120},{-80,120},{-80,-85},{79,-85}},
       color={0,0,127}));
 
-annotation (defaultComponentName="conReh",
-  Icon(graphics={Rectangle(
+  connect(damVal.uOpeMod, uOpeMod) annotation (Line(points={{19,-21},{-60,-21},
+          {-60,-170},{-160,-170}},color={255,127,0}));
+annotation (Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
@@ -433,9 +443,9 @@ annotation (defaultComponentName="conReh",
     Diagram(coordinateSystem(extent={{-140,-180},{140,180}})),
 Documentation(info="<html>
 <p>
-Controller for terminal box of VAV system with reheat according to ASHRAE 
+Controller for terminal box of VAV system with reheat according to ASHRAE
 Guideline 36, Part 5.E. It outputs damper position <code>yDam</code>,
-hot water valve position <code>yVal</code>, AHU cooling supply temperature 
+hot water valve position <code>yVal</code>, AHU cooling supply temperature
 setpoint reset request <code>yZonTemResReq</code>, and static pressure setpoint
 reset request <code>yZonPreResReq</code>.
 </p>
@@ -444,27 +454,27 @@ reset request <code>yZonPreResReq</code>.
 <p>
 The subsequence is implementd according to Part 5.B.5. The measured zone
 temperature <code>TRoo</code>, zone setpoints temperatures <code>TRooHeaSet</code> and
-<code>TRooCooSet</code> are inputs to the block to generate the control loop signal 
+<code>TRooCooSet</code> are inputs to the block to generate the control loop signal
 <code>yHea</code> and <code>yCoo</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.Valves.HeatingAndCooling\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.Valves.HeatingAndCooling</a>.
 </p>
 <h4>b. Active airflow setpoint calculation</h4>
 <p>
-This sequence sets the active maximum and minimum airflow according to 
-Part 5.E.3-5. Depending on operation modes <code>uOpeMod</code>, it sets the 
+This sequence sets the active maximum and minimum airflow according to
+Part 5.E.3-5. Depending on operation modes <code>uOpeMod</code>, it sets the
 airflow rate limits for cooling and heating supply. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow</a>.
 </p>
 <h4>c. Damper and valve control</h4>
 <p>
-This sequence sets the damper and valve position for VAV reheat terminal unit. 
+This sequence sets the damper and valve position for VAV reheat terminal unit.
 The implementation is according to Part 5.E.6. According to heating and cooling
-control loop signal, it calculates the discharge air temperature setpoint 
-<code>TDisSet</code>. Along with the defined maximum and minimum airflow, measured 
+control loop signal, it calculates the discharge air temperature setpoint
+<code>TDisSet</code>. Along with the defined maximum and minimum airflow, measured
 zone temperature, the sequence outputs <code>yDam</code>, <code>yVal</code>,
-<code>TDisSet</code> and discharge airflow rate setpoint <code>VDisSet</code>.   
+<code>TDisSet</code> and discharge airflow rate setpoint <code>VDisSet</code>.
 See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves</a>.
 </p>
@@ -472,8 +482,8 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves</a>.
 <p>
 According to Part 5.E.9, this sequence outputs the system reset requests, i.e.
 cooling supply air temperature reset requests <code>yZonTemResReq</code>,
-static pressure reset requests <code>yZonPreResReq</code>, hot water reset 
-requests <code>yHeaValResReq</code>, and the boiler plant reset requests 
+static pressure reset requests <code>yZonPreResReq</code>, hot water reset
+requests <code>yHeaValResReq</code>, and the boiler plant reset requests
 <code>yHeaPlaReq</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests</a>.
