@@ -1,9 +1,10 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic;
 block FreProTMix "Optional freeze protection block based on mixed air temperature."
 
-  parameter Modelica.SIunits.Temperature TFreSet = 277.15
+  parameter Modelica.SIunits.Temperature TFreSet = 281.15
     "Lower limit for mixed air temperature for freeze protection";
-  parameter Real k=1 "Proportional gain";
+  parameter Real k=0.1 "Proportional gain";
+  parameter Modelica.SIunits.Time Ti=120 "Time constant of Integrator block";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
@@ -29,38 +30,32 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setPoiFre(
     final k=TFreSet)
     "Set point for freeze protection"
-    annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter yFreOut(
     final p=1,
     final k=-1) "Freeze protection control signal inverter"
-    annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter offSig(
-    final k=1,
-    final p=-1/k)
-    "Offset of TMix to account for P-band. This ensures that the damper is fully closed at TFreSet"
-    annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID conFreTMix(
-    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final k=k,
     final yMax=1,
-    final yMin=0)
+    final yMin=0,
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    Ti=Ti)
     "Controller for mixed air to track freeze protection set point"
-    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
 equation
-  connect(conFreTMix.y,yFreOut. u)
-    annotation (Line(points={{11,10},{20,10},{20,30},{38,30}},color={0,0,127}));
   connect(conFreTMix.u_s, setPoiFre.y)
-    annotation (Line(points={{-12,10},{-29,10}},color={0,0,127}));
-  connect(TMix, offSig.u)
-    annotation (Line(points={{-120,0},{-80,0},{-80,-30},{-52,-30}},color={0,0,127}));
-  connect(offSig.y, conFreTMix.u_m)
-    annotation (Line(points={{-29,-30},{0,-30},{0,-2}},color={0,0,127}));
+    annotation (Line(points={{-22,30},{-39,30}},color={0,0,127}));
   connect(yFreOut.y,yFreProInv)
-    annotation (Line(points={{61,30},{110,30}},color={0,0,127}));
-  connect(conFreTMix.y, yFrePro)
-    annotation (Line(points={{11,10},{60,10},{60,-30},{110,-30}}, color={0,0,127}));
+    annotation (Line(points={{81,30},{110,30}},color={0,0,127}));
+  connect(TMix, conFreTMix.u_m)
+    annotation (Line(points={{-120,0},{-10,0},{-10,18}}, color={0,0,127}));
+  connect(conFreTMix.y, yFrePro) annotation (Line(points={{1,30},{30,30},{30,-30},
+          {110,-30}}, color={0,0,127}));
+  connect(conFreTMix.y, yFreOut.u) annotation (Line(points={{1,30},{30,30},{30,30},
+          {58,30}}, color={0,0,127}));
   annotation (
     defaultComponentName = "freProTMix",
     Icon(graphics={

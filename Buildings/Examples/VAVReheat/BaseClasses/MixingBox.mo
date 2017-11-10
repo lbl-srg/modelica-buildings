@@ -74,7 +74,7 @@ model MixingBox
     "Flow coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
     annotation (Dialog(tab="Damper coefficients"));
 
-  parameter Modelica.SIunits.Time riseTime=120
+  parameter Modelica.SIunits.Time riseTime=30
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation (Dialog(tab="Dynamics", group="Filtered opening"));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
@@ -330,6 +330,12 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+November 10, 2017, by Michael Wetter:<br/>
+Changed default of <code>raiseTime</code> as air damper motors, such as from JCI
+have a travel time of about 30 seconds.
+Shorter travel time also makes control loops more stable.
+</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>

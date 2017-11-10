@@ -20,13 +20,26 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
 
-  parameter Real kPMinOut=1
+  parameter Real kPMinOut=0.5
     "Proportional gain of controller for minimum outdoor air"
-    annotation (Evaluate=true,Dialog(tab="Commissioning", group="Control gains"));
-  parameter Modelica.SIunits.Time TiMinOut=1
+    annotation (Dialog(tab="Commissioning", group="Control gains"));
+  parameter Modelica.SIunits.Time TiMinOut=600
     "Time constant of controller for minimum outdoor air"
-    annotation (Evaluate=true, Dialog(tab="Commissioning", group="Control gains"));
+    annotation (Dialog(tab="Commissioning", group="Control gains"));
 
+  parameter Modelica.SIunits.Temperature TFreSet = 281.15
+    "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
+     annotation(Dialog(group="Freeze protection", enable=use_TMix));
+  parameter Real kPFre = 0.1
+    "Proportional gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
+     annotation(Dialog(group="Freeze protection", enable=use_TMix));
+
+  parameter Modelica.SIunits.Time TiFre(max=TiMinOut)=120
+    "Time constant of controller for mixed air temperature tracking for freeze protection, used if use_TMix=true. Require TiFre < TiMinOut"
+     annotation(Dialog(group="Freeze protection", enable=use_TMix));
+
+  parameter Modelica.SIunits.Time delta=120
+    "Time horizon over which the outdoor air flow measurment is averaged";
   parameter Real uHeaMax=-0.25
     "Lower limit of controller input when outdoor damper opens for modulation control. Require -1 < uHeaMax < uCooMin < 1."
     annotation (Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
@@ -73,16 +86,6 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final unit="1") = 0
     "Physically fixed minimum position of the outdoor air damper" annotation (
     Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
-
-  parameter Modelica.SIunits.Temperature TFreSet = 277.15
-    "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
-     annotation(Evaluate=true, Dialog(group="Freeze protection", enable=use_TMix));
-  parameter Real kPFre = 1
-    "Proportional gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
-     annotation(Evaluate=true, Dialog(group="Freeze protection", enable=use_TMix));
-
-  parameter Modelica.SIunits.Time delta=120
-    "Time horizon over which the outdoor air flow measurment is averaged";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")
     "Signal for supply air temperature control (T Sup Control Loop Signal in diagram)"
@@ -178,8 +181,10 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final uOutDamMax=uOutDamMax)
     "Multi zone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreProTMix
-    freProTMix(final TFreSet = TFreSet, final k=kPFre) if use_TMix
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreProTMix freProTMix(
+    final TFreSet = TFreSet,
+    final k=kPFre,
+    final Ti=TiFre) if use_TMix
     "Block that tracks TMix against a freeze protection setpoint"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
 
@@ -357,6 +362,11 @@ for a description.
 To enable freeze protection control logic that closes the outdoor air damper based
 on the mixed air temperature <code>TMix</code>, set <code>use_TMix=true</code>.
 This part of the control logic is not in Guideline 36, public review draft 1.
+</p>
+<p>
+To enable the freeze protection according to Guideline 36, public review draft 1,
+which may be revised in future versions, set
+<code>use_G36FrePro=true</code>.
 </p>
 </html>", revisions="<html>
 <ul>

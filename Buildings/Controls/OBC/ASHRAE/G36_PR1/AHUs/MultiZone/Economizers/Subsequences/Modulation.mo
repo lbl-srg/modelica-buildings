@@ -26,6 +26,9 @@ block Modulation
     "Minimum loop signal for the RA damper to be fully open"
     annotation (Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
 
+  parameter Modelica.SIunits.Time samplePeriod = 300
+    "Sample period of component, used to limit the rate of change of the dampers (to avoid quick opening that can result in frost)";
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")
     "Signal for supply air temperature control (T Sup Control Loop Signal in diagram)"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
@@ -75,7 +78,7 @@ block Modulation
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(
     final k=uMin) "Minimal control loop signal for the outdoor air damper"
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+    annotation (Placement(transformation(extent={{-60,-32},{-40,-12}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMaxLimSig(
     final k=uOutDamMax) "Maximum control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
@@ -101,15 +104,17 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Max max "Overwrite due to freeze protection"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
+  CDL.Discrete.FirstOrderHold firOrdHolOutDam(final samplePeriod=samplePeriod)
+    "First order hold to avoid too fast opening/closing of damper (which may cause freeze protection to be too slow to compensate)"
+    annotation (Placement(transformation(extent={{92,-70},{112,-50}})));
+  CDL.Discrete.FirstOrderHold firOrdHolRetDam(final samplePeriod=samplePeriod)
+    "First order hold to avoid too fast opening/closing of damper (which may cause freeze protection to be too slow to compensate)"
+    annotation (Placement(transformation(extent={{90,50},{110,70}})));
 equation
-  connect(uTSup, outDamPos.u)
-    annotation (Line(points={{-140,0},{-18,0},{-18,-30},{-2,-30}},color={0,0,127}));
-  connect(uTSup, retDamPos.u)
-    annotation (Line(points={{-140,0},{-18,0},{-18,70},{-2,70}},color={0,0,127}));
   connect(outDamPos.x2, outDamMaxLimSig.y)
     annotation (Line(points={{-2,-34},{-30,-34},{-30,-50},{-79,-50}},color={0,0,127}));
   connect(outDamPos.x1, outDamMinLimSig.y)
-    annotation (Line(points={{-2,-22},{-30,-22},{-30,-20},{-79,-20}},color={0,0,127}));
+    annotation (Line(points={{-2,-22},{-39,-22}},                    color={0,0,127}));
   connect(outDamPos.f1, uOutDamPosMin)
     annotation (Line(points={{-2,-26},{-24,-26},{-24,-100},{-140,-100}},color={0,0,127}));
   connect(outDamPos.f2, uOutDamPosMax)
@@ -131,10 +136,18 @@ equation
     annotation (Line(points={{58,66},{30,66},{30,70},{21,70}}, color={0,0,127}));
   connect(uRetDamPosMin, max.u2)
     annotation (Line(points={{-140,50},{-12,50},{-12,54},{58,54}}, color={0,0,127}));
-  connect(max.y, yRetDamPos)
-    annotation (Line(points={{81,60},{101.5,60},{130,60}},            color={0,0,127}));
-  connect(min.y, yOutDamPos)
-    annotation (Line(points={{81,-60},{130,-60}}, color={0,0,127}));
+  connect(min.y, firOrdHolOutDam.u)
+    annotation (Line(points={{81,-60},{90,-60}}, color={0,0,127}));
+  connect(firOrdHolOutDam.y, yOutDamPos)
+    annotation (Line(points={{113,-60},{130,-60}}, color={0,0,127}));
+  connect(uTSup, retDamPos.u) annotation (Line(points={{-140,0},{-22,0},{-22,70},
+          {-2,70}}, color={0,0,127}));
+  connect(uTSup, outDamPos.u) annotation (Line(points={{-140,0},{-22,0},{-22,
+          -30},{-2,-30}}, color={0,0,127}));
+  connect(max.y, firOrdHolRetDam.u)
+    annotation (Line(points={{81,60},{88,60}}, color={0,0,127}));
+  connect(firOrdHolRetDam.y, yRetDamPos)
+    annotation (Line(points={{111,60},{130,60}}, color={0,0,127}));
   annotation (
     defaultComponentName="mod",
     Icon(graphics={
@@ -217,6 +230,16 @@ sequences.
 When the economizer is enabled, the PI controller modulates the damper
 positions. Return and outdoor damper are not interlocked. When the economizer is disabled,
 the damper positions are set to the minimum outdoor air damper position limits.
+</p>
+<p>
+The time rate of change of the damper signals is limited by a first order hold,
+using the sample time <code>samplePeriod</code>.
+This prevents a quick opening of the outdoor air damper, for example when the
+outdoor airflow setpoint has a step change.
+Slowing down the opening of the outdoor air damper allows the freeze protection
+to componensate with its dynamics that is faster than the opening of the outdoor air damper.
+To avoid that all dampers are closed, the return air damper has the same
+time rate of change limitation.
 </p>
 <p>
 The control charts below show the input-output structure and an economizer damper
