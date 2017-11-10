@@ -19,13 +19,13 @@ model Limits_LoopDisable
 
   // Operation Mode
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod1(
-    final k=Constants.OperationModes.warmUp)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
     "AHU operation mode is NOT Occupied"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
   // Freeze Protection Stage
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta2(
-    final k=Constants.FreezeProtectionStages.stage2)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage2)
     "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
@@ -66,20 +66,23 @@ protected
   final parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=0.2
     "Maximum increase in airflow volume during the example simulation";
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(final k=Constants.FreezeProtectionStages.stage1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
     "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus1(final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta1(final k=Constants.FreezeProtectionStages.stage1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta1(
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
     "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus2(final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod2(final k=Constants.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod2(final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 

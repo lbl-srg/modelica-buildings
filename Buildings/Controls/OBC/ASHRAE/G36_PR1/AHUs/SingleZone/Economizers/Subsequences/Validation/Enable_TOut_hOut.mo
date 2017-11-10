@@ -57,7 +57,7 @@ protected
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant zoneState(
-    final k=Constants.ZoneStates.deadband) "Zone State is deadband"
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.deadband) "Zone State is deadband"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMaxSig(
     final k=outDamPosMax)
@@ -68,7 +68,7 @@ protected
     "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-160},{-220,-140}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
-    final k=Constants.FreezeProtectionStages.stage0)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0)
     "Freeze Protection Status - Disabled"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFanSta(

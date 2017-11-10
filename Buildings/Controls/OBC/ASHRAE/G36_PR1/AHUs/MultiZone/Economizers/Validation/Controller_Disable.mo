@@ -52,13 +52,15 @@ protected
     "Fan is on"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(final k=
-        Constants.FreezeProtectionStages.stage1)
+        Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
     "Freeze protection status is 0"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta2(final k=
-        Constants.FreezeProtectionStages.stage2) "Freeze protection stage is 2"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta2(
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage2)
+    "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(final
@@ -198,7 +200,7 @@ and minimal outdoor air control
           horizontalAlignment=TextAlignment.Left,
           fontSize=9,
           textString="Overide damper positions
-based on the TMix tracking 
+based on the TMix tracking
 freeze protection ")}),
     Documentation(info="<html>
 <p>

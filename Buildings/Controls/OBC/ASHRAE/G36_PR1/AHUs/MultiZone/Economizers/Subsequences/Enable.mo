@@ -178,7 +178,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=Constants.FreezeProtectionStages.stage0)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0)
     annotation (Placement(transformation(extent={{-138,30},{-118,50}})));
 
 equation
