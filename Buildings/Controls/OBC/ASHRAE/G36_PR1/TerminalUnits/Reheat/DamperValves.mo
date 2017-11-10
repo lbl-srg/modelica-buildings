@@ -280,7 +280,7 @@ protected
 
   CDL.Integers.Equal isUno "Output true if the operation mode is unoccupied"
     annotation (Placement(transformation(extent={{220,-342},{240,-322}})));
-  CDL.Integers.Sources.Constant unOcc(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.unoccupied)
+  CDL.Integers.Sources.Constant unOcc(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
     "Constant signal for unoccupied mode"
     annotation (Placement(transformation(extent={{170,-342},{190,-322}})));
   CDL.Logical.Switch watValPosUno "Output hot water valve position"

@@ -43,7 +43,7 @@ model Controller "Validate model for controlling VAV terminal box with reheat"
     offset=273.15 + 14) "AHU supply air temperature"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
-    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.occupied)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(k=273.15 + 20)

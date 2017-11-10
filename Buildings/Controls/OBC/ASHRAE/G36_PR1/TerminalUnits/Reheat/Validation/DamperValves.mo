@@ -53,7 +53,7 @@ model DamperValves
     "Discharge air temperature"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
-  CDL.Integers.Sources.Constant occSig(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.occupied)
+  CDL.Integers.Sources.Constant occSig(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied signal"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 equation

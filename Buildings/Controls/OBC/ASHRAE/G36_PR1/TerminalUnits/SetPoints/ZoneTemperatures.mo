@@ -275,15 +275,15 @@ protected
     "Current operation mode is occupied, warm-up, or cool-down mode"
     annotation (Placement(transformation(extent={{-20,600},{0,620}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.warmUp)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
     "Warm-up mode"
     annotation (Placement(transformation(extent={{-340,570},{-320,590}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
-    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.coolDown)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.coolDown)
     "Cool-down mode"
     annotation (Placement(transformation(extent={{-240,570},{-220,590}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.occupied)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied mode"
     annotation (Placement(transformation(extent={{-140,570},{-120,590}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cooSetAdjCon(k=(cooAdj or sinAdj))
@@ -440,7 +440,7 @@ protected
     "Check if the heating demand limit level is level 2"
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt8(
-    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.heating3)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.DemandLimitLevels.heating3)
     "Heat demand limit level 3"
     annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu8
@@ -452,14 +452,14 @@ protected
     "Check if the zone becomes unpopulated during occupied mode"
     annotation (Placement(transformation(extent={{-280,-280},{-260,-260}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt6(
-    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.heating1)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.DemandLimitLevels.heating1)
     "Heat demand limit level 1"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu6
     "Check if the heating demand limit level is level 1"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt7(
-    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.heating2)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.DemandLimitLevels.heating2)
     "Heat demand limit level 2"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr
@@ -469,21 +469,21 @@ protected
     "Check if heating demand limit level is higher than level zero"
     annotation (Placement(transformation(extent={{-340,-60},{-320,-40}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
-    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.cooling1)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.DemandLimitLevels.cooling1)
     "Cool demand limit level 1"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu3
     "Check if the cooling demand limit level is level 1"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
-    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.cooling2)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.DemandLimitLevels.cooling2)
     "Cool demand limit level 2"
     annotation (Placement(transformation(extent={{-160,62},{-140,82}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
     "Check if the cooling demand limit level is level 2"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5(
-    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.cooling3)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.DemandLimitLevels.cooling3)
     "Cool demand limit level 3"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu5

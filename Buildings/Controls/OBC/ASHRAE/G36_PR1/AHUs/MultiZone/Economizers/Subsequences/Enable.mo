@@ -359,13 +359,13 @@ following is <code>true</code>:
 The supply fan is off (<code>uSupFan = false</code>),
 </li>
 <li>
-the zone state <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.ZoneStates\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.ZoneStates</a> is <code>heating</code>, or
+the zone state <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates</a> is <code>heating</code>, or
 </li>
 <li>
 the freeze protection stage
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages</a>
 is not <code>stage0</code>.
 </li>
 </ul>

@@ -317,15 +317,15 @@ conditions included in the sequence are:
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages</a> (PART5.9),
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages</a> (PART5.9),
 </li>
 <li>
 Supply fan status <code>TSupFan</code> (PART5.4.d),
 </li>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.ZoneStates\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.ZoneStates</a> (PART5.3.b).
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates</a> (PART5.3.b).
 </li>
 </ul>
 <p>

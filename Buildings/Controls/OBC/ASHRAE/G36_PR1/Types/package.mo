@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1;
-package Constants "Package with type definitions for control sequences"
+package Types "Package with type definitions for control sequences"
   extends Modelica.Icons.TypesPackage;
 
   annotation (Documentation(info="<html>
@@ -14,4 +14,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Constants;
+end Types;

@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants;
+within Buildings.Controls.OBC.ASHRAE.G36_PR1.Types;
 package OperationModes "Zone group operating modes"
   extends Modelica.Icons.Package;
   constant Integer coolDown = 2 "Cool-down";
