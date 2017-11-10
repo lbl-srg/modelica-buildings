@@ -135,7 +135,7 @@ block Controller "Controller for room VAV box"
     displayUnit = "degC",
     min=0)
     "Setpoint temperature for room for heating"
-    annotation (Placement(transformation(extent={{-140,130},{-100,170}}),
+    annotation (Placement(transformation(extent={{-180,140},{-140,180}}),
       iconTransformation(extent={{-120,40},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooCooSet(
     final quantity="ThermodynamicTemperature",
@@ -143,7 +143,7 @@ block Controller "Controller for room VAV box"
     displayUnit = "degC",
     min=0)
     "Setpoint temperature for room for cooling"
-    annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
+    annotation (Placement(transformation(extent={{-180,100},{-140,140}}),
       iconTransformation(extent={{-120,20},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(
     final quantity="ThermodynamicTemperature",
@@ -151,7 +151,7 @@ block Controller "Controller for room VAV box"
     displayUnit = "degC",
     min=0)
     "Measured room temperature"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+    annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
       iconTransformation(extent={{-120,-20},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final quantity="ThermodynamicTemperature",
@@ -159,13 +159,13 @@ block Controller "Controller for room VAV box"
     displayUnit = "degC",
     min=0)
     "Measured supply air temperature after heating coil"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+    annotation (Placement(transformation(extent={{-180,-120},{-140,-80}}),
       iconTransformation(extent={{-120,-40},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis(
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Measured discharge airflow rate"
-    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
+    annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
       iconTransformation(extent={{-120,0},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupAHU(
     final quantity="ThermodynamicTemperature",
@@ -173,54 +173,47 @@ block Controller "Controller for room VAV box"
     displayUnit = "degC",
     min=0)
     "AHU supply air temperature"
-    annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
+    annotation (Placement(transformation(extent={{-180,-150},{-140,-110}}),
       iconTransformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2 if have_CO2Sen
     "Measured CO2 concentration"
-    annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
+    annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
       iconTransformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc if have_occSen
     "Number of occupants"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+    annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
       iconTransformation(extent={{-120,80},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
     "Window status, true if open, false if closed"
-    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
+    annotation (Placement(transformation(extent={{-180,-10},{-140,30}}),
       iconTransformation(extent={{-120,-100},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "Zone operation mode"
-    annotation (Placement(transformation(extent={{-140,-140},{-100,-100}}),
+    annotation (Placement(transformation(extent={{-180,-190},{-140,-150}}),
       iconTransformation(extent={{-120,-80},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal(
     min=0,
     max=1,
     final unit="1")
     "Signal for heating coil valve"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+    annotation (Placement(transformation(extent={{140,-30},{160,-10}}),
       iconTransformation(extent={{100,0},{120,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
     min=0,
     max=1,
     final unit="1")
     "Signal for VAV damper"
-    annotation (Placement(transformation(extent={{100,90},{120,110}}),
+    annotation (Placement(transformation(extent={{140,70},{160,90}}),
       iconTransformation(extent={{100,50},{120,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonTemResReq
     "Zone cooling supply air temperature reset request"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
+    annotation (Placement(transformation(extent={{140,-90},{160,-70}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonPreResReq
     "Zone static pressure reset requests"
-    annotation (Placement(transformation(extent={{100,-110},{120,-90}}),
+    annotation (Placement(transformation(extent={{140,-130},{160,-110}}),
       iconTransformation(extent={{100,-90},{120,-70}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.Valves.HeatingAndCooling heaCoo(
-    final kPCoo=kPCoo,
-    final TiCoo=TiCoo,
-    final kPHea=kPHea,
-    final TiHea=TiHea)
-    "Heating and cooling controller"
-    annotation (Placement(transformation(extent={{-70,120},{-50,140}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
     actAirSet(
     final zonAre=zonAre,
@@ -235,7 +228,7 @@ block Controller "Controller for room VAV box"
     final outAirPerPer=outAirPerPer,
     final CO2Set=CO2Set)
     "Active airflow rate setpoint"
-    annotation (Placement(transformation(extent={{-32,90},{-12,110}})));
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves damVal(
     final kWatVal=kWatVal,
     final TiWatVal=TiWatVal,
@@ -243,7 +236,7 @@ block Controller "Controller for room VAV box"
     final TiDam=TiDam,
     final dTDisMax=dTDisMax,
     final TDisMin=TDisMin) "Damper and valve controller"
-    annotation (Placement(transformation(extent={{10,60},{30,80}})));
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests sysReq(
     final samplePeriod=samplePeriod,
     final have_heaWatCoi=have_heaWatCoi,
@@ -256,96 +249,133 @@ block Controller "Controller for room VAV box"
     final durTimFlo=durTimFlo,
     final durTimDisAir=durTimDisAir)
     "Number of system requests"
-    annotation (Placement(transformation(extent={{52,-62},{72,-42}})));
+    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conHeaLoo(
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final k=kPHea,
+    final Ti=TiHea,
+    final yMax=1,
+    final yMin=0) "Heating loop signal"
+    annotation (Placement(transformation(extent={{-110,150},{-90,170}})));
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conCooLoo(
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final k=kPCoo,
+    final Ti=TiCoo,
+    final yMax=1,
+    final yMin=0,
+    reverseAction=true) "Cooling loop signal"
+    annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
 
 equation
   connect(sysReq.TCooSet, TRooCooSet)
-    annotation (Line(points={{51,-43},{-78,-43},{-78,120},{-120,120}},
+    annotation (Line(points={{79,-81},{-120,-81},{-120,120},{-160,120}},
       color={0,0,127}));
   connect(sysReq.TRoo, TRoo)
-    annotation (Line(points={{51,-45},{-40,-45},{-40,0},{-120,0}},
+    annotation (Line(points={{79,-83},{0,-83},{0,-20},{-160,-20}},
       color={0,0,127}));
-  connect(sysReq.VDisSet, damVal.VDisSet) annotation (Line(points={{51,-50},{44,
-          -50},{44,78},{31,78}},color={0,0,127}));
+  connect(sysReq.VDisSet, damVal.VDisSet)
+    annotation (Line(points={{79,-88},{64,-88},{64,-2},{41,-2}},
+      color={0,0,127}));
   connect(sysReq.VDis, VDis)
-    annotation (Line(points={{51,-52},{24,-52},{24,-30},{-120,-30}},
+    annotation (Line(points={{79,-90},{34,-90},{34,-60},{-160,-60}},
       color={0,0,127}));
   connect(sysReq.TDisSet, damVal.TDisSet)
-    annotation (Line(points={{51,-57},{42,-57},{42,62},{31,62}},
-                                                             color={0,0,127}));
-  connect(damVal.yDam, yDam) annotation (Line(points={{31,74},{80,74},{80,100},
-          {110,100}}, color={0,0,127}));
-  connect(damVal.yHeaVal, yVal) annotation (Line(points={{31,66},{80,66},{80,0},
-          {110,0}}, color={0,0,127}));
+    annotation (Line(points={{79,-95},{58,-95},{58,-18},{41,-18}},
+      color={0,0,127}));
+  connect(damVal.yDam, yDam)
+    annotation (Line(points={{41,-6},{120,-6},{120,80},{150,80}},
+      color={0,0,127}));
+  connect(damVal.yHeaVal, yVal)
+    annotation (Line(points={{41,-14},{120,-14},{120,-20},{150,-20}},
+      color={0,0,127}));
   connect(damVal.VDis, VDis)
-    annotation (Line(points={{24,57},{24,-30},{-120,-30}}, color={0,0,127}));
+    annotation (Line(points={{34,-23},{34,-60},{-160,-60}},color={0,0,127}));
   connect(damVal.TDis, TDis)
-    annotation (Line(points={{16,57},{16,-60},{-120,-60}}, color={0,0,127}));
+    annotation (Line(points={{26,-23},{26,-100},{-160,-100}},
+                                                           color={0,0,127}));
   connect(sysReq.TDis, TDis)
-    annotation (Line(points={{51,-59},{16,-59},{16,-60},{-120,-60}},
+    annotation (Line(points={{79,-97},{26,-97},{26,-100},{-160,-100}},
       color={0,0,127}));
   connect(sysReq.uDam, damVal.yDam)
-    annotation (Line(points={{51,-54},{46,-54},{46,74},{31,74}},
-                                                             color={0,0,127}));
+    annotation (Line(points={{79,-92},{62,-92},{62,-6},{41,-6}},
+      color={0,0,127}));
   connect(damVal.yHeaVal, sysReq.uHeaVal)
-    annotation (Line(points={{31,66},{40,66},{40,-61},{51,-61}},
+    annotation (Line(points={{41,-14},{40,-14},{40,-99},{79,-99}},
                                                              color={0,0,127}));
-  connect(TRoo, damVal.TRoo) annotation (Line(points={{-120,0},{-40,0},{-40,61},
-          {9,61}}, color={0,0,127}));
-  connect(damVal.TSup, TSupAHU) annotation (Line(points={{9,63},{-80,63},{-80,
-          -90},{-120,-90}},
+  connect(TRoo, damVal.TRoo) annotation (Line(points={{-160,-20},{-40,-20},{-40,
+          -19},{19,-19}},
+                   color={0,0,127}));
+  connect(damVal.TSup, TSupAHU) annotation (Line(points={{19,-17},{-80,-17},{
+          -80,-130},{-160,-130}},
                        color={0,0,127}));
-  connect(damVal.THeaSet, TRooHeaSet) annotation (Line(points={{9,65},{-80,65},
-          {-80,150},{-120,150}}, color={0,0,127}));
-  connect(damVal.uHea, heaCoo.yHea) annotation (Line(points={{9,67},{-40,67},{
-          -40,134},{-49,134}},
-                           color={0,0,127}));
-  connect(damVal.uCoo, heaCoo.yCoo) annotation (Line(points={{9,69},{-42,69},{
-          -42,126},{-49,126}},
-                           color={0,0,127}));
-  connect(actAirSet.VActCooMax, damVal.VActCooMax) annotation (Line(points={{-11,108},
-          {0,108},{0,79},{9,79}},      color={0,0,127}));
-  connect(actAirSet.VActCooMin, damVal.VActCooMin) annotation (Line(points={{-11,105},
-          {-2,105},{-2,77},{9,77}},      color={0,0,127}));
-  connect(actAirSet.VActMin, damVal.VActMin) annotation (Line(points={{-11,102},
-          {-4,102},{-4,71},{9,71}}, color={0,0,127}));
-  connect(actAirSet.VActHeaMin, damVal.VActHeaMin) annotation (Line(points={{-11,99},
-          {-6,99},{-6,73},{9,73}},     color={0,0,127}));
-  connect(actAirSet.VActHeaMax, damVal.VActHeaMax) annotation (Line(points={{-11,96},
-          {-8,96},{-8,75},{9,75}},     color={0,0,127}));
-  connect(heaCoo.TRooHeaSet, TRooHeaSet)
-    annotation (Line(points={{-71,136},{-80,136},{-80,150},{-120,150}},
+  connect(actAirSet.VActCooMax, damVal.VActCooMax) annotation (Line(points={{-19,78},
+          {0,78},{0,-1},{19,-1}},      color={0,0,127}));
+  connect(actAirSet.VActCooMin, damVal.VActCooMin) annotation (Line(points={{-19,75},
+          {-2,75},{-2,-3},{19,-3}},      color={0,0,127}));
+  connect(actAirSet.VActMin, damVal.VActMin) annotation (Line(points={{-19,72},
+          {-4,72},{-4,-9},{19,-9}}, color={0,0,127}));
+  connect(actAirSet.VActHeaMin, damVal.VActHeaMin) annotation (Line(points={{-19,69},
+          {-6,69},{-6,-7},{19,-7}},    color={0,0,127}));
+  connect(actAirSet.VActHeaMax, damVal.VActHeaMax) annotation (Line(points={{-19,66},
+          {-8,66},{-8,-5},{19,-5}},    color={0,0,127}));
+  connect(damVal.THeaSet, TRooHeaSet)
+    annotation (Line(points={{19,-15},{-124,-15},{-124,160},{-160,160}},
       color={0,0,127}));
-  connect(heaCoo.TRooCooSet, TRooCooSet)
-    annotation (Line(points={{-71,130},{-78,130},{-78,120},{-120,120}},
+  connect(actAirSet.VActCooMax, damVal.VActCooMax)
+    annotation (Line(points={{-19,78},{0,78},{0,-1},{19,-1}},
       color={0,0,127}));
-  connect(heaCoo.TRoo, TRoo)
-    annotation (Line(points={{-71,124},{-76,124},{-76,0},{-120,0}},
+  connect(actAirSet.VActCooMin, damVal.VActCooMin)
+    annotation (Line(points={{-19,75},{-2,75},{-2,-3},{19,-3}},
+      color={0,0,127}));
+  connect(actAirSet.VActMin, damVal.VActMin)
+    annotation (Line(points={{-19,72},{-4,72},{-4,-9},{19,-9}},
+      color={0,0,127}));
+  connect(actAirSet.VActHeaMin, damVal.VActHeaMin)
+    annotation (Line(points={{-19,69},{-6,69},{-6,-7},{19,-7}},
+      color={0,0,127}));
+  connect(actAirSet.VActHeaMax, damVal.VActHeaMax)
+    annotation (Line(points={{-19,66},{-8,66},{-8,-5},{19,-5}},
       color={0,0,127}));
   connect(actAirSet.uOpeMod, uOpeMod)
-    annotation (Line(points={{-33,97},{-60,97},{-60,-120},{-120,-120}},
+    annotation (Line(points={{-41,67},{-58,67},{-58,-170},{-160,-170}},
       color={255,127,0}));
   connect(sysReq.yZonTemResReq, yZonTemResReq)
-    annotation (Line(points={{73,-45},{78,-45},{78,-60},{110,-60}},
+    annotation (Line(points={{101,-83},{120,-83},{120,-80},{150,-80}},
       color={255,127,0}));
   connect(sysReq.yZonPreResReq, yZonPreResReq)
-    annotation (Line(points={{73,-50},{76,-50},{76,-100},{110,-100}},
+    annotation (Line(points={{101,-88},{120,-88},{120,-120},{150,-120}},
       color={255,127,0}));
-  connect(heaCoo.yCoo, sysReq.uCoo)
-    annotation (Line(points={{-49,126},{-42,126},{-42,-47},{51,-47}},
-      color={0,0,127}));
   connect(actAirSet.ppmCO2, ppmCO2)
-    annotation (Line(points={{-33,106},{-64,106},{-64,90},{-120,90}},
+    annotation (Line(points={{-41,76},{-60,76},{-60,80},{-160,80}},
       color={0,0,127}));
   connect(actAirSet.nOcc, nOcc)
-    annotation (Line(points={{-33,102},{-56,102},{-56,60},{-120,60}},
+    annotation (Line(points={{-41,72},{-60,72},{-60,40},{-160,40}},
       color={0,0,127}));
   connect(actAirSet.uWin, uWin)
-    annotation (Line(points={{-33,93},{-52,93},{-52,30},{-120,30}},
+    annotation (Line(points={{-41,63},{-56,63},{-56,10},{-160,10}},
       color={255,0,255}));
+  connect(TRooHeaSet, conHeaLoo.u_s)
+    annotation (Line(points={{-160,160},{-112,160}}, color={0,0,127}));
+  connect(TRooCooSet, conCooLoo.u_s)
+    annotation (Line(points={{-160,120},{-112,120}}, color={0,0,127}));
+  connect(TRoo, conHeaLoo.u_m)
+    annotation (Line(points={{-160,-20},{-122,-20},{-122,140},{-100,140},
+      {-100,148}}, color={0,0,127}));
+  connect(TRoo, conCooLoo.u_m)
+    annotation (Line(points={{-160,-20},{-122,-20},{-122,100},{-100,100},
+      {-100,108}}, color={0,0,127}));
+  connect(conCooLoo.y, damVal.uCoo)
+    annotation (Line(points={{-89,120},{-80,120},{-80,-11},{19,-11}},
+      color={0,0,127}));
+  connect(conHeaLoo.y, damVal.uHea)
+    annotation (Line(points={{-89,160},{-78,160},{-78,-13},{19,-13}},
+      color={0,0,127}));
+  connect(conCooLoo.y, sysReq.uCoo)
+    annotation (Line(points={{-89,120},{-80,120},{-80,-85},{79,-85}},
+      color={0,0,127}));
 
-  connect(damVal.uOpeMod, uOpeMod) annotation (Line(points={{9,59},{-60,59},{
-          -60,-120},{-120,-120}}, color={255,127,0}));
+  connect(damVal.uOpeMod, uOpeMod) annotation (Line(points={{19,-21},{-60,-21},
+          {-60,-170},{-160,-170}},color={255,127,0}));
 annotation (Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
@@ -410,12 +440,12 @@ annotation (Icon(graphics={Rectangle(
           extent={{24,-62},{96,-96}},
           lineColor={0,0,127},
           textString="yZonPreResReq")}),
-    Diagram(coordinateSystem(extent={{-100,-140},{100,160}})),
+    Diagram(coordinateSystem(extent={{-140,-180},{140,180}})),
 Documentation(info="<html>
 <p>
-Controller for terminal box of VAV system with reheat according to ASHRAE 
+Controller for terminal box of VAV system with reheat according to ASHRAE
 Guideline 36, Part 5.E. It outputs damper position <code>yDam</code>,
-hot water valve position <code>yVal</code>, AHU cooling supply temperature 
+hot water valve position <code>yVal</code>, AHU cooling supply temperature
 setpoint reset request <code>yZonTemResReq</code>, and static pressure setpoint
 reset request <code>yZonPreResReq</code>.
 </p>
@@ -424,27 +454,27 @@ reset request <code>yZonPreResReq</code>.
 <p>
 The subsequence is implementd according to Part 5.B.5. The measured zone
 temperature <code>TRoo</code>, zone setpoints temperatures <code>TRooHeaSet</code> and
-<code>TRooCooSet</code> are inputs to the block to generate the control loop signal 
+<code>TRooCooSet</code> are inputs to the block to generate the control loop signal
 <code>yHea</code> and <code>yCoo</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.Valves.HeatingAndCooling\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.Valves.HeatingAndCooling</a>.
 </p>
 <h4>b. Active airflow setpoint calculation</h4>
 <p>
-This sequence sets the active maximum and minimum airflow according to 
-Part 5.E.3-5. Depending on operation modes <code>uOpeMod</code>, it sets the 
+This sequence sets the active maximum and minimum airflow according to
+Part 5.E.3-5. Depending on operation modes <code>uOpeMod</code>, it sets the
 airflow rate limits for cooling and heating supply. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow</a>.
 </p>
 <h4>c. Damper and valve control</h4>
 <p>
-This sequence sets the damper and valve position for VAV reheat terminal unit. 
+This sequence sets the damper and valve position for VAV reheat terminal unit.
 The implementation is according to Part 5.E.6. According to heating and cooling
-control loop signal, it calculates the discharge air temperature setpoint 
-<code>TDisSet</code>. Along with the defined maximum and minimum airflow, measured 
+control loop signal, it calculates the discharge air temperature setpoint
+<code>TDisSet</code>. Along with the defined maximum and minimum airflow, measured
 zone temperature, the sequence outputs <code>yDam</code>, <code>yVal</code>,
-<code>TDisSet</code> and discharge airflow rate setpoint <code>VDisSet</code>.   
+<code>TDisSet</code> and discharge airflow rate setpoint <code>VDisSet</code>.
 See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves</a>.
 </p>
@@ -452,8 +482,8 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves</a>.
 <p>
 According to Part 5.E.9, this sequence outputs the system reset requests, i.e.
 cooling supply air temperature reset requests <code>yZonTemResReq</code>,
-static pressure reset requests <code>yZonPreResReq</code>, hot water reset 
-requests <code>yHeaValResReq</code>, and the boiler plant reset requests 
+static pressure reset requests <code>yZonPreResReq</code>, hot water reset
+requests <code>yHeaValResReq</code>, and the boiler plant reset requests
 <code>yHeaPlaReq</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests</a>.
