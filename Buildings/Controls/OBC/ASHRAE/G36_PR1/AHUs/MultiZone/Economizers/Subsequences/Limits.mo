@@ -11,11 +11,11 @@ block Limits "Multi zone VAV AHU minimum outdoor air control - damper position l
     final unit="1") = 0.5
     "Minimum control signal for the RA damper position limit"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Real kPDamLim=1 "Gain of damper limit controller"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Modelica.SIunits.Time TiDamLim=30
+  parameter Real kPDamLim=0.5 "Gain of damper limit controller"
+    annotation(Dialog(tab="Commissioning", group="Controller"));
+  parameter Modelica.SIunits.Time TiDamLim=300
     "Time constant of damper limit controller integrator block"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+    annotation(Dialog(tab="Commissioning", group="Controller"));
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
@@ -223,7 +223,8 @@ equation
   connect(retDamPhyPosMaxSig.y, yRetDamPhyPosMax)
     annotation (Line(points={{-139,-40},{40,-40},{40,-80},{190,-80}},color={0,0,127}));
   connect(and1.u[1], uSupFan)
-    annotation (Line(points={{-42,-85.3333},{-160,-85.3333},{-160,-100},{-200,-100}},
+    annotation (Line(points={{-42,-85.3333},{-160,-85.3333},{-160,-100},{-200,
+          -100}},
       color={255,0,255}));
   connect(uOpeMod, intEqu.u1)
     annotation (Line(points={{-200,-180},{-122,-180}}, color={255,127,0}));
@@ -233,8 +234,8 @@ equation
   connect(intLesEqu.y, and1.u[2])
     annotation (Line(points={{-99,-140},{-94,-140},{-94,-90},{-42,-90}}, color={255,0,255}));
   connect(intEqu.y, and1.u[3])
-    annotation (Line(points={{-99,-180},{-48,-180},{-48,-178},{-48,-94.6667},{-42,-94.6667},{-42,
-          -94.6667}},
+    annotation (Line(points={{-99,-180},{-48,-180},{-48,-178},{-48,-94.6667},{
+          -42,-94.6667},{-42,-94.6667}},
       color={255,0,255}));
   connect(conInt.y, intLesEqu.u2)
     annotation (Line(points={{-139,-160},{-130,-160},{-130,-148},{-122,-148}}, color={255,127,0}));

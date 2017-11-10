@@ -76,12 +76,23 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Physically fixed minimum position of the outdoor air damper"
     annotation (Evaluate=true,
       Dialog(tab="Economizer", group="Damper limits"));
-  parameter Real kPMinOut=0.05
+  parameter Real kPMinOut=0.5
     "Proportional gain of controller for minimum outdoor air intake"
     annotation (Dialog(group="Economizer PID controller"));
-  parameter Modelica.SIunits.Time TiMinOut=120
+  parameter Modelica.SIunits.Time TiMinOut=600
     "Time constant of controller for minimum outdoor air intake"
     annotation (Dialog(group="Economizer PID controller"));
+
+  parameter Modelica.SIunits.Temperature TFreSet = 281.15
+    "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
+     annotation(Dialog(group="Freeze protection", enable=use_TMix));
+  parameter Real kPFre = 0.1
+    "Proportional gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
+     annotation(Dialog(group="Freeze protection", enable=use_TMix));
+  parameter Modelica.SIunits.Time TiFre(max=TiMinOut)=120
+    "Time constant of controller for mixed air temperature tracking for freeze protection, used if use_TMix=true. Require TiFre < TiMinOut"
+     annotation(Dialog(group="Freeze protection", enable=use_TMix));
+
   parameter Real yMinDamLim=0
     "Lower limit of damper position limits control signal output"
     annotation (Evaluate=true,
@@ -90,12 +101,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Upper limit of damper position limits control signal output"
     annotation (Evaluate=true,
       Dialog(tab="Economizer", group="Damper limits"));
-  parameter Modelica.SIunits.Temperature TFreSet = 277.15
-    "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
-     annotation(Dialog(tab="Economizer", group="Economizer freeze protection", enable=use_TMix));
-  parameter Real kPFre = 1
-    "Proportional gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
-     annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
+
   parameter Modelica.SIunits.Time retDamFulOpeTim=180
     "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control
     at disable to avoid pressure fluctuations"
@@ -503,6 +509,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final uRetDamMin=(uHeaMax + uCooMin)/2,
     final TFreSet=TFreSet,
     final kPFre=kPFre,
+    final TiFre=TiFre,
     final delta=delta,
     final use_TMix=use_TMix,
     final use_G36FrePro=use_G36FrePro) "Economizer controller"
