@@ -17,7 +17,8 @@ model Controller "Validation controller model"
     final k=273.15 + 20)
     "Heating on setpoint"
     annotation (Placement(transformation(extent={{-170,133},{-150,153}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(final k=297.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(
+    final k=297.15)
     "Outdoor temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
@@ -74,22 +75,24 @@ model Controller "Validation controller model"
     startTime=0)
     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Modelica.Blocks.Sources.Sine TOut(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOut(
     amplitude=5,
     offset=18 + 273.15,
     freqHz=1/3600) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-170,100},{-150,120}})));
-  Modelica.Blocks.Sources.Sine ducStaPre(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine ducStaPre(
     offset=200,
     amplitude=150,
     freqHz=1/3600) "Duct static pressure"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Modelica.Blocks.Sources.Sine sine(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
     offset=3,
     amplitude=2,
     freqHz=1/9600) "Duct static pressure setpoint reset requests"
     annotation (Placement(transformation(extent={{-170,-150},{-150,-130}})));
-  Modelica.Blocks.Sources.Sine sine1(amplitude=6, freqHz=1/9600)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine1(
+    amplitude=6,
+    freqHz=1/9600)
     "Maximum supply temperature setpoint reset"
     annotation (Placement(transformation(extent={{-170,-110},{-150,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs

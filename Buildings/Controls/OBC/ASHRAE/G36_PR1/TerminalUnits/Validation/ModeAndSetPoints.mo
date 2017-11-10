@@ -20,20 +20,21 @@ model ModeAndSetPoints
 
   Buildings.Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
     annotation (Placement(transformation(extent={{-90,72},{-70,92}})));
-  Modelica.Blocks.Sources.Sine heaSetAdj[2](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine  heaSetAdj[2](
     each freqHz=1/28800,
     each amplitude=0.5)
     "Heating setpoint adjustment"
     annotation (Placement(transformation(extent={{-46,0},{-26,20}})));
-  Modelica.Blocks.Sources.Sine cooSetAdj[2](each freqHz=1/28800)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine cooSetAdj[2](
+    each freqHz=1/28800)
     "Cooling setpoint adjustment"
     annotation (Placement(transformation(extent={{-46,40},{-26,60}})));
-  Modelica.Blocks.Sources.Sine TZon1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon1(
     amplitude=5,
     offset=18 + 273.15,
     freqHz=1/86400) "Zone 1 temperature"
     annotation (Placement(transformation(extent={{-88,40},{-68,60}})));
-  Modelica.Blocks.Sources.Sine TZon2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon2(
     offset=18 + 273.15,
     freqHz=1/86400,
     amplitude=7.5) "Zone 2 temperature"

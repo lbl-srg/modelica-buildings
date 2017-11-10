@@ -244,6 +244,12 @@ its class name ends with the string <code>Beta</code>.
                           or <i>hA</i>-calculation that is independent of temperature),
                           two fast state variables can be removed.<br/>
                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/678\">Buildings, #678</a>.
+                          <br/><br/>
+                          Added approximation of diffusion, which is needed for very small
+                          flow rates which can happen if fans are off but wind pressure
+                          entrains cold air through the HVAC system.<br/>
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1038\">Buildings, #1038</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
