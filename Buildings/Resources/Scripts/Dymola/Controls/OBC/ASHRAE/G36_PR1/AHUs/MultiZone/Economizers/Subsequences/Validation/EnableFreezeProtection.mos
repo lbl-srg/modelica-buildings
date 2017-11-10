@@ -1,4 +1,0 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Validation.EnableFreezeProtection", method="dassl", tolerance=1e-06, resultFile="EnableFreezeProtection");
-createPlot(id=1, position={55, 50, 906, 610}, y={"TMixMea.y", "enaDis.TFreSet"}, range={0.0, 1.0, 2.0, 8.0}, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
-createPlot(id=1, position={55, 50, 906, 303}, y={"enaDis.yOutDamPosMax", "enaDis.yRetDamPosMin"}, range={0.0, 1.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
-createPlot(id=2, position={976, 53, 880, 514}, x="enaDis.TMix", y={"enaDis.yOutDamPosMax", "enaDis.yRetDamPosMin"}, range={3.0, 7.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="d");

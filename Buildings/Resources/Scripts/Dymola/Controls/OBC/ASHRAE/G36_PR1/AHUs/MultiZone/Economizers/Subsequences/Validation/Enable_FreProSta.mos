@@ -1,0 +1,4 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Validation.Enable_FreProSta", method="dassl", stopTime=1800, tolerance=1e-06, resultFile="Enable_FreProSta_MultiZone");
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"enaDis.yOutDamPosMax", "enaDis.yRetDamPosMin", "enaDis.yRetDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"enaDis.andEnaDis.y", "enaDis.truFalHol.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"freProSta1.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});

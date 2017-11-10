@@ -3,6 +3,7 @@ compareVars :=
     "economizer.enaDis.andEnaDis.y",
     "economizer.VOut_flow",
     "economizer.VOutMinSet_flow",
+    "economizer1.uTSup",
     "economizer.yOutDamPos",
     "economizer.damLim.yOutDamPosMin",
     "economizer.damLim.yOutDamPosMax",

@@ -9,6 +9,14 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Lower limit of controller signal when cooling coil is off. Require -1 < uHeaMax < uCooMin < 1.";
   parameter Integer numZon(min=2) "Total number of served VAV boxes"
     annotation (Dialog(group="System and building parameters"));
+
+  parameter Boolean use_TMix=true
+    "Set to true if mixed air temperature measurement is enabled"
+     annotation(Dialog(group="Economizer freeze protection"));
+  parameter Boolean use_G36FrePro=false
+    "Set to true to use G36 freeze protection"
+    annotation(Dialog(group="Economizer freeze protection"));
+
   parameter Modelica.SIunits.Area zonAre[numZon] "Area of each zone"
     annotation (Dialog(group="System and building parameters"));
   parameter Boolean have_occSen=false
@@ -83,11 +91,11 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     annotation (Evaluate=true,
       Dialog(tab="Economizer", group="Damper limits"));
   parameter Modelica.SIunits.Temperature TFreSet = 277.15
-    "Lower limit for mixed air temperature for freeze protection"
-     annotation(Evaluate=true, Dialog(tab="Economizer", group="Freeze protection"));
+    "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
+     annotation(Dialog(tab="Economizer", group="Economizer freeze protection", enable=use_TMix));
   parameter Real kPFre = 1
-    "Proportional gain for mixed air temperature tracking for freeze protection"
-     annotation(Evaluate=true, Dialog(tab="Economizer", group="Freeze protection"));
+    "Proportional gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
+     annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
   parameter Modelica.SIunits.Time retDamFulOpeTim=180
     "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control
     at disable to avoid pressure fluctuations"
@@ -278,8 +286,8 @@ block Controller "Multizone AHU controller that composes subsequences for contro
       iconTransformation(extent={{-220,-80},{-200,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
-    final quantity = "ThermodynamicTemperature")
-    "Measured mixed air temperature, used for freeze protection"
+    final quantity = "ThermodynamicTemperature") if use_TMix
+    "Measured mixed air temperature, used for freeze protection if use_TMix=true"
     annotation (Placement(transformation(extent={{-180,-90},{-160,-70}}),
       iconTransformation(extent={{-220,-100},{-200,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ducStaPre(
@@ -290,8 +298,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
       iconTransformation(extent={{-220,-50},{-200,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
-    final quantity="ThermodynamicTemperature")
-    "Outdoor air (OA) temperature"
+    final quantity="ThermodynamicTemperature") "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-180,156},{-160,176}}),
       iconTransformation(extent={{-220,200},{-200,220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(
@@ -354,19 +361,11 @@ block Controller "Multizone AHU controller that composes subsequences for contro
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonTemResReq
     "Zone cooling supply air temperature reset request"
     annotation (Placement(transformation(extent={{-180,-150},{-160,-130}}),
-      iconTransformation(extent={{-220,-240},{-200,-220}})));
+      iconTransformation(extent={{-220,-190},{-200,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonPreResReq
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{-180,-170},{-160,-150}}),
-      iconTransformation(extent={{-220,-260},{-200,-240}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta
-    "Zone state signal"
-    annotation (Placement(transformation(extent={{-180,-130},{-160,-110}}),
-      iconTransformation(extent={{-220,-170},{-200,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
-    "Freeze protection status"
-    annotation (Placement(transformation(extent={{-180,-190},{-160,-170}}),
-      iconTransformation(extent={{-220,-200},{-200,-180}})));
+      iconTransformation(extent={{-220,-220},{-200,-200}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}}),
@@ -375,6 +374,13 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-182,178},{-160,200}}),
       iconTransformation(extent={{-220,10},{-200,30}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if
+      use_G36FrePro
+   "Freeze protection status, used if use_G36FrePro=true" annotation (
+     Placement(transformation(extent={{-180,-190},{-160,-170}}),
+        iconTransformation(extent={{-220,-260},{-200,-240}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetSup(
     final unit="K",
     final quantity="ThermodynamicTemperature")
@@ -497,8 +503,10 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final uRetDamMin=(uHeaMax + uCooMin)/2,
     final TFreSet=TFreSet,
     final kPFre=kPFre,
-    final delta=delta) "Economizer controller"
-    annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
+    final delta=delta,
+    final use_TMix=use_TMix,
+    final use_G36FrePro=use_G36FrePro) "Economizer controller"
+    annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Valve val(
     final uHeaMax=uHeaMax,
     final uCooMin=uCooMin,
@@ -507,57 +515,39 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
 equation
-  connect(eco.yRetDamPos, yRetDamPos)
-    annotation (Line(points={{140.625,-25},{160,-25},{160,-40},{190,-40}},
-      color={0,0,127}));
-  connect(eco.yOutDamPos, yOutDamPos)
-    annotation (Line(points={{140.625,-35},{152,-35},{152,-150},{190,-150}},
-      color={0,0,127}));
-  connect(eco.uSupFan, conSupFan.ySupFan)
-    annotation (Line(points={{119.375,-33.75},{-84,-33.75},{-84,137},{-99,137}},
-      color={255,0,255}));
+  connect(eco.yRetDamPos, yRetDamPos) annotation (Line(points={{140.625,-45},{160,
+          -45},{160,-40},{190,-40}}, color={0,0,127}));
+  connect(eco.yOutDamPos, yOutDamPos) annotation (Line(points={{140.625,-55},{160,
+          -55},{160,-150},{190,-150}}, color={0,0,127}));
+  connect(eco.uSupFan, conSupFan.ySupFan) annotation (Line(points={{119.375,-54.375},{-84,-54.375},
+          {-84,137},{-99,137}}, color={255,0,255}));
   connect(conSupFan.ySupFanSpe, ySupFanSpe)
     annotation (Line(points={{-99,130},{190,130}},
       color={0,0,127}));
-  connect(TOut, eco.TOut)
-    annotation (Line(points={{-170,166},{-20,166},{-20,-21.25},{119.375,-21.25}},
-      color={0,0,127}));
-  connect(eco.TOutCut, TOutCut)
-    annotation (Line(points={{119.375,-22.5},{-146,-22.5},{-146,0},{-170,0}},
-      color={0,0,127}));
-  connect(eco.hOut, hOut)
-    annotation (Line(points={{119.375,-23.75},{22,-23.75},{22,-32},{-170,-32}},
-      color={0,0,127}));
-  connect(eco.hOutCut, hOutCut)
-    annotation (Line(points={{119.375,-25},{24,-25},{24,-44},{-170,-44}},
-      color={0,0,127}));
-  connect(eco.VOut_flow, VOut_flow)
-    annotation (Line(points={{119.375,-28.75},{26,-28.75},{26,-60},{-170,-60}},
-      color={0,0,127}));
-  connect(eco.uOpeMod, uOpeMod)
-    annotation (Line(points={{119.375,-36.25},{30,-36.25},{30,-100},{-170,-100}},
-      color={255,127,0}));
-  connect(eco.uZonSta, uZonSta)
-    annotation (Line(points={{119.375,-37.5},{32,-37.5},{32,-120},{-170,-120}},
-      color={255,127,0}));
-  connect(eco.uFreProSta, uFreProSta)
-    annotation (Line(points={{119.375,-38.75},{34,-38.75},{34,-180},{-170,-180}},
-      color={255,127,0}));
+  connect(TOut, eco.TOut) annotation (Line(points={{-170,166},{-20,166},{-20,-40.625},{119.375,
+          -40.625}}, color={0,0,127}));
+  connect(eco.TOutCut, TOutCut) annotation (Line(points={{119.375,-41.875},{-34,
+          -41.875},{-34,0},{-170,0}},
+                       color={0,0,127}));
+  connect(eco.hOut, hOut) annotation (Line(points={{119.375,-43.125},{-38,-43.125},{-38,-32},{-170,
+          -32}}, color={0,0,127}));
+  connect(eco.hOutCut, hOutCut) annotation (Line(points={{119.375,-44.375},{-54,-44.375},{-54,-44},
+          {-170,-44}}, color={0,0,127}));
+  connect(eco.VOut_flow, VOut_flow) annotation (Line(points={{119.375,-48.75},{-50,
+          -48.75},{-50,-60},{-170,-60}}, color={0,0,127}));
+  connect(eco.uOpeMod, uOpeMod) annotation (Line(points={{119.375,-56.875},{100,-56.875},{100,-100},
+          {-170,-100}}, color={255,127,0}));
   connect(supTemSetPoi.TSetSup, TSetSup)
-    annotation (Line(points={{21,90},{160,90},{160,80},{190,80}},
-      color={0,0,127}));
-  connect(supTemSetPoi.TOut, TOut)
-    annotation (Line(points={{-1,94},{-20,94},{-20,166},{-170,166}},
-      color={0,0,127}));
-  connect(supTemSetPoi.uSupFan, conSupFan.ySupFan)
-    annotation (Line(points={{-1,90},{-84,90},{-84,137},{-99,137}},
-      color={255,0,255}));
-  connect(supTemSetPoi.uZonTemResReq, uZonTemResReq)
-    annotation (Line(points={{-1,86},{-16,86},{-16,-140},{-170,-140}},
-      color={255,127,0}));
-  connect(supTemSetPoi.uOpeMod, uOpeMod)
-    annotation (Line(points={{-1,82},{-12,82},{-12,-100},{-170,-100}},
-      color={255,127,0}));
+    annotation (Line(points={{21,90},{106,90},{106,80},{190,80}},
+                                                color={0,0,127}));
+  connect(supTemSetPoi.TOut, TOut) annotation (Line(points={{-1,94},{-20,94},{-20,
+          166},{-170,166}}, color={0,0,127}));
+  connect(supTemSetPoi.uSupFan, conSupFan.ySupFan) annotation (Line(points={{-1,90},
+          {-84,90},{-84,137},{-99,137}},     color={255,0,255}));
+  connect(supTemSetPoi.uZonTemResReq, uZonTemResReq) annotation (Line(points={{-1,86},
+          {-12,86},{-12,-140},{-170,-140}},     color={255,127,0}));
+  connect(supTemSetPoi.uOpeMod, uOpeMod) annotation (Line(points={{-1,82},{-8,82},
+          {-8,-100},{-170,-100}},      color={255,127,0}));
   connect(conSupFan.uOpeMod, uOpeMod)
     annotation (Line(points={{-122,138},{-140,138},{-140,-100},{-170,-100}},
       color={255,127,0}));
@@ -568,7 +558,7 @@ equation
     annotation (Line(points={{-122,122},{-170,122}},
       color={0,0,127}));
   connect(eco.VOutMinSet_flow, outAirSetPoi.VOutMinSet_flow)
-    annotation (Line(points={{119.375,-30},{-24,-30},{-24,60},{-39,60}},
+    annotation (Line(points={{119.375,-50},{-24,-50},{-24,60},{-39,60}},
       color={0,0,127}));
   connect(outAirSetPoi.nOcc, nOcc)
     annotation (Line(points={{-61,68},{-88,68},{-88,100},{-170,100}},
@@ -601,7 +591,7 @@ equation
     annotation (Line(points={{-122,214},{-140,214},{-140,210},{-170,210}},
       color={0,0,127}));
   connect(eco.TMix, TMix)
-    annotation (Line(points={{119.375,-31.875},{28,-31.875},{28,-80},{-170,-80}},
+    annotation (Line(points={{119.375,-51.875},{28,-51.875},{28,-80},{-170,-80}},
       color={0,0,127}));
   connect(TSup, val.TSup)
     annotation (Line(points={{-170,30},{59,30}},
@@ -610,7 +600,7 @@ equation
     annotation (Line(points={{-99,137},{-84,137},{-84,25},{59,25}},
       color={255,0,255}));
   connect(val.uTSup, eco.uTSup)
-    annotation (Line(points={{81,34},{100,34},{100,-26.875},{119.375,-26.875}},
+    annotation (Line(points={{81,34},{100,34},{100,-46.875},{119.375,-46.875}},
       color={0,0,127}));
   connect(val.yHea, yHea)
     annotation (Line(points={{81,30},{160,30},{160,40},{190,40}},
@@ -630,6 +620,8 @@ equation
     annotation (Line(points={{-170,230},{-140,230},{-140,226},{-122,226}},
       color={0,0,127}));
 
+  connect(eco.uFreProSta, uFreProSta) annotation (Line(points={{119.375,-59.375},
+          {106,-59.375},{106,-180},{-170,-180}}, color={255,127,0}));
 annotation (defaultComponentName="conAHU",
     Diagram(coordinateSystem(extent={{-160,-200},{180,240}}, initialScale=0.2)),
     Icon(coordinateSystem(extent={{-160,-200},{180,240}}, initialScale=0.2),
@@ -644,7 +636,7 @@ annotation (defaultComponentName="conAHU",
 Documentation(info="<html>
 <p>
 Block that is applied for multizone VAV AHU control. It outputs the supply fan status
-and the operation speed, outdoor and return air damper position, supply air 
+and the operation speed, outdoor and return air damper position, supply air
 temperature setpoint and the valve position of the cooling and heating coils.
 It is implemented according to the ASHRAE Guideline 36, PART5.N.
 </p>
@@ -653,9 +645,9 @@ The sequence consists of five subsequences.
 </p>
 <h4>a. Supply fan speed control</h4>
 <p>
-The fan speed control is implemented according to PART5.N.1. It outputs 
+The fan speed control is implemented according to PART5.N.1. It outputs
 <code>ySupFan</code> to turn on or off the supply fan. By receiving the pressure
-reset request <code>uZonPreResReq</code> from the serving zones controller, the 
+reset request <code>uZonPreResReq</code> from the serving zones controller, the
 sequence resets the duct pressure setpoint so to control the fan operation speed
 <code>ySupFanSpe</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyFan\">
@@ -664,20 +656,20 @@ for more detailed description.
 </p>
 <h4>b. Minimum outdoor airflow setting</h4>
 <p>
-According to current occupany <code>nOcc</code>, supply operation status 
-<code>ySupFan</code>, each zone temperature <code>TZon</code> and the discharge 
-air temperature <code>TDis</code>, the sequence decides minimum outdoor airflow rate 
-setpoint, and then to be used as input for economizer control. More detailed 
-information can be found in 
+According to current occupany <code>nOcc</code>, supply operation status
+<code>ySupFan</code>, each zone temperature <code>TZon</code> and the discharge
+air temperature <code>TDis</code>, the sequence decides minimum outdoor airflow rate
+setpoint, and then to be used as input for economizer control. More detailed
+information can be found in
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.OutsideAirFlow\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.OutsideAirFlow</a>.
 </p>
 <h4>c. Economizer control</h4>
 <p>
 The block outputs outdoor and return air damper position, <code>yOutDamPos</code>,
-<code>yRetDamPos</code>. It firstly computes the position limits to satisfy minimum 
-outdoor airflow requirement, then control the availability of the economizer based 
-on outdoor condition. The dampers are modulated to track the supply air temperature 
+<code>yRetDamPos</code>. It firstly computes the position limits to satisfy minimum
+outdoor airflow requirement, then control the availability of the economizer based
+on outdoor condition. The dampers are modulated to track the supply air temperature
 loop signal, which is calculated from the sequence below. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller</a>
@@ -685,10 +677,10 @@ for more detailed description.
 </p>
 <h4>d. Supply air temperature setpoint</h4>
 <p>
-Based on PART5.N.2, the sequence firstly set the maximum supply air temperature 
-based on reset requests collected from each zone <code>uZonTemResReq</code>. The 
+Based on PART5.N.2, the sequence firstly set the maximum supply air temperature
+based on reset requests collected from each zone <code>uZonTemResReq</code>. The
 outdoor temperature <code>TOut</code>, operation mode <code>uOpeMod</code> are used
-along with the maximum supply air temperature, for setting supply air temperature 
+along with the maximum supply air temperature, for setting supply air temperature
 setpoint. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature</a>
@@ -696,11 +688,11 @@ for more detailed description.
 </p>
 <h4>e. Coil valve control</h4>
 <p>
-The subsequence retrieves supply air temperature setpoint from previous sequence. 
+The subsequence retrieves supply air temperature setpoint from previous sequence.
 Along with the measured supply air temperature and the supply fan status, it
 generates coil valve positions. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Valve\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Valve</a> 
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Valve</a>
 </p>
 </html>",
 revisions="<html>
