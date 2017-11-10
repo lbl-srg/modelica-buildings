@@ -185,8 +185,8 @@ protected
   CDL.Continuous.Gain norPMea(final k=1/maxDesPre)
     "Normalization of pressure measurement"
     annotation (Placement(transformation(extent={{-70,-82},{-50,-62}})));
-  CDL.Discrete.FirstOrderHold                        firOrdHol(
-    samplePeriod=samplePeriod)
+  CDL.Discrete.FirstOrderHold firOrdHol(
+    final samplePeriod=samplePeriod)
     "Extrapolation through the values of the last two sampled input signals"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
 equation
