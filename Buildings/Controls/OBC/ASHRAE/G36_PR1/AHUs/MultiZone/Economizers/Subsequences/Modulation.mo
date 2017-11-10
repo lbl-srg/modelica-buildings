@@ -96,10 +96,10 @@ protected
     final limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min
+  Buildings.Controls.OBC.CDL.Continuous.Min min "Overwrite due to freeze protection"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max
-    annotation (Placement(transformation(extent={{62,40},{82,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Max max "Overwrite due to freeze protection"
+    annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
 equation
   connect(uTSup, outDamPos.u)
@@ -128,11 +128,11 @@ equation
   connect(min.u1, outDamPos.y)
     annotation (Line(points={{58,-54},{28,-54},{28,-30},{21,-30}}, color={0,0,127}));
   connect(max.u1, retDamPos.y)
-    annotation (Line(points={{60,56},{30,56},{30,70},{21,70}}, color={0,0,127}));
+    annotation (Line(points={{58,66},{30,66},{30,70},{21,70}}, color={0,0,127}));
   connect(uRetDamPosMin, max.u2)
-    annotation (Line(points={{-140,50},{-42,50},{-42,44},{60,44}}, color={0,0,127}));
+    annotation (Line(points={{-140,50},{-12,50},{-12,54},{58,54}}, color={0,0,127}));
   connect(max.y, yRetDamPos)
-    annotation (Line(points={{83,50},{101.5,50},{101.5,60},{130,60}}, color={0,0,127}));
+    annotation (Line(points={{81,60},{101.5,60},{130,60}},            color={0,0,127}));
   connect(min.y, yOutDamPos)
     annotation (Line(points={{81,-60},{130,-60}}, color={0,0,127}));
   annotation (

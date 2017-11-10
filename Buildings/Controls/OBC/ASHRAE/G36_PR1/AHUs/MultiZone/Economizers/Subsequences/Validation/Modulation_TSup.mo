@@ -18,9 +18,9 @@ model Modulation_TSup
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMax(final k=0.8)
     annotation (Placement(transformation(extent={{-80,16},{-60,36}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RetDamPosMin(final k=0.2)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPosMin(final k=0.2)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RetDamPosMax(final k=0.6)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPosMax(final k=0.6)
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation
@@ -30,14 +30,14 @@ model Modulation_TSup
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMaxFre(final k=0)
     "Outdoor damper if freeze protection is on"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RetDamPosMinFre(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPosMinFre(final k=1)
     "Return damper position if freeze protection is on"
     annotation (Placement(transformation(extent={{4,-10},{24,10}})));
 
 equation
-  connect(RetDamPosMax.y, mod.uRetDamPosMax)
+  connect(retDamPosMax.y, mod.uRetDamPosMax)
     annotation (Line(points={{-59,-40},{-20,-40},{-20,38},{39,38}},color={0,0,127}));
-  connect(RetDamPosMin.y, mod.uRetDamPosMin)
+  connect(retDamPosMin.y, mod.uRetDamPosMin)
     annotation (Line(points={{-59,-70},{-10,-70},{-10,34},{39,34}},color={0,0,127}));
   connect(outDamPosMax.y, mod.uOutDamPosMax)
     annotation (Line(points={{-59,26},{39,26}},color={0,0,127}));
@@ -45,7 +45,7 @@ equation
     annotation (Line(points={{-59,-10},{-34,-10},{-24,-10},{-24,22},{39,22}}, color={0,0,127}));
   connect(uTSup.y, mod.uTSup)
     annotation (Line(points={{-39,70},{0,70},{0,30},{39,30}}, color={0,0,127}));
-  connect(RetDamPosMax.y, modFre.uRetDamPosMax)
+  connect(retDamPosMax.y, modFre.uRetDamPosMax)
     annotation (Line(points={{-59,-40},{-20,-40},{-20,-22},{39,-22}}, color={0,0,127}));
   connect(outDamPosMin.y, modFre.uOutDamPosMin)
     annotation (Line(points={{-59,-10},{-34,-10},{-34,-38},{39,-38}}, color={0,0,127}));
@@ -53,7 +53,7 @@ equation
     annotation (Line(points={{-39,70},{0,70},{0,-30},{39,-30}}, color={0,0,127}));
   connect(outDamPosMaxFre.y, modFre.uOutDamPosMax)
     annotation (Line(points={{21,-70},{30,-70},{30,-34},{39,-34}}, color={0,0,127}));
-  connect(RetDamPosMinFre.y, modFre.uRetDamPosMin)
+  connect(retDamPosMinFre.y, modFre.uRetDamPosMin)
     annotation (Line(points={{25,0},{32,0},{32,-26},{39,-26}}, color={0,0,127}));
   annotation (
   experiment(StopTime=900.0, Tolerance=1e-06),
