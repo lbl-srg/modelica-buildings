@@ -5,7 +5,7 @@ extends Modelica.Icons.Package;
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>
-This package contains utility models such as assert function and various others 
+This package contains utility models
 that are used throughout the library.
 </p>
 </html>"),
