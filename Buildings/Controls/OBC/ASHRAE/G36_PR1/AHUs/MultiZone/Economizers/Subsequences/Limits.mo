@@ -104,7 +104,9 @@ block Limits "Multi zone VAV AHU minimum outdoor air control - damper position l
     final yMax=yMax,
     final yMin=yMin,
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final k=kPDamLim) "Damper position limit controller"
+    final k=kPDamLim,
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Input)
+                      "Damper position limit controller"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
 
 protected
@@ -235,6 +237,9 @@ equation
   connect(uFreProSta, intLesEqu.u1)
     annotation (Line(points={{-200,-140},{-122,-140}}, color={255,127,0}));
 
+  connect(damLimCon.trigger, uSupFan) annotation (Line(points={{-138,178},{-138,
+          164},{-94,164},{-94,-86},{-160,-86},{-160,-100},{-200,-100}}, color={
+          255,0,255}));
   annotation (
     defaultComponentName="damLim",
     Icon(graphics={

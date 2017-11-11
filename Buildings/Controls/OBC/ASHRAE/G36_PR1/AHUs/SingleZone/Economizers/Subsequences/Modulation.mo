@@ -17,42 +17,42 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature"
-    annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
-      iconTransformation(extent={{-120,50},{-100,70}})));
+    annotation (Placement(transformation(extent={{-160,90},{-120,130}}),
+      iconTransformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSupSet(
     final unit="K",
     final quantity = "ThermodynamicTemperature") "Supply air temperature heating setpoint"
-    annotation (Placement(transformation(extent={{-160,-10},{-120,30}}),
-      iconTransformation(extent={{-120,80},{-100,100}})));
+    annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
+      iconTransformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
     final min=0,
     final max=1,
     final unit="1")
     "Minimum economizer damper position limit as returned by the damper position limits sequence"
-    annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
-      iconTransformation(extent={{-120,-30},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-160,-90},{-120,-50}}),
+      iconTransformation(extent={{-120,-80},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMax(
     final min=0,
     final max=1,
     final unit="1")
     "Maximum economizer damper position limit as returned by the economizer enable-disable sequence.
     If the economizer is disabled, this value equals uOutDamPosMin"
-    annotation (Placement(transformation(extent={{-160,-90},{-120,-50}}),
-      iconTransformation(extent={{-120,0},{-100,20}})));
+    annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
+      iconTransformation(extent={{-120,-50},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMin(
     final min=0,
     final max=1,
     final unit="1")
     "Minimum return air damper position limit as returned by the economizer enable-disable sequence"
-    annotation (Placement(transformation(extent={{-160,40},{-120,80}}),
-      iconTransformation(extent={{-120,-100},{-100,-80}})));
+    annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
+      iconTransformation(extent={{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMax(
     final min=0,
     final max=1,
     final unit="1")
     "Maximum return air damper position limit as returned by the economizer enable-disable sequence"
-    annotation (Placement(transformation(extent={{-160,80},{-120,120}}),
-      iconTransformation(extent={{-120,-70},{-100,-50}})));
+    annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
+      iconTransformation(extent={{-120,20},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
@@ -72,7 +72,8 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     final yMax=uMax,
     final yMin=uMin,
     final k=kPMod,
-    final Ti=TiMod)
+    final Ti=TiMod,
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
@@ -82,7 +83,7 @@ protected
     annotation (Placement(transformation(extent={{-20,-22},{0,-2}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamMaxLimSig(
       final k=uTSup.yMax) "Maximal control loop signal for the return air damper"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Line outDamPos(
     limitBelow=true,
@@ -95,37 +96,46 @@ protected
     "Damper position is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{58,10},{78,30}})));
 
+public
+  CDL.Interfaces.BooleanInput                        uSupFan "Supply fan status"
+    annotation (Placement(transformation(extent={{-160,-130},{-120,-90}}),
+      iconTransformation(extent={{-120,-110},{-100,-90}})));
 equation
   connect(TSup, uTSup.u_m)
-    annotation (Line(points={{-140,-20},{-70,-20},{-70,-2}}, color={0,0,127}));
+    annotation (Line(points={{-140,110},{-106,110},{-106,-20},{-70,-20},{-70,-2}},
+                                                             color={0,0,127}));
   connect(outDamPos.y, yOutDamPos)
     annotation (Line(points={{81,-20},{100,-20},{120,-20},{130,-20}},          color={0,0,127}));
   connect(retDamPos.y, yRetDamPos)
     annotation (Line(points={{79,20},{100,20},{130,20}},           color={0,0,127}));
   connect(retDamMaxLimSig.y,retDamPos. x2)
-    annotation (Line(points={{1,40},{2,40},{30,40},{30,18},{56,18},{56,16}},        color={0,0,127}));
+    annotation (Line(points={{1,30},{30,30},{30,16},{56,16}},                       color={0,0,127}));
   connect(uTSup.y, retDamPos.u) annotation (Line(points={{-59,10},{40,10},{40,
           20},{56,20}}, color={0,0,127}));
   connect(uTSup.y, outDamPos.u) annotation (Line(points={{-59,10},{40,10},{40,
           -20},{58,-20}},
                      color={0,0,127}));
   connect(uRetDamPosMax,retDamPos. f1)
-    annotation (Line(points={{-140,100},{50,100},{50,24},{56,24}}, color={0,0,127}));
+    annotation (Line(points={{-140,40},{-112,40},{-112,48},{48,48},{48,24},{56,
+          24}},                                                    color={0,0,127}));
   connect(uOutDamPosMin, outDamPos.f1)
-    annotation (Line(points={{-140,-100},{-140,-100},{28,-100},{28,-16},{58,-16}}, color={0,0,127}));
+    annotation (Line(points={{-140,-70},{28,-70},{28,-16},{58,-16}},               color={0,0,127}));
   connect(outDamMinLimSig.y, outDamPos.x1)
     annotation (Line(points={{1,-12},{1,-12},{28,-12},{58,-12}},           color={0,0,127}));
   connect(THeaSupSet, uTSup.u_s)
-    annotation (Line(points={{-140,10},{-140,10},{-82,10}}, color={0,0,127}));
+    annotation (Line(points={{-140,80},{-90,80},{-90,10},{-82,10}},
+                                                            color={0,0,127}));
   connect(uRetDamPosMin,retDamPos. f2)
-    annotation (Line(points={{-140,60},{-40,60},{-40,12},{56,12}}, color={0,0,127}));
-  connect(uOutDamPosMax, outDamPos.f2) annotation (Line(points={{-140,-70},{40,
-          -70},{40,-28},{58,-28},{58,-28}},
-                                       color={0,0,127}));
+    annotation (Line(points={{-140,0},{-112,0},{-112,-10},{-38,-10},{-38,12},{
+          56,12}},                                                 color={0,0,127}));
+  connect(uOutDamPosMax, outDamPos.f2) annotation (Line(points={{-140,-40},{40,
+          -40},{40,-28},{58,-28}},     color={0,0,127}));
   connect(retDamMaxLimSig.y, outDamPos.x2)
-    annotation (Line(points={{1,40},{30,40},{30,-24},{58,-24}}, color={0,0,127}));
+    annotation (Line(points={{1,30},{30,30},{30,-24},{58,-24}}, color={0,0,127}));
   connect(outDamMinLimSig.y, retDamPos.x1)
     annotation (Line(points={{1,-12},{24,-12},{24,28},{56,28}}, color={0,0,127}));
+  connect(uSupFan, uTSup.trigger) annotation (Line(points={{-140,-110},{-78,
+          -110},{-78,-2}}, color={255,0,255}));
   annotation (
     defaultComponentName = "mod",
     Icon(graphics={

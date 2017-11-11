@@ -337,7 +337,7 @@ equation
     annotation (Line(points={{-19,66},{-8,66},{-8,-5},{19,-5}},
       color={0,0,127}));
   connect(actAirSet.uOpeMod, uOpeMod)
-    annotation (Line(points={{-41,67},{-58,67},{-58,-170},{-160,-170}},
+    annotation (Line(points={{-41,67},{-60,67},{-60,-170},{-160,-170}},
       color={255,127,0}));
   connect(sysReq.yZonTemResReq, yZonTemResReq)
     annotation (Line(points={{101,-83},{120,-83},{120,-80},{150,-80}},
