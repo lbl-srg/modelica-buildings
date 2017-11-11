@@ -54,7 +54,7 @@ block LimPID
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
   parameter Boolean reverseAction = false
     "Set to true for throttling the water flow rate through a cooling coil controller";
-  parameter Buildings.Controls.OBC.CDL.Types.Reset reset = CDL.Types.Reset.Disabled
+  parameter Buildings.Controls.OBC.CDL.Types.Reset reset = Buildings.Controls.OBC.CDL.Types.Reset.Disabled
     "Type of controller output reset"
     annotation(Evaluate=true, Dialog(group="Integrator reset"));
   parameter Real y_reset=xi_start
@@ -64,10 +64,12 @@ block LimPID
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger if reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled
     "Resets the controller output when trigger becomes true"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-        rotation=90, origin={-80,-120})));
+        rotation=90, origin={-80,-120}),
+     visible=reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y_reset_in if reset == Buildings.Controls.OBC.CDL.Types.Reset.Input
     "Input signal for state to which integrator is reset, enabled if reset = CDL.Types.Reset.Input"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+    visible=reset == Buildings.Controls.OBC.CDL.Types.Reset.Input));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -374,28 +376,28 @@ First implementation.
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=(controllerType == CDL.Types.SimpleController.P),
+          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.P),
           extent={{-32,-22},{68,-62}},
           lineColor={0,0,0},
           textString="P",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
         Text(
-          visible=(controllerType == CDL.Types.SimpleController.PI),
-          extent={{-28,-22},{72,-62}},
+          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
+          extent={{-26,-22},{74,-62}},
           lineColor={0,0,0},
           textString="PI",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
         Text(
-          visible=(controllerType == CDL.Types.SimpleController.PD),
+          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD),
           extent={{-16,-22},{88,-62}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="P D"),
         Text(
-          visible=(controllerType == CDL.Types.SimpleController.PID),
+          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID),
           extent={{-14,-22},{86,-62}},
           lineColor={0,0,0},
           textString="PID",
