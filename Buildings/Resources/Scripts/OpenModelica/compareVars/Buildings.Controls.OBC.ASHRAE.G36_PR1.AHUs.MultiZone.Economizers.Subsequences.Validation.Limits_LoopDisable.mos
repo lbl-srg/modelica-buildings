@@ -1,8 +1,8 @@
 compareVars :=
   {
     "fanSta.y",
-    "VOutMinSet_flow_normalized.y",
-    "VOut_flow_normalized.y",
+    "VOutMinSet_flow.y",
+    "VOut_flow.y",
     "damLim.yOutDamPosMin",
     "damLim.yOutDamPosMax",
     "damLim.yRetDamPosMin",
