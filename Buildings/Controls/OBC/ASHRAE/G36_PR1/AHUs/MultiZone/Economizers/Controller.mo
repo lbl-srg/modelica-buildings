@@ -111,7 +111,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-180,70},{-160,90}}),
-    iconTransformation(extent={{-180,80},{-160,100}})));
+    iconTransformation(extent={{-180,70},{-160,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
     final quantity = "ThermodynamicTemperature") if use_TMix
