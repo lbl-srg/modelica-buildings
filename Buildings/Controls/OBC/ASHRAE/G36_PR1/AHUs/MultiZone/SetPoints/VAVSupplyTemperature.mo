@@ -32,7 +32,7 @@ block VAVSupplyTemperature
   parameter Modelica.SIunits.Time samplePeriod(min=1E-3) = 120
     "Sample period of component"
     annotation(Dialog(group="Trim and respond logic"));
-  parameter Integer ignReq = 2
+  parameter Integer numIgnReq = 2
     "Number of ignorable requests for TrimResponse logic"
     annotation(Dialog(group="Trim and respond logic"));
   parameter Modelica.SIunits.TemperatureDifference triAmo = 0.1
@@ -80,7 +80,7 @@ block VAVSupplyTemperature
     final minSet=minSet,
     final maxSet=maxSet,
     final samplePeriod=samplePeriod,
-    final numIgnReq=ignReq,
+    final numIgnReq=numIgnReq,
     final triAmo=triAmo,
     final resAmo=resAmo,
     final maxRes=maxRes) "Maximum cooling supply temperature reset"
@@ -254,8 +254,8 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,120}})),
   Documentation(info="<html>
 <p>
-Block that outputs the supply air temperature setpoint and the coil valve control 
-inputs for VAV system with multiple zones, implemented according to the ASHRAE 
+Block that outputs the supply air temperature setpoint and the coil valve control
+inputs for VAV system with multiple zones, implemented according to the ASHRAE
 Guideline G36, PART5.N.2 (Supply air temperature control).
 </p>
 <p>

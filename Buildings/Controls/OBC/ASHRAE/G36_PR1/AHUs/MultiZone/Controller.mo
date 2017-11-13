@@ -111,35 +111,35 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     annotation (Evaluate=true,Dialog(tab="Economizer", group="Economizer delays at disable"));
 
   // ----------- parameters for fan speed control  -----------
-  parameter Modelica.SIunits.PressureDifference iniSetFanSpe(displayUnit="Pa")=60
+  parameter Modelica.SIunits.PressureDifference pIniSet(displayUnit="Pa")=60
     "Initial pressure setpoint for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference minSetFanSpe(displayUnit="Pa")=25
+  parameter Modelica.SIunits.PressureDifference pMinSet(displayUnit="Pa")=25
     "Minimum pressure setpoint for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference maxSetFanSpe(displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference pMaxSet(displayUnit="Pa")
     "Maximum pressure setpoint for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Modelica.SIunits.Time delTimFanSpe=600
-    "Delay time for fan speed control"
+  parameter Modelica.SIunits.Time pDelTim=600
+    "Delay time after which trim and respond is activated"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Integer numIgnReqFanSpe=2
+  parameter Integer pNumIgnReq=2
     "Number of ignored requests for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference triAmoFanSpe(displayUnit="Pa")=-12.0
+  parameter Modelica.SIunits.PressureDifference pTriAmo(displayUnit="Pa")=-12.0
     "Trim amount for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference resAmoFanSpe(displayUnit="Pa")=15
+  parameter Modelica.SIunits.PressureDifference pResAmo(displayUnit="Pa")=15
     "Respond amount (must be opposite in to triAmo) for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference maxResFanSpe(displayUnit="Pa")=32
+  parameter Modelica.SIunits.PressureDifference pMaxRes(displayUnit="Pa")=32
     "Maximum response per time interval (same sign as resAmo) for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
@@ -253,7 +253,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Delay timer for supply temperature control"
     annotation (Evaluate=true,
       Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
-  parameter Integer ignReqSupTem=2
+  parameter Integer numIgnReqSupTem=2
     "Number of ignorable requests for supply temperature control"
     annotation (Evaluate=true,
       Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
@@ -453,14 +453,14 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final have_perZonRehBox=have_perZonRehBox,
     final have_duaDucBox=have_duaDucBox,
     final have_airFloMeaSta=have_airFloMeaSta,
-    final iniSet=iniSetFanSpe,
-    final minSet=minSetFanSpe,
-    final maxSet=maxSetFanSpe,
-    final delTim=delTimFanSpe,
-    final numIgnReq=numIgnReqFanSpe,
-    final triAmo=triAmoFanSpe,
-    final resAmo=resAmoFanSpe,
-    final maxRes=maxResFanSpe,
+    final iniSet=pIniSet,
+    final minSet=pMinSet,
+    final maxSet=pMaxSet,
+    final delTim=pDelTim,
+    final numIgnReq=pNumIgnReq,
+    final triAmo=pTriAmo,
+    final resAmo=pResAmo,
+    final maxRes=pMaxRes,
     final k=kPFanSpe,
     final Ti=TiFanSpe,
     final yFanMax=yFanMax,
@@ -479,7 +479,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final maxSet=maxSetSupTem,
     final minSet=minSetSupTem,
     final delTim=delTimSupTem,
-    final ignReq=ignReqSupTem,
+    final numIgnReq=numIgnReqSupTem,
     final triAmo=triAmoSupTem,
     final resAmo=resAmoSupTem,
     final maxRes=maxResSupTem) "Setpoint for supply temperature"
