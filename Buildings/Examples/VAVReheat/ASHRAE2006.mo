@@ -3,7 +3,8 @@ model ASHRAE2006
   "Variable air volume flow system with terminal reheat and five thermal zones"
   import Buildings;
   extends Modelica.Icons.Example;
-  extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop;
+  extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(heaCoi(
+        show_T=true), cooCoi(show_T=true));
 
   Modelica.Blocks.Sources.Constant TSupSetHea(y(
       final quantity="ThermodynamicTemperature",
@@ -11,7 +12,8 @@ model ASHRAE2006
       displayUnit="degC",
       min=0), k=273.15 + 10) "Supply air temperature setpoint for heating"
     annotation (Placement(transformation(extent={{-180,-172},{-160,-152}})));
-  Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=0.2)
+  Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=
+        yFanMin)
     "Controller for fan"
     annotation (Placement(transformation(extent={{240,-10},{260,10}})));
   Controls.ModeSelector modeSelector
@@ -54,8 +56,9 @@ model ASHRAE2006
     Td=60,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Ti=600,
-    k=0.1) "Controller for heating coil"
+    k=0.02,
+    Ti=300)
+           "Controller for heating coil"
     annotation (Placement(transformation(extent={{-80,-212},{-60,-192}})));
   Buildings.Controls.Continuous.LimPID cooCoiCon(
     reverseAction=true,
