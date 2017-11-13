@@ -448,7 +448,6 @@ block Controller "Multizone AHU controller that composes subsequences for contro
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyFan
     conSupFan(
     final numZon=numZon,
-    final maxDesPre=maxDesPre,
     final samplePeriod=samplePeriod,
     final have_perZonRehBox=have_perZonRehBox,
     final have_duaDucBox=have_duaDucBox,
