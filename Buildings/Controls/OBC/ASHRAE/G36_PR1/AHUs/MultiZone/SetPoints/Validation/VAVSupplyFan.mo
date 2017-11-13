@@ -6,7 +6,7 @@ extends Modelica.Icons.Example;
     conSupFan(numZon=4,
     Td=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    maxDesPre=400,
+    maxSet=400,
     k=0.001,
     Ti=10)   "Block outputs supply fan speed"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));

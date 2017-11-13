@@ -12,11 +12,12 @@ block Limits
     final unit="1") = 0.5
     "Minimum control signal for the return air damper position limit"
     annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
-  parameter Real kPDamLim=0.5 "Gain of damper limit controller"
+  parameter Real kP=0.05 "Gain of damper limit controller"
     annotation (Dialog(group="Controller"));
-  parameter Modelica.SIunits.Time TiDamLim=300
+  parameter Modelica.SIunits.Time Ti=1200
     "Time constant of damper limit controller integrator block"
     annotation (Dialog(group="Controller"));
+
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
@@ -46,16 +47,17 @@ block Limits
       Evaluate=true, Dialog(tab="Commissioning", group=
           "Physical damper position limits"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(final unit="m3/s",
-      final quantity="VolumeFlowRate")
-    "Measured outdoor volumetric airflow rate" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow_normalized(
+   final unit="1")
+    "Measured outdoor volumetric airflow rate, normalized by design minimum outdoor airflow rate"
+    annotation (Placement(
         transformation(extent={{-220,150},{-180,190}}), iconTransformation(
           extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow(final unit=
-        "m3/s", final quantity="VolumeFlowRate")
-    "Minimum outdoor volumetric airflow rate setpoint" annotation (Placement(
-        transformation(extent={{-220,200},{-180,240}}), iconTransformation(
-          extent={{-120,40},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow_normalized(
+    final unit="1")
+    "Effective minimum outdoor airflow setpoint, normalized by design minimum outdoor airflow rate"
+    annotation (Placement(transformation(extent={{-220,200},{-180,240}}),
+        iconTransformation(extent={{-120,40},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal" annotation (Placement(transformation(
           extent={{-220,-200},{-180,-160}}), iconTransformation(extent={{-120,-60},
@@ -101,11 +103,11 @@ block Limits
         iconTransformation(extent={{100,-50},{120,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID damLimCon(
-    final Ti=TiDamLim,
+    final Ti=Ti,
     final yMax=yMax,
     final yMin=yMin,
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final k=kPDamLim,
+    final k=kP,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Damper position limit controller"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
@@ -180,10 +182,10 @@ equation
           -30,210},{-30,118},{118,118}}, color={0,0,127}));
   connect(maxSigLim.y, minRetDam.x2) annotation (Line(points={{1,210},{8,210},{
           8,106},{118,106}}, color={0,0,127}));
-  connect(VOut_flow, damLimCon.u_m) annotation (Line(points={{-200,170},{-130,
-          170},{-130,178}}, color={0,0,127}));
-  connect(VOutMinSet_flow, damLimCon.u_s) annotation (Line(points={{-200,220},{
-          -160,220},{-160,190},{-142,190}}, color={0,0,127}));
+  connect(VOut_flow_normalized, damLimCon.u_m) annotation (Line(points={{-200,170},
+          {-130,170},{-130,178}}, color={0,0,127}));
+  connect(VOutMinSet_flow_normalized, damLimCon.u_s) annotation (Line(points={{-200,
+          220},{-160,220},{-160,190},{-142,190}}, color={0,0,127}));
   connect(damLimCon.y, minRetDam.u) annotation (Line(points={{-119,190},{-80,
           190},{-80,110},{118,110}}, color={0,0,127}));
   connect(outDamPosMaxSwitch.y, minOutDam.f2) annotation (Line(points={{61,20},

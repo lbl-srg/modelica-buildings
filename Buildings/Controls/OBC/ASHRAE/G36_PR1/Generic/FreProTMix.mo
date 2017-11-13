@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic;
 block FreProTMix "Optional freeze protection block based on mixed air temperature."
 
-  parameter Modelica.SIunits.Temperature TFreSet = 281.15
+  parameter Modelica.SIunits.Temperature TFreSet = 279.15
     "Lower limit for mixed air temperature for freeze protection";
   parameter Real k=0.1 "Proportional gain";
   parameter Modelica.SIunits.Time Ti=120 "Time constant of Integrator block";

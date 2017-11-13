@@ -38,10 +38,10 @@ protected
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
 equation
-  connect(VOut_flow.y, damLim.VOut_flow)
-    annotation (Line(points={{-39,80},{0,80},{0,8},{19,8}},color={0,0,127}));
-  connect(VOutMinSet_flow.y, damLim.VOutMinSet_flow)
-    annotation (Line(points={{-39,40},{-10,40},{-10,5},{19,5}},color={0,0,127}));
+  connect(VOut_flow.y, damLim.VOut_flow_normalized)
+    annotation (Line(points={{-39,80},{0,80},{0,8},{19,8}}, color={0,0,127}));
+  connect(VOutMinSet_flow.y, damLim.VOutMinSet_flow_normalized) annotation (
+      Line(points={{-39,40},{-10,40},{-10,5},{19,5}}, color={0,0,127}));
   connect(fanStatus.y, damLim.uSupFan)
     annotation (Line(points={{-39,0},{-20,0},{19,0}},color={255,0,255}));
   connect(freProSta.y, damLim.uFreProSta)

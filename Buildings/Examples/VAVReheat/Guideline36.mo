@@ -44,7 +44,9 @@ model Guideline36
     maxSysPriFlo=maxSysPriFlo,
     minZonPriFlo=minZonPriFlo,
     zonAre=zonAre,
-    yFanMin=yFanMin) "AHU controller"
+    yFanMin=yFanMin,
+    maxSetFanSpe=410)
+                     "AHU controller"
     annotation (Placement(transformation(extent={{384,362},{424,470}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints TSetZon(
     THeaOn=THeaOn,
