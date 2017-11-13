@@ -119,7 +119,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Minimum pressure setpoint for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference pMaxSet(displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference pMaxSet(displayUnit="Pa")=400
     "Maximum pressure setpoint for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
