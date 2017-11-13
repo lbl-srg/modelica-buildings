@@ -446,7 +446,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Controller for minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyFan
-    conSupFan(
+    supFan(
     final numZon=numZon,
     final samplePeriod=samplePeriod,
     final have_perZonRehBox=have_perZonRehBox,
@@ -524,9 +524,9 @@ equation
           -45},{160,-40},{190,-40}}, color={0,0,127}));
   connect(eco.yOutDamPos, yOutDamPos) annotation (Line(points={{140.625,-55},{160,
           -55},{160,-150},{190,-150}}, color={0,0,127}));
-  connect(eco.uSupFan, conSupFan.ySupFan) annotation (Line(points={{119.375,-54.375},{-84,-54.375},
+  connect(eco.uSupFan, supFan.ySupFan) annotation (Line(points={{119.375,-54.375},{-84,-54.375},
           {-84,137},{-99,137}}, color={255,0,255}));
-  connect(conSupFan.ySupFanSpe, ySupFanSpe)
+  connect(supFan.ySupFanSpe, ySupFanSpe)
     annotation (Line(points={{-99,130},{190,130}},
       color={0,0,127}));
   connect(TOut, eco.TOut) annotation (Line(points={{-170,166},{-20,166},{-20,-40.625},{119.375,
@@ -545,19 +545,19 @@ equation
                                                 color={0,0,127}));
   connect(supTemSetPoi.TOut, TOut) annotation (Line(points={{-1,94},{-20,94},{-20,
           166},{-170,166}}, color={0,0,127}));
-  connect(supTemSetPoi.uSupFan, conSupFan.ySupFan) annotation (Line(points={{-1,90},
+  connect(supTemSetPoi.uSupFan, supFan.ySupFan) annotation (Line(points={{-1,90},
           {-84,90},{-84,137},{-99,137}},     color={255,0,255}));
   connect(supTemSetPoi.uZonTemResReq, uZonTemResReq) annotation (Line(points={{-1,86},
           {-12,86},{-12,-140},{-170,-140}},     color={255,127,0}));
   connect(supTemSetPoi.uOpeMod, uOpeMod) annotation (Line(points={{-1,82},{-8,82},
           {-8,-100},{-170,-100}},      color={255,127,0}));
-  connect(conSupFan.uOpeMod, uOpeMod)
+  connect(supFan.uOpeMod, uOpeMod)
     annotation (Line(points={{-122,138},{-140,138},{-140,-100},{-170,-100}},
       color={255,127,0}));
-  connect(conSupFan.uZonPreResReq, uZonPreResReq)
+  connect(supFan.uZonPreResReq, uZonPreResReq)
     annotation (Line(points={{-122,127},{-136,127},{-136,-160},{-170,-160}},
       color={255,127,0}));
-  connect(conSupFan.ducStaPre, ducStaPre)
+  connect(supFan.ducStaPre, ducStaPre)
     annotation (Line(points={{-122,122},{-170,122}},
       color={0,0,127}));
   connect(eco.VOutMinSet_flow_normalized, outAirSetPoi.VOutMinSet_flow)
@@ -572,7 +572,7 @@ equation
   connect(outAirSetPoi.TDis, TDis)
     annotation (Line(points={{-61,62},{-170,62}},
       color={0,0,127}));
-  connect(conSupFan.ySupFan, outAirSetPoi.uSupFan)
+  connect(supFan.ySupFan, outAirSetPoi.uSupFan)
     annotation (Line(points={{-99,137},{-84,137},{-84,56},{-61,56}},
       color={255,0,255}));
   connect(supTemSetPoi.TSetZones, TZonSetPoiAve.y)
@@ -581,10 +581,10 @@ equation
   connect(outAirSetPoi.VBox_flow, VBox_flow)
     annotation (Line(points={{-61,51},{-144,51},{-144,140},{-170,140}},
       color={0,0,127}));
-  connect(conSupFan.VBox_flow, VBox_flow)
+  connect(supFan.VBox_flow, VBox_flow)
     annotation (Line(points={{-122,133},{-144,133},{-144,140},{-170,140}},
       color={0,0,127}));
-  connect(conSupFan.ySupFan, ySupFan)
+  connect(supFan.ySupFan, ySupFan)
     annotation (Line(points={{-99,137},{160,137},{160,180},{190,180}},
       color={255,0,255}));
   connect(outAirSetPoi.uOpeMod, uOpeMod)
@@ -599,7 +599,7 @@ equation
   connect(TSup, val.TSup)
     annotation (Line(points={{-170,30},{59,30}},
       color={0,0,127}));
-  connect(conSupFan.ySupFan, val.uSupFan)
+  connect(supFan.ySupFan, val.uSupFan)
     annotation (Line(points={{-99,137},{-84,137},{-84,25},{59,25}},
       color={255,0,255}));
   connect(val.uTSup, eco.uTSup)
