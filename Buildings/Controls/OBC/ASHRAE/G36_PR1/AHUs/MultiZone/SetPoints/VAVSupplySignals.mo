@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints;
-block Valve "Multizone VAV AHU coil valve positions"
+block VAVSupplySignals "Multizone VAV AHU coil valve positions"
 
   parameter Real uHeaMax(min=-0.9)=-0.25
     "Upper limit of controller signal when heating coil is off. Require -1 < uHeaMax < uCooMin < 1.";
@@ -216,4 +216,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Valve;
+end VAVSupplySignals;

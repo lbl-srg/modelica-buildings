@@ -507,7 +507,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final use_TMix=use_TMix,
     final use_G36FrePro=use_G36FrePro) "Economizer controller"
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Valve val(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplySignals val(
     final uHeaMax=uHeaMax,
     final uCooMin=uCooMin,
     final kPTSup=kPTSup,
@@ -701,8 +701,8 @@ for more detailed description.
 The subsequence retrieves supply air temperature setpoint from previous sequence.
 Along with the measured supply air temperature and the supply fan status, it
 generates coil valve positions. See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Valve\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Valve</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplySignals\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplySignals</a>
 </p>
 </html>",
 revisions="<html>
