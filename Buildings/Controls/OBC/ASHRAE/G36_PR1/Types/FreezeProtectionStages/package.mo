@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants;
+within Buildings.Controls.OBC.ASHRAE.G36_PR1.Types;
 package FreezeProtectionStages "Package with constants that indicate the freeze protection stages"
   extends Modelica.Icons.Package;
 

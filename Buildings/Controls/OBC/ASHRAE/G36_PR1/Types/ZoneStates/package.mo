@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants;
+within Buildings.Controls.OBC.ASHRAE.G36_PR1.Types;
 package ZoneStates "AHU Zone States"
   extends Modelica.Icons.Package;
 

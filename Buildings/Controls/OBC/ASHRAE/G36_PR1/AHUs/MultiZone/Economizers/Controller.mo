@@ -20,14 +20,14 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
 
-  parameter Real kPMinOut=0.5
+  parameter Real kPMinOut=0.05
     "Proportional gain of controller for minimum outdoor air"
     annotation (Dialog(tab="Commissioning", group="Control gains"));
-  parameter Modelica.SIunits.Time TiMinOut=600
+  parameter Modelica.SIunits.Time TiMinOut=1200
     "Time constant of controller for minimum outdoor air"
     annotation (Dialog(tab="Commissioning", group="Control gains"));
 
-  parameter Modelica.SIunits.Temperature TFreSet = 281.15
+  parameter Modelica.SIunits.Temperature TFreSet = 279.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Freeze protection", enable=use_TMix));
   parameter Real kPFre = 0.1
@@ -38,7 +38,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     "Time constant of controller for mixed air temperature tracking for freeze protection, used if use_TMix=true. Require TiFre < TiMinOut"
      annotation(Dialog(group="Freeze protection", enable=use_TMix));
 
-  parameter Modelica.SIunits.Time delta=120
+  parameter Modelica.SIunits.Time delta=5
     "Time horizon over which the outdoor air flow measurment is averaged";
   parameter Real uHeaMax=-0.25
     "Lower limit of controller input when outdoor damper opens for modulation control. Require -1 < uHeaMax < uCooMin < 1."
@@ -111,21 +111,19 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-180,70},{-160,90}}),
-    iconTransformation(extent={{-180,80},{-160,100}})));
+    iconTransformation(extent={{-180,70},{-160,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
     final quantity = "ThermodynamicTemperature") if use_TMix
     "Measured mixed air temperature, used for freeze protection"
     annotation (Placement(transformation(extent={{-180,-40},{-160,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(
-    final unit="m3/s",
-    final quantity="VolumeFlowRate")
-    "Measured outdoor volumetric airflow rate"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow_normalized(
+    final unit="1")
+    "Measured outdoor volumetric airflow rate, normalized by design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-180,10},{-160,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow(
-    final unit= "m3/s",
-    final quantity="VolumeFlowRate")
-    "Minimum outdoor volumetric airflow rate setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow_normalized(
+    final unit="1")
+    "Effective minimum outdoor airflow setpoint, normalized by design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if use_G36FrePro
@@ -168,8 +166,8 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final retDamPhyPosMin=retDamPhyPosMin,
     final outDamPhyPosMax=outDamPhyPosMax,
     final outDamPhyPosMin=outDamPhyPosMin,
-    final kPDamLim=kPMinOut,
-    final TiDamLim=TiMinOut,
+    final kP=kPMinOut,
+    final Ti=TiMinOut,
     final uRetDamMin=uRetDamMin)
     "Multi zone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -189,8 +187,8 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean VOutMea_flow(final delta=delta)
-    "Moving average of outdoor air flow measurement"
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean movAve(final delta=delta)
+    "Moving average of outdoor air flow measurement, normalized by design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Min outDamMaxFre
     "Maximum control signal for outdoor air damper due to freeze protection"
@@ -205,7 +203,7 @@ protected
     "Ignore min evaluation if there is no mixed air temperature sensor"
     annotation (Placement(transformation(extent={{80,-56},{100,-36}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
-    final k=Constants.FreezeProtectionStages.stage0) if not use_G36FrePro
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0) if not use_G36FrePro
     "Freeze protection status is 0. Use if G36 freeze protection is not implemented"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
 
@@ -222,7 +220,7 @@ equation
     annotation (Line(points={{-170,120},{-42,120},{-42,-22},{-1,-22}}, color={0,0,127}));
   connect(TOut, enaDis.TOut)
     annotation (Line(points={{-170,140},{-40,140},{-40,-20},{-1,-20}}, color={0,0,127}));
-  connect(VOutMinSet_flow, damLim.VOutMinSet_flow)
+  connect(VOutMinSet_flow_normalized, damLim.VOutMinSet_flow_normalized)
     annotation (Line(points={{-170,0},{-110,0},{-110,15},{-81,15}}, color={0,0,127}));
   connect(uSupFan, damLim.uSupFan)
     annotation (Line(points={{-170,-60},{-104,-60},{-104,10},{-81,10}}, color={255,0,255}));
@@ -250,10 +248,10 @@ equation
     annotation (Line(points={{21,-36},{30,-36},{30,14},{39,14}}, color={0,0,127}));
   connect(uTSup, mod.uTSup)
     annotation (Line(points={{-170,50},{10,50},{10,10},{39,10}}, color={0,0,127}));
-  connect(VOut_flow,VOutMea_flow. u)
-    annotation (Line(points={{-170,20},{-150,20},{-150,30},{-142,30}}, color={0,0,127}));
-  connect(VOutMea_flow.y, damLim.VOut_flow)
-    annotation (Line(points={{-119,30},{-100,30},{-100,18},{-81,18}}, color={0,0,127}));
+  connect(VOut_flow_normalized, movAve.u) annotation (Line(points={{-170,20},{-150,
+          20},{-150,30},{-142,30}}, color={0,0,127}));
+  connect(movAve.y, damLim.VOut_flow_normalized) annotation (Line(points={{-119,
+          30},{-100,30},{-100,18},{-81,18}}, color={0,0,127}));
   connect(retDamMinFre.y, yRetDamPos)
     annotation (Line(points={{141,40},{150,40},{170,40}},          color={0,0,127}));
   connect(mod.yOutDamPos, outDamMaxFre.u1)

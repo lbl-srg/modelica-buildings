@@ -13,21 +13,19 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
   parameter Boolean have_airFloMeaSta = false
     "Check if the AHU has AFMS (Airflow measurement station)"
     annotation(Dialog(group="System configuration"));
-  parameter Modelica.SIunits.PressureDifference maxDesPre(displayUnit="Pa")
-    "Duct design maximum static pressure"
-    annotation(Dialog(group="System configuration"));
   parameter Modelica.SIunits.PressureDifference iniSet(displayUnit="Pa") = 120
     "Initial setpoint"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
   parameter Modelica.SIunits.PressureDifference minSet(displayUnit="Pa") = 25
     "Minimum setpoint"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference maxSet(displayUnit="Pa") = maxDesPre
+  parameter Modelica.SIunits.PressureDifference maxSet(displayUnit="Pa")
     "Maximum setpoint"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.Time delTim = 600  "Delay time"
+  parameter Modelica.SIunits.Time delTim = 600
+   "Delay time after which trim and respond is activated"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.Time samplePeriod = 120  "Sample period of component"
+  parameter Modelica.SIunits.Time samplePeriod = 120  "Sample period"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
   parameter Integer numIgnReq = 2
     "Number of ignored requests"
@@ -44,7 +42,7 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(group="Fan PID controller"));
-  parameter Real k=0.5 "Gain of controller"
+  parameter Real k=0.1 "Gain of controller"
     annotation (Dialog(group="Fan PID controller"));
   parameter Modelica.SIunits.Time Ti(min=0)=60 "Time constant of Integrator block"
     annotation (Dialog(group="Fan PID controller",
@@ -81,7 +79,7 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan "Supply fan ON/OFF status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan "Supply fan on status"
     annotation (Placement(transformation(extent={{140,60},{160,80}}),
       iconTransformation(extent={{100,60},{120,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFanSpe(
@@ -109,9 +107,9 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
     final maxRes=maxRes) "Static pressure setpoint reset using trim and respond logic"
     annotation (Placement(transformation(extent={{-130,-50},{-110,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID supFanSpeCon(
-    final Ti=Ti,
     final controllerType=controllerType,
     final k=k,
+    final Ti=Ti,
     final Td=Td,
     final yMax=yFanMax,
     final yMin=yFanMin,
@@ -145,23 +143,23 @@ protected
     "Constant true"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    k=Constants.OperationModes.coolDown)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.coolDown)
     "Cool down mode"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
-    k=Constants.OperationModes.warmUp)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
     "Warm-up mode"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
-    k=Constants.OperationModes.setUp)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.setUp)
     "Set up mode"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    k=Constants.OperationModes.occupied)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied mode"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
-    k=Constants.OperationModes.setBack)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.setBack)
     "Set back mode"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
@@ -179,10 +177,10 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
     "Check if current operation mode is warmup mode"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  CDL.Continuous.Gain norPSet(final k=1/maxDesPre)
+  CDL.Continuous.Gain norPSet(final k=1/maxSet)
     "Normalization for pressure set point"
     annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
-  CDL.Continuous.Gain norPMea(final k=1/maxDesPre)
+  CDL.Continuous.Gain norPMea(final k=1/maxSet)
     "Normalization of pressure measurement"
     annotation (Placement(transformation(extent={{-70,-82},{-50,-62}})));
   CDL.Discrete.FirstOrderHold firOrdHol(
@@ -399,7 +397,7 @@ parameters as a starting point:
 <tr><td>Device</td><td>AHU Supply Fan</td> <td>Associated device</td></tr>
 <tr><td>SP0</td><td>120 Pa (0.5 inches)</td><td>Initial setpoint</td></tr>
 <tr><td>SPmin</td><td>25 Pa (0.1 inches)</td><td>Minimum setpoint</td></tr>
-<tr><td>SPmax</td><td>maxDesPre</td><td>Maximum setpoint</td></tr>
+<tr><td>SPmax</td><td>maxSet</td><td>Maximum setpoint</td></tr>
 <tr><td>Td</td><td>10 minutes</td><td>Delay timer</td></tr>
 <tr><td>T</td><td>2 minutes</td><td>Time step</td></tr>
 <tr><td>I</td><td>2</td><td>Number of ignored requests</td></tr>
@@ -413,8 +411,8 @@ parameters as a starting point:
 <p>
 Supply fan speed is controlled with a PI controller to maintain duct static pressure at setpoint
 when the fan is proven on. The setpoint for the PI controller and the measured
-duct static pressure are normalized with the design static presssure
-<code>maxDesPre</code>.
+duct static pressure are normalized with the maximum design static presssure
+<code>maxSet</code>.
 Where the zone groups served by the system are small,
 provide multiple sets of gains that are used in the control loop as a function
 of a load indicator (such as supply fan airflow rate, the area of the zone groups

@@ -48,8 +48,8 @@ model Enable_FreProSta
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(period=1800)
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger freProSta1(
-    integerTrue=Constants.FreezeProtectionStages.stage0,
-    integerFalse=Constants.FreezeProtectionStages.stage1)
+    integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0,
+    integerFalse=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
     "Freese protection stage changes from stage 0 to stage 1"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
 

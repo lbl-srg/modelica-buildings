@@ -36,12 +36,12 @@ partial model DataCenter
     m1_flow_nominal=mCHW_flow_nominal,
     m1_flow(start=mCHW_flow_nominal),
     m2_flow(start=mAir_flow_nominal),
-    dp1_nominal(displayUnit="Pa") = 1000,
     dp2_nominal=249*3,
     UA_nominal=mAir_flow_nominal*1006*5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    dp1_nominal(displayUnit="Pa") = 1000 + 89580)
     "Cooling coil"
-    annotation (Placement(transformation(extent={{298,-185},{278,-165}})));
+    annotation (Placement(transformation(extent={{300,-180},{280,-160}})));
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{298,
             -210},{318,-190}})));
@@ -187,8 +187,8 @@ partial model DataCenter
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={98,180})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium =
-        MediumA, m_flow_nominal=mAir_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium
+      = MediumA, m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature to data center" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -200,8 +200,8 @@ partial model DataCenter
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={218,0})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
-        MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
+      = MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -243,11 +243,6 @@ partial model DataCenter
     annotation (Placement(transformation(extent={{-360,-100},{-340,-80}})));
   BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-332,-98},{-312,-78}})));
-  Buildings.Fluid.FixedResistances.PressureDrop res(
-    redeclare package Medium = MediumW,
-    m_flow_nominal=mCHW_flow_nominal,
-    dp_nominal=89580)
-    annotation (Placement(transformation(extent={{328,-170},{348,-150}})));
   Modelica.Blocks.Math.Gain gain(k=20*6485)
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Modelica.Blocks.Math.Feedback feedback
@@ -276,7 +271,7 @@ partial model DataCenter
     annotation (Placement(transformation(extent={{-240,-290},{-220,-270}})));
 equation
   connect(expVesCHW.port_a, cooCoi.port_b1) annotation (Line(
-      points={{258,-147},{258,-169},{278,-169}},
+      points={{258,-147},{258,-164},{280,-164}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -338,7 +333,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(cooCoi.port_b2, fan.port_a) annotation (Line(
-      points={{298,-181},{359,-181},{359,-225},{348,-225}},
+      points={{300,-176},{359,-176},{359,-225},{348,-225}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -379,7 +374,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(roo.airPorts[2], cooCoi.port_a2) annotation (Line(
-      points={{246.425,-229.3},{246.425,-225},{218,-225},{218,-181},{278,-181}},
+      points={{246.425,-229.3},{246.425,-225},{218,-225},{218,-176},{280,-176}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -503,11 +498,6 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
 
-  connect(cooCoi.port_a1, res.port_a) annotation (Line(
-      points={{298,-169},{318,-169},{318,-160},{328,-160}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
   connect(chiCon.y, KMinusU.u) annotation (Line(
       points={{-139,50},{-80,50},{-80,38},{-61.8,38}},
       color={0,0,127},
@@ -550,12 +540,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(res.port_b, val6.port_b) annotation (Line(
-      points={{348,-160},{358,-160},{358,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(pumCHW.port_a, cooCoi.port_b1) annotation (Line(
-      points={{218,-130},{218,-160},{258,-160},{258,-169},{278,-169}},
+      points={{218,-130},{218,-164},{280,-164}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -593,9 +579,13 @@ equation
       points={{-279,-280},{-242,-280}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(cooCoi.port_a1, val6.port_b) annotation (Line(
+      points={{300,-164},{358,-164},{358,30}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-300},{400,
-            300}}), graphics),
+            300}})),
 Documentation(info="<HTML>
 <p>
 This model is the chilled water plant with discrete time control and

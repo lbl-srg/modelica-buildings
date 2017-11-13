@@ -1,56 +1,63 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences;
-block Limits "Multi zone VAV AHU minimum outdoor air control - damper position limits"
+block Limits
+  "Multi zone VAV AHU minimum outdoor air control - damper position limits"
 
   constant Real yMin=-1 "Lower limit of control loop signal"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+    annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
   constant Real yMax=1 "Upper limit of control loop signal"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+    annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
   parameter Real uRetDamMin(
     final min=yMin,
     final max=yMax,
     final unit="1") = 0.5
     "Minimum control signal for the return air damper position limit"
     annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
-  parameter Real kPDamLim=0.5 "Gain of damper limit controller"
+  parameter Real kP=0.05 "Gain of damper limit controller"
     annotation (Dialog(group="Controller"));
-  parameter Modelica.SIunits.Time TiDamLim=300
+  parameter Modelica.SIunits.Time Ti=1200
     "Time constant of damper limit controller integrator block"
     annotation (Dialog(group="Controller"));
+
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
-    "Physically fixed maximum position of the return air damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    "Physically fixed maximum position of the return air damper" annotation (
+      Evaluate=true, Dialog(tab="Commissioning", group=
+          "Physical damper position limits"));
   parameter Real retDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
-    "Physically fixed minimum position of the return air damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    "Physically fixed minimum position of the return air damper" annotation (
+      Evaluate=true, Dialog(tab="Commissioning", group=
+          "Physical damper position limits"));
   parameter Real outDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
-    "Physically fixed maximum position of the outdoor air damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    "Physically fixed maximum position of the outdoor air damper" annotation (
+      Evaluate=true, Dialog(tab="Commissioning", group=
+          "Physical damper position limits"));
   parameter Real outDamPhyPosMin(
     final min=0,
     final max=1,
     final unit="1") = 0
-    "Physically fixed minimum position of the outdoor air damper"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
+    "Physically fixed minimum position of the outdoor air damper" annotation (
+      Evaluate=true, Dialog(tab="Commissioning", group=
+          "Physical damper position limits"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(final unit="m3/s",
-      final quantity="VolumeFlowRate")
-    "Measured outdoor volumetric airflow rate" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow_normalized(
+   final unit="1")
+    "Measured outdoor volumetric airflow rate, normalized by design minimum outdoor airflow rate"
+    annotation (Placement(
         transformation(extent={{-220,150},{-180,190}}), iconTransformation(
           extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow(final unit=
-        "m3/s", final quantity="VolumeFlowRate")
-    "Minimum outdoor volumetric airflow rate setpoint" annotation (Placement(
-        transformation(extent={{-220,200},{-180,240}}), iconTransformation(
-          extent={{-120,40},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow_normalized(
+    final unit="1")
+    "Effective minimum outdoor airflow setpoint, normalized by design minimum outdoor airflow rate"
+    annotation (Placement(transformation(extent={{-220,200},{-180,240}}),
+        iconTransformation(extent={{-120,40},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal" annotation (Placement(transformation(
           extent={{-220,-200},{-180,-160}}), iconTransformation(extent={{-120,-60},
@@ -66,70 +73,66 @@ block Limits "Multi zone VAV AHU minimum outdoor air control - damper position l
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMin(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
-    final unit="1")
-    "Minimum outdoor air damper position limit"
-    annotation (Placement(transformation(extent={{180,70},{200,90}}),
-      iconTransformation(extent={{100,40},{120,60}})));
+    final unit="1") "Minimum outdoor air damper position limit" annotation (
+      Placement(transformation(extent={{180,70},{200,90}}), iconTransformation(
+          extent={{100,40},{120,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMax(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
-    final unit="1")
-    "Maximum outdoor air damper position limit"
-    annotation (Placement(transformation(extent={{180,30},{200,50}}),
-      iconTransformation(extent={{100,60},{120,80}})));
+    final unit="1") "Maximum outdoor air damper position limit" annotation (
+      Placement(transformation(extent={{180,30},{200,50}}), iconTransformation(
+          extent={{100,60},{120,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMin(
     final min=retDamPhyPosMin,
     final max=retDamPhyPosMax,
-    final unit="1")
-    "Minimum return air damper position limit"
-    annotation (Placement(transformation(extent={{180,-10},{200,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    final unit="1") "Minimum return air damper position limit" annotation (
+      Placement(transformation(extent={{180,-10},{200,10}}), iconTransformation(
+          extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMax(
     final min=retDamPhyPosMin,
     final max=retDamPhyPosMax,
-    final unit="1")
-    "Maximum return air damper position limit"
-    annotation (Placement(transformation(extent={{180,-50},{200,-30}}),
-      iconTransformation(extent={{100,-30},{120,-10}})));
+    final unit="1") "Maximum return air damper position limit" annotation (
+      Placement(transformation(extent={{180,-50},{200,-30}}),
+        iconTransformation(extent={{100,-30},{120,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1")
     "Physical maximum return air damper position limit. Required as an input for the economizer enable disable sequence"
     annotation (Placement(transformation(extent={{180,-90},{200,-70}}),
-      iconTransformation(extent={{100,-50},{120,-30}})));
+        iconTransformation(extent={{100,-50},{120,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID damLimCon(
-    final Ti=TiDamLim,
+    final Ti=Ti,
     final yMax=yMax,
     final yMin=yMin,
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final k=kPDamLim) "Damper position limit controller"
+    final k=kP,
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    "Damper position limit controller"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMinSig(
-    final k=outDamPhyPosMin)
+      final k=outDamPhyPosMin)
     "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(
-    final k=outDamPhyPosMax)
+      final k=outDamPhyPosMax)
     "Physically fixed maximum position of the outdoor air damper."
     annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyPosMinSig(
-    final k=retDamPhyPosMin)
+      final k=retDamPhyPosMin)
     "Physically fixed minimum position of the return air damper"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyPosMaxSig(
-    final k=retDamPhyPosMax)
+      final k=retDamPhyPosMax)
     "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSigLim(
-    final k=yMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSigLim(final k=yMin)
     "Equals minimum controller output signal"
     annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxSigLim(
-    final k=yMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxSigLim(final k=yMax)
     "Equals maximum controller output signal"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigFraForOutDam(final
@@ -137,14 +140,12 @@ protected
     limit gets modulated and above which the return air damper limit gets modulated"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Line minOutDam(
-    final limitBelow=true,
-    final limitAbove=true)
+  Buildings.Controls.OBC.CDL.Continuous.Line minOutDam(final limitBelow=true,
+      final limitAbove=true)
     "Linear mapping of the outdoor air damper position to the control signal"
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line minRetDam(
-    final limitBelow=true,
-    final limitAbove=true)
+  Buildings.Controls.OBC.CDL.Continuous.Line minRetDam(final limitBelow=true,
+      final limitAbove=true)
     "Linear mapping of the return air damper position to the control signal"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
   Buildings.Controls.OBC.CDL.Logical.Switch retDamPosMinSwitch
@@ -153,20 +154,23 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch outDamPosMaxSwitch
     "A switch to deactivate the outdoor air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd and1(final nu=3) "Locigal and block"
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd and1(final nu=3)
+    "Locigal and block"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not block"
     annotation (Placement(transformation(extent={{-8,-100},{12,-80}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=Constants.FreezeProtectionStages.stage1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
     "Freeze protection stage 1"
     annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
-    k=Constants.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(final k=
+        Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-160,-210},{-140,-190}})));
-  Buildings.Controls.OBC.CDL.Integers.LessEqual intLesEqu "Check if freeze protection stage is stage 0"
+  Buildings.Controls.OBC.CDL.Integers.LessEqual intLesEqu
+    "Check if freeze protection stage is stage 0"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu "Check if operation mode is occupied"
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu
+    "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
 
 equation
@@ -178,10 +182,10 @@ equation
           -30,210},{-30,118},{118,118}}, color={0,0,127}));
   connect(maxSigLim.y, minRetDam.x2) annotation (Line(points={{1,210},{8,210},{
           8,106},{118,106}}, color={0,0,127}));
-  connect(VOut_flow, damLimCon.u_m) annotation (Line(points={{-200,170},{-130,
-          170},{-130,178}}, color={0,0,127}));
-  connect(VOutMinSet_flow, damLimCon.u_s) annotation (Line(points={{-200,220},{
-          -160,220},{-160,190},{-142,190}}, color={0,0,127}));
+  connect(VOut_flow_normalized, damLimCon.u_m) annotation (Line(points={{-200,170},
+          {-130,170},{-130,178}}, color={0,0,127}));
+  connect(VOutMinSet_flow_normalized, damLimCon.u_s) annotation (Line(points={{-200,
+          220},{-160,220},{-160,190},{-142,190}}, color={0,0,127}));
   connect(damLimCon.y, minRetDam.u) annotation (Line(points={{-119,190},{-80,
           190},{-80,110},{118,110}}, color={0,0,127}));
   connect(outDamPosMaxSwitch.y, minOutDam.f2) annotation (Line(points={{61,20},
@@ -234,6 +238,9 @@ equation
   connect(uFreProSta, intLesEqu.u1)
     annotation (Line(points={{-200,-140},{-122,-140}}, color={255,127,0}));
 
+  connect(damLimCon.trigger, uSupFan) annotation (Line(points={{-138,178},{-138,
+          164},{-94,164},{-94,-86},{-160,-86},{-160,-100},{-200,-100}}, color={
+          255,0,255}));
   annotation (
     defaultComponentName="damLim",
     Icon(graphics={
@@ -307,7 +314,7 @@ control loop"),
           textString="Damper position limits
 outdoor air volume flow
 control loop")}),
-Documentation(info="<html>
+    Documentation(info="<html>
 <p>
 This block models the multi zone VAV AHU minimum outdoor air control with a single
 common damper for minimum outdoor air and economizer functions based on outdoor airflow
@@ -315,10 +322,10 @@ measurement, designed in line with ASHRAE Guidline 36 (G36), PART5.N.6.c.
 </p>
 <p>
 The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
-the AHU operation mode <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes</a> equals <code>occupied</code>,
-and the freeze protection stage <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages</a> is <code>stage1</code> or lower.
+the AHU operation mode <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes</a> equals <code>occupied</code>,
+and the freeze protection stage <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages</a> is <code>stage1</code> or lower.
 Otherwise the damper position limits are set to their corresponding maximum and minimum physical or at
 commissioning fixed limits. The state machine chart below illustrates listed conditions:
 </p>

@@ -22,15 +22,15 @@ model DryCoilCounterFlow
     "Formulation of energy balance"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
-  parameter Modelica.SIunits.Time tau1=20
+  parameter Modelica.SIunits.Time tau1=10
     "Time constant at nominal flow for medium 1"
     annotation (Dialog(group="Nominal condition",
                 enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Time tau2=10
+  parameter Modelica.SIunits.Time tau2=2
     "Time constant at nominal flow for medium 2"
     annotation (Dialog(group="Nominal condition",
                 enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Time tau_m=20
+  parameter Modelica.SIunits.Time tau_m=5
     "Time constant of metal at nominal UA value"
     annotation (Dialog(group="Nominal condition"));
 
@@ -314,6 +314,11 @@ rather may be considered as approximated by these heat conductors.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2017, by Michael wetter:<br/>
+Changed time constant to more reasonable values, which also makes
+closed loop control tuning easier.
+</li>
 <li>
 November 4, 2017, by Michael wetter:<br/>
 Added approximation of diffusion.<br/>

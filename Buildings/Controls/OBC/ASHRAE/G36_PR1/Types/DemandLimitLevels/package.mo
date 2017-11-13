@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants;
+within Buildings.Controls.OBC.ASHRAE.G36_PR1.Types;
 package DemandLimitLevels "Demand limit levels"
   extends Modelica.Icons.Package;
   constant Integer cooling0 = 0 "Cooling demand limit level 0";

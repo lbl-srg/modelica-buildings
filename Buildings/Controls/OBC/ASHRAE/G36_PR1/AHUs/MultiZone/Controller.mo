@@ -39,7 +39,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
   parameter Boolean use_enthalpy=false
     "Set to true if enthalpy measurement is used in addition to temperature measurement"
     annotation (Evaluate=true,Dialog(tab="Economizer"));
-  parameter Modelica.SIunits.Time delta=120
+  parameter Modelica.SIunits.Time delta=5
     "Time horizon over which the outdoor air flow measurment is averaged"
     annotation (Evaluate=true,Dialog(tab="Economizer"));
   parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
@@ -76,14 +76,14 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Physically fixed minimum position of the outdoor air damper"
     annotation (Evaluate=true,
       Dialog(tab="Economizer", group="Damper limits"));
-  parameter Real kPMinOut=0.5
+  parameter Real kPMinOut=0.05
     "Proportional gain of controller for minimum outdoor air intake"
     annotation (Dialog(group="Economizer PID controller"));
-  parameter Modelica.SIunits.Time TiMinOut=600
+  parameter Modelica.SIunits.Time TiMinOut=1200
     "Time constant of controller for minimum outdoor air intake"
     annotation (Dialog(group="Economizer PID controller"));
 
-  parameter Modelica.SIunits.Temperature TFreSet = 281.15
+  parameter Modelica.SIunits.Temperature TFreSet = 279.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Freeze protection", enable=use_TMix));
   parameter Real kPFre = 0.1
@@ -111,44 +111,39 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     annotation (Evaluate=true,Dialog(tab="Economizer", group="Economizer delays at disable"));
 
   // ----------- parameters for fan speed control  -----------
-  parameter Modelica.SIunits.PressureDifference maxDesPre(
-    min=0,
-    displayUnit="Pa") = 410
-    "Duct design maximum static pressure"
-    annotation (Evaluate=true,Dialog(tab="Fan speed"));
-  parameter Modelica.SIunits.PressureDifference iniSetFanSpe(displayUnit="Pa")=60
+  parameter Modelica.SIunits.PressureDifference pIniSet(displayUnit="Pa")=60
     "Initial pressure setpoint for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference minSetFanSpe(displayUnit="Pa")=25
+  parameter Modelica.SIunits.PressureDifference pMinSet(displayUnit="Pa")=25
     "Minimum pressure setpoint for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference maxSetFanSpe(displayUnit="Pa")=conSupFan.maxDesPre
+  parameter Modelica.SIunits.PressureDifference pMaxSet(displayUnit="Pa")=400
     "Maximum pressure setpoint for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Modelica.SIunits.Time delTimFanSpe=600
-    "Delay time for fan speed control"
+  parameter Modelica.SIunits.Time pDelTim=600
+    "Delay time after which trim and respond is activated"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Integer numIgnReqFanSpe=2
+  parameter Integer pNumIgnReq=2
     "Number of ignored requests for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference triAmoFanSpe(displayUnit="Pa")=-12.0
+  parameter Modelica.SIunits.PressureDifference pTriAmo(displayUnit="Pa")=-12.0
     "Trim amount for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference resAmoFanSpe(displayUnit="Pa")=15
+  parameter Modelica.SIunits.PressureDifference pResAmo(displayUnit="Pa")=15
     "Respond amount (must be opposite in to triAmo) for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference maxResFanSpe(displayUnit="Pa")=32
+  parameter Modelica.SIunits.PressureDifference pMaxRes(displayUnit="Pa")=32
     "Maximum response per time interval (same sign as resAmo) for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Real kPFanSpe=0.5
+  parameter Real kPFanSpe=0.1
     "Gain of fan PID controller"
     annotation (Evaluate=true,
       Dialog(group="Fan speed PID controller"));
@@ -168,61 +163,61 @@ block Controller "Multizone AHU controller that composes subsequences for contro
      fill(0.8, outAirSetPoi.numZon)
     "Zone air distribution effectiveness during heating"
     annotation (Evaluate=true,
-      Dialog(tab="MinOutAirSetting"));
+      Dialog(tab="Minimum outdoor airflow rate"));
   parameter Real zonDisEffCoo[numZon]=
      fill(1.0, outAirSetPoi.numZon)
     "Zone air distribution effectiveness during cooling"
     annotation (Evaluate=true,
-      Dialog(tab="MinOutAirSetting"));
+      Dialog(tab="Minimum outdoor airflow rate"));
   parameter Real occDen[numZon](each final unit="1/m2")=
      fill(0.05, outAirSetPoi.numZon)
     "Default number of person in unit area"
     annotation (Evaluate=true,
-      Dialog(tab="MinOutAirSetting", group="Nominal conditions"));
+      Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
   parameter Real outAirPerAre[numZon](each final unit = "m3/(s.m2)")=
      fill(3e-4, outAirSetPoi.numZon)
     "Outdoor air rate per unit area"
     annotation (Evaluate=true,
-      Dialog(tab="MinOutAirSetting", group="Nominal conditions"));
+      Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
   parameter Modelica.SIunits.VolumeFlowRate outAirPerPer[numZon]=
     fill(2.5e-3, outAirSetPoi.numZon)
     "Outdoor air rate per person"
     annotation (Evaluate=true,
-      Dialog(tab="MinOutAirSetting", group="Nominal conditions"));
+      Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
   parameter Modelica.SIunits.VolumeFlowRate minZonPriFlo[numZon]
     "Minimum expected zone primary flow rate"
     annotation (Evaluate=true,
-      Dialog(tab="MinOutAirSetting", group="Nominal conditions"));
+      Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
   parameter Modelica.SIunits.VolumeFlowRate maxSysPriFlo
     "Maximum expected system primary airflow at design stage"
     annotation (Evaluate=true,
-      Dialog(tab="MinOutAirSetting", group="Nominal conditions"));
+      Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
   parameter Real desZonDisEff[numZon]=fill(1.0, outAirSetPoi.numZon)
     "Design zone air distribution effectiveness"
     annotation (Evaluate=true,
-      Dialog(tab="MinOutAirSetting", group="Nominal conditions"));
+      Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
   parameter Real desZonPop[numZon]={
     outAirSetPoi.occDen[i]*outAirSetPoi.zonAre[i]
     for i in 1:outAirSetPoi.numZon}
     "Design zone population during peak occupancy"
     annotation (Evaluate=true,
-      Dialog(tab="MinOutAirSetting", group="Nominal conditions"));
+      Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
   parameter Real peaSysPop=1.2*sum(
     {outAirSetPoi.occDen[iZon]*outAirSetPoi.zonAre[iZon]
     for iZon in 1:outAirSetPoi.numZon})
     "Peak system population"
     annotation (Evaluate=true,
-      Dialog(tab="MinOutAirSetting", group="Nominal conditions"));
+      Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
   parameter Real uLow=-0.5
     "If zone space temperature minus supply air temperature is less than uLow,
     then it should use heating supply air distribution effectiveness"
     annotation (Evaluate=true,
-      Dialog(tab="MinOutAirSetting", group="Advanced"));
+      Dialog(tab="Minimum outdoor airflow rate", group="Advanced"));
   parameter Real uHig=0.5
     "If zone space temperature minus supply air temperature is more than uHig,
     then it should use cooling supply air distribution effectiveness"
     annotation (Evaluate=true,
-      Dialog(tab="MinOutAirSetting", group="Advanced"));
+      Dialog(tab="Minimum outdoor airflow rate", group="Advanced"));
 
   // ----------- parameters for supply air temperature control  -----------
   parameter Modelica.SIunits.Temperature TSupMin=285.15
@@ -258,7 +253,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Delay timer for supply temperature control"
     annotation (Evaluate=true,
       Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
-  parameter Integer ignReqSupTem=2
+  parameter Integer numIgnReqSupTem=2
     "Number of ignorable requests for supply temperature control"
     annotation (Evaluate=true,
       Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
@@ -276,12 +271,10 @@ block Controller "Multizone AHU controller that composes subsequences for contro
       Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
   parameter Real kPTSup=0.05
     "Gain of controller for supply air temperature signal"
-    annotation (Evaluate=true,
-      Dialog(group="Supply air temperature PID controller"));
-  parameter Modelica.SIunits.Time TiTSup=300
+    annotation (Dialog(group="Supply air temperature PID controller"));
+  parameter Modelica.SIunits.Time TiTSup=600
     "Time constant of integrator block for supply temperature control signal"
-    annotation (Evaluate=true,
-      Dialog(group="Supply air temperature PID controller"));
+    annotation (Dialog(group="Supply air temperature PID controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VBox_flow[numZon](
     each final unit="m3/s",
@@ -453,21 +446,20 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Controller for minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyFan
-    conSupFan(
+    supFan(
     final numZon=numZon,
-    final maxDesPre=maxDesPre,
     final samplePeriod=samplePeriod,
     final have_perZonRehBox=have_perZonRehBox,
     final have_duaDucBox=have_duaDucBox,
     final have_airFloMeaSta=have_airFloMeaSta,
-    final iniSet=iniSetFanSpe,
-    final minSet=minSetFanSpe,
-    final maxSet=maxSetFanSpe,
-    final delTim=delTimFanSpe,
-    final numIgnReq=numIgnReqFanSpe,
-    final triAmo=triAmoFanSpe,
-    final resAmo=resAmoFanSpe,
-    final maxRes=maxResFanSpe,
+    final iniSet=pIniSet,
+    final minSet=pMinSet,
+    final maxSet=pMaxSet,
+    final delTim=pDelTim,
+    final numIgnReq=pNumIgnReq,
+    final triAmo=pTriAmo,
+    final resAmo=pResAmo,
+    final maxRes=pMaxRes,
     final k=kPFanSpe,
     final Ti=TiFanSpe,
     final yFanMax=yFanMax,
@@ -486,7 +478,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final maxSet=maxSetSupTem,
     final minSet=minSetSupTem,
     final delTim=delTimSupTem,
-    final ignReq=ignReqSupTem,
+    final numIgnReq=numIgnReqSupTem,
     final triAmo=triAmoSupTem,
     final resAmo=resAmoSupTem,
     final maxRes=maxResSupTem) "Setpoint for supply temperature"
@@ -514,21 +506,27 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final use_TMix=use_TMix,
     final use_G36FrePro=use_G36FrePro) "Economizer controller"
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Valve val(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplySignals val(
     final uHeaMax=uHeaMax,
     final uCooMin=uCooMin,
     final kPTSup=kPTSup,
     final TiTSup=TiTSup) "AHU coil valve control"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-
+protected
+  Buildings.Controls.OBC.CDL.Continuous.Division VOut_flow_normalized(
+    u1(final unit="m3/s"),
+    u2(final unit="m3/s"),
+    y(final unit="1"))
+    "Normalization of outdoor air flow intake by design minimum outdoor air intake"
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 equation
   connect(eco.yRetDamPos, yRetDamPos) annotation (Line(points={{140.625,-45},{160,
           -45},{160,-40},{190,-40}}, color={0,0,127}));
   connect(eco.yOutDamPos, yOutDamPos) annotation (Line(points={{140.625,-55},{160,
           -55},{160,-150},{190,-150}}, color={0,0,127}));
-  connect(eco.uSupFan, conSupFan.ySupFan) annotation (Line(points={{119.375,-54.375},{-84,-54.375},
+  connect(eco.uSupFan, supFan.ySupFan) annotation (Line(points={{119.375,-54.375},{-84,-54.375},
           {-84,137},{-99,137}}, color={255,0,255}));
-  connect(conSupFan.ySupFanSpe, ySupFanSpe)
+  connect(supFan.ySupFanSpe, ySupFanSpe)
     annotation (Line(points={{-99,130},{190,130}},
       color={0,0,127}));
   connect(TOut, eco.TOut) annotation (Line(points={{-170,166},{-20,166},{-20,-40.625},{119.375,
@@ -540,8 +538,6 @@ equation
           -32}}, color={0,0,127}));
   connect(eco.hOutCut, hOutCut) annotation (Line(points={{119.375,-44.375},{-54,-44.375},{-54,-44},
           {-170,-44}}, color={0,0,127}));
-  connect(eco.VOut_flow, VOut_flow) annotation (Line(points={{119.375,-48.75},{-50,
-          -48.75},{-50,-60},{-170,-60}}, color={0,0,127}));
   connect(eco.uOpeMod, uOpeMod) annotation (Line(points={{119.375,-56.875},{100,-56.875},{100,-100},
           {-170,-100}}, color={255,127,0}));
   connect(supTemSetPoi.TSetSup, TSetSup)
@@ -549,24 +545,24 @@ equation
                                                 color={0,0,127}));
   connect(supTemSetPoi.TOut, TOut) annotation (Line(points={{-1,94},{-20,94},{-20,
           166},{-170,166}}, color={0,0,127}));
-  connect(supTemSetPoi.uSupFan, conSupFan.ySupFan) annotation (Line(points={{-1,90},
+  connect(supTemSetPoi.uSupFan, supFan.ySupFan) annotation (Line(points={{-1,90},
           {-84,90},{-84,137},{-99,137}},     color={255,0,255}));
   connect(supTemSetPoi.uZonTemResReq, uZonTemResReq) annotation (Line(points={{-1,86},
           {-12,86},{-12,-140},{-170,-140}},     color={255,127,0}));
   connect(supTemSetPoi.uOpeMod, uOpeMod) annotation (Line(points={{-1,82},{-8,82},
           {-8,-100},{-170,-100}},      color={255,127,0}));
-  connect(conSupFan.uOpeMod, uOpeMod)
+  connect(supFan.uOpeMod, uOpeMod)
     annotation (Line(points={{-122,138},{-140,138},{-140,-100},{-170,-100}},
       color={255,127,0}));
-  connect(conSupFan.uZonPreResReq, uZonPreResReq)
+  connect(supFan.uZonPreResReq, uZonPreResReq)
     annotation (Line(points={{-122,127},{-136,127},{-136,-160},{-170,-160}},
       color={255,127,0}));
-  connect(conSupFan.ducStaPre, ducStaPre)
+  connect(supFan.ducStaPre, ducStaPre)
     annotation (Line(points={{-122,122},{-170,122}},
       color={0,0,127}));
-  connect(eco.VOutMinSet_flow, outAirSetPoi.VOutMinSet_flow)
-    annotation (Line(points={{119.375,-50},{-24,-50},{-24,60},{-39,60}},
-      color={0,0,127}));
+  connect(eco.VOutMinSet_flow_normalized, outAirSetPoi.VOutMinSet_flow)
+    annotation (Line(points={{119.375,-50},{-24,-50},{-24,60},{-39,60}}, color={
+          0,0,127}));
   connect(outAirSetPoi.nOcc, nOcc)
     annotation (Line(points={{-61,68},{-88,68},{-88,100},{-170,100}},
       color={0,0,127}));
@@ -576,7 +572,7 @@ equation
   connect(outAirSetPoi.TDis, TDis)
     annotation (Line(points={{-61,62},{-170,62}},
       color={0,0,127}));
-  connect(conSupFan.ySupFan, outAirSetPoi.uSupFan)
+  connect(supFan.ySupFan, outAirSetPoi.uSupFan)
     annotation (Line(points={{-99,137},{-84,137},{-84,56},{-61,56}},
       color={255,0,255}));
   connect(supTemSetPoi.TSetZones, TZonSetPoiAve.y)
@@ -585,10 +581,10 @@ equation
   connect(outAirSetPoi.VBox_flow, VBox_flow)
     annotation (Line(points={{-61,51},{-144,51},{-144,140},{-170,140}},
       color={0,0,127}));
-  connect(conSupFan.VBox_flow, VBox_flow)
+  connect(supFan.VBox_flow, VBox_flow)
     annotation (Line(points={{-122,133},{-144,133},{-144,140},{-170,140}},
       color={0,0,127}));
-  connect(conSupFan.ySupFan, ySupFan)
+  connect(supFan.ySupFan, ySupFan)
     annotation (Line(points={{-99,137},{160,137},{160,180},{190,180}},
       color={255,0,255}));
   connect(outAirSetPoi.uOpeMod, uOpeMod)
@@ -603,7 +599,7 @@ equation
   connect(TSup, val.TSup)
     annotation (Line(points={{-170,30},{59,30}},
       color={0,0,127}));
-  connect(conSupFan.ySupFan, val.uSupFan)
+  connect(supFan.ySupFan, val.uSupFan)
     annotation (Line(points={{-99,137},{-84,137},{-84,25},{59,25}},
       color={255,0,255}));
   connect(val.uTSup, eco.uTSup)
@@ -629,6 +625,12 @@ equation
 
   connect(eco.uFreProSta, uFreProSta) annotation (Line(points={{119.375,-59.375},
           {106,-59.375},{106,-180},{-170,-180}}, color={255,127,0}));
+  connect(eco.VOut_flow_normalized, VOut_flow_normalized.y) annotation (Line(
+        points={{119.375,-48.75},{60,-48.75},{60,-10},{41,-10}}, color={0,0,127}));
+  connect(outAirSetPoi.VDesOutMin_flow_nominal, VOut_flow_normalized.u2)
+    annotation (Line(points={{-39,65},{-28,65},{-28,-16},{18,-16}}, color={0,0,127}));
+  connect(VOut_flow_normalized.u1, VOut_flow) annotation (Line(points={{18,-4},{
+          -120,-4},{-120,-60},{-170,-60}}, color={0,0,127}));
 annotation (defaultComponentName="conAHU",
     Diagram(coordinateSystem(extent={{-160,-200},{180,240}}, initialScale=0.2)),
     Icon(coordinateSystem(extent={{-160,-200},{180,240}}, initialScale=0.2),
@@ -698,8 +700,8 @@ for more detailed description.
 The subsequence retrieves supply air temperature setpoint from previous sequence.
 Along with the measured supply air temperature and the supply fan status, it
 generates coil valve positions. See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Valve\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Valve</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplySignals\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplySignals</a>
 </p>
 </html>",
 revisions="<html>

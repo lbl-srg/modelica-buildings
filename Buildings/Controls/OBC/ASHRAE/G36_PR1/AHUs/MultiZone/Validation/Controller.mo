@@ -22,7 +22,7 @@ model Controller "Validation controller model"
     "Outdoor temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
-    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.occupied)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "AHU operation mode is occupied"
     annotation (Placement(transformation(extent={{48,0},{68,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon[2](

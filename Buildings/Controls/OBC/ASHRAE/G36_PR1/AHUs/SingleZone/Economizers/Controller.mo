@@ -236,7 +236,7 @@ protected
     "Ignore max evaluation if there is no TMix sensor"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
-    final k=Constants.FreezeProtectionStages.stage0) if not use_G36FrePro
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0) if not use_G36FrePro
     "Freeze protection status is 0. Used if G36 freeze protection is not implemented"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 
@@ -264,17 +264,19 @@ equation
   connect(damLim.yOutDamPosMin, enaDis.uOutDamPosMin)
     annotation (Line(points={{-59,14},{-26,14},{-26,12},{-26,-36},{-1,-36}}, color={0,0,127}));
   connect(enaDis.yOutDamPosMax, mod.uOutDamPosMax)
-    annotation (Line(points={{22,-25.2},{30,-25.2},{30,11},{39,11}},color={0,0,127}));
+    annotation (Line(points={{22,-25.2},{30,-25.2},{30,6},{39,6}},  color={0,0,127}));
   connect(enaDis.yRetDamPosMax, mod.uRetDamPosMax)
-    annotation (Line(points={{22,-32},{32,-32},{32,4},{39,4}}, color={0,0,127}));
+    annotation (Line(points={{22,-32},{32,-32},{32,13},{39,13}},
+                                                               color={0,0,127}));
   connect(damLim.yOutDamPosMin, mod.uOutDamPosMin)
-    annotation (Line(points={{-59,14},{0,14},{0,8},{39,8}}, color={0,0,127}));
+    annotation (Line(points={{-59,14},{0,14},{0,3},{39,3}}, color={0,0,127}));
   connect(THeaSupSet, mod.THeaSupSet)
-    annotation (Line(points={{-130,40},{32,40},{32,19},{39,19}}, color={0,0,127}));
+    annotation (Line(points={{-130,40},{32,40},{32,17},{39,17}}, color={0,0,127}));
   connect(TSup, mod.TSup)
-    annotation (Line(points={{-130,60},{30,60},{30,16},{39,16}}, color={0,0,127}));
+    annotation (Line(points={{-130,60},{30,60},{30,20},{39,20}}, color={0,0,127}));
   connect(enaDis.yRetDamPosMin, mod.uRetDamPosMin)
-    annotation (Line(points={{22,-38},{34,-38},{34,1},{39,1}}, color={0,0,127}));
+    annotation (Line(points={{22,-38},{34,-38},{34,10},{39,10}},
+                                                               color={0,0,127}));
   connect(uZonSta, enaDis.uZonSta)
     annotation (Line(points={{-130,-100},{-58,-100},{-58,-30},{-1,-30}}, color={255,127,0}));
   connect(uSupFanSpe, damLim.uSupFanSpe)
@@ -304,6 +306,8 @@ equation
     annotation (Line(points={{-99,-150},{-40,-150},{-40,-28},{-1,-28}}, color={255,127,0}));
   connect(freProSta.y, damLim.uFreProSta)
     annotation (Line(points={{-99,-150},{-94,-150},{-94,2},{-81,2}}, color={255,127,0}));
+  connect(uSupFan, mod.uSupFan) annotation (Line(points={{-130,-40},{-80,-40},{
+          -80,-10},{20,-10},{20,0},{39,0}}, color={255,0,255}));
   annotation (defaultComponentName = "conEco",
         Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},

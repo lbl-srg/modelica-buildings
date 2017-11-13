@@ -80,10 +80,10 @@ block ModeAndSetPoints "Output zone setpoint with operation mode selection"
   parameter Modelica.SIunits.TemperatureDifference decSetDem_3=2.2
     "Heating setpoint decrease value when heating demand limit level 3 is imposed"
     annotation (Evaluate=true, Dialog(tab="Setpoint adjust", group="Demands settings"));
-  parameter Integer cooDemLimLevCon=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.cooling0
+  parameter Integer cooDemLimLevCon=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.DemandLimitLevels.cooling0
     "Cooling demand limit level"
     annotation (Evaluate=true, Dialog(tab="Setpoint adjust"));
-  parameter Integer heaDemLimLevCon=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.heating0
+  parameter Integer heaDemLimLevCon=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.DemandLimitLevels.heating0
     "Heating demand limit level"
     annotation (Evaluate=true, Dialog(tab="Setpoint adjust"));
   parameter Boolean winStaCon=false

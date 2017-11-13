@@ -32,7 +32,7 @@ block VAVSupplyTemperature
   parameter Modelica.SIunits.Time samplePeriod(min=1E-3) = 120
     "Sample period of component"
     annotation(Dialog(group="Trim and respond logic"));
-  parameter Integer ignReq = 2
+  parameter Integer numIgnReq = 2
     "Number of ignorable requests for TrimResponse logic"
     annotation(Dialog(group="Trim and respond logic"));
   parameter Modelica.SIunits.TemperatureDifference triAmo = 0.1
@@ -80,7 +80,7 @@ block VAVSupplyTemperature
     final minSet=minSet,
     final maxSet=maxSet,
     final samplePeriod=samplePeriod,
-    final numIgnReq=ignReq,
+    final numIgnReq=numIgnReq,
     final triAmo=triAmo,
     final resAmo=resAmo,
     final maxRes=maxRes) "Maximum cooling supply temperature reset"
@@ -119,16 +119,16 @@ protected
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi3 "Check output regarding supply fan status"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(threshold=Constants.OperationModes.warmUp)
+  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(threshold=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
     "Check if operation mode index is less than warm-up mode index (4)"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(threshold=Constants.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(threshold=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Check if operation mode index is greater than occupied mode index (1)"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr1(threshold=Constants.OperationModes.unoccupied)
+  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr1(threshold=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
     "Check if operation mode index is less than unoccupied mode index (7)"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(threshold=Constants.OperationModes.setUp)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(threshold=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.setUp)
     "Check if operation mode index is greater than set up mode index (3)"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
 
@@ -254,8 +254,8 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,120}})),
   Documentation(info="<html>
 <p>
-Block that outputs the supply air temperature setpoint and the coil valve control 
-inputs for VAV system with multiple zones, implemented according to the ASHRAE 
+Block that outputs the supply air temperature setpoint and the coil valve control
+inputs for VAV system with multiple zones, implemented according to the ASHRAE
 Guideline G36, PART5.N.2 (Supply air temperature control).
 </p>
 <p>

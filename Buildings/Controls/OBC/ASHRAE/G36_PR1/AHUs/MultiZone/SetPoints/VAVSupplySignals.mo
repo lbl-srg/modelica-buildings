@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints;
-block Valve "Multizone VAV AHU coil valve positions"
+block VAVSupplySignals "Multizone VAV AHU coil valve positions"
 
   parameter Real uHeaMax(min=-0.9)=-0.25
     "Upper limit of controller signal when heating coil is off. Require -1 < uHeaMax < uCooMin < 1.";
@@ -10,7 +10,7 @@ block Valve "Multizone VAV AHU coil valve positions"
     "Type of controller for supply air temperature signal";
   parameter Real kPTSup=0.05
     "Gain of controller for supply air temperature signal";
-  parameter Modelica.SIunits.Time TiTSup=300
+  parameter Modelica.SIunits.Time TiTSup=600
     "Time constant of integrator block for supply temperature control signal";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
@@ -197,11 +197,15 @@ Block that outputs the coil valve postions for VAV system with multiple zones,
 implemented according to the ASHRAE Guideline G36, PART5.N.2 
 (Supply air temperature control).
 </p>
+<p>
+The block also outputs the supply air temperature control signal
+which is used to control the economizer if present.
+</p>
 <h4>Valves control</h4>
 <p>
 Supply air temperature shall be controlled to setpoint using a control loop whose
-output is mapped to sequence the hot water valve or modulating electric heating
-coil (if applicable), chilled water valves.
+output is mapped to sequence the hot water valve (or modulating electric heating
+coil if applicable) and chilled water valve.
 </p>
 </html>",
 revisions="<html>
@@ -212,4 +216,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Valve;
+end VAVSupplySignals;

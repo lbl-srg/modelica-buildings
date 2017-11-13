@@ -74,7 +74,7 @@ model MixingBox
     "Flow coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
     annotation (Dialog(tab="Damper coefficients"));
 
-  parameter Modelica.SIunits.Time riseTime=30
+  parameter Modelica.SIunits.Time riseTime=15
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation (Dialog(tab="Dynamics", group="Filtered opening"));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput

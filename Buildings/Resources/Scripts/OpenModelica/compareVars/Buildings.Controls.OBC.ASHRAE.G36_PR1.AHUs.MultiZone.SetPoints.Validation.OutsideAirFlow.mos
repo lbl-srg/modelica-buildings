@@ -10,12 +10,12 @@ compareVars :=
     "zonPriFloRat[3].y",
     "zonPriFloRat[4].y",
     "zonPriFloRat[5].y",
-    "outAirSet_MulZon.VOutMinSet_flow",
+    "outAirSet_MulZon.VOutMinSet_flow_normalized",
     "outAirSet_MulZon.VDesOutMin_flow_nominal",
     "outAirSet_MulZon.VDesUncOutMin_flow_nominal",
     "outAirSet_MulZon.uOpeMod",
     "outAirSet_MulZon.uSupFan",
-    "outAirSet_MulZon1.VOutMinSet_flow",
+    "outAirSet_MulZon1.VOutMinSet_flow_normalized",
     "outAirSet_MulZon1.VDesOutMin_flow_nominal",
     "outAirSet_MulZon1.VDesUncOutMin_flow_nominal"
   };

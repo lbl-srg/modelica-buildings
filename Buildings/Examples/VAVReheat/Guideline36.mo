@@ -5,7 +5,7 @@ model Guideline36
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop;
 
   parameter Modelica.SIunits.VolumeFlowRate maxSysPriFlo=m_flow_nominal/1.2
-    "Maximum expected system primary airflow at design stage";
+    "Maximum expected system primary airflow rate at design stage";
   parameter Modelica.SIunits.VolumeFlowRate minZonPriFlo[numZon]={
       mCor_flow_nominal,mSou_flow_nominal,mEas_flow_nominal,mNor_flow_nominal,
       mWes_flow_nominal}/1.2 "Minimum expected zone primary flow rate";
@@ -43,7 +43,10 @@ model Guideline36
     numZon=numZon,
     maxSysPriFlo=maxSysPriFlo,
     minZonPriFlo=minZonPriFlo,
-    zonAre=zonAre) "AHU controller"
+    zonAre=zonAre,
+    yFanMin=yFanMin,
+    pMaxSet=410)
+                     "AHU controller"
     annotation (Placement(transformation(extent={{384,362},{424,470}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints TSetZon(
     THeaOn=THeaOn,

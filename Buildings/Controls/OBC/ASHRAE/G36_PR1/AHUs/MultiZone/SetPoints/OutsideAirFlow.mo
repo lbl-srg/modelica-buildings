@@ -114,7 +114,10 @@ block OutsideAirFlow
     quantity="VolumeFlowRate") "Effective minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{240,-120},{280,-80}}),
       iconTransformation(extent={{100,-10},{120,10}})));
-
+  CDL.Interfaces.RealOutput VOutMinSet_flow_normalized(final unit="1")
+    "Effective minimum outdoor airflow setpoint, normalized by VDesOutMin_flow_nominal"
+    annotation (Placement(transformation(extent={{240,-190},{278,-152}}),
+        iconTransformation(extent={{100,-70},{120,-50}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Add breZon[numZon] "Breathing zone airflow"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
@@ -161,7 +164,7 @@ protected
     annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Division effMinOutAirInt
     "Effective minimum outdoor air setpoint"
-    annotation (Placement(transformation(extent={{154,-150},{174,-130}})));
+    annotation (Placement(transformation(extent={{142,-150},{162,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.Add desBreZon[numZon] "Breathing zone design airflow"
     annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Division desZonOutAirRate[numZon]
@@ -206,7 +209,7 @@ protected
     annotation (Placement(transformation(extent={{40,-232},{60,-212}})));
   Buildings.Controls.OBC.CDL.Continuous.Min min
     "Minimum outdoor airflow rate should not be more than designed outdoor airflow rate"
-    annotation (Placement(transformation(extent={{210,-110},{230,-90}})));
+    annotation (Placement(transformation(extent={{188,-110},{208,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Min min1
     "Uncorrected outdoor air rate should not be higher than its design value"
     annotation (Placement(transformation(extent={{140,-92},{160,-72}})));
@@ -220,7 +223,7 @@ protected
     each final k=have_occSen)
     "Boolean constant to indicate if there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(k=Constants.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-170,-242},{-150,-222}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desDisEff[numZon](
@@ -297,6 +300,10 @@ protected
     each final k=false) if not have_winSen
     "Closed window status when there is no window sensor"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
+
+  CDL.Continuous.Division norVOutMin
+    "Normalization for minimum outdoor air flow rate"
+    annotation (Placement(transformation(extent={{200,-182},{222,-160}})));
 
 equation
   connect(breZonAre.y, breZon.u1)
@@ -436,20 +443,21 @@ equation
     annotation (Line(points={{161,150},{168,150},{168,134},{114,134},{114,104},
       {138,104}}, color={0,0,127}));
   connect(min1.y, effMinOutAirInt.u1)
-    annotation (Line(points={{161,-82},{174,-82},{174,-112},{146,-112},{146,-134},
-          {152,-134}},
+    annotation (Line(points={{161,-82},{168,-82},{168,-112},{132,-112},{132,
+          -134},{140,-134}},
                    color={0,0,127}));
   connect(sysUncOutAir.y, min1.u2)
     annotation (Line(points={{121.7,-82},{128,-82},{128,-88},{138,-88}},
       color={0,0,127}));
   connect(min1.y, outAirFra.u1)
-    annotation (Line(points={{161,-82},{174,-82},{174,-112},{26,-112},{26,-136},
-      {38,-136}}, color={0,0,127}));
+    annotation (Line(points={{161,-82},{168,-82},{168,-112},{26,-112},{26,-136},
+          {38,-136}},
+                  color={0,0,127}));
   connect(unCorOutAirInk.y, min1.u1)
     annotation (Line(points={{41,220.5},{180,220.5},{180,80},{128,80},{128,-76},
       {138,-76}}, color={0,0,127}));
   connect(desOutAirInt.y, min.u1)
-    annotation (Line(points={{161,110},{184,110},{184,-94},{208,-94}},
+    annotation (Line(points={{161,110},{176,110},{176,-94},{186,-94}},
       color={0,0,127}));
   connect(unCorOutAirInk.y, VDesUncOutMin_flow_nominal)
     annotation (Line(points={{41,220.5},{180,220.5},{180,180},{260,180}},
@@ -499,8 +507,8 @@ equation
     annotation (Line(points={{101,-180},{120,-180},{120,-174},{138,-174}},
       color={0,0,127}));
   connect(swi4.y, effMinOutAirInt.u2)
-    annotation (Line(points={{161,-182},{172,-182},{172,-162},{140,-162},{140,-146},
-          {152,-146}},        color={0,0,127}));
+    annotation (Line(points={{161,-182},{172,-182},{172,-162},{134,-162},{134,
+          -146},{140,-146}},  color={0,0,127}));
   connect(outAirFra.y, addPar.u)
     annotation (Line(points={{61,-142},{80,-142},{80,-160},{0,-160},{0,-182},
       {18,-182}}, color={0,0,127}));
@@ -524,9 +532,17 @@ equation
       color={255,0,255}));
 
   connect(VOutMinSet_flow, min.y)
-    annotation (Line(points={{260,-100},{231,-100}}, color={0,0,127}));
-  connect(effMinOutAirInt.y, min.u2) annotation (Line(points={{175,-140},{186,-140},
-          {186,-106},{208,-106}}, color={0,0,127}));
+    annotation (Line(points={{260,-100},{209,-100}}, color={0,0,127}));
+  connect(effMinOutAirInt.y, min.u2) annotation (Line(points={{163,-140},{178,
+          -140},{178,-106},{186,-106}},
+                                  color={0,0,127}));
+  connect(norVOutMin.u1, min.y) annotation (Line(points={{197.8,-164.4},{188,-164.4},
+          {188,-128},{220,-128},{220,-100},{209,-100}}, color={0,0,127}));
+  connect(desOutAirInt.y, norVOutMin.u2) annotation (Line(points={{161,110},{
+          176,110},{176,-178},{186,-178},{186,-177.6},{197.8,-177.6}},
+                                             color={0,0,127}));
+  connect(norVOutMin.y, VOutMinSet_flow_normalized)
+    annotation (Line(points={{223.1,-171},{259,-171}}, color={0,0,127}));
 annotation (
 defaultComponentName="outAirSetPoi",
 Icon(graphics={Rectangle(

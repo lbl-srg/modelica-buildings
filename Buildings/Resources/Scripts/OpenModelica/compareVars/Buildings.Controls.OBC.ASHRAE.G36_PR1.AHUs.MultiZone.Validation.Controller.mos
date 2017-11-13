@@ -1,7 +1,7 @@
 compareVars :=
   {
     "conAHU.ducStaPre",
-    "conAHU.conSupFan.staPreSetRes.y",
+    "conAHU.supFan.staPreSetRes.y",
     "conAHU.ySupFanSpe",
     "conAHU.TSup",
     "conAHU.TSetSup",

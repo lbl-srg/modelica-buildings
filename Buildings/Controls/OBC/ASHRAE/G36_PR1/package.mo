@@ -21,8 +21,8 @@ for generating controller setpoints such as for the supply air temperature,
 and actuation signals for mechanical elements of an AHU such as for the outdoor air damper
 position.
 </li>
-<li><a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants</a> is a library of constants
+<li><a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Types</a> is a library of constants
 that are used to indicate the operation mode, such as freeze
 protections status and demand response status.
 </li>

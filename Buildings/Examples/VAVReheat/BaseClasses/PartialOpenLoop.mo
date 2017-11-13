@@ -53,6 +53,10 @@ partial model PartialOpenLoop
     "Cooling setpoint during off";
   parameter Modelica.SIunits.PressureDifference dpBuiStaSet(min=0) = 12
     "Building static pressure";
+  parameter Real yFanMin = 0.1 "Minimum fan speed";
+
+//  parameter Modelica.SIunits.HeatFlowRate QHeaCoi_nominal= 2.5*yFanMin*m_flow_nominal*1000*(20 - 4)
+//    "Nominal capacity of heating coil";
 
   parameter Boolean allowFlowReversal=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
@@ -68,21 +72,38 @@ partial model PartialOpenLoop
   Buildings.Fluid.Sources.Outside amb(redeclare package Medium = MediumA,
       nPorts=3) "Ambient conditions"
     annotation (Placement(transformation(extent={{-136,-56},{-114,-34}})));
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU heaCoi(
-    redeclare package Medium1 = MediumA,
-    redeclare package Medium2 = MediumW,
-    m1_flow_nominal=m_flow_nominal,
-    m2_flow_nominal=m_flow_nominal*1000*(10 - (-20))/4200/10,
-    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
+//  Buildings.Fluid.HeatExchangers.DryCoilCounterFlow heaCoi(
+//    redeclare package Medium1 = MediumW,
+//    redeclare package Medium2 = MediumA,
+//    UA_nominal = QHeaCoi_nominal/Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
+//      T_a1=45,
+//      T_b1=35,
+//      T_a2=3,
+//      T_b2=20),
+//    m2_flow_nominal=m_flow_nominal,
+//    allowFlowReversal1=false,
+//    allowFlowReversal2=allowFlowReversal,
+//    dp1_nominal=0,
+//    dp2_nominal=200 + 200 + 100 + 40,
+//    m1_flow_nominal=QHeaCoi_nominal/4200/10,
+//    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+//    "Heating coil"
+//    annotation (Placement(transformation(extent={{118,-36},{98,-56}})));
 
+  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU heaCoi(
+    redeclare package Medium1 = MediumW,
+    redeclare package Medium2 = MediumA,
+    m1_flow_nominal=m_flow_nominal*1000*(10 - (-20))/4200/10,
+    m2_flow_nominal=m_flow_nominal,
+    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     Q_flow_nominal=m_flow_nominal*1006*(16.7 - 8.5),
-    dp2_nominal=0,
-    allowFlowReversal1=allowFlowReversal,
-    allowFlowReversal2=false,
-    dp1_nominal=200 + 200 + 100 + 40,
-    T_a1_nominal=281.65,
-    T_a2_nominal=323.15) "Heating coil"
-    annotation (Placement(transformation(extent={{98,-56},{118,-36}})));
+    dp1_nominal=0,
+    dp2_nominal=200 + 200 + 100 + 40,
+    allowFlowReversal1=false,
+    allowFlowReversal2=allowFlowReversal,
+    T_a1_nominal=318.15,
+    T_a2_nominal=281.65) "Heating coil"
+    annotation (Placement(transformation(extent={{118,-36},{98,-56}})));
 
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
     UA_nominal=3*m_flow_nominal*1000*15/
@@ -131,7 +152,7 @@ partial model PartialOpenLoop
     nPorts=1) "Sink for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={90,-120})));
+        origin={80,-122})));
   Buildings.Fluid.Sources.FixedBoundary sinCoo(
     redeclare package Medium = MediumW,
     p=300000,
@@ -139,7 +160,7 @@ partial model PartialOpenLoop
     nPorts=1) "Sink for cooling coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={190,-120})));
+        origin={180,-120})));
   Modelica.Blocks.Routing.RealPassThrough TOut(y(
       final quantity="ThermodynamicTemperature",
       final unit="K",
@@ -151,8 +172,8 @@ partial model PartialOpenLoop
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{330,-50},{350,-30}})));
-  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium
-      = MediumA) "Supply fan static discharge pressure" annotation (Placement(
+  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium =
+        MediumA) "Supply fan static discharge pressure" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -187,8 +208,8 @@ partial model PartialOpenLoop
   Buildings.Fluid.Sources.MassFlowSource_T souHea(
     redeclare package Medium = MediumW,
     T=318.15,
-    nPorts=1,
-    use_m_flow_in=true) "Source for heating coil" annotation (Placement(
+    use_m_flow_in=true,
+    nPorts=1)           "Source for heating coil" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -485,7 +506,7 @@ partial model PartialOpenLoop
   Results res(
     final A=ATot,
     PFan=fanSup.P + 0,
-    PHea=heaCoi.Q1_flow + cor.terHea.Q1_flow + nor.terHea.Q1_flow + wes.terHea.Q1_flow
+    PHea=heaCoi.Q2_flow + cor.terHea.Q1_flow + nor.terHea.Q1_flow + wes.terHea.Q1_flow
          + eas.terHea.Q1_flow + sou.terHea.Q1_flow,
     PCooSen=cooCoi.QSen2_flow,
     PCooLat=cooCoi.QLat2_flow) "Results of the simulation";
@@ -554,11 +575,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(heaCoi.port_b2, sinHea.ports[1]) annotation (Line(
-      points={{98,-52},{90,-52},{90,-110}},
-      color={0,127,0},
-      smooth=Smooth.None,
-      thickness=0.5));
   connect(amb.ports[1], VOut1.port_a) annotation (Line(
       points={{-114,-42.0667},{-94,-42.0667},{-94,-33},{-72,-33}},
       color={0,127,255},
@@ -624,9 +640,8 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(cooCoi.port_b1, sinCoo.ports[1]) annotation (Line(
-      points={{190,-52},{188,-52},{188,-110},{190,-110}},
-      color={0,127,0},
-      smooth=Smooth.None,
+      points={{190,-52},{180,-52},{180,-110}},
+      color={28,108,200},
       thickness=0.5));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-370,180},{-350,180}},
@@ -755,10 +770,6 @@ equation
       points={{1300,138},{1300,384},{842.286,384},{842.286,449.533}},
       color={0,127,255},
       thickness=0.5));
-  connect(TMix.port_b, heaCoi.port_a1) annotation (Line(
-      points={{50,-40},{98,-40}},
-      color={0,127,255},
-      thickness=0.5));
   connect(VOut1.port_b, eco.port_Out) annotation (Line(
       points={{-50,-33},{-42,-33},{-42,-40},{-20,-40}},
       color={0,127,255},
@@ -781,13 +792,9 @@ equation
     annotation (Line(points={{350,-40},{400,-40}}, color={0,127,255}));
   connect(senSupFlo.port_b, splSupRoo1.port_1)
     annotation (Line(points={{420,-40},{570,-40}}, color={0,127,255}));
-  connect(heaCoi.port_a2, souHea.ports[1]) annotation (Line(
-      points={{118,-52},{132,-52},{132,-110}},
-      color={0,140,72},
-      thickness=0.5));
   connect(cooCoi.port_a1, souCoo.ports[1]) annotation (Line(
       points={{210,-52},{230,-52},{230,-110}},
-      color={0,140,72},
+      color={28,108,200},
       thickness=0.5));
   connect(gaiHeaCoi.y, souHea.m_flow_in) annotation (Line(points={{121,-210},{
           124,-210},{124,-130}}, color={0,0,127}));
@@ -803,9 +810,21 @@ equation
     annotation (Line(points={{-19,-86},{-2,-86}}, color={0,0,127}));
   connect(freSta.u, TMix.T) annotation (Line(points={{-2,-98},{-10,-98},{-10,-70},
           {20,-70},{20,-20},{40,-20},{40,-29}}, color={0,0,127}));
-  connect(heaCoi.port_b1, cooCoi.port_a2) annotation (Line(
+  connect(TMix.port_b, heaCoi.port_a2) annotation (Line(
+      points={{50,-40},{98,-40}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(heaCoi.port_b2, cooCoi.port_a2) annotation (Line(
       points={{118,-40},{190,-40}},
       color={0,127,255},
+      thickness=0.5));
+  connect(souHea.ports[1], heaCoi.port_a1) annotation (Line(
+      points={{132,-110},{132,-52},{118,-52}},
+      color={28,108,200},
+      thickness=0.5));
+  connect(heaCoi.port_b1, sinHea.ports[1]) annotation (Line(
+      points={{98,-52},{80,-52},{80,-112}},
+      color={28,108,200},
       thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,
             -400},{1660,600}})), Documentation(info="<html>

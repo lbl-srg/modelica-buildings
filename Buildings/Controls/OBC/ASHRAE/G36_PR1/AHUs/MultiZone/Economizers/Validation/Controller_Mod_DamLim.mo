@@ -35,10 +35,10 @@ protected
     "Fan is on"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(final k=
-        Constants.FreezeProtectionStages.stage0)
+        Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0)
     "Freeze protection status is 0"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(final k=Constants.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(final
@@ -83,20 +83,20 @@ equation
           {-6,110},{-6,19.375},{19.375,19.375}}, color={0,0,127}));
   connect(TOutCut1.y, economizer.TOutCut) annotation (Line(points={{-99,70},{-10,
           70},{-10,18.125},{19.375,18.125}}, color={0,0,127}));
-  connect(VOut_flow.y, economizer.VOut_flow) annotation (Line(points={{-19,90},
-          {-8,90},{-8,11.25},{19.375,11.25}}, color={0,0,127}));
-  connect(VOutMinSet_flow.y, economizer.VOutMinSet_flow) annotation (Line(
-        points={{-19,50},{-12,50},{-12,10},{19.375,10}}, color={0,0,127}));
+  connect(VOut_flow.y, economizer.VOut_flow_normalized) annotation (Line(points
+        ={{-19,90},{-8,90},{-8,11.25},{19.375,11.25}}, color={0,0,127}));
+  connect(VOutMinSet_flow.y, economizer.VOutMinSet_flow_normalized) annotation
+    (Line(points={{-19,50},{-12,50},{-12,10},{19.375,10}}, color={0,0,127}));
   connect(TOutBelowCutoff.y, economizer1.TOut) annotation (Line(points={{-99,
           110},{90,110},{90,-20.625},{99.375,-20.625}}, color={0,0,127}));
   connect(TOutCut1.y, economizer1.TOutCut) annotation (Line(points={{-99,70},{
           88,70},{88,-21.875},{99.375,-21.875}}, color={0,0,127}));
-  connect(VOut_flow.y, economizer1.VOut_flow) annotation (Line(points={{-19,90},
-          {-10,90},{-10,-22},{18,-22},{18,-28.75},{99.375,-28.75}}, color={0,0,
-          127}));
-  connect(VOutMinSet_flow.y, economizer1.VOutMinSet_flow) annotation (Line(
-        points={{-19,50},{-12,50},{-12,-24},{16,-24},{16,-30},{99.375,-30}},
+  connect(VOut_flow.y, economizer1.VOut_flow_normalized) annotation (Line(
+        points={{-19,90},{-10,90},{-10,-22},{18,-22},{18,-28.75},{99.375,-28.75}},
         color={0,0,127}));
+  connect(VOutMinSet_flow.y, economizer1.VOutMinSet_flow_normalized)
+    annotation (Line(points={{-19,50},{-12,50},{-12,-24},{16,-24},{16,-30},{
+          99.375,-30}}, color={0,0,127}));
   connect(fanSta.y, economizer1.uSupFan) annotation (Line(points={{-59,-80},{20,
           -80},{20,-34.375},{99.375,-34.375}}, color={255,0,255}));
   connect(freProSta.y, economizer1.uFreProSta) annotation (Line(points={{-59,-120},
