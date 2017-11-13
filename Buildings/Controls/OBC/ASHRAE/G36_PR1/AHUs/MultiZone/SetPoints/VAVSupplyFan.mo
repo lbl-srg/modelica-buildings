@@ -22,9 +22,10 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
   parameter Modelica.SIunits.PressureDifference maxSet(displayUnit="Pa")
     "Maximum setpoint"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.Time delTim = 600  "Delay time"
+  parameter Modelica.SIunits.Time delTim = 600
+   "Delay time after which trim and respond is activated"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.Time samplePeriod = 120  "Sample period of component"
+  parameter Modelica.SIunits.Time samplePeriod = 120  "Sample period"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
   parameter Integer numIgnReq = 2
     "Number of ignored requests"
@@ -78,7 +79,7 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan "Supply fan ON/OFF status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan "Supply fan on status"
     annotation (Placement(transformation(extent={{140,60},{160,80}}),
       iconTransformation(extent={{100,60},{120,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFanSpe(
