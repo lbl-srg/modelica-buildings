@@ -5,14 +5,17 @@ block LimPID
     "Control error (set point - measurement)";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
          Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller";
-  parameter Real k(min=0, unit="1") = 1 "Gain of controller";
+  parameter Real k(
+    min=0,
+    unit="1") = 1 "Gain of controller";
   parameter Modelica.SIunits.Time Ti(min=Constants.small) = 0.5
-    "Time constant of Integrator block"
+    "Time constant of integrator block"
     annotation (Dialog(enable=
           controllerType == CDL.Types.SimpleController.PI or
           controllerType == CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(min=0) = 0.1
-    "Time constant of Derivative block"
+  parameter Modelica.SIunits.Time Td(
+    min=0) = 0.1
+    "Time constant of derivative block"
     annotation (Dialog(enable=
           controllerType == CDL.Types.SimpleController.PD or
           controllerType == CDL.Types.SimpleController.PID));

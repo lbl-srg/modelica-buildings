@@ -77,7 +77,7 @@ block Controller "Controller for room VAV box"
     annotation (Evaluate=true,
       Dialog(tab="Damper and valve", group="PID Controller"));
   parameter Modelica.SIunits.Time TiWatVal=300
-    "Time constant of Integrator block for valve control"
+    "Time constant of integrator block for valve control"
     annotation (Evaluate=true,
       Dialog(tab="Damper and valve", group="PID Controller"));
   parameter Real kDam=0.5
@@ -85,7 +85,7 @@ block Controller "Controller for room VAV box"
     annotation (Evaluate=true,
       Dialog(tab="Damper and valve", group="PID Controller"));
   parameter Modelica.SIunits.Time TiDam=300
-    "Time constant of Integrator block for damper control"
+    "Time constant of integrator block for damper control"
     annotation (Evaluate=true,
       Dialog(tab="Damper and valve", group="PID Controller"));
   parameter Boolean have_heaWatCoi=true

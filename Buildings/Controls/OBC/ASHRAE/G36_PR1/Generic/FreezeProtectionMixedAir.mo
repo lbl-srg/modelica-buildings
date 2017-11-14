@@ -4,7 +4,7 @@ block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature
   parameter Modelica.SIunits.Temperature TFreSet = 279.15
     "Lower limit for mixed air temperature for freeze protection";
   parameter Real k=0.1 "Proportional gain";
-  parameter Modelica.SIunits.Time Ti=120 "Time constant of Integrator block";
+  parameter Modelica.SIunits.Time Ti=120 "Time constant of integrator block";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",

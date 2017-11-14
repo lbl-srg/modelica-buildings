@@ -44,12 +44,12 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
     annotation (Dialog(group="Fan PID controller"));
   parameter Real k=0.1 "Gain of controller"
     annotation (Dialog(group="Fan PID controller"));
-  parameter Modelica.SIunits.Time Ti(min=0)=60 "Time constant of Integrator block"
+  parameter Modelica.SIunits.Time Ti(min=0)=60 "Time constant of integrator block"
     annotation (Dialog(group="Fan PID controller",
       enable=
         controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
         controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(min=0) = 0.1 "Time constant of Derivative block"
+  parameter Modelica.SIunits.Time Td(min=0) = 0.1 "Time constant of derivative block"
     annotation (Dialog(group="Fan PID controller",
       enable=
         controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
