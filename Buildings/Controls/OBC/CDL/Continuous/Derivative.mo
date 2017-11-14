@@ -9,7 +9,7 @@ block Derivative "Block that approximates the derivative of the input"
   parameter Real x_start=0 "Initial or guess value of state"
     annotation (Dialog(group="Initialization"));
   parameter Real y_start=0 "Initial value of output (= state)"
-    annotation(Dialog(enable=initType == Types.Init.InitialOutput,
+    annotation(Dialog(enable=initType == Buildings.Controls.OBC.CDL.Types.Init.InitialOutput,
                       group="Initialization"));
   Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));

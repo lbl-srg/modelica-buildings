@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic;
-block FreProTMix "Optional freeze protection block based on mixed air temperature."
+block FreProTMix "Freeze protection based on mixed air temperature"
 
   parameter Modelica.SIunits.Temperature TFreSet = 279.15
     "Lower limit for mixed air temperature for freeze protection";
@@ -26,36 +26,34 @@ block FreProTMix "Optional freeze protection block based on mixed air temperatur
     annotation (Placement(transformation(extent={{100,20},{120,40}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
 
-protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setPoiFre(
-    final k=TFreSet)
-    "Set point for freeze protection"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter yFreOut(
-    final p=1,
-    final k=-1) "Freeze protection control signal inverter"
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conFreTMix(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID con(
     final k=k,
+    final Ti=Ti,
     final yMax=1,
     final yMin=0,
-    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    Ti=Ti)
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
     "Controller for mixed air to track freeze protection set point"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
+protected
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setPoi(final k=TFreSet)
+    "Set point for freeze protection"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter yOut(final p=1, final k=-1)
+    "Freeze protection control signal inverter"
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+
 equation
-  connect(conFreTMix.u_s, setPoiFre.y)
-    annotation (Line(points={{-22,30},{-39,30}},color={0,0,127}));
-  connect(yFreOut.y,yFreProInv)
-    annotation (Line(points={{81,30},{110,30}},color={0,0,127}));
-  connect(TMix, conFreTMix.u_m)
+  connect(con.u_s, setPoi.y)
+    annotation (Line(points={{-22,30},{-39,30}}, color={0,0,127}));
+  connect(yOut.y, yFreProInv)
+    annotation (Line(points={{81,30},{110,30}}, color={0,0,127}));
+  connect(TMix, con.u_m)
     annotation (Line(points={{-120,0},{-10,0},{-10,18}}, color={0,0,127}));
-  connect(conFreTMix.y, yFrePro) annotation (Line(points={{1,30},{30,30},{30,-30},
-          {110,-30}}, color={0,0,127}));
-  connect(conFreTMix.y, yFreOut.u) annotation (Line(points={{1,30},{30,30},{30,30},
-          {58,30}}, color={0,0,127}));
+  connect(con.y, yFrePro) annotation (Line(points={{1,30},{30,30},{30,-30},{110,
+          -30}}, color={0,0,127}));
+  connect(con.y, yOut.u) annotation (Line(points={{1,30},{30,30},{30,30},{58,30}},
+        color={0,0,127}));
   annotation (
     defaultComponentName = "freProTMix",
     Icon(graphics={
@@ -72,22 +70,12 @@ equation
           points={{-20,-46},{-20,40},{36,40},{-20,40},{-20,2},{26,2}},
           color={0,0,127},
           thickness=0.5)}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-60},{100,60}},
-        initialScale=0.05)),
 Documentation(info="<html>
 <p>
 Block that tracks the mixed air temperature <code>TMix</code>
-using a proportional controller and outputs
+using a PI controller and outputs
 a freeze protection control signal <code>yFrePro</code> and
 its inverse <code>yFreProInv</code>.
-The input to the proportional controller is <code>TMix-1/k</code>,
-where <code>TMix</code> is the measured mixed air temperature
-and <code>k</code> is the proportional gain.
-This reduction ensures that the controller closes the outdoor air
-damper fully whenever <code>TMix</code> is below <code>TFreSet</code>,
-regardless of the control gain <code>k</code>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -224,7 +224,8 @@ equation
   connect(not1.y, enaDis1.u2)
     annotation (Line(points={{1,-70},{48,-70},{78,-70}}, color={255,0,255}));
   connect(uSupFan, and1.u[1])
-    annotation (Line(points={{-180,-80},{-122,-80},{-122,-65.3333},{-62,-65.3333}},
+    annotation (Line(points={{-180,-80},{-122,-80},{-122,-65.3333},{-62,
+          -65.3333}},
       color={255,0,255}));
   connect(uOpeMod, intEqu1.u1)
     annotation (Line(points={{-180,-160},{-102,-160}}, color={255,127,0}));

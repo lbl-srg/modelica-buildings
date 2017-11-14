@@ -386,9 +386,10 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(extent={{1090,-30},{1110,-50}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
-    annotation (Placement(transformation(extent={{-390,170},{-370,190}})));
-  BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
+  BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
+    annotation (Placement(transformation(extent={{-330,170},{-310,190}}),
+        iconTransformation(extent={{-360,170},{-340,190}})));
   ThermalZones.Floor flo(
     redeclare final package Medium = MediumA,
     final lat=lat,
@@ -644,17 +645,17 @@ equation
       color={28,108,200},
       thickness=0.5));
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-370,180},{-350,180}},
+      points={{-340,180},{-320,180}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaBus.TDryBul, TOut.u) annotation (Line(
-      points={{-350,180},{-302,180}},
+      points={{-320,180},{-302,180}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(amb.weaBus, weaBus) annotation (Line(
-      points={{-136,-44.78},{-350,-44.78},{-350,180}},
+      points={{-136,-44.78},{-320,-44.78},{-320,180}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -680,7 +681,7 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(weaBus, flo.weaBus) annotation (Line(
-      points={{-350,180},{-348,180},{-348,506},{988.714,506}},
+      points={{-320,180},{-320,506},{988.714,506}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -695,7 +696,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TRooAir.u, flo.TRooAir) annotation (Line(
-      points={{488,170},{480,170},{480,618},{1164,618},{1164,491.333},{1094.14,
+      points={{488,170},{480,170},{480,538},{1164,538},{1164,491.333},{1094.14,
           491.333}},
       color={0,0,127},
       smooth=Smooth.None,
@@ -826,8 +827,8 @@ equation
       points={{98,-52},{80,-52},{80,-112}},
       color={28,108,200},
       thickness=0.5));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,
-            -400},{1660,600}})), Documentation(info="<html>
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
+            -400},{1420,600}})), Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
 for air flow through building leakage and through open doors.

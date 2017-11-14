@@ -19,7 +19,8 @@ model FreProTMix_TMix
 
 equation
   connect(sin1.y, freProTMix.TMix)
-  annotation (Line(points={{-19,10},{-1,10}}, color={0,0,127}));
+  annotation (Line(points={{-19,11},{-10,11},{-10,10},{-1,10}},
+                                              color={0,0,127}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/Generic/Validation/FreProTMix_TMix.mos"
