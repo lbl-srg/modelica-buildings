@@ -4,15 +4,18 @@ block LimPID
   output Real controlError = u_s - u_m
     "Control error (set point - measurement)";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
-         CDL.Types.SimpleController.PID "Type of controller";
-  parameter Real k(min=0, unit="1") = 1 "Gain of controller";
+         Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller";
+  parameter Real k(
+    min=0,
+    unit="1") = 1 "Gain of controller";
   parameter Modelica.SIunits.Time Ti(min=Constants.small) = 0.5
-    "Time constant of Integrator block"
+    "Time constant of integrator block"
     annotation (Dialog(enable=
           controllerType == CDL.Types.SimpleController.PI or
           controllerType == CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(min=0) = 0.1
-    "Time constant of Derivative block"
+  parameter Modelica.SIunits.Time Td(
+    min=0) = 0.1
+    "Time constant of derivative block"
     annotation (Dialog(enable=
           controllerType == CDL.Types.SimpleController.PD or
           controllerType == CDL.Types.SimpleController.PID));
@@ -30,7 +33,8 @@ block LimPID
     "The higher Nd, the more ideal the derivative block"
        annotation(Dialog(enable=controllerType==CDL.Types.SimpleController.PD or
                                 controllerType==CDL.Types.SimpleController.PID));
-  parameter Buildings.Controls.OBC.CDL.Types.Init initType= Buildings.Controls.OBC.CDL.Types.Init.InitialState
+  parameter Buildings.Controls.OBC.CDL.Types.Init initType=
+    Buildings.Controls.OBC.CDL.Types.Init.InitialState
     "Type of initialization"
     annotation(Evaluate=true,  Dialog(group="Initialization"));
       // Removed as the Limiter block no longer uses this parameter.
@@ -331,6 +335,10 @@ Some parameters assignments in the instances have been made final.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 13, 2017, by Michael Wetter:<br/>
+Changed default controller type from PID to PI.
+</li>
 <li>
 November 6, 2017, by Michael Wetter:<br/>
 Explicitly declared types and used integrator with reset from CDL.

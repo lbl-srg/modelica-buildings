@@ -11,7 +11,8 @@ block IntegratorWithReset "Output the integral of the input signal"
   /* InitialState is the default, because it was the default in Modelica 2.2
      and therefore this setting is backward compatible
   */
-  parameter Buildings.Controls.OBC.CDL.Types.Init initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState
+  parameter Buildings.Controls.OBC.CDL.Types.Init initType=
+    Buildings.Controls.OBC.CDL.Types.Init.InitialState
     "Type of initialization (1: no init, 2: initial state, 3: initial output)"
     annotation(Evaluate=true,
       Dialog(group="Initialization"));
@@ -19,33 +20,41 @@ block IntegratorWithReset "Output the integral of the input signal"
   parameter Real y_start=0 "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
 
-  parameter Buildings.Controls.OBC.CDL.Types.Reset reset = Buildings.Controls.OBC.CDL.Types.Reset.Disabled
-    "Type of integrator reset";
+  parameter Buildings.Controls.OBC.CDL.Types.Reset reset=
+    Buildings.Controls.OBC.CDL.Types.Reset.Disabled
+    "Type of integrator reset"
+    annotation(Evaluate=true);
 
   parameter Real y_reset = 0
     "Value to which integrator is reset, used if reset = Types.Reset.Parameter"
-    annotation(Evaluate=true,
-               Dialog(
-                 enable=reset == Types.Reset.Parameter,
+    annotation(Dialog(
+                 enable=reset == Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
                  group="Integrator reset"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y_reset_in if
        reset == Buildings.Controls.OBC.CDL.Types.Reset.Input
     "Input signal for state to which integrator is reset, enabled if reset = Types.Reset.Input"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(
+      transformation(
+        extent={{-140,-100},{-100,-60}}),
+        visible=reset == Buildings.Controls.OBC.CDL.Types.Reset.Input));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger if
        reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled
     "Resets the integrator output when trigger becomes true"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}}, rotation=90,
-        origin={0,-120}), iconTransformation(
+    annotation (Placement(
+      transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={0,-120})));
+        origin={0,-120}),
+        visible=reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled,
+        iconTransformation(
+          extent={{-20,-20},{20,20}},
+          rotation=90,
+          origin={0,-120})));
 protected
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y_reset_internal
-   "Internal connector for integrator reset"
-   annotation(Evaluate=true);
+   "Internal connector for integrator reset";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger_internal
     "Needed to use conditional connector trigger";

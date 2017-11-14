@@ -10,13 +10,13 @@ block DamperValves
     "Gain of controller for valve control"
     annotation(Dialog(group="Controller parameter"));
   parameter Modelica.SIunits.Time TiWatVal=300
-    "Time constant of Integrator block for valve control"
+    "Time constant of integrator block for valve control"
     annotation(Dialog(group="Controller parameter"));
   parameter Real kDam=0.5
     "Gain of controller for damper control"
     annotation(Dialog(group="Controller parameter"));
   parameter Modelica.SIunits.Time TiDam=300
-    "Time constant of Integrator block for damper control"
+    "Time constant of integrator block for damper control"
     annotation(Dialog(group="Controller parameter"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea(

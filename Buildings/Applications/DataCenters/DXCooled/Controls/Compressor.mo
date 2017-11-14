@@ -2,7 +2,7 @@ within Buildings.Applications.DataCenters.DXCooled.Controls;
 model Compressor "Controller for compressor speed"
 
   parameter Real k=0.5 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti=240 "Time constant of Integrator block";
+  parameter Modelica.SIunits.Time Ti=240 "Time constant of integrator block";
   parameter Real yMax=1 "Upper limit of output";
   parameter Real yMin=0 "Lower limit of output";
   parameter Boolean reverseAction=true

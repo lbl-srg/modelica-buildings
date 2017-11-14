@@ -179,7 +179,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final uOutDamMax=uOutDamMax)
     "Multi zone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreProTMix freProTMix(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreezeProtectionMixedAir freProTMix(
     final TFreSet = TFreSet,
     final k=kPFre,
     final Ti=TiFre) if use_TMix

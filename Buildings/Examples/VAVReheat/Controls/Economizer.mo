@@ -40,7 +40,7 @@ block Economizer "Controller for economizer"
   Modelica.Blocks.Sources.Constant uni(k=1) "Unity signal"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   parameter Real k=1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti "Time constant of Integrator block";
+  parameter Modelica.SIunits.Time Ti "Time constant of integrator block";
   Modelica.Blocks.Interfaces.RealOutput yOA
     "Control signal for outside air damper" annotation (Placement(
         transformation(extent={{200,70},{220,90}}), iconTransformation(extent={

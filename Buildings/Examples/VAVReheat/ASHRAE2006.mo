@@ -279,8 +279,8 @@ equation
       extent={{6,3},{6,3}}));
   connect(pSetDuc.TOut, TOut.y) annotation (Line(points={{158,2},{32,2},{32,130},
           {-160,130},{-160,180},{-279,180}}, color={0,0,127}));
-  connect(TOut.y, controlBus.TOut) annotation (Line(points={{-279,180},{-250,
-          180},{-250,148},{-240,148},{-240,-342}}, color={0,0,127}), Text(
+  connect(TOut.y, controlBus.TOut) annotation (Line(points={{-279,180},{-240,180},
+          {-240,-342}},                            color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
@@ -331,8 +331,8 @@ equation
   connect(or2.y, swiHeaCoi.u2) annotation (Line(points={{21,-170},{40,-170},{40,
           -190},{40,-190},{40,-210},{58,-210}}, color={255,0,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
-            1660,640}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
+            580}})),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model

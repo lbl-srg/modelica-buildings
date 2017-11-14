@@ -15,13 +15,13 @@ partial model PartialControllerInterface
     "Gain of controller"
     annotation(Dialog(tab="Controller",enable=use_controller));
   parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=0.5
-    "Time constant of Integrator block"
+    "Time constant of integrator block"
      annotation (Dialog(enable=
           (use_controller and
           (controllerType == Modelica.Blocks.Types.SimpleController.PI or
           controllerType == Modelica.Blocks.Types.SimpleController.PID)),tab="Controller"));
   parameter Modelica.SIunits.Time Td(min=0)=0.1
-    "Time constant of Derivative block"
+    "Time constant of derivative block"
      annotation (Dialog(enable=
           use_controller and
           (controllerType == Modelica.Blocks.Types.SimpleController.PD or

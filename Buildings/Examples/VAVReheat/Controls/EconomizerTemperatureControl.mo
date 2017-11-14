@@ -13,7 +13,7 @@ block EconomizerTemperatureControl
     "Controller for mixed air temperature"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   parameter Real k=1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti "Time constant of Integrator block";
+  parameter Modelica.SIunits.Time Ti "Time constant of integrator block";
   Modelica.Blocks.Logical.Switch swi1
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Logical.Switch swi2

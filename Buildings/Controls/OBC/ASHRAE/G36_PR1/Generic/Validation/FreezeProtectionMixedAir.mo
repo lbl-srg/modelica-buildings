@@ -1,12 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.Validation;
-model FreProTMix_TMix
+model FreezeProtectionMixedAir
   "Validation model for the mixed air temperature based freeze protection block"
   extends Modelica.Icons.Example;
 
   parameter Modelica.SIunits.Temperature TFreSet = 273.15 + 4
   "Freeze protection set point temperature";
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreProTMix freProTMix(final TFreSet = TFreSet)
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreezeProtectionMixedAir freProTMix(final TFreSet = TFreSet)
   annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
   CDL.Continuous.Sources.Sine sin1(
@@ -19,10 +19,11 @@ model FreProTMix_TMix
 
 equation
   connect(sin1.y, freProTMix.TMix)
-  annotation (Line(points={{-19,10},{-1,10}}, color={0,0,127}));
+  annotation (Line(points={{-19,11},{-10,11},{-10,10},{-1,10}},
+                                              color={0,0,127}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/Generic/Validation/FreProTMix_TMix.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/Generic/Validation/FreezeProtectionMixedAir.mos"
     "Simulate and plot"),
     Icon(graphics={Ellipse(
           lineColor={75,138,73},
@@ -38,8 +39,8 @@ equation
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreProTMix\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreProTMix</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreezeProtectionMixedAir\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreezeProtectionMixedAir</a>
 for mixed air temperature <code>TMix</code> signal.
 </p>
 </html>",
@@ -51,4 +52,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FreProTMix_TMix;
+end FreezeProtectionMixedAir;

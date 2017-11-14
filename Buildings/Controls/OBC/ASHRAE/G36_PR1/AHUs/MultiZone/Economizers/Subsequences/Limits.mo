@@ -103,11 +103,11 @@ block Limits
         iconTransformation(extent={{100,-50},{120,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID damLimCon(
+    final k=kP,
     final Ti=Ti,
     final yMax=yMax,
     final yMin=yMin,
-    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final k=kP,
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Damper position limit controller"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));

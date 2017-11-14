@@ -203,11 +203,11 @@ defaultComponentName="outAirSetPoi",
 Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
-          fillColor={210,210,210},
+          fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
-          extent={{-92,82},{84,-68}},
+          extent={{-84,78},{92,-72}},
           lineColor={0,0,0},
-          textString="minOAsp"),
+          textString="VOutMinSet_flow"),
         Text(
           extent={{-100,140},{100,100}},
           lineColor={0,0,255},
