@@ -217,7 +217,7 @@ model Controller "Single zone VAV AHU economizer control sequence"
     final uMax=uMax)
     "Single zone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreProTMix
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreezeProtectionMixedAir
     freProTMix(TFreSet=TFreSet) if use_TMix
     "Block that tracks TMix against a freeze protection setpoint"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));

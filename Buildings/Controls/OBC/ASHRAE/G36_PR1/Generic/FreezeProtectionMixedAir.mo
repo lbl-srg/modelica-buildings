@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic;
-block FreProTMix "Freeze protection based on mixed air temperature"
+block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature"
 
   parameter Modelica.SIunits.Temperature TFreSet = 279.15
     "Lower limit for mixed air temperature for freeze protection";
@@ -85,4 +85,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FreProTMix;
+end FreezeProtectionMixedAir;
