@@ -10,25 +10,46 @@ block DamperValves
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeVal=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Heating valve"));
+    annotation(Dialog(group="Valve"));
 
   parameter Real kVal(final unit="1/K")=0.5
     "Gain of controller for valve control"
-    annotation(Dialog(group="Heating valve"));
+    annotation(Dialog(group="Valve"));
+
   parameter Modelica.SIunits.Time TiVal=300
     "Time constant of integrator block for valve control"
-    annotation(Dialog(group="Heating valve"));
+    annotation(Dialog(group="Valve",
+    enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Modelica.SIunits.Time TdVal=0.1
+    "Time constant of derivative block for valve control"
+    annotation (Dialog(group="Valve",
+      enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(group="Damper"));
+
   parameter Real kDam(final unit="1")=0.5
     "Gain of controller for damper control"
     annotation(Dialog(group="Damper"));
+
   parameter Modelica.SIunits.Time TiDam=300
     "Time constant of integrator block for damper control"
-    annotation(Dialog(group="Damper"));
+    annotation(Dialog(group="Damper",
+    enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Modelica.SIunits.Time TdDam=0.1
+    "Time constant of derivative block for damper control"
+    annotation (Dialog(group="Damper",
+      enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal(min=1E-10)
     "Nominal volume flow rate, used to normalize control error"
@@ -144,7 +165,7 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
-    annotation (Placement(transformation(extent={{200,-240},{220,-220}})));
+    annotation (Placement(transformation(extent={{180,-240},{200,-220}})));
   Buildings.Controls.OBC.CDL.Logical.Not not4 "Logical not"
     annotation (Placement(transformation(extent={{-182,80},{-162,100}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
@@ -165,22 +186,27 @@ block DamperValves
     final controllerType=controllerTypeVal,
     final k=kVal,
     final Ti=TiVal,
+    final Td=TdVal,
     final yMax=1,
-    final yMin=0)
+    final yMin=0,
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Hot water valve position if discharge air is below a minimum value"
     annotation (Placement(transformation(extent={{0,118},{20,138}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conYHeaVal(
     final controllerType=controllerTypeVal,
     final k=kVal,
     final Ti=TiVal,
+    final Td=TdVal,
     final yMax=1,
-    final yMin=0)
+    final yMin=0,
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Hot water valve position if uHea is between 0 and 50%"
-    annotation (Placement(transformation(extent={{4,-110},{24,-90}})));
+    annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID damPosCon(
     final controllerType=controllerTypeDam,
     final k=kDam,
     final Ti=TiDam,
+    final Td=TdDam,
     final yMax=1,
     final yMin=0,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
@@ -303,7 +329,7 @@ protected
   CDL.Logical.Switch damPosUno "Output damper position"
     annotation (Placement(transformation(extent={{280,40},{300,60}})));
   CDL.Logical.Not not5 "Negation of input signal"
-    annotation (Placement(transformation(extent={{220,80},{240,100}})));
+    annotation (Placement(transformation(extent={{202,-282},{222,-262}})));
 
   CDL.Continuous.Gain VDisSetNor(final k=1/V_flow_nominal)
     "Normalized setpoint for discharge volume flow rate"
@@ -415,7 +441,7 @@ equation
     annotation (Line(points={{161,-270},{172,-270},{172,205.333},{198,205.333}},
       color={0,0,127}));
   connect(not3.y, watValPos.u2)
-    annotation (Line(points={{221,-230},{232,-230},{232,-48},{238,-48}},
+    annotation (Line(points={{201,-230},{220,-230},{220,-48},{238,-48}},
       color={255,0,255}));
   connect(swi3.y, watValPos.u1)
     annotation (Line(points={{101,120},{200,120},{200,-40},{238,-40}},
@@ -461,7 +487,7 @@ equation
   connect(hys3.y, truHol2.u)
     annotation (Line(points={{-239,-230},{-221,-230}}, color={255,0,255}));
   connect(truHol2.y, not3.u)
-    annotation (Line(points={{-199,-230},{198,-230}}, color={255,0,255}));
+    annotation (Line(points={{-199,-230},{178,-230}}, color={255,0,255}));
   connect(truHol2.y, swi4.u2)
     annotation (Line(points={{-199,-230},{120,-230},{120,-270},{138,-270}},
       color={255,0,255}));
@@ -491,12 +517,12 @@ equation
     annotation (Line(points={{-199,-10},{-180,-10},{-180,22},{-82,22}},
       color={255,0,255}));
   connect(conYHeaVal.u_s, conTDisSet.y)
-    annotation (Line(points={{2,-100},{-99,-100}},  color={0,0,127}));
+    annotation (Line(points={{18,-100},{-99,-100}}, color={0,0,127}));
   connect(conYHeaVal.y, watValPos.u3)
-    annotation (Line(points={{25,-100},{180,-100},{180,-56},{238,-56}},
+    annotation (Line(points={{41,-100},{180,-100},{180,-56},{238,-56}},
       color={0,0,127}));
   connect(conYHeaVal.u_m, TDis)
-    annotation (Line(points={{14,-112},{14,-122},{-20,-122},{-20,-40},{-308,-40},
+    annotation (Line(points={{30,-112},{30,-122},{-20,-122},{-20,-40},{-308,-40},
           {-308,110},{-340,110}},
                               color={0,0,127}));
   connect(hys7.y, swi2.u2)
@@ -523,10 +549,12 @@ equation
           {330,20}}, color={0,0,127}));
   connect(isUno.y, damPosUno.u2) annotation (Line(points={{241,-332},{266,-332},
           {266,50},{278,50}}, color={255,0,255}));
-  connect(isUno.y, not5.u) annotation (Line(points={{241,-332},{266,-332},{266,70},
-          {210,70},{210,90},{218,90}}, color={255,0,255}));
+  connect(isUno.y, not5.u) annotation (Line(points={{241,-332},{266,-332},{266,
+          -300},{180,-300},{180,-272},{200,-272}},
+                                       color={255,0,255}));
   connect(not5.y, damPosCon.trigger)
-    annotation (Line(points={{241,90},{282,90},{282,158}}, color={255,0,255}));
+    annotation (Line(points={{223,-272},{232,-272},{232,150},{282,150},{282,158}},
+                                                           color={255,0,255}));
   connect(mulSum.y, VDisSetNor.u) annotation (Line(points={{221.7,210},{230,210},
           {230,170},{238,170}}, color={0,0,127}));
   connect(VDisSetNor.y, damPosCon.u_s)
@@ -535,6 +563,10 @@ equation
           {238,132}}, color={0,0,127}));
   connect(VDisNor.y, damPosCon.u_m)
     annotation (Line(points={{261,132},{290,132},{290,158}}, color={0,0,127}));
+  connect(not5.y, conYHeaVal.trigger) annotation (Line(points={{223,-272},{232,
+          -272},{232,-148},{22,-148},{22,-112}}, color={255,0,255}));
+  connect(not5.y, conYHeaValMin.trigger) annotation (Line(points={{223,-272},{
+          232,-272},{232,-148},{2,-148},{2,116}}, color={255,0,255}));
 annotation (
   defaultComponentName="damVal",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-380},{320,380}}),

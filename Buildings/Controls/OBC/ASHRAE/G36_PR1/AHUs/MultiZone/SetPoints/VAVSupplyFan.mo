@@ -46,14 +46,12 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
     annotation (Dialog(group="Fan PID controller"));
   parameter Modelica.SIunits.Time Ti(min=0)=60 "Time constant of integrator block"
     annotation (Dialog(group="Fan PID controller",
-      enable=
-        controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-        controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+         or  controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Time Td(min=0) = 0.1 "Time constant of derivative block"
     annotation (Dialog(group="Fan PID controller",
-      enable=
-        controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-        controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real yFanMax(min=0.1, max=1, unit="1") = 1 "Maximum allowed fan speed"
     annotation (Dialog(group="Fan PID controller"));
   parameter Real yFanMin(min=0.1, max=1, unit="1") = 0.1 "Lowest allowed fan speed if fan is on"

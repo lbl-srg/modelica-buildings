@@ -19,7 +19,15 @@ block Controller "Controller for room VAV box"
 
   parameter Modelica.SIunits.Time TiCoo=1800
     "Time constant of integrator block for cooling control loop signal"
-    annotation(Dialog(group="Cooling loop signal"));
+    annotation(Dialog(group="Cooling loop signal",
+      enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+          or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Modelica.SIunits.Time TdCoo=0.1
+    "Time constant of derivative block for cooling control loop signal"
+    annotation (Dialog(group="Cooling loop signal",
+      enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -28,20 +36,39 @@ block Controller "Controller for room VAV box"
   parameter Real kHea(final unit="1/K")=0.5
     "Gain for heating control loop signal"
     annotation(Dialog(group="Heating loop signal"));
+
   parameter Modelica.SIunits.Time TiHea=1800
     "Time constant of integrator block for heating control loop signal"
-    annotation(Dialog(group="Heating loop signal"));
+    annotation(Dialog(group="Heating loop signal",
+    enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Modelica.SIunits.Time TdHea=0.1
+    "Time constant of derivative block for heating control loop signal"
+    annotation (Dialog(group="Heating loop signal",
+      enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeVal=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Valve"));
+
   parameter Real kVal=0.5
     "Gain of controller for valve control"
     annotation (Dialog(group="Valve"));
+
   parameter Modelica.SIunits.Time TiVal=300
     "Time constant of integrator block for valve control"
-    annotation (Dialog(group="Valve"));
+    annotation(Dialog(group="Valve",
+    enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Modelica.SIunits.Time TdVal=0.1
+    "Time constant of derivative block for valve control"
+    annotation (Dialog(group="Valve",
+      enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -51,10 +78,18 @@ block Controller "Controller for room VAV box"
   parameter Real kDam(final unit="1")=0.5
     "Gain of controller for damper control"
     annotation (Dialog(group="Damper"));
+
   parameter Modelica.SIunits.Time TiDam=300
     "Time constant of integrator block for damper control"
-    annotation (Dialog(group="Damper"));
+    annotation (Dialog(group="Damper",
+      enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+          or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
+  parameter Modelica.SIunits.Time TdDam=0.1
+    "Time constant of derivative block for damper control"
+    annotation (Dialog(group="Damper",
+      enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Boolean have_occSen=false
     "Set to true if the zone has occupancy sensor"
@@ -245,15 +280,17 @@ block Controller "Controller for room VAV box"
     "Active airflow rate setpoint"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves damVal(
+    final controllerTypeVal=controllerTypeVal,
     final kVal=kVal,
     final TiVal=TiVal,
+    final TdVal=TdVal,
+    final controllerTypeDam=controllerTypeDam,
     final kDam=kDam,
     final TiDam=TiDam,
+    final TdDam=TdDam,
     final dTDisMax=dTDisMax,
     final TDisMin=TDisMin,
-    V_flow_nominal=max(VCooMax, VHeaMax),
-    controllerTypeVal=controllerTypeVal,
-    controllerTypeDam=controllerTypeDam)
+    V_flow_nominal=max(VCooMax, VHeaMax))
                            "Damper and valve controller"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests sysReq(
@@ -273,18 +310,32 @@ block Controller "Controller for room VAV box"
     final controllerType=controllerTypeHea,
     final k=kHea,
     final Ti=TiHea,
+    final Td=TdHea,
     final yMax=1,
-    final yMin=0) "Heating loop signal"
+    final yMin=0,
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+                  "Heating loop signal"
     annotation (Placement(transformation(extent={{-110,150},{-90,170}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conCooLoo(
     final controllerType=controllerTypeCoo,
     final k=kCoo,
     final Ti=TiCoo,
+    final Td=TdCoo,
     final yMax=1,
     final yMin=0,
-    reverseAction=true) "Cooling loop signal"
+    reverseAction=true,
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+                        "Cooling loop signal"
     annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
 
+protected
+  CDL.Integers.Equal isUnOcc "Output true if unoccupied"
+    annotation (Placement(transformation(extent={{-38,-160},{-18,-140}})));
+  CDL.Integers.Sources.Constant conIntUn(final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
+    "Constant signal for unoccupied mode"
+    annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
+  CDL.Logical.Not isNotUn "Output true if not unoccupied"
+    annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
 equation
   connect(sysReq.TCooSet, TRooCooSet)
     annotation (Line(points={{79,-81},{-120,-81},{-120,120},{-160,120}},
@@ -356,7 +407,7 @@ equation
     annotation (Line(points={{-19,66},{-8,66},{-8,-5},{19,-5}},
       color={0,0,127}));
   connect(actAirSet.uOpeMod, uOpeMod)
-    annotation (Line(points={{-41,67},{-60,67},{-60,-170},{-160,-170}},
+    annotation (Line(points={{-41,67},{-112,67},{-112,-170},{-160,-170}},
       color={255,127,0}));
   connect(sysReq.yZonTemResReq, yZonTemResReq)
     annotation (Line(points={{101,-83},{120,-83},{120,-80},{150,-80}},
@@ -393,8 +444,21 @@ equation
     annotation (Line(points={{-89,120},{8,120},{8,-85},{79,-85}},
       color={0,0,127}));
 
-  connect(damVal.uOpeMod, uOpeMod) annotation (Line(points={{19,-21},{-60,-21},
-          {-60,-170},{-160,-170}},color={255,127,0}));
+  connect(damVal.uOpeMod, uOpeMod) annotation (Line(points={{19,-21},{-112,-21},
+          {-112,-170},{-160,-170}},
+                                  color={255,127,0}));
+  connect(conIntUn.y, isUnOcc.u1)
+    annotation (Line(points={{-59,-150},{-40,-150}}, color={255,127,0}));
+  connect(uOpeMod, isUnOcc.u2) annotation (Line(points={{-160,-170},{-52,-170},{
+          -52,-158},{-40,-158}}, color={255,127,0}));
+  connect(isUnOcc.y, isNotUn.u)
+    annotation (Line(points={{-17,-150},{-2,-150}}, color={255,0,255}));
+  connect(isNotUn.y, conCooLoo.trigger) annotation (Line(points={{21,-150},{40,-150},
+          {40,-122},{-116,-122},{-116,102},{-108,102},{-108,108}}, color={255,0,
+          255}));
+  connect(isNotUn.y, conHeaLoo.trigger) annotation (Line(points={{21,-150},{40,-150},
+          {40,-120},{-116,-120},{-116,142},{-108,142},{-108,148}}, color={255,0,
+          255}));
 annotation (Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
@@ -509,6 +573,10 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2017, by Michael Wetter:<br/>
+Added integrator reset.
+</li>
 <li>
 October 27, 2017, by Jianjun Hu:<br/>
 Moved it from example package.

@@ -26,7 +26,15 @@ model Controller "Single zone VAV AHU economizer control sequence"
 
   parameter Modelica.SIunits.Time TiMod=300
     "Time constant of modulation controller integrator block"
-    annotation(Dialog(group="Modulation"));
+    annotation (Dialog(group="Modulation",
+      enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+          or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Modelica.SIunits.Time TdMod=0.1
+    "Time constant of derivative block for modulation controller"
+    annotation (Dialog(group="Modulation",
+      enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real uMin(
     final min=0,
@@ -49,8 +57,18 @@ model Controller "Single zone VAV AHU economizer control sequence"
      annotation(Dialog(group="Freeze protection", enable=use_TMix));
 
   parameter Modelica.SIunits.Time TiFre=120
-    "Time constant of controller for mixed air temperature tracking for freeze protection, used if use_TMix=true. Require TiFre < TiMinOut"
-     annotation(Dialog(group="Freeze protection", enable=use_TMix));
+    "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre < TiMinOut"
+     annotation(Dialog(group="Freeze protection",
+       enable=use_TMix
+         and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+
+   parameter Modelica.SIunits.Time TdFre=0.1
+     "Time constant of derivative block for freeze protection"
+     annotation (Dialog(group="Freeze protection",
+       enable=use_TMix and
+           (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   parameter Modelica.SIunits.Temperature TFreSet = 277.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
@@ -234,6 +252,7 @@ model Controller "Single zone VAV AHU economizer control sequence"
     final controllerType=controllerTypeMod,
     final k=kMod,
     final Ti=TiMod,
+    final Td=TdMod,
     final uMin=uMin,
     final uMax=uMax)
     "Single zone VAV AHU economizer damper modulation sequence"
@@ -242,6 +261,7 @@ model Controller "Single zone VAV AHU economizer control sequence"
     final controllerType=controllerTypeFre,
     final k=kFre,
     final Ti=TiFre,
+    final Td=TdFre,
     final TFreSet=TFreSet) if use_TMix
     "Block that tracks TMix against a freeze protection setpoint"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
