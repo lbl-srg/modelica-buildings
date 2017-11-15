@@ -1,10 +1,15 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic;
 block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature"
 
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller";
+  parameter Real k(final unit="1/K")=0.1 "Proportional gain";
+  parameter Modelica.SIunits.Time Ti=120 "Time constant of integrator block";
+
   parameter Modelica.SIunits.Temperature TFreSet = 279.15
     "Lower limit for mixed air temperature for freeze protection";
-  parameter Real k=0.1 "Proportional gain";
-  parameter Modelica.SIunits.Time Ti=120 "Time constant of integrator block";
+
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
@@ -27,11 +32,11 @@ block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature
       iconTransformation(extent={{100,-70},{120,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID con(
+    final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final yMax=1,
-    final yMin=0,
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
+    final yMin=0)
     "Controller for mixed air to track freeze protection set point"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 

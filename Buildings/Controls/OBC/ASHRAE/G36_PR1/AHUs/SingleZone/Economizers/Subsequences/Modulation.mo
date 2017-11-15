@@ -1,17 +1,21 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences;
 block Modulation "Outdoor and return air damper position modulation sequence for single zone VAV AHU"
 
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller";
+
+  parameter Real k(final unit="1/K") = 1 "Gain of controller";
+
+  parameter Modelica.SIunits.Time Ti=300
+    "Time constant of modulation controller integrator block";
+
   parameter Real uMin=0
     "Lower limit of controller output uTSup at which the dampers are at their limits"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+    annotation(Evaluate=true);
   parameter Real uMax=1
     "Upper limit of controller output uTSup at which the dampers are at their limits"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Real kPMod=1 "Gain of modulation controller"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Modelica.SIunits.Time TiMod=300
-    "Time constant of modulation controller integrator block"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+    annotation(Evaluate=true);
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
@@ -24,6 +28,11 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     final quantity = "ThermodynamicTemperature") "Supply air temperature heating setpoint"
     annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
       iconTransformation(extent={{-120,60},{-100,80}})));
+
+  CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
+    annotation (Placement(transformation(extent={{-160,-130},{-120,-90}}),
+      iconTransformation(extent={{-120,-110},{-100,-90}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
     final min=0,
     final max=1,
@@ -68,41 +77,37 @@ block Modulation "Outdoor and return air damper position modulation sequence for
       iconTransformation(extent={{100,10},{120,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID uTSup(
-    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final yMax=uMax,
     final yMin=uMin,
-    final k=kPMod,
-    final Ti=TiMod,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final k=k,
+    final Ti=Ti,
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
+    final controllerType=controllerType)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(
-      final k=uTSup.yMin) "Minimal control loop signal for the outdoor air damper"
+      final k=uMin) "Minimal control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-20,-22},{0,-2}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamMaxLimSig(
-      final k=uTSup.yMax) "Maximal control loop signal for the return air damper"
+      final k=uMax) "Maximal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Line outDamPos(
-    limitBelow=true,
-    limitAbove=true)
+    final limitBelow=true,
+    final limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line retDamPos(
-    limitBelow=true,
-    limitAbove=true)
+    final limitBelow=true,
+    final limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{58,10},{78,30}})));
 
-public
-  CDL.Interfaces.BooleanInput                        uSupFan "Supply fan status"
-    annotation (Placement(transformation(extent={{-160,-130},{-120,-90}}),
-      iconTransformation(extent={{-120,-110},{-100,-90}})));
 equation
   connect(TSup, uTSup.u_m)
-    annotation (Line(points={{-140,110},{-106,110},{-106,-20},{-70,-20},{-70,-2}},
+    annotation (Line(points={{-140,110},{-108,110},{-108,58},{-70,58},{-70,68}},
                                                              color={0,0,127}));
   connect(outDamPos.y, yOutDamPos)
     annotation (Line(points={{81,-20},{100,-20},{120,-20},{130,-20}},          color={0,0,127}));
@@ -110,11 +115,10 @@ equation
     annotation (Line(points={{79,20},{100,20},{130,20}},           color={0,0,127}));
   connect(retDamMaxLimSig.y,retDamPos. x2)
     annotation (Line(points={{1,30},{30,30},{30,16},{56,16}},                       color={0,0,127}));
-  connect(uTSup.y, retDamPos.u) annotation (Line(points={{-59,10},{40,10},{40,
-          20},{56,20}}, color={0,0,127}));
-  connect(uTSup.y, outDamPos.u) annotation (Line(points={{-59,10},{40,10},{40,
-          -20},{58,-20}},
-                     color={0,0,127}));
+  connect(uTSup.y, retDamPos.u) annotation (Line(points={{-59,80},{40,80},{40,20},
+          {56,20}},     color={0,0,127}));
+  connect(uTSup.y, outDamPos.u) annotation (Line(points={{-59,80},{40,80},{40,-20},
+          {58,-20}}, color={0,0,127}));
   connect(uRetDamPosMax,retDamPos. f1)
     annotation (Line(points={{-140,40},{-112,40},{-112,48},{48,48},{48,24},{56,
           24}},                                                    color={0,0,127}));
@@ -123,8 +127,7 @@ equation
   connect(outDamMinLimSig.y, outDamPos.x1)
     annotation (Line(points={{1,-12},{1,-12},{28,-12},{58,-12}},           color={0,0,127}));
   connect(THeaSupSet, uTSup.u_s)
-    annotation (Line(points={{-140,80},{-90,80},{-90,10},{-82,10}},
-                                                            color={0,0,127}));
+    annotation (Line(points={{-140,80},{-82,80}},           color={0,0,127}));
   connect(uRetDamPosMin,retDamPos. f2)
     annotation (Line(points={{-140,0},{-112,0},{-112,-10},{-38,-10},{-38,12},{
           56,12}},                                                 color={0,0,127}));
@@ -134,8 +137,8 @@ equation
     annotation (Line(points={{1,30},{30,30},{30,-24},{58,-24}}, color={0,0,127}));
   connect(outDamMinLimSig.y, retDamPos.x1)
     annotation (Line(points={{1,-12},{24,-12},{24,28},{56,28}}, color={0,0,127}));
-  connect(uSupFan, uTSup.trigger) annotation (Line(points={{-140,-110},{-78,
-          -110},{-78,-2}}, color={255,0,255}));
+  connect(uSupFan, uTSup.trigger) annotation (Line(points={{-140,-110},{-78,-110},
+          {-78,68}},       color={255,0,255}));
   annotation (
     defaultComponentName = "mod",
     Icon(graphics={
@@ -171,7 +174,7 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                    Text(
-          extent={{-80,56},{-36,16}},
+          extent={{-102,128},{-58,88}},
           lineColor={0,0,0},
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,

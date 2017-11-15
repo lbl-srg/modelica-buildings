@@ -3,7 +3,8 @@ model DamperValves
   "Validate model for controlling damper and valve position of VAV reheat terminal unit"
   extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves damVal(kDam=1)
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves damVal(kDam=1,
+      V_flow_nominal=2)
     "Output signal for controlling VAV reheat box damper and valve position"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uHea(

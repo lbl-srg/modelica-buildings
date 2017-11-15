@@ -3,19 +3,9 @@ block Controller "Multizone AHU controller that composes subsequences for contro
 
   parameter Modelica.SIunits.Time samplePeriod=120
     "Sample period of component, set to the same value to the trim and respond sequence";
-  parameter Real uHeaMax(min=-0.9)=-0.25
-    "Upper limit of controller signal when heating coil is off. Require -1 < uHeaMax < uCooMin < 1.";
-  parameter Real uCooMin(max=0.9)=0.25
-    "Lower limit of controller signal when cooling coil is off. Require -1 < uHeaMax < uCooMin < 1.";
+
   parameter Integer numZon(min=2) "Total number of served VAV boxes"
     annotation (Dialog(group="System and building parameters"));
-
-  parameter Boolean use_TMix=true
-    "Set to true if mixed air temperature measurement is enabled"
-     annotation(Dialog(group="Economizer freeze protection"));
-  parameter Boolean use_G36FrePro=false
-    "Set to true to use G36 freeze protection"
-    annotation(Dialog(group="Economizer freeze protection"));
 
   parameter Modelica.SIunits.Area zonAre[numZon] "Area of each zone"
     annotation (Dialog(group="System and building parameters"));
@@ -76,22 +66,41 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Physically fixed minimum position of the outdoor air damper"
     annotation (Evaluate=true,
       Dialog(tab="Economizer", group="Damper limits"));
-  parameter Real kPMinOut=0.05
+
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeMinOut=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller" annotation (Dialog(group="Economizer PID controller"));
+
+  parameter Real kPMinOut(final unit="1")=0.05
     "Proportional gain of controller for minimum outdoor air intake"
     annotation (Dialog(group="Economizer PID controller"));
   parameter Modelica.SIunits.Time TiMinOut=1200
     "Time constant of controller for minimum outdoor air intake"
     annotation (Dialog(group="Economizer PID controller"));
 
-  parameter Modelica.SIunits.Temperature TFreSet = 279.15
-    "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
-     annotation(Dialog(group="Freeze protection", enable=use_TMix));
-  parameter Real kPFre = 0.1
+  parameter Boolean use_TMix=true
+    "Set to true if mixed air temperature measurement is enabled"
+     annotation(Dialog(group="Economizer freeze protection"));
+  parameter Boolean use_G36FrePro=false
+    "Set to true to use G36 freeze protection"
+    annotation(Dialog(group="Economizer freeze protection"));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeFre=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
+
+  parameter Real kPFre(final unit="1/K") = 0.1
     "Proportional gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
-     annotation(Dialog(group="Freeze protection", enable=use_TMix));
+     annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
   parameter Modelica.SIunits.Time TiFre(max=TiMinOut)=120
     "Time constant of controller for mixed air temperature tracking for freeze protection, used if use_TMix=true. Require TiFre < TiMinOut"
-     annotation(Dialog(group="Freeze protection", enable=use_TMix));
+     annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
+
+  parameter Modelica.SIunits.Temperature TFreSet = 279.15
+    "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
+     annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
 
   parameter Real yMinDamLim=0
     "Lower limit of damper position limits control signal output"
@@ -143,14 +152,17 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Maximum response per time interval (same sign as resAmo) for fan speed control"
     annotation (Evaluate=true,
       Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-  parameter Real kPFanSpe=0.1
-    "Gain of fan PID controller"
-    annotation (Evaluate=true,
-      Dialog(group="Fan speed PID controller"));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController
+    controllerTypeFanSpe=Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
+    annotation (Dialog(group="Fan speed PID controller"));
+
+  parameter Real kPFanSpe(final unit="1")=0.1
+    "Gain of fan PID controller, normalized using pMaxSet"
+    annotation (Dialog(group="Fan speed PID controller"));
   parameter Modelica.SIunits.Time TiFanSpe=60
     "Time constant of integrator block in fan PID controller"
-    annotation (Evaluate=true,
-      Dialog(group="Fan speed PID controller"));
+    annotation (Dialog(group="Fan speed PID controller"));
   parameter Real yFanMax=1 "Maximum allowed fan speed"
     annotation (Evaluate=true,
       Dialog(group="Fan speed PID controller"));
@@ -208,16 +220,16 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Peak system population"
     annotation (Evaluate=true,
       Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
-  parameter Real uLow=-0.5
-    "If zone space temperature minus supply air temperature is less than uLow,
-    then it should use heating supply air distribution effectiveness"
-    annotation (Evaluate=true,
-      Dialog(tab="Minimum outdoor airflow rate", group="Advanced"));
-  parameter Real uHig=0.5
-    "If zone space temperature minus supply air temperature is more than uHig,
-    then it should use cooling supply air distribution effectiveness"
-    annotation (Evaluate=true,
-      Dialog(tab="Minimum outdoor airflow rate", group="Advanced"));
+//  parameter Real uLow=-0.5
+//    "If zone space temperature minus supply air temperature is less than uLow,
+//    then it should use heating supply air distribution effectiveness"
+//    annotation (Evaluate=true,
+//      Dialog(tab="Minimum outdoor airflow rate", group="Advanced"));
+//  parameter Real uHig=0.5
+//    "If zone space temperature minus supply air temperature is more than uHig,
+//    then it should use cooling supply air distribution effectiveness"
+ //   annotation (Evaluate=true,
+  //    Dialog(tab="Minimum outdoor airflow rate", group="Advanced"));
 
   // ----------- parameters for supply air temperature control  -----------
   parameter Modelica.SIunits.Temperature TSupMin=285.15
@@ -269,12 +281,28 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Maximum response per time interval for supply temperature control"
     annotation (Evaluate=true,
       Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
-  parameter Real kPTSup=0.05
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeTSup=
+      Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller for supply air temperature signal"
+    annotation (Dialog(group="Supply air temperature"));
+
+  parameter Real kPTSup(final unit="1/K")=0.05
     "Gain of controller for supply air temperature signal"
-    annotation (Dialog(group="Supply air temperature PID controller"));
+    annotation (Dialog(group="Supply air temperature"));
   parameter Modelica.SIunits.Time TiTSup=600
     "Time constant of integrator block for supply temperature control signal"
-    annotation (Dialog(group="Supply air temperature PID controller"));
+    annotation (Dialog(group="Supply air temperature"));
+
+  parameter Real uHeaMax(min=-0.9)=-0.25
+    "Upper limit of controller signal when heating coil is off. Require -1 < uHeaMax < uCooMin < 1."
+    annotation (Dialog(group="Supply air temperature"));
+
+  parameter Real uCooMin(max=0.9)=0.25
+    "Lower limit of controller signal when cooling coil is off. Require -1 < uHeaMax < uCooMin < 1."
+    annotation (Dialog(group="Supply air temperature"));
+
+
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VBox_flow[numZon](
     each final unit="m3/s",
@@ -439,10 +467,8 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final zonDisEffCoo=zonDisEffCoo,
     final desZonDisEff=desZonDisEff,
     final desZonPop=desZonPop,
-    final uLow=uLow,
-    final uHig=uHig,
     final peaSysPop=peaSysPop,
-    have_winSen=have_winSen)
+    final have_winSen=have_winSen)
     "Controller for minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-38,50},{-18,70}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyFan
@@ -460,6 +486,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final triAmo=pTriAmo,
     final resAmo=pResAmo,
     final maxRes=pMaxRes,
+    final controllerType=controllerTypeFanSpe,
     final k=kPFanSpe,
     final Ti=TiFanSpe,
     final yFanMax=yFanMax,
@@ -489,6 +516,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final delEntHis=delEntHis,
     final retDamFulOpeTim=retDamFulOpeTim,
     final disDel=disDel,
+    final controllerTypeMinOut=controllerTypeMinOut,
     final kPMinOut=kPMinOut,
     final TiMinOut=TiMinOut,
     final retDamPhyPosMax=retDamPhyPosMax,
@@ -500,6 +528,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final uOutDamMax=(uHeaMax + uCooMin)/2,
     final uRetDamMin=(uHeaMax + uCooMin)/2,
     final TFreSet=TFreSet,
+    final controllerTypeFre=controllerTypeFre,
     final kPFre=kPFre,
     final TiFre=TiFre,
     final delta=delta,
@@ -507,10 +536,11 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final use_G36FrePro=use_G36FrePro) "Economizer controller"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplySignals val(
-    final uHeaMax=uHeaMax,
-    final uCooMin=uCooMin,
+    final controllerType=controllerTypeTSup,
     final kPTSup=kPTSup,
-    final TiTSup=TiTSup) "AHU coil valve control"
+    final TiTSup=TiTSup,
+    final uHeaMax=uHeaMax,
+    final uCooMin=uCooMin) "AHU coil valve control"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Division VOut_flow_normalized(

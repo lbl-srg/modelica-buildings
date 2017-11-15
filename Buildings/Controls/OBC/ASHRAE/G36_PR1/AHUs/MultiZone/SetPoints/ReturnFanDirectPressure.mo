@@ -16,8 +16,9 @@ block ReturnFanDirectPressure
     final min=0,
     final max=1000) = 40
     "Maximum return fan discharge static pressure setpoint";
+
   parameter Real kP(final unit="1") = 1
-    "Proportional gain, applied to normalized pressure control error";
+    "Proportional gain, normalized using dpBuiSet";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
     final unit="Pa",

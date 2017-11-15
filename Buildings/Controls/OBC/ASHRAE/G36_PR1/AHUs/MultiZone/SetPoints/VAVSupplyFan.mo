@@ -42,7 +42,7 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(group="Fan PID controller"));
-  parameter Real k=0.1 "Gain of controller"
+  parameter Real k(final unit="1")=0.1 "Gain of controller, normalized using maxSet"
     annotation (Dialog(group="Fan PID controller"));
   parameter Modelica.SIunits.Time Ti(min=0)=60 "Time constant of integrator block"
     annotation (Dialog(group="Fan PID controller",
@@ -106,7 +106,7 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
     final resAmo=resAmo,
     final maxRes=maxRes) "Static pressure setpoint reset using trim and respond logic"
     annotation (Placement(transformation(extent={{-130,-50},{-110,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID supFanSpeCon(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conSpe(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -114,8 +114,7 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
     final yMax=yFanMax,
     final yMin=yFanMin,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    y_reset=yFanMin)
-    "Supply fan speed control"
+    y_reset=yFanMin) "Supply fan speed control"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerSpe(k=0)
@@ -205,9 +204,8 @@ equation
   connect(or1.y, swi.u2)
     annotation (Line(points={{101,70},{120,70},{120,-8},{0,-8},{0,-60},{78,-60}},
       color={255,0,255}));
-  connect(supFanSpeCon.y, swi.u1)
-    annotation (Line(points={{-19,-40},{-4,-40},{-4,-68},{78,-68}},
-      color={0,0,127}));
+  connect(conSpe.y, swi.u1) annotation (Line(points={{-19,-40},{-4,-40},{-4,-68},
+          {78,-68}}, color={0,0,127}));
   connect(zerSpe.y, swi.u3)
     annotation (Line(points={{41,-40},{60,-40},{60,-52},{78,-52}},
       color={0,0,127}));
@@ -267,18 +265,18 @@ equation
     annotation (Line(points={{-39,10},{0,10},{0,32},{18,32}},
       color={255,0,255}));
 
-  connect(norPSet.y, supFanSpeCon.u_s)
+  connect(norPSet.y, conSpe.u_s)
     annotation (Line(points={{-49,-40},{-42,-40}}, color={0,0,127}));
   connect(ducStaPre, norPMea.u) annotation (Line(points={{-180,-80},{-132,-80},
           {-132,-72},{-72,-72}},color={0,0,127}));
-  connect(norPMea.y, supFanSpeCon.u_m)
+  connect(norPMea.y, conSpe.u_m)
     annotation (Line(points={{-49,-72},{-30,-72},{-30,-52}}, color={0,0,127}));
   connect(norPSet.u, firOrdHol.y)
     annotation (Line(points={{-72,-40},{-76,-40},{-79,-40}}, color={0,0,127}));
   connect(staPreSetRes.y, firOrdHol.u) annotation (Line(points={{-109,-40},{
           -106,-40},{-102,-40}}, color={0,0,127}));
-  connect(supFanSpeCon.trigger, or1.y) annotation (Line(points={{-38,-52},{-38,
-          -60},{0,-60},{0,-8},{120,-8},{120,70},{101,70}}, color={255,0,255}));
+  connect(conSpe.trigger, or1.y) annotation (Line(points={{-38,-52},{-38,-60},{0,
+          -60},{0,-8},{120,-8},{120,70},{101,70}}, color={255,0,255}));
 annotation (
   defaultComponentName="conSupFan",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{140,160}}),

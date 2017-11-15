@@ -3,28 +3,59 @@ block Controller "Controller for room VAV box"
 
   parameter Modelica.SIunits.Time samplePeriod
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Mass flow rate of this thermal zone";
-  final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
-     m_flow_nominal / 1.2
+  parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal
     "Volume flow rate of this thermal zone";
   parameter Modelica.SIunits.Area zonAre "Area of the zone";
-  parameter Real kPCoo=0.5
-    "Proportional gain for cooling control loop"
-    annotation (Evaluate=true,
-      Dialog(tab="CoolingHeatingLoop", group="Cooling loop"));
+
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Cooling loop signal"));
+
+  parameter Real kPCoo(final unit="1/K")=0.5
+    "Proportional gain for cooling control loop signal"
+    annotation(Dialog(group="Cooling loop signal"));
+
   parameter Modelica.SIunits.Time TiCoo=1800
-    "Time constant of integrator block for cooling control loop"
-    annotation (Evaluate=true,
-      Dialog(tab="CoolingHeatingLoop", group="Cooling loop"));
-  parameter Real kPHea=0.5
-    "Proportional gain for heating control loop"
-    annotation (Evaluate=true,
-      Dialog(tab="CoolingHeatingLoop", group="Heating loop"));
+    "Time constant of integrator block for cooling control loop signal"
+    annotation(Dialog(group="Cooling loop signal"));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Heating loop signal"));
+  parameter Real kPHea(final unit="1/K")=0.5
+    "Proportional gain for heating control loop signal"
+    annotation(Dialog(group="Heating loop signal"));
   parameter Modelica.SIunits.Time TiHea=1800
-    "Time constant of integrator block for heating control loop"
-    annotation (Evaluate=true,
-      Dialog(tab="CoolingHeatingLoop", group="Heating loop"));
+    "Time constant of integrator block for heating control loop signal"
+    annotation(Dialog(group="Heating loop signal"));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeWatVal=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(group="Valve"));
+  parameter Real kWatVal=0.5
+    "Gain of controller for valve control"
+    annotation (Dialog(group="Valve"));
+  parameter Modelica.SIunits.Time TiWatVal=300
+    "Time constant of integrator block for valve control"
+    annotation (Dialog(group="Valve"));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(group="Damper"));
+
+  parameter Real kDam(final unit="1")=0.5
+    "Gain of controller for damper control"
+    annotation (Dialog(group="Damper"));
+  parameter Modelica.SIunits.Time TiDam=300
+    "Time constant of integrator block for damper control"
+    annotation (Dialog(group="Damper"));
+
+
   parameter Boolean have_occSen=false
     "Set to true if the zone has occupancy sensor"
     annotation (Evaluate=true,
@@ -53,7 +84,7 @@ block Controller "Controller for room VAV box"
     "VAV box controllable minimum"
     annotation (Evaluate=true,
       Dialog(tab="Airflow setpoint", group="Nominal conditions"));
-  parameter Real outAirPerAre=3e-4
+  parameter Real outAirPerAre(final unit = "m3/(s.m2)")=3e-4
     "Outdoor air rate per unit area"
     annotation (Evaluate=true,
       Dialog(tab="Airflow setpoint", group="Nominal conditions"));
@@ -72,22 +103,6 @@ block Controller "Controller for room VAV box"
     "Lowest discharge air temperature"
     annotation (Evaluate=true,
       Dialog(tab="Damper and valve", group="Parameters"));
-  parameter Real kWatVal=0.5
-    "Gain of controller for valve control"
-    annotation (Evaluate=true,
-      Dialog(tab="Damper and valve", group="PID Controller"));
-  parameter Modelica.SIunits.Time TiWatVal=300
-    "Time constant of integrator block for valve control"
-    annotation (Evaluate=true,
-      Dialog(tab="Damper and valve", group="PID Controller"));
-  parameter Real kDam=0.5
-    "Gain of controller for damper control"
-    annotation (Evaluate=true,
-      Dialog(tab="Damper and valve", group="PID Controller"));
-  parameter Modelica.SIunits.Time TiDam=300
-    "Time constant of integrator block for damper control"
-    annotation (Evaluate=true,
-      Dialog(tab="Damper and valve", group="PID Controller"));
   parameter Boolean have_heaWatCoi=true
     "Flag, true if there is a hot water coil"
     annotation (Evaluate=true,
@@ -235,7 +250,11 @@ block Controller "Controller for room VAV box"
     final kDam=kDam,
     final TiDam=TiDam,
     final dTDisMax=dTDisMax,
-    final TDisMin=TDisMin) "Damper and valve controller"
+    final TDisMin=TDisMin,
+    V_flow_nominal=max(VCooMax, VHeaMax),
+    controllerTypeWatVal=controllerTypeWatVal,
+    controllerTypeDam=controllerTypeDam)
+                           "Damper and valve controller"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests sysReq(
     final samplePeriod=samplePeriod,
@@ -251,14 +270,14 @@ block Controller "Controller for room VAV box"
     "Number of system requests"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conHeaLoo(
-    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final controllerType=controllerTypeHea,
     final k=kPHea,
     final Ti=TiHea,
     final yMax=1,
     final yMin=0) "Heating loop signal"
     annotation (Placement(transformation(extent={{-110,150},{-90,170}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conCooLoo(
-    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final controllerType=controllerTypeCoo,
     final k=kPCoo,
     final Ti=TiCoo,
     final yMax=1,
@@ -359,19 +378,19 @@ equation
   connect(TRooCooSet, conCooLoo.u_s)
     annotation (Line(points={{-160,120},{-112,120}}, color={0,0,127}));
   connect(TRoo, conHeaLoo.u_m)
-    annotation (Line(points={{-160,-20},{-122,-20},{-122,140},{-100,140},
-      {-100,148}}, color={0,0,127}));
+    annotation (Line(points={{-160,-20},{-122,-20},{-122,140},{-100,140},{-100,148}},
+                   color={0,0,127}));
   connect(TRoo, conCooLoo.u_m)
     annotation (Line(points={{-160,-20},{-122,-20},{-122,100},{-100,100},
       {-100,108}}, color={0,0,127}));
   connect(conCooLoo.y, damVal.uCoo)
-    annotation (Line(points={{-89,120},{-80,120},{-80,-11},{19,-11}},
+    annotation (Line(points={{-89,120},{8,120},{8,-11},{19,-11}},
       color={0,0,127}));
   connect(conHeaLoo.y, damVal.uHea)
-    annotation (Line(points={{-89,160},{-78,160},{-78,-13},{19,-13}},
+    annotation (Line(points={{-89,160},{12,160},{12,-13},{19,-13}},
       color={0,0,127}));
   connect(conCooLoo.y, sysReq.uCoo)
-    annotation (Line(points={{-89,120},{-80,120},{-80,-85},{79,-85}},
+    annotation (Line(points={{-89,120},{8,120},{8,-85},{79,-85}},
       color={0,0,127}));
 
   connect(damVal.uOpeMod, uOpeMod) annotation (Line(points={{19,-21},{-60,-21},

@@ -1,17 +1,18 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints;
 block VAVSupplySignals "Multizone VAV AHU coil valve positions"
 
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+      Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller for supply air temperature signal";
+  parameter Real kPTSup(final unit="1/K")=0.05
+    "Gain of controller for supply air temperature signal";
+  parameter Modelica.SIunits.Time TiTSup=600
+    "Time constant of integrator block for supply temperature control signal";
+
   parameter Real uHeaMax(min=-0.9)=-0.25
     "Upper limit of controller signal when heating coil is off. Require -1 < uHeaMax < uCooMin < 1.";
   parameter Real uCooMin(max=0.9)=0.25
     "Lower limit of controller signal when cooling coil is off. Require -1 < uHeaMax < uCooMin < 1.";
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
-      Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller for supply air temperature signal";
-  parameter Real kPTSup=0.05
-    "Gain of controller for supply air temperature signal";
-  parameter Modelica.SIunits.Time TiTSup=600
-    "Time constant of integrator block for supply temperature control signal";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
@@ -62,9 +63,9 @@ protected
     final reverseAction=true,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Controller for supply air temperature control signal (to be used by heating coil, cooling coil and economizer)"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
-    annotation (Placement(transformation(extent={{10,50},{30,70}})));
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uHeaMaxCon(
     final k=uHeaMax)
     "Constant signal to map control action"
@@ -78,7 +79,7 @@ protected
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
     "Zero control signal"
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+    annotation (Placement(transformation(extent={{-60,-46},{-40,-26}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
     "Unity signal"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
@@ -95,10 +96,10 @@ protected
 
 equation
   connect(zer.y,swi. u3)
-    annotation (Line(points={{-59,-80},{-20,-80},{-20,52},{8,52}},
+    annotation (Line(points={{-39,-36},{-20,-36},{-20,52},{-2,52}},
       color={0,0,127}));
   connect(TSup,conTSup. u_m)
-    annotation (Line(points={{-120,-20},{-50,-20},{-50,48}}, color={0,0,127}));
+    annotation (Line(points={{-120,-20},{-50,-20},{-50,18}}, color={0,0,127}));
   connect(negOne.y,conSigHea. x1)
     annotation (Line(points={{21,28},{58,28}},
       color={0,0,127}));
@@ -106,22 +107,22 @@ equation
     annotation (Line(points={{21,-80},{50,-80},{50,24},{58,24}},
       color={0,0,127}));
   connect(swi.y,conSigHea. u)
-    annotation (Line(points={{31,60},{46,60},{46,20},{58,20}},
+    annotation (Line(points={{21,60},{46,60},{46,20},{58,20}},
       color={0,0,127}));
   connect(swi.y,conSigCoo. u)
-    annotation (Line(points={{31,60},{46,60},{46,-20},{58,-20}},
+    annotation (Line(points={{21,60},{46,60},{46,-20},{58,-20}},
       color={0,0,127}));
   connect(uHeaMaxCon.y,conSigHea. x2)
     annotation (Line(points={{21,-10},{30,-10},{30,16},{58,16}},
       color={0,0,127}));
   connect(zer.y,conSigHea. f2)
-    annotation (Line(points={{-59,-80},{-20,-80},{-20,-26},{36,-26},{36,12},{58,
+    annotation (Line(points={{-39,-36},{-20,-36},{-20,-30},{36,-30},{36,12},{58,
           12}}, color={0,0,127}));
   connect(uCooMinCon.y,conSigCoo. x1)
     annotation (Line(points={{21,-50},{40,-50},{40,-12},{58,-12}},
       color={0,0,127}));
   connect(zer.y,conSigCoo. f1)
-    annotation (Line(points={{-59,-80},{-20,-80},{-20,-26},{36,-26},{36,-16},{
+    annotation (Line(points={{-39,-36},{-20,-36},{-20,-30},{36,-30},{36,-16},{
           58,-16}},
       color={0,0,127}));
   connect(one.y,conSigCoo. x2)
@@ -135,18 +136,18 @@ equation
   connect(conSigCoo.y,yCoo)
     annotation (Line(points={{81,-20},{110,-20}}, color={0,0,127}));
   connect(swi.y,uTSup)
-    annotation (Line(points={{31,60},{110,60}},  color={0,0,127}));
+    annotation (Line(points={{21,60},{110,60}},  color={0,0,127}));
   connect(TSetSup, conTSup.u_s)
-    annotation (Line(points={{-120,30},{-90,30},{-90,60},{-62,60}},
+    annotation (Line(points={{-120,30},{-62,30}},
       color={0,0,127}));
   connect(uSupFan, swi.u2)
-    annotation (Line(points={{-120,80},{0,80},{0,60},{8,60}},
+    annotation (Line(points={{-120,80},{-80,80},{-80,60},{-2,60}},
       color={255,0,255}));
   connect(conTSup.y, swi.u1)
-    annotation (Line(points={{-39,60},{-20,60},{-20,68},{8,68}},
+    annotation (Line(points={{-39,30},{-28,30},{-28,68},{-2,68}},
       color={0,0,127}));
   connect(uSupFan, conTSup.trigger)
-    annotation (Line(points={{-120,80},{-80,80},{-80,40},{-58,40},{-58,48}},
+    annotation (Line(points={{-120,80},{-80,80},{-80,8},{-58,8},{-58,18}},
       color={255,0,255}));
 
 annotation (

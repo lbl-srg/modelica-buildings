@@ -12,7 +12,13 @@ block Limits
     final unit="1") = 0.5
     "Minimum control signal for the return air damper position limit"
     annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
-  parameter Real kP=0.05 "Gain of damper limit controller"
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller" annotation (Dialog(group="Controller"));
+
+  parameter Real kP(
+    final unit="1")=0.05 "Gain of damper limit controller"
     annotation (Dialog(group="Controller"));
   parameter Modelica.SIunits.Time Ti=1200
     "Time constant of damper limit controller integrator block"
@@ -107,8 +113,8 @@ block Limits
     final Ti=Ti,
     final yMax=yMax,
     final yMin=yMin,
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
+    final controllerType=controllerType)
     "Damper position limit controller"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
 
@@ -159,7 +165,8 @@ protected
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not block"
     annotation (Placement(transformation(extent={{-8,-100},{12,-80}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
     "Freeze protection stage 1"
     annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(final k=
