@@ -17,7 +17,7 @@ block Limits
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller" annotation (Dialog(group="Controller"));
 
-  parameter Real kP(
+  parameter Real k(
     final unit="1")=0.05 "Gain of damper limit controller"
     annotation (Dialog(group="Controller"));
   parameter Modelica.SIunits.Time Ti=1200
@@ -109,7 +109,7 @@ block Limits
         iconTransformation(extent={{100,-50},{120,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID damLimCon(
-    final k=kP,
+    final k=k,
     final Ti=Ti,
     final yMax=yMax,
     final yMin=yMin,

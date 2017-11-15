@@ -59,11 +59,11 @@ block RoomVAV "Controller for room VAV box"
     Ti=120,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseAction=true)
-            "Controller for cooling (acts on damper)"
+    "Controller for cooling (acts on damper)"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 protected
-  parameter Real kPDamHea = 0.5
-    "Proportional gain for VAV damper in heating mode";
+  parameter Real kDamHea = 0.5
+    "Gain for VAV damper controller in heating mode";
 
   Buildings.Controls.OBC.CDL.Continuous.Max maxDam
     "Limitation of damper signal"
@@ -80,7 +80,7 @@ protected
     annotation (Placement(transformation(extent={{70,-26},{90,-6}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
-    final k={1,kPDamHea,-kPDamHea},
+    final k={1,kDamHea,-kDamHea},
     nin=3) annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
 equation

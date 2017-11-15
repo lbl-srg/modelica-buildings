@@ -13,8 +13,8 @@ block Controller "Controller for room VAV box"
     "Type of controller"
     annotation(Dialog(group="Cooling loop signal"));
 
-  parameter Real kPCoo(final unit="1/K")=0.5
-    "Proportional gain for cooling control loop signal"
+  parameter Real kCoo(final unit="1/K")=0.5
+    "Gain for cooling control loop signal"
     annotation(Dialog(group="Cooling loop signal"));
 
   parameter Modelica.SIunits.Time TiCoo=1800
@@ -25,8 +25,8 @@ block Controller "Controller for room VAV box"
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(group="Heating loop signal"));
-  parameter Real kPHea(final unit="1/K")=0.5
-    "Proportional gain for heating control loop signal"
+  parameter Real kHea(final unit="1/K")=0.5
+    "Gain for heating control loop signal"
     annotation(Dialog(group="Heating loop signal"));
   parameter Modelica.SIunits.Time TiHea=1800
     "Time constant of integrator block for heating control loop signal"
@@ -271,14 +271,14 @@ block Controller "Controller for room VAV box"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conHeaLoo(
     final controllerType=controllerTypeHea,
-    final k=kPHea,
+    final k=kHea,
     final Ti=TiHea,
     final yMax=1,
     final yMin=0) "Heating loop signal"
     annotation (Placement(transformation(extent={{-110,150},{-90,170}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conCooLoo(
     final controllerType=controllerTypeCoo,
-    final k=kPCoo,
+    final k=kCoo,
     final Ti=TiCoo,
     final yMax=1,
     final yMin=0,

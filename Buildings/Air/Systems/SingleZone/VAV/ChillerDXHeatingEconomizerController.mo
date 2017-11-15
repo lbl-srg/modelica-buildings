@@ -18,19 +18,19 @@ model ChillerDXHeatingEconomizerController
   parameter Modelica.SIunits.Temperature TSetSupAir "Cooling supply air temperature setpoint"
     annotation(Dialog(group="Air design"));
 
-  parameter Real kPHea(min=Modelica.Constants.small) = 2
-    "Proportional gain of heating controller"
+  parameter Real kHea(min=Modelica.Constants.small) = 2
+    "Gain of heating controller"
     annotation(Dialog(group="Control gain"));
 
-  parameter Real kPCoo(min=Modelica.Constants.small)=1
+  parameter Real kCoo(min=Modelica.Constants.small)=1
     "Gain of controller for cooling valve"
     annotation(Dialog(group="Control gain"));
 
-  parameter Real kPFan(min=Modelica.Constants.small) = 0.5
+  parameter Real kFan(min=Modelica.Constants.small) = 0.5
     "Gain of controller for fan"
     annotation(Dialog(group="Control gain"));
 
-  parameter Real kPEco(min=Modelica.Constants.small) = 4
+  parameter Real kEco(min=Modelica.Constants.small) = 4
     "Gain of controller for economizer"
     annotation(Dialog(group="Control gain"));
 
@@ -100,11 +100,11 @@ model ChillerDXHeatingEconomizerController
 
   BaseClasses.ControllerHeatingFan conSup(
     minAirFlo = minAirFlo,
-    kPHea = kPHea,
-    kPFan = kPFan) "Heating coil, cooling coil and fan controller"
+    kHea = kHea,
+    kFan = kFan) "Heating coil, cooling coil and fan controller"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   BaseClasses.ControllerEconomizer conEco(
-    final kPEco = kPEco)
+    final kEco = kEco)
     "Economizer control"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
@@ -121,7 +121,7 @@ model ChillerDXHeatingEconomizerController
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     final yMax=1,
     final yMin=0,
-    final k=kPCoo,
+    final k=kCoo,
     final reverseAction=true)
     "Cooling coil valve controller"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));

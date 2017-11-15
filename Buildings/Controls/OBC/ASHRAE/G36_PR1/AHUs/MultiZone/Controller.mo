@@ -72,8 +72,8 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller" annotation (Dialog(group="Economizer PID controller"));
 
-  parameter Real kPMinOut(final unit="1")=0.05
-    "Proportional gain of controller for minimum outdoor air intake"
+  parameter Real kMinOut(final unit="1")=0.05
+    "Gain of controller for minimum outdoor air intake"
     annotation (Dialog(group="Economizer PID controller"));
   parameter Modelica.SIunits.Time TiMinOut=1200
     "Time constant of controller for minimum outdoor air intake"
@@ -91,8 +91,8 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Type of controller"
     annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
 
-  parameter Real kPFre(final unit="1/K") = 0.1
-    "Proportional gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
+  parameter Real kFre(final unit="1/K") = 0.1
+    "Gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
   parameter Modelica.SIunits.Time TiFre(max=TiMinOut)=120
     "Time constant of controller for mixed air temperature tracking for freeze protection, used if use_TMix=true. Require TiFre < TiMinOut"
@@ -157,7 +157,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     controllerTypeFanSpe=Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(group="Fan speed PID controller"));
 
-  parameter Real kPFanSpe(final unit="1")=0.1
+  parameter Real kFanSpe(final unit="1")=0.1
     "Gain of fan PID controller, normalized using pMaxSet"
     annotation (Dialog(group="Fan speed PID controller"));
   parameter Modelica.SIunits.Time TiFanSpe=60
@@ -287,7 +287,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     "Type of controller for supply air temperature signal"
     annotation (Dialog(group="Supply air temperature"));
 
-  parameter Real kPTSup(final unit="1/K")=0.05
+  parameter Real kTSup(final unit="1/K")=0.05
     "Gain of controller for supply air temperature signal"
     annotation (Dialog(group="Supply air temperature"));
   parameter Modelica.SIunits.Time TiTSup=600
@@ -487,7 +487,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final resAmo=pResAmo,
     final maxRes=pMaxRes,
     final controllerType=controllerTypeFanSpe,
-    final k=kPFanSpe,
+    final k=kFanSpe,
     final Ti=TiFanSpe,
     final yFanMax=yFanMax,
     final yFanMin=yFanMin)
@@ -517,7 +517,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final retDamFulOpeTim=retDamFulOpeTim,
     final disDel=disDel,
     final controllerTypeMinOut=controllerTypeMinOut,
-    final kPMinOut=kPMinOut,
+    final kMinOut=kMinOut,
     final TiMinOut=TiMinOut,
     final retDamPhyPosMax=retDamPhyPosMax,
     final retDamPhyPosMin=retDamPhyPosMin,
@@ -529,7 +529,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final uRetDamMin=(uHeaMax + uCooMin)/2,
     final TFreSet=TFreSet,
     final controllerTypeFre=controllerTypeFre,
-    final kPFre=kPFre,
+    final kFre=kFre,
     final TiFre=TiFre,
     final delta=delta,
     final use_TMix=use_TMix,
@@ -537,7 +537,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplySignals val(
     final controllerType=controllerTypeTSup,
-    final kPTSup=kPTSup,
+    final kTSup=kTSup,
     final TiTSup=TiTSup,
     final uHeaMax=uHeaMax,
     final uCooMin=uCooMin) "AHU coil valve control"

@@ -4,7 +4,7 @@ block VAVSupplySignals "Multizone VAV AHU coil valve positions"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
       Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for supply air temperature signal";
-  parameter Real kPTSup(final unit="1/K")=0.05
+  parameter Real kTSup(final unit="1/K")=0.05
     "Gain of controller for supply air temperature signal";
   parameter Modelica.SIunits.Time TiTSup=600
     "Time constant of integrator block for supply temperature control signal";
@@ -55,7 +55,7 @@ block VAVSupplySignals "Multizone VAV AHU coil valve positions"
 protected
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTSup(
     final controllerType=controllerType,
-    final k=kPTSup,
+    final k=kTSup,
     final Ti=TiTSup,
     final yMax=1,
     final yMin=-1,

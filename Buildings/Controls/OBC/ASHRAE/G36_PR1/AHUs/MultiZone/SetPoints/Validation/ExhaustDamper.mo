@@ -3,9 +3,8 @@ model ExhaustDamper
   "Validate the controller of an actuated exhaust damper without fan"
   extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ExhaustDamper
-    exhDamPos(kP=0.1)
-              "Block of controlling actuated exhaust damper without fan"
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ExhaustDamper exhDamPos(
+    k=0.1) "Block of controlling actuated exhaust damper without fan"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFan(k=true)
     "Supply fan status"
@@ -18,13 +17,11 @@ model ExhaustDamper
     "Measured indoor building static pressure"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ExhaustDamper
-    exhDamPos1(kP=0.5)
-              "Block of controlling actuated exhaust damper without fan"
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ExhaustDamper exhDamPos1(
+    k=0.5) "Block of controlling actuated exhaust damper without fan"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ExhaustDamper
-    exhDamPos2(kP=1)
-              "Block of controlling actuated exhaust damper without fan"
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ExhaustDamper exhDamPos2(
+    k=1) "Block of controlling actuated exhaust damper without fan"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 equation
   connect(meaBuiPre.y, exhDamPos.dpBui) annotation (Line(points={{-59,50},{-40,

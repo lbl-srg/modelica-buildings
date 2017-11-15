@@ -4,7 +4,7 @@ block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
-  parameter Real k(final unit="1/K")=0.1 "Proportional gain";
+  parameter Real k(final unit="1/K")=0.1 "Gain";
   parameter Modelica.SIunits.Time Ti=120 "Time constant of integrator block";
 
   parameter Modelica.SIunits.Temperature TFreSet = 279.15

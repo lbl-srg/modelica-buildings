@@ -21,7 +21,7 @@ model Controller "Single zone VAV AHU economizer control sequence"
     "Type of controller"
     annotation(Dialog(group="Modulation"));
 
-  parameter Real kPMod(final unit="1/K")=1 "Gain of modulation controller"
+  parameter Real kMod(final unit="1/K")=1 "Gain of modulation controller"
     annotation(Dialog(group="Modulation"));
 
   parameter Modelica.SIunits.Time TiMod=300
@@ -44,8 +44,8 @@ model Controller "Single zone VAV AHU economizer control sequence"
     "Type of controller"
     annotation(Dialog(group="Freeze protection", enable=use_TMix));
 
-  parameter Real kPFre(final unit="1/K") = 0.1
-    "Proportional gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
+  parameter Real kFre(final unit="1/K") = 0.1
+    "Gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Freeze protection", enable=use_TMix));
 
   parameter Modelica.SIunits.Time TiFre=120
@@ -232,7 +232,7 @@ model Controller "Single zone VAV AHU economizer control sequence"
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Modulation
     mod(
     final controllerType=controllerTypeMod,
-    final k=kPMod,
+    final k=kMod,
     final Ti=TiMod,
     final uMin=uMin,
     final uMax=uMax)
@@ -240,7 +240,7 @@ model Controller "Single zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreezeProtectionMixedAir freProTMix(
     final controllerType=controllerTypeFre,
-    final k=kPFre,
+    final k=kFre,
     final Ti=TiFre,
     final TFreSet=TFreSet) if use_TMix
     "Block that tracks TMix against a freeze protection setpoint"

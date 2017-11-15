@@ -17,8 +17,8 @@ block ReturnFanDirectPressure
     final max=1000) = 40
     "Maximum return fan discharge static pressure setpoint";
 
-  parameter Real kP(final unit="1") = 1
-    "Proportional gain, normalized using dpBuiSet";
+  parameter Real k(final unit="1") = 1
+    "Gain, normalized using dpBuiSet";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
     final unit="Pa",
@@ -59,7 +59,7 @@ block ReturnFanDirectPressure
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final k=kP,
+    final k=k,
     yMax=1,
     yMin=0) "Building static pressure controller"
     annotation (Placement(transformation(extent={{-36,80},{-16,100}})));
