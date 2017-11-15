@@ -11,9 +11,9 @@ model ChillerDXHeatingEconomizer
 
   ChillerDXHeatingEconomizerController con(
     minOAFra=0.2,
-    kPFan=4,
-    kPEco=4,
-    kPHea=4,
+    kFan=4,
+    kEco=4,
+    kHea=4,
     TSupChi_nominal=TSupChi_nominal,
     TSetSupAir=286.15)
    "Controller"

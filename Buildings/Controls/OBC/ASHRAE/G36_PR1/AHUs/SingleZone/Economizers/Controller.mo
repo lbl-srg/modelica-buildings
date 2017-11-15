@@ -7,17 +7,26 @@ model Controller "Single zone VAV AHU economizer control sequence"
     "Set to true if mixed air temperature measurement is enabled";
   parameter Boolean use_G36FrePro=false
     "Set to true if G36 freeze protection is implemented";
+
   parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
     "Delta between the temperature hysteresis high and low limit"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
+
   parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
     "Delta between the enthalpy hysteresis high and low limits"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
-  parameter Real kPMod=1 "Gain of modulation controller"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeMod=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Modulation"));
+
+  parameter Real kMod(final unit="1/K")=1 "Gain of modulation controller"
+    annotation(Dialog(group="Modulation"));
+
   parameter Modelica.SIunits.Time TiMod=300
     "Time constant of modulation controller integrator block"
-    annotation(Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+    annotation(Dialog(group="Modulation"));
 
   parameter Real uMin(
     final min=0,
@@ -30,12 +39,22 @@ model Controller "Single zone VAV AHU economizer control sequence"
     final unit="1") = 1
     "Upper limit of controller output uTSup at which the dampers are at their limits";
 
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeFre=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Freeze protection", enable=use_TMix));
+
+  parameter Real kFre(final unit="1/K") = 0.1
+    "Gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
+     annotation(Dialog(group="Freeze protection", enable=use_TMix));
+
+  parameter Modelica.SIunits.Time TiFre=120
+    "Time constant of controller for mixed air temperature tracking for freeze protection, used if use_TMix=true. Require TiFre < TiMinOut"
+     annotation(Dialog(group="Freeze protection", enable=use_TMix));
+
   parameter Modelica.SIunits.Temperature TFreSet = 277.15
-    "Lower limit for mixed air temperature for freeze protection"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Freeze protection"));
-  parameter Real kPFre = 1
-    "Proportional gain for mixed air temperature tracking for freeze protection"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Freeze protection"));
+    "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
+     annotation(Dialog(group="Freeze protection", enable=use_TMix));
 
   parameter Real yFanMin(
     final min=0,
@@ -210,15 +229,20 @@ model Controller "Single zone VAV AHU economizer control sequence"
     final yDam_VOutDes_maxSpe=yDam_VOutDes_maxSpe)
     "Single zone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Modulation mod(
-    final kPMod=kPMod,
-    final TiMod=TiMod,
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Modulation
+    mod(
+    final controllerType=controllerTypeMod,
+    final k=kMod,
+    final Ti=TiMod,
     final uMin=uMin,
     final uMax=uMax)
     "Single zone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreezeProtectionMixedAir
-    freProTMix(TFreSet=TFreSet) if use_TMix
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreezeProtectionMixedAir freProTMix(
+    final controllerType=controllerTypeFre,
+    final k=kFre,
+    final Ti=TiFre,
+    final TFreSet=TFreSet) if use_TMix
     "Block that tracks TMix against a freeze protection setpoint"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
 
@@ -231,10 +255,10 @@ protected
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noTMix1(k=1) if not use_TMix
     "Ignore min evaluation if there is no TMix sensor"
-    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
+    annotation (Placement(transformation(extent={{80,-66},{100,-46}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noTMix(k=0) if not use_TMix
     "Ignore max evaluation if there is no TMix sensor"
-    annotation (Placement(transformation(extent={{80,70},{100,90}})));
+    annotation (Placement(transformation(extent={{80,46},{100,66}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0) if not use_G36FrePro
     "Freeze protection status is 0. Used if G36 freeze protection is not implemented"
@@ -284,9 +308,9 @@ equation
   connect(VOutMinSet_flow, damLim.VOutMinSet_flow)
     annotation (Line(points={{-130,20},{-106,20},{-106,17},{-81,17}}, color={0,0,127}));
   connect(outDamMaxFre.u2, noTMix1.y)
-    annotation (Line(points={{118,-56},{110,-56},{110,-70},{101,-70}}, color={0,0,127}));
+    annotation (Line(points={{118,-56},{101,-56}},                     color={0,0,127}));
   connect(retDamMinFre.u1, noTMix.y)
-    annotation (Line(points={{118,56},{110,56},{110,80},{101,80}}, color={0,0,127}));
+    annotation (Line(points={{118,56},{101,56}},                   color={0,0,127}));
   connect(retDamMinFre.y, yRetDamPos)
     annotation (Line(points={{141,50},{150,50},{150,40},{170,40}}, color={0,0,127}));
   connect(outDamMaxFre.y, yOutDamPos)

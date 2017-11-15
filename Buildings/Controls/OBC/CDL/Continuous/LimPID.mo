@@ -267,7 +267,29 @@ equation
 annotation (defaultComponentName="conPID",
 Documentation(info="<html>
 <p>
-This model is similar to
+PID controller in the standard form
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+y = k &nbsp; ( e(t) + 1 &frasl; T<sub>i</sub> &nbsp; &int; e(s) ds + T<sub>d</sub> de(t)&frasl;dt ),
+</p>
+<p>
+where
+<i>y</i> is the control signal,
+<i>e(t) = u<sub>s</sub> - u<sub>m</sub></i> is the control error,
+with <i>u<sub>s</sub></i> being the set point and <i>u<sub>m</sub></i> being
+the measured quantity,
+<i>k</i> is the gain,
+<i>T<sub>i</sub></i> is the time constant of the integral term and
+<i>T<sub>d</sub></i> is the time constant of the derivative term.
+</p>
+<p>
+Note that the units of <i>k</i> are the inverse of the units of the control error,
+while the units of <i>T<sub>i</sub></i> and <i>T<sub>d</sub></i> are seconds.
+</p>
+<p>
+For detailed treatment of integrator anti-windup, set-point weights and output limitation, see
+<a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">Modelica.Blocks.Continuous.LimPID</a>.
+The model is similar to
 <a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">Modelica.Blocks.Continuous.LimPID</a>,
 except for the following changes:
 </p>
@@ -332,6 +354,11 @@ Some parameters assignments in the instances have been made final.
 </li>
 
 </ol>
+<p>
+For recommendations regarding tuning of closed loop control, see
+<a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">Modelica.Blocks.Continuous.LimPID</a>
+or the control literature.
+</p>
 </html>",
 revisions="<html>
 <ul>

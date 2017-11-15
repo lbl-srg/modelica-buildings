@@ -457,7 +457,7 @@ equation
     annotation (Line(
       points={{-61,-150},{-72,-150},{-72,-92}},
       color={0,0,127}));
-  connect(ahuValSig.y, ahu.uWatVal)
+  connect(ahuValSig.y, ahu.uVal)
     annotation (Line(
       points={{-61,-80},{-52,-80},{-52,-116},{-1,-116}},
       color={0,0,127}));

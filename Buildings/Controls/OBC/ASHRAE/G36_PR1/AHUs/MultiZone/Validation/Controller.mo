@@ -4,7 +4,7 @@ model Controller "Validation controller model"
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller conAHU(
     numZon=2,
-    zonAre={50,50},
+    AFlo={50,50},
     minZonPriFlo={(50*3/3600)*6,(50*3/3600)*6},
     maxSysPriFlo=0.7*(50*3/3600)*6*2,
     have_occSen=true) "Multiple zone AHU controller"

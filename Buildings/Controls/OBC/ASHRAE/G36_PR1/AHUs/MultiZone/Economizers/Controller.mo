@@ -20,18 +20,27 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
 
-  parameter Real kPMinOut=0.05
-    "Proportional gain of controller for minimum outdoor air"
-    annotation (Dialog(tab="Commissioning", group="Control gains"));
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeMinOut=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller" annotation (Dialog(group="Minimum outdoor air"));
+
+  parameter Real kMinOut(final unit="1")=0.05
+    "Gain of controller for minimum outdoor air"
+    annotation (Dialog(group="Minimum outdoor air"));
   parameter Modelica.SIunits.Time TiMinOut=1200
     "Time constant of controller for minimum outdoor air"
-    annotation (Dialog(tab="Commissioning", group="Control gains"));
+    annotation (Dialog(group="Minimum outdoor air"));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeFre=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Freeze protection", enable=use_TMix));
 
   parameter Modelica.SIunits.Temperature TFreSet = 279.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Freeze protection", enable=use_TMix));
-  parameter Real kPFre = 0.1
-    "Proportional gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
+  parameter Real kFre(final unit="1/K") = 0.1
+    "Gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Freeze protection", enable=use_TMix));
 
   parameter Modelica.SIunits.Time TiFre(max=TiMinOut)=120
@@ -166,9 +175,10 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final retDamPhyPosMin=retDamPhyPosMin,
     final outDamPhyPosMax=outDamPhyPosMax,
     final outDamPhyPosMin=outDamPhyPosMin,
-    final kP=kPMinOut,
+    final k=kMinOut,
     final Ti=TiMinOut,
-    final uRetDamMin=uRetDamMin)
+    final uRetDamMin=uRetDamMin,
+    final controllerType=controllerTypeMinOut)
     "Multi zone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation
@@ -180,8 +190,9 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     "Multi zone VAV AHU economizer damper modulation sequence"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreezeProtectionMixedAir freProTMix(
+    final controllerType=controllerTypeFre,
     final TFreSet = TFreSet,
-    final k=kPFre,
+    final k=kFre,
     final Ti=TiFre) if use_TMix
     "Block that tracks TMix against a freeze protection setpoint"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));

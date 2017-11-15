@@ -8,7 +8,7 @@ model ActiveAirFlow
     VMin=0.017,
     VHeaMax=0.05,
     VMinCon=0.01,
-    zonAre=40,
+    AFlo=40,
     have_occSen=true,
     have_winSen=true,
     have_CO2Sen=true)
@@ -20,7 +20,7 @@ model ActiveAirFlow
     VMin=0.017,
     VHeaMax=0.05,
     VMinCon=0.01,
-    zonAre=40,
+    AFlo=40,
     have_occSen=true,
     have_winSen=true,
     have_CO2Sen=true)

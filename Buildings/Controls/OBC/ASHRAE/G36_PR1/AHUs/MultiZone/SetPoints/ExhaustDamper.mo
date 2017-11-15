@@ -6,9 +6,9 @@ block ExhaustDamper
     displayUnit="Pa",
     max=30) = 12
     "Building static pressure difference relative to ambient (positive to pressurize the building)";
-  parameter Real kP(min=0, unit="1") = 0.5
-    "Proportional gain, applied to building pressure control error normalized with dpBuiSet"
-    annotation(Dialog(group="Relief damper P-control parameter"));
+  parameter Real k(min=0, unit="1") = 0.5
+    "Gain, applied to building pressure control error normalized with dpBuiSet"
+    annotation(Dialog(group="Exhaust damper P-control parameter"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
     final unit="Pa",
@@ -39,12 +39,12 @@ block ExhaustDamper
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final k=kP,
+    final k=k,
     yMax=1,
     yMin=0) "Building static pressure controller"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
-    "Check if relief damper should be activated"
+    "Check if exhaust damper should be activated"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
 protected
@@ -156,7 +156,7 @@ When <code>uSupFan = false</code>, the damper is closed.
 <ul>
 <li>
 October 17, 2017, by Jianjun Hu:<br/>
-Changed models name from ReliefDamper to ExhaustDamper.
+Changed model name.
 </li>
 <li>
 May 12, 2017, by Jianjun Hu:<br/>

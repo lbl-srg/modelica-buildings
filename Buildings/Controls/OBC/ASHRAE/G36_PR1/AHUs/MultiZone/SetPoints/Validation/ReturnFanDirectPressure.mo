@@ -4,8 +4,8 @@ model ReturnFanDirectPressure
   of multi zone VAV AHU"
   extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ReturnFanDirectPressure
-    retFanPre(kP=0.1) "Return fan control with direct building pressure"
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ReturnFanDirectPressure retFanPre(
+    k=0.1) "Return fan control with direct building pressure"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   CDL.Logical.Sources.Pulse yFan(period=4000) "Supply fan status"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -14,12 +14,11 @@ model ReturnFanDirectPressure
     offset=0,
     duration=1800) "Building static presure"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ReturnFanDirectPressure
-    retFanPre1(kP=0.5)
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ReturnFanDirectPressure retFanPre1(
+    k=0.5)
     "Return fan control with direct building pressure"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ReturnFanDirectPressure
-    retFanPre2
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ReturnFanDirectPressure retFanPre2
     "Return fan control with direct building pressure"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 

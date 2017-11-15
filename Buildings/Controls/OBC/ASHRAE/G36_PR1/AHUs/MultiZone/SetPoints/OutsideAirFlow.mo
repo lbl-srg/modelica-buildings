@@ -14,8 +14,8 @@ block OutsideAirFlow
       fill(2.5e-3, numZon)
     "Outdoor air rate per person"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Area zonAre[numZon]
-    "Area of each zone"
+  parameter Modelica.SIunits.Area AFlo[numZon]
+    "Floor area of each zone"
     annotation(Dialog(group="Nominal condition"));
   parameter Boolean have_occSen=true
     "Set to true if zones have occupancy sensor";
@@ -31,8 +31,8 @@ block OutsideAirFlow
     "Design zone air distribution effectiveness"
     annotation(Dialog(group="Nominal condition"));
   parameter Real desZonPop[numZon](
-    min={occDen[i]*zonAre[i] for i in 1:numZon},
-    each unit="1") = {occDen[i]*zonAre[i] for i in 1:numZon}
+    min={occDen[i]*AFlo[i] for i in 1:numZon},
+    each unit="1") = {occDen[i]*AFlo[i] for i in 1:numZon}
     "Design zone population during peak occupancy"
     annotation(Dialog(group="Nominal condition"));
   parameter Real uLow(
@@ -55,7 +55,7 @@ block OutsideAirFlow
   parameter Modelica.SIunits.VolumeFlowRate minZonPriFlo[numZon]
     "Minimum expected zone primary flow rate"
     annotation(Dialog(group="Nominal condition"));
-  parameter Real peaSysPop(unit="1") = 1.2*sum({occDen[iZon] * zonAre[iZon] for iZon in 1:numZon})
+  parameter Real peaSysPop(unit="1") = 1.2*sum({occDen[iZon] * AFlo[iZon] for iZon in 1:numZon})
     "Peak system population"
     annotation(Dialog(group="Nominal condition"));
 
@@ -235,11 +235,11 @@ protected
     "Minimum expected zone primary flow rate"
     annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonAre[numZon](
-    k={outAirPerAre[i]*zonAre[i] for i in 1:numZon})
+    k={outAirPerAre[i]*AFlo[i] for i in 1:numZon})
     "Area component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-170,110},{-150,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonPop[numZon](
-    k={outAirPerPer[i]*zonAre[i]*occDen[i] for i in 1:numZon})
+    k={outAirPerPer[i]*AFlo[i]*occDen[i] for i in 1:numZon})
     "Population component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant disEffHea[numZon](
@@ -580,7 +580,7 @@ The calculation is done using the steps below.
 <h4>Step 1: Minimum breathing zone outdoor airflow required <code>breZon</code></h4>
 <ul>
 <li>The area component of the breathing zone outdoor airflow:
-<code>breZonAre = zonAre*outAirPerAre</code>.
+<code>breZonAre = AFlo*outAirPerAre</code>.
 </li>
 <li>The population component of the breathing zone outdoor airflow:
 <code>breZonPop = occCou*outAirPerPer</code>.
@@ -590,7 +590,7 @@ The calculation is done using the steps below.
 The number of occupant <code>occCou</code> in each zone can be retrieved
 directly from occupancy sensor <code>nOcc</code> if the sensor exists
 (<code>have_occSen=true</code>), or using the default occupant density
-<code>occDen</code> to find it <code>zonAre*occDen</code>. The occupant
+<code>occDen</code> to find it <code>AFlo*occDen</code>. The occupant
 density can be found from Table 6.2.2.1 in ASHRAE Standard 62.1-2013.
 For design purpose, use design zone population <code>desZonPop</code> to find
 out the minimum requirement at the ventilation-design condition.
