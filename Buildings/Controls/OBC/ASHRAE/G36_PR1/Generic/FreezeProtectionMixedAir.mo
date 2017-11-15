@@ -7,9 +7,6 @@ block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature
   parameter Real k(final unit="1/K")=0.1 "Gain";
 
   parameter Modelica.SIunits.Time Ti=120 "Time constant of integrator block";
-  annotation (Dialog(
-    enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-        or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
 parameter Modelica.SIunits.Time Td=0.1
   "Time constant of derivative block"
@@ -71,7 +68,9 @@ equation
           -30}}, color={0,0,127}));
   connect(con.y, yOut.u) annotation (Line(points={{1,30},{30,30},{30,30},{58,30}},
         color={0,0,127}));
-  annotation (
+  annotation (Dialog(
+    enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID),
     defaultComponentName = "freProTMix",
     Icon(graphics={
         Rectangle(
