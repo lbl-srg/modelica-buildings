@@ -28,8 +28,15 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     "Gain of controller for minimum outdoor air"
     annotation (Dialog(group="Minimum outdoor air"));
   parameter Modelica.SIunits.Time TiMinOut=1200
-    "Time constant of controller for minimum outdoor air"
-    annotation (Dialog(group="Minimum outdoor air"));
+    "Time constant of controller for minimum outdoor air intake"
+    annotation (Dialog(group="Minimum outdoor air",
+      enable=controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+          or controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.SIunits.Time TdMinOut=0.1
+    "Time constant of derivative block for minimum outdoor air intake"
+    annotation (Dialog(group="Minimum outdoor air",
+      enable=controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeFre=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -44,8 +51,18 @@ model Controller "Multi zone VAV AHU economizer control sequence"
      annotation(Dialog(group="Freeze protection", enable=use_TMix));
 
   parameter Modelica.SIunits.Time TiFre(max=TiMinOut)=120
-    "Time constant of controller for mixed air temperature tracking for freeze protection, used if use_TMix=true. Require TiFre < TiMinOut"
-     annotation(Dialog(group="Freeze protection", enable=use_TMix));
+    "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre < TiMinOut"
+    annotation(Dialog(group="Freeze protection",
+      enable=use_TMix
+        and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+          or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+
+ parameter Modelica.SIunits.Time TdFre=0.1
+   "Time constant of derivative block for freeze protection"
+   annotation (Dialog(group="Economizer freeze protection",
+     enable=use_TMix and
+         (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+         or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   parameter Modelica.SIunits.Time delta=5
     "Time horizon over which the outdoor air flow measurment is averaged";
@@ -177,6 +194,7 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final outDamPhyPosMin=outDamPhyPosMin,
     final k=kMinOut,
     final Ti=TiMinOut,
+    final Td=TdMinOut,
     final uRetDamMin=uRetDamMin,
     final controllerType=controllerTypeMinOut)
     "Multi zone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
@@ -193,7 +211,8 @@ model Controller "Multi zone VAV AHU economizer control sequence"
     final controllerType=controllerTypeFre,
     final TFreSet = TFreSet,
     final k=kFre,
-    final Ti=TiFre) if use_TMix
+    final Ti=TiFre,
+    final Td=TdFre) if use_TMix
     "Block that tracks TMix against a freeze protection setpoint"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
 

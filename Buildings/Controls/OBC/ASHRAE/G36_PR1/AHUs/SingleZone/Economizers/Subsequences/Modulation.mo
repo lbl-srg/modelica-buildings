@@ -8,7 +8,16 @@ block Modulation "Outdoor and return air damper position modulation sequence for
   parameter Real k(final unit="1/K") = 1 "Gain of controller";
 
   parameter Modelica.SIunits.Time Ti=300
-    "Time constant of modulation controller integrator block";
+    "Time constant of modulation controller integrator block"
+    annotation (Dialog(
+      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+          or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Modelica.SIunits.Time Td=0.1
+    "Time constant of derivative block for cooling control loop signal"
+    annotation (Dialog(
+      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real uMin=0
     "Lower limit of controller output uTSup at which the dampers are at their limits"
@@ -77,12 +86,13 @@ block Modulation "Outdoor and return air damper position modulation sequence for
       iconTransformation(extent={{100,10},{120,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID uTSup(
-    final yMax=uMax,
-    final yMin=uMin,
+    final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    final controllerType=controllerType)
+    final Td=Td,
+    final yMax=uMax,
+    final yMin=uMin,
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 

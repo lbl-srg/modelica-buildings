@@ -10,25 +10,46 @@ block DamperValves
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeVal=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Heating valve"));
+    annotation(Dialog(group="Valve"));
 
   parameter Real kVal(final unit="1/K")=0.5
     "Gain of controller for valve control"
-    annotation(Dialog(group="Heating valve"));
+    annotation(Dialog(group="Valve"));
+
   parameter Modelica.SIunits.Time TiVal=300
     "Time constant of integrator block for valve control"
-    annotation(Dialog(group="Heating valve"));
+    annotation(Dialog(group="Valve",
+    enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Modelica.SIunits.Time TdVal=0.1
+    "Time constant of derivative block for valve control"
+    annotation (Dialog(group="Valve",
+      enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(group="Damper"));
+
   parameter Real kDam(final unit="1")=0.5
     "Gain of controller for damper control"
     annotation(Dialog(group="Damper"));
+
   parameter Modelica.SIunits.Time TiDam=300
     "Time constant of integrator block for damper control"
-    annotation(Dialog(group="Damper"));
+    annotation(Dialog(group="Damper",
+    enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Modelica.SIunits.Time TdDam=0.1
+    "Time constant of derivative block for damper control"
+    annotation (Dialog(group="Damper",
+      enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal(min=1E-10)
     "Nominal volume flow rate, used to normalize control error"
@@ -165,6 +186,7 @@ block DamperValves
     final controllerType=controllerTypeVal,
     final k=kVal,
     final Ti=TiVal,
+    final Td=TdVal,
     final yMax=1,
     final yMin=0)
     "Hot water valve position if discharge air is below a minimum value"
@@ -173,6 +195,7 @@ block DamperValves
     final controllerType=controllerTypeVal,
     final k=kVal,
     final Ti=TiVal,
+    final Td=TdVal,
     final yMax=1,
     final yMin=0)
     "Hot water valve position if uHea is between 0 and 50%"
@@ -181,6 +204,7 @@ block DamperValves
     final controllerType=controllerTypeDam,
     final k=kDam,
     final Ti=TiDam,
+    final Td=TdDam,
     final yMax=1,
     final yMin=0,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,

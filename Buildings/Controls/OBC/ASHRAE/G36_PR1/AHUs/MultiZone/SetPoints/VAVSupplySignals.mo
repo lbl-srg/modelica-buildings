@@ -7,7 +7,15 @@ block VAVSupplySignals "Multizone VAV AHU coil valve positions"
   parameter Real kTSup(final unit="1/K")=0.05
     "Gain of controller for supply air temperature signal";
   parameter Modelica.SIunits.Time TiTSup=600
-    "Time constant of integrator block for supply temperature control signal";
+    "Time constant of integrator block for supply temperature control signal"
+    annotation(Dialog(
+      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+          or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Modelica.SIunits.Time TdTSup=0.1
+    "Time constant of derivative block for supply temperature control signal"
+    annotation(Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+                          or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real uHeaMax(min=-0.9)=-0.25
     "Upper limit of controller signal when heating coil is off. Require -1 < uHeaMax < uCooMin < 1.";
@@ -57,6 +65,7 @@ protected
     final controllerType=controllerType,
     final k=kTSup,
     final Ti=TiTSup,
+    final Td=TdTSup,
     final yMax=1,
     final yMin=-1,
     final y_reset=0,
@@ -194,8 +203,8 @@ annotation (
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
-Block that outputs the coil valve postions for VAV system with multiple zones, 
-implemented according to the ASHRAE Guideline G36, PART5.N.2 
+Block that outputs the coil valve postions for VAV system with multiple zones,
+implemented according to the ASHRAE Guideline G36, PART5.N.2
 (Supply air temperature control).
 </p>
 <p>

@@ -19,7 +19,15 @@ block Controller "Controller for room VAV box"
 
   parameter Modelica.SIunits.Time TiCoo=1800
     "Time constant of integrator block for cooling control loop signal"
-    annotation(Dialog(group="Cooling loop signal"));
+    annotation(Dialog(group="Cooling loop signal",
+      enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+          or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Modelica.SIunits.Time TdCoo=0.1
+    "Time constant of derivative block for cooling control loop signal"
+    annotation (Dialog(group="Cooling loop signal",
+      enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -28,20 +36,39 @@ block Controller "Controller for room VAV box"
   parameter Real kHea(final unit="1/K")=0.5
     "Gain for heating control loop signal"
     annotation(Dialog(group="Heating loop signal"));
+
   parameter Modelica.SIunits.Time TiHea=1800
     "Time constant of integrator block for heating control loop signal"
-    annotation(Dialog(group="Heating loop signal"));
+    annotation(Dialog(group="Heating loop signal",
+    enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Modelica.SIunits.Time TdHea=0.1
+    "Time constant of derivative block for heating control loop signal"
+    annotation (Dialog(group="Heating loop signal",
+      enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeVal=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Valve"));
+
   parameter Real kVal=0.5
     "Gain of controller for valve control"
     annotation (Dialog(group="Valve"));
+
   parameter Modelica.SIunits.Time TiVal=300
     "Time constant of integrator block for valve control"
-    annotation (Dialog(group="Valve"));
+    annotation(Dialog(group="Valve",
+    enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Modelica.SIunits.Time TdVal=0.1
+    "Time constant of derivative block for valve control"
+    annotation (Dialog(group="Valve",
+      enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -51,10 +78,18 @@ block Controller "Controller for room VAV box"
   parameter Real kDam(final unit="1")=0.5
     "Gain of controller for damper control"
     annotation (Dialog(group="Damper"));
+
   parameter Modelica.SIunits.Time TiDam=300
     "Time constant of integrator block for damper control"
-    annotation (Dialog(group="Damper"));
+    annotation (Dialog(group="Damper",
+      enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+          or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
+  parameter Modelica.SIunits.Time TdDam=0.1
+    "Time constant of derivative block for damper control"
+    annotation (Dialog(group="Damper",
+      enable=controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Boolean have_occSen=false
     "Set to true if the zone has occupancy sensor"
@@ -245,15 +280,17 @@ block Controller "Controller for room VAV box"
     "Active airflow rate setpoint"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves damVal(
+    final controllerTypeVal=controllerTypeVal,
     final kVal=kVal,
     final TiVal=TiVal,
+    final TdVal=TdVal,
+    final controllerTypeDam=controllerTypeDam,
     final kDam=kDam,
     final TiDam=TiDam,
+    final TdDam=TdDam,
     final dTDisMax=dTDisMax,
     final TDisMin=TDisMin,
-    V_flow_nominal=max(VCooMax, VHeaMax),
-    controllerTypeVal=controllerTypeVal,
-    controllerTypeDam=controllerTypeDam)
+    V_flow_nominal=max(VCooMax, VHeaMax))
                            "Damper and valve controller"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests sysReq(
@@ -273,6 +310,7 @@ block Controller "Controller for room VAV box"
     final controllerType=controllerTypeHea,
     final k=kHea,
     final Ti=TiHea,
+    final Td=TdHea,
     final yMax=1,
     final yMin=0) "Heating loop signal"
     annotation (Placement(transformation(extent={{-110,150},{-90,170}})));
@@ -280,6 +318,7 @@ block Controller "Controller for room VAV box"
     final controllerType=controllerTypeCoo,
     final k=kCoo,
     final Ti=TiCoo,
+    final Td=TdCoo,
     final yMax=1,
     final yMin=0,
     reverseAction=true) "Cooling loop signal"

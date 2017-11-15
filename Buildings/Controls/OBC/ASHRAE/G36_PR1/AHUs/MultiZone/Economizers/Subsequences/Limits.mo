@@ -20,9 +20,18 @@ block Limits
   parameter Real k(
     final unit="1")=0.05 "Gain of damper limit controller"
     annotation (Dialog(group="Controller"));
+
   parameter Modelica.SIunits.Time Ti=1200
     "Time constant of damper limit controller integrator block"
-    annotation (Dialog(group="Controller"));
+  annotation (Dialog(group="Controller",
+    enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+parameter Modelica.SIunits.Time Td=0.1
+  "Time constant of damper limit controller derivative block"
+  annotation (Dialog(group="Controller",
+    enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+        or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real retDamPhyPosMax(
     final min=0,
@@ -109,12 +118,13 @@ block Limits
         iconTransformation(extent={{100,-50},{120,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID damLimCon(
+    final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
+    final Td=Td,
     final yMax=yMax,
     final yMin=yMin,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    final controllerType=controllerType)
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Damper position limit controller"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
 
