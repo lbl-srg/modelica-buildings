@@ -32,14 +32,14 @@ block Controller "Controller for room VAV box"
     "Time constant of integrator block for heating control loop signal"
     annotation(Dialog(group="Heating loop signal"));
 
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeWatVal=
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeVal=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Valve"));
-  parameter Real kWatVal=0.5
+  parameter Real kVal=0.5
     "Gain of controller for valve control"
     annotation (Dialog(group="Valve"));
-  parameter Modelica.SIunits.Time TiWatVal=300
+  parameter Modelica.SIunits.Time TiVal=300
     "Time constant of integrator block for valve control"
     annotation (Dialog(group="Valve"));
 
@@ -245,14 +245,14 @@ block Controller "Controller for room VAV box"
     "Active airflow rate setpoint"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves damVal(
-    final kWatVal=kWatVal,
-    final TiWatVal=TiWatVal,
+    final kVal=kVal,
+    final TiVal=TiVal,
     final kDam=kDam,
     final TiDam=TiDam,
     final dTDisMax=dTDisMax,
     final TDisMin=TDisMin,
     V_flow_nominal=max(VCooMax, VHeaMax),
-    controllerTypeWatVal=controllerTypeWatVal,
+    controllerTypeVal=controllerTypeVal,
     controllerTypeDam=controllerTypeDam)
                            "Damper and valve controller"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));

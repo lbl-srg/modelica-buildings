@@ -90,7 +90,7 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perFan "Performance data for the fan"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
-  Modelica.Blocks.Interfaces.RealInput uWatVal(min=0,max=1,unit="1")
+  Modelica.Blocks.Interfaces.RealInput uVal(min=0,max=1,unit="1")
     "Actuator position (0: closed, 1: open) on water side"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
       iconTransformation(extent={{-120,30},{-100,50}})));
@@ -210,7 +210,7 @@ equation
   connect(fan.P, PFan)
    annotation (Line(points={{-71,-51},{-80,-51},{-80,-80},
                {-20,-80},{-20,-110}},color={0,0,127}));
-  connect(watVal.y, uWatVal)
+  connect(watVal.y, uVal)
    annotation (Line(points={{68,-10},{62,-10},{62,30},{-62,30},{-120,30}},
                                              color={0,0,127}));
   connect(port_b2, fan.port_b)

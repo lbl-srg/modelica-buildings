@@ -39,7 +39,7 @@ model CoolingCoilHumidifyingHeating_OpenLoop
     redeclare package Medium = Medium2, m_flow_nominal=m2_flow_nominal)
     "Sensor for relative humidity"
     annotation (Placement(transformation(extent={{34,10},{14,30}})));
-  Modelica.Blocks.Sources.Constant uWatVal(k=0.2)
+  Modelica.Blocks.Sources.Constant uVal(k=0.2)
     "Control signal for water valve"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
   Modelica.Blocks.Sources.Constant temSet(k=15 + 273.15)
@@ -58,7 +58,7 @@ equation
       points={{54,20},{34,20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(uWatVal.y, ahu.uWatVal) annotation (Line(points={{21,90},{46,90},{46,30},
+  connect(uVal.y, ahu.uVal) annotation (Line(points={{21,90},{46,90},{46,30},
           {53,30}}, color={0,0,127}));
   connect(uFan.y, ahu.uFan) annotation (Line(points={{21,-80},{48,-80},{48,22},{
           48,23},{53,23},{53,22}},

@@ -7,15 +7,15 @@ block DamperValves
   parameter Modelica.SIunits.Temperature TDisMin=283.15
     "Lowest discharge air temperature";
 
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeWatVal=
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeVal=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(group="Heating valve"));
 
-  parameter Real kWatVal(final unit="1/K")=0.5
+  parameter Real kVal(final unit="1/K")=0.5
     "Gain of controller for valve control"
     annotation(Dialog(group="Heating valve"));
-  parameter Modelica.SIunits.Time TiWatVal=300
+  parameter Modelica.SIunits.Time TiVal=300
     "Time constant of integrator block for valve control"
     annotation(Dialog(group="Heating valve"));
 
@@ -162,17 +162,17 @@ block DamperValves
     "Active airflow setpoint for heating"
     annotation (Placement(transformation(extent={{-80,-330},{-60,-310}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conYHeaValMin(
-    final controllerType=controllerTypeWatVal,
-    final k=kWatVal,
-    final Ti=TiWatVal,
+    final controllerType=controllerTypeVal,
+    final k=kVal,
+    final Ti=TiVal,
     final yMax=1,
     final yMin=0)
     "Hot water valve position if discharge air is below a minimum value"
     annotation (Placement(transformation(extent={{0,118},{20,138}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conYHeaVal(
-    final controllerType=controllerTypeWatVal,
-    final k=kWatVal,
-    final Ti=TiWatVal,
+    final controllerType=controllerTypeVal,
+    final k=kVal,
+    final Ti=TiVal,
     final yMax=1,
     final yMin=0)
     "Hot water valve position if uHea is between 0 and 50%"

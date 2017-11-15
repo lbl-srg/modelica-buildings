@@ -9,7 +9,7 @@ block OutsideAirFlow
     "Outdoor air rate per person"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Area zonAre
-    "Area of each zone"
+    "Floor area"
     annotation(Dialog(group="Nominal condition"));
   parameter Boolean have_occSen
     "Set to true if zones have occupancy sensor";
