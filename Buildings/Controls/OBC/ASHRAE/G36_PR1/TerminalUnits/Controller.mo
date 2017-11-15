@@ -5,7 +5,7 @@ block Controller "Controller for room VAV box"
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
   parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal
     "Volume flow rate of this thermal zone";
-  parameter Modelica.SIunits.Area zonAre "Area of the zone";
+  parameter Modelica.SIunits.Area AFlo "Area of the zone";
 
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
@@ -231,7 +231,7 @@ block Controller "Controller for room VAV box"
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
     actAirSet(
-    final zonAre=zonAre,
+    final AFlo=AFlo,
     final have_occSen=have_occSen,
     final have_winSen=have_winSen,
     final have_CO2Sen=have_CO2Sen,

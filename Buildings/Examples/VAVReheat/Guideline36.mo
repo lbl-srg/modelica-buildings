@@ -16,34 +16,34 @@ model Guideline36
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVCor(
     V_flow_nominal=mCor_flow_nominal/1.2,
-    zonAre=AFloCor,
+    AFlo=AFloCor,
     final samplePeriod=samplePeriod) "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{530,32},{550,52}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVSou(
     V_flow_nominal=mSou_flow_nominal/1.2,
-    zonAre=AFloSou,
+    AFlo=AFloSou,
     final samplePeriod=samplePeriod) "Controller for terminal unit south"
     annotation (Placement(transformation(extent={{700,30},{720,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVEas(
     V_flow_nominal=mEas_flow_nominal/1.2,
-    zonAre=AFloEas,
+    AFlo=AFloEas,
     final samplePeriod=samplePeriod) "Controller for terminal unit east"
     annotation (Placement(transformation(extent={{880,30},{900,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVNor(
     V_flow_nominal=mNor_flow_nominal/1.2,
-    zonAre=AFloNor,
+    AFlo=AFloNor,
     final samplePeriod=samplePeriod) "Controller for terminal unit north"
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVWes(
     V_flow_nominal=mWes_flow_nominal/1.2,
-    zonAre=AFloWes,
+    AFlo=AFloWes,
     final samplePeriod=samplePeriod) "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller conAHU(
     numZon=numZon,
     maxSysPriFlo=maxSysPriFlo,
     minZonPriFlo=minZonPriFlo,
-    zonAre=zonAre,
+    AFlo=AFlo,
     yFanMin=yFanMin,
     pMaxSet=410)     "AHU controller"
     annotation (Placement(transformation(extent={{384,362},{424,470}})));

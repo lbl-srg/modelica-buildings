@@ -4,14 +4,14 @@ model Controller "Validate model for controlling VAV terminal box with reheat"
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
     con(
-    zonAre=50,
+    AFlo=50,
     samplePeriod=120,
     V_flow_nominal=(50*3/3600)*6)
     "Controller for VAV terminal unit with reheat"
     annotation (Placement(transformation(extent={{60,54},{80,84}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
     con1(
-    zonAre=50,
+    AFlo=50,
     samplePeriod=120,
     V_flow_nominal=(50*3/3600)*6,
     have_occSen=true,

@@ -23,7 +23,7 @@ block ActiveAirFlow
   parameter Modelica.SIunits.VolumeFlowRate VMinCon
     "VAV box controllable minimum"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Area zonAre "Area of the zone"
+  parameter Modelica.SIunits.Area AFlo "Area of the zone"
     annotation(Dialog(group="Nominal condition"));
   parameter Real outAirPerAre(final unit = "m3/(s.m2)")=3e-4
     "Outdoor air rate per unit area"
@@ -134,7 +134,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxZonCooAir(final k=VCooMax) if have_CO2Sen
     "Zone maximum cooling airflow setpoint"
     annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonAre(final k=outAirPerAre*zonAre) if have_occSen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonAre(final k=outAirPerAre*AFlo) if have_occSen
     "Area component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-140,-370},{-120,-350}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conVolMin(final k=VMinCon)

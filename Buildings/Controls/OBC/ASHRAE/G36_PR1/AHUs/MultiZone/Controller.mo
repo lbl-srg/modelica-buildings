@@ -7,7 +7,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
   parameter Integer numZon(min=2) "Total number of served VAV boxes"
     annotation (Dialog(group="System and building parameters"));
 
-  parameter Modelica.SIunits.Area zonAre[numZon] "Area of each zone"
+  parameter Modelica.SIunits.Area AFlo[numZon] "Floor area of each zone"
     annotation (Dialog(group="System and building parameters"));
   parameter Boolean have_occSen=false
     "Set to true if zones have occupancy sensor"
@@ -209,13 +209,13 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     annotation (Evaluate=true,
       Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
   parameter Real desZonPop[numZon]={
-    outAirSetPoi.occDen[i]*outAirSetPoi.zonAre[i]
+    outAirSetPoi.occDen[i]*outAirSetPoi.AFlo[i]
     for i in 1:outAirSetPoi.numZon}
     "Design zone population during peak occupancy"
     annotation (Evaluate=true,
       Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
   parameter Real peaSysPop=1.2*sum(
-    {outAirSetPoi.occDen[iZon]*outAirSetPoi.zonAre[iZon]
+    {outAirSetPoi.occDen[iZon]*outAirSetPoi.AFlo[iZon]
     for iZon in 1:outAirSetPoi.numZon})
     "Peak system population"
     annotation (Evaluate=true,
@@ -455,7 +455,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     annotation (Placement(transformation(extent={{-160,210},{-140,230}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.OutsideAirFlow
     outAirSetPoi(
-    final zonAre=zonAre,
+    final AFlo=AFlo,
     final maxSysPriFlo=maxSysPriFlo,
     final minZonPriFlo=minZonPriFlo,
     final numZon=numZon,
