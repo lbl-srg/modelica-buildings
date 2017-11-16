@@ -108,7 +108,7 @@ equation
           textStyle={TextStyle.Bold,TextStyle.Italic})}),
     Documentation(info="<html>
 <p>
-This partial model calculate performance metrics for a data center system. 
+This partial model calculate performance metrics for a data center system.
 The performance metrics include cooling mode signal switch times, economizing hours, and total
 energy consumption.
 </p>

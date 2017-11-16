@@ -260,7 +260,7 @@ Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed</a>.
 </p>
 <h5>Room temperature control</h5>
 <p>
-The room temperature is controlled by adjusting the fan speed of the AHU using a PI controller. 
+The room temperature is controlled by adjusting the fan speed of the AHU using a PI controller.
 </p>
 <p>
 Note that for simplicity, the chilled water supply temperature and
