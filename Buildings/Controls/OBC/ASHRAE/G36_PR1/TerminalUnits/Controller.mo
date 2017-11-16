@@ -13,7 +13,7 @@ block Controller "Controller for room VAV box"
     "Type of controller"
     annotation(Dialog(group="Cooling loop signal"));
 
-  parameter Real kCoo(final unit="1/K")=1
+  parameter Real kCoo(final unit="1/K")=0.1
     "Gain for cooling control loop signal"
     annotation(Dialog(group="Cooling loop signal"));
 
@@ -33,7 +33,7 @@ block Controller "Controller for room VAV box"
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(group="Heating loop signal"));
-  parameter Real kHea(final unit="1/K")=1
+  parameter Real kHea(final unit="1/K")=0.1
     "Gain for heating control loop signal"
     annotation(Dialog(group="Heating loop signal"));
 
