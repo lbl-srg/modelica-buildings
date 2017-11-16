@@ -94,30 +94,28 @@ block ModeAndSetPoints "Output zone setpoint with operation mode selection"
     each final unit="K",
     each quantity="ThermodynamicTemperature")
     "Measured zone temperatures"
-    annotation (Placement(transformation(rotation=0, extent={{-180,60},{-140,100.5}}),
+    annotation (Placement(transformation(extent={{-180,60},{-140,100.5}}),
       iconTransformation(extent={{-120,40},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
     final unit="s",
     quantity="Time")
     "Time to next occupied period"
-    annotation (Placement(transformation(rotation=0, extent={{-180,120},{-140,160}}),
+    annotation (Placement(transformation(extent={{-180,120},{-140,160}}),
       iconTransformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj[numZon](
     each final unit="K",
     each quantity="ThermodynamicTemperature") if (cooAdj or sinAdj)
     "Setpoint adjustment value"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,
-      origin={-160,-40}),
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},origin={-160,-40}),
                         iconTransformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj[numZon](
     each final unit="K",
     each quantity="ThermodynamicTemperature") if heaAdj
     "Heating setpoint adjustment value"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,
-      origin={-160,-70}), iconTransformation(extent={{-120,-20},{-100,0}})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},origin={-160,-70}), iconTransformation(extent={{-120,-20},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
     "Current occupancy period, true if it is in occupant period"
-    annotation (Placement(transformation(rotation=0, extent={{-180,0},{-140,40.5}}),
+    annotation (Placement(transformation(extent={{-180,0},{-140,40.5}}),
       iconTransformation(extent={{-120,-50},{-100,-29.5}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccSen[numZon] if have_occSen
     "Occupancy sensor (occupied=true, unoccupied=false)"
