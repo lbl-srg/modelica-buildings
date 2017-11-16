@@ -113,7 +113,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+ Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{50,86},{126,76}},
           lineColor={85,0,255},

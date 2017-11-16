@@ -200,8 +200,7 @@ annotation (
         Text(
           extent={{-124,146},{96,108}},
           lineColor={0,0,255},
-          textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)),
-Documentation(info="<html>
+          textString="%name")}),Documentation(info="<html>
 <p>
 Block that outputs the coil valve postions for VAV system with multiple zones,
 implemented according to the ASHRAE Guideline G36, PART5.N.2
