@@ -9,6 +9,6 @@ compareVars :=
     "damVal.uCoo",
     "damVal.TDisSet",
     "damVal.yHeaVal",
-    "damVal.conYHeaVal.u_s",
-    "damVal.conYHeaVal.u_m"
+    "damVal.conVal.u_s",
+    "damVal.conVal.u_m"
   };

@@ -20,6 +20,7 @@ request
 stat
 status
 stop
+stop.
 Thumbs.db
 # Ignore files created by the unit tests.
 simulator.log
