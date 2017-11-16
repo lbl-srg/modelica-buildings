@@ -44,8 +44,6 @@ annotation (
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}),
-                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
 Block that writes a warning if the input becomes <code>false</code>.

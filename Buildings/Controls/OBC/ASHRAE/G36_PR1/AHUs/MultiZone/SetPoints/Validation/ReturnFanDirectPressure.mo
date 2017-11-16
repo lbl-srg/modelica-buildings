@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Validation;
 model ReturnFanDirectPressure
-  "Validate model for calculating return fan control with direct building pressure 
+  "Validate model for calculating return fan control with direct building pressure
   of multi zone VAV AHU"
   extends Modelica.Icons.Example;
 
@@ -45,7 +45,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ReturnFanDirectPressure\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ReturnFanDirectPressure</a>
-for exhaust air damper and return fan control with direct building pressure measurement 
+for exhaust air damper and return fan control with direct building pressure measurement
 for systems with multiple
 zones.
 </p>
