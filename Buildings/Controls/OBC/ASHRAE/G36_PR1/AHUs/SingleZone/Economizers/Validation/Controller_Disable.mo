@@ -225,7 +225,7 @@ outdoor air control
           horizontalAlignment=TextAlignment.Left,
           fontSize=8,
           textString="Overide damper positions
-based on the TMix tracking 
+based on the TMix tracking
 freeze protection ")}),
 Documentation(info="<html>
 <p>

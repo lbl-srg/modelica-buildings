@@ -30,7 +30,7 @@ Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
 Documentation(info="<html>
 <p>
 Block that sorts the elements of the input signal <i>u</i>.
-If the parameter <code>ascending = true</code>, then the output signal satisfies 
+If the parameter <code>ascending = true</code>, then the output signal satisfies
 <i>y<sub>i</sub> &lt;= y<sub>i+1</sub></i> for all <i>i &isin; {1, ..., n-1}</i>.
 Otherwise, it satisfies
 <i>y<sub>i</sub> &gt;= y<sub>i+1</sub></i> for all <i>i &isin; {1, ..., n-1}</i>.
