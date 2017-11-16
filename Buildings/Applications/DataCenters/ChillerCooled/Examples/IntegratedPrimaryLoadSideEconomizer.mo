@@ -5,13 +5,13 @@ model IntegratedPrimaryLoadSideEconomizer
   extends
     Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PostProcess(
     freCooSig(
-      y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
+      y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
       then 1 else 0),
     parMecCooSig(
-      y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.PartialMechanical)
+      y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.PartialMechanical)
       then 1 else 0),
     fulMecCooSig(
-      y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
+      y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
       then 1 else 0),
     PHVAC(y=cooTow[1].PFan + cooTow[2].PFan + pumCW[1].P + pumCW[2].P + sum(
           chiWSE.powChi + chiWSE.powPum) + ahu.PFan + ahu.PHea),
