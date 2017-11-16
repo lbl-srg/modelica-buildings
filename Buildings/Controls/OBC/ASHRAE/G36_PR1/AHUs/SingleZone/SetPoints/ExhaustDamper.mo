@@ -163,8 +163,8 @@ annotation (
             100}})),
  Documentation(info="<html>
 <p>
-Control sequence for exhaust dampers without fans. It is implemented according 
-to ASHRAE Guidline 35 (G36), PART5.N.8.(for multi zone VAV AHU), PART5.P.6 
+Control sequence for exhaust dampers without fans. It is implemented according
+to ASHRAE Guidline 35 (G36), PART5.N.8.(for multi zone VAV AHU), PART5.P.6
 and PART3.2B.3 (for single zone VAV AHU).
 </p>
 
@@ -179,7 +179,7 @@ the supply fan is at minimum speed).
 </li>
 <li>
 <code>maxExhDamPos</code> is the exhaust damper position that maintains a building
-pressure of <i>12</i> Pa (<i>0.05</i> inchWC) while the economizer damper is fully 
+pressure of <i>12</i> Pa (<i>0.05</i> inchWC) while the economizer damper is fully
 open and the fan speed is at cooling maximum.
 </li>
 </ul>

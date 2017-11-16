@@ -33,7 +33,7 @@ such as for AHU and for terminal unit control.
 </li>
 <li><a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits</a> contains control
-sequences for terminal units, such as setpoints for the minimal zone airflow rates and 
+sequences for terminal units, such as setpoints for the minimal zone airflow rates and
 actuator signals for the terminal unit dampers.
 </li>
 </ul>

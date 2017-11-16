@@ -43,9 +43,6 @@ equation
               {57.5,-61.9},{63.9,-47.2},{72,-24.8},{80,0}}, smooth = Smooth.Bezier),
         Text(extent={{-147,-152},{153,-112}},lineColor={0,0,0},
           textString="freqHz=%freqHz")}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 Block that outputs a <code>sine</code>.
