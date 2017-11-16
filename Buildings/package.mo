@@ -132,8 +132,36 @@ its class name ends with the string <code>Beta</code>.
        annotation (Documentation(info="<html>
    <div class=\"release-summary\">
    <p>
-   Version 5.0.0 is ... xxx
+   Version 5.0.0 is a major new release that
+   contains new packages to model control sequences,
+   a package with control sequences from ASHRAE Guideline 36 and
+   a package with pre-configured models for data center chilled water plants.
    </p>
+   <p>
+     The following major changes have been done:
+   <ul>
+   <li>
+   The package <code>Buildings.Controls.OBC.CDL</code> has been added.
+   This package provides elementary blocks to implemented control sequences.
+   The blocks conform to the Control Description Language specification
+   published at <a href=\"http://obc.lbl.gov\">http://obc.lbl.gov</a>.
+   </li>
+   <li>
+   The package <code>Buildings.Controls.OBC.ASHRAE.G36_PR1</code> has been added.
+   This package contains control sequences for variable air volume flow systems
+   according to ASHRAE Guideline 36, public review draft 1.
+   The implementation uses blocks from the above described
+   <code>Buildings.Controls.OBC.CDL</code> package, and conforms to the
+   Control Description Language specification.
+   </li>
+   <li>
+   New models for ideal heaters and sensible coolers, and ideal
+   humidifiers have been added.
+   </li>
+   <li>
+   Various models have been improved.
+   </li>
+   </ul>
    </div>
    <!-- New libraries -->
    <p>
@@ -430,7 +458,7 @@ its class name ends with the string <code>Beta</code>.
    units are wrong or errors in documentation):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.MultiLayer
@@ -441,14 +469,6 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>
    </table>
-   <p>
-   Note:
-   </p>
-   <ul>
-   <li>
-   xxx
-   </li>
-   </ul>
    </html>"));
    end Version_5_0_0;
 
@@ -6359,7 +6379,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_0_0\">Version 5.0.0</a> (xxx, 2017)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_0_0\">Version 5.0.0</a> (November 17, 2017)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_4_0_0\">Version 4.0.0</a> (March 29, 2017)
