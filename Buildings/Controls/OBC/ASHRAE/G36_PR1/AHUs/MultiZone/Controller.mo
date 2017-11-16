@@ -693,8 +693,6 @@ equation
   connect(supTemSetPoi.TSetSup, val.TSetSup)
     annotation (Line(points={{21,90},{40,90},{40,35},{79,35}},
       color={0,0,127}));
-  connect(yOutDamPos, yOutDamPos)
-    annotation (Line(points={{210,-150},{210,-150}}, color={0,0,127}));
   connect(THeaSet, TZonSetPoiAve.u1)
     annotation (Line(points={{-210,230},{-180,230},{-180,226},{-162,226}},
       color={0,0,127}));
