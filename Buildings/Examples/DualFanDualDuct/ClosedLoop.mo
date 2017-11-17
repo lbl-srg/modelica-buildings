@@ -288,7 +288,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {30,0,70},
+    dp_nominal(each displayUnit="Pa") = {30,0,70},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
     annotation (Placement(transformation(extent={{592,170},{612,150}})));
@@ -298,7 +298,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {20,0,50},
+    dp_nominal(each displayUnit="Pa") = {20,0,50},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
     annotation (Placement(transformation(extent={{732,170},{752,150}})));
@@ -308,7 +308,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         m0_flow_wes,m0_flow_eas},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {20,0,30},
+    dp_nominal(each displayUnit="Pa") = {20,0,30},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
     annotation (Placement(transformation(extent={{872,170},{892,150}})));
@@ -317,7 +317,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {20,10,10},
+    dp_nominal(each displayUnit="Pa") = {20,10,10},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
     annotation (Placement(transformation(extent={{1012,170},{1032,150}})));
@@ -326,7 +326,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {240,0,-80},
+    dp_nominal(each displayUnit="Pa") = {240,0,-80},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{562,10},{582,-10}})));
@@ -399,7 +399,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.FixedResistances.Junction splHotColDec(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal*{1,1,1},
-    dp_nominal(displayUnit="Pa") = {0,0,0},
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -434,7 +434,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     linearized=true,
-    dp_nominal(displayUnit="Pa") = {0,0,0},
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
     redeclare package Medium = MediumW,
     m_flow_nominal=mWatPre_flow_nominal*{1,1,1}) "Splitter for cold deck"
     annotation (Placement(transformation(
@@ -446,7 +446,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     linearized=true,
-    dp_nominal(displayUnit="Pa") = {0,0,0},
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
     redeclare package Medium = MediumW,
     m_flow_nominal=mWatPre_flow_nominal*{1,1,1}) "Splitter for cold deck"
     annotation (Placement(transformation(
@@ -482,7 +482,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {240,0,-80},
+    dp_nominal(each displayUnit="Pa") = {240,0,-80},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{582,-30},{602,-50}})));
