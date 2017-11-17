@@ -136,6 +136,7 @@ its class name ends with the string <code>Beta</code>.
    contains new packages to model control sequences,
    a package with control sequences from ASHRAE Guideline 36 and
    a package with pre-configured models for data center chilled water plants.
+   All models simulate with Dymola 2017FD01, Dymola 2018 and with JModelica (revision 10374).
    </p>
    <p>
      The following major changes have been done:
