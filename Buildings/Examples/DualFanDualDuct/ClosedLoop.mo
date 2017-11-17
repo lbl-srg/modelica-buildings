@@ -101,20 +101,20 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.Movers.SpeedControlled_y fanSupHot(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=mAirHot_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=false) "Supply air fan for hot deck"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                           "Supply air fan for hot deck"
     annotation (Placement(transformation(extent={{300,-10},{320,10}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanSupCol(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=mAirCol_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=false) "Supply air fan for cold deck"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                           "Supply air fan for cold deck"
     annotation (Placement(transformation(extent={{302,-160},{322,-140}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanRet(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=100*{2,0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=false) "Return air fan"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                           "Return air fan"
     annotation (Placement(transformation(extent={{360,150},{340,170}})));
   Buildings.Fluid.Sources.FixedBoundary sinHea(
     redeclare package Medium = MediumW,
@@ -199,8 +199,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Examples.VAVReheat.Controls.Economizer conEco(
     dT=1,
     VOut_flow_min=0.3*m_flow_nominal/1.2,
-    k=1,
-    Ti=60) "Controller for economizer"
+    k=0.05,
+    Ti=1200)
+           "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TRet(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Return air temperature sensor"
@@ -228,8 +229,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dpRec_nominal=10,
     dpExh_nominal=10,
     from_dp=from_dp,
-    use_inputFilter=false,
-    linearized=true) "Economizer"
+    linearized=true,
+    riseTime=15,
+    y_start=0)       "Economizer"
     annotation (Placement(transformation(extent={{-40,66},{14,12}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCoiCoo(
     redeclare package Medium = MediumA,
@@ -288,7 +290,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {30,0,70},
+    dp_nominal(each displayUnit="Pa") = {30,0,70},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
     annotation (Placement(transformation(extent={{592,170},{612,150}})));
@@ -298,7 +300,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {20,0,50},
+    dp_nominal(each displayUnit="Pa") = {20,0,50},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
     annotation (Placement(transformation(extent={{732,170},{752,150}})));
@@ -308,7 +310,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         m0_flow_wes,m0_flow_eas},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {20,0,30},
+    dp_nominal(each displayUnit="Pa") = {20,0,30},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
     annotation (Placement(transformation(extent={{872,170},{892,150}})));
@@ -317,7 +319,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {20,10,10},
+    dp_nominal(each displayUnit="Pa") = {20,10,10},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
     annotation (Placement(transformation(extent={{1012,170},{1032,150}})));
@@ -326,7 +328,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {240,0,-80},
+    dp_nominal(each displayUnit="Pa") = {240,0,-80},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{562,10},{582,-10}})));
@@ -399,10 +401,10 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.FixedResistances.Junction splHotColDec(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal*{1,1,1},
-    dp_nominal(displayUnit="Pa") = {0,0,0},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp_nominal(each displayUnit="Pa") = {5,5,0})
     "Splitter for cold deck" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -434,7 +436,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     linearized=true,
-    dp_nominal(displayUnit="Pa") = {0,0,0},
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
     redeclare package Medium = MediumW,
     m_flow_nominal=mWatPre_flow_nominal*{1,1,1}) "Splitter for cold deck"
     annotation (Placement(transformation(
@@ -446,7 +448,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     linearized=true,
-    dp_nominal(displayUnit="Pa") = {0,0,0},
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
     redeclare package Medium = MediumW,
     m_flow_nominal=mWatPre_flow_nominal*{1,1,1}) "Splitter for cold deck"
     annotation (Placement(transformation(
@@ -482,7 +484,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {240,0,-80},
+    dp_nominal(each displayUnit="Pa") = {240,0,-80},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{582,-30},{602,-50}})));
@@ -1080,6 +1082,16 @@ equation
   connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-117.5,
           -371},{-100,-371},{-100,250},{228,250},{228,236},{238,236}}, color={
           255,0,255}));
+  connect(cor.yFan, modeSelector.yFan) annotation (Line(points={{543.467,71.2},
+          {530,71.2},{530,-371},{-117.5,-371}}, color={255,0,255}));
+  connect(modeSelector.yFan, sou.yFan) annotation (Line(points={{-117.5,-371},{
+          658,-371},{658,70.8},{681.2,70.8}}, color={255,0,255}));
+  connect(modeSelector.yFan, eas.yFan) annotation (Line(points={{-117.5,-371},{
+          800,-371},{800,73.2},{819.467,73.2}}, color={255,0,255}));
+  connect(modeSelector.yFan, nor.yFan) annotation (Line(points={{-117.5,-371},{
+          -117.5,-372},{932,-372},{932,73.2},{959.467,73.2}}, color={255,0,255}));
+  connect(modeSelector.yFan, wes.yFan) annotation (Line(points={{-117.5,-371},{
+          1074,-371},{1074,73.2},{1097.47,73.2}}, color={255,0,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
             1400,640}})),
@@ -1190,6 +1202,14 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 17, 2017, by Michael Wetter:<br/>
+Enabled filters at fan control signal. This avoids a sharp change in fan speed,
+which led to very large mass flow rates between the hot and cold deck fan
+when they were switched off.
+This model now works with JModelica with the CVode solver and <i>10<sup>-8</sup></i>
+tolerance.
+</li>
 <li>
 May 19, 2016, by Michael Wetter:<br/>
 Set <code>use_inputFilter=false</code> in fan models to avoid a large

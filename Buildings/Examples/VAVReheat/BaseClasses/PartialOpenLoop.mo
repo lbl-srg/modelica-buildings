@@ -261,7 +261,7 @@ partial model PartialOpenLoop
     from_dp=false,
     linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dp_nominal(displayUnit="Pa") = {0,0,0},
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
     portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -278,7 +278,7 @@ partial model PartialOpenLoop
     from_dp=false,
     linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dp_nominal(displayUnit="Pa") = {0,0,0},
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
     portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -294,7 +294,7 @@ partial model PartialOpenLoop
     from_dp=false,
     linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dp_nominal(displayUnit="Pa") = {0,0,0},
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
     portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -310,7 +310,7 @@ partial model PartialOpenLoop
     from_dp=false,
     linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dp_nominal(displayUnit="Pa") = {0,0,0},
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
     portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -326,7 +326,7 @@ partial model PartialOpenLoop
     from_dp=true,
     linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dp_nominal(displayUnit="Pa") = {0,0,0},
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
     portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -343,7 +343,7 @@ partial model PartialOpenLoop
     from_dp=true,
     linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dp_nominal(displayUnit="Pa") = {0,0,0},
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
     portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -359,7 +359,7 @@ partial model PartialOpenLoop
     from_dp=true,
     linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dp_nominal(displayUnit="Pa") = {0,0,0},
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
     portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -375,7 +375,7 @@ partial model PartialOpenLoop
     from_dp=true,
     linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dp_nominal(displayUnit="Pa") = {0,0,0},
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
     portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -549,7 +549,6 @@ protected
     A*der(ECooSen) = PCooSen;
     A*der(ECooLat) = PCooLat;
     ECoo = ECooSen + ECooLat;
-
 
   end Results;
 public

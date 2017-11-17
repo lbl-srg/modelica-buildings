@@ -413,7 +413,6 @@ Where the zone groups served by the system are small,
 provide multiple sets of gains that are used in the control loop as a function
 of a load indicator (such as supply fan airflow rate, the area of the zone groups
 that are occupied, etc.).
-<!-- fixme: Clarify the sentence above. -->
 </p>
 </html>", revisions="<html>
 <ul>
