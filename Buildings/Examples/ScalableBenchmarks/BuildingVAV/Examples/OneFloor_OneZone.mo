@@ -459,7 +459,7 @@ equation
           48},{-161.636,48},{-146,48},{-146,163.2},{12.6,163.2}}, color={255,0,
           255}));
 annotation (
-  experiment(StopTime=604800, Tolerance=1e-06,__Dymola_Algorithm="Radau"),
+  experiment(StopTime=604800, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ScalableBenchmarks/BuildingVAV/Examples/OneFloor_OneZone.mos"
         "Simulate and plot"),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-120},{140,200}})),

@@ -192,12 +192,9 @@ equation
         end for;
       else
         // Regular material
-   // when sample(0, 2*60) then // fixme: remove for final release
         for i in 1:nSta loop
-           // T[i] = pre(T[i]) + 2*60 * (pre(Q_flow[i])-pre(Q_flow[i+1]))*CInv[i];
           der(T[i]) = (Q_flow[i]-Q_flow[i+1])*CInv[i];
         end for;
-   // end when;
         for i in 1:nSta loop
           u[i]=0; // u is not required in this case
         end for;

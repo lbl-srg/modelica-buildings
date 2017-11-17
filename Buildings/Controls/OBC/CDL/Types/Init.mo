@@ -1,23 +1,24 @@
 within Buildings.Controls.OBC.CDL.Types;
 type Init = enumeration(
-    NoInit
-      "No initialization (start values are used as guess values with fixed=false)",
+    NoInit "No initialization (start values are used as guess values)",
     InitialState "Initialization with initial states",
-    InitialOutput
-      "Initialization with initial outputs (and steady state of the states if possible)")
+    InitialOutput "Initialization with initial outputs")
   "Enumeration defining initialization of a block" annotation (Evaluate=true,
-  Documentation(info="<html>
-  <p>The following initialization alternatives are available:</p>
-
+    Documentation(info="<html>
+<p>
+Enumeration for the type of initialization that is used for state variables.
+The possible values are:
+</p>
 <table summary=\"summary\" border=\"1\">
-<tr><td><code><strong>NoInit</strong></code></td><td>No initialization (start values are used as guess values with <code>fixed=false</code>)</td></tr>
-<tr><td><code><strong>SteadyState</strong></code></td><td>Steady state initialization (derivatives of states are zero)</td></tr>
-<tr><td><code><strong>InitialState</strong></code></td><td>Initialization with initial states</td></tr>
-<tr><td><code><strong>InitialOutput</strong></code></td><td>Initialization with initial outputs (and steady state of the states if possible)</td></tr>
+<tr><td><code>NoInit</code></td><td>No initialization (start values are used as guess values with <code>fixed=false</code>).
+</td></tr>
+<tr><td><code>InitialState</code></td>
+<td>Initialization with initial states.</td></tr>
+<tr><td><code>InitialOutput</code></td>
+<td>Initialization with initial outputs (and steady state of the states if possible).
+</td></tr>
 </table>
-<br/>
-
-  </html>", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 April 25, 2017, by Jianjun Hu:<br/>
