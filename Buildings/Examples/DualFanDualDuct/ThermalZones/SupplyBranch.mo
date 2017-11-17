@@ -1,5 +1,6 @@
 within Buildings.Examples.DualFanDualDuct.ThermalZones;
 model SupplyBranch "Supply branch of a dual duct system"
+  import Buildings;
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
   Modelica.Fluid.Interfaces.FluidPort_a port_aHot(redeclare package Medium =
@@ -39,7 +40,8 @@ model SupplyBranch "Supply branch of a dual duct system"
     m_flow_nominal=mAirHot_flow_nominal,
     dp_nominal(displayUnit="Pa") = 40,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "VAV damper for hot deck" annotation (
+    linearized=linearizeFlowResistance,
+    y_start=0)                          "VAV damper for hot deck" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -49,7 +51,8 @@ model SupplyBranch "Supply branch of a dual duct system"
     m_flow_nominal=mAirCol_flow_nominal,
     dp_nominal(displayUnit="Pa") = 40,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "VAV damper for cold deck" annotation (
+    linearized=linearizeFlowResistance,
+    y_start=0)                          "VAV damper for cold deck" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -103,6 +106,10 @@ model SupplyBranch "Supply branch of a dual duct system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={50,168})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput yFan
+    "Fan operation, true if fan is running" annotation (Placement(
+        transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
+          extent={{-140,0},{-100,40}})));
 equation
   connect(fraMasFlo.u, senMasFlo.m_flow) annotation (Line(
       points={{100,144},{80,144},{80,134},{61,134}},
@@ -134,7 +141,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(senMasFlo.m_flow, con.mAir_flow) annotation (Line(
-      points={{61,134},{66,134},{66,70},{-52,70},{-52,4},{-42,4}},
+      points={{61,134},{66,134},{66,70},{-52,70},{-52,6},{-42,6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(con.yHot, vavHot.y) annotation (Line(
@@ -195,6 +202,8 @@ equation
       points={{50,178},{50,200}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(con.yFan, yFan) annotation (Line(points={{-42,2},{-82,2},{-82,0},{
+          -120,0}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{200,200}}), graphics={

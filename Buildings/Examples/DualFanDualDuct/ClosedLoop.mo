@@ -199,8 +199,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Examples.VAVReheat.Controls.Economizer conEco(
     dT=1,
     VOut_flow_min=0.3*m_flow_nominal/1.2,
-    k=1,
-    Ti=60) "Controller for economizer"
+    k=0.05,
+    Ti=1200)
+           "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TRet(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Return air temperature sensor"
@@ -228,8 +229,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dpRec_nominal=10,
     dpExh_nominal=10,
     from_dp=from_dp,
-    use_inputFilter=false,
-    linearized=true) "Economizer"
+    linearized=true,
+    riseTime=15,
+    y_start=0)       "Economizer"
     annotation (Placement(transformation(extent={{-40,66},{14,12}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCoiCoo(
     redeclare package Medium = MediumA,
@@ -399,10 +401,10 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.FixedResistances.Junction splHotColDec(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal*{1,1,1},
-    dp_nominal(each displayUnit="Pa") = {0,0,0},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp_nominal(each displayUnit="Pa") = {5,5,0})
     "Splitter for cold deck" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -1080,6 +1082,16 @@ equation
   connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-117.5,
           -371},{-100,-371},{-100,250},{228,250},{228,236},{238,236}}, color={
           255,0,255}));
+  connect(cor.yFan, modeSelector.yFan) annotation (Line(points={{543.467,71.2},
+          {530,71.2},{530,-371},{-117.5,-371}}, color={255,0,255}));
+  connect(modeSelector.yFan, sou.yFan) annotation (Line(points={{-117.5,-371},{
+          658,-371},{658,70.8},{681.2,70.8}}, color={255,0,255}));
+  connect(modeSelector.yFan, eas.yFan) annotation (Line(points={{-117.5,-371},{
+          800,-371},{800,73.2},{819.467,73.2}}, color={255,0,255}));
+  connect(modeSelector.yFan, nor.yFan) annotation (Line(points={{-117.5,-371},{
+          -117.5,-372},{932,-372},{932,73.2},{959.467,73.2}}, color={255,0,255}));
+  connect(modeSelector.yFan, wes.yFan) annotation (Line(points={{-117.5,-371},{
+          1074,-371},{1074,73.2},{1097.47,73.2}}, color={255,0,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
             1400,640}})),

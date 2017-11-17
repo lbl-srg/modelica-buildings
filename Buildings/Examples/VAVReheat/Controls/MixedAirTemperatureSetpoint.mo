@@ -4,7 +4,7 @@ model MixedAirTemperatureSetpoint
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Routing.Extractor TSetMix(
     nin=6,
-    index(start=1, fixed=true)) "Mixed air setpoint temperature extractor"
+    index(start=2, fixed=true)) "Mixed air setpoint temperature extractor"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Modelica.Blocks.Sources.Constant off(k=273.15 + 13)
     "Setpoint temperature to close damper"
