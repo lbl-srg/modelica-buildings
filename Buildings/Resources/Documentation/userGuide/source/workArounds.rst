@@ -55,7 +55,7 @@ Breaking algebraic loops
 ------------------------
 
 In fluid flow systems, flow junctions where mass flow rates separate and mix can couple non-linear systems of equations. This leads to larger systems of coupled equations that need to be solved, which often causes larger computing time and can sometimes cause convergence problems.
-To decouple these systems of equations, in the model of a flow splitter or mixer (model `Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM>`_), or in models for fans or pumps (such as the model `Buildings.Fluid.Movers.SpeedControlled_y <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y>`_), the parameter ``dynamicBalance`` can be set to ``true``. This adds a control volume at the fluid junction that can decouple the system of equations.
+To decouple these systems of equations, in the model of a flow splitter or mixer (model `Buildings.Fluid.FixedResistances.PressureDrop <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop>`_), or in models for fans or pumps (such as the model `Buildings.Fluid.Movers.SpeedControlled_y <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y>`_), the parameter ``dynamicBalance`` can be set to ``true``. This adds a control volume at the fluid junction that can decouple the system of equations.
 
 Reducing nonlinear equations of serially connected flow resistances
 -------------------------------------------------------------------
@@ -90,7 +90,7 @@ Suppose the parameters are
 
 .. code-block:: modelica
 
-   Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
+   Buildings.Fluid.FixedResistances.PressureDrop res(
      redeclare package Medium = Medium,
      m_flow_nominal=0.2,
      dp_nominal=10000);
