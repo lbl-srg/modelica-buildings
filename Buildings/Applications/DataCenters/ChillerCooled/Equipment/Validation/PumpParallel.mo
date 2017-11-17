@@ -108,9 +108,6 @@ equation
   connect(dp4.port_b, sin.ports[1])
     annotation (Line(points={{40,-40},{76,-40},{76,42},{82,42}},
                            color={0,127,255}));
-
- for i in 1:numPum loop
- end for;
   connect(y.y, pumPar2.u) annotation (Line(points={{-71,80},{-28,80},{-28,-36},
           {-20,-36}}, color={0,0,127}));
   connect(dp2.port_b, sin.ports[2])

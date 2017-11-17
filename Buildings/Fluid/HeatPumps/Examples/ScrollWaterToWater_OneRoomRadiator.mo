@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatPumps.Examples;
 model ScrollWaterToWater_OneRoomRadiator
-  "7th part of the system model, which implements the on/off control using a state machine"
+  "Heat pump with scroll compressor connected to a simple room model with radiator"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
       Buildings.Media.Air "Medium model for air";
@@ -15,7 +15,7 @@ model ScrollWaterToWater_OneRoomRadiator
     "Radiator nominal return water temperature";
 
   parameter Modelica.SIunits.MassFlowRate mHeaPum_flow_nominal=
-    Q_flow_nominal/4200/(5)
+    Q_flow_nominal/4200/5
     "Heat pump nominal mass flow rate";
 //------------------------------------------------------------------------------//
 

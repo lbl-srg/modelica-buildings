@@ -1,10 +1,10 @@
 within Buildings.Examples.VAVReheat;
 model ASHRAE2006
   "Variable air volume flow system with terminal reheat and five thermal zones"
-  import Buildings;
   extends Modelica.Icons.Example;
-  extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(heaCoi(
-        show_T=true), cooCoi(show_T=true));
+  extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
+    heaCoi(show_T=true),
+    cooCoi(show_T=true));
 
   Modelica.Blocks.Sources.Constant TSupSetHea(y(
       final quantity="ThermodynamicTemperature",

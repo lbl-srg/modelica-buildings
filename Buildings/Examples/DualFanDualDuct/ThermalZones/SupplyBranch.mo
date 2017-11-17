@@ -1,6 +1,5 @@
 within Buildings.Examples.DualFanDualDuct.ThermalZones;
 model SupplyBranch "Supply branch of a dual duct system"
-  import Buildings;
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
   Modelica.Fluid.Interfaces.FluidPort_a port_aHot(redeclare package Medium =

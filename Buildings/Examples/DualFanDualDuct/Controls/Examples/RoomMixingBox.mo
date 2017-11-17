@@ -1,6 +1,5 @@
 within Buildings.Examples.DualFanDualDuct.Controls.Examples;
 model RoomMixingBox "Test model for room mixing box"
-  import Buildings;
 extends Modelica.Icons.Example;
   Buildings.Examples.DualFanDualDuct.Controls.RoomMixingBox conMix(m_flow_min=1)
     "Controller for mixing box"

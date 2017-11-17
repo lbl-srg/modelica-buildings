@@ -1,6 +1,6 @@
 // Conversion script for Buildings library
-//  from: Version 3.0
-//  to:   Version 4.0
+//  from: Version 4.0
+//  to:   Version 5.0
 clear
 
 convertClear();
