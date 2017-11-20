@@ -16,7 +16,7 @@ model CFDAirHeatMassBalance
     annotation(Dialog(tab = "Initialization"));
 
   parameter String cfdFilNam "CFD input file name"
-    annotation (Dialog(__Dymola_loadSelector(caption="Select CFD input file")));
+    annotation (Dialog(loadSelector(caption="Select CFD input file")));
   parameter Boolean useCFD=true
     "Set to false to deactivate the CFD interface and use instead yFixed as output"
     annotation (Evaluate=true);
