@@ -4,7 +4,7 @@ block CFDExchange "Block that exchanges data with the CFD code"
     firstTrigger(start=false,
                  fixed=true));
   parameter String cfdFilNam "CFD input file name" annotation (Dialog(
-        __Dymola_loadSelector(caption=
+        loadSelector(caption=
             "Select CFD input file")));
   parameter Boolean activateInterface=true
     "Set to false to deactivate interface and use instead yFixed as output"
