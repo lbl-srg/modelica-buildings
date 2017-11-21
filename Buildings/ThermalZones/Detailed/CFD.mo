@@ -39,7 +39,7 @@ model CFD
     annotation(Dialog(group = "CFD"));
   parameter String cfdFilNam "CFD input file name"
     annotation (Dialog(group = "CFD",
-        __Dymola_loadSelector(caption=
+        loadSelector(caption=
             "Select CFD input file")));
   Modelica.Blocks.Interfaces.RealOutput yCFD[nSen] if
        haveSensor "Sensor for output from CFD"
