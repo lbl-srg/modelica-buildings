@@ -12,18 +12,18 @@ block EN12975HeatLoss
 protected
   final parameter Modelica.SIunits.ThermalConductance UA(
      fixed = false,
-     start=QLos_nominal/(dT_nominal))
+     start=QLos_nominal/dT_nominal)
     "Coefficient describing heat loss to ambient conditions";
 initial equation
    //Identifies useful heat gain at nominal conditions
    QUse_nominal = G_nominal * A_c * y_intercept -C1 * A_c *
-      (dT_nominal) - C2 * A_c * (dT_nominal)^2;
+      dT_nominal - C2 * A_c * dT_nominal^2;
    //Identifies TFlu[nSeg] at nominal conditions
    m_flow_nominal * cp_default * (dT_nominal_fluid[nSeg]) = QUse_nominal;
    //Identifies heat lost to environment at nominal conditions
-   QLos_nominal = -C1 * A_c * (dT_nominal)-C2 * A_c * (dT_nominal)^2;
+   QLos_nominal = -C1 * A_c * dT_nominal-C2 * A_c * dT_nominal^2;
    //Governing equation for the first segment (i=1)
-   G_nominal * y_intercept * A_c/nSeg - UA/nSeg * (dT_nominal)
+   G_nominal * y_intercept * A_c/nSeg - UA/nSeg * dT_nominal
      = m_flow_nominal * cp_default * (dT_nominal_fluid[1]);
    //Loop with the governing equations for segments 2:nSeg-1
    for i in 2:nSeg-1 loop
