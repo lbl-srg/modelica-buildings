@@ -5,7 +5,7 @@ model SimplifiedRoom "Simplified data center room"
     "Medium model";
   parameter Integer nPorts=0 "Number of parts" annotation (Evaluate=true,
       Dialog(
-      __Dymola_connectorSizing=true,
+      connectorSizing=true,
       tab="General",
       group="Ports"));
   parameter Modelica.SIunits.Length rooLen "Length of the room";
