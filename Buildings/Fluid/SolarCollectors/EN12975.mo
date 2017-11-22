@@ -26,7 +26,7 @@ extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final 
     redeclare package Medium = Medium,
     final G_nominal=per.G_nominal,
     final dT_nominal=per.dT_nominal,
-    final m_flow_nominal=per.mperA_flow_nominal*per.A,
+    final m_flow_nominal=per.mperA_flow_nominal*per.A*nPanels_internal,
     final cp_default=cp_default)
     "Calculates the heat lost to the surroundings using the EN12975 standard calculations"
            annotation (Placement(transformation(extent={{-20,6},{0,26}})));
@@ -102,7 +102,13 @@ equation
           <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br/>
         </p>
     </html>", revisions="<html>
-      <ul>
+    <ul>
+        <li>
+        November 21, 2017, by Michael Wetter:<br/>
+        Corrected error in heat loss calculations that did not scale correctly with <code>nPanels</code>.<br/>
+        This is for
+        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1073\">issue 1073</a>.
+        </li>
         <li>
           January 4, 2013, by Peter Grant:<br/>
           First implementation.

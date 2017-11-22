@@ -207,12 +207,15 @@ its class name ends with the string <code>Beta</code>.
    that can lead to wrong simulation results):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
+                          Buildings.Fluid.SolarCollectors.EN12975
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Corrected error in parameterization of heat loss calculation
+                          that led to too small heat losses if the number of panels is different from one.<br/>
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1073\">issue 1073</a>.
        </td>
    </tr>
    </table>
