@@ -51,8 +51,7 @@ model IntegratedPrimarySecondaryEconomizer
 
   Modelica.Blocks.Sources.RealExpression yVal5(
     y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
-    then 1 else 0)
-    "On/off signal for valve 5"
+    then 1 else 0) "On/off signal for valve 5"
     annotation (Placement(transformation(extent={{-60,32},{-40,52}})));
   Modelica.Blocks.Sources.RealExpression cooLoaChi(
     y=-chiWSE.port_a2.m_flow*4180*(chiWSE.TCHWSupWSE - TCHWSupSet.y))
@@ -73,11 +72,13 @@ model IntegratedPrimarySecondaryEconomizer
   Buildings.Applications.DataCenters.ChillerCooled.Controls.ConstantSpeedPumpStage
     PriPumCon(tWai=0)
     "Chilled water primary pump controller"
-    annotation (Placement(transformation(extent={{-160,22},{-140,42}})));
-  Modelica.Blocks.Math.Gain gai2[numChi](
-    each k=m2_flow_chi_nominal)
-    "Gain effect"
-    annotation (Placement(transformation(extent={{-120,22},{-100,42}})));
+    annotation (Placement(transformation(extent={{-172,22},{-152,42}})));
+  Modelica.Blocks.Math.Product priPumSpe[numChi] "Primary pump speed signal"
+    annotation (Placement(transformation(extent={{-104,22},{-84,42}})));
+  Modelica.Blocks.Sources.RealExpression notFreCoo(y=if cooModCon.y == Integer(
+        Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
+         then 0 else 1) "Not free cooling mode"
+    annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
 equation
   connect(yVal5.y, chiWSE.yVal5)
     annotation (Line(points={{-39,42},{-20,42},{-20,33},{-1.6,33}},
@@ -99,14 +100,6 @@ equation
   connect(pumSpeSig.y, secPum.u)
     annotation (Line(
       points={{-99,-10},{-78,-10},{-78,-10},{-50,-10},{-50,-22}},
-      color={0,0,127}));
-  connect(PriPumCon.y, gai2.u)
-    annotation (Line(
-      points={{-139,32},{-122,32}},
-      color={0,0,127}));
-  connect(gai2.y, chiWSE.m_flow_in)
-    annotation (Line(
-      points={{-99,32},{-20,32},{-20,26.5},{-1.5,26.5}},
       color={0,0,127}));
 
    for i in 1:numChi loop
@@ -151,11 +144,11 @@ equation
       color={0,0,127}));
   connect(PriPumCon.numOnChi, chiNumOn.y)
     annotation (Line(
-      points={{-162,27},{-182,27},{-182,65},{-236.9,65}},
+      points={{-174,27},{-182,27},{-182,65},{-236.9,65}},
       color={255,127,0}));
   connect(PriPumCon.cooMod, cooModCon.y)
     annotation (Line(
-      points={{-162,37},{-162,36},{-182,36},{-182,110},{-187,110}},
+      points={{-174,37},{-174,36},{-182,36},{-182,110},{-187,110}},
       color={255,127,0}));
   connect(cooTowSpeCon.cooMod, cooModCon.y)
     annotation (Line(
@@ -175,6 +168,14 @@ equation
       color={255,127,0}));
   connect(cooModCon.y, chiStaCon.cooMod) annotation (Line(points={{-187,110},{
           -182,110},{-182,146},{-172,146}}, color={255,127,0}));
+  connect(notFreCoo.y, priPumSpe[1].u1) annotation (Line(points={{-119,40},{
+          -114,40},{-114,38},{-106,38}}, color={0,0,127}));
+  connect(notFreCoo.y, priPumSpe[2].u1) annotation (Line(points={{-119,40},{
+          -114,40},{-114,38},{-106,38}}, color={0,0,127}));
+  connect(PriPumCon.y, priPumSpe.u2) annotation (Line(points={{-151,32},{-114,
+          32},{-114,26},{-106,26}}, color={0,0,127}));
+  connect(priPumSpe.y, chiWSE.yPum) annotation (Line(points={{-83,32},{-20,32},
+          {-20,26.5},{-1.5,26.5}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{300,220}})),
   __Dymola_Commands(file=
