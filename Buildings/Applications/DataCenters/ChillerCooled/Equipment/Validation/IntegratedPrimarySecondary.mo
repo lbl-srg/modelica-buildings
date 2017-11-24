@@ -44,8 +44,7 @@ model IntegratedPrimarySecondary
     startValue=true)
     "On and off signal for the WSE"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Modelica.Blocks.Sources.RealExpression yPum(
-    y=if onChi.y then mCHW_flow_nominal else 0)
+  Modelica.Blocks.Sources.RealExpression yPum(y=if onChi.y then 1 else 0)
     "Input signal for primary pump"
     annotation (Placement(transformation(extent={{40,50},{20,70}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
