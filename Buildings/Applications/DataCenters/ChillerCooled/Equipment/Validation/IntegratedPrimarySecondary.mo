@@ -82,9 +82,8 @@ equation
   connect(intWSEPriSec.port_a2, sou2.ports[1])
     annotation (Line(points={{10,-44},{20,-44},{26,-44},{26,-70},{40,-70}},
                                                 color={0,127,255}));
-  connect(yPum.y, intWSEPriSec.m_flow_in[1])
-    annotation (Line(points={{19,60},{19,60},{-16,60},{-16,-41.5},{-11.5,-41.5}},
-                                                   color={0,0,127}));
+  connect(yPum.y, intWSEPriSec.yPum[1]) annotation (Line(points={{19,60},{19,60},
+          {-16,60},{-16,-41.5},{-11.5,-41.5}}, color={0,0,127}));
   connect(TEva_in.y, sou2.T_in)
     annotation (Line(points={{69,-70},{66,-70},{66,-66},{64,-66},{64,-66},{62,
           -66},{62,-66}},                                 color={0,0,127}));
