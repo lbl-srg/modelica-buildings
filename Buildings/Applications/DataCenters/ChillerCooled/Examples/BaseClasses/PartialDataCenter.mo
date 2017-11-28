@@ -53,6 +53,9 @@ partial model PartialDataCenter
     "Supply air temperature setpoint";
   parameter Modelica.SIunits.Temperature TRetAirSet = 273.15 + 25
     "Supply air temperature setpoint";
+  parameter Modelica.SIunits.Pressure dpSetPoi = 80000
+    "Differential pressure setpoint";
+
   replaceable Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE chiWSE(
     redeclare replaceable package Medium1 = MediumW,
     redeclare replaceable package Medium2 = MediumW,
@@ -84,10 +87,10 @@ partial model PartialDataCenter
     redeclare each replaceable package Medium = MediumW,
     each TAirInWB_nominal(displayUnit="degC") = 283.15,
     each TApp_nominal=6,
-    each PFan_nominal=6000,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     each dp_nominal=30000,
-    each m_flow_nominal=0.785*m1_flow_chi_nominal)
+    each m_flow_nominal=0.785*m1_flow_chi_nominal,
+    each PFan_nominal=18000)
     "Cooling tower"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       origin={10,140})));
@@ -246,11 +249,11 @@ partial model PartialDataCenter
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=40,
     yMin=0.2,
-    k=0.001)
+    k=0.0001)
     "Pump speed controller"
     annotation (Placement(transformation(extent={{-246,-30},{-226,-10}})));
   Modelica.Blocks.Sources.Constant dpSet(
-    k=0.3*dp2_chi_nominal)
+    k=dpSetPoi)
     "Differential pressure setpoint"
     annotation (Placement(transformation(extent={{-280,-30},{-260,-10}})));
   Modelica.Blocks.Math.Product pumSpeSig[numChi]
