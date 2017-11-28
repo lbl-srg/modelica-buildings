@@ -26,14 +26,14 @@ model IntegratedPrimarySecondaryEconomizer
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumSec(
     each pressure=
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-          V_flow=m1_flow_chi_nominal/1000*{0.2,0.6,1.0,1.2},
-          dp=(dp1_wse_nominal+18000)*{1.5,1.3,1.0,0.6}))
+          V_flow=m2_flow_chi_nominal/1000*{0.2,0.6,1.0,1.2},
+          dp=(dp2_wse_nominal+dpSetPoi+18000+30000)*{1.5,1.3,1.0,0.6}))
     "Performance data for secondary chilled water pumps";
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumPri(
     each pressure=
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-          V_flow=m1_flow_chi_nominal/1000*{0.2,0.6,1.0,1.2},
-          dp=(dp1_chi_nominal+6000)*{1.5,1.3,1.0,0.6}))
+          V_flow=m2_flow_chi_nominal/1000*{0.2,0.6,1.0,1.2},
+          dp=(dp2_chi_nominal+dp2_wse_nominal+6000)*{1.5,1.3,1.0,0.6}))
     "Performance data for secondary chilled water pumps";
 
   Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingMode
