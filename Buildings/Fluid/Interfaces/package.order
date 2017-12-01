@@ -3,9 +3,11 @@ ConservationEquation
 FourPortHeatMassExchanger
 PartialFourPort
 PartialFourPortInterface
+PartialFourPortParallel
 PartialTwoPort
 PartialTwoPortInterface
 PartialTwoPortTransport
+PartialTwoPortVector
 PrescribedOutlet
 StaticFourPortHeatMassExchanger
 StaticTwoPortConservationEquation
