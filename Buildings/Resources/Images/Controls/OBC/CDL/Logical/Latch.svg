@@ -10,13 +10,13 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="200.74554mm"
-   height="92.038109mm"
-   viewBox="0 0 711.30311 326.11928"
+   height="94.816734mm"
+   viewBox="0 0 711.30311 335.9648"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="Latch.svg"
-   inkscape:export-filename="/home/jianjun/Desktop/FigConverter/Latch.png"
+   inkscape:export-filename="Latch.png"
    inkscape:export-xdpi="101.22268"
    inkscape:export-ydpi="101.22268">
   <defs
@@ -75,8 +75,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.7729263"
-     inkscape:cx="360.22479"
-     inkscape:cy="79.295402"
+     inkscape:cx="228.52163"
+     inkscape:cy="88.012839"
      inkscape:document-units="px"
      inkscape:current-layer="g4570"
      showgrid="false"
@@ -87,9 +87,9 @@
      inkscape:object-nodes="true"
      inkscape:snap-midpoints="false"
      inkscape:snap-grids="false"
-     inkscape:window-width="1855"
-     inkscape:window-height="1098"
-     inkscape:window-x="65"
+     inkscape:window-width="2560"
+     inkscape:window-height="1527"
+     inkscape:window-x="0"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
      fit-margin-top="0"
@@ -100,7 +100,7 @@
        type="xygrid"
        id="grid4136"
        originx="-16.751499"
-       originy="-391.28503" />
+       originy="-381.43952" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -684,8 +684,8 @@
          id="text4549"
          font-size="13"
          dominant-baseline="central"
-         y="44"
-         x="62"
+         y="92.296318"
+         x="41.593105"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.00004864px;line-height:125%;font-family:helvetica;-inkscape-font-specification:'helvetica, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000"
          sodipodi:linespacing="125%"
          inkscape:export-xdpi="44.284924"
@@ -693,15 +693,15 @@
         <tspan
            sodipodi:role="line"
            id="tspan4661"
-           x="62"
-           y="44">latch.u0</tspan>
+           x="41.593105"
+           y="92.296318">u0</tspan>
       </text>
       <text
          id="text4551"
          font-size="13"
          dominant-baseline="central"
-         y="158"
-         x="62"
+         y="206.29633"
+         x="41.593105"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.00004864px;line-height:125%;font-family:helvetica;-inkscape-font-specification:'helvetica, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000"
          sodipodi:linespacing="125%"
          inkscape:export-xdpi="44.284924"
@@ -709,15 +709,15 @@
         <tspan
            sodipodi:role="line"
            id="tspan4665"
-           x="62"
-           y="158">latch.u</tspan>
+           x="41.593105"
+           y="206.29633">u</tspan>
       </text>
       <text
          id="text4553"
          font-size="13"
          dominant-baseline="central"
-         y="271"
-         x="62"
+         y="319.29633"
+         x="41.593105"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.00004864px;line-height:125%;font-family:helvetica;-inkscape-font-specification:'helvetica, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000"
          sodipodi:linespacing="125%"
          inkscape:export-xdpi="44.284924"
@@ -725,8 +725,8 @@
         <tspan
            sodipodi:role="line"
            id="tspan4663"
-           x="62"
-           y="271">latch.y</tspan>
+           x="41.593105"
+           y="319.29633">y</tspan>
       </text>
       <polyline
          id="polyline4558"
@@ -862,6 +862,22 @@
          inkscape:connector-curvature="0"
          inkscape:export-xdpi="44.284924"
          inkscape:export-ydpi="44.284924" />
+      <text
+         inkscape:export-ydpi="44.284924"
+         inkscape:export-xdpi="44.284924"
+         sodipodi:linespacing="125%"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.00004864px;line-height:125%;font-family:helvetica;-inkscape-font-specification:'helvetica, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000"
+         x="437.48688"
+         y="421.37366"
+         dominant-baseline="central"
+         font-size="13"
+         id="text3448">
+        <tspan
+           y="421.37366"
+           x="437.48688"
+           id="tspan3450"
+           sodipodi:role="line">time</tspan>
+      </text>
     </g>
   </g>
 </svg>
