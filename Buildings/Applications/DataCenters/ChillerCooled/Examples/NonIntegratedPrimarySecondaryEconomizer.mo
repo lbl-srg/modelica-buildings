@@ -121,10 +121,6 @@ equation
     annotation (Line(
       points={{-151,70},{-132,70}},
       color={0,0,127}));
-  connect(dpSet.y, pumSpe.u_s)
-    annotation (Line(
-      points={{-259,-20},{-248,-20}},
-      color={0,0,127}));
   connect(secPum.port_b, ahu.port_a1)
     annotation (Line(
       points={{-40,-48},{-40,-48},{-40,-114},{0,-114}},
