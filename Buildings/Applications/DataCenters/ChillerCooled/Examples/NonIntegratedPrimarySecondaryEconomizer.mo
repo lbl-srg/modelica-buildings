@@ -289,6 +289,10 @@ are not implemented in this example.
 </html>", revisions="<html>
 <ul>
 <li>
+December 1, 2017, by Yangyang Fu:<br/>
+Removed redundant connection <code>connect(dpSet.y, pumSpe.u_s)</code>
+</li>
+<li>
 November 29, 2017, by Michael Wetter:<br/>
 Corrected conversion of enumeration.<br/>
 This is for

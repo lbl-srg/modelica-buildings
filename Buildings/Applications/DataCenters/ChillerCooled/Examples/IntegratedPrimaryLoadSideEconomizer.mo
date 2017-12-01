@@ -229,6 +229,10 @@ are not implemented in this example.
 </html>", revisions="<html>
 <ul>
 <li>
+December 1, 2017, by Yangyang Fu:<br/>
+Removed redundant connection <code>connect(dpSet.y, pumSpe.u_s)</code>
+</li>
+<li>
 July 30, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
