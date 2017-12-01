@@ -1081,6 +1081,7 @@ January 22, 2010, by Michael Wetter:<br/>
 Added implementation of function
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated.enthalpyOfNonCondensingGas\">
 enthalpyOfNonCondensingGas</a> and its derivative.
+</li>
 <li>
 January 13, 2010, by Michael Wetter:<br/>
 Fixed implementation of derivative functions.

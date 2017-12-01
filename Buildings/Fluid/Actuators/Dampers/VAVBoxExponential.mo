@@ -61,9 +61,11 @@ PartialDamperExponential</a>.
 <li>
 September 11, 2007 by Michael Wetter:<br/>
 Redefined <code>kRes</code>, now the pressure drop of the fully open damper is subtracted from the fixed resistance.
+</li>
 <li>
 February 24, 2010 by Michael Wetter:<br/>
 Added parameter <code>dp_nominalIncludesDamper</code>.
+</li>
 <li>
 July 27, 2007 by Michael Wetter:<br/>
 First implementation.

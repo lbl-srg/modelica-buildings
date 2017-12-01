@@ -553,7 +553,8 @@ Removed <code>stateSelect.prefer</code> for temperature.
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/160\">#160</a>.
 </li>
-<li>October 21, 2014, by Filip Jorissen:<br/>
+<li>
+October 21, 2014, by Filip Jorissen:<br/>
 Added parameter <code>mFactor</code> to increase the thermal capacity.
 </li>
 <li>
@@ -591,7 +592,8 @@ Improved documentation for <code>Q_flow</code> input.
 September 17, 2013 by Michael Wetter:<br/>
 Added start value for <code>hOut</code>.
 </li>
-<li>September 10, 2013 by Michael Wetter:<br/>
+<li>
+September 10, 2013 by Michael Wetter:<br/>
 Removed unrequired parameter <code>i_w</code>.<br/>
 Corrected the syntax error
 <code>Medium.ExtraProperty C[Medium.nC](each nominal=C_nominal)</code>
@@ -629,6 +631,7 @@ Also removed the reference to <code>Modelica.Fluid.System</code>.
 Moved parameters and medium to
 <a href=\"Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
+</li>
 <li>
 July 14, 2011 by Michael Wetter:<br/>
 Added start value for medium density.
@@ -642,6 +645,7 @@ to <code>massDynamics</code>.
 <li>
 September 28, 2010 by Michael Wetter:<br/>
 Changed array index for nominal value of <code>Xi</code>.
+</li>
 <li>
 September 13, 2010 by Michael Wetter:<br/>
 Set nominal attributes for medium based on default medium values.

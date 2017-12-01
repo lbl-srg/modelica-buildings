@@ -197,7 +197,8 @@ This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/475\">
 https://github.com/lbl-srg/modelica-buildings/issues/475</a>.
 </li>
-<li>February 20, 2016, by Ruben Baetens:<br/>
+<li>
+February 20, 2016, by Ruben Baetens:<br/>
 Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
 </li>
 <li>
@@ -214,6 +215,7 @@ September 18, 2008 by Michael Wetter:<br/>
 Replaced splitter model with a fluid port since the
 splitter model in Modelica.Fluid 1.0 beta does not transport
 <code>mC_flow</code>.
+</li>
 <li>
 June 11, 2008 by Michael Wetter:<br/>
 First implementation.
