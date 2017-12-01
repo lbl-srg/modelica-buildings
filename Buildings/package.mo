@@ -153,12 +153,14 @@ its class name ends with the string <code>Beta</code>.
    to <b style=\"color:blue\">existing</b> libraries:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowPipe
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Pipe with heat loss and transport of the fluid
+                          using a plug flow model. This model is applicable for
+                          simulation of long pipes such as in district heating and cooling systems.
        </td>
        </tr>
    </table>
