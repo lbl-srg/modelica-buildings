@@ -202,19 +202,28 @@ annotation (
           lineColor={0,0,255},
           textString="%name")}),Documentation(info="<html>
 <p>
-Block that outputs the coil valve postions for VAV system with multiple zones,
+Block that outputs the supply temperature control loop signal,
+and the coil valve postions for VAV system with multiple zones,
 implemented according to the ASHRAE Guideline G36, PART5.N.2
 (Supply air temperature control).
 </p>
 <p>
-The block also outputs the supply air temperature control signal
-which is used to control the economizer if present.
+The supply air temperature control loop signal <code>uTSup</code>
+is computed using a PI controller that tracks the supply air temperature
+setpoint <code>TSupSet</code>.
+If the fan is off, then <code>uTSup = 0</code>.
 </p>
-<h4>Valves control</h4>
 <p>
-Supply air temperature shall be controlled to setpoint using a control loop whose
-output is mapped to sequence the hot water valve (or modulating electric heating
-coil if applicable) and chilled water valve.
+Heating valve control signal (or modulating electric heating
+coil if applicable) <code>yHea</code> and cooling valve control signal <code>yCoo</code>
+are sequenced based on the supply air temperature control loop signal <code>uTSup</code>.
+From <code>uTSup = uHeaMax</code> to <code>uTSup = -1</code>,
+<code>yHea</code> increases linearly from <i>0</i> to <i>1</i>.
+Similarly, <code>uTSup = uCooMin</code> to <code>uTSup = +1</code>,
+<code>yCoo</code> increases linearly from <i>0</i> to <i>1</i>.
+</p>
+<p>
+The output <code>uTSup</code> can be used in a controller for the economizer.
 </p>
 </html>",
 revisions="<html>
