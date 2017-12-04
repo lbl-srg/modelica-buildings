@@ -362,14 +362,14 @@ while the fraction of the controller output between <code>retDamConSigMin</code>
 </p>
 <p>
 The following control charts show the input/output structure and an expected damper position
-limits for a well configured controller. Control diagram:
+limits for a well configured controller.
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits control diagram\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconDamperLimitsControlDiagramMultiZone.png\"/>
 </p>
 <p>
-Expected damper position limits vs. control loop signal:
+The expected damper position limits vs. the control loop signal are as follows:
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits control chart\"

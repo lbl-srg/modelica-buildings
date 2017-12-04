@@ -3,12 +3,13 @@ block Latch "Maintains an on signal until conditions changes"
 
   parameter Boolean pre_u_start=false "Start value of pre(u) at initial time";
   parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
-  Interfaces.BooleanInput u "Connector of Boolean input signal: latch input"
+
+  Interfaces.BooleanInput u "Latch input"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Interfaces.BooleanInput u0 "Connector of Boolean input signal: clr input"
+  Interfaces.BooleanInput u0 "Control input"
      annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   Interfaces.BooleanOutput y
-    "Connector of Real output signal used as actuator signal"
+    "Output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
@@ -93,30 +94,53 @@ equation
           lineColor={0,0,255},
           textString="%name")}),Documentation(info="<html>
 <p>
-The block maintains an <code>ON</code> signal until some other condition occurs to turn the signal <code>OFF</code>.
-Once the <code>latch</code> input <code>u</code> receives an <code>ON</code> signal, the output <code>y</code>
-turns <code>ON</code> and remains <code>ON</code> until the <code>clr</code> input <code>u0</code> turns <code>ON</code>, even if <code>u</code>
-turns <code>OFF</code>.
-When the <code>clr</code> input <code>u0</code> turns <code>ON</code>, the output <code>y</code> turns <code>OFF</code>.
+The block maintains a <code>true</code> output signal until the input <code>u0</code>
+switches to <code>false</code>.
+When the latch input <code>u</code> switches to <code>true</code>, the output <code>y</code>
+becomes <code>true</code> and remains <code>true</code>,
+even if <code>u</code> turns <code>false</code>,
+until the clear input <code>u0</code> becomes <code>true</code>.
+When the clear input <code>u0</code> becomes <code>true</code>, then
+the output <code>y</code> becomes <code>false</code>.
+</p>
+<p>
+The table below shows the different scenarios.
 </p>
 
 <table summary=\"summary\" border=\"1\">
 <tr><th> Scenario
-<th> <code>clr</code> input <code>u0</code> </th><th> <code>latch</code> input <code>u</code> </th>
-<th> output <code>y</code> </th><th> Description </th>
+<th> clear input <code>u0</code> </th>
+<th> latch input <code>u</code> </th>
+<th> output <code>y</code> </th>
+<th> Description </th>
 </tr>
-<tr><td> 1 </td><td> <code>OFF</code> </td><td> from <code>OFF</code> to <code>ON</code> </td><td> <code>ON</code> </td>
-<td>If <code>clr</code> <code>OFF</code> and <code>latch</code> switches from <code>OFF</code> to <code>ON</code>, then output <code>ON</code>.</td></tr>
-<tr><td> 2 </td><td> <code>OFF</code> </td><td> from <code>ON</code> to <code>OFF</code> </td><td> <code>ON</code> </td>
-<td>If <code>clr</code> <code>OFF</code> and <code>latch</code> switches from <code>ON</code> to <code>OFF</code>, then remain output <code>ON</code>.</td></tr>
-<tr><td> 3 </td><td> from <code>ON</code> to <code>OFF</code> </td><td> from <code>ON</code> to <code>OFF</code> </td><td> <code>OFF</code> </td>
-<td>If <code>clr</code> and <code>latch</code> switch from <code>ON</code> to <code>OFF</code> at same time, then output <code>OFF</code>.</td></tr>
-<tr><td> 4 </td><td> <code>OFF</code> </td><td>  <code>ON</code> </td><td> <code>ON</code> </td>
-<td>Initially, if <code>clr</code> <code>OFF</code> and <code>latch</code> <code>ON</code>, then output <code>ON</code>.</td></tr>
-<tr><td> 5 </td><td> <code>OFF</code> </td><td>  <code>OFF</code> </td><td> <code>OFF</code> </td>
-<td>Initially, if <code>clr</code> <code>OFF</code> and <code>latch</code> <code>OFF</code>, then output <code>OFF</code>.</td></tr>
-<tr><td> 6 </td><td> <code>ON</code> </td><td>  <code>ON</code> or <code>OFF</code> </td><td> <code>OFF</code> </td>
-<td>If <code>latch</code> <code>ON</code>, then output <code>OFF</code>.</td></tr>
+<tr>
+<td> 1 </td><td> <code>false</code> </td><td> from <code>false</code> to <code>true</code> </td>
+<td> <code>true</code> </td>
+<td>If <code>u0=false</code> and <code>latch</code> switches from <code>false</code> to <code>true</code>,
+then <code>y=true</code>.</td>
+</tr>
+<tr><td> 2 </td><td> <code>false</code> </td><td> from <code>true</code> to <code>false</code> </td>
+<td> <code>true</code> </td>
+<td>If <code>u0=false</code> and <code>latch</code> switches from <code>true</code> to <code>false</code>,
+then remain <code>y=true</code>.</td></tr>
+
+<tr><td> 3 </td><td> from <code>true</code> to <code>false</code> </td><td> from <code>true</code> to <code>false</code> </td>
+<td> <code>false</code> </td>
+<td>If <code>u</code> and <code>u0</code> switch from <code>true</code> to <code>false</code> at same time,
+then <code>y=false</code>.</td></tr>
+
+<tr><td> 4 </td><td> <code>false</code> </td><td>  <code>true</code> </td><td> <code>true</code> </td>
+<td>Initially, if <code>u0=false</code> and <code>u=true</code>,
+then <code>y=true</code>.</td></tr>
+
+<tr><td> 5 </td><td> <code>false</code> </td><td>  <code>false</code> </td><td> <code>false</code> </td>
+<td>Initially, if <code>u0=false</code> and <code>u=false</code>,
+then <code>y=false</code>.</td></tr>
+
+<tr><td> 6 </td><td> <code>true</code> </td><td>  <code>true</code> or <code>false</code> </td>
+<td> <code>false</code> </td>
+<td>If <code>u=true</code>, then <code>y=false</code>.</td></tr>
 </table>
 <br/>
 
@@ -127,6 +151,10 @@ When the <code>clr</code> input <code>u0</code> turns <code>ON</code>, the outpu
 
 </html>", revisions="<html>
 <ul>
+<li>
+December 1, 2017, by Michael Wetter:<br/>
+Revised documentation.
+</li>
 <li>
 March 30, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the

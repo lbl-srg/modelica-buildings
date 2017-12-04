@@ -726,50 +726,54 @@ It is implemented according to the ASHRAE Guideline 36, PART5.N.
 <p>
 The sequence consists of five subsequences.
 </p>
-<h4>a. Supply fan speed control</h4>
+<h4>Supply fan speed control</h4>
 <p>
 The fan speed control is implemented according to PART5.N.1. It outputs
-<code>ySupFan</code> to turn on or off the supply fan. By receiving the pressure
-reset request <code>uZonPreResReq</code> from the serving zones controller, the
-sequence resets the duct pressure setpoint so to control the fan operation speed
-<code>ySupFanSpe</code>. See
+the boolean signal <code>ySupFan</code> to turn on or off the supply fan.
+In addition, based on the pressure reset request <code>uZonPreResReq</code>
+from the VAV zones controller, the
+sequence resets the duct pressure setpoint, and uses this setpoint
+to modulate the fan speed <code>ySupFanSpe</code> using a PI controller.
+See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyFan\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyFan</a>
 for more detailed description.
 </p>
-<h4>b. Minimum outdoor airflow setting</h4>
+<h4>Minimum outdoor airflow setting</h4>
 <p>
 According to current occupany <code>nOcc</code>, supply operation status
-<code>ySupFan</code>, each zone temperature <code>TZon</code> and the discharge
-air temperature <code>TDis</code>, the sequence decides minimum outdoor airflow rate
-setpoint, and then to be used as input for economizer control. More detailed
+<code>ySupFan</code>, zone temperatures <code>TZon</code> and the discharge
+air temperature <code>TDis</code>, the sequence computes the minimum outdoor airflow rate
+setpoint, which is used as input for the economizer control. More detailed
 information can be found in
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.OutsideAirFlow\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.OutsideAirFlow</a>.
 </p>
-<h4>c. Economizer control</h4>
+<h4>Economizer control</h4>
 <p>
-The block outputs outdoor and return air damper position, <code>yOutDamPos</code>,
-<code>yRetDamPos</code>. It firstly computes the position limits to satisfy minimum
-outdoor airflow requirement, then control the availability of the economizer based
-on outdoor condition. The dampers are modulated to track the supply air temperature
-loop signal, which is calculated from the sequence below. See
+The block outputs outdoor and return air damper position, <code>yOutDamPos</code> and
+<code>yRetDamPos</code>. First, it computes the position limits to satisfy the minimum
+outdoor airflow requirement. Second, it determines the availability of the economizer based
+on the outdoor condition. The dampers are modulated to track the supply air temperature
+loop signal, which is calculated from the sequence below, subject to the minimum outdoor airflow
+requirement and economizer availability. Optionally, there is also an override for freeze protection.
+See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller</a>
 for more detailed description.
 </p>
-<h4>d. Supply air temperature setpoint</h4>
+<h4>Supply air temperature setpoint</h4>
 <p>
-Based on PART5.N.2, the sequence firstly set the maximum supply air temperature
+Based on PART5.N.2, the sequence first sets the maximum supply air temperature
 based on reset requests collected from each zone <code>uZonTemResReq</code>. The
-outdoor temperature <code>TOut</code>, operation mode <code>uOpeMod</code> are used
-along with the maximum supply air temperature, for setting supply air temperature
+outdoor temperature <code>TOut</code> and operation mode <code>uOpeMod</code> are used
+along with the maximum supply air temperature, for computing the supply air temperature
 setpoint. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature</a>
 for more detailed description.
 </p>
-<h4>e. Coil valve control</h4>
+<h4>Coil valve control</h4>
 <p>
 The subsequence retrieves supply air temperature setpoint from previous sequence.
 Along with the measured supply air temperature and the supply fan status, it
