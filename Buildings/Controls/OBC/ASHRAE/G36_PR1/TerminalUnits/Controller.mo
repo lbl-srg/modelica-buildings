@@ -8,8 +8,8 @@ block Controller "Controller for room VAV box"
   parameter Modelica.SIunits.Area AFlo "Area of the zone";
 
 
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo
-    =Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
+     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(group="Cooling loop signal"));
 
   parameter Real kCoo(final unit="1/K") = 0.1
