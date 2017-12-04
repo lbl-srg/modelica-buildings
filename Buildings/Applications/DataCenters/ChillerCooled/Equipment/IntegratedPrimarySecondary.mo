@@ -66,8 +66,7 @@ model IntegratedPrimarySecondary
   Modelica.Blocks.Interfaces.RealInput yPum[numPum](
       each final unit = "1",
       each min = 0,
-      each max = 1)
-      "Prescribed mass flow rate for primary pumps"
+      each max = 1) "Prescribed speed signal for primary pumps"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-130,-50},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput yVal5(
@@ -264,6 +263,12 @@ Otherwise, V5 is off.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+December 1, 2017, by Yangyang Fu:<br/>
+Changed the input connector <code>m_flow_in</code> into <code>yPum</code> to 
+avoid multipling mass flowrate twice in the <code>pum</code>. This is for 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1080\">#1080</a>.
+</li>
 <li>
 July 1, 2017, by Yangyang Fu:<br/>
 First implementation.

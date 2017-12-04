@@ -217,8 +217,7 @@ partial model PartialDataCenter
     "The number of running chillers"
     annotation (Placement(transformation(extent={{-260,54},{-238,76}})));
   Modelica.Blocks.Math.Gain gai[numChi](
-    each k=m1_flow_chi_nominal)
-    "Gain effect"
+    each k=m1_flow_chi_nominal) "Gain effect"
     annotation (Placement(transformation(extent={{-130,60},{-110,80}})));
   Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed cooTowSpeCon(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -249,12 +248,11 @@ partial model PartialDataCenter
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=40,
     yMin=0.2,
-    k=0.0001)
+    k=0.1)
     "Pump speed controller"
     annotation (Placement(transformation(extent={{-246,-30},{-226,-10}})));
-  Modelica.Blocks.Sources.Constant dpSet(
-    k=dpSetPoi)
-    "Differential pressure setpoint"
+  Modelica.Blocks.Sources.Constant dpSetSca(k=1)
+    "Scaled differential pressure setpoint"
     annotation (Placement(transformation(extent={{-280,-30},{-260,-10}})));
   Modelica.Blocks.Math.Product pumSpeSig[numChi]
     "Pump speed signal"
@@ -286,6 +284,8 @@ partial model PartialDataCenter
   Modelica.Blocks.Sources.Constant phiAirRetSet(k=0.5)
     "Return air relative humidity setpoint"
     annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
+  Modelica.Blocks.Math.Gain gai1(each k=1/dpSetPoi) "Gain effect"
+    annotation (Placement(transformation(extent={{-200,-70},{-220,-50}})));
 equation
   connect(chiWSE.port_b2, TCHWSup.port_a)
     annotation (Line(
@@ -427,14 +427,8 @@ equation
     annotation (Line(
       points={{-225,-20},{-196,-20},{-196,0},{-170,0}},
       color={0,0,127}));
-  connect(senRelPre.p_rel, pumSpe.u_m)
-    annotation (Line(
-      points={{8,-87},{8,-60},{-236,-60},{-236,-32}},
-      color={0,0,127}));
-  connect(dpSet.y, pumSpe.u_s)
-    annotation (Line(
-      points={{-259,-20},{-248,-20}},
-      color={0,0,127}));
+  connect(dpSetSca.y, pumSpe.u_s)
+    annotation (Line(points={{-259,-20},{-248,-20}}, color={0,0,127}));
   connect(pumSpe.y, pumSpeSig[1].u2)
     annotation (Line(
       points={{-225,-20},{-196,-20},{-196,-36},{-136,-36},{-136,-16},{-122,-16}},
@@ -524,6 +518,10 @@ equation
     annotation (Line(
       points={{-99,-160},{-80,-160},{-80,-124},{-1,-124}},
       color={0,0,127}));
+  connect(gai1.y, pumSpe.u_m) annotation (Line(points={{-221,-60},{-236,-60},{
+          -236,-32}}, color={0,0,127}));
+  connect(gai1.u, senRelPre.p_rel)
+    annotation (Line(points={{-198,-60},{8,-60},{8,-87}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{160,220}})),
     Documentation(info="<html>
@@ -539,6 +537,11 @@ Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE 
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+December 1, 2017, by Yangyang Fu:<br/>
+Used scaled differential pressure to control the speed of pumps. This can avoid retuning gains 
+in PID when changing the differential pressure setpoint.
+</li>
 <li>
 September 2, 2017, by Michael Wetter:<br/>
 Changed expansion vessel to use the more efficient implementation.

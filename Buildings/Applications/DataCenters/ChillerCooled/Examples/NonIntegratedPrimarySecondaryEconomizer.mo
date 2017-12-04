@@ -5,13 +5,13 @@ model NonIntegratedPrimarySecondaryEconomizer
   extends
     Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PostProcess(
     freCooSig(
-      y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
+      y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
       then 1 else 0),
     parMecCooSig(
-      y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.PartialMechanical)
+      y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.PartialMechanical)
       then 1 else 0),
     fulMecCooSig(
-      y=if cooModCon.y == integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
+      y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
       then 1 else 0),
     PHVAC(y=cooTow[1].PFan + cooTow[2].PFan + pumCW[1].P + pumCW[2].P + sum(
           chiWSE.powChi) + sum(priPum.P) + sum(secPum.P) + ahu.PFan + ahu.PHea),
@@ -120,10 +120,6 @@ equation
   connect(CWPumCon.y, gai.u)
     annotation (Line(
       points={{-151,70},{-132,70}},
-      color={0,0,127}));
-  connect(dpSet.y, pumSpe.u_s)
-    annotation (Line(
-      points={{-259,-20},{-248,-20}},
       color={0,0,127}));
   connect(secPum.port_b, ahu.port_a1)
     annotation (Line(
@@ -292,6 +288,16 @@ are not implemented in this example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 1, 2017, by Yangyang Fu:<br/>
+Removed redundant connection <code>connect(dpSet.y, pumSpe.u_s)</code>
+</li>
+<li>
+November 29, 2017, by Michael Wetter:<br/>
+Corrected conversion of enumeration.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1083\">issue 1083</a>.
+</li>
 <li>
 July 30, 2017, by Yangyang Fu:<br/>
 First implementation.
