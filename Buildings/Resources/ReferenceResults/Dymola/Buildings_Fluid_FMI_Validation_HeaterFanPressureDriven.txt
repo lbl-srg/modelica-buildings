@@ -1,14 +1,23 @@
-last-generated=2015-05-29
-statistics-initialization={'numerical Jacobians': '0', 'nonlinear': '1, 1'}
-statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
-sin.T_in=[303.149993896484375, 303.149993896484375]
-sou.T_in=[293.149993896484375, 293.149993896484375]
-hea.com.vol.T=[295.121337890625, 295.121337890625]
-time=[0., 1.]
-hea.outlet.p=[98000., 98000.]
-sou.outlet.p=[100000., 100000.]
-hea.inlet.p=[100000., 100000.]
-sin.inlet.p=[100000., 100000.]
-floMac.outlet.p=[100000., 100000.]
-floMac.inlet.p=[98000., 98000.]
-floMac.inlet.m_flow=[0.10000000149011611938, 0.10000000149011611938]
+last-generated=2017-12-04
+statistics-initialization=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": "0, 0"
+}
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+sin.T_in=[3.031499938964844e+02, 3.031499938964844e+02]
+sou.T_in=[2.931499938964844e+02, 2.931499938964844e+02]
+hea.com.vol.T=[2.95121337890625e+02, 2.95121337890625e+02]
+time=[0e+00, 1e+00]
+hea.outlet.p=[9.8e+04, 9.8e+04]
+sou.outlet.p=[1e+05, 1e+05]
+hea.inlet.p=[1e+05, 1e+05]
+sin.inlet.p=[1e+05, 1e+05]
+floMac.outlet.p=[1e+05, 1e+05]
+floMac.inlet.p=[9.8e+04, 9.8e+04]
+floMac.inlet.m_flow=[1.000000014901161e-01, 1.000000014901161e-01]
