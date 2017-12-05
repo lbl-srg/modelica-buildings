@@ -45,7 +45,7 @@ model Reheat "Model that implements an on and off controller for a reheater"
     waitTime=tWai,
     condition=yVal <= yValSwi - yValDeaBan and dT < dTSwi - dTDeaBan)
     "Conditions that switch off to on"
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Modelica.StateGraph.Transition onToOff(
     condition=yVal > yValSwi+yValDeaBan or dT > dTSwi+dTDeaBan,
     enableTimer=true,
@@ -57,11 +57,11 @@ model Reheat "Model that implements an on and off controller for a reheater"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 equation
   connect(off.outPort[1], offToOn.inPort)
-    annotation (Line(points={{-39.5,30},{-20,
-          30},{-20,60},{-4,60}}, color={0,0,0}));
+    annotation (Line(points={{-39.5,30},{-4,30}},
+                                 color={0,0,0}));
   connect(offToOn.outPort, on.inPort[1])
-    annotation (Line(points={{1.5,60},{28,60},
-          {28,30},{39,30}}, color={0,0,0}));
+    annotation (Line(points={{1.5,30},{39,30}},
+                            color={0,0,0}));
   connect(on.outPort[1], onToOff.inPort)
     annotation (Line(points={{60.5,30},{80,30},{80,-20},{4,-20}},
                 color={0,0,0}));
