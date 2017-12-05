@@ -12,7 +12,7 @@ model WindTurbine "Example for the WindTurbine model"
         extent={{-10,-10},{10,10}},
         origin={50,40})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-      computeWetBulbTemperature=false, filNam="modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+      computeWetBulbTemperature=false, filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-62,76},{-42,96}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{6,76},{26,96}})));

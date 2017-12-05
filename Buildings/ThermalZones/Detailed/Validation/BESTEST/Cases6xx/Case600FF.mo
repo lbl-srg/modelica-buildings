@@ -112,7 +112,7 @@ model Case600FF
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-44,56},{-36,64}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/DRYCOLD.mos",
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
       computeWetBulbTemperature=false)
     annotation (Placement(transformation(extent={{98,-94},{86,-82}})));
   Modelica.Blocks.Sources.Constant uSha(k=0)

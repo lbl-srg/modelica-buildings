@@ -33,7 +33,7 @@ model ChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{40,-20},{80,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false,
-      filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos")
+      filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"))
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Continuous.Integrator EFan "Total fan energy"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));

@@ -10,7 +10,7 @@ model Outside_CpLowRise
     Cp0=0.6) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Fluid.Sources.Outside_CpLowRise north(
     redeclare package Medium = Medium,

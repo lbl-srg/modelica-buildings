@@ -21,7 +21,7 @@ model IntegratedPrimarySecondaryEconomizer
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimarySecondary chiWSE(
         addPowerToMedium=false,
         perPum=perPumPri),
-    weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"));
+    weaData(filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/DRYCOLD.mos")));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumSec(
     each pressure=

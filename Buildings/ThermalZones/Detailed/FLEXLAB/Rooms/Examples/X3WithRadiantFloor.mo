@@ -44,7 +44,7 @@ model X3WithRadiantFloor
     "Electrical room in test cell X3A"
     annotation (Placement(transformation(extent={{-212,124},{-172,164}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-240,260},{-220,280}})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiCloB(table=[0,0,0,0; 86400,0,0,0],
       tableOnFile=false)

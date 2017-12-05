@@ -101,7 +101,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     annotation (Placement(transformation(extent={{-196,-186},{-176,-166}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-    "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature preT2[2]   annotation (
       Placement(transformation(

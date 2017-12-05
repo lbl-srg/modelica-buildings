@@ -21,7 +21,7 @@ model NonIntegratedPrimarySecondaryEconomizer
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.NonIntegrated chiWSE(
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
       Ti=60),
-    weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
+    weaData(filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/DRYCOLD.mos")),
     CWPumCon(tWai=60),
     chiStaCon(tWai=60));
 

@@ -207,7 +207,7 @@ model RenewableSources
              annotation (Placement(transformation(extent={{80,-20},{100,0}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false,
-      filNam="modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+      filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data model"
     annotation (Placement(transformation(extent={{-100,74},{-80,94}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"

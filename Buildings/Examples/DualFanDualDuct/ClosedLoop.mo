@@ -367,7 +367,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
       TOff=313.15) "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-390,170},{-370,190}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
