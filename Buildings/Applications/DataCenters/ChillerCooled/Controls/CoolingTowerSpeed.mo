@@ -85,11 +85,11 @@ model CoolingTowerSpeed "Controller for the fan speed in cooling towers"
 protected
   Modelica.Blocks.Logical.Switch swi1
     "Switch 1"
-    annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
+    annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
   Modelica.Blocks.Logical.Switch swi2
     "Switch 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        origin={-30,-60})));
+        origin={-30,-66})));
   Modelica.Blocks.Logical.Switch swi3
     "Switch 3"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -97,25 +97,25 @@ protected
 
 equation
   connect(TCWSupSet, swi1.u1)
-    annotation (Line(points={{-120,80},{-48,80},{-48,
-          58},{-32,58}}, color={0,0,127}));
+    annotation (Line(points={{-120,80},{-48,80},{-48,48},{-32,48}},
+                         color={0,0,127}));
   connect(TCHWSupSet, swi1.u3)
-    annotation (Line(points={{-120,0},{-48,0},{-48,
-          42},{-32,42}}, color={0,0,127}));
+    annotation (Line(points={{-120,0},{-48,0},{-48,32},{-32,32}},
+                         color={0,0,127}));
   connect(swi1.y, conPID.u_s)
-    annotation (Line(points={{-9,50},{0,50},{0,-40},{18,
-          -40}}, color={0,0,127}));
+    annotation (Line(points={{-9,40},{0,40},{0,-40},{18,-40}},
+                 color={0,0,127}));
   connect(fmcMod.y, swi2.u2)
-    annotation (Line(points={{-59,40},{-54,40},{-54,-60},
-          {-42,-60}}, color={255,0,255}));
+    annotation (Line(points={{-59,40},{-54,40},{-54,-66},{-42,-66}},
+                      color={255,0,255}));
   connect(TCWSup, swi2.u1)
-    annotation (Line(points={{-120,-40},{-50,-40},{-50,-52},
-          {-42,-52}}, color={0,0,127}));
+    annotation (Line(points={{-120,-40},{-50,-40},{-50,-58},{-42,-58}},
+                      color={0,0,127}));
   connect(TCHWSup, swi2.u3)
-    annotation (Line(points={{-120,-74},{-120,-68},{-50,
-          -68},{-42,-68}}, color={0,0,127}));
+    annotation (Line(points={{-120,-74},{-42,-74}},
+                           color={0,0,127}));
   connect(swi2.y, conPID.u_m)
-    annotation (Line(points={{-19,-60},{30,-60},{30,-52}}, color={0,0,127}));
+    annotation (Line(points={{-19,-66},{30,-66},{30,-52}}, color={0,0,127}));
   connect(pmcMod.y, swi3.u2)
     annotation (Line(points={{41,0},{51.5,0},{62,0}}, color={255,0,255}));
   connect(uni.y, swi3.u1)
@@ -126,8 +126,8 @@ equation
   connect(swi3.y, y)
     annotation (Line(points={{85,0},{110,0}}, color={0,0,127}));
   connect(fmcMod.y, swi1.u2)
-    annotation (Line(points={{-59,40},{-54,40},{-54,50},
-          {-32,50}}, color={255,0,255}));
+    annotation (Line(points={{-59,40},{-32,40}},
+                     color={255,0,255}));
   connect(cooMod, fmcMod.u)
     annotation (Line(points={{-120,40},{-102,40},{-82,
           40}}, color={255,127,0}));

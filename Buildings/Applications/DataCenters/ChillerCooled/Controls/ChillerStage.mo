@@ -38,23 +38,23 @@ model ChillerStage "Chiller staging control logic"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-72,34})));
+        origin={-50,42})));
   Modelica.StateGraph.StepWithSignal oneOn(nIn=2, nOut=2)
     "One chiller is commanded on"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-32,8})));
+        origin={-50,10})));
   Modelica.StateGraph.InitialStep off(nIn=1) "Free cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-30,60})));
+        origin={-50,70})));
   Modelica.StateGraph.StepWithSignal twoOn "Two chillers are commanded on"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-30,-80})));
+        origin={-50,-80})));
   Modelica.StateGraph.Transition con2(
     enableTimer=true,
     waitTime=tWai,
@@ -64,7 +64,7 @@ model ChillerStage "Chiller staging control logic"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-70,-40})));
+        origin={-50,-40})));
   Modelica.StateGraph.Transition con3(
     enableTimer=true,
     waitTime=tWai,
@@ -82,9 +82,9 @@ model ChillerStage "Chiller staging control logic"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={18,20})));
+        origin={-20,52})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(
     table=[0,0,0;
@@ -106,50 +106,51 @@ model ChillerStage "Chiller staging control logic"
 equation
   connect(off.outPort[1], con1.inPort)
     annotation (Line(
-      points={{-30,49.5},{-30,49.5},{-30,46},{-30,42},{-72,42},{-72,38}},
+      points={{-50,59.5},{-50,46}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con1.outPort, oneOn.inPort[1])
     annotation (Line(
-      points={{-72,32.5},{-72,26},{-32.5,26},{-32.5,19}},
+      points={{-50,40.5},{-50,26},{-50.5,26},{-50.5,21}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con2.inPort, oneOn.outPort[1])
     annotation (Line(
-      points={{-70,-36},{-70,-10},{-32.25,-10},{-32.25,-2.5}},
+      points={{-50,-36},{-50,-10},{-50.25,-10},{-50.25,-0.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con2.outPort, twoOn.inPort[1])
     annotation (Line(
-      points={{-70,-41.5},{-70,-41.5},{-70,-60},{-30,-60},{-30,-69}},
+      points={{-50,-41.5},{-50,-69}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(twoOn.outPort[1], con3.inPort)
     annotation (Line(
-      points={{-30,-90.5},{-30,-98},{-10,-98},{-10,-44}},
+      points={{-50,-90.5},{-50,-98},{-10,-98},{-10,-44}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con4.outPort, off.inPort[1])
     annotation (Line(
-      points={{18,21.5},{18,21.5},{18,78},{-30,78},{-30,71}},
+      points={{-20,53.5},{-20,90},{-50,90},{-50,81}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con3.outPort, oneOn.inPort[2])
     annotation (Line(
-      points={{-10,-38.5},{-10,-38.5},{-10,26},{-31.5,26},{-31.5,19}},
+      points={{-10,-38.5},{-10,26},{-49.5,26},{-49.5,21}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con4.inPort, oneOn.outPort[2])
     annotation (Line(
-      points={{18,16},{18,-10},{-31.75,-10},{-31.75,-2.5}},
+      points={{-20,48},{-20,-10},{-49.75,-10},{-49.75,-0.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(combiTable1Ds.y, y)
     annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
   connect(twoOn.active, booToInt1.u)
-    annotation (Line(points={{-19,-80},{0,-80},{18,-80}}, color={255,0,255}));
-  connect(oneOn.active, booToInt.u) annotation (Line(points={{-21,8},{10,8},{10,
-          -40},{18,-40}}, color={255,0,255}));
+    annotation (Line(points={{-39,-80},{18,-80}},         color={255,0,255}));
+  connect(oneOn.active, booToInt.u) annotation (Line(points={{-39,10},{10,10},{
+          10,-40},{18,-40}},
+                          color={255,0,255}));
   connect(booToInt.y, addInt.u1) annotation (Line(points={{41,-40},{50,-40},{50,
           -54},{58,-54}}, color={255,127,0}));
   connect(booToInt1.y, addInt.u2) annotation (Line(points={{41,-80},{50,-80},{50,

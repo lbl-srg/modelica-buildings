@@ -106,10 +106,6 @@ equation
       points={{-216,102},{-228,102},{-228,206},{152,206},{152,20},{90,20},{90,
           11}},
     color={0,0,127}));
-  connect(dpSet.y, pumSpe.u_s)
-    annotation (Line(
-      points={{-259,-20},{-248,-20}},
-      color={0,0,127}));
 
   connect(cooModCon.y, chiStaCon.cooMod)
     annotation (Line(
@@ -232,6 +228,10 @@ are not implemented in this example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 1, 2017, by Yangyang Fu:<br/>
+Removed redundant connection <code>connect(dpSet.y, pumSpe.u_s)</code>
+</li>
 <li>
 July 30, 2017, by Yangyang Fu:<br/>
 First implementation.
