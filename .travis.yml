@@ -40,7 +40,7 @@ before_install:
   - sudo cp Buildings/Resources/Scripts/travis/usr/local/bin/dymola /usr/local/bin/
   - sudo chmod +x /usr/local/bin/dymola
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  - docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2017fd01-x86-64
+  - docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2018fd01-x86-64
 
 # Install dependencies
 # For sphinx, we need to install specific package versions, otherwise
