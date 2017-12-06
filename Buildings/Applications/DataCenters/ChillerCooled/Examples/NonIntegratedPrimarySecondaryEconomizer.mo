@@ -58,7 +58,7 @@ model NonIntegratedPrimarySecondaryEconomizer
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-40,-38})));
+        origin={-40,-72})));
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_m priPum(
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
@@ -123,17 +123,12 @@ equation
       color={0,0,127}));
   connect(secPum.port_b, ahu.port_a1)
     annotation (Line(
-      points={{-40,-48},{-40,-48},{-40,-114},{0,-114}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(TCHWSup.port_b, secPum.port_a)
-    annotation (Line(
-      points={{-36,0},{-36,0},{-40,0},{-40,0},{-40,0},{-40,-28},{-40,-28}},
+      points={{-40,-82},{-40,-114},{0,-114}},
       color={0,127,255},
       thickness=0.5));
   connect(pumSpeSig.y, secPum.u)
     annotation (Line(
-      points={{-99,-10},{-44,-10},{-44,-26}},
+      points={{-99,-10},{-60,-10},{-60,-52},{-44,-52},{-44,-60}},
       color={0,0,127}));
   connect(cooLoaChi.y, chiStaCon.QTot)
     annotation (Line(
@@ -201,6 +196,10 @@ equation
           {-188,65},{-188,25},{-174,25}}, color={255,127,0}));
   connect(cooModCon.y, cooTowSpeCon.cooMod) annotation (Line(points={{-191,110},
           {-186,110},{-186,182.444},{-172,182.444}}, color={255,127,0}));
+  connect(senMasFlo.port_b, secPum.port_a) annotation (Line(
+      points={{-40,-40},{-40,-62}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{300,220}})),
     __Dymola_Commands(file=
