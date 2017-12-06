@@ -1,0 +1,13 @@
+translateModel("Buildings.Fluid.FixedResistances.BaseClasses.Validation.PlugFlowCore");
+simulateModel("Buildings.Fluid.FixedResistances.BaseClasses.Validation.PlugFlowCore", stopTime=1000, method="dassl", tolerance=1e-006, resultFile="PlugFlowCore");
+createPlot(id=1, position={15, 10, 584, 397},
+	y={"senTemIn.T", "senTemOut.T"}, range={0.0, 1000.0, 48.0, 72.0},
+	grid=true, filename="PlugFlowCore.mat",
+	colors={{28,108,200}, {238,46,47}},
+	autoscale = true,
+	autoerase = true,
+	autoreplot = true,
+	color = true,
+	subPlot=1,
+	leftTitleType = 1,
+	bottomTitleType = 1);

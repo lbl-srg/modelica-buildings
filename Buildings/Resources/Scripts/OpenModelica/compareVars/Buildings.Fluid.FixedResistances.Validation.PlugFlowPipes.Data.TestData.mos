@@ -1,0 +1,4 @@
+compareVars :=
+  {
+    "combiTimeTable.y[1]"
+  };

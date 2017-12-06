@@ -75,6 +75,7 @@ and not overdetermined.
 November 3, 2017 by Michael Wetter:<br/>
 Corrected medium for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/850\">issue 850</a>.
+</li>
 <li>
 October 23, 2017 by Michael Wetter:<br/>
 First implementation for

@@ -337,6 +337,7 @@ Added <code>stateSelect=StateSelect.always</code> for temperature of volume 1.
 Changed temperature sensor from Celsius to Kelvin.
 Unit conversion should be made during output
 processing.
+</li>
 <li>
 August 5, 2008, by Michael Wetter:<br/>
 Replaced instances of <code>Delays.DelayFirstOrder</code> with instances of

@@ -146,6 +146,7 @@ for example, to use the model as a steam humidifier.<br/>
 This is for issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">
 Buildings #704</a>.
+</li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>
 Set <code>prescribedHeatFlowRate=true</code>.
