@@ -74,7 +74,7 @@ model ExteriorWallTwoWindows
         rotation=270,
         origin={-110,20})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
   Modelica.Blocks.Sources.Constant uSha(k=0) "Shading control signal"

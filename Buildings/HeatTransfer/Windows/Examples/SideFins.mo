@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Windows.Examples;
 model SideFins "This example demonstrates the use of side fins for a window"
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.HeatTransfer.Windows.SideFins fin(

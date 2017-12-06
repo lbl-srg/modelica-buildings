@@ -61,7 +61,7 @@ model Window "Test model for the window"
                til=til)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   Modelica.Blocks.Math.Gain HRoo(k=0.1) "Solar irradiation from room"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));

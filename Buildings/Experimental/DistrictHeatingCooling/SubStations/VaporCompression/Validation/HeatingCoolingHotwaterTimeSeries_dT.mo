@@ -26,7 +26,7 @@ model HeatingCoolingHotwaterTimeSeries_dT "Validation model for substation"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"),
       computeWetBulbTemperature=false) "File reader that reads weather data"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Fluid.Sources.Boundary_pT coo1(

@@ -13,7 +13,7 @@ model BeamDepthInRoom "Test model for the depth of the solar beam in the room"
     depOve=depOve,
     gapOve=gapOve,
     filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Beam depth at window in East wall"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Buildings.HeatTransfer.Windows.BeamDepthInRoom winSou(
@@ -22,7 +22,7 @@ model BeamDepthInRoom "Test model for the depth of the solar beam in the room"
     depOve=depOve,
     gapOve=gapOve,
     filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Beam depth at window in South wall"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Buildings.HeatTransfer.Windows.BeamDepthInRoom winWes(
@@ -31,7 +31,7 @@ model BeamDepthInRoom "Test model for the depth of the solar beam in the room"
     depOve=depOve,
     gapOve=gapOve,
     filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Beam depth at window in West wall"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Buildings.HeatTransfer.Windows.BeamDepthInRoom winNor(
@@ -40,7 +40,7 @@ model BeamDepthInRoom "Test model for the depth of the solar beam in the room"
     depOve=depOve,
     gapOve=gapOve,
     filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Beam depth at window in North wall"
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
   annotation (

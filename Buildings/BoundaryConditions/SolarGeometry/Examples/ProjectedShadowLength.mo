@@ -5,25 +5,25 @@ model ProjectedShadowLength "Test model for projected shadow length"
   Buildings.BoundaryConditions.SolarGeometry.ProjectedShadowLength proShaLenEas(
     azi=Buildings.Types.Azimuth.E,
     h=h,
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Projected shadow length facing east"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Buildings.BoundaryConditions.SolarGeometry.ProjectedShadowLength proShaLenSou(
     azi=Buildings.Types.Azimuth.S,
     h=h,
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Projected shadow length facing south"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Buildings.BoundaryConditions.SolarGeometry.ProjectedShadowLength proShaLenWes(
     azi=Buildings.Types.Azimuth.W,
     h=h,
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Projected shadow length facing West"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Buildings.BoundaryConditions.SolarGeometry.ProjectedShadowLength proShaLenNor(
     azi=Buildings.Types.Azimuth.N,
     h=h,
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Projected shadow length facing North"
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
   annotation (

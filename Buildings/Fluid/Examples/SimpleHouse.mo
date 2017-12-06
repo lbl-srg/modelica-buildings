@@ -61,7 +61,7 @@ model SimpleHouse
         extent={{-10,-10},{10,10}},
         origin={-8,-170})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-200,-18},{-180,2}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"

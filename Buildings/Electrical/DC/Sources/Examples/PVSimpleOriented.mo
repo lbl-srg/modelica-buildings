@@ -19,7 +19,7 @@ model PVSimpleOriented
   Buildings.Electrical.DC.Sources.ConstantVoltage    sou(V=12) "Voltage source"
     annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-      computeWetBulbTemperature=false, filNam="modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+      computeWetBulbTemperature=false, filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-128,90},{-108,110}})));
   Buildings.Electrical.DC.Lines.TwoPortResistance lin(R=0.05)
     "Transmission line"
