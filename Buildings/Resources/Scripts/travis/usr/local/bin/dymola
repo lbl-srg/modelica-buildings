@@ -13,8 +13,8 @@ docker run \
 	  --rm \
 	  --user=developer \
 	  -v ${sha_dir}:/mnt/shared \
-	  ${DOCKER_USERNAME}/travis_ubuntu-1604_dymola-2017fd01-x86-64 /bin/bash -c \
-	  "Xvfb :77  -extension RANDR & \
+	  ${DOCKER_USERNAME}/travis_ubuntu-1604_dymola-2018fd01-x86_64 /bin/bash -c \
+	  "Xvfb :77  -extension RANDR -extension GLX & \
 	  export DISPLAY=:77.0 && \
 	  cd /mnt/shared/${bas_nam} && \
 	  dymola ${arg_lis}"
