@@ -46,15 +46,17 @@ equation
 
   port_a.h_outflow = inStream(port_b.h_outflow);
 
-  port_b.h_outflow =Medium.specificEnthalpy_pTX(
-    port_a.p,
-    T_b_outflow,
-    inStream(port_a.Xi_outflow)) "Calculate enthalpy of output state";
+  port_b.h_outflow =Medium.specificEnthalpy(
+    Medium.setState_pTX(
+      port_a.p,
+      T_b_outflow,
+      port_b.Xi_outflow)) "Calculate enthalpy of output state";
 
-  T_a_inflow = Medium.temperature_phX(
-    port_a.p,
-    inStream(port_a.h_outflow),
-    inStream(port_a.Xi_outflow));
+    T_a_inflow = Medium.temperature(
+      Medium.setState_phX(
+        port_a.p,
+        inStream(port_a.h_outflow),
+        port_b.Xi_outflow));
 
   // Heat losses
   T_b_outflow = TAmb + (T_a_inflow - TAmb)*Modelica.Math.exp(-tau/tau_char);
@@ -134,6 +136,13 @@ where no influence from other pipes is considered.</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 6, 2017, by Michael Wetter:<br/>
+Reformulated call to medium function.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/869\">
+issue 869</a>.
+</li>
 <li>
 October 20, 2017, by Michael Wetter:<br/>
 Revised implementation to avoid graphical and textual modeling.
