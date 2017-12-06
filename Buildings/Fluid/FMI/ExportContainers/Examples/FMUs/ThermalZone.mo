@@ -162,6 +162,13 @@ exposed at the FMU interface.
 </html>", revisions="<html>
 <ul>
 <li>
+December 4, 2017, by Michael Wetter:<br/>
+Added call to <code>Modelica.Utilities.Files.loadResource</code>
+for weather data file.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/867\">#867</a>.
+</li>
+<li>
 April 12, 2017, by Michael Wetter:<br/>
 Removed temperature that is no longer needed.<br/>
 This is for issue
