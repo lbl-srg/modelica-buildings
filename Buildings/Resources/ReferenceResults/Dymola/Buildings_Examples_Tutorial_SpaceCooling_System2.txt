@@ -1,15 +1,15 @@
-last-generated=2017-11-12
+last-generated=2017-12-05
 statistics-initialization=
 {
-  "numerical Jacobians": "0", 
-  "nonlinear": "0, 1, 1"
+  "nonlinear": "0, 0, 0",
+  "numerical Jacobians": "0"
 }
 statistics-simulation=
 {
-  "numerical Jacobians": "0", 
-  "nonlinear": "1, 0, 0, 0", 
-  "number of continuous time states": "24", 
-  "linear": "0, 0"
+  "linear": "0, 0",
+  "nonlinear": "1, 0, 0, 0",
+  "number of continuous time states": "24",
+  "numerical Jacobians": "0"
 }
 TOut.T=[3.031499938964844e+02, 3.031499938964844e+02]
 vol.T_start=[2.931499938964844e+02, 2.931499938964844e+02]

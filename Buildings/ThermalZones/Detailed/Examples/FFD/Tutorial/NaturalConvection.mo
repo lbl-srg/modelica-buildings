@@ -20,7 +20,7 @@ model NaturalConvection "Tutorial for Natural Convection case"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
       TDryBul=293.15)
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
   Buildings.ThermalZones.Detailed.CFD roo(

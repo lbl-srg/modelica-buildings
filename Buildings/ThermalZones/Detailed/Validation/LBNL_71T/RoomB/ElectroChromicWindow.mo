@@ -49,7 +49,7 @@ model ElectroChromicWindow
     relHum=0,
     TDewPoi(displayUnit="K"),
     filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"),
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.File,
     calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
     computeWetBulbTemperature=false)

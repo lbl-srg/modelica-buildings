@@ -212,7 +212,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each k=0.1) "Controller for economizer"
     annotation (Placement(transformation(extent={{-288,88},{-276,100}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-360,160},{-340,180}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-334,160},{-314,180}})));

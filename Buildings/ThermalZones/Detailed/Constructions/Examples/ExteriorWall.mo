@@ -42,7 +42,7 @@ model ExteriorWall "Test model for an exterior wall without a window"
         rotation=270,
         origin={-70,20})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Modelica.Blocks.Sources.Constant TRoo(k=273.15 + 20) "Room air temperature"
     annotation (Placement(transformation(extent={{-180,10},{-160,30}})));

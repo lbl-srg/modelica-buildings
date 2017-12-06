@@ -1,16 +1,16 @@
-last-generated=2017-04-05
+last-generated=2017-12-05
 statistics-initialization=
 {
-  "numerical Jacobians": "0", 
-  "nonlinear": "1, 1", 
-  "linear": "3"
+  "linear": "3",
+  "nonlinear": "0, 0",
+  "numerical Jacobians": "0"
 }
 statistics-simulation=
 {
-  "numerical Jacobians": "0", 
-  "nonlinear": " ", 
-  "number of continuous time states": "14", 
-  "linear": "0, 0, 0"
+  "linear": "0, 0, 0",
+  "nonlinear": " ",
+  "number of continuous time states": "14",
+  "numerical Jacobians": "0"
 }
 seg.port_a1.m_flow=[2.828427255153656e-01, 2.828427255153656e-01]
 time=[0e+00, 1.5768e+08]

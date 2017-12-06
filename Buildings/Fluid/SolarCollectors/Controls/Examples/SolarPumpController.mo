@@ -7,7 +7,7 @@ model SolarPumpController "Example for the solar pump controller"
     "Model controlling the on/off status of the pump"
     annotation (Placement(transformation(extent={{-6,0},{14,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-     filNam="modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data input file"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Sine sine(

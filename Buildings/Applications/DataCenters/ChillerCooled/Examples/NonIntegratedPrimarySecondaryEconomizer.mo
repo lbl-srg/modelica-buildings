@@ -21,19 +21,20 @@ model NonIntegratedPrimarySecondaryEconomizer
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.NonIntegrated chiWSE(
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
       Ti=60),
-    weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
+    weaData(filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/DRYCOLD.mos")),
     CWPumCon(tWai=60),
     chiStaCon(tWai=60));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumSec(
-    each pressure=Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-          V_flow=m1_flow_chi_nominal/1000*{0.2,0.6,1.0,1.2},
-          dp=(dp1_wse_nominal+18000)*{1.5,1.3,1.0,0.6}))
+    each pressure=
+          Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+          V_flow=m2_flow_chi_nominal/1000*{0.2,0.6,1.0,1.2},
+          dp=(dp2_wse_nominal+dpSetPoi+18000+30000)*{1.5,1.3,1.0,0.6}))
     "Performance data for secondary chilled water pumps";
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumPri(
     each pressure=Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-          V_flow=m1_flow_chi_nominal/1000*{0.2,0.6,1.0,1.2},
-          dp=(dp1_chi_nominal+6000)*{1.5,1.3,1.0,0.6}))
+          V_flow=m2_flow_chi_nominal/1000*{0.2,0.6,1.0,1.2},
+          dp=(dp2_chi_nominal+6000)*{1.5,1.3,1.0,0.6}))
     "Performance data for secondary chilled water pumps";
 
   Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingModeNonIntegrated cooModCon(
@@ -119,10 +120,6 @@ equation
   connect(CWPumCon.y, gai.u)
     annotation (Line(
       points={{-151,70},{-132,70}},
-      color={0,0,127}));
-  connect(dpSet.y, pumSpe.u_s)
-    annotation (Line(
-      points={{-259,-20},{-248,-20}},
       color={0,0,127}));
   connect(secPum.port_b, ahu.port_a1)
     annotation (Line(
@@ -291,6 +288,10 @@ are not implemented in this example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 1, 2017, by Yangyang Fu:<br/>
+Removed redundant connection <code>connect(dpSet.y, pumSpe.u_s)</code>
+</li>
 <li>
 November 29, 2017, by Michael Wetter:<br/>
 Corrected conversion of enumeration.<br/>

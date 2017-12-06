@@ -14,7 +14,7 @@ model CoolingMode
     annotation (Placement(transformation(extent={{-60,-78},{-40,-58}})));
   BoundaryConditions.WeatherData.ReaderTMY3  weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"

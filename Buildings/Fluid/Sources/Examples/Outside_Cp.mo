@@ -9,7 +9,7 @@ model Outside_Cp
     Cp=0.6) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Fluid.Sources.Outside bouFix(redeclare package Medium = Medium,
       nPorts=2) "Model with outside conditions"

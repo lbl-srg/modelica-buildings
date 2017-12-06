@@ -26,22 +26,22 @@ model ConstantSpeedPumpStage "Staging control for constant speed pumps"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-70,34})));
+        origin={-40,40})));
   Modelica.StateGraph.StepWithSignal oneOn(nIn=2, nOut=2)
     "One chiller is commanded on" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-30,10})));
+        origin={-40,10})));
   Modelica.StateGraph.InitialStep off(nIn=1) "Free cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-30,60})));
+        origin={-40,70})));
   Modelica.StateGraph.StepWithSignal twoOn "Two chillers are commanded on"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-30,-80})));
+        origin={-40,-80})));
   Modelica.StateGraph.Transition con2(
     enableTimer=true,
     waitTime=tWai,
@@ -55,7 +55,7 @@ model ConstantSpeedPumpStage "Staging control for constant speed pumps"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-70,-40})));
+        origin={-40,-40})));
   Modelica.StateGraph.Transition con3(
     enableTimer=true,
     waitTime=tWai,
@@ -74,9 +74,9 @@ model ConstantSpeedPumpStage "Staging control for constant speed pumps"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={18,70})));
+        origin={-8,70})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table=[0,0,0; 1,1,0; 2,1,1])
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
@@ -95,51 +95,51 @@ model ConstantSpeedPumpStage "Staging control for constant speed pumps"
 equation
   connect(off.outPort[1], con1.inPort)
     annotation (Line(
-      points={{-30,49.5},{-30,49.5},{-30,46},{-30,42},{-70,42},{-70,38}},
+      points={{-40,59.5},{-40,44}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con1.outPort, oneOn.inPort[1])
     annotation (Line(
-      points={{-70,32.5},{-70,26},{-30.5,26},{-30.5,21}},
+      points={{-40,38.5},{-40,26},{-40.5,26},{-40.5,21}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con2.inPort, oneOn.outPort[1])
     annotation (Line(
-      points={{-70,-36},{-70,-10},{-30.25,-10},{-30.25,-0.5}},
+      points={{-40,-36},{-40,-10},{-40.25,-10},{-40.25,-0.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con2.outPort, twoOn.inPort[1])
     annotation (Line(
-      points={{-70,-41.5},{-70,-41.5},{-70,-60},{-30,-60},{-30,-69}},
+      points={{-40,-41.5},{-40,-69}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(twoOn.outPort[1], con3.inPort)
     annotation (Line(
-      points={{-30,-90.5},{-30,-98},{-10,-98},{-10,-44}},
+      points={{-40,-90.5},{-40,-98},{-10,-98},{-10,-44}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con4.outPort, off.inPort[1])
     annotation (Line(
-      points={{18,71.5},{18,71.5},{18,78},{-30,78},{-30,71}},
+      points={{-8,71.5},{-8,94},{-40,94},{-40,81}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con3.outPort, oneOn.inPort[2])
     annotation (Line(
-      points={{-10,-38.5},{-10,-38.5},{-10,26},{-29.5,26},{-29.5,21}},
+      points={{-10,-38.5},{-10,26},{-39.5,26},{-39.5,21}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con4.inPort, oneOn.outPort[2])
     annotation (Line(
-      points={{18,66},{18,-10},{-29.75,-10},{-29.75,-0.5}},
+      points={{-8,66},{-8,-10},{-39.75,-10},{-39.75,-0.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(combiTable1Ds.y, y)
     annotation (Line(points={{91,0},{91,0},{110,0}},
                                               color={0,0,127}));
-  connect(oneOn.active, booToInt.u) annotation (Line(points={{-19,10},{-8,10},{
-          12,10},{12,-40},{18,-40}}, color={255,0,255}));
+  connect(oneOn.active, booToInt.u) annotation (Line(points={{-29,10},{12,10},{
+          12,-40},{18,-40}},         color={255,0,255}));
   connect(twoOn.active, booToInt1.u)
-    annotation (Line(points={{-19,-80},{18,-80}},          color={255,0,255}));
+    annotation (Line(points={{-29,-80},{18,-80}},          color={255,0,255}));
   connect(booToInt.y, addInt.u1) annotation (Line(points={{41,-40},{48,-40},{48,
           -54},{58,-54}}, color={255,127,0}));
   connect(booToInt1.y, addInt.u2) annotation (Line(points={{41,-80},{48,-80},{
