@@ -240,10 +240,6 @@ partial model PartialDataCenter
     deaBanSpe=0.45)
     "Speed controller"
     annotation (Placement(transformation(extent={{-168,-14},{-148,6}})));
-  Modelica.Blocks.Sources.RealExpression mPum_flow(
-    y=chiWSE.port_b2.m_flow)
-    "Mass flowrate of variable speed pumps"
-    annotation (Placement(transformation(extent={{-220,-6},{-200,14}})));
   Buildings.Controls.Continuous.LimPID pumSpe(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=40,
@@ -285,7 +281,12 @@ partial model PartialDataCenter
     "Return air relative humidity setpoint"
     annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
   Modelica.Blocks.Math.Gain gai1(each k=1/dpSetPoi) "Gain effect"
-    annotation (Placement(transformation(extent={{-200,-70},{-220,-50}})));
+    annotation (Placement(transformation(extent={{-200,-60},{-220,-40}})));
+  Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumW)
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-40,-30})));
 equation
   connect(chiWSE.port_b2, TCHWSup.port_a)
     annotation (Line(
@@ -414,10 +415,6 @@ equation
     annotation (Line(
       points={{-1.6,40.8},{-20,40.8},{-20,52},{-230,52},{-230,160},{-239,160}},
       color={0,0,127}));
-  connect(mPum_flow.y, varSpeCon.masFloPum)
-    annotation (Line(
-      points={{-199,4},{-170,4}},
-      color={0,0,127}));
   connect(senRelPre.port_a, ahu.port_a1)
     annotation (Line(
       points={{-2,-96},{-14,-96},{-14,-114},{0,-114}},
@@ -518,10 +515,16 @@ equation
     annotation (Line(
       points={{-99,-160},{-80,-160},{-80,-124},{-1,-124}},
       color={0,0,127}));
-  connect(gai1.y, pumSpe.u_m) annotation (Line(points={{-221,-60},{-236,-60},{
+  connect(gai1.y, pumSpe.u_m) annotation (Line(points={{-221,-50},{-236,-50},{
           -236,-32}}, color={0,0,127}));
   connect(gai1.u, senRelPre.p_rel)
-    annotation (Line(points={{-198,-60},{8,-60},{8,-87}}, color={0,0,127}));
+    annotation (Line(points={{-198,-50},{8,-50},{8,-87}}, color={0,0,127}));
+  connect(TCHWSup.port_b, senMasFlo.port_a) annotation (Line(
+      points={{-36,0},{-40,0},{-40,-20}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(senMasFlo.m_flow, varSpeCon.masFloPum) annotation (Line(points={{-51,
+          -30},{-58,-30},{-58,16},{-180,16},{-180,4},{-170,4}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{160,220}})),
     Documentation(info="<html>

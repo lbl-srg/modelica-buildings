@@ -64,11 +64,6 @@ equation
     annotation (Line(
       points={{-99,-10},{-60,-10},{-60,25.6},{-1.6,25.6}},
       color={0,0,127}));
-  connect(TCHWSup.port_b, ahu.port_a1)
-    annotation (Line(
-      points={{-36,0},{-40,0},{-40,0},{-40,-114},{0,-114}},
-      color={0,127,255},
-      thickness=0.5));
   connect(chiWSE.TCHWSupWSE, cooModCon.TCHWSupWSE)
     annotation (Line(
       points={{21,34},{148,34},{148,200},{-226,200},{-226,106},{-216,106}},
@@ -131,6 +126,10 @@ equation
           {-190,110},{-190,182.444},{-172,182.444}}, color={255,127,0}));
   connect(cooModCon.y, CWPumCon.cooMod) annotation (Line(points={{-193,110},{
           -190,110},{-190,75},{-174,75}}, color={255,127,0}));
+  connect(senMasFlo.port_b, ahu.port_a1) annotation (Line(
+      points={{-40,-40},{-40,-114},{0,-114}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{300,220}})),
   __Dymola_Commands(file=

@@ -68,7 +68,7 @@ model IntegratedPrimarySecondaryEconomizer
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-46,-34})));
+        origin={-40,-74})));
   Buildings.Applications.DataCenters.ChillerCooled.Controls.ConstantSpeedPumpStage
     PriPumCon(tWai=0)
     "Chilled water primary pump controller"
@@ -87,19 +87,14 @@ equation
     annotation (Line(
       points={{-239,132},{-184,132},{-184,140},{-172,140}},
       color={0,0,127}));
-  connect(TCHWSup.port_b, secPum.port_a)
-    annotation (Line(
-      points={{-36,0},{-36,0},{-44,0},{-44,0},{-46,0},{-46,-24},{-46,-24}},
-      color={0,127,255},
-      thickness=0.5));
   connect(secPum.port_b, ahu.port_a1)
     annotation (Line(
-      points={{-46,-44},{-46,-114},{0,-114}},
+      points={{-40,-84},{-40,-114},{0,-114}},
       color={0,127,255},
       thickness=0.5));
   connect(pumSpeSig.y, secPum.u)
     annotation (Line(
-      points={{-99,-10},{-78,-10},{-78,-10},{-50,-10},{-50,-22}},
+      points={{-99,-10},{-60,-10},{-60,-52},{-44,-52},{-44,-62}},
       color={0,0,127}));
 
    for i in 1:numChi loop
@@ -176,6 +171,10 @@ equation
           32},{-114,26},{-106,26}}, color={0,0,127}));
   connect(priPumSpe.y, chiWSE.yPum) annotation (Line(points={{-83,32},{-20,32},
           {-20,26.5},{-1.5,26.5}}, color={0,0,127}));
+  connect(senMasFlo.port_b, secPum.port_a) annotation (Line(
+      points={{-40,-40},{-40,-64},{-40,-64}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{300,220}})),
   __Dymola_Commands(file=
