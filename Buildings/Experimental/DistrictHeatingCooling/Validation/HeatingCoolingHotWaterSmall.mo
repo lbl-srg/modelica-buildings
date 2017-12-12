@@ -64,7 +64,8 @@ model HeatingCoolingHotWaterSmall
     annotation (Placement(transformation(extent={{-52,-70},{-72,-50}})));
   SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT larOff(
       redeclare package Medium = Medium,
-      filNam="modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos",
+      filNam=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
     TOut_nominal=273.15) "Large office"
     annotation (Placement(transformation(extent={{-18,-20},{22,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -73,7 +74,8 @@ model HeatingCoolingHotWaterSmall
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
   SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT ret(
     redeclare package Medium = Medium,
-    filNam="modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgStand-aloneRetailNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos",
+    filNam=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgStand-aloneRetailNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
     TOut_nominal=273.15) "Retail"
     annotation (Placement(transformation(extent={{80,-20},{120,20}})));
 
@@ -110,7 +112,7 @@ model HeatingCoolingHotWaterSmall
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     y(each unit="K"),
-    fileName=Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(
+    fileName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/Plants/AlamedaOceanT.mos"))
     "Temperature of the water reservoir (such as a river, lake or ocean)"
     annotation (Placement(transformation(extent={{-170,8},{-150,28}})));
@@ -190,6 +192,12 @@ are prescribed by time series.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 12, 2017, by Michael Wetter:<br/>
+Added <code>Modelica.Utilities.Files.loadResource</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1097\">issue 1097</a>.
+</li>
 <li>
 November 8, 2016, by Michael Wetter:<br/>
 Added missing <code>each</code> keyword to output of combi time table.

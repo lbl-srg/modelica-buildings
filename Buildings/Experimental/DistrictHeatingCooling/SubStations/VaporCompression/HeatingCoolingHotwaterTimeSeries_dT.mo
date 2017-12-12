@@ -38,17 +38,17 @@ model HeatingCoolingHotwaterTimeSeries_dT
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)= gaiCoo *
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
       string="#Peak space cooling load",
-      filNam=Modelica.Utilities.Files.loadResource(filNam)) "Design heat flow rate"
+      filNam=filNam) "Design heat flow rate"
     annotation(Dialog(group="Design parameter"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)= gaiHea *
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
       string="#Peak space heating load",
-      filNam=Modelica.Utilities.Files.loadResource(filNam)) "Design heat flow rate"
+      filNam=filNam) "Design heat flow rate"
     annotation(Dialog(group="Design parameter"));
   parameter Modelica.SIunits.HeatFlowRate QHotWat_flow_nominal(min=Modelica.Constants.eps)= gaiHotWat *
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
       string="#Peak water heating load",
-      filNam=Modelica.Utilities.Files.loadResource(filNam)) "Design heat flow rate for domestic hot water"
+      filNam=filNam) "Design heat flow rate for domestic hot water"
     annotation(Dialog(group="Design parameter"));
 
   parameter Modelica.SIunits.Temperature TChiSup_nominal = 273.15 + 16
@@ -458,8 +458,8 @@ equation
   connect(PHeaAct.y, PHea) annotation (Line(points={{101,320},{220,320},{220,
           280},{290,280}},
                       color={0,0,127}));
-  connect(PHeaAct.u1, pumHea.P) annotation (Line(points={{78,326},{58,326},{58,
-          308},{51,308}}, color={0,0,127}));
+  connect(PHeaAct.u1, pumHea.P) annotation (Line(points={{78,326},{58,326},{58,309},
+          {51,309}},      color={0,0,127}));
   connect(PHeaAct.u2, heaPum.P) annotation (Line(points={{78,314},{60,314},{60,
           280},{48,280},{48,222},{43,222}},
                                       color={0,0,127}));
@@ -468,8 +468,8 @@ equation
           0,127}));
   connect(PHotWatAct.u2, heaPumHotWat.P) annotation (Line(points={{98,14},{60,
           14},{60,-20},{48,-20},{48,-82},{41,-82}}, color={0,0,127}));
-  connect(PHotWatAct.u1, pumHotWat.P) annotation (Line(points={{98,26},{58,26},
-          {58,8},{51,8}},     color={0,0,127}));
+  connect(PHotWatAct.u1, pumHotWat.P) annotation (Line(points={{98,26},{58,26},{
+          58,9},{51,9}},      color={0,0,127}));
   connect(heaPumHotWat.port_b1, sinHotWat.ports[1]) annotation (Line(points={{40,-76},
           {40,-74},{46,-74},{52,-74}},          color={0,127,255}));
   connect(souHotWat.ports[1], heaPumHotWat.port_a1) annotation (Line(points={{-2,-76},
@@ -494,7 +494,7 @@ equation
   connect(chi.port_a2, sou1.ports[1])
     annotation (Line(points={{-60,-350},{-38,-350}}, color={0,127,255}));
   connect(mPumCoo_flow.y, pumChi.m_flow_in) annotation (Line(points={{-159,-270},
-          {-159,-270},{-112,-270},{-112,-276},{-112.2,-276},{-112.2,-282}},
+          {-159,-270},{-112,-270},{-112,-276},{-112,-276},{-112,-282}},
                                         color={0,0,127}));
   connect(mPumCoo_flow.u, QCon_flow.y)
     annotation (Line(points={{-182,-270},{-182,-270},{-182,-268},{-182,-270},{-190,
@@ -510,9 +510,8 @@ equation
   connect(PCooAct.y, PCoo) annotation (Line(points={{101,-300},{168,-300},{168,
           200},{290,200}},
                       color={0,0,127}));
-  connect(PCooAct.u1, pumChi.P) annotation (Line(points={{78,-294},{66,-294},{
-          66,-286},{-101,-286}},
-                              color={0,0,127}));
+  connect(PCooAct.u1, pumChi.P) annotation (Line(points={{78,-294},{66,-294},{66,
+          -285},{-101,-285}}, color={0,0,127}));
   connect(PCooAct.u2, chi.P) annotation (Line(points={{78,-306},{66,-306},{66,
           -314},{-50,-314},{-50,-344},{-59,-344}},
                              color={0,0,127}));
@@ -590,11 +589,11 @@ equation
   connect(QEvaHotWat_flow.y, mPumHotWat_flow.u)
     annotation (Line(points={{-19,40},{-2,40}}, color={0,0,127}));
   connect(mPumHotWat_flow.y, pumHotWat.m_flow_in)
-    annotation (Line(points={{21,40},{39.8,40},{39.8,12}}, color={0,0,127}));
+    annotation (Line(points={{21,40},{40,40},{40,12}},     color={0,0,127}));
   connect(QEva_flow.y, mPumHea_flow.u)
     annotation (Line(points={{-19,330},{-2,330},{-2,330}}, color={0,0,127}));
-  connect(mPumHea_flow.y, pumHea.m_flow_in) annotation (Line(points={{21,330},{39.8,
-          330},{39.8,312}}, color={0,0,127}));
+  connect(mPumHea_flow.y, pumHea.m_flow_in) annotation (Line(points={{21,330},{40,
+          330},{40,312}},   color={0,0,127}));
   connect(deMul.y1[1], mPumCooEva_flow.u) annotation (Line(points={{-157,417},{-106,
           417},{-106,-220},{50,-220},{50,-340},{42,-340}}, color={0,0,127}));
   connect(mPumCooEva_flow.y, sou1.m_flow_in) annotation (Line(points={{19,-340},
@@ -648,6 +647,12 @@ of equations if multiple substations are connected to each other.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 12, 2017, by Michael Wetter:<br/>
+Removed call to <code>Modelica.Utilities.Files.loadResource</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1097\">issue 1097</a>.
+</li>
 <li>
 November 28, 2016, by Michael Wetter:<br/>
 Added call to <code>Modelica.Utilities.Files.loadResource</code>.<br/>
