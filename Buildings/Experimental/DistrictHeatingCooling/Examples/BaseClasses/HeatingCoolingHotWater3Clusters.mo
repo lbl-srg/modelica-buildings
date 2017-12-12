@@ -350,7 +350,7 @@ revisions="<html>
 <ul>
 <li>
 December 12, 2017, by Michael Wetter:<br/>
-Added <code>Modelica.Utilities.Files.loadResource</code>.<br/>
+Added call to <code>Modelica.Utilities.Files.loadResource</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1097\">issue 1097</a>.
 </li>
