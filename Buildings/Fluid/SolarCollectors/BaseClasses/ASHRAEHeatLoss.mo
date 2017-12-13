@@ -54,18 +54,20 @@ equation
         (2006). The <i>UA</i> value is identified using the system of equations below:
       </p>
       <p align=\"center\" style=\"font-style:italic;\">
-        Q<sub>Use,nom</sub> = G<sub>nom</sub> A<sub>c</sub> F<sub>R</sub>(&tau;&alpha;) +
-          F<sub>R</sub>U<sub>L</sub> A<sub>c</sub> (T<sub>In,nom</sub> - T<sub>Env,nom
+        Q<sub>Use,nom</sub> &frasl; A<sub>c</sub> = G<sub>nom</sub>  F<sub>R</sub>(&tau;&alpha;) +
+          F<sub>R</sub>U<sub>L</sub> (T<sub>In,nom</sub> - T<sub>Env,nom
           </sub>)<br/>
-        T<sub>Fluid,nom</sub>[nSeg]=T<sub>In,nom</sub>+Q<sub>Use,nom</sub>/(m<sub>
-          Flow,nom</sub>C<sub>p</sub>)<br/>
+
+        Q<sub>Use,nom</sub> = m<sub>Flow,nom</sub> c<sub>p</sub> (T<sub>Fluid,nom</sub>[nSeg]-T<sub>In,nom</sub>)<br/>
+
         Q<sub>Los,nom</sub>=-F<sub>R</sub>U<sub>L</sub> A<sub>c</sub> (T<sub>In,nom</sub>
-          -T<sub>Env,nom</sub>)<br/>
+        -T<sub>Env,nom</sub>)<br/>
+
         T<sub>Fluid,nom</sub>[i] = T<sub>Fluid,nom</sub>[i-1] + (G<sub>nom</sub> F<sub>
-          R</sub>(&tau;&alpha;) A<sub>c</sub>/nSeg - UA/nSeg (T<sub>Fluid,nom</sub>[i-1]
-          -T<sub>Env,nom</sub>))/(m<sub>Flow,nom</sub> c<sub>p</sub>)<br/>
-        Q<sub>Loss,UA</sub>=UA/nSeg (T<sub>Fluid,nom</sub>[i]-T<sub>Env,nom</sub>)<br/>
-        sum(Q<sub>Loss,UA</sub>[1:nSeg])=Q<sub>Loss,nom</sub>
+        R</sub>(&tau;&alpha;) A<sub>c</sub>/nSeg - Q<sub>Los,UA</sub>[i])/(m<sub>Flow,nom</sub> c<sub>p</sub>)<br/>
+
+        Q<sub>Los,UA</sub>[i]=UA/nSeg (T<sub>Fluid,nom</sub>[i]-T<sub>Env,nom</sub>)<br/>
+        sum(Q<sub>Los,UA</sub>[1:nSeg])=Q<sub>Los,nom</sub>
       </p>
       <p>
         where <i>Q<sub>Use,nom</sub></i> is the useful heat gain at nominal conditions,
@@ -76,8 +78,8 @@ equation
         Env,nom</sub></i> is the ambient temperature at nominal conditions, <i>T<sub>
         Fluid,nom</sub>[i]</i> is the temperature of fluid in a given segment of the
         collector, <i>m<sub>Flow,nom</sub></i> is the fluid flow at nominal conditions,
-        <i>C<sub>p</sub></i> is the specific heat of the heated fluid, <i>Q<sub>
-        Loss,nom</sub></i> is the heat loss identified using the default value <i>UA</i>
+        <i>c<sub>p</sub></i> is the specific heat of the heated fluid, <i>Q<sub>
+        Los,nom</sub></i> is the heat loss identified using the default value <i>UA</i>
         is the identified heat loss coefficient for a multiple-segment equivalent solar
         collector, <i>nSeg</i> is the number of segments in the simulation, and <i>Q
         <sub>Loss,UA</sub></i> is the heat loss identified using the <i>UA</i> value.
@@ -88,10 +90,10 @@ equation
         loss from the collector is calculated using
       </p>
       <p align=\"center\" style=\"font-style:italic;\">
-        -Q<sub>Loss</sub>[i] = UA/nSeg (T<sub>Fluid</sub>[i] - T<sub>Env</sub>)
+        -Q<sub>Los</sub>[i] = UA/nSeg (T<sub>Fluid</sub>[i] - T<sub>Env</sub>)
       </p>
       <p>
-        where <i>Q<sub>Loss</sub>[i]</i> is the heat loss from a given segment,
+        where <i>Q<sub>Los</sub>[i]</i> is the heat loss from a given segment,
         <i>UA</i> is the heat loss coefficient for a multiple segments model, <i>nSeg</i>
         is the number of segments in the simulation, <i>T<sub>Fluid</sub>[i]</i> is the
         temperature of the fluid in a given segment, and <i>T<sub>Env
@@ -99,7 +101,7 @@ equation
       </p>
       <p>
         This model reduces the heat loss rate to 0 W when the fluid temperature is within
-        1 degree C of the minimum temperature of the medium model. The calucation is
+        1 degree C of the minimum temperature of the medium model. The calculation is
         performed using the
         <a href=\"modelica://Buildings.Utilities.Math.Functions.smoothHeaviside\">
         Buildings.Utilities.Math.Functions.smoothHeaviside</a> function.

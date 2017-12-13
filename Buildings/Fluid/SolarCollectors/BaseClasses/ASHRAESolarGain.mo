@@ -206,7 +206,7 @@ equation
       </p>
       <p>
         This model reduces the heat gain rate to 0 W when the fluid temperature is within 1 degree
-        C of the maximum temperature of the medium model. The calucation is performed using the
+        C of the maximum temperature of the medium model. The calculation is performed using the
         <a href=\"modelica://Buildings.Utilities.Math.Functions.smoothHeaviside\">
         Buildings.Utilities.Math.Functions.smoothHeaviside</a> function.
       </p>
