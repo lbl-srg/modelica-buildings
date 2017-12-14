@@ -11,7 +11,7 @@ block PartialHeatLoss
     "Irradiance at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.TemperatureDifference dT_nominal
-    "Ambient temperature at nomincal conditions"
+    "Ambient temperature minus fluid temperature at nominal conditions"
      annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Fluid flow rate at nominal conditions"
@@ -19,6 +19,10 @@ block PartialHeatLoss
 
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default
     "Specific heat capacity of the fluid at the default temperature";
+
+  parameter Modelica.SIunits.HeatFlowRate QLos_nominal
+    "Heat loss at nominal conditions, negative if heat flows from collector to environment";
+
   Modelica.Blocks.Interfaces.RealInput TEnv(
     quantity="ThermodynamicTemperature",
     unit="K",
@@ -43,22 +47,17 @@ protected
     "Fluid temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
   final parameter Modelica.SIunits.Temperature TMedMin2 = TMedMin + dTMin
     "Fluid temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
-  final parameter Modelica.SIunits.HeatFlowRate QUse_nominal(fixed = false)
+  final parameter Modelica.SIunits.HeatFlowRate QUse_nominal(min=0) = G_nominal * A_c * y_intercept + QLos_nominal
     "Useful heat gain at nominal conditions";
-  final parameter Modelica.SIunits.HeatFlowRate QLos_nominal(fixed = false)
-    "Heat loss at nominal conditions";
-  final parameter Modelica.SIunits.HeatFlowRate QLosUA[nSeg](each fixed = false)
-    "Heat loss at current conditions";
-  final parameter Modelica.SIunits.Temperature dT_nominal_fluid[nSeg](
-    each start = 293.15,
-    each fixed = false)
-    "Temperature of each semgent in the collector at nominal conditions";
+
+  final parameter Modelica.SIunits.ThermalConductance UA(min=0) = -QLos_nominal/dT_nominal
+    "Coefficient describing heat loss to ambient conditions";
 
   Modelica.SIunits.HeatFlowRate QLosInt[nSeg]
     "Heat loss rate at current conditions";
-
 equation
   for i in 1:nSeg loop
+    QLosInt[i] * nSeg = UA * (TEnv-TFlu[i]);
     QLos[i] = QLosInt[i] *
       smooth(1, if TFlu[i] > TMedMin2
         then 1

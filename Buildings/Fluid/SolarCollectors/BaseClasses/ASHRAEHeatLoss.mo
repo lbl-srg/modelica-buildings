@@ -1,40 +1,11 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 block ASHRAEHeatLoss
   "Calculate the heat loss of a solar collector per ASHRAE standard 93"
-
-  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss;
+  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss(
+    final QLos_nominal = slope * A_c * dT_nominal);
 
   parameter Modelica.SIunits.CoefficientOfHeatTransfer slope
     "Slope from ratings data";
-
-protected
-  final parameter Modelica.SIunits.ThermalConductance UA(
-      start = -slope*A_c,
-      fixed = false)
-    "Coefficient describing heat loss to ambient conditions";
-initial equation
-   //Identifies useful heat gain at nominal conditions
-   QUse_nominal = G_nominal * A_c * y_intercept + slope * A_c * dT_nominal;
-   //Identifies TFlu[nSeg] at nominal conditions
-   m_flow_nominal * cp_default * (dT_nominal_fluid[nSeg]) = QUse_nominal;
-   //Identifies heat lost to environment at nominal conditions
-   QLos_nominal = -slope * A_c * dT_nominal;
-   //Governing equation for the first segment (i=1)
-   G_nominal * y_intercept * A_c/nSeg - UA/nSeg * dT_nominal = m_flow_nominal * cp_default
-   * (dT_nominal_fluid[1]);
-   //Loop with the governing equations for segments 2:nSeg-1
-   for i in 2:nSeg-1 loop
-     G_nominal * y_intercept * A_c/nSeg - UA/nSeg * (dT_nominal_fluid[i-1]+dT_nominal) =
-     m_flow_nominal * cp_default * (dT_nominal_fluid[i]-dT_nominal_fluid[i-1]);
-   end for;
-   for i in 1:nSeg loop
-     nSeg * QLosUA[i] = UA * (dT_nominal_fluid[i]+dT_nominal);
-   end for;
-   sum(QLosUA[1:nSeg]) = QLos_nominal;
-equation
-   for i in 1:nSeg loop
-     -QLosInt[i] * nSeg = UA * (TFlu[i] - TEnv);
-   end for;
   annotation (
     defaultComponentName="heaLos",
     Documentation(info="<html>
@@ -106,7 +77,15 @@ equation
         <a href=\"modelica://Buildings.Utilities.Math.Functions.smoothHeaviside\">
         Buildings.Utilities.Math.Functions.smoothHeaviside</a> function.
       </p>
-    <h4>References</h4>
+      <h4>Implementation</h4>
+      <p>
+      ASHRAE uses the collector fluid inlet
+      temperature to compute the heat loss (see Duffie and Beckmann, p. 293).
+      However, unless TEnv is known, which is not the case, one cannot compute
+      a LMTD that would improve the UA calculation. Hence,
+      we are simply using dT_nominal
+      </p>
+      <h4>References</h4>
       <p>
         J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition),
         John Wiley &amp; Sons, Inc. <br/>

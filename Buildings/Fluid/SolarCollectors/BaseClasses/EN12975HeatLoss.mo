@@ -1,42 +1,13 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 block EN12975HeatLoss
   "Calculate the heat loss of a solar collector per EN12975"
-
-  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss;
+  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss(
+    final QLos_nominal = -C1 * A_c * dT_nominal-C2 * A_c * dT_nominal^2);
 
   parameter Modelica.SIunits.CoefficientOfHeatTransfer C1
     "C1 from ratings data";
-  parameter Real C2(
-  final unit = "W/(m2.K2)") "C2 from ratings data";
+  parameter Real C2(final unit = "W/(m2.K2)") "C2 from ratings data";
 
-protected
-  final parameter Modelica.SIunits.ThermalConductance UA(
-     fixed = false,
-     start=QLos_nominal/dT_nominal)
-    "Coefficient describing heat loss to ambient conditions";
-initial equation
-   //Identifies useful heat gain at nominal conditions
-   QUse_nominal = A_c * ( G_nominal * y_intercept -C1 * dT_nominal - C2 * dT_nominal^2);
-   //Identifies TFlu[nSeg] at nominal conditions
-   m_flow_nominal * cp_default * (dT_nominal_fluid[nSeg]) = QUse_nominal;
-   //Identifies heat lost to environment at nominal conditions
-   QLos_nominal = A_c * ( -C1 * dT_nominal-C2 * dT_nominal^2);
-   //Governing equation for the first segment (i=1)
-   G_nominal * y_intercept * A_c/nSeg - UA/nSeg * dT_nominal
-     = m_flow_nominal * cp_default * (dT_nominal_fluid[1]);
-   //Loop with the governing equations for segments 2:nSeg-1
-   for i in 2:nSeg-1 loop
-     G_nominal * y_intercept * A_c/nSeg - UA/nSeg * (dT_nominal_fluid[i-1]+dT_nominal)
-       = m_flow_nominal * cp_default * (dT_nominal_fluid[i]- dT_nominal_fluid[i-1]);
-   end for;
-   for i in 1:nSeg loop
-     nSeg * QLosUA[i] = UA * (dT_nominal_fluid[i]+dT_nominal);
-   end for;
-   sum(QLosUA) = QLos_nominal;
-equation
-   for i in 1:nSeg loop
-     QLosInt[i] * nSeg = UA * (TFlu[i] - TEnv);
-   end for;
   annotation (
     defaultComponentName="heaLos",
     Documentation(info="<html>
@@ -113,7 +84,15 @@ equation
       The calculation is performed using the
       <a href=\"modelica://Buildings.Utilities.Math.Functions.smoothHeaviside\">
       Buildings.Utilities.Math.Functions.smoothHeaviside</a> function.
-    </p>
+      </p>
+      <h4>Implementation</h4>
+      <p>
+      EN 12975 uses the arithmetic average temperature of the collector fluid inlet
+      and outlet temperature to compute the heat loss (see Duffie and Beckmann, p. 293).
+      However, unless TEnv is known, which is not the case, one cannot compute
+      a LMTD that would improve the UA calculation. Hence,
+      we are simply using dT_nominal
+      </p>
   <h4>References</h4>
     <p>
       CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
@@ -121,6 +100,13 @@ equation
   </html>",
   revisions="<html>
     <ul>
+      <li>
+      December 14, 2017, by Michael Wetter:<br/>
+      Revised computation of <code>UA</code>.<br/>
+      This is for
+      <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1100\">
+      issue 1100</a>.
+      </li>
       <li>
         Jan 16, 2012, by Peter Grant:<br/>
         First implementation
