@@ -2,11 +2,20 @@ within Buildings.Fluid.SolarCollectors.BaseClasses;
 block EN12975HeatLoss
   "Calculate the heat loss of a solar collector per EN12975"
   extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss(
-    final QLos_nominal = -C1 * A_c * dT_nominal-C2 * A_c * dT_nominal^2);
+    final QLos_nominal = -A_c * (C1 * dT_nominal - C2 * dT_nominal^2),
+    QLosInt = A_c/nSeg * {dT[i] * (C1 - C2 * dT[i]) for i in 1:nSeg});
 
   parameter Modelica.SIunits.CoefficientOfHeatTransfer C1
     "C1 from ratings data";
   parameter Real C2(final unit = "W/(m2.K2)") "C2 from ratings data";
+
+protected
+  Modelica.SIunits.TemperatureDifference dT[nSeg]
+    "Environment minus collector fluid temperature";
+equation
+  for i in 1:nSeg loop
+    dT[i] = TEnv-TFlu[i];
+  end for;
 
   annotation (
     defaultComponentName="heaLos",

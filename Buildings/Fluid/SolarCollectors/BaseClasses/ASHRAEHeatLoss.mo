@@ -2,7 +2,8 @@ within Buildings.Fluid.SolarCollectors.BaseClasses;
 block ASHRAEHeatLoss
   "Calculate the heat loss of a solar collector per ASHRAE standard 93"
   extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss(
-    final QLos_nominal = slope * A_c * dT_nominal);
+    final QLos_nominal = slope * A_c * dT_nominal,
+    QLosInt = -slope * A_c/nSeg * {(TEnv-TFlu[i]) for i in 1:nSeg});
 
   parameter Modelica.SIunits.CoefficientOfHeatTransfer slope
     "Slope from ratings data";

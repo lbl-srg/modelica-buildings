@@ -50,14 +50,10 @@ protected
   final parameter Modelica.SIunits.HeatFlowRate QUse_nominal(min=0) = G_nominal * A_c * y_intercept + QLos_nominal
     "Useful heat gain at nominal conditions";
 
-  final parameter Modelica.SIunits.ThermalConductance UA(min=0) = -QLos_nominal/dT_nominal
-    "Coefficient describing heat loss to ambient conditions";
-
-  Modelica.SIunits.HeatFlowRate QLosInt[nSeg]
-    "Heat loss rate at current conditions";
+  input Modelica.SIunits.HeatFlowRate QLosInt[nSeg]
+    "Heat loss rate at current conditions for each segment";
 equation
   for i in 1:nSeg loop
-    QLosInt[i] * nSeg = UA * (TEnv-TFlu[i]);
     QLos[i] = QLosInt[i] *
       smooth(1, if TFlu[i] > TMedMin2
         then 1
