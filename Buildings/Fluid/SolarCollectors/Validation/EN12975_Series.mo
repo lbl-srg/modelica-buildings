@@ -61,7 +61,8 @@ model EN12975_Series
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"),
+      computeWetBulbTemperature=false)
     "Weather data file reader"
     annotation (Placement(transformation(extent={{-88,60},{-68,80}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
