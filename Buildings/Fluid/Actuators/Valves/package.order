@@ -2,6 +2,7 @@ ThreeWayEqualPercentageLinear
 ThreeWayLinear
 TwoWayEqualPercentage
 TwoWayLinear
+TwoWayPolynomial
 TwoWayPressureIndependent
 TwoWayQuickOpening
 TwoWayTable
