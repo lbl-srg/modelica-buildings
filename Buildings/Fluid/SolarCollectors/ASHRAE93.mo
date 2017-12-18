@@ -32,6 +32,10 @@ model ASHRAE93 "Model of a flat plate solar thermal collector"
         annotation (Placement(transformation(extent={{-20,6},{0,26}})));
 
 equation
+  // Make sure the model is only used with the ASHRAE ratings data, and slope < 0
+  assert(per.slope < 0,
+    "The heat loss coefficient from the ASHRAE ratings data must be strictly negative. Obtained slope = " + String(per.slope));
+
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
       points={{-100,96},{-88,96},{-88,22},{-22,22}},
       color={255,204,51},
@@ -175,6 +179,13 @@ capacity of copper.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 17, 2017, by Michael Wetter:<br/>
+Revised computation of heat loss.<br/>
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1100\">
+issue 1100</a>.
+</li>
 <li>
 November 21, 2017, by Michael Wetter:<br/>
 Corrected error in heat loss calculations that did not scale correctly with <code>nPanels</code>.<br/>

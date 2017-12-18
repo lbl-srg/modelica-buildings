@@ -6,6 +6,7 @@ extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final 
     Placement(transformation(extent={{60,-80},{80,-60}})));
 
   BaseClasses.EN12975SolarGain solGai(
+    redeclare package Medium = Medium,
     final A_c=TotalArea_internal,
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
@@ -13,25 +14,27 @@ extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final 
     final B1=per.B1,
     final shaCoe=shaCoe,
     final iamDiff=per.IAMDiff,
-    final use_shaCoe_in=use_shaCoe_in,
-    redeclare package Medium = Medium)
+    final use_shaCoe_in=use_shaCoe_in)
     "Identifies heat gained from the sun using standard EN12975 calculations"
-    annotation (Placement(transformation(extent={{-20,38},{0,58}})));
+     annotation (Placement(transformation(extent={{-20,38},{0,58}})));
   BaseClasses.EN12975HeatLoss heaLos(
+    redeclare package Medium = Medium,
     final A_c=TotalArea_internal,
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
     final C1=per.C1,
     final C2=per.C2,
-    redeclare package Medium = Medium,
     final G_nominal=per.G_nominal,
     final dT_nominal=per.dT_nominal,
     final m_flow_nominal=per.mperA_flow_nominal*per.A*nPanels_internal,
     final cp_default=cp_default)
     "Calculates the heat lost to the surroundings using the EN12975 standard calculations"
-           annotation (Placement(transformation(extent={{-20,6},{0,26}})));
+      annotation (Placement(transformation(extent={{-20,6},{0,26}})));
 
 equation
+  // Make sure the model is only used with the EN ratings data, and hence C1 > 0
+  assert(per.C1 > 0,
+    "The heat loss coefficient from the EN 12975 ratings data must be strictly positive. Obtained C1 = " + String(per.C1));
   connect(shaCoe_internal, solGai.shaCoe_in);
 
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
@@ -104,6 +107,13 @@ capacity of copper.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 17, 2017, by Michael Wetter:<br/>
+Revised computation of heat loss.<br/>
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1100\">
+issue 1100</a>.
+</li>
 <li>
 November 21, 2017, by Michael Wetter:<br/>
 Corrected error in heat loss calculations that did not scale correctly with <code>nPanels</code>.<br/>
