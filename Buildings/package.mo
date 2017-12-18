@@ -155,6 +155,14 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.TwoWayPolynomial
+       </td>
+       <td valign=\"top\">Two-way valve with opening characteristics
+                          specified by a polynomial.
+                          This model may be used if a valve characteristics needs to be
+                          matched to measured data.
+       </td>
+       </tr>
    <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowPipe
        </td>
        <td valign=\"top\">Pipe with heat loss and transport of the fluid
