@@ -1,8 +1,11 @@
 within Buildings.Fluid.SolarCollectors.Examples;
 model FlatPlate "Test model for FlatPlate"
   extends Modelica.Icons.Example;
-  replaceable package Medium = Modelica.Media.Incompressible.Examples.Glycol47
+  replaceable package Medium = Buildings.Media.Water
     "Medium in the system";
+//    "Medium in the system";
+//  replaceable package Medium = Modelica.Media.Incompressible.Examples.Glycol47
+//    "Medium in the system";
 
   Buildings.Fluid.SolarCollectors.ASHRAE93 solCol(
     redeclare package Medium = Medium,
@@ -22,7 +25,7 @@ model FlatPlate "Test model for FlatPlate"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-    "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data input file"
     annotation (Placement(transformation(extent={{-32,20},{-12,40}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
@@ -78,13 +81,19 @@ equation
 <p>
 This example demonstrates the implementation of
 <a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\">
-Buildings.Fluid.SolarCollectors.ASHRAE93</a>.
-In it water is passed through a flat plate solar thermal collector while
-being heated by the sun in the San Francisco, CA, USA climate.
+Buildings.Fluid.SolarCollectors.ASHRAE93</a>
+for a variable fluid flow rate and weather data from
+San Francisco, CA, USA.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 18, 2017 by Michael Wetter:<br/>
+Changed medium from glycol to water.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1102\">#1102</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

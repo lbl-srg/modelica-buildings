@@ -1,8 +1,8 @@
-last-generated=2016-11-02
+last-generated=2017-12-04
 statistics-initialization=
 {
   "numerical Jacobians": "0", 
-  "nonlinear": "1, 1, 1, 1, 1, 1, 1, 1"
+  "nonlinear": "0, 0, 0, 0, 0, 0, 0, 0"
 }
 statistics-simulation=
 {
@@ -10,16 +10,16 @@ statistics-simulation=
   "nonlinear": " ", 
   "linear": " "
 }
-senEnt1.h_out=[53417.265625, 53417.265625]
-senEnt2.h_out=[53417.265625, 53417.265625]
-time=[0., 1.]
-senTem2.T=[301.149993896484375, 301.149993896484375]
-senTem1.T=[301.149993896484375, 301.149993896484375]
-senMas1.X=[0.00999999977648258209, 0.00999999977648258209]
-senMas2.X=[0.00999999977648258209, 0.00999999977648258209]
-cheMas.y=[0., 0.]
-cheEnt.y=[0., 0.]
-cheTem1.y=[0., 0.]
-cheTem.y=[0., 0.]
-cheMas1.y=[0., 0.]
-cheEnt1.y=[0., 0.]
+senEnt1.h_out=[5.3417265625e+04, 5.3417265625e+04]
+senEnt2.h_out=[5.3417265625e+04, 5.3417265625e+04]
+time=[0e+00, 1e+00]
+senTem2.T=[3.011499938964844e+02, 3.011499938964844e+02]
+senTem1.T=[3.011499938964844e+02, 3.011499938964844e+02]
+senMas1.X=[9.999999776482582e-03, 9.999999776482582e-03]
+senMas2.X=[9.999999776482582e-03, 9.999999776482582e-03]
+cheMas.y=[0e+00, 0e+00]
+cheEnt.y=[0e+00, 0e+00]
+cheTem1.y=[0e+00, 0e+00]
+cheTem.y=[0e+00, 0e+00]
+cheMas1.y=[0e+00, 0e+00]
+cheEnt1.y=[0e+00, 0e+00]

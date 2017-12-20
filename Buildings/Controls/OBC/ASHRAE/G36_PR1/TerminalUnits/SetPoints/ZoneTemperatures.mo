@@ -41,22 +41,22 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
 
   parameter Real incSetDem_1=0.56
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand Settings"));
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
   parameter Real incSetDem_2=1.1
     "Cooling setpoint increase value (degC) when cooling demand limit level 2 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand Settings"));
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
   parameter Real incSetDem_3=2.2
     "Cooling setpoint increase value (degC) when cooling demand limit level 3 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand Settings"));
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
   parameter Real decSetDem_1=0.56
     "Heating setpoint decrease value (degC) when heating demand limit level 1 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand Settings"));
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
   parameter Real decSetDem_2=1.1
     "Heating setpoint decrease value (degC) when heating demand limit level 2 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand Settings"));
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
   parameter Real decSetDem_3=2.2
     "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand Settings"));
+    annotation(Dialog(group="Setpoint adjustment", tab="Demand control"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput occCooSet(
     final unit="K",
@@ -126,7 +126,7 @@ block ZoneTemperatures "Block outputs thermal zone cooling and heating setpoint"
     quantity="ThermodynamicTemperature")  "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{340,-110},{360,-90}}),
       iconTransformation(extent={{200,-100},{240,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla if have_winSen "Alarm level"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla "Alarm level"
     annotation (Placement(transformation(extent={{340,-400},{360,-380}}),
       iconTransformation(extent={{200,80},{240,120}})));
 
@@ -275,15 +275,15 @@ protected
     "Current operation mode is occupied, warm-up, or cool-down mode"
     annotation (Placement(transformation(extent={{-20,600},{0,620}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.warmUp)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
     "Warm-up mode"
     annotation (Placement(transformation(extent={{-340,570},{-320,590}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
-    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.coolDown)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.coolDown)
     "Cool-down mode"
     annotation (Placement(transformation(extent={{-240,570},{-220,590}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.OperationModes.occupied)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied mode"
     annotation (Placement(transformation(extent={{-140,570},{-120,590}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cooSetAdjCon(k=(cooAdj or sinAdj))
@@ -440,7 +440,7 @@ protected
     "Check if the heating demand limit level is level 2"
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt8(
-    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.heating3)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.DemandLimitLevels.heating3)
     "Heat demand limit level 3"
     annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu8
@@ -452,14 +452,14 @@ protected
     "Check if the zone becomes unpopulated during occupied mode"
     annotation (Placement(transformation(extent={{-280,-280},{-260,-260}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt6(
-    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.heating1)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.DemandLimitLevels.heating1)
     "Heat demand limit level 1"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu6
     "Check if the heating demand limit level is level 1"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt7(
-    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.heating2)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.DemandLimitLevels.heating2)
     "Heat demand limit level 2"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr
@@ -469,21 +469,21 @@ protected
     "Check if heating demand limit level is higher than level zero"
     annotation (Placement(transformation(extent={{-340,-60},{-320,-40}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
-    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.cooling1)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.DemandLimitLevels.cooling1)
     "Cool demand limit level 1"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu3
     "Check if the cooling demand limit level is level 1"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
-    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.cooling2)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.DemandLimitLevels.cooling2)
     "Cool demand limit level 2"
     annotation (Placement(transformation(extent={{-160,62},{-140,82}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
     "Check if the cooling demand limit level is level 2"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5(
-    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.DemandLimitLevels.cooling3)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.DemandLimitLevels.cooling3)
     "Cool demand limit level 3"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu5
@@ -1240,17 +1240,17 @@ This sequence sets the thermal zone cooling and heating setpoints. The implement
 is according to the ASHRAE Guideline 36 (G36), PART5.B.3. The calculation is done
 following the steps below.
 </p>
-<p>a. Each zone shall have separate occupied and unoccupied heating and cooling
-setpoints.</p>
-<p>b. The active setpoints shall be determined by the Operation Mode of the zone
-group.</p>
+<h4>a. Each zone shall have separate occupied and unoccupied heating and cooling
+setpoints.</h4>
+<h4>b. The active setpoints shall be determined by the Operation Mode of the zone
+group.</h4>
 <ul>
 <li>The setpoints shall be the occupied setpoints during Occupied, Warm up, and
 Cool-down modes.</li>
 <li>The setpoints shall be the unoccupied setpoints during Unoccupied, Setback,
 and Setup modes.</li>
 </ul>
-<p>c. The software shall prevent</p>
+<h4>c. The software shall prevent</h4>
 <ul>
 <li>The heating setpoint from exceeding the cooling setpoint minus 0.56 &deg;C
 (1 &deg;F).</li>
@@ -1259,7 +1259,7 @@ setpoint.</li>
 <li>The unoccupied cooling setpoint from being less than occupied cooling
 setpoint.</li>
 </ul>
-<p>d. Where the zone has a local setpoint adjustment knob/button </p>
+<h4>d. Where the zone has a local setpoint adjustment knob/button </h4>
 <ul>
 <li>The setpoint adjustment offsets established by the occupant shall be software
 points that are persistent (e.g. not reset daily), but the actual offset used
@@ -1279,34 +1279,34 @@ shall have no impact on setpoints in all other modes.</li>
 be frozen. Further adjustment of the setpoint by local controls shall be suspended
 for the duration of the demand limit event.</li>
 </ul>
-<p>e. Cooling demand limit setpoint adjustment</p>
-The active cooling setpoints for all zones shall be increased when a demand limit
+<h4>e. Cooling demand limit setpoint adjustment</h4>
+<p>The active cooling setpoints for all zones shall be increased when a demand limit
 is imposed on the associated zone group. The operator shall have the ability
 to exempt individual zones from this adjustment through the normal
-Building Automation System (BAS) user
-interface. Changes due to demand limits are not cumulative.
+Building Automation System (BAS) user interface. Changes due to demand limits
+are not cumulative.</p>
 <ul>
 <li>At Demand Limit Level 1, increase setpoint by 0.56 &deg;C (1 &deg;F).</li>
 <li>At Demand Limit Level 2, increase setpoint by 1.1 &deg;C (2 &deg;F).</li>
 <li>At Demand Limit Level 1, increase setpoint by 2.2 &deg;C (4 &deg;F).</li>
 </ul>
-<p>f. Heating demand limit setpoint adjustment</p>
-The active heating setpoints for all zones shall be decreased when a demand limit
+<h4>f. Heating demand limit setpoint adjustment</h4>
+<p>The active heating setpoints for all zones shall be decreased when a demand limit
 is imposed on the associated zone group. The operator shall have the ability
 to exempt individual zones from this adjustment through the normal BAS user
-interface. Changes due to demand limits are not cumulative.
+interface. Changes due to demand limits are not cumulative.</p>
 <ul>
 <li>At Demand Limit Level 1, decrease setpoint by 0.56 &deg;C (1 &deg;F).</li>
 <li>At Demand Limit Level 2, decrease setpoint by 1.1 &deg;C (2 &deg;F).</li>
 <li>At Demand Limit Level 1, decrease setpoint by 2.2 &deg;C (4 &deg;F).</li>
 </ul>
-<p>g. Window switches</p>
-For zones that have operable windows with indicator switches, when the window
+<h4>g. Window switches</h4>
+<p>For zones that have operable windows with indicator switches, when the window
 switch indicates the window is open, the heating setpoint shall be temporarily
 set to 4.4 &deg;C (40 &deg;F) and the cooling setpoint shall be temporarily
 set to 49 &deg;C (120 &deg;F). When the window switch indicates the window is
-open during other than Occupied Mode, a Level 4 alarm shall be generated.
-<p>h. Occupancy sensor</p>
+open during other than Occupied Mode, a Level 4 alarm shall be generated.</p>
+<h4>h. Occupancy sensor</h4>
 <ul>
 <li>When the switch indicates the space has been unpopulated for 5 minutes
 continuously during the Occupied Mode, the active heating setpoint shall be
@@ -1328,6 +1328,10 @@ shall prevail in order from highest to lowest priority.</p>
 
 </html>", revisions="<html>
 <ul>
+<li>
+October 11, 2017, by Michael Wetter:<br/>
+Removed wrong conditional on <code>yAla</code>.
+</li>
 <li>
 August 17, 2017, by Jianjun Hu:<br/>
 First implementation.

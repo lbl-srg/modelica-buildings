@@ -23,7 +23,7 @@ block ActiveAirFlow
   parameter Modelica.SIunits.VolumeFlowRate VMinCon
     "VAV box controllable minimum"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Area zonAre "Area of the zone"
+  parameter Modelica.SIunits.Area AFlo "Area of the zone"
     annotation(Dialog(group="Nominal condition"));
   parameter Real outAirPerAre(final unit = "m3/(s.m2)")=3e-4
     "Outdoor air rate per unit area"
@@ -38,7 +38,7 @@ block ActiveAirFlow
     "Number of occupants"
     annotation (Placement(transformation(extent={{-320,-300},{-280,-260}}),
       iconTransformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2(final unit="1") if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2 if have_CO2Sen
     "Detected CO2 conventration"
     annotation (Placement(transformation(extent={{-320,-200},{-280,-160}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
@@ -128,77 +128,77 @@ block ActiveAirFlow
     annotation (Placement(transformation(extent={{-240,-510},{-220,-490}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir1(k=VMin) if not have_CO2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir1(final k=VMin) if not have_CO2Sen
     "Zone minimum airflow setpoint"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxZonCooAir(k=VCooMax) if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxZonCooAir(final k=VCooMax) if have_CO2Sen
     "Zone maximum cooling airflow setpoint"
     annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonAre(k=outAirPerAre*zonAre) if have_occSen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonAre(final k=outAirPerAre*AFlo) if have_occSen
     "Area component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-140,-370},{-120,-350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conVolMin(k=VMinCon)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conVolMin(final k=VMinCon)
     "VAV box controllable minimum"
     annotation (Placement(transformation(extent={{-80,-440},{-60,-420}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir(k=VMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir(final k=VMin)
     "Zone minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-240,-60},{-220,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setCO1(k=CO2Set - 200) if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setCO1(final k=CO2Set - 200) if have_CO2Sen
     "CO2 setpoints minus 200"
     annotation (Placement(transformation(extent={{-240,-140},{-220,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setCO2(k=CO2Set) if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setCO2(final k=CO2Set) if have_CO2Sen
     "CO2 setpoints"
     annotation (Placement(transformation(extent={{-240,-210},{-220,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerFlo(k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerFlo(final k=0)
     "Zero airflow when window is open"
     annotation (Placement(transformation(extent={{140,-540},{160,-520}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=true) if not have_occSen "Constant true"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=true) if not have_occSen "Constant true"
     annotation (Placement(transformation(extent={{-80,-270},{-60,-250}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=true) if not have_winSen "Constant true"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=true) if not have_winSen "Constant true"
     annotation (Placement(transformation(extent={{40,-490},{60,-470}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon(k=0) "Output zero"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon(final k=0) "Output zero"
     annotation (Placement(transformation(extent={{-240,-170},{-220,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon1(k=0) if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon1(final k=0) if have_CO2Sen
     "Output zero"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon2(k=0) if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon2(final k=0) if have_CO2Sen
     "Output zero"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon3(k=0) if not have_occSen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon3(final k=0) if not have_occSen
     "Output zero"
     annotation (Placement(transformation(extent={{0,-350},{20,-330}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCon(k=1) if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCon(final k=1) if have_CO2Sen
     "Output one"
     annotation (Placement(transformation(extent={{-240,-240},{-220,-220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCon1(k=1) if have_CO2Sen "Output one"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCon1(final k=1) if have_CO2Sen "Output one"
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxAir(k=VCooMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxAir(final k=VCooMax)
     "Cooling maximum airflow"
     annotation (Placement(transformation(extent={{-240,-20},{-220,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMaxAir(k=VHeaMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMaxAir(final k=VHeaMax)
     "Heat maximum airflow"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon6(k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon6(final k=0)
     "Output zero"
     annotation (Placement(transformation(extent={{-240,170},{-220,190}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    k=Constants.OperationModes.occupied)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied mode"
     annotation (Placement(transformation(extent={{-240,-100},{-220,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
-    k=Constants.OperationModes.coolDown)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.coolDown)
     "Cool down mode"
     annotation (Placement(transformation(extent={{-240,290},{-220,310}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    k=Constants.OperationModes.setUp)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.setUp)
     "Setup mode"
     annotation (Placement(transformation(extent={{-240,220},{-220,240}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
-    k=Constants.OperationModes.warmUp)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
     "Warm up mode"
     annotation (Placement(transformation(extent={{-20,290},{0,310}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
-    k=Constants.OperationModes.setBack)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.setBack)
     "Setback mode"
     annotation (Placement(transformation(extent={{-20,220},{0,240}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
@@ -714,8 +714,8 @@ This atomic sequence sets the active maximum and minimum setpoints <code>VActCoo
 Guideline 36 (G36), PART5.E.3-5.
 </p>
 <h4>1. Information provided by designer</h4>
-According to G36 PART 3.1.B.2, following VAV box design information should be
-provided:
+<p>According to G36 PART 3.1.B.2, following VAV box design information should be
+provided:</p>
 <ul>
 <li>Zone maximum cooling airflow setpoint <code>VCooMax</code></li>
 <li>Zone minimum airflow setpoint <code>VMin</code></li>
@@ -723,8 +723,8 @@ provided:
 </ul>
 
 <h4>2. Occupied minimum airflow <code>VOccMinAir</code></h4>
-The <code>VOccMinAir</code> shall be equal to zone minimum airflow setpoint
-<code>VMin</code> except as follows:
+<p>The <code>VOccMinAir</code> shall be equal to zone minimum airflow setpoint
+<code>VMin</code> except as follows:</p>
 <ul>
 <li>
 If the zone has an occupancy sensor, <code>VOccMinAir</code> shall be equal to
@@ -754,7 +754,7 @@ not in occupied mode.
 </ul>
 
 <h4>3. Active maximum and minimum setpoints</h4>
-The setpoints shall vary depending on the mode of the zone group.
+<p>The setpoints shall vary depending on the mode of the zone group.</p>
 <table summary=\"summary\" border=\"1\">
 <tr><th>Setpoint</th> <th>Occupied</th><th>Cool-down</th>
 <th>Setup</th><th>Warmup</th><th>Setback</th><th>Unoccupied</th></tr>

@@ -112,7 +112,9 @@ partial model RoomHeatMassBalance "Base model for a room"
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
-
+  parameter Boolean sampleModel = false
+    "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
+    annotation (Evaluate=true, Dialog(tab="Experimental (may be changed in future releases)"));
   ////////////////////////////////////////////////////////////////////////
   // Control signals
   Modelica.Blocks.Interfaces.RealInput uWin[nConExtWin](
@@ -248,7 +250,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     final datConBou = datConBou,
     final surBou = surBou,
     final linearizeRadiation = linearizeRadiation,
-    final homotopyInitialization = homotopyInitialization)
+    final homotopyInitialization = homotopyInitialization,
+    final sampleModel = sampleModel)
     "Infrared radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 

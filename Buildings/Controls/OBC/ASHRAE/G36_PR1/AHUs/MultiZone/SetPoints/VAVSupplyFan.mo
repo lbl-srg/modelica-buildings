@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints;
 block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
 
   parameter Integer numZon(min=2)
-    "Total number of served zones/VAV boxes"
+    "Total number of served VAV boxes"
     annotation(Dialog(group="System configuration"));
   parameter Boolean have_perZonRehBox = false
     "Check if there is any VAV-reheat boxes on perimeter zones"
@@ -13,21 +13,19 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
   parameter Boolean have_airFloMeaSta = false
     "Check if the AHU has AFMS (Airflow measurement station)"
     annotation(Dialog(group="System configuration"));
-  parameter Modelica.SIunits.PressureDifference maxDesPre(displayUnit="Pa")
-    "Duct design maximum static pressure"
-    annotation(Dialog(group="System configuration"));
   parameter Modelica.SIunits.PressureDifference iniSet(displayUnit="Pa") = 120
     "Initial setpoint"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
   parameter Modelica.SIunits.PressureDifference minSet(displayUnit="Pa") = 25
     "Minimum setpoint"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.PressureDifference maxSet(displayUnit="Pa") = maxDesPre
+  parameter Modelica.SIunits.PressureDifference maxSet(displayUnit="Pa")
     "Maximum setpoint"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.Time delTim = 600  "Delay time"
+  parameter Modelica.SIunits.Time delTim = 600
+   "Delay time after which trim and respond is activated"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
-  parameter Modelica.SIunits.Time samplePeriod = 120  "Sample period of component"
+  parameter Modelica.SIunits.Time samplePeriod = 120  "Sample period"
     annotation (Dialog(group="Trim and respond for pressure setpoint"));
   parameter Integer numIgnReq = 2
     "Number of ignored requests"
@@ -44,18 +42,16 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(group="Fan PID controller"));
-  parameter Real k=0.5 "Gain of controller"
+  parameter Real k(final unit="1")=0.1 "Gain of controller, normalized using maxSet"
     annotation (Dialog(group="Fan PID controller"));
-  parameter Modelica.SIunits.Time Ti(min=0)=60 "Time constant of Integrator block"
+  parameter Modelica.SIunits.Time Ti(min=0)=60 "Time constant of integrator block"
     annotation (Dialog(group="Fan PID controller",
-      enable=
-        controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-        controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(min=0) = 0.1 "Time constant of Derivative block"
+      enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+         or  controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.SIunits.Time Td(min=0) = 0.1 "Time constant of derivative block"
     annotation (Dialog(group="Fan PID controller",
-      enable=
-        controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-        controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real yFanMax(min=0.1, max=1, unit="1") = 1 "Maximum allowed fan speed"
     annotation (Dialog(group="Fan PID controller"));
   parameter Real yFanMin(min=0.1, max=1, unit="1") = 0.1 "Lowest allowed fan speed if fan is on"
@@ -81,7 +77,7 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan "Supply fan ON/OFF status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan "Supply fan on status"
     annotation (Placement(transformation(extent={{140,60},{160,80}}),
       iconTransformation(extent={{100,60},{120,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFanSpe(
@@ -107,16 +103,17 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
     final triAmo=triAmo,
     final resAmo=resAmo,
     final maxRes=maxRes) "Static pressure setpoint reset using trim and respond logic"
-    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID supFanSpeCon(
-    final Ti=Ti,
+    annotation (Placement(transformation(extent={{-130,-50},{-110,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conSpe(
     final controllerType=controllerType,
     final k=k,
+    final Ti=Ti,
     final Td=Td,
     final yMax=yFanMax,
-    final yMin=yFanMin)
-    "Supply fan speed control"
-    annotation (Placement(transformation(extent={{-40,-68},{-20,-48}})));
+    final yMin=yFanMin,
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
+    y_reset=yFanMin) "Supply fan speed control"
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerSpe(k=0)
     "Zero fan speed when it becomes OFF"
@@ -143,23 +140,23 @@ protected
     "Constant true"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    k=Constants.OperationModes.coolDown)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.coolDown)
     "Cool down mode"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
-    k=Constants.OperationModes.warmUp)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
     "Warm-up mode"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
-    k=Constants.OperationModes.setUp)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.setUp)
     "Set up mode"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    k=Constants.OperationModes.occupied)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied mode"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
-    k=Constants.OperationModes.setBack)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.setBack)
     "Set back mode"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
@@ -177,7 +174,16 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
     "Check if current operation mode is warmup mode"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-
+  CDL.Continuous.Gain norPSet(final k=1/maxSet)
+    "Normalization for pressure set point"
+    annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
+  CDL.Continuous.Gain norPMea(final k=1/maxSet)
+    "Normalization of pressure measurement"
+    annotation (Placement(transformation(extent={{-70,-82},{-50,-62}})));
+  CDL.Discrete.FirstOrderHold firOrdHol(
+    final samplePeriod=samplePeriod)
+    "Extrapolation through the values of the last two sampled input signals"
+    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
 equation
   connect(or2.y, or1.u2)
     annotation (Line(points={{41,40},{60,40},{60,62},{78,62}},
@@ -191,17 +197,13 @@ equation
     annotation (Line(points={{81.7,-110},{150,-110}},
       color={0,0,127}));
   connect(or1.y, staPreSetRes.uDevSta)
-    annotation (Line(points={{101,70},{120,70},{120,-8},{-120,-8},{-120,-32},
-      {-102,-32}},  color={255,0,255}));
-  connect(staPreSetRes.y, supFanSpeCon.u_s)
-    annotation (Line(points={{-79,-40},{-60,-40},{-60,-58},{-42,-58}},
-      color={0,0,127}));
+    annotation (Line(points={{101,70},{120,70},{120,-8},{-150,-8},{-150,-32},{-132,
+          -32}},    color={255,0,255}));
   connect(or1.y, swi.u2)
     annotation (Line(points={{101,70},{120,70},{120,-8},{0,-8},{0,-60},{78,-60}},
       color={255,0,255}));
-  connect(supFanSpeCon.y, swi.u1)
-    annotation (Line(points={{-19,-58},{-4,-58},{-4,-68},{78,-68}},
-      color={0,0,127}));
+  connect(conSpe.y, swi.u1) annotation (Line(points={{-19,-40},{-4,-40},{-4,-68},
+          {78,-68}}, color={0,0,127}));
   connect(zerSpe.y, swi.u3)
     annotation (Line(points={{41,-40},{60,-40},{60,-52},{78,-52}},
       color={0,0,127}));
@@ -209,11 +211,8 @@ equation
     annotation (Line(points={{101,-60},{120,-60},{120,-50},{150,-50}},
       color={0,0,127}));
   connect(uZonPreResReq, staPreSetRes.numOfReq)
-    annotation (Line(points={{-180,-40},{-142,-40},{-142,-48},{-102,-48}},
+    annotation (Line(points={{-180,-40},{-142,-40},{-142,-48},{-132,-48}},
       color={255,127,0}));
-  connect(ducStaPre, supFanSpeCon.u_m)
-    annotation (Line(points={{-180,-80},{-30,-80},{-30,-70}},
-      color={0,0,127}));
   connect(con.y, or1.u2)
     annotation (Line(points={{41,10},{60,10},{60,62},{78,62}},
       color={255,0,255}));
@@ -264,6 +263,18 @@ equation
     annotation (Line(points={{-39,10},{0,10},{0,32},{18,32}},
       color={255,0,255}));
 
+  connect(norPSet.y, conSpe.u_s)
+    annotation (Line(points={{-49,-40},{-42,-40}}, color={0,0,127}));
+  connect(ducStaPre, norPMea.u) annotation (Line(points={{-180,-80},{-132,-80},
+          {-132,-72},{-72,-72}},color={0,0,127}));
+  connect(norPMea.y, conSpe.u_m)
+    annotation (Line(points={{-49,-72},{-30,-72},{-30,-52}}, color={0,0,127}));
+  connect(norPSet.u, firOrdHol.y)
+    annotation (Line(points={{-72,-40},{-76,-40},{-79,-40}}, color={0,0,127}));
+  connect(staPreSetRes.y, firOrdHol.u) annotation (Line(points={{-109,-40},{
+          -106,-40},{-102,-40}}, color={0,0,127}));
+  connect(conSpe.trigger, or1.y) annotation (Line(points={{-38,-52},{-38,-60},{0,
+          -60},{0,-8},{120,-8},{120,70},{101,70}}, color={255,0,255}));
 annotation (
   defaultComponentName="conSupFan",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{140,160}}),
@@ -288,14 +299,14 @@ annotation (
           horizontalAlignment=TextAlignment.Left,
           textString="Check current operation mode"),
         Text(
-          extent={{-86,-12},{-16,-24}},
+          extent={{-134,-12},{-64,-24}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Reset pressure setpoint"),
         Text(
-          extent={{-98,-58},{-44,-88}},
+          extent={{-34,-66},{20,-96}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -322,7 +333,7 @@ annotation (
           textString="Sum of VAV box flow rate")}),
   Icon(graphics={
         Text(
-          extent={{-100,124},{98,102}},
+          extent={{-102,140},{96,118}},
           lineColor={0,0,255},
           textString="%name"),
                Rectangle(
@@ -382,7 +393,7 @@ parameters as a starting point:
 <tr><td>Device</td><td>AHU Supply Fan</td> <td>Associated device</td></tr>
 <tr><td>SP0</td><td>120 Pa (0.5 inches)</td><td>Initial setpoint</td></tr>
 <tr><td>SPmin</td><td>25 Pa (0.1 inches)</td><td>Minimum setpoint</td></tr>
-<tr><td>SPmax</td><td>maxDesPre</td><td>Maximum setpoint</td></tr>
+<tr><td>SPmax</td><td>maxSet</td><td>Maximum setpoint</td></tr>
 <tr><td>Td</td><td>10 minutes</td><td>Delay timer</td></tr>
 <tr><td>T</td><td>2 minutes</td><td>Time step</td></tr>
 <tr><td>I</td><td>2</td><td>Number of ignored requests</td></tr>
@@ -394,13 +405,22 @@ parameters as a starting point:
 <br/>
 <h4>c. Static pressure control</h4>
 <p>
-Supply fan speed is controlled to maintain duct static pressure at setpoint
-when the fan is proven on. Where the zone groups served by the system are small,
+Supply fan speed is controlled with a PI controller to maintain duct static pressure at setpoint
+when the fan is proven on. The setpoint for the PI controller and the measured
+duct static pressure are normalized with the maximum design static presssure
+<code>maxSet</code>.
+Where the zone groups served by the system are small,
 provide multiple sets of gains that are used in the control loop as a function
 of a load indicator (such as supply fan airflow rate, the area of the zone groups
 that are occupied, etc.).
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 14, 2017, by Michael Wetter:<br/>
+Added normalization of pressure set point and measurement as the measured
+quantity is a few hundred Pascal.
+</li>
 <li>
 August 15, 2017, by Jianjun Hu:<br/>
 First implementation.

@@ -101,20 +101,20 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.Movers.SpeedControlled_y fanSupHot(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=mAirHot_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=false) "Supply air fan for hot deck"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                           "Supply air fan for hot deck"
     annotation (Placement(transformation(extent={{300,-10},{320,10}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanSupCol(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=mAirCol_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=false) "Supply air fan for cold deck"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                           "Supply air fan for cold deck"
     annotation (Placement(transformation(extent={{302,-160},{322,-140}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanRet(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=100*{2,0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=false) "Return air fan"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                           "Return air fan"
     annotation (Placement(transformation(extent={{360,150},{340,170}})));
   Buildings.Fluid.Sources.FixedBoundary sinHea(
     redeclare package Medium = MediumW,
@@ -159,12 +159,12 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     r_N_min=0.2,
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=1) "Controller for fan of hot deck"
-    annotation (Placement(transformation(extent={{120,80},{140,100}})));
+    annotation (Placement(transformation(extent={{120,110},{140,130}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-318,-220},{-298,-200}})));
   Buildings.Examples.VAVReheat.Controls.ModeSelector modeSelector
-    annotation (Placement(transformation(extent={{-106,-380},{-84,-358}})));
+    annotation (Placement(transformation(extent={{-140,-382},{-118,-360}})));
   Buildings.Examples.VAVReheat.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-250,-270},{-230,-250}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TPreHeaCoi(redeclare package
@@ -199,8 +199,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Examples.VAVReheat.Controls.Economizer conEco(
     dT=1,
     VOut_flow_min=0.3*m_flow_nominal/1.2,
-    k=1,
-    Ti=60) "Controller for economizer"
+    k=0.05,
+    Ti=1200)
+           "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TRet(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Return air temperature sensor"
@@ -228,8 +229,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dpRec_nominal=10,
     dpExh_nominal=10,
     from_dp=from_dp,
-    use_inputFilter=false,
-    linearized=true) "Economizer"
+    linearized=true,
+    riseTime=15,
+    y_start=0)       "Economizer"
     annotation (Placement(transformation(extent={{-40,66},{14,12}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCoiCoo(
     redeclare package Medium = MediumA,
@@ -288,7 +290,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {30,0,70},
+    dp_nominal(each displayUnit="Pa") = {30,0,70},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
     annotation (Placement(transformation(extent={{592,170},{612,150}})));
@@ -298,7 +300,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {20,0,50},
+    dp_nominal(each displayUnit="Pa") = {20,0,50},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
     annotation (Placement(transformation(extent={{732,170},{752,150}})));
@@ -308,7 +310,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         m0_flow_wes,m0_flow_eas},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {20,0,30},
+    dp_nominal(each displayUnit="Pa") = {20,0,30},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
     annotation (Placement(transformation(extent={{872,170},{892,150}})));
@@ -317,7 +319,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {20,10,10},
+    dp_nominal(each displayUnit="Pa") = {20,10,10},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
     annotation (Placement(transformation(extent={{1012,170},{1032,150}})));
@@ -326,7 +328,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {240,0,-80},
+    dp_nominal(each displayUnit="Pa") = {240,0,-80},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{562,10},{582,-10}})));
@@ -365,7 +367,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
       TOff=313.15) "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-390,170},{-370,190}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
@@ -373,7 +375,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     redeclare package Medium = MediumA,
     lat=lat)
     "Model of a floor of the building that is served by this VAV system"
-    annotation (Placement(transformation(extent={{800,280},{1128,674}})));
+    annotation (Placement(transformation(extent={{800,282},{1116,510}})));
   Modelica.Blocks.Routing.DeMultiplex5 TRooAir
     "Demultiplex for room air temperature"
     annotation (Placement(transformation(extent={{498,120},{518,140}})));
@@ -399,10 +401,10 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.FixedResistances.Junction splHotColDec(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal*{1,1,1},
-    dp_nominal(displayUnit="Pa") = {0,0,0},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp_nominal(each displayUnit="Pa") = {5,5,0})
     "Splitter for cold deck" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -434,7 +436,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     linearized=true,
-    dp_nominal(displayUnit="Pa") = {0,0,0},
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
     redeclare package Medium = MediumW,
     m_flow_nominal=mWatPre_flow_nominal*{1,1,1}) "Splitter for cold deck"
     annotation (Placement(transformation(
@@ -446,7 +448,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     linearized=true,
-    dp_nominal(displayUnit="Pa") = {0,0,0},
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
     redeclare package Medium = MediumW,
     m_flow_nominal=mWatPre_flow_nominal*{1,1,1}) "Splitter for cold deck"
     annotation (Placement(transformation(
@@ -482,7 +484,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {240,0,-80},
+    dp_nominal(each displayUnit="Pa") = {240,0,-80},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{582,-30},{602,-50}})));
@@ -517,13 +519,13 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{1000,-30},{1020,-50}})));
   Modelica.Blocks.Sources.Constant pStaPre_Set(      y(final unit="Pa", min=0), k=30)
     "Setpoint for static pressure"
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
+    annotation (Placement(transformation(extent={{60,110},{80,130}})));
   Buildings.Examples.VAVReheat.Controls.FanVFD conFanSupCol(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
     xSet_nominal(displayUnit="Pa") = 30,
     r_N_min=0.2) "Controller for fan of cold deck"
-    annotation (Placement(transformation(extent={{100,40},{120,60}})));
+    annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Modelica.Blocks.Sources.Constant pStaBui_Set(y(final unit="Pa", min=0), k=30)
     "Setpoint for static pressure of building"
     annotation (Placement(transformation(extent={{140,220},{160,240}})));
@@ -541,7 +543,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(controlBus, modeSelector.cb) annotation (Line(
-      points={{-240,-260},{-104,-260},{-104,-286},{-102.5,-286},{-102.5,-361.5}},
+      points={{-240,-260},{-106,-260},{-106,-260},{-136.5,-260},{-136.5,-363.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -583,15 +585,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(controlBus, conFanSupHot.controlBus)
-                                            annotation (Line(
-      points={{-240,-260},{280,-260},{280,98},{123,98}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
   connect(TRet.T, conEco.TRet) annotation (Line(
       points={{92,171},{92,194},{-94,194},{-94,157.333},{-81.3333,157.333}},
       color={0,0,127},
@@ -691,14 +684,6 @@ equation
       points={{120,-40},{134,-40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(controlBus, conFanRet.controlBus) annotation (Line(
-      points={{-240,-260},{280,-260},{280,238},{243,238}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
   connect(TRet.port_b, eco.port_Ret) annotation (Line(
       points={{82,160},{24,160},{24,54},{14,54},{14,55.2}},
       color={0,127,255},
@@ -753,7 +738,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(modeSelector.cb, TSetCoo.controlBus) annotation (Line(
-      points={{-102.5,-361.5},{-102,-286},{-102,-248},{-71.8,-248}},
+      points={{-136.5,-363.5},{-136,-363.5},{-136,-364},{-136,-364},{-136,-248},
+          {-71.8,-248}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -777,58 +763,58 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(cor.port_b, flo.portsCor[1]) annotation (Line(
-      points={{582,112},{582,252},{784,252},{784,364},{918.08,364},{918.08,
-          375.873}},
+      points={{582,112},{582,252},{784,252},{784,364},{935.429,364},{935.429,
+          337.48}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{602,170},{602,240},{792,240},{792,352},{928,352},{928,375.873},{
-          931.2,375.873}},
+      points={{602,170},{602,240},{792,240},{792,352},{928,352},{928,337.48},{
+          946.714,337.48}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.port_b, flo.portsSou[1]) annotation (Line(
-      points={{722,114},{722,228},{918.08,228},{918.08,323.34}},
+      points={{722,114},{722,228},{935.429,228},{935.429,307.08}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
-      points={{742,170},{740,218},{934,218},{934,323.34},{931.2,323.34}},
+      points={{742,170},{742,218},{934,218},{934,307.08},{946.714,307.08}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(eas.port_b, flo.portsEas[1]) annotation (Line(
-      points={{858,114},{858,212},{1078,212},{1078,369.307},{1078.14,369.307}},
+      points={{858,114},{858,212},{1078,212},{1078,333.68},{1073.11,333.68}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetEas.port_3, flo.portsEas[2]) annotation (Line(
-      points={{882,170},{882,210},{1091.26,210},{1091.26,369.307}},
+      points={{882,170},{882,210},{1084.4,210},{1084.4,333.68}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(nor.port_b, flo.portsNor[1]) annotation (Line(
-      points={{998,114},{998,412},{918.08,412},{918.08,428.407}},
+      points={{998,114},{998,412},{935.429,412},{935.429,367.88}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetNor.port_3, flo.portsNor[2]) annotation (Line(
-      points={{1022,170},{1022,418},{931.2,418},{931.2,428.407}},
+      points={{1022,170},{1022,418},{946.714,418},{946.714,367.88}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(wes.port_b, flo.portsWes[1]) annotation (Line(
-      points={{1136,114},{1136,248},{839.36,248},{839.36,375.873}},
+      points={{1136,114},{1136,248},{867.714,248},{867.714,337.48}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1032,160},{1130,160},{1130,240},{852.48,240},{852.48,375.873}},
+      points={{1032,160},{1130,160},{1130,240},{879,240},{879,337.48}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaBus, flo.weaBus) annotation (Line(
-      points={{-350,180},{-348,180},{-348,477},{1003.36,477}},
+      points={{-350,180},{-348,180},{-348,396},{1008.79,396}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(flo.TRooAir, min.u) annotation (Line(
-      points={{1121.44,450.733},{1164.7,450.733},{1164.7,450},{1198,450}},
+      points={{1110.36,380.8},{1164.7,380.8},{1164.7,450},{1198,450}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(flo.TRooAir, ave.u) annotation (Line(
-      points={{1121.44,450.733},{1162,450.733},{1162,420},{1198,420}},
+      points={{1110.36,380.8},{1162,380.8},{1162,420},{1198,420}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRooAir.y1[1], sou.TRoo) annotation (Line(
@@ -852,8 +838,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRooAir.u, flo.TRooAir) annotation (Line(
-      points={{496,130},{478,130},{478,500},{1162,500},{1162,450.733},{1121.44,
-          450.733}},
+      points={{496,130},{478,130},{478,500},{1162,500},{1162,380.8},{1110.36,
+          380.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(fanSupCol.port_b, cooCoi.port_a2) annotation (Line(
@@ -995,30 +981,25 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(nor.p_relHot, conFanSupHot.u_m) annotation (Line(
-      points={{1034.27,68.6667},{1048,68.6667},{1048,28},{130,28},{130,78}},
+      points={{1034.27,68.6667},{1048,68.6667},{1048,38},{130,38},{130,108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pStaPre_Set.y, conFanSupHot.u)
                                         annotation (Line(
-      points={{81,90},{118,90}},
+      points={{81,120},{118,120}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pStaPre_Set.y, conFanSupCol.u)
                                         annotation (Line(
-      points={{81,90},{90,90},{90,50},{98,50}},
+      points={{81,120},{90,120},{90,70},{98,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conFanSupCol.controlBus, conFanSupHot.controlBus) annotation (Line(
-      points={{103,58},{280,58},{280,98},{123,98}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
   connect(nor.p_relCol, conFanSupCol.u_m) annotation (Line(
-      points={{1034.27,55.0667},{1044,55.0667},{1044,32},{110,32},{110,38}},
+      points={{1034.27,55.0667},{1044,55.0667},{1044,32},{110,32},{110,58}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(flo.p_rel, conFanRet.u_m) annotation (Line(
-      points={{793.44,490.133},{180,490.133},{180,200},{250,200},{250,218}},
+      points={{794.357,403.6},{180,403.6},{180,200},{250,200},{250,218}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(controlBus.TOut, TSetHot.u) annotation (Line(
@@ -1039,20 +1020,20 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(modeSelector.cb, TSupSetHea.controlBus) annotation (Line(
-      points={{-102.5,-361.5},{-102,-178},{-71.8,-178}},
+      points={{-136.5,-363.5},{-136.5,-178},{-71.8,-178}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(conFanRet.y, fanRet.y) annotation (Line(
-      points={{261,230},{350.2,230},{350.2,172}},
+      points={{261,230},{350,230},{350,172}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conFanSupHot.y, fanSupHot.y) annotation (Line(
-      points={{141,90},{309.8,90},{309.8,12}},
+      points={{141,120},{310,120},{310,12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conFanSupCol.y, fanSupCol.y) annotation (Line(
-      points={{121,50},{260,50},{260,-120},{311.8,-120},{311.8,-138}},
+      points={{121,70},{260,70},{260,-120},{312,-120},{312,-138}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pStaBui_Set.y, conFanRet.u) annotation (Line(
@@ -1081,7 +1062,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(gaiPumPreCoi.y, pumPreHea.m_flow_in) annotation (Line(points={{81,-90},
-          {108,-90},{108,-90.2}}, color={0,0,127}));
+          {108,-90},{108,-90}},   color={0,0,127}));
   connect(conPreHeatCoi.yPum, gaiPumPreCoi.u) annotation (Line(points={{17,-97},
           {32,-97},{32,-90},{58,-90}}, color={0,0,127}));
   connect(conPreHeatCoi.TSupSetHea, TSupSetHea.TSet) annotation (Line(points={{-5,
@@ -1092,9 +1073,28 @@ equation
           {144,-29},{144,-16},{-20,-16},{-20,-108},{-5,-108}}, color={0,0,127}));
   connect(conPreHeatCoi.yVal, valPreHea.y) annotation (Line(points={{17,-107},{40,
           -107},{40,-170},{108,-170}}, color={0,0,127}));
+  connect(modeSelector.yFan, conFanSupCol.uFan) annotation (Line(points={{
+          -117.5,-371},{-100,-371},{-100,-370},{-100,76},{98,76}}, color={255,0,
+          255}));
+  connect(modeSelector.yFan, conFanSupHot.uFan) annotation (Line(points={{
+          -117.5,-371},{-100,-371},{-100,76},{94,76},{94,126},{118,126}}, color=
+         {255,0,255}));
+  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-117.5,
+          -371},{-100,-371},{-100,250},{228,250},{228,236},{238,236}}, color={
+          255,0,255}));
+  connect(cor.yFan, modeSelector.yFan) annotation (Line(points={{543.467,71.2},
+          {530,71.2},{530,-371},{-117.5,-371}}, color={255,0,255}));
+  connect(modeSelector.yFan, sou.yFan) annotation (Line(points={{-117.5,-371},{
+          658,-371},{658,70.8},{681.2,70.8}}, color={255,0,255}));
+  connect(modeSelector.yFan, eas.yFan) annotation (Line(points={{-117.5,-371},{
+          800,-371},{800,73.2},{819.467,73.2}}, color={255,0,255}));
+  connect(modeSelector.yFan, nor.yFan) annotation (Line(points={{-117.5,-371},{
+          -117.5,-372},{932,-372},{932,73.2},{959.467,73.2}}, color={255,0,255}));
+  connect(modeSelector.yFan, wes.yFan) annotation (Line(points={{-117.5,-371},{
+          1074,-371},{1074,73.2},{1097.47,73.2}}, color={255,0,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{1400,
-            600}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
+            1400,640}})),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
@@ -1202,6 +1202,14 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 17, 2017, by Michael Wetter:<br/>
+Enabled filters at fan control signal. This avoids a sharp change in fan speed,
+which led to very large mass flow rates between the hot and cold deck fan
+when they were switched off.
+This model now works with JModelica with the CVode solver and <i>10<sup>-8</sup></i>
+tolerance.
+</li>
 <li>
 May 19, 2016, by Michael Wetter:<br/>
 Set <code>use_inputFilter=false</code> in fan models to avoid a large

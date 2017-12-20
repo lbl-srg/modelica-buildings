@@ -32,19 +32,19 @@ protected
     final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
-    final k=Constants.FreezeProtectionStages.stage0)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0)
     "Freeze protection status is stage0"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant zonSta(
-    final k=Constants.ZoneStates.heating)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.heating)
     "Zone state is heating"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta1(
-    final k=Constants.FreezeProtectionStages.stage1)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
     "Freeze protection status is stage1"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant zonSta1(
-    final k=Constants.ZoneStates.deadband)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.deadband)
     "Zone state is deadband"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMax(
@@ -73,9 +73,11 @@ equation
   connect(hOutCut.y, enaDis.hOutCut)
     annotation (Line(points={{-79,70},{-70,70},{-70,54},{81,54}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, enaDis1.hOut)
-    annotation (Line(points={{-79,110},{-60,110},{-60,56},{10,56},{10,-24},{81,-24}}, color={0,0,127}));
+    annotation (Line(points={{-79,110},{-60,110},{-60,56},{10,56},{10,-24},{81,-24}},
+    color={0,0,127}));
   connect(hOutCut.y, enaDis1.hOutCut)
-    annotation (Line(points={{-79,70},{-70,70},{-70,54},{6,54},{6,-26},{81,-26}}, color={0,0,127}));
+    annotation (Line(points={{-79,70},{-70,70},{-70,54},{6,54},{6,-26},{81,-26}},
+    color={0,0,127}));
   connect(zonSta.y, enaDis.uZonSta)
     annotation (Line(points={{-139,10},{-120,10},{-120,50},{81,50}}, color={255,127,0}));
   connect(freProSta.y, enaDis.uFreProSta)

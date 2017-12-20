@@ -72,7 +72,7 @@ equation
     annotation (Line(points={{-49,90},{-25.5,90},{-2,90}}, color={0,0,127}));
   connect(temSenAir2.T, PID.u_m) annotation (Line(points={{-36,21},{-36,28},{10,
           28},{10,78}}, color={0,0,127}));
-  connect(PID.y, ahu.uWatVal) annotation (Line(points={{21,90},{32,90},{32,34},
+  connect(PID.y, ahu.uVal) annotation (Line(points={{21,90},{32,90},{32,34},
           {45,34}}, color={0,0,127}));
   connect(masFraSet.y, ahu.XSet_w) annotation (Line(points={{-19,-70},{32,-70},
           {32,31},{45,31}},     color={0,0,127}));

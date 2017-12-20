@@ -30,8 +30,6 @@ protected
   Real b "Slope";
   Real xLim "Input value after applying the limits";
 
-  Real test = a + b * u;
-
 equation
   b = (f2-f1)/(x2-x1);
   a = f2 - b*x2;

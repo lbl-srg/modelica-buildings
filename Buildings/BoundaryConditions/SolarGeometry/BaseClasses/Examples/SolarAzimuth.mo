@@ -16,7 +16,7 @@ model SolarAzimuth "Test model for zenith angle"
     "Solar azimuth"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
   WeatherData.ReaderTMY3 weaDat(
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   WeatherData.Bus weaBus "Weather bus"

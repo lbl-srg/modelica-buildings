@@ -219,6 +219,7 @@ Buildings.Fluid.Movers.FlowControlled_y</a>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/457\">
 issue 457</a>.
+</li>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>
 Added code for supporting stage input and constant input.

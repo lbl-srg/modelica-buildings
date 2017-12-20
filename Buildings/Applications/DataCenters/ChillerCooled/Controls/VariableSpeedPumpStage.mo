@@ -35,25 +35,25 @@ model VariableSpeedPumpStage "Staging control for variable speed pumps"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-72,34})));
+        origin={-50,40})));
   Modelica.StateGraph.StepWithSignal oneOn(nIn=2, nOut=2)
     "One chiller is commanded on"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-30,10})));
+        origin={-50,10})));
   Modelica.StateGraph.InitialStep off(nIn=1)
     "Free cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-28,58})));
+        origin={-50,70})));
   Modelica.StateGraph.StepWithSignal twoOn
     "Two chillers are commanded on"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-30,-80})));
+        origin={-50,-70})));
   Modelica.StateGraph.Transition con2(
     enableTimer=true,
     waitTime=tWai,
@@ -63,7 +63,7 @@ model VariableSpeedPumpStage "Staging control for variable speed pumps"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-70,-40})));
+        origin={-50,-30})));
   Modelica.StateGraph.Transition con3(
     enableTimer=true,
     waitTime=tWai,
@@ -82,9 +82,9 @@ model VariableSpeedPumpStage "Staging control for variable speed pumps"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={18,20})));
+        origin={-22,52})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(
     table=[0,0,0;
            1,1,0;
@@ -97,64 +97,64 @@ model VariableSpeedPumpStage "Staging control for variable speed pumps"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
     final integerFalse=0, final integerTrue=2)
-    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+    annotation (Placement(transformation(extent={{60,-56},{80,-36}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation
   connect(off.outPort[1], con1.inPort)
     annotation (Line(
-      points={{-28,47.5},{-28,47.5},{-28,46},{-28,42},{-72,42},{-72,38}},
+      points={{-50,59.5},{-50,44}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con1.outPort, oneOn.inPort[1])
     annotation (Line(
-      points={{-72,32.5},{-72,26},{-30.5,26},{-30.5,21}},
+      points={{-50,38.5},{-50,26},{-50.5,26},{-50.5,21}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con2.inPort, oneOn.outPort[1])
     annotation (Line(
-      points={{-70,-36},{-70,-10},{-30.25,-10},{-30.25,-0.5}},
+      points={{-50,-26},{-50,-10},{-50.25,-10},{-50.25,-0.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con2.outPort, twoOn.inPort[1])
     annotation (Line(
-      points={{-70,-41.5},{-70,-41.5},{-70,-60},{-30,-60},{-30,-69}},
+      points={{-50,-31.5},{-50,-59}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(twoOn.outPort[1], con3.inPort)
     annotation (Line(
-      points={{-30,-90.5},{-30,-98},{-10,-98},{-10,-44}},
+      points={{-50,-80.5},{-50,-92},{-10,-92},{-10,-44}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con4.outPort, off.inPort[1])
     annotation (Line(
-      points={{18,21.5},{18,21.5},{18,78},{-28,78},{-28,69}},
+      points={{-22,53.5},{-22,88},{-50,88},{-50,81}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con3.outPort, oneOn.inPort[2])
     annotation (Line(
-      points={{-10,-38.5},{-8,-38.5},{-8,26},{-29.5,26},{-29.5,21}},
+      points={{-10,-38.5},{-10,26},{-49.5,26},{-49.5,21}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con4.inPort, oneOn.outPort[2])
     annotation (Line(
-      points={{18,16},{18,-10},{-29.75,-10},{-29.75,-0.5}},
+      points={{-22,48},{-22,-10},{-49.75,-10},{-49.75,-0.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(combiTable1Ds.y, y)
     annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
   connect(booToInt.u, oneOn.active) annotation (Line(points={{18,-40},{10,-40},
-          {10,10},{-19,10}}, color={255,0,255}));
+          {10,10},{-39,10}}, color={255,0,255}));
   connect(twoOn.active, booToInt1.u)
-    annotation (Line(points={{-19,-80},{-2,-80},{18,-80}}, color={255,0,255}));
-  connect(booToInt.y, addInt.u1) annotation (Line(points={{41,-40},{50,-40},{50,
-          -54},{58,-54}}, color={255,127,0}));
-  connect(booToInt1.y, addInt.u2) annotation (Line(points={{41,-80},{48,-80},{
-          48,-66},{58,-66}}, color={255,127,0}));
-  connect(addInt.y, intToRea.u) annotation (Line(points={{81,-60},{90,-60},{90,
+    annotation (Line(points={{-39,-70},{18,-70}},          color={255,0,255}));
+  connect(booToInt.y, addInt.u1) annotation (Line(points={{41,-40},{58,-40}},
+                          color={255,127,0}));
+  connect(booToInt1.y, addInt.u2) annotation (Line(points={{41,-70},{48,-70},{
+          48,-52},{58,-52}}, color={255,127,0}));
+  connect(addInt.y, intToRea.u) annotation (Line(points={{81,-46},{90,-46},{90,
           -20},{30,-20},{30,0},{38,0}}, color={255,127,0}));
   connect(intToRea.y, combiTable1Ds.u)
     annotation (Line(points={{61,0},{68,0},{68,0}}, color={0,0,127}));

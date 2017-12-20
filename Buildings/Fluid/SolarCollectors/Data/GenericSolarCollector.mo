@@ -14,7 +14,7 @@ record GenericSolarCollector
    parameter Real B0 "1st incident angle modifier coefficient";
    parameter Real B1 "2nd incident angle modifier coefficient";
    parameter Real y_intercept "Y intercept (Maximum efficiency)";
-   parameter Real slope(unit = "W/(m2.K)") "Slope from rating data";
+   parameter Real slope(final max=0, final unit = "W/(m2.K)") "Slope from rating data";
    parameter Real IAMDiff "Incidence angle modifier from EN12975 ratings data";
    parameter Real C1 "Heat loss coefficient from EN12975 ratings data";
    parameter Real C2
@@ -23,7 +23,7 @@ record GenericSolarCollector
     "Nominal solar irradiance specified in ratings data";
    parameter Modelica.SIunits.TemperatureDifference dT_nominal
     "Nominal temperature difference specified in ratings data";
-annotation(
+annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datSolCol",
 Documentation(info="<html>

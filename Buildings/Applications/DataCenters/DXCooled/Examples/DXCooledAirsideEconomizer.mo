@@ -2,19 +2,32 @@ within Buildings.Applications.DataCenters.DXCooled.Examples;
 model DXCooledAirsideEconomizer
   "Example that illustrates the use of Buildings.Fluid.HeatExchanger.DXCoil in a data center room"
   extends Modelica.Icons.Example;
+  extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PostProcess(
+    fulMecCooSig(
+      y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
+      then 1 else 0),
+    parMecCooSig(
+      y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.PartialMechanical)
+      then 1 else 0),
+    PHVAC(y=varSpeDX.P + fan.P),
+    PIT(y=roo.QRoo_flow),
+    freCooSig(
+      y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
+      then 1 else 0));
+
   replaceable package Medium = Buildings.Media.Air;
 
   // Air temperatures at design conditions
   parameter Modelica.SIunits.Temperature TASup_nominal = 286.15
     "Nominal air temperature supplied to room";
-  parameter Modelica.SIunits.Temperature TRooSet = 297.15
+  parameter Modelica.SIunits.Temperature TRooSet = 298.15
     "Nominal room air temperature";
   parameter Modelica.SIunits.Temperature TAirSupSet = 291.13
     "Nominal room air temperature";
  /////////////////////////////////////////////////////////
   // Cooling loads
   parameter Modelica.SIunits.HeatFlowRate QRooInt_flow=
-     50000 "Internal heat gains of the room";
+     500000 "Internal heat gains of the room";
   parameter Modelica.SIunits.HeatFlowRate QRooC_flow_nominal=
     -2*QRooInt_flow;
  ////////////////////////////////////////////////////////////
@@ -36,7 +49,7 @@ model DXCooledAirsideEconomizer
     QRoo_flow=QRooInt_flow,
     m_flow_nominal=mA_flow_nominal,
     nPorts=2) "Simplified data center room"
-    annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
+    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
   Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed varSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=400,
@@ -46,44 +59,37 @@ model DXCooledAirsideEconomizer
     show_T=true,
     T_start=303.15)
     "Variable speed DX coil"
-    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
-    annotation (Placement(transformation(extent={{-220,60},{-200,80}})));
+    annotation (Placement(transformation(extent={{-280,60},{-260,80}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
-    annotation (Placement(transformation(extent={{-190,60},{-170,80}}),
-        iconTransformation(extent={{-190,60},{-170,80}})));
+    annotation (Placement(transformation(extent={{-250,60},{-230,80}}),
+        iconTransformation(extent={{-250,60},{-230,80}})));
   Buildings.Fluid.Movers.SpeedControlled_y fan(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     addPowerToMedium=false,
-    per(pressure(V_flow=mA_flow_nominal*{0,1,2}/1.2, dp=500*{2,1,0})))
+    per(pressure(V_flow=mA_flow_nominal*{0,1,2}/1.2, dp=500*{2,1,0})),
+    use_inputFilter=true)
     "Supply air fan"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={180,-92})));
+        origin={120,-94})));
   Modelica.Blocks.Sources.Constant TRooAirSet(k=TRooSet)
     "Room air temperature setpoint"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.Continuous.LimPID dxSpe(
-    Td=1,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.5,
-    Ti=240,
-    reverseAction=true)
-    "Controller for variable speed DX coil"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir(
    redeclare package Medium = Medium,
    m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
-    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
+    annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
   Modelica.Blocks.Sources.Constant SATSetPoi(k=TAirSupSet)
     "Supply air temperature set point"
-    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
+    annotation (Placement(transformation(extent={{-240,90},{-220,110}})));
   Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
     nSta=4,
     sta={
@@ -132,7 +138,7 @@ model DXCooledAirsideEconomizer
         perCur=
         Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves.Curve_III())})
         "Coil data"
-    annotation (Placement(transformation(extent={{160,80},{180,100}})));
+    annotation (Placement(transformation(extent={{100,80},{120,100}})));
   Buildings.Fluid.Actuators.Dampers.MixingBox eco(
     redeclare package Medium = Medium,
     mOut_flow_nominal=mA_flow_nominal,
@@ -140,52 +146,53 @@ model DXCooledAirsideEconomizer
     mRec_flow_nominal=mA_flow_nominal,
     dpRec_nominal=20,
     mExh_flow_nominal=mA_flow_nominal,
-    dpExh_nominal=20)
+    dpExh_nominal=20,
+    use_inputFilter=false)
     "Airside economizer"
-    annotation (Placement(transformation(extent={{-100,-4},{-80,16}})));
+    annotation (Placement(transformation(extent={{-160,-4},{-140,16}})));
   Buildings.Fluid.Sources.Outside out(
     redeclare package Medium = Medium,
     nPorts=2)
     "Boundary conditions for outside air"
-    annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  Controls.CoolingMode
-    cooModCon(dT=1, tWai=120)
+    annotation (Placement(transformation(extent={{-220,0},{-200,20}})));
+  Buildings.Applications.DataCenters.DXCooled.Controls.CoolingMode cooModCon(
+    dT=1,
+    tWai=120)
     "Cooling mode controller"
-    annotation (Placement(transformation(extent={{-110,60},{-90,80}})));
+    annotation (Placement(transformation(extent={{-170,60},{-150,80}})));
   Buildings.Fluid.Actuators.Dampers.Exponential dam1(
     redeclare package Medium = Medium,
     m_flow_nominal=mA_flow_nominal)
     "Open only when free cooling mode is activated"
-    annotation (Placement(transformation(extent={{40,2},{60,22}})));
+    annotation (Placement(transformation(extent={{-20,2},{0,22}})));
   Buildings.Fluid.Actuators.Dampers.Exponential dam2(
     redeclare package Medium = Medium,
     m_flow_nominal=mA_flow_nominal,
     y_start=0)
     "open when mechanical cooling is activated"
-    annotation (Placement(transformation(extent={{-30,-70},{-10,-50}})));
+    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemMixAir(
     redeclare package Medium = Medium,
     m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for mixed air"
-    annotation (Placement(transformation(extent={{-70,2},{-50,22}})));
-  Controls.AirsideEconomizer
-    ecoCon(
+    annotation (Placement(transformation(extent={{-130,2},{-110,22}})));
+  Buildings.Applications.DataCenters.DXCooled.Controls.AirsideEconomizer ecoCon(
     minOAFra=0.05,
     Ti=240,
     gai=0.5)
     "Economzier controller"
-    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Modelica.Blocks.Sources.RealExpression freCoo(y=if cooModCon.y == Integer(
-        Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
-         then 1 else 0)
-      "Set true if free cooling mode is on"
-    annotation (Placement(transformation(extent={{0,100},{20,120}})));
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+  Modelica.Blocks.Sources.RealExpression freCoo(
+    y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
+    then 1 else 0)
+    "Set true if free cooling mode is on"
+    annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
   Modelica.Blocks.Math.Feedback feedback1
     "Feedback signal"
-    annotation (Placement(transformation(extent={{20,120},{40,140}})));
+    annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
   Modelica.Blocks.Sources.Constant const(k=1)
     "Constant output with value 1"
-    annotation (Placement(transformation(extent={{-20,120},{0,140}})));
+    annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
   Buildings.Controls.Continuous.LimPID fanSpe(
     Td=1,
     yMin=minSpeFan,
@@ -194,118 +201,136 @@ model DXCooledAirsideEconomizer
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     reverseAction=true)
     "Fan speed controller"
-    annotation (Placement(transformation(extent={{140,-42},{160,-22}})));
+    annotation (Placement(transformation(extent={{80,-42},{100,-22}})));
+  Buildings.Applications.DataCenters.DXCooled.Controls.Compressor speCon(
+     k=1,
+     Ti=120)
+    "Speed controller for DX units"
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 equation
   connect(weaDat.weaBus, weaBus)
     annotation (Line(
-      points={{-200,70},{-200,70},{-180,70}},
+      points={{-260,70},{-240,70}},
       color={255,204,51},
       thickness=0.5));
   connect(fan.port_a, senTemSupAir.port_b)
-    annotation (Line(points={{180,-82},{180,-60},{110,-60}},
+    annotation (Line(points={{120,-84},{120,-60},{50,-60}},
                                                           color={0,127,255}));
   connect(senTemSupAir.port_a, varSpeDX.port_b)
-    annotation (Line(points={{90,-60},{90,-60},{60,-60}},
+    annotation (Line(points={{30,-60},{0,-60}},
                   color={0,127,255}));
   connect(weaBus, out.weaBus)
     annotation (Line(
-      points={{-180,70},{-180,70},{-180,10},{-170,10},{-170,10.2},{-160,10.2}},
+      points={{-240,70},{-240,10},{-230,10},{-230,10.2},{-220,10.2}},
       color={255,204,51},
       thickness=0.5));
   connect(dam2.port_b, varSpeDX.port_a)
-    annotation (Line(points={{-10,-60},{-10,-60},{40,-60}},
-                                                          color={0,127,255}));
+    annotation (Line(points={{-70,-60},{-20,-60}},        color={0,127,255}));
   connect(dam1.port_b, senTemSupAir.port_a)
-    annotation (Line(points={{60,12},{60,12},{80,12},{80,-60},{90,-60}},
+    annotation (Line(points={{0,12},{20,12},{20,-60},{30,-60}},
                                    color={0,127,255}));
   connect(SATSetPoi.y, cooModCon.TSupSet)
-    annotation (Line(points={{-159,100},{-120,
-          100},{-120,75},{-112,75}},     color={0,0,127}));
+    annotation (Line(points={{-219,100},{-180,100},{-180,75},{-172,75}},
+                                         color={0,0,127}));
   connect(eco.port_Sup, senTemMixAir.port_a)
-    annotation (Line(points={{-80,12},{-80,12},{-70,12}},
+    annotation (Line(points={{-140,12},{-130,12}},
                                                color={0,127,255}));
   connect(senTemMixAir.port_b, dam1.port_a)
-    annotation (Line(points={{-50,12},{-50,12},{40,12}},
+    annotation (Line(points={{-110,12},{-20,12}},
       color={0,127,255}));
   connect(senTemMixAir.port_b, dam2.port_a)
-    annotation (Line(points={{-50,12},{-40,12},{-40,-60},{-30,-60}},
+    annotation (Line(points={{-110,12},{-100,12},{-100,-60},{-90,-60}},
                                            color={0,127,255}));
   connect(SATSetPoi.y, ecoCon.TMixAirSet)
-    annotation (Line(points={{-159,100},{-128,
-          100},{-74,100},{-74,86},{-62,86}},      color={0,0,127}));
+    annotation (Line(points={{-219,100},{-134,100},{-134,86},{-122,86}},
+                                                  color={0,0,127}));
   connect(senTemMixAir.T, ecoCon.TMixAirMea)
-    annotation (Line(points={{-60,23},{
-          -60,54},{-74,54},{-74,80},{-62,80}},  color={0,0,127}));
+    annotation (Line(points={{-120,23},{-120,54},{-134,54},{-134,80},{-122,80}},
+                                                color={0,0,127}));
   connect(ecoCon.y, eco.y)
-    annotation (Line(points={{-39,80},{-32,80},{-32,40},{-90,40},{-90,18}},
+    annotation (Line(points={{-99,80},{-92,80},{-92,40},{-150,40},{-150,18}},
                                                           color={0,0,127}));
-  connect(SATSetPoi.y, dxSpe.u_s)
-    annotation (Line(points={{-159,100},{-10,100},{-10,-20},{-2,-20}},
-                                  color={0,0,127}));
-  connect(senTemSupAir.T, dxSpe.u_m)
-    annotation (Line(points={{100,-49},{100,-49},{100,-40},{10,-40},{10,-32}},
-                                         color={0,0,127}));
-  connect(dxSpe.y, varSpeDX.speRat)
-    annotation (Line(points={{21,-20},{32,-20},{32,-52},{39,-52}},
-                              color={0,0,127}));
   connect(feedback1.y, dam2.y)
-    annotation (Line(points={{39,130},{58,130},{60,130},{60,40},{-20,40},{-20,-48}},
+    annotation (Line(points={{-21,130},{0,130},{0,40},{-80,40},{-80,-48}},
                             color={0,0,127}));
-  connect(freCoo.y, dam1.y)
-    annotation (Line(points={{21,110},{21,110},{50,110},{50,24}},
-                        color={0,0,127}));
-  connect(freCoo.y, feedback1.u2)
-    annotation (Line(points={{21,110},{30,110},{30,122}},
-                                color={0,0,127}));
   connect(out.ports[1], eco.port_Out)
-    annotation (Line(points={{-140,12},{-100,12}},color={0,127,255}));
+    annotation (Line(points={{-200,12},{-160,12}},color={0,127,255}));
   connect(eco.port_Exh, out.ports[2])
-    annotation (Line(points={{-100,0},{-112,0},
-          {-112,8},{-140,8}},color={0,127,255}));
+    annotation (Line(points={{-160,0},{-172,0},{-172,8},{-200,8}},
+                             color={0,127,255}));
   connect(weaBus.TDryBul, cooModCon.TOutDryBul)
     annotation (Line(
-      points={{-180,70},{-160,70},{-160,72},{-160,70},{-112,70}},
+      points={{-240,70},{-172,70}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(fan.port_b, roo.airPorts[1])
-    annotation (Line(points={{180,-102},{180,
-          -102},{180,-132},{112.475,-132},{112.475,-118.7}},color={0,127,255}));
+    annotation (Line(points={{120,-104},{120,-132},{52.475,-132},{52.475,-118.7}},
+                                                            color={0,127,255}));
   connect(eco.port_Ret, roo.airPorts[2])
-    annotation (Line(points={{-80,0},{-80,0},
-          {-70,0},{-70,-132},{108.425,-132},{108.425,-118.7}},    color={0,127,
+    annotation (Line(points={{-140,0},{-130,0},{-130,-132},{48.425,-132},{
+          48.425,-118.7}},                                        color={0,127,
           255}));
   connect(const.y, feedback1.u1)
-    annotation (Line(points={{1,130},{22,130}},  color={0,0,127}));
+    annotation (Line(points={{-59,130},{-38,130}},
+                                                 color={0,0,127}));
   connect(cooModCon.y, ecoCon.cooMod)
-    annotation (Line(points={{-89,70},{-82,70},
-          {-82,74},{-62,74}}, color={255,127,0}));
+    annotation (Line(points={{-149,70},{-142,70},{-142,74},{-122,74}},
+                              color={255,127,0}));
   connect(TRooAirSet.y, fanSpe.u_s)
-    annotation (Line(points={{121,0},{128,0},{128,
-          -32},{138,-32}}, color={0,0,127}));
+    annotation (Line(points={{61,0},{68,0},{68,-32},{78,-32}},
+                           color={0,0,127}));
   connect(roo.TRooAir, fanSpe.u_m)
-    annotation (Line(points={{121,-110},{150,-110},
-          {150,-82},{150,-44}}, color={0,0,127}));
+    annotation (Line(points={{61,-110},{90,-110},{90,-44}},
+                                color={0,0,127}));
   connect(fanSpe.y, fan.y)
-    annotation (Line(points={{161,-32},{210,-32},{210,-92},
-          {192,-92}}, color={0,0,127}));
+    annotation (Line(points={{101,-32},{150,-32},{150,-94},{132,-94}},
+                      color={0,0,127}));
   connect(roo.TRooAir, cooModCon.TRet)
-    annotation (Line(points={{121,-110},{150,
-          -110},{150,-88},{-120,-88},{-120,65},{-112,65}}, color={0,0,127}));
+    annotation (Line(points={{61,-110},{90,-110},{90,-88},{-180,-88},{-180,65},
+          {-172,65}},                                      color={0,0,127}));
   connect(weaBus.TDryBul, varSpeDX.TConIn)
     annotation (Line(
-      points={{-180,70},{-180,70},{-180,-20},{-180,-40},{-180,-40},{-180,-40},{
-          0,-40},{0,-57},{39,-57}},
+      points={{-240,70},{-240,-40},{-60,-40},{-60,-57},{-21,-57}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (            Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
-            -160},{220,180}})),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Examples/DXCooledAirsideEconomizer.mos"
+  connect(cooModCon.y, sigCha.u)
+    annotation (Line(
+      points={{-149,70},{-142,70},{-142,160},{178,160}},
+      color={255,127,0}));
+  connect(freCoo.y, dam1.y)
+    annotation (Line(
+      points={{-39,110},{-10,110},{-10,24}},
+      color={0,0,127}));
+  connect(freCoo.y, feedback1.u2)
+    annotation (Line(
+      points={{-39,110},{-30,110},{-30,122}},
+      color={0,0,127}));
+  connect(SATSetPoi.y, speCon.TMixAirSet)
+    annotation (Line(
+      points={{-219,100},{-72,100},{-72,-4},{-62,-4}},
+      color={0,0,127}));
+  connect(senTemSupAir.T, speCon.TMixAirMea)
+    annotation (Line(
+      points={{40,-49},{40,-28},{-72,-28},{-72,-10},{-62,-10}},
+      color={0,0,127}));
+  connect(cooModCon.y, speCon.cooMod)
+    annotation (Line(
+      points={{-149,70},{-142,70},{-142,60},{-76,60},{-76,-17},{-62,-17}},
+      color={255,127,0}));
+  connect(speCon.y, varSpeDX.speRat)
+    annotation (Line(
+      points={{-39,-10},{-28,-10},{-28,-52},{-21,-52}},
+      color={0,0,127}));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
+    extent={{-280,-200},{220,220}})),
+    __Dymola_Commands(file=
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Examples/DXCooledAirsideEconomizer.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

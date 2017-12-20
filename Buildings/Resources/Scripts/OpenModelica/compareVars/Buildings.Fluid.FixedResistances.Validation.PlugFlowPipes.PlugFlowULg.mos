@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "DataReader.y[5]",
+    "senTem_in.T",
+    "DataReader.y[3]",
+    "senTem_out.T"
+  };

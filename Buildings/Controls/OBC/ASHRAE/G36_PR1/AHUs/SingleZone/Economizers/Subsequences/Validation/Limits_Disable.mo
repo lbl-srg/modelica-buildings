@@ -28,8 +28,10 @@ model Limits_Disable
 protected
   final parameter Real yFanMin=0.1 "Minimum supply fan operation speed";
   final parameter Real yFanMax=0.9 "Maximum supply fan operation speed";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0 "Calculated design outdoor airflow rate";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0 "Calculated minimum outdoor airflow rate";
+  final parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0
+    "Calculated design outdoor airflow rate";
+  final parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0
+    "Calculated minimum outdoor airflow rate";
   final parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
   final parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.61
@@ -37,12 +39,12 @@ protected
   final parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=0.2
     "Maximum increase in airflow volume during the example simulation";
 
-  Modelica.Blocks.Sources.Ramp SupFanSpeSig(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp SupFanSpeSig(
     final duration=1800,
     final offset=yFanMin,
     final height=yFanMax - yFanMin) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
-  Modelica.Blocks.Sources.Ramp VOutMinSetSig(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOutMinSetSig(
     final duration=1800,
     final offset=VOutMin_flow,
     final height=VOutDes_flow - VOutMin_flow) "Constant minimum outdoor airflow setpoint"
@@ -51,33 +53,33 @@ protected
     final k=false) "Fan is off"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta1(
-    k=Constants.FreezeProtectionStages.stage1)
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
     "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-160,-100},{-140,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant operationMode1(
-    final k=Constants.OperationModes.occupied)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus2(
     final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta2(
-    final k=Constants.FreezeProtectionStages.stage1)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
     "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant operationMode2(
-    final k=Constants.OperationModes.warmUp)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
     "AHU operation mode is NOT occupied"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus3(
     final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta3(
-    final k=Constants.FreezeProtectionStages.stage2)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage2)
     "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant operationMode3(
-    final k=Constants.OperationModes.occupied)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "AHU operation mode is occupied"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 
@@ -110,13 +112,17 @@ equation
     annotation (Line(points={{101,-60},{120,-60},{120,-16},{120,-15},{130,-15},{139,-15}},
     color={255,127,0}));
   connect(VOutMinSetSig.y, damLim3.VOutMinSet_flow)
-    annotation (Line(points={{-139,70},{130,70},{130,40},{130,-3},{134,-3},{139,-3}}, color={0,0,127}));
+    annotation (Line(points={{-139,70},{130,70},{130,40},{130,-3},{134,-3},{139,-3}},
+    color={0,0,127}));
   connect(VOutMinSetSig.y, damLim1.VOutMinSet_flow)
-    annotation (Line(points={{-139,70},{-110,70},{-110,14},{-110,-3},{-104,-3},{-101,-3}}, color={0,0,127}));
+    annotation (Line(points={{-139,70},{-110,70},{-110,14},{-110,-3},{-104,-3},{-101,-3}},
+    color={0,0,127}));
   connect(SupFanSpeSig.y, damLim2.uSupFanSpe)
-    annotation (Line(points={{-139,30},{-20,30},{-20,-6},{0,-6},{0,-6.2},{19,-6.2}}, color={0,0,127}));
+    annotation (Line(points={{-139,30},{-20,30},{-20,-6},{0,-6},{0,-6.2},{19,-6.2}},
+    color={0,0,127}));
   connect(SupFanSpeSig.y, damLim3.uSupFanSpe)
-    annotation (Line(points={{-139,30},{120,30},{120,-6},{130,-6},{130,-6.2},{139,-6.2}}, color={0,0,127}));
+    annotation (Line(points={{-139,30},{120,30},{120,-6},{130,-6},{130,-6.2},{139,-6.2}},
+    color={0,0,127}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/Economizers/Subsequences/Validation/Limits_Disable.mos"

@@ -63,7 +63,9 @@ This component computes the solar azimuth angle.
 <ul>
 <li>
 October 13, 2017, by Michael Wetter:<br/>
-Reformulated to use equation rather than algorithm section.
+Reformulated to use equation rather than algorithm section.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/834\">issue 834</a>.
 </li>
 <li>
 July 5, 2012, by Michael Wetter:<br/>

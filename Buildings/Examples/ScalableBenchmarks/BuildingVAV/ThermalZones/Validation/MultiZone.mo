@@ -8,7 +8,7 @@ model MultiZone "Validation of the multi-zone model"
     annotation(Evaluate=true);
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.MultiZone multiZone(
@@ -23,7 +23,7 @@ equation
       thickness=0.5));
 
 annotation (
-  experiment(StopTime=604800, Tolerance=1e-06, __Dymola_Algorithm="Radau"),
+  experiment(StopTime=604800, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ScalableBenchmarks/BuildingVAV/ThermalZones/Validation/MultiZone.mos"
         "Simulate and plot"),
   Documentation(info="<html>

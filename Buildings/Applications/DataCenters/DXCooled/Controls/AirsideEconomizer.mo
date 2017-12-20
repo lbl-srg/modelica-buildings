@@ -1,8 +1,8 @@
 within Buildings.Applications.DataCenters.DXCooled.Controls;
-model AirsideEconomizer "OA damper controller"
+model AirsideEconomizer "Controller for airside economizer"
 
   parameter Real gai(min=Modelica.Constants.small) = 1
-    "Proportional gain of controller"
+    "Gain of controller"
     annotation(Dialog(group="Control"));
   parameter Modelica.SIunits.Time Ti = 50
     "Integrator time"

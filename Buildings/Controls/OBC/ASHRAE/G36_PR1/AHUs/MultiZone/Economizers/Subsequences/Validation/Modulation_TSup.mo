@@ -3,42 +3,58 @@ model Modulation_TSup
   "Validation model for multi zone VAV AHU outdoor and return air damper position modulation sequence"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Temperature TSupSet=291.15
-    "Supply air temperature setpoint";
-
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation mod
     "Economizer modulation sequence"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSetSig(
-    final k=TSupSet) "Supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Modelica.Blocks.Sources.Ramp TSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uTSup(
     final duration=900,
-    final height=4,
-    final offset=TSupSet - 2) "Measured supply air temperature"
+    final height=2,
+    final offset=-1)
+    "Control signal for supply air temperature loop"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMin(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMin(
+    final k=0.1)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMax(final k=1)
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RetDamPosMin(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMax(final k=0.8)
+    annotation (Placement(transformation(extent={{-80,16},{-60,36}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPosMin(final k=0.2)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RetDamPosMax(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPosMax(final k=0.6)
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation
+    modFre
+    "Economizer modulation sequence if the dampers positions prevent freezing at the mixed air"
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMaxFre(final k=0)
+    "Outdoor damper if freeze protection is on"
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPosMinFre(final k=1)
+    "Return damper position if freeze protection is on"
+    annotation (Placement(transformation(extent={{4,-10},{24,10}})));
+
 equation
-  connect(TSup.y,mod.TSup)  annotation (Line(points={{-39,70},{-30,70},{-30,36},
-          {39,36}},color={0,0,127}));
-  connect(RetDamPosMax.y, mod.uRetDamPosMax) annotation (Line(points={{-59,-40},
-          {-20,-40},{-20,24},{-6,24},{39,24}}, color={0,0,127}));
-  connect(RetDamPosMin.y, mod.uRetDamPosMin) annotation (Line(points={{-59,-70},
-          {8,-70},{8,16},{8,21},{39,21}},color={0,0,127}));
-  connect(outDamPosMax.y, mod.uOutDamPosMax) annotation (Line(points={{-59,20},
-          {-48,20},{-30,20},{-30,31},{39,31}}, color={0,0,127}));
-  connect(outDamPosMin.y, mod.uOutDamPosMin) annotation (Line(points={{-59,-10},
-          {-34,-10},{-24,-10},{-24,28},{39,28}}, color={0,0,127}));
-  connect(TSupSetSig.y,mod.TSupSet)  annotation (Line(points={{1,70},{20,70},{20,39},{39,39}}, color={0,0,127}));
+  connect(retDamPosMax.y, mod.uRetDamPosMax)
+    annotation (Line(points={{-59,-40},{-20,-40},{-20,38},{39,38}},color={0,0,127}));
+  connect(retDamPosMin.y, mod.uRetDamPosMin)
+    annotation (Line(points={{-59,-70},{-10,-70},{-10,34},{39,34}},color={0,0,127}));
+  connect(outDamPosMax.y, mod.uOutDamPosMax)
+    annotation (Line(points={{-59,26},{39,26}},color={0,0,127}));
+  connect(outDamPosMin.y, mod.uOutDamPosMin)
+    annotation (Line(points={{-59,-10},{-34,-10},{-24,-10},{-24,22},{39,22}}, color={0,0,127}));
+  connect(uTSup.y, mod.uTSup)
+    annotation (Line(points={{-39,70},{0,70},{0,30},{39,30}}, color={0,0,127}));
+  connect(retDamPosMax.y, modFre.uRetDamPosMax)
+    annotation (Line(points={{-59,-40},{-20,-40},{-20,-22},{39,-22}}, color={0,0,127}));
+  connect(outDamPosMin.y, modFre.uOutDamPosMin)
+    annotation (Line(points={{-59,-10},{-34,-10},{-34,-38},{39,-38}}, color={0,0,127}));
+  connect(uTSup.y, modFre.uTSup)
+    annotation (Line(points={{-39,70},{0,70},{0,-30},{39,-30}}, color={0,0,127}));
+  connect(outDamPosMaxFre.y, modFre.uOutDamPosMax)
+    annotation (Line(points={{21,-70},{30,-70},{30,-34},{39,-34}}, color={0,0,127}));
+  connect(retDamPosMinFre.y, modFre.uRetDamPosMin)
+    annotation (Line(points={{25,0},{32,0},{32,-26},{39,-26}}, color={0,0,127}));
   annotation (
   experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/Economizers/Subsequences/Validation/Modulation_TSup.mos"
@@ -58,11 +74,19 @@ Documentation(info="<html>
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation</a>
-for supply air temeperature <code>TSup</code> and supply air temperature heating setpoint <code>TSupSet</code>
-control signals.
+for a varying supply air temperature control loop signal.
+The instance <code>mod</code> is in normal operation, whereas
+for the instance <code>modFre</code>, the damper limits are
+as if the mixed air temperature were below its freezing set point.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 13, 2017, by Michael Wetter:<br/>
+Added additional instance to validate the behavior when dampers are
+such positioned that they prevent the mixed air temperature from being
+below the freezing set point.
+</li>
 <li>
 June 30, 2017, by Milica Grahovac:<br/>
 First implementation.

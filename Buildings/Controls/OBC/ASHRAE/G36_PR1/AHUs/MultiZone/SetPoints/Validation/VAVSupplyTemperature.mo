@@ -10,7 +10,7 @@ model VAVSupplyTemperature
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setZonTem(
     k=22.5 + 273.15) "Average of heating and cooling setpoint"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Blocks.Sources.Sine outTem(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine outTem(
     amplitude=5,
     freqHz=1/86400,
     offset=18 + 273.15) "Outdoor air temperature"
@@ -26,7 +26,7 @@ model VAVSupplyTemperature
   Buildings.Controls.OBC.CDL.Continuous.Abs abs
     "Block generates absolute value of input"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Modelica.Blocks.Sources.Sine sine(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
     amplitude=6, freqHz=1/86400)
     "Block generates sine signal"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
@@ -51,7 +51,7 @@ equation
     annotation (Line(points={{-59,40},{40,40},{40,4},{69,4}},
       color={0,0,127}));
   connect(setZonTem.y, conTSetSup.TSetZones)
-    annotation (Line(points={{-59,70},{60,70},{60,8},{69,8}},
+    annotation (Line(points={{-59,80},{60,80},{60,8},{69,8}},
       color={0,0,127}));
   connect(sine.y, abs.u)
     annotation (Line(points={{-59,-40},{-42,-40}}, color={0,0,127}));

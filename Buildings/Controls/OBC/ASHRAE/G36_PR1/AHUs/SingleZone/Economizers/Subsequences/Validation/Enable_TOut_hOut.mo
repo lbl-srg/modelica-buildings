@@ -57,7 +57,7 @@ protected
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant zoneState(
-    final k=Constants.ZoneStates.deadband) "Zone State is deadband"
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.deadband) "Zone State is deadband"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMaxSig(
     final k=outDamPosMax)
@@ -68,7 +68,7 @@ protected
     "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-160},{-220,-140}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
-    final k=Constants.FreezeProtectionStages.stage0)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0)
     "Freeze Protection Status - Disabled"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFanSta(
@@ -106,8 +106,10 @@ equation
     annotation (Line(points={{61,50},{70,50},{70,-60},{80,-60},{79,-60}}, color={0,0,127}));
   connect(booPul.y, TOut.u)
     annotation (Line(points={{-179,90},{-162,90}}, color={255,0,255}));
-  connect(TOut.y, enaDis.TOut) annotation (Line(points={{-139,90},{-110,90},{-110,-60},{-81,-60}}, color={0,0,127}));
-  connect(booPul1.y, hOut.u) annotation (Line(points={{-59,50},{-50,50},{-42,50}}, color={255,0,255}));
+  connect(TOut.y, enaDis.TOut)
+    annotation (Line(points={{-139,90},{-110,90},{-110,-60},{-81,-60}}, color={0,0,127}));
+  connect(booPul1.y, hOut.u)
+    annotation (Line(points={{-59,50},{-50,50},{-42,50}}, color={255,0,255}));
   connect(hOut.y, enaDis1.hOut)
     annotation (Line(points={{-19,50},{-10,50},{-10,20},{20,20},{20,-64},{79,-64}}, color={0,0,127}));
   connect(freProSta.y, enaDis1.uFreProSta)

@@ -194,6 +194,8 @@ equation
         // Regular material
         for i in 1:nSta loop
           der(T[i]) = (Q_flow[i]-Q_flow[i+1])*CInv[i];
+        end for;
+        for i in 1:nSta loop
           u[i]=0; // u is not required in this case
         end for;
       end if;

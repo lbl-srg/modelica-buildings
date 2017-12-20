@@ -32,10 +32,11 @@ model Pipe
     final linearized=linearizeFlowResistance,
     final homotopyInitialization=homotopyInitialization) "Flow resistance"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-  Buildings.Fluid.MixingVolumes.MixingVolume[nSeg] vol(
+  Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort[nSeg] vol(
     redeclare each final package Medium = Medium,
     each energyDynamics=energyDynamics,
     each massDynamics=massDynamics,
+    final initialize_p = {(i == 1 and (not Medium.singleState)) for i in 1:nSeg},
     each final V=VPipe/nSeg,
     each nPorts=2,
     each final m_flow_nominal=m_flow_nominal,
@@ -60,6 +61,7 @@ protected
   parameter Modelica.SIunits.Density rho_default = Medium.density(state_default);
   parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(state_default)
     "Dynamic viscosity at nominal condition";
+
 equation
   connect(port_a, preDro.port_a) annotation (Line(
       points={{-100,5.55112e-16},{-72,5.55112e-16},{-72,1.16573e-15},{-58,1.16573e-15},

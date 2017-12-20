@@ -24,7 +24,10 @@ extends Modelica.Icons.Example;
     amplitude=2,
     offset=0,
     startTime=3600) "Mass flow rate"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yFan(k=true)
+    "Fan control signal"
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 equation
 
   connect(TH.y, conMix.TRooSetHea) annotation (Line(
@@ -40,9 +43,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(m_flow.y, conMix.mAir_flow) annotation (Line(
-      points={{-59,-30},{-40,-30},{-40,4},{-22,4}},
+      points={{-59,-20},{-40,-20},{-40,6},{-22,6}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(yFan.y, conMix.yFan) annotation (Line(points={{-59,-50},{-32,-50},{
+          -32,2},{-22,2}}, color={255,0,255}));
   annotation (
    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DualFanDualDuct/Controls/Examples/RoomMixingBox.mos"
         "Simulate and plot"),

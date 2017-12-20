@@ -19,6 +19,14 @@ Although the `Modelica Language Tutorial <https://www.modelica.org/documents/Mod
 Links to papers that describe or used the `Buildings` library are available at http://simulationresearch.lbl.gov/modelica/publications.html.
 The model documentation from the download page contains user guides that describe the individual packages of the `Buildings` library.
 
+The `IEA EBC Annex 60 <http://www.iea-annex60.org/final-report.html>`_ final report
+summarizes the development of Modelica models, approaches and tools
+for co-simulation based on the Functional Mockup Interface standard,
+Building Information Modeling technologies based on the Industry Foundation Classes,
+as well as tools for workflow automation.
+It also contains numerous examples that apply these technologies to the
+design and operation of building and community energy systems.
+
 
 Literature for Developers
 -------------------------

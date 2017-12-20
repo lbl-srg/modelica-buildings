@@ -20,8 +20,10 @@ protected
   final parameter Real yFanMin=0.1 "Minimum supply fan operation speed";
   final parameter Real yFanMax=0.9 "Maximum supply fan operation speed";
   final parameter Real fanSpe = (yFanMax + yFanMin)/2 "Constant supply fan speed";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0 "Calculated design outdoor airflow rate";
-  final parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0 "Calculated minimum outdoor airflow rate";
+  final parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0
+    "Calculated design outdoor airflow rate";
+  final parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0
+    "Calculated minimum outdoor airflow rate";
   final parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=(VOutDes_flow + VOutMin_flow)/2
     "Constant minimum outdoor airflow setpoint";
 
@@ -29,23 +31,23 @@ protected
     final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
-    final k=Constants.FreezeProtectionStages.stage0)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0)
     "Freeze protection status - disabled"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant operationMode(
-    final k=Constants.OperationModes.occupied)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Operation mode - occupied"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSetSig(
     final k=VOutSet_flow)
     "Constant minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  Modelica.Blocks.Sources.Ramp SupFanSpeSig(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp SupFanSpeSig(
     final duration=1800,
     final offset=yFanMin,
     final height=yFanMax - yFanMin) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
-  Modelica.Blocks.Sources.Ramp VOutMinSetSig1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOutMinSetSig1(
     final duration=1800,
     final offset=VOutMin_flow,
     final height=VOutDes_flow - VOutMin_flow) "Constant minimum outdoor airflow setpoint"

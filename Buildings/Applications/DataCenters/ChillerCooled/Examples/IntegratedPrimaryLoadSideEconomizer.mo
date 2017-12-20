@@ -3,26 +3,28 @@ model IntegratedPrimaryLoadSideEconomizer
   "Example that demonstrates a chiller plant with integrated primary load side economizer"
   extends Modelica.Icons.Example;
   extends
+    Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PostProcess(
+    freCooSig(
+      y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
+      then 1 else 0),
+    parMecCooSig(
+      y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.PartialMechanical)
+      then 1 else 0),
+    fulMecCooSig(
+      y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
+      then 1 else 0),
+    PHVAC(y=cooTow[1].PFan + cooTow[2].PFan + pumCW[1].P + pumCW[2].P + sum(
+          chiWSE.powChi + chiWSE.powPum) + ahu.PFan + ahu.PHea),
+    PIT(y=roo.QSou.Q_flow));
+  extends
     Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter(
     redeclare Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimaryLoadSide chiWSE(
       addPowerToMedium=false,
-      perPum=perPumPri,
-      tauPump=1,
-      use_controller=false,
-      use_inputFilter=true,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-      pumCW(each use_inputFilter=false,
-            each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-      ahu(tauFan=1,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      use_inputFilterValve=true,
-      use_inputFilterFan=true),
-    weaData(filNam="modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
-    cooTowSpeCon(k=1, Ti=120));
+      perPum=perPumPri),
+    weaData(filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/DRYCOLD.mos")));
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumPri(
-    each pressure=
-          Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+    each pressure=Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
           V_flow=m2_flow_chi_nominal/1000*{0.2,0.6,1.0,1.2},
           dp=(dp2_chi_nominal+dp2_wse_nominal+18000)*{1.5,1.3,1.0,0.6}))
     "Performance data for primary pumps";
@@ -35,98 +37,106 @@ model IntegratedPrimaryLoadSideEconomizer
     deaBan3=1.1,
     deaBan4=0.5)
     "Cooling mode controller"
-    annotation (Placement(transformation(extent={{-130,100},{-110,120}})));
-  Modelica.Blocks.Sources.RealExpression towTApp(
-    y=max(cooTow[1:numChi].TAppAct))
+    annotation (Placement(transformation(extent={{-214,100},{-194,120}})));
+  Modelica.Blocks.Sources.RealExpression towTApp(y=cooTow[1].TApp_nominal)
     "Cooling tower approach temperature"
-    annotation (Placement(transformation(extent={{-190,100},{-170,120}})));
-  Modelica.Blocks.Sources.RealExpression yVal5(y=if cooModCon.y == Integer(
-        Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
-         then 1 else 0)
+    annotation (Placement(transformation(extent={{-320,100},{-300,120}})));
+  Modelica.Blocks.Sources.RealExpression yVal5(
+    y=if cooModCon.y == Integer(
+    Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
+    then 1 else 0)
     "On/off signal for valve 5"
-    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Modelica.Blocks.Sources.RealExpression yVal6(y=if cooModCon.y == Integer(
-        Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
-         then 1 else 0)
+    annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
+  Modelica.Blocks.Sources.RealExpression yVal6(
+    y=if cooModCon.y == Integer(
+    Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
+    then 1 else 0)
     "On/off signal for valve 6"
-    annotation (Placement(transformation(extent={{-10,16},{10,36}})));
+    annotation (Placement(transformation(extent={{-160,14},{-140,34}})));
 
   Modelica.Blocks.Sources.RealExpression cooLoaChi(
-    y=chiWSE.port_a2.m_flow*4180*(chiWSE.TCHWSupWSE - TCHWSupSet.y))
+    y=-chiWSE.port_a2.m_flow*4180*(chiWSE.TCHWSupWSE - TCHWSupSet.y))
     "Cooling load in chillers"
-    annotation (Placement(transformation(extent={{-190,130},{-170,150}})));
+    annotation (Placement(transformation(extent={{-320,130},{-300,150}})));
 equation
 
-  connect(yVal5.y, chiWSE.yVal5)
-    annotation (Line(points={{11,40},{20,40},{20,33},{118.4,33}},
-                       color={0,0,127}));
-  connect(yVal6.y, chiWSE.yVal6)
-    annotation (Line(points={{11,26},{20,26},{20,30},{118,30},{118,29.8},{118.4,
-          29.8}},                  color={0,0,127}));
   connect(pumSpeSig.y, chiWSE.yPum)
-    annotation (Line(points={{21,-10},{42,-10},{42,25.6},{118.4,25.6}},
-                                   color={0,0,127}));
+    annotation (Line(
+      points={{-99,-10},{-60,-10},{-60,25.6},{-1.6,25.6}},
+      color={0,0,127}));
   connect(TCHWSup.port_b, ahu.port_a1)
     annotation (Line(
-      points={{84,0},{70,0},{70,-4},{70,-114},{120,-114}},
+      points={{-36,0},{-40,0},{-40,0},{-40,-114},{0,-114}},
       color={0,127,255},
       thickness=0.5));
   connect(chiWSE.TCHWSupWSE, cooModCon.TCHWSupWSE)
-    annotation (Line(points={{141,34},{276,34},{276,202},{-160,202},{-160,106},
-          {-132,106}},                                              color={0,0,127}));
+    annotation (Line(
+      points={{21,34},{148,34},{148,200},{-226,200},{-226,106},{-216,106}},
+      color={0,0,127}));
   connect(cooLoaChi.y, chiStaCon.QTot)
-    annotation (Line(points={{-169,140},{-52,140}}, color={0,0,127}));
+    annotation (Line(
+      points={{-299,140},{-172,140}},
+      color={0,0,127}));
    for i in 1:numChi loop
     connect(pumCW[i].port_a, TCWSup.port_b)
       annotation (Line(
-        points={{70,110},{70,140},{78,140}},
+        points={{-50,110},{-50,140},{-42,140}},
         color={0,127,255},
         thickness=0.5));
    end for;
   connect(TCHWSupSet.y, cooModCon.TCHWSupSet)
-    annotation (Line(points={{-119,160},{-104,160},{-104,130},{-146,130},{-146,
-          118},{-142,118},{-142,118},{-132,118}},
-                                             color={0,0,127}));
+    annotation (Line(
+      points={{-239,160},{-222,160},{-222,118},{-216,118}},
+      color={0,0,127}));
   connect(towTApp.y, cooModCon.TApp)
-    annotation (Line(points={{-169,110},{-132,110}},
-                                  color={0,0,127}));
+    annotation (Line(
+      points={{-299,110},{-216,110}},
+      color={0,0,127}));
   connect(weaBus.TWetBul.TWetBul, cooModCon.TWetBul)
-    annotation (Line(points={{-200,-28},{-216,-28},{-216,200},{-156,200},{-156,
-          114},{-132,114}},  color={255,204,51},thickness=0.5));
+    annotation (Line(
+      points={{-328,-20},{-340,-20},{-340,200},{-224,200},{-224,114},{-216,114}},
+      color={255,204,51},thickness=0.5));
   connect(TCHWRet.port_b, chiWSE.port_a2)
     annotation (Line(
-      points={{200,0},{160,0},{160,24},{140,24}},
+      points={{80,0},{40,0},{40,24},{20,24}},
       color={0,127,255},
       thickness=0.5));
   connect(cooModCon.TCHWRetWSE, TCHWRet.T)
-    annotation (Line(points={{-132,102},{-162,102},{-162,206},{280,206},{280,20},
-          {210,20},{210,11}},                                         color={0,0,
-          127}));
-  connect(dpSet.y, pumSpe.u_s)
-    annotation (Line(points={{-139,-20},{-128,-20}},
-      color={0,0,127}));
+    annotation (Line(
+      points={{-216,102},{-228,102},{-228,206},{152,206},{152,20},{90,20},{90,
+          11}},
+    color={0,0,127}));
 
-  connect(cooModCon.y, cooTowSpeCon.cooMod)
-    annotation (Line(points={{-109,110},{-109,110},{-100,110},{-100,182.444},{
-          -52,182.444}},                                     color={255,127,0}));
   connect(cooModCon.y, chiStaCon.cooMod)
-    annotation (Line(points={{-109,110},{-100,110},{-100,146},{-52,146}},
-                                     color={255,127,0}));
+    annotation (Line(
+      points={{-193,110},{-190,110},{-190,146},{-172,146}},
+      color={255,127,0}));
   connect(cooModCon.y,intToBoo.u)
-    annotation (Line(points={{-109,110},{-80.5,110},
-          {-52,110}}, color={255,127,0}));
+    annotation (Line(
+      points={{-193,110},{-172,110}},
+      color={255,127,0}));
   connect(TCHWSup.T, chiStaCon.TCHWSup)
-    annotation (Line(points={{94,11},{94,11},{94,18},{94,18},{94,18},{-62,18},{
-          -62,134},{-52,134}},                                     color={0,0,127}));
-  connect(CWPumCon.cooMod, cooModCon.y) annotation (Line(points={{-54,75},{-100,
-          75},{-100,110},{-109,110}}, color={255,127,0}));
-  annotation (            Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-240,-200},{300,
-            220}})),
+    annotation (Line(
+      points={{-26,11},{-26,18},{-182,18},{-182,134},{-172,134}},
+      color={0,0,127}));
+  connect(cooModCon.y, sigCha.u)
+    annotation (Line(
+      points={{-193,110},{-190,110},{-190,212},{156,212},{156,160},{178,160}},
+      color={255,127,0}));
+  connect(yVal5.y, chiWSE.yVal5) annotation (Line(points={{-139,40},{-84,40},{
+          -84,33},{-1.6,33}}, color={0,0,127}));
+  connect(yVal6.y, chiWSE.yVal6) annotation (Line(points={{-139,24},{-84,24},{
+          -84,29.8},{-1.6,29.8}}, color={0,0,127}));
+  connect(cooModCon.y, cooTowSpeCon.cooMod) annotation (Line(points={{-193,110},
+          {-190,110},{-190,182.444},{-172,182.444}}, color={255,127,0}));
+  connect(cooModCon.y, CWPumCon.cooMod) annotation (Line(points={{-193,110},{
+          -190,110},{-190,75},{-174,75}}, color={255,127,0}));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
+    extent={{-360,-200},{300,220}})),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Examples/IntegratedPrimaryLoadSideEconomizer.mos"
-        "Simulate and plot"),
-    Documentation(info="<html>
+  "Simulate and plot"),
+   Documentation(info="<html>
 <h4>System Configuration</h4>
 <p>This example demonstrates the implementation of a chiller plant
 with water-side economizer (WSE) to cool a data center.
@@ -208,12 +218,20 @@ Detailed implementation of cooling tower speed control can be found in
 <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed\">
 Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed</a>.
 </p>
+<h5>Room temperature control</h5>
+<p>
+The room temperature is controlled by adjusting the fan speed of the AHU using a PI controller.
+</p>
 <p>
 Note that for simplicity, the temperature and differential pressure reset control
 are not implemented in this example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 1, 2017, by Yangyang Fu:<br/>
+Removed redundant connection <code>connect(dpSet.y, pumSpe.u_s)</code>
+</li>
 <li>
 July 30, 2017, by Yangyang Fu:<br/>
 First implementation.

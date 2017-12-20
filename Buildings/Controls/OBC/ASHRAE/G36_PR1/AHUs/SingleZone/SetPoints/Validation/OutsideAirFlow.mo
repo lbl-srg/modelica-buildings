@@ -4,7 +4,7 @@ model OutsideAirFlow
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.OutsideAirFlow
-    outAirSet_SinZon(zonAre=40, have_occSen=true)
+    outAirSet_SinZon(AFlo=40, have_occSen=true)
     "Block to output minimum outdoor airflow rate for system with single zone "
     annotation (Placement(transformation(extent={{20,-20},{60,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc(
@@ -31,7 +31,7 @@ protected
     offset=273.15 + 18) "Terminal unit discharge air temperature"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
-    final k=Constants.OperationModes.occupied)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 

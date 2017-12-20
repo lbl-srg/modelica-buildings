@@ -6,6 +6,7 @@ extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final 
     Placement(transformation(extent={{60,-80},{80,-60}})));
 
   BaseClasses.EN12975SolarGain solGai(
+    redeclare package Medium = Medium,
     final A_c=TotalArea_internal,
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
@@ -13,25 +14,27 @@ extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final 
     final B1=per.B1,
     final shaCoe=shaCoe,
     final iamDiff=per.IAMDiff,
-    final use_shaCoe_in=use_shaCoe_in,
-    redeclare package Medium = Medium)
+    final use_shaCoe_in=use_shaCoe_in)
     "Identifies heat gained from the sun using standard EN12975 calculations"
-    annotation (Placement(transformation(extent={{-20,38},{0,58}})));
+     annotation (Placement(transformation(extent={{-20,38},{0,58}})));
   BaseClasses.EN12975HeatLoss heaLos(
+    redeclare package Medium = Medium,
     final A_c=TotalArea_internal,
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
     final C1=per.C1,
     final C2=per.C2,
-    redeclare package Medium = Medium,
     final G_nominal=per.G_nominal,
     final dT_nominal=per.dT_nominal,
-    final m_flow_nominal=per.mperA_flow_nominal*per.A,
+    final m_flow_nominal=per.mperA_flow_nominal*per.A*nPanels_internal,
     final cp_default=cp_default)
     "Calculates the heat lost to the surroundings using the EN12975 standard calculations"
-           annotation (Placement(transformation(extent={{-20,6},{0,26}})));
+      annotation (Placement(transformation(extent={{-20,6},{0,26}})));
 
 equation
+  // Make sure the model is only used with the EN ratings data, and hence C1 > 0
+  assert(per.C1 > 0,
+    "The heat loss coefficient from the EN 12975 ratings data must be strictly positive. Obtained C1 = " + String(per.C1));
   connect(shaCoe_internal, solGai.shaCoe_in);
 
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
@@ -74,41 +77,55 @@ equation
       points={{-8,-16},{-28,-16},{-28,40},{-22,40}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (    defaultComponentName="solCol",
-    Documentation(info="<html>
-      <h4>Overview</h4>
-        <p>
-          This component models a solar thermal collector according
-          to the EN12975 test standard.
-        </p>
-      <h4>Notice</h4>
-        <ul>
-          <li>
-            As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC
-            incident angle modifier equation coefficients are only valid for
-            incident angles of 60 degrees or less. Because these curves behave
-            poorly for angles greater than 60 degrees the model does not calculate
-            either direct or diffuse solar radiation gains when the incidence
-            angle is greater than 60 degrees.
-          </li>
-          <li>
-            By default, the estimated heat capacity of the collector without
-            fluid is calculated based on the dry mass and the specific heat
-            capacity of copper.
-          </li>
-        </ul>
-      <h4>References</h4>
-        <p>
-          <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br/>
-        </p>
-    </html>", revisions="<html>
-      <ul>
-        <li>
-          January 4, 2013, by Peter Grant:<br/>
-          First implementation.
-        </li>
-      </ul>
-    </html>"),
+  annotation (
+  defaultComponentName="solCol",
+  Documentation(info="<html>
+<h4>Overview</h4>
+<p>
+This component models a solar thermal collector according
+to the EN12975 test standard.
+</p>
+<h4>Notice</h4>
+<ul>
+<li>
+As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC
+incident angle modifier equation coefficients are only valid for
+incident angles of 60 degrees or less. Because these curves behave
+poorly for angles greater than 60 degrees the model does not calculate
+either direct or diffuse solar radiation gains when the incidence
+angle is greater than 60 degrees.
+</li>
+<li>
+By default, the estimated heat capacity of the collector without
+fluid is calculated based on the dry mass and the specific heat
+capacity of copper.
+</li>
+</ul>
+<h4>References</h4>
+<p>
+<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br/>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 17, 2017, by Michael Wetter:<br/>
+Revised computation of heat loss.<br/>
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1100\">
+issue 1100</a>.
+</li>
+<li>
+November 21, 2017, by Michael Wetter:<br/>
+Corrected error in heat loss calculations that did not scale correctly with <code>nPanels</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1073\">issue 1073</a>.
+</li>
+<li>
+January 4, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Polygon(

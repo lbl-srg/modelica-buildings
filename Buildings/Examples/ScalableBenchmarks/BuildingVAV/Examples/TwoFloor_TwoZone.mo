@@ -5,7 +5,7 @@ model TwoFloor_TwoZone "Closed-loop model with 2 zone in 2 floor"
     nZon=2);
 
 annotation (
-  experiment(StopTime=604800, Tolerance=1e-06,__Dymola_Algorithm="Radau"),
+  experiment(StopTime=604800, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ScalableBenchmarks/BuildingVAV/Examples/TwoFloor_TwoZone.mos"
         "Simulate and plot"),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-120},{140,200}})),

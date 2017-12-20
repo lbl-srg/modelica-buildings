@@ -5,13 +5,13 @@ model CoolingMode
 
   parameter Modelica.SIunits.Time tWai "Waiting time";
   parameter Modelica.SIunits.TemperatureDifference deaBan1
-    "Dead band width 1 for switching waterside economizer off ";
+    "Dead band width 1 for switching chiller on ";
   parameter Modelica.SIunits.TemperatureDifference deaBan2
-    "Dead band width 2 for switching waterside economizer on";
+    "Dead band width 2 for switching waterside economizer off";
   parameter Modelica.SIunits.TemperatureDifference deaBan3
-    "Dead band width 1 for switching waterside economizer off ";
+    "Dead band width 3 for switching waterside economizer on ";
   parameter Modelica.SIunits.TemperatureDifference deaBan4
-    "Dead band width 2 for switching waterside economizer on";
+    "Dead band width 4 for switching chiller off";
 
   Modelica.Blocks.Interfaces.RealInput TCHWRetWSE(
     final quantity="ThermodynamicTemperature",
@@ -42,41 +42,41 @@ model CoolingMode
   Modelica.StateGraph.Transition con1(
     enableTimer=true,
     waitTime=tWai,
-    condition=TCHWSupWSE > TCHWSupSet + deaBan3)
+    condition=TCHWSupWSE > TCHWSupSet + deaBan1)
     "Fire condition 1: free cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-40,32})));
+        origin={-10,40})));
   Modelica.StateGraph.StepWithSignal parMecCoo(nIn=2, nOut=2)
     "Partial mechanical cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={0,8})));
+        origin={-10,8})));
   Modelica.StateGraph.InitialStepWithSignal freCoo(nIn=1) "Free cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={0,58})));
+        origin={-10,70})));
   Modelica.StateGraph.StepWithSignal fulMecCoo "Fully mechanical cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={0,-78})));
+        origin={-10,-80})));
   Modelica.StateGraph.Transition con2(
     enableTimer=true,
     waitTime=tWai,
-    condition=TCHWSupWSE > TCHWRetWSE - deaBan2)
+    condition=TCHWRetWSE < TCHWSupWSE + deaBan2)
     "Fire condition 2: partially mechanical cooling to fully mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-40,-42})));
+        origin={-10,-34})));
   Modelica.StateGraph.Transition con3(
     enableTimer=true,
     waitTime=tWai,
-    condition=TCHWRetWSE > TWetBul + TApp + deaBan1)
+    condition=TCHWRetWSE > TWetBul + TApp + deaBan3)
     "Fire condition 3: fully mechanical cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -90,9 +90,9 @@ model CoolingMode
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={50,20})));
+        origin={20,50})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation (Placement(transformation(extent={{-48,72},{-28,92}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Interfaces.RealInput TWetBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -112,54 +112,54 @@ model CoolingMode
 equation
   connect(freCoo.outPort[1], con1.inPort)
     annotation (Line(
-      points={{0,47.5},{0,47.5},{0,46},{0,42},{-40,42},{-40,36}},
+      points={{-10,59.5},{-10,44}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con1.outPort, parMecCoo.inPort[1])
     annotation (Line(
-      points={{-40,30.5},{-40,26},{-0.5,26},{-0.5,19}},
+      points={{-10,38.5},{-10,26},{-10.5,26},{-10.5,19}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con2.inPort, parMecCoo.outPort[1])
     annotation (Line(
-      points={{-40,-38},{-40,-10},{-0.25,-10},{-0.25,-2.5}},
+      points={{-10,-30},{-10,-10},{-10.25,-10},{-10.25,-2.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con2.outPort, fulMecCoo.inPort[1])
     annotation (Line(
-      points={{-40,-43.5},{-40,-43.5},{-40,-60},{0,-60},{0,-67}},
+      points={{-10,-35.5},{-10,-69}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(fulMecCoo.outPort[1], con3.inPort)
     annotation (Line(
-      points={{0,-88.5},{0,-98},{24,-98},{24,-44}},
+      points={{-10,-90.5},{-10,-98},{24,-98},{24,-44}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con4.outPort, freCoo.inPort[1])
     annotation (Line(
-      points={{50,21.5},{50,21.5},{50,78},{0,78},{0,69}},
+      points={{20,51.5},{20,90},{-10,90},{-10,81}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con3.outPort, parMecCoo.inPort[2])
     annotation (Line(
-      points={{24,-38.5},{24,-38.5},{24,26},{0.5,26},{0.5,19}},
+      points={{24,-38.5},{24,26},{-9.5,26},{-9.5,19}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con4.inPort, parMecCoo.outPort[2])
     annotation (Line(
-      points={{50,16},{50,-10},{0.25,-10},{0.25,-2.5}},
+      points={{20,46},{20,-10},{-9.75,-10},{-9.75,-2.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(swi.y, y)
     annotation (Line(points={{88.6,0},{110,0}}, color={255,127,0}));
   connect(freCoo.active, swi.u[1])
-    annotation (Line(points={{11,58},{38,58},{40,
-          58},{40,1.2},{64,1.2}}, color={255,0,255}));
+    annotation (Line(points={{1,70},{40,70},{40,1.2},{64,1.2}},
+                                  color={255,0,255}));
   connect(parMecCoo.active, swi.u[2])
-    annotation (Line(points={{11,8},{40,8},{40,0},{64,0}}, color={255,0,255}));
+    annotation (Line(points={{1,8},{38,8},{38,0},{64,0}},  color={255,0,255}));
   connect(fulMecCoo.active, swi.u[3])
-    annotation (Line(points={{11,-78},{26,-78},
-          {40,-78},{40,-1.2},{64,-1.2}}, color={255,0,255}));
+    annotation (Line(points={{1,-80},{40,-80},{40,-1.2},{64,-1.2}},
+                                         color={255,0,255}));
   annotation (    Documentation(info="<html>
 <p>
 Controller that outputs if the chilled water system is in Free Cooling (FC) mode,

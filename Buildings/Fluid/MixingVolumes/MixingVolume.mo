@@ -1,14 +1,30 @@
 within Buildings.Fluid.MixingVolumes;
 model MixingVolume
   "Mixing volume with inlet and outlet ports (flow reversal is allowed)"
-  extends Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume;
+  extends Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
+    final initialize_p = not Medium.singleState,
+    steBal(final use_C_flow = use_C_flow),
+    dynBal(final use_C_flow = use_C_flow));
+
+  parameter Boolean use_C_flow = false
+    "Set to true to enable input connector for trace substance"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort(
     T(start=T_start)) "Heat port for heat exchange with the control volume"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+
+  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if use_C_flow
+    "Trace substance mass flow rate added to the medium"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+
 equation
   connect(heaFloSen.port_a, heatPort)
     annotation (Line(points={{-90,0},{-96,0},{-100,0}}, color={191,0,0}));
+  connect(C_flow, steBal.C_flow) annotation (Line(points={{-120,-60},{-80,-60},
+          {12,-60},{12,6},{18,6}}, color={0,0,127}));
+  connect(C_flow, dynBal.C_flow) annotation (Line(points={{-120,-60},{-52,-60},
+          {52,-60},{52,6},{58,6}}, color={0,0,127}));
   annotation (
 defaultComponentName="vol",
 Documentation(info="<html>
@@ -104,6 +120,14 @@ Buildings.Fluid.Humidifiers.Humidifier_u</a>.
 
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2017, by Michael Wetter:<br/>
+Set <code>initialize_p</code> to <code>final</code> so that it does not
+appear as a user-selectable parameter. This is done because
+<code>initialize_p</code> has been changed from a <code>constant</code>
+to a <code>parameter</code> for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1013\">Buildings, issue 1013</a>.
+</li>
 <li>
 April 11, 2017, by Michael Wetter:<br/>
 Changed comment of heat port, as this needs to be the total heat flow

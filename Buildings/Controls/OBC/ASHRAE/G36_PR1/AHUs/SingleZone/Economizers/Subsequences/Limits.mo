@@ -80,7 +80,7 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status signal"
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
-        iconTransformation(extent={{-120,-30},{-100,-10}})));
+      iconTransformation(extent={{-120,-30},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMin(
     final min=outDamPhyPosMin,
@@ -159,12 +159,15 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch enaDis1
     "Logical switch to enable damper position limit calculation or disable it (set max limit to physical minimum)"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=Constants.FreezeProtectionStages.stage0)
-    "Freeze protection stage 0 index"
-    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu "Check if freeze protection stage is stage 0"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
+    "Freeze protection stage 1"
+    annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
+  CDL.Integers.LessEqual intLesEqu
+    "Check if freeze protection stage is stage 0"
     annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(k=Constants.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
@@ -221,26 +224,23 @@ equation
   connect(not1.y, enaDis1.u2)
     annotation (Line(points={{1,-70},{48,-70},{78,-70}}, color={255,0,255}));
   connect(uSupFan, and1.u[1])
-    annotation (Line(points={{-180,-80},{-122,-80},{-122,-65.3333},{-62,-65.3333}},
+    annotation (Line(points={{-180,-80},{-122,-80},{-122,-65.3333},{-62,
+          -65.3333}},
       color={255,0,255}));
-  connect(conInt.y, intEqu.u1)
-    annotation (Line(points={{-119,-100},{-112,-100},{-112,-120},{-102,-120}},
-      color={255,127,0}));
-  connect(uFreProSta, intEqu.u2)
-    annotation (Line(points={{-180,-120},{-120,-120},{-120,-128},{-102,-128}},
-      color={255,127,0}));
   connect(uOpeMod, intEqu1.u1)
     annotation (Line(points={{-180,-160},{-102,-160}}, color={255,127,0}));
   connect(conInt1.y, intEqu1.u2)
     annotation (Line(points={{-119,-180},{-112,-180},{-112,-168},{-102,-168}},
       color={255,127,0}));
-  connect(intEqu.y, and1.u[2])
-    annotation (Line(points={{-79,-120},{-74,-120},{-74,-70},{-62,-70}},
-      color={255,0,255}));
+  connect(intLesEqu.y, and1.u[2])
+    annotation (Line(points={{-79,-120},{-74,-120},{-74,-70},{-62,-70}}, color={255,0,255}));
   connect(intEqu1.y, and1.u[3])
     annotation (Line(points={{-79,-160},{-68,-160},{-68,-74.6667},{-62,-74.6667}},
       color={255,0,255}));
-
+  connect(intLesEqu.u2, conInt.y)
+    annotation (Line(points={{-102,-128},{-110,-128},{-110,-140},{-119,-140}}, color={255,127,0}));
+  connect(uFreProSta, intLesEqu.u1)
+    annotation (Line(points={{-180,-120},{-102,-120}}, color={255,127,0}));
 annotation (Placement(transformation(extent={{-20,110},{0,130}})),
                 Placement(transformation(extent={{-20,20},{0,40}})),
                 Placement(transformation(extent={{60,90},{80,110}})),

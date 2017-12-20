@@ -1,8 +1,8 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block MovingMean
-  "Block to output moving average with centain time horizon"
+  "Block to output moving average"
 
-  parameter Modelica.SIunits.Time delta(min=2*CDL.Constants.eps)
+  parameter Modelica.SIunits.Time delta(min=1E-5)
     "Time horizon over which the input is averaged";
 
   Interfaces.RealInput u "Connector of Real input signal"
@@ -18,7 +18,7 @@ protected
 
 initial equation
   tStart = time;
-  mu = u;
+  mu = 0;
 equation
   u =der(mu);
   muDel = delay(mu, delta);
@@ -33,7 +33,7 @@ equation
   if mode then
     y = (mu-muDel)/delta;
   else
-    (time-tStart)*y = mu-muDel;
+    y = (mu-muDel)/(time-tStart+1E-3);
   end if;
   annotation (
   defaultComponentName="movMea",
@@ -88,9 +88,9 @@ For
 <i> t &lt; &delta;</i> seconds, it outputs
 </P>
 <pre>
-       1    t
-y =   ----  &int;   u(s) ds
-      t-t<sub>0</sub>  t<sub>0</sub>
+           1      t
+y =   --------    &int;   u(s) ds
+      t-t<sub>0</sub>+10<sup>-10</sup>   t<sub>0</sub>
 </pre>
 <p>
 where <i>t<sub>0</sub></i> is the initial time.
@@ -110,6 +110,19 @@ for example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 24, 2017, by Michael Wetter:<br/>
+Set initial condition for <code>mu</code>.
+</li>
+<li>
+October 17, 2017, by Michael Wetter:<br/>
+Reformulated implementation to avoid direct feedthrough.
+</li>
+<li>
+October 16, 2017, by Michael Wetter:<br/>
+Reformulated implementation to handle division by zero as the previous
+implementation caused division by zero in the VAV reheat model with the Radau solver.
+</li>
 <li>
 September 27, 2017, by Thierry S. Nouidui:<br/>
 Reformulated implementation to handle division by zero.

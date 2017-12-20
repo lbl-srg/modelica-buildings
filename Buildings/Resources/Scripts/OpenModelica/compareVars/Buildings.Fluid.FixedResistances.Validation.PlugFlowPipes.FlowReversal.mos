@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "m_flow.y",
+    "senTemIn.T",
+    "senTemOut.T",
+    "pip.cor.v_nominal",
+    "pip.cor.del.v",
+    "pip.cor.res.v_nominal"
+  };

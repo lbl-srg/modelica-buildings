@@ -10,12 +10,12 @@ model CoilRegister "Register for a heat exchanger"
       Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
       annotation (choicesAllMatching = true);
 
-  constant Boolean initialize_p1 = not Medium1.singleState
+  parameter Boolean initialize_p1 = not Medium1.singleState
     "Set to true to initialize the pressure of volume 1"
-    annotation(HideResult=true);
-  constant Boolean initialize_p2 = not Medium2.singleState
+    annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
+  parameter Boolean initialize_p2 = not Medium2.singleState
     "Set to true to initialize the pressure of volume 2"
-    annotation(HideResult=true);
+    annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
 
   parameter Integer nPipPar(min=1)=2
     "Number of parallel pipes in each register";
@@ -23,6 +23,24 @@ model CoilRegister "Register for a heat exchanger"
     "Number of pipe segments per register used for discretization";
   final parameter Integer nEle = nPipPar * nPipSeg
     "Number of heat exchanger elements";
+
+  parameter Modelica.SIunits.ThermalConductance UA_nominal
+    "Thermal conductance at nominal flow, used to compute time constant"
+     annotation(Dialog(group = "Nominal condition"));
+
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
+    "Mass flow rate medim 1"
+  annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
+    "Mass flow rate medium 2"
+  annotation(Dialog(group = "Nominal condition"));
+
+  parameter Modelica.SIunits.Time tau1=20
+    "Time constant at nominal flow for medium 1"
+  annotation(Dialog(group = "Nominal condition", enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
+  parameter Modelica.SIunits.Time tau2=1
+    "Time constant at nominal flow for medium 2"
+  annotation(Dialog(group = "Nominal condition", enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
 
   parameter Boolean allowFlowReversal1 = true
     "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)"
@@ -54,7 +72,7 @@ model CoilRegister "Register for a heat exchanger"
     each deltaM2=deltaM2,
     each dp1_nominal=dp1_nominal,
     each dp2_nominal=dp2_nominal) "Element of a heat exchanger"
-    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a[nPipPar] port_a1(
         redeclare each package Medium = Medium1,
@@ -77,23 +95,12 @@ model CoilRegister "Register for a heat exchanger"
     "Fluid connector b for medium 2 (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-72},{-110,-52}})));
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal
-    "Thermal conductance at nominal flow, used to compute time constant"
-     annotation(Dialog(group = "Nominal condition"));
-
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
-    "Mass flow rate medim 1"
-  annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
-    "Mass flow rate medium 2"
-  annotation(Dialog(group = "Nominal condition"));
-
-  parameter Modelica.SIunits.Time tau1=20
-    "Time constant at nominal flow for medium 1"
-  annotation(Dialog(group = "Nominal condition", enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Time tau2=1
-    "Time constant at nominal flow for medium 2"
-  annotation(Dialog(group = "Nominal condition", enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPor1[nPipPar, nPipSeg]
+    "Heat port for heat exchange with the control volume 1"
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPor2[nPipPar, nPipSeg]
+    "Heat port for heat exchange with the control volume 2"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
   Modelica.SIunits.HeatFlowRate Q1_flow
     "Heat transferred from solid into medium 1";
@@ -123,10 +130,11 @@ model CoilRegister "Register for a heat exchanger"
 protected
   Modelica.Blocks.Math.Gain gai_1(k=1/nEle)
     "Gain medium-side 1 to take discretization into account"
-    annotation (Placement(transformation(extent={{-34,48},{-22,62}})));
+    annotation (Placement(transformation(extent={{-34,18},{-22,32}})));
   Modelica.Blocks.Math.Gain gai_2(k=1/nEle)
     "Gain medium-side 2 to take discretization into account"
-    annotation (Placement(transformation(extent={{24,-76},{12,-62}})));
+    annotation (Placement(transformation(extent={{36,-76},{24,-62}})));
+
 equation
   // As OpenModelica does not support multiple iterators as of August 2014, we
   // use here two sum(.) functions
@@ -134,41 +142,46 @@ equation
   Q2_flow = sum(sum(ele[i,j].Q2_flow for i in 1:nPipPar) for j in 1:nPipSeg);
   for i in 1:nPipPar loop
     connect(ele[i,1].port_a1,       port_a1[i])
-       annotation (Line(points={{-10,36},{-68,36},{-68,60},{-100,60}}, color={0,
+       annotation (Line(points={{-10,6},{-68,6},{-68,60},{-100,60}},   color={0,
             127,255}));
     connect(ele[i,nPipSeg].port_b1, port_b1[i])
-       annotation (Line(points={{10,36},{44,36},{44,60},{100,60}}, color={0,127,
+       annotation (Line(points={{10,6},{44,6},{44,60},{100,60}},   color={0,127,
             255}));
     for j in 1:nPipSeg-1 loop
       connect(ele[i,j].port_b1, ele[i,j+1].port_a1)
-       annotation (Line(points={{10,36},{10,46},{-10,46},{-10,36}}, color={0,
+       annotation (Line(points={{10,6},{10,16},{-10,16},{-10,6}},   color={0,
               127,255}));
     end for;
 
     for j in 1:nPipSeg loop
       connect(ele[i,j].port_a2, port_a2[i,j])
-       annotation (Line(points={{10,24},{40,24},{40,-60},{100,-60}}, color={0,
+       annotation (Line(points={{10,-6},{40,-6},{40,-60},{100,-60}}, color={0,
               127,255}));
       connect(ele[i,j].port_b2, port_b2[i,j])
-       annotation (Line(points={{-10,24},{-68,24},{-68,-62},{-100,-62}}, color=
+       annotation (Line(points={{-10,-6},{-68,-6},{-68,-62},{-100,-62}}, color=
               {0,127,255}));
     end for;
   end for;
 
-  connect(Gc_1, gai_1.u)  annotation (Line(points={{-40,100},{-40,55},{-35.2,55}},
+  connect(Gc_1, gai_1.u)  annotation (Line(points={{-40,100},{-40,25},{-35.2,25}},
         color={0,0,127}));
-  connect(Gc_2, gai_2.u)  annotation (Line(points={{40,-100},{40,-69},{25.2,-69}},
+  connect(Gc_2, gai_2.u)  annotation (Line(points={{40,-100},{40,-69},{37.2,-69}},
         color={0,0,127}));
   for i in 1:nPipPar loop
 
      for j in 1:nPipSeg loop
-      connect(gai_1.y, ele[i,j].Gc_1)  annotation (Line(points={{-21.4,55},{-4,
-              55},{-4,40}}, color={0,0,127}));
-      connect(gai_2.y, ele[i,j].Gc_2)  annotation (Line(points={{11.4,-69},{4,
-              -69},{4,20}}, color={0,0,127}));
+      connect(gai_1.y, ele[i,j].Gc_1)  annotation (Line(points={{-21.4,25},{-4,25},
+              {-4,10}},     color={0,0,127}));
+      connect(gai_2.y, ele[i,j].Gc_2)  annotation (Line(points={{23.4,-69},{20,-69},
+              {20,-68},{20,-18},{4,-18},{4,-10}},
+                            color={0,0,127}));
      end for;
   end for;
 
+  connect(ele.heaPor1, heaPor1)
+    annotation (Line(points={{0,10},{0,100}}, color={191,0,0}));
+  connect(ele.heaPor2, heaPor2)
+    annotation (Line(points={{0,-10},{0,-100}}, color={191,0,0}));
   annotation (
     Documentation(info="<html>
 <p>
@@ -182,6 +195,12 @@ between the fluid volumes and the solid in each heat exchanger element.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 19, 2017, by Michael Wetter:<br/>
+Changed initialization of pressure from a <code>constant</code> to a <code>parameter</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1013\">Buildings, issue 1013</a>.
+</li>
 <li>
 February 5, 2015, by Michael Wetter:<br/>
 Changed <code>initalize_p</code> from a <code>parameter</code> to a

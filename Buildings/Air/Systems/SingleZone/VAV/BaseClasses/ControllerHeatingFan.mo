@@ -2,11 +2,11 @@ within Buildings.Air.Systems.SingleZone.VAV.BaseClasses;
 model ControllerHeatingFan "Controller for heating and cooling"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real kPHea(min=Modelica.Constants.small) = 1
-    "Proportional gain of heating controller"
+  parameter Real kHea(min=Modelica.Constants.small) = 1
+    "Gain of heating controller"
     annotation(Dialog(group="Control gain"));
 
-  parameter Real kPFan(min=Modelica.Constants.small) = 1
+  parameter Real kFan(min=Modelica.Constants.small) = 1
     "Gain of controller for fan"
     annotation(Dialog(group="Control gain"));
 
@@ -35,12 +35,12 @@ model ControllerHeatingFan "Controller for heating and cooling"
     "Control signal for heating coil"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Controls.Continuous.LimPID conHeaCoi(
-    final k=kPHea,
+    final k=kHea,
     controllerType=Modelica.Blocks.Types.SimpleController.P)
     "Controller for heating coil"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Controls.Continuous.LimPID conFan(
-    final k=kPFan,
+    final k=kFan,
     final yMax=1,
     final yMin=minAirFlo,
     controllerType=Modelica.Blocks.Types.SimpleController.P,

@@ -33,20 +33,22 @@ Modelica Standard Library.
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
-        Text(
-        extent={{-150,150},{150,110}},
-        textString="%name",
-        lineColor={0,0,255}),
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
+        Ellipse(lineColor={0,0,127}, extent={{-50,-50},{50,50}},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+        extent={{-150,150},{150,110}},
+        textString="%name",
+        lineColor={0,0,255}),
         Line(points={{50,0},{100,0}}, color={0,0,127}),
         Line(points={{-30,0},{30,0}}),
         Ellipse(fillPattern=FillPattern.Solid, extent={{-5,20},{5,30}}),
         Ellipse(fillPattern=FillPattern.Solid, extent={{-5,-30},{5,-20}}),
-        Ellipse(lineColor={0,0,127}, extent={{-50,-50},{50,50}}),
         Text(
           lineColor={0,0,255},
           extent={{-150,110},{150,150}},

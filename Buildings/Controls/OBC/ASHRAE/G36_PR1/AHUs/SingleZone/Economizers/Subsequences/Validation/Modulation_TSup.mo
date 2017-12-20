@@ -13,7 +13,7 @@ model Modulation_TSup
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSetSig(
     final k=TSupSet) "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Modelica.Blocks.Sources.Ramp TSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
     final duration=900,
     final height=4,
     final offset=TSupSet - 2) "Measured supply air temperature"
@@ -31,20 +31,24 @@ model Modulation_TSup
     "Maximum return air damper position"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
+  CDL.Logical.Sources.Constant fanStatus(k=true)
+    "Fan is on"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 equation
   connect(TSupSetSig.y, mod.THeaSupSet)
-    annotation (Line(points={{1,70},{10,70},{10,48},{10,39},{39,39}},
-    color={0,0,127}));
+    annotation (Line(points={{1,70},{10,70},{10,48},{10,37},{39,37}},color={0,0,127}));
   connect(TSup.y,mod.TSup)
-    annotation (Line(points={{-39,70},{-30,70},{-30,36},{39,36}},color={0,0,127}));
+    annotation (Line(points={{-39,70},{-30,70},{-30,40},{39,40}},color={0,0,127}));
   connect(RetDamPosMax.y, mod.uRetDamPosMax)
-    annotation (Line(points={{-59,-40}, {-20,-40},{-20,24},{-6,24},{39,24}}, color={0,0,127}));
+    annotation (Line(points={{-59,-40},{-20,-40},{-20,33},{39,33}},          color={0,0,127}));
   connect(RetDamPosMin.y, mod.uRetDamPosMin)
-    annotation (Line(points={{-59,-70},{8,-70},{8,16},{8,21},{39,21}},color={0,0,127}));
+    annotation (Line(points={{-59,-70},{-10,-70},{-10,30},{39,30}},   color={0,0,127}));
   connect(outDamPosMax.y, mod.uOutDamPosMax)
-    annotation (Line(points={{-59,20},{-48,20},{-30,20},{-30,31},{39,31}}, color={0,0,127}));
+    annotation (Line(points={{-59,20},{-48,20},{-30,20},{-30,26},{39,26}}, color={0,0,127}));
   connect(outDamPosMin.y, mod.uOutDamPosMin)
-    annotation (Line(points={{-59,-10},{-34,-10},{-24,-10},{-24,28},{39,28}}, color={0,0,127}));
+    annotation (Line(points={{-59,-10},{-26,-10},{-26,23},{39,23}},           color={0,0,127}));
+  connect(mod.uSupFan, fanStatus.y) annotation (Line(points={{39,20},{32,20},{
+          32,0},{21,0}}, color={255,0,255}));
   annotation (
   experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/Economizers/Subsequences/Validation/Modulation_TSup.mos"

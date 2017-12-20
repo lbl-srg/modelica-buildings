@@ -26,12 +26,16 @@ model ASHRAE93 "Model of a flat plate solar thermal collector"
     final G_nominal=per.G_nominal,
     dT_nominal=per.dT_nominal,
     final A_c=TotalArea_internal,
-    m_flow_nominal=per.mperA_flow_nominal*per.A,
+    m_flow_nominal=per.mperA_flow_nominal*per.A*nPanels_internal,
     final cp_default=cp_default)
     "Calculates the heat lost to the surroundings using the ASHRAE93 standard calculations"
         annotation (Placement(transformation(extent={{-20,6},{0,26}})));
 
 equation
+  // Make sure the model is only used with the ASHRAE ratings data, and slope < 0
+  assert(per.slope < 0,
+    "The heat loss coefficient from the ASHRAE ratings data must be strictly negative. Obtained slope = " + String(per.slope));
+
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
       points={{-100,96},{-88,96},{-88,22},{-22,22}},
       color={255,204,51},
@@ -76,7 +80,7 @@ equation
       points={{1,16},{50,16}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (
+annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
          graphics={
@@ -147,42 +151,55 @@ equation
           thickness=1,
           origin={0,40},
           rotation=90)}),
-    defaultComponentName="solCol",
-    Documentation(info="<html>
-      <p>
-        This component models a solar thermal collector according to the ASHRAE93
-        test standard.
-      </p>
-    <h4>Notice</h4>
-      <ul>
-        <li>
-          As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC
-          incident angle modifier equation coefficients are only valid for
-          incident angles of 60 degrees or less. Because these curves behave
-          poorly for angles greater than 60 degrees the model does not
-          calculate either direct or diffuse solar radiation gains when the
-          incidence angle is greater than 60 degrees.
-        </li>
-        <li>
-          By default, the estimated heat capacity of the collector without
-          fluid is calculated based on the dry mass and the specific heat
-          capacity of copper.
-        </li>
-      </ul>
- <h4>References</h4>
-   <p>
-     <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011. <br/>
-   </p>
- </html>", revisions="<html>
- <ul>
- <li>
- October 18, 2013, by Michael Wetter:<br/>
- Removed duplicate connection.
- </li>
- <li>
- January 4, 2013, by Peter Grant:<br/>
- First implementation.
- </li>
- </ul>
- </html>"));
+  defaultComponentName="solCol",
+  Documentation(info="<html>
+<p>
+This component models a solar thermal collector according to the ASHRAE93
+test standard.
+</p>
+<h4>Notice</h4>
+<ul>
+<li>
+As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC
+incident angle modifier equation coefficients are only valid for
+incident angles of 60 degrees or less. Because these curves behave
+poorly for angles greater than 60 degrees the model does not
+calculate either direct or diffuse solar radiation gains when the
+incidence angle is greater than 60 degrees.
+</li>
+<li>
+By default, the estimated heat capacity of the collector without
+fluid is calculated based on the dry mass and the specific heat
+capacity of copper.
+</li>
+</ul>
+<h4>References</h4>
+<p>
+<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011. <br/>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 17, 2017, by Michael Wetter:<br/>
+Revised computation of heat loss.<br/>
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1100\">
+issue 1100</a>.
+</li>
+<li>
+November 21, 2017, by Michael Wetter:<br/>
+Corrected error in heat loss calculations that did not scale correctly with <code>nPanels</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1073\">issue 1073</a>.
+</li>
+<li>
+October 18, 2013, by Michael Wetter:<br/>
+Removed duplicate connection.
+</li>
+<li>
+January 4, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ASHRAE93;

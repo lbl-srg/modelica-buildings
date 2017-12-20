@@ -29,7 +29,7 @@ block Enable
     final quantity = "ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-220,250},{-180,290}}),
-      iconTransformation(extent={{-120,90},{-100,110}})));
+    iconTransformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
@@ -155,19 +155,20 @@ protected
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=Constants.FreezeProtectionStages.stage0)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0)
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
-    final k=Constants.ZoneStates.heating)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.heating)
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Negation for check of freeze protection status"
     annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
+
 equation
   connect(outDamSwitch.y, yOutDamPosMax)
     annotation (Line(points={{61,-140},{61,-140},{190,-140}}, color={0,0,127}));
@@ -181,24 +182,31 @@ equation
     annotation (Line(points={{-200,190},{-160,190},{-160,176},{-142,176}},color={0,0,127}));
   connect(hOutCut, add2.u2)
     annotation (Line(points={{-200,150},{-160,150},{-160,164},{-142,164}}, color={0,0,127}));
-  connect(add2.y, hysOutEnt.u) annotation (Line(points={{-119,170},{-102,170}}, color={0,0,127}));
-  connect(hysOutTem.y, nor1.u1) annotation (Line(points={{-79,250},{-60,250},{-60,210},{-42,210}},
+  connect(add2.y, hysOutEnt.u)
+    annotation (Line(points={{-119,170},{-102,170}}, color={0,0,127}));
+  connect(hysOutTem.y, nor1.u1)
+    annotation (Line(points={{-79,250},{-60,250},{-60,210},{-42,210}},
     color={255,0,255}));
   connect(hysOutEnt.y, nor1.u2)
     annotation (Line(points={{-79,170},{-60,170},{-60,202},{-42,202}},  color={255,0,255}));
-  connect(entSubst.y, nor1.u2) annotation (Line(points={{-79,200},{-60,200},{-60,202},{-42,202}},
+  connect(entSubst.y, nor1.u2)
+    annotation (Line(points={{-79,200},{-60,200},{-60,202},{-42,202}},
     color={255,0,255}));
   connect(uOutDamPosMin, outDamSwitch.u1)
-    annotation (Line(points={{-200,-160},{-120,-160},{-60,-160},{-60,-132},{38,-132}},color={0,0,127}));
+    annotation (Line(points={{-200,-160},{-120,-160},{-60,-160},{-60,-132},{38,-132}},
+    color={0,0,127}));
   connect(uOutDamPosMax, outDamSwitch.u3)
     annotation (Line(points={{-200,-130},{-80,-130},{-80,-148},{38,-148}}, color={0,0,127}));
-  connect(nor1.y, truFalHol.u) annotation (Line(points={{-19,210},{-1,210}}, color={255,0,255}));
+  connect(nor1.y, truFalHol.u)
+    annotation (Line(points={{-19,210},{-1,210}}, color={255,0,255}));
   connect(andEnaDis.y, not2.u)
-    annotation (Line(points={{61,40},{72,40},{72,-20},{-20,-20},{-20,-60},{-12,-60}}, color={255,0,255}));
+    annotation (Line(points={{61,40},{72,40},{72,-20},{-20,-20},{-20,-60},{-12,-60}},
+    color={255,0,255}));
   connect(minRetDamSwitch.y, yRetDamPosMin)
     annotation (Line(points={{61,-240},{100,-240},{146,-240},{190,-240}}, color={0,0,127}));
   connect(truFalHol.y, and1.u1)
-    annotation (Line(points={{21,210},{30,210},{30,130},{-10,130},{-10,110},{-2,110}},color={255,0,255}));
+    annotation (Line(points={{21,210},{30,210},{30,130},{-10,130},{-10,110},{-2,110}},
+    color={255,0,255}));
   connect(and1.y, andEnaDis.u1)
     annotation (Line(points={{21,110},{21,110},{30,110},{30,48},{38,48}}, color={255,0,255}));
   connect(uSupFan, and1.u2)
@@ -209,23 +217,24 @@ equation
     annotation (Line(points={{-119,-248},{0,-248},{38,-248}}, color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, yRetDamPosMax)
     annotation (Line(points={{-119,-210},{190,-210}}, color={0,0,127}));
-  connect(not2.y, minRetDamSwitch.u2) annotation (Line(points={{11,-60},{16,-60},
-          {16,-240},{38,-240}}, color={255,0,255}));
-  connect(not2.y, outDamSwitch.u2) annotation (Line(points={{11,-60},{28,-60},{28,-140},{38,-140}}, color={255,0,255}));
-  connect(conInt.y,intEqu. u2) annotation (Line(points={{-99,40},{-92,40},{-92,52},
-          {-82,52}}, color={255,127,0}));
-  connect(conInt1.y,intEqu1. u2) annotation (Line(points={{-99,-20},{-90,-20},{-90,
-          -8},{-82,-8}}, color={255,127,0}));
+  connect(not2.y, minRetDamSwitch.u2)
+    annotation (Line(points={{11,-60},{16,-60},{16,-240},{38,-240}}, color={255,0,255}));
+  connect(not2.y, outDamSwitch.u2)
+    annotation (Line(points={{11,-60},{28,-60},{28,-140},{38,-140}}, color={255,0,255}));
+  connect(conInt.y,intEqu. u2)
+    annotation (Line(points={{-99,40},{-92,40},{-92,52},{-82,52}}, color={255,127,0}));
+  connect(conInt1.y,intEqu1. u2)
+    annotation (Line(points={{-99,-20},{-90,-20},{-90,-8},{-82,-8}}, color={255,127,0}));
   connect(intEqu1.y,not3. u)
     annotation (Line(points={{-59,0},{-46,0}}, color={255,0,255}));
-  connect(uZonSta, intEqu1.u1) annotation (Line(points={{-200,-10},{-140,-10},{
-          -140,0},{-82,0}}, color={255,127,0}));
-  connect(uFreProSta, intEqu.u1) annotation (Line(points={{-200,50},{-140,50},{
-          -140,60},{-82,60}}, color={255,127,0}));
-  connect(intEqu.y, andEnaDis.u2) annotation (Line(points={{-59,60},{-10,60},{
-          -10,40},{38,40}}, color={255,0,255}));
-  connect(not3.y, andEnaDis.u3) annotation (Line(points={{-23,0},{8,0},{8,32},{
-          38,32}}, color={255,0,255}));
+  connect(uZonSta, intEqu1.u1)
+    annotation (Line(points={{-200,-10},{-140,-10},{-140,0},{-82,0}}, color={255,127,0}));
+  connect(uFreProSta, intEqu.u1)
+    annotation (Line(points={{-200,50},{-140,50},{-140,60},{-82,60}}, color={255,127,0}));
+  connect(intEqu.y, andEnaDis.u2)
+    annotation (Line(points={{-59,60},{-10,60},{-10,40},{38,40}}, color={255,0,255}));
+  connect(not3.y, andEnaDis.u3)
+    annotation (Line(points={{-23,0},{8,0},{8,32},{38,32}}, color={255,0,255}));
     annotation (
     Icon(graphics={
         Rectangle(
@@ -234,15 +243,15 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-2,60},{78,60}},
+          points={{0,60},{80,60}},
           color={0,0,127},
           thickness=0.5),
         Line(
-          points={{-78,-64},{-2,-64},{-2,60}},
+          points={{-76,-60},{0,-60},{0,60}},
           color={0,0,127},
           thickness=0.5),
         Text(
-          extent={{-170,150},{158,112}},
+          extent={{-170,142},{158,104}},
           lineColor={0,0,127},
           textString="%name")}),
     Diagram(coordinateSystem(
@@ -308,15 +317,15 @@ conditions included in the sequence are:
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.FreezeProtectionStages</a> (PART5.9),
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages</a> (PART5.9),
 </li>
 <li>
 Supply fan status <code>TSupFan</code> (PART5.4.d),
 </li>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.ZoneStates\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Constants.ZoneStates</a> (PART5.3.b).
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates</a> (PART5.3.b).
 </li>
 </ul>
 <p>

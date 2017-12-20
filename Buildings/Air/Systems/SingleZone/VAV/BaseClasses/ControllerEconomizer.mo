@@ -2,8 +2,8 @@ within Buildings.Air.Systems.SingleZone.VAV.BaseClasses;
 model ControllerEconomizer "Controller for economizer"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real kPEco(min=Modelica.Constants.small) = 1
-    "Proportional gain of controller"
+  parameter Real kEco(min=Modelica.Constants.small) = 1
+    "Gain of controller"
     annotation(Dialog(group="Control gain"));
 
   Modelica.Blocks.Interfaces.RealInput TMixSet(
@@ -57,7 +57,7 @@ model ControllerEconomizer "Controller for economizer"
   Modelica.Blocks.MathBoolean.And and1(final nu=3) "Logical and"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Controls.Continuous.LimPID con(
-    final k=kPEco,
+    final k=kEco,
     final reverseAction=true,
     final yMax=Modelica.Constants.inf,
     final yMin=-Modelica.Constants.inf,

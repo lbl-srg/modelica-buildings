@@ -16,4 +16,4 @@ For general questions regarding the `Buildings` library, use
 https://unmethours.com/questions/.
 This is an open group and everyone can join it. No invitation is needed.
 
-For questions that are specific to Modelica but not the `Buildings` libray, see http://stackoverflow.com/search?q=modelica
+For questions that are specific to Modelica but not the `Buildings` libray, see https://stackoverflow.com/search?q=modelica

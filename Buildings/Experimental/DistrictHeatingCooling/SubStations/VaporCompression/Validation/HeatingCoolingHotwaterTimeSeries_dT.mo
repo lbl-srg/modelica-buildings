@@ -16,17 +16,17 @@ model HeatingCoolingHotwaterTimeSeries_dT "Validation model for substation"
   Modelica.Blocks.Sources.Constant TWar(k=273.15 + 18)
     "Temperature of warm supply"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT
-                                                                                                        subSta(
-    filNam=
-        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos",
+  Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT subSta(
     redeclare package Medium = Medium,
+    filNam=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
     show_T=true,
     TOut_nominal=273.15) "Substation model"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    filNam=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"),
       computeWetBulbTemperature=false) "File reader that reads weather data"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Fluid.Sources.Boundary_pT coo1(
@@ -60,6 +60,12 @@ This model tests the substation that has heat pumps for cooling, heating and hot
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 12, 2017, by Michael Wetter:<br/>
+Added call to <code>Modelica.Utilities.Files.loadResource</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1097\">issue 1097</a>.
+</li>
 <li>
 December 1, 2015, by Michael Wetter:<br/>
 First implementation.

@@ -231,7 +231,7 @@ In some situation, such as the configuration below, connecting multiple connecto
    Connection of three components without explicitly introducing a mixer or splitter model.
 
 However, in more complex flow configurations, one may want to explicitly control what branches of a piping or duct network mix. This may be achieved by using an instance of the model
-`SplitterFixedResistanceDpM <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM>`_ as shown in the left figure below, which is the test model
+`PressureDrop <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop>`_ as shown in the left figure below, which is the test model
 `BoilerPolynomialClosedLoop <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Boilers_Examples.html#Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop>`_
 
 .. figure:: img/fluidJunctionMixingSplitter.png
@@ -363,7 +363,7 @@ parameters in various model to help the user understand how they are used.
 | ``m_flow_nominal``  | | Flow resistance models. | These parameters may be used to define a point on the flow rate          |
 | ``dp_nominal``      |                           | versus pressure drop curve. For other mass flow rates, the pressure drop |
 |                     |                           | is typically adjusted using similarity laws.                             |
-|                     |                           | See FixedResistanceDpM_.                                                 |
+|                     |                           | See PressureDrop_.                                                       |
 +---------------------+---------------------------+--------------------------------------------------------------------------+
 | ``m_flow_nominal``  | | Sensors.                | Some of these models set ``m_flow_small=1E-4*abs(m_flow_nominal)``       |
 | ``m_flow_small``    | | Volumes.                | as the default value. Then, m_flow_small is used to regularize, or       |
@@ -749,5 +749,5 @@ As an extreme case, if a system is chaotic
 and uncontrolled, then the global integration error will grow rapidly.
 
 
-.. _FixedResistanceDpM: http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM
+.. _PressureDrop: http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop
 .. _WetCoilDiscretized: http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.WetCoilDiscretized

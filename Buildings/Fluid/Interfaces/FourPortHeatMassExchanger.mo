@@ -68,45 +68,48 @@ model FourPortHeatMassExchanger
   Modelica.SIunits.HeatFlowRate Q2_flow = vol2.heatPort.Q_flow
     "Heat flow rate into medium 2";
 
-  Buildings.Fluid.MixingVolumes.MixingVolume vol1(
-    redeclare final package Medium = Medium1,
-    nPorts = 2,
-    V=m1_flow_nominal*tau1/rho1_nominal,
-    final allowFlowReversal=allowFlowReversal1,
-    final m_flow_nominal=m1_flow_nominal,
-    energyDynamics=if tau1 > Modelica.Constants.eps
+  replaceable Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol1
+    constrainedby
+    Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
+        redeclare final package Medium = Medium1,
+        nPorts = 2,
+        V=m1_flow_nominal*tau1/rho1_nominal,
+        final allowFlowReversal=allowFlowReversal1,
+        final m_flow_nominal=m1_flow_nominal,
+        energyDynamics=if tau1 > Modelica.Constants.eps
                          then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=if tau1 > Modelica.Constants.eps
+        massDynamics=if tau1 > Modelica.Constants.eps
                          then massDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
-    final p_start=p1_start,
-    final T_start=T1_start,
-    final X_start=X1_start,
-    final C_start=C1_start,
-    final C_nominal=C1_nominal,
-    mSenFac=1) "Volume for fluid 1"
+        final p_start=p1_start,
+        final T_start=T1_start,
+        final X_start=X1_start,
+        final C_start=C1_start,
+        final C_nominal=C1_nominal,
+        mSenFac=1) "Volume for fluid 1"
     annotation (Placement(transformation(extent={{-10,70}, {10,50}})));
 
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol2
-    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
-    redeclare final package Medium = Medium2,
-    nPorts = 2,
-    V=m2_flow_nominal*tau2/rho2_nominal,
-    final allowFlowReversal=allowFlowReversal2,
-    mSenFac=1,
-    final m_flow_nominal = m2_flow_nominal,
-    energyDynamics=if tau2 > Modelica.Constants.eps
+    constrainedby
+    Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
+        redeclare final package Medium = Medium2,
+        nPorts = 2,
+        V=m2_flow_nominal*tau2/rho2_nominal,
+        final allowFlowReversal=allowFlowReversal2,
+        mSenFac=1,
+        final m_flow_nominal = m2_flow_nominal,
+        energyDynamics=if tau2 > Modelica.Constants.eps
                          then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=if tau2 > Modelica.Constants.eps
+        massDynamics=if tau2 > Modelica.Constants.eps
                          then massDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
-    final p_start=p2_start,
-    final T_start=T2_start,
-    final X_start=X2_start,
-    final C_start=C2_start,
-    final C_nominal=C2_nominal) "Volume for fluid 2"
+        final p_start=p2_start,
+        final T_start=T2_start,
+        final X_start=X2_start,
+        final C_start=C2_start,
+        final C_nominal=C2_nominal) "Volume for fluid 2"
    annotation (Placement(transformation(
         origin={2,-60},
         extent={{-10,10},{10,-10}},
@@ -155,7 +158,7 @@ protected
   parameter Modelica.SIunits.SpecificEnthalpy h2_outflow_start = Medium2.specificEnthalpy(sta2_start)
     "Start value for outflowing enthalpy";
 
-initial algorithm
+initial equation
   // Check for tau1
   assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau1 > Modelica.Constants.eps,
@@ -180,9 +183,10 @@ initial algorithm
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau2 = " + String(tau2) + "\n");
 
+
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
-      points={{2,70},{20,70},{20,60},{100,60}},
+      points={{0,70},{20,70},{20,60},{100,60}},
       color={0,127,255}));
   connect(vol2.ports[2], port_b2) annotation (Line(
       points={{2,-70},{-30,-70},{-30,-60},{-100,-60}},
@@ -191,7 +195,7 @@ equation
       points={{-100,60},{-90,60},{-90,80},{-80,80}},
       color={0,127,255}));
   connect(preDro1.port_b, vol1.ports[1]) annotation (Line(
-      points={{-60,80},{-2,80},{-2,70}},
+      points={{-60,80},{0,80},{0,70}},
       color={0,127,255}));
   connect(port_a2, preDro2.port_a) annotation (Line(
       points={{100,-60},{90,-60},{90,-80},{80,-80}},
@@ -225,6 +229,11 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 23, 2017, by Michael Wetter:<br/>
+Made volume <code>vol1</code> replaceable. This is required for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1013\">Buildings, issue 1013</a>.
+</li>
 <li>
 December 1, 2016, by Michael Wetter:<br/>
 Updated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>
@@ -328,6 +337,7 @@ Added <code>stateSelect=StateSelect.always</code> for temperature of volume 1.
 Changed temperature sensor from Celsius to Kelvin.
 Unit conversion should be made during output
 processing.
+</li>
 <li>
 August 5, 2008, by Michael Wetter:<br/>
 Replaced instances of <code>Delays.DelayFirstOrder</code> with instances of

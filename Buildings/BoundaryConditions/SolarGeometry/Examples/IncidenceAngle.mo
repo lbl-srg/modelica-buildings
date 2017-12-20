@@ -7,7 +7,7 @@ model IncidenceAngle "Test model for solar incidence angle"
     azi=0.3) "Incidence angle on horizontal surface"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data (Chicago)"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAngNor(

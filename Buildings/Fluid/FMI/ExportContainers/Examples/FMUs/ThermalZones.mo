@@ -33,7 +33,7 @@ model ThermalZones
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     TDryBul=TOut_nominal,
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File,
     computeWetBulbTemperature=false) "Weather data reader"
     annotation (Placement(transformation(extent={{150,130},{130,150}})));
@@ -70,8 +70,7 @@ model ThermalZones
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=3) "Room volume"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon2(
-                                                                   G=10000/30)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon2(G=10000/30)
     "Thermal conductance with the ambient"
     annotation (Placement(transformation(extent={{30,-26},{50,-6}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea2(Q_flow=
@@ -213,6 +212,13 @@ exposed at the FMU interface.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 4, 2017, by Michael Wetter:<br/>
+Added call to <code>Modelica.Utilities.Files.loadResource</code>
+for weather data file.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/867\">#867</a>.
+</li>
 <li>
 September 14, 2016, by Michael Wetter:<br/>
 First implementation.

@@ -114,7 +114,7 @@ equation
    connect(fraMasFlo.u, senMasFlo.m_flow)
       annotation (Line(points={{100,144},{80,144},{80,134},{61,134}},
         color={0,0,127}, smooth=Smooth.None, pattern=LinePattern.Dash));
-   connect(TSup.T, con.TSup)
+   connect(TSup.T,con.TDis)
       annotation (Line(points={{39,74},{-20,74},{-20,-8},{-2,-8}},
         color={0,0,127}));
    connect(con.yDam, vav.y)

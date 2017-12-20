@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "TSupSou.T",
+    "TSupEas.T",
+    "TSupNor.T",
+    "TSupWes.T",
+    "TSupCor.T",
+    "conEco.yOA",
+    "dpRetDuc.m_flow",
+    "dpRetDuc.m_flow_nominal",
+    "fanSup.m_flow",
+    "fanSup.m_flow_nominal"
+  };

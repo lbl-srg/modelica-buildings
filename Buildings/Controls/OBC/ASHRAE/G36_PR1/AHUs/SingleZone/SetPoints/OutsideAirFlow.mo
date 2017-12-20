@@ -8,8 +8,8 @@ block OutsideAirFlow
   parameter Modelica.SIunits.VolumeFlowRate outAirPerPer = 2.5e-3
     "Outdoor air rate per person"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Area zonAre
-    "Area of each zone"
+  parameter Modelica.SIunits.Area AFlo
+    "Floor area"
     annotation(Dialog(group="Nominal condition"));
   parameter Boolean have_occSen
     "Set to true if zones have occupancy sensor";
@@ -112,17 +112,17 @@ protected
     "Zone distribution effectiveness for cooling"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonAre(
-    final k=outAirPerAre*zonAre)
+    final k=outAirPerAre*AFlo)
     "Area component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonPop(
-    final k=outAirPerPer*zonAre*occDen)
+    final k=outAirPerPer*AFlo*occDen)
     "Population component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(
-    final k=Constants.OperationModes.occupied)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-180,-180},{-160,-160}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
@@ -203,11 +203,11 @@ defaultComponentName="outAirSetPoi",
 Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
-          fillColor={210,210,210},
+          fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
-          extent={{-92,82},{84,-68}},
+          extent={{-84,78},{92,-72}},
           lineColor={0,0,0},
-          textString="minOAsp"),
+          textString="VOutMinSet_flow"),
         Text(
           extent={{-100,140},{100,100}},
           lineColor={0,0,255},
@@ -226,7 +226,7 @@ is according to ASHRAE Guidline 36 (G36), PART5.P.4.b, PART5.B.2.b, PART3.1-D.2.
 <h4>Step 1: Minimum breathing zone outdoor airflow required <code>breZon</code></h4>
 <ul>
 <li>The area component of the breathing zone outdoor airflow:
-<code>breZonAre = zonAre*outAirPerAre</code>.
+<code>breZonAre = AFlo*outAirPerAre</code>.
 </li>
 <li>The population component of the breathing zone outdoor airflow:
 <code>breZonPop = occCou*outAirPerPer</code>.
@@ -236,7 +236,7 @@ is according to ASHRAE Guidline 36 (G36), PART5.P.4.b, PART5.B.2.b, PART3.1-D.2.
 The number of occupant <code>occCou</code> could be retrieved
 directly from occupancy sensor <code>nOcc</code> if the sensor exists
 (<code>have_occSen=true</code>), or using the default occupant density
-<code>occDen</code> to find it <code>zonAre*occDen</code>. The occupant
+<code>occDen</code> to find it <code>AFlo*occDen</code>. The occupant
 density can be found from Table 6.2.2.1 in ASHRAE Standard 62.1-2013.
 For design purpose, use design zone population <code>desZonPop</code> to find
 out the minimum requirement at the ventilation-design condition.

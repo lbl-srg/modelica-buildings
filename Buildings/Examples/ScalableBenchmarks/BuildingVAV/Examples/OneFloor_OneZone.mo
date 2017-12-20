@@ -212,7 +212,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each k=0.1) "Controller for economizer"
     annotation (Placement(transformation(extent={{-288,88},{-276,100}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-360,160},{-340,180}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-334,160},{-314,180}})));
@@ -231,7 +231,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
   Buildings.Examples.VAVReheat.Controls.FanVFD conFanRet[nFlo](
     each xSet_nominal(displayUnit="m3/s") = m_flow_nominal/1.2,
     each r_N_min=0.2) "Controller for fan"
-    annotation (Placement(transformation(extent={{12,158},{26,172}})));
+    annotation (Placement(transformation(extent={{14,152},{28,166}})));
   Buildings.Examples.ScalableBenchmarks.BuildingVAV.BaseClasses.ControlBus controlBus[nFlo]
     "Control bus for each floor"
     annotation (Placement(transformation(extent={{-78,44},{-58,64}}),
@@ -306,13 +306,13 @@ equation
         {-320,39.14}}, color={255,204,51}, thickness=0.5),
         Text(string="%first", index=-1, extent={{-6,3},{-6,3}}));
     connect(senRetFlo[iFlo].V_flow, conFanRet[iFlo].u_m)
-      annotation (Line(points={{20,134.8},{20,156.6},{19,156.6}},
+      annotation (Line(points={{20,134.8},{20,150.6},{21,150.6}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(conFanRet[iFlo].u, senSupFlo[iFlo].V_flow)
-      annotation (Line(points={{10.6,165},{0,165},{0,0},{40,0},{40,-21.2}},
+      annotation (Line(points={{12.6,159},{0,159},{0,0},{40,0},{40,-21.2}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(conFanRet[iFlo].y, fanRet[iFlo].y)
-      annotation (Line(points={{26.7,165},{36,165},{36,180},{-20,180},{-20,138}},
+      annotation (Line(points={{28.7,159},{36,159},{36,180},{-20,180},{-20,138}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(TCoiHeaOut[iFlo].port_b, cooCoi[iFlo].port_a2)
       annotation (Line(points={{-88,-30},{-82,-30},{-76,-30}},
@@ -329,9 +329,6 @@ equation
     connect(modeSelector[iFlo].cb, TSetCoo[iFlo].controlBus)
       annotation (Line(points={{-175.455,53.4545},{-206,53.4545},{-206,-92.8},{
             -233.08,-92.8}},
-        color={255,204,51}, thickness=0.5));
-    connect(controlBus[iFlo], conFanRet[iFlo].controlBus)
-      annotation (Line(points={{-68,54},{-68,54},{-40,54},{-40,170.6},{14.1,170.6}},
         color={255,204,51}, thickness=0.5));
     connect(controlBus[iFlo], conEco[iFlo].controlBus)
       annotation (Line(points={{-68,54},{-68,54},{-134,54},{-134,104},{-285.6,104},
@@ -458,8 +455,11 @@ equation
       color={255,204,51}, thickness=0.5));
 
 
+  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-161.636,
+          48},{-161.636,48},{-146,48},{-146,163.2},{12.6,163.2}}, color={255,0,
+          255}));
 annotation (
-  experiment(StopTime=604800, Tolerance=1e-06,__Dymola_Algorithm="Radau"),
+  experiment(StopTime=604800, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ScalableBenchmarks/BuildingVAV/Examples/OneFloor_OneZone.mos"
         "Simulate and plot"),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-120},{140,200}})),
@@ -534,6 +534,11 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 24, 2017, by Michael Wetter:<br/>
+Updated model for new fan controller that takes the on/off signal
+as an input.
+</li>
 <li>
 June 6, 2017, by Jianjun Hu:<br/>
 First implementation.

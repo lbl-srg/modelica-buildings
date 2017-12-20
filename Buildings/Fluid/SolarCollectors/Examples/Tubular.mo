@@ -19,7 +19,7 @@ model Tubular "Example showing the use of Tubular"
              annotation (Placement(transformation(extent={{12,-20},{32,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-    "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data input file"
     annotation (Placement(transformation(extent={{-28,20},{-8,40}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
