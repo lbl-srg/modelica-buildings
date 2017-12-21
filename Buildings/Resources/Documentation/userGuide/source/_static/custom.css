@@ -160,6 +160,13 @@ tr.border_bottom td {
   border-bottom:1pt solid #022e4d;
 }
 
+td.label{
+    color: #022e4d;
+}
+table.citation > thead > tr > th, .table.citation > tbody > tr > th, .table.citation > tfoot > tr > th, .table.citation > thead > tr > td, .table.citation > tbody > tr > td, .table.citation > tfoot > tr > td{
+    border-top: none;
+}
+
 h1{
   font-size: 2em;
 }

@@ -27,6 +27,12 @@ as well as tools for workflow automation.
 It also contains numerous examples that apply these technologies to the
 design and operation of building and community energy systems.
 
+An interactive web-based tour of Modelica is available at
+http://modelica.university/res/lesson/training.json.
+
+Spoken tutorials for beginners are available at http://spoken-tutorial.org/tutorial-search/?search_foss=OpenModelica&search_language=English.
+
+
 
 Literature for Developers
 -------------------------
