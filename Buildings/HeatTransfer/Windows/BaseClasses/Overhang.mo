@@ -70,14 +70,14 @@ protected
     "Solar azimuth"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-initial algorithm
+initial equation
   assert(wL >= 0,  "Overhang must cover complete window
     Received overhang width on left hand side, wL = " + String(wL));
   assert(wR >= 0,  "Overhang must cover complete window
     Received overhang width on right hand side, wR = " + String(wR));
 
   for i in 1:4 loop
-    tmpH[i] := gap + mod((i - 1), 2)*hWin;
+    tmpH[i] = gap + mod((i - 1), 2)*hWin;
   end for;
 
 equation
