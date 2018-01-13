@@ -63,7 +63,7 @@ equation
           lineColor={191,0,0},
           fillColor={191,0,0},
           fillPattern=FillPattern.Solid)}),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This model allows a specified amount of heat flow rate to be \"injected\"
 into a thermal system at a given port.  The constant amount of heat
@@ -78,7 +78,7 @@ Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</a>, except that
 the parameters <code>alpha</code> and <code>T_ref</code> have
 been deleted as these can cause division by zero in some fluid flow models.
 </p>
-</HTML>",
+</html>",
        revisions="<html>
 <ul>
 <li>

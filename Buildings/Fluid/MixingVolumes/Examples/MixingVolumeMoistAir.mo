@@ -184,7 +184,7 @@ This is for issue
 <li>
 February 11, 2014 by Michael Wetter:<br/>
 Changed
-<code>HWat_flow(y=vol1.HWat_flow</code> to
+<code>HWat_flow(y=vol1.HWat_flow)</code> to
 <code>QLat_flow(y=vol1.QLat_flow.y)</code>
 and
 <code>QWat</code> to <code>QLat</code>.

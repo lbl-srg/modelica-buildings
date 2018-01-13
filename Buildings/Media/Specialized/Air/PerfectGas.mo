@@ -72,7 +72,6 @@ required from medium model \""     + mediumName + "\".");
     "Steam water mass fraction of saturation boundary in kg_water/kg_moistair"
   annotation (
     Inline=true);
-
   redeclare function setState_pTX
     "Thermodynamic state as function of p, T and composition X"
       extends Modelica.Media.Air.MoistAir.setState_pTX;
@@ -182,13 +181,11 @@ end saturationPressureLiquid_der;
     "Saturation curve valid for 223.16 <= T <= 273.16. Outside of these limits a (less accurate) result is returned"
   annotation (
     Inline=true);
-
   function sublimationPressureIce_der =
       Modelica.Media.Air.MoistAir.sublimationPressureIce_der
     "Derivative function for 'sublimationPressureIce'"
   annotation (
     Inline=true);
-
 redeclare function extends saturationPressure
     "Saturation curve valid for 223.16 <= T <= 373.16 (and slightly outside with less accuracy)"
 
@@ -501,7 +498,6 @@ The pressure is input for compatibility with the medium models, but the temperat
 is independent of the pressure.
 </html>"));
 end temperature_phX;
-
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
 // These classes are only of use within this medium model.
@@ -558,7 +554,6 @@ First implementation.
 </ul>
 </html>"));
   end GasProperties;
-
   // In the assignments below, we compute cv as OpenModelica
   // cannot evaluate cv=cp-R as defined in GasProperties.
   constant GasProperties dryair(
@@ -588,10 +583,8 @@ First implementation.
 
   function s_pTX = Modelica.Media.Air.MoistAir.s_pTX
     "Return specific entropy of moist air as a function of pressure p, temperature T and composition X (only valid for phi<1)";
-
   function s_pTX_der = Modelica.Media.Air.MoistAir.s_pTX_der
     "Return specific entropy of moist air as a function of pressure p, temperature T and composition X (only valid for phi<1)";
-
   annotation(preferredView="info", Documentation(info="<html>
 <p>
 This package contains a <i>thermally perfect</i> model of moist air.
@@ -660,7 +653,7 @@ when models are checked in Dymola 2014 in the pedenatic mode.
 </li>
 <li>
 April 12, 2012, by Michael Wetter:<br/>
-Added keyword <code>each</code> to <code>Xi(stateSelect=...</code>.
+Added keyword <code>each</code> to <code>Xi(stateSelect=...)</code>.
 </li>
 <li>
 April 4, 2012, by Michael Wetter:<br/>
