@@ -5721,7 +5721,7 @@ Modelica.UsersGuide.ReleaseNotes.VersionManagement</a> for details.
 To allow adding scripts for multiple simulation environments,
 all scripts have been moved to the directory <code>Buildings/Resources/Scripts/Dymola</code> and the annotation that
 generates the entry in the <code>Command</code> pull down menu has been changed to
-<code>__Dymola_Commands(file=...</code>
+<code>__Dymola_Commands(file=...)</code>
 </li>
 </ul>
 </html>"));

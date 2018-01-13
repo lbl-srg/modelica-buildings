@@ -158,7 +158,7 @@ Step 2: Compute the spectral absorption coefficient &alpha; and spectral index o
 </tr>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-  n = (1 + sqrt(&rho;(0)) &frasl;
+  n = (1 + sqrt(&rho;(0))) &frasl;
         (1 &minus; sqrt(&rho;(0))).
 </p></td>
 <td>(4)</td>

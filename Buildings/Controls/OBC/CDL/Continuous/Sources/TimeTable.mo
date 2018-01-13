@@ -132,7 +132,7 @@ following each other. For example
 <p>
 defines three intervalls: 0..1, 1..3, 3..5. Within an interval the defined
 interpolation method is applied (so the table outputs within an interval are
-continuous if <code>smoothness = CDL.Types.LinearSegments</code>.
+continuous if <code>smoothness = CDL.Types.LinearSegments</code>).
 </p>
 <p>
 Example:

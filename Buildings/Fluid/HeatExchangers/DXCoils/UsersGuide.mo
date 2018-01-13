@@ -147,7 +147,7 @@ This computation requires the ratio <i>UA &frasl; c<sub>p</sub></i>, which is co
 <p>
 Once the ratio <i>UA &frasl; c<sub>p</sub></i> is known,
 the bypass factor is a function of the current mass flow rate only.
-(Under the assumption that the velocity dependence of <i>UA</i> can be neglected.
+(Under the assumption that the velocity dependence of <i>UA</i> can be neglected.)
 </p>
 <h4>Limitations</h4>
 <p>This model has the following limitations: </p>
