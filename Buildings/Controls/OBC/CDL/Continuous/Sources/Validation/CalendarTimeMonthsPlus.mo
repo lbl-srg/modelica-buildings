@@ -1,7 +1,8 @@
 within Buildings.Controls.OBC.CDL.Continuous.Sources.Validation;
 model CalendarTimeMonthsPlus
   "Validation model for the calendar time model with start time slightly higher than the full hour"
-  extends Buildings.Controls.OBC.CDL.Continuous.Sources.Validation.CalendarTimeMonths;
+  extends
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Validation.CalendarTimeMonths;
 
   annotation (experiment(StartTime=172801, Tolerance=1e-6, StopTime=345601),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Sources/Validation/CalendarTimeMonthsPlus.mos"

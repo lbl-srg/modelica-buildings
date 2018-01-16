@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Atan "Validation model for the Atan block"
-extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Atan atan1
     "Block that outputs the arc tangent of the input"
@@ -34,5 +33,15 @@ First implementation.
 </li>
 </ul>
 
-</html>"));
+</html>"),
+    Icon(graphics={
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent = {{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
 end Atan;
