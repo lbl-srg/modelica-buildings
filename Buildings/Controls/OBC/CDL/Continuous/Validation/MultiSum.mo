@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model MultiSum "Model to validate the application of MultiSum block"
-
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=-2,

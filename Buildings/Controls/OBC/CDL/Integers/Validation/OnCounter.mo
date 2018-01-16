@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.CDL.Integers.Validation;
 model OnCounter "Validation model for the OnCounter block"
 
-
   Buildings.Controls.OBC.CDL.Integers.OnCounter onCounter
     "Block that outputs increment if the input switches to true"
     annotation (Placement(transformation(extent={{16,-10},{36,10}})));

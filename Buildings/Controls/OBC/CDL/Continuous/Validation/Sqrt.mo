@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Sqrt "Validation model for the Sqrt block"
-
-
   Buildings.Controls.OBC.CDL.Continuous.Sqrt sqrt1
     "Block that outputs the square root of the input (input >= 0 required)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

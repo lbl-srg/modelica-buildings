@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.CDL.Discrete.Examples;
 model Sampler "Example model for the Sampler block"
 
-
   Buildings.Controls.OBC.CDL.Discrete.Sampler sampler1(
     samplePeriod = 0.2)
     "Ideal sampler of a continuous signal"

@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Feedback "Validation model for the Feedback block"
-
   Buildings.Controls.OBC.CDL.Continuous.Feedback feedback1
     "Block that outputs difference between commanded and feedback input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

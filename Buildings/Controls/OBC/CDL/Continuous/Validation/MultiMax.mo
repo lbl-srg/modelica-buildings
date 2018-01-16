@@ -1,8 +1,6 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model MultiMax "Validation model for the MultiMax block"
-
   parameter Integer sizOfVec = 5 "Size of the input vector";
-
   Buildings.Controls.OBC.CDL.Continuous.MultiMax maxVal(nin=sizOfVec)
     "Block that outputs the maximum element of the input vector"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

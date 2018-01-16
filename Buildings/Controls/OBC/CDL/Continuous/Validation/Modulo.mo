@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Modulo "Validation model for the Modulo block"
-
   Buildings.Controls.OBC.CDL.Continuous.Modulo mod1
     "Block that outputs the remainder of first input divided by second input (~=0)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

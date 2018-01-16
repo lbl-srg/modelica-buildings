@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model LimPID "Test model for LimPID controller"
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulse(period=0.25)
     annotation (Placement(transformation(extent={{-90,14},{-70,34}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPID(

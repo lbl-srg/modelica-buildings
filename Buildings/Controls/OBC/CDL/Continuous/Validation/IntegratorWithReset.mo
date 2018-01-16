@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model IntegratorWithReset "Test model for integrator with reset"
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cons(k=10) "Constant as source term"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 

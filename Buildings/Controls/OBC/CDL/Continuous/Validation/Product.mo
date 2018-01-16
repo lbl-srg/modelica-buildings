@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Product "Validation model for the Product block"
-
-
   Buildings.Controls.OBC.CDL.Continuous.Product product1
     "Block that outputs product of the two inputs"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

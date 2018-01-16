@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
-model GreaterEqualThreshold
-  "Validation model for the GreaterEqualThreshold block"
-
+model GreaterEqualThreshold  "Validation model for the GreaterEqualThreshold block"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
     duration=1,
     offset=-1,

@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Atan2 "Validation model for the Atan2 block"
-
   Buildings.Controls.OBC.CDL.Continuous.Atan2 atan2_1
     "Block that outputs atan(u1/u2) of the inputs u1 and u2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

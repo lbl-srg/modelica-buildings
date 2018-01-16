@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Hysteresis "Validation model for the Hysteresis block"
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=0,

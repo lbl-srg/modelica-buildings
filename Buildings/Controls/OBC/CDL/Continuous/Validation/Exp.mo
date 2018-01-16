@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Exp "Validation model for the Exp block"
-
   Buildings.Controls.OBC.CDL.Continuous.Exp Exp1
     "Block that outputs the exponential (base e) of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

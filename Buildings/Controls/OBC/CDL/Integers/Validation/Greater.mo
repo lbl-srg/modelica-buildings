@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.CDL.Integers.Validation;
 model Greater "Validation model for the Greater block"
 
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=-3.5,

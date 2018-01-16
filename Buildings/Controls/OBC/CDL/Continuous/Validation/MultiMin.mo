@@ -1,8 +1,6 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model MultiMin "Validation model for the MultiMin block"
-
   parameter Integer sizOfVec = 5 "Size of the input vector";
-
   Buildings.Controls.OBC.CDL.Continuous.MultiMin minVal(nin=sizOfVec)
     "Block that outputs the minimum element of the input vector"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.CDL.Discrete.Examples;
 model FirstOrderHold "Example model for the FirstOrderHold block"
 
-
   Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHol(
     samplePeriod = 0.2)
     "Block that first order hold of a sampled-data system"

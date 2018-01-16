@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model AddParameter "Validation model for the AddParameter block"
-
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
     p = 0.5,
     k = 1.0)

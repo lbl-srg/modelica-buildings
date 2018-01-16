@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.CDL.Integers.Validation;
 model Max "Validation model for the Max block"
 
-
   Buildings.Controls.OBC.CDL.Integers.Max max1
     "Block that outputs the largest inputs"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));

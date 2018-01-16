@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.CDL.Integers.Validation;
 model Min "Validation model for the Min block"
 
-
   Buildings.Controls.OBC.CDL.Integers.Min min1
     "Block that outputs the smallest inputs"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));

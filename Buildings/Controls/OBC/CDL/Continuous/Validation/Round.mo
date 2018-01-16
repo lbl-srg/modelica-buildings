@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Round "Validation model for the Round block"
-
-
   Buildings.Controls.OBC.CDL.Continuous.Round round1(n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));

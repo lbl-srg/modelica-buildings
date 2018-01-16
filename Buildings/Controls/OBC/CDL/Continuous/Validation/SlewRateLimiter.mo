@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model SlewRateLimiter "Validation model for the SlewRateLimiter block"
-
-
   Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter sleRatLim(
       raisingSlewRate=1/30)
     "Block that limit the increase or decrease rate of input"

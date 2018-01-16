@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Conversions.Validation;
-model BooleanToInteger
-  "Validation model for the BooleanToInteger block"
+model BooleanToInteger  "Validation model for the BooleanToInteger block"
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
     "Block that convert Boolean to Integer signal"

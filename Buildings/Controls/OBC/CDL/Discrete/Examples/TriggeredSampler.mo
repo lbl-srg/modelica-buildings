@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.CDL.Discrete.Examples;
 model TriggeredSampler "Example model for the TriggeredSampler block"
 
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=0,

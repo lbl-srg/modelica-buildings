@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Line "Validation model for the Line block"
-
   Buildings.Controls.OBC.CDL.Continuous.Line line1(
     limitBelow = true,
     limitAbove = true)

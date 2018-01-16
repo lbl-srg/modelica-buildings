@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Min "Validation model for the Min block"
-
   Buildings.Controls.OBC.CDL.Continuous.Min min1
     "Block that pass through the smallest signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

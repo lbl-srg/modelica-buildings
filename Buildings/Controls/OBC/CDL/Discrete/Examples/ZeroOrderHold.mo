@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.CDL.Discrete.Examples;
 model ZeroOrderHold "Example model for the ZeroOrderHold block"
 
-
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
     samplePeriod = 0.2)
     "Output the input signal with a zero order hold"

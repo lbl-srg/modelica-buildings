@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Limiter "Validation model for the Limiter block"
-
   Buildings.Controls.OBC.CDL.Continuous.Limiter limiter1(
     uMax = 2.5,
     uMin = 1.2)

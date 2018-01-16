@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Add "Validation model for the add block"
-
   Buildings.Controls.OBC.CDL.Continuous.Add add1
     "Block that outputs the sum of the two inputs"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

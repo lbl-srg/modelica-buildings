@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
-model HysteresisWithHold
-
+model HysteresisWithHold "Validation model for the HysteresisWithHold block"
   Modelica.Blocks.Sources.Sine pulse1(
     amplitude = 0.2,
     freqHz =    1/360)

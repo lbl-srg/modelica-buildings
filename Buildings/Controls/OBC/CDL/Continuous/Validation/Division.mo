@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Division "Validation model for the Division block"
-
   Buildings.Controls.OBC.CDL.Continuous.Division div1
     "Block that outputs first input divided by second input: u1/u2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

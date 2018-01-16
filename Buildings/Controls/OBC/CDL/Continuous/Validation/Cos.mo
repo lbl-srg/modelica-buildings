@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Cos "Validation model for the Cos block"
-
   Buildings.Controls.OBC.CDL.Continuous.Cos cos1
     "Block that outputs the cosine of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

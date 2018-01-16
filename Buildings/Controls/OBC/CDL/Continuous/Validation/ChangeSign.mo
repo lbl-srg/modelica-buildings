@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model ChangeSign "Validation model for the ChangeSign block"
-
   Buildings.Controls.OBC.CDL.Continuous.ChangeSign changSign
     "Block that change sign of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

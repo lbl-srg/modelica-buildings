@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Sort "Validation model for the Sort block"
-
-
   Buildings.Controls.OBC.CDL.Continuous.Sort sorAsc(nin=5)
     "Block that sorts signals in ascending order"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));

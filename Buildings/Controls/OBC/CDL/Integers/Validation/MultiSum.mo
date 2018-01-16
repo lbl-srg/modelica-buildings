@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL.Integers.Validation;
-model MultiSum
-  "Validation model for the block to find sum of multiple inputs"
-
+model MultiSum  "Validation model for the block to find sum of multiple inputs"
 
   Buildings.Controls.OBC.CDL.Integers.MultiSum add1(nin=3)
     "Block that outputs the sum of the inputs"

@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Abs "Validation model for the absolute block"
-
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1
     "Block that outputs the absolute value of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

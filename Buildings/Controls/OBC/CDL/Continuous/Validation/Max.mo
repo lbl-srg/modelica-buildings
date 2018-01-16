@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Max "Validation model for the Max block"
-
   Buildings.Controls.OBC.CDL.Continuous.Max max1
     "Block that pass through the largest signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

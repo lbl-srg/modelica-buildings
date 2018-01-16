@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model MovingMean "Validation model for the MovingMean block"
-
-
   Modelica.Blocks.Sources.Sine sinInpNoDel(freqHz=1/80)
     "Start from zero second"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));

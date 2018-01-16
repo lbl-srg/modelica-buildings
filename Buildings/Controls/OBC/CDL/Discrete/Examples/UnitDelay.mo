@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.CDL.Discrete.Examples;
 model UnitDelay "Example model for the UnitDelay block"
 
-
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay unitDelay1(
     samplePeriod = 0.2)
     "Sample period of component"

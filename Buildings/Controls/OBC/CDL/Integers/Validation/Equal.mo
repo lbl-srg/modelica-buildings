@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.CDL.Integers.Validation;
 model Equal "Validation model for the Equal block"
 
-
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Block output true if input 1 is equal to input 2"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));

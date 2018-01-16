@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Validation;
 model Controller_Disable
   "Validation model for disabling the multi zone VAV AHU economizer modulation and damper position limit control loops"
-  extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller
     economizer(
@@ -109,7 +108,7 @@ equation
   connect(hOutBelowCutoff.y, economizer.hOut) annotation (Line(points={{-99,20},
           {-60,20},{-60,16},{19.375,16},{19.375,16.875}}, color={0,0,127}));
   connect(hOutCut.y, economizer.hOutCut) annotation (Line(points={{-99,-20},{-60,
-          -20},{-60,2},{-60,15.625},{19.375,15.625}}, color={0,0,127}));
+          -20},{-60,2},{-60,15},{19.375,15}},         color={0,0,127}));
   connect(VOut_flow.y, economizer.VOut_flow_normalized) annotation (Line(points=
          {{-19,90},{-8,90},{-8,11.25},{19.375,11.25}}, color={0,0,127}));
   connect(VOutMinSet_flow.y, economizer.VOutMinSet_flow_normalized) annotation (
@@ -119,7 +118,7 @@ equation
   connect(TOutBelowCutoff.y, economizer1.TOut) annotation (Line(points={{-99,
           110},{80,110},{80,-0.625},{99.375,-0.625}}, color={0,0,127}));
   connect(hOutCut.y, economizer1.hOutCut) annotation (Line(points={{-99,-20},{-90,
-          -20},{-90,-28},{76,-28},{76,-4.375},{99.375,-4.375}}, color={0,0,127}));
+          -20},{-90,-28},{76,-28},{76,-5},{99.375,-5}},         color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer1.hOut) annotation (Line(points={{-99,20},
           {-80,20},{-80,-26},{74,-26},{74,-3.125},{99.375,-3.125}}, color={0,0,
           127}));

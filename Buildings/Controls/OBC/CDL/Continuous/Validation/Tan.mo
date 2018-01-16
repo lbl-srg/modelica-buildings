@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Tan "Validation model for the Tan block"
-
-
   Buildings.Controls.OBC.CDL.Continuous.Tan tan1
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

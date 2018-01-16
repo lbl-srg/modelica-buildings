@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.CDL.Integers.Validation;
 model Less "Validation model for the Less block"
 
-
   Buildings.Controls.OBC.CDL.Integers.Less intLes
     "Block output true if input 1 is less than input 2"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));

@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Log10 "Validation model for the Log10 block"
-
   Buildings.Controls.OBC.CDL.Continuous.Log10 log10_1
     "Block that outputs the base 10 logarithm of the input (input > 0 required)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

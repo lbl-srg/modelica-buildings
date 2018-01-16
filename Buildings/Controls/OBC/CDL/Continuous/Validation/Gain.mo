@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Gain "Validation model for the Gain block"
-
   Buildings.Controls.OBC.CDL.Continuous.Gain gain1(
     k = 2.5)
     "Block that outputs the product of a gain value with the input signal"

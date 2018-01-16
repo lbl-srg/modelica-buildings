@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Atan "Validation model for the Atan block"
-
   Buildings.Controls.OBC.CDL.Continuous.Atan atan1
     "Block that outputs the arc tangent of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

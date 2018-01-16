@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Derivative "Validation model for the Derivative block"
-
   Buildings.Controls.OBC.CDL.Continuous.Cos cos1
     "Block that outputs the cosine of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

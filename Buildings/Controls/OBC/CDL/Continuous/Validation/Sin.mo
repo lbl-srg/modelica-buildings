@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Sin "Validation model for the Sin block"
-
-
   Buildings.Controls.OBC.CDL.Continuous.Sin sin1
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

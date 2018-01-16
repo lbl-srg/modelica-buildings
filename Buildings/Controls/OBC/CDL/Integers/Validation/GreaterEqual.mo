@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.CDL.Integers.Validation;
 model GreaterEqual "Validation model for the GreaterEqual block"
 
-
   Buildings.Controls.OBC.CDL.Integers.GreaterEqual intGreEqu
     "Block output true if input 1 is greater or equal to input 2"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));

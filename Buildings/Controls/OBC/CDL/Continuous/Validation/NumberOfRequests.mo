@@ -1,8 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
-model NumberOfRequests
-  "Validation model for the NumberOfRequests block"
-
-
+model NumberOfRequests  "Validation model for the NumberOfRequests block"
   Buildings.Controls.OBC.CDL.Continuous.NumberOfRequests numReq1(
     nin = 5,
     threShold = 1.0,

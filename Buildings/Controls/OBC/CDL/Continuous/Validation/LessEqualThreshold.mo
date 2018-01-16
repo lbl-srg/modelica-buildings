@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
-model LessEqualThreshold
-  "Validation model for the LessEqualThreshold block"
-
+model LessEqualThreshold  "Validation model for the LessEqualThreshold block"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
     offset=-2,

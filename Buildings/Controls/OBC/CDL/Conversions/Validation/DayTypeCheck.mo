@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Conversions.Validation;
-model DayTypeCheck
-  "Model to validate blocks IsWorkingDay, IsNonWorkingDay, IsHoliday"
+model DayTypeCheck  "Model to validate blocks IsWorkingDay, IsNonWorkingDay, IsHoliday"
 
   Buildings.Controls.OBC.CDL.Conversions.IsWorkingDay isWorDay
   "Block to check if it is working day"
