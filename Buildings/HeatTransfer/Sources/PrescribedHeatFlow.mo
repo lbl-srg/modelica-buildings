@@ -47,7 +47,7 @@ equation
           extent={{-150,100},{150,60}},
           textString="%name",
           lineColor={0,0,255})}),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This model allows a specified amount of heat flow rate to be \"injected\"
 into a thermal system at a given port.  The amount of heat

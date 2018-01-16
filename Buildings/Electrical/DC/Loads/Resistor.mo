@@ -34,7 +34,7 @@ V = R(T) i.
 The resistance <i>R(T)</i> varies depending on the temperature <i>T</i> as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-R(T) = R (1 + &alpha; (T - T<sub>ref</sub>),
+R(T) = R (1 + &alpha; (T - T<sub>ref</sub>)),
 </p>
 <p>
 where the resistance <i>R</i> is the reference value of the resistance, <i>&alpha;</i> is the

@@ -228,7 +228,7 @@ December 14, 2011 by Michael Wetter:<br/>
 Changed assignment of <code>hOut</code>, <code>XiOut</code> and
 <code>COut</code> to no longer declare that it is continuous.
 The declaration of continuity, i.e, the
-<code>smooth(0, if (port_a.m_flow >= 0) then ...</code> declaration,
+<code>smooth(0, if (port_a.m_flow >= 0) then ...)</code> declaration,
 was required for Dymola 2012 to simulate, but it is no longer needed
 for Dymola 2012 FD01.
 </li>

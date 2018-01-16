@@ -30,7 +30,6 @@ package Air
   redeclare record extends ThermodynamicState
     "ThermodynamicState record for moist air"
   end ThermodynamicState;
-
   // There must not be any stateSelect=StateSelect.prefer for
   // the pressure.
   // Otherwise, translateModel("Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume")
@@ -736,7 +735,6 @@ algorithm
    Modelica.SIunits.Conversions.to_degC(state.T));
 annotation(LateInline=true);
 end thermalConductivity;
-
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
 // These classes are only of use within this medium model.
@@ -776,7 +774,6 @@ First implementation.
 </ul>
 </html>"));
   end GasProperties;
-
   // In the assignments below, we compute cv as OpenModelica
   // cannot evaluate cv=cp-R as defined in GasProperties.
   constant GasProperties dryair(
@@ -893,7 +890,6 @@ algorithm
   annotation (
     Inline=true);
 end der_specificHeatCapacityCv;
-
   annotation(preferredView="info", Documentation(info="<html>
 <p>
 This medium package models moist air using a gas law in which pressure and temperature
@@ -1059,7 +1055,7 @@ when models are checked in Dymola 2014 in the pedenatic mode.
 </li>
 <li>
 April 12, 2012, by Michael Wetter:<br/>
-Added keyword <code>each</code> to <code>Xi(stateSelect=...</code>.
+Added keyword <code>each</code> to <code>Xi(stateSelect=...)</code>.
 </li>
 <li>
 April 4, 2012, by Michael Wetter:<br/>

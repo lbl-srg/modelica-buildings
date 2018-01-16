@@ -36,7 +36,7 @@ equation
           lineColor={191,0,0},
           fillColor={191,0,0},
           fillPattern=FillPattern.Solid)}),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This model defines a fixed temperature T at its port in Kelvin,
 i.e., it defines a fixed temperature as a boundary condition.

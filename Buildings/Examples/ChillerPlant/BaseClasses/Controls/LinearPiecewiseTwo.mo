@@ -45,12 +45,12 @@ This component calcuates the output according to two piecewise linear function a
 <table>
 <tr>
 <td>
-<i>u &isin; [x<sub>0</sub>, x<sub>1</sub>]:</i></td>
+<i>x<sub>0</sub> &le; u &le; x<sub>1</sub>:</i></td>
     <td><i>y<sub>1</sub> = y<sub>10</sub> + u (y<sub>11</sub>-y<sub>10</sub>)/(x<sub>1</sub>-x<sub>0</sub>)</i><br/>
         <i>y<sub>2</sub> = y<sub>20</sub></i></td>
 </tr>
 <tr>
-<td><i>u &isin; (x<sub>1</sub>, x<sub>2</sub>]:</i></td>
+<td><i>x<sub>1</sub> &lt; u &le; x<sub>2</sub>:</i></td>
     <td><i>y<sub>1</sub> = y<sub>11</sub></i><br/>
     <i>y<sub>2</sub> = y<sub>20</sub> + (u-x<sub>1</sub>)
        (y<sub>21</sub>-y<sub>20</sub>)/(x<sub>2</sub>-x<sub>1</sub>)</i></td>
