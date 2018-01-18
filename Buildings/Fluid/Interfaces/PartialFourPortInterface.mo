@@ -120,7 +120,7 @@ In the computation of <code>sta_a1</code>,
 <code>sta_a2</code>, <code>sta_b1</code> and <code>sta_b2</code>,
 removed the branch that uses the homotopy operator.
 The rational is that these variables are conditionally enables (because
-of <code>... if show_T</code>. Therefore, the Modelica Language Specification
+of <code>... if show_T</code>). Therefore, the Modelica Language Specification
 does not allow for these variables to be used in any equation. Hence,
 the use of the homotopy operator is not needed here.
 </li>
