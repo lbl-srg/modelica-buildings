@@ -46,11 +46,11 @@ record Generic "Generic data record for movers"
   parameter Real speed_nominal(
     final min=0,
     final unit="1") = 1 "Nominal rotational speed for flow characteristic"
-    annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm"));
+    annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm)"));
 
   parameter Real constantSpeed(final min=0, final unit="1") = constantSpeed_rpm/speed_rpm_nominal
     "Normalized speed set point, used if inputType = Buildings.Fluid.Types.InputType.Constant"
-    annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm"));
+    annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm)"));
 
   parameter Real[:] speeds(each final min = 0, each final unit="1") = speeds_rpm/speed_rpm_nominal
     "Vector of normalized speed set points, used if inputType = Buildings.Fluid.Types.InputType.Stages"
