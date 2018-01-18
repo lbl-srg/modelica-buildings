@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Feedback "Validation model for the Feedback block"
-extends Modelica.Icons.Example;
-
   Buildings.Controls.OBC.CDL.Continuous.Feedback feedback1
     "Block that outputs difference between commanded and feedback input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -43,5 +41,15 @@ First implementation.
 </li>
 </ul>
 
-</html>"));
+</html>"),
+    Icon(graphics={
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent = {{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
 end Feedback;

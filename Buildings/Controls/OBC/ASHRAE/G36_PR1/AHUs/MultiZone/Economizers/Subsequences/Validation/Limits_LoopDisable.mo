@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Validation;
 model Limits_LoopDisable
   "Validation model for the multi zone VAV AHU minimum outdoor air control - damper position limits"
-  extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow(final k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"

@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL;
 package Utilities "Package with utility functions"
-extends Modelica.Icons.Package;
 
 annotation (
 preferredView="info", Documentation(info="<html>
@@ -10,6 +9,16 @@ that are used throughout the library.
 </p>
 </html>"),
 Icon(coordinateSystem(extent={{-100.0,-100.0},{100.0,100.0}}), graphics={
+        Rectangle(
+          lineColor={200,200,200},
+          fillColor={248,248,248},
+          fillPattern=FillPattern.HorizontalCylinder,
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0),
+        Rectangle(
+          lineColor={128,128,128},
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0),
     Polygon(
       origin={1.3835,-4.1418},
       rotation=45.0,

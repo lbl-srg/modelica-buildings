@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Validation;
 model Enable_TOut_hOut
   "Model validates economizer disable in case outdoor air conditions are above cutoff"
-  extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(
     final k=TOutCutoff) "Outdoor air temperature cutoff"

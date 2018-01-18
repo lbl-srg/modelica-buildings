@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL.Integers.Validation;
-model MultiSum
-  "Validation model for the block to find sum of multiple inputs"
-extends Modelica.Icons.Example;
+model MultiSum  "Validation model for the block to find sum of multiple inputs"
 
   Buildings.Controls.OBC.CDL.Integers.MultiSum add1(nin=3)
     "Block that outputs the sum of the inputs"
@@ -84,5 +82,15 @@ First implementation.
 </li>
 </ul>
 
-</html>"));
+</html>"),
+    Icon(graphics={
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent = {{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
 end MultiSum;

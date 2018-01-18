@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Atan2 "Validation model for the Atan2 block"
-extends Modelica.Icons.Example;
-
   Buildings.Controls.OBC.CDL.Continuous.Atan2 atan2_1
     "Block that outputs atan(u1/u2) of the inputs u1 and u2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -44,5 +42,15 @@ First implementation.
 </li>
 </ul>
 
-</html>"));
+</html>"),
+    Icon(graphics={
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent = {{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
 end Atan2;

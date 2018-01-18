@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Validation;
 model Controller_Mod_DamLim
   "Validation model for multi zone VAV AHU economizer operation: damper modulation and minimum ooutdoor air requirement damper position limits"
-  extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller
     economizer(
@@ -110,7 +109,7 @@ equation
   connect(economizer1.TMix, TMixMea.y) annotation (Line(points={{99.375,-31.875},
           {40,-31.875},{40,-10},{-40,-10},{-40,0},{-59,0}}, color={0,0,127}));
   connect(hOutCut.y, economizer.hOutCut) annotation (Line(points={{-99,-20},{-40,
-          -20},{-40,15.625},{19.375,15.625}}, color={0,0,127}));
+          -20},{-40,15},{19.375,15}},         color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer.hOut) annotation (Line(points={{-99,20},
           {-40,20},{-40,16.875},{19.375,16.875}}, color={0,0,127}));
   connect(TMixMea.y, economizer.TMix) annotation (Line(points={{-59,0},{-20,0},
