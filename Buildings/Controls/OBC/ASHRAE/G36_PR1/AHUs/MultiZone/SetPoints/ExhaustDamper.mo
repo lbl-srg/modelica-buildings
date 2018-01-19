@@ -137,19 +137,19 @@ annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-80},{80,80}})),
  Documentation(info="<html>
 <p>
-Control sequence for actuated exhaust damper <code>yExhDamPos</code>
+Control sequence for actuated exhaust damper <code>yExhDam</code>
 without fans. It is implemented according to ASHRAE Guidline 35 (G36), PART5.N.8.
 (for multi zone VAV AHU), PART5.P.6 and PART3.2B.3 (for single zone VAV AHU).
 </p>
 <h4>Multi zone VAV AHU: Control of actuated exhaust dampers without fans (PART5.N.8)</h4>
 <ol>
 <li>The exhaust damper is enabled when the associated supply fan is proven on
-<code>uSupFan = true</code>, and disabled otherwise.</li>
+<code>uFan = true</code>, and disabled otherwise.</li>
 <li>When enabled, a P-only control loop modulates the exhaust damper to maintain
-a building static pressure of <code>uBuiPre</code>, which is by default <i>12</i> Pa (<i>0.05</i> inchWC).
+a building static pressure of <code>dpBui</code>, which is by default <i>12</i> Pa (<i>0.05</i> inchWC).
 </li>
 <li>
-When <code>uSupFan = false</code>, the damper is closed.
+When <code>uFan = false</code>, the damper is closed.
 </li>
 </ol>
 </html>", revisions="<html>

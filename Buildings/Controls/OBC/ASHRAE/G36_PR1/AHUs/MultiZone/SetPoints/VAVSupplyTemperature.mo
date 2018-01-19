@@ -88,7 +88,7 @@ block VAVSupplyTemperature
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Line lin
-  "Supply temperature distributes linearly between TSupMin and TSupMax, according to Tout"
+    "Supply temperature distributes linearly between minimum and maximum supply air temperature, according to outdoor temperature"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOutTem(k=TOutMin)
     "Lower value of the outdoor air temperature reset range"
@@ -286,7 +286,7 @@ The <code>TSupMax</code> variable is typically 18 &deg;C in mild and dry climate
 cooling savings from economizer operation.
 </p>
 
-<h4>During occupied mode (<code>opeMod=1</code>)</h4>
+<h4>During occupied mode (<code>uOpeMod=1</code>)</h4>
 <p>
 The <code>TSetSup</code> shall be reset from <code>TSupMin</code> when the outdoor
 air temperature is <code>TOutMax</code> and above, proportionally up to
@@ -300,16 +300,16 @@ during the commissioning and tuning phase.
 <table summary=\"summary\" border=\"1\">
 <tr><th> Variable </th> <th> Value </th> <th> Definition </th> </tr>
 <tr><td>Device</td><td>AHU Supply Fan</td> <td>Associated device</td></tr>
-<tr><td>SP0</td><td>SPmax</td><td>Initial setpoint</td></tr>
-<tr><td>SPmin</td><td>TSupDes</td><td>Minimum setpoint</td></tr>
+<tr><td>SP0</td><td>iniSet</td><td>Initial setpoint</td></tr>
+<tr><td>SPmin</td><td>TSupMin</td><td>Minimum setpoint</td></tr>
 <tr><td>SPmax</td><td>TSupMax</td><td>Maximum setpoint</td></tr>
-<tr><td>Td</td><td>10 minutes</td><td>Delay timer</td></tr>
-<tr><td>T</td><td>2 minutes</td><td>Time step</td></tr>
-<tr><td>I</td><td>2</td><td>Number of ignored requests</td></tr>
-<tr><td>R</td><td>Zone cooling requests</td><td>Number of requests</td></tr>
-<tr><td>SPtrim</td><td>+0.1&deg;C</td><td>Trim amount</td></tr>
-<tr><td>SPres</td><td>-0.2&deg;C</td><td>Respond amount</td></tr>
-<tr><td>SPres_max</td><td>-0.6&deg;C</td><td>Maximum response per time interval</td></tr>
+<tr><td>Td</td><td>delTim</td><td>Delay timer</td></tr>
+<tr><td>T</td><td>samplePeriod</td><td>Time step</td></tr>
+<tr><td>I</td><td>numIgnReq</td><td>Number of ignored requests</td></tr>
+<tr><td>R</td><td>uZonTemResReq</td><td>Number of requests</td></tr>
+<tr><td>SPtrim</td><td>triAmo</td><td>Trim amount</td></tr>
+<tr><td>SPres</td><td>resAmo</td><td>Respond amount</td></tr>
+<tr><td>SPres_max</td><td>maxRes</td><td>Maximum response per time interval</td></tr>
 </table>
 <br/>
 
@@ -318,11 +318,11 @@ during the commissioning and tuning phase.
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/VAVMultiZoneSupTempSet.png\"/>
 </p>
 
-<h4>During Setup and Cool-down modes (<code>opeMod=2</code>, <code>opeMod=3</code>)</h4>
+<h4>During Setup and Cool-down modes (<code>uOpeMod=2</code>, <code>uOpeMod=3</code>)</h4>
 <p>
 Supply air temperature setpoint <code>TSetSup</code> shall be <code>TSupMin</code>.
 </p>
-<h4>During Setback and Warmup modes (<code>opeMod=4</code>, <code>opeMod=5</code>)</h4>
+<h4>During Setback and Warmup modes (<code>uOpeMod=4</code>, <code>uOpeMod=5</code>)</h4>
 <p>
 Supply air temperature setpoint <code>TSetSup</code> shall be <code>35&deg;C</code>.
 </p>

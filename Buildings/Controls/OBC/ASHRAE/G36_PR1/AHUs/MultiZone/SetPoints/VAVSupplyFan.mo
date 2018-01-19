@@ -83,9 +83,9 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFanSpe(
     min=0,
     max=1,
-    final unit="1") "Supply fan speed" annotation (Placement(transformation(
-          extent={{140,-60},{160,-40}}), iconTransformation(extent={{100,-10},{
-            120,10}})));
+    final unit="1") "Supply fan speed"
+    annotation (Placement(transformation(extent={{140,-60},{160,-40}}),
+      iconTransformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput sumVBox_flow(
     final unit="m3/s",
     quantity="VolumeFlowRate") if not (have_duaDucBox or have_airFloMeaSta)
@@ -121,7 +121,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "If fan is OFF, fan speed outputs to zero"
     annotation (Placement(transformation(extent={{80,-50},{100,-70}})));
-
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sum1(
     final nin=numZon) if not (have_duaDucBox or have_airFloMeaSta)
     "Sum of box airflow rate"
@@ -184,6 +183,7 @@ protected
     final samplePeriod=samplePeriod)
     "Extrapolation through the values of the last two sampled input signals"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
+
 equation
   connect(or2.y, or1.u2)
     annotation (Line(points={{41,40},{60,40},{60,62},{78,62}},
@@ -197,13 +197,14 @@ equation
     annotation (Line(points={{81.7,-110},{150,-110}},
       color={0,0,127}));
   connect(or1.y, staPreSetRes.uDevSta)
-    annotation (Line(points={{101,70},{120,70},{120,-8},{-150,-8},{-150,-32},{-132,
-          -32}},    color={255,0,255}));
+    annotation (Line(points={{101,70},{120,70},{120,-8},{-150,-8},{-150,-32},
+      {-132,-32}}, color={255,0,255}));
   connect(or1.y, swi.u2)
     annotation (Line(points={{101,70},{120,70},{120,-8},{0,-8},{0,-60},{78,-60}},
       color={255,0,255}));
-  connect(conSpe.y, swi.u1) annotation (Line(points={{-19,-40},{-4,-40},{-4,-68},
-          {78,-68}}, color={0,0,127}));
+  connect(conSpe.y, swi.u1)
+    annotation (Line(points={{-19,-40},{-4,-40},{-4,-68},{78,-68}},
+      color={0,0,127}));
   connect(zerSpe.y, swi.u3)
     annotation (Line(points={{41,-40},{60,-40},{60,-52},{78,-52}},
       color={0,0,127}));
@@ -262,19 +263,21 @@ equation
   connect(intEqu4.y, or2.u2)
     annotation (Line(points={{-39,10},{0,10},{0,32},{18,32}},
       color={255,0,255}));
-
   connect(norPSet.y, conSpe.u_s)
     annotation (Line(points={{-49,-40},{-42,-40}}, color={0,0,127}));
-  connect(ducStaPre, norPMea.u) annotation (Line(points={{-180,-80},{-132,-80},
-          {-132,-72},{-72,-72}},color={0,0,127}));
+  connect(ducStaPre, norPMea.u)
+    annotation (Line(points={{-180,-80},{-132,-80},{-132,-72},{-72,-72}},
+      color={0,0,127}));
   connect(norPMea.y, conSpe.u_m)
     annotation (Line(points={{-49,-72},{-30,-72},{-30,-52}}, color={0,0,127}));
   connect(norPSet.u, firOrdHol.y)
     annotation (Line(points={{-72,-40},{-76,-40},{-79,-40}}, color={0,0,127}));
-  connect(staPreSetRes.y, firOrdHol.u) annotation (Line(points={{-109,-40},{
-          -106,-40},{-102,-40}}, color={0,0,127}));
-  connect(conSpe.trigger, or1.y) annotation (Line(points={{-38,-52},{-38,-60},{0,
-          -60},{0,-8},{120,-8},{120,70},{101,70}}, color={255,0,255}));
+  connect(staPreSetRes.y, firOrdHol.u)
+    annotation (Line(points={{-109,-40},{-106,-40},{-102,-40}}, color={0,0,127}));
+  connect(conSpe.trigger, or1.y)
+    annotation (Line(points={{-38,-52},{-38,-60},{0,-60},{0,-8},{120,-8},
+      {120,70},{101,70}}, color={255,0,255}));
+
 annotation (
   defaultComponentName="conSupFan",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{140,160}}),
@@ -391,16 +394,16 @@ parameters as a starting point:
 <table summary=\"summary\" border=\"1\">
 <tr><th> Variable </th> <th> Value </th> <th> Definition </th> </tr>
 <tr><td>Device</td><td>AHU Supply Fan</td> <td>Associated device</td></tr>
-<tr><td>SP0</td><td>120 Pa (0.5 inches)</td><td>Initial setpoint</td></tr>
-<tr><td>SPmin</td><td>25 Pa (0.1 inches)</td><td>Minimum setpoint</td></tr>
+<tr><td>SP0</td><td>iniSet</td><td>Initial setpoint</td></tr>
+<tr><td>SPmin</td><td>minSet</td><td>Minimum setpoint</td></tr>
 <tr><td>SPmax</td><td>maxSet</td><td>Maximum setpoint</td></tr>
-<tr><td>Td</td><td>10 minutes</td><td>Delay timer</td></tr>
-<tr><td>T</td><td>2 minutes</td><td>Time step</td></tr>
-<tr><td>I</td><td>2</td><td>Number of ignored requests</td></tr>
-<tr><td>R</td><td>Zone static pressure reset requests</td><td>Number of requests</td></tr>
-<tr><td>SPtrim</td><td>-12 Pa (-0.05 inches)</td><td>Trim amount</td></tr>
-<tr><td>SPres</td><td>15 Pa (+0.06 inches)</td><td>Respond amount</td></tr>
-<tr><td>SPres_max</td><td>32 Pa (+0.13 inches)</td><td>Maximum response per time interval</td></tr>
+<tr><td>Td</td><td>delTim</td><td>Delay timer</td></tr>
+<tr><td>T</td><td>samplePeriod</td><td>Time step</td></tr>
+<tr><td>I</td><td>numIgnReq</td><td>Number of ignored requests</td></tr>
+<tr><td>R</td><td>uZonPreResReq</td><td>Number of requests</td></tr>
+<tr><td>SPtrim</td><td>triAmo</td><td>Trim amount</td></tr>
+<tr><td>SPres</td><td>resAmo</td><td>Respond amount</td></tr>
+<tr><td>SPres_max</td><td>maxRes</td><td>Maximum response per time interval</td></tr>
 </table>
 <br/>
 <h4>c. Static pressure control</h4>

@@ -16,7 +16,6 @@ block ReturnFanDirectPressure
     final min=0,
     final max=1000) = 40
     "Maximum return fan discharge static pressure setpoint";
-
   parameter Real k(final unit="1") = 1
     "Gain, normalized using dpBuiSet";
 

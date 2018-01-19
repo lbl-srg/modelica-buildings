@@ -352,7 +352,7 @@ designed in line with ASHRAE Guidline 36, PART5.P.4.d.
 </p>
 <p>
 The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
-the AHU operation mode <code>OperationMode</code> is Occupied, and Freeze protection stage
+the AHU operation mode <code>uOpeMod</code> is Occupied, and Freeze protection stage
 <code>uFreProSta</code> is 1 or smaller. Otherwise the damper position limits are set to
 their corresponding maximum and minimum physical or at commissioning fixed limits, as illustrated below:
 <br/>
