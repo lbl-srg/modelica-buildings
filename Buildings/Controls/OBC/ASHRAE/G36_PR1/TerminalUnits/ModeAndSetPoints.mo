@@ -321,14 +321,14 @@ annotation (defaultComponentName="modSetPoi",
         fillPattern=FillPattern.Solid)}),
 Documentation(info="<html>
 <p>
-Block outputs zone setpoint temperature (<code>TCooSet</code>, <code>THeaSet</code>)
+Block that outputs zone setpoint temperature (<code>TCooSet</code>, <code>THeaSet</code>)
 and system operation mode (<code>yOpeMod</code>). When operation mode is in freeze
 protection setback mode, it also outputs a level 3 freeze protection alarm
 <code>yFreProSta</code>. The sequences are implemented according to ASHRAE
 Guideline 36, Part 5.B.3 and 5.C.6.
 </p>
-<p>The sequence consists of two subsequences. </p>
-<h4>a. Operation mode selector</h4>
+<p>The sequence consists of two subsequences.</p>
+<h4>Operation mode selector</h4>
 <p>
 The subsequence outputs 7 types system operation mode (occupied, warmup,
 cool-down, setback, freeze protection setback, setup, unoccupied) according
@@ -337,7 +337,7 @@ current zone temperature <code>TZon</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode</a>.
 </p>
-<h4>b. Zone setpoint temperature reset</h4>
+<h4>Zone setpoint temperature reset</h4>
 <p>
 This sequence is implemented according to Part 5.B.3. It sets zone setpoint
 according to the global giving setpoint, local setpoint adjustments, demand
