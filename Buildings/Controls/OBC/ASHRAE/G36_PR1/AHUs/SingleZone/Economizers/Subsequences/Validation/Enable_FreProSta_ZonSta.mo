@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Validation;
 model Enable_FreProSta_ZonSta
   "Model validates economizer disable for heating zone state and activated freeze protection"
-  extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Enable enaDis
     "Single zone VAV AHU enable disable sequence"

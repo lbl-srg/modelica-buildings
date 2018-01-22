@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Validation;
 model Modulation_TSup
   "Validation model for single zone VAV AHU outdoor and return air damper position modulation sequence"
-  extends Modelica.Icons.Example;
 
   final parameter Modelica.SIunits.Temperature TSupSet=291.15
     "Supply air temperature setpoint";

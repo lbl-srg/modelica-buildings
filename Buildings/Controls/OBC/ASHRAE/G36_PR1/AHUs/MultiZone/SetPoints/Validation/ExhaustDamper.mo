@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Validation;
 model ExhaustDamper
   "Validate the controller of an actuated exhaust damper without fan"
-  extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ExhaustDamper exhDamPos(
     k=0.1) "Block of controlling actuated exhaust damper without fan"
@@ -54,5 +53,15 @@ May 15, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent = {{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
 end ExhaustDamper;

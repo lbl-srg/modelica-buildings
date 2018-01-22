@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.Validation;
 model ZoneTemperatures "Validate block for zone set point"
-  extends Modelica.Icons.Example;
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures
     TSetZon(
     have_occSen=true,
@@ -139,5 +138,25 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-140,-120},{120,120}})));
+    Diagram(coordinateSystem(extent={{-140,-120},{120,120}})),
+    Icon(graphics={
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent = {{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}}),
+                   Ellipse(
+          lineColor={75,138,73},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-100,-100},{100,100}}), Polygon(
+          lineColor={0,0,255},
+          fillColor={75,138,73},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          points={{-36,58},{64,-2},{-36,-62},{-36,58}})}));
 end ZoneTemperatures;
