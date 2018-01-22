@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package SetPoints "Package with models for control set points"
+package SetPoints "Package with blocks for setpoint resets"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
