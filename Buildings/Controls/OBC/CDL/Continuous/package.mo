@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Continuous "Package with elementary mathematical functions for continuous variables"
+package Continuous "Package with blocks for continuous variables"
 
 annotation (
 Documentation(

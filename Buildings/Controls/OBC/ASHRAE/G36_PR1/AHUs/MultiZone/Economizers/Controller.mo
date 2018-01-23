@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers;
-model Controller "Multi zone VAV AHU economizer control sequence"
+block Controller "Multi zone VAV AHU economizer control sequence"
 
   parameter Boolean use_enthalpy=false
     "Set to true if enthalpy measurement is used in addition to temperature measurement";

@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Integers "Package with elementary mathematical functions for integer variables"
+package Integers "Package with blocks for integer variables"
 
 annotation (
 Documentation(
