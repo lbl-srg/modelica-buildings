@@ -178,6 +178,16 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialParallelElectricEIR
+       </td>
+       <td valign=\"top\">Added <code>constrainedby</code> to declaration of chiller.<br/>
+                          This is for
+                          <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1118\">issue 1118</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
        </td>
    </tr>
