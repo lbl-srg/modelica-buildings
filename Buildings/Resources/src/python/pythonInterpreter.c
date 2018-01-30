@@ -7,7 +7,8 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
                           const int * intValWri, size_t nIntWri,
                           int * intValRea, size_t nIntRea,
                           const char ** strValWri, size_t nStrWri,
-                          void (*ModelicaFormatError)(const char *string,...))
+                          void (*ModelicaFormatError)(const char *string,...),
+                          void* memory, int have_memory)
 {
   PyObject *pName, *pModule, *pFunc;
   PyObject *pArgsDbl, *pArgsInt, *pArgsStr;
@@ -80,6 +81,8 @@ The error message is \"%s\"",
     nArg++;
   if ( nStrWri > 0)
     nArg++;
+  if ( have_memory > 0)
+    nArg++;
   if (nArg > 0)
     pArgs = PyTuple_New(nArg);
   else
@@ -93,12 +96,12 @@ The error message is \"%s\"",
       /* Convert argument to a python float*/
       pValue = PyFloat_FromDouble(dblValWri[i]);
       if (!pValue) {
-	/* Failed to convert argument.*/
-	Py_DECREF(pArgsDbl);
-	Py_DECREF(pModule);
-	/* According to the Modelica specification,*/
-	/* the function ModelicaError never returns to the calling function.*/
-	(*ModelicaFormatError)("Cannot convert double argument number %i to Python format.", i);
+        /* Failed to convert argument.*/
+        Py_DECREF(pArgsDbl);
+        Py_DECREF(pModule);
+        /* According to the Modelica specification,*/
+        /* the function ModelicaError never returns to the calling function.*/
+        (*ModelicaFormatError)("Cannot convert double argument number %i to Python format.", i);
       }
       /* pValue reference stolen here*/
       PyList_SetItem(pArgsDbl, i, pValue);
@@ -170,10 +173,24 @@ The error message is \"%s\"",
     iArg++;
   }
 
+  /* d) Convert object*/
+  if ( have_memory > 0 ){
+    /* Put the memory into the argument list.*/
+    /* PyTuple_SetItem(pArgs, iArg, (PyObject *)memory); */
+    double test[] = {1.0};
+    PyObject* obj = (PyObject *)test;
+
+    PyTuple_SetItem(pArgs, iArg, &obj);
+    /* PyTuple_SetItem(pArgs, iArg, PyFloat_FromDouble(1.5)); */
+    iArg++;
+  }
+
   /*//////////////////////////////////////////////////////////////////////////*/
   /*//////////////////////////////////////////////////////////////////////////*/
   /* Call the Python function*/
+  printf("Calling callObject.\n");
   pValue = PyObject_CallObject(pFunc, pArgs);
+  printf("Returned from callObject.\n");
   if (pArgs != NULL)
     Py_DECREF(pArgs);
 
@@ -254,16 +271,16 @@ The returned object is \"%s\"",
 
       /* The number of arguments is correct. Retrieve them and parse them.*/
       /* If nDblRea == 1, then it is a scalar, else it is a list*/
-      if (nDblRea == 1){
-	/* Check whether it is a float or an integer.*/
-	/* (For integers, PyFloat_Check(p) returns false, hence we also call PyInt_Check(p))*/
-	if (PyFloat_Check(pItemDbl) || PyLong_Check(pItemDbl) || PyInt_Check(pItemDbl))
-	  dblValRea[0] = PyFloat_AsDouble( pItemDbl );
-	else
-	  (*ModelicaFormatError)("Python function \"%s\" returns an invalid object for a scalar double value.\n\
+      if (have_memory == 0 && nDblRea == 1){
+        /* Check whether it is a float or an integer.*/
+        /* (For integers, PyFloat_Check(p) returns false, hence we also call PyInt_Check(p))*/
+        if (PyFloat_Check(pItemDbl) || PyLong_Check(pItemDbl) || PyInt_Check(pItemDbl))
+        dblValRea[0] = PyFloat_AsDouble( pItemDbl );
+        else
+        (*ModelicaFormatError)("Python function \"%s\" returns an invalid object for a scalar double value.\n\
 There should only be one double value returned.\n\
 The returned object is \"%s\".",
-			      functionName, PyString_AsString(PyObject_Repr(pValue)));
+        functionName, PyString_AsString(PyObject_Repr(pValue)));
       }
       else{ /* We have nDblRea > 1, iterate through the list*/
 	for(pIndVal = 0; pIndVal < PyList_Size(pItemDbl); ++pIndVal){
@@ -306,7 +323,7 @@ The returned object is \"%s\"",
 
       /* The number of arguments is correct. Retrieve them and parse them.*/
       /* If nDblRea == 1, then it is a scalar, else it is a list*/
-      if (nIntRea == 1){
+      if (have_memory == 0 && nIntRea == 1){
 	/* Check whether it is an integer.*/
 	if (! (PyLong_Check(pItemInt)  || PyInt_Check(pItemDbl)) )
 	  (*ModelicaFormatError)("Python function \"%s\" returns an invalid object for a scalar integer value.\n\
@@ -332,8 +349,13 @@ The returned object is \"%s\".",
       intValRea[0] = 0;
     }
 
-  } /* end of if (nRet > 0)*/
-
+    /*//////////////////////////////////////////////////////////////////////////*/
+    /* Parse the memory to the Python object*/
+    if (have_memory > 0){
+      memory = PyList_GetItem(pValue, iRet);
+     	iRet++;
+    }
+  }
   /*//////////////////////////////////////////////////////////////////////////*/
   /* Decrement the reference counters*/
   /* causes sometimes a segmentation fault    Py_DECREF(pValue);*/

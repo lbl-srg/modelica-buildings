@@ -34,3 +34,9 @@ def s2_r1(xS):
     os.remove(filNam)
     y = float(l)
     return y
+
+# Functions with memory
+def r1_r1WithMemory(xR, obj):
+    print("Hello from python {}.\n", type(obj))
+    obj = 1
+    return [2.*xR, obj]

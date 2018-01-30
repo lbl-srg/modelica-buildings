@@ -19,13 +19,14 @@
  */
 #include <ModelicaUtilities.h>
 
-void pythonExchangeValues(const char * moduleName,
+void pythonExchangeValuesWithMemory(const char * moduleName,
                           const char * functionName,
                           const double * dblValWri, size_t nDblWri,
                           double * dblValRea, size_t nDblRea,
                           const int * intValWri, size_t nIntWri,
                           int * intValRea, size_t nIntRea,
-                          const char ** strValWri, size_t nStrWri)
+                          const char ** strValWri, size_t nStrWri,
+                          void* object)
 {
   pythonExchangeValuesNoModelica(
    moduleName,
@@ -36,7 +37,7 @@ void pythonExchangeValues(const char * moduleName,
    intValRea, nIntRea,
    strValWri, nStrWri,
    ModelicaFormatError,
-   0,
-   0 /* have_memory is false */
+   object,
+   1 /* have_memory is true */
   );
 }

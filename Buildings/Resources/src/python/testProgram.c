@@ -9,22 +9,24 @@ void ModelicaFormatError(const char* string, const char* fmt, const char* val){
 
 int main(int nArgs, char ** args){
   const char * moduleName = "testFunctions";
-  const char * functionName = "i1_i2";
-  size_t nDblWri = 0;
+  const char * functionName = "r1_r1WithMemory";
+  size_t nDblWri = 1;
   double dblValWri[] = {2.0};
 
-  size_t nDblRea = 0;
+  size_t nDblRea = 1;
   double dblValRea[1];
 
   int intValWri[] = {1};
-  size_t nIntWri = 1;
-  size_t nIntRea = 2;
+  size_t nIntWri = 0;
+  size_t nIntRea = 0;
   int intValRea[2];
   /*  char** strValWri = NULL;*/
   const char * strValWri[] = {"aaa"};
   size_t nStrWri = 0;
 
   int i;
+
+  void* ptr = 0;
 
   for(i=0; i < 10; i++){
     printf("Calling with i = %d.\n", i);
@@ -35,7 +37,10 @@ int main(int nArgs, char ** args){
                          intValWri, nIntWri,
                          intValRea, nIntRea,
                          strValWri, nStrWri,
-	                 ModelicaFormatError);
+	                       ModelicaFormatError,
+                         ptr,
+                         1);
+    printf("Received %f.\n", dblValRea[0]);
   }
 
   return 0;
