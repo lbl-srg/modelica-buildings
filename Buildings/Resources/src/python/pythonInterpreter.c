@@ -22,6 +22,7 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
   Py_ssize_t nArg = 0;
   Py_ssize_t iRet = 0;
   Py_ssize_t nRet = 0;
+  pythonPtr* ptrMemory = (pythonPtr*)memory;
   /*//////////////////////////////////////////////////////////////////////////*/
   /* Initialize Python interpreter*/
   if (!Py_IsInitialized())
@@ -178,9 +179,10 @@ The error message is \"%s\"",
   if ( have_memory > 0 ){
     /* Put the memory into the argument list.*/
     /* PyTuple_SetItem(pArgs, iArg, (PyObject *)memory); */
-    /*double test[] = {1.0};*/
+    double test[] = {1.0};
     /*obj = (PyObject *)memory;*/
-    obj = PyCapsule_New(memory, NULL, NULL);
+    printf("*** Pointer in pythonInterpreter is %p\n", ptrMemory->ptr);
+    obj = (ptrMemory->ptr == NULL) ? Py_None : ptrMemory->ptr;
 
     PyTuple_SetItem(pArgs, iArg, obj);
     /* PyTuple_SetItem(pArgs, iArg, PyFloat_FromDouble(1.5)); */
@@ -202,6 +204,7 @@ The error message is \"%s\"",
 
     /*    PyErr_Print();*/
     PyObject *pValue, *pType, *pTraceBack;
+    const char* errorMessage[1000];
     PyErr_Fetch(&pType, &pValue, &pTraceBack);
     if (pType != NULL)
       Py_DECREF(pType);
@@ -209,14 +212,16 @@ The error message is \"%s\"",
       Py_DECREF(pTraceBack);
     Py_DECREF(pFunc);
     Py_DECREF(pModule);
-    /* Py_Finalize(); // removed, see note at other Py_Finalize() statement*/
-    (*ModelicaFormatError)("Call to Python function \"%s\" failed.\n \
+    snprintf(errorMessage, (size_t)1000, "Call to Python function \"%s\" failed.\n \
 This is often due to an error in the Python script,\n \
 or because the list of arguments of the Python function is incorrect.\n \
 Check the module \"%s\".\n \
-The error message is \"%s\"",
+The error message is %s.",
                         functionName, moduleName,
                         PyString_AsString(PyObject_Repr(pValue)));
+
+    /* Py_Finalize(); // removed, see note at other Py_Finalize() statement*/
+    (*ModelicaFormatError)(errorMessage);
   }
 
   /*//////////////////////////////////////////////////////////////////////////*/
@@ -224,6 +229,8 @@ The error message is \"%s\"",
   if ( nDblRea > 0)
     nRet++;
   if ( nIntRea > 0)
+    nRet++;
+  if (have_memory)
     nRet++;
 
   /* Check whether the function must returns some values*/
@@ -257,8 +264,10 @@ The returned object is \"%s\"",
     /* Parse double values, if we have some*/
     if (nDblRea > 0){
       /* Check if the function only returns double values*/
-      if (nRet == 1)
-	pItemDbl = pValue;
+      if (nRet == 1){
+	      pItemDbl = pValue;
+        printf("nRet = %d", nRet);
+      }
       else{
 	pItemDbl = PyList_GetItem(pValue, iRet);
 	iRet++;
@@ -354,8 +363,12 @@ The returned object is \"%s\".",
     /*//////////////////////////////////////////////////////////////////////////*/
     /* Parse the memory to the Python object*/
     if (have_memory > 0){
-      /*memory = PyList_GetItem(pValue, iRet);*/
-      memory = PyCapsule_GetPointer(obj, NULL); 
+      double test2[] = {1.0, 2.0};
+      /* ptrMemory->i = 1;  (void*)PyList_GetItem(pValue, iRet); */
+      ptrMemory->ptr = (void*)PyList_GetItem(pValue, iRet);
+      printf("*** Pointer at exit of pythonInterpreter is %p\n", ptrMemory->ptr);
+
+      /*memory = (void*)PyCapsule_Import("capsule.name", NULL);*/
      	iRet++;
     }
   }

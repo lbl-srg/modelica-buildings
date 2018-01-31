@@ -6,7 +6,6 @@ void ModelicaFormatError(const char* string, const char* fmt, const char* val){
   exit(1);
 }
 
-
 int main(int nArgs, char ** args){
   const char * moduleName = "testFunctions";
   const char * functionName = "r1_r1WithMemory";
@@ -25,9 +24,12 @@ int main(int nArgs, char ** args){
   size_t nStrWri = 0;
 
   int i;
-  void* ptr;
+  pythonPtr* ptr = malloc(sizeof(pythonPtr));
+  ptr->ptr = NULL;
 
-  for(i=0; i < 10; i++){
+
+
+  for(i=0; i < 4  ; i++){
     printf("Calling with i = %d.\n", i);
     pythonExchangeValuesNoModelica(moduleName,
                          functionName,
@@ -40,6 +42,7 @@ int main(int nArgs, char ** args){
                          ptr,
                          1);
     printf("Received %f.\n", dblValRea[0]);
+    printf("Pointer in testProgram is %p\n",  ptr->ptr);
   }
 
   return 0;

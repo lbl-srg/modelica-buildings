@@ -38,5 +38,11 @@ def s2_r1(xS):
 # Functions with memory
 def r1_r1WithMemory(xR, obj):
     print("Hello from python {}.\n", type(obj))
-    obj = 1
-    return [2.*xR, obj]
+    if obj == None:
+        print("******************* The obj is None.")
+        obj = {'a': 1, 'b': 1}
+    else:
+        print("******************* The obj is not none xR = {}, obj = {}".format(xR, obj))
+        obj['a'] = obj['a'] + 1
+        obj['b'] = obj['b'] + 10
+    return [3.*xR, obj]

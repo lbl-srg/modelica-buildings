@@ -46,6 +46,10 @@ to not export all symbols but only the needed ones */
 # define LBNLPYTHONINTERPRETER_EXPORT
 #endif
 
+typedef struct pythonPtr
+{
+  void* ptr;
+} pythonPtr;
 /* Exchange values with Python.*/
 /* Any argument that starts with 'n', such as nDblWri, may be zero.*/
 /* If there is an error, then this function calls*/
