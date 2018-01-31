@@ -20,7 +20,6 @@
 | Called by the other program
 ******************************************************************************/
 int ffd_dll(CosimulationData *cosim) {
-int pthread_ret = 0;
 /* Windows*/
 #ifdef _MSC_VER
   DWORD dummy;
@@ -59,7 +58,7 @@ DWORD WINAPI ffd_thread(void *p){
 #else /*Linux*/
 void *ffd_thread(void* p){
 #endif
-
+int pthread_ret = 0;
   CosimulationData *cosim = (CosimulationData *) p;
 
 #ifdef _MSC_VER /*Windows*/
@@ -78,25 +77,15 @@ void *ffd_thread(void* p){
     ffd_log("ffd_thread(): Cosimulation failed", FFD_ERROR);
 #ifdef _MSC_VER
     return 1;
-#else
-		ExitThread();
 #endif
   }
   else {
     ffd_log("Successfully exit FFD.", FFD_NORMAL);
 #ifdef _MSC_VER
-		//https://stackoverflow.com/questions/2477550/closing-thread-using-exitthread-c
-    	printf("Kill thread in MS_VER\n");
     	ExitThread(0);
-		printf("IN MS_VER\n");
-		getchar();
-    return 0;
+    	return 0;
 #else
-		//https://www.thegeekstuff.com/2012/04/terminate-c-thread/
-    	printf("Kill thread in GCC\n");
 		pthread_exit(&pthread_ret);
-		printf("IN GCC\n");
-		getchar();
 		return 0;
 #endif
   }
