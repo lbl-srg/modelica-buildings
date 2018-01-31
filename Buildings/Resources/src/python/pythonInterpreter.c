@@ -15,6 +15,7 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
   PyObject *pArgs, *pValue;
   Py_ssize_t pIndVal;
   PyObject *pItemDbl, *pItemInt;
+  PyObject* obj;
   char* arg="";
   Py_ssize_t i;
   Py_ssize_t iArg = 0;
@@ -177,10 +178,11 @@ The error message is \"%s\"",
   if ( have_memory > 0 ){
     /* Put the memory into the argument list.*/
     /* PyTuple_SetItem(pArgs, iArg, (PyObject *)memory); */
-    double test[] = {1.0};
-    PyObject* obj = (PyObject *)test;
+    /*double test[] = {1.0};*/
+    /*obj = (PyObject *)memory;*/
+    obj = PyCapsule_New(memory, NULL, NULL);
 
-    PyTuple_SetItem(pArgs, iArg, &obj);
+    PyTuple_SetItem(pArgs, iArg, obj);
     /* PyTuple_SetItem(pArgs, iArg, PyFloat_FromDouble(1.5)); */
     iArg++;
   }
@@ -352,7 +354,8 @@ The returned object is \"%s\".",
     /*//////////////////////////////////////////////////////////////////////////*/
     /* Parse the memory to the Python object*/
     if (have_memory > 0){
-      memory = PyList_GetItem(pValue, iRet);
+      /*memory = PyList_GetItem(pValue, iRet);*/
+      memory = PyCapsule_GetPointer(obj, NULL); 
      	iRet++;
     }
   }
