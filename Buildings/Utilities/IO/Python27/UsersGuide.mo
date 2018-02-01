@@ -317,8 +317,8 @@ The examples
 <a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.Examples.Exchange\">
 Buildings.Utilities.IO.Python27.Functions.Examples.Exchange</a>
 and
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.Examples.ExchangeWithMemory\">
-Buildings.Utilities.IO.Python27.Functions.Examples.ExchangeWithMemory</a>
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.Examples.ExchangeWithPassPythonObject\">
+Buildings.Utilities.IO.Python27.Functions.Examples.ExchangeWithPassPythonObject</a>
 contains various calls to different Python functions without and with memory.
 </p>
 <p>

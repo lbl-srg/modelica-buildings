@@ -1,5 +1,5 @@
 within Buildings.Utilities.IO.Python27.Functions.Examples;
-model ExchangeWithMemory
+model ExchangeWithPassPythonObject
   "Test model for exchange function with memory"
   extends Modelica.Icons.Example;
 
@@ -48,7 +48,7 @@ algorithm
 
   annotation (
 experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/IO/Python27/Functions/Examples/ExchangeWithMemory.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/IO/Python27/Functions/Examples/ExchangeWithPassPythonObject.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
@@ -68,4 +68,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ExchangeWithMemory;
+end ExchangeWithPassPythonObject;
