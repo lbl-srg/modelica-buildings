@@ -149,7 +149,27 @@ Use the same commands as for <i>Linux 32 bit, Dymola 2013 FD01</i> because Dymol
     </tr>
   <!-- =================================================================== -->
   </table>
-
+  
+<h4>Type of Python functions</h4>
+<p>
+Two different types of Python functions are supported: Functions that
+need not pass Python objects between one invocation to another, and functions
+that need to pass a Python object from one invocation to another.
+For the first case, use the function
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchange\">
+Buildings.Utilities.IO.Python27.Functions.exchange</a>,
+for the second case, use
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory\">
+Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory</a>.
+The function <a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory\">
+Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory</a>
+allows for example to build up a Python data structure (or to instantiate a Python object),
+and do computations on this object at each function invocation. For example,
+a self-learning model, implemented in Python, could be fed with data at each time step.
+It could then store this data
+and use the current and its historical data to feed its learning algorithm.
+Based on this algorithm, it could output a control signal for use in another Modelica model.
+</p>
 <h4>Number of values to read to Python and write from Python</h4>
 <p>
 The parameters <code>nDblWri</code> (or <code>nIntWri</code> or <code>nStrWri</code>)
@@ -168,16 +188,26 @@ and <code>dblRea</code> contains a number that must not be used in any model.
 <h4>Arguments of the Python function</h4>
 <p>
 The arguments of the python functions are, in this order,
-floats, integers and strings.
+floats, integers and strings (and the Python object for the function
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory\">
+Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory</a>).
 If there is only one element of each data type, then a single value is passed.
 If there are multiple elements of each data type, then they are stored in a list.
 If there is no value of a data type (such as if <code>nDblWri=0</code>), then the argument is not present.
 Thus, if a data type is not present, then the function will <i>not</i> receive an empty list of this data type.
-If there are no arguments at all, then the function takes no arguments.</p>
+If there are no arguments at all, then the function takes no arguments
+(except for the Python object if
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory\">
+Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory</a>
+is used).</p>
 <p>
 The table below shows the list of arguments for various combinations where no,
 one or two double values, integers and strings are passed as an argument to a Python function.
 </p>
+<ul>
+<li>For the function 
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchange\">
+Buildings.Utilities.IO.Python27.Functions.exchange</a>:<br/>
  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr> <th>nDblWri</th>   <th>nIntWri</th>  <th>nStrWri</th>  <th>Arguments</th>  </tr>
   <tr> <td>1      </td>   <td>0      </td>  <td>0      </td>  <td>1.                            </td></tr>
@@ -187,8 +217,25 @@ one or two double values, integers and strings are passed as an argument to a Py
   <tr> <td>1      </td>   <td>2      </td>  <td>0      </td>  <td> 1.0       , [1, 2]           </td></tr>
   <tr> <td>2      </td>   <td>1      </td>  <td>0      </td>  <td>[1.0, 2.0], 1                 </td></tr>
   <tr> <td>2      </td>   <td>2      </td>  <td>2      </td>  <td>[1.0, 2.0], [1, 2], [\"a\", \"b\"]</td></tr>
-</table>
-<br/>
+  </table>
+  </li>
+<li>For the function 
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory\">
+Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory</a>:<br/>
+ <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+  <tr> <th>nDblWri</th>   <th>nIntWri</th>  <th>nStrWri</th>  <th>Arguments</th>  </tr>
+  <tr> <td>1      </td>   <td>0      </td>  <td>0      </td>  <td>1., pytObj                            </td></tr>
+  <tr> <td>0      </td>   <td>1      </td>  <td>1      </td>  <td>1, \"a\", pytObj                        </td></tr>
+  <tr> <td>2      </td>   <td>0      </td>  <td>2      </td>  <td>[1.0, 2.0], [\"a\", \"b\"], pytObj        </td></tr>
+  <tr> <td>1      </td>   <td>1      </td>  <td>1      </td>  <td> 1.0, 2, \"a\", pytObj                 </td></tr>
+  <tr> <td>1      </td>   <td>2      </td>  <td>0      </td>  <td> 1.0       , [1, 2], pytObj           </td></tr>
+  <tr> <td>2      </td>   <td>1      </td>  <td>0      </td>  <td>[1.0, 2.0], 1, pytObj                 </td></tr>
+  <tr> <td>2      </td>   <td>2      </td>  <td>2      </td>  <td>[1.0, 2.0], [1, 2], [\"a\", \"b\"], pytObj</td></tr>
+  </table>
+  <br/>
+  where <code>pytObj</code> is the Python object.
+  </li>  
+  </ul>
 
 <h4>Returns values of the Python function</h4>
 <p>
@@ -212,6 +259,10 @@ ignored.
 <p>
 The table below shows valid return types for various combinations where no, one or two double values
 and integer values are returned.</p>
+<ul>
+<li>For the function 
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchange\">
+Buildings.Utilities.IO.Python27.Functions.exchange</a>:<br/>
  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr> <th>nDblRea</th>   <th>nIntRea</th>  <th>Return value</th>  </tr>
   <tr> <td>1      </td>   <td>0      </td>  <td>1.                 </td></tr>
@@ -221,7 +272,25 @@ and integer values are returned.</p>
   <tr> <td>1      </td>   <td>2      </td>  <td> 1.0      , [1, 2] </td></tr>
   <tr> <td>2      </td>   <td>1      </td>  <td>[1.0, 2.0],  1     </td></tr>
   <tr> <td>2      </td>   <td>2      </td>  <td>[1.0, 2.0], [1, 2] </td></tr>
-</table>
+  </table>
+  </li>
+  <li>For the function 
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory\">
+Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory</a>:<br/>
+ <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+  <tr> <th>nDblRea</th>   <th>nIntRea</th>  <th>Return value</th>  </tr>
+  <tr> <td>1      </td>   <td>0      </td>  <td>1., pytObj                 </td></tr>
+  <tr> <td>0      </td>   <td>1      </td>  <td>1, pytObj                  </td></tr>
+  <tr> <td>2      </td>   <td>0      </td>  <td>[1.0, 2.0], pytObj         </td></tr>
+  <tr> <td>1      </td>   <td>1      </td>  <td> 1.0, 2, pytObj            </td></tr>
+  <tr> <td>1      </td>   <td>2      </td>  <td> 1.0      , [1, 2], pytObj </td></tr>
+  <tr> <td>2      </td>   <td>1      </td>  <td>[1.0, 2.0],  1, pytObj     </td></tr>
+  <tr> <td>2      </td>   <td>2      </td>  <td>[1.0, 2.0], [1, 2], pytObj </td></tr>
+  </table>
+  <br/>
+  where <code>pytObj</code> is the Python object.
+  </li>  
+  </ul>
 
 <!-- Not yet implemented as pure functions are not supported in Dymola 2013 FD01 -->
 <h4>Pure Modelica functions (functions without side effects)</h4>
@@ -238,18 +307,33 @@ of pure and impure functions.
 
 <h4>Examples</h4>
 <p>
-The example
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.Examples.Exchange\">
-Buildings.Utilities.IO.Python27.Functions.Examples.Exchange</a>
-contains various calls to different Python functions.
-The Python functions are stored in the directory
+Various examples are provided, and for each of these, the Python functions are stored in the directory
 <code>Buildings/Resources/Python-Sources</code>.
+</p>
+<p>
+The examples
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.Examples.Exchange\">
+Buildings.Utilities.IO.Python27.Functions.Examples.Exchange</a> 
+and
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.Examples.ExchangeWithMemory\">
+Buildings.Utilities.IO.Python27.Functions.Examples.ExchangeWithMemory</a>
+contains various calls to different Python functions without and with memory.
 </p>
 <p>
 The example
 <a href=\"modelica://Buildings.Utilities.IO.Python27.Examples.KalmanFilter\">
 Buildings.Utilities.IO.Python27.Examples.KalmanFilter</a>
 shows how to implement in a Modelica block a call to a Python function.
+This Python function stores its memory on disk between invocations (which,
+in general, is not recommended).
+</p>
+<p>
+The example 
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Examples.SimpleRoom\">
+Buildings.Utilities.IO.Python27.Examples.SimpleRoom</a>
+shows a similiar example. However, rather than using a file to store the
+room temperature and energy between invocations, the function returns
+an object with this information, and receives this object again in the next invocation.
 </p>
 
 <h4>Implementation notes</h4>

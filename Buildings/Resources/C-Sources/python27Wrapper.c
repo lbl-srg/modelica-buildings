@@ -36,7 +36,30 @@ void pythonExchangeValues(const char * moduleName,
    intValRea, nIntRea,
    strValWri, nStrWri,
    ModelicaFormatError,
-   0,
+   NULL,
    0 /* have_memory is false */
+  );
+}
+
+void pythonExchangeValuesWithMemory(const char * moduleName,
+                          const char * functionName,
+                          const double * dblValWri, size_t nDblWri,
+                          double * dblValRea, size_t nDblRea,
+                          const int * intValWri, size_t nIntWri,
+                          int * intValRea, size_t nIntRea,
+                          const char ** strValWri, size_t nStrWri,
+                          void* object)
+{
+  pythonExchangeValuesNoModelica(
+   moduleName,
+   functionName,
+   dblValWri, nDblWri,
+   dblValRea, nDblRea,
+   intValWri, nIntWri,
+   intValRea, nIntRea,
+   strValWri, nStrWri,
+   ModelicaFormatError,
+   object,
+   1 /* have_memory is true */
   );
 }

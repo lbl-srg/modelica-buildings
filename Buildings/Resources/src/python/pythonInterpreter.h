@@ -22,6 +22,7 @@
 /* svn-id=$Id: exchangeValues.c 2877 2011-09-11 00:46:02Z mwetter $*/
 /*////////////////////////////////////////////////////////////////////////////*/
 #include <stddef.h>  /* stddef defines size_t */
+#include "../../C-Sources/pythonObjectStructure.h"
 
 #ifdef __APPLE__
 #include <Python/Python.h>
@@ -46,10 +47,6 @@ to not export all symbols but only the needed ones */
 # define LBNLPYTHONINTERPRETER_EXPORT
 #endif
 
-typedef struct pythonPtr
-{
-  void* ptr;
-} pythonPtr;
 /* Exchange values with Python.*/
 /* Any argument that starts with 'n', such as nDblWri, may be zero.*/
 /* If there is an error, then this function calls*/
@@ -79,13 +76,12 @@ LBNLPYTHONINTERPRETER_EXPORT void pythonExchangeValuesNoModelica(const char * mo
                           const int * intValWri, size_t nIntWri,
                           int * intValRea, size_t nIntRea,
                           const char ** strValWri, size_t nStrWri,
-			  void (*inModelicaFormatError)(const char *string,...),
-        void* object,
-        int have_memory);
+                          void (*inModelicaFormatError)(const char *string,...),
+                          void* object,
+                          int have_memory);
 
 #ifdef __cplusplus
 }
 #endif
-
 
 #endif /* _PYTHONINTERPRETER_H_ */

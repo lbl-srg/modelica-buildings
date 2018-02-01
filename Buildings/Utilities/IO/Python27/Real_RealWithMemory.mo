@@ -25,6 +25,9 @@ model Real_RealWithMemory
   Real uRInt[nDblWri] "Value of integral";
   Real uRIntPre[nDblWri] "Value of integral at previous sampling instance";
   Real uRWri[nDblWri] "Value to be sent to Python";
+protected
+  Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject pytObj=
+    Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject();
 initial equation
    uRWri    =  pre(uR);
    uRInt    =  zeros(nDblWri);
@@ -57,7 +60,7 @@ equation
       end for;
 
     // Exchange data
-    yR = Buildings.Utilities.IO.Python27.Functions.exchange(
+    yR = Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory(
       moduleName=moduleName,
       functionName=functionName,
       dblWri=uRWri,
@@ -67,7 +70,8 @@ equation
       nIntWri=0,
       nIntRea=0,
       nStrWri=0,
-      strWri={""});
+      strWri={""},
+      pytObj=pytObj);
 
     // Store current value of integral
   uRIntPre= uRInt;
@@ -78,7 +82,10 @@ equation
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={Bitmap(
             extent={{-88,82},{80,-78}}, fileName="modelica://Buildings/Resources/Images/Utilities/IO/Python27/python.png")}),
     Documentation(info="<html>
-Block that exchanges data with a Python function.<br/>
+<p>
+Block that exchanges data with a Python function that needs to pass
+an object from one call to the next.
+</p>
 <p>
 For each element in the input vector <code>uR[nDblWri]</code>,
 the value of the flag <code>flaDblWri[nDblWri]</code> determines whether
@@ -120,32 +127,17 @@ Integral of uR[i] over the sampling interval
 </td>
 </tr>
 </table>
-<br/>
+<p>
+If the function does not need to pass an object from one invocation to the
+next, use
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Real_Real\">
+Buildings.Utilities.IO.Python27.Real_Real</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 9, 2015 by Michael Wetter:<br/>
-Set <code>firstTrigger(fixed=true, start=false)</code> to avoid a
-warning about unspecified initial conditions if
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Examples.KalmanFilter\">
-Buildings.Utilities.IO.Python27.Examples.KalmanFilter</a>
-is translated
-using pedantic mode in Dymola 2016.
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.
-</li>
-<li>
-September 29, 2014, by Michael Wetter:<br/>
-Changed <code>algorithm</code> to <code>equation</code> section
-and assigned start values to avoid a translation warning in
-Dymola.
-</li>
-<li>
-February 5, 2013, by Michael Wetter:<br/>
-First implementation,
-based on
-<a href=\"modelica://Buildings.Utilities.IO.BCVTB.BCVTB\">
-Buildings.Utilities.IO.BCVTB.BCVTB</a>.
+January 31, 2018, by Michael Wetter:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

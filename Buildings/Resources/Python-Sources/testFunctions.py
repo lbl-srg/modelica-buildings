@@ -37,12 +37,16 @@ def s2_r1(xS):
 
 # Functions with memory
 def r1_r1WithMemory(xR, obj):
-    print("Hello from python {}.\n", type(obj))
     if obj == None:
-        print("******************* The obj is None.")
-        obj = {'a': 1, 'b': 1}
+        # Initialize the Python object
+        obj = {'a': xR, 'b': 1}
     else:
-        print("******************* The obj is not none xR = {}, obj = {}".format(xR, obj))
-        obj['a'] = obj['a'] + 1
+        # Use the python object
+        obj['a'] = obj['a'] + xR
         obj['b'] = obj['b'] + 10
-    return [3.*xR, obj]
+    # Return the sum of the dictionary,
+    # and also return the dictionary so that it can be used again at the next
+    # invocation.
+    res = obj['a'] + obj['b']
+    #raise Exception("Result is {}".format(res))
+    return [res, obj]

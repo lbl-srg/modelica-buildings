@@ -199,12 +199,19 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1100\">issue 1100</a>.
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.IO</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Utilities.IO.Python27
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Added additional blocks and functions that allow a Python object
+                        to be passed from one Python function invocation to the next.
+                        This allows to build up a Python data structure (or to instantiate a Python object),
+                        and do computations on this object at each function invocation. For example,
+                        a self-learning model, implemented in Python, could be fed with data at each time step.
+                        It could then store this data
+                        and use the current and its historical data to feed its learning algorithm.
+                        Based on this algorithm, it could output a control signal for use in another Modelica model.
        </td>
    </tr>
    </table>

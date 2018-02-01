@@ -78,7 +78,10 @@ equation
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={Bitmap(
             extent={{-88,82},{80,-78}}, fileName="modelica://Buildings/Resources/Images/Utilities/IO/Python27/python.png")}),
     Documentation(info="<html>
-Block that exchanges data with a Python function.<br/>
+<p>
+Block that exchanges data with a Python function that does not need to pass
+an object from one call to the next.
+</p>
 <p>
 For each element in the input vector <code>uR[nDblWri]</code>,
 the value of the flag <code>flaDblWri[nDblWri]</code> determines whether
@@ -120,7 +123,12 @@ Integral of uR[i] over the sampling interval
 </td>
 </tr>
 </table>
-<br/>
+<p>
+If the function needs to pass an object from one invocation to the
+next, use
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Real_RealWithMemory\">
+Buildings.Utilities.IO.Python27.Real_RealWithMemory</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

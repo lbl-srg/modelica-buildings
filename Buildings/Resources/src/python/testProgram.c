@@ -25,11 +25,10 @@ int main(int nArgs, char ** args){
 
   int i;
   pythonPtr* ptr = malloc(sizeof(pythonPtr));
+  /* Set ptr to null as pythonExchangeValuesNoModelica is checking for this */
   ptr->ptr = NULL;
 
-
-
-  for(i=0; i < 4  ; i++){
+  for(i=0; i < 3  ; i++){
     printf("Calling with i = %d.\n", i);
     pythonExchangeValuesNoModelica(moduleName,
                          functionName,
@@ -41,9 +40,6 @@ int main(int nArgs, char ** args){
 	                       ModelicaFormatError,
                          ptr,
                          1);
-    printf("Received %f.\n", dblValRea[0]);
-    printf("Pointer in testProgram is %p\n",  ptr->ptr);
   }
-
   return 0;
 }
