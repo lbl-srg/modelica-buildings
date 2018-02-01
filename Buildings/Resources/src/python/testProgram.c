@@ -8,7 +8,7 @@ void ModelicaFormatError(const char* string, const char* fmt, const char* val){
 
 int main(int nArgs, char ** args){
   const char * moduleName = "testFunctions";
-  const char * functionName = "r1_r1WithMemory";
+  const char * functionName = "r1_r1PassPythonObject";
   size_t nDblWri = 1;
   double dblValWri[] = {2.0};
 
@@ -27,6 +27,7 @@ int main(int nArgs, char ** args){
   pythonPtr* ptr = malloc(sizeof(pythonPtr));
   /* Set ptr to null as pythonExchangeValuesNoModelica is checking for this */
   ptr->ptr = NULL;
+  ptr->isInitialized = 0;
 
   for(i=0; i < 3  ; i++){
     printf("Calling with i = %d.\n", i);

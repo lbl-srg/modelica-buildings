@@ -153,16 +153,30 @@ Use the same commands as for <i>Linux 32 bit, Dymola 2013 FD01</i> because Dymol
 <h4>Type of Python functions</h4>
 <p>
 Two different types of Python functions are supported: Functions that
-need not pass Python objects between one invocation to another, and functions
+do not need to pass Python objects between one invocation to another, and functions
 that need to pass a Python object from one invocation to another.
-For the first case, use the function
+For the first case, a Python function may be
+<pre>
+def returnTwiceTheInput(xR):
+    return 2.*xR
+</pre>
+For the second case, a Python function may be
+<pre>
+def incrementAndReturnACounter(i, obj):
+    if obj == None:
+        # Initialize the Python object
+        obj = {'counter': i}
+    else:
+        # Use the python object
+        obj['counter'] = obj['counter'] + i
+    return [i, obj]
+</pre>
+For the first case, set in the function
 <a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchange\">
-Buildings.Utilities.IO.Python27.Functions.exchange</a>,
-for the second case, use
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory\">
-Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory</a>.
-The function <a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory\">
-Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory</a>
+Buildings.Utilities.IO.Python27.Functions.exchange</a>
+the input argument <code>passPythonObject = false</code>,
+and for the second case, set <code>passPythonObject = true</code>.
+The second case
 allows for example to build up a Python data structure (or to instantiate a Python object),
 and do computations on this object at each function invocation. For example,
 a Model Predictive Control algorithm or a machine learning algorithm,
@@ -189,26 +203,19 @@ and <code>dblRea</code> contains a number that must not be used in any model.
 <h4>Arguments of the Python function</h4>
 <p>
 The arguments of the python functions are, in this order,
-floats, integers and strings (and the Python object for the function
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory\">
-Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory</a>).
+floats, integers and strings (and the Python object if <code>passPythonObject = true</code>).
 If there is only one element of each data type, then a single value is passed.
 If there are multiple elements of each data type, then they are stored in a list.
 If there is no value of a data type (such as if <code>nDblWri=0</code>), then the argument is not present.
 Thus, if a data type is not present, then the function will <i>not</i> receive an empty list of this data type.
 If there are no arguments at all, then the function takes no arguments
-(except for the Python object if
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory\">
-Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory</a>
-is used).</p>
+(except if <code>passPythonObject = true</code>, in which case the only argument is the Python object).</p>
 <p>
 The table below shows the list of arguments for various combinations where no,
 one or two double values, integers and strings are passed as an argument to a Python function.
 </p>
 <ul>
-<li>For the function
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchange\">
-Buildings.Utilities.IO.Python27.Functions.exchange</a>:<br/>
+<li>If <code>passPythonObject = false</code>:<br/>
  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr> <th>nDblWri</th>   <th>nIntWri</th>  <th>nStrWri</th>  <th>Arguments</th>  </tr>
   <tr> <td>1      </td>   <td>0      </td>  <td>0      </td>  <td>1.                            </td></tr>
@@ -220,9 +227,7 @@ Buildings.Utilities.IO.Python27.Functions.exchange</a>:<br/>
   <tr> <td>2      </td>   <td>2      </td>  <td>2      </td>  <td>[1.0, 2.0], [1, 2], [\"a\", \"b\"]</td></tr>
   </table>
   </li>
-<li>For the function
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory\">
-Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory</a>:<br/>
+<li>If <code>passPythonObject = true</code>:<br/>
  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr> <th>nDblWri</th>   <th>nIntWri</th>  <th>nStrWri</th>  <th>Arguments</th>  </tr>
   <tr> <td>1      </td>   <td>0      </td>  <td>0      </td>  <td>1., pytObj                            </td></tr>
@@ -261,9 +266,7 @@ ignored.
 The table below shows valid return types for various combinations where no, one or two double values
 and integer values are returned.</p>
 <ul>
-<li>For the function
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchange\">
-Buildings.Utilities.IO.Python27.Functions.exchange</a>:<br/>
+<li>If <code>passPythonObject = false</code>:<br/>
  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr> <th>nDblRea</th>   <th>nIntRea</th>  <th>Return value</th>  </tr>
   <tr> <td>1      </td>   <td>0      </td>  <td>1.                 </td></tr>
@@ -275,9 +278,7 @@ Buildings.Utilities.IO.Python27.Functions.exchange</a>:<br/>
   <tr> <td>2      </td>   <td>2      </td>  <td>[1.0, 2.0], [1, 2] </td></tr>
   </table>
   </li>
-  <li>For the function
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory\">
-Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory</a>:<br/>
+  <li>If <code>passPythonObject = true</code>:<br/>
  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr> <th>nDblRea</th>   <th>nIntRea</th>  <th>Return value</th>  </tr>
   <tr> <td>1      </td>   <td>0      </td>  <td>1., pytObj                 </td></tr>

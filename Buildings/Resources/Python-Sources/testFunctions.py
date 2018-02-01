@@ -36,7 +36,7 @@ def s2_r1(xS):
     return y
 
 # Functions with memory
-def r1_r1WithMemory(xR, obj):
+def r1_r1PassPythonObject(xR, obj):
     if obj == None:
         # Initialize the Python object
         obj = {'a': xR, 'b': 1}

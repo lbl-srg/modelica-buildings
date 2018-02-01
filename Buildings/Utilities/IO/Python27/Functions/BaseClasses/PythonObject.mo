@@ -6,8 +6,11 @@ extends ExternalObject;
     "Construct an extendable array that can be used to store double values"
     output PythonObject pytObj;
     external "C" pytObj = initPythonMemory()
-    annotation(Include="#include <pythonInitMemory.c>",
-    IncludeDirectory="modelica://Buildings/Resources/C-Sources");
+        annotation (Library={"ModelicaBuildingsPython2.7",  "python2.7"},
+          LibraryDirectory={"modelica://Buildings/Resources/Library"},
+          __iti_dll = "ITI_ModelicaBuildingsPython2.7.dll",
+          __iti_dllNoExport = true);
+
     annotation(Documentation(info="<html>
 <p>
 The function <code>constructor</code> is a C function that is called by a Modelica simulator
@@ -31,8 +34,11 @@ First implementation.
   function destructor "Release memory"
     input PythonObject pytObj;
     external "C" freePythonMemory(pytObj)
-    annotation(Include=" #include <pythonFreeMemory.c>",
-    IncludeDirectory="modelica://Buildings/Resources/C-Sources");
+      annotation (Library={"ModelicaBuildingsPython2.7",  "python2.7"},
+        LibraryDirectory={"modelica://Buildings/Resources/Library"},
+        __iti_dll = "ITI_ModelicaBuildingsPython2.7.dll",
+        __iti_dllNoExport = true);
+
   annotation(Documentation(info="<html>
 <p>
 Destructor that frees the memory of the object

@@ -22,13 +22,14 @@
 /* svn-id=$Id: exchangeValues.c 2877 2011-09-11 00:46:02Z mwetter $*/
 /*////////////////////////////////////////////////////////////////////////////*/
 #include <stddef.h>  /* stddef defines size_t */
-#include "../../C-Sources/pythonObjectStructure.h"
 
 #ifdef __APPLE__
 #include <Python/Python.h>
 #else
 #include <Python.h>
 #endif
+
+#include "pythonObjectStructure.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -79,6 +80,10 @@ LBNLPYTHONINTERPRETER_EXPORT void pythonExchangeValuesNoModelica(const char * mo
                           void (*inModelicaFormatError)(const char *string,...),
                           void* object,
                           int have_memory);
+
+LBNLPYTHONINTERPRETER_EXPORT void* initPythonMemory();
+
+LBNLPYTHONINTERPRETER_EXPORT void freePythonMemory(void* object);
 
 #ifdef __cplusplus
 }

@@ -25,30 +25,9 @@ void pythonExchangeValues(const char * moduleName,
                           double * dblValRea, size_t nDblRea,
                           const int * intValWri, size_t nIntWri,
                           int * intValRea, size_t nIntRea,
-                          const char ** strValWri, size_t nStrWri)
-{
-  pythonExchangeValuesNoModelica(
-   moduleName,
-   functionName,
-   dblValWri, nDblWri,
-   dblValRea, nDblRea,
-   intValWri, nIntWri,
-   intValRea, nIntRea,
-   strValWri, nStrWri,
-   ModelicaFormatError,
-   NULL,
-   0 /* have_memory is false */
-  );
-}
-
-void pythonExchangeValuesWithMemory(const char * moduleName,
-                          const char * functionName,
-                          const double * dblValWri, size_t nDblWri,
-                          double * dblValRea, size_t nDblRea,
-                          const int * intValWri, size_t nIntWri,
-                          int * intValRea, size_t nIntRea,
                           const char ** strValWri, size_t nStrWri,
-                          void* object)
+                          void* object,
+                          int passPythonObject)
 {
   pythonExchangeValuesNoModelica(
    moduleName,
@@ -60,6 +39,6 @@ void pythonExchangeValuesWithMemory(const char * moduleName,
    strValWri, nStrWri,
    ModelicaFormatError,
    object,
-   1 /* have_memory is true */
+   passPythonObject /* have_memory is true */
   );
 }

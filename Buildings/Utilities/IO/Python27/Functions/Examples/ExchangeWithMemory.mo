@@ -12,7 +12,7 @@ model ExchangeWithMemory
 algorithm
   yR1 :=Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory(
     moduleName="testFunctions",
-    functionName="r1_r1WithMemory",
+    functionName="r1_r1PassPythonObject",
     dblWri={2.0},
     intWri={0},
     nDblWri=1,
@@ -22,11 +22,11 @@ algorithm
     nStrWri=0,
     strWri={""},
     pytObj=pytObj);
-  assert(abs(3-yR1[1]) < 1e-5, "Error in function r1_r1WithMemory");
+  assert(abs(3-yR1[1]) < 1e-5, "Error in function r1_r1PassPythonObject");
 
   yR2 :=Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory(
     moduleName="testFunctions",
-    functionName="r1_r1WithMemory",
+    functionName="r1_r1PassPythonObject",
     dblWri=yR1,
     intWri={0},
     nDblWri=1,
@@ -36,7 +36,7 @@ algorithm
     nStrWri=0,
     strWri={""},
     pytObj=pytObj);
-    assert(abs(16-yR2[1]) < 1e-5, "Error in function r1_r1WithMemory");
+    assert(abs(16-yR2[1]) < 1e-5, "Error in function r1_r1PassPythonObject");
 
 
   annotation (

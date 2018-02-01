@@ -5,12 +5,14 @@ model SimpleRoom
   Modelica.Blocks.Sources.Clock clock
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Real_RealWithMemory pyt(
+  Real_Real pyt(
     moduleName="SimpleRoom",
     functionName="doStep",
     nDblRea=2,
     nDblWri=4,
-    samplePeriod=60) "Python interface"
+    samplePeriod=60,
+    passPythonObject=true)
+                     "Python interface"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Modelica.Blocks.Sources.Constant T0(k=293.15) "Initial temperature"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));

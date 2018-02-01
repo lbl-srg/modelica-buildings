@@ -9,9 +9,18 @@
 #ifndef BUILDINGS_PYTHONOBJECTSTRUCTURE_H /* Not needed since it is only a typedef; added for safety */
 #define BUILDINGS_PYTHONOBJECTSTRUCTURE_H
 
+#ifdef __APPLE__
+#include <Python/Python.h>
+#else
+#include <Python.h>
+#endif
+
 typedef struct pythonPtr
 {
   void* ptr;
+  int isInitialized;
+  PyObject* pModule;
+  PyObject* pFunc;
 } pythonPtr;
 
 #endif

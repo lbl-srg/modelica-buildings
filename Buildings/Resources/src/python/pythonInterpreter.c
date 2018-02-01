@@ -1,5 +1,17 @@
 #include "pythonInterpreter.h"
 
+/* Create the structure and initialize its pointer to NULL. */
+void* initPythonMemory()
+{
+  pythonPtr* ptr = malloc(sizeof(pythonPtr));
+  /* Set ptr to null as pythonExchangeValuesNoModelica is checking for this */
+  ptr->ptr = NULL;
+  ptr->isInitialized = 0;
+  ptr->pModule = NULL;
+  ptr->pFunc = NULL;
+  return (void*) ptr;
+}
+
 void pythonExchangeValuesNoModelica(const char * moduleName,
                           const char * functionName,
                           const double * dblValWri, size_t nDblWri,
@@ -8,9 +20,10 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
                           int * intValRea, size_t nIntRea,
                           const char ** strValWri, size_t nStrWri,
                           void (*ModelicaFormatError)(const char *string,...),
-                          void* memory, int have_memory)
+                          void* memory, int passPythonObject)
 {
-  PyObject *pName, *pModule, *pFunc;
+  /* PyObject, *pModule, *pFunc; */
+  PyObject *pName;
   PyObject *pArgsDbl, *pArgsInt, *pArgsStr;
   PyObject *pArgs, *pValue;
   Py_ssize_t pIndVal;
@@ -26,7 +39,7 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
   /*//////////////////////////////////////////////////////////////////////////*/
   /* Initialize Python interpreter*/
   if (!Py_IsInitialized())
-    Py_Initialize();
+      Py_Initialize();
   /* Set the entries for sys.argv.*/
   /* This is required if a script uses sys.argv, such as bacpypes.*/
   /* See also http://stackoverflow.com/questions/19381441/python-modelica-connection-fails-due-to-import-error*/
@@ -34,45 +47,48 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
 
   /*//////////////////////////////////////////////////////////////////////////*/
   /* Load Python module*/
-  pName = PyString_FromString(moduleName);
-  if (!pName) {
-    (*ModelicaFormatError)("Failed to convert moduleName '%s' to Python object.\n", moduleName);
-  }
+  if (!ptrMemory->isInitialized) {
+    pName = PyString_FromString(moduleName);
+    if (!pName) {
+      (*ModelicaFormatError)("Failed to convert moduleName '%s' to Python object.\n", moduleName);
+    }
 
-  pModule = PyImport_Import(pName);
-  Py_DECREF(pName);
-  if (!pModule) {
-    /*    PyErr_Print();*/
-    PyObject *pValue, *pType, *pTraceBack;
-    PyErr_Fetch(&pType, &pValue, &pTraceBack);
-    if (pType != NULL)
-      Py_DECREF(pType);
-    if (pTraceBack != NULL)
-      Py_DECREF(pTraceBack);
-    /* Py_Finalize(); // removed, see note at other Py_Finalize() statement*/
-    (*ModelicaFormatError)("Failed to load \"%s\".\n\
+    ptrMemory->pModule = PyImport_Import(pName);
+    Py_DECREF(pName);
+    if (!ptrMemory->pModule) {
+      /*    PyErr_Print();*/
+      PyObject *pValue, *pType, *pTraceBack;
+      PyErr_Fetch(&pType, &pValue, &pTraceBack);
+      if (pType != NULL)
+        Py_DECREF(pType);
+        if (pTraceBack != NULL)
+        Py_DECREF(pTraceBack);
+        /* Py_Finalize(); // removed, see note at other Py_Finalize() statement*/
+        (*ModelicaFormatError)("Failed to load \"%s\".\n\
 This may occur if you did not set the PYTHONPATH environment variable\n\
 or if the Python module contains a syntax error.\n\
 The error message is \"%s\"",
-                        moduleName,
-                        PyString_AsString(PyObject_Repr(pValue)));
-  }
+                          moduleName,
+                          PyString_AsString(PyObject_Repr(pValue)));
+      }
 
-  /*//////////////////////////////////////////////////////////////////////////*/
-  /* Python module is successfully loaded.*/
-  /* Load function*/
-  pFunc = PyObject_GetAttrString(pModule, functionName);
-  /* pFunc is a new reference */
+      /*//////////////////////////////////////////////////////////////////////////*/
+      /* Python module is successfully loaded.*/
+      /* Load function*/
+      ptrMemory->pFunc = PyObject_GetAttrString(ptrMemory->pModule, functionName);
+      /* pFunc is a new reference */
 
-  if (!(pFunc && PyCallable_Check(pFunc))){
-    if (PyErr_Occurred())
-      PyErr_Print();
-    /* Py_Finalize(); // removed, see note at other Py_Finalize() statement*/
-    (*ModelicaFormatError)(
-      "Cannot find function \"%s\".\nMake sure PYTHONPATH contains the path of the module that contains this function.\n",
-      functionName);
+      if (!(ptrMemory->pFunc && PyCallable_Check(ptrMemory->pFunc))){
+        if (PyErr_Occurred())
+        PyErr_Print();
+        /* Py_Finalize(); // removed, see note at other Py_Finalize() statement*/
+        (*ModelicaFormatError)(
+          "Cannot find function \"%s\".\nMake sure PYTHONPATH contains the path of the module that contains this function.\n",
+        functionName);
 
-  }
+      }
+      ptrMemory->isInitialized = 1;
+    }
   /*//////////////////////////////////////////////////////////////////////////*/
   /* The function is loaded.*/
   /*//////////////////////////////////////////////////////////////////////////*/
@@ -83,7 +99,7 @@ The error message is \"%s\"",
     nArg++;
   if ( nStrWri > 0)
     nArg++;
-  if ( have_memory > 0)
+  if ( passPythonObject > 0)
     nArg++;
   if (nArg > 0)
     pArgs = PyTuple_New(nArg);
@@ -100,7 +116,7 @@ The error message is \"%s\"",
       if (!pValue) {
         /* Failed to convert argument.*/
         Py_DECREF(pArgsDbl);
-        Py_DECREF(pModule);
+        Py_DECREF(ptrMemory->pModule);
         /* According to the Modelica specification,*/
         /* the function ModelicaError never returns to the calling function.*/
         (*ModelicaFormatError)("Cannot convert double argument number %i to Python format.", i);
@@ -125,7 +141,7 @@ The error message is \"%s\"",
         if (!pValue) {
           /* Failed to convert argument.*/
           Py_DECREF(pArgsInt);
-          Py_DECREF(pModule);
+          Py_DECREF(ptrMemory->pModule);
           /* According to the Modelica specification,*/
           /* the function ModelicaError never returns to the calling function.*/
           (*ModelicaFormatError)("Cannot convert integer argument number %i to Python format.", i);
@@ -158,7 +174,7 @@ The error message is \"%s\"",
       if (!pValue) {
         /* Failed to convert argument.*/
         Py_DECREF(pArgsStr);
-        Py_DECREF(pModule);
+        Py_DECREF(ptrMemory->pModule);
         /* According to the Modelica specification,*/
         /* the function ModelicaError never returns to the calling function.*/
         (*ModelicaFormatError)("Cannot convert string argument number %i to Python format.", i);
@@ -176,7 +192,7 @@ The error message is \"%s\"",
   }
 
   /* d) Convert object*/
-  if ( have_memory > 0 ){
+  if ( passPythonObject > 0 ){
     /* Put the memory into the argument list.*/
     /* In the first call, put Py_None int obj, but in subsequent calls, use ptr. */
     obj = (ptrMemory->ptr == NULL) ? Py_None : ptrMemory->ptr;
@@ -188,7 +204,7 @@ The error message is \"%s\"",
   /*//////////////////////////////////////////////////////////////////////////*/
   /*//////////////////////////////////////////////////////////////////////////*/
   /* Call the Python function*/
-  pValue = PyObject_CallObject(pFunc, pArgs);
+  pValue = PyObject_CallObject(ptrMemory->pFunc, pArgs);
   if (pArgs != NULL)
     Py_DECREF(pArgs);
 
@@ -202,8 +218,8 @@ The error message is \"%s\"",
       Py_DECREF(pType);
     if (pTraceBack != NULL)
       Py_DECREF(pTraceBack);
-    Py_DECREF(pFunc);
-    Py_DECREF(pModule);
+    Py_DECREF(ptrMemory->pFunc);
+    Py_DECREF(ptrMemory->pModule);
     (*ModelicaFormatError)("Call to Python function \"%s\" failed.\n \
 This is often due to an error in the Python script,\n \
 or because the list of arguments of the Python function is incorrect.\n \
@@ -220,7 +236,7 @@ The error message is %s.",
     nRet++;
   if ( nIntRea > 0)
     nRet++;
-  if (have_memory)
+  if (passPythonObject)
     nRet++;
 
   /* Check whether the function must returns some values*/
@@ -350,7 +366,7 @@ The returned object is \"%s\".",
 
     /*//////////////////////////////////////////////////////////////////////////*/
     /* Parse the memory to the Python object*/
-    if (have_memory > 0){
+    if (passPythonObject > 0){
       ptrMemory->ptr = (void*)PyList_GetItem(pValue, iRet);
       iRet++;
     }
@@ -394,3 +410,11 @@ void checkStringLength(const char * str, size_t strLen){
   return;
 }
 */
+
+void freePythonMemory(void* object)
+{
+  if ( object != NULL ){
+    pythonPtr* p = (pythonPtr*) object;
+    free(p);
+  }
+}

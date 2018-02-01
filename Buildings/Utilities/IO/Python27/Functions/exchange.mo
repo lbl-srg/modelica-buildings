@@ -3,6 +3,9 @@ function exchange "Function that communicates with Python"
   input String moduleName
     "Name of the python module that contains the function";
   input String functionName=moduleName "Name of the python function";
+  input BaseClasses.PythonObject pytObj "Memory that holds the Python object";
+  input Boolean passPythonObject
+    "Set to true if the Python function returns and receives an object, see User's Guide";
 
   input Real    dblWri[max(1, nDblWri)] "Double values to write";
   input Integer intWri[max(1, nIntWri)] "Integer values to write";
@@ -51,6 +54,8 @@ algorithm
  (dblRea, intRea) :=BaseClasses.exchange(
     moduleName=moduleName,
     functionName=functionName,
+    pytObj=pytObj,
+    passPythonObject=passPythonObject,
     dblWri=dblWri,
     intWri=intWri,
     strWri=strWri,
