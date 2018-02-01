@@ -35,6 +35,9 @@ def s2_r1(xS):
     y = float(l)
     return y
 
+def r1i1_r2i1(xR, xI):
+    return [[2.*xR, 2.*float(xI)], 3]
+
 # Functions with memory
 def r1_r1PassPythonObject(xR, obj):
     if obj == None:

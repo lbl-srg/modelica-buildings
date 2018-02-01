@@ -123,6 +123,21 @@ algorithm
       strWri={"tmp-TestPythonInterface", "txt"});
    assert(abs(yR1[1]-1.23) < 1E-5, "Error in function s2_r1");
 
+  (yR2, yI1) := Buildings.Utilities.IO.Python27.Functions.exchange(
+      moduleName="testFunctions",
+      functionName="r1i1_r2i1",
+      pytObj=pytObj[8],
+      passPythonObject=passPythonObject,
+      dblWri={0.3},
+      intWri={2},
+      nDblWri=1,
+      nDblRea=2,
+      nIntWri=1,
+      nIntRea=1,
+      nStrWri=0,
+      strWri={""});
+  assert(abs(yR2[1]-0.6) + abs(yR2[2]-4) < 1E-5, "Error in function r1i1_r2i1");
+  assert(abs(yI1[1]-3) == 0, "Error in function r1i1_r2i1");
   annotation (
 experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/IO/Python27/Functions/Examples/Exchange.mos"
