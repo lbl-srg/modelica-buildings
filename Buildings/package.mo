@@ -208,9 +208,10 @@ its class name ends with the string <code>Beta</code>.
                         to be passed from one Python function invocation to the next.
                         This allows to build up a Python data structure (or to instantiate a Python object),
                         and do computations on this object at each function invocation. For example,
-                        a self-learning model, implemented in Python, could be fed with data at each time step.
+                        a Model Predictive Control algorithm or a machine learning algorithm,
+                        implemented in Python, could be fed with data at each time step.
                         It could then store this data
-                        and use the current and its historical data to feed its learning algorithm.
+                        and use the current and its historical data to feed its algorithm.
                         Based on this algorithm, it could output a control signal for use in another Modelica model.
        </td>
    </tr>

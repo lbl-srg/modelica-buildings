@@ -149,7 +149,7 @@ Use the same commands as for <i>Linux 32 bit, Dymola 2013 FD01</i> because Dymol
     </tr>
   <!-- =================================================================== -->
   </table>
-  
+
 <h4>Type of Python functions</h4>
 <p>
 Two different types of Python functions are supported: Functions that
@@ -165,9 +165,10 @@ The function <a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exch
 Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory</a>
 allows for example to build up a Python data structure (or to instantiate a Python object),
 and do computations on this object at each function invocation. For example,
-a self-learning model, implemented in Python, could be fed with data at each time step.
+a Model Predictive Control algorithm or a machine learning algorithm,
+implemented in Python, could be fed with data at each time step.
 It could then store this data
-and use the current and its historical data to feed its learning algorithm.
+and use the current and its historical data to feed its algorithm.
 Based on this algorithm, it could output a control signal for use in another Modelica model.
 </p>
 <h4>Number of values to read to Python and write from Python</h4>
@@ -205,7 +206,7 @@ The table below shows the list of arguments for various combinations where no,
 one or two double values, integers and strings are passed as an argument to a Python function.
 </p>
 <ul>
-<li>For the function 
+<li>For the function
 <a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchange\">
 Buildings.Utilities.IO.Python27.Functions.exchange</a>:<br/>
  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
@@ -219,7 +220,7 @@ Buildings.Utilities.IO.Python27.Functions.exchange</a>:<br/>
   <tr> <td>2      </td>   <td>2      </td>  <td>2      </td>  <td>[1.0, 2.0], [1, 2], [\"a\", \"b\"]</td></tr>
   </table>
   </li>
-<li>For the function 
+<li>For the function
 <a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory\">
 Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory</a>:<br/>
  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
@@ -234,7 +235,7 @@ Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory</a>:<br/>
   </table>
   <br/>
   where <code>pytObj</code> is the Python object.
-  </li>  
+  </li>
   </ul>
 
 <h4>Returns values of the Python function</h4>
@@ -260,7 +261,7 @@ ignored.
 The table below shows valid return types for various combinations where no, one or two double values
 and integer values are returned.</p>
 <ul>
-<li>For the function 
+<li>For the function
 <a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchange\">
 Buildings.Utilities.IO.Python27.Functions.exchange</a>:<br/>
  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
@@ -274,7 +275,7 @@ Buildings.Utilities.IO.Python27.Functions.exchange</a>:<br/>
   <tr> <td>2      </td>   <td>2      </td>  <td>[1.0, 2.0], [1, 2] </td></tr>
   </table>
   </li>
-  <li>For the function 
+  <li>For the function
 <a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory\">
 Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory</a>:<br/>
  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
@@ -289,7 +290,7 @@ Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory</a>:<br/>
   </table>
   <br/>
   where <code>pytObj</code> is the Python object.
-  </li>  
+  </li>
   </ul>
 
 <!-- Not yet implemented as pure functions are not supported in Dymola 2013 FD01 -->
@@ -313,7 +314,7 @@ Various examples are provided, and for each of these, the Python functions are s
 <p>
 The examples
 <a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.Examples.Exchange\">
-Buildings.Utilities.IO.Python27.Functions.Examples.Exchange</a> 
+Buildings.Utilities.IO.Python27.Functions.Examples.Exchange</a>
 and
 <a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.Examples.ExchangeWithMemory\">
 Buildings.Utilities.IO.Python27.Functions.Examples.ExchangeWithMemory</a>
@@ -328,7 +329,7 @@ This Python function stores its memory on disk between invocations (which,
 in general, is not recommended).
 </p>
 <p>
-The example 
+The example
 <a href=\"modelica://Buildings.Utilities.IO.Python27.Examples.SimpleRoom\">
 Buildings.Utilities.IO.Python27.Examples.SimpleRoom</a>
 shows a similiar example. However, rather than using a file to store the
