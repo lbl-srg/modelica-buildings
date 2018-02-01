@@ -2,6 +2,11 @@ within Buildings.Utilities.IO.Python27.Functions.Examples;
 model Exchange "Test model for exchange function"
   extends Modelica.Icons.Example;
 
+  parameter Boolean passPythonObject = false
+    "Set to true if the Python function returns and receives an object, see User's Guide";
+  Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject[7] pytObj=
+    {Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject() for i in 1:7};
+
   Real    yR1[1] "Real function value";
   Integer yI1[1] "Integer function value";
   Real    yR2[2] "Real function value";
@@ -10,6 +15,8 @@ algorithm
   yR1 := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="r1_r1",
+      pytObj=pytObj[1],
+      passPythonObject=passPythonObject,
       dblWri={2.0},
       intWri={0},
       nDblWri=1,
@@ -23,6 +30,8 @@ algorithm
     yR1 := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="r2_r1",
+      pytObj=pytObj[2],
+      passPythonObject=passPythonObject,
       dblWri={2.0, 3.0},
       intWri={0},
       nDblWri=2,
@@ -36,6 +45,8 @@ algorithm
   yR2 := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="r1_r2",
+      pytObj=pytObj[3],
+      passPythonObject=passPythonObject,
       dblWri={2.0},
       intWri={0},
       nDblWri=1,
@@ -50,6 +61,8 @@ algorithm
   (yR1, yI1) := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="i1_i1",
+      pytObj=pytObj[4],
+      passPythonObject=passPythonObject,
       dblWri={0.0},
       intWri={3},
       nDblWri=0,
@@ -64,6 +77,8 @@ algorithm
   (yR1, yI2) := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="i1_i2",
+      pytObj=pytObj[5],
+      passPythonObject=passPythonObject,
       dblWri={0.0},
       intWri={2},
       nDblWri=0,
@@ -77,6 +92,8 @@ algorithm
   yR2 := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="r1i1_r2",
+      pytObj=pytObj[6],
+      passPythonObject=passPythonObject,
       dblWri={0.3},
       intWri={2},
       nDblWri=1,
@@ -94,6 +111,8 @@ algorithm
   yR1 := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="s2_r1",
+      pytObj=pytObj[7],
+      passPythonObject=passPythonObject,
       dblWri={0.0},
       intWri={0},
       nDblWri=0,

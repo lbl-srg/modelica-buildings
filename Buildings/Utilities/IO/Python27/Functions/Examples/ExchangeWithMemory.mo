@@ -3,14 +3,17 @@ model ExchangeWithMemory
   "Test model for exchange function with memory"
   extends Modelica.Icons.Example;
 
-  Real yR1[1] "Real function value";
-  Real yR2[1] "Real function value";
-
+  parameter Boolean passPythonObject = true
+    "Set to true if the Python function returns and receives an object, see User's Guide";
   Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject pytObj=
     Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject();
 
+  Real yR1[1] "Real function value";
+  Real yR2[1] "Real function value";
+
+
 algorithm
-  yR1 :=Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory(
+  yR1 :=Buildings.Utilities.IO.Python27.Functions.exchange(
     moduleName="testFunctions",
     functionName="r1_r1PassPythonObject",
     dblWri={2.0},
@@ -21,10 +24,13 @@ algorithm
     nIntRea=0,
     nStrWri=0,
     strWri={""},
-    pytObj=pytObj);
+    pytObj=pytObj,
+    passPythonObject=passPythonObject);
   assert(abs(3-yR1[1]) < 1e-5, "Error in function r1_r1PassPythonObject");
 
-  yR2 :=Buildings.Utilities.IO.Python27.Functions.exchangeWithMemory(
+  // Invoke the same function with the same Python object.
+  // Hence, pytObj is reused.
+  yR2 :=Buildings.Utilities.IO.Python27.Functions.exchange(
     moduleName="testFunctions",
     functionName="r1_r1PassPythonObject",
     dblWri=yR1,
@@ -35,7 +41,8 @@ algorithm
     nIntRea=0,
     nStrWri=0,
     strWri={""},
-    pytObj=pytObj);
+    pytObj=pytObj,
+    passPythonObject=passPythonObject);
     assert(abs(16-yR2[1]) < 1e-5, "Error in function r1_r1PassPythonObject");
 
 
