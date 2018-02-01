@@ -156,11 +156,14 @@ Two different types of Python functions are supported: Functions that
 do not need to pass Python objects between one invocation to another, and functions
 that need to pass a Python object from one invocation to another.
 For the first case, a Python function may be
+</p>
 <pre>
 def returnTwiceTheInput(xR):
     return 2.*xR
 </pre>
+<p>
 For the second case, a Python function may be
+</p>
 <pre>
 def incrementAndReturnACounter(i, obj):
     if obj == None:
@@ -171,6 +174,7 @@ def incrementAndReturnACounter(i, obj):
         obj['counter'] = obj['counter'] + i
     return [i, obj]
 </pre>
+<p>
 For the first case, set in the function
 <a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.exchange\">
 Buildings.Utilities.IO.Python27.Functions.exchange</a>
