@@ -58,8 +58,8 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/
 <p>
 This example demonstrates the implementation of a simple room model
 that is implemented in the Python module <code>Resources/Python-Sources/SimpleRoom.py</code>.
-The Python model computes a first order response to the room model.
-It returns the current room air temperature and the energy expended during the simulation.
+The Python model computes a first-order response to the room model.
+It returns the current room air temperature and the energy consumed during the simulation.
 The Python module also passes an object from one call to the next. This object
 contains the past room temperature, energy and time when the function was called,
 stored as a Python dictionary.
@@ -75,7 +75,7 @@ would be much simpler and computationally more efficient.
 </html>", revisions="<html>
 <ul>
 <li>
-February 5, 2013, by Michael Wetter:<br/>
+January 31, 2018, by Michael Wetter and Thierry Nouidui:<br/>
 First implementation.
 </li>
 </ul>
