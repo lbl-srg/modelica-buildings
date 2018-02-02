@@ -238,8 +238,6 @@ directly from occupancy sensor <code>nOcc</code> if the sensor exists
 (<code>have_occSen=true</code>), or using the default occupant density
 <code>occDen</code> to find it <code>AFlo*occDen</code>. The occupant
 density can be found from Table 6.2.2.1 in ASHRAE Standard 62.1-2013.
-For design purpose, use design zone population <code>desZonPop</code> to find
-out the minimum requirement at the ventilation-design condition.
 </p>
 
 <h4>Step 2: Zone air-distribution effectiveness <code>zonDisEff</code></h4>
