@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Validation;
 model VAVSupplyTemperature
   "Validate model for calculating supply air temperature of multi zone VAV AHU"
-  extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature
     conTSetSup
@@ -51,7 +50,7 @@ equation
     annotation (Line(points={{-59,40},{40,40},{40,4},{69,4}},
       color={0,0,127}));
   connect(setZonTem.y, conTSetSup.TSetZones)
-    annotation (Line(points={{-59,80},{60,80},{60,8},{69,8}},
+    annotation (Line(points={{-59,70},{60,70},{60,8},{69,8}},
       color={0,0,127}));
   connect(sine.y, abs.u)
     annotation (Line(points={{-59,-40},{-42,-40}}, color={0,0,127}));
@@ -91,5 +90,15 @@ July 11, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent = {{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
 end VAVSupplyTemperature;

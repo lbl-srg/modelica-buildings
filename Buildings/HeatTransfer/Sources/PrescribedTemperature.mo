@@ -33,7 +33,7 @@ equation
           lineColor={191,0,0},
           fillColor={191,0,0},
           fillPattern=FillPattern.Solid)}),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This model represents a variable temperature boundary condition.
 The temperature in [K] is given as input signal <b>T</b>

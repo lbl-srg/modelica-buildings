@@ -458,7 +458,7 @@ is computed for the past <i>n<sub>his</sub></i> days.
 Then, the adjustment factor is computed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-a = min(a<sub>max</sub>, max(a<sub>min</sub>, P<sub>ave</sub> &frasl; P<sub>his</sub>),
+a = min(a<sub>max</sub>, max(a<sub>min</sub>, P<sub>ave</sub> &frasl; P<sub>his</sub>)),
 </p>
 <p>
 where <i>a<sub>min</sub></i> and <i>a<sub>max</sub></i> are the minimum

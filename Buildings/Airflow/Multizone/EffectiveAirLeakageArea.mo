@@ -108,8 +108,8 @@ revisions="<html>
 <li>
 April 24, 2017, by Filip Jorissen:<br/>
 Corrected error in computation of <code>A</code> which was
-<code>A=CD/CDRat * L * dpRat^(0.5-m))</code> rather than
-<code>A=CDRat/CD * L * dpRat^(0.5-m))</code>.<br/>
+<code>A=CD/CDRat * L * dpRat^(0.5-m)</code> rather than
+<code>A=CDRat/CD * L * dpRat^(0.5-m)</code>.<br/>
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/743\">#743</a>.
 </li>
 <li>

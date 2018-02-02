@@ -1240,9 +1240,9 @@ This sequence sets the thermal zone cooling and heating setpoints. The implement
 is according to the ASHRAE Guideline 36 (G36), PART5.B.3. The calculation is done
 following the steps below.
 </p>
-<h4>a. Each zone shall have separate occupied and unoccupied heating and cooling
+<h4>Each zone shall have separate occupied and unoccupied heating and cooling
 setpoints.</h4>
-<h4>b. The active setpoints shall be determined by the Operation Mode of the zone
+<h4>The active setpoints shall be determined by the Operation Mode of the zone
 group.</h4>
 <ul>
 <li>The setpoints shall be the occupied setpoints during Occupied, Warm up, and
@@ -1250,7 +1250,7 @@ Cool-down modes.</li>
 <li>The setpoints shall be the unoccupied setpoints during Unoccupied, Setback,
 and Setup modes.</li>
 </ul>
-<h4>c. The software shall prevent</h4>
+<h4>The software shall prevent</h4>
 <ul>
 <li>The heating setpoint from exceeding the cooling setpoint minus 0.56 &deg;C
 (1 &deg;F).</li>
@@ -1259,7 +1259,7 @@ setpoint.</li>
 <li>The unoccupied cooling setpoint from being less than occupied cooling
 setpoint.</li>
 </ul>
-<h4>d. Where the zone has a local setpoint adjustment knob/button </h4>
+<h4>Where the zone has a local setpoint adjustment knob/button </h4>
 <ul>
 <li>The setpoint adjustment offsets established by the occupant shall be software
 points that are persistent (e.g. not reset daily), but the actual offset used
@@ -1279,7 +1279,7 @@ shall have no impact on setpoints in all other modes.</li>
 be frozen. Further adjustment of the setpoint by local controls shall be suspended
 for the duration of the demand limit event.</li>
 </ul>
-<h4>e. Cooling demand limit setpoint adjustment</h4>
+<h4>Cooling demand limit setpoint adjustment</h4>
 <p>The active cooling setpoints for all zones shall be increased when a demand limit
 is imposed on the associated zone group. The operator shall have the ability
 to exempt individual zones from this adjustment through the normal
@@ -1290,7 +1290,7 @@ are not cumulative.</p>
 <li>At Demand Limit Level 2, increase setpoint by 1.1 &deg;C (2 &deg;F).</li>
 <li>At Demand Limit Level 1, increase setpoint by 2.2 &deg;C (4 &deg;F).</li>
 </ul>
-<h4>f. Heating demand limit setpoint adjustment</h4>
+<h4>Heating demand limit setpoint adjustment</h4>
 <p>The active heating setpoints for all zones shall be decreased when a demand limit
 is imposed on the associated zone group. The operator shall have the ability
 to exempt individual zones from this adjustment through the normal BAS user
@@ -1300,7 +1300,7 @@ interface. Changes due to demand limits are not cumulative.</p>
 <li>At Demand Limit Level 2, decrease setpoint by 1.1 &deg;C (2 &deg;F).</li>
 <li>At Demand Limit Level 1, decrease setpoint by 2.2 &deg;C (4 &deg;F).</li>
 </ul>
-<h4>g. Window switches</h4>
+<h4>Window switches</h4>
 <p>For zones that have operable windows with indicator switches, when the window
 switch indicates the window is open, the heating setpoint shall be temporarily
 set to 4.4 &deg;C (40 &deg;F) and the cooling setpoint shall be temporarily
@@ -1319,9 +1319,9 @@ their previously values.</li>
 <p>Hierarchy of setpoint adjustments: the following adjustment restrictions
 shall prevail in order from highest to lowest priority.</p>
 <ul>
-<li>Setpoint overlap restriction (Part c)</li>
-<li>Absolute limits on local setpoint adjustment (Part d)</li>
-<li>Window swtiches (Part g)</li>
+<li>Setpoint overlap restriction</li>
+<li>Absolute limits on local setpoint adjustment</li>
+<li>Window swtiches</li>
 <li>Demand limit (a. Occupancy sensors; b. Local setpoint adjustment)</li>
 <li>Scheduled setpoints based on zone group mode</li>
 </ul>

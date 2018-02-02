@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Validation;
 model Controller_Disable
   "Validation model for disabling the single zone VAV AHU economizer modulation and damper position limit control loops"
-  extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Controller economizer(
     final use_enthalpy=true,
@@ -179,7 +178,7 @@ equation
   connect(SupFanSpeSig.y, economizer2.uSupFanSpe)
     annotation (Line(points={{-19,50},{148,50},{148,-32},{179,-32}}, color={0,0,127}));
   connect(sin1.y, economizer2.TMix)
-    annotation (Line(points={{161,-70},{170,-70},{170,-34},{179,-34}}, color={0,0,127}));
+    annotation (Line(points={{161,-69},{170,-69},{170,-34},{179,-34}}, color={0,0,127}));
   connect(opeMod.y, economizer2.uOpeMod)
     annotation (Line(points={{-59,-90},{60,-90},{60,-38},{179,-38}}, color={255,127,0}));
   connect(zonSta.y, economizer2.uZonSta)

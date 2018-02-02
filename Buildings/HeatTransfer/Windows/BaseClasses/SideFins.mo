@@ -63,7 +63,7 @@ protected
   Real lambda_t;
   Real verAzi_c;
   Real alt_t;
-initial algorithm
+initial equation
   assert(h >= 0, "Sidefin parameter 'h' must be at least zero.
   It is measured from the upper edge of the window to the top of the side fin.
   Received h = " + String(h));

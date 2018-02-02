@@ -178,6 +178,16 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialParallelElectricEIR
+       </td>
+       <td valign=\"top\">Added <code>constrainedby</code> to declaration of chiller.<br/>
+                          This is for
+                          <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1118\">issue 1118</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
        </td>
    </tr>
@@ -5721,7 +5731,7 @@ Modelica.UsersGuide.ReleaseNotes.VersionManagement</a> for details.
 To allow adding scripts for multiple simulation environments,
 all scripts have been moved to the directory <code>Buildings/Resources/Scripts/Dymola</code> and the annotation that
 generates the entry in the <code>Command</code> pull down menu has been changed to
-<code>__Dymola_Commands(file=...</code>
+<code>__Dymola_Commands(file=...)</code>
 </li>
 </ul>
 </html>"));

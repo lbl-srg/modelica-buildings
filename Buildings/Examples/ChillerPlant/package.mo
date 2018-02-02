@@ -103,10 +103,10 @@ For both models, the control signal <i>u</i> is converted to setpoints for <i>&D
 </p>
 <ul>
 <li>
-If <i>u &isin; [0, x]</i> then <i>&Delta;p = &Delta;p<sub>min</sub> + u &nbsp;(&Delta;p<sub>max</sub>-&Delta;p<sub>min</sub>)/x</i>
+If <i>0 &le; u &le; x</i> then <i>&Delta;p = &Delta;p<sub>min</sub> + u &nbsp;(&Delta;p<sub>max</sub>-&Delta;p<sub>min</sub>)/x</i>
 and <i>T = T<sub>max</sub></i></li>
 <li>
-If <i>u &isin; (x, 1]</i> then <i>&Delta;p = &Delta;p<sub>max</sub></i>
+If <i> x &lt; u &le; 1</i> then <i>&Delta;p = &Delta;p<sub>max</sub></i>
 and
 <i>T = T<sub>max</sub> - (u-x)&nbsp;(T<sub>max</sub>-T<sub>min</sub>)/(1-x)
 </i></li>

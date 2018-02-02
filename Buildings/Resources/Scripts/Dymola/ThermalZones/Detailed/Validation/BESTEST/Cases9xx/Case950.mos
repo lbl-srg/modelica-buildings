@@ -1,4 +1,4 @@
-simulateModel("Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case950", stopTime=3.1536e+07, numberOfIntervals=0, outputInterval=3600, method="Radau", tolerance=1e-06, resultFile="Case950");
+simulateModel("Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case950", stopTime=3.1536e+07, numberOfIntervals=0, outputInterval=3600, method="Cvode", tolerance=1e-06, resultFile="Case950");
 createPlot(id = 1,
  position = {23, 5, 464, 449},
  y = {"roo.air.vol.T"},

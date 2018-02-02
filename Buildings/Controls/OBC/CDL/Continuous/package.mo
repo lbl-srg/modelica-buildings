@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Continuous "Package with elementary mathematical functions for continuous variables"
-  extends Modelica.Icons.Package;
+package Continuous "Package with blocks for continuous variables"
 
 annotation (
 Documentation(
@@ -18,10 +17,21 @@ Firt implementation, based on the blocks from the Modelica Standard Library.
 </li>
 </ul>
 </html>"),
-Icon(graphics={Text(
+Icon(graphics={
+        Rectangle(
+          lineColor={200,200,200},
+          fillColor={248,248,248},
+          fillPattern=FillPattern.HorizontalCylinder,
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0),
+               Text(
         extent={{-52,86},{52,-92}},
         lineColor={0,0,0},
         fillColor={0,0,0},
         fillPattern=FillPattern.Solid,
-        textString="R")}));
+        textString="R"),
+        Rectangle(
+          lineColor={128,128,128},
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0)}));
 end Continuous;
