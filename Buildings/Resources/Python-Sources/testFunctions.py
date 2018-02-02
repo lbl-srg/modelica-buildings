@@ -36,6 +36,7 @@ def s2_r1(xS):
     return y
 
 def r1i1_r2i1(xR, xI):
+    # Cast the return value to a long
     return [[2.*xR, 2.*float(xI)], long(3)]
 
 # Functions with memory
