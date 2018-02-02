@@ -377,7 +377,7 @@ annotation (
 Supply fan control for a multi zone VAV AHU according to
 ASHRAE guideline G36, PART5.N.1 (Supply fan control).
 </p>
-<h4>a. Supply fan start/stop</h4>
+<h4>Supply fan start/stop</h4>
 <ul>
 <li>Supply fan shall run when system is in the Cool-down, Setup, or Occupied mode</li>
 <li>If there are any VAV-reheat boxes on perimeter zones, supply fan shall also
@@ -386,7 +386,7 @@ run when system is in Setback or Warmup mode;</li>
 does not have airflow measurement station (<code>have_airFloMeaSta=false</code>),
 sum the current airflow rate from the VAV boxes and output to a software point.</li>
 </ul>
-<h4>b. Static pressure setpoint reset</h4>
+<h4>Static pressure setpoint reset</h4>
 <p>
 Static pressure setpoint shall be reset using trim-respond logic using following
 parameters as a starting point:
@@ -406,7 +406,7 @@ parameters as a starting point:
 <tr><td>SPres_max</td><td>maxRes</td><td>Maximum response per time interval</td></tr>
 </table>
 <br/>
-<h4>c. Static pressure control</h4>
+<h4>Static pressure control</h4>
 <p>
 Supply fan speed is controlled with a PI controller to maintain duct static pressure at setpoint
 when the fan is proven on. The setpoint for the PI controller and the measured
