@@ -29,6 +29,8 @@
 #include <Python.h>
 #endif
 
+#include "pythonObjectStructure.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -65,7 +67,9 @@ to not export all symbols but only the needed ones */
 /*  strValWri             - String values to write.*/
 /*  nStrWri               - Number of strings to write.*/
 /*  nStrWri               - Number of strings to write.*/
-/*  inModelicaFormatError - Pointer to ModelicaFormatError*/
+/*  inModelicaFormatError - Pointer to ModelicaFormatError.*/
+/*  memory                - Pointer to memory that contains the python object.*/
+/*  have_memory           - Set to 0 for false, and 1 for true.*/
 LBNLPYTHONINTERPRETER_EXPORT void pythonExchangeValuesNoModelica(const char * moduleName,
                           const char * functionName,
                           const double * dblValWri, size_t nDblWri,
@@ -73,11 +77,16 @@ LBNLPYTHONINTERPRETER_EXPORT void pythonExchangeValuesNoModelica(const char * mo
                           const int * intValWri, size_t nIntWri,
                           int * intValRea, size_t nIntRea,
                           const char ** strValWri, size_t nStrWri,
-			  void (*inModelicaFormatError)(const char *string,...));
+                          void (*inModelicaFormatError)(const char *string,...),
+                          void* object,
+                          int have_memory);
+
+LBNLPYTHONINTERPRETER_EXPORT void* initPythonMemory();
+
+LBNLPYTHONINTERPRETER_EXPORT void freePythonMemory(void* object);
 
 #ifdef __cplusplus
 }
 #endif
-
 
 #endif /* _PYTHONINTERPRETER_H_ */
