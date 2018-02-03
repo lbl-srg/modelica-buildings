@@ -25,12 +25,12 @@ model ExhaustDamper
 equation
   connect(meaBuiPre.y, exhDamPos.dpBui) annotation (Line(points={{-59,50},{-40,
           50},{-40,56},{-1,56}}, color={0,0,127}));
-  connect(supFan.y, exhDamPos.uFan) annotation (Line(points={{-59,-30},{-20,-30},
-          {-20,44},{-1,44}}, color={255,0,255}));
+  connect(supFan.y, exhDamPos.uSupFan) annotation (Line(points={{-59,-30},{-20,
+          -30},{-20,44},{-1,44}}, color={255,0,255}));
 
-  connect(supFan.y, exhDamPos1.uFan) annotation (Line(points={{-59,-30},{-20,
+  connect(supFan.y, exhDamPos1.uSupFan) annotation (Line(points={{-59,-30},{-20,
           -30},{-20,4},{-1,4}}, color={255,0,255}));
-  connect(supFan.y, exhDamPos2.uFan) annotation (Line(points={{-59,-30},{-20,
+  connect(supFan.y, exhDamPos2.uSupFan) annotation (Line(points={{-59,-30},{-20,
           -30},{-20,-36},{-1,-36}}, color={255,0,255}));
   connect(meaBuiPre.y, exhDamPos1.dpBui) annotation (Line(points={{-59,50},{-40,
           50},{-40,16},{-1,16}}, color={0,0,127}));

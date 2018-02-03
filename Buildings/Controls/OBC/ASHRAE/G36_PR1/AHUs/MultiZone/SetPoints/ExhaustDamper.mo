@@ -16,9 +16,9 @@ block ExhaustDamper
     "Building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{-120,40},{-80,80}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan "Supply fan status"
-    annotation (Placement(transformation(extent={{-120,-50},{-80,-10}}),
-     iconTransformation(extent={{-120,-70},{-100,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
+    "Supply fan status" annotation (Placement(transformation(extent={{-120,-50},
+            {-80,-10}}), iconTransformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDam(
      final unit="1",
      min=0,
@@ -66,9 +66,8 @@ protected
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
 equation
-  connect(uFan, swi.u2)
-    annotation (Line(points={{-100,-30},{38,-30}},
-      color={255,0,255}));
+  connect(uSupFan, swi.u2)
+    annotation (Line(points={{-100,-30},{38,-30}}, color={255,0,255}));
   connect(zerDam.y, swi.u3)
     annotation (Line(points={{-39,-60},{20,-60},{20,-38},{38,-38}},
       color={0,0,127}));
@@ -110,7 +109,7 @@ annotation (
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uFan"),
+          textString="uSupFan"),
         Text(
           extent={{52,16},{96,-18}},
           lineColor={0,0,127},
@@ -144,12 +143,12 @@ without fans. It is implemented according to ASHRAE Guidline 35 (G36), PART5.N.8
 <h4>Multi zone VAV AHU: Control of actuated exhaust dampers without fans (PART5.N.8)</h4>
 <ol>
 <li>The exhaust damper is enabled when the associated supply fan is proven on
-<code>uFan = true</code>, and disabled otherwise.</li>
+<code>uSupFan = true</code>, and disabled otherwise.</li>
 <li>When enabled, a P-only control loop modulates the exhaust damper to maintain
 a building static pressure of <code>dpBui</code>, which is by default <i>12</i> Pa (<i>0.05</i> inchWC).
 </li>
 <li>
-When <code>uFan = false</code>, the damper is closed.
+When <code>uSupFan = false</code>, the damper is closed.
 </li>
 </ol>
 </html>", revisions="<html>
