@@ -195,7 +195,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     final k=kMinOut,
     final Ti=TiMinOut,
     final Td=TdMinOut,
-    final uRetDamMin=uRetDamMin,
+    final conSigFraOutDam=uRetDamMin,
     final controllerType=controllerTypeMinOut)
     "Multi zone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
