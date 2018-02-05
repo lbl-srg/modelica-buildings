@@ -199,12 +199,33 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1100\">issue 1100</a>.
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.IO</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Utilities.IO.Python27
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Added option for a Python object
+                        to be passed from one Python function invocation to the next.
+                        This allows to build up a Python data structure (or to instantiate a Python object),
+                        and do computations on this object at each function invocation. For example,
+                        a Model Predictive Control algorithm or a machine learning algorithm,
+                        implemented in Python, could be fed with data at each time step.
+                        It could then store this data
+                        and use the current and its historical data to feed its algorithm.
+                        Based on this algorithm, it could output a control signal for use in another Modelica model.
+                        <br/>
+                        The function <code>Buildings.Utilities.IO.Python27.Functions.exchange</code> now takes
+                        two additional arguments: A class that contains a pointer to the Python interpreter
+                        (for efficiency, as this avoids initializing Python at each call), and
+                        a flag that determines whether the Python function returns an object and receives this
+                        object at the next invocation. See
+                        <code>Buildings.Utilities.IO.Python27.UsersGuide</code> and
+                        <code>Buildings.Utilities.IO.Python27.Real_Real</code> for how to use
+                        these two arguments.
+                        <br/>
+                        Models that use <code>Buildings.Utilities.IO.Python27.Real_Real</code>
+                        will still work as before. The change only affects the low-level function
+                        <code>Buildings.Utilities.IO.Python27.Functions.exchange</code>.
        </td>
    </tr>
    </table>

@@ -15,6 +15,9 @@ model Real_Real
   parameter Integer flaDblWri[nDblWri] = zeros(nDblWri)
     "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)";
 
+  parameter Boolean passPythonObject = false
+    "Set to true if the Python function returns and receives an object, see User's Guide";
+
   Modelica.Blocks.Interfaces.RealInput uR[nDblWri]
     "Real inputs to be sent to Python"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -25,6 +28,10 @@ model Real_Real
   Real uRInt[nDblWri] "Value of integral";
   Real uRIntPre[nDblWri] "Value of integral at previous sampling instance";
   Real uRWri[nDblWri] "Value to be sent to Python";
+protected
+  Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject pytObj=
+    Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject()
+    "Python object, used to avoid instantiating Python in each call, and to pass python object if passPythonObject=true";
 initial equation
    uRWri    =  pre(uR);
    uRInt    =  zeros(nDblWri);
@@ -67,7 +74,9 @@ equation
       nIntWri=0,
       nIntRea=0,
       nStrWri=0,
-      strWri={""});
+      strWri={""},
+      pytObj=pytObj,
+      passPythonObject = passPythonObject);
 
     // Store current value of integral
   uRIntPre= uRInt;
@@ -78,7 +87,10 @@ equation
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={Bitmap(
             extent={{-88,82},{80,-78}}, fileName="modelica://Buildings/Resources/Images/Utilities/IO/Python27/python.png")}),
     Documentation(info="<html>
-Block that exchanges data with a Python function.<br/>
+<p>
+Block that exchanges data with a Python function that does not need to pass
+an object from one call to the next.
+</p>
 <p>
 For each element in the input vector <code>uR[nDblWri]</code>,
 the value of the flag <code>flaDblWri[nDblWri]</code> determines whether
@@ -120,7 +132,11 @@ Integral of uR[i] over the sampling interval
 </td>
 </tr>
 </table>
-<br/>
+<p>
+If the function needs to pass an object from one invocation to the
+next, set <code>passPythonObject = true</code>.
+Otherwise, leave it at its default value <code>passPythonObject = false</code>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

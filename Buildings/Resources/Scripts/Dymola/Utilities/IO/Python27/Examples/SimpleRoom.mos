@@ -1,0 +1,3 @@
+simulateModel("Buildings.Utilities.IO.Python27.Examples.SimpleRoom", stopTime=86400, method="dassl", tolerance=1e-06, resultFile="SimpleRoom");
+createPlot(id=1, position={136, 30, 2125, 957}, y={"TAmb.y", "onOffCon.u"}, range={0.0, 1.0, 0.0, 25.0}, grid=true, colors={{238,46,47}, {28,108,200}});
+createPlot(id=1, position={136, 30, 2125, 476}, y={"pyt.yR[2]"}, range={0.0, 1.0, -2000.0, 10000.0}, grid=true, subPlot=2, colors={{28,108,200}});
