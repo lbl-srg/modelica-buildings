@@ -11,5 +11,5 @@ compareVars :=
     "retFanPre2.conP.y",
     "retFanPre.dpBui",
     "retFanPre.dpBuiSet",
-    "retFanPre.uFan"
+    "retFanPre.uSupFan"
   };

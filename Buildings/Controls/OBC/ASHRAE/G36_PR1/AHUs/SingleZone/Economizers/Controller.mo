@@ -90,7 +90,7 @@ model Controller "Single zone VAV AHU economizer control sequence"
   parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0
     "Calculated design outdoor airflow rate"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
-  parameter Real minVOutMinFansSpePos(
+  parameter Real yDam_VOutMin_minSpe(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1") = 0.4
@@ -103,7 +103,7 @@ model Controller "Single zone VAV AHU economizer control sequence"
     "OA damper position to supply minimum outdoor airflow at maximum fan speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutDes_minSpe(
-    final min=minVOutMinFansSpePos,
+    final min=yDam_VOutMin_minSpe,
     final max=outDamPhyPosMax,
     final unit="1") = 0.9
     "OA damper position to supply design outdoor airflow at minimum fan speed"
@@ -241,7 +241,7 @@ model Controller "Single zone VAV AHU economizer control sequence"
     final outDamPhyPosMin=outDamPhyPosMin,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow,
-    final minVOutMinFansSpePos=minVOutMinFansSpePos,
+    final yDam_VOutMin_minSpe=yDam_VOutMin_minSpe,
     final yDam_VOutMin_maxSpe=yDam_VOutMin_maxSpe,
     final yDam_VOutDes_minSpe=yDam_VOutDes_minSpe,
     final yDam_VOutDes_maxSpe=yDam_VOutDes_maxSpe)
@@ -310,8 +310,7 @@ equation
   connect(enaDis.yOutDamPosMax, mod.uOutDamPosMax)
     annotation (Line(points={{22,-25.2},{30,-25.2},{30,6},{39,6}},  color={0,0,127}));
   connect(enaDis.yRetDamPosMax, mod.uRetDamPosMax)
-    annotation (Line(points={{22,-32},{32,-32},{32,13},{39,13}},
-                                                               color={0,0,127}));
+    annotation (Line(points={{22,-32},{32,-32},{32,13},{39,13}}, color={0,0,127}));
   connect(damLim.yOutDamPosMin, mod.uOutDamPosMin)
     annotation (Line(points={{-59,14},{0,14},{0,3},{39,3}}, color={0,0,127}));
   connect(THeaSupSet, mod.THeaSupSet)
@@ -319,8 +318,7 @@ equation
   connect(TSup, mod.TSup)
     annotation (Line(points={{-130,60},{30,60},{30,20},{39,20}}, color={0,0,127}));
   connect(enaDis.yRetDamPosMin, mod.uRetDamPosMin)
-    annotation (Line(points={{22,-38},{34,-38},{34,10},{39,10}},
-                                                               color={0,0,127}));
+    annotation (Line(points={{22,-38},{34,-38},{34,10},{39,10}}, color={0,0,127}));
   connect(uZonSta, enaDis.uZonSta)
     annotation (Line(points={{-130,-100},{-58,-100},{-58,-30},{-1,-30}}, color={255,127,0}));
   connect(uSupFanSpe, damLim.uSupFanSpe)
@@ -328,9 +326,9 @@ equation
   connect(VOutMinSet_flow, damLim.VOutMinSet_flow)
     annotation (Line(points={{-130,20},{-106,20},{-106,17},{-81,17}}, color={0,0,127}));
   connect(outDamMaxFre.u2, noTMix1.y)
-    annotation (Line(points={{118,-56},{101,-56}},                     color={0,0,127}));
+    annotation (Line(points={{118,-56},{101,-56}}, color={0,0,127}));
   connect(retDamMinFre.u1, noTMix.y)
-    annotation (Line(points={{118,56},{101,56}},                   color={0,0,127}));
+    annotation (Line(points={{118,56},{101,56}}, color={0,0,127}));
   connect(retDamMinFre.y, yRetDamPos)
     annotation (Line(points={{141,50},{150,50},{150,40},{170,40}}, color={0,0,127}));
   connect(outDamMaxFre.y, yOutDamPos)
@@ -345,14 +343,16 @@ equation
     annotation (Line(points={{101,-16},{106,-16},{106,-56},{118,-56}}, color={0,0,127}));
   connect(TMix, freProTMix.TMix)
     annotation (Line(points={{-130,-20},{-90,-20},{-90,-60},{60,-60},{60,-10},{79,-10}},
-    color={0,0,127}));
+      color={0,0,127}));
   connect(freProSta.y, enaDis.uFreProSta)
     annotation (Line(points={{-99,-150},{-40,-150},{-40,-28},{-1,-28}}, color={255,127,0}));
   connect(freProSta.y, damLim.uFreProSta)
     annotation (Line(points={{-99,-150},{-94,-150},{-94,2},{-81,2}}, color={255,127,0}));
-  connect(uSupFan, mod.uSupFan) annotation (Line(points={{-130,-40},{-80,-40},{
-          -80,-10},{20,-10},{20,0},{39,0}}, color={255,0,255}));
-  annotation (defaultComponentName = "conEco",
+  connect(uSupFan, mod.uSupFan)
+    annotation (Line(points={{-130,-40},{-80,-40},{-80,-10},{20,-10},{20,0},{39,0}},
+      color={255,0,255}));
+
+annotation (defaultComponentName = "conEco",
         Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
