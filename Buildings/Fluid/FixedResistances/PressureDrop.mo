@@ -10,13 +10,18 @@ model PressureDrop
                   Dialog(group = "Transition to laminar",
                          enable = not linearized));
 
-  final parameter Real k(unit="") = if computeFlowResistance then
+  final parameter Real k = if computeFlowResistance then
         m_flow_nominal_pos / sqrt(dp_nominal_pos) else 0
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 protected
   final parameter Boolean computeFlowResistance=(dp_nominal_pos > Modelica.Constants.eps)
     "Flag to enable/disable computation of flow resistance"
    annotation(Evaluate=true);
+  final parameter Real coeff=
+    if linearized and computeFlowResistance
+    then if from_dp then k^2/m_flow_nominal_pos else m_flow_nominal_pos/k^2
+    else 0
+    "Precomputed coefficient to avoid division by parameter";
 initial equation
  if computeFlowResistance then
    assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
@@ -27,7 +32,11 @@ equation
   // Pressure drop calculation
   if computeFlowResistance then
     if linearized then
-      m_flow*m_flow_nominal_pos = k^2*dp;
+      if from_dp then
+        m_flow = dp*coeff;
+      else
+        dp = m_flow*coeff;
+      end if;
     else
       if homotopyInitialization then
         if from_dp then
@@ -167,6 +176,13 @@ This leads to simpler equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 3, 2018, by Filip Jorissen:<br/>
+Revised implementation of pressure drop equation
+such that it depends on <code>from_dp</code>
+when <code>linearized=true</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/884\">#884</a>.
+</li>
 <li>
 December 1, 2016, by Michael Wetter:<br/>
 Simplified model by removing the geometry dependent parameters into the new
