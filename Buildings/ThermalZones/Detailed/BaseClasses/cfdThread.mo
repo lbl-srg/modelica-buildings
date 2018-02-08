@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
-class cfdThread "create constructor and destructor associated with external objects"
+class CFDThread "create constructor and destructor associated with external objects"
 	extends ExternalObject;
 	// constructor 
 	function constructor "create ffd.dll or ffd.so"
@@ -27,9 +27,9 @@ class cfdThread "create constructor and destructor associated with external obje
 		output Integer retVal
 			"Return value of the function (0 indicates CFD successfully started.)";
 		// FIXME: need to declare a struct FFDThread as void pointer
-		output FFDThread PoinFFDThre "the handler of FFD thread";
+		output CFDThread FFDThre "the handler of FFD thread";
 		// FIXME: need to let cfdStartCosimulation return a construct
-		external"C" (PoinFFDThre,retVal) = cfdStartCosimulation(
+		external"C" FFDThre = cfdStartCosimulation(
 			cfdFilNam,
 			name,
 			A,
@@ -54,7 +54,7 @@ class cfdThread "create constructor and destructor associated with external obje
 	// FIXME: implement a new function to send stop command, wait for FFD to send its status, and close thread
 	function destructor "release ffd.dll or ffd.so"
 		input FFDThread PoinFFDThre "the handler of FFD thread";
-		external"C" retVal = cfdCloseThread(PoinFFDThre)annotation (Include="#include <cfdStartCosimulation.c>",
+		external"C" retVal = cfdCloseThread(FFDThre)annotation (Include="#include <cfdStartCosimulation.c>",
 				IncludeDirectory="modelica://Buildings/Resources/C-Sources",
 				LibraryDirectory="modelica://Buildings/Resources/Library", Library="ffd");	
 	end destructor;
