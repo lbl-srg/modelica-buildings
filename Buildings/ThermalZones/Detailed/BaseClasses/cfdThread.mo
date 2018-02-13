@@ -53,7 +53,7 @@ class CFDThread "create constructor and destructor associated with external obje
 	// destructor
 	// FIXME: implement a new function to send stop command, wait for FFD to send its status, and close thread
 	function destructor "release ffd.dll or ffd.so"
-		input FFDThread PoinFFDThre "the handler of FFD thread";
+		input CFDThread FFDThre "the handler of FFD thread";
 		external"C" retVal = cfdCloseThread(FFDThre)annotation (Include="#include <cfdStartCosimulation.c>",
 				IncludeDirectory="modelica://Buildings/Resources/C-Sources",
 				LibraryDirectory="modelica://Buildings/Resources/Library", Library="ffd");	
