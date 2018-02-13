@@ -41,7 +41,7 @@
  *
  * @return 0 if no error occurred
  */
-int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
+void *cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
                 int *bouCon, int nPorts, char** portName, int haveSensor,
                 char **sensorName, int haveShade, size_t nSur, size_t nSen,
                 size_t nConExtWin, size_t nXi, size_t nC, double rho_start) {
@@ -135,7 +135,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   cosim->ffd->msg = (REAL *) malloc(400*sizeof(char));
 
   /****************************************************************************
-  | Implicitly launch DLL module.
+  | Implicitly launch DLL module, and return the pointer.
   ****************************************************************************/
   ffd_dll(cosim);
 
