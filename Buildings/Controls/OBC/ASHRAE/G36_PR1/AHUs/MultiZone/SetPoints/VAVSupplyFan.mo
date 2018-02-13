@@ -42,19 +42,24 @@ block VAVSupplyFan  "Block to control multi zone VAV AHU supply fan"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(group="Fan PID controller"));
-  parameter Real k(final unit="1")=0.1 "Gain of controller, normalized using maxSet"
+  parameter Real k(final unit="1")=0.1
+    "Gain of controller, normalized using maxSet"
     annotation (Dialog(group="Fan PID controller"));
-  parameter Modelica.SIunits.Time Ti(min=0)=60 "Time constant of integrator block"
+  parameter Modelica.SIunits.Time Ti(min=0)=60
+    "Time constant of integrator block"
     annotation (Dialog(group="Fan PID controller",
       enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI
          or  controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(min=0) = 0.1 "Time constant of derivative block"
+  parameter Modelica.SIunits.Time Td(min=0) = 0.1
+    "Time constant of derivative block"
     annotation (Dialog(group="Fan PID controller",
       enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real yFanMax(min=0.1, max=1, unit="1") = 1 "Maximum allowed fan speed"
+  parameter Real yFanMax(min=0.1, max=1, unit="1") = 1
+    "Maximum allowed fan speed"
     annotation (Dialog(group="Fan PID controller"));
-  parameter Real yFanMin(min=0.1, max=1, unit="1") = 0.1 "Lowest allowed fan speed if fan is on"
+  parameter Real yFanMin(min=0.1, max=1, unit="1") = 0.1
+    "Lowest allowed fan speed if fan is on"
     annotation (Dialog(group="Fan PID controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
@@ -394,16 +399,16 @@ parameters as a starting point:
 <table summary=\"summary\" border=\"1\">
 <tr><th> Variable </th> <th> Value </th> <th> Definition </th> </tr>
 <tr><td>Device</td><td>AHU Supply Fan</td> <td>Associated device</td></tr>
-<tr><td>SP0</td><td>iniSet</td><td>Initial setpoint</td></tr>
-<tr><td>SPmin</td><td>minSet</td><td>Minimum setpoint</td></tr>
-<tr><td>SPmax</td><td>maxSet</td><td>Maximum setpoint</td></tr>
-<tr><td>Td</td><td>delTim</td><td>Delay timer</td></tr>
-<tr><td>T</td><td>samplePeriod</td><td>Time step</td></tr>
-<tr><td>I</td><td>numIgnReq</td><td>Number of ignored requests</td></tr>
-<tr><td>R</td><td>uZonPreResReq</td><td>Number of requests</td></tr>
-<tr><td>SPtrim</td><td>triAmo</td><td>Trim amount</td></tr>
-<tr><td>SPres</td><td>resAmo</td><td>Respond amount</td></tr>
-<tr><td>SPres_max</td><td>maxRes</td><td>Maximum response per time interval</td></tr>
+<tr><td>SP0</td><td><code>iniSet</code></td><td>Initial setpoint</td></tr>
+<tr><td>SPmin</td><td><code>minSet</code></td><td>Minimum setpoint</td></tr>
+<tr><td>SPmax</td><td><code>maxSet</code></td><td>Maximum setpoint</td></tr>
+<tr><td>Td</td><td><code>delTim</code></td><td>Delay timer</td></tr>
+<tr><td>T</td><td><code>samplePeriod</code></td><td>Time step</td></tr>
+<tr><td>I</td><td><code>numIgnReq</code></td><td>Number of ignored requests</td></tr>
+<tr><td>R</td><td><code>uZonPreResReq</code></td><td>Number of requests</td></tr>
+<tr><td>SPtrim</td><td><code>triAmo</code></td><td>Trim amount</td></tr>
+<tr><td>SPres</td><td><code>resAmo</code></td><td>Respond amount</td></tr>
+<tr><td>SPres_max</td><td><code>maxRes</code></td><td>Maximum response per time interval</td></tr>
 </table>
 <br/>
 <h4>Static pressure control</h4>

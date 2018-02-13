@@ -7,5 +7,5 @@ compareVars :=
     "exhDamPos2.yExhDam",
     "exhDamPos2.conP.y",
     "exhDamPos.dpBui",
-    "exhDamPos.uSupFan"
+    "exhDamPos.uFan"
   };

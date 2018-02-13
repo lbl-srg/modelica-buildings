@@ -25,7 +25,7 @@ block ReturnFanDirectPressure
     "Building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
     "Fan on/off signal, true if fan is on" annotation (Placement(transformation(
           extent={{-180,-110},{-140,-70}}), iconTransformation(extent={{-140,-80},
             {-100,-40}})));
@@ -105,7 +105,7 @@ protected
 equation
   connect(movMea.u, dpBui)
     annotation (Line(points={{-132,90},{-160,90}}, color={0,0,127}));
-  connect(swi.u2, uSupFan)
+  connect(swi.u2, uFan)
     annotation (Line(points={{78,-90},{-160,-90}}, color={255,0,255}));
   connect(swi.u3, zer.y)
     annotation (Line(points={{78,-98},{60,-98},{60,-110},{21,-110}}, color={0,0,127}));
@@ -130,8 +130,8 @@ equation
   connect(linRetFanStaPre.y, swi.u1)
     annotation (Line(points={{81,-40},{100,-40},{100,-60},{60,-60},{60,-82},
       {78,-82}}, color={0,0,127}));
-  connect(uSupFan, swi1.u2) annotation (Line(points={{-160,-90},{-100,-90},{-100,
-          20},{78,20}}, color={255,0,255}));
+  connect(uFan, swi1.u2) annotation (Line(points={{-160,-90},{-100,-90},{-100,20},
+          {78,20}}, color={255,0,255}));
   connect(linExhAirDam.y, swi1.u1)
     annotation (Line(points={{81,90},{100,90},{100,70},{60,70},{60,28},{78,28}},
       color={0,0,127}));
@@ -230,7 +230,7 @@ at setpoint <code>dpBuiSet</code>.</p>
 </li>
 <li>
 <p>Exhaust damper is only enabled when the associated supply and return
-fans are proven on (<code>uSupFan=true</code>) and the minimum outdoor air damper is open
+fans are proven on (<code>uFan=true</code>) and the minimum outdoor air damper is open
 (to be controlled in a separate sequence).
 The exhaust dampers is closed when the fan is disabled.</p>
 </li>

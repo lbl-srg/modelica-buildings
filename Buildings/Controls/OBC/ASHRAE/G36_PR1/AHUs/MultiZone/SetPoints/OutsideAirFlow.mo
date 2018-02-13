@@ -128,7 +128,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi[numZon]
     "If there is occupancy sensor, then using the real time occupancy; otherwise, using the default occupancy"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch zonDisEff[numZon]
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1[numZon]
     "Switch between cooling or heating distribution effectiveness"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.Division zonOutAirRate[numZon]
@@ -223,7 +223,8 @@ protected
     each final k=have_occSen)
     "Boolean constant to indicate if there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-170,-242},{-150,-222}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desDisEff[numZon](
@@ -300,8 +301,7 @@ protected
     each final k=false) if not have_winSen
     "Closed window status when there is no window sensor"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
-
-  CDL.Continuous.Division norVOutMin
+  Buildings.Controls.OBC.CDL.Continuous.Division norVOutMin
     "Normalization for minimum outdoor air flow rate"
     annotation (Placement(transformation(extent={{200,-182},{222,-160}})));
 
@@ -320,16 +320,16 @@ equation
  connect(swi.y, breZon.u2)
     annotation (Line(points={{-79,60},{-60,60},{-60,54},{-42,54}},
       color={0,0,127}));
-  connect(disEffCoo.y, zonDisEff.u1)
+  connect(disEffCoo.y, swi1.u1)
     annotation (Line(points={{-99,-72},{-92,-72},{-92,-102},{-82,-102}},
       color={0,0,127}));
-  connect(disEffHea.y, zonDisEff.u3)
+  connect(disEffHea.y, swi1.u3)
     annotation (Line(points={{-99,-140},{-92,-140},{-92,-118},{-82,-118}},
       color={0,0,127}));
   connect(breZon.y, zonOutAirRate.u1)
     annotation (Line(points={{-19,60},{0,60},{0,56},{18,56}},
       color={0,0,127}));
-  connect(zonDisEff.y, zonOutAirRate.u2)
+  connect(swi1.y, zonOutAirRate.u2)
     annotation (Line(points={{-59,-110},{-50,-110},{-50,44},{18,44}},
       color={0,0,127}));
   connect(uWin, swi2.u2)
@@ -394,7 +394,7 @@ equation
   connect(add2.y, hys.u)
     annotation (Line(points={{-139,-110},{-122,-110}},
       color={0,0,127}));
-  connect(hys.y, zonDisEff.u2)
+  connect(hys.y, swi1.u2)
     annotation (Line(points={{-99,-110},{-82,-110}}, color={255,0,255}));
   connect(max.y, priOutAirFra.u2)
     annotation (Line(points={{-19,-232},{-8,-232},{-8,-228},{-2,-228}},
@@ -540,9 +540,10 @@ equation
       {186,-177.6},{197.8,-177.6}}, color={0,0,127}));
   connect(norVOutMin.y, VOutMinSet_flow_normalized)
     annotation (Line(points={{223.1,-171},{259,-171}}, color={0,0,127}));
+
 annotation (
-defaultComponentName="outAirSetPoi",
-Icon(graphics={Rectangle(
+  defaultComponentName="outAirSetPoi",
+  Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillColor={210,210,210},
