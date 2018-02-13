@@ -46,6 +46,13 @@ void *cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
                 char **sensorName, int haveShade, size_t nSur, size_t nSen,
                 size_t nConExtWin, size_t nXi, size_t nC, double rho_start) {
   size_t i, nBou;
+/* Windows*/
+#ifdef _MSC_VER
+  HANDLE workerThreadHandle[1];
+/*  Linux*/
+#else
+   pthread_t thread1[1];
+#endif
   /****************************************************************************
   | For call FFD-DLL
   ****************************************************************************/
@@ -137,7 +144,13 @@ void *cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   /****************************************************************************
   | Implicitly launch DLL module, and return the pointer.
   ****************************************************************************/
-  ffd_dll(cosim);
-
-  return 0;
+/* Windows*/
+#ifdef _MSC_VER
+  workerThreadHandle[0] = ffd_dll(cosim);
+	return workerThreadHandle;
+/*  Linux*/
+#else
+  thread1[0] = ffd_dll(cosim);
+	return thread1;
+#endif
 } /* End of cfdStartCosimulation()*/
