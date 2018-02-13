@@ -7,6 +7,8 @@
 * \author Wangda Zuo, Dan Li
 *         University of Miami
 *         W.Zuo@miami.edu
+					Wei Tian
+					W.Tian@umiami.edu
 *
 * \date   8/3/2013
 *
@@ -19,30 +21,35 @@
 | DLL interface to launch a separated thread for FFD.
 | Called by the other program
 ******************************************************************************/
-int ffd_dll(CosimulationData *cosim) {
+void *ffd_dll(CosimulationData *cosim) {
 /* Windows*/
 #ifdef _MSC_VER
   DWORD dummy;
-  HANDLE workerThreadHandle;
+  HANDLE workerThreadHandle[1];
 /*  Linux*/
 #else
-    pthread_t thread1;
+    pthread_t thread1[0];
 #endif
 
   /*printf("ffd_dll():Start to launch FFD\n");*/
 
 /* Windows*/
 #ifdef _MSC_VER
-  workerThreadHandle = CreateThread(NULL, 0, ffd_thread, (void *)cosim, 0, &dummy);
+  workerThreadHandle[0] = CreateThread(NULL, 0, ffd_thread, (void *)cosim, 0, &dummy);
 /* Linux*/
 #else
   void * (*foo) (void *);
   foo=&ffd_thread;
-  pthread_create(&thread1, NULL, foo, (void *)cosim);
+  pthread_create(&thread1[0], NULL, foo, (void *)cosim);
 #endif
 
   /*printf("ffd_dll(): Launched FFD simulation.\n");*/
-  return 0;
+	// return the handle or thread
+#ifdef _MSC_VER	
+  return workerThreadHandle;
+#else
+	return thread1;
+#endif
 } /* End of ffd_dll()*/
 
 /*
@@ -75,18 +82,12 @@ int pthread_ret = 0;
 
   if(ffd_cosimulation(cosim)!=0) {
     ffd_log("ffd_thread(): Cosimulation failed", FFD_ERROR);
-#ifdef _MSC_VER
-    return 1;
-#endif
+		#ifdef _MSC_VER
+			return 1;
+		#endif
   }
   else {
     ffd_log("Successfully exit FFD.", FFD_NORMAL);
-#ifdef _MSC_VER
-	ExitThread(0);
-	return 0;
-#else
-	pthread_exit(&pthread_ret);
-	return 0;
-#endif
+		return 0;
   }
 } /* End of ffd_thread()*/
