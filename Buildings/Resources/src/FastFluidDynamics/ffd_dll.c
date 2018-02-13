@@ -28,7 +28,7 @@ void *ffd_dll(CosimulationData *cosim) {
   HANDLE workerThreadHandle[1];
 /*  Linux*/
 #else
-    pthread_t thread1[0];
+    pthread_t thread1[1];
 #endif
 
   /*printf("ffd_dll():Start to launch FFD\n");*/
