@@ -6,6 +6,35 @@
 
 #include "FMUEnergyPlusStructure.h"
 #include <stdlib.h>
+#include <string.h>
+
+/* Create the structure and return a pointer to its address. */
+FMUBuilding* instantiateEnergyPlusFMU(const char* fmuName)
+{
+  char msg[100];
+
+  struct FMUBuilding* bld = malloc(sizeof(FMUBuilding));
+  if ( bld == NULL )
+    ModelicaError("Not enough memory in FMUBuildingInit.c.");
+
+  /* Assign the fmu name */
+  bld->fmu = malloc(strlen(fmuName) * sizeof(char));
+  if ( bld->fmu == NULL )
+    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
+  strcpy(bld->fmu, fmuName);
+
+  bld->nZon = 1;
+
+  /* Assign this FMU to the array of FMUs */
+  Buildings_FMUS = realloc(Buildings_FMUS, (Buildings_nFMU+1) * sizeof(FMUBuilding));
+  Buildings_FMUS[Buildings_nFMU] = *bld;
+  Buildings_nFMU++;
+
+  snprintf(msg, 100, "*** Instantizated new fmu for %s at %p.\n", fmuName, bld);
+  ModelicaMessage(msg);
+
+  return bld;
+};
 
 /* Create the structure and return a pointer to its address. */
 void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor)
@@ -15,9 +44,8 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor)
   char msg[100];
   unsigned int i;
 
-  snprintf(msg, 100, "*** Pointer is %p.\n", ptrToFmu);
-  ModelicaMessage(msg);
-
+  /* ********************************************************************** */
+  /* Initialize the zone */
   FMUZone* zone = malloc(sizeof(FMUZone));
   if ( zone == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone.");
@@ -33,20 +61,58 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor)
     zone->valueReference[i] = i;
   }
 
-  /* Assign the fmu name */
-  zone->fmu = malloc(strlen(fmuName) * sizeof(char));
-  if ( zone->fmu == NULL )
-    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
-  strcpy(zone->fmu, fmuName);
-
   /* Assign the zone name */
   zone->name = malloc(strlen(zoneName) * sizeof(char));
   if ( zone->name == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
   strcpy(zone->name, zoneName);
 
-  snprintf(msg, 100, "*** Initialized data for %s, room %s.\n", zone->fmu, zone->name);
+  /* ********************************************************************** */
+  /* Initialize the pointer for the FMU to which this zone belongs */
+  /* Check if there are any zones */
+  if (Buildings_nFMU == 0){
+    /* No FMUs exist. Instantiate an FMU and
+    /* assign this fmu pointer to the zone that will invoke its setXXX and getXXX */
+    zone->ptrBui = instantiateEnergyPlusFMU(fmuName);
+    snprintf(msg, 100, "*** Made new fmu for %s at %p.\n", zoneName, &Buildings_FMUS[i]);
+    ModelicaMessage(msg);
+
+  } else {
+    /* There is already a Buildings FMU allocated.
+       Check if the current zone is for this FMU. */
+       zone->ptrBui = NULL;
+      for(i = 0; i < Buildings_nFMU; i++){
+
+        snprintf(msg, 100, "*** Comparing %s to %s: %d.\n", fmuName, Buildings_FMUS[i].fmu, strcmp(fmuName, Buildings_FMUS[i].fmu));
+        ModelicaMessage(msg);
+
+        if (strcmp(fmuName, Buildings_FMUS[i].fmu) == 0){
+          /* This is the same FMU as before. */
+          struct FMUBuilding* bld = &Buildings_FMUS[i];
+          snprintf(msg, 100, "*** Found old fmu for %s at %p.\n", zoneName, bld);
+          ModelicaMessage(msg);
+          zone->ptrBui = bld;
+          /* Increment the count of zones to this building. (Used to free storage again.) */
+          bld->nZon++;
+        }
+      }
+      /* Check if we found an FMU */
+      if (zone->ptrBui == NULL){
+        /* Did not find an FMU. */
+        zone->ptrBui = instantiateEnergyPlusFMU(fmuName);
+      }
+  }
+  snprintf(msg, 100, "*** Initialized data for bld %s, room %s.\n", zone->ptrBui->fmu, zone->name);
   ModelicaMessage(msg);
 
+  for(i = 0; i < Buildings_nFMU; i++){
+    snprintf(msg, 100, "*** BuildingsFMU %d, %s.\n", i, Buildings_FMUS[i].fmu);
+    ModelicaMessage(msg);
+
+  }
+
+
+
+  /* Return a pointer to this zone */
   return (void*) zone;
 };

@@ -13,11 +13,11 @@ double FMUZoneExchange(void* object, double T, double Q_flow){
   FMUZone* zone = (FMUZone*) object;
 
   snprintf(msg, 100,
-    "*** In exchange for %s:%s, n = %d, pointer is %p.\n",
-    zone->fmu,
+    "*** In exchange for bldg: %s; zone: %s, n = %d, pointer to fmu %p.\n",
+    zone->ptrBui->fmu,
     zone->name,
     zone->nValueReference,
-    ptrToFmu);
+    zone->ptrBui);
   ModelicaMessage(msg);
   return 2.;
 }

@@ -1,5 +1,6 @@
 within Buildings.ThermalZones.Detailed.EnergyPlus;
 model ThermalZone "Model to connect to an EnergyPlus thermal zone"
+  extends Modelica.Blocks.Icons.Block;
   parameter String fmuName "Name of the FMU file that contains this zone";
 
   parameter String zoneName "Name of the thermal zone as specified in the EnergyPlus input";
@@ -27,6 +28,28 @@ equation
     Q_flow=Q_flow);
   annotation (
   defaultComponentName="zon",
-  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Bitmap(extent={{-100,-72},{96,124}},
+          fileName="modelica://Buildings/Resources/Images/ThermalZones/Detailed/EnergyPlus/EnergyPlusLogo.png"),
+        Text(
+          extent={{-52,-32},{52,-62}},
+          lineColor={0,0,0},
+          textString="%fmuName"),
+        Text(
+          extent={{-52,-66},{52,-96}},
+          lineColor={0,0,0},
+          textString="%zoneName")}),
+   Diagram(
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+Model for a thermal zone that is implemented in EnergyPlus.
+</p>
+<p>
+This model instantiates the FMU with the name <code>fmuName</code> and
+connects to the thermal zone with name <code>zoneName</code>.
+If the FMU is already instantiated by another instance of this model,
+it will use the already instantiated FMU.
+</p>
+</html>"));
 end ThermalZone;
