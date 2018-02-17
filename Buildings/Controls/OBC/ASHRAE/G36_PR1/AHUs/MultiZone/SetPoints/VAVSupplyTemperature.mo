@@ -6,7 +6,8 @@ block VAVSupplyTemperature
     "Lowest cooling supply air temperature setpoint"
     annotation (Dialog(group="Temperatures"));
   parameter Modelica.SIunits.Temperature TSupMax = 291.15
-    "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
+    "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) 
+    in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
     annotation (Dialog(group="Temperatures"));
   parameter Modelica.SIunits.Temperature TSupDes = 286.15
     "Nominal supply air temperature setpoint"
@@ -57,10 +58,12 @@ block VAVSupplyTemperature
     "Average of heating and cooling setpoint"
     annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
       iconTransformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
+    "Supply fan status"
     annotation (Placement(transformation(extent={{-180,-50},{-140,-10}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod "System operation mode"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
+    "System operation mode"
     annotation (Placement(transformation(extent={{-180,-120},{-140,-80}}),
       iconTransformation(extent={{-120,-90},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonTemResReq
@@ -88,7 +91,8 @@ block VAVSupplyTemperature
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Line lin
-  "Supply temperature distributes linearly between TSupMin and TSupMax, according to Tout"
+    "Supply temperature distributes linearly between minimum and maximum supply 
+    air temperature, according to outdoor temperature"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOutTem(k=TOutMin)
     "Lower value of the outdoor air temperature reset range"
@@ -99,9 +103,11 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSupTem(k=TSupMin)
     "Lowest cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Check if it is in Setup or Cool-down mode"
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Check if it is in Setup or Cool-down mode"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1 "Check if it is in Warmup or Setback mode"
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Check if it is in Warmup or Setback mode"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupWarUpSetBac(k=35 + 273.15)
     "Supply temperature setpoint under warm-up and setback mode"
@@ -117,18 +123,23 @@ protected
     uMin=21 + 273.15)
     "Limiter that outputs the dead band value for the supply air temperature"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3 "Check output regarding supply fan status"
+  Buildings.Controls.OBC.CDL.Logical.Switch swi3
+    "Check output regarding supply fan status"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(threshold=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
+  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(
+    threshold=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
     "Check if operation mode index is less than warm-up mode index (4)"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(threshold=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
+    threshold=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Check if operation mode index is greater than occupied mode index (1)"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr1(threshold=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
+  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr1(
+    threshold=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
     "Check if operation mode index is less than unoccupied mode index (7)"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(threshold=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.setUp)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(
+    threshold=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.setUp)
     "Check if operation mode index is greater than set up mode index (3)"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
 
@@ -286,7 +297,7 @@ The <code>TSupMax</code> variable is typically 18 &deg;C in mild and dry climate
 cooling savings from economizer operation.
 </p>
 
-<h4>During occupied mode (<code>opeMod=1</code>)</h4>
+<h4>During occupied mode (<code>uOpeMod=1</code>)</h4>
 <p>
 The <code>TSetSup</code> shall be reset from <code>TSupMin</code> when the outdoor
 air temperature is <code>TOutMax</code> and above, proportionally up to
@@ -300,16 +311,16 @@ during the commissioning and tuning phase.
 <table summary=\"summary\" border=\"1\">
 <tr><th> Variable </th> <th> Value </th> <th> Definition </th> </tr>
 <tr><td>Device</td><td>AHU Supply Fan</td> <td>Associated device</td></tr>
-<tr><td>SP0</td><td>SPmax</td><td>Initial setpoint</td></tr>
-<tr><td>SPmin</td><td>TSupDes</td><td>Minimum setpoint</td></tr>
-<tr><td>SPmax</td><td>TSupMax</td><td>Maximum setpoint</td></tr>
-<tr><td>Td</td><td>10 minutes</td><td>Delay timer</td></tr>
-<tr><td>T</td><td>2 minutes</td><td>Time step</td></tr>
-<tr><td>I</td><td>2</td><td>Number of ignored requests</td></tr>
-<tr><td>R</td><td>Zone cooling requests</td><td>Number of requests</td></tr>
-<tr><td>SPtrim</td><td>+0.1&deg;C</td><td>Trim amount</td></tr>
-<tr><td>SPres</td><td>-0.2&deg;C</td><td>Respond amount</td></tr>
-<tr><td>SPres_max</td><td>-0.6&deg;C</td><td>Maximum response per time interval</td></tr>
+<tr><td>SP0</td><td><code>iniSet</code></td><td>Initial setpoint</td></tr>
+<tr><td>SPmin</td><td><code>TSupMin</code></td><td>Minimum setpoint</td></tr>
+<tr><td>SPmax</td><td><code>TSupMax</code></td><td>Maximum setpoint</td></tr>
+<tr><td>Td</td><td><code>delTim</code></td><td>Delay timer</td></tr>
+<tr><td>T</td><td><code>samplePeriod</code></td><td>Time step</td></tr>
+<tr><td>I</td><td><code>numIgnReq</code></td><td>Number of ignored requests</td></tr>
+<tr><td>R</td><td><code>uZonTemResReq</code></td><td>Number of requests</td></tr>
+<tr><td>SPtrim</td><td><code>triAmo</code></td><td>Trim amount</td></tr>
+<tr><td>SPres</td><td><code>resAmo</code></td><td>Respond amount</td></tr>
+<tr><td>SPres_max</td><td><code>maxRes</code></td><td>Maximum response per time interval</td></tr>
 </table>
 <br/>
 
@@ -318,11 +329,11 @@ during the commissioning and tuning phase.
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/VAVMultiZoneSupTempSet.png\"/>
 </p>
 
-<h4>During Setup and Cool-down modes (<code>opeMod=2</code>, <code>opeMod=3</code>)</h4>
+<h4>During Setup and Cool-down modes (<code>uOpeMod=2</code>, <code>uOpeMod=3</code>)</h4>
 <p>
 Supply air temperature setpoint <code>TSetSup</code> shall be <code>TSupMin</code>.
 </p>
-<h4>During Setback and Warmup modes (<code>opeMod=4</code>, <code>opeMod=5</code>)</h4>
+<h4>During Setback and Warmup modes (<code>uOpeMod=4</code>, <code>uOpeMod=5</code>)</h4>
 <p>
 Supply air temperature setpoint <code>TSetSup</code> shall be <code>35&deg;C</code>.
 </p>

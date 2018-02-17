@@ -543,7 +543,7 @@ For the fan speed set point, the
 parameters are the maximu fan speed at heating <code>yHeaMax</code>,
 the minimum fan speed <code>yMin</code> and
 the maximum fan speed for cooling <code>yCooMax</code>.
-For a cooling control signal of <code>yCoo &gt; 0.25</code>,
+For a cooling control signal of <code>uCoo &gt; 0.25</code>,
 the speed is faster increased the larger the difference is between
 the zone temperature minus outdoor temperature <code>TZon-TOut</code>.
 The figure below shows the sequence.
