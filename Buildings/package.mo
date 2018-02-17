@@ -199,6 +199,23 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1100\">issue 1100</a>.
        </td>
    </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Sources.Boundary_pT<br/>
+                          Buildings.Fluid.Sources.Boundary_ph<br/>
+                          Buildings.Fluid.Sources.FixedBoundary<br/>
+                          Buildings.Fluid.Sources.MassFlowSource_T<br/>
+                          Buildings.Fluid.Sources.MassFlowSource_h
+       </td>
+       <td valign=\"top\">Refactored models to allow using <code>Xi</code> rather
+                          than <code>X</code> as an input.<br/>
+                          By default, the check on the medium base properties is now removed
+                          to reduce translation and simulation time.<br/>
+                          This is for
+                          <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">IBPSA, issue 882</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Utilities.IO</b>
        </td>
    </tr>
