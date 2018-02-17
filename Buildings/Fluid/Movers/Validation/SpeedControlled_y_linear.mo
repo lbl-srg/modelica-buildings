@@ -77,10 +77,10 @@ equation
       points={{-42,50},{40,50}},
       color={0,127,255}));
   connect(y.y, pumFixDp.y) annotation (Line(
-      points={{-59,130},{49.8,130},{49.8,102}},
+      points={{-59,130},{50,130},{50,102}},
       color={0,0,127}));
   connect(y.y, pumFixM_flow.y) annotation (Line(
-      points={{-59,130},{10,130},{10,70},{49.8,70},{49.8,62}},
+      points={{-59,130},{10,130},{10,70},{50,70},{50,62}},
       color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,

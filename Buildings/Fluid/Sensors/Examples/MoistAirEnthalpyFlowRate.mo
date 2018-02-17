@@ -52,7 +52,7 @@ model MoistAirEnthalpyFlowRate
     annotation (Placement(transformation(extent={{20,-46},{40,-26}})));
 equation
   connect(ramp.y, sou.m_flow_in) annotation (Line(
-      points={{-69,28},{-70,28},{-60,28}},
+      points={{-69,28},{-62,28},{-62,28}},
       color={0,0,127}));
   connect(sou.ports[1], senH_flow.port_a) annotation (Line(
       points={{-40,20},{-30,20}},

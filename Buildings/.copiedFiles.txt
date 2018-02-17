@@ -821,6 +821,12 @@ Buildings/Fluid/Sensors/VolumeFlowRate.mo
 Buildings/Fluid/Sensors/package.mo
 Buildings/Fluid/Sensors/package.order
 Buildings/Fluid/Sources/BaseClasses/Outside.mo
+Buildings/Fluid/Sources/BaseClasses/PartialSource.mo
+Buildings/Fluid/Sources/BaseClasses/PartialSource_T.mo
+Buildings/Fluid/Sources/BaseClasses/PartialSource_Xi_C.mo
+Buildings/Fluid/Sources/BaseClasses/PartialSource_h.mo
+Buildings/Fluid/Sources/BaseClasses/PartialSource_m_flow.mo
+Buildings/Fluid/Sources/BaseClasses/PartialSource_p.mo
 Buildings/Fluid/Sources/BaseClasses/package.mo
 Buildings/Fluid/Sources/BaseClasses/package.order
 Buildings/Fluid/Sources/Boundary_pT.mo

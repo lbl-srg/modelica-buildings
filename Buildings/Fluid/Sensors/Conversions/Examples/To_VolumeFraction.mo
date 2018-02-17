@@ -91,7 +91,7 @@ equation
       points={{-22.1,70},{-39,70}},
       color={0,0,127}));
   connect(gai.y, sou.m_flow_in) annotation (Line(
-      points={{-39,-10},{-30,-10},{-30,-2},{-20,-2}},
+      points={{-39,-10},{-30,-10},{-30,-2},{-22,-2}},
       color={0,0,127}));
   connect(limPID.y, gai.u) annotation (Line(
       points={{-79,-10},{-62,-10}},

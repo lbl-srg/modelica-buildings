@@ -44,7 +44,7 @@ equation
       points={{-69,-10},{-62,-10}},
       color={0,0,127}));
   connect(gain.y, sou.m_flow_in) annotation (Line(
-      points={{-39,-10},{-31.5,-10},{-31.5,-2},{-20,-2}},
+      points={{-39,-10},{-31.5,-10},{-31.5,-2},{-22,-2}},
       color={0,0,127}));
   connect(sou.ports[1], vol.ports[1]) annotation (Line(
       points={{0,-10},{38,-10},{38,20}},
