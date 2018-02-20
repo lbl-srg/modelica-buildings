@@ -24,8 +24,9 @@ model TemperatureWetBulb "Test model for the wet bulb temperature sensor"
     redeclare package Medium = Medium,
     m_flow=1,
     use_T_in=true,
-    use_X_in=true,
-    nPorts=1) "Flow boundary condition"  annotation (Placement(transformation(
+    nPorts=1,
+    use_Xi_in=true)
+              "Flow boundary condition"  annotation (Placement(transformation(
           extent={{-30,10},{-10,30}})));
   Modelica.Blocks.Sources.Ramp TDryBul(
     height=10,
@@ -36,27 +37,11 @@ model TemperatureWetBulb "Test model for the wet bulb temperature sensor"
     height=(0.0133 - 0.0175),
     offset=0.0175,
     duration=50) "Humidity concentration"
-                 annotation (Placement(transformation(extent={{-100,-60},{-80,
-            -40}})));
-  Modelica.Blocks.Sources.Constant const(k=1)
-     annotation (Placement(transformation(
-          extent={{-100,-20},{-80,0}})));
-  Modelica.Blocks.Math.Feedback dif
-    "Difference, used to compute the mass fraction of dry air"
-    annotation (Placement(transformation(
-          extent={{-68,-20},{-48,0}})));
+                 annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
 equation
   connect(TDryBul.y, sou.T_in)          annotation (Line(points={{-79,50},{-60,50},
           {-60,24},{-32,24}}, color={0,0,127}));
-  connect(const.y, dif.u1)      annotation (Line(points={{-79,-10},{-66,-10}},
-        color={0,0,127}));
-  connect(XHum.y, dif.u2)      annotation (Line(points={{-79,-50},{-58,-50},{
-          -58,-18}}, color={0,0,127}));
-  connect(XHum.y, sou.X_in[1])          annotation (Line(points={{-79,-50},{-40,
-          -50},{-40,16},{-32,16}},       color={0,0,127}));
-  connect(dif.y, sou.X_in[2])               annotation (Line(points={{-49,-10},
-          {-44,-10},{-44,16},{-32,16}},       color={0,0,127}));
   connect(p.y, sin.p_in) annotation (Line(points={{81,70},{92,70},{92,28},{76,
           28}}, color={0,0,127}));
   connect(sou.ports[1], senWetBul.port_a)          annotation (Line(
@@ -65,6 +50,8 @@ equation
   connect(senWetBul.port_b, sin.ports[1]) annotation (Line(
       points={{30,20},{54,20}},
       color={0,127,255}));
+  connect(XHum.y, sou.Xi_in[1]) annotation (Line(points={{-79,10},{-56,10},{-56,
+          16},{-32,16}}, color={0,0,127}));
     annotation (experiment(Tolerance=1e-6, StopTime=120),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TemperatureWetBulb.mos"
         "Simulate and plot"),

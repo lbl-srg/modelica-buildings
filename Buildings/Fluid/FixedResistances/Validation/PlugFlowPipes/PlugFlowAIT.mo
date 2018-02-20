@@ -259,11 +259,11 @@ model PlugFlowAIT
 
 equation
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
-      points={{-62,-110},{-58,-110},{-58,-92}},
+      points={{-62,-110},{-58,-110},{-58,-94}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Point2.m_flow_in, m_flow_p2.y) annotation (Line(
-      points={{-80,92},{-80,100},{-56,100}},
+      points={{-80,94},{-80,100},{-56,100}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(T_p1.y, Point1.T_in) annotation (Line(
@@ -271,7 +271,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(DataReader.y[5], Point1.m_flow_in) annotation (Line(
-      points={{21,-130},{26,-130},{26,-112},{72,-112},{72,-92}},
+      points={{21,-130},{26,-130},{26,-112},{72,-112},{72,-94}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(DataReader.y[9], prescribedTemperature.T)
@@ -305,7 +305,7 @@ equation
     annotation (Line(points={{114,118},{100,118},{100,102},{86,102},{86,118},{
           56,118}},                                    color={0,0,127}));
   connect(switch.y, Point4.m_flow_in)
-    annotation (Line(points={{33,126},{16,126},{16,118}},color={0,0,127}));
+    annotation (Line(points={{33,126},{16,126},{16,120}},color={0,0,127}));
   connect(switch.u2, lessThreshold.y) annotation (Line(points={{56,126},{64,126},
           {64,128},{75.2,128}},
                             color={255,0,255}));
@@ -335,7 +335,7 @@ equation
           {-50,-40}},           color={0,127,255}));
   connect(ExcludedBranch.ports[1], pip0.ports_b[2]) annotation (Line(points={{82,30},
           {82,0}},                       color={0,127,255}));
-  connect(switch1.y, Point5.m_flow_in) annotation (Line(points={{109,64},{56,64}},
+  connect(switch1.y, Point5.m_flow_in) annotation (Line(points={{109,64},{58,64}},
                             color={0,0,127}));
   connect(m_flow_p4.y, switch1.u3) annotation (Line(points={{114,140},{100,140},
           {100,108},{152,108},{152,56},{132,56}},               color={0,0,127}));

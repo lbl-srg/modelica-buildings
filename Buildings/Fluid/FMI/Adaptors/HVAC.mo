@@ -170,8 +170,9 @@ equation
           -30},{42,-30}},        color={0,0,127}));
   connect(x_w_toX.X, bou.X_in) annotation (Line(points={{18,-30},{12,-30},{12,-4},
           {2,-4}},          color={0,0,127}));
-  connect(con[1].CZon, bou.C_in) annotation (Line(points={{76,58},{76,58},{76,10},
-          {76,-8},{0,-8}},  color={0,0,127}));
+  connect(con[1].CZon, bou.C_in) annotation (Line(points={{76,58},{76,58},{76,
+          10},{76,-8},{2,-8}},
+                            color={0,0,127}));
   connect(con.TAirZon, TAirZon) annotation (Line(points={{64,58},{64,-80},{-60,-80},
           {-60,-120}}, color={0,0,127}));
   connect(con.X_wZon, X_wZon) annotation (Line(points={{70,58},{70,58},{70,4},{70,

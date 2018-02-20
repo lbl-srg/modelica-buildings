@@ -101,7 +101,7 @@ equation
           {12,-80},{62,-80},{62,-70}}, color={0,127,255}));
   connect(pum.ports[1], beaCoo.watCoo_a)
     annotation (Line(points={{-2,66},{12,66},{26,66}}, color={0,127,255}));
-  connect(pum.m_flow_in, conPID.y) annotation (Line(points={{-22,74},{-40,74},{
+  connect(pum.m_flow_in, conPID.y) annotation (Line(points={{-24,74},{-40,74},{
           -40,-10},{-49,-10}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -120},{120,120}})),experiment(Tolerance=1e-6, StopTime=172800),

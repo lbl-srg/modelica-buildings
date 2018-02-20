@@ -144,14 +144,18 @@ equation
           -28,10},{-2,10}},      color={0,127,255}));
   connect(volQflow.ports[2], sin.ports[4])
     annotation (Line(points={{2,10},{20,10},{20,-37}}, color={0,127,255}));
-  connect(ramp_m_flow.y, sou1.m_flow_in) annotation (Line(points={{-79,-10},{-72,
-          -10},{-72,18},{-60,18}}, color={0,0,127}));
-  connect(ramp_m_flow.y, sou2.m_flow_in) annotation (Line(points={{-79,-10},{-72,
-          -10},{-72,-14},{-60,-14}}, color={0,0,127}));
-  connect(ramp_m_flow.y, sou3.m_flow_in) annotation (Line(points={{-79,-10},{-72,
-          -10},{-72,-42},{-60,-42}}, color={0,0,127}));
-  connect(ramp_m_flow.y, sou4.m_flow_in) annotation (Line(points={{-79,-10},{-72,
-          -10},{-72,-82},{-60,-82}}, color={0,0,127}));
+  connect(ramp_m_flow.y, sou1.m_flow_in) annotation (Line(points={{-79,-10},{
+          -72,-10},{-72,18},{-62,18}},
+                                   color={0,0,127}));
+  connect(ramp_m_flow.y, sou2.m_flow_in) annotation (Line(points={{-79,-10},{
+          -72,-10},{-72,-14},{-62,-14}},
+                                     color={0,0,127}));
+  connect(ramp_m_flow.y, sou3.m_flow_in) annotation (Line(points={{-79,-10},{
+          -72,-10},{-72,-42},{-62,-42}},
+                                     color={0,0,127}));
+  connect(ramp_m_flow.y, sou4.m_flow_in) annotation (Line(points={{-79,-10},{
+          -72,-10},{-72,-82},{-62,-82}},
+                                     color={0,0,127}));
   connect(ramp_T.y, sou1.T_in) annotation (Line(points={{-79,-50},{-74,-50},{-68,
           -50},{-68,14},{-62,14}}, color={0,0,127}));
   connect(ramp_T.y, sou2.T_in) annotation (Line(points={{-79,-50},{-68,-50},{-68,

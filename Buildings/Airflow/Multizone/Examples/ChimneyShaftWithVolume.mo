@@ -131,7 +131,7 @@ equation
       points={{110,-30},{110,-39}},
       color={0,127,255}));
   connect(mRoo_flow.y[1], boundary.m_flow_in) annotation (Line(
-      points={{-69,-72},{-40,-72}},
+      points={{-69,-72},{-42,-72}},
       color={0,0,127}));
   connect(boundary.ports[1], roo.ports[1]) annotation (Line(
       points={{-20,-80},{27.3333,-80},{27.3333,-60}},

@@ -44,7 +44,7 @@ equation
     annotation (Line(points={{-10,0},{-20,0},{-40,0}}, color={0,127,255}));
 
   connect(pulse_m_flow.y, sou.m_flow_in)
-    annotation (Line(points={{-79,8},{-60,8}},           color={0,0,127}));
+    annotation (Line(points={{-79,8},{-62,8}},           color={0,0,127}));
    annotation (    Documentation(revisions="<html>
 <ul>
 <li>

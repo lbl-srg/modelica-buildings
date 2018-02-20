@@ -93,7 +93,7 @@ equation
           -20,9},{-12,9}},
                      color={0,0,127}));
   connect(mEva_flow.y, sou2.m_flow_in) annotation (Line(points={{55,-78},{74,
-          -78},{74,-10},{74,2},{60,2}}, color={0,0,127}));
+          -78},{74,-10},{74,2},{62,2}}, color={0,0,127}));
   connect(QEva_flow.u1, heaPum.QCon_flow) annotation (Line(points={{30,-32},{20,
           -32},{20,9},{11,9}}, color={0,0,127}));
   connect(QEva_flow.u2, heaPum.P) annotation (Line(points={{30,-44},{16,-44},{16,

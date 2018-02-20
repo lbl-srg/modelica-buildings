@@ -97,7 +97,7 @@ equation
   connect(QCon_flow.y, mCon_flow.u) annotation (Line(points={{69,-40},{80,-40},
           {80,-60},{-92,-60},{-92,14},{-82,14}},color={0,0,127}));
   connect(mCon_flow.y, sou1.m_flow_in)
-    annotation (Line(points={{-59,14},{-50,14}},          color={0,0,127}));
+    annotation (Line(points={{-59,14},{-52,14}},          color={0,0,127}));
   connect(chi.port_b1, sin1.ports[1]) annotation (Line(points={{30,6},{50,6},{
           50,30},{60,30}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
