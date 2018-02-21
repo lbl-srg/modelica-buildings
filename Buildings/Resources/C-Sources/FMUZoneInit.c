@@ -13,27 +13,34 @@ FMUBuilding* instantiateEnergyPlusFMU(const char* fmuName)
 {
   char msg[100];
 
-  struct FMUBuilding* bld = malloc(sizeof(FMUBuilding));
-  if ( bld == NULL )
-    ModelicaError("Not enough memory in FMUBuildingInit.c.");
+  /* Allocate memory */
+ // if (Buildings_nFMU == 0){
+ //   ModelicaMessage("Calling malloc.");
+ //   Buildings_FMUS = malloc(sizeof(struct FMUBuilding*));
+ // }
+ // else{
+    //Buildings_FMUS* = realloc(&Buildings_FMUS, (Buildings_nFMU+1) * sizeof(FMUBuilding));
+ //   ModelicaError("Instantiation of multiple FMUs not yet implemented.");
+//  }
+
+  Buildings_FMUS[Buildings_nFMU] = malloc(sizeof(FMUBuilding*));
+  if ( Buildings_FMUS[Buildings_nFMU] == NULL )
+    ModelicaError("Not enough memory in FMUBuildingInit.c to allocate building fmu.");
 
   /* Assign the fmu name */
-  bld->fmu = malloc(strlen(fmuName) * sizeof(char));
-  if ( bld->fmu == NULL )
+  Buildings_FMUS[Buildings_nFMU]->fmu = malloc(strlen(fmuName) * sizeof(char));
+  if ( Buildings_FMUS[Buildings_nFMU]->fmu == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
-  strcpy(bld->fmu, fmuName);
+  strcpy(Buildings_FMUS[Buildings_nFMU]->fmu, fmuName);
 
-  bld->nZon = 1;
+  Buildings_FMUS[Buildings_nFMU]->nZon = 1;
 
-  /* Assign this FMU to the array of FMUs */
-  Buildings_FMUS = realloc(Buildings_FMUS, (Buildings_nFMU+1) * sizeof(FMUBuilding));
-  Buildings_FMUS[Buildings_nFMU] = *bld;
-  Buildings_nFMU++;
-
-  snprintf(msg, 100, "*** Instantizated new fmu for %s at %p.\n", fmuName, bld);
+  snprintf(msg, 100, "*** Instantizated new fmu for %s at %p.\n", fmuName, Buildings_FMUS[Buildings_nFMU]);
   ModelicaMessage(msg);
 
-  return bld;
+  Buildings_nFMU++;
+  // Return the pointer to the FMU for this EnergyPlus instance
+  return Buildings_FMUS[Buildings_nFMU-1];
 };
 
 /* Create the structure and return a pointer to its address. */
@@ -74,22 +81,21 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor)
     /* No FMUs exist. Instantiate an FMU and
     /* assign this fmu pointer to the zone that will invoke its setXXX and getXXX */
     zone->ptrBui = instantiateEnergyPlusFMU(fmuName);
-    snprintf(msg, 100, "*** Made new fmu for %s at %p.\n", zoneName, &Buildings_FMUS[i]);
+    snprintf(msg, 100, "*** Made new fmu for %s at %p.\n", zoneName, zone->ptrBui);
     ModelicaMessage(msg);
-
   } else {
     /* There is already a Buildings FMU allocated.
        Check if the current zone is for this FMU. */
-       zone->ptrBui = NULL;
+      zone->ptrBui = NULL;
       for(i = 0; i < Buildings_nFMU; i++){
 
-        snprintf(msg, 100, "*** Comparing %s to %s: %d.\n", fmuName, Buildings_FMUS[i].fmu, strcmp(fmuName, Buildings_FMUS[i].fmu));
+        snprintf(msg, 100, "*** Comparing %s to %s: %d.\n", fmuName, Buildings_FMUS[i]->fmu, strcmp(fmuName, Buildings_FMUS[i]->fmu));
         ModelicaMessage(msg);
 
-        if (strcmp(fmuName, Buildings_FMUS[i].fmu) == 0){
+        if (strcmp(fmuName, Buildings_FMUS[i]->fmu) == 0){
           /* This is the same FMU as before. */
-          struct FMUBuilding* bld = &Buildings_FMUS[i];
-          snprintf(msg, 100, "*** Found old fmu for %s at %p.\n", zoneName, bld);
+          struct FMUBuilding* bld = Buildings_FMUS[i];
+          snprintf(msg, 100, "*** Found existing fmu for %s at %p.\n", zoneName, bld);
           ModelicaMessage(msg);
           zone->ptrBui = bld;
           /* Increment the count of zones to this building. (Used to free storage again.) */
@@ -100,18 +106,17 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor)
       if (zone->ptrBui == NULL){
         /* Did not find an FMU. */
         zone->ptrBui = instantiateEnergyPlusFMU(fmuName);
+        snprintf(msg, 100, "*+* Made new fmu for %s at %p.\n", zoneName, zone->ptrBui);
+        ModelicaMessage(msg);
       }
   }
   snprintf(msg, 100, "*** Initialized data for bld %s, room %s.\n", zone->ptrBui->fmu, zone->name);
   ModelicaMessage(msg);
 
   for(i = 0; i < Buildings_nFMU; i++){
-    snprintf(msg, 100, "*** BuildingsFMU %d, %s.\n", i, Buildings_FMUS[i].fmu);
+    snprintf(msg, 100, "*** BuildingsFMU %d, %s.\n", i, Buildings_FMUS[i]->fmu);
     ModelicaMessage(msg);
-
   }
-
-
 
   /* Return a pointer to this zone */
   return (void*) zone;

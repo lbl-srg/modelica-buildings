@@ -22,6 +22,6 @@ typedef struct FMUZone
   size_t nValueReference;
 } FMUZone;
 
-static struct FMUBuilding* Buildings_FMUS;
+static struct FMUBuilding* Buildings_FMUS[10];
 static unsigned int Buildings_nFMU = 0; /* Number of FMUs */
 #endif

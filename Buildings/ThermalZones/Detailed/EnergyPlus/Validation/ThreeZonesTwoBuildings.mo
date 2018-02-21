@@ -19,7 +19,7 @@ model ThreeZonesTwoBuildings
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   ThermalZone zon3(
     fmuName="bld2.fmu",
-    zoneName="Zone 1.1",
+    zoneName="Zone 2.1",
     nFluPor=6)                                   "Zone 2"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 equation

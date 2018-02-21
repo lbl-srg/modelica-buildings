@@ -9,12 +9,12 @@ model TwoZones "Validation model for two zones"
   ThermalZone zon2(
     zoneName="Zone 2",
     nFluPor=4,
-    fmuName="bld.fmu")                           "Zone 2"
+    fmuName="bld.fmu") "Zone 2"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   ThermalZone zon1(
     zoneName="Zone 1",
     nFluPor=2,
-    fmuName="bld.fmu")                "Zone 1"
+    fmuName="bld.fmu") "Zone 1"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 equation
   connect(Q_flow.y, zon1.Q_flow) annotation (Line(points={{-59,0},{-40,0},{-40,
