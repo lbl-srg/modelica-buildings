@@ -9,21 +9,19 @@
 
 typedef struct FMUBuilding
 {
-  /* array where the data are stored during the simulation */
-  char* fmu;
+  char* name;
   int nZon; /* Number of zones that use this FMU */
   char** zoneNames; /* Names of zones in this FMU */
 } FMUBuilding;
 
 typedef struct FMUZone
 {
-  /* array where the data are stored during the simulation */
-  char* name;
+  char* name;          /* Name of this zone */
   FMUBuilding* ptrBui; /* Pointer to building with this zone */
-  unsigned int* valueReference;
+  unsigned int* valueReference; /* Value references for this zone */
   size_t nValueReference;
 } FMUZone;
 
-static struct FMUBuilding** Buildings_FMUS;
-static unsigned int Buildings_nFMU = 0; /* Number of FMUs */
+static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs */
+static unsigned int Buildings_nFMU = 0;     /* Number of FMUs */
 #endif

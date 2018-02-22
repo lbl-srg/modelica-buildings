@@ -31,10 +31,10 @@ FMUBuilding* instantiateEnergyPlusFMU(const char* fmuName, const char* zoneName)
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate array for Buildings_FMUS[0]->zoneNames.");
 
   /* Assign the fmu name */
-  Buildings_FMUS[Buildings_nFMU]->fmu = (char*) malloc(strlen(fmuName) * sizeof(char));
-  if ( Buildings_FMUS[Buildings_nFMU]->fmu == NULL )
+  Buildings_FMUS[Buildings_nFMU]->name = (char*) malloc(strlen(fmuName) * sizeof(char));
+  if ( Buildings_FMUS[Buildings_nFMU]->name == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate fmu name.");
-  strcpy(Buildings_FMUS[Buildings_nFMU]->fmu, fmuName);
+  strcpy(Buildings_FMUS[Buildings_nFMU]->name, fmuName);
 
   /* Assign the zone name */
   Buildings_FMUS[Buildings_nFMU]->zoneNames[0] = malloc(strlen(zoneName) * sizeof(char));
@@ -106,10 +106,10 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor)
       zone->ptrBui = NULL;
       for(i = 0; i < Buildings_nFMU; i++){
 
-        if (strcmp(fmuName, Buildings_FMUS[i]->fmu) == 0){
+        if (strcmp(fmuName, Buildings_FMUS[i]->name) == 0){
           /* This is the same FMU as before. */
           if (! zoneIsUnique(Buildings_FMUS[i], zoneName)){
-            snprintf(msg, 200, "Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.", zoneName, Buildings_FMUS[i]->fmu);
+            snprintf(msg, 200, "Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.", zoneName, Buildings_FMUS[i]->name);
             ModelicaError(msg);
           }
 

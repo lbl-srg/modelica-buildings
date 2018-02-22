@@ -20,7 +20,7 @@ void FMUZoneFree(void* object){
     /* Check if the building FMU can be freed. */
     if (zone->ptrBui->nZon == 0){
       /* There is no more zone that uses this building FMU. */
-      free(zone->ptrBui->fmu);
+      free(zone->ptrBui->name);
       free(zone->ptrBui->zoneNames);
       free(zone->ptrBui);
       Buildings_nFMU--;

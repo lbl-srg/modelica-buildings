@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "zon1.TAir",
+    "zon2.TAir",
+    "zon3.TAir"
+  };

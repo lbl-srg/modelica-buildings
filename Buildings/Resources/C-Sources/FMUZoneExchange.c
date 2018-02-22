@@ -14,7 +14,7 @@ double FMUZoneExchange(void* object, double T, double Q_flow){
 
 //  snprintf(msg, 200,
 //    "*** In exchange for bldg: %s; zone: %s, n = %d, pointer to fmu %p.\n",
-//    zone->ptrBui->fmu,
+//    zone->ptrBui->name,
 //    zone->name,
 //    zone->nValueReference,
 //    zone->ptrBui);

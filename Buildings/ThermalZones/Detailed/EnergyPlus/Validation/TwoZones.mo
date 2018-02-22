@@ -21,4 +21,21 @@ equation
           30},{-22,30}}, color={0,0,127}));
   connect(Q_flow.y, zon2.Q_flow)
     annotation (Line(points={{-59,0},{-22,0}}, color={0,0,127}));
+  annotation (Documentation(info="<html>
+<p>
+Simple test case for one buildings with two thermal zones.
+</p>
+</html>", revisions="<html>
+<ul><li>
+February 14, 2018, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/EnergyPlus/Validation/TwoZones.mos"
+        "Simulate and plot"),
+experiment(
+      StopTime=86400,
+      Tolerance=1e-05,
+      __Dymola_Algorithm="Cvode"));
 end TwoZones;

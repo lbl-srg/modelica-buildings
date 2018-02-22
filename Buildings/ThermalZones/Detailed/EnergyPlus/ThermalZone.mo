@@ -51,5 +51,17 @@ connects to the thermal zone with name <code>zoneName</code>.
 If the FMU is already instantiated by another instance of this model,
 it will use the already instantiated FMU.
 </p>
+<p>
+Note that the <code>zoneName</code> can only be specified once
+for each FMU. (Otherwise, there would be two models interacting
+with the same thermal zone.). If it is specified more than
+once, the simulation will stop with an error.
+</p>
+</html>", revisions="<html>
+<ul><li>
+February 14, 2018, by Michael Wetter:<br/>
+First implementation for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1129\">issue 1129</a>.
+</li>
+</ul>
 </html>"));
 end ThermalZone;

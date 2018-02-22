@@ -54,7 +54,7 @@ Class derived from <code>ExternalObject</code> having two local external functio
 named <code>destructor</code> and <code>constructor</code> respectively.
 <p>
 These functions create and release an external object that allows the storage
-of the data structure needed to communicate with EnergyPlus.
+of the data structure needed to communicate with the EnergyPlus FMU.
 
 </html>",
 revisions="<html>
