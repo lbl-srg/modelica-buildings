@@ -36,6 +36,5 @@ First implementation.
         "Simulate and plot"),
 experiment(
       StopTime=86400,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-06));
 end TwoZones;
