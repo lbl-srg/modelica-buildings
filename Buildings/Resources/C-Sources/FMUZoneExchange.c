@@ -7,7 +7,19 @@
 #include "FMUEnergyPlusStructure.h"
 #include <stdlib.h>
 
-double FMUZoneExchange(void* object, double T, double Q_flow){
+void FMUZoneExchange(
+  void* object,
+  double T,
+  double X,
+  double[] m_flow, /* size is nFluPor */
+  double[] TInlet, /* size is nFluPor */
+  double QRadGai_flow,
+  double time,
+  double* TRad,
+  double* QGaiCon_flow,
+  double* QGaiLat_flow,
+  double* QPeo_flow,
+  double* tNext){
 //  char msg[200];
 
   FMUZone* zone = (FMUZone*) object;
@@ -19,5 +31,11 @@ double FMUZoneExchange(void* object, double T, double Q_flow){
 //    zone->nValueReference,
 //    zone->ptrBui);
 //  ModelicaMessage(msg);
-  return 2.;
+  zone->TRad = 293.15;
+  zone->QGaiCon_flow = 0;
+  zone->QGaiLat_flow = 0;
+  zone->QPeo_flow = 0;
+  /* Time need to be guarded against rounding error */
+  zone->tNext = (double(int(zone->time + 15*3600));
+  return;
 }

@@ -41,7 +41,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/EnergyPlus/Validation/TwoZones.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/EnergyPlus/Validation/ThreeZonesTwoBuildings.mos"
         "Simulate and plot"),
  experiment(
       StopTime=86400,
