@@ -80,19 +80,22 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
     annotation (Placement(transformation(
         extent={{40,-10},{-40,10}},
         rotation=180,
-        origin={0,-150})));
+        origin={0,-150}), iconTransformation(
+        extent={{40,-10},{-40,10}},
+        rotation=180,
+        origin={0,-192})));
   Modelica.Blocks.Interfaces.RealOutput TAir(
     final unit="K",
     displayUnit="degC")
     "Air temperature of the zone"
     annotation (Placement(transformation(extent={{200,-10},{220,10}}),
-        iconTransformation(extent={{160,128},{180,148}})));
+        iconTransformation(extent={{200,128},{220,148}})));
   Modelica.Blocks.Interfaces.RealOutput TRad(
     final unit="K",
     displayUnit="degC")
     "Radiative temperature of the zone" annotation (Placement(transformation(
-          extent={{200,-50},{220,-30}}), iconTransformation(extent={{160,90},{180,
-            110}})));
+          extent={{200,-50},{220,-30}}), iconTransformation(extent={{200,90},{
+            220,110}})));
 
   Modelica.Blocks.Math.Gain gaiCO2(
     u(final unit="W"),
@@ -114,7 +117,7 @@ protected
     final fmuName=fmuName,
     final zoneName=zoneName,
     final nFluPor=nPorts) "FMU zone adapter"
-    annotation (Placement(transformation(extent={{120,100},{140,120}})));
+    annotation (Placement(transformation(extent={{120,104},{140,124}})));
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     redeclare final package Medium = Medium,
     final V=V,
@@ -198,22 +201,14 @@ protected
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={0,-90})));
-public
-  Modelica.Blocks.Sources.Constant sVec[Medium.nC](k=s) if
+  Modelica.Blocks.Math.MatrixGain matrixGain(final K=s) if
        use_C_flow
-    "Species concentration indices"
-    annotation (Placement(transformation(extent={{-140,-180},{-120,-160}})));
-  Modelica.Blocks.Math.Product pro[Medium.nC] if
-       use_C_flow
-    "Product to compute CO2 emission as a vector of trace substances"
-    annotation (Placement(transformation(extent={{-100,-156},{-80,-136}})));
-  Modelica.Blocks.Routing.Replicator replicator(nout=Medium.nC) if
-       use_C_flow
-    annotation (Placement(transformation(extent={{-132,-150},{-112,-130}})));
+    "Gain to convert CO2 emission from scalar to vector"
+    annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
 initial equation
   assert(fmuName <> "", "Must provide the name of the fmu file.");
   assert(zoneName <> "", "Must provide the name of the zone.");
-  assert(nPorts >= 2, "The zone must have at least one air inlet and outlet.");
+ // assert(nPorts >= 2, "The zone must have at least one air inlet and outlet.");
 
 equation
   connect(heaGai.qGai_flow, qGai_flow) annotation (Line(points={{-182,100},{-220,
@@ -224,23 +219,22 @@ equation
     annotation (Line(points={{20,0},{0,0}}, color={191,0,0}));
   connect(senTAir.T, TAir)
     annotation (Line(points={{40,0},{210,0}}, color={0,0,127}));
-  connect(fmuZon.TRad, TRad) annotation (Line(points={{141,116},{160,116},{160,-40},
+  connect(fmuZon.TRad, TRad) annotation (Line(points={{141,120},{160,120},{160,-40},
           {210,-40}}, color={0,0,127}));
-  connect(fmuZon.T, senTAir.T) annotation (Line(points={{118,120},{52,120},{52,0},
+  connect(fmuZon.T, senTAir.T) annotation (Line(points={{118,124},{52,124},{52,0},
           {40,0}}, color={0,0,127}));
-  connect(vol.X_w, fmuZon.X_w) annotation (Line(points={{12,-60},{60,-60},{60,116},
-          {118,116}},color={0,0,127}));
+  connect(vol.X_w, fmuZon.X_w) annotation (Line(points={{12,-60},{60,-60},{60,120},
+          {118,120}},color={0,0,127}));
   connect(heaGai.QRad_flow, fmuZon.QGaiRad_flow)
-    annotation (Line(points={{-158,106},{-20,106},{-20,102},{118,102}},
-                                                   color={0,0,127}));
+    annotation (Line(points={{-158,106},{118,106}},color={0,0,127}));
   connect(heaGai.QCon_flow, QConTot_flow.u1) annotation (Line(points={{-158,100},
           {-132,100},{-132,56},{-122,56}}, color={0,0,127}));
-  connect(fmuZon.QCon_flow, QConTot_flow.u2) annotation (Line(points={{141,112},
-          {150,112},{150,80},{-128,80},{-128,44},{-122,44}}, color={0,0,127}));
+  connect(fmuZon.QCon_flow, QConTot_flow.u2) annotation (Line(points={{141,116},
+          {150,116},{150,80},{-128,80},{-128,44},{-122,44}}, color={0,0,127}));
   connect(heaGai.QLat_flow, QConLat_flow.u1) annotation (Line(points={{-158,94},
           {-142,94},{-142,26},{-122,26}}, color={0,0,127}));
-  connect(fmuZon.QLat_flow, QConLat_flow.u2) annotation (Line(points={{141,108},
-          {154,108},{154,76},{-146,76},{-146,14},{-122,14}}, color={0,0,127}));
+  connect(fmuZon.QLat_flow, QConLat_flow.u2) annotation (Line(points={{141,112},
+          {154,112},{154,76},{-146,76},{-146,14},{-122,14}}, color={0,0,127}));
   connect(QGaiSenLat_flow.u1, QConTot_flow.y) annotation (Line(points={{-82,46},
           {-90,46},{-90,50},{-99,50}}, color={0,0,127}));
   connect(QGaiSenLat_flow.u2, QConLat_flow.y) annotation (Line(points={{-82,34},
@@ -253,63 +247,61 @@ equation
           {-90,0},{-82,0}}, color={0,0,127}));
   connect(mWat_flow.y, vol.mWat_flow) annotation (Line(points={{-59,0},{-50,0},{
           -50,-48},{-12,-48}}, color={0,0,127}));
-  connect(fmuZon.QPeo_flow, gaiCO2.u) annotation (Line(points={{141,104},{146,104},
+  connect(fmuZon.QPeo_flow, gaiCO2.u) annotation (Line(points={{141,108},{146,108},
           {146,-190},{-172,-190},{-172,-140},{-162,-140}},      color={0,0,127}));
   connect(CTot_flow.y, vol.C_flow) annotation (Line(points={{-39,-120},{-26,-120},
           {-26,-62},{-12,-62}}, color={0,0,127}));
   connect(C_flow, CTot_flow.u1) annotation (Line(points={{-220,-120},{-160,-120},
           {-160,-114},{-62,-114}}, color={0,0,127}));
-  connect(ports, senMasFlo.port_a)
+  for i in 1:nPorts loop
+    connect(ports[i], senMasFlo[i].port_a)
     annotation (Line(points={{0,-150},{0,-130}}, color={0,127,255}));
-  connect(fmuZon.m_flow, senMasFlo.m_flow) annotation (Line(points={{118,112},{66,
-          112},{66,-120},{11,-120}}, color={0,0,127}));
-  connect(vol.ports, senFluTem.port_b) annotation (Line(points={{0,-66},{0,-80},
+    connect(fmuZon.m_flow[i], senMasFlo[i].m_flow) annotation (Line(points={{118,116},{66,
+          116},{66,-120},{11,-120}}, color={0,0,127}));
+    connect(vol.ports[i], senFluTem[i].port_b) annotation (Line(points={{0,-66},{0,-80},
           {0,-80}}, color={0,127,255}));
-  connect(senMasFlo.port_b, senFluTem.port_a) annotation (Line(points={{5.55112e-16,
+    connect(senMasFlo[i].port_b, senFluTem[i].port_a) annotation (Line(points={{5.55112e-16,
           -110},{0,-110},{0,-100}}, color={0,127,255}));
-  connect(senFluTem.T, fmuZon.TInlet) annotation (Line(points={{11,-90},{72,-90},
-          {72,108},{118,108}}, color={0,0,127}));
-  connect(gaiCO2.y, replicator.u)
-    annotation (Line(points={{-139,-140},{-134,-140}}, color={0,0,127}));
-  connect(pro.u1, replicator.y) annotation (Line(points={{-102,-140},{-108,-140},
-          {-108,-140},{-111,-140}}, color={0,0,127}));
-  connect(sVec.y, pro.u2) annotation (Line(points={{-119,-170},{-112,-170},{-112,
-          -152},{-102,-152}}, color={0,0,127}));
-  connect(pro.y, CTot_flow.u2) annotation (Line(points={{-79,-146},{-72,-146},{-72,
-          -126},{-62,-126}}, color={0,0,127}));
+    connect(senFluTem[i].T, fmuZon.TInlet[i]) annotation (Line(points={{11,-90},{72,-90},
+          {72,112},{118,112}}, color={0,0,127}));
+  end for;
+  connect(matrixGain.u[1], gaiCO2.y)
+    annotation (Line(points={{-122,-140},{-139,-140}}, color={0,0,127}));
+  connect(matrixGain.y, CTot_flow.u2) annotation (Line(points={{-99,-140},{-80,-140},
+          {-80,-126},{-62,-126}}, color={0,0,127}));
   annotation (
   defaultComponentName="zon",
    Icon(coordinateSystem(preserveAspectRatio=false,
    extent={{-200,-200},{200,200}}),
                          graphics={
         Rectangle(
-          extent={{-160,-160},{160,160}},
+          extent={{-200,-200},{200,200}},
           lineColor={95,95,95},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-140,138},{140,-140}},
+          extent={{-172,178},{180,-182}},
           pattern=LinePattern.None,
           lineColor={117,148,176},
           fillColor={170,213,255},
           fillPattern=FillPattern.Sphere),
-          Bitmap(extent={{28,-156},{130,-54}},
+          Bitmap(extent={{62,-190},{164,-88}},
           fileName="modelica://Buildings/Resources/Images/ThermalZones/Detailed/EnergyPlus/EnergyPlusLogo.png"),
         Text(
-          extent={{-112,130},{-8,100}},
+          extent={{-144,162},{-40,132}},
           lineColor={0,0,0},
           textString="%fmuName"),
         Text(
-          extent={{-110,98},{-6,68}},
+          extent={{-142,130},{-38,100}},
           lineColor={0,0,0},
           textString="%zoneName"),
         Rectangle(
-          extent={{140,70},{160,-70}},
+          extent={{180,70},{200,-70}},
           lineColor={95,95,95},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{88,114},{138,86}},
+          extent={{118,116},{168,88}},
           lineColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
@@ -321,13 +313,13 @@ equation
           fillPattern=FillPattern.Solid,
           textString="air"),
         Rectangle(
-          extent={{146,70},{154,-70}},
+          extent={{186,70},{194,-70}},
           lineColor={95,95,95},
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-220,118},{-144,86}},
-          lineColor={0,0,127},
+          lineColor={0,0,0},
           textString="q"),
         Text(
           extent={{-188,-94},{-112,-126}},
@@ -335,7 +327,7 @@ equation
           textString="C_flow",
           visible=use_C_flow),
         Text(
-          extent={{86,152},{136,124}},
+          extent={{116,154},{166,126}},
           lineColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
@@ -350,15 +342,40 @@ Model for a thermal zone that is implemented in EnergyPlus.
 This model instantiates the FMU with the name <code>fmuName</code> and
 connects to the thermal zone with name <code>zoneName</code>.
 If the FMU is already instantiated by another instance of this model,
-it will use the already instantiated FMU.
+it will use the already instantiated FMU. Hence, for each thermal zone
+in an EnergyPlus FMU, one instance of this model needs to be used.
 </p>
 <p>
-Note that the <code>zoneName</code> can only be specified once
-for each FMU. (Otherwise, there would be two models interacting
-with the same thermal zone.). If it is specified more than
-once, the simulation will stop with an error.
+If there are two instances that declare the same
+<code>fmuName</code> and the same <code>zoneName</code>,
+the simulation will stop with an error.
 </p>
-<h4>Heat gains and CO2 added by people</h4>
+<h4>Main Equations</h4>
+<p>
+This model computes in Modelica the air energy, mass and species
+balance. The convective heat transfer with the building fabric,
+the long-wave and the short-wave radiation are computed by EnergyPlus.
+</p>
+<h5>Heat and mass balance</h5>
+<p>
+The zone uses a volume of air that is fully mixed. The size of this volume,
+and its floor area, which is used to scale the heat gains <code>q_flow</code>,
+are obtained from the EnergyPlus model.
+By default, the air uses a dynamic balance. With the parameter
+<code>energyBalance</code>, the type of energy balance can be configured.
+The parameter <code>mSenFac</code> is used to increase the sensible heat capacity
+of the zone air. By default, <code>mSenFac=1</code>. Higher values can be
+used to approximate the sensible heat capacity of furnitures.
+The latent heat capacity is not affected by this parameter.
+</p>
+
+<h5>Contaminant balance</h5>
+<p>
+The model has a parameter <code>use_C_flow</code>. If set to <code>true</code>,
+then an input connector <code>C_flow</code> is enabled, which allows adding trace substances
+to the room air. Note that this requires a medium model that has trace substances enabled.
+</p>
+<h5>Heat gains and CO2 added by people</h5>
 <p>
 If the EnergyPlus model computes internal heat gains
 such as from people or equipment, then their sensible convective
@@ -369,7 +386,7 @@ Modelica <code>Medium</code> contains CO2 (e.g., if
 <code>Medium.nC &gt; 0</code> and
 there is a <code>Medium.substanceName = \"CO2\"</code>),
 then the CO2 emitted by the people is added to this volume.
-However, \"Generic Contaminant\" modeled in EnergyPlus is not
+However, the \"Generic Contaminant\" modeled in EnergyPlus is not
 added to the air volume. (Because EnergyPlus does not declare the
 name of the species or its molar mass and hence it cannot be matched
 to species in Modelica or converted to emitted mass flow rate.)

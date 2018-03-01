@@ -13,5 +13,10 @@ For each thermal zone of EnergyPlus, one instance of
 Buildings.ThermalZones.Detailed.EnergyPlus.ThermalZone</a>
 needs to be used.
 </p>
+<p>
+See <a href=\"modelica://Buildings.ThermalZones.Detailed.EnergyPlus.ThermalZone\">
+Buildings.ThermalZones.Detailed.EnergyPlus.ThermalZone</a>
+for more information.
+</p>
 </html>"));
 end EnergyPlus;

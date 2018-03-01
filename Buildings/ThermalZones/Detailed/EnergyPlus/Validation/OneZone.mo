@@ -8,7 +8,7 @@ model OneZone "Validation model for one zone"
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   ThermalZone zon(
@@ -42,7 +42,7 @@ model OneZone "Validation model for one zone"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1. u1[1])  annotation (Line(
-      points={{-59,50},{-52,50},{-52,17},{-42,17}},
+      points={{-59,40},{-52,40},{-52,17},{-42,17}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(qConGai_flow.y,multiplex3_1. u2[1]) annotation (Line(
@@ -52,9 +52,11 @@ equation
   connect(zon.qGai_flow, multiplex3_1.y)
     annotation (Line(points={{18,10},{-19,10}}, color={0,0,127}));
   connect(duc.port_b, zon.ports[1])
-    annotation (Line(points={{10,-40},{38,-40},{38,-15}}, color={0,127,255}));
+    annotation (Line(points={{10,-40},{38,-40},{38,-19.2}},
+                                                          color={0,127,255}));
   connect(bou.ports[1], zon.ports[2])
-    annotation (Line(points={{-20,-80},{42,-80},{42,-15}}, color={0,127,255}));
+    annotation (Line(points={{-20,-80},{42,-80},{42,-19.2}},
+                                                           color={0,127,255}));
   connect(freshAir.ports[1], duc.port_a)
     annotation (Line(points={{-20,-40},{-10,-40}}, color={0,127,255}));
   connect(multiplex3_1.u3[1], qLatGai_flow.y) annotation (Line(points={{-42,3},

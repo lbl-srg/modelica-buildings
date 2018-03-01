@@ -4,7 +4,7 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
 
   parameter String fmuName "Name of the FMU file that contains this zone";
   parameter String zoneName "Name of the thermal zone as specified in the EnergyPlus input";
-  parameter Integer nFluPor(min=2) "Number of fluid ports (Set to 2 for one inlet and one outlet)";
+  parameter Integer nFluPor "Number of fluid ports (Set to 2 for one inlet and one outlet)";
 
   final parameter Modelica.SIunits.Area AFlo(fixed=false) "Floor area";
   final parameter Modelica.SIunits.Volume V(fixed=false) "Zone volume";
