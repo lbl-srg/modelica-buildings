@@ -6,36 +6,40 @@
 
 #include "FMUEnergyPlusStructure.h"
 #include <stdlib.h>
+#include <math.h>
 
 void FMUZoneExchange(
   void* object,
   double T,
   double X,
-  double[] m_flow, /* size is nFluPor */
-  double[] TInlet, /* size is nFluPor */
+  double* m_flow, /* size is nFluPor */
+  double* TInlet, /* size is nFluPor */
   double QRadGai_flow,
   double time,
   double* TRad,
-  double* QGaiCon_flow,
-  double* QGaiLat_flow,
+  double* QCon_flow,
+  double* QLat_flow,
   double* QPeo_flow,
   double* tNext){
 //  char msg[200];
 
   FMUZone* zone = (FMUZone*) object;
 
+  *TRad = 293.15;
+  /* Emulate heat transfer to a surface at constant T=18 degC */
+  *QCon_flow = 10*((273.15+18)-T);
+  *QLat_flow = 0;
+  *QPeo_flow = 0;
+  /* Time need to be guarded against rounding error */
+  *tNext = round((floor(time/3600.0)+1) * 3600.0);
 //  snprintf(msg, 200,
-//    "*** In exchange for bldg: %s; zone: %s, n = %d, pointer to fmu %p.\n",
+//    "*** In exchange for bldg: %s; zone: %s, time = %f, tNext = %f, pointer to fmu %p.\n",
 //    zone->ptrBui->name,
 //    zone->name,
-//    zone->nValueReference,
+//    time,
+//    *tNext,
 //    zone->ptrBui);
 //  ModelicaMessage(msg);
-  zone->TRad = 293.15;
-  zone->QGaiCon_flow = 0;
-  zone->QGaiLat_flow = 0;
-  zone->QPeo_flow = 0;
-  /* Time need to be guarded against rounding error */
-  zone->tNext = (double(int(zone->time + 15*3600));
+
   return;
 }

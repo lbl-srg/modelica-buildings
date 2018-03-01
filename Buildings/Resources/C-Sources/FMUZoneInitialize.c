@@ -13,7 +13,7 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V){
   FMUZone* zone = (FMUZone*) object;
 // Obtain the floor area and the volume of the zone
   *AFlo = 30;
-  *VFlo = 2.7*30;
+  *V = 2.7*30;
 //  snprintf(msg, 200,
 //    "*** In exchange for bldg: %s; zone: %s, n = %d, pointer to fmu %p.\n",
 //    zone->ptrBui->name,
