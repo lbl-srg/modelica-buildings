@@ -14,10 +14,10 @@ void FMUZoneExchange(
   double X,
   double* m_flow, /* size is nFluPor */
   double* TInlet, /* size is nFluPor */
-  double QRadGai_flow,
+  double QGaiRad_flow,
   double time,
   double* TRad,
-  double* QCon_flow,
+  double* QConSen_flow,
   double* QLat_flow,
   double* QPeo_flow,
   double* tNext){
@@ -27,7 +27,7 @@ void FMUZoneExchange(
 
   *TRad = 293.15;
   /* Emulate heat transfer to a surface at constant T=18 degC */
-  *QCon_flow = 10*((273.15+18)-T);
+  *QConSen_flow = 10*((273.15+18)-T);
   *QLat_flow = 0;
   *QPeo_flow = 0;
   /* Time need to be guarded against rounding error */
