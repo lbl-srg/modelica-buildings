@@ -77,4 +77,21 @@ equation
       time);
     dtMax = 100*QCon_flow/V/1006;
   end when;
+  annotation (Icon(graphics={Bitmap(extent={{-90,-86},{84,88}}, fileName=
+            "modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png")}),
+      Documentation(info="<html>
+<p>
+Block that exchanges data between Modelica and EnergyPlus.
+This block is calling the C functions to initialize EnergyPlus,
+exchange data with EnergyPlus, and free the memory, through the destructor
+of its class <code>adapter</code>, of EnergyPlus.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 14, 2018, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end FMUZoneAdapter;

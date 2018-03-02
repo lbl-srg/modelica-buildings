@@ -34,16 +34,15 @@ model TwoZones "Validation model for two zones"
     m_flow_nominal=47*6/3600*1.2,
     redeclare package Medium = Medium)
     "Duct resistance (to decouple room and outside pressure)"
-    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
+    annotation (Placement(transformation(extent={{10,-60},{-10,-40}})));
   Fluid.Sources.MassFlowSource_T bou(
     redeclare package Medium = Medium,
-    nPorts=1,
     m_flow=0,
-    T=298.15) "Boundary condition"
+    T=298.15,
+    nPorts=1) "Boundary condition"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Fluid.Sources.Boundary_pT freshAir(
-    nPorts=1,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium, nPorts=1)
     "Boundary condition"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 equation
@@ -61,14 +60,12 @@ equation
           50},{-8,10},{-19,10}}, color={0,0,127}));
   connect(zon2.qGai_flow, multiplex3_1.y) annotation (Line(points={{16,-10},{-8,
           -10},{-8,10},{-19,10}}, color={0,0,127}));
-  connect(freshAir.ports[1],duc. port_a)
+  connect(freshAir.ports[1], duc.port_b)
     annotation (Line(points={{-20,-50},{-10,-50}}, color={0,127,255}));
-  connect(duc.port_b,zon2. ports[1])
-    annotation (Line(points={{10,-50},{36,-50},{36,-39.2}},
-                                                          color={0,127,255}));
-  connect(bou.ports[1],zon2. ports[2])
-    annotation (Line(points={{-20,-80},{40,-80},{40,-39.2}},
-                                                           color={0,127,255}));
+  connect(duc.port_a, zon2.ports[1]) annotation (Line(points={{10,-50},{36,-50},
+          {36,-39.2}}, color={0,127,255}));
+  connect(bou.ports[1], zon2.ports[2]) annotation (Line(points={{-20,-80},{40,
+          -80},{40,-39.2}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 Simple test case for one buildings with two thermal zones.
