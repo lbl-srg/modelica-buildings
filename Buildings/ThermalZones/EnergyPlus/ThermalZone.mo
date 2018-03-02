@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.Detailed.EnergyPlus;
+within Buildings.ThermalZones.EnergyPlus;
 model ThermalZone "Model to connect to an EnergyPlus thermal zone"
   import Buildings;
   extends Modelica.Blocks.Icons.Block;
@@ -114,7 +114,7 @@ protected
     Medium.enthalpyOfCondensingGas(273.15+37) "Latent heat of water vapor";
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     V*3/3600 "Nominal mass flow rate (used for regularization)";
-  Buildings.ThermalZones.Detailed.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
     final fmuName=fmuName,
     final zoneName=zoneName,
     final nFluPor=nPorts) "FMU zone adapter"
@@ -289,7 +289,7 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Sphere),
           Bitmap(extent={{62,-190},{164,-88}},
-          fileName="modelica://Buildings/Resources/Images/ThermalZones/Detailed/EnergyPlus/EnergyPlusLogo.png"),
+          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png"),
         Text(
           extent={{-144,162},{-40,132}},
           lineColor={0,0,0},

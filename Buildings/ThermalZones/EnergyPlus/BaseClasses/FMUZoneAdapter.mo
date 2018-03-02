@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.Detailed.EnergyPlus.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
   extends Modelica.Blocks.Icons.Block;
 
@@ -55,19 +55,19 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
   Modelica.SIunits.Time tNext(start=t0-1, fixed=true) "Next sampling time";
   Modelica.SIunits.Time dtMax(start=600, fixed=true) "Hack to aovid too long time steps";
 protected
-  Buildings.ThermalZones.Detailed.EnergyPlus.BaseClasses.FMUZoneClass adapter=
-      Buildings.ThermalZones.Detailed.EnergyPlus.BaseClasses.FMUZoneClass(
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass adapter=
+      Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass(
       fmuName=fmuName,
       zoneName=zoneName,
       nFluPor=nFluPor) "Class to communicate with EnergyPlus";
   parameter Modelica.SIunits.Time t0(fixed=false) "Simulation start time";
 initial equation
   t0 = time;
-  (AFlo, V) = Buildings.ThermalZones.Detailed.EnergyPlus.BaseClasses.initialize(adapter);
+  (AFlo, V) = Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(adapter);
 equation
   when {initial(), time >= pre(tNext), time >= pre(dtMax)} then
     (TRad, QCon_flow, QLat_flow, QPeo_flow, tNext) =
-      Buildings.ThermalZones.Detailed.EnergyPlus.BaseClasses.exchange(
+      Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
       adapter,
       T,
       X_w,

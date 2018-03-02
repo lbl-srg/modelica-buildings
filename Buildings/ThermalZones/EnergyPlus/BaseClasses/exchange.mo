@@ -1,6 +1,6 @@
-within Buildings.ThermalZones.Detailed.EnergyPlus.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 function exchange "Exchange the values for the thermal zone"
-  input Buildings.ThermalZones.Detailed.EnergyPlus.BaseClasses.FMUZoneClass
+  input Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass
     adapter "External object";
   input Modelica.SIunits.Temperature T "Zone air temperature";
   input Modelica.SIunits.MassFraction X "Zone air mass fraction in kg/kg total air";

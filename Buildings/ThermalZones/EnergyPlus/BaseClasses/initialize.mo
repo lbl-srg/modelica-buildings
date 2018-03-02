@@ -1,6 +1,6 @@
-within Buildings.ThermalZones.Detailed.EnergyPlus.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 function initialize "Initialization"
-  input Buildings.ThermalZones.Detailed.EnergyPlus.BaseClasses.FMUZoneClass
+  input Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass
     adapter "External object";
   output Modelica.SIunits.Area AFlo "Zone floor area";
   output Modelica.SIunits.Volume V "Zone air volume";

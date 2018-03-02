@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.Detailed.EnergyPlus.Validation;
+within Buildings.ThermalZones.EnergyPlus.Validation;
 model OneZoneWithControl "Validation model for one zone"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model";
@@ -104,7 +104,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/EnergyPlus/Validation/OneZoneWithControl.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/OneZoneWithControl.mos"
         "Simulate and plot"),
 experiment(
       StopTime=86400,

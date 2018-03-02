@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.Detailed.EnergyPlus.Validation;
+within Buildings.ThermalZones.EnergyPlus.Validation;
 model ThreeZonesTwoBuildings
   "Validation model for three zones that are in two buildings"
   extends Modelica.Icons.Example;
@@ -60,7 +60,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/EnergyPlus/Validation/ThreeZonesTwoBuildings.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/ThreeZonesTwoBuildings.mos"
         "Simulate and plot"),
  experiment(
       StopTime=86400,

@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.Detailed.EnergyPlus.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 class FMUZoneClass "Class used to couple the FMU"
 extends ExternalObject;
     function constructor
