@@ -8,7 +8,6 @@
 #include <stdlib.h>
 
 void FMUZoneFree(void* object){
-  unsigned int i;
   if ( object != NULL ){
     FMUZone* zone = (FMUZone*) object;
     /* Free the memory for the zone name in the structure

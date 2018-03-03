@@ -21,7 +21,7 @@ void FMUZoneExchange(
   double* QLat_flow,
   double* QPeo_flow,
   double* tNext){
-//  char msg[200];
+/*  char msg[200]; */
 
   FMUZone* zone = (FMUZone*) object;
 
@@ -32,14 +32,14 @@ void FMUZoneExchange(
   *QPeo_flow = 0;
   /* Time need to be guarded against rounding error */
   *tNext = round((floor(time/3600.0)+1) * 3600.0);
-//  snprintf(msg, 200,
-//    "*** In exchange for bldg: %s; zone: %s, time = %f, tNext = %f, pointer to fmu %p.\n",
-//    zone->ptrBui->name,
-//    zone->name,
-//    time,
-//    *tNext,
-//    zone->ptrBui);
-//  ModelicaMessage(msg);
-
+/*  snprintf(msg, 200,
+    "*** In exchange for bldg: %s; zone: %s, time = %f, tNext = %f, pointer to fmu %p.\n",
+    zone->ptrBui->name,
+    zone->name,
+    time,
+    *tNext,
+    zone->ptrBui);
+  ModelicaMessage(msg);
+*/
   return;
 }

@@ -7,12 +7,11 @@
 #include "FMUEnergyPlusStructure.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 /* Create the structure and return a pointer to its address. */
 FMUBuilding* instantiateEnergyPlusFMU(const char* fmuName, const char* zoneName)
 {
-  char msg[200];
-
   /* Allocate memory */
   if (Buildings_nFMU == 0){
     Buildings_FMUS = malloc(sizeof(struct FMUBuilding*));
@@ -45,7 +44,7 @@ FMUBuilding* instantiateEnergyPlusFMU(const char* fmuName, const char* zoneName)
   Buildings_FMUS[Buildings_nFMU]->nZon = 1;
 
   Buildings_nFMU++;
-  // Return the pointer to the FMU for this EnergyPlus instance
+  /* Return the pointer to the FMU for this EnergyPlus instance */
   return Buildings_FMUS[Buildings_nFMU-1];
 };
 
@@ -60,15 +59,14 @@ int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
   }
   return isUnique;
 }
-//--
-//--/* Create the structure and return a pointer to its address. */
+
+/* Create the structure and return a pointer to its address. */
 void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor)
 {
   /* Note: The fmuName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
   char msg[200];
   unsigned int i;
-  unsigned int k;
 
   /* ********************************************************************** */
   /* Initialize the zone */
