@@ -68,6 +68,9 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor)
   char msg[200];
   unsigned int i;
 
+  snprintf(msg, 200, "****** Initializing zone %s, fmu = %s, nFluPor = %d ****** \n", zoneName, fmuName, nFluPor);
+  ModelicaMessage(msg);
+
   /* ********************************************************************** */
   /* Initialize the zone */
   FMUZone* zone = (FMUZone*) malloc(sizeof(FMUZone));
