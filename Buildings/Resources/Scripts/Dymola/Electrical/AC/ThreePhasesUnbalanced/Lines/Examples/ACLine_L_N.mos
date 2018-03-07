@@ -21,7 +21,6 @@ filename="ACLine_L3phu_N.mat",
 leftTitleType=1,
 bottomTitleType=1,
 colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}});
-
 createPlot(id=1,
 position={0, 0, 920, 158},
 y={"L1.load1.i[2]", "L2.load1.i[2]", "L3.load1.i[2]", "sc_load.load1.i[2]"},
