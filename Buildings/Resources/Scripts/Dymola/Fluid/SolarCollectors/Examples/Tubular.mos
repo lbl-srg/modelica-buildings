@@ -1,7 +1,5 @@
 removePlots();
-
 simulateModel("Buildings.Fluid.SolarCollectors.Examples.Tubular", tolerance=1e-6, stopTime = 86400, method = "dassl", resultFile = "Tubular");
-
 createPlot(id = 1,
  position = {0, 0, 1000, 500},
  y = {"solCol.vol[3].T", "solCol.vol[6].T", "solCol.vol[9].T"},

@@ -21,7 +21,6 @@ filename="TestVoltageCTRL.mat",
 leftTitleType=1,
 bottomTitleType=1,
 colors={{0,0,255}, {255,0,0}, {0,128,0}});
-
 createPlot(id=1,
 position={0, 0, 1340, 279},
 y={"voltageControl.y"},

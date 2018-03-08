@@ -6,7 +6,6 @@ Advanced.FilenameInLegend = false;
 Advanced.SequenceInLegend = true;
 Advanced.PlotLegendTooltip = true;
 Advanced.FullPlotTooltip = true;
-
 createPlot(id=1,
 position={17, 15, 914, 619},
 y={"sen.V[1]", "sen.V[2]", "sen.V[3]"}, range={0.0, 180000.0, 277.1, 277.55},
@@ -21,7 +20,6 @@ filename="WindTurbineAC3phu.mat",
 leftTitleType=1,
 bottomTitleType=1,
 colors={{0,0,255}, {255,0,0}, {0,128,0}});
-
 createPlot(id=1,
 position={17, 15, 914, 306},
 y={"sen.S[1, 1]", "sen.S[1, 2]", "sen.S[2, 1]", "sen.S[2, 2]", "sen.S[3, 1]", "sen.S[3, 2]"},

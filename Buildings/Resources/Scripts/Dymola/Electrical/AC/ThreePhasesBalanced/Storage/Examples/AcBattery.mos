@@ -5,7 +5,6 @@ Advanced.FilenameInLegend = false;
 Advanced.SequenceInLegend = true;
 Advanced.PlotLegendTooltip = true;
 Advanced.FullPlotTooltip = true;
-
 createPlot(id=1,
 position={35, 30, 895, 557},
 y={"bat_loss_acdc.SOC", "bat_ideal.SOC", "bat.SOC"},

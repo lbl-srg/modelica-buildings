@@ -1,5 +1,4 @@
 simulateModel("Buildings.Fluid.HeatExchangers.Examples.DryEffectivenessNTU", stopTime=360, method="dassl", tolerance=1e-6, resultFile="DryEffectivenessNTU");
-
 createPlot(id = 5,
  position = {39, -2, 802, 171},
  y = {"hexCou.Q1_flow", "hexCou.Q2_flow"},
@@ -25,7 +24,6 @@ createPlot(id = 5,
  subPlot = 2,
  leftTitleType = 1,
  bottomTitleType = 1);
-
 createPlot(id = 6,
  position = {39, -2, 802, 171},
  y = {"hexPar.Q1_flow", "hexCou.Q1_flow", "hexCroC1Mix.Q1_flow", "hexCroC1Unm.Q1_flow", "hexCroUnm.Q1_flow"},

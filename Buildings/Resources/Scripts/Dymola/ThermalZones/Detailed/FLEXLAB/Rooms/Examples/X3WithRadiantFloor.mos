@@ -1,7 +1,5 @@
 removePlots();
-
 simulateModel("Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.X3WithRadiantFloor", tolerance=1e-6, stopTime=864000, method="Cvode", resultFile="X3WithRadiantFloor");
-
 createPlot(id = 1,
  position = {0, 0, 1049, 700},
  y = {"X3B.air.vol.T", "BClo.air.vol.T", "BEle.air.vol.T"},
