@@ -170,41 +170,52 @@ protected
       annotation (Line(points={{-39,80},{-22,80}}, color={0,0,127}));
     connect(difLif.y, simA.u)
       annotation (Line(points={{-79,-10},{-62,-10}}, color={0,0,127}));
-    connect(minLif.y, difLif.u1) annotation (Line(points={{-119,-10},{-110,-10},{-110,
-            -4},{-102,-4}}, color={0,0,127}));
+    connect(minLif.y, difLif.u1)
+      annotation (Line(points={{-119,-10},{-110,-10},{-110,-4},{-102,-4}},
+        color={0,0,127}));
     connect(simA.y, simB.u1)
       annotation (Line(points={{-39,-10},{-32,-10},{-32,-34},{-12,-34}},
         color={0,0,127}));
-    connect(simA.y, coeA.u1) annotation (Line(points={{-39,-10},{-32,-10},{-32,-2},
-            {-12,-2}}, color={0,0,127}));
-    connect(regA.y, coeA.u3) annotation (Line(points={{-39,-100},{-20,-100},{-20,-18},
-            {-12,-18}}, color={0,0,127}));
-    connect(simB.y, coeB.u1) annotation (Line(points={{11,-40},{20,-40},{20,-32},{
-            38,-32}}, color={0,0,127}));
-    connect(simCoe.y, coeA.u2) annotation (Line(points={{-79,-80},{-26,-80},{-26,-10},
-            {-12,-10}}, color={255,0,255}));
-    connect(regB.y, coeB.u3) annotation (Line(points={{11,-100},{32,-100},{32,-48},
-            {38,-48}}, color={0,0,127}));
-    connect(simCoe.y, coeB.u2) annotation (Line(points={{-79,-80},{26,-80},{26,-40},
-            {38,-40}}, color={255,0,255}));
+    connect(simA.y, coeA.u1)
+      annotation (Line(points={{-39,-10},{-32,-10},{-32,-2},{-12,-2}},
+        color={0,0,127}));
+    connect(regA.y, coeA.u3)
+      annotation (Line(points={{-39,-100},{-20,-100},{-20,-18},{-12,-18}},
+        color={0,0,127}));
+    connect(simB.y, coeB.u1)
+      annotation (Line(points={{11,-40},{20,-40},{20,-32},{38,-32}},
+        color={0,0,127}));
+    connect(simCoe.y, coeA.u2)
+      annotation (Line(points={{-79,-80},{-26,-80},{-26,-10},{-12,-10}},
+        color={255,0,255}));
+    connect(regB.y, coeB.u3)
+      annotation (Line(points={{11,-100},{32,-100},{32,-48},{38,-48}},
+        color={0,0,127}));
+    connect(simCoe.y, coeB.u2)
+      annotation (Line(points={{-79,-80},{26,-80},{26,-40},{38,-40}},
+        color={255,0,255}));
     connect(PLR.y, pro.u1)
       annotation (Line(points={{1,80},{20,80},{20,56},{38,56}},
         color={0,0,127}));
-    connect(coeA.y, pro.u2) annotation (Line(points={{11,-10},{20,-10},{20,44},{38,
-            44}}, color={0,0,127}));
-    connect(coeB.y, add1.u2) annotation (Line(points={{61,-40},{70,-40},{70,38},{78,
-            38}}, color={0,0,127}));
+    connect(coeA.y, pro.u2)
+      annotation (Line(points={{11,-10},{20,-10},{20,44},{38,44}},
+        color={0,0,127}));
+    connect(coeB.y, add1.u2)
+      annotation (Line(points={{61,-40},{70,-40},{70,38},{78,38}},
+        color={0,0,127}));
     connect(pro.y, add1.u1)
       annotation (Line(points={{61,50},{78,50}},
         color={0,0,127}));
     connect(PLR.y, yPLR)
       annotation (Line(points={{1,80},{170,80}}, color={0,0,127}));
-    connect(desLif.y, difLif.u2) annotation (Line(points={{-119,-50},{-108,-50},{-108,
-            -16},{-102,-16}}, color={0,0,127}));
+    connect(desLif.y, difLif.u2)
+      annotation (Line(points={{-119,-50},{-108,-50},{-108,-16},{-102,-16}},
+        color={0,0,127}));
     connect(lim.y, dTRef)
       annotation (Line(points={{149,0},{170,0}}, color={0,0,127}));
-    connect(desLif.y, simB.u2) annotation (Line(points={{-119,-50},{-108,-50},{-108,
-            -46},{-12,-46}}, color={0,0,127}));
+    connect(desLif.y, simB.u2)
+      annotation (Line(points={{-119,-50},{-108,-50},{-108,-46},{-12,-46}},
+        color={0,0,127}));
     connect(add1.y, dF2dT.u)
       annotation (Line(points={{101,44},{108,44},{108,20},{80,20},{80,0},{92,0}},
         color={0,0,127}));
