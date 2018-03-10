@@ -6,7 +6,6 @@ Advanced.FilenameInLegend = false;
 Advanced.SequenceInLegend = true;
 Advanced.PlotLegendTooltip = true;
 Advanced.FullPlotTooltip = true;
-
 createPlot(id=1,
 position={0, 0, 1674, 725},
 y={"load.S[1]", "load.S[2]", "sou.S[1]", "sou.S[2]"},
@@ -22,7 +21,6 @@ filename="ACACTransformerFull3ph.mat",
 leftTitleType=1,
 bottomTitleType=1,
 colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}});
-
 createPlot(id=1,
 position={0, 0, 1674, 237},
 y={"load.i[1]", "load.i[2]"},
