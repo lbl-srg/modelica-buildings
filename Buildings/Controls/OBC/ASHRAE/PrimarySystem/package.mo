@@ -1,7 +1,14 @@
 within Buildings.Controls.OBC.ASHRAE;
 package PrimarySystem "Package with control sequences for primary system"
 
-annotation (Icon(graphics={
+annotation (
+preferredView="info", Documentation(info="<html>
+<p>
+This package contains control sequences for HVAC primary system control. They are
+developed according to ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL.
+</p>
+</html>"),
+Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},
