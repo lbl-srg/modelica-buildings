@@ -261,7 +261,8 @@ annotation (
           textString="%name")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-160,-120},{160,120}})),
   Documentation(info="<html>
-<p>Block that output chiller <code>dTRef</code> and actual PLR (<code>yPLR</code>) 
+<p>
+Block that output chiller <code>dTRef</code> and actual PLR (<code>yPLR</code>) 
 according to ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL, 
 Chapter 7, Appendix A, section Condenser water temperature control.
 </p>
@@ -286,19 +287,22 @@ supply flow rate.
 <pre>
   dTRef = (A*PLR + B)*5/9
 </pre>
-<p>in which, the coefficient A and B can be found out with one of following 
+<p>
+in which, the coefficient A and B can be found out with one of following 
 APPROACH_nominales:
 </p>
 <ul>
 <li>Regressed coefficients (use with care)</li>
+</ul>
 <pre>
 A = -63 + 0.0053*cooDegDay65 - 0.0087*wetBulCooDegDay55 + 1.67*((TWetBul_nominal-273.15)*9/5+32) 
         + 0.52*APPROACH_nominal*9/5 - 0.029*cooTowEff
 B = 18 - 0.0033*cooDegDay65 + 0.0053*wetBulCooDegDay55 - 0.26*((TWetBul_nominal-273.15)*9/5+32) 
        + 0.15*APPROACH_nominal*9/5 - 0.014*cooTowEff 
 </pre>
-</ul>
-<p>Where <code>cooDegDay65</code> is Cooling degree-days base 65 degF, 
+
+<p>
+Where <code>cooDegDay65</code> is Cooling degree-days base 65 degF, 
 <code>wetBulCooDegDay55</code> is Webbulb cooling degree-days base 55 degF, 
 <code>TWetBul_nominal</code> is Design wetbulb temperature,
 <code>APPROACH_nominal</code> is Design tower leaving water temperature minus design 
@@ -307,12 +311,14 @@ wetbulb temperature,
 </p>
 <ul>
 <li>Simplified coefficients (recommended)</li>
+</ul>
 <pre>
 A = (dTRef_nominal - dTRefMin)/0.9
 B = dTRef_nominal - A
 </pre>
-</ul>
-<p>where <code>dTRef_nominal</code> is dTRef at design conditions 
+
+<p>
+where <code>dTRef_nominal</code> is dTRef at design conditions 
 (<code>TConWatRet_nominal</code> - <code>TChiWatSup_nominal</code>), 
 <code>dTRefMin</code> is Minimum dTRef at minimum load.
 </p>
