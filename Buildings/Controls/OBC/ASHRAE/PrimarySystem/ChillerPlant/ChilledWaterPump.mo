@@ -231,7 +231,21 @@ annotation (
           extent={{-138,-42},{138,-118}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None)}),
+          pattern=LinePattern.None),
+        Text(
+          extent={{20,74},{78,64}},
+          lineColor={0,0,255},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          horizontalAlignment=TextAlignment.Right,
+          textString="Pump speed control"),
+        Text(
+          extent={{92,-102},{134,-120}},
+          lineColor={0,0,255},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          horizontalAlignment=TextAlignment.Right,
+          textString="Lag pump status")}),
   Icon(graphics={Text(
           extent={{-100,150},{100,110}},
           lineColor={0,0,255},
