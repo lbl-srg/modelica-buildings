@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "towFan.TConWatRet",
+    "towFan.TChiWatSup",
+    "towFan.CWRT_Set.y",
+    "towFan.dTRef",
+    "towFan.conPID.u_s",
+    "towFan.conPID.u_m",
+    "towFan.conPID.y",
+    "towFan.lat.u",
+    "towFan.lat.u0",
+    "towFan.lat.y"
+  };

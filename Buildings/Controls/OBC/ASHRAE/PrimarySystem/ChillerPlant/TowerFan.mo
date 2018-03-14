@@ -20,13 +20,13 @@ block TowerFan "Sequences to control cooling tower fan"
   parameter Modelica.SIunits.Time TiFan=300
     "Time constant of integrator block for fan control"
     annotation(Dialog(group="Fan controller",
-    enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-        or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    enable=controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Time TdFan=0.1
     "Time constant of derivative block for fan control"
     annotation (Dialog(group="Fan controller",
-      enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-          or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable=controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
