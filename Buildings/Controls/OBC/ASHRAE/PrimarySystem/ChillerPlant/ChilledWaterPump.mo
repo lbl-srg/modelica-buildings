@@ -26,13 +26,13 @@ block ChilledWaterPump "Sequences to control chilled water pumps"
   parameter Modelica.SIunits.Time TiPum=300
     "Time constant of integrator block for pump control"
     annotation(Dialog(group="Chilled water pump controller",
-      enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-        or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable=controllerTypePum == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypePum == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Time TdPum=0.1
     "Time constant of derivative block for pump control"
     annotation (Dialog(group="Chilled water pump controller",
-      enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-        or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable=controllerTypePum == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+        or controllerTypePum == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VEva_flow(
     final unit="m3/s",
