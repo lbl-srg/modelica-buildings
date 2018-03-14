@@ -78,8 +78,9 @@ block TowerFan "Sequences to control cooling tower fan"
     final uHigh=dTAboSet + 0.25)
     "CWRT rises above setpoint by 0.55 degC with 0.25 degC band"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis droCWRT(final uLow=-0.25,
-      final uHigh=0.25)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis droCWRT(
+    final uLow=-0.25,
+    final uHigh=0.25)
     "CWRT drops below setpoint with 0.25 degC band"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Logical.And fanOn "Enable tower fans"
@@ -112,7 +113,8 @@ block TowerFan "Sequences to control cooling tower fan"
     final yMax=1,
     final yMin=0,
     u_s(final unit="K", displayUnit="degC"),
-    u_m(final unit="K", displayUnit="degC"))
+    u_m(final unit="K", displayUnit="degC"),
+    final reverseAction=true)
     "Fan speed controller"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi

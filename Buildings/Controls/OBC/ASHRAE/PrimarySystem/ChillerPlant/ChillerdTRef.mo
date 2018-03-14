@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
 block ChillerdTRef "Calculate actual PLR and current chiller LIFT"
 
   parameter Integer cooDegDay65 = 948
-    "Cooling degree-days base 65 degF"
+    "Cooling degree-days base 18.33 degC (65 degF)"
     annotation(Dialog(group="Design conditions"));
   parameter Integer wetBulCooDegDay55 = 1094
-    "Webbulb cooling degree-days base 55 degF"
+    "Webbulb cooling degree-days base 12.78 degC (55 degF)"
     annotation(Dialog(group="Design conditions"));
   parameter Modelica.SIunits.Temperature TWetBul_nominal
     "Design wetbulb temperature"
@@ -22,7 +22,7 @@ block ChillerdTRef "Calculate actual PLR and current chiller LIFT"
   parameter Modelica.SIunits.Temperature TChiWatSup_nominal
     "Design chilled water supply temperature"
     annotation(Dialog(group="Design conditions"));
-  parameter Modelica.SIunits.HeatFlowRate plaCap_nominal
+  parameter Modelica.SIunits.HeatFlowRate plaCap_nominal(displayUnit = "kW")
     "Total design plant capacity"
     annotation(Dialog(group="Design conditions"));
   parameter Modelica.SIunits.TemperatureDifference dTRefMin
@@ -30,7 +30,7 @@ block ChillerdTRef "Calculate actual PLR and current chiller LIFT"
     annotation(Dialog(group="Design conditions"));
   parameter Boolean use_simCoe = true
     "Indicate if use simplified coefficients";
-  parameter Modelica.SIunits.Density rho = 1000
+  parameter Modelica.SIunits.Density rho(displayUnit = "kg/m3") = 1000
     "Density of water";
   parameter Modelica.SIunits.SpecificHeatCapacity cp = 4190
     "Specific heat capacity of water";
@@ -124,10 +124,12 @@ protected
     "Simplified cofficients indicator"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minLif(
-    final k=(dTRefMin - 273.15)*9/5 + 32) "Minimum LIFT at minimum load"
+    final k=dTRefMin*9/5)
+    "Minimum LIFT at minimum load"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desLif(
-    final k=(dTRef_nominal - 273.15)*9/5 + 32) "LIFT at design conditions"
+    final k=dTRef_nominal*9/5)
+    "LIFT at design conditions"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Add difLif(k1=-1)
     "Design and minimum LIFT difference"
