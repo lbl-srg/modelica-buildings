@@ -148,7 +148,29 @@ equation
 annotation (
   defaultComponentName="chiWatPlaRes",
   Diagram(coordinateSystem(preserveAspectRatio=false,
-  extent={{-140,-60},{120,100}})),
+  extent={{-140,-60},{120,100}}), graphics={Rectangle(
+          extent={{-138,18},{98,-58}},
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None), Rectangle(
+          extent={{-138,98},{98,22}},
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None), Text(
+          extent={{10,-46},{94,-58}},
+          pattern=LinePattern.None,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,255},
+          textString="Check if there is chiller stage change"),
+          Text(
+          extent={{-70,100},{82,84}},
+          pattern=LinePattern.None,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,255},
+          horizontalAlignment=TextAlignment.Left,
+          textString="Calculate the plant reset, hold its last value when there is chiller stage change")}),
   Icon(graphics={Text(
           extent={{-100,150},{100,110}},
           lineColor={0,0,255},
