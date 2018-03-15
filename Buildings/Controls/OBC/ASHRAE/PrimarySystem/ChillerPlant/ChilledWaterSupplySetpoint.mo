@@ -2,13 +2,22 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
 block ChilledWaterSupplySetpoint
   "Sequences to generate setpoints of chilled water supply temperaturea and the pump differential static pressure"
 
-  parameter Modelica.SIunits.PressureDifference dpChiWatPumMin
+  parameter Modelica.SIunits.PressureDifference dpChiWatPumMin(
+    final min=0,
+    displayUnit="Pa")
     "Minimum chilled water pump differential static pressure";
-  parameter Modelica.SIunits.PressureDifference dpChiWatPumMax
+  parameter Modelica.SIunits.PressureDifference dpChiWatPumMax(
+    final min=dpChiWatPumMin,
+    displayUnit="Pa")
     "Maximum chilled water pump differential static pressure";
-  parameter Modelica.SIunits.ThermodynamicTemperature TChiWatSupMin
-    "Minimum chilled water supply temperature";
-  parameter Modelica.SIunits.ThermodynamicTemperature TChiWatSupMax
+  parameter Modelica.SIunits.ThermodynamicTemperature TChiWatSupMin(
+    displayUnit="K")
+    "Minimum chilled water supply temperature, typically the design chilled water temperature 
+    for plants with variable speed chillers but should be 1~2 degF lower for constant speed
+    plants";
+  parameter Modelica.SIunits.ThermodynamicTemperature TChiWatSupMax(
+    final min=TChiWatSupMin,
+    displayUnit="K")
     "Maximum chilled water supply temperature";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatPlaRes(
