@@ -470,7 +470,7 @@ properties as the fluid that enters <code>port_b</code>.
 <li>
 March 19, 2018, by Michael Wetter:<br/>
 Added bugfix as the old model did not track <code>TSet</code> and <code>X_wSet</code>
-simultaneously.</br>
+simultaneously.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/893\">#893</a>.
 </li>
