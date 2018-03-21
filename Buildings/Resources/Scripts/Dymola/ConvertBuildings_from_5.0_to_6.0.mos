@@ -1,0 +1,12 @@
+// Conversion script for Buildings library
+//  from: Version 5.0
+//  to:   Version 6.0
+clear
+
+convertClear();
+
+convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone",
+             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone");
+
+convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone",
+             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.SingleZone");
