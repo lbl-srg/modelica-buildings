@@ -1,5 +1,3 @@
-
-
 for ff in `find . \( -name '*.mo' -or -name '*.mos' -or -name '*.py' -or -name '*.txt' -or -name '*.svg'  \)`; do
     list=(\
 
@@ -10,10 +8,10 @@ for ff in `find . \( -name '*.mo' -or -name '*.mos' -or -name '*.py' -or -name '
      occCooSet TOccDisSet \
      TCooSet TZonCooSet \
      THeaSet TZonHeaSet \
-     TCooOnMax TZonCooSetMax \
-     TCooOnMin TZonCooSetMin \
-     THeaOnMax TZonHeaSetMax \
-     THeaOnMin TZonHeaSetMin \
+     TCooOnMax TZonCooSetMaxOn \
+     TCooOnMin TZonCooSetMinOn \
+     THeaOnMax TZonHeaSetMaxOn \
+     THeaOnMin TZonHeaSetMinOn \
      TCooWinOpe TZonCooSetWinOpe \
      THeaWinOpe TZonHeaSetWinOpe \
 
@@ -34,10 +32,8 @@ for ff in `find . \( -name '*.mo' -or -name '*.mos' -or -name '*.py' -or -name '
 
     # Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests
 
-     TCooSet TZonCooSet \
      VDis VDis_flow \
      VDisSet VDisSet_flow \
-     TDis \ *mg
      cooSetDif_1 errTZonCoo_1 \
      cooSetDif_2 errTZonCoo_2 \
      disAirSetDif_1 errTDis_1 \
@@ -45,24 +41,16 @@ for ff in `find . \( -name '*.mo' -or -name '*.mos' -or -name '*.py' -or -name '
 
     # Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves
 
-     dTDisMax dTDis_ZonSet_Max \
-     V_flow_nominal VNom_flow \
+     dTDisMax dTDisZonSetMax \
      TDisSet TDisHeaSet \
 
     # Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints
-    # (most of these need to be consistent with G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures)
      THeaOn TZonHeaOn \
      TCooOn TZonCooOn \
      THeaOff TZonHeaOff \
      TCooOff TZonCooOff \
      freProThrVal TZonFreProOn \
      freProEndVal TZonFreProOff \
-     TCooOnMax TZonCooSetMaxOn \
-     TCooOnMin TZonCooSetMinOn \
-     THeaOnMax TZonHeaSetMaxOff \
-     THeaOnMin TZonHeaSetMinOff \
-     TCooWinOpe TZonCooSetWinOpe \
-     THeaWinOpe TZonHeaSetWinOpe \
      incSetDem_1 incTSetDem_1 \
      incSetDem_2 incTSetDem_2 \
      incSetDem_3 incTSetDem_3 \
@@ -82,12 +70,13 @@ for ff in `find . \( -name '*.mo' -or -name '*.mos' -or -name '*.py' -or -name '
 # Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone
 
     # SetPoints.ExhaustDamper
+    *mg run in this only
      uFan uSupFan \
 
     # Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.VAVSupply
      TMax TSupSetMax \
      TMin TSupSetMin \
-     TSetZon TRooSet \
+     TSetZon TZonSet \
      THeaEco TSupHeaEco \
      TCoo TSupCoo \
 
