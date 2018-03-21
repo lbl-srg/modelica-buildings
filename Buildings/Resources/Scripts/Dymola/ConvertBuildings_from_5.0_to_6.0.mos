@@ -5,8 +5,16 @@ clear
 
 convertClear();
 
-convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone",
-             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone");
+convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller",
+             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller");
+convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers",
+             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers");
+convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints",
+             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints");
+convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Validation",
+             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Validation");
 
-convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone",
-             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.SingleZone");
+convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers",
+             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers");
+convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints",
+             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints");
