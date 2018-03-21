@@ -1,21 +1,14 @@
 import buildingspy.development.refactor as r
 
-path = "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs."
-
-r.move_class("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone",
-	"Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV")
-
-# r.move_class("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone",
-# 	"Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone1")
-
-# r.move_class("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone1",
-# 	"Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV")
-
-r.move_class("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV",
-	"Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV")
-
-# r.move_class("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone",
-# 	"Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone1")
-
-# r.move_class("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone1",
-# 	"Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV")
+r.move_class("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller",
+             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller");
+r.move_class("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers",
+             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers");
+r.move_class("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints",
+             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints");
+r.move_class("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Validation",
+             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Validation");
+r.move_class("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers",
+             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers");
+r.move_class("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints",
+             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints");
