@@ -444,22 +444,19 @@ First implementation.
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
         Line(points={{-80,78},{-80,-90}}, color={192,192,192}),
-        Line(points={{-80,-80},{-80,-20},{30,60},{80,60}}, color={0,0,127}),
         Line(points={{-90,-80},{82,-80}}, color={192,192,192}),
         Polygon(
           points={{90,-80},{68,-72},{68,-88},{90,-80}},
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(
-          visible=strict,
-          points={{30,60},{81,60}},
-          color={255,0,0},
-          smooth=Smooth.None),
     Text(
       extent={{-150,150},{150,110}},
       textString="%name",
-      lineColor={0,0,255})}),
+      lineColor={0,0,255}),
+        Line(points={{-80,-80},{-80,-22}}, color={0,0,0}),
+        Line(points={{-80,-22},{6,56}}, color={0,0,0}),
+        Line(points={{6,56},{68,56}}, color={0,0,0})}),
     Diagram(graphics={                             Text(
             extent={{-102,34},{-142,24}},
             textString="(setpoint)",
