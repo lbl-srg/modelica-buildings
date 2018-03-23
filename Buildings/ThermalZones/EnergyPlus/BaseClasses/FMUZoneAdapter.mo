@@ -73,8 +73,7 @@ protected
       nVarSen=nVarSen,
       varNamSen=varNamSen,
       nVarRec=nVarRec,
-      varNamRec=varNamRec,
-      valRefVarRec=valRefVarRec)
+      varNamRec=varNamRec)
         "Class to communicate with EnergyPlus";
       //valRefVarSen=valRefVarSen,
       //varNamSen=varNamSen,

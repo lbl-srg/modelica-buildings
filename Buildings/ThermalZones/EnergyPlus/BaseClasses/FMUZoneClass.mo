@@ -11,7 +11,7 @@ extends ExternalObject;
     //input Integer[:] valRefVarSen "Value references of variables sent to EnergyPlus";
     input Integer nVarRec "Number of variables received from EnergyPlus";
     input String[:] varNamRec "Names of variables received from EnergyPlus";
-    input Integer[:] valRefVarRec "Value references of variables received from EnergyPlus";
+    //input Integer[:] valRefVarRec "Value references of variables received from EnergyPlus";
     output FMUZoneClass adapter;
     //       external "C" adapter = FMUZoneInit(fmuName, zoneName, nFluPor,
     //         nVarSen, varNamSen, valRefVarSen, nVarRec, varNamRec, valRefVarRec)
