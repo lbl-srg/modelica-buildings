@@ -10,8 +10,10 @@
 #include <stdio.h>
 
 /* Create the structure and return a pointer to its address. */
-FMUBuilding* instantiateEnergyPlusFMU(const char* fmuName, const char* zoneName)
+FMUBuilding* instantiateEnergyPlusFMU(const char* fmuName, const char* zoneName, FMUZone* zone)
 {
+  char msg[200];
+
   /* Allocate memory */
   if (Buildings_nFMU == 0){
     Buildings_FMUS = malloc(sizeof(struct FMUBuilding*));
@@ -42,6 +44,13 @@ FMUBuilding* instantiateEnergyPlusFMU(const char* fmuName, const char* zoneName)
   strcpy(Buildings_FMUS[Buildings_nFMU]->zoneNames[0], zoneName);
 
   Buildings_FMUS[Buildings_nFMU]->nZon = 1;
+
+  Buildings_FMUS[Buildings_nFMU]->zones=malloc(sizeof(FMUZone *));
+  if ( Buildings_FMUS[Buildings_nFMU]->zones== NULL )
+    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zones.");
+
+  /* Assign the zone */
+  Buildings_FMUS[Buildings_nFMU]->zones[0] = zone;
 
   Buildings_nFMU++;
   /* Return the pointer to the FMU for this EnergyPlus instance */
@@ -100,7 +109,7 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor)
   if (Buildings_nFMU == 0){
     /* No FMUs exist. Instantiate an FMU and */
     /* assign this fmu pointer to the zone that will invoke its setXXX and getXXX */
-    zone->ptrBui = instantiateEnergyPlusFMU(fmuName, zoneName);
+    zone->ptrBui = instantiateEnergyPlusFMU(fmuName, zoneName, zone);
   } else {
     /* There is already a Buildings FMU allocated.
        Check if the current zone is for this FMU. */
@@ -118,11 +127,13 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor)
           zone->ptrBui = bld;
           /* Increment size of vector that contains the zone names. */
           bld->zoneNames = realloc(bld->zoneNames, (bld->nZon + 1) * sizeof(char*));
+          bld->zones = realloc(bld->zones, (bld->nZon + 1) * sizeof(FMUZone*));
           if (bld->zoneNames == NULL){
             ModelicaError("Not enough memory in FMUZoneInit.c. to allocate memory for bld->zoneNames.");
           }
           /* Add storage for new zone name, and copy the zone name */
           bld->zoneNames[bld->nZon] = malloc(strlen(zoneName) * sizeof(char));
+          bld->zones[bld->nZon] = zone;
           if ( bld->zoneNames[bld->nZon] == NULL )
             ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
           strcpy(bld->zoneNames[bld->nZon], zoneName);
@@ -134,7 +145,7 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor)
       /* Check if we found an FMU */
       if (zone->ptrBui == NULL){
         /* Did not find an FMU. */
-        zone->ptrBui = instantiateEnergyPlusFMU(fmuName, zoneName);
+        zone->ptrBui = instantiateEnergyPlusFMU(fmuName, zoneName, zone);
       }
   }
   /* Return a pointer to this zone */

@@ -4,7 +4,9 @@ function initialize "Initialization"
     adapter "External object";
   output Modelica.SIunits.Area AFlo "Zone floor area";
   output Modelica.SIunits.Volume V "Zone air volume";
-  external "C" FMUZoneInitialize(adapter, AFlo, V)
+  output Real mSenFac "Factor for scaling the sensible thermal mass of the zone air volume";
+
+  external "C" FMUZoneInitialize(adapter, AFlo, V, mSenFac)
   annotation (Include="#include <FMUZoneInitialize.c>",
                    IncludeDirectory="modelica://Buildings/Resources/C-Sources");
   annotation (Documentation(info="<html>

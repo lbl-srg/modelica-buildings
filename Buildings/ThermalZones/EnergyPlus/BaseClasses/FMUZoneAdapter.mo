@@ -8,6 +8,16 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
 
   final parameter Modelica.SIunits.Area AFlo(fixed=false) "Floor area";
   final parameter Modelica.SIunits.Volume V(fixed=false) "Zone volume";
+  final parameter Real mSenFac(fixed=false)
+    "Factor for scaling the sensible thermal mass of the zone air volume";
+  parameter Integer nVarSen "Number of variables sent to EnergyPlus";
+  parameter String[nVarSen] varNamSen "Variable names sent to EnergyPlus";
+  parameter Integer[nVarSen] valRefVarSen
+    "Value references of variables sent to EnergyPlus";
+  parameter Integer nVarRec "Number of variables received from EnergyPlus";
+  parameter String[nVarRec] varNamRec "Variable names received from EnergyPlus";
+  parameter Integer[nVarRec] valRefVarRec
+    "Value references of variables received from EnergyPlus";
 
   Modelica.Blocks.Interfaces.RealInput T(
     final unit="K",
@@ -53,17 +63,29 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
         iconTransformation(extent={{100,-70},{120,-50}})));
 
   Modelica.SIunits.Time tNext(start=t0-1, fixed=true) "Next sampling time";
-  Modelica.SIunits.Time dtMax(start=600, fixed=true) "Hack to aovid too long time steps";
+  Modelica.SIunits.Time dtMax(start=600, fixed=true) "Hack to avoid too long time steps";
 protected
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass adapter=
       Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass(
       fmuName=fmuName,
       zoneName=zoneName,
-      nFluPor=nFluPor) "Class to communicate with EnergyPlus";
+      nFluPor=nFluPor,
+      nVarSen=nVarSen,
+      varNamSen=varNamSen,
+      nVarRec=nVarRec,
+      varNamRec=varNamRec,
+      valRefVarRec=valRefVarRec)
+        "Class to communicate with EnergyPlus";
+      //valRefVarSen=valRefVarSen,
+      //varNamSen=varNamSen,
+      //valRefVarSen=valRefVarSen,
+      //varNamRec=varNamRec,
+      //valRefVarRec=valRefVarRec
   parameter Modelica.SIunits.Time t0(fixed=false) "Simulation start time";
 initial equation
   t0 = time;
-  (AFlo, V) = Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(adapter);
+  (AFlo, V, mSenFac) = Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(adapter);
+
 equation
   when {initial(), time >= pre(tNext), time >= pre(dtMax)} then
     (TRad, QCon_flow, QLat_flow, QPeo_flow, tNext) =
@@ -88,6 +110,10 @@ of its class <code>adapter</code>, of EnergyPlus.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 21, 2018, by Thierry S. Nouidui:<br/>
+Revised implementation for efficiency.
+</li>
 <li>
 February 14, 2018, by Michael Wetter:<br/>
 First implementation.

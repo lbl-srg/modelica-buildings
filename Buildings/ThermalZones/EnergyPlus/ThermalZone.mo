@@ -10,6 +10,12 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
       connectorSizing=true,
       tab="General",
       group="Ports"));
+  parameter String varNamSen[nVarSen] = {"u1", "u2", "u3", "u4", "u5"} "Variable names sent to EnergyPlus";
+  parameter Integer[:] valRefVarSen={0,1,2,3,4} "Value references of variables sent to EnergyPlus";
+  final parameter Integer nVarSen = max(size(valRefVarSen)) "Number of variables sent to EnergyPlus";
+  parameter String varNamRec[nVarRec] = {"y1", "y2", "y3", "y4"} "Variable names received from EnergyPlus";
+  parameter Integer[:] valRefVarRec={10000, 100001, 100002, 100003} "Value references of variables received from EnergyPlus";
+  final parameter Integer nVarRec = max(size(valRefVarRec)) "Number of variables received from EnergyPlus";
 
   ////////////////////////////////////////////////////////////////////////////
   // Media declaration. This is identical to
@@ -38,11 +44,6 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
   final parameter Modelica.Fluid.Types.Dynamics traceDynamics=energyDynamics
     "Type of trace substance balance for zone air: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
-
-  parameter Real mSenFac(min=1)=1
-    "Factor for scaling the sensible thermal mass of the zone air volume"
-    annotation(Dialog(tab="Dynamics", group="Zone air"));
-
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
     "Start value of zone air pressure"
@@ -65,7 +66,9 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
 
   final parameter Modelica.SIunits.Volume V = fmuZon.V "Zone volume";
   final parameter Modelica.SIunits.Area AFlo = fmuZon.AFlo "Floor area";
-
+  final parameter Real mSenFac(min=1)=fmuZon.mSenFac
+    "Factor for scaling the sensible thermal mass of the zone air volume"
+    annotation(Dialog(tab="Dynamics", group="Zone air"));
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3](each unit="W/m2")
     "Radiant, convective and latent heat input into room (positive if heat gain)"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}})));
@@ -117,8 +120,15 @@ protected
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
     final fmuName=fmuName,
     final zoneName=zoneName,
-    final nFluPor=nPorts) "FMU zone adapter"
+    final nFluPor=nPorts,
+    final nVarSen=nVarSen,
+    final varNamSen=varNamSen,
+    final valRefVarSen=valRefVarSen,
+    final nVarRec=nVarRec,
+    final varNamRec=varNamRec,
+    final valRefVarRec=valRefVarRec) "FMU zone adapter"
     annotation (Placement(transformation(extent={{80,104},{100,124}})));
+
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     redeclare final package Medium = Medium,
     final V=V,
@@ -210,6 +220,21 @@ initial equation
   assert(fmuName <> "", "Must provide the name of the fmu file.");
   assert(zoneName <> "", "Must provide the name of the zone.");
  // assert(nPorts >= 2, "The zone must have at least one air inlet and outlet.");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 equation
   connect(heaGai.qGai_flow, qGai_flow) annotation (Line(points={{-182,100},{-220,
@@ -395,7 +420,12 @@ name of the species or its molar mass and hence it cannot be matched
 to species in Modelica or converted to emitted mass flow rate.)
 </p>
 </html>", revisions="<html>
-<ul><li>
+<ul>
+<li>
+March 21, 2018, by Thierry S. Nouidui:<br/>
+Revised implementation for efficiency.
+</li>
+<li>
 February 14, 2018, by Michael Wetter:<br/>
 First implementation for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1129\">issue 1129</a>.
 </li>

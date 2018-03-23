@@ -12,6 +12,7 @@ typedef struct FMUBuilding
   char* name;
   int nZon; /* Number of zones that use this FMU */
   char** zoneNames; /* Names of zones in this FMU */
+  void** zones; /* Pointers to all zones*/
 } FMUBuilding;
 
 typedef struct FMUZone
@@ -20,6 +21,12 @@ typedef struct FMUZone
   FMUBuilding* ptrBui; /* Pointer to building with this zone */
   unsigned int* valueReference; /* Value references for this zone */
   size_t nValueReference;
+  size_t nInputValueReferences;/* Number of input value references*/
+  char** inputVariableNames; /* Names of input variables*/
+  int* inputValueReferences; /* Value reference of input variables*/
+  size_t nOutputValueReferences;/* Number of output value references*/
+  char** outputVariableNames; /* Names of output variables*/
+  int* outputValueReferences; /* Value references of output variables*/
 } FMUZone;
 
 static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs */
