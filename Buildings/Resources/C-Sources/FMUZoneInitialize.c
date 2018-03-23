@@ -96,7 +96,7 @@ static int loadLib(const char* libPath, FMU *fmu) {
 	}
 	fmu->getVariables = (fGetVariables)getAdr(fmu, "getVariables");
 	if (!(fmu->getVariables)) {
-		ModelicaMessage("Can't find function getVariables()\n");
+		ModelicaError("Can't find function getVariables()\n");
 		return -1;
 	}
 
