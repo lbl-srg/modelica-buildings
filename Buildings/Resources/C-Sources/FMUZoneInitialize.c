@@ -2,6 +2,7 @@
  * Modelica external function to intialize EnergyPlus.
  *
  * Michael Wetter, LBNL                  3/1/2018
+ * Thierry S. Nouidui, LBNL                  3/23/2018
  */
 
 #include "FMUEnergyPlusStructure.h"
