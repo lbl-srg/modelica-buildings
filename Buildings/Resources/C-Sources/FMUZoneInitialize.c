@@ -17,7 +17,8 @@ static void* getAdr(FMU *fmu, const char* functionName){
 	fp = dlsym(fmu->dllHandle, functionName);
 #endif
 	if (!fp) {
-                snprintf(msg, 200, "****** Function %s, not found in the EnergyPlus functions library****** \n", 
+                snprintf(msg, 200, "****** Function %s,  not "
+                "found in the EnergyPlus functions library****** \n", 
                 functionName);
 		ModelicaError (msg);
 	}
@@ -36,13 +37,15 @@ static int loadLib(const char* libPath, FMU *fmu) {
 #ifdef _MSC_VER
 	h = LoadLibrary(libPath);
 	if (h == NULL) {
-		snprintf(msg, 200, "****** Unable to load the EnergyPlus functions library with path %s ****** \n", 
+		snprintf(msg, 200, "****** Unable to load the EnergyPlus "
+                "functions library with path %s ****** \n", 
                 libPath);
 		ModelicaError(msg);
 		return -1;
 	}
 	if (!h) {
-		snprintf(msg, 200, "****** Unable to load the EnergyPlus functions library with path %s ****** \n", 
+		snprintf(msg, 200, "****** Unable to load the "
+                "EnergyPlus functions library with path %s ****** \n", 
                 libPath);
 		ModelicaError(msg);
 		return -1;
@@ -50,13 +53,15 @@ static int loadLib(const char* libPath, FMU *fmu) {
 #else
 	h = dlopen(libPath, RTLD_LAZY);
 	if (h == NULL) {
-		snprintf(msg, 200, "****** Unable to load the EnergyPlus functions library with path %s ****** \n", 
+		snprintf(msg, 200, "****** Unable to load the "
+                "EnergyPlus functions library with path %s ****** \n", 
                 libPath);
 		ModelicaError(msg);
 		return -1;
 	}
 	if (!h) {
-		snprintf(msg, 200, "****** Unable to load the EnergyPlus functions library with path %s ****** \n", 
+		snprintf(msg, 200, "****** Unable to load the "
+                "EnergyPlus functions library with path %s ****** \n", 
                 libPath);
 		ModelicaError(msg);
 		return -1;
@@ -117,21 +122,24 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
    zone->ptrBui->fmu = fmu;
    int retVal;
 
-   const char * inputNames[] = {"Attic,T", "Core_ZN,T", "Perimeter_ZN_1,T", "Perimeter_ZN_2,T", "Perimeter_ZN_3,T", "Perimeter_ZN_4,T"};
+   const char * inputNames[] = {"Attic,T", "Core_ZN,T", "Perimeter_ZN_1,T", 
+				"Perimeter_ZN_2,T", "Perimeter_ZN_3,T", "Perimeter_ZN_4,T"};
    const unsigned int inputValueReferences[] = {0, 1, 2, 3, 4, 5,};
 
-   const char * outputNames[] = {"Attic,QConSen_flow", "Core_ZN,QConSen_flow", "Perimeter_ZN_1,QConSen_flow", "Perimeter_ZN_2,QConSen_flow", "Perimeter_ZN_3,QConSen_flow", "Perimeter_ZN_4,QConSen_flow"};
+   const char * outputNames[] = {"Attic,QConSen_flow", "Core_ZN,QConSen_flow", 
+                                 "Perimeter_ZN_1,QConSen_flow", "Perimeter_ZN_2,QConSen_flow", 
+				"Perimeter_ZN_3,QConSen_flow", "Perimeter_ZN_4,QConSen_flow"};
    const unsigned int outputValueReferences[] = {6, 7, 8, 9, 10, 11};
 
-   const char* input = "/home/thierry/Desktop/vmWareLinux/proj/buildings_library/models/modelica/git/master/modelica-buildings/Buildings/Resources/Data/Rooms/EnergyPlus/EnergyPlus-8-7-0/RefBldgSmallOfficeNew2004_Chicago.idf";
+   const char* input = "RefBldgSmallOfficeNew2004_Chicago.idf";
 
-    const char* weather = "/home/thierry/Desktop/vmWareLinux/proj/buildings_library/models/modelica/git/master/modelica-buildings/Buildings/Resources/Data/Rooms/EnergyPlus/EnergyPlus-8-7-0/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw";
+    const char* weather = "USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw";
 
-    const char* idd = "/home/thierry/Desktop/vmWareLinux/proj/buildings_library/models/modelica/git/master/modelica-buildings/Buildings/Resources/Data/Rooms/EnergyPlus/EnergyPlus-8-7-0/Energy+.idd";
+    const char* idd = "Energy+.idd";
 
    
    /* Loading EnergyPlus library */
-  const char* eplib = "/home/thierry/Desktop/vmWareLinux/proj/buildings_library/models/modelica/git/master/modelica-buildings/Buildings/Resources/Data/Rooms/EnergyPlus/EnergyPlus-8-7-0/lib/libepfmi.so";
+  const char* eplib = "libepfmi.so";
    retVal = loadLib(eplib, zone->ptrBui->fmu);
    if (retVal  < 0) {
      snprintf(msg, 200, "There was an error loading the EnergyPlus library\n");
