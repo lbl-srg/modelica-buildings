@@ -12,6 +12,7 @@ void plotFree(void* object)
   if ( object != NULL ){
     PlotObjectStructure* plt = (PlotObjectStructure*) object;
     free(plt->str);
+    free(plt->fileName);
     free(plt);
   }
 }

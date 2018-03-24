@@ -26,15 +26,9 @@ protected
 initial equation
   t0 = time;
 initial algorithm
-  Modelica.Utilities.Files.removeFile(fileName=fileName);
   Buildings.Utilities.IO.Plot.BaseClasses.print(
     plt=plt,
     string="
-<head>
-  <!-- Plotly.js -->
-  <script src=\"https://cdn.plot.ly/plotly-latest.min.js\"></script>
-</head>
-<body>
     <div id=\"myDiv\"><!-- Plotly chart will be drawn inside this DIV --></div>
     <script>
     ",
@@ -74,7 +68,6 @@ algorithm
     };
   Plotly.newPlot('myDiv', data, layout);
     </script>
-  </body>
   ";
 
   Buildings.Utilities.IO.Plot.BaseClasses.print(

@@ -10,12 +10,17 @@ typedef struct PlotObjectStructure
 {
   /* String array to be plotted */
   char* str;
-  /* Number of element in the array */
+  /* Number of chars in str */
   size_t n;
-  /* Number of used elements */
+  /* Number of used chars in str */
   size_t i;
+  /* Name of the file that will contain this plot */
+  char* fileName;
+  
 } PlotObjectStructure;
 
-static size_t nPlt = 0; /* Number of plotters */
+static size_t nPlotFileNames = 0; /* Number of plotters */
+static char ** plotFileNames;
+static size_t * nPlotsInFiles;
 
 #endif
