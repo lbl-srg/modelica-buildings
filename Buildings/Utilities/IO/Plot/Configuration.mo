@@ -4,7 +4,7 @@ model Configuration "Configuration for plotters"
   parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
     "Sample period of component";
   parameter String fileName = "plots.html" "Name of html file";
-  parameter Buildings.Utilities.IO.Plot.Types.TimeUnit timeUnit = Types.TimeUnit.h
+  parameter Buildings.Utilities.IO.Plot.Types.TimeUnit timeUnit = Types.TimeUnit.hours
   "Time unit for plot";
   annotation (
   defaultComponentName="plotConfiguration",

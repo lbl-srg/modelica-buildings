@@ -44,7 +44,7 @@ protected
   Buildings.Utilities.IO.Plot.BaseClasses.Backend plt=
     Buildings.Utilities.IO.Plot.BaseClasses.Backend(fileName=fileName)
     "Object that stores data for this plot";
-  String str "Temporary string";
+  String str(start="", fixed=true) "Temporary string";
 
 initial equation
   t0 = time;

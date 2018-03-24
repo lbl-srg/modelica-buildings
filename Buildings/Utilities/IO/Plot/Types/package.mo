@@ -3,8 +3,8 @@ package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
 
   type TimeUnit = enumeration(
-    s,
-    min,
-    h,
-    d)   "Enumeration for time unit";
+    seconds,
+    minutes,
+    hours,
+    days)   "Enumeration for time unit";
 end Types;

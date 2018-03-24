@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "timSer.u[1]",
+    "timSer.u[2]",
+    "timSer.u[3]",
+    "timSer1.u[1]",
+    "timSer1.u[2]"
+  };

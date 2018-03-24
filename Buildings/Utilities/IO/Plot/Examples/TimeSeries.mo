@@ -2,7 +2,7 @@ within Buildings.Utilities.IO.Plot.Examples;
 model TimeSeries "Example that plots time series"
   extends Modelica.Icons.Example;
   inner Buildings.Utilities.IO.Plot.Configuration plotConfiguration(
-      samplePeriod=0.1, timeUnit=Buildings.Utilities.IO.Plot.Types.TimeUnit.s)
+      samplePeriod=0.1, timeUnit=Buildings.Utilities.IO.Plot.Types.TimeUnit.seconds)
                         "Configuration for the plotters"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Utilities.IO.Plot.TimeSeries timSer(

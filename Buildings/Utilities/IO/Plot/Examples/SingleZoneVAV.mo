@@ -5,7 +5,7 @@ model SingleZoneVAV
   extends
     Buildings.Air.Systems.SingleZone.VAV.Examples.ChillerDXHeatingEconomizer;
   inner Configuration plotConfiguration(samplePeriod(displayUnit="min") = 900, timeUnit
-      =Buildings.Utilities.IO.Plot.Types.TimeUnit.d)
+      =Buildings.Utilities.IO.Plot.Types.TimeUnit.days)
     "Plot configuration"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
   Modelica.Blocks.Math.UnitConversions.To_degC TOutDryBul_degC
@@ -71,5 +71,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end SingleZoneVAV;

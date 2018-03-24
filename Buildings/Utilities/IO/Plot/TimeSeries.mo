@@ -31,11 +31,11 @@ protected
     "Name of this instance with periods replace by underscore";
 
   final parameter String timeUnitString=
-    if timeUnit == Types.TimeUnit.s then
+    if timeUnit == Types.TimeUnit.seconds then
       "s"
-    elseif timeUnit == Types.TimeUnit.min then
+    elseif timeUnit == Types.TimeUnit.minutes then
       "min"
-    elseif timeUnit == Types.TimeUnit.h then
+    elseif timeUnit == Types.TimeUnit.hours then
       "h"
     else
       "d" "String for time unit that is used in the plotter";
@@ -46,7 +46,7 @@ protected
   Buildings.Utilities.IO.Plot.BaseClasses.Backend plt=
     Buildings.Utilities.IO.Plot.BaseClasses.Backend(fileName=fileName)
     "Object that stores data for this plot";
-  String str "Temporary string";
+  String str(start="", fixed=true) "Temporary string";
   Real timeConverted "Time converted to display unit";
 
 initial equation
@@ -125,11 +125,11 @@ algorithm
     for i in 1:n loop
       str :=str + ", " + String(u[i]);
     end for;
-    if timeUnit == Buildings.Utilities.IO.Plot.Types.TimeUnit.s then
+    if timeUnit == Buildings.Utilities.IO.Plot.Types.TimeUnit.seconds then
       timeConverted :=time;
-    elseif timeUnit == Buildings.Utilities.IO.Plot.Types.TimeUnit.min then
+    elseif timeUnit == Buildings.Utilities.IO.Plot.Types.TimeUnit.minutes then
       timeConverted :=time/60.;
-    elseif timeUnit == Buildings.Utilities.IO.Plot.Types.TimeUnit.h then
+    elseif timeUnit == Buildings.Utilities.IO.Plot.Types.TimeUnit.hours then
       timeConverted :=time/3600.;
     else
       timeConverted :=time/86400.;
