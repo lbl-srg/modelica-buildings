@@ -16,7 +16,7 @@ void plotWriteHeader(const char* fileName){
     ModelicaError("Error opening file in plotWriteHeader!\n");
   }
   fprintf(f, "%s\n", "<head>");
-  fprintf(f, "%s\n", "<script src=\"https://cdn.plot.ly/plotly-latest.min.js\"></script>");
+  fprintf(f, "%s\n", "<script src=\"https://cdn.plot.ly/plotly-1.2.0.min.js\"></script>");
   fprintf(f, "%s\n", "</head>");
   fprintf(f, "%s\n", "<body>");
   fclose(f);
