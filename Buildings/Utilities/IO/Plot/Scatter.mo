@@ -1,5 +1,5 @@
 within Buildings.Utilities.IO.Plot;
-block Scatter "Block for scatter plots"
+block Scatter "Block that plots one or multiple scatter plots"
   extends Modelica.Blocks.Icons.Block;
 
   outer Buildings.Utilities.IO.Plot.Configuration plotConfiguration
