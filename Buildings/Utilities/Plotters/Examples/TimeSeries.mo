@@ -26,26 +26,26 @@ model TimeSeries "Example that plots time series"
   Modelica.Blocks.Math.Product product
     annotation (Placement(transformation(extent={{-40,-12},{-20,8}})));
 equation
-  connect(realExpression.y, timSer.u[1])
+  connect(realExpression.y, timSer.y[1])
     annotation (Line(points={{-59,20},{2,20},{2,1.33333},{18,1.33333}},
                                                             color={0,0,127}));
-  connect(realExpression1.y, timSer.u[2]) annotation (Line(points={{-59,-20},{
+  connect(realExpression1.y, timSer.y[2]) annotation (Line(points={{-59,-20},{
           -8,-20},{-8,-1.11022e-16},{18,-1.11022e-16}},
                                 color={0,0,127}));
-  connect(realExpression.y, timSer1.u[1]) annotation (Line(points={{-59,20},{2,
+  connect(realExpression.y, timSer1.y[1]) annotation (Line(points={{-59,20},{2,
           20},{2,-49},{18,-49}},
                              color={0,0,127}));
-  connect(realExpression1.y, timSer1.u[2]) annotation (Line(points={{-59,-20},{
+  connect(realExpression1.y, timSer1.y[2]) annotation (Line(points={{-59,-20},{
           -8,-20},{-8,-51},{18,-51}},
                                    color={0,0,127}));
   connect(realExpression.y, product.u1) annotation (Line(points={{-59,20},{-52,20},
           {-52,4},{-42,4}}, color={0,0,127}));
   connect(realExpression1.y, product.u2) annotation (Line(points={{-59,-20},{-52,
           -20},{-52,-8},{-42,-8}}, color={0,0,127}));
-  connect(product.y, timSer.u[3]) annotation (Line(points={{-19,-2},{0,-2},{0,
+  connect(product.y, timSer.y[3]) annotation (Line(points={{-19,-2},{0,-2},{0,
           -1.33333},{18,-1.33333}},
                           color={0,0,127}));
-  annotation ( experiment(Tolerance=1e-6, StopTime=10.0),
+  annotation (experiment(Tolerance=1e-6, StopTime=10.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Examples/TimeSeries.mos"
         "Simulate and plot"),
   Documentation(info="<html>

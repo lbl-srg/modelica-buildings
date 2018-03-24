@@ -1,22 +1,8 @@
 within Buildings.Utilities.Plotters;
 block Scatter "Block that plots one or multiple scatter plots"
-  extends Modelica.Blocks.Icons.Block;
-
-  outer Buildings.Utilities.Plotters.Configuration plotConfiguration
-    "Default plot configuration";
-
-  parameter String fileName = plotConfiguration.fileName "Name of html file";
-
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3) = plotConfiguration.samplePeriod
-    "Sample period of component";
-
-  parameter String title "Title of the plot";
+  extends Buildings.Utilities.Plotters.BaseClasses.PartialPlotter;
 
   parameter String xlabel = "" "x-label";
-
-  parameter Integer n(min=1) = 1 "Number of independent data series (dimension of y)";
-
-  parameter String[n] legend "String array for legend, such as {\"x1\", \"x2\"}";
 
   Modelica.Blocks.Interfaces.RealInput x "x-data" annotation (
       Placement(transformation(extent={{-20,-20},{20,20}},
@@ -26,42 +12,7 @@ block Scatter "Block that plots one or multiple scatter plots"
         rotation=90,
         origin={0,-120})));
 
-  Modelica.Blocks.Interfaces.RealVectorInput y[n] "y-data" annotation (
-      Placement(transformation(extent={{-130,-20},{-90,20}}),
-        iconTransformation(extent={{-140,20},{-100,-20}})));
-
-protected
-  parameter Modelica.SIunits.Time t0(fixed=false)
-    "First sample time instant";
-  parameter String insNam = Modelica.Utilities.Strings.replace(
-    getInstanceName(), ".", "_")
-    "Name of this instance with periods replace by underscore";
-
-  output Boolean sampleTrigger "True, if sample time instant";
-
-  output Boolean firstTrigger(start=false, fixed=true)
-    "Rising edge signals first sample instant";
-  Buildings.Utilities.Plotters.BaseClasses.Backend plt=
-    Buildings.Utilities.Plotters.BaseClasses.Backend(fileName=fileName)
-    "Object that stores data for this plot";
-  String str "Temporary string";
-
-initial equation
-  t0 = time;
-  Buildings.Utilities.Plotters.BaseClasses.print(
-    plt=plt,
-    string="
-    <div id=\"" + insNam + "\"></div>
-    <script>
-    ",
-    finalCall = false);
-  str = "";
 algorithm
-  sampleTrigger :=sample(t0, samplePeriod);
-  when sampleTrigger then
-    firstTrigger :=time <= t0 + samplePeriod/2;
-  end when;
-
   when terminal() then
     Buildings.Utilities.Plotters.BaseClasses.print(
     plt=plt,
@@ -128,12 +79,13 @@ algorithm
     for i in 1:n loop
       str :=str + ", " + String(y[i]);
     end for;
-    if time <= t0 + samplePeriod/2 then
+    if firstCall then
       Buildings.Utilities.Plotters.BaseClasses.print(
       plt=plt,
       string=
         "const allData_" + insNam + " = [[" + String(x) + str + "]",
         finalCall = false);
+      firstCall :=false;
     else
       Buildings.Utilities.Plotters.BaseClasses.print(
       plt=plt,
@@ -144,22 +96,6 @@ algorithm
   annotation (
     defaultComponentName="sca",
     Icon(graphics={
-          Polygon(
-            lineColor={192,192,192},
-            fillColor={192,192,192},
-            fillPattern=FillPattern.Solid,
-            points={{-74,90},{-82,68},{-66,68},{-74,90}}),
-          Line(
-            points={{-74,78},{-74,-80}},
-            color={192,192,192}),
-          Polygon(
-            lineColor={192,192,192},
-            fillColor={192,192,192},
-            fillPattern=FillPattern.Solid,
-            points={{96,-68},{74,-60},{74,-76},{96,-68}}),
-          Line(
-            points={{-84,-68},{88,-68}},
-            color={192,192,192}),
     Line(origin={6.061,-31.816},
         points={{67.939,-6.184},{65.362,36.056},{21.939,17.816},{-68.061,-26.184},
               {-56.061,11.816},{-70.061,47.816}},

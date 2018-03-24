@@ -6,6 +6,35 @@ model Configuration "Configuration for plotters"
   parameter String fileName = "plots.html" "Name of html file";
   parameter Buildings.Utilities.Plotters.Types.TimeUnit timeUnit = Types.TimeUnit.hours
   "Time unit for plot";
+  parameter Buildings.Utilities.Plotters.Types.GlobalActivation globalActivation=
+    Buildings.Utilities.Plotters.Types.GlobalActivation.always
+    "Set to true to enable an input that allows activating and deactivating the plotting";
+  parameter Modelica.SIunits.Time activationDelay(min=0)=0
+    "Time that needs to elapse to enable plotting after activate becomes true"
+    annotation(Dialog(
+      enable=(globalActivation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)));
+  Modelica.Blocks.Interfaces.BooleanInput activate if
+     (globalActivation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)
+    "Set to true to enable plotting of time series after activationDelay elapsed"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
+  Boolean active "Flag, true if plots record data";
+protected
+  Modelica.Blocks.Interfaces.BooleanInput activate_internal
+    "Internal connector to activate plots";
+  discrete Modelica.SIunits.Time tActivateLast "Time when plotter was the last time activated";
+initial equation
+  tActivateLast = time-2*activationDelay;
+equation
+  if (globalActivation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input) then
+    connect(activate, activate_internal);
+  else
+    activate_internal = true;
+  end if;
+  when (activate_internal) then
+    tActivateLast = time;
+  end when;
+  active = activate_internal and time >= tActivateLast + activationDelay;
   annotation (
   defaultComponentName="plotConfiguration",
     defaultComponentPrefixes="inner",

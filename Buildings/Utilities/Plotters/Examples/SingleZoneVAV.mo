@@ -5,7 +5,10 @@ model SingleZoneVAV
   extends
     Buildings.Air.Systems.SingleZone.VAV.Examples.ChillerDXHeatingEconomizer;
   inner Configuration plotConfiguration(samplePeriod(displayUnit="min") = 900, timeUnit=
-       Buildings.Utilities.Plotters.Types.TimeUnit.days)
+       Buildings.Utilities.Plotters.Types.TimeUnit.days,
+    globalActivation=Buildings.Utilities.Plotters.Types.GlobalActivation.use_input,
+
+    activationDelay(displayUnit="min") = 600)
     "Plot configuration"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
   Modelica.Blocks.Math.UnitConversions.To_degC TOutDryBul_degC
@@ -17,7 +20,9 @@ model SingleZoneVAV
   Buildings.Utilities.Plotters.TimeSeries ploTOut(
     title="Outdoor drybulb and dew point temperatures",
     n=3,
-    legend={"TOutDryBul","TOutDewPoi","TRoo"}) "Temperatures"
+    legend={"TOutDryBul","TOutDewPoi","TRoo"},
+    localActivation=Buildings.Utilities.Plotters.Types.LocalActivation.always)
+                                               "Temperatures"
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
   Buildings.Utilities.Plotters.Scatter scaEco(
     title="Economizer control signal",
@@ -48,10 +53,10 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(TOutDryBul_degC.y, ploTOut.u[1]) annotation (Line(points={{41,120},{
+  connect(TOutDryBul_degC.y, ploTOut.y[1]) annotation (Line(points={{41,120},{
           50,120},{50,111.333},{138,111.333}},
                                       color={0,0,127}));
-  connect(TDewPoi_degC.y, ploTOut.u[2]) annotation (Line(points={{41,92},{50,92},
+  connect(TDewPoi_degC.y, ploTOut.y[2]) annotation (Line(points={{41,92},{50,92},
           {50,110},{138,110}},color={0,0,127}));
   connect(TOutDryBul_degC.y, scaEco.x) annotation (Line(points={{41,120},{50,
           120},{50,40},{70,40},{70,48}}, color={0,0,127}));
@@ -63,12 +68,15 @@ equation
           -50},{-50,-50},{-50,-70},{-42,-70}}, color={0,0,127}));
   connect(zon.TRooAir, TRooAir_degC.u)
     annotation (Line(points={{81,0},{90,0},{90,90},{98,90}}, color={0,0,127}));
-  connect(TRooAir_degC.y, ploTOut.u[3]) annotation (Line(points={{121,90},{130,
+  connect(TRooAir_degC.y, ploTOut.y[3]) annotation (Line(points={{121,90},{130,
           90},{130,108.667},{138,108.667}}, color={0,0,127}));
   connect(scaTRoo.x, TOutDryBul_degC.y) annotation (Line(points={{150,58},{150,
           52},{126,52},{126,120},{41,120}}, color={0,0,127}));
   connect(scaTRoo.y[1], TRooAir_degC.y) annotation (Line(points={{138,70},{130,
           70},{130,90},{121,90}}, color={0,0,127}));
+  connect(con.chiOn, plotConfiguration.activate) annotation (Line(points={{-79,
+          -4},{-60,-4},{-60,50},{-152,50},{-152,116},{-142,116}}, color={255,0,
+          255}));
   annotation ( experiment(Tolerance=1e-6, StopTime=259200),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Examples/SingleZoneVAV.mos"
         "Simulate and plot"),
@@ -88,6 +96,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-160,-160},{180,140}})),
-    Icon(coordinateSystem(extent={{-160,-160},{180,140}})));
+    Diagram(coordinateSystem(extent={{-160,-160},{180,140}})));
 end SingleZoneVAV;

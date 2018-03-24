@@ -1,0 +1,2 @@
+simulateModel("Buildings.Utilities.Plotters.Validation.PlotterActivationGlobalInput", stopTime=10, method="dassl", tolerance=1e-06, resultFile="PlotterActivationGlobalInput");
+createPlot(id=1, position={75, 70, 745, 604}, y={"plotConfiguration.active", "sca.active", "scaDel.active"}, range={0.0, 0.00012000000000000003, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}, {28,108,200}, {28,108,200}});

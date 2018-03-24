@@ -1,35 +1,11 @@
 within Buildings.Utilities.Plotters;
 block TimeSeries "Block that plots one or multiple time series"
-  extends Modelica.Blocks.Icons.Block;
-
-  outer Buildings.Utilities.Plotters.Configuration plotConfiguration
-    "Default plot configuration";
-
-  parameter String fileName = plotConfiguration.fileName "Name of html file";
-
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3) = plotConfiguration.samplePeriod
-    "Sample period of component";
-
-  parameter Integer n(min=1) "Number of time series to be plotted";
-
-  parameter String title "Title of the plot";
-
-  parameter String[n] legend "String array for legend, such as {\"x1\", \"x2\"}";
+  extends Buildings.Utilities.Plotters.BaseClasses.PartialPlotter;
 
   parameter Buildings.Utilities.Plotters.Types.TimeUnit timeUnit = plotConfiguration.timeUnit
   "Time unit for plot";
 
-  Modelica.Blocks.Interfaces.RealVectorInput u[n] "Time series to be plotted" annotation (
-      Placement(transformation(extent={{-130,-20},{-90,20}}),
-        iconTransformation(extent={{-140,20},{-100,-20}})));
-
 protected
-  parameter Modelica.SIunits.Time t0(fixed=false)
-    "First sample time instant";
-  parameter String insNam = Modelica.Utilities.Strings.replace(
-    getInstanceName(), ".", "_")
-    "Name of this instance with periods replace by underscore";
-
   final parameter String timeUnitString=
     if timeUnit == Types.TimeUnit.seconds then
       "s"
@@ -39,33 +15,10 @@ protected
       "h"
     else
       "d" "String for time unit that is used in the plotter";
-  output Boolean sampleTrigger "True, if sample time instant";
-
-  output Boolean firstTrigger(start=false, fixed=true)
-    "Rising edge signals first sample instant";
-  Buildings.Utilities.Plotters.BaseClasses.Backend plt=
-    Buildings.Utilities.Plotters.BaseClasses.Backend(fileName=fileName)
-    "Object that stores data for this plot";
-  String str "Temporary string";
   Real timeConverted "Time converted to display unit";
-
 initial equation
-  t0 = time;
-  Buildings.Utilities.Plotters.BaseClasses.print(
-    plt=plt,
-    string="
-    <div id=\"" + insNam + "\"></div>
-    <script>
-    ",
-    finalCall = false);
   timeConverted = 0;
-  str = "";
 algorithm
-  sampleTrigger :=sample(t0, samplePeriod);
-  when sampleTrigger then
-    firstTrigger :=time <= t0 + samplePeriod/2;
-  end when;
-
   when terminal() then
     Buildings.Utilities.Plotters.BaseClasses.print(
     plt=plt,
@@ -124,7 +77,7 @@ algorithm
   elsewhen {sampleTrigger} then
     str :="";
     for i in 1:n loop
-      str :=str + ", " + String(u[i]);
+      str :=str + ", " + String(y[i]);
     end for;
     if timeUnit == Buildings.Utilities.Plotters.Types.TimeUnit.seconds then
       timeConverted :=time;
@@ -135,12 +88,13 @@ algorithm
     else
       timeConverted :=time/86400.;
     end if;
-    if time <= t0 + samplePeriod/2 then
+    if firstCall then
       Buildings.Utilities.Plotters.BaseClasses.print(
       plt=plt,
       string=
         "const allData_" + insNam + " = [[" + String(timeConverted) + str + "]",
         finalCall = false);
+      firstCall :=false;
     else
       Buildings.Utilities.Plotters.BaseClasses.print(
       plt=plt,
@@ -151,22 +105,6 @@ algorithm
   annotation (
   defaultComponentName="timSer",
   Icon(graphics={
-          Polygon(
-            lineColor={192,192,192},
-            fillColor={192,192,192},
-            fillPattern=FillPattern.Solid,
-            points={{-74,90},{-82,68},{-66,68},{-74,90}}),
-          Line(
-            points={{-74,78},{-74,-80}},
-            color={192,192,192}),
-          Polygon(
-            lineColor={192,192,192},
-            fillColor={192,192,192},
-            fillPattern=FillPattern.Solid,
-            points={{96,-68},{74,-60},{74,-76},{96,-68}}),
-          Line(
-            points={{-84,-68},{88,-68}},
-            color={192,192,192}),
     Line(origin={4.061,-23.816},
         points={{81.939,36.056},{65.362,36.056},{21.939,17.816},{-8.061,75.816},
               {-36.061,5.816},{-78.061,23.816}},
@@ -195,7 +133,7 @@ Block that plots <code>n</code> time series.
 To use this block, set the parameter <code>n</code> to the
 number of time series that you like to plot.
 Then, connect the signals for these time series to the input
-port <code>u</code>.
+port <code>y</code>.
 </p>
 <p>
 There can be multiple instances of this block.
