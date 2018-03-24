@@ -73,6 +73,7 @@ algorithm
     x: allData_" + insNam + ".map(x => x[0]),
     y: allData_" + insNam + ".map(x => x[" + String(i) + "]),
     type: 'scatter',
+    mode: 'lines+markers',
     name: '" + legend[i] + "'
   };";
     Buildings.Utilities.Plotters.BaseClasses.print(
@@ -111,7 +112,7 @@ algorithm
     xaxis: { title: '" + xlabel + "'}";
     if (n == 1) then
       str := str + ",
-      yaxis: { title: '" + legend[1] + "'}";
+    yaxis: { title: '" + legend[1] + "'}";
     end if;
   str := str + "
   };
