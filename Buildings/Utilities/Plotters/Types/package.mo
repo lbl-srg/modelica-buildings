@@ -1,4 +1,4 @@
-within Buildings.Utilities.IO.Plot;
+within Buildings.Utilities.Plotters;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
 

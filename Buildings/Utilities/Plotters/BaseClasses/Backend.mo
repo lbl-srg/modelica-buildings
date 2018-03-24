@@ -1,4 +1,4 @@
-within Buildings.Utilities.IO.Plot.BaseClasses;
+within Buildings.Utilities.Plotters.BaseClasses;
 class Backend "Backend implementation for the plotter"
 extends ExternalObject;
     function constructor

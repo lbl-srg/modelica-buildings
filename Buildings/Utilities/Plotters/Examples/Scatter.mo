@@ -1,10 +1,10 @@
-within Buildings.Utilities.IO.Plot.Examples;
+within Buildings.Utilities.Plotters.Examples;
 model Scatter "Example that plots scatter plots"
   extends Modelica.Icons.Example;
-  inner Buildings.Utilities.IO.Plot.Configuration plotConfiguration(
+  inner Buildings.Utilities.Plotters.Configuration plotConfiguration(
       samplePeriod=0.1) "Configuration for the plotters"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Utilities.IO.Plot.Scatter sca(
+  Buildings.Utilities.Plotters.Scatter sca(
     samplePeriod=0.1,
     n=1,
     title="Sine vs cosine",
@@ -15,7 +15,7 @@ model Scatter "Example that plots scatter plots"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Modelica.Blocks.Sources.RealExpression cosine(y=cos(time)) "Cosine signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Utilities.IO.Plot.Scatter sca1(
+  Buildings.Utilities.Plotters.Scatter sca1(
     samplePeriod=0.1,
     n=2,
     title="Sine vs cosine and sine vs cosine^2",
@@ -40,7 +40,7 @@ equation
   connect(product.y, sca1.y[2]) annotation (Line(points={{41,40},{50,40},{50,-1},
           {58,-1}}, color={0,0,127}));
   annotation ( experiment(Tolerance=1e-6, StopTime=10.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/IO/Plot/Examples/Scatter.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Examples/Scatter.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>

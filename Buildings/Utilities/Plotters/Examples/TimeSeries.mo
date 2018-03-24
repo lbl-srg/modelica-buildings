@@ -1,11 +1,11 @@
-within Buildings.Utilities.IO.Plot.Examples;
+within Buildings.Utilities.Plotters.Examples;
 model TimeSeries "Example that plots time series"
   extends Modelica.Icons.Example;
-  inner Buildings.Utilities.IO.Plot.Configuration plotConfiguration(
-      samplePeriod=0.1, timeUnit=Buildings.Utilities.IO.Plot.Types.TimeUnit.seconds)
+  inner Buildings.Utilities.Plotters.Configuration plotConfiguration(
+      samplePeriod=0.1, timeUnit=Buildings.Utilities.Plotters.Types.TimeUnit.seconds)
                         "Configuration for the plotters"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Utilities.IO.Plot.TimeSeries timSer(
+  Buildings.Utilities.Plotters.TimeSeries timSer(
     samplePeriod=0.1,
     n=3,
     title="Sine, cosine and sine*cosine",
@@ -16,7 +16,7 @@ model TimeSeries "Example that plots time series"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Modelica.Blocks.Sources.RealExpression realExpression1(y=cos(time))
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Utilities.IO.Plot.TimeSeries timSer1(
+  Buildings.Utilities.Plotters.TimeSeries timSer1(
     samplePeriod=0.1,
     n=2,
     title="Sine, cosine",
@@ -46,7 +46,7 @@ equation
           -1.33333},{18,-1.33333}},
                           color={0,0,127}));
   annotation ( experiment(Tolerance=1e-6, StopTime=10.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/IO/Plot/Examples/TimeSeries.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Examples/TimeSeries.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>

@@ -1,10 +1,10 @@
-within Buildings.Utilities.IO.Plot;
+within Buildings.Utilities.Plotters;
 model Configuration "Configuration for plotters"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
     "Sample period of component";
   parameter String fileName = "plots.html" "Name of html file";
-  parameter Buildings.Utilities.IO.Plot.Types.TimeUnit timeUnit = Types.TimeUnit.hours
+  parameter Buildings.Utilities.Plotters.Types.TimeUnit timeUnit = Types.TimeUnit.hours
   "Time unit for plot";
   annotation (
   defaultComponentName="plotConfiguration",
@@ -12,9 +12,14 @@ model Configuration "Configuration for plotters"
     missingInnerMessage="
 Your model is using an outer \"plotConfiguration\" component but
 an inner \"plotConfiguration\" component is not defined.
-For simulation drag Buildings.Utilities.IO.Plot.Configuration into your model
+For simulation drag Buildings.Utilities.Plotters.Configuration into your model
 to specify system properties.",
 Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,255},
+          fillColor={255,254,238},
+          fillPattern=FillPattern.Solid),
           Polygon(
             lineColor={192,192,192},
             fillColor={192,192,192},
@@ -40,7 +45,7 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
 <p>
 This block can be used to globally configure the parameters
 for the blocks from the package
-<a href=\"Buildings.Utilities.IO.Plot\">Buildings.Utilities.IO.Plot</a>.
+<a href=\"Buildings.Utilities.Plotters\">Buildings.Utilities.Plotters</a>.
 Use this block for example to set the same
 plot file name and sampling time.
 </p>

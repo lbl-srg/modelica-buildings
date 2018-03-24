@@ -1,7 +1,7 @@
-within Buildings.Utilities.IO.Plot.BaseClasses;
+within Buildings.Utilities.Plotters.BaseClasses;
 function print "Function that prints a string to the html file"
   extends Modelica.Icons.Function;
-  input Buildings.Utilities.IO.Plot.BaseClasses.Backend plt
+  input Buildings.Utilities.Plotters.BaseClasses.Backend plt
     "Plot object";
   input String string "String to be printed";
   input Boolean finalCall "Set to true for the last call, which will write the content to disk";

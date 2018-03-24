@@ -1,11 +1,11 @@
-within Buildings.Utilities.IO.Plot.Examples;
+within Buildings.Utilities.Plotters.Examples;
 model SingleZoneVAV
   "Demonstration of plots for a single zone VAV model"
   import Buildings;
   extends
     Buildings.Air.Systems.SingleZone.VAV.Examples.ChillerDXHeatingEconomizer;
   inner Configuration plotConfiguration(samplePeriod(displayUnit="min") = 900, timeUnit
-      =Buildings.Utilities.IO.Plot.Types.TimeUnit.days)
+      =Buildings.Utilities.Plotters.Types.TimeUnit.days)
     "Plot configuration"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
   Modelica.Blocks.Math.UnitConversions.To_degC TOutDryBul_degC
@@ -14,17 +14,17 @@ model SingleZoneVAV
   Modelica.Blocks.Math.UnitConversions.To_degC TDewPoi_degC
     "Outdoor dewpoint temperature in degC"
     annotation (Placement(transformation(extent={{20,82},{40,102}})));
-  Buildings.Utilities.IO.Plot.TimeSeries ploTOut(
+  Buildings.Utilities.Plotters.TimeSeries ploTOut(
     n=2,
     title="Outdoor drybulb and dew point temperatures",
     legend={"TOutDryBul","TOutDewPoi"})
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
-  Buildings.Utilities.IO.Plot.Scatter scaEco(
+  Buildings.Utilities.Plotters.Scatter scaEco(
     title="Economizer control signal",
     legend={"uEco"},
     xlabel="TOut [degC]") "Scatter plot for economizer"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  Buildings.Utilities.IO.Plot.Scatter scaPFan(
+  Buildings.Utilities.Plotters.Scatter scaPFan(
     title="Fan power",
     xlabel="yFan [1]",
     legend={"PFan in [W]"}) "Scatter plot for fan power"
@@ -53,7 +53,7 @@ equation
   connect(hvac.PFan, scaPFan.y[1]) annotation (Line(points={{1,18},{24,18},{24,
           -50},{-50,-50},{-50,-70},{-42,-70}}, color={0,0,127}));
   annotation ( experiment(Tolerance=1e-6, StopTime=259200),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/IO/Plot/Examples/SingleZoneVAV.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Examples/SingleZoneVAV.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
