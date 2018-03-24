@@ -1,5 +1,5 @@
 within Buildings.Utilities.IO.Plot;
-block TimeSeries "Block that plots one or multiple time series"
+block Scatter "Block for scatter plots"
   extends Modelica.Blocks.Icons.Block;
 
   outer Buildings.Utilities.IO.Plot.Configuration plotConfiguration
@@ -10,16 +10,23 @@ block TimeSeries "Block that plots one or multiple time series"
   parameter Modelica.SIunits.Time samplePeriod(min=1E-3) = plotConfiguration.samplePeriod
     "Sample period of component";
 
-  parameter Integer n(min=1) "Number of time series to be plotted";
-
   parameter String title "Title of the plot";
+
+  parameter String xlabel = "" "x-label";
+
+  parameter Integer n(min=1) = 1 "Number of independent data series (dimension of y)";
 
   parameter String[n] legend "String array for legend, such as {\"x1\", \"x2\"}";
 
-  parameter Buildings.Utilities.IO.Plot.Types.TimeUnit timeUnit = plotConfiguration.timeUnit
-  "Time unit for plot";
+  Modelica.Blocks.Interfaces.RealInput x "x-data" annotation (
+      Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,-120}),
+        iconTransformation(extent={{-20,20},{20,-20}},
+        rotation=90,
+        origin={0,-120})));
 
-  Modelica.Blocks.Interfaces.RealVectorInput u[n] "Time series to be plotted" annotation (
+  Modelica.Blocks.Interfaces.RealVectorInput y[n] "y-data" annotation (
       Placement(transformation(extent={{-130,-20},{-90,20}}),
         iconTransformation(extent={{-140,20},{-100,-20}})));
 
@@ -30,15 +37,6 @@ protected
     getInstanceName(), ".", "_")
     "Name of this instance with periods replace by underscore";
 
-  final parameter String timeUnitString=
-    if timeUnit == Types.TimeUnit.s then
-      "s"
-    elseif timeUnit == Types.TimeUnit.min then
-      "min"
-    elseif timeUnit == Types.TimeUnit.h then
-      "h"
-    else
-      "d" "String for time unit that is used in the plotter";
   output Boolean sampleTrigger "True, if sample time instant";
 
   output Boolean firstTrigger(start=false, fixed=true)
@@ -47,7 +45,6 @@ protected
     Buildings.Utilities.IO.Plot.BaseClasses.Backend(fileName=fileName)
     "Object that stores data for this plot";
   String str "Temporary string";
-  Real timeConverted "Time converted to display unit";
 
 initial equation
   t0 = time;
@@ -58,7 +55,6 @@ initial equation
     <script>
     ",
     finalCall = false);
-  timeConverted = 0;
 algorithm
   sampleTrigger :=sample(t0, samplePeriod);
   when sampleTrigger then
@@ -111,8 +107,13 @@ algorithm
   str := "
   var layout_" + insNam + " = { 
     title: '" + title + "',
-    xaxis: { title: 'time [" + timeUnitString + "]'}
-    };
+    xaxis: { title: '" + xlabel + "'}";
+    if (n == 1) then
+      str := str + ",
+      yaxis: { title: '" + legend[1] + "'}";
+    end if;
+  str := str + "
+  };
   Plotly.newPlot('" + insNam + "', data_" + insNam + ", layout_" + insNam + ");
     </script>
   ";
@@ -123,33 +124,24 @@ algorithm
   elsewhen {sampleTrigger} then
     str :="";
     for i in 1:n loop
-      str :=str + ", " + String(u[i]);
+      str :=str + ", " + String(y[i]);
     end for;
-    if timeUnit == Buildings.Utilities.IO.Plot.Types.TimeUnit.s then
-      timeConverted :=time;
-    elseif timeUnit == Buildings.Utilities.IO.Plot.Types.TimeUnit.min then
-      timeConverted :=time/60.;
-    elseif timeUnit == Buildings.Utilities.IO.Plot.Types.TimeUnit.h then
-      timeConverted :=time/3600.;
-    else
-      timeConverted :=time/86400.;
-    end if;
     if time <= t0 + samplePeriod/2 then
       Buildings.Utilities.IO.Plot.BaseClasses.print(
       plt=plt,
       string=
-        "const allData_" + insNam + " = [[" + String(timeConverted) + str + "]",
+        "const allData_" + insNam + " = [[" + String(x) + str + "]",
         finalCall = false);
     else
       Buildings.Utilities.IO.Plot.BaseClasses.print(
       plt=plt,
-      string= ", [" + String(timeConverted) + str + "]",
+      string= ", [" + String(x) + str + "]",
       finalCall = false);
     end if;
   end when;
   annotation (
-  defaultComponentName="timSer",
-  Icon(graphics={
+    defaultComponentName="sca",
+    Icon(graphics={
           Polygon(
             lineColor={192,192,192},
             fillColor={192,192,192},
@@ -166,35 +158,41 @@ algorithm
           Line(
             points={{-84,-68},{88,-68}},
             color={192,192,192}),
-    Line(origin={4.061,-23.816},
-        points={{81.939,36.056},{65.362,36.056},{21.939,17.816},{-8.061,75.816},
-              {-36.061,5.816},{-78.061,23.816}},
+    Line(origin={6.061,-31.816},
+        points={{67.939,-6.184},{65.362,36.056},{21.939,17.816},{-68.061,-26.184},
+              {-56.061,11.816},{-70.061,47.816}},
         color = {0,0,127},
         smooth = Smooth.Bezier),
     Line(origin={4.061,-71.816},
-        points={{81.939,36.056},{71.939,39.816},{43.939,17.816},{1.939,75.816},{
-              -40.061,21.816},{-78.061,23.816}},
+        points={{-46.061,121.816},{67.939,137.816},{43.939,17.816},{1.939,75.816},
+              {-40.061,21.816},{-58.061,97.816}},
         color={244,125,35},
         smooth=Smooth.Bezier),
         Text(
-          extent={{50,-70},{76,-94}},
+          extent={{48,-70},{74,-94}},
           lineColor={0,0,0},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid,
-          textString="t"),
-    Line(origin={4.061,6.184},
-        points={{81.939,36.056},{65.362,36.056},{43.939,27.816},{11.939,75.816},
-              {-36.061,5.816},{-78.061,23.816}},
-        color = {0,0,127},
-        smooth = Smooth.Bezier)}), Documentation(info="<html>
+          textString="x"),
+        Text(
+          extent={{-102,96},{-76,72}},
+          lineColor={0,0,0},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid,
+          textString="y")}),
+Documentation(info="<html>
 <p>
-Block that plots <code>n</code> time series.
+Block that plots <code>n</code> time series that are connected
+at the input port <code>y</code> against the independent data
+that are connected at the input port <code>x</code>.
 </p>
 <p>
 To use this block, set the parameter <code>n</code> to the
-number of time series that you like to plot.
-Then, connect the signals for these time series to the input
-port <code>u</code>.
+number of time series <code>y</code> that you like to plot
+against <code>x</code>.
+Then, connect the signals for the independent data
+to <code>x</code> and the signals for the dependent data to
+<code>y</code>.
 </p>
 <p>
 There can be multiple instances of this block.
@@ -214,4 +212,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end TimeSeries;
+end Scatter;

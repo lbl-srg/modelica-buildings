@@ -45,6 +45,7 @@ void plotPrint(void* object, const char* str, int finalCall){
         if (nPlotsInFiles[k] == 0){
           /* This was the last plot in this file. */
           fprintf(f, "%s\n", "</body>");
+          ModelicaFormatMessage("Wrote plot file \"%s\".\n", plt->fileName);
         }
       }
     }
