@@ -2,8 +2,10 @@ within Buildings.Utilities.Plotters;
 block TimeSeries "Block that plots one or multiple time series"
   extends Buildings.Utilities.Plotters.BaseClasses.PartialPlotter;
 
-  parameter Buildings.Utilities.Plotters.Types.TimeUnit timeUnit = plotConfiguration.timeUnit
-  "Time unit for plot";
+  parameter Buildings.Utilities.Plotters.Types.TimeUnit timeUnit=
+    plotConfiguration.timeUnit
+    "Time unit for plot"
+    annotation(Dialog(group="Labels"));
 
 protected
   final parameter String timeUnitString=
@@ -30,6 +32,7 @@ algorithm
     x: allData_" + insNam + ".map(x => x[0]),
     y: allData_" + insNam + ".map(x => x[" + String(i) + "]),
     type: 'scatter',
+    " + plotMode + "
     name: '" + legend[i] + "'
   };";
     Buildings.Utilities.Plotters.BaseClasses.print(

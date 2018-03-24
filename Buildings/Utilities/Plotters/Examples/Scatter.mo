@@ -9,20 +9,25 @@ model Scatter "Example that plots scatter plots"
     n=1,
     title="Sine vs cosine",
     xlabel="sine",
-    legend={"cos"})        "Scatter plot"
+    legend={"cos"})
+    "Scatter plot"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Modelica.Blocks.Sources.RealExpression sine(y=sin(time)) "Sine signal"
+  Modelica.Blocks.Sources.RealExpression sine(y=sin(time))
+  "Sine signal"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Modelica.Blocks.Sources.RealExpression cosine(y=cos(time)) "Cosine signal"
+  Modelica.Blocks.Sources.RealExpression cosine(y=cos(time))
+  "Cosine signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Utilities.Plotters.Scatter sca1(
     samplePeriod=0.1,
     n=2,
     title="Sine vs cosine and sine vs cosine^2",
     legend={"sin vs cos","sin vs cos^2"},
-    xlabel="sine")                        "Scatter plot"
+    xlabel="sine")
+    "Scatter plot"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Math.Product product
+    "Product to compute the square of cos(time)"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 equation
   connect(sca.x, sine.y)

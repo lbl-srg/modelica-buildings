@@ -2,7 +2,8 @@ within Buildings.Utilities.Plotters;
 block Scatter "Block that plots one or multiple scatter plots"
   extends Buildings.Utilities.Plotters.BaseClasses.PartialPlotter;
 
-  parameter String xlabel = "" "x-label";
+  parameter String xlabel = "" "x-label"
+    annotation(Dialog(group="Labels"));
 
   Modelica.Blocks.Interfaces.RealInput x "x-data" annotation (
       Placement(transformation(extent={{-20,-20},{20,20}},
@@ -11,7 +12,6 @@ block Scatter "Block that plots one or multiple scatter plots"
         iconTransformation(extent={{-20,20},{20,-20}},
         rotation=90,
         origin={0,-120})));
-
 algorithm
   when terminal() then
     Buildings.Utilities.Plotters.BaseClasses.print(
@@ -24,7 +24,7 @@ algorithm
     x: allData_" + insNam + ".map(x => x[0]),
     y: allData_" + insNam + ".map(x => x[" + String(i) + "]),
     type: 'scatter',
-    mode: 'lines+markers',
+    " + plotMode + "
     name: '" + legend[i] + "'
   };";
     Buildings.Utilities.Plotters.BaseClasses.print(

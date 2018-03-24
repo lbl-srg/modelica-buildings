@@ -5,14 +5,20 @@ model Configuration "Configuration for plotters"
     "Sample period of component";
   parameter String fileName = "plots.html" "Name of html file";
   parameter Buildings.Utilities.Plotters.Types.TimeUnit timeUnit = Types.TimeUnit.hours
-  "Time unit for plot";
+  "Time unit for plot"
+    annotation(Dialog(group="Labels"));
+
   parameter Buildings.Utilities.Plotters.Types.GlobalActivation globalActivation=
     Buildings.Utilities.Plotters.Types.GlobalActivation.always
-    "Set to true to enable an input that allows activating and deactivating the plotting";
+    "Set to true to enable an input that allows activating and deactivating the plotting"
+    annotation(Dialog(group="Activation"));
+
   parameter Modelica.SIunits.Time activationDelay(min=0)=0
     "Time that needs to elapse to enable plotting after activate becomes true"
     annotation(Dialog(
+      group="Activation",
       enable=(globalActivation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)));
+
   Modelica.Blocks.Interfaces.BooleanInput activate if
      (globalActivation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)
     "Set to true to enable plotting of time series after activationDelay elapsed"
@@ -68,7 +74,19 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
     Line(origin = {-1.939,-1.816},
         points = {{81.939,36.056},{65.362,36.056},{14.39,-26.199},{-29.966,113.485},{-65.374,-61.217},{-78.061,-78.184}},
         color = {0,0,127},
-        smooth = Smooth.Bezier)}),                 Diagram(
+        smooth = Smooth.Bezier),
+        Text(
+          extent={{-42,-44},{34,-74}},
+          lineColor={0,0,0},
+          textString="delay=%activationDelay"),
+        Ellipse(
+          extent={{-95,67},{-81,53}},
+          lineColor=DynamicSelect({235,235,235}, if activate > 0.5 then {0,255,0}
+               else {235,235,235}),
+          fillColor=DynamicSelect({235,235,235}, if activate > 0.5 then {0,255,0}
+               else {235,235,235}),
+          fillPattern=FillPattern.Solid,
+          visible=globalActivation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)}),  Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
