@@ -9,21 +9,23 @@ model PlotterActivationAlwaysOn
   Time.ModelTime timeSignal "Signal that outputs time"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Scatter sca(
-    legend={"x"})
+    legend={"x"}, n=1)
     "Scatter plot"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Scatter scaDel(
     activationDelay=0.2,
-    legend={"x"})
+    legend={"x"},
+    n=1)
     "Scatter plot with delayed on"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 equation
   connect(timeSignal.y, sca.x)
-    annotation (Line(points={{-39,10},{10,10},{10,18}}, color={0,0,127}));
-  connect(timeSignal.y, sca.y[1]) annotation (Line(points={{-39,10},{-20,10},{-20,
-          30},{-2,30}}, color={0,0,127}));
-  connect(timeSignal.y, scaDel.x) annotation (Line(points={{-39,10},{-28,10},{-28,
-          -32},{10,-32},{10,-22}}, color={0,0,127}));
+    annotation (Line(points={{-39,10},{-28,10},{-28,22},{-2,22}},
+                                                        color={0,0,127}));
+  connect(timeSignal.y, scaDel.x) annotation (Line(points={{-39,10},{-28,10},{
+          -28,-18},{-2,-18}},      color={0,0,127}));
+  connect(timeSignal.y, sca.y[1]) annotation (Line(points={{-39,10},{-20,10},{
+          -20,30},{-2,30}}, color={0,0,127}));
   connect(timeSignal.y, scaDel.y[1]) annotation (Line(points={{-39,10},{-20,10},
           {-20,-10},{-2,-10}}, color={0,0,127}));
   annotation (

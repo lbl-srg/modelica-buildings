@@ -1,5 +1,5 @@
 within Buildings.Utilities.Plotters.Examples;
-model Scatter "Example that plots scatter plots"
+model Scatter "Simple scatter plots"
   extends Modelica.Icons.Example;
   inner Buildings.Utilities.Plotters.Configuration plotConfiguration(
       samplePeriod=0.1) "Configuration for the plotters"
@@ -11,7 +11,7 @@ model Scatter "Example that plots scatter plots"
     xlabel="sine",
     legend={"cos"})
     "Scatter plot"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Sources.RealExpression sine(y=sin(time))
   "Sine signal"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
@@ -25,25 +25,27 @@ model Scatter "Example that plots scatter plots"
     legend={"sin vs cos","sin vs cos^2"},
     xlabel="sine")
     "Scatter plot"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Modelica.Blocks.Math.Product product
     "Product to compute the square of cos(time)"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
 equation
   connect(sca.x, sine.y)
-    annotation (Line(points={{30,-12},{30,-20},{-19,-20}}, color={0,0,127}));
+    annotation (Line(points={{58,-8},{52,-8},{52,-20},{-19,-20}},
+                                                           color={0,0,127}));
   connect(cosine.y, sca.y[1])
-    annotation (Line(points={{-19,0},{18,0}}, color={0,0,127}));
+    annotation (Line(points={{-19,0},{58,0}}, color={0,0,127}));
   connect(sca1.x, sine.y)
-    annotation (Line(points={{70,-12},{70,-20},{-19,-20}}, color={0,0,127}));
-  connect(cosine.y, sca1.y[1]) annotation (Line(points={{-19,0},{0,0},{0,20},{50,
-          20},{50,1},{58,1}}, color={0,0,127}));
+    annotation (Line(points={{58,32},{52,32},{52,-20},{-19,-20}},
+                                                           color={0,0,127}));
+  connect(cosine.y, sca1.y[1]) annotation (Line(points={{-19,0},{0,0},{0,41},{
+          58,41}},            color={0,0,127}));
   connect(cosine.y, product.u1)
-    annotation (Line(points={{-19,0},{0,0},{0,46},{18,46}}, color={0,0,127}));
+    annotation (Line(points={{-19,0},{0,0},{0,26},{18,26}}, color={0,0,127}));
   connect(cosine.y, product.u2)
-    annotation (Line(points={{-19,0},{0,0},{0,34},{18,34}}, color={0,0,127}));
-  connect(product.y, sca1.y[2]) annotation (Line(points={{41,40},{50,40},{50,-1},
-          {58,-1}}, color={0,0,127}));
+    annotation (Line(points={{-19,0},{0,0},{0,14},{18,14}}, color={0,0,127}));
+  connect(product.y, sca1.y[2]) annotation (Line(points={{41,20},{50,20},{50,39},
+          {58,39}}, color={0,0,127}));
   annotation ( experiment(Tolerance=1e-6, StopTime=10.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Examples/Scatter.mos"
         "Simulate and plot"),

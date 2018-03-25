@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "setPoiVAV.THeaEco",
+    "setPoiVAV.TCoo",
+    "setPoiVAV.y"
+  };

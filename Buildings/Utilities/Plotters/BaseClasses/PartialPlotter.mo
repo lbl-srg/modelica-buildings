@@ -14,7 +14,8 @@ partial block PartialPlotter "Partial block for plotters"
   parameter String title = getInstanceName() "Title of the plot"
     annotation(Dialog(group="Labels"));
 
-  parameter Integer n(min=1) = 1 "Number of independent data series (dimension of y)";
+  parameter Integer n = 0 "Number of independent data series (dimension of y)"
+  annotation (Dialog(connectorSizing=true), HideResult=true);
 
   parameter String[n] legend "String array for legend, such as {\"x1\", \"x2\"}"
     annotation(Dialog(group="Labels"));
@@ -35,8 +36,8 @@ partial block PartialPlotter "Partial block for plotters"
   Modelica.Blocks.Interfaces.BooleanInput activate if
      (localActivation == Buildings.Utilities.Plotters.Types.LocalActivation.use_input)
     "Set to true to enable plotting of time series after activationDelay elapsed"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Boolean active "Flag, true if plots record data";
 protected
   parameter Modelica.SIunits.Time t0(fixed=false)

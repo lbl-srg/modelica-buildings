@@ -22,8 +22,8 @@ model Configuration "Configuration for plotters"
   Modelica.Blocks.Interfaces.BooleanInput activate if
      (globalActivation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)
     "Set to true to enable plotting of time series after activationDelay elapsed"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Boolean active "Flag, true if plots record data";
 protected
   Modelica.Blocks.Interfaces.BooleanInput activate_internal

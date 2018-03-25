@@ -1,11 +1,12 @@
 within Buildings.Utilities.Plotters.Examples;
 model SingleZoneVAV
-  "Demonstration of plots for a single zone VAV model"
+  "Various plots for a single zone VAV system"
   import Buildings;
   extends
     Buildings.Air.Systems.SingleZone.VAV.Examples.ChillerDXHeatingEconomizer;
-  inner Configuration plotConfiguration(samplePeriod(displayUnit="min") = 900, timeUnit=
-       Buildings.Utilities.Plotters.Types.TimeUnit.days,
+  inner Configuration plotConfiguration(
+    samplePeriod(displayUnit="min") = 900,
+    timeUnit=Buildings.Utilities.Plotters.Types.TimeUnit.days,
     globalActivation=Buildings.Utilities.Plotters.Types.GlobalActivation.use_input,
     activationDelay(displayUnit="min") = 600)
     "Plot configuration"
@@ -27,12 +28,14 @@ model SingleZoneVAV
   Buildings.Utilities.Plotters.Scatter scaEco(
     title="Economizer control signal",
     legend={"uEco"},
-    xlabel="TOut [degC]") "Scatter plot for economizer"
+    xlabel="TOut [degC]",
+    n=1)                  "Scatter plot for economizer"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Utilities.Plotters.Scatter scaPFan(
     title="Fan power",
     xlabel="yFan [1]",
-    legend={"PFan in [W]"}) "Scatter plot for fan power"
+    legend={"PFan in [W]"},
+    n=1) "Scatter plot for fan power"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Modelica.Blocks.Math.UnitConversions.To_degC TRooAir_degC
     "Room air temperature in degC"
@@ -40,7 +43,8 @@ model SingleZoneVAV
   Buildings.Utilities.Plotters.Scatter scaTRoo(
     xlabel="TOut [degC]",
     title="Room air temperature",
-    legend={"TRoo [degC]"}) "Scatter plot for room air temperature"
+    legend={"TRoo [degC]"},
+    n=1) "Scatter plot for room air temperature"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
 equation
   connect(TOutDryBul_degC.u, weaBus.TDryBul) annotation (Line(points={{18,120},
@@ -53,22 +57,20 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(TOutDryBul_degC.y, scaEco.x) annotation (Line(points={{41,120},{50,
-          120},{50,40},{70,40},{70,48}}, color={0,0,127}));
-  connect(con.yOutAirFra, scaEco.y[1]) annotation (Line(points={{-79,3},{-79,2},
-          {-70,2},{-70,60},{58,60}}, color={0,0,127}));
+  connect(TOutDryBul_degC.y, scaEco.x) annotation (Line(points={{41,120},{50,120},
+          {50,52},{58,52}},              color={0,0,127}));
   connect(con.yFan, scaPFan.x) annotation (Line(points={{-79,9},{-80,9},{-80,10},
-          {-74,10},{-74,-90},{-30,-90},{-30,-82}}, color={0,0,127}));
+          {-74,10},{-74,-78},{-42,-78}},           color={0,0,127}));
   connect(hvac.PFan, scaPFan.y[1]) annotation (Line(points={{1,18},{24,18},{24,
           -50},{-50,-50},{-50,-70},{-42,-70}}, color={0,0,127}));
   connect(zon.TRooAir, TRooAir_degC.u)
     annotation (Line(points={{81,0},{90,0},{90,90},{98,90}}, color={0,0,127}));
-  connect(scaTRoo.x, TOutDryBul_degC.y) annotation (Line(points={{150,58},{150,
-          52},{126,52},{126,120},{41,120}}, color={0,0,127}));
+  connect(scaTRoo.x, TOutDryBul_degC.y) annotation (Line(points={{138,62},{126,62},
+          {126,120},{41,120}},              color={0,0,127}));
   connect(scaTRoo.y[1], TRooAir_degC.y) annotation (Line(points={{138,70},{130,
           70},{130,90},{121,90}}, color={0,0,127}));
-  connect(con.chiOn, plotConfiguration.activate) annotation (Line(points={{-79,
-          -4},{-60,-4},{-60,50},{-152,50},{-152,116},{-142,116}}, color={255,0,
+  connect(con.chiOn, plotConfiguration.activate) annotation (Line(points={{-79,-4},
+          {-60,-4},{-60,50},{-152,50},{-152,118},{-142,118}},     color={255,0,
           255}));
   connect(TOutDryBul_degC.y, ploTOut.y[1]) annotation (Line(points={{41,120},{
           126,120},{126,111.333},{138,111.333}},
@@ -78,7 +80,9 @@ equation
   connect(TRooAir_degC.y, ploTOut.y[3]) annotation (Line(points={{121,90},{130,
           90},{130,108.667},{138,108.667}},
                                         color={0,0,127}));
-  annotation ( experiment(Tolerance=1e-6, StopTime=259200),
+  connect(con.yOutAirFra, scaEco.y[1]) annotation (Line(points={{-79,3},{-68,3},
+          {-68,60},{58,60}}, color={0,0,127}));
+  annotation ( experiment(Tolerance=1e-6, StartTime=15552000, StopTime=15984000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Examples/SingleZoneVAV.mos"
         "Simulate and plot"),
   Documentation(info="<html>

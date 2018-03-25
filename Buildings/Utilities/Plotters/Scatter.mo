@@ -7,11 +7,11 @@ block Scatter "Block that plots one or multiple scatter plots"
 
   Modelica.Blocks.Interfaces.RealInput x "x-data" annotation (
       Placement(transformation(extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={0,-120}),
+        rotation=0,
+        origin={-120,-80}),
         iconTransformation(extent={{-20,20},{20,-20}},
-        rotation=90,
-        origin={0,-120})));
+        rotation=0,
+        origin={-120,-80})));
 algorithm
   when terminal() then
     Buildings.Utilities.Plotters.BaseClasses.print(
