@@ -143,9 +143,14 @@ its class name ends with the string <code>Beta</code>.
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Utilities.Plotters
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Package with blocks that allow generating
+                          time series and scatter plots, and writing these plots to
+                          one or several html files.
+                          The plots can be deactivated based on an input signal and a time
+                          delay, for example, to plot data only while the HVAC system
+                          operates for at least <i>30</i> minutes.
        </td>
        </tr>
    </table>
@@ -6996,7 +7001,14 @@ particular package.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">Utilities.IO.Python27</a>
    </td>
    <td valign=\"top\">Package to call Python functions from Modelica.</td>
-</tr></table><br/>
+</tr>
+
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.Plotters.UsersGuide\">Utilities.Plotters</a>
+   </td>
+   <td valign=\"top\">Package that allow writing time series and scatter plots to an html output file.</td>
+</tr>
+
+</table><br/>
 </li>
 <li>
 There is also a tutorial available at

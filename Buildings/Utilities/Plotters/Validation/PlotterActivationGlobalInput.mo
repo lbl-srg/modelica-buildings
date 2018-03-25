@@ -4,10 +4,10 @@ model PlotterActivationGlobalInput
   extends PlotterActivationAlwaysOn(plotConfiguration(globalActivation=
           Buildings.Utilities.Plotters.Types.GlobalActivation.use_input));
   Modelica.Blocks.Sources.BooleanPulse booPul(period=2) "Boolean pulse signal"
-    annotation (Placement(transformation(extent={{-80,66},{-60,86}})));
+    annotation (Placement(transformation(extent={{-80,68},{-60,88}})));
 equation
   connect(booPul.y, plotConfiguration.activate)
-    annotation (Line(points={{-59,76},{-42,76}}, color={255,0,255}));
+    annotation (Line(points={{-59,78},{-42,78}}, color={255,0,255}));
   annotation (
   experiment(Tolerance=1e-6, StopTime=10.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Validation/PlotterActivationGlobalInput.mos"

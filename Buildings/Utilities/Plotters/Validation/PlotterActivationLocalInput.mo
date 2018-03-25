@@ -6,10 +6,11 @@ model PlotterActivationLocalInput
   Modelica.Blocks.Sources.BooleanPulse booPul(period=2) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-80,66},{-60,86}})));
 equation
-  connect(booPul.y, sca.activate) annotation (Line(points={{-59,76},{-50,76},{-50,
-          36},{-2,36}}, color={255,0,255}));
+  connect(booPul.y, sca.activate) annotation (Line(points={{-59,76},{-50,76},{
+          -50,38},{-2,38}},
+                        color={255,0,255}));
   connect(booPul.y, scaDel.activate) annotation (Line(points={{-59,76},{-50,76},
-          {-50,36},{-12,36},{-12,-4},{-2,-4}}, color={255,0,255}));
+          {-50,38},{-12,38},{-12,-2},{-2,-2}}, color={255,0,255}));
   annotation (
   experiment(Tolerance=1e-6, StopTime=10.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Validation/PlotterActivationLocalInput.mos"
