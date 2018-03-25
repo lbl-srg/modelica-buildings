@@ -8,7 +8,7 @@ model Configuration "Configuration for plotters"
   "Time unit for plot"
     annotation(Dialog(group="Labels"));
 
-  parameter Buildings.Utilities.Plotters.Types.GlobalActivation globalActivation=
+  parameter Buildings.Utilities.Plotters.Types.GlobalActivation activation=
     Buildings.Utilities.Plotters.Types.GlobalActivation.always
     "Set to true to enable an input that allows activating and deactivating the plotting"
     annotation(Dialog(group="Activation"));
@@ -17,10 +17,10 @@ model Configuration "Configuration for plotters"
     "Time that needs to elapse to enable plotting after activate becomes true"
     annotation(Dialog(
       group="Activation",
-      enable=(globalActivation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)));
+      enable=(activation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)));
 
   Modelica.Blocks.Interfaces.BooleanInput activate if
-     (globalActivation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)
+     (activation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)
     "Set to true to enable plotting of time series after activationDelay elapsed"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
@@ -32,7 +32,7 @@ protected
 initial equation
   tActivateLast = time-2*activationDelay;
 equation
-  if (globalActivation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input) then
+  if (activation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input) then
     connect(activate, activate_internal);
   else
     activate_internal = true;
@@ -86,7 +86,7 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           fillColor=DynamicSelect({235,235,235}, if activate > 0.5 then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid,
-          visible=globalActivation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)}),  Diagram(
+          visible=activation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)}),  Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

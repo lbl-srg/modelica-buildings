@@ -20,8 +20,8 @@ partial block PartialPlotter "Partial block for plotters"
   parameter String[n] legend "String array for legend, such as {\"x1\", \"x2\"}"
     annotation(Dialog(group="Labels"));
 
-  parameter Buildings.Utilities.Plotters.Types.LocalActivation localActivation=
-    Buildings.Utilities.Plotters.Types.LocalActivation.use_globalActivation
+  parameter Buildings.Utilities.Plotters.Types.LocalActivation activation=
+    Buildings.Utilities.Plotters.Types.LocalActivation.use_activation
     "Set to true to enable an input that allows activating and deactivating the plotting"
     annotation(Dialog(group="Activation"));
 
@@ -34,7 +34,7 @@ partial block PartialPlotter "Partial block for plotters"
         iconTransformation(extent={{-140,20},{-100,-20}})));
 
   Modelica.Blocks.Interfaces.BooleanInput activate if
-     (localActivation == Buildings.Utilities.Plotters.Types.LocalActivation.use_input)
+     (activation == Buildings.Utilities.Plotters.Types.LocalActivation.use_input)
     "Set to true to enable plotting of time series after activationDelay elapsed"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
@@ -46,9 +46,9 @@ protected
     getInstanceName(), ".", "_")
     "Name of this instance with periods replace by underscore";
   parameter Boolean connectPoints=
-    (localActivation == Buildings.Utilities.Plotters.Types.LocalActivation.always) or
-    (localActivation == Buildings.Utilities.Plotters.Types.LocalActivation.use_globalActivation and
-    plotConfiguration.globalActivation == Buildings.Utilities.Plotters.Types.GlobalActivation.always)
+    (activation == Buildings.Utilities.Plotters.Types.LocalActivation.always) or
+    (activation == Buildings.Utilities.Plotters.Types.LocalActivation.use_activation and
+    plotConfiguration.activation == Buildings.Utilities.Plotters.Types.GlobalActivation.always)
     "Flag, true if points should be connected in plots";
 
   parameter String plotMode = "mode: '" +
@@ -80,11 +80,11 @@ initial equation
   tActivateLast = time-2*activationDelay;
   firstCall = true;
 equation
-  if (localActivation == Buildings.Utilities.Plotters.Types.LocalActivation.use_input) then
+  if (activation == Buildings.Utilities.Plotters.Types.LocalActivation.use_input) then
     connect(activate, activate_internal);
-  elseif  (localActivation == Buildings.Utilities.Plotters.Types.LocalActivation.use_globalActivation) then
+  elseif  (activation == Buildings.Utilities.Plotters.Types.LocalActivation.use_activation) then
     activate_internal = plotConfiguration.active;
-  elseif  (localActivation == Buildings.Utilities.Plotters.Types.LocalActivation.always) then
+  elseif  (activation == Buildings.Utilities.Plotters.Types.LocalActivation.always) then
     activate_internal = true;
   end if;
   when (activate_internal) then
@@ -122,13 +122,13 @@ equation
           lineColor={0,140,72},
           fillColor={0,140,72},
           fillPattern=FillPattern.Solid,
-          visible=localActivation == Buildings.Utilities.Plotters.Types.LocalActivation.always),
+          visible=activation == Buildings.Utilities.Plotters.Types.LocalActivation.always),
         Ellipse(
           extent={{-96,10},{-76,-10}},
           lineColor={28,108,200},
           fillColor={255,255,170},
           fillPattern=FillPattern.Solid,
-          visible=localActivation == Buildings.Utilities.Plotters.Types.LocalActivation.use_globalActivation),
+          visible=activation == Buildings.Utilities.Plotters.Types.LocalActivation.use_activation),
         Ellipse(
           extent={{-95,67},{-81,53}},
           lineColor=DynamicSelect({235,235,235}, if activate > 0.5 then {0,255,0}
@@ -136,7 +136,7 @@ equation
           fillColor=DynamicSelect({235,235,235}, if activate > 0.5 then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid,
-          visible=localActivation == Buildings.Utilities.Plotters.Types.LocalActivation.use_input)}),
+          visible=activation == Buildings.Utilities.Plotters.Types.LocalActivation.use_input)}),
 Documentation(info="<html>
 <p>
 Partial block that implements the basic functionality

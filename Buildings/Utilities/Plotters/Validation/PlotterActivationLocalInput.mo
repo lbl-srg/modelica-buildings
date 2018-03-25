@@ -1,8 +1,8 @@
 within Buildings.Utilities.Plotters.Validation;
 model PlotterActivationLocalInput
   "Validation for plotter activation based on local input"
-  extends PlotterActivationAlwaysOn(sca(localActivation=Buildings.Utilities.Plotters.Types.LocalActivation.use_input),
-      scaDel(localActivation=Buildings.Utilities.Plotters.Types.LocalActivation.use_input));
+  extends PlotterActivationAlwaysOn(sca(activation=Buildings.Utilities.Plotters.Types.LocalActivation.use_input),
+      scaDel(activation=Buildings.Utilities.Plotters.Types.LocalActivation.use_input));
   Modelica.Blocks.Sources.BooleanPulse booPul(period=2) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-80,66},{-60,86}})));
 equation

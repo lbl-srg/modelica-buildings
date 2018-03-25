@@ -1,7 +1,7 @@
 within Buildings.Utilities.Plotters.Validation;
 model PlotterActivationGlobalInput
   "Validation for plotter activation based on global input"
-  extends PlotterActivationAlwaysOn(plotConfiguration(globalActivation=
+  extends PlotterActivationAlwaysOn(plotConfiguration(activation=
           Buildings.Utilities.Plotters.Types.GlobalActivation.use_input));
   Modelica.Blocks.Sources.BooleanPulse booPul(period=2) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-80,68},{-60,88}})));

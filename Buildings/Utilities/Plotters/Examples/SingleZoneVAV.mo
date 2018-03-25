@@ -7,7 +7,7 @@ model SingleZoneVAV
   inner Configuration plotConfiguration(
     samplePeriod(displayUnit="min") = 900,
     timeUnit=Buildings.Utilities.Plotters.Types.TimeUnit.days,
-    globalActivation=Buildings.Utilities.Plotters.Types.GlobalActivation.use_input,
+    activation=Buildings.Utilities.Plotters.Types.GlobalActivation.use_input,
     activationDelay(displayUnit="min") = 600)
     "Plot configuration"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
@@ -22,7 +22,7 @@ model SingleZoneVAV
     title="Outdoor drybulb and dew point temperatures",
     n=3,
     legend={"TOutDryBul","TOutDewPoi","TRoo"},
-    localActivation=Buildings.Utilities.Plotters.Types.LocalActivation.always)
+    activation=Buildings.Utilities.Plotters.Types.LocalActivation.always)
     "Temperatures"
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
   Buildings.Utilities.Plotters.Scatter scaEco(
