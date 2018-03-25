@@ -59,7 +59,6 @@ algorithm
   // Plot layout
   str := "
   var layout_" + insNam + " = { 
-    title: '" + title + "',
     xaxis: { title: '" + xlabel + "'}";
     if (n == 1) then
       str := str + ",

@@ -9,7 +9,8 @@ model Scatter "Simple scatter plots"
     n=1,
     title="Sine vs cosine",
     xlabel="sine",
-    legend={"cos"})
+    legend={"cos"},
+    introduction="This plot shows a scatter plot of sine vs cosine.")
     "Scatter plot"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Sources.RealExpression sine(y=sin(time))
@@ -23,7 +24,9 @@ model Scatter "Simple scatter plots"
     n=2,
     title="Sine vs cosine and sine vs cosine^2",
     legend={"sin vs cos","sin vs cos^2"},
-    xlabel="sine")
+    xlabel="sine",
+    introduction=
+        "This plot shows a scatter plot of sine vs cosine and of sine vs cosine^2.")
     "Scatter plot"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Modelica.Blocks.Math.Product product

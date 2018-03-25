@@ -12,7 +12,9 @@ model SingleZoneVAVSupply_u
     title="Temperature setpoints",
     n=2,
     xlabel="Heating (negative) and cooling (positive) control loop signal",
-    legend={"THea [degC]","TCoo [degC]"})
+    legend={"THea [degC]","TCoo [degC]"},
+    introduction="Set point temperatures as a function of the heating loop signal (from -1 to 0) and
+the cooling loop signal (from 0 to +1).")
          "Scatter plot for temperature setpoints"
     annotation (Placement(transformation(extent={{110,10},{130,30}})));
   Modelica.Blocks.Math.UnitConversions.To_degC THea_degC
@@ -25,7 +27,10 @@ model SingleZoneVAVSupply_u
     n=1,
     title="Fan control signal",
     legend={"yFan"},
-    xlabel="Heating (negative) and cooling (positive) control loop signal")
+    xlabel="Heating (negative) and cooling (positive) control loop signal",
+    introduction="Fan speed as a function of the heating loop signal (from -1 to 0) and
+the cooling loop signal (from 0 to +1).
+What appears to be a slight overshoot is due to the hysteresis that is used to avoid a hard switch between the different control regimes.")
                      "Scatter plot for fan speed"
     annotation (Placement(transformation(extent={{108,-40},{128,-20}})));
 equation

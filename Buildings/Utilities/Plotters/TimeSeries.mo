@@ -67,7 +67,6 @@ algorithm
   // Plot layout
   str := "
   var layout_" + insNam + " = { 
-    title: '" + title + "',
     xaxis: { title: 'time [" + timeUnitString + "]'}
     };
   Plotly.newPlot('" + insNam + "', data_" + insNam + ", layout_" + insNam + ");

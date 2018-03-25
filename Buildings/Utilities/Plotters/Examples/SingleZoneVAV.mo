@@ -22,20 +22,26 @@ model SingleZoneVAV
     title="Outdoor drybulb and dew point temperatures",
     n=3,
     legend={"TOutDryBul","TOutDewPoi","TRoo"},
-    activation=Buildings.Utilities.Plotters.Types.LocalActivation.always)
+    activation=Buildings.Utilities.Plotters.Types.LocalActivation.always,
+    introduction="Outside conditions.")
     "Temperatures"
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
   Buildings.Utilities.Plotters.Scatter scaEco(
     title="Economizer control signal",
     legend={"uEco"},
     xlabel="TOut [degC]",
-    n=1)                  "Scatter plot for economizer"
+    n=1,
+    introduction=
+        "Economizer control signal while the system is operating for at least 10 minutes.")
+                          "Scatter plot for economizer"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Utilities.Plotters.Scatter scaPFan(
     title="Fan power",
     xlabel="yFan [1]",
     legend={"PFan in [W]"},
-    n=1) "Scatter plot for fan power"
+    n=1,
+    activation=Buildings.Utilities.Plotters.Types.LocalActivation.always)
+         "Scatter plot for fan power"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Modelica.Blocks.Math.UnitConversions.To_degC TRooAir_degC
     "Room air temperature in degC"
@@ -44,7 +50,10 @@ model SingleZoneVAV
     xlabel="TOut [degC]",
     title="Room air temperature",
     legend={"TRoo [degC]"},
-    n=1) "Scatter plot for room air temperature"
+    n=1,
+    introduction=
+        "Room air temperatures while the system is operating for at least 10 minutes.")
+         "Scatter plot for room air temperature"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
 equation
   connect(TOutDryBul_degC.u, weaBus.TDryBul) annotation (Line(points={{18,120},

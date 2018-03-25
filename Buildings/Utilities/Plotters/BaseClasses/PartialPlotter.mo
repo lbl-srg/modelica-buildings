@@ -14,6 +14,8 @@ partial block PartialPlotter "Partial block for plotters"
   parameter String title = getInstanceName() "Title of the plot"
     annotation(Dialog(group="Labels"));
 
+  parameter String introduction = ""
+    "Introduction text written below title and above the plot";
   parameter Integer n = 0 "Number of independent data series (dimension of y)"
   annotation (Dialog(connectorSizing=true), HideResult=true);
 
@@ -72,6 +74,10 @@ initial equation
   Buildings.Utilities.Plotters.BaseClasses.print(
     plt=plt,
     string="
+    <h1>" + title + "</h1>
+    " + (if (Modelica.Utilities.Strings.length(introduction) > 0) then
+      "<p>" + introduction + "</p>"
+      else "")  + "
     <div id=\"" + insNam + "\"></div>
     <script>
     ",
@@ -95,9 +101,6 @@ equation
 
   // sample only if the plotter is active
   sampleTrigger = active and sample(t0, samplePeriod);
-//  when sampleTrigger then
-//    firstTrigger = time <= t0 + samplePeriod/2;
-//  end when;
 
   annotation (
     Icon(graphics={
