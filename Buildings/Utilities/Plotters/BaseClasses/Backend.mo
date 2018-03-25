@@ -2,7 +2,7 @@ within Buildings.Utilities.Plotters.BaseClasses;
 class Backend "Backend implementation for the plotter"
 extends ExternalObject;
     function constructor
-      "Construct the data structure that allows multiple plotters writting to the same html file"
+      "Construct the data structure that allows multiple plotters writing to the same html file"
       input String fileName "Name of html file to which this block prints";
       output Backend plt "Pointer to data structure for this plotter";
     external "C" plt = plotInit(fileName)
