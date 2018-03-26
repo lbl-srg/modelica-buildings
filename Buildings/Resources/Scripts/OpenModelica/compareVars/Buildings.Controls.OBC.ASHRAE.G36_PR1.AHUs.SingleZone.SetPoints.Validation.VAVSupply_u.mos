@@ -6,5 +6,8 @@ compareVars :=
     "setPoiVAV.TCoo",
     "setPoiVAV.y",
     "setPoiVAV.TZon",
-    "setPoiVAV.TOut"
+    "setPoiVAV.TOut",
+    "setPoiVAV.y",
+    "setPoiVAV1.y",
+    "setPoiVAV2.y"
   };
