@@ -1,11 +1,10 @@
 within Buildings.Utilities.Plotters.Examples;
 model SingleZoneVAVSupply_u
   "Scatter plots for control signal of a single zone VAV controller from ASHRAE Guideline 36"
-  extends
-    Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.Validation.VAVSupply_u;
+  extends Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.Validation.VAVSupply_u;
   inner Configuration plotConfiguration(samplePeriod=0.005) "Plot configuration"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Controls.OBC.CDL.Continuous.Add heaCooConSig(k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add heaCooConSig(k1=-1)
     "Room control signal for heating (negative) and cooling"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Buildings.Utilities.Plotters.Scatter scaTem(
@@ -15,7 +14,7 @@ model SingleZoneVAVSupply_u
     legend={"THea [degC]","TCoo [degC]"},
     introduction="Set point temperatures as a function of the heating loop signal (from -1 to 0) and
 the cooling loop signal (from 0 to +1).")
-         "Scatter plot for temperature setpoints"
+    "Scatter plot for temperature setpoints"
     annotation (Placement(transformation(extent={{110,10},{130,30}})));
   Modelica.Blocks.Math.UnitConversions.To_degC THea_degC
     "Control signal for heating"
@@ -29,9 +28,8 @@ the cooling loop signal (from 0 to +1).")
     legend={"yFan"},
     xlabel="Heating (negative) and cooling (positive) control loop signal",
     introduction="Fan speed as a function of the heating loop signal (from -1 to 0) and
-the cooling loop signal (from 0 to +1).
-What appears to be a slight overshoot is due to the hysteresis that is used to avoid a hard switch between the different control regimes.")
-                     "Scatter plot for fan speed"
+the cooling loop signal (from 0 to +1).")
+    "Scatter plot for fan speed"
     annotation (Placement(transformation(extent={{108,-40},{128,-20}})));
 equation
   connect(uHea.y, heaCooConSig.u1) annotation (Line(points={{-59,80},{-12,80},{-12,
@@ -41,14 +39,16 @@ equation
   connect(scaTem.x, heaCooConSig.y) annotation (Line(points={{108,12},{100,12},{
           100,-70},{81,-70}}, color={0,0,127}));
   connect(setPoiVAV.THeaEco, THea_degC.u)
-    annotation (Line(points={{21,6},{48,6},{48,30},{58,30}}, color={0,0,127}));
+    annotation (Line(points={{21,56},{48,56},{48,30},{58,30}},
+                                                             color={0,0,127}));
   connect(setPoiVAV.TCoo, TCoo_degC1.u)
-    annotation (Line(points={{21,0},{58,0}},        color={0,0,127}));
+    annotation (Line(points={{21,50},{40,50},{40,0},{58,0}},
+                                                    color={0,0,127}));
   connect(THea_degC.y, scaTem.y[1]) annotation (Line(points={{81,30},{88,30},{88,
           21},{108,21}},color={0,0,127}));
   connect(TCoo_degC1.y, scaTem.y[2])
     annotation (Line(points={{81,0},{88,0},{88,19},{108,19}},color={0,0,127}));
-  connect(setPoiVAV.y, scaYFan.y[1]) annotation (Line(points={{21,-6},{48,-6},{48,
+  connect(setPoiVAV.y, scaYFan.y[1]) annotation (Line(points={{21,44},{48,44},{48,
           -30},{106,-30}}, color={0,0,127}));
   connect(heaCooConSig.y, scaYFan.x) annotation (Line(points={{81,-70},{100,-70},
           {100,-38},{106,-38}}, color={0,0,127}));
