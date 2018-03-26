@@ -3,7 +3,7 @@ model Configuration "Configuration for plotters"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
     "Sample period of component";
-  parameter String fileName = "plots.html" "Name of html file";
+  parameter String fileName = Modelica.Utilities.Files.fullPathName("") + "plots.html" "Name of html file";
   parameter Buildings.Utilities.Plotters.Types.TimeUnit timeUnit = Types.TimeUnit.hours
   "Time unit for plot"
     annotation(Dialog(group="Labels"));

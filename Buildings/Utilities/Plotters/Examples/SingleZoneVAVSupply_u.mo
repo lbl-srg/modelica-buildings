@@ -1,7 +1,8 @@
 within Buildings.Utilities.Plotters.Examples;
 model SingleZoneVAVSupply_u
   "Scatter plots for control signal of a single zone VAV controller from ASHRAE Guideline 36"
-  extends Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.Validation.VAVSupply_u;
+  extends
+    Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.Validation.VAVSupply_u;
   inner Configuration plotConfiguration(samplePeriod=0.005) "Plot configuration"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Add heaCooConSig(k1=-1)

@@ -63,7 +63,6 @@ protected
 
   output Boolean sampleTrigger "True, if sample time instant";
 
-
   Buildings.Utilities.Plotters.BaseClasses.Backend plt=
     Buildings.Utilities.Plotters.BaseClasses.Backend(fileName=fileName)
     "Object that stores data for this plot";
