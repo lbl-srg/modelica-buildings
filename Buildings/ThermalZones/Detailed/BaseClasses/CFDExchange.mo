@@ -38,13 +38,14 @@ block CFDExchange "Block that exchanges data with the CFD code"
 
   Modelica.Blocks.Interfaces.RealInput u[nWri] "Inputs to CFD"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  discrete Modelica.Blocks.Interfaces.RealOutput y[nRea] "Outputs received from CFD"
+  discrete Modelica.Blocks.Interfaces.RealOutput y[nRea]
+    "Outputs received from CFD"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Real uInt[nWri] "Value of integral";
   discrete Real uIntPre[nWri] "Value of integral at previous sampling instance";
   discrete Real uWri[nWri] "Value to be sent to the CFD interface";
-	
+
 // instantiate the Buildings.ThermalZones.Detailed.BaseClasses.CFDThread.
 // it will send the parameters to FFD when creating the thread at the beginning of coupled simulation.
 // it will automatically close the thread at end of the simulation.
@@ -260,8 +261,8 @@ end if;
                          names=portName);
 
   // Send parameters to the CFD interface
-	// Block this as CFDThread is called.
-	/*
+ // Block this as CFDThread is called.
+ /*
   sendParameters(
     cfdFilNam=cfdFilNam,
     name=surIde[:].name,
@@ -280,7 +281,7 @@ end if;
     nC=nC,
     rho_start=rho_start,
     verbose=verbose);
-	*/
+        */
   // Assignment of parameters and start values
   uInt = zeros(nWri);
   uIntPre = zeros(nWri);
@@ -351,14 +352,14 @@ algorithm
       "   Aborting simulation. Check CFD log file.\n" +
       "   Received: retVal = " + String(retVal));
   end when;
-	
-	// As of Feb 2018, built-in terminal() is not supported by JModelica
-	// This when terminal() is blocked, as CFDThread can do the job.
-	// At end of the simulation, the destructor will be automatically called, which
-	// will further send the stop command to FFD and close the thread after receiving 
-	// feedback from FFD.
-	
-	/*
+
+ // As of Feb 2018, built-in terminal() is not supported by JModelica
+ // This when terminal() is blocked, as CFDThread can do the job.
+ // At end of the simulation, the destructor will be automatically called, which
+ // will further send the stop command to FFD and close the thread after receiving
+ // feedback from FFD.
+
+ /*
   when terminal() then
     assert(
       rem(time - startTime, samplePeriod) < 0.00001,
@@ -391,7 +392,7 @@ algorithm
     assert(cfdReceiveFeedback() == 0, "Could not terminate the cosimulation.");
 
   end when;
-	*/
+        */
   annotation (
     Documentation(info="<html>
 <p>
