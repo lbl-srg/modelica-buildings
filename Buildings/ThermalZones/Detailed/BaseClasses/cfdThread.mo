@@ -27,9 +27,10 @@ class CFDThread "create constructor and destructor associated with external obje
 		output Integer retVal
 			"Return value of the function (0 indicates CFD successfully started.)";
 		// FIXME: need to declare a struct FFDThread as void pointer
-		output CFDThread FFDThre "the handler of FFD thread";
+		//output CFDThread FFDThre "the handler of FFD thread";
 		// FIXME: need to let cfdStartCosimulation return a construct
-		external"C" FFDThre = cfdStartCosimulation(
+		//external"C" FFDThre = cfdStartCosimulation(
+		external"C" retVal = cfdStartCosimulation(
 			cfdFilNam,
 			name,
 			A,
@@ -59,4 +60,4 @@ class CFDThread "create constructor and destructor associated with external obje
 	end destructor;
 
 
-end cfdThread;
+end CFDThread;

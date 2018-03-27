@@ -49,7 +49,7 @@ block CFDExchange "Block that exchanges data with the CFD code"
 // it will send the parameters to FFD when creating the thread at the beginning of coupled simulation.
 // it will automatically close the thread at end of the simulation.
 // returned is the address of the thread which is not used in the model.
-Buildings.ThermalZones.Detailed.BaseClasses.CFDThread(
+Buildings.ThermalZones.Detailed.BaseClasses.CFDThread ffd = Buildings.ThermalZones.Detailed.BaseClasses.CFDThread(
     cfdFilNam=cfdFilNam,
     name=surIde[:].name,
     A=surIde[:].A,
