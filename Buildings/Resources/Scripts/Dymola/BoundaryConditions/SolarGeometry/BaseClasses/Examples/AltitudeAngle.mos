@@ -1,6 +1,5 @@
 removePlots();
 simulateModel("Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples.AltitudeAngle", tolerance=1e-6, stopTime=86400, method="dassl", resultFile="AltitudeAngle");
-
 createPlot(id = 1,
  position = {7, 7, 746, 517},
  y = {"altAng.alt"},
