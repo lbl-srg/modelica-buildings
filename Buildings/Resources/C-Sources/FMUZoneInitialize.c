@@ -59,6 +59,7 @@ static int loadLib(const char* libPath, FMU *fmu) {
                 libPath);
 		ModelicaError(msg);
 		return -1;
+               
 	}
 	if (!h) {
 		snprintf(msg, 200, "****** Unable to load the "
@@ -116,33 +117,32 @@ static int loadLib(const char* libPath, FMU *fmu) {
 }
 
 void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
-   char msg[200]; 
-   FMUZone* zone = (FMUZone*) object; 
-   FMU* fmu;
-   fmu = malloc(sizeof(FMU*));
-   zone->ptrBui->fmu = fmu;
-   int retVal;
+  char msg[200]; 
+  FMUZone* zone = (FMUZone*) object; 
+  FMU* fmu;
+  fmu = malloc(sizeof(FMU*));
+  zone->ptrBui->fmu = fmu;
+  int retVal;
 
-   const char * inputNames[] = {"Attic,T", "Core_ZN,T", "Perimeter_ZN_1,T", 
+  const char * inputNames[] = {"Attic,T", "Core_ZN,T", "Perimeter_ZN_1,T", 
 				"Perimeter_ZN_2,T", "Perimeter_ZN_3,T", "Perimeter_ZN_4,T"};
-   const unsigned int inputValueReferences[] = {0, 1, 2, 3, 4, 5,};
 
-   const char * outputNames[] = {"Attic,QConSen_flow", "Core_ZN,QConSen_flow", 
+  const unsigned int inputValueReferences[] = {0, 1, 2, 3, 4, 5,};
+  const char * outputNames[] = {"Attic,QConSen_flow", "Core_ZN,QConSen_flow", 
                                  "Perimeter_ZN_1,QConSen_flow", "Perimeter_ZN_2,QConSen_flow", 
 				"Perimeter_ZN_3,QConSen_flow", "Perimeter_ZN_4,QConSen_flow"};
-   const unsigned int outputValueReferences[] = {6, 7, 8, 9, 10, 11};
-
-   const char* input = "RefBldgSmallOfficeNew2004_Chicago.idf";
-
-    const char* weather = "USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw";
-
-    const char* idd = "Energy+.idd";
+   
+  const unsigned int outputValueReferences[] = {6, 7, 8, 9, 10, 11};
+  const char* input ="eplusfmi/RefBldgSmallOfficeNew2004_Chicago.idf";
+  const char* weather ="eplusfmi/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw";
+  const char* idd ="eplusfmi/Energy+.idd";
 
    
-   /* Loading EnergyPlus library */
-  const char* eplib = "libepfmi.so";
-   retVal = loadLib(eplib, zone->ptrBui->fmu);
-   if (retVal  < 0) {
+  /* Loading EnergyPlus library */
+  const char* eplib = "eplusfmi/libepfmi.so";
+  retVal = loadLib(eplib, zone->ptrBui->fmu);
+
+  if (retVal  < 0) {
      snprintf(msg, 200, "There was an error loading the EnergyPlus library\n");
      ModelicaMessage(msg);
     }
@@ -152,14 +152,10 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
 
   snprintf(msg, 200, "The name of the building is %s\n.", zone->ptrBui->name);
   ModelicaMessage(msg);
-
-  snprintf(msg, 200, "The name of the zone[0] for this building is %s\n.", ((FMUZone*)(zone->ptrBui->zones[0]))->name);
-  ModelicaMessage(msg);
-
  
   snprintf(msg, 200, "Ready to instantiate the E+ FMU\n");
   ModelicaMessage(msg);
-  exit(1);
+
   int result = zone->ptrBui->fmu->instantiate(input, // input
                            weather, // weather
                            idd, // idd
@@ -174,6 +170,27 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
                            outputValueReferences, // outputValueReferences[]
                            6, // nOut
                            NULL); //log);
+
+  double tStart = 0.0;
+  int stopTimeDefined = 1;
+  double tEnd = 86400;
+
+  result = zone->ptrBui->fmu->setupExperiment(tStart, 1, NULL);
+  double time = tStart;
+
+  double outputs[] = {0.0, 0.0};
+  const unsigned int outputRefs[] = {6, 7};
+
+  double inputs[] = {21.0, 21.0};
+  const unsigned int inputRefs[] = {0, 1};
+
+  result = zone->ptrBui->fmu->setVariables(inputRefs, inputs, 2, NULL);
+  result = zone->ptrBui->fmu->getVariables(outputRefs, outputs, 2, NULL); 
+
+  snprintf(msg, 200, "The output of value is is %f\n.", outputs[0]);
+  ModelicaMessage(msg);
+  snprintf(msg, 200, "The output of value is is %f\n.", outputs[1]);
+  ModelicaMessage(msg);
 
 /* Obtain the floor area and the volume of the zone */
   *AFlo = 30;
