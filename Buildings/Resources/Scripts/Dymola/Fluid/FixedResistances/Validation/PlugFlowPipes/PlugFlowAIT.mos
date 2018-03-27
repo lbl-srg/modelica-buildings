@@ -1,5 +1,4 @@
 removePlots();
-
 translateModel("Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT");
 simulateModel("Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT", stopTime=603900, numberOfIntervals=0, outputInterval=900, tolerance=1e-6, method="dassl", resultFile="PlugFlowAIT");
 createPlot(id = 5,
@@ -29,7 +28,6 @@ createPlot(id = 5,
  subPlot=2,
  leftTitleType = 1,
  bottomTitleType = 1);
-
  createPlot(id = 6,
  position = {600, 50, 500, 500},
  x = "time",
@@ -57,9 +55,6 @@ createPlot(id = 6,
  subPlot=2,
  leftTitleType = 1,
  bottomTitleType = 1);
-
-
-
  
 createPlot(id = 7,
  position = {55, 600, 500, 500},
@@ -88,8 +83,6 @@ createPlot(id = 7,
  subPlot=2,
  leftTitleType = 1,
  bottomTitleType = 1);
-
-
 createPlot(id = 8,
  position = {600, 600, 500, 500},
  x = "time",
@@ -117,4 +110,3 @@ createPlot(id = 8,
  subPlot=2,
  leftTitleType = 1,
  bottomTitleType = 1);
-

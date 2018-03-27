@@ -1,6 +1,5 @@
 simulateModel("Buildings.Airflow.Multizone.Examples.ReverseBuoyancy3Zones", stopTime=3600,
  method="radau", tolerance=1e-06, resultFile="ReverseBuoyancy3Zones");
-
 createPlot(id = 1,
  position = {35, 30, 825, 625},
  y = {"oriWesTop.port_a.m_flow", "oriEasTop.port_a.m_flow", "oriOutTop.port_a.m_flow","oriOutBot.port_a.m_flow", "dooOpeClo.mAB_flow", "dooOpeClo.mBA_flow"},
@@ -12,7 +11,6 @@ createPlot(id = 1,
  color = true,
  leftTitleType = 1,
  bottomTitleType = 1);
-
 createPlot(id = 2,
  position = {55, 50, 881, 504},
  y = {"volWes.T", "volEas.T", "volTop.T", "volOut.T"},
@@ -24,7 +22,6 @@ createPlot(id = 2,
  color = true,
  leftTitleType = 1,
  bottomTitleType = 1);
-
 createPlot(id = 3,
  position = {30, 30, 800, 625},
  y = {"oriWesTop.dp", "oriEasTop.dp", "oriOutTop.dp","oriOutBot.dp", "dooOpeClo.dpAB[1]"},

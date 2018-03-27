@@ -1,6 +1,5 @@
 simulateModel("Buildings.Airflow.Multizone.Examples.ClosedDoors", stopTime=7200,
   method="radau", tolerance=1e-006, resultFile="ClosedDoors");
-
 removePlots();
 createPlot(id = 4,
  position = {73, 34, 537, 565},
