@@ -20,6 +20,7 @@ cfdExchangeData
 cfdReceiveFeedback
 cfdSendStopCommand
 cfdStartCosimulation
+cfdCloseThread.mo
 to_W
 CFDSurfaceIdentifier
 ConstructionNumbers
