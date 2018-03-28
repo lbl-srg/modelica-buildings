@@ -18,91 +18,64 @@ protected
     else
       "d" "String for time unit that is used in the plotter";
   Real timeConverted "Time converted to display unit";
-initial equation
-  timeConverted = 0;
-algorithm
-  when terminal() then
-    Buildings.Utilities.Plotters.BaseClasses.print(
-    plt=plt,
-    string="];
-  ",finalCall = false);
+initial algorithm
+  timeConverted := 0;
+
   for i in 1:n loop
-    str := "
-  const x_" + insNam + String(i) + " = {
-    x: allData_" + insNam + ".map(x => x[0]),
-    y: allData_" + insNam + ".map(x => x[" + String(i) + "]),
+    Buildings.Utilities.Plotters.BaseClasses.sendTerminalString(
+      plt=plt,
+      string="
+  const struct_" + insNam + String(i) + " = {
+    x: " + insNam + "[0],
+    y: " + insNam + "[" + String(i) + "],
     type: 'scatter',
     " + plotMode + "
     name: '" + legend[i] + "'
-  };";
-    Buildings.Utilities.Plotters.BaseClasses.print(
-      plt=plt,
-      string=str,
-      finalCall = false);
+  };");
   end for;
 
-  str := "
-  var data_" + insNam + " = [";
-  Buildings.Utilities.Plotters.BaseClasses.print(
-      plt=plt,
-      string=str,
-      finalCall = false);
+  Buildings.Utilities.Plotters.BaseClasses.sendTerminalString(
+    plt=plt,
+    string="
+  var data_" + insNam + " = [");
 
   // Loop over all variables, and print them to the C implementation.
   // We print frequently as Dymola truncates the string if it becomes
   // too long.
   for i in 1:n loop
-    str := "x_" + insNam + String(i);
-    if i < n then
-      str := str + ",";
-    else
-      str := str + "];";
-    end if;
-    Buildings.Utilities.Plotters.BaseClasses.print(
+    Buildings.Utilities.Plotters.BaseClasses.sendTerminalString(
       plt=plt,
-      string=str,
-      finalCall = false);
+      string="struct_" + insNam + String(i));
+    Buildings.Utilities.Plotters.BaseClasses.sendTerminalString(
+      plt=plt,
+      string= if (i < n) then "," else "];");
   end for;
 
   // Plot layout
-  str := "
-  var layout_" + insNam + " = { 
+  Buildings.Utilities.Plotters.BaseClasses.sendTerminalString(
+    plt=plt,
+    string="
+  var layout_" + insNam + " = {
     xaxis: { title: 'time [" + timeUnitString + "]'}
     };
   Plotly.newPlot('" + insNam + "', data_" + insNam + ", layout_" + insNam + ");
     </script>
-  ";
-  Buildings.Utilities.Plotters.BaseClasses.print(
-    plt=plt,
-    string=str,
-    finalCall = true);
-  elsewhen {sampleTrigger} then
-    str :="";
-    for i in 1:n loop
-      str :=str + ", " + String(y[i]);
-    end for;
+");
+
+equation
+  when sampleTrigger then
     if timeUnit == Buildings.Utilities.Plotters.Types.TimeUnit.seconds then
-      timeConverted :=time;
+      timeConverted = time;
     elseif timeUnit == Buildings.Utilities.Plotters.Types.TimeUnit.minutes then
-      timeConverted :=time/60.;
+      timeConverted = time/60.;
     elseif timeUnit == Buildings.Utilities.Plotters.Types.TimeUnit.hours then
-      timeConverted :=time/3600.;
+      timeConverted = time/3600.;
     else
-      timeConverted :=time/86400.;
+      timeConverted = time/86400.;
     end if;
-    if firstCall then
-      Buildings.Utilities.Plotters.BaseClasses.print(
+    Buildings.Utilities.Plotters.BaseClasses.sendReal(
       plt=plt,
-      string=
-        "const allData_" + insNam + " = [[" + String(timeConverted) + str + "]",
-        finalCall = false);
-      firstCall :=false;
-    else
-      Buildings.Utilities.Plotters.BaseClasses.print(
-      plt=plt,
-      string= ", [" + String(timeConverted) + str + "]",
-      finalCall = false);
-    end if;
+      x = cat(1, {timeConverted}, y));
   end when;
   annotation (
   defaultComponentName="timSer",

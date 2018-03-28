@@ -4,8 +4,10 @@ extends ExternalObject;
     function constructor
       "Construct the data structure that allows multiple plotters writing to the same html file"
       input String fileName "Name of html file to which this block prints";
+      input String instanceName "Name of the instance of this plotter";
+      input Integer nDbl "Number of double values in the array that is sent at each sampling time";
       output Backend plt "Pointer to data structure for this plotter";
-    external "C" plt = plotInit(fileName)
+      external "C" plt = plotInit(fileName, instanceName, nDbl)
     annotation(Include="#include <plotInit.c>",
     IncludeDirectory="modelica://Buildings/Resources/C-Sources");
     annotation(Documentation(info="<html>

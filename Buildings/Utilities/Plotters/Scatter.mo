@@ -12,85 +12,59 @@ block Scatter "Block that plots one or multiple scatter plots"
         iconTransformation(extent={{-20,20},{20,-20}},
         rotation=0,
         origin={-120,-80})));
-algorithm
-  when terminal() then
-    Buildings.Utilities.Plotters.BaseClasses.print(
-    plt=plt,
-    string="];
-  ",finalCall = false);
+initial algorithm
   for i in 1:n loop
-    str := "
-  const x_" + insNam + String(i) + " = {
-    x: allData_" + insNam + ".map(x => x[0]),
-    y: allData_" + insNam + ".map(x => x[" + String(i) + "]),
+    Buildings.Utilities.Plotters.BaseClasses.sendTerminalString(
+      plt=plt,
+      string="
+  const struct_" + insNam + String(i) + " = {
+    x: " + insNam + "[0],
+    y: " + insNam + "[" + String(i) + "],
     type: 'scatter',
     " + plotMode + "
     name: '" + legend[i] + "'
-  };";
-    Buildings.Utilities.Plotters.BaseClasses.print(
-      plt=plt,
-      string=str,
-      finalCall = false);
+  };
+");
   end for;
 
-  str := "
-  var data_" + insNam + " = [";
-  Buildings.Utilities.Plotters.BaseClasses.print(
-      plt=plt,
-      string=str,
-      finalCall = false);
+  Buildings.Utilities.Plotters.BaseClasses.sendTerminalString(
+    plt=plt,
+    string="
+  var data_" + insNam + " = [");
 
   // Loop over all variables, and print them to the C implementation.
   // We print frequently as Dymola truncates the string if it becomes
   // too long.
   for i in 1:n loop
-    str := "x_" + insNam + String(i);
-    if i < n then
-      str := str + ",";
-    else
-      str := str + "];";
-    end if;
-    Buildings.Utilities.Plotters.BaseClasses.print(
+    Buildings.Utilities.Plotters.BaseClasses.sendTerminalString(
       plt=plt,
-      string=str,
-      finalCall = false);
+      string="struct_" + insNam + String(i));
+    Buildings.Utilities.Plotters.BaseClasses.sendTerminalString(
+      plt=plt,
+      string= if (i < n) then "," else "];");
   end for;
-
   // Plot layout
-  str := "
-  var layout_" + insNam + " = { 
-    xaxis: { title: '" + xlabel + "'}";
-    if (n == 1) then
-      str := str + ",
-    yaxis: { title: '" + legend[1] + "'}";
-    end if;
-  str := str + "
-  };
+  Buildings.Utilities.Plotters.BaseClasses.sendTerminalString(
+    plt=plt,
+    string="
+  var layout_" + insNam + " = {
+    xaxis: { title: '" + xlabel + "'}" +
+    (if (n == 1)
+    then ",
+    yaxis: { title: '" + legend[1] + "'}"
+    else "") +
+    "
+    };
+    
   Plotly.newPlot('" + insNam + "', data_" + insNam + ", layout_" + insNam + ");
     </script>
-  ";
-  Buildings.Utilities.Plotters.BaseClasses.print(
-    plt=plt,
-    string=str,
-    finalCall = true);
-  elsewhen {sampleTrigger} then
-    str :="";
-    for i in 1:n loop
-      str :=str + ", " + String(y[i]);
-    end for;
-    if firstCall then
-      Buildings.Utilities.Plotters.BaseClasses.print(
+");
+
+algorithm
+  when sampleTrigger then
+    Buildings.Utilities.Plotters.BaseClasses.sendReal(
       plt=plt,
-      string=
-        "const allData_" + insNam + " = [[" + String(x) + str + "]",
-        finalCall = false);
-      firstCall :=false;
-    else
-      Buildings.Utilities.Plotters.BaseClasses.print(
-      plt=plt,
-      string= ", [" + String(x) + str + "]",
-      finalCall = false);
-    end if;
+      x = cat(1, {x}, y));
   end when;
   annotation (
     defaultComponentName="sca",

@@ -1,3 +1,5 @@
 Backend
 PartialPlotter
-print
+sendReal
+sendString
+sendTerminalString

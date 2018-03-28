@@ -64,13 +64,14 @@ protected
   output Boolean sampleTrigger "True, if sample time instant";
 
   Buildings.Utilities.Plotters.BaseClasses.Backend plt=
-    Buildings.Utilities.Plotters.BaseClasses.Backend(fileName=fileName)
+    Buildings.Utilities.Plotters.BaseClasses.Backend(
+      fileName=fileName,
+      instanceName=insNam,
+      nDbl=n+1)
     "Object that stores data for this plot";
-  String str "Temporary string";
-  Boolean firstCall "Flag, true before the first data are written";
 initial equation
   t0 = time;
-  Buildings.Utilities.Plotters.BaseClasses.print(
+  Buildings.Utilities.Plotters.BaseClasses.sendString(
     plt=plt,
     string="
     <h1>" + title + "</h1>
@@ -79,11 +80,8 @@ initial equation
       else "")  + "
     <div id=\"" + insNam + "\"></div>
     <script>
-    ",
-    finalCall = false);
-  str = "";
+    ");
   tActivateLast = time-2*activationDelay;
-  firstCall = true;
 equation
   if (activation == Buildings.Utilities.Plotters.Types.LocalActivation.use_input) then
     connect(activate, activate_internal);
