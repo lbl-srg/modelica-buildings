@@ -38,7 +38,7 @@ void plotRegister(const char* fileName){
   /* Reallocate memory for the new array */
   if (nPlotFileNames == 0){
     plotFileNames = malloc(sizeof(char*));
-    plotFileNames[0] = malloc(strlen(fileName) * sizeof(char));
+    plotFileNames[0] = malloc((strlen(fileName)+1) * sizeof(char));
     strcpy(plotFileNames[0], fileName);
     nPlotsInFiles = malloc(sizeof(size_t));
     nPlotsInFiles[0] = 1;
@@ -49,7 +49,7 @@ void plotRegister(const char* fileName){
     if (plotFileNames == NULL){
       ModelicaError("Failed to allocate memory for plotFileNames.");
     }
-    plotFileNames[nPlotFileNames] = malloc(strlen(fileName) * sizeof(char));
+    plotFileNames[nPlotFileNames] = malloc((strlen(fileName)+1) * sizeof(char));
     if (plotFileNames[nPlotFileNames] == NULL){
       ModelicaError("Failed to allocate memory for plotFileNames.");
     }
@@ -78,6 +78,7 @@ void* plotInit(const char* fileName,
   PlotObjectStructure* plt = malloc(sizeof(PlotObjectStructure));
   if ( plt == NULL )
     ModelicaError("Not enough memory in plotInit.c.");
+
   /* Allocate strings */
   plt->str = (char *)malloc(nStr * sizeof(char));
   if ( plt->str == NULL )
@@ -91,14 +92,15 @@ void* plotInit(const char* fileName,
   plt->strTer[0] = '\0';
   plt->nStrTer = nStr;
   plt->iStrTer = 1;
+
   /* Allocate file name */
-  plt->fileName = malloc(strlen(fileName) * sizeof(char));
+  plt->fileName = malloc((strlen(fileName)+1) * sizeof(char));
   if (plt->fileName == NULL){
     ModelicaError("Failed to allocate memory for plt->fileName in plotInit.c");
   }
   strcpy(plt->fileName, fileName);
   /* Allocate instance name */
-  plt->instanceName = malloc(strlen(instanceName) * sizeof(char));
+  plt->instanceName = malloc((strlen(instanceName)+1) * sizeof(char));
   if (plt->instanceName == NULL){
     ModelicaError("Failed to allocate memory for plt->instanceName in plotInit.c");
   }
