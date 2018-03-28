@@ -330,7 +330,7 @@ algorithm
 
   when sampleTrigger then
     // Exchange data
-    if (activateInterface and (not terminal())) then
+    if (activateInterface) then
       (modTimRea,y,retVal) := exchange(
         flag=0,
         t=time,
