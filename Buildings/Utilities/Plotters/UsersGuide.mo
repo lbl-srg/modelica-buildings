@@ -86,6 +86,12 @@ Various examples that illustrate the use of the plotters can be found in
 <a href=\"modelica://Buildings.Utilities.Plotters.Examples\">
 Buildings.Utilities.Plotters.Examples</a>.
 </p>
+<h4>Implementation</h4>
+<p>
+The plotters write an html file with JavaScript that uses the
+<a href=\"https://plot.ly/javascript/\">plotly</a> library
+to render the plots.
+</p>
 </html>"));
 
 end UsersGuide;
