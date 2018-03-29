@@ -5,13 +5,19 @@
  */
 
 #include "plotObjectStructure.h"
+#include <ModelicaUtilities.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
 void plotFree(void* object)
 {
-  int i, iCol, iRow;
+  size_t i, iCol, iRow;
+  double val;
+/*  FILE *f1 = fopen("test.txt", "a");
+  fprintf(f1, "Enter plotFree\n");
+  fclose(f1);
+  */
   if (object != NULL){
     PlotObjectStructure* plt = (PlotObjectStructure*) object;
     FILE *f = fopen(plt->fileName, "a");
@@ -24,21 +30,46 @@ void plotFree(void* object)
     /* Print the data series */
     /* Plot x data */
     fprintf(f, "  const %s = [[", plt->instanceName);
-    for(iRow = 0; iRow < plt->iRow-2; iRow++){
-      fprintf(f, " %.6f,", plt->dbl[0][iRow]);
-    }
-    fprintf(f, " %.6f],\n", plt->dbl[0][plt->iRow-1]);
 
+    /* iRow is an unsigned integer. Hence, don't just subtract -2 */
+    if (plt->iRow > 2){
+      for(iRow = 0; iRow < plt->iRow-2; iRow++){
+        fprintf(f, " %.6f,", plt->dbl[0][iRow]);
+      }
+    }
+    if ((plt->iRow) > 1){
+      val = plt->dbl[0][plt->iRow-1];
+    }
+    else{
+      /* The plot has no data stored. Simply print 0 */
+      val = 0.0;
+    }
+    fprintf(f, " %.6f],\n", val);
     /* Plot y data */
     for(iCol = 1; iCol < plt->nCol; iCol++){
-      fprintf(f, "                              [", plt->instanceName, iCol);
-      for(iRow = 0; iRow < plt->iRow-2; iRow++){
-        fprintf(f, " %.6f,", plt->dbl[iCol][iRow]);
+      fprintf(f, "                              [");
+      /* Loop over all data in this column, except the last */
+      /* iRow is an unsigned integer. Hence, don't just subtract -2 */
+      if (plt->iRow > 2){
+        for(iRow = 0; iRow < plt->iRow-2; iRow++){
+          fprintf(f, " %.6f,", plt->dbl[iCol][iRow]);
+        }
       }
-      if(iCol < plt->nCol-1)
-        fprintf(f, " %.6f],\n", plt->dbl[iCol][plt->iRow-1]);
-      else
-        fprintf(f, " %.6f]];\n", plt->dbl[iCol][plt->iRow-1]);
+      /* Get the value for the last row */
+      if ((plt->iRow) > 1){
+        val = plt->dbl[iCol][plt->iRow-1];
+      }
+      else{
+        /* The plot has no data stored. Simply print 0 */
+        val = 0.0;
+      }
+      /* Print the value for the last row */
+      if(iCol < plt->nCol-1){
+        fprintf(f, " %.6f],\n", val);
+      }
+      else{
+        fprintf(f, " %.6f]];\n", val);
+      }
     }
     /* Print the terminal string */
     fprintf(f, "%s", plt->strTer);
@@ -55,7 +86,7 @@ void plotFree(void* object)
          ModelicaFormatMessage("Wrote plot file \"%s\".\n", plt->fileName);
         }
       }
-    }
+    } /* end of loop over nPlotFileNames */
     fclose(f);
 
     /* Release memory */
@@ -67,5 +98,5 @@ void plotFree(void* object)
       free(plt->dbl[iCol]);
     free(plt->dbl);
     free(plt);
-  }
+  } /* end of object != NULL */
 }
