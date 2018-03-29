@@ -7,22 +7,27 @@ extends ExternalObject;
     input String zoneName "Name of the thermal zone";
     input Integer nFluPor "Number of fluid ports of zone";
     input Integer nVarSen "Number of variables sent to EnergyPlus";
-    input String[:] varNamSen "Names of variables sent to EnergyPlus";
+    input String[nVarSen] varNamSen "Names of variables sent to EnergyPlus";
     //input Integer[:] valRefVarSen "Value references of variables sent to EnergyPlus";
     input Integer nVarRec "Number of variables received from EnergyPlus";
-    input String[:] varNamRec "Names of variables received from EnergyPlus";
-    //input Integer[:] valRefVarRec "Value references of variables received from EnergyPlus";
+    input String[nVarRec] varNamRec "Names of variables received from EnergyPlus";
+    input Integer[nVarRec] valRefVarRec "Value references of variables received from EnergyPlus";
     output FMUZoneClass adapter;
     //       external "C" adapter = FMUZoneInit(fmuName, zoneName, nFluPor,
     //         nVarSen, varNamSen, valRefVarSen, nVarRec, varNamRec, valRefVarRec)
     //       annotation(Include="#include <FMUZoneInit.c>",
     //       IncludeDirectory="modelica://Buildings/Resources/C-Sources");
 
-  external"C" adapter = FMUZoneInit(
-        fmuName,
-        zoneName,
-        nFluPor) annotation (Include="#include <FMUZoneInit.c>",
-        IncludeDirectory="modelica://Buildings/Resources/C-Sources");
+      external "C" adapter = FMUZoneInit(fmuName, zoneName, nFluPor,
+        nVarSen, varNamSen, nVarRec, varNamRec, valRefVarRec)
+      annotation(Include="#include <FMUZoneInit.c>",
+      IncludeDirectory="modelica://Buildings/Resources/C-Sources");
+
+    //   external"C" adapter = FMUZoneInit(
+    //         fmuName,
+    //         zoneName,
+    //         nFluPor) annotation (Include="#include <FMUZoneInit.c>",
+    //         IncludeDirectory="modelica://Buildings/Resources/C-Sources");
 
 
     annotation (Documentation(info="<html>

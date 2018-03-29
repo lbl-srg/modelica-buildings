@@ -6,6 +6,7 @@
 #define Buildings_FMUEnergyPlusStructure_h
 
 #include <stddef.h>  /* stddef defines size_t */
+#include<fmi2FunctionTypes.h>
 
 // Use windows.h only for Windows
 #ifdef _WIN32
@@ -21,52 +22,42 @@
 #include <dlfcn.h>
 #endif
 
-
-typedef struct fmi2EventInfo{
-  int newDiscreteStatesNeeded;
-  int terminateSimulation;
-  int nominalsOfContinuousStatesChanged;
-  int valuesOfContinuousStatesChanged;
-  int nextEventTimeDefined;
-  double nextEventTime; // next event if nextEventTimeDefined=fmi2True
-  } fmi2EventInfo;
-
-typedef unsigned int (*fInstantiate)(const char *input,
-                         const char *weather,
-                         const char *idd,
-                         const char *instanceName,
-                         const char ** parameterNames,
+typedef unsigned int (*fInstantiate)(fmi2String input,
+                         fmi2String weather,
+                         fmi2String idd,
+                         fmi2String instanceName,
+                         fmi2String* parameterNames,
                          const unsigned int parameterValueReferences[],
                          size_t nPar,
-                         const char ** inputNames,
-                         const unsigned int inputValueReferences[],
+                         fmi2String* inputNames,
+                         const fmi2ValueReference inputValueReferences[],
                          size_t nInp,
-                         const char ** outputNames,
-                         const unsigned int outputValueReferences[],
+                         fmi2String* outputNames,
+                         const fmi2ValueReference outputValueReferences[],
                          size_t nOut,
-                         const char *log);
+                         fmi2String log);
 
-typedef unsigned int (*fSetupExperiment)(double tStart,
+typedef unsigned int (*fSetupExperiment)(fmi2Real tStart,
                              int stopTimeDefined,
-                             const char *log);
+                             fmi2String log);
 
-typedef unsigned int (*fSetTime)(double time,
-                     const char *log);
+typedef unsigned int (*fSetTime)(fmi2Real time,
+                     fmi2String log);
 
-typedef unsigned int (*fSetVariables)(const unsigned int valueReferences[],
-                          const double variablePointers[],
+typedef unsigned int (*fSetVariables)(const fmi2ValueReference valueReferences[],
+                          const fmi2Real variablePointers[],
                           size_t nVars1,
-                          const char *log);
+                          fmi2String log);
 
 typedef unsigned int (*fGetVariables)(const unsigned int valueReferences[],
-                          double variablePointers[],
+                          fmi2Real variablePointers[],
                           size_t nVars2,
-                          const char *log);
+                          fmi2String log);
 
-typedef unsigned int (*fGetNextEventTime)(double *eventInfo,
-                              const char *log);
+typedef unsigned int (*fGetNextEventTime)(fmi2EventInfo *eventInfo,
+                              fmi2String log);
 
-typedef unsigned int (*fTerminate)(const char *log);
+typedef unsigned int (*fTerminate)(fmi2String log);
 
 
 typedef struct FMU{
@@ -82,25 +73,25 @@ typedef struct FMU{
 
 typedef struct FMUBuilding
 {
-  char* name;
-  int nZon; /* Number of zones that use this FMU */
-  char** zoneNames; /* Names of zones in this FMU */
+  fmi2Byte* name;
+  fmi2Integer nZon; /* Number of zones that use this FMU */
+  fmi2Byte** zoneNames; /* Names of zones in this FMU */
   void** zones; /* Pointers to all zones*/
   FMU* fmu;
 } FMUBuilding;
 
 typedef struct FMUZone
 {
-  char* name;          /* Name of this zone */
+  fmi2Byte* name;          /* Name of this zone */
   FMUBuilding* ptrBui; /* Pointer to building with this zone */
-  unsigned int* valueReference; /* Value references for this zone */
+  fmi2ValueReference* valueReference; /* Value references for this zone */
   size_t nValueReference;
   size_t nInputValueReferences;/* Number of input value references*/
-  char** inputVariableNames; /* Names of input variables*/
-  int* inputValueReferences; /* Value reference of input variables*/
+  fmi2Byte** inputVariableNames; /* Names of input variables*/
+  fmi2Integer* inputValueReferences; /* Value reference of input variables*/
   size_t nOutputValueReferences;/* Number of output value references*/
-  char** outputVariableNames; /* Names of output variables*/
-  int* outputValueReferences; /* Value references of output variables*/
+  fmi2Byte** outputVariableNames; /* Names of output variables*/
+  fmi2Integer* outputValueReferences; /* Value references of output variables*/
 } FMUZone;
 
 

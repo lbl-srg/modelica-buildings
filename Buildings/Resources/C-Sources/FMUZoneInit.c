@@ -70,7 +70,9 @@ int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
 }
 
 /* Create the structure and return a pointer to its address. */
-void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor)
+/*void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor)*/
+void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor, int nVarSen,
+  const char** varNamSen, int nVarRec, const char** varNamRec, const int* valRefVarRec)
 {
   /* Note: The fmuName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
@@ -119,7 +121,8 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor)
         if (strcmp(fmuName, Buildings_FMUS[i]->name) == 0){
           /* This is the same FMU as before. */
           if (! zoneIsUnique(Buildings_FMUS[i], zoneName)){
-            snprintf(msg, 200, "Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.", zoneName, Buildings_FMUS[i]->name);
+            snprintf(msg, 200, "Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.",
+            zoneName, Buildings_FMUS[i]->name);
             ModelicaError(msg);
           }
 
