@@ -10,11 +10,12 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
       connectorSizing=true,
       tab="General",
       group="Ports"));
+
   parameter String varNamSen[nVarSen] = {"u1", "u2", "u3", "u4", "u5"} "Variable names sent to EnergyPlus";
-  parameter Integer[:] valRefVarSen={0,1,2,3,4} "Value references of variables sent to EnergyPlus";
+  parameter Integer valRefVarSen[:]={0,1,2,3,4} "Value references of variables sent to EnergyPlus";
   final parameter Integer nVarSen = max(size(valRefVarSen)) "Number of variables sent to EnergyPlus";
   parameter String varNamRec[nVarRec] = {"y1", "y2", "y3", "y4"} "Variable names received from EnergyPlus";
-  parameter Integer[:] valRefVarRec={10000, 100001, 100002, 100003} "Value references of variables received from EnergyPlus";
+  parameter Integer valRefVarRec[:]={10000, 100001, 100002, 100003} "Value references of variables received from EnergyPlus";
   final parameter Integer nVarRec = max(size(valRefVarRec)) "Number of variables received from EnergyPlus";
 
   ////////////////////////////////////////////////////////////////////////////
@@ -220,6 +221,20 @@ initial equation
   assert(fmuName <> "", "Must provide the name of the fmu file.");
   assert(zoneName <> "", "Must provide the name of the zone.");
  // assert(nPorts >= 2, "The zone must have at least one air inlet and outlet.");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
