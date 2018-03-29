@@ -12,7 +12,7 @@
 /* Create the structure and return a pointer to its address. */
 FMUBuilding* instantiateEnergyPlusFMU(const char* fmuName, const char* zoneName, FMUZone* zone)
 {
-  char msg[200];
+  char msg[1000];
 
   /* Allocate memory */
   if (Buildings_nFMU == 0){
@@ -71,16 +71,15 @@ int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
 
 /* Create the structure and return a pointer to its address. */
 /*void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor)*/
-void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor, int nVarSen,
-  const char** varNamSen, int nVarRec, const char** varNamRec, const int* valRefVarRec)
+void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor,
+  const char** varNamSen, size_t nVarSen, const char** varNamRec, size_t nVarRec, int* valRefVarRec, size_t nValRefVarRec)
 {
   /* Note: The fmuName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
-  char msg[200];
+  char msg[1000];
   unsigned int i;
 
-  snprintf(msg, 200, "****** Initializing zone %s, fmu = %s, nFluPor = %d ****** \n", zoneName, fmuName, nFluPor);
-  ModelicaMessage(msg);
+  ModelicaFormatMessage("****** Initializing zone %s, fmu = %s, nFluPor = %d ****** \n", zoneName, fmuName, nFluPor);
 
   /* ********************************************************************** */
   /* Initialize the zone */
@@ -121,7 +120,7 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor, int nV
         if (strcmp(fmuName, Buildings_FMUS[i]->name) == 0){
           /* This is the same FMU as before. */
           if (! zoneIsUnique(Buildings_FMUS[i], zoneName)){
-            snprintf(msg, 200, "Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.",
+            snprintf(msg, 1000, "Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.",
             zoneName, Buildings_FMUS[i]->name);
             ModelicaError(msg);
           }
