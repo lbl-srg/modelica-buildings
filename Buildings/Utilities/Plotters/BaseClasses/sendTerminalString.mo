@@ -14,7 +14,6 @@ External function that prints <code>string</code>
 to the plot object.
 The string will be added at the end of the html file.
 </p>
-</p>
 </html>", revisions="<html>
 <ul><li>
 March 23, 2018, by Michael Wetter:<br/>
