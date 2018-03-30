@@ -5,32 +5,11 @@ extends ExternalObject;
     "Construct to connect to a thermal zone in EnergyPlus"
     input String fmuName "Name of the FMU";
     input String zoneName "Name of the thermal zone";
-    input Integer nFluPor "Number of fluid ports of zone";
-    input String[nVarSen] varNamSen "Names of variables sent to EnergyPlus";
-    input Integer nVarSen "Number of variables sent to EnergyPlus";
-    //input Integer[:] valRefVarSen "Value references of variables sent to EnergyPlus";
-    input String[nVarRec] varNamRec "Names of variables received from EnergyPlus";
-    input Integer nVarRec "Number of variables received from EnergyPlus";
-    input Integer[nValRefVarRec] valRefVarRec "Value references of variables received from EnergyPlus";
-    input Integer nValRefVarRec "Number of variables received from EnergyPlus";
     output FMUZoneClass adapter;
-    //       external "C" adapter = FMUZoneInit(fmuName, zoneName, nFluPor,
-    //         nVarSen, varNamSen, valRefVarSen, nVarRec, varNamRec, valRefVarRec)
-    //       annotation(Include="#include <FMUZoneInit.c>",
-    //       IncludeDirectory="modelica://Buildings/Resources/C-Sources");
-
-      external "C" adapter = FMUZoneInit(fmuName, zoneName, nFluPor,
-        varNamSen, nVarSen, varNamRec, nVarRec, valRefVarRec, nValRefVarRec)
-      annotation(Include="#include <FMUZoneInit.c>",
-      IncludeDirectory="modelica://Buildings/Resources/C-Sources");
-
-    //   external"C" adapter = FMUZoneInit(
-    //         fmuName,
-    //         zoneName,
-    //         nFluPor) annotation (Include="#include <FMUZoneInit.c>",
-    //         IncludeDirectory="modelica://Buildings/Resources/C-Sources");
-
-
+     external"C" adapter = FMUZoneInit(
+           fmuName,
+           zoneName) annotation (Include="#include <FMUZoneInit.c>",
+           IncludeDirectory="modelica://Buildings/Resources/C-Sources");
     annotation (Documentation(info="<html>
 <p>
 The function <code>constructor</code> is a C function that is called by a Modelica simulator

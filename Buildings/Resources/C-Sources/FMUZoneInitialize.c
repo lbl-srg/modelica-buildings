@@ -111,23 +111,122 @@ static int loadLib(const char* libPath, FMU *fmu) {
 void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
   fmi2Byte msg[200];
   FMUZone* zone = (FMUZone*) object;
-  //FMU* fmu;
-  //fmu = malloc(sizeof(FMU*));
-  // zone->ptrBui->fmu = fmu;
-  // int retVal;
-  //
+  FMU* fmu;
+	int cntr=0;
+	int retVal;
+	int i, j, k ;
+
+  int nZon=zone->ptrBui->nZon;
+	//fmi2ValueReference* inputValueReferences=(fmi2ValueReference* )malloc(5*nZon*sizeof(fmi2ValueReference));
+	//fmi2ValueReference* outputValueReferences=(fmi2ValueReference* )malloc(4*nZon*sizeof(fmi2ValueReference));
+	int nInp = 5*nZon;
+	int nOut = 4*nZon;
+	char inputNames[nInp][20];
+	char outputNames[nOut][20];
+	fmi2ValueReference inputValueReferences [5*nZon];
+	fmi2ValueReference outputValueReferences [4*nZon];
+
+	const char* consInputNames[]={"T", "X", "mInlets_flow", "TInlet", "QGaiRad_flow"};
+	const char* consOutputNames[]={"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"};
+
+	fmu = (FMU*)malloc(sizeof(FMU));
+	FMUZone** tmpZon;
+	tmpZon=(FMUZone**)malloc(nZon*sizeof(FMUZone*));
+	//inputNames=(char*)malloc((5*nZon+1)*sizeof(char*));
+	//outputNames=(char**)malloc((4*nZon+1)*sizeof(char*));
+	for(i=0; i<nZon; i++){
+		tmpZon[i] = (FMUZone*)malloc(sizeof(FMUZone));
+		char* name = ((FMUZone*)(zone->ptrBui->zones[i]))->name;
+		tmpZon[i]->name=name;
+		zone->ptrBui->zones[i] = tmpZon[i];
+	// 	for (j=0; j<nZon*5; j++){
+	// 				inputNames[j]=(char*)malloc((strlen(name)+20)*sizeof(char));
+	// 	}
+	// 	for (j=0; j<nZon*4; j++){
+	// 				outputNames[j]=(char*)malloc((strlen(name)+20)*sizeof(char));
+	// 	}
+	}
+
+	zone->ptrBui->fmu = fmu;
+	for (i=0; i<nZon*5; i++){
+		inputValueReferences[i]=i;
+	}
+
+	for (i=0; i<nZon*4; i++){
+		outputValueReferences[i]=i+nZon*5;
+	}
+
+	while (cntr<nZon*5){
+		for (j=0; j<nZon; j++) {
+			for (k=0; k<5; k++){
+				sprintf(inputNames[cntr], "%s%s%s", ((FMUZone*)(zone->ptrBui->zones[j]))->name, ",", consInputNames[k]);
+				cntr++;
+
+			}
+		}
+	}
+
+  cntr = 0;
+	while (cntr<nZon*4){
+		for (j=0; j<nZon; j++) {
+			for (k=0; k<4; k++){
+				sprintf(outputNames[cntr], "%s%s%s", ((FMUZone*)(zone->ptrBui->zones[j]))->name, ",", consInputNames[k]);
+				cntr++;
+			}
+		}
+	}
+
+cntr = 0;
+/* The size of the inputs for each zone is fixed at 5 */
+for (i=0; i<nZon; i++) {
+	for (j=0; j<5; j++){
+		tmpZon[i]->inputValueReferences[j]=inputValueReferences[cntr];
+		strcpy(tmpZon[i]->inputVariableNames[j], inputNames[cntr]);
+		cntr++;
+}
+}
+
+  cntr = 0;
+	for (i=0; i<nZon; i++) {
+		for (j=0; j<4; j++){
+			tmpZon[i]->outputValueReferences[j]=outputValueReferences[cntr];
+			strcpy(tmpZon[i]->outputVariableNames[j], outputNames[cntr]);
+			cntr++;
+	}
+}
+
+for (i=0; i<5; i++) {
+	ModelicaFormatMessage("input reference in zone1 %d\n", ((FMUZone*)(zone->ptrBui->zones[0]))->inputValueReferences[i]);
+	ModelicaFormatMessage("input name in zone1 %s\n", ((FMUZone*)(zone->ptrBui->zones[0]))->inputVariableNames[i]);
+}
+for (i=0; i<5; i++) {
+	ModelicaFormatMessage("input reference in zone2 %d\n", ((FMUZone*)(zone->ptrBui->zones[1]))->inputValueReferences[i]);
+	ModelicaFormatMessage("input name in zone2 %s\n", ((FMUZone*)(zone->ptrBui->zones[1]))->inputVariableNames[i]);
+}
+
+
+for (i=0; i<4; i++) {
+	ModelicaFormatMessage("output reference in zone1 %d\n", ((FMUZone*)(zone->ptrBui->zones[0]))->outputValueReferences[i]);
+	ModelicaFormatMessage("output name in zone1 %s\n", ((FMUZone*)(zone->ptrBui->zones[0]))->outputVariableNames[i]);
+}
+for (i=0; i<4; i++) {
+	ModelicaFormatMessage("output reference in zone2 %d\n", ((FMUZone*)(zone->ptrBui->zones[1]))->outputValueReferences[i]);
+	ModelicaFormatMessage("output name in zone2 %s\n", ((FMUZone*)(zone->ptrBui->zones[1]))->outputVariableNames[i]);
+}
+
+
   // fmi2String inputNames[] = {"Attic,T", "Core_ZN,T", "Perimeter_ZN_1,T",
 	// 			"Perimeter_ZN_2,T", "Perimeter_ZN_3,T", "Perimeter_ZN_4,T"};
   //
-  // const fmi2ValueReference inputValueReferences[] = {0, 1, 2, 3, 4, 5,};
+  // //const fmi2ValueReference inputValueReferences[] = {0, 1, 2, 3, 4, 5,};
   // fmi2String outputNames[] = {"Attic,QConSen_flow", "Core_ZN,QConSen_flow",
   //                                "Perimeter_ZN_1,QConSen_flow", "Perimeter_ZN_2,QConSen_flow",
 	// 			"Perimeter_ZN_3,QConSen_flow", "Perimeter_ZN_4,QConSen_flow"};
   //
-  // const fmi2ValueReference outputValueReferences[] = {6, 7, 8, 9, 10, 11};
-  // fmi2String input ="/home/thierry/eplusfmi/RefBldgSmallOfficeNew2004_Chicago.idf";
-  // fmi2String weather ="/home/thierry/eplusfmi/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw";
-  // fmi2String idd ="/home/thierry/eplusfmi/Energy+.idd";
+  // //const fmi2ValueReference outputValueReferences[] = {6, 7, 8, 9, 10, 11};
+  fmi2String input ="/home/thierry/eplusfmi/RefBldgSmallOfficeNew2004_Chicago.idf";
+  fmi2String weather ="/home/thierry/eplusfmi/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw";
+  fmi2String idd ="/home/thierry/eplusfmi/Energy+.idd";
   //
   //
   // /* Loading EnergyPlus library */
@@ -148,20 +247,20 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
   // snprintf(msg, 200, "Ready to instantiate the E+ FMU\n");
   // ModelicaMessage(msg);
   //
-  // int result = zone->ptrBui->fmu->instantiate(input, // input
-  //                          weather, // weather
-  //                          idd, // idd
-  //                          "Alpha", // instanceName
-  //                          NULL, // parameterNames
-  //                          NULL, // parameterValueReferences[]
-  //                          0, // nPar
-  //                          inputNames, // inputNames
-  //                          inputValueReferences, // inputValueReferences[]
-  //                          6, // nInp
-  //                          outputNames, // outputNames
-  //                          outputValueReferences, // outputValueReferences[]
-  //                          6, // nOut
-  //                          NULL); //log);
+  int result = zone->ptrBui->fmu->instantiate(input, // input
+                           weather, // weather
+                           idd, // idd
+                           "Alpha", // instanceName
+                           NULL, // parameterNames
+                           NULL, // parameterValueReferences[]
+                           0, // nPar
+                           inputNames, // inputNames
+                           inputValueReferences, // inputValueReferences[]
+                           6, // nInp
+                           outputNames, // outputNames
+                           outputValueReferences, // outputValueReferences[]
+                           6, // nOut
+                           NULL); //log);
   //
   // double tStart = 0.0;
   // int stopTimeDefined = 1;

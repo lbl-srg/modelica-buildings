@@ -12,7 +12,7 @@
 /* Create the structure and return a pointer to its address. */
 FMUBuilding* instantiateEnergyPlusFMU(const char* fmuName, const char* zoneName, FMUZone* zone)
 {
-  char msg[1000];
+  char msg[200];
 
   /* Allocate memory */
   if (Buildings_nFMU == 0){
@@ -70,33 +70,28 @@ int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
 }
 
 /* Create the structure and return a pointer to its address. */
-/*void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor)*/
-void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor,
-  const char** varNamSen, size_t nVarSen, const char** varNamRec, size_t nVarRec, int* valRefVarRec, size_t nValRefVarRec)
+void* FMUZoneInit(const char* fmuName, const char* zoneName)
+/*void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor,
+  const char** varNamSen, size_t nVarSen, const char** varNamRec, size_t nVarRec, int* valRefVarRec, size_t nValRefVarRec)*/
 {
   /* Note: The fmuName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
-  char msg[1000];
+  char msg[200];
   unsigned int i;
 
-  ModelicaFormatMessage("****** Initializing zone %s, fmu = %s, nFluPor = %d ****** \n", zoneName, fmuName, nFluPor);
+  ModelicaFormatMessage("****** Initializing zone %s, fmu = %s****** \n", zoneName, fmuName);
 
   /* ********************************************************************** */
   /* Initialize the zone */
   FMUZone* zone = (FMUZone*) malloc(sizeof(FMUZone));
   if ( zone == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone.");
-  zone->valueReference = NULL;
-
-  zone->valueReference = malloc(nFluPor * sizeof(unsigned int));
-  if ( zone->valueReference == NULL )
-    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate valueReference.");
-  zone->nValueReference = nFluPor; /* Will need to be fixed later */
 
   /* Assign the value reference. This should be done by using the values from modelDescription.xml */
-  for(i = 0; i < nFluPor; i++){
+  /*for(i = 0; i < nFluPor; i++){
     zone->valueReference[i] = i;
   }
+  */
 
   /* Assign the zone name */
   zone->name = malloc(strlen(zoneName) * sizeof(char));
@@ -120,7 +115,7 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor,
         if (strcmp(fmuName, Buildings_FMUS[i]->name) == 0){
           /* This is the same FMU as before. */
           if (! zoneIsUnique(Buildings_FMUS[i], zoneName)){
-            snprintf(msg, 1000, "Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.",
+            snprintf(msg, 200, "Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.",
             zoneName, Buildings_FMUS[i]->name);
             ModelicaError(msg);
           }

@@ -11,13 +11,6 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
       tab="General",
       group="Ports"));
 
-  parameter String varNamSen[nVarSen] = {"u1", "u2", "u3", "u4", "u5"} "Variable names sent to EnergyPlus";
-  parameter Integer valRefVarSen[:]={0,1,2,3,4} "Value references of variables sent to EnergyPlus";
-  final parameter Integer nVarSen = max(size(valRefVarSen)) "Number of variables sent to EnergyPlus";
-  parameter String varNamRec[nVarRec] = {"y1", "y2", "y3", "y4"} "Variable names received from EnergyPlus";
-  parameter Integer valRefVarRec[:]={10000, 100001, 100002, 100003} "Value references of variables received from EnergyPlus";
-  final parameter Integer nVarRec = max(size(valRefVarRec)) "Number of variables received from EnergyPlus";
-
   ////////////////////////////////////////////////////////////////////////////
   // Media declaration. This is identical to
   // Buildings.Fluid.Interfaces.LumpedVolumeDeclarations, except
@@ -121,13 +114,7 @@ protected
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
     final fmuName=fmuName,
     final zoneName=zoneName,
-    final nFluPor=nPorts,
-    final nVarSen=nVarSen,
-    final varNamSen=varNamSen,
-    final valRefVarSen=valRefVarSen,
-    final nVarRec=nVarRec,
-    final varNamRec=varNamRec,
-    final valRefVarRec=valRefVarRec) "FMU zone adapter"
+    final nFluPor=nPorts) "FMU zone adapter"
     annotation (Placement(transformation(extent={{80,104},{100,124}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(

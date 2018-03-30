@@ -10,15 +10,6 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
   final parameter Modelica.SIunits.Volume V(fixed=false) "Zone volume";
   final parameter Real mSenFac(fixed=false)
     "Factor for scaling the sensible thermal mass of the zone air volume";
-  parameter Integer nVarSen "Number of variables sent to EnergyPlus";
-  parameter String[nVarSen] varNamSen "Variable names sent to EnergyPlus";
-  parameter Integer[nVarSen] valRefVarSen
-    "Value references of variables sent to EnergyPlus";
-  parameter Integer nVarRec "Number of variables received from EnergyPlus";
-  parameter String[nVarRec] varNamRec "Variable names received from EnergyPlus";
-  parameter Integer[nVarRec] valRefVarRec
-    "Value references of variables received from EnergyPlus";
-
   Modelica.Blocks.Interfaces.RealInput T(
     final unit="K",
     displayUnit="degC")
@@ -68,21 +59,9 @@ protected
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass adapter=
       Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass(
       fmuName=fmuName,
-      zoneName=zoneName,
-      nFluPor=nFluPor,
-      nVarSen=nVarSen,
-      varNamSen=varNamSen,
-      nVarRec=nVarRec,
-      varNamRec=varNamRec,
-      valRefVarRec=valRefVarRec,
-      nValRefVarRec=nVarRec)
+      zoneName=zoneName)
         "Class to communicate with EnergyPlus";
-     //valRefVarRec=valRefVarRec)
-      //valRefVarSen=valRefVarSen,
-      //varNamSen=varNamSen,
-      //valRefVarSen=valRefVarSen,
-      //varNamRec=varNamRec,
-      //valRefVarRec=valRefVarRec
+
   parameter Modelica.SIunits.Time t0(fixed=false) "Simulation start time";
 initial equation
   t0 = time;

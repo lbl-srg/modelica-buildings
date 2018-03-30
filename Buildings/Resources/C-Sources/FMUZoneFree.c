@@ -28,7 +28,7 @@ void FMUZoneFree(void* object){
         free(Buildings_FMUS);
       }
     }
-    free(zone->valueReference);
+    //free(zone->valueReference);
     free(zone);
   }
 }

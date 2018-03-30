@@ -12,8 +12,8 @@ void FMUZoneExchange(
   void* object,
   double T,
   double X,
-  double* m_flow, /* size is nFluPor */
-  double* TInlet, /* size is nFluPor */
+  double *m_flow, /* size is nFluPor */
+  double *TInlet, /* size is nFluPor */
   double QGaiRad_flow,
   double time,
   double* TRad,

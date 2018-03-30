@@ -4,8 +4,10 @@ function exchange "Exchange the values for the thermal zone"
     adapter "External object";
   input Modelica.SIunits.Temperature T "Zone air temperature";
   input Modelica.SIunits.MassFraction X "Zone air mass fraction in kg/kg total air";
-  input Modelica.SIunits.MassFlowRate m_flow[:] "Mass flow rate (positive if mass flows into the zone)";
-  input Modelica.SIunits.Temperature TInlet[:] "Air inlet temperatures";
+  input Modelica.SIunits.MassFlowRate m_flow[:] "Sum of positive mass flow rates into 
+    the zone for all air inlets (including infiltration)";
+  input Modelica.SIunits.Temperature TInlet[:] "Average of inlets medium temperatures 
+    carried by the mass flow rates";
   input Modelica.SIunits.HeatFlowRate QGaiRad_flow
     "Radiative heat gain (positive if heat gain)";
   input Modelica.SIunits.Time tModel "Current model time";
