@@ -19,7 +19,7 @@ void plotWriteHeader(const char* fileName){
   fprintf(f, "%s\n", "<head>");
   fprintf(f, "%s\n", "<meta content=\"text/html;charset=utf-8\" http-equiv=\"Content-Type\">");
   fprintf(f, "%s\n", "<meta content=\"utf-8\" http-equiv=\"encoding\">");
-  fprintf(f, "%s\n", "<script src=\"https://cdn.plot.ly/plotly-1.2.0.min.js\"></script>");
+  fprintf(f, "%s\n", "<script src=\"https://cdn.plot.ly/plotly-latest.min.js\"></script>");
   fprintf(f, "%s\n", "</head>");
   fprintf(f, "%s\n", "<body>");
   fclose(f);
