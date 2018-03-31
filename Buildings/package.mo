@@ -191,6 +191,25 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1118\">issue 1118</a>.
        </td>
    </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.VAVSupply
+   </td>
+       <td valign=\"top\">Revised implementation of fan speed control signal calculation
+                          to remove the hysteresis blocks.<br/>
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1153\">issue 1153</a>.
+       </td>
+   </tr>       
+   <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Line
+   </td>
+   <td valign=\"top\">Improved documentation and icon, and added a warning if the limits are used and x1 &gt; x2.
+       </td>
+   </tr>       
    <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
        </td>
    </tr>

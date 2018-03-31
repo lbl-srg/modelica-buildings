@@ -1,5 +1,4 @@
 simulateModel("Buildings.Controls.Continuous.Examples.PIDHysteresis", method="dassl", tolerance=1e-6, stopTime=86400, resultFile="PIDHysteresis");
-
 createPlot(id = 1,
  position = {8, 14, 561, 372},
  y = {"con.u_s", "con.u_m"},
