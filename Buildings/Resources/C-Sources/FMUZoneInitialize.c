@@ -155,7 +155,6 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
   *V = 2.7*30;
   *mSenFac = 1;
 
-
 	zone->ptrBui->fmu = fmu;
 	for (i=0; i<nInp; i++){
 		inputValueReferences[i]=i;
@@ -165,29 +164,12 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
 		outputValueReferences[i]=i+nInp;
 	}
 
-  //
-	// while (cntr<nInp){
-	// 	for (j=0; j<nZon; j++) {
-	// 		for (k=0; k<scaInp; k++){
-	// 			sprintf(inputNames[cntr], "%s%s%s", ((FMUZone*)(zone->ptrBui->zones[j]))->name, ",", consInputNames[k]);
-	// 			//tmpZon[j]->totInputVariableNames[cntr]=(char*)malloc(25*sizeof(char));
-	// 			//strcpy(tmpZon[j]->totInputVariableNames[cntr], inputNames[cntr]);
-	// 			//zone->ptrBui->zones[j] = tmpZon[j];
-	// 			cntr++;
-	// 		}
-	// 	}
-	// }
-
-
 	while (cntr<nInp){
 		for (k=0; k<scaInp; k++){
 			for (j=0; j<nZon; j++) {
 				sprintf(inputNames[cntr], "%s%s%s", ((FMUZone*)(zone->ptrBui->zones[j]))->name, ",", consInputNames[k]);
 				strcpy(tmpZon[j]->inputVariableNames[k], inputNames[cntr]);
 				tmpZon[j]->inputValueReferences[k]=inputValueReferences[cntr];
-				//tmpZon[j]->totInputVariableNames[cntr]=(char*)malloc(25*sizeof(char));
-				//strcpy(tmpZon[j]->totInputVariableNames[cntr], inputNames[cntr]);
-				//zone->ptrBui->zones[j] = tmpZon[j];
 				cntr++;
 			}
 		}
@@ -200,62 +182,10 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
 					sprintf(outputNames[cntr], "%s%s%s", ((FMUZone*)(zone->ptrBui->zones[j]))->name, ",", consOutputNames[k]);
 					strcpy(tmpZon[j]->outputVariableNames[k], outputNames[cntr]);
 					tmpZon[j]->outputValueReferences[k]=outputValueReferences[cntr];
-					//tmpZon[j]->totInputVariableNames[cntr]=(char*)malloc(25*sizeof(char));
-					//strcpy(tmpZon[j]->totInputVariableNames[cntr], inputNames[cntr]);
-					//zone->ptrBui->zones[j] = tmpZon[j];
 					cntr++;
 				}
 			}
 		}
-
-		// while (cntr<nInp){
-		// 		for (k=0; k<scaInp; k++){
-		// 			for (j=0; j<nZon; j++) {
-		// 			sprintf(inputNames[cntr], "%s%s%s", ((FMUZone*)(zone->ptrBui->zones[j]))->name, ",", consInputNames[k]);
-		// 			//tmpZon[j]->totInputVariableNames[cntr]=(char*)malloc(100*sizeof(char));
-		// 			//strcpy(tmpZon[j]->totInputVariableNames[cntr], inputNames[cntr]);
-		// 			//zone->ptrBui->zones[j] = tmpZon[j];
-		// 			cntr++;
-		// 		}
-		// 	}
-		// }
-
-
-	// 	for (j=0; j<nZon; j++) {
-	// 		for (k=0; k<(sizeof(inputNames)/sizeof(inputNames[0])); k++){
-	// 			tmpZon[j]->totInputVariableNames[k]=(char*)malloc(100*sizeof(char));
-	// 			strcpy(tmpZon[j]->totInputVariableNames[k], inputNames[k]);
-	// 		}
-	// }
-
-//   cntr = 0;
-// 	while (cntr<nOut){
-// 		for (j=0; j<nZon; j++) {
-// 			for (k=0; k<scaOut; k++){
-// 				sprintf(outputNames[cntr], "%s%s%s", ((FMUZone*)(zone->ptrBui->zones[j]))->name, ",", consOutputNames[k]);
-// 				cntr++;
-// 			}
-// 		}
-// 	}
-//
-// cntr = 0;
-// /* The size of the inputs for each zone is fixed at 5 */
-// for (i=0; i<nZon; i++) {
-// 	for (j=0; j<scaInp; j++){
-// 		tmpZon[i]->inputValueReferences[j]=inputValueReferences[cntr];
-// 		strcpy(tmpZon[i]->inputVariableNames[j], inputNames[cntr]);
-// 		cntr++;
-// 	}
-// }
-//
-//   cntr = 0;
-// 	for (i=0; i<nZon; i++) {
-// 		for (j=0; j<scaOut; j++){
-// 			tmpZon[i]->outputValueReferences[j]=outputValueReferences[cntr];
-// 			strcpy(tmpZon[i]->outputVariableNames[j], outputNames[cntr]);
-// 			cntr++;
-// 	}
-// }
 
 /*Compute the total number of input variables of the building model*/
 totNumInp=sizeof(inputValueReferences)/sizeof(inputValueReferences[0]);
