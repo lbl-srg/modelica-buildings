@@ -126,8 +126,9 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
 	int scaOut=4;
 	int nInp = scaInp*nZon;
 	int nOut = scaOut*nZon;
-	char inputNames[nInp][100];
-	char outputNames[nOut][100];
+
+	const char** inputNames=(char**)malloc(nInp*sizeof(char*));
+	const char** outputNames=(char**)malloc(nOut*sizeof(char*));
 	fmi2ValueReference inputValueReferences [nInp];
 	fmi2ValueReference outputValueReferences [nOut];
 
@@ -136,24 +137,27 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
 
 	const char* consInputNames[]={"T"};
 	const char* consOutputNames[]={"QConSen_flow", "V", "AFlo", "mSenFac"};
+	int _setupExperiment;
 
 	fmu = (FMU*)malloc(sizeof(FMU));
 	FMUZone** tmpZon;
 	tmpZon=(FMUZone**)malloc(nZon*sizeof(FMUZone*));
-	//inputNames=(char*)malloc((nInp+1)*sizeof(char*));
-	//outputNames=(char**)malloc((nOut+1)*sizeof(char*));
-	if(zone->ptrBui->fmu==NULL){
+
 	for(i=0; i<nZon; i++){
 		tmpZon[i] = (FMUZone*)malloc(sizeof(FMUZone));
 		char* name = ((FMUZone*)(zone->ptrBui->zones[i]))->name;
 		tmpZon[i]->name=name;
-		tmpZon[i]->totInputVariableNames = (char**)malloc((nInp+1)*sizeof(char*));
+		tmpZon[i]->totOutputVariableNames = (char**)malloc((nOut+1)*sizeof(char*));
 		zone->ptrBui->zones[i] = tmpZon[i];
 	}
 
-	*AFlo = 30;
-  *V = 2.7*30;
-  *mSenFac = 1;
+	/*Boolean to check that setupExperiment is only called once.*/
+	if (zone->ptrBui->fmu==NULL){
+	 _setupExperiment = 1;
+	}
+	else{
+		_setupExperiment=0;
+	}
 
 	zone->ptrBui->fmu = fmu;
 	for (i=0; i<nInp; i++){
@@ -167,7 +171,8 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
 	while (cntr<nInp){
 		for (k=0; k<scaInp; k++){
 			for (j=0; j<nZon; j++) {
-				sprintf(inputNames[cntr], "%s%s%s", ((FMUZone*)(zone->ptrBui->zones[j]))->name, ",", consInputNames[k]);
+				inputNames[cntr]=(char*)malloc((strlen(tmpZon[j]->name)+strlen(consInputNames[k]) + 2)*sizeof(char));
+				sprintf(inputNames[cntr], "%s%s%s", tmpZon[j]->name, ",", consInputNames[k]);
 				strcpy(tmpZon[j]->inputVariableNames[k], inputNames[cntr]);
 				tmpZon[j]->inputValueReferences[k]=inputValueReferences[cntr];
 				cntr++;
@@ -178,10 +183,13 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
 		cntr=0;
 		while (cntr<nInp){
 			for (k=0; k<scaOut; k++){
-				for (j=0; j<nZon; j++) {
-					sprintf(outputNames[cntr], "%s%s%s", ((FMUZone*)(zone->ptrBui->zones[j]))->name, ",", consOutputNames[k]);
+				for (j=0; j<nZon; j++){
+				  outputNames[cntr]=(char*)malloc((strlen(tmpZon[j]->name)+strlen(consOutputNames[k]) + 2)*sizeof(char));
+					sprintf(outputNames[cntr], "%s%s%s", tmpZon[j]->name, ",", consOutputNames[k]);
 					strcpy(tmpZon[j]->outputVariableNames[k], outputNames[cntr]);
 					tmpZon[j]->outputValueReferences[k]=outputValueReferences[cntr];
+					tmpZon[j]->totOutputVariableNames[cntr] = (char*)malloc((strlen(tmpZon[j]->name)+strlen(consOutputNames[k]) + 2)*sizeof(char));
+					strcpy(tmpZon[j]->totOutputVariableNames[cntr], outputNames[cntr]);
 					cntr++;
 				}
 			}
@@ -216,7 +224,6 @@ totNumOut=sizeof(outputValueReferences)/sizeof(outputValueReferences[0]);
   fmi2String weather ="/home/thierry/eplusfmi/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw";
   fmi2String idd ="/home/thierry/eplusfmi/Energy+.idd";
   //
-  //
   /* Loading EnergyPlus library */
   fmi2String eplib = "/home/thierry/eplusfmi/libepfmi.so";
 //if(zone){
@@ -235,42 +242,40 @@ totNumOut=sizeof(outputValueReferences)/sizeof(outputValueReferences[0]);
 //   ModelicaMessage(msg);
 //   //
 //
-// char outputNames2[1][20]={"Attic,AFlo"};
-// fmi2ValueReference outputValueReferences2 [1]={1000};
-//
-// //
-const char * inputNames3[] = {"Attic,T", "Core_ZN,T", "Perimeter_ZN_1,T", "Perimeter_ZN_2,T", "Perimeter_ZN_3,T", "Perimeter_ZN_4,T"};
-const unsigned int inputValueReferences3[] = {0, 1, 2, 3, 4, 5,};
-
-const char * outputNames3[] = {
-"Attic,QConSen_flow", "Core_ZN,QConSen_flow", "Perimeter_ZN_1,QConSen_flow", "Perimeter_ZN_2,QConSen_flow", "Perimeter_ZN_3,QConSen_flow", "Perimeter_ZN_4,QConSen_flow",
-"Attic,V", "Core_ZN,V", "Perimeter_ZN_1,V", "Perimeter_ZN_2,V", "Perimeter_ZN_3,V", "Perimeter_ZN_4,V",
-"Attic,AFlo", "Core_ZN,AFlo", "Perimeter_ZN_1,AFlo", "Perimeter_ZN_2,AFlo", "Perimeter_ZN_3,AFlo", "Perimeter_ZN_4,AFlo",
-"Attic,mSenFac", "Core_ZN,mSenFac", "Perimeter_ZN_1,mSenFac", "Perimeter_ZN_2,mSenFac", "Perimeter_ZN_3,mSenFac", "Perimeter_ZN_4,mSenFac"
-};
-const unsigned int outputValueReferences3[] = {
-  6, 7, 8, 9, 10, 11,
-  12, 13, 14, 15, 16, 17,
-  18, 19, 20, 21, 22, 23,
-  24, 25, 26, 27, 28, 29
-};
 //
 
-for (int i=0; i<totNumInp; i++){
- ModelicaFormatMessage("%s\n", inputNames[i]);
- }
+// const char* inputNames3[] = {"Attic,T", "Core_ZN,T", "Perimeter_ZN_1,T", "Perimeter_ZN_2,T", "Perimeter_ZN_3,T", "Perimeter_ZN_4,T"};
+// const unsigned int inputValueReferences3[] = {0, 1, 2, 3, 4, 5,};
+//
+// const char * outputNames3[] = {
+// "Attic,QConSen_flow", "Core_ZN,QConSen_flow", "Perimeter_ZN_1,QConSen_flow", "Perimeter_ZN_2,QConSen_flow", "Perimeter_ZN_3,QConSen_flow", "Perimeter_ZN_4,QConSen_flow",
+// "Attic,V", "Core_ZN,V", "Perimeter_ZN_1,V", "Perimeter_ZN_2,V", "Perimeter_ZN_3,V", "Perimeter_ZN_4,V",
+// "Attic,AFlo", "Core_ZN,AFlo", "Perimeter_ZN_1,AFlo", "Perimeter_ZN_2,AFlo", "Perimeter_ZN_3,AFlo", "Perimeter_ZN_4,AFlo",
+// "Attic,mSenFac", "Core_ZN,mSenFac", "Perimeter_ZN_1,mSenFac", "Perimeter_ZN_2,mSenFac", "Perimeter_ZN_3,mSenFac", "Perimeter_ZN_4,mSenFac"
+// };
+// const unsigned int outputValueReferences3[] = {
+//   6, 7, 8, 9, 10, 11,
+//   12, 13, 14, 15, 16, 17,
+//   18, 19, 20, 21, 22, 23,
+//   24, 25, 26, 27, 28, 29
+// };
+//
 
- for (int i=0; i<totNumInp; i++){
-	 ModelicaFormatMessage("%d\n", inputValueReferences[i]);
-	}
-
- for (int i=0; i<totNumOut; i++){
- 	ModelicaFormatMessage("%s\n", outputNames[i]);
-  }
-
-	for (int i=0; i<totNumOut; i++){
-  	ModelicaFormatMessage("%d\n", outputValueReferences[i]);
-   }
+// for (int i=0; i<totNumInp; i++){
+//  ModelicaFormatMessage("%s\n", inputNames[i]);
+//  }
+//
+//  for (int i=0; i<totNumInp; i++){
+// 	 ModelicaFormatMessage("%d\n", inputValueReferences[i]);
+// 	}
+//
+//  for (int i=0; i<totNumOut; i++){
+//  	ModelicaFormatMessage("%s\n", outputNames[i]);
+//   }
+//
+// 	for (int i=0; i<totNumOut; i++){
+//   	ModelicaFormatMessage("%d\n", outputValueReferences[i]);
+//    }
 
 int result = zone->ptrBui->fmu->instantiate(input, // input
                            weather, // weather
@@ -287,8 +292,6 @@ int result = zone->ptrBui->fmu->instantiate(input, // input
                            totNumOut, // nOut
                            NULL); //log);
 
-//  double outputs[] = {0.0};
-//  const unsigned int outputRefs[] = {1000};
  double tStart = 0.0;
  int stopTimeDefined = 1;
 //  double tEnd = 86400;
@@ -297,29 +300,36 @@ int index;
 snprintf(msg, 200, "Currently calling zone: %s\n.", zone->name);
 ModelicaMessage(msg);
 
-char tmp[50];
-sprintf(tmp, "%s%s%s", zone->name, ",", "V");
+if (_setupExperiment){
+	ModelicaMessage("First call of setupExperiment()."
+	" This function can only be called once per building FMU.");
+	result = zone->ptrBui->fmu->setupExperiment(tStart, 1, NULL);
+}
 
-for (i=0; i<totNumOut; i++){
-	if (strstr(outputNames[i], tmp)!=NULL){
-		index = i;
-		snprintf(msg, 200, "Found: %s in position %d with value reference %d\n.", outputNames[i], i, outputValueReferences[i]);
-		ModelicaMessage(msg);
-		break;
+double outputs[totNumOut] ;
+result = zone->ptrBui->fmu->getVariables(outputValueReferences, outputs, totNumOut, NULL);
+
+char tmp[100];
+const char* parNames[] = {"V","AFlo","mSenFac"};
+double parValues[3];
+
+for (i=0; i<3; i++){
+	sprintf(tmp, "%s%s%s", zone->name, ",", parNames[i]);
+	for (j=0; j<totNumOut; j++){
+		if (strstr(outputNames[j], tmp)!=NULL){
+			index = j;
+			snprintf(msg, 200, "Found: %s in position %d with value reference %d. The value is %f\n.",
+			outputNames[j], j, outputValueReferences[j], outputs[j]);
+			parValues[i] = outputs[j];
+			ModelicaMessage(msg);
+			break;
+		}
 	}
 }
 
-ModelicaMessage("Called setup experiment begin.\n");
-result = zone->ptrBui->fmu->setupExperiment(tStart, 1, NULL);
-ModelicaMessage("Called setup experiment end.\n");
-return;
-}
-else{
-	*AFlo = 30;
-	*V = 2.7*30;
-	*mSenFac = 1;
-	return;
-}
+*V = parValues[0];
+*AFlo = parValues[1];
+*mSenFac = parValues[2];
 
  //result = zone->ptrBui->fmu->getVariables(outputRefs, outputs, 1, NULL);
  //ModelicaFormatMessage("This is the value of the output %f\n", outputs[0]);

@@ -82,7 +82,7 @@ typedef struct FMUBuilding
 
 typedef struct FMUZone
 {
-  fmi2Byte* name;          /* Name of this zone */
+  fmi2Byte* name;      /* Name of this zone */
   FMUBuilding* ptrBui; /* Pointer to building with this zone */
   fmi2ValueReference* valueReference; /* Value references for this zone */
   size_t nValueReference;
@@ -93,7 +93,6 @@ typedef struct FMUZone
   fmi2Byte outputVariableNames[7][100]; /* Names of output variables*/
   fmi2ValueReference outputValueReferences[7]; /* Value references of output variables*/
 } FMUZone;
-
 
 static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs */
 static unsigned int Buildings_nFMU = 0;     /* Number of FMUs */
