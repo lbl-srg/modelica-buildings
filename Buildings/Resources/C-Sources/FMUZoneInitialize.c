@@ -147,7 +147,6 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
 		tmpZon[i] = (FMUZone*)malloc(sizeof(FMUZone));
 		char* name = ((FMUZone*)(zone->ptrBui->zones[i]))->name;
 		tmpZon[i]->name=name;
-		tmpZon[i]->totOutputVariableNames = (char**)malloc((nOut+1)*sizeof(char*));
 		zone->ptrBui->zones[i] = tmpZon[i];
 	}
 
@@ -188,8 +187,6 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
 					sprintf(outputNames[cntr], "%s%s%s", tmpZon[j]->name, ",", consOutputNames[k]);
 					strcpy(tmpZon[j]->outputVariableNames[k], outputNames[cntr]);
 					tmpZon[j]->outputValueReferences[k]=outputValueReferences[cntr];
-					tmpZon[j]->totOutputVariableNames[cntr] = (char*)malloc((strlen(tmpZon[j]->name)+strlen(consOutputNames[k]) + 2)*sizeof(char));
-					strcpy(tmpZon[j]->totOutputVariableNames[cntr], outputNames[cntr]);
 					cntr++;
 				}
 			}
