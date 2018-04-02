@@ -145,6 +145,8 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName)
         zone->ptrBui = instantiateEnergyPlusFMU(fmuName, zoneName, zone);
       }
   }
+  /*Set the fmu to null to control execution*/
+  zone->ptrBui->fmu=NULL;
   /* Return a pointer to this zone */
   return (void*) zone;
 };
