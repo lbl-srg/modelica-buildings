@@ -48,6 +48,8 @@ First implementation.
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
+        Bitmap(extent={{-90,-90},{90,90}}, fileName=
+              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/IncidenceAngle.png"),
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
@@ -59,7 +61,5 @@ First implementation.
         Text(
           extent={{-98,-42},{-42,-54}},
           lineColor={0,0,127},
-          textString="solHouAng"),
-        Bitmap(extent={{-90,92},{90,-94}}, fileName=
-              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/IncidenceAngle.png")}));
+          textString="solHouAng")}));
 end IncidenceAngle;

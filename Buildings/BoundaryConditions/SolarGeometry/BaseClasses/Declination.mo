@@ -62,9 +62,10 @@ First implementation.
 </ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={Text(
+            100}}), graphics={  Bitmap(extent={{-90,-90},{90,90}}, fileName=
+              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/Declination.png"),
+                              Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}), Bitmap(extent={{-92,92},{92,-92}}, fileName=
-              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/Declination.png")}));
+          lineColor={0,0,255})}));
 end Declination;
