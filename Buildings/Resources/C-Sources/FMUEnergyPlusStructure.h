@@ -82,6 +82,7 @@ typedef struct FMUBuilding
 
 typedef struct FMUZone
 {
+  int index;
   fmi2Byte* name;      /* Name of this zone */
   FMUBuilding* ptrBui; /* Pointer to building with this zone */
   fmi2ValueReference* valueReference; /* Value references for this zone */

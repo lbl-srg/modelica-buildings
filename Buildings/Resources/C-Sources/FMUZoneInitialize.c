@@ -294,12 +294,16 @@ int result = zone->ptrBui->fmu->instantiate(input, // input
 //  double tEnd = 86400;
 //
 int index;
+
+snprintf(msg, 200, "The zone index is %d\n.", zone->index);
+ModelicaMessage(msg);
+
 snprintf(msg, 200, "Currently calling zone: %s\n.", zone->name);
 ModelicaMessage(msg);
 
 if (_setupExperiment){
 	ModelicaMessage("First call of setupExperiment()."
-	" This function can only be called once per building FMU.");
+	" This function can only be called once per building FMU.\n");
 	result = zone->ptrBui->fmu->setupExperiment(tStart, 1, NULL);
 }
 
@@ -315,10 +319,10 @@ for (i=0; i<3; i++){
 	for (j=0; j<totNumOut; j++){
 		if (strstr(outputNames[j], tmp)!=NULL){
 			index = j;
-			snprintf(msg, 200, "Found: %s in position %d with value reference %d. The value is %f\n.",
-			outputNames[j], j, outputValueReferences[j], outputs[j]);
+			//snprintf(msg, 200, "Found: %s in position %d with value reference %d. The value is %f\n.",
+			//outputNames[j], j, outputValueReferences[j], outputs[j]);
 			parValues[i] = outputs[j];
-			ModelicaMessage(msg);
+			//ModelicaMessage(msg);
 			break;
 		}
 	}

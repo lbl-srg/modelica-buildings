@@ -106,6 +106,7 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName)
     /* No FMUs exist. Instantiate an FMU and */
     /* assign this fmu pointer to the zone that will invoke its setXXX and getXXX */
     zone->ptrBui = instantiateEnergyPlusFMU(fmuName, zoneName, zone);
+    zone->index = 1;
   } else {
     /* There is already a Buildings FMU allocated.
        Check if the current zone is for this FMU. */
@@ -136,6 +137,7 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName)
           strcpy(bld->zoneNames[bld->nZon], zoneName);
           /* Increment the count of zones to this building. */
           bld->nZon++;
+          zone->index = bld->nZon;
           break;
         }
       }
