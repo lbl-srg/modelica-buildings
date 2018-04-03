@@ -40,14 +40,31 @@ void FMUZoneExchange(
   tmpZon=(FMUZone*)zone->ptrBui->zones[zone->index-1];
   /* Time need to be guarded against rounding error */
   //*tNext = round((floor(time/3600.0)+1) * 3600.0);
-  result = zone->ptrBui->fmu->setTime(time, NULL);
+
   result = zone->ptrBui->fmu->setVariables(tmpZon->inputValueReferences, inputValues, 1, NULL);
+  if(result<0){
+    ModelicaFormatMessage("Failed to set setup variables for building FMU with name %s\n",
+    zone->ptrBui->name);
+  }
   result = zone->ptrBui->fmu->getVariables(tmpZon->outputValueReferences, outputValues, 4, NULL);
+  if(result<0){
+    ModelicaFormatMessage("Failed to get setup variables for building FMU with name %s\n",
+    zone->ptrBui->name);
+  }
   // snprintf(msg, 200, "e+ is %f\n", outputValues[0]);
   // ModelicaMessage(msg);
-  *QConSen_flow=outputValues[0];
+  //*QConSen_flow=outputValues[0];
   result = zone->ptrBui->fmu->getNextEventTime(&eventInfo, NULL);
+  if(result<0){
+    ModelicaFormatMessage("Failed to get next event time for building FMU with name %s\n",
+    zone->ptrBui->name);
+  }
   *tNext = eventInfo.nextEventTime;
+  result = zone->ptrBui->fmu->setTime(*tNext, NULL);
+  if(result<0){
+    ModelicaFormatMessage("Failed to set time for building FMU with name %s\n",
+    zone->ptrBui->name);
+  }
 /*  snprintf(msg, 200,
     "*** In exchange for bldg: %s; zone: %s, time = %f, tNext = %f, pointer to fmu %p.\n",
     zone->ptrBui->name,
@@ -57,5 +74,6 @@ void FMUZoneExchange(
     zone->ptrBui);
   ModelicaMessage(msg);
 */
+
   return;
 }

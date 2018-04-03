@@ -12,8 +12,6 @@
 /* Create the structure and return a pointer to its address. */
 FMUBuilding* instantiateEnergyPlusFMU(const char* fmuName, const char* zoneName, FMUZone* zone)
 {
-  char msg[200];
-
   /* Allocate memory */
   if (Buildings_nFMU == 0){
     Buildings_FMUS = malloc(sizeof(struct FMUBuilding*));
@@ -76,7 +74,6 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName)
 {
   /* Note: The fmuName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
-  char msg[200];
   unsigned int i;
 
   ModelicaFormatMessage("****** Initializing zone %s, fmu = %s****** \n", zoneName, fmuName);
@@ -116,9 +113,8 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName)
         if (strcmp(fmuName, Buildings_FMUS[i]->name) == 0){
           /* This is the same FMU as before. */
           if (! zoneIsUnique(Buildings_FMUS[i], zoneName)){
-            snprintf(msg, 200, "Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.",
+            ModelicaFormatError("Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.",
             zoneName, Buildings_FMUS[i]->name);
-            ModelicaError(msg);
           }
 
           struct FMUBuilding* bld = Buildings_FMUS[i];

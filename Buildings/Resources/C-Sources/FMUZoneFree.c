@@ -8,6 +8,7 @@
 #include <stdlib.h>
 
 void FMUZoneFree(void* object){
+  int i;
   if ( object != NULL ){
     FMUZone* zone = (FMUZone*) object;
     /* Free the memory for the zone name in the structure
@@ -15,12 +16,14 @@ void FMUZoneFree(void* object){
        name, which may not be for this zone. But this does not matter
        as anyway all zones will be deconstructed by Modelica. */
     free(zone->ptrBui->zoneNames[zone->ptrBui->nZon - 1]);
+    free(zone->ptrBui->zones[zone->ptrBui->nZon - 1]);
     zone->ptrBui->nZon--;
     /* Check if the building FMU can be freed. */
     if (zone->ptrBui->nZon == 0){
       /* There is no more zone that uses this building FMU. */
       free(zone->ptrBui->name);
       free(zone->ptrBui->zoneNames);
+      free(zone->ptrBui->zones);
       free(zone->ptrBui);
       Buildings_nFMU--;
       /* Check if there are any Buildings FMUs left. */

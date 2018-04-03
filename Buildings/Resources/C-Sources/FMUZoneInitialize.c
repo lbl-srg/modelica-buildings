@@ -10,61 +10,49 @@
 
 static void* getAdr(FMU *fmu, const char* functionName){
 	void* fp;
-        char* msg;
-	msg = (char*) malloc((strlen(functionName)+150)*sizeof(char));
 #ifdef _MSC_VER
 	fp = GetProcAddress(fmu->dllHandle, functionName);
 #else
 	fp = dlsym(fmu->dllHandle, functionName);
 #endif
 	if (!fp) {
-                sprintf(msg, "****** Function %s,  not "
-                "found in the EnergyPlus functions library****** \n",
-                functionName);
-		ModelicaError (msg);
+		ModelicaFormatError("****** Function %s,  not "
+		"found in the EnergyPlus functions library****** \n",
+		functionName);
 	}
-        free (msg);
 	return fp;
 }
 
 static int loadLib(const char* libPath, FMU *fmu) {
-        char* msg;
-        msg = (char*) malloc((strlen(libPath)+150)*sizeof(char));
 #ifdef _MSC_VER
 	HINSTANCE h;
 #else
 	void *h;
 #endif
 
-
 #ifdef _MSC_VER
 	h = LoadLibrary(libPath);
 	if (h == NULL) {
-		sprintf(msg, "****** Unable to load the EnergyPlus "
-                "functions library with path %s ****** \n",
-                libPath);
-		ModelicaError(msg);
+		ModelicaFormatError("****** Unable to load the EnergyPlus "
+		"functions library with path %s ****** \n",
+		libPath);
 	}
 	if (!h) {
-		sprintf(msg, "****** Unable to load the "
-                "EnergyPlus functions library with path %s ****** \n",
-                libPath);
-		ModelicaError(msg);
+		ModelicaFormatError("****** Unable to load the EnergyPlus "
+		"functions library with path %s ****** \n",
+		libPath);
 	}
 #else
 	h = dlopen(libPath, RTLD_LAZY);
 	if (h == NULL) {
-		sprintf(msg, "****** Unable to load the "
-                "EnergyPlus functions library with path %s ****** \n",
-                libPath);
-		ModelicaError(msg);
-
+		ModelicaFormatError("****** Unable to load the EnergyPlus "
+		"functions library with path %s ****** \n",
+		libPath);
 	}
 	if (!h) {
-		sprintf(msg, "****** Unable to load the "
-                "EnergyPlus functions library with path %s ****** \n",
-                libPath);
-		ModelicaError(msg);
+		ModelicaFormatError("****** Unable to load the EnergyPlus "
+		"functions library with path %s ****** \n",
+		libPath);
 	}
 #endif
 
@@ -82,7 +70,7 @@ static int loadLib(const char* libPath, FMU *fmu) {
 
 	fmu->setTime = (fSetTime)getAdr(fmu, "setTime");
 	if (!(fmu->setTime)) {
-                ModelicaMessage("Can't find function setTime().\n");
+		ModelicaMessage("Can't find function setTime().\n");
 	}
 
 	fmu->setVariables = (fSetVariables) getAdr(fmu, "setVariables");
@@ -103,7 +91,6 @@ static int loadLib(const char* libPath, FMU *fmu) {
 	if (!(fmu->terminate)) {
 		ModelicaError("Can't find function terminate().\n");
 	}
-        free (msg);
 	return 0; //success
 
 }
@@ -167,6 +154,7 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
 		outputValueReferences[i]=i+nInp;
 	}
 
+	/* Save input value references at zone and building level*/
 	while (cntr<nInp){
 		for (k=0; k<scaInp; k++){
 			for (j=0; j<nZon; j++) {
@@ -179,23 +167,24 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
 		}
 	}
 
-		cntr=0;
-		while (cntr<nInp){
-			for (k=0; k<scaOut; k++){
-				for (j=0; j<nZon; j++){
-				  outputNames[cntr]=(char*)malloc((strlen(tmpZon[j]->name)+strlen(consOutputNames[k]) + 2)*sizeof(char));
-					sprintf(outputNames[cntr], "%s%s%s", tmpZon[j]->name, ",", consOutputNames[k]);
-					strcpy(tmpZon[j]->outputVariableNames[k], outputNames[cntr]);
-					tmpZon[j]->outputValueReferences[k]=outputValueReferences[cntr];
-					cntr++;
-				}
+	/* Save output value references at zone and building level*/
+	cntr=0;
+	while (cntr<nInp){
+		for (k=0; k<scaOut; k++){
+			for (j=0; j<nZon; j++){
+			  outputNames[cntr]=(char*)malloc((strlen(tmpZon[j]->name)+strlen(consOutputNames[k]) + 2)*sizeof(char));
+				sprintf(outputNames[cntr], "%s%s%s", tmpZon[j]->name, ",", consOutputNames[k]);
+				strcpy(tmpZon[j]->outputVariableNames[k], outputNames[cntr]);
+				tmpZon[j]->outputValueReferences[k]=outputValueReferences[cntr];
+				cntr++;
 			}
 		}
+	}
 
-/*Compute the total number of input variables of the building model*/
-totNumInp=sizeof(inputValueReferences)/sizeof(inputValueReferences[0]);
-/*Compute the total number of output variables of the building model*/
-totNumOut=sizeof(outputValueReferences)/sizeof(outputValueReferences[0]);
+	/*Compute the total number of input variables of the building model*/
+	totNumInp=sizeof(inputValueReferences)/sizeof(inputValueReferences[0]);
+	/*Compute the total number of output variables of the building model*/
+	totNumOut=sizeof(outputValueReferences)/sizeof(outputValueReferences[0]);
 
 // for (i=0; i<scaInp; i++) {
 // 	ModelicaFormatMessage("input reference in zone1 %d\n", ((FMUZone*)(zone->ptrBui->zones[0]))->inputValueReferences[i]);
@@ -274,89 +263,75 @@ totNumOut=sizeof(outputValueReferences)/sizeof(outputValueReferences[0]);
 //   	ModelicaFormatMessage("%d\n", outputValueReferences[i]);
 //    }
 
-int result = zone->ptrBui->fmu->instantiate(input, // input
-                           weather, // weather
-                           idd, // idd
-                           "Alpha", // instanceName
-                           NULL, // parameterNames
-                           NULL, // parameterValueReferences[]
-                           0, // nPar
-                           inputNames, // inputNames
-                           inputValueReferences, // inputValueReferences[]
-                           totNumInp, // nInp
-                           outputNames, // outputNames
-                           outputValueReferences, // outputValueReferences[]
-                           totNumOut, // nOut
-                           NULL); //log);
+	/* Instantiate the building FMU*/
+	int result = zone->ptrBui->fmu->instantiate(input, // input
+	                           weather, // weather
+	                           idd, // idd
+	                           "Alpha", // instanceName
+	                           NULL, // parameterNames
+	                           NULL, // parameterValueReferences[]
+	                           0, // nPar
+	                           inputNames, // inputNames
+	                           inputValueReferences, // inputValueReferences[]
+	                           totNumInp, // nInp
+	                           outputNames, // outputNames
+	                           outputValueReferences, // outputValueReferences[]
+	                           totNumOut, // nOut
+	                           NULL); //log);
 
- double tStart = 0.0;
- int stopTimeDefined = 1;
-//  double tEnd = 86400;
-//
-int index;
+	if(result<0){
+		ModelicaFormatMessage("Couldn't instantiate building FMU with name %s\n",
+		zone->ptrBui->name);
+	}
 
-snprintf(msg, 200, "The zone index is %d\n.", zone->index);
-ModelicaMessage(msg);
+	 double tStart = 0.0;
+	 int index;
 
-snprintf(msg, 200, "Currently calling zone: %s\n.", zone->name);
-ModelicaMessage(msg);
+	// snprintf(msg, 200, "The zone index is %d\n.", zone->index);
+	// ModelicaMessage(msg);
+	//
+	// snprintf(msg, 200, "Currently calling zone: %s\n.", zone->name);
+	// ModelicaMessage(msg);
 
-if (_setupExperiment){
-	ModelicaMessage("First call of setupExperiment()."
-	" This function can only be called once per building FMU.\n");
-	result = zone->ptrBui->fmu->setupExperiment(tStart, 1, NULL);
-}
-
-double outputs[totNumOut] ;
-result = zone->ptrBui->fmu->getVariables(outputValueReferences, outputs, totNumOut, NULL);
-
-char tmp[100];
-const char* parNames[] = {"V","AFlo","mSenFac"};
-double parValues[3];
-
-for (i=0; i<3; i++){
-	sprintf(tmp, "%s%s%s", zone->name, ",", parNames[i]);
-	for (j=0; j<totNumOut; j++){
-		if (strstr(outputNames[j], tmp)!=NULL){
-			index = j;
-			//snprintf(msg, 200, "Found: %s in position %d with value reference %d. The value is %f\n.",
-			//outputNames[j], j, outputValueReferences[j], outputs[j]);
-			parValues[i] = outputs[j];
-			//ModelicaMessage(msg);
-			break;
+	if (_setupExperiment){
+		/*This function can only be called once per building FMU*/
+		result = zone->ptrBui->fmu->setupExperiment(tStart, 1, NULL);
+		if(result<0){
+			ModelicaFormatMessage("Failed to get setup experiment for building FMU with name %s\n",
+			zone->ptrBui->name);
 		}
 	}
-}
 
-*V = parValues[0];
-*AFlo = parValues[1];
-*mSenFac = parValues[2];
+	double outputs[totNumOut] ;
+	/*Get initial output variables*/
+	result = zone->ptrBui->fmu->getVariables(outputValueReferences, outputs, totNumOut, NULL);
+	if(result<0){
+		ModelicaFormatMessage("Failed to get initial outputs for building FMU with name %s\n",
+		zone->ptrBui->name);
+	}
 
- //result = zone->ptrBui->fmu->getVariables(outputRefs, outputs, 1, NULL);
- //ModelicaFormatMessage("This is the value of the output %f\n", outputs[0]);
-  // double tStart = 0.0;
-  // int stopTimeDefined = 1;
-  // double tEnd = 86400;
-  //
-  // result = zone->ptrBui->fmu->setupExperiment(tStart, 1, NULL);
-  // double time = tStart;
-  //
-  // double outputs[] = {0.0, 0.0};
-  // const unsigned int outputRefs[] = {6, 7};
-  // //fmi2String* = {}
-  // //fmi2ValueReference parameterValueReferences = {12, 18, 24}
-  //
-  // double inputs[] = {21.0, 21.0};
-  // const unsigned int inputRefs[] = {0, 1};
-  //
-  // result = zone->ptrBui->fmu->setVariables(inputRefs, inputs, 2, NULL);
-  // result = zone->ptrBui->fmu->getVariables(outputRefs, outputs, 2, NULL);
-  //
-  // snprintf(msg, 200, "The output of value is is %f\n.", outputs[0]);
-  // ModelicaMessage(msg);
-  // snprintf(msg, 200, "The output of value is is %f\n.", outputs[1]);
-  // ModelicaMessage(msg);
+	char tmp[100];
+	const char* parNames[] = {"V","AFlo","mSenFac"};
+	double parValues[3];
 
+	/*Map the output values to correct parameters*/
+	for (i=0; i<3; i++){
+		sprintf(tmp, "%s%s%s", zone->name, ",", parNames[i]);
+		for (j=0; j<totNumOut; j++){
+			if (strstr(outputNames[j], tmp)!=NULL){
+				index = j;
+				//snprintf(msg, 200, "Found: %s in position %d with value reference %d. The value is %f\n.",
+				//outputNames[j], j, outputValueReferences[j], outputs[j]);
+				parValues[i] = outputs[j];
+				//ModelicaMessage(msg);
+				break;
+			}
+		}
+	}
+
+	*V = parValues[0];
+	*AFlo = parValues[1];
+	*mSenFac = parValues[2];
 /* Obtain the floor area and the volume of the zone */
 
 /*  snprintf(msg, 200,
@@ -367,5 +342,21 @@ for (i=0; i<3; i++){
     zone->ptrBui);
   ModelicaMessage(msg);
 */
-  return;
+/*Deallocate memory*/
+for (i = 0; i < totNumOut; i++) {
+    free(outputNames[i]);
+}
+for (i = 0; i < totNumInp; i++) {
+    free(inputNames[i]);
+}
+free(inputNames);
+
+free(fmu);
+
+for (i=0; i<nZon; i++){
+	free(tmpZon[i]);
+}
+//
+//free(tmpZon);
+return;
 }
