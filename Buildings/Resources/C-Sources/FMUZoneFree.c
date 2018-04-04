@@ -2,6 +2,7 @@
  * Modelica external function to communicate with EnergyPlus.
  *
  * Michael Wetter, LBNL                  2/14/2018
+ * Thierry S. Nouidui, LBNL              4/03/2018
  */
 
 #include "FMUEnergyPlusStructure.h"
@@ -22,6 +23,9 @@ void FMUZoneFree(void* object){
     if (zone->ptrBui->nZon == 0){
       /* There is no more zone that uses this building FMU. */
       free(zone->ptrBui->name);
+      free(zone->ptrBui->weather);
+      free(zone->ptrBui->idd);
+      free(zone->ptrBui->epLib);
       free(zone->ptrBui->zoneNames);
       free(zone->ptrBui->zones);
       free(zone->ptrBui);

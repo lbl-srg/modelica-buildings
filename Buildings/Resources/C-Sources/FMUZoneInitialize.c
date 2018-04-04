@@ -101,7 +101,7 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
 	/*Prevent this to be called multiple times*/
   FMU* fmu;
 	int cntr=0;
-	int retVal;
+	int result;
 	int i, j, k ;
 	size_t totNumInp;
 	size_t totNumOut;
@@ -205,15 +205,8 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
 // 	ModelicaFormatMessage("output name in zone2 %s\n", ((FMUZone*)(zone->ptrBui->zones[1]))->outputVariableNames[i]);
 // }
 
-
-  fmi2String input ="/home/thierry/eplusfmi/RefBldgSmallOfficeNew2004_Chicago.idf";
-  fmi2String weather ="/home/thierry/eplusfmi/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw";
-  fmi2String idd ="/home/thierry/eplusfmi/Energy+.idd";
-  //
-  /* Loading EnergyPlus library */
-  fmi2String eplib = "/home/thierry/eplusfmi/libepfmi.so";
 //if(zone){
-  retVal = loadLib(eplib, zone->ptrBui->fmu);
+  result = loadLib(zone->ptrBui->epLib, zone->ptrBui->fmu);
 //
 //   //ModelicaFormatMessage ("The number of input variables is %d\n", sizeof(inputValueReferences)/sizeof(inputValueReferences[0]));
 //   //ModelicaFormatMessage ("The number of output variables is %s\n", strlen(outputValueReferences));
@@ -264,9 +257,9 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
 //    }
 
 	/* Instantiate the building FMU*/
-	int result = zone->ptrBui->fmu->instantiate(input, // input
-	                           weather, // weather
-	                           idd, // idd
+	result = zone->ptrBui->fmu->instantiate(zone->ptrBui->name, // input
+	                           zone->ptrBui->weather, // weather
+	                           zone->ptrBui->idd, // idd
 	                           "Alpha", // instanceName
 	                           NULL, // parameterNames
 	                           NULL, // parameterValueReferences[]
@@ -286,7 +279,6 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
 
 	 double tStart = 0.0;
 	 int index;
-
 	// snprintf(msg, 200, "The zone index is %d\n.", zone->index);
 	// ModelicaMessage(msg);
 	//

@@ -10,7 +10,8 @@
 #include <stdio.h>
 
 /* Create the structure and return a pointer to its address. */
-FMUBuilding* instantiateEnergyPlusFMU(const char* fmuName, const char* zoneName, FMUZone* zone)
+FMUBuilding* instantiateEnergyPlusFMU(const char* idfName, const char* weaName,
+  const char* iddName, const char* epLibName, const char* zoneName, FMUZone* zone )
 {
   /* Allocate memory */
   if (Buildings_nFMU == 0){
@@ -30,10 +31,28 @@ FMUBuilding* instantiateEnergyPlusFMU(const char* fmuName, const char* zoneName,
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate array for Buildings_FMUS[0]->zoneNames.");
 
   /* Assign the fmu name */
-  Buildings_FMUS[Buildings_nFMU]->name = (char*) malloc(strlen(fmuName) * sizeof(char));
+  Buildings_FMUS[Buildings_nFMU]->name = (char*) malloc(strlen(idfName) * sizeof(char));
   if ( Buildings_FMUS[Buildings_nFMU]->name == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate fmu name.");
-  strcpy(Buildings_FMUS[Buildings_nFMU]->name, fmuName);
+  strcpy(Buildings_FMUS[Buildings_nFMU]->name, idfName);
+
+  /* Assign the weather name */
+  Buildings_FMUS[Buildings_nFMU]->weather = (char*) malloc(strlen(weaName) * sizeof(char));
+  if ( Buildings_FMUS[Buildings_nFMU]->weather == NULL )
+    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate weather name.");
+  strcpy(Buildings_FMUS[Buildings_nFMU]->weather, weaName);
+
+  /* Assign the idd name */
+  Buildings_FMUS[Buildings_nFMU]->idd = (char*) malloc(strlen(iddName) * sizeof(char));
+  if ( Buildings_FMUS[Buildings_nFMU]->idd == NULL )
+    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate IDD name.");
+  strcpy(Buildings_FMUS[Buildings_nFMU]->idd, iddName);
+
+  /* Assign the Energyplus library name */
+  Buildings_FMUS[Buildings_nFMU]->epLib = (char*) malloc(strlen(epLibName) * sizeof(char));
+  if ( Buildings_FMUS[Buildings_nFMU]->epLib == NULL )
+    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate IDD name.");
+  strcpy(Buildings_FMUS[Buildings_nFMU]->epLib, epLibName);
 
   /* Assign the zone name */
   Buildings_FMUS[Buildings_nFMU]->zoneNames[0] = malloc(strlen(zoneName) * sizeof(char));
@@ -68,15 +87,15 @@ int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
 }
 
 /* Create the structure and return a pointer to its address. */
-void* FMUZoneInit(const char* fmuName, const char* zoneName)
-/*void* FMUZoneInit(const char* fmuName, const char* zoneName, int nFluPor,
+void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName, const char* epLibName, const char* zoneName)
+/*void* FMUZoneInit(const char* idfName, const char* zoneName, int nFluPor,
   const char** varNamSen, size_t nVarSen, const char** varNamRec, size_t nVarRec, int* valRefVarRec, size_t nValRefVarRec)*/
 {
-  /* Note: The fmuName is needed to unpack the fmu so that the valueReference
+  /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
   unsigned int i;
 
-  ModelicaFormatMessage("****** Initializing zone %s, fmu = %s****** \n", zoneName, fmuName);
+  ModelicaFormatMessage("****** Initializing zone %s, fmu = %s****** \n", zoneName, idfName);
 
   /* ********************************************************************** */
   /* Initialize the zone */
@@ -102,7 +121,7 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName)
   if (Buildings_nFMU == 0){
     /* No FMUs exist. Instantiate an FMU and */
     /* assign this fmu pointer to the zone that will invoke its setXXX and getXXX */
-    zone->ptrBui = instantiateEnergyPlusFMU(fmuName, zoneName, zone);
+    zone->ptrBui = instantiateEnergyPlusFMU(idfName, weaName, iddName, epLibName, zoneName, zone);
     zone->index = 1;
   } else {
     /* There is already a Buildings FMU allocated.
@@ -110,7 +129,7 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName)
       zone->ptrBui = NULL;
       for(i = 0; i < Buildings_nFMU; i++){
 
-        if (strcmp(fmuName, Buildings_FMUS[i]->name) == 0){
+        if (strcmp(idfName, Buildings_FMUS[i]->name) == 0){
           /* This is the same FMU as before. */
           if (! zoneIsUnique(Buildings_FMUS[i], zoneName)){
             ModelicaFormatError("Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.",
@@ -140,7 +159,7 @@ void* FMUZoneInit(const char* fmuName, const char* zoneName)
       /* Check if we found an FMU */
       if (zone->ptrBui == NULL){
         /* Did not find an FMU. */
-        zone->ptrBui = instantiateEnergyPlusFMU(fmuName, zoneName, zone);
+        zone->ptrBui = instantiateEnergyPlusFMU(idfName, weaName, iddName, epLibName, zoneName, zone);;
       }
   }
   /*Set the fmu to null to control execution*/

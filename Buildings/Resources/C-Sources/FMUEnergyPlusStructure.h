@@ -74,6 +74,9 @@ typedef struct FMU{
 typedef struct FMUBuilding
 {
   fmi2Byte* name;
+  fmi2Byte* weather;
+  fmi2Byte* idd;
+  fmi2Byte* epLib;
   fmi2Integer nZon; /* Number of zones that use this FMU */
   fmi2Byte** zoneNames; /* Names of zones in this FMU */
   void** zones; /* Pointers to all zones*/

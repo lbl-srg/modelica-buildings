@@ -2,9 +2,18 @@ within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter String idfName "Name of the FMU file that contains this zone";
-  parameter String zoneName "Name of the thermal zone as specified in the EnergyPlus input";
-  parameter Integer nFluPor "Number of fluid ports (Set to 2 for one inlet and one outlet)";
+  parameter String idfName "Name of the IDF file that contains this zone";
+  parameter String weaName "Name of the Energyplus weather file";
+  final parameter String iddName=Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/Data/Rooms/EnergyPlus/Energy+.idd")
+    "Name of the Energyplus IDD file";
+  final parameter String epLibName=Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/Data/Rooms/EnergyPlus/libepfmi.so")
+    "Name of the EnergyPlus FMI library";
+  parameter String zoneName
+    "Name of the thermal zone as specified in the EnergyPlus input";
+  parameter Integer nFluPor
+    "Number of fluid ports (Set to 2 for one inlet and one outlet)";
 
   final parameter Modelica.SIunits.Area AFlo(fixed=false) "Floor area";
   final parameter Modelica.SIunits.Volume V(fixed=false) "Zone volume";
@@ -59,6 +68,9 @@ protected
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass adapter=
       Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass(
       idfName=idfName,
+      weaName=weaName,
+      iddName=iddName,
+      epLibName=epLibName,
       zoneName=zoneName)
         "Class to communicate with EnergyPlus";
 
@@ -91,6 +103,11 @@ of its class <code>adapter</code>, of EnergyPlus.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 04, 2018, by Thierry S. Nouidui:<br/>
+Added additional parameters for parametrizing 
+the EnergyPlus model.
+</li>
 <li>
 March 21, 2018, by Thierry S. Nouidui:<br/>
 Revised implementation for efficiency.

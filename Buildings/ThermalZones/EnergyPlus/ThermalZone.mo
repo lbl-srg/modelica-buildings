@@ -2,7 +2,8 @@ within Buildings.ThermalZones.EnergyPlus;
 model ThermalZone "Model to connect to an EnergyPlus thermal zone"
   import Buildings;
   extends Modelica.Blocks.Icons.Block;
-  parameter String idfName="" "Name of the FMU file that contains this zone";
+  parameter String idfName="" "Name of the IDF file that contains this zone";
+  parameter String weaName="" "Name of the EnergyPlus weather file";
 
   parameter String zoneName "Name of the thermal zone as specified in the EnergyPlus input";
   parameter Integer nPorts=0 "Number of fluid ports (equals to 2 for one inlet and one outlet)" annotation (Evaluate=true,
@@ -113,6 +114,7 @@ protected
     V*3/3600 "Nominal mass flow rate (used for regularization)";
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
     final idfName=idfName,
+    final weaName=weaName,
     final zoneName=zoneName,
     final nFluPor=nPorts) "FMU zone adapter"
     annotation (Placement(transformation(extent={{80,104},{100,124}})));
@@ -423,6 +425,11 @@ to species in Modelica or converted to emitted mass flow rate.)
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 04, 2018, by Thierry S. Nouidui:<br/>
+Added additional parameters for parametrizing 
+the EnergyPlus model.
+</li>
 <li>
 March 21, 2018, by Thierry S. Nouidui:<br/>
 Revised implementation for efficiency.
