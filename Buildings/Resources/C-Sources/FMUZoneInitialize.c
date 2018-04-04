@@ -342,21 +342,6 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
     zone->ptrBui);
   ModelicaMessage(msg);
 */
-/*Deallocate memory*/
-for (i = 0; i < totNumOut; i++) {
-    free(outputNames[i]);
-}
-for (i = 0; i < totNumInp; i++) {
-    free(inputNames[i]);
-}
-free(inputNames);
 
-free(fmu);
-
-for (i=0; i<nZon; i++){
-	free(tmpZon[i]);
-}
-//
-//free(tmpZon);
 return;
 }
