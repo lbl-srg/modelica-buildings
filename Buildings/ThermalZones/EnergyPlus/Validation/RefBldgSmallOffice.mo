@@ -3,10 +3,12 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model";
 
-  parameter String idfName = "/home/thierry/eplusfmi/RefBldgSmallOfficeNew2004_Chicago.idf"
-  "Name of the IDF file";
-  parameter String weaName = "/home/thierry/eplusfmi/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"
-  "Name of the weather file";
+  parameter String idfName=Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/Data/Rooms/EnergyPlus/RefBldgSmallOfficeNew2004_Chicago.idf")
+    "Name of the IDF file";
+  parameter String weaName = Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/Data/Rooms/EnergyPlus/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
+    "Name of the weather file";
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-74,-10},{-54,10}})));
