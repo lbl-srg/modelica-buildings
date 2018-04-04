@@ -3,7 +3,7 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model";
 
-  parameter String fmuName = "aaa.fmu" "Name of the FMU file that contains this zone";
+  parameter String idfName = "aaa.fmu" "Name of the FMU file that contains this zone";
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-74,-10},{-54,10}})));
@@ -14,41 +14,41 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-74,-50},{-54,-30}})));
   ThermalZone zon1(
-    fmuName="bld.fmu",
+    idfName="bld.fmu",
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Attic")                                          "Thermal zone"
     annotation (Placement(transformation(extent={{40,74},{80,114}})));
   ThermalZone zon2(
-    fmuName="bld.fmu",
+    idfName="bld.fmu",
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Core_ZN")
               "Thermal zone"
     annotation (Placement(transformation(extent={{40,28},{80,68}})));
   ThermalZone zon3(
-    fmuName="bld.fmu",
+    idfName="bld.fmu",
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Perimeter_ZN_1")
               "Thermal zone"
     annotation (Placement(transformation(extent={{40,-18},{80,22}})));
   ThermalZone zon4(
-    fmuName="bld.fmu",
+    idfName="bld.fmu",
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Perimeter_ZN_2")
               "Thermal zone"
     annotation (Placement(transformation(extent={{40,-64},{80,-24}})));
   ThermalZone zon5(
-    fmuName="bld.fmu",
+    idfName="bld.fmu",
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Perimeter_ZN_3")
               "Thermal zone"
     annotation (Placement(transformation(extent={{40,-112},{80,-72}})));
   ThermalZone zon6(
-    fmuName="bld.fmu",
+    idfName="bld.fmu",
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Perimeter_ZN_4")

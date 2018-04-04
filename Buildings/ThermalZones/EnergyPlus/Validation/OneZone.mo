@@ -3,7 +3,7 @@ model OneZone "Validation model for one zone"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model";
 
-  parameter String fmuName = "aaa.fmu" "Name of the FMU file that contains this zone";
+  parameter String idfName = "aaa.fmu" "Name of the FMU file that contains this zone";
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -12,12 +12,12 @@ model OneZone "Validation model for one zone"
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   ThermalZone zon(
-    fmuName="bld.fmu",
+    idfName="bld.fmu",
     zoneName="Zone 1",
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=2) "Thermal zone"
-    annotation (Placement(transformation(extent={{20,-20},{60,20}})));
+    annotation (Placement(transformation(extent={{22,-20},{62,20}})));
   Fluid.FixedResistances.PressureDrop duc(
     allowFlowReversal=false,
     linearized=true,
@@ -50,15 +50,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(zon.qGai_flow, multiplex3_1.y)
-    annotation (Line(points={{18,10},{-19,10}}, color={0,0,127}));
+    annotation (Line(points={{20,10},{-19,10}}, color={0,0,127}));
   connect(multiplex3_1.u3[1], qLatGai_flow.y) annotation (Line(points={{-42,3},
           {-52,3},{-52,-20},{-59,-20}}, color={0,0,127}));
   connect(freshAir.ports[1], duc.port_b)
     annotation (Line(points={{-20,-40},{-10,-40}}, color={0,127,255}));
-  connect(duc.port_a, zon.ports[1]) annotation (Line(points={{10,-40},{38,-40},
-          {38,-19.2}}, color={0,127,255}));
-  connect(bou.ports[1], zon.ports[2]) annotation (Line(points={{-20,-80},{42,
-          -80},{42,-19.2}}, color={0,127,255}));
+  connect(duc.port_a, zon.ports[1]) annotation (Line(points={{10,-40},{40,-40},{
+          40,-19.2}},  color={0,127,255}));
+  connect(bou.ports[1], zon.ports[2]) annotation (Line(points={{-20,-80},{44,-80},
+          {44,-19.2}},      color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 Simple test case for one buildings with one thermal zone.

@@ -3,14 +3,14 @@ model OneZoneWithControl "Validation model for one zone"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model";
 
-  parameter String fmuName = "aaa.fmu" "Name of the FMU file that contains this zone";
+  parameter String idfName = "aaa.fmu" "Name of the FMU file that contains this zone";
   parameter Modelica.SIunits.Volume AFlo = 30 "Room volume";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = AFlo*2.7*6*1.2/3600
     "Nominal mass flow rate";
 
   ThermalZone zon(
     redeclare package Medium = Medium,
-    fmuName="bld.fmu",
+    idfName="bld.fmu",
     zoneName="Zone 1",
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)

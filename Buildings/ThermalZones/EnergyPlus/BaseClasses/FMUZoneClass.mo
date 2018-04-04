@@ -3,11 +3,11 @@ class FMUZoneClass "Class used to couple the FMU"
 extends ExternalObject;
   function constructor
     "Construct to connect to a thermal zone in EnergyPlus"
-    input String fmuName "Name of the FMU";
+    input String idfName "Name of the FMU";
     input String zoneName "Name of the thermal zone";
     output FMUZoneClass adapter;
      external"C" adapter = FMUZoneInit(
-           fmuName,
+           idfName,
            zoneName) annotation (Include="#include <FMUZoneInit.c>",
            IncludeDirectory="modelica://Buildings/Resources/C-Sources");
     annotation (Documentation(info="<html>

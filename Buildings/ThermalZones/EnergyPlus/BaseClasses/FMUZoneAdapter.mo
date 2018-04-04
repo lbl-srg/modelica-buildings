@@ -2,7 +2,7 @@ within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter String fmuName "Name of the FMU file that contains this zone";
+  parameter String idfName "Name of the FMU file that contains this zone";
   parameter String zoneName "Name of the thermal zone as specified in the EnergyPlus input";
   parameter Integer nFluPor "Number of fluid ports (Set to 2 for one inlet and one outlet)";
 
@@ -58,7 +58,7 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
 protected
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass adapter=
       Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass(
-      fmuName=fmuName,
+      idfName=idfName,
       zoneName=zoneName)
         "Class to communicate with EnergyPlus";
 

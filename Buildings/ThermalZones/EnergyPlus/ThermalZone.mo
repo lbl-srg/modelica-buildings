@@ -2,7 +2,7 @@ within Buildings.ThermalZones.EnergyPlus;
 model ThermalZone "Model to connect to an EnergyPlus thermal zone"
   import Buildings;
   extends Modelica.Blocks.Icons.Block;
-  parameter String fmuName "Name of the FMU file that contains this zone";
+  parameter String idfName="" "Name of the FMU file that contains this zone";
 
   parameter String zoneName "Name of the thermal zone as specified in the EnergyPlus input";
   parameter Integer nPorts=0 "Number of fluid ports (equals to 2 for one inlet and one outlet)" annotation (Evaluate=true,
@@ -112,7 +112,7 @@ protected
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     V*3/3600 "Nominal mass flow rate (used for regularization)";
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
-    final fmuName=fmuName,
+    final idfName=idfName,
     final zoneName=zoneName,
     final nFluPor=nPorts) "FMU zone adapter"
     annotation (Placement(transformation(extent={{80,104},{100,124}})));
@@ -205,7 +205,7 @@ protected
     "Temperature that the air has if it were flowing into the room"
     annotation (Placement(transformation(extent={{20,102},{40,122}})));
 initial equation
-  assert(fmuName <> "", "Must provide the name of the fmu file.");
+  assert(idfName <> "", "Must provide the name of the fmu file.");
   assert(zoneName <> "", "Must provide the name of the zone.");
  // assert(nPorts >= 2, "The zone must have at least one air inlet and outlet.");
 
@@ -320,7 +320,7 @@ equation
         Text(
           extent={{-144,162},{-40,132}},
           lineColor={0,0,0},
-          textString="%fmuName"),
+          textString="%idfName"),
         Text(
           extent={{-142,130},{-38,100}},
           lineColor={0,0,0},
@@ -369,7 +369,7 @@ equation
 Model for a thermal zone that is implemented in EnergyPlus.
 </p>
 <p>
-This model instantiates the FMU with the name <code>fmuName</code> and
+This model instantiates the FMU with the name <code>idfName</code> and
 connects to the thermal zone with name <code>zoneName</code>.
 If the FMU is already instantiated by another instance of this model,
 it will use the already instantiated FMU. Hence, for each thermal zone
@@ -377,7 +377,7 @@ in an EnergyPlus FMU, one instance of this model needs to be used.
 </p>
 <p>
 If there are two instances that declare the same
-<code>fmuName</code> and the same <code>zoneName</code>,
+<code>idfName</code> and the same <code>zoneName</code>,
 the simulation will stop with an error.
 </p>
 <h4>Main Equations</h4>
