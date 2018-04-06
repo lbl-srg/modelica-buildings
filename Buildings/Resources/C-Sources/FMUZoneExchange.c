@@ -54,7 +54,7 @@ void FMUZoneExchange(
     ModelicaFormatMessage("Failed to get setup variables for building FMU with name %s\n",
     zone->ptrBui->name);
   }
-  ModelicaFormatMessage("The sensible cooling computed by E+ for zone %s is %f\n", tmpZon->name, outputValues[0]);
+  ModelicaFormatMessage("The sensible cooling computed by E+ at time %f for zone %s is %f\n", time, tmpZon->name, outputValues[0]);
 
   *QConSen_flow=outputValues[0];
   result = zone->ptrBui->fmu->getNextEventTime(&eventInfo, NULL);
