@@ -1,0 +1,4 @@
+simulateModel("Buildings.ThermalZones.EnergyPlus.Validation.RefBldgSmallOffice", stopTime=604800, method="dassl", tolerance=1e-06, resultFile="RefBldgSmallOffice");
+createPlot(id=5, position={55, 50, 1783, 995}, y={"att.TAir", "cor.TAir", "sou.TAir", "eas.TAir", "nor.TAir", "wes.TAir",
+"weaDat.weaBus.TDryBul"}, range={0.0, 7.0, -30.0, 25.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33},
+{244,125,35}}, timeUnit="d", displayUnits={"degC", "degC", "degC", "degC", "degC", "degC", "degC"});

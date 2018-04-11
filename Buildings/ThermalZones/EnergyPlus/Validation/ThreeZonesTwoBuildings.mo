@@ -5,6 +5,9 @@ model ThreeZonesTwoBuildings
   package Medium = Buildings.Media.Air "Medium model";
 
   parameter String idfName = "aaa.fmu" "Name of the FMU file that contains this zone";
+  parameter String weaName = Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
+    "Name of the weather file";
 
   ThermalZone zon1(
     zoneName="Zone 1",

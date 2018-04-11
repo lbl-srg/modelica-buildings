@@ -32,39 +32,35 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Core_ZN") "Thermal zone"
     annotation (Placement(transformation(extent={{40,28},{80,68}})));
-  ThermalZone per1(
+  ThermalZone sou(
     idfName=idfName,
     weaName=weaName,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    zoneName="Perimeter_ZN_1")
-              "Thermal zone"
+    zoneName="Perimeter_ZN_1") "Thermal zone"
     annotation (Placement(transformation(extent={{40,-18},{80,22}})));
-  ThermalZone per2(
+  ThermalZone eas(
     idfName=idfName,
     weaName=weaName,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    zoneName="Perimeter_ZN_2")
-              "Thermal zone"
+    zoneName="Perimeter_ZN_2") "Thermal zone"
     annotation (Placement(transformation(extent={{40,-64},{80,-24}})));
-  ThermalZone per3(
+  ThermalZone nor(
     idfName=idfName,
     weaName=weaName,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    zoneName="Perimeter_ZN_3")
-              "Thermal zone"
+    zoneName="Perimeter_ZN_3") "Thermal zone"
     annotation (Placement(transformation(extent={{40,-112},{80,-72}})));
-  ThermalZone per4(
+  ThermalZone wes(
     idfName=idfName,
     weaName=weaName,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    zoneName="Perimeter_ZN_4")
-              "Thermal zone"
+    zoneName="Perimeter_ZN_4") "Thermal zone"
     annotation (Placement(transformation(extent={{40,-156},{80,-116}})));
-  BoundaryConditions.WeatherData.ReaderTMY3           weaDat(filNam=
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
@@ -83,14 +79,14 @@ equation
     annotation (Line(points={{38,104},{0,104},{0,0},{-7,0}}, color={0,0,127}));
   connect(cor.qGai_flow, multiplex3_1.y)
     annotation (Line(points={{38,58},{0,58},{0,0},{-7,0}}, color={0,0,127}));
-  connect(multiplex3_1.y,per1. qGai_flow)
+  connect(multiplex3_1.y, sou.qGai_flow)
     annotation (Line(points={{-7,0},{20,0},{20,12},{38,12}}, color={0,0,127}));
-  connect(per2.qGai_flow, multiplex3_1.y) annotation (Line(points={{38,-34},{20,
-          -34},{20,0},{-7,0}}, color={0,0,127}));
-  connect(per3.qGai_flow, multiplex3_1.y)
+  connect(eas.qGai_flow, multiplex3_1.y) annotation (Line(points={{38,-34},{20,-34},
+          {20,0},{-7,0}}, color={0,0,127}));
+  connect(nor.qGai_flow, multiplex3_1.y)
     annotation (Line(points={{38,-82},{0,-82},{0,0},{-7,0}}, color={0,0,127}));
-  connect(multiplex3_1.y,per4. qGai_flow) annotation (Line(points={{-7,0},{0,0},
-          {0,-126},{38,-126}}, color={0,0,127}));
+  connect(multiplex3_1.y, wes.qGai_flow) annotation (Line(points={{-7,0},{0,0},{
+          0,-126},{38,-126}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 Simple test case for one buildings with two thermal zones.
@@ -102,7 +98,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/TwoZones.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice.mos"
         "Simulate and plot"),
 experiment(
       StopTime=86400,
