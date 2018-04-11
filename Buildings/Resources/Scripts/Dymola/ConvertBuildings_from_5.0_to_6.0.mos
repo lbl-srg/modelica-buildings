@@ -113,13 +113,13 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPo
                 "decSetDem_3", "decTSetDem_3");
 
 
-convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.OperationMode",
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode",
                 "THeaSet", "TOccZonHeaSet");
-convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.OperationMode",
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode",
                 "TCooSet", "TOccZonCooSet");
-convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.OperationMode",
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode",
                 "TUnoCooSet", "TUnoZonCooSet");
-convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.OperationMode",
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode",
                 "TUnoHeaSet", "TUnoZonHeaSet");
 
 
