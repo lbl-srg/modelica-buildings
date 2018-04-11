@@ -90,7 +90,7 @@ equation
       TInlet,
       QGaiRad_flow,
       time);
-    dtMax = 100*QCon_flow/V/1006;
+    dtMax = 600+time;//+100*QCon_flow/V/1006;
   end when;
   annotation (Icon(graphics={Bitmap(extent={{-90,-86},{84,88}}, fileName=
             "modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png")}),
