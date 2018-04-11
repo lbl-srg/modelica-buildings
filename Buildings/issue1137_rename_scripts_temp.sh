@@ -148,7 +148,8 @@ done
 
 for ff in `find . \( -path '*G36_PR1*VAVSupplyFan*.mo' -or -path '*G36_PR1*VAVSupplyFan*.mos' -or -path '*G36_PR1*VAVSupplyFan*.py' -or -path '*G36_PR1*VAVSupplyFan*.txt' -or -path '*G36_PR1*VAVSupplyFan*.svg'  \)`; do
     list=(\
-     TSetSup TSupSet \
+     VBox_flow VDis_flow \
+     sumVBox_flow sumVDis_flow \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
