@@ -1,6 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus;
 model ThermalZone "Model to connect to an EnergyPlus thermal zone"
-  import Buildings;
   extends Modelica.Blocks.Icons.Block;
   parameter String idfName="" "Name of the IDF file that contains this zone";
   parameter String weaName="" "Name of the EnergyPlus weather file";
@@ -363,7 +362,11 @@ equation
           lineColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
-          textString="TAir")}),
+          textString="TAir"),
+        Text(
+          extent={{-58,244},{56,204}},
+          lineColor={0,0,255},
+          textString="%name")}),
    Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}})),
     Documentation(info="<html>
