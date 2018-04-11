@@ -3,7 +3,7 @@
 # run the local convert element script to rename variables in instantiated classes
 # run this script from /modelica-buildings/Buildings
 
-for ff in `find . \( -name '*G36_PR1*ZoneTemperatures*.mo' -or -name '*G36_PR1*ZoneTemperatures*.mos' -or -name '*G36_PR1*ZoneTemperatures*.py' -or -name '*G36_PR1*ZoneTemperatures*.txt' -or -name '*G36_PR1*ZoneTemperatures*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*ZoneTemperatures*.mo' -or -path '*G36_PR1*ZoneTemperatures*.mos' -or -path '*G36_PR1*ZoneTemperatures*.py' -or -path '*G36_PR1*ZoneTemperatures*.txt' -or -path '*G36_PR1*ZoneTemperatures*.svg'  \)`; do
     list=(\
      occCooSet TOccDisSet \
      TCooSet TZonCooSet \
@@ -22,7 +22,7 @@ for ff in `find . \( -name '*G36_PR1*ZoneTemperatures*.mo' -or -name '*G36_PR1*Z
 done
 
 
-for ff in `find . \( -name '*G36_PR1*ActiveAirFlow*.mo' -or -name '*G36_PR1*ActiveAirFlow*.mos' -or -name '*G36_PR1*ActiveAirFlow*.py' -or -name '*G36_PR1*ActiveAirFlow*.txt' -or -name '*G36_PR1*ActiveAirFlow*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*ActiveAirFlow*.mo' -or -path '*G36_PR1*ActiveAirFlow*.mos' -or -path '*G36_PR1*ActiveAirFlow*.py' -or -path '*G36_PR1*ActiveAirFlow*.txt' -or -path '*G36_PR1*ActiveAirFlow*.svg'  \)`; do
     list=(\
      VCooMax VDisCooSetMax_flow \
      VMin VDisSetMin_flow \
@@ -44,7 +44,7 @@ for ff in `find . \( -name '*G36_PR1*ActiveAirFlow*.mo' -or -name '*G36_PR1*Acti
 done
 
 
-for ff in `find . \( -name '*G36_PR1*SystemRequests*.mo' -or -name '*G36_PR1*SystemRequests*.mos' -or -name '*G36_PR1*SystemRequests*.py' -or -name '*G36_PR1*SystemRequests*.txt' -or -name '*G36_PR1*SystemRequests*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*SystemRequests*.mo' -or -path '*G36_PR1*SystemRequests*.mos' -or -path '*G36_PR1*SystemRequests*.py' -or -path '*G36_PR1*SystemRequests*.txt' -or -path '*G36_PR1*SystemRequests*.svg'  \)`; do
     list=(\
      VDis VDis_flow \
      VDisSet VDisSet_flow \
@@ -60,7 +60,7 @@ for ff in `find . \( -name '*G36_PR1*SystemRequests*.mo' -or -name '*G36_PR1*Sys
 done
 
 
-for ff in `find . \( -name '*G36_PR1*DamperValves*.mo' -or -name '*G36_PR1*DamperValves*.mos' -or -name '*G36_PR1*DamperValves*.py' -or -name '*G36_PR1*DamperValves*.txt' -or -name '*G36_PR1*DamperValves*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*DamperValves*.mo' -or -path '*G36_PR1*DamperValves*.mos' -or -path '*G36_PR1*DamperValves*.py' -or -path '*G36_PR1*DamperValves*.txt' -or -path '*G36_PR1*DamperValves*.svg'  \)`; do
     list=(\
      dTDisMax dTDisZonSetMax \
      TDisSet TDisHeaSet \
@@ -72,7 +72,7 @@ for ff in `find . \( -name '*G36_PR1*DamperValves*.mo' -or -name '*G36_PR1*Dampe
 done
 
 
-for ff in `find . \( -name '*G36_PR1*ModeAndSetPoints*.mo' -or -name '*G36_PR1*ModeAndSetPoints*.mos' -or -name '*G36_PR1*ModeAndSetPoints*.py' -or -name '*G36_PR1*ModeAndSetPoints*.txt' -or -name '*G36_PR1*ModeAndSetPoints*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*ModeAndSetPoints*.mo' -or -path '*G36_PR1*ModeAndSetPoints*.mos' -or -path '*G36_PR1*ModeAndSetPoints*.py' -or -path '*G36_PR1*ModeAndSetPoints*.txt' -or -path '*G36_PR1*ModeAndSetPoints*.svg'  \)`; do
     list=(\
      THeaOn TZonHeaOn \
      TCooOn TZonCooOn \
@@ -94,7 +94,7 @@ for ff in `find . \( -name '*G36_PR1*ModeAndSetPoints*.mo' -or -name '*G36_PR1*M
 done
 
 
-for ff in `find . \( -name '*G36_PR1*ExhaustDamper*.mo' -or -name '*G36_PR1*ExhaustDamper*.mos' -or -name '*G36_PR1*ExhaustDamper*.py' -or -name '*G36_PR1*ExhaustDamper*.txt' -or -name '*G36_PR1*ExhaustDamper*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*ExhaustDamper*.mo' -or -path '*G36_PR1*ExhaustDamper*.mos' -or -path '*G36_PR1*ExhaustDamper*.py' -or -path '*G36_PR1*ExhaustDamper*.txt' -or -path '*G36_PR1*ExhaustDamper*.svg'  \)`; do
     list=(\
      uFan uSupFan \
           )
@@ -105,7 +105,7 @@ for ff in `find . \( -name '*G36_PR1*ExhaustDamper*.mo' -or -name '*G36_PR1*Exha
 done
 
 
-for ff in `find . \( -name '*G36_PR1*VAVSupply*.mo' -or -name '*G36_PR1*VAVSupply*.mos' -or -name '*G36_PR1*VAVSupply*.py' -or -name '*G36_PR1*VAVSupply*.txt' -or -name '*G36_PR1*VAVSupply*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*VAVSupply*.mo' -or -path '*G36_PR1*VAVSupply*.mos' -or -path '*G36_PR1*VAVSupply*.py' -or -path '*G36_PR1*VAVSupply*.txt' -or -path '*G36_PR1*VAVSupply*.svg'  \)`; do
     list=(\
      TMax TSupSetMax \
      TMin TSupSetMin \
@@ -120,7 +120,7 @@ for ff in `find . \( -name '*G36_PR1*VAVSupply*.mo' -or -name '*G36_PR1*VAVSuppl
 done
 
 
-for ff in `find . \( -name '*G36_PR1*Controller*.mo' -or -name '*G36_PR1*Controller*.mos' -or -name '*G36_PR1*Controller*.py' -or -name '*G36_PR1*Controller*.txt' -or -name '*G36_PR1*Controller*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*Controller*.mo' -or -path '*G36_PR1*Controller*.mos' -or -path '*G36_PR1*Controller*.py' -or -path '*G36_PR1*Controller*.txt' -or -path '*G36_PR1*Controller*.svg'  \)`; do
     list=(\
      TMax TSupSetMax \
      TMin TSupSetMin \
@@ -135,7 +135,7 @@ for ff in `find . \( -name '*G36_PR1*Controller*.mo' -or -name '*G36_PR1*Control
 done
 
 
-for ff in `find . \( -name '*G36_PR1*VAVSupplySignals*.mo' -or -name '*G36_PR1*VAVSupplySignals*.mos' -or -name '*G36_PR1*VAVSupplySignals*.py' -or -name '*G36_PR1*VAVSupplySignals*.txt' -or -name '*G36_PR1*VAVSupplySignals*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*VAVSupplySignals*.mo' -or -path '*G36_PR1*VAVSupplySignals*.mos' -or -path '*G36_PR1*VAVSupplySignals*.py' -or -path '*G36_PR1*VAVSupplySignals*.txt' -or -path '*G36_PR1*VAVSupplySignals*.svg'  \)`; do
     list=(\
      TSetSup TSupSet \
           )
@@ -146,7 +146,7 @@ for ff in `find . \( -name '*G36_PR1*VAVSupplySignals*.mo' -or -name '*G36_PR1*V
 done
 
 
-for ff in `find . \( -name '*G36_PR1*VAVSupplyFan*.mo' -or -name '*G36_PR1*VAVSupplyFan*.mos' -or -name '*G36_PR1*VAVSupplyFan*.py' -or -name '*G36_PR1*VAVSupplyFan*.txt' -or -name '*G36_PR1*VAVSupplyFan*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*VAVSupplyFan*.mo' -or -path '*G36_PR1*VAVSupplyFan*.mos' -or -path '*G36_PR1*VAVSupplyFan*.py' -or -path '*G36_PR1*VAVSupplyFan*.txt' -or -path '*G36_PR1*VAVSupplyFan*.svg'  \)`; do
     list=(\
      TSetSup TSupSet \
           )
