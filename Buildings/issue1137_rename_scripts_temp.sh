@@ -46,6 +46,7 @@ done
 
 for ff in `find . \( -path '*G36_PR1*SystemRequests*.mo' -or -path '*G36_PR1*SystemRequests*.mos' -or -path '*G36_PR1*SystemRequests*.py' -or -path '*G36_PR1*SystemRequests*.txt' -or -path '*G36_PR1*SystemRequests*.svg'  \)`; do
     list=(\
+     TCooSet TZonCooSet \
      VDis VDis_flow \
      VDisSet VDisSet_flow \
      cooSetDif_1 errTZonCoo_1 \
@@ -74,18 +75,38 @@ done
 
 for ff in `find . \( -path '*G36_PR1*ModeAndSetPoints*.mo' -or -path '*G36_PR1*ModeAndSetPoints*.mos' -or -path '*G36_PR1*ModeAndSetPoints*.py' -or -path '*G36_PR1*ModeAndSetPoints*.txt' -or -path '*G36_PR1*ModeAndSetPoints*.svg'  \)`; do
     list=(\
-     THeaOn TZonHeaOn \
-     TCooOn TZonCooOn \
-     THeaOff TZonHeaOff \
-     TCooOff TZonCooOff \
-     freProThrVal TZonFreProOn \
-     freProEndVal TZonFreProOff \
-     incSetDem_1 incTSetDem_1 \
-     incSetDem_2 incTSetDem_2 \
-     incSetDem_3 incTSetDem_3 \
-     decSetDem_1 decTSetDem_1 \
-     decSetDem_2 decTSetDem_2 \
-     decSetDem_3 decTSetDem_3 \
+    THeaOn TZonHeaOn \
+    TCooOn TZonCooOn \
+    THeaOff TZonHeaOff \
+    TCooOff TZonCooOff \
+    freProThrVal TZonFreProOn \
+    freProEndVal TZonFreProOff \
+    TCooOnMax TZonCooSetMaxOn \
+    TCooOnMin TZonCooSetMinOn \
+    THeaOnMax TZonHeaSetMaxOff \
+    THeaOnMin TZonHeaSetMinOff \
+    TCooWinOpe TZonCooSetWinOpe \
+    THeaWinOpe TZonHeaSetWinOpe \
+    incSetDem_1 incTSetDem_1 \
+    incSetDem_2 incTSetDem_2 \
+    incSetDem_3 incTSetDem_3 \
+    decSetDem_1 decTSetDem_1 \
+    decSetDem_2 decTSetDem_2 \
+    decSetDem_3 decTSetDem_3 \
+          )
+
+    for ((i=0; i<${#list[@]}; i+=2)); do
+        sed -e s/${list[i]}/${list[i+1]}/g -i $ff
+    done
+done
+
+
+for ff in `find . \( -path '*G36_PR1*OperationMode*.mo' -or -path '*G36_PR1*OperationMode*.mos' -or -path '*G36_PR1*OperationMode*.py' -or -path '*G36_PR1*OperationMode*.txt' -or -path '*G36_PR1*OperationMode*.svg'  \)`; do
+    list=(\
+    THeaSet TOccZonHeaSet \
+    TCooSet TOccZonCooSet \
+    TUnoCooSet TUnoZonCooSet \
+    TUnoHeaSet TUnoZonHeaSet \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -122,11 +143,10 @@ done
 
 for ff in `find . \( -path '*G36_PR1*Controller*.mo' -or -path '*G36_PR1*Controller*.mos' -or -path '*G36_PR1*Controller*.py' -or -path '*G36_PR1*Controller*.txt' -or -path '*G36_PR1*Controller*.svg'  \)`; do
     list=(\
-     TMax TSupSetMax \
-     TMin TSupSetMin \
-     TSetZon TZonSet \
-     THeaEco TSupHeaEco \
-     TCoo TSupCoo \
+    TSupMin TSupSetMin \
+    TSupMax TSupSetMax \
+    TSupDes TSupSetDes \
+    TSetZones TZonSetAve \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
