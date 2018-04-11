@@ -126,7 +126,7 @@ for ff in `find . \( -path '*G36_PR1*ExhaustDamper*.mo' -or -path '*G36_PR1*Exha
 done
 
 
-for ff in `find . \( -path '*G36_PR1*VAVSupply*.mo' -or -path '*G36_PR1*VAVSupply*.mos' -or -path '*G36_PR1*VAVSupply*.py' -or -path '*G36_PR1*VAVSupply*.txt' -or -path '*G36_PR1*VAVSupply*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*SingleZone*VAVSupply*.mo' -or -path '*G36_PR1*SingleZone*VAVSupply*.mos' -or -path '*G36_PR1*SingleZone*VAVSupply*.py' -or -path '*G36_PR1*SingleZone*VAVSupply*.txt' -or -path '*G36_PR1*SingleZone*VAVSupply*.svg'  \)`; do
     list=(\
      TMax TSupSetMax \
      TMin TSupSetMin \
@@ -141,12 +141,36 @@ for ff in `find . \( -path '*G36_PR1*VAVSupply*.mo' -or -path '*G36_PR1*VAVSuppl
 done
 
 
-for ff in `find . \( -path '*G36_PR1*Controller*.mo' -or -path '*G36_PR1*Controller*.mos' -or -path '*G36_PR1*Controller*.py' -or -path '*G36_PR1*Controller*.txt' -or -path '*G36_PR1*Controller*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*VAVSupplyTemperature*.mo' -or -path '*G36_PR1*VAVSupplyTemperature*.mos' -or -path '*G36_PR1*VAVSupplyTemperature*.py' -or -path '*G36_PR1*VAVSupplyTemperature*.txt' -or -path '*G36_PR1*VAVSupplyTemperature*.svg'  \)`; do
+    list=(\
+    TSupMin TSupSetMin \
+    TSupMax TSupSetMax \
+    TSupDes TSupSetDes \
+          )
+
+    for ((i=0; i<${#list[@]}; i+=2)); do
+        sed -e s/${list[i]}/${list[i+1]}/g -i $ff
+    done
+done
+
+
+for ff in `find . \( -path '*G36_PR1*MultiZone*Controller*.mo' -or -path '*G36_PR1*MultiZone*Controller*.mos' -or -path '*G36_PR1*MultiZone*Controller*.py' -or -path '*G36_PR1*MultiZone*Controller*.txt' -or -path '*G36_PR1*MultiZone*Controller*.svg'  \)`; do
     list=(\
     TSupMin TSupSetMin \
     TSupMax TSupSetMax \
     TSupDes TSupSetDes \
     TSetZones TZonSetAve \
+          )
+
+    for ((i=0; i<${#list[@]}; i+=2)); do
+        sed -e s/${list[i]}/${list[i+1]}/g -i $ff
+    done
+done
+
+
+for ff in `find . \( -path '*G36_PR1*TerminalUnits*Controller*.mo' -or -path '*G36_PR1*TerminalUnits*Controller*.mos' -or -path '*G36_PR1*TerminalUnits*Controller*.py' -or -path '*G36_PR1*TerminalUnits*Controller*.txt' -or -path '*G36_PR1*TerminalUnits*Controller*.svg'  \)`; do
+    list=(\
+    TRooHeaSet TZooHeaSet \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -170,6 +194,18 @@ for ff in `find . \( -path '*G36_PR1*VAVSupplyFan*.mo' -or -path '*G36_PR1*VAVSu
     list=(\
      VBox_flow VDis_flow \
      sumVBox_flow sumVDis_flow \
+          )
+
+    for ((i=0; i<${#list[@]}; i+=2)); do
+        sed -e s/${list[i]}/${list[i+1]}/g -i $ff
+    done
+done
+
+
+for ff in `find . \( -path '*G36_PR1*.mo' -or -path '*G36_PR1*.mos' -or -path '*G36_PR1*.py' -or -path '*G36_PR1*.txt' -or -path '*G36_PR1*.svg'  \)`; do
+    list=(\
+     TSetSup TSupSet \
+     _flow_flow_flow _flow \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
