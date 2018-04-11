@@ -1,8 +1,8 @@
-within Buildings.ThermalZones.EnergyPlus.Validation;
+within Buildings.ThermalZones.EnergyPlus.Examples;
 model VAVReheatRefBldgSmallOffice
   "Six zones small office building with VAV reheat"
   extends Buildings.Examples.VAVReheat.ASHRAE2006(
-    redeclare Buildings.ThermalZones.EnergyPlus.Validation.Floor flo);
+    redeclare Buildings.ThermalZones.EnergyPlus.Examples.BaseClasses.Floor flo);
 
   parameter String idfName=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/Data/Rooms/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
@@ -52,12 +52,12 @@ First implementation.
 </li>
 </ul>
 </html>"),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/VAVReheatRefBldgSmallOffice.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice.mos"
         "Simulate and plot"),
 experiment(
       StopTime=86400,
       Tolerance=1e-06),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1400,
-            640}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-380},{
+            1400,640}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end VAVReheatRefBldgSmallOffice;

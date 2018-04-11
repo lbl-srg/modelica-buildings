@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus.Validation;
+within Buildings.ThermalZones.EnergyPlus.Examples.BaseClasses;
 model Floor "Model of a floor of the building"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
