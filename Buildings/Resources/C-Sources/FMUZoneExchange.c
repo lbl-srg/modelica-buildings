@@ -29,7 +29,6 @@ void FMUZoneExchange(
   fmi2EventInfo eventInfo;
   int result, i;
 
-  *TRad = 293.15;
   /* Emulate heat transfer to a surface at constant T=18 degC */
   //*QConSen_flow = 10*((273.15+18)-T);
   // snprintf(msg, 200, "local is %f\n", *QConSen_flow);
@@ -41,31 +40,31 @@ void FMUZoneExchange(
   /* Time need to be guarded against rounding error */
   //*tNext = round((floor(time/3600.0)+1) * 3600.0);
 
-  ModelicaFormatMessage("The input value reference for zone %s is %d\n", tmpZon->name, tmpZon->inputValueReferences[0]);
-  ModelicaFormatMessage("The output value reference for zone %s is %d\n", tmpZon->name, tmpZon->outputValueReferences[0]);
-
+/* ModelicaFormatMessage("The input value reference for zone %s is %d\n", tmpZon->name, tmpZon->inputValueReferences[0]); */
+/*  ModelicaFormatMessage("The output value reference for zone %s is %d\n", tmpZon->name, tmpZon->outputValueReferences[0]); */
+  zone->ptrBui->fmu->setTime(time, NULL);
   result = zone->ptrBui->fmu->setVariables(tmpZon->inputValueReferences, inputValues, 1, NULL);
   if(result<0){
-    ModelicaFormatMessage("Failed to set setup variables for building FMU with name %s\n",
+    ModelicaFormatError("Failed to set setup variables for building FMU with name %s\n",
     zone->ptrBui->name);
   }
   result = zone->ptrBui->fmu->getVariables(tmpZon->outputValueReferences, outputValues, 1, NULL);
   if(result<0){
-    ModelicaFormatMessage("Failed to get setup variables for building FMU with name %s\n",
+    ModelicaFormatError("Failed to get setup variables for building FMU with name %s\n",
     zone->ptrBui->name);
   }
-  ModelicaFormatMessage("The sensible cooling computed by E+ at time %f for zone %s is %f\n", time, tmpZon->name, outputValues[0]);
+ /* ModelicaFormatMessage("The sensible cooling computed by E+ at time %f for zone %s is %f\n", time, tmpZon->name, outputValues[0]); */
 
   *QConSen_flow=outputValues[0];
   result = zone->ptrBui->fmu->getNextEventTime(&eventInfo, NULL);
   if(result<0){
-    ModelicaFormatMessage("Failed to get next event time for building FMU with name %s\n",
+    ModelicaFormatError("Failed to get next event time for building FMU with name %s\n",
     zone->ptrBui->name);
   }
   *tNext = eventInfo.nextEventTime;
-  result = zone->ptrBui->fmu->setTime(*tNext, NULL);
+  /* result = zone->ptrBui->fmu->setTime(*tNext, NULL); */
   if(result<0){
-    ModelicaFormatMessage("Failed to set time for building FMU with name %s\n",
+    ModelicaFormatError("Failed to set time for building FMU with name %s\n",
     zone->ptrBui->name);
   }
 /*  snprintf(msg, 200,
@@ -77,5 +76,6 @@ void FMUZoneExchange(
     zone->ptrBui);
   ModelicaMessage(msg);
 */
+  *TRad = 293.15;
   return;
 }
