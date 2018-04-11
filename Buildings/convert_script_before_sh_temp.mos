@@ -130,6 +130,9 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Control
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller",
                 "TSetZones", "TZonSetAve");
 
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller",
+                "TRooHeaSet", "TZooHeaSet");
+
 
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.VAVSupplySignals",
                 "TSetSup", "TSupSet");
@@ -140,5 +143,12 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoin
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.VAVSupplyFan",
                 "sumVBox_flow", "sumVDis_flow");
 
+
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.VAVSupplyTemperature",
+                "TSupMin", "TSupSetMin");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.VAVSupplyTemperature",
+                "TSupMax", "TSupSetMax");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.VAVSupplyTemperature",
+                "TSupDes", "TSupSetDes");
 
 openModel("package.mo");
