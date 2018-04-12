@@ -63,8 +63,14 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
         iconTransformation(extent={{100,-70},{120,-50}})));
 
   Modelica.SIunits.Time tNext(start=t0-1, fixed=true) "Next sampling time";
-  Modelica.SIunits.Time dtMax(start=600, fixed=true) "Hack to avoid too long time steps";
+  Modelica.SIunits.Time tNextEP(start=t0-1, fixed=true) "Next sampling time requested from EnergyPlus";
 protected
+  constant Real dT_dtMax(unit="K/s") = 0.00001 "Bound on temperature derivative to reduce or increase time step";
+  Real dT_dt(unit="K/s", start=0, fixed=true) "Approximate temperature derivative";
+  Modelica.SIunits.Time dtMax(start=600, fixed=true) "Maximum time step before next sampling";
+  Modelica.SIunits.Time timeLast(fixed=true) "Last time when when statement was executed";
+  Modelica.SIunits.Temperature TLast(fixed=true) "Last temperature when when statement was executed";
+
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass adapter=
       Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass(
       idfName=idfName,
@@ -75,13 +81,23 @@ protected
         "Class to communicate with EnergyPlus";
 
   parameter Modelica.SIunits.Time t0(fixed=false) "Simulation start time";
+
+  function roundToMinute
+    input Real u;
+    output Real y;
+  algorithm
+    y :=if (u > 0) then floor(u/60. + 0.5)*60 else ceil(u/60. - 0.5)*60;
+  end roundToMinute;
 initial equation
   t0 = time;
   (AFlo, V, mSenFac) = Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(adapter);
-
+  timeLast = time;
+  TLast = 293.15;
 equation
-  when {initial(), time >= pre(tNext), time >= pre(dtMax)} then
-    (TRad, QCon_flow, QLat_flow, QPeo_flow, tNext) =
+  when {initial(), time >= pre(tNext)} then
+    timeLast = time;
+    TLast = T;
+    (TRad, QCon_flow, QLat_flow, QPeo_flow, tNextEP) =
       Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
       adapter,
       T,
@@ -90,7 +106,19 @@ equation
       TInlet,
       QGaiRad_flow,
       time);
-    dtMax = 600+time;//+100*QCon_flow/V/1006;
+    // Guard against division by zero in first call
+    dT_dt = if time-pre(timeLast) > 1E-5 then abs((T - pre(TLast))/(time-pre(timeLast))) else dT_dtMax;
+    //dtMax = min(tNextEP-time, round(dTMax * V * 1.2 *1006/max(1, abs(QCon_flow))/60)*60);
+    if dT_dt > dT_dtMax then
+      dtMax = max(60, pre(dtMax)/2);
+    elseif dT_dt < dT_dtMax/2 then
+      dtMax = min(2 * pre(dtMax), 1800);
+    else
+      dtMax = pre(dtMax);
+    end if;
+
+    //tNext = roundToMinute(min(tNextEP, time+dtMax));
+    tNext = roundToMinute(tNextEP);
   end when;
   annotation (Icon(graphics={Bitmap(extent={{-90,-86},{84,88}}, fileName=
             "modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png")}),
