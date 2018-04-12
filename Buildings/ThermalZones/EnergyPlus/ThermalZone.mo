@@ -210,35 +210,6 @@ initial equation
   assert(zoneName <> "", "Must provide the name of the zone.");
  // assert(nPorts >= 2, "The zone must have at least one air inlet and outlet.");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 equation
   connect(heaGai.qGai_flow, qGai_flow) annotation (Line(points={{-182,100},{-220,
           100}},                            color={0,0,127}));
