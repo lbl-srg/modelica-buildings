@@ -64,6 +64,16 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
         Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+  Modelica.Blocks.Sources.CombiTimeTable datRea(
+    tableOnFile=true,
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Rooms/EnergyPlus/Validation/RefBldgSmallOffice.dat"),
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    tableName="EnergyPlus",
+    columns=2:8,
+    y(each unit="K", displayUnit="degC"))
+    "Data reader with results from EnergyPlus"
+    annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
+
 equation
   connect(qRadGai_flow.y,multiplex3_1. u1[1])  annotation (Line(
       points={{-53,40},{-40,40},{-40,7},{-30,7}},
