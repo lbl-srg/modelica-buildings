@@ -88,7 +88,7 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
     annotation (Placement(transformation(extent={{200,190},{220,210}})));
-  Examples.VAVReheat.ThermalZones.RoomLeakage leaSou(
+  Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaSou(
     redeclare package Medium = Medium,
     VRoo=568.77,
     s=49.91/33.27,
@@ -96,7 +96,7 @@ model Floor "Model of a floor of the building"
     final use_windPressure=use_windPressure)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-58,380},{-22,420}})));
-  Examples.VAVReheat.ThermalZones.RoomLeakage leaEas(
+  Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaEas(
     redeclare package Medium = Medium,
     VRoo=360.0785,
     s=33.27/49.91,
@@ -104,7 +104,7 @@ model Floor "Model of a floor of the building"
     final use_windPressure=use_windPressure)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-58,340},{-22,380}})));
-  Examples.VAVReheat.ThermalZones.RoomLeakage leaNor(
+  Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaNor(
     redeclare package Medium = Medium,
     VRoo=568.77,
     s=49.91/33.27,
@@ -112,7 +112,7 @@ model Floor "Model of a floor of the building"
     final use_windPressure=use_windPressure)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-56,300},{-20,340}})));
-  Examples.VAVReheat.ThermalZones.RoomLeakage leaWes(
+  Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaWes(
     redeclare package Medium = Medium,
     VRoo=360.0785,
     s=33.27/49.91,
