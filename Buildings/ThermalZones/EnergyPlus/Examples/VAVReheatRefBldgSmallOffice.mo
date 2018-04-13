@@ -2,6 +2,11 @@ within Buildings.ThermalZones.EnergyPlus.Examples;
 model VAVReheatRefBldgSmallOffice
   "Six zones small office building with VAV reheat"
   extends Buildings.Examples.VAVReheat.ASHRAE2006(
+    AFloCor = 149.657 "Floor area, assigned to avoid non-literal value for nominal attribute of variables",
+    AFloSou = 113.45,
+    AFloNor = 113.45,
+    AFloWes = 67.3,
+    AFloEas = 67.3,
     redeclare Buildings.ThermalZones.EnergyPlus.Examples.BaseClasses.Floor flo);
 
   parameter String idfName=Modelica.Utilities.Files.loadResource(

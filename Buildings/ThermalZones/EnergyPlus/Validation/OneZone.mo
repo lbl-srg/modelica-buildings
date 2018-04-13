@@ -3,7 +3,12 @@ model OneZone "Validation model for one zone"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model";
 
-  parameter String idfName = "aaa.fmu" "Name of the FMU file that contains this zone";
+  parameter String idfName=Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/Data/Rooms/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
+    "Name of the IDF file";
+  parameter String weaName = Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
+    "Name of the weather file";
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -12,11 +17,12 @@ model OneZone "Validation model for one zone"
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   ThermalZone zon(
-    idfName="bld.fmu",
-    zoneName="Zone 1",
+    idfName=idfName,
+    weaName=weaName,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    nPorts=2) "Thermal zone"
+    zoneName="Core_ZN",
+    nPorts = 2) "Thermal zone (core zone of the office building with 5 zones)"
     annotation (Placement(transformation(extent={{22,-20},{62,20}})));
   Fluid.FixedResistances.PressureDrop duc(
     allowFlowReversal=false,
@@ -33,9 +39,9 @@ model OneZone "Validation model for one zone"
     m_flow=0,
     T=293.15) "Boundary condition"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Fluid.Sources.Boundary_pT
-                        freshAir(          redeclare package Medium = Medium,
-      nPorts=1)
+  Fluid.Sources.Boundary_pT freshAir(
+    redeclare package Medium = Medium,
+    nPorts=1)
     "Boundary condition"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
