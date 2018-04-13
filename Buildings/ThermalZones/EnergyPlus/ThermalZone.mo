@@ -228,7 +228,8 @@ equation
           120},{78,120}},
                      color={0,0,127}));
   connect(heaGai.QRad_flow, fmuZon.QGaiRad_flow)
-    annotation (Line(points={{-158,106},{78,106}}, color={0,0,127}));
+    annotation (Line(points={{-158,106},{-40,106},{-40,108},{78,108}},
+                                                   color={0,0,127}));
   connect(heaGai.QCon_flow, QConTot_flow.u1) annotation (Line(points={{-158,100},
           {-132,100},{-132,56},{-122,56}}, color={0,0,127}));
   connect(fmuZon.QCon_flow, QConTot_flow.u2) annotation (Line(points={{101,116},

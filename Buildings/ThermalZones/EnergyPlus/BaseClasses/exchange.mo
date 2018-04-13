@@ -15,6 +15,8 @@ function exchange "Exchange the values for the thermal zone"
   output Modelica.SIunits.HeatFlowRate QCon_flow
     "Convective sensible heat to be added to zone air
     (positive if heat is added to zone air)";
+  output Real dQCon_flow(unit="W/K")
+    "Derivative dQCon_flow / dT";
   output Modelica.SIunits.HeatFlowRate  QLat_flow
     "Latent heat gain to be added to zone air (positive if heat is added to zone air)";
   output Modelica.SIunits.HeatFlowRate  QPeo_flow
@@ -23,7 +25,7 @@ function exchange "Exchange the values for the thermal zone"
 
   external "C" FMUZoneExchange(adapter,
     T, X, m_flow, TInlet, QGaiRad_flow, tModel,
-    TRad, QCon_flow, QLat_flow, QPeo_flow, tNext)
+    TRad, QCon_flow, dQCon_flow, QLat_flow, QPeo_flow, tNext)
   annotation (Include="#include <FMUZoneExchange.c>",
                    IncludeDirectory="modelica://Buildings/Resources/C-Sources");
   annotation (Documentation(info="<html>

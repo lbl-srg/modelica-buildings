@@ -8,6 +8,27 @@
 #include <stdlib.h>
 #include <math.h>
 
+void setGetVariables(
+  FMUZone* fmuZon,
+  fmi2ValueReference inputValueReferences[],
+  fmi2Real inputValues[],
+  size_t nInp,
+  fmi2ValueReference outputValueReferences[],
+  fmi2Real outputValues[],
+  size_t nOut)
+  {
+    int result = fmuZon->ptrBui->fmu->setVariables(inputValueReferences, inputValues, nInp, NULL);
+    if(result < 0){
+      ModelicaFormatError("Failed to set setup variables for building FMU with name %s\n",
+      fmuZon->ptrBui->name);
+    }
+    result = fmuZon->ptrBui->fmu->getVariables(outputValueReferences, outputValues, 1, NULL);
+    if(result < 0){
+      ModelicaFormatError("Failed to get setup variables for building FMU with name %s\n",
+      fmuZon->ptrBui->name);
+    }
+  }
+
 void FMUZoneExchange(
   void* object,
   double T,
@@ -18,21 +39,24 @@ void FMUZoneExchange(
   double time,
   double* TRad,
   double* QConSen_flow,
+  double* dQConSen_flow,
   double* QLat_flow,
   double* QPeo_flow,
   double* tNext){
-  char msg[200];
+  // char msg[200];
 
   FMUZone* zone = (FMUZone*) object;
-  double inputValues[1] = {T-273.15};
+  double inputValues[1];
   double outputValues[1];
   fmi2EventInfo eventInfo;
-  int result, i;
+  int result;
 
   /* Emulate heat transfer to a surface at constant T=18 degC */
   //*QConSen_flow = 10*((273.15+18)-T);
   // snprintf(msg, 200, "local is %f\n", *QConSen_flow);
   // ModelicaMessage(msg);
+  const double dT = 0.01; /* Increment for derivative approximation */
+  double QConSenPer_flow;
   *QLat_flow = 0;
   *QPeo_flow = 0;
   FMUZone* tmpZon = malloc(sizeof(FMUZone));
@@ -43,19 +67,17 @@ void FMUZoneExchange(
 /* ModelicaFormatMessage("The input value reference for zone %s is %d\n", tmpZon->name, tmpZon->inputValueReferences[0]); */
 /*  ModelicaFormatMessage("The output value reference for zone %s is %d\n", tmpZon->name, tmpZon->outputValueReferences[0]); */
   zone->ptrBui->fmu->setTime(time, NULL);
-  result = zone->ptrBui->fmu->setVariables(tmpZon->inputValueReferences, inputValues, 1, NULL);
-  if(result<0){
-    ModelicaFormatError("Failed to set setup variables for building FMU with name %s\n",
-    zone->ptrBui->name);
-  }
-  result = zone->ptrBui->fmu->getVariables(tmpZon->outputValueReferences, outputValues, 1, NULL);
-  if(result<0){
-    ModelicaFormatError("Failed to get setup variables for building FMU with name %s\n",
-    zone->ptrBui->name);
-  }
- /* ModelicaFormatMessage("The sensible cooling computed by E+ at time %f for zone %s is %f\n", time, tmpZon->name, outputValues[0]); */
 
+  /* Forward difference for QConSen_flow */
+  inputValues[0] = T - 273.15 + dT;
+  setGetVariables(zone, tmpZon->inputValueReferences, inputValues, 1, tmpZon->outputValueReferences, outputValues, 1);
+  QConSenPer_flow=outputValues[0];
+  inputValues[0] = T - 273.15;
+  setGetVariables(zone, tmpZon->inputValueReferences, inputValues, 1, tmpZon->outputValueReferences, outputValues, 1);
   *QConSen_flow=outputValues[0];
+  *dQConSen_flow = (QConSenPer_flow-*QConSen_flow)/dT;
+
+  /* Get next event time */
   result = zone->ptrBui->fmu->getNextEventTime(&eventInfo, NULL);
   if(result<0){
     ModelicaFormatError("Failed to get next event time for building FMU with name %s\n",
