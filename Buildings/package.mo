@@ -201,7 +201,7 @@ its class name ends with the string <code>Beta</code>.
                           This is for
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1153\">issue 1153</a>.
        </td>
-   </tr>       
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
        </td>
    </tr>
@@ -209,14 +209,14 @@ its class name ends with the string <code>Beta</code>.
    </td>
    <td valign=\"top\">Improved documentation and icon, and added a warning if the limits are used and x1 &gt; x2.
        </td>
-   </tr>       
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
                           Buildings.Fluid.SolarCollectors.EN12975
        </td>
-       <td valign=\"top\">Improved calculation of heat loss.
+       <td valign=\"top\">Improved calculation of heat loss.<br/>
                           This is for
                           <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1100\">issue 1100</a>.
        </td>
@@ -266,6 +266,13 @@ its class name ends with the string <code>Beta</code>.
                         will still work as before. The change only affects the low-level function
                         <code>Buildings.Utilities.IO.Python27.Functions.exchange</code>.
        </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Utilities.IO.Python27</td>
+     <td valign=\"top\">
+                      Corrected <code>LibraryDirectory</code> annotation.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1160\">issue 1160</a>.
+     </td>
    </tr>
    </table>
    <!-- Non-backward compatible changes to existing components -->
