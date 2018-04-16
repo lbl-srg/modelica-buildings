@@ -85,12 +85,14 @@ protected
   Real dQCon_flow(unit="W/K")
     "Derivative dQCon_flow / dT";
 
-  function roundToMinute
+  function round
     input Real u;
+    input Real accuracy;
     output Real y;
+
   algorithm
-    y :=if (u > 0) then floor(u/60. + 0.5)*60 else ceil(u/60. - 0.5)*60;
-  end roundToMinute;
+    y :=if (u > 0) then floor(u/accuracy + 0.5)*accuracy else ceil(u/accuracy - 0.5)*accuracy;
+  end round;
 
 initial equation
   t0 = time;
@@ -107,7 +109,7 @@ equation
       m_flow,
       TInlet,
       QGaiRad_flow,
-      time);
+      round(time, 1E-3));
     // Guard against division by zero in first call
     //dtMax = min(tNextEP-time, round(dTMax * V * 1.2 *1006/max(1, abs(QCon_flow))/60)*60);
     //    if dT_dt > dT_dtMax then
@@ -123,7 +125,7 @@ equation
     if time > t0 then
       assert(abs(tNextEP-pre(tNext)) > 59, "EnergyPlus requested a time step that is smaller than one minute which is beyond its capability. Contact support.");
     end if;
-    tNext = tNextEP;
+    tNext = round(tNextEP, 60);
   end when;
   QCon_flow = QCon0_flow + (T-T0) * dQCon_flow;
 
