@@ -120,6 +120,9 @@ equation
 
     //tNext = roundToMinute(min(tNextEP, time+dtMax));
     //tNext = roundToMinute(min(tNextEP, time+60));
+    if time > t0 then
+      assert(abs(tNextEP-pre(tNext)) > 59, "EnergyPlus requested a time step that is smaller than one minute which is beyond its capability. Contact support.");
+    end if;
     tNext = tNextEP;
   end when;
   QCon_flow = QCon0_flow + (T-T0) * dQCon_flow;

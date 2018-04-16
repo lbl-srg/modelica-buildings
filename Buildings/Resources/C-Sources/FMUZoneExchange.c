@@ -43,7 +43,7 @@ void FMUZoneExchange(
   double* QLat_flow,
   double* QPeo_flow,
   double* tNext){
-  // char msg[200];
+  //char msg[200];
 
   FMUZone* zone = (FMUZone*) object;
   double inputValues[1];
@@ -83,20 +83,27 @@ void FMUZoneExchange(
     ModelicaFormatError("Failed to get next event time for building FMU with name %s\n",
     zone->ptrBui->name);
   }
+  if(eventInfo.terminateSimulation == fmi2True){
+    ModelicaFormatError("EnergyPlus requested to terminate the simulation for building = %s, zone = %s, time = %f",
+    zone->ptrBui->name, zone->name, time);
+  }
+  if(eventInfo.nextEventTimeDefined == fmi2False){
+    ModelicaFormatError("EnergyPlus failed to declare the next event time for building = %s, zone = %s, time = %f. Check with support.",
+    zone->ptrBui->name, zone->name, time);
+  }
   *tNext = eventInfo.nextEventTime;
   /* result = zone->ptrBui->fmu->setTime(*tNext, NULL); */
   if(result<0){
     ModelicaFormatError("Failed to set time for building FMU with name %s\n",
     zone->ptrBui->name);
   }
-/*  snprintf(msg, 200,
-    "*** In exchange for bldg: %s; zone: %s, time = %f, tNext = %f, pointer to fmu %p.\n",
-    zone->ptrBui->name,
-    zone->name,
-    time,
-    *tNext,
-    zone->ptrBui);
-  ModelicaMessage(msg);
+/*
+  ModelicaFormatMessage("*** In exchange for bldg: %s; zone: %s, time = %f, tNext = %f, pointer to fmu %p.\n",
+   zone->ptrBui->name,
+   zone->name,
+   time,
+   *tNext,
+   zone->ptrBui);
 */
   *TRad = 293.15;
   return;
