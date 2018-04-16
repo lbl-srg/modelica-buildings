@@ -73,6 +73,7 @@ typedef struct FMU{
 
 typedef struct FMUBuilding
 {
+  int _firstCall;
   fmi2Byte* name;
   fmi2Byte* weather;
   fmi2Byte* idd;
