@@ -97,7 +97,7 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
 	size_t totNumOut;
 
   int nZon=zone->ptrBui->nZon;
-	/* fmi2ValueReference* inputValueReferences=(fmi2ValueReference* )malloc(nInp*sizeof(fmi2ValueReference)); */
+	/* fmi2ValueReference* inputValueReferences=(fmi2ValueReference* )valgrin(nInp*sizeof(fmi2ValueReference)); */
 	/* fmi2ValueReference* outputValueReferences=(fmi2ValueReference* )malloc(nOut*sizeof(fmi2ValueReference)); */
 	int scaInp=1;
 	int scaOut=4;
