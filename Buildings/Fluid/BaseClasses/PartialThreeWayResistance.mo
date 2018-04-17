@@ -88,10 +88,23 @@ protected
       energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
        massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState
     "Boolean flag used to remove conditional components";
+
   Modelica.Fluid.Interfaces.FluidPort_a port_internal(
     redeclare package Medium = Medium) if not have_controlVolume
     "Internal dummy port for easier connection of conditional connections"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+initial equation
+  assert(portFlowDirection_1<>Modelica.Fluid.Types.PortFlowDirection.Leaving or
+         portFlowDirection_2<>Modelica.Fluid.Types.PortFlowDirection.Leaving or
+         portFlowDirection_3<>Modelica.Fluid.Types.PortFlowDirection.Leaving,
+         "In " + getInstanceName() + ": All ports are configured to
+         Modelica.Fluid.Types.PortFlowDirection.Leaving, which is non-physical.");
+  assert(portFlowDirection_1<>Modelica.Fluid.Types.PortFlowDirection.Entering or
+         portFlowDirection_2<>Modelica.Fluid.Types.PortFlowDirection.Entering or
+         portFlowDirection_3<>Modelica.Fluid.Types.PortFlowDirection.Entering,
+         "In " + getInstanceName() + ": All ports are configured to
+         Modelica.Fluid.Types.PortFlowDirection.Entering, which is non-physical.");
+
 equation
   if portFlowDirection_1==Modelica.Fluid.Types.PortFlowDirection.Leaving then
     if not have_controlVolume then
@@ -181,6 +194,13 @@ The time constant of the mixing volume is determined by the parameter <code>tau<
 </html>", revisions="<html>
 <ul>
 <li>
+March 30, 2018, by Filip Jorissen:<br/>
+Added graphical illustrations for the values of <code>portFlowDirection</code>.
+Added asserts that verify the consistency of
+the values of <code>portFlowDirection</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/902\">#902</a>.
+</li>
+<li>
 February 22, 2016, by Michael Wetter:<br/>
 Conditionally removed control volume <code>vol</code>, and added the conditional connnector
 <code>port_internal</code>.
@@ -221,5 +241,45 @@ June 11, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+        Polygon(
+          points={{104,28},{124,20},{104,12},{104,28}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=portFlowDirection_2==Modelica.Fluid.Types.PortFlowDirection.Leaving),
+        Polygon(
+          points={{124,28},{104,20},{124,12},{124,28}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=portFlowDirection_2==Modelica.Fluid.Types.PortFlowDirection.Entering),
+        Polygon(
+          points={{-124,28},{-104,20},{-124,12},{-124,28}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=portFlowDirection_1==Modelica.Fluid.Types.PortFlowDirection.Entering),
+        Polygon(
+          points={{-104,28},{-124,20},{-104,12},{-104,28}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=portFlowDirection_1==Modelica.Fluid.Types.PortFlowDirection.Leaving),
+        Polygon(
+          points={{1,8},{21,6.12323e-17},{1,-8},{1,8}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Entering,
+          origin={20,-125},
+          rotation=90),
+        Polygon(
+          points={{21,14},{1,6},{21,-2},{21,14}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving,
+          origin={26,-125},
+          rotation=90)}));
 end PartialThreeWayResistance;
