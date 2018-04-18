@@ -659,6 +659,12 @@ Buildings/Fluid/MixingVolumes/Validation/BaseClasses/MoistureMixingConservation.
 Buildings/Fluid/MixingVolumes/Validation/BaseClasses/TraceSubstanceConservation.mo
 Buildings/Fluid/MixingVolumes/Validation/BaseClasses/package.mo
 Buildings/Fluid/MixingVolumes/Validation/BaseClasses/package.order
+Buildings/Fluid/MixingVolumes/Validation/CoupledVolumesAir.mo
+Buildings/Fluid/MixingVolumes/Validation/CoupledVolumesGlycol47.mo
+Buildings/Fluid/MixingVolumes/Validation/CoupledVolumesSpecializedAirPerfectGas.mo
+Buildings/Fluid/MixingVolumes/Validation/CoupledVolumesSpecializedWaterConstantProperties_pT.mo
+Buildings/Fluid/MixingVolumes/Validation/CoupledVolumesSpecializedWaterTemperatureDependentDensity.mo
+Buildings/Fluid/MixingVolumes/Validation/CoupledVolumesWater.mo
 Buildings/Fluid/MixingVolumes/Validation/MixingVolume.mo
 Buildings/Fluid/MixingVolumes/Validation/MixingVolumeAdiabaticCooling.mo
 Buildings/Fluid/MixingVolumes/Validation/MixingVolumeHeatReverseFlow.mo
@@ -1226,6 +1232,12 @@ Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/BaseClasses/Validation/Mi
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeHeatConduction.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMoistAir.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumePrescribedHeatFlowRate.mos
+Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumesAir.mos
+Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumesGlycol47.mos
+Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumesSpecializedAirPerfectGas.mos
+Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumesSpecializedWaterConstantProperties_pT.mos
+Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumesSpecializedWaterTemperatureDependentDensity.mos
+Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumesWater.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolume.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeAdiabaticCooling.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeHeatReverseFlow.mos
