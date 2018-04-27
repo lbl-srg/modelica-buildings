@@ -7,10 +7,10 @@ model PartialSolarCollector "Partial model for solar collectors"
   parameter Integer nSeg(min=3) = 3
     "Number of segments used to discretize the collector model";
 
-  parameter Modelica.SIunits.Angle lat(displayUnit="degree") "Latitude";
-  parameter Modelica.SIunits.Angle azi(displayUnit="degree")
+  parameter Modelica.SIunits.Angle lat(displayUnit="deg") "Latitude";
+  parameter Modelica.SIunits.Angle azi(displayUnit="deg")
     "Surface azimuth (0 for south-facing; -90 degree for east-facing; +90 degree for west facing";
-  parameter Modelica.SIunits.Angle til(displayUnit="degree")
+  parameter Modelica.SIunits.Angle til(displayUnit="deg")
     "Surface tilt (0 for horizontally mounted collector)";
   parameter Real rho "Ground reflectance";
   parameter Modelica.SIunits.HeatCapacity C=385*perPar.mDry
@@ -236,6 +236,12 @@ CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 27, 2018, by Michael Wetter:<br/>
+Corrected <code>displayUnit</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/912\">Buildings, issue 912</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

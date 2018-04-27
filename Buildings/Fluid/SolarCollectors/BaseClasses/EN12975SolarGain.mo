@@ -29,7 +29,7 @@ model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
   Modelica.Blocks.Interfaces.RealInput incAng(
     quantity="Angle",
     unit="rad",
-    displayUnit="degree") "Incidence angle of the sun beam on a tilted surface"
+    displayUnit="deg") "Incidence angle of the sun beam on a tilted surface"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput HDirTil(
     unit="W/m2", quantity="RadiantEnergyFluenceRate")
@@ -144,6 +144,12 @@ equation
     </html>",
     revisions="<html>
 <ul>
+<li>
+April 27, 2018, by Michael Wetter:<br/>
+Corrected <code>displayUnit</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/912\">Buildings, issue 912</a>.
+</li>
 <li>
 May 31, 2017, by Michael Wetter and Filip Jorissen:<br/>
 Change limits for incident angle modifier to avoid dip in temperature
