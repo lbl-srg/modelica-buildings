@@ -4,7 +4,7 @@ block DirectTiltedSurface "Direct solar irradiation on a tilted surface"
   Modelica.Blocks.Interfaces.RealInput incAng(
     quantity="Angle",
     unit="rad",
-    displayUnit="degree") "Incidence angle of the sun beam on a tilted surface"
+    displayUnit="deg") "Incidence angle of the sun beam on a tilted surface"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealInput HDirNor(quantity=
         "RadiantEnergyFluenceRate", unit="W/m2") "Direct normal radiation"
@@ -24,6 +24,12 @@ This component computes the direct solar irradiation on a tilted surface.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 27, 2018, by Michael Wetter:<br/>
+Corrected <code>displayUnit</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/912\">Buildings, issue 912</a>.
+</li>
 <li>
 May 5, 2015, by Filip Jorissen:<br/>
 Converted <code>algorithm</code> section into
