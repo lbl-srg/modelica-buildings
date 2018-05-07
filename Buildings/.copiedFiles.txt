@@ -635,6 +635,10 @@ Buildings/Fluid/MassExchangers/ConstantEffectiveness.mo
 Buildings/Fluid/MassExchangers/Examples/ConstantEffectiveness.mo
 Buildings/Fluid/MassExchangers/Examples/package.mo
 Buildings/Fluid/MassExchangers/Examples/package.order
+Buildings/Fluid/MassExchangers/Validation/ConstantEffectivenessZeroFlow.mo
+Buildings/Fluid/MassExchangers/Validation/ConstantEffectivenessZeroFlowBothStreams.mo
+Buildings/Fluid/MassExchangers/Validation/package.mo
+Buildings/Fluid/MassExchangers/Validation/package.order
 Buildings/Fluid/MassExchangers/package.mo
 Buildings/Fluid/MassExchangers/package.order
 Buildings/Fluid/MixingVolumes/BaseClasses/MixingVolumeHeatMoisturePort.mo
@@ -997,6 +1001,8 @@ Buildings/Resources/Images/Utilities/Math/Functions/Examples/cubicHermite.png
 Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/Utilities/Math/int.pdf
 Buildings/Resources/Images/Utilities/Math/int.png
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_MassExchangers_Validation_ConstantEffectivenessZeroFlow.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_MassExchangers_Validation_ConstantEffectivenessZeroFlowBothStreams.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -1226,6 +1232,8 @@ Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowHumidifi
 Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowMassExchanger.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/StaticTwoPortConservationEquation.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MassExchangers/Examples/ConstantEffectiveness.mos
+Buildings/Resources/Scripts/Dymola/Fluid/MassExchangers/Validation/ConstantEffectivenessZeroFlow.mos
+Buildings/Resources/Scripts/Dymola/Fluid/MassExchangers/Validation/ConstantEffectivenessZeroFlowBothStreams.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/BaseClasses/Validation/MixingVolumeHeatMoisturePort.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/BaseClasses/Validation/MixingVolumeHeatPortAir.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/BaseClasses/Validation/MixingVolumeHeatPortWater.mos

@@ -1,7 +1,10 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 partial model PartialEffectiveness
   "Partial model to implement heat exchangers based on effectiveness model"
-  extends Fluid.Interfaces.StaticFourPortHeatMassExchanger(show_T=false);
+  extends Fluid.Interfaces.StaticFourPortHeatMassExchanger(
+    prescribedHeatFlowRate1=true,
+    prescribedHeatFlowRate2=true,
+    show_T=false);
 
   Medium1.Temperature T_in1 "Inlet temperature medium 1";
   Medium2.Temperature T_in2 "Inlet temperature medium 2";
@@ -119,6 +122,13 @@ and <code>QMax_flow &gt; 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 30, 2018, by Filip Jorissen:<br/>
+Set <code>prescribedHeatFlowRate1=true</code> and 
+<code>prescribedHeatFlowRate2=true</code>.<br/>
+See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/907\">#907</a>.
+</li>
 <li>
 June 9, 2015 by Michael Wetter:<br/>
 Changed type of <code>T_in1</code> and <code>T_in2</code>
