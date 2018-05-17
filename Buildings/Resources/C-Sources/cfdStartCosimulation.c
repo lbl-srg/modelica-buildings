@@ -15,6 +15,7 @@
  *
  */
 #include "cfdCosimulation.h"
+#include <pthread>
 
 /*
  * Start the cosimulation
