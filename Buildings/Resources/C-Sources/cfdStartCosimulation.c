@@ -15,7 +15,6 @@
  *
  */
 #include "cfdCosimulation.h"
-#include <pthread>
 
 /*
  * Start the cosimulation
@@ -113,6 +112,7 @@ void *cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   cosim->ffd->flag = 0;
   cosim->para->flag = 1;
   cosim->para->ffdError = 0;
+	cosim->modelica->t = 0;
 
   cosim->modelica->temHea = (REAL *) malloc(nSur*sizeof(REAL));
   /* Having a shade for window*/

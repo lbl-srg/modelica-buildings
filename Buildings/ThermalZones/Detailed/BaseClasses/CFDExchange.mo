@@ -66,8 +66,7 @@ Buildings.ThermalZones.Detailed.BaseClasses.CFDThread ffd = Buildings.ThermalZon
     nPorts=nPorts,
     nXi=nXi,
     nC=nC,
-    rho_start=rho_start,
-    verbose=verbose);
+    rho_start=rho_start);
 
 protected
   final parameter Integer nSen(min=0) = size(sensorName, 1)
