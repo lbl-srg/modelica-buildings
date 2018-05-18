@@ -66,7 +66,8 @@ Buildings.ThermalZones.Detailed.BaseClasses.CFDThread ffd = Buildings.ThermalZon
     nPorts=nPorts,
     nXi=nXi,
     nC=nC,
-    rho_start=rho_start);
+    rho_start=rho_start,
+		verbose=verbose);
 
 protected
   final parameter Integer nSen(min=0) = size(sensorName, 1)
@@ -133,7 +134,8 @@ protected
         nConExtWin,
         nXi,
         nC,
-        rho_start);
+        rho_start,
+				verbose=verbose);
     assert(coSimFlag < 0.5, "Could not start the cosimulation.");
 
   end sendParameters;
@@ -302,7 +304,7 @@ equation
     der(uInt[i]) = if (flaWri[i] > 0) then u[i] else 0;
   end for;
 
-  when sampleTrigger then
+  when {sampleTrigger, initial()} then
     // Compute value that will be sent to the CFD interface
     for i in 1:nWri loop
       if (flaWri[i] == 0) then
