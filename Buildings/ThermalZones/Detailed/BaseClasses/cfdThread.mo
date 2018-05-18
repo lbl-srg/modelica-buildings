@@ -47,8 +47,7 @@ class CFDThread
    nConExtWin,
    nXi,
    nC,
-   rho_start,
-   verbose) annotation (Include="#include <cfdStartCosimulation.c>",
+   rho_start) annotation (Include="#include <cfdStartCosimulation.c>",
     IncludeDirectory="modelica://Buildings/Resources/C-Sources",
     LibraryDirectory="modelica://Buildings/Resources/Library", Library="ffd");
   //external"C" retVal=  cfdStartCosimulation(
@@ -58,7 +57,7 @@ class CFDThread
  function destructor "release ffd.dll or ffd.so"
   input CFDThread FFDThre "the handler of FFD thread";
 
-  external"C" cfdCloseThread()         annotation (Include="#include <cfdCloseThread.c>",
+  external"C" cfdCloseThread(FFDThre)         annotation (Include="#include <cfdCloseThread.c>",
     IncludeDirectory="modelica://Buildings/Resources/C-Sources",
     LibraryDirectory="modelica://Buildings/Resources/Library", Library="ffd");
  end destructor;

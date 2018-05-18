@@ -12,12 +12,11 @@
  */
 #include "cfdCosimulation.h"
 int cfdCloseThread(void *thread) {
-	size_t i = 0, imax = 10000;
+	size_t i = 0;
+	int imax = 10000;
 	
-	// send a stop command to FFD
 	cosim->para->flag = 0;
 	
-	// wait for FFD feedback
 	while(cosim->para->flag==0 && i<imax) {
     if(cosim->para->ffdError==1) {
       ModelicaError(cosim->ffd->msg);
@@ -40,7 +39,6 @@ int cfdCloseThread(void *thread) {
     ModelicaError("Error: Cannot stop the FFD simulation in required time.");
   }
 	
-	// Close the thread
 /* Windows*/
 #ifdef _MSC_VER
 	CloseHandle(thread);
@@ -49,6 +47,5 @@ int cfdCloseThread(void *thread) {
   pthread_cancel(thread);
 #endif
 	
-	// return
 	return 0;
 }
