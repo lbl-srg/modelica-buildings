@@ -1,9 +1,8 @@
 # This script writes the heating and cooling Energy calculated by the 71T EnergyPlus model in a file.
-# This file is used to parametrize the Modelica model. A copy of this file is in
-# Buildings/Resources/Data/Rooms/Validation/LBNL_71T/RoomB
+# This file is used to parametrize the Modelica model.
 # The heating and cooling power can be compared with roo.heaPorAir.Q_flow.
 # The script also extracts roo.heaPorAir.Q_flow from the Modelica .mat file
-# and plot the results against the EnergyPlus results.
+# and plots the results against the EnergyPlus results.
 # To run this file, the user needs to adjust the path to the .mat file.
 import os
 
@@ -56,7 +55,7 @@ ep_int_rad= \
            df['ROOM 102:Zone Other Equipment Convective Heating Rate [W](TimeStep)']
 
 
-mo_fil_name="/home/thierry/vmWareLinux/proj/buildings_library/models/modelica/git/71_T/modelica-buildings/Buildings/ElectroChromicWindow.mat"
+mo_fil_name="ElectroChromicWindow.mat"
 mof=Reader(mo_fil_name, "dymola")
 #(mo_tim, mo_inf) = mof.values("inf.m_flow")
 # Heat gains in W/m2 (but they are zero anyway.

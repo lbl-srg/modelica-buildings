@@ -17,7 +17,7 @@ model ForcedConvection "Ventilation with forced convection in an empty room"
         each boundaryCondition= Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature),
       nPorts=2,
       portName={"Inlet","Outlet"},
-      cfdFilNam="modelica://Buildings/Resources/Data/Rooms/FFD/ForcedConvection.ffd",
+      cfdFilNam="modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/ForcedConvection.ffd",
       samplePeriod=6,
       linearizeRadiation=true,
       massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial),
