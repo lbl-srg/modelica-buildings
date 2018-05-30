@@ -20,12 +20,12 @@ void setGetVariables(
   {
     int result = fmuZon->ptrBui->fmu->setVariables(inputValueReferences, inputValues, nInp, NULL);
     if(result < 0){
-      ModelicaFormatError("Failed to set setup variables for building FMU with name %s\n",
+      ModelicaFormatError("Failed to set variables for building FMU with name %s\n",
       fmuZon->ptrBui->name);
     }
     result = fmuZon->ptrBui->fmu->getVariables(outputValueReferences, outputValues, 1, NULL);
     if(result < 0){
-      ModelicaFormatError("Failed to get setup variables for building FMU with name %s\n",
+      ModelicaFormatError("Failed to get variables for building FMU with name %s\n",
       fmuZon->ptrBui->name);
     }
   }

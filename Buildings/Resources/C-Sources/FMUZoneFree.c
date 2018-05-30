@@ -17,7 +17,7 @@ void FMUZoneFree(void* object){
        name, which may not be for this zone. But this does not matter
        as anyway all zones will be deconstructed by Modelica. */
     free(zone->ptrBui->zoneNames[zone->ptrBui->nZon - 1]);
-    free(zone->ptrBui->zones[zone->ptrBui->nZon - 1]);
+    /* free(zone->ptrBui->zones[zone->ptrBui->nZon - 1]); */
     zone->ptrBui->nZon--;
     /* Check if the building FMU can be freed. */
     if (zone->ptrBui->nZon == 0){
@@ -35,7 +35,6 @@ void FMUZoneFree(void* object){
         free(Buildings_FMUS);
       }
     }
-    //free(zone->valueReference);
     free(zone);
   }
 }
