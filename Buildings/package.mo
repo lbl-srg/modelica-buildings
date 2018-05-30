@@ -7040,7 +7040,7 @@ preferredView="info",
 version="5.0.2",
 versionDate="2017-11-17",
 dateModified="2017-11-22",
-uses(Modelica(version="3.2.2")),
+uses(Modelica(version="3.2.3")),
 conversion(
  from(version={"4.0.0", "5.0.0"},
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_4.0_to_5.0.mos")),
