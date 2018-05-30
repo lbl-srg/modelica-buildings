@@ -60,7 +60,7 @@ initial algorithm
     </script>
 ");
 
-algorithm
+equation
   when sampleTrigger then
     Buildings.Utilities.Plotters.BaseClasses.sendReal(
       plt=plt,
