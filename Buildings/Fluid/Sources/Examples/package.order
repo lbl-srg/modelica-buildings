@@ -2,4 +2,6 @@ MassFlowSource_WeatherData
 Outside
 Outside_Cp
 Outside_CpLowRise
+PropertySource_T
+PropertySource_h
 TraceSubstancesFlowSource
