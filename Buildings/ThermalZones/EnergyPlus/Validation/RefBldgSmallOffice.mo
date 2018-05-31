@@ -112,7 +112,7 @@ First implementation.
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice.mos"
         "Simulate and plot"),
 experiment(
-      StopTime=86400,
+      StopTime=604800,
       Tolerance=1e-06),
     Diagram(coordinateSystem(extent={{-100,-160},{160,120}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));

@@ -60,7 +60,7 @@ First implementation.
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice.mos"
         "Simulate and plot"),
 experiment(
-      StopTime=86400,
+      StopTime=172800,
       Tolerance=1e-06),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-380},{
             1400,640}})),
