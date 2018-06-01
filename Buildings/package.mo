@@ -143,9 +143,11 @@ its class name ends with the string <code>Beta</code>.
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Media.Antifreeze.PropyleneGlycolWater
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Package with medium model for propylene glycol - water mixture.
+                          The concentration and the medium temperature for which the properties are evaluated
+                          can be set when instantiating the medium.
        </td>
        </tr>
    </table>
@@ -171,6 +173,14 @@ its class name ends with the string <code>Beta</code>.
        <td valign=\"top\">Pipe with heat loss and transport of the fluid
                           using a plug flow model. This model is applicable for
                           simulation of long pipes such as in district heating and cooling systems.
+       </td>
+       </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Sources.PropertySource_T<br/>
+                          Buildings.Fluid.Sources.PropertySource_h
+       </td>
+       <td valign=\"top\">Model that changes the fluid properties of the medium that flows through it
+                          based on input signals. These idealized models can be used to force a certain temperature,
+                          enthalpy or humidity in a fluid flow system.
        </td>
        </tr>
    </table>
