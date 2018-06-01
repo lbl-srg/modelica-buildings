@@ -1,8 +1,8 @@
 within Buildings.ThermalZones.EnergyPlus;
 model ThermalZone "Model to connect to an EnergyPlus thermal zone"
-  import Buildings;
   extends Modelica.Blocks.Icons.Block;
-  parameter String fmuName "Name of the FMU file that contains this zone";
+  parameter String idfName="" "Name of the IDF file that contains this zone";
+  parameter String weaName="" "Name of the EnergyPlus weather file";
 
   parameter String zoneName "Name of the thermal zone as specified in the EnergyPlus input";
   parameter Integer nPorts=0 "Number of fluid ports (equals to 2 for one inlet and one outlet)" annotation (Evaluate=true,
@@ -38,11 +38,6 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
   final parameter Modelica.Fluid.Types.Dynamics traceDynamics=energyDynamics
     "Type of trace substance balance for zone air: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
-
-  parameter Real mSenFac(min=1)=1
-    "Factor for scaling the sensible thermal mass of the zone air volume"
-    annotation(Dialog(tab="Dynamics", group="Zone air"));
-
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
     "Start value of zone air pressure"
@@ -65,7 +60,9 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
 
   final parameter Modelica.SIunits.Volume V = fmuZon.V "Zone volume";
   final parameter Modelica.SIunits.Area AFlo = fmuZon.AFlo "Floor area";
-
+  final parameter Real mSenFac(min=1)=fmuZon.mSenFac
+    "Factor for scaling the sensible thermal mass of the zone air volume"
+    annotation(Dialog(tab="Dynamics", group="Zone air"));
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3](each unit="W/m2")
     "Radiant, convective and latent heat input into room (positive if heat gain)"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}})));
@@ -115,10 +112,12 @@ protected
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     V*3/3600 "Nominal mass flow rate (used for regularization)";
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
-    final fmuName=fmuName,
+    final idfName=idfName,
+    final weaName=weaName,
     final zoneName=zoneName,
     final nFluPor=nPorts) "FMU zone adapter"
     annotation (Placement(transformation(extent={{80,104},{100,124}})));
+
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     redeclare final package Medium = Medium,
     final V=V,
@@ -207,7 +206,7 @@ protected
     "Temperature that the air has if it were flowing into the room"
     annotation (Placement(transformation(extent={{20,102},{40,122}})));
 initial equation
-  assert(fmuName <> "", "Must provide the name of the fmu file.");
+  assert(idfName <> "", "Must provide the name of the fmu file.");
   assert(zoneName <> "", "Must provide the name of the zone.");
  // assert(nPorts >= 2, "The zone must have at least one air inlet and outlet.");
 
@@ -229,7 +228,8 @@ equation
           120},{78,120}},
                      color={0,0,127}));
   connect(heaGai.QRad_flow, fmuZon.QGaiRad_flow)
-    annotation (Line(points={{-158,106},{78,106}}, color={0,0,127}));
+    annotation (Line(points={{-158,106},{-40,106},{-40,108},{78,108}},
+                                                   color={0,0,127}));
   connect(heaGai.QCon_flow, QConTot_flow.u1) annotation (Line(points={{-158,100},
           {-132,100},{-132,56},{-122,56}}, color={0,0,127}));
   connect(fmuZon.QCon_flow, QConTot_flow.u2) annotation (Line(points={{101,116},
@@ -293,7 +293,7 @@ equation
         Text(
           extent={{-144,162},{-40,132}},
           lineColor={0,0,0},
-          textString="%fmuName"),
+          textString="%idfName"),
         Text(
           extent={{-142,130},{-38,100}},
           lineColor={0,0,0},
@@ -334,7 +334,11 @@ equation
           lineColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
-          textString="TAir")}),
+          textString="TAir"),
+        Text(
+          extent={{-58,244},{56,204}},
+          lineColor={0,0,255},
+          textString="%name")}),
    Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}})),
     Documentation(info="<html>
@@ -342,7 +346,7 @@ equation
 Model for a thermal zone that is implemented in EnergyPlus.
 </p>
 <p>
-This model instantiates the FMU with the name <code>fmuName</code> and
+This model instantiates the FMU with the name <code>idfName</code> and
 connects to the thermal zone with name <code>zoneName</code>.
 If the FMU is already instantiated by another instance of this model,
 it will use the already instantiated FMU. Hence, for each thermal zone
@@ -350,7 +354,7 @@ in an EnergyPlus FMU, one instance of this model needs to be used.
 </p>
 <p>
 If there are two instances that declare the same
-<code>fmuName</code> and the same <code>zoneName</code>,
+<code>idfName</code> and the same <code>zoneName</code>,
 the simulation will stop with an error.
 </p>
 <h4>Main Equations</h4>
@@ -395,7 +399,17 @@ name of the species or its molar mass and hence it cannot be matched
 to species in Modelica or converted to emitted mass flow rate.)
 </p>
 </html>", revisions="<html>
-<ul><li>
+<ul>
+<li>
+April 04, 2018, by Thierry S. Nouidui:<br/>
+Added additional parameters for parametrizing 
+the EnergyPlus model.
+</li>
+<li>
+March 21, 2018, by Thierry S. Nouidui:<br/>
+Revised implementation for efficiency.
+</li>
+<li>
 February 14, 2018, by Michael Wetter:<br/>
 First implementation for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1129\">issue 1129</a>.
 </li>

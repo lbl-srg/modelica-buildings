@@ -4,25 +4,37 @@ model ThreeZonesTwoBuildings
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model";
 
-  parameter String fmuName = "aaa.fmu" "Name of the FMU file that contains this zone";
+
+  parameter String idfName1=Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/Data/Rooms/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
+    "Name of the IDF file";
+  parameter String idfName2=Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/Data/Rooms/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago2.idf")
+    "Name of the IDF file";
+  parameter String weaName = Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
+    "Name of the weather file";
 
   ThermalZone zon1(
-    zoneName="Zone 1",
+    idfName=idfName1,
+    weaName=weaName,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    fmuName="bld1.fmu") "Thermal zone"
+    zoneName="Perimeter_ZN_1") "Thermal zone"
     annotation (Placement(transformation(extent={{20,40},{60,80}})));
   ThermalZone zon2(
+    idfName=idfName2,
+    weaName=weaName,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    zoneName="Zone 2",
-    fmuName="bld1.fmu") "Thermal zone"
+    zoneName="Perimeter_ZN_2") "Thermal zone"
     annotation (Placement(transformation(extent={{20,-20},{60,20}})));
   ThermalZone zon3(
-    zoneName="Zone 1",
+    idfName=idfName2,
+    weaName=weaName,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    fmuName="bld2.fmu") "Thermal zone"
+    zoneName="Perimeter_ZN_1") "Thermal zone"
     annotation (Placement(transformation(extent={{20,-84},{60,-44}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));

@@ -1,18 +1,22 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 class FMUZoneClass "Class used to couple the FMU"
 extends ExternalObject;
-    function constructor
-      "Construct to connect to a thermal zone in EnergyPlus"
-      input String fmuName "Name of the FMU";
-      input String zoneName "Name of the thermal zone";
-      input Integer nFluPor "Number of fluid ports of zone";
-      output FMUZoneClass adapter;
-
-      external "C" adapter = FMUZoneInit(fmuName, zoneName, nFluPor)
-      annotation(Include="#include <FMUZoneInit.c>",
-      IncludeDirectory="modelica://Buildings/Resources/C-Sources");
-
-      annotation(Documentation(info="<html>
+  function constructor
+    "Construct to connect to a thermal zone in EnergyPlus"
+    input String idfName "Name of the IDF";
+    input String weaName "Name of the weather file";
+    input String iddName "Name of the IDD file";
+    input String epLibName "Name of the Energyplus FMI library";
+    input String zoneName "Name of the thermal zone";
+    output FMUZoneClass adapter;
+     external"C" adapter = FMUZoneInit(
+           idfName,
+           weaName,
+           iddName,
+           epLibName,
+           zoneName) annotation (Include="#include <FMUZoneInit.c>",
+           IncludeDirectory="modelica://Buildings/Resources/C-Sources");
+    annotation (Documentation(info="<html>
 <p>
 The function <code>constructor</code> is a C function that is called by a Modelica simulator
 exactly once during the initialization.
@@ -27,7 +31,7 @@ First implementation.
 </li>
 </ul>
 </html>"));
-    end constructor;
+  end constructor;
 
   function destructor "Release storage"
     input FMUZoneClass adapter;
@@ -59,6 +63,15 @@ of the data structure needed to communicate with the EnergyPlus FMU.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 04, 2018, by Thierry S. Nouidui:<br/>
+Added additional parameters for parametrizing 
+the EnergyPlus model.
+</li>
+<li>
+March 21, 2018, by Thierry S. Nouidui:<br/>
+Revised implementation for efficiency.
+</li>
 <li>
 February 14, 2018, by Michael Wetter:<br/>
 First implementation.

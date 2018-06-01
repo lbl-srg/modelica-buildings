@@ -3,7 +3,12 @@ model OneZone "Validation model for one zone"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model";
 
-  parameter String fmuName = "aaa.fmu" "Name of the FMU file that contains this zone";
+  parameter String idfName=Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/Data/Rooms/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
+    "Name of the IDF file";
+  parameter String weaName = Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
+    "Name of the weather file";
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -12,12 +17,13 @@ model OneZone "Validation model for one zone"
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   ThermalZone zon(
-    fmuName="bld.fmu",
-    zoneName="Zone 1",
+    idfName=idfName,
+    weaName=weaName,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    nPorts=2) "Thermal zone"
-    annotation (Placement(transformation(extent={{20,-20},{60,20}})));
+    zoneName="Core_ZN",
+    nPorts = 2) "Thermal zone (core zone of the office building with 5 zones)"
+    annotation (Placement(transformation(extent={{22,-20},{62,20}})));
   Fluid.FixedResistances.PressureDrop duc(
     allowFlowReversal=false,
     linearized=true,
@@ -33,9 +39,9 @@ model OneZone "Validation model for one zone"
     m_flow=0,
     T=293.15) "Boundary condition"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Fluid.Sources.Boundary_pT
-                        freshAir(          redeclare package Medium = Medium,
-      nPorts=1)
+  Fluid.Sources.Boundary_pT freshAir(
+    redeclare package Medium = Medium,
+    nPorts=1)
     "Boundary condition"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
@@ -50,15 +56,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(zon.qGai_flow, multiplex3_1.y)
-    annotation (Line(points={{18,10},{-19,10}}, color={0,0,127}));
+    annotation (Line(points={{20,10},{-19,10}}, color={0,0,127}));
   connect(multiplex3_1.u3[1], qLatGai_flow.y) annotation (Line(points={{-42,3},
           {-52,3},{-52,-20},{-59,-20}}, color={0,0,127}));
   connect(freshAir.ports[1], duc.port_b)
     annotation (Line(points={{-20,-40},{-10,-40}}, color={0,127,255}));
-  connect(duc.port_a, zon.ports[1]) annotation (Line(points={{10,-40},{38,-40},
-          {38,-19.2}}, color={0,127,255}));
-  connect(bou.ports[1], zon.ports[2]) annotation (Line(points={{-20,-80},{42,
-          -80},{42,-19.2}}, color={0,127,255}));
+  connect(duc.port_a, zon.ports[1]) annotation (Line(points={{10,-40},{40,-40},{
+          40,-19.2}},  color={0,127,255}));
+  connect(bou.ports[1], zon.ports[2]) annotation (Line(points={{-20,-80},{44,-80},
+          {44,-19.2}},      color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 Simple test case for one buildings with one thermal zone.

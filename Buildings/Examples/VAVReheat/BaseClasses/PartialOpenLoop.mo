@@ -23,8 +23,8 @@ partial model PartialOpenLoop
   parameter Modelica.SIunits.Area AFloEas=flo.eas.AFlo "Floor area east";
   parameter Modelica.SIunits.Area AFloWes=flo.wes.AFlo "Floor area west";
 
-  parameter Modelica.SIunits.Area AFlo[numZon]={flo.cor.AFlo,flo.sou.AFlo,flo.eas.AFlo,
-      flo.nor.AFlo,flo.wes.AFlo} "Floor area of each zone";
+  parameter Modelica.SIunits.Area AFlo[numZon]={AFloCor,AFloSou,AFloEas,
+      AFloNor,AFloWes} "Floor area of each zone";
   final parameter Modelica.SIunits.Area ATot=sum(AFlo) "Total floor area";
 
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
@@ -390,7 +390,7 @@ partial model PartialOpenLoop
   BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-330,170},{-310,190}}),
         iconTransformation(extent={{-360,170},{-340,190}})));
-  ThermalZones.Floor flo(
+  replaceable ThermalZones.Floor flo(
     redeclare final package Medium = MediumA,
     final lat=lat,
     final use_windPressure=use_windPressure,
