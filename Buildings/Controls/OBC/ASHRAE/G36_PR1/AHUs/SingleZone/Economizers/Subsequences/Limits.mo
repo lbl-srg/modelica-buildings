@@ -112,8 +112,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanMaxSig(
     final k=yFanMax) "Maximum supply fan speed"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minVOutMinFansSpePosSig(
-    final k=minVOutMinFansSpePos)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minVOutMinFansSpePosSig(final k=
+        minVOutMinFansSpePos)
     "OA damper position to supply minimum outdoor airflow at minimum fan speed"
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDam_VOutDes_minSpeSig(
@@ -189,8 +189,9 @@ equation
     annotation (Line(points={{-119,-20},{-100,-20},{-100,54},{14,54}}, color={0,0,127}));
   connect(yDam_VOutDes_maxSpeSig.y, yDam_VOutDes_curSpe.f2)
     annotation (Line(points={{-119,10},{-104,10},{-96,10},{-8,10},{-8,42},{14,42}}, color={0,0,127}));
-  connect(minVOutMinFansSpePosSig.y, yDam_VOutMin_curSpe.f1)
-    annotation (Line(points={{-119,130},{-120,130},{-118,130},{-28,130},{-28,144},{14,144}}, color={0,0,127}));
+  connect(minVOutMinFansSpePosSig.y, yDam_VOutMin_curSpe.f1) annotation (Line(
+        points={{-119,130},{-120,130},{-118,130},{-28,130},{-28,144},{14,144}},
+        color={0,0,127}));
   connect(yDam_VOutMin_maxSpeSig.y, yDam_VOutMin_curSpe.f2)
     annotation (Line(points={{-119,160},{-58,160},{-58,132},{14,132}}, color={0,0,127}));
   connect(uSupFanSpe, yDam_VOutMin_curSpe.u)
@@ -352,7 +353,7 @@ designed in line with ASHRAE Guidline 36, PART5.P.4.d.
 </p>
 <p>
 The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
-the AHU operation mode <code>OperationMode</code> is Occupied, and Freeze protection stage
+the AHU operation mode <code>uOpeMod</code> is Occupied, and Freeze protection stage
 <code>uFreProSta</code> is 1 or smaller. Otherwise the damper position limits are set to
 their corresponding maximum and minimum physical or at commissioning fixed limits, as illustrated below:
 <br/>
@@ -372,7 +373,7 @@ at current supply fan speed <code>uSupFanSpe</code> as a linear
 interpolation between the following values set at commissioning:<br/>
 <ul>
 <li>minimum damper position at minimum fan speed for minimum outdoor airflow
-<code>yDam_VOutMin_minSpe</code> and
+<code>minVOutMinFansSpePos</code> and
 </li>
 <li>
 minimum damper position at maximum fan speed for minimum outdoor airflow

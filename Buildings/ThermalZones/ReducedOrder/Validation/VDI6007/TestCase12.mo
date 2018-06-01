@@ -235,7 +235,7 @@ equation
     Line(points={{-10,-30},{-10,-30},{82,-30},{82,-1.95},{81.475,-1.95}},
     color={0,127,255}));
   connect(gain.y, ventilationIn.m_flow_in)
-    annotation (Line(points={{-47.3,-22},{-30,-22}}, color={0,0,127}));
+    annotation (Line(points={{-47.3,-22},{-32,-22}}, color={0,0,127}));
   connect(outdoorTemp.y[1], ventilationIn.T_in)
     annotation (Line(points={{-11.2,
     0},{-4,0},{-4,-12},{-42,-12},{-42,-26},{-32,-26}}, color={0,0,127}));
@@ -243,7 +243,7 @@ equation
     annotation (Line(points={{-47.3,-22},{-44,-22},{-44,
     -38},{-70,-38},{-70,-54},{-63.4,-54}}, color={0,0,127}));
   connect(gain1.y, ventilationOut.m_flow_in)
-    annotation (Line(points={{-47.3,-54},{-32,-54}}, color={0,0,127}));
+    annotation (Line(points={{-47.3,-54},{-34,-54}}, color={0,0,127}));
   connect(ventilationOut.ports[1], thermalZoneTwoElements.ports[2])
     annotation (
     Line(points={{-12,-62},{-6,-62},{0,-62},{0,-36},{84.525,-36},{84.525,-1.95}},

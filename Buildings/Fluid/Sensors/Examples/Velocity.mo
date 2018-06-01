@@ -39,7 +39,7 @@ model Velocity "Test model for the flow velocity sensor"
     annotation (Placement(transformation(extent={{28,-10},{48,10}})));
 equation
   connect(ramp.y, masFloRat.m_flow_in) annotation (Line(
-      points={{-69,8},{-50,8}},
+      points={{-69,8},{-52,8}},
       color={0,0,127}));
   connect(masFloRat.ports[1], senDyn.port_a) annotation (Line(
       points={{-30,4.44089e-16},{-20,4.44089e-16},{-20,0},{-10,0}},

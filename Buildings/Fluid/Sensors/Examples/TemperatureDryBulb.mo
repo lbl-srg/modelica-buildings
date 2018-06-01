@@ -82,8 +82,8 @@ equation
   connect(temDyn.port_b, temDynLoss.port_a)
     annotation (Line(points={{50,-12},{56,-12}},
                                              color={0,127,255}));
-  connect(masFloRat.m_flow_in, add_m_flow.y) annotation (Line(points={{-30,-4},{
-          -30,-4},{-40,-4},{-40,50},{-47,50}},  color={0,0,127}));
+  connect(masFloRat.m_flow_in, add_m_flow.y) annotation (Line(points={{-32,-4},
+          {-32,-4},{-40,-4},{-40,50},{-47,50}}, color={0,0,127}));
   connect(add_m_flow.u1, m_flow1.y)
     annotation (Line(points={{-70,56},{-70,56},{-74,56},{-74,70},{-79,70}},
                                                           color={0,0,127}));

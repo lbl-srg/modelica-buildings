@@ -215,7 +215,7 @@ equation
     Medium.setState_pTX(
       p = port_a.p,
       T = T,
-      X = inStream(port_a.Xi_outflow) + fill(dXiAct, Medium.nXi)))
+      X = Xi_instream + fill(dXiAct, Medium.nXi)))
         else Medium.h_default;
 
   m_flow_pos = Buildings.Utilities.Math.Functions.smoothMax(
@@ -243,7 +243,7 @@ equation
   if use_X_wSet then
     if not restrictHumi and not restrictDehu then
       // No capacity limit
-      dXiAct = 0;
+      dXiAct = Xi_outflow-sum(Xi_instream);
       Xi_outflow  = Xi;
       mWat_flow   = m_flow_pos*(Xi - sum(Xi_instream));
     else
@@ -275,7 +275,7 @@ equation
     Xi_outflow = sum(Xi_instream);
     mWat_flow = 0;
     dXiAct = 0;
-    port_b.Xi_outflow = inStream(port_a.Xi_outflow);
+    port_b.Xi_outflow = Xi_instream;
   end if;
 
   // Compute enthalpy leaving the component.
@@ -467,6 +467,13 @@ properties as the fluid that enters <code>port_b</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 19, 2018, by Michael Wetter:<br/>
+Added bugfix as the old model did not track <code>TSet</code> and <code>X_wSet</code>
+simultaneously.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/893\">#893</a>.
+</li>
 <li>
 May 3, 2017, by Michael Wetter:<br/>
 Refactored model to allow <code>X_wSet</code> as an input.<br/>

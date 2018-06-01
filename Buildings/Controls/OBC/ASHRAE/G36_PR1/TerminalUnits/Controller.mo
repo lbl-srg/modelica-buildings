@@ -536,10 +536,8 @@ reset request <code>yZonPreResReq</code>.
 <p>
 The subsequence is implementd according to Part 5.B.5. The measured zone
 temperature <code>TRoo</code>, zone setpoints temperatures <code>TRooHeaSet</code> and
-<code>TRooCooSet</code> are inputs to the block to generate the control loop signal
-<code>yHea</code> and <code>yCoo</code>. See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.Valves.HeatingAndCooling\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.Valves.HeatingAndCooling</a>.
+<code>TRooCooSet</code> are inputs to the block <code>conHeaLoo</code> and 
+<code>conCooLoo</code> to generate the control loop signal. 
 </p>
 <h4>b. Active airflow setpoint calculation</h4>
 <p>

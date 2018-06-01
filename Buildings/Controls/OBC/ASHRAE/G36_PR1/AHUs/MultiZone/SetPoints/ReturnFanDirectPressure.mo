@@ -16,7 +16,6 @@ block ReturnFanDirectPressure
     final min=0,
     final max=1000) = 40
     "Maximum return fan discharge static pressure setpoint";
-
   parameter Real k(final unit="1") = 1
     "Gain, normalized using dpBuiSet";
 
@@ -27,9 +26,9 @@ block ReturnFanDirectPressure
     annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
-    "Fan on/off signal, true if fan is on"
-    annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+    "Fan on/off signal, true if fan is on" annotation (Placement(transformation(
+          extent={{-180,-110},{-140,-70}}), iconTransformation(extent={{-140,-80},
+            {-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpDisSet(
      final unit="Pa",
      displayUnit="Pa",
@@ -131,9 +130,8 @@ equation
   connect(linRetFanStaPre.y, swi.u1)
     annotation (Line(points={{81,-40},{100,-40},{100,-60},{60,-60},{60,-82},
       {78,-82}}, color={0,0,127}));
-  connect(uFan, swi1.u2)
-    annotation (Line(points={{-160,-90},{-100,-90},{-100,20},{78,20}},
-      color={255,0,255}));
+  connect(uFan, swi1.u2) annotation (Line(points={{-160,-90},{-100,-90},{-100,20},
+          {78,20}}, color={255,0,255}));
   connect(linExhAirDam.y, swi1.u1)
     annotation (Line(points={{81,90},{100,90},{100,70},{60,70},{60,28},{78,28}},
       color={0,0,127}));

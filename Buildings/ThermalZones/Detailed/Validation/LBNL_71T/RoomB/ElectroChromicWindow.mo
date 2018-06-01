@@ -189,7 +189,7 @@ model ElectroChromicWindow
     tableOnFile=true,
     tableName="EnergyPlus",
     fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Rooms/Validation/LBNL_71T/RoomB/EnergyPlusHeatingCoolingPower.txt"),
+        "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Validation/LBNL_71T/RoomB/EnergyPlusHeatingCoolingPower.txt"),
     columns=2:2)
     "Data reader with heating and cooling power from EnergyPlus. The output should be compared to roo.heaPorAir.Q_flow."
     annotation (Placement(transformation(extent={{160,-120},{180,-100}})));

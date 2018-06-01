@@ -117,8 +117,7 @@ The (time varying) vector <code>Real</code> output signal of this block can be d
 parameter menu via variable <code>y</code>. The purpose is to support the
 easy definition of vector-valued Real expressions in a block diagram.
 </p>
-</html>", revisions=
-"<html>
+</html>", revisions="<html>
 <ul>
 <li>
 April 27, 2016, by Thierry S. Nouidui:<br/>
@@ -203,8 +202,8 @@ equation
   connect(x_w_toX.X, bou.X_in)
     annotation (Line(points={{-18,56},{-18,56},{-14,56},{-14,44},{0,44}},
                                                color={0,0,127}));
-  connect(con.C, bou.C_in) annotation (Line(points={{-58,52},{-50,52},{-50,40},{
-          -10,40},{2,40}},                  color={0,0,127}));
+  connect(con.C, bou.C_in) annotation (Line(points={{-58,52},{-50,52},{-50,40},
+          {0,40},{0,40}},                   color={0,0,127}));
   connect(heaPorAir, senTemAir.port) annotation (Line(points={{100,-80},{80,-80},
           {72,-80}},          color={191,0,0}));
   connect(XiSup.y, x_i_toX.Xi)
@@ -228,8 +227,9 @@ equation
   connect(CSup.y, con[i].CZon)
     annotation (Line(points={{-1,-60},{-64,-60},{-64,48}}, color={0,0,127}));
   end for;
-  connect(bou.m_flow_in, con.m_flow) annotation (Line(points={{2,56},{-8,56},{-8,
-          78},{-50,78},{-50,68},{-58,68}}, color={0,0,127}));
+  connect(bou.m_flow_in, con.m_flow) annotation (Line(points={{0,56},{-8,56},{
+          -8,78},{-50,78},{-50,68},{-58,68}},
+                                           color={0,0,127}));
   annotation (defaultComponentName="hvacAda",
     Icon(coordinateSystem(
         preserveAspectRatio=false),      graphics={

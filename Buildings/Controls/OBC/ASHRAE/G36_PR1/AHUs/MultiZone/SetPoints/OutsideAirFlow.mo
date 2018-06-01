@@ -223,7 +223,8 @@ protected
     each final k=have_occSen)
     "Boolean constant to indicate if there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-170,-242},{-150,-222}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desDisEff[numZon](
@@ -300,8 +301,7 @@ protected
     each final k=false) if not have_winSen
     "Closed window status when there is no window sensor"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
-
-  CDL.Continuous.Division norVOutMin
+  Buildings.Controls.OBC.CDL.Continuous.Division norVOutMin
     "Normalization for minimum outdoor air flow rate"
     annotation (Placement(transformation(extent={{200,-182},{222,-160}})));
 
@@ -395,8 +395,7 @@ equation
     annotation (Line(points={{-139,-110},{-122,-110}},
       color={0,0,127}));
   connect(hys.y, swi1.u2)
-    annotation (Line(points={{-99,-110},{-82,-110}},
-      color={255,0,255}));
+    annotation (Line(points={{-99,-110},{-82,-110}}, color={255,0,255}));
   connect(max.y, priOutAirFra.u2)
     annotation (Line(points={{-19,-232},{-8,-232},{-8,-228},{-2,-228}},
       color={0,0,127}));
@@ -443,16 +442,14 @@ equation
     annotation (Line(points={{161,150},{168,150},{168,134},{114,134},{114,104},
       {138,104}}, color={0,0,127}));
   connect(min1.y, effMinOutAirInt.u1)
-    annotation (Line(points={{161,-82},{168,-82},{168,-112},{132,-112},{132,
-          -134},{140,-134}},
-                   color={0,0,127}));
+    annotation (Line(points={{161,-82},{168,-82},{168,-112},{132,-112},
+      {132,-134},{140,-134}}, color={0,0,127}));
   connect(sysUncOutAir.y, min1.u2)
     annotation (Line(points={{121.7,-82},{128,-82},{128,-88},{138,-88}},
       color={0,0,127}));
   connect(min1.y, outAirFra.u1)
     annotation (Line(points={{161,-82},{168,-82},{168,-112},{26,-112},{26,-136},
-          {38,-136}},
-                  color={0,0,127}));
+      {38,-136}}, color={0,0,127}));
   connect(unCorOutAirInk.y, min1.u1)
     annotation (Line(points={{41,220.5},{180,220.5},{180,80},{128,80},{128,-76},
       {138,-76}}, color={0,0,127}));
@@ -461,7 +458,7 @@ equation
       color={0,0,127}));
   connect(unCorOutAirInk.y, VDesUncOutMin_flow_nominal)
     annotation (Line(points={{41,220.5},{180,220.5},{180,180},{260,180}},
-                             color={0,0,127}));
+      color={0,0,127}));
   connect(desOutAirInt.y, VDesOutMin_flow_nominal)
     annotation (Line(points={{161,110},{161,110},{188,110},{260,110}},
       color={0,0,127}));
@@ -507,8 +504,8 @@ equation
     annotation (Line(points={{101,-180},{120,-180},{120,-174},{138,-174}},
       color={0,0,127}));
   connect(swi4.y, effMinOutAirInt.u2)
-    annotation (Line(points={{161,-182},{172,-182},{172,-162},{134,-162},{134,
-          -146},{140,-146}},  color={0,0,127}));
+    annotation (Line(points={{161,-182},{172,-182},{172,-162},{134,-162},
+      {134,-146},{140,-146}},  color={0,0,127}));
   connect(outAirFra.y, addPar.u)
     annotation (Line(points={{61,-142},{80,-142},{80,-160},{0,-160},{0,-182},
       {18,-182}}, color={0,0,127}));
@@ -530,22 +527,23 @@ equation
   connect(cloWin.y, swi2.u2)
     annotation (Line(points={{-139,-40},{-120,-40},{-120,-20},{18,-20}},
       color={255,0,255}));
-
   connect(VOutMinSet_flow, min.y)
     annotation (Line(points={{260,-100},{209,-100}}, color={0,0,127}));
-  connect(effMinOutAirInt.y, min.u2) annotation (Line(points={{163,-140},{178,
-          -140},{178,-106},{186,-106}},
-                                  color={0,0,127}));
-  connect(norVOutMin.u1, min.y) annotation (Line(points={{197.8,-164.4},{188,-164.4},
-          {188,-128},{220,-128},{220,-100},{209,-100}}, color={0,0,127}));
-  connect(desOutAirInt.y, norVOutMin.u2) annotation (Line(points={{161,110},{
-          176,110},{176,-178},{186,-178},{186,-177.6},{197.8,-177.6}},
-                                             color={0,0,127}));
+  connect(effMinOutAirInt.y, min.u2)
+    annotation (Line(points={{163,-140},{178,-140},{178,-106},{186,-106}},
+      color={0,0,127}));
+  connect(norVOutMin.u1, min.y)
+    annotation (Line(points={{197.8,-164.4},{188,-164.4},{188,-128},{220,-128},
+      {220,-100},{209,-100}}, color={0,0,127}));
+  connect(desOutAirInt.y, norVOutMin.u2)
+    annotation (Line(points={{161,110},{176,110},{176,-178},{186,-178},
+      {186,-177.6},{197.8,-177.6}}, color={0,0,127}));
   connect(norVOutMin.y, VOutMinSet_flow_normalized)
     annotation (Line(points={{223.1,-171},{259,-171}}, color={0,0,127}));
+
 annotation (
-defaultComponentName="outAirSetPoi",
-Icon(graphics={Rectangle(
+  defaultComponentName="outAirSetPoi",
+  Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillColor={210,210,210},

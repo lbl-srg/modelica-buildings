@@ -125,15 +125,14 @@ equation
     annotation (Line(points={{21,-10},{30,-10},{30,16},{58,16}},
       color={0,0,127}));
   connect(zer.y,conSigHea. f2)
-    annotation (Line(points={{-39,-36},{-20,-36},{-20,-30},{36,-30},{36,12},{58,
-          12}}, color={0,0,127}));
+    annotation (Line(points={{-39,-36},{-20,-36},{-20,-30},{36,-30},{36,12},
+      {58,12}}, color={0,0,127}));
   connect(uCooMinCon.y,conSigCoo. x1)
     annotation (Line(points={{21,-50},{40,-50},{40,-12},{58,-12}},
       color={0,0,127}));
   connect(zer.y,conSigCoo. f1)
-    annotation (Line(points={{-39,-36},{-20,-36},{-20,-30},{36,-30},{36,-16},{
-          58,-16}},
-      color={0,0,127}));
+    annotation (Line(points={{-39,-36},{-20,-36},{-20,-30},{36,-30},{36,-16},
+      {58,-16}}, color={0,0,127}));
   connect(one.y,conSigCoo. x2)
     annotation (Line(points={{21,-80},{50,-80},{50,-24},{58,-24}},
       color={0,0,127}));
@@ -210,7 +209,7 @@ implemented according to the ASHRAE Guideline G36, PART5.N.2
 <p>
 The supply air temperature control loop signal <code>uTSup</code>
 is computed using a PI controller that tracks the supply air temperature
-setpoint <code>TSupSet</code>.
+setpoint <code>TSetSup</code>.
 If the fan is off, then <code>uTSup = 0</code>.
 </p>
 <p>

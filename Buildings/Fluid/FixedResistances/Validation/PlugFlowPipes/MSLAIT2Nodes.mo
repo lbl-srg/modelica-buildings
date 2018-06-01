@@ -317,11 +317,11 @@ model MSLAIT2Nodes
     annotation (Placement(transformation(extent={{96,84},{76,104}})));
 equation
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
-      points={{-70,-116},{-56,-116},{-56,-106}},
+      points={{-70,-116},{-56,-116},{-56,-108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Point2.m_flow_in, m_flow_p2.y) annotation (Line(
-      points={{-88,162},{-88,182},{-104,182}},
+      points={{-88,164},{-88,182},{-104,182}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(T_p1.y, Point1.T_in) annotation (Line(
@@ -329,7 +329,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(DataReader.y[5], Point1.m_flow_in) annotation (Line(
-      points={{21,-148},{26,-148},{26,-130},{74,-130},{74,-102}},
+      points={{21,-148},{26,-148},{26,-130},{74,-130},{74,-104}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(DataReader.y[9], prescribedTemperature.T)
@@ -370,7 +370,7 @@ equation
     annotation (Line(points={{178,160},{96,160}},      color={0,0,127}));
   connect(switch.u1, m_flow_p4.y) annotation (Line(points={{96,176},{178,176}},
                                color={0,0,127}));
-  connect(Point4.m_flow_in, switch.y) annotation (Line(points={{30,160},{30,168},
+  connect(Point4.m_flow_in, switch.y) annotation (Line(points={{30,162},{30,168},
           {73,168}},          color={0,0,127}));
   connect(switch.u2, lessThreshold.y) annotation (Line(points={{96,168},{108,
           168},{108,134},{123,134}},
@@ -378,7 +378,7 @@ equation
   connect(lessThreshold.u, m_flow_p4.y) annotation (Line(points={{146,134},{152,
           134},{152,176},{178,176}},     color={0,0,127}));
   connect(Point5.m_flow_in,switch1. y)
-    annotation (Line(points={{58,94},{75,94}},         color={0,0,127}));
+    annotation (Line(points={{60,94},{75,94}},         color={0,0,127}));
   connect(lessThreshold.y, switch1.u2) annotation (Line(points={{123,134},{108,
           134},{108,94},{98,94}},
                               color={255,0,255}));

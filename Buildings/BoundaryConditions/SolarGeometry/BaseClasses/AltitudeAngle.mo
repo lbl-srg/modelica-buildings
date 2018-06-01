@@ -11,7 +11,7 @@ annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   alt = (Modelica.Constants.pi/2) - zen;
-  annotation (Icon(graphics={Bitmap(extent={{-92,92},{92,-92}}, fileName=
+  annotation (Icon(graphics={Bitmap(extent={{-90,-90},{90,90}}, fileName=
               "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/AltitudeAngle.png")}),
     defaultComponentName="altAng", Documentation(info="<html>
 <p>

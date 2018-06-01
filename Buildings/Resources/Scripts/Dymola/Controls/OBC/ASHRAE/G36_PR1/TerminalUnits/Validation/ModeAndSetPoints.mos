@@ -5,5 +5,3 @@ createPlot(id=2, position={410, 15, 390, 750}, subPlot=1, y={"setPoi.TCooSet[1]"
 createPlot(id=2, position={410, 15, 390, 750}, subPlot=2, y={"setPoi.yOpeMod"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
 createPlot(id=3, position={810, 15, 390, 750}, subPlot=1, y={"setPoi1.uOccSen[1]","setPoi1.uWinSta[1]"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
 createPlot(id=3, position={810, 15, 390, 750}, subPlot=2, y={"setPoi1.TCooSet[1]","setPoi1.THeaSet[1]"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
-
-

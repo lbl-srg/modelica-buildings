@@ -8,6 +8,8 @@ model ActuatorSignal
   parameter Modelica.SIunits.Time riseTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+  parameter Integer order(min=1) = 2 "Order of filter"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
@@ -34,7 +36,7 @@ protected
         iconTransformation(extent={{60,50},{80,70}})));
 
   Modelica.Blocks.Continuous.Filter filter(
-     order=2,
+     final order=order,
      f_cut=5/(2*Modelica.Constants.pi*riseTime),
      final init=init,
      final y_start=y_start,
@@ -97,6 +99,10 @@ Models that extend this model use the signal
 current position of the actuator.
 </p>
 <p>
+The filter order can be changed to modify the transient response
+of the actuator.
+</p>
+<p>
 See
 <a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
 Buildings.Fluid.Actuators.UsersGuide</a>
@@ -104,6 +110,12 @@ for a description of the filter.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 16, 2018, by Filip Jorissen:<br/>
+Propagated parameter <code>order</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/891\">#891</a>.
+</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>

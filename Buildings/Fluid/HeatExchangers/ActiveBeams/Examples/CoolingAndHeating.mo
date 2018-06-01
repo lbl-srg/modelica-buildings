@@ -132,9 +132,9 @@ equation
   connect(beaCooHea.heaPor, vol.heatPort) annotation (Line(points={{40,48},{40,
           48},{40,16},{40,-60},{50,-60}}, color={191,0,0}));
   connect(conCoo.y, pumCoo.m_flow_in) annotation (Line(points={{-49,30},{-40,30},
-          {-40,108},{-20,108}}, color={0,0,127}));
+          {-40,108},{-22,108}}, color={0,0,127}));
   connect(conHea.y, pumHea.m_flow_in) annotation (Line(points={{-49,-10},{-32,
-          -10},{-32,68},{-20,68}}, color={0,0,127}));
+          -10},{-32,68},{-22,68}}, color={0,0,127}));
   connect(pumCoo.ports[1], beaCooHea.watCoo_a) annotation (Line(points={{0,100},
           {12,100},{20,100},{20,66},{26,66}}, color={0,127,255}));
   connect(pumHea.ports[1], beaCooHea.watHea_a)

@@ -41,7 +41,7 @@ model WindowWithoutShade
         boundaryCondition={
             Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature,
             Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature}),
-      cfdFilNam="modelica://Buildings/Resources/Data/Rooms/FFD/WindowWithoutShade.ffd",
+      cfdFilNam="modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/WindowWithoutShade.ffd",
       uSha_fixed={0, 0}));
 
   parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 matLayExt

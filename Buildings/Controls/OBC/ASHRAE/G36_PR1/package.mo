@@ -45,13 +45,13 @@ is used.
 Hence, the PID controllers are in the standard form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-y = k &nbsp; ( e(t) + 1 &frasl; T<sub>i</sub> &nbsp; &int; e(s) ds + T<sub>d</sub> de(t)&frasl;dt ),
+y(t) = k &nbsp; ( e(t) + 1 &frasl; T<sub>i</sub> &nbsp; &int; e(s) ds + T<sub>d</sub> de(t)&frasl;dt ),
 </p>
 <p>
 where
-<i>y</i> is the control signal,
-<i>e(t) = u<sub>s</sub> - u<sub>m</sub></i> is the control error,
-with <i>u<sub>s</sub></i> being the set point and <i>u<sub>m</sub></i> being
+<i>y(t)</i> is the control signal,
+<i>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</i> is the control error,
+with <i>u<sub>s</sub>(t)</i> being the set point and <i>u<sub>m</sub>(t)</i> being
 the measured quantity,
 <i>k</i> is the gain,
 <i>T<sub>i</sub></i> is the time constant of the integral term and
