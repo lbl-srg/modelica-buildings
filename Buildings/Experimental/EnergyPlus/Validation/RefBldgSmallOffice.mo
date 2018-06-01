@@ -4,7 +4,7 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
   package Medium = Buildings.Media.Air "Medium model";
 
   parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/Rooms/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
+    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
     "Name of the IDF file";
   parameter String weaName = Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
@@ -66,7 +66,7 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
-    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Rooms/EnergyPlus/Validation/RefBldgSmallOffice.dat"),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOffice.dat"),
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     tableName="EnergyPlus",
     columns=2:8,
