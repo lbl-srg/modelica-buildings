@@ -1,7 +1,7 @@
 simulateModel("Buildings.Examples.VAVReheat.Guideline36", stopTime=172800, method="cvode", tolerance=1e-06, resultFile="Guideline36");
 createPlot(id = 3,
  position = {26, 33, 808, 649},
- y = {"flo.TAirSou", "flo.TAirEas", "flo.nor.air.vol.T", "flo.TAirWes", "flo.TAirCor"},
+ y = {"flo.TAirSou", "flo.TAirEas", "flo.TAirNor", "flo.TAirWes", "flo.TAirCor"},
  range = {0.0, 180000.0, 21.0, 17.0},
  autoscale = true,
  autoerase = true,

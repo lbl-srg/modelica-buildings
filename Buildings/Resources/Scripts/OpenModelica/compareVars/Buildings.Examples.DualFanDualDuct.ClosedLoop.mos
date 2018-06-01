@@ -8,7 +8,7 @@ compareVars :=
     "fanRet.dp",
     "flo.TAirSou",
     "flo.TAirEas",
-    "flo.nor.air.vol.T",
+    "flo.TAirNor",
     "flo.TAirWes",
     "flo.TAirCor",
     "cor.vavCol.m_flow",
