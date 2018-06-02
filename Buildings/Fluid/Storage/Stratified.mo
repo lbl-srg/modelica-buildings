@@ -1,7 +1,13 @@
 within Buildings.Fluid.Storage;
 model Stratified "Model of a stratified tank for thermal energy storage"
-  extends Buildings.Fluid.Storage.BaseClasses.PartialStratified;
+  extends Buildings.Fluid.Storage.BaseClasses.PartialStratified(
+  vol(each nPorts=3));
 
+  Modelica.Fluid.Interfaces.FluidPort_a fluPorVol[nSeg](
+    redeclare each final package Medium = Medium)
+    "Fluid port that connects to the control volumes of the tank"
+    annotation (Placement(transformation(extent={{-30,-10},{-10,10}}),
+        iconTransformation(extent={{-36,-10},{-16,10}})));
 equation
   connect(port_a, vol[1].ports[1]) annotation (Line(points={{-100,0},{-88,0},{
           -88,-20},{16,-20},{16,-16}}, color={0,127,255}));
@@ -11,8 +17,10 @@ equation
     connect(vol[i].ports[2], vol[i + 1].ports[1]) annotation (Line(points={{16,-16},
             {16,-32},{14,-32},{14,-16},{16,-16}}, color={0,127,255}));
   end for;
-
-
+  for i in 1:nSeg loop
+    connect(fluPorVol[i], vol[i].ports[3]) annotation (Line(points={{-20,0},{-20,-36},
+          {16,-36},{16,-16}}, color={0,127,255}));
+  end for;
   annotation (
 defaultComponentName="tan",
 Documentation(info="<html>

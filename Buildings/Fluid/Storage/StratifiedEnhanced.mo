@@ -2,8 +2,8 @@ within Buildings.Fluid.Storage;
 model StratifiedEnhanced "Stratified tank model with enhanced discretization"
   extends BaseClasses.PartialStratified(
     nSeg=4,
-    nPorts=3,
-    vol(each prescribedHeatFlowRate=true));
+    vol(each prescribedHeatFlowRate=true,
+        each nPorts=3));
 
 protected
   Sensors.EnthalpyFlowRate H_a_flow(
@@ -39,8 +39,8 @@ protected
     "Mass flow rate at port a" annotation (Placement(transformation(extent={{-94,-42},
             {-74,-22}})));
 equation
-  connect(H_a_flow.port_b, vol[1].ports[1]) annotation (Line(points={{-40,-80},{
-          -40,-80},{14,-80},{14,-16},{16,-16}}, color={0,127,255}));
+  connect(H_a_flow.port_b, vol[1].ports[1]) annotation (Line(points={{-40,-80},
+          {-40,-80},{14,-80},{14,-16},{16,-16}},color={0,127,255}));
   connect(vol[nSeg].ports[2], H_b_flow.port_a) annotation (Line(points={{16,-16},
           {14,-16},{14,-80},{50,-80}}, color={0,127,255}));
   connect(H_b_flow.port_b, port_b) annotation (Line(points={{70,-80},{80,-80},{80,
@@ -48,16 +48,15 @@ equation
   for i in 1:(nSeg-1) loop
     connect(vol[i].ports[2], H_vol_flow[i].port_a) annotation (Line(points={{16,
             -16},{16,-20},{-28,-20},{-28,-40},{-20,-40}}, color={0,127,255}));
-    connect(H_vol_flow[i].port_b, vol[i + 1].ports[1]) annotation (Line(points={
-            {0,-40},{4,-40},{4,-16},{16,-16}}, color={0,127,255}));
+    connect(H_vol_flow[i].port_b, vol[i + 1].ports[1]) annotation (Line(points={{0,-40},
+            {4,-40},{4,-16},{16,-16}},         color={0,127,255}));
   end for;
   connect(port_a, H_a_flow.port_a) annotation (Line(points={{-100,0},{
           -80,0},{-80,-80},{-60,-80}}, color={0,127,255}));
 
 
   connect(vol[1:nSeg].ports[3], str.fluidPort[2:nSeg+1])
-   annotation (Line(points={{16,-16},
-          {16,-20},{-72,-20},{-72,-40},{-60,-40}},
+   annotation (Line(points={{16,-16},{16,-18},{-66,-18},{-66,-40},{-60,-40}},
                  color={0,127,255}));
   connect(H_a_flow.H_flow, str.H_flow[1]) annotation (Line(points={{-50,-69},{-50,
           -62},{-68,-62},{-68,-48},{-62,-48}},
