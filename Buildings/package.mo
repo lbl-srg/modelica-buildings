@@ -248,6 +248,14 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">IBPSA, issue 882</a>.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Storage.Stratified
+       </td>
+       <td valign=\"top\">Refactored tank to allow modeling of tanks that have multiple inlets or outlets along the height.
+                          The tank now has for each control volume a fluid port that can be connected from outside the model.<br/>
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1182\">issue 1182</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Utilities.IO</b>
        </td>
    </tr>
