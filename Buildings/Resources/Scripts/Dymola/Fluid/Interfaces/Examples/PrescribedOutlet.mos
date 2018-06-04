@@ -11,8 +11,7 @@ createPlot(id=2, position={531, 9, 367, 249}, y={"steSta.Q_flow"}, range={0.0, 1
 createPlot(id=3, position={925, 12, 454, 1010}, y={"setHeaHigPow.y[2]", "heaHigPow.port_b.Xi_outflow[1]"}, range={0.0, 1200.0, 0.0, 0.03}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=3, position={925, 12, 454, 249}, y={"setCooLimPow.y[2]", "cooLimPow.port_b.Xi_outflow[1]"}, range={0.0, 1200.0, 0.0, 0.02}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
 createPlot(id=3, position={925, 12, 454, 248}, y={"setHeaCooUnl.y[2]", "heaCooUnl.port_b.Xi_outflow[1]"}, range={0.0, 1200.0, 0.0, 0.02}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
-createPlot(id=3, position={925, 12, 454, 249}, y={"setHeaCooUnl.y[2]", "steSta.port_b.Xi_outflow[1]", "heaCooUnl.X_wSet",
-"heaCooUnl.sta_b.X[1]"}, range={0.0, 1200.0, 0.0, 0.02}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=3, position={925, 12, 454, 249}, y={"setHeaCooUnl.y[2]", "steSta.port_b.Xi_outflow[1]", "heaCooUnl.X_wSet","heaCooUnl.sta_b.X[1]"}, range={0.0, 1200.0, 0.0, 0.02}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
 createPlot(id=4, position={1402, 11, 508, 996}, y={"heaHigPow.mWat_flow"}, range={0.0, 1200.0, -0.001, 0.002}, grid=true, colors={{28,108,200}});
 createPlot(id=4, position={1402, 11, 508, 246}, y={"cooLimPow.mWat_flow"}, range={0.0, 1200.0, -0.001, 0.001}, grid=true, subPlot=2, colors={{28,108,200}});
 createPlot(id=4, position={1402, 11, 508, 245}, y={"heaCooUnl.mWat_flow"}, range={0.0, 1200.0, -0.001, 0.0005}, grid=true, subPlot=3, colors={{28,108,200}});
