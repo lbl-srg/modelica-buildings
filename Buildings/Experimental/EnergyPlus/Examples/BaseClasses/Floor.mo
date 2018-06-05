@@ -23,6 +23,12 @@ model Floor "Model of a floor of the building"
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
     "Name of the weather file";
 
+  final parameter Modelica.SIunits.Area AFloCor=cor.AFlo "Floor area corridor";
+  final parameter Modelica.SIunits.Area AFloSou=sou.AFlo "Floor area south";
+  final parameter Modelica.SIunits.Area AFloNor=nor.AFlo "Floor area north";
+  final parameter Modelica.SIunits.Area AFloEas=eas.AFlo "Floor area east";
+  final parameter Modelica.SIunits.Area AFloWes=wes.AFlo "Floor area west";
+
   ThermalZone sou(
     redeclare package Medium = Medium,
     nPorts=5,
@@ -63,6 +69,19 @@ model Floor "Model of a floor of the building"
     weaName=weaName,
     zoneName="Core_ZN")             "Core zone"
     annotation (Placement(transformation(extent={{144,36},{184,76}})));
+
+
+  Modelica.SIunits.Temperature TAirCor = cor.TAir
+    "Air temperature corridor";
+  Modelica.SIunits.Temperature TAirSou = sou.TAir
+    "Air temperature south zone";
+  Modelica.SIunits.Temperature TAirNor = nor.TAir
+    "Air temperature north zone";
+  Modelica.SIunits.Temperature TAirEas = eas.TAir
+    "Air temperature east zone";
+  Modelica.SIunits.Temperature TAirWes = wes.TAir
+    "Air temperature west zone";
+
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsSou[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{70,-42},{110,-26}})));
