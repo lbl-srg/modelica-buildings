@@ -72,11 +72,6 @@ model StratifiedUnloadAtMinimumTemperature
   Controls.OBC.CDL.Logical.OnOffController onOffBot(bandwidth=0.1)
     "Controller for valve at bottom"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal yBot
-    "Boolean to real for valve at bottom"
-    annotation (Placement(tIcon(coordinateSystem(preserveAspectRatio=false, extent={{-300,-140},
-            {260,140}})),
-            transformation(extent={{80,30},{100,50}})));
   Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -89,10 +84,10 @@ model StratifiedUnloadAtMinimumTemperature
     "And block to compute control action for middle valve"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
   Controls.OBC.CDL.Conversions.BooleanToReal yMid
-    "Boolean to real for valve at middle"
+    "Boolean to real conversion for valve at middle"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Controls.OBC.CDL.Conversions.BooleanToReal yTop
-    "Boolean to real for valve at top"
+    "Boolean to real conversion for valve at top"
     annotation (Placement(transformation(extent={{80,110},{100,130}})));
   Controls.OBC.CDL.Logical.Nor nor "Nor block for top-most control valve"
     annotation (Placement(transformation(extent={{50,110},{70,130}})));
@@ -111,6 +106,9 @@ model StratifiedUnloadAtMinimumTemperature
   Controls.OBC.CDL.Conversions.BooleanToReal yHea(realTrue=150000)
     "Boolean to real for valve at bottom"
     annotation (Placement(transformation(extent={{-180,-134},{-160,-114}})));
+  Controls.OBC.CDL.Conversions.BooleanToReal yBot
+    "Boolean to real conversion for valve at bottom"
+    annotation (Placement(transformation(extent={{80,30},{100,50}})));
 equation
   connect(masSou.ports[1], tan.port_b) annotation (Line(points={{222,-120},{-100,
           -120}},             color={0,127,255}));
@@ -120,8 +118,6 @@ equation
   connect(TBot.port, tan.heaPorVol[5])
     annotation (Line(points={{-102,46},{-110,46},{-110,-120}},
                                                            color={191,0,0}));
-  connect(onOffBot.y, yBot.u)
-    annotation (Line(points={{-29,40},{78,40}},   color={255,0,255}));
   connect(valTop.port_b, senTem.port_a) annotation (Line(points={{132,-20},{182,
           -20},{182,-60},{190,-60}},
                                    color={0,127,255}));
@@ -157,8 +153,6 @@ equation
                                color={0,0,127}));
   connect(yMid.y, valMed.y) annotation (Line(points={{101,80},{142,80},{142,-48}},
                               color={0,0,127}));
-  connect(yBot.y, valBot.y) annotation (Line(points={{101,40},{160,40},{160,-88}},
-                              color={0,0,127}));
   connect(TBot.T, onOffBot.reference)
     annotation (Line(points={{-82,46},{-52,46}},   color={0,0,127}));
   connect(onOffBot.u, TSetLoa.y) annotation (Line(points={{-52,34},{-64,34},{-64,
@@ -183,6 +177,10 @@ equation
     annotation (Line(points={{-150,-124},{-159,-124}}, color={0,0,127}));
   connect(TSetHea.y, onOffHea.reference)
     annotation (Line(points={{-239,-118},{-212,-118}}, color={0,0,127}));
+  connect(onOffBot.y, yBot.u)
+    annotation (Line(points={{-29,40},{78,40}}, color={255,0,255}));
+  connect(yBot.y, valBot.y)
+    annotation (Line(points={{101,40},{160,40},{160,-88}}, color={0,0,127}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-300,-140},{260,140}})),
        __Dymola_Commands(file=
@@ -214,5 +212,4 @@ issue 1182</a>.
 </li>
 </ul>
 </html>"));
-
 end StratifiedUnloadAtMinimumTemperature;
