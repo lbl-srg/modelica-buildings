@@ -33,13 +33,13 @@ protected
     final amplitude=10,
     final freqHz=1/(2*1800),
     final offset=TThr - 10/2)
-    "Temperature oscilates from below to above to below the deployment treshold "
+    "Temperature that crosses the enable treshold from below and from above"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   CDL.Continuous.Sources.Sine irr2(
     final amplitude=100,
     final freqHz=1/(2*1800),
     final offset=irrThr - (100/2))
-    "Solar irradiance oscilates from below to above to below the deployment treshold "
+    "Solar irradiance that crosses the enable treshold from below and from above"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   CDL.Logical.Sources.Pulse sch(final period=600) "Enable schedule"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
