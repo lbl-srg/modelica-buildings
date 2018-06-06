@@ -4,10 +4,10 @@ block ShadingEnable "Generic shading device enable/disable seqence"
   parameter Boolean use_solIrr = false
     "Set to true if enabling based on solar irradiance, otherwise enabling based on temeprature"
     annotation(Dialog(group = "Conditional"));
-  parameter Modelica.SIunits.Temperature TThr = 298.15 if not use_solIrr
+  parameter Modelica.SIunits.Temperature TThr = 298.15
     "Temperature threshold (either zone or outdoor air)"
     annotation(Evaluate=true, Dialog(group="Hysteresis", enable = not use_solIrr));
-  parameter Modelica.SIunits.Irradiance irrThr = 1000 if use_solIrr
+  parameter Modelica.SIunits.Irradiance irrThr = 1000
     "Solar irradiance threshold"
     annotation(Evaluate=true, Dialog(group="Hysteresis", enable = use_solIrr));
 
@@ -29,19 +29,19 @@ block ShadingEnable "Generic shading device enable/disable seqence"
      iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.TemperatureDifference TDiff = 1 if not use_solIrr
+  parameter Modelica.SIunits.TemperatureDifference TDiff = 1
     "Temperature difference for the hysteresis";
-  parameter Modelica.SIunits.Irradiance irrDiff = 10 if use_solIrr
+  parameter Modelica.SIunits.Irradiance irrDiff = 10
     "Irradiance difference for the hysteresis";
 
-  parameter Real THighThr = TThr if not use_solIrr
+  parameter Real THighThr = TThr
     "Upper limit for the temperature hysteresis";
-  parameter Real TLowThr = (THighThr - TDiff) if not use_solIrr
+  parameter Real TLowThr = (THighThr - TDiff)
     "Lower limit for the temperature hysteresis";
 
-  parameter Real irrHighThr = irrThr if use_solIrr
+  parameter Real irrHighThr = irrThr
     "Upper limit for the irradiance hysteresis";
-  parameter Real irrLowThr = (irrHighThr - irrDiff) if use_solIrr
+  parameter Real irrLowThr = (irrHighThr - irrDiff)
     "Lower limit for the irradiance hysteresis";
 
   CDL.Continuous.Hysteresis hysTem(
