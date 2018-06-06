@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.Facade.Validation;
-model ShadingEnable_Schedule_T_Irr
+model ShadingEnable_Schedule_T_irr
   "Validation model for deployment of facade control devices such as shades, blinds, glazing, screens"
 
   // tests response to an uEnable input
@@ -66,7 +66,7 @@ equation
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
     __Dymola_Commands(file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Facade/Validation/ShadingEnable_Schedule_T_Irr.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Facade/Validation/ShadingEnable_Schedule_T_irr.mos"
         "Simulate and plot"),
     Icon(graphics={Ellipse(
           lineColor={75,138,73},
@@ -107,4 +107,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ShadingEnable_Schedule_T_Irr;
+end ShadingEnable_Schedule_T_irr;

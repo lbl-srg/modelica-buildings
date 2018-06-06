@@ -1,0 +1,10 @@
+simulateModel("Buildings.Controls.OBC.Facade.Validation.ShadingEnable_Schedule_T_irr", method="dassl", stopTime=1800, tolerance=1e-06, resultFile="ShadingEnable_Schedule_T_irr");
+
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, axes = {1,1,2}, y={"shaEna.TThr", "shaEna.T", "shaEna.uEnable"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}, {50,205,50}, {0,0,127}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, bottomTitle = "Validation of enable schedule", axes = {2}, y={"shaEna.yShaEna"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,127}});
+
+createPlot(id=2, position={30, 20, 1200, 650}, subPlot=1, axes = {1,1,2},  y={"shaEna1.TThr", "shaEna1.T", "shaEna1.uEnable"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}, {50,205,50}, {0,0,127}});
+createPlot(id=2, position={30, 20, 1200, 650}, subPlot=2, bottomTitle = "Validation of temperature hysteresis", axes = {2}, y={"shaEna1.yShaEna"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,127}});
+
+createPlot(id=3, position={40, 30, 1200, 650}, subPlot=1, axes = {1,1,2},  y={"shaEna2.irrThr", "shaEna2.irr", "shaEna2.uEnable"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}, {50,205,50}, {0,0,127}});
+createPlot(id=3, position={40, 30, 1200, 650}, subPlot=2, bottomTitle = "Validation of solar irradiance hysteresis", axes = {2}, y={"shaEna2.yShaEna"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,127}});

@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "shaEna.TThr",
+    "shaEna.T",
+    "shaEna.uEnable",
+    "shaEna.yShaEna",
+    "shaEna1.TThr",
+    "shaEna1.T",
+    "shaEna1.uEnable",
+    "shaEna1.yShaEna",
+    "shaEna2.irrThr",
+    "shaEna2.irr",
+    "shaEna2.uEnable",
+    "shaEna2.yShaEna"
+  };
