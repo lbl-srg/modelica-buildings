@@ -2,12 +2,17 @@ within Buildings.Controls.OBC.Facade.Validation;
 model ShadingEnable_Schedule_T_Irr
   "Validation model for deployment of facade control devices such as shades, blinds, glazing, screens"
 
+  // tests response to an uEnable input
   ShadingEnable shaEna(
     final use_solIrr=false)
     "Shading device controller"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+
+  // tests response to a solar irradiance input
   ShadingEnable shaEna1 "Shading device controller"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
+
+  // tests response to a temperature input
   ShadingEnable shaEna2(
     use_solIrr=true)
     "Shading device controller"
@@ -15,7 +20,7 @@ model ShadingEnable_Schedule_T_Irr
 
 protected
   parameter Modelica.SIunits.Temperature TThr(
-    displayUnit="degC") = 300
+    final displayUnit="degC") = 300
     "Temperature that enables shading device deployment";
   parameter Modelica.SIunits.Irradiance irrThr = 1000
     "Solar irradiance that enables shading device deployment";
