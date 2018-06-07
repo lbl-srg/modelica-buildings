@@ -26,7 +26,7 @@ Modelica Standard Library.
           lineColor={200,200,200},
           fillColor={248,248,248},
           fillPattern=FillPattern.HorizontalCylinder,
-          extent={{-100,-102},{100,98}},
+          extent={{-100.0,-100.0},{100.0,100.0}},
           radius=25.0),
       Polygon(
         origin={-9.2597,25.6673},

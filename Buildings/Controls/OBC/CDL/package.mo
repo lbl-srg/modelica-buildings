@@ -20,7 +20,7 @@ revisions="<html>
 <ul>
 <li>
 December 22, 2016, by Michael Wetter:<br/>
-First implementation, based on the blocks from the Modelica Standard Library.
+Firt implementation, based on the blocks from the Modelica Standard Library.
 </li>
 </ul>
 </html>"), Icon(graphics={
