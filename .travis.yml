@@ -1,4 +1,5 @@
-group: deprecated-2017Q2
+dist: trusty
+sudo: false
 
 language: python
 python:
@@ -55,14 +56,16 @@ env:
   - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.Utilities\""
 
 before_install:
-  - sudo cp Buildings/Resources/Scripts/travis/usr/local/bin/dymola /usr/local/bin/
-  - sudo cp Buildings/Resources/Scripts/travis/usr/local/bin/jm_ipython.sh /usr/local/bin/
-  - sudo chmod +x /usr/local/bin/dymola
-  - sudo chmod +x /usr/local/bin/jm_ipython.sh
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  - if [[ "$TEST_ARG" == *test-dymola* ]];    then docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2018fd01-x86_64; fi;
-  - if [[ "$TEST_ARG" == *test-jmodelica* ]]; then docker pull "$DOCKER_USERNAME"/ubuntu-1604_jmodelica_trunk;               fi;
-
+  - if [[ "$TEST_ARG" == *test-dymola* ]]; then
+       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" && docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2018fd01-x86_64;
+       chmod +x Buildings/Resources/Scripts/travis/bin/dymola;
+       cp Buildings/Resources/Scripts/travis/bin/dymola $HOME/bin/;
+    fi;
+  - if [[ "$TEST_ARG" == *test-jmodelica* ]]; then
+       docker pull "$DOCKER_USERNAME"/ubuntu-1604_jmodelica_trunk;
+       chmod +x Buildings/Resources/Scripts/travis/bin/jm_ipython.sh;
+       cp Buildings/Resources/Scripts/travis/bin/jm_ipython.sh $HOME/bin/;
+    fi;
 
 # Install dependencies
 # For sphinx, we need to install specific package versions, otherwise
