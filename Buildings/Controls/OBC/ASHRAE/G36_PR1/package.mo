@@ -97,11 +97,11 @@ systems</i>. First Public Review Draft (June 2016)</a>
 </p>
 </html>"), Icon(graphics={
         Rectangle(
-          lineColor={200,200,200},
-          fillColor={248,248,248},
-          fillPattern=FillPattern.HorizontalCylinder,
-          extent={{-100.0,-100.0},{100.0,100.0}},
-          radius=25.0),
+        lineColor={200,200,200},
+        fillColor={248,248,248},
+        fillPattern=FillPattern.HorizontalCylinder,
+        extent={{-100.0,-100.0},{100.0,100.0}},
+        radius=25.0),
         Rectangle(
           lineColor={128,128,128},
           extent={{-100.0,-100.0},{100.0,100.0}},

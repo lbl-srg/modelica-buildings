@@ -1,21 +1,16 @@
-within Buildings.Controls.OBC.Facade.Validation;
-model ShadingEnable_Schedule_T_irr
-  "Validation model for deployment of facade control devices such as shades, blinds, glazing, screens"
+within Buildings.Controls.OBC.Shade.Validation;
+model Shade_T "Validation model for shading control based on temperature"
 
   // tests response to an uEnable input
-  ShadingEnable shaEna(
-    final use_solIrr=false)
-    "Shading device controller"
+  .Buildings.Controls.OBC.Shade.Shade_H shaEna(final use_solIrr=false) "Shading device controller"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
   // tests response to a solar irradiance input
-  ShadingEnable shaEna1 "Shading device controller"
+  .Buildings.Controls.OBC.Shade.Shade_H shaEna1 "Shading device controller"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 
   // tests response to a temperature input
-  ShadingEnable shaEna2(
-    use_solIrr=true)
-    "Shading device controller"
+  .Buildings.Controls.OBC.Shade.Shade_H shaEna2(use_solIrr=true) "Shading device controller"
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
 
 protected
@@ -66,7 +61,7 @@ equation
   annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
     __Dymola_Commands(file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Facade/Validation/ShadingEnable_Schedule_T_irr.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Shade/Validation/ShadingEnable_Schedule_T_irr.mos"
         "Simulate and plot"),
     Icon(graphics={Ellipse(
           lineColor={75,138,73},
@@ -94,9 +89,9 @@ equation
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.Facade.ShadingEnable\">
-Buildings.Controls.OBC.Facade.ShadingEnable</a>
-for control signals which enable the deployment of facade control devices such as 
+<a href=\"modelica://Buildings.Controls.OBC.Shade.ShadingEnable\">
+Buildings.Controls.OBC.Shade.ShadingEnable</a>
+for control signals which enable the deployment of shading control devices such as 
 shades, blinds, glazing, or screens.
 </p>
 </html>", revisions="<html>
@@ -107,4 +102,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ShadingEnable_Schedule_T_irr;
+end Shade_T;

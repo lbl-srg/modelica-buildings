@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.Facade;
+within Buildings.Controls.OBC.Shade;
 package Validation "Collection of validation models"
 
 annotation (preferredView="info", Documentation(info="<html>
