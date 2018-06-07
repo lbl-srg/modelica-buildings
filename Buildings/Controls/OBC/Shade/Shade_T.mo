@@ -6,13 +6,13 @@ block Shade_T "Shading device enable/disable based on a temeprature setpoint"
     annotation(Evaluate=true);
 
   parameter Modelica.SIunits.TemperatureDifference TDiff = 1
-    "Temperature difference for the hysteresis";
-    annotation(Evaluate=true, Dialog(group="Advanced"));
+    "Temperature difference for the hysteresis"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
 
-  CDL.Interfaces.RealInput T
+  CDL.Interfaces.RealInput T(final unit = "K")
     "Zone or oudoor air temperature"
     annotation (Placement(transformation(extent={{-120,-20},{-80,20}}),
-    iconTransformation(extent={{-140,40},{-100,80}})));
+    iconTransformation(extent={{-140,-20},{-100,20}})));
 
   CDL.Interfaces.RealOutput yShaEna(
     final min = 0,
@@ -22,9 +22,9 @@ block Shade_T "Shading device enable/disable based on a temeprature setpoint"
     iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Real THigSet = TSet
+  parameter Modelica.SIunits.Temperature THigSet = TSet
     "Upper limit for the temperature hysteresis";
-  parameter Real TLowSet = (THigSet - TDiff)
+  parameter Modelica.SIunits.Temperature TLowSet = (THigSet - TDiff)
     "Lower limit for the temperature hysteresis";
 
   CDL.Continuous.Hysteresis THys(
@@ -56,27 +56,22 @@ equation
         initialScale=0.05)),
 Documentation(info="<html>
 <p>
-This block is a generic shading device enable/disable seqence. It can be used to enable or disable
-window shading devices such such as shades, blinds, glazing, or screens. The control sequence 
-takes two inputs, a schedule (<code>uEnable</code>) and either a temperature (<code>T</code>)
-or a solar irradiance ((<code>irr</code>) input, based on the value of the 
-<code>use_solIrr</code> parameter.
-</p>
-<p>
-If the schedule allows the deployment of the shading device, the device is fully enabled as soon 
-as the temperature or, if <code>use_solIrr = true</code>, solar irradiance is above a threshold.
-Illustrated using a state machine chart:
+This block enables a shading device based on a temperature setpoint (<code>TSet</code>). 
+It can be used to enable or disable window shading devices such such as shades, blinds, glazing, 
+or screens. The control sequence 
+takes a temperature (<code>T</code>) input and outputs the shade status
+<code>yShaEna</code> based on the setpoint.
 </p>
 <p align=\"center\">
 <img alt=\"Control diagram\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/Shade/ShadingEnableStateMachineChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/Shade/Shade_TStateMachineChart.png\"/>
 </p>
 <p>
-Control chart:
+Control diagram:
 </p>
 <p align=\"center\">
 <img alt=\"Control diagram\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/Shade/ShadingEnableControlDiagram.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/Shade/Shade_TControlDiagram.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

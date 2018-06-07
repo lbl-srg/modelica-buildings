@@ -1,7 +1,20 @@
 within Buildings.Controls.OBC;
 package Shade "Shading control sequences"
 
-annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
+  annotation (
+    Documentation(info="<html>
+        <p>
+        This package contains shade control sequences.
+        </p>
+        </html>",revisions="<html>
+        <ul>
+        <li>
+        June 07, 2018, by Milica Grahovac:<br/>
+        First implementation.
+        </li>
+        </ul>
+        </html>"),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},
@@ -34,6 +47,6 @@ annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           lineColor={128,128,128},
           extent={{-100.0,-100.0},{100.0,100.0}},
-          radius=25.0)}),                          Diagram(coordinateSystem(extent={{-100,-100},{
+          radius=25.0)}), Diagram(coordinateSystem(extent={{-100,-100},{
           100,100}})));
 end Shade;

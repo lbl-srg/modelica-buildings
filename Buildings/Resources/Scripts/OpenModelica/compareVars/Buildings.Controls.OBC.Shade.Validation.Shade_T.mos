@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "shaT.TSet",
+    "shaT.T",
+    "shaT.yShaEna"
+  };
