@@ -10,8 +10,8 @@ model Stratified "Test model for stratified tank"
     dIns=0.3,
     nSeg=10,
     m_flow_nominal=0.1,
-    VTan=3) "Tank"             annotation (Placement(transformation(extent={{-20,0},{0,
-            20}})));
+    VTan=3) "Tank"
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
     Modelica.Blocks.Sources.TimeTable TWat(table=[0,273.15 + 40; 3600,273.15 +
         40; 3600,273.15 + 20; 7200,273.15 + 20]) "Water temperature"
                  annotation (Placement(transformation(extent={{-100,2},{-80,22}})));
@@ -41,8 +41,8 @@ model Stratified "Test model for stratified tank"
     dIns=0.3,
     nSeg=10,
     m_flow_nominal=0.1,
-    VTan=3) "Tank"             annotation (Placement(transformation(extent={{-18,-38},
-            {2,-18}})));
+    VTan=3) "Tank"
+    annotation (Placement(transformation(extent={{-18,-38},{2,-18}})));
   Buildings.Fluid.FixedResistances.PressureDrop res_2(
     from_dp=true,
     redeclare package Medium = Medium,
@@ -151,5 +151,14 @@ This test model compares two tank models. The only difference between
 the two tank models is that one uses the third order upwind discretization
 scheme that reduces numerical diffusion that is induced when connecting
 volumes in series.
+</html>", revisions="<html>
+<ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
+</ul>
 </html>"));
 end Stratified;

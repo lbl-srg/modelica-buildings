@@ -62,7 +62,7 @@ model PartialStratified
     annotation (Placement(transformation(extent={{14,-80},{26,-68}})));
 
   // Models
-  MixingVolumes.MixingVolume[nSeg] vol(
+  Buildings.Fluid.MixingVolumes.MixingVolume[nSeg] vol(
     redeclare each package Medium = Medium,
     each energyDynamics=energyDynamics,
     each massDynamics=massDynamics,
@@ -71,11 +71,11 @@ model PartialStratified
     each X_start=X_start,
     each C_start=C_start,
     each V=VTan/nSeg,
-    each m_flow_nominal = m_flow_nominal,
+    each m_flow_nominal=m_flow_nominal,
     each final mSenFac=1,
     each final m_flow_small=m_flow_small,
     each final allowFlowReversal=allowFlowReversal) "Tank segment"
-      annotation (Placement(transformation(extent={{6,-16},{26,4}})));
+    annotation (Placement(transformation(extent={{6,-16},{26,4}})));
 protected
   parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
     T=Medium.T_default,
@@ -204,6 +204,12 @@ Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
 <li>
 June 1, 2018, by Michael Wetter:<br/>
 Refactored model to allow a fluid port in the tank that do not have
