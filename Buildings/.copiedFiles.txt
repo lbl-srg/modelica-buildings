@@ -1438,8 +1438,8 @@ Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonths.
 Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsMinus.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsPlus.mos
 Buildings/Resources/Scripts/JModelica/buildingspy_to_csv.py
-Buildings/Resources/Scripts/travis/usr/local/bin/dymola
-Buildings/Resources/Scripts/travis/usr/local/bin/jm_ipython.sh
+Buildings/Resources/Scripts/travis/bin/dymola
+Buildings/Resources/Scripts/travis/bin/jm_ipython.sh
 Buildings/Resources/bin/ConvertWeatherData.jar
 Buildings/Resources/src/convertEPW/Makefile
 Buildings/Resources/src/convertEPW/doc/ConvertWeatherData.html
