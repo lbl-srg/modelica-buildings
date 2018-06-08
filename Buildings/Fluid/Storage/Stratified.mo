@@ -1,7 +1,6 @@
 within Buildings.Fluid.Storage;
 model Stratified "Model of a stratified tank for thermal energy storage"
-  extends Buildings.Fluid.Storage.BaseClasses.PartialStratified(
-  vol(each nPorts=3));
+  extends Buildings.Fluid.Storage.BaseClasses.PartialStratified(vol(each nPorts=3));
 
   Modelica.Fluid.Interfaces.FluidPort_a fluPorVol[nSeg](
     redeclare each final package Medium = Medium)
@@ -40,6 +39,12 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
 <li>
 June 1, 2018, by Michael Wetter:<br/>
 Refactored model to allow a fluid port in the tank that do not have

@@ -3,12 +3,13 @@ model HeatExchangerDynamics
   "Test model for stratified tank with steady-state and dynamic heat exchanger balance"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.Water "Medium model";
- constant Integer nSeg = 7 "Number of segments in tank";
+  package Medium = Buildings.Media.Water "Medium model";
 
- parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal = 2000
+  constant Integer nSeg = 7 "Number of segments in tank";
+
+  parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal = 2000
     "Design heat flow rate of heat exchanger";
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal= QHex_flow_nominal/4200/4;
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal= QHex_flow_nominal/4200/4;
 
   Buildings.Fluid.Sources.Boundary_pT watInTan(
     redeclare package Medium = Medium,
@@ -17,7 +18,7 @@ model HeatExchangerDynamics
     T=273.15 + 30,
     p(displayUnit="Pa")) "Boundary condition for water in the tank"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Sources.MassFlowSource_T mHex_flow1(
+  Buildings.Fluid.Sources.MassFlowSource_T mHex_flow1(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     T=273.15 + 60,
@@ -64,36 +65,38 @@ model HeatExchangerDynamics
     nPorts=2) "Sink boundary condition"
     annotation (Placement(transformation(extent={{-62,-48},{-42,-28}})));
 
-  Sources.MassFlowSource_T mHex_flow2(
+  Buildings.Fluid.Sources.MassFlowSource_T mHex_flow2(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     T=273.15 + 60,
     nPorts=1) "Mass flow rate through the heat exchanger"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Sensors.TemperatureTwoPort senTanDyn(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTanDyn(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=m_flow_nominal,
     tau=0) "Temperature sensor at tank outlet"
     annotation (Placement(transformation(extent={{10,0},{-10,20}})));
-  Sensors.TemperatureTwoPort senTanSte(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTanSte(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=m_flow_nominal,
     tau=0) "Temperature sensor at tank outlet"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
-  Sources.MassFlowSource_T mWatTanDyn_flow(redeclare package Medium = Medium,
-      nPorts=1) "Mass flow rate through the tank"
+  Buildings.Fluid.Sources.MassFlowSource_T mWatTanDyn_flow(
+    redeclare package Medium = Medium,
+    nPorts=1) "Mass flow rate through the tank"
     annotation (Placement(transformation(extent={{88,20},{68,40}})));
-  Sources.MassFlowSource_T mWatTanSte_flow(redeclare package Medium = Medium,
-      nPorts=1) "Mass flow rate through the tank"
+  Buildings.Fluid.Sources.MassFlowSource_T mWatTanSte_flow(
+    redeclare package Medium = Medium,
+    nPorts=1) "Mass flow rate through the tank"
     annotation (Placement(transformation(extent={{88,-20},{68,0}})));
 equation
   connect(mHex_flow_in.y, mHex_flow1.m_flow_in) annotation (Line(
-      points={{-79,20},{-70,20},{-70,28},{-60,28}},
+      points={{-79,20},{-70,20},{-70,28},{-62,28}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(mHex_flow2.m_flow_in, mHex_flow_in.y) annotation (Line(points={{-60,-2},
+  connect(mHex_flow2.m_flow_in, mHex_flow_in.y) annotation (Line(points={{-62,-2},
           {-70,-2},{-70,20},{-79,20}}, color={0,0,127}));
   connect(mHex_flow2.ports[1], tanSte.portHex_a) annotation (Line(points={{-40,-10},
           {-32,-10},{-30,-10},{-30,-13.8},{32,-13.8}},  color={0,127,255}));
@@ -129,6 +132,12 @@ the design flow rate and back to zero to test the model under conditions in
 which no water flows through the heat exchanger.
 </html>", revisions="<html>
 <ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
 <li>
 July 5, 2017, by Michael Wetter:<br/>
 Added zero mass flow rate boundary conditions to avoid a translation error in Dymola 2018.<br/>
