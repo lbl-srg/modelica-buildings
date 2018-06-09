@@ -37,15 +37,16 @@ sha_dir=`dirname ${cur_dir}`
 arg_lis=`echo $@ | sed -e "s|${cur_dir}|.|g"`
 
 docker run \
-	--detach=false \
-    ${MOD_MOUNT} \
-    -v ${sha_dir}:/mnt/shared \
-	-e DISPLAY=${DISPLAY} \
-	-v /tmp/.X11-unix:/tmp/.X11-unix \
-	--rm \
-	${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
-	"export USER=test && \
-     export MODELICAPATH=${DOCKER_MODELICAPATH}:/usr/local/JModelica/ThirdParty/MSL && \
-     cd /mnt/shared/${bas_nam} && \
-     /usr/local/JModelica/bin/jm_ipython.sh ${arg_lis}"
+  --user=${UID} \
+  --detach=false \
+  ${MOD_MOUNT} \
+  -v ${sha_dir}:/mnt/shared \
+  -e DISPLAY=${DISPLAY} \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  --rm \
+  ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
+  "export USER=test && \
+  export MODELICAPATH=${DOCKER_MODELICAPATH}:/usr/local/JModelica/ThirdParty/MSL && \
+  cd /mnt/shared/${bas_nam} && \
+  /usr/local/JModelica/bin/jm_ipython.sh ${arg_lis}"
 exit $?

@@ -191,6 +191,19 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Airflow.Multizone.DoorDiscretizedOpen<br/>
+                          Buildings.Airflow.Multizone.DoorDiscretizedOperable
+       </td>
+       <td valign=\"top\">Removed term that assures non-zero flow rate in each path,
+                          reformulated flow balance to ensure that model is symmetric,
+                          and improved implementation to reduce number of calculations.<br/>
+                          This is
+                          for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/937\">IBPSA, issue 937</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
        </td>
    </tr>

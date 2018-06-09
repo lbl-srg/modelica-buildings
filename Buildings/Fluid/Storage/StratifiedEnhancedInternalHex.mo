@@ -253,6 +253,12 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 revisions="<html>
 <ul>
 <li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
+<li>
 June 23, 2016, by Michael Wetter:<br/>
 Corrected computation of the heat exchanger location which was wrong
 if <code>hHex_a &lt; hHex_b</code>, e.g., the port a of the heat exchanger
