@@ -1,6 +1,7 @@
 compareVars :=
   {
-    "shaT.TSet",
+    "shaT.THigh",
+    "shaT.TLow",
     "shaT.T",
-    "shaT.yShaEna"
+    "shaT.y"
   };

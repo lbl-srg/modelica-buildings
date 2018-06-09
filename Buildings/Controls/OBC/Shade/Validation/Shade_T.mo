@@ -1,21 +1,17 @@
 within Buildings.Controls.OBC.Shade.Validation;
-model Shade_T "Validation model for shading control based on temperature"
-  import Buildings;
+model Shade_T "Validation model for shade control based on temperature"
 
-  // tests response to a solar irradiance input
-  Buildings.Controls.OBC.Shade.Shade_T shaT "Shade enable/disable controller"
+  Buildings.Controls.OBC.Shade.Shade_T shaT(
+    THigh=298.15,
+    TLow=295.15)
+    "Shade controller"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-
-protected
-  parameter Modelica.SIunits.Temperature TSet(
-    final displayUnit="degC") = 300
-    "Temperature that enables shading device deployment";
 
   CDL.Continuous.Sources.Sine T(
     final amplitude=10,
     final freqHz=1/(2*1800),
-    final offset=TSet - 10/2)
-    "Temperature that crosses the enable treshold from below and from above"
+    final offset=293.15)
+    "Measured temperature"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 equation
@@ -35,7 +31,7 @@ equation
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-40},{80,40}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 This example validates
@@ -45,6 +41,10 @@ for a temperature input signal.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 8, 2018, by Michael Wetter:<br/>
+Refactored model for new implemenation.
+</li>
 <li>
 June 05, 2018, by Milica Grahovac:<br/>
 First implementation.

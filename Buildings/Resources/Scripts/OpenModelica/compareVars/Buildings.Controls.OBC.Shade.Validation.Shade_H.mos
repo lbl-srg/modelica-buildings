@@ -1,6 +1,7 @@
 compareVars :=
   {
-    "shaH.HSet",
     "shaH.H",
-    "shaH.yShaEna"
+    "shaH.HHigh",
+    "shaH.HLow",
+    "shaH.y"
   };

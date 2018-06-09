@@ -1,20 +1,17 @@
 within Buildings.Controls.OBC.Shade.Validation;
 model Shade_H "Validation model for shading control based on solar irradiance"
-  import Buildings;
 
-  // tests response to a solar irradiance input
-  Buildings.Controls.OBC.Shade.Shade_H shaH "Shade enable/disable controller"
+  Buildings.Controls.OBC.Shade.Shade_H shaH(
+    HHigh=500,
+    HLow=400)
+    "Shade controller"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-protected
-  parameter Modelica.SIunits.Irradiance HSet = 1000
-    "Solar irradiance that enables shading device deployment";
-
   CDL.Continuous.Sources.Sine H(
-    final amplitude=100,
+    final amplitude=500,
     final freqHz=1/(2*1800),
-    final offset=HSet - (100/2))
-    "Solar irradiance that crosses the enable treshold from below and from above"
+    final offset=250)
+    "Solar irradiance"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 equation
@@ -34,7 +31,7 @@ equation
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-40},{80,40}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 This example validates
@@ -44,6 +41,10 @@ for a solar irradiance input signal.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 8, 2018, by Michael Wetter:<br/>
+Refactored model for new implemenation.
+</li>
 <li>
 June 05, 2018, by Milica Grahovac:<br/>
 First implementation.
