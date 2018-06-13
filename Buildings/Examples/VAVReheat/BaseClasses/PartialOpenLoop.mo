@@ -71,7 +71,7 @@ partial model PartialOpenLoop
 
   Buildings.Fluid.Sources.Outside amb(redeclare package Medium = MediumA,
       nPorts=3) "Ambient conditions"
-    annotation (Placement(transformation(extent={{-136,-56},{-114,-34}})));
+    annotation (Placement(transformation(extent={{-180,-56},{-158,-34}})));
 //  Buildings.Fluid.HeatExchangers.DryCoilCounterFlow heaCoi(
 //    redeclare package Medium1 = MediumW,
 //    redeclare package Medium2 = MediumA,
@@ -385,7 +385,8 @@ partial model PartialOpenLoop
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{1090,-30},{1110,-50}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+      computeWetBulbTemperature=false)
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-330,170},{-310,190}}),
@@ -564,6 +565,18 @@ public
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant freStaTSetPoi(k=273.15
          + 3) "Freeze stat set point for heating coil"
     annotation (Placement(transformation(extent={{-40,-96},{-20,-76}})));
+  Fluid.FixedResistances.LoopBreaker looBreSup(redeclare package Medium =
+        MediumA, m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{360,-50},{380,-30}})));
+  Fluid.FixedResistances.LoopBreaker looBreRet(redeclare package Medium =
+        MediumA, m_flow_nominal=m_flow_nominal) annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={220,140})));
+  Fluid.FixedResistances.LoopBreaker looBreOut(redeclare package Medium =
+        MediumA, m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{-134,-30},{-114,-10}})));
 equation
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
       points={{320,-40},{320,-10}},
@@ -572,11 +585,6 @@ equation
       pattern=LinePattern.Dot));
   connect(TSup.port_a, fanSup.port_b) annotation (Line(
       points={{330,-40},{320,-40}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(amb.ports[1], VOut1.port_a) annotation (Line(
-      points={{-114,-42.0667},{-94,-42.0667},{-94,-33},{-72,-33}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -654,7 +662,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(amb.weaBus, weaBus) annotation (Line(
-      points={{-136,-44.78},{-320,-44.78},{-320,180}},
+      points={{-180,-44.78},{-320,-44.78},{-320,180}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -778,18 +786,8 @@ equation
       points={{0,-40},{30,-40}},
       color={0,127,255},
       thickness=0.5));
-  connect(eco.port_Exh, amb.ports[2]) annotation (Line(
-      points={{-20,-52},{-96,-52},{-96,-45},{-114,-45}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(eco.port_Ret, TRet.port_b) annotation (Line(
-      points={{0,-52},{10,-52},{10,140},{90,140}},
-      color={0,127,255},
-      thickness=0.5));
   connect(senRetFlo.port_a, dpRetDuc.port_b)
     annotation (Line(points={{360,140},{380,140}}, color={0,127,255}));
-  connect(TSup.port_b, senSupFlo.port_a)
-    annotation (Line(points={{350,-40},{400,-40}}, color={0,127,255}));
   connect(senSupFlo.port_b, splSupRoo1.port_1)
     annotation (Line(points={{420,-40},{570,-40}}, color={0,127,255}));
   connect(cooCoi.port_a1, souCoo.ports[1]) annotation (Line(
@@ -797,15 +795,13 @@ equation
       color={28,108,200},
       thickness=0.5));
   connect(gaiHeaCoi.y, souHea.m_flow_in) annotation (Line(points={{121,-210},{
-          124,-210},{124,-130}}, color={0,0,127}));
+          124,-210},{124,-132}}, color={0,0,127}));
   connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{121,-248},{
-          222,-248},{222,-130}}, color={0,0,127}));
-  connect(dpDisSupFan.port_b, amb.ports[3]) annotation (Line(
-      points={{320,10},{320,14},{-88,14},{-88,-47.9333},{-114,-47.9333}},
+          222,-248},{222,-132}}, color={0,0,127}));
+  connect(dpDisSupFan.port_b, amb.ports[1]) annotation (Line(
+      points={{320,10},{320,14},{-88,14},{-88,-42.0667},{-158,-42.0667}},
       color={0,0,0},
       pattern=LinePattern.Dot));
-  connect(senRetFlo.port_b, TRet.port_a) annotation (Line(points={{340,140},{
-          226,140},{110,140}}, color={0,127,255}));
   connect(freStaTSetPoi.y, freSta.reference)
     annotation (Line(points={{-19,-86},{-2,-86}}, color={0,0,127}));
   connect(freSta.u, TMix.T) annotation (Line(points={{-2,-98},{-10,-98},{-10,-70},
@@ -826,6 +822,23 @@ equation
       points={{98,-52},{80,-52},{80,-112}},
       color={28,108,200},
       thickness=0.5));
+  connect(TSup.port_b, looBreSup.port_a)
+    annotation (Line(points={{350,-40},{360,-40}}, color={0,127,255}));
+  connect(looBreSup.port_b, senSupFlo.port_a)
+    annotation (Line(points={{380,-40},{400,-40}}, color={0,127,255}));
+  connect(TRet.port_b, eco.port_Ret) annotation (Line(points={{90,140},{54,140},
+          {54,138},{10,138},{10,-52},{0,-52}}, color={0,127,255}));
+  connect(eco.port_Exh, amb.ports[2]) annotation (Line(points={{-20,-52},{-80,
+          -52},{-80,-45},{-158,-45}}, color={0,127,255}));
+  connect(senRetFlo.port_b, looBreRet.port_a)
+    annotation (Line(points={{340,140},{230,140}}, color={0,127,255}));
+  connect(looBreRet.port_b, TRet.port_a)
+    annotation (Line(points={{210,140},{110,140}}, color={0,127,255}));
+  connect(amb.ports[3], looBreOut.port_a) annotation (Line(points={{-158,
+          -47.9333},{-150,-47.9333},{-150,-42},{-140,-42},{-140,-20},{-134,-20}},
+        color={0,127,255}));
+  connect(looBreOut.port_b, VOut1.port_a) annotation (Line(points={{-114,-20},{
+          -106,-20},{-106,-33},{-72,-33}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
             -400},{1420,600}})), Documentation(info="<html>
 <p>

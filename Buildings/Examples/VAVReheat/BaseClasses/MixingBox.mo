@@ -227,6 +227,14 @@ protected
      Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default)
     "Default medium state";
 
+public
+  Fluid.FixedResistances.LoopBreaker looBre(
+    redeclare package Medium = Medium,
+    tau=1,
+    m_flow_nominal=mRec_flow_nominal) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={80,30})));
 equation
   connect(damOut.port_a, port_Out)
     annotation (Line(points={{-10,60},{-100,60}}, color={0,127,255}));
@@ -235,9 +243,6 @@ equation
       color={0,127,255}));
   connect(port_Sup, damOut.port_b)
     annotation (Line(points={{100,60},{10,60}}, color={0,127,255}));
-  connect(damRet.port_b, port_Sup) annotation (Line(
-      points={{80,10},{80,60},{100,60}},
-      color={0,127,255}));
   connect(port_Ret, damExh.port_a) annotation (Line(
       points={{100,-60},{-20,-60}},
       color={0,127,255}));
@@ -252,6 +257,10 @@ equation
     annotation (Line(points={{0,120},{0,72}}, color={0,0,127}));
   connect(yExh, damExh.y) annotation (Line(points={{60,120},{60,20},{-30,20},{-30,
           -48}}, color={0,0,127}));
+  connect(damRet.port_b, looBre.port_a)
+    annotation (Line(points={{80,10},{80,20}}, color={0,127,255}));
+  connect(looBre.port_b, port_Sup)
+    annotation (Line(points={{80,40},{80,60},{100,60}}, color={0,127,255}));
   annotation (                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(

@@ -17,7 +17,8 @@ model VAVBranch "Supply branch of a VAV system"
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
     dp_nominal = 220 + 20,
-    allowFlowReversal=allowFlowReversal) "VAV box for room" annotation (
+    allowFlowReversal=allowFlowReversal,
+    from_dp=false)                       "VAV box for room" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -39,14 +40,14 @@ model VAVBranch "Supply branch of a VAV system"
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-44,0})));
+        origin={-44,-22})));
   Buildings.Fluid.Sources.FixedBoundary sinTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 3E5,
     nPorts=1) "Sink for terminal box " annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={40,-20})));
+        origin={42,-20})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = MediumA)
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
@@ -89,6 +90,11 @@ model VAVBranch "Supply branch of a VAV system"
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiM_flow(
     final k=m_flow_nominal*1000*15/4200/10) "Gain for mass flow rate"
     annotation (Placement(transformation(extent={{80,2},{60,22}})));
+  Fluid.FixedResistances.LoopBreaker looBre(redeclare package Medium = MediumA,
+      m_flow_nominal=m_flow_nominal) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-50,10})));
 equation
   connect(fraMasFlo.u, senMasFlo.m_flow) annotation (Line(
       points={{-2,80},{-24,80},{-24,70},{-39,70}},
@@ -106,12 +112,12 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(souTer.ports[1], terHea.port_a2) annotation (Line(
-      points={{30,20},{-38,20},{-38,10}},
+      points={{30,20},{-38,20},{-38,-12}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(port_a, terHea.port_a1) annotation (Line(
-      points={{-50,-100},{-50,-10}},
+      points={{-50,-100},{-50,-32}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -120,18 +126,19 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(terHea.port_b1, vav.port_a) annotation (Line(
-      points={{-50,10},{-50,30}},
-      color={0,127,255},
-      thickness=0.5));
   connect(vav.y, yVAV) annotation (Line(points={{-62,40},{-120,40}},
                 color={0,0,127}));
   connect(souTer.m_flow_in, gaiM_flow.y)
-    annotation (Line(points={{50,12},{59,12}}, color={0,0,127}));
-  connect(sinTer.ports[1], terHea.port_b2) annotation (Line(points={{30,-20},{
-          -38,-20},{-38,-10}}, color={0,127,255}));
+    annotation (Line(points={{52,12},{59,12}}, color={0,0,127}));
+  connect(sinTer.ports[1], terHea.port_b2) annotation (Line(points={{32,-20},{0,
+          -20},{0,-36},{-38,-36},{-38,-32}},
+                               color={0,127,255}));
   connect(gaiM_flow.u, yVal) annotation (Line(points={{82,12},{90,12},{90,-40},
           {-120,-40}}, color={0,0,127}));
+  connect(terHea.port_b1, looBre.port_a)
+    annotation (Line(points={{-50,-12},{-50,0}}, color={0,127,255}));
+  connect(looBre.port_b, vav.port_a)
+    annotation (Line(points={{-50,20},{-50,30}}, color={0,127,255}));
   annotation (Icon(
     graphics={
         Rectangle(
