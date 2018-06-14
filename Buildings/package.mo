@@ -132,10 +132,17 @@ its class name ends with the string <code>Beta</code>.
        annotation (Documentation(info="<html>
    <div class=\"release-summary\">
    <p>
-   Version 5.1.0 is ... xxx
+   Version 5.1.0 adds new libraries, new components and improves various existing components.
+   Version 5.1.0 updates the license to a 3-clause BSD license.
+   It is backward compatible with versions 5.0.0 and 5.0.1.
    </p>
    <p>
-   This version updates the license to a 3-clause BSD license.
+   This release adds
+   a model for propylene glycol - water mixtures, a model for long pipes
+   suited for district heating and cooling simulations, a new valve model whose
+   opening characteristics can be fit to measured data, and idealized models
+   that allow to prescribe the temperature and humidity in any part of a fluid flow
+   system.
    </p>
    </div>
    <!-- New libraries -->
@@ -307,21 +314,6 @@ its class name ends with the string <code>Beta</code>.
    </tr>
    </table>
    <!-- Non-backward compatible changes to existing components -->
-   <p>
-   The following <b style=\"color:blue\">existing components</b>
-   have been <b style=\"color:blue\">improved</b> in a
-   <b style=\"color:blue\">non-backward compatible</b> way:
-   </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">xxx
-       </td>
-       <td valign=\"top\">xxx.
-       </td>
-   </tr>
-   </table>
    <!-- Errors that have been fixed -->
    <p>
    The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
@@ -340,29 +332,6 @@ its class name ends with the string <code>Beta</code>.
    </tr>
    </table>
    <!-- Uncritical errors -->
-   <p>
-   The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
-   that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
-   units are wrong or errors in documentation):
-   </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">xxx
-       </td>
-       <td valign=\"top\">xxx.
-       </td>
-   </tr>
-   </table>
-   <p>
-   Note:
-   </p>
-   <ul>
-   <li>
-   xxx
-   </li>
-   </ul>
    </html>"));
    end Version_5_1_0;
 
