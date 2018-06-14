@@ -127,12 +127,12 @@ its class name ends with the string <code>Beta</code>.
     extends Modelica.Icons.ReleaseNotes;
 
 
-   class Version_5_0_2 "Version 5.0.2"
+   class Version_5_1_0 "Version 5.1.0"
      extends Modelica.Icons.ReleaseNotes;
        annotation (Documentation(info="<html>
    <div class=\"release-summary\">
    <p>
-   Version 5.0.2 is ... xxx
+   Version 5.1.0 is ... xxx
    </p>
    <p>
    This version updates the license to a 3-clause BSD license.
@@ -364,7 +364,7 @@ its class name ends with the string <code>Beta</code>.
    </li>
    </ul>
    </html>"));
-   end Version_5_0_2;
+   end Version_5_1_0;
 
    class Version_5_0_1 "Version 5.0.1"
      extends Modelica.Icons.ReleaseNotes;
@@ -6655,7 +6655,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_0_1\">Version 5.0.2</a> (xxx)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_1_0\">Version 5.1.0</a> (June 14, 2018)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_0_1\">Version 5.0.1</a> (November 22, 2017)
@@ -7068,12 +7068,14 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="5.0.2",
-versionDate="2017-11-17",
-dateModified="2017-11-22",
+version="5.1.0",
+versionDate="2018-06-14",
+dateModified="2018-06-14",
 uses(Modelica(version="3.2.2")),
 conversion(
- from(version={"4.0.0", "5.0.0"},
+  noneFromVersion="5.0.0",
+  noneFromVersion="5.0.1",
+  from(version="4.0.0",
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_4.0_to_5.0.mos")),
 preferredView="info",
 Documentation(info="<html>
