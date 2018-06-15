@@ -29,7 +29,7 @@ Download [Buildings Library 5.1.0 (2018-06-14)](https://github.com/lbl-srg/model
 ## License
 
 The Modelica _Buildings_ Library is available under a 3-clause BSD-license.
-See [Modelica Buildings Library license](https://htmlpreview.github.io/?https://github.com/bl-srg/modelica-buildings/Buildings/legal.html).
+See [Modelica Buildings Library license](https://htmlpreview.github.io/?https://github.com/lbl-srg/modelica-buildings/blob/master/Buildings/legal.html).
 
 Python modules are available under a 3-clause BSD-license. See [BuildingsPy license](http://simulationresearch.lbl.gov/modelica/buildingspy/legal.html).
 
