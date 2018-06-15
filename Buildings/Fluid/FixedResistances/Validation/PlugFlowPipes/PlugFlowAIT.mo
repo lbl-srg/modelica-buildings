@@ -348,8 +348,11 @@ equation
     experiment(
       StopTime=603900,
       Interval=900,
-      Tolerance=1e-006,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-006),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/PlugFlowAIT.mos"
+        "Simulate and plot"),
+    Diagram(coordinateSystem(extent={{-120,-160},{160,160}})),
     Documentation(info="<html>
 <p>
 The example contains
@@ -408,9 +411,5 @@ influence of allowFlowReversal and the presence of explicit volumes in the pipe.
 </li>
 <li>January 26, 2016 by Carles Ribas:<br/>First implementation. </li>
 </ul>
-</html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/PlugFlowAIT.mos"
-        "Simulate and plot"),
-    Diagram(coordinateSystem(extent={{-120,-160},{160,160}})));
+</html>"));
 end PlugFlowAIT;

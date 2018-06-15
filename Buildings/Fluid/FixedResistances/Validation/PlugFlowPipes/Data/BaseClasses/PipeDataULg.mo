@@ -25,16 +25,16 @@ carried out at the University of Liège.
 <p>
 Before to perform a test, the water city network is pushed inside
 the approximately 39 meter long studied pipe during about 10 minutes
-to be sure that it is at the same temperature. 
+to be sure that it is at the same temperature.
 During this time period, valves V3 and V1 are opened, the boiler is off and
 the valve V2 is closed.
 </p>
 <p>
-Then, the valve V1 is closed and the valve V2 and V3 are opened. 
-The boiler is started to reach the setpoint hot water temperature. 
+Then, the valve V1 is closed and the valve V2 and V3 are opened.
+The boiler is started to reach the setpoint hot water temperature.
 When the temperature setpoint is achieved, data starts to be recorded,
 the valve V1 is opened and the valve V2 is closed at the same time
-to supply the studied pipe in hot water. 
+to supply the studied pipe in hot water.
 After the outlet pipe temperature is stabilized, the boiler is shut off.
 </p>
 <p>
@@ -58,9 +58,9 @@ src=\"modelica://Buildings/Resources/Images/Experimental/ULgTestBench.png\" bord
 to the initial temperature of the water (cooling before test)
 </li>
 <li>Heat transfer coefficient between the pipe and the ambient is assumed
-at 5 W/m<sup>2</sup>K (from internal model) due to insulation.  
+at 5 W/m<sup>2</sup>K (from internal model) due to insulation.
 The pipe is insulated by Tubolit 60/13 (13mm of thickness) whose
-nominal thermal coefficient is inferior 0.04. 
+nominal thermal coefficient is inferior 0.04.
 Notice the insulation is quite aged therefore
 the nominal thermal coefficient could be higher
 </li>
