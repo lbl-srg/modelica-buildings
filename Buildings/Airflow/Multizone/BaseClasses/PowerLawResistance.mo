@@ -1,6 +1,7 @@
 within Buildings.Airflow.Multizone.BaseClasses;
 partial model PowerLawResistance "Flow resistance that uses the power law"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    final allowFlowReversal=true,
     final m_flow_nominal=rho_default*k*dp_turbulent);
   extends Buildings.Airflow.Multizone.BaseClasses.ErrorControl;
 
@@ -132,6 +133,11 @@ The model is used as a base for the interzonal air flow models.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 1, 2018, by Filip Jorissen:<br/>
+Set <code>final allowFlowReversal=true</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/877\">#877</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
