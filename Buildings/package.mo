@@ -240,8 +240,7 @@ its class name ends with the string <code>Beta</code>.
     </li>
     </ul>
     </html>"));
-  end Version_6_0_0;
-
+   end Version_6_0_0;
 
    class Version_5_1_0 "Version 5.1.0"
      extends Modelica.Icons.ReleaseNotes;
