@@ -39,7 +39,7 @@ model Guideline36
     AFlo=AFloWes,
     final samplePeriod=samplePeriod) "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller conAHU(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller conAHU(
     numZon=numZon,
     maxSysPriFlo=maxSysPriFlo,
     minZonPriFlo=minZonPriFlo,
