@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
 block to_W "Add unit [W] to data"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   Modelica.Blocks.Interfaces.RealInput u
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
