@@ -191,12 +191,18 @@ its class name ends with the string <code>Beta</code>.
     <b style=\"color:blue\">non-backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-     <tr><td colspan=\"2\"><b>xxx</b>
+     <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.MediumColumnDynamic<br/>
+                           Buildings.Airflow.Multizone.MediumColumn<br/>
+                           Buildings.Airflow.Multizone.EffectiveAirLeakageArea<br/>
+                           Buildings.Airflow.Multizone.Orifice
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Removed parameter <code>allowFlowReversal</code> as this is not meaningful
+                           for these models.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/877\">IBPSA, #877</a>.
         </td>
     </tr>
     </table>
