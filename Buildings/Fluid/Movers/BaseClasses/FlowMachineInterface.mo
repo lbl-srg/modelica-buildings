@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers.BaseClasses;
 model FlowMachineInterface
   "Partial model with performance curves for fans or pumps"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
