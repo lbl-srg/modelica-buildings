@@ -1,11 +1,12 @@
 within Buildings.Airflow.Multizone;
 model Orifice "Orifice"
-  extends Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance(m=0.5, k=CD*
-        A*sqrt(2.0/rho_default));
+  extends Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance(
+    m=0.5,
+    k=CD*A*sqrt(2.0/rho_default));
 
   parameter Real CD=0.65 "|Orifice characteristics|Discharge coefficient";
 
-  annotation (                       Icon(graphics={
+  annotation (Icon(graphics={
         Rectangle(
           extent={{-100,8},{100,-8}},
           lineColor={0,0,255},
@@ -36,15 +37,30 @@ Documentation(info="<html>
 This model describes the mass flow rate and pressure difference relation
 of an orifice in the form
 </p>
-<pre>
-    V_flow = k * dp^m,
-</pre>
+<p align=\"center\" style=\"font-style:italic;\">
+    V&#775; = k &Delta;p<sup>m</sup>,
+</p>
 <p>
-where <code>k</code> is a variable and
-<code>m</code> a parameter. For turbulent flow, set <code>m=1/2</code> and
-for laminar flow, set <code>m=1</code>.
-Large openings are characterized by values close to <code>0.5</code>,
-while values near <code>0.65</code> have been found for small
+where
+<i>V&#775;</i> is the volume flow rate,
+<i>k</i> is a flow coefficient and
+<i>m</i> is the flow exponent.
+The flow coefficient is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+k = C<sub>D</sub> A (2/&rho;<sub>0</sub>)<sup>0.5</sup>,
+</p>
+<p>
+where
+<i>C<sub>D</sub></i> is the discharge coefficient,
+<i>A</i> is the cross section area and
+<i>&rho;<sub>0</sub></i> is the mass density at the medium default pressure, temperature and humidity.
+</p>
+<p>
+For turbulent flow, set <i>m=1/2</i> and
+for laminar flow, set <i>m=1</i>.
+Large openings are characterized by values close to <i>0.5</i>,
+while values near <i>0.65</i> have been found for small
 crack-like openings (Dols and Walton, 2002).
 </p>
 <h4>References</h4>
@@ -61,6 +77,11 @@ November, 2002.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 30, 2018, by Michael Wetter:<br/>
+Improved documentation for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/546\">Buildings, #546</a>.
+</li>
 <li>
 October 8, 2013 by Michael Wetter:<br/>
 Changed the parameter <code>useConstantDensity</code> to

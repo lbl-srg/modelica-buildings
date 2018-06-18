@@ -44,7 +44,10 @@ First implementation.
 </ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={Text(
+            100}}), graphics={
+        Bitmap(extent={{-86,-88},{94,92}}, fileName=
+              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/ZenithAngle.png"),
+                              Text(
           extent={{-150,110},{150,150}},
           textString="%name",
           lineColor={0,0,255}),
@@ -55,7 +58,5 @@ First implementation.
         Text(
           extent={{-98,-40},{-22,-58}},
           lineColor={0,0,127},
-          textString="solHouAng"),
-        Bitmap(extent={{-90,90},{90,-94}}, fileName=
-              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/ZenithAngle.png")}));
+          textString="solHouAng")}));
 end ZenithAngle;

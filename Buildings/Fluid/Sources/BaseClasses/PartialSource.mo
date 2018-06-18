@@ -9,7 +9,7 @@ partial model PartialSource
 
   parameter Integer nPorts=0 "Number of ports" annotation(Dialog(connectorSizing=true));
   parameter Boolean verifyInputs = false
-    " = true, to enable verification check of inputs"
+    "Set to true to stop the simulation with an error if the medium temperature is outside its allowable range"
     annotation(Dialog(tab="Advanced"));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
@@ -50,18 +50,32 @@ of the modeller. Increase nPorts to add an additional port.
 
 equation
   connect(medium.p, p_in_internal);
-  annotation (defaultComponentName="boundary",
+
+  annotation (defaultComponentName="bou",
   Documentation(info="<html>
 <p>
 Partial model for a fluid source that either prescribes
 pressure or mass flow rate.
-Extending partials prescribe the outflowing
+Models that extend this partial model need to prescribe the outflowing
 specific enthalpy, composition and trace substances.
-This partial only declares the <code>ports</code>
+This partial model only declares the <code>ports</code>
 and ensures that the pressures at all ports are equal.
+</p>
+<h4>Implementation</h4>
+<p>
+If the parameter <code>verifyInputs</code> is set to <code>true</code>,
+then a protected instance of medium base properties is enabled.
+This instance verifies that the
+medium temperature is within the bounds <code>T_min</code> and <code>T_max</code>,
+where <code>T_min</code> and <code>T_max</code> are constants of the <code>Medium</code>.
+If the temperature is outside these bounds, the simulation will stop with an error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2018, by Michael Wetter:<br/>
+Improved documentation.
+</li>
 <li>
 February 2nd, 2018 by Filip Jorissen<br/>
 Initial version for refactoring inputs of sources.

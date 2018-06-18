@@ -1,0 +1,3 @@
+simulateModel("Buildings.Fluid.MixingVolumes.Validation.CoupledVolumesSpecializedWaterConstantProperties_pT", stopTime=3600, method="Cvode", tolerance=1e-06, resultFile="CoupledVolumesSpecializedWaterConstantProperties_pT");
+createPlot(id=1, position={15, 10, 1144, 930}, y={"vol.p", "vol1.p"}, range={0.0, 0.045, 2.6, 3.4}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={15, 10, 1144, 462}, y={"vol.T", "vol1.T"}, range={0.0, 0.05, -10.0, 30.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});

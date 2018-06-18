@@ -9,7 +9,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
 
   constant Boolean simplify_mWat_flow = true
-    "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
+    "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero. Used only if Medium.nX > 1";
 
   // Port definitions
   parameter Integer nPorts=0 "Number of ports"
@@ -155,6 +155,11 @@ protected
     Medium.specificEnthalpy_pTX(p_start, T_start, X_start)
     "Start value for specific enthalpy";
 
+  // Set _simplify_mWat_flow == false for Glycol47; otherwise Dymola 2018FD01
+  // cannot differentiate the equations.
+  constant Boolean _simplify_mWat_flow = simplify_mWat_flow and Medium.nX > 1
+   "If true, then port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero, and equations are simplified";
+
   // Conditional connectors
   Modelica.Blocks.Interfaces.RealInput mWat_flow_internal(unit="kg/s")
     "Needed to connect to conditional connector";
@@ -232,7 +237,7 @@ equation
   if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     m = fluidVolume*rho_start;
   else
-    if simplify_mWat_flow then
+    if _simplify_mWat_flow then
       // If moisture is neglected in mass balance, assume for computation
       // of the mass of air that the air is at Medium.X_default.
       m = fluidVolume*Medium.density(Medium.setState_phX(
@@ -416,6 +421,11 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 16, 2018, by Michael Wetter:<br/>
+Reformulated mass calculation so that Dymola can differentiate the equations.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/910\">Buildings, issue 910</a>.
+</li>
 <li>
 November 3, 2017, by Michael Wetter:<br/>
 Set <code>start</code> attributes.<br/>

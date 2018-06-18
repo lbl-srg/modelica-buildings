@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "tan.vol[1].T",
+    "tan.vol[3].T",
+    "tan.vol[5].T",
+    "senTem.T",
+    "yBot.u",
+    "yMid.u",
+    "yTop.u",
+    "yHea.u"
+  };
