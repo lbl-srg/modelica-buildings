@@ -45,7 +45,7 @@ model WindowWithShade
         uSha_fixed={0.5,0.5},
         samplePeriod=10,
         linearizeRadiation=true,
-        cfdFilNam="modelica://Buildings/Resources/Data/Rooms/FFD/WindowWithShade.ffd"));
+        cfdFilNam="modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/WindowWithShade.ffd"));
 
   parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 matLayExt
     "Construction material for exterior walls"

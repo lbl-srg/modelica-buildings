@@ -1,9 +1,9 @@
 within Buildings.Airflow.Multizone;
 model ZonalFlow_m_flow "Zonal flow with input air change per second"
   extends Buildings.Airflow.Multizone.BaseClasses.ZonalFlow;
-   Modelica.Blocks.Interfaces.RealInput mAB_flow "Mass flow rate from A to B"
+   Modelica.Blocks.Interfaces.RealInput mAB_flow "Mass flow rate from A to B, positive if flow from port_a1 to port_b1"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Modelica.Blocks.Interfaces.RealInput mBA_flow "Mass flow rate from B to A"
+  Modelica.Blocks.Interfaces.RealInput mBA_flow "Mass flow rate from B to A, positive if flow from port_a2 to port_b2"
     annotation (Placement(transformation(extent={{120,-110},{100,-90}})));
 
 equation
@@ -16,7 +16,9 @@ Documentation(info="<html>
 This model computes the air exchange between volumes.
 </p>
 <p>
-Input is the mass flow rate from <i>A</i> to <i>B</i> and from <i>B</i> to <i>A</i>.
+Input is the mass flow rate from
+<code>port_a1</code> to <code>port_b1</code> and from
+<code>port_a2</code> to <code>port_b2</code>.
 </p>
 </html>",
 revisions="<html>

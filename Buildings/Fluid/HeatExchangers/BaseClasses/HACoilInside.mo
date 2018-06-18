@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model HACoilInside "Calculates the hA value for water inside a coil"
-  extends Buildings.BaseClasses.BaseIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Water mass flow rate"
     annotation(Dialog(tab="General", group="Nominal condition"));
@@ -75,11 +75,7 @@ First implementation.
 </ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid), Text(
+            100}}), graphics={            Text(
           extent={{-66,88},{60,-2}},
           lineColor={0,0,0},
           fillColor={255,255,255},

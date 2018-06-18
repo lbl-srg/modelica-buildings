@@ -43,7 +43,7 @@ model NaturalConvection "Tutorial for Natural Convection case"
    linearizeRadiation = false,
    useCFD = true,
    sensorName = {"Occupied zone air temperature", "Velocity"},
-   cfdFilNam = "modelica://Buildings/Resources/Data/Rooms/FFD/Tutorial/NaturalConvection.ffd",
+   cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.ffd",
    nConExt = nConExt,
    nConExtWin = nConExtWin,
    nConPar = nConPar,
@@ -238,7 +238,7 @@ surBou(
   linearizeRadiation = false,
   useCFD = true,
   sensorName = {\"Occupied zone air temperature\", \"Velocity\"},
-  cfdFilNam = \"modelica://Buildings/Resources/Data/Rooms/FFD/Tutorial/NaturalConvection.ffd\",
+  cfdFilNam = \"modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.ffd\",
   nConExt = nConExt,
   nConExtWin = nConExtWin,
   nConPar = nConPar,
@@ -289,7 +289,7 @@ Rename the files as <code>NaturalConvection.cfd</code> and <code>NaturalConvecti
 </li>
 <li>
 Revise the FFD parameter input file <code>NaturalConvection.ffd</code>
-(an example file is provided in <code>Buildings/Resources/Data/Rooms/FFD/Tutorial/</code>):
+(an example file is provided in <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/</code>):
 <pre>
   inpu.parameter_file_format SCI
   inpu.parameter_file_name NaturalConvection.cfd
@@ -317,7 +317,7 @@ Please note that some of the physical properties were manipulated to obtain the 
 </li>
 <li>
 Store <code>NaturalConvection.ffd</code>, <code>NaturalConvection.dat</code>, and <code>NaturalConvection.cfd</code>
-at <code>Buildings/Resources/Data/Rooms/FFD/Tutorial</code>.
+at <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial</code>.
 </li>
 <li>
 Set simulation the stop time of the Modelica model <code>7200</code> seconds and choose for example the Radau solver.

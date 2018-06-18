@@ -1,0 +1,26 @@
+last-generated=2018-05-01
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+proSouH.port_b.h_outflow=[4.63009453125e+04, 4.63009453125e+04]
+proSouXi.port_b.h_outflow=[4.53009453125e+04, 4.53009453125e+04]
+proSouH.port_a.h_outflow=[4.63009453125e+04, 4.63009453125e+04]
+proSouC.port_a.h_outflow=[4.53009453125e+04, 4.53009453125e+04]
+proSouC.port_b.h_outflow=[4.53009453125e+04, 4.53009453125e+04]
+time=[0e+00, 1e+00]
+proSouXi.port_a.h_outflow=[4.53009453125e+04, 4.53009453125e+04]
+proSouC.port_a.Xi_outflow[1]=[9.999999776482582e-03, 9.999999776482582e-03]
+proSouH.port_a.Xi_outflow[1]=[9.999999776482582e-03, 9.999999776482582e-03]
+proSouH.port_b.Xi_outflow[1]=[9.999999776482582e-03, 9.999999776482582e-03]
+proSouXi.port_b.Xi_outflow[1]=[1.229999959468842e-02, 1.229999959468842e-02]
+proSouXi.port_a.Xi_outflow[1]=[1.229999959468842e-02, 1.229999959468842e-02]
+proSouC.port_b.Xi_outflow[1]=[9.999999776482582e-03, 9.999999776482582e-03]
+proSouXi.port_b.C_outflow[1]=[0e+00, 0e+00]
+proSouXi.port_a.C_outflow[1]=[0e+00, 0e+00]
+proSouC.port_a.C_outflow[1]=[1.000000014901161e-01, 1.000000014901161e-01]
+proSouH.port_b.C_outflow[1]=[0e+00, 0e+00]
+proSouH.port_a.C_outflow[1]=[0e+00, 0e+00]
+proSouC.port_b.C_outflow[1]=[1.000000014901161e-01, 1.000000014901161e-01]

@@ -126,16 +126,144 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
+    class Version_6_0_0 "Version 6.0.0"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
+    <div class=\"release-summary\">
+    <p>
+    Version 6.0.0 is ... xxx
+    </p>
+    </div>
+    <!-- New libraries -->
+    <p>
+    The following <b style=\"color:blue\">new libraries</b> have been added:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.Shade
+        </td>
+        <td valign=\"top\">Package with shade controllers.
+        </td>
+        </tr>
+    </table>
+    <!-- New components for existing libraries -->
+    <p>
+    The following <b style=\"color:blue\">new components</b> have been added
+    to <b style=\"color:blue\">existing</b> libraries:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>xxx</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">xxx
+        </td>
+        <td valign=\"top\">xxx.
+        </td>
+        </tr>
+    </table>
+    <!-- Backward compatible changes -->
+    <p>
+    The following <b style=\"color:blue\">existing components</b>
+    have been <b style=\"color:blue\">improved</b> in a
+    <b style=\"color:blue\">backward compatible</b> way:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>xxx</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">xxx
+        </td>
+        <td valign=\"top\">xxx.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>xxx</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">xxx
+        </td>
+        <td valign=\"top\">xxx.
+        </td>
+    </tr>
+    </table>
+    <!-- Non-backward compatible changes to existing components -->
+    <p>
+    The following <b style=\"color:blue\">existing components</b>
+    have been <b style=\"color:blue\">improved</b> in a
+    <b style=\"color:blue\">non-backward compatible</b> way:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+     <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.MediumColumnDynamic<br/>
+                           Buildings.Airflow.Multizone.MediumColumn<br/>
+                           Buildings.Airflow.Multizone.EffectiveAirLeakageArea<br/>
+                           Buildings.Airflow.Multizone.Orifice
+        </td>
+        <td valign=\"top\">Removed parameter <code>allowFlowReversal</code> as this is not meaningful
+                           for these models.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/877\">IBPSA, #877</a>.
+        </td>
+    </tr>
+    </table>
+    <!-- Errors that have been fixed -->
+    <p>
+    The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+    that can lead to wrong simulation results):
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>xxx</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">xxx
+        </td>
+        <td valign=\"top\">xxx.
+        </td>
+    </tr>
+    </table>
+    <!-- Uncritical errors -->
+    <p>
+    The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+    that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+    units are wrong or errors in documentation):
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>xxx</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">xxx
+        </td>
+        <td valign=\"top\">xxx.
+        </td>
+    </tr>
+    </table>
+    <p>
+    Note:
+    </p>
+    <ul>
+    <li>
+    xxx
+    </li>
+    </ul>
+    </html>"));
+    end Version_6_0_0;
 
-   class Version_5_0_2 "Version 5.0.2"
+   class Version_5_1_0 "Version 5.1.0"
      extends Modelica.Icons.ReleaseNotes;
        annotation (Documentation(info="<html>
    <div class=\"release-summary\">
    <p>
-   Version 5.0.2 is ... xxx
+   Version 5.1.0 adds new libraries, new components and improves various existing components.
+   Version 5.1.0 updates the license to a 3-clause BSD license.
+   It is backward compatible with versions 5.0.0 and 5.0.1.
    </p>
    <p>
-   This version updates the license to a 3-clause BSD license.
+   This release adds
+   a model for propylene glycol - water mixtures, a model for long pipes
+   suited for district heating and cooling simulations, a new valve model whose
+   opening characteristics can be fit to measured data, and idealized models
+   that allow to prescribe the temperature and humidity in any part of a fluid flow
+   system.
    </p>
    </div>
    <!-- New libraries -->
@@ -143,9 +271,11 @@ its class name ends with the string <code>Beta</code>.
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Media.Antifreeze.PropyleneGlycolWater
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Package with medium model for propylene glycol - water mixture.
+                          The concentration and the medium temperature for which the properties are evaluated
+                          can be set when instantiating the medium.
        </td>
        </tr>
    </table>
@@ -173,6 +303,14 @@ its class name ends with the string <code>Beta</code>.
                           simulation of long pipes such as in district heating and cooling systems.
        </td>
        </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Sources.PropertySource_T<br/>
+                          Buildings.Fluid.Sources.PropertySource_h
+       </td>
+       <td valign=\"top\">Model that changes the fluid properties of the medium that flows through it
+                          based on input signals. These idealized models can be used to force a certain temperature,
+                          enthalpy or humidity in a fluid flow system.
+       </td>
+       </tr>
    </table>
    <!-- Backward compatible changes -->
    <p>
@@ -181,6 +319,19 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Airflow.Multizone.DoorDiscretizedOpen<br/>
+                          Buildings.Airflow.Multizone.DoorDiscretizedOperable
+       </td>
+       <td valign=\"top\">Removed term that assures non-zero flow rate in each path,
+                          reformulated flow balance to ensure that model is symmetric,
+                          and improved implementation to reduce number of calculations.<br/>
+                          This is
+                          for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/937\">IBPSA, issue 937</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
        </td>
    </tr>
@@ -201,7 +352,7 @@ its class name ends with the string <code>Beta</code>.
                           This is for
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1153\">issue 1153</a>.
        </td>
-   </tr>       
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
        </td>
    </tr>
@@ -209,14 +360,14 @@ its class name ends with the string <code>Beta</code>.
    </td>
    <td valign=\"top\">Improved documentation and icon, and added a warning if the limits are used and x1 &gt; x2.
        </td>
-   </tr>       
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
                           Buildings.Fluid.SolarCollectors.EN12975
        </td>
-       <td valign=\"top\">Improved calculation of heat loss.
+       <td valign=\"top\">Improved calculation of heat loss.<br/>
                           This is for
                           <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1100\">issue 1100</a>.
        </td>
@@ -236,6 +387,14 @@ its class name ends with the string <code>Beta</code>.
                           to reduce translation and simulation time.<br/>
                           This is for
                           <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">IBPSA, issue 882</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Storage.Stratified
+       </td>
+       <td valign=\"top\">Refactored tank to allow modeling of tanks that have multiple inlets or outlets along the height.
+                          The tank now has for each control volume a fluid port that can be connected from outside the model.<br/>
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1182\">issue 1182</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>Buildings.Utilities.IO</b>
@@ -266,24 +425,16 @@ its class name ends with the string <code>Beta</code>.
                         will still work as before. The change only affects the low-level function
                         <code>Buildings.Utilities.IO.Python27.Functions.exchange</code>.
        </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Utilities.IO.Python27</td>
+     <td valign=\"top\">
+                      Corrected <code>LibraryDirectory</code> annotation.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1160\">issue 1160</a>.
+     </td>
    </tr>
    </table>
    <!-- Non-backward compatible changes to existing components -->
-   <p>
-   The following <b style=\"color:blue\">existing components</b>
-   have been <b style=\"color:blue\">improved</b> in a
-   <b style=\"color:blue\">non-backward compatible</b> way:
-   </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">xxx
-       </td>
-       <td valign=\"top\">xxx.
-       </td>
-   </tr>
-   </table>
    <!-- Errors that have been fixed -->
    <p>
    The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
@@ -302,31 +453,8 @@ its class name ends with the string <code>Beta</code>.
    </tr>
    </table>
    <!-- Uncritical errors -->
-   <p>
-   The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
-   that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
-   units are wrong or errors in documentation):
-   </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">xxx
-       </td>
-       <td valign=\"top\">xxx.
-       </td>
-   </tr>
-   </table>
-   <p>
-   Note:
-   </p>
-   <ul>
-   <li>
-   xxx
-   </li>
-   </ul>
    </html>"));
-   end Version_5_0_2;
+   end Version_5_1_0;
 
    class Version_5_0_1 "Version 5.0.1"
      extends Modelica.Icons.ReleaseNotes;
@@ -6617,7 +6745,10 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_0_1\">Version 5.0.2</a> (xxx)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_6_0_0\">Version 6.0.0</a> (xxx)
+</li>
+<li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_1_0\">Version 5.1.0</a> (June 14, 2018)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_0_1\">Version 5.0.1</a> (November 22, 2017)
@@ -7030,13 +7161,13 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="5.0.2",
-versionDate="2017-11-17",
-dateModified="2017-11-22",
+version="6.0.0",
+versionDate="2018-06-14",
+dateModified="2018-06-14",
 uses(Modelica(version="3.2.2")),
 conversion(
- from(version={"4.0.0", "5.0.0"},
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_4.0_to_5.0.mos")),
+  from(version={"5.0.0", "5.0.1", "5.1.0"},
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_5_to_6.0.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>

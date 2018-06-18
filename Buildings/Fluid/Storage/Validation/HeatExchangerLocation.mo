@@ -3,11 +3,11 @@ model HeatExchangerLocation
   "Test model for heat exchanger with hHex_a and hHex_b interchanged"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.Water "Medium model";
+  package Medium = Buildings.Media.Water "Medium model";
 
- parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal = 6000
+  parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal = 6000
     "Design heat flow rate of heat exchanger";
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal= QHex_flow_nominal/4200/4;
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal= QHex_flow_nominal/4200/4;
 
   Buildings.Fluid.Sources.Boundary_pT watInTan(
     redeclare package Medium = Medium,
@@ -16,12 +16,11 @@ model HeatExchangerLocation
     T=273.15 + 30,
     p(displayUnit="Pa")) "Boundary condition for water in the tank"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Sources.MassFlowSource_T mHex_flow1(
+  Buildings.Fluid.Sources.MassFlowSource_T mHex_flow1(
     redeclare package Medium = Medium,
     nPorts=2,
     m_flow=m_flow_nominal/100,
-    T=273.15 + 60)
-              "Mass flow rate through the heat exchanger"
+    T=273.15 + 60) "Mass flow rate through the heat exchanger"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   model Tank = StratifiedEnhancedInternalHex (
     redeclare final package Medium = Medium,
@@ -60,22 +59,24 @@ model HeatExchangerLocation
     nPorts=2) "Sink boundary condition"
     annotation (Placement(transformation(extent={{-60,-32},{-40,-12}})));
 
-  Sensors.TemperatureTwoPort senTan_aTop(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTan_aTop(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0) "Temperature sensor at tank outlet"
     annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
 
-  Sensors.TemperatureTwoPort senTan_bTop(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTan_bTop(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0) "Temperature sensor at tank outlet"
     annotation (Placement(transformation(extent={{10,-80},{-10,-60}})));
-  Sources.MassFlowSource_T mWatTanSte_flow(redeclare package Medium = Medium,
-      nPorts=1) "Mass flow rate through the tank"
+  Buildings.Fluid.Sources.MassFlowSource_T mWatTanSte_flow(
+    redeclare package Medium = Medium,
+    nPorts=1) "Mass flow rate through the tank"
     annotation (Placement(transformation(extent={{92,-58},{72,-38}})));
-  Sources.MassFlowSource_T mWatTanDyn_flow(redeclare package Medium = Medium,
-      nPorts=1) "Mass flow rate through the tank"
+  Buildings.Fluid.Sources.MassFlowSource_T mWatTanDyn_flow(
+    redeclare package Medium = Medium,
+    nPorts=1) "Mass flow rate through the tank"
     annotation (Placement(transformation(extent={{94,14},{74,34}})));
 equation
   connect(mHex_flow1.ports[1], tan_aTop.portHex_a) annotation (Line(points={{-20,22},
@@ -111,6 +112,12 @@ extends from element <i>9</i> to element <i>11</i>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
 <li>
 July 5, 2017, by Michael Wetter:<br/>
 Added zero mass flow rate boundary conditions to avoid a translation error in Dymola 2018.<br/>

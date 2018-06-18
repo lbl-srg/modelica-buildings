@@ -1,0 +1,11 @@
+Buildings// Conversion script for Buildings library
+//  from: Version 5
+//  to:   Version 6.0.0
+clear
+
+convertClear();
+
+convertModifiers("Buildings.Airflow.Multizone.MediumColumnDynamic", {"allowFlowReversal"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.MediumColumn", {"allowFlowReversal"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.EffectiveAirLeakageArea", {"allowFlowReversal"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.Orifice", {"allowFlowReversal"}, fill("",0), true);
