@@ -1,6 +1,6 @@
 within Buildings.Examples.VAVCO2.BaseClasses;
 model Occupancy "Model for occupancy"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   Modelica.Blocks.Sources.CombiTimeTable office1(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
