@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.Continuous.Examples.SignalRanker", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="SignalRanker");
+simulateModel("Buildings.Controls.Continuous.Examples.SignalRanker", method="Cvode", tolerance=1e-6, stopTime=1.0, resultFile="SignalRanker");
 createPlot(id = 1,
  position = {15, 10, 567, 578},
  y = {"sigRan.u[1]", "sigRan.u[2]", "sigRan.u[3]"},

@@ -1,4 +1,4 @@
-last-generated=2018-06-18
+last-generated=2018-06-24
 statistics-fmu-dependencies=
 {
   "Derivatives": {
@@ -134,9 +134,6 @@ statistics-fmu-dependencies=
     ],
     "fluPor[2].backward.X_w": [
       "vol.X_start[1]"
-    ],
-    "theZonAda.assEqu.t0": [
-      "theZonAda.assEqu.startTime"
     ],
     "vol.dynBal.U": [
       "vol.p_start",

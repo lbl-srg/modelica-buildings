@@ -1,4 +1,4 @@
-last-generated=2018-06-18
+last-generated=2018-06-24
 statistics-fmu-dependencies=
 {
   "Derivatives": {
@@ -23,43 +23,25 @@ statistics-fmu-dependencies=
       "inlet.forward.T",
       "inlet.forward.X_w",
       "outlet.backward.T",
-      "outlet.backward.X_w",
-      "vol.T_start",
-      "vol.X_start[1]"
+      "outlet.backward.X_w"
     ],
     "der(vol.dynBal.mXi[1])": [
       "inlet.m_flow",
       "inlet.forward.X_w",
-      "outlet.backward.X_w",
-      "vol.X_start[1]"
+      "outlet.backward.X_w"
     ],
-    "inlet.backward.T": [
-      "vol.T_start",
-      "vol.X_start[1]"
-    ],
-    "inlet.backward.X_w": [
-      "vol.X_start[1]"
-    ],
-    "outlet.forward.T": [
-      "vol.T_start",
-      "vol.X_start[1]"
-    ],
-    "outlet.forward.X_w": [
-      "vol.X_start[1]"
-    ],
+    "inlet.backward.T": [],
+    "inlet.backward.X_w": [],
+    "outlet.forward.T": [],
+    "outlet.forward.X_w": [],
     "outlet.m_flow": [
       "inlet.m_flow"
     ],
     "outlet.p": [
       "inlet.p"
     ],
-    "vol.dynBal.U": [
-      "vol.T_start",
-      "vol.X_start[1]"
-    ],
-    "vol.dynBal.mXi[1]": [
-      "vol.X_start[1]"
-    ]
+    "vol.dynBal.U": [],
+    "vol.dynBal.mXi[1]": []
   },
   "Outputs": {
     "inlet.backward.T": [
