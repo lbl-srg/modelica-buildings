@@ -102,7 +102,8 @@ protected
   final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
     Medium.specificHeatCapacityCp(state=state_default)
     "Specific heat capacity, used to verify energy conservation";
-
+  constant Modelica.SIunits.TemperatureDifference dTMax(min=1) = 200
+    "Maximum temperature difference across the StaticTwoPortConservationEquation";
   // Conditional connectors
   Modelica.Blocks.Interfaces.RealInput mWat_flow_internal(unit="kg/s")
     "Needed to connect to conditional connector";
@@ -144,8 +145,14 @@ equation
   end if;
 
   if prescribedHeatFlowRate then
-    assert(noEvent( abs(Q_flow) < 200*cp_default*max(m_flow_small/1E3, abs(m_flow))),
-   "In " + getInstanceName() + ": Energy may not be conserved for small mass flow rates. 
+    assert(noEvent( abs(Q_flow) < dTMax*cp_default*max(m_flow_small/1E3, abs(m_flow))),
+   "In " + getInstanceName() + ":
+   The heat flow rate equals " + String(Q_flow) +
+   " W and the mass flow rate equals " + String(m_flow) + " kg/s,
+   which results in a temperature difference " +
+   String(abs(Q_flow)/ (dTMax*cp_default*max(m_flow_small/1E3, abs(m_flow)))) +
+   " K > dTMax=" +String(dTMax) + " K.
+   This may indicate that energy is not conserved for small mass flow rates.
    The implementation may require prescribedHeatFlowRate = false.");
   end if;
 
@@ -332,6 +339,12 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 23, 2018, by Filip Jorissen:<br/>
+Added more details to energy conservation assert to facilitate
+debugging.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/962\">#962</a>.
+</li>
 <li>
 March 30, 2018, by Filip Jorissen:<br/>
 Added <code>getInstanceName()</code> in asserts to facilitate
