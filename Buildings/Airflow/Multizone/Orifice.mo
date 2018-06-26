@@ -4,8 +4,11 @@ model Orifice "Orifice"
     m=0.5,
     k=CD*A*sqrt(2.0/rho_default));
 
+  parameter Modelica.SIunits.Area A "|Orifice characteristics|Area of orifice";
   parameter Real CD=0.65 "|Orifice characteristics|Discharge coefficient";
 
+equation
+  v = V_flow/A;
   annotation (Icon(graphics={
         Rectangle(
           extent={{-100,8},{100,-8}},
@@ -77,6 +80,15 @@ November, 2002.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 24, 2018, by Michael Wetter:<br/>
+Removed parameter <code>lWet</code> as it is only used to compute
+the Reynolds number, and the Reynolds number is not used by this model.
+Also removed the variable <code>Re</code> for the Reynolds number.<br/>
+This change is non-backward compatible.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">Buildings, #932</a>.
+</li>
 <li>
 May 30, 2018, by Michael Wetter:<br/>
 Improved documentation for
