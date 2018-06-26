@@ -62,22 +62,22 @@ public
     "Stage of coil, or 0/1 for variable-speed coil"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}}),
         iconTransformation(extent={{-120,90},{-100,110}})));
-algorithm
+equation
   if not variableSpeedCoil and stage == 0 then
-    m_flow_nonzero := 0;
-    UAcp           := 0;
-    bypass         := 0;
-    delta_h        := 0;
+    m_flow_nonzero = 0;
+    UAcp           = 0;
+    bypass         = 0;
+    delta_h        = 0;
   else
     // Small mass flow rate to avoid division by zero
-    m_flow_nonzero := Buildings.Utilities.Math.Functions.smoothMax(
+    m_flow_nonzero = Buildings.Utilities.Math.Functions.smoothMax(
       x1=m_flow,
       x2=m_flow_small,
       deltaX=0.1*m_flow_small);
-    spe:=speRat*maxSpe;
+    spe = speRat*maxSpe;
 
     if variableSpeedCoil then
-      UAcp := Buildings.Utilities.Math.Functions.smoothMax(
+      UAcp = Buildings.Utilities.Math.Functions.smoothMax(
          x1=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift(
            spe=spe,
            speSet={datCoi.sta[iSpe].spe for iSpe in 1:nSta},
@@ -85,15 +85,15 @@ algorithm
          x2=uacp[nSta].UAcp/1E3,
          deltaX=uacp[nSta].UAcp/1E4);
      else
-      UAcp := uacp[stage].UAcp;
+      UAcp = uacp[stage].UAcp;
      end if;
 
-    bypass := Buildings.Utilities.Math.Functions.smoothLimit(
+    bypass = Buildings.Utilities.Math.Functions.smoothLimit(
       x = Modelica.Math.exp(-UAcp / m_flow_nonzero),
       l = 0.01,
       u = 0.99,
       deltaX = 0.001);
-   delta_h:=Buildings.Utilities.Math.Functions.smoothMin(
+   delta_h = Buildings.Utilities.Math.Functions.smoothMin(
       x1=-Q_flow/m_flow_nonzero/(1 - bypass),
       x2=0.999*hEvaIn,
       deltaX=0.0001);
@@ -124,6 +124,10 @@ as this ensures that the derivatives are continuous near the off conditions.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 26, 2018, by Michael Wetter:<br/>
+Replaced <code>algorithm</code> with <code>equation</code>.
+</li>
 <li>
 October 9, 2013 by Michael Wetter:<br/>
 Corrected invalid Modelica syntax.
