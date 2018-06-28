@@ -45,11 +45,11 @@ initial equation
 equation
   der(U) = Q_flow;
 
-  when initial() or sample(startTime, samplePeriod) then
-    QAve_flow = (U-UOld)/samplePeriod;
+  when sample(startTime, samplePeriod) then
+    QAve_flow = (U-pre(UOld))/samplePeriod;
     UOld      = U;
     port.T    = TExt_start + Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.temperatureDrop(
-                                 table=table, iSam=iSam,
+                                 table=table, iSam=pre(iSam),
                                  Q_flow=QAve_flow, samplePeriod=samplePeriod,
                                  rExt=rExt, hSeg=hSeg,
                                  k=k, d=d, c=c);
