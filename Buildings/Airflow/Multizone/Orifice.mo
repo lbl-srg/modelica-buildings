@@ -4,8 +4,10 @@ model Orifice "Orifice"
     m=0.5,
     k=CD*A*sqrt(2.0/rho_default));
 
-  parameter Modelica.SIunits.Area A "|Orifice characteristics|Area of orifice";
-  parameter Real CD=0.65 "|Orifice characteristics|Discharge coefficient";
+  parameter Modelica.SIunits.Area A "Area of orifice"
+    annotation (Dialog(group="Orifice characteristics"));
+  parameter Real CD=0.65 "Discharge coefficient"
+    annotation (Dialog(group="Orifice characteristics"));
 
 equation
   v = V_flow/A;
@@ -80,6 +82,10 @@ November, 2002.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 27, 2018, by Michael Wetter:<br/>
+Corrected old parameter annotation.
+</li>
 <li>
 June 24, 2018, by Michael Wetter:<br/>
 Removed parameter <code>lWet</code> as it is only used to compute
