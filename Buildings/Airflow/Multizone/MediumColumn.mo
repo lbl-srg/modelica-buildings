@@ -207,6 +207,7 @@ Removed declaration of <code>allowFlowReversal</code>
 and changed default density computation such
 that it assumes a constant pressure.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/877\">#877</a>.
+</li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
 Removed start values for mass flow rate and pressure difference
@@ -237,22 +238,25 @@ Removed <code>Modelica.Fluid.System</code>
 to address issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
 </li>
-<li><i>October 4, 2014</i> by Michael Wetter:<br/>
+<li>October 4, 2014 by Michael Wetter:<br/>
 Removed assignment of <code>port_?.p.nominal</code> to avoid a warning in OpenModelica because
 alias sets have different nominal values.
 </li>
-<li><i>April 17, 2013</i> by Michael Wetter:<br/>
-       Reformulated the assert statement that checks for the correct value of <code>densitySelection</code>.
+<li>April 17, 2013 by Michael Wetter:<br/>
+Reformulated the assert statement that checks for the correct value of <code>densitySelection</code>.
 </li>
-<li><i>July 28, 2010</i> by Michael Wetter:<br/>
-       Changed sign for pressure difference.
+<li>July 28, 2010 by Michael Wetter:<br/>
+Changed sign for pressure difference.
 </li>
-<li><i>July 20, 2010</i> by Michael Wetter:<br/>
-       Migrated model to Modelica 3.1 and integrated it into the Buildings library.
-       Reimplemented assignment of density based on flow direction or based on outflowing state.
+<li>
+July 20, 2010 by Michael Wetter:<br/>
+Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+Reimplemented assignment of density based on flow direction or based on outflowing state.
 </li>
-<li><i>February 24, 2005</i> by Michael Wetter:<br/>
-       Released first version.
+<li>
+February 24, 2005 by Michael Wetter:<br/>
+Released first version.
+</li>
 </ul>
 </html>"));
 end MediumColumn;
