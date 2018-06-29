@@ -36,30 +36,30 @@ protected
   Real entRat "Enthalpy ratio";
   parameter Modelica.SIunits.SpecificEnthalpy epsH = 100
     "Small value for enthalpy to avoid division by zero";
-algorithm
+equation
 //===================================Sensible heat ratio calculation===========================================//
   //Coil on-off condition
   if on then
    //Calculate enthalpy at inlet air temperature and absolute humidity at ADP i.e. h_TEvaIn_wADP
-    h_TEvaIn_XADP := Medium.specificEnthalpy_pTX(
+    h_TEvaIn_XADP = Medium.specificEnthalpy_pTX(
       p=p,
       T=TEvaIn,
       X=cat(1, {XADP}, {1-XADP}));
     //Calculate Sensible Heat Ratio
-    entRat := (h_TEvaIn_XADP - hADP)/
+    entRat = (h_TEvaIn_XADP - hADP)/
       Buildings.Utilities.Math.Functions.smoothMax(
         x1 =     epsH,
         x2 =     hEvaIn - hADP,
         deltaX = 0.1*epsH);
-    SHR := Buildings.Utilities.Math.Functions.smoothMin(
+    SHR = Buildings.Utilities.Math.Functions.smoothMin(
       x1=entRat,
       x2=0.999,
       deltaX=0.0001)
       "To restrict the value of SHR in case of zero mass flow rate or dry coil condition";
   else  //Coil off
-    h_TEvaIn_XADP := 0;
-    entRat     := 1;
-    SHR        := 0;
+    h_TEvaIn_XADP = 0;
+    entRat        = 1;
+    SHR           = 0;
   end if;
 
   annotation (defaultComponentName="shr",
@@ -70,6 +70,10 @@ This block computes the sensible heat ratio.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 26, 2018, by Michael Wetter:<br/>
+Replaced <code>algorithm</code> with <code>equation</code>.
+</li>
 <li>
 September 24, 2012 by Michael Wetter:<br/>
 Revised implementation.
