@@ -1,0 +1,35 @@
+create_conversions_for = [
+	{quantity : "Temperature",
+	 modelica_quantity : "ThermodynamicTemperature",
+	 unit : "Fahrenheit",
+	 unit_symbol : "F",
+	 direction = "From",
+	 adder = "523.67",
+	 multiplier = "1.8"},
+
+	{quantity : "Temperature",
+	 modelica_quantity : "ThermodynamicTemperature",
+	 unit : "Fahrenheit",
+	 unit_symbol : "F",
+	 direction = "To",
+	 adder = "",
+	 multiplier = ""},
+
+	]
+
+
+
+si_units = {"Temperature" : 
+		{"unit" : "Kelvin",
+		 "unit_symbol" : "K"}
+	    "Pressure" :
+		{"unit" : "Pascal",
+		 "unit_symbol" : "Pa"}
+	    "Volume Flow" :
+		{"unit" : "cubicMeterPerSecond",
+		 "unit_symbol" : "m3/s"}
+	    }
+
+
+
+# walk through the create_conversions_for list and create a block, a validation block and a mos script.
