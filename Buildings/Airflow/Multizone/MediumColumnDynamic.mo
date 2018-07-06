@@ -187,21 +187,23 @@ and changed default density computation such
 that it assumes a constant pressure.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/877\">#877</a>.
 </li>
-<li><i>October 6, 2014</i> by Michael Wetter:<br/>
+<li>
+October 6, 2014 by Michael Wetter:<br/>
 Removed assignment of <code>port_?.p.nominal</code> to avoid a warning
 in OpenModelica because
 alias sets have different nominal values.
 </li>
-<li><i>July 31, 2011</i> by Michael Wetter:<br/>
+<li>
+July 31, 2011 by Michael Wetter:<br/>
 Changed model to use new base class
 <a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 </li>
-<li><i>May 25, 2011</i> by Michael Wetter:<br/>
-       Added <code>m_flow_nominal</code>, which is used if component is configured as steady-state.
+<li>May 25, 2011 by Michael Wetter:<br/>
+Added <code>m_flow_nominal</code>, which is used if component is configured as steady-state.
 </li>
-<li><i>July 28, 2010</i> by Michael Wetter:<br/>
-       Released first version.
+<li>July 28, 2010 by Michael Wetter:<br/>
+Released first version.
 </li>
 </ul>
 </html>"));

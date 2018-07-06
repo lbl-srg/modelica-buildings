@@ -44,16 +44,16 @@ initial equation
   QAve_flow = 0;
 equation
   der(U) = Q_flow;
-algorithm
-  when initial() or sample(startTime,samplePeriod) then
-    QAve_flow := (U-UOld)/samplePeriod;
-    UOld      := U;
-    port.T    := TExt_start + Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.temperatureDrop(
-                                 table=table, iSam=iSam,
+
+  when sample(startTime, samplePeriod) then
+    QAve_flow = (U-pre(UOld))/samplePeriod;
+    UOld      = U;
+    port.T    = TExt_start + Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.temperatureDrop(
+                                 table=table, iSam=pre(iSam),
                                  Q_flow=QAve_flow, samplePeriod=samplePeriod,
                                  rExt=rExt, hSeg=hSeg,
                                  k=k, d=d, c=c);
-    iSam := iSam+1;
+    iSam = pre(iSam)+1;
   end when;
 
 annotation (
@@ -99,6 +99,10 @@ Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.temperatureDrop</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 26, 2018, by Michael Wetter:<br/>
+Replaced <code>algorithm</code> with <code>equation</code>.
+</li>
 <li>
 June 9, 2015 by Michael Wetter:<br/>
 Revised model to provide start values and avoid a warning if
