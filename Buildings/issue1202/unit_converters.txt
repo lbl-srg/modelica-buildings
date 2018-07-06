@@ -4,8 +4,8 @@ create_conversions_for = [
 	 unit : "Fahrenheit",
 	 unit_symbol : "F",
 	 direction = "From",
-	 adder = "523.67",
-	 multiplier = "1.8"},
+	 adder = "",
+	 multiplier = ""},
 
 	{quantity : "Temperature",
 	 modelica_quantity : "ThermodynamicTemperature",
@@ -14,7 +14,7 @@ create_conversions_for = [
 	 direction = "To",
 	 adder = "",
 	 multiplier = ""},
-
+# continue the list for temp, pres, volflow
 	]
 
 
