@@ -1069,8 +1069,6 @@ Buildings/Resources/Images/Utilities/Math/Functions/Examples/cubicHermite.png
 Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/Utilities/Math/int.pdf
 Buildings/Resources/Images/Utilities/Math/int.png
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Utilities_IO_Files_Examples_CSVReader.txt
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Utilities_IO_Files_Examples_CSVWriter.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -1588,7 +1586,6 @@ Buildings/Utilities/Diagnostics/Validation/package.mo
 Buildings/Utilities/Diagnostics/Validation/package.order
 Buildings/Utilities/Diagnostics/package.mo
 Buildings/Utilities/Diagnostics/package.order
-Buildings/Utilities/IO/Examples/package.order
 Buildings/Utilities/IO/Files/BaseClasses/FileWriter.mo
 Buildings/Utilities/IO/Files/BaseClasses/FileWriterObject.mo
 Buildings/Utilities/IO/Files/BaseClasses/package.mo
