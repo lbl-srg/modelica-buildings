@@ -12,13 +12,13 @@ partial model PartialTwoPort "Partial component with two ports"
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
      m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-     h_outflow(start = Medium.h_default))
+     h_outflow(start = Medium.h_default, nominal = Medium.h_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-     h_outflow(start = Medium.h_default))
+     h_outflow(start = Medium.h_default, nominal = Medium.h_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}})));
 
@@ -41,6 +41,11 @@ users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 8, 2018, by Filip Jorissen:<br/>
+Added nominal value of <code>h_outflow</code> in <code>FluidPorts</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/977\">#977</a>.
+</li>
 <li>
 November 19, 2015, by Michael Wetter:<br/>
 Removed parameters
