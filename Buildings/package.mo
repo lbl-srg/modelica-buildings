@@ -224,6 +224,17 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/877\">IBPSA, #877</a>.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Reports.Printer<br/>
+                           Buildings.Utilities.Reports.printRealArray
+        </td>
+        <td valign=\"top\">Moved <code>Buildings.Utilities.Reports.Printer</code> to
+                           <code>Buildings.Utilities.IO.Files.Printer</code> and moved
+                           <code>Buildings.Utilities.Reports.printRealArray</code> to
+                           <code>Buildings.Utilities.IO.Files.BaseClasses.printRealArray</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is due to the newly introduced package <code>Buildings.Utilities.IO.Files</code>.
+        </td>
+    </tr>
     </table>
     <!-- Errors that have been fixed -->
     <p>
@@ -5763,8 +5774,8 @@ near zero flow if the components have exactly two fluid ports connected.</td>
 </tr>
 
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Reports</b></td></tr>
-<tr><td valign=\"top\">Buildings.Utilities.Reports.Printer<br/>
-                     Buildings.Utilities.Reports.printRealArray</td>
+<tr><td valign=\"top\">Buildings.Utilities.IO.Files.Printer<br/>
+                     Buildings.Utilities.IO.Files.BaseClasses.printRealArray</td>
     <td valign=\"top\">Changed parameter <code>precision</code> to <code>significantDigits</code> and
                      <code>minimumWidth</code> to <code>minimumLength</code>
                      to use the same terminology as the Modelica Standard Library.</td>
