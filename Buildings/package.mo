@@ -144,6 +144,11 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Package with shade controllers.
         </td>
         </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.IO.Files
+        </td>
+        <td valign=\"top\">Package with blocks to write CSV files or combi time table files.
+        </td>
+        </tr>
     </table>
     <!-- New components for existing libraries -->
     <p>
