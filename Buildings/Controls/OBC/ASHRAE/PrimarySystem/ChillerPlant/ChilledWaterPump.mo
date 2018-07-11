@@ -53,18 +53,18 @@ block ChilledWaterPump "Sequences to control chilled water pumps"
     final unit="Pa",
     final quantity="PressureDifference")
     "Chilled water differential static pressure"
-     annotation (Placement(transformation(extent={{-260,-40},{-220,0}}),
+    annotation (Placement(transformation(extent={{-260,-40},{-220,0}}),
        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
     "Plant enable-disable status"
-     annotation (Placement(transformation(extent={{-260,100},{-220,140}}),
-       iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-260,100},{-220,140}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatPumSpe[num](
     final min=0,
     final max=1,
-    final unit="1") "Chilled water pump speed" annotation (Placement(
-        transformation(extent={{220,-20},{240,0}}), iconTransformation(extent={{100,-10},
-            {120,10}})));
+    final unit="1") "Chilled water pump speed"
+    annotation (Placement(transformation(extent={{220,-20},{240,0}}),
+      iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division chiWatFloRat
     "Chilled water flow ratio"
@@ -86,92 +86,95 @@ block ChilledWaterPump "Sequences to control chilled water pumps"
     u_m(final unit="Pa"),
     final yMin=minPumSpe,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    y_reset=minPumSpe)     "Pumps controller"
+    y_reset=minPumSpe)  "Pumps controller"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
-
-protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPum(
-    final k=0) "Pump not running"
-    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nomChiWatFlo(
     final k=VEva_nominal) "Total plant design flow"
     annotation (Placement(transformation(extent={{-220,-120},{-200,-100}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch pumSpe
+    "Switch between pump speed when plant enable and disable "
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain dpSetNor(
+    k=1/dpChiWatPum_norminal)
+    "Normalized chilled water pump differential pressure setpoint"
+    annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain dpNor(
+    k=1/dpChiWatPum_norminal)
+    "Normalized chilled water pump differential pressure"
+    annotation (Placement(transformation(extent={{-200,-30},{-180,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
+    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Toggle tog
+    "Change output only when input changes from false to true"
+    annotation (Placement(transformation(extent={{-20,100},{0,120}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPum(
+    final k=0) "Pump not running"
+    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=false) "Shut off lag pump"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch pumSpe
-    "Switch between pump speed when plant enable and disable "
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
     "Switch between lag status when plant enable and disable"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-
-public
-  CDL.Continuous.Gain dpSetNor(k=1/dpChiWatPum_norminal)
-    "Normalized chilled water pump differential pressure setpoint"
-    annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
-  CDL.Continuous.Gain dpNor(k=1/dpChiWatPum_norminal)
-    "Normalized chilled water pump differential pressure"
-    annotation (Placement(transformation(extent={{-200,-30},{-180,-10}})));
-protected
-  CDL.Continuous.Sources.Constant iniLeaLag[num](final k=iniLeaLagArr)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant iniLeaLag[num](
+    final k=iniLeaLagArr)
     "Initial lead and lag pumps setting"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-protected
-  CDL.Continuous.Sources.Constant swiLeaLag[num](final k=swiLeaLagArr)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant swiLeaLag[num](
+    final k=swiLeaLagArr)
     "Switched lead and lag pumps setting"
     annotation (Placement(transformation(extent={{20,110},{40,130}})));
-  CDL.Logical.Switch swi2[num] "Switch lead and lag pumps setting"
+  Buildings.Controls.OBC.CDL.Logical.Switch swi2[num] "Switch lead and lag pumps setting"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
-public
-  CDL.Routing.BooleanReplicator booRep(nout=num) "Replicate input"
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+    final nout=num) "Replicate input"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
-  CDL.Continuous.Product pro[num] "Find product of inputs"
+  Buildings.Controls.OBC.CDL.Continuous.Product pro[num] "Find product of inputs"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
-  CDL.Routing.RealReplicator reaRep(nout=num) "Replicate input "
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=num) "Replicate input "
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  CDL.Continuous.Add add2[num](k1=-1) "Add inputs"
+  Buildings.Controls.OBC.CDL.Continuous.Add add2[num](k1=-1) "Add inputs"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  CDL.Continuous.Add add1[num] "Add inputs"
+  Buildings.Controls.OBC.CDL.Continuous.Add add1[num] "Add inputs"
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
-protected
-  CDL.Logical.Switch swi3[num]
+  Buildings.Controls.OBC.CDL.Logical.Switch swi3[num]
     "Switch between only lead pump is ON to both lead and lag pumps are ON"
     annotation (Placement(transformation(extent={{180,-20},{200,0}})));
-public
-  CDL.Routing.BooleanReplicator booRep1(nout=num) "Replicate input "
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
+    final nout=num) "Replicate input "
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
-  CDL.Logical.TrueDelay truDel(delayTime=tStaLagPum)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=tStaLagPum)
     "Duration time threshold to check if flow ratio has been above setpoint for enough long time"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-  CDL.Logical.TrueDelay shuLagPum(delayTime=tShuLagPum)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay shuLagPum(
+    final delayTime=tShuLagPum)
     "Duration time threshold to check if flow ratio has been below setpoint for enough long time"
     annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
-  CDL.Continuous.Modulo mod
+  Buildings.Controls.OBC.CDL.Continuous.Modulo mod
     "Output the remainder of first input divided by second input"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-  CDL.Logical.Timer timLeaPum "Duration time lead pumps ON status"
+  Buildings.Controls.OBC.CDL.Logical.Timer timLeaPum
+    "Duration time of lead pumps ON status"
     annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
-protected
-  CDL.Continuous.Sources.Constant swiInt(final k=tPumOn)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant swiInt(
+    final k=tPumOn)
     "Threshold time interval for lead-lag pump switch"
     annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
-public
-  CDL.Continuous.LessEqualThreshold lesEquThr(threshold=0.05)
+  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(
+    final threshold=0.05)
     "Check if lead pump ON time achieves lead-lag switch point"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=5)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
+    final threshold=5)
     "To ensure no lead-lag switch at initial time"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
-  CDL.Logical.And and2 "Logical and"
-    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
-  CDL.Logical.Toggle tog
-    "Change output only when input changes from false to true"
-    annotation (Placement(transformation(extent={{-20,100},{0,120}})));
-  CDL.Logical.Sources.Constant con1(k=false) "False constant"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
+    final k=false) "False constant"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+
 equation
   connect(VEva_flow, chiWatFloRat.u1)
     annotation (Line(points={{-240,-70},{-200,-70},{-200,-74},{-182,-74}},
@@ -285,7 +288,7 @@ annotation (
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None), Rectangle(
-          extent={{-216,-62},{60,-138}},
+          extent={{-218,-62},{58,-138}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
@@ -314,7 +317,7 @@ annotation (
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
-          textString="Lead-lad pumps switch")}),
+          textString="Lead-lag pumps switch")}),
   Icon(graphics={Text(
           extent={{-100,150},{100,110}},
           lineColor={0,0,255},
