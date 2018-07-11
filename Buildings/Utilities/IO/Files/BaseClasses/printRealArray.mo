@@ -1,4 +1,4 @@
-within Buildings.Utilities.Reports;
+within Buildings.Utilities.IO.Files.BaseClasses;
 function printRealArray "Print string to terminal or file"
   extends Modelica.Icons.Function;
   input Real[:] x "Input to be printed";
