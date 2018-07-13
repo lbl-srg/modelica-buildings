@@ -959,6 +959,7 @@ Buildings/Media/package.order
 Buildings/Resources/C-Sources/fileWriterFree.c
 Buildings/Resources/C-Sources/fileWriterInit.c
 Buildings/Resources/C-Sources/fileWriterStructure.h
+Buildings/Resources/Data/Utilities/IO/Files/Examples/CSVReader/Data.csv
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.odp
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.png
 Buildings/Resources/Images/Airflow/Multizone/Examples/3roomValidation.png

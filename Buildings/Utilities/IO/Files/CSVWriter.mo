@@ -29,7 +29,7 @@ are stored. Results are saved in the current working directory
 unless an absolute path is provided.
 </p>
 <p>
-The parameter <code>samplePeriod</code> defines every how may seconds
+The parameter <code>samplePeriod</code> defines every how many seconds
 the inputs are saved to the file. 
 </p>
 <h4>Options</h4>
