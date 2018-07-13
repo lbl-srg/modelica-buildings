@@ -57,7 +57,7 @@ env:
 
 before_install:
   - if [[ "$TEST_ARG" == *test-dymola* ]]; then
-       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" && docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2018fd01-x86_64;
+       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" && docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2019-x86_64;
        chmod +x Buildings/Resources/Scripts/travis/bin/dymola;
        cp Buildings/Resources/Scripts/travis/bin/dymola $HOME/bin/;
     fi;
