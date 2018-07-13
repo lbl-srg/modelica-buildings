@@ -76,7 +76,7 @@ block TowerFan "Sequences to control cooling tower fan"
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis risCWRT(
     final uLow=dTAboSet - 0.25,
     final uHigh=dTAboSet + 0.25)
-    "CWRT rises above setpoint by 0.55 degC with 0.25 degC band"
+    "CWRT rises above setpoint by 0.55 degC (1 degF) with 0.25 degC band"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis droCWRT(
     final uLow=-0.25,
@@ -98,13 +98,11 @@ block TowerFan "Sequences to control cooling tower fan"
     "Check if fans have been at minimum speed for 5 minutes"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Buildings.Controls.OBC.CDL.Logical.And fanOff "Cycle off fans"
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
     final duration=tFanOffMin)
     "Fans hold OFF for at least 3 minuts"
-    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat "Latch fan on status"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
     final controllerType=controllerTypeFan,
     final k=kFan,
@@ -118,8 +116,11 @@ block TowerFan "Sequences to control cooling tower fan"
     "Fan speed controller"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
-    "Fan speed switcher based fan status"
+    "Fan speed switch according to fan status"
     annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+    "Switch fan on and off"
+    annotation (Placement(transformation(extent={{120,50},{140,70}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(final nu=num)
@@ -136,6 +137,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0)
     "Fan speed when fan off"
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=false)
+    "Fan OFF status"
+    annotation (Placement(transformation(extent={{60,80},{80,100}})));
 
 equation
   connect(not1.y, mulAnd.u)
@@ -165,7 +169,8 @@ equation
     annotation (Line(points={{1,100},{10,100},{10,60},{18,60}},
       color={255,0,255}));
   connect(risCWRT.y, fanOn.u2)
-    annotation (Line(points={{1,50},{10,50},{10,52},{18,52}}, color={255,0,255}));
+    annotation (Line(points={{1,50},{10,50},{10,52},{18,52}},
+      color={255,0,255}));
   connect(uFanSpe, minSpe.u)
     annotation (Line(points={{-200,-50},{-142,-50}}, color={0,0,127}));
   connect(minSpe.y, tim.u)
@@ -173,20 +178,13 @@ equation
   connect(tim.y, greEquThr.u)
     annotation (Line(points={{-79,-50},{-62,-50}}, color={0,0,127}));
   connect(droCWRT.y, fanOff.u1)
-    annotation (Line(points={{1,-20},{10,-20},{10,-50},{18,-50}},
+    annotation (Line(points={{1,-20},{18,-20}},
       color={255,0,255}));
   connect(greEquThr.y, fanOff.u2)
-    annotation (Line(points={{-39,-50},{-20,-50},{-20,-58},{18,-58}},
+    annotation (Line(points={{-39,-50},{10,-50},{10,-28},{18,-28}},
       color={255,0,255}));
   connect(fanOff.y, truHol.u)
-    annotation (Line(points={{41,-50},{59,-50}}, color={255,0,255}));
-  connect(fanOn.y, lat.u)
-    annotation (Line(points={{41,60},{99,60}}, color={255,0,255}));
-  connect(truHol.y, lat.u0)
-    annotation (Line(points={{81,-50},{90,-50},{90,54},{99,54}},
-      color={255,0,255}));
-  connect(lat.y, yFan)
-    annotation (Line(points={{121,60},{190,60}}, color={255,0,255}));
+    annotation (Line(points={{41,-20},{59,-20}}, color={255,0,255}));
   connect(TConWatRet, conPID.u_m)
     annotation (Line(points={{-200,70},{-170,70},{-170,-110},{30,-110},{30,-102}},
       color={0,0,127}));
@@ -196,9 +194,6 @@ equation
   connect(conPID.y, swi.u1)
     annotation (Line(points={{41,-90},{80,-90},{80,-82},{138,-82}},
       color={0,0,127}));
-  connect(lat.y, swi.u2)
-    annotation (Line(points={{121,60},{130,60},{130,-90},{138,-90}},
-      color={255,0,255}));
   connect(con.y, swi.u3)
     annotation (Line(points={{101,-110},{120,-110},{120,-98},{138,-98}},
       color={0,0,127}));
@@ -206,6 +201,20 @@ equation
     annotation (Line(points={{161,-90},{190,-90}}, color={0,0,127}));
   connect(mulAnd.y, CWPumSta.u)
     annotation (Line(points={{-78.3,100},{-22,100}}, color={255,0,255}));
+  connect(truHol.y, logSwi.u2)
+    annotation (Line(points={{81,-20},{100,-20},{100,60},{118,60}},
+      color={255,0,255}));
+  connect(fanOn.y, logSwi.u3)
+    annotation (Line(points={{41,60},{60,60},{60,52},{118,52}},
+      color={255,0,255}));
+  connect(con1.y, logSwi.u1)
+    annotation (Line(points={{81,90},{100,90},{100,68},{118,68}},
+      color={255,0,255}));
+  connect(logSwi.y, yFan)
+    annotation (Line(points={{141,60},{190,60}}, color={255,0,255}));
+  connect(logSwi.y, swi.u2)
+    annotation (Line(points={{141,60},{160,60},{160,-40},{120,-40},{120,-90},
+      {138,-90}}, color={255,0,255}));
 
 annotation (
   defaultComponentName = "towFan",
@@ -231,7 +240,7 @@ annotation (
           horizontalAlignment=TextAlignment.Right,
           textString="Enable fan"),
         Text(
-          extent={{46,-2},{82,-14}},
+          extent={{-156,-6},{-120,-18}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -261,7 +270,7 @@ annotation (
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-96,88},{-56,76}},
+          extent={{-96,88},{-36,74}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uConWatPum"),

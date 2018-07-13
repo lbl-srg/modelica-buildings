@@ -263,8 +263,8 @@ block ChillerStaging "Sequences to control chiller staging"
   Buildings.Controls.OBC.CDL.Logical.Switch swi6
     "Ensure no further stage-up when current stage is already the highest stage"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold higSta(
-    final threshold=num - 1)
+  CDL.Continuous.LessThreshold                             higSta(final
+      threshold=num)
     "Check if current stage is highest stage minus 1"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"

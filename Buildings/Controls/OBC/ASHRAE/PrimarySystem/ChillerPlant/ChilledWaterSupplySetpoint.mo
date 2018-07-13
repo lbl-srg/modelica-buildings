@@ -89,10 +89,10 @@ equation
     annotation (Line(points={{-39,0},{20,0},{20,-42},{38,-42}},
       color={0,0,127}));
   connect(maxChiWatTem.y, chiWatTem.f1)
-    annotation (Line(points={{1,-30},{16,-30},{16,-46},{38,-46}},
+    annotation (Line(points={{1,-30},{14,-30},{14,-46},{38,-46}},
       color={0,0,127}));
   connect(oneRes.y, chiWatTem.x2)
-    annotation (Line(points={{-39,-90},{16,-90},{16,-54},{38,-54}},
+    annotation (Line(points={{-39,-90},{14,-90},{14,-54},{38,-54}},
       color={0,0,127}));
   connect(minChiWatTem.y, chiWatTem.f2)
     annotation (Line(points={{1,-70},{20,-70},{20,-58},{38,-58}},

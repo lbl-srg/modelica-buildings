@@ -263,13 +263,13 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that output chiller <code>dTRef</code> and actual PLR (<code>yPLR</code>) 
-according to ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL, 
+according to &quot;ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL&quot;, 
 Chapter 7, Appendix A, section Condenser water temperature control.
 </p>
 <h4>Actual plant part load ratio <code>yPLR</code></h4>
 <p>
 <code>yPLR</code> equals to calculated load divided by total chiller design load 
-(<code>plaCap_nominal</code>). Following equations is used:
+(<code>plaCap_nominal</code>). Following equation is used:
 </p>
 <pre>
   yPLR = (rho*VEva_flow*cp*(TChiWatRet-TChiWatSup)) / plaCap_nominal

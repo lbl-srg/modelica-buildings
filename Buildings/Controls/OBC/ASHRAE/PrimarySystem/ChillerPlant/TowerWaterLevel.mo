@@ -19,45 +19,24 @@ block TowerWaterLevel
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant watLevMinCon(
-    final k=watLevMin)
-    "Minimum water level"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant watLevMaxCon(
-    final k=watLevMax)
-    "Maximum water level"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
-    "Check if water level above maximum"
-    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqual lesEqu
-    "Check if water level below minimum"
-    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat
-    "Latch makeup water valve control"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+    final p=watLevMin,
+    final k=-1)
+    "Minimum level minus current level"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+    final uLow=watLevMin - watLevMax,
+    final uHigh=0)
+    "Check if water level is lower than minimum level"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
-  connect(watLevMaxCon.y, greEqu.u2)
-    annotation (Line(points={{-59,-50},{-40,-50},{-40,-28},{-22,-28}},
-      color={0,0,127}));
-  connect(watLev, greEqu.u1)
-    annotation (Line(points={{-120,0},{-60,0},{-60,-20},{-22,-20}},
-      color={0,0,127}));
-  connect(watLev, lesEqu.u1)
-    annotation (Line(points={{-120,0},{-60,0},{-60,20},{-22,20}},
-      color={0,0,127}));
-  connect(watLevMinCon.y, lesEqu.u2)
-    annotation (Line(points={{-59,50},{-40,50},{-40,12},{-22,12}},
-      color={0,0,127}));
-  connect(lesEqu.y, lat.u)
-    annotation (Line(points={{1,20},{20,20},{20,0},{39,0}},
-        color={255,0,255}));
-  connect(greEqu.y, lat.u0)
-    annotation (Line(points={{1,-20},{20,-20},{20,-6},{39,-6}},
-      color={255,0,255}));
-  connect(lat.y, yMakUp)
-    annotation (Line(points={{61,0},{110,0}}, color={255,0,255}));
+  connect(watLev, addPar.u)
+    annotation (Line(points={{-120,0},{-62,0}}, color={0,0,127}));
+  connect(addPar.y, hys.u)
+    annotation (Line(points={{-39,0},{-12,0}}, color={0,0,127}));
+  connect(hys.y, yMakUp)
+    annotation (Line(points={{11,0},{110,0}}, color={255,0,255}));
 
 annotation (
   defaultComponentName = "makUpWat",
