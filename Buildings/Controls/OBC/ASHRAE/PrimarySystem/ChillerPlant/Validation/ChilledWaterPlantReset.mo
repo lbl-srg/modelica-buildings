@@ -7,52 +7,25 @@ model ChilledWaterPlantReset
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uChiWatPum[2](
     k={true,false}) "Plant status"
-    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
-    amplitude=6,
-    freqHz=1/3600) "Block generates sine signal"
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs
-    "Block generates absolute value of input"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round2(n=0)
-    "Round real number to given digits"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
-    height=5,
-    duration=7200)
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round1(n=0)
-    "Round real number to given digits"
-    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real to integer"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine1(
-    amplitude=6,
-    freqHz=1/5400) "Block generates sine signal"
-    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs1
-    "Block generates absolute value of input"
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     period=3600,
     width=0.18333333) "Generate pulse signal of type Boolean"
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Switch between two Real signals"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=0)
     "Zero request when device is OFF"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round3(n=0)
-    "Round real number to given digits"
-    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3
     "Convert real to integer"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
@@ -61,36 +34,36 @@ model ChilledWaterPlantReset
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(nout=2)
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin(
+    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
+    table=[0,0;900,1; 1800,2; 2700,3; 3600,0])
+    "Time table with smoothness method of constant segments"
+    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin1(
+    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
+    table=[0,0;150,1; 300,2; 450,3; 600,4; 750,5; 900,6;
+           1050,5; 1200,4; 1350,3; 1500,2; 1650,1; 1800,0])
+    "Time table with smoothness method of constant segments"
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin2(
+    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
+    table=[0,0;150,1; 300,2; 450,3; 600,4; 750,5; 900,6;
+           1050,5; 1200,4; 1350,3; 1500,2; 1650,1; 1800,0])
+    "Time table with smoothness method of constant segments"
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
 equation
   connect(uChiWatPum.y, chiWatPlaRes.uChiWatPum)
-    annotation (Line(points={{-39,80},{60,80},{60,76},{78,76}},
+    annotation (Line(points={{-59,80},{60,80},{60,76},{78,76}},
       color={255,0,255}));
-  connect(sine.y,abs. u)
-    annotation (Line(points={{-79,50},{-62,50}}, color={0,0,127}));
-  connect(abs.y,round2. u)
-    annotation (Line(points={{-39,50},{-22,50}}, color={0,0,127}));
-  connect(round2.y,reaToInt1. u)
-    annotation (Line(points={{1,50},{18,50}}, color={0,0,127}));
   connect(con1.y,swi. u1)
-    annotation (Line(points={{-79,-50},{-74,-50},{-74,-42},{-62,-42}},
-      color={0,0,127}));
-  connect(sine1.y,swi. u3)
-    annotation (Line(points={{-79,-80},{-70,-80},{-70,-58},{-62,-58}},
-      color={0,0,127}));
-  connect(swi.y,abs1. u)
-    annotation (Line(points={{-39,-50},{-30,-50},{-30,-80},{-22,-80}},
+    annotation (Line(points={{-59,-50},{-50,-50},{-50,-42},{-22,-42}},
       color={0,0,127}));
   connect(booPul.y,swi. u2)
-    annotation (Line(points={{-79,-20},{-70,-20},{-70,-50},{-62,-50}},
+    annotation (Line(points={{-59,-20},{-40,-20},{-40,-50},{-22,-50}},
       color={255,0,255}));
   connect(booPul.y,not1. u)
-    annotation (Line(points={{-79,-20},{-22,-20}},color={255,0,255}));
-  connect(abs1.y,round3. u)
-    annotation (Line(points={{1,-80},{18,-80}}, color={0,0,127}));
-  connect(round3.y,reaToInt3. u)
-    annotation (Line(points={{41,-80},{50,-80},{50,-62},{8,-62},{8,-50},{18,-50}},
-      color={0,0,127}));
+    annotation (Line(points={{-59,-20},{-22,-20}},color={255,0,255}));
   connect(not1.y, booRep.u)
     annotation (Line(points={{1,-20},{18,-20}}, color={255,0,255}));
   connect(booRep.y, chiWatPlaRes1.uChiWatPum)
@@ -108,10 +81,15 @@ equation
   connect(reaToInt2.y, chiWatPlaRes1.uChiSta)
     annotation (Line(points={{41,20},{66,20},{66,-36},{78,-36}},
       color={255,127,0}));
-  connect(ram.y, round1.u)
-    annotation (Line(points={{-39,20},{-22,20}}, color={0,0,127}));
-  connect(round1.y, reaToInt2.u)
+  connect(timTabLin.y[1], reaToInt2.u)
     annotation (Line(points={{1,20},{18,20}}, color={0,0,127}));
+  connect(timTabLin1.y[1], reaToInt1.u)
+    annotation (Line(points={{1,50},{18,50}}, color={0,0,127}));
+  connect(timTabLin2.y[1], swi.u3)
+    annotation (Line(points={{-59,-80},{-40,-80},{-40,-58},{-22,-58}},
+      color={0,0,127}));
+  connect(swi.y, reaToInt3.u)
+    annotation (Line(points={{1,-50},{18,-50}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
