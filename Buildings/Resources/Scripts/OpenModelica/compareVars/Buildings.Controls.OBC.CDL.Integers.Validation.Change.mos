@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "reaToInt.y",
+    "cha.u",
+    "cha.y",
+    "triggeredSampler.u",
+    "triggeredSampler.y"
+  };

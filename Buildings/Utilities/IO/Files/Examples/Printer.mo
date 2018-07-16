@@ -1,7 +1,7 @@
-within Buildings.Utilities.Reports.Examples;
+within Buildings.Utilities.IO.Files.Examples;
 model Printer "Test model for printer"
   extends Modelica.Icons.Example;
-  Buildings.Utilities.Reports.Printer pri1(
+  Buildings.Utilities.IO.Files.Printer pri1(
     header="time ramp",
     nin=2,
     samplePeriod=0.1)            annotation (Placement(transformation(extent={{-20,40},
@@ -11,13 +11,13 @@ model Printer "Test model for printer"
   Modelica.Blocks.Sources.Ramp ram(duration=2)
                                    annotation (Placement(transformation(extent=
             {{-80,0},{-60,20}})));
-  Buildings.Utilities.Reports.Printer pri2(
+  Buildings.Utilities.IO.Files.Printer pri2(
     header="time ramp",
     nin=2,
     configuration=2,
     samplePeriod=0.1)            annotation (Placement(transformation(extent={{
             -20,0},{0,20}})));
-  Buildings.Utilities.Reports.Printer pri3(
+  Buildings.Utilities.IO.Files.Printer pri3(
     header="time ramp",
     nin=2,
     configuration=3,
@@ -37,6 +37,6 @@ equation
   connect(ram.y, pri3.x[2]) annotation (Line(points={{-59,10},{-40,10},{-40,-29},
           {-22,-29}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Reports/Examples/Printer.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/IO/Files/Examples/Printer.mos"
         "Simulate and plot"));
 end Printer;

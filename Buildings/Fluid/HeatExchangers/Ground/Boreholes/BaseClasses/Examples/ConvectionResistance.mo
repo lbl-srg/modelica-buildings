@@ -28,9 +28,9 @@ model ConvectionResistance
 protected
  constant Real conv(unit="1/s")=1 "Conversion factor";
 
-algorithm
-  m_flow :=m_flow_nominal*(time - 0.5)*2*conv;
-  R := Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.convectionResistance(
+equation
+  m_flow =m_flow_nominal*(time - 0.5)*2*conv;
+  R = Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.convectionResistance(
     hSeg=10,
     rTub=0.02,
     kMed=kMed,
@@ -49,6 +49,10 @@ inside the pipe.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 26, 2018, by Michael Wetter:<br/>
+Replaced <code>algorithm</code> with <code>equation</code>.
+</li>
 <li>
 February 14, 2014, by Michael Wetter:<br/>
 First implementation.

@@ -5,18 +5,27 @@ model DoorDiscretizedOperable
 
    parameter Modelica.SIunits.PressureDifference dpCloRat(min=0,
                                                           displayUnit="Pa") = 4
-    "|Closed aperture rating conditions|Pressure drop at rating condition";
+    "Pressure drop at rating condition of closed door"
+      annotation (Dialog(group="Rating conditions"));
+
   parameter Real CDCloRat(min=0, max=1)=1
-    "|Closed aperture rating conditions|Discharge coefficient";
+    "Discharge coefficient at rating conditions of closed door"
+      annotation (Dialog(group="Rating conditions"));
 
   parameter Modelica.SIunits.Area LClo(min=0)
-    "|Closed aperture|Effective leakage area";
+    "Effective leakage area of closed door"
+      annotation (Dialog(group="Closed door"));
 
-  parameter Real CDOpe=0.65 "|Open aperture|Discharge coefficient";
-  parameter Real CDClo=0.65 "|Closed aperture|Discharge coefficient";
+  parameter Real CDOpe=0.65 "Discharge coefficient of open door"
+    annotation (Dialog(group="Open door"));
+  parameter Real CDClo=0.65 "Discharge coefficient of closed door"
+    annotation (Dialog(group="Closed door"));
 
-  parameter Real mOpe = 0.5 "|Open aperture|Flow exponent for door";
-  parameter Real mClo= 0.65 "|Closed aperture|Flow exponent for crack";
+  parameter Real mOpe = 0.5 "Flow exponent for door of open door"
+    annotation (Dialog(group="Open door"));
+  parameter Real mClo= 0.65 "Flow exponent for crack of closed door"
+    annotation (Dialog(group="Closed door"));
+
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1")
     "Opening signal, 0=closed, 1=open"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}}), iconTransformation(extent={{-120,-10},{-100,10}})));
@@ -99,6 +108,10 @@ for a door that is always closed.
 revisions="<html>
 <ul>
 <li>
+June 27, 2018, by Michael Wetter:<br/>
+Corrected old parameter annotation.
+</li>
+<li>
 April 11, 2016 by Michael Wetter:<br/>
 Corrected wrong hyperlink in documentation for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/450\">issue 450</a>.
@@ -113,22 +126,27 @@ for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
-<li><i>December 6, 2011</i> by Michael Wetter:<br/>
-       Changed the computation of the discharge coefficient to use the
-       nominal density instead of the actual density.
-       Computing <code>sqrt(2/rho)</code> sometimes causes warnings from the solver,
-       as it seems to try negative values for the density during iterative solutions.
+<li>
+December 6, 2011 by Michael Wetter:<br/>
+Changed the computation of the discharge coefficient to use the
+nominal density instead of the actual density.
+Computing <code>sqrt(2/rho)</code> sometimes causes warnings from the solver,
+as it seems to try negative values for the density during iterative solutions.
 </li>
-<li><i>August 12, 2011</i> by Michael Wetter:<br/>
-       Changed model to use the new function
-       <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
-       Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
+<li>
+August 12, 2011 by Michael Wetter:<br/>
+Changed model to use the new function
+<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
+Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
 </li>
-<li><i>July 20, 2010</i> by Michael Wetter:<br/>
-       Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+<li>
+July 20, 2010 by Michael Wetter:<br/>
+Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>
-<li><i>February 10, 2005</i> by Michael Wetter:<br/>
-       Released first version.
+<li>
+February 10, 2005 by Michael Wetter:<br/>
+Released first version.
+</li>
 </ul>
 </html>"));
 end DoorDiscretizedOperable;

@@ -1,6 +1,6 @@
 within Buildings.Controls.Continuous;
 model OffTimer "Records the time since the input changed to false"
-  extends Modelica.Blocks.Interfaces.partialBooleanBlockIcon;
+  extends Modelica.Blocks.Icons.PartialBooleanBlock;
 
   Modelica.Blocks.Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(

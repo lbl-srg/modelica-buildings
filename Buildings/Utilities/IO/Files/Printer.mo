@@ -1,4 +1,4 @@
-within Buildings.Utilities.Reports;
+within Buildings.Utilities.IO.Files;
 model Printer "Model that prints values to a file"
   extends Modelica.Blocks.Interfaces.DiscreteBlock(
     firstTrigger(
@@ -23,7 +23,7 @@ initial algorithm
 equation
   if configuration < 3 then
   when {sampleTrigger, initial()} then
-      Buildings.Utilities.Reports.printRealArray(
+      Buildings.Utilities.IO.Files.BaseClasses.printRealArray(
                                       x=x, fileName=fileName,
                                       minimumLength=minimumLength,
                                       significantDigits=significantDigits);
@@ -31,7 +31,7 @@ equation
   end if;
   when terminal() then
     if configuration >= 2 then
-       Buildings.Utilities.Reports.printRealArray(
+       Buildings.Utilities.IO.Files.BaseClasses.printRealArray(
                                       x=x, fileName=fileName,
                                       minimumLength=minimumLength,
                                       significantDigits=significantDigits);

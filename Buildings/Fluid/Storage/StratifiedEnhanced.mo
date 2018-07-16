@@ -6,14 +6,14 @@ model StratifiedEnhanced "Stratified tank model with enhanced discretization"
         each nPorts=3));
 
 protected
-  Sensors.EnthalpyFlowRate H_a_flow(
+  Buildings.Fluid.Sensors.EnthalpyFlowRate H_a_flow(
     redeclare package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final tau=0,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small) "Enthalpy flow rate at port a"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  Sensors.EnthalpyFlowRate[nSeg - 1] H_vol_flow(
+  Buildings.Fluid.Sensors.EnthalpyFlowRate[nSeg - 1] H_vol_flow(
     redeclare package Medium = Medium,
     each final m_flow_nominal=m_flow_nominal,
     each final tau=0,
@@ -21,7 +21,7 @@ protected
     each final m_flow_small=m_flow_small)
     "Enthalpy flow rate between the volumes"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Sensors.EnthalpyFlowRate H_b_flow(
+  Buildings.Fluid.Sensors.EnthalpyFlowRate H_b_flow(
     redeclare package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final tau=0,
@@ -53,7 +53,6 @@ equation
   end for;
   connect(port_a, H_a_flow.port_a) annotation (Line(points={{-100,0},{
           -80,0},{-80,-80},{-60,-80}}, color={0,127,255}));
-
 
   connect(vol[1:nSeg].ports[3], str.fluidPort[2:nSeg+1])
    annotation (Line(points={{16,-16},{16,-18},{-66,-18},{-66,-40},{-60,-40}},
@@ -95,6 +94,12 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
 <li>
 June 1, 2018, by Michael Wetter:<br/>
 Refactored model to allow a fluid port in the tank that do not have

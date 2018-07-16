@@ -21,77 +21,69 @@ model StratifiedUnloadAtMinimumTemperature
     nSeg=nSeg,
     T_start=353.15) "Hot water storage tank"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
-  Sources.Boundary_pT loa(
-    redeclare package Medium = Medium,
-    nPorts=1)
+  Buildings.Fluid.Sources.Boundary_pT loa(redeclare package Medium = Medium,
+      nPorts=1)
     "Load (imposed by a constant pressure boundary condition and the flow of masSou)"
     annotation (Placement(transformation(extent={{242,-70},{222,-50}})));
-  Sources.MassFlowSource_T masSou(
+  Buildings.Fluid.Sources.MassFlowSource_T masSou(
     nPorts=1,
     redeclare package Medium = Medium,
     m_flow=m_flow_nominal) "Mass flow rate into the tank"
     annotation (Placement(transformation(extent={{242,-130},{222,-110}})));
 
-  Actuators.Valves.TwoWayLinear valTop(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear valTop(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=3000,
     use_inputFilter=false) "Control valve at top"
     annotation (Placement(transformation(extent={{112,-30},{132,-10}})));
 
-  Actuators.Valves.TwoWayLinear valMed(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear valMed(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=3000,
     use_inputFilter=false) "Control valve at top"
     annotation (Placement(transformation(extent={{132,-70},{152,-50}})));
 
-  Actuators.Valves.TwoWayLinear valBot(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear valBot(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=3000,
     use_inputFilter=false) "Control valve at top"
     annotation (Placement(transformation(extent={{150,-110},{170,-90}})));
 
-  Modelica.Blocks.Sources.Constant TSetLoa(k=273.15 + 40,
-    y(unit="K",
-      displayUnit="degC")) "Set point for temperature needed by the load"
-    annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
-
-  Modelica.Blocks.Sources.Constant TSetHea(
-    y(unit="K", displayUnit="degC"),
-    k=273.15 + 50) "Set point for temperature needed by the load"
-    annotation (Placement(transformation(extent={{-260,-128},{-240,-108}})));
-
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TMid
     "Temperature tank middle"
-    annotation (Placement(transformation(extent={{-102,76},{-82,96}})));
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TBot
     "Temperature tank bottom"
-    annotation (Placement(transformation(extent={{-102,36},{-82,56}})));
-  Controls.OBC.CDL.Logical.OnOffController onOffBot(bandwidth=0.1)
+    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
+  Modelica.Blocks.Logical.Hysteresis onOffBot(uLow=273.15 + 40 - 0.05, uHigh=
+        273.15 + 40 + 0.05)
     "Controller for valve at bottom"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-  Sensors.TemperatureTwoPort senTem(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0) "Outflowing temperature"
     annotation (Placement(transformation(extent={{190,-70},{210,-50}})));
-  Controls.OBC.CDL.Logical.OnOffController onOffMid(bandwidth=0.1)
+  Modelica.Blocks.Logical.Hysteresis onOffMid(uLow=273.15 + 40 - 0.05, uHigh=
+        273.15 + 40 + 0.05)
     "Controller for valve at middle of tank"
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
-  Controls.OBC.CDL.Logical.And and2
+  Modelica.Blocks.Logical.And and2
     "And block to compute control action for middle valve"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal yMid
+  Modelica.Blocks.Math.BooleanToReal yMid
     "Boolean to real conversion for valve at middle"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal yTop
+  Modelica.Blocks.Math.BooleanToReal yTop
     "Boolean to real conversion for valve at top"
     annotation (Placement(transformation(extent={{80,110},{100,130}})));
-  Controls.OBC.CDL.Logical.Nor nor "Nor block for top-most control valve"
+  Modelica.Blocks.Logical.Nor nor
+    "Nor block for top-most control valve"
     annotation (Placement(transformation(extent={{50,110},{70,130}})));
-  Controls.OBC.CDL.Logical.Not not1
+  Modelica.Blocks.Logical.Not not1
     "Not block to negate control action of upper level control"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow hea
@@ -100,23 +92,24 @@ model StratifiedUnloadAtMinimumTemperature
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TTop
     "Temperature tank top"
     annotation (Placement(transformation(extent={{-160,-100},{-180,-80}})));
-  Controls.OBC.CDL.Logical.OnOffController onOffHea(bandwidth=0.1)
+  Modelica.Blocks.Logical.Hysteresis onOffHea(uLow=273.15 + 50 - 0.05, uHigh=
+        273.15 + 50 + 0.05)
     "Controller for heater at bottom"
     annotation (Placement(transformation(extent={{-210,-134},{-190,-114}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal yHea(realTrue=150000)
+  Modelica.Blocks.Math.BooleanToReal yHea(realFalse=150000)
     "Boolean to real for valve at bottom"
     annotation (Placement(transformation(extent={{-180,-134},{-160,-114}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal yBot
+  Modelica.Blocks.Math.BooleanToReal yBot
     "Boolean to real conversion for valve at bottom"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
 equation
   connect(masSou.ports[1], tan.port_b) annotation (Line(points={{222,-120},{-100,
           -120}},             color={0,127,255}));
   connect(TMid.port, tan.heaPorVol[3])
-    annotation (Line(points={{-102,86},{-110,86},{-110,-120}},
+    annotation (Line(points={{-100,80},{-110,80},{-110,-120}},
                                                              color={191,0,0}));
   connect(TBot.port, tan.heaPorVol[5])
-    annotation (Line(points={{-102,46},{-110,46},{-110,-120}},
+    annotation (Line(points={{-100,40},{-110,40},{-110,-120}},
                                                            color={191,0,0}));
   connect(valTop.port_b, senTem.port_a) annotation (Line(points={{132,-20},{182,
           -20},{182,-60},{190,-60}},
@@ -153,34 +146,28 @@ equation
                                color={0,0,127}));
   connect(yMid.y, valMed.y) annotation (Line(points={{101,80},{142,80},{142,-48}},
                               color={0,0,127}));
-  connect(TBot.T, onOffBot.reference)
-    annotation (Line(points={{-82,46},{-52,46}},   color={0,0,127}));
-  connect(onOffBot.u, TSetLoa.y) annotation (Line(points={{-52,34},{-64,34},{-64,
-          60},{-119,60}}, color={0,0,127}));
   connect(not1.u, onOffBot.y) annotation (Line(points={{-22,60},{-26,60},{-26,40},
           {-29,40}},       color={255,0,255}));
   connect(not1.y, and2.u2) annotation (Line(points={{1,60},{4,60},{4,72},{8,72}},
         color={255,0,255}));
-  connect(TSetLoa.y, onOffMid.u) annotation (Line(points={{-119,60},{-64,60},{-64,
-          74},{-52,74}},   color={0,0,127}));
-  connect(TMid.T, onOffMid.reference)
-    annotation (Line(points={{-82,86},{-52,86}},   color={0,0,127}));
   connect(hea.port, tan.heaPorVol[5]) annotation (Line(points={{-130,-124},{-110,
           -124},{-110,-120}}, color={191,0,0}));
   connect(TTop.port, tan.heaPorVol[1]) annotation (Line(points={{-160,-90},{-110,
           -90},{-110,-120}}, color={191,0,0}));
-  connect(onOffHea.u, TTop.T) annotation (Line(points={{-212,-130},{-230,-130},{
-          -230,-90},{-180,-90}}, color={0,0,127}));
+  connect(onOffHea.u, TTop.T) annotation (Line(points={{-212,-124},{-230,-124},
+          {-230,-90},{-180,-90}},color={0,0,127}));
   connect(onOffHea.y, yHea.u)
     annotation (Line(points={{-189,-124},{-182,-124}}, color={255,0,255}));
   connect(hea.Q_flow, yHea.y)
     annotation (Line(points={{-150,-124},{-159,-124}}, color={0,0,127}));
-  connect(TSetHea.y, onOffHea.reference)
-    annotation (Line(points={{-239,-118},{-212,-118}}, color={0,0,127}));
   connect(onOffBot.y, yBot.u)
     annotation (Line(points={{-29,40},{78,40}}, color={255,0,255}));
   connect(yBot.y, valBot.y)
     annotation (Line(points={{101,40},{160,40},{160,-88}}, color={0,0,127}));
+  connect(TBot.T, onOffBot.u)
+    annotation (Line(points={{-80,40},{-52,40}}, color={0,0,127}));
+  connect(onOffMid.u, TMid.T)
+    annotation (Line(points={{-52,80},{-80,80}}, color={0,0,127}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-300,-140},{260,140}})),
        __Dymola_Commands(file=
@@ -188,8 +175,7 @@ equation
         "Simulate and plot"),
     experiment(
       StopTime=21600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 Example for tank model that has three outlets, each with a valve.
@@ -204,6 +190,13 @@ tank if the top tank segment is below the set point temperature.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly
+by removing CDL blocks.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
 <li>
 June 1, 2018, by Michael Wetter:<br/>
 First implementation.<br/>

@@ -76,9 +76,10 @@ model IndirectTankHeatExchanger
     "Calculates the flow resistance and pressure drop through the heat exchanger"
     annotation (Placement(transformation(extent={{46,-60},{66,-40}})));
 
-  MixingVolumes.MixingVolume vol[nSeg](each nPorts=2,
-    each m_flow_nominal=m_flow_nominal,
+  Buildings.Fluid.MixingVolumes.MixingVolume vol[nSeg](
     redeclare each package Medium = MediumHex,
+    each nPorts=2,
+    each m_flow_nominal=m_flow_nominal,
     each V=volHexFlu/nSeg,
     each energyDynamics=energyDynamics,
     each massDynamics=massDynamics,
@@ -87,7 +88,7 @@ model IndirectTankHeatExchanger
     each X_start=X_start,
     each C_start=C_start,
     each C_nominal=C_nominal,
-    each final prescribedHeatFlowRate = false,
+    each final prescribedHeatFlowRate=false,
     each final allowFlowReversal=allowFlowReversal) "Heat exchanger fluid"
     annotation (Placement(transformation(extent={{-32,-40},{-12,-20}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap[nSeg](
@@ -100,7 +101,7 @@ model IndirectTankHeatExchanger
     "Thermal mass of the heat exchanger"
     annotation (Placement(transformation(extent={{-6,6},{14,26}})));
 protected
-  Sensors.MassFlowRate senMasFlo(
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare package Medium = MediumHex,
     allowFlowReversal=allowFlowReversal)
     "Mass flow rate of the heat transfer fluid"
@@ -126,27 +127,23 @@ protected
   Modelica.Blocks.Routing.Replicator rep(nout=nSeg)
     "Replicates senMasFlo signal from 1 seg to nSeg"
     annotation (Placement(transformation(extent={{-44,-108},{-24,-88}})));
-  HeatExchangers.BaseClasses.HACoilInside hAPipIns[nSeg](
+  Buildings.Fluid.HeatExchangers.BaseClasses.HACoilInside hAPipIns[nSeg](
     each m_flow_nominal=m_flow_nominal,
     each hA_nominal=UA_nominal/nSeg*(r_nominal + 1)/r_nominal,
     each T_nominal=THex_nominal,
     each final flowDependent=hA_flowDependent,
     each final temperatureDependent=hA_temperatureDependent)
-    "Computation of convection coefficients inside the coil"
-    annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        origin={20,-80})));
-  HeatExchangers.BaseClasses.HANaturalCylinder hANatCyl[nSeg](
+    "Computation of convection coefficients inside the coil" annotation (
+      Placement(transformation(extent={{-10,-10},{10,10}}, origin={20,-80})));
+  Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder hANatCyl[nSeg](
     redeclare each final package Medium = Medium,
     each final ChaLen=dExtHex,
     each final hA_nominal=UA_nominal/nSeg*(1 + r_nominal),
     each final TFlu_nominal=TTan_nominal,
-    each final TSur_nominal=TTan_nominal-(r_nominal/(1+r_nominal))*(TTan_nominal-THex_nominal))
-    "Calculates an hA value for each side of the heat exchanger"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={10,110})));
+    each final TSur_nominal=TTan_nominal - (r_nominal/(1 + r_nominal))*(
+        TTan_nominal - THex_nominal))
+    "Calculates an hA value for each side of the heat exchanger" annotation (
+      Placement(transformation(extent={{-10,-10},{10,10}}, origin={10,110})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSenSur[nSeg]
     "Temperature at the external surface of the heat exchanger"
     annotation (
@@ -297,6 +294,12 @@ equation
           </html>",
           revisions="<html>
 <ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
 <li>
 January 7, 2016, by Filip Jorissen:<br/>
 Propagated <code>flowDependent</code> and <code>temperatureDependent</code>

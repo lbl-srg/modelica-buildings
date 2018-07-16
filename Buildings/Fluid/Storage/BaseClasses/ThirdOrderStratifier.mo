@@ -1,7 +1,8 @@
 within Buildings.Fluid.Storage.BaseClasses;
 model ThirdOrderStratifier
   "Model to reduce the numerical dissipation in a tank"
-  extends Buildings.BaseClasses.BaseIcon;
+  extends Modelica.Blocks.Icons.Block;
+
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
 
@@ -140,6 +141,12 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </html>", revisions="<html>
 <ul>
 <li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
+<li>
 December 14, 2012 by Michael Wetter:<br/>
 Removed unused protected parameters <code>sta0</code> and <code>cp0</code>.
 </li>
@@ -159,11 +166,6 @@ First implementation.
 </ul>
 </html>"), Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}),graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-48,66},{48,34}},
           fillColor={255,0,0},

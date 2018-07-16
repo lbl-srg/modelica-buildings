@@ -6,18 +6,21 @@ partial model PartialThreeWayResistance
 
   Modelica.Fluid.Interfaces.FluidPort_a port_1(
     redeclare package Medium = Medium,
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default),
     m_flow(min=if (portFlowDirection_1 == Modelica.Fluid.Types.PortFlowDirection.Entering) then 0.0 else -Modelica.Constants.inf,
            max=if (portFlowDirection_1== Modelica.Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf))
     "First port, typically inlet"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_2(
     redeclare package Medium = Medium,
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default),
     m_flow(min=if (portFlowDirection_2 == Modelica.Fluid.Types.PortFlowDirection.Entering) then 0.0 else -Modelica.Constants.inf,
            max=if (portFlowDirection_2 == Modelica.Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf))
     "Second port, typically outlet"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_3(
     redeclare package Medium=Medium,
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default),
     m_flow(min=if (portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Entering) then 0.0 else -Modelica.Constants.inf,
            max=if (portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf))
     "Third port, can be either inlet or outlet"
@@ -44,6 +47,13 @@ partial model PartialThreeWayResistance
   parameter Modelica.Fluid.Types.PortFlowDirection portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
     "Flow direction for port_3"
    annotation(Dialog(tab="Advanced"));
+  parameter Boolean verifyFlowReversal = false
+    "=true, to assert that the flow does not reverse when portFlowDirection_* does not equal Bidirectional"
+    annotation(Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.MassFlowRate m_flow_small
+    "Small mass flow rate for checking flow reversal"
+    annotation(Dialog(tab="Advanced",enable=verifyFlowReversal));
+
 
   replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res1
     constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
@@ -106,6 +116,45 @@ initial equation
          Modelica.Fluid.Types.PortFlowDirection.Entering, which is non-physical.");
 
 equation
+  if verifyFlowReversal then
+    if portFlowDirection_1==Modelica.Fluid.Types.PortFlowDirection.Entering then
+      assert(port_1.m_flow> -m_flow_small,
+      "In " + getInstanceName() + ":
+      Flow is leaving port_1 but portFlowDirection_1=PortFlowDirection.Entering since m_flow=" +
+      String(port_1.m_flow) + ">-"+String(m_flow_small));
+    end if;
+    if portFlowDirection_1==Modelica.Fluid.Types.PortFlowDirection.Leaving then
+      assert(port_1.m_flow< m_flow_small,
+      "In " + getInstanceName() + ":
+      Flow is entering port_1 but portFlowDirection_1=PortFlowDirection.Leaving since m_flow=" +
+      String(port_1.m_flow) + "<"+String(m_flow_small));
+    end if;
+    if portFlowDirection_2==Modelica.Fluid.Types.PortFlowDirection.Entering then
+      assert(port_2.m_flow> -m_flow_small,
+      "In " + getInstanceName() + ":
+      Flow is leaving port_2 but portFlowDirection_2=PortFlowDirection.Entering since m_flow=" +
+      String(port_2.m_flow) + ">-"+String(m_flow_small));
+    end if;
+    if portFlowDirection_2==Modelica.Fluid.Types.PortFlowDirection.Leaving then
+      assert(port_2.m_flow< m_flow_small,
+      "In " + getInstanceName() + ":
+      Flow is entering port_2 but portFlowDirection_2=PortFlowDirection.Leaving since m_flow=" +
+      String(port_2.m_flow) + "<"+String(m_flow_small));
+    end if;
+    if portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Entering then
+      assert(port_3.m_flow> -m_flow_small,
+      "In " + getInstanceName() + ":
+      Flow is leaving port_3 but portFlowDirection_3=PortFlowDirection.Entering since m_flow=" +
+      String(port_3.m_flow) + ">-"+String(m_flow_small));
+    end if;
+    if portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving then
+      assert(port_3.m_flow< m_flow_small,
+      "In " + getInstanceName() + ": 
+      Flow is entering port_3 but portFlowDirection_3=PortFlowDirection.Leaving since m_flow=" +
+      String(port_3.m_flow) + "<"+String(m_flow_small));
+    end if;
+  end if;
+
   if portFlowDirection_1==Modelica.Fluid.Types.PortFlowDirection.Leaving then
     if not have_controlVolume then
        connect(res1.port_a, port_internal) annotation (Line(
@@ -117,7 +166,7 @@ equation
       color={0,127,255}));
     end if;
     connect(port_1, res1.port_b) annotation (Line(points={{-100,0},{-100,0},{-40,
-            0}},                                                                      color={0,127,255}));
+            0}}, color={0,127,255}));
   else
     if not have_controlVolume then
        connect(res1.port_b, port_internal) annotation (Line(
@@ -193,6 +242,17 @@ The time constant of the mixing volume is determined by the parameter <code>tau<
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 7, 2018, by Filip Jorissen:<br/>
+Added asserts that verify whether flow reversal occurs when 
+<code>verifyFlowReversal=true</code> and <code>portFlowDirection&lt;&gt;Bidirectional</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/963\">#963</a>.
+</li>
+<li>
+July 8, 2018, by Filip Jorissen:<br/>
+Added nominal value of <code>h_outflow</code> in <code>FluidPorts</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/977\">#977</a>.
+</li>
 <li>
 March 30, 2018, by Filip Jorissen:<br/>
 Added graphical illustrations for the values of <code>portFlowDirection</code>.

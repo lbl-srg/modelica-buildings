@@ -1,6 +1,6 @@
 within Buildings.Electrical.DC.Sources.BaseClasses;
 block WindCorrection "Block for wind correction"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Height h "Height over ground";
   parameter Modelica.SIunits.Height hRef
     "Reference height for wind measurement";
