@@ -1,8 +1,8 @@
 compareVars :=
   {
-    "reaToInt.u",
     "reaToInt.y",
+    "cha.u",
+    "cha.y",
     "triggeredSampler.u",
-    "triggeredSampler.y",
-    "cha.u"
+    "triggeredSampler.y"
   };

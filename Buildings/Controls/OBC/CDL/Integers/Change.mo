@@ -45,8 +45,8 @@ Icon(coordinateSystem(preserveAspectRatio=true), graphics={
 Diagram(coordinateSystem(preserveAspectRatio=true)),
 Documentation(info="<html>
 <p>
-Block that outputs <code>true</code> if there is value change of the 
-integer input <code>u</code>.
+Block that outputs <code>true</code> if there if the
+integer input <code>u</code> changes its value.
 Otherwise the output is <code>false</code>.
 </p>
 </html>", revisions="<html>
