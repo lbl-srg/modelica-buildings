@@ -144,7 +144,7 @@ block ChillerStaging "Sequences to control chiller staging"
     "Count duration time when chilled water plant reset becomes greater than 0.95"
     annotation (Placement(transformation(extent={{-200,70},{-180,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add4(final k1=-1)
-    "Difference between condenser water return and chilled water supply temperature"
+    "Difference between stage PLR and current PLR"
     annotation (Placement(transformation(extent={{-240,130},{-220,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
     final uLow=-0.05,
@@ -163,7 +163,7 @@ block ChillerStaging "Sequences to control chiller staging"
     final uHigh=900 + 5)
     "Check if chilled water plant reset has been greater than 0.95 for more than 15 minutes"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2
+  Buildings.Controls.OBC.CDL.Logical.Or or2 "Stage up"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
     final uLow=900 - 5,
@@ -407,8 +407,9 @@ equation
   connect(uPLR, add4.u2)
     annotation (Line(points={{-300,134},{-242,134}}, color={0,0,127}));
   connect(staPLR.y, add4.u1)
-    annotation (Line(points={{-39,190},{-20,190},{-20,170},{-260,170},{-260,146},
-      {-242,146}}, color={0,0,127}));
+    annotation (Line(points={{-39,190},{-20,190},{-20,162},{-260,162},{-260,146},
+          {-242,146}},
+                   color={0,0,127}));
   connect(add4.y, hys1.u)
     annotation (Line(points={{-219,140},{-202,140}}, color={0,0,127}));
   connect(hys1.y, tim.u)
@@ -658,7 +659,7 @@ or stage-down"),
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
-          textString="Check if it should be stage-down to 0 stage"),
+          textString="Check if it should stage down to 0 stage"),
           Text(
           extent={{-260,-252},{-96,-302}},
           pattern=LinePattern.None,
@@ -680,7 +681,7 @@ from 0 to 1"),                               Rectangle(
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
-          textString="Check if it should be stage-up"),
+          textString="Check if it should stage up"),
                                              Rectangle(
           extent={{-278,38},{138,-38}},
           fillColor={210,210,210},
