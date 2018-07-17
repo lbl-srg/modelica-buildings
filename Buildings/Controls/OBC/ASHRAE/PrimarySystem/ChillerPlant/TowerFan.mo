@@ -47,8 +47,7 @@ block TowerFan "Sequences to control cooling tower fan"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
     final unit="1",
     final min=0,
-    final max=1)
-    "Current tower fan speed"
+    final max=1) "Current tower fan speed"
     annotation (Placement(transformation(extent={{-220,-70},{-180,-30}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dTRef(

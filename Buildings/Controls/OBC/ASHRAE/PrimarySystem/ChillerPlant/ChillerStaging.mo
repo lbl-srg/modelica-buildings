@@ -170,12 +170,6 @@ block ChillerStaging "Sequences to control chiller staging"
     final uHigh=900 + 5)
     "Check if PLR has been greater than SPLR for more than 15 minutes"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
-    annotation (Placement(transformation(extent={{-240,-90},{-220,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(
-    final threshold=0.5)
-    "Check if there is no chiller plant request"
-    annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim2
     "Count duration time when there is no chiller plant request"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
@@ -184,10 +178,6 @@ block ChillerStaging "Sequences to control chiller staging"
     final uHigh=300 + 5)
     "Check if there is no chiller plant request for more than 5 minutes"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold outTemLoc(
-    final threshold=TLocChi - 5*5/9)
-    "Check if outdoor temperature is less than lockout temperature minus 5 degF"
-    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr1(
     final threshold=0.5)
     "Check if there is no chiller plant request"
@@ -199,7 +189,8 @@ block ChillerStaging "Sequences to control chiller staging"
     final uHigh=0.05)
     "Check if PLR is less than SPLR"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim3 "Count duration time when PLR becomes less than SPLR"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim3
+    "Count duration time when PLR becomes less than SPLR"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys7(
     final uLow=900 - 5,
@@ -236,10 +227,6 @@ block ChillerStaging "Sequences to control chiller staging"
     annotation (Placement(transformation(extent={{-80,-240},{-60,-220}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{-140,-260},{-120,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=TLocChi)
-    "Check if outdoor temrature is greater than lockout temperature"
-    annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Check if schedule is active"
     annotation (Placement(transformation(extent={{-140,-320},{-120,-300}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi3
@@ -263,15 +250,15 @@ block ChillerStaging "Sequences to control chiller staging"
   Buildings.Controls.OBC.CDL.Logical.Switch swi6
     "Ensure no further stage-up when current stage is already the highest stage"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
-  CDL.Continuous.LessThreshold                             higSta(final
-      threshold=num)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold higSta(
+    final threshold=num)
     "Check if current stage is highest stage minus 1"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold staOneChe(
-    final threshold=1)
-    "Check if current stage is having 1 chiller operating"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold staOneChe(
+    final threshold=0)
+    "Check if current stage is having at least 1 chiller operating"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi7
     "Ensure no further stage-down when current stage is already stage 1"
@@ -281,6 +268,19 @@ block ChillerStaging "Sequences to control chiller staging"
   Buildings.Controls.OBC.CDL.Continuous.Gain dKtodF(final k=9/5)
     "Convert from degK difference to degF difference"
     annotation (Placement(transformation(extent={{-220,180},{-200,200}})));
+  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(threshold=1)
+    "Check if there is no chiller plant request"
+    annotation (Placement(transformation(extent={{-240,-90},{-220,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys8(
+    final uLow=TLocChi - 1*5/9,
+    final uHigh=TLocChi + 1*5/9)
+    "Check if outdoor temrature is greater than lockout temperature"
+    annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys9(
+    final uLow=TLocChi - 5.5*5/9,
+    final uHigh=TLocChi + 5.5*5/9)
+    "Check if outdoor temperature is less than lockout temperature minus 5 degF"
+    annotation (Placement(transformation(extent={{-138,-130},{-118,-110}})));
 
 protected
   parameter Modelica.SIunits.TemperatureDifference dTRef_nominal=
@@ -407,9 +407,8 @@ equation
   connect(uPLR, add4.u2)
     annotation (Line(points={{-300,134},{-242,134}}, color={0,0,127}));
   connect(staPLR.y, add4.u1)
-    annotation (Line(points={{-39,190},{-20,190},{-20,162},{-260,162},{-260,146},
-          {-242,146}},
-                   color={0,0,127}));
+    annotation (Line(points={{-39,190},{-20,190},{-20,162},{-260,162},
+      {-260,146},{-242,146}}, color={0,0,127}));
   connect(add4.y, hys1.u)
     annotation (Line(points={{-219,140},{-202,140}}, color={0,0,127}));
   connect(hys1.y, tim.u)
@@ -429,21 +428,10 @@ equation
     annotation (Line(points={{-139,140},{-122,140}}, color={0,0,127}));
   connect(hys4.y, or2.u1)
     annotation (Line(points={{-99,140},{-82,140}}, color={255,0,255}));
-  connect(TChiWatSupResReq, intToRea.u)
-    annotation (Line(points={{-300,-80},{-242,-80}}, color={255,127,0}));
-  connect(intToRea.y, lesEquThr.u)
-    annotation (Line(points={{-219,-80},{-202,-80}}, color={0,0,127}));
-  connect(lesEquThr.y, tim2.u)
-    annotation (Line(points={{-179,-80},{-142,-80}}, color={255,0,255}));
   connect(tim2.y, hys5.u)
     annotation (Line(points={{-119,-80},{-102,-80}}, color={0,0,127}));
-  connect(TOut, outTemLoc.u)
-    annotation (Line(points={{-300,-120},{-142,-120}}, color={0,0,127}));
   connect(timTabCon.y[1], lesEquThr1.u)
     annotation (Line(points={{-219,-160},{-202,-160}}, color={0,0,127}));
-  connect(outTemLoc.y, or3.u2)
-    annotation (Line(points={{-119,-120},{-100,-120},{-100,-110},{-62,-110}},
-      color={255,0,255}));
   connect(lesEquThr1.y, or3.u3)
     annotation (Line(points={{-179,-160},{-80,-160},{-80,-118},{-62,-118}},
       color={255,0,255}));
@@ -485,12 +473,6 @@ equation
   connect(mulSum.y, curZerSta.u)
     annotation (Line(points={{-178.3,-200},{-140,-200},{-140,-230},{-82,-230}},
       color={0,0,127}));
-  connect(lesEquThr.y, not1.u)
-    annotation (Line(points={{-179,-80},{-156,-80},{-156,-250},{-142,-250}},
-      color={255,0,255}));
-  connect(TOut, greEquThr.u)
-    annotation (Line(points={{-300,-120},{-160,-120},{-160,-280},{-142,-280}},
-      color={0,0,127}));
   connect(lesEquThr1.y, not2.u)
     annotation (Line(points={{-179,-160},{-164,-160},{-164,-310},{-142,-310}},
       color={255,0,255}));
@@ -500,8 +482,6 @@ equation
   connect(not1.y, and3.u1)
     annotation (Line(points={{-119,-250},{-100,-250},{-100,-272},{-82,-272}},
       color={255,0,255}));
-  connect(greEquThr.y, and3.u2)
-    annotation (Line(points={{-119,-280},{-82,-280}}, color={255,0,255}));
   connect(not2.y, and3.u3)
     annotation (Line(points={{-119,-310},{-100,-310},{-100,-288},{-82,-288}},
       color={255,0,255}));
@@ -613,6 +593,24 @@ equation
   connect(oneUpHol.y, or1.u2)
     annotation (Line(points={{41,-220},{60,-220},{60,-240},{160,-240},{160,72},
       {178,72}}, color={255,0,255}));
+  connect(TChiWatSupResReq, intLesThr.u)
+    annotation (Line(points={{-300,-80},{-242,-80}}, color={255,127,0}));
+  connect(intLesThr.y, tim2.u)
+    annotation (Line(points={{-219,-80},{-142,-80}}, color={255,0,255}));
+  connect(intLesThr.y, not1.u)
+    annotation (Line(points={{-219,-80},{-156,-80},{-156,-250},{-142,-250}},
+      color={255,0,255}));
+  connect(TOut, hys8.u)
+    annotation (Line(points={{-300,-120},{-160,-120},{-160,-280},{-142,-280}},
+      color={0,0,127}));
+  connect(hys8.y, and3.u2)
+    annotation (Line(points={{-119,-280},{-100,-280},{-100,-280},{-82,-280}},
+      color={255,0,255}));
+  connect(TOut, hys9.u)
+    annotation (Line(points={{-300,-120},{-140,-120}}, color={0,0,127}));
+  connect(hys9.y, or3.u2)
+    annotation (Line(points={{-117,-120},{-100,-120},{-100,-110},{-62,-110}},
+      color={255,0,255}));
 
 annotation (
   defaultComponentName="chiStaCon",
@@ -650,8 +648,8 @@ part load ratio (SPLR)"),
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
-          textString="Check if it is stage-up 
-or stage-down"),
+          textString="Check if it stages up 
+or stages down"),
           Text(
           extent={{-116,-150},{44,-190}},
           pattern=LinePattern.None,
@@ -661,21 +659,20 @@ or stage-down"),
           horizontalAlignment=TextAlignment.Left,
           textString="Check if it should stage down to 0 stage"),
           Text(
-          extent={{-260,-252},{-96,-302}},
+          extent={{-38,-286},{126,-310}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
-          textString="Check if it should 
-be stage-up 
-from 0 to 1"),                               Rectangle(
+          textString="Check if it should stage up from 0 to 1"),
+                                             Rectangle(
           extent={{-278,158},{138,62}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
           Text(
-          extent={{-138,88},{-20,54}},
+          extent={{-140,88},{-22,54}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -686,7 +683,15 @@ from 0 to 1"),                               Rectangle(
           extent={{-278,38},{138,-38}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None)}),
+          pattern=LinePattern.None),
+          Text(
+          extent={{-164,-8},{-30,-44}},
+          pattern=LinePattern.None,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Left,
+          textString="Check if it should stage down")}),
   Icon(graphics={Text(
           extent={{-100,150},{100,110}},
           lineColor={0,0,255},
