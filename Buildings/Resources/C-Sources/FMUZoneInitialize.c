@@ -85,7 +85,7 @@ int loadLib(const char* libPath, FMU *fmu) {
 
 }
 
-void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
+void FMUZoneInitialize(void* object, double t0, double* AFlo, double* V, double* mSenFac){
   fmi2Byte msg[200];
   FMUZone* zone = (FMUZone*) object;
   /* Prevent this to be called multiple times */
@@ -115,6 +115,7 @@ void FMUZoneInitialize(void* object, double* AFlo, double* V, double* mSenFac){
   const char* consInputNames[]={"T"};
   const char* consOutputNames[]={"QConSen_flow", "V", "AFlo", "mSenFac"};
 
+  ModelicaFormatMessage("Start time is set to %f.\n", t0);
   fmu = (FMU*)malloc(sizeof(FMU));
   FMUZone** tmpZon;
   tmpZon=(FMUZone**)malloc(nZon*sizeof(FMUZone*));

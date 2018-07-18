@@ -96,7 +96,9 @@ protected
 
 initial equation
   t0 = time;
-  (AFlo, V, mSenFac) = Buildings.Experimental.EnergyPlus.BaseClasses.initialize(adapter);
+  (AFlo, V, mSenFac) = Buildings.Experimental.EnergyPlus.BaseClasses.initialize(
+    adapter = adapter,
+    t0 = t0);
   T0 = T;
 equation
   when {initial(), time >= pre(tNext)} then
