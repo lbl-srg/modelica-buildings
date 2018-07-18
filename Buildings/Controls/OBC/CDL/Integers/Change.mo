@@ -1,22 +1,33 @@
 within Buildings.Controls.OBC.CDL.Integers;
 block Change
-  "Output y is true, if there is change on integer input u"
+  "Check if the Integer input changes value, if it increases or decrease"
   parameter Boolean y_start = false
     "Initial value of y";
 
-  Interfaces.IntegerInput u "Connector of Boolean input signal"
+  Interfaces.IntegerInput u "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Interfaces.BooleanOutput yCha "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Interfaces.BooleanOutput yUp
+    "Connector of Boolean output signal indicating input increase"
+    annotation (Placement(transformation(extent={{100,50},{120,70}}),
+      iconTransformation(extent={{100,50},{120,70}})));
+  Interfaces.BooleanOutput yDow
+    "Connector of Boolean output signal indicating input decrease"
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
+      iconTransformation(extent={{100,-70},{120,-50}})));
+
 protected
   Integer u_start = 0 "Initial value of input";
 
 initial equation
-   pre(y) = y_start;
+   pre(yCha) = y_start;
    pre(u) = u_start;
 
 equation
-  y = change(u);
+  yCha = change(u);
+  yUp = u > pre(u);
+  yDow = u < pre(u);
 
 annotation (defaultComponentName="cha",
 Icon(coordinateSystem(preserveAspectRatio=true), graphics={
@@ -33,10 +44,8 @@ Icon(coordinateSystem(preserveAspectRatio=true), graphics={
           textString="change"),
         Ellipse(
           extent={{71,7},{85,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
+          lineColor={235,235,235},
+          fillColor={235,235,235},
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,150},{150,110}},
@@ -45,11 +54,25 @@ Icon(coordinateSystem(preserveAspectRatio=true), graphics={
 Diagram(coordinateSystem(preserveAspectRatio=true)),
 Documentation(info="<html>
 <p>
-Block that outputs <code>true</code> if there if the
-integer input <code>u</code> changes its value.
-Otherwise the output is <code>false</code>.
+Block that evaluates the integer input <code>u</code> to check if its value 
+changes. 
 </p>
-</html>", revisions="<html>
+<ul>
+<li>
+When there is input value change, output <code>yCha</code> will be
+<code>true</code>, otherwise it outputs <code>false</code>. 
+</li>
+<li>
+When input <code>u</code> increases its value, output <code>yUp</code> will be 
+<code>true</code>, otherwise it outputs <code>false</code>.
+</li>
+<li>
+When input <code>u</code> decreases its value, output <code>yDow</code> will be 
+<code>true</code>, otherwise it outputs <code>false</code>.
+</li>
+</ul>
+</html>",
+revisions="<html>
 <ul>
 <li>
 July 13, 2018, by Jianjun Hu:<br/>

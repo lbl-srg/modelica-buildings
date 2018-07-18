@@ -1,33 +1,51 @@
 within Buildings.Controls.OBC.CDL.Integers.Validation;
 model Change "Validation model for the Change block"
   Buildings.Controls.OBC.CDL.Integers.Change cha
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
     offset=0,
     height=20,
     duration=1) "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triggeredSampler
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler changeSampler
     "Triggered sampler"
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real to integer"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin(
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     table=[0,-1;0.3,0.5; 0.5,0; 0.7,1; 1,0])
     "Time table with smoothness method of constant segments"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler increaseSampler
+    "Increase sampler"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler decreaseSampler
+    "Decrease sampler"
+    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 
 equation
-  connect(ramp2.y, triggeredSampler.u)
-    annotation (Line(points={{41,50},{58,50}}, color={0,0,127}));
-  connect(cha.y, triggeredSampler.trigger)
-    annotation (Line(points={{41,0},{70,0},{70,38.2}}, color={255,0,255}));
+  connect(ramp2.y, changeSampler.u)
+    annotation (Line(points={{-19,30},{58,30}}, color={0,0,127}));
   connect(timTabLin.y[1], reaToInt.u)
-    annotation (Line(points={{-39,0},{-22,0}}, color={0,0,127}));
+    annotation (Line(points={{-59,-40},{-42,-40}}, color={0,0,127}));
   connect(reaToInt.y, cha.u)
-    annotation (Line(points={{1,0},{18,0}}, color={255,127,0}));
+    annotation (Line(points={{-19,-40},{-2,-40}}, color={255,127,0}));
+  connect(ramp2.y, increaseSampler.u)
+    annotation (Line(points={{-19,30},{40,30},{40,70},{58,70}},
+      color={0,0,127}));
+  connect(ramp2.y, decreaseSampler.u)
+    annotation (Line(points={{-19,30},{40,30},{40,-10},{58,-10}},
+      color={0,0,127}));
+  connect(cha.yUp, increaseSampler.trigger)
+    annotation (Line(points={{21,-34},{30,-34},{30,52},{70,52},{70,58.2}},
+      color={255,0,255}));
+  connect(cha.yCha, changeSampler.trigger)
+    annotation (Line(points={{21,-40},{46,-40},{46,12},{70,12},{70,18.2}},
+      color={255,0,255}));
+  connect(cha.yDow, decreaseSampler.trigger)
+    annotation (Line(points={{21,-46},{70,-46},{70,-21.8}}, color={255,0,255}));
 
 annotation (
 experiment(StopTime=1.0, Tolerance=1e-06),

@@ -2,7 +2,13 @@ compareVars :=
   {
     "reaToInt.y",
     "cha.u",
-    "cha.y",
-    "triggeredSampler.u",
-    "triggeredSampler.y"
+    "cha.yUp",
+    "cha.yCha",
+    "cha.yDow",
+    "changeSampler.u",
+    "changeSampler.y",
+    "increaseSampler.u",
+    "increaseSampler.y",
+    "decreaseSampler.u",
+    "decreaseSampler.y"
   };
