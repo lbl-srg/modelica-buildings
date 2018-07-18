@@ -53,7 +53,7 @@ block ChillerStaging "Sequences to control chiller staging"
       iconTransformation(extent={{-120,20},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPLR
     "Actual partial load ratio"
-    annotation (Placement(transformation(extent={{-320,114},{-280,154}}),
+    annotation (Placement(transformation(extent={{-320,120},{-280,160}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatPlaRes
     "Chilled water plant reset"
@@ -405,7 +405,8 @@ equation
   connect(hys.y, tim1.u)
     annotation (Line(points={{-219,80},{-202,80}}, color={255,0,255}));
   connect(uPLR, add4.u2)
-    annotation (Line(points={{-300,134},{-242,134}}, color={0,0,127}));
+    annotation (Line(points={{-300,140},{-260,140},{-260,134},{-242,134}},
+                                                     color={0,0,127}));
   connect(staPLR.y, add4.u1)
     annotation (Line(points={{-39,190},{-20,190},{-20,162},{-260,162},
       {-260,146},{-242,146}}, color={0,0,127}));
@@ -414,7 +415,7 @@ equation
   connect(hys1.y, tim.u)
     annotation (Line(points={{-179,140},{-162,140}}, color={255,0,255}));
   connect(uPLR, hys2.u)
-    annotation (Line(points={{-300,134},{-260,134},{-260,110},{-162,110}},
+    annotation (Line(points={{-300,140},{-260,140},{-260,110},{-162,110}},
       color={0,0,127}));
   connect(tim1.y, hys3.u)
     annotation (Line(points={{-179,80},{-162,80}}, color={0,0,127}));
@@ -680,7 +681,7 @@ or stages down"),
           horizontalAlignment=TextAlignment.Left,
           textString="Check if it should stage up"),
                                              Rectangle(
-          extent={{-278,38},{138,-38}},
+          extent={{-278,46},{138,-38}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),

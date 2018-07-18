@@ -35,8 +35,8 @@ block ChillerStageUp "Sequences to control equipments when chiller stage up"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiCur[num](final quantity=
         "ElectricCurrent", final unit="A")
     "Current chiller demand measured by the current" annotation (Placement(
-        transformation(extent={{-220,40},{-180,80}}), iconTransformation(extent
-          ={{-140,-60},{-100,-20}})));
+        transformation(extent={{-220,40},{-180,80}}), iconTransformation(extent=
+           {{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[num]
     "Chillers status" annotation (Placement(transformation(extent={{-220,70},{
             -180,110}}), iconTransformation(extent={{-140,60},{-100,100}})));
@@ -60,9 +60,6 @@ block ChillerStageUp "Sequences to control equipments when chiller stage up"
     "Chiller stage chaging, 1: stage up; -1 stage down; 0: no change"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
         iconTransformation(extent={{-254,-38},{-214,2}})));
-  CDL.Interfaces.IntegerInput uChiSta "Current chiller stage" annotation (
-      Placement(transformation(extent={{-220,100},{-180,140}}),
-        iconTransformation(extent={{-254,-38},{-214,2}})));
   CDL.Interfaces.RealInput uChiWatIsoval(
     final unit="1",
     final min=0,
@@ -78,8 +75,12 @@ block ChillerStageUp "Sequences to control equipments when chiller stage up"
     final max=1) "Condenser water pump speed" annotation (Placement(
         transformation(extent={{-220,-60},{-180,-20}}), iconTransformation(
           extent={{-140,-100},{-100,-60}})));
+  CDL.Integers.GreaterThreshold intGreThr "Check if it is stage-up"
+    annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
 equation
 
+  connect(uChiStaCha, intGreThr.u)
+    annotation (Line(points={{-200,150},{-162,150}}, color={255,127,0}));
 annotation (
   defaultComponentName = "towFan",
   Diagram(coordinateSystem(preserveAspectRatio=false,

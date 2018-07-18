@@ -62,25 +62,21 @@ block ChilledWaterPlantReset
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
     "Sample last reset value when there is chiller stage change"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
-    final samplePeriod=samplePeriod)
-    "Monitor previous value"
-    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Check if the input changes from false to true"
-    annotation (Placement(transformation(extent={{24,20},{44,40}})));
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
     final duration=holTim)
     "Hold the true input with given time"
-    annotation (Placement(transformation(extent={{26,-10},{46,10}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Switch plant reset value depends on if there is chiller stage change"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+  Buildings.Controls.OBC.CDL.Integers.Change cha
+    "Check if there is chiller stage change"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
-    "Convert integer input to real output"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[num] "Logical not"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
@@ -88,15 +84,6 @@ protected
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(final k2=-1)
-    "Difference between new and old value"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs "Find absolute value"
-    annotation (Placement(transformation(extent={{-46,-10},{-26,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=0.5)
-    "Check if there is chiller stage change"
-    annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
 
 equation
   connect(not1.y, mulAnd.u)
@@ -111,24 +98,10 @@ equation
       color={255,0,255}));
   connect(uChiWatPum, not1.u)
     annotation (Line(points={{-160,60},{-122,60}}, color={255,0,255}));
-  connect(uChiSta, intToRea.u)
-    annotation (Line(points={{-160,0},{-122,0}}, color={255,127,0}));
   connect(triRes.y, triSam.u)
     annotation (Line(points={{21,60},{38,60}}, color={0,0,127}));
-  connect(intToRea.y, add2.u1)
-    annotation (Line(points={{-99,0},{-94,0},{-94,6},{-82,6}}, color={0,0,127}));
-  connect(intToRea.y, uniDel.u)
-    annotation (Line(points={{-99,0},{-94,0},{-94,-20},{-130,-20},{-130,-40},
-      {-122,-40}}, color={0,0,127}));
-  connect(uniDel.y, add2.u2)
-    annotation (Line(points={{-99,-40},{-90,-40},{-90,-6},{-82,-6}},
-      color={0,0,127}));
-  connect(add2.y, abs.u)
-    annotation (Line(points={{-59,0},{-48,0}}, color={0,0,127}));
-  connect(abs.y, greEquThr.u)
-    annotation (Line(points={{-25,0},{-14,0}}, color={0,0,127}));
   connect(truHol.y, swi.u2)
-    annotation (Line(points={{47,0},{78,0}}, color={255,0,255}));
+    annotation (Line(points={{41,0},{78,0}}, color={255,0,255}));
   connect(triRes.y, swi.u3)
     annotation (Line(points={{21,60},{30,60},{30,80},{66,80},{66,-8},
       {78,-8}}, color={0,0,127}));
@@ -136,13 +109,16 @@ equation
     annotation (Line(points={{61,60},{70,60},{70,8},{78,8}}, color={0,0,127}));
   connect(swi.y, yChiWatPlaRes)
     annotation (Line(points={{101,0},{130,0}}, color={0,0,127}));
-  connect(greEquThr.y, truHol.u)
-    annotation (Line(points={{9,0},{25,0}}, color={255,0,255}));
   connect(edg.y, triSam.trigger)
-    annotation (Line(points={{45,30},{50,30},{50,48.2}}, color={255,0,255}));
-  connect(greEquThr.y, edg.u)
-    annotation (Line(points={{9,0},{16,0},{16,30},{22,30}},
-      color={255,0,255}));
+    annotation (Line(points={{41,30},{50,30},{50,48.2}}, color={255,0,255}));
+  connect(uChiSta, cha.u)
+    annotation (Line(points={{-160,0},{-142,0},{-142,0},{-122,0}},
+      color={255,127,0}));
+  connect(cha.y, truHol.u)
+    annotation (Line(points={{-99,0},{19,0}}, color={255,0,255}));
+  connect(cha.y, edg.u)
+    annotation (Line(points={{-99,0},{0,0},{0,30},{18,30}},
+        color={255,0,255}));
 
 annotation (
   defaultComponentName="chiWatPlaRes",
