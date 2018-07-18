@@ -2,14 +2,19 @@ within Buildings.Controls.OBC.CDL.Logical;
 block Timer
   "Timer measuring the time from the time instant where the Boolean input became true"
 
+  parameter Boolean reset = true
+    "Set to true for reseting timer to zero when input becomes false";
+
   Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
   Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
+  discrete Modelica.SIunits.Time entryTime
+    "Time instant when u became true";
+  Real yTemp = 0;
+  Boolean not_u = not u;
 
 initial equation
   pre(entryTime) = 0;
@@ -19,7 +24,14 @@ equation
     entryTime = time;
   end when;
 
-  y = if u then time - entryTime else 0.0;
+  if reset then
+    y = if u then time - entryTime else 0.0;
+  else
+    y = if u then yTemp + (time - entryTime) else yTemp;
+    when edge(not_u) then
+      yTemp = y;
+    end when;
+  end if;
 
 annotation (
     defaultComponentName="tim",
