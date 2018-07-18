@@ -13,24 +13,24 @@ block Timer
 protected
   discrete Modelica.SIunits.Time entryTime
     "Time instant when u became true";
-  Real yTemp = 0;
-  Boolean not_u = not u;
+  discrete Real yAcc "Accumulated time up to last change to true";
 
 initial equation
   pre(entryTime) = 0;
-
+  yAcc = 0;
 equation
   when u then
     entryTime = time;
   end when;
 
+  when (not u) then
+    yAcc = pre(y);
+  end when;
+
   if reset then
     y = if u then time - entryTime else 0.0;
   else
-    y = if u then yTemp + (time - entryTime) else yTemp;
-    when edge(not_u) then
-      yTemp = y;
-    end when;
+    y = if u then yAcc + (time - entryTime) else yAcc;
   end if;
 
 annotation (
