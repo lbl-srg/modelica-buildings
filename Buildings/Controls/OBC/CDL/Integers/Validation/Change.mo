@@ -38,13 +38,13 @@ equation
   connect(ramp2.y, decreaseSampler.u)
     annotation (Line(points={{-19,30},{40,30},{40,-10},{58,-10}},
       color={0,0,127}));
-  connect(cha.yUp, increaseSampler.trigger)
+  connect(cha.up, increaseSampler.trigger)
     annotation (Line(points={{21,-34},{30,-34},{30,52},{70,52},{70,58.2}},
       color={255,0,255}));
-  connect(cha.yCha, changeSampler.trigger)
+  connect(cha.y, changeSampler.trigger)
     annotation (Line(points={{21,-40},{46,-40},{46,12},{70,12},{70,18.2}},
       color={255,0,255}));
-  connect(cha.yDow, decreaseSampler.trigger)
+  connect(cha.down, decreaseSampler.trigger)
     annotation (Line(points={{21,-46},{70,-46},{70,-21.8}}, color={255,0,255}));
 
 annotation (
