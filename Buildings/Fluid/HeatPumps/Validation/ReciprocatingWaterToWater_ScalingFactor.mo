@@ -70,7 +70,7 @@ model ReciprocatingWaterToWater_ScalingFactor
         pDro=99290),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     enable_temperature_protection=false)
-                     "Reciprocating water to water heat pump"
+    "Reciprocating water to water heat pump"
     annotation (Placement(transformation(extent={{-10,42},{10,62}})));
 
   Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater heaPum1(
