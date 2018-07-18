@@ -76,14 +76,26 @@ annotation (
 Block that represents a timer.
 </p>
 <p>
-When the Boolean input <code>u</code> becomes <code>true</code>, the timer is started
-and the output <code>y</code> is the time from the time instant where
-<code>u</code> became true.
-The timer is stopped and the output is reset to zero, once the
-input becomes <code>false</code>.
+When the Boolean input <code>u</code> becomes true, the timer is 
+started and the output <code>y</code> is the time from the time instant where
+<code>u</code> became true. 
 </p>
+<ul>
+<li>
+If parameter <code>reset</code> is true, once the input becomes false, 
+the timer is stopped and the output is reset to zero. 
+</li>
+<li>
+If parameter <code>reset</code> is false, once the input becomes false,
+the timer will not fully stopped but hold the accumulated true input time.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
+<li>
+July 18, 2018, by Jianjun Hu:<br/>
+Update implementation to output accumulated true input time.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

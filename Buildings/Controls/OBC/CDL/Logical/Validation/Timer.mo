@@ -30,6 +30,10 @@ Buildings.Controls.OBC.CDL.Logical.Timer</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+July 18, 2018, by Jianjun Hu:<br/>
+Update implementation to include accumulate timer.
+</li>
+<li>
 April 2, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
