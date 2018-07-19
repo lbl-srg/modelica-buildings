@@ -30,21 +30,20 @@ block ChillerStageUp "Sequences to control equipments when chiller stage up"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uByPasFlo(final quantity=
         "VolumeFlowRate", final unit="m3/s") "By pass flow rate" annotation (
-      Placement(transformation(extent={{-220,10},{-180,50}}),
+      Placement(transformation(extent={{-220,-50},{-180,-10}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiCur[num](final quantity=
-        "ElectricCurrent", final unit="A")
-    "Current chiller demand measured by the current" annotation (Placement(
-        transformation(extent={{-220,40},{-180,80}}), iconTransformation(extent=
-           {{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiCur[num](final quantity="ElectricCurrent",
+      final unit="A") "Current chiller demand measured by the current"
+    annotation (Placement(transformation(extent={{-220,90},{-180,130}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[num]
-    "Chillers status" annotation (Placement(transformation(extent={{-220,70},{
-            -180,110}}), iconTransformation(extent={{-140,60},{-100,100}})));
+    "Chillers status" annotation (Placement(transformation(extent={{-220,40},{-180,
+            80}}),       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatIsoVal(
     final unit="1",
     final min=0,
     final max=1) "Condense water isolation valve position" annotation (
-      Placement(transformation(extent={{-220,-90},{-180,-50}}),
+      Placement(transformation(extent={{-220,-150},{-180,-110}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
      final unit="1",
@@ -64,23 +63,95 @@ block ChillerStageUp "Sequences to control equipments when chiller stage up"
     final unit="1",
     final min=0,
     final max=1) "Chilled water isolation valve position" annotation (Placement(
-        transformation(extent={{-220,-120},{-180,-80}}), iconTransformation(
+        transformation(extent={{-220,-180},{-180,-140}}),iconTransformation(
           extent={{-140,-100},{-100,-60}})));
   CDL.Interfaces.BooleanInput uConWatPum[num] "Condenser water pump status"
-    annotation (Placement(transformation(extent={{-220,-30},{-180,10}}),
+    annotation (Placement(transformation(extent={{-220,-90},{-180,-50}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   CDL.Interfaces.RealInput uConWatPumSpe[num](
     final unit="1",
     final min=0,
     final max=1) "Condenser water pump speed" annotation (Placement(
-        transformation(extent={{-220,-60},{-180,-20}}), iconTransformation(
+        transformation(extent={{-220,-120},{-180,-80}}),iconTransformation(
           extent={{-140,-100},{-100,-60}})));
   CDL.Integers.GreaterThreshold intGreThr "Check if it is stage-up"
     annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
+  CDL.Discrete.TriggeredSampler triSam[num]
+    "Triggered sampler to sample current chiller demand"
+    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
+  CDL.Routing.BooleanReplicator                        booRep1(final nout=num)
+                    "Replicate input "
+    annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
+  CDL.Logical.Edge edg
+    annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
+  CDL.Interfaces.RealOutput yChiCur[num](final quantity="ElectricCurrent",
+      final unit="A") "Current to chillers" annotation (Placement(transformation(
+          extent={{180,90},{200,110}}), iconTransformation(extent={{100,-60},{120,
+            -40}})));
+  CDL.Continuous.Gain gai[num](k=0.5) "Half of current load"
+    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
+  CDL.Continuous.Hysteresis hys[num](uLow=0.54, uHigh=0.56)
+    "Check if actual demand is more than 0.55 of demand at instant when receiving stage change signal"
+    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+  CDL.Continuous.Division div[num]
+    "Output result of first input divided by second input"
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+  CDL.Continuous.Sources.Constant con[num](k=0.2)
+    "Constant value to avoid zero as the denominator"
+    annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
+  CDL.Logical.Switch swi[num]
+    "Change zero input to a given constant if the chiller is not enabled"
+    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
+  CDL.Logical.Not not1[num] "Logical not"
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+  CDL.Logical.TrueDelay truDel "Wait a giving time before proceeding"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+  CDL.Logical.MultiAnd mulAnd(nu=2)
+    "Output true when elements of input vector are true"
+    annotation (Placement(transformation(extent={{60,50},{80,70}})));
+  CDL.Interfaces.IntegerInput uChiSta "Current chiller stage" annotation (
+      Placement(transformation(extent={{-220,-10},{-180,30}}),
+        iconTransformation(extent={{-254,-38},{-214,2}})));
+  CDL.Continuous.Gain byPasFloSet[num](k=minByPas)
+    "Minimum by-pass flow setpoint array"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 equation
 
   connect(uChiStaCha, intGreThr.u)
     annotation (Line(points={{-200,150},{-162,150}}, color={255,127,0}));
+  connect(uChiCur, triSam.u)
+    annotation (Line(points={{-200,110},{-142,110}},
+                                                   color={0,0,127}));
+  connect(booRep1.y, triSam.trigger) annotation (Line(points={{-59,150},{-40,
+          150},{-40,130},{-154,130},{-154,92},{-130,92},{-130,98.2}},
+                                                               color={255,0,255}));
+  connect(intGreThr.y, edg.u)
+    annotation (Line(points={{-139,150},{-122,150}}, color={255,0,255}));
+  connect(edg.y, booRep1.u)
+    annotation (Line(points={{-99,150},{-82,150}}, color={255,0,255}));
+  connect(triSam.y, gai.u)
+    annotation (Line(points={{-119,110},{-82,110}}, color={0,0,127}));
+  connect(gai.y, yChiCur) annotation (Line(points={{-59,110},{-20,110},{-20,100},
+          {190,100}}, color={0,0,127}));
+  connect(uChi, swi.u2)
+    annotation (Line(points={{-200,60},{-122,60}}, color={255,0,255}));
+  connect(con.y, swi.u3) annotation (Line(points={{-139,40},{-130,40},{-130,52},
+          {-122,52}}, color={0,0,127}));
+  connect(uChiCur, div.u1) annotation (Line(points={{-200,110},{-160,110},{-160,
+          82},{-80,82},{-80,66},{-62,66}}, color={0,0,127}));
+  connect(swi.y, div.u2) annotation (Line(points={{-99,60},{-80,60},{-80,54},{-62,
+          54}}, color={0,0,127}));
+  connect(triSam.y, swi.u1) annotation (Line(points={{-119,110},{-100,110},{
+          -100,78},{-160,78},{-160,68},{-122,68}},
+                                              color={0,0,127}));
+  connect(div.y, hys.u)
+    annotation (Line(points={{-39,60},{-22,60}}, color={0,0,127}));
+  connect(hys.y, not1.u)
+    annotation (Line(points={{1,60},{18,60}}, color={255,0,255}));
+  connect(not1.y, mulAnd.u) annotation (Line(points={{41,60},{50,60},{50,60},{
+          58,60}},    color={255,0,255}));
+  connect(mulAnd.y, truDel.u)
+    annotation (Line(points={{81.7,60},{98,60}}, color={255,0,255}));
 annotation (
   defaultComponentName = "towFan",
   Diagram(coordinateSystem(preserveAspectRatio=false,
