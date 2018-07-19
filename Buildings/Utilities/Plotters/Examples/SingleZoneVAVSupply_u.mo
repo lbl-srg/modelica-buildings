@@ -118,7 +118,6 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.VAVSupply</a>
 and shown below.
 The plot will be generated in the file <code>plots.html</code>.
 </p>
-</p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/VAVSingleZoneTSupSet.png\"/>
