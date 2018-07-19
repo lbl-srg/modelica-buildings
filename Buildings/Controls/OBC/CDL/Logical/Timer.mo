@@ -94,7 +94,8 @@ the timer will not fully stopped but hold the accumulated true input time.
 <ul>
 <li>
 July 18, 2018, by Jianjun Hu:<br/>
-Update implementation to output accumulated true input time.
+Update implementation to output accumulated true input time.  This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>
 </li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
