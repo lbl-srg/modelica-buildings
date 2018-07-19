@@ -1,20 +1,18 @@
 within Buildings.Airflow.Multizone.BaseClasses;
 partial model PowerLawResistance "Flow resistance that uses the power law"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    final allowFlowReversal=true,
     final m_flow_nominal=rho_default*k*dp_turbulent);
   extends Buildings.Airflow.Multizone.BaseClasses.ErrorControl;
-
-  parameter Modelica.SIunits.Area A "|Orifice characteristics|Area of orifice";
 
   parameter Real m(min=0.5, max=1)
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
   parameter Boolean useDefaultProperties=true
     "Set to false to use density and viscosity based on actual medium state, rather than using default values"
-    annotation (Evaluate=true);
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Modelica.SIunits.PressureDifference dp_turbulent(min=0, displayUnit="Pa") = 0.1
-    "Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1";
-  parameter Modelica.SIunits.Length lWet=sqrt(A)
-    "Wetted perimeter used for Reynolds number calculation";
+    "Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1"
+    annotation(Dialog(tab="Advanced"));
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
@@ -23,7 +21,6 @@ partial model PowerLawResistance "Flow resistance that uses the power law"
     "Volume flow rate through the component";
   Modelica.SIunits.Velocity v(nominal=1) "Average velocity";
   Modelica.SIunits.Density rho "Fluid density at port_a";
-  Real Re "Reynolds number";
 
 protected
   constant Real gamma(min=1) = 1.5
@@ -95,8 +92,6 @@ equation
     dp_turbulent=dp_turbulent);
 
   port_a.m_flow = rho*V_flow;
-  v = V_flow/A;
-  Re = v*lWet*rho/dynVis;
 
   // Isenthalpic state transformation (no storage and no loss of energy)
   port_a.h_outflow = inStream(port_b.h_outflow);
@@ -132,6 +127,25 @@ The model is used as a base for the interzonal air flow models.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 24, 2018, by Michael Wetter:<br/>
+Removed parameter <code>A</code> because
+<a href=\"modelica://Buildings.Airflow.Multizone.EffectiveAirLeakageArea\">
+Buildings.Airflow.Multizone.EffectiveAirLeakageArea</a>
+uses the effective leakage area <code>L</code> rather than <code>A</code>.<br/>
+Removed calculation <code>v=V_flow/A</code> as parameter <code>A</code> has been removed.<br/>
+Removed parameter <code>lWet</code> as this is only used to compute
+the Reynolds number, and the Reynolds number is not used by this model.
+Also removed the variable <code>Re</code> for the Reynolds number.<br/>
+This change is non-backward compatible.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">Buildings, #932</a>.
+</li>
+<li>
+May 1, 2018, by Filip Jorissen:<br/>
+Set <code>final allowFlowReversal=true</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/877\">#877</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

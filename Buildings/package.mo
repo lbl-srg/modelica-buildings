@@ -152,6 +152,12 @@ its class name ends with the string <code>Beta</code>.
                            The plots can be deactivated based on an input signal and a time
                            delay, for example, to plot data only while the HVAC system
                            operates for at least <i>30</i> minutes.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.IO.Files
+    </td>
+    <td valign=\"top\">Package with blocks to write CSV files or combi time table files.
+    </td>
     </tr>
     </table>
     <!-- New components for existing libraries -->
@@ -200,12 +206,43 @@ its class name ends with the string <code>Beta</code>.
     <b style=\"color:blue\">non-backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-     <tr><td colspan=\"2\"><b>xxx</b>
+     <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.EffectiveAirLeakageArea
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Removed parameters <code>A</code>, <code>CD</code> and <code>lWet</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">IBPSA, #932</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.Orifice
+        </td>
+        <td valign=\"top\">Removed parameter <code>lWet</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">IBPSA, #932</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.MediumColumnDynamic<br/>
+                           Buildings.Airflow.Multizone.MediumColumn<br/>
+                           Buildings.Airflow.Multizone.EffectiveAirLeakageArea<br/>
+                           Buildings.Airflow.Multizone.Orifice
+        </td>
+        <td valign=\"top\">Removed parameter <code>allowFlowReversal</code> as this is not meaningful
+                           for these models.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/877\">IBPSA, #877</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Reports.Printer<br/>
+                           Buildings.Utilities.Reports.printRealArray
+        </td>
+        <td valign=\"top\">Moved <code>Buildings.Utilities.Reports.Printer</code> to
+                           <code>Buildings.Utilities.IO.Files.Printer</code> and moved
+                           <code>Buildings.Utilities.Reports.printRealArray</code> to
+                           <code>Buildings.Utilities.IO.Files.BaseClasses.printRealArray</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is due to the newly introduced package <code>Buildings.Utilities.IO.Files</code>.
         </td>
     </tr>
     </table>
@@ -5747,8 +5784,8 @@ near zero flow if the components have exactly two fluid ports connected.</td>
 </tr>
 
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Reports</b></td></tr>
-<tr><td valign=\"top\">Buildings.Utilities.Reports.Printer<br/>
-                     Buildings.Utilities.Reports.printRealArray</td>
+<tr><td valign=\"top\">Buildings.Utilities.IO.Files.Printer<br/>
+                     Buildings.Utilities.IO.Files.BaseClasses.printRealArray</td>
     <td valign=\"top\">Changed parameter <code>precision</code> to <code>significantDigits</code> and
                      <code>minimumWidth</code> to <code>minimumLength</code>
                      to use the same terminology as the Modelica Standard Library.</td>

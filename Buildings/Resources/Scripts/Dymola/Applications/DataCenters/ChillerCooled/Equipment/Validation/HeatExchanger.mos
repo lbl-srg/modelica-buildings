@@ -1,4 +1,4 @@
-simulateModel("Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.HeatExchanger", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="HeatExchanger");
+simulateModel("Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.HeatExchanger", tolerance=1e-6, stopTime=3600, method="Cvode", resultFile="HeatExchanger");
 removePlots();
 createPlot(id=3,
  position={0, 0, 863, 450},

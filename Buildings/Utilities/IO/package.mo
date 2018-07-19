@@ -2,15 +2,12 @@ within Buildings.Utilities;
 package IO "Package with I/O functions"
   extends Modelica.Icons.VariantsPackage;
 
-annotation (preferredView="info", Documentation(info="<html>
+  annotation (Icon(graphics={Text(
+          extent={{-92,72},{84,-66}},
+          lineColor={0,0,0},
+          textString="I/O")}), Documentation(info="<html>
 <p>
-This package contains components models for input and output.
-Its package
-<a href=\"modelica://Buildings.Utilities.IO.BCVTB\">
-Buildings.Utilities.IO.BCVTB</a>
-can be used for co-simulation with the
-<a href=\"http://simulationresearch.lbl.gov/bcvtb\">
-Building Controls Virtual Test Bed</a>.
+This package contains models for input and output.
 </p>
 </html>"));
 end IO;
