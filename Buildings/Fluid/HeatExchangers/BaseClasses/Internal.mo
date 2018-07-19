@@ -7,8 +7,10 @@ package Internal "Solve f(x, data) for x with given f"
   assert(x>0, "NTU needs to be strictly positive.
 Received NTU = " + String(x) + "
          Z   = " + String(p));
-    y := epsilon_ntuZ(NTU=x, Z=p,
-         flowRegime=Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed));
+    y := Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
+        NTU=x,
+        Z=p,
+        flowRegime=Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed));
   end f_nonlinear;
 
 annotation (

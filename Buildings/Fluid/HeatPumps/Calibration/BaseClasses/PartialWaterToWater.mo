@@ -36,14 +36,9 @@ model PartialWaterToWater
     "De-multiplex"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
-  Sources.FixedBoundary sin2(
-    redeclare final package Medium = Medium2,
-    nPorts=1)
-    "Boundary condition"
-    annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-50,-40})));
+  Buildings.Fluid.Sources.FixedBoundary sin2(redeclare final package Medium =
+        Medium2, nPorts=1) "Boundary condition" annotation (Placement(
+        transformation(extent={{-10,-10},{10,10}}, origin={-50,-40})));
   Modelica.Fluid.Sources.MassFlowSource_T Sou(
     redeclare final package Medium = Medium2,
     nPorts=1,
@@ -51,14 +46,9 @@ model PartialWaterToWater
     use_T_in=true)
     "Mass flow source"
     annotation (Placement(transformation(extent={{60,-16},{40,4}})));
-  Sources.FixedBoundary sin1(
-    redeclare final package Medium = Medium1,
-    nPorts=1)
-    "Pressure boundary condition"
-    annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        origin={50,30})));
+  Buildings.Fluid.Sources.FixedBoundary sin1(redeclare final package Medium =
+        Medium1, nPorts=1) "Pressure boundary condition" annotation (Placement(
+        transformation(extent={{10,-10},{-10,10}}, origin={50,30})));
 
   Modelica.Fluid.Sources.MassFlowSource_T loa(
     redeclare final package Medium = Medium1,
@@ -67,18 +57,17 @@ model PartialWaterToWater
     use_T_in=true) "Mass flow source"
     annotation (Placement(transformation(extent={{-60,-2},{-40,18}})));
 
-  replaceable Buildings.Fluid.HeatPumps.BaseClasses.PartialWaterToWater
-    heaPum constrainedby
-    Buildings.Fluid.HeatPumps.BaseClasses.PartialWaterToWater(
-      redeclare final package Medium1 = Medium1,
-      redeclare final package Medium2 = Medium2,
-      redeclare final package ref = ref,
-      final m1_flow_nominal=m1_flow_nominal,
-      final m2_flow_nominal=m2_flow_nominal,
-      final dp1_nominal=dp1_nominal,
-      final dp2_nominal=dp2_nominal,
-      enable_variable_speed=false,
-      show_T=true)
+  replaceable Buildings.Fluid.HeatPumps.BaseClasses.PartialWaterToWater heaPum
+    constrainedby Buildings.Fluid.HeatPumps.BaseClasses.PartialWaterToWater(
+    redeclare final package Medium1 = Medium1,
+    redeclare final package Medium2 = Medium2,
+    redeclare final package ref = ref,
+    final m1_flow_nominal=m1_flow_nominal,
+    final m2_flow_nominal=m2_flow_nominal,
+    final dp1_nominal=dp1_nominal,
+    final dp2_nominal=dp2_nominal,
+    enable_variable_speed=false,
+    show_T=true)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Sources.IntegerConstant isOn(k=1)

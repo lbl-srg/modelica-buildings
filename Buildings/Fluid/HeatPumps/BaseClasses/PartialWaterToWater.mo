@@ -94,7 +94,7 @@ partial model PartialWaterToWater
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
 
-  HeatExchangers.EvaporatorCondenser con(
+  Buildings.Fluid.HeatExchangers.EvaporatorCondenser con(
     redeclare final package Medium = Medium1,
     final allowFlowReversal=allowFlowReversal1,
     final m_flow_nominal=m1_flow_nominal,
@@ -108,11 +108,10 @@ partial model PartialWaterToWater
     final T_start=T1_start,
     final energyDynamics=energyDynamics,
     final homotopyInitialization=homotopyInitialization,
-    final UA=UACon)
-    "Condenser"
+    final UA=UACon) "Condenser"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
 
-  HeatExchangers.EvaporatorCondenser eva(
+  Buildings.Fluid.HeatExchangers.EvaporatorCondenser eva(
     redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal2,
     final m_flow_nominal=m2_flow_nominal,
@@ -126,14 +125,11 @@ partial model PartialWaterToWater
     final T_start=T2_start,
     final energyDynamics=energyDynamics,
     final homotopyInitialization=homotopyInitialization,
-    final UA=UAEva)
-    "Evaporator"
+    final UA=UAEva) "Evaporator"
     annotation (Placement(transformation(extent={{60,-50},{40,-70}})));
 
   replaceable Buildings.Fluid.HeatPumps.Compressors.BaseClasses.PartialCompressor com
-    "Compressor"
-    annotation (
-      Placement(transformation(
+    "Compressor" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={50,-6})));

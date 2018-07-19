@@ -13,8 +13,8 @@ model ScrollWaterToWater
       final PLos=datHeaPum.PLos*scaling_factor,
       final dTSup=datHeaPum.dTSup));
 
-  parameter Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater.Generic
-    datHeaPum "Heat pump data" annotation (choicesAllMatching=true, Placement(
+  parameter Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater.Generic datHeaPum
+    "Heat pump data" annotation (choicesAllMatching=true, Placement(
         transformation(extent={{-98,78},{-78,98}})));
 
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
