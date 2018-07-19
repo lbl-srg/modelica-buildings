@@ -7,7 +7,7 @@ model EvaporatorCondenser "Test model for the evaporator or condenser model"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.01
     "Nominal mass flow rate";
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature ref(T=283.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature ref(T=283.15)
     "Refrigerant temperature"
     annotation (Placement(transformation(extent={{-64,-60},{-44,-40}})));
 
@@ -45,12 +45,11 @@ model EvaporatorCondenser "Test model for the evaporator or condenser model"
     height=9*m_flow_nominal,
     offset=m_flow_nominal) "Mass flow rate"
     annotation (Placement(transformation(extent={{-88,-2},{-68,18}})));
-  Sensors.TemperatureTwoPort senTem(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium,
     tau=0.01,
-    initType=Modelica.Blocks.Types.Init.SteadyState)
-    "Temperature sensor"
+    initType=Modelica.Blocks.Types.Init.SteadyState) "Temperature sensor"
     annotation (Placement(transformation(extent={{24,-10},{44,10}})));
 equation
   connect(ref.port, heaFlo.port_a)

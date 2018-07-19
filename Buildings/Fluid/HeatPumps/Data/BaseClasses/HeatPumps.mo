@@ -15,7 +15,6 @@ partial record HeatPumps
     "Superheating at compressor suction"
     annotation (Dialog(group="Evaporator"));
 
-
   parameter Modelica.SIunits.ThermalConductance UACon
     "Thermal conductance of condenser between water and refrigerant"
     annotation (Dialog(group="Condenser"));
