@@ -34,7 +34,8 @@ to the outdoor temperature.
 An outdoor temperature variation was simulated by a sine function. The output is how the heater state
 changes with the outdoor temperature.
 </p>
-</html>", revisions="<html>
+</html>",
+        revisions="<html>
 <ul>
 <li>
 July 20, 2018, by Zhe Wang:<br/>
