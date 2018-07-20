@@ -1,5 +1,5 @@
 within Buildings.Occupants.BaseClasses;
-function BinaryVariableGeneration "Binary variables (0/1) random generator"
+function binaryVariableGeneration "Binary variables (0/1) random generator"
     input Real p "probaility of 1, in the range 0~1";
     input Integer globalSeed "seed for the random generator";
     output Boolean y "integer, 0 or 1";
@@ -20,4 +20,4 @@ This function generates a random binary variable with the input of prabobility p
 The input p denotes the probability of being 1. Higher p indicates a higher chance of generating 1. 
 </p>
 </html>"));
-end BinaryVariableGeneration;
+end binaryVariableGeneration;

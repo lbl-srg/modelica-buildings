@@ -1,5 +1,5 @@
 within  Buildings.Occupants.BaseClasses;
-function Logit1DQuadratic "Mapping a continuous input to a binary output through a quadratic logistic relation"
+function logit1DQuadratic "Mapping a continuous input to a binary output through a quadratic logistic relation"
   input Real x "Continous variable";
   input Real A=1.0 "Parameter defining the quadratic logistic relation";
   input Real B=1.0 "Parameter defining the quadratic logistic relation";
@@ -21,4 +21,4 @@ four predefined parameters A, B, C and D. Then a random generator generates the 
 should be a binary variable.
 </p>
 </html>"));
-end Logit1DQuadratic;
+end logit1DQuadratic;

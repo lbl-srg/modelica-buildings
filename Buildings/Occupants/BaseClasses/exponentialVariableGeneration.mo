@@ -1,5 +1,5 @@
 within Buildings.Occupants.BaseClasses;
-function ExponentialVariableGeneration "Random variable generator from the exponential distribution"
+function exponentialVariableGeneration "Random variable generator from the exponential distribution"
     input Real mu  "mean of exponential distribution";
     output Real y "duration of event";
 protected
@@ -22,4 +22,4 @@ The input mu denotes the mean value of the exponential distribution. Higher mu i
 chance to generate a larger output y. 
 </p>
 </html>"));
-end ExponentialVariableGeneration;
+end exponentialVariableGeneration;

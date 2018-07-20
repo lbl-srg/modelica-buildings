@@ -1,5 +1,5 @@
 within Buildings.Occupants.BaseClasses;
-function Linear1D "Mapping a continuous input to a binary output through a linear relation"
+function linear1D "Mapping a continuous input to a binary output through a linear relation"
   input Real x "Continuous variable";
   input Real A=1.0 "Slope of the linear function";
   input Real B=1.0 "Intercept of the linear function";
@@ -19,4 +19,4 @@ The probability of being 1 is calculated from the input x with the slope A and t
 Then a random generator generates the output, which should be a binary variable.
 </p>
 </html>"));
-end Linear1D;
+end linear1D;

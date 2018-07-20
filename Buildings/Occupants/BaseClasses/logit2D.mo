@@ -1,5 +1,5 @@
 within Buildings.Occupants.BaseClasses;
-function Logit2D "Mapping two continuous inputs to a binary output through a 2-dimension logistic relation"
+function logit2D "Mapping two continuous inputs to a binary output through a 2-dimension logistic relation"
   input Real x1 "The first input variable";
   input Real x2 "The second input variable";
   input Real A=1.0 "Parameter defining the 2D logistic relation: mutiplier for the first input";
@@ -21,4 +21,4 @@ three predefined parameters A (mutiplier for x1), B (mutiplier for x2) and C (in
 random generator generates the output, which should be a binary variable.
 </p>
 </html>"));
-end Logit2D;
+end logit2D;

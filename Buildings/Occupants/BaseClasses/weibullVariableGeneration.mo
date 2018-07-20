@@ -1,5 +1,5 @@
 within Buildings.Occupants.BaseClasses;
-function WeibullVariableGeneration "Random variable generator from the Weibull distribution"
+function weibullVariableGeneration "Random variable generator from the Weibull distribution"
     input Real lambda;
     input Real k;
     output Real y;
@@ -25,4 +25,4 @@ distribution reduces to an exponential distribution. Genrally speaking, higher l
 and higher k indicate a higher chance to generate a higher output.
 </p>
 </html>"));
-end WeibullVariableGeneration;
+end weibullVariableGeneration;

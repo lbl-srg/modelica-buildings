@@ -1,9 +1,9 @@
-BinaryVariableGeneration
-ExponentialVariableGeneration
-Linear1D
 Logit1D
-Logit1DQuadratic
-Logit2D
-Weibull1DOFF
-Weibull1DON
-WeibullVariableGeneration
+binaryVariableGeneration
+exponentialVariableGeneration
+linear1D
+logit1DQuadratic
+logit2D
+weibull1DOFF
+weibull1DON
+weibullVariableGeneration
