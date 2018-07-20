@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Routing.Validation;
 model RealExtractSignal
-  "Validation model for the ExtractSignal block"
+  "Validation model for the extract signal block"
   Buildings.Controls.OBC.CDL.Routing.RealExtractSignal extSig(
     nin=5,
     nout=3,

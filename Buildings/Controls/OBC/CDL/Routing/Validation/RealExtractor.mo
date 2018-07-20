@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Routing.Validation;
-model RealExtractor "Validation model for the RealExtractor block"
+model RealExtractor "Validation model for the extractor block"
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor     extIndSig(
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig(
     nin=5) "Block that extracts signal from an input signal vector"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(

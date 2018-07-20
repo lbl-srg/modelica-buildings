@@ -23,3 +23,5 @@ convertClass("Buildings.Utilities.Reports.printRealArray",
 convertClass("Buildings.Utilities.Reports.Examples.Printer",
              "Buildings.Utilities.IO.Files.Examples.Printer");
 
+convertClass("Buildings.Controls.OBC.CDL.ExtractSignal",
+             "Buildings.Controls.OBC.CDL.RealExtractSignal");

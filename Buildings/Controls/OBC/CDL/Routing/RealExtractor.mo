@@ -1,34 +1,35 @@
 within Buildings.Controls.OBC.CDL.Routing;
 block RealExtractor
-      "Extract scalar signal out of signal vector dependent on Integer input index"
+  "Extract scalar signal out of signal vector dependent on Integer input index"
 
-    parameter Boolean allowOutOfRange=false "Index may be out of range";
-    parameter Integer nin=1 "Number of inputs";
-    parameter Real outOfRangeValue=1e10 "Output signal if index is out of range";
+  parameter Boolean allowOutOfRange=false "Index may be out of range";
+  parameter Integer nin=1 "Number of inputs";
+  parameter Real outOfRangeValue=1e10 "Output signal if index is out of range";
 
-    Interfaces.IntegerInput index
-      "Index of input vector element to be extracted out"
-      annotation (Placement(transformation(origin={0,-120},extent={{-20,-20},{20,20}},
+  Interfaces.IntegerInput index
+    "Index of input vector element to be extracted out"
+    annotation (Placement(transformation(origin={0,-120},extent={{-20,-20},{20,20}},
         rotation=90)));
-    Interfaces.RealInput u[nin] "Connector of Real input signals"
-      annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-    Interfaces.RealOutput y "Connector of Real output signal"
-      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Interfaces.RealInput u[nin] "Connector of Real input signals"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Interfaces.RealOutput y "Connector of Real output signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-    Real k[nin];
+  Real k[nin] "Indicator used to extract the signal";
 
 initial equation
-    pre(index) = 0;
+  pre(index) = 0;
 
 equation
-    when {initial(),change(index)} then
-      for i in 1:nin loop
-        k[i] = if index == i then 1 else 0;
-      end for;
-    end when;
-    y = if not allowOutOfRange or index > 0 and index <= nin then
-                k*u else outOfRangeValue;
+  when {initial(),change(index)} then
+    for i in 1:nin loop
+      k[i] = if index == i then 1 else 0;
+    end for;
+  end when;
+  y = if not allowOutOfRange or index > 0 and index <= nin
+      then k*u
+      else outOfRangeValue;
 
   annotation (
    defaultComponentName="extIndSig",
@@ -108,13 +109,17 @@ equation
             extent={{-150,110},{150,150}},
             textString="%name")}),
   Documentation(info="<html>
-<p>This block extracts a scalar output signal out the
+<p>
+Block that extracts a scalar output signal out the
 vector of input signals dependent on the Integer
-value of the additional u index:</p>
+value of the input <code>index</code>:</p>
 <pre>    y = u [ index ] ;
 </pre>
-<p>where index is an additional Integer input signal.</p>
-</html>",   revisions="<html>
+<p>
+where index is an additional Integer input signal.
+</p>
+</html>",
+revisions="<html>
 <ul>
 <li>
 July 19, 2018, by Jianjun Hu:<br/>
