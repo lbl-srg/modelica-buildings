@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Routing;
-block ExtractSignal "Extract signals from an input signal vector"
+block RealExtractSignal "Extract signals from an input signal vector"
   parameter Integer nin = 1 "Number of inputs";
   parameter Integer nout = 1 "Number of outputs";
   parameter Integer extract[nout]=1:nout "Extracting vector";
@@ -128,10 +128,14 @@ input vector (<code>nin=7</code>):</p>
 </html>", revisions="<html>
 <ul>
 <li>
+July 19, 2018, by Jianjun Hu:<br/>
+Changed block name.
+</li>
+<li>
 July 24, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.
 </li>
 </ul>
 </html>"));
-end ExtractSignal;
+end RealExtractSignal;

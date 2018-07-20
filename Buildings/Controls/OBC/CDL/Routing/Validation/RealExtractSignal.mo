@@ -1,6 +1,7 @@
 within Buildings.Controls.OBC.CDL.Routing.Validation;
-model ExtractSignal "Validation model for the ExtractSignal block"
-  Buildings.Controls.OBC.CDL.Routing.ExtractSignal extSig(
+model RealExtractSignal
+  "Validation model for the ExtractSignal block"
+  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal extSig(
     nin=5,
     nout=3,
     extract={1,2,5}) "Block that extracts signals from an input signal vector"
@@ -48,13 +49,13 @@ equation
 
 annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Routing/Validation/ExtractSignal.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Routing/Validation/RealExtractSignal.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Routing.ExtractSignal\">
-Buildings.Controls.OBC.CDL.Routing.ExtractSignal</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Routing.RealExtractSignal\">
+Buildings.Controls.OBC.CDL.Routing.RealExtractSignal</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -74,4 +75,4 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end ExtractSignal;
+end RealExtractSignal;

@@ -1,5 +1,5 @@
 BooleanReplicator
-ExtractSignal
 IntegerReplicator
+RealExtractSignal
 RealReplicator
 Validation
