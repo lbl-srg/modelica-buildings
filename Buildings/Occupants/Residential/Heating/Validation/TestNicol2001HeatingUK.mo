@@ -2,7 +2,8 @@ within Buildings.Occupants.Residential.Heating.Validation;
 model TestNicol2001HeatingUK "To test the model TestNicol2001HeatingUK"
   extends Modelica.Icons.Example;
 
-  Modelica.Blocks.Sources.BooleanStep occ "True for occupied"
+  Modelica.Blocks.Sources.BooleanStep occ(startTime=1800)
+                                          "True for occupied"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Modelica.Blocks.Sources.Sine TOut(
     amplitude=15,
