@@ -1,6 +1,5 @@
 within Buildings.Occupants.Residential.Heating.Validation;
-model TestNicol2001HeatingUK "Package with examples to test the model Nicol2001HeatingOnUK"
-      "To test the model TestNicol2001HeatingUK"
+model TestNicol2001HeatingUK "To test the model TestNicol2001HeatingUK"
       Modelica.Blocks.Sources.BooleanStep Occu "True for occupied"
         annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
       Modelica.Blocks.Sources.Sine OutdoorTemp(
@@ -18,11 +17,11 @@ model TestNicol2001HeatingUK "Package with examples to test the model Nicol2001H
       annotation (preferredView="info", Documentation(info="<html>
 <p>
 This example validates the TestNicol2001HeatingUK model in the heating package by examing how the heater state corresponds
-to the outdoor temperature. 
+to the outdoor temperature.
 </p>
 <p>
 A outdoor temperature variation was simulated by a ramp function. The output is how the heater state
-change with the outdoor temperature. 
+change with the outdoor temperature.
 </p>
 </html>"),
     Icon(graphics={
