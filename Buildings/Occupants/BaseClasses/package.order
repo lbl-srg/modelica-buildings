@@ -1,7 +1,7 @@
-Logit1D
 binaryVariableGeneration
 exponentialVariableGeneration
 linear1D
+logit1D
 logit1DQuadratic
 logit2D
 weibull1DOFF

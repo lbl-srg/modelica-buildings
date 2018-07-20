@@ -1,5 +1,5 @@
 within Buildings.Occupants.BaseClasses;
-function Logit1D "Mapping a continuous input to a binary output through a logistic relation"
+function logit1D "Mapping a continuous input to a binary output through a logistic relation"
   input Real x "Continuous variable";
   input Real A=1.0 "Parameter defining the logistic relation: Slope";
   input Real B=1.0 "Parameter defining the logistic relation: Intercept";
@@ -19,4 +19,4 @@ slope A and the intercept B. Then a random generator generates the output, which
 binary variable.
 </p>
 </html>"));
-end Logit1D;
+end logit1D;
