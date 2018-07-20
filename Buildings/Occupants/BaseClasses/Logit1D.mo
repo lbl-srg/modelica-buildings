@@ -1,4 +1,4 @@
-within Buildings.Occupancy.BaseFunction;
+within Buildings.Occupants.BaseClasses;
 function Logit1D "Mapping a continuous input to a binary output through a logistic relation"
   input Real x "Continuous variable";
   input Real A=1.0 "Parameter defining the logistic relation: Slope";

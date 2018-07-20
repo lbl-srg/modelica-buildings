@@ -1,4 +1,4 @@
-within Buildings.Occupancy.Residential.Heating.Validation;
+within Buildings.Occupants.Residential.Heating.Validation;
 model TestNicol2001HeatingUK "Package with examples to test the model Nicol2001HeatingOnUK"
       "To test the model TestNicol2001HeatingUK"
       Modelica.Blocks.Sources.BooleanStep Occu "True for occupied"

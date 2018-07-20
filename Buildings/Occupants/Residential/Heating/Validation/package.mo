@@ -1,4 +1,4 @@
-within Buildings.Occupancy.Residential.Heating;
+within Buildings.Occupants.Residential.Heating;
 package Validation "Package with examples to validate models in Heating package"
     extends Modelica.Icons.Package;
 annotation (preferredView="info", Documentation(info="<html>

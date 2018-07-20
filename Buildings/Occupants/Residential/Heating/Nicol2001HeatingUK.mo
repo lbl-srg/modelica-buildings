@@ -1,4 +1,4 @@
-within Buildings.Occupancy.Residential.Heating;
+within Buildings.Occupants.Residential.Heating;
 model Nicol2001HeatingUK "A model to predict occupants' heating behavior with 
   outdoor temperature"
     extends Modelica.Blocks.Icons.DiscreteBlock;

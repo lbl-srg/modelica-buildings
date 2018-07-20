@@ -1,5 +1,5 @@
-within Buildings.Occupancy;
-package BaseFunction
+within Buildings.Occupants;
+package BaseClasses
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
@@ -8,6 +8,6 @@ simulation module. The functions included in this package would map the inputs, 
 indoor/output temperature, to two kinds of outputs: on/off state or the duration of a specific state. 
 </p>
 </html>"));
-end BaseFunction;  
+end BaseClasses;  
 
   

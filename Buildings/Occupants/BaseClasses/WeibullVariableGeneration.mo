@@ -1,4 +1,4 @@
-within Buildings.Occupancy.BaseFunction;
+within Buildings.Occupants.BaseClasses;
 function WeibullVariableGeneration "Random variable generator from the Weibull distribution"
     input Real lambda;
     input Real k;

@@ -1,4 +1,4 @@
-within Buildings.Occupancy.BaseFunction;
+within Buildings.Occupants.BaseClasses;
 function BinaryVariableGeneration "Binary variables (0/1) random generator"
     input Real p "probaility of 1, in the range 0~1";
     input Integer globalSeed "seed for the random generator";

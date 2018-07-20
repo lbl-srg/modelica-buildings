@@ -1,4 +1,4 @@
-within Buildings.Occupancy;
+within Buildings.Occupants;
 package Office "Package with models to simulate occupant behaviors in office buildings"
     extends Modelica.Icons.Package;
 annotation (preferredView="info", Documentation(info="<html>
