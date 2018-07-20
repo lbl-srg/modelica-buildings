@@ -8,28 +8,27 @@ model Nicol2001HeatingUK "A model to predict occupants' heating behavior with
     parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
     Real p "The probability of heating is on";
     output Boolean sampleTrigger "True, if sample time instant";
-    Modelica.Blocks.Interfaces.RealInput OutdoorTemp(unit="K") "The outdoor 
-  temperature"   annotation (Placement(
-          transformation(extent={{-140,-40},{-100,0}}), iconTransformation(extent={{-140,-40},{-100,
-              0}})));
-    Modelica.Blocks.Interfaces.BooleanInput Occu
-      "Indoor occupancy, True for occupied, False for unoccupied"
-      annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
-    Modelica.Blocks.Interfaces.BooleanOutput HeaterState
-      "State of Heater, True for on, False for off"
-      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  protected
+    Modelica.Blocks.Interfaces.RealInput TOut(unit="K") "The outdoor 
+  temperature" annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
+    Modelica.Blocks.Interfaces.BooleanInput occ
+    "Indoor occupancy, true for occupied"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+    Modelica.Blocks.Interfaces.BooleanOutput on "State of heater"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+protected
     parameter Modelica.SIunits.Time t0(fixed = false) "First sample time instant";
-  initial equation
+initial equation
     t0 = time;
-  equation
+equation
     sampleTrigger = sample(t0,samplePeriod);
     when sampleTrigger then
-      p = Modelica.Math.exp(A+B*(OutdoorTemp-273.15))/(Modelica.Math.exp(A+B*(OutdoorTemp-273.15))+1);
-      if Occu == true then
-        HeaterState = Occupancy.Utilities.BinaryVariableGeneration(p=p,globalSeed=seed);
+      p =Modelica.Math.exp(A + B*(TOut - 273.15))/(Modelica.Math.exp(A + B*(
+      TOut - 273.15)) + 1);
+    if occ == true then
+      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=seed);
       else
-        HeaterState = false;
+      on = false;
       end if;
     end when;
 
@@ -40,7 +39,9 @@ model Nicol2001HeatingUK "A model to predict occupants' heating behavior with
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid,
             textStyle={TextStyle.Bold},
-            textString="Heater_Tout")}),                           Diagram(
+            textString="Heater_Tout")}),
+        defaultComponentName="hea",
+        Diagram(
           coordinateSystem(preserveAspectRatio=false)),
           Documentation(info="<html>
         <h1 class=\"heading\">Model Description</h1>

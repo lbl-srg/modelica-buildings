@@ -1,20 +1,26 @@
 within Buildings.Occupants.Residential.Heating.Validation;
 model TestNicol2001HeatingUK "To test the model TestNicol2001HeatingUK"
-      Modelica.Blocks.Sources.BooleanStep Occu "True for occupied"
-        annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-      Modelica.Blocks.Sources.Sine OutdoorTemp(
-        amplitude=15,
-        offset=288,
-        freqHz=0.001) "Unit: K"
-        annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-      Residential.Heating.Nicol2001HeatingUK nicol2001HeatingUK
-        annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-    equation
-      connect(Occu.y, nicol2001HeatingUK.Occu) annotation (Line(points={{-59,20},
-              {-36,20},{-36,2},{-12,2}}, color={255,0,255}));
-      connect(OutdoorTemp.y, nicol2001HeatingUK.OutdoorTemp) annotation (Line(
-            points={{-59,-20},{-36,-20},{-36,-2},{-12,-2}}, color={0,0,127}));
-      annotation (preferredView="info", Documentation(info="<html>
+      Modelica.Blocks.Sources.BooleanStep occ "True for occupied"
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+  Modelica.Blocks.Sources.Sine TOut(
+    amplitude=15,
+    offset=288,
+    freqHz=0.001,
+    y(unit="K",
+      displayUnit="degC")) "Outdoor air temperature"
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+  Nicol2001HeatingUK hea
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+equation
+  connect(hea.occ, occ.y) annotation (Line(points={{-12,6},{-36,6},{-36,20},{-59,
+          20}}, color={255,0,255}));
+  connect(hea.TOut, TOut.y) annotation (Line(points={{-12,-6},{-36,-6},{-36,-20},
+          {-59,-20}}, color={0,0,127}));
+annotation (
+experiment(Tolerance=1e-6, StopTime=3600.0),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Residential/Heating/Validation/TestNicol2001HeatingUK.mos"
+                      "Simulate and plot"),
+Documentation(info="<html>
 <p>
 This example validates the TestNicol2001HeatingUK model in the heating package by examing how the heater state corresponds
 to the outdoor temperature.
