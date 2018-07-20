@@ -161,7 +161,7 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Change
         </td>
-        <td valign=\"top\">Output whether the Integer input changes values, increases or decreases.
+        <td valign=\"top\">Block that outputs whether its Integer input changed its value, and whether it increased or decreased.
         </td>
         </tr>
     </table>
