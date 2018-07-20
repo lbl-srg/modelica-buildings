@@ -164,6 +164,11 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Extract scalar signal out of signal vector dependent on Integer input index.
         </td>
         </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Change
+        </td>
+        <td valign=\"top\">Block that outputs whether its Integer input changed its value, and whether it increased or decreased.
+        </td>
+        </tr>
     </table>
     <!-- Backward compatible changes -->
     <p>
