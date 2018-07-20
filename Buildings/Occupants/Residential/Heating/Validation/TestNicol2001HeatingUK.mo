@@ -1,6 +1,8 @@
 within Buildings.Occupants.Residential.Heating.Validation;
 model TestNicol2001HeatingUK "To test the model TestNicol2001HeatingUK"
-      Modelica.Blocks.Sources.BooleanStep occ "True for occupied"
+  extends Modelica.Icons.Example;
+
+  Modelica.Blocks.Sources.BooleanStep occ "True for occupied"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Modelica.Blocks.Sources.Sine TOut(
     amplitude=15,
@@ -9,7 +11,7 @@ model TestNicol2001HeatingUK "To test the model TestNicol2001HeatingUK"
     y(unit="K",
       displayUnit="degC")) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Nicol2001HeatingUK hea
+  Nicol2001HeatingUK hea "Occupancy model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(hea.occ, occ.y) annotation (Line(points={{-12,6},{-36,6},{-36,20},{-59,
@@ -22,23 +24,22 @@ experiment(Tolerance=1e-6, StopTime=3600.0),
                       "Simulate and plot"),
 Documentation(info="<html>
 <p>
-This example validates the TestNicol2001HeatingUK model in the heating package by examing how the heater state corresponds
+This example validates
+<a href=\"modelica://Buildings.Occupants.Residential.Heating.Nicol2001HeatingUK\">
+Buildings.Occupants.Residential.Heating.Nicol2001HeatingUK</a>
+by examing how the heater state corresponds
 to the outdoor temperature.
 </p>
 <p>
-A outdoor temperature variation was simulated by a ramp function. The output is how the heater state
-change with the outdoor temperature.
+An outdoor temperature variation was simulated by a sine function. The output is how the heater state
+changes with the outdoor temperature.
 </p>
-</html>"),
-    Icon(graphics={
-            Ellipse(lineColor = {75,138,73},
-                    fillColor={255,255,255},
-                    fillPattern = FillPattern.Solid,
-                    extent = {{-100,-100},{100,100}}),
-            Polygon(lineColor = {0,0,255},
-                    fillColor = {75,138,73},
-                    pattern = LinePattern.None,
-                    fillPattern = FillPattern.Solid,
-                    points = {{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
-            coordinateSystem(preserveAspectRatio=false)));
+</html>", revisions="<html>
+<ul>
+<li>
+July 20, 2018, by Zhe Wang:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end TestNicol2001HeatingUK;

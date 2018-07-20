@@ -20,11 +20,12 @@ protected
     parameter Modelica.SIunits.Time t0(fixed = false) "First sample time instant";
 initial equation
     t0 = time;
+    p = Modelica.Math.exp(A + B*(TOut - 273.15))/(Modelica.Math.exp(A + B*(TOut - 273.15)) + 1);
+    on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=seed);
 equation
     sampleTrigger = sample(t0,samplePeriod);
     when sampleTrigger then
-      p =Modelica.Math.exp(A + B*(TOut - 273.15))/(Modelica.Math.exp(A + B*(
-      TOut - 273.15)) + 1);
+      p =Modelica.Math.exp(A + B*(TOut - 273.15))/(Modelica.Math.exp(A + B*(TOut - 273.15)) + 1);
     if occ == true then
       on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=seed);
       else
@@ -44,7 +45,7 @@ equation
         Diagram(
           coordinateSystem(preserveAspectRatio=false)),
           Documentation(info="<html>
-        <h1 class=\"heading\">Model Description</h1>
+        <h1>Model Description</h1>
         <p>The model predicts the state of heater with the outdoor temperature 
         and occupancy.</p>
         <h4>Inputs</h4>
@@ -65,5 +66,12 @@ equation
         Proceedings of building simulation 01, an IBPSA Conference.&quot;. </p>
         <p>The model parameters are regressed from the field study in the UK in 
         1998 from 3600 naturally ventilated buildings.</p>
-        </html>"));
+        </html>", revisions="<html>
+<ul>
+<li>
+July 20, 2018, by Zhe Wang:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Nicol2001HeatingUK;
