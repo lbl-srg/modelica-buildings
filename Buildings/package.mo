@@ -177,7 +177,7 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
         </td>
-        <td valign=\"top\">Update implementation to output accumulated true input time.<br/>  
+        <td valign=\"top\">Update implementation to output accumulated time when input is <code>true</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>.
         </td>
     </tr>
