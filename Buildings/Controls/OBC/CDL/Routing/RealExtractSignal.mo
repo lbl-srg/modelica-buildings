@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Routing;
-block ExtractSignal "Extract signals from an input signal vector"
+block RealExtractSignal "Extract signals from an input signal vector"
   parameter Integer nin = 1 "Number of inputs";
   parameter Integer nout = 1 "Number of outputs";
   parameter Integer extract[nout]=1:nout "Extracting vector";
@@ -103,16 +103,23 @@ annotation (
           extent={{-150,110},{150,150}},
           textString="%name")}),
     Documentation(info="<html>
-<p>Extract signals from the input connector and transfer them
-to the output connector.</p>
-<p>The extracting scheme is given by the integer vector <code>extract</code>.
+<p>
+Extract signals from the input connector and transfer them
+to the output connector.
+</p>
+<p>
+The extracting scheme is given by the integer vector <code>extract</code>.
 This vector specifies which input signals are taken and in which
 order they are transferred to the output vector. Note that the
 dimension of <code>extract</code> has to match the number of outputs.
 Additionally, the dimensions of the input connector signals and
 the output connector signals have to be explicitly defined via the
-parameters <code>nin</code> and <code>nout</code>.</p>
-<p>Example:</p>
+parameters <code>nin</code> and <code>nout</code>.
+</p>
+<h4>Example</h4>
+<p>
+The specification
+</p>
 <pre>     nin = 7 \"Number of inputs\";
      nout = 4 \"Number of outputs\";
      extract[nout] = {6,3,3,2} \"Extracting vector\";
@@ -128,10 +135,14 @@ input vector (<code>nin=7</code>):</p>
 </html>", revisions="<html>
 <ul>
 <li>
+July 19, 2018, by Jianjun Hu:<br/>
+Changed block name.
+</li>
+<li>
 July 24, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.
 </li>
 </ul>
 </html>"));
-end ExtractSignal;
+end RealExtractSignal;
