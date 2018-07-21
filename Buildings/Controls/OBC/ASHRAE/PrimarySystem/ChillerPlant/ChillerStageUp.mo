@@ -30,7 +30,7 @@ block ChillerStageUp "Sequences to control equipments when chiller stage up"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uByPasFlo(final quantity=
         "VolumeFlowRate", final unit="m3/s") "By pass flow rate" annotation (
-      Placement(transformation(extent={{-220,-50},{-180,-10}}),
+      Placement(transformation(extent={{-220,-100},{-180,-60}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiCur[num](final quantity="ElectricCurrent",
       final unit="A") "Current chiller demand measured by the current"
@@ -43,7 +43,7 @@ block ChillerStageUp "Sequences to control equipments when chiller stage up"
     final unit="1",
     final min=0,
     final max=1) "Condense water isolation valve position" annotation (
-      Placement(transformation(extent={{-220,-150},{-180,-110}}),
+      Placement(transformation(extent={{-220,-200},{-180,-160}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
      final unit="1",
@@ -63,16 +63,17 @@ block ChillerStageUp "Sequences to control equipments when chiller stage up"
     final unit="1",
     final min=0,
     final max=1) "Chilled water isolation valve position" annotation (Placement(
-        transformation(extent={{-220,-180},{-180,-140}}),iconTransformation(
+        transformation(extent={{-220,-230},{-180,-190}}),iconTransformation(
           extent={{-140,-100},{-100,-60}})));
   CDL.Interfaces.BooleanInput uConWatPum[num] "Condenser water pump status"
-    annotation (Placement(transformation(extent={{-220,-90},{-180,-50}}),
+    annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   CDL.Interfaces.RealInput uConWatPumSpe[num](
     final unit="1",
     final min=0,
     final max=1) "Condenser water pump speed" annotation (Placement(
-        transformation(extent={{-220,-120},{-180,-80}}),iconTransformation(
+        transformation(extent={{-220,-170},{-180,-130}}),
+                                                        iconTransformation(
           extent={{-140,-100},{-100,-60}})));
   CDL.Integers.GreaterThreshold intGreThr "Check if it is stage-up"
     annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
@@ -110,11 +111,14 @@ block ChillerStageUp "Sequences to control equipments when chiller stage up"
     "Output true when elements of input vector are true"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   CDL.Interfaces.IntegerInput uChiSta "Current chiller stage" annotation (
-      Placement(transformation(extent={{-220,-10},{-180,30}}),
+      Placement(transformation(extent={{-220,-40},{-180,0}}),
         iconTransformation(extent={{-254,-38},{-214,2}})));
-  CDL.Continuous.Gain byPasFloSet[num](k=minByPas)
-    "Minimum by-pass flow setpoint array"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  CDL.Continuous.Add add2(k2=-1)
+    "Difference between minimum bypass setpoint and its current value"
+    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
+  CDL.Continuous.Hysteresis hys1
+    "Check if minimum bypass flow is achieved, with deadband"
+    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 equation
 
   connect(uChiStaCha, intGreThr.u)
@@ -152,6 +156,10 @@ equation
           58,60}},    color={255,0,255}));
   connect(mulAnd.y, truDel.u)
     annotation (Line(points={{81.7,60},{98,60}}, color={255,0,255}));
+  connect(uByPasFlo, add2.u2) annotation (Line(points={{-200,-80},{-160,-80},{
+          -160,-86},{-142,-86}}, color={0,0,127}));
+  connect(add2.y, hys1.u)
+    annotation (Line(points={{-119,-80},{-102,-80}}, color={0,0,127}));
 annotation (
   defaultComponentName = "towFan",
   Diagram(coordinateSystem(preserveAspectRatio=false,
