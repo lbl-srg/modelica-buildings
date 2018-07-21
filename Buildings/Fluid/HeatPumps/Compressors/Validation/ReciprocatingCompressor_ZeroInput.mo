@@ -2,8 +2,7 @@ within Buildings.Fluid.HeatPumps.Compressors.Validation;
 model ReciprocatingCompressor_ZeroInput
   extends Modelica.Icons.Example;
   Buildings.Fluid.HeatPumps.Compressors.ReciprocatingCompressor com(
-    redeclare package ref =
-        Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = Buildings.Media.Refrigerants.R410A,
     pisDis=0.00162,
     cleFac=0.069,
     etaEle=0.696,
@@ -11,10 +10,10 @@ model ReciprocatingCompressor_ZeroInput
     dTSup=9.82,
     pDro=99290) "Reciprocating compressor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature eva(T=253.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature eva(T=253.15)
     "Evaporating temprature"
     annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature con(T=323.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature con(T=323.15)
     "Condensing temperature"
     annotation (Placement(transformation(extent={{84,-10},{64,10}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloEva

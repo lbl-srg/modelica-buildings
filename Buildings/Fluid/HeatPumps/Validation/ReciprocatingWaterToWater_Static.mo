@@ -16,15 +16,15 @@ model ReciprocatingWaterToWater_Static
     "Mass flow rate on the evaporator side";
 
   Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater heaPum(
-     per = Data.ReciprocatingWaterToWater.Generic(
-      etaEle=0.696,
-      PLos=100,
-      dTSup=9.82,
-      UACon=2210,
-      UAEva=1540,
-      pisDis=0.00162,
-      cleFac=0.069,
-      pDro=99290),
+    per=Data.ReciprocatingWaterToWater.Generic(
+        etaEle=0.696,
+        PLos=100,
+        dTSup=9.82,
+        UACon=2210,
+        UAEva=1540,
+        pisDis=0.00162,
+        cleFac=0.069,
+        pDro=99290),
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     redeclare package ref = Buildings.Media.Refrigerants.R410A,
@@ -35,7 +35,7 @@ model ReciprocatingWaterToWater_Static
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     enable_temperature_protection=false)
-                 "Reciprocating water to water heat pump"
+    "Reciprocating water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.FixedBoundary sin2(
