@@ -177,12 +177,13 @@ its class name ends with the string <code>Beta</code>.
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Update implementation to output accumulated time when input is <code>true</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>.
         </td>
     </tr>
     </table>

@@ -1,5 +1,6 @@
 compareVars :=
   {
-    "timer1.u",
-    "timer1.y"
+    "booPul.y",
+    "resetTimer.y",
+    "accuTimer.y"
   };
