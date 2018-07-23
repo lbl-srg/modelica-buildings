@@ -156,12 +156,17 @@ its class name ends with the string <code>Beta</code>.
     to <b style=\"color:blue\">existing</b> libraries:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Extract scalar signal out of signal vector dependent on Integer-valued input.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Change
+        </td>
+        <td valign=\"top\">Block that outputs whether its Integer input changed its value, and whether it increased or decreased.
         </td>
         </tr>
     </table>
@@ -172,20 +177,13 @@ its class name ends with the string <code>Beta</code>.
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
         </td>
-        <td valign=\"top\">xxx.
-        </td>
-    </tr>
-    <tr><td colspan=\"2\"><b>xxx</b>
-        </td>
-    </tr>
-    <tr><td valign=\"top\">xxx
-        </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Update implementation to output accumulated time when input is <code>true</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>.
         </td>
     </tr>
     </table>
@@ -222,6 +220,18 @@ its class name ends with the string <code>Beta</code>.
                            for these models.<br/>
                            For Dymola, a conversion script makes this change.<br/>
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/877\">IBPSA, #877</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.RealExtractSignal
+        </td>
+        <td valign=\"top\">Changed block name from <code>ExtractSignal</code>.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Utilities.Reports</b>
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Utilities.Reports.Printer<br/>
