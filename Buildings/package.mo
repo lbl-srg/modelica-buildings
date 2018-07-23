@@ -183,7 +183,9 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
         </td>
         <td valign=\"top\">Update implementation to output accumulated time when input is <code>true</code>.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>.
+                           The accumulated timer can be reset when boolean reset input becomes <code>true</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>
+                           and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">issue 1221</a>.
         </td>
     </tr>
     </table>
