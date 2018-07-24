@@ -336,7 +336,7 @@ annotation (
           horizontalAlignment=TextAlignment.Right,
           textString="Lag pump status"),
                                      Rectangle(
-          extent={{2,82},{158,-16}},
+          extent={{2,82},{158,-18}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
