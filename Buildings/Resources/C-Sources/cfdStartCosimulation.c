@@ -41,25 +41,11 @@
  *
  * @return 0 if no error occurred
  */
-void *cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
+int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
                 int *bouCon, int nPorts, char** portName, int haveSensor,
                 char **sensorName, int haveShade, size_t nSur, size_t nSen,
                 size_t nConExtWin, size_t nXi, size_t nC, double rho_start) {
   size_t i, nBou;
-/* Windows*/
-#ifdef _MSC_VER
-  HANDLE workerThreadHandle[1];
-/*  Linux*/
-#else
-   pthread_t thread1[1];
-#endif
-  /****************************************************************************
-  | For call FFD-DLL
-  ****************************************************************************/
-  cosim = (CosimulationData *) malloc(sizeof(CosimulationData));
-  cosim->para = (ParameterSharedData *) malloc(sizeof(ParameterSharedData));
-  cosim->modelica = (ModelicaSharedData *) malloc(sizeof(ModelicaSharedData));
-  cosim->ffd = (ffdSharedData *) malloc(sizeof(ffdSharedData));
 
   /****************************************************************************
   | allocate the memory and assign the data
@@ -112,7 +98,6 @@ void *cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   cosim->ffd->flag = 0;
   cosim->para->flag = 1;
   cosim->para->ffdError = 0;
-	cosim->modelica->t = 0;
 
   cosim->modelica->temHea = (REAL *) malloc(nSur*sizeof(REAL));
   /* Having a shade for window*/
@@ -143,15 +128,9 @@ void *cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   cosim->ffd->msg = (REAL *) malloc(400*sizeof(char));
 
   /****************************************************************************
-  | Implicitly launch DLL module, and return the pointer.
+  | Implicitly launch DLL module.
   ****************************************************************************/
-/* Windows*/
-#ifdef _MSC_VER
-  workerThreadHandle[0] = ffd_dll(cosim);
-	return workerThreadHandle;
-/*  Linux*/
-#else
-  thread1[0] = ffd_dll(cosim);
-	return thread1;
-#endif
+  ffd_dll(cosim);
+
+  return 0;
 } /* End of cfdStartCosimulation()*/
