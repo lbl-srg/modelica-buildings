@@ -36,38 +36,17 @@ block CFDExchange "Block that exchanges data with the CFD code"
   parameter Boolean verbose=false "Set to true for verbose output";
   parameter Modelica.SIunits.Density rho_start "Density at initial state";
 
+  CFDThread CFDThre = CFDThread()
+   "Allocate memory for cosimulation variables via constructor and send stop command to FFD via destructor";
+
   Modelica.Blocks.Interfaces.RealInput u[nWri] "Inputs to CFD"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  discrete Modelica.Blocks.Interfaces.RealOutput y[nRea]
-    "Outputs received from CFD"
+  discrete Modelica.Blocks.Interfaces.RealOutput y[nRea] "Outputs received from CFD"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Real uInt[nWri] "Value of integral";
   discrete Real uIntPre[nWri] "Value of integral at previous sampling instance";
   discrete Real uWri[nWri] "Value to be sent to the CFD interface";
-
-// instantiate the Buildings.ThermalZones.Detailed.BaseClasses.CFDThread.
-// it will send the parameters to FFD when creating the thread at the beginning of coupled simulation.
-// it will automatically close the thread at end of the simulation.
-// returned is the address of the thread which is not used in the model.
-Buildings.ThermalZones.Detailed.BaseClasses.CFDThread ffd = Buildings.ThermalZones.Detailed.BaseClasses.CFDThread(
-    cfdFilNam=cfdFilNam,
-    name=surIde[:].name,
-    A=surIde[:].A,
-    til=surIde[:].til,
-    bouCon=surIde[:].bouCon,
-    haveSensor=haveSensor,
-    portName=portName,
-    sensorName=sensorName,
-    haveShade=haveShade,
-    nSur=nSur,
-    nSen=nSen,
-    nConExtWin=nConExtWin,
-    nPorts=nPorts,
-    nXi=nXi,
-    nC=nC,
-    rho_start=rho_start,
-		verbose=verbose);
 
 protected
   final parameter Integer nSen(min=0) = size(sensorName, 1)
@@ -134,8 +113,7 @@ protected
         nConExtWin,
         nXi,
         nC,
-        rho_start,
-				verbose=verbose);
+        rho_start);
     assert(coSimFlag < 0.5, "Could not start the cosimulation.");
 
   end sendParameters;
@@ -262,8 +240,6 @@ end if;
                          names=portName);
 
   // Send parameters to the CFD interface
- // Block this as CFDThread is called.
- /*
   sendParameters(
     cfdFilNam=cfdFilNam,
     name=surIde[:].name,
@@ -282,7 +258,7 @@ end if;
     nC=nC,
     rho_start=rho_start,
     verbose=verbose);
-        */
+
   // Assignment of parameters and start values
   uInt = zeros(nWri);
   uIntPre = zeros(nWri);
@@ -304,7 +280,7 @@ equation
     der(uInt[i]) = if (flaWri[i] > 0) then u[i] else 0;
   end for;
 
-  when {sampleTrigger, initial()} then
+  when sampleTrigger then
     // Compute value that will be sent to the CFD interface
     for i in 1:nWri loop
       if (flaWri[i] == 0) then
@@ -331,7 +307,7 @@ algorithm
 
   when sampleTrigger then
     // Exchange data
-    if (activateInterface) then
+    if activateInterface then
       (modTimRea,y,retVal) := exchange(
         flag=0,
         t=time,
@@ -354,46 +330,6 @@ algorithm
       "   Received: retVal = " + String(retVal));
   end when;
 
- // As of Feb 2018, built-in terminal() is not supported by JModelica
- // This when terminal() is blocked, as CFDThread can do the job.
- // At end of the simulation, the destructor will be automatically called, which
- // will further send the stop command to FFD and close the thread after receiving
- // feedback from FFD.
-
- /*
-  when terminal() then
-    assert(
-      rem(time - startTime, samplePeriod) < 0.00001,
-      "Warning: The simulation time is not a multiple of sampling time.",
-      level=AssertionLevel.warning);
-    if verbose then
-      Modelica.Utilities.Streams.print("CFDExchange:terminate at t=" + String(
-        time));
-    end if;
-    // Send the stopping singal to CFD
-    cfdSendStopCommand();
-
-    // Last exchange of data
-    if activateInterface then
-      (modTimRea,y,retVal) := exchange(
-        flag=0,
-        t=time,
-        dt=samplePeriod,
-        u=uWri,
-        nU=size(u, 1),
-        yFixed=yFixed,
-        nY=size(y, 1),
-        verbose=verbose);
-    else
-      modTimRea := time;
-      y := yFixed;
-      retVal := 0;
-    end if;
-    // Check if CFD has successfully stopped
-    assert(cfdReceiveFeedback() == 0, "Could not terminate the cosimulation.");
-
-  end when;
-        */
   annotation (
     Documentation(info="<html>
 <p>
@@ -407,6 +343,9 @@ Buildings.ThermalZones.Detailed.UsersGuide.CFD</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+July 27, 2018, by Wei Tian and Xu Han:<br/>
+To fix the issue FFD fails in JModelica tests due to unsupported OS #612 at
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/612\">issue 612</a>.
 November 17, 2016, by Michael Wetter:<br/>
 Removed public parameter <code>uStart</code>, which is not needed and
 refactored model.<br/>
