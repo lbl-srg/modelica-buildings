@@ -24,7 +24,7 @@ size_t i = 0, imax = 10000;
 char msg[100];
 
   cosim->para->flag = 0;
-  ModelicaMessage("send stop command to FFD via destructor\n");
+  ModelicaMessage("send stop command to FFD from destructor\n");
 
   /* Wait for the feedback from FFD*/
   while(cosim->para->flag==0 && i<imax) {
@@ -33,7 +33,7 @@ char msg[100];
     }
     else {
       sleep(1);
-	  sprintf(msg,"cosim->para->flag=%d and wait at %d s\n",cosim->para->flag,i);
+	  sprintf(msg,"cosim->para->flag=%d and wait for %d s\n",cosim->para->flag,i);
 	  ModelicaMessage(msg);
       i++;
     }
@@ -55,5 +55,13 @@ char msg[100];
   free(cosim->modelica);
   free(cosim->ffd);
   free(cosim);
+  
+/* Windows*/
+#ifdef _MSC_VER
+	CloseHandle(thread);
+/*  Linux*/
+#else
+  pthread_cancel(thread);
+#endif
 
 } /* End of cfdSendStopCommand*/

@@ -29,6 +29,14 @@
  */
 void *cfdcosim() {
 
+/* Windows*/
+#ifdef _MSC_VER
+  HANDLE workerThreadHandle[1];
+/*  Linux*/
+#else
+   pthread_t thread1[1];
+#endif
+
   /****************************************************************************
   | Allocate memory for cosimulation variables
   ****************************************************************************/
@@ -39,5 +47,13 @@ void *cfdcosim() {
   
   ModelicaMessage("finish allocate memory to cosim from constructor\n");
 
-  return 0;
+/* Windows*/
+#ifdef _MSC_VER
+	return workerThreadHandle;
+/*  Linux*/
+#else
+	return thread1;
+#endif  
+  
+  
 } /* End of cfdcosim()*/
