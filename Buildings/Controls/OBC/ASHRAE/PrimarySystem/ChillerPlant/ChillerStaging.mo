@@ -43,11 +43,15 @@ block ChillerStaging "Sequences to control chiller staging"
     "Chiller efficiency at AHRI conditions, kW/ton"
     annotation(Dialog(group="SPLR coefficients calculation", enable = not use_simCoe));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
+    final unit="K",
+    final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-240,200},{-200,240}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature")
     "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-240,164},{-200,204}}),
       iconTransformation(extent={{-120,20},{-100,40}})));
@@ -59,7 +63,9 @@ block ChillerStaging "Sequences to control chiller staging"
     "Chilled water plant reset"
     annotation (Placement(transformation(extent={{-240,60},{-200,100}}),
       iconTransformation(extent={{-120,-40},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
+    final unit="K",
+    final quantity="ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
       iconTransformation(extent={{-120,80},{-100,100}})));
@@ -200,7 +206,7 @@ block ChillerStaging "Sequences to control chiller staging"
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold staDowHol(
     final trueHoldDuration=900)
     "Ensure each stage has a minimum runtime of 15 minutes"
-    annotation (Placement(transformation(extent={{80,20},{100,40}})));
+    annotation (Placement(transformation(extent={{140,20},{160,40}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold zerDowHol(
     final trueHoldDuration=900)
     "Ensure each stage has a minimum runtime of 15 minutes"
@@ -222,6 +228,7 @@ block ChillerStaging "Sequences to control chiller staging"
     "Check if it is stage zero now"
     annotation (Placement(transformation(extent={{0,-240},{20,-220}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Chiller plant request is non-zero"
     annotation (Placement(transformation(extent={{-60,-260},{-40,-240}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Check if schedule is active"
     annotation (Placement(transformation(extent={{-60,-320},{-40,-300}})));
@@ -238,12 +245,12 @@ block ChillerStaging "Sequences to control chiller staging"
   Buildings.Controls.OBC.CDL.Logical.Switch swi6
     "Ensure no further stage-up when current stage is already the highest stage"
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold higSta(
-    final threshold=num)
+  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold higSta(
+    final threshold=num - 1)
     "Check if current stage is highest stage minus 1"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold staOneChe(
-    final threshold=0)
+    final threshold=1)
     "Check if current stage is having at least 1 chiller operating"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi7
@@ -252,7 +259,7 @@ block ChillerStaging "Sequences to control chiller staging"
   Buildings.Controls.OBC.CDL.Continuous.Gain dKtodF(final k=9/5)
     "Convert from degK difference to degF difference"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(threshold=1)
+  CDL.Integers.LessEqualThreshold                   intLesEquThr(threshold=0)
     "Check if there is no chiller plant request"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys8(
@@ -262,10 +269,13 @@ block ChillerStaging "Sequences to control chiller staging"
     annotation (Placement(transformation(extent={{-60,-290},{-40,-270}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys9(
     final uLow=TLocChi - 5.5*5/9,
-    final uHigh=TLocChi + 5.5*5/9)
-    "Check if outdoor temperature is less than lockout temperature minus 5 degF"
+    final uHigh=TLocChi - 4.5*5/9)
+    "Check if outdoor temperature is greater than lockout temperature minus 5 degF"
     annotation (Placement(transformation(extent={{-58,-130},{-38,-110}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
+    annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
+  Buildings.Controls.OBC.CDL.Logical.And and4
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
 protected
   parameter Modelica.SIunits.TemperatureDifference dTRef_nominal=
     TConWatRet_nominal - TChiWatSup_nominal
@@ -360,15 +370,14 @@ equation
     annotation (Line(points={{-220,220},{-190,220},{-190,196},{-182,196}},
       color={0,0,127}));
   connect(coeE.y, pro.u1)
-    annotation (Line(points={{121,290},{140,290},{140,212},{-60,212},{-60,196},{
-          -42,196}},
-                   color={0,0,127}));
+    annotation (Line(points={{121,290},{140,290},{140,212},{-60,212},{-60,196},
+      {-42,196}}, color={0,0,127}));
   connect(pro.y, staPLR.u2)
     annotation (Line(points={{-19,190},{0,190},{0,184},{18,184}},
       color={0,0,127}));
   connect(coeF.y, staPLR.u1)
-    annotation (Line(points={{121,250},{146,250},{146,208},{0,208},{0,196},{18,196}},
-                  color={0,0,127}));
+    annotation (Line(points={{121,250},{146,250},{146,208},{0,208},{0,196},
+      {18,196}}, color={0,0,127}));
   connect(sam.y, pro.u2)
     annotation (Line(points={{-79,190},{-60,190},{-60,184},{-42,184}},
       color={0,0,127}));
@@ -380,10 +389,10 @@ equation
     annotation (Line(points={{-139,80},{-122,80}}, color={255,0,255}));
   connect(uPLR, add4.u2)
     annotation (Line(points={{-220,140},{-180,140},{-180,134},{-162,134}},
-                                                     color={0,0,127}));
+      color={0,0,127}));
   connect(staPLR.y, add4.u1)
-    annotation (Line(points={{41,190},{60,190},{60,162},{-180,162},{-180,146},{-162,
-          146}},              color={0,0,127}));
+    annotation (Line(points={{41,190},{60,190},{60,162},{-180,162},{-180,146},
+      {-162,146}}, color={0,0,127}));
   connect(add4.y, hys1.u)
     annotation (Line(points={{-139,140},{-122,140}}, color={0,0,127}));
   connect(hys1.y, tim.u)
@@ -408,12 +417,11 @@ equation
   connect(timTabCon.y[1], lesEquThr1.u)
     annotation (Line(points={{-139,-160},{-122,-160}}, color={0,0,127}));
   connect(lesEquThr1.y, or3.u3)
-    annotation (Line(points={{-99,-160},{0,-160},{0,-118},{18,-118}},
+    annotation (Line(points={{-99,-160},{10,-160},{10,-118},{18,-118}},
       color={255,0,255}));
   connect(add4.y, gai2.u)
     annotation (Line(points={{-139,140},{-130,140},{-130,104},{-180,104},{-180,30},
-          {-162,30}},
-                  color={0,0,127}));
+      {-162,30}}, color={0,0,127}));
   connect(gai2.y, hys6.u)
     annotation (Line(points={{-139,30},{-122,30}}, color={0,0,127}));
   connect(hys6.y, tim3.u)
@@ -423,18 +431,15 @@ equation
   connect(or2.y, staUpHol.u)
     annotation (Line(points={{21,140},{79,140}},
       color={255,0,255}));
-  connect(hys7.y, staDowHol.u)
-    annotation (Line(points={{-19,30},{79,30}}, color={255,0,255}));
   connect(or3.y, zerDowHol.u)
     annotation (Line(points={{41,-110},{52,-110},{52,-80},{119,-80}},
       color={255,0,255}));
   connect(staDowHol.y, swi.u2)
-    annotation (Line(points={{101,30},{198,30}},color={255,0,255}));
+    annotation (Line(points={{161,30},{198,30}},color={255,0,255}));
   connect(staUpHol.y, swi1.u2)
     annotation (Line(points={{101,140},{198,140}},color={255,0,255}));
   connect(zerDowHol.y, swi2.u2)
-    annotation (Line(points={{141,-80},{198,-80}},
-                                                 color={255,0,255}));
+    annotation (Line(points={{141,-80},{198,-80}}, color={255,0,255}));
   connect(zerSta.y, swi2.u1)
     annotation (Line(points={{141,-110},{172,-110},{172,-72},{198,-72}},
       color={0,0,127}));
@@ -442,11 +447,11 @@ equation
     annotation (Line(points={{-98.3,-200},{180,-200},{180,132},{198,132}},
       color={0,0,127}));
   connect(swi1.y, swi.u3)
-    annotation (Line(points={{221,140},{230,140},{230,80},{188,80},{188,22},{198,
-          22}},  color={0,0,127}));
+    annotation (Line(points={{221,140},{230,140},{230,80},{188,80},{188,22},
+      {198,22}},  color={0,0,127}));
   connect(swi.y, swi2.u3)
-    annotation (Line(points={{221,30},{230,30},{230,-50},{188,-50},{188,-88},{198,
-          -88}},  color={0,0,127}));
+    annotation (Line(points={{221,30},{230,30},{230,-50},{188,-50},{188,-88},
+      {198,-88}},  color={0,0,127}));
   connect(mulSum.y, curZerSta.u)
     annotation (Line(points={{-98.3,-200},{-60,-200},{-60,-230},{-2,-230}},
       color={0,0,127}));
@@ -463,7 +468,7 @@ equation
     annotation (Line(points={{-39,-310},{-20,-310},{-20,-288},{-2,-288}},
       color={255,0,255}));
   connect(and3.y, and1.u2)
-    annotation (Line(points={{21,-280},{40,-280},{40,-228},{58,-228}},
+    annotation (Line(points={{21,-280},{48,-280},{48,-228},{58,-228}},
       color={255,0,255}));
   connect(curZerSta.y, and1.u1)
     annotation (Line(points={{21,-230},{40,-230},{40,-220},{58,-220}},
@@ -474,8 +479,7 @@ equation
   connect(and1.y, oneUpHol.u)
     annotation (Line(points={{81,-220},{99,-220}}, color={255,0,255}));
   connect(oneUpHol.y, swi3.u2)
-    annotation (Line(points={{121,-220},{158,-220}},
-                                                   color={255,0,255}));
+    annotation (Line(points={{121,-220},{158,-220}}, color={255,0,255}));
   connect(reaToInt1.y, yChiSta)
     annotation (Line(points={{181,-260},{250,-260}}, color={255,127,0}));
   connect(add3.y, dKtodF.u)
@@ -498,8 +502,8 @@ equation
     annotation (Line(points={{101,110},{110,110},{110,98},{138,98}},
       color={0,0,127}));
   connect(mulSum.y, swi6.u3)
-    annotation (Line(points={{-98.3,-200},{60,-200},{60,60},{130,60},{130,82},{138,
-          82}}, color={0,0,127}));
+    annotation (Line(points={{-98.3,-200},{60,-200},{60,60},{130,60},{130,82},
+      {138,82}}, color={0,0,127}));
   connect(swi6.y, swi1.u1)
     annotation (Line(points={{161,90},{174,90},{174,148},{198,148}},
       color={0,0,127}));
@@ -516,20 +520,19 @@ equation
     annotation (Line(points={{101,-30},{120,-30},{120,-20},{138,-20}},
       color={255,0,255}));
   connect(mulSum.y, swi7.u3)
-    annotation (Line(points={{-98.3,-200},{60,-200},{60,-52},{130,-52},{130,-28},
-          {138,-28}},     color={0,0,127}));
+    annotation (Line(points={{-98.3,-200},{60,-200},{60,-52},{130,-52},
+      {130,-28},{138,-28}}, color={0,0,127}));
   connect(swi7.y, swi.u1)
     annotation (Line(points={{161,-20},{174,-20},{174,38},{198,38}},
       color={0,0,127}));
   connect(swi2.y, swi3.u3)
-    annotation (Line(points={{221,-80},{230,-80},{230,-180},{148,-180},{148,-228},
-          {158,-228}},
-                  color={0,0,127}));
-  connect(TChiWatSupResReq, intLesThr.u)
+    annotation (Line(points={{221,-80},{230,-80},{230,-180},{148,-180},
+      {148,-228},{158,-228}}, color={0,0,127}));
+  connect(TChiWatSupResReq, intLesEquThr.u)
     annotation (Line(points={{-220,-80},{-162,-80}}, color={255,127,0}));
-  connect(intLesThr.y, tim2.u)
-    annotation (Line(points={{-139,-80},{-62,-80}},  color={255,0,255}));
-  connect(intLesThr.y, not1.u)
+  connect(intLesEquThr.y, tim2.u)
+    annotation (Line(points={{-139,-80},{-62,-80}}, color={255,0,255}));
+  connect(intLesEquThr.y, not1.u)
     annotation (Line(points={{-139,-80},{-76,-80},{-76,-250},{-62,-250}},
       color={255,0,255}));
   connect(TOut, hys8.u)
@@ -540,12 +543,22 @@ equation
       color={255,0,255}));
   connect(TOut, hys9.u)
     annotation (Line(points={{-220,-120},{-60,-120}},  color={0,0,127}));
-  connect(hys9.y, or3.u2)
-    annotation (Line(points={{-37,-120},{-20,-120},{-20,-110},{18,-110}},
+  connect(swi3.y, reaToInt1.u)
+    annotation (Line(points={{181,-220},{200,-220},{200,-240},{140,-240},
+      {140,-260},{158,-260}}, color={0,0,127}));
+  connect(not3.y, or3.u2)
+    annotation (Line(points={{1,-110},{18,-110}}, color={255,0,255}));
+  connect(hys9.y, not3.u)
+    annotation (Line(points={{-37,-120},{-32,-120},{-32,-110},{-22,-110}},
       color={255,0,255}));
+  connect(hys7.y, and4.u1)
+    annotation (Line(points={{-19,30},{78,30}}, color={255,0,255}));
+  connect(and4.y, staDowHol.u)
+    annotation (Line(points={{101,30},{139,30}}, color={255,0,255}));
+  connect(staOneChe.y, and4.u2)
+    annotation (Line(points={{101,-30},{120,-30},{120,16},{68,16},{68,22},
+      {78,22}}, color={255,0,255}));
 
-  connect(swi3.y, reaToInt1.u) annotation (Line(points={{181,-220},{200,-220},{200,
-          -240},{140,-240},{140,-260},{158,-260}}, color={0,0,127}));
 annotation (
   defaultComponentName="chiStaCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -558,17 +571,17 @@ annotation (
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),         Rectangle(
-          extent={{-198,338},{234,186}},
+          extent={{-198,338},{218,182}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
           Text(
-          extent={{126,342},{274,298}},
+          extent={{66,344},{214,300}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
-          horizontalAlignment=TextAlignment.Left,
+          horizontalAlignment=TextAlignment.Right,
           textString="Calculate staging
 part load ratio (SPLR)"),
           Text(
@@ -601,7 +614,7 @@ part load ratio (SPLR)"),
           horizontalAlignment=TextAlignment.Left,
           textString="Check if it should stage up"),
                                              Rectangle(
-          extent={{-198,46},{218,-38}},
+          extent={{-198,38},{218,-38}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),

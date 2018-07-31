@@ -10,7 +10,7 @@ model ChilledTRef "Validate model of calculate chiller LIFT"
     TChiWatSup_nominal=280.15,
     plaCap_nominal=2600000)
     "Calculate current chiller lift, with simple algorithm"
-    annotation (Placement(transformation(extent={{20,24},{40,44}})));
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatSupTem(
     amplitude=2,
     freqHz=1/1800,
@@ -39,22 +39,22 @@ model ChilledTRef "Validate model of calculate chiller LIFT"
 
 equation
   connect(chiWatSupTem.y, chillerdTRef_Sim.TChiWatSup)
-    annotation (Line(points={{-39,40},{18,40}}, color={0,0,127}));
+          annotation (Line(points={{-39,40},{-10,40},{-10,36},{18,36}}, color={0,0,127}));
   connect(chiWatRetTem.y, chillerdTRef_Sim.TChiWatRet)
-    annotation (Line(points={{-39,0},{-10,0},{-10,34},{18,34}},
-      color={0,0,127}));
+          annotation (Line(points={{-39,0},{-10,0},{-10,30},{18,30}},
+          color={0,0,127}));
   connect(chiWatFloRat.y, chillerdTRef_Sim.VEva_flow)
-    annotation (Line(points={{-39,-40},{0,-40},{0,28},{18,28}},
-      color={0,0,127}));
+          annotation (Line(points={{-39,-40},{0,-40},{0,24},{18,24}},
+          color={0,0,127}));
   connect(chiWatSupTem.y, chillerdTRef.TChiWatSup)
-    annotation (Line(points={{-39,40},{-20,40},{-20,-4},{18,-4}},
-      color={0,0,127}));
+          annotation (Line(points={{-39,40},{-20,40},{-20,-4},{18,-4}},
+          color={0,0,127}));
   connect(chiWatRetTem.y, chillerdTRef.TChiWatRet)
-    annotation (Line(points={{-39,0},{-10,0},{-10,-10},{18,-10}},
-      color={0,0,127}));
+          annotation (Line(points={{-39,0},{-10,0},{-10,-10},{18,-10}},
+          color={0,0,127}));
   connect(chiWatFloRat.y, chillerdTRef.VEva_flow)
-    annotation (Line(points={{-39,-40},{0,-40},{0,-16},{18,-16}},
-      color={0,0,127}));
+          annotation (Line(points={{-39,-40},{0,-40},{0,-16},{18,-16}},
+          color={0,0,127}));
 
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),

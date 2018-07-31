@@ -82,43 +82,44 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
     final nu=num) "Logical and"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not2
+    "Check if these is any CHW pump is proven on"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
 equation
   connect(not1.y, mulAnd.u)
-    annotation (Line(points={{-99,60},{-82,60}}, color={255,0,255}));
+          annotation (Line(points={{-99,60},{-82,60}}, color={255,0,255}));
   connect(TChiWatSupResReq, triRes.numOfReq)
-    annotation (Line(points={{-160,30},{-10,30},{-10,52},{-2,52}},
-      color={255,127,0}));
+          annotation (Line(points={{-160,30},{-10,30},{-10,52},{-2,52}},
+          color={255,127,0}));
   connect(mulAnd.y, not2.u)
-    annotation (Line(points={{-58.3,60},{-42,60}}, color={255,0,255}));
+          annotation (Line(points={{-58.3,60},{-42,60}}, color={255,0,255}));
   connect(not2.y, triRes.uDevSta)
-    annotation (Line(points={{-19,60},{-10,60},{-10,68},{-2,68}},
-      color={255,0,255}));
+          annotation (Line(points={{-19,60},{-10,60},{-10,68},{-2,68}},
+          color={255,0,255}));
   connect(uChiWatPum, not1.u)
-    annotation (Line(points={{-160,60},{-122,60}}, color={255,0,255}));
+          annotation (Line(points={{-160,60},{-122,60}}, color={255,0,255}));
   connect(triRes.y, triSam.u)
-    annotation (Line(points={{21,60},{38,60}}, color={0,0,127}));
+          annotation (Line(points={{21,60},{38,60}}, color={0,0,127}));
   connect(truHol.y, swi.u2)
-    annotation (Line(points={{41,0},{78,0}}, color={255,0,255}));
+          annotation (Line(points={{41,0},{78,0}}, color={255,0,255}));
   connect(triRes.y, swi.u3)
-    annotation (Line(points={{21,60},{30,60},{30,80},{66,80},{66,-8},
-      {78,-8}}, color={0,0,127}));
+          annotation (Line(points={{21,60},{30,60},{30,80},{66,80},{66,-8},
+          {78,-8}}, color={0,0,127}));
   connect(triSam.y, swi.u1)
-    annotation (Line(points={{61,60},{70,60},{70,8},{78,8}}, color={0,0,127}));
+          annotation (Line(points={{61,60},{70,60},{70,8},{78,8}}, color={0,0,127}));
   connect(swi.y, yChiWatPlaRes)
-    annotation (Line(points={{101,0},{130,0}}, color={0,0,127}));
+          annotation (Line(points={{101,0},{130,0}}, color={0,0,127}));
   connect(edg.y, triSam.trigger)
-    annotation (Line(points={{41,30},{50,30},{50,48.2}}, color={255,0,255}));
+          annotation (Line(points={{41,30},{50,30},{50,48.2}}, color={255,0,255}));
   connect(uChiSta, cha.u)
-    annotation (Line(points={{-160,0},{-142,0},{-142,0},{-122,0}},
-      color={255,127,0}));
+          annotation (Line(points={{-160,0},{-142,0},{-142,0},{-122,0}},
+          color={255,127,0}));
   connect(cha.y, truHol.u)
-    annotation (Line(points={{-99,0},{19,0}}, color={255,0,255}));
+          annotation (Line(points={{-99,0},{19,0}}, color={255,0,255}));
   connect(cha.y, edg.u)
-    annotation (Line(points={{-99,0},{0,0},{0,30},{18,30}},
-        color={255,0,255}));
+          annotation (Line(points={{-99,0},{0,0},{0,30},{18,30}},
+          color={255,0,255}));
 
 annotation (
   defaultComponentName="chiWatPlaRes",

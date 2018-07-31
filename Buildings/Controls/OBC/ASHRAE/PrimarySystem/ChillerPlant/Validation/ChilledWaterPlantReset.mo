@@ -35,8 +35,8 @@ model ChilledWaterPlantReset
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(nout=2)
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin(
-    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
-    table=[0,0;900,1; 1800,2; 2700,3; 3600,0])
+    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments, table=[0,
+        0; 720,1; 1440,2; 2160,3; 2880,4; 3600,0])
     "Time table with smoothness method of constant segments"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin1(
@@ -54,42 +54,42 @@ model ChilledWaterPlantReset
 
 equation
   connect(uChiWatPum.y, chiWatPlaRes.uChiWatPum)
-    annotation (Line(points={{-59,80},{60,80},{60,76},{78,76}},
-      color={255,0,255}));
+          annotation (Line(points={{-59,80},{60,80},{60,76},{78,76}},
+          color={255,0,255}));
   connect(con1.y,swi. u1)
-    annotation (Line(points={{-59,-50},{-50,-50},{-50,-42},{-22,-42}},
-      color={0,0,127}));
+          annotation (Line(points={{-59,-50},{-50,-50},{-50,-42},{-22,-42}},
+          color={0,0,127}));
   connect(booPul.y,swi. u2)
-    annotation (Line(points={{-59,-20},{-40,-20},{-40,-50},{-22,-50}},
-      color={255,0,255}));
+          annotation (Line(points={{-59,-20},{-40,-20},{-40,-50},{-22,-50}},
+          color={255,0,255}));
   connect(booPul.y,not1. u)
-    annotation (Line(points={{-59,-20},{-22,-20}},color={255,0,255}));
+          annotation (Line(points={{-59,-20},{-22,-20}},color={255,0,255}));
   connect(not1.y, booRep.u)
-    annotation (Line(points={{1,-20},{18,-20}}, color={255,0,255}));
+          annotation (Line(points={{1,-20},{18,-20}}, color={255,0,255}));
   connect(booRep.y, chiWatPlaRes1.uChiWatPum)
-    annotation (Line(points={{41,-20},{60,-20},{60,-24},{78,-24}},
-      color={255,0,255}));
+          annotation (Line(points={{41,-20},{60,-20},{60,-24},{78,-24}},
+          color={255,0,255}));
   connect(reaToInt1.y, chiWatPlaRes.TChiWatSupResReq)
-    annotation (Line(points={{41,50},{60,50},{60,70},{78,70}},
-      color={255,127,0}));
+          annotation (Line(points={{41,50},{60,50},{60,70},{78,70}},
+          color={255,127,0}));
   connect(reaToInt2.y, chiWatPlaRes.uChiSta)
-    annotation (Line(points={{41,20},{66,20},{66,64},{78,64}},
-      color={255,127,0}));
+          annotation (Line(points={{41,20},{66,20},{66,64},{78,64}},
+          color={255,127,0}));
   connect(reaToInt3.y, chiWatPlaRes1.TChiWatSupResReq)
-    annotation (Line(points={{41,-50},{60,-50},{60,-30},{78,-30}},
-      color={255,127,0}));
+          annotation (Line(points={{41,-50},{60,-50},{60,-30},{78,-30}},
+          color={255,127,0}));
   connect(reaToInt2.y, chiWatPlaRes1.uChiSta)
-    annotation (Line(points={{41,20},{66,20},{66,-36},{78,-36}},
-      color={255,127,0}));
+          annotation (Line(points={{41,20},{66,20},{66,-36},{78,-36}},
+          color={255,127,0}));
   connect(timTabLin.y[1], reaToInt2.u)
-    annotation (Line(points={{1,20},{18,20}}, color={0,0,127}));
+          annotation (Line(points={{1,20},{18,20}}, color={0,0,127}));
   connect(timTabLin1.y[1], reaToInt1.u)
-    annotation (Line(points={{1,50},{18,50}}, color={0,0,127}));
+          annotation (Line(points={{1,50},{18,50}}, color={0,0,127}));
   connect(timTabLin2.y[1], swi.u3)
-    annotation (Line(points={{-59,-80},{-40,-80},{-40,-58},{-22,-58}},
-      color={0,0,127}));
+          annotation (Line(points={{-59,-80},{-40,-80},{-40,-58},{-22,-58}},
+          color={0,0,127}));
   connect(swi.y, reaToInt3.u)
-    annotation (Line(points={{1,-50},{18,-50}}, color={0,0,127}));
+          annotation (Line(points={{1,-50},{18,-50}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
