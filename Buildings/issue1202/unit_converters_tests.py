@@ -14,8 +14,9 @@ class UnitConverterModelerTests(unittest.TestCase):
         test_folder = 'unit_conv_tests'
         self.outpath = os.path.join(os.getcwd(), test_folder)
 
-        self.conv_writter = UnitConverterModeler()
+        self.conv = UnitConverterModeler()
 
     def test_write_unit_converters(self):
         """Tests if the unit converters get written.
         """
+        self.conv.write_unit_converters()
