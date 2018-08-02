@@ -50,31 +50,33 @@ class UnitConverterModeler(object):
 		dictionaries represents one unit converter.
 		'''
 		conv_pardict_list = [
-            #{
-			# 'quantity' : 'temperature',
-			# 'modelica_quantity' : 'ThermodynamicTemperature',
-			# 'unit' : 'degree fahrenheit',
-			# 'unit_symbol' : 'degF',
-			# 'direction' : 'From',
-			# 'adder' : '-32 * (5/9) + 273.15',
-			# 'multiplier' : '5/9'},
-			# {
-			# 'quantity' : 'temperature',
-		    # 'modelica_quantity' : 'ThermodynamicTemperature',
-			# 'unit' : 'degree fahrenheit',
-			# 'unit_symbol' : 'degF',
-			# 'direction' : 'To',
-			# 'adder' : '*mg_test',
-			# 'multiplier' : '*mg_test'},
-			#
-			# {
-			# 'quantity' : 'temperature',
-			# 'modelica_quantity' : 'ThermodynamicTemperature',
-			# 'unit' : 'degree celsius',
-			# 'unit_symbol' : 'degC',
-			# 'direction' : 'From',
-			# 'adder' : '*mg_test',
-			# 'multiplier' : '*mg_test'},
+            {
+			'quantity' : 'temperature',
+			'modelica_quantity' : 'ThermodynamicTemperature',
+			'unit' : 'degree fahrenheit',
+			'unit_symbol' : 'degF',
+			'direction' : 'From',
+			'adder' : '-32 * (5/9) + 273.15',
+			'multiplier' : '5/9'},
+			'validation_input' : [, ], # tests are using two points to chech the conversion
+			'validation_output' : [, ]},
+			{
+			'quantity' : 'temperature',
+		    'modelica_quantity' : 'ThermodynamicTemperature',
+			'unit' : 'degree fahrenheit',
+			'unit_symbol' : 'degF',
+			'direction' : 'To',
+			'adder' : '*mg_test',
+			'multiplier' : '*mg_test'},
+
+			{
+			'quantity' : 'temperature',
+			'modelica_quantity' : 'ThermodynamicTemperature',
+			'unit' : 'degree celsius',
+			'unit_symbol' : 'degC',
+			'direction' : 'From',
+			'adder' : '*mg_test',
+			'multiplier' : '*mg_test'},
 			{
 			'quantity' : 'temperature',
 			'modelica_quantity' : 'ThermodynamicTemperature',
@@ -83,7 +85,7 @@ class UnitConverterModeler(object):
 			'direction' : 'To',
 			'adder' : 273.15,
 			'multiplier' : 1.,
-			'validation_input' : [273.15, 373.15], # tests are using two points to chech the conversion
+			'validation_input' : [273.15, 373.15],
 			'validation_output' : [0, 100]},
 
 			 # continue the list for temp, pres, volflow

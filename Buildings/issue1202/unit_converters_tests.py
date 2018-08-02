@@ -27,6 +27,6 @@ class UnitConverterModelerTests(unittest.TestCase):
 
 
     def test_write_mos_validation_scripts(self):
-        """
+        """Test if mos scripts get generated.
         """
         self.conv.write_mos_validation_scripts()
