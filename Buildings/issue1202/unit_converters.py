@@ -117,16 +117,16 @@ class UnitConverterModeler(object):
 				to_unit_symbol = self.si[x['quantity']]['unit_symbol']
 				to_unit = self.si[x['quantity']]['unit']
 
-
+			model_name = x['direction'] + '_' + to_unit_symbol
 			# set filename to final mo filename (e.g. From_degF)
-			converter_model_filename = \
+			model_filename = \
 				x['direction'] + '_' + to_unit_symbol + '.mos'
 			# open
 			file = open(os.path.join(\
-				self.outpath, converter_model_filename), 'w')
+				self.outpath, model_filename), 'w')
 			# write
 			file.write(\
-"block " + converter_model_filename + " \"Kelvin to degree Celsius temperature unit converter\"\n" \
+"block " + model_name + " \"Kelvin to degree Celsius temperature unit converter\"\n" \
 "\n"\
 "  Buildings.Controls.OBC.CDL.Interfaces.RealInput u(\n" \
 "    final unit = \"" + from_unit_symbol + "\",\n"\
@@ -157,7 +157,7 @@ class UnitConverterModeler(object):
 "  connect(addPar.y, y)\n"\
 "    annotation (Line(points={{11,0},{50,0}}, color={0,0,127}));\n"\
 "  annotation (\n"\
-"      defaultComponentName = \"" + converter_model_filename[:-4] + "\",\n"\
+"      defaultComponentName = \"" + model_name + "\",\n"\
 "    Icon(graphics={\n"\
 "        Rectangle(\n"\
 "          extent={{-100,-100},{100,100}},\n"\
@@ -189,7 +189,7 @@ class UnitConverterModeler(object):
 "</li>\n"\
 "</ul>\n"\
 "</html>\"));\n"\
-"end " + converter_model_filename + ";\n"\
+"end " + model_name + ";\n"\
 )
 
 		pass
@@ -201,10 +201,45 @@ class UnitConverterModeler(object):
 		"""
 
 		validation_foldername = 'Validation'
+		if not os.path.exists(os.path.join(self.outpath, validation_foldername)):
+			os.makedirs(os.path.join(self.outpath, validation_foldername))
+
 		for x in self.par:
-			# set file, open and write
-			pass
-		pass
+
+			if x['direction'] == 'From':
+				to_unit_symbol = self.si[x['quantity']]['unit_symbol']
+				to_unit = self.si[x['quantity']]['unit']
+				from_unit_symbol = x['unit_symbol']
+				from_unit = x['unit']
+			else:
+				to_unit_symbol = x['unit_symbol']
+				to_unit = x['unit']
+				from_unit_symbol = self.si[x['quantity']]['unit_symbol']
+				from_unit = self.si[x['quantity']]['unit']
+			if x['direction'] == 'To':
+				from_unit_symbol = self.si[x['quantity']]['unit_symbol']
+				from_unit = self.si[x['quantity']]['unit']
+				to_unit_symbol = x['unit_symbol']
+				to_unit = x['unit']
+			else:
+				from_unit_symbol = x['unit_symbol']
+				from_unit = x['unit']
+				to_unit_symbol = self.si[x['quantity']]['unit_symbol']
+				to_unit = self.si[x['quantity']]['unit']
+
+			model_name = x['direction'] + '_' + to_unit_symbol
+			# set filename to final mo filename (e.g. From_degF)
+			model_filename = \
+				x['direction'] + '_' + to_unit_symbol + '.mos'
+			# open
+			file = open(os.path.join(\
+				self.outpath, validation_foldername, model_filename), 'w')
+			# write
+			file.write("test")
+
+
+
+
 
 
 

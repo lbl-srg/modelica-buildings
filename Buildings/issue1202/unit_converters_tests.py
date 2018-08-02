@@ -16,7 +16,14 @@ class UnitConverterModelerTests(unittest.TestCase):
 
         self.conv = UnitConverterModeler()
 
+
     def test_write_unit_converters(self):
         """Tests if the unit converters get written.
         """
         self.conv.write_unit_converters()
+
+
+    def test_write_unit_converter_validators(self):
+        """Tests if the unit converters get written.
+        """
+        self.conv.write_unit_converter_validators()
