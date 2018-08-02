@@ -70,8 +70,10 @@ class UnitConverterModeler(object):
 			'unit' : 'degree celsius',
 			'unit_symbol' : 'degC',
 			'direction' : 'To',
-			'adder' : '-273.15',
-			'multiplier' : '1'},
+			'adder' : '273.15,
+			'multiplier' : 1.,
+			'validation_input' : [273.15, 373.15], # tests are using two points to chech the conversion
+			'validation_output' : [0, 100]},
 
 			 # continue the list for temp, pres, volflow
 			]
@@ -90,6 +92,8 @@ class UnitConverterModeler(object):
 				{'unit' : '-',
 				 'unit_symbol' : '1'},
 			    }
+
+		validation_values =
 
 		return conv_pardict_list, si_unit_pardict
 
@@ -162,8 +166,8 @@ class UnitConverterModeler(object):
 "      iconTransformation(extent={{100,-10},{120,10}})));\n"\
 "\n"\
 "protected\n"\
-"  parameter Real k = " + x['multiplier'] + " \"Multiplier\";\n"\
-"  parameter Real p = " + x['adder'] + " \"Adder\";\n"\
+"  parameter Real k = " + str(x['multiplier']) + " \"Multiplier\";\n"\
+"  parameter Real p = " + str(x['adder']) + " \"Adder\";\n"\
 "\n"\
 "  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(\n"\
 "    final p = p,\n"\
@@ -249,10 +253,10 @@ class UnitConverterModeler(object):
 "    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));\n"\
 "\n"\
 "protected\n"\
-"  parameter Real kin = 273.15 \"Validation input\";\n"\
-"  parameter Real kin1 = 373.15 \"Validation input 1\";\n"\
-"  parameter Real kout = 0 \"Validation output\";\n"\
-"  parameter Real kout1 = 100 \"Validation output 1\";\n"\
+"  parameter Real kin = "+str(x['validation_input'][0])+" \"Validation input\";\n"\
+"  parameter Real kin1 = "+str(x['validation_input'][1])+" \"Validation input 1\";\n"\
+"  parameter Real kout = "+str(x['validation_output'][0])+" \"Validation output\";\n"\
+"  parameter Real kout1 = "+str(x['validation_output'][1])+" \"Validation output 1\";\n"\
 "\n"\
 "  Buildings.Controls.OBC.CDL.Conversions."+self.package_name+"."+model_name+" "+model_name+"\n"\
 "  \"Unit converter from "+from_unit+" to "+to_unit+" \"\n"\
