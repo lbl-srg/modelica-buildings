@@ -1,4 +1,4 @@
-within Buildings.Occupants.BaseClasses;
+﻿within Buildings.Occupants.BaseClasses;
 function weibullVariableGeneration "Random variable generator from the Weibull distribution"
     input Real lambda;
     input Real k;
@@ -8,7 +8,7 @@ protected
     Integer localSeed;
     Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState];
     Real r "random generated number in the range 0 < random ≤ 1";
-  algorithm
+algorithm
     state := Modelica.Math.Random.Generators.Xorshift1024star.initialState(localSeed, globalSeed);
     (r, state) := Modelica.Math.Random.Generators.Xorshift1024star.random(state);
     y := lambda*(Modelica.Math.log((1 - r)^(-1)))^(1/k);

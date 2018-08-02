@@ -8,6 +8,4 @@ simulation module. The functions included in this package would map the inputs, 
 indoor/output temperature, to two kinds of outputs: on/off state or the duration of a specific state. 
 </p>
 </html>"));
-end BaseClasses;  
-
-  
+end BaseClasses;

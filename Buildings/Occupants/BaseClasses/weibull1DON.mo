@@ -9,8 +9,8 @@ function weibull1DON "Mapping a continuous input to a binary output through a We
     output Boolean y "Binary variable: true for on, false for off";
 protected
     Real p =  if x>=u then 1- Modelica.Math.exp(-((x-u)/L)^k*dt) else 0;
-  algorithm
-    y := Occupancy.Utilities.BinaryVariableGeneration(p=p,globalSeed=globalSeed);
+algorithm
+    y := Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p,globalSeed=globalSeed);
   annotation (preferredView="info", Documentation(info="<html>
 <p>
 This function generates a random binary variable with a continuous inputs x from a Weibull 
