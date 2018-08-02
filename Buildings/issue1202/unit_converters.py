@@ -1,6 +1,10 @@
 import os
 from pdb import set_trace as bp
 
+import logging
+logging.basicConfig(level=logging.DEBUG)
+log = logging.getLogger(__name__)
+
 class UnitConverterModeler(object):
 	'''Creates OBC unit converter models
 	based on the dictionaries with conversion
@@ -23,10 +27,11 @@ class UnitConverterModeler(object):
         Path to store unit converter models (*.mo files)
 	'''
 
-	def __init__(self, outpath = ''):
+	def __init__(self, path_to_package = '', package_name = 'UnitConverters'):
 
 		self.par, self.si = self.set_parameters()
-		self.outpath = outpath
+		self.outpath = os.path.join(path_to_package, package_name)
+		self.package_name = package_name
 
 
 	def set_parameters(self):
@@ -35,7 +40,7 @@ class UnitConverterModeler(object):
 		'''
 		conv_pardict_list = [
             #{
-			# 'quantity' : 'Temperature',
+			# 'quantity' : 'temperature',
 			# 'modelica_quantity' : 'ThermodynamicTemperature',
 			# 'unit' : 'degree fahrenheit',
 			# 'unit_symbol' : 'degF',
@@ -43,7 +48,7 @@ class UnitConverterModeler(object):
 			# 'adder' : '-32 * (5/9) + 273.15',
 			# 'multiplier' : '5/9'},
 			# {
-			# 'quantity' : 'Temperature',
+			# 'quantity' : 'temperature',
 		    # 'modelica_quantity' : 'ThermodynamicTemperature',
 			# 'unit' : 'degree fahrenheit',
 			# 'unit_symbol' : 'degF',
@@ -52,7 +57,7 @@ class UnitConverterModeler(object):
 			# 'multiplier' : '*mg_test'},
 			#
 			# {
-			# 'quantity' : 'Temperature',
+			# 'quantity' : 'temperature',
 			# 'modelica_quantity' : 'ThermodynamicTemperature',
 			# 'unit' : 'degree celsius',
 			# 'unit_symbol' : 'degC',
@@ -60,7 +65,7 @@ class UnitConverterModeler(object):
 			# 'adder' : '*mg_test',
 			# 'multiplier' : '*mg_test'},
 			{
-			'quantity' : 'Temperature',
+			'quantity' : 'temperature',
 			'modelica_quantity' : 'ThermodynamicTemperature',
 			'unit' : 'degree celsius',
 			'unit_symbol' : 'degC',
@@ -72,7 +77,7 @@ class UnitConverterModeler(object):
 			]
 
 		si_unit_pardict = {
-			'Temperature' :
+			'temperature' :
 				{'unit' : 'kelvin',
 				 'unit_symbol' : 'K'},
 			'Pressure' :
@@ -88,6 +93,40 @@ class UnitConverterModeler(object):
 
 		return conv_pardict_list, si_unit_pardict
 
+	def extract_unit_strings(self, x):
+		"""Depending on the conversion direction it extracts
+		the unit names and symbols.
+
+		Parameters
+		----------
+
+		x : dict
+			An item from the unit conversion list
+
+		Returns
+		-------
+
+		to_unit_symbol, to_unit, from_unit_symbol, from_unit : str
+			Unit symbols and names.
+		"""
+		if x['direction'] == 'From':
+			to_unit_symbol = self.si[x['quantity']]['unit_symbol']
+			to_unit = self.si[x['quantity']]['unit']
+			from_unit_symbol = x['unit_symbol']
+			from_unit = x['unit']
+			model_name = x['direction'] + '_' + to_unit_symbol
+		elif x['direction'] == 'To':
+			from_unit_symbol = x['unit_symbol']
+			from_unit = x['unit']
+			to_unit_symbol = self.si[x['quantity']]['unit_symbol']
+			to_unit = self.si[x['quantity']]['unit']
+			model_name = x['direction'] + '_' + from_unit_symbol
+		else:
+			msg = 'A valid conversion direction did not get provided.'
+			log.info(msg)
+
+		return model_name, to_unit_symbol, to_unit, from_unit_symbol, from_unit
+
 
 	def write_unit_converters(self):
 		"""Generates unit conversion modelica code for each
@@ -96,31 +135,11 @@ class UnitConverterModeler(object):
 
 		for x in self.par:
 
-			if x['direction'] == 'From':
-				to_unit_symbol = self.si[x['quantity']]['unit_symbol']
-				to_unit = self.si[x['quantity']]['unit']
-				from_unit_symbol = x['unit_symbol']
-				from_unit = x['unit']
-			else:
-				to_unit_symbol = x['unit_symbol']
-				to_unit = x['unit']
-				from_unit_symbol = self.si[x['quantity']]['unit_symbol']
-				from_unit = self.si[x['quantity']]['unit']
-			if x['direction'] == 'To':
-				from_unit_symbol = self.si[x['quantity']]['unit_symbol']
-				from_unit = self.si[x['quantity']]['unit']
-				to_unit_symbol = x['unit_symbol']
-				to_unit = x['unit']
-			else:
-				from_unit_symbol = x['unit_symbol']
-				from_unit = x['unit']
-				to_unit_symbol = self.si[x['quantity']]['unit_symbol']
-				to_unit = self.si[x['quantity']]['unit']
+			model_name, to_unit_symbol, to_unit, from_unit_symbol, from_unit = \
+				self.extract_unit_strings(x)
 
-			model_name = x['direction'] + '_' + to_unit_symbol
 			# set filename to final mo filename (e.g. From_degF)
-			model_filename = \
-				x['direction'] + '_' + to_unit_symbol + '.mos'
+			model_filename = model_name + '.mo'
 			# open
 			file = open(os.path.join(\
 				self.outpath, model_filename), 'w')
@@ -192,12 +211,14 @@ class UnitConverterModeler(object):
 "end " + model_name + ";\n"\
 )
 
-		pass
+		msg = 'Wrote all converter blocks to {}.'
+		log.info(msg.format(self.outpath))
 
+		return True
 
 
 	def write_unit_converter_validators(self):
-		"""Generates modelica code for unit conversion validation models
+		"""Generates modelica code for validation models
 		"""
 
 		validation_foldername = 'Validation'
@@ -206,37 +227,108 @@ class UnitConverterModeler(object):
 
 		for x in self.par:
 
-			if x['direction'] == 'From':
-				to_unit_symbol = self.si[x['quantity']]['unit_symbol']
-				to_unit = self.si[x['quantity']]['unit']
-				from_unit_symbol = x['unit_symbol']
-				from_unit = x['unit']
-			else:
-				to_unit_symbol = x['unit_symbol']
-				to_unit = x['unit']
-				from_unit_symbol = self.si[x['quantity']]['unit_symbol']
-				from_unit = self.si[x['quantity']]['unit']
-			if x['direction'] == 'To':
-				from_unit_symbol = self.si[x['quantity']]['unit_symbol']
-				from_unit = self.si[x['quantity']]['unit']
-				to_unit_symbol = x['unit_symbol']
-				to_unit = x['unit']
-			else:
-				from_unit_symbol = x['unit_symbol']
-				from_unit = x['unit']
-				to_unit_symbol = self.si[x['quantity']]['unit_symbol']
-				to_unit = self.si[x['quantity']]['unit']
+			model_name, to_unit_symbol, to_unit, from_unit_symbol, from_unit = \
+				self.extract_unit_strings(x)
 
-			model_name = x['direction'] + '_' + to_unit_symbol
 			# set filename to final mo filename (e.g. From_degF)
-			model_filename = \
-				x['direction'] + '_' + to_unit_symbol + '.mos'
+			model_filename = model_name + '.mos'
 			# open
 			file = open(os.path.join(\
 				self.outpath, validation_foldername, model_filename), 'w')
 			# write
-			file.write("test")
+			file.write(\
+"model "+model_name+" \"Test "+x['quantity']+" unit conversion from "+from_unit+" to "+to_unit+"\"\n"\
+"  import Buildings.Controls.OBC.CDL.Conversions."+self.package_name+";\n"\
+"  extends Modelica.Icons.Example;\n"\
+"\n"\
+"  Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)\n"\
+"    \"Difference between the calculated and expected conversion output\"\n"\
+"    annotation (Placement(transformation(extent={{20,40},{40,60}})));\n"\
+"  Buildings.Controls.OBC.CDL.Continuous.Add add1(k2=-1)\n"\
+"    \"Difference between the calculated and expected conversion output\"\n"\
+"    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));\n"\
+"\n"\
+"protected\n"\
+"  parameter Real kin = 273.15 \"Validation input\";\n"\
+"  parameter Real kin1 = 373.15 \"Validation input 1\";\n"\
+"  parameter Real kout = 0 \"Validation output\";\n"\
+"  parameter Real kout1 = 100 \"Validation output 1\";\n"\
+"\n"\
+"  Buildings.Controls.OBC.CDL.Conversions."+self.package_name+"."+model_name+" "+model_name+"\n"\
+"  \"Unit converter from "+from_unit+" to "+to_unit+" \"\n"\
+"    annotation (Placement(transformation(extent={{-20,40},{0,60}})));\n"\
+"  Buildings.Controls.OBC.CDL.Conversions."+self.package_name+"."+model_name+" "+model_name+"1\n"\
+"  \"Unit converter from "+from_unit+" to "+to_unit+" \"\n"\
+"    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));\n"\
+"\n"\
+"  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value(\n"\
+"    final k=kin)\n"\
+"    \"Value to convert\"\n"\
+"    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));\n"\
+"  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value1(\n"\
+"    final k=kin1)\n"\
+"    \"Value to convert\"\n"\
+"    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));\n"\
+"  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant result(\n"\
+"    final k=kout)\n"\
+"    \"Expected converted value\"\n"\
+"    annotation (Placement(transformation(extent={{-20,10},{0,30}})));\n"\
+"  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant result(\n"\
+"    final k=kout1)\n"\
+"    \"Expected converted value\"\n"\
+"    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));\n"\
+"\n"\
+"equation\n"\
+"  connect(result.y, add.u2)\n"\
+"    annotation (Line(points={{1,20},{10,20},{10,44},{18,44}}, color={0,0,127}));\n"\
+"  connect(result1.y, add1.u2)\n"\
+"    annotation (Line(points={{1,-60},{10,-60},{10,-36},{18,-36}}, color={0,0,127}));\n"\
+"  connect(value1.y,"+model_name+"1.u)\n"\
+"    annotation (Line(points={{-39,-30},{-22,-30}}, color={0,0,127}));\n"\
+"  connect("+model_name+"1.y, add1.u1)\n"\
+"    annotation (Line(points={{1,-30},{8,-30},{8,-24},{18,-24}}, color={0,0,127}));\n"\
+"  connect("+model_name+".y, add.u1)\n"\
+"    annotation (Line(points={{1,50},{10,50},{10,56},{18,56}}, color={0,0,127}));\n"\
+"  connect(value.y,"+model_name+".u)\n"\
+"    annotation (Line(points={{-39,50}, {-22,50}}, color={0,0,127}));\n"\
+"  annotation (Icon(graphics={\n"\
+"        Ellipse(lineColor = {75,138,73},\n"\
+"                fillColor={255,255,255},\n"\
+"                fillPattern = FillPattern.Solid,\n"\
+"                extent = {{-100,-100},{100,100}}),\n"\
+"        Polygon(lineColor = {0,0,255},\n"\
+"                fillColor = {75,138,73},\n"\
+"                pattern = LinePattern.None,\n"\
+"                fillPattern = FillPattern.Solid,\n"\
+"                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),\n"\
+"                Diagram(coordinateSystem( preserveAspectRatio=false)),\n"\
+"            experiment(StopTime=1000.0, Tolerance=1e-06),\n"\
+"  __Dymola_Commands(file=\""+model_filename+"\"\n"\
+"    \"Simulate and plot\"),\n"\
+"    Documentation(\n"\
+"    info=\"<html>\n"\
+"<p>\n"\
+"This model validates "+x['quantity']+" unit conversion from "+from_unit+" to "+to_unit+".""\n"\
+"</p>\n"\
+"</html>\",\n"\
+"revisions=\"<html>\n"\
+"<ul>\n"\
+"<li>\n"\
+"July 05, Milica Grahovac<br/>\n"\
+"First implementation.\n"\
+"</li>\n"\
+"</ul>\n"\
+"</html>\"));\n"\
+"end "+model_name+";\n"\
+)
 
+	def write_mos_validation_scripts(self):
+		"""Generates mos scripts for running validation models
+		"""
+
+		mos_foldername = '*mg'
+		if not os.path.exists(os.path.join(self.outpath, mos_foldername)):
+			os.makedirs(os.path.join(self.outpath, mos_foldername))
 
 
 
