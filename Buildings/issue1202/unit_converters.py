@@ -27,11 +27,22 @@ class UnitConverterModeler(object):
         Path to store unit converter models (*.mo files)
 	'''
 
-	def __init__(self, path_to_package = '', package_name = 'UnitConverters'):
+	def __init__(self,\
+	             path_to_package = '',\
+				 path_to_validation_scripts = 'MosPath',
+				 package_name = 'UnitConverters',\
+				 ):
 
 		self.par, self.si = self.set_parameters()
+
+		# path to unit converter package folder
 		self.outpath = os.path.join(path_to_package, package_name)
+		# path to unit converter package validation scripts folder
+		self.validation_scripts_outpath = \
+			os.path.join(path_to_validation_scripts, package_name)
+
 		self.package_name = package_name
+
 
 
 	def set_parameters(self):
@@ -70,7 +81,7 @@ class UnitConverterModeler(object):
 			'unit' : 'degree celsius',
 			'unit_symbol' : 'degC',
 			'direction' : 'To',
-			'adder' : '273.15,
+			'adder' : 273.15,
 			'multiplier' : 1.,
 			'validation_input' : [273.15, 373.15], # tests are using two points to chech the conversion
 			'validation_output' : [0, 100]},
@@ -92,8 +103,6 @@ class UnitConverterModeler(object):
 				{'unit' : '-',
 				 'unit_symbol' : '1'},
 			    }
-
-		validation_values =
 
 		return conv_pardict_list, si_unit_pardict
 
@@ -326,14 +335,41 @@ class UnitConverterModeler(object):
 "end "+model_name+";\n"\
 )
 
+		msg = 'Wrote all converter validation models to {}.'
+		log.info(msg.format(os.path.join(\
+			self.outpath, validation_foldername)))
+
+		return True
+
+
 	def write_mos_validation_scripts(self):
 		"""Generates mos scripts for running validation models
 		"""
 
-		mos_foldername = '*mg'
-		if not os.path.exists(os.path.join(self.outpath, mos_foldername)):
-			os.makedirs(os.path.join(self.outpath, mos_foldername))
+		if not os.path.exists(self.validation_scripts_outpath):
+			os.makedirs(self.validation_scripts_outpath)
 
+		for x in self.par:
+
+			res = self.extract_unit_strings(x)
+
+			# set filename to final mo filename (e.g. From_degF)
+			model_filename = res[0] + '.mos'
+			# open
+			file = open(\
+				os.path.join(self.validation_scripts_outpath, model_filename), 'w')
+			# write
+			file.write(\
+"simulateModel(\"Buildings.Controls.OBC.CDL.Conversions."+self.package_name+".Validation."+res[0]+"\", method=\"dassl\", stopTime=10, tolerance=1e-06, resultFile=\"ToC\");\n"
+"\n"
+"createPlot(id=1, position={20, 10, 900, 650}, subPlot=1, y={\"add.y\"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0}});\n"
+"createPlot(id=1, position={20, 10, 900, 650}, subPlot=2, y={\"add1.y\"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0}});\n"
+)
+
+		msg = 'Wrote all mos scripts to {}.'
+		log.info(msg.format(self.validation_scripts_outpath))
+
+		return True
 
 
 

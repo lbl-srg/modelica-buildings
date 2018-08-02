@@ -11,9 +11,6 @@ class UnitConverterModelerTests(unittest.TestCase):
     def setUp(self):
         """Sets up the output location to current path.
         """
-        test_folder = 'unit_conv_tests'
-        self.outpath = os.path.join(os.getcwd(), test_folder)
-
         self.conv = UnitConverterModeler()
 
 
@@ -27,3 +24,9 @@ class UnitConverterModelerTests(unittest.TestCase):
         """Tests if the unit converters get written.
         """
         self.conv.write_unit_converter_validators()
+
+
+    def test_write_mos_validation_scripts(self):
+        """
+        """
+        self.conv.write_mos_validation_scripts()
