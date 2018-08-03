@@ -89,8 +89,8 @@ class UnitConverterModeler(object):
 			'unit' : 'degree celsius',
 			'unit_symbol' : 'degC',
 			'direction' : 'From',
-			'adder' : '*mg_test',
-			'multiplier' : '*mg_test',
+			'adder' : '273.15',
+			'multiplier' : '1.',
 			'validation_input' : ['0', '100'],
 			'validation_output' : ['273.15', '373.15']},
 			{
@@ -99,7 +99,7 @@ class UnitConverterModeler(object):
 			'unit' : 'degree celsius',
 			'unit_symbol' : 'degC',
 			'direction' : 'To',
-			'adder' : '273.15',
+			'adder' : '-273.15',
 			'multiplier' : '1.',
 			'validation_input' : ['273.15', '373.15'],
 			'validation_output' : ['0', '100']},
@@ -383,7 +383,7 @@ end Conversions;""")
 "                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),\n"\
 "                Diagram(coordinateSystem( preserveAspectRatio=false)),\n"\
 "            experiment(StopTime=1000.0, Tolerance=1e-06),\n"\
-"  __Dymola_Commands(file=\""+model_filename+"\"\n"\
+"  __Dymola_Commands(file=\"modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Conversions/"+self.package_name+'/Validation/'+model_name+".mos"+"\"\n"\
 "    \"Simulate and plot\"),\n"\
 "    Documentation(\n"\
 "    info=\"<html>\n"\
@@ -431,19 +431,19 @@ analytical solutions. These model outputs are stored as reference data to
 allow continuous validation whenever models in the library change.
 </p>
 </html>"),
-  Icon(graphics={
+    Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},
           fillPattern=FillPattern.HorizontalCylinder,
-          extent={{-100,-100},{100,100}},
+          extent={{-100.0,-100.0},{100.0,100.0}},
           radius=25.0),
         Rectangle(
           lineColor={128,128,128},
-          extent={{-100,-100},{100,100}},
+          extent={{-100.0,-100.0},{100.0,100.0}},
           radius=25.0),
         Polygon(
-          origin={8,14},
+          origin={8.0,14.0},
           lineColor={78,138,73},
           fillColor={78,138,73},
           pattern=LinePattern.None,
