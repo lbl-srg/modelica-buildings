@@ -63,6 +63,7 @@ class UnitConverterModeler(object):
 		dictionaries represents one unit converter.
 		'''
 		conv_pardict_list = [
+			# temperature
             {
 			'quantity' : 'temperature',
 			'modelica_quantity' : 'ThermodynamicTemperature',
@@ -103,7 +104,27 @@ class UnitConverterModeler(object):
 			'multiplier' : '1.',
 			'validation_input' : ['273.15', '373.15'],
 			'validation_output' : ['0', '100']},
-
+			# pressure
+			{
+			'quantity' : 'pressure',
+			'modelica_quantity' : 'ThermodynamicTemperature',
+			'unit' : 'pounds per square inch',
+			'unit_symbol' : 'psi',
+			'direction' : 'From',
+			'adder' : '',
+			'multiplier' : '',
+			'validation_input' : ['', ''],
+			'validation_output' : ['', '']},
+			{
+			'quantity' : 'pressure',
+			'modelica_quantity' : 'ThermodynamicTemperature',
+			'unit' : 'pounds per square inch',
+			'unit_symbol' : 'psi',
+			'direction' : 'To',
+			'adder' : '',
+			'multiplier' : '',
+			'validation_input' : ['', ''],
+			'validation_output' : ['', '']}
 			 # continue the list for temp, pres, volflow
 			]
 
