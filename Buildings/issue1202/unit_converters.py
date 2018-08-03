@@ -23,26 +23,39 @@ class UnitConverterModeler(object):
 
 	Parameters
 	----------
-    outpath : str
-        Path to store unit converter models (*.mo files)
+    package_name : str
+        Package folder name
+
+    path_to_package : str
+        Path to unit converter package
+
+    path_to_validation_scripts : str
+        Path to store validation models for unit converter blocks
+
+
 	'''
 
 	def __init__(self,\
-	             path_to_package = '',\
-				 path_to_validation_scripts = 'MosPath',
-				 package_name = 'UnitConverters',\
-				 ):
+		package_name = 'UnitConverters',
+		path_to_package = \
+		    r'/home/mg/repos/modelica-buildings/Buildings/Controls/OBC/CDL/Conversions',\
+		path_to_validation_scripts = \
+			r'/home/mg/repos/modelica-buildings/Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Conversions'):
 
 		self.par, self.si = self.set_parameters()
 
-		# path to unit converter package folder
-		self.outpath = os.path.join(path_to_package, package_name)
-		# path to unit converter package validation scripts folder
-		self.validation_scripts_outpath = \
-			os.path.join(path_to_validation_scripts, package_name)
-
 		self.package_name = package_name
+		self.val_pack_name = 'Validation'
 
+		# path to unit converter package folder
+		self.package_path = os.path.join(path_to_package, package_name)
+
+		# path to unit converter validation package folder
+		self.val_pack_path = os.path.join(self.package_path, self.val_pack_name)
+
+		# path to the mos scripts folder
+		self.mospath = os.path.join(path_to_validation_scripts, \
+			self.package_name, self.val_pack_name)
 
 
 	def set_parameters(self):
@@ -56,19 +69,20 @@ class UnitConverterModeler(object):
 			'unit' : 'degree fahrenheit',
 			'unit_symbol' : 'degF',
 			'direction' : 'From',
-			'adder' : '-32 * (5/9) + 273.15',
-			'multiplier' : '5/9'},
-			'validation_input' : [, ], # tests are using two points to chech the conversion
-			'validation_output' : [, ]},
+			'adder' : '-32. * (5./9.) + 273.15',
+			'multiplier' : '5./9.',
+			'validation_input' : ['32.', '100.*(9./5.) + 32.'], # tests are using two points to chech the conversion
+			'validation_output' : ['273.15', '373.15']},
 			{
 			'quantity' : 'temperature',
 		    'modelica_quantity' : 'ThermodynamicTemperature',
 			'unit' : 'degree fahrenheit',
 			'unit_symbol' : 'degF',
 			'direction' : 'To',
-			'adder' : '*mg_test',
-			'multiplier' : '*mg_test'},
-
+			'adder' : '(-9./5.)*273.15 + 32',
+			'multiplier' : '9./5.',
+			'validation_input' : ['273.15', '373.15'],
+			'validation_output' : ['32.', '100.*(9./5.) + 32.']},
 			{
 			'quantity' : 'temperature',
 			'modelica_quantity' : 'ThermodynamicTemperature',
@@ -76,17 +90,19 @@ class UnitConverterModeler(object):
 			'unit_symbol' : 'degC',
 			'direction' : 'From',
 			'adder' : '*mg_test',
-			'multiplier' : '*mg_test'},
+			'multiplier' : '*mg_test',
+			'validation_input' : ['0', '100'],
+			'validation_output' : ['273.15', '373.15']},
 			{
 			'quantity' : 'temperature',
 			'modelica_quantity' : 'ThermodynamicTemperature',
 			'unit' : 'degree celsius',
 			'unit_symbol' : 'degC',
 			'direction' : 'To',
-			'adder' : 273.15,
-			'multiplier' : 1.,
-			'validation_input' : [273.15, 373.15],
-			'validation_output' : [0, 100]},
+			'adder' : '273.15',
+			'multiplier' : '1.',
+			'validation_input' : ['273.15', '373.15'],
+			'validation_output' : ['0', '100']},
 
 			 # continue the list for temp, pres, volflow
 			]
@@ -129,7 +145,7 @@ class UnitConverterModeler(object):
 			to_unit = self.si[x['quantity']]['unit']
 			from_unit_symbol = x['unit_symbol']
 			from_unit = x['unit']
-			model_name = x['direction'] + '_' + to_unit_symbol
+			model_name = x['direction'] + '_' + from_unit_symbol
 		elif x['direction'] == 'To':
 			from_unit_symbol = x['unit_symbol']
 			from_unit = x['unit']
@@ -147,6 +163,7 @@ class UnitConverterModeler(object):
 		"""Generates unit conversion modelica code for each
 		converter.
 		"""
+		package_order_name_list = ['Validation']
 
 		for x in self.par:
 
@@ -155,9 +172,12 @@ class UnitConverterModeler(object):
 
 			# set filename to final mo filename (e.g. From_degF)
 			model_filename = model_name + '.mo'
+
+			package_order_name_list.append(model_name)
+
 			# open
 			file = open(os.path.join(\
-				self.outpath, model_filename), 'w')
+				self.package_path, model_filename), 'w')
 			# write
 			file.write(\
 "block " + model_name + " \"Kelvin to degree Celsius temperature unit converter\"\n" \
@@ -177,8 +197,8 @@ class UnitConverterModeler(object):
 "      iconTransformation(extent={{100,-10},{120,10}})));\n"\
 "\n"\
 "protected\n"\
-"  parameter Real k = " + str(x['multiplier']) + " \"Multiplier\";\n"\
-"  parameter Real p = " + str(x['adder']) + " \"Adder\";\n"\
+"  parameter Real k = " + x['multiplier'] + " \"Multiplier\";\n"\
+"  parameter Real p = " + x['adder'] + " \"Adder\";\n"\
 "\n"\
 "  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(\n"\
 "    final p = p,\n"\
@@ -227,7 +247,48 @@ class UnitConverterModeler(object):
 )
 
 		msg = 'Wrote all converter blocks to {}.'
-		log.info(msg.format(self.outpath))
+		log.info(msg.format(self.package_path))
+
+		# write validaton package.order
+		package_order_name_list.sort()
+		# open
+		file = open(os.path.join(self.package_path, 'package.order'), 'w')
+		# write
+		for model_name in package_order_name_list:
+			file.write(model_name + "\n")
+
+		# write package.mo
+		file = open(os.path.join(self.package_path, 'package.mo'), 'w')
+		file.write(\
+"""within Buildings.Controls.OBC.CDL.Conversions;
+package """+self.package_name+""" "Package with blocks for unit conversion"
+
+annotation (
+Documentation(
+info="<html>
+<p>
+Package with blocks for unit conversions.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+August 1, 2018, by Milica Grahovac:<br/>
+Firt implementation.
+</li>
+</ul>
+</html>"), Icon(graphics={
+        Rectangle(
+          lineColor={200,200,200},
+          fillColor={248,248,248},
+          fillPattern=FillPattern.HorizontalCylinder,
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0),
+        Rectangle(
+          lineColor={128,128,128},
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0)}));
+end Conversions;""")
 
 		return True
 
@@ -237,8 +298,10 @@ class UnitConverterModeler(object):
 		"""
 
 		validation_foldername = 'Validation'
-		if not os.path.exists(os.path.join(self.outpath, validation_foldername)):
-			os.makedirs(os.path.join(self.outpath, validation_foldername))
+		if not os.path.exists(self.val_pack_path):
+			os.makedirs(self.val_pack_path)
+
+		package_order_name_list = []
 
 		for x in self.par:
 
@@ -246,10 +309,12 @@ class UnitConverterModeler(object):
 				self.extract_unit_strings(x)
 
 			# set filename to final mo filename (e.g. From_degF)
-			model_filename = model_name + '.mos'
+			model_filename = model_name + '.mo'
+
+			package_order_name_list.append(model_name)
+
 			# open
-			file = open(os.path.join(\
-				self.outpath, validation_foldername, model_filename), 'w')
+			file = open(os.path.join(self.val_pack_path, model_filename), 'w')
 			# write
 			file.write(\
 "model "+model_name+" \"Test "+x['quantity']+" unit conversion from "+from_unit+" to "+to_unit+"\"\n"\
@@ -264,10 +329,10 @@ class UnitConverterModeler(object):
 "    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));\n"\
 "\n"\
 "protected\n"\
-"  parameter Real kin = "+str(x['validation_input'][0])+" \"Validation input\";\n"\
-"  parameter Real kin1 = "+str(x['validation_input'][1])+" \"Validation input 1\";\n"\
-"  parameter Real kout = "+str(x['validation_output'][0])+" \"Validation output\";\n"\
-"  parameter Real kout1 = "+str(x['validation_output'][1])+" \"Validation output 1\";\n"\
+"  parameter Real kin = "+x['validation_input'][0]+" \"Validation input\";\n"\
+"  parameter Real kin1 = "+x['validation_input'][1]+" \"Validation input 1\";\n"\
+"  parameter Real kout = "+x['validation_output'][0]+" \"Validation output\";\n"\
+"  parameter Real kout1 = "+x['validation_output'][1]+" \"Validation output 1\";\n"\
 "\n"\
 "  Buildings.Controls.OBC.CDL.Conversions."+self.package_name+"."+model_name+" "+model_name+"\n"\
 "  \"Unit converter from "+from_unit+" to "+to_unit+" \"\n"\
@@ -338,8 +403,53 @@ class UnitConverterModeler(object):
 )
 
 		msg = 'Wrote all converter validation models to {}.'
-		log.info(msg.format(os.path.join(\
-			self.outpath, validation_foldername)))
+		log.info(msg.format(self.val_pack_path))
+
+		# write validaton package.order
+		package_order_name_list.sort()
+		# open
+		file = open(os.path.join(self.val_pack_path, 'package.order'), 'w')
+		# write
+		for model_name in package_order_name_list:
+			file.write(model_name + "\n")
+
+		# write validation package.mo
+		file = open(os.path.join(self.val_pack_path, 'package.mo'), 'w')
+		file.write(\
+"""within Buildings.Controls.OBC.CDL.Conversions."""+self.package_name+""";
+package Validation "Collection of models that validate the unit conversion blocks of the CDL"
+
+annotation (preferredView="info", Documentation(info="<html>
+<p>
+This package contains models that validate the blocks in
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Conversions."""+self.package_name+"""\">
+Buildings.Controls.OBC.CDL.Conversions."""+self.package_name+"""</a>.
+</p>
+<p>
+The examples plot various outputs, which have been verified against
+analytical solutions. These model outputs are stored as reference data to
+allow continuous validation whenever models in the library change.
+</p>
+</html>"),
+  Icon(graphics={
+        Rectangle(
+          lineColor={200,200,200},
+          fillColor={248,248,248},
+          fillPattern=FillPattern.HorizontalCylinder,
+          extent={{-100,-100},{100,100}},
+          radius=25.0),
+        Rectangle(
+          lineColor={128,128,128},
+          extent={{-100,-100},{100,100}},
+          radius=25.0),
+        Polygon(
+          origin={8,14},
+          lineColor={78,138,73},
+          fillColor={78,138,73},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          points={{-58.0,46.0},{42.0,-14.0},{-58.0,-74.0},{-58.0,46.0}})}));
+end Validation;""")
 
 		return True
 
@@ -348,8 +458,8 @@ class UnitConverterModeler(object):
 		"""Generates mos scripts for running validation models
 		"""
 
-		if not os.path.exists(self.validation_scripts_outpath):
-			os.makedirs(self.validation_scripts_outpath)
+		if not os.path.exists(self.mospath):
+			os.makedirs(self.mospath)
 
 		for x in self.par:
 
@@ -358,8 +468,7 @@ class UnitConverterModeler(object):
 			# set filename to final mo filename (e.g. From_degF)
 			model_filename = res[0] + '.mos'
 			# open
-			file = open(\
-				os.path.join(self.validation_scripts_outpath, model_filename), 'w')
+			file = open(os.path.join(self.mospath, model_filename), 'w')
 			# write
 			file.write(\
 "simulateModel(\"Buildings.Controls.OBC.CDL.Conversions."+self.package_name+".Validation."+res[0]+"\", method=\"dassl\", stopTime=10, tolerance=1e-06, resultFile=\"ToC\");\n"
@@ -369,7 +478,7 @@ class UnitConverterModeler(object):
 )
 
 		msg = 'Wrote all mos scripts to {}.'
-		log.info(msg.format(self.validation_scripts_outpath))
+		log.info(msg.format(self.mospath))
 
 		return True
 
