@@ -185,14 +185,14 @@ class UnitConverterModeler(object):
 "  Buildings.Controls.OBC.CDL.Interfaces.RealInput u(\n" \
 "    final unit = \"" + from_unit_symbol + "\",\n"\
 "    final quantity = \""+x['modelica_quantity']+"\")\n"\
-"    \"Temparature in " + from_unit + " [" + from_unit_symbol + "]\"\n"\
+"    \"Temparature in " + from_unit +"\"\n"\
 "    annotation (Placement(transformation(extent={{-80,-20},{-40,20}}),\n"\
 "      iconTransformation(extent={{-140,-20},{-100,20}})));\n"\
 "\n"\
 "  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(\n"\
 "    final unit = \"" + to_unit_symbol + "\",\n"\
 "    final quantity = \""+x['modelica_quantity']+"\")\n"\
-"    \"Temparature in " + to_unit + " [" + to_unit_symbol + "]\"\n"\
+"    \"Temparature in " + from_unit +"\"\n"\
 "    annotation (Placement(transformation(extent={{40,-10},{60,10}}),\n"\
 "      iconTransformation(extent={{100,-10},{120,10}})));\n"\
 "\n"\
@@ -353,7 +353,7 @@ end Conversions;""")
 "    final k=kout)\n"\
 "    \"Expected converted value\"\n"\
 "    annotation (Placement(transformation(extent={{-20,10},{0,30}})));\n"\
-"  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant result(\n"\
+"  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant result1(\n"\
 "    final k=kout1)\n"\
 "    \"Expected converted value\"\n"\
 "    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));\n"\
