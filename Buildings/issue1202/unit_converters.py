@@ -61,6 +61,10 @@ class UnitConverterModeler(object):
 	def set_parameters(self):
 		'''Creats a list of dictionaries, where each of these
 		dictionaries represents one unit converter.
+
+		Conversion parameters sources:
+		- ASHRAE Fundamentals 2017
+		- Recknagel 09/10
 		'''
 		conv_pardict_list = [
 			# temperature
@@ -92,7 +96,7 @@ class UnitConverterModeler(object):
 			'direction' : 'From',
 			'adder' : '273.15',
 			'multiplier' : '1.',
-			'validation_input' : ['0', '100'],
+			'validation_input' : ['0', '100.'],
 			'validation_output' : ['273.15', '373.15']},
 			{
 			'quantity' : 'temperature',
@@ -103,7 +107,7 @@ class UnitConverterModeler(object):
 			'adder' : '-273.15',
 			'multiplier' : '1.',
 			'validation_input' : ['273.15', '373.15'],
-			'validation_output' : ['0', '100']},
+			'validation_output' : ['0', '100.']},
 			# pressure
 			{
 			'quantity' : 'pressure',
@@ -111,20 +115,20 @@ class UnitConverterModeler(object):
 			'unit' : 'pound-force per square inch',
 			'unit_symbol' : 'psi',
 			'direction' : 'From',
-			'adder' : '0',
-			'multiplier' : '6894.757',
-			'validation_input' : ['1', '5'],
-			'validation_output' : ['6894.757', '34473.79']},
+			'adder' : '0.',
+			'multiplier' : '6895.',
+			'validation_input' : ['.0036', '1.'],
+			'validation_output' : ['.0036 * 6895', '1. * 6895.)']},
 			{
 			'quantity' : 'pressure',
 			'modelica_quantity' : 'ThermodynamicTemperature',
 			'unit' : 'pound-force per square inch',
 			'unit_symbol' : 'psi',
 			'direction' : 'To',
-			'adder' : '0',
-			'multiplier' : '',
-			'validation_input' : ['', ''],
-			'validation_output' : ['', '']}
+			'adder' : '0.',
+			'multiplier' : '1./6895.',
+			'validation_input' : ['.0036 * 6895', '1. * 6895.)'],
+			'validation_output' : ['.0036', '1.']}
 			{
 			'quantity' : 'pressure',
 			'modelica_quantity' : 'ThermodynamicTemperature',
@@ -132,9 +136,9 @@ class UnitConverterModeler(object):
 			'unit_symbol' : 'bar',
 			'direction' : 'From',
 			'adder' : '0',
-			'multiplier' : '',
-			'validation_input' : ['1', '5'],
-			'validation_output' : ['6894.757', '34473.79']},
+			'multiplier' : '100000.',
+			'validation_input' : ['1.', '.00025'],
+			'validation_output' : ['1.*100000.', '.00025*100000.']},
 			{
 			'quantity' : 'pressure',
 			'modelica_quantity' : 'ThermodynamicTemperature',
@@ -142,9 +146,92 @@ class UnitConverterModeler(object):
 			'unit_symbol' : 'bar',
 			'direction' : 'To',
 			'adder' : '0',
+			'multiplier' : '1./100000.',
+			'validation_input' : ['1.*100000.', '.00025*100000.'],
+			'validation_output' : ['1.', '.00025']},
+			{
+			'quantity' : 'pressure',
+			'modelica_quantity' : 'ThermodynamicTemperature',
+			'unit' : 'inch of water gauge (at 60 degF)',
+			'unit_symbol' : 'inH2O',
+			'direction' : 'From',
+			'adder' : '0.',
+			'multiplier' : '248.84',
+			'validation_input' : ['25./248.84', '100000./248.84'],
+			'validation_output' : ['25', '100000']},
+			{
+			'quantity' : 'pressure',
+			'modelica_quantity' : 'ThermodynamicTemperature',
+			'unit' : 'inch of water gauge (at 60 degF)',
+			'unit_symbol' : 'inH2O',
+			'direction' : 'To',
+			'adder' : '0.',
+			'multiplier' : '1./248.84',
+			'validation_input' : ['25.', '100000.'],
+			'validation_output' : ['25./248.84', '100000./248.84']},
+			# volume flow
+			{
+			'quantity' : '',
+			'modelica_quantity' : '',
+			'unit' : '',
+			'unit_symbol' : '',
+			'direction' : 'From',
+			'adder' : '',
 			'multiplier' : '',
 			'validation_input' : ['', ''],
-			'validation_output' : ['', '']}
+			'validation_output' : ['', '']},
+			{
+			'quantity' : '',
+			'modelica_quantity' : '',
+			'unit' : '',
+			'unit_symbol' : '',
+			'direction' : 'To',
+			'adder' : '',
+			'multiplier' : '',
+			'validation_input' : ['', ''],
+			'validation_output' : ['', '']},
+			{
+			'quantity' : '',
+			'modelica_quantity' : '',
+			'unit' : '',
+			'unit_symbol' : '',
+			'direction' : 'From',
+			'adder' : '',
+			'multiplier' : '',
+			'validation_input' : ['', ''],
+			'validation_output' : ['', '']},
+			{
+			'quantity' : '',
+			'modelica_quantity' : '',
+			'unit' : '',
+			'unit_symbol' : '',
+			'direction' : 'To',
+			'adder' : '',
+			'multiplier' : '',
+			'validation_input' : ['', ''],
+			'validation_output' : ['', '']},
+			{
+			'quantity' : '',
+			'modelica_quantity' : '',
+			'unit' : '',
+			'unit_symbol' : '',
+			'direction' : 'From',
+			'adder' : '',
+			'multiplier' : '',
+			'validation_input' : ['', ''],
+			'validation_output' : ['', '']},
+			{
+			'quantity' : '',
+			'modelica_quantity' : '',
+			'unit' : '',
+			'unit_symbol' : '',
+			'direction' : 'To',
+			'adder' : '',
+			'multiplier' : '',
+			'validation_input' : ['', ''],
+			'validation_output' : ['', '']},
+
+			inches of water gauge - inwg
 			 # continue the list for temp, pres, volflow
 			]
 
