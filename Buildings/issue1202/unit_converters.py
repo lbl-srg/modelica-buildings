@@ -111,7 +111,7 @@ class UnitConverterModeler(object):
 			# pressure
 			{
 			'quantity' : 'pressure',
-			'modelica_quantity' : 'ThermodynamicTemperature',
+			'modelica_quantity' : 'Pressure',
 			'unit' : 'pound-force per square inch',
 			'unit_symbol' : 'psi',
 			'direction' : 'From',
@@ -121,7 +121,7 @@ class UnitConverterModeler(object):
 			'validation_output' : ['.0036 * 6895', '1. * 6895.)']},
 			{
 			'quantity' : 'pressure',
-			'modelica_quantity' : 'ThermodynamicTemperature',
+			'modelica_quantity' : 'Pressure',
 			'unit' : 'pound-force per square inch',
 			'unit_symbol' : 'psi',
 			'direction' : 'To',
@@ -131,7 +131,7 @@ class UnitConverterModeler(object):
 			'validation_output' : ['.0036', '1.']}
 			{
 			'quantity' : 'pressure',
-			'modelica_quantity' : 'ThermodynamicTemperature',
+			'modelica_quantity' : 'Pressure',
 			'unit' : 'bar',
 			'unit_symbol' : 'bar',
 			'direction' : 'From',
@@ -141,7 +141,7 @@ class UnitConverterModeler(object):
 			'validation_output' : ['1.*100000.', '.00025*100000.']},
 			{
 			'quantity' : 'pressure',
-			'modelica_quantity' : 'ThermodynamicTemperature',
+			'modelica_quantity' : 'Pressure',
 			'unit' : 'bar',
 			'unit_symbol' : 'bar',
 			'direction' : 'To',
@@ -151,7 +151,7 @@ class UnitConverterModeler(object):
 			'validation_output' : ['1.', '.00025']},
 			{
 			'quantity' : 'pressure',
-			'modelica_quantity' : 'ThermodynamicTemperature',
+			'modelica_quantity' : 'Pressure',
 			'unit' : 'inch of water gauge (at 60 degF)',
 			'unit_symbol' : 'inH2O',
 			'direction' : 'From',
@@ -161,7 +161,7 @@ class UnitConverterModeler(object):
 			'validation_output' : ['25', '100000']},
 			{
 			'quantity' : 'pressure',
-			'modelica_quantity' : 'ThermodynamicTemperature',
+			'modelica_quantity' : 'Pressure',
 			'unit' : 'inch of water gauge (at 60 degF)',
 			'unit_symbol' : 'inH2O',
 			'direction' : 'To',
@@ -171,45 +171,26 @@ class UnitConverterModeler(object):
 			'validation_output' : ['25./248.84', '100000./248.84']},
 			# volume flow
 			{
-			'quantity' : '',
-			'modelica_quantity' : '',
-			'unit' : '',
-			'unit_symbol' : '',
+			'quantity' : 'volume flow',
+			'modelica_quantity' : 'VolumeFlowRate',
+			'unit' : 'cubic feet per minute',
+			'unit_symbol' : 'cfm',
 			'direction' : 'From',
-			'adder' : '',
-			'multiplier' : '',
-			'validation_input' : ['', ''],
-			'validation_output' : ['', '']},
+			'adder' : '0.',
+			'multiplier' : '0.000471947',
+			'validation_input' : ['100.', '2000.'],
+			'validation_output' : ['0.047194745', '0.9438949']},
 			{
 			'quantity' : '',
 			'modelica_quantity' : '',
-			'unit' : '',
-			'unit_symbol' : '',
+			'unit' : 'cubic feet per minute',
+			'unit_symbol' : 'cfm',
 			'direction' : 'To',
-			'adder' : '',
-			'multiplier' : '',
-			'validation_input' : ['', ''],
-			'validation_output' : ['', '']},
-			{
-			'quantity' : '',
-			'modelica_quantity' : '',
-			'unit' : '',
-			'unit_symbol' : '',
-			'direction' : 'From',
-			'adder' : '',
-			'multiplier' : '',
-			'validation_input' : ['', ''],
-			'validation_output' : ['', '']},
-			{
-			'quantity' : '',
-			'modelica_quantity' : '',
-			'unit' : '',
-			'unit_symbol' : '',
-			'direction' : 'To',
-			'adder' : '',
-			'multiplier' : '',
-			'validation_input' : ['', ''],
-			'validation_output' : ['', '']},
+			'adder' : '0.',
+			'multiplier' : '1./0.000471947',
+			'validation_input' : ['0.047194745', '0.9438949'],
+			'validation_output' : ['100.', '2000.']},
+			# power
 			{
 			'quantity' : '',
 			'modelica_quantity' : '',
@@ -220,32 +201,24 @@ class UnitConverterModeler(object):
 			'multiplier' : '',
 			'validation_input' : ['', ''],
 			'validation_output' : ['', '']},
-			{
-			'quantity' : '',
-			'modelica_quantity' : '',
-			'unit' : '',
-			'unit_symbol' : '',
-			'direction' : 'To',
-			'adder' : '',
-			'multiplier' : '',
-			'validation_input' : ['', ''],
-			'validation_output' : ['', '']},
+			# add ton cooling power
 
-			inches of water gauge - inwg
-			 # continue the list for temp, pres, volflow
 			]
 
 		si_unit_pardict = {
 			'temperature' :
 				{'unit' : 'kelvin',
 				 'unit_symbol' : 'K'},
-			'Pressure' :
+			'pressure' :
 				{'unit' : 'pascal',
 				 'unit_symbol' : 'Pa'},
-            'Volume Flow' :
+            'volume flow' :
 				{'unit' : 'cubic meters per second',
 				 'unit_symbol' : 'm3/s'},
-		    'Dimensionless' :
+		    'power' :
+				{'unit' : 'watt',
+				 'unit_symbol' : 'W'},
+		    'dimensionless' :
 				{'unit' : '-',
 				 'unit_symbol' : '1'},
 			    }
