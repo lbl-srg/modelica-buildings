@@ -64,7 +64,12 @@ class UnitConverterModeler(object):
 
 		Conversion parameters sources:
 		- ASHRAE Fundamentals 2017
-		- Recknagel 09/10
+
+		SI units sources:
+		- Modelica Standard Library (based on ISO 31-1992 and ISO 1000-1992)
+
+		Other unit sources:
+		- ASHRAE Fundamentals 2017, Modelica Standard Library
 		'''
 		conv_pardict_list = [
 			# volume
@@ -97,7 +102,7 @@ class UnitConverterModeler(object):
 			'direction' : 'From',
 			'adder' : '-32. * (5./9.) + 273.15',
 			'multiplier' : '5./9.',
-			'validation_input' : ['32.', '100.*(9./5.) + 32.'], # tests are using two points to chech the conversion
+			'validation_input' : ['32.', '100.*(9./5.) + 32.'],
 			'validation_output' : ['273.15', '373.15']},
 			{
 			'quantity' : 'temperature',
@@ -293,10 +298,10 @@ class UnitConverterModeler(object):
 			'multiplier' : '1./0.7457',
 			'validation_input' : ['10*0.7457', '45*0.7457'],
 			'validation_output' : ['10', '45']},
-			# dimensionless
 			]
 
-		si_unit_pardict = {
+		central_unit = {
+		    # SI units
 			'volume' :
 				{'unit' : 'cubic meter',
 				 'unit_symbol' : 'm3'},
@@ -315,12 +320,9 @@ class UnitConverterModeler(object):
             'volume flow' :
 				{'unit' : 'cubic meters per second',
 				 'unit_symbol' : 'm3/s'},
-		    'dimensionless' :
-				{'unit' : '-',
-				 'unit_symbol' : '1'},
 			    }
 
-		return conv_pardict_list, si_unit_pardict
+		return conv_pardict_list, central_unit
 
 	def extract_unit_strings(self, x):
 		"""Depending on the conversion direction it extracts
@@ -378,7 +380,7 @@ class UnitConverterModeler(object):
 				self.package_path, model_filename), 'w')
 			# write
 			file.write(\
-"block " + model_name + " \"Kelvin to degree Celsius temperature unit converter\"\n" \
+"block " + model_name + " \"Block that converts "+x['quantity']+" from "+from_unit+" to "+to_unit+"\"\n" \
 "\n"\
 "  Buildings.Controls.OBC.CDL.Interfaces.RealInput u(\n" \
 "    final unit = \"" + from_unit_symbol + "\",\n"\
@@ -394,19 +396,30 @@ class UnitConverterModeler(object):
 "    annotation (Placement(transformation(extent={{40,-10},{60,10}}),\n"\
 "      iconTransformation(extent={{100,-10},{120,10}})));\n"\
 "\n"\
-"protected\n"\
+"protected\n")
+		if x['adder'] != 0.:
+			file.write(\
 "  parameter Real k = " + x['multiplier'] + " \"Multiplier\";\n"\
-"  parameter Real p = " + x['adder'] + " \"Adder\";\n"\
+"  parameter Real p = " + x['adder'] + " \"Adder\";\n"
 "\n"\
-"  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(\n"\
+"  Buildings.Controls.OBC.CDL.Continuous.AddParameter conv(\n"\
 "    final p = p,\n"\
 "    final k = k) \"Unit converter\"\n"\
 "    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));\n"\
+"\n")
+		else:
+			file.write(\
+"  parameter Real k = " + x['multiplier'] + " \"Multiplier\";\n"\
 "\n"\
+"  Buildings.Controls.OBC.CDL.Continuous.Gain conv(\n"\
+"    final k = k) \"Unit converter\"\n"\
+"    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));\n"\
+"\n")
+		file.write(\
 "equation\n"\
-"  connect(u, addPar.u)\n"\
+"  connect(u, conv.u)\n"\
 "    annotation (Line(points={{-60,0},{-12,0}}, color={0,0,127}));\n"\
-"  connect(addPar.y, y)\n"\
+"  connect(conv.y, y)\n"\
 "    annotation (Line(points={{11,0},{50,0}}, color={0,0,127}));\n"\
 "  annotation (\n"\
 "      defaultComponentName = \"" + model_name + "\",\n"\
@@ -493,6 +506,8 @@ end """+self.package_name+""";""")
 
 	def write_unit_converter_validators(self):
 		"""Generates modelica code for validation models
+
+		Tests validate two data points for each conversion
 		"""
 
 		validation_foldername = 'Validation'
