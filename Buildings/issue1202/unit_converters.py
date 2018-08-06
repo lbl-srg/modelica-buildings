@@ -58,6 +58,10 @@ class UnitConverterModeler(object):
 		self.mospath = os.path.join(path_to_validation_scripts, \
 			self.package_name, self.val_pack_name)
 
+		# list of units Modelica cannot recognize
+		self.custom_units = ['Btu', 'Btu/h', 'hp', 'cfm', 'gal', 'inH2O', \
+			'psi', 'quad', ]
+
 
 	def set_parameters(self):
 		'''Creats a list of dictionaries, where each of these
@@ -82,8 +86,8 @@ class UnitConverterModeler(object):
 			'direction' : 'From',
 			'adder' : '0.',
 			'multiplier' : '0.003785412',
-			'validation_input' : ['1', '100'],
-			'validation_output' : ['1*0.003785412', '100*0.003785412']},
+			'validation_input' : ['1.', '100.'],
+			'validation_output' : ['1.*0.003785412', '100.*0.003785412']},
 			{
 			'quantity' : 'volume',
 			'modelica_quantity' : 'Volume',
@@ -92,7 +96,7 @@ class UnitConverterModeler(object):
 			'direction' : 'To',
 			'adder' : '0.',
 			'multiplier' : '1./0.003785412',
-			'validation_input' : ['1*0.003785412', '100*0.003785412'],
+			'validation_input' : ['1.*0.003785412', '100.*0.003785412'],
 			'validation_output' : ['1', '100'],},
 			# temperature
             {
@@ -123,7 +127,7 @@ class UnitConverterModeler(object):
 			'direction' : 'From',
 			'adder' : '273.15',
 			'multiplier' : '1.',
-			'validation_input' : ['0', '100.'],
+			'validation_input' : ['0.', '100.'],
 			'validation_output' : ['273.15', '373.15']},
 			{
 			'quantity' : 'temperature',
@@ -134,7 +138,7 @@ class UnitConverterModeler(object):
 			'adder' : '-273.15',
 			'multiplier' : '1.',
 			'validation_input' : ['273.15', '373.15'],
-			'validation_output' : ['0', '100.']},
+			'validation_output' : ['0.', '100.']},
 			# pressure
 			{
 			'quantity' : 'pressure',
@@ -283,7 +287,7 @@ class UnitConverterModeler(object):
 			'quantity' : 'power',
 			'modelica_quantity' : 'Power',
 			'unit' : 'horsepowers',
-			'unit_symbol' : 'HP',
+			'unit_symbol' : 'hp',
 			'direction' : 'From',
 			'adder' : '0.',
 			'multiplier' : '0.7457',
@@ -293,7 +297,7 @@ class UnitConverterModeler(object):
 			'quantity' : 'power',
 			'modelica_quantity' : 'Power',
 			'unit' : 'horsepowers',
-			'unit_symbol' : 'HP',
+			'unit_symbol' : 'hp',
 			'direction' : 'To',
 			'adder' : '0.',
 			'multiplier' : '1./0.7457',
@@ -386,15 +390,21 @@ class UnitConverterModeler(object):
 			file.write(\
 			"block " + model_name + " \"Block that converts "+x['quantity']+" from "+from_unit+" to "+to_unit+"\"\n" \
 			"\n"\
-			"  Buildings.Controls.OBC.CDL.Interfaces.RealInput u(\n" \
-			"    final unit = \"" + from_unit_symbol + "\",\n"\
+			"  Buildings.Controls.OBC.CDL.Interfaces.RealInput u(\n")
+			if from_unit_symbol not in self.custom_units:
+				file.write(\
+				"    final unit = \"" + from_unit_symbol + "\",\n")
+			file.write(\
 			"    final quantity = \""+x['modelica_quantity']+"\")\n"\
 			"    \""+x['quantity'].capitalize()+" in " + from_unit +"\"\n"\
 			"    annotation (Placement(transformation(extent={{-80,-20},{-40,20}}),\n"\
 			"      iconTransformation(extent={{-140,-20},{-100,20}})));\n"\
 			"\n"\
-			"  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(\n"\
-			"    final unit = \"" + to_unit_symbol + "\",\n"\
+			"  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(\n")
+			if to_unit_symbol not in self.custom_units:
+				file.write(\
+				"    final unit = \"" + to_unit_symbol + "\",\n")
+			file.write(\
 			"    final quantity = \""+x['modelica_quantity']+"\")\n"\
 			"    \""+x['quantity'].capitalize() +" in " + to_unit +"\"\n"\
 			"    annotation (Placement(transformation(extent={{40,-10},{60,10}}),\n"\
