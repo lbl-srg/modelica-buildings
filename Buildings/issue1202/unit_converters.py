@@ -182,7 +182,7 @@ class UnitConverterModeler(object):
 			'validation_output' : ['0.047194745', '0.9438949']},
 			{
 			'quantity' : '',
-			'modelica_quantity' : '',
+			'modelica_quantity' : 'VolumeFlowRate',
 			'unit' : 'cubic feet per minute',
 			'unit_symbol' : 'cfm',
 			'direction' : 'To',
@@ -190,18 +190,48 @@ class UnitConverterModeler(object):
 			'multiplier' : '1./0.000471947',
 			'validation_input' : ['0.047194745', '0.9438949'],
 			'validation_output' : ['100.', '2000.']},
-			# power
+			# work
 			{
-			'quantity' : '',
-			'modelica_quantity' : '',
-			'unit' : '',
-			'unit_symbol' : '',
+			'quantity' : 'work',
+			'modelica_quantity' : 'Work',
+			'unit' : 'British thermal unit',
+			'unit_symbol' : 'Btu',
 			'direction' : 'From',
-			'adder' : '',
-			'multiplier' : '',
-			'validation_input' : ['', ''],
-			'validation_output' : ['', '']},
+			'adder' : '0.',
+			'multiplier' : '1055.056',
+			'validation_input' : ['1.', '2.'],
+			'validation_output' : ['1.*1055.056', '2.*1055.056']},
+			{
+			'quantity' : 'work',
+			'modelica_quantity' : 'Work',
+			'unit' : 'British thermal unit',
+			'unit_symbol' : 'Btu',
+			'direction' : 'To',
+			'adder' : '0.',
+			'multiplier' : '1./1055.056',
+			'validation_input' : ['1.*1055.056', '2.*1055.056'],
+			'validation_output' : ['1.', '2.']},
 			# add ton cooling power
+			{
+			'quantity' : 'work',
+			'modelica_quantity' : 'Work',
+			'unit' : 'British thermal unit',
+			'unit_symbol' : 'Btu',
+			'direction' : 'From',
+			'adder' : '0.',
+			'multiplier' : '1./1055.056',
+			'validation_input' : ['1.', '2.'],
+			'validation_output' : ['1.*1055.056', '2.*1055.056']},
+			{
+			'quantity' : 'work',
+			'modelica_quantity' : 'Work',
+			'unit' : 'British thermal unit',
+			'unit_symbol' : 'Btu',
+			'direction' : 'To',
+			'adder' : '0.',
+			'multiplier' : '1055.056',
+			'validation_input' : ['1.*1055.056', '2.*1055.056'],
+			'validation_output' : ['1.', '2.']},
 
 			]
 
@@ -212,12 +242,15 @@ class UnitConverterModeler(object):
 			'pressure' :
 				{'unit' : 'pascal',
 				 'unit_symbol' : 'Pa'},
-            'volume flow' :
-				{'unit' : 'cubic meters per second',
-				 'unit_symbol' : 'm3/s'},
+		    'work' :
+				{'unit' : 'joule',
+				 'unit_symbol' : 'J'},
 		    'power' :
 				{'unit' : 'watt',
 				 'unit_symbol' : 'W'},
+            'volume flow' :
+				{'unit' : 'cubic meters per second',
+				 'unit_symbol' : 'm3/s'},
 		    'dimensionless' :
 				{'unit' : '-',
 				 'unit_symbol' : '1'},
