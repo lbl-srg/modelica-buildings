@@ -401,8 +401,8 @@ class UnitConverterModeler(object):
 			"      iconTransformation(extent={{100,-10},{120,10}})));\n"\
 			"\n"\
 			"protected\n")
-						if int(eval(x['adder'])) != 0:
-							file.write(\
+			if int(eval(x['adder'])) != 0:
+				file.write(\
 			"  parameter Real k = " + x['multiplier'] + " \"Multiplier\";\n"\
 			"  parameter Real p = " + x['adder'] + " \"Adder\";\n"
 			"\n"\
@@ -411,15 +411,15 @@ class UnitConverterModeler(object):
 			"    final k = k) \"Unit converter\"\n"\
 			"    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));\n"\
 			"\n")
-						else:
-							file.write(\
+			else:
+				file.write(\
 			"  parameter Real k = " + x['multiplier'] + " \"Multiplier\";\n"\
 			"\n"\
 			"  Buildings.Controls.OBC.CDL.Continuous.Gain conv(\n"\
 			"    final k = k) \"Unit converter\"\n"\
 			"    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));\n"\
 			"\n")
-						file.write(\
+			file.write(\
 			"equation\n"\
 			"  connect(u, conv.u)\n"\
 			"    annotation (Line(points={{-60,0},{-12,0}}, color={0,0,127}));\n"\
@@ -690,7 +690,7 @@ class UnitConverterModeler(object):
 			file = open(os.path.join(self.mospath, model_filename), 'w')
 			# write
 			file.write(\
-			"simulateModel(\"Buildings.Controls.OBC.CDL.Conversions."+self.package_name+".Validation."+res[0]+"\", method=\"dassl\", stopTime=10, tolerance=1e-06, resultFile=\"ToC\");\n"
+			"simulateModel(\"Buildings.Controls.OBC.CDL.Conversions."+self.package_name+".Validation."+model_name+"\", method=\"dassl\", stopTime=10, tolerance=1e-06, resultFile=\"ToC\");\n"
 			"\n"
 			"createPlot(id=1, position={20, 10, 900, 650}, subPlot=1, y={\"add.y\"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0}});\n"
 			"createPlot(id=1, position={20, 10, 900, 650}, subPlot=2, y={\"add1.y\"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0}});\n"
