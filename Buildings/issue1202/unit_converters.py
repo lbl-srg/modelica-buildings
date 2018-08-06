@@ -67,6 +67,27 @@ class UnitConverterModeler(object):
 		- Recknagel 09/10
 		'''
 		conv_pardict_list = [
+			# volume
+			{
+			'quantity' : 'volume',
+			'modelica_quantity' : 'Volume',
+			'unit' : 'gallon',
+			'unit_symbol' : 'gal',
+			'direction' : 'From',
+			'adder' : '0.',
+			'multiplier' : '0.003785412',
+			'validation_input' : ['1', '100'],
+			'validation_output' : ['1*0.003785412', '100*0.003785412']},
+			{
+			'quantity' : 'volume',
+			'modelica_quantity' : 'Volume',
+			'unit' : 'gallon',
+			'unit_symbol' : 'gal',
+			'direction' : 'To',
+			'adder' : '0.',
+			'multiplier' : '1./0.003785412',
+			'validation_input' : ['1*0.003785412', '100*0.003785412'],
+			'validation_output' : ['1', '100'],},
 			# temperature
             {
 			'quantity' : 'temperature',
@@ -211,31 +232,74 @@ class UnitConverterModeler(object):
 			'multiplier' : '1./1055.056',
 			'validation_input' : ['1.*1055.056', '2.*1055.056'],
 			'validation_output' : ['1.', '2.']},
-			# add ton cooling power
 			{
 			'quantity' : 'work',
 			'modelica_quantity' : 'Work',
-			'unit' : 'British thermal unit',
-			'unit_symbol' : 'Btu',
+			'unit' : 'quad',
+			'unit_symbol' : 'quad',
 			'direction' : 'From',
 			'adder' : '0.',
-			'multiplier' : '1./1055.056',
+			'multiplier' : '1055.56*1e15',
 			'validation_input' : ['1.', '2.'],
-			'validation_output' : ['1.*1055.056', '2.*1055.056']},
+			'validation_output' : ['1.*1055.56*1e15', '2.*1055.56*1e15']},
 			{
 			'quantity' : 'work',
 			'modelica_quantity' : 'Work',
-			'unit' : 'British thermal unit',
-			'unit_symbol' : 'Btu',
+			'unit' : 'quad',
+			'unit_symbol' : 'quad',
 			'direction' : 'To',
 			'adder' : '0.',
-			'multiplier' : '1055.056',
-			'validation_input' : ['1.*1055.056', '2.*1055.056'],
+			'multiplier' : '1./1055.56*1e15',
+			'validation_input' : ['1.*1055.56*1e15', '2.*1055.56*1e15'],
 			'validation_output' : ['1.', '2.']},
-
+			# power
+			{
+			'quantity' : 'power',
+			'modelica_quantity' : 'Power',
+			'unit' : 'British thermal units per hour',
+			'unit_symbol' : 'Btu/h',
+			'direction' : 'From',
+			'adder' : '0.',
+			'multiplier' : '0.2930711',
+			'validation_input' : ['1./0.2930711', '1000./0.2930711'],
+			'validation_output' : ['1', '1000']},
+			{
+			'quantity' : 'power',
+			'modelica_quantity' : 'Power',
+			'unit' : 'British thermal units per hour',
+			'unit_symbol' : 'Btu/h',
+			'direction' : 'To',
+			'adder' : '0.',
+			'multiplier' : '1./0.2930711',
+			'validation_input' : ['1', '1000'],
+			'validation_output' : ['1./0.2930711', '1000./0.2930711']},
+			{
+			'quantity' : 'power',
+			'modelica_quantity' : 'Power',
+			'unit' : 'horsepower',
+			'unit_symbol' : 'HP',
+			'direction' : 'From',
+			'adder' : '0.',
+			'multiplier' : '0.7457',
+			'validation_input' : ['10', '45'],
+			'validation_output' : ['10*0.7457', '45*0.7457']},
+			{
+			'quantity' : 'power',
+			'modelica_quantity' : 'Power',
+			'unit' : 'horsepower',
+			'unit_symbol' : 'HP',
+			'direction' : 'To',
+			'adder' : '0.',
+			'multiplier' : '1./0.7457',
+			'validation_input' : ['10*0.7457', '45*0.7457'],
+			'validation_output' : ['10', '45']},
+			# dimensionless
 			]
 
 		si_unit_pardict = {
+			'volume' :
+				{'unit' : 'cubic meter',
+				 'unit_symbol' : 'm3'},
 			'temperature' :
 				{'unit' : 'kelvin',
 				 'unit_symbol' : 'K'},
