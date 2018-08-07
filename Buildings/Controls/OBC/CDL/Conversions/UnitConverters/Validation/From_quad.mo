@@ -12,8 +12,8 @@ model From_quad "Test work unit conversion from quads to joule"
 protected
   parameter Real kin = 1. "Validation input";
   parameter Real kin1 = 2. "Validation input 1";
-  parameter Real kout = 1.*1055.56*1e15 "Validation output";
-  parameter Real kout1 = 2.*1055.56*1e15 "Validation output 1";
+  parameter Real kout = 1.*1055.56e15 "Validation output";
+  parameter Real kout1 = 2.*1055.56e15 "Validation output 1";
 
   Buildings.Controls.OBC.CDL.Conversions.UnitConverters.From_quad From_quad
   "Unit converter from quads to joule "

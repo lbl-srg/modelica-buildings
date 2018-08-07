@@ -14,7 +14,7 @@ block To_quad "Block that converts work from quads to joule"
       iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
-  parameter Real k = 1./1055.56*1e15 "Multiplier";
+  parameter Real k = 1./1055.56e15 "Multiplier";
 
   Buildings.Controls.OBC.CDL.Continuous.Gain conv(
     final k = k) "Unit converter"

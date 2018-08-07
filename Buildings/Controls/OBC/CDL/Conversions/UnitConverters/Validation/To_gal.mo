@@ -12,8 +12,8 @@ model To_gal "Test volume unit conversion from gallon to cubic meter"
 protected
   parameter Real kin = 1.*0.003785412 "Validation input";
   parameter Real kin1 = 100.*0.003785412 "Validation input 1";
-  parameter Real kout = 1 "Validation output";
-  parameter Real kout1 = 100 "Validation output 1";
+  parameter Real kout = 1. "Validation output";
+  parameter Real kout1 = 100. "Validation output 1";
 
   Buildings.Controls.OBC.CDL.Conversions.UnitConverters.To_gal To_gal
   "Unit converter from gallon to cubic meter "

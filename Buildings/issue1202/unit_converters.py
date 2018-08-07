@@ -97,7 +97,7 @@ class UnitConverterModeler(object):
 			'adder' : '0.',
 			'multiplier' : '1./0.003785412',
 			'validation_input' : ['1.*0.003785412', '100.*0.003785412'],
-			'validation_output' : ['1', '100'],},
+			'validation_output' : ['1.', '100.'],},
 			# temperature
             {
 			'quantity' : 'temperature',
@@ -149,7 +149,7 @@ class UnitConverterModeler(object):
 			'adder' : '0.',
 			'multiplier' : '6895.',
 			'validation_input' : ['.0036', '1.'],
-			'validation_output' : ['.0036 * 6895', '1. * 6895.']},
+			'validation_output' : ['.0036 * 6895.', '1. * 6895.']},
 			{
 			'quantity' : 'pressure',
 			'modelica_quantity' : 'Pressure',
@@ -158,7 +158,7 @@ class UnitConverterModeler(object):
 			'direction' : 'To',
 			'adder' : '0.',
 			'multiplier' : '1./6895.',
-			'validation_input' : ['.0036 * 6895', '1. * 6895.'],
+			'validation_input' : ['.0036 * 6895.', '1. * 6895.'],
 			'validation_output' : ['.0036', '1.']},
 			{
 			'quantity' : 'pressure',
@@ -210,7 +210,7 @@ class UnitConverterModeler(object):
 			'adder' : '0.',
 			'multiplier' : '0.000471947',
 			'validation_input' : ['100.', '2000.'],
-			'validation_output' : ['0.047194745', '0.9438949']},
+			'validation_output' : ['100.*0.000471947', '2000.*0.000471947']},
 			{
 			'quantity' : 'volume flow',
 			'modelica_quantity' : 'VolumeFlowRate',
@@ -219,7 +219,7 @@ class UnitConverterModeler(object):
 			'direction' : 'To',
 			'adder' : '0.',
 			'multiplier' : '1./0.000471947',
-			'validation_input' : ['0.047194745', '0.9438949'],
+			'validation_input' : ['100.*0.000471947', '2000.*0.000471947'],
 			'validation_output' : ['100.', '2000.']},
 			# work
 			{
@@ -249,9 +249,9 @@ class UnitConverterModeler(object):
 			'unit_symbol' : 'quad',
 			'direction' : 'From',
 			'adder' : '0.',
-			'multiplier' : '1055.56*1e15',
+			'multiplier' : '1055.56e15',
 			'validation_input' : ['1.', '2.'],
-			'validation_output' : ['1.*1055.56*1e15', '2.*1055.56*1e15']},
+			'validation_output' : ['1.*1055.56e15', '2.*1055.56e15']},
 			{
 			'quantity' : 'work',
 			'modelica_quantity' : 'Work',
@@ -259,8 +259,8 @@ class UnitConverterModeler(object):
 			'unit_symbol' : 'quad',
 			'direction' : 'To',
 			'adder' : '0.',
-			'multiplier' : '1./1055.56*1e15',
-			'validation_input' : ['1.*1055.56*1e15', '2.*1055.56*1e15'],
+			'multiplier' : '1./1055.56e15',
+			'validation_input' : ['1.*1055.56e15', '2.*1055.56e15'],
 			'validation_output' : ['1.', '2.']},
 			# power
 			{
@@ -291,8 +291,8 @@ class UnitConverterModeler(object):
 			'direction' : 'From',
 			'adder' : '0.',
 			'multiplier' : '0.7457',
-			'validation_input' : ['10', '45'],
-			'validation_output' : ['10*0.7457', '45*0.7457']},
+			'validation_input' : ['10.', '45.'],
+			'validation_output' : ['10.*0.7457', '45.*0.7457']},
 			{
 			'quantity' : 'power',
 			'modelica_quantity' : 'Power',
@@ -301,8 +301,8 @@ class UnitConverterModeler(object):
 			'direction' : 'To',
 			'adder' : '0.',
 			'multiplier' : '1./0.7457',
-			'validation_input' : ['10*0.7457', '45*0.7457'],
-			'validation_output' : ['10', '45']},
+			'validation_input' : ['10.*0.7457', '45.*0.7457'],
+			'validation_output' : ['10.', '45.']},
 			]
 
 		central_unit = {
@@ -700,7 +700,7 @@ class UnitConverterModeler(object):
 			file = open(os.path.join(self.mospath, model_filename), 'w')
 			# write
 			file.write(\
-			"simulateModel(\"Buildings.Controls.OBC.CDL.Conversions."+self.package_name+".Validation."+model_name+"\", method=\"dassl\", stopTime=10, tolerance=1e-06, resultFile=\"ToC\");\n"
+			"simulateModel(\"Buildings.Controls.OBC.CDL.Conversions."+self.package_name+".Validation."+model_name+"\", method=\"dassl\", stopTime=10, tolerance=1e-06, resultFile=\""+model_name+"\");\n"
 			"\n"
 			"createPlot(id=1, position={20, 10, 900, 650}, subPlot=1, y={\"add.y\"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0}});\n"
 			"createPlot(id=1, position={20, 10, 900, 650}, subPlot=2, y={\"add1.y\"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0}});\n"

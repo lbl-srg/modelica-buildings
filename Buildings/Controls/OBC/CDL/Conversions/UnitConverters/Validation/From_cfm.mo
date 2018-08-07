@@ -12,8 +12,8 @@ model From_cfm "Test volume flow unit conversion from cubic feet per minute to c
 protected
   parameter Real kin = 100. "Validation input";
   parameter Real kin1 = 2000. "Validation input 1";
-  parameter Real kout = 0.047194745 "Validation output";
-  parameter Real kout1 = 0.9438949 "Validation output 1";
+  parameter Real kout = 100.*0.000471947 "Validation output";
+  parameter Real kout1 = 2000.*0.000471947 "Validation output 1";
 
   Buildings.Controls.OBC.CDL.Conversions.UnitConverters.From_cfm From_cfm
   "Unit converter from cubic feet per minute to cubic meters per second "

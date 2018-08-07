@@ -10,8 +10,8 @@ model To_cfm "Test volume flow unit conversion from cubic feet per minute to cub
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
 protected
-  parameter Real kin = 0.047194745 "Validation input";
-  parameter Real kin1 = 0.9438949 "Validation input 1";
+  parameter Real kin = 100.*0.000471947 "Validation input";
+  parameter Real kin1 = 2000.*0.000471947 "Validation input 1";
   parameter Real kout = 100. "Validation output";
   parameter Real kout1 = 2000. "Validation output 1";
 

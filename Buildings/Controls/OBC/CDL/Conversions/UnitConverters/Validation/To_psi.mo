@@ -10,7 +10,7 @@ model To_psi "Test pressure unit conversion from pound-force per square inch to 
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
 protected
-  parameter Real kin = .0036 * 6895 "Validation input";
+  parameter Real kin = .0036 * 6895. "Validation input";
   parameter Real kin1 = 1. * 6895. "Validation input 1";
   parameter Real kout = .0036 "Validation output";
   parameter Real kout1 = 1. "Validation output 1";

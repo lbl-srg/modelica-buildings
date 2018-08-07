@@ -10,8 +10,8 @@ model To_quad "Test work unit conversion from quads to joule"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
 protected
-  parameter Real kin = 1.*1055.56*1e15 "Validation input";
-  parameter Real kin1 = 2.*1055.56*1e15 "Validation input 1";
+  parameter Real kin = 1.*1055.56e15 "Validation input";
+  parameter Real kin1 = 2.*1055.56e15 "Validation input 1";
   parameter Real kout = 1. "Validation output";
   parameter Real kout1 = 2. "Validation output 1";
 

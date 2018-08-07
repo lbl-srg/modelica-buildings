@@ -12,7 +12,7 @@ model From_psi "Test pressure unit conversion from pound-force per square inch t
 protected
   parameter Real kin = .0036 "Validation input";
   parameter Real kin1 = 1. "Validation input 1";
-  parameter Real kout = .0036 * 6895 "Validation output";
+  parameter Real kout = .0036 * 6895. "Validation output";
   parameter Real kout1 = 1. * 6895. "Validation output 1";
 
   Buildings.Controls.OBC.CDL.Conversions.UnitConverters.From_psi From_psi

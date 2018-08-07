@@ -10,10 +10,10 @@ model To_hp "Test power unit conversion from horsepowers to watt"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
 protected
-  parameter Real kin = 10*0.7457 "Validation input";
-  parameter Real kin1 = 45*0.7457 "Validation input 1";
-  parameter Real kout = 10 "Validation output";
-  parameter Real kout1 = 45 "Validation output 1";
+  parameter Real kin = 10.*0.7457 "Validation input";
+  parameter Real kin1 = 45.*0.7457 "Validation input 1";
+  parameter Real kout = 10. "Validation output";
+  parameter Real kout1 = 45. "Validation output 1";
 
   Buildings.Controls.OBC.CDL.Conversions.UnitConverters.To_hp To_hp
   "Unit converter from horsepowers to watt "
