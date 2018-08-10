@@ -107,7 +107,7 @@ class UnitConverterModeler(object):
 			'direction' : 'From',
 			'adder' : '-32. * (5./9.) + 273.15',
 			'multiplier' : '5./9.',
-			'validation_input' : ['32.', '100.*(9./5.) + 32.'],
+			'validation_input' : ['32.', '100. * (9./5.) + 32.'],
 			'validation_output' : ['273.15', '373.15']},
 			{
 			'quantity' : 'temperature',
@@ -115,10 +115,10 @@ class UnitConverterModeler(object):
 			'unit' : 'degree fahrenheit',
 			'unit_symbol' : 'degF',
 			'direction' : 'To',
-			'adder' : '(-9./5.)*273.15 + 32',
+			'adder' : '(-9./5.) * 273.15 + 32',
 			'multiplier' : '9./5.',
 			'validation_input' : ['273.15', '373.15'],
-			'validation_output' : ['32.', '100.*(9./5.) + 32.']},
+			'validation_output' : ['32.', '100. * (9./5.) + 32.']},
 			{
 			'quantity' : 'temperature',
 			'modelica_quantity' : 'ThermodynamicTemperature',

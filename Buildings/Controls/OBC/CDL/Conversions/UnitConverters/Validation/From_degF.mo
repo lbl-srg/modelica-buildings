@@ -11,7 +11,7 @@ model From_degF "Test temperature unit conversion from degree fahrenheit to kelv
 
 protected
   parameter Real kin = 32. "Validation input";
-  parameter Real kin1 = 100.*(9./5.) + 32. "Validation input 1";
+  parameter Real kin1 = 100. * (9./5.) + 32. "Validation input 1";
   parameter Real kout = 273.15 "Validation output";
   parameter Real kout1 = 373.15 "Validation output 1";
 

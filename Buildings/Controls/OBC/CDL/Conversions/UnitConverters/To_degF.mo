@@ -16,7 +16,7 @@ block To_degF "Block that converts temperature from degree fahrenheit to kelvin"
 
 protected
   parameter Real k = 9./5. "Multiplier";
-  parameter Real p = (-9./5.)*273.15 + 32 "Adder";
+  parameter Real p = (-9./5.) * 273.15 + 32 "Adder";
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter conv(
     final p = p,

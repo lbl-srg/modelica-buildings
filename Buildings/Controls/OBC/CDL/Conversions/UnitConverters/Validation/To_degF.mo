@@ -13,7 +13,7 @@ protected
   parameter Real kin = 273.15 "Validation input";
   parameter Real kin1 = 373.15 "Validation input 1";
   parameter Real kout = 32. "Validation output";
-  parameter Real kout1 = 100.*(9./5.) + 32. "Validation output 1";
+  parameter Real kout1 = 100. * (9./5.) + 32. "Validation output 1";
 
   Buildings.Controls.OBC.CDL.Conversions.UnitConverters.To_degF To_degF
   "Unit converter from degree fahrenheit to kelvin "
