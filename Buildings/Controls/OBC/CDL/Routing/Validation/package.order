@@ -1,4 +1,5 @@
 BooleanReplicator
-ExtractSignal
 IntegerReplicator
+RealExtractSignal
+RealExtractor
 RealReplicator
