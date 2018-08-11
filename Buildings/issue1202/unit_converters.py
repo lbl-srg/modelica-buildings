@@ -39,9 +39,9 @@ class UnitConverterModeler(object):
 	def __init__(self,\
 		package_name = 'UnitConverters',
 		path_to_package = \
-		    r'/home/mg/repos/modelica-buildings/Buildings/Controls/OBC/CDL/Conversions',\
+		    r'../Controls/OBC/CDL/Conversions',\
 		path_to_validation_scripts = \
-			r'/home/mg/repos/modelica-buildings/Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Conversions'):
+			r'../Resources/Scripts/Dymola/Controls/OBC/CDL/Conversions'):
 
 		self.par, self.si = self.set_parameters()
 
@@ -149,7 +149,7 @@ class UnitConverterModeler(object):
 			'adder' : '0.',
 			'multiplier' : '6895.',
 			'validation_input' : ['.0036', '1.'],
-			'validation_output' : ['.0036 * 6895.', '1. * 6895.']},
+			'validation_output' : ['.0036*6895.', '1.*6895.']},
 			{
 			'quantity' : 'pressure',
 			'modelica_quantity' : 'Pressure',
@@ -158,7 +158,7 @@ class UnitConverterModeler(object):
 			'direction' : 'To',
 			'adder' : '0.',
 			'multiplier' : '1./6895.',
-			'validation_input' : ['.0036 * 6895.', '1. * 6895.'],
+			'validation_input' : ['.0036*6895.', '1.*6895.'],
 			'validation_output' : ['.0036', '1.']},
 			{
 			'quantity' : 'pressure',
@@ -710,6 +710,18 @@ class UnitConverterModeler(object):
 		log.info(msg.format(self.mospath))
 
 		return True
+
+def main():
+	conv = UnitConverterModeler()
+	conv.write_unit_converters()
+	conv.write_unit_converter_validators()
+	conv.write_mos_validation_scripts()
+
+if __name__ == "__main__":
+	main()
+
+
+
 
 
 
