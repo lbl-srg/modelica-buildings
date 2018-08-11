@@ -1,9 +1,9 @@
 within Buildings.Fluid.HeatExchangers;
 model EvaporatorCondenser
   "Evaporator or condenser with refrigerant experiencing constant temperature phase change"
-  extends Interfaces.TwoPortHeatMassExchanger(
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol(
-       final prescribedHeatFlowRate=false));
+  extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(redeclare final
+      Buildings.Fluid.MixingVolumes.MixingVolume vol(final
+        prescribedHeatFlowRate=false));
 
   parameter Modelica.SIunits.ThermalConductance UA
     "Thermal conductance of heat exchanger";
@@ -21,7 +21,6 @@ model EvaporatorCondenser
     "Temperature and heat flow from the refrigerant"
     annotation (Placement(transformation(extent={{-5,-55},{5,-65}}),
         iconTransformation(extent={{-5,-55},{5,-65}})));
-
 
   Modelica.SIunits.Efficiency NTU = UA /
     (Buildings.Utilities.Math.Functions.smoothMax(abs(port_a.m_flow),m_flow_small,m_flow_small)*cp_default)

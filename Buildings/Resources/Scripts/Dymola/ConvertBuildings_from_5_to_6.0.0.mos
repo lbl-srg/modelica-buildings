@@ -14,3 +14,14 @@ convertModifiers("Buildings.Airflow.Multizone.Orifice", {"allowFlowReversal"}, f
 convertModifiers("Buildings.Airflow.Multizone.EffectiveAirLeakageArea",
                  {"A", "CD", "lWet"}, fill("",0), true);
 convertModifiers("Buildings.Airflow.Multizone.Orifice", {"lWet"}, fill("",0), true);
+
+
+convertClass("Buildings.Utilities.Reports.Printer",
+             "Buildings.Utilities.IO.Files.Printer");
+convertClass("Buildings.Utilities.Reports.printRealArray",
+             "Buildings.Utilities.IO.Files.BaseClasses.printRealArray");
+convertClass("Buildings.Utilities.Reports.Examples.Printer",
+             "Buildings.Utilities.IO.Files.Examples.Printer");
+
+convertClass("Buildings.Controls.OBC.CDL.ExtractSignal",
+             "Buildings.Controls.OBC.CDL.RealExtractSignal");

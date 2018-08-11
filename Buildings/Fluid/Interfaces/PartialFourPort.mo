@@ -18,26 +18,26 @@ partial model PartialFourPort "Partial model with four ports"
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
                      redeclare final package Medium = Medium1,
                      m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium1.h_default))
+                     h_outflow(start = Medium1.h_default, nominal = Medium1.h_default))
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
                      redeclare final package Medium = Medium1,
                      m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium1.h_default))
+                     h_outflow(start = Medium1.h_default, nominal = Medium1.h_default))
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{110,50},{90,70}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
                      redeclare final package Medium = Medium2,
                      m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium2.h_default))
+                     h_outflow(start = Medium2.h_default, nominal = Medium2.h_default))
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
                      redeclare final package Medium = Medium2,
                      m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium2.h_default))
+                     h_outflow(start = Medium2.h_default, nominal = Medium2.h_default))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 
@@ -68,6 +68,11 @@ are not implemented.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+July 8, 2018, by Filip Jorissen:<br/>
+Added nominal value of <code>h_outflow</code> in <code>FluidPorts</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/977\">#977</a>.
+</li>
 <li>
 November 12, 2015, by Michael Wetter:<br/>
 Renamed model from <code>FourPort</code> to
