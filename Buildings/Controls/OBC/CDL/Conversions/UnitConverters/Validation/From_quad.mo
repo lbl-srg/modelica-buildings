@@ -63,7 +63,7 @@ equation
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
                 Diagram(coordinateSystem( preserveAspectRatio=false)),
-            experiment(StopTime=1000.0, Tolerance=1e-06),
+            experiment(StopTime=10.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Conversions/UnitConverters/Validation/From_quad.mos"
     "Simulate and plot"),
     Documentation(

@@ -609,7 +609,7 @@ class UnitConverterModeler(object):
 			"                fillPattern = FillPattern.Solid,\n"\
 			"                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),\n"\
 			"                Diagram(coordinateSystem( preserveAspectRatio=false)),\n"\
-			"            experiment(StopTime=1000.0, Tolerance=1e-06),\n"\
+			"            experiment(StopTime=10.0, Tolerance=1e-06),\n"\
 			"  __Dymola_Commands(file=\"modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Conversions/"+self.package_name+'/Validation/'+model_name+".mos"+"\"\n"\
 			"    \"Simulate and plot\"),\n"\
 			"    Documentation(\n"\
