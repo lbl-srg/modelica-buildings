@@ -8,6 +8,12 @@ convertClear();
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller",
 	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Controller");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller",
+               "TSupMin", "TSupSetMin");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller",
+               "TSupMax", "TSupSetMax");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller",
+               "TSupDes", "TSupSetDes");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller",
 	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Economizers.Controller");
@@ -91,6 +97,87 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.
                "THeaEco", "TSupHeaEco");
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.OutsideAirFlow",
                "TCoo", "TSupCoo");
+
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller",
+               "TRooHeaSet", "TZooHeaSet");
+
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures",
+	       "occCooSet","TOccDisSet");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures",
+	       "TCooSet","TZonCooSet");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures",
+	       "THeaSet","TZonHeaSet");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures",
+	       "TCooOnMax","TZonCooSetMaxOn");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures",
+	       "TCooOnMin","TZonCooSetMinOn");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures",
+	       "THeaOnMax","TZonHeaSetMaxOn");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures",
+	       "THeaOnMin","TZonHeaSetMinOn");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures",
+	       "TCooWinOpe","TZonCooSetWinOpe");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures",
+	       "THeaWinOpe","TZonHeaSetWinOpe");
+
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow",
+	       "VCooMax","VDisCooSetMax_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow",
+	       "VMin","VDisSetMin_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow",
+	       "VHeaMax","VDisHeaSetMax_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow",
+	       "VMinCon","VDisConMin_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow",
+	       "outAirPerAre","VOutPerAre_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow",
+	       "outAirPerPer","VOutPerPer_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow",
+	       "VOccMinAir","VOccDisMin_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow",
+	       "VActCooMax","VActCooMax_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow",
+	       "VActCooMin","VActCooMin_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow",
+	       "VActMin","VActMin_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow",
+	       "VActHeaMin","VActHeaMin_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow",
+	       "VActHeaMax","VActHeaMax_flow");
+
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests",
+	       "TCooSet","TZonCooSet");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests",
+	       "VDis","VDis_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests",
+	       "VDisSet","VDisSet_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests",
+	       "cooSetDif_1","errTZonCoo_1");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests",
+	       "cooSetDif_2","errTZonCoo_2");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests",
+	       "disAirSetDif_1","errTDis_1");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests",
+	       "disAirSetDif_2","errTDis_2");
+
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves",
+	       "dTDisMax","dTDisZonSetMax");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves",
+	       "TDisSet","TDisHeaSet");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
