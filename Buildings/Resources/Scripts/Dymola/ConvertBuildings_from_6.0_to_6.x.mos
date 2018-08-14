@@ -14,9 +14,13 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller"
                "TSupMax", "TSupSetMax");
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller",
                "TSupDes", "TSupSetDes");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller",
+               "VBox_flow", "VDis_flow");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller",
 	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Economizers.Controller");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller",
+               "TSetSup", "TSupSet");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable",
 	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Economizers.Subsequences.Enable");
@@ -58,6 +62,10 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.V
                "TSupMax", "TSupSetMax");
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature",
                "TSupDes", "TSupSetDes");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature",
+               "TSetZones", "TZonSetAve");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature",
+               "TSetSup", "TSupSet");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Controller",
 	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.SingleZone.Economizers.Controller");
@@ -84,18 +92,20 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.
                "outAirPerAre", "VOutPerAre_flow");
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.OutsideAirFlow",
                "outAirPerPer", "VOutPerPer_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.OutsideAirFlow",
+               "VBox_flow", "VDis_flow");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.VAVSupply",
              "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.SingleZone.SetPoints.Supply");
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.VAVSupply",
                "TMax", "TSupSetMax");
-convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.OutsideAirFlow",
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.VAVSupply",
                "TMin", "TSupSetMin");
-convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.OutsideAirFlow",
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.VAVSupply",
                "TSetZon", "TZonSet");
-convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.OutsideAirFlow",
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.VAVSupply",
                "THeaEco", "TSupHeaEco");
-convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.OutsideAirFlow",
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.VAVSupply",
                "TCoo", "TSupCoo");
 
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller",
@@ -164,6 +174,55 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.Dampe
 	       "dTDisMax","dTDisZonSetMax");
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves",
 	       "TDisSet","TDisHeaSet");
+
+
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "THeaOn","TZonHeaOn");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "TCooOn","TZonCooOn");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "THeaOff","TZonHeaOff");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "TCooOff","TZonCooOff");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "freProThrVal","TZonFreProOn");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "freProEndVal","TZonFreProOff");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "TCooOnMax","TZonCooSetMaxOn");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "TCooOnMin","TZonCooSetMinOn");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "THeaOnMax","TZonHeaSetMaxOff");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "THeaOnMin","TZonHeaSetMinOff");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "TCooWinOpe","TZonCooSetWinOpe");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "THeaWinOpe","TZonHeaSetWinOpe");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "incSetDem_1","incTSetDem_1");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "incSetDem_2","incTSetDem_2");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "incSetDem_3","incTSetDem_3");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "decSetDem_1","decTSetDem_1");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "decSetDem_2","decTSetDem_2");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints",
+	       "decSetDem_3","decTSetDem_3");
+
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode",
+	       "THeaSet","TOccZonHeaSet");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode",
+	       "TCooSet","TOccZonCooSet");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode",
+	       "TUnoCooSet","TUnoZonCooSet");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode",
+	       "TUnoHeaSet","TUnoZonHeaSet");
+
+
 
 
 
