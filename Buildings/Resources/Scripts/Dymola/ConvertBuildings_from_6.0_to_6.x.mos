@@ -5,55 +5,32 @@ clear
 
 convertClear();
 
-//*mg convert class one by one, follow each class with all the variable renames, e.g.
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller",
 	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Controller");
-convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Validation.Controller",
-	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Validation.Controller");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller",
 	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Economizers.Controller");
-convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Validation.Controller_Disable",
-	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Economizers.Validation.Controller_Disable");
-convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Validation.Controller_Mod_DamLim",
-	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Economizers.Validation.Controller_Mod_DamLim");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Enable",
 	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Economizers.Subsequences.Enable");
-convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Validation.Enable_FreProSta",
-	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Economizers.Subsequences.Validation.Enable_FreProSta");
-convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Validation.Enable_TOut_hOut",
-	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Economizers.Subsequences.Validation.Enable_TOut_hOut");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Limits",
 	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Economizers.Subsequences.Limits");
-convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Validation.Limits_LoopDisable",
-	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Economizers.Subsequences.Validation.Limits_LoopDisable");
-convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Validation.Limits_VOut_flow",
-	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Economizers.Subsequences.Validation.Limits_VOut_flow");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Modulation",
 	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Economizers.Subsequences.Modulation");
-convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Subsequences.Validation.Modulation_TSup",
-	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Economizers.Subsequences.Validation.Modulation_TSup");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ExhaustDamper",
              "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.SetPoints.ExhaustDamper");
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ExhaustDamper",
                "uFan", "uSupFan");
-convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Validation.ExhaustDamper",
-             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.SetPoints.Validation.ExhaustDamper");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.OutsideAirFlow",
              "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.SetPoints.OutsideAirFlow");
-convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Validation.OutsideAirFlow",
-             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.SetPoints.Validation.OutsideAirFlow");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ReturnFanDirectPressure",
              "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.SetPoints.ReturnFanDirectPressure");
-convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Validation.ReturnFanDirectPressure",
-             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.SetPoints.Validation.ReturnFanDirectPressure");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyFan",
              "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.SetPoints.SupplyFan");
@@ -61,15 +38,11 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.V
                "VBox_flow", "VDis_flow");
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyFan",
                "sumVBox_flow", "sumVDis_flow");
-convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Validation.VAVSupplyFan",
-             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.SetPoints.Validation.SupplyFan");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplySignals",
              "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.SetPoints.SupplySignals");
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplySignals",
                "TSetSup", "TSupSet");
-convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Validation.Valve",
-             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.SetPoints.Validation.SupplySignals");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature",
              "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.SetPoints.SupplyTemperature");
@@ -79,27 +52,7 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.V
                "TSupMax", "TSupSetMax");
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyTemperature",
                "TSupDes", "TSupSetDes");
-convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.Validation.VAVSupplyTemperature",
-             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.SetPoints.Validation.SupplyTemperature");
 
 
 
-
-
-
-//convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller",
-//             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller");
-//convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers",
-//             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers");
-//convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints",
-//             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints");
-//convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Validation",
-//             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Validation");
-//convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers",
-//             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers");
-//convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints",
-//             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints");
-//
-//convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.Validation.Valve",
-//             "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.Validation.VAVSupplyTemperature_Valve");
 
