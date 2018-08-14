@@ -16,6 +16,10 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller"
                "TSupDes", "TSupSetDes");
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller",
                "VBox_flow", "VDis_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller",
+               "outAirPerAre", "VOutPerAre_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller",
+               "outAirPerPer", "VOutPerPer_flow");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Economizers.Controller",
 	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.Economizers.Controller");
@@ -38,9 +42,17 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.E
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.OutsideAirFlow",
              "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.SetPoints.OutsideAirFlow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.OutsideAirFlow",
+               "VBox_flow", "VDis_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.OutsideAirFlow",
+               "outAirPerAre", "VOutPerAre_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.OutsideAirFlow",
+               "outAirPerPer", "VOutPerPer_flow");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ReturnFanDirectPressure",
              "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.SetPoints.ReturnFanDirectPressure");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.ReturnFanDirectPressure",
+               "yExhDam", "yExhDamPos");
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.SetPoints.VAVSupplyFan",
              "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.VAV.MultiZone.SetPoints.SupplyFan");
@@ -110,6 +122,12 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.
 
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller",
                "TRooHeaSet", "TZooHeaSet");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller",
+               "outAirPerAre", "VOutPerAre_flow");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller",
+               "outAirPerPer", "VOutPerPer_flow");
+
+
 
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures",
 	       "occCooSet","TOccDisSet");
