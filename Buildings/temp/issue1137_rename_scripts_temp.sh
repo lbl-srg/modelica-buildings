@@ -1,12 +1,21 @@
 for ff in `find . \( -path '*G36_PR1*ZoneTemperatures*.mo' -or -path '*G36_PR1*ZoneTemperatures*.mos' -or -path '*G36_PR1*ZoneTemperatures*.py' -or -path '*G36_PR1*ZoneTemperatures*.txt' -or -path '*G36_PR1*ZoneTemperatures*.svg'  \)`; do
     list=(\
-      occCooSet TOccDisSet \
+      incSetDem_1 incTSetDem_1 \
+      incSetDem_2 incTSetDem_2 \
+      incSetDem_3 incTSetDem_3 \
+      decSetDem_1 decTSetDem_1 \
+      decSetDem_2 decTSetDem_2 \
+      decSetDem_3 decTSetDem_3 \
+      occCooSet TZonCooSetOcc \
+      occHeaSet TZonHeaSetOcc \
+      unoCooSet TZonCooSetUno \
+      unoHeaSet TZonHeaSetUno \
       TCooSet TZonCooSet \
       THeaSet TZonHeaSet \
-      TCooOnMax TZonCooSetMaxOn \
-      TCooOnMin TZonCooSetMinOn \
-      THeaOnMax TZonHeaSetMaxOn \
-      THeaOnMin TZonHeaSetMinOn \
+      TCooOnMax TZonCooOnMax \
+      TCooOnMin TZonCooOnMin \
+      THeaOnMax TZonHeaOnMax \
+      THeaOnMin TZonHeaOnMin \
       TCooWinOpe TZonCooSetWinOpe \
       THeaWinOpe TZonHeaSetWinOpe \
       TSetZon TZonSet \
@@ -84,28 +93,28 @@ done
 
 for ff in `find . \( -path '*G36_PR1*ModeAndSetPoints*.mo' -or -path '*G36_PR1*ModeAndSetPoints*.mos' -or -path '*G36_PR1*ModeAndSetPoints*.py' -or -path '*G36_PR1*ModeAndSetPoints*.txt' -or -path '*G36_PR1*ModeAndSetPoints*.svg'  \)`; do
     list=(\
+      incSetDem_1 incTSetDem_1 \
+      incSetDem_2 incTSetDem_2 \
+      incSetDem_3 incTSetDem_3 \
+      decSetDem_1 decTSetDem_1 \
+      decSetDem_2 decTSetDem_2 \
+      decSetDem_3 decTSetDem_3 \
     THeaOn TZonHeaOn \
     TCooOn TZonCooOn \
     THeaOff TZonHeaOff \
     TCooOff TZonCooOff \
     freProThrVal TZonFreProOn \
     freProEndVal TZonFreProOff \
-    TCooOnMax TZonCooSetMaxOn \
-    TCooOnMin TZonCooSetMinOn \
+    TCooOnMax TZonCooOnMax \
+    TCooOnMin TZonCooOnMin \
     THeaOnMax TZonHeaSetMaxOff \
     THeaOnMin TZonHeaSetMinOff \
     TCooWinOpe TZonCooSetWinOpe \
     THeaWinOpe TZonHeaSetWinOpe \
-    incSetDem_1 incTSetDem_1 \
-    incSetDem_2 incTSetDem_2 \
-    incSetDem_3 incTSetDem_3 \
-    decSetDem_1 decTSetDem_1 \
-    decSetDem_2 decTSetDem_2 \
-    decSetDem_3 decTSetDem_3 \
-    THeaSet TOccZonHeaSet \
-    TCooSet TOccZonCooSet \
-    TUnoCooSet TUnoZonCooSet \
-    TUnoHeaSet TUnoZonHeaSet \
+    THeaSet TZonHeaSetOcc \
+    TCooSet TZonCooSetOcc \
+    TUnoCooSet TZonCooSetUno \
+    TUnoHeaSet TZonHeaSetUno \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -116,10 +125,12 @@ done
 
 for ff in `find . \( -path '*G36_PR1*OperationMode*.mo' -or -path '*G36_PR1*OperationMode*.mos' -or -path '*G36_PR1*OperationMode*.py' -or -path '*G36_PR1*OperationMode*.txt' -or -path '*G36_PR1*OperationMode*.svg'  \)`; do
     list=(\
-    THeaSet TOccZonHeaSet \
-    TCooSet TOccZonCooSet \
-    TUnoCooSet TUnoZonCooSet \
-    TUnoHeaSet TUnoZonHeaSet \
+    THeaSet TZonHeaSetOcc \
+    TCooSet TZonCooSetOcc \
+    TUnoCooSet TZonCooSetUno \
+    TUnoHeaSet TZonHeaSetUno \
+    freProThrVal TZonFreProOn \
+    freProEndVal TZonFreProOff \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do

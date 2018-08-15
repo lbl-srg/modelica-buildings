@@ -143,7 +143,13 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller",
 
 
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures",
-	       "occCooSet","TOccDisSet");
+	       "occCooSet","TZonCooSetOcc");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures",
+	       "occHeaSet","TZonHeaSetOcc");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures",
+	       "unoCooSet","TZonCooSetUno");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures",
+	       "unoHeaSet","TZonHeaSetUno");
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures",
 	       "TCooSet","TZonCooSet");
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures",

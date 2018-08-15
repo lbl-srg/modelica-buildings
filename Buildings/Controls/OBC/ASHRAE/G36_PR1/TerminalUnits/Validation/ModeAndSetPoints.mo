@@ -115,12 +115,12 @@ First implementation.
  Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{50,86},{126,76}},
-          lineColor={0,0,127},
+          lineColor={85,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="No window status sensor
 No occupancy sensor"), Text(
           extent={{48,44},{102,36}},
-          lineColor={0,0,127},
+          lineColor={85,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="No local setpoint adjustment")}),
     Icon(graphics={
