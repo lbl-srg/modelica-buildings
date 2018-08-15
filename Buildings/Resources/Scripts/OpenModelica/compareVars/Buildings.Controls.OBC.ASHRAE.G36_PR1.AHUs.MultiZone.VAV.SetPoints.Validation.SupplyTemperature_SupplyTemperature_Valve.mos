@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "AHUSupplyTemperature_Valve.TSup",
+    "AHUSupplyTemperature_Valve.TSupSet",
+    "AHUSupplyTemperature_Valve.uTSup",
+    "AHUSupplyTemperature_Valve.yHea",
+    "AHUSupplyTemperature_Valve.yCoo",
+    "AHUSupplyTemperature_Valve1.TSup",
+    "AHUSupplyTemperature_Valve.TSupSet",
+    "AHUSupplyTemperature_Valve1.uTSup",
+    "AHUSupplyTemperature_Valve1.yHea",
+    "AHUSupplyTemperature_Valve.yCoo"
+  };
