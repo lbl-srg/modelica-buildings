@@ -70,8 +70,9 @@ equation
     annotation (Line(points={{-79,-90},{-62,-90}}, color={255,0,255}));
   connect(not1.y, booToInt.u)
     annotation (Line(points={{-39,-90},{-22,-90}}, color={255,0,255}));
-  connect(occCooSet.y, TSetZon.TOccDisSet) annotation (Line(points={{-79,90},{-72,
-          90},{-72,108},{30,108},{30,78},{58,78}}, color={0,0,127}));
+  connect(occCooSet.y, TSetZon.occCooSet)
+    annotation (Line(points={{-79,90},{-72,90},{-72,108},{30,108},{30,78},{58,78}},
+      color={0,0,127}));
   connect(occHeaSet.y, TSetZon.occHeaSet)
     annotation (Line(points={{-39,90},{26,90},{26,74},{58,74}},
       color={0,0,127}));
