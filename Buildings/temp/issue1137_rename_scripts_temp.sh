@@ -44,6 +44,7 @@ for ff in `find . \( -path '*G36_PR1*OutsideAirFlow*.mo' -or -path '*G36_PR1*Out
     list=(\
      outAirPerAre VOutPerAre_flow \
      outAirPerPer VOutPerPer_flow \
+     VBox_flow VDis_flow \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -130,6 +131,7 @@ done
 for ff in `find . \( -path '*G36_PR1*ExhaustDamper*.mo' -or -path '*G36_PR1*ExhaustDamper*.mos' -or -path '*G36_PR1*ExhaustDamper*.py' -or -path '*G36_PR1*ExhaustDamper*.txt' -or -path '*G36_PR1*ExhaustDamper*.svg'  \)`; do
     list=(\
      uFan uSupFan \
+     yExhDam yExhDamPos \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -138,7 +140,7 @@ for ff in `find . \( -path '*G36_PR1*ExhaustDamper*.mo' -or -path '*G36_PR1*Exha
 done
 
 
-for ff in `find . \( -path '*G36_PR1*SingleZone*VAVSupply*.mo' -or -path '*G36_PR1*SingleZone*VAVSupply*.mos' -or -path '*G36_PR1*SingleZone*VAVSupply*.py' -or -path '*G36_PR1*SingleZone*VAVSupply*.txt' -or -path '*G36_PR1*SingleZone*VAVSupply*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*SingleZone*VAV*Supply*.mo' -or -path '*G36_PR1*SingleZone*VAV*Supply*.mos' -or -path '*G36_PR1*SingleZone*VAV*Supply*.py' -or -path '*G36_PR1*SingleZone*VAV*Supply*.txt' -or -path '*G36_PR1*SingleZone*VAV*Supply*.svg'  \)`; do
     list=(\
      TMax TSupSetMax \
      TMin TSupSetMin \
@@ -154,7 +156,7 @@ for ff in `find . \( -path '*G36_PR1*SingleZone*VAVSupply*.mo' -or -path '*G36_P
 done
 
 
-for ff in `find . \( -path '*G36_PR1*VAVSupplyTemperature*.mo' -or -path '*G36_PR1*VAVSupplyTemperature*.mos' -or -path '*G36_PR1*VAVSupplyTemperature*.py' -or -path '*G36_PR1*VAVSupplyTemperature*.txt' -or -path '*G36_PR1*VAVSupplyTemperature*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*VAV*SupplyTemperature*.mo' -or -path '*G36_PR1*VAV*SupplyTemperature*.mos' -or -path '*G36_PR1*VAV*SupplyTemperature*.py' -or -path '*G36_PR1*VAV*SupplyTemperature*.txt' -or -path '*G36_PR1*VAV*SupplyTemperature*.svg'  \)`; do
     list=(\
     TSupMin TSupSetMin \
     TSupMax TSupSetMax \
@@ -203,7 +205,7 @@ for ff in `find . \( -path '*G36_PR1*TerminalUnits*Controller*.mo' -or -path '*G
 done
 
 
-for ff in `find . \( -path '*G36_PR1*VAVSupplySignals*.mo' -or -path '*G36_PR1*VAVSupplySignals*.mos' -or -path '*G36_PR1*VAVSupplySignals*.py' -or -path '*G36_PR1*VAVSupplySignals*.txt' -or -path '*G36_PR1*VAVSupplySignals*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*VAV*SupplySignals*.mo' -or -path '*G36_PR1*VAV*SupplySignals*.mos' -or -path '*G36_PR1*VAV*SupplySignals*.py' -or -path '*G36_PR1*VAV*SupplySignals*.txt' -or -path '*G36_PR1*VAV*SupplySignals*.svg'  \)`; do
     list=(\
      TSetSup TSupSet \
           )
@@ -214,7 +216,7 @@ for ff in `find . \( -path '*G36_PR1*VAVSupplySignals*.mo' -or -path '*G36_PR1*V
 done
 
 
-for ff in `find . \( -path '*G36_PR1*VAVSupplyFan*.mo' -or -path '*G36_PR1*VAVSupplyFan*.mos' -or -path '*G36_PR1*VAVSupplyFan*.py' -or -path '*G36_PR1*VAVSupplyFan*.txt' -or -path '*G36_PR1*VAVSupplyFan*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*VAV*SupplyFan*.mo' -or -path '*G36_PR1*VAV*SupplyFan*.mos' -or -path '*G36_PR1*VAV*SupplyFan*.py' -or -path '*G36_PR1*VAV*SupplyFan*.txt' -or -path '*G36_PR1*VAV*SupplyFan*.svg'  \)`; do
     list=(\
      VBox_flow VDis_flow \
      sumVBox_flow sumVDis_flow \
@@ -229,7 +231,7 @@ done
 for ff in `find . \( -path '*G36_PR1*.mo' -or -path '*G36_PR1*.mos' -or -path '*G36_PR1*.py' -or -path '*G36_PR1*.txt' -or -path '*G36_PR1*.svg'  \)`; do
     list=(\
      TSetSup TSupSet \
-     _flow_flow_flow _flow \
+     _flow_flow _flow \
      TSetZon TZonSet \
           )
 
