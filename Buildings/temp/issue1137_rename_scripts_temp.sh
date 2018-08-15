@@ -1,21 +1,16 @@
-# Steps to convert variable names in this PR:
-# rename classes as required using refactor from BuildingsPy
-# run the local convert element script to rename variables in instantiated classes
-# run this script from /modelica-buildings/Buildings
-
 for ff in `find . \( -path '*G36_PR1*ZoneTemperatures*.mo' -or -path '*G36_PR1*ZoneTemperatures*.mos' -or -path '*G36_PR1*ZoneTemperatures*.py' -or -path '*G36_PR1*ZoneTemperatures*.txt' -or -path '*G36_PR1*ZoneTemperatures*.svg'  \)`; do
     list=(\
-     occCooSet TOccDisSet \
-     TCooSet TZonCooSet \
-     THeaSet TZonHeaSet \
-     TCooOnMax TZonCooSetMaxOn \
-     TCooOnMin TZonCooSetMinOn \
-     THeaOnMax TZonHeaSetMaxOn \
-     THeaOnMin TZonHeaSetMinOn \
-     TCooWinOpe TZonCooSetWinOpe \
-     THeaWinOpe TZonHeaSetWinOpe \
-     TSetZon TZonSet \
-          )
+      occCooSet TOccDisSet \
+      TCooSet TZonCooSet \
+      THeaSet TZonHeaSet \
+      TCooOnMax TZonCooSetMaxOn \
+      TCooOnMin TZonCooSetMinOn \
+      THeaOnMax TZonHeaSetMaxOn \
+      THeaOnMin TZonHeaSetMinOn \
+      TCooWinOpe TZonCooSetWinOpe \
+      THeaWinOpe TZonHeaSetWinOpe \
+      TSetZon TZonSet \
+    )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
         sed -e s/${list[i]}/${list[i+1]}/g -i $ff
