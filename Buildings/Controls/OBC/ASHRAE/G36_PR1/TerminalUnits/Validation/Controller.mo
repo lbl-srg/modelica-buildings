@@ -65,7 +65,7 @@ model Controller "Validate model for controlling VAV terminal box with reheat"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
 equation
-  connect(TSetRooHea.y,con.TZooHeaSet)
+  connect(TSetRooHea.y, con.TRooHeaSet)
     annotation (Line(points={{-59,80},{-50,80},{-50,60},{6,60},{6,76.5},
       {59,76.5}}, color={0,0,127}));
   connect(TSetRooCoo.y, con.TRooCooSet)
@@ -97,7 +97,7 @@ equation
   connect(winSta.y, con1.uWin)
     annotation (Line(points={{71,-80},{80,-80},{80,-60},{44,-60},{44,-4.5},
       {59,-4.5}}, color={255,0,255}));
-  connect(TSetRooHea.y,con1.TZooHeaSet)
+  connect(TSetRooHea.y, con1.TRooHeaSet)
     annotation (Line(points={{-59,80},{-50,80},{-50,60},{6,60},{6,16.5},
       {59,16.5}}, color={0,0,127}));
   connect(TSetRooCoo.y, con1.TRooCooSet)
