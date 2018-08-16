@@ -83,6 +83,10 @@ for ff in `find . \( -path '*G36_PR1*DamperValves*.mo' -or -path '*G36_PR1*Dampe
     list=(\
      dTDisMax dTDisZonSetMax \
      TDisSet TDisHeaSet \
+     VActCooMin VActCooMin_flow \
+     VActMin VActMin_flow \
+     VActHeaMin VActHeaMin_flow \
+     VActHeaMax VActHeaMax_flow \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -115,6 +119,10 @@ for ff in `find . \( -path '*G36_PR1*ModeAndSetPoints*.mo' -or -path '*G36_PR1*M
     TCooSet TZonCooSetOcc \
     TUnoCooSet TZonCooSetUno \
     TUnoHeaSet TZonHeaSetUno \
+      occCooSet TZonCooSetOcc \
+      occHeaSet TZonHeaSetOcc \
+      unoCooSet TZonCooSetUno \
+      unoHeaSet TZonHeaSetUno \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -191,6 +199,7 @@ for ff in `find . \( -path '*G36_PR1*MultiZone*Controller*.mo' -or -path '*G36_P
     outAirPerPer VOutPerPer_flow \
     TCooSet TZonCooSet \
     THeaSet TZonHeaSet \
+     VBox_flow VDis_flow \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -202,12 +211,15 @@ done
 for ff in `find . \( -path '*G36_PR1*TerminalUnits*Controller*.mo' -or -path '*G36_PR1*TerminalUnits*Controller*.mos' -or -path '*G36_PR1*TerminalUnits*Controller*.py' -or -path '*G36_PR1*TerminalUnits*Controller*.txt' -or -path '*G36_PR1*TerminalUnits*Controller*.svg'  \)`; do
     list=(\
     TRooHeaSet TZooHeaSet \
+     VDisSet VDisSet_flow \
     outAirPerAre VOutPerAre_flow \
     outAirPerPer VOutPerPer_flow \
     VCooMax VDisCooSetMax_flow \
     VMin VDisSetMin_flow \
     VHeaMax VDisHeaSetMax_flow \
     VMinCon VDisConMin_flow \
+    dTDisMax dTDisZonSetMax \
+    TCooSet TZonCooSet \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -238,12 +250,25 @@ for ff in `find . \( -path '*G36_PR1*VAV*SupplyFan*.mo' -or -path '*G36_PR1*VAV*
     done
 done
 
-
+# the last 4 rename rows in this group are due to the issue with the *.mos script (it does not perform element renames for folders # above)
 for ff in `find . \( -path '*G36_PR1*.mo' -or -path '*G36_PR1*.mos' -or -path '*G36_PR1*.py' -or -path '*G36_PR1*.txt' -or -path '*G36_PR1*.svg'  \)`; do
     list=(\
      TSetSup TSupSet \
      _flow_flow _flow \
+     _flowSet_flow _flow \
      TSetZon TZonSet \
+     cooSetDif_1 errTZonCoo_1 \
+     cooSetDif_2 errTZonCoo_2 \
+     disAirSetDif_1 errTDis_1 \
+     disAirSetDif_2 errTDis_2 \
+     VDisSetMin_flowCon VDisConMin_flow \
+     VDisSet_flowMin_flow VDisSetMin_flow \
+     VDis_flowSet VDisSet_flow \
+     VBox_flow VDis_flow \
+         occCooSet TZonCooSetOcc \
+         occHeaSet TZonHeaSetOcc \
+         unoCooSet TZonCooSetUno \
+         unoHeaSet TZonHeaSetUno \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
