@@ -70,17 +70,14 @@ equation
     annotation (Line(points={{-79,-90},{-62,-90}}, color={255,0,255}));
   connect(not1.y, booToInt.u)
     annotation (Line(points={{-39,-90},{-22,-90}}, color={255,0,255}));
-  connect(occCooSet.y, TSetZon.occCooSet)
-    annotation (Line(points={{-79,90},{-72,90},{-72,108},{30,108},{30,78},{58,78}},
-      color={0,0,127}));
-  connect(occHeaSet.y, TSetZon.occHeaSet)
-    annotation (Line(points={{-39,90},{26,90},{26,74},{58,74}},
-      color={0,0,127}));
-  connect(unoCooSet.y, TSetZon.unoCooSet)
-    annotation (Line(points={{-79,50},{-72,50},{-72,70},{58,70}}, color={0,0,127}));
-  connect(unoHeaSet.y, TSetZon.unoHeaSet)
-    annotation (Line(points={{-39,50},{-32,50},{-32,66},{58,66}},
-      color={0,0,127}));
+  connect(occCooSet.y, TSetZon.TZonCooSetOcc) annotation (Line(points={{-79,90},
+          {-72,90},{-72,108},{30,108},{30,78},{58,78}}, color={0,0,127}));
+  connect(occHeaSet.y, TSetZon.TZonHeaSetOcc) annotation (Line(points={{-39,90},
+          {26,90},{26,74},{58,74}}, color={0,0,127}));
+  connect(unoCooSet.y, TSetZon.TZonCooSetUno) annotation (Line(points={{-79,50},
+          {-72,50},{-72,70},{58,70}}, color={0,0,127}));
+  connect(unoHeaSet.y, TSetZon.TZonHeaSetUno) annotation (Line(points={{-39,50},
+          {-32,50},{-32,66},{58,66}}, color={0,0,127}));
   connect(cooDemLimLev.y, TSetZon.uCooDemLimLev)
     annotation (Line(points={{-119,-60},{-100,-60},{-100,-40},{22,-40},
       {22,46},{58,46}}, color={255,127,0}));
