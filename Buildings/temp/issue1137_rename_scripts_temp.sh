@@ -30,9 +30,9 @@ done
 for ff in `find . \( -path '*G36_PR1*ActiveAirFlow*.mo' -or -path '*G36_PR1*ActiveAirFlow*.mos' -or -path '*G36_PR1*ActiveAirFlow*.py' -or -path '*G36_PR1*ActiveAirFlow*.txt' -or -path '*G36_PR1*ActiveAirFlow*.svg'  \)`; do
     list=(\
      VCooMax VDisCooSetMax_flow \
-     VMin VDisSetMin_flow \
      VHeaMax VDisHeaSetMax_flow \
      VMinCon VDisConMin_flow \
+     VMin VDisSetMin_flow \
      outAirPerAre VOutPerAre_flow \
      outAirPerPer VOutPerPer_flow \
      VOccMinAir VOccDisMin_flow \
@@ -65,8 +65,8 @@ done
 for ff in `find . \( -path '*G36_PR1*SystemRequests*.mo' -or -path '*G36_PR1*SystemRequests*.mos' -or -path '*G36_PR1*SystemRequests*.py' -or -path '*G36_PR1*SystemRequests*.txt' -or -path '*G36_PR1*SystemRequests*.svg'  \)`; do
     list=(\
      TCooSet TZonCooSet \
-     VDis VDis_flow \
      VDisSet VDisSet_flow \
+     VDis VDis_flow \
      cooSetDif_1 errTZonCoo_1 \
      cooSetDif_2 errTZonCoo_2 \
      disAirSetDif_1 errTDis_1 \
@@ -85,6 +85,7 @@ for ff in `find . \( -path '*G36_PR1*DamperValves*.mo' -or -path '*G36_PR1*Dampe
      TDisSet TDisHeaSet \
      VActCooMin VActCooMin_flow \
      VActMin VActMin_flow \
+     VActCooMax VActCooMax_flow \
      VActHeaMin VActHeaMin_flow \
      VActHeaMax VActHeaMax_flow \
           )
@@ -241,8 +242,8 @@ done
 
 for ff in `find . \( -path '*G36_PR1*VAV*SupplyFan*.mo' -or -path '*G36_PR1*VAV*SupplyFan*.mos' -or -path '*G36_PR1*VAV*SupplyFan*.py' -or -path '*G36_PR1*VAV*SupplyFan*.txt' -or -path '*G36_PR1*VAV*SupplyFan*.svg'  \)`; do
     list=(\
-     VBox_flow VDis_flow \
      sumVBox_flow sumVDis_flow \
+     VBox_flow VDis_flow \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do
@@ -269,6 +270,10 @@ for ff in `find . \( -path '*G36_PR1*.mo' -or -path '*G36_PR1*.mos' -or -path '*
          occHeaSet TZonHeaSetOcc \
          unoCooSet TZonCooSetUno \
          unoHeaSet TZonHeaSetUno \
+     resultFile=\"AHUvalve\" resultFile=\"SupplySignals_Valve\" \
+     AHUValve supSig \
+     SupplySignals_SupplySignals_Valve SupplySignals_Valve
+     AHUSupplySignals_Valve supSig \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do

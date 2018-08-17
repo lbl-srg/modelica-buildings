@@ -44,18 +44,14 @@ equation
     annotation (Line(points={{-31,0},{-2,0}}, color={0,0,127}));
   connect(addPar.y, opeModSel.TZon[1])
     annotation (Line(points={{21,0},{71,0}}, color={0,0,127}));
-  connect(occHeaSet.y, opeModSel.THeaSet)
-    annotation (Line(points={{-39,-30},{-20,-30},{-20,-12},{34,-12},{34,-2.2},{71,
-          -2.2}}, color={0,0,127}));
-  connect(occCooSet.y, opeModSel.TCooSet)
-    annotation (Line(points={{21,-30},{36,-30},{36,-4.6},{71,-4.6}},
-      color={0,0,127}));
-  connect(unoHeaSet.y, opeModSel.TUnoHeaSet)
-    annotation (Line(points={{-39,-70},{-20,-70},{-20,-48},{38,-48},{38,-6.8},{71,
-          -6.8}}, color={0,0,127}));
-  connect(unoCooSet.y, opeModSel.TUnoCooSet)
-    annotation (Line(points={{21,-70},{40,-70},{40,-9},{71,-9}},
-      color={0,0,127}));
+  connect(occHeaSet.y, opeModSel.TZonHeaSetOcc) annotation (Line(points={{-39,-30},
+          {-20,-30},{-20,-12},{34,-12},{34,-2.2},{71,-2.2}}, color={0,0,127}));
+  connect(occCooSet.y, opeModSel.TZonCooSetOcc) annotation (Line(points={{21,-30},
+          {36,-30},{36,-4.6},{71,-4.6}}, color={0,0,127}));
+  connect(unoHeaSet.y, opeModSel.TZonHeaSetUno) annotation (Line(points={{-39,-70},
+          {-20,-70},{-20,-48},{38,-48},{38,-6.8},{71,-6.8}}, color={0,0,127}));
+  connect(unoCooSet.y, opeModSel.TZonCooSetUno) annotation (Line(points={{21,-70},
+          {40,-70},{40,-9},{71,-9}}, color={0,0,127}));
   connect(warUpTim.y, opeModSel.warUpTim[1])
     annotation (Line(points={{-39,40},{-20,40},{-20,20},{34,20},{34,2},{46,2},{46,
           2.2},{71,2.2}}, color={0,0,127}));
