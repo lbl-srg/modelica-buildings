@@ -61,8 +61,8 @@ equation
     annotation (Line(points={{41,-60},{74,-60},{74,37}}, color={0,0,127}));
   connect(TDis.y, damVal.TDis)
     annotation (Line(points={{41,-20},{66,-20},{66,37}}, color={0,0,127}));
-  connect(VActCooMax.y, damVal.VActCooMax_flow) annotation (Line(points={{41,80},
-          {50,80},{50,59},{59,59}}, color={0,0,127}));
+  connect(VActCooMax.y, damVal.VActCooMax)
+    annotation (Line(points={{41,80},{50,80},{50,59},{59,59}}, color={0,0,127}));
   connect(VActCooMin.y, damVal.VActCooMin)
     annotation (Line(points={{-59,80},{-2,80},{-2,57},{59,57}}, color={0,0,127}));
   connect(VActHeaMax.y, damVal.VActHeaMax)
