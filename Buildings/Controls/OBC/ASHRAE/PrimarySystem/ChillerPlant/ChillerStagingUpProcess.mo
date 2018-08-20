@@ -3,13 +3,13 @@ block ChillerStagingUpProcess
   "Sequences to control equipments when chiller stage up"
   parameter Integer num = 2
     "Total number of chillers, the same number applied to isolation valves, CW pumps, CHW pumps";
-  parameter Modelica.SIunits.Time holChiDemTim
+  parameter Modelica.SIunits.Time holChiDemTim = 300
     "Time to hold limited chiller demand";
-  parameter Modelica.SIunits.Time byPasSetTim
+  parameter Modelica.SIunits.Time byPasSetTim = 300
     "Time to change minimum flow setpoint from old one to new one";
-  parameter Modelica.SIunits.VolumeFlowRate minFloSet[num]
+  parameter Modelica.SIunits.VolumeFlowRate minFloSet[num] = {0.0089, 0.0177}
     "Minimum flow rate at each chiller stage";
-  parameter Modelica.SIunits.Time turOnChiWatIsoTim
+  parameter Modelica.SIunits.Time turOnChiWatIsoTim = 300
     "Time to open a new chilled water isolation valve";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
@@ -179,7 +179,7 @@ block ChillerStagingUpProcess
     "Time after starting CW pump and enabling CW isolation valve"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Line lin1
-    "Minimum flow setpoint at current stage"
+    "Chilled water isolation valve setpoint"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con6(final k=0)
     "Constant zero"
@@ -505,7 +505,7 @@ equation
       color={0,0,127}));
 
 annotation (
-  defaultComponentName = "towFan",
+  defaultComponentName = "staUp",
   Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-240,-480},{220,500}}), graphics={
                                              Rectangle(
@@ -643,7 +643,7 @@ have been fully open"),
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-102,86},{-76,78}},
+          extent={{-100,94},{-74,86}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uChi"),
@@ -653,7 +653,7 @@ have been fully open"),
           pattern=LinePattern.Dash,
           textString="uConWatPum"),
         Text(
-          extent={{-96,48},{-66,36}},
+          extent={{-96,68},{-66,56}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uChiCur"),
@@ -721,14 +721,14 @@ actual demand becomes less than 55% up to a maximum of <code>holChiDemTim</code>
 <p>
 b. Slowly change the minimum bypass controller setpoint <code>yMinFloSet</code> 
 to that appropriate for the stage as indicated below. For example, this could 
-be accomplished by resetting the setpoint X GPM/minute, where X = (NewSetpoint 
+be accomplished by resetting the setpoint X GPM/second, where X = (NewSetpoint 
 - OldSetpoint) / <code>byPasSetTim</code>. The minimum flow rate are as follows
 (based on manufactures' minimum flow rate plus 10% to ensure control variations
 do not cause flow to go below actual minimum):
 </p>
 <table summary=\"summary\" border=\"1\">
 <tr>
-<th> Chiiler stage </th> 
+<th> Chiller stage </th> 
 <th> Minimum flow </th>  
 </tr>
 <tr>
