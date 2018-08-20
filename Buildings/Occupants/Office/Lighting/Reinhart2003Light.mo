@@ -12,7 +12,7 @@ model Reinhart2003Light "A model to predict occupants' lighting behavior with il
   parameter Integer seed = 30 "Seed for the random number generator";
   parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
-  Modelica.Blocks.Interfaces.RealInput Illu "Minimum illuminance on the working plane, unit:" annotation (
+  Modelica.Blocks.Interfaces.RealInput Illu "Illuminance on the working plane, unit:" annotation (
        Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.BooleanInput occ
@@ -68,12 +68,12 @@ equation
 defaultComponentName="lig",
 Documentation(info="<html>
 <p>
-Model predicting the state of the lighting with the minimum illuminance on the working plane
+Model predicting the state of the lighting with the illuminance on the working plane
 and occupancy.
 </p>
 <h4>Inputs</h4>
 <p>
-illuminance: the minimum illuminance on the working plane, should be input with the unit of lux.
+illuminance: the illuminance on the working plane, should be input with the unit of lux.
 </p>
 <p>
 Occupancy: a boolean variable, true indicates the space is occupied, 
@@ -87,7 +87,7 @@ is on, false indicates the light is off.
 <p>
 When the space is unoccupied, the light is always off. When the 
 space is occupied, the probability to switch on the light depends
-on the minimum illuminance level on the working plane. The lower the
+on the illuminance level on the working plane. The lower the
 illuminance level, the higher the chance to switch on the lighting.
 </p>
 <p>
