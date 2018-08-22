@@ -1,6 +1,6 @@
 within Buildings.Occupants.Office.Blinds.Validation;
 model TestNewsham1994BlindsSI
-  "To test the model Newsham1994BlindsSI"
+  "Validation model for Newsham1994BlindsSI"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=1800)

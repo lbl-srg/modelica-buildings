@@ -5,7 +5,7 @@ model Inkarojrit2008BlindsSI
   parameter Real A1 = 3.22 "Slope of Solar Intensity at Window";
   parameter Real A2 = 1.22 "Slope of Occupants' brightness sensitivity";
   parameter Real B = -8.94 "Intercept";
-  parameter Real Lsen = 4 "Self-reported sensitivity to brightness, 
+  parameter Real LSen  = 4 "Self-reported sensitivity to brightness,
   seven-point scale, 1 for least sensitive, 7 for most sensitive" annotation(Dialog(enable = true,
                      tab = "Advanced"));
   parameter Integer seed = 10 "Seed for the random number generator";
@@ -36,7 +36,7 @@ initial equation
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    p = 1-Modelica.Math.exp(A1*Modelica.Math.log10(SI)+A2*Lsen+B)/(Modelica.Math.exp(A1*Modelica.Math.log10(SI)+A2*Lsen+B)+1);
+    p = 1-Modelica.Math.exp(A1*Modelica.Math.log10(SI)+A2*LSen +B)/(Modelica.Math.exp(A1*Modelica.Math.log10(SI)+A2*LSen +B)+1);
     if occ == true then
       if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p, globalSeed=seed) then
         BlindState = 1;
@@ -59,7 +59,7 @@ equation
 defaultComponentName="bli",
 Documentation(info="<html>
 <p>
-Model predicting the state of the blinds with the solar intensity at the window 
+Model predicting the state of the blinds with the solar intensity at the window
 and occupancy.
 </p>
 <h4>Inputs</h4>
@@ -67,27 +67,27 @@ and occupancy.
 SI: solar intensity at the window, should be input with the unit of W/m2.
 </p>
 <p>
-Occupancy: a boolean variable, true indicates the space is occupied, 
+Occupancy: a boolean variable, true indicates the space is occupied,
 false indicates the space is unoccupied.
 </p>
 <h4>Outputs</h4>
-<p>The state of blinds: a real variable, 1 indicates the blind 
+<p>The state of blinds: a real variable, 1 indicates the blind
 is 100% on, 0 indicates the blind is 100% off.
 </p>
 <h4>Dynamics</h4>
 <p>
-When the space is unoccupied, the blinds is always on. When the 
-space is occupied, the lower the SI is, the higher 
+When the space is unoccupied, the blinds is always on. When the
+space is occupied, the lower the SI is, the higher
 the chance that the blind is on.
 </p>
 <h4>References</h4>
 <p>
-The model is documented in the paper &quot;Inkarojrit, V., 2008. Monitoring and 
-modelling of manually-controlled Venetian blinds in private offices: a pilot 
+The model is documented in the paper &quot;Inkarojrit, V., 2008. Monitoring and
+modelling of manually-controlled Venetian blinds in private offices: a pilot
 study. Journal of Building Performance Simulation, 1(2), pp.75-89.&quot;.
 </p>
 <p>
-The model parameters are regressed from the field study in California in 2008 
+The model parameters are regressed from the field study in California in 2008
 from 113 naturally ventilated buildings.
 </p>
 </html>",

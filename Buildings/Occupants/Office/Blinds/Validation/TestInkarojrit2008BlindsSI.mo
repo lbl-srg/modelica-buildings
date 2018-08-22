@@ -1,6 +1,6 @@
 within Buildings.Occupants.Office.Blinds.Validation;
 model TestInkarojrit2008BlindsSI
-  "To test the model Inkarojrit2008BlindsSI"
+  "Validation model for Inkarojrit2008BlindsSI"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=1800)
@@ -12,7 +12,7 @@ model TestInkarojrit2008BlindsSI
     freqHz=0.001,
     y(unit="W/m2")) "Solar intensity at the window"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Inkarojrit2008BlindsSI bli(Lsen=1)
+  Inkarojrit2008BlindsSI bli(LSen =1)
                              "Tested blinds model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation

@@ -1,5 +1,5 @@
 within Buildings.Occupants.Office.Windows.Validation;
-model TestHerkel2008WindowsCompletelyOpen "To test the model Herkel2008WindowsCompletelyOpen.mo"
+model TestHerkel2008WindowsCompletelyOpen "Validation model for Herkel2008WindowsCompletelyOpen.mo"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=1800)

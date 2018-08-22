@@ -1,5 +1,5 @@
 within Buildings.Occupants.Residential.Windows.Validation;
-model TestNicol2001WindowsPakistan "To test the model Nicol2001WindowsPakistan.mo"
+model TestNicol2001WindowsPakistan "Validation model for Nicol2001WindowsPakistan.mo"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=1800)

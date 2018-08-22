@@ -1,5 +1,6 @@
 within Buildings.Occupants;
 package BaseClasses
+  extends Modelica.Icons.BasesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>

@@ -1,5 +1,5 @@
 within Buildings.Occupants.Office.Windows.Validation;
-model TestHaldi2008WindowsTOut "To test the model Haldi2008WindowsTOut"
+model TestHaldi2008WindowsTOut "Validation model for Haldi2008WindowsTOut"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=1800)

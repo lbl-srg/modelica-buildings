@@ -1,5 +1,5 @@
 within Buildings.Occupants.Office.Windows.Validation;
-model TestHaldi2009WindowsTInTout "To test the model Haldi2009Windows"
+model TestHaldi2009WindowsTInTout "Validation model for Haldi2009Windows"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=900)

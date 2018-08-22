@@ -1,6 +1,6 @@
 within Buildings.Occupants.Office.Blinds.Validation;
 model TestHaldi2008BlindsTOut
-  "To test the model Haldi2008BlindsTOut"
+  "Validation model for Haldi2008BlindsTOut"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=1800)
