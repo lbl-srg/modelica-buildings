@@ -4,7 +4,6 @@ dSpecificVolumeVap_pT
 enthalpySatLiq_T
 enthalpySatVap_T
 isentropicExponentVap_Tv
-pressureSatLiq_T
 pressureSatVap_T
 pressureVap_Tv
 specificIsobaricHeatCapacityVap_Tv

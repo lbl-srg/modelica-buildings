@@ -231,6 +231,15 @@ its class name ends with the string <code>Beta</code>.
                            For Dymola, a conversion script makes this change.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Media</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Media.Refrigerants.R410A
+        </td>
+        <td valign=\"top\">Removed the function <code>pressureSatLiq_T</code> as it was not used.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/995\">IBPSA, #995</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Utilities.Reports</b>
         </td>
     </tr>
