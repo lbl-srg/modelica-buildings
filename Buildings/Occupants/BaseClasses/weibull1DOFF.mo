@@ -5,7 +5,7 @@ function weibull1DOFF "Mapping a continuous input to a binary output through a W
     input Real L=1.0 "Parameter defining the Weibull Distribution: normalization factor";
     input Real k=1.0 "Parameter defining the Weibull Distribution: shape factor";
     input Real dt=60 "Time step length";
-    input Integer globalSeed "seed for the random generator";
+    input Integer globalSeed "Seed for the random number generator";
     output Boolean y "Binary variable 0/1";
 protected
     Real p =  if x<=u then 1 - Modelica.Math.exp(-((u-x)/L)^k*dt) else 0;

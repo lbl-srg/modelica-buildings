@@ -7,7 +7,7 @@ protected
     Integer globalSeed = Modelica.Math.Random.Utilities.automaticGlobalSeed();
     Integer localSeed;
     Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState];
-    Real r "random generated number in the range 0 < random ≤ 1";
+    Real r "Generated random numberin the range 0 < random ≤ 1";
 algorithm
     state := Modelica.Math.Random.Generators.Xorshift1024star.initialState(localSeed, globalSeed);
     (r, state) := Modelica.Math.Random.Generators.Xorshift1024star.random(state);
