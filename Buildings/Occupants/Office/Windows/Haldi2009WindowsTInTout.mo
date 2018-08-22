@@ -45,8 +45,8 @@ equation
   when sampleTrigger then
     pOpen = Modelica.Math.exp(AOpenIn*(TIn - 273.15)+AOpenOut*(TOut - 273.15)+BOpen)/(Modelica.Math.exp(AOpenIn*(TIn - 273.15)+AOpenOut*(TOut - 273.15)+BOpen) + 1);
     pClose = Modelica.Math.exp(ACloseIn*(TIn - 273.15)+ACloseOut*(TOut - 273.15)+BClose)/(Modelica.Math.exp(ACloseIn*(TIn - 273.15)+ACloseOut*(TOut - 273.15)+BClose) + 1);
-    if occ == true then
-      if pre(on) == true then
+    if occ then
+      if pre(on) then
         on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pClose, globalSeed=seed);
       else
         on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pOpen, globalSeed=seed);

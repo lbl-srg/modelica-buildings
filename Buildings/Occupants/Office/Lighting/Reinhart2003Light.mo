@@ -42,8 +42,8 @@ equation
   sampleTrigger = sample(t0,samplePeriod);
   when {occ,sampleTrigger} then
     if sampleTrigger then
-      if occ == true then
-        if pre(on) == false then
+      if occ then
+        if not pre(on) then
           on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pInter, globalSeed=seed);
         else
           on = true;

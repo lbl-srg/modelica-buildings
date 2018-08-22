@@ -45,15 +45,15 @@ equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
     p = Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B)/(Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B) + 1);
-    if occ == true then
+    if occ then
       if TIn > TComf+2 then
-        if pre(on) == false then
+        if not pre(on) then
           on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=seed);
         else
           on = true;
         end if;
       elseif TIn < TComf-2 then
-        if pre(on) == true then
+        if pre(on) then
           on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=seed);
         else
           on = false;

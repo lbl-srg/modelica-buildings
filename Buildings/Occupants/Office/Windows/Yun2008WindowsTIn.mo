@@ -38,7 +38,7 @@ equation
   when sampleTrigger then
     pOpen = Modelica.Math.exp(AOpen*(TIn - 273.15)+BOpen)/(Modelica.Math.exp(AOpen*(TIn - 273.15)+BOpen) + 1);
     pClose = Modelica.Math.exp(AClose*(TIn - 273.15)+BClose)/(Modelica.Math.exp(AClose*(TIn - 273.15)+BClose) + 1);
-    if occ == true then
+    if occ then
       if pre(on) == true and TIn < 303.15 then
         on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pClose, globalSeed=seed);
       elseif pre(on) == false and TIn > 293.15 then

@@ -33,7 +33,7 @@ equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
     p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A( TOut - 273.15)+B) + 1);
-    if occ == true then
+    if occ then
       on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=seed);
     else
       on = false;

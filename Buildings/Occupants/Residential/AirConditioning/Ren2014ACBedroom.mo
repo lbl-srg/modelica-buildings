@@ -44,8 +44,8 @@ equation
   when sampleTrigger then
     poff = if TIn<=u1 then 1 - Modelica.Math.exp(-((u1-TIn)/L1)^k1*samplePeriod) else 0;
     pon = if TIn>=u2 then 1 - Modelica.Math.exp(-((TIn-u2)/L2)^k2*samplePeriod) else 0;
-    if occ == true then
-      if pre(on) == true then
+    if occ then
+      if pre(on) then
         on = not Buildings.Occupants.BaseClasses.weibull1DOFF(x=TIn,u=u1,L=L1,k=k1,dt=samplePeriod,globalSeed=seed);
       else
         on = Buildings.Occupants.BaseClasses.weibull1DON(x=TIn,u=u2,L=L2,k=k2,dt=samplePeriod,globalSeed=seed);

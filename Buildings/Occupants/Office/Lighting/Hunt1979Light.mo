@@ -40,7 +40,7 @@ equation
   sampleTrigger = sample(t0, samplePeriod);
   when {occ,sampleTrigger} then
     if sampleTrigger then
-      if occ == true then
+      if occ then
         on = pre(on);
       else
         on = false;

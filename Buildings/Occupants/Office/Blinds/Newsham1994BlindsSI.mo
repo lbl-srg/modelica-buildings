@@ -25,7 +25,7 @@ initial equation
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    if occ == true then
+    if occ then
       if SI < SI_threshold then
         BlindState = 1;
       else

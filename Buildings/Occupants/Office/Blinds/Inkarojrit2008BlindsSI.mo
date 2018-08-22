@@ -37,7 +37,7 @@ equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
     p = 1-Modelica.Math.exp(A1*Modelica.Math.log10(SI)+A2*LSen +B)/(Modelica.Math.exp(A1*Modelica.Math.log10(SI)+A2*LSen +B)+1);
-    if occ == true then
+    if occ then
       if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p, globalSeed=seed) then
         BlindState = 1;
       else

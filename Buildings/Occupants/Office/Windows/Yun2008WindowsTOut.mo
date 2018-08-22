@@ -38,8 +38,8 @@ equation
   when sampleTrigger then
     pOpen = Modelica.Math.exp(AOpen*(TOut - 273.15)+BOpen)/(Modelica.Math.exp(AOpen*(TOut - 273.15)+BOpen) + 1);
     pClose = Modelica.Math.exp(AClose*(TOut - 273.15)+BClose)/(Modelica.Math.exp(AClose*(TOut - 273.15)+BClose) + 1);
-    if occ == true then
-      if pre(on) == true then
+    if occ then
+      if pre(on) then
         on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pClose, globalSeed=seed);
       elseif pre(on) == false and TOut > 288.15 then
         on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pOpen, globalSeed=seed);

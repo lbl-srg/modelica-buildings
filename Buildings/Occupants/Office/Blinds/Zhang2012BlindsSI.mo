@@ -41,7 +41,7 @@ equation
   when sampleTrigger then
     pup = Modelica.Math.exp(Aup*SI+Bup)/(Modelica.Math.exp(Aup*SI+Bup)+1);
     pdown = Modelica.Math.exp(Adown*SI+Bdown)/(Modelica.Math.exp(Adown*SI+Bdown)+1);
-    if occ == true then
+    if occ then
       if pre(BlindState) == 1 then
         if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pdown,globalSeed=seed) then
           BlindState = 0;
