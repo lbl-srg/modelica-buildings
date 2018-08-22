@@ -8,7 +8,7 @@ protected
   Real p =  Modelica.Math.exp(A*x+B)/(Modelica.Math.exp(A*x+B)+1);
 algorithm
   y := Occupancy.Utilities.BinaryVariableGeneration(p);
-annotation (preferredView="info", Documentation(info="<html>
+annotation (Documentation(info="<html>
 <p>
 This function generates a random binary variable with the input of a continuous variable x from a 
 logistic relation.
@@ -18,5 +18,12 @@ The probability of being 1 is calculated from the input x  from a logistic relat
 slope A and the intercept B. Then a random generator generates the output, which should be a 
 binary variable.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 20, 2018, by Zhe Wang:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end logit1D;

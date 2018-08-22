@@ -10,7 +10,7 @@ protected
   Real p =  Modelica.Math.exp(A*x1+B*x2+C)/(Modelica.Math.exp(A*x1+B*x2+C)+1);
 algorithm
   y := Occupancy.Utilities.BinaryVariableGeneration(p);
-annotation (preferredView="info", Documentation(info="<html>
+annotation (Documentation(info="<html>
 <p>
 This function generates a random binary variable with two inputs x1 and x2 from a 2-dimension
 logistic relation.
@@ -20,5 +20,12 @@ The probability of being 1 is calculated from the inputs x1 and x2 from a 2D log
 three predefined parameters A (mutiplier for x1), B (mutiplier for x2) and C (intercept). Then a
 random generator generates the output, which should be a binary variable.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 20, 2018, by Zhe Wang:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end logit2D;

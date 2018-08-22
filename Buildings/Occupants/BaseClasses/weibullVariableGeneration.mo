@@ -12,7 +12,7 @@ algorithm
     state := Modelica.Math.Random.Generators.Xorshift1024star.initialState(localSeed, globalSeed);
     (r, state) := Modelica.Math.Random.Generators.Xorshift1024star.random(state);
     y := lambda*(Modelica.Math.log((1 - r)^(-1)))^(1/k);
-  annotation (preferredView="info", Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 This function generates a random variable, from a Weibull distribution with the inputs of lambda 
 and k. The random variable might be the duration of a specific event, for instance the time to 
@@ -24,5 +24,12 @@ value of exponential distribution, and k defines the shape. A value of k = 1 mea
 distribution reduces to an exponential distribution. Genrally speaking, higher lambda 
 and higher k indicate a higher chance to generate a higher output.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 20, 2018, by Zhe Wang:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end weibullVariableGeneration;
