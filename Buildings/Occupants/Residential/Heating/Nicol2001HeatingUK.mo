@@ -1,8 +1,8 @@
 within Buildings.Occupants.Residential.Heating;
 model Nicol2001HeatingUK "A model to predict occupants' heating behavior with outdoor temperature"
   extends Modelica.Blocks.Icons.DiscreteBlock;
-  parameter Real A = 5.28 "Slope of the logistic relation";
-  parameter Real B = -0.514 "Intercept of the logistic relation";
+  parameter Real A = -0.514 "Slope of the logistic relation";
+  parameter Real B = 5.28 "Intercept of the logistic relation";
   parameter Integer seed = 10 "Seed for the random number generator";
   parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
@@ -27,12 +27,12 @@ protected
   output Boolean sampleTrigger "True, if sample time instant";
 initial equation
   t0 = time;
-  p = Modelica.Math.exp(A + B*(TOut - 273.15))/(Modelica.Math.exp(A + B*(TOut - 273.15)) + 1);
+  p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A*(TOut - 273.15)+B) + 1);
   on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=seed);
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    p = Modelica.Math.exp(A + B*(TOut - 273.15))/(Modelica.Math.exp(A + B*(TOut - 273.15)) + 1);
+    p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A( TOut - 273.15)+B) + 1);
     if occ == true then
       on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=seed);
     else
