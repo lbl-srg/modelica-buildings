@@ -45,7 +45,7 @@ class UnitConverterModeler(object):
 
 	- With default parameters (recommended) to recreate the entire package,
 	in a bash terminal:
-	.../modelica_buildings$ python /Buildings/Resources/Python-Sources/unit_converters.py
+	/modelica_buildings$ python Buildings/Resources/Python-Sources/unit_converters.py
 	package.mo and package.order get written.
 
 	- If customizing the parameters, in a python command line:
@@ -412,6 +412,8 @@ class UnitConverterModeler(object):
 
 			package_order_name_list.append(model_name)
 
+			if not os.path.exists(self.package_path):
+				os.makedirs(self.package_path)
 			# open
 			file = open(os.path.join(\
 				self.package_path, model_filename), 'w')
