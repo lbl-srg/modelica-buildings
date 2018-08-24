@@ -45,7 +45,7 @@ class UnitConverterModeler(object):
 
 	- With default parameters (recommended) to recreate the entire package,
 	in a bash terminal:
-	.../modelica_buildings$ python unit_converters.py
+	.../modelica_buildings$ python /Buildings/Resources/Python-Sources/unit_converters.py
 	package.mo and package.order get written.
 
 	- If customizing the parameters, in a python command line:
@@ -62,7 +62,7 @@ class UnitConverterModeler(object):
 	'''
 
 	def __init__(self,\
-		package_name = 'UnitConverters',
+		package_name = 'Units',
 		path_to_package = \
 		    r'Buildings/Controls/OBC/CDL/Conversions',\
 		path_to_validation_scripts = \
