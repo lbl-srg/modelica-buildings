@@ -1023,7 +1023,6 @@ Buildings/Media/Refrigerants/R410A/enthalpySatVap_T.mo
 Buildings/Media/Refrigerants/R410A/isentropicExponentVap_Tv.mo
 Buildings/Media/Refrigerants/R410A/package.mo
 Buildings/Media/Refrigerants/R410A/package.order
-Buildings/Media/Refrigerants/R410A/pressureSatLiq_T.mo
 Buildings/Media/Refrigerants/R410A/pressureSatVap_T.mo
 Buildings/Media/Refrigerants/R410A/pressureVap_Tv.mo
 Buildings/Media/Refrigerants/R410A/specificIsobaricHeatCapacityVap_Tv.mo
