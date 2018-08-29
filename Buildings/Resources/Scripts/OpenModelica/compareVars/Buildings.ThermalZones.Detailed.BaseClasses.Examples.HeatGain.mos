@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "heatGain.QRad_flow",
-    "heatGain.QCon_flow",
-    "heatGain.QLat_flow"
-  };

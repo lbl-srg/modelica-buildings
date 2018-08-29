@@ -1,9 +1,0 @@
-compareVars :=
-  {
-    "vol.T_start",
-    "vol.T",
-    "TOut.T",
-    "boi.vol.T",
-    "temSup.T",
-    "temRet.T"
-  };

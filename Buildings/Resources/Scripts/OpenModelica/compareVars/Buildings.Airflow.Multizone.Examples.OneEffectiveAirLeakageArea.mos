@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "cra.v",
-    "cra.m_flow"
-  };

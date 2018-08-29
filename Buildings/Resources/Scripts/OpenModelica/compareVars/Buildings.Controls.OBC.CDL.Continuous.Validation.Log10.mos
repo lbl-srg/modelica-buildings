@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "log10_1.u",
-    "log10_1.y"
-  };

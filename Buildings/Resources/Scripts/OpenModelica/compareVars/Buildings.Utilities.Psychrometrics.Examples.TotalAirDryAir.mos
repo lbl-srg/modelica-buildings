@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "toTotalAir.XiTotalAir",
-    "toTotalAir.XiDry",
-    "toTotalAir.XNonVapor",
-    "toDryAir.XiTotalAir",
-    "toDryAir.XiDry"
-  };

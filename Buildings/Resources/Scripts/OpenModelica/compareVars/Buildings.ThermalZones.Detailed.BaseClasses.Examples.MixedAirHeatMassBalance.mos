@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "air.vol.T",
-    "air.vol.Xi[1]"
-  };

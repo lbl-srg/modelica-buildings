@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "ene.u",
-    "clientAverage.PPre",
-    "clientWeather.PPre",
-    "relErrAverage.y",
-    "relErrWeather.y"
-  };

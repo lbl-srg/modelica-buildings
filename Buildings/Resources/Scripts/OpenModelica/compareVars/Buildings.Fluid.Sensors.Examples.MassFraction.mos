@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "vol.Xi[1]",
-    "senMasFra1.X",
-    "senMasFra2.X"
-  };

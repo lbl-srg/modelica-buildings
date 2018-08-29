@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "speSig.y",
-    "masFlo.y",
-    "varSpePumSta.y[1]",
-    "varSpePumSta.y[2]"
-  };

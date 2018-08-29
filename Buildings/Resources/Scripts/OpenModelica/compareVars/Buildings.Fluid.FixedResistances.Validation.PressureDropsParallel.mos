@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "res1.m_flow",
-    "res2.m_flow"
-  };

@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "valTab.m_flow",
-    "kv.y"
-  };

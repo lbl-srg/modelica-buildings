@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "incAngHor.y",
-    "incAngNor.y",
-    "incAngWes.y",
-    "incAngSou.y",
-    "incAngEas.y"
-  };

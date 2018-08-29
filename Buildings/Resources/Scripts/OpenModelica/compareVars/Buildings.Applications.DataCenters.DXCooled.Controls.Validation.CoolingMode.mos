@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "cooModCon.TSupSet",
-    "cooModCon.TRet",
-    "cooModCon.TOutDryBul",
-    "cooModCon.y"
-  };

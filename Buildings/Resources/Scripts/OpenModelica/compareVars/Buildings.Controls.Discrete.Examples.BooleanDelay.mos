@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "del.u",
-    "del.y"
-  };

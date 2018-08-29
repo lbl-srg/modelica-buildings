@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "briCoe.F1",
-    "briCoe.F2"
-  };

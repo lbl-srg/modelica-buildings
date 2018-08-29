@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "T",
-    "X_w",
-    "d"
-  };

@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "add1.u1",
-    "add1.u2",
-    "add1.y"
-  };

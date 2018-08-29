@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "firOrdHol.u",
-    "firOrdHol.y"
-  };

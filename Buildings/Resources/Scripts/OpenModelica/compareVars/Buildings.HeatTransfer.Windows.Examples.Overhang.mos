@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "ove.fraSun",
-    "ove.HDirTilUns",
-    "ove.HDirTil"
-  };

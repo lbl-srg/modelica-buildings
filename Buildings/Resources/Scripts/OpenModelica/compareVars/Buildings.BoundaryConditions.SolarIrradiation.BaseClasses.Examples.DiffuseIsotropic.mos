@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "HDifTilIso.HSkyDifTil",
-    "HDifTilIso.HGroDifTil"
-  };

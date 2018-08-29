@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "numReq.u[1]",
-    "numReq.u[2]",
-    "numReq.y"
-  };

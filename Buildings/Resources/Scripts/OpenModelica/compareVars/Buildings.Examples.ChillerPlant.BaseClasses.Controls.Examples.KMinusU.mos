@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "kMinU.u",
-    "kMinU.y"
-  };

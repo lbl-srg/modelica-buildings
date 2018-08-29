@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "triggeredMax.u",
-    "triggeredMax.y",
-    "triggeredMax.trigger"
-  };

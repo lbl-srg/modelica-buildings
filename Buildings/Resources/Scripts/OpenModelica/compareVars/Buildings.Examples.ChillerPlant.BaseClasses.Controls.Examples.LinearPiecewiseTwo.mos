@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "linPieTwo.u",
-    "linPieTwo.y[1]",
-    "linPieTwo.y[2]"
-  };

@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "greThr.u",
-    "greThr.y"
-  };

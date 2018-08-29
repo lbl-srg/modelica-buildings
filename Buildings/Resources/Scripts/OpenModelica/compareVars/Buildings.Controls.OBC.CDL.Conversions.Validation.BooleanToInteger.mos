@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "booToInt.u",
-    "booToInt.y"
-  };

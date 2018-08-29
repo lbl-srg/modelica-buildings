@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "senDyn.port_a.m_flow",
-    "senDyn.v",
-    "senSteSta.v"
-  };

@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "shr.SHR",
-    "onOff.y",
-    "TEvaIn.y"
-  };

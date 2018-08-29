@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "sqrt1.u",
-    "sqrt1.y"
-  };

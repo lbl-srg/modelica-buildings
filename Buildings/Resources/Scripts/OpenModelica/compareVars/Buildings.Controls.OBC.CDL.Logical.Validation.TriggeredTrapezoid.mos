@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "triggeredTrapezoid1.u",
-    "triggeredTrapezoid1.y"
-  };

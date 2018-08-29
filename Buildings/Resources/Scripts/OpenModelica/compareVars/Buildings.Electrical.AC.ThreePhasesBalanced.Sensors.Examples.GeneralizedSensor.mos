@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "sen.I",
-    "sen.V",
-    "loa.S[1]",
-    "loa.S[2]"
-  };

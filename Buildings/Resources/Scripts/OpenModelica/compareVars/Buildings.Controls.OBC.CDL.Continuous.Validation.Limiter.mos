@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "limiter1.u",
-    "limiter1.y"
-  };

@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "occSch.occupied",
-    "cap.T",
-    "mode.y"
-  };

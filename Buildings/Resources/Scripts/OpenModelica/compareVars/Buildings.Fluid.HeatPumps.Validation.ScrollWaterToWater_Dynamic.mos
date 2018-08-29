@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "heaPum.QCon_flow",
-    "heaPum1.QCon_flow",
-    "appCap.y",
-    "heaPum.com.y"
-  };

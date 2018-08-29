@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "rayleighNumber.Ra",
-    "rayleighNumber.Gr",
-    "rayleighNumber.Pr"
-  };

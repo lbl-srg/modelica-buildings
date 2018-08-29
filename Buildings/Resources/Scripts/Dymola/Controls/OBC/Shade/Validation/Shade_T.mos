@@ -1,3 +1,0 @@
-simulateModel("Buildings.Controls.OBC.Shade.Validation.Shade_T", method="Cvode", stopTime=1800, tolerance=1e-06, resultFile="Shade_T");
-createPlot(id=2, position={75, 70, 592, 726}, y={"shaT.THigh", "shaT.TLow", "shaT.T"}, range={0.0, 2000.0, 15.0, 35.0}, grid=true, colors={{28,108,200}, {238,46,47}, {50,205,50}});
-createPlot(id=2, position={75, 70, 592, 361}, y={"shaT.y"}, range={0.0, 2000.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});

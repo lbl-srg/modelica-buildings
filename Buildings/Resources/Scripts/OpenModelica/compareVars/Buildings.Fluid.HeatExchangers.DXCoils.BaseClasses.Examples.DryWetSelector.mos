@@ -1,9 +1,0 @@
-compareVars :=
-  {
-    "dryWet.fraDry",
-    "dryWet.fraWet",
-    "dryWet.SHR",
-    "dryWet.Q_flow",
-    "dryWet.EIR",
-    "dryWet.mWat_flow"
-  };

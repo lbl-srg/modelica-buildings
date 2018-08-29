@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "act1.y",
-    "act2.y",
-    "act3.y",
-    "reqCou.nInc"
-  };

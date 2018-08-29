@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "booToRea.u",
-    "booToRea.y"
-  };

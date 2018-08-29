@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "cheTemDryBul.TOut",
-    "cheTemDewPoi.TOut"
-  };

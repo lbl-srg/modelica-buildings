@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "valLin.phi",
-    "valQui.phi",
-    "valEqu.phi",
-    "valInd.phi",
-    "valPol.phi"
-  };

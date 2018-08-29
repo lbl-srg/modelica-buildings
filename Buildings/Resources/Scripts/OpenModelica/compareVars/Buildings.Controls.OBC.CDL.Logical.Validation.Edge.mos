@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "edge1.u",
-    "edge1.y",
-    "triggeredSampler.u",
-    "triggeredSampler.y"
-  };

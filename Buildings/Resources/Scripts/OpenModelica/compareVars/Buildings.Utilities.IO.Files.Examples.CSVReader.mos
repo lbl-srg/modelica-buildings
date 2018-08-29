@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "combiTimeTable.y[1]",
-    "combiTimeTable.y[2]",
-    "cos.y",
-    "step.y"
-  };

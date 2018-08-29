@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "intToRea.u",
-    "intToRea.y"
-  };

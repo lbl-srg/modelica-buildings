@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "RL.i[1]",
-    "RL.i[2]",
-    "sen.V",
-    "sen.theta"
-  };

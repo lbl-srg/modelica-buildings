@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "T",
-    "TExact"
-  };

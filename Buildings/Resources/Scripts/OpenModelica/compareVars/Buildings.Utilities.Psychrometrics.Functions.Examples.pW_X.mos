@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "X",
-    "XInv",
-    "p_w",
-    "dX"
-  };

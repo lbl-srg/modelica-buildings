@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "y_comp",
-    "y"
-  };

@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "greEqu.u1",
-    "greEqu.u2",
-    "greEqu.y"
-  };

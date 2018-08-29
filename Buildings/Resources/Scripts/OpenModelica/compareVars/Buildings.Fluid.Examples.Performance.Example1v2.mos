@@ -1,4 +1,0 @@
-compareVars :=
-  {
-    "pump.m_flow"
-  };

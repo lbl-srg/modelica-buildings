@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "m_flow_nominal",
-    "m_flow",
-    "R"
-  };

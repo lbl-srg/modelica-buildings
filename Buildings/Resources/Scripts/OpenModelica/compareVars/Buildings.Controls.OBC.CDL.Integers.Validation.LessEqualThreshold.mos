@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "intLesEquThr.threshold",
-    "intLesEquThr.u",
-    "intLesEquThr.y"
-  };

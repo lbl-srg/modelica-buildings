@@ -1,7 +1,0 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.Validation.SupplySignals_SupplySignals_Valve", method="Cvode", stopTime=7200, tolerance=1e-06, resultFile="AHUvalve");
-createPlot(id=1, position={10, 10, 490, 700}, subPlot=1, y={"AHUSupplySignals_Valve.TSup","AHUSupplySignals_Valve.TSetSup"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47},{28,108,200}});
-createPlot(id=1, position={10, 10, 490, 700}, subPlot=2, y={"AHUSupplySignals_Valve.uTSup"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47}});
-createPlot(id=1, position={10, 10, 490, 700}, subPlot=3, y={"AHUSupplySignals_Valve.yHea","AHUSupplySignals_Valve.yCoo"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47},{28,108,200}});
-createPlot(id=2, position={510, 10, 490, 700}, subPlot=1, y={"AHUSupplySignals_Valve1.TSup","AHUSupplySignals_Valve.TSetSup"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47},{28,108,200}});
-createPlot(id=2, position={510, 10, 490, 700}, subPlot=2, y={"AHUSupplySignals_Valve1.uTSup"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47}});
-createPlot(id=2, position={510, 10, 490, 700}, subPlot=3, y={"AHUSupplySignals_Valve1.yHea","AHUSupplySignals_Valve.yCoo"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47},{28,108,200}});

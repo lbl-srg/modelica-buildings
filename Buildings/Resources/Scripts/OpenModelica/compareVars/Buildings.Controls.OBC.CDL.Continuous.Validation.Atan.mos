@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "atan1.u",
-    "atan1.y"
-  };

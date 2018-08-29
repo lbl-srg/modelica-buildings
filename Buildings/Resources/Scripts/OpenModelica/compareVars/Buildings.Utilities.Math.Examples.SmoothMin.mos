@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "smoLim[2].y",
-    "smoLim[1].y"
-  };

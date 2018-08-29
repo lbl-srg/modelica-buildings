@@ -1,5 +1,0 @@
-simulateModel("Buildings.Experimental.DistrictHeatingCooling.Plants.Validation.Plant_T_ClosedLoop", tolerance=1e-6, stopTime=172800, method="Cvode", resultFile="Plant_T_ClosedLoop");
-createPlot(id=1, position={78, -107, 1394, 1087}, y={"vol.T"}, range={0.0, 175000.0, 10.0, 22.0}, grid=true, filename="Plant_T_ClosedLoop.mat", colors={{28,108,200}});
-createPlot(id=1, position={78, -107, 1394, 269}, y={"pum.m_flow"}, range={0.0, 175000.0, -0.30000000000000004, 0.30000000000000004}, grid=true, subPlot=2, colors={{28,108,200}});
-createPlot(id=1, position={78, -107, 1394, 268}, y={"ECoo.y", "EHea.y"}, range={0.0, 175000.0, -80000000.0, 60000000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={78, -107, 1394, 269}, y={"vol.T"}, range={0.0, 175000.0, 10.0, 22.0}, grid=true, subPlot=4, colors={{0,140,72}});

@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "tabLinExt.y",
-    "tabConExt.y"
-  };

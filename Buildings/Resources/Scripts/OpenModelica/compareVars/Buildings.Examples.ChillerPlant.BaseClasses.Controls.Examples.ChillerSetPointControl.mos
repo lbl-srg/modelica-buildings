@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "chi.TSet",
-    "TSup.T",
-    "TRet.T"
-  };

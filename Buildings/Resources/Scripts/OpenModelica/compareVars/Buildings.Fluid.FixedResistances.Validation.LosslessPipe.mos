@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "res.dp",
-    "res.sta_a.T",
-    "res.sta_b.T"
-  };

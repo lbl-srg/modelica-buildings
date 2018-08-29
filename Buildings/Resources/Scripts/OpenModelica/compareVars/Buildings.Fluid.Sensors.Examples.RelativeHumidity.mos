@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "relHum.port_a.m_flow",
-    "relHum.phi",
-    "senRelHum.phi"
-  };

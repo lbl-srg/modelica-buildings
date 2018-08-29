@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "volA.T",
-    "volOut.T",
-    "oriOutBot.v",
-    "oriOutTop.v"
-  };

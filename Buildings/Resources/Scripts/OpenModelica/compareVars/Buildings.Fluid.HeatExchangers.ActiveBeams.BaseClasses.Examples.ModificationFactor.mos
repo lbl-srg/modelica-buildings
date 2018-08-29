@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "mod.TWat",
-    "mod.TRoo",
-    "mod.mWat_flow",
-    "mod.mAir_flow",
-    "mod.y"
-  };

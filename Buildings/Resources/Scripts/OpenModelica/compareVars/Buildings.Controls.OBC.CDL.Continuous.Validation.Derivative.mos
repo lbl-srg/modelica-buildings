@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "cos1.y",
-    "der1.y"
-  };

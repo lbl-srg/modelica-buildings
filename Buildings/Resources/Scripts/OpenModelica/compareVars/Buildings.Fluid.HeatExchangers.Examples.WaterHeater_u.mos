@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "TSet.y",
-    "TOut.y",
-    "TVol.T",
-    "THeaOut.T",
-    "hea.Q_flow"
-  };

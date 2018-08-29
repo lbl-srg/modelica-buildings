@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "phi",
-    "X_w"
-  };

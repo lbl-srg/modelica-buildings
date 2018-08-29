@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "QCoo_flow",
-    "QHea_flow",
-    "QWatHea_flow"
-  };

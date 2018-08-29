@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "shaT.THigh",
-    "shaT.TLow",
-    "shaT.T",
-    "shaT.y"
-  };

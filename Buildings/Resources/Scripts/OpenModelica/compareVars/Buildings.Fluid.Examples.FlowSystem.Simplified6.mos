@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "pmpNorth.m_flow",
-    "pmpSouth.m_flow"
-  };

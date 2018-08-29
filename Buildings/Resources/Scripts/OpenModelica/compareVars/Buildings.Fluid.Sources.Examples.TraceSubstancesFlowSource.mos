@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "C.C",
-    "C1.C",
-    "vol4.C[1]",
-    "C2.C",
-    "C3.C"
-  };

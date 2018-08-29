@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "chePre.PIn",
-    "chePre.POut"
-  };

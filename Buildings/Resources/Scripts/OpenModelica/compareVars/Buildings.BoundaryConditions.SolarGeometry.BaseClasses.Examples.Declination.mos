@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "decAng.decAng",
-    "solDecNOAA.y"
-  };

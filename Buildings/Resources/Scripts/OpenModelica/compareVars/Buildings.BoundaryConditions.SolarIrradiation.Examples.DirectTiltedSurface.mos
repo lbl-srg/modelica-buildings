@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "HDirRoo.H",
-    "HDirWal.H",
-    "HDirFlo.H"
-  };

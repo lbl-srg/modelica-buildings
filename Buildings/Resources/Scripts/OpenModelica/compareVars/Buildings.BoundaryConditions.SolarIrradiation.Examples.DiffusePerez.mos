@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "HDifRoo.H",
-    "HDifWal.H",
-    "HDifFlo.H"
-  };

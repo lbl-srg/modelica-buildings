@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "zeroCrossing.u",
-    "zeroCrossing.enable",
-    "triggeredSampler.u",
-    "triggeredSampler.y"
-  };

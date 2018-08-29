@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "addPar.u",
-    "addPar.y"
-  };

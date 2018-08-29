@@ -1,6 +1,0 @@
-simulateModel("Buildings.Controls.OBC.CDL.Integers.Validation.Change", stopTime=1.0, method="Cvode", tolerance=1e-06, resultFile="IntChange");
-createPlot(id=1, position={15, 10, 2072, 1231}, y={"reaToInt.y"}, range={0.0, 1.0, -1.5, 1.5}, grid=true, colors={{0,140,72}});
-createPlot(id=1, position={15, 10, 2072, 407}, y={"cha.u", "cha.up", "cha.y", "cha.down"}, range={0.0, 1.0, -1.5, 1.5}, grid=true, subPlot=2, colors={{217,67,180}, {28,108,200}, {0,140,72}, {238,46,47}});
-createPlot(id=1, position={15, 10, 2072, 407}, y={"changeSampler.u", "changeSampler.y"}, range={0.0, 1.0, -5.0, 25.0}, grid=true, subPlot=3, colors={{28,108,200}, {0,140,72}});
-createPlot(id=1, position={15, 10, 2072, 407}, y={"increaseSampler.u", "increaseSampler.y"}, range={0.0, 1.0, -5.0, 25.0}, grid=true, subPlot=4, colors={{28,108,200}, {0,140,72}});
-createPlot(id=1, position={15, 10, 2072, 407}, y={"decreaseSampler.u", "decreaseSampler.y"}, range={0.0, 1.0, -5.0, 25.0}, grid=true, subPlot=5, colors={{28,108,200}, {0,140,72}});

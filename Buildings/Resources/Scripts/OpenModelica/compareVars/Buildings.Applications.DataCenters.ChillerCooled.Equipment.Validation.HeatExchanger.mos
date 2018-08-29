@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "TCon_in.y",
-    "TEva_in.y",
-    "TSen1.T",
-    "TSen2.T",
-    "TSet.y"
-  };

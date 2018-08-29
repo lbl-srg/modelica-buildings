@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "samTri.y",
-    "triggeredSampler.u",
-    "triggeredSampler.y"
-  };

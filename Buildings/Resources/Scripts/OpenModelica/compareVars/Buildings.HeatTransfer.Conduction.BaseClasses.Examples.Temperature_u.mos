@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "T",
-    "TMonotone",
-    "errMonotone",
-    "errNonMonotone"
-  };

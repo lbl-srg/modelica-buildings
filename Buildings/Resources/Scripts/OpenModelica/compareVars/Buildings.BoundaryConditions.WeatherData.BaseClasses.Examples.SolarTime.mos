@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "solTim.solTim",
-    "solTim.locTim"
-  };

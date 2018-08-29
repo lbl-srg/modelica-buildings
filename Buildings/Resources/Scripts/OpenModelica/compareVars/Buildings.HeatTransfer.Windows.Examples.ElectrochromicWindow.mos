@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "uWin.y",
-    "window.glaUns.glass_a.T",
-    "window.glaUns.glass_b.T",
-    "extCon.radOut.TRad"
-  };

@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "ori.V_flow",
-    "ori.dp",
-    "ori.v"
-  };

@@ -1,9 +1,0 @@
-compareVars :=
-  {
-    "cooTowSpeCon.TCHWSupSet",
-    "cooTowSpeCon.TCWSupSet",
-    "cooTowSpeCon.TCHWSup",
-    "cooTowSpeCon.TCWSup",
-    "cooTowSpeCon.cooMod",
-    "cooTowSpeCon.y"
-  };

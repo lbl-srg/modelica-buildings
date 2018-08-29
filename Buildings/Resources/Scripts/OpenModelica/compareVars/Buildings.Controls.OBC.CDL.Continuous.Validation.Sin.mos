@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "sin1.u",
-    "sin1.y"
-  };

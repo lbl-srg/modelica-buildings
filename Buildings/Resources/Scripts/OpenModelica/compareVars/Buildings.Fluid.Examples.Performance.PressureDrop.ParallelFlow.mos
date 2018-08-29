@@ -1,4 +1,0 @@
-compareVars :=
-  {
-    "sin.ports[1].m_flow"
-  };

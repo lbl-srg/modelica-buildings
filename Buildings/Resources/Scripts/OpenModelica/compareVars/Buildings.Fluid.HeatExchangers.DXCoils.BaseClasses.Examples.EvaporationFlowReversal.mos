@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "eva.m",
-    "eva.mEva_flow",
-    "eva.mAir_flow",
-    "int.y"
-  };

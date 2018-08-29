@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "onWSE.y",
-    "TEva_in.k",
-    "TCon_in.y",
-    "TSet.k",
-    "TSup.T"
-  };

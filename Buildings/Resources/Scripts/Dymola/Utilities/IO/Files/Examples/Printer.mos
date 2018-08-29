@@ -1,4 +1,0 @@
-simulateModel("Buildings.Utilities.IO.Files.Examples.Printer", tolerance=1e-6, stopTime=1.0, resultFile="Printer");
-createPlot(id = 1,
- y = {"pri1.x[1]", "pri1.x[2]"},
- grid = true);

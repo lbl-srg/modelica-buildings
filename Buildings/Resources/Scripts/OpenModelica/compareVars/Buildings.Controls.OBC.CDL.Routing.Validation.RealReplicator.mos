@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "reaRep.u",
-    "reaRep.y[1]",
-    "reaRep.y[2]",
-    "reaRep.y[3]"
-  };

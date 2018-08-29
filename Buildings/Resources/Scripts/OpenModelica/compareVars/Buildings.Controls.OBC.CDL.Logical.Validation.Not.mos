@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "not1.u",
-    "not1.y"
-  };

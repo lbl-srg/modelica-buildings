@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "con.SOC",
-    "con.y",
-    "con.isDay.y"
-  };
